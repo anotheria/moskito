@@ -64,7 +64,7 @@ public class IntervalNameParserTest {
 	/**
 	 * Test some invalid inputs
 	 */
-	public void testGuessMethodWithInvalidParams() {
+	@Test public void testGuessMethodWithInvalidParams() {
 		try {
 			IntervalNameParser.guessLengthFromName("60");
 			fail("This was not a valid value.");
