@@ -1,0 +1,199 @@
+/*
+ * $Id$
+ * 
+ * This file is part of the MoSKito software project
+ * that is hosted at http://moskito.dev.java.net.
+ * 
+ * All MoSKito files are distributed under MIT License:
+ * 
+ * Copyright (c) 2006 The MoSKito Project Team.
+ * 
+ * Permission is hereby granted, free of charge,
+ * to any person obtaining a copy of this software and
+ * associated documentation files (the "Software"), 
+ * to deal in the Software without restriction, 
+ * including without limitation the rights to use,
+ * copy, modify, merge, publish, distribute, sublicense,
+ * and/or sell copies of the Software, and to permit 
+ * persons to whom the Software is furnished to do so, 
+ * subject to the following conditions:
+ * 
+ * The above copyright notice and this permission notice
+ * shall be included in all copies 
+ * or substantial portions of the Software.
+ * 
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY
+ * OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT 
+ * LIMITED TO THE WARRANTIES OF MERCHANTABILITY, 
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+ * IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS 
+ * BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, 
+ * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, 
+ * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR
+ * THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ */
+package net.java.dev.moskito.core.stats.impl;
+
+import java.util.ArrayList;
+import java.util.Hashtable;
+import java.util.List;
+import java.util.Map;
+import java.util.concurrent.atomic.AtomicInteger;
+
+import net.java.dev.moskito.core.stats.Interval;
+import net.java.dev.moskito.core.stats.IntervalRegistryListener;
+import net.java.dev.moskito.core.stats.UnknownIntervalException;
+import net.java.dev.moskito.core.timing.IUpdateTriggerService;
+import net.java.dev.moskito.core.timing.UpdateTriggerServiceFactory;
+
+/**
+ * This class implements a registry singleton to hold and create Interval instances.
+ * 
+ * @author dvayanu
+ */
+public class IntervalRegistry {
+
+	/**
+	 * This is the instance of the singleton.
+	 */
+	private static IntervalRegistry instance;
+
+	/**
+	 * This Map holds all Intervals by their ids.
+	 */
+	private Map<Integer, Interval> intervalsById;
+
+	/**
+	 * This Map holds all Intervals by their names.
+	 */
+	private Map<String, Interval> intervalsByName;
+
+	/**
+	 * This is a Thread-safe counter to generate VM-wide uniqe ids for new Interval instances.
+	 */
+	private AtomicInteger nextId;
+
+	/**
+	 * This is a time control serive for periodic call backs.
+	 */
+	private IUpdateTriggerService updateTriggerService;
+
+	/**
+	 * This List holds all registered IntervalRegistryListeners.
+	 * 
+	 * @see IntervalRegistryListener
+	 */
+	private List<IntervalRegistryListener> registryListeners;
+
+	/**
+	 * The contructor.
+	 */
+	private IntervalRegistry() {
+		intervalsById = new Hashtable<Integer, Interval>();
+		intervalsByName = new Hashtable<String, Interval>();
+
+		updateTriggerService = UpdateTriggerServiceFactory
+				.createUpdateTriggerService();
+		nextId = new AtomicInteger(1);
+
+		registryListeners = new ArrayList<IntervalRegistryListener>();
+	}
+
+	/**
+	 * This is the Singleton instance accessor method.
+	 * 
+	 * @return the IntervalRegistry instance.
+	 */
+	public static synchronized IntervalRegistry getInstance() {
+		if (instance == null) {
+			instance = new IntervalRegistry();
+		}
+		return instance;
+	}
+
+	/**
+	 * This method retrieves an Interval with the given id.
+	 * 
+	 * @param aId the Interval id
+	 * @return the found Interval
+	 * @throws UnknownIntervalException if no Interval with the given id could be found
+	 */
+	Interval getInterval(int aId) {
+		Interval interval = intervalsById.get(aId);
+		if (interval == null) {
+			throw new UnknownIntervalException(aId);
+		}
+		return interval;
+	}
+
+	/**
+	 * This method retrieves an Interval with the given name. If no one could be found it will
+	 * create a new Interval with given name and length.
+	 * TODO: This method should be renamed to "getOrCreateInterval" or something like that 
+	 * TODO: This method MUST be synchonrized to avoid doublicate Interval instances....
+	 *  
+	 * @param aName the Interval name
+	 * @param aLength the length of the new Interval in seconds.
+	 * @return the existing Interval or a new Interval with given name and length
+	 */
+	public Interval getInterval(String aName, int aLength) {
+		Interval interval = intervalsByName.get(aName);
+		if (interval == null)
+			interval = createInterval(aName, aLength);
+		return interval;
+	}
+
+	/**
+	 * This method retrieves an Interval with the given name. If no one could be found it will
+	 * create a new Interval with given name - the length will be a guess.
+	 * TODO: This method should be renamed to "getOrCreateInterval" or something like that 
+	 * TODO: This method MUST be synchonrized to avoid double Interval instances....
+	 *  
+	 * @param aName the Interval name
+	 * @return the existing Interval or a new Interval with given name and guessed length
+	 */
+	public Interval getInterval(String aName) {
+		Interval interval = intervalsByName.get(aName);
+		if (interval == null) {
+			interval = createInterval(aName, IntervalNameParser.guessLengthFromName(aName));
+		}
+		return interval;
+	}
+
+	/**
+	 * This method creates a new Interval with the given name and length.
+	 * 
+	 * @param aName the name of the new Interval
+	 * @param aLength the length of the Interval in seconds
+	 * @return the new Interval
+	 */
+	private Interval createInterval(String aName, int aLength) {
+		IntervalImpl interval = new IntervalImpl(obtainNextUniqueId(), aName, aLength);
+		updateTriggerService.addUpdateable(interval, aLength);
+		
+		intervalsById.put(interval.getId(), interval);
+		intervalsByName.put(interval.getName(), interval);
+		for (IntervalRegistryListener listener : registryListeners) {
+			listener.intervalCreated(interval);
+		}
+		return interval;
+	}
+
+	/**
+	 * This method returns the next free id.
+	 * 
+	 * @return the next id
+	 */
+	private int obtainNextUniqueId() {
+		return nextId.getAndIncrement();
+	}
+
+	/**
+	 * This method returns a list containing all known Intervals.
+	 *  
+	 * @return the Interval list
+	 */
+	public List<Interval> getIntervals() {
+		return new ArrayList<Interval>(intervalsByName.values());
+	}
+}
