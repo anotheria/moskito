@@ -34,16 +34,15 @@
  */	
 package net.java.dev.moskito.core.registry;
 
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import org.apache.log4j.Logger;
-
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 import net.java.dev.moskito.core.producers.IStatsProducer;
+
+import org.apache.log4j.Logger;
 
 /**
  * The ProducerRegistryImplementation is a singleton object, but for webapp-reloading issues it doesn't contain a 
@@ -67,99 +66,44 @@ public class ProducerRegistryImpl implements IProducerRegistry{
 	private Map<String,IStatsProducer> registry;
 	
 	ProducerRegistryImpl(){
-		listeners = new ArrayList<IProducerRegistryListener>();
-		registry = new HashMap<String,IStatsProducer>();
+		listeners = new CopyOnWriteArrayList<IProducerRegistryListener>();
+		registry = new ConcurrentHashMap<String,IStatsProducer>();
 	}
 
 	public void addListener(IProducerRegistryListener listener) {
-		synchronized (listeners) {
-			listeners.add(listener);
-		}
+		listeners.add(listener);
 	}
 
 	public void removeListener(IProducerRegistryListener listener) {
-		synchronized (listeners) {
-			listeners.remove(listener);
-		}
+		listeners.remove(listener);
 	}
 
 	public Collection<IStatsProducer> getProducers() {
-		synchronized (registry) {
-			return registry.values();
-		}
+		return registry.values();
 	}
 	
 	public IStatsProducer getProducer(String producerId){
-		synchronized (registry) {
-			return registry.get(producerId);
-		}
+		return registry.get(producerId);
 	}
 
 	public void registerProducer(IStatsProducer producer) {
 		log.info("Registry register producer: "+producer.getProducerId()+" / "+producer);
-		IStatsProducer previous;
-		synchronized (registry) {
-			 previous = registry.put(producer.getProducerId(), producer);
-		}
+		IStatsProducer previous = registry.put(producer.getProducerId(), producer);
 		if (previous!=null)
 			log.info("Under this name a producer was already registered: "+previous);
 		
-		if (listeners.size()>0){
-			synchronized(listeners){
-				for(IProducerRegistryListener listener : listeners){
-					if (previous!=null)
-						listener.notifyProducerUnregistered(previous);
-					listener.notifyProducerRegistered(producer);
-				}
-			}
+		for(IProducerRegistryListener listener : listeners){
+			if (previous!=null)
+				listener.notifyProducerUnregistered(previous);
+			listener.notifyProducerRegistered(producer);
 		}
 	}
 
 
 	public void unregisterProducer(IStatsProducer producer) {
-		synchronized(registry){
-			registry.remove(producer.getProducerId());
-		}
-		if (listeners.size()>0){
-			synchronized(listeners){
-				for(IProducerRegistryListener listener : listeners){
-					listener.notifyProducerUnregistered(producer);
-				}
-			}
+		registry.remove(producer.getProducerId());
+		for(IProducerRegistryListener listener : listeners){
+			listener.notifyProducerUnregistered(producer);
 		}
 	}
-	
-	
-	
 }
-
-/* ------------------------------------------------------------------------- *
- * $Log: ProducerRegistryImpl.java,v $
- * Revision 1.4  2008/12/19 23:30:05  dvayanu
- * added support for java memory values from Runtime
- *
- * Revision 1.3  2006/09/06 18:38:58  dvayanu
- * replaced System.outs with log4j statements
- *
- * Revision 1.2  2006/07/22 22:49:20  dvayanu
- * Issue number:  1
- *
- * Revision 1.1  2006/06/11 20:00:57  miros
- * #3: Refactored source files to comply the new project structure.
- *
- * Revision 1.1  2006/06/11 15:15:01  miros
- * #3: Initial commit with new project structure.
- *
- * Revision 1.2  2006/06/11 15:03:15  dvayanu
- * *** empty log message ***
- *
- * Revision 1.1  2006/06/07 20:52:39  dvayanu
- * initial
- *
- * Revision 1.1  2006/05/28 23:25:08  lrosenberg
- * *** empty log message ***
- *
- * Revision 1.1  2006/05/26 15:42:30  lrosenberg
- * *** empty log message ***
- *
- */
