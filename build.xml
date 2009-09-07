@@ -1,7 +1,6 @@
 <?xml version="1.0"?>
 
 <project name="moskito-core" default="dist" basedir=".">
-	<property name="src" value="${basedir}/src"/> 
 	<property name="javadoc.packagenames" value="net.java.dev.moskito.*"/>
 
 	<import file="../build/basic-project.xml"/>	
