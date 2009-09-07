@@ -38,8 +38,13 @@ import java.lang.reflect.Method;
 
 import net.java.dev.moskito.core.producers.IStats;
 
+/**
+ * This call handler does nothing but forwards the call directly to the implementation.
+ * @author another
+ *
+ */
 public class PlainCallHandler implements IOnDemandCallHandler{
-	public Object invoke(Object target, Object[] args, Method method, Class<?> targetClass, Class<?>[] declaredExceptions, IStats _defaultStats, IStats _methodStats, String producerId) throws Throwable {
+	@Override public Object invoke(Object target, Object[] args, Method method, Class<?> targetClass, Class<?>[] declaredExceptions, IStats _defaultStats, IStats _methodStats, String producerId) throws Throwable {
 		return method.invoke(target, args);
 	}
 

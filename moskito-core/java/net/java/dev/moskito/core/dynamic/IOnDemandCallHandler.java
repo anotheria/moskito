@@ -38,7 +38,26 @@ import java.lang.reflect.Method;
 
 import net.java.dev.moskito.core.producers.IStats;
 
+/**
+ * A call handler is an object which is used by the dynamic proxy to handle the call. A typical call handle will produce some stats and forward the call to the 
+ * target object.
+ * @author lrosenberg
+ *
+ */
 public interface IOnDemandCallHandler {
-	public Object invoke(Object target, Object[] args, Method method, Class<?> targetClass, 
+	/**
+	 * Called by the proxy on each call to target.
+	 * @param target the target object.
+	 * @param args call arguments.
+	 * @param method called method.
+	 * @param targetClass class of the target.
+	 * @param declaredExceptions expected exceptions.
+	 * @param defaultStats default stats for all methods.
+	 * @param methodStats stats for this method.
+	 * @param producerId the id of the producer.
+	 * @return
+	 * @throws Throwable
+	 */
+	Object invoke(Object target, Object[] args, Method method, Class<?> targetClass, 
 			Class<?>[] declaredExceptions, IStats defaultStats, IStats methodStats, String producerId) throws Throwable;
 }

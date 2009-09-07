@@ -35,9 +35,7 @@
 package net.java.dev.moskito.core.command;
 
 public class CommandControllerFactory {
-	private static CommandControllerImpl instance = new CommandControllerImpl();
-	
 	public static ICommandController getCommandController(){
-		return instance;
+		return CommandControllerImpl.INSTANCE;
 	}
 }

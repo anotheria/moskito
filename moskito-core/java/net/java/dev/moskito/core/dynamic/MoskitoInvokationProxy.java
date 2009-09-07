@@ -158,7 +158,7 @@ public class MoskitoInvokationProxy implements InvocationHandler{
 		tmpExceptionList.toArray(declaredExceptions);
 	}
 	
-  	public Object invoke(Object aProxy, Method aMethod, Object[] args) throws Throwable {
+  	@Override public Object invoke(Object aProxy, Method aMethod, Object[] args) throws Throwable {
   		Class<?> methodsClass = aMethod.getDeclaringClass();
   		for (Class<?> c : supportedInterfaces){
   			if (c.equals(methodsClass)){
@@ -177,6 +177,11 @@ public class MoskitoInvokationProxy implements InvocationHandler{
   		return createProxy(implementation.getClass().getClassLoader());
   	}
   	
+  	/**
+  	 * Creates the proxy with the submitted classloader.
+  	 * @param classLoader
+  	 * @return
+  	 */
 	public Object createProxy(ClassLoader classLoader){
 		return Proxy.newProxyInstance(
 				classLoader, 
@@ -185,10 +190,18 @@ public class MoskitoInvokationProxy implements InvocationHandler{
 	
 	}
 	
+	/**
+	 * Returns the internally used implementation of the interfaces.
+	 * @return
+	 */
 	public Object getImplementation(){
 		return implementation;
 	}
 	
+	/**
+	 * Returns the producer.
+	 * @return
+	 */
 	public IStatsProducer getProducer(){
 		return producer;
 	}
