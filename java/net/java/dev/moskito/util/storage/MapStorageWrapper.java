@@ -5,65 +5,79 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
+/**
+ * This wrapper class is used to make an underlying map-like storage monitorable.
+ * @author lrosenberg
+ *
+ * @param <K>
+ * @param <V>
+ */
 public class MapStorageWrapper<K,V> implements StorageWrapper<K, V>{
+
+	/**
+	 * Underlying map.
+	 */
 	private Map<K, V> map;
-	
+	/**
+	 * Creates a new map storage wrapper with a given underlying wrapper.
+	 * @param aMap
+	 */
 	public MapStorageWrapper(Map<K,V> aMap){
 		map = aMap;
 	}
 
-	public void putAll(Map<? extends K, ? extends V> aMap) {
+	@Override public void putAll(Map<? extends K, ? extends V> aMap) {
 		map.putAll(aMap);
 	}
 
-	public void putAll(StorageWrapper<? extends K, ? extends V> anotherWrapper) {
+	@Override public void putAll(StorageWrapper<? extends K, ? extends V> anotherWrapper) {
 		if (anotherWrapper instanceof MapStorageWrapper<?,?>)
 			map.putAll(((MapStorageWrapper<? extends K, ? extends V>)anotherWrapper).getMap());
 		else
 			throw new RuntimeException("Unsupported operation putAll on "+anotherWrapper+", class: "+anotherWrapper.getClass());
 	}
 
-	public void clear() {
+	@Override public void clear() {
 		map.clear();
 	}
 
-	public boolean containsKey(K key) {
+	@Override public boolean containsKey(Object key) {
 		return map.containsKey(key);
 	}
 
-	public boolean containsValue(V value) {
+	@Override public boolean containsValue(Object value) {
 		return map.containsValue(value);
 	}
 
-	public V get(K key) {
+	@Override public V get(Object key) {
 		return map.get(key);
 	}
 
-	public boolean isEmpty() {
+	@Override public boolean isEmpty() {
 		return map.isEmpty();
 	}
 
-	public Collection<K> keys() {
+	@Override public Collection<K> keys() {
 		return map.keySet();
 	}
 
-	public Set<K> keySet() {
+	@Override public Set<K> keySet() {
 		return map.keySet();
 	}
 
-	public V put(K key, V value) {
+	@Override public V put(K key, V value) {
 		return map.put(key, value);
 	}
 
-	public V remove(K key) {
+	@Override public V remove(Object key) {
 		return map.remove(key);
 	}
 
-	public int size() {
+	@Override public int size() {
 		return map.size();
 	}
 
-	public Collection<V> values() {
+	@Override public Collection<V> values() {
 		return map.values();
 	}
 	
@@ -71,16 +85,22 @@ public class MapStorageWrapper<K,V> implements StorageWrapper<K, V>{
 		return map;
 	}
 	
-	public String toString(){
+	@Override public String toString(){
 		return "wrapped: "+getMap().toString();
 	}
 	
-	public Map<K,V> toMap(){
+	@Override public Map<K,V> toMap(){
 		return fillMap(new HashMap<K, V>(size()));
 	}
 
-	public Map<K,V> fillMap(Map<K,V> toFill){
+	@Override public Map<K,V> fillMap(Map<K,V> toFill){
 		toFill.putAll(map);
 		return toFill;
 	}
+	
+	@Override
+	public Set<Entry<K, V>> entrySet() {
+		return map.entrySet();
+	}
+
 }
