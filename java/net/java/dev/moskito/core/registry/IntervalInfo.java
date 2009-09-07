@@ -36,6 +36,11 @@ package net.java.dev.moskito.core.registry;
 
 import net.java.dev.moskito.core.stats.Interval;
 
+/**
+ * Info (last update timestamp) for an interval.
+ * @author another
+ *
+ */
 public class IntervalInfo {
 	private Interval interval;
 	private long lastUpdateTimestamp;
@@ -44,7 +49,7 @@ public class IntervalInfo {
 		interval = aInterval;
 	}
 	
-	public boolean equals(Object o){
+	@Override public boolean equals(Object o){
 		return ((IntervalInfo)o).interval.getName().equals(interval.getName());
 	}
 	

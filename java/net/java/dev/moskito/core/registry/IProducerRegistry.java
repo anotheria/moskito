@@ -38,39 +38,43 @@ package net.java.dev.moskito.core.registry;
 import java.util.Collection;
 
 import net.java.dev.moskito.core.producers.IStatsProducer;
-
+/**
+ * Producer registry is used internally to register/unregister producers.
+ * @author lrosenberg
+ *
+ */
 public interface IProducerRegistry {
+	/**
+	 * Registers a stats producer.
+	 * @param producer
+	 */
 	public void registerProducer(IStatsProducer producer);
-	
+	/**
+	 * Unregisters a stat producer.
+	 * @param producer
+	 */
 	public void unregisterProducer(IStatsProducer producer);
-	
+	/**
+	 * Returns registered producers.
+	 * @return
+	 */
 	public Collection<IStatsProducer> getProducers();
-	
+	/**
+	 * Returns a producer with given id.
+	 * @param producerId
+	 * @return
+	 */
 	public IStatsProducer getProducer(String producerId);
-	
+	/**
+	 * Adds a producer registry listener.
+	 * @param listener
+	 */
 	public void addListener(IProducerRegistryListener listener);
 	
+	/**
+	 * Removes a listener.
+	 * @param listener
+	 */
 	public void removeListener(IProducerRegistryListener listener);
 }
 
-/* ------------------------------------------------------------------------- *
- * $Log: IProducerRegistry.java,v $
- * Revision 1.2  2006/07/22 22:49:20  dvayanu
- * Issue number:  1
- *
- * Revision 1.1  2006/06/11 20:00:56  miros
- * #3: Refactored source files to comply the new project structure.
- *
- * Revision 1.1  2006/06/11 15:15:04  miros
- * #3: Initial commit with new project structure.
- *
- * Revision 1.1  2006/06/07 20:52:38  dvayanu
- * initial
- *
- * Revision 1.2  2006/05/28 23:25:08  lrosenberg
- * *** empty log message ***
- *
- * Revision 1.1  2006/05/26 15:42:30  lrosenberg
- * *** empty log message ***
- *
- */
