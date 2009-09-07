@@ -1,82 +1,16 @@
 <?xml version="1.0"?>
 
-<project name="moskito-util" default="all">
-	
-	<property name="output.dir" value="${basedir}/build"/>
-	<property name="classes.dir" value="${output.dir}/classes"/>
+<project name="moskito-util" default="dist" basedir=".">
+	<property name="javadoc.packagenames" value="net.java.dev.moskito.*"/>
 
-	<property name="src" value="${basedir}/src"/>
-	<property name="lib" value="${basedir}/lib"/>
-	<property name="etc" value="${basedir}/etc"/>
-	<property name="html" value="${basedir}/html"/>
+	<import file="../build/basic-project.xml"/>	
+	
+	<!-- 
+		checkout svn://svn.anotheria.net/opensource/build/trunk as ../build 
+		in order for this build script to work.
+	-->
+	  <!-- This target is used for oncommit builds in hudson -->
+	  <target name="oncommit" depends="clean,dist,checkstyle,test">
+	  </target>
 
-	<property name="dist.dir" value="${basedir}/dist"/>
-	<property name="lib.dest" value="${dist.dir}/lib"/>
-	
-	<property name="target.jar.name" value="moskito-util.jar"/>
-
-	<property name="javadoc.dest" value="${basedir}/../javadoc"/>
-
-	
-	<target name="prepare">
-		<mkdir dir="${dist.dir}"/>
-	    <mkdir dir="${lib.dest}"/>
-		<mkdir dir="${classes.dir}"/>
-	</target>
-	
-	<target name="clean">
-		<delete dir="${output.dir}"></delete>
-	</target>
-	
-	<target name="dist.clean" depends="clean">
-		<delete dir="${dist.dir}"/>
-	</target>
-
-	<target name="compile" depends="prepare" description="compiles the java files">
-		<javac destdir="${classes.dir}" srcdir="${src}" debug="on" deprecation="off" optimize="on">
-			<classpath>
-				<fileset dir="${lib}">
-					<include name="**/*.jar"/>
-				</fileset>
-			</classpath>
-		</javac>
-	</target>
-
-	<target name="jar" depends="compile" description="creates the moskito-webui.jar">
-		<jar jarfile="${dist.dir}/${target.jar.name}">
-         	<fileset dir="${classes.dir}">
-         		<include name="**/*"/>
-         	</fileset>
-		</jar>
-	</target>
-	
-	<target name="dist" depends="jar">
-	    <copy todir="${lib.dest}">
-	      <fileset dir="${lib}"/>
-	    </copy>
-	</target>
-	
-	<target name="all" depends="dist" description="compiles all files and builds the output jar(s)"/>
-	
-	<target name="javadoc" depends="compile">
-		<mkdir dir="${javadoc.dest}/util"/>
-	    <javadoc source="1.5" packagenames="net.java.dev.moskito.*" 
-	    	private="true" author="true"
-	    	sourcepath="${src}" destdir="${javadoc.dest}/util" 
-	    	bottom="Copyright &#169; 2006-2007 MoSKito Project Team. All Rights Reserved.&lt;br/&gt;&lt;a href=http://moskito.anotheria.net&gt;MoSKito, the open source java monitoring framework"
-		>
-		<classpath>
-	        <fileset dir="lib">
-	          <include name="**/*.jar"/>
-	        </fileset>
-	      </classpath>
-	      <tag name="created" scope="all" description="Created: " />
-	      <link href="http://java.sun.com/j2se/1.5.0/docs/api"/>
-	      <link href="http://struts.apache.org/1.x/struts-core/apidocs/"/>
-	      <link href="http://java.sun.com/products/servlet/2.2/javadoc/"/>
-	      <link href="http://www.jdom.org/docs/apidocs/"/>
-	      <link href="../core"/>
-	    </javadoc>
-	</target>
-	
 </project>
