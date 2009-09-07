@@ -1,14 +1,12 @@
 package net.java.dev.moskito.util.storage;
 
-import java.util.HashMap;
-import java.util.Hashtable;
-import java.util.concurrent.ConcurrentHashMap;
-
-import org.junit.Test;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
+
+import org.junit.Test;
 public class StorageTest {
 	@Test public void testStats(){
 		Storage<String,Integer> storage = Storage.createHashMapStorage("test");
@@ -28,6 +26,7 @@ public class StorageTest {
 		storage.get("a");
 		storage.get("a");
 		
+		
 		assertTrue(storage.containsKey("a"));
 		assertFalse(storage.containsKey("b"));
 		
@@ -43,10 +42,21 @@ public class StorageTest {
 		
 		assertEquals(4, stats.getPuts(null));
 		assertEquals(0.75, stats.getOverwritePutRatio(null), 0.01);
+		assertEquals(3, stats.getOverwritePuts(null));
 		
 		assertEquals(1, storage.size());
 		assertEquals(storage.size(), stats.getSize(null));
 		
+		storage.remove("c");
+		storage.remove("c");
+		storage.remove("c");
+		assertEquals(3, stats.getNoopRemoves(null));
+		storage.put("foo", 1);
+		assertEquals(new Integer(1), storage.get("foo"));
+		assertEquals(new Integer(1), storage.remove("foo"));
+		assertNull(storage.remove("foo"));
+		assertEquals(5, stats.getRemoves(null));
+		assertEquals(4, stats.getNoopRemoves(null));
 		
 	}
 	
