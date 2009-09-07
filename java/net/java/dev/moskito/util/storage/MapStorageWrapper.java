@@ -17,7 +17,7 @@ public class MapStorageWrapper<K,V> implements StorageWrapper<K, V>{
 	}
 
 	public void putAll(StorageWrapper<? extends K, ? extends V> anotherWrapper) {
-		if (anotherWrapper instanceof MapStorageWrapper)
+		if (anotherWrapper instanceof MapStorageWrapper<?,?>)
 			map.putAll(((MapStorageWrapper<? extends K, ? extends V>)anotherWrapper).getMap());
 		else
 			throw new RuntimeException("Unsupported operation putAll on "+anotherWrapper+", class: "+anotherWrapper.getClass());

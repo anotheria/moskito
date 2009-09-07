@@ -9,8 +9,4 @@
 		checkout svn://svn.anotheria.net/opensource/build/trunk as ../build 
 		in order for this build script to work.
 	-->
-	  <!-- This target is used for oncommit builds in hudson -->
-	  <target name="oncommit" depends="clean,dist,checkstyle,test">
-	  </target>
-
 </project>
