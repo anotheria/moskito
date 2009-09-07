@@ -2,10 +2,9 @@ package net.java.dev.moskito.util.storage;
 
 import java.util.Collection;
 import java.util.Map;
-import java.util.Set;
 
-public interface StorageWrapper<K,V> {
-	V get(K key);
+public interface StorageWrapper<K,V> extends Map<K,V>{
+/*	V get(K key);
 	
 	V put(K key, V value);
 	
@@ -25,13 +24,17 @@ public interface StorageWrapper<K,V> {
 
 	Set<K> keySet();
 	
-	Collection<K> keys();
 	
 	Collection<V> values();
 	
 	void clear();
-	
+*/
+	void putAll(StorageWrapper<? extends K, ? extends V> anotherWrapper);
+
+	Collection<K> keys();
+
 	Map<K,V> toMap();
 	
 	Map<K,V> fillMap(Map<K,V> toFill);
+
 }
