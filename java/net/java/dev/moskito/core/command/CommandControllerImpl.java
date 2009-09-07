@@ -41,13 +41,14 @@ import net.java.dev.moskito.core.usecase.recorder.UseCaseRecorderCommandProcesso
 
 import org.apache.log4j.Logger;
 
-public class CommandControllerImpl implements ICommandController{
+public enum CommandControllerImpl implements ICommandController{
+	INSTANCE;
 
 	private Map<String, ICommandProcessor> processors;
 	
 	private static Logger log = Logger.getLogger(CommandControllerImpl.class);
 	
-	public CommandControllerImpl() {
+	private CommandControllerImpl() {
 		processors = new HashMap<String, ICommandProcessor>();
 		
 		registerCommandProcessor("recordUseCase", new UseCaseRecorderCommandProcessor());

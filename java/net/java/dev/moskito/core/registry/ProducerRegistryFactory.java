@@ -33,48 +33,14 @@
  * THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 package net.java.dev.moskito.core.registry;
-
-import net.java.dev.moskito.core.util.StartBuiltInProducers;
-
-
-public class ProducerRegistryFactory {
-	
-	private static IProducerRegistry instance;
-	
-	static{
-		instance = new ProducerRegistryImpl();
-		StartBuiltInProducers.startbuiltin();
-	}
-	
-	public static final IProducerRegistry getProducerRegistryInstance(){
-		return instance;
-	}
-}
-
-/* ------------------------------------------------------------------------- *
- * $Log: ProducerRegistryFactory.java,v $
- * Revision 1.4  2008/12/19 23:30:05  dvayanu
- * added support for java memory values from Runtime
- *
- * Revision 1.3  2008/07/29 22:06:20  dvayanu
- * removed unneeded synchronization
- *
- * Revision 1.2  2006/07/22 22:49:20  dvayanu
- * Issue number:  1
- *
- * Revision 1.1  2006/06/11 20:00:55  miros
- * #3: Refactored source files to comply the new project structure.
- *
- * Revision 1.1  2006/06/11 15:15:02  miros
- * #3: Initial commit with new project structure.
- *
- * Revision 1.1  2006/06/07 20:52:39  dvayanu
- * initial
- *
- * Revision 1.2  2006/05/28 23:25:08  lrosenberg
- * *** empty log message ***
- *
- * Revision 1.1  2006/05/26 15:42:30  lrosenberg
- * *** empty log message ***
+/**
+ * This class is solely for a) compatibility reasons with older version and b) decoupling IProducerRegistry and ProducerRegistryImpl.
+ * @author another
  *
  */
+public class ProducerRegistryFactory {
+	
+	public static final IProducerRegistry getProducerRegistryInstance(){
+		return ProducerRegistryImpl.INSTANCE;
+	}
+}

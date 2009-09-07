@@ -35,7 +35,16 @@
 package net.java.dev.moskito.core.dynamic;
 
 import net.java.dev.moskito.core.producers.IStats;
-
+/**
+ * A factory for on demand stats.
+ * @author another
+ *
+ */
 public interface IOnDemandStatsFactory {
-	public IStats createStatsObject(String name);
+	/**
+	 * Creates a new stats object with given name.
+	 * @param name name of the stat object, may be a constant or method name.
+	 * @return
+	 */
+	IStats createStatsObject(String name);
 }

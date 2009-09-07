@@ -41,6 +41,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 import net.java.dev.moskito.core.producers.IStatsProducer;
+import net.java.dev.moskito.core.util.StartBuiltInProducers;
 
 import org.apache.log4j.Logger;
 
@@ -49,7 +50,9 @@ import org.apache.log4j.Logger;
  * getInstance() method. Instead please use the ProducerRegistryFactory for instantiation.
  * @author lrosenberg
  */
-public class ProducerRegistryImpl implements IProducerRegistry{
+public enum ProducerRegistryImpl implements IProducerRegistry{
+	
+	INSTANCE;
 	
 	private static Logger log;
 	static {
@@ -68,6 +71,7 @@ public class ProducerRegistryImpl implements IProducerRegistry{
 	ProducerRegistryImpl(){
 		listeners = new CopyOnWriteArrayList<IProducerRegistryListener>();
 		registry = new ConcurrentHashMap<String,IStatsProducer>();
+		StartBuiltInProducers.startbuiltin();
 	}
 
 	public void addListener(IProducerRegistryListener listener) {

@@ -39,7 +39,7 @@ package net.java.dev.moskito.core.stats;
  * This interface declares a factory that is responsible to create ValueHolder instances of its
  * specific type for a concrete Interval.
  * 
- * @author dvayanu
+ * @author lrosenberg
  * @see ValueHolder
  * @see Interval
  */
