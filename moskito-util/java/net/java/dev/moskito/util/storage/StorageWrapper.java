@@ -5,33 +5,33 @@ import java.util.Map;
 import java.util.Set;
 
 public interface StorageWrapper<K,V> {
-	public V get(K key);
+	V get(K key);
 	
-	public V put(K key, V value);
+	V put(K key, V value);
 	
-	public int size();
+	int size();
 	
-	public boolean isEmpty();
+	boolean isEmpty();
 	
-	public boolean containsKey(K key);
+	boolean containsKey(K key);
 	
-	public boolean containsValue(V value);
+	boolean containsValue(V value);
 	
-	public V remove(K key);
+	V remove(K key);
 	
-	public void putAll(StorageWrapper<? extends K, ? extends V> anotherWrapper);
+	void putAll(StorageWrapper<? extends K, ? extends V> anotherWrapper);
 	
-	public void putAll(Map<? extends K, ? extends V> aMap);
+	void putAll(Map<? extends K, ? extends V> aMap);
 
-	public Set<K> keySet();
+	Set<K> keySet();
 	
-	public Collection<K> keys();
+	Collection<K> keys();
 	
-	public Collection<V> values();
+	Collection<V> values();
 	
-	public void clear();
+	void clear();
 	
-	public Map<K,V> toMap();
+	Map<K,V> toMap();
 	
-	public Map<K,V> fillMap(Map<K,V> toFill);
+	Map<K,V> fillMap(Map<K,V> toFill);
 }
