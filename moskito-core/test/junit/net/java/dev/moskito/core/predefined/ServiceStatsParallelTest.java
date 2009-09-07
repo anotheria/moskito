@@ -8,7 +8,7 @@ import static junit.framework.Assert.*;
 public class ServiceStatsParallelTest {
 	private ServiceStats stats = new ServiceStats("test", Constants.DEFAULT_INTERVALS);
 	
-	int numberOfThreads = 8;
+	int numberOfThreads = 5;
 	
 	final CountDownLatch ready = new CountDownLatch(numberOfThreads);
 	final CountDownLatch start = new CountDownLatch(1);
