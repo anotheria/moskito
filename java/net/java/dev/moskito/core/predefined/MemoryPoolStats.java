@@ -6,14 +6,44 @@ import net.java.dev.moskito.core.stats.StatValue;
 import net.java.dev.moskito.core.stats.TimeUnit;
 import net.java.dev.moskito.core.stats.impl.StatValueFactory;
 
+/**
+ * Statistics for a memory pool usage.
+ * @author lrosenberg
+ * @see http://java.sun.com/j2se/1.5.0/docs/api/java/lang/management/MemoryUsage.html
+ *
+ */
 public class MemoryPoolStats extends AbstractStats implements IMemoryPoolStats{
+	/**
+	 * Initial size.
+	 */
 	private StatValue init;
+	/**
+	 * Used.
+	 */
 	private StatValue used;
+	/**
+	 * Min used.
+	 */
 	private StatValue minUsed;
+	/**
+	 * Max used.
+	 */
 	private StatValue maxUsed;
+	/**
+	 * Commited memory.
+	 */
 	private StatValue commited;
+	/**
+	 * Min commited.
+	 */
 	private StatValue minCommited;
+	/**
+	 * Max commited.
+	 */
 	private StatValue maxCommited;
+	/**
+	 * Max.
+	 */
 	private StatValue max;
 	
 	public MemoryPoolStats(){
