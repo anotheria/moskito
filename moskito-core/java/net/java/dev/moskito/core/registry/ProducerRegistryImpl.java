@@ -50,15 +50,10 @@ import org.apache.log4j.Logger;
  * getInstance() method. Instead please use the ProducerRegistryFactory for instantiation.
  * @author lrosenberg
  */
-public enum ProducerRegistryImpl implements IProducerRegistry{
+public class ProducerRegistryImpl implements IProducerRegistry{
 	
-	INSTANCE;
+	private static Logger log = Logger.getLogger(ProducerRegistryImpl.class);
 	
-	private static Logger log;
-	static {
-		log = Logger.getLogger(ProducerRegistryImpl.class);
-	}
-
 	/**
 	 * The listeners list.
 	 */
@@ -71,7 +66,6 @@ public enum ProducerRegistryImpl implements IProducerRegistry{
 	ProducerRegistryImpl(){
 		listeners = new CopyOnWriteArrayList<IProducerRegistryListener>();
 		registry = new ConcurrentHashMap<String,IStatsProducer>();
-		StartBuiltInProducers.startbuiltin();
 	}
 
 	public void addListener(IProducerRegistryListener listener) {

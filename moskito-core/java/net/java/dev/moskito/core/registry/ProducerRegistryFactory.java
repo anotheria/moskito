@@ -33,14 +33,25 @@
  * THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 package net.java.dev.moskito.core.registry;
+
+import net.java.dev.moskito.core.util.StartBuiltInProducers;
+
 /**
  * This class is solely for a) compatibility reasons with older version and b) decoupling IProducerRegistry and ProducerRegistryImpl.
  * @author another
  *
  */
+	
 public class ProducerRegistryFactory {
+		
+	private static IProducerRegistry instance;
+	
+	static{
+		instance = new ProducerRegistryImpl();
+		StartBuiltInProducers.startbuiltin();
+	}
 	
 	public static final IProducerRegistry getProducerRegistryInstance(){
-		return ProducerRegistryImpl.INSTANCE;
+		return instance;
 	}
 }
