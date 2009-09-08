@@ -23,19 +23,45 @@ import net.java.dev.moskito.core.stats.StatValue;
 import net.java.dev.moskito.core.stats.TimeUnit;
 import net.java.dev.moskito.core.stats.impl.StatValueFactory;
 
+/**
+ * Stats for caches.
+ * @author lrosenberg
+ *
+ */
 public class CacheStats extends AbstractStats{
+	/**
+	 * Number of read requests.
+	 */
 	private StatValue requests;
+	/**
+	 * Number of hits.
+	 */
 	private StatValue hits;
-	
+	/**
+	 * Number of writes into the cache.
+	 */
 	private StatValue writes;
-	
+	/**
+	 * Number of garbage collected items if supported by this cache variant.
+	 */
 	private StatValue garbageCollected;
+	/**
+	 * Number of rollovered items if supported by this cache implementation.
+	 */
 	private StatValue rolloverCount;
 	
 	//private StatValue fillRatio;
+	/**
+	 * Number of expired objects.
+	 */
 	private StatValue expiredCount;
+	/**
+	 * Number of filtered objects.
+	 */
 	private StatValue filteredCount;
-	
+	/**
+	 * Name of the cache.
+	 */
 	private String name;
 	
 	public CacheStats(){
@@ -62,7 +88,7 @@ public class CacheStats extends AbstractStats{
 		return name;
 	}
 	
-	public String toStatsString(String intervalName, TimeUnit timeUnit) {
+	@Override public String toStatsString(String intervalName, TimeUnit timeUnit) {
 		StringBuilder b = new StringBuilder();
 		b.append(getName()).append(' ');
 		b.append(" REQ: ").append(requests.getValueAsLong(intervalName));
