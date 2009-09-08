@@ -36,6 +36,11 @@ package net.java.dev.moskito.core.predefined;
 
 import net.java.dev.moskito.core.stats.Interval;
 
+/**
+ * Actionstats for action oriented ui frameworks like struts.
+ * @author lrosenberg
+ *
+ */
 public class ActionStats extends RequestOrientedStats{
 	/**
 	 * Creates a new MethodStats object with the given method name.
@@ -44,7 +49,9 @@ public class ActionStats extends RequestOrientedStats{
 	public ActionStats(String aMethodName){
 		super(aMethodName);
 	}
-	
+	/**
+	 * Creates a new action stats object.
+	 */
 	public ActionStats(){
 		super();
 	}
