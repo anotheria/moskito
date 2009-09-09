@@ -7,8 +7,8 @@
 	<title>Moskito Producer <bean:write name="producer" property="id"/> </title>
 	<link rel="stylesheet" href="mskCSS">
 <% 
-	String ASC = "<img src=\"../img/up.gif\" border=\"0\" alt=\"Sort ascending\">";
-	String DESC = "<img src=\"../img/down.gif\" border=\"0\" alt=\"Sort descending\">";
+	String ASC = "<img src=\"../img/msk_u.gif\" border=\"0\" alt=\"Sort ascending\">";
+	String DESC = "<img src=\"../img/msk_d.gif\" border=\"0\" alt=\"Sort descending\">";
 %>
 </head>
 <body>
