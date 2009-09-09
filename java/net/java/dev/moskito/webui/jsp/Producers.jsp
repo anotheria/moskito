@@ -10,8 +10,8 @@
 <body>
 <script type="text/javascript" src="../js/wz_tooltip.js"></script>
 <% 
-	String ASC = "<img src=\"../img/up.gif\" border=\"0\" alt=\"Sort ascending\">";
-	String DESC = "<img src=\"../img/down.gif\" border=\"0\" alt=\"Sort descending\">";
+	String ASC = "<img src=\"../img/msk_u.gif\" border=\"0\" alt=\"Sort ascending\">";
+	String DESC = "<img src=\"../img/msk_d.gif\" border=\"0\" alt=\"Sort descending\">";
 %>
 <jsp:include page="Menu.jsp" flush="false"/>
 <h3>Show Producers <bean:write name="pageTitle"/></h3>

@@ -20,7 +20,7 @@ public class ActionMapping {
 	}
 	
 	public ActionForward findForward(String name){
-		return null;
+		return forwards.get(name);
 	}
 	
 	public String getPath(){
@@ -28,6 +28,6 @@ public class ActionMapping {
 	}
 	
 	public String getType(){
-		return type;
+		return type;  
 	}
 }

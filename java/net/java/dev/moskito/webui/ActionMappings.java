@@ -6,18 +6,12 @@ import java.util.concurrent.ConcurrentHashMap;
 import net.java.dev.moskito.webui.action.ActionForward;
 import net.java.dev.moskito.webui.action.ActionMapping;
 
+
 public final class ActionMappings {
 	
 	private static final Map<String, String> aliases = new ConcurrentHashMap<String, String>();
-	private static final Map<String, ActionMapping> mappings = new ConcurrentHashMap<String, ActionMapping>();
+	private static final Map<String, ActionMapping> mappings = new ConcurrentHashMap<String, ActionMapping>(); 
 
-	private static final void addMapping(String path, String type, ActionForward... forwards){
-		mappings.put(path, new ActionMapping(path, type, forwards));
-	}
-	
-	private static final void addAlias(String sourcePath, String targetPath){
-		aliases.put(sourcePath, targetPath);
-	}
 	
 	static{
 		addMapping("mskCSS", "net.java.dev.moskito.webui.action.CssAction", new ActionForward("css", "/net/java/dev/moskito/webui/jsp/CSS.jsp"));
@@ -30,7 +24,7 @@ public final class ActionMappings {
 		
 		addAlias("mskShowAllProducers.csv", "mskShowAllProducers");
 		addAlias("mskShowAllProducers.xml", "mskShowAllProducers");
-
+ 
 		addMapping("mskShowProducersByCategory", "net.java.dev.moskito.webui.action.ShowProducersForCategoryAction", 
 				new ActionForward("html", "/net/java/dev/moskito/webui/jsp/Producers.jsp"),
 				new ActionForward("xml", "/net/java/dev/moskito/webui/jsp/ProducersXML.jsp"),
@@ -82,8 +76,23 @@ public final class ActionMappings {
 		addMapping("mskShowMonitoringSessionCall", "net.java.dev.moskito.webui.action.ShowMonitoringSessionCallAction", 
 				new ActionForward("success", "/net/java/dev/moskito/webui/jsp/MonitoringSessionCall.jsp")
 		);
-}
+	}
 
+	
+		private static final void addMapping(String path, String type, ActionForward... forwards){
+			mappings.put(path, new ActionMapping(path, type, forwards));
+		}
+		
+		private static final void addAlias(String sourcePath, String targetPath){
+			aliases.put(sourcePath, targetPath);
+		}
+		
+		protected static final ActionMapping findMapping(String actionPath){
+			String alias = aliases.get(actionPath);
+			if (alias!=null)
+				return findMapping(alias);
+			return mappings.get(actionPath);
+		}
 
 
 	   		/*

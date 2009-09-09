@@ -5,10 +5,9 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="lib" path="lib/ano-util.jar"/>
 	<classpathentry kind="lib" path="lib/servlet-api.jar"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/moskito-web"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/moskito-util"/>
 	<classpathentry kind="lib" path="lib/moskito-core.jar" sourcepath="/moskito-core"/>
 	<classpathentry kind="lib" path="lib/junit.jar"/>
 	<classpathentry kind="lib" path="lib/log4j.jar"/>
+	<classpathentry kind="lib" path="lib/moskito-util.jar"/>
 	<classpathentry kind="output" path="classes"/>
 </classpath>
