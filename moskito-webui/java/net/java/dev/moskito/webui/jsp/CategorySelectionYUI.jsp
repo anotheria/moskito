@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html;charset=iso-8859-15" session="true"
-%><%@ taglib uri="/tags/struts-bean" prefix="bean" 
+%><%@ taglib uri="/tags/moskito" prefix="bean" 
 %><%@ taglib uri="/tags/struts-logic" prefix="logic" 
 %><%@ page isELIgnored ="false" 
 %>
@@ -7,7 +7,7 @@
 Categories: <select id="CategorySelector">
 	<option value="">none</option>
 	<logic:iterate name="categories" id="category" type="net.java.dev.moskito.webui.bean.UnitCountBean">
-	<option value="<bean:write name="category" property="unitName"/>" ${currentCategory == category.unitName?'selected':''}><bean:write name="category" property="unitName"/>(<bean:write name="category" property="unitCount"/>)</option>
+	<option value="<msk:write name="category" property="unitName"/>" ${currentCategory == category.unitName?'selected':''}><msk:write name="category" property="unitName"/>(<msk:write name="category" property="unitCount"/>)</option>
 	</logic:iterate>
 </select>
 </div>

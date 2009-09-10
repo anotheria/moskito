@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html;charset=iso-8859-15" session="true"
-%><%@ taglib uri="/tags/struts-bean" prefix="bean" 
+%><%@ taglib uri="/tags/moskito" prefix="msk" 
 %><%@ taglib uri="/tags/struts-logic" prefix="logic" 
 %>
 <html>
@@ -21,11 +21,11 @@
 	</tr>
 	<logic:iterate name="monitoringSessions" type="net.java.dev.moskito.webui.bean.MonitoringSessionListItemBean" id="ms" indexId="index">
 		<tr class="<%= ((index & 1) == 0 )? "stat_even" : "stat_odd" %>">
-			<td><a href="mskShowMonitoringSession?pSessionName=<bean:write name="ms" property="name"/>"><bean:write name="ms" property="name"/></td>
-			<td><bean:write name="ms" property="created"/></td>
-			<td><bean:write name="ms" property="lastActivity"/></td>
-			<td><bean:write name="ms" property="numberOfCalls"/></td>
-			<td><bean:write name="ms" property="active"/></td>
+			<td><a href="mskShowMonitoringSession?pSessionName=<msk:write name="ms" property="name"/>"><msk:write name="ms" property="name"/></td>
+			<td><msk:write name="ms" property="created"/></td>
+			<td><msk:write name="ms" property="lastActivity"/></td>
+			<td><msk:write name="ms" property="numberOfCalls"/></td>
+			<td><msk:write name="ms" property="active"/></td>
 		</tr>
 	</logic:iterate>
 </table>

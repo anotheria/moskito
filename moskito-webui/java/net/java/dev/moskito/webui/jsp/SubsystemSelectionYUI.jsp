@@ -7,7 +7,7 @@
 Subsystems: <select id="SubsystemSelector">
 	<option value="">none</option>
 	<logic:iterate name="subsystems" id="subsystem" type="net.java.dev.moskito.webui.bean.UnitCountBean">
-	<option value="<bean:write name="subsystem" property="unitName"/>" ${currentSubsystem == subsystem.unitName?'selected':''}><bean:write name="subsystem" property="unitName"/>(<bean:write name="subsystem" property="unitCount"/>)</option>
+	<option value="<msk:write name="subsystem" property="unitName"/>" ${currentSubsystem == subsystem.unitName?'selected':''}><msk:write name="subsystem" property="unitName"/>(<msk:write name="subsystem" property="unitCount"/>)</option>
 	</logic:iterate>
 </select>
 </div>

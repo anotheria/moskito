@@ -47,6 +47,7 @@ public class MoskitoUIFilter implements Filter, IStatsProducer{
 		path = config.getInitParameter("path");
 		if (path==null)
 			path = "";
+		
 	}
 
 	@Override
@@ -60,9 +61,12 @@ public class MoskitoUIFilter implements Filter, IStatsProducer{
 		HttpServletResponse res = (HttpServletResponse)sres;
 		
 		String servletPath = req.getServletPath();
+		if (servletPath==null || servletPath.length()==0)
+			servletPath = req.getPathInfo();
+		
 		if (!(servletPath==null)){
 			if (path.length()==0 || servletPath.startsWith(path)){
-				doPerform(req, res);
+				doPerform(req, res, servletPath);
 				//optionaly allow the chain to run further?
 				return;
 			}
@@ -72,11 +76,11 @@ public class MoskitoUIFilter implements Filter, IStatsProducer{
 			
 	}
  
-	public final void doPerform(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+	public final void doPerform(HttpServletRequest req, HttpServletResponse res, String servletPath) throws ServletException, IOException {
 		getStats.addRequest();
 		long startTime = System.nanoTime();
 		try{
-			String actionPath = req.getServletPath().substring(path.length());
+			String actionPath = servletPath.substring(path.length());
 			ActionMapping mapping = ActionMappings.findMapping(actionPath);
 			if (mapping == null){
 				res.sendError(404, "Action "+actionPath+" not found.");
@@ -91,7 +95,7 @@ public class MoskitoUIFilter implements Filter, IStatsProducer{
 			
 			ActionForward forward = null;
 			try{
-				action.preProcess(mapping, req, res);
+				action.preProcess(mapping, req, res); 
 				forward = action.execute(mapping, req, res);
 				action.postProcess(mapping, req, res);
 			}catch(Exception e){

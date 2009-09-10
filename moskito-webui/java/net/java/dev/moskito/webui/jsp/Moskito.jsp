@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html;charset=iso-8859-15" session="true"
-%><%@ taglib uri="/tags/struts-bean" prefix="bean" 
+%><%@ taglib uri="/tags/moskito" prefix="msk" 
 %><%@ taglib uri="/tags/struts-logic" prefix="logic" 
 %><%@ page isELIgnored ="false" 
 %>
@@ -58,7 +58,7 @@
 	
 	<script type="text/javascript">
 		var Dom = YAHOO.util.Dom;
-		var Moskito = new WEBUI.utils.Moskito("<bean:write name='currentInterval'/>","<bean:write name='moskito.CurrentUnit' property="unitName"/>");
+		var Moskito = new WEBUI.utils.Moskito("<msk:write name='currentInterval'/>","<msk:write name='moskito.CurrentUnit' property="unitName"/>");
 
 		var autoUpdateEvent = new YAHOO.util.CustomEvent("autoUpdate", this);
 		
@@ -200,16 +200,16 @@ YAHOO.log("PROFILER created!");
 
 
     var tab = new YAHOO.widget.Tab({
-	    label: '<bean:write name="item" property="caption"/>',
-	    dataSrc: '<bean:write name="item" property="link"/>YUI',
+	    label: '<msk:write name="item" property="caption"/>',
+	    dataSrc: '<msk:write name="item" property="link"/>YUI',
 	    cacheData: true,
-	    active: <bean:write name="item" property="active"/>
+	    active: <msk:write name="item" property="active"/>
     });
 
     YAHOO.plugin.Dispatcher.delegate (tab, tabView);
     //tabView.addTab(tab); 
     var contentEl = new YAHOO.util.Element(tab.get('contentEl'));
-    var contentElId = <bean:write name="item" property="active"/>? 'MoskitoActiveTab':'MoskitoTab';
+    var contentElId = <msk:write name="item" property="active"/>? 'MoskitoActiveTab':'MoskitoTab';
     contentEl.set('id',contentElId);   
     tab.addListener('contentChange', function(e){
     	onContentChanged.fire();
