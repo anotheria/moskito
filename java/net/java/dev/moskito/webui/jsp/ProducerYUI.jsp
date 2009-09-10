@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html;charset=iso-8859-15" session="true"
-%><%@ taglib uri="/tags/struts-bean" prefix="bean" 
+%><%@ taglib uri="/tags/moskito" prefix="msk" 
 %><%@ taglib uri="/tags/struts-logic" prefix="logic" 
 %>
 	<script>
@@ -22,22 +22,22 @@
 			tableColumnDefs = [
 				{key:"name", label:"Name",sortable:true,resizeable:true},
 				<logic:iterate name="decorator" property="captions" type="net.java.dev.moskito.webui.bean.StatCaptionBean" id="caption" indexId="ind">
-				{key:"<bean:write name="caption" property="caption"/>", label:"<bean:write name="caption" property="caption"/>"/*,formatter:YAHOO.widget.DataTable.formatNumber*/,sortable:true,resizeable:true},
+				{key:"<msk:write name="caption" property="caption"/>", label:"<msk:write name="caption" property="caption"/>"/*,formatter:YAHOO.widget.DataTable.formatNumber*/,sortable:true,resizeable:true},
 				</logic:iterate>
 			];
 		
-			tableDataSource = new YAHOO.util.DataSource('mskShowProducerYUI.json?pProducerId=<bean:write name="producer" property="id"/>&pForward=json');
+			tableDataSource = new YAHOO.util.DataSource('mskShowProducerYUI.json?pProducerId=<msk:write name="producer" property="id"/>&pForward=json');
 			tableDataSource.responseType = YAHOO.util.DataSource.TYPE_JSON;
 			tableDataSource.responseSchema = {
 				resultsList : "producer.stats",
 				fields: [
 				 	{key:"name"},
 					<logic:iterate name="decorator" property="captions" type="net.java.dev.moskito.webui.bean.StatCaptionBean" id="caption" indexId="ind">
-					{key:"<bean:write name="caption" property="caption"/>"/*, parser:YAHOO.util.DataSource.parseNumber*/},
+					{key:"<msk:write name="caption" property="caption"/>"/*, parser:YAHOO.util.DataSource.parseNumber*/},
 					</logic:iterate>
 				]
 			};
-			table = new YAHOO.anoweb.widget.AnoDataTable("<bean:write name="producer" property="id"/>Box", tableColumnDefs, tableDataSource,
+			table = new YAHOO.anoweb.widget.AnoDataTable("<msk:write name="producer" property="id"/>Box", tableColumnDefs, tableDataSource,
 				{draggableColumns:true,sortedBy:{key:"name",dir:"desc"}}
 			);
 			scope.tables.push(table);
@@ -45,7 +45,7 @@
 			//HOTFIX: AnoPanel fetches this content unsynchronizelly with show event notification. The next line is forced subscription  
 			Moskito.subscribe(WEBUI.utils.Moskito.EVENT_ON_UPDATE, updateProducers, scope, true);
 
-			container = Moskito.producerPanelsRegistry['<bean:write name="producer" property="id"/>'];
+			container = Moskito.producerPanelsRegistry['<msk:write name="producer" property="id"/>'];
 			container.subscribe("show", function(){
 				Moskito.subscribe(WEBUI.utils.Moskito.EVENT_ON_UPDATE, updateProducers, scope, true);
 			});
@@ -59,7 +59,7 @@
 		});
 	</script>
 <logic:iterate type="net.java.dev.moskito.webui.bean.StatDecoratorBean" id="decorator" name="decorators">
-	<h4><bean:write name="decorator" property="name"/>: <bean:write name="producer" property="id"/></h4>
+	<h4><msk:write name="decorator" property="name"/>: <msk:write name="producer" property="id"/></h4>
 	<logic:present name="inspectableFlag">
 		<div class="inspect">
 			<div class="yui-cms-accordion fixIE">
@@ -77,5 +77,5 @@
 			</div>
 		</div>
 	</logic:present> 
-	<div id="<bean:write name="producer" property="id"/>Box" style="overflow:auto"></div>
+	<div id="<msk:write name="producer" property="id"/>Box" style="overflow:auto"></div>
 </logic:iterate>

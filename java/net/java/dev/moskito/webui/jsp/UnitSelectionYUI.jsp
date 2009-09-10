@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html;charset=iso-8859-15" session="true"
-%><%@ taglib uri="/tags/struts-bean" prefix="bean" 
+%><%@ taglib uri="/tags/moskito" prefix="bean" 
 %><%@ taglib uri="/tags/struts-logic" prefix="logic" 
 %><%@ page isELIgnored ="false" 
 %>
@@ -7,7 +7,7 @@
 <div id="TimeUnit" class="selector">
 Time Unit: <select id="TimeUnitsSelector">
 <logic:iterate name="units" id="unit" type="net.java.dev.moskito.webui.bean.UnitBean">
-	<option value="<bean:write name="unit" property="unitName"/>" ${currentUnit == unit.unitName?'selected':''}><bean:write name="unit" property="unitName"/></option>
+	<option value="<msk:write name="unit" property="unitName"/>" ${currentUnit == unit.unitName?'selected':''}><msk:write name="unit" property="unitName"/></option>
 </logic:iterate>
 </select>
 </div>

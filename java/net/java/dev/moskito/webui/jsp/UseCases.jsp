@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html;charset=iso-8859-15" session="true"
-%><%@ taglib uri="/tags/struts-bean" prefix="bean" 
+%><%@ taglib uri="/tags/moskito" prefix="msk" 
 %><%@ taglib uri="/tags/struts-logic" prefix="logic" 
 %>
 <html>
@@ -14,7 +14,7 @@
 <logic:present name="recordedAvailableFlag" scope="request">
 	<ul>
 	<logic:iterate name="recorded" type="net.java.dev.moskito.webui.bean.RecordedUseCaseListItemBean" id="useCase">
-		<li><a href="mskShowRecordedUseCase?pUseCaseName=<bean:write name="useCase" property="nameEncoded"/>"><bean:write name="useCase" property="name"/></a>&nbsp;<bean:write name="useCase" property="date"/></li>
+		<li><a href="mskShowRecordedUseCase?pUseCaseName=<msk:write name="useCase" property="nameEncoded"/>"><msk:write name="useCase" property="name"/></a>&nbsp;<msk:write name="useCase" property="date"/></li>
 	</logic:iterate>
 	</ul>
 </logic:present>

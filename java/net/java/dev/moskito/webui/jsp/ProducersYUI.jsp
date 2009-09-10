@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html;charset=iso-8859-15" session="true"
-%><%@ taglib uri="/tags/struts-bean" prefix="bean" 
+%><%@ taglib uri="/tags/moskito" prefix="msk" 
 %><%@ taglib uri="/tags/struts-logic" prefix="logic" 
 %><%@ page isELIgnored ="false" 
 %>
@@ -70,13 +70,13 @@
 	<div class="producerAccordion">
 	<div class="yui-cms-accordion multiple">
 	<logic:iterate type="net.java.dev.moskito.webui.bean.ProducerDecoratorBean" id="decorator" name="decorators">	
-	<div id="<bean:write name="decorator" property="name"/>Panel" class="yui-cms-item yui-panel selected">
+	<div id="<msk:write name="decorator" property="name"/>Panel" class="yui-cms-item yui-panel selected">
         <h3>
-        	<a class="accordionToggleItem" title="click to expand" href="#">&nbsp;</a><bean:write name="decorator" property="name"/>&nbsp;&nbsp;<small><i>(<a target="_blank" href="mskShowExplanations#<bean:write name="decorator" property="name"/>">Explain</a>)</i></small>
+        	<a class="accordionToggleItem" title="click to expand" href="#">&nbsp;</a><msk:write name="decorator" property="name"/>&nbsp;&nbsp;<small><i>(<a target="_blank" href="mskShowExplanations#<msk:write name="decorator" property="name"/>">Explain</a>)</i></small>
         </h3>
         <div class="bd">
           <div class="fixed">
-          	<div id="<bean:write name="decorator" property="name"/>Box" style="overflow:auto"></div>
+          	<div id="<msk:write name="decorator" property="name"/>Box" style="overflow:auto"></div>
           </div>
         </div>
     </div>

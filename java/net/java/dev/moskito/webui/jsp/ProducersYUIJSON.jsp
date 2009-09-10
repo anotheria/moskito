@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/json;charset=iso-8859-15" session="true"
-%><%@ taglib uri="/tags/struts-bean" prefix="bean" 
+%><%@ taglib uri="/tags/moskito" prefix="msk" 
 %><%@ taglib uri="/tags/struts-logic" prefix="logic" 
 %><%@ taglib uri="/tags/json" prefix="json"
 %><%@ page isELIgnored ="false" 
