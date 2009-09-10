@@ -94,7 +94,11 @@ public class ServiceStatsCallHandler implements IOnDemandCallHandler{
 			methodStats.notifyRequestFinished();
 			if (currentElement!=null){
 				currentElement.setDuration(System.nanoTime()-startTime);
-				currentElement.appendToCall(" = "+ret);
+				try{
+					currentElement.appendToCall(" = "+ret);
+				}catch(Throwable t){
+					currentElement.appendToCall(" = ERR: "+t.getMessage()+" ("+t.getClass()+")");
+				}
 			}
 			if (runningUseCase !=null)
 				runningUseCase.endPathElement();
