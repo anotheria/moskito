@@ -55,21 +55,54 @@ import net.java.dev.moskito.core.usecase.running.PathElement;
 import net.java.dev.moskito.core.usecase.running.RunningUseCase;
 import net.java.dev.moskito.core.usecase.running.RunningUseCaseContainer;
 
-
+/**
+ * This servlet class is a base class which can be used for extension to become a monitorable servlet without proxying or any dynamisation.
+ * Simply extend it and rename doXYZ Methods with moskitoDoXyz methods. 
+ * @author lrosenberg
+ *
+ */
 public class MoskitoHttpServlet extends HttpServlet implements IStatsProducer{
-	
+	/**
+	 * Stats for the http delete method.
+	 */
 	private ServletStats deleteStats;
+	/**
+	 * Stats for the http get method.
+	 */
 	private ServletStats getStats;
+	/**
+	 * Stats for the http head method.
+	 */
 	private ServletStats headStats;
+	/**
+	 * Stats for the http options method.
+	 */
 	private ServletStats optionsStats;
+	/**
+	 * Stats for the http post method.
+	 */
 	private ServletStats postStats;
+	/**
+	 * Stats for the http put method.
+	 */
 	private ServletStats putStats;
+	/**
+	 * Stats for the http trace method.
+	 */
 	private ServletStats traceStats;
+	/**
+	 * Stats for the calls of the last modified method.
+	 */
 	private ServletStats lastModifiedStats;
-	
+	/**
+	 * Cached list with all stats.
+	 */
 	private List<IStats> cachedStatList;
 	
-	public void init(ServletConfig config) throws ServletException{
+	/**
+	 * Creates the stats objects. Registers the servlet at the ProducerRegistry. 
+	 */
+	@Override public void init(ServletConfig config) throws ServletException{
 		super.init(config);
 		
 		getStats          = new ServletStats("get", getMonitoringIntervals());
@@ -293,34 +326,58 @@ public class MoskitoHttpServlet extends HttpServlet implements IStatsProducer{
 	}
 
 	///////////////// Substitute methods. Override those to get called. ////////////////
+	/**
+	 * Override this method to react on http delete method.
+	 */
 	protected void moskitoDoDelete(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		super.doDelete(req, res);
 	}
 
+	/**
+	 * Override this method to react on http get method.
+	 */
 	protected void moskitoDoGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		super.doGet(req, res);
 	}
 
+	/**
+	 * Override this method to react on http head method.
+	 */
 	protected void moskitoDoHead(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		super.doHead(req, res);
 	}
 
+	/**
+	 * Override this method to react on http options method.
+	 */
 	protected void moskitoDoOptions(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		super.doOptions(req, res);
 	}
 
+	/**
+	 * Override this method to react on http post method.
+	 */
 	protected void moskitoDoPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		super.doPost(req, res);
 	}
 
+	/**
+	 * Override this method to react on http put method.
+	 */
 	protected void moskitoDoPut(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		super.doPut(req, res);
 	}
 
+	/**
+	 * Override this method to react on http trace method.
+	 */
 	protected void moskitoDoTrace(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		super.doTrace(req, res);
 	}
 
+	/**
+	 * Override this method to implement lastModfied method.
+	 */
 	protected long moskitoGetLastModified(HttpServletRequest req) {
 		return super.getLastModified(req);
 	}
@@ -331,11 +388,11 @@ public class MoskitoHttpServlet extends HttpServlet implements IStatsProducer{
 	/**
 	 * Returns the producer id. Override this method if you want a useful name in your logs. Default is class name.
 	 */
-	public String getProducerId() {
+	@Override public String getProducerId() {
 		return getClass().getName();
 	}
 
-	public List<IStats> getStats() {
+	@Override public List<IStats> getStats() {
 		if (cachedStatList==null){
 			synchronized(this){
 				if (cachedStatList==null){
@@ -366,19 +423,19 @@ public class MoskitoHttpServlet extends HttpServlet implements IStatsProducer{
 		return true;
 	}
 	
+	/**
+	 * Override this method if you want other monitoring intevals as default (from start, 1,5,15m, 1h and 1d).
+	 * @return
+	 */
 	protected Interval[] getMonitoringIntervals(){
 		return Constants.DEFAULT_INTERVALS;
 	}
 
-	public String getCategory() {
+	@Override public String getCategory() {
 		return "servlet";
 	}
 	
-	public String getSubsystem(){
+	@Override public String getSubsystem(){
 		return "default";
 	}
-	
-	////////////////////////////
-	
-
 }

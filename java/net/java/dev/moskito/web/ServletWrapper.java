@@ -53,7 +53,7 @@ import net.java.dev.moskito.core.registry.ProducerRegistryFactory;
 public class ServletWrapper implements Servlet, IStatsProducer{
 
 	private Servlet target;
-	private static Class targetClass;
+	private static Class<Servlet> targetClass;
 	
 	private ServletStats serviceStats;
 	private List<IStats> cachedStatList;
@@ -61,7 +61,7 @@ public class ServletWrapper implements Servlet, IStatsProducer{
 	private String producerId;
 
 	
-	public static void setTargetClass(Class aClass){
+	public static void setTargetClass(Class<Servlet> aClass){
 		targetClass = aClass;
 	}
 	
