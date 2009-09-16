@@ -60,14 +60,22 @@ import org.apache.struts.action.ActionMapping;
 
 
 /**
- * A base action for monitorable actions.
+ * A base action for monitorable struts1 actions. Simply implement moskitoExecute method (standart stuts is execute) and your action will be monitored.
  * @author lrosenberg
  */
 public abstract class MoskitoAction extends Action implements IStatsProducer {
-
+	/**
+	 * The action stats.
+	 */
 	private volatile ActionStats stats;
+	/**
+	 * Cached copy of the list.
+	 */
 	private List<IStats> statsList;
 
+	/**
+	 * Creates a new MoskitoAction.
+	 */
 	protected MoskitoAction() {
 		
 		stats = new ActionStats("execute", getMonitoringIntervals());
@@ -81,7 +89,7 @@ public abstract class MoskitoAction extends Action implements IStatsProducer {
 	/**
 	 * @see org.apache.struts.action.Action#execute(ActionMapping, ActionForm, HttpServletRequest, HttpServletResponse)
 	 */
-	public final ActionForward execute(
+	@Override public final ActionForward execute(
 		ActionMapping mapping,
 		ActionForm bean,
 		HttpServletRequest req,
@@ -117,6 +125,14 @@ public abstract class MoskitoAction extends Action implements IStatsProducer {
 		}
 	}
 	
+	/**
+	 * This method allows you to perform some tasks prior to call to the moskitoExecute.
+	 * @param mapping
+	 * @param af
+	 * @param req
+	 * @param res
+	 * @throws Exception
+	 */
 	protected void preProcessExecute(
 			ActionMapping mapping,
 			ActionForm af,
@@ -126,6 +142,14 @@ public abstract class MoskitoAction extends Action implements IStatsProducer {
 		
 	}
 	
+	/**
+	 * This method allows you to perform some tasks after the call of the moskitoExecute.
+	 * @param mapping
+	 * @param af
+	 * @param req
+	 * @param res
+	 * @throws Exception
+	 */
 	protected void postProcessExecute(
 			ActionMapping mapping,
 			ActionForm af,
@@ -135,6 +159,15 @@ public abstract class MoskitoAction extends Action implements IStatsProducer {
 		
 	}
 
+	/**
+	 * Implement your functionality in this action.
+	 * @param mapping
+	 * @param af
+	 * @param req
+	 * @param res
+	 * @return
+	 * @throws Exception
+	 */
 	public abstract ActionForward moskitoExecute(
 		ActionMapping mapping,
 		ActionForm af,
@@ -142,23 +175,33 @@ public abstract class MoskitoAction extends Action implements IStatsProducer {
 		HttpServletResponse res)
 		throws Exception;
 
+	/**
+	 * Override this method if you want to customize monitoring intervals of your action.
+	 * @return
+	 */
 	protected Interval[] getMonitoringIntervals(){
 		return Constants.DEFAULT_INTERVALS;
 	}
-	
+	/**
+	 * Override this for custom category. Default is 'action'.
+	 */
 	public String getCategory(){
 		return "action";
 	}
-	
+	/**
+	 * Override this for custom subsystem. Default is 'default'.
+	 */
 	public String getSubsystem(){
 		return "default";
 	}
-	
+	/**
+	 * Override this for custom producer id. Default is the name of the class.
+	 */
 	public String getProducerId(){
 		return getClass().getName();
 	}
 
-	public List<IStats> getStats(){
+	@Override public List<IStats> getStats(){
 		return statsList;
 	}
 }
