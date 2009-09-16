@@ -56,18 +56,27 @@ import net.java.dev.moskito.core.stats.Interval;
 
 public abstract class MoskitoFilter implements Filter{
 	
+	/**
+	 * Logger instance, available for all subclasses.
+	 */
 	protected Logger log;
-	
+	/**
+	 * Parameter name for the init parameter for the limit of dynamic case names (number of names) in the filter config. If the number of cases will exceed this limit,
+	 * the new cases will be ignored (to prevent memory leakage).
+	 */
 	public static final String INIT_PARAM_LIMIT = "limit";
 	
+	/**
+	 * The internal producer instance.
+	 */
 	private OnDemandStatsProducer onDemandProducer;
 	
-	public MoskitoFilter(){
+	protected MoskitoFilter(){
 		log = Logger.getLogger(getClass());
 	}
 	
 
-	public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain) throws IOException, ServletException {
+	@Override public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain) throws IOException, ServletException {
 
 		if (onDemandProducer==null){
 			log.error("Access to filter before it's inited!");
@@ -82,7 +91,7 @@ public abstract class MoskitoFilter implements Filter{
 			if (caseName!=null)
 				caseStats = (FilterStats)onDemandProducer.getStats(caseName);
 		}catch(OnDemandStatsProducerException e){
-			log.warn("Couldn't get stats for case : "+caseName+", probably limit reached");
+			log.info("Couldn't get stats for case : "+caseName+", probably limit reached");
 		}
 		
 		defaultStats.addRequest();
@@ -123,7 +132,7 @@ public abstract class MoskitoFilter implements Filter{
 		}
 	}
 
-	public void init(FilterConfig config) throws ServletException {
+	@Override public void init(FilterConfig config) throws ServletException {
 		int limit = -1;
 		String pLimit = config.getInitParameter(INIT_PARAM_LIMIT);
 		if (pLimit!=null)
@@ -140,24 +149,41 @@ public abstract class MoskitoFilter implements Filter{
 		
 	}
 	
-	public void destroy(){
+	@Override public void destroy(){
 		
 	}
 	
+	/**
+	 * Overwrite this to provide a name allocation mechanism to make request -> name mapping.
+	 * @param req
+	 * @param res
+	 * @return
+	 */
 	protected abstract String extractCaseName(ServletRequest req, ServletResponse res );
 
 	/**
 	 * Returns the producer id. Override this method if you want a useful name in your logs. Default is class name.
 	 */
-	public String getProducerId() {
-		return getClass().getName();
+	protected String getProducerId() {
+		String name = getClass().getName();
+		int index = name.lastIndexOf('.');
+		return index == -1 ? 
+				name : name.substring(index+1);
 	}
 
-	public String getCategory() {
+	/**
+	 * Overwrite this method to register the filter in a category of your choice. Default is 'filter'.
+	 * @return
+	 */
+	protected String getCategory() {
 		return "filter";
 	}
 	
-	public String getSubsystem(){
+	/**
+	 * Override this to register the filter as specially defined subsystem. Default is 'default'.
+	 * @return
+	 */
+	protected String getSubsystem(){
 		return "default";
 	}
 	
