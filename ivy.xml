@@ -23,6 +23,7 @@
 		<dependency org="org.apache.commons" name="commons-beanutils" rev="stable" transitive="false"/>
 		<dependency org="org.apache.commons" name="commons-digester" rev="stable" transitive="false"/>
 		<dependency org="org.apache.commons" name="commons-collections" rev="stable" transitive="false"/>
+		<dependency org="org.apache.commons" name="commons-logging" rev="stable" transitive="false"/>
         <dependency org="org.apache" name="struts" rev="stable" transitive="false"/>
         
         
