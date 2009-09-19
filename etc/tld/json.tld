@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<taglib version="2.0" xmlns="http://java.sun.com/xml/ns/j2ee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee web-jsptaglibrary_2_0.xsd">
+  <description>JSON (JavaScript Object Notation) rendering taglib</description>
+  <tlib-version>1.0</tlib-version>
+  <short-name>json</short-name>
+  <uri>http://www.atg.com/taglibs/json</uri>
+
+  <tag>
+    <description>
+      Creates a JSON Object. JSON Objects should in turn contain nested json:object, json:property
+      and json:array tags to define the values contained therein.
+      Objects can be nested as many times as you want. 
+    </description>
+    <name>object</name>
+    <tag-class>atg.taglib.json.JsonObjectTag</tag-class>
+    <body-content>scriptless</body-content>
+    <attribute>
+      <description>The name of the object (required if nested within another json:object tag)</description>
+      <name>name</name>
+      <required>false</required> 
+      <rtexprvalue>true</rtexprvalue>   
+    </attribute>
+    <attribute>
+      <description>Should the rendered JSON be nicely formatted and indented? (default:false)</description>
+      <name>prettyPrint</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+      <type>boolean</type>
+    </attribute>
+    <attribute>
+      <description>Should special XML characters be escaped? (default:true)</description>
+      <name>escapeXml</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+      <type>boolean</type>
+    </attribute>
+  </tag>
+  
+  <tag>
+    <description>
+      Represents a single property of a JSON object. This tag should be
+      contained within a json:object or json:array tag.
+      It will render a single name/value pair for the name and value specified.
+      
+      The value may be specified using either the value attribute, or it
+      may be contained within the body of the tag.
+      If using the body of the tag, then the content is assumed to be a String. If
+      using the value attribute, the type can be any of String, Boolean, Integer,
+      Long, Double or Object. 
+      Boolean types will be converted to a Javascript boolean value.
+      Integer/Long/Double types will be converted to a Javascript numeric value.
+      Strings and Objects will be converted to Javascript string values (using toString)
+      
+      All String data will have all whitespace trimmed from the beginning and end
+      of the string before being set on the JSON Object. This behavior may be
+      overridden by setting trim=false.     
+    </description>
+    <name>property</name>
+    <tag-class>atg.taglib.json.JsonPropertyTag</tag-class>
+    <body-content>scriptless</body-content>
+    <attribute>
+      <description>The name of the property</description>
+      <name>name</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+      <description>The value of the property. If set this will override anything set in the body of the tag.</description>
+      <name>value</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+      <type>java.lang.Object</type>
+    </attribute>
+    <attribute>
+      <description>Should whitespace be trimmed from the beginning and end of String values? (default:true)</description>
+      <name>trim</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+      <type>boolean</type>
+    </attribute>
+    <attribute>
+      <description>Should special XML characters be escaped? (default:true)</description>
+      <name>escapeXml</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+      <type>boolean</type>
+    </attribute>
+  </tag>
+  
+  <tag>   
+    <description>
+      Creates a JSON array which consist of Strings, numeric values,
+      booleans, JSON objects, or further JSON arrays. You can pass a List of values using 
+      the 'items' attribute. This list will be iterated over, and each value in the list will 
+      be added to the JSON Array.
+      
+      If you specify a body for the tag, then the value of each element in the 'items' list
+      will be set to the variabled as named by the 'var' attribute. The body will be rendered
+      for every item in the list.
+      
+      You may also omit the 'items' collection, and add elements directly to the JSON array within
+      the body of the tag. Each json:property, json:object and json:array encountered within the body
+      of the tag will be added to the JSON array sequentially.
+    </description>
+    <name>array</name>
+    <tag-class>atg.taglib.json.JsonArrayTag</tag-class>
+    <body-content>scriptless</body-content>
+    <attribute>
+      <description>The name of the array (required if nested within json:object tag)</description>
+      <name>name</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+      <description>The name of a page variable that will be set to the item in the list as it is iterated over</description>
+      <name>var</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+      <description>A collection, array, or map of items that should be iterated over</description>
+      <name>items</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>      
+      <type>java.lang.Object</type>
+    </attribute>
+    <attribute>
+      <description>Should whitespace be trimmed from the beginning and end of String values? (default:true)</description>
+      <name>trim</name>     
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+      <type>boolean</type>     
+    </attribute>
+    <attribute>
+      <description>Should the rendered JSON be nicely formatted and indented? (default:false)</description>
+      <name>prettyPrint</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+      <type>boolean</type>
+    </attribute>
+    <attribute>
+      <description>Should special XML characters be escaped? (default:true)</description>
+      <name>escapeXml</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+      <type>boolean</type>
+    </attribute>
+  </tag>
+
+</taglib>
