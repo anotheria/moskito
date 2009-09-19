@@ -10,10 +10,10 @@
 <body>
 <script type="text/javascript" src="../js/wz_tooltip.js"></script>
 <% 
-	String ASC = "<img src=\"/static/msk/img/msk_u.gif\" border=\"0\" alt=\"Sort ascending\">";
-	String DESC = "<img src=\"/static/msk/img/msk_d.gif\" border=\"0\" alt=\"Sort descending\">";
-	//String ASC = "<img src=\"../img/msk_u.gif\" border=\"0\" alt=\"Sort ascending\">";
-	//String DESC = "<img src=\"../img/msk_d.gif\" border=\"0\" alt=\"Sort descending\">";
+	//String ASC = "<img src=\"/static/msk/img/msk_u.gif\" border=\"0\" alt=\"Sort ascending\">";
+	//String DESC = "<img src=\"/static/msk/img/msk_d.gif\" border=\"0\" alt=\"Sort descending\">";
+	String ASC = "<img src=\"../img/msk_u.gif\" border=\"0\" alt=\"Sort ascending\">";
+	String DESC = "<img src=\"../img/msk_d.gif\" border=\"0\" alt=\"Sort descending\">";
 %>
 	
 <jsp:include page="Menu.jsp" flush="false"/>
