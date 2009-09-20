@@ -1,13 +1,12 @@
-<%@ page language="java" contentType="text/html;charset=iso-8859-15" session="true"
-%><%@ taglib uri="/tags/struts-bean" prefix="bean" 
-%><%@ taglib uri="/tags/struts-logic" prefix="logic" 
+<%@ page language="java" contentType="text/html;charset=UTF-8" session="true"
+%><%@ taglib uri="/tags/moskito" prefix="msk" 
 %><%@ page isELIgnored ="false" 
 %>
 <div id="Interval" class="selector">
 Interval: <select id="IntervalSelector">
-<logic:iterate name="intervals" id="interval" type="net.java.dev.moskito.webui.bean.IntervalBean">
+<msk:iterate name="intervals" id="interval" type="net.java.dev.moskito.webui.bean.IntervalBean">
 	<option value="<msk:write name="interval" property="name"/>" ${currentInterval == interval.name?'selected':''}><msk:write name="interval" property="name"/></option>
-</logic:iterate>
+</msk:iterate>
 </select>
 </div>
 

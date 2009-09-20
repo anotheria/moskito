@@ -1,11 +1,14 @@
 package net.java.dev.moskito.webui.tags;
 
+import java.io.IOException;
+
 import javax.servlet.jsp.JspException;
+import javax.servlet.jsp.JspWriter;
 import javax.servlet.jsp.PageContext;
+import javax.servlet.jsp.tagext.BodyContent;
 
 import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.log4j.Logger;
-import org.apache.struts.util.ResponseUtils;
 
 public class TagUtils {
 
@@ -112,7 +115,29 @@ public class TagUtils {
 	 * @throws JspException
 	 */
 	protected static void write(PageContext pageContext, String s) throws JspException{
-		ResponseUtils.write(pageContext, s);		
+		write(pageContext, s, false);		
+	}
+	
+	/**
+	 * Writes a string to the page.
+	 * Writes to writer, associated with body of the tag we are currently nested within. 
+	 * @param pageContext
+	 * @param s
+	 * @throws JspException
+	 */
+	protected static void writePrevious(PageContext pageContext, String s) throws JspException {
+		write(pageContext, s, true);
+	}
+	
+	private static void write(PageContext pageContext, String s, boolean toEnclosingWriter) throws JspException {
+		JspWriter writer = pageContext.getOut();
+		if(toEnclosingWriter && writer instanceof BodyContent)
+			writer = ((BodyContent)writer).getEnclosingWriter();
+		try {
+			writer.print(s);
+		} catch(IOException e) {
+			throw new JspException("Input/output error: " + e.toString());
+		}
 	}
 	
 	/**

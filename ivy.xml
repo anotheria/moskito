@@ -15,8 +15,5 @@
         <dependency org="javax" name="servlet-api" rev="stable" transitive="false"/>
         <dependency org="javax" name="jsp-api" rev="stable" transitive="false"/>
 		<dependency org="org.apache.commons" name="commons-beanutils" rev="stable" transitive="false"/>
-        <dependency org="org.apache" name="struts" rev="stable" transitive="false"/>
-        
-        
     </dependencies>
 </ivy-module>

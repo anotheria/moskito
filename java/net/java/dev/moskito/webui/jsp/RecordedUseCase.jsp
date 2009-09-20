@@ -1,6 +1,5 @@
-<%@ page language="java" contentType="text/html;charset=iso-8859-15" session="true"
+<%@ page language="java" contentType="text/html;charset=UTF-8" session="true"
 %><%@ taglib uri="/tags/moskito" prefix="msk" 
-%><%@ taglib uri="/tags/struts-logic" prefix="logic" 
 %>
 <html>
 <head>
@@ -11,9 +10,9 @@
 <jsp:include page="Menu.jsp" flush="false"/>
 <h3>Show Recorded Use Case: <msk:write name="recordedUseCase" property="name"/> @ <msk:write name="recordedUseCase" property="date"/>&nbsp; (<msk:write name="recordedUseCase" property="created"/>)</h3>
 <br/>
-<logic:present name="units" scope="request">
+<msk:present name="units" scope="request">
 	<jsp:include page="UnitSelection.jsp" flush="false"/>
-</logic:present>
+</msk:present>
 <br/>
 <br/><br/><br/><br/>
 
@@ -28,15 +27,15 @@ TREE
 		<td>Net duration</td>
 		<td width="1%">Aborted</td>
 	</tr>
-	<logic:iterate name="recordedUseCase" property="elements" type="net.java.dev.moskito.webui.bean.UseCasePathElementBean" id="element" indexId="index">
-		<logic:equal name="element" property="aborted" value="true"><tr class="stat_error"></logic:equal>
-		<logic:notEqual name="element" property="aborted" value="true"><tr class="<%= ((index & 1) == 0 )? "stat_even" : "stat_odd" %>"></logic:notEqual>
-			<td><% for (int i=1; i<element.getLayer(); i++){ %><img src="../img/s.gif"/><%}%><logic:equal name="element" property="root" value="false"><img src="../img/l.gif"/></logic:equal><msk:write name="element" property="call"/></td>
+	<msk:iterate name="recordedUseCase" property="elements" type="net.java.dev.moskito.webui.bean.UseCasePathElementBean" id="element" indexId="index">
+		<msk:equal name="element" property="aborted" value="true"><tr class="stat_error"></msk:equal>
+		<msk:notEqual name="element" property="aborted" value="true"><tr class="<%= ((index & 1) == 0 )? "stat_even" : "stat_odd" %>"></msk:notEqual>
+			<td><% for (int i=1; i<element.getLayer(); i++){ %><img src="../img/s.gif"/><%}%><msk:equal name="element" property="root" value="false"><img src="../img/l.gif"/></msk:equal><msk:write name="element" property="call"/></td>
 			<td><msk:write name="element" property="duration"/></td>
 			<td><msk:write name="element" property="timespent"/></td>
-			<td><logic:equal name="element" property="aborted" value="true">X</logic:equal>
+			<td><msk:equal name="element" property="aborted" value="true">X</msk:equal>
 		</tr>
-	</logic:iterate>
+	</msk:iterate>
 </table>
 <br><br>
 

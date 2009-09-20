@@ -1,6 +1,5 @@
-<%@ page language="java" contentType="text/json;charset=iso-8859-15" session="true"
-%><%@ taglib uri="/tags/struts-bean" prefix="bean" 
-%><%@ taglib uri="/tags/struts-logic" prefix="logic" 
+<%@ page language="java" contentType="text/json;charset=UTF-8" session="true"
+%><%@ taglib uri="/tags/moskito" prefix="msk" 
 %><%@ taglib uri="/tags/json" prefix="json"
 %><%@ page isELIgnored ="false" 
 %><json:object>
@@ -12,15 +11,15 @@
 		<json:property name="interval" value="${currentInterval}"/>
 		<json:property name="timestamp" value="${timestamp}"/>
 		<json:property name="date" value="${timestampAsDate}"/>
-		<logic:iterate name="decorators" id="decorator" type="net.java.dev.moskito.webui.bean.StatDecoratorBean">
+		<msk:iterate name="decorators" id="decorator" type="net.java.dev.moskito.webui.bean.StatDecoratorBean">
 		<json:array name="stats" var="statBean" items="${decorator.stats}">
 			<json:object>
 				<json:property name="name" value="${statBean.name}"/>
-				<logic:iterate name="statBean" property="values" id="value" type="net.java.dev.moskito.webui.bean.StatValueBean" indexId="ind">
+				<msk:iterate name="statBean" property="values" id="value" type="net.java.dev.moskito.webui.bean.StatValueBean" indexId="ind">
 				<json:property name="${value.name}" value="${value.value}"/>
-				</logic:iterate>
+				</msk:iterate>
 			</json:object>
 		</json:array>
-		</logic:iterate>
+		</msk:iterate>
 	</json:object>
 </json:object>

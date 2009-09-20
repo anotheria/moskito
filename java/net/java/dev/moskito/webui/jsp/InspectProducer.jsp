@@ -1,6 +1,5 @@
-<%@ page language="java" contentType="text/html;charset=iso-8859-15" session="true"
+<%@ page language="java" contentType="text/html;charset=UTF-8" session="true"
 %><%@ taglib uri="/tags/moskito" prefix="msk" 
-%><%@ taglib uri="/tags/struts-logic" prefix="logic" 
 %>
 <html>
 <head>
@@ -15,9 +14,9 @@ producer:&nbsp;<msk:write name="producerId"/>&nbsp;
 created at:&nbsp;<msk:write name="creationTime"/>&nbsp;(<msk:write name="creationTimestamp"/>)
 <br/>
 <ul>
-<logic:iterate name="creationTrace" type="java.lang.String" id="line">
+<msk:iterate name="creationTrace" type="java.lang.String" id="line">
 	<li><msk:write name="line"/></li>
-</logic:iterate>
+</msk:iterate>
 </ul>
 
 <br/><br/>
