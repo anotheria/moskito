@@ -1,6 +1,5 @@
-<%@ page language="java" contentType="text/html;charset=iso-8859-15" session="true"
+<%@ page language="java" contentType="text/html;charset=UTF-8" session="true"
 %><%@ taglib uri="/tags/moskito" prefix="msk" 
-%><%@ taglib uri="/tags/struts-logic" prefix="logic" 
 %><%@ page isELIgnored ="false" 
 %>
 <html>
@@ -195,7 +194,7 @@ YAHOO.log("PROFILER created!");
     var sharedContent = Dom.get("TabsShared");
 	this.tabView._contentParent.appendChild(sharedContent);
 <%--
-	<logic:iterate name="menu" id="item" type="net.java.dev.moskito.webui.bean.MenuItemBean">	
+	<msk:iterate name="menu" id="item" type="net.java.dev.moskito.webui.bean.MenuItemBean">	
 	
 
 
@@ -214,7 +213,7 @@ YAHOO.log("PROFILER created!");
     tab.addListener('contentChange', function(e){
     	onContentChanged.fire();
     });
-	</logic:iterate>
+	</msk:iterate>
    --%>
     tabView.appendTo('container');
     tabView.addListener('activeTabChange', function(e){

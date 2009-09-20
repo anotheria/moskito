@@ -1,6 +1,5 @@
-<%@ page language="java" contentType="text/html;charset=iso-8859-15" session="true"
+<%@ page language="java" contentType="text/html;charset=UTF-8" session="true"
 %><%@ taglib uri="/tags/moskito" prefix="msk" 
-%><%@ taglib uri="/tags/struts-logic" prefix="logic" 
 %>
 	<script>
 		YAHOO.util.Event.onDOMReady(function(){
@@ -18,12 +17,12 @@
 					this.tables[i].refresh(Moskito.getQuery());
 			} 
 			
-			<logic:iterate type="net.java.dev.moskito.webui.bean.StatDecoratorBean" id="decorator" name="decorators">
+			<msk:iterate type="net.java.dev.moskito.webui.bean.StatDecoratorBean" id="decorator" name="decorators">
 			tableColumnDefs = [
 				{key:"name", label:"Name",sortable:true,resizeable:true},
-				<logic:iterate name="decorator" property="captions" type="net.java.dev.moskito.webui.bean.StatCaptionBean" id="caption" indexId="ind">
+				<msk:iterate name="decorator" property="captions" type="net.java.dev.moskito.webui.bean.StatCaptionBean" id="caption" indexId="ind">
 				{key:"<msk:write name="caption" property="caption"/>", label:"<msk:write name="caption" property="caption"/>"/*,formatter:YAHOO.widget.DataTable.formatNumber*/,sortable:true,resizeable:true},
-				</logic:iterate>
+				</msk:iterate>
 			];
 		
 			tableDataSource = new YAHOO.util.DataSource('mskShowProducerYUI.json?pProducerId=<msk:write name="producer" property="id"/>&pForward=json');
@@ -32,9 +31,9 @@
 				resultsList : "producer.stats",
 				fields: [
 				 	{key:"name"},
-					<logic:iterate name="decorator" property="captions" type="net.java.dev.moskito.webui.bean.StatCaptionBean" id="caption" indexId="ind">
+					<msk:iterate name="decorator" property="captions" type="net.java.dev.moskito.webui.bean.StatCaptionBean" id="caption" indexId="ind">
 					{key:"<msk:write name="caption" property="caption"/>"/*, parser:YAHOO.util.DataSource.parseNumber*/},
-					</logic:iterate>
+					</msk:iterate>
 				]
 			};
 			table = new YAHOO.anoweb.widget.AnoDataTable("<msk:write name="producer" property="id"/>Box", tableColumnDefs, tableDataSource,
@@ -53,14 +52,14 @@
 				Moskito.unsubscribe(WEBUI.utils.Moskito.EVENT_ON_UPDATE, updateProducers, scope, true);
 			});
 
-			</logic:iterate>
+			</msk:iterate>
 
 
 		});
 	</script>
-<logic:iterate type="net.java.dev.moskito.webui.bean.StatDecoratorBean" id="decorator" name="decorators">
+<msk:iterate type="net.java.dev.moskito.webui.bean.StatDecoratorBean" id="decorator" name="decorators">
 	<h4><msk:write name="decorator" property="name"/>: <msk:write name="producer" property="id"/></h4>
-	<logic:present name="inspectableFlag">
+	<msk:present name="inspectableFlag">
 		<div class="inspect">
 			<div class="yui-cms-accordion fixIE">
 			    <div class="yui-cms-item yui-panel">
@@ -76,6 +75,6 @@
 			    </div>
 			</div>
 		</div>
-	</logic:present> 
+	</msk:present> 
 	<div id="<msk:write name="producer" property="id"/>Box" style="overflow:auto"></div>
-</logic:iterate>
+</msk:iterate>

@@ -1,6 +1,5 @@
-<%@ page language="java" contentType="text/html;charset=iso-8859-15" session="true"
+<%@ page language="java" contentType="text/html;charset=UTF-8" session="true"
 %><%@ taglib uri="/tags/moskito" prefix="msk" 
-%><%@ taglib uri="/tags/struts-logic" prefix="logic" 
 %>
 <html>
 <head>
@@ -96,9 +95,9 @@ border: none;
 <jsp:include page="Menu.jsp" flush="false"/>
 <h3>Show Recorded Use Case: <msk:write name="recordedUseCase" property="name"/> @ <msk:write name="recordedUseCase" property="date"/>&nbsp; (<msk:write name="recordedUseCase" property="created"/>)</h3>
 <br/>
-<logic:present name="units" scope="request">
+<msk:present name="units" scope="request">
 	<jsp:include page="UnitSelection.jsp" flush="false"/>
-</logic:present>
+</msk:present>
 <br/>
 <%--
 <br/><br/><br/><br/>
@@ -118,12 +117,12 @@ TREE END
 		//var tmpNode0 = new YAHOO.widget.TextNode("ROOT", root, false);
 		var tmpNode0 = tree.getRoot();
 		var tmpNode1;
-		<logic:iterate name="nodes" type="net.java.dev.moskito.webui.bean.UseCaseElementNodeBean" id="node" indexId="index">
+		<msk:iterate name="nodes" type="net.java.dev.moskito.webui.bean.UseCaseElementNodeBean" id="node" indexId="index">
 			tmpNode1 = new YAHOO.widget.TextNode("<msk:write name="node" property="callShort"/>", tmpNode0, false);	
 			<% request.setAttribute("subnodes", node.getChildren()); %>
 			<% request.setAttribute("currentDepth", 1); %>
 			<jsp:include page="TreeNode.jsp" flush="false" />
-		</logic:iterate> 
+		</msk:iterate> 
 	    
 	     
 		tree.draw();
@@ -140,15 +139,15 @@ TREE END
 		<td>Net duration</td>
 		<td width="1%">Aborted</td>
 	</tr>
-	<logic:iterate name="recordedUseCase" property="elements" type="net.java.dev.moskito.webui.bean.UseCasePathElementBean" id="element" indexId="index">
-		<logic:equal name="element" property="aborted" value="true"><tr class="stat_error"></logic:equal>
-		<logic:notEqual name="element" property="aborted" value="true"><tr class="<%= ((index & 1) == 0 )? "stat_even" : "stat_odd" %>"></logic:notEqual>
-			<td onmouseover="Tip('<msk:write name="element" property="fullCall"/>', WIDTH, 400)" onmouseout="UnTip()"><% for (int i=1; i<element.getLayer(); i++){ %><%= EMPTY %><%}%><logic:equal name="element" property="root" value="false"><%=IMG%></logic:equal><msk:write name="element" property="call"/></td>
+	<msk:iterate name="recordedUseCase" property="elements" type="net.java.dev.moskito.webui.bean.UseCasePathElementBean" id="element" indexId="index">
+		<msk:equal name="element" property="aborted" value="true"><tr class="stat_error"></msk:equal>
+		<msk:notEqual name="element" property="aborted" value="true"><tr class="<%= ((index & 1) == 0 )? "stat_even" : "stat_odd" %>"></msk:notEqual>
+			<td onmouseover="Tip('<msk:write name="element" property="fullCall"/>', WIDTH, 400)" onmouseout="UnTip()"><% for (int i=1; i<element.getLayer(); i++){ %><%= EMPTY %><%}%><msk:equal name="element" property="root" value="false"><%=IMG%></msk:equal><msk:write name="element" property="call"/></td>
 			<td><msk:write name="element" property="duration"/></td>
 			<td><msk:write name="element" property="timespent"/></td>
-			<td><logic:equal name="element" property="aborted" value="true">X</logic:equal></td>
+			<td><msk:equal name="element" property="aborted" value="true">X</msk:equal></td>
 		</tr>
-	</logic:iterate>
+	</msk:iterate>
 </table>
 <br><br>
 </body>

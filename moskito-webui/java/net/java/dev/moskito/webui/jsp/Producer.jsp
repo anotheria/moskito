@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html;charset=iso-8859-15" session="true"
-%><%@ taglib uri="/tags/struts-logic" prefix="logic" 
+<%@ page language="java" contentType="text/html;charset=UTF-8" session="true"
 %><%@ taglib uri="/tags/moskito" prefix="msk" 
 %>
 <html>
@@ -16,24 +15,24 @@
 <h3>Show Producer</h3>
 <i>This page as <a href="<msk:write name="linkToCurrentPageAsXml"/>&pForward=xml">XML</a>&nbsp;<a href="<msk:write name="linkToCurrentPageAsCsv"/>&pForward=csv">CSV</a></i><br/><br/>
 producer:&nbsp;<msk:write name="producer" property="id"/>
-<logic:present name="inspectableFlag">
+<msk:present name="inspectableFlag">
 	&nbsp;<a href="mskInspectProducer?pProducerId=<msk:write name="producer" property="id"/>">inspect</a>
-</logic:present> 
+</msk:present> 
 <br/>
 <a href="mskShowProducersByCategory">category</a>:&nbsp;<a href="mskShowProducersByCategory?pCategory=<msk:write name="producer" property="category"/>"><msk:write name="producer" property="category"/></a><br/>
 <a href="mskShowProducersBySubsystem">subsystem</a>:&nbsp;<a href="mskShowProducersBySubsystem?pSubsystem=<msk:write name="producer" property="subsystem"/>"><msk:write name="producer" property="subsystem"/></a><br/>
 class:&nbsp;<msk:write name="producer" property="className"/><br/>
 <br/>
-<logic:present name="intervals" scope="request">
+<msk:present name="intervals" scope="request">
 	<jsp:include page="IntervalSelection.jsp" flush="false"/>
-</logic:present>
-<logic:present name="units" scope="request">
+</msk:present>
+<msk:present name="units" scope="request">
 	<jsp:include page="UnitSelection.jsp" flush="false"/>
-</logic:present>
+</msk:present>
 
 
 <br/><br/>
-<logic:iterate type="net.java.dev.moskito.webui.bean.StatDecoratorBean" id="decorator" name="decorators">
+<msk:iterate type="net.java.dev.moskito.webui.bean.StatDecoratorBean" id="decorator" name="decorators">
 	<h4><msk:write name="decorator" property="name"/></h4>
 	<table cellpadding="4" cellspacing="0" border="0">
 		<tr class="stat_header">
@@ -41,23 +40,23 @@ class:&nbsp;<msk:write name="producer" property="className"/><br/>
 			--%>&nbsp;<a href="<msk:write name="linkToCurrentPage"/>&<msk:write name="decorator" property="sortByParameterName"/>=1000&<msk:write name="decorator" property="sortOrderParameterName"/>=ASC"><%=ASC%></a><%--
 			--%><a href="<msk:write name="linkToCurrentPage"/>&<msk:write name="decorator" property="sortByParameterName"/>=1000&<msk:write name="decorator" property="sortOrderParameterName"/>=DESC"><%=DESC%></a><%--
 			--%></td>
-			<logic:iterate name="decorator" property="captions" type="net.java.dev.moskito.webui.bean.StatCaptionBean" id="caption" indexId="ind">
+			<msk:iterate name="decorator" property="captions" type="net.java.dev.moskito.webui.bean.StatCaptionBean" id="caption" indexId="ind">
 				<td><msk:write name="caption" property="caption"/><%--
 					--%>&nbsp;<a href="<msk:write name="linkToCurrentPage"/>&<msk:write name="decorator" property="sortByParameterName"/>=<msk:write name="ind"/>&<msk:write name="decorator" property="sortOrderParameterName"/>=ASC"><%=ASC%></a><%--
 					--%><a href="<msk:write name="linkToCurrentPage"/>&<msk:write name="decorator" property="sortByParameterName"/>=<msk:write name="ind"/>&<msk:write name="decorator" property="sortOrderParameterName"/>=DESC"><%=DESC%></a><%--
 				--%></td>
-			</logic:iterate>
+			</msk:iterate>
 		</tr>
-		<logic:iterate name="decorator" property="stats" id="stat" type="net.java.dev.moskito.webui.bean.StatBean" indexId="index">
+		<msk:iterate name="decorator" property="stats" id="stat" type="net.java.dev.moskito.webui.bean.StatBean" indexId="index">
 			<tr class="<%= ((index & 1) == 0 )? "stat_even" : "stat_odd" %>">
 				<td><msk:write name="stat" property="name"/></td>
-				<logic:iterate name="stat" property="values" id="value" type="net.java.dev.moskito.webui.bean.StatValueBean">
+				<msk:iterate name="stat" property="values" id="value" type="net.java.dev.moskito.webui.bean.StatValueBean">
 					<td title="<msk:write name="stat" property="name"/>.<msk:write name="value" property="name"/> = <msk:write name="value" property="value"/>"><msk:write name="value" property="value"/></td>
-				</logic:iterate>
+				</msk:iterate>
 			</tr>
-		</logic:iterate>
+		</msk:iterate>
 	</table>
-</logic:iterate>
+</msk:iterate>
 <br/><br/>
 <small>Generated at <msk:write name="timestampAsDate"/>, timestamp: <msk:write name="timestamp"/></small>
 

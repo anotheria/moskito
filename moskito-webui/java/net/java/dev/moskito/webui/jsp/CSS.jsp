@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/css;charset=iso-8859-15" session="false"
+<%@ page language="java" contentType="text/css;charset=UTF-8" session="false"
 %>
 a:link,
 a:active,

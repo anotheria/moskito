@@ -1,6 +1,5 @@
-<%@ page language="java" contentType="text/html;charset=iso-8859-15" session="true"
+<%@ page language="java" contentType="text/html;charset=UTF-8" session="true"
 %><%@ taglib uri="/tags/moskito" prefix="msk" 
-%><%@ taglib uri="/tags/struts-logic" prefix="logic" 
 %><%@ page isELIgnored ="false" 
 %>
 
@@ -69,7 +68,7 @@
 <div id="AllProducers">
 	<div class="producerAccordion">
 	<div class="yui-cms-accordion multiple">
-	<logic:iterate type="net.java.dev.moskito.webui.bean.ProducerDecoratorBean" id="decorator" name="decorators">	
+	<msk:iterate type="net.java.dev.moskito.webui.bean.ProducerDecoratorBean" id="decorator" name="decorators">	
 	<div id="<msk:write name="decorator" property="name"/>Panel" class="yui-cms-item yui-panel selected">
         <h3>
         	<a class="accordionToggleItem" title="click to expand" href="#">&nbsp;</a><msk:write name="decorator" property="name"/>&nbsp;&nbsp;<small><i>(<a target="_blank" href="mskShowExplanations#<msk:write name="decorator" property="name"/>">Explain</a>)</i></small>
@@ -80,7 +79,7 @@
           </div>
         </div>
     </div>
-	</logic:iterate>
+	</msk:iterate>
 	</div>
 	</div>
 </div>

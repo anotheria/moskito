@@ -1,9 +1,8 @@
-<%@ page language="java" contentType="text/plain;charset=iso-8859-15" session="true"
-%><%@ taglib uri="/tags/struts-bean" prefix="bean" 
-%><%@ taglib uri="/tags/struts-logic" prefix="logic" 
+<%@ page language="java" contentType="text/plain;charset=UTF-8" session="true"
+%><%@ taglib uri="/tags/moskito" prefix="msk" 
 %><%@ taglib uri="/tags/json" prefix="json"
 %><%@ page isELIgnored ="false" 
-%><bean:define id="currentTimeUnit" name='moskito.CurrentUnit' property="unitName"
+%><msk:define id="currentTimeUnit" name='moskito.CurrentUnit' property="unitName"
 />moskito
 	interval=${currentInterval}
 	timeUnit=${currentTimeUnit}
@@ -12,17 +11,17 @@
 	timestamp=${timestamp}
 	date=${timestampAsDate}
 	decorators
-		<logic:iterate type="net.java.dev.moskito.webui.bean.ProducerDecoratorBean" id="decorator" name="decorators">
+		<msk:iterate type="net.java.dev.moskito.webui.bean.ProducerDecoratorBean" id="decorator" name="decorators">
 		#############################################################################################################################
 		name="${decorator.name}
 		-----------------------------------------------------------------------------------------------------------------------------
-		<logic:iterate name="decorator" property="producers" id="producer" type="net.java.dev.moskito.webui.bean.ProducerBean">
+		<msk:iterate name="decorator" property="producers" id="producer" type="net.java.dev.moskito.webui.bean.ProducerBean">
 		producer=${producer.id}
 		category=${producer.category}
 		subsystem=${producer.subsystem}
-		<logic:iterate name="producer" property="values" id="value" type="net.java.dev.moskito.webui.bean.StatValueBean" indexId="ind"
+		<msk:iterate name="producer" property="values" id="value" type="net.java.dev.moskito.webui.bean.StatValueBean" indexId="ind"
 		>${value.name}=${value.value}
-		</logic:iterate
+		</msk:iterate
 		>class=${producer.className}
-		</logic:iterate>
-		</logic:iterate>						
+		</msk:iterate>
+		</msk:iterate>						
