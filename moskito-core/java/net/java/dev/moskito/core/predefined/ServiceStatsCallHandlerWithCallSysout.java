@@ -45,18 +45,36 @@ import net.java.dev.moskito.core.usecase.running.PathElement;
 import net.java.dev.moskito.core.usecase.running.RunningUseCase;
 import net.java.dev.moskito.core.usecase.running.RunningUseCaseContainer;
 
+/**
+ * This CallHandler prints out all requests that passes throw it to the standart out.
+ * @author lrosenberg
+ *
+ */
 public class ServiceStatsCallHandlerWithCallSysout implements IOnDemandCallHandler{
-	
+	/**
+	 * Counter for calls.
+	 */
 	private AtomicLong callCounter = new AtomicLong(0);
+	/**
+	 * Counter for instances.
+	 */
 	private static AtomicLong instanceCounter = new AtomicLong(0);
+	/**
+	 * Id of the current instance.
+	 */
 	private long instanceId;
+	/**
+	 * Call counter for all instances.
+	 */
 	private static AtomicLong overallCallCounter = new AtomicLong(0);
-	
+	/**
+	 * Creates a new ServiceStatsCallHandlerWithCallSysout.
+	 */
 	public ServiceStatsCallHandlerWithCallSysout(){
 		instanceId = instanceCounter.incrementAndGet();
 	}
 
-	public Object invoke(Object target, Object[] args, Method method, Class<?> targetClass, Class<?>[] declaredExceptions, IStats _defaultStats, IStats _methodStats, String producerId) throws Throwable {
+	@Override public Object invoke(Object target, Object[] args, Method method, Class<?> targetClass, Class<?>[] declaredExceptions, IStats _defaultStats, IStats _methodStats, String producerId) throws Throwable {
 		
 		String callId = overallCallCounter.incrementAndGet()+"-"+instanceId + "-"+callCounter.incrementAndGet();
 		
