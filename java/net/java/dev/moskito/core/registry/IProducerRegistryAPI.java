@@ -43,49 +43,50 @@ import net.java.dev.moskito.core.producers.IStatsProducer;
  * This interface provides the API which should be used by tools for producer monitoring instead of the registry itself.
  * It provides an additional abstraction layer. Depending on the implementation some caching could also be provided,
  * to reduce overhead. 
- * @author another
+ * @author lrosenberg
  *
  */
 public interface IProducerRegistryAPI {
+	/*
+	 * Returns all registered producers.
+	 */
 	public List<IStatsProducer> getAllProducers();
-	
+	/**
+	 * Returns all registered producers for the given category.
+	 * @param category
+	 * @return
+	 */
 	public List<IStatsProducer> getAllProducersByCategory(String category);
 	
+	/**
+	 * Returns all registered producers for the given subsystem.
+	 * @param subsystem
+	 * @return
+	 */
 	public List<IStatsProducer> getAllProducersBySubsystem(String subsystem);
-	
+	/**
+	 * Returns the producer with the given producerId.
+	 * @param producerId
+	 * @return
+	 */
 	public IStatsProducer getProducer(String producerId);
-	
+	/**
+	 * Returns a filtered list of producers.
+	 * @param filters
+	 * @return
+	 */
 	public List<IStatsProducer> getProducers(IProducerFilter... filters);
-	
+	/**
+	 * Returns the list of available categories.
+	 * @return
+	 */
 	public List<String> getCategories();
-	
+	/**
+	 * Returns the list of available subsystems.
+	 * @return
+	 */
 	public List<String> getSubsystems();
 	
 	//// convenience methods.
 	public List<IntervalInfo> getPresentIntervals();
 } 
-
-/* ------------------------------------------------------------------------- *
- * $Log: IProducerRegistryAPI.java,v $
- * Revision 1.3  2008/12/21 20:56:46  metelin
- * *** empty log message ***
- *
- * Revision 1.2  2006/07/22 22:49:19  dvayanu
- * Issue number:  1
- *
- * Revision 1.1  2006/06/11 20:00:56  miros
- * #3: Refactored source files to comply the new project structure.
- *
- * Revision 1.1  2006/06/11 15:15:02  miros
- * #3: Initial commit with new project structure.
- *
- * Revision 1.1  2006/06/07 20:52:39  dvayanu
- * initial
- *
- * Revision 1.2  2006/05/28 23:25:08  lrosenberg
- * *** empty log message ***
- *
- * Revision 1.1  2006/05/26 15:42:30  lrosenberg
- * *** empty log message ***
- *
- */
