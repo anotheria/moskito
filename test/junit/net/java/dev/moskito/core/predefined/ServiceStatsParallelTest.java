@@ -30,7 +30,7 @@ public class ServiceStatsParallelTest {
 		long duration = System.nanoTime() - startTime;
 		
 		
-		///*
+		/*
 		System.out.println(stats.getTotalRequests());
 		System.out.println(stats.getCurrentRequests());
 		System.out.println(stats.getMaxCurrentRequests());
