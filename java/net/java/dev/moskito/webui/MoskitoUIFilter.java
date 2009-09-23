@@ -31,7 +31,8 @@ public class MoskitoUIFilter implements Filter, IStatsProducer{
 	private List<IStats> cachedStatList;
 	
 	private String path;
-
+	private String pathToImages = "../img/";
+	
 	@Override
 	public void destroy() {
 		
@@ -48,6 +49,10 @@ public class MoskitoUIFilter implements Filter, IStatsProducer{
 		if (path==null)
 			path = "";
 		
+		String pathToImagesParameter = config.getInitParameter("pathToImages");
+		if (pathToImagesParameter!=null && pathToImagesParameter.length()>0)
+			pathToImages = pathToImagesParameter;
+		config.getServletContext().setAttribute("mskPathToImages", pathToImages);
 	}
 
 	@Override
