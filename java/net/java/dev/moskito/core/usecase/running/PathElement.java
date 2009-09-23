@@ -37,12 +37,31 @@ package net.java.dev.moskito.core.usecase.running;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * A path element along the monitoring points in a running use case.
+ * @author another
+ *
+ */
 public class PathElement {
+	/**
+	 * Call description, might be a method call or whatever suits best.
+	 */
 	private String call;
+	/**
+	 * Sub elements.
+	 */
 	private List<PathElement> children;
+	/**
+	 * Parent element.
+	 */
 	private PathElement parent;
-	
+	/**
+	 * Duration of this element.
+	 */
 	private long duration;
+	/**
+	 * If true the execution was aborted (by an exception).
+	 */
 	private boolean aborted;
 	
 	public PathElement(String aCall){
@@ -135,6 +154,10 @@ public class PathElement {
 		this.duration = duration;
 	}
 
+	/**
+	 * Appends additional string to the call description.
+	 * @param s
+	 */
 	public void appendToCall(String s){
 		call += s;
 	}

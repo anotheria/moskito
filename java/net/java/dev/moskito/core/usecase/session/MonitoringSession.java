@@ -6,12 +6,31 @@ import java.util.List;
 import net.java.dev.moskito.core.usecase.running.ExistingRunningUseCase;
 
 public class MonitoringSession {
+	/**
+	 * Name of the session.
+	 */
 	private String name;
+	/**
+	 * UseCases (Calls) in this session.
+	 */
 	private List<ExistingRunningUseCase> useCases;
+	/**
+	 * True if the session is still actively recorded.
+	 */
 	private boolean active;
+	/**
+	 * Timestamp of the session creation.
+	 */
 	private long createdTimestamp;
+	/**
+	 * Timestamp of last activity in this session.
+	 */
 	private long lastActivityTimestamp;
 	
+	/**
+	 * Creates a new monitoring session with a given name.
+	 * @param aName
+	 */
 	public MonitoringSession(String aName){
 		name = aName;
 		createdTimestamp = System.currentTimeMillis();
@@ -19,6 +38,10 @@ public class MonitoringSession {
 		useCases = new ArrayList<ExistingRunningUseCase>();
 	}
 	
+	/**
+	 * Adds a use case (call) to this session.
+	 * @param aUseCase
+	 */
 	public void addUseCase(ExistingRunningUseCase aUseCase){
 		useCases.add(aUseCase);
 		lastActivityTimestamp = System.currentTimeMillis();
