@@ -36,12 +36,16 @@ package net.java.dev.moskito.core.inspection;
 
 /**
  * An object that stores the info about the creation of another object. As for now the timestamp of the creation is stored along with the stacktrace.
- * @author another
- *
+ * @author lrosenberg
  */
 public class CreationInfo {
+	/**
+	 * Timestamp of the creation.
+	 */
 	private long timestamp;
-	
+	/**
+	 * Stack trace of the creation.
+	 */
 	private StackTraceElement[] stackTrace;
 	
 	public CreationInfo(StackTraceElement[] aStackTrace){

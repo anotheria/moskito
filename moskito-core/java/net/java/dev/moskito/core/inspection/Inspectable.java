@@ -36,7 +36,7 @@ package net.java.dev.moskito.core.inspection;
 
 /**
  * Defines producers which can be further "inspected". For now the only inspection feature supported is creation info.
- * @author another
+ * @author lrosenberg
  *
  */
 public interface Inspectable {
@@ -44,5 +44,5 @@ public interface Inspectable {
 	 * Returns the creation info of this object.
 	 * @return creation info object
 	 */
-	public CreationInfo getCreationInfo(); 
+	CreationInfo getCreationInfo(); 
 }
