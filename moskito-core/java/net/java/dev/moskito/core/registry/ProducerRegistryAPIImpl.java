@@ -65,13 +65,10 @@ public class ProducerRegistryAPIImpl implements IProducerRegistryAPI, IProducerR
 	private IProducerRegistry registry;
 	private IntervalRegistry intervalRegistry;
 	
-	private Object cacheLock;
-	private Object intervalLock;
+	private static final Object cacheLock = new Object();
+	private static final Object intervalLock = new Object();
 	
 	ProducerRegistryAPIImpl(){
-		cacheLock = new Object();
-		intervalLock = new Object();
-		
 		_cachedProducerList = null;
 		_cachedProducerMap = null;
 		_cachedIntervalInfos = null;
@@ -105,11 +102,12 @@ public class ProducerRegistryAPIImpl implements IProducerRegistryAPI, IProducerR
 			for (IStatsProducer p : producers)
 				_cachedProducerMap.put(p.getProducerId(), p);
 		}
-		log.debug("Cachedproducer list contains "+_cachedProducerList.size()+" producers: ");
-		log.debug(_cachedProducerList);
-		//
-		log.debug("Cached producer map contains: "+_cachedProducerMap.size()+" producers");
-		log.debug(_cachedProducerMap);
+		if (log.isDebugEnabled()){
+			log.debug("Cachedproducer list contains "+_cachedProducerList.size()+" producers: ");
+			log.debug(_cachedProducerList);
+			log.debug("Cached producer map contains: "+_cachedProducerMap.size()+" producers");
+			log.debug(_cachedProducerMap);
+		}
 	}
 
 	//we should look into synchronizing access to this method, since the listener can possible remove a 
@@ -128,7 +126,7 @@ public class ProducerRegistryAPIImpl implements IProducerRegistryAPI, IProducerR
 		return getProducers(new SubsystemFilter(subsystem));
 	}
 
-	public List<IntervalInfo> getPresentIntervals() {
+	@Override public List<IntervalInfo> getPresentIntervals() {
 		if (_cachedIntervalInfos==null)
 			createIntervalList();
 		return _cachedIntervalInfos;
@@ -147,7 +145,7 @@ public class ProducerRegistryAPIImpl implements IProducerRegistryAPI, IProducerR
 		}
 	}
 	
-	public void intervalUpdated(Interval aCaller) {
+	@Override public void intervalUpdated(Interval aCaller) {
 		IntervalInfo dummy = new IntervalInfo(aCaller);
 		synchronized(intervalLock){
 			int index = _cachedIntervalInfos.indexOf(dummy);
@@ -160,13 +158,13 @@ public class ProducerRegistryAPIImpl implements IProducerRegistryAPI, IProducerR
 	/**
 	 * @see net.java.dev.moskito.core.stats.IntervalRegistryListener#intervalCreated(net.java.dev.moskito.core.stats.Interval)
 	 */
-	public void intervalCreated(Interval aInterval) {
+	@Override public void intervalCreated(Interval aInterval) {
 		synchronized(intervalLock){
 			_cachedIntervalInfos.add(new IntervalInfo(aInterval));
 		}
 	}
 
-	public IStatsProducer getProducer(String producerId) {
+	@Override public IStatsProducer getProducer(String producerId) {
 		if (_cachedProducerList==null)
 			buildProducerCacheFromScratch();
 
@@ -175,7 +173,7 @@ public class ProducerRegistryAPIImpl implements IProducerRegistryAPI, IProducerR
 		}
 	}
 
-	public List<IStatsProducer> getProducers(IProducerFilter... filters) {
+	@Override public List<IStatsProducer> getProducers(IProducerFilter... filters) {
 		if (_cachedProducerList==null)
 			buildProducerCacheFromScratch();
 		List <IStatsProducer> ret = new ArrayList<IStatsProducer>();
@@ -194,7 +192,7 @@ public class ProducerRegistryAPIImpl implements IProducerRegistryAPI, IProducerR
 		return ret;
 	}
 
-	public void notifyProducerRegistered(IStatsProducer producer) {
+	@Override public void notifyProducerRegistered(IStatsProducer producer) {
 		log.info("Producer registered: "+producer.getProducerId()+" / "+producer);
 		if (_cachedProducerList==null)
 			return;
@@ -204,7 +202,7 @@ public class ProducerRegistryAPIImpl implements IProducerRegistryAPI, IProducerR
 		}
 	}
 
-	public void notifyProducerUnregistered(IStatsProducer producer) {
+	@Override public void notifyProducerUnregistered(IStatsProducer producer) {
 		log.info("Producer unregistered: "+producer.getProducerId()+" / "+producer);
 		if (_cachedProducerList==null)
 			return;
@@ -214,7 +212,7 @@ public class ProducerRegistryAPIImpl implements IProducerRegistryAPI, IProducerR
 		}
 	}
 
-	public List<String> getCategories() {
+	@Override public List<String> getCategories() {
 		List<String> ret = new ArrayList<String>();
 		List<IStatsProducer> producers = getAllProducers();
 		for (IStatsProducer p : producers){
@@ -224,7 +222,7 @@ public class ProducerRegistryAPIImpl implements IProducerRegistryAPI, IProducerR
 		return ret;
 	}
 
-	public List<String> getSubsystems() {
+	@Override public List<String> getSubsystems() {
 		List<String> ret = new ArrayList<String>();
 		List<IStatsProducer> producers = getAllProducers();
 		for (IStatsProducer p : producers){

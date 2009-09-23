@@ -35,9 +35,21 @@
 package net.java.dev.moskito.core.registry;
 
 import net.java.dev.moskito.core.producers.IStatsProducer;
-
+/**
+ * Interface for internal registry updates listener.
+ * @author lrosenberg
+ *
+ */
 public interface IProducerRegistryListener {
-	public void notifyProducerRegistered(IStatsProducer producer);
+	/**
+	 * Called whenever a new producer is registered.
+	 * @param producer
+	 */
+	void notifyProducerRegistered(IStatsProducer producer);
 	
-	public void notifyProducerUnregistered(IStatsProducer producer);
+	/**
+	 * Called whenever a producer is unregistered.
+	 * @param producer
+	 */
+	void notifyProducerUnregistered(IStatsProducer producer);
 }

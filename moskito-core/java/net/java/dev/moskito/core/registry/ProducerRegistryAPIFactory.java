@@ -33,8 +33,15 @@
  * THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */	
 package net.java.dev.moskito.core.registry;
-
+/**
+ * Factory for producer registry.
+ * @author lrosenberg
+ */
 public class ProducerRegistryAPIFactory {
+	/**
+	 * Creates a producer registry api instance.
+	 * @return
+	 */
 	public IProducerRegistryAPI createProducerRegistryAPI(){
 		return new ProducerRegistryAPIImpl();
 	}
