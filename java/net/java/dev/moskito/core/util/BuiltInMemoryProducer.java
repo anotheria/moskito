@@ -12,14 +12,25 @@ import net.java.dev.moskito.core.timing.timer.TimerServiceFactory;
 
 /**
  * A builtin memory producer for Runtime.get... memory methods. 
- * @author another
+ * @author lrosenberg
  *
  */
 public class BuiltInMemoryProducer implements IStatsProducer, ITimerConsumer{
-	
+	/**
+	 * The id of the producer.
+	 */
 	private String producerId;
+	/**
+	 * Stats.
+	 */
 	private MemoryStats stats;
+	/**
+	 * Cached stats list.
+	 */
 	private List<IStats> statsList;
+	/**
+	 * The resolver for memory values reading.
+	 */
 	private RuntimeMemoryResolver resolver;
 	
 	public static final String FREE = "JavaRuntimeFree";
@@ -67,6 +78,11 @@ public class BuiltInMemoryProducer implements IStatsProducer, ITimerConsumer{
 		return SUBSYSTEM_BUILTIN;
 	}
 	
+	/**
+	 * Resolver interface for different subtypes of memory usage (free, total, max).
+	 * @author another
+	 *
+	 */
 	private interface RuntimeMemoryResolver {
 		public long getMemoryValue();
 	}

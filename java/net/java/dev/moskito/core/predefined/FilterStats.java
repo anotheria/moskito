@@ -36,19 +36,32 @@ package net.java.dev.moskito.core.predefined;
 
 import net.java.dev.moskito.core.stats.Interval;
 
+/**
+ * Stats for HTTPFilters.
+ * @author lrosenberg
+ *
+ */
 public class FilterStats extends ServletStats{
 	/**
-	 * Creates a new MethodStats object with the given method name.
+	 * Creates a new FilterStats object with the given method name.
 	 * @param aMethodName
 	 */
 	public FilterStats(String aMethodName){
 		super(aMethodName);
 	}
 	
+	/**
+	 * Creates a new FilterStats object.
+	 */
 	public FilterStats(){
 		super();
 	}
 	
+	/**
+	 * Creates a new FilterStats object with given name and intervals.
+	 * @param aMethodName
+	 * @param intervals
+	 */
 	public FilterStats(String aMethodName, Interval[] intervals){
 		super(aMethodName, intervals);
 	}

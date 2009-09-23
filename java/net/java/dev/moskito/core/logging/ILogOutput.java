@@ -36,7 +36,7 @@ package net.java.dev.moskito.core.logging;
 
 /**
  * Defines a connectable logger which can be used with the built-in logging facilities to actually write a log message. Used by the predefined loggers.
- * @author another
+ * @author lrosenberg
  *
  */
 public interface ILogOutput {
