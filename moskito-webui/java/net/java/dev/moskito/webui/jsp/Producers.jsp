@@ -8,15 +8,10 @@
 </head>
 <body>
 <script type="text/javascript" src="../js/wz_tooltip.js"></script>
-<% 
-	//String ASC = "<img src=\"/static/msk/img/msk_u.gif\" border=\"0\" alt=\"Sort ascending\">";
-	//String DESC = "<img src=\"/static/msk/img/msk_d.gif\" border=\"0\" alt=\"Sort descending\">";
-	String ASC = "<img src=\"../img/msk_u.gif\" border=\"0\" alt=\"Sort ascending\">";
-	String DESC = "<img src=\"../img/msk_d.gif\" border=\"0\" alt=\"Sort descending\">";
-%>
-	
-<jsp:include page="Menu.jsp" flush="false"/>
-<h3>Show Producers <msk:write name="pageTitle"/></h3>
+<msk:define id="ASC" type="java.lang.String"><img src="<msk:write name="mskPathToImages" scope="application"/>msk_u.gif" border="0" alt="Sort ascending"></msk:define
+><msk:define id="DESC" type="java.lang.String"><img src="<msk:write name="mskPathToImages" scope="application"/>msk_d.gif" border="0" alt="Sort descending"></msk:define
+><jsp:include page="Menu.jsp" flush="false"
+/><h3>Show Producers <msk:write name="pageTitle"/></h3>
 <i>This page as&nbsp;<a href="<msk:write name="linkToCurrentPageAsXml"/>&pForward=xml">XML</a>&nbsp;<a href="<msk:write name="linkToCurrentPageAsCsv"/>&pForward=csv">CSV</a></i><br/>
 <br/>
 <msk:present name="intervals" scope="request">
@@ -40,27 +35,27 @@
 	<table cellpadding="4" cellspacing="0" border="0" id="<msk:write name="decorator" property="name"/>_table">
 		<tr class="stat_header">
 			<td>Producer Id<%--
-			--%>&nbsp;<a href="<msk:write name="linkToCurrentPage"/>&<msk:write name="decorator" property="sortByParameterName"/>=1000&<msk:write name="decorator" property="sortOrderParameterName"/>=ASC"><%=ASC%></a><%--
-			--%><a href="<msk:write name="linkToCurrentPage"/>&<msk:write name="decorator" property="sortByParameterName"/>=1000&<msk:write name="decorator" property="sortOrderParameterName"/>=DESC"><%=DESC%></a><%--
+			--%>&nbsp;<a href="<msk:write name="linkToCurrentPage"/>&<msk:write name="decorator" property="sortByParameterName"/>=1000&<msk:write name="decorator" property="sortOrderParameterName"/>=ASC"><msk:write name="ASC"/></a><%--
+			--%><a href="<msk:write name="linkToCurrentPage"/>&<msk:write name="decorator" property="sortByParameterName"/>=1000&<msk:write name="decorator" property="sortOrderParameterName"/>=DESC"><msk:write name="DESC"/></a><%--
 			--%></td>
 			<td>Category<%--
-			--%>&nbsp;<a href="<msk:write name="linkToCurrentPage"/>&<msk:write name="decorator" property="sortByParameterName"/>=1001&<msk:write name="decorator" property="sortOrderParameterName"/>=ASC"><%=ASC%></a><%--
-			--%><a href="<msk:write name="linkToCurrentPage"/>&<msk:write name="decorator" property="sortByParameterName"/>=1001&<msk:write name="decorator" property="sortOrderParameterName"/>=DESC"><%=DESC%></a><%--
+			--%>&nbsp;<a href="<msk:write name="linkToCurrentPage"/>&<msk:write name="decorator" property="sortByParameterName"/>=1001&<msk:write name="decorator" property="sortOrderParameterName"/>=ASC"><msk:write name="ASC"/></a><%--
+			--%><a href="<msk:write name="linkToCurrentPage"/>&<msk:write name="decorator" property="sortByParameterName"/>=1001&<msk:write name="decorator" property="sortOrderParameterName"/>=DESC"><msk:write name="DESC"/></a><%--
 			--%></td>
 			<td>Subsystem<%--
-			--%>&nbsp;<a href="<msk:write name="linkToCurrentPage"/>&<msk:write name="decorator" property="sortByParameterName"/>=1002&<msk:write name="decorator" property="sortOrderParameterName"/>=ASC"><%=ASC%></a><%--
-			--%><a href="<msk:write name="linkToCurrentPage"/>&<msk:write name="decorator" property="sortByParameterName"/>=1002&<msk:write name="decorator" property="sortOrderParameterName"/>=DESC"><%=DESC%></a><%--
+			--%>&nbsp;<a href="<msk:write name="linkToCurrentPage"/>&<msk:write name="decorator" property="sortByParameterName"/>=1002&<msk:write name="decorator" property="sortOrderParameterName"/>=ASC"><msk:write name="ASC"/></a><%--
+			--%><a href="<msk:write name="linkToCurrentPage"/>&<msk:write name="decorator" property="sortByParameterName"/>=1002&<msk:write name="decorator" property="sortOrderParameterName"/>=DESC"><msk:write name="DESC"/></a><%--
 			--%></td>
 			<msk:iterate name="decorator" property="captions" type="net.java.dev.moskito.webui.bean.StatCaptionBean" id="caption" indexId="ind">
 				<td title="<msk:write name="caption" property="shortExplanation"/>">
 					<msk:write name="caption" property="caption"/><%--
-					--%>&nbsp;<a title="ascending sort by <msk:write name="caption" property="shortExplanationLowered"/>" href="<msk:write name="linkToCurrentPage"/>&<msk:write name="decorator" property="sortByParameterName"/>=<msk:write name="ind"/>&<msk:write name="decorator" property="sortOrderParameterName"/>=ASC"><%=ASC%></a><%--
-					--%><a title="descending sort by <msk:write name="caption" property="shortExplanationLowered"/>" href="<msk:write name="linkToCurrentPage"/>&<msk:write name="decorator" property="sortByParameterName"/>=<msk:write name="ind"/>&<msk:write name="decorator" property="sortOrderParameterName"/>=DESC"><%=DESC%></a>
+					--%>&nbsp;<a title="ascending sort by <msk:write name="caption" property="shortExplanationLowered"/>" href="<msk:write name="linkToCurrentPage"/>&<msk:write name="decorator" property="sortByParameterName"/>=<msk:write name="ind"/>&<msk:write name="decorator" property="sortOrderParameterName"/>=ASC"><msk:write name="ASC"/></a><%--
+					--%><a title="descending sort by <msk:write name="caption" property="shortExplanationLowered"/>" href="<msk:write name="linkToCurrentPage"/>&<msk:write name="decorator" property="sortByParameterName"/>=<msk:write name="ind"/>&<msk:write name="decorator" property="sortOrderParameterName"/>=DESC"><msk:write name="DESC"/></a>
 				</td>
 			</msk:iterate>
 			<td>class<%--
-			--%>&nbsp;<a href="<msk:write name="linkToCurrentPage"/>&<msk:write name="decorator" property="sortByParameterName"/>=1003&<msk:write name="decorator" property="sortOrderParameterName"/>=ASC"><%=ASC%></a><%--
-			--%><a href="<msk:write name="linkToCurrentPage"/>&<msk:write name="decorator" property="sortByParameterName"/>=1003&<msk:write name="decorator" property="sortOrderParameterName"/>=DESC"><%=DESC%></a><%--
+			--%>&nbsp;<a href="<msk:write name="linkToCurrentPage"/>&<msk:write name="decorator" property="sortByParameterName"/>=1003&<msk:write name="decorator" property="sortOrderParameterName"/>=ASC"><msk:write name="ASC"/></a><%--
+			--%><a href="<msk:write name="linkToCurrentPage"/>&<msk:write name="decorator" property="sortByParameterName"/>=1003&<msk:write name="decorator" property="sortOrderParameterName"/>=DESC"><msk:write name="DESC"/></a><%--
 			--%></td>
 		</tr>
 		<msk:iterate name="decorator" property="producers" id="producer" type="net.java.dev.moskito.webui.bean.ProducerBean" indexId="index">
