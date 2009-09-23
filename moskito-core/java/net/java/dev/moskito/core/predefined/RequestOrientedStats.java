@@ -321,8 +321,16 @@ public abstract class RequestOrientedStats extends AbstractStats {
 		return minTime.getValueAsLong(intervalName);
 	}
 
+	public long getMinTime() {
+		return minTime.getValueAsLong(null);
+	}
+
 	public long getMaxTime(String intervalName) {
 		return maxTime.getValueAsLong(intervalName);
+	}
+
+	public long getMaxTime() {
+		return maxTime.getValueAsLong(null);
 	}
 
 	public String getName() {
