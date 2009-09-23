@@ -38,14 +38,24 @@ import net.java.dev.moskito.core.stats.Interval;
 import net.java.dev.moskito.core.stats.StatValue;
 import net.java.dev.moskito.core.stats.impl.StatValueFactory;
 
+/**
+ * Predefined stats collection for servlets.
+ * @author lrosenberg
+ *
+ */
 public class ServletStats extends RequestOrientedStats{
 	/**
-	 * Errors occured in this method / class and caught by the surrounding stub/skeleton.
+	 * IOExceptions occured in this method / class and caught by the surrounding stub/skeleton.
 	 */
 	private StatValue ioExceptions;
 	
+	/**
+	 * Servlet exceptions.
+	 */
 	private StatValue servletExceptions;
-	
+	/**
+	 * Runtime exceptions.
+	 */
 	private StatValue runtimeExceptions;
 
 	/**
@@ -67,6 +77,9 @@ public class ServletStats extends RequestOrientedStats{
 		initializeMe();
 	}
 
+	/**
+	 * Initializes this object.
+	 */
 	private void initializeMe(){
 		Long pattern = new Long(0);
 		ioExceptions = StatValueFactory.createStatValue(pattern, "ioexceptions", getSelectedIntervals());
@@ -74,7 +87,7 @@ public class ServletStats extends RequestOrientedStats{
 		runtimeExceptions = StatValueFactory.createStatValue(pattern, "runtimeExceptions", getSelectedIntervals());
 	}
 	
-	public String toStatsString(String intervalName){
+	@Override public String toStatsString(String intervalName){
 		String ret = "";
 		ret += " TR: "+getTotalRequests(intervalName);
 		ret += " TT: "+getTotalTime(intervalName);
@@ -91,38 +104,70 @@ public class ServletStats extends RequestOrientedStats{
 		return ret;
 	}
 
+	/**
+	 * Called if a servlet exception has been caught.
+	 */
 	public void notifyServletException(){
 		servletExceptions.increase();
 	}
-	
+	/**
+	 * Called if an io exception has been caught.
+	 */
 	public void notifyIOException(){
 		ioExceptions.increase();
 	}
-	
+	/**
+	 * Called if a runtime exception has been caught.
+	 */
 	public void notifyRuntimeException(){
 		runtimeExceptions.increase();
 	}
-
+	/**
+	 * Returns the number of io exceptions since start.
+	 * @return
+	 */
 	public long getIoExceptions() {
 		return getIoExceptions(null);
 	}
-
+	/**
+	 * Returns the number of runtime exceptions since start.
+	 * @return
+	 */
 	public long getRuntimeExceptions() {
 		return getRuntimeExceptions(null);
 	}
 
+	/**
+	 * Returns the number of servlet exceptions since start.
+	 * @return
+	 */
 	public long getServletExceptions() {
 		return getServletExceptions(null);
 	}
 	
+	/**
+	 * Returns the number of io exceptions for given interval.
+	 * @param interval
+	 * @return
+	 */
 	public long getIoExceptions(String interval) {
 		return ioExceptions.getValueAsLong(interval);
 	}
 
+	/**
+	 * Returns the number of runtime exceptions for given interval.
+	 * @param interval
+	 * @return
+	 */
 	public long getRuntimeExceptions(String interval) {
 		return runtimeExceptions.getValueAsLong(interval);
 	}
 
+	/**
+	 * Returns the number of servlet exceptions for given interval.
+	 * @param interval
+	 * @return
+	 */
 	public long getServletExceptions(String interval) {
 		return servletExceptions.getValueAsLong(interval);
 	}
