@@ -50,8 +50,7 @@ import net.java.dev.moskito.core.usecase.running.RunningUseCaseContainer;
 
 /**
  * This is an abstract class for all request oriented stats.
- * 
- * @author dvayanu
+ * @author lrosenberg
  */
 public abstract class RequestOrientedStats extends AbstractStats {
 
@@ -143,9 +142,9 @@ public abstract class RequestOrientedStats extends AbstractStats {
 	}
 
 	/**
-	 * Notifies about a new request.
+	 * Notifies about start of a new request.
 	 */
-	public/* synchronized */void addRequest() {
+	public void addRequest() {
 		totalRequests.increase();
 		currentRequests.increase();
 		maxCurrentRequests.setValueIfGreaterThanCurrentAsLong(currentRequests.getValueAsLong());
@@ -155,14 +154,14 @@ public abstract class RequestOrientedStats extends AbstractStats {
 	 * Notifies that current request leaves the method body.
 	 * 
 	 */
-	public/* synchronized */void notifyRequestFinished() {
+	public void notifyRequestFinished() {
 		currentRequests.decrease();
 	}
 
 	/**
 	 * Notifies about an uncaught error.
 	 */
-	public/* synchronized */void notifyError() {
+	public void notifyError() {
 		errors.increase();
 	}
 
@@ -208,11 +207,11 @@ public abstract class RequestOrientedStats extends AbstractStats {
 	 * MSL - max number of sleeping requests.<br>
 	 * Avg Request Time - average request duration for this method.
 	 */
-	public String toString() {
+	@Override public String toString() {
 		return toString(null);
 	}
 
-	public String toStatsString(String intervalName, TimeUnit timeUnit) {
+	@Override public String toStatsString(String intervalName, TimeUnit timeUnit) {
 		String ret = "";
 		ret += getMethodName();
 		ret += " TR: " + totalRequests.getValueAsLong(intervalName);
@@ -338,7 +337,7 @@ public abstract class RequestOrientedStats extends AbstractStats {
 
 		private long startTime;
 		private PathElement currentElement = null;
-		ExistingRunningUseCase runningUseCase = null;
+		private ExistingRunningUseCase runningUseCase = null;
 		@Override
 		public void finishExecution() {
 			long exTime = System.nanoTime() - startTime;
@@ -374,7 +373,7 @@ public abstract class RequestOrientedStats extends AbstractStats {
 			}
 		}
 		
-		public void abortExecution() {
+		@Override public void abortExecution() {
 			notifyError();
 			finishExecution();
 		}

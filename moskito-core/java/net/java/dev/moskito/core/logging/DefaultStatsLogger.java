@@ -52,9 +52,21 @@ import net.java.dev.moskito.core.timing.UpdateTriggerServiceFactory;
  *
  */
 public class DefaultStatsLogger implements IUpdateable{
+	/**
+	 * StatsProducer to which this logger is attached.
+	 */
 	private IStatsProducer target;
+	/**
+	 * Output to log to.
+	 */
 	private ILogOutput output;
+	/**
+	 * Unique id of the logger.
+	 */
 	private String id;
+	/**
+	 * Rate at which an output is performed.
+	 */
 	private int outputIntervalInSeconds;
 
 	/**
@@ -81,7 +93,7 @@ public class DefaultStatsLogger implements IUpdateable{
 		output.out("Started default interval logger for "+aTarget.getProducerId()+" / "+id);
 	}
 
-	public void update(){
+	@Override public void update(){
 		output.out("===============================================================================");
 		output.out("=== SNAPSHOT Interval DEFAULT "+outputIntervalInSeconds+"s, Entity: "+id);
 		output.out("=== Timestamp: "+Date.currentDate()+", ServiceId: "+target.getProducerId());

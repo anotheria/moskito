@@ -38,19 +38,33 @@ import net.java.dev.moskito.core.dynamic.IOnDemandStatsFactory;
 import net.java.dev.moskito.core.producers.IStats;
 import net.java.dev.moskito.core.stats.Interval;
 
+/**
+ * Factory for filter stats.
+ * @author lrosenberg
+ */
 public class FilterStatsFactory implements IOnDemandStatsFactory{
-
+	/**
+	 * Intervals to create stats for.
+	 */
 	private Interval[] intervals;
-	
+	/**
+	 * Creates a new FilterStatsFactory with custom intervals.
+	 * @param configuredIntervals
+	 */
 	public FilterStatsFactory(Interval[] configuredIntervals){
 		intervals = configuredIntervals;
 	}
-	
+	/**
+	 * Creates a new FilterStatsFactory with default intervals.
+	 */
 	public FilterStatsFactory(){
 		this(Constants.DEFAULT_INTERVALS);
 	}
 	
-	public IStats createStatsObject(String name) {
+	/**
+	 * Creates a new FilterStats object with the given name.
+	 */
+	@Override public IStats createStatsObject(String name) {
 		return new FilterStats(name, intervals);
 	}
 
