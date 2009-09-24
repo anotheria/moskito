@@ -12,30 +12,45 @@ public class DefineTag extends BodyTagSupport {
     protected String name = null;
     protected String property = null;
     protected String type = null;
+    protected String scope = null;
+    protected String toScope = null;
+
 
     public String getId() {
-        return (this.id);
+        return id;
     }
     public void setId(String id) {
         this.id = id;
     }
     public String getName() {
-        return (this.name);
+        return name;
     }
     public void setName(String name) {
         this.name = name;
     }
     public String getProperty() {
-        return (this.property);
+        return property;
     }
     public void setProperty(String property) {
         this.property = property;
     }
     public String getType() {
-        return (this.type);
+        return type;
     }
     public void setType(String type) {
         this.type = type;
+    }
+    public String getScope() {
+    	return scope;
+    }
+    public void setScope(String scope) {
+    	this.scope = scope;
+    }
+    public String getToScope() {
+    	return toScope;
+    }
+    public void setToScope(String toScope) {
+    	this.toScope = toScope;
     }
 
 
@@ -68,7 +83,7 @@ public class DefineTag extends BodyTagSupport {
 
         Object value = null;
         if (name != null) {
-            value = TagUtils.lookup(pageContext, null, name, property);
+            value = TagUtils.lookup(pageContext, scope, name, property);
         }
         if (body != null) {
             value = body;
@@ -76,8 +91,16 @@ public class DefineTag extends BodyTagSupport {
         if (value == null) {
             throw new JspException("Define tag cannot set a null value");
         }
+        //expose bean
+        int inScope = PageContext.PAGE_SCOPE;
+        if (toScope != null) {
+        	try {
+				inScope = TagUtils.getScope(toScope);
+        	} catch (JspException e) {}
+        }
+            
+        pageContext.setAttribute(id, value, inScope);
 
-        pageContext.setAttribute(id, value, PageContext.PAGE_SCOPE);
         return (EVAL_PAGE);
     }
 
@@ -88,6 +111,8 @@ public class DefineTag extends BodyTagSupport {
         name = null;
         property = null;
         type = null;
+        scope = null;
+        toScope = null;
     }
     
 }

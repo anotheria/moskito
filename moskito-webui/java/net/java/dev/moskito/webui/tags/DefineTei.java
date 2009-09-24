@@ -8,8 +8,13 @@ public class DefineTei extends TagExtraInfo {
 
     public VariableInfo[] getVariableInfo(TagData data) {
         String type = data.getAttributeString("type");
+        Object name = data.getAttribute("name");
         if (type == null) {
-           type = "java.lang.Object";
+        	if (name==null) {
+                type = "java.lang.String";
+        	} else { 
+                type = "java.lang.Object";
+        	}
         }
         return new VariableInfo[] {
           new VariableInfo(data.getAttributeString("id"), type, true, VariableInfo.AT_END )
