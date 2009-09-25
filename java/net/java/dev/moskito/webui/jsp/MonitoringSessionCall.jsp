@@ -142,7 +142,7 @@ TREE END
 	<msk:iterate name="recordedUseCase" property="elements" type="net.java.dev.moskito.webui.bean.UseCasePathElementBean" id="element" indexId="index">
 		<msk:equal name="element" property="aborted" value="true"><tr class="stat_error"></msk:equal>
 		<msk:notEqual name="element" property="aborted" value="true"><tr class="<%= ((index & 1) == 0 )? "stat_even" : "stat_odd" %>"></msk:notEqual>
-			<td onmouseover="Tip('<msk:write name="element" property="fullCall"/>', WIDTH, 400)" onmouseout="UnTip()"><% for (int i=1; i<element.getLayer(); i++){ %><%= EMPTY %><%}%><msk:equal name="element" property="root" value="false"><%=IMG%></msk:equal><msk:write name="element" property="call"/></td>
+			<td onmouseover="Tip('<msk:write name="element" property="fullCall filter="true""/>', WIDTH, 400)" onmouseout="UnTip()"><% for (int i=1; i<element.getLayer(); i++){ %><%= EMPTY %><%}%><msk:equal name="element" property="root" value="false"><%=IMG%></msk:equal><msk:write name="element" property="call"/></td>
 			<td><msk:write name="element" property="duration"/></td>
 			<td><msk:write name="element" property="timespent"/></td>
 			<td><msk:equal name="element" property="aborted" value="true">X</msk:equal></td>
