@@ -40,7 +40,7 @@ package net.java.dev.moskito.core.logging;
  */
 public class SystemOutLogOutput implements ILogOutput{
 
-	public void out(String message) {
+	@Override public void out(String message) {
 		System.out.println(message);
 	}
 

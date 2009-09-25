@@ -52,7 +52,7 @@ public class JavaUtilLogOutput implements ILogOutput{
 		log = aLog;
 	}
 	
-	public void out(String message){
+	@Override public void out(String message){
 		log.info(message);
 	}
 }
