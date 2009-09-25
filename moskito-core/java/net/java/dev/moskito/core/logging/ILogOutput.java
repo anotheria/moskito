@@ -44,5 +44,5 @@ public interface ILogOutput {
 	 * Writes the message to the logging stream (file, sysout, whatever).
 	 * @param message the message to write.
 	 */
-	public void out(String message);
+	void out(String message);
 }

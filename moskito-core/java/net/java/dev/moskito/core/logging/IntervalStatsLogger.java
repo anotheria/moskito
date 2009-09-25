@@ -102,7 +102,7 @@ public class IntervalStatsLogger implements IIntervalListener{
 	/**
 	 * Called by the timer. Writes the current status to the logger.
 	 */
-	public void intervalUpdated(Interval caller) {
+	@Override public void intervalUpdated(Interval caller) {
 		output.out("===============================================================================");
 		output.out("=== SNAPSHOT Interval "+interval.getName()+" updated, Entity: "+id);
 		output.out("=== Timestamp: "+Date.currentDate()+", ServiceId: "+target.getProducerId());

@@ -48,7 +48,7 @@ public class Log4JOutput implements ILogOutput{
 		this.log = aLog;
 	}
 	
-	public void out(String message){
+	@Override public void out(String message){
 		log.info(message);
 	}
 }

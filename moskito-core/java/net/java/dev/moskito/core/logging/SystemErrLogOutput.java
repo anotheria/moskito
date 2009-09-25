@@ -39,7 +39,7 @@ package net.java.dev.moskito.core.logging;
  * @author lrosenberg
  */
 public class SystemErrLogOutput implements ILogOutput {
-	public void out(String message) {
+	@Override public void out(String message) {
 		System.err.println(message);
 	}
 
