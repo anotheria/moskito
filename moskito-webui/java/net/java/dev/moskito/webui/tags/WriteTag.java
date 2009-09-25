@@ -7,7 +7,14 @@ public class WriteTag extends BaseTagSupport{
 	private String property;
 	private String scope;
 	private boolean ignore;
-	
+    private boolean filter;
+
+    public boolean getFilter() {
+        return filter;
+    }
+    public void setFilter(boolean filter) {
+        this.filter = filter;
+    }
 	public boolean isIgnore() {
 		return ignore;
 	}
@@ -38,7 +45,7 @@ public class WriteTag extends BaseTagSupport{
 		Object toWrite = lookup();
 		String message = toWrite==null ? 
 				(ignore? "": "null") : ""+toWrite;
-		write(message);
+		write(filter ? TagUtils.filter(message) : message);
 		return SKIP_BODY;
 	}
 

@@ -158,6 +158,40 @@ public class TagUtils {
 	protected static String quote(String s){
 		return "\""+s+"\"";
 	}
+	/**
+	 * Filters string for letters sensitive in HTML, replacing them with their HTML codes
+	 * @param value - string to filter
+	 * @return filtered value 
+	 */
+	protected static String filter(String value) {
+		if(value == null)
+			return null;
+		char content[] = new char[value.length()];
+		value.getChars(0, value.length(), content, 0);
+		StringBuffer result = new StringBuffer(content.length + 50);
+		for (char c : content) {
+			switch(c) {
+			case '<':
+				result.append("&lt;");
+				break;
+			case '>':
+				result.append("&gt;");
+				break;
+			case '&':
+				result.append("&amp;");
+				break;
+			case '"':
+				result.append("&quot;");
+				break;
+			case '\'':
+				result.append("&#39;");
+				break;
+			default:
+				result.append(c);
+			}
+		}
+		return result.toString();
+	}
 
 }
 
