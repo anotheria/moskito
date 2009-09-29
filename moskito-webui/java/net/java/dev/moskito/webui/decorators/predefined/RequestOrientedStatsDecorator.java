@@ -37,7 +37,6 @@ package net.java.dev.moskito.webui.decorators.predefined;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.anotheria.util.NumberUtils;
 import net.java.dev.moskito.core.predefined.Constants;
 import net.java.dev.moskito.core.predefined.RequestOrientedStats;
 import net.java.dev.moskito.core.producers.IStats;
@@ -111,7 +110,7 @@ public abstract class RequestOrientedStatsDecorator extends AbstractDecorator{
 		ret.add(new DoubleValueBean(CAPTIONS[i++], stats.getAverageRequestDuration(interval, unit)));
 		ret.add(new LongValueBean(CAPTIONS[i++], unit.transformNanos(stats.getLastRequest(interval))));
 		ret.add(new LongValueBean(CAPTIONS[i++], stats.getErrors(interval)));
-		double errorRate = getTotalErrors(statsObject, interval)/stats.getTotalRequests();
+		double errorRate = stats.getTotalRequests() == 0? 0:getTotalErrors(statsObject, interval)/stats.getTotalRequests();
 		errorRate = (double)((int)((errorRate * 1000)))/100;
 		ret.add(new DoubleValueBean(CAPTIONS[i++], errorRate));
 		
