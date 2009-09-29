@@ -56,7 +56,9 @@ public class ServletStatsDecorator extends RequestOrientedStatsDecorator{
 		"Err",
 		"IOE",
 		"SEE",
-		"RTE"
+		"RTE",
+		"ERate"
+
 	};
 
 	private static String SHORT_EXPLANATIONS[] = {
@@ -71,7 +73,9 @@ public class ServletStatsDecorator extends RequestOrientedStatsDecorator{
 		"Number of errors",
 		"Number of IOExceptions",
 		"Number of ServletExceptions",
-		"Number of RuntimeExceptions"
+		"Number of RuntimeExceptions",
+		"Error rate in %"
+
 	};
 
 	private static String EXPLANATIONS[] = {
@@ -86,7 +90,8 @@ public class ServletStatsDecorator extends RequestOrientedStatsDecorator{
 		"Total number of uncaught errors of the method / interface. The IOExceptions, ServletExceptions and RuntimeExceptions are counted separately, the ERR value gives your the amount of the Throwables thrown by or through your Filter/Servlet.",
 		"Total number of uncaught IOExceptions.",
 		"Total number of uncaught ServletExceptions.",
-		"Total number of uncaught RuntimeExceptions."
+		"Total number of uncaught RuntimeExceptions.",
+		"The number of uncaught errors as percent of total requests."
 	};
 
 	public ServletStatsDecorator(){
@@ -97,7 +102,7 @@ public class ServletStatsDecorator extends RequestOrientedStatsDecorator{
 		super(name, CAPTIONS, SHORT_EXPLANATIONS, EXPLANATIONS);
 	}
 	
-	public List<StatValueBean> getValues(IStats statsObject, String interval, TimeUnit unit) {
+	@Override public List<StatValueBean> getValues(IStats statsObject, String interval, TimeUnit unit) {
 		List<StatValueBean> ret = super.getValues(statsObject, interval, unit);
 		
 		ServletStats stats = (ServletStats)statsObject;
@@ -108,6 +113,13 @@ public class ServletStatsDecorator extends RequestOrientedStatsDecorator{
 		
 		return ret;
 	}
+
+	@Override
+	protected long getTotalErrors(IStats statsObject, String interval) {
+		ServletStats stats = (ServletStats)statsObject;
+		return stats.getIoExceptions(interval) + stats.getServletExceptions(interval)+stats.getRuntimeExceptions("interval")+stats.getErrors(interval);
+	}
+	
 
 	
 

@@ -37,6 +37,7 @@ package net.java.dev.moskito.webui.decorators.predefined;
 import java.util.ArrayList;
 import java.util.List;
 
+import net.anotheria.util.NumberUtils;
 import net.java.dev.moskito.core.predefined.Constants;
 import net.java.dev.moskito.core.predefined.RequestOrientedStats;
 import net.java.dev.moskito.core.producers.IStats;
@@ -57,7 +58,8 @@ public abstract class RequestOrientedStatsDecorator extends AbstractDecorator{
 		"Max",
 		"Avg",
 		"Last",
-		"Err"
+		"Err",
+		"ERate"
 	};
 	
 	protected static String SHORT_EXPLANATIONS[] = {
@@ -69,7 +71,8 @@ public abstract class RequestOrientedStatsDecorator extends AbstractDecorator{
 		"Maximal duration in ms",
 		"Average duration in ms",
 		"Last request durations",
-		"Number of errors"
+		"Number of errors",
+		"Error rate in %"
 	};
  
 	protected static String EXPLANATIONS[] = {
@@ -81,7 +84,8 @@ public abstract class RequestOrientedStatsDecorator extends AbstractDecorator{
 		"The maximum amount of time (in milliseconds) spent in a method / interface.",
 		"The average amount of time spent in a method / interface. This method will give you the average duration of a request. This is especially interesting if you have different load through the day, by comparing or drawing for example the 5 mins value of AVG you can determine how well your system handles different load. This value is calculated by simple division time / requests and can be slightly incorrent, if you have very many requests which have short duration. ",
 		"The duration of the last request.",
-		"Total number of uncaught errors of the method / interface."
+		"Total number of uncaught errors of the method / interface.",
+		"The number of uncaught errors as percent of total requests."
 	};
 
 	protected RequestOrientedStatsDecorator(String name){
@@ -107,8 +111,15 @@ public abstract class RequestOrientedStatsDecorator extends AbstractDecorator{
 		ret.add(new DoubleValueBean(CAPTIONS[i++], stats.getAverageRequestDuration(interval, unit)));
 		ret.add(new LongValueBean(CAPTIONS[i++], unit.transformNanos(stats.getLastRequest(interval))));
 		ret.add(new LongValueBean(CAPTIONS[i++], stats.getErrors(interval)));
+		double errorRate = getTotalErrors(statsObject, interval)/stats.getTotalRequests();
+		errorRate = (double)((int)((errorRate * 1000)))/100;
+		ret.add(new DoubleValueBean(CAPTIONS[i++], errorRate));
 		
 		return ret;
+	}
+	
+	protected long getTotalErrors(IStats statsObject, String interval){
+		return ((RequestOrientedStats)statsObject).getErrors(interval);
 	}
 
 }
