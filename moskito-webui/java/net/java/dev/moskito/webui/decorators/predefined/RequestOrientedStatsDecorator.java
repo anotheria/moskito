@@ -110,7 +110,7 @@ public abstract class RequestOrientedStatsDecorator extends AbstractDecorator{
 		ret.add(new DoubleValueBean(CAPTIONS[i++], stats.getAverageRequestDuration(interval, unit)));
 		ret.add(new LongValueBean(CAPTIONS[i++], unit.transformNanos(stats.getLastRequest(interval))));
 		ret.add(new LongValueBean(CAPTIONS[i++], stats.getErrors(interval)));
-		double errorRate = stats.getTotalRequests() == 0? 0:getTotalErrors(statsObject, interval)/stats.getTotalRequests();
+		double errorRate = stats.getTotalRequests() == 0? 0:((double)getTotalErrors(statsObject, interval))/stats.getTotalRequests();
 		errorRate = (double)((int)((errorRate * 1000)))/100;
 		ret.add(new DoubleValueBean(CAPTIONS[i++], errorRate));
 		
