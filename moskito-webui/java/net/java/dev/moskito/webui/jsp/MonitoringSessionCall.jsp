@@ -10,11 +10,9 @@
 	<link type="text/css" rel="stylesheet" href="http://yui.yahooapis.com/2.5.1/build/treeview/assets/skins/sam/treeview.css"> 
 	<link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.5.1/build/fonts/fonts-min.css" />
 	--%>
-	<style type="text/css">
- <%
- 	String IMG = "<img src=\"/static/msk/img/msk_l.gif\" border=\"0\" alt=\"\">";
- 	String EMPTY = "<img src=\"/static/msk/img/msk_s.gif\" border=\"0\" alt=\"\">";
- %>
+<msk:define id="IMG" type="java.lang.String"><img src="<msk:write name="mskPathToImages" scope="application"/>msk_l.gif" border="0" alt=""></msk:define
+><msk:define id="EMPTY" type="java.lang.String"><img src="<msk:write name="mskPathToImages" scope="application"/>msk_s.gif" border="0" alt=""></msk:define
+><style type="text/css">
 /* first or middle sibling, no children */
 .ygtvtn { background: url(../yuiimg/tn.gif) 0 0 no-repeat; width:17px; height:22px; }
 
