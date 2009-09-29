@@ -117,7 +117,7 @@ public class ServletStatsDecorator extends RequestOrientedStatsDecorator{
 	@Override
 	protected long getTotalErrors(IStats statsObject, String interval) {
 		ServletStats stats = (ServletStats)statsObject;
-		return stats.getIoExceptions(interval) + stats.getServletExceptions(interval)+stats.getRuntimeExceptions("interval")+stats.getErrors(interval);
+		return stats.getIoExceptions(interval) + stats.getServletExceptions(interval)+stats.getRuntimeExceptions(interval)+stats.getErrors(interval);
 	}
 	
 
