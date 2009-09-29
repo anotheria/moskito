@@ -45,7 +45,8 @@ public class ActionStatsDecorator extends RequestOrientedStatsDecorator{
 		"The maximum amount of time (in milliseconds) spent in an action.",
 		"The average amount of time spent in a action. This method will give you the average duration of a request. This is especially interesting if you have different load through the day, by comparing or drawing for example the 5 mins value of AVG you can determine how well your system handles different load. This value is calculated by simple division time / requests and can be slightly incorrent, if you have very many requests which have short duration. ",
 		"The duration of the last request.",
-		"Total number of uncaught errors of the action (Of course only the doExecute / moskitoDoExecute are monitored)."
+		"Total number of uncaught errors of the action (Of course only the doExecute / moskitoDoExecute are monitored).",
+		"Error Rate in Percent",
 	};
 
 	
