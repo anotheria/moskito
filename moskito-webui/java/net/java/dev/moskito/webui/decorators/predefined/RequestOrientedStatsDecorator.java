@@ -99,7 +99,8 @@ public abstract class RequestOrientedStatsDecorator extends AbstractDecorator{
 		RequestOrientedStats stats = (RequestOrientedStats)statsObject;
 		List<StatValueBean> ret = new ArrayList<StatValueBean>(CAPTIONS.length);
 		int i = 0;
-		ret.add(new LongValueBean(CAPTIONS[i++], stats.getTotalRequests(interval)));
+		long totalRequests = stats.getTotalRequests(interval);
+		ret.add(new LongValueBean(CAPTIONS[i++], totalRequests));
 		ret.add(new LongValueBean(CAPTIONS[i++], unit.transformNanos(stats.getTotalTime(interval))));
 		ret.add(new LongValueBean(CAPTIONS[i++], stats.getCurrentRequests(interval)));
 		ret.add(new LongValueBean(CAPTIONS[i++], stats.getMaxCurrentRequests(interval)));
@@ -110,12 +111,12 @@ public abstract class RequestOrientedStatsDecorator extends AbstractDecorator{
 		ret.add(new DoubleValueBean(CAPTIONS[i++], stats.getAverageRequestDuration(interval, unit)));
 		ret.add(new LongValueBean(CAPTIONS[i++], unit.transformNanos(stats.getLastRequest(interval))));
 		ret.add(new LongValueBean(CAPTIONS[i++], stats.getErrors(interval)));
-		double errorRate = stats.getTotalRequests() == 0? 0:((double)getTotalErrors(statsObject, interval))/stats.getTotalRequests();
+		double errorRate = totalRequests == 0? 0:((double)getTotalErrors(statsObject, interval))/totalRequests;
 		errorRate = (double)((int)((errorRate * 1000)))/100;
 		ret.add(new DoubleValueBean(CAPTIONS[i++], errorRate));
 		
 		return ret;
-	}
+	} 
 	
 	protected long getTotalErrors(IStats statsObject, String interval){
 		return ((RequestOrientedStats)statsObject).getErrors(interval);
