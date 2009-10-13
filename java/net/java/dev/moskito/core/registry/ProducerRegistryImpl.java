@@ -41,7 +41,6 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 import net.java.dev.moskito.core.producers.IStatsProducer;
-import net.java.dev.moskito.core.util.StartBuiltInProducers;
 
 import org.apache.log4j.Logger;
 
@@ -85,7 +84,14 @@ public class ProducerRegistryImpl implements IProducerRegistry{
 	}
 
 	public void registerProducer(IStatsProducer producer) {
-		log.info("Registry register producer: "+producer.getProducerId()+" / "+producer);
+		//null pointer exceptions in the toString method of the producer shouldn't crash here.
+		String producerToString = null;
+		try{
+			producerToString = producer.toString();
+		}catch(Exception e){
+			producerToString = "Illegal to string method: "+e.getMessage()+", "+e.getClass();
+		}
+		log.info("Registry register producer: "+producer.getProducerId()+" / "+producerToString);
 		IStatsProducer previous = registry.put(producer.getProducerId(), producer);
 		if (previous!=null)
 			log.info("Under this name a producer was already registered: "+previous);
