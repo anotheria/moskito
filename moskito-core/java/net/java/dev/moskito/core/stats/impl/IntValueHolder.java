@@ -78,12 +78,8 @@ class IntValueHolder extends AbstractValueHolder {
 		currentValue = new AtomicInteger(defaultValue);
 	}
 
-	/**
-	 * @see net.java.dev.moskito.core.stats.IIntervalListener#intervalUpdated(net.java.dev.moskito.core.stats.impl.IntervalImpl)
-	 */
-	public void intervalUpdated(Interval aCaller) {
-		lastValue = currentValue.get();
-		currentValue.set(defaultValue);
+	@Override public void intervalUpdated(Interval aCaller) {
+		lastValue = currentValue.getAndSet(defaultValue);
 	}
 
 	/**
@@ -104,151 +100,88 @@ class IntValueHolder extends AbstractValueHolder {
 				+ currentValue.get();
 	}
 
-	/**
-	 * @see net.java.dev.moskito.core.stats.ValueHolder#decrease()
-	 */
-	public void decrease() {
+	@Override public void decrease() {
 		currentValue.decrementAndGet();
 	}
 
-	/**
-	 * @see net.java.dev.moskito.core.stats.ValueHolder#increase()
-	 */
-	public void increase() {
+	@Override public void increase() {
 		currentValue.incrementAndGet();
 	}
 
-	/**
-	 * @see net.java.dev.moskito.core.stats.ValueHolder#decreaseByDouble(double)
-	 */
-	public void decreaseByDouble(double aValue) {
+	@Override public void decreaseByDouble(double aValue) {
 		decreaseByInt((int) aValue);
 	}
 
-	/**
-	 * @see net.java.dev.moskito.core.stats.ValueHolder#decreaseByInt(int)
-	 */
-	public void decreaseByInt(int aValue) {
+	@Override public void decreaseByInt(int aValue) {
 		currentValue.addAndGet(-aValue);
 	}
 
-	/**
-	 * @see net.java.dev.moskito.core.stats.ValueHolder#decreaseByLong(long)
-	 */
-	public void decreaseByLong(long aValue) {
+	@Override public void decreaseByLong(long aValue) {
 		decreaseByInt((int) aValue);
 	}
 
-	/**
-	 * @see net.java.dev.moskito.core.stats.ValueHolder#getValueAsDouble()
-	 */
-	public double getValueAsDouble() {
+	@Override public double getValueAsDouble() {
 		return (double) getValueAsInt();
 	}
 
-	/**
-	 * @see net.java.dev.moskito.core.stats.ValueHolder#getValueAsInt()
-	 */
-	public int getValueAsInt() {
+	@Override public int getValueAsInt() {
 		return lastValue;
 	}
 
-	/**
-	 * @see net.java.dev.moskito.core.stats.ValueHolder#getValueAsLong()
-	 */
-	public long getValueAsLong() {
+	@Override public long getValueAsLong() {
 		return (long) getValueAsInt();
 	}
 
-	/**
-	 * @see net.java.dev.moskito.core.stats.ValueHolder#increaseByDouble(double)
-	 */
-	public void increaseByDouble(double aValue) {
+	@Override public void increaseByDouble(double aValue) {
 		increaseByInt((int) aValue);
 	}
 
-	/**
-	 * @see net.java.dev.moskito.core.stats.ValueHolder#increaseByInt(int)
-	 */
-	public void increaseByInt(int aValue) {
+	@Override public void increaseByInt(int aValue) {
 		currentValue.addAndGet(aValue);
 	}
 
-	/**
-	 * @see net.java.dev.moskito.core.stats.ValueHolder#increaseByLong(long)
-	 */
-	public void increaseByLong(long aValue) {
+	@Override public void increaseByLong(long aValue) {
 		increaseByInt((int) aValue);
 	}
 
-	/**
-	 * @see net.java.dev.moskito.core.stats.ValueHolder#setValueAsDouble(double)
-	 */
-	public void setValueAsDouble(double aValue) {
+	@Override public void setValueAsDouble(double aValue) {
 		setValueAsInt((int) aValue);
 	}
 
-	/**
-	 * @see net.java.dev.moskito.core.stats.ValueHolder#setValueAsInt(int)
-	 */
-	public void setValueAsInt(int aValue) {
+	@Override public void setValueAsInt(int aValue) {
 		currentValue.set(aValue);
 	}
 
-	/**
-	 * @see net.java.dev.moskito.core.stats.ValueHolder#setValueAsLong(long)
-	 */
-	public void setValueAsLong(long aValue) {
+	@Override public void setValueAsLong(long aValue) {
 		setValueAsInt((int) aValue);
 	}
 
-	/**
-	 * @see net.java.dev.moskito.core.stats.ValueHolder#setDefaultValueAsLong(long)
-	 */
-	public void setDefaultValueAsLong(long aValue) {
+	@Override public void setDefaultValueAsLong(long aValue) {
 		setDefaultValueAsInt((int) aValue);
 	}
 
-	/**
-	 * @see net.java.dev.moskito.core.stats.ValueHolder#setDefaultValueAsInt(int)
-	 */
-	public void setDefaultValueAsInt(int aValue) {
+	@Override public void setDefaultValueAsInt(int aValue) {
 		defaultValue = aValue;
 	}
 
-	/**
-	 * @see net.java.dev.moskito.core.stats.ValueHolder#setDefaultValueAsDouble(double)
-	 */
-	public void setDefaultValueAsDouble(double aValue) {
+	@Override public void setDefaultValueAsDouble(double aValue) {
 		setDefaultValueAsInt((int) aValue);
 	}
 
-	/**
-	 * @see net.java.dev.moskito.core.stats.ValueHolder#reset()
-	 */
-	public void reset() {
+	@Override public void reset() {
 		currentValue.set(defaultValue);
 		lastValue = defaultValue;
 	}
 
-	/**
-	 * @see net.java.dev.moskito.core.stats.ValueHolder#getCurrentValueAsDouble()
-	 */
-	public double getCurrentValueAsDouble() {
+	@Override public double getCurrentValueAsDouble() {
 		return (double) getCurrentValueAsLong();
 	}
 
-	/**
-	 * @see net.java.dev.moskito.core.stats.ValueHolder#getCurrentValueAsInt()
-	 */
-	public int getCurrentValueAsInt() {
+	@Override public int getCurrentValueAsInt() {
 		return currentValue.get();
 	}
 
-	/**
-	 * @see net.java.dev.moskito.core.stats.ValueHolder#getCurrentValueAsLong()
-	 */
-	public long getCurrentValueAsLong() {
+	@Override public long getCurrentValueAsLong() {
 		return (long) getCurrentValueAsInt();
 	}
 
