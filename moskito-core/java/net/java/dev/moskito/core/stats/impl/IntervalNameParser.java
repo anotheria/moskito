@@ -34,6 +34,9 @@
  */	
 package net.java.dev.moskito.core.stats.impl;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import net.java.dev.moskito.core.stats.UnknownIntervalLengthException;
 
 
@@ -43,26 +46,34 @@ import net.java.dev.moskito.core.stats.UnknownIntervalLengthException;
  * @author miros
  */
 class IntervalNameParser {
-	/**
-	 * The length of a second in seconds
-	 */
-	private static final int SECOND = 1;
-
-	/**
-	 * The length of a minute in seconds
-	 */
-	private static final int MINUTE = 60;
-
-	/**
-	 * The length of an hour in seconds
-	 */
-	private static final int HOUR = 60 * MINUTE;
-
-	/**
-	 * The length of a day in seconds
-	 */
-	private static final int DAY = 24 * HOUR;
-
+	
+	private enum TimeUnit{
+		SECOND(1, 's'),
+		MINUTE(60, 'm'),
+		HOUR(MINUTE.getFactor()*60, 'h'),
+		DAY(HOUR.getFactor()*24, 'd');
+		
+		private int factor;
+		private final char caption;
+		
+		private TimeUnit(int aFactor, char aCaption){
+			factor = aFactor;
+			caption = aCaption;
+		}
+		
+		int getFactor(){ return factor; }
+		
+		char getCaption(){ return caption; }
+	}
+	
+	private static Map<Character, TimeUnit> lookupMap;
+	static{
+		lookupMap = new HashMap<Character, TimeUnit>();
+		for (TimeUnit u : TimeUnit.values()){
+			lookupMap.put(u.getCaption(), u);
+		}
+	}
+	
 	/**
 	 * This method parses the given Interval name and returns the length of such an Interval in
 	 * seconds.
@@ -82,28 +93,15 @@ class IntervalNameParser {
 		}
 
 		char lastChar = aName.charAt(aName.length() - 1);
+		TimeUnit unit = lookupMap.get(Character.toLowerCase(lastChar));
 
-		switch (Character.toLowerCase(lastChar)) {
-		case 's':
-			unitFactor = SECOND;
-			break;
-		case 'h':
-			unitFactor = HOUR;
-			break;
-		case 'm':
-			unitFactor = MINUTE;
-			break;
-		case 'd':
-			unitFactor = DAY;
-			break;
-		default:
-			throw new UnknownIntervalLengthException(aName + ", " + lastChar
-					+ " is not a supported unit.");
-		}
+		if (unit==null)
+			throw new UnknownIntervalLengthException(aName + ", " + lastChar + " is not a supported unit.");
+		
+		unitFactor = unit.getFactor();
 
 		if (value == 0)
-			throw new UnknownIntervalLengthException(aName
-					+ ", zero duration is not allowed.");
+			throw new UnknownIntervalLengthException(aName	+ ", zero duration is not allowed.");
 
 		return value * unitFactor;
 	}

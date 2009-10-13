@@ -38,16 +38,11 @@ import net.java.dev.moskito.core.stats.Interval;
 
 /**
  * This ValueHolderFactory implementation creates LongValueHolder instances.
- * 
- * @author dvayanu
+ * @author lrosenberg
  */
 class LongValueHolderFactory extends AbstractValueHolderFactory {
 
-	/**
-	 * @see net.java.dev.moskito.core.stats.impl.AbstractValueHolderFactory#createValueHolderObject(net.java.dev.moskito.core.stats.impl.IntervalImpl)
-	 */
-	@Override
-	protected AbstractValueHolder createValueHolderObject(Interval aInterval) {
+	@Override protected AbstractValueHolder createValueHolderObject(Interval aInterval) {
 		return new LongValueHolder(aInterval);
 	}
 
