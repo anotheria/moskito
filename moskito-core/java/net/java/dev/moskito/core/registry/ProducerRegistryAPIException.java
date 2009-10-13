@@ -34,7 +34,15 @@
  */
 package net.java.dev.moskito.core.registry;
 
+/**
+ * Base class for the ProducerRegistryAPI exceptions.
+ * @author lrosenberg
+ */
 public class ProducerRegistryAPIException extends RuntimeException{
+	/**
+	 * Creates a new ProducerRegistryAPIException.
+	 * @param message
+	 */
 	public ProducerRegistryAPIException(String message){
 		super(message);
 	}
