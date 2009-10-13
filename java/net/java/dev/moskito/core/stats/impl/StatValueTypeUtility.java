@@ -44,7 +44,7 @@ import net.java.dev.moskito.core.stats.IValueHolderFactory;
  * 
  * @author dvayanu
  */
-abstract class StatValueTypeUtility {
+final class StatValueTypeUtility {
 
 	/**
 	 * This method creates the responsible ValueHolderFactory from the given internal type representation.
@@ -60,7 +60,7 @@ abstract class StatValueTypeUtility {
 		case INT:
 			return new IntValueHolderFactory();
 		default:
-			throw new RuntimeException("Invalid type: " + aType);
+			throw new AssertionError("Unsupported type: " + aType);
 		}
 	}
 	
@@ -75,8 +75,10 @@ abstract class StatValueTypeUtility {
 			return StatValueTypes.LONG;
 		if (aObject instanceof Integer)
 			return StatValueTypes.INT;
-		throw new RuntimeException("Invalid class for object2type mapping: "
-				+ aObject.getClass());
+		throw new AssertionError("Invalid class for object2type mapping: "	+ aObject.getClass());
 	}
 
+	private StatValueTypeUtility(){
+		//prevent instantiation.
+	}
 }
