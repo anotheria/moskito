@@ -54,46 +54,46 @@ public interface StatValue {
 	 * 
 	 * @param aInterval the Interval to add
 	 */
-	public void addInterval(Interval aInterval);
+	void addInterval(Interval aInterval);
 
 	/**
 	 * This method returns the name of this statistic value.
 	 * @return the name
 	 */
-	public String getName();
+	String getName();
 
 	/**
 	 * This method increases the stored values for all Intervals by one.
 	 * Particularly, this includes the absolute value.
 	 */
-	public void increase();
+	void increase();
 
 	/**
 	 * This method decreases the stored values for all Intervals by one.
 	 * Particularly, this includes the absolute value.
 	 */
-	public void decrease();
+	void decrease();
 
 	/**
 	 * This method returns the absolute value as int.
 	 * 
 	 * @return the absolute value
 	 */
-	public int getValueAsInt();
+	int getValueAsInt();
 
 	/**
 	 * This method returns the absolute value as long.
 	 * 
 	 * @return the absolute value
 	 */
-	public long getValueAsLong();
+	long getValueAsLong();
 
 	/**
 	 * This method returns the absolute value as double.
 	 * 
 	 * @return the absolute value
 	 */
-	public double getValueAsDouble();
+	double getValueAsDouble();
 
 	/**
 	 * This method returns the current value of a specific Interval as int.
@@ -101,7 +101,7 @@ public interface StatValue {
 	 * @param aIntervalName the name of the Interval or <code>null</code> to get the absolute value
 	 * @return the current value
 	 */
-	public int getValueAsInt(String aIntervalName);
+	int getValueAsInt(String aIntervalName);
 
 	/**
 	 * This method returns the current value of a specific Interval as long.
@@ -109,7 +109,7 @@ public interface StatValue {
 	 * @param aIntervalName the name of the Interval or <code>null</code> to get the absolute value
 	 * @return the current value
 	 */
-	public long getValueAsLong(String aIntervalName);
+	long getValueAsLong(String aIntervalName);
 
 	/**
 	 * This method returns the current value of a specific Interval as double.
@@ -117,7 +117,7 @@ public interface StatValue {
 	 * @param aIntervalName the name of the Interval or <code>null</code> to get the absolute value
 	 * @return the current value
 	 */
-	public double getValueAsDouble(String aIntervalName);
+	double getValueAsDouble(String aIntervalName);
 
 	/**
 	 * This method sets the given int value to be the current value of all registered Intervals.
@@ -127,7 +127,7 @@ public interface StatValue {
 	 *  
 	 * @param aValue the new value
 	 */
-	public void setValueAsInt(int aValue);
+	void setValueAsInt(int aValue);
 
 	/**
 	 * This method sets the given long value to be the current value of all registered Intervals.
@@ -137,7 +137,7 @@ public interface StatValue {
 	 *  
 	 * @param aValue the new value
 	 */
-	public void setValueAsLong(long aValue);
+	void setValueAsLong(long aValue);
 
 	/**
 	 * This method sets the given double value to be the current value of all registered Intervals.
@@ -147,7 +147,7 @@ public interface StatValue {
 	 *  
 	 * @param aValue the new value
 	 */
-	public void setValueAsDouble(double aValue);
+	void setValueAsDouble(double aValue);
 
 	/**
 	 * This method increases the current values of all registered Intervals by the given int value.
@@ -155,7 +155,7 @@ public interface StatValue {
 	 * 
 	 * @param aValue the value to increment by
 	 */
-	public void increaseByInt(int aValue);
+	void increaseByInt(int aValue);
 
 	/**
 	 * This method increases the current values of all registered Intervals by the given long value.
@@ -163,7 +163,7 @@ public interface StatValue {
 	 * 
 	 * @param aValue the value to increment by
 	 */
-	public void increaseByLong(long aValue);
+	void increaseByLong(long aValue);
 
 	/**
 	 * This method increases the current values of all registered Intervals by the given double value.
@@ -171,7 +171,7 @@ public interface StatValue {
 	 * 
 	 * @param aValue the value to increment by
 	 */
-	public void increaseByDouble(double aValue);
+	void increaseByDouble(double aValue);
 
 	/**
 	 * This method decreases the current values of all registered Intervals by the given int value.
@@ -179,7 +179,7 @@ public interface StatValue {
 	 * 
 	 * @param aValue the value to decrement by
 	 */
-	public void decreaseByInt(int aValue);
+	void decreaseByInt(int aValue);
 
 	/**
 	 * This method decreases the current values of all registered Intervals by the given long value.
@@ -187,7 +187,7 @@ public interface StatValue {
 	 * 
 	 * @param aValue the value to decrement by
 	 */
-	public void decreaseByLong(long aValue);
+	void decreaseByLong(long aValue);
 
 	/**
 	 * This method decreases the current values of all registered Intervals by the given double value.
@@ -195,7 +195,7 @@ public interface StatValue {
 	 * 
 	 * @param aValue the value to decrement by
 	 */
-	public void decreaseByDouble(double aValue);
+	void decreaseByDouble(double aValue);
 
 	/**
 	 * This method sets the default value that will be the initial value after an Interval was elapsed.
@@ -204,7 +204,7 @@ public interface StatValue {
 	 * 
 	 * @param aValue the new default value
 	 */
-	public void setDefaultValueAsLong(long aValue);
+	void setDefaultValueAsLong(long aValue);
 
 	/**
 	 * This method sets the default value that will be the initial value after an Interval was elapsed.
@@ -213,7 +213,7 @@ public interface StatValue {
 	 * 
 	 * @param aValue the new default value
 	 */
-	public void setDefaultValueAsInt(int aValue);
+	void setDefaultValueAsInt(int aValue);
 
 	/**
 	 * This method sets the default value that will be the initial value after an Interval was elapsed.
@@ -222,13 +222,13 @@ public interface StatValue {
 	 * 
 	 * @param aValue the new default value
 	 */
-	public void setDefaultValueAsDouble(double aValue);
+	void setDefaultValueAsDouble(double aValue);
 
 	/**
 	 * This method resets the ValueHolders of all registered Intervals.
 	 * Typically, an Interval implementation will execute "currentValue = defaultValue" on reset. 
 	 */
-	public void reset();
+	void reset();
 
 	/**
 	 * This method sets the given long value to be the current value of all registered 
@@ -239,7 +239,7 @@ public interface StatValue {
 	 *  
 	 * @param aValue the new value
 	 */
-	public void setValueIfGreaterThanCurrentAsLong(long aValue);
+	void setValueIfGreaterThanCurrentAsLong(long aValue);
 
 	/**
 	 * This method sets the given int value to be the current value of all registered 
@@ -250,7 +250,7 @@ public interface StatValue {
 	 *  
 	 * @param aValue the new value
 	 */
-	public void setValueIfGreaterThanCurrentAsInt(int aValue);
+	void setValueIfGreaterThanCurrentAsInt(int aValue);
 
 	/**
 	 * This method sets the given double value to be the current value of all registered 
@@ -261,7 +261,7 @@ public interface StatValue {
 	 *  
 	 * @param aValue the new value
 	 */
-	public void setValueIfGreaterThanCurrentAsDouble(double aValue);
+	void setValueIfGreaterThanCurrentAsDouble(double aValue);
 
 	/**
 	 * This method sets the given long value to be the current value of all registered 
@@ -272,7 +272,7 @@ public interface StatValue {
 	 *  
 	 * @param aValue the new value
 	 */
-	public void setValueIfLesserThanCurrentAsLong(long aValue);
+	void setValueIfLesserThanCurrentAsLong(long aValue);
 
 	/**
 	 * This method sets the given int value to be the current value of all registered 
@@ -283,7 +283,7 @@ public interface StatValue {
 	 *  
 	 * @param aValue the new value
 	 */
-	public void setValueIfLesserThanCurrentAsInt(int aValue);
+	void setValueIfLesserThanCurrentAsInt(int aValue);
 
 	/**
 	 * This method sets the given double value to be the current value of all registered 
@@ -294,6 +294,6 @@ public interface StatValue {
 	 *  
 	 * @param aValue the new value
 	 */
-	public void setValueIfLesserThanCurrentAsDouble(double aValue);
+	void setValueIfLesserThanCurrentAsDouble(double aValue);
 
 }
