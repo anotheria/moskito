@@ -58,7 +58,7 @@ class IntValueHolder extends AbstractValueHolder {
 	private AtomicInteger currentValue;
 
 	/**
-	 * The last value will be stored here.
+	 * The value measured in the last interval. 
 	 */
 	private int lastValue;
 
@@ -91,13 +91,8 @@ class IntValueHolder extends AbstractValueHolder {
 		return lastValue;
 	}
 
-	/**
-	 * @see net.java.dev.moskito.core.stats.impl.AbstractValueHolder#toString()
-	 */
-	@Override
-	public String toString() {
-		return super.toString() + " I " + lastValue + " / "
-				+ currentValue.get();
+	@Override public String toString() {
+		return super.toString() + " I " + lastValue + " / " + currentValue.get();
 	}
 
 	@Override public void decrease() {

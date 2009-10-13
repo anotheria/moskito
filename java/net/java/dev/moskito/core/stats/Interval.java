@@ -25,48 +25,48 @@ public interface Interval {
 	 * 
 	 * @param aListener the new listener
 	 */
-	public void addPrimaryIntervalListener(IIntervalListener aListener);
+	void addPrimaryIntervalListener(IIntervalListener aListener);
 
 	/**
 	 * This method removes the given listener from the primary listeners.
 	 * 
 	 * @param aListener the listener to remove.
 	 */
-	public void removePrimaryIntervalListener(IIntervalListener aListener);
+	void removePrimaryIntervalListener(IIntervalListener aListener);
 
 	/**
 	 * This method adds a listener as primary listener.
 	 * 
 	 * @param aListener the new listener
 	 */
-	public void addSecondaryIntervalListener(IIntervalListener aListener);
+	void addSecondaryIntervalListener(IIntervalListener aListener);
 
 	/**
 	 * This method removes the given listener from the primary listeners.
 	 * 
 	 * @param aListener the listener to remove.
 	 */
-	public void removeSecondaryIntervalListener(IIntervalListener aListener);
+	void removeSecondaryIntervalListener(IIntervalListener aListener);
 
 	/**
 	 * This method returns the interval id.
 	 * 
 	 * @return the interval id
 	 */
-	public int getId();
+	int getId();
 
 	/**
 	 * This method returns the interval name.
 	 * 
 	 * @return the interval name
 	 */
-	public String getName();
+	String getName();
 
 	/**
 	 * This method returns the interval length in seconds.
 	 * 
 	 * @return the interval length in seconds
 	 */
-	public int getLength();
+	int getLength();
 
 }
