@@ -42,20 +42,45 @@ import net.java.dev.moskito.core.stats.UnknownIntervalLengthException;
 
 /**
  * This utility class provides functionality to parse Interval names.
- * 
- * @author miros
+ * @author miros, lrosenberg
  */
 class IntervalNameParser {
-	
+	/**
+	 * Internally used structure for factor recalculation
+	 * @author lrosenberg
+	 *
+	 */
 	private enum TimeUnit{
+		/**
+		 * Seconds.
+		 */
 		SECOND(1, 's'),
+		/**
+		 * Minutes.
+		 */
 		MINUTE(60, 'm'),
+		/**
+		 * Hours.
+		 */
 		HOUR(MINUTE.getFactor()*60, 'h'),
+		/**
+		 * Days.
+		 */
 		DAY(HOUR.getFactor()*24, 'd');
-		
+		/**
+		 * Recalculation factor to seconds.
+		 */
 		private int factor;
+		/**
+		 * Char caption like s,m,h,d.
+		 */
 		private final char caption;
 		
+		/**
+		 * Creates a new timeunit.
+		 * @param aFactor
+		 * @param aCaption
+		 */
 		private TimeUnit(int aFactor, char aCaption){
 			factor = aFactor;
 			caption = aCaption;
@@ -65,7 +90,9 @@ class IntervalNameParser {
 		
 		char getCaption(){ return caption; }
 	}
-	
+	/**
+	 * Internal map for TimeUnit lookups.
+	 */
 	private static Map<Character, TimeUnit> lookupMap;
 	static{
 		lookupMap = new HashMap<Character, TimeUnit>();
