@@ -42,7 +42,13 @@ import net.java.dev.moskito.core.stats.Interval;
  *
  */
 public class IntervalInfo {
+	/**
+	 * The interval.
+	 */
 	private Interval interval;
+	/**
+	 * The timestamp of the last update of the interval.
+	 */
 	private long lastUpdateTimestamp;
 	
 	public IntervalInfo(Interval aInterval){
@@ -53,6 +59,13 @@ public class IntervalInfo {
 		return ((IntervalInfo)o).interval.getName().equals(interval.getName());
 	}
 	
+	@Override public int hashCode(){
+		return interval.hashCode();
+	}
+	/**
+	 * Returns the name of the interval.
+	 * @return
+	 */
 	public String getIntervalName(){
 		return interval.getName();
 	}
@@ -61,10 +74,16 @@ public class IntervalInfo {
 		return lastUpdateTimestamp;
 	}
 	
+	/**
+	 * Sets the update timestamp to now.
+	 */
 	public void update(){
 		lastUpdateTimestamp = System.currentTimeMillis();
 	}
-
+	/**
+	 * Returns the length of the underlying interval.
+	 * @return
+	 */
 	public int getLength() {
 		return interval.getLength();
 	}

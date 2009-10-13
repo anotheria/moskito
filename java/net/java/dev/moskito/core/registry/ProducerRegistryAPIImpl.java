@@ -50,24 +50,43 @@ import net.java.dev.moskito.core.stats.impl.IntervalRegistry;
 
 import org.apache.log4j.Logger;
 
+/**
+ * Implementation of the public api for the producer registry.
+ * @author another
+ *
+ */
 public class ProducerRegistryAPIImpl implements IProducerRegistryAPI, IProducerRegistryListener, IntervalRegistryListener, IIntervalListener{
 	
-	private static Logger log;
-	
-	static{
-		log = Logger.getLogger(ProducerRegistryAPIImpl.class);
-	}
+	/**
+	 * Logger.
+	 */
+	private static final Logger log = Logger.getLogger(ProducerRegistryAPIImpl.class);
 	
 	private List<IStatsProducer> _cachedProducerList;
 	private Map<String,IStatsProducer> _cachedProducerMap;
 	private List<IntervalInfo> _cachedIntervalInfos;
-	
+
+	/**
+	 * The producer registry.
+	 */
 	private IProducerRegistry registry;
+	/**
+	 * The interval registry.
+	 */
 	private IntervalRegistry intervalRegistry;
 	
+	/**
+	 * Lock object for cache modifications.
+	 */
 	private static final Object cacheLock = new Object();
+	/**
+	 * Lock object for interval modifications.
+	 */
 	private static final Object intervalLock = new Object();
 	
+	/**
+	 * Creates and sets up the ProducerRegistryAPIImpl. ProducerRegistryAPIImpl is meant to be a singleton.
+	 */
 	ProducerRegistryAPIImpl(){
 		_cachedProducerList = null;
 		_cachedProducerMap = null;
@@ -80,6 +99,9 @@ public class ProducerRegistryAPIImpl implements IProducerRegistryAPI, IProducerR
 		
 	}
 	
+	/**
+	 * Rebuilds the caches upon change.
+	 */
 	private void buildProducerCacheFromScratch(){
 		log.debug("rebuilding producer cache");
 		synchronized(cacheLock){
@@ -89,6 +111,9 @@ public class ProducerRegistryAPIImpl implements IProducerRegistryAPI, IProducerR
 		}
 	}
 	
+	/**
+	 * Rebuilds the caches with given producers..
+	 */
 	private void rebuildProducerCache(Collection<IStatsProducer> producers){
 		log.debug("Rebuilding producer cache with "+producers.size()+" producers.");
 		log.debug("Following producers known: "+producers);
@@ -112,17 +137,17 @@ public class ProducerRegistryAPIImpl implements IProducerRegistryAPI, IProducerR
 
 	//we should look into synchronizing access to this method, since the listener can possible remove a 
 	//producer during processing.
-	public List<IStatsProducer> getAllProducers() {
+	@Override public List<IStatsProducer> getAllProducers() {
 		if (_cachedProducerList==null)
 			buildProducerCacheFromScratch();
 		return _cachedProducerList;
 	}
 
-	public List<IStatsProducer> getAllProducersByCategory(String category) {
+	@Override public List<IStatsProducer> getAllProducersByCategory(String category) {
 		return getProducers(new CategoryFilter(category));
 	}
 
-	public List<IStatsProducer> getAllProducersBySubsystem(String subsystem) {
+	@Override public List<IStatsProducer> getAllProducersBySubsystem(String subsystem) {
 		return getProducers(new SubsystemFilter(subsystem));
 	}
 
@@ -132,6 +157,9 @@ public class ProducerRegistryAPIImpl implements IProducerRegistryAPI, IProducerR
 		return _cachedIntervalInfos;
 	}
 	
+	/**
+	 * Creates the list of existing intervals.
+	 */
 	private void createIntervalList(){
 		synchronized(intervalLock){
 			if (_cachedIntervalInfos!=null)
@@ -155,9 +183,6 @@ public class ProducerRegistryAPIImpl implements IProducerRegistryAPI, IProducerR
 		}
 	}
 
-	/**
-	 * @see net.java.dev.moskito.core.stats.IntervalRegistryListener#intervalCreated(net.java.dev.moskito.core.stats.Interval)
-	 */
 	@Override public void intervalCreated(Interval aInterval) {
 		synchronized(intervalLock){
 			_cachedIntervalInfos.add(new IntervalInfo(aInterval));

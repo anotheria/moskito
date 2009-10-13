@@ -51,6 +51,9 @@ import org.apache.log4j.Logger;
  */
 public class ProducerRegistryImpl implements IProducerRegistry{
 	
+	/**
+	 * Logger.
+	 */
 	private static Logger log = Logger.getLogger(ProducerRegistryImpl.class);
 	
 	/**
@@ -62,28 +65,31 @@ public class ProducerRegistryImpl implements IProducerRegistry{
 	 */
 	private Map<String,IStatsProducer> registry;
 	
+	/**
+	 * Creates the ProducerRegistryImpl singleton instance.
+	 */
 	ProducerRegistryImpl(){
 		listeners = new CopyOnWriteArrayList<IProducerRegistryListener>();
 		registry = new ConcurrentHashMap<String,IStatsProducer>();
 	}
 
-	public void addListener(IProducerRegistryListener listener) {
+	@Override public void addListener(IProducerRegistryListener listener) {
 		listeners.add(listener);
 	}
 
-	public void removeListener(IProducerRegistryListener listener) {
+	@Override public void removeListener(IProducerRegistryListener listener) {
 		listeners.remove(listener);
 	}
 
-	public Collection<IStatsProducer> getProducers() {
+	@Override public Collection<IStatsProducer> getProducers() {
 		return registry.values();
 	}
 	
-	public IStatsProducer getProducer(String producerId){
+	@Override public IStatsProducer getProducer(String producerId){
 		return registry.get(producerId);
 	}
 
-	public void registerProducer(IStatsProducer producer) {
+	@Override public void registerProducer(IStatsProducer producer) {
 		//null pointer exceptions in the toString method of the producer shouldn't crash here.
 		String producerToString = null;
 		try{
@@ -104,7 +110,7 @@ public class ProducerRegistryImpl implements IProducerRegistry{
 	}
 
 
-	public void unregisterProducer(IStatsProducer producer) {
+	@Override public void unregisterProducer(IStatsProducer producer) {
 		registry.remove(producer.getProducerId());
 		for(IProducerRegistryListener listener : listeners){
 			listener.notifyProducerUnregistered(producer);
