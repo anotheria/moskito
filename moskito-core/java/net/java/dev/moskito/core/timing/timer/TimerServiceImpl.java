@@ -50,6 +50,15 @@ public class TimerServiceImpl implements Runnable, ITimerService {
 
 	private static TimerServiceImpl instance;
 
+	private List<TimerObject> objects;
+
+	private volatile boolean running; 
+
+	/**
+	 *  The ticker-thread.
+	 */
+	private Thread thread;
+
 	private TimerServiceImpl() {
 		objects = new ArrayList<TimerObject>(30);
 	}
@@ -62,16 +71,6 @@ public class TimerServiceImpl implements Runnable, ITimerService {
 		return instance;
 	}
 
-	int sleepTime;
-
-	private List<TimerObject> objects;
-
-	volatile boolean running; 
-
-	/**
-	 *  The ticker-thread.
-	 */
-	Thread thread;
 
 
 	/**
@@ -270,14 +269,7 @@ public class TimerServiceImpl implements Runnable, ITimerService {
 			consumers.remove(rec);
 		}
 
-
-		/**
-		 *  For indexOf in java.util.Vector
-		 *
-		 *@param  o  Description of Parameter
-		 *@return    Description of the Returned Value
-		 */
-		public boolean equals(Object o) {
+		@Override public boolean equals(Object o) {
 			if (!(o instanceof TimerObject)) {
 				return false;
 			}
