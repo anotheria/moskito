@@ -98,7 +98,7 @@ public class CacheStats extends AbstractStats{
 		b.append(" GC: ").append(garbageCollected.getValueAsLong(intervalName));
 		b.append(" RO: ").append(rolloverCount.getValueAsLong(intervalName));
 		b.append(" EX: ").append(expiredCount.getValueAsLong(intervalName));
-		b.append(" FI: ").append(rolloverCount.getValueAsLong(intervalName));
+		b.append(" FI: ").append(filteredCount.getValueAsLong(intervalName));
 		return b.toString();
 	}
 
