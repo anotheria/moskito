@@ -75,7 +75,7 @@ public class MemoryPoolStats extends AbstractStats implements IMemoryPoolStats{
 		
 	}
 	
-	public String toStatsString(String intervalName, TimeUnit timeUnit) {
+	@Override public String toStatsString(String intervalName, TimeUnit timeUnit) {
 		StringBuilder b = new StringBuilder();
 		b.append(getName()).append(' ');
 		b.append(" INIT: ").append(init.getValueAsLong(intervalName));

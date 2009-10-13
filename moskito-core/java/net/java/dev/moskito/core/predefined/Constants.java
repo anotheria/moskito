@@ -37,10 +37,16 @@ package net.java.dev.moskito.core.predefined;
 import net.java.dev.moskito.core.stats.DefaultIntervals;
 import net.java.dev.moskito.core.stats.Interval;
 
-
+/**
+ * Constants used through moskito.
+ * @author another
+ *
+ */
 public interface Constants {
 	
-	
+	/**
+	 * Default intervals, used if you don't specify anything special. As for now, the default intervals are one minute, 5 minutes, 15 minutes, one hour and one day.
+	 */
 	public static final Interval DEFAULT_INTERVALS[] = {
 		DefaultIntervals.ONE_MINUTE, 
 		DefaultIntervals.FIVE_MINUTES,
@@ -49,7 +55,13 @@ public interface Constants {
 		DefaultIntervals.ONE_DAY
 	};
 	
+	/**
+	 * Min time value.
+	 */
 	public static final long MIN_TIME_DEFAULT = Long.MAX_VALUE;
+	/**
+	 * Max time value.
+	 */
 	public static final long MAX_TIME_DEFAULT = Long.MIN_VALUE;
 
 }

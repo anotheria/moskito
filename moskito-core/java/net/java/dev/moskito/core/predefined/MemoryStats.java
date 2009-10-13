@@ -6,9 +6,23 @@ import net.java.dev.moskito.core.stats.StatValue;
 import net.java.dev.moskito.core.stats.TimeUnit;
 import net.java.dev.moskito.core.stats.impl.StatValueFactory;
 
+/**
+ * Stat for a memory amount (used, heap, free etc).
+ * @author lrosenberg
+ *
+ */
 public class MemoryStats extends AbstractStats{
+	/**
+	 * Current value.
+	 */
 	private StatValue current;
+	/**
+	 * Min value.
+	 */
 	private StatValue min;
+	/**
+	 * Max value.
+	 */
 	private StatValue max;
 	
 	public MemoryStats(){
@@ -28,7 +42,7 @@ public class MemoryStats extends AbstractStats{
 		
 	}
 	
-	public String toStatsString(String intervalName, TimeUnit timeUnit) {
+	@Override public String toStatsString(String intervalName, TimeUnit timeUnit) {
 		StringBuilder b = new StringBuilder();
 		b.append(getName()).append(' ');
 		b.append(" CUR: ").append(current.getValueAsLong(intervalName));
