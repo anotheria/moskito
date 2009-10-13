@@ -43,7 +43,7 @@ import net.java.dev.moskito.core.stats.StatValue;
  * 
  * @author dvayanu
  */
-public class StatValueFactory extends StatValueTypeUtility {
+public class StatValueFactory {
 
 	/**
 	 * This method creates a new StatValue instance. 
@@ -54,10 +54,8 @@ public class StatValueFactory extends StatValueTypeUtility {
 	 * @param aIntervals the list of Intervals to be used
 	 * @return the StatValue instance
 	 */
-	public static final StatValue createStatValue(Object aPattern,
-			String aName, Interval[] aIntervals) {
-		return createStatValue(StatValueTypeUtility.object2type(aPattern),
-				aName, aIntervals);
+	public static final StatValue createStatValue(Object aPattern, String aName, Interval[] aIntervals) {
+		return createStatValue(StatValueTypeUtility.object2type(aPattern),aName, aIntervals);
 	}
 
 	/**
@@ -68,10 +66,8 @@ public class StatValueFactory extends StatValueTypeUtility {
 	 * @param aIntervals the list of Intervals to be used
 	 * @return the StatValue instance
 	 */
-	public static StatValue createStatValue(StatValueTypes aType, String aName,
-			Interval[] aIntervals) {
-		IValueHolderFactory valueHolderFactory = StatValueTypeUtility
-				.createValueHolderFactory(aType);
+	public static StatValue createStatValue(StatValueTypes aType, String aName, Interval[] aIntervals) {
+		IValueHolderFactory valueHolderFactory = StatValueTypeUtility.createValueHolderFactory(aType);
 		StatValue value = new StatValueImpl(aName, valueHolderFactory);
 		// now we have to add the Intervals to the new value....
 		for (int i = 0; i < aIntervals.length; i++) {
