@@ -24,120 +24,120 @@ public interface ValueHolder {
 	 * This method shall reset the ValueHolder. After calling reset() it must have 
 	 * the same state as directly after creation. 
 	 */
-	public void reset();
+	void reset();
 
 	/**
 	 * This method shall increment the value by one.
 	 */
-	public void increase();
+	void increase();
 	
 	/**
 	 * This method shall decrement the value by one.
 	 */
-	public void decrease();
+	void decrease();
 	
 	/**
 	 * This method shall return the current value as int.
 	 * 
 	 * @return the current value
 	 */
-	public int getValueAsInt();
+	int getValueAsInt();
 	
 	/**
 	 * This method shall return the current value as long.
 	 * 
 	 * @return the current value
 	 */
-	public long getValueAsLong();
+	long getValueAsLong();
 	
 	/**
 	 * This method shall return the current value as double.
 	 * 
 	 * @return the current value
 	 */
-	public double getValueAsDouble();
+	double getValueAsDouble();
 	
 	/**
 	 * This method shall return the current value as int for internal use only.
 	 * 
 	 * @return the current value
 	 */
-	abstract int getCurrentValueAsInt();
+	int getCurrentValueAsInt();
 	/**
 	 * This method shall return the current value as long for internal use only.
 	 * 
 	 * @return the current value
 	 */
-	abstract long getCurrentValueAsLong();
+	long getCurrentValueAsLong();
 	/**
 	 * This method shall return the current value as double for internal use only.
 	 * 
 	 * @return the current value
 	 */
-	abstract double getCurrentValueAsDouble();
+	double getCurrentValueAsDouble();
 	
 	/**
 	 * This method shall assign the given value to the current value.
 	 *
 	 * @param aValue the new value
 	 */
-	public void setValueAsInt(int aValue);
+	void setValueAsInt(int aValue);
 	
 	/**
 	 * This method shall assign the given value to the current value.
 	 *
 	 * @param aValue the new value
 	 */
-	public void setValueAsLong(long aValue);
+	void setValueAsLong(long aValue);
 
 	/**
 	 * This method shall assign the given value to the current value.
 	 *
 	 * @param aValue the new value
 	 */
-	public void setValueAsDouble(double aValue);
+	void setValueAsDouble(double aValue);
 	
 	/**
 	 * This method shall increment the current value by the given amount.
 	 * 
 	 * @param aValue the amount
 	 */
-	public void increaseByInt(int aValue);
+	void increaseByInt(int aValue);
 
 	/**
 	 * This method shall increment the current value by the given amount.
 	 * 
 	 * @param aValue the amount
 	 */
-	public void increaseByLong(long aValue);
+	void increaseByLong(long aValue);
 
 	/**
 	 * This method shall increment the current value by the given amount.
 	 * 
 	 * @param aValue the amount
 	 */
-	public void increaseByDouble(double aValue);
+	void increaseByDouble(double aValue);
 	
 	/**
 	 * This method shall decrement the current value by the given amount.
 	 * 
 	 * @param aValue the amount
 	 */
-	public void decreaseByInt(int aValue);
+	void decreaseByInt(int aValue);
 
 	/**
 	 * This method shall decrement the current value by the given amount.
 	 * 
 	 * @param aValue the amount
 	 */
-	public void decreaseByLong(long aValue);
+	void decreaseByLong(long aValue);
 
 	/**
 	 * This method shall decrement the current value by the given amount.
 	 * 
 	 * @param aValue the amount
 	 */
-	public void decreaseByDouble(double aValue);	
+	void decreaseByDouble(double aValue);	
 	
 	/**
 	 * This method shall set a new default value. The default value shall be set 
@@ -145,7 +145,7 @@ public interface ValueHolder {
 	 * 
 	 * @param aValue the new default value
 	 */
-	public void setDefaultValueAsInt(int aValue);
+	void setDefaultValueAsInt(int aValue);
 
 	/**
 	 * This method shall set a new default value. The default value shall be set 
@@ -153,7 +153,7 @@ public interface ValueHolder {
 	 * 
 	 * @param aValue the new default value
 	 */
-	public void setDefaultValueAsLong(long aValue);
+	void setDefaultValueAsLong(long aValue);
 
 	/**
 	 * This method shall set a new default value. The default value shall be set 
@@ -161,6 +161,6 @@ public interface ValueHolder {
 	 * 
 	 * @param aValue the new default value
 	 */
-	public void setDefaultValueAsDouble(double aValue);
+	void setDefaultValueAsDouble(double aValue);
 	
 }
