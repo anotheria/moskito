@@ -7,6 +7,12 @@ import net.java.dev.moskito.core.producers.AbstractStats;
 import net.java.dev.moskito.core.stats.Interval;
 import net.java.dev.moskito.core.stats.TimeUnit;
 
+/**
+ * Stats for virtual pools, i.e. Heap and Non-Heap memory, which consists of multiple underlying pools.
+ * The VirtualMemoryPoolStats do not measure theirself, but just aggregate.
+ * @author another
+ *
+ */
 public class VirtualMemoryPoolStats extends AbstractStats implements IMemoryPoolStats{
 	
 	private List<MemoryPoolStats> realStats;
@@ -24,11 +30,15 @@ public class VirtualMemoryPoolStats extends AbstractStats implements IMemoryPool
 		realStats = new ArrayList<MemoryPoolStats>();
 	}
 	
+	/**
+	 * Adds an underlying 'real' stats object.
+	 * @param stats
+	 */
 	public void addStats(MemoryPoolStats stats){
 		realStats.add(stats);
 	}
 	
-	public String toStatsString(String intervalName, TimeUnit timeUnit) {
+	@Override public String toStatsString(String intervalName, TimeUnit timeUnit) {
 		StringBuilder b = new StringBuilder();
 		b.append(getName()).append(' ');
 		b.append(" INIT: ").append(getInit(intervalName));
@@ -42,7 +52,7 @@ public class VirtualMemoryPoolStats extends AbstractStats implements IMemoryPool
 		return b.toString();
 	}
 
-	public long getInit(String intervalName){
+	@Override public long getInit(String intervalName){
 		long ret = 0L;
 		for (MemoryPoolStats s : realStats){
 			ret += s.getInit(intervalName);
@@ -50,21 +60,21 @@ public class VirtualMemoryPoolStats extends AbstractStats implements IMemoryPool
 		return ret;
 	}
 	
-	public long getUsed(String intervalName){
+	@Override public long getUsed(String intervalName){
 		long ret = 0L;
 		for (MemoryPoolStats s : realStats){
 			ret += s.getUsed(intervalName);
 		}
 		return ret;
 	}
-	public long getMinUsed(String intervalName){
+	@Override public long getMinUsed(String intervalName){
 		long ret = 0L;
 		for (MemoryPoolStats s : realStats){
 			ret += s.getMinUsed(intervalName);
 		}
 		return ret;
 	}
-	public long getMaxUsed(String intervalName){
+	@Override public long getMaxUsed(String intervalName){
 		long ret = 0L;
 		for (MemoryPoolStats s : realStats){
 			ret += s.getMaxUsed(intervalName);
@@ -74,7 +84,7 @@ public class VirtualMemoryPoolStats extends AbstractStats implements IMemoryPool
 
 	
 	
-	public long getCommited(String intervalName){
+	@Override public long getCommited(String intervalName){
 		long ret = 0L;
 		for (MemoryPoolStats s : realStats){
 			ret += s.getCommited(intervalName);
@@ -82,14 +92,14 @@ public class VirtualMemoryPoolStats extends AbstractStats implements IMemoryPool
 		return ret;
 	}
 	
-	public long getMinCommited(String intervalName){
+	@Override public long getMinCommited(String intervalName){
 		long ret = 0L;
 		for (MemoryPoolStats s : realStats){
 			ret += s.getMinCommited(intervalName);
 		}
 		return ret;
 	}
-	public long getMaxCommited(String intervalName){
+	@Override public long getMaxCommited(String intervalName){
 		long ret = 0L;
 		for (MemoryPoolStats s : realStats){
 			ret += s.getMaxCommited(intervalName);
@@ -98,7 +108,7 @@ public class VirtualMemoryPoolStats extends AbstractStats implements IMemoryPool
 	}
 	
 	
-	public long getMax(String intervalName){
+	@Override public long getMax(String intervalName){
 		long ret = 0L;
 		for (MemoryPoolStats s : realStats){
 			ret += s.getMax(intervalName);
@@ -106,7 +116,7 @@ public class VirtualMemoryPoolStats extends AbstractStats implements IMemoryPool
 		return ret;
 	}
 	
-	public long getFree(String intervalName){
+	@Override public long getFree(String intervalName){
 		return getCommited(intervalName) - getUsed(intervalName);
 	}
 
