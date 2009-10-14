@@ -42,17 +42,24 @@ import net.java.dev.moskito.core.registry.IProducerFilter;
  * @author lrosenberg
  */
 public class CategoryFilter implements IProducerFilter{
+	/**
+	 * Category to filter.
+	 */
 	private String category;
 	
+	/**
+	 * Creates a new category filter.
+	 * @param aCategory
+	 */
 	public CategoryFilter(String aCategory){
 		category = aCategory;
 	}
 	
-	public String toString(){
+	@Override public String toString(){
 		return "CategoryFilter: "+category;
 	}
 	
-	public boolean doesFit(IStatsProducer producer){
+	@Override public boolean doesFit(IStatsProducer producer){
 		return category == null ? true : category.equals(producer.getCategory());
 	}
 }
