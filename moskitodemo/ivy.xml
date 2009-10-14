@@ -1,0 +1,31 @@
+<ivy-module version="2.0">
+    <info organisation="java.net" module="moskito-demo"/>
+	<configurations >
+		<conf name="war" />
+	</configurations>	
+	<publications>
+		<artifact name="moskito-demo" type="war" ext="war" conf="war"/>
+    </publications>
+    <dependencies>
+        <dependency org="org.apache" name="log4j" rev="stable" transitive="false"/>
+        <dependency org="java.net" name="moskito-core" rev="latest" transitive="true" changing="true"/>
+        <dependency org="java.net" name="moskito-util" rev="latest" transitive="true" changing="true"/>
+        <dependency org="java.net" name="moskito-web" rev="latest" transitive="true" changing="true"/>
+        <dependency org="java.net" name="moskito-webui" rev="latest" transitive="true" changing="true"/>
+
+        <dependency org="anotheria.net" name="ano-util" rev="latest" transitive="true" changing="true"/>
+
+        <dependency org="org" name="junit" rev="stable" transitive="false"/>
+
+        <dependency org="javax" name="servlet-api" rev="stable" transitive="false"/>
+        <dependency org="javax" name="jsp-api" rev="stable" transitive="false"/>
+
+		<dependency org="org.apache.commons" name="commons-beanutils" rev="stable" transitive="false"/>
+		<dependency org="org.apache.commons" name="commons-digester" rev="stable" transitive="false"/>
+		<dependency org="org.apache.commons" name="commons-collections" rev="stable" transitive="false"/>
+		<dependency org="org.apache.commons" name="commons-logging" rev="stable" transitive="false"/>
+        <dependency org="org.apache" name="struts" rev="stable" transitive="false"/>
+        
+        
+    </dependencies>
+</ivy-module>
