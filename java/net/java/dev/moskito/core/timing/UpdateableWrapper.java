@@ -34,14 +34,15 @@
  */	
 package net.java.dev.moskito.core.timing;
 
-import net.java.dev.moskito.core.timing.timer.ITimerConsumer;
+import java.util.TimerTask;
 
 /**
- * This class implements an adapter to handle IUpdatable instances as ITimerConsumers.
+ * This class implements an adapter to handle IUpdatable instances as TimerTask.
  *
  * @author dvayanu
  */
-final class UpdateableWrapper implements ITimerConsumer {
+final class UpdateableWrapper extends TimerTask {
+
 
 	/**
 	 * This is the delegate that will be called.
@@ -57,10 +58,8 @@ final class UpdateableWrapper implements ITimerConsumer {
 		delegate = aDelegate;
 	}
 	
-	/**
-	 * @see net.java.dev.moskito.core.timing.timer.ITimerConsumer#receiveTimerEvent(int)
-	 */
-	public final void receiveTimerEvent(int ticks) {
+
+	@Override public void run() {
 		delegate.update();
 	}
 
