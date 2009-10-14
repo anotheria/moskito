@@ -81,7 +81,7 @@ public class ServletStats extends RequestOrientedStats{
 	 * Initializes this object.
 	 */
 	private void initializeMe(){
-		Long pattern = new Long(0);
+		Long pattern = Long.valueOf(0);
 		ioExceptions = StatValueFactory.createStatValue(pattern, "ioexceptions", getSelectedIntervals());
 		servletExceptions = StatValueFactory.createStatValue(pattern, "servletExceptions", getSelectedIntervals());
 		runtimeExceptions = StatValueFactory.createStatValue(pattern, "runtimeExceptions", getSelectedIntervals());
