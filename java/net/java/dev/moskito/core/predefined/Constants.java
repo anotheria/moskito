@@ -52,6 +52,7 @@ public interface Constants {
 		DefaultIntervals.FIVE_MINUTES,
 		DefaultIntervals.FIFTEEN_MINUTES,
 		DefaultIntervals.ONE_HOUR,
+		DefaultIntervals.TWELVE_HOURS,
 		DefaultIntervals.ONE_DAY
 	};
 	
