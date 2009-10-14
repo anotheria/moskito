@@ -75,7 +75,7 @@ public class StorageStats extends AbstractStats{
 	} 
 
 	public StorageStats(String aName,  Interval[] selectedIntervals){
-		Long longPattern = new Long(0);
+		Long longPattern = Long.valueOf(0);
 		name = aName;
 		
 		gets = StatValueFactory.createStatValue(longPattern, "gets", selectedIntervals);
