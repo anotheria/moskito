@@ -24,9 +24,8 @@ import net.java.dev.moskito.core.stats.TimeUnit;
 import net.java.dev.moskito.core.stats.impl.StatValueFactory;
 
 /**
- * Stats for caches.
+ * Stats for (read) caches.
  * @author lrosenberg
- *
  */
 public class CacheStats extends AbstractStats{
 	/**

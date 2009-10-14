@@ -36,6 +36,11 @@ package net.java.dev.moskito.core.predefined;
 
 import net.java.dev.moskito.core.stats.Interval;
 
+/**
+ * Stats for services (as in SOA services).
+ * @author lrosenberg
+ *
+ */
 public class ServiceStats extends RequestOrientedStats{
 		
 	/**
