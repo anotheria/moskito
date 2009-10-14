@@ -15,16 +15,28 @@ import net.java.dev.moskito.core.stats.TimeUnit;
  */
 public class VirtualMemoryPoolStats extends AbstractStats implements IMemoryPoolStats{
 	
+	/**
+	 * Underlying 'real' stats.
+	 */
 	private List<MemoryPoolStats> realStats;
 	
+	/**
+	 * Creates a new VirtualMemoryPoolStats object.
+	 */
 	public VirtualMemoryPoolStats(){
 		this("unnamed", Constants.DEFAULT_INTERVALS);
 	} 
 	
+	/**
+	 * Creates a new VirtualMemoryPoolStats object with given name.
+	 */
 	public VirtualMemoryPoolStats(String aName){
 		this(aName, Constants.DEFAULT_INTERVALS);
 	} 
 
+	/**
+	 * Creates a new VirtualMemoryPoolStats object with given name and special intervals.
+	 */
 	public VirtualMemoryPoolStats(String aName,  Interval[] selectedIntervals){
 		super(aName);
 		realStats = new ArrayList<MemoryPoolStats>();
