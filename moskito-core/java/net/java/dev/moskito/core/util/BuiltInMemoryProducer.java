@@ -2,20 +2,19 @@ package net.java.dev.moskito.core.util;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import net.java.dev.moskito.core.predefined.MemoryStats;
 import net.java.dev.moskito.core.producers.IStats;
 import net.java.dev.moskito.core.producers.IStatsProducer;
-import net.java.dev.moskito.core.timing.timer.ITimerConsumer;
-import net.java.dev.moskito.core.timing.timer.TimerServiceConstantsUtility;
-import net.java.dev.moskito.core.timing.timer.TimerServiceFactory;
 
 /**
  * A builtin memory producer for Runtime.get... memory methods. 
  * @author lrosenberg
  *
  */
-public class BuiltInMemoryProducer implements IStatsProducer, ITimerConsumer{
+public class BuiltInMemoryProducer implements IStatsProducer{
 	/**
 	 * The id of the producer.
 	 */
@@ -37,6 +36,11 @@ public class BuiltInMemoryProducer implements IStatsProducer, ITimerConsumer{
 	public static final String MAX = "JavaRuntimeMax";
 	public static final String TOTAL = "JavaRuntimeTotal";
 	
+	/**
+	 * Private timer instance.
+	 */
+	private static final Timer timer = new Timer("MoskitoMemoryReader", true);
+	
 	public BuiltInMemoryProducer(String aProducerId){
 		statsList = new ArrayList<IStats>();
 		stats = new MemoryStats(aProducerId);
@@ -53,9 +57,13 @@ public class BuiltInMemoryProducer implements IStatsProducer, ITimerConsumer{
 		if (resolver==null)
 			throw new IllegalArgumentException("Illegal producerId, expected: "+FREE+", "+TOTAL+" or "+MAX);
 		
-		TimerServiceFactory.createTimerService().addConsumer(this, 1000/TimerServiceConstantsUtility.getSleepingUnit()*60);
-		//force initial memory reading
-		receiveTimerEvent(0);
+		timer.scheduleAtFixedRate(new TimerTask() {
+			@Override
+			public void run() {
+				readMemory();
+			}
+		}, 0, 1000L*60);
+		readMemory();
 	}
 	
 	@Override
@@ -103,8 +111,8 @@ public class BuiltInMemoryProducer implements IStatsProducer, ITimerConsumer{
 			return Runtime.getRuntime().totalMemory();
 		}
 	}
-	@Override
-	public void receiveTimerEvent(int ticks) {
+
+	private void readMemory() {
 		stats.updateMemoryValue(resolver.getMemoryValue());
 	}
 }
