@@ -5,19 +5,18 @@ import java.lang.management.MemoryType;
 import java.lang.management.MemoryUsage;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import net.java.dev.moskito.core.predefined.MemoryPoolStats;
 import net.java.dev.moskito.core.producers.IStats;
 import net.java.dev.moskito.core.producers.IStatsProducer;
-import net.java.dev.moskito.core.timing.timer.ITimerConsumer;
-import net.java.dev.moskito.core.timing.timer.TimerServiceConstantsUtility;
-import net.java.dev.moskito.core.timing.timer.TimerServiceFactory;
 
 /**
  * Builtin producer for memory pool monitoring. Each producer monitors one memory pool. Memory pools are garbage collector dependent and are determined via jmx on start.
  * @author dvayanu
  */
-public class BuiltInMemoryPoolProducer implements IStatsProducer, ITimerConsumer{
+public class BuiltInMemoryPoolProducer implements IStatsProducer{
 	/**
 	 * The id of the producers. Usually its the name of the pool.
 	 */
@@ -35,6 +34,10 @@ public class BuiltInMemoryPoolProducer implements IStatsProducer, ITimerConsumer
 	 * The monitored pool.
 	 */
 	private MemoryPoolMXBean pool;
+	/**
+	 * Timer instance for this producer type.
+	 */
+	private static final Timer timer = new Timer("MoskitoMemoryPoolReader", true);
 	
 	/**
 	 * Creates a new producers object for a given pool.
@@ -47,10 +50,13 @@ public class BuiltInMemoryPoolProducer implements IStatsProducer, ITimerConsumer
 		stats = new MemoryPoolStats(producerId);
 		statsList.add(stats);
 		
-		
-		TimerServiceFactory.createTimerService().addConsumer(this, 1000/TimerServiceConstantsUtility.getSleepingUnit()*60);
-		//force initial memory reading
-		receiveTimerEvent(0);
+		timer.scheduleAtFixedRate(new TimerTask() {
+			@Override
+			public void run() {
+				readMemory();
+			}
+		}, 0, 1000L*60);
+		readMemory();
 	}
 	
 	@Override
@@ -73,8 +79,7 @@ public class BuiltInMemoryPoolProducer implements IStatsProducer, ITimerConsumer
 		return SUBSYSTEM_BUILTIN;
 	}
 	
-	@Override
-	public void receiveTimerEvent(int ticks) {
+	private void readMemory() {
 		MemoryUsage usage = pool.getUsage();
 		stats.setCommited(usage.getCommitted());
 		stats.setUsed(usage.getUsed());
