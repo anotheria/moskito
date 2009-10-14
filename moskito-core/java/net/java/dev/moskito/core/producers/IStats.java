@@ -51,7 +51,7 @@ public interface IStats {
 	 * @param aIntervalName the name of the interval the values were collected for
 	 * @return the snapshot
 	 */
-	public IStatsSnapshot createSnapshot(String aIntervalName);
+	IStatsSnapshot createSnapshot(String aIntervalName);
 	
 	/**
 	 * This method creates a human-readable textual representation of all statistical
@@ -59,7 +59,7 @@ public interface IStats {
 	 * 
 	 * @return the formatted text output
 	 */
-	public String toStatsString();
+	String toStatsString();
 	
 	/**
 	 * This method creates a human-readable textual representation of all statistical
@@ -68,7 +68,7 @@ public interface IStats {
 	 * @param aIntervalName the name of the interval or <code>null</code> for all intervals
 	 * @return the formatted text output
 	 */
-	public String toStatsString(String aIntervalName);
+	String toStatsString(String aIntervalName);
 	
 	/**
 	 * This method creates a human-readable textual representation of all statistical
@@ -76,7 +76,7 @@ public interface IStats {
 	 * 
 	 * @return the formatted text output
 	 */
-	public String toStatsString(TimeUnit unit);
+	String toStatsString(TimeUnit unit);
 	
 	/**
 	 * This method creates a human-readable textual representation of all statistical
@@ -85,7 +85,7 @@ public interface IStats {
 	 * @param aIntervalName the name of the interval or <code>null</code> for all intervals
 	 * @return the formatted text output
 	 */
-	public String toStatsString(String aIntervalName, TimeUnit unit);
+	String toStatsString(String aIntervalName, TimeUnit unit);
 	
 	
 	/**
