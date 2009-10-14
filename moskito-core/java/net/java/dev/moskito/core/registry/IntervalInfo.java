@@ -56,7 +56,7 @@ public class IntervalInfo {
 	}
 	
 	@Override public boolean equals(Object o){
-		return ((IntervalInfo)o).interval.getName().equals(interval.getName());
+		return o instanceof IntervalInfo && ((IntervalInfo)o).interval.getName().equals(interval.getName());
 	}
 	
 	@Override public int hashCode(){
