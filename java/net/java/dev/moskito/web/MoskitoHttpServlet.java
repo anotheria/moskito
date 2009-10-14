@@ -65,39 +65,39 @@ public class MoskitoHttpServlet extends HttpServlet implements IStatsProducer{
 	/**
 	 * Stats for the http delete method.
 	 */
-	private ServletStats deleteStats;
+	private transient ServletStats deleteStats;
 	/**
 	 * Stats for the http get method.
 	 */
-	private ServletStats getStats;
+	private transient ServletStats getStats;
 	/**
 	 * Stats for the http head method.
 	 */
-	private ServletStats headStats;
+	private transient ServletStats headStats;
 	/**
 	 * Stats for the http options method.
 	 */
-	private ServletStats optionsStats;
+	private transient ServletStats optionsStats;
 	/**
 	 * Stats for the http post method.
 	 */
-	private ServletStats postStats;
+	private transient ServletStats postStats;
 	/**
 	 * Stats for the http put method.
 	 */
-	private ServletStats putStats;
+	private transient ServletStats putStats;
 	/**
 	 * Stats for the http trace method.
 	 */
-	private ServletStats traceStats;
+	private transient ServletStats traceStats;
 	/**
 	 * Stats for the calls of the last modified method.
 	 */
-	private ServletStats lastModifiedStats;
+	private transient ServletStats lastModifiedStats;
 	/**
 	 * Cached list with all stats.
 	 */
-	private List<IStats> cachedStatList;
+	private transient List<IStats> cachedStatList;
 	
 	/**
 	 * Creates the stats objects. Registers the servlet at the ProducerRegistry. 
