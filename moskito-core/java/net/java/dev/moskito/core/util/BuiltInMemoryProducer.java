@@ -32,8 +32,20 @@ public class BuiltInMemoryProducer implements IStatsProducer{
 	 */
 	private RuntimeMemoryResolver resolver;
 	
+	/**
+	 * Constant for free memory.
+	 * {@see java.lang.Runtime.freeMemory}
+	 */
 	public static final String FREE = "JavaRuntimeFree";
+	/**
+	 * Constant for max memory.
+	 * {@see java.lang.Runtime.maxMemory}
+	 */
 	public static final String MAX = "JavaRuntimeMax";
+	/**
+	 * Constant for total memory. 
+	 * {@see java.lang.Runtime.totalMemory}
+	 */
 	public static final String TOTAL = "JavaRuntimeTotal";
 	
 	/**
@@ -96,22 +108,34 @@ public class BuiltInMemoryProducer implements IStatsProducer{
 	}
 
 	
-	private class FreeMemoryResolver implements RuntimeMemoryResolver{
-		public long getMemoryValue(){
+	/**
+	 * Helper class that reads out freememory from Runtime.
+	 */
+	private static class FreeMemoryResolver implements RuntimeMemoryResolver{
+		@Override public long getMemoryValue(){
 			return Runtime.getRuntime().freeMemory();
 		}
 	}
-	private class MaxMemoryResolver implements RuntimeMemoryResolver{
-		public long getMemoryValue(){
+	/**
+	 * Helper class that reads out maxmemory from Runtime.
+	 */
+	private static class MaxMemoryResolver implements RuntimeMemoryResolver{
+		@Override public long getMemoryValue(){
 			return Runtime.getRuntime().maxMemory();
 		}
 	}
-	private class TotalMemoryResolver implements RuntimeMemoryResolver{
-		public long getMemoryValue(){
+	/**
+	 * Helper class that reads out totalmemory from Runtime.
+	 */
+	private static class TotalMemoryResolver implements RuntimeMemoryResolver{
+		@Override public long getMemoryValue(){
 			return Runtime.getRuntime().totalMemory();
 		}
 	}
 
+	/**
+	 * Reads the memory value from the resolver and updates internal stats.
+	 */
 	private void readMemory() {
 		stats.updateMemoryValue(resolver.getMemoryValue());
 	}
