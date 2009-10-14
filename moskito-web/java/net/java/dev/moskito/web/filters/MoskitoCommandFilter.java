@@ -17,10 +17,10 @@ public class MoskitoCommandFilter implements Filter{
 
 	private String paramCommandName;
 	
-	public void destroy() {
+	@Override public void destroy() {
 	}
 
-	public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain) throws IOException, ServletException {
+	@Override public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain) throws IOException, ServletException {
 		String command = req.getParameter(paramCommandName);
 		if (command==null || command.length()==0){
 			chain.doFilter(req, res);
@@ -36,7 +36,7 @@ public class MoskitoCommandFilter implements Filter{
 		}
 	}
 
-	public void init(FilterConfig arg0) throws ServletException {
+	@Override public void init(FilterConfig config) throws ServletException {
 		paramCommandName = DEF_PARAM_COMMAND_NAME;
 		
 	}

@@ -1,6 +1,7 @@
 package net.java.dev.moskito.web.filters;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import javax.servlet.Filter;
@@ -34,10 +35,10 @@ public class MonitoringSessionFilter implements Filter{
 
 	private IMonitoringSessionManager monitoringSessionManager;
 
-	public void destroy() {
+	@Override public void destroy() {
 	}
 
-	public void doFilter(ServletRequest sreq, ServletResponse sres, FilterChain chain) throws IOException, ServletException {
+	@Override public void doFilter(ServletRequest sreq, ServletResponse sres, FilterChain chain) throws IOException, ServletException {
 		if (!(sreq instanceof HttpServletRequest)){
 			chain.doFilter(sreq, sres);
 			return;
@@ -104,13 +105,13 @@ public class MonitoringSessionFilter implements Filter{
 	}
 	
 
-	public void init(FilterConfig chain) throws ServletException {
+	@Override public void init(FilterConfig chain) throws ServletException {
 		monitoringSessionManager = MonitoringSessionManagerFactory.getMonitoringSessionManager();
 	}
 	
 }
 
-class SessionRecord{
+class SessionRecord implements Serializable{
 	private String name;
 	private AtomicInteger requestCount;
 	
@@ -127,7 +128,7 @@ class SessionRecord{
 		return name;
 	}
 	
-	public String toString(){
+	@Override public String toString(){
 		return getName()+" - "+requestCount.get();
 	}
 	
