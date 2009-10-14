@@ -37,9 +37,14 @@ package net.java.dev.moskito.core.registry.filters;
 import net.java.dev.moskito.core.producers.IStatsProducer;
 import net.java.dev.moskito.core.registry.IProducerFilter;
 
+/**
+ * This filter just passes all objects through.
+ * @author lrosenberg
+ *
+ */
 public class AllThroughFilter implements IProducerFilter{
 
-	public boolean doesFit(IStatsProducer producer) {
+	@Override public boolean doesFit(IStatsProducer producer) {
 		return true;
 	}
 

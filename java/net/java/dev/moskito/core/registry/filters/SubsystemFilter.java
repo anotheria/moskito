@@ -37,18 +37,28 @@ package net.java.dev.moskito.core.registry.filters;
 import net.java.dev.moskito.core.producers.IStatsProducer;
 import net.java.dev.moskito.core.registry.IProducerFilter;
 
+/**
+ * This simple filter lets pass only producers in selected subsystem.
+ * @author lrosenberg
+ */
 public class SubsystemFilter implements IProducerFilter{
+	/**
+	 * Selected subsystem.
+	 */
 	private String subsystem;
-	
+	/**
+	 * Creates a new subsystem filter.
+	 * @param aSubsystem
+	 */
 	public SubsystemFilter(String aSubsystem){
 		subsystem = aSubsystem;
 	}
 	
-	public String toString(){
+	@Override public String toString(){
 		return "Subsystem Filter: "+subsystem;
 	}
 	
-	public boolean doesFit(IStatsProducer producer){
+	@Override public boolean doesFit(IStatsProducer producer){
 		return subsystem == null ? true : subsystem.equals(producer.getSubsystem());
 	}
 }
