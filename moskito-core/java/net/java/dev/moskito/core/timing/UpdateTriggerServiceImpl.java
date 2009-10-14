@@ -34,9 +34,7 @@
  */
 package net.java.dev.moskito.core.timing;
 
-import net.java.dev.moskito.core.timing.timer.ITimerService;
-import net.java.dev.moskito.core.timing.timer.TimerServiceConstantsUtility;
-import net.java.dev.moskito.core.timing.timer.TimerServiceFactory;
+import java.util.Timer;
 
 /**
  * This class implements the UpdateTriggerService. 
@@ -45,25 +43,25 @@ import net.java.dev.moskito.core.timing.timer.TimerServiceFactory;
  * @author dvayanu
  */
 class UpdateTriggerServiceImpl implements IUpdateTriggerService {
-	/**
-	 * The time service instance
-	 */
-	private ITimerService timerService;
 
+
+	private Timer timer;
+	
 	/**
 	 * The constructor.
 	 */
 	UpdateTriggerServiceImpl() {
-		timerService = TimerServiceFactory.createTimerService();
+		timer = new Timer("MoskitoIntervalUpdater", true);
 	}
 
 	/**
 	 * @see net.java.dev.moskito.core.timing.IUpdateTriggerService#addUpdateable(net.java.dev.moskito.core.timing.IUpdateable,int)
 	 */
-	public void addUpdateable(IUpdateable aUpdateable, int aUpdateSequenceInSeconds) {
+	public void addUpdateable(IUpdateable aUpdateable, int anUpdateSequenceInSeconds) {
+		if (anUpdateSequenceInSeconds==0)
+			return;
 		UpdateableWrapper adapter = new UpdateableWrapper(aUpdateable);
-		int intervalLength = aUpdateSequenceInSeconds * 1000 / TimerServiceConstantsUtility.getSleepingUnit();
-		timerService.addConsumer(adapter, intervalLength);
+		timer.scheduleAtFixedRate(adapter, 0, 1000L*anUpdateSequenceInSeconds);
 	}
 
 }
