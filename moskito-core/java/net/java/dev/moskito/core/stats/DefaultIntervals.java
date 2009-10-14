@@ -39,6 +39,10 @@ public abstract class DefaultIntervals {
 	 */
 	public static final Interval ONE_HOUR = IntervalRegistry.getInstance().getInterval("1h");
 	/**
+	 * an interval of one hour
+	 */
+	public static final Interval TWELVE_HOURS = IntervalRegistry.getInstance().getInterval("12h");
+	/**
 	 * an interval of one day
 	 */
 	public static final Interval ONE_DAY = IntervalRegistry.getInstance().getInterval("1d");
