@@ -123,7 +123,7 @@ public abstract class RequestOrientedStats extends AbstractStats {
 	public RequestOrientedStats(String aMethodName, Interval[] aSelectedIntervals) {
 		methodName = aMethodName;
 
-		Long pattern = new Long(0);
+		Long pattern = Long.valueOf(0);
 		selectedIntervals = aSelectedIntervals;
 
 		totalRequests = StatValueFactory.createStatValue(pattern, "requests", aSelectedIntervals);
