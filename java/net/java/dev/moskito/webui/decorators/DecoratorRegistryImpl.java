@@ -50,6 +50,7 @@ import net.java.dev.moskito.core.predefined.VirtualMemoryPoolStats;
 import net.java.dev.moskito.core.producers.AbstractStats;
 import net.java.dev.moskito.core.producers.IStats;
 import net.java.dev.moskito.util.storage.StorageStats;
+import net.java.dev.moskito.web.session.SessionCountStats;
 import net.java.dev.moskito.webui.decorators.predefined.ActionStatsDecorator;
 import net.java.dev.moskito.webui.decorators.predefined.CacheStatsDecorator;
 import net.java.dev.moskito.webui.decorators.predefined.FilterStatsDecorator;
@@ -57,6 +58,7 @@ import net.java.dev.moskito.webui.decorators.predefined.MemoryPoolStatsDecorator
 import net.java.dev.moskito.webui.decorators.predefined.MemoryStatsDecorator;
 import net.java.dev.moskito.webui.decorators.predefined.ServiceStatsDecorator;
 import net.java.dev.moskito.webui.decorators.predefined.ServletStatsDecorator;
+import net.java.dev.moskito.webui.decorators.predefined.SessionCountDecorator;
 import net.java.dev.moskito.webui.decorators.util.StorageStatsDecorator;
 
 public class DecoratorRegistryImpl implements IDecoratorRegistry{
@@ -92,6 +94,7 @@ public class DecoratorRegistryImpl implements IDecoratorRegistry{
 		registry.put(MemoryStats.class, new MemoryStatsDecorator());
 		registry.put(MemoryPoolStats.class, new MemoryPoolStatsDecorator());
 		registry.put(VirtualMemoryPoolStats.class, new MemoryPoolStatsDecorator("VirtualMemoryPool"));
+		registry.put(SessionCountStats.class, new SessionCountDecorator());
 	}
 	
 	public void addDecorator(Class <? extends AbstractStats> clazz, IDecorator decorator){
