@@ -9,6 +9,6 @@
 	<classpathentry kind="lib" path="lib/ano-util.jar"/>
 	<classpathentry kind="lib" path="lib/junit.jar"/>
 	<classpathentry kind="lib" path="lib/log4j.jar"/>
-	<classpathentry kind="lib" path="lib/moskito-core.jar"/>
+	<classpathentry kind="lib" path="lib/moskito-core.jar" sourcepath="/moskito-core"/>
 	<classpathentry kind="output" path="classes"/>
 </classpath>
