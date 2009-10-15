@@ -10,6 +10,7 @@
         <dependency org="org.apache" name="log4j" rev="stable" transitive="false"/>
         <dependency org="java.net" name="moskito-core" rev="latest" transitive="true"/>
         <dependency org="java.net" name="moskito-util" rev="latest" transitive="true"/>
+        <dependency org="java.net" name="moskito-web" rev="latest" transitive="true"/>
         <dependency org="anotheria.net" name="ano-util" rev="latest" transitive="true" changing="true"/>
         <dependency org="org" name="junit" rev="stable" transitive="false"/>
         <dependency org="javax" name="servlet-api" rev="stable" transitive="false"/>
