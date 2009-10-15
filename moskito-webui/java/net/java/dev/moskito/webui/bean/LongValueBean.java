@@ -50,11 +50,11 @@ public class LongValueBean extends StatValueBean{
 		return "long";
 	}
 	
-	public String getValue(){
+	@Override public String getValue(){
 		return longValue == Long.MAX_VALUE || longValue== Long.MIN_VALUE ? "NoR" : ""+longValue;
 	}
 	
-	public int compareTo(IComparable anotherComparable, int ignored) {
+	@Override public int compareTo(IComparable anotherComparable, int ignored) {
 		return BasicComparable.compareLong(longValue, ((LongValueBean)anotherComparable).longValue);
 	}
 }
