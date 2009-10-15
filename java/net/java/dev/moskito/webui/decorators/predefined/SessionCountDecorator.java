@@ -29,11 +29,11 @@ public class SessionCountDecorator extends AbstractDecorator{
 
 
 	private static String EXPLANATIONS[] = {
-		"Current number of sessions",
-		"Min number of sessions",
-		"Max number of sessions",
-		"Number of created sessions",
-		"Number of deleted sessions",
+		"Current number of sessions (this feature is yet experimental)",
+		"Min number of sessions (this feature is yet experimental)",
+		"Max number of sessions (this feature is yet experimental)",
+		"Number of created sessions (this feature is yet experimental)",
+		"Number of deleted sessions (this feature is yet experimental)",
 	};
 
 	
@@ -58,9 +58,9 @@ public class SessionCountDecorator extends AbstractDecorator{
 	}
 	
 	private static final long mapToLong(int value){
-		return value == Integer.MAX_VALUE ? Long.MAX_VALUE : 
-			   value == Integer.MIN_VALUE ? Long.MIN_VALUE :
-				   value;
+		return (value == Integer.MAX_VALUE) ? Long.MAX_VALUE : 
+			   ((value == Integer.MIN_VALUE) ? Long.MIN_VALUE :
+				   value);
 	}
 	
 	
