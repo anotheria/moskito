@@ -48,12 +48,20 @@ public class SessionCountDecorator extends AbstractDecorator{
 		
 		int i = 0;
 		
-		ret.add(new LongValueBean(CAPTIONS[i++], stats.getCurrentSessionCount(interval)));
-		ret.add(new LongValueBean(CAPTIONS[i++], stats.getMinSessionCount(interval)));
-		ret.add(new LongValueBean(CAPTIONS[i++], stats.getMaxSessionCount(interval)));
-		ret.add(new LongValueBean(CAPTIONS[i++], stats.getCreatedSessionCount(interval)));
-		ret.add(new LongValueBean(CAPTIONS[i++], stats.getDestroyedSessionCount(interval)));
+		ret.add(new LongValueBean(CAPTIONS[i++], mapToLong(stats.getCurrentSessionCount(interval))));
+		ret.add(new LongValueBean(CAPTIONS[i++], mapToLong(stats.getMinSessionCount(interval))));
+		ret.add(new LongValueBean(CAPTIONS[i++], mapToLong(stats.getMaxSessionCount(interval))));
+		ret.add(new LongValueBean(CAPTIONS[i++], mapToLong(stats.getCreatedSessionCount(interval))));
+		ret.add(new LongValueBean(CAPTIONS[i++], mapToLong(stats.getDestroyedSessionCount(interval))));
 		
 		return ret;
 	}
+	
+	private static final long mapToLong(int value){
+		return value == Integer.MAX_VALUE ? Long.MAX_VALUE : 
+			   value == Integer.MIN_VALUE ? Long.MIN_VALUE :
+				   value;
+	}
+	
+	
 }
