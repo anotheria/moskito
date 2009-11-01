@@ -37,7 +37,7 @@ public class MonitoringSessionListItemBean {
 		this.numberOfCalls = numberOfCalls;
 	}
 	
-	public String toString(){
+	@Override public String toString(){
 		return "Name: "+name+", "+"C: "+created+", LA: "+lastActivity+", NC: "+numberOfCalls+" A: "+active;
 	}
 }
