@@ -39,6 +39,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import net.java.dev.moskito.core.producers.IStatsProducer;
+import net.java.dev.moskito.webui.action.BaseMoskitoUIAction.MenuItem;
 
 public class ShowAllProducersAction extends BaseShowProducersAction{
 
@@ -58,7 +59,7 @@ public class ShowAllProducersAction extends BaseShowProducersAction{
 
 	@Override
 	protected String getActiveMenuCaption(HttpServletRequest req) {
-		return MENU_ITEM_ALL_PRODUCERS;
+		return MenuItem.ALLPRODUCERS.getCaption();
 	}
 	
 	

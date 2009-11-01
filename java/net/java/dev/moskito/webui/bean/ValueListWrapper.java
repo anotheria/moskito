@@ -53,7 +53,7 @@ public class ValueListWrapper implements IComparable{
 		this.values = values;
 	}
 	
-	public int compareTo(IComparable anotherComparable, int method) {
+	@Override public int compareTo(IComparable anotherComparable, int method) {
 		return values.get(method).compareTo(((ValueListWrapper)anotherComparable).values.get(method), method);
 	}
 	

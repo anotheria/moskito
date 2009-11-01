@@ -39,18 +39,23 @@ import java.util.List;
 import net.java.dev.moskito.core.producers.AbstractStats;
 import net.java.dev.moskito.core.producers.IStats;
 
+/**
+ * Internally used registry for decorator management.
+ * @author lrosenberg
+ *
+ */
 public interface IDecoratorRegistry {
 	/**
 	 * Returns the decorator for the given stats object.
 	 * @param stats
 	 * @return
 	 */
-	public IDecorator getDecorator(IStats stats);
+	IDecorator getDecorator(IStats stats);
 	/**
 	 * Returns all known decorators.
 	 * @return
 	 */
-	public List<IDecorator> getDecorators();
+	List<IDecorator> getDecorators();
 
-	public void addDecorator(Class <? extends AbstractStats> clazz, IDecorator decorator);
+	void addDecorator(Class <? extends AbstractStats> clazz, IDecorator decorator);
 }

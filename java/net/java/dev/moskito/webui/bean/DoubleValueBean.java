@@ -38,6 +38,9 @@ import net.anotheria.util.BasicComparable;
 import net.anotheria.util.sorter.IComparable;
 
 public class DoubleValueBean extends StatValueBean{
+	/**
+	 * Internal storage.
+	 */
 	private double doubleValue;
 	
 	
@@ -49,15 +52,15 @@ public class DoubleValueBean extends StatValueBean{
 			doubleValue = aValue;
 	}
 	
-	public String getValue(){
+	@Override public String getValue(){
 		return ""+doubleValue;
 	}
 	
-	public String getType(){
+	@Override public String getType(){
 		return "double";
 	}
 	 
-	public int compareTo(IComparable anotherComparable, int ignored) {
+	@Override public int compareTo(IComparable anotherComparable, int ignored) {
 		return BasicComparable.compareDouble(doubleValue, ((DoubleValueBean)anotherComparable).doubleValue);
 	}
 }

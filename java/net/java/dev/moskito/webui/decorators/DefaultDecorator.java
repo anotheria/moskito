@@ -42,6 +42,11 @@ import net.java.dev.moskito.core.stats.TimeUnit;
 import net.java.dev.moskito.webui.bean.StatValueBean;
 import net.java.dev.moskito.webui.bean.StringValueBean;
 
+/**
+ * A NOOP decorator. Used as a substitute for missing (or yet unimplemented) decorator.
+ * @author lrosenberg
+ *
+ */
 public class DefaultDecorator extends AbstractDecorator{
 	
 	
@@ -49,7 +54,7 @@ public class DefaultDecorator extends AbstractDecorator{
 		super("missing decorator", new String[]{"UNSET"}, new String[]{"UNSET"}, new String[]{"UNSET"});
 	}
 
-	public List<StatValueBean> getValues(IStats stats, String interval, TimeUnit unit) {
+	@Override public List<StatValueBean> getValues(IStats stats, String interval, TimeUnit unit) {
 		List<StatValueBean> beans = new ArrayList<StatValueBean>(1);
 		beans.add(new StringValueBean("none", "no decorator for "+stats.getClass()));
 		return beans;
