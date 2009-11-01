@@ -2,18 +2,40 @@ package net.java.dev.moskito.webui.bean;
 
 import java.util.ArrayList;
 import java.util.List;
-
+/**
+ * This bean represents an element along an use-case path.
+ * @author lrosenberg
+ */
 public class UseCasePathElementBean {
+	/**
+	 * Method call.
+	 */
 	private String call;
+	/**
+	 * Method duration.
+	 */
 	private long duration;
 	private long timespent;
+	/**
+	 * If true the call was aborted by an uncaught exception.
+	 */
 	private boolean aborted;
+	/**
+	 * Children calls.
+	 */
 	private List<UseCasePathElementBean> children;
+	/**
+	 * Ident for representation.
+	 */
 	private String ident;
-	
+	/**
+	 * If true this call is the root call.
+	 */
 	private boolean root;
 	private int layer;
-	
+	/**
+	 * The full call for debug purposes.
+	 */
 	private String fullCall;
 	
 	public UseCasePathElementBean(){
@@ -69,7 +91,7 @@ public class UseCasePathElementBean {
 		this.timespent = timespent;
 	}
 	
-	public String toString(){
+	@Override public String toString(){
 		return "Call: "+call+" Duration: "+duration+" time: "+timespent;
 	}
 
