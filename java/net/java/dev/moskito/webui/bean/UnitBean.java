@@ -13,9 +13,14 @@ public class UnitBean {
 		return unit.toString();
 	}
 	
-	public boolean equals(Object o){
+	@Override public boolean equals(Object o){
 		return (o instanceof UnitBean) ? 
 				unit==((UnitBean)o).unit : false;
+	}
+	
+	@Override public int hashCode() {
+		  assert false : "hashCode not designed";
+		  return 42; // any arbitrary constant will do 
 	}
 	
 	public TimeUnit getUnit(){
