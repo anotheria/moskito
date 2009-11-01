@@ -25,12 +25,22 @@ import net.java.dev.moskito.webui.action.ActionMapping;
 import net.java.dev.moskito.webui.action.MoskitoUIAction;
 
 public class MoskitoUIFilter implements Filter, IStatsProducer{
-	
+
+	/**
+	 * Stats for get request.
+	 */
 	private ServletStats getStats;
-	
+	/**
+	 * List of stats as required by stats producer interface.
+	 */
 	private List<IStats> cachedStatList;
-	
+	/**
+	 * Path on which to react.
+	 */
 	private String path;
+	/**
+	 * Path to images for html-layer image linking.
+	 */
 	private String pathToImages = "../img/";
 	
 	@Override
@@ -38,8 +48,7 @@ public class MoskitoUIFilter implements Filter, IStatsProducer{
 		
 	}
 
-	@Override
-	public void init(FilterConfig config) throws ServletException {
+	@Override public void init(FilterConfig config) throws ServletException {
 		getStats          = new FilterStats("cumulated", getMonitoringIntervals());
 		cachedStatList = new ArrayList<IStats>();
 		cachedStatList.add(getStats);
@@ -55,8 +64,7 @@ public class MoskitoUIFilter implements Filter, IStatsProducer{
 		config.getServletContext().setAttribute("mskPathToImages", pathToImages);
 	}
 
-	@Override
-	public void doFilter(ServletRequest sreq, ServletResponse sres,	FilterChain chain) throws IOException, ServletException {
+	@Override public void doFilter(ServletRequest sreq, ServletResponse sres,	FilterChain chain) throws IOException, ServletException {
 		if (!(sreq instanceof HttpServletRequest)){
 			chain.doFilter(sreq, sres);
 			return;
@@ -132,7 +140,7 @@ public class MoskitoUIFilter implements Filter, IStatsProducer{
 	}
 
 
-	public List<IStats> getStats() {
+	@Override public List<IStats> getStats() {
 		return (List<IStats>)cachedStatList;
 	}
 
@@ -154,15 +162,15 @@ public class MoskitoUIFilter implements Filter, IStatsProducer{
 		return true;
 	}
 
-	public String getProducerId() {
+	@Override public String getProducerId() {
 		return "moskitoUI";
 	}
 
-	public String getSubsystem() {
+	@Override public String getSubsystem() {
 		return "monitoring";
 	}
 
-	public String getCategory() {
+	@Override public String getCategory() {
 		return "filter";
 	}
 	
