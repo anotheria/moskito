@@ -40,10 +40,25 @@ import net.anotheria.util.BasicComparable;
 import net.anotheria.util.sorter.IComparable;
 
 public class ProducerBean implements IComparable{
+	/**
+	 * Id of the producer.
+	 */
 	private String id;
+	/**
+	 * Class name of the producer.
+	 */
 	private String className;
+	/**
+	 * Category of the producer.
+	 */
 	private String category;
+	/**
+	 * Subsystem of the producer.
+	 */
 	private String subsystem;
+	/**
+	 * Wrapper for the value list.
+	 */
 	private ValueListWrapper wrapper;
 	
 	public ProducerBean(){
@@ -82,7 +97,7 @@ public class ProducerBean implements IComparable{
 		return wrapper.getValues();
 	}
 
-	public int compareTo(IComparable anotherComparable, int method) {
+	@Override public int compareTo(IComparable anotherComparable, int method) {
 		ProducerBean anotherBean = (ProducerBean)anotherComparable;
 		if (method<ProducerBeanSortType.DYN_SORT_TYPE_LIMIT)
 			return wrapper.compareTo(anotherBean.wrapper, method);

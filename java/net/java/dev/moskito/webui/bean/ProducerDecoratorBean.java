@@ -37,7 +37,11 @@ package net.java.dev.moskito.webui.bean;
 import java.util.ArrayList;
 import java.util.List;
 
-
+/**
+ * Decorates a producer.
+ * @author another
+ *
+ */
 public class ProducerDecoratorBean extends AbstractDecoratorBean {
 	
 	private List<MetaHeaderBean> metaheader;

@@ -39,6 +39,9 @@ import java.util.List;
 import net.anotheria.util.sorter.IComparable;
 
 public class ValueListWrapper implements IComparable{
+	/**
+	 * Internal storage for the values.
+	 */
 	private List<StatValueBean> values;
 	
 	public ValueListWrapper(List<StatValueBean> someValues){
