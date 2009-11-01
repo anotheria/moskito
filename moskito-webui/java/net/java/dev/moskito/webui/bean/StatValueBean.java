@@ -44,7 +44,7 @@ public abstract class StatValueBean implements IComparable{
 		name = aName;
 	}
 	
-	public String toString(){
+	@Override public String toString(){
 		return getValue();
 	}
 	

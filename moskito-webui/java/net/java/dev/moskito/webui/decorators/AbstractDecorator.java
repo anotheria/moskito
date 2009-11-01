@@ -40,10 +40,28 @@ import java.util.List;
 import net.anotheria.util.sorter.IComparable;
 import net.java.dev.moskito.webui.bean.StatCaptionBean;
 
+/**
+ * An abstract class which implements basic functionality common to most decorators.
+ * @author another
+ *
+ */
 public abstract class AbstractDecorator implements IDecorator{
+	/**
+	 * Storage for captions.
+	 */
 	protected List<StatCaptionBean> captions;
+	/**
+	 * Decorator name.
+	 */
 	private String name;
 	
+	/**
+	 * Creates a new abstract decorator.
+	 * @param aName name of the decorator.
+	 * @param captionStrings array with captions.
+	 * @param shortExplanationStrings array with short explanations (mouse over).
+	 * @param explanationStrings array with long explanations.
+	 */
 	protected AbstractDecorator(String aName, String[] captionStrings, String shortExplanationStrings[], String explanationStrings[]){
 		name = aName;
 		captions = new ArrayList<StatCaptionBean>(captionStrings.length);
@@ -51,19 +69,19 @@ public abstract class AbstractDecorator implements IDecorator{
 			captions.add(new StatCaptionBean(captionStrings[i], shortExplanationStrings[i], explanationStrings[i]));
 	}
 	
-	public List<StatCaptionBean> getCaptions() {
+	@Override public List<StatCaptionBean> getCaptions() {
 		return captions;
 	}
 	
-	public String getName(){
+	@Override public String getName(){
 		return name;
 	}
 	
-	public int compareTo(IComparable anotherComparable, int method){
+	@Override public int compareTo(IComparable anotherComparable, int method){
 		return name.compareToIgnoreCase(((IDecorator)anotherComparable).getName());
 	}
 
-	public String getExplanation(String caption){
+	@Override public String getExplanation(String caption){
 		for (StatCaptionBean c : captions){
 			if (c.getCaption().equals(caption))
 				return c.getExplanation();

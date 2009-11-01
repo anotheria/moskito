@@ -62,7 +62,7 @@ public class AbstractDecoratorBean implements IComparable{
 		captions = someCaptions;
 	}
 
-	public int compareTo(IComparable anotherComparable, int method){
+	@Override public int compareTo(IComparable anotherComparable, int method){
 		//there is only one default method.
 		return BasicComparable.compareString(getName(), ((ProducerDecoratorBean)anotherComparable).getName());
 	}

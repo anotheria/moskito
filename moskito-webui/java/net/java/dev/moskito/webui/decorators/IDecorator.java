@@ -42,12 +42,34 @@ import net.java.dev.moskito.core.stats.TimeUnit;
 import net.java.dev.moskito.webui.bean.StatCaptionBean;
 import net.java.dev.moskito.webui.bean.StatValueBean;
 
+/**
+ * A decorator prepares data from a set of stat producers for presentation.
+ * @author lrosenberg
+ *
+ */
 public interface IDecorator extends IComparable{
-	public String getName();
-	
-	public List<StatCaptionBean> getCaptions();
-	
-	public List<StatValueBean> getValues(IStats stats, String interval, TimeUnit unit);
-	
-	public String getExplanation(String caption);
+	/**
+	 * Returns the name of the decorator.
+	 * @return
+	 */
+	String getName();
+	/**
+	 * Returns the captions for the stat table.
+	 * @return
+	 */
+	List<StatCaptionBean> getCaptions();
+	/**
+	 * Returns transformed stats for incoming stats object.
+	 * @param stats stats to decorate.
+	 * @param interval the selected interval.
+	 * @param unit the selected time unit.
+	 * @return
+	 */
+	List<StatValueBean> getValues(IStats stats, String interval, TimeUnit unit);
+	/**
+	 * Returns an explanation for a caption. This is used for the explanation help page.
+	 * @param caption
+	 * @return
+	 */
+	String getExplanation(String caption);
 }

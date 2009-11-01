@@ -38,7 +38,9 @@ import net.anotheria.util.BasicComparable;
 import net.anotheria.util.sorter.IComparable;
 
 public class LongValueBean extends StatValueBean{
-	
+	/**
+	 * Internal value storage.
+	 */
 	private long longValue;
 	
 	public LongValueBean(String name, long aValue){
@@ -46,7 +48,7 @@ public class LongValueBean extends StatValueBean{
 		longValue = aValue;
 	}
 	
-	public String getType(){
+	@Override public String getType(){
 		return "long";
 	}
 	

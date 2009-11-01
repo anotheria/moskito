@@ -58,20 +58,50 @@ import net.java.dev.moskito.webui.bean.UnitBean;
 import net.java.dev.moskito.webui.decorators.DecoratorRegistryFactory;
 import net.java.dev.moskito.webui.decorators.IDecoratorRegistry;
 
-
+/**
+ * BaseAction providing some common functionality for all moskitouiactions.
+ * @author another
+ *
+ */
 public abstract class BaseMoskitoUIAction implements MoskitoUIAction{
 	
+	/**
+	 * Constant for the forward parameter.
+	 */
 	public static final String PARAM_FORWARD = "pForward";
+	/**
+	 * Default forward parameter if no forward has been specified.
+	 */
 	public static final String DEFAULT_FORWARD = "html";
 
+	/**
+	 * Bean name for currently selected interval.
+	 */
 	public static final String BEAN_INTERVAL = "moskito.CurrentInterval";
+	/**
+	 * Parameter name for the interval.
+	 */
 	public static final String PARAM_INTERVAL = "pInterval";
+	/**
+	 * Default interval name.
+	 */
 	public static final String DEFAULT_INTERVAL = "default";
-	
+	/**
+	 * Bean name for currently selected unit.
+	 */
 	public static final String BEAN_UNIT = "moskito.CurrentUnit";
+	/**
+	 * Param for unit.
+	 */
 	public static final String PARAM_UNIT = "pUnit";
+	/**
+	 * Default unit.
+	 */
 	public static final String DEFAULT_UNIT = "millis";
 	
+	/**
+	 * Available units.
+	 */
 	public static final UnitBean[] AVAILABLE_UNITS = {
 		new UnitBean(TimeUnit.SECONDS),
 		new UnitBean(TimeUnit.MILLISECONDS),
@@ -87,32 +117,58 @@ public abstract class BaseMoskitoUIAction implements MoskitoUIAction{
 	public static final String BEAN_SORT_TYPE_PREFIX = "moskito.SortType";
 	public static final String BEAN_SORT_TYPE_SINGLE_PRODUCER_PREFIX = BEAN_SORT_TYPE_PREFIX+".single";
 	
+	/**
+	 * Instance of the producer registry api.
+	 */
 	private static IProducerRegistryAPI api;
+	/**
+	 * Instance of the decorator registry.
+	 */
 	private static IDecoratorRegistry decoratorRegistry;
 	private static IUseCaseRecorder useCaseRecorder;
 	
-	public static final String MENU_ITEM_ALL_PRODUCERS = "All Producers";
-	public static final String MENU_ITEM_PRODUCERS = "Producers";
-	public static final String MENU_ITEM_CATEGORIES = "Categories";
-	public static final String MENU_ITEM_SUBSYSTEMS = "Subsystems";
-	public static final String MENU_ITEM_USE_CASES = "Use Cases";
-	public static final String MENU_ITEM_MONITORING_SESSIONS = "Monitoring Sessions";
 
-	public static final String[] CAPTIONS = {
-		MENU_ITEM_ALL_PRODUCERS,
-		MENU_ITEM_CATEGORIES,
-		MENU_ITEM_SUBSYSTEMS,
-		MENU_ITEM_USE_CASES,
-		MENU_ITEM_MONITORING_SESSIONS
-	};
 	
-	public static final String [] LINKS = {
-		"mskShowAllProducers",
-		"mskShowProducersByCategory",
-		"mskShowProducersBySubsystem",
-		"mskShowUseCases",
-		"mskShowMonitoringSessions"
-	};
+	static enum MenuItem{
+		/**
+		 * Menu item for all producers.
+		 */
+		ALLPRODUCERS("All Producers", "mskShowAllProducers"),
+		/**
+		 * Menu item for categories.
+		 */
+		CATEGORIES("Categories", "mskShowProducersByCategory"),
+		/**
+		 * Menu item for subsystems.
+		 */
+		SUBSYSTEMS("Subsystems", "mskShowProducersBySubsystem"),
+		/**
+		 * Menu item for use cases.
+		 */
+		USECASES("Use Cases", "mskShowUseCases"),
+		/**
+		 * Menu item for monitoring sessions.
+		 */
+		MONITORINGSESSIONS("Monitoring Sessions", "mskShowMonitoringSessions");
+		
+		/**
+		 * Menu item caption.
+		 */
+		private String caption;
+		/**
+		 * Menu item link.
+		 */
+		private String link;
+		
+		private MenuItem(String aCaption, String aLink){
+			caption = aCaption;
+			link = aLink;
+		}
+		
+		public String getCaption(){
+			return caption;
+		}
+	}
 	
 	private String myProducerId;
 	private Sorter<IntervalBean> sorter;
@@ -199,9 +255,10 @@ public abstract class BaseMoskitoUIAction implements MoskitoUIAction{
 		//prepare menu
 		List<MenuItemBean> menu = new ArrayList<MenuItemBean>();
 		String activeMenuCaption = getActiveMenuCaption(req);
-		for (int i=0; i<CAPTIONS.length; i++){
-			String c = CAPTIONS[i];
-			menu.add(new MenuItemBean(c, LINKS[i], c.equals(activeMenuCaption)));
+		MenuItem[] items = MenuItem.values(); 
+		for (int i=0; i<items.length; i++){
+			String c = items[i].caption;
+			menu.add(new MenuItemBean(c, items[i].link, c.equals(activeMenuCaption)));
 		}
 		req.setAttribute("menu",menu);
 		

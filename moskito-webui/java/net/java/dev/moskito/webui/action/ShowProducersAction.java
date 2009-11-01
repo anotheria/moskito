@@ -90,7 +90,7 @@ public class ShowProducersAction extends BaseShowProducersAction{
 
 	@Override
 	protected String getActiveMenuCaption(HttpServletRequest req) {
-		return MENU_ITEM_PRODUCERS;
+		return ""; 
 	}
 	
 	public void doCustomProcessing(HttpServletRequest req, HttpServletResponse res){

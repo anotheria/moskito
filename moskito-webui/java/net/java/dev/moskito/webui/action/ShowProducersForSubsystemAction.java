@@ -41,6 +41,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import net.java.dev.moskito.core.producers.IStatsProducer;
+import net.java.dev.moskito.webui.action.BaseMoskitoUIAction.MenuItem;
 import net.java.dev.moskito.webui.bean.UnitCountBean;
 
 public class ShowProducersForSubsystemAction extends BaseShowProducersAction{
@@ -77,7 +78,7 @@ public class ShowProducersForSubsystemAction extends BaseShowProducersAction{
 
 	@Override
 	protected String getActiveMenuCaption(HttpServletRequest req) {
-		return MENU_ITEM_SUBSYSTEMS;
+		return MenuItem.SUBSYSTEMS.getCaption();
 	}
 
 	

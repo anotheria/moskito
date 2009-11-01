@@ -76,7 +76,7 @@ public class ShowProducersForCategoryAction extends BaseShowProducersAction{
 	
 	@Override
 	protected String getActiveMenuCaption(HttpServletRequest req) {
-		return MENU_ITEM_CATEGORIES;
+		return MenuItem.CATEGORIES.getCaption();
 	}
 
 }

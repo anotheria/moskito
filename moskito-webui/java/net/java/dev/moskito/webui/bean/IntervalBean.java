@@ -38,8 +38,17 @@ import net.anotheria.util.BasicComparable;
 import net.anotheria.util.sorter.IComparable;
 
 public class IntervalBean implements IComparable{
+	/**
+	 * Name of the interval.
+	 */
 	private String name;
+	/**
+	 * Last update timestamp of the interval.
+	 */
 	private String updateTimestamp;
+	/**
+	 * Age of the interval.
+	 */
 	private String age;
 	private int length;
 	
@@ -81,11 +90,11 @@ public class IntervalBean implements IComparable{
 		this.age = age;
 	}
 	
-	public int compareTo(IComparable anotherComparable, int aMethod){
+	@Override public int compareTo(IComparable anotherComparable, int aMethod){
 		return BasicComparable.compareInt(length, ((IntervalBean)anotherComparable).length);
 	}
 	
-	public String toString(){
+	@Override public String toString(){
 		return new StringBuilder().append("Interval: ").append(getName()).
 			append(", age: ").append(getAge()).
 			append(", ts: ").append(getUpdateTimestamp()).toString();

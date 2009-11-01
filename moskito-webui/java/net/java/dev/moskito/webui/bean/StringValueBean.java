@@ -38,22 +38,31 @@ import net.anotheria.util.BasicComparable;
 import net.anotheria.util.sorter.IComparable;
 
 public class StringValueBean extends StatValueBean{
+	
+	/**
+	 * Value object.
+	 */
 	private String value;
 	
+	/**
+	 * Creates a new StringValue bean with given name and value.
+	 * @param aName
+	 * @param aValue
+	 */
 	public StringValueBean(String aName, String aValue){
 		super(aName);
 		value = aValue;
 	}
 	
-	public String getType(){
+	@Override public String getType(){
 		return "string";
 	}
 	
-	public String getValue(){
+	@Override public String getValue(){
 		return value;
 	}
 
-	public int compareTo(IComparable anotherComparable, int ignored) {
+	@Override public int compareTo(IComparable anotherComparable, int ignored) {
 		return BasicComparable.compareString(value, ((StringValueBean)anotherComparable).value);
 	}
 	

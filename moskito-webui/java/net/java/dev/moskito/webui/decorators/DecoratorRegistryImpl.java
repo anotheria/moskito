@@ -61,17 +61,27 @@ import net.java.dev.moskito.webui.decorators.predefined.ServletStatsDecorator;
 import net.java.dev.moskito.webui.decorators.predefined.SessionCountDecorator;
 import net.java.dev.moskito.webui.decorators.util.StorageStatsDecorator;
 
+/**
+ * Implementation of the IDecoratorRegistry.
+ * @author lrosenberg
+ */
 public class DecoratorRegistryImpl implements IDecoratorRegistry{
-	
+
+	/**
+	 * Internal decorator map.
+	 */
 	private Map<Class<? extends AbstractStats>,IDecorator> registry;
+	/**
+	 * Default decorator instance for missing decorators.
+	 */
 	private IDecorator defaultDecorator;
 	
-	public IDecorator getDecorator(IStats stats) {
+	@Override public IDecorator getDecorator(IStats stats) {
 		IDecorator specificDecorator = registry.get(stats.getClass());
 		return specificDecorator == null ? defaultDecorator : specificDecorator;
 	}
 	
-	public List<IDecorator> getDecorators(){
+	@Override public List<IDecorator> getDecorators(){
 		List<IDecorator> ret = new ArrayList<IDecorator>();
 		ret.addAll(registry.values());
 		return ret;
@@ -97,7 +107,7 @@ public class DecoratorRegistryImpl implements IDecoratorRegistry{
 		registry.put(SessionCountStats.class, new SessionCountDecorator());
 	}
 	
-	public void addDecorator(Class <? extends AbstractStats> clazz, IDecorator decorator){
+	@Override public void addDecorator(Class <? extends AbstractStats> clazz, IDecorator decorator){
 		registry.put(clazz, decorator);
 	}
 	
