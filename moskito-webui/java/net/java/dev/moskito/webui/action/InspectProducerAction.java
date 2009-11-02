@@ -41,6 +41,8 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import net.anotheria.maf.ActionForward;
+import net.anotheria.maf.ActionMapping;
 import net.anotheria.util.NumberUtils;
 import net.java.dev.moskito.core.inspection.CreationInfo;
 import net.java.dev.moskito.core.inspection.Inspectable;

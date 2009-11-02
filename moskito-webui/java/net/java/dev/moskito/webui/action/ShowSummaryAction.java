@@ -37,6 +37,9 @@ package net.java.dev.moskito.webui.action;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import net.anotheria.maf.ActionForward;
+import net.anotheria.maf.ActionMapping;
+
 public abstract class ShowSummaryAction extends BaseMoskitoUIAction{
 
 	@Override
