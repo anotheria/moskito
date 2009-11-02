@@ -11,7 +11,7 @@ public interface ICommandProcessor {
 	 * @param command name of the command
 	 * @param parameters parameter map
 	 */
-	public void startCommand(String command, Map<String,String[]> parameters);
+	 void startCommand(String command, Map<String,String[]> parameters);
 	
 	/**
 	 * Stops the command. 

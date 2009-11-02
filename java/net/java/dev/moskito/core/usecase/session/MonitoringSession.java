@@ -5,6 +5,11 @@ import java.util.List;
 
 import net.java.dev.moskito.core.usecase.running.ExistingRunningUseCase;
 
+/**
+ * A monitoring session at the runtime of recording.
+ * @author lrosenberg
+ *
+ */
 public class MonitoringSession {
 	/**
 	 * Name of the session.

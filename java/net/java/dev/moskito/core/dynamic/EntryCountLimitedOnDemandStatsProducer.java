@@ -34,8 +34,13 @@
  */	
 package net.java.dev.moskito.core.dynamic;
 
-
+/**
+ * This implementation of the OnDemandStatsProducer has a hardcoded entry limit.
+ */
 public class EntryCountLimitedOnDemandStatsProducer extends OnDemandStatsProducer{
+	/**
+	 * Limit for dynamically add-able entries.
+	 */
 	private int limit;
 
 	public EntryCountLimitedOnDemandStatsProducer(String aProducerId, String aCategory, String aSubsystem, IOnDemandStatsFactory aStatsFactory, int aLimit){
@@ -51,7 +56,7 @@ public class EntryCountLimitedOnDemandStatsProducer extends OnDemandStatsProduce
 		this.limit = limit;
 	}
 	
-	protected String getProducerNameExtension(){
+	@Override protected String getProducerNameExtension(){
 		return "limited: "+limit;
 	}
 
@@ -60,7 +65,7 @@ public class EntryCountLimitedOnDemandStatsProducer extends OnDemandStatsProduce
 		return getCachedStatsList().size()>limit;
 	}
 	
-	public String toString(){
+	@Override public String toString(){
 		return super.toString()+" ("+getCachedStatsList().size()+" / "+limit+")";
 	}
 	

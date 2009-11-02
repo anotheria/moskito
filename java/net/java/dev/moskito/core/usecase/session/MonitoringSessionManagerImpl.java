@@ -5,13 +5,20 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+/**
+ * An implementation of the MonitoringSessionManager.
+ * @author another
+ *
+ */
 public class MonitoringSessionManagerImpl implements IMonitoringSessionManager{
 
 	/**
 	 * The map with stored sessions.
 	 */
 	private Map<String, MonitoringSession> sessions;
-	
+	/**
+	 * Creates a new MonitoringSessionManagerImpl.
+	 */
 	MonitoringSessionManagerImpl(){
 		sessions = new ConcurrentHashMap<String, MonitoringSession>();
 	}

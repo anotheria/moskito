@@ -41,20 +41,34 @@ import net.java.dev.moskito.core.usecase.recorder.UseCaseRecorderCommandProcesso
 
 import org.apache.log4j.Logger;
 
+/**
+ * An implementation of the command controller.
+ * @author another
+ *
+ */
 public enum CommandControllerImpl implements ICommandController{
+	/**
+	 * The singleton instance.
+	 */
 	INSTANCE;
-
+	/**
+	 * Map with registered processors.
+	 */
 	private Map<String, ICommandProcessor> processors;
-	
+	/**
+	 * Logger instance.
+	 */
 	private static Logger log = Logger.getLogger(CommandControllerImpl.class);
-	
+	/**
+	 * Creates a new CommandControllerImpl.
+	 */
 	private CommandControllerImpl() {
 		processors = new HashMap<String, ICommandProcessor>();
 		
 		registerCommandProcessor("recordUseCase", new UseCaseRecorderCommandProcessor());
 	}
 	
-	public void registerCommandProcessor(String command, ICommandProcessor processor) {
+	@Override public void registerCommandProcessor(String command, ICommandProcessor processor) {
 		log.debug("registering processor: "+processor+" for command: "+command);
 		ICommandProcessor oldProcessor = processors.put(command, processor);
 		if (oldProcessor!=null)
@@ -63,14 +77,14 @@ public enum CommandControllerImpl implements ICommandController{
 	}
 
 	//note, the second parameter is unneeded and should be removed. 
-	public void unregisterCommandProcessor(String command, ICommandProcessor processor) {
+	@Override public void unregisterCommandProcessor(String command, ICommandProcessor processor) {
 		log.debug("unregistering processor: "+processor+" for command: "+command);
 		ICommandProcessor oldProcessor = processors.remove(command);
 		if (oldProcessor==null)
 			log.info("Remove for command: "+command+" had no effect (no command previously registered)");
 	}
 
-	public void startCommand(String command, Map<String, String[]> parameters) {
+	@Override public void startCommand(String command, Map<String, String[]> parameters) {
 		log.debug("startCommand("+command+", "+parameters+")");
 		ICommandProcessor processor = processors.get(command);
 		if (processor==null)
@@ -82,7 +96,7 @@ public enum CommandControllerImpl implements ICommandController{
 		}
 	}
 
-	public void stopCommand(String command, Map<String, String[]> parameters) {
+	@Override public void stopCommand(String command, Map<String, String[]> parameters) {
 		log.debug("stopCommand("+command+", "+parameters+")");
 		ICommandProcessor processor = processors.get(command);
 		if (processor==null)

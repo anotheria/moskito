@@ -34,6 +34,21 @@
  */	
 package net.java.dev.moskito.core.usecase.running;
 
+/**
+ * Generic interface for currently executed (and recorded) use cases. There are basically two opportunities, either there is 
+ * a running use case, or there is none. In the later case the code which works with use cases don't have to perform null checks, but
+ * can rely on fact, that there will be always an instance of  RunningUseCase available. Whether a useCase is running or not can be determined
+ * by calling useCaseRunning().
+ * @author lrosenberg
+ *
+ */
 public interface RunningUseCase {
-	public boolean useCaseRunning();
+	/**
+	 * Returns true if there is currently a running use case. In fact, if true is returned, one can safely assume 
+	 * that the implementation of this interface one is dealing with is ExistingRunningUseCase. Otherwise its NoRunningUseCase.
+	 * @return
+	 * @see ExistingRunningUseCase
+	 * @see NoRunningUseCase
+	 */
+	boolean useCaseRunning();
 }
