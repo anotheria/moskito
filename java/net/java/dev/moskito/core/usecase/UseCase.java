@@ -12,7 +12,9 @@ public class UseCase {
 	
 	private List<UseCasePath> _cachedPathesList;
 	private Map<String, UseCasePath> pathes;
-	
+	/**
+	 * Name of the use cases.
+	 */
 	private String name;
 	
 	public UseCase(String aName){
@@ -20,7 +22,10 @@ public class UseCase {
 		pathes = new HashMap<String,UseCasePath>();
 		_cachedPathesList = new ArrayList<UseCasePath>();
 	}
-	
+	/**
+	 * Adds an executed use case path.
+	 * @param finishedUseCase
+	 */
 	public void addExecution(ExistingRunningUseCase finishedUseCase){
 		String path = finishedUseCase.getUseCasePath();
 		UseCasePath useCasePath = pathes.get(path);
