@@ -34,25 +34,43 @@
  */	
 package net.java.dev.moskito.core.usecase.running;
 
-
+/**
+ * A currently being recorded use case.
+ * @author lrosenberg
+ *
+ */
 public class ExistingRunningUseCase implements RunningUseCase{
-	
+	/**
+	 * Name of the use case.
+	 */
 	private String name;
+	/**
+	 * Root element of the use case.
+	 */
 	private PathElement root = new PathElement("");
+	/**
+	 * Current element along the use case path.
+	 */
 	private PathElement current;
+	/**
+	 * Creation timestamp.
+	 */
 	private long created;
-	
+	/**
+	 * Creates a new ExistingRunningUseCase.
+	 * @param aName
+	 */
 	public ExistingRunningUseCase(String aName){
 		name = aName;
 		current = root;
 		created = System.currentTimeMillis();
 	}
 	
-	public boolean useCaseRunning(){
+	@Override public boolean useCaseRunning(){
 		return true;
 	}
 	
-	public String toString(){
+	@Override public String toString(){
 		return "RunningUseCase: "+name;
 	}
 	
@@ -60,6 +78,9 @@ public class ExistingRunningUseCase implements RunningUseCase{
 		return toString()+": \n"+root.toDetails(1);
 	}
 
+	/**
+	 * Creates a new element of the use case path. The new use case path element will be recorded as a child of the current use case path element.
+	 */
 	public PathElement startPathElement(String call){
 		PathElement last = current;
 		current = new PathElement(call);
@@ -86,7 +107,10 @@ public class ExistingRunningUseCase implements RunningUseCase{
 	public PathElement getRootElement(){
 		return root;
 	}
-	
+	/**
+	 * Returns the first use case path element.
+	 * @return
+	 */
 	public PathElement getFirstElement(){
 		return root.getChildren().get(0);
 	}

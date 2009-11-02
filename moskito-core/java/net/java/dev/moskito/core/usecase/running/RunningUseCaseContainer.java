@@ -37,8 +37,13 @@ package net.java.dev.moskito.core.usecase.running;
 
 public class RunningUseCaseContainer {
 	
+	/**
+	 * Constant for non existing, non running use case. To prevent memory pollution by NoRunningUseCase instances.
+	 */
 	public static final RunningUseCase NO_USE_CASE = new NoRunningUseCase();
-	
+	/**
+	 * Currently running use case.
+	 */
 	private static ThreadLocal<RunningUseCase> currentUseCase = new ThreadLocal<RunningUseCase>(){
 		protected synchronized RunningUseCase initialValue(){
 			return NO_USE_CASE;

@@ -148,19 +148,19 @@ public class OnDemandStatsProducer implements IStatsProducer, Inspectable{
 
 	}
 
-	public String getCategory() {
+	@Override public String getCategory() {
 		return category == null ? "default" : category;
 	}
 
-	public String getProducerId() {
+	@Override public String getProducerId() {
 		return producerId;
 	}
 
-	public List<IStats> getStats() {
+	@Override public List<IStats> getStats() {
 		return _cachedStatsList;
 	}
 
-	public String getSubsystem() {
+	@Override public String getSubsystem() {
 		return subsystem == null ? "default" : subsystem;
 	}
 	
@@ -168,7 +168,7 @@ public class OnDemandStatsProducer implements IStatsProducer, Inspectable{
 		return linkToDefaultStats;
 	}
 	
-	public String toString(){
+	@Override public String toString(){
 		return "OnDemandProducer ("+getProducerNameExtension()+"): "+getProducerId()+":"+getSubsystem()+":"+getCategory();
 	}
 	

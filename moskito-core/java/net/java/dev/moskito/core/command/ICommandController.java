@@ -35,7 +35,11 @@
 package net.java.dev.moskito.core.command;
 
 import java.util.Map;
-
+/**
+ * Command controller interface is used to plug-in custom command processors into a centralized management.
+ * @author another
+ *
+ */
 public interface ICommandController {
 	/**
 	 * Registers a new command processor.
@@ -43,7 +47,11 @@ public interface ICommandController {
 	 * @param processor the processor object for given command
 	 */
 	public void registerCommandProcessor(String command, ICommandProcessor processor);
-	
+	/**
+	 * Unregisters a command processor.
+	 * @param command
+	 * @param processor
+	 */
 	public void unregisterCommandProcessor(String command, ICommandProcessor processor);
 	
 	public void startCommand(String command, Map<String,String[]> parameters);
