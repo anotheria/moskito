@@ -5,7 +5,6 @@ import javax.servlet.jsp.JspException;
 public class WriteTag extends BaseTagSupport{
 	private String name;
 	private String property;
-	private String scope;
 	private boolean ignore;
     private boolean filter;
 
@@ -20,12 +19,6 @@ public class WriteTag extends BaseTagSupport{
 	}
 	public void setIgnore(boolean ignore) {
 		this.ignore = ignore;
-	}
-	public String getScope() {
-		return scope;
-	}
-	public void setScope(String scope) {
-		this.scope = scope;
 	}
 	public String getName() {
 		return name;
