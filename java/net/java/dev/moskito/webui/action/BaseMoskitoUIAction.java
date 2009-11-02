@@ -41,6 +41,8 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import net.anotheria.maf.Action;
+import net.anotheria.maf.ActionMapping;
 import net.anotheria.util.NumberUtils;
 import net.anotheria.util.sorter.DummySortType;
 import net.anotheria.util.sorter.QuickSorter;
@@ -63,7 +65,7 @@ import net.java.dev.moskito.webui.decorators.IDecoratorRegistry;
  * @author another
  *
  */
-public abstract class BaseMoskitoUIAction implements MoskitoUIAction{
+public abstract class BaseMoskitoUIAction implements Action{
 	
 	/**
 	 * Constant for the forward parameter.

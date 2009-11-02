@@ -42,6 +42,8 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import net.anotheria.maf.ActionForward;
+import net.anotheria.maf.ActionMapping;
 import net.anotheria.util.NumberUtils;
 import net.anotheria.util.sorter.QuickSorter;
 import net.anotheria.util.sorter.Sorter;
