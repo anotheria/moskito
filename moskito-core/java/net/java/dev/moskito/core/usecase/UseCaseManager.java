@@ -7,18 +7,24 @@ import org.apache.log4j.Logger;
 
 public class UseCaseManager {
 	
+	/**
+	 * Stored use cases.
+	 */
 	private Map<String, UseCase> useCases;
 		
-	private static Logger log;
+	/**
+	 * Logger.
+	 */
+	private static Logger log = Logger.getLogger(UseCaseManager.class);
 	
-	static{
-		log = Logger.getLogger(UseCaseManager.class);
-	}
 	
 	UseCaseManager(){
 		useCases = new ConcurrentHashMap<String,UseCase>();
 	}
-	
+	/**
+	 * Adds a use case.
+	 * @param useCaseName
+	 */
 	public void addUseCase(String useCaseName){
 		UseCase u = new UseCase(useCaseName);
 		if (!useCases.containsKey(useCaseName))
@@ -27,7 +33,11 @@ public class UseCaseManager {
 			log.warn("Trying to overwrite useCase: "+useCaseName);
 			
 	}
-	
+	/**
+	 * Returns the use case by the use case name.
+	 * @param useCaseName
+	 * @return
+	 */
 	public UseCase getUseCase(String useCaseName){
 		return useCases.get(useCaseName);
 	}
