@@ -41,7 +41,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import net.java.dev.moskito.core.producers.IStatsProducer;
-import net.java.dev.moskito.webui.action.BaseMoskitoUIAction.MenuItem;
 import net.java.dev.moskito.webui.bean.UnitCountBean;
 
 public class ShowProducersForSubsystemAction extends BaseShowProducersAction{
