@@ -112,10 +112,14 @@ public abstract class BaseMoskitoUIAction implements Action{
 	};
 	
 	public static final UnitBean DEFAULT_UNIT_BEAN = AVAILABLE_UNITS[1]; //millis
-	
+	/**
+	 * List of the available units.
+	 */
 	public static final List<UnitBean> AVAILABLE_UNITS_LIST = Arrays.asList(AVAILABLE_UNITS);
 
-	
+	/**
+	 * Stored sort type bean prefix name.
+	 */
 	public static final String BEAN_SORT_TYPE_PREFIX = "moskito.SortType";
 	public static final String BEAN_SORT_TYPE_SINGLE_PRODUCER_PREFIX = BEAN_SORT_TYPE_PREFIX+".single";
 	
@@ -127,6 +131,9 @@ public abstract class BaseMoskitoUIAction implements Action{
 	 * Instance of the decorator registry.
 	 */
 	private static IDecoratorRegistry decoratorRegistry;
+	/**
+	 * Link to the use case recorder instance.
+	 */
 	private static IUseCaseRecorder useCaseRecorder;
 	
 
@@ -171,9 +178,17 @@ public abstract class BaseMoskitoUIAction implements Action{
 			return caption;
 		}
 	}
-	
+	/**
+	 * ProducerId for moskito.
+	 */
 	private String myProducerId;
+	/**
+	 * Sorter for the IntervalBeans.
+	 */
 	private Sorter<IntervalBean> sorter;
+	/**
+	 * Sort type.
+	 */
 	private SortType dummySortType;
 	
 	static{

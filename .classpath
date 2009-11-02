@@ -14,5 +14,6 @@
 	<classpathentry combineaccessrules="false" kind="src" path="/moskito-web"/>
 	<classpathentry kind="lib" path="lib/moskito-web.jar"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/ano-maf"/>
+	<classpathentry kind="lib" path="lib/ano-maf.jar"/>
 	<classpathentry kind="output" path="classes"/>
 </classpath>
