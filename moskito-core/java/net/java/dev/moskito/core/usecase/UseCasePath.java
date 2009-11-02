@@ -1,8 +1,18 @@
 package net.java.dev.moskito.core.usecase;
 
+/**
+ * Calculation of use cases along same path.
+ * @author another
+ *
+ */
 public class UseCasePath {
+	/**
+	 * Path of the request.
+	 */
 	private String path;
-	
+	/**
+	 * Number of requests in this path.
+	 */
 	private long requestCount;
 	
 	public UseCasePath(String aPath){
