@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+
+<project name="moskito-webcontrol" default="dist" basedir=".">
+	<property name="javadoc.packagenames" value="net.java.dev.moskito.*"/>
+
+	<property name="webapp.name" value="mwc"/>
+	
+	<import file="../build/basic-web-project.xml"/>	
+	<import file="../build/include/moskitoui.xml"/>   <!-- moskitouserinterface warning, this import override basic-web-project jsps.prepare -->
+	
+	<target name="prepare.webapp" depends="basic-web-project.prepare.webapp, moskito-prepare.webapp"/>
+	
+	<target name="prepare" depends="basic-project.prepare">
+		<echo>Custom preparations for moskito webui</echo>
+        <copy toDir="${classes.dir}" overwrite="true">
+            <fileset dir="${src}">
+                <include name="**/*.jsp"/>
+            </fileset>
+        </copy>
+        <copy toDir="${classes.dir}" overwrite="true">
+            <fileset dir="etc">
+                <include name="**/*.tld"/>
+            </fileset>
+        </copy>
+        <copy toDir="${classes.dir}" overwrite="true">
+            <fileset dir="html">
+                <include name="**/*.css"/>
+            </fileset>
+            <fileset dir="html">
+                <include name="**/*.gif"/>
+                <include name="**/*.jpg"/>
+            </fileset>
+            <fileset dir="html">
+                <include name="**/*.js"/>
+            </fileset>
+        </copy>
+
+	</target>
+	
+	<!-- 
+		checkout svn://svn.anotheria.net/opensource/build/trunk as ../build 
+		in order for this build script to work.
+	-->
+</project>

@@ -1,0 +1,22 @@
+<ivy-module version="2.0">
+    <info organisation="java.net" module="moskito-webcontrol"/>
+	<configurations >
+		<conf name="jar" />
+	</configurations>	
+	<publications>
+		<artifact name="mwc.war" type="war" ext="war" conf="jar"/>
+    </publications>
+    <dependencies>
+        <dependency org="java.net" name="moskito-core" rev="latest" transitive="true" changing="true"/>
+        <dependency org="java.net" name="moskito-util" rev="latest" transitive="true" changing="true"/>
+        <dependency org="java.net" name="moskito-web" rev="latest" transitive="true" changing="true"/>
+        <dependency org="anotheria.net" name="ano-util" rev="latest" transitive="true" changing="true"/>
+        <dependency org="anotheria.net" name="ano-maf"  rev="latest" transitive="true" changing="true"/>
+        
+        <dependency org="org.apache" name="log4j" rev="stable" transitive="false"/>
+        <dependency org="org" name="junit" rev="stable" transitive="false"/>
+        <dependency org="javax" name="servlet-api" rev="stable" transitive="false"/>
+        <dependency org="javax" name="jsp-api" rev="stable" transitive="false"/>
+		<dependency org="org.apache.commons" name="commons-beanutils" rev="stable" transitive="false"/>
+    </dependencies>
+</ivy-module>
