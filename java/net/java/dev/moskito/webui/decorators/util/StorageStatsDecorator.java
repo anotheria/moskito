@@ -45,8 +45,16 @@ import net.java.dev.moskito.webui.bean.LongValueBean;
 import net.java.dev.moskito.webui.bean.StatValueBean;
 import net.java.dev.moskito.webui.decorators.AbstractDecorator;
 
+/**
+ * Decorator for storage stats.
+ * @author lrosenberg
+ *
+ */
 public class StorageStatsDecorator extends AbstractDecorator{
-	private static String CAPTIONS[] = {
+	/**
+	 * Captions.
+	 */
+	private static final String CAPTIONS[] = {
 		"Get",
 		"mGet",
 		"mGet_R",
@@ -74,7 +82,10 @@ public class StorageStatsDecorator extends AbstractDecorator{
 		"cValHR",
 	};
 	
-	private static String SHORT_EXPLANATIONS[] = {
+	/**
+	 * Short explanations.
+	 */
+	private static final String SHORT_EXPLANATIONS[] = {
 		"Number of get calls",
 		"Missed get calls",
 		"Missed get calls ratio",
@@ -101,7 +112,10 @@ public class StorageStatsDecorator extends AbstractDecorator{
 	};
 
 
-	private static String EXPLANATIONS[] = {
+	/**
+	 * Long explanations.
+	 */
+	private static final String EXPLANATIONS[] = {
 		"Total number of calls to the method V get(K).",
 		"Total number of calls to the method V get(K) which returned null as result",
 		"The ratio of missed get calls (calls that returned null) to total get calls. For most (but not all) usecases a high value (>0.5) means, that your data retrieval strategy is inefficent. ",
@@ -130,12 +144,15 @@ public class StorageStatsDecorator extends AbstractDecorator{
 	};
 
 	
+	/**
+	 * Creates a new StorageStatsDecorator.
+	 */
 	public StorageStatsDecorator(){
 		super("Storage", CAPTIONS, SHORT_EXPLANATIONS, EXPLANATIONS);
 	}
 	
 
-	public List<StatValueBean> getValues(IStats statsObject, String interval, TimeUnit unit) {
+	@Override public List<StatValueBean> getValues(IStats statsObject, String interval, TimeUnit unit) {
 		StorageStats stats = (StorageStats)statsObject;
 		List<StatValueBean> ret = new ArrayList<StatValueBean>(CAPTIONS.length);
 		
