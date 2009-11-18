@@ -11,7 +11,7 @@ import net.java.dev.moskito.webui.bean.StatValueBean;
 import net.java.dev.moskito.webui.decorators.AbstractDecorator;
 
 public class SessionCountDecorator extends AbstractDecorator{
-	private static String CAPTIONS[] = {
+	private static final String CAPTIONS[] = {
 		"Cur",
 		"Min",
 		"Max",
@@ -19,7 +19,7 @@ public class SessionCountDecorator extends AbstractDecorator{
 		"Del",
 	};
 	
-	private static String SHORT_EXPLANATIONS[] = {
+	private static final String SHORT_EXPLANATIONS[] = {
 		"Current number of sessions",
 		"Min number of sessions",
 		"Max number of sessions",
@@ -28,7 +28,7 @@ public class SessionCountDecorator extends AbstractDecorator{
 	};
 
 
-	private static String EXPLANATIONS[] = {
+	private static final String EXPLANATIONS[] = {
 		"Current number of sessions (this feature is yet experimental)",
 		"Min number of sessions (this feature is yet experimental)",
 		"Max number of sessions (this feature is yet experimental)",

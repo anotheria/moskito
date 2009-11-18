@@ -44,7 +44,7 @@ import net.java.dev.moskito.webui.bean.StatValueBean;
 
 public class ServletStatsDecorator extends RequestOrientedStatsDecorator{
 
-	private static String CAPTIONS[] = {
+	private static final String CAPTIONS[] = {
 		"Req",
 		"Time",
 		"CR",
@@ -61,7 +61,7 @@ public class ServletStatsDecorator extends RequestOrientedStatsDecorator{
 
 	};
 
-	private static String SHORT_EXPLANATIONS[] = {
+	private static final String SHORT_EXPLANATIONS[] = {
 		"Number of requests",
 		"Time spent in millis (duration)",
 		"Concurrent requests",
@@ -78,7 +78,7 @@ public class ServletStatsDecorator extends RequestOrientedStatsDecorator{
 
 	};
 
-	private static String EXPLANATIONS[] = {
+	private static final String EXPLANATIONS[] = {
 		"Total number of requests to a method/interace (in the defined interval or since start, depending on your interval selection).",
 		"Total amount of time spent in the method / interface. Although, if the called method is waiting for something to be transported from net or from disk, the value is not equal to spent processor time, this value is usually an important indicator to determine how much some functionality costs.",
 		"Number of concurrent requests to a method / interface. This value is not of much interest for time intervals, since it will be any value which was set at the moment of the interval update (and can be even negative since interval updates are fires unsynchronized to prevent performance loss). However, with the default interval (since start) selected it will tell you how many requests are served in the moment.",

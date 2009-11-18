@@ -48,7 +48,7 @@ import net.java.dev.moskito.webui.decorators.AbstractDecorator;
 
 public abstract class RequestOrientedStatsDecorator extends AbstractDecorator{
 	
-	protected static String CAPTIONS[] = {
+	protected static final String CAPTIONS[] = {
 		"Req",
 		"Time",
 		"CR",
@@ -61,7 +61,7 @@ public abstract class RequestOrientedStatsDecorator extends AbstractDecorator{
 		"ERate"
 	};
 	
-	protected static String SHORT_EXPLANATIONS[] = {
+	protected static final String SHORT_EXPLANATIONS[] = {
 		"Number of requests",
 		"Time spent in millis (duration)",
 		"Concurrent requests",
@@ -74,7 +74,7 @@ public abstract class RequestOrientedStatsDecorator extends AbstractDecorator{
 		"Error rate in %"
 	};
  
-	protected static String EXPLANATIONS[] = {
+	protected static final String EXPLANATIONS[] = {
 		"Total number of requests to a method/interace (in the defined interval or since start, depending on your interval selection).",
 		"Total amount of time spent in the method / interface. Although, if the called method is waiting for something to be transported from net or from disk, the value is not equal to spent processor time, this value is usually an important indicator to determine how much some functionality costs.",
 		"Number of concurrent requests to a method / interface. This value is not of much interest for time intervals, since it will be any value which was set at the moment of the interval update (and can be even negative since interval updates are fires unsynchronized to prevent performance loss). However, with the default interval (since start) selected it will tell you how many requests are served in the moment.",
@@ -95,7 +95,7 @@ public abstract class RequestOrientedStatsDecorator extends AbstractDecorator{
 		super(name, someCaptions, someShortExplanations, someExplanations);
 	}
 
-	public List<StatValueBean> getValues(IStats statsObject, String interval, TimeUnit unit) {
+	@Override public List<StatValueBean> getValues(IStats statsObject, String interval, TimeUnit unit) {
 		RequestOrientedStats stats = (RequestOrientedStats)statsObject;
 		List<StatValueBean> ret = new ArrayList<StatValueBean>(CAPTIONS.length);
 		int i = 0;

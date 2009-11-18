@@ -12,9 +12,9 @@ import net.java.dev.moskito.webui.decorators.AbstractDecorator;
 
 public class MemoryPoolStatsDecorator extends AbstractDecorator{
 	
-	private static long MB = 1024L*1024;
+	private static final long MB = 1024L*1024;
 	
-	private static String CAPTIONS[] = {
+	private static final String CAPTIONS[] = {
 		"Free",
 		"Free MB",
 		"Init",
@@ -38,7 +38,7 @@ public class MemoryPoolStatsDecorator extends AbstractDecorator{
 		"Max MB",
 	};
 	
-	private static String SHORT_EXPLANATIONS[] = {
+	private static final String SHORT_EXPLANATIONS[] = {
 		"Free memory",
 		"Free memory in Mb",
 		"Initial amount of memory",
@@ -59,7 +59,7 @@ public class MemoryPoolStatsDecorator extends AbstractDecorator{
 		"Amount of max memory in Mb",
 	};
 
-	private static String EXPLANATIONS[] = {
+	private static final String EXPLANATIONS[] = {
 		"free memory (commited - used)",
 		"free memory (commited - used) in mb",
 		"represents the initial amount of memory (in bytes) that the Java virtual machine requests from the operating system for memory management during startup. The Java virtual machine may request additional memory from the operating system and may also release memory to the system over time. The value of init may be undefined. ",
@@ -88,7 +88,7 @@ public class MemoryPoolStatsDecorator extends AbstractDecorator{
 		super(aName, CAPTIONS, SHORT_EXPLANATIONS, EXPLANATIONS);
 	}
 
-	public List<StatValueBean> getValues(IStats statsObject, String interval, TimeUnit unit) {
+	@Override public List<StatValueBean> getValues(IStats statsObject, String interval, TimeUnit unit) {
 		IMemoryPoolStats stats = (IMemoryPoolStats)statsObject;
 		List<StatValueBean> ret = new ArrayList<StatValueBean>(CAPTIONS.length);
 		int i = 0;

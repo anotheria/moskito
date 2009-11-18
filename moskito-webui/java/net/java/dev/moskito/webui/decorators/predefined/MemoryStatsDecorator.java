@@ -12,9 +12,9 @@ import net.java.dev.moskito.webui.decorators.AbstractDecorator;
 
 public class MemoryStatsDecorator extends AbstractDecorator{
 	
-	private static long MB = 1024L*1024;
+	private static final long MB = 1024L*1024;
 	
-	private static String CAPTIONS[] = {
+	private static final String CAPTIONS[] = {
 		"Current",
 		"Min",
 		"Max",
@@ -23,7 +23,7 @@ public class MemoryStatsDecorator extends AbstractDecorator{
 		"Max Mb",
 	};
 	
-	private static String SHORT_EXPLANATIONS[] = {
+	private static final String SHORT_EXPLANATIONS[] = {
 		"Current amount of memory",
 		"Minimum amount of memory",
 		"Maximum amount of memory",
@@ -32,7 +32,7 @@ public class MemoryStatsDecorator extends AbstractDecorator{
 		"Maximum amount of memory in Mb",
 	};
 
-	private static String EXPLANATIONS[] = {
+	private static final String EXPLANATIONS[] = {
 		"Current amount of memory",
 		"Minimum amount of memory",
 		"Maximum amount of memory",
@@ -46,7 +46,7 @@ public class MemoryStatsDecorator extends AbstractDecorator{
 	}
 	
 
-	public List<StatValueBean> getValues(IStats statsObject, String interval, TimeUnit unit) {
+	@Override public List<StatValueBean> getValues(IStats statsObject, String interval, TimeUnit unit) {
 		MemoryStats stats = (MemoryStats)statsObject;
 		List<StatValueBean> ret = new ArrayList<StatValueBean>(CAPTIONS.length);
 		int i = 0;
