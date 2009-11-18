@@ -45,8 +45,7 @@ import javax.servlet.http.HttpServletResponse;
 import net.anotheria.maf.ActionForward;
 import net.anotheria.maf.ActionMapping;
 import net.anotheria.util.NumberUtils;
-import net.anotheria.util.sorter.QuickSorter;
-import net.anotheria.util.sorter.Sorter;
+import net.anotheria.util.sorter.StaticQuickSorter;
 import net.java.dev.moskito.core.inspection.CreationInfo;
 import net.java.dev.moskito.core.inspection.Inspectable;
 import net.java.dev.moskito.core.producers.IStats;
@@ -58,16 +57,12 @@ import net.java.dev.moskito.webui.bean.StatDecoratorBean;
 import net.java.dev.moskito.webui.bean.UnitBean;
 import net.java.dev.moskito.webui.decorators.IDecorator;
 
+/**
+ * Presents a single, previously selected producer.
+ * @author another
+ *
+ */
 public class ShowProducerAction extends BaseMoskitoUIAction{
-	
-	public static final String PARAM_PRODUCER_ID = "pProducerId";
-	
-	private Sorter<StatBean> sorter;
-	
-	public ShowProducerAction(){
-		super();
-		sorter= new QuickSorter<StatBean>();
-	}
 	
 	@Override public ActionForward execute(ActionMapping mapping, HttpServletRequest req, HttpServletResponse res) throws Exception {
 
@@ -118,7 +113,7 @@ public class ShowProducerAction extends BaseMoskitoUIAction{
 				sb.setValues(decorator.getValues(s, intervalName, currentUnit.getUnit()));
 				sbs.add(sb);
 			}
-			b.setStats(sorter.sort(sbs, getStatBeanSortType(b, req)));
+			b.setStats(StaticQuickSorter.sort(sbs, getStatBeanSortType(b, req)));
 
 			//make cumulated entry
 			IStats s = statsForDecorator.get(0);

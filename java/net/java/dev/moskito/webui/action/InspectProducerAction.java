@@ -47,16 +47,22 @@ import net.anotheria.util.NumberUtils;
 import net.java.dev.moskito.core.inspection.CreationInfo;
 import net.java.dev.moskito.core.inspection.Inspectable;
 import net.java.dev.moskito.core.producers.IStatsProducer;
-
+/**
+ * Inspects the given producer and forwards to the inspection page.
+ * @author lrosenberg
+ */
 public class InspectProducerAction extends BaseMoskitoUIAction{
 	
+	/**
+	 * Parameter producer id.
+	 */
 	public static final String PARAM_PRODUCER_ID = "pProducerId";
 	
 	@Override public ActionForward execute(ActionMapping mapping, HttpServletRequest req, HttpServletResponse res) throws Exception {
 
 		IStatsProducer producer = getAPI().getProducer(req.getParameter(PARAM_PRODUCER_ID));
 		if (! (producer instanceof Inspectable))
-			throw new RuntimeException("Producer not inspectable.");
+			throw new IllegalArgumentException("Producer not inspectable.");
 		
 		Inspectable inspectable = (Inspectable)producer;
 		CreationInfo cInfo = inspectable.getCreationInfo();

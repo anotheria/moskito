@@ -4,13 +4,30 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UseCaseElementNodeBean {
+	/**
+	 * Subelements.
+	 */
 	private List<UseCaseElementNodeBean> children;
 	
-	
+	/**
+	 * Short call description.
+	 */
 	private String callShort;
+	/**
+	 * Long call description.
+	 */
 	private String callLong;
+	/**
+	 * Duration of the call (brutto).
+	 */
 	private long duration;
+	/**
+	 * Netto time spent in the call.
+	 */
 	private long timespent;
+	/**
+	 * If true the call was aborted (ended with exception).
+	 */
 	private boolean aborted;
 	
 

@@ -48,6 +48,7 @@ import net.anotheria.util.sorter.DummySortType;
 import net.anotheria.util.sorter.QuickSorter;
 import net.anotheria.util.sorter.SortType;
 import net.anotheria.util.sorter.Sorter;
+import net.anotheria.util.sorter.StaticQuickSorter;
 import net.java.dev.moskito.core.registry.IProducerRegistryAPI;
 import net.java.dev.moskito.core.registry.IntervalInfo;
 import net.java.dev.moskito.core.registry.ProducerRegistryAPIFactory;
@@ -100,6 +101,12 @@ public abstract class BaseMoskitoUIAction implements Action{
 	 * Default unit.
 	 */
 	public static final String DEFAULT_UNIT = "millis";
+
+	/**
+	 * Parameter producer id.
+	 */
+	public static final String PARAM_PRODUCER_ID = "pProducerId";
+
 	
 	/**
 	 * Available units.
@@ -183,10 +190,6 @@ public abstract class BaseMoskitoUIAction implements Action{
 	 */
 	private String myProducerId;
 	/**
-	 * Sorter for the IntervalBeans.
-	 */
-	private Sorter<IntervalBean> sorter;
-	/**
 	 * Sort type.
 	 */
 	private SortType dummySortType;
@@ -196,10 +199,12 @@ public abstract class BaseMoskitoUIAction implements Action{
 		decoratorRegistry = DecoratorRegistryFactory.getDecoratorRegistry();
 		useCaseRecorder = UseCaseRecorderFactory.getUseCaseRecorder();
 	}	
-	
+
+	/**
+	 * Creates a new action.
+	 */
 	protected BaseMoskitoUIAction(){
 		super();
-		sorter = new QuickSorter<IntervalBean>();
 		dummySortType = new DummySortType();
 	}
 	
@@ -284,7 +289,7 @@ public abstract class BaseMoskitoUIAction implements Action{
 		List<IntervalBean> intervalBeans = new ArrayList<IntervalBean>(intervalInfos.size());
 		for (IntervalInfo info : intervalInfos)
 			intervalBeans.add(new IntervalBean(info.getIntervalName(), NumberUtils.makeISO8601TimestampString(info.getLastUpdateTimestamp()), info.getLength()));
-		req.setAttribute("intervals", sorter.sort(intervalBeans, dummySortType));
+		req.setAttribute("intervals", StaticQuickSorter.sort(intervalBeans, dummySortType));
 		req.setAttribute("currentInterval", getCurrentInterval(req));
 		
 		////////////// prepare units

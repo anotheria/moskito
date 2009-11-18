@@ -33,15 +33,30 @@
  * THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */	
 package net.java.dev.moskito.webui.bean;
-
+/**
+ * Represent a name/count pair. Used to present number of producers in a category or subsystem.
+ * @author another
+ *
+ */
 public class UnitCountBean {
+	/**
+	 * Name of the unit.
+	 */
 	private String unitName;
+	/**
+	 * Number of unit entities.
+	 */
 	private int unitCount;
-	
+	/**
+	 * Creates a new unit count bean.
+	 */
 	public UnitCountBean(){
 		
 	}
 	
+	/**
+	 * Creates a new unit count bean.
+	 */
 	public UnitCountBean(String anUnitName, int anUnitCount){
 		unitName = anUnitName;
 		unitCount = anUnitCount;

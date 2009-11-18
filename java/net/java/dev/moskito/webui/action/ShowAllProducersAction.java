@@ -40,6 +40,11 @@ import javax.servlet.http.HttpServletRequest;
 
 import net.java.dev.moskito.core.producers.IStatsProducer;
 
+/**
+ * This action renders the presentation of all producers.
+ * @author lrosenberg
+ *
+ */
 public class ShowAllProducersAction extends BaseShowProducersAction{
 
 	@Override
@@ -47,11 +52,11 @@ public class ShowAllProducersAction extends BaseShowProducersAction{
 		return getAPI().getAllProducers();
 	}
 	
-	public String getPageTitle(HttpServletRequest req){
+	@Override public String getPageTitle(HttpServletRequest req){
 		return ": All known producers";
 	}
 	
-	public String getLinkToCurrentPage(HttpServletRequest req){
+	@Override public String getLinkToCurrentPage(HttpServletRequest req){
 		//adding dummy parameter to ensure that aditional parameters can be added with &
 		return "mskShowAllProducers?ts="+System.currentTimeMillis();
 	}
