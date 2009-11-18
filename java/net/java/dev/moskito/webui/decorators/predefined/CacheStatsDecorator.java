@@ -46,7 +46,7 @@ import net.java.dev.moskito.webui.bean.StatValueBean;
 import net.java.dev.moskito.webui.decorators.AbstractDecorator;
 
 public class CacheStatsDecorator extends AbstractDecorator{
-	private static String CAPTIONS[] = {
+	private static final String CAPTIONS[] = {
 		"Req",
 		"Hit",
 		"HR",
@@ -58,7 +58,7 @@ public class CacheStatsDecorator extends AbstractDecorator{
 		"FR"
 	};
 	
-	private static String SHORT_EXPLANATIONS[] = {
+	private static final String SHORT_EXPLANATIONS[] = {
 		"Number of requests",
 		"Number of hits",
 		"Hit ratio",
@@ -70,7 +70,7 @@ public class CacheStatsDecorator extends AbstractDecorator{
 		"Fill ratio"
 	};
 
-	private static String EXPLANATIONS[] = {
+	private static final String EXPLANATIONS[] = {
 		"Total number of retrieval requests",
 		"Total number of hits among the requests",
 		"Hit ratio (hits / requests). You want it as high as possible. 1.0 is max.",
@@ -87,7 +87,7 @@ public class CacheStatsDecorator extends AbstractDecorator{
 	}
 	
 
-	public List<StatValueBean> getValues(IStats statsObject, String interval, TimeUnit unit) {
+	@Override public List<StatValueBean> getValues(IStats statsObject, String interval, TimeUnit unit) {
 		CacheStats stats = (CacheStats)statsObject;
 		List<StatValueBean> ret = new ArrayList<StatValueBean>(CAPTIONS.length);
 		int i = 0;
