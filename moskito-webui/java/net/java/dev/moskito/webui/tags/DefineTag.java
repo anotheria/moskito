@@ -2,49 +2,20 @@ package net.java.dev.moskito.webui.tags;
 
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.PageContext;
-import javax.servlet.jsp.tagext.BodyTagSupport;
 
-public class DefineTag extends BodyTagSupport {
+public class DefineTag extends BaseBodyTagSupport {
 
     protected String body = null;
 
-    protected String id = null;
-    protected String name = null;
-    protected String property = null;
     protected String type = null;
-    protected String scope = null;
     protected String toScope = null;
 
 
-    public String getId() {
-        return id;
-    }
-    public void setId(String id) {
-        this.id = id;
-    }
-    public String getName() {
-        return name;
-    }
-    public void setName(String name) {
-        this.name = name;
-    }
-    public String getProperty() {
-        return property;
-    }
-    public void setProperty(String property) {
-        this.property = property;
-    }
     public String getType() {
         return type;
     }
     public void setType(String type) {
         this.type = type;
-    }
-    public String getScope() {
-    	return scope;
-    }
-    public void setScope(String scope) {
-    	this.scope = scope;
     }
     public String getToScope() {
     	return toScope;
@@ -76,14 +47,14 @@ public class DefineTag extends BodyTagSupport {
     public int doEndTag() throws JspException {
         int n = 0;
         if (this.body != null) n++;
-        if (this.name != null) n++;
+        if (this.getName() != null) n++;
         if (n != 1) {
             throw new JspException("Define tag should contain exactly one of name attribute or body content");
         }
 
         Object value = null;
-        if (name != null) {
-            value = TagUtils.lookup(pageContext, scope, name, property);
+        if (getName() != null) {
+            value = lookup();
         }
         if (body != null) {
             value = body;
@@ -99,7 +70,7 @@ public class DefineTag extends BodyTagSupport {
         	} catch (JspException e) {}
         }
             
-        pageContext.setAttribute(id, value, inScope);
+        pageContext.setAttribute(getId(), value, inScope);
 
         return (EVAL_PAGE);
     }
@@ -107,11 +78,7 @@ public class DefineTag extends BodyTagSupport {
     public void release() {
         super.release();
         body = null;
-        id = null;
-        name = null;
-        property = null;
         type = null;
-        scope = null;
         toScope = null;
     }
     
