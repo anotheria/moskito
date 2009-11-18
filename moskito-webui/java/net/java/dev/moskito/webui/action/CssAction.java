@@ -5,7 +5,11 @@ import javax.servlet.http.HttpServletResponse;
 
 import net.anotheria.maf.ActionForward;
 import net.anotheria.maf.ActionMapping;
-
+/**
+ * This action simply forwards to the css page. It is useful to pass through css filters in some configurations.
+ * @author lrosenberg.
+ *
+ */
 public class CssAction extends BaseMoskitoUIAction{
 
 	@Override

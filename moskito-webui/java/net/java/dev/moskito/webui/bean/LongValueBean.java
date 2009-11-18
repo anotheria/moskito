@@ -37,6 +37,11 @@ package net.java.dev.moskito.webui.bean;
 import net.anotheria.util.BasicComparable;
 import net.anotheria.util.sorter.IComparable;
 
+/**
+ * Stat value bean for long data types.
+ * @author lrosenberg
+ *
+ */
 public class LongValueBean extends StatValueBean{
 	/**
 	 * Internal value storage.
