@@ -1,6 +1,5 @@
 package net.java.dev.moskito.webui;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -10,6 +9,11 @@ import javax.servlet.ServletException;
 import net.anotheria.maf.ActionMappingsConfigurator;
 import net.anotheria.maf.MAFFilter;
 
+/**
+ * MoskitoUI Filter is the main entering point of the Moskito Web User Interface.
+ * @author another
+ *
+ */
 public class MoskitoUIFilter extends MAFFilter{
 
 	/**
@@ -39,6 +43,7 @@ public class MoskitoUIFilter extends MAFFilter{
 		return "filter";
 	}
 
+	@Override
 	protected List<ActionMappingsConfigurator> getConfigurators(){
 		return Arrays.asList(new ActionMappingsConfigurator[]{ new MoskitoMappingsConfigurator() });
 	}
