@@ -36,7 +36,7 @@ package net.java.dev.moskito.webui.decorators.predefined;
 
 public class ActionStatsDecorator extends RequestOrientedStatsDecorator{
 	
-	protected static final String EXPLANATIONS[] = {
+	private static final String EXPLANATIONS[] = {
 		"Total number of requests to an action (in the defined interval or since start, depending on your interval selection).",
 		"Total amount of time spent in the action. Although, if the called action is waiting for something to be transported through network or from disk, the value is not equal to spent processor time, this value is usually an important indicator to determine how much some user-clicks cost.",
 		"Number of concurrent requests to the action. This value is not of much interest for time intervals, since it will be any value which was set at the moment of the interval update (and can be even negative since interval updates are fires unsynchronized to prevent performance loss). However, with the default interval (since start) selected it will tell you how many requests are served in the moment.",
