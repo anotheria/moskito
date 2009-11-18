@@ -4,16 +4,16 @@ import javax.servlet.jsp.JspException;
 
 public class PresentTag extends ConditionalTagBase {
 
-	protected boolean condition() throws JspException {
+	@Override protected boolean condition() throws JspException {
 		return (condition(true));
 	}
 
 	protected boolean condition(boolean desired) throws JspException {
 		boolean present = false;
 
-		if (name != null) {
+		if (getName() != null) {
 			try {
-				Object value = TagUtils.lookup(pageContext, scope, name);
+				Object value = lookup();
 				present = (value != null);
 			} catch (JspException e) {
 			}

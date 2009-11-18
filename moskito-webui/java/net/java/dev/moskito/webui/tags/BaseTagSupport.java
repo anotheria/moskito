@@ -75,6 +75,15 @@ public class BaseTagSupport extends TagSupport{
 	public void setProperty(String property) {
 		this.property = property;
 	}
+	
+	public void release() {
+		super.release();
+		name = null;
+		property = null;
+		id = null;
+		scope = null;
+	}
+
 
 
 }

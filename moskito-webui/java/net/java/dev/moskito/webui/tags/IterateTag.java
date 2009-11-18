@@ -9,28 +9,18 @@ import java.util.Iterator;
 import java.util.Map;
 
 import javax.servlet.jsp.JspException;
-import javax.servlet.jsp.tagext.BodyTagSupport;
 
 import net.java.dev.moskito.webui.tags.util.EnumerationIterator;
 
-public class IterateTag extends BodyTagSupport {
+public class IterateTag extends BaseBodyTagSupport {
 
-	protected String id = null;
 	protected String indexId = null;
-	protected String name = null;
-	protected String property = null;
 	protected String type = null;
 
-	protected Iterator iterator = null;
+	protected Iterator<?> iterator = null;
 	protected int lengthCount = 0;
 	protected boolean started = false;
 
-	public String getId() {
-		return id;
-	}
-	public void setId(String id) {
-		this.id = id;
-	}
 	public int getIndex() {
 		return started ? lengthCount - 1 : 0;
 	}
@@ -40,18 +30,6 @@ public class IterateTag extends BodyTagSupport {
 	public void setIndexId(String indexId) {
 		this.indexId = indexId;
 	}
-	public String getName() {
-		return name;
-	}
-	public void setName(String name) {
-		this.name = name;
-	}
-	public String getProperty() {
-		return property;
-	}
-	public void setProperty(String property) {
-		this.property = property;
-	}
 	public String getType() {
 		return (this.type);
 	}
@@ -60,7 +38,7 @@ public class IterateTag extends BodyTagSupport {
 	}
 
 	public int doStartTag() throws JspException {
-		Object collection = TagUtils.lookup(pageContext, null, name, property);
+		Object collection = lookup();
 		if (collection == null) {
 			throw new JspException("No collection found");
 		}
@@ -94,9 +72,9 @@ public class IterateTag extends BodyTagSupport {
 		if (iterator.hasNext()) {
 			Object element = iterator.next();
 			if (element == null) {
-				pageContext.removeAttribute(id);
+				pageContext.removeAttribute(getId());
 			} else {
-				pageContext.setAttribute(id, element);
+				pageContext.setAttribute(getId(), element);
 			}
 			lengthCount++;
 			started = true;
@@ -121,9 +99,9 @@ public class IterateTag extends BodyTagSupport {
 		if (iterator.hasNext()) {
 			Object element = iterator.next();
 			if (element == null) {
-				pageContext.removeAttribute(id);
+				pageContext.removeAttribute(getId());
 			} else {
-				pageContext.setAttribute(id, element);
+				pageContext.setAttribute(getId(), element);
 			}
 			lengthCount++;
 			if (indexId != null) {
@@ -146,9 +124,6 @@ public class IterateTag extends BodyTagSupport {
 		super.release();
 		iterator = null;
 		lengthCount = 0;
-		id = null;
-		name = null;
-		property = null;
 		started = false;
 	}
 
