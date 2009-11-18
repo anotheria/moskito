@@ -3,35 +3,16 @@ package net.java.dev.moskito.webui.tags;
 import java.lang.reflect.InvocationTargetException;
 
 import javax.servlet.jsp.JspException;
-import javax.servlet.jsp.tagext.TagSupport;
 
 import org.apache.commons.beanutils.PropertyUtils;
 
-public abstract class CompareTagBase extends TagSupport {
+public abstract class CompareTagBase extends BaseTagSupport {
 
 	protected static final int DOUBLE_COMPARE = 0;
 	protected static final int LONG_COMPARE = 1;
 	protected static final int STRING_COMPARE = 2;
 
-	protected String name = null;
-	protected String property = null;
-	public String value = null;
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public String getProperty() {
-		return property;
-	}
-
-	public void setProperty(String property) {
-		this.property = property;
-	}
+	private String value = null;
 
 	public String getValue() {
 		return value;
@@ -51,8 +32,6 @@ public abstract class CompareTagBase extends TagSupport {
 
 	public void release() {
 		super.release();
-		name = null;
-		property = null;
 		value = null;
 	}
 
@@ -82,13 +61,15 @@ public abstract class CompareTagBase extends TagSupport {
 			type = STRING_COMPARE;
 		}
 
+		String name = getName();
+		String property = getProperty();
+		
 		Object variable = null;
 		if (name != null) {
 			Object bean = pageContext.findAttribute(name);
 			if (property != null) {
 				if (bean == null) {
-					throw new JspException("No bean found under attribute key "
-							+ name);
+					throw new JspException("No bean found under attribute key "	+ name);
 				}
 				try {
 					variable = PropertyUtils.getProperty(bean, property);

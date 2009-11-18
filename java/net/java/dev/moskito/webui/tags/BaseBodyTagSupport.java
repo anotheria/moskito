@@ -93,5 +93,13 @@ public class BaseBodyTagSupport extends BodyTagSupport{
 		this.property = property;
 	}
 
+	public void release() {
+		super.release();
+		name = null;
+		property = null;
+		id = null;
+		scope = null;
+	}
+
 
 }

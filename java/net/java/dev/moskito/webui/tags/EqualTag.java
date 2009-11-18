@@ -4,7 +4,7 @@ import javax.servlet.jsp.JspException;
 
 public class EqualTag extends CompareTagBase {
 
-	protected boolean condition() throws JspException {
+	@Override protected boolean condition() throws JspException {
 		return (condition(0, 0));
 	}
 

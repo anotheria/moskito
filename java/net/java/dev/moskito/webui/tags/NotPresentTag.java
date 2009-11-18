@@ -4,7 +4,7 @@ import javax.servlet.jsp.JspException;
 
 public class NotPresentTag extends PresentTag {
 
-	protected boolean condition() throws JspException {
+	@Override protected boolean condition() throws JspException {
 		return (condition(false));
 	}
 }
