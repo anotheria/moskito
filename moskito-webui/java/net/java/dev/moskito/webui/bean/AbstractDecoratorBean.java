@@ -40,10 +40,15 @@ import net.anotheria.util.BasicComparable;
 import net.anotheria.util.StringUtils;
 import net.anotheria.util.sorter.IComparable;
 
-public class AbstractDecoratorBean implements IComparable{
+public abstract class AbstractDecoratorBean implements IComparable{
 
+	/**
+	 * Name of the decorator.
+	 */
 	private String name;
-	
+	/**
+	 * Captions of the fields.
+	 */
 	private List<StatCaptionBean> captions;
 
 	public String getName() {

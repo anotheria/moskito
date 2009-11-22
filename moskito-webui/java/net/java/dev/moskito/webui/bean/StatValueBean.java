@@ -35,9 +35,15 @@
 package net.java.dev.moskito.webui.bean;
 
 import net.anotheria.util.sorter.IComparable;
-
+/**
+ * This is the base bean for stat value beans.
+ * @author lrosenberg
+ *
+ */
 public abstract class StatValueBean implements IComparable{
-	
+	/**
+	 * Name of the stat value.
+	 */
 	private String name;
 	
 	protected StatValueBean(String aName){
@@ -47,9 +53,15 @@ public abstract class StatValueBean implements IComparable{
 	@Override public String toString(){
 		return getValue();
 	}
-	
+	/**
+	 * Returns the value.
+	 * @return
+	 */
 	public abstract String getValue();
-	
+	/**
+	 * Returns the type.
+	 * @return
+	 */
 	public abstract String getType();
 	
 	public String getName(){

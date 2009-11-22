@@ -38,8 +38,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class StatDecoratorBean extends AbstractDecoratorBean {
+	/**
+	 * List of stats bean.
+	 */
 	private List<StatBean> stats; 
-	
+
+	/**
+	 * Creates a new StatDecoratorBean.
+	 */
 	public StatDecoratorBean(){
 		stats = new ArrayList<StatBean>();
 	}
@@ -58,7 +64,7 @@ public class StatDecoratorBean extends AbstractDecoratorBean {
 		stats = someBeans;
 	}
 
-	public String toString(){
+	@Override public String toString(){
 		return super.toString()+" "+stats;
 	}
 
