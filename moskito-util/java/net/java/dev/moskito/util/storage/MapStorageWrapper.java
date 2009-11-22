@@ -9,8 +9,8 @@ import java.util.Set;
  * This wrapper class is used to make an underlying map-like storage monitorable.
  * @author lrosenberg
  *
- * @param <K>
- * @param <V>
+ * @param <K> map key.
+ * @param <V> map value.
  */
 public class MapStorageWrapper<K,V> implements StorageWrapper<K, V>{
 
