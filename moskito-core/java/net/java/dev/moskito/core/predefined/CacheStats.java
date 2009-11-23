@@ -59,6 +59,10 @@ public class CacheStats extends AbstractStats{
 	 */
 	private StatValue filteredCount;
 	/**
+	 * Number of refused objects, because cache was full.
+	 */
+	private StatValue cacheFullCount;
+	/**
 	 * Name of the cache.
 	 */
 	private String name;
@@ -78,6 +82,7 @@ public class CacheStats extends AbstractStats{
 		rolloverCount = StatValueFactory.createStatValue(longPattern, "rollovers", selectedIntervals);
 		expiredCount = StatValueFactory.createStatValue(longPattern, "expirations", selectedIntervals);
 		filteredCount = StatValueFactory.createStatValue(longPattern, "filter", selectedIntervals);
+		cacheFullCount = StatValueFactory.createStatValue(longPattern, "cachefull", selectedIntervals);
 		
 		//fillRatio = StatValueFactory.createStatValue(new Double(0.0), "fillRatio" , selectedIntervals);
 
@@ -96,6 +101,7 @@ public class CacheStats extends AbstractStats{
 		b.append(" WR: ").append(writes.getValueAsLong(intervalName));
 		b.append(" GC: ").append(garbageCollected.getValueAsLong(intervalName));
 		b.append(" RO: ").append(rolloverCount.getValueAsLong(intervalName));
+		b.append(" FU: ").append(cacheFullCount.getValueAsLong(intervalName));
 		b.append(" EX: ").append(expiredCount.getValueAsLong(intervalName));
 		b.append(" FI: ").append(filteredCount.getValueAsLong(intervalName));
 		return b.toString();
@@ -139,6 +145,14 @@ public class CacheStats extends AbstractStats{
 		rolloverCount.increase();
 	}
 	
+	public void addCacheFull(){
+		cacheFullCount.increase();
+	}
+	
+	public long getCacheFullCount(String intervalName){
+		return cacheFullCount.getValueAsLong(intervalName);
+	}
+
 	public long getRolloverCount(String intervalName){
 		return rolloverCount.getValueAsLong(intervalName);
 	}
