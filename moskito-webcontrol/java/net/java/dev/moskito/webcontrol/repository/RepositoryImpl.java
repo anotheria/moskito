@@ -1,10 +1,15 @@
 package net.java.dev.moskito.webcontrol.repository;
 
 import java.util.List;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
 public class RepositoryImpl {
 	private ConcurrentMap<String, Container> containers;
+	
+	RepositoryImpl() {
+		containers = new ConcurrentHashMap<String, Container>();
+	}
 	
 	public List<Snapshot> getSnapshots(String containerName){
 		return getContainer(containerName).getSnapshots();
@@ -21,5 +26,9 @@ public class RepositoryImpl {
 			containers.putIfAbsent(name, c);
 		}
 		return containers.get(name);
+	}
+	
+	void clear(){
+		containers.clear();
 	}
 }

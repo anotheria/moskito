@@ -21,4 +21,12 @@ public class Snapshot {
 	public long getCreatedTimestamp(){
 		return created;
 	}
+	
+	public Attribute addAttribute(Attribute a){
+		return attributes.put(a.getName(), a);
+	}
+	
+	@Override public String toString(){
+		return source+" "+created+" "+attributes;
+	}
 }

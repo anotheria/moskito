@@ -17,4 +17,12 @@ public abstract class Attribute {
 	}
 	
 	public abstract String getValueString();
+	
+	public String getName(){
+		return name;
+	}
+	
+	public String toString(){
+		return getName()+" = "+getValueString();
+	}
 }

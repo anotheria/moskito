@@ -2,6 +2,7 @@ package net.java.dev.moskito.webcontrol.repository;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
 public class Container {
@@ -10,6 +11,7 @@ public class Container {
 	
 	Container(String aName){
 		name = aName;
+		snapshots = new ConcurrentHashMap<SnapshotSource, Snapshot>();
 	}
 	
 	List<Snapshot> getSnapshots(){
