@@ -72,6 +72,10 @@ public class DummyFeedRepository {
 		
 		List<Snapshot> snapshots = repository.getSnapshots("TestMem");
 		assertEquals(3, snapshots.size());
+		for (Snapshot s : snapshots){
+			assertNotNull(s.toString());
+			System.out.println(s.toString());
+		}
 		
 	}
 }
