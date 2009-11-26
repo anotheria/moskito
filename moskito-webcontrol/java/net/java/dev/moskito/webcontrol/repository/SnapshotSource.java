@@ -9,7 +9,7 @@ public class SnapshotSource {
 	
 	@Override public boolean equals(Object o){
 		return o instanceof SnapshotSource &&
-			name.equals((SnapshotSource)o);
+			name.equals(((SnapshotSource)o).name);
 	}
 	
 	@Override public int hashCode(){
