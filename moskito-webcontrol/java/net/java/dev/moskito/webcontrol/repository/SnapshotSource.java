@@ -15,4 +15,8 @@ public class SnapshotSource {
 	@Override public int hashCode(){
 		return name.hashCode();
 	}
+	
+	public String toString(){
+		return name;
+	}
 }
