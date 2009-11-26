@@ -16,7 +16,15 @@ public enum Repository {
 	public List<Snapshot> getSnapshots(String containerName){
 		return getContainer(containerName).getSnapshots();
 	}
-	
+
+	//in the future add a method which supplies a maximum age for a snapshot 
+	public Snapshot getSnapshot(String containerName, SnapshotSource source){
+		Snapshot s = getContainer(containerName).getSnapshot(source);
+		if (s==null)
+			throw new NullPointerException("Snapshot "+containerName+" from "+source+" not found.");
+		return s;
+	}
+
 	public void addSnapshot(String name, Snapshot snapshot){
 		getContainer(name).addSnapshot(snapshot);
 	}

@@ -1,5 +1,7 @@
 package net.java.dev.moskito.webcontrol.repository;
 
+import net.java.dev.moskito.webcontrol.configuration.SourceConfiguration;
+
 public class SnapshotSource {
 	private String name;
 	
@@ -18,5 +20,10 @@ public class SnapshotSource {
 	
 	public String toString(){
 		return name;
+	}
+	
+	//use this method to cache sources later.
+	public static SnapshotSource valueOf(SourceConfiguration config){
+		return new SnapshotSource(config.getName());
 	}
 }

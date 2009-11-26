@@ -26,6 +26,14 @@ public class Snapshot {
 		return attributes.put(a.getName(), a);
 	}
 	
+	public Attribute getAttribute(String attributeName){
+		return attributes.get(attributeName);
+	}
+	
+	public void removeAttribute(Attribute a){
+		attributes.remove(a.getName());
+	}
+	
 	@Override public String toString(){
 		return source+" "+created+" "+attributes;
 	}

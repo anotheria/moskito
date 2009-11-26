@@ -20,4 +20,5 @@ public class SourceConfiguration {
 	public String getUrl(){
 		return url; 
 	}
+	
 }

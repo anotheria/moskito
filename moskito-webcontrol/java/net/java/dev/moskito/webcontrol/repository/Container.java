@@ -24,6 +24,10 @@ public class Container {
 		snapshots.put(s.getSource(), s);
 	}
 	
+	Snapshot getSnapshot(SnapshotSource source){
+		return snapshots.get(source);
+	}
+	
 	public String getName(){
 		return name;
 	}
