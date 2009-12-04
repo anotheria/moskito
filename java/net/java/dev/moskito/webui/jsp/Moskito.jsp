@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html;charset=UTF-8" session="true"
-%><%@ taglib uri="/tags/moskito" prefix="msk" 
+%><%@ taglib uri="http://www.anotheria.net/ano-tags" prefix="msk" 
 %><%@ page isELIgnored ="false" 
 %>
 <html>

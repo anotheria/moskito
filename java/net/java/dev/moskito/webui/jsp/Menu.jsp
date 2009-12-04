@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html;charset=UTF-8" session="true"
-%><%@ taglib uri="/tags/moskito" prefix="msk" 
+%><%@ taglib uri="http://www.anotheria.net/ano-tags" prefix="msk" 
 %><center>
 <msk:iterate name="menu" id="item" type="net.java.dev.moskito.webui.bean.MenuItemBean">
 	<msk:equal name="item" property="active" value="true">

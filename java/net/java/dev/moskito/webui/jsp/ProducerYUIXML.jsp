@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/xml;charset=UTF-8" session="true"
-%><%@ taglib uri="/tags/moskito" prefix="msk" 
+%><%@ taglib uri="http://www.anotheria.net/ano-tags" prefix="msk" 
 %><?xml version="1.0" encoding="UTF-8"?>
 <producer id="<msk:write name="producer" property="id"/>">
 	<category><msk:write name="producer" property="category"/></category>

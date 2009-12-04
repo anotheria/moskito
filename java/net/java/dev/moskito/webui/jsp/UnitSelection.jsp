@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html;charset=UTF-8" session="true"
-%><%@ taglib uri="/tags/moskito" prefix="msk" 
+%><%@ taglib uri="http://www.anotheria.net/ano-tags" prefix="msk" 
 %>
 Current unit: <b><msk:write scope="session" name="moskito.CurrentUnit" property="unitName" ignore="true"/></b>&nbsp;&nbsp;Available:&nbsp;
 <msk:iterate name="units" id="unit" type="net.java.dev.moskito.webui.bean.UnitBean">
