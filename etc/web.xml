@@ -188,12 +188,7 @@
     	<taglib-uri>/tags/json</taglib-uri>
 	    <taglib-location>/WEB-INF/tld/json.tld</taglib-location>
 	</taglib>
-	
-	<taglib>
-		<taglib-uri>/tags/moskito</taglib-uri>
-		<taglib-location>/WEB-INF/tld/moskito.tld</taglib-location>
-	</taglib>
-	
+		
 	<!--/jsp-config-->
 
   		
