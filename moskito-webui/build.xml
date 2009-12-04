@@ -13,11 +13,6 @@
             </fileset>
         </copy>
         <copy toDir="${classes.dir}" overwrite="true">
-            <fileset dir="etc">
-                <include name="**/*.tld"/>
-            </fileset>
-        </copy>
-        <copy toDir="${classes.dir}" overwrite="true">
             <fileset dir="html">
                 <include name="**/*.css"/>
             </fileset>
