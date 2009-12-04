@@ -191,6 +191,11 @@
 		
 	<!--/jsp-config-->
 
+	<listener>
+		<listener-class>
+			net.java.dev.moskito.web.session.SessionCountProducer
+		</listener-class>
+	</listener>
   		
 	
 </web-app> 
