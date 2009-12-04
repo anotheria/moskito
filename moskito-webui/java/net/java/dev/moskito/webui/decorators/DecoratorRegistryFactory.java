@@ -34,19 +34,22 @@
  */	
 package net.java.dev.moskito.webui.decorators;
 
+/**
+ * Factory for the decorator registry.
+ * @author another
+ *
+ */
 public class DecoratorRegistryFactory {
-	
-	private static IDecoratorRegistry instance;
-	private static Object lock = new Object();
-	
+
+	/**
+	 * Singleton instance of the DecoratorRegistry.
+	 */
+	private static final IDecoratorRegistry instance = new DecoratorRegistryImpl();
+	/**
+	 * Returns the decorator registry instance.
+	 * @return
+	 */
 	public static final IDecoratorRegistry getDecoratorRegistry(){
-		if (instance==null){
-			synchronized(lock){
-				if (instance==null)
-					instance = new DecoratorRegistryImpl();
-			}
-		}
 		return instance;
-		
 	}
 }
