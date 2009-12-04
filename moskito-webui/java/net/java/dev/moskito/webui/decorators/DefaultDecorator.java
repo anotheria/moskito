@@ -49,7 +49,9 @@ import net.java.dev.moskito.webui.bean.StringValueBean;
  */
 public class DefaultDecorator extends AbstractDecorator{
 	
-	
+	/**
+	 * Constructor.
+	 */
 	public DefaultDecorator(){
 		super("missing decorator", new String[]{"UNSET"}, new String[]{"UNSET"}, new String[]{"UNSET"});
 	}
