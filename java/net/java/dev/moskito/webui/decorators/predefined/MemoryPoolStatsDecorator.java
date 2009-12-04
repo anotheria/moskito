@@ -10,10 +10,20 @@ import net.java.dev.moskito.webui.bean.LongValueBean;
 import net.java.dev.moskito.webui.bean.StatValueBean;
 import net.java.dev.moskito.webui.decorators.AbstractDecorator;
 
+/**
+ * A decorator for the memory pool stats provided by the VM (young, survivor, oldgen etc).
+ * @author another
+ *
+ */
 public class MemoryPoolStatsDecorator extends AbstractDecorator{
 	
+	/**
+	 * Constant for MegaByte.
+	 */
 	private static final long MB = 1024L*1024;
-	
+	/**
+	 * Captions.
+	 */
 	private static final String CAPTIONS[] = {
 		"Free",
 		"Free MB",
@@ -37,7 +47,9 @@ public class MemoryPoolStatsDecorator extends AbstractDecorator{
 		"Max",
 		"Max MB",
 	};
-	
+	/**
+	 * Short explanations (mouse-over).
+	 */
 	private static final String SHORT_EXPLANATIONS[] = {
 		"Free memory",
 		"Free memory in Mb",
@@ -59,6 +71,9 @@ public class MemoryPoolStatsDecorator extends AbstractDecorator{
 		"Amount of max memory in Mb",
 	};
 
+	/**
+	 * Detailed explanations.
+	 */
 	private static final String EXPLANATIONS[] = {
 		"free memory (commited - used)",
 		"free memory (commited - used) in mb",

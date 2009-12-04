@@ -49,7 +49,7 @@ public abstract class AbstractDecorator implements IDecorator{
 	/**
 	 * Storage for captions.
 	 */
-	protected List<StatCaptionBean> captions;
+	private List<StatCaptionBean> captions;
 	/**
 	 * Decorator name.
 	 */

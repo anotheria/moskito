@@ -46,6 +46,9 @@ import net.java.dev.moskito.webui.bean.StatValueBean;
 import net.java.dev.moskito.webui.decorators.AbstractDecorator;
 
 public class CacheStatsDecorator extends AbstractDecorator{
+	/**
+	 * Captions.
+	 */
 	private static final String CAPTIONS[] = {
 		"Req",
 		"Hit",
@@ -58,6 +61,9 @@ public class CacheStatsDecorator extends AbstractDecorator{
 		"FR"
 	};
 	
+	/**
+	 * Short explanations (mouse over).
+	 */
 	private static final String SHORT_EXPLANATIONS[] = {
 		"Number of requests",
 		"Number of hits",
@@ -70,6 +76,9 @@ public class CacheStatsDecorator extends AbstractDecorator{
 		"Fill ratio"
 	};
 
+	/**
+	 * Long explanations - separate page.
+	 */
 	private static final String EXPLANATIONS[] = {
 		"Total number of retrieval requests",
 		"Total number of hits among the requests",
@@ -82,6 +91,9 @@ public class CacheStatsDecorator extends AbstractDecorator{
 		"Fill ratio, how much storage place is actually used (if implemented by the cache :-))."
 	};
 
+	/**
+	 * Constructor.
+	 */
 	public CacheStatsDecorator(){
 		super("Cache", CAPTIONS, SHORT_EXPLANATIONS, EXPLANATIONS);
 	}
