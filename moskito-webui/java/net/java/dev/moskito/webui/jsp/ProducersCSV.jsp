@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="application/msexcel;charset=UTF-8" session="true"
-%><%@ taglib uri="/tags/moskito" prefix="msk" 
+%><%@ taglib uri="http://www.anotheria.net/ano-tags" prefix="msk" 
 %><%--
 --%><msk:iterate type="net.java.dev.moskito.webui.bean.ProducerDecoratorBean" id="decorator" name="decorators"><%--
 --%><msk:write name="decorator" property="name"/>;Producer Id;Category;Subsystem<%--

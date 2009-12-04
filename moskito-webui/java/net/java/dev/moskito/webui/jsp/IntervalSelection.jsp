@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html;charset=UTF-8" session="true"
-%><%@ taglib uri="/tags/moskito" prefix="msk" 
+%><%@ taglib uri="http://www.anotheria.net/ano-tags" prefix="msk" 
 %>
 Current interval: <b><msk:write name="currentInterval"/></b>&nbsp;&nbsp;Available:&nbsp;
 <msk:iterate name="intervals" id="interval" type="net.java.dev.moskito.webui.bean.IntervalBean">
