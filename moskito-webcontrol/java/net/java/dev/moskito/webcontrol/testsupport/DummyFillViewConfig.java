@@ -42,6 +42,7 @@ public class DummyFillViewConfig {
 		memoryFree.addField(new ViewField("OldGen", "OldGen.FreeMB"));
 		memoryFree.addField(new ViewField("PermGen", "PermGen.FreeMB"));
 		memoryFree.addField(new ViewField("NotExist", "non-existent"));
+		memoryFree.addField(new ViewField("Formula testing", "PercentFormulaTest"));
 		ConfigurationRepository.INSTANCE.addView(memoryFree);
 
 	

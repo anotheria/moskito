@@ -38,6 +38,8 @@ public class DummyFillRepository {
 		snapshot.addAttribute(AttributeFactory.create(AttributeType.LONG, "PermGen.MaxUsedMB", getMaxUsed(128, source)));
 		snapshot.addAttribute(AttributeFactory.create(AttributeType.LONG, "PermGen.CommitedMB", ""+getCommited(128, source)));
 		
+		snapshot.addAttribute(AttributeFactory.createFormula("PercentFormulaTest", "PercentFormula", 
+				snapshot.getAttribute("PermGen.FreeMB"), snapshot.getAttribute("PermGen.UsedMB")));
 		
 		return snapshot;
 	}

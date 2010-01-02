@@ -1,14 +1,27 @@
 package net.java.dev.moskito.webcontrol.repository;
 
 public final class AttributeFactory {
-	public static Attribute create(AttributeType type, String name, String value){
-		switch(type){
+	
+	public static Attribute create(AttributeType type, String name, String value) {
+		switch (type) {
 		case LONG:
 			return new LongAttribute(name, value);
+		case INT:
+			return new IntAttribute(name, value);
+		case DOUBLE:
+			return new DoubleAttribute(name, value);
+		case NOT_FOUND:
+			return new NotFoundAttribute(name);
+		case STRING:
+			throw new IllegalArgumentException("Unsupported attribute type: " + type);
 		}
-		throw new IllegalArgumentException("Unsupported attribute type: "+type);
+		throw new IllegalArgumentException("Unsupported attribute type: " + type);
 	}
 	
-	
-	private AttributeFactory(){}
+	public static Attribute createFormula(String name, String formulaClass, Attribute... inputs) {
+		return new FormulaAttribute(name, formulaClass, inputs);
+	}
+
+	private AttributeFactory() {
+	}
 }
