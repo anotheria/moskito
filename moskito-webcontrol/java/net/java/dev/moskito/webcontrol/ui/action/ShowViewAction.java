@@ -5,14 +5,15 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import net.anotheria.maf.ActionForward;
-import net.anotheria.maf.ActionMapping;
+import net.anotheria.maf.action.ActionForward;
+import net.anotheria.maf.action.ActionMapping;
+import net.anotheria.maf.bean.FormBean;
 import net.java.dev.moskito.webcontrol.configuration.ConfigurationRepository;
 
 public class ShowViewAction extends BaseMoskitoWebcontrolAction {
 
 	@Override
-	public ActionForward execute(ActionMapping mapping, HttpServletRequest req,
+	public ActionForward execute(ActionMapping mapping, FormBean bean, HttpServletRequest req,
 			HttpServletResponse res) throws Exception {
 
 		List<String> viewnames = ConfigurationRepository.INSTANCE.getViewNames();

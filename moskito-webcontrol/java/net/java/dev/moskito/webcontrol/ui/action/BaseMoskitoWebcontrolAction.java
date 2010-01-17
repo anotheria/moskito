@@ -6,8 +6,9 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import net.anotheria.maf.Action;
-import net.anotheria.maf.ActionMapping;
+import net.anotheria.maf.action.Action;
+import net.anotheria.maf.action.ActionMapping;
+import net.anotheria.maf.bean.FormBean;
 import net.java.dev.moskito.webcontrol.configuration.ConfigurationRepository;
 import net.java.dev.moskito.webcontrol.configuration.SourceConfiguration;
 import net.java.dev.moskito.webcontrol.configuration.ViewConfiguration;

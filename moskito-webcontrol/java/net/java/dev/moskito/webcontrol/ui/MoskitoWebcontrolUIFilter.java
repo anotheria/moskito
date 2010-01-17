@@ -6,7 +6,7 @@ import java.util.List;
 import javax.servlet.FilterConfig;
 import javax.servlet.ServletException;
 
-import net.anotheria.maf.ActionMappingsConfigurator;
+import net.anotheria.maf.action.ActionMappingsConfigurator;
 import net.anotheria.maf.MAFFilter;
 import net.java.dev.moskito.webcontrol.testsupport.DummyFillRepository;
 import net.java.dev.moskito.webcontrol.testsupport.DummyFillViewConfig;

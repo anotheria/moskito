@@ -1,8 +1,8 @@
 package net.java.dev.moskito.webcontrol.ui;
 
-import net.anotheria.maf.ActionForward;
-import net.anotheria.maf.ActionMappings;
-import net.anotheria.maf.ActionMappingsConfigurator;
+import net.anotheria.maf.action.ActionForward;
+import net.anotheria.maf.action.ActionMappings;
+import net.anotheria.maf.action.ActionMappingsConfigurator;
 
 public class MoskitoWebcontrolMappingsConfigurator implements ActionMappingsConfigurator {
 		
