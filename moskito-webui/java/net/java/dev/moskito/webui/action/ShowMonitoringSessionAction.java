@@ -6,8 +6,9 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import net.anotheria.maf.ActionForward;
-import net.anotheria.maf.ActionMapping;
+import net.anotheria.maf.action.ActionForward;
+import net.anotheria.maf.action.ActionMapping;
+import net.anotheria.maf.bean.FormBean;
 import net.anotheria.util.NumberUtils;
 import net.java.dev.moskito.core.usecase.running.ExistingRunningUseCase;
 import net.java.dev.moskito.core.usecase.session.IMonitoringSessionManager;
@@ -30,7 +31,7 @@ public class ShowMonitoringSessionAction extends BaseMoskitoUIAction{
 	}
 
 	@Override
-	public ActionForward execute(ActionMapping mapping, HttpServletRequest req, HttpServletResponse res) throws Exception {
+	public ActionForward execute(ActionMapping mapping, FormBean formBean, HttpServletRequest req, HttpServletResponse res) throws Exception {
 
 		
 		String sessionName = req.getParameter("pSessionName");

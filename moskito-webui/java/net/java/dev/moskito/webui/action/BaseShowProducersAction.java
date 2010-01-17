@@ -42,8 +42,9 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import net.anotheria.maf.ActionForward;
-import net.anotheria.maf.ActionMapping;
+import net.anotheria.maf.action.ActionForward;
+import net.anotheria.maf.action.ActionMapping;
+import net.anotheria.maf.bean.FormBean;
 import net.anotheria.util.sorter.QuickSorter;
 import net.anotheria.util.sorter.Sorter;
 import net.java.dev.moskito.core.producers.IStats;
@@ -70,7 +71,7 @@ public abstract class BaseShowProducersAction extends BaseMoskitoUIAction{
 	}
 	
 	@Override
-	public ActionForward execute(ActionMapping mapping, HttpServletRequest req, HttpServletResponse res) throws Exception {
+	public ActionForward execute(ActionMapping mapping, FormBean formBean, HttpServletRequest req, HttpServletResponse res) throws Exception {
 
 		String intervalName = getCurrentInterval(req);
 		UnitBean currentUnit = getCurrentUnit(req);
