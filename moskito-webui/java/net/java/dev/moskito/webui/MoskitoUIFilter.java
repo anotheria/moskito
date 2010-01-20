@@ -6,6 +6,8 @@ import java.util.List;
 import javax.servlet.FilterConfig;
 import javax.servlet.ServletException;
 
+import org.apache.log4j.Logger;
+
 import net.anotheria.maf.action.ActionMappingsConfigurator;
 import net.anotheria.maf.MAFFilter;
 
@@ -15,7 +17,9 @@ import net.anotheria.maf.MAFFilter;
  *
  */
 public class MoskitoUIFilter extends MAFFilter{
-
+	
+	private static final Logger log = Logger.getLogger(MoskitoUIFilter.class);
+	
 	/**
 	 * Path to images for html-layer image linking.
 	 */
@@ -23,7 +27,8 @@ public class MoskitoUIFilter extends MAFFilter{
 	
 	@Override public void init(FilterConfig config) throws ServletException {
 		super.init(config);
-		
+		log.info("Initing MoSKito WebUI...");
+//		System.out.println("Initing MoSKito WebUI...");
 		String pathToImagesParameter = config.getInitParameter("pathToImages");
 		if (pathToImagesParameter!=null && pathToImagesParameter.length()>0)
 			pathToImages = pathToImagesParameter;
