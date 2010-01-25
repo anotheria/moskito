@@ -1,6 +1,6 @@
 package net.java.dev.moskito.webcontrol.repository;
 
-public class IntAttribute extends Attribute {
+public class IntAttribute extends NumberAttribute<Integer> {
 	
 	private int value;
 	
@@ -13,11 +13,8 @@ public class IntAttribute extends Attribute {
 		this(aName, Integer.parseInt(aValue));
 	}
 	
-	@Override public String getValueString(){
-		return ""+value;
-	}
-	
 	@Override public Integer getValue() {
 		return Integer.valueOf(value);
 	}
+	
 }

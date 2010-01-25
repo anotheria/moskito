@@ -1,5 +1,8 @@
 package net.java.dev.moskito.webcontrol.repository.formulas;
 
+import net.java.dev.moskito.webcontrol.repository.Attribute;
+import net.java.dev.moskito.webcontrol.repository.NumberAttribute;
+
 
 public class SumFormula implements Formula {
 
@@ -7,12 +10,22 @@ public class SumFormula implements Formula {
 	
 	private SumFormula(){};
 	
-	@Override public boolean isArgumentNumberAcceptable(int num) {
-		return num > 1;
+	@Override public boolean isArgumentsAcceptable(Attribute... args) {
+		if (args.length > 1) {
+			for (Attribute arg : args) {
+				if ( !(arg instanceof NumberAttribute<?>)){
+					return false;
+				}
+			}
+		}
+		return true;
 	}
 	
-	@Override public Number calculate(Number... inputs) {
-		// TODO Auto-generated method stub
+	@Override public Number calculate(Attribute... inputs) {
+		double result = 0.0;
+		for (Attribute input : inputs) {
+			result += ((NumberAttribute<?>)input).getValue().doubleValue();
+		}
 		return null;
 	}
 

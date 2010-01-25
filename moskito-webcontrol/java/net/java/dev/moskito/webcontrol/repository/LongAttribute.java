@@ -1,6 +1,6 @@
 package net.java.dev.moskito.webcontrol.repository;
 
-public class LongAttribute extends Attribute {
+public class LongAttribute extends NumberAttribute<Long> {
 
 	private long value;
 	
@@ -13,11 +13,8 @@ public class LongAttribute extends Attribute {
 		this(name, Long.parseLong(aValue));
 	}
 	
-	@Override public String getValueString() {
-		return ""+value;
-	}
-
 	@Override public Long getValue() {
 		return Long.valueOf(value);
 	}
+
 }

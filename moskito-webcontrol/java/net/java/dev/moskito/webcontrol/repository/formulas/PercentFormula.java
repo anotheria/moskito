@@ -1,5 +1,9 @@
 package net.java.dev.moskito.webcontrol.repository.formulas;
 
+import net.java.dev.moskito.webcontrol.repository.Attribute;
+import net.java.dev.moskito.webcontrol.repository.NumberAttribute;
+import net.java.dev.moskito.webcontrol.repository.NumberAttribute.Operation;
+
 
 public final class PercentFormula implements Formula {
 
@@ -7,13 +11,14 @@ public final class PercentFormula implements Formula {
 	
 	private PercentFormula(){};
 	
-	public boolean isArgumentNumberAcceptable(int num) {
-		return num == 2;
+	public boolean isArgumentsAcceptable(Attribute... args) {
+		return args != null && args.length == 2 
+			&& args[0] instanceof NumberAttribute<?> && args[1] instanceof NumberAttribute<?>;
 	}
 	
-	@Override public Number calculate(Number... inputs) {
-		//TODO add check for NULL values and for 0
-		return inputs[0].doubleValue() / inputs[1].doubleValue();
+	@SuppressWarnings("unchecked")
+	@Override public Number calculate(Attribute... inputs) {
+		return ((NumberAttribute)inputs[0]).makeCalculation((NumberAttribute)inputs[1], Operation.DIVIDE);
 	}
 
 }

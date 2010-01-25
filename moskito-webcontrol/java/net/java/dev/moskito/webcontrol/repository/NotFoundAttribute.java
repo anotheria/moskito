@@ -10,7 +10,7 @@ public class NotFoundAttribute extends Attribute {
 		return "n.a.";
 	}
 
-	@Override public Number getValue() {
+	@Override public Void getValue() {
 		throw new IllegalAccessError("Attribute was not found, therefore it cannot provide a value!");
 	}
 

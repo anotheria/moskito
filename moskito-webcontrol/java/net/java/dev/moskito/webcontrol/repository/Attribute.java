@@ -1,6 +1,6 @@
 package net.java.dev.moskito.webcontrol.repository;
 
-public abstract class Attribute<T extends Number> {
+public abstract class Attribute {
 	private String name;
 	
 	Attribute(String aName){
@@ -18,7 +18,7 @@ public abstract class Attribute<T extends Number> {
 	
 	public abstract String getValueString();
 	
-	public abstract T getValue();
+	public abstract Object getValue();
 	
 	public String getName(){
 		return name;

@@ -10,15 +10,15 @@ public final class AttributeFactory {
 			return new IntAttribute(name, value);
 		case DOUBLE:
 			return new DoubleAttribute(name, value);
+		case STRING:
+			return new StringAttribute(name, value);
 		case NOT_FOUND:
 			return new NotFoundAttribute(name);
-		case STRING:
-			throw new IllegalArgumentException("Unsupported attribute type: " + type);
 		}
 		throw new IllegalArgumentException("Unsupported attribute type: " + type);
 	}
 	
-	public static Attribute createFormula(String name, String formulaClass, Attribute... inputs) {
+	public static FormulaAttribute createFormula(String name, String formulaClass, Attribute... inputs) {
 		return new FormulaAttribute(name, formulaClass, inputs);
 	}
 

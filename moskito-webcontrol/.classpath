@@ -4,8 +4,8 @@
 	<classpathentry kind="src" path="test/junit"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.6"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
-	<classpathentry kind="output" path="classes"/>
 	<classpathentry kind="lib" path="lib/ano-tags.jar"/>
+	<classpathentry kind="lib" path="lib/junit.jar"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/ano-maf"/>
 	<classpathentry kind="lib" path="lib/ano-maf.jar"/>
 	<classpathentry kind="lib" path="lib/servlet-api.jar"/>
@@ -14,4 +14,5 @@
 	<classpathentry kind="lib" path="lib/commons-collections.jar"/>
 	<classpathentry kind="lib" path="lib/commons-beanutils.jar"/>
 	<classpathentry kind="lib" path="lib/commons-logging.jar"/>
+	<classpathentry kind="output" path="classes"/>
 </classpath>
