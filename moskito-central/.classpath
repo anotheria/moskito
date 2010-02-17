@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="java"/>
+	<classpathentry kind="src" path="test"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/moskito-core"/>
+	<classpathentry kind="lib" path="D:/projects/companies/Anotheria/SVN/opensource/moskito/trunk/moskito-central/lib/ano-util.jar"/>
+	<classpathentry kind="lib" path="D:/projects/companies/Anotheria/SVN/opensource/moskito/trunk/moskito-central/lib/BlowfishJ.jar"/>
+	<classpathentry kind="lib" path="D:/projects/companies/Anotheria/SVN/opensource/moskito/trunk/moskito-central/lib/commons-beanutils.jar"/>
+	<classpathentry kind="lib" path="D:/projects/companies/Anotheria/SVN/opensource/moskito/trunk/moskito-central/lib/commons-collections.jar"/>
+	<classpathentry kind="lib" path="D:/projects/companies/Anotheria/SVN/opensource/moskito/trunk/moskito-central/lib/commons-lang.jar"/>
+	<classpathentry kind="lib" path="D:/projects/companies/Anotheria/SVN/opensource/moskito/trunk/moskito-central/lib/commons-logging.jar"/>
+	<classpathentry kind="lib" path="D:/projects/companies/Anotheria/SVN/opensource/moskito/trunk/moskito-central/lib/dozer.jar"/>
+	<classpathentry kind="lib" path="D:/projects/companies/Anotheria/SVN/opensource/moskito/trunk/moskito-central/lib/dozer-annotations.jar"/>
+	<classpathentry kind="lib" path="D:/projects/companies/Anotheria/SVN/opensource/moskito/trunk/moskito-central/lib/junit.jar"/>
+	<classpathentry kind="lib" path="D:/projects/companies/Anotheria/SVN/opensource/moskito/trunk/moskito-central/lib/log4j.jar"/>
+	<classpathentry kind="output" path="classes"/>
+</classpath>
