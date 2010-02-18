@@ -95,7 +95,7 @@ public abstract class AbstractStats implements IStats {
 			for (Method getter : methods) {
 				Class returnType = getter.getReturnType();
 				if (getter.getName().startsWith("get") && getter.getParameterTypes().length == 0 
-						&& returnType.isAssignableFrom(int.class) && returnType.isAssignableFrom(long.class) && returnType.isAssignableFrom(double.class)) {
+						&& (returnType.isAssignableFrom(int.class) || returnType.isAssignableFrom(long.class) || returnType.isAssignableFrom(double.class))) {
 					snapshotProperties.put(getter.getName().substring(3), (Number) getter.invoke(this, null));
 				}
 			}
