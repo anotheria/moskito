@@ -1,6 +1,6 @@
 package net.java.dev.moskito.central;
 
-import net.java.dev.moskito.central.starages.JdbcTest;
+import net.java.dev.moskito.central.storages.JdbcTest;
 
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;

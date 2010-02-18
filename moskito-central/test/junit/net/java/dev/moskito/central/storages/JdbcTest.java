@@ -1,11 +1,6 @@
-package net.java.dev.moskito.central.starages;
+package net.java.dev.moskito.central.storages;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -51,7 +46,7 @@ public class JdbcTest {
         conn = DriverManager.getConnection("jdbc:hsqldb:mem:central");
         
         // create tables
-        update("CREATE TABLE snapshots ( id INTEGER IDENTITY, name VARCHAR(256), date_created DATE NOT NULL, interval INTEGER)");
+        update("CREATE TABLE snapshots ( id INTEGER IDENTITY, name VARCHAR(256), date_created DATETIME NOT NULL, interval INTEGER)");
         update("CREATE TABLE stats ( id INTEGER IDENTITY, name VARCHAR(256), value DOUBLE, snapshot_id INTEGER, FOREIGN KEY (snapshot_id) REFERENCES snapshots)");
         
         // init stats and interval
@@ -86,6 +81,9 @@ public class JdbcTest {
         		}
         	}
         }
+
+        dumpResultset("SELECT * FROM snapshots");
+        dumpResultset("SELECT * FROM stats");
         
         // now the data are stored for NUMBER_OF_MINUTES
         // the following tests are performed then
@@ -106,15 +104,42 @@ public class JdbcTest {
         
         // handle 1.b using stored 1 minute intervals
         IStatsSnapshot snapshot = jdbcStorage.queryLastSnapshotByDate(new Date(), "test", DefaultIntervals.ONE_MINUTE.getLength());
-        assertEquals(snapshot.getProperties().get("TotalRequests"), stats.getTotalRequests());
+        assertEquals(snapshot.getProperties().get("TotalRequests"), (double) stats.getTotalRequests());
         
         // shutdown db
         Statement st = conn.createStatement();
         st.execute("SHUTDOWN");
         conn.close();
 	}
-	
-	private int findInt(String query) throws SQLException {
+
+    private void dumpResultset(String query) throws SQLException {
+        Statement stmt = conn.createStatement();
+        ResultSet rs = stmt.executeQuery(query);
+        ResultSetMetaData md = rs.getMetaData();
+        StringBuilder htmlBuilder = new StringBuilder();
+        htmlBuilder.append("<table border='1'>\n<caption>");
+        htmlBuilder.append(query);
+        htmlBuilder.append("</caption>\n<tr>");
+        for (int i = 0; i < md.getColumnCount(); i++) {
+            htmlBuilder.append("<th>");
+            htmlBuilder.append(md.getColumnLabel(i + 1));
+            htmlBuilder.append("</th>");
+        }
+        htmlBuilder.append("</tr>\n");
+        while (rs.next()) {
+            htmlBuilder.append("<tr>");
+            for (int i = 0; i < md.getColumnCount(); i++) {
+                htmlBuilder.append("<td>");
+                htmlBuilder.append(rs.getObject(i + 1));
+                htmlBuilder.append("</td>");
+            }
+            htmlBuilder.append("</tr>\n");
+        }
+        htmlBuilder.append("</table>\n");
+        System.out.println(htmlBuilder.toString());
+    }
+
+    private int findInt(String query) throws SQLException {
 		Statement stmt = conn.createStatement();
 		ResultSet rs = stmt.executeQuery(query);
 		rs.next();

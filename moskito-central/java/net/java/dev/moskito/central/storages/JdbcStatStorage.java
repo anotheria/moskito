@@ -34,10 +34,10 @@ public class JdbcStatStorage implements StatStorage {
 		new JdbcDataAlgorithm() {
 			@Override
 			protected PreparedStatement doOperate() throws SQLException, StatStorageException {
-				PreparedStatement prep = connection.prepareStatement("SELECT id, name, date_created, interval FROM snapshots WHERE name=? and date_created<? and interval=? ORDER BY when DESC");
+				PreparedStatement prep = connection.prepareStatement("SELECT id, name, date_created, interval FROM snapshots WHERE name=? and date_created<? and interval=? ORDER BY date_created DESC");
     			prep.clearParameters();
                 prep.setString(1, statName);
-                prep.setDate(2, new java.sql.Date(when.getTime()));
+                prep.setTimestamp(2, new java.sql.Timestamp(when.getTime()));
                 prep.setInt(3, intervalLength);
                 ResultSet rs = prep.executeQuery();
                 if (!rs.next()) {
@@ -46,7 +46,7 @@ public class JdbcStatStorage implements StatStorage {
                 	DefaultStatsSnapshot newSnapshot = new DefaultStatsSnapshot();
                 	result[0] = newSnapshot;
                 	newSnapshot.setName(statName);
-                	newSnapshot.setDateCreated(rs.getDate(3));
+                	newSnapshot.setDateCreated(new Date(rs.getTimestamp(3).getTime()));
                 	Map<String, Number> properties = readSnapshotProperies(rs.getInt(1));
                 	newSnapshot.setProperties(properties);
                 }
@@ -88,7 +88,7 @@ public class JdbcStatStorage implements StatStorage {
 					PreparedStatement prep = connection.prepareCall("INSERT INTO snapshots (name, date_created, interval) VALUES (?,?,?)");
 	    			prep.clearParameters();
 	                prep.setString(1, snapshot.getName());
-	                prep.setDate(2, new java.sql.Date(snapshot.getDateCreated().getTime()));
+	                prep.setTimestamp(2, new java.sql.Timestamp(snapshot.getDateCreated().getTime()));
 	                prep.setInt(3, interval.getLength());
 	                prep.execute();
 					return prep;
@@ -156,7 +156,7 @@ public class JdbcStatStorage implements StatStorage {
 				} catch (SQLException e1) {
 					throw new StatStorageException("Failed to rollback saved data due to failed save of " + title, e1);
 				}
-				throw new StatStorageException("Failed to store " + title, e);
+				throw new StatStorageException("Failed to operate " + title, e);
 			} finally {
 				if (prep != null) {
 					try {
