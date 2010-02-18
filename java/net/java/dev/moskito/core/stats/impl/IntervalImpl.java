@@ -14,6 +14,7 @@ package net.java.dev.moskito.core.stats.impl;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 import net.java.dev.moskito.core.stats.IIntervalListener;
 import net.java.dev.moskito.core.stats.Interval;
@@ -65,8 +66,8 @@ class IntervalImpl implements IUpdateable, Interval {
 		id = anId;
 		name = aName;
 		length = aLength;
-		primaryIntervalListeners = new ArrayList<IIntervalListener>();
-		secondaryIntervalListeners = new ArrayList<IIntervalListener>();
+		primaryIntervalListeners = new CopyOnWriteArrayList<IIntervalListener>();
+		secondaryIntervalListeners = new CopyOnWriteArrayList<IIntervalListener>();
 	}
 	
 	/**
