@@ -29,7 +29,7 @@ public interface StatStorage {
 	/**
 	 * Stores list of stat snapshots for given interval. 
 	 * The date of the snapshot creation is assumed to part of the snapshot.
-	 * @param snapshots list of stat snapshots 
+	 * @param snapshots list of stat snapshots
 	 * @param interval time interval which is used for stats calculation
 	 * 
 	 * @throws exception in case the storage cannot store the snapshots for some reason

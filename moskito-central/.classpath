@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" path="java"/>
-	<classpathentry kind="src" path="test"/>
+	<classpathentry kind="src" path="test/junit"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/moskito-core"/>
 	<classpathentry kind="lib" path="D:/projects/companies/Anotheria/SVN/opensource/moskito/trunk/moskito-central/lib/ano-util.jar"/>
