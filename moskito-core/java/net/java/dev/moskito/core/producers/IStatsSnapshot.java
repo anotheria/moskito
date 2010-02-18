@@ -34,32 +34,18 @@
  */	
 package net.java.dev.moskito.core.producers;
 
+import java.util.Date;
+import java.util.Map;
+
 /**
  * This interface declares a snapshot of an instance of IStat that was taken at any time.
- * It declares the mandatory content conversion methods for different output formats.
+ * It doesn't declare the mandatory content conversion methods anylonger.
  *
  * @author dvayanu
  */
 public interface IStatsSnapshot {
-	/**
-	 * This method shall create a textual representation that is human-readable 
-	 * and proper to write it into a log file. 
-	 * 
-	 * @return the formatted string.
-	 */
-	public String toLogString();
-	
-	/**
-	 * This method shall create an XML representation of all snapshot values. 
-	 * 
-	 * @return the formatted XML string.
-	 */
-	public String toXML();
-	
-	/**
-	 * This method shall create a SQL statement from the snapshot values.  
-	 * 
-	 * @return the SQL string.
-	 */
-	public String toSQL();
+	String getName();
+	Date getDateCreated();
+
+	public Map<String, Number> getProperties();
 }
