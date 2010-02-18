@@ -34,6 +34,11 @@
  */	
 package net.java.dev.moskito.core.producers;
 
+import java.lang.reflect.Method;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+
 import net.java.dev.moskito.core.stats.TimeUnit;
 
 /**
@@ -74,10 +79,35 @@ public abstract class AbstractStats implements IStats {
 
 
 	/**
+	 * To create snapshots IStats implementation must use getters with primitive return types for its properties.
+	 * In order to create a snapshot this implementation walks through all stats properties.
+	 * The stats properties are identified by corresponding cob=nvenience getter method that returns one of:
+	 * int, long, double
+	 * 
 	 * @see net.java.dev.moskito.core.producers.IStats#createSnapshot(java.lang.String)
 	 */
 	public IStatsSnapshot createSnapshot(String aIntervalName){
-		throw new RuntimeException("Not supported by this IStats implementation");
+		
+		Date dateCreatedNow = new Date();
+		Map<String, Number> snapshotProperties = new HashMap<String, Number>();
+		Method[] methods = this.getClass().getMethods();
+		try {
+			for (Method getter : methods) {
+				Class returnType = getter.getReturnType();
+				if (getter.getName().startsWith("get") && getter.getParameterTypes().length == 0 
+						&& returnType.isAssignableFrom(int.class) && returnType.isAssignableFrom(long.class) && returnType.isAssignableFrom(double.class)) {
+					snapshotProperties.put(getter.getName().substring(3), (Number) getter.invoke(this, null));
+				}
+			}
+		} catch (Exception e) {
+			throw new RuntimeException("To create snapshots IStats implementation must use getters with primitive return types for its properties");
+		}
+		
+		DefaultStatsSnapshot snapshot = new DefaultStatsSnapshot();
+		snapshot.setProperties(snapshotProperties);
+		snapshot.setName(getName());
+		snapshot.setDateCreated(dateCreatedNow);
+		return snapshot;
 	}
 	
 	public CallExecution createCallExecution(){
