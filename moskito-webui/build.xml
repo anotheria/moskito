@@ -19,6 +19,7 @@
             <fileset dir="html">
                 <include name="**/*.gif"/>
                 <include name="**/*.jpg"/>
+            	<include name="**/*.png"/>
             </fileset>
             <fileset dir="html">
                 <include name="**/*.js"/>
