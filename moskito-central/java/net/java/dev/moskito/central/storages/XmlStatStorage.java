@@ -96,6 +96,10 @@ public class XmlStatStorage implements StatStorage {
         storageFileResolver = new DefaultStorageFileResolver(rootDir);
     }
 
+    public XmlStatStorage(StorageFileResolver storageFileResolver) {
+        this.storageFileResolver = storageFileResolver;
+    }
+
     public void store(Collection<IStatsSnapshot> snapshots, final Date when, final String host, final Interval interval) throws StatStorageException {
 
         for (final IStatsSnapshot snapshot : snapshots) {
