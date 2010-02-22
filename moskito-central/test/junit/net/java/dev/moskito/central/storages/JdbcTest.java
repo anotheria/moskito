@@ -46,7 +46,7 @@ public class JdbcTest {
         conn = DriverManager.getConnection("jdbc:hsqldb:mem:central");
         
         // create tables
-        update("CREATE TABLE snapshots ( id INTEGER IDENTITY, name VARCHAR(256), date_created DATETIME NOT NULL, interval INTEGER, host VARCHAR(256))");
+        update("CREATE TABLE snapshots ( id INTEGER IDENTITY, name VARCHAR(256), date_created DATETIME NOT NULL, interval INTEGER, host VARCHAR(256), interface VARCHAR(256))");
         update("CREATE TABLE stats ( id INTEGER IDENTITY, name VARCHAR(256), value DOUBLE, snapshot_id INTEGER, FOREIGN KEY (snapshot_id) REFERENCES snapshots)");
         
         // init stats and interval

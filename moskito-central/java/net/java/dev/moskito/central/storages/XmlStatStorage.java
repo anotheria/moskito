@@ -9,6 +9,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.DocumentBuilder;
 import java.util.Collection;
 import java.util.Date;
+import java.util.Iterator;
 import java.io.File;
 import java.io.FileWriter;
 import java.text.SimpleDateFormat;
@@ -30,7 +31,7 @@ import org.w3c.dom.ls.LSOutput;
 public class XmlStatStorage implements StatStorage {
 
     public static interface StorageFileResolver {
-        public File buildFileRef(Date when, String host, Interval interval);
+        public File buildFileRef(IStatsSnapshot snapshot, Date when, String host, Interval interval);
     }
 
     public static class DefaultStorageFileResolver implements StorageFileResolver {
@@ -52,12 +53,13 @@ public class XmlStatStorage implements StatStorage {
          * 0 gedb01:/opt/data/gecollector/biz01/IUserService/5m/2008_01_01# ls -l | tail -30
          * -rw-r--r-- 1 frs users 7754 Jan  1  2008 2008_01_01T21_29_43_761.xml
          *
+         * @param snapshot
          * @param when
          * @param host
          * @param interval
          * @return file reference
          */
-        public File buildFileRef(Date when, String host, Interval interval) {
+        public File buildFileRef(IStatsSnapshot snapshot, Date when, String host, Interval interval) {
             StringBuilder pathBuilder = new StringBuilder();
             pathBuilder.append(rootDir.getPath());
             pathBuilder.append('/');
@@ -66,6 +68,8 @@ public class XmlStatStorage implements StatStorage {
             pathBuilder.append(interval.getName());
             pathBuilder.append('/');
             pathBuilder.append(DEFAULT_DATE_DIR_FORMAT.format(when));
+            pathBuilder.append('/');
+            pathBuilder.append(snapshot.getInterfaceName());
 
             File dir = new File(pathBuilder.toString());
             if (!dir.exists()) {
@@ -92,44 +96,76 @@ public class XmlStatStorage implements StatStorage {
         storageFileResolver = new DefaultStorageFileResolver(rootDir);
     }
 
-    public void store(Collection<IStatsSnapshot> snapshots, Date when, String host, Interval interval) throws StatStorageException {
-        File xmlFile = storageFileResolver.buildFileRef(when, host, interval);
-        if (xmlFile.exists()) {
-            throw new StatStorageException("Stats has already been stored for host " + host +
-            "The stats can only be stored once per millisecond for the given host for a given interval");
-        }
-        FileWriter xmlFileWriter = null;
-        try {
-            DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
-            DocumentBuilder db = dbf.newDocumentBuilder();
-            Document doc = db.newDocument();
+    public void store(Collection<IStatsSnapshot> snapshots, final Date when, final String host, final Interval interval) throws StatStorageException {
 
-            Element root = doc.createElement("stats"); // Create Root Element
-            doc.appendChild(root);
-
-            DOMImplementationRegistry registry = DOMImplementationRegistry.newInstance();
-            DOMImplementationLS domImplLS = (DOMImplementationLS)registry.getDOMImplementation("LS");
-
-            LSSerializer ser = domImplLS.createLSSerializer();  // Create a serializer for the DOM
-            LSOutput out = domImplLS.createLSOutput();
-            xmlFileWriter = new FileWriter(xmlFile);        // Writer will be a String
-            out.setCharacterStream(xmlFileWriter);
-            ser.write(doc, out);                                // Serialize the DOM
-        } catch (Exception e) {
-            throw new StatStorageException("Failed to store stats XML file: " + xmlFile.getPath());
-        } finally {
-            if (xmlFileWriter != null) {
-                try {
-                    xmlFileWriter.close();
-                } catch (Exception e) {
-                    throw new StatStorageException("Failed to close stats XML file: " + xmlFile.getPath());
-                }
+        for (final IStatsSnapshot snapshot : snapshots) {
+            File xmlFile = storageFileResolver.buildFileRef(snapshot, when, host, interval);
+            if (xmlFile.exists()) {
+                throw new StatStorageException("Stats has already been stored for host " + host +
+                "The stats can only be stored once per millisecond for the given host for a given interval");
             }
+            new XmlFileCreationAlgorithm(xmlFile) {
+                protected void doCreate(Document doc) {
+                    Element root = doc.createElement("stats"); // Create Root Element
+                    doc.appendChild(root);
+                    root.setAttribute("host", host);
+                    root.setAttribute("interval", interval.getName());
+                    writeDate(root, (when == null) ? snapshot.getDateCreated() : when);
+                    //todo: finish
+                    Iterator<String> it = snapshot.getProperties().keySet().iterator();
+                    while (it.hasNext()) {
+                        String propName = it.next();
+                        Number value = snapshot.getProperties().get(propName);
+                        Element propElement = doc.createElement(propName);
+                        root.appendChild(propElement);
+                        propElement.appendChild(doc.createTextNode(String.valueOf(value)));
+                    }
+                }
+                private void writeDate(Element element, Date when) {
+                    element.setAttribute("timestamp", String.valueOf(when.getTime()));
+                    element.setAttribute("time", String.valueOf(when));
+                }
+            }.create();
         }
-
     }
 
     public IStatsSnapshot queryLastSnapshotByDate(Date when, String host, String statName, Interval interval) throws StatStorageException {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
+        return null;
+    }
+    protected abstract class XmlFileCreationAlgorithm {
+        private File xmlFile;
+        protected XmlFileCreationAlgorithm(File xmlFile) {
+            this.xmlFile = xmlFile;
+        }
+        protected abstract void doCreate(Document doc) throws StatStorageException;
+        public void create() throws StatStorageException {
+            FileWriter xmlFileWriter = null;
+            try {
+                DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+                DocumentBuilder db = dbf.newDocumentBuilder();
+                Document doc = db.newDocument();
+
+                doCreate(doc);
+
+                DOMImplementationRegistry registry = DOMImplementationRegistry.newInstance();
+                DOMImplementationLS domImplLS = (DOMImplementationLS)registry.getDOMImplementation("LS");
+
+                LSSerializer ser = domImplLS.createLSSerializer();  // Create a serializer for the DOM
+                LSOutput out = domImplLS.createLSOutput();
+                xmlFileWriter = new FileWriter(xmlFile);        // Writer will be a String
+                out.setCharacterStream(xmlFileWriter);
+                ser.write(doc, out);                                // Serialize the DOM
+            } catch (Exception e) {
+                throw new StatStorageException("Failed to store stats XML file: " + xmlFile.getPath());
+            } finally {
+                if (xmlFileWriter != null) {
+                    try {
+                        xmlFileWriter.close();
+                    } catch (Exception e) {
+                        throw new StatStorageException("Failed to close stats XML file: " + xmlFile.getPath());
+                    }
+                }
+            }
+        }
     }
 }

@@ -67,6 +67,6 @@ public class XmlTest {
             }
         }
 
-        //todo: finish the test
+        //todo: finish the test, go query the xml storage to test what was saved
     }
 }

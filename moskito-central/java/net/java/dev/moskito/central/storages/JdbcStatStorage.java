@@ -34,7 +34,7 @@ public class JdbcStatStorage implements StatStorage {
 		new JdbcDataAlgorithm() {
 			@Override
 			protected PreparedStatement doOperate() throws SQLException, StatStorageException {
-				PreparedStatement prep = connection.prepareStatement("SELECT id, name, date_created, interval FROM snapshots WHERE name=? and date_created<? and interval=? and host=? ORDER BY date_created DESC");
+				PreparedStatement prep = connection.prepareStatement("SELECT id, name, date_created, interval, interface FROM snapshots WHERE name=? and date_created<? and interval=? and host=? ORDER BY date_created DESC");
     			prep.clearParameters();
                 prep.setString(1, statName);
                 prep.setTimestamp(2, new java.sql.Timestamp(when.getTime()));
@@ -48,7 +48,8 @@ public class JdbcStatStorage implements StatStorage {
                 	result[0] = newSnapshot;
                 	newSnapshot.setName(statName);
                 	newSnapshot.setDateCreated(new Date(rs.getTimestamp(3).getTime()));
-                	Map<String, Number> properties = readSnapshotProperies(rs.getInt(1));
+                    newSnapshot.setInterfaceName(rs.getString(5));
+                    Map<String, Number> properties = readSnapshotProperies(rs.getInt(1));
                 	newSnapshot.setProperties(properties);
                 }
 				return prep;
@@ -86,12 +87,13 @@ public class JdbcStatStorage implements StatStorage {
 			new JdbcDataAlgorithm() {
 				@Override
 				protected PreparedStatement doOperate() throws SQLException {
-					PreparedStatement prep = connection.prepareCall("INSERT INTO snapshots (name, date_created, interval, host) VALUES (?,?,?,?)");
+					PreparedStatement prep = connection.prepareCall("INSERT INTO snapshots (name, date_created, interval, host, interface) VALUES (?,?,?,?,?)");
 	    			prep.clearParameters();
 	                prep.setString(1, snapshot.getName());
 	                prep.setTimestamp(2, new java.sql.Timestamp(when == null ? snapshot.getDateCreated().getTime() : when.getTime()));
 	                prep.setInt(3, interval.getLength());
                     prep.setString(4, host);
+                    prep.setString(5, snapshot.getInterfaceName());
                     prep.execute();
 					return prep;
 				}
