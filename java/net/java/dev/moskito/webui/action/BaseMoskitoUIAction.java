@@ -36,6 +36,7 @@ package net.java.dev.moskito.webui.action;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Enumeration;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -281,6 +282,12 @@ public abstract class BaseMoskitoUIAction implements Action{
 			menu.add(new MenuItemBean(c, items[i].link, c.equals(activeMenuCaption)));
 		}
 		req.setAttribute("menu",menu);
+		// maybe - delete it...
+		
+		for (MenuItem menuItem : MenuItem.values()) {
+			req.setAttribute(menuItem.link, menuItem.link);
+		}
+		
 		
 		///////////// prepare intervals
 		List<IntervalInfo> intervalInfos = getAPI().getPresentIntervals();
