@@ -1,9 +1,10 @@
-<%@ page language="java" contentType="text/html;charset=UTF-8"	session="true"%>
-<%@ taglib uri="http://www.anotheria.net/ano-tags"	prefix="msk"%>
-<html>
+<%@ page language="java" contentType="text/html;charset=UTF-8"	session="true"
+%><%@ taglib uri="http://www.anotheria.net/ano-tags"	prefix="msk"
+%><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <title>Moskito Producers <msk:write name="pageTitle" /></title>
-<link rel="stylesheet" href="mskCSS">
+<link rel="stylesheet" href="mskCSS"/>
 </head>
 <body>
 
@@ -11,26 +12,19 @@
 <script type="text/javascript" src="../js/jquery-1.4.min.js"></script>
 <script type="text/javascript" src="../js/function.js"></script>
 
-<br />
-<br />
-
 <msk:define id="ASC" type="java.lang.String">
 	<img
 		src="<msk:write name="mskPathToImages" scope="application"/>msk_u.gif"
-		border="0" alt="Sort ascending">
+		border="0" alt="Sort ascending"/>
 </msk:define>
 
 <msk:define id="DESC" type="java.lang.String">
 	<img
 		src="<msk:write name="mskPathToImages" scope="application"/>msk_d.gif"
-		border="0" alt="Sort descending">
+		border="0" alt="Sort descending"/>
 </msk:define>
 	<jsp:include page="Menu.jsp" flush="false" />
  
-<br />	
-<br />
-
-
 <div class="main">
 <msk:iterate type="net.java.dev.moskito.webui.bean.ProducerDecoratorBean" 	id="decorator" name="decorators">	
 <div class="clear"><!-- --></div>
