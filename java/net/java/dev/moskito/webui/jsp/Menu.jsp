@@ -13,11 +13,11 @@
 					<li>
 						<a href="<msk:write name="mskShowProducersByCategory"/>">Categories</a>
 						<div class="sub_menu">
-							<ul>
 								<msk:present name="categories" scope="request">
+								<ul>
 									<jsp:include page="CategorySelection.jsp" flush="false" />	
+								</ul>
 								</msk:present>			
-							</ul>
 						</div>
 						<div class="over_color"><div><!-- --></div></div>
 					</li>
