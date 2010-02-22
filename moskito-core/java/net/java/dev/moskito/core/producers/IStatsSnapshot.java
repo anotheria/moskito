@@ -49,4 +49,6 @@ public interface IStatsSnapshot {
 	public Map<String, Number> getProperties();
 
     Date getDateCreated();
+
+    String getInterfaceName();
 }

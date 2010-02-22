@@ -105,7 +105,8 @@ public abstract class AbstractStats implements IStats {
 		DefaultStatsSnapshot snapshot = new DefaultStatsSnapshot();
 		snapshot.setProperties(snapshotProperties);
 		snapshot.setName(getName());
-		return snapshot;
+        snapshot.setInterfaceName(getClass().getSimpleName());
+        return snapshot;
 	}
 	
 	public CallExecution createCallExecution(){
