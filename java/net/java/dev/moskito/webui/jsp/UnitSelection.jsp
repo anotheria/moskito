@@ -5,4 +5,3 @@ Current unit: <b><msk:write scope="session" name="moskito.CurrentUnit" property=
 <msk:iterate name="units" id="unit" type="net.java.dev.moskito.webui.bean.UnitBean">
 	<a href="<msk:write name="linkToCurrentPage"/>&amp;pUnit=<msk:write name="unit" property="unitName"/>"><msk:write name="unit" property="unitName"/></a>&nbsp;
 </msk:iterate>
-<br><br>
