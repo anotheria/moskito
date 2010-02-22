@@ -59,23 +59,23 @@
 		<table cellpadding="0" cellspacing="0" class="fll" id="<msk:write name="decorator" property="name"/>_table">
 		  <thead>
 			<tr class="stat_header">
-				<th>Producer Id<%--	--%>&nbsp;
-					<a href="<msk:write name="linkToCurrentPage"/>&<msk:write name="decorator" property="sortByParameterName"/>=1000&<msk:write name="decorator" property="sortOrderParameterName"/>=ASC"><msk:write
-					   name="ASC" /></a><%-- --%>
-					<a	href="<msk:write name="linkToCurrentPage"/>&<msk:write name="decorator" property="sortByParameterName"/>=1000&<msk:write name="decorator" property="sortOrderParameterName"/>=DESC"><msk:write
-						name="DESC" /></a><%-- --%>
+				<th>Producer Id&nbsp;
+					<a href="<msk:write name="linkToCurrentPage"/>&amp;<msk:write name="decorator" property="sortByParameterName"/>=1000&amp;<msk:write name="decorator" property="sortOrderParameterName"/>=ASC"><msk:write
+					   name="ASC" /></a>
+					<a	href="<msk:write name="linkToCurrentPage"/>&amp;<msk:write name="decorator" property="sortByParameterName"/>=1000&amp;<msk:write name="decorator" property="sortOrderParameterName"/>=DESC"><msk:write
+						name="DESC" /></a>
 				</th>
-				<th>Category<%-- --%>&nbsp;
-					<a	href="<msk:write name="linkToCurrentPage"/>&<msk:write name="decorator" property="sortByParameterName"/>=1001&<msk:write name="decorator" property="sortOrderParameterName"/>=ASC"><msk:write
-						name="ASC" /></a><%-- --%>
-					<a	href="<msk:write name="linkToCurrentPage"/>&<msk:write name="decorator" property="sortByParameterName"/>=1001&<msk:write name="decorator" property="sortOrderParameterName"/>=DESC"><msk:write
-						name="DESC" /></a><%-- 	--%>
+				<th>Category&nbsp;
+					<a	href="<msk:write name="linkToCurrentPage"/>&amp;<msk:write name="decorator" property="sortByParameterName"/>=1001&amp;<msk:write name="decorator" property="sortOrderParameterName"/>=ASC"><msk:write
+						name="ASC" /></a>
+					<a	href="<msk:write name="linkToCurrentPage"/>&amp;<msk:write name="decorator" property="sortByParameterName"/>=1001&amp;<msk:write name="decorator" property="sortOrderParameterName"/>=DESC"><msk:write
+						name="DESC" /></a>
 				</th>
 				<th>Subsystem<%-- --%>&nbsp;
-					<a	href="<msk:write name="linkToCurrentPage"/>&<msk:write name="decorator" property="sortByParameterName"/>=1002&<msk:write name="decorator" property="sortOrderParameterName"/>=ASC"><msk:write
-						name="ASC" /></a><%-- --%>
-					<a	href="<msk:write name="linkToCurrentPage"/>&<msk:write name="decorator" property="sortByParameterName"/>=1002&<msk:write name="decorator" property="sortOrderParameterName"/>=DESC"><msk:write
-						name="DESC" /></a><%--	--%>
+					<a	href="<msk:write name="linkToCurrentPage"/>&amp;<msk:write name="decorator" property="sortByParameterName"/>=1002&amp;<msk:write name="decorator" property="sortOrderParameterName"/>=ASC"><msk:write
+						name="ASC" /></a>
+					<a	href="<msk:write name="linkToCurrentPage"/>&amp;<msk:write name="decorator" property="sortByParameterName"/>=1002&amp;<msk:write name="decorator" property="sortOrderParameterName"/>=DESC"><msk:write
+						name="DESC" /></a>
 				</th>
 			</tr>	
 		</thead>
@@ -114,19 +114,19 @@
 				<msk:write name="caption" property="caption" /><%--
 					--%>&nbsp;
 					<a 	class="up" title="ascending sort by <msk:write name="caption" property="shortExplanationLowered"/>"
-						href="<msk:write name="linkToCurrentPage"/>&<msk:write name="decorator" property="sortByParameterName"/>=<msk:write name="ind"/>&<msk:write name="decorator" property="sortOrderParameterName"/>=ASC"><msk:write
+						href="<msk:write name="linkToCurrentPage"/>&amp;<msk:write name="decorator" property="sortByParameterName"/>=<msk:write name="ind"/>&amp;<msk:write name="decorator" property="sortOrderParameterName"/>=ASC"><msk:write
 						name="ASC" /></a><%--
 					--%>
 					<a	class="up" title="descending sort by <msk:write name="caption" property="shortExplanationLowered"/>"
-						href="<msk:write name="linkToCurrentPage"/>&<msk:write name="decorator" property="sortByParameterName"/>=<msk:write name="ind"/>&<msk:write name="decorator" property="sortOrderParameterName"/>=DESC"><msk:write
+						href="<msk:write name="linkToCurrentPage"/>&amp;<msk:write name="decorator" property="sortByParameterName"/>=<msk:write name="ind"/>&amp;<msk:write name="decorator" property="sortOrderParameterName"/>=DESC"><msk:write
 						name="DESC" /></a>
 			 </th>
 			</msk:iterate>			
 			
 			<th>class<%-- --%>&nbsp;
-				<a	class="up" href="<msk:write name="linkToCurrentPage"/>&<msk:write name="decorator" property="sortByParameterName"/>=1003&<msk:write name="decorator" property="sortOrderParameterName"/>=ASC"><msk:write
+				<a	class="up" href="<msk:write name="linkToCurrentPage"/>&amp;<msk:write name="decorator" property="sortByParameterName"/>=1003&amp;<msk:write name="decorator" property="sortOrderParameterName"/>=ASC"><msk:write
 					name="ASC" /></a><%--	--%>
-				<a	class="up" href="<msk:write name="linkToCurrentPage"/>&<msk:write name="decorator" property="sortByParameterName"/>=1003&<msk:write name="decorator" property="sortOrderParameterName"/>=DESC"><msk:write
+				<a	class="up" href="<msk:write name="linkToCurrentPage"/>&amp;<msk:write name="decorator" property="sortByParameterName"/>=1003&amp;<msk:write name="decorator" property="sortOrderParameterName"/>=DESC"><msk:write
 					name="DESC" /></a><%-- 	--%>
 			</th>
 		 </tr>		
@@ -135,7 +135,7 @@
 	   <msk:iterate name="decorator" property="producers" id="producer" type="net.java.dev.moskito.webui.bean.ProducerBean" indexId="index">
 		 <tr class="<%= ((index & 1) == 0 )? "even" : "odd" %>">
 			<msk:iterate name="producer" property="values" id="value" type="net.java.dev.moskito.webui.bean.StatValueBean">
-				<td onmouseover="Tip('<msk:write name="producer" property="id"/>.<msk:write name="value" property="name"/><br><b><span align=center><msk:write name="value" property="value"/></span></b>', TEXTALIGN, 'center')" onmouseout="UnTip()">
+				<td onmouseover="Tip('<msk:write name="producer" property="id"/>.<msk:write name="value" property="name"/>&lt;br/&gt;&lt;b&gt;&lt;span align=center&gt;<msk:write name="value" property="value"/>&lt;/span&gt;&lt;/b&gt;', TEXTALIGN, 'center')" onmouseout="UnTip()">
 					<msk:write name="value" property="value" />
 				</td>
 			</msk:iterate>

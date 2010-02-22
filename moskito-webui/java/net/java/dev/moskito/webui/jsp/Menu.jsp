@@ -23,11 +23,11 @@
 					</li>
 					<li><a href="<msk:write name="mskShowProducersBySubsystem"/>">Subsystems</a>
 						<div class="sub_menu">
-							<ul>
 								<msk:present name="subsystems" scope="request">
+								<ul>
 									<jsp:include page="SubsystemSelection.jsp" flush="false" />
+								</ul>
 								</msk:present>													
-							</ul>
 						</div>
 						<div class="over_color"><div><!-- --></div></div>
 					</li>
@@ -41,8 +41,8 @@
 					<li><a href="#">Settings</a>
 					<div class="sub_menu">
 						<ul>
-							<li><a href="<msk:write name="linkToCurrentPageAsXml"/>&pForward=xml">XML</a></li>
-							<li><a href="<msk:write name="linkToCurrentPageAsCsv"/>&pForward=csv">CSV</a></li>
+							<li><a href="<msk:write name="linkToCurrentPageAsXml"/>&amp;pForward=xml">XML</a></li>
+							<li><a href="<msk:write name="linkToCurrentPageAsCsv"/>&amp;pForward=csv">CSV</a></li>
 						</ul>
 					</div>
 					<div class="over_color"><div><!-- --></div></div>
