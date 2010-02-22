@@ -27,12 +27,12 @@ public class DefaultStatsSnapshot implements IStatsSnapshot {
 		this.name = name;
 	}
 
-	@Override
-	public Date getDateCreated() {
-		return dateCreated;
-	}
+    @Override
+    public Date getDateCreated() {
+        return dateCreated;
+    }
 
-	public void setDateCreated(Date dateCreated) {
-		this.dateCreated = dateCreated;
-	}
+    public void setDateCreated(Date dateCreated) {
+        this.dateCreated = dateCreated;
+    }
 }
