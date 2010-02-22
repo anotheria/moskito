@@ -11,5 +11,8 @@
         <dependency org="java.net" name="moskito-core" rev="latest" transitive="true"/>
         <dependency org="org" name="junit" rev="stable" transitive="false"/>
         <dependency org="org" name="hsqldb" rev="stable" transitive="false"/>
+        <dependency org="org.apache" name="xercesImpl" rev="stable" transitive="false"/>
+        <dependency org="org.apache" name="xml-apis" rev="stable" transitive="false"/>
+        <dependency org="org.apache" name="xml-resolver" rev="stable" transitive="false"/>
     </dependencies>
 </ivy-module>

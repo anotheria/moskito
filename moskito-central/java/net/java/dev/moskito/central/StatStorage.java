@@ -10,7 +10,7 @@ import net.java.dev.moskito.core.stats.Interval;
  * This interface represents local storage for Miskito stats.
  * This is implemented to store Miskito stats to RDBMS, text file, 
  * whatever locally accessible
- * Remote storage is represented
+ * Remote storage is represented with Connector interface
  * 
  * @author igor
  *
@@ -18,35 +18,29 @@ import net.java.dev.moskito.core.stats.Interval;
 public interface StatStorage {
 	
 	/**
-	 * This group of constants describes stats retrieval procedure from the storage
-	 */
-	static final int SIMPLE_STAT = 0;
-	static final int SUM_STAT    = 1;
-	static final int AVG_STAT    = 2;
-	static final int MAX_STAT    = 3;
-	static final int MIN_STAT    = 4;
-	
-	/**
 	 * Stores list of stat snapshots for given interval. 
-	 * The date of the snapshot creation is assumed to part of the snapshot.
+	 * The date of the snapshot creation is passed as a parameter.
 	 * @param snapshots list of stat snapshots
+     * @param when stapshots created
+     * @param host that generates the stats
 	 * @param interval time interval which is used for stats calculation
 	 * 
 	 * @throws exception in case the storage cannot store the snapshots for some reason
 	 */
-	void store(Collection<IStatsSnapshot> snapshots, Interval interval) throws StatStorageException;
+	void store(Collection<IStatsSnapshot> snapshots, Date when, String host, Interval interval) throws StatStorageException;
 	
 	/**
 	 * Retrieves the most recent snapshot recorded right before the given date
 	 * per given interval
 	 * 
 	 * @param when
+     * @param host that generates the stats
 	 * @param statName
-	 * @param intervalLength
+	 * @param interval
 	 * @return snapshot instance or null if none was recorded that matches the criteria
 	 * @throws exception in case the storage cannot load or calculate the snapshots for some reason
 	 */
-	IStatsSnapshot queryLastSnapshotByDate(Date when, String statName, int intervalLength) throws StatStorageException;
+	IStatsSnapshot queryLastSnapshotByDate(Date when, String host, String statName, Interval interval) throws StatStorageException;
 	
 	/**
 	 * FIXME: use more flexible version, pass parameters like Properties and return either StatValue 

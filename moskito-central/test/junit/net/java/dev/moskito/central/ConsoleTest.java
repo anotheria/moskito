@@ -1,9 +1,9 @@
 package net.java.dev.moskito.central;
 
-import net.java.dev.moskito.central.storages.JdbcTest;
+import net.java.dev.moskito.central.storages.XmlTest;
 
 public class ConsoleTest {
     public static void main(String[] args) throws Exception {
-    	new JdbcTest().testLocalJdbcStorage();
+    	new XmlTest().testLocalXmlStorage();
     }
 }

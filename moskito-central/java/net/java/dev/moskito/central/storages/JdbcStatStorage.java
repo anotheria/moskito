@@ -27,18 +27,19 @@ public class JdbcStatStorage implements StatStorage {
 	}
 
 	@Override
-	public IStatsSnapshot queryLastSnapshotByDate(final Date when, final String statName,
-			final int intervalLength) throws StatStorageException {
+	public IStatsSnapshot queryLastSnapshotByDate(final Date when, final String host, final String statName,
+			final Interval interval) throws StatStorageException {
 		
 		final IStatsSnapshot[] result = new IStatsSnapshot[1];
 		new JdbcDataAlgorithm() {
 			@Override
 			protected PreparedStatement doOperate() throws SQLException, StatStorageException {
-				PreparedStatement prep = connection.prepareStatement("SELECT id, name, date_created, interval FROM snapshots WHERE name=? and date_created<? and interval=? ORDER BY date_created DESC");
+				PreparedStatement prep = connection.prepareStatement("SELECT id, name, date_created, interval FROM snapshots WHERE name=? and date_created<? and interval=? and host=? ORDER BY date_created DESC");
     			prep.clearParameters();
                 prep.setString(1, statName);
                 prep.setTimestamp(2, new java.sql.Timestamp(when.getTime()));
-                prep.setInt(3, intervalLength);
+                prep.setInt(3, interval.getLength());
+                prep.setString(4, host);
                 ResultSet rs = prep.executeQuery();
                 if (!rs.next()) {
                 	result[0] = null;
@@ -77,7 +78,7 @@ public class JdbcStatStorage implements StatStorage {
 	}
 
 	@Override
-	public void store(Collection<IStatsSnapshot> snapshots, final Interval interval)
+	public void store(Collection<IStatsSnapshot> snapshots, final Date when, final String host, final Interval interval)
 			throws StatStorageException {
 		
 		for (final IStatsSnapshot snapshot : snapshots) {
@@ -85,12 +86,13 @@ public class JdbcStatStorage implements StatStorage {
 			new JdbcDataAlgorithm() {
 				@Override
 				protected PreparedStatement doOperate() throws SQLException {
-					PreparedStatement prep = connection.prepareCall("INSERT INTO snapshots (name, date_created, interval) VALUES (?,?,?)");
+					PreparedStatement prep = connection.prepareCall("INSERT INTO snapshots (name, date_created, interval, host) VALUES (?,?,?,?)");
 	    			prep.clearParameters();
 	                prep.setString(1, snapshot.getName());
-	                prep.setTimestamp(2, new java.sql.Timestamp(snapshot.getDateCreated().getTime()));
+	                prep.setTimestamp(2, new java.sql.Timestamp(when == null ? snapshot.getDateCreated().getTime() : when.getTime()));
 	                prep.setInt(3, interval.getLength());
-	                prep.execute();
+                    prep.setString(4, host);
+                    prep.execute();
 					return prep;
 				}
 			}.operate(snapshotTitle);

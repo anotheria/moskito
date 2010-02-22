@@ -46,7 +46,7 @@ public class JdbcTest {
         conn = DriverManager.getConnection("jdbc:hsqldb:mem:central");
         
         // create tables
-        update("CREATE TABLE snapshots ( id INTEGER IDENTITY, name VARCHAR(256), date_created DATETIME NOT NULL, interval INTEGER)");
+        update("CREATE TABLE snapshots ( id INTEGER IDENTITY, name VARCHAR(256), date_created DATETIME NOT NULL, interval INTEGER, host VARCHAR(256))");
         update("CREATE TABLE stats ( id INTEGER IDENTITY, name VARCHAR(256), value DOUBLE, snapshot_id INTEGER, FOREIGN KEY (snapshot_id) REFERENCES snapshots)");
         
         // init stats and interval
@@ -74,10 +74,10 @@ public class JdbcTest {
         		//test if interval is ended on current minute
         		if (((i + 1) * 60) % interval.getLength() == 0) {
         			DefaultStatsSnapshot snapshot = (DefaultStatsSnapshot) stats.createSnapshot(interval.getName());
-        			snapshot.setDateCreated(then);
-        			List<IStatsSnapshot> snapshots = new ArrayList<IStatsSnapshot>();
+                    snapshot.setDateCreated(then);
+                    List<IStatsSnapshot> snapshots = new ArrayList<IStatsSnapshot>();
         			snapshots.add(snapshot);
-        			jdbcStorage.store(snapshots, interval);
+        			jdbcStorage.store(snapshots, then, "localhost", interval);
         		}
         	}
         }
@@ -103,7 +103,7 @@ public class JdbcTest {
         assertEquals(readTotalRequests, stats.getTotalRequests());
         
         // handle 1.b using stored 1 minute intervals
-        IStatsSnapshot snapshot = jdbcStorage.queryLastSnapshotByDate(new Date(), "test", DefaultIntervals.ONE_MINUTE.getLength());
+        IStatsSnapshot snapshot = jdbcStorage.queryLastSnapshotByDate(new Date(), "localhost", "test", DefaultIntervals.ONE_MINUTE);
         assertEquals(snapshot.getProperties().get("TotalRequests"), (double) stats.getTotalRequests());
         
         // shutdown db
