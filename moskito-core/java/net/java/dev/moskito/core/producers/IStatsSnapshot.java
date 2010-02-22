@@ -45,7 +45,8 @@ import java.util.Map;
  */
 public interface IStatsSnapshot {
 	String getName();
-	Date getDateCreated();
 
 	public Map<String, Number> getProperties();
+
+    Date getDateCreated();
 }

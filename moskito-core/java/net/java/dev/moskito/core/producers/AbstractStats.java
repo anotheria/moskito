@@ -81,14 +81,13 @@ public abstract class AbstractStats implements IStats {
 	/**
 	 * To create snapshots IStats implementation must use getters with primitive return types for its properties.
 	 * In order to create a snapshot this implementation walks through all stats properties.
-	 * The stats properties are identified by corresponding cob=nvenience getter method that returns one of:
+	 * The stats properties are identified by corresponding convenience getter method that returns one of:
 	 * int, long, double
 	 * 
 	 * @see net.java.dev.moskito.core.producers.IStats#createSnapshot(java.lang.String)
 	 */
 	public IStatsSnapshot createSnapshot(String aIntervalName){
 		
-		Date dateCreatedNow = new Date();
 		Map<String, Number> snapshotProperties = new HashMap<String, Number>();
 		Method[] methods = this.getClass().getMethods();
 		try {
@@ -106,7 +105,6 @@ public abstract class AbstractStats implements IStats {
 		DefaultStatsSnapshot snapshot = new DefaultStatsSnapshot();
 		snapshot.setProperties(snapshotProperties);
 		snapshot.setName(getName());
-		snapshot.setDateCreated(dateCreatedNow);
 		return snapshot;
 	}
 	
