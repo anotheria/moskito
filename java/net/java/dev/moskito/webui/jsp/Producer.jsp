@@ -1,11 +1,12 @@
-<%@ page language="java" contentType="text/html;charset=UTF-8" session="true"%>
-<%@ taglib uri="http://www.anotheria.net/ano-tags" prefix="msk"%>
-<html>
+<%@ page language="java" contentType="text/html;charset=UTF-8" session="true"
+%><%@ taglib uri="http://www.anotheria.net/ano-tags" prefix="msk"
+%><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 	<title>Moskito Producer <msk:write name="producer" property="id"/> </title>
-	<link rel="stylesheet" href="mskCSS">
-	<msk:define id="ASC" type="java.lang.String"><img src="<msk:write name="mskPathToImages" scope="application"/>msk_u.gif" border="0" alt="Sort ascending"></msk:define>
-	<msk:define id="DESC" type="java.lang.String"><img src="<msk:write name="mskPathToImages" scope="application"/>msk_d.gif" border="0" alt="Sort descending"></msk:define>
+	<link rel="stylesheet" href="mskCSS"/>
+	<msk:define id="ASC" type="java.lang.String"><img src="<msk:write name="mskPathToImages" scope="application"/>msk_u.gif" border="0" alt="Sort ascending"/></msk:define>
+	<msk:define id="DESC" type="java.lang.String"><img src="<msk:write name="mskPathToImages" scope="application"/>msk_d.gif" border="0" alt="Sort descending"/></msk:define>
 </head>
 <body>
 
@@ -15,30 +16,23 @@
 
 <jsp:include page="Menu.jsp" flush="false"/>
 
-<br />
-<br />
 
 
-
-producer:&nbsp;<msk:write name="producer" property="id"/>
-
-<msk:present name="inspectableFlag">
-	&nbsp;<a href="mskInspectProducer?pProducerId=<msk:write name="producer" property="id"/>">inspect</a>
-</msk:present> 
-
-<br/>
-	<a href="mskShowProducersByCategory">category</a>:&nbsp;<a href="mskShowProducersByCategory?pCategory=<msk:write name="producer" property="category"/>"><msk:write name="producer" property="category"/></a><br/>
-	<a href="mskShowProducersBySubsystem">subsystem</a>:&nbsp;<a href="mskShowProducersBySubsystem?pSubsystem=<msk:write name="producer" property="subsystem"/>"><msk:write name="producer" property="subsystem"/></a><br/>
-	class:&nbsp;<msk:write name="producer" property="className"/><br/>
-<br/>
-
-<br/>
-
+	
 <div class="main">
 <msk:iterate type="net.java.dev.moskito.webui.bean.StatDecoratorBean" id="decorator" name="decorators">
 	<div class="additional">
 		<div class="top"><div><!-- --></div></div>
 		<div class="add_in">
+			<div>
+				<span>Producer: <b><msk:write name="producer" property="id"/></b></span> 
+				<msk:present name="inspectableFlag">
+					&nbsp;<a href="mskInspectProducer?pProducerId=<msk:write name="producer" property="id"/>">inspect</a>
+				</msk:present>
+			</div>
+			<div>
+				<span>Category: </span><a href="mskShowProducersByCategory?pCategory=<msk:write name="producer" property="category"/>"><msk:write name="producer" property="category"/></a>
+			</div>
 			<div>
 				<span>Subsystem: </span><a href="mskShowProducersBySubsystem?pSubsystem=<msk:write name="producer" property="subsystem"/>"><msk:write name="producer" property="subsystem"/></a>
 			</div>
@@ -80,11 +74,11 @@ producer:&nbsp;<msk:write name="producer" property="id"/>
 		  <thead>
 			<tr class="stat_header">			
 				<th>Name<%--	--%>&nbsp;
-					<a href="<msk:write name="linkToCurrentPage"/>&<msk:write name="decorator" property="sortByParameterName"/>=1000&<msk:write name="decorator" property="sortOrderParameterName"/>=ASC"><msk:write name="ASC"/></a>
+					<a href="<msk:write name="linkToCurrentPage"/>&amp;<msk:write name="decorator" property="sortByParameterName"/>=1000&amp;<msk:write name="decorator" property="sortOrderParameterName"/>=ASC"><msk:write name="ASC"/></a>
 					<%-- --%>
-					<a href="<msk:write name="linkToCurrentPage"/>&<msk:write name="decorator" property="sortByParameterName"/>=1000&<msk:write name="decorator" property="sortOrderParameterName"/>=DESC"><msk:write name="DESC"/></a>
+					<a href="<msk:write name="linkToCurrentPage"/>&amp;<msk:write name="decorator" property="sortByParameterName"/>=1000&amp;<msk:write name="decorator" property="sortOrderParameterName"/>=DESC"><msk:write name="DESC"/></a>
 					<%-- --%>
-					<a href="<msk:write name="linkToCurrentPage"/>&<msk:write name="decorator" property="sortByParameterName"/>=1000&<msk:write name="decorator" property="sortOrderParameterName"/>=DESC"><msk:write
+					<a href="<msk:write name="linkToCurrentPage"/>&amp;<msk:write name="decorator" property="sortByParameterName"/>=1000&amp;<msk:write name="decorator" property="sortOrderParameterName"/>=DESC"><msk:write
 					   name="DESC" /></a>
 				    <%-- --%>
 				</th>									
@@ -110,19 +104,19 @@ producer:&nbsp;<msk:write name="producer" property="id"/>
 				<msk:write name="caption" property="caption" /><%--
 					--%>&nbsp;
 					<a 	class="up" title="ascending sort by <msk:write name="caption" property="shortExplanationLowered"/>"
-						href="<msk:write name="linkToCurrentPage"/>&<msk:write name="decorator" property="sortByParameterName"/>=<msk:write name="ind"/>&<msk:write name="decorator" property="sortOrderParameterName"/>=ASC"><msk:write
+						href="<msk:write name="linkToCurrentPage"/>&amp;<msk:write name="decorator" property="sortByParameterName"/>=<msk:write name="ind"/>&amp;<msk:write name="decorator" property="sortOrderParameterName"/>=ASC"><msk:write
 						name="ASC" /></a><%--
 					--%>
 					<a	class="up" title="descending sort by <msk:write name="caption" property="shortExplanationLowered"/>"
-						href="<msk:write name="linkToCurrentPage"/>&<msk:write name="decorator" property="sortByParameterName"/>=<msk:write name="ind"/>&<msk:write name="decorator" property="sortOrderParameterName"/>=DESC"><msk:write
+						href="<msk:write name="linkToCurrentPage"/>&amp;<msk:write name="decorator" property="sortByParameterName"/>=<msk:write name="ind"/>&amp;<msk:write name="decorator" property="sortOrderParameterName"/>=DESC"><msk:write
 						name="DESC" /></a>
 			 </th>
 			</msk:iterate>			
 			
 			<th>class<%-- --%>&nbsp;
-				<a	class="up" href="<msk:write name="linkToCurrentPage"/>&<msk:write name="decorator" property="sortByParameterName"/>=1003&<msk:write name="decorator" property="sortOrderParameterName"/>=ASC"><msk:write
+				<a	class="up" href="<msk:write name="linkToCurrentPage"/>&amp;<msk:write name="decorator" property="sortByParameterName"/>=1003&amp;<msk:write name="decorator" property="sortOrderParameterName"/>=ASC"><msk:write
 					name="ASC" /></a><%--	--%>
-				<a	class="up" href="<msk:write name="linkToCurrentPage"/>&<msk:write name="decorator" property="sortByParameterName"/>=1003&<msk:write name="decorator" property="sortOrderParameterName"/>=DESC"><msk:write
+				<a	class="up" href="<msk:write name="linkToCurrentPage"/>&amp;<msk:write name="decorator" property="sortByParameterName"/>=1003&amp;<msk:write name="decorator" property="sortOrderParameterName"/>=DESC"><msk:write
 					name="DESC" /></a><%-- 	--%>
 			</th>
 		 </tr>		
