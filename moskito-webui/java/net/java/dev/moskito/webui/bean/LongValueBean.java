@@ -35,6 +35,7 @@
 package net.java.dev.moskito.webui.bean;
 
 import net.anotheria.util.BasicComparable;
+import net.anotheria.util.NumberUtils;
 import net.anotheria.util.sorter.IComparable;
 
 /**
@@ -58,7 +59,7 @@ public class LongValueBean extends StatValueBean{
 	}
 	
 	@Override public String getValue(){
-		return longValue == Long.MAX_VALUE || longValue== Long.MIN_VALUE ? "NoR" : ""+longValue;
+		return longValue == Long.MAX_VALUE || longValue== Long.MIN_VALUE ? "NoR" : ""+NumberUtils.getDotedNumber(longValue);
 	}
 	
 	@Override public int compareTo(IComparable anotherComparable, int ignored) {

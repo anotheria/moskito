@@ -47,6 +47,7 @@ import net.anotheria.maf.action.ActionMapping;
 import net.anotheria.maf.bean.FormBean;
 import net.anotheria.util.sorter.QuickSorter;
 import net.anotheria.util.sorter.Sorter;
+import net.anotheria.util.sorter.StaticQuickSorter;
 import net.java.dev.moskito.core.producers.IStats;
 import net.java.dev.moskito.core.producers.IStatsProducer;
 import net.java.dev.moskito.webui.bean.MetaHeaderBean;
@@ -62,13 +63,6 @@ public abstract class BaseShowProducersAction extends BaseMoskitoUIAction{
 	protected abstract List<IStatsProducer> getProducers(HttpServletRequest req);
 	
 	public abstract String getPageTitle(HttpServletRequest req);
-	
-	private Sorter<ProducerBean> sorter;
-	
-	public BaseShowProducersAction(){
-		super();
-		sorter = new QuickSorter<ProducerBean>();
-	}
 	
 	@Override
 	public ActionForward execute(ActionMapping mapping, FormBean formBean, HttpServletRequest req, HttpServletResponse res) throws Exception {
@@ -127,7 +121,7 @@ public abstract class BaseShowProducersAction extends BaseMoskitoUIAction{
 				pb.setValues(decorator.getValues(firstStats, intervalName, currentUnit.getUnit()));
 				pbs.add(pb);
 			}
-			b.setProducerBeans(sorter.sort(pbs, getProducerBeanSortType(b, req)));
+			b.setProducerBeans(StaticQuickSorter.sort(pbs, getProducerBeanSortType(b, req)));
 			beans.add(b);
 		}
 		
