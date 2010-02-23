@@ -9,7 +9,7 @@
 					<img alt="MoSKito WebUI" src="<msk:write name="mskPathToImages" scope="application"/>moskito_webui_logo.gif" width="131"	height="25"/>
 				</a>
 				<ul>
-					<li><a href="<msk:write name="mskShowAllProducers"/>">All Producers</a></li>
+					<li><a href="<msk:write name="mskShowAllProducers"/>">Producers</a></li>
 					<li>
 						<a href="<msk:write name="mskShowProducersByCategory"/>">Categories</a>
 						<div class="sub_menu">
