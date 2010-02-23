@@ -38,7 +38,7 @@
 				</ul>
 				<div class="right"></div>
 				<ul class="settings">
-					<li><a href="#">Settings</a>
+					<li><a href="#">Export</a>
 					<div class="sub_menu">
 						<ul>
 							<li><a href="<msk:write name="linkToCurrentPageAsXml"/>&amp;pForward=xml">XML</a></li>
