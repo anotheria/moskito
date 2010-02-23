@@ -59,7 +59,7 @@ public class LongValueBean extends StatValueBean{
 	}
 	
 	@Override public String getValue(){
-		return longValue == Long.MAX_VALUE || longValue== Long.MIN_VALUE ? "NoR" : ""+NumberUtils.getDotedNumber(longValue);
+		return longValue == Long.MAX_VALUE || longValue== Long.MIN_VALUE ? "NoR" : ""+NumberUtils.getDotedNumberUS(longValue);
 	}
 	
 	@Override public int compareTo(IComparable anotherComparable, int ignored) {
