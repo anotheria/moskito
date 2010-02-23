@@ -47,7 +47,7 @@
 			</msk:present>
 		</li>				
 		</ul>
-		<a href="#" class="help">Help</a>
+		<a target="_blank" class="help" href="mskShowExplanations#<msk:write name="decorator" property="name"/>">Help</a>&nbsp;		
 		<div class="clear"><!-- --></div>
 		<div class="table_itseft">
 			<div class="top">
