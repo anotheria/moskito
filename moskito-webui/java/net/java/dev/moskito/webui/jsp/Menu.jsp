@@ -29,14 +29,14 @@
 								</ul>
 								</msk:present>													
 						</div>
-						<div class="over_color"><div><!-- --></div></div>
+						<div class="over_color"><div></div></div>
 					</li>
 					<li><a href="<msk:write name="mskShowUseCases"/>">Use Cases</a></li>
 					<li class="active">
 						<a href="<msk:write name="mskShowMonitoringSessions"/>">Monitoring Sessions</a>
 					</li>
 				</ul>
-				<div class="right"><!-- --></div>
+				<div class="right"></div>
 				<ul class="settings">
 					<li><a href="#">Settings</a>
 					<div class="sub_menu">
