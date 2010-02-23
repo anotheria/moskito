@@ -47,7 +47,7 @@
 					</div>
 					<div class="over_color"><div><!-- --></div></div>
 					</li>
-					<li><a href="#">Help</a></li>
+					<li><a href="mskShowExplanations">Help</a></li>
 				</ul>
 
 		</div>

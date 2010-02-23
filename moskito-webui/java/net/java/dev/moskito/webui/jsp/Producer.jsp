@@ -1,6 +1,6 @@
-<%@ page language="java" contentType="text/html;charset=UTF-8" session="true"
-%><%@ taglib uri="http://www.anotheria.net/ano-tags" prefix="msk"
-%><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<%@ page language="java" contentType="text/html;charset=UTF-8" session="true"%>
+<%@ taglib uri="http://www.anotheria.net/ano-tags" prefix="msk"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 	<title>Moskito Producer <msk:write name="producer" property="id"/> </title>
@@ -16,9 +16,16 @@
 
 <jsp:include page="Menu.jsp" flush="false"/>
 
+producer:&nbsp;<msk:write name="producer" property="id"/>
+
+<msk:present name="inspectableFlag">
+	&nbsp;<a href="mskInspectProducer?pProducerId=<msk:write name="producer" property="id"/>">inspect</a>
+</msk:present> 
+<a href="mskShowProducersByCategory">category</a>:&nbsp;<a href="mskShowProducersByCategory?pCategory=<msk:write name="producer" property="category"/>"><msk:write name="producer" property="category"/></a><br/>
+<a href="mskShowProducersBySubsystem">subsystem</a>:&nbsp;<a href="mskShowProducersBySubsystem?pSubsystem=<msk:write name="producer" property="subsystem"/>"><msk:write name="producer" property="subsystem"/></a><br/>
+class:&nbsp;<msk:write name="producer" property="className"/><br/>
 
 
-	
 <div class="main">
 <msk:iterate type="net.java.dev.moskito.webui.bean.StatDecoratorBean" id="decorator" name="decorators">
 	<div class="additional">
@@ -61,7 +68,8 @@
 			</msk:present>
 		</li>				
 		</ul>
-		<a href="#" class="help">Help</a>
+		<a target="_blank" class="help" href="mskShowExplanations#<msk:write name="decorator" property="name"/>">Help</a>&nbsp;	
+		
 		<div class="clear"><!-- --></div>
 		<div class="table_itseft">
 			<div class="top">
@@ -87,7 +95,7 @@
 		<tbody>		
 			<msk:iterate name="decorator" property="stats" id="stat" type="net.java.dev.moskito.webui.bean.StatBean" indexId="index">
 			  <tr class="<%= ((index & 1) == 0 )? "even" : "odd" %>">
-					<td class="even">
+					<td>
 						<msk:write name="stat" property="name"/>
 					</td>				
 				</tr>
@@ -143,30 +151,11 @@
 	 <div class="left"><!-- --></div>
 	 <div class="right"><!-- --></div>
 	</div>
-   </div>
-	<div class="filter_2" style="display:none;">
-			<ul class="filter">
-				<li>Interval:</li>
-				<li class="active"><a href="#">default</a></li>
-				<li><a href="#">1m</a></li>
-				<li><a href="#">5m</a></li>
-				<li><a href="#">15m</a></li>
-				<li><a href="#">1h</a></li>
-				<li><a href="#">12h</a></li>
-				<li class="last"><a href="#">1d</a></li>
-			</ul>
-			<ul class="filter">
-				<li>Unit:</li>
-				<li class="active"><a href="#">millisec</a></li>
-				<li><a href="#">sec</a></li>
-				<li><a href="#">microsec</a></li>
-				<li class="last"><a href="#">nanosec</a></li>
-			</ul>
-			<div class="clear"><!-- --></div>
-			</div>
-		</div>
+    </div>
 
-		<div class="bot"><div><!-- --></div></div>
+	</div>
+
+	<div class="bot"><div><!-- --></div></div>
 	</div>
 	</msk:iterate>
 	<div class="generated">Generated at <msk:write name="timestampAsDate"/>&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;timestamp: <msk:write name="timestamp"/></div>
