@@ -43,6 +43,8 @@ public class DoubleValueBean extends StatValueBean{
 	 */
 	private double doubleValue;
 	
+	private String doubleAsString;
+	
 	
 	public DoubleValueBean(String name, double aValue){
 		super(name);
@@ -50,10 +52,18 @@ public class DoubleValueBean extends StatValueBean{
 			doubleValue = ((double)Math.round(aValue * 1000)) / 1000;
 		else
 			doubleValue = aValue;
+		
+		double floatingPart = doubleValue - (int)doubleValue;
+		String fpAsString = ""+floatingPart;
+		if (fpAsString.length()>6)
+			fpAsString = fpAsString.substring(0, 5);
+		while(fpAsString.length()<5)
+			fpAsString += "0";
+		doubleAsString = (int)doubleValue+"."+fpAsString.substring(2);
 	}
 	
 	@Override public String getValue(){
-		return ""+doubleValue;
+		return doubleAsString;
 	}
 	
 	@Override public String getType(){
