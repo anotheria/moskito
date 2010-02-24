@@ -116,9 +116,11 @@
 			
 			<th>class<%-- --%>&nbsp;
 				<a	class="up" href="<msk:write name="linkToCurrentPage"/>&amp;<msk:write name="decorator" property="sortByParameterName"/>=1003&amp;<msk:write name="decorator" property="sortOrderParameterName"/>=ASC"><msk:write
-					name="ASC" /></a><%--	--%>
+					name="ASC" /></a>
+					<%--	
 				<a	class="up" href="<msk:write name="linkToCurrentPage"/>&amp;<msk:write name="decorator" property="sortByParameterName"/>=1003&amp;<msk:write name="decorator" property="sortOrderParameterName"/>=DESC"><msk:write
-					name="DESC" /></a><%-- 	--%>
+					name="DESC" /></a>
+					--%>
 			</th>
 		 </tr>		
 	   </thead>
