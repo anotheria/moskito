@@ -115,19 +115,22 @@
 					--%>&nbsp;
 					<a 	class="up" title="ascending sort by <msk:write name="caption" property="shortExplanationLowered"/>"
 						href="<msk:write name="linkToCurrentPage"/>&amp;<msk:write name="decorator" property="sortByParameterName"/>=<msk:write name="ind"/>&amp;<msk:write name="decorator" property="sortOrderParameterName"/>=ASC"><msk:write
-						name="ASC" /></a><%--
-					--%>
+						name="ASC" /></a>
+						<%--					
 					<a	class="up" title="descending sort by <msk:write name="caption" property="shortExplanationLowered"/>"
 						href="<msk:write name="linkToCurrentPage"/>&amp;<msk:write name="decorator" property="sortByParameterName"/>=<msk:write name="ind"/>&amp;<msk:write name="decorator" property="sortOrderParameterName"/>=DESC"><msk:write
 						name="DESC" /></a>
+						--%>
 			 </th>
 			</msk:iterate>			
 			
 			<th>class<%-- --%>&nbsp;
 				<a	class="up" href="<msk:write name="linkToCurrentPage"/>&amp;<msk:write name="decorator" property="sortByParameterName"/>=1003&amp;<msk:write name="decorator" property="sortOrderParameterName"/>=ASC"><msk:write
-					name="ASC" /></a><%--	--%>
+					name="ASC" /></a>
+					<%--	
 				<a	class="up" href="<msk:write name="linkToCurrentPage"/>&amp;<msk:write name="decorator" property="sortByParameterName"/>=1003&amp;<msk:write name="decorator" property="sortOrderParameterName"/>=DESC"><msk:write
-					name="DESC" /></a><%-- 	--%>
+					name="DESC" /></a>
+					--%>
 			</th>
 		 </tr>		
 	   </thead>
