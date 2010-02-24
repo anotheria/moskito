@@ -16,23 +16,13 @@
 
 <jsp:include page="Menu.jsp" flush="false"/>
 
-producer:&nbsp;<msk:write name="producer" property="id"/>
-
-<msk:present name="inspectableFlag">
-	&nbsp;<a href="mskInspectProducer?pProducerId=<msk:write name="producer" property="id"/>">inspect</a>
-</msk:present> 
-<a href="mskShowProducersByCategory">category</a>:&nbsp;<a href="mskShowProducersByCategory?pCategory=<msk:write name="producer" property="category"/>"><msk:write name="producer" property="category"/></a><br/>
-<a href="mskShowProducersBySubsystem">subsystem</a>:&nbsp;<a href="mskShowProducersBySubsystem?pSubsystem=<msk:write name="producer" property="subsystem"/>"><msk:write name="producer" property="subsystem"/></a><br/>
-class:&nbsp;<msk:write name="producer" property="className"/><br/>
-
-
 <div class="main">
 <msk:iterate type="net.java.dev.moskito.webui.bean.StatDecoratorBean" id="decorator" name="decorators">
 	<div class="additional">
 		<div class="top"><div><!-- --></div></div>
 		<div class="add_in">
 			<div>
-				<span>Producer: <b><msk:write name="producer" property="id"/></b></span> 
+				<span>Producer: <b><msk:write name="producer" property="id"/></b></span>				
 				<msk:present name="inspectableFlag">
 					&nbsp;<a href="mskInspectProducer?pProducerId=<msk:write name="producer" property="id"/>">inspect</a>
 				</msk:present>
@@ -82,13 +72,13 @@ class:&nbsp;<msk:write name="producer" property="className"/><br/>
 		  <thead>
 			<tr class="stat_header">			
 				<th>Name<%--	--%>&nbsp;
-					<a href="<msk:write name="linkToCurrentPage"/>&amp;<msk:write name="decorator" property="sortByParameterName"/>=1000&amp;<msk:write name="decorator" property="sortOrderParameterName"/>=ASC"><msk:write name="ASC"/></a>
-					<%-- --%>
+					<a class="up" href="<msk:write name="linkToCurrentPage"/>&amp;<msk:write name="decorator" property="sortByParameterName"/>=1000&amp;<msk:write name="decorator" property="sortOrderParameterName"/>=ASC"><msk:write name="ASC"/></a>
+					<%-- 
 					<a href="<msk:write name="linkToCurrentPage"/>&amp;<msk:write name="decorator" property="sortByParameterName"/>=1000&amp;<msk:write name="decorator" property="sortOrderParameterName"/>=DESC"><msk:write name="DESC"/></a>
-					<%-- --%>
+					 
 					<a href="<msk:write name="linkToCurrentPage"/>&amp;<msk:write name="decorator" property="sortByParameterName"/>=1000&amp;<msk:write name="decorator" property="sortOrderParameterName"/>=DESC"><msk:write
 					   name="DESC" /></a>
-				    <%-- --%>
+				     --%>
 				</th>									
 			</tr>	
 		</thead>
@@ -113,11 +103,14 @@ class:&nbsp;<msk:write name="producer" property="className"/><br/>
 					--%>&nbsp;
 					<a 	class="up" title="ascending sort by <msk:write name="caption" property="shortExplanationLowered"/>"
 						href="<msk:write name="linkToCurrentPage"/>&amp;<msk:write name="decorator" property="sortByParameterName"/>=<msk:write name="ind"/>&amp;<msk:write name="decorator" property="sortOrderParameterName"/>=ASC"><msk:write
-						name="ASC" /></a><%--
-					--%>
+						name="ASC" /></a>
+						
+						<%--
+					
 					<a	class="up" title="descending sort by <msk:write name="caption" property="shortExplanationLowered"/>"
 						href="<msk:write name="linkToCurrentPage"/>&amp;<msk:write name="decorator" property="sortByParameterName"/>=<msk:write name="ind"/>&amp;<msk:write name="decorator" property="sortOrderParameterName"/>=DESC"><msk:write
 						name="DESC" /></a>
+						--%>
 			 </th>
 			</msk:iterate>			
 			
@@ -137,7 +130,7 @@ class:&nbsp;<msk:write name="producer" property="className"/><br/>
 						<msk:write name="value" property="value" />
 					</td>
 				</msk:iterate>
-				<td>
+				<td onmouseover="Tip('<msk:write name="producer" property="fullClassName"/>&lt;br/&gt;&lt;b&gt;&lt;span align=center&gt;&lt;/span&gt;&lt;/b&gt;', TEXTALIGN, 'center')" onmouseout="UnTip()">
 					<msk:write name="producer" property="className" />
 				</td>
 			</tr>	

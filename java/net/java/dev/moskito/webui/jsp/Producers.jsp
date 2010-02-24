@@ -139,7 +139,7 @@
 					<msk:write name="value" property="value" />
 				</td>
 			</msk:iterate>
-			<td>
+			<td onmouseover="Tip('<msk:write name="producer" property="fullClassName"/>&lt;br/&gt;&lt;b&gt;&lt;span align=center&gt;&lt;/span&gt;&lt;/b&gt;', TEXTALIGN, 'center')" onmouseout="UnTip()">
 				<msk:write name="producer" property="className" />
 			</td>
 		</tr>	

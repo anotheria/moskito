@@ -45,9 +45,13 @@ public class ProducerBean implements IComparable{
 	 */
 	private String id;
 	/**
-	 * Class name of the producer.
+	 * Class name of the producer without package name.
 	 */
 	private String className;
+	/**
+	 * Class name of the producer with package name.
+	 */
+	private String fullClassName;
 	/**
 	 * Category of the producer.
 	 */
@@ -74,13 +78,19 @@ public class ProducerBean implements IComparable{
 		return className;
 	}
 	public void setClassName(String className) {
-		int ind = className.lastIndexOf('.')+1;
-		if (ind != -1) {
-			this.className = className.substring(ind);
-		} else {
-			this.className = className;
-		}
+		setFullClassName(className);
+		int ind = className.lastIndexOf('.')+1;		
+		this.className = className.substring(ind);		
 	}
+	
+	public String getFullClassName() {
+		return fullClassName;
+	}
+	
+	public void setFullClassName(String fullClassName) {
+		this.fullClassName = fullClassName;
+	}
+	
 	public String getId() {
 		return id;
 	}
