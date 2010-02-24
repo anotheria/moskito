@@ -70,11 +70,16 @@ public class ProducerBean implements IComparable{
 	public void setCategory(String category) {
 		this.category = category;
 	}
-	public String getClassName() {
+	public String getClassName() { 
 		return className;
 	}
 	public void setClassName(String className) {
-		this.className = className;
+		int ind = className.lastIndexOf('.')+1;
+		if (ind != -1) {
+			this.className = className.substring(ind);
+		} else {
+			this.className = className;
+		}
 	}
 	public String getId() {
 		return id;
