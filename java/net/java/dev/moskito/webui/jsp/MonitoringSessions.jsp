@@ -4,7 +4,7 @@
 <html>
 <head>
 	<title>Moskito MonitoringSessions</title>
-<link rel="stylesheet" href="mskCSS">
+<link rel="stylesheet" href="mskCSS"/>
 </head>
 <body>
 <jsp:include page="MonitoringSessionMainMenu.jsp" flush="false"/>

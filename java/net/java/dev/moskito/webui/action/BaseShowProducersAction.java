@@ -147,13 +147,15 @@ public abstract class BaseShowProducersAction extends BaseMoskitoUIAction{
 				boolean sortOrder = paramSortOrder!=null && paramSortOrder.equals("ASC") ? 
 						ProducerBeanSortType.ASC : ProducerBeanSortType.DESC;
 				sortType = new ProducerBeanSortType(sortBy, sortOrder);
-				req.getSession().setAttribute(BEAN_SORT_TYPE_PREFIX+decoratorBean.getName(), sortType);
+				req.getSession().setAttribute(decoratorBean.getSortTypeName(), sortType);
 				return sortType;
 			}catch(NumberFormatException skip){}
 		}
-		sortType = (ProducerBeanSortType)req.getSession().getAttribute(BEAN_SORT_TYPE_PREFIX+decoratorBean.getName());
-		if (sortType==null)
+		sortType = (ProducerBeanSortType)req.getSession().getAttribute(decoratorBean.getSortTypeName());
+		if (sortType==null){
 			sortType = new ProducerBeanSortType();
+			req.getSession().setAttribute(decoratorBean.getSortTypeName(), sortType);
+		}
 		return sortType;
 	}
 }
