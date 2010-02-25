@@ -9,47 +9,12 @@
 					<img alt="MoSKito WebUI" src="<msk:write name="mskPathToImages" scope="application"/>moskito_webui_logo.gif" width="131"	height="25"/>
 				</a>
 				<ul>
-					<li><a href="<msk:write name="mskShowAllProducers"/>">Producers</a></li>
-					<li>
-						<a href="<msk:write name="mskShowProducersByCategory"/>">Categories</a>
-						<div class="sub_menu">
-								<msk:present name="categories" scope="request">
-								<ul>
-									<jsp:include page="CategorySelection.jsp" flush="false" />	
-								</ul>
-								</msk:present>			
-						</div>
-						<div class="over_color"><div><!-- --></div></div>
-					</li>
-					<li><a href="<msk:write name="mskShowProducersBySubsystem"/>">Subsystems</a>
-						<div class="sub_menu">
-								<msk:present name="subsystems" scope="request">
-								<ul>
-									<jsp:include page="SubsystemSelection.jsp" flush="false" />
-								</ul>
-								</msk:present>													
-						</div>
-						<div class="over_color"><div></div></div>
-					</li>
-					<li><a href="<msk:write name="mskShowUseCases"/>">Use Cases</a></li>
-					<li class="active">
-						<a href="<msk:write name="mskShowMonitoringSessions"/>">Monitoring Sessions</a>
-					</li>
+					<li><a href="<msk:write name="mskShowAllProducers"/>">Producers</a></li>					
+					<li class="active"><a href="<msk:write name="mskShowUseCases"/>">Use Cases</a></li>
+					<li><a href="<msk:write name="mskShowMonitoringSessions"/>">Monitoring Sessions</a></li>
 				</ul>
 				<div class="right"></div>
-				<ul class="settings">
-					<li><a href="#">Export</a>
-					<div class="sub_menu">
-						<ul>
-							<li><a href="<msk:write name="linkToCurrentPageAsXml"/>&amp;pForward=xml">XML</a></li>
-							<li><a href="<msk:write name="linkToCurrentPageAsCsv"/>&amp;pForward=csv">CSV</a></li>
-						</ul>
-					</div>
-					<div class="over_color"><div><!-- --></div></div>
-					</li>
-					<li><a href="mskShowExplanations">Help</a></li>
-				</ul>
-
+				<jsp:include page="ExportMenu.jsp" flush="false" />
 		</div>
 	</div>
 </div>

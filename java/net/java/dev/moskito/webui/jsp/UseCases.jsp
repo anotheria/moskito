@@ -7,7 +7,9 @@
 <link rel="stylesheet" href="mskCSS">
 </head>
 <body>
-<jsp:include page="Menu.jsp" flush="false"/>
+
+<jsp:include page="UseCasesMainMEnu.jsp" flush="false"/>
+
 <h3>Show Use Cases</h3>
 <h2>AdHoc Use Cases</h2>
 <msk:present name="recordedAvailableFlag" scope="request">
