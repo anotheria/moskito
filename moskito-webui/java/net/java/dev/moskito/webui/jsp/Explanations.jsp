@@ -13,14 +13,21 @@
 <script type="text/javascript" src="../js/function.js"></script>
 
 <jsp:include page="Menu.jsp" flush="false"/>
-<h3>Explanations for moskito stats page</h3>
+
+<div class="main">
+	<div class="additional">
+		<div class="top"><div><!-- --></div></div>
+		<div class="add_in">
+			<h2>Explanations for moskito stats page</h2>
+			<div><span>
 This page explains what the abreviations used on the producers overview page mean. However, it doesn't explain how to interpret
 the data. Since the data is strongly use-case dependent, its mostly up to you to give it a correct interpretations, but 
 for some use-cases <a href="http://moskito.anotheria.net/documentation.html">moskito's documentation and HOWTOs</a> are quite useful.
-<hr size="1" />
+			</span></div>
+		<div class="bot"><div><!-- --></div></div>
+	</div>
 
 
-<div class="main">
 	<msk:iterate name="decorators" type="net.java.dev.moskito.webui.bean.DecoratorExplanationBean" id="decorator">
 		<div class="clear"><!-- --></div>
 		<div class="table_layout">
@@ -41,7 +48,8 @@ for some use-cases <a href="http://moskito.anotheria.net/documentation.html">mos
 		<thead>
 			<tr class="stat_header">
 				<th>Abbreviation</th>
-				<th>dMeaning</th>				
+				<th>Meaning</th>				
+			  	<th>Explanation</th>			
 			</tr>
 		</thead>
 		<tbody>
@@ -49,27 +57,12 @@ for some use-cases <a href="http://moskito.anotheria.net/documentation.html">mos
 				<tr class="<%= ((index & 1) == 0 )? "even" : "odd" %>">	
 					<td><msk:write name="caption" property="caption"/></td>
 					<td><msk:write name="caption" property="shortExplanation"/></td>			
+					<td><msk:write name="caption" property="explanation"/></td>			
 				</tr>
 			</msk:iterate>
 		</tbody>	
 		</table>
-		
-		<div class="table_right">	
-			<table cellpadding="0" cellspacing="0">
-				 <thead>
-					  <tr class="stat_header">		  	
-					  	<th>Explanation</th>			
-					  </tr>
-				 </thead>
-				 <tbody>
-			  		<msk:iterate name="decorator" property="captions" id="caption" type="net.java.dev.moskito.webui.bean.StatCaptionBean" indexId="index">
-						<tr class="<%= ((index & 1) == 0 )? "even" : "odd" %>">	
-							<td><msk:write name="caption" property="explanation"/></td>			
-						</tr>
-					</msk:iterate>
-			 	</tbody>
-			</table>
-		   </div>
+	</div>
   	<div class="clear"><!-- --></div>
 	</div>
 	<div class="bot">
