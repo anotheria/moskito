@@ -37,6 +37,8 @@ package net.java.dev.moskito.webui.bean;
 import java.util.ArrayList;
 import java.util.List;
 
+import net.java.dev.moskito.webui.action.BaseMoskitoUIAction;
+
 /**
  * Decorates a producer.
  * @author another
@@ -71,5 +73,9 @@ public class ProducerDecoratorBean extends AbstractDecoratorBean {
 	
 	public void setProducerBeans(List<ProducerBean> someProducers){
 		producers = someProducers;
+	}
+	
+	public String getSortTypeName(){
+		return BaseMoskitoUIAction.BEAN_SORT_TYPE_PREFIX + getName();
 	}
 }
