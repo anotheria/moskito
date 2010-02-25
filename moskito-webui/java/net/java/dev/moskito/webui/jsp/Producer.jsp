@@ -14,7 +14,7 @@
 <script type="text/javascript" src="../js/jquery-1.4.min.js"></script>
 <script type="text/javascript" src="../js/function.js"></script>
 
-<jsp:include page="Menu.jsp" flush="false"/>
+<jsp:include page="ProducersMainMenu.jsp" flush="false" />
 
 <div class="main">
 <msk:iterate type="net.java.dev.moskito.webui.bean.StatDecoratorBean" id="decorator" name="decorators">
@@ -44,21 +44,7 @@
 	<div class="top"><div><!-- --></div></div>
 	<div class="in">
 
-	<ul class="filter">
-		 <li>
-			<msk:present name="intervals" scope="request">
-		 		<jsp:include page="IntervalSelection.jsp" flush="false" />
-			</msk:present>
-		</li>				
-	</ul>			
-	<ul class="filter">
-		<li>
-			<msk:present name="units" scope="request">
-				<jsp:include page="UnitSelection.jsp" flush="false" />
-			</msk:present>
-		</li>				
-		</ul>
-		<a target="_blank" class="help" href="mskShowExplanations#<msk:write name="decorator" property="name"/>">Help</a>&nbsp;	
+	<a target="_blank" class="help" href="mskShowExplanations#<msk:write name="decorator" property="name"/>">Help</a>&nbsp;	
 		
 		<div class="clear"><!-- --></div>
 		<div class="table_itseft">
@@ -140,14 +126,13 @@
 	 </tbody>
 	 </table>
     </div>
-  <div class="clear"><!-- --></div>
+    <div class="clear"><!-- --></div>
 	</div>
-	 <div class="bot">
-	 <div class="left"><!-- --></div>
-	 <div class="right"><!-- --></div>
+    <div class="bot">
+	<div class="left"><!-- --></div>
+	<div class="right"><!-- --></div>
 	</div>
     </div>
-
 	</div>
 
 	<div class="bot"><div><!-- --></div></div>

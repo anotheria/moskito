@@ -23,8 +23,9 @@
 		src="<msk:write name="mskPathToImages" scope="application"/>msk_d.gif"
 		border="0" alt="Sort descending"/>
 </msk:define>
-	<jsp:include page="Menu.jsp" flush="false" />
- 
+
+<jsp:include page="ProducersMainMenu.jsp" flush="false" />
+
 <div class="main">
 <msk:iterate type="net.java.dev.moskito.webui.bean.ProducerDecoratorBean" 	id="decorator" name="decorators">	
 <div class="clear"><!-- --></div>
@@ -33,21 +34,8 @@
 	<div class="in">
 
 	<h2><a href="javascript:void(0);" class=""> <msk:write name="decorator" property="name" />&nbsp;&nbsp;</a></h2>			
-		<ul class="filter">
-		 <li>
-			<msk:present name="intervals" scope="request">
-		 		<jsp:include page="IntervalSelection.jsp" flush="false" />
-			</msk:present>
-		</li>				
-		</ul>			
-		<ul class="filter">
-		<li>
-			<msk:present name="units" scope="request">
-				<jsp:include page="UnitSelection.jsp" flush="false" />
-			</msk:present>
-		</li>				
-		</ul>
-		<a target="_blank" class="help" href="mskShowExplanations#<msk:write name="decorator" property="name"/>">Help</a>&nbsp;		
+					
+	    <a target="_blank" class="help" href="mskShowExplanations#<msk:write name="decorator" property="name"/>">Help</a>&nbsp;		
 		<div class="clear"><!-- --></div>
 		<div class="table_itseft">
 			<div class="top">
