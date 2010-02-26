@@ -37,6 +37,8 @@ package net.java.dev.moskito.webui.bean;
 import java.util.ArrayList;
 import java.util.List;
 
+import net.java.dev.moskito.webui.action.BaseMoskitoUIAction;
+
 public class StatDecoratorBean extends AbstractDecoratorBean {
 	/**
 	 * List of stats bean.
@@ -66,6 +68,10 @@ public class StatDecoratorBean extends AbstractDecoratorBean {
 
 	@Override public String toString(){
 		return super.toString()+" "+stats;
+	}
+
+	public String getSortTypeName(){
+		return BaseMoskitoUIAction.BEAN_SORT_TYPE_SINGLE_PRODUCER_PREFIX + getName();
 	}
 
 }
