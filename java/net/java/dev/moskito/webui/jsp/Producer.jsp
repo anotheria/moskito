@@ -5,8 +5,6 @@
 <head>
 	<title>Moskito Producer <msk:write name="producer" property="id"/> </title>
 	<link rel="stylesheet" href="mskCSS"/>
-	<msk:define id="ASC" type="java.lang.String"><img src="<msk:write name="mskPathToImages" scope="application"/>msk_u.gif" border="0" alt="Sort ascending"/></msk:define>
-	<msk:define id="DESC" type="java.lang.String"><img src="<msk:write name="mskPathToImages" scope="application"/>msk_d.gif" border="0" alt="Sort descending"/></msk:define>
 </head>
 <body>
 
@@ -43,7 +41,7 @@
 	<div class="table_layout">
 	<div class="top"><div><!-- --></div></div>
 	<div class="in">
-
+	<h2><msk:write name="producer" property="id" /></h2>
 	<a target="_blank" class="help" href="mskShowExplanations#<msk:write name="decorator" property="name"/>">Help</a>&nbsp;	
 		
 		<div class="clear"><!-- --></div>
@@ -58,12 +56,11 @@
 		  <thead>
 			<tr class="stat_header">			
 				<th>Name<%--	--%>&nbsp;
-					<a class="up" href="<msk:write name="linkToCurrentPage"/>&amp;<msk:write name="decorator" property="sortByParameterName"/>=1000&amp;<msk:write name="decorator" property="sortOrderParameterName"/>=ASC"><msk:write name="ASC"/></a>
+					<a class="up" href="<msk:write name="linkToCurrentPage"/>&amp;<msk:write name="decorator" property="sortByParameterName"/>=1000&amp;<msk:write name="decorator" property="sortOrderParameterName"/>=ASC"></a>
 					<%-- 
-					<a href="<msk:write name="linkToCurrentPage"/>&amp;<msk:write name="decorator" property="sortByParameterName"/>=1000&amp;<msk:write name="decorator" property="sortOrderParameterName"/>=DESC"><msk:write name="DESC"/></a>
+					<a href="<msk:write name="linkToCurrentPage"/>&amp;<msk:write name="decorator" property="sortByParameterName"/>=1000&amp;<msk:write name="decorator" property="sortOrderParameterName"/>=DESC"></a>
 					 
-					<a href="<msk:write name="linkToCurrentPage"/>&amp;<msk:write name="decorator" property="sortByParameterName"/>=1000&amp;<msk:write name="decorator" property="sortOrderParameterName"/>=DESC"><msk:write
-					   name="DESC" /></a>
+					<a href="<msk:write name="linkToCurrentPage"/>&amp;<msk:write name="decorator" property="sortByParameterName"/>=1000&amp;<msk:write name="decorator" property="sortOrderParameterName"/>=DESC"></a>
 				     --%>
 				</th>									
 			</tr>	
@@ -88,24 +85,20 @@
 				<msk:write name="caption" property="caption" /><%--
 					--%>&nbsp;
 					<a 	class="up" title="ascending sort by <msk:write name="caption" property="shortExplanationLowered"/>"
-						href="<msk:write name="linkToCurrentPage"/>&amp;<msk:write name="decorator" property="sortByParameterName"/>=<msk:write name="ind"/>&amp;<msk:write name="decorator" property="sortOrderParameterName"/>=ASC"><msk:write
-						name="ASC" /></a>
+						href="<msk:write name="linkToCurrentPage"/>&amp;<msk:write name="decorator" property="sortByParameterName"/>=<msk:write name="ind"/>&amp;<msk:write name="decorator" property="sortOrderParameterName"/>=ASC"></a>
 						
 						<%--
 					
 					<a	class="up" title="descending sort by <msk:write name="caption" property="shortExplanationLowered"/>"
-						href="<msk:write name="linkToCurrentPage"/>&amp;<msk:write name="decorator" property="sortByParameterName"/>=<msk:write name="ind"/>&amp;<msk:write name="decorator" property="sortOrderParameterName"/>=DESC"><msk:write
-						name="DESC" /></a>
+						href="<msk:write name="linkToCurrentPage"/>&amp;<msk:write name="decorator" property="sortByParameterName"/>=<msk:write name="ind"/>&amp;<msk:write name="decorator" property="sortOrderParameterName"/>=DESC"></a>
 						--%>
 			 </th>
 			</msk:iterate>			
 			
 			<th>class<%-- --%>&nbsp;
-				<a	class="up" href="<msk:write name="linkToCurrentPage"/>&amp;<msk:write name="decorator" property="sortByParameterName"/>=1003&amp;<msk:write name="decorator" property="sortOrderParameterName"/>=ASC"><msk:write
-					name="ASC" /></a>
+				<a	class="up" href="<msk:write name="linkToCurrentPage"/>&amp;<msk:write name="decorator" property="sortByParameterName"/>=1003&amp;<msk:write name="decorator" property="sortOrderParameterName"/>=ASC"></a>
 					<%--	
-				<a	class="up" href="<msk:write name="linkToCurrentPage"/>&amp;<msk:write name="decorator" property="sortByParameterName"/>=1003&amp;<msk:write name="decorator" property="sortOrderParameterName"/>=DESC"><msk:write
-					name="DESC" /></a>
+				<a	class="up" href="<msk:write name="linkToCurrentPage"/>&amp;<msk:write name="decorator" property="sortByParameterName"/>=1003&amp;<msk:write name="decorator" property="sortOrderParameterName"/>=DESC"></a>
 					--%>
 			</th>
 		 </tr>		
