@@ -163,13 +163,15 @@ public class ShowProducerAction extends BaseMoskitoUIAction{
 				boolean sortOrder = paramSortOrder!=null && paramSortOrder.equals("ASC") ? 
 						StatBeanSortType.ASC : StatBeanSortType.DESC;
 				sortType = new StatBeanSortType(sortBy, sortOrder);
-				req.getSession().setAttribute(BEAN_SORT_TYPE_SINGLE_PRODUCER_PREFIX+decoratorBean.getName(), sortType);
+				req.getSession().setAttribute(decoratorBean.getSortTypeName(), sortType);
 				return sortType;
 			}catch(NumberFormatException skip){}
 		}
-		sortType = (StatBeanSortType)req.getSession().getAttribute(BEAN_SORT_TYPE_SINGLE_PRODUCER_PREFIX+decoratorBean.getName());
-		if (sortType==null)
+		sortType = (StatBeanSortType)req.getSession().getAttribute(decoratorBean.getSortTypeName());
+		if (sortType==null){
 			sortType = new StatBeanSortType();
+			req.getSession().setAttribute(decoratorBean.getSortTypeName(), sortType);
+		}
 		return sortType;
 	}	
 
