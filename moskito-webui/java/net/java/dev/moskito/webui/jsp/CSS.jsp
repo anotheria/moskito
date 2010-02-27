@@ -73,10 +73,11 @@ a:hover {text-decoration:none; color:#55cc00; cursor:pointer;}
 .table_itseft .in table {border-collapse:collapse;}
 .table_itseft .in table td, .table_itseft .in table th {text-align:left; font-size:1.2em; padding:5px 10px 5px 5px; white-space:nowrap;}
 .table_itseft .in table td {padding-right:25px;}
-.table_itseft .in table th a {color:black;}
+.table_itseft .in table th a {color:black; padding-right:15px;}
+.table_itseft .in table th a:hover {padding-right:15px; background:url(../img/bgs.gif) 100% -1015px no-repeat;}
 .table_itseft .in table th {background:white;}
-.table_itseft .in table th a.up {padding-right:15px; background:url(../img/bgs.gif) 100% -1015px no-repeat;}
-.table_itseft .in table th a.down {padding-right:15px; background:url(../img/bgs.gif) 100% -1040px no-repeat;}
+.table_itseft .in table th a.up {padding-right:15px; background:url(../img/bgs.gif) 100% -1040px no-repeat;}
+.table_itseft .in table th a.down {padding-right:15px; background:url(../img/bgs.gif) 100% -1015px no-repeat;}
 .table_itseft .in table tr.even td {background:#f7f7f7; //background:f7f7f7;}
 .table_itseft .in table tr.odd td {background:white;} 
 .table_itseft .in table tr:hover td, .table_itseft .in table tr.hover_it td  {background:#e1eefa;}
@@ -103,7 +104,8 @@ h2 a.hidden {background:url("../img/bgs.gif") 0 -1103px no-repeat;}
 .additional .top {height:5px; background:url("../img/bgs.gif") 0 -1160px no-repeat #f7f7f7;}
 .additional .top div {height:5px; background:url("../img/bgs.gif") 100% -1180px no-repeat;}
 .additional .add_in {padding:5px 10px; background:#f7f7f7;}
-.additional .add_in span, .additional .add_in a {font-size:1.2em;}
+.additional .add_in span {font-size:1.2em;}
+.additional .add_in a {font-size:1em;} 
 .additional .bot {height:5px; background:url("../img/bgs.gif") 0 -1196px no-repeat #f7f7f7;}
 .additional .bot div {height:5px; background:url("../img/bgs.gif") 100% -1212px no-repeat;}
 
@@ -145,3 +147,4 @@ h2 a.hidden {background:url("../img/bgs.gif") 0 -1103px no-repeat;}
 .box_bot div {height:22px; background:url("../img/box_bot_r.png") 100% 0 no-repeat; float:right; width:30px;}
 .box_bot span {display:block; height:22px; background:url("../img/box_bot_m.png") 0 0 repeat-x; margin:0 30px;}
 .close_box {height:30px; width:30px; background:url("../img/box_close.png") 0 0 no-repeat; top:-25px; left:7px; display:block; position:relative;}
+.wrap_it td {white-space:normal !important;}

@@ -37,52 +37,52 @@
 		<table cellpadding="0" cellspacing="0" class="fll" id="<msk:write name="decorator" property="name"/>_table">
 		  <thead>
 			<tr class="stat_header">
-				<th>Producer Id 
+				<th>
 					<msk:equal name="sortType" property="sortBy" value="1000">
 						<msk:equal name="sortType" property="ASC" value="true">
 							<a 	class="down" title="descending resort by <msk:write name="caption" property="shortExplanationLowered"/>"
-								href="<msk:write name="linkToCurrentPage"/>&amp;<msk:write name="decorator" property="sortByParameterName"/>=1000&amp;<msk:write name="decorator" property="sortOrderParameterName"/>=DESC"></a>
+								href="<msk:write name="linkToCurrentPage"/>&amp;<msk:write name="decorator" property="sortByParameterName"/>=1000&amp;<msk:write name="decorator" property="sortOrderParameterName"/>=DESC">Producer Id </a>
 						</msk:equal>
 						<msk:equal name="sortType" property="DESC" value="true">
 							<a 	class="up" title="ascending resort by <msk:write name="caption" property="shortExplanationLowered"/>"
-								href="<msk:write name="linkToCurrentPage"/>&amp;<msk:write name="decorator" property="sortByParameterName"/>=1000&amp;<msk:write name="decorator" property="sortOrderParameterName"/>=ASC"></a>
+								href="<msk:write name="linkToCurrentPage"/>&amp;<msk:write name="decorator" property="sortByParameterName"/>=1000&amp;<msk:write name="decorator" property="sortOrderParameterName"/>=ASC">Producer Id </a>
 						</msk:equal>
 					</msk:equal>   
 					<msk:notEqual name="sortType" property="sortBy" value="1000">
-						<a 	class="up" title="ascending sort by <msk:write name="caption" property="shortExplanationLowered"/>"
-							href="<msk:write name="linkToCurrentPage"/>&amp;<msk:write name="decorator" property="sortByParameterName"/>=1000&amp;<msk:write name="decorator" property="sortOrderParameterName"/>=ASC"></a>
+						<a 	class="" title="ascending sort by <msk:write name="caption" property="shortExplanationLowered"/>"
+							href="<msk:write name="linkToCurrentPage"/>&amp;<msk:write name="decorator" property="sortByParameterName"/>=1000&amp;<msk:write name="decorator" property="sortOrderParameterName"/>=ASC">Producer Id </a>
 					</msk:notEqual>
 				</th>
-				<th>Category
+				<th>
 					<msk:equal name="sortType" property="sortBy" value="1001">
 						<msk:equal name="sortType" property="ASC" value="true">
 							<a 	class="down" title="descending resort by category"
-								href="<msk:write name="linkToCurrentPage"/>&amp;<msk:write name="decorator" property="sortByParameterName"/>=1001&amp;<msk:write name="decorator" property="sortOrderParameterName"/>=DESC"></a>
+								href="<msk:write name="linkToCurrentPage"/>&amp;<msk:write name="decorator" property="sortByParameterName"/>=1001&amp;<msk:write name="decorator" property="sortOrderParameterName"/>=DESC">Category</a>
 						</msk:equal>
 						<msk:equal name="sortType" property="DESC" value="true">
 							<a 	class="up" title="ascending resort by category"
-								href="<msk:write name="linkToCurrentPage"/>&amp;<msk:write name="decorator" property="sortByParameterName"/>=1001&amp;<msk:write name="decorator" property="sortOrderParameterName"/>=ASC"></a>
+								href="<msk:write name="linkToCurrentPage"/>&amp;<msk:write name="decorator" property="sortByParameterName"/>=1001&amp;<msk:write name="decorator" property="sortOrderParameterName"/>=ASC">Category</a>
 						</msk:equal>
 					</msk:equal>   
 					<msk:notEqual name="sortType" property="sortBy" value="1001">
-						<a 	class="up" title="ascending sort by category"
-							href="<msk:write name="linkToCurrentPage"/>&amp;<msk:write name="decorator" property="sortByParameterName"/>=1001&amp;<msk:write name="decorator" property="sortOrderParameterName"/>=ASC"></a>
+						<a 	class="" title="ascending sort by category"
+							href="<msk:write name="linkToCurrentPage"/>&amp;<msk:write name="decorator" property="sortByParameterName"/>=1001&amp;<msk:write name="decorator" property="sortOrderParameterName"/>=ASC">Category</a>
 					</msk:notEqual>
 				</th>
-				<th>Subsystem
+				<th>
 					<msk:equal name="sortType" property="sortBy" value="1002">
 						<msk:equal name="sortType" property="ASC" value="true">
 							<a 	class="down" title="descending resort by subsystem"
-								href="<msk:write name="linkToCurrentPage"/>&amp;<msk:write name="decorator" property="sortByParameterName"/>=1002&amp;<msk:write name="decorator" property="sortOrderParameterName"/>=DESC"></a>
+								href="<msk:write name="linkToCurrentPage"/>&amp;<msk:write name="decorator" property="sortByParameterName"/>=1002&amp;<msk:write name="decorator" property="sortOrderParameterName"/>=DESC">Subsystem</a>
 						</msk:equal>
 						<msk:equal name="sortType" property="DESC" value="true">
 							<a 	class="up" title="ascending resort by subsystem"
-								href="<msk:write name="linkToCurrentPage"/>&amp;<msk:write name="decorator" property="sortByParameterName"/>=1002&amp;<msk:write name="decorator" property="sortOrderParameterName"/>=ASC"></a>
+								href="<msk:write name="linkToCurrentPage"/>&amp;<msk:write name="decorator" property="sortByParameterName"/>=1002&amp;<msk:write name="decorator" property="sortOrderParameterName"/>=ASC">Subsystem</a>
 						</msk:equal>
 					</msk:equal>   
 					<msk:notEqual name="sortType" property="sortBy" value="1002">
-						<a 	class="up" title="ascending sort by subsystem"
-							href="<msk:write name="linkToCurrentPage"/>&amp;<msk:write name="decorator" property="sortByParameterName"/>=1002&amp;<msk:write name="decorator" property="sortOrderParameterName"/>=ASC"></a>
+						<a 	class="" title="ascending sort by subsystem"
+							href="<msk:write name="linkToCurrentPage"/>&amp;<msk:write name="decorator" property="sortByParameterName"/>=1002&amp;<msk:write name="decorator" property="sortOrderParameterName"/>=ASC">Subsystem</a>
 					</msk:notEqual>
 				</th>
 			</tr>	
@@ -119,20 +119,20 @@
 		  <tr>		  
 			<msk:iterate name="decorator" property="captions" type="net.java.dev.moskito.webui.bean.StatCaptionBean" id="caption" indexId="ind">				
 			 <th title="<msk:write name="caption" property="shortExplanation"/>">
-				<msk:write name="caption" property="caption"/>
+
 					<msk:equal name="sortType" property="sortBy" value="<%=\"\"+ind%>">
 						<msk:equal name="sortType" property="ASC" value="true">
 							<a 	class="down" title="descending resort by <msk:write name="caption" property="shortExplanationLowered"/>"
-								href="<msk:write name="linkToCurrentPage"/>&amp;<msk:write name="decorator" property="sortByParameterName"/>=<msk:write name="ind"/>&amp;<msk:write name="decorator" property="sortOrderParameterName"/>=DESC"></a>
+								href="<msk:write name="linkToCurrentPage"/>&amp;<msk:write name="decorator" property="sortByParameterName"/>=<msk:write name="ind"/>&amp;<msk:write name="decorator" property="sortOrderParameterName"/>=DESC"><msk:write name="caption" property="caption"/></a>
 						</msk:equal>
 						<msk:equal name="sortType" property="DESC" value="true">
 							<a 	class="up" title="ascending resort by <msk:write name="caption" property="shortExplanationLowered"/>"
-								href="<msk:write name="linkToCurrentPage"/>&amp;<msk:write name="decorator" property="sortByParameterName"/>=<msk:write name="ind"/>&amp;<msk:write name="decorator" property="sortOrderParameterName"/>=ASC"></a>
+								href="<msk:write name="linkToCurrentPage"/>&amp;<msk:write name="decorator" property="sortByParameterName"/>=<msk:write name="ind"/>&amp;<msk:write name="decorator" property="sortOrderParameterName"/>=ASC"><msk:write name="caption" property="caption"/></a>
 						</msk:equal>
 					</msk:equal>   
 					<msk:notEqual name="sortType" property="sortBy" value="<%=\"\"+ind%>">
-						<a 	class="up" title="ascending sort by <msk:write name="caption" property="shortExplanationLowered"/>"
-							href="<msk:write name="linkToCurrentPage"/>&amp;<msk:write name="decorator" property="sortByParameterName"/>=<msk:write name="ind"/>&amp;<msk:write name="decorator" property="sortOrderParameterName"/>=ASC"></a>
+						<a 	class="" title="ascending sort by <msk:write name="caption" property="shortExplanationLowered"/>"
+							href="<msk:write name="linkToCurrentPage"/>&amp;<msk:write name="decorator" property="sortByParameterName"/>=<msk:write name="ind"/>&amp;<msk:write name="decorator" property="sortOrderParameterName"/>=ASC"><msk:write name="caption" property="caption"/></a>
 					</msk:notEqual>
 			 </th>
 			</msk:iterate>			
@@ -149,7 +149,7 @@
 						</msk:equal>
 					</msk:equal>   
 					<msk:notEqual name="sortType" property="sortBy" value="1003">
-						<a 	class="up" title="ascending sort by producer class"
+						<a 	class="" title="ascending sort by producer class"
 							href="<msk:write name="linkToCurrentPage"/>&amp;<msk:write name="decorator" property="sortByParameterName"/>=1003&amp;<msk:write name="decorator" property="sortOrderParameterName"/>=ASC"></a>
 					</msk:notEqual>
 			</th>

@@ -5,7 +5,7 @@ function resize_table(el) {
 	var in_t = el.find('.in');
 			var tl = el.find('table:first');
 			var tr = el.find('.table_right');
-			tr.width(in_t.width()-tl.width());
+			tr.width(in_t.width()-tl.width()-1);
 }
 
 // resize table listner
@@ -35,7 +35,7 @@ $(function() {
 		//console.log($('.sub_menu').parent())
 		$('.main_menu li.active .over_color').width($('.sub_menu').parent().width())
 	} else {
-		$('.main').css('margin-top', '71px');
+		$('.main').css('padding-top', '71px');
 	}
 	};
 
