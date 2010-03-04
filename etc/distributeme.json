@@ -1,0 +1,4 @@
+{
+	registryContainerPort: 80,
+	registryContainerHost: "test.anotheria.net",
+} 
