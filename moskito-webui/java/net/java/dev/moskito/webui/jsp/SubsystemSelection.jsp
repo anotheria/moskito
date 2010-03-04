@@ -2,9 +2,7 @@
 <%@ taglib uri="http://www.anotheria.net/ano-tags" prefix="msk"%>
 
 <msk:iterate name="subsystems" id="subsystem" type="net.java.dev.moskito.webui.bean.UnitCountBean">
-	<option>
-		<a href="mskShowProducersBySubsystem?pSubsystem=<msk:write name="subsystem" property="unitName"/>">
-			<msk:write name="subsystem" property="unitName"/>(<msk:write name="subsystem" property="unitCount"/>)
-		</a>&nbsp;
-	<option>
+	<option value="mskShowProducersBySubsystem?pSubsystem=<msk:write name="subsystem" property="unitName"/>">		
+			<msk:write name="subsystem" property="unitName"/>(<msk:write name="subsystem" property="unitCount"/>)		
+	</option>
 </msk:iterate>

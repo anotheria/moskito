@@ -1,5 +1,19 @@
 // JavaScript Document
 
+function handleSelect(elm) {
+	var baseUrl = getBaseUrl();	
+	var targetUrl = baseUrl + elm.value;
+	window.location = targetUrl;	
+}
+
+function getBaseUrl() {
+
+	var url = location.href;  // entire url including querystring - also: window.location.href;
+    var baseURL = url.substring(0, url.lastIndexOf('/')+1);   	
+    return baseURL;
+}
+
+
 // function to resize tables
 function resize_table(el) {
 	var in_t = el.find('.in');
