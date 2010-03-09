@@ -2,17 +2,21 @@ package net.java.dev.moskito.central.demo;
 
 import net.java.dev.moskito.central.StatStorage;
 import net.java.dev.moskito.central.StatStorageException;
+import net.java.dev.moskito.central.storages.SynchroneousConnector;
 import net.java.dev.moskito.core.predefined.ServiceStats;
 import net.java.dev.moskito.core.predefined.Constants;
 import net.java.dev.moskito.core.stats.Interval;
 import net.java.dev.moskito.core.stats.IIntervalListener;
 import net.java.dev.moskito.core.producers.IStatsSnapshot;
+import net.java.dev.moskito.core.producers.SnapshotArchiverRegistry;
+import net.java.dev.moskito.core.producers.ISnapshotArchiver;
 
 import java.io.Serializable;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Date;
 import java.net.InetAddress;
+import java.net.UnknownHostException;
 
 /**
  * This demo class generates service stats and produces different results in the echo method impl
@@ -33,20 +37,15 @@ public class DemoServiceImpl implements IDemoService {
 
     public DemoServiceImpl(final StatStorage storage) {
         this.stats = new ServiceStats("demo", Constants.DEFAULT_INTERVALS);
-        // then storage it on intervals
-        for (Interval interval : Constants.DEFAULT_INTERVALS) {
-            interval.addSecondaryIntervalListener(new IIntervalListener() {
-                public void intervalUpdated(Interval aCaller) {
-                    List<IStatsSnapshot> snapshots = new ArrayList<IStatsSnapshot>();
-                    snapshots.add(stats.createSnapshot(aCaller.getName()));
-                    try {
-                        storage.store(snapshots, new Date(), InetAddress.getLocalHost().getHostName(), aCaller);
-                    } catch (Exception e) {
-                        e.printStackTrace(System.err);
-                    }
-                }
-            });
+        // get host name
+        String host;
+        try {
+            host = InetAddress.getLocalHost().getHostName();
+        } catch (UnknownHostException e) {
+            throw new RuntimeException("Cannot create stats", e);
         }
+        // then store it on intervals
+        SnapshotArchiverRegistry.registerArchiverAllIntervals(new SynchroneousConnector(stats, storage,  host));
     }
 
     public <T extends Serializable> T echo(T aValue) throws DemoServiceException {

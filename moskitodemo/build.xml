@@ -33,7 +33,7 @@
 	
 	<target name="compile" depends="prepare,basic-compile,mytest-compile"/>
 	
-	<target name="jar" depends="compile">
+	<target name="jar" depends="prepare,ivy-retrieve,compile">
 		<jar jarfile="${dist.dir}/${target.jar.name}" index="false">
          	<fileset dir="${classes.dir}">
          		<include name="**/*"/>
