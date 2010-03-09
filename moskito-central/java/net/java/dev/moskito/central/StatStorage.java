@@ -10,7 +10,7 @@ import net.java.dev.moskito.core.stats.Interval;
  * This interface represents local storage for Miskito stats.
  * This is implemented to store Miskito stats to RDBMS, text file, 
  * whatever locally accessible
- * Remote storage is represented with Connector interface
+ * Remote storage is represented with SynchroneousConnector interface
  * 
  * @author igor
  *
