@@ -31,7 +31,7 @@
 	<classpathentry kind="lib" path="lib/jdom.jar"/>
 	<classpathentry kind="lib" path="lib/json.jar"/>
 	<classpathentry kind="lib" path="lib/jsp-api.jar"/>
-	<classpathentry kind="lib" path="lib/moskito-central.jar"/>
+	<classpathentry kind="lib" path="lib/moskito-central.jar" sourcepath="/moskito-central"/>
 	<classpathentry kind="lib" path="lib/moskito-webui.jar"/>
 	<classpathentry kind="lib" path="lib/xercesImpl.jar"/>
 	<classpathentry kind="lib" path="lib/xml-apis.jar"/>
