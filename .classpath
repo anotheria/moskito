@@ -12,5 +12,29 @@
 	<classpathentry kind="lib" path="lib/moskito-core.jar"/>
 	<classpathentry kind="lib" path="lib/moskito-util.jar"/>
 	<classpathentry kind="lib" path="lib/moskito-web.jar"/>
+	<classpathentry kind="lib" path="lib/ano-maf.jar"/>
+	<classpathentry kind="lib" path="lib/ano-prise.jar"/>
+	<classpathentry kind="lib" path="lib/ano-tags.jar"/>
+	<classpathentry kind="lib" path="lib/ano-web.jar"/>
+	<classpathentry kind="lib" path="lib/BlowfishJ.jar"/>
+	<classpathentry kind="lib" path="lib/commons-beanutils.jar"/>
+	<classpathentry kind="lib" path="lib/commons-collections.jar"/>
+	<classpathentry kind="lib" path="lib/commons-digester.jar"/>
+	<classpathentry kind="lib" path="lib/commons-lang.jar"/>
+	<classpathentry kind="lib" path="lib/commons-logging.jar"/>
+	<classpathentry kind="lib" path="lib/configureme.jar"/>
+	<classpathentry kind="lib" path="lib/cos.jar"/>
+	<classpathentry kind="lib" path="lib/distributeme.jar"/>
+	<classpathentry kind="lib" path="lib/dozer-annotations.jar"/>
+	<classpathentry kind="lib" path="lib/dozer.jar"/>
+	<classpathentry kind="lib" path="lib/hsqldb.jar"/>
+	<classpathentry kind="lib" path="lib/jdom.jar"/>
+	<classpathentry kind="lib" path="lib/json.jar"/>
+	<classpathentry kind="lib" path="lib/jsp-api.jar"/>
+	<classpathentry kind="lib" path="lib/moskito-central.jar"/>
+	<classpathentry kind="lib" path="lib/moskito-webui.jar"/>
+	<classpathentry kind="lib" path="lib/xercesImpl.jar"/>
+	<classpathentry kind="lib" path="lib/xml-apis.jar"/>
+	<classpathentry kind="lib" path="lib/xml-resolver.jar"/>
 	<classpathentry kind="output" path="classes"/>
 </classpath>
