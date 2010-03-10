@@ -23,42 +23,28 @@
 	
 	<msk:define id="sortType" type="net.java.dev.moskito.webui.bean.ProducerBeanSortType" name="<%=decorator.getSortTypeName()%>"/>
 	
-	<%-- my bean for hiding table view.... 
-		<msk:define id="visibilityType" type="net.java.dev.moskito.webui.bean.ProducerBeanVisibilityType" name="<%=decorator.getProducerVisibilityTypeName()%>"/>
-	--%>
+	<msk:define id="visibility" type="net.java.dev.moskito.webui.bean.ProducerVisibility" name="decorator" property="visibility"/>
 
-	<msk:define id="visibilityType" type="net.java.dev.moskito.webui.bean.ProducerBeanVisibilityType" name="<%=decorator.getProducerVisibilityParameterName()%>" scope="request"/>
+	<% System.out.println(decorator.getVisibility()); %>
 	
 <%--  href="javascript:void(0);" --%>
 
 <%--make Href as onclick="sendRedirect" --%>
 
 	<h3>
-	<a	href="<msk:write name="linkToCurrentPage"/>&amp;<msk:write name="decorator" property="producerVisibilityParameterName"/>=HIDE">
+	<a	href="<msk:write name="linkToCurrentPage"/>&amp;<msk:write name="decorator" property="producerVisibilityParameterName"/>=<msk:write name="visibility" property="opposite"/>">
 		<msk:write name="decorator" property="name" />
 	</a>
+	<a target="_blank" class="help" href="mskShowExplanations#<msk:write name="decorator" property="name"/>">Help</a>&nbsp;			</h3>			
 	
-	Expanded val: <msk:write name="visibilityType" property="visibility" />
-	
-	<msk:equal name="visibilityType" property="visibility" value="SHOW">
-		SHOW = TRUE;
-	</msk:equal>
-	
-	<msk:equal name="visibilityType" property="visibility" value="HIDE">
-		HIDE = TRUE;
-	</msk:equal>
-	
-	</h3>			
-					
-	    <a target="_blank" class="help" href="mskShowExplanations#<msk:write name="decorator" property="name"/>">Help</a>&nbsp;		
-		<div class="clear"><!-- --></div>
+	<div class="clear"><!-- --></div>
 		<div class="table_itseft">
 			<div class="top">
 				<div class="left"><!-- --></div>
 				<div class="right"><!-- --></div>
 			</div>
 			<div class="in">			
-	
+	<msk:equal name="visibility" value="SHOW">
 		<table cellpadding="0" cellspacing="0" class="fll" id="<msk:write name="decorator" property="name"/>_table">
 		  <thead>
 			<tr class="stat_header">
@@ -196,6 +182,8 @@
 	 </tbody>
 	 </table>
     </div>
+	</msk:equal>
+	
     <div class="clear"><!-- --></div>
     </div>
 	<div class="bot">

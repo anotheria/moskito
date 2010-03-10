@@ -51,7 +51,7 @@ import net.java.dev.moskito.core.producers.IStatsProducer;
 import net.java.dev.moskito.webui.bean.MetaHeaderBean;
 import net.java.dev.moskito.webui.bean.ProducerBean;
 import net.java.dev.moskito.webui.bean.ProducerBeanSortType;
-import net.java.dev.moskito.webui.bean.ProducerBeanVisibilityType;
+import net.java.dev.moskito.webui.bean.ProducerVisibility;
 import net.java.dev.moskito.webui.bean.ProducerDecoratorBean;
 import net.java.dev.moskito.webui.bean.StatValueBean;
 import net.java.dev.moskito.webui.bean.UnitBean;
@@ -121,7 +121,7 @@ public abstract class BaseShowProducersAction extends BaseMoskitoUIAction{
 				pbs.add(pb);
 			}
 			b.setProducerBeans(StaticQuickSorter.sort(pbs, getProducerBeanSortType(b, req)));
-			b.setVisibilityTypeBean(getProducerVisibilityType(b, req));
+			b.setVisibility(getProducerVisibility(b, req));
 			beans.add(b);
 		}
 		
@@ -161,30 +161,28 @@ public abstract class BaseShowProducersAction extends BaseMoskitoUIAction{
 		return sortType;
 	}
 	
-	private ProducerBeanVisibilityType getProducerVisibilityType(ProducerDecoratorBean decoratorBean, HttpServletRequest req){
+	private ProducerVisibility getProducerVisibility(ProducerDecoratorBean decoratorBean, HttpServletRequest req){
 	
-		ProducerBeanVisibilityType visibilityTypeBean;
+		ProducerVisibility visibility;
 		
-		String paramVisibilityType = req.getParameter(decoratorBean.getProducerVisibilityParameterName());
+		String paramVisibility = req.getParameter(decoratorBean.getProducerVisibilityParameterName());
 		
-		if (paramVisibilityType != null && paramVisibilityType.length() > 0){
+		if (paramVisibility != null && paramVisibility.length() > 0){
 			
-			String visibility = paramVisibilityType.equals("SHOW") ? "SHOW" : "HIDE";			
-			visibilityTypeBean = new ProducerBeanVisibilityType(visibility);			
+			visibility = ProducerVisibility.fromString(paramVisibility);
+			req.getSession().setAttribute(decoratorBean.getProducerVisibilityBeanName(), visibility);
 			
-			req.getSession().setAttribute(decoratorBean.getProducerVisibilityTypeName(), visibilityTypeBean);
-			
-			return visibilityTypeBean;			
+			return visibility;			
 		}
 		
-		visibilityTypeBean = (ProducerBeanVisibilityType)req.getSession().getAttribute(decoratorBean.getProducerVisibilityTypeName());
+		visibility = (ProducerVisibility)req.getSession().getAttribute(decoratorBean.getProducerVisibilityBeanName());
 		
-		if (visibilityTypeBean == null) {			
+		if (visibility == null) {			
 			
-			visibilityTypeBean = new ProducerBeanVisibilityType();
-			req.getSession().setAttribute(decoratorBean.getProducerVisibilityParameterName(), visibilityTypeBean);
+			visibility = ProducerVisibility.SHOW;
+			req.getSession().setAttribute(decoratorBean.getProducerVisibilityBeanName(), visibility);
 		}
 		
-		return visibilityTypeBean;
+		return visibility;
 	}
 }
