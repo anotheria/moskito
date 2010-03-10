@@ -129,6 +129,8 @@ public abstract class BaseMoskitoUIAction implements Action{
 	public static final String BEAN_SORT_TYPE_PREFIX = "moskito.SortType";
 	public static final String BEAN_SORT_TYPE_SINGLE_PRODUCER_PREFIX = BEAN_SORT_TYPE_PREFIX+".single";
 	
+	public static final String BEAN_VISIBILITY_TYPE_PREFIX = "producer.VisibilityType";
+	
 	/**
 	 * Instance of the producer registry api.
 	 */

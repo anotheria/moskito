@@ -22,8 +22,33 @@
 	<div class="in">
 	
 	<msk:define id="sortType" type="net.java.dev.moskito.webui.bean.ProducerBeanSortType" name="<%=decorator.getSortTypeName()%>"/>
+	
+	<%-- my bean for hiding table view.... 
+		<msk:define id="visibilityType" type="net.java.dev.moskito.webui.bean.ProducerBeanVisibilityType" name="<%=decorator.getProducerVisibilityTypeName()%>"/>
+	--%>
 
-	<h2><a href="javascript:void(0);" class=""> <msk:write name="decorator" property="name" />&nbsp;&nbsp;</a></h2>			
+	<msk:define id="visibilityType" type="net.java.dev.moskito.webui.bean.ProducerBeanVisibilityType" name="<%=decorator.getProducerVisibilityParameterName()%>" scope="request"/>
+	
+<%--  href="javascript:void(0);" --%>
+
+<%--make Href as onclick="sendRedirect" --%>
+
+	<h3>
+	<a	href="<msk:write name="linkToCurrentPage"/>&amp;<msk:write name="decorator" property="producerVisibilityParameterName"/>=HIDE">
+		<msk:write name="decorator" property="name" />
+	</a>
+	
+	Expanded val: <msk:write name="visibilityType" property="visibility" />
+	
+	<msk:equal name="visibilityType" property="visibility" value="SHOW">
+		SHOW = TRUE;
+	</msk:equal>
+	
+	<msk:equal name="visibilityType" property="visibility" value="HIDE">
+		HIDE = TRUE;
+	</msk:equal>
+	
+	</h3>			
 					
 	    <a target="_blank" class="help" href="mskShowExplanations#<msk:write name="decorator" property="name"/>">Help</a>&nbsp;		
 		<div class="clear"><!-- --></div>

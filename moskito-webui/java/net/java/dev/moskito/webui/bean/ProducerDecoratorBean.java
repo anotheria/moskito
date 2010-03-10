@@ -50,9 +50,12 @@ public class ProducerDecoratorBean extends AbstractDecoratorBean {
 	
 	private List<ProducerBean> producers;
 	
+	private ProducerBeanVisibilityType visibilityTypeBean;
+	
 	public ProducerDecoratorBean(){
 		metaheader = new ArrayList<MetaHeaderBean>();
 		producers = new ArrayList<ProducerBean>();
+		visibilityTypeBean = new ProducerBeanVisibilityType();
 	}
 
 	public List<MetaHeaderBean> getMetaHeader(){
@@ -73,9 +76,23 @@ public class ProducerDecoratorBean extends AbstractDecoratorBean {
 	
 	public void setProducerBeans(List<ProducerBean> someProducers){
 		producers = someProducers;
-	}
+	}	
 	
+	
+	public ProducerBeanVisibilityType getVisibilityTypeBean() {
+		return visibilityTypeBean;
+	}
+
+	public void setVisibilityTypeBean(ProducerBeanVisibilityType visibilityTypeBean) {
+		this.visibilityTypeBean = visibilityTypeBean;
+	}
+
 	public String getSortTypeName(){
 		return BaseMoskitoUIAction.BEAN_SORT_TYPE_PREFIX + getName();
+	}
+	
+	public String getProducerVisibilityTypeName() {
+		//default - is expanded
+		return BaseMoskitoUIAction.BEAN_VISIBILITY_TYPE_PREFIX + getName();
 	}
 }
