@@ -31,11 +31,14 @@
 
 <%--make Href as onclick="sendRedirect" --%>
 
-	<h3>
+	<h2>
 	<a	href="<msk:write name="linkToCurrentPage"/>&amp;<msk:write name="decorator" property="producerVisibilityParameterName"/>=<msk:write name="visibility" property="opposite"/>">
 		<msk:write name="decorator" property="name" />
 	</a>
-	<a target="_blank" class="help" href="mskShowExplanations#<msk:write name="decorator" property="name"/>">Help</a>&nbsp;			</h3>			
+	</h2>
+	<a target="_blank" class="help" href="mskShowExplanations#<msk:write name="decorator" property="name"/>">Help</a>&nbsp;
+				
+				
 	
 	<div class="clear"><!-- --></div>
 		<div class="table_itseft">
