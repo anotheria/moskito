@@ -51,6 +51,7 @@ import net.java.dev.moskito.core.producers.IStatsProducer;
 import net.java.dev.moskito.webui.bean.MetaHeaderBean;
 import net.java.dev.moskito.webui.bean.ProducerBean;
 import net.java.dev.moskito.webui.bean.ProducerBeanSortType;
+import net.java.dev.moskito.webui.bean.ProducerBeanVisibilityType;
 import net.java.dev.moskito.webui.bean.ProducerDecoratorBean;
 import net.java.dev.moskito.webui.bean.StatValueBean;
 import net.java.dev.moskito.webui.bean.UnitBean;
@@ -120,6 +121,7 @@ public abstract class BaseShowProducersAction extends BaseMoskitoUIAction{
 				pbs.add(pb);
 			}
 			b.setProducerBeans(StaticQuickSorter.sort(pbs, getProducerBeanSortType(b, req)));
+			b.setVisibilityTypeBean(getProducerVisibilityType(b, req));
 			beans.add(b);
 		}
 		
@@ -157,5 +159,32 @@ public abstract class BaseShowProducersAction extends BaseMoskitoUIAction{
 			req.getSession().setAttribute(decoratorBean.getSortTypeName(), sortType);
 		}
 		return sortType;
+	}
+	
+	private ProducerBeanVisibilityType getProducerVisibilityType(ProducerDecoratorBean decoratorBean, HttpServletRequest req){
+	
+		ProducerBeanVisibilityType visibilityTypeBean;
+		
+		String paramVisibilityType = req.getParameter(decoratorBean.getProducerVisibilityParameterName());
+		
+		if (paramVisibilityType != null && paramVisibilityType.length() > 0){
+			
+			String visibility = paramVisibilityType.equals("SHOW") ? "SHOW" : "HIDE";			
+			visibilityTypeBean = new ProducerBeanVisibilityType(visibility);			
+			
+			req.getSession().setAttribute(decoratorBean.getProducerVisibilityTypeName(), visibilityTypeBean);
+			
+			return visibilityTypeBean;			
+		}
+		
+		visibilityTypeBean = (ProducerBeanVisibilityType)req.getSession().getAttribute(decoratorBean.getProducerVisibilityTypeName());
+		
+		if (visibilityTypeBean == null) {			
+			
+			visibilityTypeBean = new ProducerBeanVisibilityType();
+			req.getSession().setAttribute(decoratorBean.getProducerVisibilityParameterName(), visibilityTypeBean);
+		}
+		
+		return visibilityTypeBean;
 	}
 }

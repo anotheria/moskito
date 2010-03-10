@@ -9,7 +9,6 @@
 </head>
 <body>
 
-<script type="text/javascript" src="../js/function.js"></script>
 
 <div class="main_menu">
 	<div class="white_pl">

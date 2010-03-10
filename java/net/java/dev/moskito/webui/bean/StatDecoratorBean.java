@@ -6,7 +6,7 @@
  * 
  * All MoSKito files are distributed under MIT License:
  * 
- * Copyright (c) 2006 The MoSKito Project Team.
+ * Copyright (c) 2006 The MoSKito Project Team.м
  * 
  * Permission is hereby granted, free of charge,
  * to any person obtaining a copy of this software and
@@ -72,6 +72,6 @@ public class StatDecoratorBean extends AbstractDecoratorBean {
 
 	public String getSortTypeName(){
 		return BaseMoskitoUIAction.BEAN_SORT_TYPE_SINGLE_PRODUCER_PREFIX + getName();
-	}
+	}	
 
 }

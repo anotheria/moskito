@@ -115,6 +115,7 @@ public class ShowProducerAction extends BaseMoskitoUIAction{
 				sbs.add(sb);
 			}
 			b.setStats(StaticQuickSorter.sort(sbs, getStatBeanSortType(b, req)));
+			
 
 			//make cumulated entry
 			IStats s = statsForDecorator.get(0);
@@ -173,6 +174,6 @@ public class ShowProducerAction extends BaseMoskitoUIAction{
 			req.getSession().setAttribute(decoratorBean.getSortTypeName(), sortType);
 		}
 		return sortType;
-	}	
+	}
 
 }
