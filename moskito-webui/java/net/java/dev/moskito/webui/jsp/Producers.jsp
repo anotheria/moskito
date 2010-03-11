@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html;charset=UTF-8"	session="true"
-%><%@ taglib uri="http://www.anotheria.net/ano-tags"	prefix="msk"
+%><%@ taglib uri="http://www.anotheria.net/ano-tags" prefix="msk"
 %><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -22,17 +22,15 @@
 	<div class="in">
 	
 	<msk:define id="sortType" type="net.java.dev.moskito.webui.bean.ProducerBeanSortType" name="<%=decorator.getSortTypeName()%>"/>
-	
 	<msk:define id="visibility" type="net.java.dev.moskito.webui.bean.ProducerVisibility" name="decorator" property="visibility"/>
 
-	<% System.out.println(decorator.getVisibility()); %>
-	
 <%--  href="javascript:void(0);" --%>
 
 <%--make Href as onclick="sendRedirect" --%>
 
-	<h2>
-	<a	href="<msk:write name="linkToCurrentPage"/>&amp;<msk:write name="decorator" property="producerVisibilityParameterName"/>=<msk:write name="visibility" property="opposite"/>">
+	<msk:equal name="visibility" value="SHOW"><h2 class="titel_open"></msk:equal>
+	<msk:equal name="visibility" value="HIDE"><h2 class="title_collapsed"></msk:equal>
+	<a href="<msk:write name="linkToCurrentPage"/>&amp;<msk:write name="decorator" property="producerVisibilityParameterName"/>=<msk:write name="visibility" property="opposite"/>">
 		<msk:write name="decorator" property="name" />
 	</a>
 	</h2>
