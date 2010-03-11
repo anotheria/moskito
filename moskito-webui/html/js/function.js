@@ -87,20 +87,20 @@ $(function() {
 	};
 
 	//hides tables
-	$('h2 a').click(function() {
-		if ($(this).hasClass('hidden')){
-			$(this).parent().parent().css('padding-bottom', '5px');
-			$(this).parent().parent().find('.filter, .table_itseft, .help').show();
-			$(this).removeClass('hidden');
-			filter_2_open();
-			return false;			
-		} else {
-			$(this).parent().parent().css('padding-bottom', '0');
-			$(this).parent().parent().find('.filter, .table_itseft, .filter_2, .help').hide();
-			$(this).addClass('hidden');
-			return false;
-		}
-	});
+	//$('h2 a').click(function() {
+	//	if ($(this).hasClass('hidden')){
+	//		$(this).parent().parent().css('padding-bottom', '5px');
+	//		$(this).parent().parent().find('.filter, .table_itseft, .help').show();
+	//		$(this).removeClass('hidden');
+	//		filter_2_open();
+	//		return false;			
+	//	} else {
+	//		$(this).parent().parent().css('padding-bottom', '0');
+	//		$(this).parent().parent().find('.filter, .table_itseft, .filter_2, .help').hide();
+	//		$(this).addClass('hidden');
+	//		return false;
+	//	}
+	//});
 
 
 	filter_2_open();
