@@ -11,6 +11,22 @@
 					<li class="active"><a href="<msk:write name="mskShowAllProducers"/>">Producers</a>					
 					<div class="sub_menu">
 						<ul>
+							<msk:present name="intervals" scope="request">
+								<li>
+									<span>Interval:</span>
+									<select onchange="javascript:handleSelect(this)">									
+							 			<jsp:include page="IntervalSelection.jsp" flush="false" />			
+									</select>								
+								</li>
+							</msk:present>
+							<msk:present name="units" scope="request">
+								<li>	
+									<span>Unit:</span>
+									<select onchange="javascript:handleSelect(this)">									
+										<jsp:include page="UnitSelection.jsp" flush="false" />
+									</select>
+								</li>
+							</msk:present>							
 							<msk:present name="categories" scope="request">
 								<li>								
 									<span>Category:</span>
@@ -28,26 +44,8 @@
 									</select>								
 								</li>
 							</msk:present>
-							
-							<msk:present name="intervals" scope="request">
-								<li>
-									<span>Interval:</span>
-									<select onchange="javascript:handleSelect(this)">									
-							 			<jsp:include page="IntervalSelection.jsp" flush="false" />			
-									</select>								
-								</li>
-							</msk:present>
-							
-							<msk:present name="units" scope="request">
-								<li>	
-									<span>Unit:</span>
-									<select onchange="javascript:handleSelect(this)">									
-										<jsp:include page="UnitSelection.jsp" flush="false" />
-									</select>
-								</li>
-							</msk:present>							
+						    <div class="clear"><!-- --></div>
 						</ul>
-					    <div class="clear"><!-- --></div>
 					</div>
 					<div class="over_color"><div><!-- --></div></div>
 					</li>						

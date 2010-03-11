@@ -34,14 +34,11 @@
  */	
 package net.java.dev.moskito.webui.action;
 	
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import net.java.dev.moskito.core.producers.IStatsProducer;
-import net.java.dev.moskito.webui.bean.UnitCountBean;
 
 public class ShowProducersForCategoryAction extends BaseShowProducersAction{
 	
@@ -64,15 +61,6 @@ public class ShowProducersForCategoryAction extends BaseShowProducersAction{
 	public String getLinkToCurrentPage(HttpServletRequest req){
 		return "mskShowProducersByCategory?pCategory="+getCategoryParameter(req);
 	}
-	
-	public void doCustomProcessing(HttpServletRequest req, HttpServletResponse res){
-		List<String> categories = getAPI().getCategories();
-		List<UnitCountBean> beans = new ArrayList<UnitCountBean>(categories.size());
-		for (String catName : categories){
-			beans.add(new UnitCountBean(catName, getAPI().getAllProducersByCategory(catName).size()));
-		}
-		req.setAttribute("categories", beans);
- 	}
 	
 	@Override
 	protected String getActiveMenuCaption(HttpServletRequest req) {
