@@ -89,6 +89,8 @@ h2 {margin-top:-4px; height:20px; display:block;}
 h2 a {font-size:1.1em; color:black; padding-left:17px; background:url(../img/bgs.gif) 0 -1073px no-repeat; //font-size:0.7em;}
 h2 a:hover {color:black;}
 h2 a.hidden {background:url("../img/bgs.gif") 0 -1103px no-repeat;}
+.title_collapsed {background:url("../img/bgs.gif") 0 -1103px no-repeat;}
+.title_open {background:url(../img/bgs.gif) 0 -1073px no-repeat;}
 .filter_2 {margin-top:8px;}
 .filter_2 ul {margin-bottom:0;}
 .help {float:right; font-size:1.2em; margin-top:-2px;}
