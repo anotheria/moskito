@@ -34,14 +34,11 @@
  */	
 package net.java.dev.moskito.webui.action;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import net.java.dev.moskito.core.producers.IStatsProducer;
-import net.java.dev.moskito.webui.bean.UnitCountBean;
 
 /**
  * Renders all producers for a specific subsystem.
@@ -69,16 +66,6 @@ public class ShowProducersForSubsystemAction extends BaseShowProducersAction{
 	@Override public String getLinkToCurrentPage(HttpServletRequest req){
 		return "mskShowProducersBySubsystem?"+PARAM_SUBSYSTEM+"="+getSubsystemParameter(req);
 	}
-
-	@Override public void doCustomProcessing(HttpServletRequest req, HttpServletResponse res){
-		List<String> subsystems = getAPI().getSubsystems();		
-		//System.out.println("Subsystems: "+subsystems);
-		List<UnitCountBean> beans = new ArrayList<UnitCountBean>(subsystems.size());
-		for (String subName : subsystems){
-			beans.add(new UnitCountBean(subName, getAPI().getAllProducersBySubsystem(subName).size()));
-		}
-		req.setAttribute("subsystems", beans);
- 	}
 
 	@Override
 	protected String getActiveMenuCaption(HttpServletRequest req) {

@@ -55,6 +55,7 @@ import net.java.dev.moskito.webui.bean.ProducerVisibility;
 import net.java.dev.moskito.webui.bean.ProducerDecoratorBean;
 import net.java.dev.moskito.webui.bean.StatValueBean;
 import net.java.dev.moskito.webui.bean.UnitBean;
+import net.java.dev.moskito.webui.bean.UnitCountBean;
 import net.java.dev.moskito.webui.decorators.IDecorator;
 
 public abstract class BaseShowProducersAction extends BaseMoskitoUIAction{
@@ -135,7 +136,19 @@ public abstract class BaseShowProducersAction extends BaseMoskitoUIAction{
 	}
 	
 	protected void doCustomProcessing(HttpServletRequest req, HttpServletResponse res){
-		//do nothing
+		List<String> categories = getAPI().getCategories();
+		List<UnitCountBean> categoriesBeans = new ArrayList<UnitCountBean>(categories.size());
+		for (String catName : categories){
+			categoriesBeans.add(new UnitCountBean(catName, getAPI().getAllProducersByCategory(catName).size()));
+		}
+		req.setAttribute("categories", categoriesBeans);
+
+		List<String> subsystems = getAPI().getSubsystems();		
+		List<UnitCountBean> subsystemsBeans = new ArrayList<UnitCountBean>(subsystems.size());
+		for (String subName : subsystems){
+			subsystemsBeans.add(new UnitCountBean(subName, getAPI().getAllProducersBySubsystem(subName).size()));
+		}
+		req.setAttribute("subsystems", subsystemsBeans);
 	}
 	
 	
