@@ -1,15 +1,5 @@
 <%@ page language="java" contentType="text/html;charset=UTF-8" session="true"%>
 <%@ taglib uri="http://www.anotheria.net/ano-tags" prefix="msk"%>
-
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-<title>Moskito Producers <msk:write name="pageTitle" /></title>
-<link rel="stylesheet" href="mskCSS"/>
-</head>
-<body>
-
-
 <div class="main_menu">
 	<div class="white_pl">
 		<div class="top">
