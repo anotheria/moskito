@@ -28,24 +28,32 @@
 
 <%--make Href as onclick="sendRedirect" --%>
 
-	<msk:equal name="visibility" value="SHOW"><h2 class="titel_open"></msk:equal>
-	<msk:equal name="visibility" value="HIDE"><h2 class="title_collapsed"></msk:equal>
-	<a href="<msk:write name="linkToCurrentPage"/>&amp;<msk:write name="decorator" property="producerVisibilityParameterName"/>=<msk:write name="visibility" property="opposite"/>">
+	<msk:equal name="visibility" value="SHOW">
+		<h2 class="titel_open">
+		<a href="<msk:write name="linkToCurrentPage"/>&amp;<msk:write name="decorator" property="producerVisibilityParameterName"/>=<msk:write name="visibility" property="opposite"/>">
+			<msk:write name="decorator" property="name" />
+		</a>
+		</h2>
+	</msk:equal>
+	<msk:equal name="visibility" value="HIDE">
+		<h2 class="title_collapsed">
+			<a class="hidden" href="<msk:write name="linkToCurrentPage"/>&amp;<msk:write name="decorator" property="producerVisibilityParameterName"/>=<msk:write name="visibility" property="opposite" />">
 		<msk:write name="decorator" property="name" />
-	</a>
-	</h2>
+		</a>
+		</h2>
+	</msk:equal>
 	<a target="_blank" class="help" href="mskShowExplanations#<msk:write name="decorator" property="name"/>">Help</a>&nbsp;
 				
 				
 	
 	<div class="clear"><!-- --></div>
+	<msk:equal name="visibility" value="SHOW">
 		<div class="table_itseft">
 			<div class="top">
 				<div class="left"><!-- --></div>
 				<div class="right"><!-- --></div>
 			</div>
 			<div class="in">			
-	<msk:equal name="visibility" value="SHOW">
 		<table cellpadding="0" cellspacing="0" class="fll" id="<msk:write name="decorator" property="name"/>_table">
 		  <thead>
 			<tr class="stat_header">
