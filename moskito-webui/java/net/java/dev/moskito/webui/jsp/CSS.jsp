@@ -150,3 +150,4 @@ h2 a.hidden {background:url("../img/bgs.gif") 0 -1103px no-repeat;}
 .box_bot span {display:block; height:22px; background:url("../img/box_bot_m.png") 0 0 repeat-x; margin:0 30px;}
 .close_box {height:30px; width:30px; background:url("../img/box_close.png") 0 0 no-repeat; top:-25px; left:7px; display:block; position:relative;}
 .wrap_it td {white-space:normal !important;}
+.al_left {text-align:left !important;}
