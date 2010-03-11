@@ -191,7 +191,7 @@
 	 </tbody>
 	 </table>
     </div>
-	</msk:equal>
+
 	
     <div class="clear"><!-- --></div>
     </div>
@@ -200,6 +200,7 @@
 		<div class="right"><!-- --></div>
 	</div>
    </div>
+		</msk:equal>
 
    </div>
 
