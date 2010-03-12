@@ -62,9 +62,5 @@ public class ShowProducersForCategoryAction extends BaseShowProducersAction{
 		return "mskShowProducersByCategory?pCategory="+getCategoryParameter(req);
 	}
 	
-	@Override
-	protected String getActiveMenuCaption(HttpServletRequest req) {
-		return MenuItem.CATEGORIES.getCaption();
-	}
 
 }

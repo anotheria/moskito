@@ -36,7 +36,6 @@ package net.java.dev.moskito.webui.action;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Enumeration;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -55,7 +54,7 @@ import net.java.dev.moskito.core.stats.TimeUnit;
 import net.java.dev.moskito.core.usecase.recorder.IUseCaseRecorder;
 import net.java.dev.moskito.core.usecase.recorder.UseCaseRecorderFactory;
 import net.java.dev.moskito.webui.bean.IntervalBean;
-import net.java.dev.moskito.webui.bean.MenuItemBean;
+import net.java.dev.moskito.webui.bean.NaviItem;
 import net.java.dev.moskito.webui.bean.UnitBean;
 import net.java.dev.moskito.webui.decorators.DecoratorRegistryFactory;
 import net.java.dev.moskito.webui.decorators.IDecoratorRegistry;
@@ -146,46 +145,6 @@ public abstract class BaseMoskitoUIAction implements Action{
 	
 
 	
-	static enum MenuItem{
-		/**
-		 * Menu item for all producers.
-		 */
-		ALLPRODUCERS("All Producers", "mskShowAllProducers"),
-		/**
-		 * Menu item for categories.
-		 */
-		CATEGORIES("Categories", "mskShowProducersByCategory"),
-		/**
-		 * Menu item for subsystems.
-		 */
-		SUBSYSTEMS("Subsystems", "mskShowProducersBySubsystem"),
-		/**
-		 * Menu item for use cases.
-		 */
-		USECASES("Use Cases", "mskShowUseCases"),
-		/**
-		 * Menu item for monitoring sessions.
-		 */
-		MONITORINGSESSIONS("Monitoring Sessions", "mskShowMonitoringSessions");
-		
-		/**
-		 * Menu item caption.
-		 */
-		private String caption;
-		/**
-		 * Menu item link.
-		 */
-		private String link;
-		
-		private MenuItem(String aCaption, String aLink){
-			caption = aCaption;
-			link = aLink;
-		}
-		
-		public String getCaption(){
-			return caption;
-		}
-	}
 	/**
 	 * ProducerId for moskito.
 	 */
@@ -275,21 +234,6 @@ public abstract class BaseMoskitoUIAction implements Action{
 	@Override
 	public void preProcess(ActionMapping mapping, HttpServletRequest req, HttpServletResponse res) throws Exception {
 		
-		//prepare menu
-		List<MenuItemBean> menu = new ArrayList<MenuItemBean>();
-		String activeMenuCaption = getActiveMenuCaption(req);
-		MenuItem[] items = MenuItem.values(); 
-		for (int i=0; i<items.length; i++){
-			String c = items[i].caption;
-			menu.add(new MenuItemBean(c, items[i].link, c.equals(activeMenuCaption)));
-		}
-		req.setAttribute("menu",menu);
-		// maybe - delete it...
-		
-		for (MenuItem menuItem : MenuItem.values()) {
-			req.setAttribute(menuItem.link, menuItem.link);
-		}
-		
 		
 		///////////// prepare intervals
 		List<IntervalInfo> intervalInfos = getAPI().getPresentIntervals();
@@ -309,6 +253,7 @@ public abstract class BaseMoskitoUIAction implements Action{
 		req.setAttribute("linkToCurrentPageAsXml", maskAsXML(getLinkToCurrentPage(req)));
 		req.setAttribute("linkToCurrentPageAsCsv", maskAsCSV(getLinkToCurrentPage(req)));
 		
+		req.setAttribute("currentNaviItem", getCurrentNaviItem());
 	}
 	
 	
@@ -323,10 +268,6 @@ public abstract class BaseMoskitoUIAction implements Action{
 
 	protected abstract String getLinkToCurrentPage(HttpServletRequest req);
 	
-	protected String getActiveMenuCaption(HttpServletRequest req){
-		return "";
-	}
-
 	protected static IDecoratorRegistry getDecoratorRegistry(){
 		return decoratorRegistry;
 	}
@@ -347,4 +288,6 @@ public abstract class BaseMoskitoUIAction implements Action{
 			return link + extension;
 		return link.substring(0,indexOfQ)+extension+link.substring(indexOfQ);
 	}
+	
+	protected abstract NaviItem getCurrentNaviItem();
 }

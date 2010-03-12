@@ -12,6 +12,7 @@ import net.anotheria.maf.bean.FormBean;
 import net.anotheria.util.sorter.DummySortType;
 import net.anotheria.util.sorter.StaticQuickSorter;
 import net.java.dev.moskito.webui.bean.DecoratorExplanationBean;
+import net.java.dev.moskito.webui.bean.NaviItem;
 import net.java.dev.moskito.webui.decorators.DecoratorRegistryFactory;
 import net.java.dev.moskito.webui.decorators.IDecorator;
 
@@ -43,6 +44,10 @@ public class ShowExplanationsAction extends BaseMoskitoUIAction{
 		
 		req.setAttribute("decorators", beans);
 		return mapping.findForward("success");
+	}
+	@Override
+	protected final NaviItem getCurrentNaviItem() {
+		return NaviItem.NONE;
 	}
 
 }

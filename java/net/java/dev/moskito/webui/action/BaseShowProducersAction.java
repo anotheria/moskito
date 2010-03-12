@@ -49,6 +49,7 @@ import net.anotheria.util.sorter.StaticQuickSorter;
 import net.java.dev.moskito.core.producers.IStats;
 import net.java.dev.moskito.core.producers.IStatsProducer;
 import net.java.dev.moskito.webui.bean.MetaHeaderBean;
+import net.java.dev.moskito.webui.bean.NaviItem;
 import net.java.dev.moskito.webui.bean.ProducerBean;
 import net.java.dev.moskito.webui.bean.ProducerBeanSortType;
 import net.java.dev.moskito.webui.bean.ProducerVisibility;
@@ -198,4 +199,10 @@ public abstract class BaseShowProducersAction extends BaseMoskitoUIAction{
 		
 		return visibility;
 	}
+	
+	@Override
+	protected final NaviItem getCurrentNaviItem() {
+		return NaviItem.PRODUCERS;
+	}
+
 }

@@ -14,6 +14,7 @@ import net.java.dev.moskito.core.usecase.session.IMonitoringSessionManager;
 import net.java.dev.moskito.core.usecase.session.MonitoringSession;
 import net.java.dev.moskito.core.usecase.session.MonitoringSessionManagerFactory;
 import net.java.dev.moskito.webui.bean.MonitoringSessionListItemBean;
+import net.java.dev.moskito.webui.bean.NaviItem;
 
 public class ShowMonitoringSessionsAction extends BaseMoskitoUIAction{
 	
@@ -52,5 +53,9 @@ public class ShowMonitoringSessionsAction extends BaseMoskitoUIAction{
 		return mapping.findForward("success");
 	}
 	
-	
+	@Override
+	protected NaviItem getCurrentNaviItem() {
+		return NaviItem.SESSIONS;
+	}
+
 }

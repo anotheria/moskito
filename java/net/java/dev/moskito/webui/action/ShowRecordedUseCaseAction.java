@@ -13,6 +13,7 @@ import net.anotheria.util.NumberUtils;
 import net.java.dev.moskito.core.stats.TimeUnit;
 import net.java.dev.moskito.core.usecase.running.ExistingRunningUseCase;
 import net.java.dev.moskito.core.usecase.running.PathElement;
+import net.java.dev.moskito.webui.bean.NaviItem;
 import net.java.dev.moskito.webui.bean.RecordedUseCaseBean;
 import net.java.dev.moskito.webui.bean.UseCasePathElementBean;
 
@@ -67,5 +68,11 @@ public class ShowRecordedUseCaseAction extends BaseMoskitoUIAction{
 		b.setTimespent(unit.transformNanos(element.getDuration() - timespentInChilds));
 		
 	}
+	
+	@Override
+	protected final NaviItem getCurrentNaviItem() {
+		return NaviItem.USECASES;
+	}
+
 
 }

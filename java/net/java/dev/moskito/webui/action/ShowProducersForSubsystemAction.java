@@ -67,10 +67,4 @@ public class ShowProducersForSubsystemAction extends BaseShowProducersAction{
 		return "mskShowProducersBySubsystem?"+PARAM_SUBSYSTEM+"="+getSubsystemParameter(req);
 	}
 
-	@Override
-	protected String getActiveMenuCaption(HttpServletRequest req) {
-		return MenuItem.SUBSYSTEMS.getCaption();
-	}
-
-	
 }

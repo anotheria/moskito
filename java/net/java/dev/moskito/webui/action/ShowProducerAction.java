@@ -51,6 +51,7 @@ import net.java.dev.moskito.core.inspection.CreationInfo;
 import net.java.dev.moskito.core.inspection.Inspectable;
 import net.java.dev.moskito.core.producers.IStats;
 import net.java.dev.moskito.core.producers.IStatsProducer;
+import net.java.dev.moskito.webui.bean.NaviItem;
 import net.java.dev.moskito.webui.bean.ProducerBean;
 import net.java.dev.moskito.webui.bean.StatBean;
 import net.java.dev.moskito.webui.bean.StatBeanSortType;
@@ -175,5 +176,11 @@ public class ShowProducerAction extends BaseMoskitoUIAction{
 		}
 		return sortType;
 	}
+	
+	@Override
+	protected NaviItem getCurrentNaviItem() {
+		return NaviItem.PRODUCERS;
+	}
+
 
 }
