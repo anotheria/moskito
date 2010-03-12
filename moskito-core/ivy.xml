@@ -9,6 +9,7 @@
     <dependencies>
         <dependency org="org.apache" name="log4j" rev="stable" transitive="false"/>
         <dependency org="anotheria.net" name="ano-util" rev="latest" transitive="true" changing="true"/>
+        <dependency org="java.net" name="configureme" rev="latest" transitive="true" changing="true"/>
         <dependency org="org" name="junit" rev="stable" transitive="false"/>
     </dependencies>
 </ivy-module>

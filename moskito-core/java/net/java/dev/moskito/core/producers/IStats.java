@@ -49,9 +49,10 @@ public interface IStats {
 	 * This method creates a snapshot of the undelying statistical value in a given dimension. 
 	 * 
 	 * @param aIntervalName the name of the interval the values were collected for
+     * @param producerId points to producer instance that produces the stats
 	 * @return the snapshot
 	 */
-	IStatsSnapshot createSnapshot(String aIntervalName);
+	IStatsSnapshot createSnapshot(String aIntervalName, String producerId);
 	
 	/**
 	 * This method creates a human-readable textual representation of all statistical

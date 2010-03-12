@@ -51,4 +51,6 @@ public interface IStatsSnapshot {
     Date getDateCreated();
 
     String getInterfaceName();
+
+    String getProducerId();
 }
