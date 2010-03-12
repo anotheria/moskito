@@ -37,7 +37,7 @@ public enum SnapshotArchiverRegistry {
             registeredArchivers.add(archiver);
             return archiver;
         } catch (Exception e) {
-            throw new RuntimeException("Failed to create stats archiver from configureme config file");
+            throw new RuntimeException("Failed to create stats archiver from configureme config file", e);
         }
     }
 
