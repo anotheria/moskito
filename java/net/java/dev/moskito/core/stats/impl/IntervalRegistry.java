@@ -43,8 +43,10 @@ import java.util.concurrent.atomic.AtomicInteger;
 import net.java.dev.moskito.core.stats.Interval;
 import net.java.dev.moskito.core.stats.IntervalRegistryListener;
 import net.java.dev.moskito.core.stats.UnknownIntervalException;
+import net.java.dev.moskito.core.stats.IIntervalListener;
 import net.java.dev.moskito.core.timing.IUpdateTriggerService;
 import net.java.dev.moskito.core.timing.UpdateTriggerServiceFactory;
+import net.java.dev.moskito.core.producers.SnapshotCreator;
 
 /**
  * This class implements a registry singleton to hold and create Interval instances.
@@ -97,7 +99,17 @@ public class IntervalRegistry {
 		nextId = new AtomicInteger(1);
 
 		registryListeners = new ArrayList<IntervalRegistryListener>();
-	}
+
+        registryListeners.add(new IntervalRegistryListener() {
+            public void intervalCreated(Interval aInterval) {
+                aInterval.addSecondaryIntervalListener(new IIntervalListener() {
+                    public void intervalUpdated(Interval aCaller) {
+                        SnapshotCreator.INSTANCE.createSnapshot(aCaller);
+                    }
+                });
+            }
+        });
+    }
 
 	/**
 	 * This is the Singleton instance accessor method.

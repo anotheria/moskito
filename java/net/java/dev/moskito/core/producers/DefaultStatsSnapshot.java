@@ -7,6 +7,7 @@ public class DefaultStatsSnapshot implements IStatsSnapshot {
 	
 	private String name;
     private String interfaceName;
+    private String producerId;
     private Date dateCreated;
 	private Map<String, Number> properties;
 	
@@ -44,5 +45,13 @@ public class DefaultStatsSnapshot implements IStatsSnapshot {
 
     public void setInterfaceName(String interfaceName) {
         this.interfaceName = interfaceName;
+    }
+
+    public String getProducerId() {
+        return producerId;
+    }
+
+    public void setProducerId(String producerId) {
+        this.producerId = producerId;
     }
 }

@@ -84,9 +84,9 @@ public abstract class AbstractStats implements IStats {
 	 * The stats properties are identified by corresponding convenience getter method that returns one of:
 	 * int, long, double
 	 * 
-	 * @see net.java.dev.moskito.core.producers.IStats#createSnapshot(java.lang.String)
+	 * @see net.java.dev.moskito.core.producers.IStats#createSnapshot(java.lang.String, java.lang.String)
 	 */
-	public IStatsSnapshot createSnapshot(String aIntervalName){
+	public IStatsSnapshot createSnapshot(String aIntervalName, String producerId){
 		
 		Map<String, Number> snapshotProperties = new HashMap<String, Number>();
 		Method[] methods = this.getClass().getMethods();
@@ -106,6 +106,7 @@ public abstract class AbstractStats implements IStats {
 		snapshot.setProperties(snapshotProperties);
 		snapshot.setName(getName());
         snapshot.setInterfaceName(getClass().getSimpleName());
+        snapshot.setProducerId(producerId);
         return snapshot;
 	}
 	
