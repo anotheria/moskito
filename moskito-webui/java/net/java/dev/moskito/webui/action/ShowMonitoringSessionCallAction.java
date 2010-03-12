@@ -15,6 +15,7 @@ import net.java.dev.moskito.core.usecase.running.ExistingRunningUseCase;
 import net.java.dev.moskito.core.usecase.running.PathElement;
 import net.java.dev.moskito.core.usecase.session.MonitoringSession;
 import net.java.dev.moskito.core.usecase.session.MonitoringSessionManagerFactory;
+import net.java.dev.moskito.webui.bean.NaviItem;
 import net.java.dev.moskito.webui.bean.RecordedUseCaseBean;
 import net.java.dev.moskito.webui.bean.UseCaseElementNodeBean;
 import net.java.dev.moskito.webui.bean.UseCasePathElementBean;
@@ -100,6 +101,11 @@ public class ShowMonitoringSessionCallAction extends BaseMoskitoUIAction{
 		}
 		b.setTimespent(unit.transformNanos((element.getDuration() - timespentInChilds)));
 		
+	}
+
+	@Override
+	protected NaviItem getCurrentNaviItem() {
+		return NaviItem.SESSIONS;
 	}
 
 }

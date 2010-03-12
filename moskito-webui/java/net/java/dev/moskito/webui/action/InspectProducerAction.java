@@ -48,6 +48,7 @@ import net.anotheria.util.NumberUtils;
 import net.java.dev.moskito.core.inspection.CreationInfo;
 import net.java.dev.moskito.core.inspection.Inspectable;
 import net.java.dev.moskito.core.producers.IStatsProducer;
+import net.java.dev.moskito.webui.bean.NaviItem;
 /**
  * Inspects the given producer and forwards to the inspection page.
  * @author lrosenberg
@@ -82,4 +83,10 @@ public class InspectProducerAction extends BaseMoskitoUIAction{
 	protected String getLinkToCurrentPage(HttpServletRequest req) {
 		return req.getRequestURI()+"?"+PARAM_PRODUCER_ID+"="+req.getParameter(PARAM_PRODUCER_ID);
 	}
+	
+	@Override
+	protected final NaviItem getCurrentNaviItem() {
+		return NaviItem.NONE;
+	}
+
 }

@@ -11,6 +11,7 @@ import net.anotheria.maf.action.ActionMapping;
 import net.anotheria.maf.bean.FormBean;
 import net.anotheria.util.NumberUtils;
 import net.java.dev.moskito.core.usecase.running.ExistingRunningUseCase;
+import net.java.dev.moskito.webui.bean.NaviItem;
 import net.java.dev.moskito.webui.bean.RecordedUseCaseListItemBean;
 
 public class ShowUseCasesAction extends BaseMoskitoUIAction{
@@ -41,5 +42,11 @@ public class ShowUseCasesAction extends BaseMoskitoUIAction{
 			req.setAttribute("recordedAvailableFlag", Boolean.TRUE);
 		return mapping.findForward("success");
 	}
+	
+	@Override
+	protected final NaviItem getCurrentNaviItem() {
+		return NaviItem.USECASES;
+	}
+
 
 }

@@ -61,11 +61,4 @@ public class ShowAllProducersAction extends BaseShowProducersAction{
 		return "mskShowAllProducers?ts="+System.currentTimeMillis();
 	}
 
-	@Override
-	protected String getActiveMenuCaption(HttpServletRequest req) {
-		return MenuItem.ALLPRODUCERS.getCaption();
-	}
-	
-	
-
 }

@@ -88,11 +88,6 @@ public class ShowProducersAction extends BaseShowProducersAction{
 		return "mskShowProducers?ts="+System.currentTimeMillis();
 	}
 
-	@Override
-	protected String getActiveMenuCaption(HttpServletRequest req) {
-		return ""; 
-	}
-	
 	public void doCustomProcessing(HttpServletRequest req, HttpServletResponse res){
 		List<String> categories = getAPI().getCategories();
 		List<UnitCountBean> categoriesBeans = new ArrayList<UnitCountBean>(categories.size());
