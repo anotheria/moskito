@@ -12,7 +12,7 @@
 <script type="text/javascript" src="../js/jquery-1.4.min.js"></script>
 <script type="text/javascript" src="../js/function.js"></script>
 
-<jsp:include page="ProducersMainMenu.jsp" flush="false" />
+<jsp:include page="Menu.jsp" flush="false" />
 
 <div class="main">
 <msk:iterate type="net.java.dev.moskito.webui.bean.ProducerDecoratorBean" 	id="decorator" name="decorators">	

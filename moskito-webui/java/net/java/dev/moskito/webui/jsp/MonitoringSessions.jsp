@@ -7,7 +7,7 @@
 <link rel="stylesheet" href="mskCSS"/>
 </head>
 <body>
-<jsp:include page="MonitoringSessionMainMenu.jsp" flush="false"/>
+<jsp:include page="Menu.jsp" flush="false"/>
 <h3>Monitoring sessions</h3>
 <msk:present name="monitoringSessionsPresent" scope="request">
 <table cellpadding="4" cellspacing="0" border="0">
