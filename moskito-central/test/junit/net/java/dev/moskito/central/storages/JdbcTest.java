@@ -73,7 +73,7 @@ public class JdbcTest {
         	for (Interval interval : INTERVALS) {
         		//test if interval is ended on current minute
         		if (((i + 1) * 60) % interval.getLength() == 0) {
-        			DefaultStatsSnapshot snapshot = (DefaultStatsSnapshot) stats.createSnapshot(interval.getName());
+        			DefaultStatsSnapshot snapshot = (DefaultStatsSnapshot) stats.createSnapshot(interval.getName(), "jdbctest");
                     snapshot.setDateCreated(then);
                     List<IStatsSnapshot> snapshots = new ArrayList<IStatsSnapshot>();
         			snapshots.add(snapshot);

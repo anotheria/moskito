@@ -18,13 +18,9 @@ import net.java.dev.moskito.central.StatStorage;
  *         Time: 3:08:34 PM
  */
 public abstract class AbstractConnector implements ISnapshotArchiver {
-    protected IStats stats;
     protected StatStorage storage;
-    protected String hostName;
 
-    public AbstractConnector(StatStorage storage, IStats stats, String hostName) {
+    public AbstractConnector(StatStorage storage) {
         this.storage = storage;
-        this.stats = stats;
-        this.hostName = hostName;
     }
 }

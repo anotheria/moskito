@@ -20,13 +20,13 @@ import java.util.Date;
 public class SynchroneousConnector extends AbstractConnector {
 
 
-    public SynchroneousConnector(IStats stats, StatStorage storage, String hostName) {
-        super(storage, stats, hostName);
+    public SynchroneousConnector(StatStorage storage) {
+        super(storage);
     }
 
-    public void archive(Interval aCaller) {
+    public void archive(Interval aCaller, IStatsSnapshot snapshot, String hostName) {
         List<IStatsSnapshot> snapshots = new ArrayList<IStatsSnapshot>();
-        snapshots.add(stats.createSnapshot(aCaller.getName()));
+        snapshots.add(snapshot);
         try {
             storage.store(snapshots, new Date(), hostName, aCaller);
         } catch (Exception e) {

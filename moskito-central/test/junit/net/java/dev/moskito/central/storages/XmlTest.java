@@ -58,7 +58,7 @@ public class XmlTest {
                 calendar.add(Calendar.DATE, 1);
                 Date then = calendar.getTime();
                 for (Interval interval : INTERVALS) {
-                    DefaultStatsSnapshot snapshot = (DefaultStatsSnapshot) stats.createSnapshot(interval.getName());
+                    DefaultStatsSnapshot snapshot = (DefaultStatsSnapshot) stats.createSnapshot(interval.getName(), "xmltest");
                     snapshot.setDateCreated(then);
                     List<IStatsSnapshot> snapshots = new ArrayList<IStatsSnapshot>();
                     snapshots.add(snapshot);

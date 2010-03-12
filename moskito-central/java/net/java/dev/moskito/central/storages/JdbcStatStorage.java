@@ -17,6 +17,11 @@ import net.java.dev.moskito.core.producers.DefaultStatsSnapshot;
 import net.java.dev.moskito.core.producers.IStatsSnapshot;
 import net.java.dev.moskito.core.stats.Interval;
 
+/**
+ * TODO: Make sure the implementation saves all the snapshot data to the database
+ * this jdbc implementation has not beed of high importance since xml storage appered
+ * that is the reason why this implementation might become outdated
+ */
 public class JdbcStatStorage implements StatStorage {
 
 	private Connection connection;

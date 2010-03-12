@@ -67,6 +67,8 @@ public class XmlStatStorage implements StatStorage {
             pathBuilder.append('/');
             pathBuilder.append(interval.getName());
             pathBuilder.append('/');
+            pathBuilder.append(snapshot.getProducerId());
+            pathBuilder.append('/');
             pathBuilder.append(DEFAULT_DATE_DIR_FORMAT.format(when));
             pathBuilder.append('/');
             pathBuilder.append(snapshot.getInterfaceName());
@@ -92,6 +94,10 @@ public class XmlStatStorage implements StatStorage {
 
     private StorageFileResolver storageFileResolver;
 
+    public XmlStatStorage(String rootDir) {
+        this(new File(rootDir));
+    }
+
     public XmlStatStorage(File rootDir) {
         storageFileResolver = new DefaultStorageFileResolver(rootDir);
     }
@@ -114,6 +120,7 @@ public class XmlStatStorage implements StatStorage {
                     doc.appendChild(root);
                     root.setAttribute("host", host);
                     root.setAttribute("interval", interval.getName());
+                    root.setAttribute("producerId", snapshot.getProducerId());
                     writeDate(root, (when == null) ? snapshot.getDateCreated() : when);
                     //todo: finish
                     Iterator<String> it = snapshot.getProperties().keySet().iterator();

@@ -25,7 +25,7 @@ public interface StatStorage {
      * @param host that generates the stats
 	 * @param interval time interval which is used for stats calculation
 	 * 
-	 * @throws exception in case the storage cannot store the snapshots for some reason
+	 * @throws StatStorageException in case the storage cannot store the snapshots for some reason
 	 */
 	void store(Collection<IStatsSnapshot> snapshots, Date when, String host, Interval interval) throws StatStorageException;
 	
@@ -38,7 +38,7 @@ public interface StatStorage {
 	 * @param statName
 	 * @param interval
 	 * @return snapshot instance or null if none was recorded that matches the criteria
-	 * @throws exception in case the storage cannot load or calculate the snapshots for some reason
+	 * @throws StatStorageException in case the storage cannot load or calculate the snapshots for some reason
 	 */
 	IStatsSnapshot queryLastSnapshotByDate(Date when, String host, String statName, Interval interval) throws StatStorageException;
 	
