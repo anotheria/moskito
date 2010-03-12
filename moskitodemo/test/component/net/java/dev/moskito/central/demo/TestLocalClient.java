@@ -1,6 +1,7 @@
 package net.java.dev.moskito.central.demo;
 
 import net.java.dev.moskito.central.storages.XmlStatStorage;
+import net.java.dev.moskito.core.stats.impl.IntervalRegistry;
 
 import java.io.File;
 import java.io.Serializable;
@@ -14,13 +15,10 @@ import java.io.Serializable;
  */
 public class TestLocalClient {
     public static void main(String[] args) {
+        IntervalRegistry.getInstance();
         File storageDir = new File("/projects/companies/Anotheria/SVN/tests/xml");
         storageDir.mkdirs();
-        IDemoService service = new DemoServiceImpl(
-                new XmlStatStorage(
-                        storageDir
-                )
-        );
+        IDemoService service = new DemoServiceImpl();
 
         long limit = 10000;
         long start = System.nanoTime();

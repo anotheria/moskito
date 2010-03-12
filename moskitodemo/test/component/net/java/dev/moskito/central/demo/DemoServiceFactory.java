@@ -11,6 +11,6 @@ import net.anotheria.anoprise.metafactory.ServiceFactory;
  */
 public class DemoServiceFactory implements ServiceFactory<IDemoService> {
     public IDemoService create() {
-        return new DemoServiceImpl(StorageRegistry.getInstance().getStorage());
+        return new DemoServiceImpl();
     }
 }
