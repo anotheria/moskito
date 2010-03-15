@@ -13,6 +13,10 @@ import java.util.Date;
  * This represents Moskito Cetral storage connector.
  * This is implemented to store Moskito stats on remote storage using 
  * via predefined synchroneous network protocols, i.e. RMI, CORBA, JMS, ...
+ *
+ * Using this connector stats are stored within the same thread.
+ * This can notcably impact performance of other operetaion which might take place
+ * per interval update. If this really matters you can use the AssychroneousConnector
  *   
  * @author igor
  *
