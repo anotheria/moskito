@@ -2,6 +2,6 @@
     className: "net.java.dev.moskito.central.storages.SynchroneousConnector",
     archiversConstructorMoreParams: "",
     storageClassName: "net.java.dev.moskito.central.storages.XmlStatStorage",
-    storageParams: "/projects/companies/Anotheria/SVN/tests/xml",
+    storageParams: "/home/imer/projects/ano/XML",
     hostName: "thishost.net"
 }
