@@ -21,11 +21,11 @@
 				</fileset>
 			</classpath>
 		</apt>
-	  	<copy toDir="${classes.dir}">
+	  	<!--copy toDir="${classes.dir}">
 			<fileset dir="java">
 				<include name="**/*.json"/>
 			</fileset>
-		</copy>
+		</copy-->
 	</target>
 	
 	<target name="clean" depends="clean.webapp">
