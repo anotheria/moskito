@@ -6,7 +6,6 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
 	<classpathentry kind="lib" path="lib/ano-tags.jar"/>
 	<classpathentry kind="lib" path="lib/junit.jar"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/ano-maf"/>
 	<classpathentry kind="lib" path="lib/ano-maf.jar"/>
 	<classpathentry kind="lib" path="lib/servlet-api.jar"/>
 	<classpathentry kind="lib" path="lib/moskito-core.jar"/>

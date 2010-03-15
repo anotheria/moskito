@@ -11,9 +11,7 @@
 	<classpathentry kind="lib" path="lib/moskito-util.jar"/>
 	<classpathentry kind="lib" path="lib/jsp-api.jar"/>
 	<classpathentry kind="lib" path="lib/commons-beanutils.jar"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/moskito-web"/>
 	<classpathentry kind="lib" path="lib/moskito-web.jar"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/ano-maf"/>
 	<classpathentry kind="lib" path="lib/ano-maf.jar"/>
 	<classpathentry kind="output" path="classes"/>
 </classpath>
