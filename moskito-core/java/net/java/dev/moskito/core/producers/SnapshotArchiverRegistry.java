@@ -32,7 +32,10 @@ public enum SnapshotArchiverRegistry {
             Object[] storageParams = parseParams(null, config.getStorageParams());
             Object storage = storageClass.getConstructor(getClassesArray(storageParams)).newInstance(storageParams);
             Class archiverClass = Class.forName(config.getClassName());
-            Object[] archiverParams = parseParams(storage, config.getArchiversConstructorMoreParams());
+            Object[] archiverParams = parseParams(
+                    storage,
+                    config.getArchiversConstructorMoreParams()
+            );
             ISnapshotArchiver archiver = (ISnapshotArchiver) archiverClass.getConstructor(getClassesArray(archiverParams)).newInstance(archiverParams);
             registeredArchivers.add(archiver);
             return archiver;
@@ -60,9 +63,15 @@ public enum SnapshotArchiverRegistry {
         return result;
     }
 
-    private static Class[] getClassesArray(Object[] allParams) {
+    private static Class[] getClassesArray(Object[] allParams) throws Exception {
         Class[] result = new Class[allParams.length];
-        for (int i = 0; i < result.length; i++) result[i] = allParams[i].getClass();
+        Class storageClass = Class.forName("net.java.dev.moskito.central.StatStorage");
+        boolean firstStorage = (allParams.length > 0 && allParams[0] != null && storageClass.isInstance(allParams[0]));
+        if (firstStorage) {
+            result[0] = storageClass;
+        }
+        int startIndex = firstStorage ? 1 : 0;
+        for (int i = startIndex; i < result.length; i++) result[i] = allParams[i].getClass();
         return result;
     }
 }
