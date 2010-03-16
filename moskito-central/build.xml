@@ -39,7 +39,7 @@
                 <delete file="${dist.dir}/${target.jar.name}"></delete>
 	</target>
 
-	<target name="prepare" depends="clean,basic-project.prepare">
+	<target name="prepare" depends="basic-project.prepare">
 		<mkdir dir="generated/java"/>
 	</target>
 	
@@ -50,6 +50,13 @@
          	</fileset>
 		</jar>
 	</target>
+
+	<target name="test-compile" depends="test-prepare">
+		<javac destdir="${classes.dir}" srcdir="${test.dir}" debug="on" deprecation="off" optimize="on" encoding="ISO-8859-15">
+			<classpath refid="test.classpath" />
+		</javac>
+	</target>
+
 	<!--target name="dist" depends="clean,prepare,ivy-retrieve,jar"/-->
 
 </project>
