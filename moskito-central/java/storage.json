@@ -1,4 +1,4 @@
 {
     storageClassName: "net.java.dev.moskito.central.storages.XmlStatStorage",
-    storageParams: "/projects/companies/Anotheria/SVN/tests/xml"
+    storageParams: "/home/imer/projects/ano/XML"
 }
