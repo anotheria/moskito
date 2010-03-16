@@ -87,12 +87,13 @@ public class AssynchroneousConnector extends AbstractConnector {
                 },
                 queueLimit, log
         );
+        processor.start();
     }
 
     public void archive(Interval aCaller, IStatsSnapshot snapshot, String hostName) {
         try {
             processor.addToQueueDontWait(
-            new StorageParamObject(
+                new StorageParamObject(
                     aCaller,
                     snapshot,
                     hostName,
