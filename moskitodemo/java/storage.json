@@ -1,0 +1,4 @@
+{
+    storageClassName: "net.java.dev.moskito.central.storages.XmlStatStorage",
+    storageParams: "/home/imer/projects/ano/XML"
+}
