@@ -1,4 +1,4 @@
-release_path=`pwd`
+release_path=/cygdrive/d/projects/companies/Anotheria/SVN/opensource/moskito/moskito-central
 dist=dist/moskito-central.jar
 lib=lib
 etc=etc

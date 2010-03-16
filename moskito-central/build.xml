@@ -35,9 +35,11 @@
 	
 	<target name="clean" depends="basic-project.clean">
 		<delete dir="generated/java"></delete>
+                <delete dir="${classes.dir}"></delete>
+                <delete file="${dist.dir}/${target.jar.name}"></delete>
 	</target>
 
-	<target name="prepare" depends="basic-project.prepare">
+	<target name="prepare" depends="clean,basic-project.prepare">
 		<mkdir dir="generated/java"/>
 	</target>
 	
@@ -50,4 +52,6 @@
          	</fileset>
 		</jar>
 	</target>
+	<!--target name="dist" depends="clean,prepare,ivy-retrieve,jar"/-->
+
 </project>
