@@ -6,6 +6,11 @@ import java.util.Date;
 import net.java.dev.moskito.core.producers.IStatsSnapshot;
 import net.java.dev.moskito.core.stats.Interval;
 
+
+import net.anotheria.anoprise.metafactory.Service;
+
+import org.distributeme.annotation.DistributeMe;
+
 /**
  * This interface represents local storage for Miskito stats.
  * This is implemented to store Miskito stats to RDBMS, text file, 
@@ -15,7 +20,10 @@ import net.java.dev.moskito.core.stats.Interval;
  * @author igor
  *
  */
-public interface StatStorage {
+@DistributeMe(
+		initcode={"MetaFactory.addFactoryClass(net.java.dev.moskito.central.StatStorage.class, Extension.LOCAL, net.java.dev.moskito.central.storages.RemoteStorageFactory.class);"}
+)
+public interface StatStorage extends Service {
 	
 	/**
 	 * Stores list of stat snapshots for given interval. 

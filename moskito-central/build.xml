@@ -10,4 +10,44 @@
 		in order for this build script to work.
 	-->
 
+	<target name="mytest-compile">
+		<apt compile="true" 
+			factory="org.distributeme.processors.GeneratorProcessorFactory" 
+			srcdir="java" 
+			destdir="${classes.dir}"
+			preprocessdir="generated/java" >
+			<option name="includescript" value="../../../java/service-env.sh"/>
+			<classpath>
+				<fileset dir="${lib.project}">
+					<include name="**/*.jar"/>
+				</fileset>
+			</classpath>
+		</apt>
+		<!--
+		<javac destdir="${classes.dir}" srcdir="test/java" debug="on" deprecation="off" optimize="on" encoding="ISO-8859-15">
+			<classpath>
+				<fileset dir="${lib.project}">
+					<include name="**/*.jar"/>
+				</fileset>
+			</classpath>
+		</javac>-->
+	</target>
+	
+	<target name="clean" depends="basic-project.clean">
+		<delete dir="generated/java"></delete>
+	</target>
+
+	<target name="prepare" depends="basic-project.prepare">
+		<mkdir dir="generated/java"/>
+	</target>
+	
+	<target name="compile" depends="prepare,basic-compile,mytest-compile"/>
+	
+	<target name="jar" depends="compile">
+		<jar jarfile="${dist.dir}/${target.jar.name}" index="false">
+         	<fileset dir="${classes.dir}">
+         		<include name="**/*"/>
+         	</fileset>
+		</jar>
+	</target>
 </project>
