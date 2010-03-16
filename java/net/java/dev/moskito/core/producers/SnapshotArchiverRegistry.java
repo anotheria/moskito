@@ -28,9 +28,7 @@ public enum SnapshotArchiverRegistry {
 
     public ISnapshotArchiver registerArchiver(SnapshotArchiverConfig config) {
         try {
-            Class storageClass = Class.forName(config.getStorageClassName());
-            Object[] storageParams = parseParams(null, config.getStorageParams());
-            Object storage = storageClass.getConstructor(getClassesArray(storageParams)).newInstance(storageParams);
+            Object storage = createStorage(config.getStorageClassName(), config.getStorageParams());
             Class archiverClass = Class.forName(config.getClassName());
             Object[] archiverParams = parseParams(
                     storage,
@@ -42,6 +40,12 @@ public enum SnapshotArchiverRegistry {
         } catch (Exception e) {
             throw new RuntimeException("Failed to create stats archiver from configureme config file", e);
         }
+    }
+
+    public Object createStorage(String storageClassName, String stringStorageParams) throws Exception {
+        Class storageClass = Class.forName(storageClassName);
+        Object[] storageParams = parseParams(null, stringStorageParams);
+        return storageClass.getConstructor(getClassesArray(storageParams)).newInstance(storageParams);
     }
 
     private static Object[] parseParams(Object firstParam, String params) {
