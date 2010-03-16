@@ -10,7 +10,7 @@
 		in order for this build script to work.
 	-->
 
-	<target name="mytest-compile">
+	<target name="compile">
 		<apt compile="true" 
 			factory="org.distributeme.processors.GeneratorProcessorFactory" 
 			srcdir="java" 
@@ -42,8 +42,6 @@
 	<target name="prepare" depends="clean,basic-project.prepare">
 		<mkdir dir="generated/java"/>
 	</target>
-	
-	<target name="compile" depends="prepare,basic-compile,mytest-compile"/>
 	
 	<target name="jar" depends="compile">
 		<jar jarfile="${dist.dir}/${target.jar.name}" index="false">
