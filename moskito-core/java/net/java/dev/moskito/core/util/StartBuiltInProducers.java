@@ -24,6 +24,12 @@ public class StartBuiltInProducers {
 		initialized = true;
 		
 		startJavaMemoryProducers();
+		startJavaThreadingProducers();
+	}
+	
+	private static void startJavaThreadingProducers(){
+		IProducerRegistry registry = ProducerRegistryFactory.getProducerRegistryInstance();
+		registry.registerProducer(new BuiltInThreadCountProducer());
 	}
 	
 	private static void startJavaMemoryProducers(){
