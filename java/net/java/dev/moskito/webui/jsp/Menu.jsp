@@ -4,7 +4,7 @@
 	<div class="white_pl">
 		<div class="top">
 			<div class="left_bg"><!-- --></div>
-				<a href="#" class="logo"><img alt="MoSKito WebUI" src="<msk:write name="mskPathToImages" scope="application"/>moskito_webui_logo.gif" width="131" height="25"/></a>
+				<a href="mskShowAllProducers" class="logo"><img alt="MoSKito WebUI" src="<msk:write name="mskPathToImages" scope="application"/>moskito_webui_logo.gif" width="131" height="25"/></a>
 				<ul>
 					<msk:equal name="currentNaviItem" value="PRODUCERS"
 					><li class="active"><a href="mskShowAllProducers">Producers</a>					
