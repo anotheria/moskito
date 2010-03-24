@@ -15,6 +15,7 @@ package net.java.dev.moskito.core.stats.impl;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
+import java.io.Serializable;
 
 import net.java.dev.moskito.core.stats.IIntervalListener;
 import net.java.dev.moskito.core.stats.Interval;
@@ -28,7 +29,7 @@ import net.java.dev.moskito.core.timing.IUpdateable;
  * 
  * @author dvayanu
  */
-class IntervalImpl implements IUpdateable, Interval {
+class IntervalImpl implements IUpdateable, Interval, Serializable {
 	
 	/**
 	 * This is the human readable name of this Interval. 
