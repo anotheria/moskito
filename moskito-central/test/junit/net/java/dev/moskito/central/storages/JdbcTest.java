@@ -77,7 +77,7 @@ public class JdbcTest {
                     snapshot.setDateCreated(then);
                     List<IStatsSnapshot> snapshots = new ArrayList<IStatsSnapshot>();
         			snapshots.add(snapshot);
-        			jdbcStorage.store(snapshots, then, "localhost", interval);
+        			jdbcStorage.store(snapshots, then, "localhost", interval.getName());
         		}
         	}
         }
@@ -103,7 +103,7 @@ public class JdbcTest {
         assertEquals(readTotalRequests, stats.getTotalRequests());
         
         // handle 1.b using stored 1 minute intervals
-        IStatsSnapshot snapshot = jdbcStorage.queryLastSnapshotByDate(new Date(), "localhost", "test", DefaultIntervals.ONE_MINUTE);
+        IStatsSnapshot snapshot = jdbcStorage.queryLastSnapshotByDate(new Date(), "localhost", "test", DefaultIntervals.ONE_MINUTE.getName());
         assertEquals(snapshot.getProperties().get("TotalRequests"), (double) stats.getTotalRequests());
         
         // shutdown db
