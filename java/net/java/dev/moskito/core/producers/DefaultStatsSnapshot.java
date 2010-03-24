@@ -2,8 +2,9 @@ package net.java.dev.moskito.core.producers;
 
 import java.util.Date;
 import java.util.Map;
+import java.io.Serializable;
 
-public class DefaultStatsSnapshot implements IStatsSnapshot {
+public class DefaultStatsSnapshot implements IStatsSnapshot, Serializable {
 	
 	private String name;
     private String interfaceName;
