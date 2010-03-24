@@ -19,6 +19,7 @@ import org.w3c.dom.bootstrap.DOMImplementationRegistry;
 import org.w3c.dom.ls.DOMImplementationLS;
 import org.w3c.dom.ls.LSSerializer;
 import org.w3c.dom.ls.LSOutput;
+import org.apache.log4j.Logger;
 
 /**
  * TODO: purpose
@@ -91,6 +92,8 @@ public class XmlStatStorage implements StatStorage {
         }
     }
 
+    private static Logger log = Logger.getLogger(AssynchroneousConnector.class);
+
     private StorageFileResolver storageFileResolver;
 
     public XmlStatStorage(String rootDir) {
@@ -110,8 +113,12 @@ public class XmlStatStorage implements StatStorage {
         for (final IStatsSnapshot snapshot : snapshots) {
             File xmlFile = storageFileResolver.buildFileRef(snapshot, when, host, interval);
             if (xmlFile.exists()) {
-                throw new StatStorageException("Stats has already been stored for host " + host +
-                "The stats can only be stored once per millisecond for the given host for a given interval");
+                log.warn("Stats has already been stored in file " + xmlFile.getPath() +
+                    ". The stats are detailed below:\n" + StatStorageUtils.createLogMessage(snapshot, when, host, interval)
+                );
+                continue;
+//                throw new StatStorageException("Stats has already been stored for host " + host +
+//                "The stats can only be stored once per millisecond for the given host for a given interval");
             }
             new XmlFileCreationAlgorithm(xmlFile) {
                 protected void doCreate(Document doc) {

@@ -81,7 +81,8 @@ public class AssynchroneousConnector extends AbstractConnector {
                         try {
                             storage.store(snapshots, storageParamObject.getWhen(), storageParamObject.getHostName(), storageParamObject.getInterval());
                         } catch (Exception e) {
-                            e.printStackTrace(System.err);
+                            log.warn("Failed to store stats snapshot for stats:\n" +
+                                StatStorageUtils.createLogMessage(storageParamObject.getSnapshot(), storageParamObject.getWhen(), storageParamObject.getHostName(), storageParamObject.getInterval()), e);
                         }
                     }
                 },
