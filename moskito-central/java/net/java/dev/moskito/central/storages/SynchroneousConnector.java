@@ -32,7 +32,7 @@ public class SynchroneousConnector extends AbstractConnector {
         List<IStatsSnapshot> snapshots = new ArrayList<IStatsSnapshot>();
         snapshots.add(snapshot);
         try {
-            storage.store(snapshots, new Date(), hostName, aCaller);
+            storage.store(snapshots, new Date(), hostName, aCaller.getName());
         } catch (Exception e) {
             e.printStackTrace(System.err);
         }

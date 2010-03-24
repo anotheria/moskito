@@ -31,19 +31,19 @@ public class AssynchroneousConnector extends AbstractConnector {
     private static Logger log = Logger.getLogger(AssynchroneousConnector.class);
 
     protected class StorageParamObject {
-        private Interval interval;
+        private String interval;
         private IStatsSnapshot snapshot;
         private String hostName;
         private Date when;
 
-        public StorageParamObject(Interval interval, IStatsSnapshot snapshot, String hostName, Date when) {
+        public StorageParamObject(String interval, IStatsSnapshot snapshot, String hostName, Date when) {
             this.interval = interval;
             this.snapshot = snapshot;
             this.hostName = hostName;
             this.when = when;
         }
 
-        public Interval getInterval() {
+        public String getInterval() {
             return interval;
         }
 
@@ -94,7 +94,7 @@ public class AssynchroneousConnector extends AbstractConnector {
         try {
             processor.addToQueueDontWait(
                 new StorageParamObject(
-                    aCaller,
+                    aCaller.getName(),
                     snapshot,
                     hostName,
                     new Date()
