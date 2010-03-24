@@ -3,7 +3,6 @@
 	<classpathentry kind="src" path="java"/>
 	<classpathentry kind="src" path="test/junit"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/moskito-core"/>
 	<classpathentry kind="lib" path="lib/ano-util.jar"/>
 	<classpathentry kind="lib" path="lib/BlowfishJ.jar"/>
 	<classpathentry kind="lib" path="lib/commons-beanutils.jar"/>
@@ -19,5 +18,11 @@
 	<classpathentry kind="lib" path="lib/xercesImpl.jar"/>
 	<classpathentry kind="lib" path="lib/xml-apis.jar"/>
 	<classpathentry kind="lib" path="lib/xml-resolver.jar"/>
+	<classpathentry kind="lib" path="lib/ano-prise.jar"/>
+	<classpathentry kind="lib" path="lib/configureme.jar"/>
+	<classpathentry kind="lib" path="lib/distributeme.jar"/>
+	<classpathentry kind="lib" path="lib/json.jar"/>
+	<classpathentry kind="lib" path="lib/moskito-util.jar"/>
+	<classpathentry kind="lib" path="lib/servlet-api.jar"/>
 	<classpathentry kind="output" path="classes"/>
 </classpath>
