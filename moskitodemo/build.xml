@@ -34,6 +34,10 @@
                 <delete file="${dist.dir}/${target.jar.name}"></delete>
 	</target>
 
+	<target name="copy-config-files"/>
+	<target name="copy-tlds"/>
+	<target name="copy-statics"/>
+
 	<target name="prepare" depends="basic-web-project.prepare.webapp">
 		<mkdir dir="generated/java"/>
 	</target>

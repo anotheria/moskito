@@ -9,7 +9,7 @@ done
 
 lib=$lib:dist/$artefact:java
 #rmicodebase="file:$PWD/dist/$ $rmicodebase"
-rmicodebase="file:$PWD/dist/$artefact"
+rmicodebase="$rmicodebase file:$PWD/dist/$artefact"
 CLASSPATH=classes:etc:$lib
 echo CLASSPATH: $CLASSPATH
 echo rmicodebase=$rmicodebase
