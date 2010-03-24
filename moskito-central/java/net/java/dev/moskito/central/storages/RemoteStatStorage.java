@@ -2,7 +2,6 @@ package net.java.dev.moskito.central.storages;
 
 import net.java.dev.moskito.core.producers.IStatsSnapshot;
 import net.java.dev.moskito.core.producers.SnapshotArchiverRegistry;
-import net.java.dev.moskito.core.stats.Interval;
 import net.java.dev.moskito.central.StatStorage;
 import net.java.dev.moskito.central.StatStorageException;
 
@@ -65,11 +64,11 @@ public class RemoteStatStorage implements StatStorage {
         System.err.println("Configuration has been aborted. Please try again ...");
     }
 
-    public void store(Collection<IStatsSnapshot> snapshots, Date when, String host, Interval interval) throws StatStorageException {
+    public void store(Collection<IStatsSnapshot> snapshots, Date when, String host, String interval) throws StatStorageException {
         localStorage.store(snapshots, when, host, interval);
     }
 
-    public IStatsSnapshot queryLastSnapshotByDate(Date when, String host, String statName, Interval interval) throws StatStorageException {
+    public IStatsSnapshot queryLastSnapshotByDate(Date when, String host, String statName, String interval) throws StatStorageException {
         return localStorage.queryLastSnapshotByDate(when, host, statName, interval);
     }
 }

@@ -62,7 +62,7 @@ public class XmlTest {
                     snapshot.setDateCreated(then);
                     List<IStatsSnapshot> snapshots = new ArrayList<IStatsSnapshot>();
                     snapshots.add(snapshot);
-                    xmlStorage.store(snapshots, then, hostName, interval);
+                    xmlStorage.store(snapshots, then, hostName, interval.getName());
                 }
             }
         }

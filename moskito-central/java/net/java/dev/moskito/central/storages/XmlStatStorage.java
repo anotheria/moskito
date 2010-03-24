@@ -3,7 +3,6 @@ package net.java.dev.moskito.central.storages;
 import net.java.dev.moskito.central.StatStorage;
 import net.java.dev.moskito.central.StatStorageException;
 import net.java.dev.moskito.core.producers.IStatsSnapshot;
-import net.java.dev.moskito.core.stats.Interval;
 
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.DocumentBuilder;
@@ -31,7 +30,7 @@ import org.w3c.dom.ls.LSOutput;
 public class XmlStatStorage implements StatStorage {
 
     public static interface StorageFileResolver {
-        public File buildFileRef(IStatsSnapshot snapshot, Date when, String host, Interval interval);
+        public File buildFileRef(IStatsSnapshot snapshot, Date when, String host, String interval);
     }
 
     public static class DefaultStorageFileResolver implements StorageFileResolver {
@@ -59,13 +58,13 @@ public class XmlStatStorage implements StatStorage {
          * @param interval
          * @return file reference
          */
-        public File buildFileRef(IStatsSnapshot snapshot, Date when, String host, Interval interval) {
+        public File buildFileRef(IStatsSnapshot snapshot, Date when, String host, String interval) {
             StringBuilder pathBuilder = new StringBuilder();
             pathBuilder.append(rootDir.getPath());
             pathBuilder.append('/');
             pathBuilder.append(host);
             pathBuilder.append('/');
-            pathBuilder.append(interval.getName());
+            pathBuilder.append(interval);
             pathBuilder.append('/');
             pathBuilder.append(snapshot.getProducerId());
             pathBuilder.append('/');
@@ -106,7 +105,7 @@ public class XmlStatStorage implements StatStorage {
         this.storageFileResolver = storageFileResolver;
     }
 
-    public void store(Collection<IStatsSnapshot> snapshots, final Date when, final String host, final Interval interval) throws StatStorageException {
+    public void store(Collection<IStatsSnapshot> snapshots, final Date when, final String host, final String interval) throws StatStorageException {
 
         for (final IStatsSnapshot snapshot : snapshots) {
             File xmlFile = storageFileResolver.buildFileRef(snapshot, when, host, interval);
@@ -119,10 +118,10 @@ public class XmlStatStorage implements StatStorage {
                     Element root = doc.createElement("stats"); // Create Root Element
                     doc.appendChild(root);
                     root.setAttribute("host", host);
-                    root.setAttribute("interval", interval.getName());
+                    root.setAttribute("interval", interval);
                     root.setAttribute("producerId", snapshot.getProducerId());
                     writeDate(root, (when == null) ? snapshot.getDateCreated() : when);
-                    //todo: finish
+
                     Iterator<String> it = snapshot.getProperties().keySet().iterator();
                     while (it.hasNext()) {
                         String propName = it.next();
@@ -140,7 +139,7 @@ public class XmlStatStorage implements StatStorage {
         }
     }
 
-    public IStatsSnapshot queryLastSnapshotByDate(Date when, String host, String statName, Interval interval) throws StatStorageException {
+    public IStatsSnapshot queryLastSnapshotByDate(Date when, String host, String statName, String interval) throws StatStorageException {
         return null;
     }
     protected abstract class XmlFileCreationAlgorithm {

@@ -4,7 +4,6 @@ import java.util.Collection;
 import java.util.Date;
 
 import net.java.dev.moskito.core.producers.IStatsSnapshot;
-import net.java.dev.moskito.core.stats.Interval;
 
 
 import net.anotheria.anoprise.metafactory.Service;
@@ -31,11 +30,11 @@ public interface StatStorage extends Service {
 	 * @param snapshots list of stat snapshots
      * @param when stapshots created
      * @param host that generates the stats
-	 * @param interval time interval which is used for stats calculation
+	 * @param interval name which is used for stats calculation
 	 * 
 	 * @throws StatStorageException in case the storage cannot store the snapshots for some reason
 	 */
-	void store(Collection<IStatsSnapshot> snapshots, Date when, String host, Interval interval) throws StatStorageException;
+	void store(Collection<IStatsSnapshot> snapshots, Date when, String host, String interval) throws StatStorageException;
 	
 	/**
 	 * Retrieves the most recent snapshot recorded right before the given date
@@ -48,7 +47,7 @@ public interface StatStorage extends Service {
 	 * @return snapshot instance or null if none was recorded that matches the criteria
 	 * @throws StatStorageException in case the storage cannot load or calculate the snapshots for some reason
 	 */
-	IStatsSnapshot queryLastSnapshotByDate(Date when, String host, String statName, Interval interval) throws StatStorageException;
+	IStatsSnapshot queryLastSnapshotByDate(Date when, String host, String statName, String interval) throws StatStorageException;
 	
 	/**
 	 * FIXME: use more flexible version, pass parameters like Properties and return either StatValue 

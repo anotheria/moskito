@@ -3,7 +3,6 @@ package net.java.dev.moskito.central.storages;
 import net.java.dev.moskito.central.StatStorage;
 import net.java.dev.moskito.central.StatStorageException;
 import net.java.dev.moskito.core.producers.IStatsSnapshot;
-import net.java.dev.moskito.core.stats.Interval;
 
 import net.anotheria.anoprise.metafactory.Extension;
 import net.anotheria.anoprise.metafactory.MetaFactory;
@@ -28,11 +27,11 @@ public class LocalProxyStorage implements StatStorage {
         remoteStorage = MetaFactory.get(StatStorage.class, Extension.REMOTE);
     }
 
-    public void store(Collection<IStatsSnapshot> snapshots, Date when, String host, Interval interval) throws StatStorageException {
+    public void store(Collection<IStatsSnapshot> snapshots, Date when, String host, String interval) throws StatStorageException {
         remoteStorage.store(snapshots, when, host, interval);
     }
 
-    public IStatsSnapshot queryLastSnapshotByDate(Date when, String host, String statName, Interval interval) throws StatStorageException {
+    public IStatsSnapshot queryLastSnapshotByDate(Date when, String host, String statName, String interval) throws StatStorageException {
         return remoteStorage.queryLastSnapshotByDate(when, host, statName, interval);
     }
 }

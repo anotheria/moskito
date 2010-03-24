@@ -15,7 +15,6 @@ import net.java.dev.moskito.central.StatStorage;
 import net.java.dev.moskito.central.StatStorageException;
 import net.java.dev.moskito.core.producers.DefaultStatsSnapshot;
 import net.java.dev.moskito.core.producers.IStatsSnapshot;
-import net.java.dev.moskito.core.stats.Interval;
 
 /**
  * TODO: Make sure the implementation saves all the snapshot data to the database
@@ -33,7 +32,7 @@ public class JdbcStatStorage implements StatStorage {
 
 	@Override
 	public IStatsSnapshot queryLastSnapshotByDate(final Date when, final String host, final String statName,
-			final Interval interval) throws StatStorageException {
+			final String interval) throws StatStorageException {
 		
 		final IStatsSnapshot[] result = new IStatsSnapshot[1];
 		new JdbcDataAlgorithm() {
@@ -43,7 +42,7 @@ public class JdbcStatStorage implements StatStorage {
     			prep.clearParameters();
                 prep.setString(1, statName);
                 prep.setTimestamp(2, new java.sql.Timestamp(when.getTime()));
-                prep.setInt(3, interval.getLength());
+                prep.setString(3, interval); // fixme: should be interval length, the ussue was introduced due no complexitiex arisen after making remote storage with rmi (interval is not passed now)
                 prep.setString(4, host);
                 ResultSet rs = prep.executeQuery();
                 if (!rs.next()) {
@@ -84,7 +83,7 @@ public class JdbcStatStorage implements StatStorage {
 	}
 
 	@Override
-	public void store(Collection<IStatsSnapshot> snapshots, final Date when, final String host, final Interval interval)
+	public void store(Collection<IStatsSnapshot> snapshots, final Date when, final String host, final String interval)
 			throws StatStorageException {
 		
 		for (final IStatsSnapshot snapshot : snapshots) {
@@ -96,7 +95,7 @@ public class JdbcStatStorage implements StatStorage {
 	    			prep.clearParameters();
 	                prep.setString(1, snapshot.getName());
 	                prep.setTimestamp(2, new java.sql.Timestamp(when == null ? snapshot.getDateCreated().getTime() : when.getTime()));
-	                prep.setInt(3, interval.getLength());
+	                prep.setString(3, interval); //fixme
                     prep.setString(4, host);
                     prep.setString(5, snapshot.getInterfaceName());
                     prep.execute();
@@ -125,7 +124,7 @@ public class JdbcStatStorage implements StatStorage {
         try {
 			connection.commit();
 		} catch (SQLException e) {
-			throw new StatStorageException("Cannot commit interval " + interval.getName());
+			throw new StatStorageException("Cannot commit interval " + interval);
 		}
 		
 	}
