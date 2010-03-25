@@ -109,6 +109,7 @@ public final class SnapshotArchiverConfig {
             } catch (UnknownHostException e) {
                 configValid = false;
                 //throw new RuntimeException("Cannot create archivers config since host name information cannot be retrieved", e);
+                e.printStackTrace();
             }
         }
         valid = configValid;
@@ -129,6 +130,11 @@ public final class SnapshotArchiverConfig {
             ConfigurationManager.INSTANCE.configure(instance);
         } catch (IllegalArgumentException e) {
             // config is invalid
+            System.err.println("Failed to configure storage instance");
+            e.printStackTrace();
+        } catch (Throwable e) {
+            System.err.println("Failed to configure storage instance");
+            e.printStackTrace();
         }
         return instance;
     }
