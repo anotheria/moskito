@@ -136,6 +136,8 @@ public final class SnapshotArchiverConfig {
         } catch (Throwable e) {
             System.err.println("Failed to configure storage instance");
             e.printStackTrace();
+        } finally {
+            System.out.println("Archivers Config: " + instance.toString());
         }
         return instance;
     }
