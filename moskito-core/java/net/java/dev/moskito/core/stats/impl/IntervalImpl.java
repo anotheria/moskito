@@ -29,7 +29,7 @@ import net.java.dev.moskito.core.timing.IUpdateable;
  * 
  * @author dvayanu
  */
-class IntervalImpl implements IUpdateable, Interval, Serializable {
+class IntervalImpl implements IUpdateable, Interval {
 	
 	/**
 	 * This is the human readable name of this Interval. 
