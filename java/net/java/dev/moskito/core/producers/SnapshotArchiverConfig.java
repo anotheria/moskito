@@ -8,6 +8,7 @@ import org.configureme.annotations.AfterConfiguration;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
+import java.text.MessageFormat;
 
 /**
  * Configuration that is provided by any client software that
@@ -137,5 +138,10 @@ public final class SnapshotArchiverConfig {
             e.printStackTrace();
         }
         return instance;
+    }
+
+    private static final String TO_STRING_FORMAT = "className: {0}, archiversConstructorMoreParams {1}, storageClassName {2}, storageParams {3}, hostName {4}, valid {5}";
+    public String toString() {
+        return MessageFormat.format(TO_STRING_FORMAT, this.className, this.archiversConstructorMoreParams, this.storageClassName, this.storageParams, this.hostName, this.valid);
     }
 }
