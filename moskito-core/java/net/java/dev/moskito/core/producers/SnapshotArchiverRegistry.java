@@ -37,7 +37,7 @@ public enum SnapshotArchiverRegistry {
             ISnapshotArchiver archiver = (ISnapshotArchiver) archiverClass.getConstructor(getClassesArray(archiverParams)).newInstance(archiverParams);
             registeredArchivers.add(archiver);
             return archiver;
-        } catch (Exception e) {
+        } catch (Throwable e) {
             throw new RuntimeException("Failed to create stats archiver from configureme config file", e);
         }
     }
