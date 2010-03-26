@@ -10,6 +10,7 @@ import org.configureme.annotations.AfterConfiguration;
 import org.configureme.annotations.Configure;
 import org.configureme.annotations.ConfigureMe;
 import org.configureme.annotations.DontConfigure;
+import org.apache.log4j.Logger;
 
 /**
  * Configuration that is provided by any client software that wants their Moskito stats to be archived
@@ -41,7 +42,10 @@ import org.configureme.annotations.DontConfigure;
 @ConfigureMe(name = "archiver")
 public final class SnapshotArchiverConfig {
 
-	@Configure
+    private static Logger log = Logger.getLogger(SnapshotArchiverConfig.class);
+    public static final String FAILED_TO_CONFIGURE_MESSAGE = "MoSKito archiver is not configured, to enable stat storage please consult the documentation at http://infra.anotheria.net/confluence/display/MSK/Home";
+
+    @Configure
 	private String className;
 
 	@Configure
@@ -132,12 +136,12 @@ public final class SnapshotArchiverConfig {
 			instance = new SnapshotArchiverConfig();
 			try {
 				ConfigurationManager.INSTANCE.configure(instance);
-				System.out.println("Archivers Config: " + instance.toString());
-			} catch (IllegalArgumentException e) {
-				System.err.println("Failed to configure storage instance: " + e.getMessage());
 			} catch (Throwable e) {
-				System.err.println("Failed to configure storage instance: " + e.getMessage());
-			}
+				System.err.println(FAILED_TO_CONFIGURE_MESSAGE + "\nCause: " + e.getMessage());
+                log.warn(FAILED_TO_CONFIGURE_MESSAGE, e);
+            } finally {
+                log.info("Archivers Config: " + instance.toString());
+            }
 		}
 
 		return instance;

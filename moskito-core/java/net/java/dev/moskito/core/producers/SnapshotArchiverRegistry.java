@@ -3,6 +3,7 @@ package net.java.dev.moskito.core.producers;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.StringTokenizer;
+import org.apache.log4j.Logger;
 
 
 /**
@@ -16,6 +17,7 @@ public enum SnapshotArchiverRegistry {
 
     INSTANCE;
 
+    private static Logger log = Logger.getLogger(SnapshotArchiverRegistry.class);
     private List<ISnapshotArchiver> registeredArchivers = new ArrayList<ISnapshotArchiver>();
 
     public List<ISnapshotArchiver> getRegisteredArchivers() {
@@ -39,8 +41,9 @@ public enum SnapshotArchiverRegistry {
             registeredArchivers.add(archiver);
         } catch (Throwable e) {
             //throw new RuntimeException("Failed to create stats archiver from configureme config file", e);
-            System.err.println("Failed to create stats archiver from configureme config file: " + e.getMessage());
+            System.err.println(SnapshotArchiverConfig.FAILED_TO_CONFIGURE_MESSAGE + "\nCause: " + e.getMessage());
             //e.printStackTrace();
+            log.warn(SnapshotArchiverConfig.FAILED_TO_CONFIGURE_MESSAGE, e);
         }
         return archiver;
     }
