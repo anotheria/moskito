@@ -92,7 +92,7 @@ public class XmlStatStorage implements StatStorage {
         }
     }
 
-    private static Logger log = Logger.getLogger(AssynchroneousConnector.class);
+    private static Logger log = Logger.getLogger(XmlStatStorage.class);
 
     private StorageFileResolver storageFileResolver;
 
