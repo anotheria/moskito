@@ -4,6 +4,7 @@ package net.java.dev.moskito.core.producers;
 import net.java.dev.moskito.core.registry.ProducerRegistryFactory;
 import net.java.dev.moskito.core.stats.Interval;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -26,7 +27,9 @@ public enum SnapshotCreator {
     public void createSnapshot(Interval interval) {
         for (ISnapshotArchiver archiver : SnapshotArchiverRegistry.INSTANCE.getRegisteredArchivers()) {
             for (IStatsProducer producer : ProducerRegistryFactory.getProducerRegistryInstance().getProducers()) {
-                for (IStats stats : producer.getStats()) {
+            	ArrayList<IStats> statsList = new ArrayList<IStats>();
+            	statsList.addAll(producer.getStats());
+                for (IStats stats : statsList) {
                     archiver.archive(interval, stats.createSnapshot(interval.getName(), producer.getProducerId()), config.getHostName());
                 }
             }
