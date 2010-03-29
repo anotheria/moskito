@@ -1,7 +1,0 @@
-{
-    className: "net.java.dev.moskito.central.storages.AssynchroneousConnector",
-    archiversConstructorMoreParams: "",
-    storageClassName: "net.java.dev.moskito.central.storages.LocalProxyStorage",
-    storageParams: "",
-    hostName: "thishost.net"
-}
