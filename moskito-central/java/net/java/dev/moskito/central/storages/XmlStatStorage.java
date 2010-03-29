@@ -11,7 +11,6 @@ import java.util.Date;
 import java.util.Iterator;
 import java.io.File;
 import java.io.FileWriter;
-import java.text.SimpleDateFormat;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -20,6 +19,7 @@ import org.w3c.dom.ls.DOMImplementationLS;
 import org.w3c.dom.ls.LSSerializer;
 import org.w3c.dom.ls.LSOutput;
 import org.apache.log4j.Logger;
+import org.configureme.ConfigurationManager;
 
 /**
  * TODO: purpose
@@ -30,74 +30,13 @@ import org.apache.log4j.Logger;
  */
 public class XmlStatStorage implements StatStorage {
 
-    public static interface StorageFileResolver {
-        public File buildFileRef(IStatsSnapshot snapshot, Date when, String host, String interval);
-    }
-
-    public static class DefaultStorageFileResolver implements StorageFileResolver {
-
-        private File rootDir;
-        private static final SimpleDateFormat DEFAULT_DATE_DIR_FORMAT =  new SimpleDateFormat("yyyy_MM_dd");
-        private static final SimpleDateFormat DEFAULT_XML_FILE_NAME_FORMAT = new SimpleDateFormat("HH_mm_ss_SSS");
-        private static final String DEFAULT_EXT = "xml";
-
-        public DefaultStorageFileResolver(File rootDir) {
-            this.rootDir = rootDir;
-            if (!rootDir.exists()) {
-                throw new RuntimeException("XML stat storage root directory must exist: " + rootDir.getPath());
-            }
-        }
-
-        /**
-         * Implements the following storage structure
-         * 0 gedb01:/opt/data/gecollector/biz01/IUserService/5m/2008_01_01# ls -l | tail -30
-         * -rw-r--r-- 1 frs users 7754 Jan  1  2008 2008_01_01T21_29_43_761.xml
-         *
-         * @param snapshot
-         * @param when
-         * @param host
-         * @param interval
-         * @return file reference
-         */
-        public File buildFileRef(IStatsSnapshot snapshot, Date when, String host, String interval) {
-            StringBuilder pathBuilder = new StringBuilder();
-            pathBuilder.append(rootDir.getPath());
-            pathBuilder.append('/');
-            pathBuilder.append(host);
-            pathBuilder.append('/');
-            pathBuilder.append(interval);
-            pathBuilder.append('/');
-            pathBuilder.append(snapshot.getProducerId());
-            pathBuilder.append('/');
-            pathBuilder.append(DEFAULT_DATE_DIR_FORMAT.format(when));
-            pathBuilder.append('/');
-            pathBuilder.append(snapshot.getInterfaceName());
-
-            File dir = new File(pathBuilder.toString());
-            if (!dir.exists()) {
-                if (!dir.mkdirs()) {
-                    throw new RuntimeException("Cannot create disrectory in XML storage: " + dir.getPath());
-                }
-            }
-
-            if (!dir.exists()) throw new RuntimeException("XML stat storage directory must exist: " + dir.getPath());
-
-            pathBuilder.append('/');
-            pathBuilder.append(DEFAULT_DATE_DIR_FORMAT.format(when));
-            pathBuilder.append('T');
-            pathBuilder.append(DEFAULT_XML_FILE_NAME_FORMAT.format(when));
-            pathBuilder.append('.');
-            pathBuilder.append(DEFAULT_EXT);
-            return new File(pathBuilder.toString());
-        }
-    }
-
     private static Logger log = Logger.getLogger(XmlStatStorage.class);
 
     private StorageFileResolver storageFileResolver;
 
-    public XmlStatStorage(String rootDir) {
-        this(new File(rootDir));
+    public XmlStatStorage(String pathResolverClassName) throws Throwable {
+        this((StorageFileResolver) Class.forName(pathResolverClassName).newInstance());
+        ConfigurationManager.INSTANCE.configure(this.storageFileResolver);
     }
 
     public XmlStatStorage(File rootDir) {

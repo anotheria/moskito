@@ -21,7 +21,7 @@ import org.configureme.annotations.AbortedConfiguration;
  *         Date: Mar 16, 2010
  *         Time: 10:44:33 AM
  */
-@ConfigureMe(allfields=true, name="storage")
+@ConfigureMe(allfields=true, name="moskitoStorage")
 public class RemoteStatStorage implements StatStorage {
 
     private String storageClassName;
