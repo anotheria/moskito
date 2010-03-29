@@ -39,7 +39,7 @@ import org.apache.log4j.Logger;
  * 
  * @author imercuriev Date: Mar 11, 2010 Time: 10:01:42 AM
  */
-@ConfigureMe(name = "archiver")
+@ConfigureMe(name = "moskitoArchiver")
 public final class SnapshotArchiverConfig {
 
     private static Logger log = Logger.getLogger(SnapshotArchiverConfig.class);
