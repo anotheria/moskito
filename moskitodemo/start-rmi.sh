@@ -7,7 +7,7 @@ for file in $(ls $lib_path); do
  rmicodebase="$rmicodebase file:$PWD/$lib_path/$file"
 done
 
-lib=$lib:dist/$artefact:java
+lib=$lib:dist/$artefact:etc
 #rmicodebase="file:$PWD/dist/$ $rmicodebase"
 rmicodebase="$rmicodebase file:$PWD/dist/$artefact"
 CLASSPATH=classes:etc:$lib

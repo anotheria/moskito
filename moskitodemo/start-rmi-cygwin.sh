@@ -7,7 +7,7 @@ for file in $(ls $lib_path); do
  rmicodebase="$rmicodebase file:`cygpath -w $PWD/$lib_path/$file`"
 done
 
-lib=$lib"$lib_sep"`cygpath -w dist/$artefact`"$lib_sep"java
+lib=$lib"$lib_sep"`cygpath -w dist/$artefact`"$lib_sep"etc
 #rmicodebase="file:$PWD/dist/moskitodemo.jar $rmicodebase"
 rmicodebase="$rmicodebase file:`cygpath -w $PWD/dist/$artefact`"
 CLASSPATH=classes"$lib_sep"etc"$lib_sep"$lib
