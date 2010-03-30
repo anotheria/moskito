@@ -138,7 +138,7 @@ public final class SnapshotArchiverConfig {
 				ConfigurationManager.INSTANCE.configure(instance);
 			} catch (Throwable e) {
 				System.err.println(FAILED_TO_CONFIGURE_MESSAGE + "\nCause: " + e.getMessage());
-                log.warn(FAILED_TO_CONFIGURE_MESSAGE, e);
+                log.warn(FAILED_TO_CONFIGURE_MESSAGE + "\nCause: " + e.getMessage());
             } finally {
                 log.info("Archivers Config: " + instance.toString());
             }
