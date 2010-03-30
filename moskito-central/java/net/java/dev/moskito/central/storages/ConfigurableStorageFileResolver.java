@@ -26,12 +26,12 @@ import org.apache.log4j.Logger;
 @ConfigureMe(name = "moskitoCentralPath")
 public class ConfigurableStorageFileResolver implements StorageFileResolver {
 
-    private static final String PARAM_STORAGE_DIR = "storagedir";
-    private static final String PARAM_HOST = "host";
-    private static final String PARAM_INSTANCE = "instance";
-    private static final String PARAM_PRODUCER = "producer";
-    private static final String PARAM_INTERVAL_NAME = "intervalname";
-    private static final String PARAM_DATE = "date";
+    private static final String PARAM_STORAGE_DIR = "\\{storagedir\\}";
+    private static final String PARAM_HOST = "\\{host\\}";
+    private static final String PARAM_INSTANCE = "\\{instance\\}";
+    private static final String PARAM_PRODUCER = "\\{producer\\}";
+    private static final String PARAM_INTERVAL_NAME = "\\{intervalname\\}";
+    private static final String PARAM_DATE = "\\{date\\}";
 
     private static final String[] PATH_PARAMS = new String[] {
         PARAM_STORAGE_DIR, PARAM_HOST, PARAM_INSTANCE, PARAM_PRODUCER, PARAM_INTERVAL_NAME, PARAM_DATE
@@ -114,7 +114,8 @@ public class ConfigurableStorageFileResolver implements StorageFileResolver {
     public File buildFileRef(IStatsSnapshot snapshot, Date when, String host, String interval) {
         String fileDir = storageFileFormat
             .replaceAll(PARAM_STORAGE_DIR, rootDirString)
-            .replaceAll(PARAM_HOST, instanceName)
+            .replaceAll(PARAM_HOST, host)
+            .replaceAll(PARAM_INSTANCE, instanceName)
             .replaceAll(PARAM_PRODUCER, snapshot.getProducerId())
             .replaceAll(PARAM_INTERVAL_NAME, interval)
             .replaceAll(PARAM_DATE, DEFAULT_DATE_DIR_FORMAT.format(when));
