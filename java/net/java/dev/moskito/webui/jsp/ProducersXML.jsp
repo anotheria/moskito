@@ -24,13 +24,13 @@
 		</msk:iterate>      
     </decorator>
   </msk:iterate>
-  <graphdata>
+  <chartdata>
 	<msk:iterate type="net.java.dev.moskito.webui.bean.GraphDataBean" 	id="graph" name="graphDatas">
-	<graph name="<msk:write name="graph" property="caption"/>">
+	<chart name="<msk:write name="graph" property="caption"/>">
 		<msk:iterate name="graph" property="values" id="value" type="net.java.dev.moskito.webui.bean.GraphDataValueBean">
 			<value name="<msk:write name="value" property="name"/>"><msk:write name="value" property="value"/></value>
 		</msk:iterate>	
-	</graph>	
+	</chart>	
 	</msk:iterate> 
-  </graphdata>
+  </chartdata>
 </producers>
