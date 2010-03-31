@@ -9,6 +9,14 @@ public class GraphDataValueBean {
 		value = aValue;
 	}
 	
+	public String getName(){
+		return name;
+	}
+	
+	public String getValue(){
+		return value;
+	}
+	
 	@Override public String toString(){
 		return getJsValue();
 	}
