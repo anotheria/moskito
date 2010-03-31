@@ -70,7 +70,7 @@ a:hover {text-decoration:none; color:#55cc00; cursor:pointer;}
 .table_itseft .bot .left {background:url(../img/bgs.gif) 0 -960px no-repeat;}
 .table_itseft .bot .right {background:url(../img/bgs.gif) 100% -979px no-repeat;}
 .table_itseft .in table {border-collapse:collapse;}
-.table_itseft .in table td, .table_itseft .in table th {text-align:left; font-size:1.2em; padding:5px 10px 5px 5px; white-space:nowrap;}
+.table_itseft .in table td, .table_itseft .in table th {text-align:left; font-size:1.2em; padding:5px 5px 5px 5px; white-space:nowrap;}
 .table_itseft .in table td {padding-right:25px;}
 .table_itseft .in table th a {color:black; padding-right:15px;}
 .table_itseft .in table th a:hover {padding-right:15px; background:url(../img/bgs.gif) 100% -1015px no-repeat;}
@@ -150,3 +150,6 @@ h2 a.hidden {background:url("../img/bgs.gif") 0 -1103px no-repeat;}
 .close_box {height:30px; width:30px; background:url("../img/box_close.png") 0 0 no-repeat; top:-25px; left:7px; display:block; position:relative;}
 .wrap_it td {white-space:normal !important;}
 .al_left {text-align:left !important;}
+.table_itseft .in table th:hover .chart {background:url("../img/chart.gif") 2px 2px no-repeat;}
+.chart {background:none; padding:0 !important;}
+.lightbox #chartcontainer {text-align:center;}

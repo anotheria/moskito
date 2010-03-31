@@ -11,6 +11,7 @@
 <script type="text/javascript" src="../js/wz_tooltip.js"></script>
 <script type="text/javascript" src="../js/jquery-1.4.min.js"></script>
 <script type="text/javascript" src="../js/function.js"></script>
+<script type="text/javascript" src="../js/jscharts.js"></script>
 
 <jsp:include page="Menu.jsp" flush="false" />
 
@@ -143,16 +144,25 @@
 					<msk:equal name="sortType" property="sortBy" value="<%=\"\"+ind%>">
 						<msk:equal name="sortType" property="ASC" value="true">
 							<a 	class="down" title="descending resort by <msk:write name="caption" property="shortExplanationLowered"/>"
-								href="<msk:write name="linkToCurrentPage"/>&amp;<msk:write name="decorator" property="sortByParameterName"/>=<msk:write name="ind"/>&amp;<msk:write name="decorator" property="sortOrderParameterName"/>=DESC"><msk:write name="caption" property="caption"/></a>
+								href="<msk:write name="linkToCurrentPage"/>&amp;<msk:write name="decorator" property="sortByParameterName"/>=<msk:write name="ind"/>&amp;<msk:write name="decorator" property="sortOrderParameterName"/>=DESC"><msk:write name="caption" property="caption"/></a><a href="#"
+																								 onClick="lightbox($(this));"
+																								 class="chart"
+																								 title="chart">&nbsp;&nbsp;&nbsp;</a>
 						</msk:equal>
 						<msk:equal name="sortType" property="DESC" value="true">
 							<a 	class="up" title="ascending resort by <msk:write name="caption" property="shortExplanationLowered"/>"
-								href="<msk:write name="linkToCurrentPage"/>&amp;<msk:write name="decorator" property="sortByParameterName"/>=<msk:write name="ind"/>&amp;<msk:write name="decorator" property="sortOrderParameterName"/>=ASC"><msk:write name="caption" property="caption"/></a>
+								href="<msk:write name="linkToCurrentPage"/>&amp;<msk:write name="decorator" property="sortByParameterName"/>=<msk:write name="ind"/>&amp;<msk:write name="decorator" property="sortOrderParameterName"/>=ASC"><msk:write name="caption" property="caption"/></a><a href="#"
+																								 onClick="lightbox($(this));"
+																								 class="chart"
+																								 title="chart">&nbsp;&nbsp;&nbsp;</a>
 						</msk:equal>
 					</msk:equal>   
 					<msk:notEqual name="sortType" property="sortBy" value="<%=\"\"+ind%>">
 						<a 	class="" title="ascending sort by <msk:write name="caption" property="shortExplanationLowered"/>"
-							href="<msk:write name="linkToCurrentPage"/>&amp;<msk:write name="decorator" property="sortByParameterName"/>=<msk:write name="ind"/>&amp;<msk:write name="decorator" property="sortOrderParameterName"/>=ASC"><msk:write name="caption" property="caption"/></a>
+							href="<msk:write name="linkToCurrentPage"/>&amp;<msk:write name="decorator" property="sortByParameterName"/>=<msk:write name="ind"/>&amp;<msk:write name="decorator" property="sortOrderParameterName"/>=ASC"><msk:write name="caption" property="caption"/></a><a href="#"
+																								 onClick="lightbox($(this));"
+																								 class="chart"
+																								 title="chart">&nbsp;&nbsp;&nbsp;</a>
 					</msk:notEqual>
 			 </th>
 			</msk:iterate>			
@@ -208,6 +218,72 @@
 	</div>
 	</msk:iterate>
 	<div class="generated">Generated at <msk:write name="timestampAsDate"/>&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;timestamp: <msk:write name="timestamp"/></div>
+<div class="lightbox" style="display:none;">
+	<div class="black_bg"><!-- --></div>
+	<div class="box">
+		<div class="box_top">
+			<div><!-- --></div>
+			<span><!-- --></span>
+			<a class="close_box"><!-- --></a>
+
+			<div class="clear"><!-- --></div>
+		</div>
+		<div class="box_in">
+			<div class="right">
+				<div class="text_here">
+					<div id="chartcontainer"></div>
+				</div>
+			</div>
+		</div>
+		<div class="box_bot">
+			<div><!-- --></div>
+			<span><!-- --></span>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+	function lightbox(link) {
+		$('.lightbox').show();
+
+		var el = $('.lightbox');
+		var wid = el.find('.box').width();
+		var box = el.find('.box');
+		
+		box.css('left', '50%');
+		box.css('margin-left', -wid / 2);
+		box.css('top', link.offset().top);
+	}
+	;
+	var datas = new Array;
+
+	$('.chart').click(function() {
+		datas = [];
+		var i=0;
+		var tr_num = $(this).parents().filter('table').find('th').index($(this).parent());
+		$(this).parents().filter('.in').find('.table_right tbody tr').each(function() {
+			datas.push([$(this).parents().filter('.in:first').find('table:first tbody tr').eq(i).find('td:first a').html(), parseFloat($(this).find('td').eq(tr_num).html())])
+
+
+
+
+			i++;
+
+		});
+
+
+		var myData = datas;
+
+		var myChart = new JSChart('chartcontainer', 'pie');
+		myChart.setTitle($(this).parent().find('a:first').html());
+		myChart.setTitleColor('#000000');
+		myChart.setTitleFontSize(14);
+		myChart.setDataArray(myData);
+		myChart.draw();
+		return false;
+	});
+
+
+</script>
 </div>	
 </body>
 </html>
