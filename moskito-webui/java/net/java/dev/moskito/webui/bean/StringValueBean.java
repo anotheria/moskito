@@ -65,6 +65,12 @@ public class StringValueBean extends StatValueBean{
 	@Override public int compareTo(IComparable anotherComparable, int ignored) {
 		return BasicComparable.compareString(value, ((StringValueBean)anotherComparable).value);
 	}
+
+	@Override
+	public String getRawValue() {
+		return "NaN";
+	}
+	
 	
 	
 }

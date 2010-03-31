@@ -48,6 +48,8 @@ import net.anotheria.maf.bean.FormBean;
 import net.anotheria.util.sorter.StaticQuickSorter;
 import net.java.dev.moskito.core.producers.IStats;
 import net.java.dev.moskito.core.producers.IStatsProducer;
+import net.java.dev.moskito.webui.bean.GraphDataBean;
+import net.java.dev.moskito.webui.bean.GraphDataValueBean;
 import net.java.dev.moskito.webui.bean.MetaHeaderBean;
 import net.java.dev.moskito.webui.bean.NaviItem;
 import net.java.dev.moskito.webui.bean.ProducerBean;
@@ -76,7 +78,7 @@ public abstract class BaseShowProducersAction extends BaseMoskitoUIAction{
 		
 		List<IStatsProducer> producers = getProducers(req);
 		
-		
+		Map<String, GraphDataBean> graphData = new HashMap<String, GraphDataBean>();
 		
 		for (IStatsProducer producer : producers){
 			try{
@@ -87,8 +89,12 @@ public abstract class BaseShowProducersAction extends BaseMoskitoUIAction{
 					
 					List<MetaHeaderBean> metaheader = new ArrayList<MetaHeaderBean>();
 					for(StatValueBean statBean:decorator.getValues(stats, intervalName, currentUnit.getUnit())){
-						MetaHeaderBean bean = new MetaHeaderBean(statBean.getName(),statBean.getType());
+						MetaHeaderBean bean = new MetaHeaderBean(statBean.getName(), statBean.getType());
 						metaheader.add(bean);
+						
+						String graphKey = decorator.getName()+"_"+statBean.getName();
+						GraphDataBean graphDataBean = new GraphDataBean(decorator.getName()+"_"+statBean.getJsVariableName(), statBean.getName());
+						graphData.put(graphKey, graphDataBean);
 					}
 					metaheaderMap.put(decorator, metaheader);
 				}
@@ -119,7 +125,12 @@ public abstract class BaseShowProducersAction extends BaseMoskitoUIAction{
 				pb.setId(p.getProducerId()); 
 				IStats firstStats = p.getStats().get(0);
 				//System.out.println("Trying "+decorator+", cz: "+decorator.getClass()+", int: "+intervalName+", unit: "+currentUnit.getUnit());
-				pb.setValues(decorator.getValues(firstStats, intervalName, currentUnit.getUnit()));
+				List<StatValueBean> values = decorator.getValues(firstStats, intervalName, currentUnit.getUnit()); 
+				pb.setValues(values);
+				for (StatValueBean valueBean : values){
+					String graphKey = decorator.getName()+"_"+valueBean.getName();
+					graphData.get(graphKey).addValue(new GraphDataValueBean(p.getProducerId(), valueBean.getRawValue()));
+				}
 				pbs.add(pb);
 			}
 			b.setProducerBeans(StaticQuickSorter.sort(pbs, getProducerBeanSortType(b, req)));
@@ -128,6 +139,7 @@ public abstract class BaseShowProducersAction extends BaseMoskitoUIAction{
 		}
 		
 		req.setAttribute("decorators", beans);
+		req.setAttribute("graphDatas", graphData.values());
 		
 		doCustomProcessing(req, res);
 		
