@@ -1,6 +1,5 @@
-<%@ page language="java" contentType="text/css;charset=UTF-8" session="false"%>
-
-
+<%@ page language="java" contentType="text/css;charset=UTF-8" session="false"
+%>
 * {margin:0; padding:0; font-family:Arial, Helvetica, sans-serif; outline:none; color:black;}
 img {border:0;}
 body {background:white; font-size: 62.5%;}
