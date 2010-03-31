@@ -34,6 +34,7 @@
  */	
 package net.java.dev.moskito.webui.bean;
 
+import net.anotheria.util.StringUtils;
 import net.anotheria.util.sorter.IComparable;
 /**
  * This is the base bean for stat value beans.
@@ -58,6 +59,7 @@ public abstract class StatValueBean implements IComparable{
 	 * @return
 	 */
 	public abstract String getValue();
+	public abstract String getRawValue();
 	/**
 	 * Returns the type.
 	 * @return
@@ -66,6 +68,11 @@ public abstract class StatValueBean implements IComparable{
 	
 	public String getName(){
 		return name;
+	}
+	
+	private static final char[] TO_REMOVE = new char[]{' ', '\t', '\n', '\r'};
+	public String getJsVariableName(){
+		return "v"+StringUtils.removeChars(getName(), TO_REMOVE);
 	}
 	
 }

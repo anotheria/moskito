@@ -34,6 +34,8 @@
  */	
 package net.java.dev.moskito.webui.bean;
 
+import net.anotheria.util.StringUtils;
+
 public class StatCaptionBean {
 	private String caption;
 	private String explanation;
@@ -80,6 +82,10 @@ public class StatCaptionBean {
 	public void setShortExplanation(String shortExplanation) {
 		this.shortExplanation = shortExplanation;
 	}
-	
-	
+
+	private static final char[] TO_REMOVE = new char[]{' ', '\t', '\n', '\r'};
+	public String getJsVariableName(){
+		return "v"+StringUtils.removeChars(getCaption(), TO_REMOVE);
+	}
+
 }

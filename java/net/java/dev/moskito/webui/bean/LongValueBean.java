@@ -65,4 +65,10 @@ public class LongValueBean extends StatValueBean{
 	@Override public int compareTo(IComparable anotherComparable, int ignored) {
 		return BasicComparable.compareLong(longValue, ((LongValueBean)anotherComparable).longValue);
 	}
+	
+	@Override
+	public String getRawValue() {
+		return ""+longValue;
+	}
+
 }

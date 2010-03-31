@@ -15,6 +15,18 @@
 
 <jsp:include page="Menu.jsp" flush="false" />
 
+<-- 
+ Data for charts 
+ <script>
+<msk:iterate type="net.java.dev.moskito.webui.bean.GraphDataBean" 	id="graph" name="graphDatas">	
+	var <msk:write name="graph" property="jsVariableName"/>Caption = "<msk:write name="graph" property="caption"/>";
+	var <msk:write name="graph" property="jsVariableName"/>Array = "<msk:write name="graph" property="jsArrayValue"/>";
+</msk:iterate> 
+
+ </script>
+-->
+
+
 <div class="main">
 <msk:iterate type="net.java.dev.moskito.webui.bean.ProducerDecoratorBean" 	id="decorator" name="decorators">	
 <div class="clear"><!-- --></div>
@@ -24,10 +36,6 @@
 	
 	<msk:define id="sortType" type="net.java.dev.moskito.webui.bean.ProducerBeanSortType" name="<%=decorator.getSortTypeName()%>"/>
 	<msk:define id="visibility" type="net.java.dev.moskito.webui.bean.ProducerVisibility" name="decorator" property="visibility"/>
-
-<%--  href="javascript:void(0);" --%>
-
-<%--make Href as onclick="sendRedirect" --%>
 
 	<msk:equal name="visibility" value="SHOW">
 		<h2 class="titel_open">
@@ -141,6 +149,7 @@
 			<msk:iterate name="decorator" property="captions" type="net.java.dev.moskito.webui.bean.StatCaptionBean" id="caption" indexId="ind">				
 			 <th title="<msk:write name="caption" property="shortExplanation"/>">
 
+					<!-- variable for this graph is <msk:write name="decorator" property="name"/>_<msk:write name="caption" property="jsVariableName"/> -->
 					<msk:equal name="sortType" property="sortBy" value="<%=\"\"+ind%>">
 						<msk:equal name="sortType" property="ASC" value="true">
 							<a 	class="down" title="descending resort by <msk:write name="caption" property="shortExplanationLowered"/>"

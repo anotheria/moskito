@@ -73,4 +73,9 @@ public class DoubleValueBean extends StatValueBean{
 	@Override public int compareTo(IComparable anotherComparable, int ignored) {
 		return BasicComparable.compareDouble(doubleValue, ((DoubleValueBean)anotherComparable).doubleValue);
 	}
+
+	@Override
+	public String getRawValue() {
+		return ""+doubleValue;
+	}
 }
