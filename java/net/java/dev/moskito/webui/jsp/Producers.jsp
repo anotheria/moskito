@@ -11,7 +11,8 @@
 <script type="text/javascript" src="../js/wz_tooltip.js"></script>
 <script type="text/javascript" src="../js/jquery-1.4.min.js"></script>
 <script type="text/javascript" src="../js/function.js"></script>
-<script type="text/javascript" src="../js/jscharts.js"></script>
+<script type="text/javascript" src="http://www.google.com/jsapi"></script>
+<!-- <script type="text/javascript" src="../js/jscharts.js"></script> -->
 
 <jsp:include page="Menu.jsp" flush="false" />
 
@@ -20,7 +21,7 @@
  <script>
 <msk:iterate type="net.java.dev.moskito.webui.bean.GraphDataBean" 	id="graph" name="graphDatas">	
 	var <msk:write name="graph" property="jsVariableName"/>Caption = "<msk:write name="graph" property="caption"/>";
-	var <msk:write name="graph" property="jsVariableName"/>Array = "<msk:write name="graph" property="jsArrayValue"/>";
+	var <msk:write name="graph" property="jsVariableName"/>Array = <msk:write name="graph" property="jsArrayValue"/>;
 </msk:iterate> 
 
  </script>
@@ -150,6 +151,7 @@
 			 <th title="<msk:write name="caption" property="shortExplanation"/>">
 
 					<!-- variable for this graph is <msk:write name="decorator" property="name"/>_<msk:write name="caption" property="jsVariableName"/> -->
+				 	<input type="hidden" value="<msk:write name="decorator" property="name"/>_<msk:write name="caption" property="jsVariableName"/>"/>
 					<msk:equal name="sortType" property="sortBy" value="<%=\"\"+ind%>">
 						<msk:equal name="sortType" property="ASC" value="true">
 							<a 	class="down" title="descending resort by <msk:write name="caption" property="shortExplanationLowered"/>"
@@ -251,13 +253,12 @@
 	</div>
 </div>
 <script type="text/javascript">
+	google.load('visualization', '1', {packages: ['piechart']});
 	function lightbox(link) {
 		$('.lightbox').show();
-
 		var el = $('.lightbox');
 		var wid = el.find('.box').width();
 		var box = el.find('.box');
-		
 		box.css('left', '50%');
 		box.css('margin-left', -wid / 2);
 		box.css('top', link.offset().top);
@@ -266,32 +267,17 @@
 	var datas = new Array;
 
 	$('.chart').click(function() {
-		datas = [];
-		var i=0;
-		var tr_num = $(this).parents().filter('table').find('th').index($(this).parent());
-		$(this).parents().filter('.in').find('.table_right tbody tr').each(function() {
-			datas.push([$(this).parents().filter('.in:first').find('table:first tbody tr').eq(i).find('td:first a').html(), parseFloat($(this).find('td').eq(tr_num).html())])
-
-
-
-
-			i++;
-
-		});
-
-
-		var myData = datas;
-
-		var myChart = new JSChart('chartcontainer', 'pie');
-		myChart.setTitle($(this).parent().find('a:first').html());
-		myChart.setTitleColor('#000000');
-		myChart.setTitleFontSize(14);
-		myChart.setDataArray(myData);
-		myChart.draw();
+		var cap = eval($(this).parent().find('input').val()+'Caption');
+		var mas = eval($(this).parent().find('input').val()+'Array');
+		var data = new google.visualization.DataTable();
+        data.addColumn('string', 'Producer');
+        data.addColumn('number', 'val');
+		data.addRows(mas);
+		new google.visualization.PieChart(
+          document.getElementById('chartcontainer')).
+            draw(data, {is3D:true, width: 600, height:300, title: cap, legendFontSize: 12, legend:'label'});
 		return false;
 	});
-
-
 </script>
 </div>	
 </body>
