@@ -12,7 +12,6 @@
 <script type="text/javascript" src="../js/jquery-1.4.min.js"></script>
 <script type="text/javascript" src="../js/function.js"></script>
 <script type="text/javascript" src="http://www.google.com/jsapi"></script>
-<!-- <script type="text/javascript" src="../js/jscharts.js"></script> -->
 
 <jsp:include page="Menu.jsp" flush="false" />
 
