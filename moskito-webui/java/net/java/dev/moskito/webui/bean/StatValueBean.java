@@ -70,9 +70,8 @@ public abstract class StatValueBean implements IComparable{
 		return name;
 	}
 	
-	private static final char[] TO_REMOVE = new char[]{' ', '\t', '\n', '\r'};
 	public String getJsVariableName(){
-		return "v"+StringUtils.removeChars(getName(), TO_REMOVE);
+		return StatCaptionBean.getJsVariableName(getName());
 	}
 	
 }

@@ -83,9 +83,14 @@ public class StatCaptionBean {
 		this.shortExplanation = shortExplanation;
 	}
 
-	private static final char[] TO_REMOVE = new char[]{' ', '\t', '\n', '\r'};
 	public String getJsVariableName(){
-		return "v"+StringUtils.removeChars(getCaption(), TO_REMOVE);
+		return getJsVariableName(getCaption());
+	}
+	
+	private static final char[] TO_REMOVE = new char[]{' ', '\t', '\n', '\r'};
+	public static final String getJsVariableName(String caption){
+		return "v"+StringUtils.removeChars(caption, TO_REMOVE);
+		
 	}
 
 }
