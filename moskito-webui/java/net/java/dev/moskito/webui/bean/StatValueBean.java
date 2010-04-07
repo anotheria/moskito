@@ -34,7 +34,6 @@
  */	
 package net.java.dev.moskito.webui.bean;
 
-import net.anotheria.util.StringUtils;
 import net.anotheria.util.sorter.IComparable;
 /**
  * This is the base bean for stat value beans.
