@@ -49,7 +49,10 @@ public class ProducerRegistryFactory {
 	
 	static{
 		instance = new ProducerRegistryImpl();
-		StartBuiltInProducers.startbuiltin();
+		String junittest = System.getProperty("JUNITTEST");
+		if (junittest!=null && !(junittest.equalsIgnoreCase("true"))){
+			StartBuiltInProducers.startbuiltin();
+		}
 	}
 	
 	/**
