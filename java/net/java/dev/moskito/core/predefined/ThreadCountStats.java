@@ -9,15 +9,15 @@ import net.java.dev.moskito.core.stats.impl.StatValueFactory;
 
 public class ThreadCountStats extends AbstractStats{
 	/**
-	 * Current number of sessions.
+	 * Number of started threads.
 	 */
 	private StatValue started;
 	/**
-	 * Current number of sessions.
+	 * Number of currently running threads.
 	 */
 	private StatValue current;
 	/**
-	 * Current number of sessions.
+	 * Number of daemon threads.
 	 */
 	private StatValue daemon;
 	/**
@@ -35,7 +35,7 @@ public class ThreadCountStats extends AbstractStats{
 	}
 	
 	public ThreadCountStats(Interval[] intervals){
-		super("Sessions");
+		super("ThreadCount");
 		
 		Long pattern = Long.valueOf(0);
 		
