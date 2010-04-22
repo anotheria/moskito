@@ -25,8 +25,8 @@
     </decorator>
   </msk:iterate>
   <chartdata>
-	<msk:iterate type="net.java.dev.moskito.webui.bean.GraphDataBean" 	id="graph" name="graphDatas">
-	<chart name="<msk:write name="graph" property="caption"/>">
+	<msk:iterate type="net.java.dev.moskito.webui.bean.GraphDataBean" id="graph" name="graphDatas">
+	<chart name="<msk:write name="graph" property="caption"/>" id="<msk:write name="graph" property="jsVariableName"/>">
 		<msk:iterate name="graph" property="values" id="value" type="net.java.dev.moskito.webui.bean.GraphDataValueBean">
 			<value name="<msk:write name="value" property="name"/>"><msk:write name="value" property="value"/></value>
 		</msk:iterate>	
