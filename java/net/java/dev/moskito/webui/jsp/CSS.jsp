@@ -152,4 +152,8 @@ h2 a.hidden {background:url("../img/bgs.gif") 0 -1103px no-repeat;}
 .al_left {text-align:left !important;}
 .table_itseft .in table th:hover .chart {background:url("../img/chart.gif") 2px 2px no-repeat;}
 .chart {background:none; padding:0 !important;}
-.lightbox #chartcontainer {text-align:center;}
+.lightbox #chartcontainer {float:left;}
+.lightbox .pie_chart, .lightbox .bar_chart {float:left; display:block; width:16px; height:16px;}
+
+.bar_chart {background:url("../img/chart.gif") 2px 2px no-repeat;}
+.pie_chart {background:url("../img/bar.gif") 2px 2px no-repeat;}
