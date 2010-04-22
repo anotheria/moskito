@@ -242,6 +242,8 @@
 			<div class="right">
 				<div class="text_here">
 					<div id="chartcontainer"></div>
+					<a href="#" class="pie_chart"></a> <!-- changes to bar_chart -->
+					<a href="#" style="display:none;" class="bar_chart"></a>
 				</div>
 			</div>
 		</div>
@@ -253,6 +255,7 @@
 </div>
 <script type="text/javascript">
 	google.load('visualization', '1', {packages: ['piechart']});
+	google.load('visualization', '1', {packages: ['columnchart']});
 	function lightbox(link) {
 		$('.lightbox').show();
 		var el = $('.lightbox');
@@ -261,20 +264,40 @@
 		box.css('left', '50%');
 		box.css('margin-left', -wid / 2);
 		box.css('top', link.offset().top);
+		$('.pie_chart').show();
+		$('.bar_chart').hide();
 	}
 	;
-	var datas = new Array;
-
+	//var datas = new Array;
+	var cap, mas, data;
 	$('.chart').click(function() {
-		var cap = eval($(this).parent().find('input').val()+'Caption');
-		var mas = eval($(this).parent().find('input').val()+'Array');
-		var data = new google.visualization.DataTable();
+		cap = eval($(this).parent().find('input').val()+'Caption');
+		mas = eval($(this).parent().find('input').val()+'Array');
+		data = new google.visualization.DataTable();
         data.addColumn('string', 'Producer');
         data.addColumn('number', 'val');
 		data.addRows(mas);
 		new google.visualization.PieChart(
           document.getElementById('chartcontainer')).
             draw(data, {is3D:true, width: 600, height:300, title: cap, legendFontSize: 12, legend:'label'});
+		return false;
+	});
+
+	$('.pie_chart').live('click', function() {
+		new google.visualization.ColumnChart(
+          document.getElementById('chartcontainer')).
+            draw(data, {is3D:true, width: 600, height:300, title: cap, legendFontSize: 12, legend:'label'});
+		$('.pie_chart').hide();
+		$('.bar_chart').show();
+		return false;
+	});
+
+	$('.bar_chart').live('click', function() {
+		new google.visualization.PieChart(
+          document.getElementById('chartcontainer')).
+            draw(data, {is3D:true, width: 600, height:300, title: cap, legendFontSize: 12, legend:'label'});
+		$('.pie_chart').show();
+		$('.bar_chart').hide();
 		return false;
 	});
 </script>
