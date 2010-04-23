@@ -56,20 +56,20 @@
 		<table cellpadding="0" cellspacing="0" class="fll" id="<msk:write name="decorator" property="name"/>_table">
 		  <thead>
 			<tr class="stat_header">			
-				<th>Name
+				<th>
 					<msk:equal name="sortType" property="sortBy" value="1000">
 						<msk:equal name="sortType" property="ASC" value="true">
 							<a 	class="down" title="descending resort by <msk:write name="caption" property="shortExplanationLowered"/>"
-								href="<msk:write name="linkToCurrentPage"/>&amp;<msk:write name="decorator" property="sortByParameterName"/>=1000&amp;<msk:write name="decorator" property="sortOrderParameterName"/>=DESC"></a>
+								href="<msk:write name="linkToCurrentPage"/>&amp;<msk:write name="decorator" property="sortByParameterName"/>=1000&amp;<msk:write name="decorator" property="sortOrderParameterName"/>=DESC">Name</a>
 						</msk:equal>
 						<msk:equal name="sortType" property="DESC" value="true">
 							<a 	class="up" title="ascending resort by <msk:write name="caption" property="shortExplanationLowered"/>"
-								href="<msk:write name="linkToCurrentPage"/>&amp;<msk:write name="decorator" property="sortByParameterName"/>=1000&amp;<msk:write name="decorator" property="sortOrderParameterName"/>=ASC"></a>
+								href="<msk:write name="linkToCurrentPage"/>&amp;<msk:write name="decorator" property="sortByParameterName"/>=1000&amp;<msk:write name="decorator" property="sortOrderParameterName"/>=ASC">Name</a>
 						</msk:equal>
 					</msk:equal>   
 					<msk:notEqual name="sortType" property="sortBy" value="1000">
-						<a 	class="up" title="ascending sort by <msk:write name="caption" property="shortExplanationLowered"/>"
-							href="<msk:write name="linkToCurrentPage"/>&amp;<msk:write name="decorator" property="sortByParameterName"/>=1000&amp;<msk:write name="decorator" property="sortOrderParameterName"/>=ASC"></a>
+						<a 	class="" title="ascending sort by <msk:write name="caption" property="shortExplanationLowered"/>"
+							href="<msk:write name="linkToCurrentPage"/>&amp;<msk:write name="decorator" property="sortByParameterName"/>=1000&amp;<msk:write name="decorator" property="sortOrderParameterName"/>=ASC">Name</a>
 					</msk:notEqual>
 				</th>									
 			</tr>	
@@ -91,20 +91,19 @@
 		  <tr>		    
 			<msk:iterate name="decorator" property="captions" type="net.java.dev.moskito.webui.bean.StatCaptionBean" id="caption" indexId="ind">				
 			 <th title="<msk:write name="caption" property="shortExplanation"/>">
-				<msk:write name="caption" property="caption" />
 					<msk:equal name="sortType" property="sortBy" value="<%=\"\"+ind%>">
 						<msk:equal name="sortType" property="ASC" value="true">
 							<a 	class="down" title="descending resort by <msk:write name="caption" property="shortExplanationLowered"/>"
-								href="<msk:write name="linkToCurrentPage"/>&amp;<msk:write name="decorator" property="sortByParameterName"/>=<msk:write name="ind"/>&amp;<msk:write name="decorator" property="sortOrderParameterName"/>=DESC"></a>
+								href="<msk:write name="linkToCurrentPage"/>&amp;<msk:write name="decorator" property="sortByParameterName"/>=<msk:write name="ind"/>&amp;<msk:write name="decorator" property="sortOrderParameterName"/>=DESC"><msk:write name="caption" property="caption" /></a>
 						</msk:equal>
 						<msk:equal name="sortType" property="DESC" value="true">
 							<a 	class="up" title="ascending resort by <msk:write name="caption" property="shortExplanationLowered"/>"
-								href="<msk:write name="linkToCurrentPage"/>&amp;<msk:write name="decorator" property="sortByParameterName"/>=<msk:write name="ind"/>&amp;<msk:write name="decorator" property="sortOrderParameterName"/>=ASC"></a>
+								href="<msk:write name="linkToCurrentPage"/>&amp;<msk:write name="decorator" property="sortByParameterName"/>=<msk:write name="ind"/>&amp;<msk:write name="decorator" property="sortOrderParameterName"/>=ASC"><msk:write name="caption" property="caption" /></a>
 						</msk:equal>
 					</msk:equal>   
 					<msk:notEqual name="sortType" property="sortBy" value="<%=\"\"+ind%>">
-						<a 	class="up" title="ascending sort by <msk:write name="caption" property="shortExplanationLowered"/>"
-							href="<msk:write name="linkToCurrentPage"/>&amp;<msk:write name="decorator" property="sortByParameterName"/>=<msk:write name="ind"/>&amp;<msk:write name="decorator" property="sortOrderParameterName"/>=ASC"></a>
+						<a 	class="" title="ascending sort by <msk:write name="caption" property="shortExplanationLowered"/>"
+							href="<msk:write name="linkToCurrentPage"/>&amp;<msk:write name="decorator" property="sortByParameterName"/>=<msk:write name="ind"/>&amp;<msk:write name="decorator" property="sortOrderParameterName"/>=ASC"><msk:write name="caption" property="caption" /></a>
 					</msk:notEqual>
 			 </th>
 			</msk:iterate>			
@@ -112,7 +111,7 @@
 	   </thead>
 	  <tbody>
 		  <msk:iterate name="decorator" property="stats" id="stat" type="net.java.dev.moskito.webui.bean.StatBean" indexId="index">
-			 <tr class="even">
+		 <tr class="<%= ((index & 1) == 0 )? "even" : "odd" %>">
 				<msk:iterate name="stat" property="values" id="value" type="net.java.dev.moskito.webui.bean.StatValueBean">
 					<td onmouseover="Tip('<msk:write name="stat" property="name"/>.<msk:write name="value" property="name"/>&lt;br/&gt;&lt;b&gt;&lt;span align=center&gt;<msk:write name="value" property="value"/>&lt;/span&gt;&lt;/b&gt;', TEXTALIGN, 'center')" onmouseout="UnTip()">
 							<msk:write name="value" property="value" />
