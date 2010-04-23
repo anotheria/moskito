@@ -53,4 +53,10 @@ public class MoskitoUIFilter extends MAFFilter{
 		return Arrays.asList(new ActionMappingsConfigurator[]{ new MoskitoMappingsConfigurator() });
 	}
 
+
+	@Override
+	protected String getDefaultActionName() {
+		return "mskShowAllProducers";
+	}
+
 }
