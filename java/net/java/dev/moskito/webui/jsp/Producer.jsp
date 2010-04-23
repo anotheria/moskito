@@ -12,6 +12,18 @@
 <script type="text/javascript" src="../js/jquery-1.4.min.js"></script>
 <script type="text/javascript" src="../js/function.js"></script>
 
+<-- 
+ Data for charts 
+ <script>
+<msk:iterate type="net.java.dev.moskito.webui.bean.GraphDataBean" 	id="graph" name="graphDatas">	
+	var <msk:write name="graph" property="jsVariableName"/>Caption = "<msk:write name="graph" property="caption"/>";
+	var <msk:write name="graph" property="jsVariableName"/>Array = <msk:write name="graph" property="jsArrayValue"/>;
+</msk:iterate> 
+
+ </script>
+-->
+
+
 <jsp:include page="Menu.jsp" flush="false" />
 
 <div class="main">
@@ -90,20 +102,31 @@
 		 <thead>
 		  <tr>		    
 			<msk:iterate name="decorator" property="captions" type="net.java.dev.moskito.webui.bean.StatCaptionBean" id="caption" indexId="ind">				
+			<!-- variable for this graph is <msk:write name="decorator" property="name"/>_<msk:write name="caption" property="jsVariableName"/> -->
+			 <input type="hidden" value="<msk:write name="decorator" property="name"/>_<msk:write name="caption" property="jsVariableName"/>"/>
 			 <th title="<msk:write name="caption" property="shortExplanation"/>">
 					<msk:equal name="sortType" property="sortBy" value="<%=\"\"+ind%>">
 						<msk:equal name="sortType" property="ASC" value="true">
 							<a 	class="down" title="descending resort by <msk:write name="caption" property="shortExplanationLowered"/>"
-								href="<msk:write name="linkToCurrentPage"/>&amp;<msk:write name="decorator" property="sortByParameterName"/>=<msk:write name="ind"/>&amp;<msk:write name="decorator" property="sortOrderParameterName"/>=DESC"><msk:write name="caption" property="caption" /></a>
+								href="<msk:write name="linkToCurrentPage"/>&amp;<msk:write name="decorator" property="sortByParameterName"/>=<msk:write name="ind"/>&amp;<msk:write name="decorator" property="sortOrderParameterName"/>=DESC"><msk:write name="caption" property="caption" /><a href="#"
+																								 onClick="lightbox($(this));"
+																								 class="chart"
+																								 title="chart">&nbsp;&nbsp;&nbsp;</a>
 						</msk:equal>
 						<msk:equal name="sortType" property="DESC" value="true">
 							<a 	class="up" title="ascending resort by <msk:write name="caption" property="shortExplanationLowered"/>"
-								href="<msk:write name="linkToCurrentPage"/>&amp;<msk:write name="decorator" property="sortByParameterName"/>=<msk:write name="ind"/>&amp;<msk:write name="decorator" property="sortOrderParameterName"/>=ASC"><msk:write name="caption" property="caption" /></a>
+								href="<msk:write name="linkToCurrentPage"/>&amp;<msk:write name="decorator" property="sortByParameterName"/>=<msk:write name="ind"/>&amp;<msk:write name="decorator" property="sortOrderParameterName"/>=ASC"><msk:write name="caption" property="caption" /><a href="#"
+																								 onClick="lightbox($(this));"
+																								 class="chart"
+																								 title="chart">&nbsp;&nbsp;&nbsp;</a>
 						</msk:equal>
 					</msk:equal>   
 					<msk:notEqual name="sortType" property="sortBy" value="<%=\"\"+ind%>">
 						<a 	class="" title="ascending sort by <msk:write name="caption" property="shortExplanationLowered"/>"
-							href="<msk:write name="linkToCurrentPage"/>&amp;<msk:write name="decorator" property="sortByParameterName"/>=<msk:write name="ind"/>&amp;<msk:write name="decorator" property="sortOrderParameterName"/>=ASC"><msk:write name="caption" property="caption" /></a>
+							href="<msk:write name="linkToCurrentPage"/>&amp;<msk:write name="decorator" property="sortByParameterName"/>=<msk:write name="ind"/>&amp;<msk:write name="decorator" property="sortOrderParameterName"/>=ASC"><msk:write name="caption" property="caption" /><a href="#"
+																								 onClick="lightbox($(this));"
+																								 class="chart"
+																								 title="chart">&nbsp;&nbsp;&nbsp;</a>
 					</msk:notEqual>
 			 </th>
 			</msk:iterate>			
