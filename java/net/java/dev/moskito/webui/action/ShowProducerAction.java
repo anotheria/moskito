@@ -152,7 +152,7 @@ public class ShowProducerAction extends BaseMoskitoUIAction{
 	
 	@Override
 	protected String getLinkToCurrentPage(HttpServletRequest req) {
-		return req.getRequestURI()+"?"+PARAM_PRODUCER_ID+"="+req.getParameter(PARAM_PRODUCER_ID);
+		return "mskShowProducer"+"?"+PARAM_PRODUCER_ID+"="+req.getParameter(PARAM_PRODUCER_ID);
 	}
 
 	private StatBeanSortType getStatBeanSortType(StatDecoratorBean decoratorBean, HttpServletRequest req){
