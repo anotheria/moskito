@@ -86,10 +86,10 @@ public class ShowMonitoringSessionCallAction extends BaseMoskitoUIAction{
 		b.setRoot(recursion == 0);
 		b.setLayer(recursion);
 		b.setDuration(unit.transformNanos(element.getDuration()));
-		String ident = "";
+		StringBuilder ident = new StringBuilder();
 		for (int i=0; i<recursion; i++)
-			ident += "&nbsp;&nbsp;";
-		b.setIdent(ident);
+			ident.append("&nbsp;&nbsp;");
+		b.setIdent(ident.toString());
 		b.setAborted(element.isAborted());
 		list.add(b);
 
