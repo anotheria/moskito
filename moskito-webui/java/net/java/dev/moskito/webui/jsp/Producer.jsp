@@ -11,6 +11,7 @@
 <script type="text/javascript" src="../js/wz_tooltip.js"></script>
 <script type="text/javascript" src="../js/jquery-1.4.min.js"></script>
 <script type="text/javascript" src="../js/function.js"></script>
+<script type="text/javascript" src="http://www.google.com/jsapi"></script>
 
 <-- 
  Data for charts 
@@ -102,9 +103,9 @@
 		 <thead>
 		  <tr>		    
 			<msk:iterate name="decorator" property="captions" type="net.java.dev.moskito.webui.bean.StatCaptionBean" id="caption" indexId="ind">				
-			<!-- variable for this graph is <msk:write name="decorator" property="name"/>_<msk:write name="caption" property="jsVariableName"/> -->
-			 <input type="hidden" value="<msk:write name="decorator" property="name"/>_<msk:write name="caption" property="jsVariableName"/>"/>
 			 <th title="<msk:write name="caption" property="shortExplanation"/>">
+				<!-- variable for this graph is <msk:write name="decorator" property="name"/>_<msk:write name="caption" property="jsVariableName"/> -->
+				 <input type="hidden" value="<msk:write name="decorator" property="name"/>_<msk:write name="caption" property="jsVariableName"/>"/>
 					<msk:equal name="sortType" property="sortBy" value="<%=\"\"+ind%>">
 						<msk:equal name="sortType" property="ASC" value="true">
 							<a 	class="down" title="descending resort by <msk:write name="caption" property="shortExplanationLowered"/>"
