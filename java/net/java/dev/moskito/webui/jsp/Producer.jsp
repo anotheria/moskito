@@ -159,6 +159,80 @@
 	</div>
 	</msk:iterate>
 	<div class="generated">Generated at <msk:write name="timestampAsDate"/>&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;timestamp: <msk:write name="timestamp"/></div>
+
+<div class="lightbox" style="display:none;">
+	<div class="black_bg"><!-- --></div>
+	<div class="box">
+		<div class="box_top">
+			<div><!-- --></div>
+			<span><!-- --></span>
+			<a class="close_box"><!-- --></a>
+
+			<div class="clear"><!-- --></div>
+		</div>
+		<div class="box_in">
+			<div class="right">
+				<div class="text_here">
+					<div id="chartcontainer"></div>
+					<a href="#" class="pie_chart"></a> <!-- changes to bar_chart -->
+					<a href="#" style="display:none;" class="bar_chart"></a>
+				</div>
+			</div>
+		</div>
+		<div class="box_bot">
+			<div><!-- --></div>
+			<span><!-- --></span>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+	google.load('visualization', '1', {packages: ['piechart']});
+	google.load('visualization', '1', {packages: ['columnchart']});
+	function lightbox(link) {
+		$('.lightbox').show();
+		var el = $('.lightbox');
+		var wid = el.find('.box').width();
+		var box = el.find('.box');
+		box.css('left', '50%');
+		box.css('margin-left', -wid / 2);
+		box.css('top', link.offset().top);
+		$('.pie_chart').show();
+		$('.bar_chart').hide();
+	}
+	;
+	//var datas = new Array;
+	var cap, mas, data;
+	$('.chart').click(function() {
+		cap = eval($(this).parent().find('input').val()+'Caption');
+		mas = eval($(this).parent().find('input').val()+'Array');
+		data = new google.visualization.DataTable();
+        data.addColumn('string', 'Stat');
+        data.addColumn('number', 'val');
+		data.addRows(mas);
+		new google.visualization.PieChart(
+          document.getElementById('chartcontainer')).
+            draw(data, {is3D:true, width: 600, height:300, title: cap, legendFontSize: 12, legend:'label'});
+		return false;
+	});
+
+	$('.pie_chart').live('click', function() {
+		new google.visualization.ColumnChart(
+          document.getElementById('chartcontainer')).
+            draw(data, {is3D:true, width: 600, height:300, title: cap, legendFontSize: 12, legend:'label'});
+		$('.pie_chart').hide();
+		$('.bar_chart').show();
+		return false;
+	});
+
+	$('.bar_chart').live('click', function() {
+		new google.visualization.PieChart(
+          document.getElementById('chartcontainer')).
+            draw(data, {is3D:true, width: 600, height:300, title: cap, legendFontSize: 12, legend:'label'});
+		$('.pie_chart').show();
+		$('.bar_chart').hide();
+		return false;
+	});
+</script>
 </div>	
 </body>
 </html>
