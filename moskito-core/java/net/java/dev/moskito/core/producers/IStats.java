@@ -41,7 +41,7 @@ import net.java.dev.moskito.core.stats.TimeUnit;
  * It can contain multiple StatValues of different types (long, int, double etc). IStats are 'produced' or gathered by the IStatsProducer.
  * Typical IStats are ServiceStats, CacheStats, MemoryStats etc. 
  *
- * @author dvayanu
+ * @author lrosenberg
  */
 public interface IStats {
 	
@@ -94,8 +94,10 @@ public interface IStats {
 	 * 
 	 * @return the name
 	 */
-	public String getName();
+	String getName();
 	
-	public CallExecution createCallExecution();
+	CallExecution createCallExecution();
+	
+	String getValueByNameAsString(String valueName, String intervalName, TimeUnit timeUnit);
 	
 }
