@@ -119,5 +119,9 @@ public abstract class AbstractStats implements IStats {
 	public CallExecution createCallExecution(){
 		throw new AssertionError("Not implemented");
 	}
+	
+	public String getValueByNameAsString(String valueName, String intervalName, TimeUnit timeUnit){
+		return "none";
+	}
 
 }
