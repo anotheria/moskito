@@ -37,15 +37,26 @@ package net.java.dev.moskito.webui.bean;
 import net.anotheria.util.BasicComparable;
 import net.anotheria.util.sorter.IComparable;
 
+/**
+ * Stat value bean for double values.
+ * @author lrosenberg.
+ *
+ */
 public class DoubleValueBean extends StatValueBean{
 	/**
 	 * Internal storage.
 	 */
 	private double doubleValue;
-	
+	/**
+	 * Cached string representation.
+	 */
 	private String doubleAsString;
 	
-	
+	/**
+	 * Creates a new DoubleValueBean.
+	 * @param name
+	 * @param aValue
+	 */
 	public DoubleValueBean(String name, double aValue){
 		super(name);
 		if (!Double.isInfinite(aValue))

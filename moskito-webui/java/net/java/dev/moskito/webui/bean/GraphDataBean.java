@@ -3,9 +3,23 @@ package net.java.dev.moskito.webui.bean;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * A class that represents some graph data. 
+ * @author lrosenberg.
+ *
+ */
 public class GraphDataBean {
+	/**
+	 * Graph caption.
+	 */
 	private String caption;
+	/**
+	 * Name of the javascript variable.
+	 */
 	private String jsVariableName;
+	/**
+	 * List of values.
+	 */
 	private List<GraphDataValueBean> values;
 	
 	public GraphDataBean(String aJsVariableName, String aCaption){
