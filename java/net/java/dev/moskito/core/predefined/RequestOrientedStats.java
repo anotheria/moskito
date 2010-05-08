@@ -212,19 +212,45 @@ public abstract class RequestOrientedStats extends AbstractStats {
 	}
 
 	@Override public String toStatsString(String intervalName, TimeUnit timeUnit) {
-		String ret = "";
-		ret += getMethodName();
-		ret += " TR: " + totalRequests.getValueAsLong(intervalName);
-		ret += " TT: " + timeUnit.transformNanos(totalTime.getValueAsLong(intervalName));
-		ret += " CR: " + currentRequests.getValueAsLong(intervalName);
-		ret += " MCR: " + maxCurrentRequests.getValueAsLong(intervalName);
-		ret += " ERR: " + errors.getValueAsLong(intervalName);
-		ret += " Last: " + timeUnit.transformNanos(lastRequest.getValueAsLong(intervalName));
-		ret += " Min: " + timeUnit.transformNanos(minTime.getValueAsLong(intervalName));
-		ret += " Max: " + timeUnit.transformNanos(maxTime.getValueAsLong(intervalName));
-		ret += " Avg: " + getAverageRequestDuration(intervalName, timeUnit);
-		return ret;
+		StringBuilder ret = new StringBuilder();
+		ret.append(getMethodName());
+		ret.append(" TR: ").append(totalRequests.getValueAsLong(intervalName));
+		ret.append(" TT: ").append(timeUnit.transformNanos(totalTime.getValueAsLong(intervalName)));
+		ret.append(" CR: ").append(currentRequests.getValueAsLong(intervalName));
+		ret.append(" MCR: ").append(maxCurrentRequests.getValueAsLong(intervalName));
+		ret.append(" ERR: ").append(errors.getValueAsLong(intervalName));
+		ret.append(" Last: ").append(timeUnit.transformNanos(lastRequest.getValueAsLong(intervalName)));
+		ret.append(" Min: ").append(timeUnit.transformNanos(minTime.getValueAsLong(intervalName)));
+		ret.append(" Max: ").append(timeUnit.transformNanos(maxTime.getValueAsLong(intervalName)));
+		ret.append(" Avg: ").append(getAverageRequestDuration(intervalName, timeUnit));
+		return ret.toString();
 	}
+	
+	@Override public String getValueByNameAsString(String valueName, String intervalName, TimeUnit timeUnit){
+		if (valueName==null || valueName.equals(""))
+			throw new AssertionError("Value name can not be empty");
+		valueName = valueName.toLowerCase();
+		if (valueName.equals("tr"))
+			return ""+totalRequests.getValueAsLong(intervalName);
+		if (valueName.equals("tt"))
+			return ""+timeUnit.transformNanos(totalTime.getValueAsLong(intervalName));
+		if (valueName.equals("cr"))
+			return ""+currentRequests.getValueAsLong(intervalName);
+		if (valueName.equals("mcr"))
+			return ""+maxCurrentRequests.getValueAsLong(intervalName);
+		if (valueName.equals("err"))
+			return ""+errors.getValueAsLong(intervalName);
+		if (valueName.equals("last"))
+			return ""+timeUnit.transformNanos(lastRequest.getValueAsLong(intervalName));
+		if (valueName.equals("min"))
+			return ""+timeUnit.transformNanos(minTime.getValueAsLong(intervalName));
+		if (valueName.equals("max"))
+			return ""+timeUnit.transformNanos(maxTime.getValueAsLong(intervalName));
+		if (valueName.equals("avg"))
+			return ""+getAverageRequestDuration(intervalName, timeUnit);
+		return super.getValueByNameAsString(valueName, intervalName, timeUnit);
+	}
+
  
 	public String toString(String intervalName) {
 		String ret = methodName;

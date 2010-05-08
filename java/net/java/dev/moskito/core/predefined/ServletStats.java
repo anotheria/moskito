@@ -36,6 +36,7 @@ package net.java.dev.moskito.core.predefined;
 
 import net.java.dev.moskito.core.stats.Interval;
 import net.java.dev.moskito.core.stats.StatValue;
+import net.java.dev.moskito.core.stats.TimeUnit;
 import net.java.dev.moskito.core.stats.impl.StatValueFactory;
 
 /**
@@ -87,21 +88,24 @@ public class ServletStats extends RequestOrientedStats{
 		runtimeExceptions = StatValueFactory.createStatValue(pattern, "runtimeExceptions", getSelectedIntervals());
 	}
 	
-	@Override public String toStatsString(String intervalName){
-		String ret = "";
-		ret += " TR: "+getTotalRequests(intervalName);
-		ret += " TT: "+getTotalTime(intervalName);
-		ret += " CR: "+getCurrentRequests(intervalName);
-		ret += " MCR: "+getMaxCurrentRequests(intervalName);
-		ret += " ERR: "+getErrors(intervalName);
-		ret += " IOExc: "+ioExceptions.getValueAsLong(intervalName);
-		ret += " SEExc: "+servletExceptions.getValueAsLong(intervalName);
-		ret += " RTExc: "+runtimeExceptions.getValueAsLong(intervalName);
-		ret += " Last: "+getLastRequest(intervalName);
-		ret += " Min: "+getMinTime(intervalName);
-		ret += " Max: "+getMaxTime(intervalName);
-		ret += " Avg: "+getAverageRequestDuration(intervalName);
-		return ret;
+	@Override public String toStatsString(String intervalName, TimeUnit timeUnit){
+		StringBuilder ret = new StringBuilder();
+		ret.append(" TR: ").append(getTotalRequests(intervalName));
+		ret.append(" TT: ").append(timeUnit.transformNanos(getTotalTime(intervalName)));
+		ret.append(" CR: ").append(getCurrentRequests(intervalName));
+		ret.append(" MCR: ").append(getMaxCurrentRequests(intervalName));
+		ret.append(" ERR: ").append(getErrors(intervalName));
+		
+		ret.append(" IOExc: ").append(ioExceptions.getValueAsLong(intervalName));
+		ret.append(" SEExc: ").append(servletExceptions.getValueAsLong(intervalName));
+		ret.append(" RTExc: ").append(runtimeExceptions.getValueAsLong(intervalName));
+		
+		ret.append(" Last: ").append(timeUnit.transformNanos(getLastRequest(intervalName)));
+		ret.append(" Min: ").append(timeUnit.transformNanos(getMinTime(intervalName)));
+		ret.append(" Max: ").append(timeUnit.transformNanos(getMaxTime(intervalName)));
+		ret.append(" Avg: ").append(getAverageRequestDuration(intervalName, timeUnit));
+		return ret.toString();
+
 	}
 
 	/**
@@ -170,5 +174,21 @@ public class ServletStats extends RequestOrientedStats{
 	 */
 	public long getServletExceptions(String interval) {
 		return servletExceptions.getValueAsLong(interval);
+	}
+
+	@Override
+	public String getValueByNameAsString(String valueName, String intervalName,
+			TimeUnit timeUnit) {
+		if (valueName==null || valueName.equals(""))
+			throw new AssertionError("Value name can not be empty");
+		valueName = valueName.toLowerCase();
+
+		if (valueName.equals("ioexc"))
+			return "" + ioExceptions.getValueAsLong(intervalName); 
+		if (valueName.equals("seexc"))
+			return "" + servletExceptions.getValueAsLong(intervalName);
+		if (valueName.equals("rtexc"))
+			return "" + runtimeExceptions.getValueAsLong(intervalName);
+		return super.getValueByNameAsString(valueName, intervalName, timeUnit);
 	}
 }
