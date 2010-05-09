@@ -16,6 +16,11 @@ import net.java.dev.moskito.core.usecase.session.MonitoringSessionManagerFactory
 import net.java.dev.moskito.webui.bean.MonitoringSessionListItemBean;
 import net.java.dev.moskito.webui.bean.NaviItem;
 
+/**
+ * Show all available (recorded) monitoring sessions.
+ * @author lrosenberg.
+ *
+ */
 public class ShowMonitoringSessionsAction extends BaseMoskitoUIAction{
 	
 	private IMonitoringSessionManager sessionManager;

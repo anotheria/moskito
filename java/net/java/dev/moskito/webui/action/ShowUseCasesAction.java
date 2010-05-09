@@ -15,8 +15,6 @@ import net.java.dev.moskito.webui.bean.NaviItem;
 import net.java.dev.moskito.webui.bean.RecordedUseCaseListItemBean;
 
 public class ShowUseCasesAction extends BaseMoskitoUIAction{
-	
-	
 
 	@Override
 	protected String getLinkToCurrentPage(HttpServletRequest req) {

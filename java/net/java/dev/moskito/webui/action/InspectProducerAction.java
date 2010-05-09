@@ -54,12 +54,7 @@ import net.java.dev.moskito.webui.bean.NaviItem;
  * @author lrosenberg
  */
 public class InspectProducerAction extends BaseMoskitoUIAction{
-	
-	/**
-	 * Parameter producer id.
-	 */
-	public static final String PARAM_PRODUCER_ID = "pProducerId";
-	
+		
 	@Override public ActionForward execute(ActionMapping mapping, FormBean bean, HttpServletRequest req, HttpServletResponse res) throws Exception {
 
 		IStatsProducer producer = getAPI().getProducer(req.getParameter(PARAM_PRODUCER_ID));

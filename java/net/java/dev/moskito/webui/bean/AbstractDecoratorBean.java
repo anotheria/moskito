@@ -40,6 +40,10 @@ import net.anotheria.util.BasicComparable;
 import net.anotheria.util.StringUtils;
 import net.anotheria.util.sorter.IComparable;
 
+/**
+ * Basic bean for decorator beans.
+ * @author lrosenberg.
+ */
 public abstract class AbstractDecoratorBean implements IComparable{
 
 	/**

@@ -2,6 +2,11 @@ package net.java.dev.moskito.webui.bean;
 
 import java.util.List;
 
+/**
+ * This bean contains explanations for decorators.
+ * @author lrosenberg.
+ *
+ */
 public class DecoratorExplanationBean {
 	private String name;
 	private List<StatCaptionBean> captions;

@@ -19,8 +19,7 @@ import net.java.dev.moskito.webui.decorators.IDecorator;
 /**
  * Forwards to the explanation rendering page. The explanation page renders explanations for the 
  * different values monitored and presented by moskito.
- * @author another
- *
+ * @author lrosenberg
  */
 public class ShowExplanationsAction extends BaseMoskitoUIAction{
 

@@ -18,6 +18,11 @@ import net.java.dev.moskito.webui.bean.MonitoringSessionListItemBean;
 import net.java.dev.moskito.webui.bean.NaviItem;
 import net.java.dev.moskito.webui.bean.RecordedUseCaseListItemBean;
 
+/**
+ * The actions displays a whole monitoring session.
+ * @author lrosenberg.
+ *
+ */
 public class ShowMonitoringSessionAction extends BaseMoskitoUIAction{
 	
 	private IMonitoringSessionManager sessionManager;

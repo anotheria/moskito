@@ -20,6 +20,10 @@ import net.java.dev.moskito.webui.bean.RecordedUseCaseBean;
 import net.java.dev.moskito.webui.bean.UseCaseElementNodeBean;
 import net.java.dev.moskito.webui.bean.UseCasePathElementBean;
 
+/**
+ * Show a single call in a monitoring session. 
+ * @author lrosenberg.
+ */
 public class ShowMonitoringSessionCallAction extends BaseMoskitoUIAction{
 
 	@Override

@@ -61,10 +61,23 @@ import net.java.dev.moskito.webui.bean.UnitBean;
 import net.java.dev.moskito.webui.bean.UnitCountBean;
 import net.java.dev.moskito.webui.decorators.IDecorator;
 
+/**
+ * Base action for producers presentation actions.
+ * @author lrosenberg.
+ */
 public abstract class BaseShowProducersAction extends BaseMoskitoUIAction{
 	
+	/**
+	 * Returns the list of producers for presentation.
+	 * @param req
+	 * @return
+	 */
 	protected abstract List<IStatsProducer> getProducers(HttpServletRequest req);
-	
+	/**
+	 * Returns the page title. 
+	 * @param req
+	 * @return
+	 */
 	public abstract String getPageTitle(HttpServletRequest req);
 	
 	@Override
