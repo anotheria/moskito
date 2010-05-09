@@ -44,7 +44,7 @@ import net.anotheria.maf.bean.FormBean;
 public abstract class ShowSummaryAction extends BaseMoskitoUIAction{
 
 	@Override
-	public ActionForward execute(ActionMapping mapping, FormBean bean, HttpServletRequest req, HttpServletResponse res) throws Exception {
+	public ActionForward execute(ActionMapping mapping, FormBean bean, HttpServletRequest req, HttpServletResponse res) {
 		return mapping.findForward("success");
 	}
 

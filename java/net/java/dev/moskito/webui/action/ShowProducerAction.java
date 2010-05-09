@@ -166,8 +166,7 @@ public class ShowProducerAction extends BaseMoskitoUIAction{
 		req.setAttribute("creationTrace", stackTraceList);
 	}
 	
-	@Override
-	protected String getLinkToCurrentPage(HttpServletRequest req) {
+	@Override protected String getLinkToCurrentPage(HttpServletRequest req) {
 		return "mskShowProducer"+"?"+PARAM_PRODUCER_ID+"="+req.getParameter(PARAM_PRODUCER_ID);
 	}
 

@@ -14,6 +14,7 @@ import net.java.dev.moskito.core.usecase.running.ExistingRunningUseCase;
 import net.java.dev.moskito.core.usecase.session.IMonitoringSessionManager;
 import net.java.dev.moskito.core.usecase.session.MonitoringSession;
 import net.java.dev.moskito.core.usecase.session.MonitoringSessionManagerFactory;
+import net.java.dev.moskito.core.usecase.session.NoSuchMonitoringSessionException;
 import net.java.dev.moskito.webui.bean.MonitoringSessionListItemBean;
 import net.java.dev.moskito.webui.bean.NaviItem;
 import net.java.dev.moskito.webui.bean.RecordedUseCaseListItemBean;
@@ -37,12 +38,18 @@ public class ShowMonitoringSessionAction extends BaseMoskitoUIAction{
 	}
 
 	@Override
-	public ActionForward execute(ActionMapping mapping, FormBean formBean, HttpServletRequest req, HttpServletResponse res) throws Exception {
+	public ActionForward execute(ActionMapping mapping, FormBean formBean, HttpServletRequest req, HttpServletResponse res){
 
 		
 		String sessionName = req.getParameter("pSessionName");
 		
-		MonitoringSession msession = sessionManager.getSession(sessionName);
+		MonitoringSession msession = null;
+		try{
+			msession = MonitoringSessionManagerFactory.getMonitoringSessionManager().getSession(sessionName);
+		}catch(NoSuchMonitoringSessionException e){
+			throw new IllegalArgumentException("Session with name "+sessionName+" not found.");
+		}
+
 		
 		MonitoringSessionListItemBean bean = new MonitoringSessionListItemBean();
 			
