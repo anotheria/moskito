@@ -13,11 +13,14 @@ import net.anotheria.maf.MAFFilter;
 
 /**
  * MoskitoUI Filter is the main entering point of the Moskito Web User Interface.
- * @author another
+ * @author lrosenberg
  *
  */
 public class MoskitoUIFilter extends MAFFilter{
 	
+	/**
+	 * Logger.
+	 */
 	private static final Logger log = Logger.getLogger(MoskitoUIFilter.class);
 	
 	/**
