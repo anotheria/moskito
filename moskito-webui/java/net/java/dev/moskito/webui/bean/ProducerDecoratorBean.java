@@ -62,8 +62,8 @@ public class ProducerDecoratorBean extends AbstractDecoratorBean {
 		return metaheader;
 	}
 	
-	public void setMetaHeader(List<MetaHeaderBean> metaheader){
-		this.metaheader = metaheader;
+	public void setMetaHeader(List<MetaHeaderBean> someMetaheaders){
+		this.metaheader = someMetaheaders;
 	}
 	
 	public List<ProducerBean> getProducers() {
