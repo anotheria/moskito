@@ -1,7 +1,18 @@
 package net.java.dev.moskito.webui.bean;
 
+/**
+ * Options for producer visibility.
+ * @author lrosenberg.
+ *
+ */
 public enum ProducerVisibility {
+	/**
+	 * Producer is shown,
+	 */
 	SHOW,
+	/**
+	 * Producer is hidden.
+	 */
 	HIDE;
 
 	public boolean isShown(){

@@ -17,10 +17,14 @@ import net.java.dev.moskito.webui.action.ShowProducersForSubsystemAction;
 import net.java.dev.moskito.webui.action.ShowRecordedUseCaseAction;
 import net.java.dev.moskito.webui.action.ShowUseCasesAction;
 
-
+/**
+ * Mappings configurator for MoSKito project for the AnoMaf framework.
+ * @author lrosenberg.
+ *
+ */
 public class MoskitoMappingsConfigurator implements ActionMappingsConfigurator{
 	
-	public void configureActionMappings(){
+	@Override public void configureActionMappings(){
 		ActionMappings.addMapping("mskCSS", CssAction.class, new ActionForward("css", "/net/java/dev/moskito/webui/jsp/CSS.jsp"));
 
 		ActionMappings.addMapping("mskShowAllProducers", ShowAllProducersAction.class, 

@@ -36,6 +36,10 @@ package net.java.dev.moskito.webui.bean;
 
 import net.anotheria.util.StringUtils;
 
+/**
+ * Caption for a stat bean. 
+ * @author lrosenberg.
+ */
 public class StatCaptionBean {
 	private String caption;
 	private String explanation;
@@ -55,7 +59,7 @@ public class StatCaptionBean {
 		return caption;
 	}
 	
-	public String toString(){
+	@Override public String toString(){
 		return caption;
 	}
 	
