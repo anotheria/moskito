@@ -194,6 +194,10 @@ public abstract class BaseMoskitoUIAction implements Action{
 	}
 	
 	protected String getCurrentInterval(HttpServletRequest req){
+		return getCurrentInterval(req, true);
+	}
+	
+	protected String getCurrentInterval(HttpServletRequest req, boolean saveToSession){
 		String intervalParameter = req.getParameter(PARAM_INTERVAL);
 		String interval = intervalParameter;
 		if (interval==null){
@@ -201,12 +205,16 @@ public abstract class BaseMoskitoUIAction implements Action{
 			if (interval == null)
 				interval = DEFAULT_INTERVAL;
 		}
-		if (intervalParameter!=null)
+		if (intervalParameter!=null && saveToSession)
 			req.getSession().setAttribute(BEAN_INTERVAL, interval);
 		return interval;
 	}
 	
 	protected UnitBean getCurrentUnit(HttpServletRequest req){
+		return getCurrentUnit(req, true);
+	}
+	
+	protected UnitBean getCurrentUnit(HttpServletRequest req, boolean saveToSession){
 		String unitParameter = req.getParameter(PARAM_UNIT);
 		if (unitParameter==null){
 			UnitBean ret = (UnitBean)req.getSession().getAttribute(BEAN_UNIT);
@@ -226,7 +234,8 @@ public abstract class BaseMoskitoUIAction implements Action{
 			}
 		}
 		UnitBean ret = index == -1 ? DEFAULT_UNIT_BEAN : AVAILABLE_UNITS[index];
-		req.getSession().setAttribute(BEAN_UNIT, ret);
+		if (saveToSession)
+			req.getSession().setAttribute(BEAN_UNIT, ret);
 		return ret;
 	}
 	

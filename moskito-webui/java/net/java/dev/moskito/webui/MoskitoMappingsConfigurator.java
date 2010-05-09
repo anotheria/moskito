@@ -85,7 +85,11 @@ public class MoskitoMappingsConfigurator implements ActionMappingsConfigurator{
 		);
 
 		ActionMappings.addMapping("getChartData", GetChartDataAction.class, 
-				new ActionForward("xml", "/net/java/dev/moskito/webui/jsp/ChartData.jsp")
+				new ActionForward("html", "/net/java/dev/moskito/webui/jsp/ChartData.jsp"),
+				new ActionForward("xml", "/net/java/dev/moskito/webui/jsp/ChartDataXML.jsp"),
+				new ActionForward("csv", "/net/java/dev/moskito/webui/jsp/ChartDataCSV.jsp"),
+				new ActionForward("json", "/net/java/dev/moskito/webui/jsp/ChartDataJSON.jsp")
+
 		);
 		
 	}
