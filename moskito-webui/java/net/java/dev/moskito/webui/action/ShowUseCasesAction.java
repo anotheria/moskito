@@ -22,7 +22,7 @@ public class ShowUseCasesAction extends BaseMoskitoUIAction{
 	}
 
 	@Override
-	public ActionForward execute(ActionMapping mapping, FormBean bean, HttpServletRequest req, HttpServletResponse res) throws Exception {
+	public ActionForward execute(ActionMapping mapping, FormBean bean, HttpServletRequest req, HttpServletResponse res) {
 		
 		//prepare RecordedUseCases
 		List<ExistingRunningUseCase> recorded = getUseCaseRecorder().getRecordedUseCases();

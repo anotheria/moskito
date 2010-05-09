@@ -15,6 +15,7 @@ import net.java.dev.moskito.core.usecase.running.ExistingRunningUseCase;
 import net.java.dev.moskito.core.usecase.running.PathElement;
 import net.java.dev.moskito.core.usecase.session.MonitoringSession;
 import net.java.dev.moskito.core.usecase.session.MonitoringSessionManagerFactory;
+import net.java.dev.moskito.core.usecase.session.NoSuchMonitoringSessionException;
 import net.java.dev.moskito.webui.bean.NaviItem;
 import net.java.dev.moskito.webui.bean.RecordedUseCaseBean;
 import net.java.dev.moskito.webui.bean.UseCaseElementNodeBean;
@@ -32,7 +33,7 @@ public class ShowMonitoringSessionCallAction extends BaseMoskitoUIAction{
 	}
 
 	@Override
-	public ActionForward execute(ActionMapping mapping, FormBean formBean, HttpServletRequest req, HttpServletResponse res) throws Exception {
+	public ActionForward execute(ActionMapping mapping, FormBean formBean, HttpServletRequest req, HttpServletResponse res) {
 
 		String sessionName = req.getParameter("pSessionName");
 		int useCasePosition = 0;
@@ -40,7 +41,12 @@ public class ShowMonitoringSessionCallAction extends BaseMoskitoUIAction{
 			useCasePosition = Integer.parseInt(req.getParameter("pPos"));
 		}catch(Exception ignored){}
 				
-		MonitoringSession currentSession = MonitoringSessionManagerFactory.getMonitoringSessionManager().getSession(sessionName);
+		MonitoringSession currentSession = null;
+		try{
+			currentSession = MonitoringSessionManagerFactory.getMonitoringSessionManager().getSession(sessionName);
+		}catch(NoSuchMonitoringSessionException e){
+			throw new IllegalArgumentException("Session with name "+sessionName+" not found.");
+		}
 		ExistingRunningUseCase useCase = currentSession.getUseCases().get(useCasePosition);
 		
 		PathElement root = useCase.getRootElement();
