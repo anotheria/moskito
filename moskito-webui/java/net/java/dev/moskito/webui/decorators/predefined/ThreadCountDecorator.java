@@ -10,7 +10,15 @@ import net.java.dev.moskito.webui.bean.LongValueBean;
 import net.java.dev.moskito.webui.bean.StatValueBean;
 import net.java.dev.moskito.webui.decorators.AbstractDecorator;
 
+/**
+ * This decorator is used for presentation of the thread count producer.
+ * @author lrosenberg.
+ *
+ */
 public class ThreadCountDecorator extends AbstractDecorator{
+	/**
+	 * Captions for the values.
+	 */
 	private static final String CAPTIONS[] = {
 		"Started",
 		"Min Cur",
@@ -19,6 +27,9 @@ public class ThreadCountDecorator extends AbstractDecorator{
 		"Daemon",
 	};
 	
+	/**
+	 * Short explanations of the values.
+	 */
 	private static final String SHORT_EXPLANATIONS[] = {
 		"Total number of started threads",
 		"Min number of currently running threads",
@@ -28,6 +39,9 @@ public class ThreadCountDecorator extends AbstractDecorator{
 	};
 
 
+	/**
+	 * Explanations of the values.
+	 */
 	private static final String EXPLANATIONS[] = {
 		"Total number of started threads",
 		"Min number of currently running threads",
@@ -37,6 +51,9 @@ public class ThreadCountDecorator extends AbstractDecorator{
 	};
 
 	
+	/**
+	 * Creates a new ThreadCountDecorator.
+	 */
 	public ThreadCountDecorator(){
 		super("ThreadCount", CAPTIONS, SHORT_EXPLANATIONS, EXPLANATIONS);
 	}
