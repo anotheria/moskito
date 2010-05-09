@@ -29,7 +29,7 @@ public class ShowExplanationsAction extends BaseMoskitoUIAction{
 	}
 
 	@Override
-	public ActionForward execute(ActionMapping mapping, FormBean formBean, HttpServletRequest req, HttpServletResponse res) throws Exception {
+	public ActionForward execute(ActionMapping mapping, FormBean formBean, HttpServletRequest req, HttpServletResponse res) {
 
 		List<DecoratorExplanationBean> beans = new ArrayList<DecoratorExplanationBean>();
 		List<IDecorator> decorators = DecoratorRegistryFactory.getDecoratorRegistry().getDecorators();
