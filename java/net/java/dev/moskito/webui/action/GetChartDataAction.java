@@ -15,6 +15,7 @@ import net.java.dev.moskito.core.producers.IStatsProducer;
 import net.java.dev.moskito.core.registry.IProducerRegistry;
 import net.java.dev.moskito.core.registry.ProducerRegistryFactory;
 import net.java.dev.moskito.core.stats.TimeUnit;
+import net.java.dev.moskito.webui.bean.ChartDataEntityBean;
 import net.java.dev.moskito.webui.bean.NaviItem;
 
 public class GetChartDataAction extends BaseMoskitoUIAction{
@@ -37,45 +38,48 @@ public class GetChartDataAction extends BaseMoskitoUIAction{
 	}
 
 	@Override
-	public ActionForward execute(ActionMapping mapping, FormBean bean,
+	public ActionForward execute(ActionMapping mapping, FormBean form,
 			HttpServletRequest req, HttpServletResponse res) throws Exception {
 
-		String intervalName = null;
-		TimeUnit unit = TimeUnit.MICROSECONDS;
+		String intervalName = getCurrentInterval(req, false);
+		TimeUnit unit = getCurrentUnit(req, false).getUnit();
+		
+		req.setAttribute("interval", intervalName);
+		req.setAttribute("unit", unit.toString());
 		
 		String producersParameter = req.getParameter("producers");
-		System.out.println("Producers parameter: "+producersParameter);
 		
 		String[] producers = StringUtils.tokenize(producersParameter, ',');
-		System.out.println(""+producers.length+" producers");
 		List<RequestedValue> params = new ArrayList<RequestedValue>();
 		for (String p : producers){
 			String[] tokens = StringUtils.tokenize(p, '.');
 			params.add(new RequestedValue(tokens[0], tokens[1], tokens[2]));
 		}
 		
-		System.out.println("Parsed parameters "+params);
+		ArrayList<ChartDataEntityBean> ret = new ArrayList<ChartDataEntityBean>();
+		
 		
 		//processing parameters
 		for (RequestedValue v : params){
 			IStatsProducer producer = registry.getProducer(v.getProducerId());
-			System.out.println("Producer: "+producer);
 			if (producer==null){
-				System.out.println("not found...");
 				continue;
 			}
 			List<IStats> stats = producer.getStats();
 			for (IStats s : stats){
-				System.out.println("Checking "+s);
 				if (s.getName().equals(v.getStatId())){
-					System.out.println("Found: "+s.getName());
-					System.out.println("---- "+s.getValueByNameAsString(v.getValue(), intervalName, unit));
+					ChartDataEntityBean bean = new ChartDataEntityBean();
+					bean.setProducerId(producer.getProducerId());
+					bean.setStatName(s.getName());
+					bean.setStatValueName(v.getValue());
+					bean.setStatValue(s.getValueByNameAsString(v.getValue(), intervalName, unit));
+					ret.add(bean);
 				}
 			}
 		}
 		
-		
-		return null;
+		req.setAttribute("data", ret);
+		return mapping.findForward( getForward(req) );
 	}
 	
 	public static class RequestedValue{
