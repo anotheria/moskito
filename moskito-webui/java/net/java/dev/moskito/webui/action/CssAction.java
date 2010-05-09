@@ -16,7 +16,7 @@ import net.java.dev.moskito.webui.bean.NaviItem;
 public class CssAction extends BaseMoskitoUIAction{
 
 	@Override
-	public ActionForward execute(ActionMapping mapping, FormBean bean, HttpServletRequest req, HttpServletResponse res) throws Exception {
+	public ActionForward execute(ActionMapping mapping, FormBean bean, HttpServletRequest req, HttpServletResponse res) {
 		return mapping.findForward("css");
 	}
 

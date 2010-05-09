@@ -55,7 +55,7 @@ import net.java.dev.moskito.webui.bean.NaviItem;
  */
 public class InspectProducerAction extends BaseMoskitoUIAction{
 		
-	@Override public ActionForward execute(ActionMapping mapping, FormBean bean, HttpServletRequest req, HttpServletResponse res) throws Exception {
+	@Override public ActionForward execute(ActionMapping mapping, FormBean bean, HttpServletRequest req, HttpServletResponse res) {
 
 		IStatsProducer producer = getAPI().getProducer(req.getParameter(PARAM_PRODUCER_ID));
 		if (! (producer instanceof Inspectable))

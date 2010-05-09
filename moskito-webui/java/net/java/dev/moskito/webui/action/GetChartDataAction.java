@@ -48,7 +48,7 @@ public class GetChartDataAction extends BaseMoskitoUIAction{
 
 	@Override
 	public ActionForward execute(ActionMapping mapping, FormBean form,
-			HttpServletRequest req, HttpServletResponse res) throws Exception {
+			HttpServletRequest req, HttpServletResponse res) {
 
 		String intervalName = getCurrentInterval(req, false);
 		TimeUnit unit = getCurrentUnit(req, false).getUnit();

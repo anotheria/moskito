@@ -81,7 +81,7 @@ public abstract class BaseShowProducersAction extends BaseMoskitoUIAction{
 	public abstract String getPageTitle(HttpServletRequest req);
 	
 	@Override
-	public ActionForward execute(ActionMapping mapping, FormBean formBean, HttpServletRequest req, HttpServletResponse res) throws Exception {
+	public ActionForward execute(ActionMapping mapping, FormBean formBean, HttpServletRequest req, HttpServletResponse res) {
 
 		String intervalName = getCurrentInterval(req);
 		UnitBean currentUnit = getCurrentUnit(req);
