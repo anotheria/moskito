@@ -42,23 +42,20 @@ import net.java.dev.moskito.core.producers.IStatsProducer;
 
 public class ShowProducersForCategoryAction extends BaseShowProducersAction{
 	
-	public static final String PARAM_CATEGORY = "pCategory";
-	
 	private String getCategoryParameter(HttpServletRequest req){
 		String param = req.getParameter(PARAM_CATEGORY);
 		return param == null ? "none" : param;
 	}
 
-	@Override
-	protected List<IStatsProducer> getProducers(HttpServletRequest req) {
+	@Override protected List<IStatsProducer> getProducers(HttpServletRequest req) {
 		return getAPI().getAllProducersByCategory(getCategoryParameter(req));
 	}
 	
-	public String getPageTitle(HttpServletRequest req){
+	@Override 	public String getPageTitle(HttpServletRequest req){
 		return "in category "+getCategoryParameter(req);
 	}
 
-	public String getLinkToCurrentPage(HttpServletRequest req){
+	@Override public String getLinkToCurrentPage(HttpServletRequest req){
 		return "mskShowProducersByCategory?pCategory="+getCategoryParameter(req);
 	}
 	

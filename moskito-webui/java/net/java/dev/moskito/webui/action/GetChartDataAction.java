@@ -18,6 +18,11 @@ import net.java.dev.moskito.core.stats.TimeUnit;
 import net.java.dev.moskito.webui.bean.ChartDataEntityBean;
 import net.java.dev.moskito.webui.bean.NaviItem;
 
+/**
+ * Delivers data for charts.
+ * @author lrosenberg.
+ *
+ */
 public class GetChartDataAction extends BaseMoskitoUIAction{
 
 	@Override
@@ -30,9 +35,13 @@ public class GetChartDataAction extends BaseMoskitoUIAction{
 		return null;
 	}
 	
-	
+	/**
+	 * Link to the producer registry.
+	 */
 	private IProducerRegistry registry;
-	
+	/**
+	 * Default constructor.
+	 */
 	public GetChartDataAction(){
 		registry = ProducerRegistryFactory.getProducerRegistryInstance();
 	}
@@ -82,11 +91,31 @@ public class GetChartDataAction extends BaseMoskitoUIAction{
 		return mapping.findForward( getForward(req) );
 	}
 	
+	/**
+	 * Parameter wrapper class.
+	 * @author lrosenberg.
+	 *
+	 */
 	public static class RequestedValue{
+		/**
+		 * ProducerId parameter.
+		 */
 		private String producerId;
+		/**
+		 * Stat id parameter.
+		 */
 		private String statId;
+		/**
+		 * Stat value name parameter.
+		 */
 		private String value;
 		
+		/**
+		 * Default constructor.
+		 * @param aProducerId
+		 * @param aStatId
+		 * @param aValue
+		 */
 		public RequestedValue(String aProducerId, String aStatId, String aValue){
 			producerId = aProducerId;
 			statId = aStatId;

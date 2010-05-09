@@ -39,6 +39,10 @@ import java.util.List;
 import net.anotheria.util.BasicComparable;
 import net.anotheria.util.sorter.IComparable;
 
+/**
+ * Represents the data for a single producer view.
+ * @author lrosenberg.
+ */
 public class ProducerBean implements IComparable{
 	/**
 	 * Id of the producer.

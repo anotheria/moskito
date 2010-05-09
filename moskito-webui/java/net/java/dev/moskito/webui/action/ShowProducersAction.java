@@ -48,8 +48,6 @@ import net.java.dev.moskito.webui.bean.UnitCountBean;
 
 public class ShowProducersAction extends BaseShowProducersAction{
 
-	public static final String PARAM_CATEGORY = "pCategory";
-	public static final String PARAM_SUBSYSTEM = "pSubsystem";
 	
 	public static final String ATTR_CURRENT_CATEGORY = "currentCategory";
 	public static final String ATTR_CURRENT_SUBSYSTEM = "currentSubsystem";
@@ -64,7 +62,7 @@ public class ShowProducersAction extends BaseShowProducersAction{
 		String param = req.getParameter(PARAM_SUBSYSTEM);
 		req.setAttribute(ATTR_CURRENT_SUBSYSTEM, param);
 		return param;
-	}
+	} 
 	
 	@Override
 	protected List<IStatsProducer> getProducers(HttpServletRequest req) {
@@ -78,7 +76,7 @@ public class ShowProducersAction extends BaseShowProducersAction{
 		return getAPI().getProducers(filters.toArray(new IProducerFilter[0]));
 	}
 	
-	public String getPageTitle(HttpServletRequest req){
+	@Override public String getPageTitle(HttpServletRequest req){
 		return "Producers";
 	}
 	
@@ -88,7 +86,7 @@ public class ShowProducersAction extends BaseShowProducersAction{
 		return "mskShowProducers?ts="+System.currentTimeMillis();
 	}
 
-	public void doCustomProcessing(HttpServletRequest req, HttpServletResponse res){
+	@Override public void doCustomProcessing(HttpServletRequest req, HttpServletResponse res){
 		List<String> categories = getAPI().getCategories();
 		List<UnitCountBean> categoriesBeans = new ArrayList<UnitCountBean>(categories.size());
 		for (String catName : categories){

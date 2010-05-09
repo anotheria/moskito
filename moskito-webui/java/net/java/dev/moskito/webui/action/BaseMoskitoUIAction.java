@@ -6,7 +6,7 @@
  * 
  * All MoSKito files are distributed under MIT License:
  * 
- * Copyright (c) 2006 The MoSKito Project Team.
+ * Copyright (c) 2006-2010 The MoSKito Project Team.
  * 
  * Permission is hereby granted, free of charge,
  * to any person obtaining a copy of this software and
@@ -104,6 +104,10 @@ public abstract class BaseMoskitoUIAction implements Action{
 	 * Parameter producer id.
 	 */
 	public static final String PARAM_PRODUCER_ID = "pProducerId";
+	
+	public static final String PARAM_CATEGORY = "pCategory";
+	public static final String PARAM_SUBSYSTEM = "pSubsystem";
+
 
 	
 	/**

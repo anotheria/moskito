@@ -47,8 +47,6 @@ import net.java.dev.moskito.core.producers.IStatsProducer;
  */
 public class ShowProducersForSubsystemAction extends BaseShowProducersAction{
 	
-	public static final String PARAM_SUBSYSTEM = "pSubsystem";
-	
 	private String getSubsystemParameter(HttpServletRequest req){
 		String param = req.getParameter(PARAM_SUBSYSTEM);
 		return param == null ? "none" : param;
