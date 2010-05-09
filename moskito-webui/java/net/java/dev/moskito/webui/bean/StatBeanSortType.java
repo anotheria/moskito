@@ -35,11 +35,23 @@
 package net.java.dev.moskito.webui.bean;
 
 import net.anotheria.util.sorter.SortType;
-
+/**
+ * Sort type for statistics.
+ * @author lrosenberg.
+ *
+ */
 public class StatBeanSortType extends SortType{
-	
+	/**
+	 * Sort type limit for customer sort types.
+	 */
 	public static final int SORT_TYPE_LIMIT = 1000;
+	/**
+	 * Sort by name.
+	 */
 	public static final int SORT_BY_NAME = 1000;
+	/**
+	 * Default sort type.
+	 */
 	public static final int SORT_BY_DEFAULT = SORT_BY_NAME;
 	
 	public StatBeanSortType(){

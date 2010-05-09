@@ -1,10 +1,29 @@
 package net.java.dev.moskito.webui.bean;
-
+/**
+ * This bean contains an item in the monitoring session list.
+ * @author lrosenberg.
+ *
+ */
 public class MonitoringSessionListItemBean {
+	/**
+	 * Name of the session.
+	 */
 	private String name;
+	/**
+	 * Date of session creation.
+	 */
 	private String created;
+	/**
+	 * Last activity of the session.
+	 */
 	private String lastActivity;
+	/**
+	 * True if the session is still active (recorded).
+	 */
 	private boolean active;
+	/**
+	 * Number of calls in this session.
+	 */
 	private int numberOfCalls;
 	public boolean isActive() {
 		return active;

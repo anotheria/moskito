@@ -36,7 +36,11 @@ package net.java.dev.moskito.webui.bean;
 
 import net.anotheria.util.BasicComparable;
 import net.anotheria.util.sorter.IComparable;
-
+/**
+ * StatValueBean for string values.
+ * @author lrosenberg.
+ *
+ */
 public class StringValueBean extends StatValueBean{
 	
 	/**
