@@ -81,7 +81,11 @@ public class GetChartDataAction extends BaseMoskitoUIAction{
 					bean.setProducerId(producer.getProducerId());
 					bean.setStatName(s.getName());
 					bean.setStatValueName(v.getValue());
-					bean.setStatValue(s.getValueByNameAsString(v.getValue(), intervalName, unit));
+					String value = s.getValueByNameAsString(v.getValue(), intervalName, unit);
+					if (value!=null)
+						bean.setStatValue(value);
+					else
+						bean.setStatValue("0");
 					ret.add(bean);
 				}
 			}
