@@ -37,6 +37,11 @@ package net.java.dev.moskito.core.predefined;
 import static net.java.dev.moskito.core.predefined.Constants.DEFAULT_INTERVALS;
 import static net.java.dev.moskito.core.predefined.Constants.MAX_TIME_DEFAULT;
 import static net.java.dev.moskito.core.predefined.Constants.MIN_TIME_DEFAULT;
+
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+
 import net.java.dev.moskito.core.producers.AbstractStats;
 import net.java.dev.moskito.core.producers.CallExecution;
 import net.java.dev.moskito.core.stats.Interval;
@@ -103,6 +108,19 @@ public abstract class RequestOrientedStats extends AbstractStats {
 	 * Max request time
 	 */
 	private StatValue maxTime;
+	
+	private static final List<String> VALUE_NAMES = Collections.unmodifiableList(Arrays.asList(
+			new String[]{
+				"TR",
+				"TT",
+				"CR",
+				"MCR",
+				"ERR",
+				"Last",
+				"Min",
+				"Max",
+				"Avg",
+			})); 
 
 	/**
 	 * Creates a new object with the given method name.
@@ -411,6 +429,11 @@ public abstract class RequestOrientedStats extends AbstractStats {
 			notifyError();
 			finishExecution();
 		}
+	}
+
+	@Override
+	public List<String> getAvailableValueNames() {
+		return VALUE_NAMES;
 	}
 
 }

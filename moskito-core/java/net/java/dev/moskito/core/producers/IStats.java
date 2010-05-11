@@ -34,6 +34,8 @@
  */	
 package net.java.dev.moskito.core.producers;
 
+import java.util.List;
+
 import net.java.dev.moskito.core.stats.TimeUnit;
 
 /**
@@ -99,5 +101,7 @@ public interface IStats {
 	CallExecution createCallExecution();
 	
 	String getValueByNameAsString(String valueName, String intervalName, TimeUnit timeUnit);
+	
+	List<String> getAvailableValueNames();
 	
 }
