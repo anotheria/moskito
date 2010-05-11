@@ -45,14 +45,17 @@ public class ProducerRegistryFactory {
 	/**
 	 * The instance of the producer registry impl.
 	 */
-	private static final IProducerRegistry instance;
+	private static final IProducerRegistry instance = new ProducerRegistryImpl();
 	
 	static{
-		instance = new ProducerRegistryImpl();
+		init();
+	}
+	
+	private static void init(){
 		String junittest = System.getProperty("JUNITTEST");
-		if (junittest!=null && !(junittest.equalsIgnoreCase("true"))){
-			StartBuiltInProducers.startbuiltin();
-		}
+		if (junittest!=null && (junittest.equalsIgnoreCase("true")))
+			return;
+		StartBuiltInProducers.startbuiltin();
 	}
 	
 	/**

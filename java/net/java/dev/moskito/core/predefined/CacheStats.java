@@ -1,5 +1,9 @@
 package net.java.dev.moskito.core.predefined;
 
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+
 import net.java.dev.moskito.core.producers.AbstractStats;
 import net.java.dev.moskito.core.stats.Interval;
 import net.java.dev.moskito.core.stats.StatValue;
@@ -50,6 +54,19 @@ public class CacheStats extends AbstractStats{
 	 */
 	private String name;
 	
+	private static final List<String> VALUE_NAMES = Collections.unmodifiableList(Arrays.asList(
+			new String[]{
+				"REQ",
+				"HIT",
+				"HR",
+				"WR",
+				"GC",
+				"RO",
+				"FU",
+				"EX",
+				"FI",
+			})); 
+
 	public CacheStats(){
 		this("unnamed", Constants.DEFAULT_INTERVALS);
 	} 
@@ -75,21 +92,6 @@ public class CacheStats extends AbstractStats{
 		return name;
 	}
 	
-	@Override public String toStatsString(String intervalName, TimeUnit timeUnit) {
-		StringBuilder b = new StringBuilder();
-		b.append(getName()).append(' ');
-		b.append(" REQ: ").append(requests.getValueAsLong(intervalName));
-		b.append(" HIT: ").append(hits.getValueAsLong(intervalName));
-		b.append(" HR: ").append(getHitRatio(intervalName));
-		b.append(" WR: ").append(writes.getValueAsLong(intervalName));
-		b.append(" GC: ").append(garbageCollected.getValueAsLong(intervalName));
-		b.append(" RO: ").append(rolloverCount.getValueAsLong(intervalName));
-		b.append(" FU: ").append(cacheFullCount.getValueAsLong(intervalName));
-		b.append(" EX: ").append(expiredCount.getValueAsLong(intervalName));
-		b.append(" FI: ").append(filteredCount.getValueAsLong(intervalName));
-		return b.toString();
-	}
-
 	public double getHitRatio(String intervalName){
 		return hits.getValueAsDouble(intervalName)/requests.getValueAsDouble(intervalName);
 	}
@@ -170,7 +172,51 @@ public class CacheStats extends AbstractStats{
 		return 0.0;
 	}
 	
+	@Override
+	public List<String> getAvailableValueNames() {
+		return VALUE_NAMES;
+	}
+
+	@Override public String toStatsString(String intervalName, TimeUnit timeUnit) {
+		StringBuilder b = new StringBuilder();
+		b.append(getName()).append(' ');
+		b.append(" REQ: ").append(requests.getValueAsLong(intervalName));
+		b.append(" HIT: ").append(hits.getValueAsLong(intervalName));
+		b.append(" HR: ").append(getHitRatio(intervalName));
+		b.append(" WR: ").append(writes.getValueAsLong(intervalName));
+		b.append(" GC: ").append(garbageCollected.getValueAsLong(intervalName));
+		b.append(" RO: ").append(rolloverCount.getValueAsLong(intervalName));
+		b.append(" FU: ").append(cacheFullCount.getValueAsLong(intervalName));
+		b.append(" EX: ").append(expiredCount.getValueAsLong(intervalName));
+		b.append(" FI: ").append(filteredCount.getValueAsLong(intervalName));
+		return b.toString();
+	}
+
+	@Override public String getValueByNameAsString(String valueName, String intervalName, TimeUnit timeUnit){
+		if (valueName==null || valueName.equals(""))
+			throw new AssertionError("Value name can not be empty");
+		valueName = valueName.toLowerCase();
+		if (valueName.equals("req"))
+			return ""+requests.getValueAsLong(intervalName);
+		if (valueName.equals("hit"))
+			return ""+hits.getValueAsLong(intervalName);
+		if (valueName.equals("hr"))
+			return ""+getHitRatio(intervalName);
+		if (valueName.equals("wr"))
+			return ""+writes.getValueAsLong(intervalName);
+		if (valueName.equals("gc"))
+			return ""+garbageCollected.getValueAsLong(intervalName);
+		if (valueName.equals("ro"))
+			return ""+rolloverCount.getValueAsLong(intervalName);
+		if (valueName.equals("fu"))
+			return ""+cacheFullCount.getValueAsLong(intervalName);
+		if (valueName.equals("ex"))
+			return ""+expiredCount.getValueAsLong(intervalName);
+		if (valueName.equals("fi"))
+			return ""+filteredCount.getValueAsLong(intervalName);
+		return super.getValueByNameAsString(valueName, intervalName, timeUnit);
+	}
 
 
-	
+
 }

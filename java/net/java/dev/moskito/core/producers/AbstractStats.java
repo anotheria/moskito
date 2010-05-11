@@ -126,7 +126,7 @@ public abstract class AbstractStats implements IStats {
 	
 	@Override
 	public String getValueByNameAsString(String valueName, String intervalName, TimeUnit timeUnit){
-		return "none";
+		return null;
 	}
 
 	@Override
