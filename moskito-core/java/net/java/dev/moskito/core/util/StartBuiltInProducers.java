@@ -19,7 +19,6 @@ public class StartBuiltInProducers {
 	private static volatile boolean initialized = false;
 	
 	public static synchronized void startbuiltin(){
-		System.out.println("%%%% START BUILTIN %%%%");
 		if (initialized)
 			return;
 		initialized = true;
