@@ -65,7 +65,12 @@ public class GetChartMetaDataAction extends BaseMoskitoUIAction{
 					if (stat.getAvailableValueNames().size()>0)
 						tvnBeans.add(new TypeAndValueNamesBean(stat.getClass().getSimpleName(), stat.getAvailableValueNames()));
 				}
-				ptBeans.add(new ProducerAndTypeBean(producer.getProducerId(), stat.getClass().getSimpleName()));
+				ProducerAndTypeBean patBean = new ProducerAndTypeBean(producer.getProducerId(), stat.getClass().getSimpleName());
+				for (IStats s : producer.getStats()){
+					if (s.getAvailableValueNames().size()>0)
+						patBean.addStatName(s.getName());
+				}
+				ptBeans.add(patBean);
 				
 			}catch(IllegalArgumentException e){
 				//emptyproducer, ignore
