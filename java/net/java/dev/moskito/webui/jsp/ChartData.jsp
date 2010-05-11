@@ -23,7 +23,7 @@
 			<h2>MoSKito instant chart data.</h2>
 
 			<div><span>
-This page explains what the abreviations used on the producers overview page mean. However, it doesn't explain how to interpret
+TODO FIX: This page explains what the abreviations used on the producers overview page mean. However, it doesn't explain how to interpret
 the data. Since the data is strongly use-case dependent, its mostly up to you to give it a correct interpretations, but 
 for some use-cases <a href="http://moskito.anotheria.net/documentation.html">moskito's documentation and HOWTOs</a> are quite useful.
 			</span></div>
