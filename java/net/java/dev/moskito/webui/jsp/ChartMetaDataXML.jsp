@@ -14,7 +14,13 @@
 	</units>
 	<producers>
     <ano:iterate name="producerAndTypes" id="producer" type="net.java.dev.moskito.webui.bean.ProducerAndTypeBean">
-		<producer id="<ano:write name="producer" property="producerId"/>" type="<ano:write name="producer" property="type"/>"/><%--
+		<producer id="<ano:write name="producer" property="producerId"/>" type="<ano:write name="producer" property="type"/>">
+			<statnames>
+				<ano:iterate name="producer" property="statNames" type="java.lang.String" id="statName" indexId="statIndex">
+					<statname><ano:write name="statName"/></statname><%--
+				--%></ano:iterate>
+			</statnames>
+		</producer><%--
     --%></ano:iterate>
 	</producers>
 	<types>
