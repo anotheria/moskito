@@ -1,6 +1,5 @@
 package net.java.dev.moskito.core.annotation;
 
-import com.sun.tools.javac.util.List;
 import java.util.Set;
 
 import javax.annotation.processing.AbstractProcessor;
@@ -26,7 +25,7 @@ import com.sun.tools.javac.tree.JCTree.JCExpressionStatement;
 import com.sun.tools.javac.tree.JCTree.JCMethodDecl;
 import com.sun.tools.javac.tree.JCTree.JCStatement;
 import com.sun.tools.javac.tree.JCTree.JCVariableDecl;
-import com.sun.xml.internal.ws.api.model.wsdl.WSDLBoundOperation.ANONYMOUS;
+import com.sun.tools.javac.util.List;
 
 
 @SupportedAnnotationTypes(value = {MoskitoAnnotationProcessor.ANNOTATION_TYPE})
