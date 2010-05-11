@@ -35,8 +35,10 @@
 package net.java.dev.moskito.core.producers;
 
 import java.lang.reflect.Method;
-import java.util.Date;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import net.java.dev.moskito.core.stats.TimeUnit;
@@ -49,6 +51,8 @@ import net.java.dev.moskito.core.stats.TimeUnit;
 public abstract class AbstractStats implements IStats {
 
 	private String name;
+	
+	private static final List<String> EMPTY_LIST = Collections.unmodifiableList(new ArrayList<String>());
 	
 	protected AbstractStats(){
 		this("unnamed");
@@ -120,8 +124,16 @@ public abstract class AbstractStats implements IStats {
 		throw new AssertionError("Not implemented");
 	}
 	
+	@Override
 	public String getValueByNameAsString(String valueName, String intervalName, TimeUnit timeUnit){
 		return "none";
 	}
+
+	@Override
+	public List<String> getAvailableValueNames() {
+		return EMPTY_LIST;
+	}
+	
+	
 
 }
