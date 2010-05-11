@@ -12,10 +12,8 @@
  */
 package net.java.dev.moskito.core.stats.impl;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
-import java.io.Serializable;
 
 import net.java.dev.moskito.core.stats.IIntervalListener;
 import net.java.dev.moskito.core.stats.Interval;
