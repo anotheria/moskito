@@ -37,6 +37,11 @@ package net.java.dev.moskito.webui.bean;
 import net.anotheria.util.BasicComparable;
 import net.anotheria.util.sorter.IComparable;
 
+/**
+ * This beans represents an interval.
+ * @author lrosenberg.
+ *
+ */
 public class IntervalBean implements IComparable{
 	/**
 	 * Name of the interval.
@@ -50,6 +55,9 @@ public class IntervalBean implements IComparable{
 	 * Age of the interval.
 	 */
 	private String age;
+	/**
+	 * Length of the interval.
+	 */
 	private int length;
 	
 	public IntervalBean(){

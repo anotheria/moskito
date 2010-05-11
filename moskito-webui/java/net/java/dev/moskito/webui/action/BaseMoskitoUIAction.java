@@ -104,8 +104,13 @@ public abstract class BaseMoskitoUIAction implements Action{
 	 * Parameter producer id.
 	 */
 	public static final String PARAM_PRODUCER_ID = "pProducerId";
-	
+	/**
+	 * Parameter for producer category.
+	 */
 	public static final String PARAM_CATEGORY = "pCategory";
+	/**
+	 * Parameter for producer subsystem.
+	 */
 	public static final String PARAM_SUBSYSTEM = "pSubsystem";
 
 
@@ -130,8 +135,15 @@ public abstract class BaseMoskitoUIAction implements Action{
 	 * Stored sort type bean prefix name.
 	 */
 	public static final String BEAN_SORT_TYPE_PREFIX = "moskito.SortType";
+
+	/**
+	 * Prefix for producer sort type session storage.
+	 */
 	public static final String BEAN_SORT_TYPE_SINGLE_PRODUCER_PREFIX = BEAN_SORT_TYPE_PREFIX+".single";
 	
+	/**
+	 * Prefix for producer visibility session storage.
+	 */
 	public static final String BEAN_VISIBILITY_TYPE_PREFIX = "producer.VisibilityType";
 	
 	/**
@@ -190,6 +202,11 @@ public abstract class BaseMoskitoUIAction implements Action{
 		return myProducerId;
 	}
 	
+	/**
+	 * Returns the specified forward.
+	 * @param req
+	 * @return
+	 */
 	protected String getForward(HttpServletRequest req){
 		String forward = req.getParameter(PARAM_FORWARD);
 		if (forward==null)
@@ -197,10 +214,21 @@ public abstract class BaseMoskitoUIAction implements Action{
 		return forward;
 	}
 	
+	/**
+	 * Returns the currently selected interval, either as parameter or from session.
+	 * @param req
+	 * @return
+	 */
 	protected String getCurrentInterval(HttpServletRequest req){
 		return getCurrentInterval(req, true);
 	}
 	
+	/**
+	 * Returns the currently selected interval, either as parameter or from session.
+	 * @param req
+	 * @param saveToSession - if true the value from request will be stored to session.
+	 * @return
+	 */
 	protected String getCurrentInterval(HttpServletRequest req, boolean saveToSession){
 		String intervalParameter = req.getParameter(PARAM_INTERVAL);
 		String interval = intervalParameter;
@@ -214,10 +242,21 @@ public abstract class BaseMoskitoUIAction implements Action{
 		return interval;
 	}
 	
+	/**
+	 * Returns the currently selected unit either from request or session.
+	 * @param req
+	 * @return
+	 */
 	protected UnitBean getCurrentUnit(HttpServletRequest req){
 		return getCurrentUnit(req, true);
 	}
 	
+	/**
+	 * Returns the currently selected unit either from request or session.
+	 * @param req
+	 * @param saveToSession - if true the request parameter  will be saved into session.
+	 * @return
+	 */
 	protected UnitBean getCurrentUnit(HttpServletRequest req, boolean saveToSession){
 		String unitParameter = req.getParameter(PARAM_UNIT);
 		if (unitParameter==null){
@@ -279,6 +318,11 @@ public abstract class BaseMoskitoUIAction implements Action{
 		req.setAttribute("timestampAsDate", timestampAsDate);
 	}
 
+	/**
+	 * Returns the link to the current page.
+	 * @param req 
+	 * @return
+	 */
 	protected abstract String getLinkToCurrentPage(HttpServletRequest req);
 	
 	protected static IDecoratorRegistry getDecoratorRegistry(){

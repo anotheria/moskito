@@ -5,6 +5,7 @@ import net.anotheria.maf.action.ActionMappings;
 import net.anotheria.maf.action.ActionMappingsConfigurator;
 import net.java.dev.moskito.webui.action.CssAction;
 import net.java.dev.moskito.webui.action.GetChartDataAction;
+import net.java.dev.moskito.webui.action.GetChartMetaDataAction;
 import net.java.dev.moskito.webui.action.InspectProducerAction;
 import net.java.dev.moskito.webui.action.ShowAllProducersAction;
 import net.java.dev.moskito.webui.action.ShowExplanationsAction;
@@ -95,6 +96,15 @@ public class MoskitoMappingsConfigurator implements ActionMappingsConfigurator{
 				new ActionForward("json", "/net/java/dev/moskito/webui/jsp/ChartDataJSON.jsp")
 
 		);
+		
+		ActionMappings.addMapping("getChartMetaData", GetChartMetaDataAction.class, 
+				new ActionForward("html", "/net/java/dev/moskito/webui/jsp/ChartMetaData.jsp"),
+				new ActionForward("xml", "/net/java/dev/moskito/webui/jsp/ChartMetaDataXML.jsp"),
+				new ActionForward("csv", "/net/java/dev/moskito/webui/jsp/ChartMetaDataCSV.jsp"),
+				new ActionForward("json", "/net/java/dev/moskito/webui/jsp/ChartMetaDataJSON.jsp")
+
+		);
+		
 		
 	}
 
