@@ -86,14 +86,15 @@ public class OnDemandStatsProducerTest {
 		endLatch.await();
 		long end = System.nanoTime();
 		long duration = end - start;
-		System.out.println("Tests finished in "+duration);
+		System.out.println("Tests finished in "+duration/1000/1000+" ms");
 		
-		long totalRequest = 0;
+		long totalRequests = 0;
 		for (IStats s : p.getStats()){
-			totalRequest += ((ServiceStats)s).getTotalRequests();
+			totalRequests += ((ServiceStats)s).getTotalRequests();
 		}
 		
-		System.out.println("Total requests "+totalRequest+" in "+p.getStats().size()+" stats.");
+		System.out.println("Total requests "+totalRequests+" in "+p.getStats().size()+" stats.");
+		assertEquals(THREAD_COUNT*REQUEST_COUNT, totalRequests);
 		//System.out.println(p.getStats());
 	}
 	
