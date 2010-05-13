@@ -1,8 +1,16 @@
 package net.java.dev.moskito.core.dynamic;
 
+import java.util.ArrayList;
+import java.util.Random;
+import java.util.concurrent.CountDownLatch;
+
+import javax.xml.datatype.Duration;
+
 import net.anotheria.util.IdCodeGenerator;
 import net.java.dev.moskito.core.inspection.CreationInfo;
+import net.java.dev.moskito.core.predefined.ServiceStats;
 import net.java.dev.moskito.core.predefined.ServiceStatsFactory;
+import net.java.dev.moskito.core.producers.IStats;
 
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -55,5 +63,62 @@ public class OnDemandStatsProducerTest {
 		assertEquals(id, p.getProducerId());
 		assertEquals("default", p.getCategory());
 		assertEquals("default", p.getSubsystem());
+	}
+	
+	
+	private static final int THREAD_COUNT = 5;
+	private static final CountDownLatch startLatch = new CountDownLatch(1);
+	private static final CountDownLatch endLatch = new CountDownLatch(THREAD_COUNT);
+	private static final int REQUEST_COUNT = 10000;
+	private static final int RANDOM_COUNT = 100;
+	private static final Random rnd = new Random(System.currentTimeMillis());
+	@Test public void testMultipleAccess() throws Exception{
+		OnDemandStatsProducer p = new OnDemandStatsProducer("id", "aCategory", "aSubsystem", new ServiceStatsFactory());
+		ArrayList<TestThread> threads = new ArrayList<TestThread>();
+		for (int i=0; i<THREAD_COUNT; i++){
+			TestThread t = new TestThread(p);
+			t.start();
+			threads.add(t);
+		}
+		
+		long start = System.nanoTime();
+		startLatch.countDown();
+		endLatch.await();
+		long end = System.nanoTime();
+		long duration = end - start;
+		System.out.println("Tests finished in "+duration);
+		
+		long totalRequest = 0;
+		for (IStats s : p.getStats()){
+			totalRequest += ((ServiceStats)s).getTotalRequests();
+		}
+		
+		System.out.println("Total requests "+totalRequest+" in "+p.getStats().size()+" stats.");
+		//System.out.println(p.getStats());
+	}
+	
+	private static class TestThread extends Thread{
+		
+		private OnDemandStatsProducer producer;
+		
+		public TestThread(OnDemandStatsProducer aProducer) {
+			producer = aProducer;
+		}
+		
+		public void run(){
+			try{
+				startLatch.await();
+			}catch(InterruptedException e){}
+			for (int i=0; i<REQUEST_COUNT; i++){
+				int r = rnd.nextInt(RANDOM_COUNT);
+				try{
+					ServiceStats stats = (ServiceStats)producer.getStats(""+r);
+					stats.addRequest();
+				}catch(OnDemandStatsProducerException ignored){
+					ignored.printStackTrace();
+				}
+			}
+			endLatch.countDown();
+		}
 	}
 }
