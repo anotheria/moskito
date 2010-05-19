@@ -88,9 +88,12 @@ public class MoskitoAnnotationProcessor extends AbstractProcessor{
 
 	            // Creating new finally.
 	            JCBlock finalizer = makePrintBlock(maker, utils, var);
-	            System.out.println("finalizer : "+finalizer);
+	            System.out.println("finalizer : -->"+finalizer+" <--");
 	            JCStatement stat = maker.Try(maker.Block(0, tryBlock), List.<JCCatch>nil(), finalizer);
+	            System.out.println("stat : -->"+stat+" <--");
+	            
 	            newStatements = newStatements.append(stat);
+	            
 
 	            // Replacing method code.
 	            ((JCMethodDecl) blockNode).body.stats = newStatements;
@@ -116,7 +119,7 @@ public class MoskitoAnnotationProcessor extends AbstractProcessor{
 	  protected JCVariableDecl makeTimeStartVar(TreeMaker maker, JavacElements utils) {
 	    // creating variable for time storage. time_start_{random}
 	    JCExpression currentTime = makeCurrentTime(maker, utils);
-	    String fieldName = fieldName = "time_start_" + (int) (Math.random() * 10000);
+	    String fieldName  = "time_start_" + (int) (Math.random() * 10000);
 	    return maker.VarDef(maker.Modifiers(Flags.FINAL), utils.getName(fieldName), maker.TypeIdent(TypeTags.LONG), currentTime);
 	  }
 
@@ -144,20 +147,24 @@ public class MoskitoAnnotationProcessor extends AbstractProcessor{
 	    //JCExpression format = maker.Apply(List.<JCExpression>nil(), formatExpression, formatArgs);
 
 	    List<JCExpression> printlnArgs = List.nil();
+	    System.out.println("\tprintlnargs: -->"+printlnArgs+"<--");
+	    
+	    System.out.println("\tprintlnargs: -->"+printlnArgs+"<--");
+	    
 	    printlnArgs.append(elapsedTime);
 
-	    System.out.println("\tprintln "+printlnArgs);
+	    System.out.println("\tprintlnargs: -->"+printlnArgs+"<--");
 
 	    
 	    JCExpression print = maker.Apply(List.<JCExpression>nil(), printlnExpression, printlnArgs);
 	    JCExpressionStatement stmt = maker.Exec(print);
 
-	    System.out.println("\tstmt "+stmt);
+	    System.out.println("\tstmt -->"+stmt+"<---");
 
 	    List<JCStatement> stmts = List.nil();
 	    stmts.append(stmt);
 	    
-	    System.out.println("Stamtents "+stmts);
+	    System.out.println("Stamtents -->"+stmts+"<--");
 
 	    return maker.Block(0, stmts);
 	  }
