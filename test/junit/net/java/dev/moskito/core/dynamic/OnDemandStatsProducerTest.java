@@ -1,10 +1,12 @@
 package net.java.dev.moskito.core.dynamic;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.fail;
+
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.concurrent.CountDownLatch;
-
-import javax.xml.datatype.Duration;
 
 import net.anotheria.util.IdCodeGenerator;
 import net.java.dev.moskito.core.inspection.CreationInfo;
@@ -13,7 +15,6 @@ import net.java.dev.moskito.core.predefined.ServiceStatsFactory;
 import net.java.dev.moskito.core.producers.IStats;
 
 import org.junit.Test;
-import static org.junit.Assert.*;
 
 public class OnDemandStatsProducerTest {
 	@Test public void testLimit() throws Exception {
