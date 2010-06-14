@@ -264,7 +264,6 @@ $(function() {
 		el.fadeIn('fast');
 		
 	};
-
 	
 	//close lightbox
 	$('.black_bg, .close_box').click(function() {
@@ -274,13 +273,12 @@ $(function() {
 		$('.lightbox #interval option:first').attr('selected', 'selected');
 		$('.lightbox #producer_sel option:first').attr('selected', 'selected');
 		$('.lightbox').hide();
+		$('.main .help').parents().filter('.table_layout').find('.in:last').css('height', '250px');
 		$('.main .help').parents().filter('.table_layout').find('.in:last').show();
 	});
 
 	//functions for charts
 	$('.chart').click(function() {
-		
-
 	});
 
 	$('.name_ch').blur(function() {
