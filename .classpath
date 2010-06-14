@@ -12,6 +12,6 @@
 	<classpathentry kind="lib" path="lib/jsp-api.jar"/>
 	<classpathentry kind="lib" path="lib/commons-beanutils.jar"/>
 	<classpathentry kind="lib" path="lib/moskito-web.jar"/>
-	<classpathentry kind="lib" path="lib/ano-maf.jar"/>
+	<classpathentry kind="lib" path="lib/ano-maf.jar" sourcepath="/ano-maf"/>
 	<classpathentry kind="output" path="classes"/>
 </classpath>

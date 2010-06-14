@@ -157,3 +157,27 @@ h2 a.hidden {background:url("../img/bgs.gif") 0 -1103px no-repeat;}
 
 .bar_chart {background:url("../img/chart.gif") 2px 2px no-repeat;}
 .pie_chart {background:url("../img/bar.gif") 2px 2px no-repeat;}
+
+/*------- charts page --------*/
+
+.chart_fix {padding:10px 15px;}
+.chart_fix tr, .chart_fix th, .chart_fix td {padding:0 !important;}
+.chart_fix tr:hover td {background:none !important;}
+.create_chart_btn {margin-bottom:10px; font-size:12px;}
+
+.chart_overlay {}
+.chart_overlay h2 {margin-bottom:10px; font-size:16px;}
+.chart_overlay .fll {margin:0 20px 10px 0; height:25px; }
+.chart_overlay hr {color:#99cccc; margin-bottom:10px;}
+.chart_overlay input, .chart_overlay select {font-size:12px; max-width:195px;}
+.chart_overlay input.name_ch {width:200px;}
+.chart_overlay label {margin-right:2px;}
+.chart_overlay .add { margin-top:2px;}
+.chart_overlay .delete_btn {}
+.chart_overlay table td, .chart_overlay table th {font-size:12px !important; line-height:normal !important;}
+.chart_overlay .create_ch_btn {margin-top:10px;}
+
+.error {border:1px solid red; padding:2px;}
+.name_ch {//padding:2px;}
+.top ul li .sub_menu ul li {//height:21px;}
+.refresh {display:block; float:left; height:16px; width:16px; background:url("../img/refresh.gif") 0 0 no-repeat; position:relative; left:8px;}

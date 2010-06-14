@@ -271,6 +271,27 @@ $(function() {
 		$('.lightbox').hide();
 	});
 
+	//functions for charts
+	$('.chart').click(function() {
+		
 
+	});
 
+	$('.name_ch').blur(function() {
+		if ($(this).val()=='') {
+			$(this).addClass('error');
+		} else {
+			$(this).removeClass('error');
+		}
+	});
+
+	$('.chart_overlay .add').click(function() {
+		$('.create_ch_btn').show();
+	});
+
+	$('.chart_overlay .delete_btn').live('click', function() {
+		if ($('.chart_overlay table tbody tr').length == 0) {
+			$('.create_ch_btn').hide();
+		};
+	});
 });
