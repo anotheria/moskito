@@ -129,13 +129,14 @@
 	
 		$('.create_ch_btn').click(function() {
 			var interval = getDuration($('.chart_overlay #interval').val());
+			//var interval = parseInt($('.chart_overlay #interval').val()) * 1000;
 			var chartName = $('.chart_overlay .name_ch').val();
 			if (chartName == '') {
 				return;
 			}
-	        
+	        
 			new ChartController(interval, chartName, getParameters(), 'main');		
-	
+
 			$('.chart_overlay table tbody tr').each(function() {
 				$(this).remove();
 			});
