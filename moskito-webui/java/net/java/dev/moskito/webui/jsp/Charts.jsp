@@ -141,6 +141,11 @@
 			});
 			$('.name_ch').val('');
 			$('.create_ch_btn').hide();
+			$('.lightbox .name_ch').val('');
+			$('.lightbox .name_ch').removeClass('error');
+			$('.chart_overlay table tbody').html('');
+			$('.lightbox #interval option:first').attr('selected', 'selected');
+			$('.lightbox #producer_sel option:first').attr('selected', 'selected');
 			$('.lightbox').hide();
 			$('.main .help').parents().filter('.table_layout').find('.in:last').css('height', '250px');
 		});
