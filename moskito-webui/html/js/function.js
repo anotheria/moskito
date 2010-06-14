@@ -268,7 +268,13 @@ $(function() {
 	
 	//close lightbox
 	$('.black_bg, .close_box').click(function() {
+		$('.lightbox .name_ch').val('');
+		$('.lightbox .name_ch').removeClass('error');
+		$('.chart_overlay table tbody').html('');
+		$('.lightbox #interval option:first').attr('selected', 'selected');
+		$('.lightbox #producer_sel option:first').attr('selected', 'selected');
 		$('.lightbox').hide();
+		$('.main .help').parents().filter('.table_layout').find('.in:last').show();
 	});
 
 	//functions for charts
