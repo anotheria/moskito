@@ -62,6 +62,12 @@
 					</msk:equal
 					><msk:notEqual name="currentNaviItem" value="SESSIONS">
 						<li><a href="mskShowMonitoringSessions">Monitoring Sessions</a></li>
+					</msk:notEqual
+					><msk:equal name="currentNaviItem" value="CHARTS">
+						<li class="active"><a href="mskShowCharts">Charts</a></li>
+					</msk:equal
+					><msk:notEqual name="currentNaviItem" value="CHARTS">
+						<li><a href="mskShowCharts">Charts</a></li>
 					</msk:notEqual>
 				</ul>
 				<div class="right"></div>

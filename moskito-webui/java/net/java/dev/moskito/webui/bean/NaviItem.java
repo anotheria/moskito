@@ -21,9 +21,14 @@ public enum NaviItem {
 	 */
 	SESSIONS("Monitoring Sessions"),
 	/**
+	 * Charts navi item.
+	 */
+	CHARTS("Charts"),
+	/**
 	 * Constant for actions without own navigation item.
 	 */
 	NONE("None");
+	
 	
 	/**
 	 * Current menu.
@@ -34,6 +39,7 @@ public enum NaviItem {
 		menu.add(PRODUCERS);
 		menu.add(USECASES);
 		menu.add(SESSIONS);
+		menu.add(CHARTS);
 	}
 	/**
 	 * Caption of the navi item.

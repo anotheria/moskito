@@ -8,6 +8,7 @@ import net.java.dev.moskito.webui.action.GetChartDataAction;
 import net.java.dev.moskito.webui.action.GetChartMetaDataAction;
 import net.java.dev.moskito.webui.action.InspectProducerAction;
 import net.java.dev.moskito.webui.action.ShowAllProducersAction;
+import net.java.dev.moskito.webui.action.ShowChartsAction;
 import net.java.dev.moskito.webui.action.ShowExplanationsAction;
 import net.java.dev.moskito.webui.action.ShowMonitoringSessionAction;
 import net.java.dev.moskito.webui.action.ShowMonitoringSessionCallAction;
@@ -103,6 +104,10 @@ public class MoskitoMappingsConfigurator implements ActionMappingsConfigurator{
 				new ActionForward("csv", "/net/java/dev/moskito/webui/jsp/ChartMetaDataCSV.jsp"),
 				new ActionForward("json", "/net/java/dev/moskito/webui/jsp/ChartMetaDataJSON.jsp")
 
+		);
+		
+		ActionMappings.addMapping("mskShowCharts", ShowChartsAction.class, 
+				new ActionForward("html", "/net/java/dev/moskito/webui/jsp/Charts.jsp")
 		);
 		
 		
