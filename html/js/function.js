@@ -273,8 +273,10 @@ $(function() {
 		$('.lightbox #interval option:first').attr('selected', 'selected');
 		$('.lightbox #producer_sel option:first').attr('selected', 'selected');
 		$('.lightbox').hide();
-		$('.main .help').parents().filter('.table_layout').find('.in:last').css('height', '250px');
-		$('.main .help').parents().filter('.table_layout').find('.in:last').show();
+		if ($('.lightbox #interval').length != 0) {
+			$('.main .help').parents().filter('.table_layout').find('.in:last').css('height', '250px');
+			$('.main .help').parents().filter('.table_layout').find('.in:last').show();
+		}
 	});
 
 	//functions for charts
