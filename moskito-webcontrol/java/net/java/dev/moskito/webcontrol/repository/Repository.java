@@ -5,40 +5,41 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
 public enum Repository {
+
 	INSTANCE;
-	
+
 	private ConcurrentMap<String, Container> containers;
-	
-	Repository() {
+
+	private Repository() {
 		containers = new ConcurrentHashMap<String, Container>();
 	}
-	
-	public List<Snapshot> getSnapshots(String containerName){
+
+	public List<Snapshot> getSnapshots(String containerName) {
 		return getContainer(containerName).getSnapshots();
 	}
 
-	//in the future add a method which supplies a maximum age for a snapshot 
-	public Snapshot getSnapshot(String containerName, SnapshotSource source){
+	// in the future add a method which supplies a maximum age for a snapshot
+	public Snapshot getSnapshot(String containerName, SnapshotSource source) {
 		Snapshot s = getContainer(containerName).getSnapshot(source);
-		if (s==null)
-			throw new NullPointerException("Snapshot "+containerName+" from "+source+" not found.");
+		if (s == null)
+			throw new NullPointerException("Snapshot " + containerName + " from " + source + " not found.");
 		return s;
 	}
 
-	public void addSnapshot(String name, Snapshot snapshot){
-		getContainer(name).addSnapshot(snapshot);
+	public void addSnapshot(String containerName, Snapshot snapshot) {
+		getContainer(containerName).addSnapshot(snapshot);
 	}
-	
-	private Container getContainer(String name){
-		Container c = containers.get(name);
-		if (c==null){
-			c = new Container(name);
-			containers.putIfAbsent(name, c);
+
+	private Container getContainer(String containerName) {
+		Container c = containers.get(containerName);
+		if (c == null) {
+			c = new Container(containerName);
+			containers.putIfAbsent(containerName, c);
 		}
-		return containers.get(name);
+		return c;
 	}
-	
-	void clear(){
+
+	public void clear() {
 		containers.clear();
 	}
 }

@@ -4,26 +4,28 @@ import net.java.dev.moskito.webcontrol.configuration.SourceConfiguration;
 
 public class SnapshotSource {
 	private String name;
-	
-	public SnapshotSource(String aName){
+
+	public SnapshotSource(String aName) {
 		name = aName;
 	}
-	
-	@Override public boolean equals(Object o){
-		return o instanceof SnapshotSource &&
-			name.equals(((SnapshotSource)o).name);
+
+	@Override
+	public boolean equals(Object o) {
+		return o instanceof SnapshotSource && name.equals(((SnapshotSource) o).name);
 	}
-	
-	@Override public int hashCode(){
+
+	@Override
+	public int hashCode() {
 		return name.hashCode();
 	}
-	
-	@Override public String toString(){
+
+	@Override
+	public String toString() {
 		return name;
 	}
-	
-	//use this method to cache sources later.
-	public static SnapshotSource valueOf(SourceConfiguration config){
+
+	// use this method to cache sources later.
+	public static SnapshotSource valueOf(SourceConfiguration config) {
 		return new SnapshotSource(config.getName());
 	}
 }

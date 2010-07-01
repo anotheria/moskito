@@ -2,6 +2,7 @@
 <classpath>
 	<classpathentry kind="src" path="java"/>
 	<classpathentry kind="src" path="test/junit"/>
+	<classpathentry kind="src" path="etc/appdata"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.6"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
 	<classpathentry kind="lib" path="lib/ano-tags.jar"/>
@@ -13,5 +14,8 @@
 	<classpathentry kind="lib" path="lib/commons-collections.jar"/>
 	<classpathentry kind="lib" path="lib/commons-beanutils.jar"/>
 	<classpathentry kind="lib" path="lib/commons-logging.jar"/>
-	<classpathentry kind="output" path="classes"/>
+	<classpathentry kind="lib" path="lib/configureme.jar" sourcepath="/home/daa/projects/configureme/src/java"/>
+	<classpathentry kind="lib" path="lib/json.jar"/>
+	<classpathentry kind="lib" path="lib/ano-util.jar"/>
+	<classpathentry kind="output" path="build/webapp/moskito-webcontrol/WEB-INF/classes"/>
 </classpath>

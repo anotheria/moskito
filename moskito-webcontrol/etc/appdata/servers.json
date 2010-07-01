@@ -1,0 +1,8 @@
+{
+		app-path: "/moskitodemo/mui/";
+		list-servers: ["TEST1", "PROD1", "INFRA1", "PROD2"];
+		TEST1: "http://test.anotheria.net";
+		PROD1: "http://prod.anotheria.net:8080";
+		INFRA1: "http://infra.anotheria.net:9080";
+		PROD2: "http://bolbat.net";
+}

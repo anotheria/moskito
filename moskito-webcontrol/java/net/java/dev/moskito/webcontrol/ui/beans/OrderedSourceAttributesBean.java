@@ -6,9 +6,9 @@ import java.util.List;
 public class OrderedSourceAttributesBean {
 
 	private final String sourceName;
-	
+
 	private boolean available = true;
-	
+
 	private List<String> attributeValues = new ArrayList<String>();
 
 	public OrderedSourceAttributesBean(String sourceName) {
@@ -26,7 +26,7 @@ public class OrderedSourceAttributesBean {
 	public List<String> getAttributeValues() {
 		return attributeValues;
 	}
-	
+
 	public void addAttributeValue(String attributeValue) {
 		attributeValues.add(attributeValue);
 	}
@@ -38,5 +38,5 @@ public class OrderedSourceAttributesBean {
 	public boolean isAvailable() {
 		return available;
 	}
-	
+
 }

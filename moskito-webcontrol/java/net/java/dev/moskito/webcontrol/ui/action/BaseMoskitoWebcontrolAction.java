@@ -8,7 +8,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import net.anotheria.maf.action.Action;
 import net.anotheria.maf.action.ActionMapping;
-import net.anotheria.maf.bean.FormBean;
 import net.java.dev.moskito.webcontrol.configuration.ConfigurationRepository;
 import net.java.dev.moskito.webcontrol.configuration.SourceConfiguration;
 import net.java.dev.moskito.webcontrol.configuration.ViewConfiguration;
@@ -21,9 +20,9 @@ import net.java.dev.moskito.webcontrol.ui.beans.OrderedSourceAttributesBean;
 import net.java.dev.moskito.webcontrol.ui.beans.ViewTable;
 
 public abstract class BaseMoskitoWebcontrolAction implements Action {
-
-	protected static final String pViewName = "pViewName";
 	
+	protected static final String pViewName = "pViewName";
+
 	protected static final String SERVER_COLUMN_NAME = "Source";
 
 	protected String getLinkToCurrentPage(HttpServletRequest req) {
@@ -31,41 +30,40 @@ public abstract class BaseMoskitoWebcontrolAction implements Action {
 	}
 
 	@Override
-	public void postProcess(ActionMapping mapping, HttpServletRequest req,
-			HttpServletResponse res) throws Exception {
+	public void postProcess(ActionMapping mapping, HttpServletRequest req, HttpServletResponse res) throws Exception {
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	public void preProcess(ActionMapping mapping, HttpServletRequest req,
-			HttpServletResponse res) throws Exception {
+	public void preProcess(ActionMapping mapping, HttpServletRequest req, HttpServletResponse res) throws Exception {
 		// TODO Auto-generated method stub
 
 	}
-	
+
 	protected ViewTable prepareView(String viewName) throws Exception {
 		ViewTable view = new ViewTable(viewName);
-		
+
 		ViewConfiguration config = ConfigurationRepository.INSTANCE.getView(viewName);
 		List<SourceConfiguration> sources = ConfigurationRepository.INSTANCE.getSources();
 		List<ViewField> fields = config.getFields();
-		
+
 		view.addRowName(SERVER_COLUMN_NAME);
 		for (ViewField field : fields) {
 			view.addRowName(field.getFieldName());
 		}
-		
+
 		for (SourceConfiguration source : sources) {
 			OrderedSourceAttributesBean attrsBean = new OrderedSourceAttributesBean(source.getName());
 			List<String> values = new ArrayList<String>(fields.size());
-			Snapshot snapshot = null; 
-			try{
+			Snapshot snapshot = null;
+			try {
+				// create snapshot
 				snapshot = Repository.INSTANCE.getSnapshot(config.getContainerName(), SnapshotSource.valueOf(source));
 			} catch (Exception e) {
 				attrsBean.setAvailable(false);
-				//TODO log
-			} 
+				// TODO log
+			}
 			for (ViewField field : fields) {
 				if (snapshot != null) {
 					Attribute att = snapshot.getAttribute(field.getAttributeName());
@@ -79,5 +77,5 @@ public abstract class BaseMoskitoWebcontrolAction implements Action {
 		}
 		return view;
 	}
-	
+
 }

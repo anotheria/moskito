@@ -3,11 +3,20 @@ package net.java.dev.moskito.webcontrol.repository.formulas;
 import net.java.dev.moskito.webcontrol.repository.Attribute;
 import net.java.dev.moskito.webcontrol.repository.NumberAttribute;
 
-public class SumFormula implements Formula {
+public class AVGFormula implements Formula {
 
-	static final Formula instance = new SumFormula();
+	static final Formula instance = new AVGFormula();
 
-	private SumFormula() {
+	private AVGFormula() {
+	}
+
+	@Override
+	public Object calculate(Attribute... inputs) {
+		double result = 0.0;
+		for (Attribute input : inputs) {
+			result += ((NumberAttribute<?>) input).getValue().doubleValue();
+		}
+		return result / inputs.length;
 	}
 
 	@Override
@@ -20,15 +29,6 @@ public class SumFormula implements Formula {
 			}
 		}
 		return true;
-	}
-
-	@Override
-	public Number calculate(Attribute... inputs) {
-		double result = 0.0;
-		for (Attribute input : inputs) {		
-			result += ((NumberAttribute<?>) input).getValue().doubleValue();
-		}
-		return result;
 	}
 
 }

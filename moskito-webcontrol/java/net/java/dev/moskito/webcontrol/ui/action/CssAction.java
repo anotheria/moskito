@@ -8,9 +8,11 @@ import net.anotheria.maf.action.ActionMapping;
 import net.anotheria.maf.bean.FormBean;
 
 /**
- * This action simply forwards to the css page. It is useful to pass through css filters in some configurations.
+ * This action simply forwards to the css page. It is useful to pass through css
+ * filters in some configurations.
+ * 
  * @author lrosenberg.
- *
+ * 
  */
 public class CssAction extends BaseMoskitoWebcontrolAction {
 
@@ -23,5 +25,5 @@ public class CssAction extends BaseMoskitoWebcontrolAction {
 	protected String getLinkToCurrentPage(HttpServletRequest req) {
 		return "";
 	}
-	
+
 }

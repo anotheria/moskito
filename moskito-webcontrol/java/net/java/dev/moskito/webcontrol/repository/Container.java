@@ -6,37 +6,44 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
 public class Container {
+
 	private String name;
-	private ConcurrentMap<SnapshotSource, Snapshot> snapshots;
-	
-	Container(String aName){
+	private ConcurrentMap<String, Snapshot> snapshots;
+
+	public Container(String aName) {
 		name = aName;
-		snapshots = new ConcurrentHashMap<SnapshotSource, Snapshot>();
+		snapshots = new ConcurrentHashMap<String, Snapshot>();
 	}
-	
-	List<Snapshot> getSnapshots(){
+
+	public List<Snapshot> getSnapshots() {
 		ArrayList<Snapshot> list = new ArrayList<Snapshot>(snapshots.size());
 		list.addAll(snapshots.values());
 		return list;
 	}
-	
-	void addSnapshot(Snapshot s){
-		snapshots.put(s.getSource(), s);
+
+	public void addSnapshot(Snapshot s) {
+		snapshots.put(s.getSource().toString(), s);
 	}
-	
-	Snapshot getSnapshot(SnapshotSource source){
-		return snapshots.get(source);
+
+	public Snapshot getSnapshot(SnapshotSource source) {
+		return snapshots.get(source.toString());
 	}
-	
-	public String getName(){
+
+	public String getName() {
 		return name;
 	}
-	
-	@Override public boolean equals(Object o){
-		return o instanceof Container && name.equals(((Container)o).name);
+
+	public String toString() {
+		return "name=" + name + ", " + snapshots;
 	}
-	
-	@Override public int hashCode(){
+
+	@Override
+	public boolean equals(Object o) {
+		return o instanceof Container && name.equals(((Container) o).name);
+	}
+
+	@Override
+	public int hashCode() {
 		return name.hashCode();
 	}
 }

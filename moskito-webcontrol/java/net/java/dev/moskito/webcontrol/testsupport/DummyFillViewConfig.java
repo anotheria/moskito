@@ -45,7 +45,6 @@ public class DummyFillViewConfig {
 		memoryFree.addField(new ViewField("Formula testing", "PercentFormulaTest"));
 		ConfigurationRepository.INSTANCE.addView(memoryFree);
 
-	
 	}
 	
 	public static void fillSourceConfig(){
