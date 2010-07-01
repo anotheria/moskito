@@ -24,3 +24,4 @@
 		<dependency org="org.apache.commons" name="commons-logging" rev="stable" transitive="false"/>
     </dependencies>
 </ivy-module>
+
