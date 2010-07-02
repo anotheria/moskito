@@ -110,8 +110,10 @@ public class MoskitoWebcontrolUIFilter extends MAFFilter {
 					List<Attribute> attrs = new ArrayList<Attribute>();
 					List<SourceConfiguration> sources = ConfigurationRepository.INSTANCE.getSources();
 					for (SourceConfiguration source : sources) {
-						Snapshot ss = Repository.INSTANCE.getSnapshot(viewConfig.getContainerName(), new SnapshotSource(source.getName()));
-						attrs.add(ss.getAttribute(field.getAttributeName()));
+						if (!"Totals".equalsIgnoreCase(source.getName())) {
+							Snapshot ss = Repository.INSTANCE.getSnapshot(viewConfig.getContainerName(), new SnapshotSource(source.getName()));
+							attrs.add(ss.getAttribute(field.getAttributeName()));
+						}
 					}
 					
 					Attribute[] ats = attrs.toArray(new Attribute[attrs.size()]);
@@ -127,7 +129,6 @@ public class MoskitoWebcontrolUIFilter extends MAFFilter {
 		}
 		SourceConfiguration s = new SourceConfiguration(snapshot.getSource().toString(), "");
 		ConfigurationRepository.INSTANCE.addSource(s);
-		System.out.println(snapshot);
 		Repository.INSTANCE.addSnapshot("TestMem", snapshot);
 	}
 

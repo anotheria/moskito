@@ -17,8 +17,6 @@ public class PrintViews {
 	public static void main(String a[]) throws Exception {
 		ConfigurationRepository.INSTANCE.loadViewsConfiguration();
 		MoskitoWebcontrolUIFilter.update();
-		MoskitoWebcontrolUIFilter.update();
-//		MoskitoWebcontrolUIFilter.update();
 		printViews();
 	}
 
