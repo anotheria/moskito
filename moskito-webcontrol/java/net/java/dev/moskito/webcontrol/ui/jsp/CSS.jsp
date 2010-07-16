@@ -33,7 +33,7 @@ a:hover {text-decoration:underline;}
 .main_table td {vertical-align:top;}
 .main_table th {text-align:left;}
 
-.views_td {max-width:280px; min-width:120px;}
+.views_td {width:145px;}
 
 .inner {margin-left:-1px;}
 .inner .top {height:5px; background:url("../images/borders_in.gif") 100% -5px no-repeat; padding-right:5px;}
@@ -44,7 +44,7 @@ a:hover {text-decoration:underline;}
 
 .inner .in table {}
 .inner .in table th {border-bottom:2px solid #bdbdbd; padding:8px 10px;}
-.inner .in table th a {color:black;font-size:12px; padding-right:12px;}
+.inner .in table th a {color:black; font-size:12px; padding-right:12px; //display:block; //overflow:hidden;}
 .inner .in table th a:hover {text-decoration:none; background:url("../images/down.gif") 100% 5px no-repeat;}
 .inner .in table th a.down {background:url("../images/down.gif") 100% 5px no-repeat;}
 .inner .in table th a.up {background:url("../images/down.gif") 100% -31px no-repeat;}
@@ -55,3 +55,5 @@ a:hover {text-decoration:underline;}
 .inner .in table tbody tr:hover td {background:#f4f4f4;}
 
 h2 {color:#470075; font-size:18px; font-weight:normal; margin:20px 0 0;}
+
+.scroll {width:818px; overflow-x:scroll; padding-bottom:10px;}

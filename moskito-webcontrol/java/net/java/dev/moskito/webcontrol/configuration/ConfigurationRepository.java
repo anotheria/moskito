@@ -5,6 +5,7 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.TreeSet;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -22,16 +23,48 @@ import org.json.JSONObject;
 
 public enum ConfigurationRepository {
 
+	/**
+	 * singleton
+	 */
 	INSTANCE;
 
 	private ConcurrentMap<String, ViewConfiguration> views;
 	private List<SourceConfiguration> sources;
+	private List<IntervalConfiguration> intervals;
 
 	private ConfigurationRepository() {
 		views = new ConcurrentHashMap<String, ViewConfiguration>();
 		sources = new CopyOnWriteArrayList<SourceConfiguration>();
+		intervals = new ArrayList<IntervalConfiguration>();
 	}
 
+	/***********************************/
+	/********* intervals ***************/
+	/***********************************/
+	public void addInterval(String name, String containerName) {
+		intervals.add(new IntervalConfiguration(name, containerName));
+	}
+
+	public List<String> getIntervalsNames() {
+		List<String> res = new ArrayList<String>();
+		for (IntervalConfiguration config : intervals) {
+			res.add(config.getName());
+		}
+		return res;
+	}
+
+	public String getContainerName(String name) {
+		for (IntervalConfiguration config : intervals) {
+			if (name.equals(config.getName())) {
+				return config.getContainerName(); 
+			}
+		}
+		return null;
+	}
+
+	/***********************************/
+	/********* views *******************/
+	/***********************************/
 	public void addView(ViewConfiguration toAdd) {
 		views.put(toAdd.getName(), toAdd);
 	}
@@ -51,11 +84,14 @@ public enum ConfigurationRepository {
 
 	public List<String> getViewNames() {
 		ArrayList<String> ret = new ArrayList<String>();
-		ret.addAll(views.keySet());
+		ret.addAll(new TreeSet<String>(views.keySet()));
 		Collections.sort(ret);
 		return ret;
 	}
 
+	/***********************************/
+	/********* sources *****************/
+	/***********************************/
 	public List<SourceConfiguration> getSources() {
 		ArrayList<SourceConfiguration> ret = new ArrayList<SourceConfiguration>();
 		ret.addAll(sources);
@@ -65,36 +101,50 @@ public enum ConfigurationRepository {
 	public void addSource(SourceConfiguration toAdd) {
 		if (!sources.contains(toAdd)) {
 			sources.add(toAdd);
-		}	
+		}
 	}
 
 	/**
 	 * 
 	 */
 	public void loadViewsConfiguration() throws IOException, JSONException {
+		{
+			InputStream intervalsIS = Thread.currentThread().getContextClassLoader().getResourceAsStream("intervals.json");
+			String content = IOUtils.getInputStreamAsString(intervalsIS);
+			JSONArray intrvls = new JSONObject(content).getJSONArray("intervals");
+			for (int i = 0; i < intrvls.length(); i++) {
+				JSONObject interval = intrvls.getJSONObject(i);
+				addInterval(interval.getString("name"), interval.getString("containerName"));
+			}
+		}
+
 		InputStream is = Thread.currentThread().getContextClassLoader().getResourceAsStream("views.json");
 		String content = IOUtils.getInputStreamAsString(is);
 		JSONObject views = new JSONObject(content);
 
 		Configuration serversConfig = ConfigurationManager.INSTANCE.getConfiguration("servers");
 
-		String appPath = serversConfig.getAttribute("app-path");
-		String baseUrl = views.getString("baseUrl");
-		JSONArray listServers = new JSONArray(serversConfig.getAttribute("list-servers"));
-		for (int i = 0; i < listServers.length(); i++) {
-			String server = (String) listServers.get(i);
-			String url = new StringBuilder().append(serversConfig.getAttribute(server)).append(appPath).append(baseUrl).toString();
-			ConfigurationRepository.INSTANCE.addSource(new SourceConfiguration(server, url));
+		{
+			String appPath = serversConfig.getAttribute("app-path");
+			String baseUrl = views.getString("baseURL");
+			JSONArray listServers = new JSONArray(serversConfig.getAttribute("list-servers"));
+			for (int i = 0; i < listServers.length(); i++) {
+				String server = (String) listServers.get(i);
+				String url = new StringBuilder().append(serversConfig.getAttribute(server)).append(appPath).append(baseUrl).toString();
+				ConfigurationRepository.INSTANCE.addSource(new SourceConfiguration(server, url));
+			}
 		}
 
 		JSONArray viewList = views.getJSONArray("views");
 		for (int i = 0; i < viewList.length(); i++) {
 			JSONObject view = viewList.getJSONObject(i);
-			ViewConfiguration viewConfig = new ViewConfiguration(view.getString("name"), view.getString("containerName"));
-			JSONObject columns = view.getJSONObject("columns");
-			String[] columnNames = JSONObject.getNames(columns);
-			for (String columnName : columnNames) {
-				JSONObject column = columns.getJSONObject(columnName);
+			ViewConfiguration viewConfig = new ViewConfiguration(view.getString("name"));
+
+			JSONArray columns = view.getJSONArray("columns");
+			for (int k = 0; k < columns.length(); k++) {
+				JSONObject column = columns.getJSONObject(k);
+				String columnName = column.getString("attribute");
+				System.out.println("columnName=" + columnName);
 				String name = column.getString("name");
 				String type = column.getString("type");
 				String klass = (String) column.opt("class");
@@ -114,17 +164,16 @@ public enum ConfigurationRepository {
 					}
 					field.setInputs(inputsList);
 				}
-				
-				String total = (String)column.opt("total");
+
+				String total = (String) column.opt("total");
 				if (StringUtils.isEmpty(total)) {
 					total = "EMPTY";
 				}
-				
+
 				field.setTotal(TotalFormulaType.convert(total));
-				
 				viewConfig.addField(field);
 			}
-			
+
 			ConfigurationRepository.INSTANCE.addView(viewConfig);
 		}
 

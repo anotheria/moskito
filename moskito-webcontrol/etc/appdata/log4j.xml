@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/" debug="false">
+
+	<appender name="CONSOLE" class="org.apache.log4j.ConsoleAppender">
+		<param name="Threshold" value="DEBUG"/>
+		<param name="Target" value="System.out"/> 
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern"
+				   value="%r %d{ISO8601} %-5p %c - %m%n"/>
+		</layout>
+	</appender>
+	
+	<appender name="FILE" class="org.apache.log4j.RollingFileAppender">
+		<param name="File" value="${user.home}/moskito-webcontrol.log"/>
+		<param name="Threshold" value="DEBUG"/>
+		<param name="MaxFileSize" value="100MB"/>
+		<param name="MaxBackupIndex" value="5"/>
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern"
+				   value="%r %d{ISO8601} %-5p %c - %m%n"/>
+		</layout>
+	</appender>
+
+	<category name="net.java.dev.moskito">
+		<priority value="DEBUG" />
+		<appender-ref ref="FILE"/>
+		<appender-ref ref="CONSOLE"/>
+	</category>
+	
+	<category name="org.configureme">
+		<priority value="DEBUG" />
+		<appender-ref ref="FILE"/>
+		<appender-ref ref="CONSOLE"/>
+	</category>
+	
+
+</log4j:configuration>

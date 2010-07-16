@@ -4,6 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	<meta http-equiv="Refresh" content="30" >
 	<title>MoSKito &mdash; WebControl : <ano-tags:write name="view" property="viewName"/></title>
 	<!-- link type="text/css" rel="stylesheet" rev="stylesheet" href="styles/common.css"/ -->
 	<link rel="stylesheet" href="mwcCSS"/>
@@ -18,11 +19,9 @@
 	</div>
 	<ul class="interval">
 		<li>Interval:</li>
-		<li class="active"><a href="#">1m</a></li>
-		<li><a href="#">5m</a></li>
-		<li><a href="#">15m</a></li>
-		<li><a href="#">1h</a></li>
-		<li class="last"><a href="#">1d</a></li>
+		<ano-tags:iterate id="interval" name="intervalNames" indexId="indx">
+			<li ${interval eq param['pInterval'] ? 'class="active"' : ''}><a href="?pInterval=${interval}&pViewName=${view.viewName}">${interval}</a></li>
+		</ano-tags:iterate>
 	</ul>
 	<div class="clear"></div>
 	<div class="area">
@@ -35,11 +34,9 @@
 					<tr>
 						<td class="views_td">
 							<ul class="views">
-								<li class="active"><a href="#">Member</a></li>
-								<li><a href="#">Guest</a></li>
-								<li><a href="#">View name 3</a></li>
-								<li><a href="#">View name 4</a></li>
-								<li><a href="#">View name 5</a></li>
+								<ano-tags:iterate id="viewName" name="viewnames">
+									<li ${viewName eq view.viewName ? 'class="active"' : ''}><a href="?pViewName=${viewName}">${viewName}</a></li>
+								</ano-tags:iterate>
 							</ul>
 						</td>
 						<td>
@@ -48,6 +45,7 @@
 									<div></div>
 								</div>
 								<div class="in">
+									<div class="scroll">
 									<table cellpadding="0" cellspacing="0" border="0" width="100%">
 										<thead>
 										<tr>
@@ -58,6 +56,7 @@
 										</thead>
 										<tbody>
 											<ano-tags:iterate name="view" property="values" id="attrBean">
+												<ano-tags:notEqual value="Totals" name="attrBean" property="sourceName">
 												<tr ${!attrBean.available ? 'class="stat_error" title="server has not provided a snapshot"' : ''}>
 													<td><ano-tags:write name="attrBean" property="sourceName"/></td>
 													<ano-tags:define name="attrBean" property="attributeValues" id="attributeValues"/>
@@ -65,30 +64,34 @@
 														<td><ano-tags:write name="attrValue"/></td>
 													</ano-tags:iterate>
 												</tr>
+												</ano-tags:notEqual>
 											</ano-tags:iterate>
 										</tbody>
 									</table>
-									<h2>Member Totals</h2>
+									<h2><ano-tags:write name="view" property="viewName"/> Totals</h2>
 									<table width="100%" cellpadding="0" cellspacing="0" border="0">
 										<thead>
 											<tr>
-												<th><a href="#">Sessions</a></th>
-												<th><a href="#">Runtime Free</a></th>
-												<th><a href="#">Heap Free</a></th>
-												<th><a href="#">Heap Used</a></th>
-												<th><a href="#">Usage, %</a></th>
+												<ano-tags:iterate name="view" property="rowNames" id="rowName">
+													<th><a href="#"><ano-tags:write name="rowName"/></a></th>
+												</ano-tags:iterate>
 											</tr>
 										</thead>
 										<tbody>
-											<tr>
-												<td>55672</td>
-												<td>100</td>
-												<td>90</td>
-												<td>560</td>
-												<td>86</td>
-											</tr>
+											<ano-tags:iterate name="view" property="values" id="attrBean">
+												<ano-tags:equal value="Totals" name="attrBean" property="sourceName">
+												<tr ${!attrBean.available ? 'class="stat_error" title="server has not provided a snapshot"' : ''}>
+													<td><ano-tags:write name="attrBean" property="sourceName"/></td>
+													<ano-tags:define name="attrBean" property="attributeValues" id="attributeValues"/>
+													<ano-tags:iterate name="attributeValues" id="attrValue">
+														<td><ano-tags:write name="attrValue"/></td>
+													</ano-tags:iterate>
+												</tr>
+												</ano-tags:equal>
+											</ano-tags:iterate>
 										</tbody>
 									</table>
+									</div>
 								</div>
 								<div class="bot">
 									<div></div>

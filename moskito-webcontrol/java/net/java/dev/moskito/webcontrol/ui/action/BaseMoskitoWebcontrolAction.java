@@ -21,7 +21,8 @@ import net.java.dev.moskito.webcontrol.ui.beans.ViewTable;
 
 public abstract class BaseMoskitoWebcontrolAction implements Action {
 	
-	protected static final String pViewName = "pViewName";
+	protected static final String REQUEST_PARAM_VIEW_NAME = "pViewName";
+	protected static final String REQUEST_PARAM_INTERVAL = "pInterval";
 
 	protected static final String SERVER_COLUMN_NAME = "Source";
 
@@ -41,8 +42,10 @@ public abstract class BaseMoskitoWebcontrolAction implements Action {
 
 	}
 
-	protected ViewTable prepareView(String viewName) throws Exception {
+	protected ViewTable prepareView(String viewName, String interval) throws Exception {
 		ViewTable view = new ViewTable(viewName);
+		
+		String containerName = ConfigurationRepository.INSTANCE.getContainerName(interval);
 
 		ViewConfiguration config = ConfigurationRepository.INSTANCE.getView(viewName);
 		List<SourceConfiguration> sources = ConfigurationRepository.INSTANCE.getSources();
@@ -59,7 +62,7 @@ public abstract class BaseMoskitoWebcontrolAction implements Action {
 			Snapshot snapshot = null;
 			try {
 				// create snapshot
-				snapshot = Repository.INSTANCE.getSnapshot(config.getContainerName(), SnapshotSource.valueOf(source));
+				snapshot = Repository.INSTANCE.getSnapshot(containerName, SnapshotSource.valueOf(source));
 			} catch (Exception e) {
 				attrsBean.setAvailable(false);
 				// TODO log

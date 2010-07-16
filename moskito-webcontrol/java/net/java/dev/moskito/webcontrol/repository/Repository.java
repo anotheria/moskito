@@ -1,6 +1,7 @@
 package net.java.dev.moskito.webcontrol.repository;
 
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
@@ -38,7 +39,7 @@ public enum Repository {
 		}
 		return c;
 	}
-
+	
 	public void clear() {
 		containers.clear();
 	}

@@ -1,16 +1,15 @@
 package net.java.dev.moskito.webcontrol.configuration;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.CopyOnWriteArrayList;
 
 public class ViewConfiguration {
+
 	private String name;
-	private String containerName;
 	private List<ViewField> fields;
 
-	public ViewConfiguration(String aName, String aContainerName) {
+	public ViewConfiguration(String aName) {
 		name = aName;
-		containerName = aContainerName;
 	}
 
 	public String getName() {
@@ -19,7 +18,7 @@ public class ViewConfiguration {
 
 	public List<ViewField> getFields() {
 		if (fields == null) {
-			fields = new CopyOnWriteArrayList<ViewField>();
+			fields = new ArrayList<ViewField>();
 		}
 		return fields;
 	}
@@ -29,15 +28,11 @@ public class ViewConfiguration {
 	}
 
 	public String toString() {
-		return getName() + " -> " + getContainerName() + " " + getFields();
-	}
-
-	public String getContainerName() {
-		return containerName;
-	}
-
-	public void setContainerName(String containerName) {
-		this.containerName = containerName;
+		return getName() + " -> " + getFields();
 	}
 	
+	public void clear() {
+		fields.clear();
+	}
+
 }

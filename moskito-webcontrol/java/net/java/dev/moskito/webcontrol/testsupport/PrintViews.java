@@ -28,36 +28,41 @@ public class PrintViews {
 	}
 
 	private static void printView(String viewName) {
-		ViewConfiguration config = ConfigurationRepository.INSTANCE.getView(viewName);
-		System.out.println("============= VIEW: " + config.getName() + "===============");
-		List<SourceConfiguration> sources = ConfigurationRepository.INSTANCE.getSources();
-		List<ViewField> fields = config.getFields();
-		System.out.print("Source\t\t");
-		for (ViewField f : fields) {
-			System.out.print(f.getFieldName() + "\t");
-		}
-		System.out.println();
 
-		for (SourceConfiguration source : sources) {
-			System.out.print(source.getName() + "\t\t");
-			try {
-//				System.out.println(config.getContainerName());
-				Snapshot s = Repository.INSTANCE.getSnapshot(config.getContainerName(), SnapshotSource.valueOf(source));
-				for (ViewField field : fields) {
-					Attribute att = s.getAttribute(field.getAttributeName());
-					if (att == null)
-						System.out.print("n.a.");
-					else
-						System.out.print(att.getValueString());
-					System.out.print("\t");
-				}
-			} catch (Exception e) {
-				e.printStackTrace();
-				System.out.print("ERR: " + e);
+		for (String name : ConfigurationRepository.INSTANCE.getIntervalsNames()) {
+
+			ViewConfiguration config = ConfigurationRepository.INSTANCE.getView(viewName);
+			System.out.println("============= VIEW: " + config.getName() + ", interval: " + name + "===============");
+			List<SourceConfiguration> sources = ConfigurationRepository.INSTANCE.getSources();
+			List<ViewField> fields = config.getFields();
+			System.out.print("Source\t\t");
+			for (ViewField f : fields) {
+				System.out.print(f.getFieldName() + "\t");
 			}
 			System.out.println();
+
+			for (SourceConfiguration source : sources) {
+				System.out.print(source.getName() + "\t\t");
+				try {
+					Snapshot s = Repository.INSTANCE.getSnapshot(ConfigurationRepository.INSTANCE.getContainerName(name), SnapshotSource
+							.valueOf(source));
+					for (ViewField field : fields) {
+						Attribute att = s.getAttribute(field.getAttributeName());
+						if (att == null) {
+							System.out.print("n.a.");
+						} else {
+							System.out.print(att.getValueString());
+						}
+						System.out.print("\t");
+					}
+				} catch (Exception e) {
+					e.printStackTrace();
+					System.out.print("ERR: " + e);
+				}
+				System.out.println();
+			}
+			System.out.println("============= END VIEW: " + config.getName() + "===============");
 		}
-		System.out.println("============= END VIEW: " + config.getName() + "===============");
 	}
 
 }

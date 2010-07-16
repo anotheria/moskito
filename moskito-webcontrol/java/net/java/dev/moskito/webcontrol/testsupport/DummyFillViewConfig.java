@@ -13,7 +13,7 @@ public class DummyFillViewConfig {
 	}
 	
 	public static void fillViewConfig(){
-		ViewConfiguration memoryAll = new ViewConfiguration("MemoryAll","TestMem");
+		ViewConfiguration memoryAll = new ViewConfiguration("MemoryAll");
 		memoryAll.addField(new ViewField("Eden - FreeMB", "Eden.FreeMB"));
 		memoryAll.addField(new ViewField("Eden - UsedMB", "Eden.UsedMB"));
 		memoryAll.addField(new ViewField("Eden - MaxUsedMB", "Eden.MaxUsedMB"));
@@ -36,7 +36,7 @@ public class DummyFillViewConfig {
 		ConfigurationRepository.INSTANCE.addView(memoryAll);
 
 		
-		ViewConfiguration memoryFree = new ViewConfiguration("FreeMemory","TestMem");
+		ViewConfiguration memoryFree = new ViewConfiguration("FreeMemory");
 		memoryFree.addField(new ViewField("Eden", "Eden.FreeMB"));
 		memoryFree.addField(new ViewField("Surv", "Survivor.FreeMB"));
 		memoryFree.addField(new ViewField("OldGen", "OldGen.FreeMB"));

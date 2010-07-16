@@ -1,54 +1,741 @@
 {
-	baseUrl: "mskShowAllProducers.xml?pForward=xml",
+	baseURL: "mskShowAllProducers.xml?pForward=xml",
 	views : [{
-			name : "MemoryAll",
-			containerName : "TestMem",
-			columns: {
-		       "Eden.FreeMB": {
-		          name: "FreeMB",
-		          type: "field",
-		          class : "int",
-		          visible: true,
-		          path: "/producers/decorator[@name='MemoryPool']/producer[@id='MemoryPool-PS Eden Space-Heap']/values/value[@name='Free MB']/text()",
-		          total: "SUM"
+			name: "Filters",
+			columns: [
+		       {
+		       		attribute: "req",
+					name: "Req",
+					type: "field",
+					class : "int",
+					visible: true,
+					path: "/producers/decorator[@name='Filter']/producer[@id=*]/values/value[@name='Req']/text()",
+					total: "SUM"
 		       },
-		       "Eden.UsedMB": {
-		          name: "UsedMB",
-		          type: "field", 
-		          class : "int",
-		          visible: true,
-		          path: "/producers/decorator[@name='MemoryPool']/producer[@id='MemoryPool-PS Eden Space-Heap']/values/value[@name='Used MB']/text()",
-		          total: "AVG"
+		       {
+					attribute: "time",
+		          	name: "Time",
+		          	type: "field",
+		          	class : "int",
+		          	visible: true,
+		          	path: "/producers/decorator[@name='Filter']/producer[@id=*]/values/value[@name='Time']/text()",
+		          	total: "SUM"
 		       },
-		       "Eden.MaxUsedMB": {
-		          name: "MaxUsedMB",
-		          type: "field",
-		          class : "int", 
-		          visible: true,
-		          path: "/producers/decorator[@name='MemoryPool']/producer[@id='MemoryPool-PS Eden Space-Heap']/values/value[@name='Max Used MB']/text()",
-		          total: "MAX"
+		       {
+		       		attribute: "avg",
+		          	name: "Avg",
+		          	type: "field",
+		          	class : "int",
+		          	visible: true,
+		          	path: "/producers/decorator[@name='Filter']/producer[@id=*]/values/value[@name='Avg']/text()",
+		          	total: "AVG"
 		       },
-		       "Eden.CommitedMB": {
-		          name: "CommitedMB",
-		          type: "field",
-		          class : "int", 
-		          visible: true,
-		          path: "/producers/decorator[@name='MemoryPool']/producer[@id='MemoryPool-PS Eden Space-Heap']/values/value[@name='Commited MB']/text()",
-		          total: "MIN"
-               },
-			},
+			]
 	},{
-			name: "free mem",
-			containerName: "TestMem",
-			columns : {
-				"Eden.FreeMB1": {
-			          name: "FreeMB",
-			          type: "field",
-			          class : "int",
-			          visible: true,
-			          path: "/producers/decorator[@name='MemoryPool']/producer[@id='MemoryPool-PS Eden Space-Heap']/values/value[@name='Free MB']/text()",
-			          total: "EMPTY"
-			    },
-		    },
+			name: "MemoryPool",
+			columns : [
+				{
+					attribute: "CacheNonHeap.Free",
+					name: "CacheNonHeap Free",
+					type: "field",
+					class : "int",
+					visible: true,
+					path: "/producers/decorator[@name='MemoryPool']/producer[@id='MemoryPool-Code Cache-NonHeap']/values/value[@name='Free MB']/text()",
+					total: "SUM"
+				}, {
+					attribute: "CacheNonHeap.Used",
+					name: "CacheNonHeap Used",
+					type: "field",
+					class : "int",
+					visible: true,
+					path: "/producers/decorator[@name='MemoryPool']/producer[@id='MemoryPool-Code Cache-NonHeap']/values/value[@name='Used MB']/text()",
+					total: "SUM"
+				}, {
+					attribute: "CacheNonHeap.Commited",
+					name: "CacheNonHeap Commited",
+					type: "field",
+					class : "int",
+					visible: true,
+					path: "/producers/decorator[@name='MemoryPool']/producer[@id='MemoryPool-Code Cache-NonHeap']/values/value[@name='Commited MB']/text()",
+					total: "SUM"
+				}, {
+					attribute: "EdenSpaceHeap.Free",
+					name: "EdenSpaceHeap Free",
+					type: "field",
+					class : "int",
+					visible: true,
+					path: "/producers/decorator[@name='MemoryPool']/producer[@id='MemoryPool-PS Eden Space-Heap']/values/value[@name='Free MB']/text()",
+					total: "SUM"
+				}, {
+					attribute: "EdenSpaceHeap.Used",
+					name: "EdenSpaceHeap Used",
+					type: "field",
+					class : "int",
+					visible: true,
+					path: "/producers/decorator[@name='MemoryPool']/producer[@id='MemoryPool-PS Eden Space-Heap']/values/value[@name='Used MB']/text()",
+					total: "SUM"
+				}, {
+					attribute: "EdenSpaceHeap.Commited",
+					name: "EdenSpaceHeap Commited",
+					type: "field",
+					class : "int",
+					visible: true,
+					path: "/producers/decorator[@name='MemoryPool']/producer[@id='MemoryPool-PS Eden Space-Heap']/values/value[@name='Commited MB']/text()",
+					total: "SUM"
+				}, {
+					attribute: "OldGenHeap.Free",
+					name: "OldGenHeap Free",
+					type: "field",
+					class : "int",
+					visible: true,
+					path: "/producers/decorator[@name='MemoryPool']/producer[@id='MemoryPool-PS Old Gen-Heap']/values/value[@name='Free MB']/text()",
+					total: "SUM"
+				}, {
+					attribute: "OldGenHeap.Used",
+					name: "OldGenHeap Used",
+					type: "field",
+					class : "int",
+					visible: true,
+					path: "/producers/decorator[@name='MemoryPool']/producer[@id='MemoryPool-PS Old Gen-Heap']/values/value[@name='Used MB']/text()",
+					total: "SUM"
+				}, {
+					attribute: "OldGenHeap.Commited",
+					name: "OldGenHeap Commited",
+					type: "field",
+					class : "int",
+					visible: true,
+					path: "/producers/decorator[@name='MemoryPool']/producer[@id='MemoryPool-PS Old Gen-Heap']/values/value[@name='Commited MB']/text()",
+					total: "SUM"
+				}, {
+					attribute: "PermGenNonHeap.Free",
+					name: "PermGenNonHeap Free",
+					type: "field",
+					class : "int",
+					visible: true,
+					path: "/producers/decorator[@name='MemoryPool']/producer[@id='MemoryPool-PS Perm Gen-NonHeap']/values/value[@name='Free MB']/text()",
+					total: "SUM"
+				}, {
+					attribute: "PermGenNonHeap.Used",
+					name: "PermGenNonHeap Used",
+					type: "field",
+					class : "int",
+					visible: true,
+					path: "/producers/decorator[@name='MemoryPool']/producer[@id='MemoryPool-PS Perm Gen-NonHeap']/values/value[@name='Used MB']/text()",
+					total: "SUM"
+				}, {
+					attribute: "PermGenNonHeap.Commited",
+					name: "PermGenNonHeap Commited",
+					type: "field",
+					class : "int",
+					visible: true,
+					path: "/producers/decorator[@name='MemoryPool']/producer[@id='MemoryPool-PS Perm Gen-NonHeap']/values/value[@name='Commited MB']/text()",
+					total: "SUM"
+				}, {
+					attribute: "SurvSpaceHeap.Free",
+					name: "SurvSpaceHeap Free",
+					type: "field",
+					class : "int",
+					visible: true,
+					path: "/producers/decorator[@name='MemoryPool']/producer[@id='MemoryPool-PS Survivor Space-Heap']/values/value[@name='Free MB']/text()",
+					total: "SUM"
+				}, {
+					attribute: "SurvSpaceHeap.Used",
+					name: "SurvSpaceHeap Used",
+					type: "field",
+					class : "int",
+					visible: true,
+					path: "/producers/decorator[@name='MemoryPool']/producer[@id='MemoryPool-PS Survivor Space-Heap']/values/value[@name='Used MB']/text()",
+					total: "SUM"
+				}, {
+					attribute: "SurvSpaceHeap.Commited",
+					name: "SurvSpaceHeap Commited",
+					type: "field",
+					class : "int",
+					visible: true,
+					path: "/producers/decorator[@name='MemoryPool']/producer[@id='MemoryPool-PS Survivor Space-Heap']/values/value[@name='Commited MB']/text()",
+					total: "SUM"
+				}
+			]
+	},{
+			name: "APIs",
+			columns: [
+				{
+					attribute: "ContactsAPI.Req",
+					name: "Contacts Req",
+					type: "field",
+					class : "int",
+					visible: true,
+					path: "/producers/decorator[@name='Service']/producer[@id='ContactsAPI']/values/value[@name='Req']/text()",
+					total: "SUM"
+				}, {
+					attribute: "ContactsAPI.Time",
+					name: "Contacts Time",
+					type: "field",
+					class : "int",
+					visible: true,
+					path: "/producers/decorator[@name='Service']/producer[@id='ContactsAPI']/values/value[@name='Time']/text()",
+					total: "SUM"
+				}, {
+					attribute: "ContactsAPI.Avg",
+					name: "Contacts Avg",
+					type: "field",
+					class : "double",
+					visible: true,
+					path: "/producers/decorator[@name='Service']/producer[@id='ContactsAPI']/values/value[@name='Avg']/text()",
+					total: "AVG"
+				}, {
+					attribute: "ExtapiSettingsAPI.Req",
+					name: "Sett Req",
+					type: "field",
+					class : "int",
+					visible: true,
+					path: "/producers/decorator[@name='Service']/producer[@id='ExtapiSettingsAPI']/values/value[@name='Req']/text()",
+					total: "SUM"
+				}, {
+					attribute: "ExtapiSettingsAPI.Time",
+					name: "Sett Time",
+					type: "field",
+					class : "int",
+					visible: true,
+					path: "/producers/decorator[@name='Service']/producer[@id='ExtapiSettingsAPI']/values/value[@name='Time']/text()",
+					total: "SUM"
+				}, {
+					attribute: "ExtapiSettingsAPI.Avg",
+					name: "Sett Avg",
+					type: "field",
+					class : "double",
+					visible: true,
+					path: "/producers/decorator[@name='Service']/producer[@id='ExtapiSettingsAPI']/values/value[@name='Avg']/text()",
+					total: "AVG"
+				}, {
+					attribute: "ExternalAPISystemAPI.Req",
+					name: "Sys Req",
+					type: "field",
+					class : "int",
+					visible: true,
+					path: "/producers/decorator[@name='Service']/producer[@id='ExternalAPISystemAPI']/values/value[@name='Req']/text()",
+					total: "SUM"
+				}, {
+					attribute: "ExternalAPISystemAPI.Time",
+					name: "Sys Time",
+					type: "field",
+					class : "int",
+					visible: true,
+					path: "/producers/decorator[@name='Service']/producer[@id='ExternalAPISystemAPI']/values/value[@name='Time']/text()",
+					total: "SUM"
+				}, {
+					attribute: "ExternalAPISystemAPI.Avg",
+					name: "Sys Avg",
+					type: "field",
+					class : "double",
+					visible: true,
+					path: "/producers/decorator[@name='Service']/producer[@id='ExternalAPISystemAPI']/values/value[@name='Avg']/text()",
+					total: "AVG"
+				}, {
+					attribute: "ForeignUserAPI.Req",
+					name: "Foreign Req",
+					type: "field",
+					class : "int",
+					visible: true,
+					path: "/producers/decorator[@name='Service']/producer[@id='ForeignUserAPI']/values/value[@name='Req']/text()",
+					total: "SUM"
+				}, {
+					attribute: "ForeignUserAPI.Time",
+					name: "Foreign Time",
+					type: "field",
+					class : "int",
+					visible: true,
+					path: "/producers/decorator[@name='Service']/producer[@id='ForeignUserAPI']/values/value[@name='Time']/text()",
+					total: "SUM"
+				}, {
+					attribute: "ForeignUserAPI.Avg",
+					name: "Foreign Avg",
+					type: "field",
+					class : "double",
+					visible: true,
+					path: "/producers/decorator[@name='Service']/producer[@id='ForeignUserAPI']/values/value[@name='Avg']/text()",
+					total: "AVG"
+				}, {
+					attribute: "GeographicAPI.Req",
+					name: "Geo Req",
+					type: "field",
+					class : "int",
+					visible: true,
+					path: "/producers/decorator[@name='Service']/producer[@id='GeographicAPI']/values/value[@name='Req']/text()",
+					total: "SUM"
+				}, {
+					attribute: "GeographicAPI.Time",
+					name: "Geo Time",
+					type: "field",
+					class : "int",
+					visible: true,
+					path: "/producers/decorator[@name='Service']/producer[@id='GeographicAPI']/values/value[@name='Time']/text()",
+					total: "SUM"
+				}, {
+					attribute: "GeographicAPI.Avg",
+					name: "Geo Avg",
+					type: "field",
+					class : "double",
+					visible: true,
+					path: "/producers/decorator[@name='Service']/producer[@id='GeographicAPI']/values/value[@name='Avg']/text()",
+					total: "AVG"
+				}, {
+					attribute: "ImageAPI.Req",
+					name: "Image Req",
+					type: "field",
+					class : "int",
+					visible: true,
+					path: "/producers/decorator[@name='Service']/producer[@id='ImageAPI']/values/value[@name='Req']/text()",
+					total: "SUM"
+				}, {
+					attribute: "ImageAPI.Time",
+					name: "Image Time",
+					type: "field",
+					class : "int",
+					visible: true,
+					path: "/producers/decorator[@name='Service']/producer[@id='ImageAPI']/values/value[@name='Time']/text()",
+					total: "SUM"
+				}, {
+					attribute: "ImageAPI.Avg",
+					name: "Image Avg",
+					type: "field",
+					class : "double",
+					visible: true,
+					path: "/producers/decorator[@name='Service']/producer[@id='ImageAPI']/values/value[@name='Avg']/text()",
+					total: "AVG"
+				}, {
+					attribute: "InfrastructureAPI.Req",
+					name: "Infra Req",
+					type: "field",
+					class : "int",
+					visible: true,
+					path: "/producers/decorator[@name='Service']/producer[@id='InfrastructureAPI']/values/value[@name='Req']/text()",
+					total: "SUM"
+				}, {
+					attribute: "InfrastructureAPI.Time",
+					name: "Infra Time",
+					type: "field",
+					class : "int",
+					visible: true,
+					path: "/producers/decorator[@name='Service']/producer[@id='InfrastructureAPI']/values/value[@name='Time']/text()",
+					total: "SUM"
+				}, {
+					attribute: "InfrastructureAPI.Avg",
+					name: "Infra Avg",
+					type: "field",
+					class : "double",
+					visible: true,
+					path: "/producers/decorator[@name='Service']/producer[@id='InfrastructureAPI']/values/value[@name='Avg']/text()",
+					total: "AVG"
+				}, {
+					attribute: "LoginAPI.Req",
+					name: "Login Req",
+					type: "field",
+					class : "int",
+					visible: true,
+					path: "/producers/decorator[@name='Service']/producer[@id='LoginAPI']/values/value[@name='Req']/text()",
+					total: "SUM"
+				}, {
+					attribute: "LoginAPI.Time",
+					name: "Login Time",
+					type: "field",
+					class : "int",
+					visible: true,
+					path: "/producers/decorator[@name='Service']/producer[@id='LoginAPI']/values/value[@name='Time']/text()",
+					total: "SUM"
+				}, {
+					attribute: "LoginAPI.Avg",
+					name: "Login Avg",
+					type: "field",
+					class : "double",
+					visible: true,
+					path: "/producers/decorator[@name='Service']/producer[@id='LoginAPI']/values/value[@name='Avg']/text()",
+					total: "AVG"
+				}, {
+					attribute: "MessageAPI.Req",
+					name: "Mess Req",
+					type: "field",
+					class : "int",
+					visible: true,
+					path: "/producers/decorator[@name='Service']/producer[@id='MessageAPI']/values/value[@name='Req']/text()",
+					total: "SUM"
+				}, {
+					attribute: "MessageAPI.Time",
+					name: "Mess Time",
+					type: "field",
+					class : "int",
+					visible: true,
+					path: "/producers/decorator[@name='Service']/producer[@id='MessageAPI']/values/value[@name='Time']/text()",
+					total: "SUM"
+				}, {
+					attribute: "MessageAPI.Avg",
+					name: "Mess Avg",
+					type: "field",
+					class : "double",
+					visible: true,
+					path: "/producers/decorator[@name='Service']/producer[@id='MessageAPI']/values/value[@name='Avg']/text()",
+					total: "AVG"
+				}, {
+					attribute: "NotificationAPI.Req",
+					name: "Notify Req",
+					type: "field",
+					class : "int",
+					visible: true,
+					path: "/producers/decorator[@name='Service']/producer[@id='NotificationAPI']/values/value[@name='Req']/text()",
+					total: "SUM"
+				}, {
+					attribute: "NotificationAPI.Time",
+					name: "Notify Time",
+					type: "field",
+					class : "int",
+					visible: true,
+					path: "/producers/decorator[@name='Service']/producer[@id='NotificationAPI']/values/value[@name='Time']/text()",
+					total: "SUM"
+				}, {
+					attribute: "NotificationAPI.Avg",
+					name: "Notify Avg",
+					type: "field",
+					class : "double",
+					visible: true,
+					path: "/producers/decorator[@name='Service']/producer[@id='NotificationAPI']/values/value[@name='Avg']/text()",
+					total: "AVG"
+				}, {
+					attribute: "ObservationAPI.Req",
+					name: "Observ Req",
+					type: "field",
+					class : "int",
+					visible: true,
+					path: "/producers/decorator[@name='Service']/producer[@id='ObservationAPI']/values/value[@name='Req']/text()",
+					total: "SUM"
+				}, {
+					attribute: "ObservationAPI.Time",
+					name: "Observ Time",
+					type: "field",
+					class : "int",
+					visible: true,
+					path: "/producers/decorator[@name='Service']/producer[@id='ObservationAPI']/values/value[@name='Time']/text()",
+					total: "SUM"
+				}, {
+					attribute: "ObservationAPI.Avg",
+					name: "Observ Avg",
+					type: "field",
+					class : "double",
+					visible: true,
+					path: "/producers/decorator[@name='Service']/producer[@id='ObservationAPI']/values/value[@name='Avg']/text()",
+					total: "AVG"
+				}, {
+					attribute: "ParshipLoginAPI.Req",
+					name: "ParLogin Req",
+					type: "field",
+					class : "int",
+					visible: true,
+					path: "/producers/decorator[@name='Service']/producer[@id='ParshipLoginAPI']/values/value[@name='Req']/text()",
+					total: "SUM"
+				}, {
+					attribute: "ParshipLoginAPI.Time",
+					name: "ParLogin Time",
+					type: "field",
+					class : "int",
+					visible: true,
+					path: "/producers/decorator[@name='Service']/producer[@id='ParshipLoginAPI']/values/value[@name='Time']/text()",
+					total: "SUM"
+				}, {
+					attribute: "ParshipLoginAPI.Avg",
+					name: "ParLogin Avg",
+					type: "field",
+					class : "double",
+					visible: true,
+					path: "/producers/decorator[@name='Service']/producer[@id='ParshipLoginAPI']/values/value[@name='Avg']/text()",
+					total: "AVG"
+				}, {
+					attribute: "PartnerAPI.Req",
+					name: "Partner Req",
+					type: "field",
+					class : "int",
+					visible: true,
+					path: "/producers/decorator[@name='Service']/producer[@id='PartnerAPI']/values/value[@name='Req']/text()",
+					total: "SUM"
+				}, {
+					attribute: "PartnerAPI.Time",
+					name: "Partner Time",
+					type: "field",
+					class : "int",
+					visible: true,
+					path: "/producers/decorator[@name='Service']/producer[@id='PartnerAPI']/values/value[@name='Time']/text()",
+					total: "SUM"
+				}, {
+					attribute: "PartnerAPI.Avg",
+					name: "Partner Avg",
+					type: "field",
+					class : "double",
+					visible: true,
+					path: "/producers/decorator[@name='Service']/producer[@id='PartnerAPI']/values/value[@name='Avg']/text()",
+					total: "AVG"
+				}, {
+					attribute: "PartnerSuggestionAPI.Req",
+					name: "PartSuggest Req",
+					type: "field",
+					class : "int",
+					visible: true,
+					path: "/producers/decorator[@name='Service']/producer[@id='PartnerSuggestionAPI']/values/value[@name='Req']/text()",
+					total: "SUM"
+				}, {
+					attribute: "PartnerSuggestionAPI.Time",
+					name: "PartSuggest Time",
+					type: "field",
+					class : "int",
+					visible: true,
+					path: "/producers/decorator[@name='Service']/producer[@id='PartnerSuggestionAPI']/values/value[@name='Time']/text()",
+					total: "SUM"
+				}, {
+					attribute: "PartnerSuggestionAPI.Avg",
+					name: "PartSuggest Avg",
+					type: "field",
+					class : "double",
+					visible: true,
+					path: "/producers/decorator[@name='Service']/producer[@id='PartnerSuggestionAPI']/values/value[@name='Avg']/text()",
+					total: "AVG"
+				}, {
+					attribute: "PaymentAPI.Req",
+					name: "Payment Req",
+					type: "field",
+					class : "int",
+					visible: true,
+					path: "/producers/decorator[@name='Service']/producer[@id='PaymentAPI']/values/value[@name='Req']/text()",
+					total: "SUM"
+				}, {
+					attribute: "PaymentAPI.Time",
+					name: "Payment Time",
+					type: "field",
+					class : "int",
+					visible: true,
+					path: "/producers/decorator[@name='Service']/producer[@id='PaymentAPI']/values/value[@name='Time']/text()",
+					total: "SUM"
+				}, {
+					attribute: "PaymentAPI.Avg",
+					name: "Payment Avg",
+					type: "field",
+					class : "double",
+					visible: true,
+					path: "/producers/decorator[@name='Service']/producer[@id='PaymentAPI']/values/value[@name='Avg']/text()",
+					total: "AVG"
+				}, {
+					attribute: "PermissionAPI.Req",
+					name: "Perm Req",
+					type: "field",
+					class : "int",
+					visible: true,
+					path: "/producers/decorator[@name='Service']/producer[@id='PermissionAPI']/values/value[@name='Req']/text()",
+					total: "SUM"
+				}, {
+					attribute: "PermissionAPI.Time",
+					name: "Perm Time",
+					type: "field",
+					class : "int",
+					visible: true,
+					path: "/producers/decorator[@name='Service']/producer[@id='PermissionAPI']/values/value[@name='Time']/text()",
+					total: "SUM"
+				}, {
+					attribute: "PermissionAPI.Avg",
+					name: "Perm Avg",
+					type: "field",
+					class : "double",
+					visible: true,
+					path: "/producers/decorator[@name='Service']/producer[@id='PermissionAPI']/values/value[@name='Avg']/text()",
+					total: "AVG"
+				}, {
+					attribute: "PersonalityAPI.Req",
+					name: "Person Req",
+					type: "field",
+					class : "int",
+					visible: true,
+					path: "/producers/decorator[@name='Service']/producer[@id='PersonalityAPI']/values/value[@name='Req']/text()",
+					total: "SUM"
+				}, {
+					attribute: "PersonalityAPI.Time",
+					name: "Person Time",
+					type: "field",
+					class : "int",
+					visible: true,
+					path: "/producers/decorator[@name='Service']/producer[@id='PersonalityAPI']/values/value[@name='Time']/text()",
+					total: "SUM"
+				}, {
+					attribute: "PersonalityAPI.Avg",
+					name: "Person Avg",
+					type: "field",
+					class : "double",
+					visible: true,
+					path: "/producers/decorator[@name='Service']/producer[@id='PersonalityAPI']/values/value[@name='Avg']/text()",
+					total: "AVG"
+				}, {
+					attribute: "PhotoAPI.Req",
+					name: "Photo Req",
+					type: "field",
+					class : "int",
+					visible: true,
+					path: "/producers/decorator[@name='Service']/producer[@id='PhotoAPI']/values/value[@name='Req']/text()",
+					total: "SUM"
+				}, {
+					attribute: "PhotoAPI.Time",
+					name: "Photo Time",
+					type: "field",
+					class : "int",
+					visible: true,
+					path: "/producers/decorator[@name='Service']/producer[@id='PhotoAPI']/values/value[@name='Time']/text()",
+					total: "SUM"
+				}, {
+					attribute: "PhotoAPI.Avg",
+					name: "Photo Avg",
+					type: "field",
+					class : "double",
+					visible: true,
+					path: "/producers/decorator[@name='Service']/producer[@id='PhotoAPI']/values/value[@name='Avg']/text()",
+					total: "AVG"
+				}, {
+					attribute: "ProductAPI.Req",
+					name: "Prod Req",
+					type: "field",
+					class : "int",
+					visible: true,
+					path: "/producers/decorator[@name='Service']/producer[@id='ProductAPI']/values/value[@name='Req']/text()",
+					total: "SUM"
+				}, {
+					attribute: "ProductAPI.Time",
+					name: "Prod Time",
+					type: "field",
+					class : "int",
+					visible: true,
+					path: "/producers/decorator[@name='Service']/producer[@id='ProductAPI']/values/value[@name='Time']/text()",
+					total: "SUM"
+				}, {
+					attribute: "ProductAPI.Avg",
+					name: "Prod Avg",
+					type: "field",
+					class : "double",
+					visible: true,
+					path: "/producers/decorator[@name='Service']/producer[@id='ProductAPI']/values/value[@name='Avg']/text()",
+					total: "AVG"
+				}, {
+					attribute: "ProfileAPI.Req",
+					name: "Prof Req",
+					type: "field",
+					class : "int",
+					visible: true,
+					path: "/producers/decorator[@name='Service']/producer[@id='ProfileAPI']/values/value[@name='Req']/text()",
+					total: "SUM"
+				}, {
+					attribute: "ProfileAPI.Time",
+					name: "Prof Time",
+					type: "field",
+					class : "int",
+					visible: true,
+					path: "/producers/decorator[@name='Service']/producer[@id='ProfileAPI']/values/value[@name='Time']/text()",
+					total: "SUM"
+				}, {
+					attribute: "ProfileAPI.Avg",
+					name: "Prof Avg",
+					type: "field",
+					class : "double",
+					visible: true,
+					path: "/producers/decorator[@name='Service']/producer[@id='ProfileAPI']/values/value[@name='Avg']/text()",
+					total: "AVG"
+				}, {
+					attribute: "QuestionnaireAPI.Req",
+					name: "Quest Req",
+					type: "field",
+					class : "int",
+					visible: true,
+					path: "/producers/decorator[@name='Service']/producer[@id='QuestionnaireAPI']/values/value[@name='Req']/text()",
+					total: "SUM"
+				}, {
+					attribute: "QuestionnaireAPI.Time",
+					name: "Quest Time",
+					type: "field",
+					class : "int",
+					visible: true,
+					path: "/producers/decorator[@name='Service']/producer[@id='QuestionnaireAPI']/values/value[@name='Time']/text()",
+					total: "SUM"
+				}, {
+					attribute: "QuestionnaireAPI.Avg",
+					name: "Quest Avg",
+					type: "field",
+					class : "double",
+					visible: true,
+					path: "/producers/decorator[@name='Service']/producer[@id='QuestionnaireAPI']/values/value[@name='Avg']/text()",
+					total: "AVG"
+				}, {
+					attribute: "StatusAPI.Req",
+					name: "Stat Req",
+					type: "field",
+					class : "int",
+					visible: true,
+					path: "/producers/decorator[@name='Service']/producer[@id='StatusAPI']/values/value[@name='Req']/text()",
+					total: "SUM"
+				}, {
+					attribute: "StatusAPI.Time",
+					name: "Stat Time",
+					type: "field",
+					class : "int",
+					visible: true,
+					path: "/producers/decorator[@name='Service']/producer[@id='StatusAPI']/values/value[@name='Time']/text()",
+					total: "SUM"
+				}, {
+					attribute: "StatusAPI.Avg",
+					name: "Stat Avg",
+					type: "field",
+					class : "double",
+					visible: true,
+					path: "/producers/decorator[@name='Service']/producer[@id='StatusAPI']/values/value[@name='Avg']/text()",
+					total: "AVG"
+				}, {
+					attribute: "UserAPI.Req",
+					name: "User Req",
+					type: "field",
+					class : "int",
+					visible: true,
+					path: "/producers/decorator[@name='Service']/producer[@id='UserAPI']/values/value[@name='Req']/text()",
+					total: "SUM"
+				}, {
+					attribute: "UserAPI.Time",
+					name: "User Time",
+					type: "field",
+					class : "int",
+					visible: true,
+					path: "/producers/decorator[@name='Service']/producer[@id='UserAPI']/values/value[@name='Time']/text()",
+					total: "SUM"
+				}, {
+					attribute: "UserAPI.Avg",
+					name: "User Avg",
+					type: "field",
+					class : "double",
+					visible: true,
+					path: "/producers/decorator[@name='Service']/producer[@id='UserAPI']/values/value[@name='Avg']/text()",
+					total: "AVG"
+				}, {
+					attribute: "VisitorsAPI.Req",
+					name: "Visit Req",
+					type: "field",
+					class : "int",
+					visible: true,
+					path: "/producers/decorator[@name='Service']/producer[@id='VisitorsAPI']/values/value[@name='Req']/text()",
+					total: "SUM"
+				}, {
+					attribute: "VisitorsAPI.Time",
+					name: "Visit Time",
+					type: "field",
+					class : "int",
+					visible: true,
+					path: "/producers/decorator[@name='Service']/producer[@id='VisitorsAPI']/values/value[@name='Time']/text()",
+					total: "SUM"
+				}, {
+					attribute: "VisitorsAPI.Avg",
+					name: "Visit Avg",
+					type: "field",
+					class : "double",
+					visible: true,
+					path: "/producers/decorator[@name='Service']/producer[@id='VisitorsAPI']/values/value[@name='Avg']/text()",
+					total: "AVG"
+				},
+			]
 	}]
 }

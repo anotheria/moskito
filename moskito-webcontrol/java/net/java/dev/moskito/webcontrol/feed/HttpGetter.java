@@ -21,6 +21,7 @@ public class HttpGetter implements FeedGetter {
 
 	@Override
 	public Document retreive(SourceConfiguration source) {
+		System.out.println(source);
 		try {
 			URL url = new URL(source.getUrl());
 			URLConnection connection = url.openConnection();
