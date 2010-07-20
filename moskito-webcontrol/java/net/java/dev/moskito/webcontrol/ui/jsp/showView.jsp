@@ -61,7 +61,7 @@
 													<td><ano-tags:write name="attrBean" property="sourceName"/></td>
 													<ano-tags:define name="attrBean" property="attributeValues" id="attributeValues"/>
 													<ano-tags:iterate name="attributeValues" id="attrValue">
-														<td><ano-tags:write name="attrValue"/></td>
+														<td style="color: ${attrValue.color};">${attrValue.value}</td>
 													</ano-tags:iterate>
 												</tr>
 												</ano-tags:notEqual>
@@ -84,7 +84,7 @@
 													<td><ano-tags:write name="attrBean" property="sourceName"/></td>
 													<ano-tags:define name="attrBean" property="attributeValues" id="attributeValues"/>
 													<ano-tags:iterate name="attributeValues" id="attrValue">
-														<td><ano-tags:write name="attrValue"/></td>
+														<td style="color: ${attrValue.color};">${attrValue.value}</td>
 													</ano-tags:iterate>
 												</tr>
 												</ano-tags:equal>

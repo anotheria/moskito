@@ -13,7 +13,6 @@ import javax.servlet.FilterConfig;
 import javax.servlet.ServletException;
 import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathConstants;
-import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
 
 import net.anotheria.maf.MAFFilter;
@@ -93,26 +92,51 @@ public class MoskitoWebcontrolUIFilter extends MAFFilter {
 	public static void update() {
 		List<SourceConfiguration> sources = ConfigurationRepository.INSTANCE.getSources();
 		for (SourceConfiguration source : sources) {
-			for (String name : ConfigurationRepository.INSTANCE.getIntervalsNames()) {
-				try {
-					FeedGetter getter = new HttpGetter();
-					SourceConfiguration sourceConf = new SourceConfiguration(source.getName(), source.getUrl() + "&pInterval=" + name);
-					Document doc = getter.retreive(sourceConf);
-					if (doc != null) {
-						fillRepository(source, doc, ConfigurationRepository.INSTANCE.getContainerName(name));
+			if (!"Totals".equalsIgnoreCase(source.getName())) {
+				for (String name : ConfigurationRepository.INSTANCE.getIntervalsNames()) {
+					try {
+						FeedGetter getter = new HttpGetter();
+						SourceConfiguration sourceConf = new SourceConfiguration(source.getName(), source.getUrl() + "&pInterval=" + name);
+						Document doc = getter.retreive(sourceConf);
+						if (doc != null) {
+							fillRepository(source, doc, ConfigurationRepository.INSTANCE.getContainerName(name));
+						}
+					} catch (Exception e) {
+						log.debug(e.getMessage(), e);
 					}
-				} catch (Exception e) {
-					log.debug(e.getMessage(), e);
 				}
-
 			}
 		}
 
-		// for (SourceConfiguration source : sources) {
+		for (String name : ConfigurationRepository.INSTANCE.getIntervalsNames()) {
+			executeGuards(ConfigurationRepository.INSTANCE.getContainerName(name));
+		}
+
 		for (String name : ConfigurationRepository.INSTANCE.getIntervalsNames()) {
 			calculateTotals(ConfigurationRepository.INSTANCE.getContainerName(name));
 		}
-		// }
+
+	}
+
+	private static void executeGuards(String containerName) {
+
+		List<String> viewNames = ConfigurationRepository.INSTANCE.getViewNames();
+		for (String viewName : viewNames) {
+			ViewConfiguration viewConfig = ConfigurationRepository.INSTANCE.getView(viewName);
+			List<ViewField> fields = viewConfig.getFields();
+			for (ViewField field : fields) {
+				List<SourceConfiguration> sources = ConfigurationRepository.INSTANCE.getSources();
+				for (SourceConfiguration source : sources) {
+					Snapshot ss = Repository.INSTANCE.getSnapshot(containerName, new SnapshotSource(source.getName()));
+					Attribute attr = ss.getAttribute(field.getAttributeName());
+					try {
+						field.getGuard().execute(ss, field, attr);
+					} catch (Exception e) {
+						// TODO: handle exception
+					}
+				}
+			}
+		}
 
 	}
 
@@ -149,7 +173,7 @@ public class MoskitoWebcontrolUIFilter extends MAFFilter {
 		Repository.INSTANCE.addSnapshot(containerName, snapshot);
 	}
 
-	private static void fillRepository(SourceConfiguration source, Document doc, String containerName) {
+	public static void fillRepository(SourceConfiguration source, Document doc, String containerName) {
 		Repository.INSTANCE.addSnapshot(containerName, createSnapshot(source.getName(), doc));
 	}
 
@@ -159,13 +183,13 @@ public class MoskitoWebcontrolUIFilter extends MAFFilter {
 		for (String viewName : viewNames) {
 			ViewConfiguration viewConfig = ConfigurationRepository.INSTANCE.getView(viewName);
 			List<ViewField> fields = viewConfig.getFields();
-			
+
 			ViewField[] fs = fields.toArray(new ViewField[fields.size()]);
 			for (int j = 0; j < fs.length; j++) {
 				ViewField field = fs[j];
 				switch (field.getType()) {
 					case FIELD:
-						boolean wildcard = isPathWildCard(snapshot, fields, field.getAttributeName());
+						boolean wildcard = isWildCard(field.getPath());
 						if (wildcard) {
 							fs[j] = null;
 							fields.remove(field);
@@ -176,7 +200,7 @@ public class MoskitoWebcontrolUIFilter extends MAFFilter {
 						break;
 				}
 			}
-			
+
 			for (int j = 0; j < fields.size(); j++) {
 				ViewField field = fields.get(j);
 				switch (field.getType()) {
@@ -200,94 +224,26 @@ public class MoskitoWebcontrolUIFilter extends MAFFilter {
 
 	private static void addFieldByWildCard(ViewConfiguration viewConfig, ViewField field, Snapshot snapshot, String input, Document doc) {
 		Attribute attr = snapshot.getAttribute(input);
-		XPath xpath = XPathFactory.newInstance().newXPath();
 		if (attr == null) {
 			if (field.getAttributeName().equals(input)) {
-				String pattern = field.getPath();
-				String start = "";
-				String end = "";
-				String attributeName = "";
-				Pattern p = Pattern.compile("^(.*)(\\[@([^=]+)=\\*\\])+(.*)$");
-				Matcher m = p.matcher(pattern);
-				if (m.find()) {
-					start = m.group(1);
-					end = m.group(4);
-					attributeName = m.group(3);
-					try {
-						NodeList list = (NodeList) xpath.compile(start).evaluate(doc, XPathConstants.NODESET);
-						for (int i = 0; i < list.getLength(); i++) {
-							String attrName = list.item(i).getAttributes().getNamedItem(attributeName).getNodeValue();
-							String fullPattern = pattern.replaceAll("@" + attributeName + "=\\*", "@" + attributeName + "=" + "'" + attrName + "'");
-							
-							String attribName = field.getAttributeName() + "." + attrName;
-
-							ViewField newField = new ViewField(field.getFieldName() + "." + attrName, attribName, field.getType(), field.getJavaType(), field.getVisible(), fullPattern);
-							newField.setTotal(field.getTotal());
-							
-							viewConfig.addField(newField);
-						}
-					} catch (XPathExpressionException e) {
-						log.error(e.getMessage(), e);
+				try {
+					List<PatternWithName> result = new ArrayList<PatternWithName>();
+					result.add(new PatternWithName("Column", field.getPath()));
+					buildFullPath(result, doc);
+					for (PatternWithName p : result) {
+						
+						ViewField newField = new ViewField(p.getFieldName() + "." + field.getFieldName(), p.getFieldName() + "." + field.getFieldName(), field.getType(), field
+								.getJavaType(), field.getVisible(), p.getPattern());
+						newField.setGuard(field.getGuard());
+						newField.setTotal(field.getTotal());
+						viewConfig.addField(newField);
 					}
+					
+				} catch (Exception e) {
+					log.error(e.getMessage(), e);
 				}
 			}
 		}
-	}
-
-//	private static void addAttributedByWildCard(ViewConfiguration viewConfig, Snapshot snapshot, List<ViewField> fields, String input, Document doc) {
-//		Attribute attr = snapshot.getAttribute(input);
-//		XPath xpath = XPathFactory.newInstance().newXPath();
-//		if (attr == null) {
-//			for (int j = 0; j < fields.size(); j++) {
-//				ViewField field = fields.get(j);
-//				if (field.getAttributeName().equals(input)) {
-//					String pattern = field.getPath();
-//					String start = "";
-//					String end = "";
-//					String attributeName = "";
-//					Pattern p = Pattern.compile("^(.*)(\\[@([^=]+)=\\*\\])+(.*)$");
-//					Matcher m = p.matcher(pattern);
-//					if (m.find()) {
-//						start = m.group(1);
-//						end = m.group(4);
-//						attributeName = m.group(3);
-//						try {
-//							NodeList list = (NodeList) xpath.compile(start).evaluate(doc, XPathConstants.NODESET);
-//							for (int i = 0; i < list.getLength(); i++) {
-//								String attrName = list.item(i).getAttributes().getNamedItem(attributeName).getNodeValue();
-//								String fullPattern = pattern.replaceAll("@" + attributeName + "=\\*", "@" + attributeName + "=" + "'" + attrName
-//										+ "'");
-//								String value = (String) xpath.compile(fullPattern).evaluate(doc, XPathConstants.STRING);
-//								String attribName = field.getAttributeName() + "." + attrName;
-//								
-//								snapshot.addAttribute(AttributeFactory.create(AttributeType.convert(field.getJavaType()), attribName, value));
-//							}
-//						} catch (XPathExpressionException e) {
-//							log.error(e.getMessage(), e);
-//						}
-//					}
-//				}
-//			}
-//		}
-//	}
-
-	private static boolean isPathWildCard(Snapshot snapshot, List<ViewField> fields, String input) {
-		Attribute attr = snapshot.getAttribute(input);
-		if (attr == null) {
-			for (ViewField field : fields) {
-				if (field.getAttributeName().equals(input)) {
-					String pattern = field.getPath();
-					Pattern p = Pattern.compile("^(.*)(\\[@([^=]+)=\\*\\])+(.*)$");
-					Matcher m = p.matcher(pattern);
-					if (m.find()) {
-						return true;
-					} else {
-						return false;
-					}
-				}
-			}
-		}
-		return false;
 	}
 
 	private static Attribute getAttribute(Snapshot snapshot, List<ViewField> fields, String input, Document doc) {
@@ -298,9 +254,6 @@ public class MoskitoWebcontrolUIFilter extends MAFFilter {
 				if (field.getAttributeName().equals(input)) {
 					try {
 						String value = (String) xpath.compile(field.getPath()).evaluate(doc, XPathConstants.STRING);
-//						System.out.println(field.getJavaType());
-//						System.out.println(field.getAttributeName());
-//						System.out.println(value);
 						attr = AttributeFactory.create(AttributeType.convert(field.getJavaType()), field.getAttributeName(), value);
 						break;
 					} catch (Exception e) {
@@ -310,6 +263,100 @@ public class MoskitoWebcontrolUIFilter extends MAFFilter {
 			}
 		}
 		return attr;
+	}
+
+	private static class PatternWithName {
+		private String pattern;
+		private String fieldName;
+
+		public PatternWithName(String name, String pattern) {
+			this.fieldName = name;
+			this.pattern = pattern;
+		}
+
+		public String getPattern() {
+			return pattern;
+		}
+
+		public void setPattern(String pattern) {
+			this.pattern = pattern;
+		}
+
+		public String getFieldName() {
+			return fieldName;
+		}
+
+		public void setFieldName(String fieldName) {
+			this.fieldName = fieldName;
+		}
+	}
+
+	private static void buildFullPath(List<PatternWithName> result, Document doc) throws Exception {
+		XPath xpath = XPathFactory.newInstance().newXPath();
+
+		List<PatternWithName> res = new ArrayList<PatternWithName>();
+
+		for (int j = 0; j < result.size(); j++) {
+			PatternWithName pattern = result.get(j);
+
+			if (isWildCard(pattern.getPattern())) {
+
+				result.remove(pattern);
+
+				Pattern p = Pattern.compile("\\[@([^=]+)=\'([^*\\]]*\\*[^\\]]*)\'\\]+");
+				Matcher m = p.matcher(pattern.getPattern());
+				while (m.find()) {
+					String fullMatch = m.group(0);
+					String attributeName = m.group(1);
+					String value = m.group(2);
+
+					String start = pattern.getPattern().substring(0, pattern.getPattern().indexOf(fullMatch));
+
+					NodeList list = (NodeList) xpath.compile(start).evaluate(doc, XPathConstants.NODESET);
+					for (int i = 0; i < list.getLength(); i++) {
+						String attributeValue = list.item(i).getAttributes().getNamedItem(attributeName).getNodeValue();
+
+						if (checkAttributeValue(value, attributeValue)) {
+							String s = value.replaceAll("\\*", "\\\\*");
+							String replMatch = fullMatch.replaceAll(s, attributeValue);
+
+							int idxOf = pattern.getPattern().indexOf(fullMatch);
+							String nextMatch = pattern.getPattern().substring(0, idxOf) + replMatch
+									+ pattern.getPattern().substring(idxOf + fullMatch.length(), pattern.getPattern().length());
+
+							res.add(new PatternWithName(pattern.getFieldName() + "_[" + attributeValue + "]", nextMatch));
+						}
+					}
+				}
+			}
+		}
+
+		if (res.size() > 0) {
+			for (PatternWithName p : res) {
+				result.add(p);
+			}
+			buildFullPath(result, doc);
+		}
+
+	}
+
+	private static boolean isWildCard(String pattern) {
+		Pattern p = Pattern.compile("\\[@([^=]+)=\'([^*\\]]*\\*[^\\]]*)\'\\]+");
+		Matcher m = p.matcher(pattern);
+		if (m.find()) {
+			return true;
+		}
+		return false;
+	}
+
+	private static boolean checkAttributeValue(String value, String attributeValue) {
+		String pattern = value.replaceAll("\\*", "(.*)");
+		Pattern p = Pattern.compile("^" + pattern + "$");
+		Matcher m = p.matcher(attributeValue);
+		if (m.find()) {
+			return true;
+		}
+		return false;
 	}
 
 	@Override

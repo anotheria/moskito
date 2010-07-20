@@ -12,6 +12,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
 
 import net.anotheria.util.StringUtils;
 import net.java.dev.moskito.webcontrol.IOUtils;
+import net.java.dev.moskito.webcontrol.guards.Guard;
 import net.java.dev.moskito.webcontrol.repository.ColumnType;
 import net.java.dev.moskito.webcontrol.repository.TotalFormulaType;
 
@@ -169,6 +170,23 @@ public enum ConfigurationRepository {
 				if (StringUtils.isEmpty(total)) {
 					total = "EMPTY";
 				}
+				
+				String guard = (String) column.opt("guard");
+				if (!StringUtils.isEmpty(guard)) {
+					try {
+						@SuppressWarnings("unchecked")
+						Class guardClass = Class.forName(guard);
+						Guard instance = (Guard)guardClass.newInstance();
+						String guardRules = (String) column.opt("guardRules");
+						if (!StringUtils.isEmpty(guardRules)) {
+							instance.setRules(guardRules);
+						}
+						field.setGuard(instance);
+					} catch (Exception e) {
+						
+					}
+				}
+				
 
 				field.setTotal(TotalFormulaType.convert(total));
 				viewConfig.addField(field);

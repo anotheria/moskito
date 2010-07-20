@@ -51,7 +51,7 @@ public class PrintViews {
 						if (att == null) {
 							System.out.print("n.a.");
 						} else {
-							System.out.print(att.getValueString());
+							System.out.print(att.getValueString()+"("+att.getCondition().name()+")");
 						}
 						System.out.print("\t");
 					}

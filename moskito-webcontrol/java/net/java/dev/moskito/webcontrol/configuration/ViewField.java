@@ -2,6 +2,7 @@ package net.java.dev.moskito.webcontrol.configuration;
 
 import java.util.List;
 
+import net.java.dev.moskito.webcontrol.guards.Guard;
 import net.java.dev.moskito.webcontrol.repository.ColumnType;
 import net.java.dev.moskito.webcontrol.repository.TotalFormulaType;
 
@@ -16,6 +17,8 @@ public class ViewField {
 	private TotalFormulaType total;
 
 	private List<String> inputs;
+
+	private Guard guard;
 
 	public ViewField(String aFieldName, String anAttributeName, ColumnType type, String javaType, Boolean visible, String path) {
 		this.fieldName = aFieldName;
@@ -97,6 +100,14 @@ public class ViewField {
 
 	public void setTotal(TotalFormulaType total) {
 		this.total = total;
+	}
+
+	public Guard getGuard() {
+		return guard;
+	}
+
+	public void setGuard(Guard guard) {
+		this.guard = guard;
 	}
 
 }

@@ -9,7 +9,7 @@ public class OrderedSourceAttributesBean {
 
 	private boolean available = true;
 
-	private List<String> attributeValues = new ArrayList<String>();
+	private List<AttributeBean> attributeValues = new ArrayList<AttributeBean>();
 
 	public OrderedSourceAttributesBean(String sourceName) {
 		this.sourceName = sourceName;
@@ -19,15 +19,15 @@ public class OrderedSourceAttributesBean {
 		return sourceName;
 	}
 
-	public void setAttributeValues(List<String> attributeValues) {
+	public void setAttributeValues(List<AttributeBean> attributeValues) {
 		this.attributeValues = attributeValues;
 	}
 
-	public List<String> getAttributeValues() {
+	public List<AttributeBean> getAttributeValues() {
 		return attributeValues;
 	}
 
-	public void addAttributeValue(String attributeValue) {
+	public void addAttributeValue(AttributeBean attributeValue) {
 		attributeValues.add(attributeValue);
 	}
 

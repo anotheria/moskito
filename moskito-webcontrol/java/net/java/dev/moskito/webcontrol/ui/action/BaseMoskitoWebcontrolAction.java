@@ -12,10 +12,12 @@ import net.java.dev.moskito.webcontrol.configuration.ConfigurationRepository;
 import net.java.dev.moskito.webcontrol.configuration.SourceConfiguration;
 import net.java.dev.moskito.webcontrol.configuration.ViewConfiguration;
 import net.java.dev.moskito.webcontrol.configuration.ViewField;
+import net.java.dev.moskito.webcontrol.guards.Condition;
 import net.java.dev.moskito.webcontrol.repository.Attribute;
 import net.java.dev.moskito.webcontrol.repository.Repository;
 import net.java.dev.moskito.webcontrol.repository.Snapshot;
 import net.java.dev.moskito.webcontrol.repository.SnapshotSource;
+import net.java.dev.moskito.webcontrol.ui.beans.AttributeBean;
 import net.java.dev.moskito.webcontrol.ui.beans.OrderedSourceAttributesBean;
 import net.java.dev.moskito.webcontrol.ui.beans.ViewTable;
 
@@ -58,7 +60,7 @@ public abstract class BaseMoskitoWebcontrolAction implements Action {
 
 		for (SourceConfiguration source : sources) {
 			OrderedSourceAttributesBean attrsBean = new OrderedSourceAttributesBean(source.getName());
-			List<String> values = new ArrayList<String>(fields.size());
+			List<AttributeBean> values = new ArrayList<AttributeBean>(fields.size());
 			Snapshot snapshot = null;
 			try {
 				// create snapshot
@@ -70,9 +72,15 @@ public abstract class BaseMoskitoWebcontrolAction implements Action {
 			for (ViewField field : fields) {
 				if (snapshot != null) {
 					Attribute att = snapshot.getAttribute(field.getAttributeName());
-					values.add(att == null ? "n.a." : att.getValueString());
+					AttributeBean bean = new AttributeBean();
+					bean.setValue(att == null ? "n.a." : att.getValueString());
+					bean.setColor(att == null ? Condition.DEFAULT.getColor() : att.getCondition().getColor() );
+					values.add(bean);
 				} else {
-					values.add("");
+					AttributeBean bean = new AttributeBean();
+					bean.setValue("");
+					bean.setColor(Condition.DEFAULT.getColor());
+					values.add(bean);
 				}
 			}
 			attrsBean.setAttributeValues(values);

@@ -1,7 +1,10 @@
 package net.java.dev.moskito.webcontrol.repository;
 
+import net.java.dev.moskito.webcontrol.guards.Condition;
+
 public abstract class Attribute {
 	private String name;
+	private Condition condition = Condition.DEFAULT;
 	
 	Attribute(String aName){
 		name = aName;
@@ -25,6 +28,14 @@ public abstract class Attribute {
 	}
 	
 	public String toString(){
-		return getName()+" = "+getValueString();
+		return getName()+" = "+getValueString()+", cond = "+getCondition().getColor();
+	}
+
+	public Condition getCondition() {
+		return condition;
+	}
+
+	public void setCondition(Condition condition) {
+		this.condition = condition;
 	}
 }
