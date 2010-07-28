@@ -31,6 +31,7 @@ import net.java.dev.moskito.webcontrol.repository.Snapshot;
 import net.java.dev.moskito.webcontrol.repository.SnapshotSource;
 import net.java.dev.moskito.webcontrol.repository.StringAttribute;
 import net.java.dev.moskito.webcontrol.repository.TotalFormulaType;
+import net.java.dev.moskito.webcontrol.ui.beans.PatternWithName;
 
 import org.apache.log4j.Logger;
 import org.json.JSONException;
@@ -84,6 +85,12 @@ public class MoskitoWebcontrolUIFilter extends MAFFilter {
 		// DummyFillViewConfig.fillConfig();
 
 	}
+	
+	@Override
+	public void destroy() {
+		super.destroy();
+		timer.cancel();
+	}
 
 	/**
 	 * retrieves xml form each server, parse them and puts data into repository
@@ -102,14 +109,11 @@ public class MoskitoWebcontrolUIFilter extends MAFFilter {
 							fillRepository(source, doc, ConfigurationRepository.INSTANCE.getContainerName(name));
 						}
 					} catch (Exception e) {
-						log.debug(e.getMessage(), e);
+						//log.error(e.getMessage(), e);
 					}
+					executeGuards(ConfigurationRepository.INSTANCE.getContainerName(name), source.getName());
 				}
 			}
-		}
-
-		for (String name : ConfigurationRepository.INSTANCE.getIntervalsNames()) {
-			executeGuards(ConfigurationRepository.INSTANCE.getContainerName(name));
 		}
 
 		for (String name : ConfigurationRepository.INSTANCE.getIntervalsNames()) {
@@ -118,26 +122,21 @@ public class MoskitoWebcontrolUIFilter extends MAFFilter {
 
 	}
 
-	private static void executeGuards(String containerName) {
-
+	private static void executeGuards(String containerName, String sourceConfigName) {
+		Snapshot ss = Repository.INSTANCE.getSnapshot(containerName, new SnapshotSource(sourceConfigName));
 		List<String> viewNames = ConfigurationRepository.INSTANCE.getViewNames();
 		for (String viewName : viewNames) {
 			ViewConfiguration viewConfig = ConfigurationRepository.INSTANCE.getView(viewName);
 			List<ViewField> fields = viewConfig.getFields();
 			for (ViewField field : fields) {
-				List<SourceConfiguration> sources = ConfigurationRepository.INSTANCE.getSources();
-				for (SourceConfiguration source : sources) {
-					Snapshot ss = Repository.INSTANCE.getSnapshot(containerName, new SnapshotSource(source.getName()));
-					Attribute attr = ss.getAttribute(field.getAttributeName());
-					try {
-						field.getGuard().execute(ss, field, attr);
-					} catch (Exception e) {
-						// TODO: handle exception
-					}
+				Attribute attr = ss.getAttribute(field.getAttributeName());
+				try {
+					field.getGuard().execute(ss, field, attr);
+				} catch (Exception e) {
+					// TODO: handle exception
 				}
 			}
 		}
-
 	}
 
 	private static void calculateTotals(String containerName) {
@@ -228,14 +227,21 @@ public class MoskitoWebcontrolUIFilter extends MAFFilter {
 			if (field.getAttributeName().equals(input)) {
 				try {
 					List<PatternWithName> result = new ArrayList<PatternWithName>();
-					result.add(new PatternWithName("Column", field.getPath()));
+					result.add(new PatternWithName("", field.getPath()));
 					buildFullPath(result, doc);
 					for (PatternWithName p : result) {
 						
-						ViewField newField = new ViewField(p.getFieldName() + "." + field.getFieldName(), p.getFieldName() + "." + field.getFieldName(), field.getType(), field
-								.getJavaType(), field.getVisible(), p.getPattern());
-						newField.setGuard(field.getGuard());
-						newField.setTotal(field.getTotal());
+//						ViewField newField = new ViewField(p.getFieldName() + "." + field.getFieldName(), p.getFieldName() + "." + field.getFieldName(), field.getType(), field
+//								.getJavaType(), field.getVisible(), p.getPattern());
+//						newField.setGuard(field.getGuard());
+//						newField.setTotal(field.getTotal());
+//						newField.setFormat(field.getFormat());
+						
+						ViewField newField = (ViewField)field.clone();
+						newField.setFieldName(p.getFieldName() + "." + field.getFieldName());
+						newField.setAttributeName(p.getFieldName() + "." + field.getFieldName());
+						newField.setPath(p.getPattern());
+						
 						viewConfig.addField(newField);
 					}
 					
@@ -265,33 +271,9 @@ public class MoskitoWebcontrolUIFilter extends MAFFilter {
 		return attr;
 	}
 
-	private static class PatternWithName {
-		private String pattern;
-		private String fieldName;
+	
 
-		public PatternWithName(String name, String pattern) {
-			this.fieldName = name;
-			this.pattern = pattern;
-		}
-
-		public String getPattern() {
-			return pattern;
-		}
-
-		public void setPattern(String pattern) {
-			this.pattern = pattern;
-		}
-
-		public String getFieldName() {
-			return fieldName;
-		}
-
-		public void setFieldName(String fieldName) {
-			this.fieldName = fieldName;
-		}
-	}
-
-	private static void buildFullPath(List<PatternWithName> result, Document doc) throws Exception {
+	public static void buildFullPath(List<PatternWithName> result, Document doc) throws Exception {
 		XPath xpath = XPathFactory.newInstance().newXPath();
 
 		List<PatternWithName> res = new ArrayList<PatternWithName>();
@@ -324,7 +306,7 @@ public class MoskitoWebcontrolUIFilter extends MAFFilter {
 							String nextMatch = pattern.getPattern().substring(0, idxOf) + replMatch
 									+ pattern.getPattern().substring(idxOf + fullMatch.length(), pattern.getPattern().length());
 
-							res.add(new PatternWithName(pattern.getFieldName() + "_[" + attributeValue + "]", nextMatch));
+							res.add(new PatternWithName((pattern.getFieldName().equals("") ? "" : pattern.getFieldName()+"_") + attributeValue, nextMatch));
 						}
 					}
 				}

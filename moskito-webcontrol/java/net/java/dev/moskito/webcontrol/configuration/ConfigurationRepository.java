@@ -16,6 +16,7 @@ import net.java.dev.moskito.webcontrol.guards.Guard;
 import net.java.dev.moskito.webcontrol.repository.ColumnType;
 import net.java.dev.moskito.webcontrol.repository.TotalFormulaType;
 
+import org.apache.log4j.Logger;
 import org.configureme.Configuration;
 import org.configureme.ConfigurationManager;
 import org.json.JSONArray;
@@ -32,6 +33,8 @@ public enum ConfigurationRepository {
 	private ConcurrentMap<String, ViewConfiguration> views;
 	private List<SourceConfiguration> sources;
 	private List<IntervalConfiguration> intervals;
+
+	private static final Logger log = Logger.getLogger(ConfigurationRepository.class);
 
 	private ConfigurationRepository() {
 		views = new ConcurrentHashMap<String, ViewConfiguration>();
@@ -57,7 +60,7 @@ public enum ConfigurationRepository {
 	public String getContainerName(String name) {
 		for (IntervalConfiguration config : intervals) {
 			if (name.equals(config.getName())) {
-				return config.getContainerName(); 
+				return config.getContainerName();
 			}
 		}
 		return null;
@@ -144,57 +147,65 @@ public enum ConfigurationRepository {
 			JSONArray columns = view.getJSONArray("columns");
 			for (int k = 0; k < columns.length(); k++) {
 				JSONObject column = columns.getJSONObject(k);
-				String columnName = column.getString("attribute");
-				System.out.println("columnName=" + columnName);
-				String name = column.getString("name");
-				String type = column.getString("type");
-				String klass = (String) column.opt("class");
-				if (StringUtils.isEmpty(klass)) {
-					klass = "unknown";
-				}
-
-				Boolean visible = column.getBoolean("visible");
-				String path = (String) column.opt("path");
-				ViewField field = new ViewField(name, columnName, ColumnType.convert(type), klass, visible, path);
-
-				JSONArray inputs = (JSONArray) column.opt("inputs");
-				if (inputs != null) {
-					List<String> inputsList = new ArrayList<String>();
-					for (int j = 0; j < inputs.length(); j++) {
-						inputsList.add(inputs.getString(j));
-					}
-					field.setInputs(inputsList);
-				}
-
-				String total = (String) column.opt("total");
-				if (StringUtils.isEmpty(total)) {
-					total = "EMPTY";
-				}
-				
-				String guard = (String) column.opt("guard");
-				if (!StringUtils.isEmpty(guard)) {
-					try {
-						@SuppressWarnings("unchecked")
-						Class guardClass = Class.forName(guard);
-						Guard instance = (Guard)guardClass.newInstance();
-						String guardRules = (String) column.opt("guardRules");
-						if (!StringUtils.isEmpty(guardRules)) {
-							instance.setRules(guardRules);
-						}
-						field.setGuard(instance);
-					} catch (Exception e) {
-						
-					}
-				}
-				
-
-				field.setTotal(TotalFormulaType.convert(total));
-				viewConfig.addField(field);
+				viewConfig.addField(prepareField(column));
 			}
 
 			ConfigurationRepository.INSTANCE.addView(viewConfig);
 		}
 
+	}
+	
+	public static ViewField prepareField(JSONObject column) throws JSONException {
+		String columnName = column.getString("attribute");
+		String name = column.getString("name");
+		String type = column.getString("type");
+		String klass = (String) column.opt("class");
+		if (StringUtils.isEmpty(klass)) {
+			klass = "unknown";
+		}
+
+		Boolean visible = column.getBoolean("visible");
+		String path = (String) column.opt("path");
+		ViewField field = new ViewField(name, columnName, ColumnType.convert(type), klass, visible, path);
+
+		JSONArray inputs = (JSONArray) column.opt("inputs");
+		if (inputs != null) {
+			List<String> inputsList = new ArrayList<String>();
+			for (int j = 0; j < inputs.length(); j++) {
+				inputsList.add(inputs.getString(j));
+			}
+			field.setInputs(inputsList);
+		}
+
+		String total = (String) column.opt("total");
+		if (StringUtils.isEmpty(total)) {
+			total = "EMPTY";
+		}
+
+		String guard = (String) column.opt("guard");
+		if (!StringUtils.isEmpty(guard)) {
+			try {
+				@SuppressWarnings("unchecked")
+				Class guardClass = Class.forName(guard);
+				Guard instance = (Guard) guardClass.newInstance();
+				String guardRules = (String) column.opt("guardRules");
+				if (!StringUtils.isEmpty(guardRules)) {
+					instance.setRules(guardRules);
+				}
+				field.setGuard(instance);
+			} catch (Exception e) {
+				log.error(e.getMessage(), e);
+			}
+		}
+
+		String format = (String) column.opt("format");
+		if (!StringUtils.isEmpty(format)) {
+			field.setFormat(format.trim());
+		}
+
+		field.setTotal(TotalFormulaType.convert(total));
+		
+		return field;
 	}
 
 }

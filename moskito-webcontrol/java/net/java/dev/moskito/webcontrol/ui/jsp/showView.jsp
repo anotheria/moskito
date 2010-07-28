@@ -2,25 +2,25 @@
 %><%@ taglib uri="http://www.anotheria.net/ano-tags" prefix="ano-tags"
 %><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-	<meta http-equiv="Refresh" content="30" >
-	<title>MoSKito &mdash; WebControl : <ano-tags:write name="view" property="viewName"/></title>
-	<!-- link type="text/css" rel="stylesheet" rev="stylesheet" href="styles/common.css"/ -->
-	<link rel="stylesheet" href="mwcCSS"/>
-	<script type="text/javascript" src="<%= request.getContextPath()%>/js/jquery-1.4.min.js"></script>
-	<script type="text/javascript" src="<%= request.getContextPath()%>/js/function.js"></script>
-</head>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+		<meta http-equiv="Refresh" content="30" />
+		<title>MoSKito &mdash; WebControl : <ano-tags:write name="view" property="viewName"/></title>
+		<!-- link type="text/css" rel="stylesheet" rev="stylesheet" href="styles/common.css"/ -->
+		<link rel="stylesheet" href="mwcCSS"/>
+		<script type="text/javascript" src="<%= request.getContextPath()%>/js/jquery-1.4.min.js"></script>
+		<script type="text/javascript" src="<%= request.getContextPath()%>/js/function.js"></script>
+	</head>
 <body>
 <div class="main">
 	<div class="header">
-		<img src="<%= request.getContextPath()%>/images/logo.gif" alt="WebControl logo"/>
-		<a href="#" class="settings">Settings</a>
+		<img src="<%= request.getContextPath() %>/images/logo.gif" alt="WebControl logo"/>
+		<a href="viewConfig" class="settings">Settings</a>
 	</div>
 	<ul class="interval">
 		<li>Interval:</li>
-		<ano-tags:iterate id="interval" name="intervalNames" indexId="indx">
-			<li ${interval eq param['pInterval'] ? 'class="active"' : ''}><a href="?pInterval=${interval}&pViewName=${view.viewName}">${interval}</a></li>
+		<ano-tags:iterate id="intrvl" name="intervalNames" indexId="indx">
+			<li ${intrvl eq param['pInterval'] ? 'class="active"' : ''}><a href="?pInterval=${intrvl}&pViewName=${view.viewName}">${intrvl}</a></li>
 		</ano-tags:iterate>
 	</ul>
 	<div class="clear"></div>
@@ -50,7 +50,12 @@
 										<thead>
 										<tr>
 											<ano-tags:iterate name="view" property="rowNames" id="rowName">
-												<th><a href="#"><ano-tags:write name="rowName"/></a></th>
+												<ano-tags:equal value="${sortBy}" name="rowName" property="key">
+													<th><a href="?pInterval=${interval}&pViewName=${view.viewName}&pFilterSortBy=${rowName.key}&pFilterSortOrder=${'desc' eq param['pFilterSortOrder'] ? 'asc' : 'desc'}">${rowName.name}</a></th>
+												</ano-tags:equal>
+												<ano-tags:notEqual value="${sortBy}" name="rowName" property="key">
+													<th><a href="?pInterval=${interval}&pViewName=${view.viewName}&pFilterSortBy=${rowName.key}&pFilterSortOrder=asc">${rowName.name}</a></th>
+												</ano-tags:notEqual>
 											</ano-tags:iterate>
 										</tr>
 										</thead>
@@ -58,10 +63,10 @@
 											<ano-tags:iterate name="view" property="values" id="attrBean">
 												<ano-tags:notEqual value="Totals" name="attrBean" property="sourceName">
 												<tr ${!attrBean.available ? 'class="stat_error" title="server has not provided a snapshot"' : ''}>
-													<td><ano-tags:write name="attrBean" property="sourceName"/></td>
+													<!-- <td><ano-tags:write name="attrBean" property="sourceName"/></td> -->
 													<ano-tags:define name="attrBean" property="attributeValues" id="attributeValues"/>
 													<ano-tags:iterate name="attributeValues" id="attrValue">
-														<td style="color: ${attrValue.color};">${attrValue.value}</td>
+														<td align="right" style="color: ${attrValue.color};">${attrValue.value}</td>
 													</ano-tags:iterate>
 												</tr>
 												</ano-tags:notEqual>
@@ -73,7 +78,7 @@
 										<thead>
 											<tr>
 												<ano-tags:iterate name="view" property="rowNames" id="rowName">
-													<th><a href="#"><ano-tags:write name="rowName"/></a></th>
+													<th><a href="#">${rowName.name}</a></th>
 												</ano-tags:iterate>
 											</tr>
 										</thead>
@@ -81,10 +86,10 @@
 											<ano-tags:iterate name="view" property="values" id="attrBean">
 												<ano-tags:equal value="Totals" name="attrBean" property="sourceName">
 												<tr ${!attrBean.available ? 'class="stat_error" title="server has not provided a snapshot"' : ''}>
-													<td><ano-tags:write name="attrBean" property="sourceName"/></td>
+													<!-- <td><ano-tags:write name="attrBean" property="sourceName"/></td> -->
 													<ano-tags:define name="attrBean" property="attributeValues" id="attributeValues"/>
 													<ano-tags:iterate name="attributeValues" id="attrValue">
-														<td style="color: ${attrValue.color};">${attrValue.value}</td>
+														<td align="right" style="color: ${attrValue.color};">${attrValue.value}</td>
 													</ano-tags:iterate>
 												</tr>
 												</ano-tags:equal>

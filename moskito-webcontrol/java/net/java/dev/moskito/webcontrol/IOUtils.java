@@ -11,6 +11,7 @@ import java.nio.channels.WritableByteChannel;
 public final class IOUtils {
 	
 	private IOUtils() {
+		
 	}
 
 	/**

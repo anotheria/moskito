@@ -1,5 +1,17 @@
 {
 	baseURL: "mskShowAllProducers.xml?pForward=xml",
+	baseColumn : {
+		attribute: "base";
+		path : "/producers/decorator[@name='*']/producer[@id='*']/values/value[@name='*']/text()",
+		name: "Base",
+		type: "field",
+		class : "int",
+		visible: true,
+		guard: "net.java.dev.moskito.webcontrol.guards.TrafficLightsGuard";
+		guardRules: "..400,400..500,500..",
+		format: "#,##0.0#",
+		total: "SUM"
+	},
 	views : [{
 			name: "Filters",
 			columns: [
@@ -12,6 +24,7 @@
 					path: "/producers/decorator[@name='Filter']/producer[@id='*']/values/value[@name='Req']/text()",
 					guard: "net.java.dev.moskito.webcontrol.guards.TrafficLightsGuard";
 					guardRules: "..4000,4000..5000,5000..",
+					format: "#,##0.0#",
 					total: "SUM"
 		       },
 		       {
@@ -23,6 +36,7 @@
 		          	path: "/producers/decorator[@name='Filter']/producer[@id='*']/values/value[@name='Time']/text()",
 		          	guard: "net.java.dev.moskito.webcontrol.guards.TrafficLightsGuard";
 					guardRules: "..1000000,1000000..2000000,2000000..",
+					format: "#,##0.0#",
 		          	total: "SUM"
 		       },
 		       {
@@ -34,6 +48,7 @@
 		          	path: "/producers/decorator[@name='Filter']/producer[@id='*']/values/value[@name='Avg']/text()",
 		          	guard: "net.java.dev.moskito.webcontrol.guards.TrafficLightsGuard";
 					guardRules: "..200,200..264,264..",
+					format: "#,##0.00",
 		          	total: "AVG"
 		       },
 			]
@@ -47,6 +62,7 @@
 					class : "int",
 					visible: true,
 					path: "/producers/decorator[@name='MemoryPool']/producer[@id='MemoryPool-Code Cache-NonHeap']/values/value[@name='Free MB']/text()",
+					format: "#,##0.0#",
 					total: "SUM"
 				}, {
 					attribute: "CacheNonHeap.Used",
@@ -55,6 +71,7 @@
 					class : "int",
 					visible: true,
 					path: "/producers/decorator[@name='MemoryPool']/producer[@id='MemoryPool-Code Cache-NonHeap']/values/value[@name='Used MB']/text()",
+					format: "#,##0.0#",
 					total: "SUM"
 				}, {
 					attribute: "CacheNonHeap.Commited",
@@ -63,6 +80,7 @@
 					class : "int",
 					visible: true,
 					path: "/producers/decorator[@name='MemoryPool']/producer[@id='MemoryPool-Code Cache-NonHeap']/values/value[@name='Commited MB']/text()",
+					format: "#,##0.0#",
 					total: "SUM"
 				}, {
 					attribute: "EdenSpaceHeap.Free",
@@ -71,6 +89,7 @@
 					class : "int",
 					visible: true,
 					path: "/producers/decorator[@name='MemoryPool']/producer[@id='MemoryPool-PS Eden Space-Heap']/values/value[@name='Free MB']/text()",
+					format: "#,##0.0#",
 					total: "SUM"
 				}, {
 					attribute: "EdenSpaceHeap.Used",
@@ -79,6 +98,7 @@
 					class : "int",
 					visible: true,
 					path: "/producers/decorator[@name='MemoryPool']/producer[@id='MemoryPool-PS Eden Space-Heap']/values/value[@name='Used MB']/text()",
+					format: "#,##0.0#",
 					total: "SUM"
 				}, {
 					attribute: "EdenSpaceHeap.Commited",
@@ -87,6 +107,7 @@
 					class : "int",
 					visible: true,
 					path: "/producers/decorator[@name='MemoryPool']/producer[@id='MemoryPool-PS Eden Space-Heap']/values/value[@name='Commited MB']/text()",
+					format: "#,##0.0#",
 					total: "SUM"
 				}, {
 					attribute: "OldGenHeap.Free",
@@ -95,6 +116,7 @@
 					class : "int",
 					visible: true,
 					path: "/producers/decorator[@name='MemoryPool']/producer[@id='MemoryPool-PS Old Gen-Heap']/values/value[@name='Free MB']/text()",
+					format: "#,##0.0#",
 					total: "SUM"
 				}, {
 					attribute: "OldGenHeap.Used",
@@ -103,6 +125,7 @@
 					class : "int",
 					visible: true,
 					path: "/producers/decorator[@name='MemoryPool']/producer[@id='MemoryPool-PS Old Gen-Heap']/values/value[@name='Used MB']/text()",
+					format: "#,##0.0#",
 					total: "SUM"
 				}, {
 					attribute: "OldGenHeap.Commited",
@@ -111,6 +134,7 @@
 					class : "int",
 					visible: true,
 					path: "/producers/decorator[@name='MemoryPool']/producer[@id='MemoryPool-PS Old Gen-Heap']/values/value[@name='Commited MB']/text()",
+					format: "#,##0.0#",
 					total: "SUM"
 				}, {
 					attribute: "PermGenNonHeap.Free",
@@ -119,6 +143,7 @@
 					class : "int",
 					visible: true,
 					path: "/producers/decorator[@name='MemoryPool']/producer[@id='MemoryPool-PS Perm Gen-NonHeap']/values/value[@name='Free MB']/text()",
+					format: "#,##0.0#",
 					total: "SUM"
 				}, {
 					attribute: "PermGenNonHeap.Used",
@@ -127,6 +152,7 @@
 					class : "int",
 					visible: true,
 					path: "/producers/decorator[@name='MemoryPool']/producer[@id='MemoryPool-PS Perm Gen-NonHeap']/values/value[@name='Used MB']/text()",
+					format: "#,##0.0#",
 					total: "SUM"
 				}, {
 					attribute: "PermGenNonHeap.Commited",
@@ -135,6 +161,7 @@
 					class : "int",
 					visible: true,
 					path: "/producers/decorator[@name='MemoryPool']/producer[@id='MemoryPool-PS Perm Gen-NonHeap']/values/value[@name='Commited MB']/text()",
+					format: "#,##0.0#",
 					total: "SUM"
 				}, {
 					attribute: "SurvSpaceHeap.Free",
@@ -143,6 +170,7 @@
 					class : "int",
 					visible: true,
 					path: "/producers/decorator[@name='MemoryPool']/producer[@id='MemoryPool-PS Survivor Space-Heap']/values/value[@name='Free MB']/text()",
+					format: "#,##0.0#",
 					total: "SUM"
 				}, {
 					attribute: "SurvSpaceHeap.Used",
@@ -151,6 +179,7 @@
 					class : "int",
 					visible: true,
 					path: "/producers/decorator[@name='MemoryPool']/producer[@id='MemoryPool-PS Survivor Space-Heap']/values/value[@name='Used MB']/text()",
+					format: "#,##0.0#",
 					total: "SUM"
 				}, {
 					attribute: "SurvSpaceHeap.Commited",
@@ -159,6 +188,7 @@
 					class : "int",
 					visible: true,
 					path: "/producers/decorator[@name='MemoryPool']/producer[@id='MemoryPool-PS Survivor Space-Heap']/values/value[@name='Commited MB']/text()",
+					format: "#,##0.0#",
 					total: "SUM"
 				}
 			]
@@ -172,6 +202,7 @@
 					class : "int",
 					visible: true,
 					path: "/producers/decorator[@name='Service']/producer[@id='*API']/values/value[@name='Req']/text()",
+					format: "#,##0.0#",
 					total: "SUM"
 				}, {
 					attribute: "API.Time",
@@ -180,6 +211,7 @@
 					class : "int",
 					visible: true,
 					path: "/producers/decorator[@name='Service']/producer[@id='*API']/values/value[@name='Time']/text()",
+					format: "#,##0.0#",
 					total: "SUM"
 				}, {
 					attribute: "API.Avg",
@@ -188,6 +220,7 @@
 					class : "double",
 					visible: true,
 					path: "/producers/decorator[@name='Service']/producer[@id='*API']/values/value[@name='Avg']/text()",
+					format: "#,##0.0#",
 					total: "AVG"
 				}
 			]

@@ -6,7 +6,7 @@ import net.java.dev.moskito.webcontrol.guards.Guard;
 import net.java.dev.moskito.webcontrol.repository.ColumnType;
 import net.java.dev.moskito.webcontrol.repository.TotalFormulaType;
 
-public class ViewField {
+public class ViewField implements Cloneable {
 
 	private String fieldName;
 	private String attributeName;
@@ -19,6 +19,7 @@ public class ViewField {
 	private List<String> inputs;
 
 	private Guard guard;
+	private String format;
 
 	public ViewField(String aFieldName, String anAttributeName, ColumnType type, String javaType, Boolean visible, String path) {
 		this.fieldName = aFieldName;
@@ -32,6 +33,20 @@ public class ViewField {
 	public ViewField(String aFieldName, String anAttributeName) {
 		fieldName = aFieldName;
 		attributeName = anAttributeName;
+	}
+
+	@Override
+	public Object clone() throws CloneNotSupportedException {
+		ViewField res = new ViewField(fieldName, attributeName);
+		res.setFormat(format);
+		res.setGuard(guard);
+		res.setInputs(inputs);
+		res.setJavaType(javaType);
+		res.setPath(path);
+		res.setTotal(total);
+		res.setType(type);
+		res.setVisible(visible);
+		return res;
 	}
 
 	public String getFieldName() {
@@ -108,6 +123,14 @@ public class ViewField {
 
 	public void setGuard(Guard guard) {
 		this.guard = guard;
+	}
+
+	public String getFormat() {
+		return format;
+	}
+
+	public void setFormat(String format) {
+		this.format = format;
 	}
 
 }

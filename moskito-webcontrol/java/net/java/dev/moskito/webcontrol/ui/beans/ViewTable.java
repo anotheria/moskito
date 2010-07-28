@@ -7,7 +7,7 @@ public class ViewTable {
 
 	private final String viewName;
 
-	private List<String> rowNames;
+	private List<ColumnBean> rowNames;
 
 	private List<OrderedSourceAttributesBean> values;
 
@@ -19,11 +19,11 @@ public class ViewTable {
 		return viewName;
 	}
 
-	public void setRowNames(List<String> rowNames) {
+	public void setRowNames(List<ColumnBean> rowNames) {
 		this.rowNames = rowNames;
 	}
 
-	public List<String> getRowNames() {
+	public List<ColumnBean> getRowNames() {
 		return rowNames;
 	}
 
@@ -35,9 +35,9 @@ public class ViewTable {
 		return values;
 	}
 
-	public boolean addRowName(String rowName) throws Exception {
+	public boolean addRowName(ColumnBean rowName) throws Exception {
 		if (rowNames == null) {
-			rowNames = new ArrayList<String>();
+			rowNames = new ArrayList<ColumnBean>();
 		}
 		return rowNames.add(rowName);
 	}
