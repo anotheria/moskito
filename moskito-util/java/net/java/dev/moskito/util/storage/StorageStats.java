@@ -67,11 +67,11 @@ public class StorageStats extends AbstractStats{
 	private String name;
 	
 	public StorageStats(){
-		this("unnamed", Constants.DEFAULT_INTERVALS);
+		this("unnamed", Constants.getDefaultIntervals());
 	} 
 	
 	public StorageStats(String name){
-		this(name, Constants.DEFAULT_INTERVALS);
+		this(name, Constants.getDefaultIntervals());
 	} 
 
 	public StorageStats(String aName,  Interval[] selectedIntervals){
