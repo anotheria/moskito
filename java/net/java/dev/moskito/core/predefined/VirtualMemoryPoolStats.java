@@ -24,14 +24,14 @@ public class VirtualMemoryPoolStats extends AbstractStats implements IMemoryPool
 	 * Creates a new VirtualMemoryPoolStats object.
 	 */
 	public VirtualMemoryPoolStats(){
-		this("unnamed", Constants.DEFAULT_INTERVALS);
+		this("unnamed", Constants.getDefaultIntervals());
 	} 
 	
 	/**
 	 * Creates a new VirtualMemoryPoolStats object with given name.
 	 */
 	public VirtualMemoryPoolStats(String aName){
-		this(aName, Constants.DEFAULT_INTERVALS);
+		this(aName, Constants.getDefaultIntervals());
 	} 
 
 	/**

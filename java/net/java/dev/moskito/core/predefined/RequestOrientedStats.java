@@ -34,7 +34,7 @@
  */
 package net.java.dev.moskito.core.predefined;
 
-import static net.java.dev.moskito.core.predefined.Constants.DEFAULT_INTERVALS;
+import static net.java.dev.moskito.core.predefined.Constants.getDefaultIntervals;
 import static net.java.dev.moskito.core.predefined.Constants.MAX_TIME_DEFAULT;
 import static net.java.dev.moskito.core.predefined.Constants.MIN_TIME_DEFAULT;
 
@@ -128,14 +128,14 @@ public abstract class RequestOrientedStats extends AbstractStats {
 	 * @param aMethodName
 	 */
 	public RequestOrientedStats(String aMethodName) {
-		this(aMethodName, DEFAULT_INTERVALS);
+		this(aMethodName, getDefaultIntervals());
 	}
 
 	/**
 	 * Creates a new anonymous stats.
 	 */
 	public RequestOrientedStats() {
-		this("unnamed", DEFAULT_INTERVALS);
+		this("unnamed", getDefaultIntervals());
 	}
 
 	public RequestOrientedStats(String aMethodName, Interval[] aSelectedIntervals) {

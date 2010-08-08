@@ -51,11 +51,11 @@ public class MemoryPoolStats extends AbstractStats implements IMemoryPoolStats{
 	private StatValue max;
 	
 	public MemoryPoolStats(){
-		this("unnamed", Constants.DEFAULT_INTERVALS);
+		this("unnamed", Constants.getDefaultIntervals());
 	} 
 	
 	public MemoryPoolStats(String aName){
-		this(aName, Constants.DEFAULT_INTERVALS);
+		this(aName, Constants.getDefaultIntervals());
 	} 
 
 	public MemoryPoolStats(String aName,  Interval[] selectedIntervals){

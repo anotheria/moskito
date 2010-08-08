@@ -5,7 +5,7 @@ import static junit.framework.Assert.*;
 
 public class ServiceStatsSimpleTest {
 
-	private ServiceStats stats = new ServiceStats("test", Constants.DEFAULT_INTERVALS);
+	private ServiceStats stats = new ServiceStats("test", Constants.getDefaultIntervals());
 	
 	@Test
 	public void increaseRequestCount(){

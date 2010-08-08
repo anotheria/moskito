@@ -47,7 +47,7 @@ public class ServiceStatsFactory implements IOnDemandStatsFactory{
 	}
 	
 	public ServiceStatsFactory(){
-		this(Constants.DEFAULT_INTERVALS);
+		this(Constants.getDefaultIntervals());
 	}
 	
 	public IStats createStatsObject(String name) {

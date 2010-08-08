@@ -1,6 +1,6 @@
 package net.java.dev.moskito.core.predefined;
 
-import static net.java.dev.moskito.core.predefined.Constants.DEFAULT_INTERVALS;
+import static net.java.dev.moskito.core.predefined.Constants.getDefaultIntervals;
 import net.java.dev.moskito.core.producers.AbstractStats;
 import net.java.dev.moskito.core.stats.Interval;
 import net.java.dev.moskito.core.stats.StatValue;
@@ -31,7 +31,7 @@ public class ThreadCountStats extends AbstractStats{
 	
 	
 	public ThreadCountStats() {
-		this(DEFAULT_INTERVALS);
+		this(getDefaultIntervals());
 	}
 	
 	public ThreadCountStats(Interval[] intervals){

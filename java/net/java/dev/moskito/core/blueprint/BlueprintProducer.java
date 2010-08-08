@@ -115,7 +115,7 @@ public class BlueprintProducer implements IStatsProducer{
 	}
 	
 	protected Interval[] getMonitoringIntervals(){
-		return Constants.DEFAULT_INTERVALS;
+		return Constants.getDefaultIntervals();
 	}
 
 	
