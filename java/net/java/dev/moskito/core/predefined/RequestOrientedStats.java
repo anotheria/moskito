@@ -142,7 +142,7 @@ public abstract class RequestOrientedStats extends AbstractStats {
 		methodName = aMethodName;
 
 		Long pattern = Long.valueOf(0);
-		selectedIntervals = aSelectedIntervals;
+		selectedIntervals = Arrays.copyOf(aSelectedIntervals, aSelectedIntervals.length);
 
 		totalRequests = StatValueFactory.createStatValue(pattern, "requests", aSelectedIntervals);
 		totalTime = StatValueFactory.createStatValue(pattern, "totalTime", aSelectedIntervals);
@@ -366,11 +366,11 @@ public abstract class RequestOrientedStats extends AbstractStats {
 	}
 
 	public Interval[] getSelectedIntervals() {
-		return selectedIntervals;
+		return Arrays.copyOf(selectedIntervals, selectedIntervals.length);
 	}
 
 	public void setSelectedIntervals(Interval[] selectedIntervals) {
-		this.selectedIntervals = selectedIntervals;
+		this.selectedIntervals = Arrays.copyOf(selectedIntervals, selectedIntervals.length);
 	}
 
 	public long getMinTime(String intervalName) {
