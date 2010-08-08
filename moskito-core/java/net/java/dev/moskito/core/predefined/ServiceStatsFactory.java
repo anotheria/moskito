@@ -34,6 +34,8 @@
  */	
 package net.java.dev.moskito.core.predefined;
 
+import java.util.Arrays;
+
 import net.java.dev.moskito.core.dynamic.IOnDemandStatsFactory;
 import net.java.dev.moskito.core.producers.IStats;
 import net.java.dev.moskito.core.stats.Interval;
@@ -43,7 +45,7 @@ public class ServiceStatsFactory implements IOnDemandStatsFactory{
 	private Interval[] intervals;
 	
 	public ServiceStatsFactory(Interval[] configuredIntervals){
-		intervals = configuredIntervals;
+		intervals = Arrays.copyOf(configuredIntervals, configuredIntervals.length);
 	}
 	
 	public ServiceStatsFactory(){

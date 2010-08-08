@@ -72,7 +72,7 @@ public class CacheStats extends AbstractStats{
 	} 
 	
 	public CacheStats(String aName,  Interval[] selectedIntervals){
-		Long longPattern = new Long(0);
+		Long longPattern = Long.valueOf(0);
 		name = aName;
 		
 		requests = StatValueFactory.createStatValue(longPattern, "requests", selectedIntervals);
