@@ -73,7 +73,7 @@ public class IntervalRegistry {
 	/**
 	 * This map stores last update timestamps for registered intervals by name.
 	 */
-	private Map<String, Long> intervalUpdateTimestamp;
+	private Map<String, Long> intervalUpdateTimestamp = new ConcurrentHashMap<String, Long>();
 
 	/**
 	 * This is a Thread-safe counter to generate VM-wide uniqe ids for new Interval instances.
