@@ -68,7 +68,7 @@ public class CacheStats extends AbstractStats{
 			})); 
 
 	public CacheStats(){
-		this("unnamed", Constants.DEFAULT_INTERVALS);
+		this("unnamed", Constants.getDefaultIntervals());
 	} 
 	
 	public CacheStats(String aName,  Interval[] selectedIntervals){

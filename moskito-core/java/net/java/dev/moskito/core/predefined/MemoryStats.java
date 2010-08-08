@@ -26,11 +26,11 @@ public class MemoryStats extends AbstractStats{
 	private StatValue max;
 	
 	public MemoryStats(){
-		this("unnamed", Constants.DEFAULT_INTERVALS);
+		this("unnamed", Constants.getDefaultIntervals());
 	} 
 	
 	public MemoryStats(String aName){
-		this(aName, Constants.DEFAULT_INTERVALS);
+		this(aName, Constants.getDefaultIntervals());
 	} 
 
 	public MemoryStats(String aName,  Interval[] selectedIntervals){

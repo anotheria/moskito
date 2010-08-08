@@ -42,12 +42,12 @@ import net.java.dev.moskito.core.stats.Interval;
  * @author another
  *
  */
-public interface Constants {
+public class Constants {
 	
 	/**
 	 * Default intervals, used if you don't specify anything special. As for now, the default intervals are one minute, 5 minutes, 15 minutes, one hour and one day.
 	 */
-	public static final Interval DEFAULT_INTERVALS[] = {
+	private static final Interval DEFAULT_INTERVALS[] = {
 		DefaultIntervals.ONE_MINUTE, 
 		DefaultIntervals.FIVE_MINUTES,
 		DefaultIntervals.FIFTEEN_MINUTES,
@@ -64,5 +64,9 @@ public interface Constants {
 	 * Max time value.
 	 */
 	public static final long MAX_TIME_DEFAULT = Long.MIN_VALUE;
+	
+	public static final Interval[] getDefaultIntervals(){
+		return DEFAULT_INTERVALS.clone();
+	}
 
 }

@@ -21,11 +21,11 @@ public class ThreadStateStats extends AbstractStats{
 	private StatValue max;
 	
 	public ThreadStateStats(){
-		this("unnamed", Constants.DEFAULT_INTERVALS);
+		this("unnamed", Constants.getDefaultIntervals());
 	} 
 	
 	public ThreadStateStats(String aName){
-		this(aName, Constants.DEFAULT_INTERVALS);
+		this(aName, Constants.getDefaultIntervals());
 	} 
 
 	public ThreadStateStats(String aName,  Interval[] selectedIntervals){

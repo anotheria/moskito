@@ -5,7 +5,7 @@ import org.junit.Test;
 import static junit.framework.Assert.*;
 
 public class ServiceStatsParallelTestOld {
-	private ServiceStats stats = new ServiceStats("test", Constants.DEFAULT_INTERVALS);
+	private ServiceStats stats = new ServiceStats("test", Constants.getDefaultIntervals());
 	
 	@Test
 	public void testConcurrentRequests(){

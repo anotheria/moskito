@@ -58,7 +58,7 @@ public class FilterStatsFactory implements IOnDemandStatsFactory{
 	 * Creates a new FilterStatsFactory with default intervals.
 	 */
 	public FilterStatsFactory(){
-		this(Constants.DEFAULT_INTERVALS);
+		this(Constants.getDefaultIntervals());
 	}
 	
 	/**
