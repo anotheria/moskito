@@ -89,7 +89,7 @@ public class ServletWrapper implements Servlet, IStatsProducer{
 
 	public void init(ServletConfig arg0) throws ServletException {
 		
-		serviceStats = new ServletStats("service", Constants.DEFAULT_INTERVALS);
+		serviceStats = new ServletStats("service", Constants.getDefaultIntervals());
 		cachedStatList = new ArrayList<IStats>(1);
 		cachedStatList.add(serviceStats);
 		ProducerRegistryFactory.getProducerRegistryInstance().registerProducer(this);

@@ -428,7 +428,7 @@ public class MoskitoHttpServlet extends HttpServlet implements IStatsProducer{
 	 * @return
 	 */
 	protected Interval[] getMonitoringIntervals(){
-		return Constants.DEFAULT_INTERVALS;
+		return Constants.getDefaultIntervals();
 	}
 
 	@Override public String getCategory() {

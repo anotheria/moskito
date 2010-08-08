@@ -204,6 +204,6 @@ public abstract class MoskitoFilter implements Filter{
 	}
 	
 	protected Interval[] getMonitoringIntervals(){
-		return Constants.DEFAULT_INTERVALS;
+		return Constants.getDefaultIntervals();
 	}
 }
