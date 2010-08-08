@@ -62,8 +62,17 @@ public class ProducerRegistryAPIImpl implements IProducerRegistryAPI, IProducerR
 	 */
 	private static final Logger log = Logger.getLogger(ProducerRegistryAPIImpl.class);
 	
+	/**
+	 * Cached producer list - used internally to reduce overhead.
+	 */
 	private List<IStatsProducer> _cachedProducerList;
+	/**
+	 * Cached producer map - used internally to reduce overhead.
+	 */
 	private Map<String,IStatsProducer> _cachedProducerMap;
+	/**
+	 * Cached interval infos - used internally to reduce overhead.
+	 */
 	private List<IntervalInfo> _cachedIntervalInfos;
 
 	/**
