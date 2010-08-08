@@ -238,8 +238,20 @@ public abstract class RequestOrientedStats extends AbstractStats {
 		ret.append(" MCR: ").append(maxCurrentRequests.getValueAsLong(intervalName));
 		ret.append(" ERR: ").append(errors.getValueAsLong(intervalName));
 		ret.append(" Last: ").append(timeUnit.transformNanos(lastRequest.getValueAsLong(intervalName)));
-		ret.append(" Min: ").append(timeUnit.transformNanos(minTime.getValueAsLong(intervalName)));
-		ret.append(" Max: ").append(timeUnit.transformNanos(maxTime.getValueAsLong(intervalName)));
+		long minTimeTmp = minTime.getValueAsLong(intervalName);
+		ret.append(" Min: ");
+		if (minTimeTmp == Long.MAX_VALUE)
+			ret.append("NoR");
+		else
+			ret.append(timeUnit.transformNanos(minTimeTmp));
+		
+		long maxTimeTmp = maxTime.getValueAsLong(intervalName);
+		ret.append(" Max: ");
+		if (maxTimeTmp == Long.MIN_VALUE)
+			ret.append("NoR");
+		else
+			ret.append(timeUnit.transformNanos(maxTimeTmp));
+		
 		ret.append(" Avg: ").append(getAverageRequestDuration(intervalName, timeUnit));
 		return ret.toString();
 	}
