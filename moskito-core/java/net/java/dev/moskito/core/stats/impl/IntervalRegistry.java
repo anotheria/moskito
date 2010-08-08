@@ -35,18 +35,18 @@
 package net.java.dev.moskito.core.stats.impl;
 
 import java.util.ArrayList;
-import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 
+import net.java.dev.moskito.core.producers.SnapshotCreator;
+import net.java.dev.moskito.core.stats.IIntervalListener;
 import net.java.dev.moskito.core.stats.Interval;
 import net.java.dev.moskito.core.stats.IntervalRegistryListener;
 import net.java.dev.moskito.core.stats.UnknownIntervalException;
-import net.java.dev.moskito.core.stats.IIntervalListener;
 import net.java.dev.moskito.core.timing.IUpdateTriggerService;
 import net.java.dev.moskito.core.timing.UpdateTriggerServiceFactory;
-import net.java.dev.moskito.core.producers.SnapshotCreator;
 
 /**
  * This class implements a registry singleton to hold and create Interval instances.
@@ -58,7 +58,7 @@ public class IntervalRegistry {
 	/**
 	 * This is the instance of the singleton.
 	 */
-	private static IntervalRegistry instance;
+	private static IntervalRegistry instance = new IntervalRegistry();
 
 	/**
 	 * This Map holds all Intervals by their ids.
@@ -69,6 +69,11 @@ public class IntervalRegistry {
 	 * This Map holds all Intervals by their names.
 	 */
 	private Map<String, Interval> intervalsByName;
+	
+	/**
+	 * This map stores last update timestamps for registered intervals by name.
+	 */
+	private Map<String, Long> intervalUpdateTimestamp;
 
 	/**
 	 * This is a Thread-safe counter to generate VM-wide uniqe ids for new Interval instances.
@@ -91,8 +96,8 @@ public class IntervalRegistry {
 	 * The contructor.
 	 */
 	private IntervalRegistry() {
-		intervalsById = new Hashtable<Integer, Interval>();
-		intervalsByName = new Hashtable<String, Interval>();
+		intervalsById = new ConcurrentHashMap<Integer, Interval>();
+		intervalsByName = new ConcurrentHashMap<String, Interval>();
 
 		updateTriggerService = UpdateTriggerServiceFactory
 				.createUpdateTriggerService();
@@ -116,10 +121,7 @@ public class IntervalRegistry {
 	 * 
 	 * @return the IntervalRegistry instance.
 	 */
-	public static synchronized IntervalRegistry getInstance() {
-		if (instance == null) {
-			instance = new IntervalRegistry();
-		}
+	public static final IntervalRegistry getInstance() {
 		return instance;
 	}
 
@@ -188,6 +190,14 @@ public class IntervalRegistry {
 		for (IntervalRegistryListener listener : registryListeners) {
 			listener.intervalCreated(interval);
 		}
+		
+		//add new listener to each interval to store update timestamps
+		interval.addSecondaryIntervalListener(new IIntervalListener() {
+			@Override
+			public void intervalUpdated(Interval aCaller) {
+				intervalUpdateTimestamp.put(aCaller.getName(), System.currentTimeMillis());
+			}
+		});
 		return interval;
 	}
 
@@ -207,5 +217,14 @@ public class IntervalRegistry {
 	 */
 	public List<Interval> getIntervals() {
 		return new ArrayList<Interval>(intervalsByName.values());
+	}
+	
+	/**
+	 * Returns last update timestamp of an interval by name.
+	 * @param intervalName name of the interval.
+	 * @return
+	 */
+	public Long getUpdateTimestamp(String intervalName){
+		return intervalName == null ? 0 : intervalUpdateTimestamp.get(intervalName);
 	}
 }
