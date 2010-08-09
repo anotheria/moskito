@@ -54,7 +54,7 @@ import net.java.dev.moskito.core.timing.UpdateTriggerServiceFactory;
  * 
  * @author dvayanu
  */
-public class IntervalRegistry {
+public final class IntervalRegistry {
 
 	/**
 	 * This is the instance of the singleton.
