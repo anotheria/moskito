@@ -38,6 +38,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import net.java.dev.moskito.core.producers.SnapshotCreator;
@@ -58,17 +59,17 @@ public class IntervalRegistry {
 	/**
 	 * This is the instance of the singleton.
 	 */
-	private static IntervalRegistry instance = new IntervalRegistry();
+	private static final IntervalRegistry instance = new IntervalRegistry();
 
 	/**
 	 * This Map holds all Intervals by their ids.
 	 */
-	private Map<Integer, Interval> intervalsById;
+	private Map<Integer, Interval> intervalsById = new ConcurrentHashMap<Integer, Interval>();
 
 	/**
 	 * This Map holds all Intervals by their names.
 	 */
-	private Map<String, Interval> intervalsByName;
+	private Map<String, Interval> intervalsByName = new ConcurrentHashMap<String, Interval>();
 	
 	/**
 	 * This map stores last update timestamps for registered intervals by name.
@@ -78,7 +79,7 @@ public class IntervalRegistry {
 	/**
 	 * This is a Thread-safe counter to generate VM-wide uniqe ids for new Interval instances.
 	 */
-	private AtomicInteger nextId;
+	private AtomicInteger nextId = new AtomicInteger(1);
 
 	/**
 	 * This is a time control serive for periodic call backs.
@@ -90,20 +91,14 @@ public class IntervalRegistry {
 	 * 
 	 * @see IntervalRegistryListener
 	 */
-	private List<IntervalRegistryListener> registryListeners;
+	private List<IntervalRegistryListener> registryListeners = new CopyOnWriteArrayList<IntervalRegistryListener>();
 
 	/**
 	 * The contructor.
 	 */
 	private IntervalRegistry() {
-		intervalsById = new ConcurrentHashMap<Integer, Interval>();
-		intervalsByName = new ConcurrentHashMap<String, Interval>();
-
 		updateTriggerService = UpdateTriggerServiceFactory
 				.createUpdateTriggerService();
-		nextId = new AtomicInteger(1);
-
-		registryListeners = new ArrayList<IntervalRegistryListener>();
 
         registryListeners.add(new IntervalRegistryListener() {
             public void intervalCreated(Interval aInterval) {
