@@ -46,9 +46,9 @@ import net.java.dev.moskito.core.usecase.running.RunningUseCaseContainer;
 
 public class ServiceStatsCallHandler implements IOnDemandCallHandler{
 
-	public Object invoke(Object target, Object[] args, Method method, Class<?> targetClass, Class<?>[] declaredExceptions, IStats _defaultStats, IStats _methodStats, String producerId) throws Throwable {
-		ServiceStats defaultStats = (ServiceStats)_defaultStats;
-		ServiceStats methodStats = (ServiceStats)_methodStats;
+	public Object invoke(Object target, Object[] args, Method method, Class<?> targetClass, Class<?>[] declaredExceptions, IStats aDefaultStats, IStats aMethodStats, String producerId) throws Throwable {
+		ServiceStats defaultStats = (ServiceStats)aDefaultStats;
+		ServiceStats methodStats = (ServiceStats)aMethodStats;
 		
 		defaultStats.addRequest();
 		methodStats.addRequest();

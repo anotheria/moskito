@@ -74,12 +74,12 @@ public class ServiceStatsCallHandlerWithCallSysout implements IOnDemandCallHandl
 		instanceId = instanceCounter.incrementAndGet();
 	}
 
-	@Override public Object invoke(Object target, Object[] args, Method method, Class<?> targetClass, Class<?>[] declaredExceptions, IStats _defaultStats, IStats _methodStats, String producerId) throws Throwable {
+	@Override public Object invoke(Object target, Object[] args, Method method, Class<?> targetClass, Class<?>[] declaredExceptions, IStats aDefaultStats, IStats aMethodStats, String producerId) throws Throwable {
 		
 		String callId = overallCallCounter.incrementAndGet()+"-"+instanceId + "-"+callCounter.incrementAndGet();
 		
-		ServiceStats defaultStats = (ServiceStats)_defaultStats;
-		ServiceStats methodStats = (ServiceStats)_methodStats;
+		ServiceStats defaultStats = (ServiceStats)aDefaultStats;
+		ServiceStats methodStats = (ServiceStats)aMethodStats;
 		
 		//now create debug info
 		StringBuilder debugOutPreCall = new StringBuilder("--- MSK III ");
