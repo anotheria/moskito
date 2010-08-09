@@ -37,7 +37,6 @@ package net.java.dev.moskito.core.stats.impl;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import net.java.dev.moskito.core.stats.Interval;
-import net.java.dev.moskito.core.stats.ValueHolder;
 
 /**
  * This class implements a ValueHolder that is able to process int values.
