@@ -316,7 +316,7 @@ public abstract class BaseMoskitoUIAction implements Action{
 			req.setAttribute("currentIntervalUpdateAge", "n.A.");
 		}else{
 			req.setAttribute("currentIntervalUpdateTimestamp", NumberUtils.makeISO8601TimestampString(currentIntervalUpdateTimestamp));
-			req.setAttribute("currentIntervalUpdateAge", (System.currentTimeMillis()-currentIntervalUpdateTimestamp)/1000+" ms");
+			req.setAttribute("currentIntervalUpdateAge", (System.currentTimeMillis()-currentIntervalUpdateTimestamp)/1000+" seconds");
 		}
 		
 	}
