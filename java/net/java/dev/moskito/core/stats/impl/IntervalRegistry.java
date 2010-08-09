@@ -222,4 +222,9 @@ public final class IntervalRegistry {
 	public Long getUpdateTimestamp(String intervalName){
 		return intervalName == null ? Long.valueOf(0) : intervalUpdateTimestamp.get(intervalName);
 	}
+	
+	//this method is used by unit testing and force an interval to be updated
+	public void forceUpdateIntervalForTestingPurposes(String intervalName){
+		((IntervalImpl)getInterval(intervalName)).update();
+	}
 }
