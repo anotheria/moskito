@@ -44,8 +44,8 @@ public class StatsLoggerTest {
 		String message = output.getMessage();
 		//System.out.println(message);
 		
-		assertTrue(message.indexOf("TESTINTERVAL")==-1);//The word TESTINTERVAL shouldn't occure there
-		assertTrue(message.indexOf("default")>-1);//The word default should occure there
+		assertEquals("Word TESTINTERVAL shouldn't be present in output", message.indexOf("TESTINTERVAL"), -1);//The word TESTINTERVAL shouldn't occure there
+		assertTrue("Word default should be present in output", message.indexOf("default")>-1);//The word default should occure there
 		assertTrue(message.indexOf("first")>-1);
 		assertTrue(message.indexOf("second")>-1);
 		assertTrue(message.indexOf("TT: 123")>-1);
@@ -58,7 +58,7 @@ public class StatsLoggerTest {
 		IntervalRegistry.getInstance().forceUpdateIntervalForTestingPurposes(myInterval.getName());
 		String message2 = output2.getMessage();
 		assertTrue(message2.indexOf("TESTINTERVAL")>-1);//The word TESTINTERVAL should occure there
-		assertTrue(message2.indexOf("default")==-1);//The word default shouldn't occure there
+		assertEquals(message2.indexOf("default"), -1);//The word default shouldn't occure there
 		assertTrue(message2.indexOf("first")>-1);
 		assertTrue(message2.indexOf("second")>-1);
 		assertTrue(message2.indexOf("TT: 123")>-1);
