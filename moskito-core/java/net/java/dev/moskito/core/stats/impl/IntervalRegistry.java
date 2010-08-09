@@ -220,6 +220,6 @@ public class IntervalRegistry {
 	 * @return
 	 */
 	public Long getUpdateTimestamp(String intervalName){
-		return intervalName == null ? 0 : intervalUpdateTimestamp.get(intervalName);
+		return intervalName == null ? Long.valueOf(0) : intervalUpdateTimestamp.get(intervalName);
 	}
 }
