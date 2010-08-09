@@ -50,7 +50,7 @@ public class JdbcTest {
         update("CREATE TABLE stats ( id INTEGER IDENTITY, name VARCHAR(256), value DOUBLE, snapshot_id INTEGER, FOREIGN KEY (snapshot_id) REFERENCES snapshots)");
         
         // init stats and interval
-        ServiceStats stats = new ServiceStats("test", Constants.DEFAULT_INTERVALS);
+        ServiceStats stats = new ServiceStats("test", Constants.getDefaultIntervals());
         StatStorage jdbcStorage = new JdbcStatStorage(conn);
         Date now = new Date();
         

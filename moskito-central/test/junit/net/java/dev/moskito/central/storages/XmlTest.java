@@ -39,7 +39,7 @@ public class XmlTest {
         Date now = new Date();
         for (String hostName : HOST_NAMES) {
             // init stats and interval
-            ServiceStats stats = new ServiceStats("test", Constants.DEFAULT_INTERVALS);
+            ServiceStats stats = new ServiceStats("test", Constants.getDefaultIntervals());
 
             // get NUMBER_OF_DAYS ago date
             Calendar calendar = Calendar.getInstance();
