@@ -137,10 +137,14 @@ public final class SnapshotArchiverConfig {
 			try {
 				ConfigurationManager.INSTANCE.configure(instance);
 			} catch (Throwable e) {
-				System.err.println(FAILED_TO_CONFIGURE_MESSAGE + "\nCause: " + e.getMessage());
-                log.warn(FAILED_TO_CONFIGURE_MESSAGE + "\nCause: " + e.getMessage());
+            	if (instance.isConfigured()) {
+            		System.err.println(FAILED_TO_CONFIGURE_MESSAGE + "\nCause: " + e.getMessage());
+            		log.warn(FAILED_TO_CONFIGURE_MESSAGE + "\nCause: " + e.getMessage());
+            	}
             } finally {
-                log.info("Archivers Config: " + instance.toString());
+            	if (instance.isConfigured()) {
+                    log.info("Archivers Config: " + instance.toString());
+            	}
             }
 		}
 
@@ -152,5 +156,9 @@ public final class SnapshotArchiverConfig {
 	public String toString() {
 		return MessageFormat.format(TO_STRING_FORMAT, this.className, this.archiversConstructorMoreParams, this.storageClassName, this.storageParams,
 				this.hostName, this.valid);
+	}
+	
+	public boolean isConfigured() {
+		return this.className != null || this.archiversConstructorMoreParams != null || this.storageClassName != null || this.storageParams!= null;
 	}
 }
