@@ -44,9 +44,13 @@ import net.java.dev.moskito.core.usecase.running.PathElement;
 import net.java.dev.moskito.core.usecase.running.RunningUseCase;
 import net.java.dev.moskito.core.usecase.running.RunningUseCaseContainer;
 
+/**
+ * Implementation of a call handler that uses service stats. Useful for service like objects.
+ * @author lrosenberg
+ */
 public class ServiceStatsCallHandler implements IOnDemandCallHandler{
 
-	public Object invoke(Object target, Object[] args, Method method, Class<?> targetClass, Class<?>[] declaredExceptions, IStats aDefaultStats, IStats aMethodStats, String producerId) throws Throwable {
+	@Override public Object invoke(Object target, Object[] args, Method method, Class<?> targetClass, Class<?>[] declaredExceptions, IStats aDefaultStats, IStats aMethodStats, String producerId) throws Throwable {
 		ServiceStats defaultStats = (ServiceStats)aDefaultStats;
 		ServiceStats methodStats = (ServiceStats)aMethodStats;
 		
@@ -104,5 +108,4 @@ public class ServiceStatsCallHandler implements IOnDemandCallHandler{
 				runningUseCase.endPathElement();
 		}
 	}
-	
 } 

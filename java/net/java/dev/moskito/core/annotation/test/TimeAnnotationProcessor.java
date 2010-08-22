@@ -27,6 +27,10 @@ import com.sun.tools.javac.tree.JCTree.JCStatement;
 import com.sun.tools.javac.tree.JCTree.JCVariableDecl;
 import com.sun.tools.javac.util.List;
 
+/**
+ * Experimental test code, do not use!
+ * @author lrosenberg
+ */
 @SupportedAnnotationTypes(value = {TimeAnnotationProcessor.ANNOTATION_TYPE})
 @SupportedSourceVersion(SourceVersion.RELEASE_6)
 public class TimeAnnotationProcessor extends AbstractProcessor {
