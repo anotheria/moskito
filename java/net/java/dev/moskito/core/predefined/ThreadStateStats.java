@@ -6,6 +6,11 @@ import net.java.dev.moskito.core.stats.StatValue;
 import net.java.dev.moskito.core.stats.TimeUnit;
 import net.java.dev.moskito.core.stats.impl.StatValueFactory;
 
+/**
+ * Stats object for thread states.
+ * @author another
+ *
+ */
 public class ThreadStateStats extends AbstractStats{
 	/**
 	 * Current value.

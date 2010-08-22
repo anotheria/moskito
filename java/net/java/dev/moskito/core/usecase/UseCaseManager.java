@@ -5,6 +5,11 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import org.apache.log4j.Logger;
 
+/**
+ * Manager for use-cases.
+ * @author lrosenberg
+ *
+ */
 public class UseCaseManager {
 	
 	/**
@@ -18,6 +23,9 @@ public class UseCaseManager {
 	private static Logger log = Logger.getLogger(UseCaseManager.class);
 	
 	
+	/**
+	 * Package protected constructor.
+	 */
 	UseCaseManager(){
 		useCases = new ConcurrentHashMap<String,UseCase>();
 	}

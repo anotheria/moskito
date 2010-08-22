@@ -7,6 +7,10 @@ import net.java.dev.moskito.core.stats.StatValue;
 import net.java.dev.moskito.core.stats.TimeUnit;
 import net.java.dev.moskito.core.stats.impl.StatValueFactory;
 
+/**
+ * Stats for thread creation.
+ * @author lrosenberg
+ */
 public class ThreadCountStats extends AbstractStats{
 	/**
 	 * Number of started threads.
@@ -30,10 +34,16 @@ public class ThreadCountStats extends AbstractStats{
 	private StatValue maxCurrent;
 	
 	
+	/**
+	 * Creates new ThreadCountStats.
+	 */
 	public ThreadCountStats() {
 		this(getDefaultIntervals());
 	}
 	
+	/**
+	 * Creates new ThreadCountStats.
+	 */
 	public ThreadCountStats(Interval[] intervals){
 		super("ThreadCount");
 		
@@ -52,6 +62,12 @@ public class ThreadCountStats extends AbstractStats{
 
 	}
 	
+	/**
+	 * Called regularly by a timer, updates the internal stats.
+	 * @param aStarted
+	 * @param aDaemon
+	 * @param aCurrent
+	 */
 	public void update(long aStarted, long aDaemon, long aCurrent){
 		current.setValueAsLong(aCurrent);
 		started.setValueAsLong(aStarted);
