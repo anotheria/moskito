@@ -397,8 +397,15 @@ public abstract class RequestOrientedStats extends AbstractStats {
 		return new RequestCallExecution();
 	}
 	
+	/**
+	 * A CallExecutionObject for RequestOrientedStats.
+	 * @author lrosenberg
+	 */
 	private class RequestCallExecution implements CallExecution{
 
+		/**
+		 * Starttime of the execution.
+		 */
 		private long startTime;
 		private PathElement currentElement = null;
 		private ExistingRunningUseCase runningUseCase = null;
