@@ -8,9 +8,17 @@ import java.util.Map;
 
 import net.java.dev.moskito.core.usecase.running.ExistingRunningUseCase;
 
+/**
+ * Recorded use-case pattern, that contains multiple use-cases.
+ * @author lrosenberg
+ *
+ */
 public class UseCase {
 	
 	private List<UseCasePath> _cachedPathesList;
+	/**
+	 * Pathes that are detected along the use-cases.
+	 */
 	private Map<String, UseCasePath> pathes;
 	/**
 	 * Name of the use cases.
@@ -52,10 +60,14 @@ public class UseCase {
 		return _cachedPathesList;
 	}
 	
-	public String toString(){
+	@Override public String toString(){
 		return getName()+": "+_cachedPathesList.toString();
 	}
 	
+	/**
+	 * Returns the name of this use-case object.
+	 * @return
+	 */
 	public String getName(){
 		return name;
 	}
