@@ -34,7 +34,16 @@
  */	
 package net.java.dev.moskito.core.dynamic;
 
+/**
+ * Base exception type for ondemand stats producer exceptions.
+ * @author lrosenberg
+ *
+ */
 public class OnDemandStatsProducerException extends Exception{
+	/**
+	 * Public constructor.
+	 * @param message
+	 */
 	public OnDemandStatsProducerException(String message){
 		super(message);
 	}

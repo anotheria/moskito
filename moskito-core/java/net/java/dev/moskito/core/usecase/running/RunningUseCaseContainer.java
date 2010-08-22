@@ -35,6 +35,11 @@
 package net.java.dev.moskito.core.usecase.running;
 
 
+/**
+ * This is a container for thread local reference to a running thread container.
+ * @author another
+ *
+ */
 public class RunningUseCaseContainer {
 	
 	/**
@@ -68,6 +73,10 @@ public class RunningUseCaseContainer {
 		return last;
 	}
 	
+	/**
+	 * Returns true if there is currently a use-case recorded.
+	 * @return
+	 */
 	public static boolean isUseCaseRunning(){
 		return !(currentUseCase.get() instanceof NoRunningUseCase);
 	}

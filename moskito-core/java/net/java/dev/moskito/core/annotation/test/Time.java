@@ -8,7 +8,6 @@ import java.lang.annotation.Target;
  * Experimental test code, do not use!
  * @author lrosenberg
  */
-
 @Target({ElementType.METHOD})
 @Retention(RetentionPolicy.SOURCE)
 public @interface Time {
