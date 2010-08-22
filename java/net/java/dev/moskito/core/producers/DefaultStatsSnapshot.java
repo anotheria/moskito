@@ -4,10 +4,23 @@ import java.util.Date;
 import java.util.Map;
 import java.io.Serializable;
 
+/**
+ * An implementation of a snapshot.
+ * @author another
+ *
+ */
 public class DefaultStatsSnapshot implements IStatsSnapshot, Serializable {
-	
+	/**
+	 * TBD.
+	 */
 	private String name;
+	/**
+	 * Name of the interface.
+	 */
     private String interfaceName;
+    /**
+     * Id of the stats producer.
+     */
     private String producerId;
     private Date dateCreated;
 	private Map<String, Number> properties;

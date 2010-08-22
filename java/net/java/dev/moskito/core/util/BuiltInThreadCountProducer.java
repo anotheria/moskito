@@ -13,15 +13,31 @@ import net.java.dev.moskito.core.producers.IStatsProducer;
 import net.java.dev.moskito.core.registry.IProducerRegistry;
 import net.java.dev.moskito.core.registry.ProducerRegistryFactory;
 
+/**
+ * A built-in producer that counts threads based on jmx provided beans.
+ * @author lrosenberg
+ *
+ */
 public class BuiltInThreadCountProducer implements IStatsProducer{
-	
+	/**
+	 * Stats objects as list.
+	 */
 	private List<IStats> statsList;
+	/**
+	 * ThreadCountStats object.
+	 */
 	private ThreadCountStats stats;
-	
+	/**
+	 * Timer for scheduling of tasks.
+	 */
 	private static final Timer timer = new Timer("MoskitoMemoryPoolReader", true);
-
+	/**
+	 * Reference to the jmx bean.
+	 */
 	private ThreadMXBean threadMxBean;
-	
+	/**
+	 * Package protected constructor.
+	 */
 	BuiltInThreadCountProducer(){
 		
 		stats = new ThreadCountStats();
@@ -43,6 +59,9 @@ public class BuiltInThreadCountProducer implements IStatsProducer{
 		readThreads();
 	}
 	
+	/**
+	 * Reads and updates the thread info.
+	 */
 	private void readThreads(){
 		stats.update(threadMxBean.getTotalStartedThreadCount(), threadMxBean.getDaemonThreadCount(), threadMxBean.getThreadCount());
 	}
