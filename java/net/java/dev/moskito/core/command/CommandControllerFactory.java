@@ -33,8 +33,15 @@
  * THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */	
 package net.java.dev.moskito.core.command;
-
+/**
+ * Factory for the CommandController
+ * @author lrosenberg
+ */
 public class CommandControllerFactory {
+	/**
+	 * Creates a command controller instance.
+	 * @return
+	 */
 	public static ICommandController getCommandController(){
 		return CommandControllerImpl.INSTANCE;
 	}

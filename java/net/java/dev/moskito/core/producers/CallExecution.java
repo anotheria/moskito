@@ -1,5 +1,10 @@
 package net.java.dev.moskito.core.producers;
-
+/**
+ * Interface for a single execution object. This method is useful if you want to record a use-case which is not limited to a single method,
+ * or is some code inside a method and can't be recorded via interface/method proxy or annotation.
+ * @author lrosenberg
+ *
+ */
 public interface CallExecution {
 	/**
 	 * Same as startExecution(true);

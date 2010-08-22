@@ -35,6 +35,8 @@ public class TimeAnnotationProcessor extends AbstractProcessor {
   private JavacProcessingEnvironment javacProcessingEnv;
   private TreeMaker maker;
 
+  static{System.out.println("HELLO");}
+  
   @Override
   public void init(ProcessingEnvironment procEnv) {
     super.init(procEnv);
@@ -46,7 +48,7 @@ public class TimeAnnotationProcessor extends AbstractProcessor {
   public boolean process(Set<? extends TypeElement> annotations, RoundEnvironment roundEnv) {
 	    System.out.println("%%% HELLO 2 %%%");
     if (annotations == null || annotations.isEmpty()) {
-      return false;
+      return false; 
     }
     
     System.out.println("Annotation executed on env: "+roundEnv);
