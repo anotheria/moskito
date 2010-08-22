@@ -8,13 +8,20 @@ import net.java.dev.moskito.core.usecase.running.ExistingRunningUseCase;
 import net.java.dev.moskito.core.usecase.running.RunningUseCase;
 import net.java.dev.moskito.core.usecase.running.RunningUseCaseContainer;
 
+/**
+ * Command processor for use-case recording.
+ * @author another
+ *
+ */
 public class UseCaseRecorderCommandProcessor implements ICommandProcessor{
 	
-	
-	
 	public static final String PARAM_USE_CASE_NAME = "mskUseCaseName";
+	/**
+	 * Use-case counter.
+	 */
 	private static AtomicInteger unnamedCounter = new AtomicInteger(0);
-
+	
+	@Override
 	public void startCommand(String command, Map<String, String[]> parameters) {
 		if (RunningUseCaseContainer.isUseCaseRunning())
 			throw new RuntimeException("UseCase already running");
@@ -26,6 +33,7 @@ public class UseCaseRecorderCommandProcessor implements ICommandProcessor{
 		System.out.println("Starting command: "+useCaseName);
 	}
 
+	@Override
 	public void stopCommand(String command, Map<String, String[]> parameters) {
 		System.out.println("SToping command: "+command);
 		RunningUseCase last = RunningUseCaseContainer.endUseCase();

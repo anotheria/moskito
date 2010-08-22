@@ -6,35 +6,43 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 import net.java.dev.moskito.core.usecase.running.ExistingRunningUseCase;
-
+/**
+ * Implementation of the use-case recorder.
+ * @author lrosenberg
+ */
 public class UseCaseRecorderImpl implements IUseCaseRecorder{
-	
+
+	/**
+	 * Map with recorded use-cases.
+	 */
 	private Map<String, ExistingRunningUseCase> recordedUseCases;
-	
+	/**
+	 * Constructor.
+	 */
 	UseCaseRecorderImpl() {
 		recordedUseCases = new ConcurrentHashMap<String, ExistingRunningUseCase>();
 	}
 
-	public void addRecordedUseCase(ExistingRunningUseCase useCase) {
+	@Override public void addRecordedUseCase(ExistingRunningUseCase useCase) {
 		recordedUseCases.put(useCase.getName(), useCase);
 	}
 
-	public ExistingRunningUseCase getRecordedUseCaseByName(String name) throws NoSuchRecordedUseCaseException{
+	@Override public ExistingRunningUseCase getRecordedUseCaseByName(String name) throws NoSuchRecordedUseCaseException{
 		ExistingRunningUseCase useCase = recordedUseCases.get(name);
 		if (useCase==null)
 			throw new NoSuchRecordedUseCaseException(name);
 		return useCase;
 	}
 
-	public List<String> getRecordedUseCaseNames() {
+	@Override public List<String> getRecordedUseCaseNames() {
 		return new ArrayList<String>(recordedUseCases.keySet());
 	}
 
-	public List<ExistingRunningUseCase> getRecordedUseCases() {
+	@Override public List<ExistingRunningUseCase> getRecordedUseCases() {
 		return new ArrayList<ExistingRunningUseCase>(recordedUseCases.values());
 	}
 
-	public void removeRecordedUseCaseByName(String name){
+	@Override public void removeRecordedUseCaseByName(String name){
 		recordedUseCases.remove(name);
 	}
 }
