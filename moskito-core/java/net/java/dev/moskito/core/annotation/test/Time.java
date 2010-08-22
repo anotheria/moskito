@@ -12,3 +12,4 @@ public @interface Time {
     TimeInterval interval() default TimeInterval.MILLISECOND;
     String format() default "Elapsed %s";
 }
+ 

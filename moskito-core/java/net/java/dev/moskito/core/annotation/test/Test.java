@@ -9,8 +9,8 @@ public class Test {
 	
 	public static void main(String a[]){
 		for (int i=0; i<5; i++)
-			echo(10);
+	 		echo(10);
 		System.out.println("done");
 	}
 }
- 
+  

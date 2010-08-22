@@ -27,7 +27,11 @@ import com.sun.tools.javac.tree.JCTree.JCStatement;
 import com.sun.tools.javac.tree.JCTree.JCVariableDecl;
 import com.sun.tools.javac.util.List;
 
-
+/**
+ * Experimental annotation processor for annotation based measuring. DO NOT USE.
+ * @author lrosenberg
+ *
+ */
 @SupportedAnnotationTypes(value = {MoskitoAnnotationProcessor.ANNOTATION_TYPE})
 @SupportedSourceVersion(SourceVersion.RELEASE_6)
 public class MoskitoAnnotationProcessor extends AbstractProcessor{
