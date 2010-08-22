@@ -40,20 +40,33 @@ import net.java.dev.moskito.core.dynamic.IOnDemandStatsFactory;
 import net.java.dev.moskito.core.producers.IStats;
 import net.java.dev.moskito.core.stats.Interval;
 
+/**
+ * Factory that creates ServiceStats objects for on demand producers.
+ * @author lrosenberg
+ */
 public class ServiceStatsFactory implements IOnDemandStatsFactory{
 
+	/**
+	 * Configured intervals that have to be passed to the created stats object.
+	 */
 	private Interval[] intervals;
 	
+	/**
+	 * Creates a new factory with custom intervals.
+	 * @param configuredIntervals
+	 */
 	public ServiceStatsFactory(Interval[] configuredIntervals){
 		intervals = Arrays.copyOf(configuredIntervals, configuredIntervals.length);
 	}
 	
+	/**
+	 * Createsa new factory with default intervals.
+	 */
 	public ServiceStatsFactory(){
 		this(Constants.getDefaultIntervals());
 	}
 	
-	public IStats createStatsObject(String name) {
+	@Override public IStats createStatsObject(String name) {
 		return new ServiceStats(name, intervals);
 	}
-
 }
