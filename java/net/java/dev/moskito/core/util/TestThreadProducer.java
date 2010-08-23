@@ -34,7 +34,9 @@ public class TestThreadProducer {
 				public void run() {
 					try{
 						Thread.sleep(1000);
-					}catch(Exception e){}
+					}catch(InterruptedException e){
+						Thread.currentThread().interrupt();
+					}
 				}
 			}).start();
 		}
