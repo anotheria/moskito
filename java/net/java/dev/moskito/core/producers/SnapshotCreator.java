@@ -1,11 +1,10 @@
 package net.java.dev.moskito.core.producers;
 
 
+import java.util.ArrayList;
+
 import net.java.dev.moskito.core.registry.ProducerRegistryFactory;
 import net.java.dev.moskito.core.stats.Interval;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Listens to intervale updates and creates stats snapshots and stores them with configured archivers

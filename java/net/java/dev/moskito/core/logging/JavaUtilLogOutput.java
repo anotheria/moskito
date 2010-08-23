@@ -36,8 +36,6 @@ package net.java.dev.moskito.core.logging;
 
 import java.util.logging.Logger;
 
-import net.java.dev.moskito.core.logging.ILogOutput;
-
 /**
  * A ILogOutput associated with a java.util.logging.Logger.
  * Logs out to the info level.
