@@ -1,0 +1,4982 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<producers>
+  <query>all producers</query>
+  <interval>default</interval>
+  <timestamp>1279101092355</timestamp>
+  <date>2010-07-14T11:51:32,355</date>
+  
+    <decorator name="ThreadCount">
+          <producer id="ThreadCount">
+            <category>threads</category>
+			<subsystem>builtin</subsystem>
+			<class>BuiltInThreadCountProducer</class>
+            <values>
+			<value name="Started" type="long">7,615</value>
+			<value name="Min Cur" type="long">28</value>
+			<value name="Current" type="long">75</value>
+			<value name="Max Cur" type="long">78</value>
+			<value name="Daemon" type="long">69</value>
+			
+            </values>
+          </producer>
+		      
+    </decorator>
+  
+    <decorator name="Service">
+          <producer id="AccountManagementAPI">
+            <category>api</category>
+			<subsystem>default</subsystem>
+			<class>OnDemandStatsProducer</class>
+            <values>
+			<value name="Req" type="long">1,799</value>
+			<value name="Time" type="long">2,509</value>
+			<value name="CR" type="long">0</value>
+			<value name="MCR" type="long">1</value>
+			<value name="Min" type="long">0</value>
+			<value name="Max" type="long">1,203</value>
+			<value name="Avg" type="double">1.395</value>
+			<value name="Last" type="long">0</value>
+			<value name="Err" type="long">0</value>
+			<value name="ERate" type="double">0.000</value>
+			
+            </values>
+          </producer>
+		
+          <producer id="BlockedIpFilter-1">
+            <category>Utils</category>
+			<subsystem>BlockeIpFilter</subsystem>
+			<class>OnDemandStatsProducer</class>
+            <values>
+			<value name="Req" type="long">0</value>
+			<value name="Time" type="long">0</value>
+			<value name="CR" type="long">0</value>
+			<value name="MCR" type="long">0</value>
+			<value name="Min" type="long">NoR</value>
+			<value name="Max" type="long">NoR</value>
+			<value name="Avg" type="double">0.000</value>
+			<value name="Last" type="long">0</value>
+			<value name="Err" type="long">0</value>
+			<value name="ERate" type="double">0.000</value>
+			
+            </values>
+          </producer>
+		
+          <producer id="CommonSearchService-1">
+            <category>springservice</category>
+			<subsystem>partnersuggestion</subsystem>
+			<class>OnDemandStatsProducer</class>
+            <values>
+			<value name="Req" type="long">0</value>
+			<value name="Time" type="long">0</value>
+			<value name="CR" type="long">0</value>
+			<value name="MCR" type="long">0</value>
+			<value name="Min" type="long">NoR</value>
+			<value name="Max" type="long">NoR</value>
+			<value name="Avg" type="double">0.000</value>
+			<value name="Last" type="long">0</value>
+			<value name="Err" type="long">0</value>
+			<value name="ERate" type="double">0.000</value>
+			
+            </values>
+          </producer>
+		
+          <producer id="ContactsAPI">
+            <category>api</category>
+			<subsystem>default</subsystem>
+			<class>OnDemandStatsProducer</class>
+            <values>
+			<value name="Req" type="long">21,203</value>
+			<value name="Time" type="long">148,742</value>
+			<value name="CR" type="long">0</value>
+			<value name="MCR" type="long">2</value>
+			<value name="Min" type="long">0</value>
+			<value name="Max" type="long">10,851</value>
+			<value name="Avg" type="double">7.014</value>
+			<value name="Last" type="long">1</value>
+			<value name="Err" type="long">1</value>
+			<value name="ERate" type="double">0.000</value>
+			
+            </values>
+          </producer>
+		
+          <producer id="ContactsService-1">
+            <category>springservice</category>
+			<subsystem>partner</subsystem>
+			<class>OnDemandStatsProducer</class>
+            <values>
+			<value name="Req" type="long">12,472</value>
+			<value name="Time" type="long">5,934</value>
+			<value name="CR" type="long">0</value>
+			<value name="MCR" type="long">2</value>
+			<value name="Min" type="long">0</value>
+			<value name="Max" type="long">216</value>
+			<value name="Avg" type="double">0.476</value>
+			<value name="Last" type="long">0</value>
+			<value name="Err" type="long">0</value>
+			<value name="ERate" type="double">0.000</value>
+			
+            </values>
+          </producer>
+		
+          <producer id="ContactsService-2">
+            <category>springservice</category>
+			<subsystem>contacts</subsystem>
+			<class>OnDemandStatsProducer</class>
+            <values>
+			<value name="Req" type="long">21,125</value>
+			<value name="Time" type="long">63,251</value>
+			<value name="CR" type="long">0</value>
+			<value name="MCR" type="long">2</value>
+			<value name="Min" type="long">0</value>
+			<value name="Max" type="long">1,325</value>
+			<value name="Avg" type="double">2.994</value>
+			<value name="Last" type="long">1</value>
+			<value name="Err" type="long">0</value>
+			<value name="ERate" type="double">0.000</value>
+			
+            </values>
+          </producer>
+		
+          <producer id="DistanceService-1">
+            <category>springservice</category>
+			<subsystem>visitors</subsystem>
+			<class>OnDemandStatsProducer</class>
+            <values>
+			<value name="Req" type="long">0</value>
+			<value name="Time" type="long">0</value>
+			<value name="CR" type="long">0</value>
+			<value name="MCR" type="long">0</value>
+			<value name="Min" type="long">NoR</value>
+			<value name="Max" type="long">NoR</value>
+			<value name="Avg" type="double">0.000</value>
+			<value name="Last" type="long">0</value>
+			<value name="Err" type="long">0</value>
+			<value name="ERate" type="double">0.000</value>
+			
+            </values>
+          </producer>
+		
+          <producer id="DoubleOptInService-1">
+            <category>springservice</category>
+			<subsystem>mail</subsystem>
+			<class>OnDemandStatsProducer</class>
+            <values>
+			<value name="Req" type="long">0</value>
+			<value name="Time" type="long">0</value>
+			<value name="CR" type="long">0</value>
+			<value name="MCR" type="long">0</value>
+			<value name="Min" type="long">NoR</value>
+			<value name="Max" type="long">NoR</value>
+			<value name="Avg" type="double">0.000</value>
+			<value name="Last" type="long">0</value>
+			<value name="Err" type="long">0</value>
+			<value name="ERate" type="double">0.000</value>
+			
+            </values>
+          </producer>
+		
+          <producer id="DoubleOptInService-2">
+            <category>springservice</category>
+			<subsystem>account</subsystem>
+			<class>OnDemandStatsProducer</class>
+            <values>
+			<value name="Req" type="long">0</value>
+			<value name="Time" type="long">0</value>
+			<value name="CR" type="long">0</value>
+			<value name="MCR" type="long">0</value>
+			<value name="Min" type="long">NoR</value>
+			<value name="Max" type="long">NoR</value>
+			<value name="Avg" type="double">0.000</value>
+			<value name="Last" type="long">0</value>
+			<value name="Err" type="long">0</value>
+			<value name="ERate" type="double">0.000</value>
+			
+            </values>
+          </producer>
+		
+          <producer id="ExtapiSettingsAPI">
+            <category>api</category>
+			<subsystem>default</subsystem>
+			<class>OnDemandStatsProducer</class>
+            <values>
+			<value name="Req" type="long">1,506</value>
+			<value name="Time" type="long">25,252</value>
+			<value name="CR" type="long">0</value>
+			<value name="MCR" type="long">2</value>
+			<value name="Min" type="long">0</value>
+			<value name="Max" type="long">1,220</value>
+			<value name="Avg" type="double">16.768</value>
+			<value name="Last" type="long">4</value>
+			<value name="Err" type="long">0</value>
+			<value name="ERate" type="double">0.000</value>
+			
+            </values>
+          </producer>
+		
+          <producer id="ExternalAPISystemAPI">
+            <category>api</category>
+			<subsystem>default</subsystem>
+			<class>OnDemandStatsProducer</class>
+            <values>
+			<value name="Req" type="long">33,227</value>
+			<value name="Time" type="long">292</value>
+			<value name="CR" type="long">0</value>
+			<value name="MCR" type="long">2</value>
+			<value name="Min" type="long">0</value>
+			<value name="Max" type="long">0</value>
+			<value name="Avg" type="double">0.0090</value>
+			<value name="Last" type="long">0</value>
+			<value name="Err" type="long">0</value>
+			<value name="ERate" type="double">0.000</value>
+			
+            </values>
+          </producer>
+		
+          <producer id="FavoriteDAO-1">
+            <category>dao</category>
+			<subsystem>favorite</subsystem>
+			<class>OnDemandStatsProducer</class>
+            <values>
+			<value name="Req" type="long">14</value>
+			<value name="Time" type="long">31</value>
+			<value name="CR" type="long">0</value>
+			<value name="MCR" type="long">1</value>
+			<value name="Min" type="long">0</value>
+			<value name="Max" type="long">4</value>
+			<value name="Avg" type="double">2.213</value>
+			<value name="Last" type="long">2</value>
+			<value name="Err" type="long">0</value>
+			<value name="ERate" type="double">0.000</value>
+			
+            </values>
+          </producer>
+		
+          <producer id="ForeignUserAPI">
+            <category>api</category>
+			<subsystem>default</subsystem>
+			<class>OnDemandStatsProducer</class>
+            <values>
+			<value name="Req" type="long">4,343</value>
+			<value name="Time" type="long">9,999</value>
+			<value name="CR" type="long">0</value>
+			<value name="MCR" type="long">2</value>
+			<value name="Min" type="long">0</value>
+			<value name="Max" type="long">393</value>
+			<value name="Avg" type="double">2.302</value>
+			<value name="Last" type="long">0</value>
+			<value name="Err" type="long">0</value>
+			<value name="ERate" type="double">0.000</value>
+			
+            </values>
+          </producer>
+		
+          <producer id="GayParshipStatisticsService-1">
+            <category>springservice</category>
+			<subsystem>partnersuggestion</subsystem>
+			<class>OnDemandStatsProducer</class>
+            <values>
+			<value name="Req" type="long">0</value>
+			<value name="Time" type="long">0</value>
+			<value name="CR" type="long">0</value>
+			<value name="MCR" type="long">0</value>
+			<value name="Min" type="long">NoR</value>
+			<value name="Max" type="long">NoR</value>
+			<value name="Avg" type="double">0.000</value>
+			<value name="Last" type="long">0</value>
+			<value name="Err" type="long">0</value>
+			<value name="ERate" type="double">0.000</value>
+			
+            </values>
+          </producer>
+		
+          <producer id="GeographicAPI">
+            <category>api</category>
+			<subsystem>default</subsystem>
+			<class>OnDemandStatsProducer</class>
+            <values>
+			<value name="Req" type="long">28,570</value>
+			<value name="Time" type="long">96,362</value>
+			<value name="CR" type="long">0</value>
+			<value name="MCR" type="long">2</value>
+			<value name="Min" type="long">0</value>
+			<value name="Max" type="long">1,845</value>
+			<value name="Avg" type="double">3.373</value>
+			<value name="Last" type="long">3</value>
+			<value name="Err" type="long">0</value>
+			<value name="ERate" type="double">0.000</value>
+			
+            </values>
+          </producer>
+		
+          <producer id="ImageAPI">
+            <category>api</category>
+			<subsystem>default</subsystem>
+			<class>OnDemandStatsProducer</class>
+            <values>
+			<value name="Req" type="long">174,035</value>
+			<value name="Time" type="long">1,310,259</value>
+			<value name="CR" type="long">0</value>
+			<value name="MCR" type="long">7</value>
+			<value name="Min" type="long">0</value>
+			<value name="Max" type="long">1,360</value>
+			<value name="Avg" type="double">7.528</value>
+			<value name="Last" type="long">0</value>
+			<value name="Err" type="long">0</value>
+			<value name="ERate" type="double">0.000</value>
+			
+            </values>
+          </producer>
+		
+          <producer id="ImageReleaseService-1">
+            <category>springservice</category>
+			<subsystem>ImageReleaseService</subsystem>
+			<class>OnDemandStatsProducer</class>
+            <values>
+			<value name="Req" type="long">64,756</value>
+			<value name="Time" type="long">166,576</value>
+			<value name="CR" type="long">0</value>
+			<value name="MCR" type="long">3</value>
+			<value name="Min" type="long">1</value>
+			<value name="Max" type="long">1,262</value>
+			<value name="Avg" type="double">2.572</value>
+			<value name="Last" type="long">1</value>
+			<value name="Err" type="long">0</value>
+			<value name="ERate" type="double">0.000</value>
+			
+            </values>
+          </producer>
+		
+          <producer id="ImageReleaseService-2">
+            <category>springservice</category>
+			<subsystem>contacts</subsystem>
+			<class>OnDemandStatsProducer</class>
+            <values>
+			<value name="Req" type="long">77</value>
+			<value name="Time" type="long">218</value>
+			<value name="CR" type="long">0</value>
+			<value name="MCR" type="long">1</value>
+			<value name="Min" type="long">1</value>
+			<value name="Max" type="long">8</value>
+			<value name="Avg" type="double">2.831</value>
+			<value name="Last" type="long">2</value>
+			<value name="Err" type="long">0</value>
+			<value name="ERate" type="double">0.000</value>
+			
+            </values>
+          </producer>
+		
+          <producer id="ImageService-1">
+            <category>springservice</category>
+			<subsystem>ImageService</subsystem>
+			<class>OnDemandStatsProducer</class>
+            <values>
+			<value name="Req" type="long">108,739</value>
+			<value name="Time" type="long">1,137,708</value>
+			<value name="CR" type="long">0</value>
+			<value name="MCR" type="long">7</value>
+			<value name="Min" type="long">0</value>
+			<value name="Max" type="long">1,359</value>
+			<value name="Avg" type="double">10.462</value>
+			<value name="Last" type="long">0</value>
+			<value name="Err" type="long">0</value>
+			<value name="ERate" type="double">0.000</value>
+			
+            </values>
+          </producer>
+		
+          <producer id="InfrastructureAPI">
+            <category>api</category>
+			<subsystem>default</subsystem>
+			<class>OnDemandStatsProducer</class>
+            <values>
+			<value name="Req" type="long">118</value>
+			<value name="Time" type="long">192</value>
+			<value name="CR" type="long">0</value>
+			<value name="MCR" type="long">1</value>
+			<value name="Min" type="long">0</value>
+			<value name="Max" type="long">18</value>
+			<value name="Avg" type="double">1.627</value>
+			<value name="Last" type="long">1</value>
+			<value name="Err" type="long">0</value>
+			<value name="ERate" type="double">0.000</value>
+			
+            </values>
+          </producer>
+		
+          <producer id="LoginAPI">
+            <category>api</category>
+			<subsystem>default</subsystem>
+			<class>OnDemandStatsProducer</class>
+            <values>
+			<value name="Req" type="long">37,125</value>
+			<value name="Time" type="long">328</value>
+			<value name="CR" type="long">0</value>
+			<value name="MCR" type="long">2</value>
+			<value name="Min" type="long">0</value>
+			<value name="Max" type="long">12</value>
+			<value name="Avg" type="double">0.0090</value>
+			<value name="Last" type="long">0</value>
+			<value name="Err" type="long">0</value>
+			<value name="ERate" type="double">0.000</value>
+			
+            </values>
+          </producer>
+		
+          <producer id="LoginService-1">
+            <category>springservice</category>
+			<subsystem>loginService</subsystem>
+			<class>OnDemandStatsProducer</class>
+            <values>
+			<value name="Req" type="long">21,888</value>
+			<value name="Time" type="long">81,660</value>
+			<value name="CR" type="long">0</value>
+			<value name="MCR" type="long">2</value>
+			<value name="Min" type="long">1</value>
+			<value name="Max" type="long">1,290</value>
+			<value name="Avg" type="double">3.730</value>
+			<value name="Last" type="long">3</value>
+			<value name="Err" type="long">0</value>
+			<value name="ERate" type="double">0.000</value>
+			
+            </values>
+          </producer>
+		
+          <producer id="LoginService-2">
+            <category>springservice</category>
+			<subsystem>mail</subsystem>
+			<class>OnDemandStatsProducer</class>
+            <values>
+			<value name="Req" type="long">0</value>
+			<value name="Time" type="long">0</value>
+			<value name="CR" type="long">0</value>
+			<value name="MCR" type="long">0</value>
+			<value name="Min" type="long">NoR</value>
+			<value name="Max" type="long">NoR</value>
+			<value name="Avg" type="double">0.000</value>
+			<value name="Last" type="long">0</value>
+			<value name="Err" type="long">0</value>
+			<value name="ERate" type="double">0.000</value>
+			
+            </values>
+          </producer>
+		
+          <producer id="MailService-1">
+            <category>springservice</category>
+			<subsystem>mail</subsystem>
+			<class>OnDemandStatsProducer</class>
+            <values>
+			<value name="Req" type="long">0</value>
+			<value name="Time" type="long">0</value>
+			<value name="CR" type="long">0</value>
+			<value name="MCR" type="long">0</value>
+			<value name="Min" type="long">NoR</value>
+			<value name="Max" type="long">NoR</value>
+			<value name="Avg" type="double">0.000</value>
+			<value name="Last" type="long">0</value>
+			<value name="Err" type="long">0</value>
+			<value name="ERate" type="double">0.000</value>
+			
+            </values>
+          </producer>
+		
+          <producer id="MatchingDAO-1">
+            <category>dao</category>
+			<subsystem>matching</subsystem>
+			<class>OnDemandStatsProducer</class>
+            <values>
+			<value name="Req" type="long">2,148</value>
+			<value name="Time" type="long">1,235</value>
+			<value name="CR" type="long">0</value>
+			<value name="MCR" type="long">1</value>
+			<value name="Min" type="long">0</value>
+			<value name="Max" type="long">16</value>
+			<value name="Avg" type="double">0.575</value>
+			<value name="Last" type="long">0</value>
+			<value name="Err" type="long">0</value>
+			<value name="ERate" type="double">0.000</value>
+			
+            </values>
+          </producer>
+		
+          <producer id="MatchingService-1">
+            <category>springservice</category>
+			<subsystem>matching</subsystem>
+			<class>OnDemandStatsProducer</class>
+            <values>
+			<value name="Req" type="long">0</value>
+			<value name="Time" type="long">0</value>
+			<value name="CR" type="long">0</value>
+			<value name="MCR" type="long">0</value>
+			<value name="Min" type="long">NoR</value>
+			<value name="Max" type="long">NoR</value>
+			<value name="Avg" type="double">0.000</value>
+			<value name="Last" type="long">0</value>
+			<value name="Err" type="long">0</value>
+			<value name="ERate" type="double">0.000</value>
+			
+            </values>
+          </producer>
+		
+          <producer id="MatchingService-2">
+            <category>springservice</category>
+			<subsystem>visitors</subsystem>
+			<class>OnDemandStatsProducer</class>
+            <values>
+			<value name="Req" type="long">1,777</value>
+			<value name="Time" type="long">8,912</value>
+			<value name="CR" type="long">0</value>
+			<value name="MCR" type="long">2</value>
+			<value name="Min" type="long">2</value>
+			<value name="Max" type="long">792</value>
+			<value name="Avg" type="double">5.014</value>
+			<value name="Last" type="long">7</value>
+			<value name="Err" type="long">0</value>
+			<value name="ERate" type="double">0.000</value>
+			
+            </values>
+          </producer>
+		
+          <producer id="MatchingService-3">
+            <category>springservice</category>
+			<subsystem>partnersuggestion</subsystem>
+			<class>OnDemandStatsProducer</class>
+            <values>
+			<value name="Req" type="long">92,610</value>
+			<value name="Time" type="long">229,469</value>
+			<value name="CR" type="long">0</value>
+			<value name="MCR" type="long">3</value>
+			<value name="Min" type="long">0</value>
+			<value name="Max" type="long">1,969</value>
+			<value name="Avg" type="double">2.478</value>
+			<value name="Last" type="long">3</value>
+			<value name="Err" type="long">11</value>
+			<value name="ERate" type="double">0.010</value>
+			
+            </values>
+          </producer>
+		
+          <producer id="MatchingService-4">
+            <category>springservice</category>
+			<subsystem>contacts</subsystem>
+			<class>OnDemandStatsProducer</class>
+            <values>
+			<value name="Req" type="long">422</value>
+			<value name="Time" type="long">5,830</value>
+			<value name="CR" type="long">0</value>
+			<value name="MCR" type="long">1</value>
+			<value name="Min" type="long">0</value>
+			<value name="Max" type="long">1,341</value>
+			<value name="Avg" type="double">13.814</value>
+			<value name="Last" type="long">9</value>
+			<value name="Err" type="long">1</value>
+			<value name="ERate" type="double">0.230</value>
+			
+            </values>
+          </producer>
+		
+          <producer id="MatchingService-5">
+            <category>springservice</category>
+			<subsystem>infrastructure</subsystem>
+			<class>OnDemandStatsProducer</class>
+            <values>
+			<value name="Req" type="long">132</value>
+			<value name="Time" type="long">70</value>
+			<value name="CR" type="long">0</value>
+			<value name="MCR" type="long">1</value>
+			<value name="Min" type="long">0</value>
+			<value name="Max" type="long">3</value>
+			<value name="Avg" type="double">0.530</value>
+			<value name="Last" type="long">0</value>
+			<value name="Err" type="long">0</value>
+			<value name="ERate" type="double">0.000</value>
+			
+            </values>
+          </producer>
+		
+          <producer id="MessageAPI">
+            <category>api</category>
+			<subsystem>default</subsystem>
+			<class>OnDemandStatsProducer</class>
+            <values>
+			<value name="Req" type="long">521,916</value>
+			<value name="Time" type="long">4,482,630</value>
+			<value name="CR" type="long">1</value>
+			<value name="MCR" type="long">9</value>
+			<value name="Min" type="long">0</value>
+			<value name="Max" type="long">2,000</value>
+			<value name="Avg" type="double">8.589</value>
+			<value name="Last" type="long">2</value>
+			<value name="Err" type="long">68</value>
+			<value name="ERate" type="double">0.010</value>
+			
+            </values>
+          </producer>
+		
+          <producer id="MessagesService-1">
+            <category>springservice</category>
+			<subsystem>contacts</subsystem>
+			<class>OnDemandStatsProducer</class>
+            <values>
+			<value name="Req" type="long">5,959</value>
+			<value name="Time" type="long">41,117</value>
+			<value name="CR" type="long">0</value>
+			<value name="MCR" type="long">1</value>
+			<value name="Min" type="long">0</value>
+			<value name="Max" type="long">3,225</value>
+			<value name="Avg" type="double">6.900</value>
+			<value name="Last" type="long">1</value>
+			<value name="Err" type="long">0</value>
+			<value name="ERate" type="double">0.000</value>
+			
+            </values>
+          </producer>
+		
+          <producer id="NotificationAPI">
+            <category>api</category>
+			<subsystem>default</subsystem>
+			<class>OnDemandStatsProducer</class>
+            <values>
+			<value name="Req" type="long">245</value>
+			<value name="Time" type="long">762</value>
+			<value name="CR" type="long">1</value>
+			<value name="MCR" type="long">2</value>
+			<value name="Min" type="long">2</value>
+			<value name="Max" type="long">23</value>
+			<value name="Avg" type="double">3.109</value>
+			<value name="Last" type="long">5</value>
+			<value name="Err" type="long">0</value>
+			<value name="ERate" type="double">0.000</value>
+			
+            </values>
+          </producer>
+		
+          <producer id="ObservationAPI">
+            <category>api</category>
+			<subsystem>default</subsystem>
+			<class>OnDemandStatsProducer</class>
+            <values>
+			<value name="Req" type="long">3,938</value>
+			<value name="Time" type="long">96</value>
+			<value name="CR" type="long">0</value>
+			<value name="MCR" type="long">2</value>
+			<value name="Min" type="long">0</value>
+			<value name="Max" type="long">6</value>
+			<value name="Avg" type="double">0.024</value>
+			<value name="Last" type="long">0</value>
+			<value name="Err" type="long">0</value>
+			<value name="ERate" type="double">0.000</value>
+			
+            </values>
+          </producer>
+		
+          <producer id="OwnerService-1">
+            <category>springservice</category>
+			<subsystem>owner</subsystem>
+			<class>OnDemandStatsProducer</class>
+            <values>
+			<value name="Req" type="long">0</value>
+			<value name="Time" type="long">0</value>
+			<value name="CR" type="long">0</value>
+			<value name="MCR" type="long">0</value>
+			<value name="Min" type="long">NoR</value>
+			<value name="Max" type="long">NoR</value>
+			<value name="Avg" type="double">0.000</value>
+			<value name="Last" type="long">0</value>
+			<value name="Err" type="long">0</value>
+			<value name="ERate" type="double">0.000</value>
+			
+            </values>
+          </producer>
+		
+          <producer id="OwnerService-2">
+            <category>springservice</category>
+			<subsystem>partnersuggestion</subsystem>
+			<class>OnDemandStatsProducer</class>
+            <values>
+			<value name="Req" type="long">0</value>
+			<value name="Time" type="long">0</value>
+			<value name="CR" type="long">0</value>
+			<value name="MCR" type="long">0</value>
+			<value name="Min" type="long">NoR</value>
+			<value name="Max" type="long">NoR</value>
+			<value name="Avg" type="double">0.000</value>
+			<value name="Last" type="long">0</value>
+			<value name="Err" type="long">0</value>
+			<value name="ERate" type="double">0.000</value>
+			
+            </values>
+          </producer>
+		
+          <producer id="ParshipLoginAPI">
+            <category>api</category>
+			<subsystem>default</subsystem>
+			<class>OnDemandStatsProducer</class>
+            <values>
+			<value name="Req" type="long">1,950</value>
+			<value name="Time" type="long">3,691</value>
+			<value name="CR" type="long">0</value>
+			<value name="MCR" type="long">1</value>
+			<value name="Min" type="long">0</value>
+			<value name="Max" type="long">46</value>
+			<value name="Avg" type="double">1.893</value>
+			<value name="Last" type="long">4</value>
+			<value name="Err" type="long">0</value>
+			<value name="ERate" type="double">0.000</value>
+			
+            </values>
+          </producer>
+		
+          <producer id="PartnerAPI">
+            <category>api</category>
+			<subsystem>default</subsystem>
+			<class>OnDemandStatsProducer</class>
+            <values>
+			<value name="Req" type="long">41,058</value>
+			<value name="Time" type="long">272,837</value>
+			<value name="CR" type="long">0</value>
+			<value name="MCR" type="long">2</value>
+			<value name="Min" type="long">0</value>
+			<value name="Max" type="long">2,029</value>
+			<value name="Avg" type="double">6.644</value>
+			<value name="Last" type="long">9</value>
+			<value name="Err" type="long">0</value>
+			<value name="ERate" type="double">0.000</value>
+			
+            </values>
+          </producer>
+		
+          <producer id="PartnerSelectionService-1">
+            <category>springservice</category>
+			<subsystem>visitors</subsystem>
+			<class>OnDemandStatsProducer</class>
+            <values>
+			<value name="Req" type="long">4,655</value>
+			<value name="Time" type="long">21,218</value>
+			<value name="CR" type="long">0</value>
+			<value name="MCR" type="long">2</value>
+			<value name="Min" type="long">2</value>
+			<value name="Max" type="long">611</value>
+			<value name="Avg" type="double">4.557</value>
+			<value name="Last" type="long">3</value>
+			<value name="Err" type="long">0</value>
+			<value name="ERate" type="double">0.000</value>
+			
+            </values>
+          </producer>
+		
+          <producer id="PartnerSelectionService-2">
+            <category>springservice</category>
+			<subsystem>partnersuggestion</subsystem>
+			<class>OnDemandStatsProducer</class>
+            <values>
+			<value name="Req" type="long">1,798</value>
+			<value name="Time" type="long">4,676</value>
+			<value name="CR" type="long">0</value>
+			<value name="MCR" type="long">1</value>
+			<value name="Min" type="long">0</value>
+			<value name="Max" type="long">1,217</value>
+			<value name="Avg" type="double">2.601</value>
+			<value name="Last" type="long">1</value>
+			<value name="Err" type="long">0</value>
+			<value name="ERate" type="double">0.000</value>
+			
+            </values>
+          </producer>
+		
+          <producer id="PartnerSuggestionAPI">
+            <category>api</category>
+			<subsystem>default</subsystem>
+			<class>OnDemandStatsProducer</class>
+            <values>
+			<value name="Req" type="long">94,409</value>
+			<value name="Time" type="long">300,847</value>
+			<value name="CR" type="long">0</value>
+			<value name="MCR" type="long">3</value>
+			<value name="Min" type="long">0</value>
+			<value name="Max" type="long">1,971</value>
+			<value name="Avg" type="double">3.186</value>
+			<value name="Last" type="long">4</value>
+			<value name="Err" type="long">11</value>
+			<value name="ERate" type="double">0.010</value>
+			
+            </values>
+          </producer>
+		
+          <producer id="PaymentAPI">
+            <category>api</category>
+			<subsystem>default</subsystem>
+			<class>OnDemandStatsProducer</class>
+            <values>
+			<value name="Req" type="long">3,887</value>
+			<value name="Time" type="long">6,705</value>
+			<value name="CR" type="long">0</value>
+			<value name="MCR" type="long">2</value>
+			<value name="Min" type="long">0</value>
+			<value name="Max" type="long">333</value>
+			<value name="Avg" type="double">1.725</value>
+			<value name="Last" type="long">3</value>
+			<value name="Err" type="long">0</value>
+			<value name="ERate" type="double">0.000</value>
+			
+            </values>
+          </producer>
+		
+          <producer id="PaymentService-1">
+            <category>springservice</category>
+			<subsystem>payment</subsystem>
+			<class>OnDemandStatsProducer</class>
+            <values>
+			<value name="Req" type="long">0</value>
+			<value name="Time" type="long">0</value>
+			<value name="CR" type="long">0</value>
+			<value name="MCR" type="long">0</value>
+			<value name="Min" type="long">NoR</value>
+			<value name="Max" type="long">NoR</value>
+			<value name="Avg" type="double">0.000</value>
+			<value name="Last" type="long">0</value>
+			<value name="Err" type="long">0</value>
+			<value name="ERate" type="double">0.000</value>
+			
+            </values>
+          </producer>
+		
+          <producer id="PaymentService-2">
+            <category>springservice</category>
+			<subsystem>survey</subsystem>
+			<class>OnDemandStatsProducer</class>
+            <values>
+			<value name="Req" type="long">0</value>
+			<value name="Time" type="long">0</value>
+			<value name="CR" type="long">0</value>
+			<value name="MCR" type="long">0</value>
+			<value name="Min" type="long">NoR</value>
+			<value name="Max" type="long">NoR</value>
+			<value name="Avg" type="double">0.000</value>
+			<value name="Last" type="long">0</value>
+			<value name="Err" type="long">0</value>
+			<value name="ERate" type="double">0.000</value>
+			
+            </values>
+          </producer>
+		
+          <producer id="PermissionAPI">
+            <category>api</category>
+			<subsystem>default</subsystem>
+			<class>OnDemandStatsProducer</class>
+            <values>
+			<value name="Req" type="long">46</value>
+			<value name="Time" type="long">206</value>
+			<value name="CR" type="long">0</value>
+			<value name="MCR" type="long">1</value>
+			<value name="Min" type="long">0</value>
+			<value name="Max" type="long">10</value>
+			<value name="Avg" type="double">4.477</value>
+			<value name="Last" type="long">9</value>
+			<value name="Err" type="long">0</value>
+			<value name="ERate" type="double">0.000</value>
+			
+            </values>
+          </producer>
+		
+          <producer id="PersonalityAPI">
+            <category>api</category>
+			<subsystem>default</subsystem>
+			<class>OnDemandStatsProducer</class>
+            <values>
+			<value name="Req" type="long">199</value>
+			<value name="Time" type="long">1,105</value>
+			<value name="CR" type="long">0</value>
+			<value name="MCR" type="long">1</value>
+			<value name="Min" type="long">0</value>
+			<value name="Max" type="long">142</value>
+			<value name="Avg" type="double">5.552</value>
+			<value name="Last" type="long">1</value>
+			<value name="Err" type="long">0</value>
+			<value name="ERate" type="double">0.000</value>
+			
+            </values>
+          </producer>
+		
+          <producer id="PersonalityDAO-1">
+            <category>dao</category>
+			<subsystem>matching</subsystem>
+			<class>OnDemandStatsProducer</class>
+            <values>
+			<value name="Req" type="long">40</value>
+			<value name="Time" type="long">180</value>
+			<value name="CR" type="long">0</value>
+			<value name="MCR" type="long">1</value>
+			<value name="Min" type="long">0</value>
+			<value name="Max" type="long">19</value>
+			<value name="Avg" type="double">4.500</value>
+			<value name="Last" type="long">1</value>
+			<value name="Err" type="long">0</value>
+			<value name="ERate" type="double">0.000</value>
+			
+            </values>
+          </producer>
+		
+          <producer id="PersonalityDAO-2">
+            <category>dao</category>
+			<subsystem>matching</subsystem>
+			<class>OnDemandStatsProducer</class>
+            <values>
+			<value name="Req" type="long">190,534</value>
+			<value name="Time" type="long">131,353</value>
+			<value name="CR" type="long">0</value>
+			<value name="MCR" type="long">2</value>
+			<value name="Min" type="long">0</value>
+			<value name="Max" type="long">1,357</value>
+			<value name="Avg" type="double">0.689</value>
+			<value name="Last" type="long">2</value>
+			<value name="Err" type="long">0</value>
+			<value name="ERate" type="double">0.000</value>
+			
+            </values>
+          </producer>
+		
+          <producer id="PersonalityDAO-3">
+            <category>dao</category>
+			<subsystem>matching</subsystem>
+			<class>OnDemandStatsProducer</class>
+            <values>
+			<value name="Req" type="long">32,369</value>
+			<value name="Time" type="long">74,264</value>
+			<value name="CR" type="long">0</value>
+			<value name="MCR" type="long">2</value>
+			<value name="Min" type="long">0</value>
+			<value name="Max" type="long">1,287</value>
+			<value name="Avg" type="double">2.294</value>
+			<value name="Last" type="long">2</value>
+			<value name="Err" type="long">0</value>
+			<value name="ERate" type="double">0.000</value>
+			
+            </values>
+          </producer>
+		
+          <producer id="PersonalityDAO-4">
+            <category>dao</category>
+			<subsystem>matching</subsystem>
+			<class>OnDemandStatsProducer</class>
+            <values>
+			<value name="Req" type="long">0</value>
+			<value name="Time" type="long">0</value>
+			<value name="CR" type="long">0</value>
+			<value name="MCR" type="long">0</value>
+			<value name="Min" type="long">NoR</value>
+			<value name="Max" type="long">NoR</value>
+			<value name="Avg" type="double">0.000</value>
+			<value name="Last" type="long">0</value>
+			<value name="Err" type="long">0</value>
+			<value name="ERate" type="double">0.000</value>
+			
+            </values>
+          </producer>
+		
+          <producer id="PersonalityProfileService-1">
+            <category>service</category>
+			<subsystem>PersonalityProfileService</subsystem>
+			<class>OnDemandStatsProducer</class>
+            <values>
+			<value name="Req" type="long">11</value>
+			<value name="Time" type="long">381</value>
+			<value name="CR" type="long">0</value>
+			<value name="MCR" type="long">1</value>
+			<value name="Min" type="long">1</value>
+			<value name="Max" type="long">70</value>
+			<value name="Avg" type="double">34.636</value>
+			<value name="Last" type="long">42</value>
+			<value name="Err" type="long">3</value>
+			<value name="ERate" type="double">27.269</value>
+			
+            </values>
+          </producer>
+		
+          <producer id="PhotoAPI">
+            <category>api</category>
+			<subsystem>default</subsystem>
+			<class>OnDemandStatsProducer</class>
+            <values>
+			<value name="Req" type="long">32</value>
+			<value name="Time" type="long">4,629</value>
+			<value name="CR" type="long">0</value>
+			<value name="MCR" type="long">1</value>
+			<value name="Min" type="long">0</value>
+			<value name="Max" type="long">1,549</value>
+			<value name="Avg" type="double">144.656</value>
+			<value name="Last" type="long">44</value>
+			<value name="Err" type="long">0</value>
+			<value name="ERate" type="double">0.000</value>
+			
+            </values>
+          </producer>
+		
+          <producer id="ProductAPI">
+            <category>api</category>
+			<subsystem>default</subsystem>
+			<class>OnDemandStatsProducer</class>
+            <values>
+			<value name="Req" type="long">1</value>
+			<value name="Time" type="long">1</value>
+			<value name="CR" type="long">0</value>
+			<value name="MCR" type="long">1</value>
+			<value name="Min" type="long">1</value>
+			<value name="Max" type="long">1</value>
+			<value name="Avg" type="double">1.000</value>
+			<value name="Last" type="long">1</value>
+			<value name="Err" type="long">0</value>
+			<value name="ERate" type="double">0.000</value>
+			
+            </values>
+          </producer>
+		
+          <producer id="ProfileAPI">
+            <category>api</category>
+			<subsystem>default</subsystem>
+			<class>OnDemandStatsProducer</class>
+            <values>
+			<value name="Req" type="long">361,113</value>
+			<value name="Time" type="long">1,115,858</value>
+			<value name="CR" type="long">1</value>
+			<value name="MCR" type="long">3</value>
+			<value name="Min" type="long">0</value>
+			<value name="Max" type="long">10,022</value>
+			<value name="Avg" type="double">3.089</value>
+			<value name="Last" type="long">0</value>
+			<value name="Err" type="long">4</value>
+			<value name="ERate" type="double">0.000</value>
+			
+            </values>
+          </producer>
+		
+          <producer id="ProfileSearchService-1">
+            <category>springservice</category>
+			<subsystem>profileSearchService</subsystem>
+			<class>OnDemandStatsProducer</class>
+            <values>
+			<value name="Req" type="long">65,664</value>
+			<value name="Time" type="long">62,580</value>
+			<value name="CR" type="long">0</value>
+			<value name="MCR" type="long">2</value>
+			<value name="Min" type="long">0</value>
+			<value name="Max" type="long">1,246</value>
+			<value name="Avg" type="double">0.953</value>
+			<value name="Last" type="long">0</value>
+			<value name="Err" type="long">0</value>
+			<value name="ERate" type="double">0.000</value>
+			
+            </values>
+          </producer>
+		
+          <producer id="ProfileService-1">
+            <category>springservice</category>
+			<subsystem>profile</subsystem>
+			<class>OnDemandStatsProducer</class>
+            <values>
+			<value name="Req" type="long">0</value>
+			<value name="Time" type="long">0</value>
+			<value name="CR" type="long">0</value>
+			<value name="MCR" type="long">0</value>
+			<value name="Min" type="long">NoR</value>
+			<value name="Max" type="long">NoR</value>
+			<value name="Avg" type="double">0.000</value>
+			<value name="Last" type="long">0</value>
+			<value name="Err" type="long">0</value>
+			<value name="ERate" type="double">0.000</value>
+			
+            </values>
+          </producer>
+		
+          <producer id="ProfileService-2">
+            <category>springservice</category>
+			<subsystem>payment</subsystem>
+			<class>OnDemandStatsProducer</class>
+            <values>
+			<value name="Req" type="long">0</value>
+			<value name="Time" type="long">0</value>
+			<value name="CR" type="long">0</value>
+			<value name="MCR" type="long">0</value>
+			<value name="Min" type="long">NoR</value>
+			<value name="Max" type="long">NoR</value>
+			<value name="Avg" type="double">0.000</value>
+			<value name="Last" type="long">0</value>
+			<value name="Err" type="long">0</value>
+			<value name="ERate" type="double">0.000</value>
+			
+            </values>
+          </producer>
+		
+          <producer id="ProfileService-3">
+            <category>springservice</category>
+			<subsystem>shared</subsystem>
+			<class>OnDemandStatsProducer</class>
+            <values>
+			<value name="Req" type="long">701,653</value>
+			<value name="Time" type="long">515,681</value>
+			<value name="CR" type="long">0</value>
+			<value name="MCR" type="long">3</value>
+			<value name="Min" type="long">0</value>
+			<value name="Max" type="long">1,287</value>
+			<value name="Avg" type="double">0.735</value>
+			<value name="Last" type="long">0</value>
+			<value name="Err" type="long">0</value>
+			<value name="ERate" type="double">0.000</value>
+			
+            </values>
+          </producer>
+		
+          <producer id="ProfileService-4">
+            <category>springservice</category>
+			<subsystem>user</subsystem>
+			<class>OnDemandStatsProducer</class>
+            <values>
+			<value name="Req" type="long">38,781</value>
+			<value name="Time" type="long">117,052</value>
+			<value name="CR" type="long">0</value>
+			<value name="MCR" type="long">2</value>
+			<value name="Min" type="long">0</value>
+			<value name="Max" type="long">1,317</value>
+			<value name="Avg" type="double">3.017</value>
+			<value name="Last" type="long">0</value>
+			<value name="Err" type="long">0</value>
+			<value name="ERate" type="double">0.000</value>
+			
+            </values>
+          </producer>
+		
+          <producer id="ProfileService-5">
+            <category>springservice</category>
+			<subsystem>account</subsystem>
+			<class>OnDemandStatsProducer</class>
+            <values>
+			<value name="Req" type="long">1,798</value>
+			<value name="Time" type="long">2,459</value>
+			<value name="CR" type="long">0</value>
+			<value name="MCR" type="long">1</value>
+			<value name="Min" type="long">0</value>
+			<value name="Max" type="long">1,203</value>
+			<value name="Avg" type="double">1.368</value>
+			<value name="Last" type="long">0</value>
+			<value name="Err" type="long">0</value>
+			<value name="ERate" type="double">0.000</value>
+			
+            </values>
+          </producer>
+		
+          <producer id="ProfileService-6">
+            <category>springservice</category>
+			<subsystem>contacts</subsystem>
+			<class>OnDemandStatsProducer</class>
+            <values>
+			<value name="Req" type="long">0</value>
+			<value name="Time" type="long">0</value>
+			<value name="CR" type="long">0</value>
+			<value name="MCR" type="long">0</value>
+			<value name="Min" type="long">NoR</value>
+			<value name="Max" type="long">NoR</value>
+			<value name="Avg" type="double">0.000</value>
+			<value name="Last" type="long">0</value>
+			<value name="Err" type="long">0</value>
+			<value name="ERate" type="double">0.000</value>
+			
+            </values>
+          </producer>
+		
+          <producer id="ProfileService-7">
+            <category>springservice</category>
+			<subsystem>registration</subsystem>
+			<class>OnDemandStatsProducer</class>
+            <values>
+			<value name="Req" type="long">0</value>
+			<value name="Time" type="long">0</value>
+			<value name="CR" type="long">0</value>
+			<value name="MCR" type="long">0</value>
+			<value name="Min" type="long">NoR</value>
+			<value name="Max" type="long">NoR</value>
+			<value name="Avg" type="double">0.000</value>
+			<value name="Last" type="long">0</value>
+			<value name="Err" type="long">0</value>
+			<value name="ERate" type="double">0.000</value>
+			
+            </values>
+          </producer>
+		
+          <producer id="ProfileService-8">
+            <category>springservice</category>
+			<subsystem>survey</subsystem>
+			<class>OnDemandStatsProducer</class>
+            <values>
+			<value name="Req" type="long">0</value>
+			<value name="Time" type="long">0</value>
+			<value name="CR" type="long">0</value>
+			<value name="MCR" type="long">0</value>
+			<value name="Min" type="long">NoR</value>
+			<value name="Max" type="long">NoR</value>
+			<value name="Avg" type="double">0.000</value>
+			<value name="Last" type="long">0</value>
+			<value name="Err" type="long">0</value>
+			<value name="ERate" type="double">0.000</value>
+			
+            </values>
+          </producer>
+		
+          <producer id="QuestionnaireAPI">
+            <category>api</category>
+			<subsystem>default</subsystem>
+			<class>OnDemandStatsProducer</class>
+            <values>
+			<value name="Req" type="long">1</value>
+			<value name="Time" type="long">0</value>
+			<value name="CR" type="long">0</value>
+			<value name="MCR" type="long">1</value>
+			<value name="Min" type="long">0</value>
+			<value name="Max" type="long">0</value>
+			<value name="Avg" type="double">0.000</value>
+			<value name="Last" type="long">0</value>
+			<value name="Err" type="long">0</value>
+			<value name="ERate" type="double">0.000</value>
+			
+            </values>
+          </producer>
+		
+          <producer id="QuestionnaireDAO-1">
+            <category>dao</category>
+			<subsystem>questionnaire</subsystem>
+			<class>OnDemandStatsProducer</class>
+            <values>
+			<value name="Req" type="long">11</value>
+			<value name="Time" type="long">145</value>
+			<value name="CR" type="long">0</value>
+			<value name="MCR" type="long">1</value>
+			<value name="Min" type="long">1</value>
+			<value name="Max" type="long">33</value>
+			<value name="Avg" type="double">13.182</value>
+			<value name="Last" type="long">15</value>
+			<value name="Err" type="long">3</value>
+			<value name="ERate" type="double">27.269</value>
+			
+            </values>
+          </producer>
+		
+          <producer id="QuestionnaireDAO-2">
+            <category>dao</category>
+			<subsystem>questionnaire</subsystem>
+			<class>OnDemandStatsProducer</class>
+            <values>
+			<value name="Req" type="long">0</value>
+			<value name="Time" type="long">0</value>
+			<value name="CR" type="long">0</value>
+			<value name="MCR" type="long">0</value>
+			<value name="Min" type="long">NoR</value>
+			<value name="Max" type="long">NoR</value>
+			<value name="Avg" type="double">0.000</value>
+			<value name="Last" type="long">0</value>
+			<value name="Err" type="long">0</value>
+			<value name="ERate" type="double">0.000</value>
+			
+            </values>
+          </producer>
+		
+          <producer id="QuestionnaireService-1">
+            <category>springservice</category>
+			<subsystem>questionnaire</subsystem>
+			<class>OnDemandStatsProducer</class>
+            <values>
+			<value name="Req" type="long">0</value>
+			<value name="Time" type="long">0</value>
+			<value name="CR" type="long">0</value>
+			<value name="MCR" type="long">0</value>
+			<value name="Min" type="long">NoR</value>
+			<value name="Max" type="long">NoR</value>
+			<value name="Avg" type="double">0.000</value>
+			<value name="Last" type="long">0</value>
+			<value name="Err" type="long">0</value>
+			<value name="ERate" type="double">0.000</value>
+			
+            </values>
+          </producer>
+		
+          <producer id="QuestionnaireService-2">
+            <category>service</category>
+			<subsystem>QuestionnaireService</subsystem>
+			<class>OnDemandStatsProducer</class>
+            <values>
+			<value name="Req" type="long">0</value>
+			<value name="Time" type="long">0</value>
+			<value name="CR" type="long">0</value>
+			<value name="MCR" type="long">0</value>
+			<value name="Min" type="long">NoR</value>
+			<value name="Max" type="long">NoR</value>
+			<value name="Avg" type="double">0.000</value>
+			<value name="Last" type="long">0</value>
+			<value name="Err" type="long">0</value>
+			<value name="ERate" type="double">0.000</value>
+			
+            </values>
+          </producer>
+		
+          <producer id="RegionService-1">
+            <category>springservice</category>
+			<subsystem>regionService</subsystem>
+			<class>OnDemandStatsProducer</class>
+            <values>
+			<value name="Req" type="long">540</value>
+			<value name="Time" type="long">96</value>
+			<value name="CR" type="long">0</value>
+			<value name="MCR" type="long">1</value>
+			<value name="Min" type="long">0</value>
+			<value name="Max" type="long">5</value>
+			<value name="Avg" type="double">0.178</value>
+			<value name="Last" type="long">0</value>
+			<value name="Err" type="long">0</value>
+			<value name="ERate" type="double">0.000</value>
+			
+            </values>
+          </producer>
+		
+          <producer id="RegionService-2">
+            <category>springservice</category>
+			<subsystem>user</subsystem>
+			<class>OnDemandStatsProducer</class>
+            <values>
+			<value name="Req" type="long">190</value>
+			<value name="Time" type="long">167</value>
+			<value name="CR" type="long">0</value>
+			<value name="MCR" type="long">1</value>
+			<value name="Min" type="long">0</value>
+			<value name="Max" type="long">33</value>
+			<value name="Avg" type="double">0.879</value>
+			<value name="Last" type="long">0</value>
+			<value name="Err" type="long">0</value>
+			<value name="ERate" type="double">0.000</value>
+			
+            </values>
+          </producer>
+		
+          <producer id="RegionService-3">
+            <category>springservice</category>
+			<subsystem>regionService</subsystem>
+			<class>OnDemandStatsProducer</class>
+            <values>
+			<value name="Req" type="long">1,346</value>
+			<value name="Time" type="long">482</value>
+			<value name="CR" type="long">0</value>
+			<value name="MCR" type="long">1</value>
+			<value name="Min" type="long">0</value>
+			<value name="Max" type="long">10</value>
+			<value name="Avg" type="double">0.358</value>
+			<value name="Last" type="long">0</value>
+			<value name="Err" type="long">0</value>
+			<value name="ERate" type="double">0.000</value>
+			
+            </values>
+          </producer>
+		
+          <producer id="RegistrationService-1">
+            <category>springservice</category>
+			<subsystem>registrationService</subsystem>
+			<class>OnDemandStatsProducer</class>
+            <values>
+			<value name="Req" type="long">0</value>
+			<value name="Time" type="long">0</value>
+			<value name="CR" type="long">0</value>
+			<value name="MCR" type="long">0</value>
+			<value name="Min" type="long">NoR</value>
+			<value name="Max" type="long">NoR</value>
+			<value name="Avg" type="double">0.000</value>
+			<value name="Last" type="long">0</value>
+			<value name="Err" type="long">0</value>
+			<value name="ERate" type="double">0.000</value>
+			
+            </values>
+          </producer>
+		
+          <producer id="RegistrationService-2">
+            <category>springservice</category>
+			<subsystem>mail</subsystem>
+			<class>OnDemandStatsProducer</class>
+            <values>
+			<value name="Req" type="long">0</value>
+			<value name="Time" type="long">0</value>
+			<value name="CR" type="long">0</value>
+			<value name="MCR" type="long">0</value>
+			<value name="Min" type="long">NoR</value>
+			<value name="Max" type="long">NoR</value>
+			<value name="Avg" type="double">0.000</value>
+			<value name="Last" type="long">0</value>
+			<value name="Err" type="long">0</value>
+			<value name="ERate" type="double">0.000</value>
+			
+            </values>
+          </producer>
+		
+          <producer id="RejectionService-1">
+            <category>springservice</category>
+			<subsystem>contacts</subsystem>
+			<class>OnDemandStatsProducer</class>
+            <values>
+			<value name="Req" type="long">77</value>
+			<value name="Time" type="long">2,267</value>
+			<value name="CR" type="long">0</value>
+			<value name="MCR" type="long">1</value>
+			<value name="Min" type="long">19</value>
+			<value name="Max" type="long">105</value>
+			<value name="Avg" type="double">29.442</value>
+			<value name="Last" type="long">31</value>
+			<value name="Err" type="long">0</value>
+			<value name="ERate" type="double">0.000</value>
+			
+            </values>
+          </producer>
+		
+          <producer id="SearchDAO-1">
+            <category>dao</category>
+			<subsystem>search</subsystem>
+			<class>OnDemandStatsProducer</class>
+            <values>
+			<value name="Req" type="long">0</value>
+			<value name="Time" type="long">0</value>
+			<value name="CR" type="long">0</value>
+			<value name="MCR" type="long">0</value>
+			<value name="Min" type="long">NoR</value>
+			<value name="Max" type="long">NoR</value>
+			<value name="Avg" type="double">0.000</value>
+			<value name="Last" type="long">0</value>
+			<value name="Err" type="long">0</value>
+			<value name="ERate" type="double">0.000</value>
+			
+            </values>
+          </producer>
+		
+          <producer id="SearchDAO-2">
+            <category>dao</category>
+			<subsystem>search</subsystem>
+			<class>OnDemandStatsProducer</class>
+            <values>
+			<value name="Req" type="long">37,796</value>
+			<value name="Time" type="long">56,617</value>
+			<value name="CR" type="long">0</value>
+			<value name="MCR" type="long">2</value>
+			<value name="Min" type="long">0</value>
+			<value name="Max" type="long">1,332</value>
+			<value name="Avg" type="double">1.498</value>
+			<value name="Last" type="long">0</value>
+			<value name="Err" type="long">8</value>
+			<value name="ERate" type="double">0.020</value>
+			
+            </values>
+          </producer>
+		
+          <producer id="SettingsConfigurationService-1">
+            <category>service</category>
+			<subsystem>SettingsConfigurationService</subsystem>
+			<class>OnDemandStatsProducer</class>
+            <values>
+			<value name="Req" type="long">96,141</value>
+			<value name="Time" type="long">14,414</value>
+			<value name="CR" type="long">0</value>
+			<value name="MCR" type="long">2</value>
+			<value name="Min" type="long">0</value>
+			<value name="Max" type="long">1</value>
+			<value name="Avg" type="double">0.150</value>
+			<value name="Last" type="long">0</value>
+			<value name="Err" type="long">0</value>
+			<value name="ERate" type="double">0.000</value>
+			
+            </values>
+          </producer>
+		
+          <producer id="StatusAPI">
+            <category>api</category>
+			<subsystem>default</subsystem>
+			<class>OnDemandStatsProducer</class>
+            <values>
+			<value name="Req" type="long">35,055</value>
+			<value name="Time" type="long">2,973,344</value>
+			<value name="CR" type="long">0</value>
+			<value name="MCR" type="long">9</value>
+			<value name="Min" type="long">0</value>
+			<value name="Max" type="long">2,000</value>
+			<value name="Avg" type="double">84.819</value>
+			<value name="Last" type="long">56</value>
+			<value name="Err" type="long">37</value>
+			<value name="ERate" type="double">0.100</value>
+			
+            </values>
+          </producer>
+		
+          <producer id="UserAPI">
+            <category>api</category>
+			<subsystem>default</subsystem>
+			<class>OnDemandStatsProducer</class>
+            <values>
+			<value name="Req" type="long">143,550</value>
+			<value name="Time" type="long">903,462</value>
+			<value name="CR" type="long">1</value>
+			<value name="MCR" type="long">4</value>
+			<value name="Min" type="long">0</value>
+			<value name="Max" type="long">2,972</value>
+			<value name="Avg" type="double">6.293</value>
+			<value name="Last" type="long">0</value>
+			<value name="Err" type="long">171</value>
+			<value name="ERate" type="double">0.110</value>
+			
+            </values>
+          </producer>
+		
+          <producer id="UserDAO-1">
+            <category>dao</category>
+			<subsystem>user</subsystem>
+			<class>OnDemandStatsProducer</class>
+            <values>
+			<value name="Req" type="long">0</value>
+			<value name="Time" type="long">0</value>
+			<value name="CR" type="long">0</value>
+			<value name="MCR" type="long">0</value>
+			<value name="Min" type="long">NoR</value>
+			<value name="Max" type="long">NoR</value>
+			<value name="Avg" type="double">0.000</value>
+			<value name="Last" type="long">0</value>
+			<value name="Err" type="long">0</value>
+			<value name="ERate" type="double">0.000</value>
+			
+            </values>
+          </producer>
+		
+          <producer id="UserDAO-2">
+            <category>dao</category>
+			<subsystem>user</subsystem>
+			<class>OnDemandStatsProducer</class>
+            <values>
+			<value name="Req" type="long">0</value>
+			<value name="Time" type="long">0</value>
+			<value name="CR" type="long">0</value>
+			<value name="MCR" type="long">0</value>
+			<value name="Min" type="long">NoR</value>
+			<value name="Max" type="long">NoR</value>
+			<value name="Avg" type="double">0.000</value>
+			<value name="Last" type="long">0</value>
+			<value name="Err" type="long">0</value>
+			<value name="ERate" type="double">0.000</value>
+			
+            </values>
+          </producer>
+		
+          <producer id="UserDAO-3">
+            <category>dao</category>
+			<subsystem>user</subsystem>
+			<class>OnDemandStatsProducer</class>
+            <values>
+			<value name="Req" type="long">749,621</value>
+			<value name="Time" type="long">428,410</value>
+			<value name="CR" type="long">0</value>
+			<value name="MCR" type="long">3</value>
+			<value name="Min" type="long">0</value>
+			<value name="Max" type="long">1,845</value>
+			<value name="Avg" type="double">0.572</value>
+			<value name="Last" type="long">2</value>
+			<value name="Err" type="long">0</value>
+			<value name="ERate" type="double">0.000</value>
+			
+            </values>
+          </producer>
+		
+          <producer id="UserRightDAO-1">
+            <category>dao</category>
+			<subsystem>user</subsystem>
+			<class>OnDemandStatsProducer</class>
+            <values>
+			<value name="Req" type="long">0</value>
+			<value name="Time" type="long">0</value>
+			<value name="CR" type="long">0</value>
+			<value name="MCR" type="long">0</value>
+			<value name="Min" type="long">NoR</value>
+			<value name="Max" type="long">NoR</value>
+			<value name="Avg" type="double">0.000</value>
+			<value name="Last" type="long">0</value>
+			<value name="Err" type="long">0</value>
+			<value name="ERate" type="double">0.000</value>
+			
+            </values>
+          </producer>
+		
+          <producer id="UserRightDAO-2">
+            <category>dao</category>
+			<subsystem>user</subsystem>
+			<class>OnDemandStatsProducer</class>
+            <values>
+			<value name="Req" type="long">0</value>
+			<value name="Time" type="long">0</value>
+			<value name="CR" type="long">0</value>
+			<value name="MCR" type="long">0</value>
+			<value name="Min" type="long">NoR</value>
+			<value name="Max" type="long">NoR</value>
+			<value name="Avg" type="double">0.000</value>
+			<value name="Last" type="long">0</value>
+			<value name="Err" type="long">0</value>
+			<value name="ERate" type="double">0.000</value>
+			
+            </values>
+          </producer>
+		
+          <producer id="UserTrackingService-1">
+            <category>springservice</category>
+			<subsystem>userTracking</subsystem>
+			<class>OnDemandStatsProducer</class>
+            <values>
+			<value name="Req" type="long">0</value>
+			<value name="Time" type="long">0</value>
+			<value name="CR" type="long">0</value>
+			<value name="MCR" type="long">0</value>
+			<value name="Min" type="long">NoR</value>
+			<value name="Max" type="long">NoR</value>
+			<value name="Avg" type="double">0.000</value>
+			<value name="Last" type="long">0</value>
+			<value name="Err" type="long">0</value>
+			<value name="ERate" type="double">0.000</value>
+			
+            </values>
+          </producer>
+		
+          <producer id="VisitorsAPI">
+            <category>api</category>
+			<subsystem>default</subsystem>
+			<class>OnDemandStatsProducer</class>
+            <values>
+			<value name="Req" type="long">2,900</value>
+			<value name="Time" type="long">165,188</value>
+			<value name="CR" type="long">0</value>
+			<value name="MCR" type="long">2</value>
+			<value name="Min" type="long">0</value>
+			<value name="Max" type="long">1,793</value>
+			<value name="Avg" type="double">56.960</value>
+			<value name="Last" type="long">33</value>
+			<value name="Err" type="long">0</value>
+			<value name="ERate" type="double">0.000</value>
+			
+            </values>
+          </producer>
+		      
+    </decorator>
+  
+    <decorator name="Cache">
+          <producer id="userao">
+            <category>cache</category>
+			<subsystem>default</subsystem>
+			<class>RoundRobinSoftReferenceCache</class>
+            <values>
+			<value name="Req" type="long">147,988</value>
+			<value name="Hit" type="long">137,119</value>
+			<value name="HR" type="double">0.927</value>
+			<value name="WR" type="long">13,202</value>
+			<value name="GC" type="long">0</value>
+			<value name="RO" type="long">0</value>
+			<value name="EX" type="long">2,459</value>
+			<value name="FI" type="long">0</value>
+			<value name="FR" type="double">0.000</value>
+			
+            </values>
+          </producer>
+		      
+    </decorator>
+  
+    <decorator name="Filter">
+          <producer id="maffilter">
+            <category>filter</category>
+			<subsystem>maf</subsystem>
+			<class>ExtAPIFilter</class>
+            <values>
+			<value name="Req" type="long">35,498</value>
+			<value name="Time" type="long">8,221,180</value>
+			<value name="CR" type="long">2</value>
+			<value name="MCR" type="long">10</value>
+			<value name="Min" type="long">0</value>
+			<value name="Max" type="long">14,722</value>
+			<value name="Avg" type="double">231.596</value>
+			<value name="Last" type="long">61</value>
+			<value name="Err" type="long">0</value>
+			<value name="IOE" type="double">1.340</value>
+			<value name="SEE" type="long">0</value>
+			<value name="RTE" type="long">479</value>
+			<value name="ERate" type="long">0</value>
+			
+            </values>
+          </producer>
+		
+          <producer id="moskitoUI">
+            <category>filter</category>
+			<subsystem>monitoring</subsystem>
+			<class>MoskitoUIFilter</class>
+            <values>
+			<value name="Req" type="long">48</value>
+			<value name="Time" type="long">4,924</value>
+			<value name="CR" type="long">1</value>
+			<value name="MCR" type="long">1</value>
+			<value name="Min" type="long">1</value>
+			<value name="Max" type="long">2,416</value>
+			<value name="Avg" type="double">102.582</value>
+			<value name="Last" type="long">12</value>
+			<value name="Err" type="long">0</value>
+			<value name="IOE" type="double">0.000</value>
+			<value name="SEE" type="long">0</value>
+			<value name="RTE" type="long">0</value>
+			<value name="ERate" type="long">0</value>
+			
+            </values>
+          </producer>
+		
+          <producer id="RequestURIFilter">
+            <category>filter</category>
+			<subsystem>default</subsystem>
+			<class>EntryCountLimitedOnDemandStatsProducer</class>
+            <values>
+			<value name="Req" type="long">35,784</value>
+			<value name="Time" type="long">8,784,389</value>
+			<value name="CR" type="long">2</value>
+			<value name="MCR" type="long">10</value>
+			<value name="Min" type="long">0</value>
+			<value name="Max" type="long">230,426</value>
+			<value name="Avg" type="double">245.484</value>
+			<value name="Last" type="long">65</value>
+			<value name="Err" type="long">0</value>
+			<value name="IOE" type="double">0.000</value>
+			<value name="SEE" type="long">0</value>
+			<value name="RTE" type="long">0</value>
+			<value name="ERate" type="long">0</value>
+			
+            </values>
+          </producer>
+		      
+    </decorator>
+  
+    <decorator name="Memory">
+          <producer id="JavaRuntimeFree">
+            <category>memory</category>
+			<subsystem>builtin</subsystem>
+			<class>BuiltInMemoryProducer</class>
+            <values>
+			<value name="Current" type="long">5,839,322,104</value>
+			<value name="Min" type="long">0</value>
+			<value name="Max" type="long">8,488,861,608</value>
+			<value name="Current Mb" type="long">5,568</value>
+			<value name="Min Mb" type="long">0</value>
+			<value name="Max Mb" type="long">8,095</value>
+			
+            </values>
+          </producer>
+		
+          <producer id="JavaRuntimeMax">
+            <category>memory</category>
+			<subsystem>builtin</subsystem>
+			<class>BuiltInMemoryProducer</class>
+            <values>
+			<value name="Current" type="long">10,619,846,656</value>
+			<value name="Min" type="long">0</value>
+			<value name="Max" type="long">10,619,846,656</value>
+			<value name="Current Mb" type="long">10,127</value>
+			<value name="Min Mb" type="long">0</value>
+			<value name="Max Mb" type="long">10,127</value>
+			
+            </values>
+          </producer>
+		
+          <producer id="JavaRuntimeTotal">
+            <category>memory</category>
+			<subsystem>builtin</subsystem>
+			<class>BuiltInMemoryProducer</class>
+            <values>
+			<value name="Current" type="long">10,619,846,656</value>
+			<value name="Min" type="long">0</value>
+			<value name="Max" type="long">10,619,846,656</value>
+			<value name="Current Mb" type="long">10,127</value>
+			<value name="Min Mb" type="long">0</value>
+			<value name="Max Mb" type="long">10,127</value>
+			
+            </values>
+          </producer>
+		      
+    </decorator>
+  
+    <decorator name="MemoryPool">
+          <producer id="MemoryPool-Code Cache-NonHeap">
+            <category>memory</category>
+			<subsystem>builtin</subsystem>
+			<class>BuiltInMemoryPoolProducer</class>
+            <values>
+			<value name="Free" type="long">260,672</value>
+			<value name="Free MB" type="long">0</value>
+			<value name="Init" type="long">50,331,648</value>
+			<value name="Init MB" type="long">48</value>
+			<value name="Min Used" type="long">5,814,080</value>
+			<value name="Min Used MB" type="long">5</value>
+			<value name="Used" type="long">21,431,744</value>
+			<value name="Used MB" type="long">20</value>
+			<value name="Max Used" type="long">21,431,744</value>
+			<value name="Max Used MB" type="long">20</value>
+			<value name="Min Commited" type="long">6,488,064</value>
+			<value name="Min Commited MB" type="long">6</value>
+			<value name="Commited" type="long">21,692,416</value>
+			<value name="Commited MB" type="long">20</value>
+			<value name="Max Commited" type="long">21,692,416</value>
+			<value name="Max Commited MB" type="long">20</value>
+			<value name="Max" type="long">0</value>
+			<value name="Max MB" type="long">0</value>
+			
+            </values>
+          </producer>
+		
+          <producer id="MemoryPool-PS Eden Space-Heap">
+            <category>memory</category>
+			<subsystem>builtin</subsystem>
+			<class>BuiltInMemoryPoolProducer</class>
+            <values>
+			<value name="Free" type="long">2,537,259,144</value>
+			<value name="Free MB" type="long">2,419</value>
+			<value name="Init" type="long">3,428,515,840</value>
+			<value name="Init MB" type="long">3,269</value>
+			<value name="Min Used" type="long">19,996,504</value>
+			<value name="Min Used MB" type="long">19</value>
+			<value name="Used" type="long">890,601,336</value>
+			<value name="Used MB" type="long">849</value>
+			<value name="Max Used" type="long">3,426,807,064</value>
+			<value name="Max Used MB" type="long">3,268</value>
+			<value name="Min Commited" type="long">1,650,262,016</value>
+			<value name="Min Commited MB" type="long">1,573</value>
+			<value name="Commited" type="long">3,427,860,480</value>
+			<value name="Commited MB" type="long">3,269</value>
+			<value name="Max Commited" type="long">3,427,860,480</value>
+			<value name="Max Commited MB" type="long">3,269</value>
+			<value name="Max" type="long">0</value>
+			<value name="Max MB" type="long">0</value>
+			
+            </values>
+          </producer>
+		
+          <producer id="MemoryPool-PS Old Gen-Heap">
+            <category>memory</category>
+			<subsystem>builtin</subsystem>
+			<class>BuiltInMemoryPoolProducer</class>
+            <values>
+			<value name="Free" type="long">3,278,503,648</value>
+			<value name="Free MB" type="long">3,126</value>
+			<value name="Init" type="long">7,124,746,240</value>
+			<value name="Init MB" type="long">6,794</value>
+			<value name="Min Used" type="long">0</value>
+			<value name="Min Used MB" type="long">0</value>
+			<value name="Used" type="long">3,846,242,592</value>
+			<value name="Used MB" type="long">3,668</value>
+			<value name="Max Used" type="long">3,846,242,592</value>
+			<value name="Max Used MB" type="long">3,668</value>
+			<value name="Min Commited" type="long">2,147,483,647</value>
+			<value name="Min Commited MB" type="long">2,047</value>
+			<value name="Commited" type="long">7,124,746,240</value>
+			<value name="Commited MB" type="long">6,794</value>
+			<value name="Max Commited" type="long">7,124,746,240</value>
+			<value name="Max Commited MB" type="long">6,794</value>
+			<value name="Max" type="long">0</value>
+			<value name="Max MB" type="long">0</value>
+			
+            </values>
+          </producer>
+		
+          <producer id="MemoryPool-PS Perm Gen-NonHeap">
+            <category>memory</category>
+			<subsystem>builtin</subsystem>
+			<class>BuiltInMemoryPoolProducer</class>
+            <values>
+			<value name="Free" type="long">170,968</value>
+			<value name="Free MB" type="long">0</value>
+			<value name="Init" type="long">536,870,912</value>
+			<value name="Init MB" type="long">512</value>
+			<value name="Min Used" type="long">48,166,592</value>
+			<value name="Min Used MB" type="long">45</value>
+			<value name="Used" type="long">339,633,192</value>
+			<value name="Used MB" type="long">323</value>
+			<value name="Max Used" type="long">339,633,192</value>
+			<value name="Max Used MB" type="long">323</value>
+			<value name="Min Commited" type="long">268,435,456</value>
+			<value name="Min Commited MB" type="long">256</value>
+			<value name="Commited" type="long">339,804,160</value>
+			<value name="Commited MB" type="long">324</value>
+			<value name="Max Commited" type="long">339,804,160</value>
+			<value name="Max Commited MB" type="long">324</value>
+			<value name="Max" type="long">0</value>
+			<value name="Max MB" type="long">0</value>
+			
+            </values>
+          </producer>
+		
+          <producer id="MemoryPool-PS Survivor Space-Heap">
+            <category>memory</category>
+			<subsystem>builtin</subsystem>
+			<class>BuiltInMemoryPoolProducer</class>
+            <values>
+			<value name="Free" type="long">23,559,312</value>
+			<value name="Free MB" type="long">22</value>
+			<value name="Init" type="long">67,239,936</value>
+			<value name="Init MB" type="long">64</value>
+			<value name="Min Used" type="long">0</value>
+			<value name="Min Used MB" type="long">0</value>
+			<value name="Used" type="long">43,680,624</value>
+			<value name="Used MB" type="long">41</value>
+			<value name="Max Used" type="long">503,201,608</value>
+			<value name="Max Used MB" type="long">479</value>
+			<value name="Min Commited" type="long">25,362,432</value>
+			<value name="Min Commited MB" type="long">24</value>
+			<value name="Commited" type="long">67,239,936</value>
+			<value name="Commited MB" type="long">64</value>
+			<value name="Max Commited" type="long">956,039,168</value>
+			<value name="Max Commited MB" type="long">911</value>
+			<value name="Max" type="long">0</value>
+			<value name="Max MB" type="long">0</value>
+			
+            </values>
+          </producer>
+		      
+    </decorator>
+  
+    <decorator name="VirtualMemoryPool">
+          <producer id="Heap memory">
+            <category>memory</category>
+			<subsystem>builtin</subsystem>
+			<class>BuiltInMemoryPoolVirtualProducer</class>
+            <values>
+			<value name="Free" type="long">5,839,322,104</value>
+			<value name="Free MB" type="long">5,568</value>
+			<value name="Init" type="long">10,620,502,016</value>
+			<value name="Init MB" type="long">10,128</value>
+			<value name="Min Used" type="long">19,996,504</value>
+			<value name="Min Used MB" type="long">19</value>
+			<value name="Used" type="long">4,780,524,552</value>
+			<value name="Used MB" type="long">4,559</value>
+			<value name="Max Used" type="long">7,776,251,264</value>
+			<value name="Max Used MB" type="long">7,416</value>
+			<value name="Min Commited" type="long">3,823,108,095</value>
+			<value name="Min Commited MB" type="long">3,645</value>
+			<value name="Commited" type="long">10,619,846,656</value>
+			<value name="Commited MB" type="long">10,127</value>
+			<value name="Max Commited" type="long">11,508,645,888</value>
+			<value name="Max Commited MB" type="long">10,975</value>
+			<value name="Max" type="long">0</value>
+			<value name="Max MB" type="long">0</value>
+			
+            </values>
+          </producer>
+		
+          <producer id="Non-heap memory">
+            <category>memory</category>
+			<subsystem>builtin</subsystem>
+			<class>BuiltInMemoryPoolVirtualProducer</class>
+            <values>
+			<value name="Free" type="long">431,640</value>
+			<value name="Free MB" type="long">0</value>
+			<value name="Init" type="long">587,202,560</value>
+			<value name="Init MB" type="long">560</value>
+			<value name="Min Used" type="long">53,980,672</value>
+			<value name="Min Used MB" type="long">51</value>
+			<value name="Used" type="long">361,064,936</value>
+			<value name="Used MB" type="long">344</value>
+			<value name="Max Used" type="long">361,064,936</value>
+			<value name="Max Used MB" type="long">344</value>
+			<value name="Min Commited" type="long">274,923,520</value>
+			<value name="Min Commited MB" type="long">262</value>
+			<value name="Commited" type="long">361,496,576</value>
+			<value name="Commited MB" type="long">344</value>
+			<value name="Max Commited" type="long">361,496,576</value>
+			<value name="Max Commited MB" type="long">344</value>
+			<value name="Max" type="long">0</value>
+			<value name="Max MB" type="long">0</value>
+			
+            </values>
+          </producer>
+		      
+    </decorator>
+  
+    <decorator name="Storage">
+          <producer id="mf-aliases-4">
+            <category>storage</category>
+			<subsystem>default</subsystem>
+			<class>Storage</class>
+            <values>
+			<value name="Get" type="long">2</value>
+			<value name="mGet" type="long">1</value>
+			<value name="mGet_R" type="double">0.500</value>
+			<value name="hGet_R" type="double">0.500</value>
+			<value name="Put" type="long">2</value>
+			<value name="owPut" type="long">0</value>
+			<value name="owPut_R" type="double">0.000</value>
+			<value name="newPut_R" type="double">1.000</value>
+			<value name="Rem" type="long">0</value>
+			<value name="no_Rem" type="long">0</value>
+			<value name="no_Rem_R" type="double">0.000</value>
+			<value name="Put/Get_R" type="double">1.000</value>
+			<value name="Put/Rem_R" type="double">2147483647.fin</value>
+			<value name="Size" type="long">2</value>
+			<value name="cKeyC" type="long">0</value>
+			<value name="cKeyH" type="long">0</value>
+			<value name="cKeyHR" type="double">0.000</value>
+			<value name="cValC" type="long">0</value>
+			<value name="cValH" type="long">0</value>
+			<value name="cValHR" type="double">0.000</value>
+			
+            </values>
+          </producer>
+		
+          <producer id="mf-factories-3">
+            <category>storage</category>
+			<subsystem>default</subsystem>
+			<class>Storage</class>
+            <values>
+			<value name="Get" type="long">2</value>
+			<value name="mGet" type="long">2</value>
+			<value name="mGet_R" type="double">1.000</value>
+			<value name="hGet_R" type="double">0.000</value>
+			<value name="Put" type="long">1</value>
+			<value name="owPut" type="long">0</value>
+			<value name="owPut_R" type="double">0.000</value>
+			<value name="newPut_R" type="double">1.000</value>
+			<value name="Rem" type="long">0</value>
+			<value name="no_Rem" type="long">0</value>
+			<value name="no_Rem_R" type="double">0.000</value>
+			<value name="Put/Get_R" type="double">0.500</value>
+			<value name="Put/Rem_R" type="double">2147483647.fin</value>
+			<value name="Size" type="long">1</value>
+			<value name="cKeyC" type="long">0</value>
+			<value name="cKeyH" type="long">0</value>
+			<value name="cKeyHR" type="double">0.000</value>
+			<value name="cValC" type="long">0</value>
+			<value name="cValH" type="long">0</value>
+			<value name="cValHR" type="double">0.000</value>
+			
+            </values>
+          </producer>
+		
+          <producer id="mf-factoryClasses-2">
+            <category>storage</category>
+			<subsystem>default</subsystem>
+			<class>Storage</class>
+            <values>
+			<value name="Get" type="long">1</value>
+			<value name="mGet" type="long">0</value>
+			<value name="mGet_R" type="double">0.000</value>
+			<value name="hGet_R" type="double">1.000</value>
+			<value name="Put" type="long">3</value>
+			<value name="owPut" type="long">0</value>
+			<value name="owPut_R" type="double">0.000</value>
+			<value name="newPut_R" type="double">1.000</value>
+			<value name="Rem" type="long">0</value>
+			<value name="no_Rem" type="long">0</value>
+			<value name="no_Rem_R" type="double">0.000</value>
+			<value name="Put/Get_R" type="double">3.000</value>
+			<value name="Put/Rem_R" type="double">2147483647.fin</value>
+			<value name="Size" type="long">3</value>
+			<value name="cKeyC" type="long">0</value>
+			<value name="cKeyH" type="long">0</value>
+			<value name="cKeyHR" type="double">0.000</value>
+			<value name="cValC" type="long">0</value>
+			<value name="cValH" type="long">0</value>
+			<value name="cValHR" type="double">0.000</value>
+			
+            </values>
+          </producer>
+		
+          <producer id="mf-instances-5">
+            <category>storage</category>
+			<subsystem>default</subsystem>
+			<class>Storage</class>
+            <values>
+			<value name="Get" type="long">2</value>
+			<value name="mGet" type="long">2</value>
+			<value name="mGet_R" type="double">1.000</value>
+			<value name="hGet_R" type="double">0.000</value>
+			<value name="Put" type="long">1</value>
+			<value name="owPut" type="long">0</value>
+			<value name="owPut_R" type="double">0.000</value>
+			<value name="newPut_R" type="double">1.000</value>
+			<value name="Rem" type="long">0</value>
+			<value name="no_Rem" type="long">0</value>
+			<value name="no_Rem_R" type="double">0.000</value>
+			<value name="Put/Get_R" type="double">0.500</value>
+			<value name="Put/Rem_R" type="double">2147483647.fin</value>
+			<value name="Size" type="long">1</value>
+			<value name="cKeyC" type="long">0</value>
+			<value name="cKeyH" type="long">0</value>
+			<value name="cKeyHR" type="double">0.000</value>
+			<value name="cValC" type="long">0</value>
+			<value name="cValH" type="long">0</value>
+			<value name="cValHR" type="double">0.000</value>
+			
+            </values>
+          </producer>
+		
+          <producer id="session-refIds-7">
+            <category>storage</category>
+			<subsystem>default</subsystem>
+			<class>Storage</class>
+            <values>
+			<value name="Get" type="long">1,833</value>
+			<value name="mGet" type="long">1,833</value>
+			<value name="mGet_R" type="double">1.000</value>
+			<value name="hGet_R" type="double">0.000</value>
+			<value name="Put" type="long">2,096</value>
+			<value name="owPut" type="long">0</value>
+			<value name="owPut_R" type="double">0.000</value>
+			<value name="newPut_R" type="double">1.000</value>
+			<value name="Rem" type="long">2,056</value>
+			<value name="no_Rem" type="long">0</value>
+			<value name="no_Rem_R" type="double">0.000</value>
+			<value name="Put/Get_R" type="double">1.143</value>
+			<value name="Put/Rem_R" type="double">1.018</value>
+			<value name="Size" type="long">40</value>
+			<value name="cKeyC" type="long">0</value>
+			<value name="cKeyH" type="long">0</value>
+			<value name="cKeyHR" type="double">0.000</value>
+			<value name="cValC" type="long">0</value>
+			<value name="cValH" type="long">0</value>
+			<value name="cValHR" type="double">0.000</value>
+			
+            </values>
+          </producer>
+		
+          <producer id="sessions-6">
+            <category>storage</category>
+			<subsystem>default</subsystem>
+			<class>Storage</class>
+            <values>
+			<value name="Get" type="long">96,548</value>
+			<value name="mGet" type="long">58</value>
+			<value name="mGet_R" type="double">0.0010</value>
+			<value name="hGet_R" type="double">0.999</value>
+			<value name="Put" type="long">2,096</value>
+			<value name="owPut" type="long">0</value>
+			<value name="owPut_R" type="double">0.000</value>
+			<value name="newPut_R" type="double">1.000</value>
+			<value name="Rem" type="long">2,056</value>
+			<value name="no_Rem" type="long">0</value>
+			<value name="no_Rem_R" type="double">0.000</value>
+			<value name="Put/Get_R" type="double">0.022</value>
+			<value name="Put/Rem_R" type="double">1.018</value>
+			<value name="Size" type="long">40</value>
+			<value name="cKeyC" type="long">0</value>
+			<value name="cKeyH" type="long">0</value>
+			<value name="cKeyHR" type="double">0.000</value>
+			<value name="cValC" type="long">0</value>
+			<value name="cValH" type="long">0</value>
+			<value name="cValHR" type="double">0.000</value>
+			
+            </values>
+          </producer>
+		
+          <producer id="subjects-1">
+            <category>storage</category>
+			<subsystem>default</subsystem>
+			<class>Storage</class>
+            <values>
+			<value name="Get" type="long">3,944</value>
+			<value name="mGet" type="long">3,906</value>
+			<value name="mGet_R" type="double">0.990</value>
+			<value name="hGet_R" type="double">0.010</value>
+			<value name="Put" type="long">4</value>
+			<value name="owPut" type="long">0</value>
+			<value name="owPut_R" type="double">0.000</value>
+			<value name="newPut_R" type="double">1.000</value>
+			<value name="Rem" type="long">0</value>
+			<value name="no_Rem" type="long">0</value>
+			<value name="no_Rem_R" type="double">0.000</value>
+			<value name="Put/Get_R" type="double">0.0010</value>
+			<value name="Put/Rem_R" type="double">2147483647.fin</value>
+			<value name="Size" type="long">4</value>
+			<value name="cKeyC" type="long">0</value>
+			<value name="cKeyH" type="long">0</value>
+			<value name="cKeyHR" type="double">0.000</value>
+			<value name="cValC" type="long">0</value>
+			<value name="cValH" type="long">0</value>
+			<value name="cValHR" type="double">0.000</value>
+			
+            </values>
+          </producer>
+		      
+    </decorator>
+  
+  <chartdata>
+	
+	<chart name="Min Used" id="MemoryPool_vMinUsed">
+		
+			<value name="MemoryPool-Code Cache-NonHeap">5814080</value>
+		
+			<value name="MemoryPool-PS Old Gen-Heap">0</value>
+		
+			<value name="MemoryPool-PS Eden Space-Heap">19996504</value>
+		
+			<value name="MemoryPool-PS Perm Gen-NonHeap">48166592</value>
+		
+			<value name="MemoryPool-PS Survivor Space-Heap">0</value>
+			
+	</chart>	
+	
+	<chart name="Err" id="Service_vErr">
+		
+			<value name="OwnerService-1">0</value>
+		
+			<value name="QuestionnaireAPI">0</value>
+		
+			<value name="DoubleOptInService-1">0</value>
+		
+			<value name="UserDAO-3">0</value>
+		
+			<value name="PersonalityDAO-4">0</value>
+		
+			<value name="ProfileService-2">0</value>
+		
+			<value name="QuestionnaireDAO-1">3</value>
+		
+			<value name="MessagesService-1">0</value>
+		
+			<value name="RegionService-1">0</value>
+		
+			<value name="ExtapiSettingsAPI">0</value>
+		
+			<value name="MailService-1">0</value>
+		
+			<value name="ContactsService-2">0</value>
+		
+			<value name="DoubleOptInService-2">0</value>
+		
+			<value name="PersonalityDAO-1">0</value>
+		
+			<value name="ImageReleaseService-1">0</value>
+		
+			<value name="ProfileService-3">0</value>
+		
+			<value name="ImageAPI">0</value>
+		
+			<value name="LoginService-2">0</value>
+		
+			<value name="InfrastructureAPI">0</value>
+		
+			<value name="OwnerService-2">0</value>
+		
+			<value name="LoginAPI">0</value>
+		
+			<value name="RegionService-3">0</value>
+		
+			<value name="VisitorsAPI">0</value>
+		
+			<value name="SearchDAO-2">8</value>
+		
+			<value name="ForeignUserAPI">0</value>
+		
+			<value name="ProductAPI">0</value>
+		
+			<value name="PhotoAPI">0</value>
+		
+			<value name="ProfileService-4">0</value>
+		
+			<value name="MatchingService-5">0</value>
+		
+			<value name="PersonalityDAO-2">0</value>
+		
+			<value name="PaymentService-2">0</value>
+		
+			<value name="ProfileService-7">0</value>
+		
+			<value name="SearchDAO-1">0</value>
+		
+			<value name="UserDAO-1">0</value>
+		
+			<value name="MatchingDAO-1">0</value>
+		
+			<value name="PaymentAPI">0</value>
+		
+			<value name="ProfileService-5">0</value>
+		
+			<value name="RejectionService-1">0</value>
+		
+			<value name="PartnerAPI">0</value>
+		
+			<value name="QuestionnaireDAO-2">0</value>
+		
+			<value name="ImageReleaseService-2">0</value>
+		
+			<value name="UserDAO-2">0</value>
+		
+			<value name="BlockedIpFilter-1">0</value>
+		
+			<value name="ProfileService-8">0</value>
+		
+			<value name="CommonSearchService-1">0</value>
+		
+			<value name="ContactsAPI">1</value>
+		
+			<value name="UserRightDAO-1">0</value>
+		
+			<value name="FavoriteDAO-1">0</value>
+		
+			<value name="ContactsService-1">0</value>
+		
+			<value name="PermissionAPI">0</value>
+		
+			<value name="PartnerSuggestionAPI">11</value>
+		
+			<value name="MatchingService-3">11</value>
+		
+			<value name="PartnerSelectionService-2">0</value>
+		
+			<value name="RegionService-2">0</value>
+		
+			<value name="UserRightDAO-2">0</value>
+		
+			<value name="PaymentService-1">0</value>
+		
+			<value name="GayParshipStatisticsService-1">0</value>
+		
+			<value name="MatchingService-4">1</value>
+		
+			<value name="SettingsConfigurationService-1">0</value>
+		
+			<value name="ProfileSearchService-1">0</value>
+		
+			<value name="ObservationAPI">0</value>
+		
+			<value name="QuestionnaireService-2">0</value>
+		
+			<value name="ProfileService-6">0</value>
+		
+			<value name="ParshipLoginAPI">0</value>
+		
+			<value name="ExternalAPISystemAPI">0</value>
+		
+			<value name="MatchingService-1">0</value>
+		
+			<value name="ImageService-1">0</value>
+		
+			<value name="NotificationAPI">0</value>
+		
+			<value name="DistanceService-1">0</value>
+		
+			<value name="PartnerSelectionService-1">0</value>
+		
+			<value name="StatusAPI">37</value>
+		
+			<value name="PersonalityDAO-3">0</value>
+		
+			<value name="AccountManagementAPI">0</value>
+		
+			<value name="PersonalityProfileService-1">3</value>
+		
+			<value name="RegistrationService-2">0</value>
+		
+			<value name="UserTrackingService-1">0</value>
+		
+			<value name="MessageAPI">68</value>
+		
+			<value name="QuestionnaireService-1">0</value>
+		
+			<value name="MatchingService-2">0</value>
+		
+			<value name="LoginService-1">0</value>
+		
+			<value name="GeographicAPI">0</value>
+		
+			<value name="UserAPI">171</value>
+		
+			<value name="RegistrationService-1">0</value>
+		
+			<value name="ProfileAPI">4</value>
+		
+			<value name="ProfileService-1">0</value>
+		
+			<value name="PersonalityAPI">0</value>
+			
+	</chart>	
+	
+	<chart name="WR" id="Cache_vWR">
+		
+			<value name="userao">13202</value>
+			
+	</chart>	
+	
+	<chart name="Init MB" id="MemoryPool_vInitMB">
+		
+			<value name="MemoryPool-Code Cache-NonHeap">48</value>
+		
+			<value name="MemoryPool-PS Old Gen-Heap">6794</value>
+		
+			<value name="MemoryPool-PS Eden Space-Heap">3269</value>
+		
+			<value name="MemoryPool-PS Perm Gen-NonHeap">512</value>
+		
+			<value name="MemoryPool-PS Survivor Space-Heap">64</value>
+			
+	</chart>	
+	
+	<chart name="Max MB" id="VirtualMemoryPool_vMaxMB">
+		
+			<value name="Heap memory">0</value>
+		
+			<value name="Non-heap memory">0</value>
+			
+	</chart>	
+	
+	<chart name="mGet" id="Storage_vmGet">
+		
+			<value name="mf-factories-3">2</value>
+		
+			<value name="sessions-6">58</value>
+		
+			<value name="mf-factoryClasses-2">0</value>
+		
+			<value name="subjects-1">3906</value>
+		
+			<value name="mf-aliases-4">1</value>
+		
+			<value name="mf-instances-5">2</value>
+		
+			<value name="session-refIds-7">1833</value>
+			
+	</chart>	
+	
+	<chart name="cKeyC" id="Storage_vcKeyC">
+		
+			<value name="mf-factories-3">0</value>
+		
+			<value name="sessions-6">0</value>
+		
+			<value name="mf-factoryClasses-2">0</value>
+		
+			<value name="subjects-1">0</value>
+		
+			<value name="mf-aliases-4">0</value>
+		
+			<value name="mf-instances-5">0</value>
+		
+			<value name="session-refIds-7">0</value>
+			
+	</chart>	
+	
+	<chart name="EX" id="Cache_vEX">
+		
+			<value name="userao">2459</value>
+			
+	</chart>	
+	
+	<chart name="Max Used MB" id="MemoryPool_vMaxUsedMB">
+		
+			<value name="MemoryPool-Code Cache-NonHeap">20</value>
+		
+			<value name="MemoryPool-PS Old Gen-Heap">3668</value>
+		
+			<value name="MemoryPool-PS Eden Space-Heap">3268</value>
+		
+			<value name="MemoryPool-PS Perm Gen-NonHeap">323</value>
+		
+			<value name="MemoryPool-PS Survivor Space-Heap">479</value>
+			
+	</chart>	
+	
+	<chart name="owPut_R" id="Storage_vowPut_R">
+		
+			<value name="mf-factories-3">0.0</value>
+		
+			<value name="sessions-6">0.0</value>
+		
+			<value name="mf-factoryClasses-2">0.0</value>
+		
+			<value name="subjects-1">0.0</value>
+		
+			<value name="mf-aliases-4">0.0</value>
+		
+			<value name="mf-instances-5">0.0</value>
+		
+			<value name="session-refIds-7">0.0</value>
+			
+	</chart>	
+	
+	<chart name="Current" id="ThreadCount_vCurrent">
+		
+			<value name="ThreadCount">75</value>
+			
+	</chart>	
+	
+	<chart name="CR" id="Filter_vCR">
+		
+			<value name="moskitoUI">1</value>
+		
+			<value name="moskitoUI">0</value>
+		
+			<value name="maffilter">2</value>
+		
+			<value name="maffilter">0</value>
+		
+			<value name="RequestURIFilter">2</value>
+		
+			<value name="RequestURIFilter">0</value>
+			
+	</chart>	
+	
+	<chart name="Min Cur" id="ThreadCount_vMinCur">
+		
+			<value name="ThreadCount">28</value>
+			
+	</chart>	
+	
+	<chart name="Min Commited MB" id="VirtualMemoryPool_vMinCommitedMB">
+		
+			<value name="Heap memory">3645</value>
+		
+			<value name="Non-heap memory">262</value>
+			
+	</chart>	
+	
+	<chart name="Current" id="Memory_vCurrent">
+		
+			<value name="JavaRuntimeTotal">10619846656</value>
+		
+			<value name="JavaRuntimeMax">10619846656</value>
+		
+			<value name="JavaRuntimeFree">5839322104</value>
+			
+	</chart>	
+	
+	<chart name="cKeyH" id="Storage_vcKeyH">
+		
+			<value name="mf-factories-3">0</value>
+		
+			<value name="sessions-6">0</value>
+		
+			<value name="mf-factoryClasses-2">0</value>
+		
+			<value name="subjects-1">0</value>
+		
+			<value name="mf-aliases-4">0</value>
+		
+			<value name="mf-instances-5">0</value>
+		
+			<value name="session-refIds-7">0</value>
+			
+	</chart>	
+	
+	<chart name="Min" id="Service_vMin">
+		
+			<value name="OwnerService-1">9223372036854775807</value>
+		
+			<value name="QuestionnaireAPI">0</value>
+		
+			<value name="DoubleOptInService-1">9223372036854775807</value>
+		
+			<value name="UserDAO-3">0</value>
+		
+			<value name="PersonalityDAO-4">9223372036854775807</value>
+		
+			<value name="ProfileService-2">9223372036854775807</value>
+		
+			<value name="QuestionnaireDAO-1">1</value>
+		
+			<value name="MessagesService-1">0</value>
+		
+			<value name="RegionService-1">0</value>
+		
+			<value name="ExtapiSettingsAPI">0</value>
+		
+			<value name="MailService-1">9223372036854775807</value>
+		
+			<value name="ContactsService-2">0</value>
+		
+			<value name="DoubleOptInService-2">9223372036854775807</value>
+		
+			<value name="PersonalityDAO-1">0</value>
+		
+			<value name="ImageReleaseService-1">1</value>
+		
+			<value name="ProfileService-3">0</value>
+		
+			<value name="ImageAPI">0</value>
+		
+			<value name="LoginService-2">9223372036854775807</value>
+		
+			<value name="InfrastructureAPI">0</value>
+		
+			<value name="OwnerService-2">9223372036854775807</value>
+		
+			<value name="LoginAPI">0</value>
+		
+			<value name="RegionService-3">0</value>
+		
+			<value name="VisitorsAPI">0</value>
+		
+			<value name="SearchDAO-2">0</value>
+		
+			<value name="ForeignUserAPI">0</value>
+		
+			<value name="ProductAPI">1</value>
+		
+			<value name="PhotoAPI">0</value>
+		
+			<value name="ProfileService-4">0</value>
+		
+			<value name="MatchingService-5">0</value>
+		
+			<value name="PersonalityDAO-2">0</value>
+		
+			<value name="PaymentService-2">9223372036854775807</value>
+		
+			<value name="ProfileService-7">9223372036854775807</value>
+		
+			<value name="SearchDAO-1">9223372036854775807</value>
+		
+			<value name="UserDAO-1">9223372036854775807</value>
+		
+			<value name="MatchingDAO-1">0</value>
+		
+			<value name="PaymentAPI">0</value>
+		
+			<value name="ProfileService-5">0</value>
+		
+			<value name="RejectionService-1">19</value>
+		
+			<value name="PartnerAPI">0</value>
+		
+			<value name="QuestionnaireDAO-2">9223372036854775807</value>
+		
+			<value name="ImageReleaseService-2">1</value>
+		
+			<value name="UserDAO-2">9223372036854775807</value>
+		
+			<value name="BlockedIpFilter-1">9223372036854775807</value>
+		
+			<value name="ProfileService-8">9223372036854775807</value>
+		
+			<value name="CommonSearchService-1">9223372036854775807</value>
+		
+			<value name="ContactsAPI">0</value>
+		
+			<value name="UserRightDAO-1">9223372036854775807</value>
+		
+			<value name="FavoriteDAO-1">0</value>
+		
+			<value name="ContactsService-1">0</value>
+		
+			<value name="PermissionAPI">0</value>
+		
+			<value name="PartnerSuggestionAPI">0</value>
+		
+			<value name="MatchingService-3">0</value>
+		
+			<value name="PartnerSelectionService-2">0</value>
+		
+			<value name="RegionService-2">0</value>
+		
+			<value name="UserRightDAO-2">9223372036854775807</value>
+		
+			<value name="PaymentService-1">9223372036854775807</value>
+		
+			<value name="GayParshipStatisticsService-1">9223372036854775807</value>
+		
+			<value name="MatchingService-4">0</value>
+		
+			<value name="SettingsConfigurationService-1">0</value>
+		
+			<value name="ProfileSearchService-1">0</value>
+		
+			<value name="ObservationAPI">0</value>
+		
+			<value name="QuestionnaireService-2">9223372036854775807</value>
+		
+			<value name="ProfileService-6">9223372036854775807</value>
+		
+			<value name="ParshipLoginAPI">0</value>
+		
+			<value name="ExternalAPISystemAPI">0</value>
+		
+			<value name="MatchingService-1">9223372036854775807</value>
+		
+			<value name="ImageService-1">0</value>
+		
+			<value name="NotificationAPI">2</value>
+		
+			<value name="DistanceService-1">9223372036854775807</value>
+		
+			<value name="PartnerSelectionService-1">2</value>
+		
+			<value name="StatusAPI">0</value>
+		
+			<value name="PersonalityDAO-3">0</value>
+		
+			<value name="AccountManagementAPI">0</value>
+		
+			<value name="PersonalityProfileService-1">1</value>
+		
+			<value name="RegistrationService-2">9223372036854775807</value>
+		
+			<value name="UserTrackingService-1">9223372036854775807</value>
+		
+			<value name="MessageAPI">0</value>
+		
+			<value name="QuestionnaireService-1">9223372036854775807</value>
+		
+			<value name="MatchingService-2">2</value>
+		
+			<value name="LoginService-1">1</value>
+		
+			<value name="GeographicAPI">0</value>
+		
+			<value name="UserAPI">0</value>
+		
+			<value name="RegistrationService-1">9223372036854775807</value>
+		
+			<value name="ProfileAPI">0</value>
+		
+			<value name="ProfileService-1">9223372036854775807</value>
+		
+			<value name="PersonalityAPI">0</value>
+			
+	</chart>	
+	
+	<chart name="Max" id="Service_vMax">
+		
+			<value name="OwnerService-1">-9223372036854775808</value>
+		
+			<value name="QuestionnaireAPI">0</value>
+		
+			<value name="DoubleOptInService-1">-9223372036854775808</value>
+		
+			<value name="UserDAO-3">1845</value>
+		
+			<value name="PersonalityDAO-4">-9223372036854775808</value>
+		
+			<value name="ProfileService-2">-9223372036854775808</value>
+		
+			<value name="QuestionnaireDAO-1">33</value>
+		
+			<value name="MessagesService-1">3225</value>
+		
+			<value name="RegionService-1">5</value>
+		
+			<value name="ExtapiSettingsAPI">1220</value>
+		
+			<value name="MailService-1">-9223372036854775808</value>
+		
+			<value name="ContactsService-2">1325</value>
+		
+			<value name="DoubleOptInService-2">-9223372036854775808</value>
+		
+			<value name="PersonalityDAO-1">19</value>
+		
+			<value name="ImageReleaseService-1">1262</value>
+		
+			<value name="ProfileService-3">1287</value>
+		
+			<value name="ImageAPI">1360</value>
+		
+			<value name="LoginService-2">-9223372036854775808</value>
+		
+			<value name="InfrastructureAPI">18</value>
+		
+			<value name="OwnerService-2">-9223372036854775808</value>
+		
+			<value name="LoginAPI">12</value>
+		
+			<value name="RegionService-3">10</value>
+		
+			<value name="VisitorsAPI">1793</value>
+		
+			<value name="SearchDAO-2">1332</value>
+		
+			<value name="ForeignUserAPI">393</value>
+		
+			<value name="ProductAPI">1</value>
+		
+			<value name="PhotoAPI">1549</value>
+		
+			<value name="ProfileService-4">1317</value>
+		
+			<value name="MatchingService-5">3</value>
+		
+			<value name="PersonalityDAO-2">1357</value>
+		
+			<value name="PaymentService-2">-9223372036854775808</value>
+		
+			<value name="ProfileService-7">-9223372036854775808</value>
+		
+			<value name="SearchDAO-1">-9223372036854775808</value>
+		
+			<value name="UserDAO-1">-9223372036854775808</value>
+		
+			<value name="MatchingDAO-1">16</value>
+		
+			<value name="PaymentAPI">333</value>
+		
+			<value name="ProfileService-5">1203</value>
+		
+			<value name="RejectionService-1">105</value>
+		
+			<value name="PartnerAPI">2029</value>
+		
+			<value name="QuestionnaireDAO-2">-9223372036854775808</value>
+		
+			<value name="ImageReleaseService-2">8</value>
+		
+			<value name="UserDAO-2">-9223372036854775808</value>
+		
+			<value name="BlockedIpFilter-1">-9223372036854775808</value>
+		
+			<value name="ProfileService-8">-9223372036854775808</value>
+		
+			<value name="CommonSearchService-1">-9223372036854775808</value>
+		
+			<value name="ContactsAPI">10851</value>
+		
+			<value name="UserRightDAO-1">-9223372036854775808</value>
+		
+			<value name="FavoriteDAO-1">4</value>
+		
+			<value name="ContactsService-1">216</value>
+		
+			<value name="PermissionAPI">10</value>
+		
+			<value name="PartnerSuggestionAPI">1971</value>
+		
+			<value name="MatchingService-3">1969</value>
+		
+			<value name="PartnerSelectionService-2">1217</value>
+		
+			<value name="RegionService-2">33</value>
+		
+			<value name="UserRightDAO-2">-9223372036854775808</value>
+		
+			<value name="PaymentService-1">-9223372036854775808</value>
+		
+			<value name="GayParshipStatisticsService-1">-9223372036854775808</value>
+		
+			<value name="MatchingService-4">1341</value>
+		
+			<value name="SettingsConfigurationService-1">1</value>
+		
+			<value name="ProfileSearchService-1">1246</value>
+		
+			<value name="ObservationAPI">6</value>
+		
+			<value name="QuestionnaireService-2">-9223372036854775808</value>
+		
+			<value name="ProfileService-6">-9223372036854775808</value>
+		
+			<value name="ParshipLoginAPI">46</value>
+		
+			<value name="ExternalAPISystemAPI">0</value>
+		
+			<value name="MatchingService-1">-9223372036854775808</value>
+		
+			<value name="ImageService-1">1359</value>
+		
+			<value name="NotificationAPI">23</value>
+		
+			<value name="DistanceService-1">-9223372036854775808</value>
+		
+			<value name="PartnerSelectionService-1">611</value>
+		
+			<value name="StatusAPI">2000</value>
+		
+			<value name="PersonalityDAO-3">1287</value>
+		
+			<value name="AccountManagementAPI">1203</value>
+		
+			<value name="PersonalityProfileService-1">70</value>
+		
+			<value name="RegistrationService-2">-9223372036854775808</value>
+		
+			<value name="UserTrackingService-1">-9223372036854775808</value>
+		
+			<value name="MessageAPI">2000</value>
+		
+			<value name="QuestionnaireService-1">-9223372036854775808</value>
+		
+			<value name="MatchingService-2">792</value>
+		
+			<value name="LoginService-1">1290</value>
+		
+			<value name="GeographicAPI">1845</value>
+		
+			<value name="UserAPI">2972</value>
+		
+			<value name="RegistrationService-1">-9223372036854775808</value>
+		
+			<value name="ProfileAPI">10022</value>
+		
+			<value name="ProfileService-1">-9223372036854775808</value>
+		
+			<value name="PersonalityAPI">142</value>
+			
+	</chart>	
+	
+	<chart name="mGet_R" id="Storage_vmGet_R">
+		
+			<value name="mf-factories-3">1.0</value>
+		
+			<value name="sessions-6">0.0010</value>
+		
+			<value name="mf-factoryClasses-2">0.0</value>
+		
+			<value name="subjects-1">0.99</value>
+		
+			<value name="mf-aliases-4">0.5</value>
+		
+			<value name="mf-instances-5">1.0</value>
+		
+			<value name="session-refIds-7">1.0</value>
+			
+	</chart>	
+	
+	<chart name="Free MB" id="MemoryPool_vFreeMB">
+		
+			<value name="MemoryPool-Code Cache-NonHeap">0</value>
+		
+			<value name="MemoryPool-PS Old Gen-Heap">3126</value>
+		
+			<value name="MemoryPool-PS Eden Space-Heap">2419</value>
+		
+			<value name="MemoryPool-PS Perm Gen-NonHeap">0</value>
+		
+			<value name="MemoryPool-PS Survivor Space-Heap">22</value>
+			
+	</chart>	
+	
+	<chart name="ERate" id="Filter_vERate">
+		
+			<value name="moskitoUI">0.0</value>
+		
+			<value name="maffilter">1.34</value>
+		
+			<value name="RequestURIFilter">0.0</value>
+			
+	</chart>	
+	
+	<chart name="Last" id="Filter_vLast">
+		
+			<value name="moskitoUI">12</value>
+		
+			<value name="maffilter">61</value>
+		
+			<value name="RequestURIFilter">65</value>
+			
+	</chart>	
+	
+	<chart name="ERate" id="Service_vERate">
+		
+			<value name="OwnerService-1">0.0</value>
+		
+			<value name="QuestionnaireAPI">0.0</value>
+		
+			<value name="DoubleOptInService-1">0.0</value>
+		
+			<value name="UserDAO-3">0.0</value>
+		
+			<value name="PersonalityDAO-4">0.0</value>
+		
+			<value name="ProfileService-2">0.0</value>
+		
+			<value name="QuestionnaireDAO-1">27.27</value>
+		
+			<value name="MessagesService-1">0.0</value>
+		
+			<value name="RegionService-1">0.0</value>
+		
+			<value name="ExtapiSettingsAPI">0.0</value>
+		
+			<value name="MailService-1">0.0</value>
+		
+			<value name="ContactsService-2">0.0</value>
+		
+			<value name="DoubleOptInService-2">0.0</value>
+		
+			<value name="PersonalityDAO-1">0.0</value>
+		
+			<value name="ImageReleaseService-1">0.0</value>
+		
+			<value name="ProfileService-3">0.0</value>
+		
+			<value name="ImageAPI">0.0</value>
+		
+			<value name="LoginService-2">0.0</value>
+		
+			<value name="InfrastructureAPI">0.0</value>
+		
+			<value name="OwnerService-2">0.0</value>
+		
+			<value name="LoginAPI">0.0</value>
+		
+			<value name="RegionService-3">0.0</value>
+		
+			<value name="VisitorsAPI">0.0</value>
+		
+			<value name="SearchDAO-2">0.02</value>
+		
+			<value name="ForeignUserAPI">0.0</value>
+		
+			<value name="ProductAPI">0.0</value>
+		
+			<value name="PhotoAPI">0.0</value>
+		
+			<value name="ProfileService-4">0.0</value>
+		
+			<value name="MatchingService-5">0.0</value>
+		
+			<value name="PersonalityDAO-2">0.0</value>
+		
+			<value name="PaymentService-2">0.0</value>
+		
+			<value name="ProfileService-7">0.0</value>
+		
+			<value name="SearchDAO-1">0.0</value>
+		
+			<value name="UserDAO-1">0.0</value>
+		
+			<value name="MatchingDAO-1">0.0</value>
+		
+			<value name="PaymentAPI">0.0</value>
+		
+			<value name="ProfileService-5">0.0</value>
+		
+			<value name="RejectionService-1">0.0</value>
+		
+			<value name="PartnerAPI">0.0</value>
+		
+			<value name="QuestionnaireDAO-2">0.0</value>
+		
+			<value name="ImageReleaseService-2">0.0</value>
+		
+			<value name="UserDAO-2">0.0</value>
+		
+			<value name="BlockedIpFilter-1">0.0</value>
+		
+			<value name="ProfileService-8">0.0</value>
+		
+			<value name="CommonSearchService-1">0.0</value>
+		
+			<value name="ContactsAPI">0.0</value>
+		
+			<value name="UserRightDAO-1">0.0</value>
+		
+			<value name="FavoriteDAO-1">0.0</value>
+		
+			<value name="ContactsService-1">0.0</value>
+		
+			<value name="PermissionAPI">0.0</value>
+		
+			<value name="PartnerSuggestionAPI">0.01</value>
+		
+			<value name="MatchingService-3">0.01</value>
+		
+			<value name="PartnerSelectionService-2">0.0</value>
+		
+			<value name="RegionService-2">0.0</value>
+		
+			<value name="UserRightDAO-2">0.0</value>
+		
+			<value name="PaymentService-1">0.0</value>
+		
+			<value name="GayParshipStatisticsService-1">0.0</value>
+		
+			<value name="MatchingService-4">0.23</value>
+		
+			<value name="SettingsConfigurationService-1">0.0</value>
+		
+			<value name="ProfileSearchService-1">0.0</value>
+		
+			<value name="ObservationAPI">0.0</value>
+		
+			<value name="QuestionnaireService-2">0.0</value>
+		
+			<value name="ProfileService-6">0.0</value>
+		
+			<value name="ParshipLoginAPI">0.0</value>
+		
+			<value name="ExternalAPISystemAPI">0.0</value>
+		
+			<value name="MatchingService-1">0.0</value>
+		
+			<value name="ImageService-1">0.0</value>
+		
+			<value name="NotificationAPI">0.0</value>
+		
+			<value name="DistanceService-1">0.0</value>
+		
+			<value name="PartnerSelectionService-1">0.0</value>
+		
+			<value name="StatusAPI">0.1</value>
+		
+			<value name="PersonalityDAO-3">0.0</value>
+		
+			<value name="AccountManagementAPI">0.0</value>
+		
+			<value name="PersonalityProfileService-1">27.27</value>
+		
+			<value name="RegistrationService-2">0.0</value>
+		
+			<value name="UserTrackingService-1">0.0</value>
+		
+			<value name="MessageAPI">0.01</value>
+		
+			<value name="QuestionnaireService-1">0.0</value>
+		
+			<value name="MatchingService-2">0.0</value>
+		
+			<value name="LoginService-1">0.0</value>
+		
+			<value name="GeographicAPI">0.0</value>
+		
+			<value name="UserAPI">0.11</value>
+		
+			<value name="RegistrationService-1">0.0</value>
+		
+			<value name="ProfileAPI">0.0</value>
+		
+			<value name="ProfileService-1">0.0</value>
+		
+			<value name="PersonalityAPI">0.0</value>
+			
+	</chart>	
+	
+	<chart name="Min Commited MB" id="MemoryPool_vMinCommitedMB">
+		
+			<value name="MemoryPool-Code Cache-NonHeap">6</value>
+		
+			<value name="MemoryPool-PS Old Gen-Heap">2047</value>
+		
+			<value name="MemoryPool-PS Eden Space-Heap">1573</value>
+		
+			<value name="MemoryPool-PS Perm Gen-NonHeap">256</value>
+		
+			<value name="MemoryPool-PS Survivor Space-Heap">24</value>
+			
+	</chart>	
+	
+	<chart name="MCR" id="Service_vMCR">
+		
+			<value name="OwnerService-1">0</value>
+		
+			<value name="QuestionnaireAPI">1</value>
+		
+			<value name="DoubleOptInService-1">0</value>
+		
+			<value name="UserDAO-3">3</value>
+		
+			<value name="PersonalityDAO-4">0</value>
+		
+			<value name="ProfileService-2">0</value>
+		
+			<value name="QuestionnaireDAO-1">1</value>
+		
+			<value name="MessagesService-1">1</value>
+		
+			<value name="RegionService-1">1</value>
+		
+			<value name="ExtapiSettingsAPI">2</value>
+		
+			<value name="MailService-1">0</value>
+		
+			<value name="ContactsService-2">2</value>
+		
+			<value name="DoubleOptInService-2">0</value>
+		
+			<value name="PersonalityDAO-1">1</value>
+		
+			<value name="ImageReleaseService-1">3</value>
+		
+			<value name="ProfileService-3">3</value>
+		
+			<value name="ImageAPI">7</value>
+		
+			<value name="LoginService-2">0</value>
+		
+			<value name="InfrastructureAPI">1</value>
+		
+			<value name="OwnerService-2">0</value>
+		
+			<value name="LoginAPI">2</value>
+		
+			<value name="RegionService-3">1</value>
+		
+			<value name="VisitorsAPI">2</value>
+		
+			<value name="SearchDAO-2">2</value>
+		
+			<value name="ForeignUserAPI">2</value>
+		
+			<value name="ProductAPI">1</value>
+		
+			<value name="PhotoAPI">1</value>
+		
+			<value name="ProfileService-4">2</value>
+		
+			<value name="MatchingService-5">1</value>
+		
+			<value name="PersonalityDAO-2">2</value>
+		
+			<value name="PaymentService-2">0</value>
+		
+			<value name="ProfileService-7">0</value>
+		
+			<value name="SearchDAO-1">0</value>
+		
+			<value name="UserDAO-1">0</value>
+		
+			<value name="MatchingDAO-1">1</value>
+		
+			<value name="PaymentAPI">2</value>
+		
+			<value name="ProfileService-5">1</value>
+		
+			<value name="RejectionService-1">1</value>
+		
+			<value name="PartnerAPI">2</value>
+		
+			<value name="QuestionnaireDAO-2">0</value>
+		
+			<value name="ImageReleaseService-2">1</value>
+		
+			<value name="UserDAO-2">0</value>
+		
+			<value name="BlockedIpFilter-1">0</value>
+		
+			<value name="ProfileService-8">0</value>
+		
+			<value name="CommonSearchService-1">0</value>
+		
+			<value name="ContactsAPI">2</value>
+		
+			<value name="UserRightDAO-1">0</value>
+		
+			<value name="FavoriteDAO-1">1</value>
+		
+			<value name="ContactsService-1">2</value>
+		
+			<value name="PermissionAPI">1</value>
+		
+			<value name="PartnerSuggestionAPI">3</value>
+		
+			<value name="MatchingService-3">3</value>
+		
+			<value name="PartnerSelectionService-2">1</value>
+		
+			<value name="RegionService-2">1</value>
+		
+			<value name="UserRightDAO-2">0</value>
+		
+			<value name="PaymentService-1">0</value>
+		
+			<value name="GayParshipStatisticsService-1">0</value>
+		
+			<value name="MatchingService-4">1</value>
+		
+			<value name="SettingsConfigurationService-1">2</value>
+		
+			<value name="ProfileSearchService-1">2</value>
+		
+			<value name="ObservationAPI">2</value>
+		
+			<value name="QuestionnaireService-2">0</value>
+		
+			<value name="ProfileService-6">0</value>
+		
+			<value name="ParshipLoginAPI">1</value>
+		
+			<value name="ExternalAPISystemAPI">2</value>
+		
+			<value name="MatchingService-1">0</value>
+		
+			<value name="ImageService-1">7</value>
+		
+			<value name="NotificationAPI">2</value>
+		
+			<value name="DistanceService-1">0</value>
+		
+			<value name="PartnerSelectionService-1">2</value>
+		
+			<value name="StatusAPI">9</value>
+		
+			<value name="PersonalityDAO-3">2</value>
+		
+			<value name="AccountManagementAPI">1</value>
+		
+			<value name="PersonalityProfileService-1">1</value>
+		
+			<value name="RegistrationService-2">0</value>
+		
+			<value name="UserTrackingService-1">0</value>
+		
+			<value name="MessageAPI">9</value>
+		
+			<value name="QuestionnaireService-1">0</value>
+		
+			<value name="MatchingService-2">2</value>
+		
+			<value name="LoginService-1">2</value>
+		
+			<value name="GeographicAPI">2</value>
+		
+			<value name="UserAPI">4</value>
+		
+			<value name="RegistrationService-1">0</value>
+		
+			<value name="ProfileAPI">3</value>
+		
+			<value name="ProfileService-1">0</value>
+		
+			<value name="PersonalityAPI">1</value>
+			
+	</chart>	
+	
+	<chart name="Put/Rem_R" id="Storage_vPutRem_R">
+		
+			<value name="mf-factories-3">Infinity</value>
+		
+			<value name="sessions-6">1.019</value>
+		
+			<value name="mf-factoryClasses-2">Infinity</value>
+		
+			<value name="subjects-1">Infinity</value>
+		
+			<value name="mf-aliases-4">Infinity</value>
+		
+			<value name="mf-instances-5">Infinity</value>
+		
+			<value name="session-refIds-7">1.019</value>
+			
+	</chart>	
+	
+	<chart name="Avg" id="Filter_vAvg">
+		
+			<value name="moskitoUI">102.583</value>
+		
+			<value name="maffilter">231.596</value>
+		
+			<value name="RequestURIFilter">245.484</value>
+			
+	</chart>	
+	
+	<chart name="cValHR" id="Storage_vcValHR">
+		
+			<value name="mf-factories-3">0.0</value>
+		
+			<value name="sessions-6">0.0</value>
+		
+			<value name="mf-factoryClasses-2">0.0</value>
+		
+			<value name="subjects-1">0.0</value>
+		
+			<value name="mf-aliases-4">0.0</value>
+		
+			<value name="mf-instances-5">0.0</value>
+		
+			<value name="session-refIds-7">0.0</value>
+			
+	</chart>	
+	
+	<chart name="Commited MB" id="MemoryPool_vCommitedMB">
+		
+			<value name="MemoryPool-Code Cache-NonHeap">20</value>
+		
+			<value name="MemoryPool-PS Old Gen-Heap">6794</value>
+		
+			<value name="MemoryPool-PS Eden Space-Heap">3269</value>
+		
+			<value name="MemoryPool-PS Perm Gen-NonHeap">324</value>
+		
+			<value name="MemoryPool-PS Survivor Space-Heap">64</value>
+			
+	</chart>	
+	
+	<chart name="Free MB" id="VirtualMemoryPool_vFreeMB">
+		
+			<value name="Heap memory">5568</value>
+		
+			<value name="Non-heap memory">0</value>
+			
+	</chart>	
+	
+	<chart name="Get" id="Storage_vGet">
+		
+			<value name="mf-factories-3">2</value>
+		
+			<value name="sessions-6">96548</value>
+		
+			<value name="mf-factoryClasses-2">1</value>
+		
+			<value name="subjects-1">3944</value>
+		
+			<value name="mf-aliases-4">2</value>
+		
+			<value name="mf-instances-5">2</value>
+		
+			<value name="session-refIds-7">1833</value>
+			
+	</chart>	
+	
+	<chart name="Commited" id="VirtualMemoryPool_vCommited">
+		
+			<value name="Heap memory">10619846656</value>
+		
+			<value name="Non-heap memory">361496576</value>
+			
+	</chart>	
+	
+	<chart name="HR" id="Cache_vHR">
+		
+			<value name="userao">0.927</value>
+			
+	</chart>	
+	
+	<chart name="Rem" id="Storage_vRem">
+		
+			<value name="mf-factories-3">0</value>
+		
+			<value name="sessions-6">2056</value>
+		
+			<value name="mf-factoryClasses-2">0</value>
+		
+			<value name="subjects-1">0</value>
+		
+			<value name="mf-aliases-4">0</value>
+		
+			<value name="mf-instances-5">0</value>
+		
+			<value name="session-refIds-7">2056</value>
+			
+	</chart>	
+	
+	<chart name="Req" id="Filter_vReq">
+		
+			<value name="moskitoUI">48</value>
+		
+			<value name="moskitoUI">0</value>
+		
+			<value name="maffilter">35498</value>
+		
+			<value name="maffilter">0</value>
+		
+			<value name="RequestURIFilter">35784</value>
+		
+			<value name="RequestURIFilter">0</value>
+			
+	</chart>	
+	
+	<chart name="Max Used" id="MemoryPool_vMaxUsed">
+		
+			<value name="MemoryPool-Code Cache-NonHeap">21431744</value>
+		
+			<value name="MemoryPool-PS Old Gen-Heap">3846242592</value>
+		
+			<value name="MemoryPool-PS Eden Space-Heap">3426807064</value>
+		
+			<value name="MemoryPool-PS Perm Gen-NonHeap">339633192</value>
+		
+			<value name="MemoryPool-PS Survivor Space-Heap">503201608</value>
+			
+	</chart>	
+	
+	<chart name="hGet_R" id="Storage_vhGet_R">
+		
+			<value name="mf-factories-3">0.0</value>
+		
+			<value name="sessions-6">0.999</value>
+		
+			<value name="mf-factoryClasses-2">1.0</value>
+		
+			<value name="subjects-1">0.01</value>
+		
+			<value name="mf-aliases-4">0.5</value>
+		
+			<value name="mf-instances-5">0.0</value>
+		
+			<value name="session-refIds-7">0.0</value>
+			
+	</chart>	
+	
+	<chart name="Max Used MB" id="VirtualMemoryPool_vMaxUsedMB">
+		
+			<value name="Heap memory">7416</value>
+		
+			<value name="Non-heap memory">344</value>
+			
+	</chart>	
+	
+	<chart name="Min Commited" id="VirtualMemoryPool_vMinCommited">
+		
+			<value name="Heap memory">3823108095</value>
+		
+			<value name="Non-heap memory">274923520</value>
+			
+	</chart>	
+	
+	<chart name="Current Mb" id="Memory_vCurrentMb">
+		
+			<value name="JavaRuntimeTotal">10127</value>
+		
+			<value name="JavaRuntimeMax">10127</value>
+		
+			<value name="JavaRuntimeFree">5568</value>
+			
+	</chart>	
+	
+	<chart name="Max Commited" id="MemoryPool_vMaxCommited">
+		
+			<value name="MemoryPool-Code Cache-NonHeap">21692416</value>
+		
+			<value name="MemoryPool-PS Old Gen-Heap">7124746240</value>
+		
+			<value name="MemoryPool-PS Eden Space-Heap">3427860480</value>
+		
+			<value name="MemoryPool-PS Perm Gen-NonHeap">339804160</value>
+		
+			<value name="MemoryPool-PS Survivor Space-Heap">956039168</value>
+			
+	</chart>	
+	
+	<chart name="no_Rem_R" id="Storage_vno_Rem_R">
+		
+			<value name="mf-factories-3">0.0</value>
+		
+			<value name="sessions-6">0.0</value>
+		
+			<value name="mf-factoryClasses-2">0.0</value>
+		
+			<value name="subjects-1">0.0</value>
+		
+			<value name="mf-aliases-4">0.0</value>
+		
+			<value name="mf-instances-5">0.0</value>
+		
+			<value name="session-refIds-7">0.0</value>
+			
+	</chart>	
+	
+	<chart name="CR" id="Service_vCR">
+		
+			<value name="OwnerService-1">0</value>
+		
+			<value name="QuestionnaireAPI">0</value>
+		
+			<value name="DoubleOptInService-1">0</value>
+		
+			<value name="UserDAO-3">0</value>
+		
+			<value name="PersonalityDAO-4">0</value>
+		
+			<value name="ProfileService-2">0</value>
+		
+			<value name="QuestionnaireDAO-1">0</value>
+		
+			<value name="MessagesService-1">0</value>
+		
+			<value name="RegionService-1">0</value>
+		
+			<value name="ExtapiSettingsAPI">0</value>
+		
+			<value name="MailService-1">0</value>
+		
+			<value name="ContactsService-2">0</value>
+		
+			<value name="DoubleOptInService-2">0</value>
+		
+			<value name="PersonalityDAO-1">0</value>
+		
+			<value name="ImageReleaseService-1">0</value>
+		
+			<value name="ProfileService-3">0</value>
+		
+			<value name="ImageAPI">0</value>
+		
+			<value name="LoginService-2">0</value>
+		
+			<value name="InfrastructureAPI">0</value>
+		
+			<value name="OwnerService-2">0</value>
+		
+			<value name="LoginAPI">0</value>
+		
+			<value name="RegionService-3">0</value>
+		
+			<value name="VisitorsAPI">0</value>
+		
+			<value name="SearchDAO-2">0</value>
+		
+			<value name="ForeignUserAPI">0</value>
+		
+			<value name="ProductAPI">0</value>
+		
+			<value name="PhotoAPI">0</value>
+		
+			<value name="ProfileService-4">0</value>
+		
+			<value name="MatchingService-5">0</value>
+		
+			<value name="PersonalityDAO-2">0</value>
+		
+			<value name="PaymentService-2">0</value>
+		
+			<value name="ProfileService-7">0</value>
+		
+			<value name="SearchDAO-1">0</value>
+		
+			<value name="UserDAO-1">0</value>
+		
+			<value name="MatchingDAO-1">0</value>
+		
+			<value name="PaymentAPI">0</value>
+		
+			<value name="ProfileService-5">0</value>
+		
+			<value name="RejectionService-1">0</value>
+		
+			<value name="PartnerAPI">0</value>
+		
+			<value name="QuestionnaireDAO-2">0</value>
+		
+			<value name="ImageReleaseService-2">0</value>
+		
+			<value name="UserDAO-2">0</value>
+		
+			<value name="BlockedIpFilter-1">0</value>
+		
+			<value name="ProfileService-8">0</value>
+		
+			<value name="CommonSearchService-1">0</value>
+		
+			<value name="ContactsAPI">0</value>
+		
+			<value name="UserRightDAO-1">0</value>
+		
+			<value name="FavoriteDAO-1">0</value>
+		
+			<value name="ContactsService-1">0</value>
+		
+			<value name="PermissionAPI">0</value>
+		
+			<value name="PartnerSuggestionAPI">0</value>
+		
+			<value name="MatchingService-3">0</value>
+		
+			<value name="PartnerSelectionService-2">0</value>
+		
+			<value name="RegionService-2">0</value>
+		
+			<value name="UserRightDAO-2">0</value>
+		
+			<value name="PaymentService-1">0</value>
+		
+			<value name="GayParshipStatisticsService-1">0</value>
+		
+			<value name="MatchingService-4">0</value>
+		
+			<value name="SettingsConfigurationService-1">0</value>
+		
+			<value name="ProfileSearchService-1">0</value>
+		
+			<value name="ObservationAPI">0</value>
+		
+			<value name="QuestionnaireService-2">0</value>
+		
+			<value name="ProfileService-6">0</value>
+		
+			<value name="ParshipLoginAPI">0</value>
+		
+			<value name="ExternalAPISystemAPI">0</value>
+		
+			<value name="MatchingService-1">0</value>
+		
+			<value name="ImageService-1">0</value>
+		
+			<value name="NotificationAPI">1</value>
+		
+			<value name="DistanceService-1">0</value>
+		
+			<value name="PartnerSelectionService-1">0</value>
+		
+			<value name="StatusAPI">0</value>
+		
+			<value name="PersonalityDAO-3">0</value>
+		
+			<value name="AccountManagementAPI">0</value>
+		
+			<value name="PersonalityProfileService-1">0</value>
+		
+			<value name="RegistrationService-2">0</value>
+		
+			<value name="UserTrackingService-1">0</value>
+		
+			<value name="MessageAPI">1</value>
+		
+			<value name="QuestionnaireService-1">0</value>
+		
+			<value name="MatchingService-2">0</value>
+		
+			<value name="LoginService-1">0</value>
+		
+			<value name="GeographicAPI">0</value>
+		
+			<value name="UserAPI">1</value>
+		
+			<value name="RegistrationService-1">0</value>
+		
+			<value name="ProfileAPI">1</value>
+		
+			<value name="ProfileService-1">0</value>
+		
+			<value name="PersonalityAPI">0</value>
+			
+	</chart>	
+	
+	<chart name="Max Commited" id="VirtualMemoryPool_vMaxCommited">
+		
+			<value name="Heap memory">11508645888</value>
+		
+			<value name="Non-heap memory">361496576</value>
+			
+	</chart>	
+	
+	<chart name="Commited MB" id="VirtualMemoryPool_vCommitedMB">
+		
+			<value name="Heap memory">10127</value>
+		
+			<value name="Non-heap memory">344</value>
+			
+	</chart>	
+	
+	<chart name="Init" id="VirtualMemoryPool_vInit">
+		
+			<value name="Heap memory">10620502016</value>
+		
+			<value name="Non-heap memory">587202560</value>
+			
+	</chart>	
+	
+	<chart name="Max" id="MemoryPool_vMax">
+		
+			<value name="MemoryPool-Code Cache-NonHeap">0</value>
+		
+			<value name="MemoryPool-PS Old Gen-Heap">0</value>
+		
+			<value name="MemoryPool-PS Eden Space-Heap">0</value>
+		
+			<value name="MemoryPool-PS Perm Gen-NonHeap">0</value>
+		
+			<value name="MemoryPool-PS Survivor Space-Heap">0</value>
+			
+	</chart>	
+	
+	<chart name="Max Commited MB" id="MemoryPool_vMaxCommitedMB">
+		
+			<value name="MemoryPool-Code Cache-NonHeap">20</value>
+		
+			<value name="MemoryPool-PS Old Gen-Heap">6794</value>
+		
+			<value name="MemoryPool-PS Eden Space-Heap">3269</value>
+		
+			<value name="MemoryPool-PS Perm Gen-NonHeap">324</value>
+		
+			<value name="MemoryPool-PS Survivor Space-Heap">911</value>
+			
+	</chart>	
+	
+	<chart name="Max" id="Memory_vMax">
+		
+			<value name="JavaRuntimeTotal">10619846656</value>
+		
+			<value name="JavaRuntimeMax">10619846656</value>
+		
+			<value name="JavaRuntimeFree">8488861608</value>
+			
+	</chart>	
+	
+	<chart name="Time" id="Service_vTime">
+		
+			<value name="OwnerService-1">0</value>
+		
+			<value name="QuestionnaireAPI">0</value>
+		
+			<value name="DoubleOptInService-1">0</value>
+		
+			<value name="UserDAO-3">428410</value>
+		
+			<value name="PersonalityDAO-4">0</value>
+		
+			<value name="ProfileService-2">0</value>
+		
+			<value name="QuestionnaireDAO-1">145</value>
+		
+			<value name="MessagesService-1">41117</value>
+		
+			<value name="RegionService-1">96</value>
+		
+			<value name="ExtapiSettingsAPI">25252</value>
+		
+			<value name="MailService-1">0</value>
+		
+			<value name="ContactsService-2">63251</value>
+		
+			<value name="DoubleOptInService-2">0</value>
+		
+			<value name="PersonalityDAO-1">180</value>
+		
+			<value name="ImageReleaseService-1">166576</value>
+		
+			<value name="ProfileService-3">515681</value>
+		
+			<value name="ImageAPI">1310259</value>
+		
+			<value name="LoginService-2">0</value>
+		
+			<value name="InfrastructureAPI">192</value>
+		
+			<value name="OwnerService-2">0</value>
+		
+			<value name="LoginAPI">328</value>
+		
+			<value name="RegionService-3">482</value>
+		
+			<value name="VisitorsAPI">165188</value>
+		
+			<value name="SearchDAO-2">56617</value>
+		
+			<value name="ForeignUserAPI">9999</value>
+		
+			<value name="ProductAPI">1</value>
+		
+			<value name="PhotoAPI">4629</value>
+		
+			<value name="ProfileService-4">117052</value>
+		
+			<value name="MatchingService-5">70</value>
+		
+			<value name="PersonalityDAO-2">131353</value>
+		
+			<value name="PaymentService-2">0</value>
+		
+			<value name="ProfileService-7">0</value>
+		
+			<value name="SearchDAO-1">0</value>
+		
+			<value name="UserDAO-1">0</value>
+		
+			<value name="MatchingDAO-1">1235</value>
+		
+			<value name="PaymentAPI">6705</value>
+		
+			<value name="ProfileService-5">2459</value>
+		
+			<value name="RejectionService-1">2267</value>
+		
+			<value name="PartnerAPI">272837</value>
+		
+			<value name="QuestionnaireDAO-2">0</value>
+		
+			<value name="ImageReleaseService-2">218</value>
+		
+			<value name="UserDAO-2">0</value>
+		
+			<value name="BlockedIpFilter-1">0</value>
+		
+			<value name="ProfileService-8">0</value>
+		
+			<value name="CommonSearchService-1">0</value>
+		
+			<value name="ContactsAPI">148742</value>
+		
+			<value name="UserRightDAO-1">0</value>
+		
+			<value name="FavoriteDAO-1">31</value>
+		
+			<value name="ContactsService-1">5934</value>
+		
+			<value name="PermissionAPI">206</value>
+		
+			<value name="PartnerSuggestionAPI">300847</value>
+		
+			<value name="MatchingService-3">229469</value>
+		
+			<value name="PartnerSelectionService-2">4676</value>
+		
+			<value name="RegionService-2">167</value>
+		
+			<value name="UserRightDAO-2">0</value>
+		
+			<value name="PaymentService-1">0</value>
+		
+			<value name="GayParshipStatisticsService-1">0</value>
+		
+			<value name="MatchingService-4">5830</value>
+		
+			<value name="SettingsConfigurationService-1">14414</value>
+		
+			<value name="ProfileSearchService-1">62580</value>
+		
+			<value name="ObservationAPI">96</value>
+		
+			<value name="QuestionnaireService-2">0</value>
+		
+			<value name="ProfileService-6">0</value>
+		
+			<value name="ParshipLoginAPI">3691</value>
+		
+			<value name="ExternalAPISystemAPI">292</value>
+		
+			<value name="MatchingService-1">0</value>
+		
+			<value name="ImageService-1">1137708</value>
+		
+			<value name="NotificationAPI">762</value>
+		
+			<value name="DistanceService-1">0</value>
+		
+			<value name="PartnerSelectionService-1">21218</value>
+		
+			<value name="StatusAPI">2973344</value>
+		
+			<value name="PersonalityDAO-3">74264</value>
+		
+			<value name="AccountManagementAPI">2509</value>
+		
+			<value name="PersonalityProfileService-1">381</value>
+		
+			<value name="RegistrationService-2">0</value>
+		
+			<value name="UserTrackingService-1">0</value>
+		
+			<value name="MessageAPI">4482630</value>
+		
+			<value name="QuestionnaireService-1">0</value>
+		
+			<value name="MatchingService-2">8912</value>
+		
+			<value name="LoginService-1">81660</value>
+		
+			<value name="GeographicAPI">96362</value>
+		
+			<value name="UserAPI">903462</value>
+		
+			<value name="RegistrationService-1">0</value>
+		
+			<value name="ProfileAPI">1115858</value>
+		
+			<value name="ProfileService-1">0</value>
+		
+			<value name="PersonalityAPI">1105</value>
+			
+	</chart>	
+	
+	<chart name="Used MB" id="MemoryPool_vUsedMB">
+		
+			<value name="MemoryPool-Code Cache-NonHeap">20</value>
+		
+			<value name="MemoryPool-PS Old Gen-Heap">3668</value>
+		
+			<value name="MemoryPool-PS Eden Space-Heap">849</value>
+		
+			<value name="MemoryPool-PS Perm Gen-NonHeap">323</value>
+		
+			<value name="MemoryPool-PS Survivor Space-Heap">41</value>
+			
+	</chart>	
+	
+	<chart name="Min" id="Memory_vMin">
+		
+			<value name="JavaRuntimeTotal">0</value>
+		
+			<value name="JavaRuntimeMax">0</value>
+		
+			<value name="JavaRuntimeFree">0</value>
+			
+	</chart>	
+	
+	<chart name="newPut_R" id="Storage_vnewPut_R">
+		
+			<value name="mf-factories-3">1.0</value>
+		
+			<value name="sessions-6">1.0</value>
+		
+			<value name="mf-factoryClasses-2">1.0</value>
+		
+			<value name="subjects-1">1.0</value>
+		
+			<value name="mf-aliases-4">1.0</value>
+		
+			<value name="mf-instances-5">1.0</value>
+		
+			<value name="session-refIds-7">1.0</value>
+			
+	</chart>	
+	
+	<chart name="Max MB" id="MemoryPool_vMaxMB">
+		
+			<value name="MemoryPool-Code Cache-NonHeap">0</value>
+		
+			<value name="MemoryPool-PS Old Gen-Heap">0</value>
+		
+			<value name="MemoryPool-PS Eden Space-Heap">0</value>
+		
+			<value name="MemoryPool-PS Perm Gen-NonHeap">0</value>
+		
+			<value name="MemoryPool-PS Survivor Space-Heap">0</value>
+			
+	</chart>	
+	
+	<chart name="Req" id="Service_vReq">
+		
+			<value name="OwnerService-1">0</value>
+		
+			<value name="QuestionnaireAPI">1</value>
+		
+			<value name="DoubleOptInService-1">0</value>
+		
+			<value name="UserDAO-3">749621</value>
+		
+			<value name="PersonalityDAO-4">0</value>
+		
+			<value name="ProfileService-2">0</value>
+		
+			<value name="QuestionnaireDAO-1">11</value>
+		
+			<value name="MessagesService-1">5959</value>
+		
+			<value name="RegionService-1">540</value>
+		
+			<value name="ExtapiSettingsAPI">1506</value>
+		
+			<value name="MailService-1">0</value>
+		
+			<value name="ContactsService-2">21125</value>
+		
+			<value name="DoubleOptInService-2">0</value>
+		
+			<value name="PersonalityDAO-1">40</value>
+		
+			<value name="ImageReleaseService-1">64756</value>
+		
+			<value name="ProfileService-3">701653</value>
+		
+			<value name="ImageAPI">174035</value>
+		
+			<value name="LoginService-2">0</value>
+		
+			<value name="InfrastructureAPI">118</value>
+		
+			<value name="OwnerService-2">0</value>
+		
+			<value name="LoginAPI">37125</value>
+		
+			<value name="RegionService-3">1346</value>
+		
+			<value name="VisitorsAPI">2900</value>
+		
+			<value name="SearchDAO-2">37796</value>
+		
+			<value name="ForeignUserAPI">4343</value>
+		
+			<value name="ProductAPI">1</value>
+		
+			<value name="PhotoAPI">32</value>
+		
+			<value name="ProfileService-4">38781</value>
+		
+			<value name="MatchingService-5">132</value>
+		
+			<value name="PersonalityDAO-2">190534</value>
+		
+			<value name="PaymentService-2">0</value>
+		
+			<value name="ProfileService-7">0</value>
+		
+			<value name="SearchDAO-1">0</value>
+		
+			<value name="UserDAO-1">0</value>
+		
+			<value name="MatchingDAO-1">2148</value>
+		
+			<value name="PaymentAPI">3887</value>
+		
+			<value name="ProfileService-5">1798</value>
+		
+			<value name="RejectionService-1">77</value>
+		
+			<value name="PartnerAPI">41058</value>
+		
+			<value name="QuestionnaireDAO-2">0</value>
+		
+			<value name="ImageReleaseService-2">77</value>
+		
+			<value name="UserDAO-2">0</value>
+		
+			<value name="BlockedIpFilter-1">0</value>
+		
+			<value name="ProfileService-8">0</value>
+		
+			<value name="CommonSearchService-1">0</value>
+		
+			<value name="ContactsAPI">21203</value>
+		
+			<value name="UserRightDAO-1">0</value>
+		
+			<value name="FavoriteDAO-1">14</value>
+		
+			<value name="ContactsService-1">12472</value>
+		
+			<value name="PermissionAPI">46</value>
+		
+			<value name="PartnerSuggestionAPI">94409</value>
+		
+			<value name="MatchingService-3">92610</value>
+		
+			<value name="PartnerSelectionService-2">1798</value>
+		
+			<value name="RegionService-2">190</value>
+		
+			<value name="UserRightDAO-2">0</value>
+		
+			<value name="PaymentService-1">0</value>
+		
+			<value name="GayParshipStatisticsService-1">0</value>
+		
+			<value name="MatchingService-4">422</value>
+		
+			<value name="SettingsConfigurationService-1">96141</value>
+		
+			<value name="ProfileSearchService-1">65664</value>
+		
+			<value name="ObservationAPI">3938</value>
+		
+			<value name="QuestionnaireService-2">0</value>
+		
+			<value name="ProfileService-6">0</value>
+		
+			<value name="ParshipLoginAPI">1950</value>
+		
+			<value name="ExternalAPISystemAPI">33227</value>
+		
+			<value name="MatchingService-1">0</value>
+		
+			<value name="ImageService-1">108739</value>
+		
+			<value name="NotificationAPI">245</value>
+		
+			<value name="DistanceService-1">0</value>
+		
+			<value name="PartnerSelectionService-1">4655</value>
+		
+			<value name="StatusAPI">35055</value>
+		
+			<value name="PersonalityDAO-3">32369</value>
+		
+			<value name="AccountManagementAPI">1799</value>
+		
+			<value name="PersonalityProfileService-1">11</value>
+		
+			<value name="RegistrationService-2">0</value>
+		
+			<value name="UserTrackingService-1">0</value>
+		
+			<value name="MessageAPI">521916</value>
+		
+			<value name="QuestionnaireService-1">0</value>
+		
+			<value name="MatchingService-2">1777</value>
+		
+			<value name="LoginService-1">21888</value>
+		
+			<value name="GeographicAPI">28570</value>
+		
+			<value name="UserAPI">143550</value>
+		
+			<value name="RegistrationService-1">0</value>
+		
+			<value name="ProfileAPI">361113</value>
+		
+			<value name="ProfileService-1">0</value>
+		
+			<value name="PersonalityAPI">199</value>
+			
+	</chart>	
+	
+	<chart name="cKeyHR" id="Storage_vcKeyHR">
+		
+			<value name="mf-factories-3">0.0</value>
+		
+			<value name="sessions-6">0.0</value>
+		
+			<value name="mf-factoryClasses-2">0.0</value>
+		
+			<value name="subjects-1">0.0</value>
+		
+			<value name="mf-aliases-4">0.0</value>
+		
+			<value name="mf-instances-5">0.0</value>
+		
+			<value name="session-refIds-7">0.0</value>
+			
+	</chart>	
+	
+	<chart name="Used" id="MemoryPool_vUsed">
+		
+			<value name="MemoryPool-Code Cache-NonHeap">21431744</value>
+		
+			<value name="MemoryPool-PS Old Gen-Heap">3846242592</value>
+		
+			<value name="MemoryPool-PS Eden Space-Heap">890601336</value>
+		
+			<value name="MemoryPool-PS Perm Gen-NonHeap">339633192</value>
+		
+			<value name="MemoryPool-PS Survivor Space-Heap">43680624</value>
+			
+	</chart>	
+	
+	<chart name="Min Commited" id="MemoryPool_vMinCommited">
+		
+			<value name="MemoryPool-Code Cache-NonHeap">6488064</value>
+		
+			<value name="MemoryPool-PS Old Gen-Heap">2147483647</value>
+		
+			<value name="MemoryPool-PS Eden Space-Heap">1650262016</value>
+		
+			<value name="MemoryPool-PS Perm Gen-NonHeap">268435456</value>
+		
+			<value name="MemoryPool-PS Survivor Space-Heap">25362432</value>
+			
+	</chart>	
+	
+	<chart name="Init" id="MemoryPool_vInit">
+		
+			<value name="MemoryPool-Code Cache-NonHeap">50331648</value>
+		
+			<value name="MemoryPool-PS Old Gen-Heap">7124746240</value>
+		
+			<value name="MemoryPool-PS Eden Space-Heap">3428515840</value>
+		
+			<value name="MemoryPool-PS Perm Gen-NonHeap">536870912</value>
+		
+			<value name="MemoryPool-PS Survivor Space-Heap">67239936</value>
+			
+	</chart>	
+	
+	<chart name="Started" id="ThreadCount_vStarted">
+		
+			<value name="ThreadCount">7615</value>
+			
+	</chart>	
+	
+	<chart name="Commited" id="MemoryPool_vCommited">
+		
+			<value name="MemoryPool-Code Cache-NonHeap">21692416</value>
+		
+			<value name="MemoryPool-PS Old Gen-Heap">7124746240</value>
+		
+			<value name="MemoryPool-PS Eden Space-Heap">3427860480</value>
+		
+			<value name="MemoryPool-PS Perm Gen-NonHeap">339804160</value>
+		
+			<value name="MemoryPool-PS Survivor Space-Heap">67239936</value>
+			
+	</chart>	
+	
+	<chart name="cValC" id="Storage_vcValC">
+		
+			<value name="mf-factories-3">0</value>
+		
+			<value name="sessions-6">0</value>
+		
+			<value name="mf-factoryClasses-2">0</value>
+		
+			<value name="subjects-1">0</value>
+		
+			<value name="mf-aliases-4">0</value>
+		
+			<value name="mf-instances-5">0</value>
+		
+			<value name="session-refIds-7">0</value>
+			
+	</chart>	
+	
+	<chart name="Max Mb" id="Memory_vMaxMb">
+		
+			<value name="JavaRuntimeTotal">10127</value>
+		
+			<value name="JavaRuntimeMax">10127</value>
+		
+			<value name="JavaRuntimeFree">8095</value>
+			
+	</chart>	
+	
+	<chart name="Min Used MB" id="MemoryPool_vMinUsedMB">
+		
+			<value name="MemoryPool-Code Cache-NonHeap">5</value>
+		
+			<value name="MemoryPool-PS Old Gen-Heap">0</value>
+		
+			<value name="MemoryPool-PS Eden Space-Heap">19</value>
+		
+			<value name="MemoryPool-PS Perm Gen-NonHeap">45</value>
+		
+			<value name="MemoryPool-PS Survivor Space-Heap">0</value>
+			
+	</chart>	
+	
+	<chart name="Init MB" id="VirtualMemoryPool_vInitMB">
+		
+			<value name="Heap memory">10128</value>
+		
+			<value name="Non-heap memory">560</value>
+			
+	</chart>	
+	
+	<chart name="Put/Get_R" id="Storage_vPutGet_R">
+		
+			<value name="mf-factories-3">0.5</value>
+		
+			<value name="sessions-6">0.022</value>
+		
+			<value name="mf-factoryClasses-2">3.0</value>
+		
+			<value name="subjects-1">0.0010</value>
+		
+			<value name="mf-aliases-4">1.0</value>
+		
+			<value name="mf-instances-5">0.5</value>
+		
+			<value name="session-refIds-7">1.143</value>
+			
+	</chart>	
+	
+	<chart name="Avg" id="Service_vAvg">
+		
+			<value name="OwnerService-1">0.0</value>
+		
+			<value name="QuestionnaireAPI">0.0</value>
+		
+			<value name="DoubleOptInService-1">0.0</value>
+		
+			<value name="UserDAO-3">0.572</value>
+		
+			<value name="PersonalityDAO-4">0.0</value>
+		
+			<value name="ProfileService-2">0.0</value>
+		
+			<value name="QuestionnaireDAO-1">13.182</value>
+		
+			<value name="MessagesService-1">6.9</value>
+		
+			<value name="RegionService-1">0.178</value>
+		
+			<value name="ExtapiSettingsAPI">16.768</value>
+		
+			<value name="MailService-1">0.0</value>
+		
+			<value name="ContactsService-2">2.994</value>
+		
+			<value name="DoubleOptInService-2">0.0</value>
+		
+			<value name="PersonalityDAO-1">4.5</value>
+		
+			<value name="ImageReleaseService-1">2.572</value>
+		
+			<value name="ProfileService-3">0.735</value>
+		
+			<value name="ImageAPI">7.529</value>
+		
+			<value name="LoginService-2">0.0</value>
+		
+			<value name="InfrastructureAPI">1.627</value>
+		
+			<value name="OwnerService-2">0.0</value>
+		
+			<value name="LoginAPI">0.0090</value>
+		
+			<value name="RegionService-3">0.358</value>
+		
+			<value name="VisitorsAPI">56.961</value>
+		
+			<value name="SearchDAO-2">1.498</value>
+		
+			<value name="ForeignUserAPI">2.302</value>
+		
+			<value name="ProductAPI">1.0</value>
+		
+			<value name="PhotoAPI">144.656</value>
+		
+			<value name="ProfileService-4">3.018</value>
+		
+			<value name="MatchingService-5">0.53</value>
+		
+			<value name="PersonalityDAO-2">0.689</value>
+		
+			<value name="PaymentService-2">0.0</value>
+		
+			<value name="ProfileService-7">0.0</value>
+		
+			<value name="SearchDAO-1">0.0</value>
+		
+			<value name="UserDAO-1">0.0</value>
+		
+			<value name="MatchingDAO-1">0.575</value>
+		
+			<value name="PaymentAPI">1.725</value>
+		
+			<value name="ProfileService-5">1.368</value>
+		
+			<value name="RejectionService-1">29.442</value>
+		
+			<value name="PartnerAPI">6.645</value>
+		
+			<value name="QuestionnaireDAO-2">0.0</value>
+		
+			<value name="ImageReleaseService-2">2.831</value>
+		
+			<value name="UserDAO-2">0.0</value>
+		
+			<value name="BlockedIpFilter-1">0.0</value>
+		
+			<value name="ProfileService-8">0.0</value>
+		
+			<value name="CommonSearchService-1">0.0</value>
+		
+			<value name="ContactsAPI">7.015</value>
+		
+			<value name="UserRightDAO-1">0.0</value>
+		
+			<value name="FavoriteDAO-1">2.214</value>
+		
+			<value name="ContactsService-1">0.476</value>
+		
+			<value name="PermissionAPI">4.478</value>
+		
+			<value name="PartnerSuggestionAPI">3.187</value>
+		
+			<value name="MatchingService-3">2.478</value>
+		
+			<value name="PartnerSelectionService-2">2.601</value>
+		
+			<value name="RegionService-2">0.879</value>
+		
+			<value name="UserRightDAO-2">0.0</value>
+		
+			<value name="PaymentService-1">0.0</value>
+		
+			<value name="GayParshipStatisticsService-1">0.0</value>
+		
+			<value name="MatchingService-4">13.815</value>
+		
+			<value name="SettingsConfigurationService-1">0.15</value>
+		
+			<value name="ProfileSearchService-1">0.953</value>
+		
+			<value name="ObservationAPI">0.024</value>
+		
+			<value name="QuestionnaireService-2">0.0</value>
+		
+			<value name="ProfileService-6">0.0</value>
+		
+			<value name="ParshipLoginAPI">1.893</value>
+		
+			<value name="ExternalAPISystemAPI">0.0090</value>
+		
+			<value name="MatchingService-1">0.0</value>
+		
+			<value name="ImageService-1">10.463</value>
+		
+			<value name="NotificationAPI">3.11</value>
+		
+			<value name="DistanceService-1">0.0</value>
+		
+			<value name="PartnerSelectionService-1">4.558</value>
+		
+			<value name="StatusAPI">84.819</value>
+		
+			<value name="PersonalityDAO-3">2.294</value>
+		
+			<value name="AccountManagementAPI">1.395</value>
+		
+			<value name="PersonalityProfileService-1">34.636</value>
+		
+			<value name="RegistrationService-2">0.0</value>
+		
+			<value name="UserTrackingService-1">0.0</value>
+		
+			<value name="MessageAPI">8.589</value>
+		
+			<value name="QuestionnaireService-1">0.0</value>
+		
+			<value name="MatchingService-2">5.015</value>
+		
+			<value name="LoginService-1">3.731</value>
+		
+			<value name="GeographicAPI">3.373</value>
+		
+			<value name="UserAPI">6.294</value>
+		
+			<value name="RegistrationService-1">0.0</value>
+		
+			<value name="ProfileAPI">3.09</value>
+		
+			<value name="ProfileService-1">0.0</value>
+		
+			<value name="PersonalityAPI">5.553</value>
+			
+	</chart>	
+	
+	<chart name="Free" id="VirtualMemoryPool_vFree">
+		
+			<value name="Heap memory">5839322104</value>
+		
+			<value name="Non-heap memory">431640</value>
+			
+	</chart>	
+	
+	<chart name="cValH" id="Storage_vcValH">
+		
+			<value name="mf-factories-3">0</value>
+		
+			<value name="sessions-6">0</value>
+		
+			<value name="mf-factoryClasses-2">0</value>
+		
+			<value name="subjects-1">0</value>
+		
+			<value name="mf-aliases-4">0</value>
+		
+			<value name="mf-instances-5">0</value>
+		
+			<value name="session-refIds-7">0</value>
+			
+	</chart>	
+	
+	<chart name="owPut" id="Storage_vowPut">
+		
+			<value name="mf-factories-3">0</value>
+		
+			<value name="sessions-6">0</value>
+		
+			<value name="mf-factoryClasses-2">0</value>
+		
+			<value name="subjects-1">0</value>
+		
+			<value name="mf-aliases-4">0</value>
+		
+			<value name="mf-instances-5">0</value>
+		
+			<value name="session-refIds-7">0</value>
+			
+	</chart>	
+	
+	<chart name="MCR" id="Filter_vMCR">
+		
+			<value name="moskitoUI">1</value>
+		
+			<value name="maffilter">10</value>
+		
+			<value name="RequestURIFilter">10</value>
+			
+	</chart>	
+	
+	<chart name="Min Used" id="VirtualMemoryPool_vMinUsed">
+		
+			<value name="Heap memory">19996504</value>
+		
+			<value name="Non-heap memory">53980672</value>
+			
+	</chart>	
+	
+	<chart name="no_Rem" id="Storage_vno_Rem">
+		
+			<value name="mf-factories-3">0</value>
+		
+			<value name="sessions-6">0</value>
+		
+			<value name="mf-factoryClasses-2">0</value>
+		
+			<value name="subjects-1">0</value>
+		
+			<value name="mf-aliases-4">0</value>
+		
+			<value name="mf-instances-5">0</value>
+		
+			<value name="session-refIds-7">0</value>
+			
+	</chart>	
+	
+	<chart name="Req" id="Cache_vReq">
+		
+			<value name="userao">147988</value>
+			
+	</chart>	
+	
+	<chart name="Max" id="VirtualMemoryPool_vMax">
+		
+			<value name="Heap memory">0</value>
+		
+			<value name="Non-heap memory">0</value>
+			
+	</chart>	
+	
+	<chart name="RO" id="Cache_vRO">
+		
+			<value name="userao">0</value>
+			
+	</chart>	
+	
+	<chart name="GC" id="Cache_vGC">
+		
+			<value name="userao">0</value>
+			
+	</chart>	
+	
+	<chart name="Max Used" id="VirtualMemoryPool_vMaxUsed">
+		
+			<value name="Heap memory">7776251264</value>
+		
+			<value name="Non-heap memory">361064936</value>
+			
+	</chart>	
+	
+	<chart name="Size" id="Storage_vSize">
+		
+			<value name="mf-factories-3">1</value>
+		
+			<value name="sessions-6">40</value>
+		
+			<value name="mf-factoryClasses-2">3</value>
+		
+			<value name="subjects-1">4</value>
+		
+			<value name="mf-aliases-4">2</value>
+		
+			<value name="mf-instances-5">1</value>
+		
+			<value name="session-refIds-7">40</value>
+			
+	</chart>	
+	
+	<chart name="Min Mb" id="Memory_vMinMb">
+		
+			<value name="JavaRuntimeTotal">0</value>
+		
+			<value name="JavaRuntimeMax">0</value>
+		
+			<value name="JavaRuntimeFree">0</value>
+			
+	</chart>	
+	
+	<chart name="Hit" id="Cache_vHit">
+		
+			<value name="userao">137119</value>
+			
+	</chart>	
+	
+	<chart name="FI" id="Cache_vFI">
+		
+			<value name="userao">0</value>
+			
+	</chart>	
+	
+	<chart name="Err" id="Filter_vErr">
+		
+			<value name="moskitoUI">0</value>
+		
+			<value name="maffilter">0</value>
+		
+			<value name="RequestURIFilter">0</value>
+			
+	</chart>	
+	
+	<chart name="Min" id="Filter_vMin">
+		
+			<value name="moskitoUI">1</value>
+		
+			<value name="maffilter">0</value>
+		
+			<value name="RequestURIFilter">0</value>
+			
+	</chart>	
+	
+	<chart name="Used MB" id="VirtualMemoryPool_vUsedMB">
+		
+			<value name="Heap memory">4559</value>
+		
+			<value name="Non-heap memory">344</value>
+			
+	</chart>	
+	
+	<chart name="Max Cur" id="ThreadCount_vMaxCur">
+		
+			<value name="ThreadCount">78</value>
+			
+	</chart>	
+	
+	<chart name="Max" id="Filter_vMax">
+		
+			<value name="moskitoUI">2416</value>
+		
+			<value name="maffilter">14722</value>
+		
+			<value name="RequestURIFilter">230426</value>
+			
+	</chart>	
+	
+	<chart name="Daemon" id="ThreadCount_vDaemon">
+		
+			<value name="ThreadCount">69</value>
+			
+	</chart>	
+	
+	<chart name="Put" id="Storage_vPut">
+		
+			<value name="mf-factories-3">1</value>
+		
+			<value name="sessions-6">2096</value>
+		
+			<value name="mf-factoryClasses-2">3</value>
+		
+			<value name="subjects-1">4</value>
+		
+			<value name="mf-aliases-4">2</value>
+		
+			<value name="mf-instances-5">1</value>
+		
+			<value name="session-refIds-7">2096</value>
+			
+	</chart>	
+	
+	<chart name="FR" id="Cache_vFR">
+		
+			<value name="userao">0.0</value>
+			
+	</chart>	
+	
+	<chart name="Max Commited MB" id="VirtualMemoryPool_vMaxCommitedMB">
+		
+			<value name="Heap memory">10975</value>
+		
+			<value name="Non-heap memory">344</value>
+			
+	</chart>	
+	
+	<chart name="Last" id="Service_vLast">
+		
+			<value name="OwnerService-1">0</value>
+		
+			<value name="QuestionnaireAPI">0</value>
+		
+			<value name="DoubleOptInService-1">0</value>
+		
+			<value name="UserDAO-3">2</value>
+		
+			<value name="PersonalityDAO-4">0</value>
+		
+			<value name="ProfileService-2">0</value>
+		
+			<value name="QuestionnaireDAO-1">15</value>
+		
+			<value name="MessagesService-1">1</value>
+		
+			<value name="RegionService-1">0</value>
+		
+			<value name="ExtapiSettingsAPI">4</value>
+		
+			<value name="MailService-1">0</value>
+		
+			<value name="ContactsService-2">1</value>
+		
+			<value name="DoubleOptInService-2">0</value>
+		
+			<value name="PersonalityDAO-1">1</value>
+		
+			<value name="ImageReleaseService-1">1</value>
+		
+			<value name="ProfileService-3">0</value>
+		
+			<value name="ImageAPI">0</value>
+		
+			<value name="LoginService-2">0</value>
+		
+			<value name="InfrastructureAPI">1</value>
+		
+			<value name="OwnerService-2">0</value>
+		
+			<value name="LoginAPI">0</value>
+		
+			<value name="RegionService-3">0</value>
+		
+			<value name="VisitorsAPI">33</value>
+		
+			<value name="SearchDAO-2">0</value>
+		
+			<value name="ForeignUserAPI">0</value>
+		
+			<value name="ProductAPI">1</value>
+		
+			<value name="PhotoAPI">44</value>
+		
+			<value name="ProfileService-4">0</value>
+		
+			<value name="MatchingService-5">0</value>
+		
+			<value name="PersonalityDAO-2">2</value>
+		
+			<value name="PaymentService-2">0</value>
+		
+			<value name="ProfileService-7">0</value>
+		
+			<value name="SearchDAO-1">0</value>
+		
+			<value name="UserDAO-1">0</value>
+		
+			<value name="MatchingDAO-1">0</value>
+		
+			<value name="PaymentAPI">3</value>
+		
+			<value name="ProfileService-5">0</value>
+		
+			<value name="RejectionService-1">31</value>
+		
+			<value name="PartnerAPI">9</value>
+		
+			<value name="QuestionnaireDAO-2">0</value>
+		
+			<value name="ImageReleaseService-2">2</value>
+		
+			<value name="UserDAO-2">0</value>
+		
+			<value name="BlockedIpFilter-1">0</value>
+		
+			<value name="ProfileService-8">0</value>
+		
+			<value name="CommonSearchService-1">0</value>
+		
+			<value name="ContactsAPI">1</value>
+		
+			<value name="UserRightDAO-1">0</value>
+		
+			<value name="FavoriteDAO-1">2</value>
+		
+			<value name="ContactsService-1">0</value>
+		
+			<value name="PermissionAPI">9</value>
+		
+			<value name="PartnerSuggestionAPI">4</value>
+		
+			<value name="MatchingService-3">3</value>
+		
+			<value name="PartnerSelectionService-2">1</value>
+		
+			<value name="RegionService-2">0</value>
+		
+			<value name="UserRightDAO-2">0</value>
+		
+			<value name="PaymentService-1">0</value>
+		
+			<value name="GayParshipStatisticsService-1">0</value>
+		
+			<value name="MatchingService-4">9</value>
+		
+			<value name="SettingsConfigurationService-1">0</value>
+		
+			<value name="ProfileSearchService-1">0</value>
+		
+			<value name="ObservationAPI">0</value>
+		
+			<value name="QuestionnaireService-2">0</value>
+		
+			<value name="ProfileService-6">0</value>
+		
+			<value name="ParshipLoginAPI">4</value>
+		
+			<value name="ExternalAPISystemAPI">0</value>
+		
+			<value name="MatchingService-1">0</value>
+		
+			<value name="ImageService-1">0</value>
+		
+			<value name="NotificationAPI">5</value>
+		
+			<value name="DistanceService-1">0</value>
+		
+			<value name="PartnerSelectionService-1">3</value>
+		
+			<value name="StatusAPI">56</value>
+		
+			<value name="PersonalityDAO-3">2</value>
+		
+			<value name="AccountManagementAPI">0</value>
+		
+			<value name="PersonalityProfileService-1">42</value>
+		
+			<value name="RegistrationService-2">0</value>
+		
+			<value name="UserTrackingService-1">0</value>
+		
+			<value name="MessageAPI">2</value>
+		
+			<value name="QuestionnaireService-1">0</value>
+		
+			<value name="MatchingService-2">7</value>
+		
+			<value name="LoginService-1">3</value>
+		
+			<value name="GeographicAPI">3</value>
+		
+			<value name="UserAPI">0</value>
+		
+			<value name="RegistrationService-1">0</value>
+		
+			<value name="ProfileAPI">0</value>
+		
+			<value name="ProfileService-1">0</value>
+		
+			<value name="PersonalityAPI">1</value>
+			
+	</chart>	
+	
+	<chart name="Used" id="VirtualMemoryPool_vUsed">
+		
+			<value name="Heap memory">4780524552</value>
+		
+			<value name="Non-heap memory">361064936</value>
+			
+	</chart>	
+	
+	<chart name="Min Used MB" id="VirtualMemoryPool_vMinUsedMB">
+		
+			<value name="Heap memory">19</value>
+		
+			<value name="Non-heap memory">51</value>
+			
+	</chart>	
+	
+	<chart name="Time" id="Filter_vTime">
+		
+			<value name="moskitoUI">4924</value>
+		
+			<value name="moskitoUI">0</value>
+		
+			<value name="maffilter">8221180</value>
+		
+			<value name="maffilter">479</value>
+		
+			<value name="RequestURIFilter">8784389</value>
+		
+			<value name="RequestURIFilter">0</value>
+			
+	</chart>	
+	
+	<chart name="Free" id="MemoryPool_vFree">
+		
+			<value name="MemoryPool-Code Cache-NonHeap">260672</value>
+		
+			<value name="MemoryPool-PS Old Gen-Heap">3278503648</value>
+		
+			<value name="MemoryPool-PS Eden Space-Heap">2537259144</value>
+		
+			<value name="MemoryPool-PS Perm Gen-NonHeap">170968</value>
+		
+			<value name="MemoryPool-PS Survivor Space-Heap">23559312</value>
+			
+	</chart>	
+	 
+  </chartdata>
+</producers>

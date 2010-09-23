@@ -14,10 +14,10 @@ public class ViewConfigActionTest {
 	public void testFillPath() throws Exception {
 		String interval = "default";
 		SourceConfiguration source = new SourceConfiguration("server1", "http://extapi.parship.de/extapi/mui/mskShowAllProducers.xml?pForward=xml");
-		List<ViewField> paths = ViewConfigAction.fillPaths(source, interval);
-		for (ViewField path : paths) {
-			System.out.println(path.getPath());
-		}
+//		List<ViewField> paths = ViewConfigAction.fillPaths(source, interval);
+//		for (ViewField path : paths) {
+//			System.out.println(path.getPath());
+//		}
 	}
 	
 }

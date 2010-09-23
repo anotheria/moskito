@@ -1,7 +1,6 @@
 package net.java.dev.moskito.webcontrol.ui.action;
 
 import java.text.DecimalFormat;
-import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,7 +15,6 @@ import net.java.dev.moskito.webcontrol.configuration.ViewConfiguration;
 import net.java.dev.moskito.webcontrol.configuration.ViewField;
 import net.java.dev.moskito.webcontrol.guards.Condition;
 import net.java.dev.moskito.webcontrol.repository.Attribute;
-import net.java.dev.moskito.webcontrol.repository.NumberAttribute;
 import net.java.dev.moskito.webcontrol.repository.Repository;
 import net.java.dev.moskito.webcontrol.repository.Snapshot;
 import net.java.dev.moskito.webcontrol.repository.SnapshotSource;
@@ -48,7 +46,6 @@ public abstract class BaseMoskitoWebcontrolAction implements Action {
 	@Override
 	public void preProcess(ActionMapping mapping, HttpServletRequest req, HttpServletResponse res) throws Exception {
 		// TODO Auto-generated method stub
-
 	}
 
 	protected ViewTable prepareView(String viewName, String interval) throws Exception {
@@ -81,15 +78,15 @@ public abstract class BaseMoskitoWebcontrolAction implements Action {
 					Attribute att = snapshot.getAttribute(field.getAttributeName());
 					AttributeBean bean = new AttributeBean();
 
-					if (field.getFormat() != null && att.getValue() instanceof Number) {
+					if (field.getFormat() != null && att != null && att.getValue() instanceof Number) {
 						DecimalFormat format = (DecimalFormat) DecimalFormat.getInstance();
 						format.applyPattern(field.getFormat());
-						bean.setValue(att == null ? "n.a." : format.format(((Number) att.getValue()).doubleValue()));
+						bean.setValue(att == null || att.getValue() == null ? "n.a." : format.format(((Number) att.getValue()).doubleValue()));
 					} else {
-						bean.setValue(att == null ? "n.a." : att.getValueString());
+						bean.setValue(att == null || att.getValue() == null ? "n.a." : att.getValueString());
 					}
 
-					bean.setColor(att == null ? Condition.DEFAULT.getColor() : att.getCondition().getColor());
+					bean.setColor(att == null || att.getValue() == null ? Condition.DEFAULT.getColor() : att.getCondition().getColor());
 					values.add(bean);
 				} else {
 					AttributeBean bean = new AttributeBean();

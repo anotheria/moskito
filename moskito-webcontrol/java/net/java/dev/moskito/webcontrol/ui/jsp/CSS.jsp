@@ -38,7 +38,7 @@ a:hover {text-decoration:underline;}
 .inner {margin-left:-1px;}
 .inner .top {height:5px; background:url("../images/borders_in.gif") 100% -5px no-repeat; padding-right:5px;}
 .inner .top div {height:5px; background:url("../images/borders_in.gif") 0 0 no-repeat;}
-.inner .in {border:1px solid #8eceeb; border-bottom:none; border-top:none; background:white; padding:3px 10px; min-height:200px; position:relative; z-index:5;}
+.inner .in {border:1px solid #8eceeb; border-bottom:none; border-top:none; background:white; padding:3px 10px; min-height:200px; position:relative; z-index:5; }
 .inner .bot {height:5px; background:url("../images/borders_in.gif") 100% -10px no-repeat; padding-right:5px; position:relative; z-index:5; margin:0;}
 .inner .bot div {height:5px; background:url("../images/borders_in.gif") 0 -15px no-repeat;}
 

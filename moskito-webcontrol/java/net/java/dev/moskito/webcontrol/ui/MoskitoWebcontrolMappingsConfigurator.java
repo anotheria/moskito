@@ -14,8 +14,11 @@ public class MoskitoWebcontrolMappingsConfigurator implements ActionMappingsConf
 		ActionMappings.addMapping("mwcCSS", "net.java.dev.moskito.webcontrol.ui.action.CssAction", new ActionForward("success",
 				"/net/java/dev/moskito/webcontrol/ui/jsp/CSS.jsp"));
 
-		ActionMappings.addMapping("viewConfig", "net.java.dev.moskito.webcontrol.ui.action.ViewConfigAction", new ActionForward("success",
-				"/net/java/dev/moskito/webcontrol/ui/jsp/viewConfig.jsp"));
+		ActionMappings.addMapping(
+				"viewConfig", 
+				"net.java.dev.moskito.webcontrol.ui.action.ViewConfigAction", 
+				new ActionForward("success", "/net/java/dev/moskito/webcontrol/ui/jsp/viewConfig.jsp")
+		);
 	}
 
 }

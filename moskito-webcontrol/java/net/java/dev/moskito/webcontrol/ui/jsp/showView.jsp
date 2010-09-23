@@ -42,7 +42,7 @@
 						<td>
 							<div class="inner">
 								<div class="top">
-									<div></div>
+									<div>&nbsp;</div>
 								</div>
 								<div class="in">
 									<div class="scroll">
@@ -108,7 +108,7 @@
 			</div>
 		</div>
 		<div class="bot">
-			<div></div>
+			<div>&nbsp;</div>
 		</div>
 	</div>
 </div>

@@ -17,5 +17,7 @@
 	<classpathentry kind="lib" path="lib/configureme.jar" sourcepath="/home/daa/projects/configureme/src/java"/>
 	<classpathentry kind="lib" path="lib/json.jar"/>
 	<classpathentry kind="lib" path="lib/ano-util.jar"/>
+	<classpathentry kind="lib" path="lib/jstl-api-1.2.jar"/>
+	<classpathentry kind="lib" path="lib/jstl-impl-1.2.jar"/>
 	<classpathentry kind="output" path="build/webapp/moskito-webcontrol/WEB-INF/classes"/>
 </classpath>

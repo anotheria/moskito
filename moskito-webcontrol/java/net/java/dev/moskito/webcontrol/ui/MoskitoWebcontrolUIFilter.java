@@ -1,13 +1,10 @@
 package net.java.dev.moskito.webcontrol.ui;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import javax.servlet.FilterConfig;
 import javax.servlet.ServletException;
@@ -34,9 +31,8 @@ import net.java.dev.moskito.webcontrol.repository.TotalFormulaType;
 import net.java.dev.moskito.webcontrol.ui.beans.PatternWithName;
 
 import org.apache.log4j.Logger;
-import org.json.JSONException;
 import org.w3c.dom.Document;
-import org.w3c.dom.NodeList;
+import org.w3c.dom.Node;
 
 public class MoskitoWebcontrolUIFilter extends MAFFilter {
 
@@ -61,12 +57,9 @@ public class MoskitoWebcontrolUIFilter extends MAFFilter {
 		try {
 
 			ConfigurationRepository.INSTANCE.loadViewsConfiguration();
+			ConfigurationRepository.INSTANCE.loadAllAvailableColumns();
 
-		} catch (IOException e) {
-			e.printStackTrace();
-			log.error(e);
-			throw new ServletException(e);
-		} catch (JSONException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 			log.error(e);
 			throw new ServletException(e);
@@ -85,7 +78,7 @@ public class MoskitoWebcontrolUIFilter extends MAFFilter {
 		// DummyFillViewConfig.fillConfig();
 
 	}
-	
+
 	@Override
 	public void destroy() {
 		super.destroy();
@@ -109,7 +102,7 @@ public class MoskitoWebcontrolUIFilter extends MAFFilter {
 							fillRepository(source, doc, ConfigurationRepository.INSTANCE.getContainerName(name));
 						}
 					} catch (Exception e) {
-						//log.error(e.getMessage(), e);
+						log.error(e.getMessage(), e);
 					}
 					executeGuards(ConfigurationRepository.INSTANCE.getContainerName(name), source.getName());
 				}
@@ -123,7 +116,18 @@ public class MoskitoWebcontrolUIFilter extends MAFFilter {
 	}
 
 	private static void executeGuards(String containerName, String sourceConfigName) {
-		Snapshot ss = Repository.INSTANCE.getSnapshot(containerName, new SnapshotSource(sourceConfigName));
+		// log.debug("containerName=" + containerName + ", sourceConfigName=" +
+		// sourceConfigName);
+		Snapshot ss = null;
+		try {
+			ss = Repository.INSTANCE.getSnapshot(containerName, new SnapshotSource(sourceConfigName));
+		} catch (Exception e) {
+			log.error(e.getMessage(), e);
+		}
+
+		if (ss == null) {
+			return;
+		}
 		List<String> viewNames = ConfigurationRepository.INSTANCE.getViewNames();
 		for (String viewName : viewNames) {
 			ViewConfiguration viewConfig = ConfigurationRepository.INSTANCE.getView(viewName);
@@ -133,7 +137,7 @@ public class MoskitoWebcontrolUIFilter extends MAFFilter {
 				try {
 					field.getGuard().execute(ss, field, attr);
 				} catch (Exception e) {
-					// TODO: handle exception
+					log.error(e.getMessage(), e);
 				}
 			}
 		}
@@ -152,8 +156,13 @@ public class MoskitoWebcontrolUIFilter extends MAFFilter {
 					List<SourceConfiguration> sources = ConfigurationRepository.INSTANCE.getSources();
 					for (SourceConfiguration source : sources) {
 						if (!"Totals".equalsIgnoreCase(source.getName())) {
-							Snapshot ss = Repository.INSTANCE.getSnapshot(containerName, new SnapshotSource(source.getName()));
-							attrs.add(ss.getAttribute(field.getAttributeName()));
+							Snapshot ss = null;
+							try {
+								ss = Repository.INSTANCE.getSnapshot(containerName, new SnapshotSource(source.getName()));
+								attrs.add(ss.getAttribute(field.getAttributeName()));
+							} catch (Exception e) {
+								log.error(e.getMessage(), e);
+							}
 						}
 					}
 					Attribute[] ats = attrs.toArray(new Attribute[attrs.size()]);
@@ -188,7 +197,7 @@ public class MoskitoWebcontrolUIFilter extends MAFFilter {
 				ViewField field = fs[j];
 				switch (field.getType()) {
 					case FIELD:
-						boolean wildcard = isWildCard(field.getPath());
+						boolean wildcard = ConfigurationRepository.isWildCard(field.getPath());
 						if (wildcard) {
 							fs[j] = null;
 							fields.remove(field);
@@ -228,23 +237,17 @@ public class MoskitoWebcontrolUIFilter extends MAFFilter {
 				try {
 					List<PatternWithName> result = new ArrayList<PatternWithName>();
 					result.add(new PatternWithName("", field.getPath()));
-					buildFullPath(result, doc);
+					ConfigurationRepository.buildFullPath(result, doc);
 					for (PatternWithName p : result) {
-						
-//						ViewField newField = new ViewField(p.getFieldName() + "." + field.getFieldName(), p.getFieldName() + "." + field.getFieldName(), field.getType(), field
-//								.getJavaType(), field.getVisible(), p.getPattern());
-//						newField.setGuard(field.getGuard());
-//						newField.setTotal(field.getTotal());
-//						newField.setFormat(field.getFormat());
-						
-						ViewField newField = (ViewField)field.clone();
+
+						ViewField newField = (ViewField) field.clone();
 						newField.setFieldName(p.getFieldName() + "." + field.getFieldName());
 						newField.setAttributeName(p.getFieldName() + "." + field.getFieldName());
 						newField.setPath(p.getPattern());
-						
+
 						viewConfig.addField(newField);
 					}
-					
+
 				} catch (Exception e) {
 					log.error(e.getMessage(), e);
 				}
@@ -259,8 +262,14 @@ public class MoskitoWebcontrolUIFilter extends MAFFilter {
 			for (ViewField field : fields) {
 				if (field.getAttributeName().equals(input)) {
 					try {
-						String value = (String) xpath.compile(field.getPath()).evaluate(doc, XPathConstants.STRING);
-						attr = AttributeFactory.create(AttributeType.convert(field.getJavaType()), field.getAttributeName(), value);
+						// log.debug("field.getPath() = " + field.getPath());
+						Node value = (Node) xpath.compile(field.getPath()).evaluate(doc, XPathConstants.NODE);
+						if (value != null) {
+							attr = AttributeFactory
+									.create(AttributeType.convert(field.getJavaType()), field.getAttributeName(), value.getNodeValue());
+						} else {
+							attr = AttributeFactory.create(AttributeType.convert(field.getJavaType()), field.getAttributeName(), "0");
+						}
 						break;
 					} catch (Exception e) {
 						log.error(e.getMessage(), e);
@@ -269,76 +278,6 @@ public class MoskitoWebcontrolUIFilter extends MAFFilter {
 			}
 		}
 		return attr;
-	}
-
-	
-
-	public static void buildFullPath(List<PatternWithName> result, Document doc) throws Exception {
-		XPath xpath = XPathFactory.newInstance().newXPath();
-
-		List<PatternWithName> res = new ArrayList<PatternWithName>();
-
-		for (int j = 0; j < result.size(); j++) {
-			PatternWithName pattern = result.get(j);
-
-			if (isWildCard(pattern.getPattern())) {
-
-				result.remove(pattern);
-
-				Pattern p = Pattern.compile("\\[@([^=]+)=\'([^*\\]]*\\*[^\\]]*)\'\\]+");
-				Matcher m = p.matcher(pattern.getPattern());
-				while (m.find()) {
-					String fullMatch = m.group(0);
-					String attributeName = m.group(1);
-					String value = m.group(2);
-
-					String start = pattern.getPattern().substring(0, pattern.getPattern().indexOf(fullMatch));
-
-					NodeList list = (NodeList) xpath.compile(start).evaluate(doc, XPathConstants.NODESET);
-					for (int i = 0; i < list.getLength(); i++) {
-						String attributeValue = list.item(i).getAttributes().getNamedItem(attributeName).getNodeValue();
-
-						if (checkAttributeValue(value, attributeValue)) {
-							String s = value.replaceAll("\\*", "\\\\*");
-							String replMatch = fullMatch.replaceAll(s, attributeValue);
-
-							int idxOf = pattern.getPattern().indexOf(fullMatch);
-							String nextMatch = pattern.getPattern().substring(0, idxOf) + replMatch
-									+ pattern.getPattern().substring(idxOf + fullMatch.length(), pattern.getPattern().length());
-
-							res.add(new PatternWithName((pattern.getFieldName().equals("") ? "" : pattern.getFieldName()+"_") + attributeValue, nextMatch));
-						}
-					}
-				}
-			}
-		}
-
-		if (res.size() > 0) {
-			for (PatternWithName p : res) {
-				result.add(p);
-			}
-			buildFullPath(result, doc);
-		}
-
-	}
-
-	private static boolean isWildCard(String pattern) {
-		Pattern p = Pattern.compile("\\[@([^=]+)=\'([^*\\]]*\\*[^\\]]*)\'\\]+");
-		Matcher m = p.matcher(pattern);
-		if (m.find()) {
-			return true;
-		}
-		return false;
-	}
-
-	private static boolean checkAttributeValue(String value, String attributeValue) {
-		String pattern = value.replaceAll("\\*", "(.*)");
-		Pattern p = Pattern.compile("^" + pattern + "$");
-		Matcher m = p.matcher(attributeValue);
-		if (m.find()) {
-			return true;
-		}
-		return false;
 	}
 
 	@Override

@@ -4,17 +4,28 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.TreeSet;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import javax.xml.xpath.XPath;
+import javax.xml.xpath.XPathConstants;
+import javax.xml.xpath.XPathExpressionException;
+import javax.xml.xpath.XPathFactory;
 
 import net.anotheria.util.StringUtils;
 import net.java.dev.moskito.webcontrol.IOUtils;
+import net.java.dev.moskito.webcontrol.feed.FeedGetter;
+import net.java.dev.moskito.webcontrol.feed.HttpGetter;
 import net.java.dev.moskito.webcontrol.guards.Guard;
 import net.java.dev.moskito.webcontrol.repository.ColumnType;
 import net.java.dev.moskito.webcontrol.repository.TotalFormulaType;
+import net.java.dev.moskito.webcontrol.ui.beans.PatternWithName;
 
 import org.apache.log4j.Logger;
 import org.configureme.Configuration;
@@ -22,6 +33,8 @@ import org.configureme.ConfigurationManager;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.w3c.dom.Document;
+import org.w3c.dom.NodeList;
 
 public enum ConfigurationRepository {
 
@@ -34,12 +47,15 @@ public enum ConfigurationRepository {
 	private List<SourceConfiguration> sources;
 	private List<IntervalConfiguration> intervals;
 
+	private List<ViewField> avaibleColumns;
+
 	private static final Logger log = Logger.getLogger(ConfigurationRepository.class);
 
 	private ConfigurationRepository() {
 		views = new ConcurrentHashMap<String, ViewConfiguration>();
 		sources = new CopyOnWriteArrayList<SourceConfiguration>();
 		intervals = new ArrayList<IntervalConfiguration>();
+		avaibleColumns = new ArrayList<ViewField>();
 	}
 
 	/***********************************/
@@ -108,6 +124,19 @@ public enum ConfigurationRepository {
 		}
 	}
 
+	/***********************************/
+	/********* sources *****************/
+	/***********************************/
+	public List<ViewField> getAvailableColumns() {
+		ArrayList<ViewField> ret = new ArrayList<ViewField>();
+		ret.addAll(avaibleColumns);
+		return ret;
+	}
+
+	public void addAvaiableColumn(ViewField column) {
+		avaibleColumns.add(column);
+	}
+
 	/**
 	 * 
 	 */
@@ -139,6 +168,12 @@ public enum ConfigurationRepository {
 			}
 		}
 
+		updateViews(views);
+
+	}
+	
+	public void updateViews(JSONObject views) throws JSONException {
+		ConfigurationRepository.INSTANCE.clearViews();
 		JSONArray viewList = views.getJSONArray("views");
 		for (int i = 0; i < viewList.length(); i++) {
 			JSONObject view = viewList.getJSONObject(i);
@@ -152,9 +187,12 @@ public enum ConfigurationRepository {
 
 			ConfigurationRepository.INSTANCE.addView(viewConfig);
 		}
-
 	}
-	
+
+	private void clearViews() {
+		views.clear();
+	}
+
 	public static ViewField prepareField(JSONObject column) throws JSONException {
 		String columnName = column.getString("attribute");
 		String name = column.getString("name");
@@ -204,8 +242,123 @@ public enum ConfigurationRepository {
 		}
 
 		field.setTotal(TotalFormulaType.convert(total));
-		
+
 		return field;
+	}
+
+	public void loadAllAvailableColumns() throws JSONException, IOException, XPathExpressionException, CloneNotSupportedException {
+		
+		String interval = null;
+		List<String> intervals = ConfigurationRepository.INSTANCE.getIntervalsNames();
+		if (intervals.size() > 0) {
+			interval = intervals.size() > 0 ? intervals.get(0) : "default";
+		}
+
+		SourceConfiguration source = null;
+		List<SourceConfiguration> sourceList = ConfigurationRepository.INSTANCE.getSources();
+		if (sourceList.size() > 0) {
+			source = sourceList.get(0);
+		} else {
+			throw new RuntimeException("there is no any server config");
+		}
+		
+		
+		FeedGetter getter = new HttpGetter();
+		SourceConfiguration sourceConf = new SourceConfiguration(source.getName(), source.getUrl() + "&pInterval=" + interval);
+		Document doc = getter.retreive(sourceConf);
+		
+		InputStream is = Thread.currentThread().getContextClassLoader().getResourceAsStream("views.json");
+		String content = IOUtils.getInputStreamAsString(is);
+		JSONObject views = new JSONObject(content);
+		
+		JSONObject baseColumn = views.getJSONObject("baseColumn");
+		
+		ViewField baseField = ConfigurationRepository.prepareField(baseColumn);
+		
+		HashMap<String, ViewField> map = new HashMap<String, ViewField>();
+		List<PatternWithName> result = new ArrayList<PatternWithName>();
+		result.add(new PatternWithName("", baseField.getPath()));
+		buildFullPath(result, doc);
+		for (PatternWithName p : result) {
+			ViewField column = (ViewField)baseField.clone();
+			column.setAttributeName(p.getFieldName());
+			column.setFieldName(p.getFieldName());
+			column.setPath(p.getPattern());
+			map.put(column.getAttributeName(), column);
+//			addAvaiableColumn(column);
+		}
+//		System.out.println("map size = "+map.entrySet().size());
+//		System.out.println("result size = " + avaibleColumns.size());
+		for (ViewField vf : map.values()) {
+			addAvaiableColumn(vf);
+		}
+	}
+
+	public static boolean isWildCard(String pattern) {
+		Pattern p = Pattern.compile("\\[@([^=]+)=\'([^*\\]]*\\*[^\\]]*)\'\\]+");
+		Matcher m = p.matcher(pattern);
+		if (m.find()) {
+			return true;
+		}
+		return false;
+	}
+
+	public static void buildFullPath(List<PatternWithName> result, Document doc) throws XPathExpressionException {
+		XPath xpath = XPathFactory.newInstance().newXPath();
+
+		List<PatternWithName> res = new ArrayList<PatternWithName>();
+
+		for (int j = 0; j < result.size(); j++) {
+			PatternWithName pattern = result.get(j);
+
+			if (isWildCard(pattern.getPattern())) {
+
+				result.remove(pattern);
+
+				Pattern p = Pattern.compile("\\[@([^=]+)=\'([^*\\]]*\\*[^\\]]*)\'\\]+");
+				Matcher m = p.matcher(pattern.getPattern());
+				while (m.find()) {
+					String fullMatch = m.group(0);
+					String attributeName = m.group(1);
+					String value = m.group(2);
+
+					String start = pattern.getPattern().substring(0, pattern.getPattern().indexOf(fullMatch));
+
+					NodeList list = (NodeList) xpath.compile(start).evaluate(doc, XPathConstants.NODESET);
+					for (int i = 0; i < list.getLength(); i++) {
+						String attributeValue = list.item(i).getAttributes().getNamedItem(attributeName).getNodeValue();
+
+						if (checkAttributeValue(value, attributeValue)) {
+							String s = value.replaceAll("\\*", "\\\\*");
+							String replMatch = fullMatch.replaceAll(s, attributeValue);
+
+							int idxOf = pattern.getPattern().indexOf(fullMatch);
+							String nextMatch = pattern.getPattern().substring(0, idxOf) + replMatch
+									+ pattern.getPattern().substring(idxOf + fullMatch.length(), pattern.getPattern().length());
+
+							res.add(new PatternWithName((pattern.getFieldName().equals("") ? "" : pattern.getFieldName() + "_") + attributeValue,
+									nextMatch));
+						}
+					}
+				}
+			}
+		}
+		if (res.size() > 0) {
+			for (PatternWithName p : res) {
+				result.add(p);
+			}
+			buildFullPath(result, doc);
+		}
+	}
+
+	private static boolean checkAttributeValue(String value, String attributeValue) {
+		String pattern = value.replaceAll("\\*", "(.*)");
+		Pattern p = Pattern.compile("^" + pattern + "$");
+		Matcher m = p.matcher(attributeValue);
+		if (m.find()) {
+			return true;
+		}
+		return false;
 	}
 
 }

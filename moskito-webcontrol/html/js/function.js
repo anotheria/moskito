@@ -1,8 +1,10 @@
 $(function() {
-        if ($('.views li:first').hasClass('active')) {
-                $('.inner .top div').css('background', 'white');
-                $('.inner .top div').css('border-top', '1px solid #8eceeb');
-        }
+	
+	if ($('.views li:first') && $('.views li:first').hasClass('active')) {
+		$('.inner .top div').css('background', 'white');
+		$('.inner .top div').css('border-top', '1px solid #8eceeb');
+	}
+        
 
         //resizes table for scroll
         function resizeTable() {
@@ -19,8 +21,8 @@ $(function() {
                 for (i=0; i<ttop.length; i++) {
                         if (ttop.eq(i).width() >= ttotal.eq(i).width()) {
                                 if (ttop.eq(i).width() != ttotal.eq(i).width()) {
-                                ttotal.eq(i).css('min-width', (ttop.eq(i).width()));
-                                ttotal.eq(i).find('a').css('width', (ttop.eq(i).find('a').width()));
+	                                ttotal.eq(i).css('min-width', (ttop.eq(i).width()));
+	                                ttotal.eq(i).find('a').css('width', (ttop.eq(i).find('a').width()));
                                 }
                         } else {
                                 ttop.eq(i).css('min-width', (ttotal.eq(i).width()));
