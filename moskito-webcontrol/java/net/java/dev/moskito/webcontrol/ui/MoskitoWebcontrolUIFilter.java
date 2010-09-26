@@ -135,7 +135,10 @@ public class MoskitoWebcontrolUIFilter extends MAFFilter {
 			for (ViewField field : fields) {
 				Attribute attr = ss.getAttribute(field.getAttributeName());
 				try {
-					field.getGuard().execute(ss, field, attr);
+					if (field.getGuard() != null) {
+						field.getGuard().execute(ss, field, attr);
+					}
+//					System.out.println("field="+field+", guard="+field.getGuard());
 				} catch (Exception e) {
 					log.error(e.getMessage(), e);
 				}
