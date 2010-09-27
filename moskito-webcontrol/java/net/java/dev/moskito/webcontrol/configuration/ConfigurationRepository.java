@@ -1,23 +1,5 @@
 package net.java.dev.moskito.webcontrol.configuration;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.TreeSet;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.ConcurrentMap;
-import java.util.concurrent.CopyOnWriteArrayList;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
-import javax.xml.xpath.XPath;
-import javax.xml.xpath.XPathConstants;
-import javax.xml.xpath.XPathExpressionException;
-import javax.xml.xpath.XPathFactory;
-
 import net.anotheria.util.StringUtils;
 import net.java.dev.moskito.webcontrol.IOUtils;
 import net.java.dev.moskito.webcontrol.feed.FeedGetter;
@@ -26,7 +8,6 @@ import net.java.dev.moskito.webcontrol.guards.Guard;
 import net.java.dev.moskito.webcontrol.repository.ColumnType;
 import net.java.dev.moskito.webcontrol.repository.TotalFormulaType;
 import net.java.dev.moskito.webcontrol.ui.beans.PatternWithName;
-
 import org.apache.log4j.Logger;
 import org.configureme.Configuration;
 import org.configureme.ConfigurationManager;
@@ -35,6 +16,19 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
+
+import javax.xml.xpath.XPath;
+import javax.xml.xpath.XPathConstants;
+import javax.xml.xpath.XPathExpressionException;
+import javax.xml.xpath.XPathFactory;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentMap;
+import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public enum ConfigurationRepository {
 
@@ -164,7 +158,9 @@ public enum ConfigurationRepository {
 			for (int i = 0; i < listServers.length(); i++) {
 				String server = (String) listServers.get(i);
 				String url = new StringBuilder().append(serversConfig.getAttribute(server)).append(appPath).append(baseUrl).toString();
-				ConfigurationRepository.INSTANCE.addSource(new SourceConfiguration(server, url));
+                String username = serversConfig.getAttribute(server + ".username");
+                String password = serversConfig.getAttribute(server + ".password");
+				ConfigurationRepository.INSTANCE.addSource(new SourceConfiguration(server, url, username, password));
 			}
 		}
 
@@ -264,7 +260,8 @@ public enum ConfigurationRepository {
 		
 		
 		FeedGetter getter = new HttpGetter();
-		SourceConfiguration sourceConf = new SourceConfiguration(source.getName(), source.getUrl() + "&pInterval=" + interval);
+//		SourceConfiguration sourceConf = new SourceConfiguration(source.getName(), source.getUrl() + "&pInterval=" + interval);
+        SourceConfiguration sourceConf = source.build("&pInterval=" + interval);
 		Document doc = getter.retreive(sourceConf);
 		
 		InputStream is = Thread.currentThread().getContextClassLoader().getResourceAsStream("views.json");

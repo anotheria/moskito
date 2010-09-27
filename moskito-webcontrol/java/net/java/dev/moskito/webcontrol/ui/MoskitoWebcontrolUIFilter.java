@@ -1,17 +1,5 @@
 package net.java.dev.moskito.webcontrol.ui;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
-
-import javax.servlet.FilterConfig;
-import javax.servlet.ServletException;
-import javax.xml.xpath.XPath;
-import javax.xml.xpath.XPathConstants;
-import javax.xml.xpath.XPathFactory;
-
 import net.anotheria.maf.MAFFilter;
 import net.anotheria.maf.action.ActionMappingsConfigurator;
 import net.java.dev.moskito.webcontrol.configuration.ConfigurationRepository;
@@ -20,19 +8,18 @@ import net.java.dev.moskito.webcontrol.configuration.ViewConfiguration;
 import net.java.dev.moskito.webcontrol.configuration.ViewField;
 import net.java.dev.moskito.webcontrol.feed.FeedGetter;
 import net.java.dev.moskito.webcontrol.feed.HttpGetter;
-import net.java.dev.moskito.webcontrol.repository.Attribute;
-import net.java.dev.moskito.webcontrol.repository.AttributeFactory;
-import net.java.dev.moskito.webcontrol.repository.AttributeType;
-import net.java.dev.moskito.webcontrol.repository.Repository;
-import net.java.dev.moskito.webcontrol.repository.Snapshot;
-import net.java.dev.moskito.webcontrol.repository.SnapshotSource;
-import net.java.dev.moskito.webcontrol.repository.StringAttribute;
-import net.java.dev.moskito.webcontrol.repository.TotalFormulaType;
+import net.java.dev.moskito.webcontrol.repository.*;
 import net.java.dev.moskito.webcontrol.ui.beans.PatternWithName;
-
 import org.apache.log4j.Logger;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
+
+import javax.servlet.FilterConfig;
+import javax.servlet.ServletException;
+import javax.xml.xpath.XPath;
+import javax.xml.xpath.XPathConstants;
+import javax.xml.xpath.XPathFactory;
+import java.util.*;
 
 public class MoskitoWebcontrolUIFilter extends MAFFilter {
 
@@ -96,7 +83,7 @@ public class MoskitoWebcontrolUIFilter extends MAFFilter {
 				for (String name : ConfigurationRepository.INSTANCE.getIntervalsNames()) {
 					try {
 						FeedGetter getter = new HttpGetter();
-						SourceConfiguration sourceConf = new SourceConfiguration(source.getName(), source.getUrl() + "&pInterval=" + name);
+						SourceConfiguration sourceConf = source.build("&pInterval=" + name);
 						Document doc = getter.retreive(sourceConf);
 						if (doc != null) {
 							fillRepository(source, doc, ConfigurationRepository.INSTANCE.getContainerName(name));
