@@ -46,6 +46,10 @@ public class SourceConfiguration {
                 this.getPassword());
     }
 
+    public boolean needAuth() {
+        return username != null && password != null;
+    }
+
     @Override
 	public boolean equals(Object o) {
 		return o instanceof SourceConfiguration && name.equals(((SourceConfiguration) o).name);

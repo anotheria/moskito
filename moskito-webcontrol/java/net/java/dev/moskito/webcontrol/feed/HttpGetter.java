@@ -24,7 +24,7 @@ public class HttpGetter implements FeedGetter {
 		try {
 			URL url = new URL(source.getUrl());
 			URLConnection connection = url.openConnection();
-            if(source.getUsername() != null && source.getPassword() != null) {
+            if(source.needAuth()) {
                 StringBuilder credentials = new StringBuilder(source.getUsername() + ":" + source.getPassword());
                 String encoding = new BASE64Encoder().encode(credentials.toString().getBytes());
                 connection.setRequestProperty("Authorization", "Basic " + encoding);
