@@ -35,6 +35,11 @@
 package net.java.dev.moskito.test.plain.exceptiontest;
 
 public class ExcServiceDetailedException extends ExcServiceException{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	public ExcServiceDetailedException(String message){
 		super("Detailed exc: "+message);
 	}
