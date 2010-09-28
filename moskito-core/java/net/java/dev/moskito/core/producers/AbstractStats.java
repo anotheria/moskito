@@ -46,18 +46,29 @@ import net.java.dev.moskito.core.stats.TimeUnit;
 /**
  * This abstract class is the super class of all statistical value sets.
  * 
- * @author dvayanu
+ * @author lrosenberg
  */
 public abstract class AbstractStats implements IStats {
 
+	/**
+	 * Name of the stats object. This can be a method name, an url, a business keyfigure etc.
+	 */
 	private String name;
-	
+	/**
+	 * Cached empty list object.
+	 */
 	private static final List<String> EMPTY_LIST = Collections.unmodifiableList(new ArrayList<String>());
-	
+	/**
+	 * Creates a new AbstractStats object.
+	 */
 	protected AbstractStats(){
 		this("unnamed");
 	}
 	
+	/**
+	 * Creates a new AbstractStats object with given name.
+	 * @param aName name of the stats object.
+	 */
 	protected AbstractStats(String aName){
 		name = aName;
 	}
@@ -66,18 +77,15 @@ public abstract class AbstractStats implements IStats {
 		return name;
 	}
 	
-	/**
-	 * @see net.java.dev.moskito.core.producers.IStats#toStatsString()
-	 */
-	public String toStatsString() {
+	@Override public String toStatsString() {
 		return toStatsString(TimeUnit.MILLISECONDS);
 	}
 
-	public String toStatsString(String intervalName) {
+	@Override public String toStatsString(String intervalName) {
 		return toStatsString(intervalName, TimeUnit.MILLISECONDS);
 	}
 	
-	public String toStatsString(TimeUnit timeUnit) {
+	@Override public String toStatsString(TimeUnit timeUnit) {
 		return toStatsString(null, timeUnit);
 	}
 
@@ -120,6 +128,9 @@ public abstract class AbstractStats implements IStats {
         return snapshot;
 	}
 	
+	/**
+	 * Not supported by default. 
+	 */
 	public CallExecution createCallExecution(){
 		throw new AssertionError("Not implemented");
 	}

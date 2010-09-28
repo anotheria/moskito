@@ -25,7 +25,7 @@ import net.java.dev.moskito.core.timing.IUpdateable;
  * On calling the update() method it will notify the primary listener first 
  * and afterwards the secondary listeners.    
  * 
- * @author dvayanu
+ * @author lrosenberg
  */
 class IntervalImpl implements IUpdateable, Interval {
 	

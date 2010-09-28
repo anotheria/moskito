@@ -1,9 +1,9 @@
 package net.java.dev.moskito.core.util;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 import net.java.dev.moskito.core.predefined.MemoryStats;
 import net.java.dev.moskito.core.producers.IStats;
@@ -54,7 +54,7 @@ public class BuiltInMemoryProducer implements IStatsProducer{
 	private static final Timer timer = new Timer("MoskitoMemoryReader", true);
 	
 	public BuiltInMemoryProducer(String aProducerId){
-		statsList = new ArrayList<IStats>();
+		statsList = new CopyOnWriteArrayList<IStats>();
 		stats = new MemoryStats(aProducerId);
 		statsList.add(stats);
 		

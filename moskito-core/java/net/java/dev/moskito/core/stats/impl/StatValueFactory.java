@@ -40,8 +40,7 @@ import net.java.dev.moskito.core.stats.StatValue;
 
 /**
  * This factory creates StatValue instances.
- * 
- * @author dvayanu
+ * @author lrosenberg
  */
 public class StatValueFactory {
 

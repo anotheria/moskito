@@ -2,10 +2,10 @@ package net.java.dev.moskito.core.util;
 
 import java.lang.management.ManagementFactory;
 import java.lang.management.ThreadMXBean;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 import net.java.dev.moskito.core.predefined.ThreadCountStats;
 import net.java.dev.moskito.core.producers.IStats;
@@ -42,7 +42,7 @@ public class BuiltInThreadCountProducer implements IStatsProducer{
 		
 		stats = new ThreadCountStats();
 		
-		statsList = new ArrayList<IStats>();
+		statsList = new CopyOnWriteArrayList<IStats>();
 		statsList.add(stats);
 		
 		threadMxBean = ManagementFactory.getThreadMXBean();

@@ -41,6 +41,11 @@ package net.java.dev.moskito.core.dynamic;
  */
 public class OnDemandStatsProducerException extends Exception{
 	/**
+	 * SerialVersionUID.
+	 */
+	private static final long serialVersionUID = 1L;
+
+	/**
 	 * Public constructor.
 	 * @param message
 	 */

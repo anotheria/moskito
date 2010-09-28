@@ -17,7 +17,7 @@ package net.java.dev.moskito.core.stats;
  * implementation and declares the interface to support some basic mathematical operations 
  * needed for statistical aggregations.
  *
- * @author dvayanu
+ * @author lrosenberg
  */
 public interface ValueHolder {
 	/**

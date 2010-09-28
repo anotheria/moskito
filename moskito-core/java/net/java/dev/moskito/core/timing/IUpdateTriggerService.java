@@ -37,7 +37,7 @@ package net.java.dev.moskito.core.timing;
 /**
  * This interface declares a service provider that allows to get notified periodically.
  *
- * @author dvayanu
+ * @author lrosenberg
  */
 public interface IUpdateTriggerService {
 	
@@ -47,5 +47,5 @@ public interface IUpdateTriggerService {
 	 * @param aUpdateable the listener to be registered
 	 * @param aUpdateSequenceInSeconds the update interval in seconds
 	 */
-	public void addUpdateable(IUpdateable aUpdateable, int aUpdateSequenceInSeconds);
+	void addUpdateable(IUpdateable aUpdateable, int aUpdateSequenceInSeconds);
 }

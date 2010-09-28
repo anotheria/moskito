@@ -10,7 +10,7 @@ import net.java.dev.moskito.core.usecase.running.RunningUseCaseContainer;
 
 /**
  * Command processor for use-case recording.
- * @author another
+ * @author lrosenberg
  *
  */
 public class UseCaseRecorderCommandProcessor implements ICommandProcessor{

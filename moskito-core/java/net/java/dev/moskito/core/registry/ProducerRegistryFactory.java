@@ -38,14 +38,14 @@ import net.java.dev.moskito.core.util.StartBuiltInProducers;
 
 /**
  * This class is solely for a) compatibility reasons with older version and b) decoupling IProducerRegistry and ProducerRegistryImpl.
- * @author another
+ * @author lrosenberg
  */
 public class ProducerRegistryFactory {
 		
 	/**
 	 * The instance of the producer registry impl.
 	 */
-	private static final IProducerRegistry instance = new ProducerRegistryImpl();
+	private static final ProducerRegistryImpl instance = new ProducerRegistryImpl();
 	
 	static{
 		init();
@@ -64,5 +64,12 @@ public class ProducerRegistryFactory {
 	 */
 	public static final IProducerRegistry getProducerRegistryInstance(){
 		return instance;
+	}
+	
+	/**
+	 * Resets the registry, useable for unit tests.
+	 */
+	public static final void reset(){
+		instance.reset();
 	}
 }

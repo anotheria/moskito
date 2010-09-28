@@ -40,7 +40,7 @@ import net.java.dev.moskito.core.producers.IStats;
 
 /**
  * This call handler does nothing but forwards the call directly to the implementation.
- * @author another
+ * @author lrosenberg
  *
  */
 public class PlainCallHandler implements IOnDemandCallHandler{

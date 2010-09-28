@@ -42,7 +42,7 @@ import net.java.dev.moskito.core.stats.IValueHolderFactory;
  * This utility class provides methods to gather the StatValue type from a given Object's class and
  * to create ValueHolderFactories from an internal type representation.
  * 
- * @author dvayanu
+ * @author lrosenberg
  */
 final class StatValueTypeUtility {
 

@@ -40,7 +40,7 @@ import java.util.Timer;
  * This class implements the UpdateTriggerService. 
  * It depends on ITimerService that will be used to do the work.
  * 
- * @author dvayanu
+ * @author lrosenberg
  */
 class UpdateTriggerServiceImpl implements IUpdateTriggerService {
 

@@ -38,13 +38,13 @@ package net.java.dev.moskito.core.stats;
  * This Exception indicates that any operation involving Intervals could not estimate the
  * appropriate interval length.
  * 
- * @author dvayanu
+ * @author lrosenberg
  */
 public class UnknownIntervalLengthException extends RuntimeException {
 	/**
 	 * serialVersionUID
 	 */
-	private static final long serialVersionUID = 7977405267596811426L;
+	private static final long serialVersionUID = 1L;
 
 	/**
 	 * The Constructor.

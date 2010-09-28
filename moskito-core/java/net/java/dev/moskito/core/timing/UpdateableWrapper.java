@@ -39,7 +39,7 @@ import java.util.TimerTask;
 /**
  * This class implements an adapter to handle IUpdatable instances as TimerTask.
  *
- * @author dvayanu
+ * @author lrosenberg
  */
 final class UpdateableWrapper extends TimerTask {
 

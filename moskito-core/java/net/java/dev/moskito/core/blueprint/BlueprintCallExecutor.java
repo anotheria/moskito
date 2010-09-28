@@ -14,5 +14,5 @@ public interface BlueprintCallExecutor {
 	 * @return
 	 * @throws Exception
 	 */
-	public Object execute(Object... parameters) throws Exception;
+	Object execute(Object... parameters) throws Exception;
 }

@@ -52,7 +52,7 @@ import org.apache.log4j.Logger;
 
 /**
  * Implementation of the public api for the producer registry.
- * @author another
+ * @author lrosenberg
  *
  */
 public class ProducerRegistryAPIImpl implements IProducerRegistryAPI, IProducerRegistryListener, IntervalRegistryListener, IIntervalListener{
@@ -212,7 +212,7 @@ public class ProducerRegistryAPIImpl implements IProducerRegistryAPI, IProducerR
 			buildProducerCacheFromScratch();
 		List <IStatsProducer> ret = new ArrayList<IStatsProducer>();
 		@SuppressWarnings("unchecked")
-		List<IStatsProducer> workCopy = (List<IStatsProducer>)((ArrayList)_cachedProducerList).clone();
+		List<IStatsProducer> workCopy = (List<IStatsProducer>)((ArrayList<IStatsProducer>)_cachedProducerList).clone();
 		for (IStatsProducer p  : workCopy){
 			boolean fit = true;
 			for(IProducerFilter filter: filters)

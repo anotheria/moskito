@@ -6,6 +6,11 @@ package net.java.dev.moskito.core.usecase.session;
  */
 public class NoSuchMonitoringSessionException extends Exception{
 	/**
+	 * SerialVersionUID.
+	 */
+	private static final long serialVersionUID = 1L;
+
+	/**
 	 * Creates a new NoSuchMonitoringSessionException.
 	 * @param name
 	 */

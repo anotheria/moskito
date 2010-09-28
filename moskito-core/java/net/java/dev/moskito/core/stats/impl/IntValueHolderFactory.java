@@ -38,14 +38,10 @@ import net.java.dev.moskito.core.stats.Interval;
 
 /**
  * This ValueHolderFactory implementation creates IntValueHolder instances.
- * 
- * @author dvayanu
+ * @author lrosenberg
  */
 class IntValueHolderFactory extends AbstractValueHolderFactory {
 
-	/**
-	 * @see net.java.dev.moskito.core.stats.AbstractValueHolderFactory#createValueHolderObject(Interval))
-	 */
 	@Override
 	protected AbstractValueHolder createValueHolderObject(Interval aInterval) {
 		return new IntValueHolder(aInterval);

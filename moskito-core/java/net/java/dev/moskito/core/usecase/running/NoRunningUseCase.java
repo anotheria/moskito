@@ -36,7 +36,7 @@ package net.java.dev.moskito.core.usecase.running;
 
 /**
  * A null object implementation of the RunningUseCase. Used to prevent null checks in surrounding code.
- * @author another
+ * @author lrosenberg
  *
  */
 public class NoRunningUseCase implements RunningUseCase{

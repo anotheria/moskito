@@ -41,13 +41,17 @@ import java.util.Map;
  * This interface declares a snapshot of an instance of IStat that was taken at any time.
  * It doesn't declare the mandatory content conversion methods anylonger.
  *
- * @author dvayanu
+ * @author lrosenberg
  */
 public interface IStatsSnapshot {
+	/**
+	 * Returns the name of the stats producer.
+	 * @return
+	 */
 	String getName();
 
 	public Map<String, Number> getProperties();
-
+	
     Date getDateCreated();
 
     String getInterfaceName();

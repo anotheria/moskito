@@ -210,7 +210,7 @@ public abstract class RequestOrientedStats extends AbstractStats {
 	}
 
 	public double getAverageRequestDuration(String intervalName, TimeUnit unit) {
-		return ((double)unit.transformNanos(totalTime.getValueAsLong(intervalName))) / totalRequests.getValueAsDouble(intervalName);
+		return unit.transformNanos(totalTime.getValueAsLong(intervalName)) / totalRequests.getValueAsDouble(intervalName);
 	}
 
 	/**

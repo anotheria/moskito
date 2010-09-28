@@ -41,7 +41,7 @@ import net.java.dev.moskito.core.stats.Interval;
 /**
  * This class implements a ValueHolder that is able to process int values.
  * 
- * @author dvayanu
+ * @author lrosenberg
  * @see ValueHolder
  */
 class IntValueHolder extends AbstractValueHolder {
@@ -115,7 +115,7 @@ class IntValueHolder extends AbstractValueHolder {
 	}
 
 	@Override public double getValueAsDouble() {
-		return (double) getValueAsInt();
+		return getValueAsInt();
 	}
 
 	@Override public int getValueAsInt() {
@@ -123,7 +123,7 @@ class IntValueHolder extends AbstractValueHolder {
 	}
 
 	@Override public long getValueAsLong() {
-		return (long) getValueAsInt();
+		return getValueAsInt();
 	}
 
 	@Override public void increaseByDouble(double aValue) {
@@ -168,7 +168,7 @@ class IntValueHolder extends AbstractValueHolder {
 	}
 
 	@Override public double getCurrentValueAsDouble() {
-		return (double) getCurrentValueAsLong();
+		return getCurrentValueAsLong();
 	}
 
 	@Override public int getCurrentValueAsInt() {
@@ -176,7 +176,7 @@ class IntValueHolder extends AbstractValueHolder {
 	}
 
 	@Override public long getCurrentValueAsLong() {
-		return (long) getCurrentValueAsInt();
+		return getCurrentValueAsInt();
 	}
 
 }

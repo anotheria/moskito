@@ -12,7 +12,7 @@ import net.java.dev.moskito.core.registry.ProducerRegistryFactory;
 
 /**
  * A utility for starting built-in producers upon moskito start / initialization.
- * @author another
+ * @author lrosenberg
  *
  */
 public class StartBuiltInProducers {

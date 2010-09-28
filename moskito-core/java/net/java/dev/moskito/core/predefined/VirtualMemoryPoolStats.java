@@ -9,8 +9,8 @@ import net.java.dev.moskito.core.stats.TimeUnit;
 
 /**
  * Stats for virtual pools, i.e. Heap and Non-Heap memory, which consists of multiple underlying pools.
- * The VirtualMemoryPoolStats do not measure theirself, but just aggregate.
- * @author another
+ * The VirtualMemoryPoolStats do not measure themself, they just aggregate values provided by JMX Beans.
+ * @author lrosenberg
  *
  */
 public class VirtualMemoryPoolStats extends AbstractStats implements IMemoryPoolStats{

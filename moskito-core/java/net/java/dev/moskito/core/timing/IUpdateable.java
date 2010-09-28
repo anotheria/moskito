@@ -37,12 +37,12 @@ package net.java.dev.moskito.core.timing;
 /**
  * This interface declares a listener that will be notified about updates.
  *
- * @author dvayanu
+ * @author lrosenberg
  */
 public interface IUpdateable {
 	
 	/**
 	 * This method will be called if an update occures.
 	 */
-	public void update();
+	void update();
 }
