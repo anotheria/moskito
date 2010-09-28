@@ -21,7 +21,7 @@ import net.java.dev.moskito.core.stats.ValueHolder;
  * implementation and declares the interface to support some basic mathematical operations 
  * needed for statistical aggregations.
  *
- * @author dvayanu
+ * @author lrosenberg
  */
 abstract class AbstractValueHolder implements IIntervalListener, ValueHolder {
 	

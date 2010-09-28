@@ -7,6 +7,11 @@ package net.java.dev.moskito.core.usecase.recorder;
  */
 public class NoSuchRecordedUseCaseException extends Exception{
 	/**
+	 * SerialVersionUID.
+	 */
+	private static final long serialVersionUID = 1L;
+
+	/**
 	 * Creates a new instance of the exception.
 	 * @param name
 	 */

@@ -40,6 +40,11 @@ package net.java.dev.moskito.core.registry;
  */
 public class ProducerRegistryAPIException extends RuntimeException{
 	/**
+	 * SerialVersionUID.
+	 */
+	private static final long serialVersionUID = 1L;
+
+	/**
 	 * Creates a new ProducerRegistryAPIException.
 	 * @param message
 	 */

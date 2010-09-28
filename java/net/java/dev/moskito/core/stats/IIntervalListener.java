@@ -16,7 +16,7 @@ package net.java.dev.moskito.core.stats;
  * This interface declares a listener that can be registered at an Interval to be 
  * notified when the interval-specific period of time was elapsed.
  * 
- * @author dvayanu
+ * @author lrosenberg
  */
 public interface IIntervalListener {
 	
@@ -25,5 +25,5 @@ public interface IIntervalListener {
 	 * 
 	 * @param aCaller The Interval that calls this method
 	 */
-	public void intervalUpdated(Interval aCaller);
+	void intervalUpdated(Interval aCaller);
 }

@@ -101,7 +101,10 @@ public interface IStats {
 	CallExecution createCallExecution();
 	
 	String getValueByNameAsString(String valueName, String intervalName, TimeUnit timeUnit);
-	
+	/**
+	 * Returns the names of all contained stats.
+	 * @return
+	 */
 	List<String> getAvailableValueNames();
 	
 }

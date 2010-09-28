@@ -48,7 +48,7 @@ import net.java.dev.moskito.core.stats.ValueHolder;
 /**
  * This class implements StatValue.
  * 
- * @author dvayanu
+ * @author lrosenberg
  * @see StatValue
  * @see AbstractValueHolder
  */

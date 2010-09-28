@@ -38,7 +38,7 @@ package net.java.dev.moskito.core.stats;
  * This Exception indicates that any operation involving Intervals does not know
  * this Interval.
  * 
- * @author dvayanu
+ * @author lrosenberg
  */
 public class UnknownIntervalException extends RuntimeException {
 	/**

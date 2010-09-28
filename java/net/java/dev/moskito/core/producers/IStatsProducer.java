@@ -40,7 +40,7 @@ import java.util.List;
  * This interface declares a stats producer. A stats producer is something that produces stats, it might be 
  * a servlet, an action, a service, but also an exectuion pattern. Basically anything you want to monitor is a stats producer since it produces 
  * monitoring stats. A stats producer is also referred to as monitoring point.
- * @author dvayanu
+ * @author lrosenberg
  */
 public interface IStatsProducer {
 	
@@ -51,7 +51,7 @@ public interface IStatsProducer {
 	 * 
 	 * @return all stats this producer produces / generates.
 	 */
-	public List<IStats> getStats();
+	List<IStats> getStats();
 
 	/**
 	 * Returns the meaningful id of this producer. This should be something like a class or
@@ -60,7 +60,7 @@ public interface IStatsProducer {
 	 * @return a string which provides unique identification of this producer, i.e. the class name
 	 *         or a readable form of it.
 	 */
-	public String getProducerId();
+	String getProducerId();
 
 	/**
 	 * Returns the category of this producer. A typical categorie is something like servlet, action,
@@ -69,7 +69,7 @@ public interface IStatsProducer {
 	 * 
 	 * @return the id of the category the producer belongs to.
 	 */
-	public String getCategory();
+	String getCategory();
 
 	/**
 	 * Returns the subsystem the current producer is located in. Moskito referrs to your application
@@ -80,6 +80,6 @@ public interface IStatsProducer {
 	 * 
 	 * @return the id of the subsystem the producer belongs to.
 	 */
-	public String getSubsystem();
+	String getSubsystem();
 
 }

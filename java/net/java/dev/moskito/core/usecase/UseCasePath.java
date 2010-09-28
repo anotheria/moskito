@@ -2,7 +2,7 @@ package net.java.dev.moskito.core.usecase;
 
 /**
  * Calculation of use cases along same path.
- * @author another
+ * @author lrosenberg
  *
  */
 public class UseCasePath {

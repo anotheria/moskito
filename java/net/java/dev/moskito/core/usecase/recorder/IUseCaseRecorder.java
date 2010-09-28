@@ -6,7 +6,7 @@ import net.java.dev.moskito.core.usecase.running.ExistingRunningUseCase;
 
 /**
  * Interface for a use case recorder.
- * @author another
+ * @author lrosenberg
  *
  */
 public interface IUseCaseRecorder {

@@ -37,7 +37,7 @@ package net.java.dev.moskito.core.usecase.running;
 
 /**
  * This is a container for thread local reference to a running thread container.
- * @author another
+ * @author lrosenberg
  *
  */
 public class RunningUseCaseContainer {

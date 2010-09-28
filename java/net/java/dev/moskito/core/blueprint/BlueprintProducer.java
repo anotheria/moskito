@@ -1,7 +1,7 @@
 package net.java.dev.moskito.core.blueprint;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 import net.java.dev.moskito.core.predefined.ActionStats;
 import net.java.dev.moskito.core.predefined.Constants;
@@ -58,7 +58,7 @@ public class BlueprintProducer implements IStatsProducer{
 		subsystem = aSubsystem;
 		
 		stats = new ActionStats("execute", getMonitoringIntervals());
-		statsList = new ArrayList<IStats>();
+		statsList = new CopyOnWriteArrayList<IStats>();
 		statsList.add(stats);
 		ProducerRegistryFactory.getProducerRegistryInstance().registerProducer(this);
 
@@ -98,19 +98,19 @@ public class BlueprintProducer implements IStatsProducer{
 	}
 	
 	
-	public String getCategory() {
+	@Override public String getCategory() {
 		return category;
 	}
 
-	public String getProducerId() {
+	@Override public String getProducerId() {
 		return producerId;
 	}
 
-	public List<IStats> getStats() {
+	@Override public List<IStats> getStats() {
 		return statsList;
 	}
 
-	public String getSubsystem() {
+	@Override public String getSubsystem() {
 		return subsystem;
 	}
 	

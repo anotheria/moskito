@@ -1,8 +1,8 @@
 package net.java.dev.moskito.core.util;
 
 import java.lang.management.MemoryType;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 import net.java.dev.moskito.core.predefined.VirtualMemoryPoolStats;
 import net.java.dev.moskito.core.producers.IStats;
@@ -10,7 +10,7 @@ import net.java.dev.moskito.core.producers.IStatsProducer;
 
 /**
  * Built in producer for monitoring of virtual memory pools, which are combination of pools based on memory type, like: all heap pools, all non-heap pools.
- * @author another
+ * @author lrosenberg
  */
 public class BuiltInMemoryPoolVirtualProducer implements IStatsProducer{
 	/**
@@ -33,7 +33,7 @@ public class BuiltInMemoryPoolVirtualProducer implements IStatsProducer{
 	 */
 	public BuiltInMemoryPoolVirtualProducer(MemoryType type, List<BuiltInMemoryPoolProducer> producers){
 		producerId = type.toString();
-		statsList = new ArrayList<IStats>();
+		statsList = new CopyOnWriteArrayList<IStats>();
 		stats = new VirtualMemoryPoolStats(producerId);
 		for (BuiltInMemoryPoolProducer producer : producers)
 			stats.addStats(producer.getMemoryPoolStats());

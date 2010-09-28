@@ -41,7 +41,7 @@ import net.java.dev.moskito.core.stats.Interval;
 /**
  * This is the abstract super class of all concrete factories that create new ValueHolder instances.
  * 
- * @author dvayanu
+ * @author lrosenberg
  * @see AbstractValueHolder
  * @see Interval
  * @see IValueHolderFactory

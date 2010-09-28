@@ -43,7 +43,7 @@ import org.apache.log4j.Logger;
 
 /**
  * An implementation of the command controller.
- * @author another
+ * @author lrosenberg
  *
  */
 public enum CommandControllerImpl implements ICommandController{

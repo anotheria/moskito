@@ -2,7 +2,7 @@ package net.java.dev.moskito.core.predefined;
 
 /**
  * Describes stats for a memory pool as a part of the garbage collector internal pools (old, new, eden, tenured, perm, etc).
- * @author another
+ * @author lrosenberg
  *
  */
 public interface IMemoryPoolStats {

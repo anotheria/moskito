@@ -37,7 +37,7 @@ package net.java.dev.moskito.core.stats;
 /**
  * This interface declares a listener that will be notified about new created Intervals.
  *
- * @author dvayanu
+ * @author lrosenberg
  */
 public interface IntervalRegistryListener {
 	
@@ -46,5 +46,5 @@ public interface IntervalRegistryListener {
 	 * 
 	 * @param aInterval the new Interval
 	 */
-	public void intervalCreated(Interval aInterval);
+	void intervalCreated(Interval aInterval);
 }

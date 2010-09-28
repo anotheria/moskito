@@ -39,7 +39,7 @@ import java.util.List;
 
 /**
  * A path element along the monitoring points in a running use case.
- * @author another
+ * @author lrosenberg
  *
  */
 public class PathElement {

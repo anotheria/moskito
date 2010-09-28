@@ -50,7 +50,7 @@ import net.java.dev.moskito.core.producers.IStatsProducer;
  * This producer is used when the different method producing stats aren't known at compile time (or you don't want to use 
  * them). It is used by the InvocationProxy to add methods dynamically as they being called, but also by the filters, like
  * RequestURIFilter dynamically adding a stat for each new uri.  
- * @author dvayanu
+ * @author lrosenberg
  */
 public class OnDemandStatsProducer implements IStatsProducer, Inspectable{
 	

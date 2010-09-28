@@ -40,8 +40,7 @@ import net.java.dev.moskito.core.stats.Interval;
 
 /**
  * This class implements a ValueHolder that is able to process long values.
- * 
- * @author dvayanu
+ * @author lrosenberg
  * @see ValueHolder
  */
 class LongValueHolder extends AbstractValueHolder {
@@ -125,7 +124,7 @@ class LongValueHolder extends AbstractValueHolder {
 	}
 
 	@Override public double getValueAsDouble() {
-		return (double) getValueAsLong();
+		return getValueAsLong();
 	}
 
 	@Override public int getValueAsInt() {
@@ -142,7 +141,7 @@ class LongValueHolder extends AbstractValueHolder {
 	}
 
 	@Override public void increaseByInt(int aValue) {
-		increaseByLong((long) aValue);
+		increaseByLong(aValue);
 	}
 
 	@Override public void increaseByLong(long aValue) {
@@ -155,7 +154,7 @@ class LongValueHolder extends AbstractValueHolder {
 	}
 
 	@Override public void setValueAsInt(int aValue) {
-		setValueAsLong((long) aValue);
+		setValueAsLong(aValue);
 	}
 
 	@Override public void setValueAsLong(long aValue) {
@@ -167,7 +166,7 @@ class LongValueHolder extends AbstractValueHolder {
 	}
 
 	@Override public void setDefaultValueAsInt(int aValue) {
-		setDefaultValueAsLong((long) aValue);
+		setDefaultValueAsLong(aValue);
 	}
 
 	@Override public void setDefaultValueAsDouble(double aValue) {
@@ -180,7 +179,7 @@ class LongValueHolder extends AbstractValueHolder {
 	}
 
 	@Override public double getCurrentValueAsDouble() {
-		return (double) getCurrentValueAsLong();
+		return getCurrentValueAsLong();
 	}
 
 	@Override public int getCurrentValueAsInt() {

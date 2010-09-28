@@ -7,8 +7,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * An implementation of the MonitoringSessionManager.
- * @author another
- *
+ * @author lrosenberg
  */
 public class MonitoringSessionManagerImpl implements IMonitoringSessionManager{
 

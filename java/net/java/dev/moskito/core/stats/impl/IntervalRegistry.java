@@ -52,7 +52,7 @@ import net.java.dev.moskito.core.timing.UpdateTriggerServiceFactory;
 /**
  * This class implements a registry singleton to hold and create Interval instances.
  * 
- * @author dvayanu
+ * @author lrosenberg
  */
 public final class IntervalRegistry {
 

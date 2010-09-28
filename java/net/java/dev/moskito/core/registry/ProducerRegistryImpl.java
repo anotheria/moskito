@@ -69,8 +69,7 @@ public class ProducerRegistryImpl implements IProducerRegistry{
 	 * Creates the ProducerRegistryImpl singleton instance.
 	 */
 	ProducerRegistryImpl(){
-		listeners = new CopyOnWriteArrayList<IProducerRegistryListener>();
-		registry = new ConcurrentHashMap<String,IStatsProducer>();
+		reset();
 	}
 
 	@Override public void addListener(IProducerRegistryListener listener) {
@@ -115,5 +114,10 @@ public class ProducerRegistryImpl implements IProducerRegistry{
 		for(IProducerRegistryListener listener : listeners){
 			listener.notifyProducerUnregistered(producer);
 		}
+	}
+	
+	void reset(){
+		listeners = new CopyOnWriteArrayList<IProducerRegistryListener>();
+		registry = new ConcurrentHashMap<String,IStatsProducer>();
 	}
 }

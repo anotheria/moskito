@@ -76,6 +76,11 @@ public class MonitoringSession {
 	public void setName(String name) {
 		this.name = name;
 	}
+	
+	/**
+	 * Returns contained use cases.
+	 * @return
+	 */
 	public List<ExistingRunningUseCase> getUseCases() {
 		return useCases;
 	}

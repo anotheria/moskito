@@ -1,7 +1,7 @@
 package net.java.dev.moskito.core.dynamic;
 
-import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import net.java.dev.moskito.core.predefined.ServiceStatsCallHandler;
@@ -10,14 +10,14 @@ import net.java.dev.moskito.core.predefined.ServiceStatsFactory;
 /**
  * This utility class helps to create moskitoinvocation proxies. All you need is to submit your implementation and the interfaces which should be supported. In all methods the first interface is mandatory and 
  * defines the name of the proxy if the name parameter is omitted (or null).
- * @author another
+ * @author lrosenberg
  *
  */
 public class ProxyUtils {
 	/**
 	 * Internal storage for instancecounters.
 	 */
-	private static Map<String,AtomicInteger> instanceCounters = new ConcurrentHashMap<String, AtomicInteger>();
+	private static ConcurrentMap<String,AtomicInteger> instanceCounters = new ConcurrentHashMap<String, AtomicInteger>();
 	/**
 	 * Creates a new proxied instance for an existing implementation.
 	 * @param <T> interface type.
@@ -110,6 +110,7 @@ public class ProxyUtils {
 		return createServiceInstance(impl, null, "dao", subsystem, interf, additionalInterfaces);
 	}
 
+	//TODO change this to use concurrent map symantec.
 	private static int getInstanceCounter(String name){
 		AtomicInteger counter = instanceCounters.get(name);
 		if (counter==null){
@@ -129,7 +130,7 @@ public class ProxyUtils {
 	 * @param clazz the target clazz..
 	 * @return
 	 */
-	private static String extractName(Class<?> clazz){
+	private static final String extractName(Class<?> clazz){
 		String name = clazz.getName();
 		if (name==null)
 			name = "";

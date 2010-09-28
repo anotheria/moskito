@@ -37,7 +37,7 @@ package net.java.dev.moskito.core.timing;
 /**
  * This class implements the factory to obtain an instance of the UpdateTriggerService.
  *
- * @author dvayanu
+ * @author lrosenberg
  */
 public abstract class UpdateTriggerServiceFactory {
 	/**

@@ -36,7 +36,7 @@ package net.java.dev.moskito.core.producers;
 
 /**
  * This abstract class is the super class of all IStatsProducer.
- * @author dvayanu
+ * @author lrosenberg
  */
 public abstract class AbstractStatsProducer implements IStatsProducer{
 
@@ -50,17 +50,11 @@ public abstract class AbstractStatsProducer implements IStatsProducer{
 	 */
 	protected static final String DEFAULT_SUBSYSTEM = "default";
 	
-	/**
-	 * @see net.java.dev.moskito.core.producers.IStatsProducer#getCategory()
-	 */
-	public String getCategory() {
+	@Override public String getCategory() {
 		return DEFAULT_CATEGORY;
 	}
 
-	/**
-	 * @see net.java.dev.moskito.core.producers.IStatsProducer#getSubsystem()
-	 */
-	public String getSubsystem() {
+	@Override public String getSubsystem() {
 		return DEFAULT_SUBSYSTEM;
 	}
 	
