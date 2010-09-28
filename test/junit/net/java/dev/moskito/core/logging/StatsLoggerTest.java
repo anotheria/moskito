@@ -1,14 +1,14 @@
 package net.java.dev.moskito.core.logging;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import net.java.dev.moskito.core.dynamic.OnDemandStatsProducer;
 import net.java.dev.moskito.core.predefined.ServiceStats;
 import net.java.dev.moskito.core.predefined.ServiceStatsFactory;
 import net.java.dev.moskito.core.stats.Interval;
-import net.java.dev.moskito.core.stats.impl.IntervalImplTest;
 import net.java.dev.moskito.core.stats.impl.IntervalRegistry;
 
 import org.junit.Test;
-import static org.junit.Assert.*;
 
 public class StatsLoggerTest {
 	

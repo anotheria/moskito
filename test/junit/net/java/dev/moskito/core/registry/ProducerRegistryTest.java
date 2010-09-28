@@ -1,14 +1,18 @@
 package net.java.dev.moskito.core.registry;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+
 import java.util.Collection;
 import java.util.List;
 
 import net.java.dev.moskito.core.producers.IStats;
 import net.java.dev.moskito.core.producers.IStatsProducer;
 
+import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import static org.junit.Assert.*;
 public class ProducerRegistryTest {
 	
 	@BeforeClass public static void init(){
@@ -97,5 +101,9 @@ public class ProducerRegistryTest {
 			return null;
 		}
 		
+	}
+	
+	@Before public void reset(){
+		ProducerRegistryFactory.reset();
 	}
 }
