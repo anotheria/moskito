@@ -35,6 +35,11 @@
 package net.java.dev.moskito.test.plain.exceptiontest;
 
 public class ExcServiceException extends Exception{
+	/**
+	 * garbage.
+	 */
+	private static final long serialVersionUID = 1L;
+
 	public ExcServiceException(String message){
 		super(message);
 	}
