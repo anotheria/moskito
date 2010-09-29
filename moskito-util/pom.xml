@@ -1,0 +1,36 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+  <parent>
+	<groupId>net.anotheria</groupId>
+	<artifactId>parent</artifactId>
+	<version>1.0.0-SNAPSHOT</version>
+  </parent>
+
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>net.anotheria</groupId>
+  <artifactId>moskito-util</artifactId>
+  <version>1.0.0-SNAPSHOT</version>
+  <name>moskito-utilities</name>
+
+  <dependencies>
+	<dependency> 
+		<groupId>net.anotheria</groupId>
+		<artifactId>ano-util</artifactId>
+		<version>1.0.0-SNAPSHOT</version>
+	</dependency>
+	<dependency>
+		<groupId>net.anotheria</groupId>
+		<artifactId>moskito-core</artifactId>
+		<version>1.0.0-SNAPSHOT</version>
+	</dependency>
+  </dependencies>
+
+  
+
+	<scm>
+		<url>svn:svn://svn.anotheria.net/opensource/moskito/moskito-util/trunk</url>
+		<connection>scm:svn:svn://svn.anotheria.net/opensource/moskito/moskito-util/trunk</connection>
+		<developerConnection>scm:svn:svn://svn.anotheria.net/opensource/moskito/moskito-util/trunk</developerConnection>
+	</scm>
+
+</project>
