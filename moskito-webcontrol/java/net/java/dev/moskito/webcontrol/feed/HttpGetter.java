@@ -24,16 +24,8 @@ public class HttpGetter implements FeedGetter {
 		try {
 			URL url = new URL(source.getUrl());
 			URLConnection connection = url.openConnection();
-            if(source.needAuth()) {
-                StringBuilder credentials = new StringBuilder(source.getUsername() + ":" + source.getPassword());
-                String encoding = new BASE64Encoder().encode(credentials.toString().getBytes());
-                connection.setRequestProperty("Authorization", "Basic " + encoding);
-            }
-			if (connection.getContentType() != null && connection.getContentType().startsWith("text/xml")) {
-				DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
-				dbf.setIgnoringElementContentWhitespace(true);
-				return dbf.newDocumentBuilder().parse((InputStream) connection.getContent());
-			}
+            authenticateConnection(source, connection);
+            return buildDocument(connection);
 		} catch (MalformedURLException e) {
 			log.error("Malformed URL in source configuration : " + source.getUrl());
 		} catch (IOException e) {
@@ -45,5 +37,23 @@ public class HttpGetter implements FeedGetter {
 		}
 		return null;
 	}
+
+    private void authenticateConnection(SourceConfiguration source, URLConnection connection) {
+        if(source.needAuth()) {
+            StringBuilder credentials = new StringBuilder(source.getUsername() + ":" + source.getPassword());
+            String encoding = new BASE64Encoder().encode(credentials.toString().getBytes());
+            connection.setRequestProperty("Authorization", "Basic " + encoding);
+        }
+    }
+
+    private Document buildDocument(URLConnection connection) throws ParserConfigurationException, IOException, SAXException {
+        if(connection.getContentType() == null) throw new IOException();
+        if(connection.getContentType().startsWith("text/xml")) {
+            DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+            dbf.setIgnoringElementContentWhitespace(true);
+            return dbf.newDocumentBuilder().parse((InputStream) connection.getContent());
+        }
+        return null;
+    }
 
 }
