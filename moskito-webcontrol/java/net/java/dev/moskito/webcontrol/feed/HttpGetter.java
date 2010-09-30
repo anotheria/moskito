@@ -29,7 +29,7 @@ public class HttpGetter implements FeedGetter {
                 String encoding = new BASE64Encoder().encode(credentials.toString().getBytes());
                 connection.setRequestProperty("Authorization", "Basic " + encoding);
             }
-			if (connection.getContentType().startsWith("text/xml")) {
+			if (connection.getContentType() != null && connection.getContentType().startsWith("text/xml")) {
 				DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
 				dbf.setIgnoringElementContentWhitespace(true);
 				return dbf.newDocumentBuilder().parse((InputStream) connection.getContent());
