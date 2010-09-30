@@ -10,7 +10,7 @@
     <decorator name="<msk:write name="decorator" property="name"/>"><%--
     --%><msk:define name="decorator" property="captions" type="java.util.List" id="captions"/><%--
 	--%><msk:iterate name="decorator" property="producers" id="producer" type="net.java.dev.moskito.webui.bean.ProducerBean">
-          <producer id="<msk:write name="producer" property="id"/>">
+          <producer id="<msk:write name="producer" property="id" filter="true"/>">
             <category><msk:write name="producer" property="category"/></category>
 			<subsystem><msk:write name="producer" property="subsystem"/></subsystem>
 			<class><msk:write name="producer" property="className"/></class>
