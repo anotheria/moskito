@@ -9,19 +9,19 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>net.anotheria</groupId>
   <artifactId>moskito-web</artifactId>
-  <version>1.0.0</version>
+  <version>1.0.1-SNAPSHOT</version>
   <name>moskito web support</name>
 
   <dependencies>
 	<dependency> 
 		<groupId>net.anotheria</groupId>
 		<artifactId>ano-util</artifactId>
-		<version>1.0.0</version>
+		<version>1.0.1-SNAPSHOT</version>
 	</dependency>
 	<dependency>
 		<groupId>net.anotheria</groupId>
 		<artifactId>moskito-core</artifactId>
-		<version>1.0.0</version>
+		<version>1.0.1-SNAPSHOT</version>
 	</dependency>
 	<dependency>
     	<groupId>javax.servlet</groupId>
@@ -39,9 +39,9 @@
   
 
 	<scm>
-		<url>svn:svn://svn.anotheria.net/opensource/moskito/tags/moskito-web-1.0.0</url>
-		<connection>scm:svn:svn://svn.anotheria.net/opensource/moskito/tags/moskito-web-1.0.0</connection>
-		<developerConnection>scm:svn:svn://svn.anotheria.net/opensource/moskito/tags/moskito-web-1.0.0</developerConnection>
+		<url>svn:svn://svn.anotheria.net/opensource/moskito/trunk/moskito-web</url>
+		<connection>scm:svn:svn://svn.anotheria.net/opensource/moskito/trunk/moskito-web</connection>
+		<developerConnection>scm:svn:svn://svn.anotheria.net/opensource/moskito/trunk/moskito-web</developerConnection>
 	</scm>
 
 </project>
