@@ -180,7 +180,7 @@ public abstract class MoskitoAction extends Action implements IStatsProducer {
 	 * @return
 	 */
 	protected Interval[] getMonitoringIntervals(){
-		return Constants.DEFAULT_INTERVALS;
+		return Constants.getDefaultIntervals();
 	}
 	/**
 	 * Override this for custom category. Default is 'action'.

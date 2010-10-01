@@ -41,13 +41,20 @@ import javax.servlet.http.HttpServletRequest;
 import net.java.dev.moskito.web.MoskitoFilter;
 
 public class RequestURIFilter extends MoskitoFilter{
+	
+	public static final int URI_LIMIT = 80;
 
 	@Override
 	protected String extractCaseName(ServletRequest req, ServletResponse res) {
 		if (!(req instanceof HttpServletRequest))
 			return null;
 		HttpServletRequest r = (HttpServletRequest)req;
-		return r.getRequestURI();
+		String ret = r.getRequestURI();
+		//TODO make this configurable
+		if (ret.length()>URI_LIMIT){
+			ret = ret.substring(0, URI_LIMIT-3)+"...";
+		}
+		return ret;
 	}
 
 	@Override
