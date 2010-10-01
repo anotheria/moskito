@@ -9,28 +9,28 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>net.anotheria</groupId>
   <artifactId>moskito-core</artifactId>
-  <version>1.0.0</version>
+  <version>1.0.0-SNAPSHOT</version>
   <name>moskito-core</name>
 
   <dependencies>
 	<dependency> 
 		<groupId>net.anotheria</groupId>
 		<artifactId>ano-util</artifactId>
-		<version>1.0.0</version>
+		<version>1.0.0-SNAPSHOT</version>
 	</dependency>
 	<dependency>
 		<groupId>net.anotheria</groupId>
 		<artifactId>configureme</artifactId>
-		<version>1.0.0</version>
+		<version>1.0.0-SNAPSHOT</version>
 	</dependency>
   </dependencies>
 
   
 
 	<scm>
-		<url>svn:svn://svn.anotheria.net/opensource/moskito/moskito-core/tags/moskito-core-1.0.0</url>
-		<connection>scm:svn:svn://svn.anotheria.net/opensource/moskito/moskito-core/tags/moskito-core-1.0.0</connection>
-		<developerConnection>scm:svn:svn://svn.anotheria.net/opensource/moskito/moskito-core/tags/moskito-core-1.0.0</developerConnection>
+		<url>svn:svn://svn.anotheria.net/opensource/moskito/moskito-core/trunk</url>
+		<connection>scm:svn:svn://svn.anotheria.net/opensource/moskito/moskito-core/trunk</connection>
+		<developerConnection>scm:svn:svn://svn.anotheria.net/opensource/moskito/moskito-core/trunk</developerConnection>
 	</scm>
 
 </project>
