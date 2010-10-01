@@ -3,34 +3,34 @@
   <parent>
 	<groupId>net.anotheria</groupId>
 	<artifactId>parent</artifactId>
-	<version>1.0.0-SNAPSHOT</version>
+	<version>1.0-SNAPSHOT</version>
   </parent>
 
   <modelVersion>4.0.0</modelVersion>
   <groupId>net.anotheria</groupId>
   <artifactId>moskito-util</artifactId>
-  <version>1.0.0-SNAPSHOT</version>
+  <version>1.0.0</version>
   <name>moskito-utilities</name>
 
   <dependencies>
 	<dependency> 
 		<groupId>net.anotheria</groupId>
 		<artifactId>ano-util</artifactId>
-		<version>1.0.0-SNAPSHOT</version>
+		<version>1.0.0</version>
 	</dependency>
 	<dependency>
 		<groupId>net.anotheria</groupId>
 		<artifactId>moskito-core</artifactId>
-		<version>1.0.0-SNAPSHOT</version>
+		<version>1.0.0</version>
 	</dependency>
   </dependencies>
 
   
 
 	<scm>
-		<url>svn:svn://svn.anotheria.net/opensource/moskito/moskito-util/trunk</url>
-		<connection>scm:svn:svn://svn.anotheria.net/opensource/moskito/moskito-util/trunk</connection>
-		<developerConnection>scm:svn:svn://svn.anotheria.net/opensource/moskito/moskito-util/trunk</developerConnection>
+		<url>svn:svn://svn.anotheria.net/opensource/moskito/tags/moskito-util-1.0.0</url>
+		<connection>scm:svn:svn://svn.anotheria.net/opensource/moskito/tags/moskito-util-1.0.0</connection>
+		<developerConnection>scm:svn:svn://svn.anotheria.net/opensource/moskito/tags/moskito-util-1.0.0</developerConnection>
 	</scm>
 
 </project>
