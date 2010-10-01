@@ -28,9 +28,9 @@
   
 
 	<scm>
-		<url>svn:svn://svn.anotheria.net/opensource/moskito/moskito-util/trunk</url>
-		<connection>scm:svn:svn://svn.anotheria.net/opensource/moskito/moskito-util/trunk</connection>
-		<developerConnection>scm:svn:svn://svn.anotheria.net/opensource/moskito/moskito-util/trunk</developerConnection>
+		<url>svn:svn://svn.anotheria.net/opensource/moskito/trunk/moskito-util</url>
+		<connection>scm:svn:svn://svn.anotheria.net/opensource/moskito/trunk/moskito-util</connection>
+		<developerConnection>scm:svn:svn://svn.anotheria.net/opensource/moskito/trunk/moskito-util</developerConnection>
 	</scm>
 
 </project>
