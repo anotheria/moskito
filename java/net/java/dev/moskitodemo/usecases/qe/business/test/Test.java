@@ -57,7 +57,7 @@ public class Test {
 	
 	private static void solve(int a, int b, int c){
 		try{
-			System.out.println("Trying to solve "+a+"x²"+getSign(b)+b+"x"+getSign(c)+c);
+			System.out.println("Trying to solve "+a+"x<="+getSign(b)+b+"x"+getSign(c)+c);
 			int D = calc.calculateDeterminant(a,b,c);
 			System.out.println("\tD="+D);
 			if (D==0)
