@@ -44,6 +44,10 @@ import net.anotheria.util.sorter.SortType;
 public class ProducerBeanSortType extends SortType{
 	
 	/**
+	 * SerialVersionUID.
+	 */
+	private static final long serialVersionUID = 1L;
+	/**
 	 * Constant for sorting by producer id.
 	 */
 	public static final int SORT_BY_ID = 1000;

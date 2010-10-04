@@ -1,0 +1,76 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+  <parent>
+	<groupId>net.anotheria</groupId>
+	<artifactId>parent</artifactId>
+	<version>1.0</version>
+  </parent>
+
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>net.anotheria</groupId>
+  <artifactId>moskito-webui</artifactId>
+  <version>1.0.0</version>
+  <name>moskito web user interface</name>
+
+<build>
+    <resources>
+      <resource>
+        <directory>${project.basedir}/html</directory>
+      </resource>
+      <resource>
+        <directory>${project.basedir}/java</directory>
+        <includes><include>**/*.jsp</include></includes>
+      </resource>
+    </resources>
+</build>
+ 
+  <dependencies>
+	<dependency> 
+		<groupId>net.anotheria</groupId>
+		<artifactId>ano-util</artifactId>
+		<version>1.0.0</version>
+	</dependency>
+	<dependency> 
+		<groupId>net.anotheria</groupId>
+		<artifactId>ano-maf</artifactId>
+		<version>1.0.0</version>
+	</dependency>
+	<dependency> 
+		<groupId>net.anotheria</groupId>
+		<artifactId>ano-tags</artifactId>
+		<version>1.0.0</version>
+	</dependency>
+	
+	
+	<dependency>
+		<groupId>net.anotheria</groupId>
+		<artifactId>moskito-core</artifactId>
+		<version>1.0.0</version>
+	</dependency>
+	<dependency>
+		<groupId>net.anotheria</groupId>
+		<artifactId>moskito-web</artifactId>
+		<version>1.0.0</version>
+	</dependency>
+	<dependency>
+    	<groupId>javax.servlet</groupId>
+    	<artifactId>servlet-api</artifactId>
+    	<version>2.5</version>
+		<scope>provided</scope>
+	</dependency>	
+	<dependency>
+    	<groupId>struts</groupId>
+    	<artifactId>struts</artifactId>
+    	<version>1.2.9</version>
+	</dependency>	
+  </dependencies>
+
+  
+
+	<scm>
+		<url>svn:svn://svn.anotheria.net/opensource/moskito/tags/moskito-webui-1.0.0</url>
+		<connection>scm:svn:svn://svn.anotheria.net/opensource/moskito/tags/moskito-webui-1.0.0</connection>
+		<developerConnection>scm:svn:svn://svn.anotheria.net/opensource/moskito/tags/moskito-webui-1.0.0</developerConnection>
+	</scm>
+
+</project>

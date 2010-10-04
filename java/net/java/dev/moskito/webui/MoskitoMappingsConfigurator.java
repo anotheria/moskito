@@ -49,7 +49,7 @@ public class MoskitoMappingsConfigurator implements ActionMappingsConfigurator{
 
 		ActionMappings.addMapping("mskShowProducersBySubsystem", ShowProducersForSubsystemAction.class, 
 				new ActionForward("html", "/net/java/dev/moskito/webui/jsp/Producers.jsp"),
-				new ActionForward("xml", "/net/java/dev/moskito/webui/jsp/ProducersXML.jsp"),
+		 		new ActionForward("xml", "/net/java/dev/moskito/webui/jsp/ProducersXML.jsp"),
 				new ActionForward("csv", "/net/java/dev/moskito/webui/jsp/ProducersCSV.jsp")
 		);
 		

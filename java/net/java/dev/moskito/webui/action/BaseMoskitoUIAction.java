@@ -51,6 +51,7 @@ import net.java.dev.moskito.core.registry.IProducerRegistryAPI;
 import net.java.dev.moskito.core.registry.IntervalInfo;
 import net.java.dev.moskito.core.registry.ProducerRegistryAPIFactory;
 import net.java.dev.moskito.core.stats.TimeUnit;
+import net.java.dev.moskito.core.stats.impl.IntervalRegistry;
 import net.java.dev.moskito.core.usecase.recorder.IUseCaseRecorder;
 import net.java.dev.moskito.core.usecase.recorder.UseCaseRecorderFactory;
 import net.java.dev.moskito.webui.bean.IntervalBean;
@@ -285,6 +286,7 @@ public abstract class BaseMoskitoUIAction implements Action{
 	
 	@Override
 	public void preProcess(ActionMapping mapping, HttpServletRequest req, HttpServletResponse res) throws Exception {
+		String currentIntervalName = getCurrentInterval(req);
 		
 		
 		///////////// prepare intervals
@@ -293,7 +295,7 @@ public abstract class BaseMoskitoUIAction implements Action{
 		for (IntervalInfo info : intervalInfos)
 			intervalBeans.add(new IntervalBean(info.getIntervalName(), NumberUtils.makeISO8601TimestampString(info.getLastUpdateTimestamp()), info.getLength()));
 		req.setAttribute("intervals", StaticQuickSorter.sort(intervalBeans, dummySortType));
-		req.setAttribute("currentInterval", getCurrentInterval(req));
+		req.setAttribute("currentInterval", currentIntervalName);
 		
 		////////////// prepare units
 		req.setAttribute("units", AVAILABLE_UNITS_LIST);
@@ -306,6 +308,17 @@ public abstract class BaseMoskitoUIAction implements Action{
 		req.setAttribute("linkToCurrentPageAsCsv", maskAsCSV(getLinkToCurrentPage(req)));
 		
 		req.setAttribute("currentNaviItem", getCurrentNaviItem());
+		
+		//prepare interval timestamp and age.
+		Long currentIntervalUpdateTimestamp = IntervalRegistry.getInstance().getUpdateTimestamp(currentIntervalName);
+		if (currentIntervalUpdateTimestamp==null){
+			req.setAttribute("currentIntervalUpdateTimestamp", "Never");
+			req.setAttribute("currentIntervalUpdateAge", "n.A.");
+		}else{
+			req.setAttribute("currentIntervalUpdateTimestamp", NumberUtils.makeISO8601TimestampString(currentIntervalUpdateTimestamp));
+			req.setAttribute("currentIntervalUpdateAge", (System.currentTimeMillis()-currentIntervalUpdateTimestamp)/1000+" seconds");
+		}
+		
 	}
 	
 	

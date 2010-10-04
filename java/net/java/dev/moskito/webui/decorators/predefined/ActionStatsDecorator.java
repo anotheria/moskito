@@ -34,8 +34,15 @@
  */	
 package net.java.dev.moskito.webui.decorators.predefined;
 
+/**
+ * Decorator for actionstats - stats.
+ * @author another
+ *
+ */
 public class ActionStatsDecorator extends RequestOrientedStatsDecorator{
-	
+	/**
+	 * Explanations.
+	 */
 	private static final String EXPLANATIONS[] = {
 		"Total number of requests to an action (in the defined interval or since start, depending on your interval selection).",
 		"Total amount of time spent in the action. Although, if the called action is waiting for something to be transported through network or from disk, the value is not equal to spent processor time, this value is usually an important indicator to determine how much some user-clicks cost.",
@@ -49,7 +56,9 @@ public class ActionStatsDecorator extends RequestOrientedStatsDecorator{
 		"Error Rate in Percent",
 	};
 
-	
+	/**
+	 * Creates a new ActionStatsDecorator.
+	 */
 	public ActionStatsDecorator(){
 		super("Action", CAPTIONS, SHORT_EXPLANATIONS, EXPLANATIONS);
 	}

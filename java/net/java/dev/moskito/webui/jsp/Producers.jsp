@@ -227,7 +227,7 @@
 		<div class="bot"><div><!-- --></div></div>
 	</div>
 	</msk:iterate>
-	<div class="generated">Generated at <msk:write name="timestampAsDate"/>&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;timestamp: <msk:write name="timestamp"/></div>
+	<div class="generated">Generated at <msk:write name="timestampAsDate"/>&nbsp;&nbsp;|&nbsp;&nbsp;timestamp: <msk:write name="timestamp"/>&nbsp;&nbsp;|&nbsp;&nbsp;Interval updated at: <msk:write name="currentIntervalUpdateTimestamp"/>&nbsp;&nbsp;|&nbsp;&nbsp; Interval age: <msk:write name="currentIntervalUpdateAge"/></div>
 <div class="lightbox" style="display:none;">
 	<div class="black_bg"><!-- --></div>
 	<div class="box">

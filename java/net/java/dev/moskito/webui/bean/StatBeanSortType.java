@@ -42,6 +42,10 @@ import net.anotheria.util.sorter.SortType;
  */
 public class StatBeanSortType extends SortType{
 	/**
+	 * SerialVersionUID.
+	 */
+	private static final long serialVersionUID = 1L;
+	/**
 	 * Sort type limit for customer sort types.
 	 */
 	public static final int SORT_TYPE_LIMIT = 1000;

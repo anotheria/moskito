@@ -45,7 +45,7 @@ public class ShowMonitoringSessionAction extends BaseMoskitoUIAction{
 		
 		MonitoringSession msession = null;
 		try{
-			msession = MonitoringSessionManagerFactory.getMonitoringSessionManager().getSession(sessionName);
+			msession = sessionManager.getSession(sessionName);
 		}catch(NoSuchMonitoringSessionException e){
 			throw new IllegalArgumentException("Session with name "+sessionName+" not found.");
 		}
