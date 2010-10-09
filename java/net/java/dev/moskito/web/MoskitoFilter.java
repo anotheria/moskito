@@ -67,6 +67,14 @@ public abstract class MoskitoFilter implements Filter{
 	public static final String INIT_PARAM_LIMIT = "limit";
 	
 	/**
+	 * Constant for use-cases which are over limit. In case we gather all request urls and we set a limit of 1000 it may well happen, that we actually have more than the set limit.
+	 * In this case it is good to know how many requests those, 'other' urls produce.
+	 */
+	public static final String OTHER = "-other-";
+	
+	private FilterStats otherStats = null;
+	
+	/**
 	 * The internal producer instance.
 	 */
 	private OnDemandStatsProducer onDemandProducer;
@@ -92,6 +100,7 @@ public abstract class MoskitoFilter implements Filter{
 				caseStats = (FilterStats)onDemandProducer.getStats(caseName);
 		}catch(OnDemandStatsProducerException e){
 			log.info("Couldn't get stats for case : "+caseName+", probably limit reached");
+			caseStats = otherStats;
 		}
 		
 		defaultStats.addRequest();
@@ -146,7 +155,14 @@ public abstract class MoskitoFilter implements Filter{
 				new OnDemandStatsProducer(getProducerId(), getCategory(), getSubsystem(), new FilterStatsFactory(getMonitoringIntervals())) :
 				new EntryCountLimitedOnDemandStatsProducer(getProducerId(), getCategory(), getSubsystem(), new FilterStatsFactory(getMonitoringIntervals()), limit);
 		ProducerRegistryFactory.getProducerRegistryInstance().registerProducer(onDemandProducer);
-		
+	
+		//force request uri filter to create 'other' stats.
+		try{
+			if (limit!=-1)
+				otherStats = (FilterStats)onDemandProducer.getStats(OTHER);
+		}catch(OnDemandStatsProducerException e){
+			log.error("Can't create default stats for limit excess", e);
+		}
 	}
 	
 	@Override public void destroy(){
@@ -188,6 +204,6 @@ public abstract class MoskitoFilter implements Filter{
 	}
 	
 	protected Interval[] getMonitoringIntervals(){
-		return Constants.DEFAULT_INTERVALS;
+		return Constants.getDefaultIntervals();
 	}
 }

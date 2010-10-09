@@ -1,6 +1,6 @@
 package net.java.dev.moskito.web.session;
 
-import static net.java.dev.moskito.core.predefined.Constants.DEFAULT_INTERVALS;
+import static net.java.dev.moskito.core.predefined.Constants.getDefaultIntervals;
 import net.java.dev.moskito.core.producers.AbstractStats;
 import net.java.dev.moskito.core.stats.Interval;
 import net.java.dev.moskito.core.stats.StatValue;
@@ -29,7 +29,7 @@ public class SessionCountStats extends AbstractStats{
 	private StatValue numberOfDestroyedSessions;
 	
 	public SessionCountStats() {
-		this(DEFAULT_INTERVALS);
+		this(getDefaultIntervals());
 	}
 	
 	public SessionCountStats(Interval[] intervals){
