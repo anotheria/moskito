@@ -17,7 +17,7 @@ public class RemoteStorageFactory implements ServiceFactory<StatStorage> {
         try {
             ConfigurationManager.INSTANCE.configure(storage);
         } catch (IllegalArgumentException e) {
-            throw new RuntimeException("Failed to configure local storage. Please, check your storage.json");
+            throw new RuntimeException("Failed to configure local storage. Please, check your moskitoStorage.json");
         }
         return storage;
     }
