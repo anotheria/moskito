@@ -1,9 +1,12 @@
 package net.java.dev.moskito.core.producers;
 
-import java.util.List;
-import java.util.ArrayList;
-import java.util.StringTokenizer;
+import org.apache.commons.lang.ArrayUtils;
+import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.StringTokenizer;
 
 
 /**
@@ -33,14 +36,14 @@ public enum SnapshotArchiverRegistry {
         try {
             Object storage = createStorage(config.getStorageClassName(), config.getStorageParams());
             Class archiverClass = Class.forName(config.getClassName());
+            String[] archiverIntervals = config.getArchiverIntervals();
             Object[] archiverParams = parseParams(
-                    storage,
+                    new Object[]{storage, archiverIntervals},
                     config.getArchiversConstructorMoreParams()
             );
             archiver = (ISnapshotArchiver) archiverClass.getConstructor(getClassesArray(archiverParams)).newInstance(archiverParams);
             registeredArchivers.add(archiver);
         } catch (Throwable e) {
-            //System.err.println(SnapshotArchiverConfig.FAILED_TO_CONFIGURE_MESSAGE + "\nCause: " + e.getMessage());
             log.warn(SnapshotArchiverConfig.FAILED_TO_CONFIGURE_MESSAGE, e);
         }
         return archiver;
@@ -52,11 +55,11 @@ public enum SnapshotArchiverRegistry {
         return storageClass.getConstructor(getClassesArray(storageParams)).newInstance(storageParams);
     }
 
-    private static Object[] parseParams(Object firstParam, String params) {
-        boolean firstPresent = firstParam != null;
-        int minParams = firstPresent ? 1 : 0;
+    private static Object[] parseParams(Object[] firstParam, String params) {
+        boolean firstPresent = !ArrayUtils.isEmpty(firstParam);
+        int minParams = firstPresent ? firstParam.length : 0;
         Object[] result;
-        if (params == null || params.length() == 0) {
+        if (StringUtils.isEmpty(params)) {
             result = new Object[minParams];
         } else {
             StringTokenizer st = new StringTokenizer(params, ",");
@@ -67,7 +70,9 @@ public enum SnapshotArchiverRegistry {
                 i++;
             }
         }
-        if (firstPresent) result[0] = firstParam;
+        if (firstPresent) {
+            System.arraycopy(firstParam, 0, result, 0, firstParam.length);
+        }
         return result;
     }
 

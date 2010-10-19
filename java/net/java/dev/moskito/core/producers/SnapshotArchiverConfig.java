@@ -1,16 +1,12 @@
 package net.java.dev.moskito.core.producers;
 
+import org.apache.log4j.Logger;
+import org.configureme.ConfigurationManager;
+import org.configureme.annotations.*;
+
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.text.MessageFormat;
-
-import org.configureme.ConfigurationManager;
-import org.configureme.annotations.AbortedConfiguration;
-import org.configureme.annotations.AfterConfiguration;
-import org.configureme.annotations.Configure;
-import org.configureme.annotations.ConfigureMe;
-import org.configureme.annotations.DontConfigure;
-import org.apache.log4j.Logger;
 
 /**
  * Configuration that is provided by any client software that wants their Moskito stats to be archived
@@ -60,6 +56,9 @@ public final class SnapshotArchiverConfig {
 	@Configure
 	private String hostName;
 
+    @Configure
+    private String[] archiverIntervals;
+
 	@DontConfigure
 	private boolean valid;
 
@@ -103,7 +102,15 @@ public final class SnapshotArchiverConfig {
 		this.hostName = hostName;
 	}
 
-	@AbortedConfiguration
+    public String[] getArchiverIntervals() {
+        return archiverIntervals;
+    }
+
+    public void setArchiverIntervals(String[] archiverIntervals) {
+        this.archiverIntervals = archiverIntervals;
+    }
+
+    @AbortedConfiguration
 	public void callIfAborted() {
 		valid = false;
 	}
@@ -136,7 +143,7 @@ public final class SnapshotArchiverConfig {
 			instance = new SnapshotArchiverConfig();
 			try {
 				ConfigurationManager.INSTANCE.configure(instance);
-			} catch (Throwable e) {
+            } catch (Throwable e) {
             	if (instance.isConfigured()) {
             		System.err.println(FAILED_TO_CONFIGURE_MESSAGE + "\nCause: " + e.getMessage());
             		log.warn(FAILED_TO_CONFIGURE_MESSAGE + "\nCause: " + e.getMessage());
@@ -151,7 +158,7 @@ public final class SnapshotArchiverConfig {
 		return instance;
 	}
 
-	private static final String TO_STRING_FORMAT = "className: {0}, archiversConstructorMoreParams {1}, storageClassName {2}, storageParams {3}, hostName {4}, valid {5}";
+    private static final String TO_STRING_FORMAT = "className: {0}, archiversConstructorMoreParams {1}, storageClassName {2}, storageParams {3}, hostName {4}, valid {5}";
 
 	public String toString() {
 		return MessageFormat.format(TO_STRING_FORMAT, this.className, this.archiversConstructorMoreParams, this.storageClassName, this.storageParams,
