@@ -1,13 +1,12 @@
 package net.java.dev.moskito.central.storages;
 
-import net.java.dev.moskito.core.producers.IStats;
+import net.java.dev.moskito.central.StatStorage;
 import net.java.dev.moskito.core.producers.IStatsSnapshot;
 import net.java.dev.moskito.core.stats.Interval;
-import net.java.dev.moskito.central.StatStorage;
 
-import java.util.List;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * This represents Moskito Cetral storage connector.
@@ -28,7 +27,7 @@ public class SynchroneousConnector extends AbstractConnector {
         super(storage);
     }
 
-    public void archive(Interval aCaller, IStatsSnapshot snapshot, String hostName) {
+    public void archiveStats(Interval aCaller, IStatsSnapshot snapshot, String hostName) {
         List<IStatsSnapshot> snapshots = new ArrayList<IStatsSnapshot>();
         snapshots.add(snapshot);
         try {

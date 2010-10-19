@@ -1,8 +1,10 @@
 package net.java.dev.moskito.central.storages;
 
-import net.java.dev.moskito.core.producers.ISnapshotArchiver;
-import net.java.dev.moskito.core.producers.IStats;
 import net.java.dev.moskito.central.StatStorage;
+import net.java.dev.moskito.core.producers.ISnapshotArchiver;
+import net.java.dev.moskito.core.producers.IStatsSnapshot;
+import net.java.dev.moskito.core.stats.Interval;
+import org.apache.commons.lang.ArrayUtils;
 
 /**
  * Abstract remoting for moskito central.
@@ -18,9 +20,33 @@ import net.java.dev.moskito.central.StatStorage;
  *         Time: 3:08:34 PM
  */
 public abstract class AbstractConnector implements ISnapshotArchiver {
+
     protected StatStorage storage;
+    protected String[] expectedIntervals;
 
     public AbstractConnector(StatStorage storage) {
         this.storage = storage;
+    }
+
+    public AbstractConnector(StatStorage storage, String[] expectedIntervals) {
+        this.storage = storage;
+        this.expectedIntervals = expectedIntervals;
+    }
+
+    protected abstract void archiveStats(Interval aCaller, IStatsSnapshot snapshot, String hostName);
+
+    @Override
+    public void archive(Interval aCaller, IStatsSnapshot snapshot, String hostName) {
+        if(isExpectedInterval(aCaller.getName(), expectedIntervals)) {
+            archiveStats(aCaller, snapshot, hostName);
+        }
+    }
+
+    protected boolean isExpectedInterval(String currentInterval, String[] expectedIntervals) {
+        if(ArrayUtils.isEmpty(expectedIntervals)) return true;
+        for(String interval : expectedIntervals) {
+            if(interval.equals(currentInterval)) return true;
+        }
+        return false;
     }
 }

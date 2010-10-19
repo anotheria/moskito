@@ -1,17 +1,16 @@
 package net.java.dev.moskito.central.storages;
 
-import net.java.dev.moskito.central.StatStorage;
-import net.java.dev.moskito.core.stats.Interval;
-import net.java.dev.moskito.core.producers.IStatsSnapshot;
-import net.anotheria.util.queue.QueuedProcessor;
 import net.anotheria.util.queue.IQueueWorker;
+import net.anotheria.util.queue.QueuedProcessor;
 import net.anotheria.util.queue.UnrecoverableQueueOverflowException;
+import net.java.dev.moskito.central.StatStorage;
+import net.java.dev.moskito.core.producers.IStatsSnapshot;
+import net.java.dev.moskito.core.stats.Interval;
+import org.apache.log4j.Logger;
 
-import java.util.List;
 import java.util.ArrayList;
 import java.util.Date;
-
-import org.apache.log4j.Logger;
+import java.util.List;
 
 /**
  * This represents Moskito Cetral storage connector.
@@ -66,12 +65,16 @@ public class AssynchroneousConnector extends AbstractConnector {
         this(storage, QueuedProcessor.DEF_QUEUE_SIZE);
     }
 
-    public AssynchroneousConnector(StatStorage storage, String queueLimit) {
-        this(storage, Integer.parseInt(queueLimit));
+    public AssynchroneousConnector(StatStorage storage, String[] expectedIntervals) {
+        this(storage, QueuedProcessor.DEF_QUEUE_SIZE, expectedIntervals);
     }
 
-    public AssynchroneousConnector(final StatStorage storage, int queueLimit) {
-        super(storage);
+    public AssynchroneousConnector(StatStorage storage, int queueLimit) {
+        this(storage, queueLimit, null);
+    }
+
+    public AssynchroneousConnector(final StatStorage storage, int queueLimit, String[] expectedIntervals) {
+        super(storage, expectedIntervals);
         processor = new QueuedProcessor<StorageParamObject>(
                 "AssyncArchiver" + System.currentTimeMillis(),  // passed in an unique name
                 new IQueueWorker<StorageParamObject>() {
@@ -91,7 +94,7 @@ public class AssynchroneousConnector extends AbstractConnector {
         processor.start();
     }
 
-    public void archive(Interval aCaller, IStatsSnapshot snapshot, String hostName) {
+    public void archiveStats(Interval aCaller, IStatsSnapshot snapshot, String hostName) {
         try {
             processor.addToQueueDontWait(
                 new StorageParamObject(
