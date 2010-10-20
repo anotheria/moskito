@@ -12,4 +12,6 @@ import net.java.dev.moskito.core.stats.Interval;
 public interface ISnapshotArchiver {
 
     void archive(Interval aCaller, IStatsSnapshot snapshot, String hostName);
+
+	String[] getExpectedIntervals();
 }
