@@ -66,14 +66,14 @@ public class AssynchroneousConnector extends AbstractConnector {
     }
 
     public AssynchroneousConnector(StatStorage storage, String[] expectedIntervals) {
-        this(storage, QueuedProcessor.DEF_QUEUE_SIZE, expectedIntervals);
+        this(storage, expectedIntervals, QueuedProcessor.DEF_QUEUE_SIZE);
     }
 
     public AssynchroneousConnector(StatStorage storage, int queueLimit) {
-        this(storage, queueLimit, null);
+        this(storage, null, queueLimit);
     }
 
-    public AssynchroneousConnector(final StatStorage storage, int queueLimit, String[] expectedIntervals) {
+    public AssynchroneousConnector(final StatStorage storage, String[] expectedIntervals, int queueLimit) {
         super(storage, expectedIntervals);
         processor = new QueuedProcessor<StorageParamObject>(
                 "AssyncArchiver" + System.currentTimeMillis(),  // passed in an unique name

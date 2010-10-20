@@ -35,7 +35,12 @@ public abstract class AbstractConnector implements ISnapshotArchiver {
 
     protected abstract void archiveStats(Interval aCaller, IStatsSnapshot snapshot, String hostName);
 
-    @Override
+	@Override
+	public String[] getExpectedIntervals() {
+		return expectedIntervals;
+	}
+
+	@Override
     public void archive(Interval aCaller, IStatsSnapshot snapshot, String hostName) {
         if(isExpectedInterval(aCaller.getName(), expectedIntervals)) {
             archiveStats(aCaller, snapshot, hostName);

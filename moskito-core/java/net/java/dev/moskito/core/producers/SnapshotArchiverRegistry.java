@@ -34,14 +34,17 @@ public enum SnapshotArchiverRegistry {
     public ISnapshotArchiver registerArchiver(SnapshotArchiverConfig config) {
         ISnapshotArchiver archiver = null;
         try {
-            Object storage = createStorage(config.getStorageClassName(), config.getStorageParams());
+//            Object storage = createStorage(config.getStorageClassName(), config.getStorageParams());
             Class archiverClass = Class.forName(config.getClassName());
             String[] archiverIntervals = config.getArchiverIntervals();
+			log.info("Registered intervals in config are: " + ArrayUtils.toString(archiverIntervals));
             Object[] archiverParams = parseParams(
-                    new Object[]{storage, archiverIntervals},
+                    new Object[]{"String", archiverIntervals},
                     config.getArchiversConstructorMoreParams()
             );
             archiver = (ISnapshotArchiver) archiverClass.getConstructor(getClassesArray(archiverParams)).newInstance(archiverParams);
+			log.info("Registered intervals for archiver " + config.getClassName()
+					+ " are: " + ArrayUtils.toString(archiver.getExpectedIntervals()));
             registeredArchivers.add(archiver);
         } catch (Throwable e) {
             log.warn(SnapshotArchiverConfig.FAILED_TO_CONFIGURE_MESSAGE, e);
