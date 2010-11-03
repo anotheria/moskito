@@ -11,7 +11,7 @@ import static org.junit.Assert.*;
  * @author another
  *
  */
-public class BlueprintTestWithCalc {
+public class BlueprintWithCalcTest {
 	@Test public void executeCalcOperations() throws Exception{
 		assertEquals(2, Calc.calculate("+", 1, 1));
 		assertEquals(5, Calc.calculate("+", 2, 3));
