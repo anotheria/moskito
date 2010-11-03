@@ -4,7 +4,7 @@
 	<groupId>net.anotheria</groupId>
 	<artifactId>parent</artifactId>
 	<version>1.0</version>
-  </parent> 
+  </parent>
 
   <modelVersion>4.0.0</modelVersion>
   <groupId>net.anotheria</groupId>
@@ -16,12 +16,12 @@
 	<dependency> 
 		<groupId>net.anotheria</groupId>
 		<artifactId>ano-util</artifactId>
-		<version>1.0.1-SNAPSHOT</version>
+		<version>1.0.0</version>
 	</dependency>
 	<dependency>
 		<groupId>net.anotheria</groupId>
 		<artifactId>configureme</artifactId>
-		<version>1.0.1-SNAPSHOT</version>
+		<version>1.0.0</version>
 	</dependency>
 	<dependency>
 	  <groupId>com.sun</groupId>
