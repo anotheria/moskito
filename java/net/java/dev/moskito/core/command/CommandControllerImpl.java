@@ -58,18 +58,21 @@ public enum CommandControllerImpl implements ICommandController{
 	/**
 	 * Logger instance.
 	 */
-	private static Logger log = Logger.getLogger(CommandControllerImpl.class);
+	private static final Logger log = Logger.getLogger(CommandControllerImpl.class);
 	/**
 	 * Creates a new CommandControllerImpl.
 	 */
 	private CommandControllerImpl() {
 		processors = new HashMap<String, ICommandProcessor>();
-		
 		registerCommandProcessor("recordUseCase", new UseCaseRecorderCommandProcessor());
 	}
-	
+	 
 	@Override public void registerCommandProcessor(String command, ICommandProcessor processor) {
-		log.debug("registering processor: "+processor+" for command: "+command);
+		if (log!=null){
+			log.debug("registering processor: "+processor+" for command: "+command);
+		}else{
+			Logger.getLogger(CommandControllerImpl.class).debug("registering processor: "+processor+" for command: "+command);
+		}
 		ICommandProcessor oldProcessor = processors.put(command, processor);
 		if (oldProcessor!=null)
 			log.info("Implicitely unregistered processor: "+processor+" for command: "+command);
