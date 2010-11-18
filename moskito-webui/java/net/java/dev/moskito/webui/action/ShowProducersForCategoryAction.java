@@ -48,7 +48,9 @@ public class ShowProducersForCategoryAction extends BaseShowProducersAction{
 	}
 
 	@Override protected List<IStatsProducer> getProducers(HttpServletRequest req) {
-		return getAPI().getAllProducersByCategory(getCategoryParameter(req));
+		String currentCategory = getCategoryParameter(req);
+		req.setAttribute("currentCategory", currentCategory);
+		return getAPI().getAllProducersByCategory(currentCategory);
 	}
 	
 	@Override 	public String getPageTitle(HttpServletRequest req){

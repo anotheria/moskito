@@ -54,7 +54,9 @@ public class ShowProducersForSubsystemAction extends BaseShowProducersAction{
 
 	@Override
 	protected List<IStatsProducer> getProducers(HttpServletRequest req) {
-		return getAPI().getAllProducersBySubsystem(getSubsystemParameter(req));
+		String currentSubsystem = getSubsystemParameter(req);
+		req.setAttribute("currentSubsystem", currentSubsystem);
+		return getAPI().getAllProducersBySubsystem(currentSubsystem);
 	}
 
 	@Override public String getPageTitle(HttpServletRequest req){

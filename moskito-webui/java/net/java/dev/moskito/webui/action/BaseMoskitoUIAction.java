@@ -306,6 +306,7 @@ public abstract class BaseMoskitoUIAction implements Action{
 		req.setAttribute("linkToCurrentPage", getLinkToCurrentPage(req));
 		req.setAttribute("linkToCurrentPageAsXml", maskAsXML(getLinkToCurrentPage(req)));
 		req.setAttribute("linkToCurrentPageAsCsv", maskAsCSV(getLinkToCurrentPage(req)));
+		req.setAttribute("linkToCurrentPageAsJson", maskAsJSON(getLinkToCurrentPage(req)));
 		
 		req.setAttribute("currentNaviItem", getCurrentNaviItem());
 		
@@ -319,6 +320,8 @@ public abstract class BaseMoskitoUIAction implements Action{
 			req.setAttribute("currentIntervalUpdateAge", (System.currentTimeMillis()-currentIntervalUpdateTimestamp)/1000+" seconds");
 		}
 		
+		req.setAttribute("currentCategory", "");
+		req.setAttribute("currentSubsystem", "");
 	}
 	
 	
@@ -348,6 +351,10 @@ public abstract class BaseMoskitoUIAction implements Action{
 	
 	private String maskAsCSV(String link){
 		return maskAsExtension(link, ".csv");
+	}
+
+	private String maskAsJSON(String link){
+		return maskAsExtension(link, ".json");
 	}
 
 	private String maskAsExtension(String link, String extension){

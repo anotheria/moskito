@@ -164,6 +164,7 @@ public abstract class BaseShowProducersAction extends BaseMoskitoUIAction{
 	protected void doCustomProcessing(HttpServletRequest req, HttpServletResponse res){
 		List<String> categories = getAPI().getCategories();
 		List<UnitCountBean> categoriesBeans = new ArrayList<UnitCountBean>(categories.size());
+		categoriesBeans.add(UnitCountBean.NONE);
 		for (String catName : categories){
 			categoriesBeans.add(new UnitCountBean(catName, getAPI().getAllProducersByCategory(catName).size()));
 		}
@@ -171,6 +172,7 @@ public abstract class BaseShowProducersAction extends BaseMoskitoUIAction{
 
 		List<String> subsystems = getAPI().getSubsystems();		
 		List<UnitCountBean> subsystemsBeans = new ArrayList<UnitCountBean>(subsystems.size());
+		subsystemsBeans.add(UnitCountBean.NONE);
 		for (String subName : subsystems){
 			subsystemsBeans.add(new UnitCountBean(subName, getAPI().getAllProducersBySubsystem(subName).size()));
 		}

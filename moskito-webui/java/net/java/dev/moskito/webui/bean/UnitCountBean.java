@@ -47,6 +47,9 @@ public class UnitCountBean {
 	 * Number of unit entities.
 	 */
 	private int unitCount;
+	
+	public static final UnitCountBean NONE = new UnitCountBean("Select ", 0);
+	
 	/**
 	 * Creates a new unit count bean.
 	 */

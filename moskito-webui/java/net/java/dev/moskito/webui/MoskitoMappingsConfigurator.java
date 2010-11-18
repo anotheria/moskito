@@ -32,38 +32,46 @@ public class MoskitoMappingsConfigurator implements ActionMappingsConfigurator{
 		ActionMappings.addMapping("mskShowAllProducers", ShowAllProducersAction.class, 
 				new ActionForward("html", "/net/java/dev/moskito/webui/jsp/Producers.jsp"),
 				new ActionForward("xml", "/net/java/dev/moskito/webui/jsp/ProducersXML.jsp"),
-				new ActionForward("csv", "/net/java/dev/moskito/webui/jsp/ProducersCSV.jsp")
+				new ActionForward("csv", "/net/java/dev/moskito/webui/jsp/ProducersCSV.jsp"),
+				new ActionForward("json", "/net/java/dev/moskito/webui/jsp/ProducersJSON.jsp")
 		);
-		
+		 
 		ActionMappings.addAlias("mskShowAllProducers.csv", "mskShowAllProducers");
 		ActionMappings.addAlias("mskShowAllProducers.xml", "mskShowAllProducers");
+		ActionMappings.addAlias("mskShowAllProducers.json", "mskShowAllProducers");
  
 		ActionMappings.addMapping("mskShowProducersByCategory", ShowProducersForCategoryAction.class, 
 				new ActionForward("html", "/net/java/dev/moskito/webui/jsp/Producers.jsp"),
 				new ActionForward("xml", "/net/java/dev/moskito/webui/jsp/ProducersXML.jsp"),
-				new ActionForward("csv", "/net/java/dev/moskito/webui/jsp/ProducersCSV.jsp")
+				new ActionForward("csv", "/net/java/dev/moskito/webui/jsp/ProducersCSV.jsp"),
+				new ActionForward("json", "/net/java/dev/moskito/webui/jsp/ProducersJSON.jsp")
 		);
 		
 		ActionMappings.addAlias("mskShowProducersByCategory.csv", "mskShowProducersByCategory");
 		ActionMappings.addAlias("mskShowProducersByCategory.xml", "mskShowProducersByCategory");
+		ActionMappings.addAlias("mskShowProducersByCategory.json", "mskShowProducersByCategory");
 
 		ActionMappings.addMapping("mskShowProducersBySubsystem", ShowProducersForSubsystemAction.class, 
 				new ActionForward("html", "/net/java/dev/moskito/webui/jsp/Producers.jsp"),
-				new ActionForward("xml", "/net/java/dev/moskito/webui/jsp/ProducersXML.jsp"),
-				new ActionForward("csv", "/net/java/dev/moskito/webui/jsp/ProducersCSV.jsp")
+		 		new ActionForward("xml", "/net/java/dev/moskito/webui/jsp/ProducersXML.jsp"),
+				new ActionForward("csv", "/net/java/dev/moskito/webui/jsp/ProducersCSV.jsp"),
+				new ActionForward("json", "/net/java/dev/moskito/webui/jsp/ProducersJSON.jsp")
 		);
 		
 		ActionMappings.addAlias("mskShowProducersBySubsystem.csv", "mskShowProducersBySubsystem");
 		ActionMappings.addAlias("mskShowProducersBySubsystem.xml", "mskShowProducersBySubsystem");
+		ActionMappings.addAlias("mskShowProducersBySubsystem.json", "mskShowProducersBySubsystem");
 
 		ActionMappings.addMapping("mskShowProducer", ShowProducerAction.class, 
 				new ActionForward("html", "/net/java/dev/moskito/webui/jsp/Producer.jsp"),
 				new ActionForward("xml", "/net/java/dev/moskito/webui/jsp/ProducerXML.jsp"),
-				new ActionForward("csv", "/net/java/dev/moskito/webui/jsp/ProducerCSV.jsp")
+				new ActionForward("csv", "/net/java/dev/moskito/webui/jsp/ProducerCSV.jsp"),
+				new ActionForward("json", "/net/java/dev/moskito/webui/jsp/ProducerJSON.jsp")
 		);
 		
 		ActionMappings.addAlias("mskShowProducer.csv", "mskShowProducer");
 		ActionMappings.addAlias("mskShowProducer.xml", "mskShowProducer");
+		ActionMappings.addAlias("mskShowProducer.json", "mskShowProducer");
 
 		ActionMappings.addMapping("mskInspectProducer", InspectProducerAction.class, 
 				new ActionForward("html", "/net/java/dev/moskito/webui/jsp/InspectProducer.jsp"),
