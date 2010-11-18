@@ -3,7 +3,7 @@
   <parent>
 	<groupId>net.anotheria</groupId>
 	<artifactId>parent</artifactId>
-	<version>1.0</version>
+	<version>1.4</version>
   </parent>
 
   <modelVersion>4.0.0</modelVersion>
@@ -12,7 +12,7 @@
   <version>1.0.1-SNAPSHOT</version>
   <name>moskito web user interface</name>
 
-<build>
+<build> 
     <resources>
       <resource>
         <directory>${project.basedir}/html</directory>
@@ -28,34 +28,34 @@
 	<dependency> 
 		<groupId>net.anotheria</groupId>
 		<artifactId>ano-util</artifactId>
-		<version>1.0.1-SNAPSHOT</version>
+		<version>1.0.0</version>
 	</dependency>
 	<dependency> 
 		<groupId>net.anotheria</groupId>
 		<artifactId>ano-maf</artifactId>
-		<version>1.0.1-SNAPSHOT</version>
+		<version>1.0.0</version>
 	</dependency>
 	<dependency> 
 		<groupId>net.anotheria</groupId>
 		<artifactId>ano-tags</artifactId>
-		<version>1.0.1-SNAPSHOT</version>
+		<version>1.0.0</version>
 	</dependency>
 	
 	
 	<dependency>
 		<groupId>net.anotheria</groupId>
 		<artifactId>moskito-core</artifactId>
-		<version>1.0.1-SNAPSHOT</version>
+		<version>1.0.0</version>
 	</dependency>
 	<dependency>
 		<groupId>net.anotheria</groupId>
 		<artifactId>moskito-web</artifactId>
-		<version>1.0.1-SNAPSHOT</version>
+		<version>1.0.1</version>
 	</dependency>
 	<dependency>
     	<groupId>javax.servlet</groupId>
     	<artifactId>servlet-api</artifactId>
-    	<version>2.5</version>
+    	<version>${servlet-api.version}</version>
 		<scope>provided</scope>
 	</dependency>	
 	<dependency>
