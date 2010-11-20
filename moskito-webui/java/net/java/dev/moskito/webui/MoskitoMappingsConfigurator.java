@@ -4,6 +4,7 @@ import net.anotheria.maf.action.ActionForward;
 import net.anotheria.maf.action.ActionMappings;
 import net.anotheria.maf.action.ActionMappingsConfigurator;
 import net.java.dev.moskito.webui.action.CssAction;
+import net.java.dev.moskito.webui.action.ForceIntervalUpdateAction;
 import net.java.dev.moskito.webui.action.GetChartDataAction;
 import net.java.dev.moskito.webui.action.GetChartMetaDataAction;
 import net.java.dev.moskito.webui.action.InspectProducerAction;
@@ -117,6 +118,8 @@ public class MoskitoMappingsConfigurator implements ActionMappingsConfigurator{
 		ActionMappings.addMapping("mskShowCharts", ShowChartsAction.class, 
 				new ActionForward("html", "/net/java/dev/moskito/webui/jsp/Charts.jsp")
 		);
+		
+		ActionMappings.addMapping("mskForceIntervalUpdate", ForceIntervalUpdateAction.class, (ActionForward[])null);
 		
 		
 	}
