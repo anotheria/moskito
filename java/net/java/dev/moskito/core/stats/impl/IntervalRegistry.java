@@ -97,8 +97,7 @@ public final class IntervalRegistry {
 	 * The contructor.
 	 */
 	private IntervalRegistry() {
-		updateTriggerService = UpdateTriggerServiceFactory
-				.createUpdateTriggerService();
+		updateTriggerService = UpdateTriggerServiceFactory.getUpdateTriggerService();
 
         registryListeners.add(new IntervalRegistryListener() {
             public void intervalCreated(Interval aInterval) {
@@ -178,7 +177,9 @@ public final class IntervalRegistry {
 	 */
 	private Interval createInterval(String aName, int aLength) {
 		IntervalImpl interval = new IntervalImpl(obtainNextUniqueId(), aName, aLength);
-		updateTriggerService.addUpdateable(interval, aLength);
+		
+		if (aLength!=-1)
+			updateTriggerService.addUpdateable(interval, aLength);
 		
 		intervalsById.put(interval.getId(), interval);
 		intervalsByName.put(interval.getName(), interval);
