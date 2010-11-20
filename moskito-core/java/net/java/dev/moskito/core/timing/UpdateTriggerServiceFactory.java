@@ -43,17 +43,14 @@ public abstract class UpdateTriggerServiceFactory {
 	/**
 	 * This holds the singleton service provider instance.
 	 */
-	private static IUpdateTriggerService instance;
+	private static final IUpdateTriggerService instance = new UpdateTriggerServiceImpl();
 
 	/**
 	 * This method is the factory method.
 	 * 
 	 * @return the existing instance or a new one if none exists before
 	 */
-	public static synchronized IUpdateTriggerService createUpdateTriggerService() {
-		if (instance == null) {
-			instance = new UpdateTriggerServiceImpl();
-		}
+	public static IUpdateTriggerService getUpdateTriggerService() {
 		return instance;
 	}
 }

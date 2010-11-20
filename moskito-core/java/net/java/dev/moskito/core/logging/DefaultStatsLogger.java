@@ -89,7 +89,7 @@ public class DefaultStatsLogger implements IUpdateable{
 		output = anOutput;
 		id = IdCodeGenerator.generateCode(10);
 		outputIntervalInSeconds = anOutputIntervalInSeconds;
-		UpdateTriggerServiceFactory.createUpdateTriggerService().addUpdateable(this, outputIntervalInSeconds);
+		UpdateTriggerServiceFactory.getUpdateTriggerService().addUpdateable(this, outputIntervalInSeconds);
 		output.out("Started default interval logger for "+aTarget.getProducerId()+" / "+id);
 	}
 

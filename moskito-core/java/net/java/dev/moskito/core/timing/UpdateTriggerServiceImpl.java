@@ -44,7 +44,9 @@ import java.util.Timer;
  */
 class UpdateTriggerServiceImpl implements IUpdateTriggerService {
 
-
+	/**
+	 * Internal timer.
+	 */
 	private Timer timer;
 	
 	/**

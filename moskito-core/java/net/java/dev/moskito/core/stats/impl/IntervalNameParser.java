@@ -37,6 +37,7 @@ package net.java.dev.moskito.core.stats.impl;
 import java.util.HashMap;
 import java.util.Map;
 
+import net.java.dev.moskito.core.stats.DefaultIntervals;
 import net.java.dev.moskito.core.stats.UnknownIntervalLengthException;
 
 
@@ -110,6 +111,10 @@ class IntervalNameParser {
 	 * @throws UnknownIntervalLengthException if the name could not be parsed
 	 */
 	static final int guessLengthFromName(String aName) {
+		
+		if (aName.startsWith(DefaultIntervals.PREFIX_SNAPSHOT))
+			return -1;
+		
 		int unitFactor;
 		int value;
 		
