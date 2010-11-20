@@ -39,7 +39,7 @@ a:hover {text-decoration:none; color:#55cc00; cursor:pointer;}
 .top .settings {float:right;}
 .top .settings li a {font-size:1.2em; padding-top:22px;}
 .top .settings li.active a {font-size:1.2em; padding-top:22px;}
-.top .settings li .sub_menu {left:auto; margin-left:-18px;}
+.top .settings li .sub_menu {left:auto; margin-left:-54px;}
 .top .settings li .sub_menu a {padding:0; font-size:1.4em;}
 
 
