@@ -23,7 +23,7 @@ public class DemoServiceImpl implements IDemoService {
     private ServiceStats stats;
 
     public DemoServiceImpl() {
-        this.stats = new ServiceStats("demo", Constants.DEFAULT_INTERVALS);
+        this.stats = new ServiceStats("demo", Constants.getDefaultIntervals());
     }
 
     public <T extends Serializable> T echo(T aValue) throws DemoServiceException {
