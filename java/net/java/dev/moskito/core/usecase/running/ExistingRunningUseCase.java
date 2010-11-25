@@ -114,4 +114,8 @@ public class ExistingRunningUseCase implements RunningUseCase{
 	public PathElement getFirstElement(){
 		return root.getChildren().get(0);
 	}
+	
+	public PathElement getLastElement(){
+		return root.getLastElement();
+	}
 }

@@ -85,8 +85,14 @@ public class PathElement {
 		return parent;
 	}
 	
+	public PathElement getLastElement(){
+		if (children==null || children.size()==0)
+			return this;
+		return children.get(children.size()-1).getLastElement();
+	}
+	
 	public String toString(){
-		StringBuilder ret = new StringBuilder(getCall()).append(" D: ").append(getDuration()).append(" ms");
+		StringBuilder ret = new StringBuilder(getCall()).append(" D: ").append(getDuration()).append(" ns");
 		if (isAborted())
 			ret.append(" aborted.");
 		else
