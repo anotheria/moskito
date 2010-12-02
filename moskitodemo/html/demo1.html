@@ -1,23 +1,50 @@
-<html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+		"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<title>SimpleServlet Demo</title>
-<META http-equiv="pragma" content="no-cache">
-<META http-equiv="Cache-Control" content="no-cache, must-revalidate">
-<META name="Expires" content="0">
-<META http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	<META http-equiv="pragma" content="no-cache">
+	<META http-equiv="Cache-Control" content="no-cache, must-revalidate">
+	<META name="Expires" content="0">
+	<title>SimpleServlet Demo</title>
+	<link type="text/css" rel="stylesheet" rev="stylesheet" href="css/common.css"/>
+	<script type="text/javascript" src="js/jquery-1.4.min.js"></script>
+	<script type="text/javascript" src="js/function.js"></script>
 </head>
-<body> 
-	<h2>SimpleServlet Demo</h2>
-The purpose of this demo is to show how to integrate moskito into a servlet. By clicking the test link the content of the 
+<body>
+<div class="main">
+	<div class="header home">
+	<div class="w_980">
+		<ul class="main_menu">
+			<li><a href="http://moskito.anotheria.net">Home</a></li>
+			<li><a href="http://moskito.anotheria.net/moskitodemo/">Demo</a></li>
+			<li class="logo"><a href="http://moskito.anotheria.net"><img src="images/logo.png" alt=""/></a></li>
+			<li><a href="http://infra.anotheria.net/confluence/display/MSK/Home">Docs</a></li>
+			<li><a href="http://infra.anotheria.net/confluence/display/MSK/HowToGet">Download</a></li>
+		</ul>
+	</div>
+	</div>
+
+	<div class="w_980 pad">
+			<h2>SimpleServlet Demo</h2>
+
+			<div class="cont">
+				<div class="top">
+					<div><!-- --></div>
+				</div>
+				<div class="in">
+<p>The purpose of this demo is to show how to integrate moskito into a servlet. By clicking the test link the content of the 
 iframe below is reloaded with the results from the servlet. If the request was ok you will see an output like "Servlet slept : XXX".
 The servlet emulates some processing by sleeping an amount of time, this way giving the monitoring engine something to measure.
 If you choose to force the servlet to throw an error or click the random request link you will see an exception in the lower frame: "java.lang.RuntimeException: Emulating exception in processing". This is not
 a real error. If you are about measuring errors and exceptions you have to provide some, so you can count them. That's why the 
-demo servlet throws an exception in 10% of requests emulating some real errors this way. <br>
-&nbsp;&nbsp;&nbsp; <a target="testoutput" href="/moskitodemo/demo1/?pMode=1">Make a request to the servlet</a><br>
-or&nbsp;<a target="testoutput" href="/moskitodemo/demo1/?pMode=3">Force servlet to throw an exception</a><br>
-or&nbsp;<a target="testoutput" href="/moskitodemo/demo1/?pMode=2">Make a random request </a> which will throw an exception in 10% of cases.<br>
-<br>
+demo servlet throws an exception in 10% of requests emulating some real errors this way. <br></p>
+<ul>
+<li><a target="testoutput" href="/moskitodemo/demo1/?pMode=1">Make a request to the servlet</a></li>
+<li>or&nbsp;<a target="testoutput" href="/moskitodemo/demo1/?pMode=3">Force servlet to throw an exception</a></li>
+<li>or&nbsp;<a target="testoutput" href="/moskitodemo/demo1/?pMode=2">Make a random request </a> which will throw an exception in 10% of cases.</li>
+</ul>
+<p>
 To see the ServletStats <a href="/moskitodemo/mui/mskShowAllProducers">goto moskito User Interface</a><br>
 or see the stats from this servlet only:
 <a target="testoutput" href="/moskitodemo/demo1/?pShowInterval=1m">1 Minute</a>&nbsp;
@@ -26,13 +53,37 @@ or see the stats from this servlet only:
 <a target="testoutput" href="/moskitodemo/demo1/?pShowInterval=1h">1 Hour</a>&nbsp;
 <a target="testoutput" href="/moskitodemo/demo1/?pShowInterval=1d">1 Day</a>&nbsp;
 <a target="testoutput" href="/moskitodemo/demo1/?pShowInterval=default">Since start</a>&nbsp;
-<br><br>
-<iframe id="testoutput" name="testoutput" border="1" src="/moskitodemo/demo1?" width="1000" height="300">
+</p><br><br>
+<iframe id="testoutput" name="testoutput" border="1" src="/moskitodemo/demo1?" width="900" height="300">
 </iframe>
 <br><br>
 <a href="SimpleServlet.java">View source</a><br>
 <hr size="1">
-Copyright &copy; 2006-2009, Moskito Project Team. <a href="http://moskito.dev.java.net">http://moskito.dev.java.net</a>.<br>
-Moskito is open source, distributed under the <a href="License.html">MIT License</a>.
+				</div>
+				<div class="bot">
+					<div><!-- --></div>
+				</div>
+		</div>
+		<div class="clear"><!-- --></div>
+		<div class="empty"><!-- --></div>
+	</div>
+</div>
+<div class="footer">
+	<div class="fll">
+		<ul>
+			<li><a href="http://moskito.anotheria.net">Home</a>&nbsp;&nbsp;|&nbsp;&nbsp;</li>
+			<li><a href="http://moskito.anotheria.net/moskitodemo/">Demo</a>&nbsp;&nbsp;|&nbsp;&nbsp;</li>
+			<li><a href="http://infra.anotheria.net/confluence/display/MSK/Home">Docs</a>&nbsp;&nbsp;|&nbsp;&nbsp;</li>
+			<li><a href="http://infra.anotheria.net/confluence/display/MSK/HowToGet">Get</a></li>
+		</ul>
+		<span>Copyright &copy; 2006-2010 MoSKito Project. MoSKito is open source, distributed under the <a href="http://moskito.anotheria.net/license.html">MIT License</a>.</span>
+	</div>
+	<div class="flr">
+		<a href="#"><img src="images/powered.png" alt="Powered by Anotheria.net"/></a>
+	</div>
+
+</div>
+
+
 </body>
 </html>
