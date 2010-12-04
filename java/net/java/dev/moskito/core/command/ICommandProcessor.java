@@ -17,5 +17,5 @@ public interface ICommandProcessor {
 	 * Stops the command. 
 	 * 
 	 */
-	public void stopCommand(String command, Map<String,String[]> parameters);
+	 void stopCommand(String command, Map<String,String[]> parameters);
 }

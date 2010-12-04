@@ -11,6 +11,10 @@ import java.io.Serializable;
  */
 public class DefaultStatsSnapshot implements IStatsSnapshot, Serializable {
 	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	/**
 	 * TBD.
 	 */
 	private String name;
