@@ -89,7 +89,8 @@ public abstract class BaseShowProducersAction extends BaseMoskitoUIAction{
 		Map<IDecorator, List<IStatsProducer>> decoratorMap = new HashMap<IDecorator,List<IStatsProducer>>();
 		Map<IDecorator, List<MetaHeaderBean>> metaheaderMap = new HashMap<IDecorator, List<MetaHeaderBean>>();
 		
-		List<IStatsProducer> producers = getProducers(req);
+		ArrayList<IStatsProducer> producers = new ArrayList<IStatsProducer>();
+		producers.addAll(getProducers(req));
 		
 		Map<String, GraphDataBean> graphData = new HashMap<String, GraphDataBean>();
 		
