@@ -40,6 +40,9 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import net.anotheria.anoplass.api.util.paging.PagingControl;
+import net.anotheria.util.slicer.Segment;
+import net.anotheria.util.slicer.Slicer;
 import net.java.dev.moskitodemo.guestbook.business.data.Comment;
 import net.java.dev.moskitodemo.guestbook.business.data.CommentSortType;
 import net.java.dev.moskitodemo.guestbook.presentation.bean.CommentTableHeaderBean;
@@ -90,7 +93,9 @@ public class ShowCommentsAction extends BaseGuestbookAction{
 		"A",
 		"Z"
 	};
-	
+
+	private String PAGE_NUMBER_PARAMETER_NAME = "page";
+	private String ITEMS_ON_PAGE_PARAMETER_NAME = "pageSize";
 
 	@Override
 	public ActionForward moskitoExecute(ActionMapping mapping, ActionForm af, HttpServletRequest req, HttpServletResponse res) throws Exception {
@@ -100,18 +105,45 @@ public class ShowCommentsAction extends BaseGuestbookAction{
 		CommentSortType sortType = createSortTypeFromRequest(req);
 		List<Comment> comments = getCommentService().getCommentsSorted(sortType);
 		List<CommentTableItemBean> itemBeans = new ArrayList<CommentTableItemBean>(comments.size());
+
 		for (Comment c : comments){
 			itemBeans.add(createTableItemBean(c, !userIsAuthorized));
 		}
-		
-		
-		req.setAttribute("comments", itemBeans);
+
+		int itemsSize = itemBeans.size();
+		int pageNumber = getIntPositiveValueFromRequest(PAGE_NUMBER_PARAMETER_NAME, req, 1);
+		int pageSize = getIntPositiveValueFromRequest(ITEMS_ON_PAGE_PARAMETER_NAME, req, 5);
+
+		req.setAttribute("pagination", new PagingControl(pageNumber, pageSize, itemsSize));
+		req.setAttribute("comments", sliceList(itemBeans, pageNumber, pageSize));
 		req.setAttribute("authorized", userIsAuthorized ? Boolean.TRUE : Boolean.FALSE);
 		req.setAttribute("headers", createHeaders(sortType));
 		
 		return mapping.findForward("success");
 	}
-	
+
+	private List sliceList(List listForSlicing, int pageNumber, int pageSize){
+
+		return Slicer.slice(new Segment(pageNumber, pageSize), listForSlicing).getSliceData();
+	}
+
+	/**
+	 * Returns parameter value from request, or default value if parameter is null or empty, or it negative.
+	 *
+	 * @param requestParameterName parameter name
+	 * @param request			  httpServletRequest
+	 * @param defaultValue		 default value
+	 * @return int value
+	 */
+	private int getIntPositiveValueFromRequest(String requestParameterName, HttpServletRequest request, int defaultValue) {
+		try {
+			Integer value = Integer.valueOf(request.getParameter(requestParameterName));
+			return value >= 0 ? value : defaultValue;
+		} catch (NumberFormatException e) {}
+
+		return defaultValue;
+	}
+
 	private CommentSortType createSortTypeFromRequest(HttpServletRequest req){
 		int sortBy = CommentSortType.SORT_BY_DEFAULT;
 		try{

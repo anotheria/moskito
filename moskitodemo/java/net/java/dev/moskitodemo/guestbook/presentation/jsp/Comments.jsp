@@ -6,6 +6,7 @@
 		%>
 <%@ taglib uri="/WEB-INF/tld/struts-html.tld" prefix="html"
 		%>
+<%@ page isELIgnored="false" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html:xhtml/>
@@ -159,6 +160,31 @@
 									</tr>
 									<tr>
 										<td colspan="5">
+///////////////////////////////////////////////////////////////////////////////
+                                            <bean:size id="sizePages" name="pagination" property="elements"/>
+                                            <logic:greaterThan name="sizePages" value="1">
+                                                <ul class="paginator">
+                                                    <logic:equal name="pagination" property="hasPrevious" value="true">
+                                                        <li class="prev"><a href="?page=${pagination.previousPageNumber}">prev</a></li>
+                                                    </logic:equal>
+
+                                                    <logic:iterate name="pagination" property="elements" id="element" indexId="pageNumberIndex">
+                                                        <li <logic:equal name="element" property="caption" value="${pagination.currentPageNumber}">class="cur"</logic:equal>>
+                                                            <logic:equal name="element" property="separator" value="false">
+                                                                <a href="?page=${element.caption}">
+                                                                    <bean:write name="element" property="caption"/>
+                                                                </a>
+                                                           </logic:equal>
+                                                        </li>
+                                                    </logic:iterate>
+
+                                                    <logic:equal name="pagination" property="hasNext" value="true">
+                                                        <li class="next"><a href="?page=${pagination.nextPageNumber}">next</a></li>
+                                                    </logic:equal>
+                                                </ul>
+                                            </logic:greaterThan>
+
+///////////////////////////////////////////////////////////////////////////////
 											<ul class="paginator">
 												<li class="prev"><a hre="#">prev</a></li>
 												<li class="cur">1</li>
