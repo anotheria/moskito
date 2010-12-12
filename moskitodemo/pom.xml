@@ -86,6 +86,12 @@
 		<artifactId>ano-util</artifactId>
 		<version>1.0.0</version>
 	</dependency>
+	<!--  for paging  -->
+	<dependency> 
+		<groupId>net.anotheria</groupId>
+		<artifactId>ano-plass</artifactId>
+		<version>1.0.0</version>
+	</dependency>
 	<dependency> 
 		<groupId>net.anotheria</groupId>
 		<artifactId>ano-maf</artifactId>
