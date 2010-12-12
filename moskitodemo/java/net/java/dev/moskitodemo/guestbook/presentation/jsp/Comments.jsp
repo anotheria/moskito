@@ -160,7 +160,6 @@
 									</tr>
 									<tr>
 										<td colspan="5">
-///////////////////////////////////////////////////////////////////////////////
                                             <bean:size id="sizePages" name="pagination" property="elements"/>
                                             <logic:greaterThan name="sizePages" value="1">
                                                 <ul class="paginator">
@@ -183,17 +182,6 @@
                                                     </logic:equal>
                                                 </ul>
                                             </logic:greaterThan>
-
-///////////////////////////////////////////////////////////////////////////////
-											<ul class="paginator">
-												<li class="prev"><a hre="#">prev</a></li>
-												<li class="cur">1</li>
-												<li><a hre="#">2</a></li>
-												<li><a hre="#">3</a></li>
-												<li><a hre="#">4</a></li>
-												<li><a hre="#">5</a></li>
-												<li class="next"><a hre="#">next</a></li>
-											</ul>
 										</td>
 									</tr>
 									</tbody>
