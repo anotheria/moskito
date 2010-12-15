@@ -16,7 +16,7 @@ import net.java.dev.moskito.core.stats.impl.StatValueFactory;
  * @see http://java.sun.com/j2se/1.5.0/docs/api/java/lang/management/MemoryUsage.html
  *
  */
-public class MemoryPoolStats extends AbstractStats implements IMemoryPoolStats{
+public class MemoryPoolStats extends AbstractMemoryPoolStats implements IMemoryPoolStats{
 	/**
 	 * Initial size.
 	 */
@@ -148,46 +148,4 @@ public class MemoryPoolStats extends AbstractStats implements IMemoryPoolStats{
 		minCommited.setValueIfLesserThanCurrentAsLong(value);
 		maxCommited.setValueIfGreaterThanCurrentAsLong(value);
 	}
-
-	private static final List<String> VALUE_NAMES = Collections.unmodifiableList(Arrays.asList(
-			new String[]{
-				"INIT",
-				"MIN_USED",
-				"USED",
-				"MAX_USED",
-				"MIN_COMMITED",
-				"COMMITED",
-				"MAX_COMMITED",
-				"MAX",
-			})); 
-
-	@Override
-	public List<String> getAvailableValueNames() {
-		return VALUE_NAMES;
-	}
-	
-	@Override public String getValueByNameAsString(String valueName, String intervalName, TimeUnit timeUnit){
-		if (valueName==null || valueName.equals(""))
-			throw new AssertionError("Value name can not be empty");
-		valueName = valueName.toLowerCase();
-		if (valueName.equals("init"))
-			return ""+init.getValueAsLong(intervalName);
-		if (valueName.equals("min_used"))
-			return ""+minUsed.getValueAsLong(intervalName);
-		if (valueName.equals("used"))
-			return ""+used.getValueAsLong(intervalName);
-		if (valueName.equals("max_used"))
-			return ""+maxUsed.getValueAsLong(intervalName);
-		if (valueName.equals("min_commited"))
-			return ""+minCommited.getValueAsLong(intervalName);
-		if (valueName.equals("commited"))
-			return ""+commited.getValueAsLong(intervalName);
-		if (valueName.equals("max_commited"))
-			return ""+maxCommited.getValueAsLong(intervalName);
-		if (valueName.equals("max"))
-			return ""+max.getValueAsLong(intervalName);
-		return super.getValueByNameAsString(valueName, intervalName, timeUnit);
-	}
-	
-
 }

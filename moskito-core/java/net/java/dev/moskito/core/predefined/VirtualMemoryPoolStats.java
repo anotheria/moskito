@@ -3,7 +3,6 @@ package net.java.dev.moskito.core.predefined;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.java.dev.moskito.core.producers.AbstractStats;
 import net.java.dev.moskito.core.stats.Interval;
 import net.java.dev.moskito.core.stats.TimeUnit;
 
@@ -13,7 +12,7 @@ import net.java.dev.moskito.core.stats.TimeUnit;
  * @author lrosenberg
  *
  */
-public class VirtualMemoryPoolStats extends AbstractStats implements IMemoryPoolStats{
+public class VirtualMemoryPoolStats extends AbstractMemoryPoolStats implements IMemoryPoolStats{
 	
 	/**
 	 * Underlying 'real' stats.
