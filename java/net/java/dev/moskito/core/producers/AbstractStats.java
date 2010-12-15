@@ -145,6 +145,9 @@ public abstract class AbstractStats implements IStats {
 		return EMPTY_LIST;
 	}
 	
-	
+	@Override 
+	public String toString(){
+		return getName();
+	}
 
 }
