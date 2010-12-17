@@ -3,6 +3,7 @@ package net.java.dev.moskito.core.treshold;
 import net.java.dev.moskito.core.stats.TimeUnit;
 
 public class ThresholdDefinition {
+	private String name;
 	private String producerName;
 	private String statName;
 	private String valueName;
@@ -53,4 +54,16 @@ public class ThresholdDefinition {
 	public void setValueName(String valueName) {
 		this.valueName = valueName;
 	}
+	public String getName() {
+		return name == null ? describe() : name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+	
+	public String describe(){
+		return getProducerName()+"."+getStatName()+"."+getValueName()+"/"+getIntervalName()+"/"+getTimeUnit();
+	}
+
 }

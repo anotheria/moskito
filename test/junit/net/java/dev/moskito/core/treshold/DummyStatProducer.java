@@ -11,12 +11,15 @@ import net.java.dev.moskito.core.registry.ProducerRegistryFactory;
 public class DummyStatProducer implements IStatsProducer{
 
 	private List<IStats> stats = new ArrayList<IStats>();
+	ServiceStats dynamic; 
 	
 	public DummyStatProducer(){
 		ProducerRegistryFactory.getProducerRegistryInstance().registerProducer(this);
 		ServiceStats stat1 = new ServiceStats("first");
 		ServiceStats stat2 = new ServiceStats("second");
 		ServiceStats stat3 = new ServiceStats("third");
+		ServiceStats stat4 = new ServiceStats("dynamic");
+		dynamic = stat4;
 		
 		for (int i=0; i<100; i++){
 			stat1.addRequest();
@@ -24,7 +27,7 @@ public class DummyStatProducer implements IStatsProducer{
 			stat3.addRequest();stat3.addRequest();stat3.addRequest();
 		}
 		
-		stats.add(stat1);stats.add(stat2);stats.add(stat3);
+		stats.add(stat1);stats.add(stat2);stats.add(stat3);stats.add(stat4);
 	}
 	
 	@Override
@@ -46,5 +49,12 @@ public class DummyStatProducer implements IStatsProducer{
 	public String getSubsystem() {
 		return "default";
 	}
+
+	public void increaseDynamic(){
+		dynamic.addRequest();
+	}
 	
+	public long getDynamicTR(String intervalName){
+		return dynamic.getTotalRequests(intervalName);
+	}
 }
