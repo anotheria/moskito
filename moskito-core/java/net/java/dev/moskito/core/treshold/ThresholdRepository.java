@@ -1,5 +1,8 @@
 package net.java.dev.moskito.core.treshold;
 
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentMap;
+
 import net.java.dev.moskito.core.producers.IStats;
 import net.java.dev.moskito.core.producers.IStatsProducer;
 import net.java.dev.moskito.core.registry.IProducerRegistryAPI;
@@ -11,6 +14,8 @@ public enum ThresholdRepository {
 	INSTANCE;
 	
 	IProducerRegistryAPI registryAPI = new ProducerRegistryAPIFactory().createProducerRegistryAPI();
+	
+	private ConcurrentMap<String, Threshold> thresholds = new ConcurrentHashMap<String, Threshold>();
 
 	public Threshold createThreshold(ThresholdDefinition definition){
 		
@@ -37,6 +42,7 @@ public enum ThresholdRepository {
 		}
 		
 		Threshold t = new Threshold(definition, target);
+		//thresholds.put(, value)
 		return t;
 		
 		
