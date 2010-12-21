@@ -1,0 +1,254 @@
+package net.java.dev.moskito.core.predefined;
+
+import static net.java.dev.moskito.core.predefined.Constants.MAX_TIME_DEFAULT;
+import static net.java.dev.moskito.core.predefined.Constants.MIN_TIME_DEFAULT;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import net.java.dev.moskito.core.producers.AbstractStats;
+import net.java.dev.moskito.core.stats.Interval;
+import net.java.dev.moskito.core.stats.StatValue;
+import net.java.dev.moskito.core.stats.TimeUnit;
+import net.java.dev.moskito.core.stats.impl.StatValueFactory;
+
+/**
+ * Stats for queues.
+ * @author dmetelin
+ */
+public class QueueStats extends AbstractStats{
+	
+	public static enum StatDef{
+		
+		REQUESTS("Req"),
+		ENQUEUED("Enq"),
+		DEQUEUED("Deq"),
+		FULL("Full"),
+		EMPTY("Empty"),
+		TOTAL_SIZE("TS"),
+		LAST_SIZE("Last"),
+		MIN_SIZE("Min"),
+		MAX_SIZE("Max"),
+		AVERAGE_SIZE("Avg");
+
+		private String statName;
+
+		private StatDef(String aStatName){
+			statName = aStatName;
+		}
+		
+		public String getStatName(){
+			return statName;
+		}
+		
+		public String getStatLabel(){
+			return " " + statName + ": ";
+		}
+		
+		public static List<String> getStatNames(){
+			List<String> ret = new ArrayList<String>(StatDef.values().length);
+			for(StatDef v: StatDef.values())
+				ret.add(v.getStatName());
+			return ret;
+		}
+	}	
+	
+	/**
+	 * Min size value.
+	 */
+	public static final long MIN_SIZE_DEFAULT = Long.MAX_VALUE;
+	/**
+	 * Max size value.
+	 */
+	public static final long MAX_SIZE_DEFAULT = 0L;
+	
+	/**
+	 * Number of read requests.
+	 */
+	private StatValue requests;
+	private StatValue enqueued;
+	private StatValue dequeued;
+	private StatValue empty;
+	private StatValue totalSize;
+	private StatValue lastSize;
+	private StatValue sumOfSizes;
+	private StatValue maxSize;
+	private StatValue minSize;
+
+	
+	
+	/**
+	 * Name of the cache.
+	 */
+	private String name;
+
+	public QueueStats(){
+		this("unnamed", Constants.getDefaultIntervals());
+	}
+	
+	public QueueStats(String name){
+		this(name, Constants.getDefaultIntervals());
+	} 
+	
+	
+	public QueueStats(String aName,  Interval[] selectedIntervals){
+		Long longPattern = Long.valueOf(0);
+		name = aName;
+		
+		requests = StatValueFactory.createStatValue(longPattern, "requests", selectedIntervals);
+		enqueued = StatValueFactory.createStatValue(longPattern, "enqueued", selectedIntervals);
+		dequeued = StatValueFactory.createStatValue(longPattern, "dequeued", selectedIntervals);
+		empty = StatValueFactory.createStatValue(longPattern, "empty", selectedIntervals);
+		totalSize = StatValueFactory.createStatValue(longPattern, "totalSize", selectedIntervals);
+		lastSize = StatValueFactory.createStatValue(longPattern, "lastSize", selectedIntervals);
+		sumOfSizes = StatValueFactory.createStatValue(longPattern, "sumOfSizes", selectedIntervals);
+		minSize = StatValueFactory.createStatValue(longPattern, "minSize", selectedIntervals);
+		minSize.setDefaultValueAsLong(MIN_TIME_DEFAULT);
+		minSize.reset();
+		maxSize = StatValueFactory.createStatValue(longPattern, "maxSize", selectedIntervals);
+		maxSize.setDefaultValueAsLong(MAX_TIME_DEFAULT);
+		maxSize.reset();
+	}
+	
+	public String getName(){
+		return name;
+	}
+	
+	public void addRequest(){
+		requests.increase();
+	}
+	
+	public long getRequests(String intervalName){
+		return requests.getValueAsLong(intervalName);
+	}
+	
+	public void addEnqueued(){
+		enqueued.increase();
+	}
+	
+	public long getEnqueued(String intervalName){
+		return enqueued.getValueAsLong(intervalName);
+	}
+	
+	public long getDequeued(String intervalName) {
+		return dequeued.getValueAsLong(intervalName);
+	}
+
+	public void addDequeued() {
+		dequeued.increase();
+	}
+	
+	public long getEmpty(String intervalName) {
+		return empty.getValueAsLong(intervalName);
+	}
+
+	public void addEmpty() {
+		empty.increase();
+	}
+
+	public long getFull(String intervalName) {
+		return requests.getValueAsLong(intervalName) - enqueued.getValueAsLong(intervalName);
+	}
+
+	public long getTotalSize(String intervalName) {
+		return totalSize.getValueAsLong(intervalName);
+	}
+
+	public void setTotalSize(long totalSize) {
+		this.totalSize.setValueAsLong(totalSize);
+		
+	}
+
+
+	public void setOnRequestLastSize(long size) {
+		this.lastSize.setValueAsLong(size);
+		sumOfSizes.increaseByLong(size);
+		maxSize.setValueIfGreaterThanCurrentAsLong(size);
+		minSize.setValueIfLesserThanCurrentAsLong(size);
+	}
+
+	public long getOnRequestLastSize(String intervalName) {
+		return lastSize.getValueAsLong(intervalName);
+	}
+	
+	public long getOnRequestMaxSize(String intervalName) {
+		return maxSize.getValueAsLong(intervalName);
+	}
+	
+	public long getOnRequestMinSize(String intervalName) {
+		return minSize.getValueAsLong(intervalName);
+	}
+	
+	public long getOnRequestAverageSize(String intervalName) {
+		long sum = sumOfSizes.getValueAsLong(intervalName);
+		if(sum == 0)
+			return 0;			
+		return sum / requests.getValueAsLong(intervalName);
+	}
+	
+	@Override
+	public List<String> getAvailableValueNames() {
+		return StatDef.getStatNames();
+	}
+
+	@Override public String toStatsString(String intervalName, TimeUnit timeUnit) {
+		StringBuilder b = new StringBuilder();
+		b.append(getName()).append(' ');
+		
+		b.append(StatDef.REQUESTS.getStatLabel()).append(getRequests(intervalName));
+		b.append(StatDef.ENQUEUED.getStatLabel()).append(getEnqueued(intervalName));
+		b.append(StatDef.FULL.getStatLabel()).append(getFull(intervalName));
+		b.append(StatDef.EMPTY.getStatLabel()).append(getEmpty(intervalName));
+		b.append(StatDef.DEQUEUED.getStatLabel()).append(getDequeued(intervalName));
+		b.append(StatDef.TOTAL_SIZE.getStatLabel()).append(getTotalSize(intervalName));
+		b.append(StatDef.LAST_SIZE.getStatLabel()).append(getOnRequestLastSize(intervalName));
+		b.append(StatDef.MIN_SIZE.getStatLabel()).append(getOnRequestMinSize(intervalName));
+		b.append(StatDef.MAX_SIZE.getStatLabel()).append(getOnRequestMaxSize(intervalName));
+		b.append(StatDef.AVERAGE_SIZE.getStatLabel()).append(getOnRequestAverageSize(intervalName));
+
+		return b.toString();
+	}
+
+	@Override public String getValueByNameAsString(String valueName, String intervalName, TimeUnit timeUnit){
+		
+		if (valueName==null || valueName.equals(""))
+			throw new AssertionError("Value name can not be empty");
+		
+		if (valueName.equalsIgnoreCase(StatDef.REQUESTS.getStatName()))
+				return ""+getRequests(intervalName);
+				
+		if (valueName.equalsIgnoreCase(StatDef.ENQUEUED.getStatName()))
+			return ""+getEnqueued(intervalName);
+		
+		if (valueName.equalsIgnoreCase(StatDef.DEQUEUED.getStatName()))
+			return ""+getDequeued(intervalName);
+		
+		if (valueName.equalsIgnoreCase(StatDef.FULL.getStatName()))
+			return ""+getFull(intervalName);
+		
+		if (valueName.equalsIgnoreCase(StatDef.EMPTY.getStatName()))
+			return ""+getEmpty(intervalName);
+		
+		if (valueName.equalsIgnoreCase(StatDef.TOTAL_SIZE.getStatName()))
+			return ""+getTotalSize(intervalName);
+		
+		if (valueName.equalsIgnoreCase(StatDef.LAST_SIZE.getStatName()))
+			return ""+getOnRequestLastSize(intervalName);
+		
+		if (valueName.equalsIgnoreCase(StatDef.MIN_SIZE.getStatName()))
+			return ""+getOnRequestMinSize(intervalName);
+		
+		if (valueName.equalsIgnoreCase(StatDef.MAX_SIZE.getStatName()))
+			return ""+getOnRequestMaxSize(intervalName);
+		
+		if (valueName.equals(StatDef.AVERAGE_SIZE.getStatName()))
+			return ""+getOnRequestAverageSize(intervalName);
+
+		return super.getValueByNameAsString(valueName, intervalName, timeUnit);
+	}
+
+
+
+
+
+}
