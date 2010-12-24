@@ -27,7 +27,8 @@ public enum NaviItem {
 	/**
 	 * Constant for actions without own navigation item.
 	 */
-	NONE("None");
+	NONE("None"),
+	THRESHOLDS("Thresholds");
 	
 	
 	/**
@@ -37,9 +38,10 @@ public enum NaviItem {
 	static{
 		menu = new ArrayList<NaviItem>();
 		menu.add(PRODUCERS);
-		menu.add(USECASES);
+		menu.add(THRESHOLDS);
 		menu.add(SESSIONS);
 		menu.add(CHARTS);
+		menu.add(USECASES);
 	}
 	/**
 	 * Caption of the navi item.

@@ -3,7 +3,7 @@
   <parent>
 	<groupId>net.anotheria</groupId>
 	<artifactId>parent</artifactId>
-	<version>1.4</version>
+	<version>1.5-SNAPSHOT</version>
   </parent>
 
   <modelVersion>4.0.0</modelVersion>
@@ -55,8 +55,6 @@
 	<dependency>
     	<groupId>javax.servlet</groupId>
     	<artifactId>servlet-api</artifactId>
-    	<version>${servlet-api.version}</version>
-		<scope>provided</scope>
 	</dependency>	
 	<dependency>
     	<groupId>struts</groupId>

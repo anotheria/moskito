@@ -11,6 +11,11 @@ import net.java.dev.moskito.core.stats.impl.IntervalRegistry;
 import net.java.dev.moskito.core.timing.IUpdateable;
 import net.java.dev.moskito.webui.bean.NaviItem;
 
+/**
+ * This action fires an interval update. This is useful for intervals that are not updated by a timer, like snapshots.
+ * @author another
+ *
+ */
 public class ForceIntervalUpdateAction extends BaseMoskitoUIAction{
 
 	@Override

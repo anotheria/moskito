@@ -18,6 +18,7 @@ import net.java.dev.moskito.webui.action.ShowProducerAction;
 import net.java.dev.moskito.webui.action.ShowProducersForCategoryAction;
 import net.java.dev.moskito.webui.action.ShowProducersForSubsystemAction;
 import net.java.dev.moskito.webui.action.ShowRecordedUseCaseAction;
+import net.java.dev.moskito.webui.action.ShowThresholdsAction;
 import net.java.dev.moskito.webui.action.ShowUseCasesAction;
 
 /**
@@ -120,7 +121,11 @@ public class MoskitoMappingsConfigurator implements ActionMappingsConfigurator{
 		);
 		
 		ActionMappings.addMapping("mskForceIntervalUpdate", ForceIntervalUpdateAction.class, (ActionForward[])null);
-		
+
+		ActionMappings.addMapping("mskThresholds", ShowThresholdsAction.class, 
+				new ActionForward("success", "/net/java/dev/moskito/webui/jsp/Thresholds.jsp")
+		);
+
 		
 	}
 
