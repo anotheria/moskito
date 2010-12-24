@@ -57,6 +57,9 @@
  	   		<forward name="success" path="/net/java/dev/moskitodemo/usecases/fibonacci/presentation/jsp/Success.jsp"/>
  	   		<forward name="dialog" path="/net/java/dev/moskitodemo/usecases/fibonacci/presentation/jsp/Dialog.jsp"/>
     	</action>
+    	<action path="/thresholds" type="net.java.dev.moskitodemo.threshold.presentation.action.EmulateRequestsAction" scope="request">
+ 	   		<forward name="success" path="/net/java/dev/moskitodemo/threshold/presentation/jsp/Success.jsp"/>
+    	</action>
     	
 
 

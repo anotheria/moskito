@@ -46,6 +46,10 @@
 		<servlet-name>struts</servlet-name>
 		<url-pattern>/guestbook/*</url-pattern>
 	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>struts</servlet-name>
+		<url-pattern>/do/*</url-pattern>
+	</servlet-mapping>
 	<!--  MOSKITO UI-->
 	<!--  Adding filter to moskito ui which redirects requests to /mui/* to moskito user interface -->	
    	<filter>
@@ -194,6 +198,9 @@
 	<listener>
 		<listener-class>
 			net.java.dev.moskito.web.session.SessionCountProducer
+		</listener-class>
+		<listener-class>
+			net.java.dev.moskitodemo.threshold.presentation.listener.SetupThresholds
 		</listener-class>
 	</listener>
   		
