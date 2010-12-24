@@ -59,7 +59,6 @@ public class GuardsTest {
 		IntervalRegistry.getInstance().forceUpdateIntervalForTestingPurposes("snapshot");
 		//System.out.println("POST "+producer.getDynamicTR("snapshot"));
 
-		threshold.update();
 		assertEquals(expectedStatus, threshold.getStatus());
 	}
 }

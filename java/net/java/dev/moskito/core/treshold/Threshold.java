@@ -19,12 +19,15 @@ public class Threshold {
 	private IStats stats;
 	private String lastValue;
 	
-	public Threshold(ThresholdDefinition aDefinition, IStats aStats){
+	public Threshold(ThresholdDefinition aDefinition){
 		definition = aDefinition;
 		status = ThresholdStatus.OFF;
-		stats = aStats;
 		lastValue = "none yet";
 		guards = new ArrayList<ThresholdConditionGuard>();
+	}
+	
+	public void tieToStats(IStats aStatsObject){
+		stats = aStatsObject;
 	}
 	
 	public void addGuard(ThresholdConditionGuard guard){
@@ -48,6 +51,8 @@ public class Threshold {
 	}
 	
 	public void update(){
+		if (!isActivated())
+			return;
 		System.out.println("=== Started update with "+status);
 		String previousValue = lastValue;
 		lastValue = stats.getValueByNameAsString(definition.getValueName(), definition.getIntervalName(), definition.getTimeUnit());
@@ -72,4 +77,7 @@ public class Threshold {
 		return getDefinition().getName();
 	}
 	 
+	public boolean isActivated(){
+		return stats != null;
+	}
 }
