@@ -12,7 +12,6 @@
         <dependency org="java.net" name="moskito-util" rev="latest" transitive="true" changing="true"/>
         <dependency org="java.net" name="moskito-web" rev="latest" transitive="true" changing="true"/>
         <dependency org="java.net" name="moskito-webui" rev="latest" transitive="true" changing="true"/>
-        <dependency org="java.net" name="moskito-central" rev="latest" transitive="true" changing="true"/>
 
         <dependency org="anotheria.net" name="ano-util" rev="latest" transitive="true" changing="true"/>
         <dependency org="anotheria.net" name="ano-plass" rev="latest" transitive="true" changing="true"/>
