@@ -19,7 +19,7 @@
 									</li>
 								</msk:present
 								><msk:present name="units" scope="request">
-									<li>	
+									<li class="separator">	
 										<span>Unit:</span>
 										<select onchange="javascript:handleSelect(this)">									
 											<jsp:include page="UnitSelection.jsp" flush="false" />
@@ -35,7 +35,7 @@
 									</li>
 							    </msk:present
 							    ><msk:present name="subsystems" scope="request">
-									<li class="separator">								
+									<li>
 										<span>Subsystem:</span>
 										<select onchange="javascript:handleSelect(this)">
 											<jsp:include page="SubsystemSelection.jsp" flush="false" />
@@ -70,10 +70,10 @@
 						<li><a href="mskShowCharts">Charts</a></li>
 					</msk:notEqual
 					><msk:equal name="currentNaviItem" value="THRESHOLDS">
-						<li class="active"><a href="mskThresholds">Thresholds</a></li>
+						<li class="active"><a href="mskThresholds"><img src="../img/ind_red_small.png" alt="Attention needed"/>&nbsp;&nbsp;Thresholds</a></li>
 					</msk:equal
 					><msk:notEqual name="currentNaviItem" value="THRESHOLDS">
-						<li><a href="mskThresholds">Thresholds</a></li>
+						<li><a href="mskThresholds"><img src="../img/ind_red_small.png" alt="Attention needed"/>&nbsp;&nbsp;Thresholds</a></li>
 					</msk:notEqual>
 					
 				</ul>
