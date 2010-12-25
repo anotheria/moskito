@@ -259,15 +259,19 @@
 	function lightbox(link) {
 		$('.lightbox').show();
 		var el = $('.lightbox');
-		var wid = el.find('.box').width();
-		var box = el.find('.box');
-		box.css('left', '50%');
-		box.css('margin-left', -wid / 2);
-		box.css('top', link.offset().top);
 		$('.pie_chart').show();
 		$('.bar_chart').hide();
+		var wid = el.find('.box').width();
+		var box = el.find('.box');
+		var hig = el.find('.box').height();
+		box.css('left', '50%');
+		box.css('margin-left', -wid / 2);
+		box.css('top', '50%');
+		box.css('margin-top', -hig / 2);
+		box.css('position', 'fixed');
+
 	}
-	;
+	
 	//var datas = new Array;
 	var cap, mas, data;
 	$('.chart').click(function() {

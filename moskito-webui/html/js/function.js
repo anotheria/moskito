@@ -253,32 +253,6 @@ $(function() {
 
 	set_errors();
 
-	//lightbox function
-	function lightbox() {
-		var text = $(this).attr('title');
-		var el = $('.lightbox');
-		el.find('.box_in').html(text);
-		var wid = el.find('.box').width();
-		el.find('.box').css('left', '50%');
-		el.find('.box').css('margin-left', -wid/2);
-		el.fadeIn('fast');
-		
-	};
-	
-	//close lightbox
-	$('.black_bg, .close_box').click(function() {
-		$('.lightbox .name_ch').val('');
-		$('.lightbox .name_ch').removeClass('error');
-		$('.chart_overlay table tbody').html('');
-		$('.lightbox #interval option:first').attr('selected', 'selected');
-		$('.lightbox #producer_sel option:first').attr('selected', 'selected');
-		$('.lightbox').hide();
-		if ($('.lightbox #interval').length != 0) {
-			$('.main .help').parents().filter('.table_layout').find('.in:last').css('height', '250px');
-			$('.main .help').parents().filter('.table_layout').find('.in:last').show();
-		}
-	});
-
 	//functions for charts
 	$('.chart').click(function() {
 	});
@@ -300,4 +274,45 @@ $(function() {
 			$('.create_ch_btn').hide();
 		};
 	});
+
+	//close lightbox
+$('.black_bg, .close_box').click(function() {
+	$('.lightbox .name_ch').val('');
+	$('.lightbox .name_ch').removeClass('error');
+	$('.chart_overlay table tbody').html('');
+	$('.lightbox #interval option:first').attr('selected', 'selected');
+	$('.lightbox #producer_sel option:first').attr('selected', 'selected');
+	$('.lightbox').hide();
+	if ($('.lightbox #interval').length != 0) {
+		$('.main .help').parents().filter('.table_layout').find('.in:last').css('height', '250px');
+		$('.main .help').parents().filter('.table_layout').find('.in:last').show();
+	}
 });
+	
+});
+
+//lightbox function
+//function lightbox() {
+//	var text = $(this).attr('title');
+//	var el = $('.lightbox');
+//	el.find('.box_in').html(text);
+//	var wid = el.find('.box').width();
+//	el.find('.box').css('left', '50%');
+//	el.find('.box').css('marign-left', -wid/2);
+//	el.find('.box').css('top', '50%');
+//	el.find('.box').css('position', 'fixed');
+//	el.fadeIn('fast');
+//		var el = $('.lightbox');
+//		var wid = el.find('.box').width();
+//		var box = el.find('.box');
+//		box.css('left', '50%');
+//		box.css('margin-left', -wid / 2);
+//		box.css('top', '50%');
+//		box.css('position', 'fixed');
+//		$('.pie_chart').show();
+//		$('.bar_chart').hide();
+
+//};
+
+
+
