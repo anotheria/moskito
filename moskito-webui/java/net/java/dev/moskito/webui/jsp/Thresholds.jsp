@@ -1,11 +1,9 @@
 <%@ page language="java" contentType="text/html;charset=UTF-8" session="true"
-		%>
-<%@ taglib uri="http://www.anotheria.net/ano-tags" prefix="msk"
-		%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+%><%@ taglib uri="http://www.anotheria.net/ano-tags" prefix="msk"
+%><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-	<title>Moskito UseCases</title>
+	<title>Moskito Thresholds</title>
 	<link rel="stylesheet" href="mskCSS"/>
 </head>
 <body>
@@ -48,6 +46,7 @@
 							<th>Status</th>
 							<th>Value</th>
 							<th>Status Change</th>
+							<th>Change Timestamp</th>
 							<th>Path</th>
 						</tr>
 						</thead>
@@ -66,21 +65,16 @@
 								  </td>
 							</tr>
 						</msk:iterate>--%>
-						<tr class="even">
-							<td>FreeMemory1</td>
-							<td><img src="../img/ind_yellow.png" alt="yellow"/></td>
-							<td>350000</td>
-							<td>2010-02-15T22:15:01</td>
-							<td>HeapMemory.HeapMemory.Free/15m/MILLISECONDS</td>
-						</tr>
-						<tr class="odd">
-							<td>UsedMemory</td>
-							<td><img src="../img/ind_red.png" alt="red"/></td>
-							<td>1000</td>
-							<td>2010-02-15T22:15:01</td>
-							<td>HeapMemory.HeapMemory.Used/5m/MILLISECONDS</td>
-						</tr>
-
+						<msk:iterate name="thresholds" type="net.java.dev.moskito.webui.bean.ThresholdBean" id="threshold" indexId="index">
+							<tr class="<%= ((index & 1) == 0 )? "even" : "odd" %>">
+								<td><msk:write name="threshold" property="name"/></td>
+								<td><img src="../img/ind_<msk:write name="threshold" property="colorCode"/>.png" alt="<msk:write name="threshold" property="status"/>"/></td>
+								<td><msk:write name="threshold" property="value"/></td>
+								<td><msk:write name="threshold" property="change"/></td>
+								<td><msk:write name="threshold" property="timestamp"/></td>
+								<td><msk:write name="threshold" property="description"/></td>
+							</tr>							
+						</msk:iterate>
 						</tbody>
 					</table>
 					<div class="clear"><!-- --></div>

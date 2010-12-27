@@ -51,13 +51,13 @@
 					><msk:notEqual name="currentNaviItem" value="PRODUCERS">
 						<li><a href="mskShowAllProducers">Producers</a></li>	
 					</msk:notEqual
-					><msk:equal name="currentNaviItem" value="USECASES">
+					><%--msk:equal name="currentNaviItem" value="USECASES">
 						<li class="active"><a href="mskShowUseCases">Use Cases</a></li>
 					</msk:equal
 					><msk:notEqual name="currentNaviItem" value="USECASES">
 						<li><a href="mskShowUseCases">Use Cases</a></li>
 					</msk:notEqual
-					><msk:equal name="currentNaviItem" value="SESSIONS">
+					--%><msk:equal name="currentNaviItem" value="SESSIONS">
 						<li class="active"><a href="mskShowMonitoringSessions">Monitoring Sessions</a></li>
 					</msk:equal
 					><msk:notEqual name="currentNaviItem" value="SESSIONS">

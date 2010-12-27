@@ -41,7 +41,7 @@ public enum NaviItem {
 		menu.add(THRESHOLDS);
 		menu.add(SESSIONS);
 		menu.add(CHARTS);
-		menu.add(USECASES);
+		//menu.add(USECASES);
 	}
 	/**
 	 * Caption of the navi item.
