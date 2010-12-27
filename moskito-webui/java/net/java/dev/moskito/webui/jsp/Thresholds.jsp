@@ -183,12 +183,12 @@
 								<td><a href=""><msk:write name="alert" property="name"/></a></td>
 								<td>
 									<img src="../img/ind_<msk:write name="alert" property="oldColorCode"/>.png" alt="<msk:write name="alert" property="oldStatus"/>"/>
-										&nbsp;-->&nbsp;
+										&nbsp;<img src="../img/ind_arrow.png" alt="-->"/>&nbsp;
 									<img src="../img/ind_<msk:write name="alert" property="newColorCode"/>.png" alt="<msk:write name="alert" property="newStatus"/>"/>
 								</td>
 								<td>
 									<msk:write name="alert" property="oldValue"/>
-										&nbsp;-->&nbsp;
+										&nbsp;<img src="../img/ind_arrow.png" alt="-->"/>&nbsp;
 									<msk:write name="alert" property="newValue"/>
 								</td>
 							</tr>
