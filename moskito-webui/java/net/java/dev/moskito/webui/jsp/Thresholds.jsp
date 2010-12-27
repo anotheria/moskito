@@ -188,7 +188,7 @@
 								</td>
 								<td>
 									<msk:write name="alert" property="oldValue"/>
-										&nbsp;<img src="../img/ind_arrow.png" alt="-->"/>&nbsp;
+										&nbsp;<img src="../img/ind_arrow_numb.png" alt="-->"/>&nbsp;
 									<msk:write name="alert" property="newValue"/>
 								</td>
 							</tr>
