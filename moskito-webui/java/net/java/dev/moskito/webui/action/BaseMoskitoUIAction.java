@@ -52,6 +52,8 @@ import net.java.dev.moskito.core.registry.IntervalInfo;
 import net.java.dev.moskito.core.registry.ProducerRegistryAPIFactory;
 import net.java.dev.moskito.core.stats.TimeUnit;
 import net.java.dev.moskito.core.stats.impl.IntervalRegistry;
+import net.java.dev.moskito.core.treshold.ThresholdRepository;
+import net.java.dev.moskito.core.treshold.ThresholdStatus;
 import net.java.dev.moskito.core.usecase.recorder.IUseCaseRecorder;
 import net.java.dev.moskito.core.usecase.recorder.UseCaseRecorderFactory;
 import net.java.dev.moskito.webui.bean.IntervalBean;
@@ -322,6 +324,10 @@ public abstract class BaseMoskitoUIAction implements Action{
 		
 		req.setAttribute("currentCategory", "");
 		req.setAttribute("currentSubsystem", "");
+		
+		ThresholdStatus systemStatus = ThresholdRepository.INSTANCE.getWorstStatus();
+		req.setAttribute("systemStatus", systemStatus);
+		req.setAttribute("systemStatusColor", systemStatus.toString().toLowerCase());
 	}
 	
 	

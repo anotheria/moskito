@@ -70,10 +70,10 @@
 						<li><a href="mskShowCharts">Charts</a></li>
 					</msk:notEqual
 					><msk:equal name="currentNaviItem" value="THRESHOLDS">
-						<li class="active"><a href="mskThresholds"><img src="../img/ind_purple_small.png" alt="Attention needed"/>&nbsp;&nbsp;Thresholds</a></li>
+						<li class="active"><a href="mskThresholds"><img src="../img/ind_<msk:write name="systemStatusColor"/>_small.png" alt="System status: <msk:write name="systemStatus"/>"/>&nbsp;&nbsp;Thresholds</a></li>
 					</msk:equal
 					><msk:notEqual name="currentNaviItem" value="THRESHOLDS">
-						<li><a href="mskThresholds"><img src="../img/ind_purple_small.gif" alt="Attention needed"/>&nbsp;&nbsp;Thresholds</a></li>
+						<li><a href="mskThresholds"><img src="../img/ind_<msk:write name="systemStatusColor"/>_small.gif" alt="System status: <msk:write name="systemStatus"/>"/>&nbsp;&nbsp;Thresholds</a></li>
 					</msk:notEqual>
 					
 				</ul>
