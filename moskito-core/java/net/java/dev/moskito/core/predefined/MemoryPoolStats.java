@@ -1,10 +1,5 @@
 package net.java.dev.moskito.core.predefined;
 
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-
-import net.java.dev.moskito.core.producers.AbstractStats;
 import net.java.dev.moskito.core.stats.Interval;
 import net.java.dev.moskito.core.stats.StatValue;
 import net.java.dev.moskito.core.stats.TimeUnit;

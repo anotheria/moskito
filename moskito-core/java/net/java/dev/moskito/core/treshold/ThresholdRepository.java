@@ -15,7 +15,6 @@ import net.java.dev.moskito.core.registry.IProducerRegistryAPI;
 import net.java.dev.moskito.core.registry.IProducerRegistryListener;
 import net.java.dev.moskito.core.registry.ProducerRegistryAPIFactory;
 import net.java.dev.moskito.core.registry.ProducerRegistryFactory;
-import net.java.dev.moskito.core.stats.Interval;
 import net.java.dev.moskito.core.stats.impl.IntervalRegistry;
 
 public enum ThresholdRepository implements IProducerRegistryListener{
@@ -25,6 +24,9 @@ public enum ThresholdRepository implements IProducerRegistryListener{
 	
 	private ConcurrentMap<String, Threshold> thresholds = new ConcurrentHashMap<String, Threshold>();
 	private ConcurrentMap<String, IntervalListener> listeners = new ConcurrentHashMap<String, IntervalListener>();
+	/**
+	 * Threshold objects that are already created and registered but yet not tied to a concrete producer/stats object.
+	 */
 	private List<Threshold> yetUntied = new CopyOnWriteArrayList<Threshold>();
 	
 	private static Logger log = Logger.getLogger(ThresholdRepository.class);
@@ -58,7 +60,6 @@ public enum ThresholdRepository implements IProducerRegistryListener{
 		
 		if (target==null){
 			if (producer instanceof OnDemandStatsProducer){
-				System.out.println("This is an OnDemandStatsProducer");
 				ThresholdAutoTieWrapper wrapper = new ThresholdAutoTieWrapper(threshold, producer);
 				if (definition.getIntervalName()!=null){
 					IntervalListener listener = getListener(definition.getIntervalName());
@@ -80,7 +81,6 @@ public enum ThresholdRepository implements IProducerRegistryListener{
 	}
 	
 	public Threshold createThreshold(ThresholdDefinition definition){
-		System.out.println(" %%%% create -> "+definition);
 		Threshold t = new Threshold(definition);
 		thresholds.put(t.getName(), t);
 		if (definition.getIntervalName()!=null){
@@ -90,11 +90,9 @@ public enum ThresholdRepository implements IProducerRegistryListener{
 
 		IStatsProducer producer = registryAPI.getProducer(definition.getProducerName());
 		if (producer!=null){
-			System.out.println("TIEING");
 			tie(t, producer);
 		}else{
 			//schedule for later
-			System.out.println("SCHEDULED FOR LATER");
 			yetUntied.add(t);
 		}
 		
@@ -109,19 +107,14 @@ public enum ThresholdRepository implements IProducerRegistryListener{
 
 	@Override
 	public void notifyProducerRegistered(IStatsProducer producer) {
-		System.out.println("Notify producer register "+producer);
 		ArrayList<Threshold> tmpList = new ArrayList<Threshold>();
 		tmpList.addAll(yetUntied);
-		System.out.println("HAVE TO TIE "+yetUntied);
 		for (Threshold t : tmpList){
 			if (t.getDefinition().getProducerName().equals(producer.getProducerId())){
 				try{
-					System.out.println("TIING "+t+" to "+producer);
-					System.out.println(tie(t, producer));
-					System.out.println("FINISH TIING");
+					tie(t, producer);
 				}catch(Exception e){
-					log.error("Couldn't post-tie "+t+" to "+producer,e );
-					e.printStackTrace();
+					log.error("notifyProducerRegistered("+producer+")",e );
 				}
 			}
 		}

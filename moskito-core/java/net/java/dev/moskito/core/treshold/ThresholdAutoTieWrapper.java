@@ -22,16 +22,13 @@ public class ThresholdAutoTieWrapper implements IntervalUpdateable{
 	}
 	
 	public void update(){
-		System.out.println("%%% UPDATE ON WRAPPER ");
 		if (threshold.isActivated()){
 			return;
 		}
 		
-		IStats target = null;
 		for (IStats s : producer.getStats()){
 			if (s.getName().equals(threshold.getDefinition().getStatName())){
 				threshold.tieToStats(s);
-				System.out.println("%%% SUCCESSFULLY TIED "+threshold+" to "+s);
 				threshold.update();
 				return;
 			}
