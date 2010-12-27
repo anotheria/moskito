@@ -194,7 +194,7 @@
 						</msk:iterate>--%>
 						<tr class="even">
 							<td>FreeMemory</td>
-							<td><img src="../img/ind_yellow.png" alt="yellow"/></td>
+							<td><img src="../img/ind_yellow.png" alt="yellow"/>&nbsp;&nbsp;<img src="../img/ind_arrow.png" alt="becomes"/>&nbsp;&nbsp;<img src="../img/ind_purple.png" alt="green"/></td>
 							<td>350000</td>
 							<td>2010-02-15T22:15:01</td>
 							<td>HeapMemory.HeapMemory.Free/15m/MILLISECONDS</td>
