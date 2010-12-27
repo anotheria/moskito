@@ -2,6 +2,7 @@
 rm -rf ~/.ivy2/cache; rm -rf ../ivy-local-repository
 cd ../ivy-shared-repository
 svn update
+cd -
 #cd ../moskito-core/; ant -Doverride.ivy.checkout=true clean publish.local; cd - 
 cd ../moskito-webui/; ant -Doverride.ivy.checkout=true clean publish.local; cd -
 echo BUILDING in `pwd`
