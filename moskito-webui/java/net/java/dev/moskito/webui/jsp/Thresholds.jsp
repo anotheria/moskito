@@ -120,7 +120,7 @@
 						<msk:iterate name="thresholds" type="net.java.dev.moskito.webui.bean.ThresholdBean" id="threshold" indexId="index">
 							<tr class="<%= ((index & 1) == 0 )? "even" : "odd" %>">
 								<td><a href="#" onclick="openOverlay(info<msk:write name="threshold" property="id"/>); return false"><msk:write name="threshold" property="name"/></a></td>
-								<td><img src="../img/ind_<msk:write name="threshold" property="colorCode"/>.png" alt="<msk:write name="threshold" property="status"/>"/></td>
+								<td><img src="../img/ind_<msk:write name="threshold" property="colorCode"/>.<msk:equal name="threshold" property="colorCode" value="purple">gif</msk:equal><msk:notEqual name="threshold" property="colorCode" value="purple">png</msk:notEqual>" alt="<msk:write name="threshold" property="status"/>"/></td>
 								<td><msk:write name="threshold" property="value"/></td>
 								<td><msk:write name="threshold" property="change"/></td>
 								<td><msk:write name="threshold" property="timestamp"/></td>
@@ -158,7 +158,7 @@
 			<div><!-- --></div>
 		</div>
 		<div class="in">
-			<h2><span>History</span></h2>
+			<h2><span>History (newest first)</span></h2>
 
 			<div class="clear"><!-- --></div>
 			<div class="table_itseft">
@@ -171,42 +171,28 @@
 						<thead>
 						<tr>
 							<th>Timestamp</th>
-							<th>OldStatus</th>
-							<th>OldStatus</th>
-							<th>NewStatus</th>
-							<th>ValueChange</th>
+							<th>Name</th>
+							<th>Status change</th>
+							<th>Value change</th>
 						</tr>
 						</thead>
 						<tbody>
-						<%--
-						<msk:iterate name="recorded" type="net.java.dev.moskito.webui.bean.RecordedUseCaseListItemBean" id="useCase" indexId="index">
+						<msk:iterate name="alerts" type="net.java.dev.moskito.webui.bean.ThresholdAlertBean" id="alert" indexId="index">
 							<tr class="<%= ((index & 1) == 0 )? "even" : "odd" %>">
-								<td><msk:write name="index"/></td>
-								 <td>
-									<a href="mskShowMonitoringSessionCall?pSessionName=<msk:write name="msession" property="name"/>&pPos=<msk:write name="index"/>">
-										<msk:write name="useCase" property="name"/>
-									</a>
-								 </td>	
-								 <td>	
-									<msk:write name="useCase" property="date"/>
-								  </td>
+								<td><msk:write name="alert" property="timestamp"/></td>
+								<td><a href=""><msk:write name="alert" property="name"/></a></td>
+								<td>
+									<img src="../img/ind_<msk:write name="alert" property="oldColorCode"/>.png" alt="<msk:write name="alert" property="oldStatus"/>"/>
+										&nbsp;-->&nbsp;
+									<img src="../img/ind_<msk:write name="alert" property="newColorCode"/>.png" alt="<msk:write name="alert" property="newStatus"/>"/>
+								</td>
+								<td>
+									<msk:write name="alert" property="oldValue"/>
+										&nbsp;-->&nbsp;
+									<msk:write name="alert" property="newValue"/>
+								</td>
 							</tr>
-						</msk:iterate>--%>
-						<tr class="even">
-							<td>FreeMemory</td>
-							<td><img src="../img/ind_yellow.png" alt="yellow"/>&nbsp;&nbsp;<img src="../img/ind_arrow.png" alt="becomes"/>&nbsp;&nbsp;<img src="../img/ind_purple.png" alt="green"/></td>
-							<td>350000</td>
-							<td>2010-02-15T22:15:01</td>
-							<td>HeapMemory.HeapMemory.Free/15m/MILLISECONDS</td>
-						</tr>
-						<tr class="odd">
-							<td>UsedMemory</td>
-							<td><img src="../img/ind_green.png" alt="green"/></td>
-							<td>1000</td>
-							<td>2010-02-15T22:15:01</td>
-							<td>HeapMemory.HeapMemory.Used/5m/MILLISECONDS</td>
-						</tr>
-
+						</msk:iterate>
 						</tbody>
 					</table>
 					<div class="clear"><!-- --></div>

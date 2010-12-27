@@ -73,6 +73,7 @@ public class ShowThresholdsAction extends BaseMoskitoUIAction{
 			alertBean.setNewColorCode(alert.getNewStatus().toString().toLowerCase());
 			alertBean.setNewStatus(alert.getNewStatus().toString());
 			alertBean.setNewValue(alert.getNewValue());
+			alertBean.setTimestamp(NumberUtils.makeISO8601TimestampString(alert.getTimestamp()));
 			aBeans.add(alertBean);
 		}
 
