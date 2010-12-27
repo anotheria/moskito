@@ -35,6 +35,11 @@
 package net.java.dev.moskitodemo.usecases.qe.business;
 
 public class NegativeDeterminantException extends QECalculatorException{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -3760875604494794494L;
+
 	public NegativeDeterminantException(int value){
 		super(""+value);
 	}

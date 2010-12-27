@@ -35,6 +35,11 @@
 package net.java.dev.moskitodemo.usecases.qe.business;
 
 public class QECalculatorException extends Exception{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -4513951376570410791L;
+
 	public QECalculatorException(String msg){
 		super(msg);
 	}
