@@ -25,7 +25,7 @@
 	<%--</div>--%>
 
 	<!-- definition for overlays -->
-		<script>
+		<script type="text/javascript">
 		<msk:iterate name="infos" type="net.java.dev.moskito.webui.bean.ThresholdInfoBean" id="info">
 			var info<msk:write name="info" property="id"/> = {
 				"name": "<msk:write name="info" property="name"/>",
@@ -34,13 +34,44 @@
 				"valueName": "<msk:write name="info" property="valueName"/>",
 				"intervalName": "<msk:write name="info" property="intervalName"/>",
 				"descriptionString": "<msk:write name="info" property="descriptionString"/>",
-				"guards": [<msk:iterate name="info" property="guards" id="guard" type="java.lang.String">"<msk:write name="guard"/>",</msk:iterate>],
+				"guards": [<msk:iterate name="info" property="guards" id="guard" type="java.lang.String">"<msk:write name="guard"/>",</msk:iterate>]
 			};
 		</msk:iterate>
 		</script>
-		<script>
+		<script type="text/javascript">
 			function openOverlay(selectedInfo){
-				alert("open overlay for "+selectedInfo.name);
+				$('.lightbox').show();
+				var el = $('.lightbox');
+				el.find('#name').text(selectedInfo.name);
+				el.find('#producerName').text(selectedInfo.producerName);
+				el.find('#statName').text(selectedInfo.statName);
+				el.find('#valueName').text(selectedInfo.valueName);
+				el.find('#intervalName').text(selectedInfo.intervalName);
+				el.find('#descString').text(selectedInfo.descriptionString);
+				el.find('table tbody').html('');
+				for (i=0; i<selectedInfo.guards.length; i++)
+				{
+					if (i % 2) {
+						el.find('table tbody').append('<tr class="even"><td>'+selectedInfo.guards[i]+'</td></tr>')
+					} else {
+						el.find('table tbody').append('<tr class="odd"><td>'+selectedInfo.guards[i]+'</td></tr>')
+					}
+				}
+				$('.lightbox .box').css('width', 'auto');
+				$('.lightbox .box').width($('.lightbox .box_in').width());				
+
+				var wid = el.find('.box').width();
+				var box = el.find('.box');
+				var hig = el.find('.box').height();
+				
+				box.css('left', '50%');
+				box.css('margin-left', -wid / 2);
+				box.css('top', '50%');
+				box.css('margin-top', -hig / 2);
+				box.css('position', 'fixed');
+				return false;
+
+//				alert("open overlay for "+selectedInfo.name);
 			}
 		</script>
 	<!-- end of definition for overlays -->
@@ -88,7 +119,7 @@
 						</msk:iterate>--%>
 						<msk:iterate name="thresholds" type="net.java.dev.moskito.webui.bean.ThresholdBean" id="threshold" indexId="index">
 							<tr class="<%= ((index & 1) == 0 )? "even" : "odd" %>">
-								<td><a href="" onclick="openOverlay(info<msk:write name="threshold" property="id"/>); return false"><msk:write name="threshold" property="name"/></a></td>
+								<td><a href="#" onclick="openOverlay(info<msk:write name="threshold" property="id"/>); return false"><msk:write name="threshold" property="name"/></a></td>
 								<td><img src="../img/ind_<msk:write name="threshold" property="colorCode"/>.png" alt="<msk:write name="threshold" property="status"/>"/></td>
 								<td><msk:write name="threshold" property="value"/></td>
 								<td><msk:write name="threshold" property="change"/></td>
@@ -192,4 +223,44 @@
 		</div>
 	</div>
 </body>
+<div class="lightbox" style="display:none;">
+	<div class="black_bg"><!-- --></div>
+	<div class="box">
+		<div class="box_top">
+			<div><!-- --></div>
+			<span><!-- --></span>
+			<a class="close_box"><!-- --></a>
+
+			<div class="clear"><!-- --></div>
+		</div>
+		<div class="box_in">
+			<div class="right">
+				<div class="text_here thresholdOverlay">
+					<span>Name: </span><b id="name"></b><br/>
+					<span>producerName: </span><b id="producerName"></b><br/>
+					<span>statName: </span><b id="statName"></b><br/>
+					<span>valueName: </span><b id="valueName"></b><br/>
+					<span>intervalName: </span><b id="intervalName"></b><br/>
+					<span>descriptionString: </span><b id="descString"></b><br/>
+					<div class="scroll">
+						<table cellpadding="0" cellspacing="0" border="0">
+							<thead>
+							<tr>
+								<th>Guards</th>
+							</tr>
+							</thead>
+							<tbody>
+							
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="box_bot">
+			<div><!-- --></div>
+			<span><!-- --></span>
+		</div>
+	</div>
+</div>
 </html>  

@@ -261,6 +261,9 @@
 		var el = $('.lightbox');
 		$('.pie_chart').show();
 		$('.bar_chart').hide();
+		$('.lightbox .box').css('width', 'auto');
+		$('.lightbox .box').width($('.lightbox .box_in').width());
+
 		var wid = el.find('.box').width();
 		var box = el.find('.box');
 		var hig = el.find('.box').height();
@@ -269,7 +272,7 @@
 		box.css('top', '50%');
 		box.css('margin-top', -hig / 2);
 		box.css('position', 'fixed');
-
+		return false;
 	}
 	
 	//var datas = new Array;

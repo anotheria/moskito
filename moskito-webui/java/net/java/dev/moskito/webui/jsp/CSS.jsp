@@ -55,6 +55,7 @@ a:hover {text-decoration:none; color:#55cc00; cursor:pointer;}
 .table_layout .bot {height:5px; background:url(<ano:write name="mskPathToImages" scope="application"/>bgs.gif) 0 -850px no-repeat #e9f0f7;}
 .table_layout .bot div {height:5px; background:url(<ano:write name="mskPathToImages" scope="application"/>bgs.gif) 100% -829px no-repeat;}
 .table_layout h2 {float:left;}
+.table_layout h2 span, .table_layout h2, .table_layout h2 a {font-size:15px;}
 
 .filter {display:block; float:left; margin:0 35px 7px 0;}
 .filter li {list-style-type:none; display:inline; }
@@ -135,7 +136,7 @@ h2 a.hidden {background:url("<ano:write name="mskPathToImages" scope="applicatio
 
 .call_list {background:url("<ano:write name="mskPathToImages" scope="application"/>ul_bg.gif") 0 0 repeat;}
 .call_error {background:#ffcccc;}
-.black_bg {background:black; opacity:0.1; width:100%; height:100%; position:fixed; top:0; left:0; z-index:4;}
+.black_bg {background:black; opacity:0.5; width:100%; height:100%; position:fixed; top:0; left:0; z-index:5; filter:alpha(opacity = 50);}
 .box {float:left; position:absolute; z-index:6; min-width:600px;}
 .box_top {height:22px; background:url("<ano:write name="mskPathToImages" scope="application"/>box_top_l.png") 0 0 no-repeat; float:left; width:100%; position:relative;}
 .box_top div {height:22px; background:url("<ano:write name="mskPathToImages" scope="application"/>box_top_r.png") 100% 0 no-repeat; float:right; width:30px;}
@@ -182,3 +183,12 @@ h2 a.hidden {background:url("<ano:write name="mskPathToImages" scope="applicatio
 .name_ch {//padding:2px;}
 .top ul li .sub_menu ul li {//height:21px;}
 .refresh {display:block; float:left; height:16px; width:16px; background:url("<ano:write name="mskPathToImages" scope="application"/>refresh.gif") 0 0 no-repeat; position:relative; left:8px;}
+
+.thresholdOverlay {}
+.thresholdOverlay span {display:block; float:left; width:105px; clear:both;}
+.thresholdOverlay b {display:block; float:left; width:500px;}
+.thresholdOverlay table {margin:0 auto;}
+.thresholdOverlay table thead tr th {border-bottom:1px solid #99CCCC;}
+.thresholdOverlay table tr.odd {background:#F7F7F7;}
+.thresholdOverlay table tr.even {background:white;}
+.scroll {overflow-y:scroll; overflow-x:hidden; max-height:200px; clear:both; max-width:500px;}
