@@ -75,6 +75,7 @@
         <filter-class>net.java.dev.moskito.web.filters.MonitoringSessionFilter</filter-class>
     </filter>
 
+<!-- temporarly outcommented  
 	<filter>
         <filter-name>Path2UseCaseMapper</filter-name>
         <filter-class>net.java.dev.moskito.web.filters.Path2UseCaseMapperFilter</filter-class>
@@ -87,7 +88,7 @@
 			</param-value>
 		</init-param>
     </filter>
-
+ -->
 
 	<filter>
         <filter-name>DomainFilter</filter-name>
@@ -135,12 +136,12 @@
         <filter-name>MonitoringSessionFilter</filter-name>
         <url-pattern>/*</url-pattern>
     </filter-mapping>
-
+<!--  temporarly disabled
     <filter-mapping>
         <filter-name>Path2UseCaseMapper</filter-name>
         <url-pattern>/*</url-pattern>
     </filter-mapping>
-
+ -->
 
     <filter-mapping>
         <filter-name>DomainFilter</filter-name>
