@@ -86,6 +86,7 @@ public class Threshold implements IntervalUpdateable{
 			//generate alert
 			statusChange = status+" --> "+futureStatus;
 			statusChangeTimestamp = System.currentTimeMillis();
+			AlertHistory.INSTANCE.addAlert(new ThresholdAlert(this, status, futureStatus, previousValue, lastValue));
 		}
 		status = futureStatus;
 	}
