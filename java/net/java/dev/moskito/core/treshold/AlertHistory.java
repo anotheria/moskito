@@ -7,6 +7,8 @@ import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
+import org.apache.log4j.Logger;
+
 
 public enum AlertHistory {
 	INSTANCE;
@@ -17,8 +19,10 @@ public enum AlertHistory {
 	private ReadWriteLock lock = new ReentrantReadWriteLock();
 	private AlertHistoryConfig config = new AlertHistoryConfig();
 	
+	private static Logger log = Logger.getLogger("MoskitoAlert");
+	
 	public void addAlert(ThresholdAlert alert){
-		System.out.println("LOG ENTRY "+alert);
+		log.info(alert);
 		lock.writeLock().lock();
 		try{
 			alerts.add(alert);

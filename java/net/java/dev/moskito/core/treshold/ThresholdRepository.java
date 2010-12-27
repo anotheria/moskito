@@ -125,6 +125,15 @@ public enum ThresholdRepository implements IProducerRegistryListener{
 		//nothing
 	}
 	
+	public ThresholdStatus getWorstStatus(){
+		ThresholdStatus ret = ThresholdStatus.GREEN;
+		for (Threshold t : getThresholds()){
+			if (t.getStatus().overrules(ret))
+				ret = t.getStatus();
+		}
+		return ret;
+	}
+	
 	
 	
 	
