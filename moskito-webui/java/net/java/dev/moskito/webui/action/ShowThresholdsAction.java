@@ -10,10 +10,13 @@ import net.anotheria.maf.action.ActionForward;
 import net.anotheria.maf.action.ActionMapping;
 import net.anotheria.maf.bean.FormBean;
 import net.anotheria.util.NumberUtils;
+import net.java.dev.moskito.core.treshold.AlertHistory;
 import net.java.dev.moskito.core.treshold.Threshold;
+import net.java.dev.moskito.core.treshold.ThresholdAlert;
 import net.java.dev.moskito.core.treshold.ThresholdConditionGuard;
 import net.java.dev.moskito.core.treshold.ThresholdRepository;
 import net.java.dev.moskito.webui.bean.NaviItem;
+import net.java.dev.moskito.webui.bean.ThresholdAlertBean;
 import net.java.dev.moskito.webui.bean.ThresholdBean;
 import net.java.dev.moskito.webui.bean.ThresholdInfoBean;
 
@@ -59,8 +62,24 @@ public class ShowThresholdsAction extends BaseMoskitoUIAction{
 			iBeans.add(infoBean);
 		}
 		
+		ArrayList<ThresholdAlertBean> aBeans = new ArrayList<ThresholdAlertBean>();
+		for (ThresholdAlert alert : AlertHistory.INSTANCE.getAlerts()){
+			ThresholdAlertBean alertBean = new ThresholdAlertBean();
+			alertBean.setId(alert.getThreshold().getInstanceNumber());
+			alertBean.setName(alert.getThreshold().getName());
+			alertBean.setOldColorCode(alert.getOldStatus().toString().toLowerCase());
+			alertBean.setOldStatus(alert.getOldStatus().toString());
+			alertBean.setOldValue(alert.getOldValue());
+			alertBean.setNewColorCode(alert.getNewStatus().toString().toLowerCase());
+			alertBean.setNewStatus(alert.getNewStatus().toString());
+			alertBean.setNewValue(alert.getNewValue());
+			aBeans.add(alertBean);
+		}
+
+		
 		req.setAttribute("thresholds", tBeans);
 		req.setAttribute("infos", iBeans);
+		req.setAttribute("alerts", aBeans);
 		
 		return mapping.findForward("success");
 	}
