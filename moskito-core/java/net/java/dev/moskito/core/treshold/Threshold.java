@@ -8,7 +8,7 @@ import org.apache.log4j.Logger;
 import net.java.dev.moskito.core.producers.IStats;
 
 
-public class Threshold {
+public class Threshold implements IntervalUpdateable{
 	
 	private static Logger log = Logger.getLogger(Threshold.class);
 	
@@ -18,6 +18,8 @@ public class Threshold {
 
 	private IStats stats;
 	private String lastValue;
+	private String statusChange = null;
+	private long statusChangeTimestamp;
 	
 	public Threshold(ThresholdDefinition aDefinition){
 		definition = aDefinition;
@@ -51,9 +53,9 @@ public class Threshold {
 	}
 	
 	public void update(){
-		if (!isActivated())
+		if (!isActivated()){
 			return;
-		System.out.println("=== Started update with "+status);
+		}
 		String previousValue = lastValue;
 		lastValue = stats.getValueByNameAsString(definition.getValueName(), definition.getIntervalName(), definition.getTimeUnit());
 		ThresholdStatus futureStatus = status == ThresholdStatus.OFF ? ThresholdStatus.OFF : ThresholdStatus.GREEN;
@@ -69,8 +71,12 @@ public class Threshold {
 		}
 		
 		//TODO generate alert.
+		if (status != futureStatus){
+			//generate alert
+			statusChange = status+" --> "+futureStatus;
+			statusChangeTimestamp = System.currentTimeMillis();
+		}
 		status = futureStatus;
-		System.out.println("=== Finished update with "+status);
 	}
 
 	public String getName(){
@@ -79,5 +85,25 @@ public class Threshold {
 	 
 	public boolean isActivated(){
 		return stats != null;
+	}
+	
+	@Override public String toString(){
+		return getName()+" "+getStatus()+" Def: "+getDefinition()+" LastValue: "+getLastValue()+", Guards: "+guards+" active: "+isActivated()+", Stats: "+getStats();
+	}
+
+	public String getStatusChange() {
+		return statusChange;
+	}
+
+	public void setStatusChange(String statusChange) {
+		this.statusChange = statusChange;
+	}
+
+	public long getStatusChangeTimestamp() {
+		return statusChangeTimestamp;
+	}
+
+	public void setStatusChangeTimestamp(long statusChangeTimestamp) {
+		this.statusChangeTimestamp = statusChangeTimestamp;
 	}
 }

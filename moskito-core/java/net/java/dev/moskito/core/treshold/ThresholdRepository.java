@@ -8,6 +8,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
 
 import org.apache.log4j.Logger;
 
+import net.java.dev.moskito.core.dynamic.OnDemandStatsProducer;
 import net.java.dev.moskito.core.producers.IStats;
 import net.java.dev.moskito.core.producers.IStatsProducer;
 import net.java.dev.moskito.core.registry.IProducerRegistryAPI;
@@ -56,7 +57,16 @@ public enum ThresholdRepository implements IProducerRegistryListener{
 		}
 		
 		if (target==null){
-			throw new IllegalArgumentException("StatObject not found "+definition.getStatName()+" in "+definition);
+			if (producer instanceof OnDemandStatsProducer){
+				System.out.println("This is an OnDemandStatsProducer");
+				ThresholdAutoTieWrapper wrapper = new ThresholdAutoTieWrapper(threshold, producer);
+				if (definition.getIntervalName()!=null){
+					IntervalListener listener = getListener(definition.getIntervalName());
+					listener.addThresholdAutoTieWrapper(wrapper);
+				}
+			}else{
+				throw new IllegalArgumentException("StatObject not found "+definition.getStatName()+" in "+definition);
+			}
 		}
 
 		threshold.tieToStats(target);
@@ -70,6 +80,7 @@ public enum ThresholdRepository implements IProducerRegistryListener{
 	}
 	
 	public Threshold createThreshold(ThresholdDefinition definition){
+		System.out.println(" %%%% create -> "+definition);
 		Threshold t = new Threshold(definition);
 		thresholds.put(t.getName(), t);
 		if (definition.getIntervalName()!=null){
@@ -79,9 +90,11 @@ public enum ThresholdRepository implements IProducerRegistryListener{
 
 		IStatsProducer producer = registryAPI.getProducer(definition.getProducerName());
 		if (producer!=null){
+			System.out.println("TIEING");
 			tie(t, producer);
 		}else{
 			//schedule for later
+			System.out.println("SCHEDULED FOR LATER");
 			yetUntied.add(t);
 		}
 		
@@ -96,14 +109,19 @@ public enum ThresholdRepository implements IProducerRegistryListener{
 
 	@Override
 	public void notifyProducerRegistered(IStatsProducer producer) {
+		System.out.println("Notify producer register "+producer);
 		ArrayList<Threshold> tmpList = new ArrayList<Threshold>();
 		tmpList.addAll(yetUntied);
+		System.out.println("HAVE TO TIE "+yetUntied);
 		for (Threshold t : tmpList){
 			if (t.getDefinition().getProducerName().equals(producer.getProducerId())){
 				try{
-					tie(t, producer);
+					System.out.println("TIING "+t+" to "+producer);
+					System.out.println(tie(t, producer));
+					System.out.println("FINISH TIING");
 				}catch(Exception e){
 					log.error("Couldn't post-tie "+t+" to "+producer,e );
+					e.printStackTrace();
 				}
 			}
 		}
