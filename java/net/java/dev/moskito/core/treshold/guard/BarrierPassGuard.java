@@ -25,6 +25,8 @@ public class BarrierPassGuard implements ThresholdConditionGuard{
 		return ret;
 	}
 	
-	
+	@Override public String toString(){
+		return targetStatus+" if "+direction+" "+barrierValue;
+	}
 	
 }

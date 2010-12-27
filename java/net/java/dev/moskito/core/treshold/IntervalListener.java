@@ -12,21 +12,25 @@ public class IntervalListener implements IIntervalListener{
 
 	private static Logger log = Logger.getLogger(IntervalListener.class);
 	
-	private List<Threshold> thresholds = new CopyOnWriteArrayList<Threshold>();
+	private List<IntervalUpdateable> updateables = new CopyOnWriteArrayList<IntervalUpdateable>();
 	
 	@Override
 	public void intervalUpdated(Interval aCaller) {
-		for (Threshold t : thresholds){
+		for (IntervalUpdateable u : updateables){
 			try{
-				t.update();
+				u.update();
 			}catch(Exception e){
-				log.warn("Threshold update failed, skipping ", e);
+				log.warn("IntervalUpdateable update failed, skipping ", e);
 			}
 		}
 	}
 	
 	public void addThreshold(Threshold toAdd){
-		thresholds.add(toAdd);
+		updateables.add(toAdd);
+	}
+	
+	public void addThresholdAutoTieWrapper(ThresholdAutoTieWrapper toAdd){
+		updateables.add(toAdd);
 	}
 
 }
