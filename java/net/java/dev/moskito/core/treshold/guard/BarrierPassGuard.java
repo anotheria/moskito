@@ -4,14 +4,12 @@ import net.java.dev.moskito.core.treshold.Threshold;
 import net.java.dev.moskito.core.treshold.ThresholdConditionGuard;
 import net.java.dev.moskito.core.treshold.ThresholdStatus;
 
-public class BarrierPassGuard implements ThresholdConditionGuard{
-	private long barrierValue;
+abstract class BarrierPassGuard implements ThresholdConditionGuard{
 	private ThresholdStatus targetStatus;
 	private GuardedDirection direction;
 	
-	public BarrierPassGuard(ThresholdStatus aTargetStatus, long targetValue, GuardedDirection aDirection){
+	public BarrierPassGuard(ThresholdStatus aTargetStatus, GuardedDirection aDirection){
 		targetStatus = aTargetStatus;
-		barrierValue = targetValue;
 		direction = aDirection;
 	}
 	
@@ -19,14 +17,19 @@ public class BarrierPassGuard implements ThresholdConditionGuard{
 	public ThresholdStatus getNewStatusOnUpdate(String previousValue,
 			String newValue, ThresholdStatus currentStatus, Threshold threshold) {
 		
-		long newValueAsLong = Long.parseLong(newValue);
-		ThresholdStatus ret =  direction.brokeThrough(newValueAsLong, barrierValue) ? targetStatus : ThresholdStatus.OFF;
-		//System.out.println(barrierValue+", "+newValue+", "+currentStatus+" -> "+ret);
+		if (newValue.equals("NaN"))
+			return currentStatus;
+		ThresholdStatus ret =  direction.brokeThrough(getValueAsNumber(newValue), getBarrierValueAsNumber()) ? targetStatus : ThresholdStatus.OFF;
 		return ret;
 	}
 	
 	@Override public String toString(){
-		return targetStatus+" if "+direction+" "+barrierValue;
+		return targetStatus+" if "+direction+" "+getValueAsString();
 	}
 	
+	protected abstract String getValueAsString();
+	protected abstract Number getValueAsNumber(String aValue);
+	protected abstract Number getBarrierValueAsNumber();
 }
+	
+

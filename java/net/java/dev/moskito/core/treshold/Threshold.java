@@ -2,6 +2,7 @@ package net.java.dev.moskito.core.treshold;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import org.apache.log4j.Logger;
 
@@ -11,6 +12,7 @@ import net.java.dev.moskito.core.producers.IStats;
 public class Threshold implements IntervalUpdateable{
 	
 	private static Logger log = Logger.getLogger(Threshold.class);
+	private static AtomicInteger instanceCounter = new AtomicInteger(0);
 	
 	private ThresholdStatus status;
 	private ThresholdDefinition definition;
@@ -21,11 +23,14 @@ public class Threshold implements IntervalUpdateable{
 	private String statusChange = null;
 	private long statusChangeTimestamp;
 	
+	private int instanceNumber;
+	
 	public Threshold(ThresholdDefinition aDefinition){
 		definition = aDefinition;
 		status = ThresholdStatus.OFF;
 		lastValue = "none yet";
 		guards = new ArrayList<ThresholdConditionGuard>();
+		instanceNumber = instanceCounter.incrementAndGet();
 	}
 	
 	public void tieToStats(IStats aStatsObject){
@@ -34,6 +39,12 @@ public class Threshold implements IntervalUpdateable{
 	
 	public void addGuard(ThresholdConditionGuard guard){
 		guards.add(guard);
+	}
+	
+	public List<ThresholdConditionGuard> getGuards(){
+		ArrayList<ThresholdConditionGuard> ret = new ArrayList<ThresholdConditionGuard>(guards.size());
+		ret.addAll(guards);
+		return ret;
 	}
 
 	public ThresholdStatus getStatus() {
@@ -105,5 +116,9 @@ public class Threshold implements IntervalUpdateable{
 
 	public void setStatusChangeTimestamp(long statusChangeTimestamp) {
 		this.statusChangeTimestamp = statusChangeTimestamp;
+	}
+	
+	public int getInstanceNumber(){
+		return instanceNumber;
 	}
 }
