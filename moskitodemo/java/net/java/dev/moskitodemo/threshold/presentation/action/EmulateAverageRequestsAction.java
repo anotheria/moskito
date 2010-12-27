@@ -9,23 +9,21 @@ import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 
-public class EmulateRequestsAction extends AbstractEmulateAction{
+public class EmulateAverageRequestsAction extends AbstractEmulateAction{
 	
 	
 	@Override
 	public ActionForward moskitoExecute(ActionMapping mapping, ActionForm af,
 			HttpServletRequest req, HttpServletResponse res) throws Exception {
 		
-		int count = 1;
+		int sleep = 1;
 		try{
-			count = Integer.parseInt(req.getParameter("count"));
+			sleep = Integer.parseInt(req.getParameter("sleep"));
 		}catch(Exception ignored){
 			
 		}
 		
-		//IntervalRegistry.getInstance().forceUpdateIntervalForTestingPurposes("snapshot");
-		for (int i=0; i<count;i++)
-			getGuardedService().guardedMethod();
+		getGuardedService().guardedAverageMethod(sleep);
 		IntervalRegistry.getInstance().forceUpdateIntervalForTestingPurposes("snapshot");
 
 		return mapping.findForward("success");
