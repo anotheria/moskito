@@ -24,6 +24,27 @@
 	<%--<div class="bot"><div><!-- --></div></div>--%>
 	<%--</div>--%>
 
+	<!-- definition for overlays -->
+		<script>
+		<msk:iterate name="infos" type="net.java.dev.moskito.webui.bean.ThresholdInfoBean" id="info">
+			var info<msk:write name="info" property="id"/> = {
+				"name": "<msk:write name="info" property="name"/>",
+				"producerName": "<msk:write name="info" property="producerName"/>",
+				"statName": "<msk:write name="info" property="statName"/>",
+				"valueName": "<msk:write name="info" property="valueName"/>",
+				"intervalName": "<msk:write name="info" property="intervalName"/>",
+				"descriptionString": "<msk:write name="info" property="descriptionString"/>",
+				"guards": [<msk:iterate name="info" property="guards" id="guard" type="java.lang.String">"<msk:write name="guard"/>",</msk:iterate>],
+			};
+		</msk:iterate>
+		</script>
+		<script>
+			function openOverlay(selectedInfo){
+				alert("open overlay for "+selectedInfo.name);
+			}
+		</script>
+	<!-- end of definition for overlays -->
+
 	<div class="clear"><!-- --></div>
 	<div class="table_layout">
 		<div class="top">
@@ -67,7 +88,7 @@
 						</msk:iterate>--%>
 						<msk:iterate name="thresholds" type="net.java.dev.moskito.webui.bean.ThresholdBean" id="threshold" indexId="index">
 							<tr class="<%= ((index & 1) == 0 )? "even" : "odd" %>">
-								<td><msk:write name="threshold" property="name"/></td>
+								<td><a href="" onclick="openOverlay(info<msk:write name="threshold" property="id"/>); return false"><msk:write name="threshold" property="name"/></a></td>
 								<td><img src="../img/ind_<msk:write name="threshold" property="colorCode"/>.png" alt="<msk:write name="threshold" property="status"/>"/></td>
 								<td><msk:write name="threshold" property="value"/></td>
 								<td><msk:write name="threshold" property="change"/></td>

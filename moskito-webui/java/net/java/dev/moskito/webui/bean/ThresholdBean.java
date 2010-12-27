@@ -14,6 +14,7 @@ public class ThresholdBean implements IComparable{
 	private String change;
 	private ThresholdStatus statusForSorting;
 	private long timestampForSorting;
+	private int id;
 	
 	public String getValue() {
 		return value;
@@ -74,6 +75,24 @@ public class ThresholdBean implements IComparable{
 			return statusForSorting.compareTo(anotherBean.statusForSorting);
 		}
 		throw new IllegalArgumentException("Unknow sort method: "+method);
+	}
+	public ThresholdStatus getStatusForSorting() {
+		return statusForSorting;
+	}
+	public void setStatusForSorting(ThresholdStatus statusForSorting) {
+		this.statusForSorting = statusForSorting;
+	}
+	public long getTimestampForSorting() {
+		return timestampForSorting;
+	}
+	public void setTimestampForSorting(long timestampForSorting) {
+		this.timestampForSorting = timestampForSorting;
+	}
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
 	}
 	
 	
