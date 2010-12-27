@@ -3,15 +3,14 @@ package net.java.dev.moskitodemo.threshold.presentation.action;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.struts.action.ActionForm;
-import org.apache.struts.action.ActionForward;
-import org.apache.struts.action.ActionMapping;
-
-import net.java.dev.moskito.core.stats.Interval;
 import net.java.dev.moskito.core.stats.impl.IntervalRegistry;
 import net.java.dev.moskito.web.MoskitoAction;
 import net.java.dev.moskitodemo.threshold.business.GuardedService;
 import net.java.dev.moskitodemo.threshold.business.GuardedServiceFactory;
+
+import org.apache.struts.action.ActionForm;
+import org.apache.struts.action.ActionForward;
+import org.apache.struts.action.ActionMapping;
 
 public class EmulateRequestsAction extends MoskitoAction{
 	
@@ -28,11 +27,11 @@ public class EmulateRequestsAction extends MoskitoAction{
 			
 		}
 		
-		IntervalRegistry.getInstance().forceUpdateIntervalForTestingPurposes("snapshot");
+		//IntervalRegistry.getInstance().forceUpdateIntervalForTestingPurposes("snapshot");
 		for (int i=0; i<count;i++)
 			service.guardedMethod();
 		IntervalRegistry.getInstance().forceUpdateIntervalForTestingPurposes("snapshot");
-		
+
 		return mapping.findForward("success");
 	}
 }
