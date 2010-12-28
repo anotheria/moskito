@@ -17,7 +17,7 @@ abstract class BarrierPassGuard implements ThresholdConditionGuard{
 	public ThresholdStatus getNewStatusOnUpdate(String previousValue,
 			String newValue, ThresholdStatus currentStatus, Threshold threshold) {
 		
-		if (newValue.equals("NaN"))
+		if (newValue==null || newValue.equals("NaN"))
 			return currentStatus;
 		ThresholdStatus ret =  direction.brokeThrough(getValueAsNumber(newValue), getBarrierValueAsNumber()) ? targetStatus : ThresholdStatus.OFF;
 		return ret;

@@ -50,6 +50,8 @@ public abstract class AbstractMemoryPoolStats extends AbstractStats implements I
 			return ""+getMaxCommited(intervalName);
 		if (valueName.equals("max"))
 			return ""+getMax(intervalName);
+		if (valueName.equals("free"))
+			return ""+getFree(intervalName);
 		return super.getValueByNameAsString(valueName, intervalName, timeUnit);
 	}
 
