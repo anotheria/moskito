@@ -50,7 +50,7 @@ public class FindThresholdTest {
 		
 	}
 	@Test public void findDummyViaRegistry(){
-		new DummyStatProducer();
+		new DummyStatProducer("dummy");
 		ThresholdDefinition config = new ThresholdDefinition();
 		config.setProducerName("dummy");
 		config.setStatName("third");

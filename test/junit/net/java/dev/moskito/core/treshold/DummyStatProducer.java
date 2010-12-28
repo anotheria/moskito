@@ -12,8 +12,10 @@ public class DummyStatProducer implements IStatsProducer{
 
 	private List<IStats> stats = new ArrayList<IStats>();
 	ServiceStats dynamic; 
+	private String producerId = "dummy";
 	
-	public DummyStatProducer(){
+	public DummyStatProducer(String aProducerId){
+		producerId = aProducerId;
 		ProducerRegistryFactory.getProducerRegistryInstance().registerProducer(this);
 		ServiceStats stat1 = new ServiceStats("first");
 		ServiceStats stat2 = new ServiceStats("second");
@@ -37,7 +39,7 @@ public class DummyStatProducer implements IStatsProducer{
 
 	@Override
 	public String getProducerId() {
-		return "dummy";
+		return producerId;
 	}
 
 	@Override
