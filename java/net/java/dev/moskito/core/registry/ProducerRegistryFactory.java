@@ -67,9 +67,13 @@ public class ProducerRegistryFactory {
 	}
 	
 	/**
-	 * Resets the registry, useable for unit tests.
+	 * Resets the registry, useable for unit tests. Note this method doesn't stop producers from running (if the are running) hence it shouldn't be used in production environment.
 	 */
 	public static final void reset(){
 		instance.reset();
+		String junittest = System.getProperty("JUNITTEST");
+		if (junittest!=null && (junittest.equalsIgnoreCase("true")))
+			return;
+		StartBuiltInProducers.restartbuiltin();
 	}
 }

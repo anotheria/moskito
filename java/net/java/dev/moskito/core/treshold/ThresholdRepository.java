@@ -6,21 +6,20 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.CopyOnWriteArrayList;
 
-import org.apache.log4j.Logger;
-
 import net.java.dev.moskito.core.dynamic.OnDemandStatsProducer;
 import net.java.dev.moskito.core.producers.IStats;
 import net.java.dev.moskito.core.producers.IStatsProducer;
-import net.java.dev.moskito.core.registry.IProducerRegistryAPI;
+import net.java.dev.moskito.core.registry.IProducerRegistry;
 import net.java.dev.moskito.core.registry.IProducerRegistryListener;
-import net.java.dev.moskito.core.registry.ProducerRegistryAPIFactory;
 import net.java.dev.moskito.core.registry.ProducerRegistryFactory;
 import net.java.dev.moskito.core.stats.impl.IntervalRegistry;
+
+import org.apache.log4j.Logger;
 
 public enum ThresholdRepository implements IProducerRegistryListener{
 	INSTANCE;
 	
-	private final IProducerRegistryAPI registryAPI = new ProducerRegistryAPIFactory().createProducerRegistryAPI();
+	private final IProducerRegistry registry = ProducerRegistryFactory.getProducerRegistryInstance();
 	
 	private ConcurrentMap<String, Threshold> thresholds = new ConcurrentHashMap<String, Threshold>();
 	private ConcurrentMap<String, IntervalListener> listeners = new ConcurrentHashMap<String, IntervalListener>();
@@ -88,7 +87,7 @@ public enum ThresholdRepository implements IProducerRegistryListener{
 			listener.addThreshold(t);
 		}
 
-		IStatsProducer producer = registryAPI.getProducer(definition.getProducerName());
+		IStatsProducer producer = registry.getProducer(definition.getProducerName());
 		if (producer!=null){
 			tie(t, producer);
 		}else{
