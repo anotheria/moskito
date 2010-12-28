@@ -41,7 +41,7 @@ public enum AlertHistory {
 		return ret;
 	}
 	
-	private class AlertHistoryConfig{
+	private static class AlertHistoryConfig{
 		public final int getMaxNumberOfItems(){
 			return 200;
 		}
