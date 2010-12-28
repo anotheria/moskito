@@ -6,9 +6,19 @@ import net.java.dev.moskito.core.producers.IStatsProducer;
 import net.java.dev.moskito.core.registry.IProducerRegistryAPI;
 import net.java.dev.moskito.core.registry.ProducerRegistryAPIFactory;
 
+import org.junit.AfterClass;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 public class FindThresholdTest {
+	@BeforeClass public static void setup(){
+		System.setProperty("JUNITTEST", "false");
+	}
+	
+	@AfterClass public static void teardown(){
+		System.setProperty("JUNITTEST", "true");
+	}
+
 	@Test public void findUsed(){
 		ThresholdDefinition config = new ThresholdDefinition();
 		config.setProducerName("Heap memory");
