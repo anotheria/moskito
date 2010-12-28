@@ -187,8 +187,8 @@ h2 a.hidden {background:url("<ano:write name="mskPathToImages" scope="applicatio
 .thresholdOverlay {}
 .thresholdOverlay span {display:block; float:left; width:105px; clear:both;}
 .thresholdOverlay b {display:block; float:left; width:500px;}
-.thresholdOverlay table {margin:0 auto;}
-.thresholdOverlay table thead tr th {border-bottom:1px solid #99CCCC;}
+.thresholdOverlay table {width:100%;}
+.thresholdOverlay table thead tr th {border-bottom:1px solid #99CCCC; text-align:left;}
 .thresholdOverlay table tr.odd {background:#F7F7F7;}
 .thresholdOverlay table tr.even {background:white;}
-.scroll {overflow-y:scroll; overflow-x:hidden; max-height:200px; clear:both; max-width:500px;}
+.scroll {overflow-y:scroll; overflow-x:hidden; max-height:200px; clear:both; max-width:600px;}
