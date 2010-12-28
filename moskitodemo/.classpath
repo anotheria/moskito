@@ -36,5 +36,6 @@
 	<classpathentry kind="lib" path="lib/xercesImpl.jar"/>
 	<classpathentry kind="lib" path="lib/xml-apis.jar"/>
 	<classpathentry kind="lib" path="lib/xml-resolver.jar"/>
+	<classpathentry kind="lib" path="lib/ano-plass.jar"/>
 	<classpathentry kind="output" path="classes"/>
 </classpath>
