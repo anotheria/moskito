@@ -8,13 +8,13 @@ import java.util.concurrent.CopyOnWriteArrayList;
 
 import org.apache.log4j.Logger;
 
+import net.java.dev.moskito.core.dynamic.OnDemandStatsProducer;
 import net.java.dev.moskito.core.producers.IStats;
 import net.java.dev.moskito.core.producers.IStatsProducer;
 import net.java.dev.moskito.core.registry.IProducerRegistryAPI;
 import net.java.dev.moskito.core.registry.IProducerRegistryListener;
 import net.java.dev.moskito.core.registry.ProducerRegistryAPIFactory;
 import net.java.dev.moskito.core.registry.ProducerRegistryFactory;
-import net.java.dev.moskito.core.stats.Interval;
 import net.java.dev.moskito.core.stats.impl.IntervalRegistry;
 
 public enum ThresholdRepository implements IProducerRegistryListener{
@@ -24,6 +24,9 @@ public enum ThresholdRepository implements IProducerRegistryListener{
 	
 	private ConcurrentMap<String, Threshold> thresholds = new ConcurrentHashMap<String, Threshold>();
 	private ConcurrentMap<String, IntervalListener> listeners = new ConcurrentHashMap<String, IntervalListener>();
+	/**
+	 * Threshold objects that are already created and registered but yet not tied to a concrete producer/stats object.
+	 */
 	private List<Threshold> yetUntied = new CopyOnWriteArrayList<Threshold>();
 	
 	private static Logger log = Logger.getLogger(ThresholdRepository.class);
@@ -56,7 +59,15 @@ public enum ThresholdRepository implements IProducerRegistryListener{
 		}
 		
 		if (target==null){
-			throw new IllegalArgumentException("StatObject not found "+definition.getStatName()+" in "+definition);
+			if (producer instanceof OnDemandStatsProducer){
+				ThresholdAutoTieWrapper wrapper = new ThresholdAutoTieWrapper(threshold, producer);
+				if (definition.getIntervalName()!=null){
+					IntervalListener listener = getListener(definition.getIntervalName());
+					listener.addThresholdAutoTieWrapper(wrapper);
+				}
+			}else{
+				throw new IllegalArgumentException("StatObject not found "+definition.getStatName()+" in "+definition);
+			}
 		}
 
 		threshold.tieToStats(target);
@@ -103,7 +114,7 @@ public enum ThresholdRepository implements IProducerRegistryListener{
 				try{
 					tie(t, producer);
 				}catch(Exception e){
-					log.error("Couldn't post-tie "+t+" to "+producer,e );
+					log.error("notifyProducerRegistered("+producer+")",e );
 				}
 			}
 		}
@@ -112,6 +123,15 @@ public enum ThresholdRepository implements IProducerRegistryListener{
 	@Override
 	public void notifyProducerUnregistered(IStatsProducer producer) {
 		//nothing
+	}
+	
+	public ThresholdStatus getWorstStatus(){
+		ThresholdStatus ret = ThresholdStatus.GREEN;
+		for (Threshold t : getThresholds()){
+			if (t.getStatus().overrules(ret))
+				ret = t.getStatus();
+		}
+		return ret;
 	}
 	
 	
