@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html;charset=UTF-8" session="true"
-%><%@ taglib uri="http://www.anotheria.net/ano-tags" prefix="msk"
+%><%@ taglib uri="http://www.anotheria.net/ano-tags" prefix="ano"
 %><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -26,17 +26,17 @@
 
 	<!-- definition for overlays -->
 		<script type="text/javascript">
-		<msk:iterate name="infos" type="net.java.dev.moskito.webui.bean.ThresholdInfoBean" id="info">
-			var info<msk:write name="info" property="id"/> = {
-				"name": "<msk:write name="info" property="name"/>",
-				"producerName": "<msk:write name="info" property="producerName"/>",
-				"statName": "<msk:write name="info" property="statName"/>",
-				"valueName": "<msk:write name="info" property="valueName"/>",
-				"intervalName": "<msk:write name="info" property="intervalName"/>",
-				"descriptionString": "<msk:write name="info" property="descriptionString"/>",
-				"guards": [<msk:iterate name="info" property="guards" id="guard" type="java.lang.String">"<msk:write name="guard"/>",</msk:iterate>]
+		<ano:iterate name="infos" type="net.java.dev.moskito.webui.bean.ThresholdInfoBean" id="info">
+			var info<ano:write name="info" property="id"/> = {
+				"name": "<ano:write name="info" property="name"/>",
+				"producerName": "<ano:write name="info" property="producerName"/>",
+				"statName": "<ano:write name="info" property="statName"/>",
+				"valueName": "<ano:write name="info" property="valueName"/>",
+				"intervalName": "<ano:write name="info" property="intervalName"/>",
+				"descriptionString": "<ano:write name="info" property="descriptionString"/>",
+				"guards": [<ano:iterate name="info" property="guards" id="guard" type="java.lang.String">"<ano:write name="guard"/>",</ano:iterate>]
 			};
-		</msk:iterate>
+		</ano:iterate>
 		</script>
 		<script type="text/javascript">
 			function openOverlay(selectedInfo){
@@ -103,30 +103,16 @@
 						</tr>
 						</thead>
 						<tbody>
-						<%--
-						<msk:iterate name="recorded" type="net.java.dev.moskito.webui.bean.RecordedUseCaseListItemBean" id="useCase" indexId="index">
+						<ano:iterate name="thresholds" type="net.java.dev.moskito.webui.bean.ThresholdBean" id="threshold" indexId="index">
 							<tr class="<%= ((index & 1) == 0 )? "even" : "odd" %>">
-								<td><msk:write name="index"/></td>
-								 <td>
-									<a href="mskShowMonitoringSessionCall?pSessionName=<msk:write name="msession" property="name"/>&pPos=<msk:write name="index"/>">
-										<msk:write name="useCase" property="name"/>
-									</a>
-								 </td>	
-								 <td>	
-									<msk:write name="useCase" property="date"/>
-								  </td>
-							</tr>
-						</msk:iterate>--%>
-						<msk:iterate name="thresholds" type="net.java.dev.moskito.webui.bean.ThresholdBean" id="threshold" indexId="index">
-							<tr class="<%= ((index & 1) == 0 )? "even" : "odd" %>">
-								<td><a href="#" onclick="openOverlay(info<msk:write name="threshold" property="id"/>); return false"><msk:write name="threshold" property="name"/></a></td>
-								<td><img src="../img/ind_<msk:write name="threshold" property="colorCode"/>.<msk:equal name="threshold" property="colorCode" value="purple">gif</msk:equal><msk:notEqual name="threshold" property="colorCode" value="purple">png</msk:notEqual>" alt="<msk:write name="threshold" property="status"/>"/></td>
-								<td><msk:write name="threshold" property="value"/></td>
-								<td><msk:write name="threshold" property="change"/></td>
-								<td><msk:write name="threshold" property="timestamp"/></td>
-								<td><msk:write name="threshold" property="description"/></td>
+								<td><a href="#" onclick="openOverlay(info<ano:write name="threshold" property="id"/>); return false"><ano:write name="threshold" property="name"/></a></td>
+								<td><img src="<ano:write name="mskPathToImages" scope="application"/>ind_<ano:write name="threshold" property="colorCode"/>.<ano:equal name="threshold" property="colorCode" value="purple">gif</ano:equal><ano:notEqual name="threshold" property="colorCode" value="purple">png</ano:notEqual>" alt="<ano:write name="threshold" property="status"/>"/></td>
+								<td><ano:write name="threshold" property="value"/></td>
+								<td><ano:write name="threshold" property="change"/></td>
+								<td><ano:write name="threshold" property="timestamp"/></td>
+								<td><ano:write name="threshold" property="description"/></td>
 							</tr>							
-						</msk:iterate>
+						</ano:iterate>
 						</tbody>
 					</table>
 					<div class="clear"><!-- --></div>
@@ -177,22 +163,22 @@
 						</tr>
 						</thead>
 						<tbody>
-						<msk:iterate name="alerts" type="net.java.dev.moskito.webui.bean.ThresholdAlertBean" id="alert" indexId="index">
+						<ano:iterate name="alerts" type="net.java.dev.moskito.webui.bean.ThresholdAlertBean" id="alert" indexId="index">
 							<tr class="<%= ((index & 1) == 0 )? "even" : "odd" %>">
-								<td><msk:write name="alert" property="timestamp"/></td>
-								<td><a href=""><msk:write name="alert" property="name"/></a></td>
+								<td><ano:write name="alert" property="timestamp"/></td>
+								<td><a href=""><ano:write name="alert" property="name"/></a></td>
 								<td>
-									<img src="../img/ind_<msk:write name="alert" property="oldColorCode"/>.png" alt="<msk:write name="alert" property="oldStatus"/>"/>
-										&nbsp;<img src="../img/ind_arrow.png" alt="-->"/>&nbsp;
-									<img src="../img/ind_<msk:write name="alert" property="newColorCode"/>.png" alt="<msk:write name="alert" property="newStatus"/>"/>
+									<img src="<ano:write name="mskPathToImages" scope="application"/>ind_<ano:write name="alert" property="oldColorCode"/>.png" alt="<ano:write name="alert" property="oldStatus"/>"/>
+										&nbsp;<img src="<ano:write name="mskPathToImages" scope="application"/>ind_arrow.png" alt="-->"/>&nbsp;
+									<img src="<ano:write name="mskPathToImages" scope="application"/>ind_<ano:write name="alert" property="newColorCode"/>.png" alt="<ano:write name="alert" property="newStatus"/>"/>
 								</td>
 								<td>
-									<msk:write name="alert" property="oldValue"/>
-										&nbsp;<img src="../img/ind_arrow_numb.png" alt="-->"/>&nbsp;
-									<msk:write name="alert" property="newValue"/>
+									<ano:write name="alert" property="oldValue"/>
+										&nbsp;<img src="<ano:write name="mskPathToImages" scope="application"/>ind_arrow_numb.png" alt="-->"/>&nbsp;
+									<ano:write name="alert" property="newValue"/>
 								</td>
 							</tr>
-						</msk:iterate>
+						</ano:iterate>
 						</tbody>
 					</table>
 					<div class="clear"><!-- --></div>
