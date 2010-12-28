@@ -10,9 +10,9 @@ import org.junit.Test;
 
 public class GuardsTest {
 	@Test public void testStatusChange(){
-		DummyStatProducer producer = new DummyStatProducer();
+		DummyStatProducer producer = new DummyStatProducer("GuardsTest");
 		ThresholdDefinition config = new ThresholdDefinition();
-		config.setProducerName("dummy");
+		config.setProducerName("GuardsTest");
 		config.setStatName("dynamic");
 		config.setValueName("TR");
 		config.setIntervalName("snapshot");
