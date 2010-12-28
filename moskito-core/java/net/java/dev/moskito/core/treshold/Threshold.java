@@ -67,8 +67,10 @@ public class Threshold implements IntervalUpdateable{
 		if (!isActivated()){
 			return;
 		}
+		
 		String previousValue = lastValue;
 		lastValue = stats.getValueByNameAsString(definition.getValueName(), definition.getIntervalName(), definition.getTimeUnit());
+		
 		ThresholdStatus futureStatus = status == ThresholdStatus.OFF ? ThresholdStatus.OFF : ThresholdStatus.GREEN;
 		for (ThresholdConditionGuard guard : guards){
 			try{
@@ -81,7 +83,7 @@ public class Threshold implements IntervalUpdateable{
 			}
 		}
 		
-		//TODO generate alert.
+		//generate alert.
 		if (status != futureStatus){
 			//generate alert
 			statusChange = status+" --> "+futureStatus;

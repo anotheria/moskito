@@ -5,6 +5,7 @@ import net.java.dev.moskito.core.producers.IStats;
 import net.java.dev.moskito.core.producers.IStatsProducer;
 import net.java.dev.moskito.core.registry.IProducerRegistryAPI;
 import net.java.dev.moskito.core.registry.ProducerRegistryAPIFactory;
+import net.java.dev.moskito.core.registry.ProducerRegistryFactory;
 
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
@@ -13,10 +14,12 @@ import org.junit.Test;
 public class FindThresholdTest {
 	@BeforeClass public static void setup(){
 		System.setProperty("JUNITTEST", "false");
+		ProducerRegistryFactory.reset();
 	}
 	
 	@AfterClass public static void teardown(){
 		System.setProperty("JUNITTEST", "true");
+		ProducerRegistryFactory.reset();
 	}
 
 	@Test public void findUsed(){

@@ -27,6 +27,11 @@ public class StartBuiltInProducers {
 		startJavaThreadingProducers();
 	}
 	
+	public static void restartbuiltin(){
+		initialized = false;
+		startbuiltin();
+	}
+
 	private static void startJavaThreadingProducers(){
 		IProducerRegistry registry = ProducerRegistryFactory.getProducerRegistryInstance();
 		registry.registerProducer(new BuiltInThreadCountProducer());

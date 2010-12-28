@@ -2,6 +2,7 @@ package net.java.dev.moskito.core.treshold;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import net.java.dev.moskito.core.registry.ProducerRegistryFactory;
 import net.java.dev.moskito.core.stats.impl.IntervalRegistry;
 import net.java.dev.moskito.core.treshold.guard.GuardedDirection;
 import net.java.dev.moskito.core.treshold.guard.LongBarrierPassGuard;
@@ -16,6 +17,7 @@ public class GuardsTest {
 		config.setStatName("dynamic");
 		config.setValueName("TR");
 		config.setIntervalName("snapshot");
+		config.setName("GuardsTest");
 		
 		Threshold threshold = ThresholdRepository.INSTANCE.createThreshold(config);
 		assertNotNull(threshold);
@@ -25,6 +27,7 @@ public class GuardsTest {
 		
 		//first request switches the guard on.
 		threshold.addGuard(new LongBarrierPassGuard(ThresholdStatus.GREEN, 1, GuardedDirection.UP));
+		threshold.addGuard(new LongBarrierPassGuard(ThresholdStatus.GREEN, 100, GuardedDirection.DOWN));
 		threshold.addGuard(new LongBarrierPassGuard(ThresholdStatus.YELLOW, 100, GuardedDirection.UP));
 		threshold.addGuard(new LongBarrierPassGuard(ThresholdStatus.ORANGE, 200, GuardedDirection.UP));
 		threshold.addGuard(new LongBarrierPassGuard(ThresholdStatus.RED, 500, GuardedDirection.UP));
@@ -49,14 +52,12 @@ public class GuardsTest {
 	}
 	
 	private void forceStatusChangeAndCheckIt(DummyStatProducer producer, Threshold threshold, int numberOfCalls, ThresholdStatus expectedStatus){
-		//System.out.println("PRE "+producer.getDynamicTR("snapshot"));
 		IntervalRegistry.getInstance().forceUpdateIntervalForTestingPurposes("snapshot");
 		
 		for (int i=0; i<numberOfCalls; i++)
 			producer.increaseDynamic();
 		
 		IntervalRegistry.getInstance().forceUpdateIntervalForTestingPurposes("snapshot");
-		//System.out.println("POST "+producer.getDynamicTR("snapshot"));
 
 		assertEquals(expectedStatus, threshold.getStatus());
 	}
