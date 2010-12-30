@@ -36,6 +36,9 @@ package net.java.dev.moskito.core.timing;
 
 import java.util.TimerTask;
 
+import org.apache.log4j.Logger;
+
+
 /**
  * This class implements an adapter to handle IUpdatable instances as TimerTask.
  *
@@ -43,6 +46,7 @@ import java.util.TimerTask;
  */
 final class UpdateableWrapper extends TimerTask {
 
+	private static Logger log = Logger.getLogger(UpdateableWrapper.class);
 
 	/**
 	 * This is the delegate that will be called.
@@ -60,7 +64,11 @@ final class UpdateableWrapper extends TimerTask {
 	
 
 	@Override public void run() {
-		delegate.update();
+		try{
+			delegate.update();
+		}catch(Exception e){
+			log.warn("Delegate update failed on "+delegate, e);
+		}
 	}
 
 }
