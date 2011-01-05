@@ -1,29 +1,23 @@
 package net.java.dev.moskito.webcontrol;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import net.java.dev.moskito.webcontrol.configuration.ConfigurationRepository;
+import net.java.dev.moskito.webcontrol.configuration.SourceConfiguration;
+import net.java.dev.moskito.webcontrol.configuration.ViewConfiguration;
+import net.java.dev.moskito.webcontrol.configuration.ViewField;
+import net.java.dev.moskito.webcontrol.repository.*;
+import org.junit.Test;
+import org.w3c.dom.Document;
+import org.w3c.dom.NodeList;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathFactory;
-
-import net.java.dev.moskito.webcontrol.configuration.ConfigurationRepository;
-import net.java.dev.moskito.webcontrol.configuration.SourceConfiguration;
-import net.java.dev.moskito.webcontrol.configuration.ViewConfiguration;
-import net.java.dev.moskito.webcontrol.configuration.ViewField;
-import net.java.dev.moskito.webcontrol.repository.Attribute;
-import net.java.dev.moskito.webcontrol.repository.Repository;
-import net.java.dev.moskito.webcontrol.repository.Snapshot;
-import net.java.dev.moskito.webcontrol.repository.SnapshotSource;
-import net.java.dev.moskito.webcontrol.ui.MoskitoWebcontrolUIFilter;
-
-import org.junit.Test;
-import org.w3c.dom.Document;
-import org.w3c.dom.NodeList;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class MoskitoWebControlUIFilterTest {
 
@@ -64,7 +58,7 @@ public class MoskitoWebControlUIFilterTest {
 
 		ConfigurationRepository.INSTANCE.loadViewsConfiguration();
 		SourceConfiguration config = new SourceConfiguration("server1", "");
-		MoskitoWebcontrolUIFilter.fillRepository(config, doc, ConfigurationRepository.INSTANCE.getContainerName("default"));
+		RepositoryUpdater.getInstance().fillRepository(config, doc, ConfigurationRepository.INSTANCE.getContainerName("default"));
 		
 		ViewConfiguration viewConfig = ConfigurationRepository.INSTANCE.getView("Filters");
 		

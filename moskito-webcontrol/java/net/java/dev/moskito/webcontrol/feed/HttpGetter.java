@@ -17,6 +17,7 @@ import java.net.URLConnection;
 public class HttpGetter implements FeedGetter {
 
 	private static Logger log = Logger.getLogger(HttpGetter.class);
+	private final int CONNECTION_TIMEOUT = 3000;
 
 	@Override
 	public Document retreive(SourceConfiguration source) {
@@ -24,6 +25,7 @@ public class HttpGetter implements FeedGetter {
 		try {
 			URL url = new URL(source.getUrl());
 			URLConnection connection = url.openConnection();
+			connection.setConnectTimeout(CONNECTION_TIMEOUT);
             authenticateConnection(source, connection);
             return buildDocument(connection);
 		} catch (MalformedURLException e) {

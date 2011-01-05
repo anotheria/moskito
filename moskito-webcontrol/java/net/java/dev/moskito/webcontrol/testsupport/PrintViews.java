@@ -6,17 +6,14 @@ import net.java.dev.moskito.webcontrol.configuration.ConfigurationRepository;
 import net.java.dev.moskito.webcontrol.configuration.SourceConfiguration;
 import net.java.dev.moskito.webcontrol.configuration.ViewConfiguration;
 import net.java.dev.moskito.webcontrol.configuration.ViewField;
-import net.java.dev.moskito.webcontrol.repository.Attribute;
-import net.java.dev.moskito.webcontrol.repository.Repository;
-import net.java.dev.moskito.webcontrol.repository.Snapshot;
-import net.java.dev.moskito.webcontrol.repository.SnapshotSource;
+import net.java.dev.moskito.webcontrol.repository.*;
 import net.java.dev.moskito.webcontrol.ui.MoskitoWebcontrolUIFilter;
 
 public class PrintViews {
 
 	public static void main(String a[]) throws Exception {
 		ConfigurationRepository.INSTANCE.loadViewsConfiguration();
-		MoskitoWebcontrolUIFilter.update();
+		RepositoryUpdater.getInstance().update();
 		printViews();
 	}
 

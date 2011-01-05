@@ -42,7 +42,10 @@ public enum ConfigurationRepository {
 	private List<IntervalConfiguration> intervals;
 
 	private List<ViewField> avaibleColumns;
-
+	/**
+	 * Source name for snapshot with total values.
+	 */
+	public static final String TOTALS_SOURCE_NAME = "Totals";
 	private static final Logger log = Logger.getLogger(ConfigurationRepository.class);
 
 	private ConfigurationRepository() {
@@ -89,6 +92,12 @@ public enum ConfigurationRepository {
 		return ret;
 	}
 
+	/**
+	 *
+	 * @param viewName name of view
+	 * @return configuration for spesified view name
+	 * @throws IllegalArgumentException if view was not found.
+	 */
 	public ViewConfiguration getView(String viewName) {
 		ViewConfiguration ret = views.get(viewName);
 		if (ret == null)

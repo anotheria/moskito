@@ -1,5 +1,6 @@
 package net.java.dev.moskito.webcontrol.repository;
 
+import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
@@ -35,8 +36,35 @@ public class Snapshot {
 		attributes.remove(a.getName());
 	}
 
+	public List<Attribute> getAttributes(){
+		return (List<Attribute>) attributes.values();
+	}
+
+
 	@Override
 	public String toString() {
 		return source + " " + created + " " + attributes;
 	}
+
+
+	/*@Override
+	public boolean equals(Object obj) {
+		if (this == obj) return true;
+		if ((obj instanceof Snapshot)==false) return false;
+
+		Snapshot snapshot = (Snapshot)obj;
+
+		if (snapshot.getAttributes().size() != getAttributes().size())
+			return false;
+
+		for ( Attribute attribute : snapshot.getAttributes() )
+			if ( attributes.get(attribute.getName()) == null
+					|| attributes.get(attribute.getName()).getValue() != attribute.getValue() )
+				return false;
+
+
+		return true;
+	}*/
+
+
 }
