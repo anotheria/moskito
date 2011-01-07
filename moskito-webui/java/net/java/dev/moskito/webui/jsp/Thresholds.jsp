@@ -91,6 +91,7 @@
 					<div class="right"><!-- --></div>
 				</div>
 				<div class="in">
+					<div class="scroller_x">
 					<table cellpadding="0" cellspacing="0" width="100%">
 						<thead>
 						<tr>
@@ -129,6 +130,7 @@
 						</msk:iterate>
 						</tbody>
 					</table>
+						</div>
 					<div class="clear"><!-- --></div>
 				</div>
 				<div class="bot">

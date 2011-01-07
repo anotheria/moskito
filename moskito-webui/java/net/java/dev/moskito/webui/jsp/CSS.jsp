@@ -48,7 +48,7 @@ a:hover {text-decoration:none; color:#55cc00; cursor:pointer;}
 
 .main h1 {font-weight:normal; font-size:1.8em; margin-bottom:10px; display:block; float:left; overflow:hidden;}
 
-.table_layout { margin-bottom:10px;}
+.table_layout { margin-bottom:10px; overflow:hidden;}
 .table_layout .top {height:5px; background:url(<ano:write name="mskPathToImages" scope="application"/>bgs.gif) 0 -790px no-repeat #e9f0f7;}
 .table_layout .top div {height:5px; background:url(<ano:write name="mskPathToImages" scope="application"/>bgs.gif) 100% -809px no-repeat;}
 .table_layout .in {background:#e9f0f7; padding:5px 10px;}
@@ -177,7 +177,7 @@ h2 a.hidden {background:url("<ano:write name="mskPathToImages" scope="applicatio
 .chart_overlay .add { margin-top:2px;}
 .chart_overlay .delete_btn {}
 .chart_overlay table td, .chart_overlay table th {font-size:12px !important; line-height:normal !important;}
-.chart_overlay .create_ch_btn {margin-top:10px;}
+.chart_overlay .create_ch_btn {margin-top:10px; float:right;}
 
 .error {border:1px solid red; padding:2px;}
 .name_ch {//padding:2px;}
@@ -192,3 +192,4 @@ h2 a.hidden {background:url("<ano:write name="mskPathToImages" scope="applicatio
 .thresholdOverlay table tr.odd {background:#F7F7F7;}
 .thresholdOverlay table tr.even {background:white;}
 .scroll {overflow-y:scroll; overflow-x:hidden; max-height:200px; clear:both; max-width:600px;}
+.scroller_x {width:100%; overflow-x:scroll;}

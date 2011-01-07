@@ -15,8 +15,8 @@
 
 <jsp:include page="Menu.jsp" flush="false" />
 
-<-- 
- Data for charts 
+<!--
+ Data for charts -->
  <script>
 <msk:iterate type="net.java.dev.moskito.webui.bean.GraphDataBean" 	id="graph" name="graphDatas">	
 	var <msk:write name="graph" property="jsVariableName"/>Caption = "<msk:write name="graph" property="caption"/>";
@@ -24,7 +24,7 @@
 </msk:iterate> 
 
  </script>
--->
+<!-- -->
 
 
 <div class="main">

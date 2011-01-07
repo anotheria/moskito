@@ -73,7 +73,7 @@
 						<li class="active"><a href="mskThresholds"><img src="<ano:write name="mskPathToImages" scope="application"/>ind_<ano:write name="systemStatusColor"/>_small.png" alt="System status: <ano:write name="systemStatus"/>"/>&nbsp;&nbsp;Thresholds</a></li>
 					</ano:equal
 					><ano:notEqual name="currentNaviItem" value="THRESHOLDS">
-						<li><a href="mskThresholds"><img src="<ano:write name="mskPathToImages" scope="application"/>ind_<ano:write name="systemStatusColor"/>_small.gif" alt="System status: <ano:write name="systemStatus"/>"/>&nbsp;&nbsp;Thresholds</a></li>
+						<li><a href="mskThresholds"><img src="<ano:write name="mskPathToImages" scope="application"/>ind_<ano:write name="systemStatusColor"/>_small.png" alt="System status: <ano:write name="systemStatus"/>"/>&nbsp;&nbsp;Thresholds</a></li>
 					</ano:notEqual>
 					
 				</ul>
