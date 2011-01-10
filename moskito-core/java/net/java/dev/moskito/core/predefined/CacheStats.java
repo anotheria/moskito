@@ -49,6 +49,12 @@ public class CacheStats extends AbstractStats{
 	 * Number of refused objects, because cache was full.
 	 */
 	private StatValue cacheFullCount;
+	
+	/**
+	 * Number of delete operations.
+	 */
+	private StatValue deletes;
+	
 	/**
 	 * Name of the cache.
 	 */
@@ -64,6 +70,7 @@ public class CacheStats extends AbstractStats{
 				"RO",
 				"FU",
 				"EX",
+				"DEL",
 				"FI",
 			})); 
 
@@ -83,6 +90,7 @@ public class CacheStats extends AbstractStats{
 		expiredCount = StatValueFactory.createStatValue(longPattern, "expirations", selectedIntervals);
 		filteredCount = StatValueFactory.createStatValue(longPattern, "filter", selectedIntervals);
 		cacheFullCount = StatValueFactory.createStatValue(longPattern, "cachefull", selectedIntervals);
+		deletes = StatValueFactory.createStatValue(longPattern, "deletes", selectedIntervals);
 		
 		//fillRatio = StatValueFactory.createStatValue(new Double(0.0), "fillRatio" , selectedIntervals);
 
@@ -121,8 +129,17 @@ public class CacheStats extends AbstractStats{
 		writes.increase();
 	}
 	
+	
 	public long getWrites(String intervalName){
 		return writes.getValueAsLong(intervalName);
+	}
+
+	public void addDelete(){
+		deletes.increase();
+	}
+	
+	public long getDeletes(String intervalName){
+		return deletes.getValueAsLong(intervalName);
 	}
 	
 	
@@ -188,6 +205,7 @@ public class CacheStats extends AbstractStats{
 		b.append(" RO: ").append(rolloverCount.getValueAsLong(intervalName));
 		b.append(" FU: ").append(cacheFullCount.getValueAsLong(intervalName));
 		b.append(" EX: ").append(expiredCount.getValueAsLong(intervalName));
+		b.append(" DEL: ").append(deletes.getValueAsLong(intervalName));
 		b.append(" FI: ").append(filteredCount.getValueAsLong(intervalName));
 		return b.toString();
 	}
@@ -212,11 +230,10 @@ public class CacheStats extends AbstractStats{
 			return ""+cacheFullCount.getValueAsLong(intervalName);
 		if (valueName.equals("ex"))
 			return ""+expiredCount.getValueAsLong(intervalName);
+		if (valueName.equals("del"))
+			return ""+deletes.getValueAsLong(intervalName);
 		if (valueName.equals("fi"))
 			return ""+filteredCount.getValueAsLong(intervalName);
 		return super.getValueByNameAsString(valueName, intervalName, timeUnit);
 	}
-
-
-
 }
