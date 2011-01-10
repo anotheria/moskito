@@ -6,6 +6,7 @@ import net.java.dev.moskito.core.producers.IStatsProducer;
 import net.java.dev.moskito.core.registry.IProducerRegistryAPI;
 import net.java.dev.moskito.core.registry.ProducerRegistryAPIFactory;
 import net.java.dev.moskito.core.registry.ProducerRegistryFactory;
+import net.java.dev.moskito.core.stats.impl.IntervalRegistry;
 
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
@@ -46,6 +47,23 @@ public class FindThresholdTest {
 		String value = target.getValueByNameAsString(config.getValueName(), null, null);
 		assertNotNull(value);
 		//System.out.println(value);
+	}
+	
+	@Test public void findOldGen(){
+		ThresholdDefinition def = new ThresholdDefinition();
+		def.setProducerName("MemoryPool-PS Old Gen-Heap");
+		def.setStatName("MemoryPool-PS Old Gen-Heap");
+		def.setValueName("FREE");
+		def.setIntervalName("snapshot");
+		
+		Threshold threshold = ThresholdRepository.INSTANCE.createThreshold(def);
+		assertNotNull(threshold);
+		
+		assertEquals("none yet", threshold.getLastValue());
+		IntervalRegistry.getInstance().forceUpdateIntervalForTestingPurposes("snapshot");
+		IntervalRegistry.getInstance().forceUpdateIntervalForTestingPurposes("snapshot");
+		System.out.println(threshold.getLastValue());
+		
 	}
 	
 	@Test public void findFreeViaRegistry(){
