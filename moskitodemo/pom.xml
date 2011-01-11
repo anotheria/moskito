@@ -123,13 +123,4 @@
     	<artifactId>struts</artifactId>
 	</dependency>	
   </dependencies>
-
-  
-
-	<scm>
-		<url>svn:svn://svn.anotheria.net/opensource/moskito/trunk/moskitodemo</url>
-		<connection>scm:svn:svn://svn.anotheria.net/opensource/moskito/trunk/moskitodemo</connection>
-		<developerConnection>scm:svn:svn://svn.anotheria.net/opensource/moskito/trunk/moskitodemo</developerConnection>
-	</scm>
-
 </project>
