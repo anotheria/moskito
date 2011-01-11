@@ -20,7 +20,7 @@
 		<module>moskito-web</module>
 		<module>moskito-webui</module>
 		<module>moskito-webcontrol</module>
-		<!--module>moskito-central</module-->
+		<module>moskito-central</module>
 		<module>moskitodemo</module>
 	</modules>
 	<scm>
