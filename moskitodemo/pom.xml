@@ -3,17 +3,17 @@
   <parent>
 	<groupId>net.anotheria</groupId>
 	<artifactId>parent</artifactId>
-	<version>1.5-SNAPSHOT</version>
+	<version>1.7</version>
   </parent>
 
   <modelVersion>4.0.0</modelVersion>
   <groupId>net.anotheria</groupId>
   <artifactId>moskitodemo</artifactId>
-  <version>1.0.1-SNAPSHOT</version>
+  <version>1.1.0-SNAPSHOT</version>
   <name>moskito demonstration webapp</name>
   <packaging>war</packaging>
   <properties>
-  	<moskito-webui-version>1.0.1-SNAPSHOT</moskito-webui-version>
+  	<moskito-webui-version>${project.version}</moskito-webui-version>
   </properties>
 <build>
  <plugins> 
@@ -102,17 +102,17 @@
 	<dependency>
 		<groupId>net.anotheria</groupId>
 		<artifactId>moskito-core</artifactId>
-		<version>1.0.1-SNAPSHOT</version>
+		<version>${project.version}</version>
 	</dependency>
 	<dependency>
 		<groupId>net.anotheria</groupId>
 		<artifactId>moskito-web</artifactId>
-		<version>1.0.2-SNAPSHOT</version>
+		<version>${project.version}</version>
 	</dependency>
 	<dependency>
 		<groupId>net.anotheria</groupId>
 		<artifactId>moskito-webui</artifactId>
-		<version>${moskito-webui-version}</version>
+		<version>${project.version}</version>
 	</dependency>
 	<dependency>
     	<groupId>javax.servlet</groupId>
