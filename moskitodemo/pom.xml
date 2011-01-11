@@ -41,6 +41,7 @@
         <version>2.1</version>
         <configuration>
            <webXml>etc/web.xml</webXml>
+		   <warName>moskitodemo</warName>
           <webResources>
             <resource>
               <!-- this is relative to the pom.xml directory -->
@@ -67,17 +68,6 @@
       </plugin>
             
     </plugins>
-
-<!--  
-    <resources>
-      <resource>
-        <directory>${project.basedir}/html</directory>
-      </resource>
-      <resource>
-        <directory>${project.basedir}/java/**/*.jsp</directory>
-      </resource>
-    </resources>
-    -->
 </build>
  
   <dependencies>
