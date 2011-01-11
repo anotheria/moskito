@@ -1,5 +1,6 @@
 package net.java.dev.moskito.central.storages;
 
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.io.File;
@@ -30,7 +31,7 @@ public class XmlTest {
 
     private static final String XML_STORAGE_ROOT_DIR = "/projects/companies/Anotheria/SVN/tests/xml";
 
-    @Test
+    @Ignore @Test
     public void testLocalXmlStorage() throws Exception {
         File xmlStorageDir = new File(XML_STORAGE_ROOT_DIR);
         assert(xmlStorageDir.mkdirs());

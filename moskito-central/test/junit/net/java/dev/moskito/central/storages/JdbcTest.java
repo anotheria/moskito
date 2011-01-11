@@ -15,6 +15,7 @@ import net.java.dev.moskito.core.producers.IStatsSnapshot;
 import net.java.dev.moskito.core.stats.DefaultIntervals;
 import net.java.dev.moskito.core.stats.Interval;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import static junit.framework.Assert.*;
 
@@ -31,7 +32,7 @@ public class JdbcTest {
 
 	private Connection conn;
 	
-	@Test
+	@Ignore @Test
 	public void testLocalJdbcStorage() throws Exception {
 		
 		// JDBC storage test code
