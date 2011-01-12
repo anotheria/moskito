@@ -1,10 +1,8 @@
 {
-		app-path: "/extapi/mui/";
-		list-servers: ["extapi.parship.de"];
+		app-path: "/appContext/mui/";
+		list-servers: ["TEST1", "PROD1", "INFRA1", "PROD2"];
 		TEST1: "http://test.anotheria.net";
 		PROD1: "http://prod.anotheria.net:8080";
 		INFRA1: "http://infra.anotheria.net:9080";
 		PROD2: "http://bolbat.net";
-		extapi.parship.de : "http://extapi.parship.de";
-		extapi.test: "http://extapi123abc456.parship.de"
 }
