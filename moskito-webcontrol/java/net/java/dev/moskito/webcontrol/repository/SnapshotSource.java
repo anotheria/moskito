@@ -1,6 +1,6 @@
 package net.java.dev.moskito.webcontrol.repository;
 
-import net.java.dev.moskito.webcontrol.configuration.SourceConfiguration;
+import net.java.dev.moskito.webcontrol.configuration.StatsSource;
 
 public class SnapshotSource {
 	private String name;
@@ -25,7 +25,7 @@ public class SnapshotSource {
 	}
 
 	// use this method to cache sources later.
-	public static SnapshotSource valueOf(SourceConfiguration config) {
+	public static SnapshotSource valueOf(StatsSource config) {
 		return new SnapshotSource(config.getName());
 	}
 }

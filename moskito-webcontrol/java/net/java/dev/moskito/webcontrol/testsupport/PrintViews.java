@@ -3,7 +3,7 @@ package net.java.dev.moskito.webcontrol.testsupport;
 import java.util.List;
 
 import net.java.dev.moskito.webcontrol.configuration.ConfigurationRepository;
-import net.java.dev.moskito.webcontrol.configuration.SourceConfiguration;
+import net.java.dev.moskito.webcontrol.configuration.StatsSource;
 import net.java.dev.moskito.webcontrol.configuration.ViewConfiguration;
 import net.java.dev.moskito.webcontrol.configuration.ViewField;
 import net.java.dev.moskito.webcontrol.repository.*;
@@ -30,7 +30,7 @@ public class PrintViews {
 
 			ViewConfiguration config = ConfigurationRepository.INSTANCE.getView(viewName);
 			System.out.println("============= VIEW: " + config.getName() + ", interval: " + name + "===============");
-			List<SourceConfiguration> sources = ConfigurationRepository.INSTANCE.getSources();
+			List<StatsSource> sources = ConfigurationRepository.INSTANCE.getSources();
 			List<ViewField> fields = config.getFields();
 			System.out.print("Source\t\t");
 			for (ViewField f : fields) {
@@ -38,7 +38,7 @@ public class PrintViews {
 			}
 			System.out.println();
 
-			for (SourceConfiguration source : sources) {
+			for (StatsSource source : sources) {
 				System.out.print(source.getName() + "\t\t");
 				try {
 					Snapshot s = Repository.INSTANCE.getSnapshot(ConfigurationRepository.INSTANCE.getContainerName(name), SnapshotSource

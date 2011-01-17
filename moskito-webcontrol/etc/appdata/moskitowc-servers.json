@@ -1,0 +1,6 @@
+{
+	hosts: "www.blackstone.com.ua",
+	appPath: "/blackstone/mui",
+	username: "",
+	password: "",
+}

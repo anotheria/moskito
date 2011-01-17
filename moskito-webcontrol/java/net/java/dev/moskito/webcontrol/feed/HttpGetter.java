@@ -1,6 +1,6 @@
 package net.java.dev.moskito.webcontrol.feed;
 
-import net.java.dev.moskito.webcontrol.configuration.SourceConfiguration;
+import net.java.dev.moskito.webcontrol.configuration.StatsSource;
 import org.apache.log4j.Logger;
 import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
@@ -20,7 +20,7 @@ public class HttpGetter implements FeedGetter {
 	private final int CONNECTION_TIMEOUT = 3000;
 
 	@Override
-	public Document retreive(SourceConfiguration source) {
+	public Document retreive(StatsSource source) {
 		System.out.println(source);
 		try {
 			URL url = new URL(source.getUrl());
@@ -40,7 +40,7 @@ public class HttpGetter implements FeedGetter {
 		return null;
 	}
 
-    private void authenticateConnection(SourceConfiguration source, URLConnection connection) {
+    private void authenticateConnection(StatsSource source, URLConnection connection) {
         if(source.needAuth()) {
             StringBuilder credentials = new StringBuilder(source.getUsername() + ":" + source.getPassword());
             String encoding = new BASE64Encoder().encode(credentials.toString().getBytes());

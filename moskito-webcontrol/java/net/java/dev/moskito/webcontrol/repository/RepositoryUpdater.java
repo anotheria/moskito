@@ -1,7 +1,7 @@
 package net.java.dev.moskito.webcontrol.repository;
 
 import net.java.dev.moskito.webcontrol.configuration.ConfigurationRepository;
-import net.java.dev.moskito.webcontrol.configuration.SourceConfiguration;
+import net.java.dev.moskito.webcontrol.configuration.StatsSource;
 import net.java.dev.moskito.webcontrol.configuration.ViewConfiguration;
 import net.java.dev.moskito.webcontrol.configuration.ViewField;
 import net.java.dev.moskito.webcontrol.feed.FeedGetter;
@@ -101,13 +101,13 @@ public class RepositoryUpdater {
 	 * Retrieves xml form each server, parse them and puts data into repository.
 	 */
 	public void update() {//TODO thread sefity
-		List<SourceConfiguration> sources = ConfigurationRepository.INSTANCE.getSources();
-		for (SourceConfiguration source : sources) {
+		List<StatsSource> sources = ConfigurationRepository.INSTANCE.getSources();
+		for (StatsSource source : sources) {
 			if (!ConfigurationRepository.TOTALS_SOURCE_NAME.equalsIgnoreCase(source.getName())) {
 				for (String name : ConfigurationRepository.INSTANCE.getIntervalsNames()) {
 					try {
 						FeedGetter getter = new HttpGetter();
-						SourceConfiguration sourceConf = source.build("&pInterval=" + name);
+						StatsSource sourceConf = source.build("&pInterval=" + name);
 						Document doc = getter.retreive(sourceConf);
 						if (doc != null) {
 							fillRepository(source, doc, ConfigurationRepository.INSTANCE.getContainerName(name));
@@ -167,8 +167,8 @@ public class RepositoryUpdater {
 			for (ViewField field : fields) {
 				if (!field.getTotal().equals(TotalFormulaType.EMPTY)) {
 					List<Attribute> attrs = new ArrayList<Attribute>();
-					List<SourceConfiguration> sources = ConfigurationRepository.INSTANCE.getSources();
-					for (SourceConfiguration source : sources) {
+					List<StatsSource> sources = ConfigurationRepository.INSTANCE.getSources();
+					for (StatsSource source : sources) {
 						if (!ConfigurationRepository.TOTALS_SOURCE_NAME.equalsIgnoreCase(source.getName())) {
 							Snapshot ss;
 							try {
@@ -190,7 +190,7 @@ public class RepositoryUpdater {
 				}
 			}
 		}
-		SourceConfiguration s = new SourceConfiguration(snapshot.getSource().toString(), "");
+		StatsSource s = new StatsSource(snapshot.getSource().toString(), "");
 		ConfigurationRepository.INSTANCE.addSource(s);
 		Repository.INSTANCE.addSnapshot(containerName, snapshot);
 	}
@@ -199,9 +199,9 @@ public class RepositoryUpdater {
 	 * Adds snapshot to local repository.
 	 * @param source name of server from which we should take snapshot(see servers.json).
 	 * @param doc remote snapshot.
-	 * @param containerName container for snapshot (see intervals.json).
+	 * @param containerName container for snapshot (see moskitowc-intervals.json).
 	 */
-	public void fillRepository(SourceConfiguration source, Document doc, String containerName) {
+	public void fillRepository(StatsSource source, Document doc, String containerName) {
 		Repository.INSTANCE.addSnapshot(containerName, createSnapshot(source.getName(), doc));
 	}
 

@@ -1,26 +1,27 @@
 package net.java.dev.moskito.webcontrol.configuration;
 
-public class SourceConfiguration {
+public class StatsSource {
 
 	private String name;
 	private String url;
     private String username;
     private String password;
 
-	public SourceConfiguration(String aName, String anUrl) {
+	public StatsSource(String aName, String anUrl) {
 		name = aName;
 		url = anUrl;
 	}
 
-    public SourceConfiguration(String aName, String anUrl, String username, String password) {
+    public StatsSource(String aName, String anUrl, String username, String password) {
         this.name = aName;
 		this.url = anUrl;
         this.username = username;
         this.password = password;
     }
 
-    public String toString() {
-		return name + " = " + url;
+    @Override
+	public String toString() {
+		return "StatsSource [name=" + name + ", url=" + url + ", username=" + username + ", password=" + password + "]";
 	}
 
 	public String getName() {
@@ -39,8 +40,8 @@ public class SourceConfiguration {
         return password;
     }
 
-    public SourceConfiguration build(String appendToUrl) {
-        return new SourceConfiguration(this.getName(),
+    public StatsSource build(String appendToUrl) {
+        return new StatsSource(this.getName(),
                 this.getUrl() + appendToUrl,
                 this.getUsername(),
                 this.getPassword());
@@ -52,7 +53,7 @@ public class SourceConfiguration {
 
     @Override
 	public boolean equals(Object o) {
-		return o instanceof SourceConfiguration && name.equals(((SourceConfiguration) o).name);
+		return o instanceof StatsSource && name.equals(((StatsSource) o).name);
 	}
 	
 	@Override
@@ -60,4 +61,6 @@ public class SourceConfiguration {
 		return name.hashCode();
 	}
 
+	
+	
 }

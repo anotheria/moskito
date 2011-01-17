@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import net.anotheria.maf.action.Action;
 import net.anotheria.maf.action.ActionMapping;
 import net.java.dev.moskito.webcontrol.configuration.ConfigurationRepository;
-import net.java.dev.moskito.webcontrol.configuration.SourceConfiguration;
+import net.java.dev.moskito.webcontrol.configuration.StatsSource;
 import net.java.dev.moskito.webcontrol.configuration.ViewConfiguration;
 import net.java.dev.moskito.webcontrol.configuration.ViewField;
 import net.java.dev.moskito.webcontrol.guards.Condition;
@@ -54,7 +54,7 @@ public abstract class BaseMoskitoWebcontrolAction implements Action {
 		String containerName = ConfigurationRepository.INSTANCE.getContainerName(interval);
 
 		ViewConfiguration config = ConfigurationRepository.INSTANCE.getView(viewName);
-		List<SourceConfiguration> sources = ConfigurationRepository.INSTANCE.getSources();
+		List<StatsSource> sources = ConfigurationRepository.INSTANCE.getSources();
 		List<ViewField> fields = config.getFields();
 
 		view.addRowName(new ColumnBean(SERVER_COLUMN_NAME, SERVER_COLUMN_NAME));
@@ -62,7 +62,7 @@ public abstract class BaseMoskitoWebcontrolAction implements Action {
 			view.addRowName(new ColumnBean(field.getFieldName(), field.getAttributeName()));
 		}
 
-		for (SourceConfiguration source : sources) {
+		for (StatsSource source : sources) {
 			OrderedSourceAttributesBean attrsBean = new OrderedSourceAttributesBean(source.getName());
 			List<AttributeBean> values = new ArrayList<AttributeBean>(fields.size());
 			Snapshot snapshot = null;

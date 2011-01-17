@@ -1,5 +1,23 @@
 package net.java.dev.moskito.webcontrol.configuration;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.TreeSet;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentMap;
+import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import javax.xml.xpath.XPath;
+import javax.xml.xpath.XPathConstants;
+import javax.xml.xpath.XPathExpressionException;
+import javax.xml.xpath.XPathFactory;
+
 import net.anotheria.util.StringUtils;
 import net.java.dev.moskito.webcontrol.IOUtils;
 import net.java.dev.moskito.webcontrol.feed.FeedGetter;
@@ -8,27 +26,14 @@ import net.java.dev.moskito.webcontrol.guards.Guard;
 import net.java.dev.moskito.webcontrol.repository.ColumnType;
 import net.java.dev.moskito.webcontrol.repository.TotalFormulaType;
 import net.java.dev.moskito.webcontrol.ui.beans.PatternWithName;
+
 import org.apache.log4j.Logger;
-import org.configureme.Configuration;
 import org.configureme.ConfigurationManager;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
-
-import javax.xml.xpath.XPath;
-import javax.xml.xpath.XPathConstants;
-import javax.xml.xpath.XPathExpressionException;
-import javax.xml.xpath.XPathFactory;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.*;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.ConcurrentMap;
-import java.util.concurrent.CopyOnWriteArrayList;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public enum ConfigurationRepository {
 
@@ -38,7 +43,7 @@ public enum ConfigurationRepository {
 	INSTANCE;
 
 	private ConcurrentMap<String, ViewConfiguration> views;
-	private List<SourceConfiguration> sources;
+	private List<StatsSource> sources;
 	private List<IntervalConfiguration> intervals;
 
 	private List<ViewField> avaibleColumns;
@@ -50,9 +55,10 @@ public enum ConfigurationRepository {
 
 	private ConfigurationRepository() {
 		views = new ConcurrentHashMap<String, ViewConfiguration>();
-		sources = new CopyOnWriteArrayList<SourceConfiguration>();
+		sources = new CopyOnWriteArrayList<StatsSource>();
 		intervals = new ArrayList<IntervalConfiguration>();
 		avaibleColumns = new ArrayList<ViewField>();
+		ConfigurationManager.INSTANCE.configure(ServersConfig.INSTANCE);
 	}
 
 	/***********************************/
@@ -115,13 +121,13 @@ public enum ConfigurationRepository {
 	/***********************************/
 	/********* sources *****************/
 	/***********************************/
-	public List<SourceConfiguration> getSources() {
-		ArrayList<SourceConfiguration> ret = new ArrayList<SourceConfiguration>();
+	public List<StatsSource> getSources() {
+		ArrayList<StatsSource> ret = new ArrayList<StatsSource>();
 		ret.addAll(sources);
 		return ret;
 	}
 
-	public void addSource(SourceConfiguration toAdd) {
+	public void addSource(StatsSource toAdd) {
 		if (!sources.contains(toAdd)) {
 			sources.add(toAdd);
 		}
@@ -145,7 +151,7 @@ public enum ConfigurationRepository {
 	 */
 	public void loadViewsConfiguration() throws IOException, JSONException {
 		{
-			InputStream intervalsIS = Thread.currentThread().getContextClassLoader().getResourceAsStream("intervals.json");
+			InputStream intervalsIS = Thread.currentThread().getContextClassLoader().getResourceAsStream("moskitowc-intervals.json");
 			String content = IOUtils.getInputStreamAsString(intervalsIS);
 			JSONArray intrvls = new JSONObject(content).getJSONArray("intervals");
 			for (int i = 0; i < intrvls.length(); i++) {
@@ -154,23 +160,24 @@ public enum ConfigurationRepository {
 			}
 		}
 
-		InputStream is = Thread.currentThread().getContextClassLoader().getResourceAsStream("views.json");
+		InputStream is = Thread.currentThread().getContextClassLoader().getResourceAsStream("moskitowc-views.json");
 		String content = IOUtils.getInputStreamAsString(is);
 		JSONObject views = new JSONObject(content);
 
-		Configuration serversConfig = ConfigurationManager.INSTANCE.getConfiguration("servers");
+		ServersConfig serversConfig = ServersConfig.INSTANCE;
 
-		{
-			String appPath = serversConfig.getAttribute("app-path");
-			String baseUrl = views.getString("baseURL");
-			JSONArray listServers = new JSONArray(serversConfig.getAttribute("list-servers"));
-			for (int i = 0; i < listServers.length(); i++) {
-				String server = (String) listServers.get(i);
-				String url = new StringBuilder().append(serversConfig.getAttribute(server)).append(appPath).append(baseUrl).toString();
-                String username = serversConfig.getAttribute(server + ".username");
-                String password = serversConfig.getAttribute(server + ".password");
-				ConfigurationRepository.INSTANCE.addSource(new SourceConfiguration(server, url, username, password));
-			}
+		String producerPath = views.getString("baseURL");
+		
+		for (String host : serversConfig.getHosts()){
+			StatsSource source = new StatsSource(
+					host, 
+					serversConfig.makeURL(host, producerPath), 
+					serversConfig.getUsername(), 
+					serversConfig.getPassword());
+				
+			ConfigurationRepository.INSTANCE.addSource(source);
+			log.info("Loaded source: " + source);
+			
 		}
 
 		updateViews(views);
@@ -259,8 +266,8 @@ public enum ConfigurationRepository {
 			interval = intervals.size() > 0 ? intervals.get(0) : "default";
 		}
 
-		SourceConfiguration source = null;
-		List<SourceConfiguration> sourceList = ConfigurationRepository.INSTANCE.getSources();
+		StatsSource source = null;
+		List<StatsSource> sourceList = ConfigurationRepository.INSTANCE.getSources();
 		if (sourceList.size() > 0) {
 			source = sourceList.get(0);
 		} else {
@@ -270,7 +277,7 @@ public enum ConfigurationRepository {
 		
 		FeedGetter getter = new HttpGetter();
 //		SourceConfiguration sourceConf = new SourceConfiguration(source.getName(), source.getUrl() + "&pInterval=" + interval);
-        SourceConfiguration sourceConf = source.build("&pInterval=" + interval);
+        StatsSource sourceConf = source.build("&pInterval=" + interval);
 		Document doc = getter.retreive(sourceConf);
 		
 		InputStream is = Thread.currentThread().getContextClassLoader().getResourceAsStream("views.json");

@@ -1,7 +1,7 @@
 package net.java.dev.moskito.webcontrol;
 
 import net.java.dev.moskito.webcontrol.configuration.ConfigurationRepository;
-import net.java.dev.moskito.webcontrol.configuration.SourceConfiguration;
+import net.java.dev.moskito.webcontrol.configuration.StatsSource;
 import net.java.dev.moskito.webcontrol.configuration.ViewConfiguration;
 import net.java.dev.moskito.webcontrol.configuration.ViewField;
 import net.java.dev.moskito.webcontrol.repository.*;
@@ -57,7 +57,7 @@ public class MoskitoWebControlUIFilterTest {
 		Document doc = builder.parse(MoskitoWebControlUIFilterTest.class.getResourceAsStream("default.xml"));
 
 		ConfigurationRepository.INSTANCE.loadViewsConfiguration();
-		SourceConfiguration config = new SourceConfiguration("server1", "");
+		StatsSource config = new StatsSource("server1", "");
 		RepositoryUpdater.getInstance().fillRepository(config, doc, ConfigurationRepository.INSTANCE.getContainerName("default"));
 		
 		ViewConfiguration viewConfig = ConfigurationRepository.INSTANCE.getView("Filters");

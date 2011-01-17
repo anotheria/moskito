@@ -1,7 +1,7 @@
 package net.java.dev.moskito.webcontrol.testsupport;
 
 import net.java.dev.moskito.webcontrol.configuration.ConfigurationRepository;
-import net.java.dev.moskito.webcontrol.configuration.SourceConfiguration;
+import net.java.dev.moskito.webcontrol.configuration.StatsSource;
 import net.java.dev.moskito.webcontrol.configuration.ViewConfiguration;
 import net.java.dev.moskito.webcontrol.configuration.ViewField;
 
@@ -48,10 +48,10 @@ public class DummyFillViewConfig {
 	}
 	
 	public static void fillSourceConfig(){
-		ConfigurationRepository.INSTANCE.addSource(new SourceConfiguration("Server 1", "http://bla1.blub.de"));
-		ConfigurationRepository.INSTANCE.addSource(new SourceConfiguration("Server 2", "http://bla2.blub.de"));
-		ConfigurationRepository.INSTANCE.addSource(new SourceConfiguration("Server 3", "http://bla3.blub.de"));
-		ConfigurationRepository.INSTANCE.addSource(new SourceConfiguration("Server 4", "http://bla4.blub.de"));
+		ConfigurationRepository.INSTANCE.addSource(new StatsSource("Server 1", "http://bla1.blub.de"));
+		ConfigurationRepository.INSTANCE.addSource(new StatsSource("Server 2", "http://bla2.blub.de"));
+		ConfigurationRepository.INSTANCE.addSource(new StatsSource("Server 3", "http://bla3.blub.de"));
+		ConfigurationRepository.INSTANCE.addSource(new StatsSource("Server 4", "http://bla4.blub.de"));
 		
 	}
 }
