@@ -1,6 +1,6 @@
 {
-	hosts: "www.blackstone.com.ua",
-	appPath: "/blackstone/mui",
+	hosts: "moskito.anotheria.net",
+	appPath: "/moskitodemo/mui",
 	username: "",
 	password: "",
 }

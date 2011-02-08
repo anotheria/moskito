@@ -28,7 +28,6 @@ import net.java.dev.moskito.webcontrol.repository.TotalFormulaType;
 import net.java.dev.moskito.webcontrol.ui.beans.PatternWithName;
 
 import org.apache.log4j.Logger;
-import org.configureme.ConfigurationManager;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -58,7 +57,6 @@ public enum ConfigurationRepository {
 		sources = new CopyOnWriteArrayList<StatsSource>();
 		intervals = new ArrayList<IntervalConfiguration>();
 		avaibleColumns = new ArrayList<ViewField>();
-		ConfigurationManager.INSTANCE.configure(ServersConfig.INSTANCE);
 	}
 
 	/***********************************/

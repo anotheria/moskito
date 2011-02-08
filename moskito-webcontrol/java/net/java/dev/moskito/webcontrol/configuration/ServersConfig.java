@@ -2,6 +2,7 @@ package net.java.dev.moskito.webcontrol.configuration;
 
 import net.anotheria.util.StringUtils;
 
+import org.configureme.ConfigurationManager;
 import org.configureme.annotations.ConfigureMe;
 
 @ConfigureMe(name = "moskitowc-servers", allfields = true)
@@ -18,6 +19,10 @@ public enum ServersConfig {
 	private String password;
 	
 	private boolean https = false;
+	
+	private ServersConfig(){
+		ConfigurationManager.INSTANCE.configure(this);
+	}
 
 	public String getAppPath() {
 		return appPath;
