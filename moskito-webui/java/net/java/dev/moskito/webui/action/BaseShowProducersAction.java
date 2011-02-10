@@ -48,6 +48,7 @@ import net.anotheria.maf.bean.FormBean;
 import net.anotheria.util.sorter.StaticQuickSorter;
 import net.java.dev.moskito.core.producers.IStats;
 import net.java.dev.moskito.core.producers.IStatsProducer;
+import net.java.dev.moskito.core.stats.UnknownIntervalException;
 import net.java.dev.moskito.webui.bean.GraphDataBean;
 import net.java.dev.moskito.webui.bean.GraphDataValueBean;
 import net.java.dev.moskito.webui.bean.MetaHeaderBean;
@@ -132,20 +133,24 @@ public abstract class BaseShowProducersAction extends BaseMoskitoUIAction{
 			
 			List<ProducerBean> pbs = new ArrayList<ProducerBean>();
 			for (IStatsProducer p : decoratorMap.get(decorator)){
-				ProducerBean pb = new ProducerBean();
-				pb.setCategory(p.getCategory());
-				pb.setClassName(p.getClass().getName());
-				pb.setSubsystem(p.getSubsystem());
-				pb.setId(p.getProducerId()); 
-				IStats firstStats = p.getStats().get(0);
-				//System.out.println("Trying "+decorator+", cz: "+decorator.getClass()+", int: "+intervalName+", unit: "+currentUnit.getUnit());
-				List<StatValueBean> values = decorator.getValues(firstStats, intervalName, currentUnit.getUnit()); 
-				pb.setValues(values);
-				for (StatValueBean valueBean : values){
-					String graphKey = decorator.getName()+"_"+valueBean.getName();
-					graphData.get(graphKey).addValue(new GraphDataValueBean(p.getProducerId(), valueBean.getRawValue()));
+				try{
+					ProducerBean pb = new ProducerBean();
+					pb.setCategory(p.getCategory());
+					pb.setClassName(p.getClass().getName());
+					pb.setSubsystem(p.getSubsystem());
+					pb.setId(p.getProducerId()); 
+					IStats firstStats = p.getStats().get(0);
+					//System.out.println("Trying "+decorator+", cz: "+decorator.getClass()+", int: "+intervalName+", unit: "+currentUnit.getUnit());
+					List<StatValueBean> values = decorator.getValues(firstStats, intervalName, currentUnit.getUnit()); 
+					pb.setValues(values);
+					for (StatValueBean valueBean : values){
+						String graphKey = decorator.getName()+"_"+valueBean.getName();
+						graphData.get(graphKey).addValue(new GraphDataValueBean(p.getProducerId(), valueBean.getRawValue()));
+					}
+					pbs.add(pb);
+				}catch(UnknownIntervalException e){
+					//do nothing, apparently we have a decorator which has no interval support for THIS interval.
 				}
-				pbs.add(pb);
 			}
 			b.setProducerBeans(StaticQuickSorter.sort(pbs, getProducerBeanSortType(b, req)));
 			b.setVisibility(getProducerVisibility(b, req));
