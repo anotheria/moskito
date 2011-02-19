@@ -26,10 +26,19 @@ public class QueueStats extends AbstractStats{
 		FULL("Full"),
 		EMPTY("Empty"),
 		TOTAL_SIZE("TS"),
-		LAST_SIZE("Last"),
-		MIN_SIZE("Min"),
-		MAX_SIZE("Max"),
-		AVERAGE_SIZE("Avg");
+		ENQUEUE_LAST_SIZE("ELast"),
+		ENQUEUE_MIN_SIZE("EMin"),
+		ENQUEUE_MAX_SIZE("EMax"),
+		ENQUEUE_AVERAGE_SIZE("EAvg");
+		//TODO: TBD
+//		DEQUEUE_LAST_SIZE("ELast"),
+//		DEQUEUE_MIN_SIZE("EMin"),
+//		DEQUEUE_MAX_SIZE("EMax"),
+//		DEQUEUE_AVERAGE_SIZE("EAvg"),
+//		LAST_SIZE("ELast"),
+//		MIN_SIZE("EMin"),
+//		MAX_SIZE("EMax"),
+//		AVERAGE_SIZE("EAvg");
 
 		private String statName;
 
@@ -108,6 +117,7 @@ public class QueueStats extends AbstractStats{
 		maxSize = StatValueFactory.createStatValue(longPattern, "maxSize", selectedIntervals);
 		maxSize.setDefaultValueAsLong(MAX_TIME_DEFAULT);
 		maxSize.reset();
+		
 	}
 	
 	public String getName(){
@@ -201,10 +211,10 @@ public class QueueStats extends AbstractStats{
 		b.append(StatDef.EMPTY.getStatLabel()).append(getEmpty(intervalName));
 		b.append(StatDef.DEQUEUED.getStatLabel()).append(getDequeued(intervalName));
 		b.append(StatDef.TOTAL_SIZE.getStatLabel()).append(getTotalSize(intervalName));
-		b.append(StatDef.LAST_SIZE.getStatLabel()).append(getOnRequestLastSize(intervalName));
-		b.append(StatDef.MIN_SIZE.getStatLabel()).append(getOnRequestMinSize(intervalName));
-		b.append(StatDef.MAX_SIZE.getStatLabel()).append(getOnRequestMaxSize(intervalName));
-		b.append(StatDef.AVERAGE_SIZE.getStatLabel()).append(getOnRequestAverageSize(intervalName));
+		b.append(StatDef.ENQUEUE_LAST_SIZE.getStatLabel()).append(getOnRequestLastSize(intervalName));
+		b.append(StatDef.ENQUEUE_MIN_SIZE.getStatLabel()).append(getOnRequestMinSize(intervalName));
+		b.append(StatDef.ENQUEUE_MAX_SIZE.getStatLabel()).append(getOnRequestMaxSize(intervalName));
+		b.append(StatDef.ENQUEUE_AVERAGE_SIZE.getStatLabel()).append(getOnRequestAverageSize(intervalName));
 
 		return b.toString();
 	}
@@ -232,16 +242,16 @@ public class QueueStats extends AbstractStats{
 		if (valueName.equalsIgnoreCase(StatDef.TOTAL_SIZE.getStatName()))
 			return ""+getTotalSize(intervalName);
 		
-		if (valueName.equalsIgnoreCase(StatDef.LAST_SIZE.getStatName()))
+		if (valueName.equalsIgnoreCase(StatDef.ENQUEUE_LAST_SIZE.getStatName()))
 			return ""+getOnRequestLastSize(intervalName);
 		
-		if (valueName.equalsIgnoreCase(StatDef.MIN_SIZE.getStatName()))
+		if (valueName.equalsIgnoreCase(StatDef.ENQUEUE_MIN_SIZE.getStatName()))
 			return ""+getOnRequestMinSize(intervalName);
 		
-		if (valueName.equalsIgnoreCase(StatDef.MAX_SIZE.getStatName()))
+		if (valueName.equalsIgnoreCase(StatDef.ENQUEUE_MAX_SIZE.getStatName()))
 			return ""+getOnRequestMaxSize(intervalName);
 		
-		if (valueName.equals(StatDef.AVERAGE_SIZE.getStatName()))
+		if (valueName.equals(StatDef.ENQUEUE_AVERAGE_SIZE.getStatName()))
 			return ""+getOnRequestAverageSize(intervalName);
 
 		return super.getValueByNameAsString(valueName, intervalName, timeUnit);

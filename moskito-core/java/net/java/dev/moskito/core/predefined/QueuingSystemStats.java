@@ -22,7 +22,7 @@ public class QueuingSystemStats extends AbstractStats{
 		SERVICED("Serv"),
 		ERRORS("Err"),
 		WAITED("Wait"),
-		THROWED_AWAY("Thr"),
+		THROWN_AWAY("Thr"),
 		WAITING_TIME("WT"),
 		WAITING_TIME_MIN("WTm"),
 		WAITING_TIME_MAX("WTM"),
@@ -196,8 +196,8 @@ public class QueuingSystemStats extends AbstractStats{
 	}
 	
 	public long getWaitingTimeAverage(String intervalName){
-		long waitedLong = waited.getValueAsLong(intervalName);
-		return waitedLong > 0? waitingTime.getValueAsLong(intervalName) / waitedLong: -1;
+		long waitedVal = waited.getValueAsLong(intervalName);
+		return waitedVal > 0? waitingTime.getValueAsLong(intervalName) / waitedVal: Constants.AVERAGE_TIME_DEFAULT;
 	}
 	
 	public void addServicingTime(long time){
@@ -219,8 +219,8 @@ public class QueuingSystemStats extends AbstractStats{
 	}
 	
 	public long getServicingTimeAverage(String intervalName){
-		long servicedLong = serviced.getValueAsLong(intervalName);
-		return servicedLong > 0? servicingTime.getValueAsLong(intervalName) / servicedLong: -1;
+		long servicedVal = serviced.getValueAsLong(intervalName);
+		return servicedVal > 0? servicingTime.getValueAsLong(intervalName) / servicedVal: Constants.AVERAGE_TIME_DEFAULT;
 	}
 	
 	public String getName(){
@@ -232,6 +232,27 @@ public class QueuingSystemStats extends AbstractStats{
 		return StatDef.getStatNames();
 	}
 
+	private String transformMinTimeNanos(long minTime, TimeUnit timeUnit){
+		if (minTime == Constants.MIN_TIME_DEFAULT)
+			return "NoR";
+			
+		return "" + timeUnit.transformNanos(minTime);
+	}
+	
+	private String transformMaxTimeNanos(long maxTime, TimeUnit timeUnit){
+		if (maxTime == Constants.MAX_TIME_DEFAULT)
+			return "NoR";
+			
+		return "" + timeUnit.transformNanos(maxTime);
+	}
+	
+	private String transformAveraeTimeNanos(long maxTime, TimeUnit timeUnit){
+		if (maxTime == Constants.AVERAGE_TIME_DEFAULT)
+			return "NoR";
+			
+		return "" + timeUnit.transformNanos(maxTime);
+	}
+	
 	@Override public String toStatsString(String intervalName, TimeUnit timeUnit) {
 		StringBuilder b = new StringBuilder();
 		b.append(getName()).append(' ');
@@ -242,15 +263,15 @@ public class QueuingSystemStats extends AbstractStats{
 		b.append(StatDef.SERVICED.getStatLabel()).append(getServiced(intervalName));
 		b.append(StatDef.ERRORS.getStatLabel()).append(getErrors(intervalName));
 		b.append(StatDef.WAITED.getStatLabel()).append(getWaited(intervalName));
-		b.append(StatDef.THROWED_AWAY.getStatLabel()).append(getThrowedAway(intervalName));
-		b.append(StatDef.WAITING_TIME.getStatLabel()).append(getWaitingTime(intervalName));
-		b.append(StatDef.WAITING_TIME_MIN.getStatLabel()).append(getWaitingTimeMin(intervalName));
-		b.append(StatDef.WAITING_TIME_MAX.getStatLabel()).append(getWaitingTimeMax(intervalName));
-		b.append(StatDef.WAITING_TIME_AVG.getStatLabel()).append(getWaitingTimeAverage(intervalName));
-		b.append(StatDef.SERVICE_TIME.getStatLabel()).append(getServicingTime(intervalName));
-		b.append(StatDef.SERVICE_TIME_MIN.getStatLabel()).append(getServicingTimeMin(intervalName));
-		b.append(StatDef.SERVICE_TIME_MAX.getStatLabel()).append(getServicingTimeMax(intervalName));
-		b.append(StatDef.SERVICE_TIME_AVG.getStatLabel()).append(getServicingTimeAverage(intervalName));
+		b.append(StatDef.THROWN_AWAY.getStatLabel()).append(getThrowedAway(intervalName));
+		b.append(StatDef.WAITING_TIME.getStatLabel()).append(timeUnit.transformNanos(getWaitingTime(intervalName)));
+		b.append(StatDef.WAITING_TIME_MIN.getStatLabel()).append(transformMinTimeNanos(getWaitingTimeMin(intervalName), timeUnit));
+		b.append(StatDef.WAITING_TIME_MAX.getStatLabel()).append(transformMaxTimeNanos(getWaitingTimeMax(intervalName),timeUnit));
+		b.append(StatDef.WAITING_TIME_AVG.getStatLabel()).append(transformAveraeTimeNanos(getWaitingTimeAverage(intervalName), timeUnit));
+		b.append(StatDef.SERVICE_TIME.getStatLabel()).append(timeUnit.transformNanos(getServicingTime(intervalName)));
+		b.append(StatDef.SERVICE_TIME_MIN.getStatLabel()).append(transformMinTimeNanos(getServicingTimeMin(intervalName), timeUnit));
+		b.append(StatDef.SERVICE_TIME_MAX.getStatLabel()).append(transformMaxTimeNanos(getServicingTimeMax(intervalName),timeUnit));
+		b.append(StatDef.SERVICE_TIME_AVG.getStatLabel()).append(transformAveraeTimeNanos(getServicingTimeAverage(intervalName), timeUnit));
 
 		return b.toString();
 	}
@@ -278,32 +299,32 @@ public class QueuingSystemStats extends AbstractStats{
 		if (valueName.equals(StatDef.WAITED.getStatName()))
 			return ""+getWaited(intervalName);
 		
-		if (valueName.equals(StatDef.THROWED_AWAY.getStatName()))
+		if (valueName.equals(StatDef.THROWN_AWAY.getStatName()))
 			return ""+getThrowedAway(intervalName);
 		
 		if (valueName.equals(StatDef.WAITING_TIME.getStatName()))
-			return ""+getWaitingTime(intervalName);
+			return ""+timeUnit.transformNanos(getWaitingTime(intervalName));
 		
 		if (valueName.equals(StatDef.WAITING_TIME_MIN.getStatName()))
-			return ""+getWaitingTimeMin(intervalName);
+			return transformMinTimeNanos(getWaitingTimeMin(intervalName), timeUnit);
 		
 		if (valueName.equals(StatDef.WAITING_TIME_MAX.getStatName()))
-			return ""+getWaitingTimeMax(intervalName);
+			return transformMaxTimeNanos(getWaitingTimeMax(intervalName), timeUnit);
 		
 		if (valueName.equals(StatDef.WAITING_TIME_AVG.getStatName()))
-			return ""+getWaitingTimeAverage(intervalName);
+			return transformAveraeTimeNanos(getWaitingTimeAverage(intervalName), timeUnit);
 		
 		if (valueName.equals(StatDef.SERVICE_TIME.getStatName()))
-			return ""+getServicingTime(intervalName);
+			return ""+timeUnit.transformNanos(getServicingTime(intervalName));
 		
 		if (valueName.equals(StatDef.SERVICE_TIME_MIN.getStatName()))
-			return ""+getServicingTimeMin(intervalName);
+			return transformMinTimeNanos(getServicingTimeMin(intervalName), timeUnit);
 		
 		if (valueName.equals(StatDef.SERVICE_TIME_MAX.getStatName()))
-			return ""+getServicingTimeMax(intervalName);
+			return transformMaxTimeNanos(getServicingTimeMax(intervalName), timeUnit);
 		
 		if (valueName.equals(StatDef.SERVICE_TIME_AVG.getStatName()))
-			return ""+getServicingTimeAverage(intervalName);
+			return transformAveraeTimeNanos(getServicingTimeAverage(intervalName), timeUnit);
 		
 		return super.getValueByNameAsString(valueName, intervalName, timeUnit);
 	}

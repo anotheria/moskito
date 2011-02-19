@@ -66,6 +66,11 @@ public class Constants {
 	 */
 	public static final long MAX_TIME_DEFAULT = Long.MIN_VALUE;
 	
+	/**
+	 * Average time value.
+	 */
+	public static final long AVERAGE_TIME_DEFAULT = -1;
+	
 	public static final Interval[] getDefaultIntervals(){
 		return DEFAULT_INTERVALS.clone();
 	}
