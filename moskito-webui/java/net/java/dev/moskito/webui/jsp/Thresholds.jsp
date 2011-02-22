@@ -34,9 +34,9 @@
 				"valueName": "<ano:write name="info" property="valueName"/>",
 				"intervalName": "<ano:write name="info" property="intervalName"/>",
 				"descriptionString": "<ano:write name="info" property="descriptionString"/>",
-				"guards": [<ano:iterate name="info" property="guards" id="guard" type="java.lang.String">"<ano:write name="guard"/>",</msk:iterate>]
+				"guards": [<ano:iterate name="info" property="guards" id="guard" type="java.lang.String">"<ano:write name="guard"/>",</ano:iterate>]
 			};
-		</msk:iterate>
+		</ano:iterate>
 		</script>
 		<script type="text/javascript">
 			function openOverlay(selectedInfo){
@@ -117,17 +117,17 @@
 									<ano:write name="useCase" property="date"/>
 								  </td>
 							</tr>
-						</msk:iterate>--%>
+						</ano:iterate>--%>
 						<ano:iterate name="thresholds" type="net.java.dev.moskito.webui.bean.ThresholdBean" id="threshold" indexId="index">
 							<tr class="<%= ((index & 1) == 0 )? "even" : "odd" %>">
 								<td><a href="#" onclick="openOverlay(info<ano:write name="threshold" property="id"/>); return false"><ano:write name="threshold" property="name"/></a></td>
-								<td><img src="<ano:write name="mskPathToImages" scope="application"/>ind_<ano:write name="threshold" property="colorCode"/>.<ano:equal name="threshold" property="colorCode" value="purple">gif</msk:equal><ano:notEqual name="threshold" property="colorCode" value="purple">png</msk:notEqual>" alt="<ano:write name="threshold" property="status"/>"/></td>
+								<td><img src="<ano:write name="mskPathToImages" scope="application"/>ind_<ano:write name="threshold" property="colorCode"/>.<ano:equal name="threshold" property="colorCode" value="purple">gif</ano:equal><ano:notEqual name="threshold" property="colorCode" value="purple">png</ano:notEqual>" alt="<ano:write name="threshold" property="status"/>"/></td>
 								<td><ano:write name="threshold" property="value"/></td>
 								<td><ano:write name="threshold" property="change"/></td>
 								<td><ano:write name="threshold" property="timestamp"/></td>
 								<td><ano:write name="threshold" property="description"/></td>
 							</tr>
-						</msk:iterate>
+						</ano:iterate>
 						</tbody>
 					</table>
 						</div>
@@ -193,7 +193,7 @@
 									<ano:write name="alert" property="newValue"/>
 								</td>
 							</tr>
-						</msk:iterate>
+						</ano:iterate>
 						</tbody>
 					</table>
 					<div class="clear"><!-- --></div>
