@@ -3,23 +3,7 @@ package net.java.dev.moskito.webui;
 import net.anotheria.maf.action.ActionForward;
 import net.anotheria.maf.action.ActionMappings;
 import net.anotheria.maf.action.ActionMappingsConfigurator;
-import net.java.dev.moskito.webui.action.CssAction;
-import net.java.dev.moskito.webui.action.ForceIntervalUpdateAction;
-import net.java.dev.moskito.webui.action.GetChartDataAction;
-import net.java.dev.moskito.webui.action.GetChartMetaDataAction;
-import net.java.dev.moskito.webui.action.InspectProducerAction;
-import net.java.dev.moskito.webui.action.ShowAllProducersAction;
-import net.java.dev.moskito.webui.action.ShowChartsAction;
-import net.java.dev.moskito.webui.action.ShowExplanationsAction;
-import net.java.dev.moskito.webui.action.ShowMonitoringSessionAction;
-import net.java.dev.moskito.webui.action.ShowMonitoringSessionCallAction;
-import net.java.dev.moskito.webui.action.ShowMonitoringSessionsAction;
-import net.java.dev.moskito.webui.action.ShowProducerAction;
-import net.java.dev.moskito.webui.action.ShowProducersForCategoryAction;
-import net.java.dev.moskito.webui.action.ShowProducersForSubsystemAction;
-import net.java.dev.moskito.webui.action.ShowRecordedUseCaseAction;
-import net.java.dev.moskito.webui.action.ShowThresholdsAction;
-import net.java.dev.moskito.webui.action.ShowUseCasesAction;
+import net.java.dev.moskito.webui.action.*;
 
 /**
  * Mappings configurator for MoSKito project for the AnoMaf framework.
@@ -31,13 +15,24 @@ public class MoskitoMappingsConfigurator implements ActionMappingsConfigurator{
 	@Override public void configureActionMappings(){
 		ActionMappings.addMapping("mskCSS", CssAction.class, new ActionForward("css", "/net/java/dev/moskito/webui/jsp/CSS.jsp"));
 
-		ActionMappings.addMapping("mskShowAllProducers", ShowAllProducersAction.class, 
+		ActionMappings.addMapping("mskDashBoard", ShowDashboardAction.class,
+				new ActionForward("html", "/net/java/dev/moskito/webui/jsp/Dashboard.jsp"),
+				new ActionForward("xml", "/net/java/dev/moskito/webui/jsp/ProducersXML.jsp"),
+				new ActionForward("csv", "/net/java/dev/moskito/webui/jsp/ProducersCSV.jsp"),
+				new ActionForward("json", "/net/java/dev/moskito/webui/jsp/ProducersJSON.jsp")
+		);
+
+		ActionMappings.addAlias("mskDashBoard.csv", "mskDashBoard");
+		ActionMappings.addAlias("mskDashBoard.xml", "mskDashBoard");
+		ActionMappings.addAlias("mskDashBoard.json", "mskDashBoard");
+
+		ActionMappings.addMapping("mskShowAllProducers", ShowAllProducersAction.class,
 				new ActionForward("html", "/net/java/dev/moskito/webui/jsp/Producers.jsp"),
 				new ActionForward("xml", "/net/java/dev/moskito/webui/jsp/ProducersXML.jsp"),
 				new ActionForward("csv", "/net/java/dev/moskito/webui/jsp/ProducersCSV.jsp"),
 				new ActionForward("json", "/net/java/dev/moskito/webui/jsp/ProducersJSON.jsp")
 		);
-		 
+
 		ActionMappings.addAlias("mskShowAllProducers.csv", "mskShowAllProducers");
 		ActionMappings.addAlias("mskShowAllProducers.xml", "mskShowAllProducers");
 		ActionMappings.addAlias("mskShowAllProducers.json", "mskShowAllProducers");

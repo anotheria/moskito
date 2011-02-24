@@ -1,6 +1,6 @@
-<%@ page language="java" contentType="text/css;charset=UTF-8" session="false"
-%><%@ taglib uri="http://www.anotheria.net/ano-tags" prefix="ano"
-%>
+<%@ page language="java" contentType="text/css;charset=UTF-8" session="false"%>
+<%@ taglib uri="http://www.anotheria.net/ano-tags" prefix="ano"%>
+
 * {margin:0; padding:0; font-family:Arial, Helvetica, sans-serif; outline:none; color:black;}
 img {border:0;}
 body {background:white; font-size: 62.5%;}
@@ -24,7 +24,7 @@ a:hover {text-decoration:none; color:#55cc00; cursor:pointer;}
 .top ul li .sub_menu {position:absolute; top:50px; height:30px; overflow:hidden; background:url(<ano:write name="mskPathToImages" scope="application"/>bgs.gif) 0 -533px no-repeat; left:150px; display:none;}
 .top ul li .over_color {display:none; }
 .top ul li.active .over_color {display:block;} 
-.top ul li .sub_menu ul {margin:0; margin-left:5px; white-space:nowrap; padding-right:5px; background:url(<ano:write name="mskPathToImages" scope="application"/>bgs.gif) 100% -602px no-repeat; height:30px;}
+.top ul li .sub_menu ul {margin:0; margin-left:5px; white-space:nowrap; padding-right:5px; background:url(<ano:write name="mskPathTo§Images" scope="application"/>bgs.gif) 100% -602px no-repeat; height:30px;}
 .top ul li .sub_menu ul li {display:block; float:left; list-style-type:none; padding:7px 11px 4px 11px; background:url(<ano:write name="mskPathToImages" scope="application"/>bgs.gif) 0 -669px repeat-x; //padding:5px 11px 4px 11px; height:19px;}
 .top ul li .sub_menu ul li.separator {border-right:1px solid #bebebe;}
 .top ul li .sub_menu ul li a {padding:0; height:auto; white-space:nowrap; color:#005fc1; cursor:pointer; background:none;}
@@ -193,3 +193,85 @@ h2 a.hidden {background:url("<ano:write name="mskPathToImages" scope="applicatio
 .thresholdOverlay table tr.even {background:white;}
 .scroll {overflow-y:scroll; overflow-x:hidden; max-height:200px; clear:both; max-width:600px;}
 .scroller_x {width:100%; overflow-x:scroll;}
+
+
+/* -- Dashboard css -- */
+.login_block {width:230px; margin:0 auto 10px auto;}
+.login_block .in {padding:0 5px; overflow:hidden;}
+.login_block label {font-size:12px; display:block; margin-bottom:3px;}
+.login_block input {width:200px; margin-bottom:8px; font-size:12px;}
+.login_block .login_btn {width:auto; display:block; float:right; clear:both; margin:0; padding:0 5px;}
+.login_block h2 {margin:2px; font-size:15px;}
+.edit {float:right; margin:-2px 12px 0 0; font-size:12px; padding-left:15px; background:url("<ano:write name="mskPathToImages" scope="application"/>edit.png") 0 1px no-repeat; font-size:12px; line-height:14px;}
+.edit.dash {float:left; margin:4px 12px 0 6px; font-size:12px; background-position:0 1px;}
+.widgets_left, .widgets_right {float:left; width:49.49%; min-height:200px;}
+.widgets_left .help, .widgets_right .help {padding-left:15px; background:url("<ano:write name="mskPathToImages" scope="application"/>close.png") 0 1px no-repeat; font-size:12px; line-height:14px;;}
+.widgets_left {margin-right:1%;}
+.dashes {float:left;display:block; font-size:13px; min-width:150px; margin-bottom:10px;}
+.dashes option {padding:0 7px; font-size:12px;}
+.dashes .create {background:url("<ano:write name="mskPathToImages" scope="application"/>add.png") 7px 3px no-repeat; padding:0 0 0 22px;}
+.create_wdgt {float:left; font-size:12px; padding:0 5px;}
+.ui-sortable-placeholder {border:1px dashed #99CCCC; visibility:visible !important; border-radius:5px; -moz-border-radius:5px; -webkit-border-radius:5px;}
+.draggable .table_layout {cursor:move;}
+.draggable .table_itseft {cursor:default;}
+.draggable .scroller_x {width:100%; overflow-x:scroll; margin-bottom:10px;}
+.draggable .table_itseft .in {overflow:hidden;}
+.draggable .table_itseft .in th {color:#4d4d4d;}
+.draggable h3 {margin-left:5px; font-size:14px; }
+
+.edit_dash_form {line-height:normal;}
+.edit_dash_form h2, .create_widget_form h2 {margin-bottom:10px;}
+.edit_dash_form label {font-size:12px; display:block; margin-bottom:3px;}
+.edit_dash_form input {width:180px; margin-bottom:10px; font-size:12px;}
+.edit_dash_form .flr input, .edit_dash_form .flr span, .edit_dash_form .flr a {font-size:12px;}
+.edit_dash_form .flr input {width:auto; padding:0 5px; margin:0;}
+
+.create_widget_form {font-size:1em; line-height:normal;}
+.create_widget_form #name {font-size:12px;}
+.create_widget_form .flr input {font-size:12px;}
+.t_table {margin-bottom:10px;}
+.t_table_prod_group {margin-right:-1px; position:relative; z-index:2;}
+.t_table_prod_group h3, .right_part h3 {padding-left:5px; margin-top:5px; margin-bottom:7px;}
+.right_part h3 {padding:0; margin-bottom:7px;}
+.right_part li {display:block; margin-bottom:5px;}
+.right_part li input {margin-right:5px; position:relative; top:-1px;}
+.t_table_prod_group, .t_table_val, .t_table_prod {float:left;}
+.t_table_prod_group li, .t_table_val li, .t_table_prod li {list-style-type:none;}
+.t_table_prod_group .uncheck {display:none; position:relative; top:1px;}
+.t_table_prod_group .checked .uncheck {display:inline;}
+.t_table_prod_group li {padding:6px 11px 0 22px; position:relative; height:19px;}
+.t_table_prod_group li.checked {padding:6px 11px 0 5px;}
+.t_table_prod {padding-left:30px;}
+
+.t_table_prod_group li.checked.active {padding:5px 11px 0 4px;}
+.top_l, .bot_l, .top_r, .bot_r {width:5px; height:5px; position:absolute; background:url("<ano:write name="mskPathToImages" scope="application"/>widget_bg.gif") 0 0 no-repeat; top:-1px; left:-1px; display:none;}
+.bot_l {background-position:0 -15px; top:19px;}
+.top_r {left:100%; display:block; background-position:0 -45px; margin-left:-4px;}
+.bot_r {left:100%; top:100%;display:block; background-position:0 -30px; margin-left:-4px; margin-top:-4px;}
+.right_part {border:1px solid #99CCCC; float:left; position:relative; padding:0 20px 0 10px;}
+.t_table_prod_group li.active {background:white; border:1px solid #99CCCC; border-width:1px 0 1px 1px; height:18px; padding:5px 11px 0 21px;}
+.t_table_prod_group li.active .top_l, .t_table_prod_group li.active .bot_l {display:block;} 
+.widget_type {margin:10px 0;}
+.widget_type input, .widget_type label {float:left;}
+.widget_type label {margin:0 15px 0 5px;}
+.mr_5 {margin-right:5px !important;}
+
+.t_pie_bar {border-collapse:collapse;}
+.t_pie_bar td {padding:3px 0 0 0; border:1px solid #99CCCC; vertical-align:top;}
+.t_pie_bar td h3 {margin:3px 0 7px 0; padding:0 10px;}
+.t_pie_bar td li {list-style-type:none; display:block; margin-bottom:5px;}
+.t_pie_bar td li a {display:block; padding:3px 10px;}
+.t_pie_bar td li.active {background:#e1eefa; border:solid #99cccc; border-width:1px 0; }
+.t_pie_bar td li.active a {padding:2px 10px;}
+.t_pie_bar td li input {margin-right:5px; position:relative; top:-1px;}
+.t_pie_bar .t_pie_bar_prod {padding:3px 10px 0 10px; min-width:220px;}
+.t_pie_bar td.t_pie_bar_prod h3 {padding:0;}
+.widget_type select {font-size:12px;}
+.create_widget_chart_timeline_inner select {position:relative; top:-2px; margin-right:15px; max-width:150px;}
+.create_widget_chart_timeline_inner.chart_overlay .fll {margin:0;}
+.create_widget_chart_timeline_inner #stats_sel {max-width:120px;}
+.create_widget_chart_timeline_inner .add {position:relative; top:-2px;}
+.create_widget_chart_timeline_inner .table_itseft td, .create_widget_chart_timeline_inner .table_itseft th {font-size:1em !important;}
+.thresholds_list li {list-style-type:none; display:block; margin-bottom:5px;}
+.thresholds_list li input {margin-right:5px;}
+.create_widget_threshold_inner h3 {margin-bottom:7px;}

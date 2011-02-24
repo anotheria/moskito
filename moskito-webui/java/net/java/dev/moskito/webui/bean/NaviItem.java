@@ -5,9 +5,14 @@ import java.util.List;
 
 /**
  * Items in the navigation.
+ *
  * @author lrosenberg.
  */
 public enum NaviItem {
+	/**
+	 * Dashboard menu item.
+	 */
+	DASHBOARD("Dashboard"),
 	/**
 	 * Producers menu item.
 	 */
@@ -37,6 +42,7 @@ public enum NaviItem {
 	private static ArrayList<NaviItem> menu;
 	static{
 		menu = new ArrayList<NaviItem>();
+		menu.add(DASHBOARD);
 		menu.add(PRODUCERS);
 		menu.add(THRESHOLDS);
 		menu.add(SESSIONS);

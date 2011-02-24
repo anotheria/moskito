@@ -1,13 +1,18 @@
-<%@ page language="java" contentType="text/html;charset=UTF-8" session="true"
-%><%@ taglib uri="http://www.anotheria.net/ano-tags" prefix="ano"
-%><div class="main_menu">
+<%@ page language="java" contentType="text/html;charset=UTF-8" session="true"%>
+<%@ taglib uri="http://www.anotheria.net/ano-tags" prefix="ano"%>
+<%@ page isELIgnored="false" %>
+
+<div class="main_menu">
 	<div class="white_pl">
 		<div class="top">
 			<div class="left_bg"><!-- --></div>
 				<a href="mskShowAllProducers" class="logo"><img alt="MoSKito WebUI" src="<ano:write name="mskPathToImages" scope="application"/>moskito_webui_logo.gif" width="131" height="25"/></a>
 				<ul>
-					<ano:equal name="currentNaviItem" value="PRODUCERS"
-					><li class="active"><a href="mskShowAllProducers">Producers</a>					
+                    <li <ano:equal name="currentNaviItem" value="DASHBOARD">class="active"</ano:equal>>
+                        <a href="mskDashBoard">Dashboard (Alpha)</a>
+                    </li>
+					<ano:equal name="currentNaviItem" value="PRODUCERS">
+                        <li class="active"><a href="mskShowAllProducers">Producers</a>
 						<div class="sub_menu">
 							<ul>
 								<ano:present name="intervals" scope="request">

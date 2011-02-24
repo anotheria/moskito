@@ -34,9 +34,7 @@
  */	
 package net.java.dev.moskito.webui.action;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -47,19 +45,21 @@ import net.anotheria.util.NumberUtils;
 import net.anotheria.util.sorter.DummySortType;
 import net.anotheria.util.sorter.SortType;
 import net.anotheria.util.sorter.StaticQuickSorter;
+import net.java.dev.moskito.core.producers.IStats;
+import net.java.dev.moskito.core.producers.IStatsProducer;
 import net.java.dev.moskito.core.registry.IProducerRegistryAPI;
 import net.java.dev.moskito.core.registry.IntervalInfo;
 import net.java.dev.moskito.core.registry.ProducerRegistryAPIFactory;
 import net.java.dev.moskito.core.stats.TimeUnit;
+import net.java.dev.moskito.core.stats.UnknownIntervalException;
 import net.java.dev.moskito.core.stats.impl.IntervalRegistry;
 import net.java.dev.moskito.core.treshold.ThresholdRepository;
 import net.java.dev.moskito.core.treshold.ThresholdStatus;
 import net.java.dev.moskito.core.usecase.recorder.IUseCaseRecorder;
 import net.java.dev.moskito.core.usecase.recorder.UseCaseRecorderFactory;
-import net.java.dev.moskito.webui.bean.IntervalBean;
-import net.java.dev.moskito.webui.bean.NaviItem;
-import net.java.dev.moskito.webui.bean.UnitBean;
+import net.java.dev.moskito.webui.bean.*;
 import net.java.dev.moskito.webui.decorators.DecoratorRegistryFactory;
+import net.java.dev.moskito.webui.decorators.IDecorator;
 import net.java.dev.moskito.webui.decorators.IDecoratorRegistry;
 
 /**
@@ -284,8 +284,126 @@ public abstract class BaseMoskitoUIAction implements Action{
 			req.getSession().setAttribute(BEAN_UNIT, ret);
 		return ret;
 	}
-	
-	
+
+	//todo make separate method for graphData in future
+	protected List<ProducerDecoratorBean> getDecoratedProducers(HttpServletRequest req, List<IStatsProducer> producers, Map<String, GraphDataBean> graphData){
+
+		Map<IDecorator, List<IStatsProducer>> decoratorMap = new HashMap<IDecorator,List<IStatsProducer>>();
+		Map<IDecorator, List<MetaHeaderBean>> metaheaderMap = new HashMap<IDecorator, List<MetaHeaderBean>>();
+
+		String intervalName = getCurrentInterval(req);
+		UnitBean currentUnit = getCurrentUnit(req);
+
+		for (IStatsProducer producer : producers){
+			try{
+				IStats stats = producer.getStats().get(0);
+				IDecorator decorator = getDecoratorRegistry().getDecorator(stats);
+				if (!decoratorMap.containsKey(decorator)){
+					decoratorMap.put(decorator, new ArrayList<IStatsProducer>());
+
+					List<MetaHeaderBean> metaheader = new ArrayList<MetaHeaderBean>();
+					for(StatValueBean statBean:decorator.getValues(stats, intervalName, currentUnit.getUnit())){
+						MetaHeaderBean bean = new MetaHeaderBean(statBean.getName(), statBean.getType());
+						metaheader.add(bean);
+
+						String graphKey = decorator.getName()+"_"+statBean.getName();
+						GraphDataBean graphDataBean = new GraphDataBean(decorator.getName()+"_"+statBean.getJsVariableName(), statBean.getName());
+						graphData.put(graphKey, graphDataBean);
+					}
+					metaheaderMap.put(decorator, metaheader);
+				}
+				decoratorMap.get(decorator).add(producer);
+			}catch(ArrayIndexOutOfBoundsException e){
+				//producer has no stats at all, ignoring
+			}
+		}
+
+
+		List<ProducerDecoratorBean> beans = new ArrayList<ProducerDecoratorBean>();
+
+		for (IDecorator decorator : decoratorMap.keySet()){
+			ProducerDecoratorBean b = new ProducerDecoratorBean();
+			b.setName(decorator.getName());
+			b.setCaptions(decorator.getCaptions());
+
+			b.setMetaHeader(metaheaderMap.get(decorator));
+
+			List<ProducerBean> pbs = new ArrayList<ProducerBean>();
+			for (IStatsProducer p : decoratorMap.get(decorator)){
+				try {
+					ProducerBean pb = new ProducerBean();
+					pb.setCategory(p.getCategory());
+					pb.setClassName(p.getClass().getName());
+					pb.setSubsystem(p.getSubsystem());
+					pb.setId(p.getProducerId());
+					IStats firstStats = p.getStats().get(0);
+					//System.out.println("Trying "+decorator+", cz: "+decorator.getClass()+", int: "+intervalName+", unit: "+currentUnit.getUnit());
+					List<StatValueBean> values = decorator.getValues(firstStats, intervalName, currentUnit.getUnit());
+					pb.setValues(values);
+					for (StatValueBean valueBean : values){
+						String graphKey = decorator.getName()+"_"+valueBean.getName();
+						graphData.get(graphKey).addValue(new GraphDataValueBean(p.getProducerId(), valueBean.getRawValue()));
+					}
+					pbs.add(pb);
+				}catch(UnknownIntervalException e){
+					//do nothing, apparently we have a decorator which has no interval support for THIS interval.
+				}
+			}
+			b.setProducerBeans(StaticQuickSorter.sort(pbs, getProducerBeanSortType(b, req)));
+			b.setVisibility(getProducerVisibility(b, req));
+			beans.add(b);
+		}
+
+		return beans;
+	}
+
+	private ProducerBeanSortType getProducerBeanSortType(ProducerDecoratorBean decoratorBean, HttpServletRequest req){
+		ProducerBeanSortType sortType;
+		String paramSortBy = req.getParameter(decoratorBean.getSortByParameterName());
+		if (paramSortBy!=null && paramSortBy.length()>0){
+			try{
+				int sortBy = Integer.parseInt(paramSortBy);
+				String paramSortOrder = req.getParameter(decoratorBean.getSortOrderParameterName());
+				boolean sortOrder = paramSortOrder!=null && paramSortOrder.equals("ASC") ?
+						ProducerBeanSortType.ASC : ProducerBeanSortType.DESC;
+				sortType = new ProducerBeanSortType(sortBy, sortOrder);
+				req.getSession().setAttribute(decoratorBean.getSortTypeName(), sortType);
+				return sortType;
+			}catch(NumberFormatException skip){}
+		}
+		sortType = (ProducerBeanSortType)req.getSession().getAttribute(decoratorBean.getSortTypeName());
+		if (sortType==null){
+			sortType = new ProducerBeanSortType();
+			req.getSession().setAttribute(decoratorBean.getSortTypeName(), sortType);
+		}
+		return sortType;
+	}
+
+	private ProducerVisibility getProducerVisibility(ProducerDecoratorBean decoratorBean, HttpServletRequest req){
+
+		ProducerVisibility visibility;
+
+		String paramVisibility = req.getParameter(decoratorBean.getProducerVisibilityParameterName());
+
+		if (paramVisibility != null && paramVisibility.length() > 0){
+
+			visibility = ProducerVisibility.fromString(paramVisibility);
+			req.getSession().setAttribute(decoratorBean.getProducerVisibilityBeanName(), visibility);
+
+			return visibility;
+		}
+
+		visibility = (ProducerVisibility)req.getSession().getAttribute(decoratorBean.getProducerVisibilityBeanName());
+
+		if (visibility == null) {
+
+			visibility = ProducerVisibility.SHOW;
+			req.getSession().setAttribute(decoratorBean.getProducerVisibilityBeanName(), visibility);
+		}
+
+		return visibility;
+	}
+
 	@Override
 	public void preProcess(ActionMapping mapping, HttpServletRequest req, HttpServletResponse res) throws Exception {
 		String currentIntervalName = getCurrentInterval(req);
