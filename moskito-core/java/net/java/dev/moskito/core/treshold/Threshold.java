@@ -10,19 +10,45 @@ import net.java.dev.moskito.core.producers.IStats;
 
 
 public class Threshold implements IntervalUpdateable{
-	
+	/**
+	 * Logger.
+	 */
 	private static Logger log = Logger.getLogger(Threshold.class);
+	/**
+	 * Static counter for instance number assignment.
+	 */
 	private static AtomicInteger instanceCounter = new AtomicInteger(0);
-	
+	/**
+	 * Status of the threshold.
+	 */
 	private ThresholdStatus status;
+	/**
+	 * Definition of this threshold.
+	 */
 	private ThresholdDefinition definition;
+	/**
+	 * Configured guards.
+	 */
 	private List<ThresholdConditionGuard> guards;
-
+	/**
+	 * Attached stats.
+	 */
 	private IStats stats;
+	/**
+	 * Last measured value.
+	 */
 	private String lastValue;
+	/**
+	 * Last change as string (description).
+	 */
 	private String statusChange = null;
+	/**
+	 * Timestamp of the last change.
+	 */
 	private long statusChangeTimestamp;
-	
+	/**
+	 * Instance number of the current instance.
+	 */
 	private int instanceNumber;
 	
 	public Threshold(ThresholdDefinition aDefinition){
@@ -63,7 +89,7 @@ public class Threshold implements IntervalUpdateable{
 		return lastValue;
 	}
 	
-	public void update(){
+	@Override public void update(){
 		if (!isActivated()){
 			return;
 		}
