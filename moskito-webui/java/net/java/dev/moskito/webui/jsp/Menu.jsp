@@ -8,9 +8,9 @@
 			<div class="left_bg"><!-- --></div>
 				<a href="mskShowAllProducers" class="logo"><img alt="MoSKito WebUI" src="<ano:write name="mskPathToImages" scope="application"/>moskito_webui_logo.gif" width="131" height="25"/></a>
 				<ul>
-                    <%--li <ano:equal name="currentNaviItem" value="DASHBOARD">class="active"</ano:equal>>
+                    <li <ano:equal name="currentNaviItem" value="DASHBOARD">class="active"</ano:equal>>
                         <a href="mskDashBoard">Dashboard (Alpha)</a>
-                    </li--%>
+                    </li>
 					<ano:equal name="currentNaviItem" value="PRODUCERS">
                         <li class="active"><a href="mskShowAllProducers">Producers</a>
 						<div class="sub_menu">
@@ -62,31 +62,19 @@
 					><ano:notEqual name="currentNaviItem" value="USECASES">
 						<li><a href="mskShowUseCases">Use Cases</a></li>
 					</ano:notEqual
-					--%><ano:equal name="currentNaviItem" value="SESSIONS">
-						<li class="active"><a href="mskShowMonitoringSessions">Monitoring Sessions</a></li>
-					</ano:equal
-					><ano:notEqual name="currentNaviItem" value="SESSIONS">
-						<li><a href="mskShowMonitoringSessions">Monitoring Sessions</a></li>
-					</ano:notEqual
-					><ano:equal name="currentNaviItem" value="CHARTS">
-						<li class="active"><a href="mskShowCharts">Charts</a></li>
-					</ano:equal
-					><ano:notEqual name="currentNaviItem" value="CHARTS">
-						<li><a href="mskShowCharts">Charts</a></li>
-					</ano:notEqual
-					><ano:equal name="currentNaviItem" value="THRESHOLDS">
-						<li class="active"><a href="mskThresholds"><img src="<ano:write name="mskPathToImages" scope="application"/>ind_<ano:write name="systemStatusColor"/>_small.png" alt="System status: <ano:write name="systemStatus"/>"/>&nbsp;&nbsp;Thresholds</a></li>
-					</ano:equal
-					><ano:notEqual name="currentNaviItem" value="THRESHOLDS">
-						<li><a href="mskThresholds"><img src="<ano:write name="mskPathToImages" scope="application"/>ind_<ano:write name="systemStatusColor"/>_small.png" alt="System status: <ano:write name="systemStatus"/>"/>&nbsp;&nbsp;Thresholds</a></li>
-					</ano:notEqual
-					><%--ano:equal name="currentNaviItem" value="ACCUMULATORS">
-						<li class="active"><a href="mskAccumulators">Accumulators (alpha)</a></li>
-					</ano:equal
-					><ano:notEqual name="currentNaviItem" value="ACCUMULATORS">
-						<li><a href="mskAccumulators">Accumulators (alpha)</a></li>
-					</ano:notEqual
 					--%>
+                    <li <ano:equal name="currentNaviItem" value="SESSIONS">class="active"</ano:equal>>
+                        <a href="mskShowMonitoringSessions">Monitoring Sessions</a>
+                    </li>
+                    <li <ano:equal name="currentNaviItem" value="CHARTS">class="active"</ano:equal>>
+                        <a href="mskShowCharts">Charts</a>
+                    </li>
+					<li <ano:equal name="currentNaviItem" value="THRESHOLDS">class="active"</ano:equal>>
+                        <a href="mskThresholds"><img src="<ano:write name="mskPathToImages" scope="application"/>ind_<ano:write name="systemStatusColor"/>_small.png" alt="System status: <ano:write name="systemStatus"/>"/>&nbsp;&nbsp;Thresholds</a>
+                    </li>
+                    <li <ano:equal name="currentNaviItem" value="ACCUMULATORS">class="active"</ano:equal>>
+                        <a href="mskAccumulators">Accumulators (alpha)</a>
+                    </li>
 					
 				</ul>
 				<div class="right"></div>
