@@ -121,6 +121,9 @@ public class MoskitoMappingsConfigurator implements ActionMappingsConfigurator{
 				new ActionForward("success", "/net/java/dev/moskito/webui/jsp/Thresholds.jsp")
 		);
 
+		ActionMappings.addMapping("mskAccumulators", ShowAccumulatorsAction.class, 
+				new ActionForward("success", "/net/java/dev/moskito/webui/jsp/Accumulators.jsp")
+		);
 		
 	}
 

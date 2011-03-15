@@ -33,7 +33,10 @@ public enum NaviItem {
 	 * Constant for actions without own navigation item.
 	 */
 	NONE("None"),
-	THRESHOLDS("Thresholds");
+	
+	THRESHOLDS("Thresholds"),
+	
+	ACCUMULATORS("Accumulators");
 	
 	
 	/**
@@ -47,6 +50,7 @@ public enum NaviItem {
 		menu.add(THRESHOLDS);
 		menu.add(SESSIONS);
 		menu.add(CHARTS);
+		menu.add(ACCUMULATORS);
 		//menu.add(USECASES);
 	}
 	/**

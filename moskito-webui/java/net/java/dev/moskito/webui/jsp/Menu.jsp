@@ -79,7 +79,14 @@
 					</ano:equal
 					><ano:notEqual name="currentNaviItem" value="THRESHOLDS">
 						<li><a href="mskThresholds"><img src="<ano:write name="mskPathToImages" scope="application"/>ind_<ano:write name="systemStatusColor"/>_small.png" alt="System status: <ano:write name="systemStatus"/>"/>&nbsp;&nbsp;Thresholds</a></li>
-					</ano:notEqual>
+					</ano:notEqual
+					><ano:equal name="currentNaviItem" value="ACCUMULATORS">
+						<li class="active"><a href="mskAccumulators">Accumulators (alpha)</a></li>
+					</ano:equal
+					><ano:notEqual name="currentNaviItem" value="ACCUMULATORS">
+						<li><a href="mskAccumulators">Accumulators (alpha)</a></li>
+					</ano:notEqual
+					>
 					
 				</ul>
 				<div class="right"></div>
