@@ -9,7 +9,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>net.anotheria</groupId>
   <artifactId>moskito-core</artifactId>
-  <version>1.1.1</version>
+  <version>1.1.2-SNAPSHOT</version>
   <name>moskito core</name>
 
   <dependencies>
@@ -24,10 +24,4 @@
 		<version>1.0.0</version>
 	</dependency>
   </dependencies>
-
-  <scm>
-    <connection>scm:svn:svn://svn.anotheria.net/opensource/parent/tags/moskito-1.1.1</connection>
-    <developerConnection>scm:svn:svn://svn.anotheria.net/opensource/parent/tags/moskito-1.1.1</developerConnection>
-    <url>svn:svn://svn.anotheria.net/parent/tags/moskito-1.1.1</url>
-  </scm>
 </project>

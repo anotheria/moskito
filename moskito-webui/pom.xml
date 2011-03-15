@@ -9,7 +9,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>net.anotheria</groupId>
   <artifactId>moskito-webui</artifactId>
-  <version>1.1.1</version>
+  <version>1.1.2-SNAPSHOT</version>
   <name>moskito embedded web user interface</name>
 
 <build> 
@@ -57,10 +57,4 @@
     	<artifactId>servlet-api</artifactId>
 	</dependency>	
   </dependencies>
-
-  <scm>
-    <connection>scm:svn:svn://svn.anotheria.net/opensource/parent/tags/moskito-1.1.1</connection>
-    <developerConnection>scm:svn:svn://svn.anotheria.net/opensource/parent/tags/moskito-1.1.1</developerConnection>
-    <url>svn:svn://svn.anotheria.net/parent/tags/moskito-1.1.1</url>
-  </scm>
 </project>
