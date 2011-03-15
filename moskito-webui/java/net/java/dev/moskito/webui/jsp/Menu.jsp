@@ -8,9 +8,9 @@
 			<div class="left_bg"><!-- --></div>
 				<a href="mskShowAllProducers" class="logo"><img alt="MoSKito WebUI" src="<ano:write name="mskPathToImages" scope="application"/>moskito_webui_logo.gif" width="131" height="25"/></a>
 				<ul>
-                    <li <ano:equal name="currentNaviItem" value="DASHBOARD">class="active"</ano:equal>>
+                    <%--li <ano:equal name="currentNaviItem" value="DASHBOARD">class="active"</ano:equal>>
                         <a href="mskDashBoard">Dashboard (Alpha)</a>
-                    </li>
+                    </li--%>
 					<ano:equal name="currentNaviItem" value="PRODUCERS">
                         <li class="active"><a href="mskShowAllProducers">Producers</a>
 						<div class="sub_menu">
@@ -80,13 +80,13 @@
 					><ano:notEqual name="currentNaviItem" value="THRESHOLDS">
 						<li><a href="mskThresholds"><img src="<ano:write name="mskPathToImages" scope="application"/>ind_<ano:write name="systemStatusColor"/>_small.png" alt="System status: <ano:write name="systemStatus"/>"/>&nbsp;&nbsp;Thresholds</a></li>
 					</ano:notEqual
-					><ano:equal name="currentNaviItem" value="ACCUMULATORS">
+					><%--ano:equal name="currentNaviItem" value="ACCUMULATORS">
 						<li class="active"><a href="mskAccumulators">Accumulators (alpha)</a></li>
 					</ano:equal
 					><ano:notEqual name="currentNaviItem" value="ACCUMULATORS">
 						<li><a href="mskAccumulators">Accumulators (alpha)</a></li>
 					</ano:notEqual
-					>
+					--%>
 					
 				</ul>
 				<div class="right"></div>
