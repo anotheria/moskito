@@ -8,9 +8,11 @@
 			<div class="left_bg"><!-- --></div>
 				<a href="mskShowAllProducers" class="logo"><img alt="MoSKito WebUI" src="<ano:write name="mskPathToImages" scope="application"/>moskito_webui_logo.gif" width="131" height="25"/></a>
 				<ul>
+				<%--
                     <li <ano:equal name="currentNaviItem" value="DASHBOARD">class="active"</ano:equal>>
                         <a href="mskDashBoard">Dashboard (Alpha)</a>
                     </li>
+                --%>
 					<ano:equal name="currentNaviItem" value="PRODUCERS">
                         <li class="active"><a href="mskShowAllProducers">Producers</a>
 						<div class="sub_menu">
