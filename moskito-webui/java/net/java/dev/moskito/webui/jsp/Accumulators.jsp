@@ -16,7 +16,7 @@
 
 <ano:present name="dataBean">
 <script type="text/javascript">
-	var data = [[<ano:iterate name="dataBean" property="values" id="value">"<ano:write name="value" property="timestamp"/>","<ano:write name="value" property="value"/>"]</ano:iterate>]; 
+	var data = [<ano:iterate name="dataBean" property="values" id="value" indexId="i"><ano:notEqual name="i" value="0">,</ano:notEqual>["<ano:write name="value" property="timestamp"/>",<ano:write name="value" property="value"/>]</ano:iterate>]; 
 </script>
 </ano:present>
 
@@ -85,7 +85,7 @@
 			<div><!-- --></div>
 		</div>
 		<div class="in">
-			<h2><span>Chart for <ano:write name="dataBean" property="description"/></span></h2>
+			<h2><span>Chart for <ano:write name="dataBean" property="description"/></span></h2><a class="refresh" href="#"></a>
 
 			<div class="clear"><!-- --></div>
 			<div class="table_itseft">
@@ -94,25 +94,7 @@
 					<div class="right"><!-- --></div>
 				</div>
 				<div class="in">
-					<img src="http://chart.googleapis.com/chart?cht=lxy&chs=400x400&chd=t:<ano:iterate name="dataBean" property="values" id="value"><ano:write name="value" property="value"/>,</ano:iterate>|<ano:iterate name="dataBean" property="values" id="value"><ano:write name="value" property="timestamp"/>,</ano:iterate>"/>
-<%--
-					<table cellpadding="0" cellspacing="0" width="100%">
-						<thead>
-						<tr>
-							<th>Time</th>
-							<th>Value</th>
-						</tr>
-						</thead>
-						<tbody>
-						<ano:iterate name="dataBean" type="net.java.dev.moskito.webui.bean.AccumulatedValueBean" id="value" property="values" indexId="index">
-							<tr class="<%= ((index & 1) == 0 )? "even" : "odd" %>">
-								<td><ano:write name="value" property="timestamp"/></td>
-								<td><ano:write name="value" property="value"/></td>
-							</tr>
-						</ano:iterate>
-						</tbody>
-					</table>
---%>					
+					<div id="chart_accum"></div>
 					<div class="clear"><!-- --></div>
 				</div>
 				<div class="bot">
@@ -173,6 +155,43 @@
 			<div><!-- --></div>
 		</div>
 	</div>
-	</ano:present>
+<script type="text/javascript">
+	google.load("visualization", "1", {packages:["corechart"]});
+	google.setOnLoadCallback(drawLineChart);
+	function drawLineChart() {
+		var data2 = new google.visualization.DataTable();
+		data2.addColumn('string', 'Time');
+		data2.addColumn('number', '<ano:write name="dataBean" property="shortDescription"/>');
+		data2.addRows(data);
+		var options = {width: 1000, height: 300, title: ''};
+		var chartInfo = {
+			params: '',
+			container: 'chart_accum',
+			type: 'LineChart',
+			data: data2,
+			options: options 
+		};
+		drawChart(chartInfo);		
+	}
+	function drawChart(chartInfo) {
+		document.getElementById(chartInfo.container).chartInfo = chartInfo;
+
+		google.visualization.drawChart({
+			"containerId": chartInfo.container,
+			dataTable: chartInfo.data/*+chartInfo.params*/,
+			"chartType": chartInfo.type,
+			"options": chartInfo.options,
+			"refreshInterval": 60
+		});
+
+	}
+
+	$('.refresh').click(function() {
+		location.reload(true);
+	})
+
+
+</script>
+</ano:present>
 </body>
 </html>  

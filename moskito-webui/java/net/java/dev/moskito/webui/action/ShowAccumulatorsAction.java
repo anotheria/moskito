@@ -51,6 +51,7 @@ public class ShowAccumulatorsAction extends BaseMoskitoUIAction{
 			Accumulator acc = AccumulatorRepository.getInstance().getAccumulatorById(id);
 			AccumulatorDataBean dataBean = new AccumulatorDataBean();
 			dataBean.setDescription(acc.getDefinition().describe());
+			dataBean.setShortDescription(acc.getName());
 			List<AccumulatedValue> values = acc.getValues();
 			for (AccumulatedValue value : values){
 				dataBean.addValue(value.getValue(), NumberUtils.makeTimeString(value.getTimestamp()));

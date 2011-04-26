@@ -6,6 +6,7 @@ import java.util.List;
 public class AccumulatorDataBean {
 	private String description;
 	private List<AccumulatedValueBean> values;
+	private String shortDescription;
 	
 	public AccumulatorDataBean (){
 		values = new ArrayList<AccumulatedValueBean>();
@@ -29,5 +30,13 @@ public class AccumulatorDataBean {
 
 	public List<AccumulatedValueBean> getValues() {
 		return values;
+	}
+
+	public String getShortDescription() {
+		return shortDescription;
+	}
+
+	public void setShortDescription(String shortDescription) {
+		this.shortDescription = shortDescription;
 	}
 }
