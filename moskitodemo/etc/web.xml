@@ -203,6 +203,9 @@
 		<listener-class>
 			net.java.dev.moskitodemo.threshold.presentation.listener.SetupThresholds
 		</listener-class>
+		<listener-class>
+			net.java.dev.moskitodemo.threshold.presentation.listener.SetupAccumulators
+		</listener-class>
 	</listener>
   		
 	
