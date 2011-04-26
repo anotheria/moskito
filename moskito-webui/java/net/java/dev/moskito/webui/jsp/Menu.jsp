@@ -73,7 +73,7 @@
                         <a href="mskThresholds"><img src="<ano:write name="mskPathToImages" scope="application"/>ind_<ano:write name="systemStatusColor"/>_small.png" alt="System status: <ano:write name="systemStatus"/>"/>&nbsp;&nbsp;Thresholds</a>
                     </li>
                     <li <ano:equal name="currentNaviItem" value="ACCUMULATORS">class="active"</ano:equal>>
-                        <a href="mskAccumulators">Accumulators (alpha)</a>
+                        <a href="mskAccumulators">Accumulators (beta)</a>
                     </li>
 					
 				</ul>
