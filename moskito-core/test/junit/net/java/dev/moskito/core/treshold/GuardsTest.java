@@ -19,7 +19,7 @@ public class GuardsTest {
 		config.setIntervalName("snapshot");
 		config.setName("GuardsTest");
 		
-		Threshold threshold = ThresholdRepository.INSTANCE.createThreshold(config);
+		Threshold threshold = ThresholdRepository.getInstance().createThreshold(config);
 		assertNotNull(threshold);
 		assertEquals("none yet", threshold.getLastValue());
 		

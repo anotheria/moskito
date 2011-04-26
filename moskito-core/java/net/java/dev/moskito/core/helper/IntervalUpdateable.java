@@ -1,4 +1,4 @@
-package net.java.dev.moskito.core.treshold;
+package net.java.dev.moskito.core.helper;
 
 public interface IntervalUpdateable {
 	void update();

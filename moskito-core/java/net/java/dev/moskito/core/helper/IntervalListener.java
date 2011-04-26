@@ -1,12 +1,12 @@
-package net.java.dev.moskito.core.treshold;
+package net.java.dev.moskito.core.helper;
 
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
-import org.apache.log4j.Logger;
-
 import net.java.dev.moskito.core.stats.IIntervalListener;
 import net.java.dev.moskito.core.stats.Interval;
+
+import org.apache.log4j.Logger;
 
 public class IntervalListener implements IIntervalListener{
 
@@ -25,11 +25,11 @@ public class IntervalListener implements IIntervalListener{
 		}
 	}
 	
-	public void addThreshold(Threshold toAdd){
+	public void addTieable(Tieable toAdd){
 		updateables.add(toAdd);
 	}
 	
-	public void addThresholdAutoTieWrapper(ThresholdAutoTieWrapper toAdd){
+	public void addTieableAutoTieWrapper(AutoTieWrapper toAdd){
 		updateables.add(toAdd);
 	}
 

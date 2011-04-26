@@ -56,7 +56,7 @@ public class FindThresholdTest {
 		def.setValueName("FREE");
 		def.setIntervalName("snapshot");
 		
-		Threshold threshold = ThresholdRepository.INSTANCE.createThreshold(def);
+		Threshold threshold = ThresholdRepository.getInstance().createThreshold(def);
 		assertNotNull(threshold);
 		
 		assertEquals("none yet", threshold.getLastValue());
@@ -73,7 +73,7 @@ public class FindThresholdTest {
 		config.setValueName("FREE");
 		config.setIntervalName(null);
 		
-		Threshold threshold = ThresholdRepository.INSTANCE.createThreshold(config);
+		Threshold threshold = ThresholdRepository.getInstance().createThreshold(config);
 		assertNotNull(threshold);
 		
 		assertEquals("none yet", threshold.getLastValue());
@@ -88,7 +88,7 @@ public class FindThresholdTest {
 		config.setValueName("TR");
 		config.setIntervalName(null);
 		
-		Threshold threshold = ThresholdRepository.INSTANCE.createThreshold(config);
+		Threshold threshold = ThresholdRepository.getInstance().createThreshold(config);
 		assertNotNull(threshold);
 		
 		assertEquals("none yet", threshold.getLastValue());

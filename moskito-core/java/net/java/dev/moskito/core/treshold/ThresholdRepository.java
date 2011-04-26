@@ -4,50 +4,25 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
-import java.util.concurrent.CopyOnWriteArrayList;
 
 import net.java.dev.moskito.core.dynamic.OnDemandStatsProducer;
+import net.java.dev.moskito.core.helper.TieableDefinition;
+import net.java.dev.moskito.core.helper.TieableRepository;
 import net.java.dev.moskito.core.producers.IStats;
 import net.java.dev.moskito.core.producers.IStatsProducer;
-import net.java.dev.moskito.core.registry.IProducerRegistry;
-import net.java.dev.moskito.core.registry.IProducerRegistryListener;
-import net.java.dev.moskito.core.registry.ProducerRegistryFactory;
-import net.java.dev.moskito.core.stats.impl.IntervalRegistry;
 
-import org.apache.log4j.Logger;
-
-public enum ThresholdRepository implements IProducerRegistryListener{
-	INSTANCE;
+public class ThresholdRepository extends TieableRepository<Threshold> {
 	
-	private final IProducerRegistry registry = ProducerRegistryFactory.getProducerRegistryInstance();
+	private static ThresholdRepository INSTANCE = new ThresholdRepository();
 	
-	private ConcurrentMap<String, Threshold> thresholds = new ConcurrentHashMap<String, Threshold>();
-	private ConcurrentMap<String, IntervalListener> listeners = new ConcurrentHashMap<String, IntervalListener>();
-	/**
-	 * Threshold objects that are already created and registered but yet not tied to a concrete producer/stats object.
-	 */
-	private List<Threshold> yetUntied = new CopyOnWriteArrayList<Threshold>();
 	
-	private static Logger log = Logger.getLogger(ThresholdRepository.class);
 	
 	private ThresholdRepository(){
-		ProducerRegistryFactory.getProducerRegistryInstance().addListener(this);
-	}
-
-	private IntervalListener getListener(String intervalName){
-		IntervalListener listener = listeners.get(intervalName);
-		if (listener!=null)
-			return listener;
-		
-		listener = new IntervalListener();
-		IntervalListener old = listeners.putIfAbsent(intervalName, listener);
-		if (old!=null)
-			return old;
-		IntervalRegistry.getInstance().getInterval(intervalName).addSecondaryIntervalListener(listener);
-		return listener;
 	}
 	
-	private boolean tie(Threshold threshold, IStatsProducer producer){
+	public static ThresholdRepository getInstance(){ return INSTANCE; }
+
+	protected boolean tie(Threshold threshold, IStatsProducer producer){
 		ThresholdDefinition definition = threshold.getDefinition();
 		IStats target = null;
 		for (IStats s : producer.getStats()){
@@ -59,11 +34,7 @@ public enum ThresholdRepository implements IProducerRegistryListener{
 		
 		if (target==null){
 			if (producer instanceof OnDemandStatsProducer){
-				ThresholdAutoTieWrapper wrapper = new ThresholdAutoTieWrapper(threshold, producer);
-				if (definition.getIntervalName()!=null){
-					IntervalListener listener = getListener(definition.getIntervalName());
-					listener.addThresholdAutoTieWrapper(wrapper);
-				}
+				addToAutoTie(threshold, producer);
 			}else{
 				throw new IllegalArgumentException("StatObject not found "+definition.getStatName()+" in "+definition);
 			}
@@ -79,51 +50,12 @@ public enum ThresholdRepository implements IProducerRegistryListener{
 		
 	}
 	
-	public Threshold createThreshold(ThresholdDefinition definition){
-		Threshold t = new Threshold(definition);
-		thresholds.put(t.getName(), t);
-		if (definition.getIntervalName()!=null){
-			IntervalListener listener = getListener(definition.getIntervalName());
-			listener.addThreshold(t);
-		}
 
-		IStatsProducer producer = registry.getProducer(definition.getProducerName());
-		if (producer!=null){
-			tie(t, producer);
-		}else{
-			//schedule for later
-			yetUntied.add(t);
-		}
-		
-		return t;
-	}
-
-	public List<Threshold> getThresholds() {
-		ArrayList<Threshold> ret = new ArrayList<Threshold>(thresholds.size());
-		ret.addAll(thresholds.values());
-		return ret;
-	}
-
-	@Override
-	public void notifyProducerRegistered(IStatsProducer producer) {
-		ArrayList<Threshold> tmpList = new ArrayList<Threshold>();
-		tmpList.addAll(yetUntied);
-		for (Threshold t : tmpList){
-			if (t.getDefinition().getProducerName().equals(producer.getProducerId())){
-				try{
-					tie(t, producer);
-				}catch(Exception e){
-					log.error("notifyProducerRegistered("+producer+")",e );
-				}
-			}
-		}
-	}
-
-	@Override
-	public void notifyProducerUnregistered(IStatsProducer producer) {
-		//nothing
-	}
 	
+	public Threshold createThreshold(ThresholdDefinition definition){
+		return createTieable(definition);
+	}
+
 	public ThresholdStatus getWorstStatus(){
 		ThresholdStatus ret = ThresholdStatus.GREEN;
 		for (Threshold t : getThresholds()){
@@ -133,7 +65,13 @@ public enum ThresholdRepository implements IProducerRegistryListener{
 		return ret;
 	}
 	
+	public List<Threshold> getThresholds(){
+		return getTieables();
+	}
 	
+	protected Threshold create(TieableDefinition def){
+		return new Threshold((ThresholdDefinition)def);
+	}
 	
 	
 }

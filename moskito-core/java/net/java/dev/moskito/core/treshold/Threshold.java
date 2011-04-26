@@ -6,10 +6,12 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 import org.apache.log4j.Logger;
 
+import net.java.dev.moskito.core.helper.AbstractTieable;
+import net.java.dev.moskito.core.helper.Tieable;
 import net.java.dev.moskito.core.producers.IStats;
 
 
-public class Threshold implements IntervalUpdateable{
+public class Threshold extends AbstractTieable<ThresholdDefinition> implements Tieable{
 	/**
 	 * Logger.
 	 */
@@ -22,10 +24,6 @@ public class Threshold implements IntervalUpdateable{
 	 * Status of the threshold.
 	 */
 	private ThresholdStatus status;
-	/**
-	 * Definition of this threshold.
-	 */
-	private ThresholdDefinition definition;
 	/**
 	 * Configured guards.
 	 */
@@ -52,7 +50,7 @@ public class Threshold implements IntervalUpdateable{
 	private int instanceNumber;
 	
 	public Threshold(ThresholdDefinition aDefinition){
-		definition = aDefinition;
+		super(aDefinition);
 		status = ThresholdStatus.OFF;
 		lastValue = "none yet";
 		guards = new ArrayList<ThresholdConditionGuard>();
@@ -77,10 +75,6 @@ public class Threshold implements IntervalUpdateable{
 		return status;
 	}
 
-	public ThresholdDefinition getDefinition() {
-		return definition;
-	}
-
 	public IStats getStats() {
 		return stats;
 	}
@@ -95,7 +89,7 @@ public class Threshold implements IntervalUpdateable{
 		}
 		
 		String previousValue = lastValue;
-		lastValue = stats.getValueByNameAsString(definition.getValueName(), definition.getIntervalName(), definition.getTimeUnit());
+		lastValue = stats.getValueByNameAsString(getDefinition().getValueName(), getDefinition().getIntervalName(), getDefinition().getTimeUnit());
 		
 		ThresholdStatus futureStatus = status == ThresholdStatus.OFF ? ThresholdStatus.OFF : ThresholdStatus.GREEN;
 		for (ThresholdConditionGuard guard : guards){
@@ -119,10 +113,6 @@ public class Threshold implements IntervalUpdateable{
 		status = futureStatus;
 	}
 
-	public String getName(){
-		return getDefinition().getName();
-	}
-	 
 	public boolean isActivated(){
 		return stats != null;
 	}
@@ -150,4 +140,5 @@ public class Threshold implements IntervalUpdateable{
 	public int getInstanceNumber(){
 		return instanceNumber;
 	}
+
 }
