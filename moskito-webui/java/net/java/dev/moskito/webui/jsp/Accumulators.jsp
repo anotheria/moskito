@@ -85,7 +85,7 @@
 			<div><!-- --></div>
 		</div>
 		<div class="in">
-			<h2><span>Chart for <ano:write name="dataBean" property="description"/></span></h2><a class="refresh" href="#"></a>
+			<h2><span>Chart for <ano:write name="dataBean" property="shortDescription"/> which is <ano:write name="dataBean" property="description"/></span></h2><a class="refresh" href="#"></a>
 
 			<div class="clear"><!-- --></div>
 			<div class="table_itseft">
@@ -118,7 +118,7 @@
 			<div><!-- --></div>
 		</div>
 		<div class="in">
-			<h2><span>Data for <ano:write name="dataBean" property="description"/></span></h2>
+			<h2><span>Data for <ano:write name="dataBean" property="shortDescription"/> which is <ano:write name="dataBean" property="description"/></span></h2>
 
 			<div class="clear"><!-- --></div>
 			<div class="table_itseft">
