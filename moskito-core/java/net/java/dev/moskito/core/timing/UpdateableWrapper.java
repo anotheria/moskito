@@ -67,7 +67,8 @@ final class UpdateableWrapper extends TimerTask {
 		try{
 			delegate.update();
 		}catch(Exception e){
-			log.warn("Delegate update failed on "+delegate, e);
+			if (log!=null)
+				log.warn("Delegate update failed on "+delegate, e);
 		}
 	}
 
