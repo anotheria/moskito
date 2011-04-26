@@ -9,6 +9,12 @@ import net.java.dev.moskito.core.stats.TimeUnit;
 
 public abstract class AbstractMemoryPoolStats extends AbstractStats implements IMemoryPoolStats{
 	
+	/**
+	 * Constant for MegaByte.
+	 */
+	private static final long MB = 1024L*1024;
+
+	
 	protected AbstractMemoryPoolStats(String name){
 		super(name);
 	}
@@ -34,12 +40,15 @@ public abstract class AbstractMemoryPoolStats extends AbstractStats implements I
 		if (valueName==null || valueName.equals(""))
 			throw new AssertionError("Value name can not be empty");
 		valueName = valueName.toLowerCase();
+		
 		if (valueName.equals("init"))
 			return ""+getInit(intervalName);
 		if (valueName.equals("min_used"))
 			return ""+getMinUsed(intervalName);
 		if (valueName.equals("used"))
 			return ""+getUsed(intervalName);
+		if (valueName.equals("used mb"))
+			return ""+getUsed(intervalName)/MB;
 		if (valueName.equals("max_used"))
 			return ""+getMaxUsed(intervalName);
 		if (valueName.equals("min_commited"))
@@ -52,6 +61,9 @@ public abstract class AbstractMemoryPoolStats extends AbstractStats implements I
 			return ""+getMax(intervalName);
 		if (valueName.equals("free"))
 			return ""+getFree(intervalName);
+		if (valueName.equals("free mb"))
+			return ""+getFree(intervalName)/MB;
+		
 		return super.getValueByNameAsString(valueName, intervalName, timeUnit);
 	}
 
