@@ -14,6 +14,12 @@
 
 <jsp:include page="Menu.jsp" flush="false"/>
 
+<ano:present name="dataBean">
+<script type="text/javascript">
+	var data = [[<ano:iterate name="dataBean" property="values" id="value">"<ano:write name="value" property="timestamp"/>","<ano:write name="value" property="value"/>"]</ano:iterate>]; 
+</script>
+</ano:present>
+
 <div class="main">
 	<div class="clear"><!-- --></div>
 
