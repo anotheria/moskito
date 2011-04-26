@@ -3,6 +3,9 @@ package net.java.dev.moskitodemo.threshold.presentation.listener;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 
+import net.java.dev.moskito.core.accumulation.Accumulator;
+import net.java.dev.moskito.core.accumulation.AccumulatorDefinition;
+import net.java.dev.moskito.core.accumulation.AccumulatorRepository;
 import net.java.dev.moskito.core.treshold.Threshold;
 import net.java.dev.moskito.core.treshold.ThresholdConditionGuard;
 import net.java.dev.moskito.core.treshold.ThresholdDefinition;
@@ -21,11 +24,36 @@ public class SetupThresholds implements ServletContextListener{
 		setupServiceAVGThreshold();
 		setupRequestURIThreshold();
 		setupMemory();
-
-
 		///
+		setupAccumulators();
+
+
 		
 	}
+	
+	private void setupAccumulators(){
+		accSetupMemoryThreshold("PermGenFree", "MemoryPool-PS Perm Gen-NonHeap", "Free"); 
+		accSetupMemoryThreshold("OldGenFree", "MemoryPool-PS Old Gen-Heap", "Free");
+		accSetupMemoryThreshold("OldGenFree", "MemoryPool-PS Old Gen-Heap", "Free MB");
+		accSetupMemoryThreshold("OldGenFree", "MemoryPool-PS Old Gen-Heap", "Used");
+		accSetupMemoryThreshold("OldGenFree", "MemoryPool-PS Old Gen-Heap", "Used MB");
+	}
+	
+	private void accSetupMemoryThreshold(String name, String producerName, String valueName) {
+		accSetup(name, producerName, producerName, valueName, "1m");
+	}
+
+	private void accSetup(String name, String producerName, String statName, String valueName, String intervalName) {
+		AccumulatorDefinition definition = new AccumulatorDefinition();
+		definition.setName(name);
+		definition.setProducerName(producerName);
+		definition.setStatName(statName);
+		definition.setValueName(valueName);
+		definition.setIntervalName(intervalName);
+
+		Accumulator acc = AccumulatorRepository.getInstance().createAccumulator(definition);
+	}
+
 	
 	private void setupServiceTRThreshold(){
 		ThresholdDefinition config = new ThresholdDefinition();
@@ -35,7 +63,7 @@ public class SetupThresholds implements ServletContextListener{
 		config.setIntervalName("snapshot");
 		config.setName("GuardedService TotalRequest");
 		
-		Threshold threshold = ThresholdRepository.INSTANCE.createThreshold(config);
+		Threshold threshold = ThresholdRepository.getInstance().createThreshold(config);
 		threshold.addGuard(new LongBarrierPassGuard(ThresholdStatus.GREEN, 1, GuardedDirection.UP));
 		threshold.addGuard(new LongBarrierPassGuard(ThresholdStatus.YELLOW, 100, GuardedDirection.UP));
 		threshold.addGuard(new LongBarrierPassGuard(ThresholdStatus.ORANGE, 200, GuardedDirection.UP));
@@ -51,7 +79,7 @@ public class SetupThresholds implements ServletContextListener{
 		config.setIntervalName("snapshot");
 		config.setName("GuardedService AVG");
 		
-		Threshold threshold = ThresholdRepository.INSTANCE.createThreshold(config);
+		Threshold threshold = ThresholdRepository.getInstance().createThreshold(config);
 		threshold.addGuard(new DoubleBarrierPassGuard(ThresholdStatus.GREEN, 1000*1.0, GuardedDirection.UP));
 		threshold.addGuard(new DoubleBarrierPassGuard(ThresholdStatus.YELLOW, 1000*2.0, GuardedDirection.UP));
 		threshold.addGuard(new DoubleBarrierPassGuard(ThresholdStatus.ORANGE, 1000*3.0, GuardedDirection.UP));
@@ -69,7 +97,7 @@ public class SetupThresholds implements ServletContextListener{
 		config.setIntervalName("snapshot");
 		config.setName("Guestbook");
 		
-		Threshold threshold = ThresholdRepository.INSTANCE.createThreshold(config);
+		Threshold threshold = ThresholdRepository.getInstance().createThreshold(config);
 		threshold.addGuard(new LongBarrierPassGuard(ThresholdStatus.GREEN, 1, GuardedDirection.UP));
 		threshold.addGuard(new LongBarrierPassGuard(ThresholdStatus.YELLOW, 10, GuardedDirection.UP));
 		threshold.addGuard(new LongBarrierPassGuard(ThresholdStatus.ORANGE, 20, GuardedDirection.UP));
@@ -116,7 +144,7 @@ public class SetupThresholds implements ServletContextListener{
 		definition.setValueName(valueName);
 		definition.setIntervalName(intervalName);
 
-		Threshold threshold = ThresholdRepository.INSTANCE.createThreshold(definition);
+		Threshold threshold = ThresholdRepository.getInstance().createThreshold(definition);
 		if (guards != null) {
 			for (ThresholdConditionGuard g: guards) {
 				threshold.addGuard(g);
