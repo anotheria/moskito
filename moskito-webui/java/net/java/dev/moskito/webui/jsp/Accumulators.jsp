@@ -16,65 +16,6 @@
 
 <div class="main">
 	<div class="clear"><!-- --></div>
-	<%--<div class="additional">--%>
-	<%--<div class="top"><div><!-- --></div></div>--%>
-	<%--<div class="add_in">--%>
-	<%--<div><span>System state</span></div>--%>
-	<%--</div>--%>
-	<%--<div class="bot"><div><!-- --></div></div>--%>
-	<%--</div>--%>
-
-	<!-- definition for overlays -->
-		<script type="text/javascript">
-		<ano:iterate name="infos" type="net.java.dev.moskito.webui.bean.ThresholdInfoBean" id="info">
-			var info<ano:write name="info" property="id"/> = {
-				"name": "<ano:write name="info" property="name"/>",
-				"producerName": "<ano:write name="info" property="producerName"/>",
-				"statName": "<ano:write name="info" property="statName"/>",
-				"valueName": "<ano:write name="info" property="valueName"/>",
-				"intervalName": "<ano:write name="info" property="intervalName"/>",
-				"descriptionString": "<ano:write name="info" property="descriptionString"/>",
-				"guards": [<ano:iterate name="info" property="guards" id="guard" type="java.lang.String">"<ano:write name="guard"/>",</ano:iterate>]
-			};
-		</ano:iterate>
-		</script>
-		<script type="text/javascript">
-			function openOverlay(selectedInfo){
-				$('.lightbox').show();
-				var el = $('.lightbox');
-				el.find('#name').text(selectedInfo.name);
-				el.find('#producerName').text(selectedInfo.producerName);
-				el.find('#statName').text(selectedInfo.statName);
-				el.find('#valueName').text(selectedInfo.valueName);
-				el.find('#intervalName').text(selectedInfo.intervalName);
-				el.find('#descString').text(selectedInfo.descriptionString);
-				el.find('table tbody').html('');
-				for (i=0; i<selectedInfo.guards.length; i++)
-				{
-					if (i % 2) {
-						el.find('table tbody').append('<tr class="even"><td>'+selectedInfo.guards[i]+'</td></tr>')
-					} else {
-						el.find('table tbody').append('<tr class="odd"><td>'+selectedInfo.guards[i]+'</td></tr>')
-					}
-				}
-				$('.lightbox .box').css('width', 'auto');
-				$('.lightbox .box').width($('.lightbox .box_in').width());
-
-				var wid = el.find('.box').width();
-				var box = el.find('.box');
-				var hig = el.find('.box').height();
-
-				box.css('left', '50%');
-				box.css('margin-left', -wid / 2);
-				box.css('top', '50%');
-				box.css('margin-top', -hig / 2);
-				box.css('position', 'fixed');
-				return false;
-
-//				alert("open overlay for "+selectedInfo.name);
-			}
-		</script>
-	<!-- end of definition for overlays -->
 
 	<div class="clear"><!-- --></div>
 	<div class="table_layout">
@@ -82,7 +23,7 @@
 			<div><!-- --></div>
 		</div>
 		<div class="in">
-			<h2><span>System state</span></h2>
+			<h2><span>Accumulators</span></h2>
 
 			<div class="clear"><!-- --></div>
 			<div class="table_itseft">
@@ -96,36 +37,22 @@
 						<thead>
 						<tr>
 							<th>Name</th>
-							<th>Status</th>
-							<th>Value</th>
-							<th>Status Change</th>
-							<th>Change Timestamp</th>
 							<th>Path</th>
+							<th>Values</th>
+							<th>Last Timestamp</th>
 						</tr>
 						</thead>
 						<tbody>
-						<%--
-						<ano:iterate name="recorded" type="net.java.dev.moskito.webui.bean.RecordedUseCaseListItemBean" id="useCase" indexId="index">
+						<ano:iterate name="accumulators" type="net.java.dev.moskito.webui.bean.AccumulatorInfoBean" id="accumulator" indexId="index">
 							<tr class="<%= ((index & 1) == 0 )? "even" : "odd" %>">
-								<td><ano:write name="index"/></td>
-								 <td>
-									<a href="mskShowMonitoringSessionCall?pSessionName=<ano:write name="msession" property="name"/>&pPos=<ano:write name="index"/>">
-										<ano:write name="useCase" property="name"/>
-									</a>
-								 </td>
-								 <td>
-									<ano:write name="useCase" property="date"/>
-								  </td>
-							</tr>
-						</ano:iterate>--%>
-						<ano:iterate name="thresholds" type="net.java.dev.moskito.webui.bean.ThresholdBean" id="threshold" indexId="index">
-							<tr class="<%= ((index & 1) == 0 )? "even" : "odd" %>">
+							<%--
 								<td><a href="#" onclick="openOverlay(info<ano:write name="threshold" property="id"/>); return false"><ano:write name="threshold" property="name"/></a></td>
 								<td><img src="<ano:write name="mskPathToImages" scope="application"/>ind_<ano:write name="threshold" property="colorCode"/>.<ano:equal name="threshold" property="colorCode" value="purple">gif</ano:equal><ano:notEqual name="threshold" property="colorCode" value="purple">png</ano:notEqual>" alt="<ano:write name="threshold" property="status"/>"/></td>
-								<td><ano:write name="threshold" property="value"/></td>
-								<td><ano:write name="threshold" property="change"/></td>
-								<td><ano:write name="threshold" property="timestamp"/></td>
-								<td><ano:write name="threshold" property="description"/></td>
+							--%>
+								<td><a href="?id=<ano:write name="accumulator" property="id"/>"><ano:write name="accumulator" property="name"/></a></td>
+								<td><ano:write name="accumulator" property="path"/></td>
+								<td><ano:write name="accumulator" property="numberOfValues"/></td>
+								<td><ano:write name="accumulator" property="lastValueTimestamp"/></td>
 							</tr>
 						</ano:iterate>
 						</tbody>
@@ -143,23 +70,67 @@
 			<div><!-- --></div>
 		</div>
 	</div>
-	<%--<br><br><br>--%>
 	<div class="clear"><!-- --></div>
-	<%--<div class="additional">--%>
-	<%--<div class="top"><div><!-- --></div></div>--%>
-	<%--<div class="add_in">--%>
-	<%--<div><span>History</span></div>--%>
-	<%--</div>--%>
-	<%--<div class="bot"><div><!-- --></div></div>--%>
-	<%--</div>--%>
 
-	<div class="clear"><!-- --></div>
+	<!-- chart section -->
+	<ano:present name="dataBean">
 	<div class="table_layout">
 		<div class="top">
 			<div><!-- --></div>
 		</div>
 		<div class="in">
-			<h2><span>History (newest first)</span></h2>
+			<h2><span>Chart for <ano:write name="dataBean" property="description"/></span></h2>
+
+			<div class="clear"><!-- --></div>
+			<div class="table_itseft">
+				<div class="top">
+					<div class="left"><!-- --></div>
+					<div class="right"><!-- --></div>
+				</div>
+				<div class="in">
+					<img src="http://chart.googleapis.com/chart?cht=lxy&chs=400x400&chd=t:<ano:iterate name="dataBean" property="values" id="value"><ano:write name="value" property="value"/>,</ano:iterate>|<ano:iterate name="dataBean" property="values" id="value"><ano:write name="value" property="timestamp"/>,</ano:iterate>"/>
+<%--
+					<table cellpadding="0" cellspacing="0" width="100%">
+						<thead>
+						<tr>
+							<th>Time</th>
+							<th>Value</th>
+						</tr>
+						</thead>
+						<tbody>
+						<ano:iterate name="dataBean" type="net.java.dev.moskito.webui.bean.AccumulatedValueBean" id="value" property="values" indexId="index">
+							<tr class="<%= ((index & 1) == 0 )? "even" : "odd" %>">
+								<td><ano:write name="value" property="timestamp"/></td>
+								<td><ano:write name="value" property="value"/></td>
+							</tr>
+						</ano:iterate>
+						</tbody>
+					</table>
+--%>					
+					<div class="clear"><!-- --></div>
+				</div>
+				<div class="bot">
+					<div class="left"><!-- --></div>
+					<div class="right"><!-- --></div>
+				</div>
+			</div>
+		</div>
+		<div class="bot">
+			<div><!-- --></div>
+		</div>
+	</div>
+	</ano:present>
+
+	<div class="clear"><!-- --></div>
+	
+	<!-- data section -->
+	<ano:present name="dataBean">
+	<div class="table_layout">
+		<div class="top">
+			<div><!-- --></div>
+		</div>
+		<div class="in">
+			<h2><span>Data for <ano:write name="dataBean" property="description"/></span></h2>
 
 			<div class="clear"><!-- --></div>
 			<div class="table_itseft">
@@ -171,27 +142,15 @@
 					<table cellpadding="0" cellspacing="0" width="100%">
 						<thead>
 						<tr>
-							<th>Timestamp</th>
-							<th>Name</th>
-							<th>Status change</th>
-							<th>Value change</th>
+							<th>Time</th>
+							<th>Value</th>
 						</tr>
 						</thead>
 						<tbody>
-						<ano:iterate name="alerts" type="net.java.dev.moskito.webui.bean.ThresholdAlertBean" id="alert" indexId="index">
+						<ano:iterate name="dataBean" type="net.java.dev.moskito.webui.bean.AccumulatedValueBean" id="value" property="values" indexId="index">
 							<tr class="<%= ((index & 1) == 0 )? "even" : "odd" %>">
-								<td><ano:write name="alert" property="timestamp"/></td>
-								<td><a href=""><ano:write name="alert" property="name"/></a></td>
-								<td>
-									<img src="<ano:write name="mskPathToImages" scope="application"/>ind_<ano:write name="alert" property="oldColorCode"/>.png" alt="<ano:write name="alert" property="oldStatus"/>"/>
-										&nbsp;<img src="<ano:write name="mskPathToImages" scope="application"/>ind_arrow.png" alt="-->"/>&nbsp;
-									<img src="<ano:write name="mskPathToImages" scope="application"/>ind_<ano:write name="alert" property="newColorCode"/>.png" alt="<ano:write name="alert" property="newStatus"/>"/>
-								</td>
-								<td>
-									<ano:write name="alert" property="oldValue"/>
-										&nbsp;<img src="<ano:write name="mskPathToImages" scope="application"/>ind_arrow_numb.png" alt="-->"/>&nbsp;
-									<ano:write name="alert" property="newValue"/>
-								</td>
+								<td><ano:write name="value" property="timestamp"/></td>
+								<td><ano:write name="value" property="value"/></td>
 							</tr>
 						</ano:iterate>
 						</tbody>
@@ -208,45 +167,6 @@
 			<div><!-- --></div>
 		</div>
 	</div>
+	</ano:present>
 </body>
-<div class="lightbox" style="display:none;">
-	<div class="black_bg"><!-- --></div>
-	<div class="box">
-		<div class="box_top">
-			<div><!-- --></div>
-			<span><!-- --></span>
-			<a class="close_box"><!-- --></a>
-
-			<div class="clear"><!-- --></div>
-		</div>
-		<div class="box_in">
-			<div class="right">
-				<div class="text_here thresholdOverlay">
-					<span>Name: </span><b id="name"></b><br/>
-					<span>producerName: </span><b id="producerName"></b><br/>
-					<span>statName: </span><b id="statName"></b><br/>
-					<span>valueName: </span><b id="valueName"></b><br/>
-					<span>intervalName: </span><b id="intervalName"></b><br/>
-					<span>descriptionString: </span><b id="descString"></b><br/>
-					<div class="scroll">
-						<table cellpadding="0" cellspacing="0" border="0">
-							<thead>
-							<tr>
-								<th>Guards</th>
-							</tr>
-							</thead>
-							<tbody>
-							
-							</tbody>
-						</table>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="box_bot">
-			<div><!-- --></div>
-			<span><!-- --></span>
-		</div>
-	</div>
-</div>
 </html>  

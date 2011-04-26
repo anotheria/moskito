@@ -26,7 +26,7 @@ public class ShowThresholdsAction extends BaseMoskitoUIAction{
 	public ActionForward execute(ActionMapping mapping, FormBean formBean,
 			HttpServletRequest req, HttpServletResponse res) throws Exception {
 		
-		List<Threshold> thresholds = ThresholdRepository.INSTANCE.getThresholds();
+		List<Threshold> thresholds = ThresholdRepository.getInstance().getThresholds();
 		ArrayList<ThresholdBean> tBeans = new ArrayList<ThresholdBean>();
 		ArrayList<ThresholdInfoBean> iBeans = new ArrayList<ThresholdInfoBean>();
 		

@@ -443,7 +443,7 @@ public abstract class BaseMoskitoUIAction implements Action{
 		req.setAttribute("currentCategory", "");
 		req.setAttribute("currentSubsystem", "");
 		
-		ThresholdStatus systemStatus = ThresholdRepository.INSTANCE.getWorstStatus();
+		ThresholdStatus systemStatus = ThresholdRepository.getInstance().getWorstStatus();
 		req.setAttribute("systemStatus", systemStatus);
 		req.setAttribute("systemStatusColor", systemStatus.toString().toLowerCase());
 	}

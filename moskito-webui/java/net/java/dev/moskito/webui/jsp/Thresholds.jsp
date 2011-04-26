@@ -16,13 +16,6 @@
 
 <div class="main">
 	<div class="clear"><!-- --></div>
-	<%--<div class="additional">--%>
-	<%--<div class="top"><div><!-- --></div></div>--%>
-	<%--<div class="add_in">--%>
-	<%--<div><span>System state</span></div>--%>
-	<%--</div>--%>
-	<%--<div class="bot"><div><!-- --></div></div>--%>
-	<%--</div>--%>
 
 	<!-- definition for overlays -->
 		<script type="text/javascript">
@@ -143,15 +136,7 @@
 			<div><!-- --></div>
 		</div>
 	</div>
-	<%--<br><br><br>--%>
 	<div class="clear"><!-- --></div>
-	<%--<div class="additional">--%>
-	<%--<div class="top"><div><!-- --></div></div>--%>
-	<%--<div class="add_in">--%>
-	<%--<div><span>History</span></div>--%>
-	<%--</div>--%>
-	<%--<div class="bot"><div><!-- --></div></div>--%>
-	<%--</div>--%>
 
 	<div class="clear"><!-- --></div>
 	<div class="table_layout">
