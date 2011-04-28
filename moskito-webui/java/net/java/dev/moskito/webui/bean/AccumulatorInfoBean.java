@@ -1,5 +1,8 @@
 package net.java.dev.moskito.webui.bean;
 
+import net.anotheria.util.BasicComparable;
+import net.anotheria.util.sorter.IComparable;
+
 
 /**
  * This bean holds the information about a configured accumulator.
@@ -7,7 +10,7 @@ package net.java.dev.moskito.webui.bean;
  * @author lrosenberg
  *
  */
-public class AccumulatorInfoBean {
+public class AccumulatorInfoBean implements IComparable{
 	private String id;
 	private String name;
 	private String path;
@@ -42,5 +45,9 @@ public class AccumulatorInfoBean {
 	}
 	public void setId(String id) {
 		this.id = id;
+	}
+	@Override
+	public int compareTo(IComparable anotherObject, int method) {
+		return BasicComparable.compareString(getName(), ((AccumulatorInfoBean)anotherObject).getName());
 	}
 }

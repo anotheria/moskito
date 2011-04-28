@@ -32,6 +32,21 @@ public class ShowDashboardAction extends BaseMoskitoUIAction{
 
 	@Override
 	public ActionForward execute(ActionMapping mapping, FormBean formBean, HttpServletRequest req, HttpServletResponse res) {
+		
+		System.out.println("REQ in ");
+		String debug = "";
+		try{
+		while(req.getParameterNames().hasMoreElements()){
+			String p = ""+req.getParameterNames().nextElement();
+			if (debug.length()>0)
+				debug += ", ";
+			debug+= p+"= "+req.getParameter(p);
+		}
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		System.out.println("--> "+debug);
+			
 
 		if ( !StringUtils.isEmpty(req.getParameter(DASHBOARD_PARAMETER_NAME)) )
 			selectedDashboardName = req.getParameter(DASHBOARD_PARAMETER_NAME);

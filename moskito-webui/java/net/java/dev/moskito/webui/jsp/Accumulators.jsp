@@ -14,78 +14,22 @@
 
 <jsp:include page="Menu.jsp" flush="false"/>
 
-<ano:present name="dataBean">
+<ano:present name="data">
 <script type="text/javascript">
-	var data = [<ano:iterate name="dataBean" property="values" id="value" indexId="i"><ano:notEqual name="i" value="0">,</ano:notEqual>["<ano:write name="value" property="timestamp"/>",<ano:write name="value" property="value"/>]</ano:iterate>]; 
+	var data = [<ano:iterate name="data" id="value" indexId="i"><ano:notEqual name="i" value="0">,</ano:notEqual><ano:write name="value"/></ano:iterate>]; 
 </script>
 </ano:present>
 
 <div class="main">
 	<div class="clear"><!-- --></div>
-
-	<div class="clear"><!-- --></div>
-	<div class="table_layout">
-		<div class="top">
-			<div><!-- --></div>
-		</div>
-		<div class="in">
-			<h2><span>Accumulators</span></h2>
-
-			<div class="clear"><!-- --></div>
-			<div class="table_itseft">
-				<div class="top">
-					<div class="left"><!-- --></div>
-					<div class="right"><!-- --></div>
-				</div>
-				<div class="in">
-					<div class="scroller_x">
-					<table cellpadding="0" cellspacing="0" width="100%">
-						<thead>
-						<tr>
-							<th>Name</th>
-							<th>Path</th>
-							<th>Values</th>
-							<th>Last Timestamp</th>
-						</tr>
-						</thead>
-						<tbody>
-						<ano:iterate name="accumulators" type="net.java.dev.moskito.webui.bean.AccumulatorInfoBean" id="accumulator" indexId="index">
-							<tr class="<%= ((index & 1) == 0 )? "even" : "odd" %>">
-							<%--
-								<td><a href="#" onclick="openOverlay(info<ano:write name="threshold" property="id"/>); return false"><ano:write name="threshold" property="name"/></a></td>
-								<td><img src="<ano:write name="mskPathToImages" scope="application"/>ind_<ano:write name="threshold" property="colorCode"/>.<ano:equal name="threshold" property="colorCode" value="purple">gif</ano:equal><ano:notEqual name="threshold" property="colorCode" value="purple">png</ano:notEqual>" alt="<ano:write name="threshold" property="status"/>"/></td>
-							--%>
-								<td><a href="?id=<ano:write name="accumulator" property="id"/>"><ano:write name="accumulator" property="name"/></a></td>
-								<td><ano:write name="accumulator" property="path"/></td>
-								<td><ano:write name="accumulator" property="numberOfValues"/></td>
-								<td><ano:write name="accumulator" property="lastValueTimestamp"/></td>
-							</tr>
-						</ano:iterate>
-						</tbody>
-					</table>
-						</div>
-					<div class="clear"><!-- --></div>
-				</div>
-				<div class="bot">
-					<div class="left"><!-- --></div>
-					<div class="right"><!-- --></div>
-				</div>
-			</div>
-		</div>
-		<div class="bot">
-			<div><!-- --></div>
-		</div>
-	</div>
-	<div class="clear"><!-- --></div>
-
 	<!-- chart section -->
-	<ano:present name="dataBean">
+	<ano:present name="data">
 	<div class="table_layout">
 		<div class="top">
 			<div><!-- --></div>
 		</div>
 		<div class="in">
-			<h2><span>Chart for <ano:write name="dataBean" property="shortDescription"/> which is <ano:write name="dataBean" property="description"/></span></h2><a class="refresh" href="#"></a>
+			<h2><span>Chart for <ano:iterate name="accNames" type="java.lang.String" id="name"><ano:write name="name"/> </ano:iterate></span></h2><a class="refresh" href="#"></a>
 
 			<div class="clear"><!-- --></div>
 			<div class="table_itseft">
@@ -108,11 +52,73 @@
 		</div>
 	</div>
 	</ano:present>
-
 	<div class="clear"><!-- --></div>
-	
+	<div class="table_layout">
+		<div class="top">
+			<div><!-- --></div>
+		</div>
+		<div class="in">
+			<h2><span>Accumulators</span></h2>
+
+			<div class="clear"><!-- --></div>
+			<div class="table_itseft">
+				<div class="top">
+					<div class="left"><!-- --></div>
+					<div class="right"><!-- --></div>
+				</div>
+				<div class="in">
+					<div class="scroller_x">
+					<form action="" method="GET">
+						<table cellpadding="0" cellspacing="0" width="100%">
+							<thead>
+							<tr>
+								<th></th>
+								<th>Name</th>
+								<th>Path</th>
+								<th>Values</th>
+								<th>Last Timestamp</th>
+							</tr>
+							</thead>
+							<tbody>
+							<ano:iterate name="accumulators" type="net.java.dev.moskito.webui.bean.AccumulatorInfoBean" id="accumulator" indexId="index">
+								<tr class="<%= ((index & 1) == 0 )? "even" : "odd" %>">
+									<td><input type="checkbox" name="id_<ano:write name="accumulator" property="id"/>" value="set" <ano:present name="<%=\"id_\"+accumulator.getId()+\"_set\"%>">checked="checked"</ano:present>/></td>
+									<td><a href="?id_<ano:write name="accumulator" property="id"/>=set"><ano:write name="accumulator" property="name"/></a></td>
+									<td><ano:write name="accumulator" property="path"/></td>
+									<td><ano:write name="accumulator" property="numberOfValues"/></td>
+									<td><ano:write name="accumulator" property="lastValueTimestamp"/></td>
+								</tr>
+							</ano:iterate>
+								<tr>
+									<td colspan="5">
+										<input type="submit" value="Submit"/>
+										&nbsp;(<input type="checkbox" name="normalize" value="true" <ano:present name="normalize_set">checked="checked"</ano:present>/>&nbsp;normalize)
+										<input type="hidden" name="normalizeBase" value="<ano:write name="normalizeBase"/>"/>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</form>						
+						</div>
+					<div class="clear"><!-- --></div>
+				</div>
+				<div class="bot">
+					<div class="left"><!-- --></div>
+					<div class="right"><!-- --></div>
+				</div>
+			</div>
+		</div>
+		<div class="bot">
+			<div><!-- --></div>
+		</div>
+	</div>
+	<div class="clear"><!-- --></div>
+
+
+
+<%--	
 	<!-- data section -->
-	<ano:present name="dataBean">
+	<ano:present name="data">
 	<div class="table_layout">
 		<div class="top">
 			<div><!-- --></div>
@@ -155,13 +161,17 @@
 			<div><!-- --></div>
 		</div>
 	</div>
+--%>	
+<ano:present name="data">
 <script type="text/javascript">
 	google.load("visualization", "1", {packages:["corechart"]});
 	google.setOnLoadCallback(drawLineChart);
 	function drawLineChart() {
 		var data2 = new google.visualization.DataTable();
 		data2.addColumn('string', 'Time');
-		data2.addColumn('number', '<ano:write name="dataBean" property="shortDescription"/>');
+		<ano:iterate name="accNames" type="java.lang.String" id="name">
+		data2.addColumn('number', '<ano:write name="name"/>');
+		</ano:iterate>
 		data2.addRows(data);
 		var options = {width: 1000, height: 300, title: ''};
 		var chartInfo = {
