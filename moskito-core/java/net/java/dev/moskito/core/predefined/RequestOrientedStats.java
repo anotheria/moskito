@@ -260,9 +260,9 @@ public abstract class RequestOrientedStats extends AbstractStats {
 		if (valueName==null || valueName.equals(""))
 			throw new AssertionError("Value name can not be empty");
 		valueName = valueName.toLowerCase();
-		if (valueName.equals("tr"))
+		if (valueName.equals("tr") || valueName.equals("req"))
 			return ""+totalRequests.getValueAsLong(intervalName);
-		if (valueName.equals("tt"))
+		if (valueName.equals("tt")|| valueName.equals("time") || valueName.equals("totaltime"))
 			return ""+timeUnit.transformNanos(totalTime.getValueAsLong(intervalName));
 		if (valueName.equals("cr"))
 			return ""+currentRequests.getValueAsLong(intervalName);

@@ -30,7 +30,14 @@ public final class Thresholds {
 		addServiceAVGThreshold(name, producerName, "5m", guards);
 	}
 	public static void addServiceAVGThreshold(String name, String producerName, String interval, ThresholdConditionGuard... guards) {
-		addThreshold(name, producerName, "cumulated", "AVG", "interval", guards);
+		addThreshold(name, producerName, "cumulated", "AVG", interval, guards);
+	}
+
+	public static void addServiceREQThreshold(String name, String producerName, ThresholdConditionGuard... guards) {
+		addServiceREQThreshold(name, producerName, "5m", guards);
+	}
+	public static void addServiceREQThreshold(String name, String producerName, String interval, ThresholdConditionGuard... guards) {
+		addThreshold(name, producerName, "cumulated", "REQ", interval, guards);
 	}
 
 	public static void addUrlAVGThreshold(String name, String url, ThresholdConditionGuard... guards) {

@@ -51,6 +51,7 @@ public class Accumulator extends AbstractTieable<AccumulatorDefinition> implemen
 		}
 		
 		String currentValue = stats.getValueByNameAsString(getDefinition().getValueName(), getDefinition().getIntervalName(), getDefinition().getTimeUnit());
+		System.out.println("UPDATED "+this+" with "+currentValue);
 		addValue(currentValue);
 		
 	}
