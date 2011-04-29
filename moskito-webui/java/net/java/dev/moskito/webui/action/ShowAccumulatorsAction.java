@@ -45,6 +45,11 @@ public class ShowAccumulatorsAction extends BaseMoskitoUIAction{
 			normalizeBase = Integer.parseInt(req.getParameter("normalizeBase"));
 		}catch(Exception ignored){}
 		req.setAttribute("normalizeBase", normalizeBase);
+		int maxValues = 200;
+		try{
+			maxValues = Integer.parseInt(req.getParameter("maxValues"));
+		}catch(Exception ignored){}
+		req.setAttribute("maxValues", maxValues);
 		
 		for (Accumulator a : accumulators){
 			AccumulatorInfoBean bean = new AccumulatorInfoBean();
@@ -69,7 +74,7 @@ public class ShowAccumulatorsAction extends BaseMoskitoUIAction{
 		
 		List<String> ids = new ArrayList<String>();
 		
-		Enumeration names = req.getParameterNames();
+		Enumeration<?> names = req.getParameterNames();
 		while(names.hasMoreElements()){
 			String name = (String)names.nextElement();
 			if (name.startsWith("id_")){
@@ -151,7 +156,13 @@ public class ShowAccumulatorsAction extends BaseMoskitoUIAction{
 				dataBeans.add(bean);
 			}
 			
+			//now finally cut the data
+//			if (dataBeans.size()>maxValues)
+				//dataBeans.subList(fromIndex, toIndex)
 			
+			if (dataBeans.size()>maxValues)
+				dataBeans = dataBeans.subList(dataBeans.size()-maxValues, dataBeans.size());
+
 			req.setAttribute("data", dataBeans);
 			req.setAttribute("accNames", accNames);
 			
@@ -193,8 +204,7 @@ public class ShowAccumulatorsAction extends BaseMoskitoUIAction{
 			}
 			//System.out.println("1: "+valueCopy);
 			float range = max - min;
-			float multiplier = (float)limit / range;
-			//System.out.println("min: "+min+", max: "+max+", range: "+range+", mult: "+multiplier);
+			float multiplier = limit / range;
 			
 			//step2 recalculate
 			for (int i=0; i<values.size(); i++){

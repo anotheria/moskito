@@ -74,4 +74,5 @@ public class TestAccumulatorNormalization {
 		return valuesBeans;
 		
 	}
+	
 }

@@ -94,6 +94,7 @@
 										<input type="submit" value="Submit"/>
 										&nbsp;(<input type="checkbox" name="normalize" value="true" <ano:present name="normalize_set">checked="checked"</ano:present>/>&nbsp;normalize)
 										<input type="hidden" name="normalizeBase" value="<ano:write name="normalizeBase"/>"/>
+										<input type="hidden" name="maxValues" value="<ano:write name="maxValues"/>"/>
 									</td>
 								</tr>
 							</tbody>
