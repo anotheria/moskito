@@ -106,7 +106,7 @@ public class ShowAccumulatorsAction extends BaseMoskitoUIAction{
 					bean.setValue(acc.getName(), v.getValue());
 				}
 			}
-			List<AccumulatedValuesBean> valuesList = StaticQuickSorter.sort(values.values(), new DummySortType());
+			List<AccumulatedValuesBean> valuesList = StaticQuickSorter.sort(values.values(), SORT_TYPE);
 			
 			//now check if the data is complete
 			//Stores last known values to allow filling in of missing values (combining 1m and 5m values)
@@ -117,11 +117,9 @@ public class ShowAccumulatorsAction extends BaseMoskitoUIAction{
 				//first put 'some' initial value.
 				lastValue.put(accName, "0");
 				//now search for first non-null value
-				int count = 0;
 				for(AccumulatedValuesBean accValueBean : valuesList){
 					String aValue = accValueBean.getValue(accName);
 					if (aValue!=null){
-						System.out.println("Found initial 'last' value for "+accName+" = "+aValue+" in "+(count++));
 						lastValue.put(accName, aValue);
 						break;
 					}
@@ -205,15 +203,14 @@ public class ShowAccumulatorsAction extends BaseMoskitoUIAction{
 			//System.out.println("1: "+valueCopy);
 			float range = max - min;
 			float multiplier = limit / range;
+			//System.out.println("range "+range+", multiplier "+multiplier);
 			
 			//step2 recalculate
 			for (int i=0; i<values.size(); i++){
-				float newValue = (valueCopy.get(i)-min+1)*multiplier;
+				float newValue = (valueCopy.get(i)-min)*multiplier;
 				//System.out.println(values.get(i).getValue(name)+" --> "+newValue);
 				values.get(i).setValue(name, ""+newValue);
 			}
-			
-			
 		}
 	}
 	
