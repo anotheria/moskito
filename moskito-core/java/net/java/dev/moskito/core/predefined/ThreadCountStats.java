@@ -107,4 +107,27 @@ public class ThreadCountStats extends AbstractStats{
 	public long getMaxCurrent(String interval){
 		return maxCurrent.getValueAsLong(interval);
 	}
+
+	@Override
+	public String getValueByNameAsString(String valueName, String intervalName,
+			TimeUnit timeUnit) {
+		
+		if (valueName==null)
+			return null;
+		valueName = valueName.toLowerCase();
+		
+		if (valueName.equals("cur") || valueName.equals("current"))
+			return ""+getCurrent(intervalName);
+		if (valueName.equals("min") || valueName.equals("mincurrent") || valueName.equals("min cur"))
+			return ""+getMinCurrent(intervalName);
+		if (valueName.equals("max") || valueName.equals("maxcurrent") || valueName.equals("max cur"))
+			return ""+getMaxCurrent(intervalName);
+		if (valueName.equals("started"))
+			return ""+getStarted(intervalName);
+		if (valueName.equals("daemon"))
+			return ""+getDaemon(intervalName);
+		
+		return super.getValueByNameAsString(valueName, intervalName, timeUnit);
+	}
+
 }
