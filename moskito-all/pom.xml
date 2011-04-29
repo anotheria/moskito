@@ -9,7 +9,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>net.anotheria</groupId>
   <artifactId>moskito-all</artifactId>
-  <version>1.1.4</version>
+  <version>1.1.5-SNAPSHOT</version>
   <name>moskito dependency holder package</name>
   <packaging>pom</packaging>
   <dependencies>
@@ -51,10 +51,4 @@
 		<version>${project.version}</version>
 	</dependency>
   </dependencies>
-
-  <scm>
-    <connection>scm:svn:svn://svn.anotheria.net/opensource/parent/tags/moskito-1.1.4</connection>
-    <developerConnection>scm:svn:svn://svn.anotheria.net/opensource/parent/tags/moskito-1.1.4</developerConnection>
-    <url>svn:svn://svn.anotheria.net/opensource/parent/tags/moskito-1.1.4</url>
-  </scm>
 </project>
