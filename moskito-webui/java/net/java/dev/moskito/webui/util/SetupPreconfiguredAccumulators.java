@@ -15,6 +15,18 @@ public class SetupPreconfiguredAccumulators implements ServletContextListener{
 	public void contextInitialized(ServletContextEvent sce) {
 		log.info("Configuring memory accumulators.");
 		setupMemoryAccumulators();
+		log.info("Configuring thread accumulators.");
+		setupThreadAccumulators();
+		log.info("Configuring session accumulators.");
+		setupSessionCountAccumulators();
+	}
+	
+	private static void setupThreadAccumulators(){
+		Accumulators.createAccumulator("ThreadCount", "ThreadCount", "ThreadCount", "current", "default");
+	}
+	
+	private static void setupSessionCountAccumulators(){
+		Accumulators.createAccumulator("SessionCount", "SessionCount", "Sessions", "cur", "default");
 	}
 	
 	
