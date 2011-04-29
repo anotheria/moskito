@@ -1,6 +1,7 @@
 package net.java.dev.moskito.webui.action;
 
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertEquals;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -73,6 +74,19 @@ public class TestAccumulatorNormalization {
 		//DebugUtilities.printList(valuesBeans);
 		return valuesBeans;
 		
+	}
+	
+	@Test public void testSingleValue(){
+		//this test is based on real-life examples
+		String[] names = new String[]{"threads"};
+		List<AccumulatedValuesBean> sourceData = 		createData(
+				names,
+				new String[]{"25","25","25","26"}
+				);
+		ShowAccumulatorsAction.normalize(sourceData, Arrays.asList(names), 100);
+		//DebugUtilities.printList(sourceData);
+		assertEquals(Float.parseFloat(sourceData.get(0).getValue("threads")), 0.0, 0.0001);
+		assertEquals(Float.parseFloat(sourceData.get(sourceData.size()-1).getValue("threads")), 100.0, 0.0001);
 	}
 	
 }
