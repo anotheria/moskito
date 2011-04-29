@@ -103,7 +103,7 @@ public class SessionCountStats extends AbstractStats{
 			return null;
 		valueName = valueName.toLowerCase();
 		
-		if (valueName.equals("cur"))
+		if (valueName.equals("cur") || valueName.equals("current"))
 			return ""+getCurrentSessionCount(intervalName);
 		if (valueName.equals("min"))
 			return ""+getMinSessionCount(intervalName);

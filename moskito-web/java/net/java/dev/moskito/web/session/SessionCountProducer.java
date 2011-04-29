@@ -63,4 +63,9 @@ public class SessionCountProducer implements HttpSessionListener, IStatsProducer
 	public String getSubsystem() {
 		return SUBSYSTEM_BUILTIN;
 	}
+	
+	@Override public String toString(){
+		return getProducerId()+" "+getStats();
+		
+	}
 }
