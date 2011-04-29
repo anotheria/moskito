@@ -33,8 +33,7 @@ public class StartBuiltInProducers {
 	}
 
 	private static void startJavaThreadingProducers(){
-		IProducerRegistry registry = ProducerRegistryFactory.getProducerRegistryInstance();
-		registry.registerProducer(new BuiltInThreadCountProducer());
+		new BuiltInThreadCountProducer();
 	}
 	
 	private static void startJavaMemoryProducers(){

@@ -30,7 +30,7 @@ public class BuiltInThreadCountProducer implements IStatsProducer{
 	/**
 	 * Timer for scheduling of tasks.
 	 */
-	private static final Timer timer = new Timer("MoskitoMemoryPoolReader", true);
+	private static final Timer timer = new Timer("MoskitoThreadCountReader", true);
 	/**
 	 * Reference to the jmx bean.
 	 */
