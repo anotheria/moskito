@@ -11,12 +11,12 @@ import net.java.dev.moskito.core.registry.IProducerRegistry;
 import net.java.dev.moskito.core.registry.IProducerRegistryListener;
 import net.java.dev.moskito.core.registry.ProducerRegistryFactory;
 import net.java.dev.moskito.core.stats.impl.IntervalRegistry;
-import net.java.dev.moskito.core.treshold.Threshold;
-import net.java.dev.moskito.core.treshold.ThresholdDefinition;
+import net.java.dev.moskito.core.timing.IUpdateable;
+import net.java.dev.moskito.core.timing.UpdateTriggerServiceFactory;
 
 import org.apache.log4j.Logger;
 
-public abstract class TieableRepository<T extends Tieable> implements IProducerRegistryListener{
+public abstract class TieableRepository<T extends Tieable> implements IProducerRegistryListener, IUpdateable{
 	private ConcurrentMap<String, IntervalListener> listeners = new ConcurrentHashMap<String, IntervalListener>();
 	
 	private final IProducerRegistry registry = ProducerRegistryFactory.getProducerRegistryInstance();
@@ -25,6 +25,7 @@ public abstract class TieableRepository<T extends Tieable> implements IProducerR
 	
 	private ConcurrentMap<String, T> tieable = new ConcurrentHashMap<String, T>();
 	
+	private final IntervalListener defaultListener = new IntervalListener();
 
 	
 	/**
@@ -35,6 +36,9 @@ public abstract class TieableRepository<T extends Tieable> implements IProducerR
 
 	public TieableRepository() {
 		ProducerRegistryFactory.getProducerRegistryInstance().addListener(this);
+		listeners.put("default", defaultListener);
+		UpdateTriggerServiceFactory.getUpdateTriggerService().addUpdateable(this, 60);
+
 	}
 	
 	protected void addUntied(T t){
@@ -120,6 +124,10 @@ public abstract class TieableRepository<T extends Tieable> implements IProducerR
 	
 	public T getByName(String name){
 		return tieable.get(name);
+	}
+	
+	public void update(){
+		defaultListener.intervalUpdated(null);
 	}
 
 
