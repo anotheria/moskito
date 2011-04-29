@@ -4,30 +4,40 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
+import org.apache.log4j.Logger;
+
 import net.java.dev.moskito.core.helper.AbstractTieable;
 import net.java.dev.moskito.core.helper.Tieable;
 import net.java.dev.moskito.core.producers.IStats;
-import net.java.dev.moskito.core.treshold.AlertHistory;
-import net.java.dev.moskito.core.treshold.ThresholdAlert;
-import net.java.dev.moskito.core.treshold.ThresholdConditionGuard;
-import net.java.dev.moskito.core.treshold.ThresholdStatus;
 
 public class Accumulator extends AbstractTieable<AccumulatorDefinition> implements Tieable{
+	
+	/**
+	 * Logger.
+	 */
+	private static Logger log = Logger.getLogger(Accumulator.class);
+	/**
+	 * Stored values.
+	 */
 	private List<AccumulatedValue> values;
 	/**
 	 * Attached stats.
 	 */
 	private IStats stats;
-
+	/**
+	 * Id of this accumulator for inner use (referencing).
+	 */
 	private String id;
-	
+	/**
+	 * Instance counter.
+	 */
 	private static final AtomicInteger instanceCounter = new AtomicInteger(0);
 	
 	public Accumulator(AccumulatorDefinition aDefinition){
 		super(aDefinition);
 		values = new ArrayList<AccumulatedValue>();
 		id = ""+instanceCounter.incrementAndGet();
-	}
+	} 
 	
 	public void addValue(AccumulatedValue value){
 		values.add(value);
@@ -51,7 +61,8 @@ public class Accumulator extends AbstractTieable<AccumulatorDefinition> implemen
 		}
 		
 		String currentValue = stats.getValueByNameAsString(getDefinition().getValueName(), getDefinition().getIntervalName(), getDefinition().getTimeUnit());
-		System.out.println("UPDATED "+this+" with "+currentValue);
+		if (log!=null && log.isDebugEnabled())
+			log.debug("UPDATED "+this+" with "+currentValue);
 		addValue(currentValue);
 		
 	}
