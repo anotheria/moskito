@@ -206,6 +206,9 @@
 		<listener-class>
 			net.java.dev.moskitodemo.threshold.presentation.listener.SetupAccumulators
 		</listener-class>
+		<listener-class>
+			net.java.dev.moskito.webui.util.SetupPreconfiguredAccumulators
+		</listener-class>
 	</listener>
   		
 	

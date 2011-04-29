@@ -17,7 +17,6 @@ public class SetupAccumulators implements ServletContextListener{
 		new RandomProducer(1000, 1000);
 		
 		System.out.println("Configuring accumulators ... ");
-		setupMemoryAccumulators();
 		setupRandomServiceAccumulators();
 		System.out.println(" ... done.");
 	}
@@ -39,20 +38,6 @@ public class SetupAccumulators implements ServletContextListener{
 		Accumulators.createServiceAVGAccumulator("Random2-AVG-1m", "Random2", "1m");
 		Accumulators.createServiceAVGAccumulator("Random3-AVG-1m", "Random3", "1m");
 	}
-	
-	public static void setupMemoryAccumulators(){
-		Accumulators.createMemoryAccumulator1m("PermGenFree 1m", "MemoryPool-PS Perm Gen-NonHeap", "Free"); 
-		Accumulators.createMemoryAccumulator1m("OldGenFree 1m", "MemoryPool-PS Old Gen-Heap", "Free");
-		Accumulators.createMemoryAccumulator1m("OldGenFree MB 1m", "MemoryPool-PS Old Gen-Heap", "Free MB");
-		Accumulators.createMemoryAccumulator1m("OldGenUsed 1m", "MemoryPool-PS Old Gen-Heap", "Used");
-		Accumulators.createMemoryAccumulator1m("OldGenUsed MB 1m", "MemoryPool-PS Old Gen-Heap", "Used MB");
-
-		Accumulators.createMemoryAccumulator5m("PermGenFree 5m", "MemoryPool-PS Perm Gen-NonHeap", "Free"); 
-		Accumulators.createMemoryAccumulator5m("OldGenFree 5m", "MemoryPool-PS Old Gen-Heap", "Free");
-		Accumulators.createMemoryAccumulator5m("OldGenFree MB 5m", "MemoryPool-PS Old Gen-Heap", "Free MB");
-		Accumulators.createMemoryAccumulator5m("OldGenUsed 5m", "MemoryPool-PS Old Gen-Heap", "Used");
-		Accumulators.createMemoryAccumulator5m("OldGenUsed MB 5m", "MemoryPool-PS Old Gen-Heap", "Used MB");
-}
 
 	@Override
 	public void contextDestroyed(ServletContextEvent sce) {
