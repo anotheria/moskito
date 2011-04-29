@@ -1,9 +1,6 @@
 package net.java.dev.moskito.core.treshold;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.ConcurrentMap;
 
 import net.java.dev.moskito.core.dynamic.OnDemandStatsProducer;
 import net.java.dev.moskito.core.helper.TieableDefinition;
