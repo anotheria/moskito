@@ -72,6 +72,8 @@ public class SessionCountStats extends AbstractStats{
 		ret.append(" Del: ").append(numberOfDestroyedSessions.getValueAsInt(intervalName));
 		return ret.toString();
 	}
+	
+	
 
 	public int getCurrentSessionCount(String intervalName){
 		return numberOfSessions.getValueAsInt(intervalName);
@@ -91,5 +93,27 @@ public class SessionCountStats extends AbstractStats{
 
 	public int getDestroyedSessionCount(String intervalName){
 		return numberOfDestroyedSessions.getValueAsInt(intervalName);
+	}
+
+	@Override
+	public String getValueByNameAsString(String valueName, String intervalName,
+			TimeUnit timeUnit) {
+		
+		if (valueName==null)
+			return null;
+		valueName = valueName.toLowerCase();
+		
+		if (valueName.equals("cur"))
+			return ""+getCurrentSessionCount(intervalName);
+		if (valueName.equals("min"))
+			return ""+getMinSessionCount(intervalName);
+		if (valueName.equals("max"))
+			return ""+getMaxSessionCount(intervalName);
+		if (valueName.equals("new"))
+			return ""+getCreatedSessionCount(intervalName);
+		if (valueName.equals("del"))
+			return ""+getDestroyedSessionCount(intervalName);
+		
+		return super.getValueByNameAsString(valueName, intervalName, timeUnit);
 	}
 }
