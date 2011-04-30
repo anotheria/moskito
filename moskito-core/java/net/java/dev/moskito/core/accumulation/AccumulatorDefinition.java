@@ -2,8 +2,15 @@ package net.java.dev.moskito.core.accumulation;
 
 import net.java.dev.moskito.core.helper.TieableDefinition;
 
+/**
+ * The definition of an Accumulator.
+ * @author another
+ *
+ */
 public class AccumulatorDefinition extends TieableDefinition{
-	
+	/**
+	 * Number of values to store.
+	 */
 	private int accumulationAmount = 200;
 
 	

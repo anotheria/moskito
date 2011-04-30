@@ -10,6 +10,11 @@ import net.java.dev.moskito.core.helper.AbstractTieable;
 import net.java.dev.moskito.core.helper.Tieable;
 import net.java.dev.moskito.core.producers.IStats;
 
+/**
+ * An accumulator accumulates value from a defined producer over some period of time or series of values.
+ * @author another
+ *
+ */
 public class Accumulator extends AbstractTieable<AccumulatorDefinition> implements Tieable{
 	
 	/**

@@ -2,6 +2,11 @@ package net.java.dev.moskito.core.accumulation;
 
 import net.anotheria.util.NumberUtils;
 
+/**
+ * Holds a value accumulated by the acucmulator.
+ * @author another
+ *
+ */
 public class AccumulatedValue {
 	/**
 	 * Timestamp of the value.
@@ -12,7 +17,11 @@ public class AccumulatedValue {
 	 */
 	private String value;
 	
-	
+	/**
+	 * Creates a new AccumulatedValue.
+	 * @param aValue the value for the timestamp.
+	 * @param aTimestamp the timestamp of the probe.
+	 */
 	public AccumulatedValue(String aValue, long aTimestamp){
 		value = aValue;
 		timestamp = aTimestamp;
