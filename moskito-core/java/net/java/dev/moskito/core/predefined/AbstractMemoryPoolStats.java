@@ -9,12 +9,6 @@ import net.java.dev.moskito.core.stats.TimeUnit;
 
 public abstract class AbstractMemoryPoolStats extends AbstractStats implements IMemoryPoolStats{
 	
-	/**
-	 * Constant for MegaByte.
-	 */
-	private static final long MB = 1024L*1024;
-
-	
 	protected AbstractMemoryPoolStats(String name){
 		super(name);
 	}

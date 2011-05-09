@@ -25,6 +25,7 @@ public class StartBuiltInProducers {
 		
 		startJavaMemoryProducers();
 		startJavaThreadingProducers();
+		startOsProducer();
 	}
 	
 	public static void restartbuiltin(){
@@ -34,6 +35,10 @@ public class StartBuiltInProducers {
 
 	private static void startJavaThreadingProducers(){
 		new BuiltInThreadCountProducer();
+	}
+	
+	private static void startOsProducer(){
+		new BuiltInOSProducer();		
 	}
 	
 	private static void startJavaMemoryProducers(){
