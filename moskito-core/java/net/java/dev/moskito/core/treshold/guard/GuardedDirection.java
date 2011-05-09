@@ -1,5 +1,10 @@
 package net.java.dev.moskito.core.treshold.guard;
 
+/**
+ * Describes possible direction which can be bypassed by the threshold.
+ * @author another
+ *
+ */
 public enum GuardedDirection {
 	DOWN{
 		protected int getExpectedCompareResult(){
@@ -14,6 +19,12 @@ public enum GuardedDirection {
 	
 	abstract int getExpectedCompareResult();
 	
+	/**
+	 * Returns true if the threshold guard is passed (and the threshold guard should fire).
+	 * @param value
+	 * @param limit
+	 * @return
+	 */
 	public boolean brokeThrough(Number value, Number limit){
 		int compareResult = 0;
 		if (value instanceof Double){

@@ -49,6 +49,12 @@ import net.java.dev.moskito.core.stats.TimeUnit;
  * @author lrosenberg
  */
 public abstract class AbstractStats implements IStats {
+	
+	/**
+	 * Constant for MegaByte.
+	 */
+	protected static final long MB = 1024L*1024;
+
 
 	/**
 	 * Name of the stats object. This can be a method name, an url, a business keyfigure etc.

@@ -27,6 +27,10 @@ public class AccumulatedValue {
 		timestamp = aTimestamp;
 	}
 	
+	/**
+	 * Creates a new accumulated value with now as timestamp.
+	 * @param aValue
+	 */
 	public AccumulatedValue(String aValue){
 		this(aValue, System.currentTimeMillis());
 	}
@@ -43,6 +47,10 @@ public class AccumulatedValue {
 		return value;
 	}
 	
+	/**
+	 * Returns the ISO8601 Timestamp.
+	 * @return
+	 */
 	public String getISO8601Timestamp(){
 		return NumberUtils.makeISO8601TimestampString(timestamp);
 	}

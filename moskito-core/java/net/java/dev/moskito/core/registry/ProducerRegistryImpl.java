@@ -101,6 +101,8 @@ public class ProducerRegistryImpl implements IProducerRegistry{
 		if (previous!=null)
 			log.info("Under this name a producer was already registered: "+previous);
 		
+		//now create a mx bean.
+		
 		for(IProducerRegistryListener listener : listeners){
 			if (previous!=null)
 				listener.notifyProducerUnregistered(previous);

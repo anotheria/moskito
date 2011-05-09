@@ -2,23 +2,37 @@ package net.java.dev.moskito.core.treshold.guard;
 
 import net.java.dev.moskito.core.treshold.ThresholdStatus;
 
+/**
+ * A barrier path guard that works with long values.
+ * @author another
+ *
+ */
 public class LongBarrierPassGuard extends BarrierPassGuard{
+	/**
+	 * The threshold value of the guard.
+	 */
 	private long barrierValue;
 
+	/**
+	 * Creates a new LongBarrierPassGuard.
+	 * @param aTargetStatus target status.
+	 * @param targetValue threshold value.
+	 * @param aDirection direction.
+	 */
 	public LongBarrierPassGuard(ThresholdStatus aTargetStatus, long targetValue, GuardedDirection aDirection){
 		super(aTargetStatus, aDirection);
 		barrierValue = targetValue;
 	}
 	
-	public String getValueAsString(){
+	@Override public String getValueAsString(){
 		return ""+barrierValue;
 	}
 	
-	protected Number getValueAsNumber(String aValue){
+	@Override protected Number getValueAsNumber(String aValue){
 		return Long.parseLong(aValue);
 	}
 	
-	protected Number getBarrierValueAsNumber(){
+	@Override protected Number getBarrierValueAsNumber(){
 		return barrierValue;
 	}
 }

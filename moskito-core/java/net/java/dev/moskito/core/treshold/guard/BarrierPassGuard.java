@@ -4,8 +4,19 @@ import net.java.dev.moskito.core.treshold.Threshold;
 import net.java.dev.moskito.core.treshold.ThresholdConditionGuard;
 import net.java.dev.moskito.core.treshold.ThresholdStatus;
 
+/**
+ * A barrier pass guard fires as soon as a barrier has been passed.
+ * @author lrosenberg
+ *
+ */
 abstract class BarrierPassGuard implements ThresholdConditionGuard{
+	/**
+	 * The status to activate in case the barrier has been passed.
+	 */
 	private ThresholdStatus targetStatus;
+	/**
+	 * The guarded direction (top or down).
+	 */
 	private GuardedDirection direction;
 	
 	public BarrierPassGuard(ThresholdStatus aTargetStatus, GuardedDirection aDirection){
@@ -26,9 +37,20 @@ abstract class BarrierPassGuard implements ThresholdConditionGuard{
 	@Override public String toString(){
 		return targetStatus+" if "+direction+" "+getValueAsString();
 	}
-	
+	/**
+	 * Returns the value as string for alert generation.
+	 * @return
+	 */
 	protected abstract String getValueAsString();
+	/**
+	 * Returns the value of the producer as number.
+	 * @return
+	 */
 	protected abstract Number getValueAsNumber(String aValue);
+	/**
+	 * Returns the guard threshold as number.
+	 * @return
+	 */
 	protected abstract Number getBarrierValueAsNumber();
 }
 	
