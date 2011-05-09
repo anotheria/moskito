@@ -36,12 +36,13 @@ public class ShowDashboardAction extends BaseMoskitoUIAction{
 		System.out.println("REQ in ");
 		String debug = "";
 		try{
-		while(req.getParameterNames().hasMoreElements()){
-			String p = ""+req.getParameterNames().nextElement();
-			if (debug.length()>0)
-				debug += ", ";
-			debug+= p+"= "+req.getParameter(p);
-		}
+			@SuppressWarnings("unchecked")Enumeration<String> en = req.getParameterNames(); 
+			while(en.hasMoreElements()){
+				String p = ""+en.nextElement();
+				if (debug.length()>0)
+					debug += ", ";
+				debug+= p+"= "+req.getParameter(p);
+			}
 		}catch(Exception e){
 			e.printStackTrace();
 		}

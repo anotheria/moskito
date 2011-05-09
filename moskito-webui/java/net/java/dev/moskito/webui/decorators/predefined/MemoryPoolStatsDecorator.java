@@ -18,10 +18,6 @@ import net.java.dev.moskito.webui.decorators.AbstractDecorator;
 public class MemoryPoolStatsDecorator extends AbstractDecorator{
 	
 	/**
-	 * Constant for MegaByte.
-	 */
-	private static final long MB = 1024L*1024;
-	/**
 	 * Captions.
 	 */
 	private static final String CAPTIONS[] = {

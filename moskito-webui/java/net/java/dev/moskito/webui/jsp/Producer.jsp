@@ -57,7 +57,6 @@
 	<h2><msk:write name="producer" property="id" /></h2>
 	<a target="_blank" class="help" href="mskShowExplanations#<msk:write name="decorator" property="name"/>">Help</a>&nbsp;	
 	<msk:define id="sortType" type="net.java.dev.moskito.webui.bean.StatBeanSortType" name="<%=decorator.getSortTypeName()%>"/>
-	<msk:write name="sortType"/>
 		<div class="clear"><!-- --></div>
 		<div class="table_itseft">
 			<div class="top">

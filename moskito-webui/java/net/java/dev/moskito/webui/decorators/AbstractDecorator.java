@@ -46,6 +46,12 @@ import net.java.dev.moskito.webui.bean.StatCaptionBean;
  *
  */
 public abstract class AbstractDecorator implements IDecorator{
+	
+	/**
+	 * Constant for MegaByte.
+	 */
+	protected static final long MB = 1024L*1024;
+
 	/**
 	 * Storage for captions.
 	 */
