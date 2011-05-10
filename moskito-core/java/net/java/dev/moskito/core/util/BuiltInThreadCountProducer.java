@@ -3,7 +3,6 @@ package net.java.dev.moskito.core.util;
 import java.lang.management.ManagementFactory;
 import java.lang.management.ThreadMXBean;
 import java.util.List;
-import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.CopyOnWriteArrayList;
 
@@ -28,10 +27,6 @@ public class BuiltInThreadCountProducer implements IStatsProducer{
 	 */
 	private ThreadCountStats stats;
 	/**
-	 * Timer for scheduling of tasks.
-	 */
-	private static final Timer timer = new Timer("MoskitoThreadCountReader", true);
-	/**
 	 * Reference to the jmx bean.
 	 */
 	private ThreadMXBean threadMxBean;
@@ -50,13 +45,12 @@ public class BuiltInThreadCountProducer implements IStatsProducer{
 		IProducerRegistry reg = ProducerRegistryFactory.getProducerRegistryInstance();
 		reg.registerProducer(this);
 		
-		timer.scheduleAtFixedRate(new TimerTask() {
+		BuiltinUpdater.addTask(new TimerTask() {
 			@Override
 			public void run() {
 				readThreads();
 			}
-		}, 0, 1000L*60);
-		readThreads();
+		});
 	}
 	
 	/**
