@@ -4,7 +4,6 @@ import java.lang.management.MemoryPoolMXBean;
 import java.lang.management.MemoryType;
 import java.lang.management.MemoryUsage;
 import java.util.List;
-import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.CopyOnWriteArrayList;
 
@@ -34,10 +33,6 @@ public class BuiltInMemoryPoolProducer implements IStatsProducer{
 	 * The monitored pool.
 	 */
 	private MemoryPoolMXBean pool;
-	/**
-	 * Timer instance for this producer type.
-	 */
-	private static final Timer timer = new Timer("MoskitoMemoryPoolReader", true);
 	
 	/**
 	 * Creates a new producers object for a given pool.
@@ -50,13 +45,12 @@ public class BuiltInMemoryPoolProducer implements IStatsProducer{
 		stats = new MemoryPoolStats(producerId);
 		statsList.add(stats);
 		
-		timer.scheduleAtFixedRate(new TimerTask() {
+		BuiltinUpdater.addTask(new TimerTask() {
 			@Override
 			public void run() {
 				readMemory();
 			}
-		}, 0, 1000L*60);
-		readMemory();
+		});
 	}
 	
 	@Override

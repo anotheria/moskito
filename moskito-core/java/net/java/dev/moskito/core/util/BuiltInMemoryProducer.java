@@ -48,11 +48,6 @@ public class BuiltInMemoryProducer implements IStatsProducer{
 	 */
 	public static final String TOTAL = "JavaRuntimeTotal";
 	
-	/**
-	 * Private timer instance.
-	 */
-	private static final Timer timer = new Timer("MoskitoMemoryReader", true);
-	
 	public BuiltInMemoryProducer(String aProducerId){
 		statsList = new CopyOnWriteArrayList<IStats>();
 		stats = new MemoryStats(aProducerId);
@@ -69,13 +64,12 @@ public class BuiltInMemoryProducer implements IStatsProducer{
 		if (resolver==null)
 			throw new IllegalArgumentException("Illegal producerId, expected: "+FREE+", "+TOTAL+" or "+MAX);
 		
-		timer.scheduleAtFixedRate(new TimerTask() {
+		BuiltinUpdater.addTask(new TimerTask() {
 			@Override
 			public void run() {
 				readMemory();
 			}
-		}, 0, 1000L*60);
-		readMemory();
+		});
 	}
 	
 	@Override

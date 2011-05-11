@@ -29,5 +29,9 @@ enum StatValueTypes {
 	/**
 	 * A double value is required
 	 */
-	DOUBLE
+	DOUBLE,
+	/**
+	 * String value. String values are only used to held some widely unrelevant information like process name.
+	 */
+	STRING
 }

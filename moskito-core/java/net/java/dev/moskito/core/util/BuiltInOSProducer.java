@@ -8,13 +8,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.TimerTask;
 
-import org.apache.log4j.Logger;
-
 import net.java.dev.moskito.core.predefined.OSStats;
 import net.java.dev.moskito.core.producers.IStats;
 import net.java.dev.moskito.core.producers.IStatsProducer;
-import net.java.dev.moskito.core.registry.IProducerRegistry;
 import net.java.dev.moskito.core.registry.ProducerRegistryFactory;
+
+import org.apache.log4j.Logger;
 
 /**
  * Builtin producer for values supplied by jmx for the operation system.
@@ -98,8 +97,6 @@ public class BuiltInOSProducer implements IStatsProducer{
 			
 			long freePhysicalMemorySize = getValue("FreePhysicalMemorySize");
 			long totalPhysicalMemorySize = getValue("TotalPhysicalMemorySize");
-			
-			System.out.println("FREE "+freePhysicalMemorySize+", TOTAL: "+totalPhysicalMemorySize);
 			
 			long processTime = getValue("ProcessCpuTime");
 			

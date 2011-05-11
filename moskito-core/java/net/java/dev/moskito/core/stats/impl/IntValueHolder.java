@@ -178,5 +178,17 @@ class IntValueHolder extends AbstractValueHolder {
 	@Override public long getCurrentValueAsLong() {
 		return getCurrentValueAsInt();
 	}
+	
+	@Override public void setValueAsString(String aValue){
+		currentValue.set(Integer.parseInt(aValue));
+	}
+	
+	@Override public String getValueAsString() {
+		return ""+lastValue;
+	}
+
+	@Override public String getCurrentValueAsString() {
+		return ""+currentValue.get();
+	}
 
 }

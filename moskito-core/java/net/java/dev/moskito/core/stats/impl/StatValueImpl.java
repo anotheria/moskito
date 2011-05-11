@@ -219,6 +219,14 @@ class StatValueImpl implements StatValue {
 	}
 	
 	/**
+	 * @see net.java.dev.moskito.core.stats.StatValue#setValueAsInt(int)
+	 */
+	public void setValueAsString(String aValue){
+		for (ValueHolder holder : valuesAsList)
+			holder.setValueAsString(aValue);
+	}
+
+	/**
 	 * @see net.java.dev.moskito.core.stats.StatValue#setValueAsLong(long)
 	 */
 	public void setValueAsLong(long aValue){
@@ -367,5 +375,16 @@ class StatValueImpl implements StatValue {
 		for (ValueHolder holder : valuesAsList)
 			if (holder.getCurrentValueAsDouble() > aValue)
 				holder.setValueAsDouble(aValue);
+	}
+	
+	public String getValueAsString(String intervalName){
+		if (intervalName==null || intervalName.equals(ABSOLUTE_VALUE.getName()))
+			return absoluteValue.getCurrentValueAsString();
+		return getHolderByIntervalName(intervalName).getValueAsString();
+
+	}
+	
+	public String getValueAsString(){
+		return getValueAsString(null);
 	}
 }

@@ -34,53 +34,50 @@
  */
 package net.java.dev.moskito.core.stats.impl;
 
-import java.util.concurrent.atomic.AtomicLong;
-
 import net.java.dev.moskito.core.stats.Interval;
+import net.java.dev.moskito.core.stats.ValueHolder;
 
 /**
- * This class implements a ValueHolder that is able to process long values.
+ * This class implements a ValueHolder that is able to process int values.
+ * 
  * @author lrosenberg
  * @see ValueHolder
  */
-class LongValueHolder extends AbstractValueHolder {
+class StringValueHolder extends AbstractValueHolder {
 
 	/**
 	 * This is the value that will be used as defaultValue if no other one was specified.
 	 */
-	public static final long DEFAULT_DEFAULT_VALUE = 0;
+	public static final String DEFAULT_DEFAULT_VALUE = "";
 
 	/**
 	 * This attribute stores the current value supporting concurrent access.
 	 */
-	private AtomicLong currentValue;
+	private String currentValue;
 
 	/**
-	 * The last value will be stored here.
+	 * The value measured in the last interval. 
 	 */
-	private long lastValue;
+	private String lastValue;
 
 	/**
 	 * This is the default value that this ValueHolder contains after a reset.
 	 */
-	private long defaultValue;
+	private String defaultValue;
 
 	/**
 	 * The Constructor.
 	 * 
 	 * @param aInterval this is the Interval this value will be updated
 	 */
-	public LongValueHolder(Interval aInterval) {
+	public StringValueHolder(Interval aInterval) {
 		super(aInterval);
 		defaultValue = DEFAULT_DEFAULT_VALUE;
-		currentValue = new AtomicLong(defaultValue);
+		currentValue = "";
 	}
 
-	/**
-	 * @see net.java.dev.moskito.core.stats.IIntervalListener#intervalUpdated(net.java.dev.moskito.core.stats.impl.IntervalImpl)
-	 */
-	@Override public void intervalUpdated(Interval caller) {
-		lastValue = currentValue.getAndSet(defaultValue);
+	@Override public void intervalUpdated(Interval aCaller) {
+		lastValue = currentValue;
 	}
 
 	/**
@@ -88,93 +85,84 @@ class LongValueHolder extends AbstractValueHolder {
 	 * 
 	 * @return the lastValue
 	 */
-	public long getLastValue() {
+	public String getLastValue() {
 		return lastValue;
 	}
 
-	/**
-	 * @see net.java.dev.moskito.core.stats.impl.AbstractValueHolder#toString()
-	 */
-	@Override
-	public String toString() {
-		return super.toString() + " L " + lastValue + " / "	+ currentValue.get();
+	@Override public String toString() {
+		return super.toString() + " I " + lastValue + " / " + currentValue;
 	}
 
 	@Override public void decrease() {
-		currentValue.decrementAndGet();
+		throw new UnsupportedOperationException();
 	}
 
-	/**
-	 * @see net.java.dev.moskito.core.stats.ValueHolder#increase()
-	 */
 	@Override public void increase() {
-		currentValue.incrementAndGet();
+		throw new UnsupportedOperationException();
 	}
 
 	@Override public void decreaseByDouble(double aValue) {
-		decreaseByLong((long) aValue);
+		throw new UnsupportedOperationException();
 	}
 
 	@Override public void decreaseByInt(int aValue) {
-		decreaseByLong(aValue);
+		throw new UnsupportedOperationException();
 	}
 
 	@Override public void decreaseByLong(long aValue) {
-		currentValue.addAndGet(-aValue);
+		throw new UnsupportedOperationException();
 	}
 
 	@Override public double getValueAsDouble() {
-		return getValueAsLong();
+		return getValueAsInt();
 	}
 
 	@Override public int getValueAsInt() {
-		return (int) getValueAsLong();
+		return Integer.parseInt(lastValue);
 	}
 
 	@Override public long getValueAsLong() {
-		return lastValue;
+		return getValueAsInt();
 	}
 
 	@Override public void increaseByDouble(double aValue) {
-		increaseByLong((long) aValue);
-
+		throw new UnsupportedOperationException();
 	}
 
 	@Override public void increaseByInt(int aValue) {
-		increaseByLong(aValue);
+		throw new UnsupportedOperationException();
 	}
 
 	@Override public void increaseByLong(long aValue) {
-		currentValue.addAndGet(aValue);
+		throw new UnsupportedOperationException();
 	}
 
 	@Override public void setValueAsDouble(double aValue) {
-		setValueAsLong((long) aValue);
-
+		setValueAsInt((int) aValue);
 	}
 
 	@Override public void setValueAsInt(int aValue) {
-		setValueAsLong(aValue);
+		currentValue = ""+aValue;
 	}
 
 	@Override public void setValueAsLong(long aValue) {
-		currentValue.set(aValue);
+		setValueAsInt((int) aValue);
 	}
 
 	@Override public void setDefaultValueAsLong(long aValue) {
-		defaultValue = aValue;
+		setDefaultValueAsInt((int) aValue);
 	}
 
 	@Override public void setDefaultValueAsInt(int aValue) {
-		setDefaultValueAsLong(aValue);
+		defaultValue = ""+aValue;
 	}
 
 	@Override public void setDefaultValueAsDouble(double aValue) {
-		setDefaultValueAsLong((long) aValue);
+		setDefaultValueAsInt((int) aValue);
 	}
 
 	@Override public void reset() {
-		currentValue.set(defaultValue);
+		currentValue = defaultValue;
 		lastValue = defaultValue;
 	}
 
@@ -183,23 +171,22 @@ class LongValueHolder extends AbstractValueHolder {
 	}
 
 	@Override public int getCurrentValueAsInt() {
-		return (int) getCurrentValueAsLong();
+		return Integer.parseInt(currentValue);
 	}
 
 	@Override public long getCurrentValueAsLong() {
-		return currentValue.get();
+		return getCurrentValueAsInt();
 	}
-
+	
 	@Override public void setValueAsString(String aValue){
-		currentValue.set(Long.parseLong(aValue));
+		currentValue = aValue;
 	}
-
-	@Override public String getValueAsString() {
-		return ""+lastValue;
+	
+	@Override public String getValueAsString(){
+		return lastValue;
 	}
-
 	@Override public String getCurrentValueAsString() {
-		return ""+currentValue.get();
+		return ""+currentValue;
 	}
 
 }

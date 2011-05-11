@@ -34,55 +34,17 @@
  */
 package net.java.dev.moskito.core.stats.impl;
 
-import net.java.dev.moskito.core.stats.IValueHolderFactory;
-
-
+import net.java.dev.moskito.core.stats.Interval;
 
 /**
- * This utility class provides methods to gather the StatValue type from a given Object's class and
- * to create ValueHolderFactories from an internal type representation.
- * 
+ * This ValueHolderFactory implementation creates StringValueHolder instances.
  * @author lrosenberg
  */
-final class StatValueTypeUtility {
+class StringValueHolderFactory extends AbstractValueHolderFactory {
 
-	/**
-	 * This method creates the responsible ValueHolderFactory from the given internal type representation.
-	 * 
-	 * @param aType the type that should be supported by the new facotry
-	 * @return the new factory instance
-	 * @throws RuntimeException if the type is unknown or not supported
-	 */
-	protected static final IValueHolderFactory createValueHolderFactory(StatValueTypes aType) {
-		switch (aType) {
-		case LONG:
-			return new LongValueHolderFactory();
-		case INT:
-			return new IntValueHolderFactory();
-		case STRING:
-			return new StringValueHolderFactory();
-		default:
-			throw new AssertionError("Unsupported type: " + aType);
-		}
-	}
-	
-	/**
-	 * 
-	 * 
-	 * @param aObject
-	 * @return
-	 */
-	protected static final StatValueTypes object2type(Object anObject) {
-		if (anObject instanceof Long)
-			return StatValueTypes.LONG;
-		if (anObject instanceof Integer)
-			return StatValueTypes.INT;
-		if (anObject instanceof String)
-			return StatValueTypes.STRING;
-		throw new AssertionError("Invalid class for object2type mapping: "	+ anObject.getClass());
+	@Override
+	protected AbstractValueHolder createValueHolderObject(Interval aInterval) {
+		return new StringValueHolder(aInterval);
 	}
 
-	private StatValueTypeUtility(){
-		//prevent instantiation.
-	}
 }

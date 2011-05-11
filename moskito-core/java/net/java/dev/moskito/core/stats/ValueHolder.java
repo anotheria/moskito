@@ -57,6 +57,8 @@ public interface ValueHolder {
 	 */
 	double getValueAsDouble();
 	
+	String getValueAsString();
+	
 	/**
 	 * This method shall return the current value as int for internal use only.
 	 * 
@@ -76,6 +78,8 @@ public interface ValueHolder {
 	 */
 	double getCurrentValueAsDouble();
 	
+	String getCurrentValueAsString();
+	
 	/**
 	 * This method shall assign the given value to the current value.
 	 *
@@ -83,6 +87,12 @@ public interface ValueHolder {
 	 */
 	void setValueAsInt(int aValue);
 	
+	/**
+	 * This method shall assign the given value to the current value.
+	 * @param aValue the new value
+	 */
+	void setValueAsString(String aValue);
+
 	/**
 	 * This method shall assign the given value to the current value.
 	 *

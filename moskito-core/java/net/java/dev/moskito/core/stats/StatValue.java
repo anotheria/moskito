@@ -295,5 +295,15 @@ public interface StatValue {
 	 * @param aValue the new value
 	 */
 	void setValueIfLesserThanCurrentAsDouble(double aValue);
+	
+	/**
+	 * Sets the value as String. This method is mainly needed for pure informative values like system name.
+	 * @param aValue
+	 */
+	void setValueAsString(String aValue);
+	
+	String getValueAsString();
+	
+	String getValueAsString(String anIntervalName);
 
 }

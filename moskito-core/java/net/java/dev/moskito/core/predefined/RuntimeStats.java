@@ -1,12 +1,76 @@
 package net.java.dev.moskito.core.predefined;
 
 import net.java.dev.moskito.core.producers.AbstractStats;
+import net.java.dev.moskito.core.stats.Interval;
 import net.java.dev.moskito.core.stats.StatValue;
+import net.java.dev.moskito.core.stats.TimeUnit;
+import net.java.dev.moskito.core.stats.impl.StatValueFactory;
 
-public abstract class RuntimeStats extends AbstractStats{
+public class RuntimeStats extends AbstractStats{
 	private StatValue processName;
 	private StatValue startTime;
 	private StatValue uptime;
 	
+	public RuntimeStats(){
+		this("Runtime", Constants.getDefaultIntervals());
+	} 
 	
+	public RuntimeStats(String aName){
+		this(aName, Constants.getDefaultIntervals());
+	} 
+
+	public RuntimeStats(String aName,  Interval[] selectedIntervals){
+		super(aName);
+		processName = StatValueFactory.createStatValue("", "processName", selectedIntervals);
+		startTime = StatValueFactory.createStatValue(0L, "startTime", selectedIntervals); 
+		uptime = StatValueFactory.createStatValue(0L, "uptime", selectedIntervals); 
+	}
+	
+	public void update(String aName, long aStartTime, long anUptime){
+		processName.setValueAsString(aName);
+		startTime.setValueAsLong(aStartTime);
+		uptime.setValueAsLong(anUptime);
+	}
+
+	@Override
+	public String toStatsString(String intervalName, TimeUnit unit) {
+		StringBuilder ret = new StringBuilder();
+		
+		ret.append(getName()).append(' ');
+		ret.append(" process: ").append(processName.getValueAsString(intervalName));
+		ret.append(" starttime: ").append(startTime.getValueAsLong(intervalName));
+		ret.append(" uptime: ").append(uptime.getValueAsInt(intervalName));
+		
+		return ret.toString();
+	}
+	
+	@Override
+	public String getValueByNameAsString(String valueName, String intervalName,
+			TimeUnit timeUnit) {
+		
+		if (valueName==null)
+			throw new AssertionError("Value name can't be null");
+		valueName = valueName.toLowerCase();
+		
+		if (valueName.equals("process") || valueName.equals("name") || valueName.equals("processname"))
+			return processName.getValueAsString(intervalName);
+		if (valueName.equals("starttime"))
+			return ""+getStartTime(intervalName);
+		if (valueName.equals("uptime"))
+			return ""+getUptime(intervalName);
+		
+		return super.getValueByNameAsString(valueName, intervalName, timeUnit);
+	}
+
+	public String getProcessName(String intervalName){
+		return processName.getValueAsString(intervalName);
+	}
+	
+	public long getStartTime(String intervalName){
+		return startTime.getValueAsLong(intervalName);
+	}
+	
+	public long getUptime(String intervalName){
+		return uptime.getValueAsLong(intervalName);
+	}
 }
