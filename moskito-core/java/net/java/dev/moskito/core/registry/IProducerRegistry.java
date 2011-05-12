@@ -48,33 +48,37 @@ public interface IProducerRegistry {
 	 * Registers a stats producer.
 	 * @param producer
 	 */
-	public void registerProducer(IStatsProducer producer);
+	void registerProducer(IStatsProducer producer);
 	/**
 	 * Unregisters a stat producer.
 	 * @param producer
 	 */
-	public void unregisterProducer(IStatsProducer producer);
+	void unregisterProducer(IStatsProducer producer);
 	/**
 	 * Returns registered producers.
 	 * @return
 	 */
-	public Collection<IStatsProducer> getProducers();
+	Collection<IStatsProducer> getProducers();
 	/**
 	 * Returns a producer with given id.
 	 * @param producerId
 	 * @return
 	 */
-	public IStatsProducer getProducer(String producerId);
+	IStatsProducer getProducer(String producerId);
 	/**
 	 * Adds a producer registry listener.
 	 * @param listener
 	 */
-	public void addListener(IProducerRegistryListener listener);
+	void addListener(IProducerRegistryListener listener);
 	
 	/**
 	 * Removes a listener.
 	 * @param listener
 	 */
-	public void removeListener(IProducerRegistryListener listener);
+	void removeListener(IProducerRegistryListener listener);
+	/**
+	 * Clean ups the state. This is useful for webapp shutdown or unit tests.
+	 */
+	void cleanup();
 }
 

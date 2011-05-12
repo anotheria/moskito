@@ -6,9 +6,23 @@ import net.java.dev.moskito.core.stats.StatValue;
 import net.java.dev.moskito.core.stats.TimeUnit;
 import net.java.dev.moskito.core.stats.impl.StatValueFactory;
 
+/**
+ * Stats object that corresponds to JMX RuntimeMbean.
+ * @author another
+ *
+ */
 public class RuntimeStats extends AbstractStats{
+	/**
+	 * Name of the process.
+	 */
 	private StatValue processName;
+	/**
+	 * Start timestamp of the process/runtime.
+	 */
 	private StatValue startTime;
+	/**
+	 * Uptime of the process.
+	 */
 	private StatValue uptime;
 	
 	public RuntimeStats(){

@@ -11,7 +11,7 @@ import net.java.dev.moskito.core.helper.Tieable;
 import net.java.dev.moskito.core.producers.IStats;
 
 
-public class Threshold extends AbstractTieable<ThresholdDefinition> implements Tieable{
+public class Threshold extends AbstractTieable<ThresholdDefinition> implements Tieable, ThresholdMBean{
 	/**
 	 * Logger.
 	 */
@@ -73,6 +73,10 @@ public class Threshold extends AbstractTieable<ThresholdDefinition> implements T
 
 	public ThresholdStatus getStatus() {
 		return status;
+	}
+	
+	public String getStatusString(){
+		return getStatus().name();
 	}
 
 	public IStats getStats() {

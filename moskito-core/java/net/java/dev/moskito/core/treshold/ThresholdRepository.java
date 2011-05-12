@@ -1,8 +1,19 @@
 package net.java.dev.moskito.core.treshold;
 
+import java.lang.management.ManagementFactory;
 import java.util.List;
 
+import javax.management.InstanceAlreadyExistsException;
+import javax.management.MBeanRegistrationException;
+import javax.management.MBeanServer;
+import javax.management.MalformedObjectNameException;
+import javax.management.NotCompliantMBeanException;
+import javax.management.ObjectName;
+
+import org.apache.log4j.Logger;
+
 import net.java.dev.moskito.core.dynamic.OnDemandStatsProducer;
+import net.java.dev.moskito.core.helper.RuntimeConstants;
 import net.java.dev.moskito.core.helper.TieableDefinition;
 import net.java.dev.moskito.core.helper.TieableRepository;
 import net.java.dev.moskito.core.producers.IStats;
@@ -10,9 +21,11 @@ import net.java.dev.moskito.core.producers.IStatsProducer;
 
 public class ThresholdRepository extends TieableRepository<Threshold> {
 	
+	private static Logger log = Logger.getLogger(ThresholdRepository.class);
+
 	private static ThresholdRepository INSTANCE = new ThresholdRepository();
 	
-	
+
 	
 	private ThresholdRepository(){
 	}
@@ -47,10 +60,50 @@ public class ThresholdRepository extends TieableRepository<Threshold> {
 		
 	}
 	
+	public void cleanup(){
+	    MBeanServer mbs = ManagementFactory.getPlatformMBeanServer();
+		List<Threshold> th = getThresholds();
+		for (Threshold t : th){
+			try{
+				ObjectName name = createName(t.getDefinition().getName());
+		    	mbs.unregisterMBean(name);
+			}catch(Exception e){
+				log.warn("can't unregister "+t.getDefinition().getName()+", ignored.", e);
+			}
+			
+		}
+	}
+	
+	private ObjectName createName(String name) throws MalformedObjectNameException{
+		String appName = RuntimeConstants.getApplicationName();
+		String objectName = "moskito."+(appName.length()>0 ? appName+".":"")+"thresholds:type="+name;
+		ObjectName objName = new ObjectName(objectName);
+		return objName;
+	}
+		
 
 	
 	public Threshold createThreshold(ThresholdDefinition definition){
-		return createTieable(definition);
+		Threshold ret = createTieable(definition); 
+	    MBeanServer mbs = ManagementFactory.getPlatformMBeanServer();
+
+	    try{
+	    	// Construct the ObjectName for the MBean we will register
+			ObjectName name = createName(ret.getDefinition().getName());
+	    	
+	    	// Register the Hello World MBean
+	    	mbs.registerMBean(ret, name);
+	    }catch(MalformedObjectNameException e){
+	    	log.error("can't subscribe threshold to jmx", e);
+	    } catch (InstanceAlreadyExistsException e) {
+	    	log.error("can't subscribe threshold to jmx", e);
+		} catch (MBeanRegistrationException e) {
+	    	log.error("can't subscribe threshold to jmx", e);
+		} catch (NotCompliantMBeanException e) {
+	    	log.error("can't subscribe threshold to jmx", e);
+		}
+
+    	return ret;
 	}
 
 	public ThresholdStatus getWorstStatus(){

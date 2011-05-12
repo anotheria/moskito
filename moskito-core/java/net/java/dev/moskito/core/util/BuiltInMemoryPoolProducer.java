@@ -15,7 +15,7 @@ import net.java.dev.moskito.core.producers.IStatsProducer;
  * Builtin producer for memory pool monitoring. Each producer monitors one memory pool. Memory pools are garbage collector dependent and are determined via jmx on start.
  * @author lrosenberg
  */
-public class BuiltInMemoryPoolProducer implements IStatsProducer{
+public class BuiltInMemoryPoolProducer implements IStatsProducer, BuiltInProducer{
 	/**
 	 * The id of the producers. Usually its the name of the pool.
 	 */

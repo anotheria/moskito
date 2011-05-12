@@ -40,4 +40,29 @@ public enum TimeUnit {
 		return nanos / factor;
 	}
 	
+	/**
+	 * Helper method to create a TimeUnit from potentially incorrect textual representation (nanos, nanoseconds, seconds, millis, etc work).
+	 * @param str
+	 * @return
+	 */
+	public static final TimeUnit fromString(String str){
+		if (str==null)
+			throw new IllegalArgumentException("TimeUnit name can't be null");
+		str = str.toUpperCase();
+		String orig = str;
+		try{
+			TimeUnit ret = TimeUnit.valueOf(str);
+			return ret;
+		}catch(IllegalArgumentException e){
+			if (!str.endsWith("S"))
+				str+="S";
+			str += "ECONDS";
+			try{
+				TimeUnit ret = TimeUnit.valueOf(str);
+				return ret;
+			}catch(IllegalArgumentException e2){
+				throw new IllegalArgumentException("No enum const class net.java.dev.moskito.core.stats.TimeUnit, tried "+orig+" and "+str);
+			}
+		}
+	}
 }

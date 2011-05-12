@@ -12,4 +12,8 @@ public class BuiltinUpdater {
 	public static void addTask(TimerTask task){
 		timer.scheduleAtFixedRate(task, 0, 1000L*60);
 	}
+	
+	public static void cleanup(){
+		timer.cancel();
+	}
 }

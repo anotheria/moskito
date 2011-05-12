@@ -1,7 +1,6 @@
 package net.java.dev.moskito.core.util;
 
 import java.util.List;
-import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.CopyOnWriteArrayList;
 
@@ -14,7 +13,7 @@ import net.java.dev.moskito.core.producers.IStatsProducer;
  * @author lrosenberg
  *
  */
-public class BuiltInMemoryProducer implements IStatsProducer{
+public class BuiltInMemoryProducer implements IStatsProducer, BuiltInProducer{
 	/**
 	 * The id of the producer.
 	 */

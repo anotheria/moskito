@@ -12,7 +12,7 @@ import net.java.dev.moskito.core.producers.IStatsProducer;
  * Built in producer for monitoring of virtual memory pools, which are combination of pools based on memory type, like: all heap pools, all non-heap pools.
  * @author lrosenberg
  */
-public class BuiltInMemoryPoolVirtualProducer implements IStatsProducer{
+public class BuiltInMemoryPoolVirtualProducer implements IStatsProducer, BuiltInProducer{
 	/**
 	 * The id of the producer. Usually its the name of the memory type.
 	 */

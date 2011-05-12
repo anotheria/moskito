@@ -48,7 +48,7 @@ import net.java.dev.moskito.core.stats.TimeUnit;
  * 
  * @author lrosenberg
  */
-public abstract class AbstractStats implements IStats {
+public abstract class AbstractStats implements IStats, StatsMXBean{
 	
 	/**
 	 * Constant for MegaByte.
@@ -154,6 +154,11 @@ public abstract class AbstractStats implements IStats {
 	@Override 
 	public String toString(){
 		return getName();
+	}
+
+	@Override
+	public String getValueByNameAsString(String valueName, String intervalName, String timeUnit){
+		return getValueByNameAsString(valueName, intervalName, TimeUnit.fromString(timeUnit));
 	}
 
 }

@@ -34,6 +34,7 @@
  */	
 package net.java.dev.moskito.core.registry;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
@@ -121,5 +122,18 @@ public class ProducerRegistryImpl implements IProducerRegistry{
 	void reset(){
 		listeners = new CopyOnWriteArrayList<IProducerRegistryListener>();
 		registry = new ConcurrentHashMap<String,IStatsProducer>();
+		addListener(new JMXBridgeListener());
+	}
+	
+	public void cleanup(){
+		ArrayList<IStatsProducer> producers = new ArrayList<IStatsProducer>();
+		producers.addAll(registry.values());
+		for (IStatsProducer p : producers){
+			try{
+				unregisterProducer(p);
+			}catch(Exception e){
+				log.warn("can't unregister producer "+p, e);
+			}
+		}
 	}
 }
