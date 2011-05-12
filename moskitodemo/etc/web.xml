@@ -5,6 +5,8 @@
 
 <web-app>
     <display-name>moskitodemo</display-name>
+    
+    
          <servlet>
         <servlet-name>struts</servlet-name>
         <servlet-class>org.apache.struts.action.ActionServlet</servlet-class>
@@ -196,16 +198,27 @@
 		
 	<!--/jsp-config-->
 
-	<listener>
+    <listener>
+		<listener-class>
+			net.java.dev.moskito.webui.util.StartStopListener
+		</listener-class>
+	</listener>
+    <listener>
 		<listener-class>
 			net.java.dev.moskito.web.session.SessionCountProducer
 		</listener-class>
+    </listener>
+    <listener>
 		<listener-class>
 			net.java.dev.moskitodemo.threshold.presentation.listener.SetupThresholds
 		</listener-class>
+    </listener>
+    <listener>
 		<listener-class>
 			net.java.dev.moskitodemo.threshold.presentation.listener.SetupAccumulators
 		</listener-class>
+    </listener>
+    <listener>
 		<listener-class>
 			net.java.dev.moskito.webui.util.SetupPreconfiguredAccumulators
 		</listener-class>
