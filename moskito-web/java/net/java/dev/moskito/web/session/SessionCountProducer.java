@@ -11,6 +11,11 @@ import net.java.dev.moskito.core.producers.IStatsProducer;
 import net.java.dev.moskito.core.registry.IProducerRegistry;
 import net.java.dev.moskito.core.registry.ProducerRegistryFactory;
 
+/**
+ * This producer attaches itself to webcontainer session management and 
+ * @author another
+ *
+ */
 public class SessionCountProducer implements HttpSessionListener, IStatsProducer{
 
 	/**
