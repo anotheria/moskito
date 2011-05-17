@@ -126,4 +126,22 @@ public final class Accumulators {
 		createAccumulator(name, "RequestURIFilter", url, "AVG", interval);
 	}
 
+	/**
+	 * Creates a new accumulator for request count of the url. Requires net.java.dev.moskito.web.filters.RequestURIFilter to be present in the web.xml map to the uri.
+	 * @param name name of the accumulator.
+	 * @param url url to accumulate
+	 */
+	public static void createUrlREQAccumulator(String name, String url){
+		createUrlREQAccumulator(name, url, DEFAULT_INTERVAL);
+	}
+	
+	/**
+	 * Creates a new accumulator for request count of the url. Requires net.java.dev.moskito.web.filters.RequestURIFilter to be present in the web.xml map to the uri.
+	 * @param name name of the accumulator.
+	 * @param url url to accumulate
+	 * @param interval name of the interval.
+	 */
+	public static void createUrlREQAccumulator(String name, String url, String interval) {
+		createAccumulator(name, "RequestURIFilter", url, "REQ", interval);
+	}
 }
