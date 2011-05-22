@@ -1,6 +1,7 @@
 package net.java.dev.moskito.core.treshold;
 
 import java.lang.management.ManagementFactory;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.management.InstanceAlreadyExistsException;
@@ -106,6 +107,10 @@ public class ThresholdRepository extends TieableRepository<Threshold> {
     	return ret;
 	}
 
+	/**
+	 * Returns the worst threshold status in the system.
+	 * @return
+	 */
 	public ThresholdStatus getWorstStatus(){
 		ThresholdStatus ret = ThresholdStatus.GREEN;
 		for (Threshold t : getThresholds()){
@@ -115,10 +120,41 @@ public class ThresholdRepository extends TieableRepository<Threshold> {
 		return ret;
 	}
 	
+	/**
+	 * Returns the worst threshold status in the system for given threshold names.
+	 * @return
+	 */
+	public ThresholdStatus getWorstStatus(String[] names){
+		return getWorstStatus(Arrays.asList(names));
+	}
+	
+	/**
+	 * Returns the worst threshold status in the system for given threshold names.
+	 * @return
+	 */
+	public ThresholdStatus getWorstStatus(List<String> names){
+		ThresholdStatus ret = ThresholdStatus.GREEN;
+		for (Threshold t : getThresholds()){
+			if (names.indexOf(t.getName())==-1)
+				continue;
+			if (t.getStatus().overrules(ret))
+				ret = t.getStatus();
+		}
+		return ret;
+		
+	}
+
+	/**
+	 * Returns active thresholds.
+	 * @return
+	 */
 	public List<Threshold> getThresholds(){
 		return getTieables();
 	}
 	
+	/**
+	 * Creates a new threshold.
+	 */
 	protected Threshold create(TieableDefinition def){
 		return new Threshold((ThresholdDefinition)def);
 	}
