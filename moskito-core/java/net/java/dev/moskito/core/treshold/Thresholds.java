@@ -9,6 +9,15 @@ public final class Thresholds {
 	//prevent initialization
 	private Thresholds(){}
 
+	/**
+	 * Creates a new Threshold and adds it to repository.
+	 * @param name name of the Threshold.
+	 * @param producerName name of the associated producer.
+	 * @param statName name of the associated stat.
+	 * @param valueName name of the associated value.
+	 * @param intervalName name of the associated interval.
+	 * @param guards threshold guards.
+	 */
 	public static void addThreshold(String name, String producerName, String statName, String valueName, String intervalName,
 			ThresholdConditionGuard... guards) {
 		ThresholdDefinition definition = new ThresholdDefinition();
