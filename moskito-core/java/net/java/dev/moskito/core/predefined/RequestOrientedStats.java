@@ -454,5 +454,10 @@ public abstract class RequestOrientedStats extends AbstractStats {
 	public List<String> getAvailableValueNames() {
 		return VALUE_NAMES;
 	}
+	
+	@Override
+	public boolean isEmpty(String intervalName){
+		return getCurrentRequests(intervalName) == 0;
+	}
 
 }

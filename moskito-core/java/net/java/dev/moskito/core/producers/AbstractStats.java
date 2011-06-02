@@ -161,4 +161,7 @@ public abstract class AbstractStats implements IStats, StatsMXBean{
 		return getValueByNameAsString(valueName, intervalName, TimeUnit.fromString(timeUnit));
 	}
 
+	@Override public boolean isEmpty(String intervalName){
+		return false;
+	}
 }

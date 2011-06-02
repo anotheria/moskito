@@ -107,4 +107,9 @@ public interface IStats {
 	 */
 	List<String> getAvailableValueNames();
 	
+	/**
+	 * Returns true if this stat object didn't record anything of interest in a given interval. This is useful to reduce garbage.
+	 * @return
+	 */
+	boolean isEmpty(String intervalName);
 }
