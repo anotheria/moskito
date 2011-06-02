@@ -36,7 +36,7 @@ public class BuiltInOSProducer implements IStatsProducer, BuiltInProducer{
 	//private static final String clazzname = "com.sun.management.UnixOperatingSystem";
 	private static final String clazzname = "com.sun.management.UnixOperatingSystemMXBean";
 	
-	private Class clazz;
+	private Class<?> clazz;
 	
 	private static Logger log = Logger.getLogger(BuiltInOSProducer.class);
 	
@@ -111,7 +111,6 @@ public class BuiltInOSProducer implements IStatsProducer, BuiltInProducer{
 	
 	private long getValue(String name) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException{
 		Method m = clazz.getMethod("get"+name);
-		//Object unixClazz = clazz.cast(mxBean);
 		if (name.equals("AvailableProcessors"))
 			return (Integer)m.invoke(mxBean);
 		Long result = (Long)m.invoke(mxBean);
