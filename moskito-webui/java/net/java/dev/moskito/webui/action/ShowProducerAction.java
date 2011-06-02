@@ -87,6 +87,9 @@ public class ShowProducerAction extends BaseMoskitoUIAction{
 		if (producer instanceof Inspectable)
 			req.setAttribute("inspectableFlag", Boolean.TRUE);
 		
+		String pFilterZero = req.getParameter(PARAM_FILTER_ZERO);
+		boolean filterZero = pFilterZero != null && pFilterZero.equalsIgnoreCase("true");
+		
 		List<IStats> allStats = producer.getStats();
 		Map<String, GraphDataBean> graphData = new HashMap<String, GraphDataBean>();
 		
@@ -120,6 +123,9 @@ public class ShowProducerAction extends BaseMoskitoUIAction{
 			List<IStats> statsForDecorator = decoratorMap.get(decorator); 
 			for (int i=1; i<statsForDecorator.size(); i++){
 				IStats s = statsForDecorator.get(i);
+				if (filterZero && s.isEmpty(intervalName)){
+					continue;
+				}
 				StatBean sb = new StatBean();
 				sb.setName(s.getName());
 				List<StatValueBean> statValues = decorator.getValues(s, intervalName, currentUnit.getUnit()); 

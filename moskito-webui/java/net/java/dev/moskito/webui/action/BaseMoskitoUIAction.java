@@ -115,6 +115,11 @@ public abstract class BaseMoskitoUIAction implements Action{
 	 * Parameter for producer subsystem.
 	 */
 	public static final String PARAM_SUBSYSTEM = "pSubsystem";
+	
+	/**
+	 * If set (to true) the zero request values will be removed from producer presentation.
+	 */
+	public static final String PARAM_FILTER_ZERO = "pFilterZero";
 
 
 	
