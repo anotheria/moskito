@@ -3,7 +3,25 @@ package net.java.dev.moskito.webui;
 import net.anotheria.maf.action.ActionForward;
 import net.anotheria.maf.action.ActionMappings;
 import net.anotheria.maf.action.ActionMappingsConfigurator;
-import net.java.dev.moskito.webui.action.*;
+import net.java.dev.moskito.webui.action.CssAction;
+import net.java.dev.moskito.webui.action.ForceIntervalUpdateAction;
+import net.java.dev.moskito.webui.action.GetChartDataAction;
+import net.java.dev.moskito.webui.action.GetChartMetaDataAction;
+import net.java.dev.moskito.webui.action.InspectProducerAction;
+import net.java.dev.moskito.webui.action.ShowAccumulatorsAction;
+import net.java.dev.moskito.webui.action.ShowAllProducersAction;
+import net.java.dev.moskito.webui.action.ShowChartsAction;
+import net.java.dev.moskito.webui.action.ShowDashboardAction;
+import net.java.dev.moskito.webui.action.ShowExplanationsAction;
+import net.java.dev.moskito.webui.action.ShowMonitoringSessionAction;
+import net.java.dev.moskito.webui.action.ShowMonitoringSessionCallAction;
+import net.java.dev.moskito.webui.action.ShowMonitoringSessionsAction;
+import net.java.dev.moskito.webui.action.ShowProducerAction;
+import net.java.dev.moskito.webui.action.ShowProducersForCategoryAction;
+import net.java.dev.moskito.webui.action.ShowProducersForSubsystemAction;
+import net.java.dev.moskito.webui.action.ShowRecordedUseCaseAction;
+import net.java.dev.moskito.webui.action.ShowThresholdsAction;
+import net.java.dev.moskito.webui.action.ShowUseCasesAction;
 
 /**
  * Mappings configurator for MoSKito project for the AnoMaf framework.

@@ -1,18 +1,32 @@
 package net.java.dev.moskito.webui.action;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Enumeration;
+import java.util.HashMap;
+import java.util.List;
+
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import net.anotheria.maf.action.ActionForward;
 import net.anotheria.maf.action.ActionMapping;
 import net.anotheria.maf.bean.FormBean;
 import net.anotheria.util.StringUtils;
 import net.anotheria.util.TimeUnit;
-import net.java.dev.moskito.webui.bean.*;
+import net.java.dev.moskito.webui.bean.DashboardBean;
+import net.java.dev.moskito.webui.bean.DashboardWidgetBean;
+import net.java.dev.moskito.webui.bean.GraphDataBean;
+import net.java.dev.moskito.webui.bean.NaviItem;
+import net.java.dev.moskito.webui.bean.ProducerBean;
+import net.java.dev.moskito.webui.bean.ProducerDecoratorBean;
+import net.java.dev.moskito.webui.bean.StatCaptionBean;
+import net.java.dev.moskito.webui.bean.WidgetType;
+
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.util.*;
 
 /**
  * Dashboard action.
