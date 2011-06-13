@@ -48,7 +48,7 @@ public class ShowAccumulatorsAction extends BaseMoskitoUIAction{
 		int maxValues = 200;
 		try{
 			maxValues = Integer.parseInt(req.getParameter("maxValues"));
-		}catch(Exception ignored){}
+		}catch(Exception ignored){;/*empty*/}
 		req.setAttribute("maxValues", maxValues);
 		
 		for (Accumulator a : accumulators){
