@@ -3,7 +3,6 @@ package net.java.dev.moskito.webui.decorators.predefined;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.java.dev.moskito.core.predefined.IMemoryPoolStats;
 import net.java.dev.moskito.core.predefined.OSStats;
 import net.java.dev.moskito.core.producers.IStats;
 import net.java.dev.moskito.core.stats.TimeUnit;
