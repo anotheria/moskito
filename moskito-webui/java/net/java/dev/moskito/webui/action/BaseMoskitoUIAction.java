@@ -140,7 +140,7 @@ public abstract class BaseMoskitoUIAction implements Action{
 	/**
 	 * Available units.
 	 */
-	public static final UnitBean[] AVAILABLE_UNITS = {
+	static final UnitBean[] AVAILABLE_UNITS = {
 		new UnitBean(TimeUnit.SECONDS),
 		new UnitBean(TimeUnit.MILLISECONDS),
 		new UnitBean(TimeUnit.MICROSECONDS),
