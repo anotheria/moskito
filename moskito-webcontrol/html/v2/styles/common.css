@@ -1,0 +1,144 @@
+* {margin:0; padding:0; outline:none;}
+body {background:white; font-family:Arial, Tahoma, sans-serif; color:black; font-size:14px;}
+img {border:0;}
+a {color:#006699; text-decoration:none; cursor:pointer;}
+a:hover {text-decoration:underline;}
+.clear {height:0; clear:both; float:none;}
+.main {padding:10px 12px; min-width:960px;}
+
+.header {border-bottom:1px solid #8eceeb; padding:0 0 12px 0; margin:0 8px; overflow:hidden;}
+.header .logo {float:left; display:block; margin:0 20px 0 0;}
+.header img {float:left;}
+
+.settings {float:right; display:block; padding-left:20px; background:url("../images/settings.gif") 0 0 no-repeat; margin:13px 0 0 0;}
+.interval {padding-top:12px; margin-left:8px; clear:both;}
+.interval li {display:block; float:left; margin-right:7px; list-style-type:none;}
+.interval li a {padding-right:9px; background:url("../images/sep.gif") 100% 8px no-repeat; }
+.interval li.last a {background:none;}
+.interval li.active a {color:black; font-weight:bold;}
+.interval li.active a:hover {text-decoration:none;}
+.area {}
+.area .top {height:16px; background:url("../images/borders.gif") 100% -16px no-repeat; padding-right:16px;}
+.area .top div {height:16px; background:url("../images/borders.gif") 0 0 no-repeat;}
+.area .in {background:url("../images/gr_l.gif") 100% 0 repeat-y; padding-right:8px;}
+.area .in .in_r {background:url("../images/gr_r.gif") 0 0 repeat-y #e2f6ff; padding-left:8px;}
+.area .bot {height:16px; background:url("../images/borders.gif") 100% -32px no-repeat; padding-right:16px; margin-top:-8px; position:relative; z-index:3;}
+.area .bot div {height:16px; background:url("../images/borders.gif") 0 -48px no-repeat;}
+
+.views {clear:both;}  
+.views li {list-style-type:none; line-height:30px; display:block; overflow:hidden; max-width:280px; height:30px; cursor:move;}
+.views li a {padding:0 10px; display:block; max-width:120px; float:left; overflow:hidden; height:30px; cursor:pointer;}
+.views li a.ind {padding:0 0 0 10px; padding-top:10px; height:20px;}
+.views li.active {background:url("../images/li_active.gif") 0 0 no-repeat; position:relative; z-index:6;}
+.views li.active a {color:black;}
+.views li.active a:hover {text-decoration:none;}
+.main_table {margin-top:-8px; }
+.main_table td {vertical-align:top;}
+.main_table th {text-align:left;}
+
+.views_td {width:170px;}
+
+.inner {margin-left:-1px;}
+.inner .top {height:5px; background:url("../images/borders_in.gif") 100% -5px no-repeat; padding-right:5px;}
+.inner .top div {height:5px; background:url("../images/borders_in.gif") 0 0 no-repeat;}
+.inner .in {border:1px solid #8eceeb; border-bottom:none; border-top:none; background:white; padding:3px 10px; min-height:200px; position:relative; z-index:5;}
+.inner .bot {height:5px; background:url("../images/borders_in.gif") 100% -10px no-repeat; padding-right:5px; position:relative; z-index:5; margin:0;}
+.inner .bot div {height:5px; background:url("../images/borders_in.gif") 0 -15px no-repeat;}
+
+.inner .in table {border-collapse:collapse;}
+.inner .in table th {border-bottom:2px solid #bdbdbd; padding:8px 10px;}
+.inner .in table.draggable th {cursor:move;}
+.inner .in table th a {color:black; font-size:12px; padding-right:12px; //display:block; //overflow:hidden;}
+.inner .in table th a:hover {text-decoration:none; background:url("../images/down.gif") 100% 5px no-repeat;}
+.inner .in table th a.down {background:url("../images/down.gif") 100% 5px no-repeat;}
+.inner .in table th a.up {background:url("../images/down.gif") 100% -31px no-repeat;}
+
+.inner .in table tbody td {padding:4px 10px; border-bottom:1px solid #e8e8e8;}
+/* -- changes -- */
+.inner .in table tbody td.red {background:#ff3131 !important; color:white;}
+.inner .in table tbody tr.red td {background:#ff3131 !important; color:white;}
+.inner .in table tbody td.yellow {background:#ffd200 !important;}
+.inner .in table tbody tr.yellow td {background:#ffd200 !important;}
+/* -- changes end -- */
+.inner .in table tbody tr:hover td {background:#f4f4f4;}
+
+
+
+h2 {color:#470075; font-size:18px; font-weight:normal; margin:20px 0 0;}
+
+/* added class for scroll */
+.scroll {overflow-x:scroll; padding-bottom:10px; position:relative; }
+
+.scroll table th, .scroll table span {white-space:nowrap;}
+.scroll table span {cursor:move;}
+.scroll table input {font-size:14px; font-family:Arial, Tahoma, sans-serif;}
+.scroll table td {vertical-align:middle;}
+.h2 {margin:5px 0 0 7px;}
+.description {margin:5px 0 3px 7px; font-size:11px; color:#7d7d7d;}
+.button img {position:relative; top:1px; left:0px;}
+.button {display:block; float:left; height:21px; background:url("../images/button.png") 100% -21px no-repeat; padding:0 4px 0 0 !important;}
+.button span {display:block; float:left; height:21px; background:url("../images/button.png") 0 0 no-repeat; padding: 0 5px 0 9px; line-height:22px;}
+.button:hover {text-decoration:none; background-position:100% -42px;}
+.button:hover span {background-position:0 -63px;}
+.button.add {margin:5px 0; height:21px;}
+.button.save {margin:5px 0 5px 10px;}
+
+.format {width:65px;}
+.views {overflow:hidden; display:block; width:170px;}
+.views li a.edit {width:17px; height:17px; background:url("../images/edit.png") 0 0 no-repeat; float:right !important; padding:0 !important; margin:7px 5px 0 0; display:none;}
+.views li a.edit:hover {background-position:0 -17px;}
+.views li:hover .edit {display:block;}
+.views li input {width:109px; margin:6px 0 0 5px; display:none; font-size:12px; float:left;}
+.views li a.ok, .views li a.rename {width:17px; height:17px; background:url("../images/ok.png") 0 0 no-repeat; float:right !important; padding:0 !important; margin:7px 5px 0 0; display:block; display:none;}
+.views li a.ok:hover, .views li a.rename:hover {background-position:0 -17px;}
+.views li a.delete {width:17px; height:17px; background:url("../images/delete_btn.png") 0 0 no-repeat; float:right !important; padding:0 !important; margin:7px 5px 0 0; display:none;}
+.views li a.delete:hover {background-position:0 -17px;}
+div.hide, div.show {max-width:none; min-width:10px; height:30px;}
+div.hide a {display:block; float:right; background:url("../images/hide_show.gif") 100% 5px no-repeat; position:relative; z-index:10; display:block; height:30px; width:16px;}
+div.show a {display:block; float:right; background:url("../images/hide_show.gif") 100% -55px no-repeat; position:relative; z-index:10; display:block; height:30px; width:16px;}
+
+.exit {font-size:11px;}
+.ui-sortable-placeholder {background:#eef4f8 !important; visibility:visible !important; display:table-row !important;}
+
+/*  -- Overlay --  */
+
+.black_bg {background:black; opacity:0.5; width:100%; height:100%; position:fixed; top:0; left:0; z-index:15; filter:alpha(opacity = 50);}
+.box {float:left; position:absolute; z-index:16; }
+.box_top {height:22px; background:url("../images/box_top_l.png") 0 0 no-repeat; float:left; width:100%; position:relative;}
+.box_top div {height:22px; background:url("../images/box_top_r.png") 100% 0 no-repeat; float:right; width:30px;}
+.box_top span {display:block; height:22px; background:url("../images/box_top_m.png") 0 0 repeat-x; margin:0 30px;}
+
+.box_in {clear:both; overflow:hidden; background:url("../images/box_in_l.png") 0 0 repeat-y;}
+.box_in .right {background:url("../images/box_in_r.png") 100% 0 repeat-y; margin:0;}
+.text_here {margin:0 30px; clear:both; overflow:hidden; background:white; padding:10px 10px 5px 10px;}
+
+.box_bot {height:22px; background:url("../images/box_bot_l.png") 0 0 no-repeat; float:left; width:100%; overflow:hidden; position:relative;}
+.box_bot div {height:22px; background:url("../images/box_bot_r.png") 100% 0 no-repeat; float:right; width:30px;}
+.box_bot span {display:block; height:22px; background:url("../images/box_bot_m.png") 0 0 repeat-x; margin:0 30px;}
+.close_box {height:30px; width:30px; background:url("../images/box_close.png") 0 0 no-repeat; top:-25px; left:7px; display:block; position:relative;}
+.box_top div.clear {background:0; height:0; clear:both;}
+
+.overlay_buttons {width:300px; overflow:hidden; clear:both;}
+.overlay_buttons .button {margin:0 10px 0 0;}
+
+.category {display:block; overflow:hidden; margin-bottom:15px; float:left; position:relative; left:1px; z-index:5;}
+.category input {display:block; float:left; margin:2px 5px 0 0;}
+.category label {display:block; float:left; margin:0 15px 0 0;}
+.text_here ul {margin-bottom:15px; display:block; overflow-y:scroll; max-height:400px; width:500px; float:left; padding:10px; border:1px solid #8ECEEB; position:relative; z-index:2;}
+.text_here ul li {list-style-type:none; margin-bottom:3px;}
+.text_here ul li input {margin-right:5px;}
+.text_here ul li label {position:relative; top:1px;}
+
+.tabs {display:block; overflow:visible !important; width:150px !important; margin-bottom:0 !important; float:left; border:none !important; position:relative; left:1px; z-index:5 !important; padding:0 !important;}
+.tabs li {list-style-type:none;height:28px; margin:0 !important;}
+.tabs li.active {background:url("../images/tabs.gif") 0 0 no-repeat;}
+.tabs li.active a {color:black;}
+.tabs li.active a:hover {text-decoration:none}
+.tabs li a {float:left; display:block; height:28px; display:block;}
+.tabs li a span {float:left; display:block; height:20px; padding:8px 10px 0 10px;}
+.spinner {float:left; margin:8px 0 0 10px; display:none;}
+
+h2.fll {float:left; margin:10px 15px 0 0;}
+.exit {margin-top:10px; font-size:14px; float:right;}
+.mt_0 {margin-top:0;}
+.ui-sortable-placeholder {visibility:visible !important; display:block !important; background:#E2F6FF !important;}

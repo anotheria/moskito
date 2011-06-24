@@ -25,6 +25,8 @@ public class ViewConfigAction extends BaseMoskitoWebcontrolAction {
 			ConfigurationRepository.INSTANCE.updateViews(views);
 		}
 		
+		System.out.println("********************************");
+		
 		List<ViewField> columns = ConfigurationRepository.INSTANCE.getAvailableColumns();
 		List<ViewConfiguration> views = ConfigurationRepository.INSTANCE.getAllViews();
 		request.setAttribute("availableColumns", columns);

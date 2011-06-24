@@ -28,6 +28,7 @@ import net.java.dev.moskito.webcontrol.repository.TotalFormulaType;
 import net.java.dev.moskito.webcontrol.ui.beans.PatternWithName;
 
 import org.apache.log4j.Logger;
+import org.configureme.ConfigurationManager;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -44,6 +45,8 @@ public enum ConfigurationRepository {
 	private ConcurrentMap<String, ViewConfiguration> views;
 	private List<StatsSource> sources;
 	private List<IntervalConfiguration> intervals;
+	
+	private List<String> allCategories;
 
 	private List<ViewField> avaibleColumns;
 	/**
@@ -57,6 +60,8 @@ public enum ConfigurationRepository {
 		sources = new CopyOnWriteArrayList<StatsSource>();
 		intervals = new ArrayList<IntervalConfiguration>();
 		avaibleColumns = new ArrayList<ViewField>();
+		allCategories = new ArrayList<String>();
+		ConfigurationManager.INSTANCE.configure(ServersConfig.INSTANCE);
 	}
 
 	/***********************************/
@@ -108,6 +113,10 @@ public enum ConfigurationRepository {
 			throw new IllegalArgumentException("Unknown view: " + viewName);
 		return ret;
 	}
+	
+	public void removeView(ViewConfiguration toRemove) {
+		views.remove(toRemove.getName());
+	}
 
 	public List<String> getViewNames() {
 		ArrayList<String> ret = new ArrayList<String>();
@@ -137,6 +146,12 @@ public enum ConfigurationRepository {
 	public List<ViewField> getAvailableColumns() {
 		ArrayList<ViewField> ret = new ArrayList<ViewField>();
 		ret.addAll(avaibleColumns);
+		return ret;
+	}
+	
+	public List<String> getAvailableCategories() {
+		ArrayList<String> ret = new ArrayList<String>();
+		ret.addAll(allCategories);
 		return ret;
 	}
 
@@ -278,7 +293,7 @@ public enum ConfigurationRepository {
         StatsSource sourceConf = source.build("&pInterval=" + interval);
 		Document doc = getter.retreive(sourceConf);
 		
-		InputStream is = Thread.currentThread().getContextClassLoader().getResourceAsStream("views.json");
+		InputStream is = Thread.currentThread().getContextClassLoader().getResourceAsStream("moskitowc-views.json");
 		String content = IOUtils.getInputStreamAsString(is);
 		JSONObject views = new JSONObject(content);
 		
@@ -290,6 +305,7 @@ public enum ConfigurationRepository {
 		List<PatternWithName> result = new ArrayList<PatternWithName>();
 		result.add(new PatternWithName("", baseField.getPath()));
 		buildFullPath(result, doc);
+		
 		for (PatternWithName p : result) {
 			ViewField column = (ViewField)baseField.clone();
 			column.setAttributeName(p.getFieldName());
@@ -298,11 +314,24 @@ public enum ConfigurationRepository {
 			map.put(column.getAttributeName(), column);
 //			addAvaiableColumn(column);
 		}
-//		System.out.println("map size = "+map.entrySet().size());
-//		System.out.println("result size = " + avaibleColumns.size());
+		System.out.println("map size = "+map.entrySet().size());
+		System.out.println("result size = " + avaibleColumns.size());
 		for (ViewField vf : map.values()) {
+			findAndSetCategory(vf, doc);
 			addAvaiableColumn(vf);
 		}
+	}
+
+	
+	private void findAndSetCategory(ViewField field, Document doc) throws XPathExpressionException {
+		String patternXPATH = "../../category/text()";
+		String p = field.getPath().substring(0, field.getPath().indexOf("text()"))+patternXPATH;
+		XPath xpath = XPathFactory.newInstance().newXPath();
+		String category = (String)xpath.compile(p).evaluate(doc, XPathConstants.STRING);
+		if (!allCategories.contains(category)){
+			allCategories.add(category);
+		}
+		field.setCategory(category);
 	}
 
 	public static boolean isWildCard(String pattern) {
@@ -334,10 +363,13 @@ public enum ConfigurationRepository {
 					String value = m.group(2);
 
 					String start = pattern.getPattern().substring(0, pattern.getPattern().indexOf(fullMatch));
+					
+					//System.out.println("fullMatch="+fullMatch+", attrName="+attributeName+", value="+value+", start="+start);
 
 					NodeList list = (NodeList) xpath.compile(start).evaluate(doc, XPathConstants.NODESET);
 					for (int i = 0; i < list.getLength(); i++) {
 						String attributeValue = list.item(i).getAttributes().getNamedItem(attributeName).getNodeValue();
+						//System.out.println("attrValue="+attributeValue);
 
 						if (checkAttributeValue(value, attributeValue)) {
 							String s = value.replaceAll("\\*", "\\\\*");

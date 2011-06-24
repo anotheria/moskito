@@ -294,8 +294,8 @@ public class RepositoryUpdater {
 					for (PatternWithName p : result) {
 
 						ViewField newField = (ViewField) field.clone();
-						newField.setFieldName(p.getFieldName() + "." + field.getFieldName());
-						newField.setAttributeName(p.getFieldName() + "." + field.getFieldName());
+						newField.setFieldName(p.getFieldName() + "_" + field.getFieldName());
+						newField.setAttributeName(p.getFieldName() + "_" + field.getFieldName());
 						newField.setPath(p.getPattern());
 
 						viewConfig.addField(newField);

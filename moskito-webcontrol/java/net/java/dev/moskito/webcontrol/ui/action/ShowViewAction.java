@@ -1,5 +1,6 @@
 package net.java.dev.moskito.webcontrol.ui.action;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -20,29 +21,35 @@ public class ShowViewAction extends BaseMoskitoWebcontrolAction {
 	@Override
 	public ActionForward execute(ActionMapping mapping, FormBean bean, HttpServletRequest req, HttpServletResponse res) throws Exception {
 		List<String> viewnames = ConfigurationRepository.INSTANCE.getViewNames();
-
+		List<ViewTable> viewTable = new ArrayList<ViewTable>();
+		
 		String sortBy = req.getParameter(REQUEST_PARAM_SORT_BY);
 		String sortOrder = req.getParameter(REQUEST_PARAM_SORT_ORDER);
 
-		String viewname = req.getParameter(REQUEST_PARAM_VIEW_NAME);
-		if (viewname == null && viewnames.size() > 0) {
-			viewname = viewnames.get(0);
+		String currentViewname = req.getParameter(REQUEST_PARAM_VIEW_NAME);
+		if (currentViewname == null && viewnames.size() > 0) {
+			currentViewname = viewnames.get(0);
 		}
 
 		String interval = req.getParameter(REQUEST_PARAM_INTERVAL);
 		if (StringUtils.isEmpty(interval)) {
 			interval = "default";
 		}
-
-		req.setAttribute("viewnames", viewnames);
-
-		ViewTable viewTable = prepareView(viewname, interval);
-
-		if (sortBy != null) {
-			sorting(viewTable, sortBy, sortOrder);
+		
+		for  (String viewName:viewnames){
+		    viewTable.add(prepareView(viewName, interval));
 		}
 
-		req.setAttribute("view", viewTable);
+		req.setAttribute("viewTable", viewTable);
+
+		ViewTable view = prepareView(currentViewname, interval);
+
+		if (sortBy != null) {
+			sorting(view, sortBy, sortOrder);
+		}
+		String indication = view.getColor().toString();
+		req.setAttribute("view", view);
+		req.setAttribute("indication", indication);
 
 		req.setAttribute("interval", interval);
 		req.setAttribute("intervalNames", ConfigurationRepository.INSTANCE.getIntervalsNames());

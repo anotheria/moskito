@@ -11,6 +11,10 @@ public class ViewConfiguration {
 	public ViewConfiguration(String aName) {
 		name = aName;
 	}
+	
+	public void setName(String aName) {
+		name = aName;
+	}
 
 	public String getName() {
 		return name;

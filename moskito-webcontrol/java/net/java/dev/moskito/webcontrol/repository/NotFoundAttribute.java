@@ -11,7 +11,8 @@ public class NotFoundAttribute extends Attribute {
 	}
 
 	@Override public Void getValue() {
-		throw new IllegalAccessError("Attribute was not found, therefore it cannot provide a value!");
+		//throw new IllegalAccessError("Attribute was not found, therefore it cannot provide a value!");
+		return null;
 	}
 
 }

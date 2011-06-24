@@ -14,7 +14,7 @@
 
   	<!-- File Appender for debug and higher -->
 	<appender name="DebugAppender" class="org.apache.log4j.RollingFileAppender">
-    	<param name="File" value="logs/moskitowc-site-debug.log" />
+    	<param name="File" value="${catalina.home}/logs/moskito-webcontrol-debug.log" />
     	<param name="Threshold" value="DEBUG" />
     	<param name="MaxFileSize" value="100MB" />       
     	<param name="MaxBackupIndex" value="5" />
@@ -77,7 +77,7 @@
   	</appender>
 
   	<logger name="net.java.dev.moskito.webcontrol" additivity="false">
-		<level value="INFO"/>
+		<level value="DEBUG"/>
 		<appender-ref ref="DebugAppender"/>
 		<appender-ref ref="InfoAppender"/>
 		<appender-ref ref="WarnAppender"/>

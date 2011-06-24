@@ -50,17 +50,19 @@ public abstract class BaseMoskitoWebcontrolAction implements Action {
 
 	protected ViewTable prepareView(String viewName, String interval) throws Exception {
 		ViewTable view = new ViewTable(viewName);
-
 		String containerName = ConfigurationRepository.INSTANCE.getContainerName(interval);
 
 		ViewConfiguration config = ConfigurationRepository.INSTANCE.getView(viewName);
 		List<StatsSource> sources = ConfigurationRepository.INSTANCE.getSources();
 		List<ViewField> fields = config.getFields();
 
-		view.addRowName(new ColumnBean(SERVER_COLUMN_NAME, SERVER_COLUMN_NAME));
+		view.addRowName(new ColumnBean(SERVER_COLUMN_NAME, SERVER_COLUMN_NAME, view.getColor()));
 		for (ViewField field : fields) {
-			view.addRowName(new ColumnBean(field.getFieldName(), field.getAttributeName()));
+			if (field.getVisible()){
+				view.addRowName(new ColumnBean(field.getFieldName(), field.getAttributeName(), view.getColor()));
+			}
 		}
+		
 
 		for (StatsSource source : sources) {
 			OrderedSourceAttributesBean attrsBean = new OrderedSourceAttributesBean(source.getName());
@@ -74,30 +76,34 @@ public abstract class BaseMoskitoWebcontrolAction implements Action {
 				// TODO log
 			}
 			for (ViewField field : fields) {
-				if (snapshot != null) {
-					Attribute att = snapshot.getAttribute(field.getAttributeName());
-					AttributeBean bean = new AttributeBean();
+				if (field.getVisible()){
+					if (snapshot != null) {
+						Attribute att = snapshot.getAttribute(field.getAttributeName());
+						AttributeBean bean = new AttributeBean();
 
-					if (field.getFormat() != null && att != null && att.getValue() instanceof Number) {
-						DecimalFormat format = (DecimalFormat) DecimalFormat.getInstance();
-						format.applyPattern(field.getFormat());
-						bean.setValue(att == null || att.getValue() == null ? "n.a." : format.format(((Number) att.getValue()).doubleValue()));
+						if (field.getFormat() != null && att != null && att.getValue() instanceof Number) {
+							DecimalFormat format = (DecimalFormat) DecimalFormat.getInstance();
+							format.applyPattern(field.getFormat());
+							bean.setValue(att == null || att.getValue() == null ? "n.a." : format.format(((Number) att.getValue()).doubleValue()));
+						} else {
+							bean.setValue(att == null || att.getValue() == null ? "n.a." : att.getValueString());
+						}
+
+						bean.setColor(att == null || att.getValue() == null ? Condition.DEFAULT.getColor() : att.getCondition().getColor());
+						values.add(bean);
 					} else {
-						bean.setValue(att == null || att.getValue() == null ? "n.a." : att.getValueString());
+						AttributeBean bean = new AttributeBean();
+						bean.setValue("");
+						bean.setColor(Condition.DEFAULT.getColor());
+						values.add(bean);
 					}
-
-					bean.setColor(att == null || att.getValue() == null ? Condition.DEFAULT.getColor() : att.getCondition().getColor());
-					values.add(bean);
-				} else {
-					AttributeBean bean = new AttributeBean();
-					bean.setValue("");
-					bean.setColor(Condition.DEFAULT.getColor());
-					values.add(bean);
 				}
+				
 			}
 			attrsBean.setAttributeValues(values);
 			view.addValueBean(attrsBean);
 		}
+		view.setColor(Condition.GREEN.getColor());
 		return view;
 	}
 

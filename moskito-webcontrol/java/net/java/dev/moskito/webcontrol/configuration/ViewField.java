@@ -20,6 +20,16 @@ public class ViewField implements Cloneable {
 
 	private Guard guard;
 	private String format;
+	
+	private String category;
+
+	public String getCategory() {
+		return category;
+	}
+
+	public void setCategory(String category) {
+		this.category = category;
+	}
 
 	public ViewField(String aFieldName, String anAttributeName, ColumnType type, String javaType, Boolean visible, String path) {
 		this.fieldName = aFieldName;
@@ -46,6 +56,7 @@ public class ViewField implements Cloneable {
 		res.setTotal(total);
 		res.setType(type);
 		res.setVisible(visible);
+		res.setCategory(category);
 		return res;
 	}
 

@@ -3,50 +3,77 @@ package net.java.dev.moskito.webcontrol.ui.beans;
 import java.util.ArrayList;
 import java.util.List;
 
+import net.anotheria.util.StringUtils;
+import net.java.dev.moskito.webcontrol.guards.Condition;
+
 public class ViewTable {
 
-	private final String viewName;
+    private final String viewName;
 
-	private List<ColumnBean> rowNames;
+    private Condition color = Condition.GREEN;
 
-	private List<OrderedSourceAttributesBean> values;
+    private List<ColumnBean> rowNames;
 
-	public ViewTable(String viewName) {
-		this.viewName = viewName;
+    private List<OrderedSourceAttributesBean> values;
+
+    public ViewTable(String viewName) {
+	this.viewName = viewName;
+    }
+
+    public String getViewName() {
+	return viewName;
+    }
+
+    public void setRowNames(List<ColumnBean> rowNames) {
+	this.rowNames = rowNames;
+    }
+
+    public List<ColumnBean> getRowNames() {
+	return rowNames;
+    }
+
+    public void setValues(List<OrderedSourceAttributesBean> values) {
+	this.values = values;
+    }
+
+    public List<OrderedSourceAttributesBean> getValues() {
+	return values;
+    }
+
+    public boolean addRowName(ColumnBean rowName) throws Exception {
+	if (rowNames == null) {
+	    rowNames = new ArrayList<ColumnBean>();
 	}
+	return rowNames.add(rowName);
+    }
 
-	public String getViewName() {
-		return viewName;
+    public boolean addValueBean(OrderedSourceAttributesBean bean) throws Exception {
+	if (values == null) {
+	    values = new ArrayList<OrderedSourceAttributesBean>();
 	}
+	return values.add(bean);
+    }
 
-	public void setRowNames(List<ColumnBean> rowNames) {
-		this.rowNames = rowNames;
-	}
+    public void setColor(String aColor) {
+	color = Condition.getValueByColor(aColor);
+	for (OrderedSourceAttributesBean osab : values) {
+	    for (AttributeBean abean : osab.getAttributeValues()) {
+		if (StringUtils.isEmpty(abean.getColor()))
+		    continue;
 
-	public List<ColumnBean> getRowNames() {
-		return rowNames;
-	}
+		Condition colorCondition = Condition.getValueByColor(abean.getColor());
 
-	public void setValues(List<OrderedSourceAttributesBean> values) {
-		this.values = values;
-	}
+		if (color.getPriority() > colorCondition.getPriority())
+		    color = colorCondition;
 
-	public List<OrderedSourceAttributesBean> getValues() {
-		return values;
+		if (color == Condition.RED)
+		    return;
+	    }
 	}
+    }
 
-	public boolean addRowName(ColumnBean rowName) throws Exception {
-		if (rowNames == null) {
-			rowNames = new ArrayList<ColumnBean>();
-		}
-		return rowNames.add(rowName);
-	}
-
-	public boolean addValueBean(OrderedSourceAttributesBean bean) throws Exception {
-		if (values == null) {
-			values = new ArrayList<OrderedSourceAttributesBean>();
-		}
-		return values.add(bean);
-	}
+    public Condition getColor() {
+	return color;
+    }
 
 }
