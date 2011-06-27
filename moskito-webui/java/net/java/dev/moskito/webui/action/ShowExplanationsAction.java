@@ -6,7 +6,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import net.anotheria.maf.action.ActionForward;
+import net.anotheria.maf.action.ActionCommand;
 import net.anotheria.maf.action.ActionMapping;
 import net.anotheria.maf.bean.FormBean;
 import net.anotheria.util.sorter.DummySortType;
@@ -29,7 +29,7 @@ public class ShowExplanationsAction extends BaseMoskitoUIAction{
 	}
 
 	@Override
-	public ActionForward execute(ActionMapping mapping, FormBean formBean, HttpServletRequest req, HttpServletResponse res) {
+	public ActionCommand execute(ActionMapping mapping, FormBean formBean, HttpServletRequest req, HttpServletResponse res) {
 
 		List<DecoratorExplanationBean> beans = new ArrayList<DecoratorExplanationBean>();
 		List<IDecorator> decorators = DecoratorRegistryFactory.getDecoratorRegistry().getDecorators();
@@ -42,7 +42,7 @@ public class ShowExplanationsAction extends BaseMoskitoUIAction{
 		}
 		
 		req.setAttribute("decorators", beans);
-		return mapping.findForward("success");
+		return mapping.success();
 	}
 	@Override
 	protected final NaviItem getCurrentNaviItem() {

@@ -6,7 +6,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import net.anotheria.maf.action.ActionForward;
+import net.anotheria.maf.action.ActionCommand;
 import net.anotheria.maf.action.ActionMapping;
 import net.anotheria.maf.bean.FormBean;
 import net.anotheria.util.NumberUtils;
@@ -25,7 +25,7 @@ public class ShowRecordedUseCaseAction extends BaseMoskitoUIAction{
 	}
 
 	@Override
-	public ActionForward execute(ActionMapping mapping, FormBean formBean, HttpServletRequest req, HttpServletResponse res) throws Exception {
+	public ActionCommand execute(ActionMapping mapping, FormBean formBean, HttpServletRequest req, HttpServletResponse res) throws Exception {
 
 		String useCaseName = req.getParameter("pUseCaseName");
 		ExistingRunningUseCase useCase = getUseCaseRecorder().getRecordedUseCaseByName(useCaseName);
@@ -42,7 +42,7 @@ public class ShowRecordedUseCaseAction extends BaseMoskitoUIAction{
 		
 		req.setAttribute("recordedUseCase", bean);
 		
-		return mapping.findForward("success");
+		return mapping.success();
 	}
 	
 	private void fillUseCasePathElementBeanList(List<UseCasePathElementBean> list, PathElement element, int recursion, TimeUnit unit){

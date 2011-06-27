@@ -37,7 +37,7 @@ package net.java.dev.moskito.webui.action;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import net.anotheria.maf.action.ActionForward;
+import net.anotheria.maf.action.ActionCommand;
 import net.anotheria.maf.action.ActionMapping;
 import net.anotheria.maf.bean.FormBean;
 import net.java.dev.moskito.webui.bean.NaviItem;
@@ -64,9 +64,9 @@ public class ShowChartsAction extends BaseMoskitoUIAction {
 	}
 
 	@Override
-	public ActionForward execute(ActionMapping mapping, FormBean bean, HttpServletRequest req, HttpServletResponse res) {
+	public ActionCommand execute(ActionMapping mapping, FormBean bean, HttpServletRequest req, HttpServletResponse res) {
 		req.setAttribute("pageTitle", getPageTitle(req));
-		return mapping.findForward("html");
+		return mapping.findCommand("html");
 	}
 
 }

@@ -8,7 +8,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import net.anotheria.maf.action.ActionForward;
+import net.anotheria.maf.action.ActionCommand;
 import net.anotheria.maf.action.ActionMapping;
 import net.anotheria.maf.bean.FormBean;
 import net.anotheria.util.sorter.DummySortType;
@@ -28,7 +28,7 @@ public class ShowAccumulatorsAction extends BaseMoskitoUIAction{
 	private static final SortType SORT_TYPE = new DummySortType();
 	
 	@Override
-	public ActionForward execute(ActionMapping mapping, FormBean formBean,
+	public ActionCommand execute(ActionMapping mapping, FormBean formBean,
 			HttpServletRequest req, HttpServletResponse res) throws Exception {
 		
 		List<Accumulator> accumulators = AccumulatorRepository.getInstance().getAccumulators();
@@ -183,7 +183,7 @@ public class ShowAccumulatorsAction extends BaseMoskitoUIAction{
 //			}
 		}
 		
-		return mapping.findForward("success");
+		return mapping.findCommand("success");
 	}
 	
 	/*test visibility */ static void normalize(List<AccumulatedValuesBean> values, List<String> names, int limit){

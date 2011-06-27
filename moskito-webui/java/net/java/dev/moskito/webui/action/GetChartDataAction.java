@@ -6,7 +6,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import net.anotheria.maf.action.ActionForward;
+import net.anotheria.maf.action.ActionCommand;
 import net.anotheria.maf.action.ActionMapping;
 import net.anotheria.maf.bean.FormBean;
 import net.anotheria.util.StringUtils;
@@ -47,7 +47,7 @@ public class GetChartDataAction extends BaseMoskitoUIAction{
 	}
 
 	@Override
-	public ActionForward execute(ActionMapping mapping, FormBean form,
+	public ActionCommand execute(ActionMapping mapping, FormBean form,
 			HttpServletRequest req, HttpServletResponse res) {
 
 		String intervalName = getCurrentInterval(req, false);
@@ -92,7 +92,7 @@ public class GetChartDataAction extends BaseMoskitoUIAction{
 		}
 		
 		req.setAttribute("data", ret);
-		return mapping.findForward( getForward(req) );
+		return mapping.findCommand( getForward(req) );
 	}
 	
 	/**

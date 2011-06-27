@@ -3,6 +3,10 @@ package net.java.dev.moskito.webui.bean;
 import net.anotheria.util.sorter.SortType;
 
 public class ThresholdBeanSortType extends SortType {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	public static final int BY_NAME = 1;
 	public static final int BY_STATUS = 2;
 	public static final int BY_CHANGE = 3;

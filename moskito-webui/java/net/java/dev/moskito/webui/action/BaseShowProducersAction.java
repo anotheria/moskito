@@ -42,7 +42,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import net.anotheria.maf.action.ActionForward;
+import net.anotheria.maf.action.ActionCommand;
 import net.anotheria.maf.action.ActionMapping;
 import net.anotheria.maf.bean.FormBean;
 import net.java.dev.moskito.core.producers.IStatsProducer;
@@ -70,7 +70,7 @@ public abstract class BaseShowProducersAction extends BaseMoskitoUIAction{
 	public abstract String getPageTitle(HttpServletRequest req);
 	
 	@Override
-	public ActionForward execute(ActionMapping mapping, FormBean formBean, HttpServletRequest req, HttpServletResponse res) {
+	public ActionCommand execute(ActionMapping mapping, FormBean formBean, HttpServletRequest req, HttpServletResponse res) {
 
 		Map<String, GraphDataBean> graphData = new HashMap<String, GraphDataBean>();
 
@@ -81,7 +81,7 @@ public abstract class BaseShowProducersAction extends BaseMoskitoUIAction{
 		
 		req.setAttribute("pageTitle", getPageTitle(req));
 		
-		return mapping.findForward( getForward(req) );
+		return mapping.findCommand( getForward(req) );
 	}
 	
 	protected void doCustomProcessing(HttpServletRequest req, HttpServletResponse res){

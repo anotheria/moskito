@@ -6,7 +6,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import net.anotheria.maf.action.ActionForward;
+import net.anotheria.maf.action.ActionCommand;
 import net.anotheria.maf.action.ActionMapping;
 import net.anotheria.maf.bean.FormBean;
 import net.anotheria.util.NumberUtils;
@@ -22,7 +22,7 @@ public class ShowUseCasesAction extends BaseMoskitoUIAction{
 	}
 
 	@Override
-	public ActionForward execute(ActionMapping mapping, FormBean bean, HttpServletRequest req, HttpServletResponse res) {
+	public ActionCommand execute(ActionMapping mapping, FormBean bean, HttpServletRequest req, HttpServletResponse res) {
 		
 		//prepare RecordedUseCases
 		List<ExistingRunningUseCase> recorded = getUseCaseRecorder().getRecordedUseCases();
@@ -38,7 +38,7 @@ public class ShowUseCasesAction extends BaseMoskitoUIAction{
 		req.setAttribute("recorded", beans);
 		if (beans.size()>0)
 			req.setAttribute("recordedAvailableFlag", Boolean.TRUE);
-		return mapping.findForward("success");
+		return mapping.success();
 	}
 	
 	@Override

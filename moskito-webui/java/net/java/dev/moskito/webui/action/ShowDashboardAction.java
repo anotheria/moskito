@@ -11,7 +11,7 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import net.anotheria.maf.action.ActionForward;
+import net.anotheria.maf.action.ActionCommand;
 import net.anotheria.maf.action.ActionMapping;
 import net.anotheria.maf.bean.FormBean;
 import net.anotheria.util.StringUtils;
@@ -45,7 +45,7 @@ public class ShowDashboardAction extends BaseMoskitoUIAction{
 	private String selectedDashboardName = null;
 
 	@Override
-	public ActionForward execute(ActionMapping mapping, FormBean formBean, HttpServletRequest req, HttpServletResponse res) {
+	public ActionCommand execute(ActionMapping mapping, FormBean formBean, HttpServletRequest req, HttpServletResponse res) {
 		
 		System.out.println("REQ in ");
 		String debug = "";
@@ -113,7 +113,7 @@ public class ShowDashboardAction extends BaseMoskitoUIAction{
 		//req.setAttribute("graphDatas", graphData.values());
 		req.setAttribute("pageTitle", "Dashboard");
 
-		return mapping.findForward( getForward(req) );
+		return mapping.findCommand( getForward(req) );
 	}
 
 	/**

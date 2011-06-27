@@ -3,7 +3,6 @@ package net.java.dev.moskito.webui;
 import net.anotheria.maf.action.ActionForward;
 import net.anotheria.maf.action.ActionMappings;
 import net.anotheria.maf.action.ActionMappingsConfigurator;
-import net.java.dev.moskito.webui.action.CssAction;
 import net.java.dev.moskito.webui.action.ForceIntervalUpdateAction;
 import net.java.dev.moskito.webui.action.GetChartDataAction;
 import net.java.dev.moskito.webui.action.GetChartMetaDataAction;
@@ -31,7 +30,7 @@ import net.java.dev.moskito.webui.action.ShowUseCasesAction;
 public class MoskitoMappingsConfigurator implements ActionMappingsConfigurator{
 	
 	@Override public void configureActionMappings(){
-		ActionMappings.addMapping("mskCSS", CssAction.class, new ActionForward("css", "/net/java/dev/moskito/webui/jsp/CSS.jsp"));
+		ActionMappings.addForward("mskCSS", "/net/java/dev/moskito/webui/jsp/CSS.jsp");
 
 		ActionMappings.addMapping("mskDashBoard", ShowDashboardAction.class,
 				new ActionForward("html", "/net/java/dev/moskito/webui/jsp/Dashboard.jsp"),

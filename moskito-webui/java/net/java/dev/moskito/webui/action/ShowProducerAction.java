@@ -42,7 +42,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import net.anotheria.maf.action.ActionForward;
+import net.anotheria.maf.action.ActionCommand;
 import net.anotheria.maf.action.ActionMapping;
 import net.anotheria.maf.bean.FormBean;
 import net.anotheria.util.NumberUtils;
@@ -69,7 +69,7 @@ import net.java.dev.moskito.webui.decorators.IDecorator;
  */
 public class ShowProducerAction extends BaseMoskitoUIAction{
 	
-	@Override public ActionForward execute(ActionMapping mapping, FormBean bean, HttpServletRequest req, HttpServletResponse res) throws Exception {
+	@Override public ActionCommand execute(ActionMapping mapping, FormBean bean, HttpServletRequest req, HttpServletResponse res) throws Exception {
 
 		String intervalName = getCurrentInterval(req);
 		UnitBean currentUnit = getCurrentUnit(req);
@@ -155,7 +155,7 @@ public class ShowProducerAction extends BaseMoskitoUIAction{
 		
 		inspectProducer(req, producer);
 		
-		return mapping.findForward( getForward(req) );
+		return mapping.findCommand( getForward(req) );
 	}
 	
 	private void inspectProducer(HttpServletRequest req, IStatsProducer producer){
