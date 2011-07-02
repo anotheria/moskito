@@ -20,7 +20,13 @@ public enum SnapshotArchiverRegistry {
 
     INSTANCE;
 
+    /**
+     * Logger.
+     */
     private static Logger log = Logger.getLogger(SnapshotArchiverRegistry.class);
+    /**
+     * Archivers.
+     */
     private List<ISnapshotArchiver> registeredArchivers = new ArrayList<ISnapshotArchiver>();
 
     public List<ISnapshotArchiver> getRegisteredArchivers() {
