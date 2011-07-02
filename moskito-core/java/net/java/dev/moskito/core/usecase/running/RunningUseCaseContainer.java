@@ -74,6 +74,13 @@ public class RunningUseCaseContainer {
 	}
 	
 	/**
+	 * This is a special method for web applications to cleanup the ThreadLocals.
+	 */
+	public static void cleanup(){
+		currentUseCase.remove();
+	}
+	
+	/**
 	 * Returns true if there is currently a use-case recorded.
 	 * @return
 	 */
