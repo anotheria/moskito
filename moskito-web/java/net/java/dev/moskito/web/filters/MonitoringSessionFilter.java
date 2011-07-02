@@ -75,6 +75,9 @@ public class MonitoringSessionFilter implements Filter{
 			if (record!=null){
 				RunningUseCase last = RunningUseCaseContainer.endUseCase();
 				msession.addUseCase((ExistingRunningUseCase)last);
+				
+				//removes the running use case to cleanup the thread local. Otherwise tomcat will be complaining...
+				RunningUseCaseContainer.cleanup();
 			}
 		}
 			
