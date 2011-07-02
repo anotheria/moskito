@@ -41,7 +41,7 @@
 	<dependency> 
 		<groupId>net.anotheria</groupId>
 		<artifactId>ano-util</artifactId>
-		<version>1.0.0</version>
+		<version>1.0.10</version>
 	</dependency>
 	<!--  for paging  -->
 	<dependency> 
@@ -52,10 +52,8 @@
 	<dependency> 
 		<groupId>net.anotheria</groupId>
 		<artifactId>ano-maf</artifactId>
-		<version>1.0.0</version>
+		<version>1.1.0</version>
 	</dependency>
-	
-	
 	<dependency>
 		<groupId>net.anotheria</groupId>
 		<artifactId>moskito-core</artifactId>
@@ -69,25 +67,12 @@
 	<dependency>
     	<groupId>javax.servlet</groupId>
     	<artifactId>servlet-api</artifactId>
+    	<scope>provided</scope>
 	</dependency>	
-	<dependency>
-    	<groupId>struts</groupId>
-    	<artifactId>struts</artifactId>
-	</dependency>	
-	<dependency>
-		<groupId>net.anotheria</groupId>
-		<artifactId>ano-maf</artifactId>
-		<version>1.0.0</version>
-	</dependency>
 	<dependency>
 		<groupId>net.anotheria</groupId>
 		<artifactId>ano-tags</artifactId>
-		<version>1.0.1</version>
-	</dependency>
-	<dependency>
-		<groupId>net.anotheria</groupId>
-		<artifactId>ano-web</artifactId>
-		<version>1.1.0-SNAPSHOT</version>
+		<version>1.0.4</version>
 	</dependency>
   </dependencies>
 </project>
