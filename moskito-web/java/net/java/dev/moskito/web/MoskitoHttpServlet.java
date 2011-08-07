@@ -63,6 +63,10 @@ import net.java.dev.moskito.core.usecase.running.RunningUseCaseContainer;
  */
 public class MoskitoHttpServlet extends HttpServlet implements IStatsProducer{
 	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -105379295937733815L;
+	/**
 	 * Stats for the http delete method.
 	 */
 	private transient ServletStats deleteStats;
@@ -114,6 +118,18 @@ public class MoskitoHttpServlet extends HttpServlet implements IStatsProducer{
 		deleteStats       = new ServletStats("delete", getMonitoringIntervals());
 		lastModifiedStats = new ServletStats("lastModified", getMonitoringIntervals());
 		
+		cachedStatList = new ArrayList<IStats>(useShortStatList()? 2 : 8);
+		cachedStatList.add(getStats);
+		cachedStatList.add(postStats);
+		if (!useShortStatList()){
+			cachedStatList.add(deleteStats);
+			cachedStatList.add(headStats);
+			cachedStatList.add(optionsStats);
+			cachedStatList.add(putStats);
+			cachedStatList.add(traceStats);
+			cachedStatList.add(lastModifiedStats);
+		}
+
 		ProducerRegistryFactory.getProducerRegistryInstance().registerProducer(this);
 	}
 	
@@ -393,24 +409,7 @@ public class MoskitoHttpServlet extends HttpServlet implements IStatsProducer{
 	}
 
 	@Override public List<IStats> getStats() {
-		if (cachedStatList==null){
-			synchronized(this){
-				if (cachedStatList==null){
-					cachedStatList = new ArrayList<IStats>(useShortStatList()? 2 : 8);
-					cachedStatList.add(getStats);
-					cachedStatList.add(postStats);
-					if (!useShortStatList()){
-						cachedStatList.add(deleteStats);
-						cachedStatList.add(headStats);
-						cachedStatList.add(optionsStats);
-						cachedStatList.add(putStats);
-						cachedStatList.add(traceStats);
-						cachedStatList.add(lastModifiedStats);
-					}
-				}
-			}
-		}
-		return (List<IStats>)cachedStatList;
+		return cachedStatList;
 	}
 	
 	/**
