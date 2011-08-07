@@ -25,14 +25,26 @@ import net.java.dev.moskito.core.usecase.session.NoSuchMonitoringSessionExceptio
 
 public class MonitoringSessionFilter implements Filter{
 	
+	/**
+	 * Session attribute name for session record.
+	 */
 	private static final String SA_SESSION_RECORD = "mskSessionRecord";
 	
 	private static final String PARAM_SESSION_RECORDING = "mskMonitoringSession";
+	/**
+	 * The value of the parameter for the session monitoring start.
+	 */
 	private static final String PARAM_VALUE_START = "start";
+	/**
+	 * The value of the parameter for the session monitoring stop.
+	 */
 	private static final String PARAM_VALUE_STOP = "stop";
 	
 	public static final String PARAM_SESSION_NAME = "mskSessionName";
 
+	/**
+	 * Monitoring session manager instance.
+	 */
 	private IMonitoringSessionManager monitoringSessionManager;
 
 	@Override public void destroy() {
