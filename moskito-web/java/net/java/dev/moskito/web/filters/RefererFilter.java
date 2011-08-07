@@ -40,6 +40,11 @@ import javax.servlet.http.HttpServletRequest;
 
 import net.java.dev.moskito.web.MoskitoFilter;
 
+/**
+ * This filter measures calls by referer.
+ * @author lrosenberg
+ *
+ */
 public class RefererFilter extends MoskitoFilter{
 	
 	public static final String HTTP_PROTOCOL = "http://";

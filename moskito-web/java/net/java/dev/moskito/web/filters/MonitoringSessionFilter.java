@@ -115,6 +115,10 @@ public class MonitoringSessionFilter implements Filter{
 }
 
 class SessionRecord implements Serializable{
+	/**
+	 * SerialVersionUID.
+	 */
+	private static final long serialVersionUID = 1L;
 	private String name;
 	private AtomicInteger requestCount;
 	

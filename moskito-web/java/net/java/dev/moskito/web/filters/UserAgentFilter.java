@@ -40,6 +40,11 @@ import javax.servlet.http.HttpServletRequest;
 
 import net.java.dev.moskito.web.MoskitoFilter;
 
+/**
+ * This filter measures the url calls by the used user-agent.
+ * @author lrosenberg
+ *
+ */
 public class UserAgentFilter extends MoskitoFilter{
 
 	@Override

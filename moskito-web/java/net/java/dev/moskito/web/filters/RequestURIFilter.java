@@ -40,8 +40,15 @@ import javax.servlet.http.HttpServletRequest;
 
 import net.java.dev.moskito.web.MoskitoFilter;
 
+/**
+ * This filter measures the urls by the request uri.
+ * @author lrosenberg
+ *
+ */
 public class RequestURIFilter extends MoskitoFilter{
-	
+	/**
+	 * Limit for the url length.
+	 */
 	public static final int URI_LIMIT = 80;
 
 	@Override
