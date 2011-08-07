@@ -68,7 +68,7 @@ public class ServletWrapper implements Servlet, IStatsProducer{
 	public ServletWrapper(){
 		
 		try{
-			target = (Servlet)targetClass.newInstance();
+			target = targetClass.newInstance();
 			producerId = targetClass.getName()+"_prx";
 		}catch(Exception e){
 			throw new RuntimeException("Can't create wrapped servlet!");
