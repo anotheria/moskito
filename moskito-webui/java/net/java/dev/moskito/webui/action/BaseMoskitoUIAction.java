@@ -332,7 +332,7 @@ public abstract class BaseMoskitoUIAction implements Action{
 					metaheaderMap.put(decorator, metaheader);
 				}
 				decoratorMap.get(decorator).add(producer);
-			}catch(ArrayIndexOutOfBoundsException e){
+			}catch(IndexOutOfBoundsException e){
 				//producer has no stats at all, ignoring
 			}
 		}
