@@ -60,11 +60,11 @@ public class ProducerRegistryImpl implements IProducerRegistry{
 	/**
 	 * The listeners list.
 	 */
-	private List<IProducerRegistryListener> listeners;
+	private List<IProducerRegistryListener> listeners = new CopyOnWriteArrayList<IProducerRegistryListener>();;
 	/**
 	 * The map in which the producers are stored.
 	 */
-	private Map<String,IStatsProducer> registry;
+	private Map<String,IStatsProducer> registry = new ConcurrentHashMap<String, IStatsProducer>();
 	
 	/**
 	 * Creates the ProducerRegistryImpl singleton instance.
@@ -119,20 +119,27 @@ public class ProducerRegistryImpl implements IProducerRegistry{
 		}
 	}
 	
-	void reset(){
-		listeners = new CopyOnWriteArrayList<IProducerRegistryListener>();
-		registry = new ConcurrentHashMap<String,IStatsProducer>();
+	void reset() {
+		cleanup(); // cleaning up all context before reseting producer registry instance
+
+		listeners.clear();
+		registry.clear();
+
+		String junittest = System.getProperty("JUNITTEST");
+		if (junittest != null && (junittest.equalsIgnoreCase("true"))) // preventing listiner's initialization for JUnit run's
+			return;
+
 		addListener(new JMXBridgeListener());
 	}
-	
-	public void cleanup(){
+
+	public void cleanup() {
 		ArrayList<IStatsProducer> producers = new ArrayList<IStatsProducer>();
 		producers.addAll(registry.values());
-		for (IStatsProducer p : producers){
-			try{
+		for (IStatsProducer p : producers) {
+			try {
 				unregisterProducer(p);
-			}catch(Exception e){
-				log.warn("can't unregister producer "+p, e);
+			} catch (Exception e) {
+				log.warn("can't unregister producer " + p, e);
 			}
 		}
 	}

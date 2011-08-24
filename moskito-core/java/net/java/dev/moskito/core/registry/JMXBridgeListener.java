@@ -3,6 +3,8 @@ package net.java.dev.moskito.core.registry;
 import java.lang.management.ManagementFactory;
 import java.util.List;
 
+import javax.management.InstanceAlreadyExistsException;
+import javax.management.InstanceNotFoundException;
 import javax.management.MBeanServer;
 import javax.management.MalformedObjectNameException;
 import javax.management.ObjectName;
@@ -30,6 +32,8 @@ public class JMXBridgeListener implements IProducerRegistryListener{
 			try{
 				ObjectName name = createName(producer.getProducerId(), s.getName());
 		    	mbs.registerMBean(s, name);
+			}catch(InstanceAlreadyExistsException e){ 
+				log.warn("can't register "+s.getName()+" in "+producer.getProducerId()+", ignored InstanceAlreadyExistsException.");
 			}catch(Exception e){
 				log.warn("can't register "+s.getName()+" in "+producer.getProducerId()+", ignored.", e);
 			}
@@ -47,6 +51,8 @@ public class JMXBridgeListener implements IProducerRegistryListener{
 			try{
 				ObjectName name = createName(producer.getProducerId(), s.getName());
 		    	mbs.unregisterMBean(name);
+			}catch(InstanceNotFoundException e){
+				log.debug("can't unregister "+s.getName()+" in "+producer.getProducerId()+", ignored InstanceNotFoundException.");
 			}catch(Exception e){
 				log.warn("can't unregister "+s.getName()+" in "+producer.getProducerId()+", ignored.", e);
 			}
