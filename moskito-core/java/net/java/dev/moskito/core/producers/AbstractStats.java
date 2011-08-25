@@ -110,11 +110,11 @@ public abstract class AbstractStats implements IStats, StatsMXBean{
 		Method[] methods = this.getClass().getMethods();
 		try {
 			for (Method getter : methods) {
-				Class returnType = getter.getReturnType();
+				Class<?> returnType = getter.getReturnType();
 				if (getter.getName().startsWith("get")
 						&& (returnType.isAssignableFrom(int.class) || returnType.isAssignableFrom(long.class) || returnType.isAssignableFrom(double.class))) {
                     if (getter.getParameterTypes().length == 0) {
-                        snapshotProperties.put(getter.getName().substring(3), (Number) getter.invoke(this, null));
+                        snapshotProperties.put(getter.getName().substring(3), (Number) getter.invoke(this, (Object[]) null));
                     } else if (getter.getParameterTypes().length == 1 && getter.getParameterTypes()[0].equals(String.class)) {
                         Object[] params = new Object[1];
                         params[0] = aIntervalName;
