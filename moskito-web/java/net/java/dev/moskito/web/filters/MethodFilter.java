@@ -36,19 +36,22 @@ package net.java.dev.moskito.web.filters;
 
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
+import javax.servlet.http.HttpServletRequest;
 
 import net.java.dev.moskito.web.MoskitoFilter;
 
 /**
- * This filter counts the requests by the domain.
+ * This filter distincts by the method of the request.
  * @author lrosenberg
  *
  */
-public class DomainFilter extends MoskitoFilter{
+public class MethodFilter extends MoskitoFilter{
 
 	@Override
 	protected String extractCaseName(ServletRequest req, ServletResponse res) {
-		return req.getServerName();
+		if (!(req instanceof HttpServletRequest))
+			return "nonhttp";
+		return ((HttpServletRequest)req).getMethod();
 	}
 
 	@Override

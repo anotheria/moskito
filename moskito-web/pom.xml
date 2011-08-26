@@ -26,10 +26,19 @@
 	<dependency>
     	<groupId>javax.servlet</groupId>
     	<artifactId>servlet-api</artifactId>
+    	<scope>provided</scope>
 	</dependency>	
 	<dependency>
     	<groupId>struts</groupId>
     	<artifactId>struts</artifactId>
-	</dependency>	
+    	<scope>provided</scope>
+	</dependency>
+	<!-- only mock support needed, therefore testing scope -->	
+	<dependency>
+	  <groupId>net.anotheria</groupId>
+  		<artifactId>ano-prise</artifactId>  
+		<version>1.0.5</version> 
+  		<scope>test</scope>	
+  	</dependency>
   </dependencies>
 </project>
