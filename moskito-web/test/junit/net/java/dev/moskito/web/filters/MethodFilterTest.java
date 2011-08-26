@@ -49,7 +49,6 @@ public class MethodFilterTest {
 
 		assertEquals(1, ((FilterStats)stats.get(2)).getTotalRequests());
 		assertEquals("POST", ((FilterStats)stats.get(2)).getName());
-		
 	}
 	
 	public static class GetMethod implements Mocking{

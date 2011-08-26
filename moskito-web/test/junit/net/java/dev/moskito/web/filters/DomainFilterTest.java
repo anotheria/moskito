@@ -23,27 +23,27 @@ public class DomainFilterTest {
 		System.setProperty("JUNITTEST", "true");
 	}
 	
-	public static final String[] METHODS = {"www.example.com", "www.example.com", "www.example.com", "www.google.com", "www.example.com"};
+	public static final String[] DOMAINS = {"www.example.com", "www.example.com", "www.example.com", "www.google.com", "www.example.com"};
 	
 	@Before public void cleanup(){
 		ProducerRegistryFactory.getProducerRegistryInstance().cleanup();
 	}
 	
 	@Test public void basicTestForMethodCall() throws Exception {
-		MethodFilter filter = new MethodFilter();
+		DomainFilter filter = new DomainFilter();
 		
 		filter.init(TestingUtil.createFilterConfig());
 		HttpServletRequest req = MockFactory.createMock(HttpServletRequest.class, new GetDomain());
 		FilterChain chain = TestingUtil.createFilterChain();
 		
-		for (int i=0; i<METHODS.length; i++){
+		for (int i=0; i<DOMAINS.length; i++){
 			filter.doFilter(req, null, chain);
 		}
 		
 		List<IStats> stats = new ProducerRegistryAPIFactory().createProducerRegistryAPI().getProducer(filter.getProducerId()).getStats();
 		
 		assertEquals("expect 3 stat entries ", 3, stats.size());
-		assertEquals(METHODS.length, ((FilterStats)stats.get(0)).getTotalRequests());
+		assertEquals(DOMAINS.length, ((FilterStats)stats.get(0)).getTotalRequests());
 
 		assertEquals(4, ((FilterStats)stats.get(1)).getTotalRequests());
 		assertEquals("www.example.com", ((FilterStats)stats.get(1)).getName());
@@ -57,8 +57,8 @@ public class DomainFilterTest {
 		
 		private int last = 0;
 		
-		public String getMethod(){
-			return METHODS[last++];
+		public String getServerName(){
+			return DOMAINS[last++];
 		}
 	}
 
