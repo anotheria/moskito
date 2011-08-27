@@ -56,6 +56,6 @@ public class MethodFilter extends MoskitoFilter{
 
 	@Override
 	public String getProducerId() {
-		return "DomainFilter";
+		return "MethodFilter";
 	}
 }

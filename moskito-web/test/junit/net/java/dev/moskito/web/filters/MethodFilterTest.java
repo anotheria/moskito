@@ -9,8 +9,11 @@ import net.anotheria.anoprise.mocking.MockFactory;
 import net.anotheria.anoprise.mocking.Mocking;
 import net.java.dev.moskito.core.predefined.FilterStats;
 import net.java.dev.moskito.core.producers.IStats;
+import net.java.dev.moskito.core.producers.IStatsProducer;
+import net.java.dev.moskito.core.registry.IProducerRegistryAPI;
 import net.java.dev.moskito.core.registry.ProducerRegistryAPIFactory;
 import net.java.dev.moskito.core.registry.ProducerRegistryFactory;
+import net.java.dev.moskito.web.TestingUtil;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -28,6 +31,28 @@ public class MethodFilterTest {
 		ProducerRegistryFactory.getProducerRegistryInstance().cleanup();
 	}
 	
+	@Test public void testForNull() throws Exception{
+		MethodFilter filter = new MethodFilter();
+		filter.init(TestingUtil.createFilterConfig());
+		
+		FilterChain chain = TestingUtil.createFilterChain();
+		
+		for (int i=0; i<METHODS.length; i++){
+			filter.doFilter(null, null, chain);
+		}
+		
+		IProducerRegistryAPI api = new ProducerRegistryAPIFactory().createProducerRegistryAPI();
+		IStatsProducer producer = api.getProducer(filter.getProducerId());
+		List<IStats> stats = producer.getStats();
+		
+		assertEquals("expect 2 stat entries ", 2, stats.size());
+		assertEquals(METHODS.length, ((FilterStats)stats.get(0)).getTotalRequests());
+		assertEquals(METHODS.length, ((FilterStats)stats.get(1)).getTotalRequests());
+
+		assertEquals("nonhttp", ((FilterStats)stats.get(1)).getName());
+		
+	}
+	
 	@Test public void basicTestForMethodCall() throws Exception {
 		MethodFilter filter = new MethodFilter();
 		
@@ -39,7 +64,9 @@ public class MethodFilterTest {
 			filter.doFilter(req, null, chain);
 		}
 		
-		List<IStats> stats = new ProducerRegistryAPIFactory().createProducerRegistryAPI().getProducer(filter.getProducerId()).getStats();
+		IProducerRegistryAPI api = new ProducerRegistryAPIFactory().createProducerRegistryAPI();
+		IStatsProducer producer = api.getProducer(filter.getProducerId());
+		List<IStats> stats = producer.getStats();
 		
 		assertEquals("expect 3 stat entries ", 3, stats.size());
 		assertEquals(METHODS.length, ((FilterStats)stats.get(0)).getTotalRequests());

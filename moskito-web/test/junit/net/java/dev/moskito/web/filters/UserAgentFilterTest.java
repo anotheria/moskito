@@ -14,52 +14,53 @@ import net.java.dev.moskito.core.producers.IStats;
 import net.java.dev.moskito.core.registry.ProducerRegistryAPIFactory;
 import net.java.dev.moskito.core.registry.ProducerRegistryFactory;
 import net.java.dev.moskito.web.TestingUtil;
-import net.java.dev.moskito.web.filters.MethodFilterTest.GetMethod;
 
 import org.junit.Before;
 import org.junit.Test;
 
-public class DomainFilterTest {
+public class UserAgentFilterTest {
 	static{
 		System.setProperty("JUNITTEST", "true");
 	}
 	
-	public static final String[] DOMAINS = {"www.example.com", "www.example.com", "www.example.com", "www.google.com", "www.example.com"};
+	public static final String[] AGENTS = {"chrome", "chrome", "firefox", "firefox", "chrome"};
 	
 	@Before public void cleanup(){
 		ProducerRegistryFactory.getProducerRegistryInstance().cleanup();
 	}
 	
 	@Test public void basicTestForMethodCall() throws Exception {
-		DomainFilter filter = new DomainFilter();
+		UserAgentFilter filter = new UserAgentFilter();
 		
 		filter.init(TestingUtil.createFilterConfig());
-		HttpServletRequest req = MockFactory.createMock(HttpServletRequest.class, new GetDomain());
+		HttpServletRequest req = MockFactory.createMock(HttpServletRequest.class, new GetHeader());
 		FilterChain chain = TestingUtil.createFilterChain();
 		
-		for (int i=0; i<DOMAINS.length; i++){
+		for (int i=0; i<AGENTS.length; i++){
 			filter.doFilter(req, null, chain);
 		}
 		
 		List<IStats> stats = new ProducerRegistryAPIFactory().createProducerRegistryAPI().getProducer(filter.getProducerId()).getStats();
 		
 		assertEquals("expect 3 stat entries ", 3, stats.size());
-		assertEquals(DOMAINS.length, ((FilterStats)stats.get(0)).getTotalRequests());
+		assertEquals(AGENTS.length, ((FilterStats)stats.get(0)).getTotalRequests());
 
-		assertEquals(4, ((FilterStats)stats.get(1)).getTotalRequests());
-		assertEquals("www.example.com", ((FilterStats)stats.get(1)).getName());
+		assertEquals(3, ((FilterStats)stats.get(1)).getTotalRequests());
+		assertEquals("chrome", ((FilterStats)stats.get(1)).getName());
 
-		assertEquals(1, ((FilterStats)stats.get(2)).getTotalRequests());
-		assertEquals("www.google.com", ((FilterStats)stats.get(2)).getName());
+		assertEquals(2, ((FilterStats)stats.get(2)).getTotalRequests());
+		assertEquals("firefox", ((FilterStats)stats.get(2)).getName());
 		
 	}
 	
-	public static class GetDomain implements Mocking{
+	public static class GetHeader implements Mocking{
 		
 		private int last = 0;
 		
-		public String getServerName(){
-			return DOMAINS[last++];
+		public String getHeader(String headerName){
+			if (headerName==null || (!headerName.equals("user-agent")))
+				throw new IllegalArgumentException("unsupported by mock");
+			return AGENTS[last++];
 		}
 	}
 
