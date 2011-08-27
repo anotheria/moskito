@@ -17,4 +17,12 @@ public class MoskitoFilterTest {
 		filter.init(config);
 		//if we passed the config has been read properly
 	}
+
+	//this test checks whether illegal parameter crashes limit parsing.
+	@Test public void testLimitParsing2() throws Exception{
+		TestFilter filter = new TestFilter();
+		FilterConfig config = TestingUtil.createFilterConfig(new TestingUtil.ServletConfigGetLimitParameter("5"));
+		filter.init(config);
+		//if we passed the config has been read properly
+	}
 }
