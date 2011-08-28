@@ -40,12 +40,12 @@ public class SessionCountProducer implements HttpSessionListener, IStatsProducer
 	
 	
 	@Override
-	public void sessionCreated(HttpSessionEvent arg0) {
+	public void sessionCreated(HttpSessionEvent event) {
 		stats.notifySessionCreated();
 	}
 
 	@Override
-	public void sessionDestroyed(HttpSessionEvent arg0) {
+	public void sessionDestroyed(HttpSessionEvent event) {
 		stats.notifySessionDestroyed();
 	}
 

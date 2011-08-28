@@ -116,4 +116,8 @@ public class SessionCountStats extends AbstractStats{
 		
 		return super.getValueByNameAsString(valueName, intervalName, timeUnit);
 	}
+	
+	public String toString(){
+		return toStatsString();
+	}
 }
