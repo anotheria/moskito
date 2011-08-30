@@ -6,6 +6,7 @@ import java.lang.management.MemoryType;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import net.java.dev.moskito.core.registry.IProducerRegistry;
 import net.java.dev.moskito.core.registry.ProducerRegistryFactory;
@@ -63,8 +64,8 @@ public class StartBuiltInProducers {
 		}
 		
 		//now finally add virtual producers
-		for (MemoryType t : producers.keySet()){
-			BuiltInMemoryPoolVirtualProducer vp = new BuiltInMemoryPoolVirtualProducer(t, producers.get(t));
+		for (Map.Entry<MemoryType,List<BuiltInMemoryPoolProducer>> t : producers.entrySet()){
+			BuiltInMemoryPoolVirtualProducer vp = new BuiltInMemoryPoolVirtualProducer(t.getKey(), t.getValue());
 			registry.registerProducer(vp);
 		}
 		
