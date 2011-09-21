@@ -64,7 +64,7 @@ public class ProducerRegistryImpl implements IProducerRegistry{
 	/**
 	 * The map in which the producers are stored.
 	 */
-	private Map<String,IStatsProducer> registry = new ConcurrentHashMap<String, IStatsProducer>();
+	private Map<String,ProducerReference> registry = new ConcurrentHashMap<String, ProducerReference>();
 	
 	/**
 	 * Creates the ProducerRegistryImpl singleton instance.
@@ -82,11 +82,21 @@ public class ProducerRegistryImpl implements IProducerRegistry{
 	}
 
 	@Override public Collection<IStatsProducer> getProducers() {
-		return registry.values();
+		ArrayList<IStatsProducer> ret = new ArrayList<IStatsProducer>();
+		for (ProducerReference r : getProducerReferences()){
+			if (r.get()!=null)
+				ret.add(r.get());
+		}
+		return ret;
 	}
 	
+	@Override public Collection<ProducerReference> getProducerReferences() {
+		return registry.values();
+	}
+
 	@Override public IStatsProducer getProducer(String producerId){
-		return registry.get(producerId);
+		ProducerReference ref = registry.get(producerId); 
+		return ref == null ? null : ref.get();
 	}
 
 	@Override public void registerProducer(IStatsProducer producer) {
@@ -98,7 +108,8 @@ public class ProducerRegistryImpl implements IProducerRegistry{
 			producerToString = "Illegal to string method: "+e.getMessage()+", "+e.getClass();
 		}
 		log.info("Registry register producer: "+producer.getProducerId()+" / "+producerToString);
-		IStatsProducer previous = registry.put(producer.getProducerId(), producer);
+		ProducerReference previousRef = registry.put(producer.getProducerId(), new ProducerReference(producer));
+		IStatsProducer previous = previousRef == null ? null : previousRef.get();
 		if (previous!=null)
 			log.info("Under this name a producer was already registered: "+previous);
 		
@@ -133,11 +144,12 @@ public class ProducerRegistryImpl implements IProducerRegistry{
 	}
 
 	public void cleanup() {
-		ArrayList<IStatsProducer> producers = new ArrayList<IStatsProducer>();
-		producers.addAll(registry.values());
-		for (IStatsProducer p : producers) {
+		ArrayList<ProducerReference> producerReferences = new ArrayList<ProducerReference>();
+		producerReferences.addAll(registry.values());
+		for (ProducerReference p : producerReferences) {
 			try {
-				unregisterProducer(p);
+				if (p.get()!=null)
+					unregisterProducer(p.get());
 			} catch (Exception e) {
 				log.warn("can't unregister producer " + p, e);
 			}

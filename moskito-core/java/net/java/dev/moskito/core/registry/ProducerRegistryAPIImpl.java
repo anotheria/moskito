@@ -65,11 +65,11 @@ public class ProducerRegistryAPIImpl implements IProducerRegistryAPI, IProducerR
 	/**
 	 * Cached producer list - used internally to reduce overhead.
 	 */
-	private List<IStatsProducer> _cachedProducerList;
+	private List<ProducerReference> _cachedProducerList;
 	/**
 	 * Cached producer map - used internally to reduce overhead.
 	 */
-	private Map<String,IStatsProducer> _cachedProducerMap;
+	private Map<String,ProducerReference> _cachedProducerMap;
 	/**
 	 * Cached interval infos - used internally to reduce overhead.
 	 */
@@ -129,12 +129,15 @@ public class ProducerRegistryAPIImpl implements IProducerRegistryAPI, IProducerR
 		synchronized(cacheLock){
 			//lets create lists with more place to store as actually need, we will probably need it.
 			int approxSize = (int)(producers.size()*1.5);
-			_cachedProducerList = new ArrayList<IStatsProducer>(approxSize); 
-			_cachedProducerList.addAll(producers);
+			_cachedProducerList = new ArrayList<ProducerReference>(approxSize);
+			for (IStatsProducer sp : producers){
+				_cachedProducerList.add(new ProducerReference(sp));	
+			}
 			
-			_cachedProducerMap = new HashMap<String,IStatsProducer>(approxSize);
+			
+			_cachedProducerMap = new HashMap<String,ProducerReference>(approxSize);
 			for (IStatsProducer p : producers)
-				_cachedProducerMap.put(p.getProducerId(), p);
+				_cachedProducerMap.put(p.getProducerId(), new ProducerReference(p));
 		}
 		if (log.isDebugEnabled()){
 			log.debug("Cachedproducer list contains "+_cachedProducerList.size()+" producers: ");
@@ -149,7 +152,13 @@ public class ProducerRegistryAPIImpl implements IProducerRegistryAPI, IProducerR
 	@Override public List<IStatsProducer> getAllProducers() {
 		if (_cachedProducerList==null)
 			buildProducerCacheFromScratch();
-		return _cachedProducerList;
+		ArrayList<IStatsProducer> ret = new ArrayList<IStatsProducer>();
+		for (ProducerReference pr : _cachedProducerList){
+			if (pr.get()!=null)
+				ret.add(pr.get());
+		}
+		return ret;
+		
 	}
 
 	@Override public List<IStatsProducer> getAllProducersByCategory(String category) {
@@ -203,7 +212,7 @@ public class ProducerRegistryAPIImpl implements IProducerRegistryAPI, IProducerR
 			buildProducerCacheFromScratch();
 
 		synchronized(cacheLock){
-			return _cachedProducerMap.get(producerId);
+			return _cachedProducerMap.get(producerId).get();
 		}
 	}
 
@@ -212,16 +221,19 @@ public class ProducerRegistryAPIImpl implements IProducerRegistryAPI, IProducerR
 			buildProducerCacheFromScratch();
 		List <IStatsProducer> ret = new ArrayList<IStatsProducer>();
 		@SuppressWarnings("unchecked")
-		List<IStatsProducer> workCopy = (List<IStatsProducer>)((ArrayList<IStatsProducer>)_cachedProducerList).clone();
-		for (IStatsProducer p  : workCopy){
+		List<ProducerReference> workCopy = (List<ProducerReference>)((ArrayList<ProducerReference>)_cachedProducerList).clone();
+		for (ProducerReference p  : workCopy){
+			IStatsProducer pp = p.get();
 			boolean fit = true;
+			if (pp==null)
+				continue;
 			for(IProducerFilter filter: filters)
-				if (!filter.doesFit(p)){
+				if (!filter.doesFit(pp)){
 					fit = false;
 					break;
 				}
 			if(fit)
-				ret.add(p);
+				ret.add(pp);
 		}
 		return ret;
 	}
@@ -231,8 +243,9 @@ public class ProducerRegistryAPIImpl implements IProducerRegistryAPI, IProducerR
 		if (_cachedProducerList==null)
 			return;
 		synchronized(cacheLock){
-			_cachedProducerList.add(producer);
-			_cachedProducerMap.put(producer.getProducerId(), producer);
+			ProducerReference pr = new ProducerReference(producer);
+			_cachedProducerList.add(pr);
+			_cachedProducerMap.put(producer.getProducerId(), pr);
 		}
 	}
 

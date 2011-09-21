@@ -60,6 +60,11 @@ public interface IProducerRegistry {
 	 */
 	Collection<IStatsProducer> getProducers();
 	/**
+	 * Returns registered producers.
+	 * @return
+	 */
+	Collection<ProducerReference> getProducerReferences();
+	/**
 	 * Returns a producer with given id.
 	 * @param producerId
 	 * @return
