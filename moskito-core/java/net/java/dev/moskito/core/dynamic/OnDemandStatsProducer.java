@@ -34,17 +34,17 @@
  */	
 package net.java.dev.moskito.core.dynamic;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import org.apache.log4j.Logger;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 import net.java.dev.moskito.core.inspection.CreationInfo;
 import net.java.dev.moskito.core.inspection.Inspectable;
 import net.java.dev.moskito.core.producers.IStats;
 import net.java.dev.moskito.core.producers.IStatsProducer;
+
+import org.apache.log4j.Logger;
 
 /**
  * This producer is used when the different method producing stats aren't known at compile time (or you don't want to use 
@@ -110,7 +110,7 @@ public class OnDemandStatsProducer implements IStatsProducer, Inspectable{
 		factory = aStatsFactory;
 		
 		stats = new HashMap<String,IStats>();
-		_cachedStatsList = new ArrayList<IStats>();
+		_cachedStatsList = new CopyOnWriteArrayList<IStats>();
 		
 		try{
 			linkToDefaultStats = getStats("cumulated");
