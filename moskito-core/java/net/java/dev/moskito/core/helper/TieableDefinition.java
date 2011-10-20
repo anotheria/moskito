@@ -1,13 +1,36 @@
 package net.java.dev.moskito.core.helper;
 
 import net.java.dev.moskito.core.stats.TimeUnit;
-
+/**
+ * Class that defines moskito components which are tie-able, which means can serve as target for actions. 
+ * Thresholds and accumulators are using tiebles.
+ * @author lrosenberg
+ *
+ */
 public class TieableDefinition {
+	/**
+	 * Name of the tieable.
+	 */
 	private String name;
+	/**
+	 * Name of the producer.
+	 */
 	private String producerName;
+	/**
+	 * Name of the stat of the producer.
+	 */
 	private String statName;
+	/**
+	 * Name of the value.
+	 */
 	private String valueName;
+	/**
+	 * Name of the interval.
+	 */
 	private String intervalName;
+	/**
+	 * Timeunit, default is millis.
+	 */
 	private TimeUnit timeUnit = TimeUnit.MILLISECONDS;
 
 	

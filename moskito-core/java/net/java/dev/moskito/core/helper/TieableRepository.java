@@ -15,16 +15,33 @@ import net.java.dev.moskito.core.timing.IUpdateable;
 import net.java.dev.moskito.core.timing.UpdateTriggerServiceFactory;
 
 import org.apache.log4j.Logger;
-
+/**
+ * Basic class for repository that manages tieable objects.
+ * @author lrosenberg
+ *
+ * @param <T>
+ */
 public abstract class TieableRepository<T extends Tieable> implements IProducerRegistryListener, IUpdateable{
+	/**
+	 * Interval listeners.
+	 */
 	private ConcurrentMap<String, IntervalListener> listeners = new ConcurrentHashMap<String, IntervalListener>();
 	
+	/**
+	 * Reference to producer registry.
+	 */
 	private final IProducerRegistry registry = ProducerRegistryFactory.getProducerRegistryInstance();
-	
+	/**
+	 * Logger.
+	 */
 	private static Logger log = Logger.getLogger(TieableRepository.class);
-	
+	/**
+	 * Tieables. This map contains already tied tieables.
+	 */
 	private ConcurrentMap<String, T> tieable = new ConcurrentHashMap<String, T>();
-	
+	/**
+	 * The listener to the default interval.
+	 */
 	private final IntervalListener defaultListener = new IntervalListener();
 
 	
