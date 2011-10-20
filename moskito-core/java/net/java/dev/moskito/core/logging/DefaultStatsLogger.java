@@ -34,8 +34,11 @@
  */	
 package net.java.dev.moskito.core.logging;
 
+import java.util.ConcurrentModificationException;
 import java.util.Iterator;
 import java.util.List;
+
+import org.apache.log4j.Logger;
 
 import net.anotheria.util.Date;
 import net.anotheria.util.IdCodeGenerator;
@@ -98,11 +101,14 @@ public class DefaultStatsLogger implements IUpdateable{
 		output.out("=== SNAPSHOT Interval DEFAULT "+outputIntervalInSeconds+"s, Entity: "+id);
 		output.out("=== Timestamp: "+Date.currentDate()+", ServiceId: "+target.getProducerId());
 		output.out("===============================================================================");
-		
-		List<IStats> stats = target.getStats();
-		for (Iterator<IStats> it = stats.iterator(); it.hasNext(); ){
-			IStats stat = it.next();
-			output.out(stat.toStatsString());
+		try{
+			List<IStats> stats = target.getStats();
+			for (Iterator<IStats> it = stats.iterator(); it.hasNext(); ){
+				IStats stat = it.next();
+				output.out(stat.toStatsString());
+			}
+		}catch(ConcurrentModificationException e){
+			Logger.getLogger(DefaultStatsLogger.class).warn("Error during iteration over stats from producer "+target+" ("+target.getClass()+"), concurrent modification of stats detected.");
 		}
 		
 		output.out("===============================================================================");
