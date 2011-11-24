@@ -1,0 +1,1099 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+		"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	<title>MoSKito &mdash; Dashboard</title>
+	<link type="text/css" rel="stylesheet" rev="stylesheet" href="styles/common.css"/>
+	<script type="text/javascript" src="js/jquery-1.4.min.js"></script>
+
+	<script type="text/javascript" src="js/jscharts.js"></script>
+	<script type="text/javascript" src="http://www.google.com/jsapi"></script>
+	<script type="text/javascript" src="js/jquery-ui-1.8.5.custom.min.js"></script>
+	<script type="text/javascript" src="js/jquery.ui.core.js"></script>
+
+	<script type="text/javascript" src="js/jquery.ui.mouse.min.js"></script>
+	<script type="text/javascript" src="js/jquery.ui.selectable.min.js"></script>
+	<script type="text/javascript" src="js/jquery.ui.sortable.min.js"></script>
+	<script type="text/javascript" src="js/jquery.ui.widget.min.js"></script>
+	<script type="text/javascript" src="js/function.js"></script>
+	<script type="text/javascript" src="js/dashboardController.js"></script>
+	<script type="text/javascript" src="js/chartController.js"></script>
+</head>
+<body>
+
+<div class="main_menu">
+	<div class="white_pl">
+		<div class="top">
+			<div class="left_bg"><!-- --></div>
+			<a href="#" class="logo"><img alt="MoSKito WebUI" src="images/moskito_webui_logo.gif" width="131" height="25"/></a>
+			<ul>
+				<li class="active"><a href="#">Dashboard</a></li>
+				<li><a href="#">Producers</a>
+
+					<div class="sub_menu">
+						<ul>
+							<li><span>Category:</span><select>
+								<option>Memory (10)</option>
+							</select></li>
+							<li class="separator"><span>Subsystem:</span><select>
+								<option>Monitoring (10)</option>
+							</select></li>
+							<li><span>Interval:</span><select>
+								<option>default</option>
+							</select></li>
+							<li><span>Unit:</span><select>
+								<option>millisec</option>
+							</select></li>
+						</ul>
+						<div class="clear"><!-- --></div>
+					</div>
+					<div class="over_color">
+						<div><!-- --></div>
+					</div>
+				</li>
+
+				<li><a href="#">Monitoring Sessions</a></li>
+				<li><a href="#">Charts</a></li>
+				<li><a href="#"><img alt="System status: GREEN" src="images/ind_green_small.png"/>&nbsp;&nbsp;Thresholds</a>
+				</li>
+			</ul>
+			<div class="right"><!-- --></div>
+			<ul class="settings">
+				<li><a href="#">Export</a></li>
+				<li><a href="#">Help</a></li>
+			</ul>
+
+		</div>
+	</div>
+</div>
+<div class="main">
+<select class="dashes">
+	<option class="create">Create dashboard</option>
+	<!--<option disabled selected="selected"></option>-->
+	<option selected="selected">Main dashboard</option>
+</select>
+<a href="#" class="edit dash">Edit</a>
+<input type="button" value="Create widget" class="create_wdgt"/>
+
+<div class="clear"></div>
+<!-- login zone -->
+<div class="draggable">
+<div class="widgets_left">
+<div class="table_layout">
+	<div class="top">
+		<div><!-- --></div>
+	</div>
+	<div class="in">
+		<h2>Widget Table</h2>
+		<a href="#" class="help">Close</a>
+		<a href="#" class="edit">Edit</a>
+
+		<div class="clear"><!-- --></div>
+
+		<div class="table_itseft">
+			<div class="top">
+				<div class="left"><!-- --></div>
+				<div class="right"><!-- --></div>
+			</div>
+			<div class="in">
+				<h3>Filter</h3>
+
+				<div class="scroller_x">
+
+					<table width="100%" cellspacing="0" cellpadding="0">
+						<thead>
+						<tr>
+							<!--<th>Producer group</th>-->
+							<th>Producer</th>
+							<th>Time</th>
+							<th>Avg</th>
+							<th>IOE</th>
+
+						</tr>
+						</thead>
+						<tbody>
+						<tr class="even">
+							<!--<td><a href="#">Filter</a></td>-->
+							<td><a href="#">moskitoUI</a></td>
+							<td>369,575</td>
+							<td>19,628</td>
+							<td>0,000</td>
+						</tr>
+
+						</tbody>
+					</table>
+				</div>
+				<h3>Service</h3>
+
+				<div class="scroller_x">
+					<table width="100%" cellspacing="0" cellpadding="0">
+						<thead>
+						<tr>
+							<!--<th>Producer group</th>-->
+							<th>Producer</th>
+							<th>Req</th>
+							<th>Time</th>
+
+						</tr>
+						</thead>
+						<tbody>
+						<tr class="even">
+							<!--<td><a href="#">Service</a></td>-->
+							<td><a href="#">CommentServiceImpl</a></td>
+							<td>14</td>
+							<td>0</td>
+						</tr>
+
+						</tbody>
+					</table>
+				</div>
+				<h3>VirtualMemoryPool</h3>
+
+				<div class="scroller_x">
+					<table width="100%" cellspacing="0" cellpadding="0">
+						<thead>
+						<tr>
+							<!--<th>Producer group</th>-->
+							<th>Producer</th>
+							<th>Free MB</th>
+							<th>Used MB</th>
+							<th>Min Used</th>
+
+						</tr>
+						</thead>
+						<tbody>
+						<tr class="even">
+							<!--<td><a href="#">VirtualMemoryPool</a></td>-->
+							<td><a href="#">Heap memory</a></td>
+							<td>141</td>
+							<td>494</td>
+							<td>47</td>
+						</tr>
+						<tr class="odd">
+							<!--<td><a href="#">VirtualMemoryPool</a></td>-->
+							<td><a href="#">Non-heap memory</a></td>
+							<td>256</td>
+							<td>136</td>
+							<td>56</td>
+						</tr>
+
+						</tbody>
+					</table>
+				</div>
+
+				<div class="clear"><!-- --></div>
+			</div>
+			<div class="bot">
+				<div class="left"><!-- --></div>
+				<div class="right"><!-- --></div>
+			</div>
+		</div>
+
+
+	</div>
+
+	<div class="bot">
+		<div><!-- --></div>
+	</div>
+</div>
+<div class="table_layout">
+	<div class="top">
+		<div><!-- --></div>
+	</div>
+	<div class="in">
+		<h2>Widget Threshold</h2>
+		<a href="#" class="help">Close</a>
+		<a href="#" class="edit">Edit</a>
+
+		<div class="clear"><!-- --></div>
+
+		<div class="table_itseft">
+			<div class="top">
+				<div class="left"><!-- --></div>
+				<div class="right"><!-- --></div>
+			</div>
+			<div class="in">
+				<div class="scroller_x">
+					<table width="100%" cellspacing="0" cellpadding="0">
+						<thead>
+						<tr>
+							<th>Name</th>
+							<th>Status</th>
+
+						</tr>
+						</thead>
+						<tbody>
+
+
+						<tr class="even">
+							<td><a href="#">GuardedService AVG</a></td>
+							<td><img alt="off" src="images/ind_green.png"/></td>
+
+						</tr>
+
+						<tr class="odd">
+							<td><a href="#">Guestbook</a></td>
+							<td><img alt="off" src="images/ind_red.png"/></td>
+
+						</tr>
+
+						<tr class="even">
+							<td><a href="#">GuardedService TotalRequest</a></td>
+							<td><img alt="off" src="images/ind_off.png"/></td>
+
+						</tr>
+
+						</tbody>
+					</table>
+				</div>
+
+				<div class="clear"><!-- --></div>
+			</div>
+			<div class="bot">
+				<div class="left"><!-- --></div>
+				<div class="right"><!-- --></div>
+			</div>
+		</div>
+
+
+	</div>
+
+	<div class="bot">
+		<div><!-- --></div>
+	</div>
+</div>
+<div class="table_layout">
+	<div class="top">
+		<div><!-- --></div>
+	</div>
+	<div class="in">
+		<h2>Widget System-wide Threshold</h2>
+		<a href="#" class="help">Close</a>
+		<a href="#" class="edit">Edit</a>
+
+		<div class="clear"><!-- --></div>
+
+		<div class="table_itseft">
+			<div class="top">
+				<div class="left"><!-- --></div>
+				<div class="right"><!-- --></div>
+			</div>
+			<div class="in">
+				<div class="scroller_x">
+					<table width="100%" cellspacing="0" cellpadding="0">
+						<thead>
+						<tr>
+							<th>Name</th>
+							<th>Status</th>
+							<th>Processors</th>
+
+						</tr>
+						</thead>
+						<tbody>
+
+
+						<tr class="even">
+							<td><a href="#">Some Systerm-wide Threshold</a></td>
+							<td><img alt="off" src="images/ind_green.png"/></td>
+							<td>3/7/18</td>
+
+						</tr>
+
+						</tbody>
+					</table>
+				</div>
+
+				<div class="clear"><!-- --></div>
+			</div>
+			<div class="bot">
+				<div class="left"><!-- --></div>
+				<div class="right"><!-- --></div>
+			</div>
+		</div>
+
+
+	</div>
+
+	<div class="bot">
+		<div><!-- --></div>
+	</div>
+</div>
+</div>
+<div class="widgets_right">
+	<div class="table_layout" id="barChart_container">
+		<div class="top">
+			<div><!-- --></div>
+		</div>
+		<div class="in">
+			<h2>Widget Chart</h2>
+			<a href="#" class="help">Close</a>
+			<a href="#" class="edit">Edit</a>
+
+			<div class="clear"><!-- --></div>
+
+			<div class="table_itseft">
+				<div class="top">
+					<div class="left"><!-- --></div>
+					<div class="right"><!-- --></div>
+				</div>
+				<div class="in">
+					<div id="barChart"></div>
+
+					<div class="clear"><!-- --></div>
+				</div>
+				<div class="bot">
+					<div class="left"><!-- --></div>
+					<div class="right"><!-- --></div>
+				</div>
+			</div>
+
+
+		</div>
+
+		<div class="bot">
+			<div><!-- --></div>
+		</div>
+	</div>
+	<div class="table_layout" id="pieChart_container">
+		<div class="top">
+			<div><!-- --></div>
+		</div>
+		<div class="in">
+			<h2>Widget Chart</h2>
+			<a href="#" class="help">Close</a>
+			<a href="#" class="edit">Edit</a>
+
+			<div class="clear"><!-- --></div>
+
+			<div class="table_itseft">
+				<div class="top">
+					<div class="left"><!-- --></div>
+					<div class="right"><!-- --></div>
+				</div>
+				<div class="in">
+					<div id="pieChart"></div>
+
+					<div class="clear"><!-- --></div>
+				</div>
+				<div class="bot">
+					<div class="left"><!-- --></div>
+					<div class="right"><!-- --></div>
+				</div>
+			</div>
+
+
+		</div>
+
+		<div class="bot">
+			<div><!-- --></div>
+		</div>
+	</div>
+</div>
+
+<div class="clear"></div>
+</div>
+
+
+<div class="generated">Generated at 2010-01-19&nbsp;&nbsp;|&nbsp;&nbsp;T20:04:42,125&nbsp;&nbsp;|&nbsp;&nbsp;timestamp:
+	1263927882125
+</div>
+<div class="lightbox" style="display:none;">
+	<div class="black_bg"><!-- --></div>
+	<div class="box">
+		<div class="box_top">
+			<div><!-- --></div>
+			<span><!-- --></span>
+			<a class="close_box"><!-- --></a>
+
+			<div class="clear"><!-- --></div>
+		</div>
+		<div class="box_in">
+			<div class="right">
+				<div class="text_here">
+
+				</div>
+			</div>
+		</div>
+		<div class="box_bot">
+			<div><!-- --></div>
+			<span><!-- --></span>
+		</div>
+	</div>
+</div>
+
+<!-- Edit dash overlay -->
+<div class="edit_dash_overlay" style="display:none;">
+	<form action="dashboard.html" class="edit_dash_form">
+		<h2>Edit dashboard name</h2>
+		<label for="name">Name:</label>
+		<input type="text" value="" id="name"/>
+
+		<div class="clear"></div>
+		<div class="flr">
+			<input type="submit" value="Rename"/><span>&nbsp;&nbsp;or&nbsp;&nbsp;</span><a
+				onclick="closeLightbox(); return false;"
+				href="#">Cancel</a>
+		</div>
+	</form>
+</div>
+<!-- Edit dash overlay end -->
+<!-- Create dash overlay -->
+<div class="create_dash_overlay" style="display:none;">
+	<form action="dashboard.html" class="edit_dash_form">
+		<h2>Create dashboard</h2>
+		<label for="name">Name:</label>
+		<input type="text" value="" id="name"/>
+
+		<div class="clear"></div>
+		<div class="flr">
+			<input type="submit" value="Create"/><span>&nbsp;&nbsp;or&nbsp;&nbsp;</span><a
+				onclick="closeLightbox(); return false;"
+				href="#">Cancel</a>
+		</div>
+	</form>
+</div>
+<!-- Create dash overlay end -->
+
+<!-- Create widget overlay -->
+<div class="create_widget_overlay" style="display:none;">
+<form action="dashboard.html" class="create_widget_form">
+<h2>Create widget</h2>
+<label for="name">Widget name:</label>
+<input type="text" value="" id="name"/>
+
+<div class="widget_type">
+	<input type="radio" id="t_table" name="widget_type" checked="checked"/><label for="t_table">Table
+	widget</label>
+	<input type="radio" id="t_chart" name="widget_type"/><label for="t_chart">Chart widget</label>
+	<input type="radio" id="t_threshold" name="widget_type"/><label for="t_threshold">Threshold widget</label>
+
+	<div class="clear"></div>
+</div>
+
+<div class="t_table">
+<div class="t_table_prod_group">
+	<h3>Producer group</h3>
+	<ul>
+		<li class="active checked ">
+			<div class="top_l"></div>
+			<div class="bot_l"></div>
+			<a href="#" class="uncheck"><img src="images/close.png" alt="Uncheck" title="Uncheck"/>&nbsp;
+			</a><a href="#" class="filt">Filter</a></li>
+		<li>
+			<div class="top_l"></div>
+			<div class="bot_l"></div>
+			<a href="#" class="uncheck"><img src="images/close.png" alt="Uncheck" title="Uncheck"/>&nbsp;
+			</a><a href="#" class="service">Service</a></li>
+		<li>
+			<div class="top_l"></div>
+			<div class="bot_l"></div>
+			<a href="#" class="uncheck"><img src="images/close.png" alt="Uncheck" title="Uncheck"/>&nbsp;
+			</a><a href="#" class="storage">Storage</a></li>
+		<li>
+			<div class="top_l"></div>
+			<div class="bot_l"></div>
+			<a href="#" class="uncheck"><img src="images/close.png" alt="Uncheck" title="Uncheck"/>&nbsp;
+			</a><a href="#" class="servlet">Servlet</a></li>
+		<li>
+			<div class="top_l"></div>
+			<div class="bot_l"></div>
+			<a href="#" class="uncheck"><img src="images/close.png" alt="Uncheck" title="Uncheck"/>&nbsp;
+			</a><a href="#" class="action">Action</a></li>
+		<li>
+			<div class="top_l"></div>
+			<div class="bot_l"></div>
+			<a href="#" class="uncheck"><img src="images/close.png" alt="Uncheck" title="Uncheck"/>&nbsp;
+			</a><a href="#" class="httpsession">HttpSession</a></li>
+		<li>
+			<div class="top_l"></div>
+			<div class="bot_l"></div>
+			<a href="#" class="uncheck"><img src="images/close.png" alt="Uncheck" title="Uncheck"/>&nbsp;
+			</a><a href="#" class="virtualmemorypool">VirtualMemoryPool</a></li>
+		<li>
+			<div class="top_l"></div>
+			<div class="bot_l"></div>
+			<a href="#" class="uncheck"><img src="images/close.png" alt="Uncheck" title="Uncheck"/>&nbsp;
+			</a><a href="#" class="memory">Memory</a></li>
+		<li>
+			<div class="top_l"></div>
+			<div class="bot_l"></div>
+			<a href="#" class="uncheck"><img src="images/close.png" alt="Uncheck" title="Uncheck"/>&nbsp;
+			</a><a href="#" class="memorypool">MemoryPool</a></li>
+		<li>
+			<div class="top_l"></div>
+			<div class="bot_l"></div>
+			<a href="#" class="uncheck"><img src="images/close.png" alt="Uncheck" title="Uncheck"/>&nbsp;
+			</a><a href="#" class="threadcount">ThreadCount</a></li>
+	</ul>
+</div>
+<div class="right_part">
+	<div class="top_r"></div>
+	<div class="bot_r"></div>
+	<div class="t_table_val">
+		<h3>Value</h3>
+		<!--  -->
+		<ul class="filt_val">
+			<li><input type="checkbox" id="c_all" checked="checked"/><label>Select all</label></li>
+			<li><input type="checkbox" checked="checked"/><label>Req</label></li>
+			<li><input type="checkbox" checked="checked"/><label>Time</label></li>
+			<li><input type="checkbox" checked="checked"/><label>CR</label></li>
+			<li><input type="checkbox" checked="checked"/><label>MCR</label></li>
+			<li><input type="checkbox" checked="checked"/><label>Min</label></li>
+			<li><input type="checkbox" checked="checked"/><label>Max</label></li>
+			<li><input type="checkbox" checked="checked"/><label>Avg</label></li>
+			<li><input type="checkbox" checked="checked"/><label>Last</label></li>
+			<li><input type="checkbox" checked="checked"/><label>Err</label></li>
+			<li><input type="checkbox" checked="checked"/><label>ERate</label></li>
+		</ul>
+		<ul class="service_val" style="display:none;">
+			<li><input type="checkbox" id="c_all"/><label>Select all</label></li>
+			<li><input type="checkbox"/><label>Req</label></li>
+			<li><input type="checkbox"/><label>Time</label></li>
+			<li><input type="checkbox"/><label>CR</label></li>
+			<li><input type="checkbox"/><label>MCR</label></li>
+			<li><input type="checkbox"/><label>Min</label></li>
+			<li><input type="checkbox"/><label>Max</label></li>
+			<li><input type="checkbox"/><label>Avg</label></li>
+			<li><input type="checkbox"/><label>Last</label></li>
+			<li><input type="checkbox"/><label>Err</label></li>
+			<li><input type="checkbox"/><label>ERate</label></li>
+		</ul>
+		<ul class="storage_val" style="display:none;">
+			<li><input type="checkbox" id="c_all"/><label>Select all</label></li>
+			<li><input type="checkbox"/><label>Req</label></li>
+			<li><input type="checkbox"/><label>Time</label></li>
+			<li><input type="checkbox"/><label>CR</label></li>
+			<li><input type="checkbox"/><label>MCR</label></li>
+			<li><input type="checkbox"/><label>Min</label></li>
+			<li><input type="checkbox"/><label>Max</label></li>
+			<li><input type="checkbox"/><label>Avg</label></li>
+			<li><input type="checkbox"/><label>Last</label></li>
+			<li><input type="checkbox"/><label>Err</label></li>
+			<li><input type="checkbox"/><label>ERate</label></li>
+		</ul>
+		<ul class="servlet_val" style="display:none;">
+			<li><input type="checkbox" id="c_all"/><label>Select all</label></li>
+			<li><input type="checkbox"/><label>Req</label></li>
+			<li><input type="checkbox"/><label>Time</label></li>
+			<li><input type="checkbox"/><label>CR</label></li>
+			<li><input type="checkbox"/><label>MCR</label></li>
+			<li><input type="checkbox"/><label>Min</label></li>
+			<li><input type="checkbox"/><label>Max</label></li>
+			<li><input type="checkbox"/><label>Avg</label></li>
+			<li><input type="checkbox"/><label>Last</label></li>
+			<li><input type="checkbox"/><label>Err</label></li>
+			<li><input type="checkbox"/><label>ERate</label></li>
+		</ul>
+		<ul class="action_val" style="display:none;">
+			<li><input type="checkbox" id="c_all"/><label>Select all</label></li>
+			<li><input type="checkbox"/><label>Req</label></li>
+			<li><input type="checkbox"/><label>Time</label></li>
+			<li><input type="checkbox"/><label>CR</label></li>
+			<li><input type="checkbox"/><label>MCR</label></li>
+			<li><input type="checkbox"/><label>Min</label></li>
+			<li><input type="checkbox"/><label>Max</label></li>
+			<li><input type="checkbox"/><label>Avg</label></li>
+			<li><input type="checkbox"/><label>Last</label></li>
+			<li><input type="checkbox"/><label>Err</label></li>
+			<li><input type="checkbox"/><label>ERate</label></li>
+		</ul>
+		<ul class="httpsession_val" style="display:none;">
+			<li><input type="checkbox" id="c_all"/><label>Select all</label></li>
+			<li><input type="checkbox"/><label>Req</label></li>
+			<li><input type="checkbox"/><label>Time</label></li>
+			<li><input type="checkbox"/><label>CR</label></li>
+			<li><input type="checkbox"/><label>MCR</label></li>
+			<li><input type="checkbox"/><label>Min</label></li>
+			<li><input type="checkbox"/><label>Max</label></li>
+			<li><input type="checkbox"/><label>Avg</label></li>
+			<li><input type="checkbox"/><label>Last</label></li>
+			<li><input type="checkbox"/><label>Err</label></li>
+			<li><input type="checkbox"/><label>ERate</label></li>
+		</ul>
+		<ul class="virtualmemorypool_val" style="display:none;">
+			<li><input type="checkbox" id="c_all"/><label>Select all</label></li>
+			<li><input type="checkbox"/><label>Req</label></li>
+			<li><input type="checkbox"/><label>Time</label></li>
+			<li><input type="checkbox"/><label>CR</label></li>
+			<li><input type="checkbox"/><label>MCR</label></li>
+			<li><input type="checkbox"/><label>Min</label></li>
+			<li><input type="checkbox"/><label>Max</label></li>
+			<li><input type="checkbox"/><label>Avg</label></li>
+			<li><input type="checkbox"/><label>Last</label></li>
+			<li><input type="checkbox"/><label>Err</label></li>
+			<li><input type="checkbox"/><label>ERate</label></li>
+		</ul>
+		<ul class="memory_val" style="display:none;">
+			<li><input type="checkbox" id="c_all"/><label>Select all</label></li>
+			<li><input type="checkbox"/><label>Req</label></li>
+			<li><input type="checkbox"/><label>Time</label></li>
+			<li><input type="checkbox"/><label>CR</label></li>
+			<li><input type="checkbox"/><label>MCR</label></li>
+			<li><input type="checkbox"/><label>Min</label></li>
+			<li><input type="checkbox"/><label>Max</label></li>
+			<li><input type="checkbox"/><label>Avg</label></li>
+			<li><input type="checkbox"/><label>Last</label></li>
+			<li><input type="checkbox"/><label>Err</label></li>
+			<li><input type="checkbox"/><label>ERate</label></li>
+		</ul>
+		<ul class="memorypool_val" style="display:none;">
+			<li><input type="checkbox" id="c_all"/><label>Select all</label></li>
+			<li><input type="checkbox"/><label>Req</label></li>
+			<li><input type="checkbox"/><label>Time</label></li>
+			<li><input type="checkbox"/><label>CR</label></li>
+			<li><input type="checkbox"/><label>MCR</label></li>
+			<li><input type="checkbox"/><label>Min</label></li>
+			<li><input type="checkbox"/><label>Max</label></li>
+			<li><input type="checkbox"/><label>Avg</label></li>
+			<li><input type="checkbox"/><label>Last</label></li>
+			<li><input type="checkbox"/><label>Err</label></li>
+			<li><input type="checkbox"/><label>ERate</label></li>
+		</ul>
+		<ul class="threadcount_val" style="display:none;">
+			<li><input type="checkbox" id="c_all"/><label>Select all</label></li>
+			<li><input type="checkbox"/><label>Req</label></li>
+			<li><input type="checkbox"/><label>Time</label></li>
+			<li><input type="checkbox"/><label>CR</label></li>
+			<li><input type="checkbox"/><label>MCR</label></li>
+			<li><input type="checkbox"/><label>Min</label></li>
+			<li><input type="checkbox"/><label>Max</label></li>
+			<li><input type="checkbox"/><label>Avg</label></li>
+			<li><input type="checkbox"/><label>Last</label></li>
+			<li><input type="checkbox"/><label>Err</label></li>
+			<li><input type="checkbox"/><label>ERate</label></li>
+		</ul>
+	</div>
+	<div class="t_table_prod">
+		<h3>Producer</h3>
+		<ul class="filt_prod">
+			<li><input type="checkbox" id="c_all" checked="checked"/><label>Select all</label></li>
+			<li><input type="checkbox" checked="checked"/><label>DomainFilter</label></li>
+			<li><input type="checkbox" checked="checked"/><label>MoskitoUI</label></li>
+			<li><input type="checkbox" checked="checked"/><label>RefererFilter</label></li>
+			<li><input type="checkbox" checked="checked"/><label>RequestURIFilter</label></li>
+			<li><input type="checkbox" checked="checked"/><label>UserAgentFilter</label></li>
+		</ul>
+		<ul class="service_prod" style="display:none;">
+			<li><input type="checkbox" id="c_all"/><label>Select all</label></li>
+			<li><input type="checkbox"/><label>AuthorizationServiceImpl</label></li>
+			<li><input type="checkbox"/><label>CommentServiceImpl</label></li>
+		</ul>
+		<ul class="storage_prod" style="display:none;">
+			<li><input type="checkbox" id="c_all"/><label>Select all</label></li>
+			<li><input type="checkbox"/><label>storage-1</label></li>
+		</ul>
+		<ul class="servlet_prod" style="display:none;">
+			<li><input type="checkbox" id="c_all"/><label>Select all</label></li>
+			<li><input type="checkbox"/><label>net.java.dev.moskitodemoservlet.SimpleServlet</label></li>
+		</ul>
+		<ul class="action_prod" style="display:none;">
+			<li><input type="checkbox" id="c_all"/><label>Select all</label></li>
+			<li><input type="checkbox"/><label>gbook.ShowCommentsAction</label></li>
+		</ul>
+		<ul class="httpsession_prod" style="display:none;">
+			<li><input type="checkbox" id="c_all"/><label>Select all</label></li>
+			<li><input type="checkbox"/><label>SessionCount</label></li>
+		</ul>
+		<ul class="virtualmemorypool_prod" style="display:none;">
+			<li><input type="checkbox" id="c_all"/><label>Select all</label></li>
+			<li><input type="checkbox"/><label>Heap memory</label></li>
+			<li><input type="checkbox"/><label>Non-heap memory</label></li>
+		</ul>
+		<ul class="memory_prod" style="display:none;">
+			<li><input type="checkbox" id="c_all"/><label>Select all</label></li>
+			<li><input type="checkbox"/><label>JavaRuntimeFree</label></li>
+			<li><input type="checkbox"/><label>JavaRuntimeMax</label></li>
+			<li><input type="checkbox"/><label>JavaRuntimeTotal</label></li>
+		</ul>
+		<ul class="memorypool_prod" style="display:none;">
+			<li><input type="checkbox" id="c_all"/><label>Select all</label></li>
+			<li><input type="checkbox"/><label>MemoryPool-Code Cache-NonHeap</label></li>
+			<li><input type="checkbox"/><label>MemoryPool-PS Eden Space-Heap</label></li>
+			<li><input type="checkbox"/><label>MemoryPool-PS Old Gen-Heap</label></li>
+			<li><input type="checkbox"/><label>MemoryPool-PS Perm Gen-NonHeap</label></li>
+			<li><input type="checkbox"/><label>MemoryPool-PS Survivor Space-Heap</label></li>
+		</ul>
+		<ul class="threadcount_prod" style="display:none;">
+			<li><input type="checkbox" id="c_all"/><label>Select all</label></li>
+			<li><input type="checkbox"/><label>ThreadCount</label></li>
+		</ul>
+	</div>
+	<div class="clear"></div>
+</div>
+<div class="clear"></div>
+</div>
+
+<div class="clear"></div>
+
+<div class="flr">
+	<input type="submit" value="Create"/><span>&nbsp;&nbsp;or&nbsp;&nbsp;</span><a
+		onclick="closeLightbox(); return false;"
+		href="#">Cancel</a>
+</div>
+</form>
+</div>
+<!-- Create dash overlay end -->
+<!-- Create dash overlay chart -->
+<div class="create_widget_chart" style="display:none;">
+<div class="widget_type">
+	<label class="mr_5">Choose chart type:</label>
+	<input type="radio" id="pie" name="chart_type" checked="checked"/><label for="pie">Pie</label>
+	<input type="radio" id="bar" name="chart_type"/><label for="bar">Bar</label>
+	<input type="radio" id="timeline" name="chart_type"/><label for="timeline">Timeline</label>
+
+	<div class="clear"></div>
+</div>
+<div class="clear"></div>
+<table cellpadding="0" cellspacing="0" border="0" class="t_pie_bar">
+<tbody>
+<tr>
+	<td class="t_pie_bar_prod_group">
+		<h3>Producer group</h3>
+		<ul>
+			<li class="active"><a href="#" class="filt">Filter</a></li>
+			<li><a href="#" class="service">Service</a></li>
+			<li><a href="#" class="storage">Storage</a></li>
+			<li><a href="#" class="servlet">Servlet</a></li>
+			<li><a href="#" class="action">Action</a></li>
+			<li><a href="#" class="httpsession">HttpSession</a></li>
+			<li><a href="#" class="virtualmemorypool">VirtualMemoryPool</a></li>
+			<li><a href="#" class="memory">Memory</a></li>
+			<li><a href="#" class="memorypool">MemoryPool</a></li>
+			<li><a href="#" class="threadcount">ThreadCount</a></li>
+		</ul>
+
+	</td>
+	<td class="t_pie_bar_val">
+
+		<h3>Value</h3>
+		<!--  -->
+		<ul class="filt_val">
+			<li class="active"><a href="#">Req</a></li>
+			<li><a href="#">Time</a></li>
+			<li><a href="#">CR</a></li>
+			<li><a href="#">MCR</a></li>
+			<li><a href="#">Min</a></li>
+			<li><a href="#">Max</a></li>
+			<li><a href="#">Avg</a></li>
+			<li><a href="#">Last</a></li>
+			<li><a href="#">Err</a></li>
+			<li><a href="#">ERate</a></li>
+		</ul>
+		<ul class="service_val" style="display:none;">
+			<li><a href="#">Req</a></li>
+			<li><a href="#">Time</a></li>
+			<li><a href="#">CR</a></li>
+			<li><a href="#">MCR</a></li>
+			<li><a href="#">Min</a></li>
+			<li><a href="#">Max</a></li>
+			<li><a href="#">Avg</a></li>
+			<li><a href="#">Last</a></li>
+			<li><a href="#">Err</a></li>
+			<li><a href="#">ERate</a></li>
+		</ul>
+		<ul class="storage_val" style="display:none;">
+			<li><a href="#">Req</a></li>
+			<li><a href="#">Time</a></li>
+			<li><a href="#">CR</a></li>
+			<li><a href="#">MCR</a></li>
+			<li><a href="#">Min</a></li>
+			<li><a href="#">Max</a></li>
+			<li><a href="#">Avg</a></li>
+			<li><a href="#">Last</a></li>
+			<li><a href="#">Err</a></li>
+			<li><a href="#">ERate</a></li>
+		</ul>
+		<ul class="servlet_val" style="display:none;">
+			<li><a href="#">Req</a></li>
+			<li><a href="#">Time</a></li>
+			<li><a href="#">CR</a></li>
+			<li><a href="#">MCR</a></li>
+			<li><a href="#">Min</a></li>
+			<li><a href="#">Max</a></li>
+			<li><a href="#">Avg</a></li>
+			<li><a href="#">Last</a></li>
+			<li><a href="#">Err</a></li>
+			<li><a href="#">ERate</a></li>
+		</ul>
+		<ul class="action_val" style="display:none;">
+			<li><a href="#">Req</a></li>
+			<li><a href="#">Time</a></li>
+			<li><a href="#">CR</a></li>
+			<li><a href="#">MCR</a></li>
+			<li><a href="#">Min</a></li>
+			<li><a href="#">Max</a></li>
+			<li><a href="#">Avg</a></li>
+			<li><a href="#">Last</a></li>
+			<li><a href="#">Err</a></li>
+			<li><a href="#">ERate</a></li>
+		</ul>
+		<ul class="httpsession_val" style="display:none;">
+			<li><a href="#">Req</a></li>
+			<li><a href="#">Time</a></li>
+			<li><a href="#">CR</a></li>
+			<li><a href="#">MCR</a></li>
+			<li><a href="#">Min</a></li>
+			<li><a href="#">Max</a></li>
+			<li><a href="#">Avg</a></li>
+			<li><a href="#">Last</a></li>
+			<li><a href="#">Err</a></li>
+			<li><a href="#">ERate</a></li>
+		</ul>
+		<ul class="virtualmemorypool_val" style="display:none;">
+			<li><a href="#">Req</a></li>
+			<li><a href="#">Time</a></li>
+			<li><a href="#">CR</a></li>
+			<li><a href="#">MCR</a></li>
+			<li><a href="#">Min</a></li>
+			<li><a href="#">Max</a></li>
+			<li><a href="#">Avg</a></li>
+			<li><a href="#">Last</a></li>
+			<li><a href="#">Err</a></li>
+			<li><a href="#">ERate</a></li>
+		</ul>
+		<ul class="memory_val" style="display:none;">
+			<li><a href="#">Req</a></li>
+			<li><a href="#">Time</a></li>
+			<li><a href="#">CR</a></li>
+			<li><a href="#">MCR</a></li>
+			<li><a href="#">Min</a></li>
+			<li><a href="#">Max</a></li>
+			<li><a href="#">Avg</a></li>
+			<li><a href="#">Last</a></li>
+			<li><a href="#">Err</a></li>
+			<li><a href="#">ERate</a></li>
+		</ul>
+		<ul class="memorypool_val" style="display:none;">
+			<li><a href="#">Req</a></li>
+			<li><a href="#">Time</a></li>
+			<li><a href="#">CR</a></li>
+			<li><a href="#">MCR</a></li>
+			<li><a href="#">Min</a></li>
+			<li><a href="#">Max</a></li>
+			<li><a href="#">Avg</a></li>
+			<li><a href="#">Last</a></li>
+			<li><a href="#">Err</a></li>
+			<li><a href="#">ERate</a></li>
+		</ul>
+		<ul class="threadcount_val" style="display:none;">
+			<li><a href="#">Req</a></li>
+			<li><a href="#">Time</a></li>
+			<li><a href="#">CR</a></li>
+			<li><a href="#">MCR</a></li>
+			<li><a href="#">Min</a></li>
+			<li><a href="#">Max</a></li>
+			<li><a href="#">Avg</a></li>
+			<li><a href="#">Last</a></li>
+			<li><a href="#">Err</a></li>
+			<li><a href="#">ERate</a></li>
+		</ul>
+
+	</td>
+	<td class="t_pie_bar_prod">
+
+		<h3>Producer</h3>
+		<ul class="filt_prod">
+			<li><input type="checkbox" id="c_all" checked="checked"/><label>Select all</label></li>
+			<li><input type="checkbox" checked="checked"/><label>DomainFilter</label></li>
+			<li><input type="checkbox" checked="checked"/><label>MoskitoUI</label></li>
+			<li><input type="checkbox" checked="checked"/><label>RefererFilter</label></li>
+			<li><input type="checkbox" checked="checked"/><label>RequestURIFilter</label></li>
+			<li><input type="checkbox" checked="checked"/><label>UserAgentFilter</label></li>
+		</ul>
+		<ul class="service_prod" style="display:none;">
+			<li><input type="checkbox" id="c_all"/><label>Select all</label></li>
+			<li><input type="checkbox"/><label>AuthorizationServiceImpl</label></li>
+			<li><input type="checkbox"/><label>CommentServiceImpl</label></li>
+		</ul>
+		<ul class="storage_prod" style="display:none;">
+			<li><input type="checkbox" id="c_all"/><label>Select all</label></li>
+			<li><input type="checkbox"/><label>storage-1</label></li>
+		</ul>
+		<ul class="servlet_prod" style="display:none;">
+			<li><input type="checkbox" id="c_all"/><label>Select all</label></li>
+			<li><input type="checkbox"/><label>net.java.dev.moskitodemoservlet.SimpleServlet</label></li>
+		</ul>
+		<ul class="action_prod" style="display:none;">
+			<li><input type="checkbox" id="c_all"/><label>Select all</label></li>
+			<li><input type="checkbox"/><label>gbook.ShowCommentsAction</label></li>
+		</ul>
+		<ul class="httpsession_prod" style="display:none;">
+			<li><input type="checkbox" id="c_all"/><label>Select all</label></li>
+			<li><input type="checkbox"/><label>SessionCount</label></li>
+		</ul>
+		<ul class="virtualmemorypool_prod" style="display:none;">
+			<li><input type="checkbox" id="c_all"/><label>Select all</label></li>
+			<li><input type="checkbox"/><label>Heap memory</label></li>
+			<li><input type="checkbox"/><label>Non-heap memory</label></li>
+		</ul>
+		<ul class="memory_prod" style="display:none;">
+			<li><input type="checkbox" id="c_all"/><label>Select all</label></li>
+			<li><input type="checkbox"/><label>JavaRuntimeFree</label></li>
+			<li><input type="checkbox"/><label>JavaRuntimeMax</label></li>
+			<li><input type="checkbox"/><label>JavaRuntimeTotal</label></li>
+		</ul>
+		<ul class="memorypool_prod" style="display:none;">
+			<li><input type="checkbox" id="c_all"/><label>Select all</label></li>
+			<li><input type="checkbox"/><label>MemoryPool-Code Cache-NonHeap</label></li>
+			<li><input type="checkbox"/><label>MemoryPool-PS Eden Space-Heap</label></li>
+			<li><input type="checkbox"/><label>MemoryPool-PS Old Gen-Heap</label></li>
+			<li><input type="checkbox"/><label>MemoryPool-PS Perm Gen-NonHeap</label></li>
+			<li><input type="checkbox"/><label>MemoryPool-PS Survivor Space-Heap</label></li>
+		</ul>
+		<ul class="threadcount_prod" style="display:none;">
+			<li><input type="checkbox" id="c_all"/><label>Select all</label></li>
+			<li><input type="checkbox"/><label>ThreadCount</label></li>
+		</ul>
+
+	</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+<!-- Create dash overlay chart end-->
+<!-- Create dash overlay timeline chart-->
+<div class="create_widget_chart_timeline" style="display:none;">
+	<div class="create_widget_chart_timeline_inner chart_overlay">
+		<div class="widget_type">
+			<label class="mr_5">Choose chart type:</label>
+			<input type="radio" name="chart_type" id="pie"><label for="pie">Pie</label>
+			<input type="radio" name="chart_type" id="bar"><label for="bar">Bar</label>
+			<input type="radio" name="chart_type" id="timeline" checked="checked"><label for="timeline">Timeline</label>
+
+			<div class="clear"></div>
+		</div>
+		<div class="widget_type"><label class="mr_5">Update interval:</label><select id="interval">
+			<option>snapshot</option>
+			<option>default</option>
+			<option>1m</option>
+			<option>5m</option>
+			<option>15m</option>
+			<option>1h</option>
+			<option>12h</option>
+			<option>1d</option>
+		</select></div>
+		<div class="clear"></div>
+		<div class="widget_type">
+			<div class="fll"><label class="mr_5">Producer:</label><select id="producer_sel">
+				<!--<option>SessionCount</option>-->
+				<!--<option>ThreadCount</option>-->
+				<!--<option>MemoryPool-Code Cache-NonHeap</option>-->
+				<!--<option>CommentServiceImpl</option>-->
+				<!--<option>AuthorizationServiceImpl</option>-->
+				<!--<option>UserAgentFilter</option>-->
+				<!--<option>gbook.ShowCommentsAction</option>-->
+				<!--<option>moskitoUI</option>-->
+				<!--<option>MemoryPool-PS Old Gen-Heap</option>-->
+				<!--<option>RefererFilter</option>-->
+				<!--<option>JavaRuntimeTotal</option>-->
+				<!--<option>MemoryPool-PS Eden Space-Heap</option>-->
+				<!--<option>net.java.dev.moskitodemo.servlet.SimpleServlet</option>-->
+				<!--<option>Heap memory</option>-->
+				<!--<option>MemoryPool-PS Perm Gen-NonHeap</option>-->
+				<!--<option>JavaRuntimeMax</option>-->
+				<!--<option>RequestURIFilter</option>-->
+				<!--<option>MemoryPool-PS Survivor Space-Heap</option>-->
+				<!--<option>DomainFilter</option>-->
+				<!--<option>Non-heap memory</option>-->
+				<!--<option>JavaRuntimeFree</option>-->
+				<!--<option>storage-1</option>-->
+			</select></div>
+			<div class="fll"><label class="mr_5">Stats:</label><select id="stats_sel"></select></div>
+			<div class="fll"><label class="mr_5">Value:</label><select id="value_sel"></select></div>
+			<div class="fll"><input type="submit" class="add" value="Add" style=""></div>
+			<div class="clear"></div>
+		</div>
+		<div class="table_layout">
+			<div class="top">
+				<div><!-- --></div>
+			</div>
+			<div class="in">
+				<div class="clear"><!-- --></div>
+				<div class="table_itseft">
+					<div class="top">
+						<div class="left"><!-- --></div>
+						<div class="right"><!-- --></div>
+					</div>
+					<div class="in" style="">
+						<table cellspacing="0" cellpadding="0" width="100%" style="">
+							<thead>
+							<tr class="edd">
+								<th>Producer</th>
+								<th>Stats</th>
+								<th>Value</th>
+								<th></th>
+							</tr>
+							</thead>
+							<tbody>
+							</tbody>
+						</table>
+						<div class="clear"><!-- --></div>
+					</div>
+					<div class="bot">
+						<div class="left"><!-- --></div>
+						<div class="right"><!-- --></div>
+					</div>
+				</div>
+			</div>
+			<div class="bot">
+				<div><!-- --></div>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- Create dash overlay timeline chart end-->
+<!-- Create dash overlay thresholds -->
+<div class="create_widget_threshold" style="display:none;">
+<div class="create_widget_threshold_inner">
+	<h3>Choose thresholds</h3>
+	<ul class="thresholds_list">
+			<li><input type="checkbox" checked="checked" id="c_all"><label>Select all</label></li>
+			<li><input type="checkbox" checked="checked"><label>GuardedServiceAVG</label></li>
+			<li><input type="checkbox" checked="checked"><label>Guestbook</label></li>
+			<li><input type="checkbox" checked="checked"><label>GuardedService TotalRequest</label></li>
+		</ul>
+</div>
+</div>
+<!-- Create dash overlay thresholds end -->
+
+<script type="text/javascript">
+
+
+</script>
+
+</div>
+<script type="text/javascript">
+/*	function odev(el) {
+			var i = 0;
+			el.find('tr').each(function() {
+				$(this).removeClass();
+				if (i % 2) {
+					$(this).addClass('even');
+				} else {
+					$(this).addClass('edd');
+				}
+				i++;
+			});
+		}
+*/
+
+		$('.chart_overlay .add').live('click', function() {
+			var pr_s = $('.chart_overlay #producer_sel').val();
+			var st_s = $('.chart_overlay #stats_sel').val();
+			var val_s = $('.chart_overlay #value_sel').val();
+			$('.chart_overlay table tbody').append("<tr><td>" + pr_s + "</td><td>" + st_s + "</td><td>" + val_s + "</td><td><input type='button' value='delete' class='delete_btn'/></td></tr>");
+			odev($('.chart_overlay table'));
+			return false;
+		});
+
+		$('.chart_overlay table tbody .delete_btn').live('click', function() {
+			$(this).parent().parent().remove();
+			odev($('.chart_overlay table'));
+			return false;
+		});
+	
+</script>
+</body>
+</html>

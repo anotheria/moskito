@@ -1,0 +1,197 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+		"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	<title>MoSKito &mdash; Dashboard</title>
+	<link type="text/css" rel="stylesheet" rev="stylesheet" href="styles/common.css"/>
+	<script type="text/javascript" src="js/jquery-1.4.min.js"></script>
+	<script type="text/javascript" src="js/function.js"></script>
+	<script type="text/javascript" src="js/jscharts.js"></script>
+	<script type="text/javascript" src="http://www.google.com/jsapi"></script>
+</head>
+<body>
+
+<div class="main_menu">
+	<div class="white_pl">
+		<div class="top">
+			<div class="left_bg"><!-- --></div>
+			<a href="#" class="logo"><img alt="MoSKito WebUI" src="images/moskito_webui_logo.gif" width="131"
+										  height="25"/></a>
+			<ul>
+				<li class="active"><a href="#">Dashboard</a></li>
+				<li><a href="#">Producers</a>
+
+					<div class="sub_menu">
+						<ul>
+							<li><span>Category:</span><select>
+								<option>Memory (10)</option>
+							</select></li>
+							<li class="separator"><span>Subsystem:</span><select>
+								<option>Monitoring (10)</option>
+							</select></li>
+							<li><span>Interval:</span><select>
+								<option>default</option>
+							</select></li>
+							<li><span>Unit:</span><select>
+								<option>millisec</option>
+							</select></li>
+						</ul>
+						<div class="clear"><!-- --></div>
+					</div>
+					<div class="over_color">
+						<div><!-- --></div>
+					</div>
+				</li>
+
+				<li><a href="#">Monitoring Sessions</a></li>
+				<li><a href="#">Charts</a></li>
+				<li><a href="#">Thresholds</a></li>
+			</ul>
+			<div class="right"><!-- --></div>
+			<ul class="settings">
+
+				<li><a href="#">Help</a></li>
+			</ul>
+
+		</div>
+	</div>
+</div>
+<div class="main">
+
+	<!-- login zone -->
+	<div class="table_layout login_block">
+		<div class="top">
+			<div><!-- --></div>
+		</div>
+		<div class="in">
+			<h2>Create your first dashboard</h2>
+
+			<div class="clear"><!-- --></div>
+
+			<div class="table_itseft">
+				<div class="top">
+					<div class="left"><!-- --></div>
+					<div class="right"><!-- --></div>
+				</div>
+				<div class="in">
+					<form action="dashboard.html">
+					<label for="name">Name:</label>
+					<input type="text" id="name"/>
+
+
+						<input type="submit" value="Create" class="login_btn"/>
+
+						</form>
+
+					<div class="clear"><!-- --></div>
+				</div>
+				<div class="bot">
+					<div class="left"><!-- --></div>
+					<div class="right"><!-- --></div>
+				</div>
+			</div>
+
+
+		</div>
+
+		<div class="bot">
+			<div><!-- --></div>
+		</div>
+	</div>
+
+
+	<div class="generated">Generated at 2010-01-19&nbsp;&nbsp;|&nbsp;&nbsp;T20:04:42,125&nbsp;&nbsp;|&nbsp;&nbsp;timestamp:
+		1263927882125
+	</div>
+	<div class="lightbox" style="display:none;">
+		<div class="black_bg"><!-- --></div>
+		<div class="box">
+			<div class="box_top">
+				<div><!-- --></div>
+				<span><!-- --></span>
+				<a class="close_box"><!-- --></a>
+
+				<div class="clear"><!-- --></div>
+			</div>
+			<div class="box_in">
+				<div class="right">
+					<div class="text_here">
+						<div id="chartcontainer"></div>
+					</div>
+				</div>
+			</div>
+			<div class="box_bot">
+				<div><!-- --></div>
+				<span><!-- --></span>
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript">
+		google.load('visualization', '1', {packages: ['columnchart']});
+		function lightbox() {
+			$('.lightbox').show();
+			var el = $('.lightbox');
+			$('.pie_chart').show();
+			$('.bar_chart').hide();
+			$('.lightbox .box').css('width', 'auto');
+			$('.lightbox .box').width($('.lightbox .box_in').width());
+
+			var wid = el.find('.box').width();
+			var box = el.find('.box');
+			var hig = el.find('.box').height();
+			box.css('left', '50%');
+			box.css('margin-left', -wid / 2);
+			box.css('top', '50%');
+			box.css('margin-top', -hig / 2);
+			box.css('position', 'fixed');
+			return false;
+		}
+		var datas = new Array;
+
+		$('.chart').click(function() {
+			var mas = [];
+			var data = new google.visualization.DataTable();
+			data.addColumn('string', 'Month');
+			data.addColumn('number', 'Sales');
+			data.addRows([
+				['January', 200],
+				['February', 31.5],
+				['March', 61],
+				['April', 26]
+			]);
+			new google.visualization.ColumnChart(
+					document.getElementById('chartcontainer')).
+					draw(data, {is3D:true, width: 400, height:240});
+
+			/*
+			 datas = [];
+			 var i=0;
+			 var tr_num = $(this).parents().filter('table').find('th').index($(this).parent());
+			 $(this).parents().filter('.in').find('.table_right tbody tr').each(function() {
+			 datas.push([$(this).parents().filter('.in:first').find('table:first tbody tr').eq(i).find('td:first a').html(), parseFloat($(this).find('td').eq(tr_num).html())])
+
+			 //	console.log($(this).parents().filter('.in:first').find('table:first tbody tr').eq(i).find('td:first a').html());
+			 //	console.log($(this).find('td').eq(tr_num).html());
+
+			 i++;
+
+			 });
+
+
+			 var myData = datas;
+			 //console.log(myData);
+			 var myChart = new JSChart('chartcontainer', 'pie');
+			 myChart.setTitle($(this).parent().find('a:first').html());
+			 myChart.setTitleColor('#000000');
+			 myChart.setTitleFontSize(14);
+			 myChart.setDataArray(myData);
+			 myChart.draw();*/
+		});
+
+
+	</script>
+
+</div>
+</body>
+</html>

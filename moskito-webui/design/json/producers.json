@@ -1,0 +1,57 @@
+{
+	"intervals": ["default","1m","5m","15m","1h","12h","1d"],
+	"units": ["SECONDS","MILLISECONDS","MICROSECONDS","NANOSECONDS"],
+	"producers": [
+
+		{
+			"id": "Box-13-Home_Member_L1",
+			"type": "",
+			"statNames": []
+		},
+		{
+			"id": "UserAgentFilter",
+			"type": "FilterStats",
+			"statNames": ["cumulated","Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10.6; en-US; rv:1.9.2.3) Gecko/20100401 Firefox/3.6.3"]
+		},
+		{
+			"id": "moskitoUI",
+			"type": "FilterStats",
+			"statNames": ["cumulated"]
+		},
+		{
+			"id": "RefererFilter",
+			"type": "FilterStats",
+			"statNames": ["cumulated","_this_server_"]
+		},
+		{
+			"id": "net.java.dev.moskitodemo.servlet.SimpleServlet",
+			"type": "",
+			"statNames": []
+		},
+		{
+			"id": "RequestURIFilter",
+			"type": "FilterStats",
+			"statNames": ["cumulated","/moskitodemo/js/wz_tooltip.js","/moskitodemo/js/jquery-1.4.min.js","/moskitodemo/js/function.js","/moskitodemo/img/moskito_webui_logo.gif","/moskitodemo/img/bgs.gif"]
+		},
+		{
+			"id": "DomainFilter",
+			"type": "FilterStats",
+			"statNames": ["cumulated","localhost"]
+		},
+	],
+	"types": [
+
+		{
+			"name": "FilterStats",
+			"valueNames": ["TR","TT","CR","MCR","ERR","Last","Min","Max","Avg"]
+		},
+		{
+			"name": "ServletStats",
+			"valueNames": ["TR","TT","CR","MCR","ERR","Last","Min","Max","Avg"]
+		},
+		{
+			"name": "SessionCountStats",
+			"valueNames": ["Max"]
+		}
+	]
+}

@@ -1,0 +1,321 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+		"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	<title>MoSKito &mdash; Producers</title>
+	<link type="text/css" rel="stylesheet" rev="stylesheet" href="styles/common.css"/>
+	<script type="text/javascript" src="js/jquery-1.4.min.js"></script>
+	<script type="text/javascript" src="js/function.js"></script>
+	<script type="text/javascript" src="js/jscharts.js"></script>
+	<script type="text/javascript" src="http://www.google.com/jsapi"></script>
+	<script type="text/javascript" src="js/chartController.js"></script>
+</head>
+<body>
+
+<div class="main_menu">
+	<div class="white_pl">
+		<div class="top">
+			<div class="left_bg"><!-- --></div>
+			<a href="#" class="logo"><img alt="MoSKito WebUI" src="images/moskito_webui_logo.gif" width="131"
+										  height="25"/></a>
+			<ul>
+				<li><a href="#">Producers</a>
+
+					<div class="sub_menu">
+						<ul>
+							<li><span>Category:</span><select>
+								<option>Memory (10)</option>
+							</select></li>
+							<li class="separator"><span>Subsystem:</span><select>
+								<option>Monitoring (10)</option>
+							</select></li>
+							<li><span>Interval:</span><select>
+								<option>default</option>
+							</select></li>
+							<li><span>Unit:</span><select>
+								<option>millisec</option>
+							</select></li>
+						</ul>
+						<div class="clear"><!-- --></div>
+					</div>
+					<div class="over_color">
+						<div><!-- --></div>
+					</div>
+				</li>
+				<li><a href="#">Use Cases</a></li>
+				<li><a href="#">Monitoring Sessions</a></li>
+				<li class="active"><a href="#">Charts</a></li>
+			</ul>
+			<div class="right"><!-- --></div>
+			<ul class="settings">
+				<li><a href="#">Export</a></li>
+				<li><a href="#">Help</a></li>
+			</ul>
+
+		</div>
+	</div>
+</div>
+<div class="main">
+<input type="submit" value="Create chart" class="create_chart_btn" onclick="lightbox($(this));"/>
+<!-- <h1>All producers</h1> -->
+
+<div class="clear"><!-- --></div>
+<div id="charts_holder"></div>
+
+<!-- <div class="table_layout">
+	<div class="top">
+		<div></div>
+	</div>
+	<div class="in">
+		<h2><a href="#" class="">moskitoUI</a></h2>
+
+		<div class="clear"></div>
+		<div class="table_itseft">
+			<div class="top">
+				<div class="left"></div>
+				<div class="right"></div>
+			</div>
+			<div class="in">
+				<div class="chart_fix">
+					<div id="visualization" style="width:700px; height:240px;"></div>
+				</div>
+				<div class="clear"></div>
+			</div>
+			<div class="bot">
+				<div class="left"></div>
+				<div class="right"></div>
+			</div>
+		</div>
+
+	</div>
+
+	<div class="bot">
+		<div></div>
+	</div>
+</div> -->
+
+<div class="generated">Generated at 2010-01-19&nbsp;&nbsp;|&nbsp;&nbsp;T20:04:42,125&nbsp;&nbsp;|&nbsp;&nbsp;timestamp:
+	1263927882125
+</div>
+<div class="lightbox" style="display:none;">
+	<div class="black_bg"><!-- --></div>
+	<div class="box">
+		<div class="box_top">
+			<div><!-- --></div>
+			<span><!-- --></span>
+			<a class="close_box"><!-- --></a>
+
+			<div class="clear"><!-- --></div>
+		</div>
+		<div class="box_in">
+			<div class="right">
+				<div class="text_here">
+					<div class="chart_overlay">
+						<h2>Create chart</h2>
+
+						<div class="fll">
+							<label>Chart name:</label>
+							<input type="text" class="name_ch"/>
+						</div>
+						<div class="fll">
+							<label>Update interval:</label>
+							<select id="interval">
+								<!-- <option>1m</option>
+								<option>5m</option>
+								<option>15m</option>
+								<option>30m</option>
+								<option>1h</option> -->
+							</select>
+						</div>
+						<div class="clear"></div>
+						<hr size="1"/>
+						<div class="fll">
+							<label>Producer:</label>
+							<select id="producer_sel">
+								<!-- <option>Box-121-Message: User is Not Premium Protection</option>
+								<option>Box-122-Registration_Finish</option>
+								<option>Box-123-Login: Preprocess</option>
+								<option>Box-13-Home_Member_L1</option> -->
+							</select>
+						</div>
+						<div class="fll">
+							<label>Stats:</label>
+							<select id="stats_sel">
+								<!-- <option>cumulated</option>
+								<option>createProfile</option>
+								<option>readProfile</option>
+								<option>updateProfile</option> -->
+							</select>
+						</div>
+						<div class="fll">
+							<label>Value:</label>
+							<select id="value_sel">
+								<!-- <option>Max</option>
+								<option>Avg</option>
+								<option>Last</option>
+								<option>Err</option> -->
+							</select>
+						</div>
+						<div class="fll">
+							<input type="submit" value="Add" class="add"/>
+						</div>
+						<div class="clear"></div>
+						<div class="table_layout">
+							<div class="top">
+								<div><!-- --></div>
+							</div>
+							<div class="in">
+
+
+								<div class="clear"><!-- --></div>
+								<div class="table_itseft">
+									<div class="top">
+										<div class="left"><!-- --></div>
+										<div class="right"><!-- --></div>
+									</div>
+									<div class="in">
+										<table cellspacing="0" cellpadding="0" width="100%">
+											<thead>
+											<tr class="stat_header">
+												<th>
+													Producer
+												</th>
+												<th>
+													Stats
+												</th>
+												<th>
+													Value
+												</th>
+												<th>
+
+												</th>
+											</tr>
+											</thead>
+											<tbody>
+
+
+											</tbody>
+										</table>
+										<div class="clear"><!-- --></div>
+									</div>
+									<div class="bot">
+										<div class="left"><!-- --></div>
+										<div class="right"><!-- --></div>
+									</div>
+								</div>
+
+							</div>
+
+							<div class="bot">
+								<div><!-- --></div>
+							</div>
+							<input type="submit" value="Create chart" class="create_ch_btn" style="display:none;"/>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="box_bot">
+			<div><!-- --></div>
+			<span><!-- --></span>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+	function lightbox(link) {
+		$('.lightbox').show();
+		//var text = link.attr('title');
+		var el = $('.lightbox');
+		var wid = el.find('.box').width();
+		var box = el.find('.box');
+		//el.find('.box_in .text_here').html(text);
+		box.css('left', '50%');
+		box.css('margin-left', -wid / 2);
+		box.css('top', link.offset().top);
+		$('.name_ch').focus();
+
+		// Fix for ie7
+		$('.lightbox .box_top span, .lightbox .box_bot span').width($('.lightbox .box').width() - 60);
+		$('.main .help').parents().filter('.table_layout').find('.in:last').css('height', '0px');
+		loadStats();
+		checkStats();
+	};
+
+	function odev(el) {
+		var i = 0;
+		el.find('tr').each(function() {
+			$(this).removeClass();
+			if (i % 2) {
+				$(this).addClass('even');
+			} else {
+				$(this).addClass('edd');
+			}
+			i++;
+		});
+	}
+
+
+	$('.chart_overlay .add').live('click', function() {
+		var pr_s = $('.chart_overlay #producer_sel').val();
+		var st_s = $('.chart_overlay #stats_sel').val();
+		var val_s = $('.chart_overlay #value_sel').val();
+		$('.chart_overlay table tbody').append("<tr><td>" + pr_s + "</td><td>" + st_s + "</td><td>" + val_s + "</td><td><input type='button' value='delete' class='delete_btn'/></td></tr>");
+		odev($('.chart_overlay table'));
+	});
+
+	$('.chart_overlay table tbody .delete_btn').live('click', function() {
+		$(this).parent().parent().remove();
+		odev($('.chart_overlay table'));
+	});
+
+	/*---------creating object---------*/
+
+	google.load('visualization', '1', {'packages':['annotatedtimeline']});	
+
+	function getParameters() {
+		var params = new Array();
+		$('.chart_overlay .table_itseft tbody tr').each(function() {
+			var temp = new Array();
+			for (i=0; i <= 2; i++) {
+				temp.push($(this).find('td')[i].innerHTML);
+			}
+			params.push(temp);
+		});
+		return params;
+	};
+
+	$('.create_ch_btn').click(function() {
+		var interval = getDuration($('.chart_overlay #interval').val());
+		//var interval = parseInt($('.chart_overlay #interval').val()) * 1000;
+		var chartName = $('.chart_overlay .name_ch').val();
+		if (chartName == '') {
+			return;
+		}
+        
+		new ChartController(interval, chartName, getParameters(), 'main');		
+
+		$('.chart_overlay table tbody tr').each(function() {
+			$(this).remove();
+		});
+		$('.name_ch').val('');
+		$('.create_ch_btn').hide();
+		$('.lightbox .name_ch').val('');
+		$('.lightbox .name_ch').removeClass('error');
+		$('.chart_overlay table tbody').html('');
+		$('.lightbox #interval option:first').attr('selected', 'selected');
+		$('.lightbox #producer_sel option:first').attr('selected', 'selected');
+		$('.lightbox').hide();
+		$('.main .help').parents().filter('.table_layout').find('.in:last').css('height', '250px');
+	});
+	
+
+</script>
+<style type="text/css">
+	.table_layout .in {overflow:hidden;}
+	.lightbox .box {width:800px;}
+	#stats_sel {max-width:150px;}
+</style>
+</div>
+</body>
+</html>

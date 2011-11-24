@@ -1,0 +1,83 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+		"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	<title>MoSKito &mdash; Test</title>
+	<link type="text/css" rel="stylesheet" rev="stylesheet" href="styles/common.css"/>
+	<script type="text/javascript" src="js/jquery-1.4.min.js"></script>
+	<script type="text/javascript" src="js/function.js"></script>
+</head>
+
+
+<body>
+<script type="text/javascript" src="js/jquery-1.4.min.js"></script>
+<div>
+	<a href="#" style="font-size:1.4em;">what is the data?</a>
+
+	<div></div>
+	<a id="stop" href="#" style="font-size:1.4em;">stop timer</a>
+</div>
+<script type="text/javascript">
+	function chartObject() {
+		this.configs = '';
+		this.data = 0;
+	}
+
+	chartObject.prototype.getData = function() {
+		return this.data;
+	};
+
+	chartObject.prototype.addData = function(newData) {
+		this.data = this.data + newData;
+	};
+
+	chartObject.prototype.convertData = function() {
+		this.data = this.data + 1;
+	};
+
+	chartObject.prototype.setTimer = function(object, interval) {
+		this.timer = setInterval(function() {
+			object.refreshGraph(object);
+			console.log(object.getData());
+		}, interval);
+	};
+
+	chartObject.prototype.sendDataTable = function() {
+		console.log('sending data to chart');
+	};
+
+	chartObject.prototype.refreshGraph = function(object) {
+		object.getData();
+		object.convertData();
+		object.addData(10);
+		object.sendDataTable();
+	};
+
+	chartObject.prototype.initialize = function(divID, divIn, chartName) {
+		this.divID = divID;
+		var str = "<div class='table_layout' id='" + divID + "'><div class='top'><div><!-- --></div></div><div class='in'><h2><a class='' href='#'>" + chartName + "</a></h2><a href='#' class='help'>delete</a><div class='clear'><!-- --></div><div class='table_itseft'><div class='top'><div class='left'><!-- --></div><div class='right'><!-- --></div></div><div class='in'>" +
+				  "<div>Chart Name:" + chartName + "</div>" +
+				  "<div class='clear'><!-- --></div></div><div class='bot'><div class='left'><!-- --></div><div class='right'><!-- --></div></div></div></div><div class='bot'><div><!-- --></div></div></div>";
+		divIn.append(str);
+	};
+
+	var obj = new chartObject;
+	console.log('Object created. Data: ' + obj.getData());
+	obj.addData(20);
+	console.log('new Data:' + obj.getData());
+	obj.convertData();
+	console.log('new Data converted:' + obj.getData());
+	obj.setTimer(obj, 1000);
+
+	$('a:first').click(function() {
+		console.log(obj.getData());
+		return false;
+	});
+	$('#stop').click(function() {
+		clearInterval(obj.timer);
+	});
+</script>
+
+</body>
+</html>
