@@ -23,7 +23,8 @@ $(function() {
 	}
 
 	//create dashboard lightbox
-	$('.dashes .create').click(function() {
+	/*$('.dashes .create').click(function() {
+		console.log(1);
 		//		if ($(this).val() == 'Create dashboard') {
 		$('.dashes option').eq(1).attr('selected', 'selected');
 		lightbox($('.create_dash_overlay').html(), 268);
@@ -31,8 +32,31 @@ $(function() {
 		$('.lightbox .edit_dash_form input[type="text"]').focus().select();
 		return false;
 		//		}
+	});*/
+	$('.dashes').focus(function() {
+		if($(this).children('option:selected').hasClass('create'))
+		{
+			//		if ($(this).val() == 'Create dashboard') {
+		$('.dashes option').eq(1).attr('selected', 'selected');
+		lightbox($('.create_dash_overlay').html(), 268);
+		$('.lightbox .edit_dash_form input[type="text"]').val('Enter dashboard name');
+		$('.lightbox .edit_dash_form input[type="text"]').focus().select();
+		return false;
+		}
+		//		}
 	});
-
+	$('.dashes').change(function() {
+		if($(this).children('option:selected').hasClass('create'))
+		{
+		//		if ($(this).val() == 'Create dashboard') {
+		$('.dashes option').eq(1).attr('selected', 'selected');
+		lightbox($('.create_dash_overlay').html(), 268);
+		$('.lightbox .edit_dash_form input[type="text"]').val('Enter dashboard name');
+		$('.lightbox .edit_dash_form input[type="text"]').focus().select();
+		return false;
+		}
+		//		}
+	});
 	//edit dashboard name lightbox
 	$('.edit.dash').click(function() {
 		if ($('.dashes').val() != '') {
@@ -114,6 +138,10 @@ $(function() {
 		$('.lightbox .t_table_prod').find('ul.' + classN + '_prod').show();
 		$('.lightbox .create_widget_form .right_part').css('min-height', $('.lightbox .create_widget_form .t_table_prod_group').height() + 'px');
 		checkForHeight();
+		var name = $('.t_table_prod_group').children('ul').children('.active').children('a').text();
+		$('#widget_type').remove();
+		$('.create_widget_form').append('<input type="hidden" id="widget_type" name="'+name+'" value="1"/>');
+		console.log(name);
 		return false;
 	});
 
@@ -123,9 +151,20 @@ $(function() {
 		$('.t_pie_bar_val ul, .t_pie_bar_prod ul').hide();
 		$('.t_pie_bar_val').find('ul.' + classN + '_val').show().find('li').removeClass('active').parents('ul').find('li:first').addClass('active');
 		$('.t_pie_bar_prod').find('input').removeAttr('checked').parents('td').find('ul.' + classN + '_prod').show().find('input').attr('checked', 'checked');
+		var name = $('.t_pie_bar_prod_group').children('ul').children('.active').children('a').text()+'_'+$('.t_pie_bar_val').children('ul').children('.active').children('a').text();
+		$('#widget_type').remove();
+		$('.create_widget_form').append('<input type="hidden" id="widget_type" name="'+name+'" value="1"/>');
+		console.log(name);
 		return false;
 	});
 
+	$('.t_pie_bar_val a').live('click', function(){
+		var name = $('.t_pie_bar_prod_group').children('ul').children('.active').children('a').text()+'_'+$('.t_pie_bar_val').children('ul').children('.active').children('a').text();
+		$('#widget_type').remove();
+		$('.create_widget_form').append('<input type="hidden" id="widget_type" name="'+name+'" value="1"/>');
+		console.log(name);
+	});
+	
 	//timeline chart appear
 	$('.lightbox #timeline').live('click', function() {
 		$('.lightbox .t_table').html($('.create_widget_chart_timeline').html());
@@ -212,6 +251,10 @@ $(function() {
 		checkAllUncheck($(this).parents('ul').find('#c_all'), $(this).parents('ul').find('input:not(#c_all)'));
 	});
 
+	
+	
+	
+	
 
 });
 
