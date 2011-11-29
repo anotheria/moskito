@@ -55,7 +55,7 @@ public class ConnectionAspect {
      * @param smt sql statement
      */
     @Before(JDBC_CALLS)
-    public void beforePrintlnCall(String smt) {
+    public void beforeQueryCall(String smt) {
         System.out.println(smt);
         callTime = System.currentTimeMillis();
         queryProducer.beforeQuery(smt);
@@ -67,8 +67,22 @@ public class ConnectionAspect {
      * @param smt sql statement
      */
     @After(JDBC_CALLS)
-    public void afterPrintlnCall(String smt) {
+    public void afterQueryCall(String smt) {
         callTime = System.currentTimeMillis() - callTime;
         queryProducer.afterQuery(smt);
     }
+
+
+    /**
+     * Method executed after any jdbc call executed.
+     *
+     * @param pjp
+     * @return
+     * @throws Throwable
+     */
+//    @Around("execution(java.sql.PreparedStatement java.sql.Connection.prepareStatement(String))")
+//    public Object aroundQueryCall(ProceedingJoinPoint pjp) throws Throwable {
+//        System.out.println(pjp.getStaticPart().getSignature());
+//        return pjp.proceed();
+//    }
 }
