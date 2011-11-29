@@ -1,5 +1,6 @@
 package net.java.dev.moskito.sql.aspect;
 
+import net.java.dev.moskito.sql.util.QueryProducer;
 import org.aspectj.lang.annotation.After;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
@@ -42,6 +43,12 @@ public class ConnectionAspect {
      */
     private long callTime;
 
+    private QueryProducer queryProducer;
+
+    public ConnectionAspect() {
+        queryProducer = new QueryProducer();
+    }
+
     /**
      * Method executed before any jdbc call executed.
      *
@@ -51,6 +58,7 @@ public class ConnectionAspect {
     public void beforePrintlnCall(String smt) {
         System.out.println(smt);
         callTime = System.currentTimeMillis();
+        queryProducer.beforeQuery(smt);
     }
 
     /**
@@ -61,5 +69,6 @@ public class ConnectionAspect {
     @After(JDBC_CALLS)
     public void afterPrintlnCall(String smt) {
         callTime = System.currentTimeMillis() - callTime;
+        queryProducer.beforeQuery(smt);
     }
 }
