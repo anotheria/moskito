@@ -23,7 +23,8 @@
 		<module>moskito-central</module>
 		<module>moskitodemo</module>
 		<module>moskito-all</module>
-	</modules>
+        <module>moskito-sql</module>
+    </modules>
 	<scm>
 		<url>svn:svn://svn.anotheria.net/opensource/moskito/trunk</url>
 		<connection>scm:svn:svn://svn.anotheria.net/opensource/moskito/trunk</connection>

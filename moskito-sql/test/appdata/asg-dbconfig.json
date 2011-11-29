@@ -1,0 +1,4 @@
+{
+    preconfiguredJdbcUrl:"jdbc:derby:memory:mailhunter;create=true",
+    db:"/opt/work/data"
+}
