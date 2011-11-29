@@ -2,6 +2,7 @@ package net.java.dev.moskito.sql.util;
 
 import net.java.dev.moskito.core.producers.IStats;
 import net.java.dev.moskito.core.registry.ProducerRegistryFactory;
+import net.java.dev.moskito.core.stats.DefaultIntervals;
 import net.java.dev.moskito.sql.aspect.MatcherValue;
 import net.java.dev.moskito.sql.aspect.MatcherValueBuilder;
 import net.java.dev.moskito.sql.aspect.MatcherValueDAO;
@@ -14,6 +15,7 @@ import java.sql.Connection;
 
 import static junit.framework.Assert.assertNotNull;
 import static junit.framework.Assert.assertTrue;
+import static org.junit.Assert.assertEquals;
 
 /**
  * SQL intercept test.
@@ -32,6 +34,7 @@ public class QueryProducerTest {
         connection = TestDBUtil.getConnection();
         TestDBUtil.createTable(connection);
         queryProducer = (QueryProducer) ProducerRegistryFactory.getProducerRegistryInstance().getProducer(QueryProducer.PRODUCER_ID);
+        queryProducer.reset();
     }
 
     @Test
@@ -42,14 +45,15 @@ public class QueryProducerTest {
         MatcherValue matcherValue = valueDAO.createMatcherValue(connection, new MatcherValueBuilder().value("123").type(1).matcherId("123").build());
         System.out.println("Created " + valueDAO.getMatcherValue(connection, matcherValue.getId()));
 
+
+
         IStats iStats = queryProducer.getStats().get(0);
         assertNotNull("Query execution stat should be defined", iStats);
         assertTrue("Query execution stat should be defined", iStats instanceof QueryStats);
 
         QueryStats queryStats = (QueryStats) iStats;
         System.out.println("Query stats " + queryStats.toStatsString());
-
-        //assertEquals("Should have logged query", ., sql);
+        assertEquals("Should have 3 queries", 3, queryStats.getQueriesExecuted(DefaultIntervals.DEF_SNAPSHOT.getName()));
     }
 
     @After

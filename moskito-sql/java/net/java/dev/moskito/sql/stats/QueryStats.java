@@ -16,6 +16,7 @@ import net.java.dev.moskito.core.stats.impl.StatValueFactory;
  *         To change this template use File | Settings | File Templates.
  */
 public class QueryStats extends AbstractStats {
+    public static final String QUERIES_EXECUTED = "queriesExecuted";
     private StatValue queriesExecuted;
 
     public QueryStats() {
@@ -27,7 +28,7 @@ public class QueryStats extends AbstractStats {
     }
 
     public QueryStats(String name, Interval[] selectedIntervals) {
-        queriesExecuted = StatValueFactory.createStatValue(0, "queriesExecuted", selectedIntervals);
+        queriesExecuted = StatValueFactory.createStatValue(0, QUERIES_EXECUTED, selectedIntervals);
     }
 
     @Override
@@ -49,13 +50,13 @@ public class QueryStats extends AbstractStats {
         valueName = valueName.toLowerCase();
 
 
-        if ("queriesExecuted".equals(valueName))
+        if (QUERIES_EXECUTED.equals(valueName))
             return "" + getQueriesExecuted(intervalName);
 
         return super.getValueByNameAsString(valueName, intervalName, timeUnit);
     }
 
-    private int getQueriesExecuted(String intervalName) {
+    public int getQueriesExecuted(String intervalName) {
         return queriesExecuted.getValueAsInt(intervalName);
     }
 
@@ -69,5 +70,9 @@ public class QueryStats extends AbstractStats {
 
     public void notifyBeforeQuery(String statement) {
         //To change body of created methods use File | Settings | File Templates.
+    }
+
+    public void reset() {
+        queriesExecuted.reset();
     }
 }

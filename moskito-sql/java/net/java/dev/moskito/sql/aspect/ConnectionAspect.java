@@ -69,6 +69,6 @@ public class ConnectionAspect {
     @After(JDBC_CALLS)
     public void afterPrintlnCall(String smt) {
         callTime = System.currentTimeMillis() - callTime;
-        queryProducer.beforeQuery(smt);
+        queryProducer.afterQuery(smt);
     }
 }

@@ -77,4 +77,7 @@ public class QueryProducer implements IStatsProducer {
         return getProducerId() + " " + getStats();
     }
 
+    public void reset() {
+        stats.reset();
+    }
 }
