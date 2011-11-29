@@ -2,7 +2,6 @@ package net.java.dev.moskito.sql.util;
 
 import net.java.dev.moskito.core.producers.IStats;
 import net.java.dev.moskito.core.registry.ProducerRegistryFactory;
-import net.java.dev.moskito.core.stats.DefaultIntervals;
 import net.java.dev.moskito.sql.aspect.MatcherValue;
 import net.java.dev.moskito.sql.aspect.MatcherValueBuilder;
 import net.java.dev.moskito.sql.aspect.MatcherValueDAO;
@@ -53,7 +52,7 @@ public class QueryProducerTest {
 
         QueryStats queryStats = (QueryStats) iStats;
         System.out.println("Query stats " + queryStats.toStatsString());
-        assertEquals("Should have 3 queries", 3, queryStats.getQueriesExecuted(DefaultIntervals.DEF_SNAPSHOT.getName()));
+        assertEquals("Should have 3 queries", 3, queryStats.getQueriesExecuted(null));
     }
 
     @After
