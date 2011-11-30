@@ -1,4 +1,4 @@
-package net.java.dev.moskito.sql.aspect;
+package net.java.dev.moskito.sql.callingAspect;
 
 /**
  * Created by IntelliJ IDEA.

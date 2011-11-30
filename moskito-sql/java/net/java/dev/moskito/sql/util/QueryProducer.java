@@ -68,6 +68,10 @@ public class QueryProducer implements IStatsProducer {
     }
 
 
+    public void failedQuery(String statement) {
+        stats.notifyFailedQuery(statement);
+    }
+
     public static void main(String a[]) {
         new QueryProducer();
     }

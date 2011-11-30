@@ -1,4 +1,4 @@
-package net.java.dev.moskito.sql.aspect;
+package net.java.dev.moskito.sql.callingAspect;
 
 import net.anotheria.db.dao.RowMapper;
 import net.anotheria.db.dao.RowMapperException;

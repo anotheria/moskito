@@ -1,7 +1,6 @@
 <!-- aop.xml -->
 <aspectj>
     <aspects>
-        <aspect name="net.java.dev.moskito.sql.aspect.ConnectionAspect"/>
-
+        <aspect name="net.java.dev.moskito.sql.callingAspect.ConnectionAspect"/>
     </aspects>
 </aspectj>

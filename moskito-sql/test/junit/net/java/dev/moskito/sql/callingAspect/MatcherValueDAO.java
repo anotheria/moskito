@@ -12,7 +12,7 @@
  **************************************************************************************
  */
 
-package net.java.dev.moskito.sql.aspect;
+package net.java.dev.moskito.sql.callingAspect;
 
 import net.anotheria.db.config.JDBCConfig;
 import net.anotheria.db.config.JDBCConfigFactory;

@@ -1,4 +1,4 @@
-package net.java.dev.moskito.sql.aspect;
+package net.java.dev.moskito.sql.callingAspect;
 
 import net.java.dev.moskito.sql.util.TestDBUtil;
 import org.junit.After;

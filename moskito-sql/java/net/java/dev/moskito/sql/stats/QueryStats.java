@@ -18,6 +18,8 @@ import net.java.dev.moskito.core.stats.impl.StatValueFactory;
 public class QueryStats extends AbstractStats {
     public static final String QUERIES_EXECUTED = "queriesExecuted";
     private StatValue queriesExecuted;
+    private StatValue queriesFailed;
+    private static final String QUERIES_FAILED = "queriesFailed";
 
     public QueryStats() {
         this("SQL query", Constants.getDefaultIntervals());
@@ -29,6 +31,7 @@ public class QueryStats extends AbstractStats {
 
     public QueryStats(String name, Interval[] selectedIntervals) {
         queriesExecuted = StatValueFactory.createStatValue(0, QUERIES_EXECUTED, selectedIntervals);
+        queriesFailed = StatValueFactory.createStatValue(0, QUERIES_FAILED, selectedIntervals);
     }
 
     @Override
@@ -37,6 +40,7 @@ public class QueryStats extends AbstractStats {
 
         ret.append(getName()).append(' ');
         ret.append(" queriesExecuted: ").append(queriesExecuted.getValueAsInt(aIntervalName));
+        ret.append(" queriesFailed: ").append(queriesFailed.getValueAsInt(aIntervalName));
 
         return ret.toString();
     }
@@ -52,6 +56,8 @@ public class QueryStats extends AbstractStats {
 
         if (QUERIES_EXECUTED.equals(valueName))
             return "" + getQueriesExecuted(intervalName);
+        if (QUERIES_FAILED.equals(valueName))
+            return "" + getQueriesFailed(intervalName);
 
         return super.getValueByNameAsString(valueName, intervalName, timeUnit);
     }
@@ -60,9 +66,9 @@ public class QueryStats extends AbstractStats {
         return queriesExecuted.getValueAsInt(intervalName);
     }
 
-    public void update(int anQueriesExecuted){
+    public void update(int anQueriesExecuted) {
 
-	}
+    }
 
     public void notifyExecutedQuery(String statement) {
         queriesExecuted.increase();
@@ -72,7 +78,17 @@ public class QueryStats extends AbstractStats {
         //To change body of created methods use File | Settings | File Templates.
     }
 
+    public void notifyFailedQuery(String statement) {
+        queriesFailed.increase();
+    }
+
+
     public void reset() {
+        queriesFailed.reset();
         queriesExecuted.reset();
+    }
+
+    public int getQueriesFailed(String intervalName) {
+         return queriesFailed.getValueAsInt(intervalName);
     }
 }
