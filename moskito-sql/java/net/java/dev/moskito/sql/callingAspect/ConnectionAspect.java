@@ -69,7 +69,6 @@ public class ConnectionAspect {
      */
     @After(JDBC_CALLS)
     public void afterQueryCall(String smt) {
-        callTime = System.currentTimeMillis() - callTime;
         queryProducer.afterQuery(smt);
     }
 
@@ -82,5 +81,6 @@ public class ConnectionAspect {
     public void afterThrowingQueryCall(String smt) {
         callTime = System.currentTimeMillis() - callTime;
         queryProducer.failedQuery(smt);
+
     }
 }
