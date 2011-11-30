@@ -87,7 +87,7 @@ public class QueryProducerTest {
         Statement statement = connection.createStatement();
         ResultSet resultSet = statement.executeQuery("select * from matchervalue");
         resultSet.close();
-        ResultSet resultSet2 =statement.executeQuery("select * from matchervalue");
+        ResultSet resultSet2 = statement.executeQuery("select * from matchervalue");
         resultSet2.close();
         IStats iStats = queryProducer.getStringQueryStats("select * from matchervalue");
         assertNotNull("Query execution stat should be defined", iStats);
@@ -98,9 +98,33 @@ public class QueryProducerTest {
         assertEquals("Should have 2 queries", 2, queryStringStats.getTotalRequests());
     }
 
+    @Test
+    public void shouldGetFailedQueries() throws Exception {
+        Statement statement = connection.createStatement();
+        int failsCount = 0;
+        try {
+            statement.executeQuery("select * from T1");
+        } catch (SQLException e) {
+            failsCount++;
+        }
+        try {
+            statement.executeQuery("select * from T1");
+        } catch (SQLException e) {
+            failsCount++;
+        }
+        IStats iStats = queryProducer.getStringQueryStats("select * from T1");
+        assertNotNull("Query execution stat should be defined", iStats);
+        assertTrue("Query execution stat should be defined", iStats instanceof QueryStringStats);
+
+        QueryStringStats queryStringStats = (QueryStringStats) iStats;
+        System.out.println("Query stats " + queryStringStats.toStatsString());
+        assertEquals("Should have 2 queries", 2, queryStringStats.getTotalRequests());
+        assertEquals("Should have 2 failed queries", failsCount, queryStringStats.getErrors());
+    }
+
+
     @After
     public void tearDown() throws Exception {
-        System.out.println();
         TestDBUtil.dropTable(connection);
         connection.close();
     }

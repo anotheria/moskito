@@ -143,5 +143,7 @@ public class QueryProducer implements IStatsProducer {
 
     public void reset() {
         stats.reset();
+        _cachedStatsList.clear();
+        queryStatsMap.clear();
     }
 }
