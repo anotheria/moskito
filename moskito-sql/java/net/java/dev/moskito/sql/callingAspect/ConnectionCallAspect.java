@@ -53,26 +53,7 @@ public class ConnectionCallAspect {
         queryProducer = new QueryProducer();
     }
 
-    @Pointcut("(call(java.sql.PreparedStatement java.sql.Connection.prepareStatement(String)) " +
-            "|| call(java.sql.CallableStatement java.sql.Connection.prepareCall(String))" +
-            "|| call(java.sql.PreparedStatement java.sql.Connection.prepareStatement(String, String[]))" +
-            "|| call(java.sql.PreparedStatement java.sql.Connection.prepareStatement(String, int))" +
-            "|| call(java.sql.PreparedStatement java.sql.Connection.prepareStatement(String, int[]))" +
-            "|| call(java.sql.PreparedStatement java.sql.Connection.prepareStatement(String, int, int))" +
-            "|| call(java.sql.PreparedStatement java.sql.Connection.prepareStatement(String, int, int, int))" +
-            "|| call(java.sql.CallableStatement java.sql.Connection.prepareCall(String, int, int))" +
-            "|| call(java.sql.CallableStatement java.sql.Connection.prepareCall(String, int, int, int))" +
-            "|| call(java.sql.ResultSet java.sql.Statement.executeQuery(String))" +
-            "|| call(int java.sql.Statement.executeUpdate(String))" +
-            "|| call(int java.sql.Statement.executeUpdate(String, int))" +
-            "|| call(int java.sql.Statement.executeUpdate(String, int[]))" +
-            "|| call(int java.sql.Statement.executeUpdate(String, String[]))" +
-            "|| call(boolean java.sql.Statement.execute(String))" +
-            "|| call(boolean java.sql.Statement.execute(String,int))" +
-            "|| call(boolean java.sql.Statement.execute(String,int[]))" +
-            "|| call(boolean java.sql.Statement.execute(String,String[]))" +
-            "|| call(void java.sql.Statement.addBatch(String))" +
-            " ) && args(smt) && !within(net.java.dev.moskito.sql.callingAspect.ConnectionCallAspect)")
+    @Pointcut(JDBC_CALLS)
     public void connectionService(String smt) {
     }
 
