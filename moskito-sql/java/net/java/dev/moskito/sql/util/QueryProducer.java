@@ -88,11 +88,13 @@ public class QueryProducer implements IStatsProducer {
 
     }
 
-    public void afterQuery(String statement) {
+    public void afterQuery(String statement, long callTime) {
         stats.notifyExecutedQuery(statement);
         QueryStringStats caseStats = (QueryStringStats) getStringQueryStats(statement);
-        if (caseStats != null)
+        if (caseStats != null)   {
             caseStats.notifyRequestFinished();
+            caseStats.addExecutionTime(callTime);
+        }
     }
 
     public void failedQuery(String statement) {
