@@ -110,7 +110,7 @@ public class QueryProducer implements IStatsProducer {
             stat = queryStatsMap.get(statement);
         }
         if (stat == null) {
-            if (limitForNewEntriesReached())
+            //if (limitForNewEntriesReached())
                 //throw new OnDemandStatsProducerException("Limit reached");
                 stat = factory.createStatsObject(statement);
             synchronized (queryStatsMap) {
