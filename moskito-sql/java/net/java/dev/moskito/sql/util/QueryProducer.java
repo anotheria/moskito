@@ -1,5 +1,6 @@
 package net.java.dev.moskito.sql.util;
 
+import net.java.dev.moskito.core.dynamic.OnDemandStatsProducerException;
 import net.java.dev.moskito.core.producers.IStats;
 import net.java.dev.moskito.core.producers.IStatsProducer;
 import net.java.dev.moskito.core.registry.ProducerRegistryFactory;
@@ -82,37 +83,52 @@ public class QueryProducer implements IStatsProducer {
 
     public void beforeQuery(String statement) {
         stats.notifyBeforeQuery(statement);
-        QueryStringStats caseStats = (QueryStringStats) getStringQueryStats(statement);
-        if (caseStats != null)
-            caseStats.addRequest();
+        QueryStringStats caseStats = null;
+        try {
+            caseStats = (QueryStringStats) getStringQueryStats(statement);
+            if (caseStats != null)
+                caseStats.addRequest();
+        } catch (OnDemandStatsProducerException e) {
+            log.info("Couldn't get stats for case : " + statement + ", probably limit reached");
+        }
 
     }
 
     public void afterQuery(String statement, long callTime) {
         stats.notifyExecutedQuery(statement);
-        QueryStringStats caseStats = (QueryStringStats) getStringQueryStats(statement);
-        if (caseStats != null)   {
-            caseStats.notifyRequestFinished();
-            caseStats.addExecutionTime(callTime);
+        QueryStringStats caseStats = null;
+        try {
+            caseStats = (QueryStringStats) getStringQueryStats(statement);
+            if (caseStats != null) {
+                caseStats.notifyRequestFinished();
+                caseStats.addExecutionTime(callTime);
+            }
+        } catch (OnDemandStatsProducerException e) {
+            log.info("Couldn't get stats for case : " + statement + ", probably limit reached");
         }
     }
 
     public void failedQuery(String statement) {
         stats.notifyFailedQuery(statement);
-        QueryStringStats caseStats = (QueryStringStats) getStringQueryStats(statement);
-        if (caseStats != null)
-            caseStats.notifyError();
+        QueryStringStats caseStats = null;
+        try {
+            caseStats = (QueryStringStats) getStringQueryStats(statement);
+            if (caseStats != null)
+                caseStats.notifyError();
+        } catch (OnDemandStatsProducerException e) {
+            log.info("Couldn't get stats for case : " + statement + ", probably limit reached");
+        }
     }
 
-    public IStats getStringQueryStats(String statement) {
+    public IStats getStringQueryStats(String statement) throws OnDemandStatsProducerException {
         IStats stat;
         synchronized (queryStatsMap) {
             stat = queryStatsMap.get(statement);
         }
         if (stat == null) {
-            //if (limitForNewEntriesReached())
-                //throw new OnDemandStatsProducerException("Limit reached");
-                stat = factory.createStatsObject(statement);
+            if (limitForNewEntriesReached())
+                throw new OnDemandStatsProducerException("Limit reached");
+            stat = factory.createStatsObject(statement);
             synchronized (queryStatsMap) {
                 //check whether another thread was faster
                 if (queryStatsMap.get(statement) == null) {
