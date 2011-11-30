@@ -1,6 +1,5 @@
 package net.java.dev.moskito.sql.callingAspect;
 
-import net.java.dev.moskito.sql.util.QueryProducer;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -16,10 +15,7 @@ import org.aspectj.lang.annotation.Pointcut;
 @Aspect
 public class ConnectionCallAspect {
 
-    @Pointcut("within(net.java.dev.moskito.sql.callingAspect.MatcherValueDAO) " +
-            "&& !initialization(net.java.dev.moskito.sql.callingAspect.MatcherValueDAO.new(..))\n" +
-            "          && !preinitialization(net.java.dev.moskito.sql.callingAspect.MatcherValueDAO.new(..))\n" +
-            "          && !handler(*)")
+    @Pointcut("(call(boolean java.sql.Statement.execute(String)) && !within(net.java.dev.moskito.sql.callingAspect.ConnectionCallAspect))")
     public void connectionService() {
     }
 

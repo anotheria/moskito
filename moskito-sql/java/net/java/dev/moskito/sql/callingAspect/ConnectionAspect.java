@@ -81,6 +81,5 @@ public class ConnectionAspect {
     public void afterThrowingQueryCall(String smt) {
         callTime = System.currentTimeMillis() - callTime;
         queryProducer.failedQuery(smt);
-
     }
 }
