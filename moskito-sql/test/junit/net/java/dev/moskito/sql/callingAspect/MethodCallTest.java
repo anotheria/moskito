@@ -16,5 +16,10 @@ public class MethodCallTest {
         calledMethod.doSomething();
         calledMethod.doSomething();
         calledMethod.doSomething();
+
+        CalledClass calledClass = new CalledClass();
+        calledClass.doSome();
+        calledClass.doSome2();
+        calledClass.doSome2();
     }
 }

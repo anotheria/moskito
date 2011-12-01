@@ -18,7 +18,7 @@ public class MethodCallAspect {
     /**
      * List of jdbc calls for interception.
      */
-    private static final String METHOD_CALLS = "call(* *.*(..)) && @annotation(net.java.dev.moskito.sql.annotation.MonitorMethod)";
+    private static final String METHOD_CALLS = "call(@net.java.dev.moskito.sql.annotation.MonitorMethod * *.*(..)) || call(* (@net.java.dev.moskito.sql.annotation.MonitorClass *).*(..))";
 
     public MethodCallAspect() {
     }
