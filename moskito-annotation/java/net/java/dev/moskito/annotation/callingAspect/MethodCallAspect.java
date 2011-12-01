@@ -51,7 +51,7 @@ public class MethodCallAspect implements IStatsProducer {
     public Object doBasicProfiling(ProceedingJoinPoint pjp) throws Throwable {
         // start stopwatch
         MethodCallStats stats = (MethodCallStats) getStringQueryStats(pjp.getSignature().toShortString());
-        long callTime = System.currentTimeMillis();
+        long callTime = System.nanoTime();
         try {
             stats.addRequest();
             // stop stopwatch
@@ -60,7 +60,7 @@ public class MethodCallAspect implements IStatsProducer {
             stats.notifyError();
             throw e;
         } finally {
-            stats.addExecutionTime(System.currentTimeMillis() - callTime);
+            stats.addExecutionTime(System.nanoTime() - callTime);
             stats.notifyRequestFinished();
         }
     }

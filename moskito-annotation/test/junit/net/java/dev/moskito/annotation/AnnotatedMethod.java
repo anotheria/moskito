@@ -1,5 +1,7 @@
 package net.java.dev.moskito.annotation;
 
+import java.util.concurrent.TimeUnit;
+
 /**
  * Created by IntelliJ IDEA.
  *
@@ -11,6 +13,10 @@ package net.java.dev.moskito.annotation;
 public class AnnotatedMethod {
     @MonitorMethod
     public void doSomething() {
-        System.out.println("Do something");
+        try {
+            TimeUnit.MICROSECONDS.sleep(10);
+        } catch (InterruptedException e) {
+            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+        }
     }
 }

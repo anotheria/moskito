@@ -54,12 +54,12 @@ public class ConnectionCallAspect {
 
     @Around(value = "connectionService(smt)", argNames = "pjp,smt")
     public Object doBasicProfiling(ProceedingJoinPoint pjp, String smt) throws Throwable {
-        long callTime = System.currentTimeMillis();
+        long callTime = System.nanoTime();
         // start stopwatch
         System.out.println(smt);
         queryProducer.beforeQuery(smt);
         Object retVal = pjp.proceed();
-        queryProducer.afterQuery(smt, System.currentTimeMillis() - callTime);
+        queryProducer.afterQuery(smt, System.nanoTime() - callTime);
 
         // stop stopwatch
         return retVal;

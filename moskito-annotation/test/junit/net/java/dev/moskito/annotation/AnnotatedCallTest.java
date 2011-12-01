@@ -17,9 +17,9 @@ public class AnnotatedCallTest {
         // given
         AnnotatedMethod annotatedMethod = new AnnotatedMethod();
         // when
-        annotatedMethod.doSomething();
-        annotatedMethod.doSomething();
-        annotatedMethod.doSomething();
+        for (int i = 0; i < 10000; i++) {
+            annotatedMethod.doSomething();
+        }
         // then
         System.out.println(ProducerRegistryFactory.getProducerRegistryInstance().getProducer(MethodCallAspect.PRODUCER_ID).toString());
 
