@@ -1,9 +1,8 @@
-package net.java.dev.moskito.sql.util;
+package net.java.dev.moskito.sql.stats;
 
 import net.java.dev.moskito.core.predefined.Constants;
 import net.java.dev.moskito.core.producers.IStats;
 import net.java.dev.moskito.core.stats.Interval;
-import net.java.dev.moskito.sql.stats.QueryStringStats;
 
 import java.util.Arrays;
 

@@ -6,6 +6,7 @@ import net.java.dev.moskito.core.producers.IStatsProducer;
 import net.java.dev.moskito.core.registry.ProducerRegistryFactory;
 import net.java.dev.moskito.sql.stats.QueryStats;
 import net.java.dev.moskito.sql.stats.QueryStringStats;
+import net.java.dev.moskito.sql.stats.QueryStringStatsFactory;
 import org.apache.log4j.Logger;
 
 import java.util.ArrayList;

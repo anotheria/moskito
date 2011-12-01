@@ -1,6 +1,4 @@
-package net.java.dev.moskito.sql.callingAspect;
-
-import net.java.dev.moskito.sql.annotation.MonitorMethod;
+package net.java.dev.moskito.annotation;
 
 /**
  * Created by IntelliJ IDEA.
@@ -10,7 +8,7 @@ import net.java.dev.moskito.sql.annotation.MonitorMethod;
  *         Time: 4:59 PM
  *         To change this template use File | Settings | File Templates.
  */
-public class CalledMethod {
+public class AnnotatedMethod {
     @MonitorMethod
     public void doSomething() {
         System.out.println("Do something");

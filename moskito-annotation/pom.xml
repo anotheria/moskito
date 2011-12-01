@@ -10,10 +10,11 @@
 
     <modelVersion>4.0.0</modelVersion>
 
+    <artifactId>moskito-annotation</artifactId>
+
     <groupId>net.anotheria</groupId>
-    <artifactId>moskito-sql</artifactId>
     <version>1.1.7-SNAPSHOT</version>
-    <name>moskito sql</name>
+    <name>moskito annotations</name>
     <build>
         <plugins>
             <plugin>
@@ -52,36 +53,6 @@
             <groupId>org.aspectj</groupId>
             <artifactId>aspectjrt</artifactId>
             <version>1.6.11</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.derby</groupId>
-            <artifactId>derby</artifactId>
-            <version>10.8.1.2</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.derby</groupId>
-            <artifactId>derbytools</artifactId>
-            <version>10.8.1.2</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.derby</groupId>
-            <artifactId>derbynet</artifactId>
-            <version>10.8.1.2</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.derby</groupId>
-            <artifactId>derbyclient</artifactId>
-            <version>10.8.1.2</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>net.anotheria</groupId>
-            <artifactId>ano-db</artifactId>
-            <version>1.0.11</version>
-            <scope>test</scope>
         </dependency>
     </dependencies>
 </project>
