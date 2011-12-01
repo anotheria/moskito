@@ -1,4 +1,3 @@
 {
-    preconfiguredJdbcUrl:"jdbc:derby:memory:mailhunter;create=true",
-    db:"/opt/work/data"
+    preconfiguredJdbcUrl:"jdbc:derby:memory:matcher;create=true",
 }

@@ -13,7 +13,6 @@ import net.java.dev.moskito.core.stats.impl.StatValueFactory;
  * @author <a href="mailto:vzhovtiuk@anotheria.net">Vitaliy Zhovtiuk</a>
  *         Date: 11/29/11
  *         Time: 4:33 PM
- *         To change this template use File | Settings | File Templates.
  */
 public class QueryStats extends AbstractStats {
     public static final String QUERIES_EXECUTED = "queriesExecuted";
@@ -21,17 +20,21 @@ public class QueryStats extends AbstractStats {
     private StatValue queriesFailed;
     private static final String QUERIES_FAILED = "queriesFailed";
 
+
     public QueryStats() {
-        this("SQL query", Constants.getDefaultIntervals());
+        this("unnamed", Constants.getDefaultIntervals());
     }
 
     public QueryStats(String aName) {
         this(aName, Constants.getDefaultIntervals());
     }
 
-    public QueryStats(String name, Interval[] selectedIntervals) {
-        queriesExecuted = StatValueFactory.createStatValue(0, QUERIES_EXECUTED, selectedIntervals);
-        queriesFailed = StatValueFactory.createStatValue(0, QUERIES_FAILED, selectedIntervals);
+    public QueryStats(String aName, Interval[] selectedIntervals) {
+        super(aName);
+        queriesExecuted = StatValueFactory.createStatValue(0, QUERIES_EXECUTED, Constants.getDefaultIntervals());
+        queriesFailed = StatValueFactory.createStatValue(0, QUERIES_FAILED, Constants.getDefaultIntervals());
+
+
     }
 
     @Override
@@ -89,6 +92,14 @@ public class QueryStats extends AbstractStats {
     }
 
     public int getQueriesFailed(String intervalName) {
-         return queriesFailed.getValueAsInt(intervalName);
+        return queriesFailed.getValueAsInt(intervalName);
+    }
+
+    @Override
+    public String toString() {
+        return "QueryStats{" +
+                "queriesExecuted=" + queriesExecuted +
+                ", queriesFailed=" + queriesFailed +
+                "} " + super.toString();
     }
 }

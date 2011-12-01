@@ -42,11 +42,6 @@ public class ConnectionCallAspect {
             ")" +
             "&& args(smt) && !within(net.java.dev.moskito.sql.callingAspect.ConnectionCallAspect)";
 
-    /**
-     * JDBC statement execution time.
-     */
-    private long callTime;
-
     private QueryProducer queryProducer;
 
     public ConnectionCallAspect() {

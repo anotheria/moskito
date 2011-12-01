@@ -20,4 +20,9 @@ public class QueryStringStats extends RequestOrientedStats {
     public QueryStringStats(String aQueryString, Interval[] intervals) {
         super(aQueryString, intervals);
     }
+
+    @Override
+    public String toString() {
+        return toStatsString();
+    }
 }
