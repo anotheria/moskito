@@ -1,9 +1,13 @@
 package net.java.dev.moskito.annotation;
 
 import net.java.dev.moskito.annotation.callingAspect.MethodCallAspect;
+import net.java.dev.moskito.core.producers.IStats;
 import net.java.dev.moskito.core.registry.ProducerRegistryFactory;
+import net.java.dev.moskito.core.stats.TimeUnit;
 import org.junit.After;
 import org.junit.Test;
+
+import static junit.framework.Assert.assertEquals;
 
 /**
  * SQL intercept test.
@@ -29,6 +33,8 @@ public class AnnotatedCallTest {
         callAspect = (MethodCallAspect) ProducerRegistryFactory.getProducerRegistryInstance().getProducer(MethodCallAspect.PRODUCER_ID);
 
         System.out.println(callAspect.toString());
+        IStats doSmtgStats = callAspect.getStringQueryStats("AnnotatedMethod.doSomething()");
+        assertEquals("Should be 10K calls", 10000 + "", doSmtgStats.getValueByNameAsString("TR", null, TimeUnit.MICROSECONDS));
 
     }
 
