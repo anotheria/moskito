@@ -28,6 +28,10 @@
                             <groupId>net.anotheria</groupId>
                             <artifactId>moskito-sql</artifactId>
                         </aspectLibrary>
+                        <aspectLibrary>
+                            <groupId>net.anotheria</groupId>
+                            <artifactId>moskito-annotation</artifactId>
+                        </aspectLibrary>
                     </aspectLibraries>
                     <source>1.6</source>
                     <target>1.6</target>
@@ -131,6 +135,11 @@
         <dependency>
             <groupId>net.anotheria</groupId>
             <artifactId>moskito-sql</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>net.anotheria</groupId>
+            <artifactId>moskito-annotation</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
