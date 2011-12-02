@@ -1,5 +1,7 @@
 package net.java.dev.moskito.annotation;
 
+import java.util.concurrent.TimeUnit;
+
 /**
  * Created by IntelliJ IDEA.
  *
@@ -10,11 +12,11 @@ package net.java.dev.moskito.annotation;
  */
 @MonitorClass
 public class AnnotatedClass {
-    public void doSome() {
-        System.out.println("Do some");
+    public void doSome() throws InterruptedException {
+        TimeUnit.MICROSECONDS.sleep(1);
     }
 
-    public void doSome2() {
-        System.out.println("Do some2");
+    public void doSome2() throws InterruptedException {
+        TimeUnit.MICROSECONDS.sleep(2);
     }
 }

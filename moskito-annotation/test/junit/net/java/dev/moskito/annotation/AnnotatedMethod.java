@@ -14,7 +14,7 @@ public class AnnotatedMethod {
     @MonitorMethod
     public void doSomething() {
         try {
-            TimeUnit.MICROSECONDS.sleep(10);
+            TimeUnit.MICROSECONDS.sleep(1);
         } catch (InterruptedException e) {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         }
