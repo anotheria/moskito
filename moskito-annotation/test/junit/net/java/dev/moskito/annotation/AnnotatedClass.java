@@ -13,10 +13,22 @@ import java.util.concurrent.TimeUnit;
 @MonitorClass
 public class AnnotatedClass {
     public void doSome() throws InterruptedException {
-        TimeUnit.MICROSECONDS.sleep(1);
+        TimeUnit.NANOSECONDS.sleep(1);
     }
 
     public void doSome2() throws InterruptedException {
-        TimeUnit.MICROSECONDS.sleep(2);
+        TimeUnit.NANOSECONDS.sleep(1);
+    }
+
+    public void doSome3() throws InterruptedException {
+        TimeUnit.NANOSECONDS.sleep(1);
+    }
+
+    public void doSome4() throws InterruptedException {
+        TimeUnit.NANOSECONDS.sleep(1);
+    }
+
+    public void doSome5() throws InterruptedException {
+        TimeUnit.NANOSECONDS.sleep(1);
     }
 }

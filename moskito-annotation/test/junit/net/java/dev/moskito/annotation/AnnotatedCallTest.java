@@ -17,6 +17,7 @@ import static junit.framework.Assert.assertEquals;
  *         Time: 2:22 PM
  */
 public class AnnotatedCallTest {
+    public static final int ANNOTATED_METHOD_CALLS = 10000;
     MethodCallAspect callAspect;
 
     @Test
@@ -26,16 +27,14 @@ public class AnnotatedCallTest {
         // given
         AnnotatedMethod annotatedMethod = new AnnotatedMethod();
         // when
-        for (int i = 0; i < 10000; i++) {
+        for (int i = 0; i < ANNOTATED_METHOD_CALLS; i++) {
             annotatedMethod.doSomething();
         }
         // then
         callAspect = (MethodCallAspect) ProducerRegistryFactory.getProducerRegistryInstance().getProducer(MethodCallAspect.PRODUCER_ID);
 
-        System.out.println(callAspect.toString());
         IStats doSmtgStats = callAspect.getStringQueryStats("AnnotatedMethod.doSomething()");
-        assertEquals("Should be 10K calls", 10000 + "", doSmtgStats.getValueByNameAsString("TR", null, TimeUnit.MICROSECONDS));
-
+        assertEquals("Should be 10K calls", ANNOTATED_METHOD_CALLS + "", doSmtgStats.getValueByNameAsString("TR", null, TimeUnit.MICROSECONDS));
     }
 
     @Test
@@ -44,19 +43,30 @@ public class AnnotatedCallTest {
         // given
         AnnotatedClass annotatedClass = new AnnotatedClass();
         // when
-        annotatedClass.doSome();
-        annotatedClass.doSome2();
-        annotatedClass.doSome2();
+        for (int i = 0; i < 550; i++) {
+            annotatedClass.doSome();
+        }
+        for (int i = 0; i < 750; i++) {
+            annotatedClass.doSome2();
+        }
 
+        for (int i = 0; i < 1750; i++) {
+            annotatedClass.doSome3();
+        }
 
         // then
         callAspect = (MethodCallAspect) ProducerRegistryFactory.getProducerRegistryInstance().getProducer(MethodCallAspect.PRODUCER_ID);
-        System.out.println(callAspect.toString());
+        IStats doSomeStats = callAspect.getStringQueryStats("AnnotatedClass.doSome()");
+        assertEquals("Should be 550 calls", 550 + "", doSomeStats.getValueByNameAsString("TR", null, TimeUnit.MICROSECONDS));
+        IStats doSome2Stats = callAspect.getStringQueryStats("AnnotatedClass.doSome2()");
+        assertEquals("Should be 750 calls", 750 + "", doSome2Stats.getValueByNameAsString("TR", null, TimeUnit.MICROSECONDS));
+        IStats doSome3Stats = callAspect.getStringQueryStats("AnnotatedClass.doSome3()");
+        assertEquals("Should be 1750 calls", 1750 + "", doSome3Stats.getValueByNameAsString("TR", null, TimeUnit.MICROSECONDS));
     }
 
     @After
     public void tearDown() throws Exception {
-        if(callAspect != null) {
+        if (callAspect != null) {
             callAspect.reset();
         }
     }
