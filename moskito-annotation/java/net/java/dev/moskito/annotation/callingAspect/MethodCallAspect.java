@@ -116,4 +116,9 @@ public class MethodCallAspect implements IStatsProducer {
     public String toString() {
         return getProducerId() + ", Annotated methods: " + Arrays.toString(getStats().toArray()) ;
     }
+
+    public void reset() {
+        _methodStatsList.clear();
+        methodStatsMap.clear();
+    }
 }

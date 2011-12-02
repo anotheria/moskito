@@ -14,6 +14,6 @@ import java.lang.annotation.Target;
  *         To change this template use File | Settings | File Templates.
  */
 @Target(ElementType.METHOD)
-@Retention(RetentionPolicy.SOURCE)
+@Retention(RetentionPolicy.CLASS)
 public @interface MonitorMethod {
 }
