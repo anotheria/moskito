@@ -17,7 +17,6 @@ package net.java.dev.moskitodemo.annotation;
 import net.anotheria.db.dao.DAOException;
 import net.anotheria.db.service.BasePersistenceServiceJDBCImpl;
 import net.anotheria.util.slicer.Segment;
-import net.java.dev.moskito.annotation.MonitorMethod;
 import net.java.dev.moskitodemo.sqltrace.persistence.data.Comment;
 
 import java.sql.Connection;
@@ -69,7 +68,6 @@ public class CommentsPersistenceServiceImpl extends BasePersistenceServiceJDBCIm
 	/**
 	 * Returns all Comments objects stored.
 	 */
-    @MonitorMethod
 	public List<Comment> getComments() throws CommentsPersistenceServiceException {
 		log.debug("Call getComments() ");
 		Connection c = null;
