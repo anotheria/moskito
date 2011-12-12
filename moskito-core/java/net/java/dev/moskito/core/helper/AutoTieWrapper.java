@@ -2,7 +2,6 @@ package net.java.dev.moskito.core.helper;
 
 import net.java.dev.moskito.core.producers.IStats;
 import net.java.dev.moskito.core.producers.IStatsProducer;
-import net.java.dev.moskito.core.treshold.Threshold;
 
 /**
  * Wrapper to allow tieables to be tied to on demand producers. The problem with OnDemandProducers is that at the moment 
@@ -14,14 +13,22 @@ import net.java.dev.moskito.core.treshold.Threshold;
  */
 public class AutoTieWrapper implements IntervalUpdateable{
 	
+	/**
+	 * The target tieable object.
+	 */
 	private Tieable tieable;
+	/**
+	 * The stats producer object.
+	 */
 	private IStatsProducer producer;
 	
 	public AutoTieWrapper(Tieable aTieable, IStatsProducer aProducer){
 		tieable = aTieable;
 		producer  = aProducer;
 	}
-	
+	/**
+	 * Called whenever the appropriate interval has passed and the stats should be updated. 
+	 */
 	public void update(){
 		if (tieable.isActivated()){
 			return;

@@ -8,10 +8,19 @@ import net.java.dev.moskito.core.stats.Interval;
 
 import org.apache.log4j.Logger;
 
+/**
+ * Helper class to connect not stats producers to interval updates.
+ * @author lrosenberg
+ *
+ */
 public class IntervalListener implements IIntervalListener{
-
+	/**
+	 * Logger.
+	 */
 	private static Logger log = Logger.getLogger(IntervalListener.class);
-	
+	/**
+	 * Target classes.
+	 */
 	private List<IntervalUpdateable> updateables = new CopyOnWriteArrayList<IntervalUpdateable>();
 	
 	@Override
