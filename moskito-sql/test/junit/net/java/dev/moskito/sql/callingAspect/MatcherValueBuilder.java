@@ -1,6 +1,5 @@
 package net.java.dev.moskito.sql.callingAspect;
 
-import com.sun.istack.internal.Builder;
 
 /**
  * Created by IntelliJ IDEA.
@@ -10,7 +9,7 @@ import com.sun.istack.internal.Builder;
  *         Time: 11:21 AM
  *         To change this template use File | Settings | File Templates.
  */
-public class MatcherValueBuilder implements Builder<MatcherValue> {
+public class MatcherValueBuilder {
 
 	protected int type;
 	protected String value;
