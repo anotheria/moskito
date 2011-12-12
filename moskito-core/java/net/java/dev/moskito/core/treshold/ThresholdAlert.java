@@ -2,12 +2,35 @@ package net.java.dev.moskito.core.treshold;
 
 import net.anotheria.util.NumberUtils;
 
+/**
+ * Created whenever a barrier in threshold is broken and a threshold gets new status. 
+ * @author lrosenberg
+ *
+ */
 public class ThresholdAlert {
+	/**
+	 * Timestamp of change.
+	 */
 	private long timestamp;
+	/**
+	 * Corresponding threshold.
+	 */
 	private Threshold threshold;
+	/**
+	 * Status before the change.
+	 */
 	private ThresholdStatus oldStatus;
+	/**
+	 * Status after the change.
+	 */
 	private ThresholdStatus newStatus;
+	/**
+	 * Value before the change.
+	 */
 	private String oldValue;
+	/**
+	 * Value after the change.
+	 */
 	private String newValue;
 	
 	public ThresholdAlert(Threshold aThreshold, ThresholdStatus anOldStatus, ThresholdStatus aNewStatus, String anOldValue, String aNewValue){
