@@ -75,7 +75,13 @@ public class QueueStats extends AbstractStats{
 	 * Number of read requests.
 	 */
 	private StatValue requests;
+	/**
+	 * Number of enqueued elements.
+	 */
 	private StatValue enqueued;
+	/**
+	 * Number of dequeued elements.
+	 */
 	private StatValue dequeued;
 	private StatValue empty;
 	private StatValue totalSize;

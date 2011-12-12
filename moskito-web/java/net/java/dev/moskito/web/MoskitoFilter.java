@@ -148,7 +148,7 @@ public abstract class MoskitoFilter implements Filter{
 			try{
 				limit = Integer.parseInt(pLimit);
 			}catch(NumberFormatException ignored){
-				log.warn("couldn't parse limit, assume -1",ignored);
+				log.warn("couldn't parse limit \""+pLimit+"\", assume -1 aka no limit.");
 			}
 			
 		onDemandProducer = limit == -1 ? 

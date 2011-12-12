@@ -50,6 +50,7 @@ public class SessionCountProducerTest {
 		
 		SessionCountStats stats = (SessionCountStats) producer.getStats().get(0);
 		assertEquals(EVENTS_PER_THREAD*THREADS, stats.getCurrentSessionCount(null));
+		assertEquals(EVENTS_PER_THREAD*THREADS, stats.getCreatedSessionCount(null));
 		assertEquals(EVENTS_PER_THREAD*THREADS, stats.getMaxSessionCount(null));
 
 		final CountDownLatch prepare2 = new CountDownLatch(THREADS);
@@ -79,6 +80,7 @@ public class SessionCountProducerTest {
 		
 		assertEquals(0, stats.getCurrentSessionCount(null));
 		assertEquals(EVENTS_PER_THREAD*THREADS, stats.getMaxSessionCount(null));
+		assertEquals(EVENTS_PER_THREAD*THREADS, stats.getCreatedSessionCount(null));
 		assertEquals(EVENTS_PER_THREAD*THREADS, stats.getDestroyedSessionCount(null));
 
 

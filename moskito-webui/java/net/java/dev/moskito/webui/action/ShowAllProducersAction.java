@@ -61,4 +61,7 @@ public class ShowAllProducersAction extends BaseShowProducersAction{
 		return "mskShowAllProducers?ts="+System.currentTimeMillis();
 	}
 
+	public static void main(String[] args) {
+		new ShowAllProducersAction().execute(null, null, null, null);
+	}
 }
