@@ -252,8 +252,7 @@ function checkStats() {
 	} else {
 		$('.chart_overlay .add').show();
 	}
-}
-;
+};
 
 //on change stats check if it not null
 $('.chart_overlay #producer_sel').live('change', function() {

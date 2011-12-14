@@ -42,12 +42,12 @@
         <option class="create">Create dashboard</option>
         <!--<option disabled selected="selected"></option>-->
         <ano:iterate name="dashboards" id="dashboard">
-            <option <ano:equal name="dashboard" property="name" value="${selectedDashboardName}">selected="selected"</ano:equal>><ano:write name="dashboard" property="name"/></option>
+            <option <ano:equal name="dashboard" property="name" value="${selectedDashboardName}">selected="selected"</ano:equal>>${dashboard.name}</option>
         </ano:iterate>
     </select>
 
     <a href="#" class="edit dash">Edit</a>
-    <input type="button" value="Create widget" class="create_wdgt"/>
+    <input type="button" value="Create widget" class="create_wdgt" <ano:iF test="${!isCanAddWidget}">style="display:none;"</ano:iF> />
 
     <div class="clear"></div>
 
@@ -71,89 +71,84 @@
 
     <!-- Creating widget(table) overlay-->
     <div class="create_widget_overlay" style="display:none;">
-    <form action="mskDashBoard" class="create_widget_form">
-    <h2>Create widget</h2>
-    <label for="name">Widget name:</label>
-    <input type="text" name="widgetName" value="" id="name"/>
+    <form action="mskDashBoard" class="create_widget_form" method="post">
+		<h2>Create widget</h2>
+		<label for="name">Widget name:</label>
+		<input type="text" name="widgetName" value="" id="name"/>
 
-    <div class="widget_type">
-        <input type="radio" id="t_table" name="widgetType" checked="checked"/><label for="t_table">Table widget</label>
-        <input type="radio" id="t_chart" name="widgetType"/><label for="t_chart">Chart widget</label>
-        <input type="radio" id="t_threshold" name="widgetType"/><label for="t_threshold">Threshold widget</label>
+		<div class="widget_type">
+			<input type="radio" id="t_table" name="widgetType" checked="checked"/><label for="t_table">Table widget</label>
+			<input type="radio" id="t_chart" name="widgetType"/><label for="t_chart">Chart widget</label>
+			<input type="radio" id="t_threshold" name="widgetType"/><label for="t_threshold">Threshold widget</label>
+			<div class="clear"></div>
+		</div>
 
-        <div class="clear"></div>
-    </div>
+		<div class="t_table">
 
-    <div class="t_table">
+		<div class="t_table_prod_group">
+			<h3>Producer group</h3>
+			<ul>
+				<ano:iterate name="decorators" id="decorator" indexId="indexId">
+					<ano:equal name="decorator" property="visibility" value="SHOW">
+						<li class="${indexId == 0 ? " active" : ""}">
+							<div class="top_l"></div>
+							<div class="bot_l"></div>
+							<a href="#" class="uncheck">
+								<img src="<ano:write name="mskPathToImages" scope="application"/>close.png" alt="Uncheck" title="Uncheck"/>&nbsp;
+							</a>
+							<a href="#" class="${decorator.name}">${decorator.name}</a>
+						</li>
+					</ano:equal>
+				</ano:iterate>
+			</ul>
+		</div>
 
-    <div class="t_table_prod_group">
-        <h3>Producer group</h3>
-        <ul>
-            <ano:iterate name="decorators" id="decorator" type="net.java.dev.moskito.webui.bean.ProducerDecoratorBean" indexId="indexId">
+		<div class="right_part">
+		<div class="top_r"></div>
+		<div class="bot_r"></div>
+		<div class="t_table_val">
+			<h3>Value</h3>
+			<!--  -->
+			<ano:iterate name="decorators" id="decorator" indexId="indexId">
+				<ano:equal name="decorator" property="visibility" value="SHOW">
+					<ul class="<ano:write name="decorator" property="name"/>_val" ${indexId != 0 ? "style='display:none;'" : ""}>
+						<li><input type="checkbox" id="c_all" /><label>Select all</label></li>
+						<ano:iterate name="decorator" property="captions" id="caption">
+							<li><input type="checkbox" name="${decorator.name}_${caption.caption}"/><label>${caption.caption}</label></li>
+						</ano:iterate>
+					</ul>
+				</ano:equal>
+			</ano:iterate>
+		</div>
 
-                <ano:equal name="decorator" property="visibility" value="SHOW">
-                    <li class="<ano:equal name="indexId" value="0"> active</ano:equal>">
-                        <div class="top_l"></div>
-                        <div class="bot_l"></div>
-                        <a href="#" class="uncheck">
-                            <img src="<ano:write name="mskPathToImages" scope="application"/>close.png" alt="Uncheck" title="Uncheck"/>&nbsp;
-                        </a>
-                        <a href="#" class="<ano:write name="decorator" property="name"/>"><ano:write name="decorator" property="name"/></a>
-                    </li>
-                </ano:equal>
+		<div class="t_table_prod">
 
-            </ano:iterate>
-        </ul>
-    </div>
+			<h3>Producer</h3>
+			<ano:iterate name="decorators" id="decorator" indexId="indexId">
+				<ano:equal name="decorator" property="visibility" value="SHOW">
+					<ul class="${decorator.name}_prod" ${indexId != 0 ? "style='display:none;'" : ""}>
+						<li><input type="checkbox" id="c_all"/><label>Select all</label></li>
 
-    <div class="right_part">
-    <div class="top_r"></div>
-    <div class="bot_r"></div>
-    <div class="t_table_val">
-        <h3>Value</h3>
-        <!--  -->
-        <ano:iterate name="decorators" id="decorator" type="net.java.dev.moskito.webui.bean.ProducerDecoratorBean" indexId="indexId">
+						<ano:iterate name="decorator" property="producers" id="producer">
+							<li><input type="checkbox" name="${producer.id}"/><label>${producer.id}</label></li>
+						</ano:iterate>
+					</ul>
+				</ano:equal>
+			</ano:iterate>
+		</div>
 
-            <ano:equal name="decorator" property="visibility" value="SHOW">
-                <ul class="<ano:write name="decorator" property="name"/>_val" <ano:notEqual name="indexId" value="0">style="display:none;"</ano:notEqual>>
-                    <li><input type="checkbox" id="c_all" /><label>Select all</label></li>
-                    <ano:iterate name="decorator" property="captions" type="net.java.dev.moskito.webui.bean.StatCaptionBean" id="caption">
-                        <li><input type="checkbox" name="<ano:write name="decorator" property="name"/>_<ano:write name="caption" property="caption"/>"/><label><ano:write name="caption" property="caption"/></label></li>
-                    </ano:iterate>
-                </ul>
-            </ano:equal>
+		<div class="clear"></div>
+		</div>
+		<div class="clear"></div>
+		</div>
 
-        </ano:iterate>
-    </div>
+		<div class="clear"></div>
 
-    <div class="t_table_prod">
-
-        <h3>Producer</h3>
-        <ano:iterate name="decorators" id="decorator" type="net.java.dev.moskito.webui.bean.ProducerDecoratorBean" indexId="indexId">
-            <ano:equal name="decorator" property="visibility" value="SHOW">
-                <ul class="<ano:write name="decorator" property="name"/>_prod" <ano:notEqual name="indexId" value="0">style="display:none;"</ano:notEqual>>
-                    <li><input type="checkbox" id="c_all"/><label>Select all</label></li>
-
-                    <ano:iterate name="decorator" property="producers" id="producer" type="net.java.dev.moskito.webui.bean.ProducerBean">
-                        <li><input type="checkbox" name="<ano:write name="producer" property="id"/>"/><label><ano:write name="producer" property="id"/></label></li>
-                    </ano:iterate>
-                </ul>
-            </ano:equal>
-        </ano:iterate>
-    </div>
-
-    <div class="clear"></div>
-    </div>
-    <div class="clear"></div>
-    </div>
-
-    <div class="clear"></div>
-
-    <div class="flr">
-        <input type="submit" value="Create"/><span>&nbsp;&nbsp;or&nbsp;&nbsp;</span><a
-            onclick="closeLightbox(); return false;"
-            href="#">Cancel</a>
-    </div>
+		<div class="flr">
+			<input type="submit" value="Create"/><span>&nbsp;&nbsp;or&nbsp;&nbsp;</span><a
+				onclick="closeLightbox(); return false;"
+				href="#">Cancel</a>
+		</div>
     </form>
     </div>
     <!-- Creating widget(table) overlay END-->
@@ -188,7 +183,7 @@
 
 <!-- Edit dashboard name overlay -->
 <div class="edit_dash_overlay" style="display:none;">
-    <form action="mskDashBoard" class="edit_dash_form">
+    <form action="mskDashBoard" class="edit_dash_form" method="post">
 
         <h2>Edit dashboard name</h2>
         <label for="name">Name:</label>
@@ -196,10 +191,8 @@
 
         <div class="clear"></div>
         <div class="flr">
-            <input type="submit" value="Rename"/><span>&nbsp;&nbsp;or&nbsp;&nbsp;</span><a
-                onclick="closeLightbox(); return false;"
-                href="#">Cancel</a>
-
+            <input type="submit" value="Rename"/><span>&nbsp;&nbsp;or&nbsp;&nbsp;</span>
+			<a onclick="closeLightbox(); return false;"href="#">Cancel</a>
         </div>
     </form>
 </div>
@@ -207,7 +200,7 @@
 
 <!-- Create dashboard overlay -->
 <div class="create_dash_overlay" style="display:none;">
-    <form action="mskDashBoard" class="edit_dash_form">
+    <form action="mskDashBoard" class="edit_dash_form" method="post">
         <h2>Create dashboard</h2>
         <label for="name">Name:</label>
         <input type="text" name="dashboard" value="" id="name"/>
@@ -233,176 +226,46 @@
     <input type="radio" id="timeline" name="chart_type"/><label for="timeline">Timeline</label>
 
     <div class="clear"></div>
-
 </div>
+
 <div class="clear"></div>
 <table cellpadding="0" cellspacing="0" border="0" class="t_pie_bar">
 <tbody>
 <tr>
+
+<%--Chart: write out producer groups BEGIN--%>
 <td class="t_pie_bar_prod_group">
     <h3>Producer group</h3>
     <ul>
-        <li class="active"><a href="#" class="filt">Filter</a></li>
-        <li><a href="#" class="service">Service</a></li>
-
-        <li><a href="#" class="storage">Storage</a></li>
-        <li><a href="#" class="servlet">Servlet</a></li>
-        <li><a href="#" class="action">Action</a></li>
-        <li><a href="#" class="httpsession">HttpSession</a></li>
-        <li><a href="#" class="virtualmemorypool">VirtualMemoryPool</a></li>
-        <li><a href="#" class="memory">Memory</a></li>
-
-        <li><a href="#" class="memorypool">MemoryPool</a></li>
-        <li><a href="#" class="threadcount">ThreadCount</a></li>
+		<ano:iterate name="decorators" id="decorator" indexId="indexId">
+			<ano:equal name="decorator" property="visibility" value="SHOW">
+				<li class="${indexId == 0 ? " active": ""}">
+					<a href="#" class="${decorator.name}">${decorator.name}</a>
+				</li>
+			</ano:equal>
+		</ano:iterate>
     </ul>
-
 </td>
+<%--Chart: write out producer groups END--%>
+
+<%--Chart: write out value BEGIN--%>
 <td class="t_pie_bar_val">
 
     <h3>Value</h3>
-
-    <!--  -->
-    <ul class="filt_val">
-        <li class="active"><a href="#">Req</a></li>
-        <li><a href="#">Time</a></li>
-        <li><a href="#">CR</a></li>
-        <li><a href="#">MCR</a></li>
-        <li><a href="#">Min</a></li>
-
-        <li><a href="#">Max</a></li>
-        <li><a href="#">Avg</a></li>
-        <li><a href="#">Last</a></li>
-        <li><a href="#">Err</a></li>
-        <li><a href="#">ERate</a></li>
-    </ul>
-
-    <ul class="service_val" style="display:none;">
-        <li><a href="#">Req</a></li>
-        <li><a href="#">Time</a></li>
-        <li><a href="#">CR</a></li>
-        <li><a href="#">MCR</a></li>
-        <li><a href="#">Min</a></li>
-
-        <li><a href="#">Max</a></li>
-        <li><a href="#">Avg</a></li>
-        <li><a href="#">Last</a></li>
-        <li><a href="#">Err</a></li>
-        <li><a href="#">ERate</a></li>
-    </ul>
-
-    <ul class="storage_val" style="display:none;">
-        <li><a href="#">Req</a></li>
-        <li><a href="#">Time</a></li>
-        <li><a href="#">CR</a></li>
-        <li><a href="#">MCR</a></li>
-        <li><a href="#">Min</a></li>
-
-        <li><a href="#">Max</a></li>
-        <li><a href="#">Avg</a></li>
-        <li><a href="#">Last</a></li>
-        <li><a href="#">Err</a></li>
-        <li><a href="#">ERate</a></li>
-    </ul>
-
-    <ul class="servlet_val" style="display:none;">
-        <li><a href="#">Req</a></li>
-        <li><a href="#">Time</a></li>
-        <li><a href="#">CR</a></li>
-        <li><a href="#">MCR</a></li>
-        <li><a href="#">Min</a></li>
-
-        <li><a href="#">Max</a></li>
-        <li><a href="#">Avg</a></li>
-        <li><a href="#">Last</a></li>
-        <li><a href="#">Err</a></li>
-        <li><a href="#">ERate</a></li>
-    </ul>
-
-    <ul class="action_val" style="display:none;">
-        <li><a href="#">Req</a></li>
-        <li><a href="#">Time</a></li>
-        <li><a href="#">CR</a></li>
-        <li><a href="#">MCR</a></li>
-        <li><a href="#">Min</a></li>
-
-        <li><a href="#">Max</a></li>
-        <li><a href="#">Avg</a></li>
-        <li><a href="#">Last</a></li>
-        <li><a href="#">Err</a></li>
-        <li><a href="#">ERate</a></li>
-    </ul>
-
-    <ul class="httpsession_val" style="display:none;">
-        <li><a href="#">Req</a></li>
-        <li><a href="#">Time</a></li>
-        <li><a href="#">CR</a></li>
-        <li><a href="#">MCR</a></li>
-        <li><a href="#">Min</a></li>
-
-        <li><a href="#">Max</a></li>
-        <li><a href="#">Avg</a></li>
-        <li><a href="#">Last</a></li>
-        <li><a href="#">Err</a></li>
-        <li><a href="#">ERate</a></li>
-    </ul>
-
-    <ul class="virtualmemorypool_val" style="display:none;">
-        <li><a href="#">Req</a></li>
-        <li><a href="#">Time</a></li>
-        <li><a href="#">CR</a></li>
-        <li><a href="#">MCR</a></li>
-        <li><a href="#">Min</a></li>
-
-        <li><a href="#">Max</a></li>
-        <li><a href="#">Avg</a></li>
-        <li><a href="#">Last</a></li>
-        <li><a href="#">Err</a></li>
-        <li><a href="#">ERate</a></li>
-    </ul>
-
-    <ul class="memory_val" style="display:none;">
-        <li><a href="#">Req</a></li>
-        <li><a href="#">Time</a></li>
-        <li><a href="#">CR</a></li>
-        <li><a href="#">MCR</a></li>
-        <li><a href="#">Min</a></li>
-
-        <li><a href="#">Max</a></li>
-        <li><a href="#">Avg</a></li>
-        <li><a href="#">Last</a></li>
-        <li><a href="#">Err</a></li>
-        <li><a href="#">ERate</a></li>
-    </ul>
-
-    <ul class="memorypool_val" style="display:none;">
-        <li><a href="#">Req</a></li>
-        <li><a href="#">Time</a></li>
-        <li><a href="#">CR</a></li>
-        <li><a href="#">MCR</a></li>
-        <li><a href="#">Min</a></li>
-
-        <li><a href="#">Max</a></li>
-        <li><a href="#">Avg</a></li>
-        <li><a href="#">Last</a></li>
-        <li><a href="#">Err</a></li>
-        <li><a href="#">ERate</a></li>
-    </ul>
-
-    <ul class="threadcount_val" style="display:none;">
-        <li><a href="#">Req</a></li>
-        <li><a href="#">Time</a></li>
-        <li><a href="#">CR</a></li>
-        <li><a href="#">MCR</a></li>
-        <li><a href="#">Min</a></li>
-
-        <li><a href="#">Max</a></li>
-        <li><a href="#">Avg</a></li>
-        <li><a href="#">Last</a></li>
-        <li><a href="#">Err</a></li>
-        <li><a href="#">ERate</a></li>
-    </ul>
-
+	<ano:iterate name="decorators" id="decorator" indexId="indexId">
+		<ano:equal name="decorator" property="visibility" value="SHOW">
+			<ul class="${decorator.name}_val" ${indexId != 0 ? "style='display:none;'" : ""}>
+				<li><input type="checkbox" id="c_all" /><label>Select all</label></li>
+				<ano:iterate name="decorator" property="captions" id="caption">
+					<li><input type="checkbox" name="${decorator.name}_${caption.caption}"/><label>${caption.caption}</label></li>
+				</ano:iterate>
+			</ul>
+		</ano:equal>
+	</ano:iterate>
 </td>
+<%--Chart: write out value END--%>
+
+<%--Chart: write out producer BEGIN--%>
 <td class="t_pie_bar_prod">
 
     <h3>Producer</h3>
@@ -467,6 +330,8 @@
     </ul>
 
 </td>
+<%--Chart: write out producer BEGIN--%>
+
 </tr>
 </tbody>
 </table>

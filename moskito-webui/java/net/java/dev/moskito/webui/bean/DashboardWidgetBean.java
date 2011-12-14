@@ -17,14 +17,6 @@ public class DashboardWidgetBean {
 	private List<String> configAttributes;
 	private List<ProducerGroup> producerGroups;
 
-	public void setProducerGroups(List<ProducerGroup> producerGroups) {
-		this.producerGroups = producerGroups;
-	}
-
-	public List<ProducerGroup> getProducerGroups() {
-		return producerGroups;
-	}
-
 	public DashboardWidgetBean() {
 	}
 
@@ -41,6 +33,14 @@ public class DashboardWidgetBean {
 	public DashboardWidgetBean(String aName, WidgetType aType, List<DashboardWidgetBean.ProducerGroup> aProducerGroups, List<String> aConfigAttributes) {
 		this(aName, aType, aProducerGroups);
 		configAttributes = aConfigAttributes;
+	}
+
+	public void setProducerGroups(List<ProducerGroup> producerGroups) {
+		this.producerGroups = producerGroups;
+	}
+
+	public List<ProducerGroup> getProducerGroups() {
+		return producerGroups;
 	}
 
 	public String getName() {

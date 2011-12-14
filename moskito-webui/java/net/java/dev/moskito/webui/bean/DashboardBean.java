@@ -1,5 +1,6 @@
 package net.java.dev.moskito.webui.bean;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,7 +9,9 @@ import java.util.List;
  *
  * @author dsilenko
  */
-public class DashboardBean {
+public class DashboardBean implements Serializable {
+
+	private static final long serialVersionUID = -3814471914706674484L;
 	private String name;
 	private List<DashboardWidgetBean> widgets = new ArrayList<DashboardWidgetBean>();
 
@@ -37,4 +40,11 @@ public class DashboardBean {
 		widgets = aWidgets;
 	}
 
+	@Override
+	public String toString() {
+		return "DashboardBean{" +
+				"name='" + name + '\'' +
+				", widgets=" + widgets +
+				'}';
+	}
 }

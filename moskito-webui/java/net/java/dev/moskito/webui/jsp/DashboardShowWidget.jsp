@@ -1,13 +1,14 @@
 <%@ page language="java" contentType="text/html;charset=UTF-8" session="true"%>
 <%@ taglib uri="http://www.anotheria.net/ano-tags" prefix="ano"%>
+<%@ page isELIgnored="false"%>
 
 <div class="table_layout">
     <div class="top">
         <div><!-- --></div>
     </div>
     <div class="in">
-        <h2><ano:write name="widget" property="name"/></h2>
-        <a href="?deleteWidget=<ano:write name="widget" property="name"/>" class="help">Close</a>
+        <h2>${widget.name}</h2>
+        <a href="?deleteWidget=${widget.name}" class="help">Close</a>
         <a href="#" class="edit">Edit</a>
 
         <div class="clear"><!-- --></div>
@@ -19,10 +20,8 @@
             </div>
             <div class="in">
                 <ano:iterate name="widget" property="producerGroups" id="group">
-                    <ano:equal name="group" property="selectedGroup" value="true">
-
-                        <h3><ano:write name="group" property="groupName"/></h3>
-
+                    <ano:iF test="${group.selectedGroup}">
+                        <h3>${group.groupName}</h3>
                         <div class="scroller_x">
                             <table width="100%" cellspacing="0" cellpadding="0">
                                 <thead>
@@ -30,7 +29,7 @@
                                         <th>Producer</th>
                                         <ano:iterate name="group" property="captions" id="caption">
                                             <ano:equal name="caption" property="selectedCaption" value="true">
-                                                <th><ano:write name="caption" property="captionName"/></th>
+                                                <th>${caption.captionName}</th>
                                             </ano:equal>
                                         </ano:iterate>
                                     </tr>
@@ -39,9 +38,9 @@
                                 <ano:iterate name="group" property="producers" id="producer">
                                     <ano:equal name="producer" property="selectedProducer" value="true">
                                         <tr class="even">
-                                            <td><a href="#"><ano:write name="producer" property="id"/></a></td>
+                                            <td><a href="#">${producer.id}</a></td>
                                             <ano:iterate name="producer" property="values" id="value">
-                                                <td><ano:write name="value"/></td>
+                                                <td>${value}</td>
                                             </ano:iterate>
                                         </tr>
                                     </ano:equal>
@@ -49,7 +48,7 @@
                                 </tbody>
                             </table>
                         </div>
-                    </ano:equal>
+                    </ano:iF>
                 </ano:iterate>
 
                 <div class="clear"><!-- --></div>
@@ -68,10 +67,10 @@
 
     <!-- Editing widget(table) overlay-->
     <div class="edit_widget_overlay" style="display:none;">
-    <form action="mskDashBoard" class="create_widget_form">
+    <form action="mskDashBoard" class="create_widget_form" method="post">
     <h2>Edit widget</h2>
     <label for="name">Widget name:</label>
-    <input type="text" name="widgetName" value="<ano:write name="widget" property="name"/>" id="name"/>
+    <input type="text" name="widgetName" value="${widget.name}" id="name"/>
 
     <div class="widget_type">
         <ano:equal name="widget" property="type" value="TABLE">
@@ -92,13 +91,13 @@
             <h3>Producer group</h3>
             <ul>
                 <ano:iterate name="widget" property="producerGroups" id="group" indexId="indexId">
-                    <li class="<ano:equal name="group" property="selectedGroup" value="true">checked</ano:equal><ano:equal name="indexId" value="0"> active</ano:equal>">
+                    <li class="<ano:iF test="${group.selectedGroup}">checked</ano:iF><ano:equal name="indexId" value="0"> active</ano:equal>">
                         <div class="top_l"></div>
                         <div class="bot_l"></div>
                         <a href="#" class="uncheck">
                             <img src="<ano:write name="mskPathToImages" scope="application"/>close.png" alt="Uncheck" title="Uncheck"/>&nbsp;
                         </a>
-                        <a href="#" class="<ano:write name="group" property="groupName"/>"><ano:write name="group" property="groupName"/></a>
+                        <a href="#" class="${group.groupName}">${group.groupName}</a>
                     </li>
                 </ano:iterate>
             </ul>
@@ -113,7 +112,10 @@
                     <ul class="<ano:write name="group" property="groupName"/>_val" <ano:notEqual name="indexId" value="0">style="display:none;"</ano:notEqual>>
                         <li><input type="checkbox" id="c_all" /><label>Select all</label></li>
                         <ano:iterate name="group" property="captions" id="caption">
-                            <li><input type="checkbox" <ano:equal name="caption" property="selectedCaption" value="true">checked="checked"</ano:equal> name="<ano:write name="group" property="groupName"/>_<ano:write name="caption" property="captionName"/>"/><label><ano:write name="caption" property="captionName"/></label></li>
+                            <li>
+								<input type="checkbox" <ano:iF test="${caption.selectedCaption}"> checked="checked"</ano:iF> name="${group.groupName}_${caption.captionName}"/>
+								<label>${caption.captionName}</label>
+							</li>
                         </ano:iterate>
                     </ul>
                 </ano:iterate>
@@ -122,13 +124,16 @@
             <div class="t_table_prod">
                 <h3>Producer</h3>
                 <ano:iterate name="widget" property="producerGroups" id="group" indexId="indexId">
-                        <ul class="<ano:write name="group" property="groupName"/>_prod" <ano:notEqual name="indexId" value="0">style="display:none;"</ano:notEqual>>
-                            <li><input type="checkbox" id="c_all"/><label>Select all</label></li>
+					<ul class="${group.groupName}_prod" <ano:notEqual name="indexId" value="0">style="display:none;"</ano:notEqual>>
+						<li><input type="checkbox" id="c_all"/><label>Select all</label></li>
 
-                            <ano:iterate name="group" property="producers" id="producer" >
-                                <li><input type="checkbox" <ano:equal name="producer" property="selectedProducer" value="true">checked="checked"</ano:equal> name="<ano:write name="producer" property="id"/>"/><label><ano:write name="producer" property="id"/></label></li>
-                            </ano:iterate>
-                        </ul>
+						<ano:iterate name="group" property="producers" id="producer" >
+							<li>
+								<input type="checkbox" <ano:iF test="${producer.selectedProducer}">checked="checked"</ano:iF> name="${producer.id}"/>
+								<label>${producer.id}</label>
+							</li>
+						</ano:iterate>
+					</ul>
                 </ano:iterate>
             </div>
 
@@ -140,9 +145,8 @@
     <div class="clear"></div>
 
     <div class="flr">
-        <input type="submit" value="Create"/><span>&nbsp;&nbsp;or&nbsp;&nbsp;</span><a
-            onclick="closeLightbox(); return false;"
-            href="#">Cancel</a>
+        <input type="submit" value="Create"/><span>&nbsp;&nbsp;or&nbsp;&nbsp;</span>
+		<a onclick="closeLightbox(); return false;" href="#">Cancel</a>
     </div>
     </form>
     </div>
