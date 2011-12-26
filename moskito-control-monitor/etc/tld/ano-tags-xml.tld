@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE taglib PUBLIC "-//Sun Microsystems, Inc.//DTD JSP Tag Library 1.1//EN" "http://java.sun.com/j2ee/dtds/web-jsptaglibrary_1_1.dtd">
+<taglib>
+	<tlibversion>1.2</tlibversion>
+	<jspversion>1.1</jspversion>
+	<shortname>ano-xml</shortname>
+	<uri>http://www.anotheria.net/ano-tags-xml</uri>
+	<tag>
+		<name>xml_write</name>
+		<tagclass>net.anotheria.tags.XMLWriteTag</tagclass>
+		<bodycontent>empty</bodycontent>
+		<attribute>
+			<name>name</name>
+			<required>true</required>
+			<rtexprvalue>false</rtexprvalue>
+		</attribute>
+	</tag>
+</taglib>
