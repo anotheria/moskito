@@ -1,29 +1,40 @@
 package net.java.dev.moskito.webui.action;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.net.URLDecoder;
+import java.net.URLEncoder;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Enumeration;
+import java.util.HashMap;
+import java.util.List;
+import java.util.zip.DataFormatException;
+import java.util.zip.Deflater;
+import java.util.zip.Inflater;
+
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import net.anotheria.maf.action.ActionCommand;
 import net.anotheria.maf.action.ActionMapping;
 import net.anotheria.maf.bean.FormBean;
 import net.anotheria.util.StringUtils;
 import net.anotheria.util.TimeUnit;
-import net.java.dev.moskito.webui.Test;
-import net.java.dev.moskito.webui.bean.*;
+import net.java.dev.moskito.webui.bean.DashboardBean;
+import net.java.dev.moskito.webui.bean.DashboardWidgetBean;
+import net.java.dev.moskito.webui.bean.GraphDataBean;
+import net.java.dev.moskito.webui.bean.NaviItem;
+import net.java.dev.moskito.webui.bean.ProducerBean;
+import net.java.dev.moskito.webui.bean.ProducerDecoratorBean;
+import net.java.dev.moskito.webui.bean.StatCaptionBean;
+import net.java.dev.moskito.webui.bean.WidgetType;
+
+import org.apache.commons.codec.binary.Base64;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import sun.misc.BASE64Decoder;
-import sun.misc.BASE64Encoder;
-
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.net.URLDecoder;
-import java.net.URLEncoder;
-import java.util.*;
-import java.util.zip.DataFormatException;
-import java.util.zip.Deflater;
-import java.util.zip.Inflater;
 
 /**
  * Dashboard action.
@@ -76,6 +87,7 @@ public class ShowDashboardAction extends BaseMoskitoUIAction {
 				//todo handle this case and log
 			}
 		} else {
+			@SuppressWarnings("unchecked")
 			List<String> configAttributes = Collections.list(req.getParameterNames());
 			configAttributes.remove(WIDGET_NAME_PARAMETER_NAME);
 			configAttributes.remove(WIDGET_TYPE_PARAMETER_NAME);
@@ -169,6 +181,7 @@ public class ShowDashboardAction extends BaseMoskitoUIAction {
 	 * @param req
 	 * @return dashboards
 	 */
+	@SuppressWarnings("unchecked")
 	private List<DashboardBean> getDashboardsFromSession(HttpServletRequest req) {
 		Object dashboards = req.getSession().getAttribute("dashboards");
 		if (dashboards == null) {
@@ -250,9 +263,8 @@ public class ShowDashboardAction extends BaseMoskitoUIAction {
 		}
 		baos.close();
 		byte[] output = baos.toByteArray();
-		BASE64Encoder base64Encoder = new BASE64Encoder();
-
-		return base64Encoder.encode(output);
+		
+		return Base64.encodeBase64String(output);
 	}
 
 	/**
@@ -264,9 +276,8 @@ public class ShowDashboardAction extends BaseMoskitoUIAction {
 	 * @throws DataFormatException
 	 */
 	public static String decompressString(String data) throws IOException, DataFormatException {
-		BASE64Decoder base64Decoder = new BASE64Decoder();
-		byte[] input = base64Decoder.decodeBuffer(data);
-
+		byte[] input = Base64.decodeBase64(data);
+		
 		Inflater ifl = new Inflater();
 		ifl.setInput(input);
 

@@ -1,78 +1,85 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
-  <parent>
-	<groupId>net.anotheria</groupId>
-	<artifactId>parent</artifactId>
-	<version>1.11</version>
-  </parent>
+	<parent>
+		<groupId>net.anotheria</groupId>
+		<artifactId>parent</artifactId>
+		<version>1.11</version>
+	</parent>
 
-  <modelVersion>4.0.0</modelVersion>
-  <groupId>net.anotheria</groupId>
-  <artifactId>moskito-webcontrol</artifactId>
-  <version>1.2.0-SNAPSHOT</version>
-  <name>moskito monitoring application for different webui instances</name>
-  <packaging>war</packaging>
-<build>
- <plugins> 
-      <plugin>
-        <artifactId>maven-war-plugin</artifactId>
-        <version>2.1</version>
-        <configuration>
-           <webXml>etc/web.xml</webXml>
-          <webResources>
-            <resource>
-              <!-- this is relative to the pom.xml directory -->
-              <directory>html</directory>
-            </resource>
-            <resource>
-              
-              <!-- this is relative to the pom.xml directory -->
-              <directory>java</directory>
-              <includes><include>**/*.jsp</include></includes>
-              
-            </resource>
-          </webResources>
-        </configuration>
-      </plugin>
-    </plugins>
-</build>
- 
-  <dependencies>
-	<dependency> 
-		<groupId>net.anotheria</groupId>
-		<artifactId>ano-util</artifactId>
-		<version>1.0.10</version>
-	</dependency>
-	<!--  for paging  -->
-	<dependency> 
-		<groupId>net.anotheria</groupId>
-		<artifactId>ano-plass</artifactId>
-		<version>1.0.0</version>
-	</dependency>
-	<dependency> 
-		<groupId>net.anotheria</groupId>
-		<artifactId>ano-maf</artifactId>
-		<version>1.1.0</version>
-	</dependency>
-	<dependency>
-		<groupId>net.anotheria</groupId>
-		<artifactId>moskito-core</artifactId>
-		<version>${project.version}</version>
-	</dependency>
-	<dependency>
-		<groupId>net.anotheria</groupId>
-		<artifactId>moskito-web</artifactId>
-		<version>${project.version}</version>
-	</dependency>
-	<dependency>
-    	<groupId>javax.servlet</groupId>
-    	<artifactId>servlet-api</artifactId>
-    	<scope>provided</scope>
-	</dependency>	
-	<dependency>
-		<groupId>net.anotheria</groupId>
-		<artifactId>ano-tags</artifactId>
-		<version>1.0.4</version>
-	</dependency>
-  </dependencies>
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>net.anotheria</groupId>
+	<artifactId>moskito-webcontrol</artifactId>
+	<version>1.2.0-SNAPSHOT</version>
+	<name>moskito monitoring application for different webui instances</name>
+	<packaging>war</packaging>
+	<build>
+		<plugins>
+			<plugin>
+				<artifactId>maven-war-plugin</artifactId>
+				<version>2.1</version>
+				<configuration>
+					<webXml>etc/web.xml</webXml>
+					<webResources>
+						<resource>
+							<!-- this is relative to the pom.xml directory -->
+							<directory>html</directory>
+						</resource>
+						<resource>
+							 
+							<!-- this is relative to the pom.xml directory -->
+							<directory>java</directory>
+							<includes>
+								<include>**/*.jsp</include>
+							</includes>
+
+						</resource>
+					</webResources>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
+	<dependencies>
+		<dependency>
+			<groupId>net.anotheria</groupId>
+			<artifactId>ano-util</artifactId>
+			<version>1.0.10</version>
+		</dependency>
+		<!-- for paging -->
+		<dependency>
+			<groupId>net.anotheria</groupId>
+			<artifactId>ano-plass</artifactId>
+			<version>1.0.0</version>
+		</dependency>
+		<dependency>
+			<groupId>net.anotheria</groupId>
+			<artifactId>ano-maf</artifactId>
+			<version>1.1.0</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-codec</groupId>
+			<artifactId>commons-codec</artifactId>
+			<version>1.5</version>
+		</dependency>
+		<dependency>
+			<groupId>net.anotheria</groupId>
+			<artifactId>moskito-core</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>net.anotheria</groupId>
+			<artifactId>moskito-web</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>servlet-api</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>net.anotheria</groupId>
+			<artifactId>ano-tags</artifactId>
+			<version>1.0.4</version>
+		</dependency>
+	</dependencies>
 </project>
