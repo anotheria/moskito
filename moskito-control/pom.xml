@@ -1,0 +1,74 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+	<parent>
+		<groupId>net.anotheria</groupId>
+		<artifactId>parent</artifactId>
+		<version>1.11</version>
+	</parent>
+
+
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>net.anotheria</groupId>
+	<artifactId>moskito-control</artifactId>
+	<name>moskito-control</name>
+	<version>0.0.1-SNAPSHOT</version>
+	<packaging>jar</packaging>
+
+	<!-- <build> <testResources> <testResource> <directory>${project.basedir}/test/appdata</directory> 
+		</testResource> </testResources> </build> -->
+
+	<dependencies>
+		<dependency>
+			<groupId>net.anotheria</groupId>
+			<artifactId>configureme</artifactId>
+			<version>1.0.2</version>
+		</dependency>
+		<dependency>
+			<groupId>net.anotheria</groupId>
+			<artifactId>ano-util</artifactId>
+			<version>1.0.8</version>
+		</dependency>
+		<dependency>
+			<groupId>org.jdom</groupId>
+			<artifactId>jdom</artifactId>
+			<version>1.1</version>
+		</dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.8.1</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>servlet-api</artifactId>
+			<version>2.5</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>net.anotheria</groupId>
+			<artifactId>distributeme-core</artifactId>
+			<version>1.0.5</version>
+			<type>jar</type>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>net.anotheria</groupId>
+			<artifactId>distributeme-support</artifactId>
+			<version>1.0.5</version>
+			<type>jar</type>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>net.anotheria</groupId>
+			<artifactId>moskito-core</artifactId>
+			<version>1.1.7-20111020.211255-6</version>
+			<type>pom</type>
+			<scope>compile</scope>
+		</dependency>
+	</dependencies>
+
+	<!-- <repositories> <repository> <id>parship-provided</id> <url>http://maven/nexus/content/groups/provided</url> 
+		</repository> </repositories> -->
+</project>
