@@ -42,6 +42,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
+import net.java.dev.moskito.core.producers.AbstractCallExecution;
 import net.java.dev.moskito.core.producers.AbstractStats;
 import net.java.dev.moskito.core.producers.CallExecution;
 import net.java.dev.moskito.core.stats.Interval;
@@ -401,7 +402,7 @@ public abstract class RequestOrientedStats extends AbstractStats {
 	 * A CallExecutionObject for RequestOrientedStats.
 	 * @author lrosenberg
 	 */
-	private class RequestCallExecution implements CallExecution{
+	private class RequestCallExecution extends AbstractCallExecution{
 
 		/**
 		 * Starttime of the execution.
@@ -409,13 +410,18 @@ public abstract class RequestOrientedStats extends AbstractStats {
 		private long startTime;
 		private PathElement currentElement = null;
 		private ExistingRunningUseCase runningUseCase = null;
+		
 		@Override
-		public void finishExecution() {
+		public void finishExecution(String result) {
 			long exTime = System.nanoTime() - startTime;
 			addExecutionTime(exTime);
 			notifyRequestFinished();
-			if (currentElement!=null)
+			if (currentElement!=null){
 				currentElement.setDuration(exTime);
+				if (result!=null){
+					currentElement.appendToCall(" = "+result);
+				}
+			}
 			if (runningUseCase !=null)
 				runningUseCase.endPathElement();
 	
@@ -426,12 +432,8 @@ public abstract class RequestOrientedStats extends AbstractStats {
 			notifyError();
 		}
 
-		@Override public void startExecution() {
-			startExecution(true);
-		}
-
 		@Override
-		public void startExecution(boolean recordUseCase) {
+		public void startExecution(boolean recordUseCase, String useCaseDescription) {
 			addRequest();
 			startTime = System.nanoTime();
 			
@@ -439,15 +441,12 @@ public abstract class RequestOrientedStats extends AbstractStats {
 				RunningUseCase aRunningUseCase = RunningUseCaseContainer.getCurrentRunningUseCase();
 				runningUseCase = aRunningUseCase.useCaseRunning() ? 
 						(ExistingRunningUseCase)aRunningUseCase : null; 
-				if (runningUseCase !=null)
-					currentElement = runningUseCase.startPathElement(getName());
+				if (runningUseCase !=null){
+					currentElement = runningUseCase.startPathElement(useCaseDescription == null ? getName():useCaseDescription);
+				}
 			}
 		}
 		
-		@Override public void abortExecution() {
-			notifyError();
-			finishExecution();
-		}
 	}
 
 	@Override

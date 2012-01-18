@@ -6,16 +6,39 @@ import net.java.dev.moskito.core.stats.StatValue;
 import net.java.dev.moskito.core.stats.TimeUnit;
 import net.java.dev.moskito.core.stats.impl.StatValueFactory;
 
+/**
+ * Stats object for operation system related values.
+ * @author lrosenberg
+ *
+ */
 public class OSStats extends AbstractStats{
+	/**
+	 * Current open files amount.
+	 */
 	private StatValue openFiles;
+	/**
+	 * Max open files amount.
+	 */
 	private StatValue maxOpenFiles; 
+	/**
+	 * Min open files amount.
+	 */
 	private StatValue minOpenFiles; 
 	/**
 	 * Max open files supported by the system. This value is never changed.
 	 */
 	private StatValue maxSupportedOpenFiles;
+	/**
+	 * CPU Time by this process.
+	 */
 	private StatValue processCpuTime;
+	/**
+	 * Selfexplaining.
+	 */
 	private StatValue freePhysicalMemory;
+	/**
+	 * Selfexplaining.
+	 */
 	private StatValue totalPhysicalMemory;
 	/**
 	 * Number of processors, this is usually a constant.

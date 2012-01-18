@@ -10,7 +10,11 @@ import net.java.dev.moskito.core.helper.AbstractTieable;
 import net.java.dev.moskito.core.helper.Tieable;
 import net.java.dev.moskito.core.producers.IStats;
 
-
+/**
+ * A threshold represents a value of stats producer.
+ * @author lrosenberg
+ *
+ */
 public class Threshold extends AbstractTieable<ThresholdDefinition> implements Tieable, ThresholdMBean{
 	/**
 	 * Logger.

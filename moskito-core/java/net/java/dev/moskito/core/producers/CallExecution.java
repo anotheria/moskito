@@ -16,10 +16,18 @@ public interface CallExecution {
 	 * @param recordUseCase
 	 */
 	void startExecution(boolean recordUseCase);
+
+	void startExecution(String callDescription);
+
+	void startExecution(boolean recordUseCase, String callDescription);
+
 	/**
 	 * Finishes the execution.
 	 */
 	void finishExecution();
+	
+	void finishExecution(String result);
+
 	/**
 	 * Notifies that the execution encountered an error.
 	 */
@@ -28,4 +36,7 @@ public interface CallExecution {
 	 * Notifies that the execution is aborted. Same as notifyExecutionError(); finishExecution();.
 	 */
 	void abortExecution();
+	
+	
+	void abortExecution(String result);
 }
