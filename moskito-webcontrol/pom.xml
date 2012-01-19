@@ -9,7 +9,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>net.anotheria</groupId>
 	<artifactId>moskito-webcontrol</artifactId>
-	<version>1.2.0</version>
+	<version>1.3.0-SNAPSHOT</version>
 	<name>moskito monitoring application for different webui instances</name>
 	<packaging>war</packaging>
 	<build>
@@ -82,10 +82,4 @@
 			<version>1.0.4</version>
 		</dependency>
 	</dependencies>
-
-  <scm>
-    <connection>scm:svn:svn://svn.anotheria.net/opensource/parent/tags/moskito-1.2.0</connection>
-    <developerConnection>scm:svn:svn://svn.anotheria.net/opensource/parent/tags/moskito-1.2.0</developerConnection>
-    <url>svn:svn://svn.anotheria.net/opensource/parent/tags/moskito-1.2.0</url>
-  </scm>
 </project>
