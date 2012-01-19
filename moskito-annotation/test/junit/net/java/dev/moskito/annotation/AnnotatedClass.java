@@ -16,19 +16,21 @@ public class AnnotatedClass {
         TimeUnit.NANOSECONDS.sleep(1);
     }
 
-    public void doSome2() throws InterruptedException {
+    protected void doSome2() throws InterruptedException {
         TimeUnit.NANOSECONDS.sleep(1);
     }
 
-    public void doSome3() throws InterruptedException {
+    protected void doSome3() throws InterruptedException {
         TimeUnit.NANOSECONDS.sleep(1);
     }
 
-    public void doSome4() throws InterruptedException {
+    protected void doSome4() throws InterruptedException {
         TimeUnit.NANOSECONDS.sleep(1);
     }
 
-    public void doSome5() throws InterruptedException {
+    private void doSome5() throws InterruptedException {
         TimeUnit.NANOSECONDS.sleep(1);
     }
+
+
 }
