@@ -25,7 +25,7 @@ public class ProducerDataAO implements Serializable {
 	/**
 	 * Producer data.
 	 */
-	private List<DetailedDataAO> data;
+	private final List<DetailedDataAO> data = new ArrayList<DetailedDataAO>();
 
 	/**
 	 * Default constructor.
@@ -33,8 +33,8 @@ public class ProducerDataAO implements Serializable {
 	 * @param aProducerName
 	 *            - producer name of this data
 	 */
-	public ProducerDataAO(String aProducerName) {
-		this.producerName = aProducerName;
+	public ProducerDataAO(final String aProducerName) {
+		this.producerName = aProducerName != null ? aProducerName : "";
 	}
 
 	public String getProducerName() {
@@ -59,14 +59,9 @@ public class ProducerDataAO implements Serializable {
 	 * @param detailedData
 	 *            - detailed producer data
 	 */
-	public void addData(DetailedDataAO detailedData) {
-		if (data == null)
-			synchronized (producerName) {
-				if (data == null)
-					data = new ArrayList<DetailedDataAO>();
-			}
-
-		data.add(detailedData);
+	public void addData(final DetailedDataAO detailedData) {
+		if (detailedData != null)
+			data.add(detailedData);
 	}
 
 }

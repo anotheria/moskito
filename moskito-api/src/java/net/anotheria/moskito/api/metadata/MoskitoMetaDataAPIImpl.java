@@ -25,7 +25,7 @@ public class MoskitoMetaDataAPIImpl implements MoskitoMetaDataAPI {
 	/**
 	 * {@link IProducerRegistryAPI} instance.
 	 */
-	private static IProducerRegistryAPI producerRegistryAPI;
+	private IProducerRegistryAPI producerRegistryAPI;
 
 	/**
 	 * Default constructor.

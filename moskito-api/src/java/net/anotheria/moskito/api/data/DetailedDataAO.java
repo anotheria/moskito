@@ -26,7 +26,7 @@ public class DetailedDataAO implements Serializable {
 	/**
 	 * Detailed data name properties.
 	 */
-	private Map<String, Number> properties = new HashMap<String, Number>();
+	private final Map<String, Number> properties = new HashMap<String, Number>();
 
 	/**
 	 * Default constructor.
@@ -34,8 +34,8 @@ public class DetailedDataAO implements Serializable {
 	 * @param aName
 	 *            - detailed data name
 	 */
-	public DetailedDataAO(String aName) {
-		this.name = aName;
+	public DetailedDataAO(final String aName) {
+		this.name = aName != null ? aName : "";
 	}
 
 	public String getName() {
@@ -50,7 +50,7 @@ public class DetailedDataAO implements Serializable {
 	 * @param aValue
 	 *            - property value
 	 */
-	public void addProperty(String aName, Number aValue) {
+	public void addProperty(final String aName, final Number aValue) {
 		properties.put(aName, aValue);
 	}
 
@@ -70,7 +70,7 @@ public class DetailedDataAO implements Serializable {
 	 *            - property name
 	 * @return {@link Number}
 	 */
-	public Number getPropertyValue(String aName) {
+	public Number getPropertyValue(final String aName) {
 		return properties.get(aName);
 	}
 

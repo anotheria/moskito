@@ -7,34 +7,23 @@ package net.anotheria.moskito.api.metadata;
  */
 public final class MoskitoMetaDataAPIFactory {
 	/**
-	 * {@link MoskitoMetaDataAPITest} instance.
+	 * {@link MoskitoMetaDataAPI} instance.
 	 */
-	private static MoskitoMetaDataAPI instance;
-	/**
-	 * Lock object for synchronization purposes on API instance creation.
-	 */
-	private static final Object INSTANCE_LOCK = new Object();
+	private static final MoskitoMetaDataAPI API_INSTANCE = new MoskitoMetaDataAPIImpl();
 
 	/**
 	 * Private constructor.
 	 */
 	private MoskitoMetaDataAPIFactory() {
-		throw new IllegalArgumentException();
 	}
 
 	/**
-	 * Get {@link MoskitoMetaDataAPITest} instance.
+	 * Get {@link MoskitoMetaDataAPI} instance.
 	 * 
-	 * @return {@link MoskitoMetaDataAPITest}
+	 * @return {@link MoskitoMetaDataAPI}
 	 */
 	public static MoskitoMetaDataAPI getAPI() {
-		if (instance == null)
-			synchronized (INSTANCE_LOCK) {
-				if (instance == null)
-					instance = new MoskitoMetaDataAPIImpl();
-			}
-
-		return instance;
+		return API_INSTANCE;
 	}
 
 }
