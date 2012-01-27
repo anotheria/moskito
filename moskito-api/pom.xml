@@ -7,7 +7,7 @@
 	</parent>
 
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>net.anotheria.moskito</groupId>
+	<groupId>net.anotheria</groupId>
 	<artifactId>moskito-api</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>Moskito API</name>
