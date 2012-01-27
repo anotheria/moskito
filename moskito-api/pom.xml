@@ -58,4 +58,18 @@
 		</testResources>
 	</build>
 
+	<distributionManagement>
+		<repository>
+			<id>ano-release</id>
+			<name>Moses Release Repository</name>
+			<url>http://nexus.anotheria.net/nexus/content/repositories/releases</url>
+		</repository>
+		<snapshotRepository>
+			<id>ano-snapshot</id>
+			<name>Moses Snapshot Repository</name>
+			<url>http://nexus.anotheria.net/nexus/content/repositories/snapshots</url>
+			<uniqueVersion>true</uniqueVersion>
+		</snapshotRepository>
+	</distributionManagement>
+
 </project>
