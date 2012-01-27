@@ -19,10 +19,6 @@ import net.java.dev.moskito.core.registry.ProducerRegistryAPIFactory;
  */
 public class MoskitoMetaDataAPIImpl implements MoskitoMetaDataAPI {
 	/**
-	 * Basic serialVersionUID variable.
-	 */
-	private static final long serialVersionUID = -7730093168932365894L;
-	/**
 	 * {@link IProducerRegistryAPI} instance.
 	 */
 	private IProducerRegistryAPI producerRegistryAPI;
