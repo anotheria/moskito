@@ -26,6 +26,9 @@ public final class MoskitoAPIConfigurator {
 		throw new IllegalAccessError();
 	}
 
+	/**
+	 * Configure API tier.
+	 */
 	public static synchronized void configure() {
 		// logger configuration
 		try {
@@ -35,6 +38,11 @@ public final class MoskitoAPIConfigurator {
 		}
 	}
 
+	/**
+	 * Configure logger for API tier.
+	 * 
+	 * @throws JoranException
+	 */
 	private static void configureLogback() throws JoranException {
 		LoggerContext lc = LoggerContext.class.cast(LoggerFactory.getILoggerFactory());
 		JoranConfigurator configurator = new JoranConfigurator();

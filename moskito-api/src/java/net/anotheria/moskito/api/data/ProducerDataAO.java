@@ -41,6 +41,11 @@ public class ProducerDataAO implements Serializable {
 		return producerName;
 	}
 
+	/**
+	 * Get producer data.
+	 * 
+	 * @return {@link List} of {@link DetailedDataAO}
+	 */
 	public List<DetailedDataAO> getData() {
 		if (data == null)
 			return Collections.emptyList();
@@ -51,7 +56,7 @@ public class ProducerDataAO implements Serializable {
 	/**
 	 * Add producer detailed data.
 	 * 
-	 * @param data
+	 * @param detailedData
 	 *            - detailed producer data
 	 */
 	public void addData(DetailedDataAO detailedData) {

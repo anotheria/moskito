@@ -9,11 +9,18 @@ public final class MoskitoMetaDataAPIFactory {
 	/**
 	 * {@link MoskitoMetaDataAPITest} instance.
 	 */
-	private static MoskitoMetaDataAPI INSTANCE;
+	private static MoskitoMetaDataAPI instance;
 	/**
 	 * Lock object for synchronization purposes on API instance creation.
 	 */
 	private static final Object INSTANCE_LOCK = new Object();
+
+	/**
+	 * Private constructor.
+	 */
+	private MoskitoMetaDataAPIFactory() {
+		throw new IllegalArgumentException();
+	}
 
 	/**
 	 * Get {@link MoskitoMetaDataAPITest} instance.
@@ -21,13 +28,13 @@ public final class MoskitoMetaDataAPIFactory {
 	 * @return {@link MoskitoMetaDataAPITest}
 	 */
 	public static MoskitoMetaDataAPI getAPI() {
-		if (INSTANCE == null)
+		if (instance == null)
 			synchronized (INSTANCE_LOCK) {
-				if (INSTANCE == null)
-					INSTANCE = new MoskitoMetaDataAPIImpl();
+				if (instance == null)
+					instance = new MoskitoMetaDataAPIImpl();
 			}
 
-		return INSTANCE;
+		return instance;
 	}
 
 }
