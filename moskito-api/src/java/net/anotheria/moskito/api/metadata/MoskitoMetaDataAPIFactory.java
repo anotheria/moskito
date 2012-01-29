@@ -1,7 +1,7 @@
 package net.anotheria.moskito.api.metadata;
 
 /**
- * Factory for getting {@link MoskitoMetaDataAPITest} implementation.
+ * Factory for getting {@link MoskitoMetaDataAPI} implementation.
  * 
  * @author Alexandr Bolbat
  */
