@@ -115,7 +115,7 @@ public final class IntervalRegistry {
 	 * 
 	 * @return the IntervalRegistry instance.
 	 */
-	public static final IntervalRegistry getInstance() {
+	public static IntervalRegistry getInstance() {
 		return instance;
 	}
 
