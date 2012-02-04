@@ -53,7 +53,7 @@ final class StatValueTypeUtility {
 	 * @return the new factory instance
 	 * @throws RuntimeException if the type is unknown or not supported
 	 */
-	protected static final IValueHolderFactory createValueHolderFactory(StatValueTypes aType) {
+	protected static IValueHolderFactory createValueHolderFactory(StatValueTypes aType) {
 		switch (aType) {
 		case LONG:
 			return new LongValueHolderFactory();
@@ -72,7 +72,7 @@ final class StatValueTypeUtility {
 	 * @param aObject
 	 * @return
 	 */
-	protected static final StatValueTypes object2type(Object anObject) {
+	protected static StatValueTypes object2type(Object anObject) {
 		if (anObject instanceof Long)
 			return StatValueTypes.LONG;
 		if (anObject instanceof Integer)
