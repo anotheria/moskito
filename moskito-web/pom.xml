@@ -35,7 +35,7 @@
 	<dependency>
     	<groupId>net.anotheria</groupId>
     	<artifactId>ano-maf</artifactId>
-    	<version>1.1.1</version>
+    	<version>1.2.0</version>
     	<scope>provided</scope>
 	</dependency>
 	<!-- only mock support needed, therefore testing scope -->	
