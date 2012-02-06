@@ -3,18 +3,16 @@ package net.java.dev.moskitodemo.threshold.presentation.action;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import net.anotheria.maf.action.ActionCommand;
+import net.anotheria.maf.action.ActionMapping;
+import net.anotheria.maf.bean.FormBean;
 import net.java.dev.moskito.core.stats.impl.IntervalRegistry;
-
-import org.apache.struts.action.ActionForm;
-import org.apache.struts.action.ActionForward;
-import org.apache.struts.action.ActionMapping;
 
 public class EmulateRequestsAction extends AbstractEmulateAction{
 	
 	
 	@Override
-	public ActionForward moskitoExecute(ActionMapping mapping, ActionForm af,
-			HttpServletRequest req, HttpServletResponse res) throws Exception {
+	public ActionCommand execute(ActionMapping mapping, FormBean af, HttpServletRequest req, HttpServletResponse res) throws Exception {
 		
 		int count = 1;
 		try{
@@ -28,7 +26,7 @@ public class EmulateRequestsAction extends AbstractEmulateAction{
 			getGuardedService().guardedMethod();
 		IntervalRegistry.getInstance().forceUpdateIntervalForTestingPurposes("snapshot");
 
-		return mapping.findForward("success");
+		return mapping.success();
 	}
 }
 

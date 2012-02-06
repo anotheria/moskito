@@ -37,14 +37,14 @@ package net.java.dev.moskitodemo.guestbook.presentation.action;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.struts.action.ActionForm;
-import org.apache.struts.action.ActionForward;
-import org.apache.struts.action.ActionMapping;
+import net.anotheria.maf.action.ActionCommand;
+import net.anotheria.maf.action.ActionMapping;
+import net.anotheria.maf.bean.FormBean;
 
 public class DeleteCommentAction extends ShowCommentsAction{
 
 	@Override
-	public ActionForward moskitoExecute(ActionMapping mapping, ActionForm af, HttpServletRequest req, HttpServletResponse res) throws Exception {
+	public ActionCommand execute(ActionMapping mapping, FormBean af, HttpServletRequest req, HttpServletResponse res) throws Exception {
 
 		if (!isAuthorized(req))
 			throw new RuntimeException("denied!");
@@ -52,7 +52,7 @@ public class DeleteCommentAction extends ShowCommentsAction{
 		int id = Integer.parseInt(commentId);
 		
 		getCommentService().deleteComment(id);
-		return super.moskitoExecute(mapping, af, req, res);
+		return execute(mapping, af, req, res);
 	}
 	
 }

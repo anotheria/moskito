@@ -41,6 +41,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import net.anotheria.anoplass.api.util.paging.PagingControl;
+import net.anotheria.maf.action.ActionCommand;
+import net.anotheria.maf.action.ActionMapping;
+import net.anotheria.maf.bean.FormBean;
 import net.anotheria.util.slicer.Segment;
 import net.anotheria.util.slicer.Slicer;
 import net.java.dev.moskitodemo.guestbook.business.data.Comment;
@@ -48,10 +51,6 @@ import net.java.dev.moskitodemo.guestbook.business.data.CommentSortType;
 import net.java.dev.moskitodemo.guestbook.presentation.bean.CommentTableHeaderBean;
 import net.java.dev.moskitodemo.guestbook.presentation.bean.CommentTableItemBean;
 import net.java.dev.moskitodemo.guestbook.presentation.bean.SortLinkBean;
-
-import org.apache.struts.action.ActionForm;
-import org.apache.struts.action.ActionForward;
-import org.apache.struts.action.ActionMapping;
 
 public class ShowCommentsAction extends BaseGuestbookAction{
 	
@@ -98,7 +97,7 @@ public class ShowCommentsAction extends BaseGuestbookAction{
 	private String ITEMS_ON_PAGE_PARAMETER_NAME = "pageSize";
 
 	@Override
-	public ActionForward moskitoExecute(ActionMapping mapping, ActionForm af, HttpServletRequest req, HttpServletResponse res) throws Exception {
+	public ActionCommand execute(ActionMapping mapping, FormBean af, HttpServletRequest req, HttpServletResponse res) throws Exception {
 
 		boolean userIsAuthorized = isAuthorized(req);
 		
@@ -119,7 +118,7 @@ public class ShowCommentsAction extends BaseGuestbookAction{
 		req.setAttribute("authorized", userIsAuthorized ? Boolean.TRUE : Boolean.FALSE);
 		req.setAttribute("headers", createHeaders(sortType));
 		
-		return mapping.findForward("success");
+		return mapping.success();
 	}
 
 	private List sliceList(List listForSlicing, int pageNumber, int pageSize){

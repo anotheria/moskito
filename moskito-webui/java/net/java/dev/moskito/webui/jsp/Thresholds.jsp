@@ -192,6 +192,7 @@
 		<div class="bot">
 			<div><!-- --></div>
 		</div>
+	<jsp:include page="Footer.jsp" flush="false" />
 	</div>
 </body>
 <div class="lightbox" style="display:none;">

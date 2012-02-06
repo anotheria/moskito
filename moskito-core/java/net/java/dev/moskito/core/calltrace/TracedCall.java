@@ -32,7 +32,7 @@
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR
  * THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */	
-package net.java.dev.moskito.core.usecase.running;
+package net.java.dev.moskito.core.calltrace;
 
 /**
  * Generic interface for currently executed (and recorded) use cases. There are basically two opportunities, either there is 
@@ -42,13 +42,13 @@ package net.java.dev.moskito.core.usecase.running;
  * @author lrosenberg
  *
  */
-public interface RunningUseCase {
+public interface TracedCall {
 	/**
 	 * Returns true if there is currently a running use case. In fact, if true is returned, one can safely assume 
 	 * that the implementation of this interface one is dealing with is ExistingRunningUseCase. Otherwise its NoRunningUseCase.
 	 * @return
-	 * @see ExistingRunningUseCase
-	 * @see NoRunningUseCase
+	 * @see CurrentlyTracedCall
+	 * @see NoTracedCall
 	 */
-	boolean useCaseRunning();
+	boolean callTraced();
 }

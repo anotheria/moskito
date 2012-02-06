@@ -5,24 +5,6 @@
 
 <web-app>
     <display-name>moskitodemo</display-name>
-    
-    
-         <servlet>
-        <servlet-name>struts</servlet-name>
-        <servlet-class>org.apache.struts.action.ActionServlet</servlet-class>
-        <init-param>
-          <param-name>application</param-name>
-          <param-value>ApplicationResources</param-value>
-        </init-param>
-        <init-param>
-	        <param-name>config</param-name>
-            <param-value>
-            		/WEB-INF/classes/struts-config-demo.xml,
-            </param-value>
-    	    </init-param>
-  		<load-on-startup>1</load-on-startup>
-    </servlet>
-
      <servlet>
         <servlet-name>demoservlet1</servlet-name>
         <servlet-class>net.java.dev.moskitodemo.servlet.SimpleServlet</servlet-class>
@@ -44,14 +26,6 @@
 		<servlet-name>demoservlet2</servlet-name>
 		<url-pattern>/demo2/*</url-pattern>
 	</servlet-mapping>
-	<servlet-mapping>
-		<servlet-name>struts</servlet-name>
-		<url-pattern>/guestbook/*</url-pattern>
-	</servlet-mapping>
-	<servlet-mapping>
-		<servlet-name>struts</servlet-name>
-		<url-pattern>/do/*</url-pattern>
-	</servlet-mapping>
 	<!--  MOSKITO UI-->
 	<!--  Adding filter to moskito ui which redirects requests to /mui/* to moskito user interface -->	
    	<filter>
@@ -68,13 +42,22 @@
     </filter-mapping>
     <!--  / MOSKITO UI END -->
 
+   	<filter>
+        <filter-name>MoskitoDemoFilter</filter-name>
+       	<filter-class>net.java.dev.moskitodemo.MoskitoDemoFilter</filter-class>
+		<init-param>
+			<param-name>path</param-name>
+			<param-value>/guestbook/</param-value>
+		</init-param>
+   	</filter>
+
 	<filter>
         <filter-name>MoskitoCommandFilter</filter-name>
         <filter-class>net.java.dev.moskito.web.filters.MoskitoCommandFilter</filter-class>
     </filter>
 	<filter>
-        <filter-name>MonitoringSessionFilter</filter-name>
-        <filter-class>net.java.dev.moskito.web.filters.MonitoringSessionFilter</filter-class>
+        <filter-name>JourneyFilter</filter-name>
+        <filter-class>net.java.dev.moskito.web.filters.JourneyFilter</filter-class>
     </filter>
 
 <!-- temporarly outcommented  
@@ -135,7 +118,7 @@
     </filter-mapping>
 
     <filter-mapping>
-        <filter-name>MonitoringSessionFilter</filter-name>
+        <filter-name>JourneyFilter</filter-name>
         <url-pattern>/*</url-pattern>
     </filter-mapping>
 <!--  temporarly disabled
@@ -165,32 +148,21 @@
         <url-pattern>/*</url-pattern>
     </filter-mapping>
     
+   	<filter-mapping>
+       	<filter-name>MoskitoDemoFilter</filter-name>
+   	    <url-pattern>/guestbook/*</url-pattern>
+    </filter-mapping>
+   	<filter-mapping>
+       	<filter-name>MoskitoDemoFilter</filter-name>
+   	    <url-pattern>/demo/*</url-pattern>
+    </filter-mapping>
+
 	<welcome-file-list>
 	    	<welcome-file>index.html</welcome-file>
   	</welcome-file-list>
 
 	<!-- taglib definitions -->
 	<!--jsp-config-->
-	<taglib>
-    	<taglib-uri>/tags/struts-html</taglib-uri>
-	    <taglib-location>/WEB-INF/tld/struts-html.tld</taglib-location>
-	</taglib>
-	<taglib>
-    	<taglib-uri>/tags/struts-bean</taglib-uri>
-	    <taglib-location>/WEB-INF/tld/struts-bean.tld</taglib-location>
-	</taglib>
-	<taglib>
-    	<taglib-uri>/tags/struts-logic</taglib-uri>
-	    <taglib-location>/WEB-INF/tld/struts-logic.tld</taglib-location>
-	</taglib>
-	<taglib>
-    	<taglib-uri>/tags/struts-tiles</taglib-uri>
-	    <taglib-location>/WEB-INF/tld/struts-tiles.tld</taglib-location>
-	</taglib>
-	<taglib>
-    	<taglib-uri>/tags/struts-nested</taglib-uri>
-	    <taglib-location>/WEB-INF/tld/struts-nested.tld</taglib-location>
-	</taglib>
 	<taglib>
     	<taglib-uri>/tags/json</taglib-uri>
 	    <taglib-location>/WEB-INF/tld/json.tld</taglib-location>

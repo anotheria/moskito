@@ -3,11 +3,10 @@
     <parent>
         <groupId>net.anotheria</groupId>
         <artifactId>parent</artifactId>
-        <version>1.11</version>
+        <version>1.12</version>
     </parent>
 
     <modelVersion>4.0.0</modelVersion>
-    <groupId>net.anotheria</groupId>
     <artifactId>moskitodemo</artifactId>
   	<version>1.3.0-SNAPSHOT</version>
     <name>moskito demonstration webapp</name>
@@ -113,7 +112,7 @@
         <dependency>
             <groupId>net.anotheria</groupId>
             <artifactId>ano-util</artifactId>
-            <version>1.0.0</version>
+            <version>[1.0.12,)</version>
         </dependency>
         <!--  for paging  -->
         <dependency>
@@ -124,7 +123,7 @@
         <dependency>
             <groupId>net.anotheria</groupId>
             <artifactId>ano-maf</artifactId>
-            <version>1.1.0</version>
+            <version>1.2.0-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>net.anotheria</groupId>
@@ -154,10 +153,6 @@
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>servlet-api</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>struts</groupId>
-            <artifactId>struts</artifactId>
         </dependency>
         <dependency>
             <groupId>org.apache.derby</groupId>

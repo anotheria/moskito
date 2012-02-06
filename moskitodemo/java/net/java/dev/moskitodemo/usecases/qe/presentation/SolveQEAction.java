@@ -40,18 +40,18 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.struts.action.ActionForm;
-import org.apache.struts.action.ActionForward;
-import org.apache.struts.action.ActionMapping;
-
+import net.anotheria.maf.action.AbstractAction;
+import net.anotheria.maf.action.ActionCommand;
+import net.anotheria.maf.action.ActionMapping;
+import net.anotheria.maf.bean.FormBean;
+import net.anotheria.maf.bean.annotations.Form;
 import net.java.dev.moskito.core.dynamic.MoskitoInvokationProxy;
 import net.java.dev.moskito.core.predefined.ServiceStatsCallHandler;
 import net.java.dev.moskito.core.predefined.ServiceStatsFactory;
-import net.java.dev.moskito.web.MoskitoAction;
 import net.java.dev.moskitodemo.usecases.qe.business.IQESolver;
 import net.java.dev.moskitodemo.usecases.qe.business.QESolverImpl;
 
-public class SolveQEAction extends MoskitoAction{
+public class SolveQEAction extends AbstractAction{
 	
 	private IQESolver solver;
 	
@@ -65,13 +65,13 @@ public class SolveQEAction extends MoskitoAction{
 	}
 
 	@Override
-	public ActionForward moskitoExecute(ActionMapping mapping, ActionForm af, HttpServletRequest req, HttpServletResponse res) throws Exception {
+	public ActionCommand execute(ActionMapping mapping, @Form(QEParameterForm.class)FormBean af, HttpServletRequest req, HttpServletResponse res) throws Exception {
 		
 		QEParameterForm form = (QEParameterForm)af;
 		System.out.println("Called QESolver with form: "+form);
 		if (form.isEmpty()){
 			System.out.println("Form is empty!");
-			return mapping.findForward("success");
+			return mapping.success();
 		}
 	
 		int a=0,b=0,c=0;
@@ -95,7 +95,7 @@ public class SolveQEAction extends MoskitoAction{
 		System.out.println("Errors: "+errorMessages);
 		if (errorMessages.size()>0){
 			req.setAttribute("errors", errorMessages);
-			return mapping.findForward("success");
+			return mapping.success();
 		}
 		
 		

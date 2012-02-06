@@ -2,7 +2,7 @@ package net.java.dev.moskito.core.usecase.recorder;
 
 import java.util.List;
 
-import net.java.dev.moskito.core.usecase.running.ExistingRunningUseCase;
+import net.java.dev.moskito.core.calltrace.CurrentlyTracedCall;
 
 /**
  * Interface for a use case recorder.
@@ -14,13 +14,13 @@ public interface IUseCaseRecorder {
 	 * Adds a newly recorded use-case.
 	 * @param useCase
 	 */
-	void addRecordedUseCase(ExistingRunningUseCase useCase);
+	void addRecordedUseCase(CurrentlyTracedCall useCase);
 	
 	/**
 	 * Returns the list of all recorded use-cases.
 	 * @return
 	 */
-	List<ExistingRunningUseCase> getRecordedUseCases();
+	List<CurrentlyTracedCall> getRecordedUseCases();
 	
 	/**
 	 * Returns the list of all recorded use-case names.
@@ -34,7 +34,7 @@ public interface IUseCaseRecorder {
 	 * @return
 	 * @throws NoSuchRecordedUseCaseException
 	 */
-	ExistingRunningUseCase getRecordedUseCaseByName(String name) throws NoSuchRecordedUseCaseException;
+	CurrentlyTracedCall getRecordedUseCaseByName(String name) throws NoSuchRecordedUseCaseException;
 	
 	/**
 	 * Deletes a recorded user case.

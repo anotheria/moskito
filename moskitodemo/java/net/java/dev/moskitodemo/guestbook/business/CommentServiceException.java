@@ -35,6 +35,11 @@
 package net.java.dev.moskitodemo.guestbook.business;
 
 public class CommentServiceException extends Exception{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	public CommentServiceException(String message) {
 		super(message);
 	}

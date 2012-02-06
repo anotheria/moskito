@@ -8,8 +8,8 @@ public abstract class AbstractCallExecution implements CallExecution{
 	}
 
 	@Override
-	public void startExecution(boolean recordUseCase) {
-		startExecution(recordUseCase, null);
+	public void startExecution(boolean traceCall) {
+		startExecution(traceCall, null);
 		
 	}
 

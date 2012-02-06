@@ -3,7 +3,7 @@
 %><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<title>Moskito UseCases</title>
+<title>MoSKito Journey</title>
 <link rel="stylesheet" href="mskCSS"/>
 </head>
 <body>
@@ -16,18 +16,18 @@
 <div class="main">
 	<ul class="breadcrumbs">
 		<li class="home_br">You are here:</li>
-		<li><a href="<msk:write name="mskShowMonitoringSessions"/>">Monitoring Sessions</a></li>
-		<li class="last"><span><msk:write name="msession" property="name"/> </span></li>
+		<li><a href="mskShowJourneys">Journeys</a></li>
+		<li class="last"><span><msk:write name="journey" property="name"/> </span></li>
 	</ul>
 	<div class="clear"><!-- --></div>
 		
-	<h1><span><msk:write name="msession" property="name"/></h1>
+	<h1><span><msk:write name="journey" property="name"/></h1>
 	
 	<div class="clear"><!-- --></div>
 	<div class="additional">
 		<div class="top"><div><!-- --></div></div>
 		<div class="add_in">
-			<div><span><msk:write name="msession"/></span></div>
+			<div><span><msk:write name="journey"/></span></div>
 		</div>
 		<div class="bot"><div><!-- --></div></div>
 	</div>
@@ -53,16 +53,16 @@
 					</thead>
 					<tbody>
 						
-						<msk:iterate name="recorded" type="net.java.dev.moskito.webui.bean.RecordedUseCaseListItemBean" id="useCase" indexId="index">
+						<msk:iterate name="recorded" type="net.java.dev.moskito.webui.bean.TracedCallListItemBean" id="tracedCall" indexId="index">
 							<tr class="<%= ((index & 1) == 0 )? "even" : "odd" %>">
 								<td><msk:write name="index"/></td>
 								 <td>
-									<a href="mskShowMonitoringSessionCall?pSessionName=<msk:write name="msession" property="name"/>&pPos=<msk:write name="index"/>">
-										<msk:write name="useCase" property="name"/>
+									<a href="mskShowJourneyCall?pJourneyName=<msk:write name="journey" property="name"/>&pPos=<msk:write name="index"/>">
+										<msk:write name="tracedCall" property="name"/>
 									</a>
 								 </td>	
 								 <td>	
-									<msk:write name="useCase" property="date"/>
+									<msk:write name="tracedCall" property="date"/>
 								  </td>
 							</tr>
 						</msk:iterate>

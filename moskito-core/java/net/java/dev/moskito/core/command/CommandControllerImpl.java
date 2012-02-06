@@ -46,7 +46,7 @@ import org.apache.log4j.Logger;
  * @author lrosenberg
  *
  */
-public enum CommandControllerImpl implements ICommandController{
+public enum CommandControllerImpl implements CommandController{
 	/**
 	 * The singleton instance.
 	 */
@@ -54,7 +54,7 @@ public enum CommandControllerImpl implements ICommandController{
 	/**
 	 * Map with registered processors.
 	 */
-	private Map<String, ICommandProcessor> processors;
+	private Map<String, CommandProcessor> processors;
 	/**
 	 * Logger instance.
 	 */
@@ -63,33 +63,33 @@ public enum CommandControllerImpl implements ICommandController{
 	 * Creates a new CommandControllerImpl.
 	 */
 	private CommandControllerImpl() {
-		processors = new HashMap<String, ICommandProcessor>();
+		processors = new HashMap<String, CommandProcessor>();
 		registerCommandProcessor("recordUseCase", new UseCaseRecorderCommandProcessor());
 	}
 	 
-	@Override public void registerCommandProcessor(String command, ICommandProcessor processor) {
+	@Override public void registerCommandProcessor(String command, CommandProcessor processor) {
 		if (log!=null){
 			log.debug("registering processor: "+processor+" for command: "+command);
 		}else{
 			Logger.getLogger(CommandControllerImpl.class).debug("registering processor: "+processor+" for command: "+command);
 		}
-		ICommandProcessor oldProcessor = processors.put(command, processor);
+		CommandProcessor oldProcessor = processors.put(command, processor);
 		if (oldProcessor!=null)
 			log.info("Implicitely unregistered processor: "+processor+" for command: "+command);
 		
 	}
 
 	//note, the second parameter is unneeded and should be removed. 
-	@Override public void unregisterCommandProcessor(String command, ICommandProcessor processor) {
+	@Override public void unregisterCommandProcessor(String command, CommandProcessor processor) {
 		log.debug("unregistering processor: "+processor+" for command: "+command);
-		ICommandProcessor oldProcessor = processors.remove(command);
+		CommandProcessor oldProcessor = processors.remove(command);
 		if (oldProcessor==null)
 			log.info("Remove for command: "+command+" had no effect (no command previously registered)");
 	}
 
 	@Override public void startCommand(String command, Map<String, String[]> parameters) {
 		log.debug("startCommand("+command+", "+parameters+")");
-		ICommandProcessor processor = processors.get(command);
+		CommandProcessor processor = processors.get(command);
 		if (processor==null)
 			return;
 		try{
@@ -101,7 +101,7 @@ public enum CommandControllerImpl implements ICommandController{
 
 	@Override public void stopCommand(String command, Map<String, String[]> parameters) {
 		log.debug("stopCommand("+command+", "+parameters+")");
-		ICommandProcessor processor = processors.get(command);
+		CommandProcessor processor = processors.get(command);
 		if (processor==null)
 			return;
 		try{

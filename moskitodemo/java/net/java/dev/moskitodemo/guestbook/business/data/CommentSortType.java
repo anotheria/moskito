@@ -37,6 +37,10 @@ package net.java.dev.moskitodemo.guestbook.business.data;
 import net.anotheria.util.sorter.SortType;
 
 public class CommentSortType extends SortType{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	public static final int SORT_BY_FIRST_NAME = 1;
 	public static final int SORT_BY_LAST_NAME  = 2;
 	public static final int SORT_BY_EMAIL = 3;

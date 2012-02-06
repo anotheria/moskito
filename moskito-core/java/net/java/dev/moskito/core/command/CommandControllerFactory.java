@@ -42,7 +42,7 @@ public class CommandControllerFactory {
 	 * Creates a command controller instance.
 	 * @return
 	 */
-	public static ICommandController getCommandController(){
+	public static CommandController getCommandController(){
 		return CommandControllerImpl.INSTANCE;
 	}
 }

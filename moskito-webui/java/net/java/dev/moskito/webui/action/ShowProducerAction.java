@@ -123,18 +123,17 @@ public class ShowProducerAction extends BaseMoskitoUIAction{
 			List<IStats> statsForDecorator = decoratorMap.get(decorator); 
 			for (int i=1; i<statsForDecorator.size(); i++){
 				IStats s = statsForDecorator.get(i);
-				if (filterZero && s.isEmpty(intervalName)){
-					continue;
+				if (!filterZero || s.isEmpty(intervalName)){
+					StatBean sb = new StatBean();
+					sb.setName(s.getName());
+					List<StatValueBean> statValues = decorator.getValues(s, intervalName, currentUnit.getUnit()); 
+					for (StatValueBean valueBean : statValues){
+						String graphKey = decorator.getName()+"_"+valueBean.getName();
+						graphData.get(graphKey).addValue(new GraphDataValueBean(s.getName(), valueBean.getRawValue()));
+					}
+					sb.setValues(statValues);
+					sbs.add(sb);
 				}
-				StatBean sb = new StatBean();
-				sb.setName(s.getName());
-				List<StatValueBean> statValues = decorator.getValues(s, intervalName, currentUnit.getUnit()); 
-				for (StatValueBean valueBean : statValues){
-					String graphKey = decorator.getName()+"_"+valueBean.getName();
-					graphData.get(graphKey).addValue(new GraphDataValueBean(s.getName(), valueBean.getRawValue()));
-				}
-				sb.setValues(statValues);
-				sbs.add(sb);
 			}
 			b.setStats(StaticQuickSorter.sort(sbs, getStatBeanSortType(b, req)));
 			

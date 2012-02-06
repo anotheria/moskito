@@ -1,10 +1,10 @@
 package net.java.dev.moskito.webui.bean;
 /**
- * This bean contains an item in the monitoring session list.
+ * This bean contains an item in the journey list.
  * @author lrosenberg.
  *
  */
-public class MonitoringSessionListItemBean {
+public class JourneyListItemBean {
 	/**
 	 * Name of the session.
 	 */

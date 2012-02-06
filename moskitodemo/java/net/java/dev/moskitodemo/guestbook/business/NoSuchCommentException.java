@@ -35,6 +35,11 @@
 package net.java.dev.moskitodemo.guestbook.business;
 
 public class NoSuchCommentException extends CommentServiceException{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	public NoSuchCommentException(int anId){
 		super("No comment with id: "+anId+" found.");
 	}

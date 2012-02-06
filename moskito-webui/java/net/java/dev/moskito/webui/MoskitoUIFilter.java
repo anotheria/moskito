@@ -10,6 +10,8 @@ import org.apache.log4j.Logger;
 
 import net.anotheria.maf.action.ActionMappingsConfigurator;
 import net.anotheria.maf.MAFFilter;
+import net.anotheria.util.maven.MavenVersion;
+import net.anotheria.webutils.util.VersionUtil;
 
 /**
  * MoskitoUI Filter is the main entering point of the Moskito Web User Interface.
@@ -31,6 +33,16 @@ public class MoskitoUIFilter extends MAFFilter{
 	@Override public void init(FilterConfig config) throws ServletException {
 		super.init(config);
 		log.info("Initing MoSKito WebUI...");
+
+		try{
+			MavenVersion moskitoVersion = VersionUtil.getWebappLibVersion(config.getServletContext(), "moskito-webui");
+			MavenVersion appVersion = VersionUtil.getWebappVersion(config.getServletContext());
+			config.getServletContext().setAttribute("application.maven.version", appVersion == null ? "?" : appVersion);
+			config.getServletContext().setAttribute("moskito.maven.version", moskitoVersion == null ? "?" : moskitoVersion);
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+
 //		System.out.println("Initing MoSKito WebUI...");
 		String pathToImagesParameter = config.getInitParameter("pathToImages");
 		if (pathToImagesParameter!=null && pathToImagesParameter.length()>0)

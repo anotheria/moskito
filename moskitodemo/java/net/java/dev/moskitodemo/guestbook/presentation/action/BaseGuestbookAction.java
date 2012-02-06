@@ -36,14 +36,14 @@ package net.java.dev.moskitodemo.guestbook.presentation.action;
 
 import javax.servlet.http.HttpServletRequest;
 
+import net.anotheria.maf.action.AbstractAction;
 import net.anotheria.util.NumberUtils;
-import net.java.dev.moskito.web.MoskitoAction;
 import net.java.dev.moskitodemo.guestbook.business.IAuthorizationService;
 import net.java.dev.moskitodemo.guestbook.business.ICommentService;
 import net.java.dev.moskitodemo.guestbook.business.MonitorableAuthorizationServiceFactory;
 import net.java.dev.moskitodemo.guestbook.business.MonitorableCommentServiceFactory;
 
-public abstract class BaseGuestbookAction extends MoskitoAction{
+public abstract class BaseGuestbookAction extends AbstractAction{
 	public static final String BEAN_AUTHORIZATION = "guestbook.Authorization";
 	
 	public static final String PARAM_COMMENT_ID = "pComment";
@@ -110,14 +110,14 @@ public abstract class BaseGuestbookAction extends MoskitoAction{
 		return NumberUtils.makeDigitalDateStringLong(timestamp)+" "+NumberUtils.makeTimeString(timestamp);
 	}
 
-	@Override
+	//@Override
 	public String getProducerId() {
 		if (myProducerId==null)
 			myProducerId = "gbook."+extractClassName();
 		return myProducerId;
 	}
 
-	@Override
+	//@Override
 	public String getSubsystem() {
 		return "guestbook";
 	}

@@ -44,16 +44,16 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import net.java.dev.moskito.core.calltrace.CurrentlyTracedCall;
+import net.java.dev.moskito.core.calltrace.RunningTraceContainer;
+import net.java.dev.moskito.core.calltrace.TraceStep;
+import net.java.dev.moskito.core.calltrace.TracedCall;
 import net.java.dev.moskito.core.predefined.Constants;
 import net.java.dev.moskito.core.predefined.ServletStats;
 import net.java.dev.moskito.core.producers.IStats;
 import net.java.dev.moskito.core.producers.IStatsProducer;
 import net.java.dev.moskito.core.registry.ProducerRegistryFactory;
 import net.java.dev.moskito.core.stats.Interval;
-import net.java.dev.moskito.core.usecase.running.ExistingRunningUseCase;
-import net.java.dev.moskito.core.usecase.running.PathElement;
-import net.java.dev.moskito.core.usecase.running.RunningUseCase;
-import net.java.dev.moskito.core.usecase.running.RunningUseCaseContainer;
 
 /**
  * This servlet class is a base class which can be used for extension to become a monitorable servlet without proxying or any dynamisation.
@@ -161,12 +161,12 @@ public class MoskitoHttpServlet extends HttpServlet implements IStatsProducer{
 	@Override
 	protected final void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		getStats.addRequest();
-		RunningUseCase aRunningUseCase = RunningUseCaseContainer.getCurrentRunningUseCase();
-		PathElement currentElement = null;
-		ExistingRunningUseCase runningUseCase = aRunningUseCase.useCaseRunning() ? 
-				(ExistingRunningUseCase)aRunningUseCase : null; 
+		TracedCall aRunningUseCase = RunningTraceContainer.getCurrentlyTracedCall();
+		TraceStep currentElement = null;
+		CurrentlyTracedCall runningUseCase = aRunningUseCase.callTraced() ? 
+				(CurrentlyTracedCall)aRunningUseCase : null; 
 		if (runningUseCase !=null)
-			currentElement = runningUseCase.startPathElement(new StringBuilder(getProducerId()).append('.').append("doGet").toString());
+			currentElement = runningUseCase.startStep(new StringBuilder(getProducerId()).append('.').append("doGet").toString());
 		long startTime = System.nanoTime();
 
 		try{
@@ -191,7 +191,7 @@ public class MoskitoHttpServlet extends HttpServlet implements IStatsProducer{
 			if (currentElement!=null)
 				currentElement.setDuration(executionTime);
 			if (runningUseCase !=null)
-				runningUseCase.endPathElement();
+				runningUseCase.endStep();
 			
 		}
 	}

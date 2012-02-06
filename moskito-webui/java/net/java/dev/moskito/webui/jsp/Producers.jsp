@@ -308,6 +308,7 @@
 		return false;
 	});
 </script>
+<jsp:include page="Footer.jsp" flush="false" />
 </div>	
 </body>
 </html>

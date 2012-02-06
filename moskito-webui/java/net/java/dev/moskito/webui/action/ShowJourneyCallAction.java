@@ -12,23 +12,41 @@ import net.anotheria.maf.bean.FormBean;
 import net.anotheria.util.NumberUtils;
 import net.java.dev.moskito.core.calltrace.CurrentlyTracedCall;
 import net.java.dev.moskito.core.calltrace.TraceStep;
+import net.java.dev.moskito.core.journey.Journey;
+import net.java.dev.moskito.core.journey.NoSuchJourneyException;
 import net.java.dev.moskito.core.stats.TimeUnit;
-import net.java.dev.moskito.webui.bean.NaviItem;
-import net.java.dev.moskito.webui.bean.TracedCallBean;
 import net.java.dev.moskito.webui.bean.TraceStepBean;
+import net.java.dev.moskito.webui.bean.TracedCallBean;
 
-public class ShowRecordedUseCaseAction extends BaseMoskitoUIAction{
+/**
+ * Show a single call in a monitoring session. 
+ * @author lrosenberg.
+ */
+public class ShowJourneyCallAction extends BaseJourneyAction{
 
 	@Override
 	protected String getLinkToCurrentPage(HttpServletRequest req) {
-		return "mskShowRecordedUseCase?pUseCaseName="+req.getParameter("pUseCaseName");
+		return "mskShowJourneyCall?pJourneyName="+req.getParameter("pJourneyName")+"&pPos="+req.getParameter("pPos");
 	}
 
 	@Override
-	public ActionCommand execute(ActionMapping mapping, FormBean formBean, HttpServletRequest req, HttpServletResponse res) throws Exception {
+	public ActionCommand execute(ActionMapping mapping, FormBean formBean, HttpServletRequest req, HttpServletResponse res) {
 
-		String useCaseName = req.getParameter("pUseCaseName");
-		CurrentlyTracedCall useCase = getUseCaseRecorder().getRecordedUseCaseByName(useCaseName);
+		String journeyName = req.getParameter("pJourneyName");
+		int callPosition = 0;
+		try{ 
+			callPosition = Integer.parseInt(req.getParameter("pPos"));
+		}catch(Exception ignored){}
+				
+		Journey journey = null;
+		try{
+			journey = getJourneyManager().getJourney(journeyName);
+		}catch(NoSuchJourneyException e){
+			throw new IllegalArgumentException("Journey with name "+journeyName+" not found.");
+		}
+		CurrentlyTracedCall useCase = journey.getTracedCalls().get(callPosition);
+		
+		req.setAttribute("journeyName", journeyName);
 		
 		TraceStep root = useCase.getRootStep();
 		TracedCallBean bean = new TracedCallBean();
@@ -36,11 +54,13 @@ public class ShowRecordedUseCaseAction extends BaseMoskitoUIAction{
 		bean.setCreated(useCase.getCreated());
 		bean.setDate(NumberUtils.makeISO8601TimestampString(useCase.getCreated()));
 			
+		TimeUnit unit = getCurrentUnit(req).getUnit();
+		
 		ArrayList<TraceStepBean> elements = new ArrayList<TraceStepBean>();
-		fillUseCasePathElementBeanList(elements, root,0, getCurrentUnit(req).getUnit());
+		fillUseCasePathElementBeanList(elements, root,0, unit);
 		bean.setElements(elements);
 		
-		req.setAttribute("recordedUseCase", bean);
+		req.setAttribute("tracedCall", bean);
 		
 		return mapping.success();
 	}
@@ -50,12 +70,11 @@ public class ShowRecordedUseCaseAction extends BaseMoskitoUIAction{
 		b.setCall(recursion == 0 ? "ROOT" : element.getCall());
 		b.setRoot(recursion == 0);
 		b.setLayer(recursion);
-
 		b.setDuration(unit.transformNanos(element.getDuration()));
-		String ident = "";
+		StringBuilder ident = new StringBuilder();
 		for (int i=0; i<recursion; i++)
-			ident += "&nbsp;&nbsp;";
-		b.setIdent(ident);
+			ident.append("&nbsp;&nbsp;");
+		b.setIdent(ident.toString());
 		b.setAborted(element.isAborted());
 		list.add(b);
 
@@ -65,14 +84,8 @@ public class ShowRecordedUseCaseAction extends BaseMoskitoUIAction{
 			timespentInChilds += p.getDuration();
 			fillUseCasePathElementBeanList(list, p, recursion+1, unit);
 		}
-		b.setTimespent(unit.transformNanos(element.getDuration() - timespentInChilds));
+		b.setTimespent(unit.transformNanos((element.getDuration() - timespentInChilds)));
 		
 	}
-	
-	@Override
-	protected final NaviItem getCurrentNaviItem() {
-		return NaviItem.USECASES;
-	}
-
 
 }

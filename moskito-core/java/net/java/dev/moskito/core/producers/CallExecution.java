@@ -15,17 +15,25 @@ public interface CallExecution {
 	 * Starts the execution. If recordUseCase is true and a use case is running, the current progress will be stored.
 	 * @param recordUseCase
 	 */
-	void startExecution(boolean recordUseCase);
+	void startExecution(boolean traceCall);
 
+	/**
+	 * Starts an execution. Provides trace informations.
+	 * @param callDescription
+	 */
 	void startExecution(String callDescription);
 
-	void startExecution(boolean recordUseCase, String callDescription);
+	void startExecution(boolean traceCall, String callDescription);
 
 	/**
 	 * Finishes the execution.
 	 */
 	void finishExecution();
 	
+	/**
+	 * Finishes the execution and notifies about the execution results for call trace.
+	 * @param result
+	 */
 	void finishExecution(String result);
 
 	/**
@@ -37,6 +45,8 @@ public interface CallExecution {
 	 */
 	void abortExecution();
 	
-	
+	/**
+	 * Notifies that the execution is aborted. Same as notifyExecutionError(); finishExecution(result);.
+	 */
 	void abortExecution(String result);
 }

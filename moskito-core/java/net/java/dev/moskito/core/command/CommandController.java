@@ -40,19 +40,19 @@ import java.util.Map;
  * @author lrosenberg
  *
  */
-public interface ICommandController {
+public interface CommandController {
 	/**
 	 * Registers a new command processor.
 	 * @param command string command to react on
 	 * @param processor the processor object for given command
 	 */
-	void registerCommandProcessor(String command, ICommandProcessor processor);
+	void registerCommandProcessor(String command, CommandProcessor processor);
 	/**
 	 * Unregisters a command processor.
 	 * @param command
 	 * @param processor
 	 */
-	void unregisterCommandProcessor(String command, ICommandProcessor processor);
+	void unregisterCommandProcessor(String command, CommandProcessor processor);
 	/**
 	 * Starts command execution.
 	 * @param command

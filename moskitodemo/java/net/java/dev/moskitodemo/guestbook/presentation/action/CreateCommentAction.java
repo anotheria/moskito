@@ -37,6 +37,10 @@ package net.java.dev.moskitodemo.guestbook.presentation.action;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import net.anotheria.maf.action.ActionCommand;
+import net.anotheria.maf.action.ActionMapping;
+import net.anotheria.maf.bean.FormBean;
+import net.anotheria.maf.bean.annotations.Form;
 import net.java.dev.moskitodemo.guestbook.business.AntispamUtil;
 import net.java.dev.moskitodemo.guestbook.business.CommentServiceException;
 import net.java.dev.moskitodemo.guestbook.business.data.Comment;
@@ -44,9 +48,6 @@ import net.java.dev.moskitodemo.guestbook.presentation.bean.CommentForm;
 import net.java.dev.moskitodemo.guestbook.presentation.bean.MessageBean;
 
 import org.apache.log4j.Logger;
-import org.apache.struts.action.ActionForm;
-import org.apache.struts.action.ActionForward;
-import org.apache.struts.action.ActionMapping;
 
 /**
  * Creates a new comment object from form. 
@@ -61,7 +62,7 @@ public class CreateCommentAction extends BaseGuestbookAction{
 	}
 
 	@Override
-	public ActionForward moskitoExecute(ActionMapping mapping, ActionForm af, HttpServletRequest req, HttpServletResponse res) throws Exception {
+	public ActionCommand execute(ActionMapping mapping, @Form(CommentForm.class)FormBean af, HttpServletRequest req, HttpServletResponse res) throws Exception {
 
 		MessageBean bean = new MessageBean();
 		try{
@@ -71,7 +72,7 @@ public class CreateCommentAction extends BaseGuestbookAction{
 				log.info("Detected bot comment: "+form+" from ip: "+req.getRemoteAddr());
 				bean.setMessageText("Thanx, comment created (Actually it isn't, since I think that you are a guestbook-spamming bot! But in case the stupid checks for created in output, it's here");
 				req.setAttribute("message", bean);
-				return mapping.findForward("success");
+				return mapping.success();
 			}
 			
 			Comment c = getCommentService().createComment(); 
@@ -92,7 +93,7 @@ public class CreateCommentAction extends BaseGuestbookAction{
 		}
 		
 		req.setAttribute("message", bean);
-		return mapping.findForward("success");
+		return mapping.success();
 	}
 	
 }

@@ -4,11 +4,11 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
+import net.java.dev.moskito.core.calltrace.CurrentlyTracedCall;
+import net.java.dev.moskito.core.calltrace.RunningTraceContainer;
 import net.java.dev.moskito.core.dynamic.IOnDemandCallHandler;
 import net.java.dev.moskito.core.dynamic.MoskitoInvokationProxy;
 import net.java.dev.moskito.core.producers.IStatsProducer;
-import net.java.dev.moskito.core.usecase.running.ExistingRunningUseCase;
-import net.java.dev.moskito.core.usecase.running.RunningUseCaseContainer;
 
 import org.junit.Test;
 
@@ -79,23 +79,23 @@ public class ServiceStatsCallHandlerTest {
 	}
 	
 	private void _testInUseCase(IOnDemandCallHandler handler){
-		RunningUseCaseContainer.startUseCase("test");
+		RunningTraceContainer.startTracedCall("test");
 		TestServiceImpl impl = new TestServiceImpl();
 		MoskitoInvokationProxy proxy = new MoskitoInvokationProxy(impl, handler, new ServiceStatsFactory(), TestService.class);
 		TestService service = (TestService)proxy.createProxy();
-		ExistingRunningUseCase useCase = (ExistingRunningUseCase) RunningUseCaseContainer.getCurrentRunningUseCase();
+		CurrentlyTracedCall useCase = (CurrentlyTracedCall) RunningTraceContainer.getCurrentlyTracedCall();
 		service.increase();
-		assertFalse(useCase.getLastElement().isAborted());
+		assertFalse(useCase.getLastStep().isAborted());
 		try{
 			service.throwException();
 			fail("Exception expected");
 		}catch(Exception e){}
-		assertTrue(useCase.useCaseRunning());
+		assertTrue(useCase.callTraced());
 		
-		assertTrue(useCase.getLastElement().isAborted());
+		assertTrue(useCase.getLastStep().isAborted());
 		
 		String ret = service.operationWithParameter(1111, "HelloWorld" , false);
-		String useCase2string = useCase.getLastElement().toString();
+		String useCase2string = useCase.getLastStep().toString();
 		assertTrue(useCase2string.indexOf(ret)>-1);
 		assertTrue(useCase2string.indexOf("HelloWorld")>-1);
 		assertTrue(useCase2string.indexOf("1111")>-1);

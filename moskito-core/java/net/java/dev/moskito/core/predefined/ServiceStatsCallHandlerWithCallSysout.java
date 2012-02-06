@@ -38,12 +38,12 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.concurrent.atomic.AtomicLong;
 
+import net.java.dev.moskito.core.calltrace.CurrentlyTracedCall;
+import net.java.dev.moskito.core.calltrace.TraceStep;
+import net.java.dev.moskito.core.calltrace.TracedCall;
+import net.java.dev.moskito.core.calltrace.RunningTraceContainer;
 import net.java.dev.moskito.core.dynamic.IOnDemandCallHandler;
 import net.java.dev.moskito.core.producers.IStats;
-import net.java.dev.moskito.core.usecase.running.ExistingRunningUseCase;
-import net.java.dev.moskito.core.usecase.running.PathElement;
-import net.java.dev.moskito.core.usecase.running.RunningUseCase;
-import net.java.dev.moskito.core.usecase.running.RunningUseCaseContainer;
 
 /**
  * This CallHandler prints out all requests that passes throw it to the standart out.
@@ -108,12 +108,12 @@ public class ServiceStatsCallHandlerWithCallSysout implements IOnDemandCallHandl
 		
 		defaultStats.addRequest();
 		methodStats.addRequest();
-		RunningUseCase aRunningUseCase = RunningUseCaseContainer.getCurrentRunningUseCase();
-		PathElement currentElement = null;
-		ExistingRunningUseCase runningUseCase = aRunningUseCase.useCaseRunning() ? 
-				(ExistingRunningUseCase)aRunningUseCase : null; 
+		TracedCall aRunningUseCase = RunningTraceContainer.getCurrentlyTracedCall();
+		TraceStep currentElement = null;
+		CurrentlyTracedCall runningUseCase = aRunningUseCase.callTraced() ? 
+				(CurrentlyTracedCall)aRunningUseCase : null; 
 		if (runningUseCase !=null)
-			currentElement = runningUseCase.startPathElement(new StringBuilder(producerId).append('.').append(method.getName()).toString());
+			currentElement = runningUseCase.startStep(new StringBuilder(producerId).append('.').append(method.getName()).toString());
 		long startTime = System.nanoTime();
 		try{
 			Object ret = method.invoke(target, args);
@@ -144,7 +144,7 @@ public class ServiceStatsCallHandlerWithCallSysout implements IOnDemandCallHandl
 			if (currentElement!=null)
 				currentElement.setDuration(System.currentTimeMillis()-startTime);
 			if (runningUseCase !=null)
-				runningUseCase.endPathElement();
+				runningUseCase.endStep();
 		}
 	}
 } 

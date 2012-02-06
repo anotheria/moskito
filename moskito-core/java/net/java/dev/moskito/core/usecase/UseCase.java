@@ -6,7 +6,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import net.java.dev.moskito.core.usecase.running.ExistingRunningUseCase;
+import net.java.dev.moskito.core.calltrace.CurrentlyTracedCall;
 
 /**
  * Recorded use-case pattern, that contains multiple use-cases.
@@ -34,8 +34,8 @@ public class UseCase {
 	 * Adds an executed use case path.
 	 * @param finishedUseCase
 	 */
-	public void addExecution(ExistingRunningUseCase finishedUseCase){
-		String path = finishedUseCase.getUseCasePath();
+	public void addExecution(CurrentlyTracedCall finishedUseCase){
+		String path = finishedUseCase.getTrace();
 		UseCasePath useCasePath = pathes.get(path);
 		if (useCasePath==null){
 			synchronized(pathes){//DLC

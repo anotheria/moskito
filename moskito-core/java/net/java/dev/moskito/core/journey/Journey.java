@@ -1,16 +1,16 @@
-package net.java.dev.moskito.core.usecase.session;
+package net.java.dev.moskito.core.journey;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import net.java.dev.moskito.core.usecase.running.ExistingRunningUseCase;
+import net.java.dev.moskito.core.calltrace.CurrentlyTracedCall;
 
 /**
  * A monitoring session at the runtime of recording.
  * @author lrosenberg
  *
  */
-public class MonitoringSession {
+public class Journey {
 	/**
 	 * Name of the session.
 	 */
@@ -18,7 +18,7 @@ public class MonitoringSession {
 	/**
 	 * UseCases (Calls) in this session.
 	 */
-	private List<ExistingRunningUseCase> useCases;
+	private List<CurrentlyTracedCall> tracedCalls;
 	/**
 	 * True if the session is still actively recorded.
 	 */
@@ -36,19 +36,19 @@ public class MonitoringSession {
 	 * Creates a new monitoring session with a given name.
 	 * @param aName
 	 */
-	public MonitoringSession(String aName){
+	public Journey(String aName){
 		name = aName;
 		createdTimestamp = System.currentTimeMillis();
 		active = true;
-		useCases = new ArrayList<ExistingRunningUseCase>();
+		tracedCalls = new ArrayList<CurrentlyTracedCall>();
 	}
 	
 	/**
 	 * Adds a use case (call) to this session.
 	 * @param aUseCase
 	 */
-	public void addUseCase(ExistingRunningUseCase aUseCase){
-		useCases.add(aUseCase);
+	public void addUseCase(CurrentlyTracedCall aTracedCall){
+		tracedCalls.add(aTracedCall);
 		lastActivityTimestamp = System.currentTimeMillis();
 	}
 	
@@ -81,7 +81,7 @@ public class MonitoringSession {
 	 * Returns contained use cases.
 	 * @return
 	 */
-	public List<ExistingRunningUseCase> getUseCases() {
-		return useCases;
+	public List<CurrentlyTracedCall> getTracedCalls() {
+		return tracedCalls;
 	}
 }

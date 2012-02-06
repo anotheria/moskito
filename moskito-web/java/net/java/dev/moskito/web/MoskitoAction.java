@@ -40,16 +40,16 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import net.java.dev.moskito.core.calltrace.CurrentlyTracedCall;
+import net.java.dev.moskito.core.calltrace.RunningTraceContainer;
+import net.java.dev.moskito.core.calltrace.TraceStep;
+import net.java.dev.moskito.core.calltrace.TracedCall;
 import net.java.dev.moskito.core.predefined.ActionStats;
 import net.java.dev.moskito.core.predefined.Constants;
 import net.java.dev.moskito.core.producers.IStats;
 import net.java.dev.moskito.core.producers.IStatsProducer;
 import net.java.dev.moskito.core.registry.ProducerRegistryFactory;
 import net.java.dev.moskito.core.stats.Interval;
-import net.java.dev.moskito.core.usecase.running.ExistingRunningUseCase;
-import net.java.dev.moskito.core.usecase.running.PathElement;
-import net.java.dev.moskito.core.usecase.running.RunningUseCase;
-import net.java.dev.moskito.core.usecase.running.RunningUseCaseContainer;
 
 import org.apache.struts.action.Action;
 import org.apache.struts.action.ActionForm;
@@ -99,12 +99,12 @@ public abstract class MoskitoAction extends Action implements IStatsProducer {
 		
 		stats.addRequest();
 		long startTime = System.nanoTime();
-		RunningUseCase aRunningUseCase = RunningUseCaseContainer.getCurrentRunningUseCase();
-		PathElement currentElement = null;
-		ExistingRunningUseCase runningUseCase = aRunningUseCase.useCaseRunning() ? 
-				(ExistingRunningUseCase)aRunningUseCase : null; 
-		if (runningUseCase !=null)
-			currentElement = runningUseCase.startPathElement(new StringBuilder(getProducerId()).append('.').append("execute").toString());
+		TracedCall aTracedCall = RunningTraceContainer.getCurrentlyTracedCall();
+		TraceStep currentStep = null;
+		CurrentlyTracedCall tracedCall = aTracedCall.callTraced() ? 
+				(CurrentlyTracedCall)aTracedCall : null; 
+		if (tracedCall !=null)
+			currentStep = tracedCall.startStep(new StringBuilder(getProducerId()).append('.').append("execute").toString());
 		try {
 			
 			preProcessExecute(mapping, bean, req, res);
@@ -118,10 +118,10 @@ public abstract class MoskitoAction extends Action implements IStatsProducer {
 			long duration = System.nanoTime() - startTime;
 			stats.addExecutionTime(duration);
 			stats.notifyRequestFinished();
-			if (currentElement!=null)
-				currentElement.setDuration(duration);
-			if (runningUseCase !=null)
-				runningUseCase.endPathElement();
+			if (currentStep!=null)
+				currentStep.setDuration(duration);
+			if (tracedCall !=null)
+				tracedCall.endStep();
 		}
 	}
 	

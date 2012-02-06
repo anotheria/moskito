@@ -32,31 +32,31 @@
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR
  * THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */	
-package net.java.dev.moskito.core.usecase.running;
+package net.java.dev.moskito.core.calltrace;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * A path element along the monitoring points in a running use case.
+ * A trace step along the monitoring points in a traced call.
  * @author lrosenberg
  *
  */
-public class PathElement {
+public class TraceStep {
 	/**
 	 * Call description, might be a method call or whatever suits best.
 	 */
 	private String call;
 	/**
-	 * Sub elements.
+	 * Sub steps.
 	 */
-	private List<PathElement> children;
+	private List<TraceStep> children;
 	/**
-	 * Parent element.
+	 * Parent step.
 	 */
-	private PathElement parent;
+	private TraceStep parent;
 	/**
-	 * Duration of this element.
+	 * Duration of this step.
 	 */
 	private long duration;
 	/**
@@ -64,31 +64,31 @@ public class PathElement {
 	 */
 	private boolean aborted;
 	
-	public PathElement(String aCall){
+	public TraceStep(String aCall){
 		call = aCall;
-		children = new ArrayList<PathElement>();
+		children = new ArrayList<TraceStep>();
 	}
 	
 	public String getCall(){
 		return call;
 	}
 	
-	public List<PathElement> getChildren(){
+	public List<TraceStep> getChildren(){
 		return children;
 	}
 	
-	public void setParent(PathElement element){
-		parent = element;
+	public void setParent(TraceStep step){
+		parent = step;
 	}
 	
-	public PathElement getParent(){
+	public TraceStep getParent(){
 		return parent;
 	}
 	
-	public PathElement getLastElement(){
+	public TraceStep getLastStep(){
 		if (children==null || children.size()==0)
 			return this;
-		return children.get(children.size()-1).getLastElement();
+		return children.get(children.size()-1).getLastStep();
 	}
 	
 	public String toString(){
@@ -101,35 +101,34 @@ public class PathElement {
 	}
 	
 	public String toDetails(int ident){
-		StringBuilder ret = new StringBuilder();
-		ret.append(getIdent(ident)).append(this);
-		for (PathElement p : children)
+		StringBuilder ret = getIdent(ident).append(this);
+		for (TraceStep p : children)
 			ret.append('\n').append(p.toDetails(ident+1));
 		return ret.toString();
 	}
 	
-	private static String getIdent(int ident){
+	private static StringBuilder getIdent(int ident){
 		StringBuilder ret = new StringBuilder();
 		for (int i=0; i<ident; i++)
 			ret.append('\t');
-		return ret.toString();
+		return ret;
 	}
 	
-	public void addChild(PathElement p){
+	public void addChild(TraceStep p){
 		children.add(p);
 		p.setParent(this);
 	}
 	
-	public String generatePath(){
-		return _generatePath().toString();
+	public String generateTrace(){
+		return _generateTrace().toString();
 	}
 	
-	private StringBuilder _generatePath(){
+	private StringBuilder _generateTrace(){
 		StringBuilder b = new StringBuilder(call);
 		if (children.size()>0){
 			b.append('[');
 			for (int i=0; i<children.size(); i++){
-				b.append(children.get(i)._generatePath());
+				b.append(children.get(i)._generateTrace());
 				if (i<children.size()-1)
 					b.append(", ");
 			}

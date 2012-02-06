@@ -24,7 +24,7 @@ public enum NaviItem {
 	/**
 	 * Monitoring sessions navi item.
 	 */
-	SESSIONS("Monitoring Sessions"),
+	JOURNEYS("Journeys"),
 	/**
 	 * Charts navi item.
 	 */
@@ -48,7 +48,7 @@ public enum NaviItem {
 		menu.add(DASHBOARD);
 		menu.add(PRODUCERS);
 		menu.add(THRESHOLDS);
-		menu.add(SESSIONS);
+		menu.add(JOURNEYS);
 		menu.add(CHARTS);
 		menu.add(ACCUMULATORS);
 		//menu.add(USECASES);

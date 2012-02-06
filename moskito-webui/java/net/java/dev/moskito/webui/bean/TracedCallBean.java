@@ -3,14 +3,14 @@ package net.java.dev.moskito.webui.bean;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RecordedUseCaseBean {
+public class TracedCallBean {
 	private String name;
 	private long created;
 	private String date;
-	private List<UseCasePathElementBean> elements;
+	private List<TraceStepBean> elements;
 	
-	public RecordedUseCaseBean(){
-		elements = new ArrayList<UseCasePathElementBean>();
+	public TracedCallBean(){
+		elements = new ArrayList<TraceStepBean>();
 	}
 	
 	public long getCreated() {
@@ -25,10 +25,10 @@ public class RecordedUseCaseBean {
 	public void setDate(String date) {
 		this.date = date;
 	}
-	public List<UseCasePathElementBean> getElements() {
+	public List<TraceStepBean> getElements() {
 		return elements;
 	}
-	public void setElements(List<UseCasePathElementBean> elements) {
+	public void setElements(List<TraceStepBean> elements) {
 		this.elements = elements;
 	}
 	public String getName() {
@@ -38,7 +38,7 @@ public class RecordedUseCaseBean {
 		this.name = name;
 	}
 	
-	public void addElement(UseCasePathElementBean element){
+	public void addElement(TraceStepBean element){
 		elements.add(element);
 	}
 	

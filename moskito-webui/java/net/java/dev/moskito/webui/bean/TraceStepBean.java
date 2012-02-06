@@ -6,7 +6,7 @@ import java.util.List;
  * This bean represents an element along an use-case path.
  * @author lrosenberg
  */
-public class UseCasePathElementBean {
+public class TraceStepBean {
 	/**
 	 * Method call.
 	 */
@@ -15,6 +15,9 @@ public class UseCasePathElementBean {
 	 * Method duration.
 	 */
 	private long duration;
+	/**
+	 * Time spent in call.
+	 */
 	private long timespent;
 	/**
 	 * If true the call was aborted by an uncaught exception.
@@ -23,7 +26,7 @@ public class UseCasePathElementBean {
 	/**
 	 * Children calls.
 	 */
-	private List<UseCasePathElementBean> children;
+	private List<TraceStepBean> children;
 	/**
 	 * Ident for representation.
 	 */
@@ -38,11 +41,11 @@ public class UseCasePathElementBean {
 	 */
 	private String fullCall;
 	
-	public UseCasePathElementBean(){
-		children = new ArrayList<UseCasePathElementBean>();
+	public TraceStepBean(){
+		children = new ArrayList<TraceStepBean>();
 	}
 	
-	public void addChild(UseCasePathElementBean c){
+	public void addChild(TraceStepBean c){
 		children.add(c);
 	}
 
@@ -67,11 +70,11 @@ public class UseCasePathElementBean {
 		call = aCall;
 	}
 
-	public List<UseCasePathElementBean> getChildren() {
+	public List<TraceStepBean> getChildren() {
 		return children;
 	}
 
-	public void setChildren(List<UseCasePathElementBean> children) {
+	public void setChildren(List<TraceStepBean> children) {
 		this.children = children;
 	}
 

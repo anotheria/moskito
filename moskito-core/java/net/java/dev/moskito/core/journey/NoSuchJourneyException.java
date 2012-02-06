@@ -1,10 +1,10 @@
-package net.java.dev.moskito.core.usecase.session;
+package net.java.dev.moskito.core.journey;
 /**
  * This exception is thrown if a non-existing session is requested from the manager.
  * @author lrosenberg.
  *
  */
-public class NoSuchMonitoringSessionException extends Exception{
+public class NoSuchJourneyException extends Exception{
 	/**
 	 * SerialVersionUID.
 	 */
@@ -14,7 +14,7 @@ public class NoSuchMonitoringSessionException extends Exception{
 	 * Creates a new NoSuchMonitoringSessionException.
 	 * @param name
 	 */
-	public NoSuchMonitoringSessionException(String name){
+	public NoSuchJourneyException(String name){
 		super("No monitoring session with name: "+name);
 	}
 }

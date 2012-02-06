@@ -37,15 +37,14 @@ package net.java.dev.moskitodemo.guestbook.presentation.action;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.struts.action.ActionForm;
-import org.apache.struts.action.ActionForward;
-import org.apache.struts.action.ActionMapping;
+import net.anotheria.maf.action.ActionCommand;
+import net.anotheria.maf.bean.FormBean;
 
 public class NewCommentAction extends BaseGuestbookAction{
 
 	@Override
-	public ActionForward moskitoExecute(ActionMapping mapping, ActionForm af, HttpServletRequest req, HttpServletResponse res) throws Exception {
-		return mapping.findForward("success");
+	public ActionCommand execute(net.anotheria.maf.action.ActionMapping mapping, FormBean af, HttpServletRequest req, HttpServletResponse res) throws Exception {
+		return mapping.success();
 	}
 
 }

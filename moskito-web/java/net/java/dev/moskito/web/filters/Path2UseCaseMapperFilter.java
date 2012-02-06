@@ -46,14 +46,14 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.log4j.Logger;
-
 import net.anotheria.util.StringUtils;
+import net.java.dev.moskito.core.calltrace.CurrentlyTracedCall;
+import net.java.dev.moskito.core.calltrace.RunningTraceContainer;
 import net.java.dev.moskito.core.usecase.UseCase;
 import net.java.dev.moskito.core.usecase.UseCaseManager;
 import net.java.dev.moskito.core.usecase.UseCaseManagerFactory;
-import net.java.dev.moskito.core.usecase.running.ExistingRunningUseCase;
-import net.java.dev.moskito.core.usecase.running.RunningUseCaseContainer;
+
+import org.apache.log4j.Logger;
 
 public class Path2UseCaseMapperFilter implements Filter{
 	
@@ -91,14 +91,14 @@ public class Path2UseCaseMapperFilter implements Filter{
 		}
 		
 		System.out.println("Found use case: "+useCaseName);
-		RunningUseCaseContainer.startUseCase(useCaseName);
+		RunningTraceContainer.startTracedCall(useCaseName);
 		try{
 			chain.doFilter(sreq, sres);
 		}finally{
-			ExistingRunningUseCase finishedUseCase = (ExistingRunningUseCase)RunningUseCaseContainer.endUseCase();
+			CurrentlyTracedCall finishedUseCase = (CurrentlyTracedCall)RunningTraceContainer.endTrace();
 			
 			System.out.println(finishedUseCase.toDetails());
-			System.out.println("Path: "+finishedUseCase.getUseCasePath());
+			System.out.println("Path: "+finishedUseCase.getTrace());
 			
 			useCase.addExecution(finishedUseCase);
 			System.out.println("UseCase: "+useCase);

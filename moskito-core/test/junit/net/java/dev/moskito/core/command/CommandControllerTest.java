@@ -5,7 +5,7 @@ import org.junit.Test;
 
 public class CommandControllerTest {
 	
-	private static ICommandController controller;
+	private static CommandController controller;
 
 	@BeforeClass public static void createController(){
 		controller = CommandControllerFactory.getCommandController();

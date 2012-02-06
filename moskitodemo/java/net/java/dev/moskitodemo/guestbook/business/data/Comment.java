@@ -42,6 +42,11 @@ import net.anotheria.util.sorter.IComparable;
 
 public class Comment implements Serializable, IComparable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -2709559716434110636L;
+	
 	private int id;
 	private String firstName;
 	private String lastName;

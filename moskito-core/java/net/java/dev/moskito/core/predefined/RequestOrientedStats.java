@@ -42,6 +42,10 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
+import net.java.dev.moskito.core.calltrace.CurrentlyTracedCall;
+import net.java.dev.moskito.core.calltrace.TraceStep;
+import net.java.dev.moskito.core.calltrace.TracedCall;
+import net.java.dev.moskito.core.calltrace.RunningTraceContainer;
 import net.java.dev.moskito.core.producers.AbstractCallExecution;
 import net.java.dev.moskito.core.producers.AbstractStats;
 import net.java.dev.moskito.core.producers.CallExecution;
@@ -49,10 +53,6 @@ import net.java.dev.moskito.core.stats.Interval;
 import net.java.dev.moskito.core.stats.StatValue;
 import net.java.dev.moskito.core.stats.TimeUnit;
 import net.java.dev.moskito.core.stats.impl.StatValueFactory;
-import net.java.dev.moskito.core.usecase.running.ExistingRunningUseCase;
-import net.java.dev.moskito.core.usecase.running.PathElement;
-import net.java.dev.moskito.core.usecase.running.RunningUseCase;
-import net.java.dev.moskito.core.usecase.running.RunningUseCaseContainer;
 
 /**
  * This is an abstract class for all request oriented stats.
@@ -408,22 +408,22 @@ public abstract class RequestOrientedStats extends AbstractStats {
 		 * Starttime of the execution.
 		 */
 		private long startTime;
-		private PathElement currentElement = null;
-		private ExistingRunningUseCase runningUseCase = null;
+		private TraceStep currentStep = null;
+		private CurrentlyTracedCall currentlyTracedCall = null;
 		
 		@Override
 		public void finishExecution(String result) {
 			long exTime = System.nanoTime() - startTime;
 			addExecutionTime(exTime);
 			notifyRequestFinished();
-			if (currentElement!=null){
-				currentElement.setDuration(exTime);
+			if (currentStep!=null){
+				currentStep.setDuration(exTime);
 				if (result!=null){
-					currentElement.appendToCall(" = "+result);
+					currentStep.appendToCall(" = "+result);
 				}
 			}
-			if (runningUseCase !=null)
-				runningUseCase.endPathElement();
+			if (currentlyTracedCall !=null)
+				currentlyTracedCall.endStep();
 	
 		}
 
@@ -438,11 +438,11 @@ public abstract class RequestOrientedStats extends AbstractStats {
 			startTime = System.nanoTime();
 			
 			if (recordUseCase){
-				RunningUseCase aRunningUseCase = RunningUseCaseContainer.getCurrentRunningUseCase();
-				runningUseCase = aRunningUseCase.useCaseRunning() ? 
-						(ExistingRunningUseCase)aRunningUseCase : null; 
-				if (runningUseCase !=null){
-					currentElement = runningUseCase.startPathElement(useCaseDescription == null ? getName():useCaseDescription);
+				TracedCall tracedCall = RunningTraceContainer.getCurrentlyTracedCall();
+				currentlyTracedCall = tracedCall.callTraced() ? 
+						(CurrentlyTracedCall)tracedCall : null; 
+				if (currentlyTracedCall !=null){
+					currentStep = currentlyTracedCall.startStep(useCaseDescription == null ? getName():useCaseDescription);
 				}
 			}
 		}

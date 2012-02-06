@@ -34,9 +34,10 @@
  */	
 package net.java.dev.moskitodemo.guestbook.presentation.bean;
 
-import org.apache.struts.action.ActionForm;
+import net.anotheria.maf.bean.FormBean;
 
-public class CommentForm extends ActionForm{
+
+public class CommentForm implements FormBean{
 	private String firstName;
 	private String lastName;
 	private String text;

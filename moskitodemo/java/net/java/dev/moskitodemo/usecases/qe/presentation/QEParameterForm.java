@@ -34,9 +34,9 @@
  */	
 package net.java.dev.moskitodemo.usecases.qe.presentation;
 
-import org.apache.struts.action.ActionForm;
+import net.anotheria.maf.bean.FormBean;
 
-public class QEParameterForm extends ActionForm{
+public class QEParameterForm implements FormBean{
 	private String a;
 	private String b;
 	private String c;

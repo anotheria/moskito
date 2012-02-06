@@ -12,9 +12,9 @@ import net.java.dev.moskito.webui.action.ShowAllProducersAction;
 import net.java.dev.moskito.webui.action.ShowChartsAction;
 import net.java.dev.moskito.webui.action.ShowDashboardAction;
 import net.java.dev.moskito.webui.action.ShowExplanationsAction;
-import net.java.dev.moskito.webui.action.ShowMonitoringSessionAction;
-import net.java.dev.moskito.webui.action.ShowMonitoringSessionCallAction;
-import net.java.dev.moskito.webui.action.ShowMonitoringSessionsAction;
+import net.java.dev.moskito.webui.action.ShowJourneyAction;
+import net.java.dev.moskito.webui.action.ShowJourneyCallAction;
+import net.java.dev.moskito.webui.action.ShowJourneysAction;
 import net.java.dev.moskito.webui.action.ShowProducerAction;
 import net.java.dev.moskito.webui.action.ShowProducersForCategoryAction;
 import net.java.dev.moskito.webui.action.ShowProducersForSubsystemAction;
@@ -29,90 +29,90 @@ import net.java.dev.moskito.webui.action.ShowUseCasesAction;
  */
 public class MoskitoMappingsConfigurator implements ActionMappingsConfigurator{
 	
-	@Override public void configureActionMappings(){
-		ActionMappings.addForward("mskCSS", "/net/java/dev/moskito/webui/jsp/CSS.jsp");
+	@Override public void configureActionMappings(ActionMappings mappings){
+		mappings.addForward("mskCSS", "/net/java/dev/moskito/webui/jsp/CSS.jsp");
 
-		ActionMappings.addMapping("mskDashBoard", ShowDashboardAction.class,
+		mappings.addMapping("mskDashBoard", ShowDashboardAction.class,
 				new ActionForward("html", "/net/java/dev/moskito/webui/jsp/Dashboard.jsp"),
 				new ActionForward("xml", "/net/java/dev/moskito/webui/jsp/ProducersXML.jsp"),
 				new ActionForward("csv", "/net/java/dev/moskito/webui/jsp/ProducersCSV.jsp"),
 				new ActionForward("json", "/net/java/dev/moskito/webui/jsp/ProducersJSON.jsp")
 		);
 
-		ActionMappings.addAlias("mskDashBoard.csv", "mskDashBoard");
-		ActionMappings.addAlias("mskDashBoard.xml", "mskDashBoard");
-		ActionMappings.addAlias("mskDashBoard.json", "mskDashBoard");
+		mappings.addAlias("mskDashBoard.csv", "mskDashBoard");
+		mappings.addAlias("mskDashBoard.xml", "mskDashBoard");
+		mappings.addAlias("mskDashBoard.json", "mskDashBoard");
 
-		ActionMappings.addMapping("mskShowAllProducers", ShowAllProducersAction.class,
+		mappings.addMapping("mskShowAllProducers", ShowAllProducersAction.class,
 				new ActionForward("html", "/net/java/dev/moskito/webui/jsp/Producers.jsp"),
 				new ActionForward("xml", "/net/java/dev/moskito/webui/jsp/ProducersXML.jsp"),
 				new ActionForward("csv", "/net/java/dev/moskito/webui/jsp/ProducersCSV.jsp"),
 				new ActionForward("json", "/net/java/dev/moskito/webui/jsp/ProducersJSON.jsp")
 		);
 
-		ActionMappings.addAlias("mskShowAllProducers.csv", "mskShowAllProducers");
-		ActionMappings.addAlias("mskShowAllProducers.xml", "mskShowAllProducers");
-		ActionMappings.addAlias("mskShowAllProducers.json", "mskShowAllProducers");
+		mappings.addAlias("mskShowAllProducers.csv", "mskShowAllProducers");
+		mappings.addAlias("mskShowAllProducers.xml", "mskShowAllProducers");
+		mappings.addAlias("mskShowAllProducers.json", "mskShowAllProducers");
  
-		ActionMappings.addMapping("mskShowProducersByCategory", ShowProducersForCategoryAction.class, 
+		mappings.addMapping("mskShowProducersByCategory", ShowProducersForCategoryAction.class, 
 				new ActionForward("html", "/net/java/dev/moskito/webui/jsp/Producers.jsp"),
 				new ActionForward("xml", "/net/java/dev/moskito/webui/jsp/ProducersXML.jsp"),
 				new ActionForward("csv", "/net/java/dev/moskito/webui/jsp/ProducersCSV.jsp"),
 				new ActionForward("json", "/net/java/dev/moskito/webui/jsp/ProducersJSON.jsp")
 		);
 		
-		ActionMappings.addAlias("mskShowProducersByCategory.csv", "mskShowProducersByCategory");
-		ActionMappings.addAlias("mskShowProducersByCategory.xml", "mskShowProducersByCategory");
-		ActionMappings.addAlias("mskShowProducersByCategory.json", "mskShowProducersByCategory");
+		mappings.addAlias("mskShowProducersByCategory.csv", "mskShowProducersByCategory");
+		mappings.addAlias("mskShowProducersByCategory.xml", "mskShowProducersByCategory");
+		mappings.addAlias("mskShowProducersByCategory.json", "mskShowProducersByCategory");
 
-		ActionMappings.addMapping("mskShowProducersBySubsystem", ShowProducersForSubsystemAction.class, 
+		mappings.addMapping("mskShowProducersBySubsystem", ShowProducersForSubsystemAction.class, 
 				new ActionForward("html", "/net/java/dev/moskito/webui/jsp/Producers.jsp"),
 		 		new ActionForward("xml", "/net/java/dev/moskito/webui/jsp/ProducersXML.jsp"),
 				new ActionForward("csv", "/net/java/dev/moskito/webui/jsp/ProducersCSV.jsp"),
 				new ActionForward("json", "/net/java/dev/moskito/webui/jsp/ProducersJSON.jsp")
 		);
 		
-		ActionMappings.addAlias("mskShowProducersBySubsystem.csv", "mskShowProducersBySubsystem");
-		ActionMappings.addAlias("mskShowProducersBySubsystem.xml", "mskShowProducersBySubsystem");
-		ActionMappings.addAlias("mskShowProducersBySubsystem.json", "mskShowProducersBySubsystem");
+		mappings.addAlias("mskShowProducersBySubsystem.csv", "mskShowProducersBySubsystem");
+		mappings.addAlias("mskShowProducersBySubsystem.xml", "mskShowProducersBySubsystem");
+		mappings.addAlias("mskShowProducersBySubsystem.json", "mskShowProducersBySubsystem");
 
-		ActionMappings.addMapping("mskShowProducer", ShowProducerAction.class, 
+		mappings.addMapping("mskShowProducer", ShowProducerAction.class, 
 				new ActionForward("html", "/net/java/dev/moskito/webui/jsp/Producer.jsp"),
 				new ActionForward("xml", "/net/java/dev/moskito/webui/jsp/ProducerXML.jsp"),
 				new ActionForward("csv", "/net/java/dev/moskito/webui/jsp/ProducerCSV.jsp"),
 				new ActionForward("json", "/net/java/dev/moskito/webui/jsp/ProducerJSON.jsp")
 		);
 		
-		ActionMappings.addAlias("mskShowProducer.csv", "mskShowProducer");
-		ActionMappings.addAlias("mskShowProducer.xml", "mskShowProducer");
-		ActionMappings.addAlias("mskShowProducer.json", "mskShowProducer");
+		mappings.addAlias("mskShowProducer.csv", "mskShowProducer");
+		mappings.addAlias("mskShowProducer.xml", "mskShowProducer");
+		mappings.addAlias("mskShowProducer.json", "mskShowProducer");
 
-		ActionMappings.addMapping("mskInspectProducer", InspectProducerAction.class, 
+		mappings.addMapping("mskInspectProducer", InspectProducerAction.class, 
 				new ActionForward("html", "/net/java/dev/moskito/webui/jsp/InspectProducer.jsp"),
 				new ActionForward("xml", "/net/java/dev/moskito/webui/jsp/InspectProducerXML.jsp")
 		);
 		
-		ActionMappings.addMapping("mskShowExplanations", ShowExplanationsAction.class, 
+		mappings.addMapping("mskShowExplanations", ShowExplanationsAction.class, 
 				new ActionForward("success", "/net/java/dev/moskito/webui/jsp/Explanations.jsp")
 		);
 
-		ActionMappings.addMapping("mskShowUseCases", ShowUseCasesAction.class, 
+		mappings.addMapping("mskShowUseCases", ShowUseCasesAction.class, 
 				new ActionForward("success", "/net/java/dev/moskito/webui/jsp/UseCases.jsp")
 		);
-		ActionMappings.addMapping("mskShowRecordedUseCase", ShowRecordedUseCaseAction.class, 
+		mappings.addMapping("mskShowRecordedUseCase", ShowRecordedUseCaseAction.class, 
 				new ActionForward("success", "/net/java/dev/moskito/webui/jsp/RecordedUseCase.jsp")
 		);
-		ActionMappings.addMapping("mskShowMonitoringSessions", ShowMonitoringSessionsAction.class, 
-				new ActionForward("success", "/net/java/dev/moskito/webui/jsp/MonitoringSessions.jsp")
+		mappings.addMapping("mskShowJourneys", ShowJourneysAction.class, 
+				new ActionForward("success", "/net/java/dev/moskito/webui/jsp/Journeys.jsp")
 		);
-		ActionMappings.addMapping("mskShowMonitoringSession", ShowMonitoringSessionAction.class, 
-				new ActionForward("success", "/net/java/dev/moskito/webui/jsp/MonitoringSession.jsp")
+		mappings.addMapping("mskShowJourney", ShowJourneyAction.class, 
+				new ActionForward("success", "/net/java/dev/moskito/webui/jsp/Journey.jsp")
 		);
-		ActionMappings.addMapping("mskShowMonitoringSessionCall", ShowMonitoringSessionCallAction.class, 
-				new ActionForward("success", "/net/java/dev/moskito/webui/jsp/MonitoringSessionCall.jsp")
+		mappings.addMapping("mskShowJourneyCall", ShowJourneyCallAction.class, 
+				new ActionForward("success", "/net/java/dev/moskito/webui/jsp/JourneyCall.jsp")
 		);
 
-		ActionMappings.addMapping("getChartData", GetChartDataAction.class, 
+		mappings.addMapping("getChartData", GetChartDataAction.class, 
 				new ActionForward("html", "/net/java/dev/moskito/webui/jsp/ChartData.jsp"),
 				new ActionForward("xml", "/net/java/dev/moskito/webui/jsp/ChartDataXML.jsp"),
 				new ActionForward("csv", "/net/java/dev/moskito/webui/jsp/ChartDataCSV.jsp"),
@@ -120,7 +120,7 @@ public class MoskitoMappingsConfigurator implements ActionMappingsConfigurator{
 
 		);
 		
-		ActionMappings.addMapping("getChartMetaData", GetChartMetaDataAction.class, 
+		mappings.addMapping("getChartMetaData", GetChartMetaDataAction.class, 
 				new ActionForward("html", "/net/java/dev/moskito/webui/jsp/ChartMetaData.jsp"),
 				new ActionForward("xml", "/net/java/dev/moskito/webui/jsp/ChartMetaDataXML.jsp"),
 				new ActionForward("csv", "/net/java/dev/moskito/webui/jsp/ChartMetaDataCSV.jsp"),
@@ -128,17 +128,17 @@ public class MoskitoMappingsConfigurator implements ActionMappingsConfigurator{
 
 		);
 		
-		ActionMappings.addMapping("mskShowCharts", ShowChartsAction.class, 
+		mappings.addMapping("mskShowCharts", ShowChartsAction.class, 
 				new ActionForward("html", "/net/java/dev/moskito/webui/jsp/Charts.jsp")
 		);
 		
-		ActionMappings.addMapping("mskForceIntervalUpdate", ForceIntervalUpdateAction.class, (ActionForward[])null);
+		mappings.addMapping("mskForceIntervalUpdate", ForceIntervalUpdateAction.class, (ActionForward[])null);
 
-		ActionMappings.addMapping("mskThresholds", ShowThresholdsAction.class, 
+		mappings.addMapping("mskThresholds", ShowThresholdsAction.class, 
 				new ActionForward("success", "/net/java/dev/moskito/webui/jsp/Thresholds.jsp")
 		);
 
-		ActionMappings.addMapping("mskAccumulators", ShowAccumulatorsAction.class, 
+		mappings.addMapping("mskAccumulators", ShowAccumulatorsAction.class, 
 				new ActionForward("success", "/net/java/dev/moskito/webui/jsp/Accumulators.jsp")
 		);
 		

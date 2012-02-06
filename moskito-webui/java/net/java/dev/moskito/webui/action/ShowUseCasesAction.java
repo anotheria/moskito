@@ -10,9 +10,9 @@ import net.anotheria.maf.action.ActionCommand;
 import net.anotheria.maf.action.ActionMapping;
 import net.anotheria.maf.bean.FormBean;
 import net.anotheria.util.NumberUtils;
-import net.java.dev.moskito.core.usecase.running.ExistingRunningUseCase;
+import net.java.dev.moskito.core.calltrace.CurrentlyTracedCall;
 import net.java.dev.moskito.webui.bean.NaviItem;
-import net.java.dev.moskito.webui.bean.RecordedUseCaseListItemBean;
+import net.java.dev.moskito.webui.bean.TracedCallListItemBean;
 
 public class ShowUseCasesAction extends BaseMoskitoUIAction{
 
@@ -25,11 +25,11 @@ public class ShowUseCasesAction extends BaseMoskitoUIAction{
 	public ActionCommand execute(ActionMapping mapping, FormBean bean, HttpServletRequest req, HttpServletResponse res) {
 		
 		//prepare RecordedUseCases
-		List<ExistingRunningUseCase> recorded = getUseCaseRecorder().getRecordedUseCases();
-		List<RecordedUseCaseListItemBean> beans = new ArrayList<RecordedUseCaseListItemBean>(recorded.size());
+		List<CurrentlyTracedCall> recorded = getUseCaseRecorder().getRecordedUseCases();
+		List<TracedCallListItemBean> beans = new ArrayList<TracedCallListItemBean>(recorded.size());
 		for (int i=0; i<recorded.size(); i++){
-			ExistingRunningUseCase useCase = recorded.get(i);
-			RecordedUseCaseListItemBean b = new RecordedUseCaseListItemBean();
+			CurrentlyTracedCall useCase = recorded.get(i);
+			TracedCallListItemBean b = new TracedCallListItemBean();
 			b.setName(useCase.getName());
 			b.setDate(NumberUtils.makeISO8601TimestampString(useCase.getCreated()));
 			beans.add(b);

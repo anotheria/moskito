@@ -3,16 +3,16 @@ package net.java.dev.moskito.core.blueprint;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
+import net.java.dev.moskito.core.calltrace.CurrentlyTracedCall;
+import net.java.dev.moskito.core.calltrace.TraceStep;
+import net.java.dev.moskito.core.calltrace.TracedCall;
+import net.java.dev.moskito.core.calltrace.RunningTraceContainer;
 import net.java.dev.moskito.core.predefined.ActionStats;
 import net.java.dev.moskito.core.predefined.Constants;
 import net.java.dev.moskito.core.producers.IStats;
 import net.java.dev.moskito.core.producers.IStatsProducer;
 import net.java.dev.moskito.core.registry.ProducerRegistryFactory;
 import net.java.dev.moskito.core.stats.Interval;
-import net.java.dev.moskito.core.usecase.running.ExistingRunningUseCase;
-import net.java.dev.moskito.core.usecase.running.PathElement;
-import net.java.dev.moskito.core.usecase.running.RunningUseCase;
-import net.java.dev.moskito.core.usecase.running.RunningUseCaseContainer;
 
 /**
  * This special producer type is used whenever you have monitorable objects which are created on request and should be recycled afterwards (for example command pattern, or struts 2 actions).
@@ -74,12 +74,12 @@ public class BlueprintProducer implements IStatsProducer{
 	public Object execute(BlueprintCallExecutor executor, Object... parameters) throws Exception{
 		stats.addRequest();
 		long startTime = System.nanoTime();
-		RunningUseCase aRunningUseCase = RunningUseCaseContainer.getCurrentRunningUseCase();
-		PathElement currentElement = null;
-		ExistingRunningUseCase runningUseCase = aRunningUseCase.useCaseRunning() ? 
-				(ExistingRunningUseCase)aRunningUseCase : null; 
-		if (runningUseCase !=null)
-			currentElement = runningUseCase.startPathElement(new StringBuilder(getProducerId()).append('.').append("execute").toString());
+		TracedCall aTracedCall = RunningTraceContainer.getCurrentlyTracedCall();
+		TraceStep currentElement = null;
+		CurrentlyTracedCall currentlyTracedCall = aTracedCall.callTraced() ? 
+				(CurrentlyTracedCall)aTracedCall : null; 
+		if (currentlyTracedCall !=null)
+			currentElement = currentlyTracedCall.startStep(new StringBuilder(getProducerId()).append('.').append("execute").toString());
 		try {
 			return executor.execute(parameters);
 		}  catch (Exception e) {
@@ -91,8 +91,8 @@ public class BlueprintProducer implements IStatsProducer{
 			stats.notifyRequestFinished();
 			if (currentElement!=null)
 				currentElement.setDuration(duration);
-			if (runningUseCase !=null)
-				runningUseCase.endPathElement();
+			if (currentlyTracedCall !=null)
+				currentlyTracedCall.endStep();
 		}
 		
 	}

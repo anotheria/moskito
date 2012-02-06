@@ -32,7 +32,7 @@
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR
  * THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */	
-package net.java.dev.moskito.core.usecase.running;
+package net.java.dev.moskito.core.calltrace;
 
 
 /**
@@ -40,36 +40,32 @@ package net.java.dev.moskito.core.usecase.running;
  * @author lrosenberg
  *
  */
-public class RunningUseCaseContainer {
+public class RunningTraceContainer {
 	
-	/**
-	 * Constant for non existing, non running use case. To prevent memory pollution by NoRunningUseCase instances.
-	 */
-	public static final RunningUseCase NO_USE_CASE = new NoRunningUseCase();
 	/**
 	 * Currently running use case.
 	 */
-	private static ThreadLocal<RunningUseCase> currentUseCase = new ThreadLocal<RunningUseCase>(){
-		protected synchronized RunningUseCase initialValue(){
-			return NO_USE_CASE;
+	private static ThreadLocal<TracedCall> currentlyTracedCall = new ThreadLocal<TracedCall>(){
+		protected synchronized TracedCall initialValue(){
+			return NoTracedCall.INSTANCE;
 		}
 	};
 	
-	public static RunningUseCase getCurrentRunningUseCase(){
-		return currentUseCase.get();
+	public static TracedCall getCurrentlyTracedCall(){
+		return currentlyTracedCall.get();
 	}
 	
-	public static void startUseCase(String name){
-		currentUseCase.set(new ExistingRunningUseCase(name));
+	public static void startTracedCall(String name){
+		currentlyTracedCall.set(new CurrentlyTracedCall(name));
 	}
 	
-	public static void setCurrentRunningUseCase(RunningUseCase aRunningUseCase){
-		currentUseCase.set(aRunningUseCase);
+	public static void setCurrentlyTracedCall(TracedCall aTracedCall){
+		currentlyTracedCall.set(aTracedCall);
 	}
 	
-	public static RunningUseCase endUseCase(){
-		RunningUseCase last = getCurrentRunningUseCase();
-		setCurrentRunningUseCase(NO_USE_CASE);
+	public static TracedCall endTrace(){
+		TracedCall last = getCurrentlyTracedCall();
+		setCurrentlyTracedCall(NoTracedCall.INSTANCE);
 		return last;
 	}
 	
@@ -77,7 +73,7 @@ public class RunningUseCaseContainer {
 	 * This is a special method for web applications to cleanup the ThreadLocals.
 	 */
 	public static void cleanup(){
-		currentUseCase.remove();
+		currentlyTracedCall.remove();
 	}
 	
 	/**
@@ -85,6 +81,6 @@ public class RunningUseCaseContainer {
 	 * @return
 	 */
 	public static boolean isUseCaseRunning(){
-		return !(currentUseCase.get() instanceof NoRunningUseCase);
+		return currentlyTracedCall.get().callTraced();
 	}
 }

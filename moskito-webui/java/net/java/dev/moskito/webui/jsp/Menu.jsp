@@ -65,8 +65,8 @@
 						<li><a href="mskShowUseCases">Use Cases</a></li>
 					</ano:notEqual
 					--%>
-                    <li <ano:equal name="currentNaviItem" value="SESSIONS">class="active"</ano:equal>>
-                        <a href="mskShowMonitoringSessions">Monitoring Sessions</a>
+                    <li <ano:equal name="currentNaviItem" value="JOURNEYS">class="active"</ano:equal>>
+                        <a href="mskShowJourneys">Journeys</a>
                     </li>
                     <li <ano:equal name="currentNaviItem" value="CHARTS">class="active"</ano:equal>>
                         <a href="mskShowCharts">Charts</a>

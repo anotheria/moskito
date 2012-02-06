@@ -37,12 +37,12 @@ package net.java.dev.moskito.core.predefined;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
+import net.java.dev.moskito.core.calltrace.CurrentlyTracedCall;
+import net.java.dev.moskito.core.calltrace.TraceStep;
+import net.java.dev.moskito.core.calltrace.TracedCall;
+import net.java.dev.moskito.core.calltrace.RunningTraceContainer;
 import net.java.dev.moskito.core.dynamic.IOnDemandCallHandler;
 import net.java.dev.moskito.core.producers.IStats;
-import net.java.dev.moskito.core.usecase.running.ExistingRunningUseCase;
-import net.java.dev.moskito.core.usecase.running.PathElement;
-import net.java.dev.moskito.core.usecase.running.RunningUseCase;
-import net.java.dev.moskito.core.usecase.running.RunningUseCaseContainer;
 
 /**
  * Implementation of a call handler that uses service stats. Useful for service like objects.
@@ -56,10 +56,10 @@ public class ServiceStatsCallHandler implements IOnDemandCallHandler{
 		
 		defaultStats.addRequest();
 		methodStats.addRequest();
-		RunningUseCase aRunningUseCase = RunningUseCaseContainer.getCurrentRunningUseCase();
-		PathElement currentElement = null;
-		ExistingRunningUseCase runningUseCase = aRunningUseCase.useCaseRunning() ? 
-				(ExistingRunningUseCase)aRunningUseCase : null; 
+		TracedCall aRunningUseCase = RunningTraceContainer.getCurrentlyTracedCall();
+		TraceStep currentElement = null;
+		CurrentlyTracedCall runningUseCase = aRunningUseCase.callTraced() ? 
+				(CurrentlyTracedCall)aRunningUseCase : null; 
 		if (runningUseCase !=null){
 			StringBuilder call = new StringBuilder(producerId).append('.').append(method.getName()).append("(");
 			if (args!=null && args.length>0){
@@ -70,7 +70,7 @@ public class ServiceStatsCallHandler implements IOnDemandCallHandler{
 				}
 			}
 			call.append(")");
-			currentElement = runningUseCase.startPathElement(call.toString());
+			currentElement = runningUseCase.startStep(call.toString());
 		}
 		long startTime = System.nanoTime();
 		Object ret = null;
@@ -105,7 +105,7 @@ public class ServiceStatsCallHandler implements IOnDemandCallHandler{
 				}
 			}
 			if (runningUseCase !=null)
-				runningUseCase.endPathElement();
+				runningUseCase.endStep();
 		}
 	}
 } 

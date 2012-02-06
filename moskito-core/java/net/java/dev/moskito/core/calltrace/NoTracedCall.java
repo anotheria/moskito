@@ -32,19 +32,22 @@
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR
  * THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */	
-package net.java.dev.moskito.core.usecase.running;
+package net.java.dev.moskito.core.calltrace;
 
 /**
  * A null object implementation of the RunningUseCase. Used to prevent null checks in surrounding code.
  * @author lrosenberg
  *
  */
-public class NoRunningUseCase implements RunningUseCase{
-	@Override public boolean useCaseRunning(){
-		return false;
-	}
+public enum NoTracedCall implements TracedCall{
+	INSTANCE;
 	
 	@Override public String toString(){
-		return "NoUseCase";
+		return "NoTracedCall";
+	}
+
+	@Override
+	public boolean callTraced() {
+		return false;
 	}
 }

@@ -32,46 +32,46 @@
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR
  * THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */	
-package net.java.dev.moskito.core.usecase.running;
+package net.java.dev.moskito.core.calltrace;
 
 /**
- * A currently being recorded use case.
+ * A currently being traced call.
  * @author lrosenberg
  *
  */
-public class ExistingRunningUseCase implements RunningUseCase{
+public class CurrentlyTracedCall implements TracedCall{
 	/**
-	 * Name of the use case.
+	 * Name of the call.
 	 */
 	private String name;
 	/**
-	 * Root element of the use case.
+	 * Root step of the call.
 	 */
-	private PathElement root = new PathElement("");
+	private TraceStep root = new TraceStep("");
 	/**
-	 * Current element along the use case path.
+	 * Current step in the call.
 	 */
-	private PathElement current;
+	private TraceStep current;
 	/**
 	 * Creation timestamp.
 	 */
 	private long created;
 	/**
-	 * Creates a new ExistingRunningUseCase.
+	 * Creates a new CurrentlyTracedCall.
 	 * @param aName
 	 */
-	public ExistingRunningUseCase(String aName){
+	public CurrentlyTracedCall(String aName){
 		name = aName;
 		current = root;
 		created = System.currentTimeMillis();
 	}
 	
-	@Override public boolean useCaseRunning(){
+	@Override public boolean callTraced(){
 		return true;
 	}
 	
 	@Override public String toString(){
-		return "RunningUseCase: "+name;
+		return "CurrentlyTracedCall: "+name;
 	}
 	
 	public String toDetails(){
@@ -79,21 +79,21 @@ public class ExistingRunningUseCase implements RunningUseCase{
 	}
 
 	/**
-	 * Creates a new element of the use case path. The new use case path element will be recorded as a child of the current use case path element.
+	 * Creates a new sub step in current call.
 	 */
-	public PathElement startPathElement(String call){
-		PathElement last = current;
-		current = new PathElement(call);
+	public TraceStep startStep(String call){
+		TraceStep last = current;
+		current = new TraceStep(call);
 		last.addChild(current);
 		return current;
 	}
 	
-	public void endPathElement(){
+	public void endStep(){
 		current = current.getParent(); 
 	}
 
-	public String getUseCasePath(){
-		return root.generatePath();
+	public String getTrace(){
+		return root.generateTrace();
 	}
 	
 	public String getName(){
@@ -104,18 +104,18 @@ public class ExistingRunningUseCase implements RunningUseCase{
 		return created;
 	}
 	
-	public PathElement getRootElement(){
+	public TraceStep getRootStep(){
 		return root;
 	}
 	/**
-	 * Returns the first use case path element.
+	 * Returns the first step..
 	 * @return
 	 */
-	public PathElement getFirstElement(){
+	public TraceStep getFirstStep(){
 		return root.getChildren().get(0);
 	}
 	
-	public PathElement getLastElement(){
-		return root.getLastElement();
+	public TraceStep getLastStep(){
+		return root.getLastStep();
 	}
 }

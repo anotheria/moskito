@@ -37,18 +37,17 @@ package net.java.dev.moskitodemo.guestbook.presentation.action;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import net.anotheria.maf.action.ActionCommand;
+import net.anotheria.maf.action.ActionMapping;
+import net.anotheria.maf.bean.FormBean;
 import net.java.dev.moskitodemo.guestbook.business.data.Comment;
 import net.java.dev.moskitodemo.guestbook.presentation.bean.CommentBean;
-
-import org.apache.struts.action.ActionForm;
-import org.apache.struts.action.ActionForward;
-import org.apache.struts.action.ActionMapping;
 
 public class ShowCommentAction extends BaseGuestbookAction{
 	
 
 	@Override
-	public ActionForward moskitoExecute(ActionMapping mapping, ActionForm af, HttpServletRequest req, HttpServletResponse res) throws Exception {
+	public ActionCommand execute(ActionMapping mapping, FormBean af, HttpServletRequest req, HttpServletResponse res) throws Exception {
 		
 		boolean userIsAuthorized = isAuthorized(req);
 		
@@ -68,7 +67,7 @@ public class ShowCommentAction extends BaseGuestbookAction{
 			bean.setEmail(obfuscateEmail(c.getEmail()));
 		
 		req.setAttribute("comment", bean);
-		return mapping.findForward("success");
+		return mapping.success();
 	}
 
 }
