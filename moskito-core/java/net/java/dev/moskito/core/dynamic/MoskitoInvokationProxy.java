@@ -162,7 +162,7 @@ public class MoskitoInvokationProxy implements InvocationHandler{
   		Class<?> methodsClass = aMethod.getDeclaringClass();
   		for (Class<?> c : supportedInterfaces){
   			if (c.equals(methodsClass)){
-  				return handler.invoke(implementation, args, aMethod, c, declaredExceptions, producer.getDefaultStats(), producer.getStats(aMethod.getName()), producer.getProducerId());
+  				return handler.invoke(implementation, args, aMethod, c, declaredExceptions, producer.getDefaultStats(), producer.getStats(aMethod.getName()), producer);
   			}
   		}
   		

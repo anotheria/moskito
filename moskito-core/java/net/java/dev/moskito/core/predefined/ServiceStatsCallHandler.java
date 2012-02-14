@@ -43,6 +43,7 @@ import net.java.dev.moskito.core.calltrace.TracedCall;
 import net.java.dev.moskito.core.calltrace.RunningTraceContainer;
 import net.java.dev.moskito.core.dynamic.IOnDemandCallHandler;
 import net.java.dev.moskito.core.producers.IStats;
+import net.java.dev.moskito.core.producers.IStatsProducer;
 
 /**
  * Implementation of a call handler that uses service stats. Useful for service like objects.
@@ -50,7 +51,7 @@ import net.java.dev.moskito.core.producers.IStats;
  */
 public class ServiceStatsCallHandler implements IOnDemandCallHandler{
 
-	@Override public Object invoke(Object target, Object[] args, Method method, Class<?> targetClass, Class<?>[] declaredExceptions, IStats aDefaultStats, IStats aMethodStats, String producerId) throws Throwable {
+	@Override public Object invoke(Object target, Object[] args, Method method, Class<?> targetClass, Class<?>[] declaredExceptions, IStats aDefaultStats, IStats aMethodStats, IStatsProducer producer) throws Throwable {
 		ServiceStats defaultStats = (ServiceStats)aDefaultStats;
 		ServiceStats methodStats = (ServiceStats)aMethodStats;
 		
@@ -61,7 +62,7 @@ public class ServiceStatsCallHandler implements IOnDemandCallHandler{
 		CurrentlyTracedCall runningUseCase = aRunningUseCase.callTraced() ? 
 				(CurrentlyTracedCall)aRunningUseCase : null; 
 		if (runningUseCase !=null){
-			StringBuilder call = new StringBuilder(producerId).append('.').append(method.getName()).append("(");
+			StringBuilder call = new StringBuilder(producer.getProducerId()).append('.').append(method.getName()).append("(");
 			if (args!=null && args.length>0){
 				for (int i=0; i<args.length; i++){
 					call.append(args[i]);
@@ -70,7 +71,7 @@ public class ServiceStatsCallHandler implements IOnDemandCallHandler{
 				}
 			}
 			call.append(")");
-			currentElement = runningUseCase.startStep(call.toString());
+			currentElement = runningUseCase.startStep(call.toString(), producer);
 		}
 		long startTime = System.nanoTime();
 		Object ret = null;

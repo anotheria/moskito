@@ -37,6 +37,8 @@ package net.java.dev.moskito.core.calltrace;
 import java.util.ArrayList;
 import java.util.List;
 
+import net.java.dev.moskito.core.producers.IStatsProducer;
+
 /**
  * A trace step along the monitoring points in a traced call.
  * @author lrosenberg
@@ -64,9 +66,19 @@ public class TraceStep {
 	 */
 	private boolean aborted;
 	
+	/**
+	 * The producer that was called in this step.
+	 */
+	private IStatsProducer producer;
+
 	public TraceStep(String aCall){
+		this(aCall, null);
+	}
+	
+	public TraceStep(String aCall, IStatsProducer aProducer){
 		call = aCall;
 		children = new ArrayList<TraceStep>();
+		producer = aProducer;
 	}
 	
 	public String getCall(){
@@ -166,5 +178,15 @@ public class TraceStep {
 	public void appendToCall(String s){
 		call += s;
 	}
+
+	public int getNumberOfIncludedSteps() {
+		int sum = 1;
+		for (TraceStep s : children )
+			sum += s.getNumberOfIncludedSteps();
+		return sum;
+	}
 	
+	public IStatsProducer getProducer(){
+		return producer;
+	}
 }

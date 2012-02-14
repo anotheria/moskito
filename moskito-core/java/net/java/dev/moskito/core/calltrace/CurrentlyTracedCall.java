@@ -34,6 +34,8 @@
  */	
 package net.java.dev.moskito.core.calltrace;
 
+import net.java.dev.moskito.core.producers.IStatsProducer;
+
 /**
  * A currently being traced call.
  * @author lrosenberg
@@ -56,6 +58,7 @@ public class CurrentlyTracedCall implements TracedCall{
 	 * Creation timestamp.
 	 */
 	private long created;
+	
 	/**
 	 * Creates a new CurrentlyTracedCall.
 	 * @param aName
@@ -81,11 +84,19 @@ public class CurrentlyTracedCall implements TracedCall{
 	/**
 	 * Creates a new sub step in current call.
 	 */
-	public TraceStep startStep(String call){
+	public TraceStep startStep(String call, IStatsProducer producer){
 		TraceStep last = current;
-		current = new TraceStep(call);
+		current = new TraceStep(call, producer);
 		last.addChild(current);
 		return current;
+	}
+
+	/**
+	 * Creates a new sub step in current call.
+	 */
+	@Deprecated
+	public TraceStep startStep(String call){
+		return startStep(call, null);
 	}
 	
 	public void endStep(){
@@ -117,5 +128,9 @@ public class CurrentlyTracedCall implements TracedCall{
 	
 	public TraceStep getLastStep(){
 		return root.getLastStep();
+	}
+	
+	public int getNumberOfSteps(){
+		return root.getNumberOfIncludedSteps();
 	}
 }

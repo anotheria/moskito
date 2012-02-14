@@ -37,6 +37,7 @@ package net.java.dev.moskito.core.dynamic;
 import java.lang.reflect.Method;
 
 import net.java.dev.moskito.core.producers.IStats;
+import net.java.dev.moskito.core.producers.IStatsProducer;
 
 /**
  * A call handler is an object which is used by the dynamic proxy to handle the call. A typical call handle will produce some stats and forward the call to the 
@@ -54,10 +55,10 @@ public interface IOnDemandCallHandler {
 	 * @param declaredExceptions expected exceptions.
 	 * @param defaultStats default stats for all methods.
 	 * @param methodStats stats for this method.
-	 * @param producerId the id of the producer.
+	 * @param producer the producer.
 	 * @return
 	 * @throws Throwable
 	 */
 	Object invoke(Object target, Object[] args, Method method, Class<?> targetClass, 
-			Class<?>[] declaredExceptions, IStats defaultStats, IStats methodStats, String producerId) throws Throwable;
+			Class<?>[] declaredExceptions, IStats defaultStats, IStats methodStats, IStatsProducer producer) throws Throwable;
 }

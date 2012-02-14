@@ -44,6 +44,7 @@ import net.java.dev.moskito.core.calltrace.TracedCall;
 import net.java.dev.moskito.core.calltrace.RunningTraceContainer;
 import net.java.dev.moskito.core.dynamic.IOnDemandCallHandler;
 import net.java.dev.moskito.core.producers.IStats;
+import net.java.dev.moskito.core.producers.IStatsProducer;
 
 /**
  * This CallHandler prints out all requests that passes throw it to the standart out.
@@ -74,8 +75,7 @@ public class ServiceStatsCallHandlerWithCallSysout implements IOnDemandCallHandl
 		instanceId = instanceCounter.incrementAndGet();
 	}
 
-	@Override public Object invoke(Object target, Object[] args, Method method, Class<?> targetClass, Class<?>[] declaredExceptions, IStats aDefaultStats, IStats aMethodStats, String producerId) throws Throwable {
-		
+	@Override public Object invoke(Object target, Object[] args, Method method, Class<?> targetClass, Class<?>[] declaredExceptions, IStats aDefaultStats, IStats aMethodStats, IStatsProducer producer) throws Throwable {
 		String callId = overallCallCounter.incrementAndGet()+"-"+instanceId + "-"+callCounter.incrementAndGet();
 		
 		ServiceStats defaultStats = (ServiceStats)aDefaultStats;
@@ -113,7 +113,7 @@ public class ServiceStatsCallHandlerWithCallSysout implements IOnDemandCallHandl
 		CurrentlyTracedCall runningUseCase = aRunningUseCase.callTraced() ? 
 				(CurrentlyTracedCall)aRunningUseCase : null; 
 		if (runningUseCase !=null)
-			currentElement = runningUseCase.startStep(new StringBuilder(producerId).append('.').append(method.getName()).toString());
+			currentElement = runningUseCase.startStep(new StringBuilder(producer.getProducerId()).append('.').append(method.getName()).toString(), producer);
 		long startTime = System.nanoTime();
 		try{
 			Object ret = method.invoke(target, args);
