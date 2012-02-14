@@ -6,13 +6,19 @@ import java.util.Map;
 import org.apache.log4j.Logger;
 
 /**
- * The factory for creation of blueprint producer objects.
+ * The factory for creation of blueprint producer objects. The blueprint producer instances are created on the fly. There is 
+ * only one instance of the same producer allowed.
  * @author lrosenberg
  */
 public class BlueprintProducersFactory {
 	
+	/**
+	 * Logger.
+	 */
 	private static Logger log = Logger.getLogger(BlueprintProducersFactory.class);
-	
+	/**
+	 * Already instantiated producers.
+	 */
 	private static Map<String, BlueprintProducer> producers = new HashMap<String, BlueprintProducer>();
 	
 	
