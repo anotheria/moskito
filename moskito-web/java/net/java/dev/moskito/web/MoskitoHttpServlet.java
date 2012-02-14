@@ -166,7 +166,7 @@ public class MoskitoHttpServlet extends HttpServlet implements IStatsProducer{
 		CurrentlyTracedCall runningUseCase = aRunningUseCase.callTraced() ? 
 				(CurrentlyTracedCall)aRunningUseCase : null; 
 		if (runningUseCase !=null)
-			currentElement = runningUseCase.startStep(new StringBuilder(getProducerId()).append('.').append("doGet").toString());
+			currentElement = runningUseCase.startStep(new StringBuilder(getProducerId()).append('.').append("doGet").toString(), this);
 		long startTime = System.nanoTime();
 
 		try{
