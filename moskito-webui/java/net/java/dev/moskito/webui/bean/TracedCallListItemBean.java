@@ -16,6 +16,13 @@ public class TracedCallListItemBean {
 	 * Timestamp of the call execution.
 	 */
 	private String date;
+	
+	/**
+	 * Number of executed steps in this call.
+	 * @return
+	 */
+	private int containedSteps;
+	
 	public String getDate() {
 		return date;
 	}
@@ -33,6 +40,12 @@ public class TracedCallListItemBean {
 	@SuppressWarnings("deprecation")
 	public String getNameEncoded(){
 		return URLEncoder.encode(getName());
+	}
+	public int getContainedSteps() {
+		return containedSteps;
+	}
+	public void setContainedSteps(int containedSteps) {
+		this.containedSteps = containedSteps;
 	}
 	
 	

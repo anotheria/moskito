@@ -14,7 +14,7 @@ public class JourneyListItemBean {
 	 */
 	private String created;
 	/**
-	 * Last activity of the session.
+	 * Last activity of the journey.
 	 */
 	private String lastActivity;
 	/**
@@ -22,7 +22,7 @@ public class JourneyListItemBean {
 	 */
 	private boolean active;
 	/**
-	 * Number of calls in this session.
+	 * Number of calls in this journey.
 	 */
 	private int numberOfCalls;
 	public boolean isActive() {

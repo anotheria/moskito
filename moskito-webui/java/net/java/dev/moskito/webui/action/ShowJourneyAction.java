@@ -12,26 +12,17 @@ import net.anotheria.maf.bean.FormBean;
 import net.anotheria.util.NumberUtils;
 import net.java.dev.moskito.core.calltrace.CurrentlyTracedCall;
 import net.java.dev.moskito.core.journey.Journey;
-import net.java.dev.moskito.core.journey.JourneyManager;
-import net.java.dev.moskito.core.journey.JourneyManagerFactory;
 import net.java.dev.moskito.core.journey.NoSuchJourneyException;
 import net.java.dev.moskito.webui.bean.JourneyListItemBean;
-import net.java.dev.moskito.webui.bean.NaviItem;
 import net.java.dev.moskito.webui.bean.TracedCallListItemBean;
 
 /**
- * The actions displays a whole monitoring session.
+ * The actions displays a journey as a whole.
  * @author lrosenberg.
  *
  */
-public class ShowJourneyAction extends BaseMoskitoUIAction{
+public class ShowJourneyAction extends BaseJourneyAction{
 	
-	private JourneyManager journeyManager;
-	
-	public ShowJourneyAction(){
-		journeyManager = JourneyManagerFactory.getJourneyManager();
-	}
-
 	@Override
 	protected String getLinkToCurrentPage(HttpServletRequest req) {
 		return "";
@@ -40,17 +31,14 @@ public class ShowJourneyAction extends BaseMoskitoUIAction{
 	@Override
 	public ActionCommand execute(ActionMapping mapping, FormBean formBean, HttpServletRequest req, HttpServletResponse res){
 
-		
 		String journeyName = req.getParameter("pJourneyName");
-		
 		Journey journey = null;
 		try{
-			journey = journeyManager.getJourney(journeyName);
+			journey = getJourneyManager().getJourney(journeyName);
 		}catch(NoSuchJourneyException e){
 			throw new IllegalArgumentException("Journey with name "+journeyName+" not found.");
 		}
 
-		
 		JourneyListItemBean bean = new JourneyListItemBean();
 			
 		bean.setName(journey.getName());
@@ -63,21 +51,16 @@ public class ShowJourneyAction extends BaseMoskitoUIAction{
 		List<CurrentlyTracedCall> recorded = journey.getTracedCalls();
 		List<TracedCallListItemBean> beans = new ArrayList<TracedCallListItemBean>(recorded.size());
 		for (int i=0; i<recorded.size(); i++){
-			CurrentlyTracedCall useCase = recorded.get(i);
+			CurrentlyTracedCall tracedCall = recorded.get(i);
 			TracedCallListItemBean b = new TracedCallListItemBean();
-			b.setName(useCase.getName());
-			b.setDate(NumberUtils.makeISO8601TimestampString(useCase.getCreated()));
+			b.setName(tracedCall.getName());
+			b.setDate(NumberUtils.makeISO8601TimestampString(tracedCall.getCreated()));
+			b.setContainedSteps(tracedCall.getNumberOfSteps());
 			beans.add(b);
 		}
 		
 		req.setAttribute("recorded", beans);
 		return mapping.success();
 	}
-	
-	@Override
-	protected NaviItem getCurrentNaviItem() {
-		return NaviItem.JOURNEYS;
-	}
-
 	
 }

@@ -48,7 +48,8 @@
 						<tr>
 							<th>#</th>
 							<th>Url</th>
-							<th>Date</th>							
+							<th>Date</th>		
+							<th>Steps</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -61,9 +62,9 @@
 										<msk:write name="tracedCall" property="name"/>
 									</a>
 								 </td>	
-								 <td>	
-									<msk:write name="tracedCall" property="date"/>
-								  </td>
+								 <td><msk:write name="tracedCall" property="date"/></td>
+								 <td><msk:write name="tracedCall" property="containedSteps"/></td>
+								 
 							</tr>
 						</msk:iterate>
 						

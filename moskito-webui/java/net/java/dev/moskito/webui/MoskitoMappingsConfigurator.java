@@ -3,6 +3,7 @@ package net.java.dev.moskito.webui;
 import net.anotheria.maf.action.ActionForward;
 import net.anotheria.maf.action.ActionMappings;
 import net.anotheria.maf.action.ActionMappingsConfigurator;
+import net.java.dev.moskito.webui.action.AnalyzeJourneyAction;
 import net.java.dev.moskito.webui.action.ForceIntervalUpdateAction;
 import net.java.dev.moskito.webui.action.GetChartDataAction;
 import net.java.dev.moskito.webui.action.GetChartMetaDataAction;
@@ -140,6 +141,12 @@ public class MoskitoMappingsConfigurator implements ActionMappingsConfigurator{
 
 		mappings.addMapping("mskAccumulators", ShowAccumulatorsAction.class, 
 				new ActionForward("success", "/net/java/dev/moskito/webui/jsp/Accumulators.jsp")
+		);
+		
+		
+		//analyze journey
+		mappings.addMapping("mskAnalyzeJourney", AnalyzeJourneyAction.class, 
+				new ActionForward("success", "/net/java/dev/moskito/webui/jsp/AnalyzeJourney.jsp")
 		);
 		
 	}
