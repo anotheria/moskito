@@ -50,6 +50,7 @@
 								<th>Last activity</th>
 								<th>Calls</th>
 								<th>Active</th>
+								<th>&nbsp;</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -60,6 +61,7 @@
 									<td><msk:write name="journey" property="lastActivity"/></td>
 									<td><msk:write name="journey" property="numberOfCalls"/></td>
 									<td><msk:write name="journey" property="active"/></td>
+									<td><a title="analyze this journey" href="mskAnalyzeJourney?pJourneyName=<msk:write name="journey" property="name"/>">A</a></td>
 								</tr>
 							</msk:iterate>
 						</tbody>
