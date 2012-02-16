@@ -15,7 +15,9 @@ import net.java.dev.moskito.core.calltrace.CurrentlyTracedCall;
 import net.java.dev.moskito.core.calltrace.TraceStep;
 import net.java.dev.moskito.core.journey.Journey;
 import net.java.dev.moskito.core.journey.NoSuchJourneyException;
+import net.java.dev.moskito.core.stats.TimeUnit;
 import net.java.dev.moskito.webui.bean.AnalyzeProducerCallsMapBean;
+import net.java.dev.moskito.webui.bean.UnitBean;
 
 public class AnalyzeJourneyAction extends BaseJourneyAction{
 	
@@ -30,7 +32,8 @@ public class AnalyzeJourneyAction extends BaseJourneyAction{
 	public ActionCommand execute(ActionMapping mapping, FormBean formBean, HttpServletRequest req, HttpServletResponse res){
 
 		List<AnalyzeProducerCallsMapBean> callsList = new ArrayList<AnalyzeProducerCallsMapBean>();
-		
+		TimeUnit currentUnit = getCurrentUnit(req).getUnit();
+
 		String journeyName = req.getParameter("pJourneyName");
 		Journey journey = null;
 		try{
@@ -50,7 +53,7 @@ public class AnalyzeJourneyAction extends BaseJourneyAction{
 			}
 			AnalyzeProducerCallsMapBean singleCallMap = new AnalyzeProducerCallsMapBean(tc.getName());
 			for (TraceStep step : tc.getRootStep().getChildren()){
-				addStep(step, singleCallMap, overallCallsMap);
+				addStep(step, currentUnit, singleCallMap, overallCallsMap);
 			}
 			callsList.add(singleCallMap);
 			//System.out.println("\t"+tc.get)
@@ -62,14 +65,14 @@ public class AnalyzeJourneyAction extends BaseJourneyAction{
 		return mapping.success();
 	}
 	
-	private void addStep(TraceStep step, AnalyzeProducerCallsMapBean... maps){
+	private void addStep(TraceStep step, TimeUnit timeUnit, AnalyzeProducerCallsMapBean... maps){
 		String producerName = step.getProducer() == null ? 
 				"UNKNOWN" : step.getProducer().getProducerId();
 		for (AnalyzeProducerCallsMapBean map : maps){
-			map.addProducerCall(producerName,  step.getDuration());
+			map.addProducerCall(producerName,  timeUnit.transformNanos(step.getDuration()));
 		}
 		for (TraceStep childStep : step.getChildren()){
-			addStep(childStep, maps);
+			addStep(childStep, timeUnit, maps);
 		}
 		
 	}
