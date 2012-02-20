@@ -61,6 +61,7 @@ import net.java.dev.moskito.core.treshold.ThresholdRepository;
 import net.java.dev.moskito.core.treshold.ThresholdStatus;
 import net.java.dev.moskito.core.usecase.recorder.IUseCaseRecorder;
 import net.java.dev.moskito.core.usecase.recorder.UseCaseRecorderFactory;
+import net.java.dev.moskito.webui.CurrentSelection;
 import net.java.dev.moskito.webui.bean.GraphDataBean;
 import net.java.dev.moskito.webui.bean.GraphDataValueBean;
 import net.java.dev.moskito.webui.bean.IntervalBean;
@@ -427,6 +428,9 @@ public abstract class BaseMoskitoUIAction implements Action{
 	public void preProcess(ActionMapping mapping, HttpServletRequest req, HttpServletResponse res) throws Exception {
 		String currentIntervalName = getCurrentInterval(req);
 		
+		CurrentSelection currentSelection = CurrentSelection.resetAndGet();
+		currentSelection.setCurrentIntervalName(currentIntervalName);
+		
 		
 		///////////// prepare intervals
 		List<IntervalInfo> intervalInfos = getAPI().getPresentIntervals();
@@ -439,7 +443,7 @@ public abstract class BaseMoskitoUIAction implements Action{
 		////////////// prepare units
 		req.setAttribute("units", AVAILABLE_UNITS_LIST);
 		//ensure current unit is properly set.
-		getCurrentUnit(req);
+		currentSelection.setCurrentTimeUnit(getCurrentUnit(req).getUnit());
 		
 		//Link to current page
 		req.setAttribute("linkToCurrentPage", getLinkToCurrentPage(req));

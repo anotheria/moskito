@@ -6,8 +6,6 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.log4j.Logger;
-
 import net.anotheria.maf.action.ActionCommand;
 import net.anotheria.maf.action.ActionMapping;
 import net.anotheria.maf.bean.FormBean;
@@ -15,9 +13,11 @@ import net.java.dev.moskito.core.calltrace.CurrentlyTracedCall;
 import net.java.dev.moskito.core.calltrace.TraceStep;
 import net.java.dev.moskito.core.journey.Journey;
 import net.java.dev.moskito.core.journey.NoSuchJourneyException;
-import net.java.dev.moskito.core.stats.TimeUnit;
+import net.java.dev.moskito.webui.CurrentSelection;
+import net.java.dev.moskito.webui.bean.AnalyzeProducerCallsBeanSortType;
 import net.java.dev.moskito.webui.bean.AnalyzeProducerCallsMapBean;
-import net.java.dev.moskito.webui.bean.UnitBean;
+
+import org.apache.log4j.Logger;
 
 public class AnalyzeJourneyAction extends BaseJourneyAction{
 	
@@ -32,7 +32,6 @@ public class AnalyzeJourneyAction extends BaseJourneyAction{
 	public ActionCommand execute(ActionMapping mapping, FormBean formBean, HttpServletRequest req, HttpServletResponse res){
 
 		List<AnalyzeProducerCallsMapBean> callsList = new ArrayList<AnalyzeProducerCallsMapBean>();
-		TimeUnit currentUnit = getCurrentUnit(req).getUnit();
 
 		String journeyName = req.getParameter("pJourneyName");
 		Journey journey = null;
@@ -53,26 +52,33 @@ public class AnalyzeJourneyAction extends BaseJourneyAction{
 			}
 			AnalyzeProducerCallsMapBean singleCallMap = new AnalyzeProducerCallsMapBean(tc.getName());
 			for (TraceStep step : tc.getRootStep().getChildren()){
-				addStep(step, currentUnit, singleCallMap, overallCallsMap);
+				addStep(step, singleCallMap, overallCallsMap);
 			}
 			callsList.add(singleCallMap);
-			//System.out.println("\t"+tc.get)
+		}
+		req.setAttribute("callsList", callsList);
+		
+		//prepare sort type
+		String sortOrder = req.getParameter("pSortOrder");
+		String sortBy = req.getParameter("pSortBy");
+		if ( sortBy!=null && sortBy.length()>0){
+			AnalyzeProducerCallsBeanSortType st = AnalyzeProducerCallsBeanSortType.fromStrings(sortBy, sortOrder);
+			CurrentSelection.get().setAnalyzeProducerCallsSortType(st);
 		}
 		
 		
-		//req.setAttribute("overallCallsMap", overallCallsMap);
-		req.setAttribute("callsList", callsList);
+		
 		return mapping.success();
 	}
 	
-	private void addStep(TraceStep step, TimeUnit timeUnit, AnalyzeProducerCallsMapBean... maps){
+	private void addStep(TraceStep step, AnalyzeProducerCallsMapBean... maps){
 		String producerName = step.getProducer() == null ? 
 				"UNKNOWN" : step.getProducer().getProducerId();
 		for (AnalyzeProducerCallsMapBean map : maps){
-			map.addProducerCall(producerName,  timeUnit.transformNanos(step.getDuration()));
+			map.addProducerCall(producerName,  step.getDuration());
 		}
 		for (TraceStep childStep : step.getChildren()){
-			addStep(childStep, timeUnit, maps);
+			addStep(childStep, maps);
 		}
 		
 	}

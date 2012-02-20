@@ -62,6 +62,11 @@
 					</td>				
 				</tr>
 			</ano:iterate>
+			  <tr class="even">
+					<td>
+						<b>Total:</b>
+					</td>				
+				</tr>
 		</tbody>			
 	</table>
 	<div class="table_right">
@@ -79,10 +84,18 @@
 						<ano:write name="producerCallsBean" property="numberOfCalls"/>
 					</td>
 					<td>
-						<ano:write name="producerCallsBean" property="totalTimeSpent"/>
+						<ano:write name="producerCallsBean" property="totalTimeSpentTransformed"/>
 					</td>				
 				</tr>
 			</ano:iterate>
+			  <tr class="even">
+					<td>
+						<ano:write name="call" property="totalCalls"/>
+					</td>
+					<td>
+						<ano:write name="call" property="totalDurationTransformed"/>
+					</td>				
+				</tr>
 		</tbody>
 	</table>
     </div>

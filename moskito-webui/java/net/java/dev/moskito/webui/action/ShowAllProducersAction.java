@@ -60,8 +60,4 @@ public class ShowAllProducersAction extends BaseShowProducersAction{
 		//adding dummy parameter to ensure that aditional parameters can be added with &
 		return "mskShowAllProducers?ts="+System.currentTimeMillis();
 	}
-
-	public static void main(String[] args) {
-		new ShowAllProducersAction().execute(null, null, null, null);
-	}
 }
