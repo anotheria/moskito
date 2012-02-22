@@ -34,6 +34,8 @@
  */	
 package net.java.dev.moskito.core.calltrace;
 
+import java.io.Serializable;
+
 import net.java.dev.moskito.core.producers.IStatsProducer;
 
 /**
@@ -41,7 +43,12 @@ import net.java.dev.moskito.core.producers.IStatsProducer;
  * @author lrosenberg
  *
  */
-public class CurrentlyTracedCall implements TracedCall{
+public class CurrentlyTracedCall implements TracedCall, Serializable{
+	
+	/**
+	 * SerialVersionID.
+	 */
+	private static final long serialVersionUID = 1L;
 	/**
 	 * Name of the call.
 	 */
@@ -132,5 +139,9 @@ public class CurrentlyTracedCall implements TracedCall{
 	
 	public int getNumberOfSteps(){
 		return root.getNumberOfIncludedSteps();
+	}
+	
+	public TraceStep getCurrentStep(){
+		return current;
 	}
 }

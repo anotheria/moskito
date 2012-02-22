@@ -57,11 +57,11 @@ public class ServiceStatsCallHandler implements IOnDemandCallHandler{
 		
 		defaultStats.addRequest();
 		methodStats.addRequest();
-		TracedCall aRunningUseCase = RunningTraceContainer.getCurrentlyTracedCall();
-		TraceStep currentElement = null;
-		CurrentlyTracedCall runningUseCase = aRunningUseCase.callTraced() ? 
-				(CurrentlyTracedCall)aRunningUseCase : null; 
-		if (runningUseCase !=null){
+		TracedCall aRunningTrace = RunningTraceContainer.getCurrentlyTracedCall();
+		TraceStep currentStep = null;
+		CurrentlyTracedCall currentTrace = aRunningTrace.callTraced() ? 
+				(CurrentlyTracedCall)aRunningTrace : null; 
+		if (currentTrace !=null){
 			StringBuilder call = new StringBuilder(producer.getProducerId()).append('.').append(method.getName()).append("(");
 			if (args!=null && args.length>0){
 				for (int i=0; i<args.length; i++){
@@ -71,7 +71,7 @@ public class ServiceStatsCallHandler implements IOnDemandCallHandler{
 				}
 			}
 			call.append(")");
-			currentElement = runningUseCase.startStep(call.toString(), producer);
+			currentStep = currentTrace.startStep(call.toString(), producer);
 		}
 		long startTime = System.nanoTime();
 		Object ret = null;
@@ -82,14 +82,14 @@ public class ServiceStatsCallHandler implements IOnDemandCallHandler{
 			defaultStats.notifyError();
 			methodStats.notifyError();
 			//System.out.println("exception of class: "+e.getCause()+" is thrown");
-			if (currentElement!=null)
-				currentElement.setAborted();
+			if (currentStep!=null)
+				currentStep.setAborted();
 			throw e.getCause();
 		}catch(Throwable t){
 			defaultStats.notifyError();
 			methodStats.notifyError();
-			if (currentElement!=null)
-				currentElement.setAborted();
+			if (currentStep!=null)
+				currentStep.setAborted();
 			throw t;
 		}finally{
 			long exTime = System.nanoTime() - startTime;
@@ -97,16 +97,16 @@ public class ServiceStatsCallHandler implements IOnDemandCallHandler{
 			methodStats.addExecutionTime(exTime);
 			defaultStats.notifyRequestFinished();
 			methodStats.notifyRequestFinished();
-			if (currentElement!=null){
-				currentElement.setDuration(System.nanoTime()-startTime);
+			if (currentStep!=null){
+				currentStep.setDuration(exTime);
 				try{
-					currentElement.appendToCall(" = "+ret);
+					currentStep.appendToCall(" = "+ret);
 				}catch(Throwable t){
-					currentElement.appendToCall(" = ERR: "+t.getMessage()+" ("+t.getClass()+")");
+					currentStep.appendToCall(" = ERR: "+t.getMessage()+" ("+t.getClass()+")");
 				}
 			}
-			if (runningUseCase !=null)
-				runningUseCase.endStep();
+			if (currentTrace !=null)
+				currentTrace.endStep();
 		}
 	}
 } 

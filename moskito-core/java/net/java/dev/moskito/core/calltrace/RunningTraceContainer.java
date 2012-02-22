@@ -80,7 +80,7 @@ public class RunningTraceContainer {
 	 * Returns true if there is currently a use-case recorded.
 	 * @return
 	 */
-	public static boolean isUseCaseRunning(){
+	public static boolean isTraceRunning(){
 		return currentlyTracedCall.get().callTraced();
 	}
 }

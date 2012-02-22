@@ -12,7 +12,7 @@ import net.java.dev.moskito.core.calltrace.CurrentlyTracedCall;
  */
 public class Journey {
 	/**
-	 * Name of the session.
+	 * Name of the journey.
 	 */
 	private String name;
 	/**
@@ -83,5 +83,10 @@ public class Journey {
 	 */
 	public List<CurrentlyTracedCall> getTracedCalls() {
 		return tracedCalls;
+	}
+	
+	@Override
+	public String toString(){
+		return getName()+" with "+getTracedCalls().size()+" calls.";
 	}
 }

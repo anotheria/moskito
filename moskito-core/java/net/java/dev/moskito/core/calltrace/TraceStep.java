@@ -34,6 +34,7 @@
  */	
 package net.java.dev.moskito.core.calltrace;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -44,7 +45,11 @@ import net.java.dev.moskito.core.producers.IStatsProducer;
  * @author lrosenberg
  *
  */
-public class TraceStep {
+public class TraceStep implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	/**
 	 * Call description, might be a method call or whatever suits best.
 	 */
@@ -69,7 +74,7 @@ public class TraceStep {
 	/**
 	 * The producer that was called in this step.
 	 */
-	private IStatsProducer producer;
+	private transient IStatsProducer producer;
 
 	public TraceStep(String aCall){
 		this(aCall, null);

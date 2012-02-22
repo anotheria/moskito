@@ -23,7 +23,7 @@ public class UseCaseRecorderCommandProcessor implements CommandProcessor{
 	
 	@Override
 	public void startCommand(String command, Map<String, String[]> parameters) {
-		if (RunningTraceContainer.isUseCaseRunning())
+		if (RunningTraceContainer.isTraceRunning())
 			throw new RuntimeException("UseCase already running");
 		String useCaseName = parameters.get(PARAM_USE_CASE_NAME)[0];
 		if (useCaseName==null || useCaseName.length()==0)
