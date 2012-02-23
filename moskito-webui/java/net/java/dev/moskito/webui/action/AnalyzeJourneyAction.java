@@ -75,7 +75,7 @@ public class AnalyzeJourneyAction extends BaseJourneyAction{
 		String producerName = step.getProducer() == null ? 
 				"UNKNOWN" : step.getProducer().getProducerId();
 		for (AnalyzeProducerCallsMapBean map : maps){
-			map.addProducerCall(producerName,  step.getDuration());
+			map.addProducerCall(producerName,  step.getNetDuration());
 		}
 		for (TraceStep childStep : step.getChildren()){
 			addStep(childStep, maps);

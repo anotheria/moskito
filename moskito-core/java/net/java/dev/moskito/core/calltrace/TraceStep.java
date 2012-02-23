@@ -171,6 +171,13 @@ public class TraceStep implements Serializable{
 	public long getDuration() {
 		return duration;
 	}
+	
+	public long getNetDuration(){
+		long ret = duration;
+		for (TraceStep s : children )
+			ret -= s.getDuration();
+		return ret;
+	}
 
 	public void setDuration(long duration) {
 		this.duration = duration;
