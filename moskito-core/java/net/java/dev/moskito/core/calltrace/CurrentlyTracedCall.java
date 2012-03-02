@@ -94,7 +94,9 @@ public class CurrentlyTracedCall implements TracedCall, Serializable{
 	public TraceStep startStep(String call, IStatsProducer producer){
 		TraceStep last = current;
 		current = new TraceStep(call, producer);
-		last.addChild(current);
+		//it actually happened in production, we are still investigating why, but this fix should at least prevent the NPE for now.
+		if (last!=null)
+			last.addChild(current);
 		return current;
 	}
 
