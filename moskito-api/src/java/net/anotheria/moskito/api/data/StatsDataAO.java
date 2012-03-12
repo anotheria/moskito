@@ -7,11 +7,11 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Producer detailed data container.
+ * Producer stats data container.
  * 
  * @author Alexandr Bolbat
  */
-public class DetailedDataAO implements Serializable {
+public class StatsDataAO implements Serializable {
 
 	/**
 	 * Basic serialVersionUID variable.
@@ -19,12 +19,12 @@ public class DetailedDataAO implements Serializable {
 	private static final long serialVersionUID = -1722362535545912297L;
 
 	/**
-	 * Detailed data name.
+	 * Stats data name.
 	 */
 	private final String name;
 
 	/**
-	 * Detailed data name properties.
+	 * Stats data properties.
 	 */
 	private final Map<String, Number> properties = new HashMap<String, Number>();
 
@@ -32,9 +32,9 @@ public class DetailedDataAO implements Serializable {
 	 * Default constructor.
 	 * 
 	 * @param aName
-	 *            - detailed data name
+	 *            - stats data name
 	 */
-	public DetailedDataAO(final String aName) {
+	public StatsDataAO(final String aName) {
 		this.name = aName != null ? aName : "";
 	}
 

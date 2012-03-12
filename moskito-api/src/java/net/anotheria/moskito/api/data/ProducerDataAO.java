@@ -25,7 +25,7 @@ public class ProducerDataAO implements Serializable {
 	/**
 	 * Producer data.
 	 */
-	private final List<DetailedDataAO> data = new ArrayList<DetailedDataAO>();
+	private final List<StatsDataAO> data = new ArrayList<StatsDataAO>();
 
 	/**
 	 * Default constructor.
@@ -44,24 +44,24 @@ public class ProducerDataAO implements Serializable {
 	/**
 	 * Get producer data.
 	 * 
-	 * @return {@link List} of {@link DetailedDataAO}
+	 * @return {@link List} of {@link StatsDataAO}
 	 */
-	public List<DetailedDataAO> getData() {
+	public List<StatsDataAO> getData() {
 		if (data == null)
 			return Collections.emptyList();
 
-		return new ArrayList<DetailedDataAO>(data);
+		return new ArrayList<StatsDataAO>(data);
 	}
 
 	/**
-	 * Add producer detailed data.
+	 * Add producer data.
 	 * 
-	 * @param detailedData
-	 *            - detailed producer data
+	 * @param aData
+	 *            - producer data
 	 */
-	public void addData(final DetailedDataAO detailedData) {
-		if (detailedData != null)
-			data.add(detailedData);
+	public void addData(final StatsDataAO aData) {
+		if (aData != null)
+			data.add(aData);
 	}
 
 }
