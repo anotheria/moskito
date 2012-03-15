@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<model:Screen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:model="http://wireframesketcher.com/1.0/model.ecore">
+  <widgets xsi:type="model:Browser" id="1" x="32" y="32" width="833" height="529" text="Browser&#xA;http://mwc.site.com/mwc.dashboard" measuredWidth="833" measuredHeight="529"/>
+  <widgets xsi:type="model:HLine" id="5" x="32" y="144" width="833" measuredWidth="833" measuredHeight="6"/>
+  <widgets xsi:type="model:Rectangle" id="6" x="120" y="176" width="745" height="385" measuredWidth="745" measuredHeight="385">
+    <font/>
+  </widgets>
+  <widgets xsi:type="model:Label" id="11" x="720" y="104" text="User Name |" measuredWidth="71" measuredHeight="21">
+    <font bold="false"/>
+  </widgets>
+  <widgets xsi:type="model:Label" id="13" x="42" y="99" text="Logo" measuredWidth="65" measuredHeight="32" textAlignment="Center" icon="image (large)">
+    <font/>
+  </widgets>
+  <widgets xsi:type="model:Rectangle" id="14" x="32" y="176" width="89" height="33" text="Main Params" measuredWidth="89" measuredHeight="33">
+    <font/>
+  </widgets>
+  <widgets xsi:type="model:Rectangle" id="15" x="32" y="208" width="89" height="33" text="View 2" measuredWidth="89" measuredHeight="33">
+    <font/>
+  </widgets>
+  <widgets xsi:type="model:Rectangle" id="16" x="32" y="240" width="89" height="33" text="View 3" measuredWidth="89" measuredHeight="33">
+    <font/>
+  </widgets>
+  <widgets xsi:type="model:Rectangle" id="17" x="32" y="272" width="89" height="33" text="View ..." measuredWidth="89" measuredHeight="33">
+    <font/>
+  </widgets>
+  <widgets xsi:type="model:Rectangle" id="18" x="32" y="304" width="89" height="33" text="View N" measuredWidth="89" measuredHeight="33">
+    <font/>
+  </widgets>
+  <widgets xsi:type="model:Label" id="20" x="42" y="152" text="Interval:" measuredWidth="49" measuredHeight="21">
+    <font bold="false"/>
+  </widgets>
+  <widgets xsi:type="model:LinkBar" id="21" x="90" y="152" text="default,1m,5m,1h,6h,12h" measuredWidth="226" measuredHeight="21">
+    <font underline="false"/>
+    <items x="0" y="0" width="40" height="21" text="default"/>
+    <items x="58" y="0" width="20" height="21" text="1m"/>
+    <items x="96" y="0" width="20" height="21" text="5m"/>
+    <items x="134" y="0" width="16" height="21" text="1h"/>
+    <items x="168" y="0" width="16" height="21" text="6h"/>
+    <items x="202" y="0" width="23" height="21" text="12h"/>
+  </widgets>
+  <widgets xsi:type="model:Link" id="22" x="790" y="104" text="Logout" measuredWidth="41" measuredHeight="21">
+    <font/>
+  </widgets>
+  <widgets xsi:type="model:Label" id="24" x="751" y="152" text="Configure View" measuredWidth="104" measuredHeight="21" textAlignment="Center" icon="table (small)">
+    <font/>
+  </widgets>
+  <widgets xsi:type="model:Icon" id="28" x="64" y="529" measuredWidth="32" measuredHeight="32" icon="squared-plus (large)"/>
+  <widgets xsi:type="model:Icon" id="29" x="90" y="529" measuredWidth="32" measuredHeight="32" icon="squared-minus (large)"/>
+  <widgets xsi:type="model:Icon" id="30" x="836" y="107" measuredWidth="16" measuredHeight="16" icon="options (small)"/>
+  <widgets xsi:type="model:Table" id="32" x="136" y="213" width="716" text="Server, Current, Max, %&#xA;Srv01, 512, 1024, 50&#xA;Srv02, 768, 1024, 75&#xA;Srv03, 512, 1024, 50&#xA;Srv04, 512, 1024, 50&#xA;%(color:red)Srv05%, %(color:red)988%, %(color:red)1024%, %(color:red)95%" measuredWidth="716" measuredHeight="124" alternative="#eeeeee">
+    <font/>
+  </widgets>
+  <widgets xsi:type="model:Label" id="33" x="136" y="193" text="Memory Consumption" measuredWidth="124" measuredHeight="21">
+    <font/>
+  </widgets>
+  <widgets xsi:type="model:Table" id="34" x="137" y="368" width="715" text="Server, Current, Max, %&#xA;Srv01, 75, 150, 50&#xA;Srv02, 75, 150, 50&#xA;%(color:red)Srv03%, %(color:red)145%, %(color:red)150%, %(color:red)98%&#xA;Srv04, 75, 150, 50&#xA;Srv05, 75, 150, 50" measuredWidth="715" measuredHeight="124" alternative="#eeeeee">
+    <font/>
+  </widgets>
+  <widgets xsi:type="model:Label" id="35" x="136" y="348" text="Threads Count" measuredWidth="84" measuredHeight="21">
+    <font/>
+  </widgets>
+  <widgets xsi:type="model:Combo" id="36" x="328" y="152" text="milliseconds" measuredWidth="91" measuredHeight="21">
+    <font/>
+  </widgets>
+  <hRuler/>
+  <vRuler/>
+  <font/>
+</model:Screen>
