@@ -65,9 +65,6 @@ public class AnalyzeJourneyAction extends BaseJourneyAction{
 			AnalyzeProducerCallsBeanSortType st = AnalyzeProducerCallsBeanSortType.fromStrings(sortBy, sortOrder);
 			CurrentSelection.get().setAnalyzeProducerCallsSortType(st);
 		}
-		
-		
-		
 		return mapping.success();
 	}
 	
@@ -80,6 +77,5 @@ public class AnalyzeJourneyAction extends BaseJourneyAction{
 		for (TraceStep childStep : step.getChildren()){
 			addStep(childStep, maps);
 		}
-		
 	}
 }

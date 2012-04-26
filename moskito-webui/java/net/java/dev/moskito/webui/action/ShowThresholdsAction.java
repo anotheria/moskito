@@ -82,7 +82,7 @@ public class ShowThresholdsAction extends BaseMoskitoUIAction{
 		req.setAttribute("infos", iBeans);
 		req.setAttribute("alerts", aBeans);
 		
-		return mapping.success();
+		return mapping.findCommand(getForward(req));
 	}
 
 	@Override

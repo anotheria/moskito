@@ -136,8 +136,15 @@ public class MoskitoMappingsConfigurator implements ActionMappingsConfigurator{
 		mappings.addMapping("mskForceIntervalUpdate", ForceIntervalUpdateAction.class, (ActionForward[])null);
 
 		mappings.addMapping("mskThresholds", ShowThresholdsAction.class, 
-				new ActionForward("success", "/net/java/dev/moskito/webui/jsp/Thresholds.jsp")
+				new ActionForward("html", "/net/java/dev/moskito/webui/jsp/Thresholds.jsp"),
+				new ActionForward("xml", "/net/java/dev/moskito/webui/jsp/ThresholdsXML.jsp"),
+				new ActionForward("csv", "/net/java/dev/moskito/webui/jsp/ThresholdsCSV.jsp"),
+				new ActionForward("json", "/net/java/dev/moskito/webui/jsp/ThresholdsJSON.jsp")
 		);
+		mappings.addAlias("mskThresholds.csv", "mskThresholds");
+		mappings.addAlias("mskThresholds.xml", "mskThresholds");
+		mappings.addAlias("mskThresholds.json", "mskThresholds");
+		
 
 		mappings.addMapping("mskAccumulators", ShowAccumulatorsAction.class, 
 				new ActionForward("success", "/net/java/dev/moskito/webui/jsp/Accumulators.jsp")
