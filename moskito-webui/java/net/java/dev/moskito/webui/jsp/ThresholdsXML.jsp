@@ -2,6 +2,10 @@
 %><%@ taglib uri="http://www.anotheria.net/ano-tags" prefix="ano"
 %><?xml version="1.0" encoding="UTF-8"?>
 <thresholds>
+  <system>
+  	<color><ano:write name="systemStatusColor"/></color>
+  	<state><ano:write name="systemStatus"/></state>
+  </system>
   <setups>
 	<ano:iterate name="infos" type="net.java.dev.moskito.webui.bean.ThresholdInfoBean" id="info">
 		<setup>
