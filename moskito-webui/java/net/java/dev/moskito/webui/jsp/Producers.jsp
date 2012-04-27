@@ -18,7 +18,7 @@
 <!--
  Data for charts -->
  <script>
-<msk:iterate type="net.java.dev.moskito.webui.bean.GraphDataBean" 	id="graph" name="graphDatas">	
+<msk:iterate type="net.java.dev.moskito.webui.bean.GraphDataBean" id="graph" name="graphDatas">	
 	var <msk:write name="graph" property="jsVariableName"/>Caption = "<msk:write name="graph" property="caption"/>";
 	var <msk:write name="graph" property="jsVariableName"/>Array = <msk:write name="graph" property="jsArrayValue"/>;
 </msk:iterate> 
