@@ -147,8 +147,14 @@ public class MoskitoMappingsConfigurator implements ActionMappingsConfigurator{
 		
 
 		mappings.addMapping("mskAccumulators", ShowAccumulatorsAction.class, 
-				new ActionForward("success", "/net/java/dev/moskito/webui/jsp/Accumulators.jsp")
+				new ActionForward("html", "/net/java/dev/moskito/webui/jsp/Accumulators.jsp"),
+				new ActionForward("xml", "/net/java/dev/moskito/webui/jsp/AccumulatorsXML.jsp"),
+				new ActionForward("csv", "/net/java/dev/moskito/webui/jsp/AccumulatorsCSV.jsp"),
+				new ActionForward("json", "/net/java/dev/moskito/webui/jsp/AccumulatorsJSON.jsp")
 		);
+		mappings.addAlias("mskAccumulators.csv", "mskAccumulators");
+		mappings.addAlias("mskAccumulators.xml", "mskAccumulators");
+		mappings.addAlias("mskAccumulators.json", "mskAccumulators");
 		
 		
 		//analyze journey

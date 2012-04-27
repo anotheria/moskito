@@ -154,36 +154,14 @@ public class ShowAccumulatorsAction extends BaseMoskitoUIAction{
 				dataBeans.add(bean);
 			}
 			
-			//now finally cut the data
-//			if (dataBeans.size()>maxValues)
-				//dataBeans.subList(fromIndex, toIndex)
-			
 			if (dataBeans.size()>maxValues)
 				dataBeans = dataBeans.subList(dataBeans.size()-maxValues, dataBeans.size());
 
 			req.setAttribute("data", dataBeans);
 			req.setAttribute("accNames", accNames);
 			
-			
-			
-			
-			
-			
-//			String id = req.getParameter("id");
-//			if (id!=null && id.length()>0){
-//				Accumulator acc = AccumulatorRepository.getInstance().getAccumulatorById(id);
-//				AccumulatorDataBean dataBean = new AccumulatorDataBean();
-//				dataBean.setDescription(acc.getDefinition().describe());
-//				dataBean.setShortDescription(acc.getName());
-//				List<AccumulatedValue> values = acc.getValues();
-//				for (AccumulatedValue value : values){
-//					dataBean.addValue(value.getValue(), NumberUtils.makeTimeString(value.getTimestamp()));
-//				}
-//				req.setAttribute("dataBean", dataBean);
-//			}
 		}
-		
-		return mapping.findCommand("success");
+		return mapping.findCommand(getForward(req));
 	}
 	
 	/*test visibility */ static void normalize(List<AccumulatedValuesBean> values, List<String> names, int limit){
