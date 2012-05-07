@@ -4,7 +4,7 @@
 	<parent>
 		<artifactId>parent</artifactId>
 		<groupId>net.anotheria</groupId>
-		<version>1.11</version>
+		<version>1.13</version>
 	</parent>
   <groupId>net.anotheria</groupId>
   <artifactId>moskito-control-monitor</artifactId>
