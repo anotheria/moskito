@@ -8,7 +8,7 @@
 
   <modelVersion>4.0.0</modelVersion>
   <artifactId>moskito-central</artifactId>
-  <version>1.4.0</version>
+  <version>1.4.1-SNAPSHOT</version>
   <name>moskito central snapshot storage</name>
 
   <dependencies>
@@ -40,10 +40,4 @@
        </dependency>
 	
   </dependencies>
-
-  <scm>
-    <connection>scm:svn:svn://svn.anotheria.net/opensource/parent/tags/moskito-1.4.0</connection>
-    <developerConnection>scm:svn:svn://svn.anotheria.net/opensource/parent/tags/moskito-1.4.0</developerConnection>
-    <url>svn:svn://svn.anotheria.net/opensource/parent/tags/moskito-1.4.0</url>
-  </scm>
 </project>
