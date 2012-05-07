@@ -8,7 +8,7 @@
 
   <modelVersion>4.0.0</modelVersion>
   <groupId>net.anotheria</groupId>
-  <artifactId>moskito</artifactId>
+  <artifactId>moskito-parent</artifactId>
   <version>1.4.1-SNAPSHOT</version>
   <name>MoSKito</name>
   <description>MoSKito, MoSKito, MoSKito and moskito</description>
