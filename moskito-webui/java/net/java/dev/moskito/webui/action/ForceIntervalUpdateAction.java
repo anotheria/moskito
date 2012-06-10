@@ -31,7 +31,7 @@ public class ForceIntervalUpdateAction extends BaseMoskitoUIAction{
 		((IUpdateable)interval).update();
 		
 		String reply = "updated "+interval.toString();
-		res.getOutputStream().write(reply.getBytes());
+		res.getOutputStream().write(reply.getBytes("UTF-8"));
 		return null;
 	}
 
