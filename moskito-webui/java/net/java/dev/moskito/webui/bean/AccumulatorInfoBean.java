@@ -11,10 +11,25 @@ import net.anotheria.util.sorter.IComparable;
  *
  */
 public class AccumulatorInfoBean implements IComparable{
+	/**
+	 * If of the accumulator.
+	 */
 	private String id;
+	/**
+	 * Name of the accumulator.
+	 */
 	private String name;
+	/**
+	 * Path to the stat values.
+	 */
 	private String path;
+	/**
+	 * Number of accumulated values.
+	 */
 	private int numberOfValues;
+	/**
+	 * The timestamp from last value.
+	 */
 	private String lastValueTimestamp;
 	public String getName() {
 		return name;

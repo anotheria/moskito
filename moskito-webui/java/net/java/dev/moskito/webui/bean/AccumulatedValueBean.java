@@ -3,8 +3,19 @@ package net.java.dev.moskito.webui.bean;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * This bean contains a list of values for one timestamp.
+ * @author lrosenberg
+ *
+ */
 public class AccumulatedValueBean {
+	/**
+	 * Values aka data for graphs.
+	 */
 	private List<String> values;
+	/**
+	 * Timestamp.
+	 */
 	private String timestamp;
 	
 	public AccumulatedValueBean(String aTimestamp){
@@ -24,7 +35,7 @@ public class AccumulatedValueBean {
 		this.timestamp = timestamp;
 	}
 	
-	public String toString(){
+	@Override public String toString(){
 		StringBuilder ret = new StringBuilder("[");
 		ret.append("\"").append(timestamp).append("\"");
 		for (String s: values)

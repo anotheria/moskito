@@ -5,9 +5,19 @@ import java.util.HashMap;
 import java.util.List;
 
 import net.anotheria.util.StringUtils;
-
+/**
+ * This bean contains data for a single graph in multiple graph mode.
+ * @author lrosenberg
+ *
+ */
 public class AccumulatedSingleGraphDataBean {
+	/**
+	 * Name of the graph.
+	 */
 	private String name;
+	/**
+	 * Graph data.
+	 */
 	private List<AccumulatedValueBean> data;
 	
 	private static final HashMap<String, String> jsReplaceMap;
