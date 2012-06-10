@@ -19,6 +19,13 @@
 	var data = [<ano:iterate name="data" id="value" indexId="i"><ano:notEqual name="i" value="0">,</ano:notEqual><ano:write name="value"/></ano:iterate>]; 
 </script>
 </ano:present>
+<ano:present name="singleGraphData">
+<script type="text/javascript">
+	<ano:iterate name="singleGraphData" type="net.java.dev.moskito.webui.bean.AccumulatedSingleGraphDataBean" id="singleGraph">
+		var singleGraphData<ano:write name="singleGraph" property="nameForJS"/> = [<ano:iterate name="singleGraph" property="data" id="value" indexId="i"><ano:notEqual name="i" value="0">,</ano:notEqual><ano:write name="value"/></ano:iterate>]; ;
+	</ano:iterate>
+</script>
+</ano:present>
 
 <div class="main">
 	<div class="clear"><!-- --></div>
@@ -28,6 +35,7 @@
 		<div class="top">
 			<div><!-- --></div>
 		</div>
+		<ano:notPresent name="multiple_set">
 		<div class="in">
 			<h2><span>Chart for <ano:iterate name="accNames" type="java.lang.String" id="name"><ano:write name="name"/> </ano:iterate></span></h2><a class="refresh" href="#"></a>
 
@@ -47,6 +55,30 @@
 				</div>
 			</div>
 		</div>
+		</ano:notPresent>
+		<ano:present name="multiple_set">
+		<ano:iterate name="singleGraphData" type="net.java.dev.moskito.webui.bean.AccumulatedSingleGraphDataBean" id="singleGraph">
+		<div class="in">
+			<h2><span>Chart for <ano:write name="singleGraph" property="name"/></span></h2><a class="refresh" href="#"></a>
+
+			<div class="clear"><!-- --></div>
+			<div class="table_itseft">
+				<div class="top">
+					<div class="left"><!-- --></div>
+					<div class="right"><!-- --></div>
+				</div>
+				<div class="in">
+					<div id="chart_accum<ano:write name="singleGraph" property="nameForJS"/>"></div>
+					<div class="clear"><!-- --></div>
+				</div>
+				<div class="bot">
+					<div class="left"><!-- --></div>
+					<div class="right"><!-- --></div>
+				</div>
+			</div>
+		</div>
+		</ano:iterate>
+		</ano:present>
 		<div class="bot">
 			<div><!-- --></div>
 		</div>
@@ -92,7 +124,17 @@
 								<tr>
 									<td colspan="5">
 										<input type="submit" value="Submit"/>
-										&nbsp;(<input type="checkbox" name="normalize" value="true" <ano:present name="normalize_set">checked="checked"</ano:present>/>&nbsp;normalize)
+										&nbsp;(Mode:&nbsp;
+											<input type="radio" name="mode" value="combined" <ano:present name="combined_set">checked="checked"</ano:present>/>&nbsp;combine
+											<input type="radio" name="mode" value="normalized" <ano:present name="normalized_set">checked="checked"</ano:present>/>&nbsp;combine and normalize
+											<input type="radio" name="mode" value="multiple" <ano:present name="multiple_set">checked="checked"</ano:present>/>&nbsp;multiple graphs
+										)
+										&nbsp;(Type:&nbsp;
+											<input type="radio" name="type" value="LineChart" <ano:equal name="type" value="LineChart">checked="checked"</ano:equal	>/>&nbsp;Line
+											<input type="radio" name="type" value="PieChart" <ano:equal name="type" value="PieChart">checked="checked"</ano:equal>/>&nbsp;Pie
+											<input type="radio" name="type" value="BarChart" <ano:equal name="type" value="BarChart">checked="checked"</ano:equal>/>&nbsp;Bar
+											<input type="radio" name="type" value="ColumnChart" <ano:equal name="type" value="ColumnChart">checked="checked"</ano:equal>/>&nbsp;Column
+										)										
 										<input type="hidden" name="normalizeBase" value="<ano:write name="normalizeBase"/>"/>
 										<input type="hidden" name="maxValues" value="<ano:write name="maxValues"/>"/>
 									</td>
@@ -168,6 +210,8 @@
 <script type="text/javascript">
 	google.load("visualization", "1", {packages:["corechart"]});
 	google.setOnLoadCallback(drawLineChart);
+	//combined chart
+	<ano:notPresent name="singleGraphData">
 	function drawLineChart() {
 		var data2 = new google.visualization.DataTable();
 		data2.addColumn('string', 'Time');
@@ -179,12 +223,32 @@
 		var chartInfo = {
 			params: '',
 			container: 'chart_accum',
-			type: 'LineChart',
+			type: '<ano:write name="type"/>',
 			data: data2,
 			options: options 
 		};
 		drawChart(chartInfo);		
 	}
+	</ano:notPresent>
+	<ano:present name="singleGraphData">
+	function drawLineChart() {
+		<ano:iterate name="singleGraphData" type="net.java.dev.moskito.webui.bean.AccumulatedSingleGraphDataBean" id="singleGraph">
+			var chartData<ano:write name="singleGraph" property="nameForJS"/> = new google.visualization.DataTable();
+			chartData<ano:write name="singleGraph" property="nameForJS"/>.addColumn('string', 'Time');
+			chartData<ano:write name="singleGraph" property="nameForJS"/>.addColumn('number', '<ano:write name="singleGraph" property="name"/>');
+			chartData<ano:write name="singleGraph" property="nameForJS"/>.addRows(singleGraphData<ano:write name="singleGraph" property="nameForJS"/>);
+			var options = {width: 1000, height: 300, title: '<ano:write name="singleGraph" property="name"/>'};
+			var chartInfo = {
+				params: '',
+				container: 'chart_accum<ano:write name="singleGraph" property="nameForJS"/>',
+				type: '<ano:write name="type"/>',
+				data: chartData<ano:write name="singleGraph" property="nameForJS"/>,
+				options: options 
+			};
+			drawChart(chartInfo);		
+		</ano:iterate>
+	}
+	</ano:present>
 	function drawChart(chartInfo) {
 		document.getElementById(chartInfo.container).chartInfo = chartInfo;
 

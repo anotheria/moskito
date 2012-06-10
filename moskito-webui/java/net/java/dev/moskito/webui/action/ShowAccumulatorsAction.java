@@ -11,12 +11,14 @@ import javax.servlet.http.HttpServletResponse;
 import net.anotheria.maf.action.ActionCommand;
 import net.anotheria.maf.action.ActionMapping;
 import net.anotheria.maf.bean.FormBean;
+import net.anotheria.util.NumberUtils;
 import net.anotheria.util.sorter.DummySortType;
 import net.anotheria.util.sorter.SortType;
 import net.anotheria.util.sorter.StaticQuickSorter;
 import net.java.dev.moskito.core.accumulation.AccumulatedValue;
 import net.java.dev.moskito.core.accumulation.Accumulator;
 import net.java.dev.moskito.core.accumulation.AccumulatorRepository;
+import net.java.dev.moskito.webui.bean.AccumulatedSingleGraphDataBean;
 import net.java.dev.moskito.webui.bean.AccumulatedValueBean;
 import net.java.dev.moskito.webui.bean.AccumulatedValuesBean;
 import net.java.dev.moskito.webui.bean.AccumulatorInfoBean;
@@ -27,6 +29,22 @@ public class ShowAccumulatorsAction extends BaseMoskitoUIAction{
 	//save objects
 	private static final SortType SORT_TYPE = new DummySortType();
 	
+	static enum MODE{
+		combined, normalized, multiple;
+		
+		static MODE fromString(String value){
+			if (value==null)
+				return combined;
+			for (MODE m : values()){
+				if (m.name().equals(value)){
+					return m;
+				}
+			}
+			//combined is default
+			return combined;
+		}
+	}
+	
 	@Override
 	public ActionCommand execute(ActionMapping mapping, FormBean formBean,
 			HttpServletRequest req, HttpServletResponse res) throws Exception {
@@ -34,12 +52,15 @@ public class ShowAccumulatorsAction extends BaseMoskitoUIAction{
 		List<Accumulator> accumulators = AccumulatorRepository.getInstance().getAccumulators();
 		List<AccumulatorInfoBean> beans = new ArrayList<AccumulatorInfoBean>();
 		
+		MODE mode = MODE.fromString(req.getParameter("mode"));
+		req.setAttribute(mode.name()+"_set", Boolean.TRUE);
 		
-		String normalize_p = req.getParameter("normalize");
-		boolean normalize = normalize_p!=null && normalize_p.equals("true");
-		if (normalize){
-			req.setAttribute("normalize_set", Boolean.TRUE);
-		}
+		String chartType = req.getParameter("type");
+		if (chartType==null || chartType.length()==0)
+			chartType="LineChart";
+		req.setAttribute("type", chartType);
+		
+		
 		int normalizeBase = 100;
 		try{
 			normalizeBase = Integer.parseInt(req.getParameter("normalizeBase"));
@@ -87,6 +108,7 @@ public class ShowAccumulatorsAction extends BaseMoskitoUIAction{
 //		System.out.println("ids to show: "+ids);
 		if (ids.size()>0){
 		List<AccumulatedValueBean> dataBeans = new ArrayList<AccumulatedValueBean>();
+		List<AccumulatedSingleGraphDataBean> singleGraphDataBeans = new ArrayList<AccumulatedSingleGraphDataBean>(ids.size());
 			
 			//prepare values
 			HashMap<Long, AccumulatedValuesBean> values = new HashMap<Long, AccumulatedValuesBean>();
@@ -94,6 +116,8 @@ public class ShowAccumulatorsAction extends BaseMoskitoUIAction{
 			
 			for (String id : ids){
 				Accumulator acc = AccumulatorRepository.getInstance().getAccumulatorById(id);
+				AccumulatedSingleGraphDataBean singleGraphDataBean = new AccumulatedSingleGraphDataBean(acc.getName());
+				singleGraphDataBeans.add(singleGraphDataBean);
 				accNames.add(acc.getName());
 				List<AccumulatedValue> accValues = acc.getValues();
 				for (AccumulatedValue v : accValues){
@@ -104,6 +128,11 @@ public class ShowAccumulatorsAction extends BaseMoskitoUIAction{
 						values.put(timestamp, bean);
 					}
 					bean.setValue(acc.getName(), v.getValue());
+					
+					//for single graph data
+					AccumulatedValueBean accValueForGraphData = new AccumulatedValueBean(NumberUtils.makeTimeString(timestamp));
+					accValueForGraphData.addValue(v.getValue());
+					singleGraphDataBean.add(accValueForGraphData);
 				}
 			}
 			List<AccumulatedValuesBean> valuesList = StaticQuickSorter.sort(values.values(), SORT_TYPE);
@@ -141,7 +170,7 @@ public class ShowAccumulatorsAction extends BaseMoskitoUIAction{
 //				System.out.println("  "+avbTemp);
 //			}
 
-			if (normalize){
+			if (mode==MODE.normalized){
 				normalize(valuesList, accNames, normalizeBase);
 			}
 			
@@ -159,6 +188,8 @@ public class ShowAccumulatorsAction extends BaseMoskitoUIAction{
 
 			req.setAttribute("data", dataBeans);
 			req.setAttribute("accNames", accNames);
+			if (mode==MODE.multiple)
+				req.setAttribute("singleGraphData", singleGraphDataBeans);
 			
 		}
 		return mapping.findCommand(getForward(req));
