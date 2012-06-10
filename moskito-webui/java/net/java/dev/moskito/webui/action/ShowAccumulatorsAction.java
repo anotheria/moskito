@@ -24,6 +24,11 @@ import net.java.dev.moskito.webui.bean.AccumulatedValuesBean;
 import net.java.dev.moskito.webui.bean.AccumulatorInfoBean;
 import net.java.dev.moskito.webui.bean.NaviItem;
 
+/**
+/**
+ * Displays configured accumulators and the gathered data and graphs.
+ * @author lrosenberg
+ */
 public class ShowAccumulatorsAction extends BaseMoskitoUIAction{
 
 	//save objects
