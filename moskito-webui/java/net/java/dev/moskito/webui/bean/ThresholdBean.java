@@ -4,16 +4,51 @@ import net.anotheria.util.BasicComparable;
 import net.anotheria.util.sorter.IComparable;
 import net.java.dev.moskito.core.treshold.ThresholdStatus;
 
+/**
+ * Contains runtime information about a threshold.
+ * @author lrosenberg
+ *
+ */
 public class ThresholdBean implements IComparable{
+	/**
+	 * Name of the threshold.
+	 */
 	private String name;
+	/**
+	 * Current status.
+	 */
 	private String status;
+	/**
+	 * Current color.
+	 */
 	private String colorCode;
+	/**
+	 * Last change timestamp.
+	 */
 	private String timestamp;
+	/**
+	 * Threshold description.
+	 */
 	private String description;
+	/**
+	 * Current value.
+	 */
 	private String value;
+	/**
+	 * Last change.
+	 */
 	private String change;
+	/**
+	 * Status for sorting.
+	 */
 	private ThresholdStatus statusForSorting;
+	/**
+	 * Timestamp for sorting.
+	 */
 	private long timestampForSorting;
+	/**
+	 * Id of the threshold.
+	 */
 	private int id;
 	
 	public String getValue() {

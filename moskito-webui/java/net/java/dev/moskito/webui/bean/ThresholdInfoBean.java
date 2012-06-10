@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Contains information about a threshold.
+ * Contains configuration information about a threshold. Used by js overlay.
  * @author lrosenberg
  *
  */
