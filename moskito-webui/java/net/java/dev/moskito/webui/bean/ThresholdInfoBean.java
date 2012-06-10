@@ -3,14 +3,43 @@ package net.java.dev.moskito.webui.bean;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Contains information about a threshold.
+ * @author lrosenberg
+ *
+ */
 public class ThresholdInfoBean {
+	/**
+	 * Threshold id.
+	 */
 	private int id;
+	/**
+	 * Threshold name.
+	 */
 	private String name;
+	/**
+	 * Name of the associated producer.
+	 */
 	private String producerName;
+	/**
+	 * Name of the stat.
+	 */
 	private String statName;
+	/**
+	 * Name of the value.
+	 */
 	private String valueName;
+	/**
+	 * Name of the interval.
+	 */
 	private String intervalName;
+	/**
+	 * The description string for this threshold.
+	 */
 	private String descriptionString;
+	/**
+	 * The attached guards.
+	 */
 	private List<String> guards;
 	
 	public ThresholdInfoBean(){
