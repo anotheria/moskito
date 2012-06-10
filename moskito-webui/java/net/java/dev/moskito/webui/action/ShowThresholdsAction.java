@@ -19,7 +19,11 @@ import net.java.dev.moskito.webui.bean.NaviItem;
 import net.java.dev.moskito.webui.bean.ThresholdAlertBean;
 import net.java.dev.moskito.webui.bean.ThresholdBean;
 import net.java.dev.moskito.webui.bean.ThresholdInfoBean;
-
+/**
+ * Displays configured thresholds and their statuses.
+ * @author lrosenberg
+ *
+ */
 public class ShowThresholdsAction extends BaseMoskitoUIAction{
 
 	@Override
