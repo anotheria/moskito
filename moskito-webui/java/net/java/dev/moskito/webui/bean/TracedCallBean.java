@@ -2,11 +2,27 @@ package net.java.dev.moskito.webui.bean;
 
 import java.util.ArrayList;
 import java.util.List;
-
+/**
+ * This bean stores traced calls.
+ * @author lrosenberg
+ *
+ */
 public class TracedCallBean {
+	/**
+	 * Name of the traced call.
+	 */
 	private String name;
+	/**
+	 * Creation timestamp.
+	 */
 	private long created;
+	/**
+	 * Date of the trace
+	 */
 	private String date;
+	/**
+	 * Elements of the traced call.
+	 */
 	private List<TraceStepBean> elements;
 	
 	public TracedCallBean(){
@@ -42,7 +58,7 @@ public class TracedCallBean {
 		elements.add(element);
 	}
 	
-	public String toString(){
+	@Override public String toString(){
 		return "Name:" + name+", date: "+date+", elements: "+elements;
 	}
 }
