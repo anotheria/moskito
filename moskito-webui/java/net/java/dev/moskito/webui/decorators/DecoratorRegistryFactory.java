@@ -36,7 +36,7 @@ package net.java.dev.moskito.webui.decorators;
 
 /**
  * Factory for the decorator registry.
- * @author another
+ * @author lrosenberg
  *
  */
 public class DecoratorRegistryFactory {
