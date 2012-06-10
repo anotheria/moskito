@@ -33,10 +33,23 @@
  * THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */	
 package net.java.dev.moskito.webui.bean;
-
+/**
+ * This bean contains rendering info needed for menu item rendering.
+ * @author lrosenberg
+ *
+ */
 public class MenuItemBean {
+	/**
+	 * Caption of the item.
+	 */
 	private String caption;
+	/**
+	 * The link to the menu.
+	 */
 	private String link;
+	/**
+	 * True if the item is currently active.
+	 */
 	private boolean active;
 	
 	public MenuItemBean(){
@@ -73,7 +86,7 @@ public class MenuItemBean {
 		this.link = link;
 	}
 	
-	public String toString(){
+	@Override public String toString(){
 		return caption+" -> "+link;
 	}
 }
