@@ -286,14 +286,14 @@
 		data.addRows(mas);
 		new google.visualization.PieChart(
           document.getElementById('chartcontainer')).
-            draw(data, {is3D:true, width: 600, height:300, title: cap, legendFontSize: 12, legend:'label'});
+            draw(data, {is3D:true, width: 1200, height:600, title: cap, legendFontSize: 12, legend:'label'});
 		return false;
 	});
 
 	$('.pie_chart').live('click', function() {
 		new google.visualization.ColumnChart(
           document.getElementById('chartcontainer')).
-            draw(data, {is3D:true, width: 600, height:300, title: cap, legendFontSize: 12, legend:'label'});
+            draw(data, {is3D:true, width: 1200, height:600, title: cap, legendFontSize: 12, legend:'label'});
 		$('.pie_chart').hide();
 		$('.bar_chart').show();
 		return false;
@@ -302,7 +302,7 @@
 	$('.bar_chart').live('click', function() {
 		new google.visualization.PieChart(
           document.getElementById('chartcontainer')).
-            draw(data, {is3D:true, width: 600, height:300, title: cap, legendFontSize: 12, legend:'label'});
+            draw(data, {is3D:true, width: 1200, height:600, title: cap, legendFontSize: 12, legend:'label'});
 		$('.pie_chart').show();
 		$('.bar_chart').hide();
 		return false;
