@@ -18,7 +18,7 @@
 						<div class="sub_menu">
 							<ul>
 								<ano:present name="intervals" scope="request">
-									<li>
+									<li class="separator">
 										<span>Interval:</span>
 										<select onchange="javascript:handleSelect(this)">									
 								 			<jsp:include page="IntervalSelection.jsp" flush="false" />			
@@ -34,7 +34,7 @@
 									</li>
 								</ano:present
 								><ano:present name="categories" scope="request">
-									<li>								
+									<li class="separator">								
 										<span>Category:</span>
 										<select onchange="javascript:handleSelect(this)">
 											<jsp:include page="CategorySelection.jsp" flush="false" />
@@ -42,11 +42,17 @@
 									</li>
 							    </ano:present
 							    ><ano:present name="subsystems" scope="request">
-									<li>
+									<li class="separator">
 										<span>Subsystem:</span>
 										<select onchange="javascript:handleSelect(this)">
 											<jsp:include page="SubsystemSelection.jsp" flush="false" />
 										</select>								
+									</li>
+								</ano:present>
+								<%-- we use subsystems here, because they are present on producers page, we don't want the name filter on the producer detail page --%>
+								<ano:present name="subsystems" scope="request">
+									<li class="separator">
+										<form action="" method="GET"><input name="pNameFilter" type="text" size="10" value="<ano:write name="nameFilter"/>"/>&nbsp;<input type="submit" value="Filter"/></form>
 									</li>
 								</ano:present>
 							    <div class="clear"><!-- --></div>

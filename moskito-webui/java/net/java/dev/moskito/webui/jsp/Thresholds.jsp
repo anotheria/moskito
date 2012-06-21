@@ -97,20 +97,7 @@
 						</tr>
 						</thead>
 						<tbody>
-						<%--
-						<ano:iterate name="recorded" type="net.java.dev.moskito.webui.bean.RecordedUseCaseListItemBean" id="useCase" indexId="index">
-							<tr class="<%= ((index & 1) == 0 )? "even" : "odd" %>">
-								<td><ano:write name="index"/></td>
-								 <td>
-									<a href="mskShowMonitoringSessionCall?pSessionName=<ano:write name="msession" property="name"/>&pPos=<ano:write name="index"/>">
-										<ano:write name="useCase" property="name"/>
-									</a>
-								 </td>
-								 <td>
-									<ano:write name="useCase" property="date"/>
-								  </td>
-							</tr>
-						</ano:iterate>--%>
+
 						<ano:iterate name="thresholds" type="net.java.dev.moskito.webui.bean.ThresholdBean" id="threshold" indexId="index">
 							<tr class="<%= ((index & 1) == 0 )? "even" : "odd" %>">
 								<td><a href="#" onclick="openOverlay(info<ano:write name="threshold" property="id"/>); return false"><ano:write name="threshold" property="name"/></a></td>

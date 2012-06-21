@@ -8,7 +8,13 @@ import java.util.List;
  *
  */
 public class DecoratorExplanationBean {
+	/**
+	 * Name of the decorator.
+	 */
 	private String name;
+	/**
+	 * Captions for the decorator.
+	 */
 	private List<StatCaptionBean> captions;
 	public List<StatCaptionBean> getCaptions() {
 		return captions;

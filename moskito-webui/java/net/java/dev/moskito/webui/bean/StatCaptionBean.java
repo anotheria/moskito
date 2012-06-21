@@ -41,8 +41,17 @@ import net.anotheria.util.StringUtils;
  * @author lrosenberg.
  */
 public class StatCaptionBean {
+	/**
+	 * Caption of the table row.
+	 */
 	private String caption;
+	/**
+	 * Long explanation for the help page.
+	 */
 	private String explanation;
+	/**
+	 * Short explanation.
+	 */
 	private String shortExplanation;
 	
 	public StatCaptionBean(){

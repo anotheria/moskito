@@ -76,6 +76,7 @@ import net.java.dev.moskito.webui.bean.UnitBean;
 import net.java.dev.moskito.webui.decorators.DecoratorRegistryFactory;
 import net.java.dev.moskito.webui.decorators.IDecorator;
 import net.java.dev.moskito.webui.decorators.IDecoratorRegistry;
+import net.java.dev.moskito.webui.util.WebUIConfig;
 
 /**
  * BaseAction providing some common functionality for all moskitouiactions.
@@ -469,6 +470,9 @@ public abstract class BaseMoskitoUIAction implements Action{
 		ThresholdStatus systemStatus = ThresholdRepository.getInstance().getWorstStatus();
 		req.setAttribute("systemStatus", systemStatus);
 		req.setAttribute("systemStatusColor", systemStatus.toString().toLowerCase());
+		
+		//configuration issues.
+		req.setAttribute("config", WebUIConfig.getInstance());
 	}
 	
 	

@@ -34,6 +34,7 @@
  */	
 package net.java.dev.moskito.webui.action;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -49,7 +50,22 @@ public class ShowAllProducersAction extends BaseShowProducersAction{
 
 	@Override
 	protected List<IStatsProducer> getProducers(HttpServletRequest req) {
-		return getAPI().getAllProducers();
+		String nameFilter = req.getParameter("pNameFilter");
+		if (nameFilter==null){
+			nameFilter="";
+		}
+		req.setAttribute("nameFilter", nameFilter);
+		List<IStatsProducer> all = getAPI().getAllProducers();
+		if (nameFilter.length()==0)
+			return all;
+		nameFilter = nameFilter.toLowerCase();
+		ArrayList<IStatsProducer> filtered = new ArrayList<IStatsProducer>();
+		for (IStatsProducer p : all){
+			if (p.getProducerId().toLowerCase().startsWith(nameFilter)){
+				filtered.add(p);
+			}
+		}
+		return filtered;
 	}
 	
 	@Override public String getPageTitle(HttpServletRequest req){

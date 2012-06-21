@@ -35,6 +35,8 @@ a:hover {text-decoration:none; color:#55cc00; cursor:pointer;}
 .top ul li .sub_menu ul li span {font-size:1.4em; margin-right:5px; //position:relative; //top:-2px;}
 .top ul li .sub_menu ul li select {font-size:1.2em; padding:0; position:relative; top:-1px;}
 .top ul li .sub_menu ul li select option {padding:0 7px;}
+.top ul li .sub_menu ul li input {font-size:1.2em; padding:0; position:relative; top:-1px;}
+.top ul li .sub_menu ul li input option {padding:0 7px;}
 .top ul li.active .sub_menu {display:block; overflow:hidden;}
 .top .settings {float:right;}
 .top .settings li a {font-size:1.2em; padding-top:22px;}
