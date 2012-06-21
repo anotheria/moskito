@@ -4,9 +4,23 @@ import net.anotheria.util.BasicComparable;
 import net.anotheria.util.sorter.IComparable;
 import net.java.dev.moskito.webui.CurrentSelection;
 
+/**
+ * This beans contains analysis results for a single producer, it contains producer id, number of calls to this producer and the time spent.
+ * @author lrosenberg
+ *
+ */
 public class AnalyzeProducerCallsBean implements IComparable<AnalyzeProducerCallsBean> {
+	/**
+	 * ProducerId.
+	 */
 	private String producerId;
+	/**
+	 * Number of calls to this producer.
+	 */
 	private long numberOfCalls = 0;
+	/**
+	 * Total time spent in this producer.
+	 */
 	private long totalTimeSpent = 0;
 	
 	public AnalyzeProducerCallsBean(String aProducerId){
@@ -18,7 +32,7 @@ public class AnalyzeProducerCallsBean implements IComparable<AnalyzeProducerCall
 		totalTimeSpent+=duration;
 	}
 	
-	public String toString(){
+	@Override public String toString(){
 		return numberOfCalls+" "+totalTimeSpent;
 	}
 
