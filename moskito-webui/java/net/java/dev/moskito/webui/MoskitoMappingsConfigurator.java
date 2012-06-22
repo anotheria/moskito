@@ -8,6 +8,7 @@ import net.java.dev.moskito.webui.action.ForceIntervalUpdateAction;
 import net.java.dev.moskito.webui.action.GetChartDataAction;
 import net.java.dev.moskito.webui.action.GetChartMetaDataAction;
 import net.java.dev.moskito.webui.action.InspectProducerAction;
+import net.java.dev.moskito.webui.action.ShowAccumulatorAction;
 import net.java.dev.moskito.webui.action.ShowAccumulatorsAction;
 import net.java.dev.moskito.webui.action.ShowAllProducersAction;
 import net.java.dev.moskito.webui.action.ShowChartsAction;
@@ -155,6 +156,17 @@ public class MoskitoMappingsConfigurator implements ActionMappingsConfigurator{
 		mappings.addAlias("mskAccumulators.csv", "mskAccumulators");
 		mappings.addAlias("mskAccumulators.xml", "mskAccumulators");
 		mappings.addAlias("mskAccumulators.json", "mskAccumulators");
+		
+		mappings.addMapping("mskAccumulator", ShowAccumulatorAction.class, 
+				new ActionForward("html", "/net/java/dev/moskito/webui/jsp/Accumulator.jsp"),
+				new ActionForward("xml", "/net/java/dev/moskito/webui/jsp/AccumulatorXML.jsp"),
+				new ActionForward("csv", "/net/java/dev/moskito/webui/jsp/AccumulatorCSV.jsp"),
+				new ActionForward("json", "/net/java/dev/moskito/webui/jsp/AccumulatorJSON.jsp")
+		);
+		mappings.addAlias("mskAccumulator.csv", "mskAccumulator");
+		mappings.addAlias("mskAccumulator.xml", "mskAccumulator");
+		mappings.addAlias("mskAccumulator.json", "mskAccumulator");
+		
 		
 		
 		//analyze journey

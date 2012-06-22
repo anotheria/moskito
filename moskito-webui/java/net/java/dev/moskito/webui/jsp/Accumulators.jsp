@@ -109,6 +109,7 @@
 								<th>Path</th>
 								<th>Values</th>
 								<th>Last Timestamp</th>
+								<th>&nbsp;</th>
 							</tr>
 							</thead>
 							<tbody>
@@ -119,6 +120,7 @@
 									<td><ano:write name="accumulator" property="path"/></td>
 									<td><ano:write name="accumulator" property="numberOfValues"/></td>
 									<td><ano:write name="accumulator" property="lastValueTimestamp"/></td>
+									<td><a href="mskAccumulator?pId=<ano:write name="accumulator" property="id"/>">Show</a></td>
 								</tr>
 							</ano:iterate>
 								<tr>
@@ -160,52 +162,6 @@
 	<jsp:include page="Footer.jsp" flush="false" />
 
 
-<%--	
-	<!-- data section -->
-	<ano:present name="data">
-	<div class="table_layout">
-		<div class="top">
-			<div><!-- --></div>
-		</div>
-		<div class="in">
-			<h2><span>Data for <ano:write name="dataBean" property="shortDescription"/> which is <ano:write name="dataBean" property="description"/></span></h2>
-
-			<div class="clear"><!-- --></div>
-			<div class="table_itseft">
-				<div class="top">
-					<div class="left"><!-- --></div>
-					<div class="right"><!-- --></div>
-				</div>
-				<div class="in">
-					<table cellpadding="0" cellspacing="0" width="100%">
-						<thead>
-						<tr>
-							<th>Time</th>
-							<th>Value</th>
-						</tr>
-						</thead>
-						<tbody>
-						<ano:iterate name="dataBean" type="net.java.dev.moskito.webui.bean.AccumulatedValueBean" id="value" property="values" indexId="index">
-							<tr class="<%= ((index & 1) == 0 )? "even" : "odd" %>">
-								<td><ano:write name="value" property="timestamp"/></td>
-								<td><ano:write name="value" property="value"/></td>
-							</tr>
-						</ano:iterate>
-						</tbody>
-					</table>
-					<div class="clear"><!-- --></div>
-				</div>
-				<div class="bot">
-					<div class="left"><!-- --></div>
-					<div class="right"><!-- --></div>
-				</div>
-			</div>
-		</div>
-		<div class="bot">
-			<div><!-- --></div>
-		</div>
-	</div>
---%>	
 <ano:present name="data">
 <script type="text/javascript">
 	google.load("visualization", "1", {packages:["corechart"]});

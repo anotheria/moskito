@@ -43,4 +43,8 @@ public class AccumulatedValueBean {
 		ret.append("]");
 		return ret.toString();
 	}
+	
+	public String getFirstValue(){
+		return values.get(0);
+	}
 }
