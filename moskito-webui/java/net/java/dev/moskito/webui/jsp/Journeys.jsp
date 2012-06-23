@@ -61,7 +61,7 @@
 									<td><msk:write name="journey" property="lastActivity"/></td>
 									<td><msk:write name="journey" property="numberOfCalls"/></td>
 									<td><msk:write name="journey" property="active"/></td>
-									<td><a title="analyze this journey" href="mskAnalyzeJourney?pJourneyName=<msk:write name="journey" property="name"/>">A</a></td>
+									<td><a title="analyze this journey" href="mskAnalyzeJourney?pJourneyName=<msk:write name="journey" property="name"/>" class="zoom"></a></td>
 								</tr>
 							</msk:iterate>
 						</tbody>

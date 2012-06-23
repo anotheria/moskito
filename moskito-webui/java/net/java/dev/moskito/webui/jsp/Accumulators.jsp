@@ -120,7 +120,7 @@
 									<td><ano:write name="accumulator" property="path"/></td>
 									<td><ano:write name="accumulator" property="numberOfValues"/></td>
 									<td><ano:write name="accumulator" property="lastValueTimestamp"/></td>
-									<td><a href="mskAccumulator?pId=<ano:write name="accumulator" property="id"/>">Show</a></td>
+									<td><a href="mskAccumulator?pId=<ano:write name="accumulator" property="id"/>" class="zoom"></a></td>
 								</tr>
 							</ano:iterate>
 								<tr>
