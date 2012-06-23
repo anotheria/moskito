@@ -21,10 +21,9 @@
 			<ul class="main_menu">
 				<li><a href="http://moskito.anotheria.net/">Home</a></li>
 				<li class="active"><a href="http://moskito.anotheria.net/moskitodemo/">Demo</a></li>
-				<li class="logo"><a href="http://moskito.anotheria.net/"><img src="/moskitodemo/images/logo.png"
-																			  alt=""/></a></li>
-				<li><a href="http://infra.anotheria.net/confluence/display/MSK/Home">Docs</a></li>
-				<li><a href="http://infra.anotheria.net/confluence/display/MSK/HowToGet">Download</a></li>
+				<li class="logo"><a href="http://moskito.anotheria.net/"><img src="/moskitodemo/images/logo.png" alt=""/></a></li>
+				<li><a href="https://confluence.opensource.anotheria.net/display/MSK/Home">Docs</a></li>
+				<li><a href="https://confluence.opensource.anotheria.net/display/MSK/01+How+To+Get">Download</a></li>
 			</ul>
 
 		</div>
