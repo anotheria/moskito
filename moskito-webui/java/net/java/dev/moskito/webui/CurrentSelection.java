@@ -38,6 +38,9 @@ public class CurrentSelection{
 		return current;
 	}
 	
+	/**
+	 * The thread local state. 
+	 */
 	private final static ThreadLocal<CurrentSelection> selection = new ThreadLocal<CurrentSelection>(){
 		@Override
 		protected synchronized CurrentSelection initialValue() {

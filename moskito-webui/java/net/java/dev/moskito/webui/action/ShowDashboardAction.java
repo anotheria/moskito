@@ -37,7 +37,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 /**
- * Dashboard action.
+ * Dashboard action. This code is yet experimental and already unsupported.
  *
  * @author dsilenko
  */

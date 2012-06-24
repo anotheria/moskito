@@ -149,6 +149,9 @@ public abstract class BaseMoskitoUIAction implements Action{
 		new UnitBean(TimeUnit.NANOSECONDS),
 	};
 	
+	/**
+	 * Default unit. 
+	 */
 	public static final UnitBean DEFAULT_UNIT_BEAN = AVAILABLE_UNITS[1]; //millis
 	/**
 	 * List of the available units.

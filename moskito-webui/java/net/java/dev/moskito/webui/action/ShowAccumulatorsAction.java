@@ -34,8 +34,24 @@ public class ShowAccumulatorsAction extends BaseMoskitoUIAction{
 	//save objects
 	private static final SortType SORT_TYPE = new DummySortType();
 	
+	/**
+	 * Graph data modes.
+	 * @author lrosenberg
+	 *
+	 */
 	static enum MODE{
-		combined, normalized, multiple;
+		/**
+		 * Combined mode means multiple graphs in one graph.
+		 */
+		combined, 
+		/**
+		 * Multiple graphs in one graph, normalized to 1-100% scale.
+		 */
+		normalized, 
+		/**
+		 * Multiple graphs on one page, one per accumulator.
+		 */
+		multiple;
 		
 		static MODE fromString(String value){
 			if (value==null)
