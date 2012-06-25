@@ -139,7 +139,7 @@ h2 a.hidden {background:url("<ano:write name="mskPathToImages" scope="applicatio
 .call_list {background:url("<ano:write name="mskPathToImages" scope="application"/>ul_bg.gif") 0 0 repeat;}
 .call_error {background:#ffcccc;}
 .black_bg {background:black; opacity:0.5; width:100%; height:100%; position:fixed; top:0; left:0; z-index:5; filter:alpha(opacity = 50);}
-.box {float:left; position:absolute; z-index:6; min-width:600px;}
+.box {float:left; position:absolute; z-index:6; min-width:1200px;}
 .box_top {height:22px; background:url("<ano:write name="mskPathToImages" scope="application"/>box_top_l.png") 0 0 no-repeat; float:left; width:100%; position:relative;}
 .box_top div {height:22px; background:url("<ano:write name="mskPathToImages" scope="application"/>box_top_r.png") 100% 0 no-repeat; float:right; width:30px;}
 .box_top span {display:block; height:22px; background:url("<ano:write name="mskPathToImages" scope="application"/>box_top_m.png") 0 0 repeat-x; margin:0 30px;}
