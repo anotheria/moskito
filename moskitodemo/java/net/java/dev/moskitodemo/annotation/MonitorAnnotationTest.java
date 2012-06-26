@@ -1,6 +1,7 @@
 package net.java.dev.moskitodemo.annotation;
 
 import net.java.dev.moskito.annotation.callingAspect.MethodCallAspect;
+import net.java.dev.moskito.core.producers.IStatsProducer;
 import net.java.dev.moskito.core.registry.ProducerRegistryFactory;
 import net.java.dev.moskitodemo.sqltrace.persistence.data.Comment;
 import net.java.dev.moskitodemo.sqltrace.persistence.data.CommentBuilder;
@@ -33,8 +34,8 @@ public class MonitorAnnotationTest {
         }
 
         DBUtil.dropTable();
-        MethodCallAspect methodCallAspect = (MethodCallAspect) ProducerRegistryFactory.getProducerRegistryInstance().getProducer(MethodCallAspect.PRODUCER_ID);
+        IStatsProducer producer = ProducerRegistryFactory.getProducerRegistryInstance().getProducer(CommentDAO.class.getSimpleName());
 
-        System.out.println(methodCallAspect.toString());
+        System.out.println(producer.getStats());
     }
 }
