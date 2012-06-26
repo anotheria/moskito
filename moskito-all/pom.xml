@@ -3,13 +3,13 @@
   <parent>
 	<groupId>net.anotheria</groupId>
 	<artifactId>moskito-parent</artifactId>
-	<version>1.4.4-SNAPSHOT</version>
+	<version>1.4.4</version>
   </parent>
 
   <modelVersion>4.0.0</modelVersion>
   <groupId>net.anotheria</groupId>
   <artifactId>moskito-all</artifactId>
-  <version>1.4.4-SNAPSHOT</version>
+  <version>1.4.4</version>
   <name>moskito dependency holder package</name>
   <packaging>pom</packaging>
   <dependencies>
