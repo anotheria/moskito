@@ -30,7 +30,7 @@ public class MethodCallAspect implements IStatsProducer {
     /**
      * List of jdbc calls for interception.
      */
-    private static final String METHOD_CALLS = "call(@net.java.dev.moskito.annotation.MonitorMethod * *.*(..)) || call(* (@net.java.dev.moskito.annotation.MonitorClass *).*(..))";
+    private static final String METHOD_CALLS = "execution(@net.java.dev.moskito.annotation.MonitorMethod * *.*(..)) || execution(* (@net.java.dev.moskito.annotation.MonitorClass *).*(..))";
     public static final String PRODUCER_ID = "AnnotatedCalls";
     private final Map<String, MethodCallStats> methodStatsMap;
     private List<IStats> _methodStatsList;
