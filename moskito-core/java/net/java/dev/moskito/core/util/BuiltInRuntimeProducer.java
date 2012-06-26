@@ -17,7 +17,7 @@ import org.apache.log4j.Logger;
  * Builtin producer for values supplied by jmx for the operation system.
  * @author lrosenberg
  */
-public class BuiltInRuntimeProducer implements IStatsProducer, BuiltInProducer{
+public class BuiltInRuntimeProducer extends AbstractBuiltInProducer  implements IStatsProducer, BuiltInProducer{
 	/**
 	 * Associated stats.
 	 */

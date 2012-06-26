@@ -17,7 +17,7 @@ import net.java.dev.moskito.core.registry.ProducerRegistryFactory;
  * @author lrosenberg
  *
  */
-public class BuiltInThreadCountProducer implements IStatsProducer, BuiltInProducer{
+public class BuiltInThreadCountProducer extends AbstractBuiltInProducer implements IStatsProducer, BuiltInProducer{
 	/**
 	 * Stats objects as list.
 	 */
@@ -79,5 +79,4 @@ public class BuiltInThreadCountProducer implements IStatsProducer, BuiltInProduc
 	public String getSubsystem() {
 		return SUBSYSTEM_BUILTIN;
 	}
-	
 }

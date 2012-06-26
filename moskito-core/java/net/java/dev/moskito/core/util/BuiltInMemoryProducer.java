@@ -13,7 +13,7 @@ import net.java.dev.moskito.core.producers.IStatsProducer;
  * @author lrosenberg
  *
  */
-public class BuiltInMemoryProducer implements IStatsProducer, BuiltInProducer{
+public class BuiltInMemoryProducer  extends AbstractBuiltInProducer implements IStatsProducer, BuiltInProducer{
 	/**
 	 * The id of the producer.
 	 */
@@ -131,6 +131,10 @@ public class BuiltInMemoryProducer implements IStatsProducer, BuiltInProducer{
 	 */
 	private void readMemory() {
 		stats.updateMemoryValue(resolver.getMemoryValue());
+	}
+	
+	@Override public String toString(){
+		return super.toString()+" "+resolver.getClass().getSimpleName();
 	}
 }
 
