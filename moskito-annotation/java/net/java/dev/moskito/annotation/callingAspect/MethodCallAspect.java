@@ -1,46 +1,40 @@
 package net.java.dev.moskito.annotation.callingAspect;
 
-import net.java.dev.moskito.annotation.stat.MethodCallStats;
-import net.java.dev.moskito.annotation.stat.MethodCallStatsFactory;
-import net.java.dev.moskito.core.dynamic.OnDemandStatsProducerException;
-import net.java.dev.moskito.core.producers.IStats;
-import net.java.dev.moskito.core.producers.IStatsProducer;
+import java.lang.reflect.InvocationTargetException;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentMap;
+
+import net.java.dev.moskito.core.calltrace.CurrentlyTracedCall;
+import net.java.dev.moskito.core.calltrace.RunningTraceContainer;
+import net.java.dev.moskito.core.calltrace.TraceStep;
+import net.java.dev.moskito.core.calltrace.TracedCall;
+import net.java.dev.moskito.core.dynamic.OnDemandStatsProducer;
+import net.java.dev.moskito.core.predefined.ServiceStats;
+import net.java.dev.moskito.core.predefined.ServiceStatsFactory;
 import net.java.dev.moskito.core.registry.ProducerRegistryFactory;
+
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.concurrent.CopyOnWriteArrayList;
-
 /**
  * Aspect used to intercept  SQL query calls.
  *
  * @author <a href="mailto:vzhovtiuk@anotheria.net">Vitaliy Zhovtiuk</a>
- *         Date: 11/29/11
- *         Time: 2:14 PM
  */
 @Aspect
-public class MethodCallAspect implements IStatsProducer {
-
+public class MethodCallAspect {
+	
     /**
-     * List of jdbc calls for interception.
+     * Annotation advice.
      */
     private static final String METHOD_CALLS = "execution(@net.java.dev.moskito.annotation.MonitorMethod * *.*(..)) || execution(* (@net.java.dev.moskito.annotation.MonitorClass *).*(..))";
-    public static final String PRODUCER_ID = "AnnotatedCalls";
-    private final Map<String, MethodCallStats> methodStatsMap;
-    private List<IStats> _methodStatsList;
-    private MethodCallStatsFactory factory;
+    
+    private ConcurrentMap<String, OnDemandStatsProducer> producers = new ConcurrentHashMap<String, OnDemandStatsProducer>();
+
 
     public MethodCallAspect() {
-        methodStatsMap = new HashMap<String, MethodCallStats>();
-        _methodStatsList = new CopyOnWriteArrayList<IStats>();
-        factory = new MethodCallStatsFactory();
-        ProducerRegistryFactory.getProducerRegistryInstance().registerProducer(this);
     }
 
     @Pointcut(METHOD_CALLS)
@@ -48,77 +42,106 @@ public class MethodCallAspect implements IStatsProducer {
     }
 
     @Around(value = "methodService()")
-    public Object doBasicProfiling(ProceedingJoinPoint pjp) throws Throwable {
-        // start stopwatch
-        MethodCallStats stats = (MethodCallStats) getStringQueryStats(pjp.getSignature().toShortString());
-        long callTime = System.nanoTime();
-        try {
-            stats.addRequest();
-            // stop stopwatch
-            return pjp.proceed();
-        } catch (Throwable e) {
-            stats.notifyError();
-            throw e;
-        } finally {
-            stats.addExecutionTime(System.nanoTime() - callTime);
-            stats.notifyRequestFinished();
-        }
-    }
+    public Object doProfiling(ProceedingJoinPoint pjp) throws Throwable {
+    	
+    	String producerId = pjp.getSignature().getDeclaringTypeName();
+    	try{
+    		producerId = producerId.substring(producerId.lastIndexOf('.')+1);
+    	}catch(RuntimeException ignored){/* ignored */}
+    	OnDemandStatsProducer producer = producers.get(producerId);
+    	if (producer==null){
+    		producer = new OnDemandStatsProducer(producerId, getCategory(), getSubsystem(), new ServiceStatsFactory());
+    		OnDemandStatsProducer p = producers.putIfAbsent(producerId, producer);
+    		if (p==null){
+    			ProducerRegistryFactory.getProducerRegistryInstance().registerProducer(producer);
+    		}else{
+    			producer = p;
+    		}
+    	}
+    	
+    	String caseName = pjp.getSignature().getName();
+    	ServiceStats defaultStats = (ServiceStats) producer.getDefaultStats();
+    	ServiceStats methodStats = (ServiceStats) producer.getStats(caseName);
 
-    public IStats getStringQueryStats(String signature) throws OnDemandStatsProducerException {
-        MethodCallStats stringStats;
-        synchronized (methodStatsMap) {
-            stringStats = methodStatsMap.get(signature);
+        final Object[] args = pjp.getArgs();
+        final String method = pjp.getSignature().getName();
+        defaultStats.addRequest();
+        if (methodStats != null) {
+            methodStats.addRequest();
         }
-        if (stringStats == null) {
-            if (limitForNewEntriesReached())
-                throw new OnDemandStatsProducerException("Limit reached");
-            stringStats = (MethodCallStats) factory.createStatsObject(signature);
-            synchronized (methodStatsMap) {
-                //check whether another thread was faster
-                if (methodStatsMap.get(signature) == null) {
-                    methodStatsMap.put(signature, stringStats);
-                    _methodStatsList.add(stringStats);
-                } else {
-                    //ok, another thread was faster, we have to throw away our object.
-                    stringStats = methodStatsMap.get(signature);
+        TracedCall aRunningTrace = RunningTraceContainer.getCurrentlyTracedCall();
+        TraceStep currentStep = null;
+        CurrentlyTracedCall currentTrace = aRunningTrace.callTraced() ? (CurrentlyTracedCall) aRunningTrace : null;
+        if (currentTrace != null) {
+            StringBuilder call = new StringBuilder(producerId).append('.').append(method).append("(");
+            if (args != null && args.length > 0) {
+                for (int i = 0; i < args.length; i++) {
+                    call.append(args[i]);
+                    if (i < args.length - 1) {
+                        call.append(", ");
+                    }
                 }
             }
+            call.append(")");
+            currentStep = currentTrace.startStep(call.toString(), producer);
         }
-
-        return stringStats;
+        long startTime = System.nanoTime();
+        Object ret = null;
+        try {
+            ret = pjp.proceed();
+            return ret;
+        } catch (InvocationTargetException e) {
+            defaultStats.notifyError();
+            if (methodStats != null) {
+                methodStats.notifyError();
+            }
+            //System.out.println("exception of class: "+e.getCause()+" is thrown");
+            if (currentStep != null) {
+                currentStep.setAborted();
+            }
+            throw e.getCause();
+        } catch (Throwable t) {
+            defaultStats.notifyError();
+            if (methodStats != null) {
+                methodStats.notifyError();
+            }
+            if (currentStep != null) {
+                currentStep.setAborted();
+            }
+            throw t;
+        } finally {
+            long exTime = System.nanoTime() - startTime;
+            defaultStats.addExecutionTime(exTime);
+            if (methodStats != null) {
+                methodStats.addExecutionTime(exTime);
+            }
+            defaultStats.notifyRequestFinished();
+            if (methodStats != null) {
+                methodStats.notifyRequestFinished();
+            }
+            if (currentStep != null) {
+                currentStep.setDuration(exTime);
+                try {
+                    currentStep.appendToCall(" = " + ret);
+                } catch (Throwable t) {
+                    currentStep.appendToCall(" = ERR: " + t.getMessage() + " (" + t.getClass() + ")");
+                }
+            }
+            if (currentTrace != null) {
+                currentTrace.endStep();
+            }
+        }
     }
 
-    private boolean limitForNewEntriesReached() {
-        return _methodStatsList.size() > 10000;
-    }
-
-    @Override
-    public List<IStats> getStats() {
-        return _methodStatsList;
-    }
-
-    @Override
-    public String getProducerId() {
-        return PRODUCER_ID;
-    }
-
-    @Override
     public String getCategory() {
-        return "default";
+        return "annotated";
     }
 
-    @Override
     public String getSubsystem() {
         return "default";
     }
 
-    public String toString() {
-        return getProducerId() + ", Annotated methods: " + Arrays.toString(getStats().toArray()) ;
-    }
-
     public void reset() {
-        _methodStatsList.clear();
-        methodStatsMap.clear();
+    	producers.clear();
     }
 }
