@@ -1,13 +1,12 @@
 package net.java.dev.moskitodemo.annotation;
 
-import net.java.dev.moskito.annotation.callingAspect.MethodCallAspect;
+import java.sql.SQLException;
+import java.util.List;
+
 import net.java.dev.moskito.core.producers.IStatsProducer;
 import net.java.dev.moskito.core.registry.ProducerRegistryFactory;
 import net.java.dev.moskitodemo.sqltrace.persistence.data.Comment;
 import net.java.dev.moskitodemo.sqltrace.persistence.data.CommentBuilder;
-
-import java.sql.SQLException;
-import java.util.List;
 
 /**
  * Created by IntelliJ IDEA.
