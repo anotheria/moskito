@@ -4,6 +4,8 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
+import net.java.dev.moskito.annotation.MonitorClass;
+import net.java.dev.moskito.annotation.MonitorMethod;
 import net.java.dev.moskito.core.calltrace.CurrentlyTracedCall;
 import net.java.dev.moskito.core.calltrace.RunningTraceContainer;
 import net.java.dev.moskito.core.calltrace.TraceStep;
@@ -27,24 +29,24 @@ import org.aspectj.lang.annotation.Pointcut;
 public class MethodCallAspect {
 	
     /**
-     * Annotation advice.
+     * Map with created producers.
      */
-    private static final String METHOD_CALLS = "execution(@net.java.dev.moskito.annotation.MonitorMethod * *.*(..)) || execution(* (@net.java.dev.moskito.annotation.MonitorClass *).*(..))";
-    
     private ConcurrentMap<String, OnDemandStatsProducer> producers = new ConcurrentHashMap<String, OnDemandStatsProducer>();
 
 
-    public MethodCallAspect() {
+    @Around(value = "execution(* *(..)) && (@annotation(method))")
+    public Object doProfilingMethod(ProceedingJoinPoint pjp, MonitorMethod method) throws Throwable {
+    	return doProfiling(pjp);
     }
-
-    @Pointcut(METHOD_CALLS)
-    public void methodService() {
-    }
-
-    @Around(value = "methodService()")
-    public Object doProfiling(ProceedingJoinPoint pjp) throws Throwable {
     	
-    	String producerId = pjp.getSignature().getDeclaringTypeName();
+    @Around(value = "execution(* *.*(..)) && (@within(clazz) && !@annotation(net.java.dev.moskito.annotation.DontMonitorMethod))")
+    public Object doProfilingClass(ProceedingJoinPoint pjp, MonitorClass clazz) throws Throwable {
+    	return doProfiling(pjp);
+    }
+
+    private Object doProfiling(ProceedingJoinPoint pjp) throws Throwable {
+
+        String producerId = pjp.getSignature().getDeclaringTypeName();
     	try{
     		producerId = producerId.substring(producerId.lastIndexOf('.')+1);
     	}catch(RuntimeException ignored){/* ignored */}

@@ -6,11 +6,9 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Include a method from class into monitoring.
- *
- * @author <a href="mailto:vzhovtiuk@anotheria.net">Vitaliy Zhovtiuk</a>
+ * Exclude annotated method from monitoring. Only in combination with @MonitorClass.
  */
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
-public @interface MonitorMethod {
+public @interface DontMonitorMethod {
 }
