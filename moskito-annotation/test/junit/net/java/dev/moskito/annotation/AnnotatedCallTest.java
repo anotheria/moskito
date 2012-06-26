@@ -34,7 +34,6 @@ public class AnnotatedCallTest {
         // then
         IStatsProducer producer = (IStatsProducer) ProducerRegistryFactory.getProducerRegistryInstance().getProducer(AnnotatedMethod.class.getSimpleName());
         IStats doSmtgStats = producer.getStats().get(1);
-        System.out.println(doSmtgStats.toStatsString());
         assertEquals("doSomething", doSmtgStats.getName());
         assertEquals("Should be 10K calls", ANNOTATED_METHOD_CALLS + "", doSmtgStats.getValueByNameAsString("TR", null, TimeUnit.MICROSECONDS));
     }
