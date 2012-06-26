@@ -24,7 +24,7 @@ a:hover {text-decoration:none; color:#55cc00; cursor:pointer;}
 .top ul li .sub_menu {position:absolute; top:50px; height:30px; overflow:hidden; background:url(<ano:write name="mskPathToImages" scope="application"/>bgs.gif) 0 -533px no-repeat; left:150px; display:none;}
 .top ul li .over_color {display:none; }
 .top ul li.active .over_color {display:block;} 
-.top ul li .sub_menu ul {margin:0; margin-left:5px; white-space:nowrap; padding-right:5px; background:url(<ano:write name="mskPathTo§Images" scope="application"/>bgs.gif) 100% -602px no-repeat; height:30px;}
+.top ul li .sub_menu ul {margin:0; margin-left:5px; white-space:nowrap; padding-right:5px; background:url(<ano:write name="mskPathToImages" scope="application"/>bgs.gif) 100% -602px no-repeat; height:30px;}
 .top ul li .sub_menu ul li {display:block; float:left; list-style-type:none; padding:7px 11px 4px 11px; background:url(<ano:write name="mskPathToImages" scope="application"/>bgs.gif) 0 -669px repeat-x; //padding:5px 11px 4px 11px; height:19px;}
 .top ul li .sub_menu ul li.separator {border-right:1px solid #bebebe;}
 .top ul li .sub_menu ul li a {padding:0; height:auto; white-space:nowrap; color:#005fc1; cursor:pointer; background:none;}
