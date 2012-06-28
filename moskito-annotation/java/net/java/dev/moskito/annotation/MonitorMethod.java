@@ -13,4 +13,20 @@ import java.lang.annotation.Target;
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
 public @interface MonitorMethod {
+	/**
+	 * Id of the producer for producer registry. If null/unset the class name is extracted.
+	 * @return
+	 */
+	String producerId() default "";
+	
+	/**
+	 * Subsystem name. If null/unset default will be used.
+	 * @return
+	 */
+	String subsystem() default "";
+	
+	/**
+	 * Category name. If null/unset annotated will be used.
+	 */
+	String category() default "";
 }
