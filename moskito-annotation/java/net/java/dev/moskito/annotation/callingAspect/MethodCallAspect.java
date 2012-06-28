@@ -18,7 +18,6 @@ import net.java.dev.moskito.core.registry.ProducerRegistryFactory;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
-import org.aspectj.lang.annotation.Pointcut;
 
 /**
  * Aspect used to intercept  SQL query calls.
@@ -36,23 +35,29 @@ public class MethodCallAspect {
 
     @Around(value = "execution(* *(..)) && (@annotation(method))")
     public Object doProfilingMethod(ProceedingJoinPoint pjp, MonitorMethod method) throws Throwable {
-    	return doProfiling(pjp);
+    	return doProfiling(pjp, method.producerId(), method.subsystem(), method.category());
     }
     	
     @Around(value = "execution(* *.*(..)) && (@within(clazz) && !@annotation(net.java.dev.moskito.annotation.DontMonitorMethod))")
     public Object doProfilingClass(ProceedingJoinPoint pjp, MonitorClass clazz) throws Throwable {
-    	return doProfiling(pjp);
+    	return doProfiling(pjp, clazz.producerId(), clazz.subsystem(), clazz.category());
     }
 
-    private Object doProfiling(ProceedingJoinPoint pjp) throws Throwable {
+    private Object doProfiling(ProceedingJoinPoint pjp, String aProducerId, String aSubsystem, String aCategory) throws Throwable {
 
-        String producerId = pjp.getSignature().getDeclaringTypeName();
-    	try{
-    		producerId = producerId.substring(producerId.lastIndexOf('.')+1);
-    	}catch(RuntimeException ignored){/* ignored */}
+    	String producerId = null;
+    	if (aProducerId!=null && aProducerId.length()>0){
+    		producerId = aProducerId;
+    	}else{
+            producerId = pjp.getSignature().getDeclaringTypeName();
+        	try{
+        		producerId = producerId.substring(producerId.lastIndexOf('.')+1);
+        	}catch(RuntimeException ignored){/* ignored */}
+    	}
     	OnDemandStatsProducer producer = producers.get(producerId);
     	if (producer==null){
-    		producer = new OnDemandStatsProducer(producerId, getCategory(), getSubsystem(), new ServiceStatsFactory());
+    		
+    		producer = new OnDemandStatsProducer(producerId, getCategory(aCategory), getSubsystem(aSubsystem), new ServiceStatsFactory());
     		OnDemandStatsProducer p = producers.putIfAbsent(producerId, producer);
     		if (p==null){
     			ProducerRegistryFactory.getProducerRegistryInstance().registerProducer(producer);
@@ -135,12 +140,12 @@ public class MethodCallAspect {
         }
     }
 
-    public String getCategory() {
-        return "annotated";
+    public String getCategory(String proposal) {
+    	return proposal==null || proposal.length()==0 ? "annotated" : proposal;
     }
 
-    public String getSubsystem() {
-        return "default";
+    public String getSubsystem(String proposal) {
+    	return proposal==null || proposal.length()==0 ? "default" : proposal;
     }
 
     public void reset() {
