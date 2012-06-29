@@ -4,6 +4,7 @@ import static net.java.dev.moskito.core.predefined.Constants.getDefaultIntervals
 import net.java.dev.moskito.core.producers.AbstractStats;
 import net.java.dev.moskito.core.stats.Interval;
 import net.java.dev.moskito.core.stats.StatValue;
+import net.java.dev.moskito.core.stats.StatValueTypes;
 import net.java.dev.moskito.core.stats.TimeUnit;
 import net.java.dev.moskito.core.stats.impl.StatValueFactory;
 
@@ -11,7 +12,7 @@ public class SessionCountStats extends AbstractStats{
 	/**
 	 * Current number of sessions.
 	 */
-	private StatValue numberOfSessions;
+	private StatValue numberOfCurrentSessions;
 	
 	/**
 	 * Min number of sessions.
@@ -37,7 +38,7 @@ public class SessionCountStats extends AbstractStats{
 		
 		Integer pattern = Integer.valueOf(0);
 		
-		numberOfSessions = StatValueFactory.createStatValue(pattern, "numberOfSessions", intervals); 
+		numberOfCurrentSessions = StatValueFactory.createStatValue(StatValueTypes.COUNTER, "numberOfSessions", intervals); 
 		minNumberOfSessions = StatValueFactory.createStatValue(pattern, "minNumberOfSessions", intervals);
 		minNumberOfSessions.setDefaultValueAsInt(Integer.MAX_VALUE);
 		minNumberOfSessions.reset();
@@ -52,20 +53,20 @@ public class SessionCountStats extends AbstractStats{
 	public void notifySessionCreated(){
 		numberOfCreatedSessions.increase();
 		
-		numberOfSessions.increase();
-		maxNumberOfSessions.setValueIfGreaterThanCurrentAsInt(numberOfSessions.getValueAsInt());
+		numberOfCurrentSessions.increase();
+		maxNumberOfSessions.setValueIfGreaterThanCurrentAsInt(numberOfCurrentSessions.getValueAsInt());
 	}
 	
 	public void notifySessionDestroyed(){
 		numberOfDestroyedSessions.increase();
 		
-		numberOfSessions.decrease();
-		minNumberOfSessions.setValueIfLesserThanCurrentAsInt(numberOfSessions.getValueAsInt());
+		numberOfCurrentSessions.decrease();
+		minNumberOfSessions.setValueIfLesserThanCurrentAsInt(numberOfCurrentSessions.getValueAsInt());
 	}
 
 	@Override public String toStatsString(String intervalName, TimeUnit unit) {
 		StringBuilder ret = new StringBuilder("Sessions ");
-		ret.append(" Cur: ").append(numberOfSessions.getValueAsInt(intervalName));
+		ret.append(" Cur: ").append(numberOfCurrentSessions.getValueAsInt(intervalName));
 		ret.append(" Min: ").append(minNumberOfSessions.getValueAsInt(intervalName));
 		ret.append(" Max: ").append(maxNumberOfSessions.getValueAsInt(intervalName));
 		ret.append(" New: ").append(numberOfCreatedSessions.getValueAsInt(intervalName));
@@ -76,7 +77,7 @@ public class SessionCountStats extends AbstractStats{
 	
 
 	public int getCurrentSessionCount(String intervalName){
-		return numberOfSessions.getValueAsInt(intervalName);
+		return numberOfCurrentSessions.getValueAsInt(intervalName);
 	}
 
 	public int getMinSessionCount(String intervalName){
