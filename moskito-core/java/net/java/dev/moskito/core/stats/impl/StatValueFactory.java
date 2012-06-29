@@ -37,6 +37,7 @@ package net.java.dev.moskito.core.stats.impl;
 import net.java.dev.moskito.core.stats.IValueHolderFactory;
 import net.java.dev.moskito.core.stats.Interval;
 import net.java.dev.moskito.core.stats.StatValue;
+import net.java.dev.moskito.core.stats.StatValueTypes;
 
 /**
  * This factory creates StatValue instances.
