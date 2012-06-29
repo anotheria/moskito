@@ -84,6 +84,13 @@ class LongValueHolder extends AbstractValueHolder {
 	}
 
 	/**
+	 * @see net.java.dev.moskito.core.stats.IIntervalListener#intervalUpdated(net.java.dev.moskito.core.stats.impl.IntervalImpl)
+	 */
+	protected void updateLastValueFromCurrent() {
+		lastValue = currentValue.get();
+	}
+
+	/**
 	 * This method returns the lastValue.
 	 * 
 	 * @return the lastValue

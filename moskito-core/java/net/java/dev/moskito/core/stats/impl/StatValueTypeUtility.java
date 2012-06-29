@@ -35,6 +35,7 @@
 package net.java.dev.moskito.core.stats.impl;
 
 import net.java.dev.moskito.core.stats.IValueHolderFactory;
+import net.java.dev.moskito.core.stats.StatValueTypes;
 
 
 
@@ -46,21 +47,41 @@ import net.java.dev.moskito.core.stats.IValueHolderFactory;
  */
 final class StatValueTypeUtility {
 
+	//we are reusing instances to save memory, since the factories are stateless.
+	/**
+	 * Factory instance for long values.
+	 */
+	private static LongValueHolderFactory longValueHolderFactory = new LongValueHolderFactory();
+	/**
+	 * Factory instance for int values.
+	 */
+	private static IntValueHolderFactory intValueHolderFactory = new IntValueHolderFactory();
+	/**
+	 * Factory instance for String values.
+	 */
+	private static StringValueHolderFactory stringValueHolderFactory = new StringValueHolderFactory();
+	/**
+	 * Factory instance for counter values.
+	 */
+	private static CounterValueHolderFactory counterValueHolderFactory = new CounterValueHolderFactory(); 
+	
 	/**
 	 * This method creates the responsible ValueHolderFactory from the given internal type representation.
 	 * 
-	 * @param aType the type that should be supported by the new facotry
+	 * @param aType the type that should be supported by the new factory
 	 * @return the new factory instance
 	 * @throws RuntimeException if the type is unknown or not supported
 	 */
 	protected static IValueHolderFactory createValueHolderFactory(StatValueTypes aType) {
 		switch (aType) {
 		case LONG:
-			return new LongValueHolderFactory();
+			return longValueHolderFactory;
 		case INT:
-			return new IntValueHolderFactory();
+			return intValueHolderFactory;
 		case STRING:
-			return new StringValueHolderFactory();
+			return stringValueHolderFactory;
+		case COUNTER:
+			return counterValueHolderFactory;
 		default:
 			throw new AssertionError("Unsupported type: " + aType);
 		}
