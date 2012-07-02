@@ -26,10 +26,10 @@ public class SetupPreconfiguredAccumulators implements ServletContextListener{
 	}
 	
 	private static void setupSessionCountAccumulators(){
-		Accumulators.createAccumulator("SessionCount", "SessionCount", "Sessions", "cur", "default");
-		Accumulators.createAccumulator("SessionCount", "SessionCount", "Sessions", "cur", "1h");
-		Accumulators.createAccumulator("SessionCount", "SessionCount", "Sessions", "new", "1h");
-		Accumulators.createAccumulator("SessionCount", "SessionCount", "Sessions", "del", "1h");
+		Accumulators.createAccumulator("SessionCount CurAbsolute", "SessionCount", "Sessions", "cur", "default");
+		Accumulators.createAccumulator("SessionCount Cur1h", "SessionCount", "Sessions", "cur", "1h");
+		Accumulators.createAccumulator("SessionCount New1h", "SessionCount", "Sessions", "new", "1h");
+		Accumulators.createAccumulator("SessionCount Del1h", "SessionCount", "Sessions", "del", "1h");
 	}
 	
 	
