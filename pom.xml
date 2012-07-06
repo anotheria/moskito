@@ -25,6 +25,7 @@
 		<module>moskito-all</module>
         <module>moskito-annotation</module>
         <module>moskito-sql</module>
+        <module>moskito-integration</module>
     </modules>
 	<scm>
 		<url>svn:svn://svn.anotheria.net/opensource/moskito/trunk</url>
