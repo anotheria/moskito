@@ -3,13 +3,13 @@
   <parent>
         <groupId>net.anotheria</groupId>
         <artifactId>moskito-parent</artifactId>
-        <version>1.4.6-SNAPSHOT</version>
+        <version>1.4.7-SNAPSHOT</version>
   </parent>
 
   <modelVersion>4.0.0</modelVersion>
   <groupId>net.anotheria</groupId>
   <artifactId>moskito-integration</artifactId>
-  <version>1.4.6-SNAPSHOT</version>
+  <version>1.4.7-SNAPSHOT</version>
   <name>moskito integration aggregator</name>
   <packaging>pom</packaging>
 
