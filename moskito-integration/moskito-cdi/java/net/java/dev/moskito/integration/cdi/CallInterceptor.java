@@ -1,5 +1,14 @@
 package net.java.dev.moskito.integration.cdi;
 
+import java.io.Serializable;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentMap;
+
+import javax.interceptor.AroundInvoke;
+import javax.interceptor.InvocationContext;
+
 import net.java.dev.moskito.core.calltrace.CurrentlyTracedCall;
 import net.java.dev.moskito.core.calltrace.RunningTraceContainer;
 import net.java.dev.moskito.core.calltrace.TraceStep;
@@ -10,17 +19,7 @@ import net.java.dev.moskito.core.predefined.ServiceStats;
 import net.java.dev.moskito.core.predefined.ServiceStatsFactory;
 import net.java.dev.moskito.core.registry.ProducerRegistryFactory;
 
-import javax.inject.Inject;
-import javax.interceptor.AroundInvoke;
-import javax.interceptor.InvocationContext;
-
 import org.apache.log4j.Logger;
-
-import java.io.Serializable;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.ConcurrentMap;
 
 /**
  * Generic call interceptor.
@@ -36,8 +35,7 @@ public class CallInterceptor implements Serializable {
     /**
      * Logger.
      */
-    @Inject
-    private Logger log;
+    private Logger log = Logger.getLogger(CallInterceptor.class);
     /**
      * The internal producer instances.
      */
@@ -176,7 +174,7 @@ public class CallInterceptor implements Serializable {
     public String getSubsystem() {
         return "default";
     }
-
+ 
     /**
      * Get class name by class implementation.
      *
