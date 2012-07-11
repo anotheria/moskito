@@ -54,6 +54,7 @@ public class ShowAccumulatorAction extends BaseMoskitoUIAction{
 			//for single graph data
 			AccumulatedValueBean accValueForGraphData = new AccumulatedValueBean(NumberUtils.makeTimeString(timestamp));
 			accValueForGraphData.addValue(v.getValue());
+			accValueForGraphData.setIsoTimestamp(NumberUtils.makeISO8601TimestampString(v.getTimestamp()));
 			singleGraphDataBean.add(accValueForGraphData);
 		}
 		

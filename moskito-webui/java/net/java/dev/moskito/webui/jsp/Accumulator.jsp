@@ -126,7 +126,7 @@
 								"accumulatorData" : [
 								<ano:iterate name="accumulatorData" property="data" id="row" indexId="ind"
 									><ano:notEqual name="ind" value="0">,</ano:notEqual>
-									{"<ano:write name="row" property="timestamp"/>", "<ano:write name="row" property="firstValue"/>"}</ano:iterate>
+									{"timestamp": "<ano:write name="row" property="isoTimestamp"/>", "value": "<ano:write name="row" property="firstValue"/>"}</ano:iterate>
 								]
 							}
 						</pre>

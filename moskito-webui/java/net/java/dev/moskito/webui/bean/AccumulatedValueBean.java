@@ -18,6 +18,12 @@ public class AccumulatedValueBean {
 	 */
 	private String timestamp;
 	
+	/**
+	 * Iso timestamp
+	 * 
+	 */
+	private String isoTimestamp;
+	
 	public AccumulatedValueBean(String aTimestamp){
 		timestamp = aTimestamp;
 		values = new ArrayList<String>();
@@ -46,5 +52,13 @@ public class AccumulatedValueBean {
 	
 	public String getFirstValue(){
 		return values.get(0);
+	}
+
+	public String getIsoTimestamp() {
+		return isoTimestamp;
+	}
+
+	public void setIsoTimestamp(String isoTimestamp) {
+		this.isoTimestamp = isoTimestamp;
 	}
 }
