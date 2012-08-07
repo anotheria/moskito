@@ -15,6 +15,7 @@
 <body>
 	<jsp:include page="Menu.jsp" flush="false" />
 	<div class="main">
+		<p>Here you can create on-the-fly charts which are directly stored in your browser.</p>
 		<input type="submit" value="Create chart" class="create_chart_btn" onclick="lightbox($(this));"/>
 		<div class="clear"><!-- --></div>
 		<div id="charts_holder"></div>

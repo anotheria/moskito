@@ -2,6 +2,7 @@ package net.java.dev.moskito.webui.action;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -15,6 +16,8 @@ import net.java.dev.moskito.core.calltrace.TraceStep;
 import net.java.dev.moskito.core.journey.Journey;
 import net.java.dev.moskito.core.journey.NoSuchJourneyException;
 import net.java.dev.moskito.core.stats.TimeUnit;
+import net.java.dev.moskito.webui.bean.JourneyCallDuplicateStepBean;
+import net.java.dev.moskito.webui.bean.JourneyCallIntermediateContainerBean;
 import net.java.dev.moskito.webui.bean.TraceStepBean;
 import net.java.dev.moskito.webui.bean.TracedCallBean;
 
@@ -56,16 +59,33 @@ public class ShowJourneyCallAction extends BaseJourneyAction{
 			
 		TimeUnit unit = getCurrentUnit(req).getUnit();
 		
-		ArrayList<TraceStepBean> elements = new ArrayList<TraceStepBean>();
-		fillUseCasePathElementBeanList(elements, root,0, unit);
-		bean.setElements(elements);
+		JourneyCallIntermediateContainerBean container = new JourneyCallIntermediateContainerBean();
+		fillUseCasePathElementBeanList(container, root,0, unit);
+		bean.setElements(container.getElements());
+		
+		//check for duplicates
+		List<JourneyCallDuplicateStepBean> dupStepBeans = new ArrayList<JourneyCallDuplicateStepBean>(); 
+		Map<String, List<String>> stepsReversed = container.getReversedSteps();
+		for (Map.Entry<String, List<String>> entry : stepsReversed.entrySet()){
+			if (entry.getValue()!=null && entry.getValue().size()>1){
+				//duplicate found
+				JourneyCallDuplicateStepBean dupStepBean = new JourneyCallDuplicateStepBean();
+				dupStepBean.setCall(entry.getKey());
+				dupStepBean.setPositions(entry.getValue());
+				dupStepBeans.add(dupStepBean);
+			}
+		}
+		if (dupStepBeans.size()>0){
+			req.setAttribute("dupStepBeansSize", dupStepBeans.size());
+			req.setAttribute("dupStepBeans", dupStepBeans);
+		}
 		
 		req.setAttribute("tracedCall", bean);
 		
 		return mapping.success();
 	}
 	
-	private void fillUseCasePathElementBeanList(List<TraceStepBean> list, TraceStep element, int recursion, TimeUnit unit){
+	private void fillUseCasePathElementBeanList(JourneyCallIntermediateContainerBean container, TraceStep element, int recursion, TimeUnit unit){
 		TraceStepBean b = new TraceStepBean();
 		b.setCall(recursion == 0 ? "ROOT" : element.getCall());
 		b.setRoot(recursion == 0);
@@ -76,13 +96,13 @@ public class ShowJourneyCallAction extends BaseJourneyAction{
 			ident.append("&nbsp;&nbsp;");
 		b.setIdent(ident.toString());
 		b.setAborted(element.isAborted());
-		list.add(b);
+		container.add(b);
 
 		long timespentInChilds = 0;
 		for (TraceStep p : element.getChildren()){
 			
 			timespentInChilds += p.getDuration();
-			fillUseCasePathElementBeanList(list, p, recursion+1, unit);
+			fillUseCasePathElementBeanList(container, p, recursion+1, unit);
 		}
 		b.setTimespent(unit.transformNanos((element.getDuration() - timespentInChilds)));
 		

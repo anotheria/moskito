@@ -41,6 +41,11 @@ public class TraceStepBean {
 	 */
 	private String fullCall;
 	
+	/**
+	 * This is a temporarly id within the journey call for linking purposes.
+	 */
+	private String id;
+	
 	public TraceStepBean(){
 		children = new ArrayList<TraceStepBean>();
 	}
@@ -128,5 +133,13 @@ public class TraceStepBean {
 
 	public void setFullCall(String fullCall) {
 		this.fullCall = fullCall;
+	}
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
 	}
 }
