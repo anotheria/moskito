@@ -40,9 +40,11 @@ import javax.servlet.http.HttpServletResponse;
 import net.anotheria.maf.action.ActionCommand;
 import net.anotheria.maf.action.ActionMapping;
 import net.anotheria.maf.bean.FormBean;
+import net.java.dev.moskito.annotation.MonitorClass;
 import net.java.dev.moskitodemo.guestbook.business.data.Comment;
 import net.java.dev.moskitodemo.guestbook.presentation.bean.CommentBean;
 
+@MonitorClass
 public class ShowCommentAction extends BaseGuestbookAction{
 	
 

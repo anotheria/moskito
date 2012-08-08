@@ -41,6 +41,7 @@ import net.anotheria.maf.action.ActionCommand;
 import net.anotheria.maf.action.ActionMapping;
 import net.anotheria.maf.bean.FormBean;
 import net.anotheria.maf.bean.annotations.Form;
+import net.java.dev.moskito.annotation.MonitorClass;
 import net.java.dev.moskitodemo.guestbook.business.AntispamUtil;
 import net.java.dev.moskitodemo.guestbook.business.CommentServiceException;
 import net.java.dev.moskitodemo.guestbook.business.data.Comment;
@@ -54,6 +55,7 @@ import org.apache.log4j.Logger;
  * @author dvayanu
  *
  */
+@MonitorClass
 public class CreateCommentAction extends BaseGuestbookAction{
 	
 	private static Logger log;

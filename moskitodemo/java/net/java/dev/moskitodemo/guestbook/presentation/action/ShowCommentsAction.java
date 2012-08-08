@@ -46,12 +46,14 @@ import net.anotheria.maf.action.ActionMapping;
 import net.anotheria.maf.bean.FormBean;
 import net.anotheria.util.slicer.Segment;
 import net.anotheria.util.slicer.Slicer;
+import net.java.dev.moskito.annotation.MonitorClass;
 import net.java.dev.moskitodemo.guestbook.business.data.Comment;
 import net.java.dev.moskitodemo.guestbook.business.data.CommentSortType;
 import net.java.dev.moskitodemo.guestbook.presentation.bean.CommentTableHeaderBean;
 import net.java.dev.moskitodemo.guestbook.presentation.bean.CommentTableItemBean;
 import net.java.dev.moskitodemo.guestbook.presentation.bean.SortLinkBean;
 
+@MonitorClass
 public class ShowCommentsAction extends BaseGuestbookAction{
 	
 	public static final String P_SORT_BY = "pSortBy";
