@@ -49,6 +49,7 @@
 				<table cellpadding="0" cellspacing="0" width="100%">
 				<thead>
 						<tr class="stat_header">
+							<th></th>
 							<th>Call</th>
 							<th>Gross duration</th>
 							<th>Net duration</th>
@@ -57,10 +58,10 @@
 				</thead>
 				<tbody>
 						<ano:iterate name="tracedCall" property="elements" type="net.java.dev.moskito.webui.bean.TraceStepBean" id="traceStep" indexId="index">
-						 <tr>
-						   		<ano:equal name="traceStep" property="aborted" value="true"><tr class="stat_error"></ano:equal>
-								<ano:notEqual name="traceStep" property="aborted" value="true"><tr class="<%= ((index & 1) == 0 )? "even" : "odd" %>"></ano:notEqual>
-								<td onmouseover="Tip('<ano:write name="traceStep" property="fullCall" filter="true"/>', WIDTH, 400)" onmouseout="UnTip()"><% for (int i=1; i<traceStep.getLayer(); i++){ %><%= EMPTY %><%}%><ano:equal name="traceStep" property="root" value="false"><%=IMG%></ano:equal><ano:write name="traceStep" property="call" filter="true"/></td>
+					   		<ano:equal name="traceStep" property="aborted" value="true"><tr class="stat_error"></ano:equal>
+							<ano:notEqual name="traceStep" property="aborted" value="true"><tr class="<%= ((index & 1) == 0 )? "even" : "odd" %>"></ano:notEqual>
+								<td width="1%"><a name="<ano:write name="traceStep" property="id"/>"><ano:write name="traceStep" property="id"/></a></td>
+								<td onmouseover="Tip('<ano:write name="traceStep" property="fullCall" filter="true"/>', WIDTH, 500)" onmouseout="UnTip()"><% for (int i=1; i<traceStep.getLayer(); i++){ %><%= EMPTY %><%}%><ano:equal name="traceStep" property="root" value="false"><%=IMG%></ano:equal><ano:write name="traceStep" property="call" filter="true"/></td>
 								<td><ano:write name="traceStep" property="duration"/></td>
 								<td><ano:write name="traceStep" property="timespent"/></td>
 								<td><ano:equal name="traceStep" property="aborted" value="true">X</ano:equal></td>
@@ -78,7 +79,7 @@
 				</div>
 			</div>
 		</div>
-
+		<br/><br/>
 		<!-- duplicates -->
 		<ano:present name="dupStepBeansSize">
 		<div class="clear"><!-- --></div>
@@ -98,15 +99,21 @@
 					<thead>
 							<tr class="stat_header">
 								<th>Duplicate (<ano:write name="dupStepBeansSize"/>)</th>
+								<th>Calls</th>
 								<th>Positions</th>
+								<th>Time / Duration</th>
 							</tr>
 					</thead>
 					<tbody>
 							<ano:iterate name="dupStepBeans" type="net.java.dev.moskito.webui.bean.JourneyCallDuplicateStepBean" id="dupStep" indexId="index">
 							 <tr>
 							 	<td><ano:write name="dupStep" property="call"/></td>
-							 	<td><ano:write name="dupStep" property="positions"/></td>
-							</tr>
+							 	<td><ano:write name="dupStep" property="numberOfCalls"/></td>
+							 	<td style="white-space: normal;">
+							 		<ano:iterate name="dupStep" property="positions" type="java.lang.String" id="position"><a href="#<ano:write name="position"/>"><ano:write name="position"/></a> </ano:iterate>
+							 	</td>
+							 	<td><ano:write name="dupStep" property="timespent"/> / <ano:write name="dupStep" property="duration"/></td>
+							 </tr>
 							</ano:iterate>
 					</tbody>
 					</table>

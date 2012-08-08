@@ -65,13 +65,15 @@ public class ShowJourneyCallAction extends BaseJourneyAction{
 		
 		//check for duplicates
 		List<JourneyCallDuplicateStepBean> dupStepBeans = new ArrayList<JourneyCallDuplicateStepBean>(); 
-		Map<String, List<String>> stepsReversed = container.getReversedSteps();
-		for (Map.Entry<String, List<String>> entry : stepsReversed.entrySet()){
-			if (entry.getValue()!=null && entry.getValue().size()>1){
+		Map<String,JourneyCallIntermediateContainerBean.ReversedCallHelper > stepsReversed = container.getReversedSteps();
+		for (Map.Entry<String, JourneyCallIntermediateContainerBean.ReversedCallHelper> entry : stepsReversed.entrySet()){
+			if (entry.getValue()!=null && entry.getValue().getPositions().size()>1){
 				//duplicate found
 				JourneyCallDuplicateStepBean dupStepBean = new JourneyCallDuplicateStepBean();
 				dupStepBean.setCall(entry.getKey());
-				dupStepBean.setPositions(entry.getValue());
+				dupStepBean.setPositions(entry.getValue().getPositions());
+				dupStepBean.setTimespent(entry.getValue().getTimespent());
+				dupStepBean.setDuration(entry.getValue().getDuration());
 				dupStepBeans.add(dupStepBean);
 			}
 		}

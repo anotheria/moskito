@@ -2,6 +2,8 @@ package net.java.dev.moskito.webui.bean;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import net.anotheria.util.NumberUtils;
 /**
  * This bean represents an element along an use-case path.
  * @author lrosenberg
@@ -44,7 +46,7 @@ public class TraceStepBean {
 	/**
 	 * This is a temporarly id within the journey call for linking purposes.
 	 */
-	private String id;
+	private int id;
 	
 	public TraceStepBean(){
 		children = new ArrayList<TraceStepBean>();
@@ -136,10 +138,10 @@ public class TraceStepBean {
 	}
 
 	public String getId() {
-		return id;
+		return NumberUtils.itoa(id, 3);
 	}
 
-	public void setId(String id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 }
