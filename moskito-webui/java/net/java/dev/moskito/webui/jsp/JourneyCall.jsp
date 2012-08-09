@@ -9,6 +9,63 @@
 <ano:define id="IMG" type="java.lang.String"><img src="<ano:write name="mskPathToImages" scope="application"/>msk_l.gif" border="0" alt=""></ano:define
 ><ano:define id="EMPTY" type="java.lang.String"><img src="<ano:write name="mskPathToImages" scope="application"/>msk_s.gif" border="0" alt=""></ano:define
 >
+
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.js"></script>
+
+    <script>
+        $(function() {
+            var positionCheckbox = $('.select_current_row_positions_checkbox');
+
+            positionCheckbox.on('change', function(){
+
+                var $this = $(this),
+                    $thisTr = $this.parents('table.journeys_summary_table tr'),
+                    PositionListLink = $thisTr.find($('td.journeys_summary_table_positions_list a')),
+                    actionSelect = $this.prop('checked');
+
+                PositionListLink.each(function(a){
+                    var lineNumber = ($(this).text()),
+                        highlightedTr = $('a[name='+lineNumber+']').parents('tr');
+
+
+                    if (actionSelect) {
+                        highlightedTr.find('td').addClass('td_select_highlight') ;
+                    }else {
+                        highlightedTr.find('td').removeClass('td_select_highlight')
+                    }
+                })
+            });
+
+            var deselectPositionsButton = $('.deselect_all_journey_positions');
+            deselectPositionsButton.on('click', function(){
+                positionCheckbox.each(function() {
+                    var $this = $(this);
+
+                    $this.prop('checked', '');
+                    $this.change();
+                })
+            })
+        })
+    </script>
+
+    <style>
+        .td_select_highlight {
+            background: #D7E9CA!important;
+        }
+
+        .table_itseft .in table tr:hover .td_select_highlight {
+            background: #E1EEFA!important;
+        }
+
+        .deselect_all_journey_positions {
+            padding: 0 4px;
+        }
+
+        .select_current_row_positions_checkbox {
+            display: block;
+            margin: 0 auto;
+        }
+    </style>
 </head>
 <body class="yui-skin-sam">
 <script type="text/javascript" src="../js/wz_tooltip.js"></script>
@@ -95,11 +152,12 @@
 					<div class="in">
 				
 					
-					<table cellpadding="0" cellspacing="0" width="100%">
+					<table class="journeys_summary_table" cellpadding="0" cellspacing="0" width="100%">
 					<thead>
 							<tr class="stat_header">
 								<th>Duplicate (<ano:write name="dupStepBeansSize"/>)</th>
-								<th>Calls</th>
+                                <th><button class="deselect_all_journey_positions">Reset</button></th>
+                                <th>Calls</th>
 								<th>Positions</th>
 								<th>Time / Duration</th>
 							</tr>
@@ -108,7 +166,8 @@
 							<ano:iterate name="dupStepBeans" type="net.java.dev.moskito.webui.bean.JourneyCallDuplicateStepBean" id="dupStep" indexId="index">
 							 <tr>
 							 	<td><ano:write name="dupStep" property="call"/></td>
-							 	<td><ano:write name="dupStep" property="numberOfCalls"/></td>
+                                <td><input type="checkbox" class="select_current_row_positions_checkbox" value=""/></td>
+                                <td><ano:write name="dupStep" property="numberOfCalls"/></td>
 							 	<td style="white-space: normal;">
 							 		<ano:iterate name="dupStep" property="positions" type="java.lang.String" id="position"><a href="#<ano:write name="position"/>"><ano:write name="position"/></a> </ano:iterate>
 							 	</td>
