@@ -168,7 +168,7 @@
 							 	<td><ano:write name="dupStep" property="call"/></td>
                                 <td><input type="checkbox" class="select_current_row_positions_checkbox" value=""/></td>
                                 <td><ano:write name="dupStep" property="numberOfCalls"/></td>
-							 	<td style="white-space: normal;">
+							 	<td style="white-space: normal;" class="journeys_summary_table_positions_list">
 							 		<ano:iterate name="dupStep" property="positions" type="java.lang.String" id="position"><a href="#<ano:write name="position"/>"><ano:write name="position"/></a> </ano:iterate>
 							 	</td>
 							 	<td><ano:write name="dupStep" property="timespent"/> / <ano:write name="dupStep" property="duration"/></td>
