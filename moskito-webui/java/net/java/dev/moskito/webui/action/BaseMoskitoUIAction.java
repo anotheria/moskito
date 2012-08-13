@@ -132,6 +132,16 @@ public abstract class BaseMoskitoUIAction implements Action{
 	 */
 	public static final String PARAM_SUBSYSTEM = "pSubsystem";
 	
+	/** 
+	 * SortBy usually accompanied by an integer that defines the sort method.
+	 */
+	public static final String PARAM_SORT_BY = "pSortBy";
+	
+	/**
+	 * Sort order, ASC or DESC.
+	 */
+	public static final String PARAM_SORT_ORDER = "pSortOrder";
+	
 	/**
 	 * If set (to true) the zero request values will be removed from producer presentation.
 	 */

@@ -2,12 +2,16 @@ package net.java.dev.moskito.webui.bean;
 
 import java.util.List;
 
+import net.anotheria.util.BasicComparable;
+import net.anotheria.util.sorter.IComparable;
+import static net.java.dev.moskito.webui.bean.JourneyCallDuplicateStepBeanSortType.*;
+
 /**
  * This bean represents a duplicate step during a journey call. 
  * @author lrosenberg
  *
  */
-public class JourneyCallDuplicateStepBean {
+public class JourneyCallDuplicateStepBean implements IComparable<JourneyCallDuplicateStepBean>{
 	/**
 	 * Call description aka method name and parameters.
 	 */
@@ -54,5 +58,21 @@ public class JourneyCallDuplicateStepBean {
 	}
 	public void setTimespent(long timespent) {
 		this.timespent = timespent;
+	}
+	@Override
+	public int compareTo(
+			IComparable<? extends JourneyCallDuplicateStepBean> anotherObject,
+			int method) {
+		switch(method){
+		case SORT_BY_CALL:
+			return BasicComparable.compareString(call, ((JourneyCallDuplicateStepBean)anotherObject).call);
+		case SORT_BY_POSITIONS:
+			return BasicComparable.compareList(positions, ((JourneyCallDuplicateStepBean)anotherObject).positions);
+		case SORT_BY_TIMESPENT:
+			return BasicComparable.compareLong(timespent, ((JourneyCallDuplicateStepBean)anotherObject).timespent);
+		case SORT_BY_DURATION:
+			return BasicComparable.compareLong(duration, ((JourneyCallDuplicateStepBean)anotherObject).duration);
+		}
+		throw new IllegalArgumentException("Unsupported method: "+method);
 	}
 }

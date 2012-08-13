@@ -11,12 +11,14 @@ import net.anotheria.maf.action.ActionCommand;
 import net.anotheria.maf.action.ActionMapping;
 import net.anotheria.maf.bean.FormBean;
 import net.anotheria.util.NumberUtils;
+import net.anotheria.util.sorter.StaticQuickSorter;
 import net.java.dev.moskito.core.calltrace.CurrentlyTracedCall;
 import net.java.dev.moskito.core.calltrace.TraceStep;
 import net.java.dev.moskito.core.journey.Journey;
 import net.java.dev.moskito.core.journey.NoSuchJourneyException;
 import net.java.dev.moskito.core.stats.TimeUnit;
 import net.java.dev.moskito.webui.bean.JourneyCallDuplicateStepBean;
+import net.java.dev.moskito.webui.bean.JourneyCallDuplicateStepBeanSortType;
 import net.java.dev.moskito.webui.bean.JourneyCallIntermediateContainerBean;
 import net.java.dev.moskito.webui.bean.TraceStepBean;
 import net.java.dev.moskito.webui.bean.TracedCallBean;
@@ -77,7 +79,19 @@ public class ShowJourneyCallAction extends BaseJourneyAction{
 				dupStepBeans.add(dupStepBean);
 			}
 		}
+		
 		if (dupStepBeans.size()>0){
+			int sortBy = JourneyCallDuplicateStepBeanSortType.SORT_BY_DEFAULT;
+			try{
+				sortBy = Integer.parseInt(req.getParameter(PARAM_SORT_BY));
+			}catch(Exception ignored){}
+			
+			boolean sortOrder = JourneyCallDuplicateStepBeanSortType.ASC;
+			try{
+				sortOrder = req.getParameter(PARAM_SORT_ORDER).equalsIgnoreCase("ASC");
+			}catch(Exception ignored){}
+			dupStepBeans = StaticQuickSorter.sort(dupStepBeans, new JourneyCallDuplicateStepBeanSortType(sortBy, sortOrder));
+
 			req.setAttribute("dupStepBeansSize", dupStepBeans.size());
 			req.setAttribute("dupStepBeans", dupStepBeans);
 		}
