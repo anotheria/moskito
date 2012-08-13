@@ -16,6 +16,7 @@ public class JourneyCallIntermediateContainerBean {
 	private Map<String, ReversedCallHelper> stepsReversed = new HashMap<String, ReversedCallHelper>();
 	private List<TraceStepBean> elements = new ArrayList<TraceStepBean>();
 	private int counter = 0;
+	private final ParentHolder parentHolder = new ParentHolder();
 	
 	public JourneyCallIntermediateContainerBean(){
 		
@@ -31,12 +32,17 @@ public class JourneyCallIntermediateContainerBean {
 		}
 		
 		helper.add(step.getId(), step.getTimespent(), step.getDuration());
+		step.setParentId(parentHolder.getParentIdByLayer(step.getLayer(), step.getId()));
 	}
 	
 	public List<TraceStepBean> getElements(){
 		return elements;
 	}
-	
+
+	/**
+	 * Returns the map with collected steps.
+	 * @return
+	 */
 	public Map<String, ReversedCallHelper> getReversedSteps(){
 		return stepsReversed;
 	}
@@ -62,6 +68,22 @@ public class JourneyCallIntermediateContainerBean {
 		
 		public long getDuration(){
 			return duration;
+		}
+	}
+	
+	private class ParentHolder{
+		
+		private Map<Integer, Integer> parents = new HashMap<Integer, Integer>();
+		
+		private final int getParentIdByLayer(int layer, String currentId){
+			int _currentId = Integer.parseInt(currentId);
+			parents.put(layer, _currentId);
+			
+			if (layer==0)
+				return -1;
+
+			int storedId = parents.get(layer-1);
+			return storedId;
 		}
 	}
 	

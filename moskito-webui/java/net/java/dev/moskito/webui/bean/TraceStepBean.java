@@ -48,6 +48,11 @@ public class TraceStepBean {
 	 */
 	private int id;
 	
+	/**
+	 * This is a temporarly id within the journey call for linking purposes for the tree plugin.
+	 */
+	private int parentId;
+	
 	public TraceStepBean(){
 		children = new ArrayList<TraceStepBean>();
 	}
@@ -143,5 +148,13 @@ public class TraceStepBean {
 
 	public void setId(int id) {
 		this.id = id;
+	}
+
+	public String getParentId() {
+		return parentId < 0 ? "root" : NumberUtils.itoa(parentId, 3);
+	}
+
+	public void setParentId(int parentId) {
+		this.parentId = parentId;
 	}
 }

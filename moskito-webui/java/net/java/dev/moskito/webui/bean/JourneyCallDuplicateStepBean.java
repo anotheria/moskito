@@ -1,10 +1,14 @@
 package net.java.dev.moskito.webui.bean;
 
+import static net.java.dev.moskito.webui.bean.JourneyCallDuplicateStepBeanSortType.SORT_BY_CALL;
+import static net.java.dev.moskito.webui.bean.JourneyCallDuplicateStepBeanSortType.SORT_BY_DURATION;
+import static net.java.dev.moskito.webui.bean.JourneyCallDuplicateStepBeanSortType.SORT_BY_POSITIONS;
+import static net.java.dev.moskito.webui.bean.JourneyCallDuplicateStepBeanSortType.SORT_BY_TIMESPENT;
+
 import java.util.List;
 
 import net.anotheria.util.BasicComparable;
 import net.anotheria.util.sorter.IComparable;
-import static net.java.dev.moskito.webui.bean.JourneyCallDuplicateStepBeanSortType.*;
 
 /**
  * This bean represents a duplicate step during a journey call. 
@@ -72,7 +76,8 @@ public class JourneyCallDuplicateStepBean implements IComparable<JourneyCallDupl
 			return BasicComparable.compareLong(timespent, ((JourneyCallDuplicateStepBean)anotherObject).timespent);
 		case SORT_BY_DURATION:
 			return BasicComparable.compareLong(duration, ((JourneyCallDuplicateStepBean)anotherObject).duration);
+		default:
+			throw new IllegalArgumentException("Unsupported method: "+method);
 		}
-		throw new IllegalArgumentException("Unsupported method: "+method);
 	}
 }
