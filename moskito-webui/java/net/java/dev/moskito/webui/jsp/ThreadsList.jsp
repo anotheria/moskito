@@ -15,7 +15,7 @@
 			<div><!-- --></div>
 		</div>
 		<div class="in">
-			<h2><span>Threads</span></h2>
+			<h2><span>Threads (<ano:write name="infosCount"/>)</span></h2>
 
 			<div class="clear"><!-- --></div>
 			<div class="table_itseft">

@@ -31,8 +31,8 @@ public class JourneyCallIntermediateContainerBean {
 			stepsReversed.put(step.getCall(), helper);
 		}
 		
-		helper.add(step.getId(), step.getTimespent(), step.getDuration());
-		step.setParentId(parentHolder.getParentIdByLayer(step.getLayer(), step.getId()));
+		helper.add(step.getNiceId(), step.getTimespent(), step.getDuration());
+		step.setParentId(parentHolder.getParentIdByLayer(step.getLayer(), step.getNiceId()));
 	}
 	
 	public List<TraceStepBean> getElements(){

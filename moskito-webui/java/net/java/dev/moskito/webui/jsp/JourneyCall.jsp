@@ -66,9 +66,19 @@
             margin: 0 auto;
         }
     </style>
+    
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.js"></script>
+    <script type="text/javascript" src="../js/jquery.treeTable.js"></script>
+
+    <script>
+        $(document).ready(function()  {
+          $("#tree_table").treeTable();
+        });
+
+    </script>    
+    <script type="text/javascript" src="../js/wz_tooltip.js"></script>
 </head>
-<body class="yui-skin-sam">
-<script type="text/javascript" src="../js/wz_tooltip.js"></script>
+<body>
 <jsp:include page="Menu.jsp" flush="false"/>
 
 <div class="main">
@@ -103,9 +113,9 @@
 				<div class="in">
 			
 				
-				<table cellpadding="0" cellspacing="0" width="100%" id="tree">
+				<table cellpadding="0" cellspacing="0" width="100%" id="tree_table">
 				<thead>
-						<tr class="stat_header" id="node-root">
+						<tr class="stat_header" id="node--1">
 							<th></th>
 							<th>Call</th>
 							<th>Gross duration</th>

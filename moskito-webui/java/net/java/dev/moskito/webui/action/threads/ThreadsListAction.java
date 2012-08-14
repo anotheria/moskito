@@ -26,6 +26,7 @@ public class ThreadsListAction extends BaseThreadsAction{
 		}
 		
 		req.setAttribute("infos", infos);
+		req.setAttribute("infosCount", infos.size());
 
 		return mapping.success();
 	}

@@ -142,16 +142,24 @@ public class TraceStepBean {
 		this.fullCall = fullCall;
 	}
 
-	public String getId() {
+	public String getNiceId() {
 		return NumberUtils.itoa(id, 3);
+	}
+	
+	public int getId(){
+		return id;
 	}
 
 	public void setId(int id) {
 		this.id = id;
 	}
 
-	public String getParentId() {
+	public String getNiceParentId() {
 		return parentId < 0 ? "root" : NumberUtils.itoa(parentId, 3);
+	}
+	
+	public int getParentId(){
+		return parentId;
 	}
 
 	public void setParentId(int parentId) {
