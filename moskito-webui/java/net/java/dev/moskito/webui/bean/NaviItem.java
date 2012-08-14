@@ -36,7 +36,9 @@ public enum NaviItem {
 	
 	THRESHOLDS("Thresholds"),
 	
-	ACCUMULATORS("Accumulators");
+	ACCUMULATORS("Accumulators"),
+	
+	THREADS("Threads");
 	
 	
 	/**
@@ -51,6 +53,7 @@ public enum NaviItem {
 		menu.add(JOURNEYS);
 		menu.add(CHARTS);
 		menu.add(ACCUMULATORS);
+		menu.add(THREADS);
 		//menu.add(USECASES);
 	}
 	/**

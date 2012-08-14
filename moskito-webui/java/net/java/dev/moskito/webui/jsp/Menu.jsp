@@ -74,14 +74,32 @@
                     <li <ano:equal name="currentNaviItem" value="JOURNEYS">class="active"</ano:equal>>
                         <a href="mskShowJourneys">Journeys</a>
                     </li>
-                    <li <ano:equal name="currentNaviItem" value="CHARTS">class="active"</ano:equal>>
-                        <a href="mskShowCharts">Charts</a>
-                    </li>
 					<li <ano:equal name="currentNaviItem" value="THRESHOLDS">class="active"</ano:equal>>
                         <a href="mskThresholds"><img src="<ano:write name="mskPathToImages" scope="application"/>ind_<ano:write name="systemStatusColor"/>_small.png" alt="System status: <ano:write name="systemStatus"/>"/>&nbsp;&nbsp;Thresholds</a>
                     </li>
                     <li <ano:equal name="currentNaviItem" value="ACCUMULATORS">class="active"</ano:equal>>
                         <a href="mskAccumulators">Accumulators</a>
+                    </li>
+                    <li <ano:equal name="currentNaviItem" value="CHARTS">class="active"</ano:equal>>
+                        <a href="mskShowCharts">Charts</a>
+                    </li>
+                    <li <ano:equal name="currentNaviItem" value="THREADS">class="active"</ano:equal>>
+                        <a href="mskThreads">Threads</a>
+						<div class="sub_menu">
+							<ul>
+								<li class="separator">
+									<a href="mskThreadsList">List</a>
+								</li>
+								<li class="separator">
+									<a href="#">Dump</a>
+								</li>
+								<li>
+									<a href="#">History</a>
+								</li>
+							    <div class="clear"><!-- --></div>
+							</ul>
+						</div>
+						<div class="over_color"><div><!-- --></div></div>
                     </li>
 					
 				</ul>

@@ -47,6 +47,11 @@ public class JourneyCallIntermediateContainerBean {
 		return stepsReversed;
 	}
 	
+	/**
+	 * A small helper for calculation of duplicates.
+	 * @author lrosenberg
+	 *
+	 */
 	public static class ReversedCallHelper{
 		private List<String> positions = new ArrayList<String>();
 		private long timespent = 0;
@@ -71,6 +76,11 @@ public class JourneyCallIntermediateContainerBean {
 		}
 	}
 	
+	/**
+	 * Helper class for parentId linkage.
+	 * @author lrosenberg
+	 *
+	 */
 	private class ParentHolder{
 		
 		private Map<Integer, Integer> parents = new HashMap<Integer, Integer>();

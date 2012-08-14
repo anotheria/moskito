@@ -174,6 +174,13 @@ public class MoskitoMappingsConfigurator implements ActionMappingsConfigurator{
 				new ActionForward("success", "/net/java/dev/moskito/webui/jsp/AnalyzeJourney.jsp")
 		);
 		
+		//threads
+		mappings.addMapping("mskThreads", net.java.dev.moskito.webui.action.threads.ThreadsOverviewAction.class, 
+				new ActionForward("success", "/net/java/dev/moskito/webui/jsp/Threads.jsp"));
+		mappings.addMapping("mskThreadsList", net.java.dev.moskito.webui.action.threads.ThreadsListAction.class, 
+				new ActionForward("success", "/net/java/dev/moskito/webui/jsp/ThreadsList.jsp"));
+		
+		
 	}
 
 }
