@@ -49,8 +49,8 @@
 								<td><ano:write name="info" property="threadId"/></td>
 								<td><ano:write name="info" property="threadName"/></td>
 								<td><ano:write name="info" property="threadState"/></td>
-								<td><ano:write name="info" property="inNative"/></td>
-								<td><ano:write name="info" property="suspended"/></td>
+								<td align="center"><ano:equal name="info" property="inNative" value="true">X</ano:equal></td>
+								<td align="center"><ano:equal name="info" property="suspended" value="true">X</ano:equal></td>
 								<td><ano:write name="info" property="lockName"/></td>
 								<td><ano:write name="info" property="lockOwnerId"/></td>
 								<td><ano:write name="info" property="lockOwnerName"/></td>
