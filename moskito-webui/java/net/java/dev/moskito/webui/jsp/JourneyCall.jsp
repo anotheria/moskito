@@ -76,9 +76,9 @@
         });
 
     </script>    
-    <script type="text/javascript" src="../js/wz_tooltip.js"></script>
 </head>
 <body>
+<script type="text/javascript" src="../js/wz_tooltip.js"></script>
 <jsp:include page="Menu.jsp" flush="false"/>
 
 <div class="main">
