@@ -113,15 +113,13 @@ public class ProxyUtils {
 	//TODO change this to use concurrent map symantec.
 	private static int getInstanceCounter(String name){
 		AtomicInteger counter = instanceCounters.get(name);
-		if (counter==null){
-			synchronized(instanceCounters){
-				counter = instanceCounters.get(name);
-				if (counter==null){
-					counter = new AtomicInteger(0);
-					instanceCounters.put(name, counter);
-				}
-			}
-		}
+		if (counter!=null)
+			return counter.incrementAndGet();
+
+		counter = new AtomicInteger(0);
+		AtomicInteger old = instanceCounters.putIfAbsent(name, counter);
+		if (old!=null)
+			counter = old;
 		return counter.incrementAndGet();
 	}
 
