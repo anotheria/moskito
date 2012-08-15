@@ -91,7 +91,7 @@
 									<a href="mskThreadsList">List</a>
 								</li>
 								<li class="separator">
-									<a href="#">Dump</a>
+									<a href="mskThreadsDump">Dump</a>
 								</li>
 								<li>
 									<a href="#">History</a>
