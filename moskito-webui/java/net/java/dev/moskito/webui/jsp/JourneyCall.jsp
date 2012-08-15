@@ -115,7 +115,7 @@
 				
 				<table cellpadding="0" cellspacing="0" width="100%" id="tree_table">
 				<thead>
-						<tr class="stat_header" id="node--1">
+						<tr class="stat_header">
 							<th></th>
 							<th>Call</th>
 							<th>Gross duration</th>
@@ -129,7 +129,7 @@
 					   		<ano:equal name="traceStep" property="aborted" value="true"><tr class="stat_error" id="node-<ano:write name="traceStep" property="id"/>"></ano:equal>
 							<ano:notEqual name="traceStep" property="aborted" value="true"><tr class="< %= ((index & 1) == 0 )? "even" : "odd" % >" id="node-<ano:write name="id"/>"></ano:notEqual> 
 						--%>
-						<tr class="child-of-node-<ano:write name="traceStep" property="parentId"/>" id="node-<ano:write name="traceStep" property="id"/>">
+						<tr <ano:equal name="traceStep" property="parentAvailable" value="true">class="child-of-node-<ano:write name="traceStep" property="parentId"/>"</ano:equal> id="node-<ano:write name="traceStep" property="id"/>">
 							<td width="1%"><a name="<ano:write name="traceStep" property="niceId"/>"><ano:write name="traceStep" property="niceId"/></a></td>
 							<td onmouseover="Tip('<ano:write name="traceStep" property="fullCall" filter="true"/>', WIDTH, 500)" onmouseout="UnTip()"><% for (int i=1; i<traceStep.getLayer(); i++){ %><%= EMPTY %><%}%><ano:equal name="traceStep" property="root" value="false"><%=IMG%></ano:equal><ano:write name="traceStep" property="call" filter="true"/></td>
 							<td><ano:write name="traceStep" property="duration"/></td>

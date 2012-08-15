@@ -165,4 +165,8 @@ public class TraceStepBean {
 	public void setParentId(int parentId) {
 		this.parentId = parentId;
 	}
+	
+	public boolean isParentAvailable(){
+		return parentId>=0;
+	}
 }
