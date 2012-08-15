@@ -9,7 +9,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>net.anotheria</groupId>
   <artifactId>moskito-parent</artifactId>
-  <version>1.4.7-SNAPSHOT</version>
+  <version>1.5.0-SNAPSHOT</version>
   <name>MoSKito</name>
   <description>MoSKito, MoSKito, MoSKito and moskito</description>
   <packaging>pom</packaging>
@@ -25,7 +25,7 @@
 		<module>moskito-all</module>
         <module>moskito-annotation</module>
         <module>moskito-sql</module>
-        <module>moskito-integration</module>
+		<module>moskito-integration</module>
     </modules>
 	<scm>
 		<url>svn:svn://svn.anotheria.net/opensource/moskito/trunk</url>
