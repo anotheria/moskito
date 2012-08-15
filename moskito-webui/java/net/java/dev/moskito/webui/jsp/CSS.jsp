@@ -345,3 +345,22 @@ h2 a.hidden {background:url("<ano:write name="mskPathToImages" scope="applicatio
 * full jQuery UI CSS to be loaded. */
 .ui-helper-hidden { display: none; }
 
+
+/* JOURNEYS SELECTION */
+.td_select_highlight {
+    background: #D7E9CA!important;
+}
+
+.table_itseft .in table tr:hover .td_select_highlight {
+    background: #E1EEFA!important;
+}
+
+.deselect_all_journey_positions {
+    padding: 0 4px;
+}
+
+.select_current_row_positions_checkbox {
+    display: block;
+    margin: 0 0 0 13px;
+}
+/* /JOURNEYS SELECTION */
