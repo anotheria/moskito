@@ -15,17 +15,22 @@
 
     <script>
         $(function() {
+            var button = $('.expand_table_tree');
+
             // TREE TABLE
             $("#tree_table").treeTable();
 
+            //REMOVE EXPAND/CLOSE BUTTONS table_tree_closed CLASS
+            function removeClassTableTreeClosed() {
+                button.removeClass('table_tree_closed').addClass('table_tree_opened').text('Hide');
+            };
+
             // EXPAND-COLLAPSE TABLE TREE
             function expandTableTree() {
-                var button = $('.expand_table_tree'),
-                    table = $('#tree_table'),
+                var table = $('#tree_table'),
                     mainParent = $('#node-0'),
                     mainParentExpander = $('#node-0 a.expander'),
                     selectPositionCheckbox = $('.select_current_row_positions_checkbox');
-
 
                 button.on('click', function() {
                     var $this = $(this),
@@ -33,7 +38,7 @@
 
                     if ($this.hasClass('table_tree_closed')) {
                         table.expandAll();
-                        $this.removeClass('table_tree_closed').addClass('table_tree_opened').text('Hide');
+                        removeClassTableTreeClosed();
                     } else {
                         table.collapseAll();
                         $this.removeClass('table_tree_opened').addClass('table_tree_closed').text('Expand');
@@ -45,17 +50,17 @@
                         selectPositionCheckbox.each(function() {
                             $(this).prop('checked', '');
                         });
-                    }
-                })
+                    };
+                });
 
                 mainParentExpander.on('click', function(){
 
                     if (mainParent.hasClass('expanded')) {
-                        button.removeClass('table_tree_closed').addClass('table_tree_opened').text('Hide');
+                        removeClassTableTreeClosed();
                     } else {
                         button.removeClass('table_tree_opened').addClass('table_tree_closed').text('Expand');
-                    }
-                })
+                    };
+                });
             };
 
             expandTableTree()
@@ -66,32 +71,32 @@
             var positionCheckbox = $('.select_current_row_positions_checkbox');
 
             positionCheckbox.on('change', function(){
-
                 var $this = $(this),
                     $thisTr = $this.parents('table.journeys_summary_table tr'),
                     PositionListLink = $thisTr.find($('td.journeys_summary_table_positions_list a')),
                     actionSelect = $this.prop('checked'),
-                    button = $('.expand_table_tree'),
-                    nodes = "";
+                    nodes = '';
+
                 PositionListLink.each(function(a){
                     var lineNumber = ($(this).text()),
                         nodenum = parseInt(lineNumber, 10),
-                        nodeid = "#node-" + nodenum;
+                        nodeid = '#node-' + nodenum;
+
                     nodes += ","+nodeid;
-                })
+                });
 
-                    var highlightedTr = $(nodes);
+                var highlightedTr = $(nodes);
 
-                    if (actionSelect) {
-                        highlightedTr.addClass('tr_select_highlight');
-                        highlightedTr.each(function(){
-                            $(this).reveal();
-                        })
+                if (actionSelect) {
+                    highlightedTr.addClass('tr_select_highlight');
+                    highlightedTr.each(function(){
+                        $(this).reveal();
+                    })
 
-                        button.removeClass('table_tree_closed').addClass('table_tree_opened').text('Hide');
-                    }else {
-                        highlightedTr.removeClass('tr_select_highlight')
-                    }
+                    removeClassTableTreeClosed();
+                }else {
+                    highlightedTr.removeClass('tr_select_highlight')
+                }
 
             });
 
@@ -109,126 +114,23 @@
 
 
             // SCROLL FIX
-
             var summaryPositionListLik = $('td.journeys_summary_table_positions_list').find('a')
 
             summaryPositionListLik.on('click', function(e){
                 var lineNumber = ($(this).text()),
                     linkWeMovingTo = $('a[name='+lineNumber+']'),
-                    trWeMoveTo = linkWeMovingTo.parents('tr'),
-                    button = $('.expand_table_tree');
-                    //linkCoordinates = linkWeMovingTo.offset();
+                    trWeMoveTo = linkWeMovingTo.parents('tr');
 
                 trWeMoveTo.reveal();
                 var linkCoordinates = linkWeMovingTo.offset(),
                     scrollToCoordinates = linkCoordinates.top - 50;
 
-                button.removeClass('table_tree_closed').addClass('table_tree_opened').text('Hide');
-                console.log(linkCoordinates.top)
-                console.log(scrollToCoordinates)
+                removeClassTableTreeClosed();
                 $(window).scrollTop(scrollToCoordinates);
                 e.preventDefault();
             })
         })
     </script>
-
-    <style>
-    .table_itseft .in table td, .table_itseft .in table th {
-        padding: 5px 10px;
-    }
-
-    .select_current_row_positions_checkbox {
-        margin: 0 auto;
-    }
-
-    #tree_table tr:nth-child(odd), .journeys_summary_table tr:nth-child(odd) {
-        background:#f7f7f7;
-    }
-
-    .deselect_all_journey_positions, .expand_table_tree {
-        font-size: 12px;
-        padding: 1px 8px;
-        -webkit-border-radius: 4px;
-        -moz-border-radius: 4px;
-        border-radius: 4px;
-
-        -webkit-box-shadow: inset 1px 0 0 rgba(255, 255, 255, 0.125), inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.1);
-        -moz-box-shadow: inset 1px 0 0 rgba(255, 255, 255, 0.125), inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.1);
-        box-shadow: inset 1px 0 0 rgba(255, 255, 255, 0.125), inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.2);
-        background-color: #4D9CC9;
-        background-image: -ms-linear-gradient(top, #7FBFE4, #4D9CC9);
-        background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#7FBFE4), to(#4D9CC9));
-        background-image: -webkit-linear-gradient(top, #7FBFE4, #4D9CC9);
-        background-image: -o-linear-gradient(top, #7FBFE4, #4D9CC9);
-        background-image: -moz-linear-gradient(top, #7FBFE4, #4D9CC9);
-        background-image: linear-gradient(top, #7FBFE4, #4D9CC9);
-        /*background-repeat: repeat-x;*/
-        border: 1px solid #CCC;
-        border-color: #6093CA #3F92B9 #2A628F;
-        color: white;
-        text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.4);
-        cursor: pointer;
-    }
-
-    .deselect_all_journey_positions:hover, .expand_table_tree:hover {
-        background-color: #0D77B4;
-        background-image: -ms-linear-gradient(top, #6EB8E4, #0D77B4);
-        background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#6EB8E4), to(#0D77B4));
-        background-image: -webkit-linear-gradient(top, #6EB8E4, #0D77B4);
-        background-image: -o-linear-gradient(top, #6EB8E4, #0D77B4);
-        background-image: -moz-linear-gradient(top, #6EB8E4, #0D77B4);
-        background-image: linear-gradient(top, #6EB8E4, #0D77B4);
-    }
-
-    .deselect_all_journey_positions {
-        margin: 0 auto;
-        display: block;
-    }
-
-    .expand_table_tree {
-        margin: 0 30px 0 15px;
-    }
-
-    .journey_stat_call_td span {
-        padding-right: 100px;
-    }
-
-    .journey_stat_position {
-        padding-right: 37px;
-    }
-
-    .treeTable tr.collapsed td a.expander {
-        background: url('../img/toggle-collapse-dark.png');
-    }
-
-    .treeTable tr.expanded td a.expander {
-        background: url('../img/toggle-expand-dark.png');
-    }
-
-    /*TEMP
-
-    TODO remove next styles in css
-
-    .td_select_highlight {
-        background: #D7E9CA!important;
-    }
-
-    .table_itseft .in table tr:hover .td_select_highlight {
-        background: #E1EEFA!important;
-    }
-    */
-
-    .tr_select_highlight {
-        background: #D7E9CA!important;
-    }
-
-    .table_itseft .in table tr.tr_select_highlight:hover {
-        background: #E1EEFA!important;
-    }
-
-
-    </style>
-
 </head>
 <body>
 <script type="text/javascript" src="../js/wz_tooltip.js"></script>

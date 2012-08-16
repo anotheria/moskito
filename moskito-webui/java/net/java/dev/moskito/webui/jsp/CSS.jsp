@@ -285,14 +285,16 @@ h2 a.hidden {background:url("<ano:write name="mskPathToImages" scope="applicatio
 	background: url("<ano:write name="mskPathToImages" scope="application"/>zoom_in_icon_12x12_hovered.png") 0 1px no-repeat;
 }
 
-/* jQuery treeTable stylesheet
-*
-* This file contains styles that are used to display the tree table. Each tree
-* table is assigned the +treeTable+ class.
-* ========================================================================= */
 
-/* jquery.treeTable.collapsible
-* ------------------------------------------------------------------------- */
+/* JOURNEY */
+    /* jQuery treeTable stylesheet
+    *
+    * This file contains styles that are used to display the tree table. Each tree
+    * table is assigned the +treeTable+ class.
+    * ========================================================================= */
+
+    /* jquery.treeTable.collapsible
+    * ------------------------------------------------------------------------- */
 .treeTable tr td .expander {
  cursor: pointer;
  padding: 0;
@@ -306,52 +308,106 @@ h2 a.hidden {background:url("<ano:write name="mskPathToImages" scope="applicatio
  text-decoration: none;
 }
 
+    /* Layout helper taken from jQuery UI. This way I don't have to require the
+    * full jQuery UI CSS to be loaded. */
+.ui-helper-hidden { display: none; }
+
+    /* /TABLE TREE*/
+
+.table_itseft .in table td, .table_itseft .in table th {
+    padding: 5px 10px;
+}
+
+.select_current_row_positions_checkbox {
+    margin: 0 auto;
+}
+
+#tree_table tr:nth-child(odd), .journeys_summary_table tr:nth-child(odd) {
+    background:#f7f7f7;
+}
+
+.deselect_all_journey_positions, .expand_table_tree {
+    font-size: 12px;
+    padding: 1px 8px;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+
+    -webkit-box-shadow: inset 1px 0 0 rgba(255, 255, 255, 0.125), inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.1);
+    -moz-box-shadow: inset 1px 0 0 rgba(255, 255, 255, 0.125), inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.1);
+    box-shadow: inset 1px 0 0 rgba(255, 255, 255, 0.125), inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.2);
+    background-color: #4D9CC9;
+    background-image: -ms-linear-gradient(top, #7FBFE4, #4D9CC9);
+    background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#7FBFE4), to(#4D9CC9));
+    background-image: -webkit-linear-gradient(top, #7FBFE4, #4D9CC9);
+    background-image: -o-linear-gradient(top, #7FBFE4, #4D9CC9);
+    background-image: -moz-linear-gradient(top, #7FBFE4, #4D9CC9);
+    background-image: linear-gradient(top, #7FBFE4, #4D9CC9);
+    border: 1px solid #CCC;
+    border-color: #6093CA #3F92B9 #2A628F;
+    color: white;
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.4);
+    cursor: pointer;
+}
+
+.deselect_all_journey_positions:hover, .expand_table_tree:hover {
+    background-color: #0D77B4;
+    background-image: -ms-linear-gradient(top, #6EB8E4, #0D77B4);
+    background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#6EB8E4), to(#0D77B4));
+    background-image: -webkit-linear-gradient(top, #6EB8E4, #0D77B4);
+    background-image: -o-linear-gradient(top, #6EB8E4, #0D77B4);
+    background-image: -moz-linear-gradient(top, #6EB8E4, #0D77B4);
+    background-image: linear-gradient(top, #6EB8E4, #0D77B4);
+}
+
+.deselect_all_journey_positions {
+    margin: 0 auto;
+    display: block;
+}
+
+.expand_table_tree {
+    margin: 0 30px 0 15px;
+}
+
+.journey_stat_call_td span {
+    padding-right: 100px;
+}
+
+.journey_stat_position {
+    padding-right: 37px;
+}
+
+.treeTable tr .journey_stat_position {
+    padding-left: 20px;
+}
+
+.treeTable tr.parent .journey_stat_position {
+    padding-left: 0;
+}
+
 .treeTable tr.collapsed td a.expander {
-   background: #0000cc;
- /*background-image: url(../images/toggle-expand-dark.png);*/
+    background: url('../img/toggle-collapse-dark.png');
 }
 
 .treeTable tr.expanded td a.expander {
-   background: #0000cc;
- /*background-image: url(../images/toggle-collapse-dark.png);*/
+    background: url('../img/toggle-expand-dark.png');
 }
 
-/* jquery.treeTable.sortable
-* ------------------------------------------------------------------------- */
-.treeTable tr.selected, .treeTable tr.accept {
- background-color: #3875d7;
-}
-
-.treeTable tr.selected a.expander, .treeTable tr.accept a.expander {
- color: #fff;
-}
-
-.treeTable tr.collapsed.selected td a.expander, .treeTable tr.collapsed.accept td a.expander {
-   background: #0000cc;
- /*background-image: url(../images/toggle-expand-light.png);*/
-}
-
-.treeTable tr.expanded.selected td a.expander, .treeTable tr.expanded.accept td a.expander {
-   background: #0000cc;
- /*background-image: url(../images/toggle-collapse-light.png);*/
-}
-
-.treeTable .ui-draggable-dragging {
- color: #000;
- z-index: 1;
-}
-
-/* Layout helper taken from jQuery UI. This way I don't have to require the
-* full jQuery UI CSS to be loaded. */
-.ui-helper-hidden { display: none; }
-
-
-/* JOURNEYS SELECTION */
-.td_select_highlight {
+.tr_select_highlight {
     background: #D7E9CA!important;
 }
 
-.table_itseft .in table tr:hover .td_select_highlight {
+.table_itseft .in table tr.tr_select_highlight:hover {
+    background: #E1EEFA!important;
+}
+
+
+    /* JOURNEYS SELECTION */
+.tr_select_highlight {
+    background: #D7E9CA!important;
+}
+
+.table_itseft .in table tr.tr_select_highlight:hover {
     background: #E1EEFA!important;
 }
 
@@ -363,4 +419,5 @@ h2 a.hidden {background:url("<ano:write name="mskPathToImages" scope="applicatio
     display: block;
     margin: 0 0 0 13px;
 }
-/* /JOURNEYS SELECTION */
+    /* /JOURNEYS SELECTION */
+/* /JOURNEY*/
