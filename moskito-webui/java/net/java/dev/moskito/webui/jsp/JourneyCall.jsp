@@ -17,18 +17,44 @@
         $(function() {
             // TREE TABLE
             $("#tree_table").treeTable();
-            console.log($("#tree_table"))
 
-            // EXPAND TABLE TREE
+            // EXPAND-COLLAPSE TABLE TREE
             function expandTableTree() {
                 var button = $('.expand_table_tree'),
                     table = $('#tree_table'),
-                    mainParent = $('#node-0');
-                    console.log("variables", button,table,mainParent)
-                button.on('click', function() {
-                    table.expandAll();
-                    console.log(button)
+                    mainParent = $('#node-0'),
+                    mainParentExpander = $('#node-0 a.expander'),
+                    selectPositionCheckbox = $('.select_current_row_positions_checkbox');
 
+
+                button.on('click', function() {
+                    var $this = $(this),
+                        selectedRows = table.find($('tr.tr_select_highlight'));
+
+                    if ($this.hasClass('table_tree_closed')) {
+                        table.expandAll();
+                        $this.removeClass('table_tree_closed').addClass('table_tree_opened').text('Hide');
+                    } else {
+                        table.collapseAll();
+                        $this.removeClass('table_tree_opened').addClass('table_tree_closed').text('Expand');
+
+                        selectedRows.each(function() {
+                            $(this).removeClass('tr_select_highlight')
+                        });
+
+                        selectPositionCheckbox.each(function() {
+                            $(this).prop('checked', '');
+                        });
+                    }
+                })
+
+                mainParentExpander.on('click', function(){
+
+                    if (mainParent.hasClass('expanded')) {
+                        button.removeClass('table_tree_closed').addClass('table_tree_opened').text('Hide');
+                    } else {
+                        button.removeClass('table_tree_opened').addClass('table_tree_closed').text('Expand');
+                    }
                 })
             };
 
@@ -44,23 +70,33 @@
                 var $this = $(this),
                     $thisTr = $this.parents('table.journeys_summary_table tr'),
                     PositionListLink = $thisTr.find($('td.journeys_summary_table_positions_list a')),
-                    actionSelect = $this.prop('checked');
-
+                    actionSelect = $this.prop('checked'),
+                    button = $('.expand_table_tree'),
+                    nodes = "";
                 PositionListLink.each(function(a){
                     var lineNumber = ($(this).text()),
-                        highlightedTr = $('a[name='+lineNumber+']').parents('tr');
+                        nodenum = parseInt(lineNumber, 10),
+                        nodeid = "#node-" + nodenum;
+                    nodes += ","+nodeid;
+                })
 
+                    var highlightedTr = $(nodes);
 
                     if (actionSelect) {
-                        highlightedTr.find('td').addClass('td_select_highlight') ;
+                        highlightedTr.addClass('tr_select_highlight');
+                        highlightedTr.each(function(){
+                            $(this).reveal();
+                        })
+
+                        button.removeClass('table_tree_closed').addClass('table_tree_opened').text('Hide');
                     }else {
-                        highlightedTr.find('td').removeClass('td_select_highlight')
+                        highlightedTr.removeClass('tr_select_highlight')
                     }
-                })
+
             });
 
 
-            // DESELECT BUTTON
+            // DESELECT JOURNEYS BUTTON
             var deselectPositionsButton = $('.deselect_all_journey_positions');
             deselectPositionsButton.on('click', function(){
                 positionCheckbox.each(function() {
@@ -73,15 +109,25 @@
 
 
             // SCROLL FIX
-            var summaryPositionListLik = $('td.journeys_summary_table_positions_list').find('a')
-            //console.log($('td.journeys_summary_table_positions_list').find('a'))
-            summaryPositionListLik.on('click', function(){
-                //console.log($this)
-                var $this = $(this);
-                $(window).scrollTop()
-                //console.log($this)
-                $('html').scrollTop(2000)
 
+            var summaryPositionListLik = $('td.journeys_summary_table_positions_list').find('a')
+
+            summaryPositionListLik.on('click', function(e){
+                var lineNumber = ($(this).text()),
+                    linkWeMovingTo = $('a[name='+lineNumber+']'),
+                    trWeMoveTo = linkWeMovingTo.parents('tr'),
+                    button = $('.expand_table_tree');
+                    //linkCoordinates = linkWeMovingTo.offset();
+
+                trWeMoveTo.reveal();
+                var linkCoordinates = linkWeMovingTo.offset(),
+                    scrollToCoordinates = linkCoordinates.top - 50;
+
+                button.removeClass('table_tree_closed').addClass('table_tree_opened').text('Hide');
+                console.log(linkCoordinates.top)
+                console.log(scrollToCoordinates)
+                $(window).scrollTop(scrollToCoordinates);
+                e.preventDefault();
             })
         })
     </script>
@@ -95,72 +141,52 @@
         margin: 0 auto;
     }
 
-    #tree_table tr:nth-child(even) {
+    #tree_table tr:nth-child(odd), .journeys_summary_table tr:nth-child(odd) {
         background:#f7f7f7;
+    }
+
+    .deselect_all_journey_positions, .expand_table_tree {
+        font-size: 12px;
+        padding: 1px 8px;
+        -webkit-border-radius: 4px;
+        -moz-border-radius: 4px;
+        border-radius: 4px;
+
+        -webkit-box-shadow: inset 1px 0 0 rgba(255, 255, 255, 0.125), inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.1);
+        -moz-box-shadow: inset 1px 0 0 rgba(255, 255, 255, 0.125), inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.1);
+        box-shadow: inset 1px 0 0 rgba(255, 255, 255, 0.125), inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.2);
+        background-color: #4D9CC9;
+        background-image: -ms-linear-gradient(top, #7FBFE4, #4D9CC9);
+        background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#7FBFE4), to(#4D9CC9));
+        background-image: -webkit-linear-gradient(top, #7FBFE4, #4D9CC9);
+        background-image: -o-linear-gradient(top, #7FBFE4, #4D9CC9);
+        background-image: -moz-linear-gradient(top, #7FBFE4, #4D9CC9);
+        background-image: linear-gradient(top, #7FBFE4, #4D9CC9);
+        /*background-repeat: repeat-x;*/
+        border: 1px solid #CCC;
+        border-color: #6093CA #3F92B9 #2A628F;
+        color: white;
+        text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.4);
+        cursor: pointer;
+    }
+
+    .deselect_all_journey_positions:hover, .expand_table_tree:hover {
+        background-color: #0D77B4;
+        background-image: -ms-linear-gradient(top, #6EB8E4, #0D77B4);
+        background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#6EB8E4), to(#0D77B4));
+        background-image: -webkit-linear-gradient(top, #6EB8E4, #0D77B4);
+        background-image: -o-linear-gradient(top, #6EB8E4, #0D77B4);
+        background-image: -moz-linear-gradient(top, #6EB8E4, #0D77B4);
+        background-image: linear-gradient(top, #6EB8E4, #0D77B4);
     }
 
     .deselect_all_journey_positions {
         margin: 0 auto;
         display: block;
-
-        font-size: 12px;
-        padding: 1px 8px;
-        -webkit-border-radius: 4px;
-        -moz-border-radius: 4px;
-        border-radius: 4px;
-
-        -webkit-box-shadow: inset 1px 0 0 rgba(255, 255, 255, 0.125), inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.1);
-        -moz-box-shadow: inset 1px 0 0 rgba(255, 255, 255, 0.125), inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.1);
-        box-shadow: inset 1px 0 0 rgba(255, 255, 255, 0.125), inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.2);
-
-        background-color: #4D9CC9;
-        background-image: -ms-linear-gradient(top, #7FBFE4, #4D9CC9);
-        background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#7FBFE4), to(#4D9CC9));
-        background-image: -webkit-linear-gradient(top, #7FBFE4, #4D9CC9);
-        background-image: -o-linear-gradient(top, #7FBFE4, #4D9CC9);
-        background-image: -moz-linear-gradient(top, #7FBFE4, #4D9CC9);
-        background-image: linear-gradient(top, #7FBFE4, #4D9CC9);
-        background-repeat: repeat-x;
-        border: 1px solid #CCC;
-        border-color: #6093CA #3F92B9 #2A628F;
-        filter: progid:dximagetransform.microsoft.gradient(startColorstr='#7FBFE4', endColorstr='#4D9CC9', GradientType=0);
-        filter: progid:dximagetransform.microsoft.gradient(enabled=false);
-
-        color: white;
-        text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.4);
-        cursor: pointer;
-
     }
 
     .expand_table_tree {
-        font-size: 12px;
         margin: 0 30px 0 15px;
-
-        padding: 1px 8px;
-        -webkit-border-radius: 4px;
-        -moz-border-radius: 4px;
-        border-radius: 4px;
-
-        -webkit-box-shadow: inset 1px 0 0 rgba(255, 255, 255, 0.125), inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.1);
-        -moz-box-shadow: inset 1px 0 0 rgba(255, 255, 255, 0.125), inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.1);
-        box-shadow: inset 1px 0 0 rgba(255, 255, 255, 0.125), inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.2);
-
-        background-color: #4D9CC9;
-        background-image: -ms-linear-gradient(top, #7FBFE4, #4D9CC9);
-        background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#7FBFE4), to(#4D9CC9));
-        background-image: -webkit-linear-gradient(top, #7FBFE4, #4D9CC9);
-        background-image: -o-linear-gradient(top, #7FBFE4, #4D9CC9);
-        background-image: -moz-linear-gradient(top, #7FBFE4, #4D9CC9);
-        background-image: linear-gradient(top, #7FBFE4, #4D9CC9);
-        background-repeat: repeat-x;
-        border: 1px solid #CCC;
-        border-color: #6093CA #3F92B9 #2A628F;
-        filter: progid:dximagetransform.microsoft.gradient(startColorstr='#7FBFE4', endColorstr='#4D9CC9', GradientType=0);
-        filter: progid:dximagetransform.microsoft.gradient(enabled=false);
-
-        color: white;
-        text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.4);
-        cursor: pointer;
     }
 
     .journey_stat_call_td span {
@@ -179,13 +205,27 @@
         background: url('../img/toggle-expand-dark.png');
     }
 
-    /*.arrow_down {*/
-        /*width: 0;*/
-       	/*height: 0;*/
-       	/*border-left: 20px solid transparent;*/
-       	/*border-right: 20px solid transparent;*/
-       	/*border-top: 20px solid #f00;*/
-    /*}*/
+    /*TEMP
+
+    TODO remove next styles in css
+
+    .td_select_highlight {
+        background: #D7E9CA!important;
+    }
+
+    .table_itseft .in table tr:hover .td_select_highlight {
+        background: #E1EEFA!important;
+    }
+    */
+
+    .tr_select_highlight {
+        background: #D7E9CA!important;
+    }
+
+    .table_itseft .in table tr.tr_select_highlight:hover {
+        background: #E1EEFA!important;
+    }
+
 
     </style>
 
@@ -229,7 +269,7 @@
 				<table cellpadding="0" cellspacing="0" width="100%" id="tree_table">
 				<thead>
 						<tr class="journey_stat_header">
-							<th><button class="expand_table_tree">Expand</button>Call</th>
+							<th><button class="expand_table_tree table_tree_closed">Expand</button>Call</th>
 							<th>Gross duration</th>
 							<th>Net duration</th>
 							<th>Aborted</th>
