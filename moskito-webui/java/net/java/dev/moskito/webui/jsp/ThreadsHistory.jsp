@@ -3,14 +3,24 @@
 %><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<title>Moskito Threads List</title>
+<title>Moskito Threads History</title>
 <link rel="stylesheet" href="mskCSS"/>
 </head>
 <body>
 <jsp:include page="Menu.jsp" flush="false" />
 <div class="main">
 	<div class="clear"><!-- --></div>
+	<div class="additional">
+		<div class="top"><div><!-- --></div></div>
+		<div class="add_in">
+			<div><span>Thread History is <ano:equal name="active" value="true"><b>ON</b> (<a href="mskThreadsHistoryOff?">OFF</a>)</ano:equal><ano:equal name="active" value="false"><b>OFF</b> (<a href="mskThreadsHistoryOn?">ON</a>)</ano:equal></span></div>
+			<div><span>Thread History size is <ano:write name="listsize"/>.</span></div>
+		</div>
+		<div class="bot"><div><!-- --></div></div>
+	</div>
+	<div class="clear"><!-- --></div>
 	
+	<ano:equal name="active" value="true">
 	<div class="table_layout">
 		<div class="top">
 			<div><!-- --></div>
@@ -29,36 +39,19 @@
 					<table cellpadding="0" cellspacing="0" width="100%">
 						<thead>
 						<tr>
-							<th>ID</th>
+							<th>Time</th>
+							<th>Operation</th>
+							<th>Id</th>
 							<th>Name</th>
-							<th>State</th>
-							<th>inNative</th>
-							<th>suspened</th>
-							<th>Lock name</th>
-							<th>Lock owner id</th>
-							<th>Lock owner name</th>
-							<th>Blocked count</th>
-							<th>Blocked time</th>
-							<th>Waited count</th>
-							<th>Waited time</th>
  						</tr>
 						</thead>
 						<tbody>
-
-						<ano:iterate name="infos" type="java.lang.management.ThreadInfo" id="info" indexId="index">
+						<ano:iterate name="history" type="net.java.dev.moskito.util.threadhistory.ThreadHistoryEvent" id="item" indexId="index">
 							<tr class="<%= ((index & 1) == 0 )? "even" : "odd" %>">
-								<td><ano:write name="info" property="threadId"/></td>
-								<td><ano:write name="info" property="threadName"/></td>
-								<td><ano:write name="info" property="threadState"/></td>
-								<td align="center"><ano:equal name="info" property="inNative" value="true">X</ano:equal></td>
-								<td align="center"><ano:equal name="info" property="suspended" value="true">X</ano:equal></td>
-								<td><ano:write name="info" property="lockName"/></td>
-								<td><ano:write name="info" property="lockOwnerId"/></td>
-								<td><ano:write name="info" property="lockOwnerName"/></td>
-								<td><ano:write name="info" property="blockedCount"/></td>
-								<td><ano:write name="info" property="blockedTime"/></td>
-								<td><ano:write name="info" property="waitedCount"/></td>
-								<td><ano:write name="info" property="waitedTime"/></td>
+								<td><ano:write name="item" property="niceTimestamp"/></td>
+								<td><ano:write name="item" property="operation"/></td>
+								<td><ano:write name="item" property="threadId"/></td>
+								<td><ano:write name="item" property="threadName"/></td>
 							</tr>
 						</ano:iterate>
 						</tbody>
@@ -77,6 +70,7 @@
 		</div>
 	</div>
 	<div class="clear"><!-- --></div>
+	</ano:equal>
 <jsp:include page="Footer.jsp" flush="false" />
 </div>	
 </body>

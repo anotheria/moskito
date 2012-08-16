@@ -94,7 +94,7 @@
 									<a href="mskThreadsDump">Dump</a>
 								</li>
 								<li>
-									<a href="#">History</a>
+									<a href="mskThreadsHistory">History</a>
 								</li>
 							    <div class="clear"><!-- --></div>
 							</ul>

@@ -181,6 +181,17 @@ public class MoskitoMappingsConfigurator implements ActionMappingsConfigurator{
 				new ActionForward("success", "/net/java/dev/moskito/webui/jsp/ThreadsList.jsp"));
 		mappings.addMapping("mskThreadsDump", net.java.dev.moskito.webui.action.threads.ThreadsDumpAction.class, 
 				new ActionForward("success", "/net/java/dev/moskito/webui/jsp/ThreadsDump.jsp"));
+		mappings.addMapping("mskThreadsHistory", net.java.dev.moskito.webui.action.threads.ThreadsHistoryAction.class, 
+				new ActionForward("success", "/net/java/dev/moskito/webui/jsp/ThreadsHistory.jsp"));
+		//hidden features.
+		mappings.addMapping("mskThreadsSetHistoryListSize", net.java.dev.moskito.webui.action.threads.SetHistoryListSizeAction.class, 
+				new ActionForward("success", "/net/java/dev/moskito/webui/jsp/ThreadsHistory.jsp"));
+		mappings.addMapping("mskThreadsStartTestThread", net.java.dev.moskito.webui.action.threads.StartThreadAction.class, 
+				new ActionForward("success", "/net/java/dev/moskito/webui/jsp/ThreadsHistory.jsp"));
+		mappings.addMapping("mskThreadsHistoryOff", net.java.dev.moskito.webui.action.threads.HistoryOffAction.class, 
+				new ActionForward("success", "/net/java/dev/moskito/webui/jsp/ThreadsHistory.jsp"));
+		mappings.addMapping("mskThreadsHistoryOn", net.java.dev.moskito.webui.action.threads.HistoryOnAction.class, 
+				new ActionForward("success", "/net/java/dev/moskito/webui/jsp/ThreadsHistory.jsp"));
 		
 		
 	}
