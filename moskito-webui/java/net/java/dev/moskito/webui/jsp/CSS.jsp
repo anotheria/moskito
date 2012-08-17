@@ -400,24 +400,4 @@ h2 a.hidden {background:url("<ano:write name="mskPathToImages" scope="applicatio
 .table_itseft .in table tr.tr_select_highlight:hover {
     background: #E1EEFA!important;
 }
-
-
-    /* JOURNEYS SELECTION */
-.tr_select_highlight {
-    background: #D7E9CA!important;
-}
-
-.table_itseft .in table tr.tr_select_highlight:hover {
-    background: #E1EEFA!important;
-}
-
-.deselect_all_journey_positions {
-    padding: 0 4px;
-}
-
-.select_current_row_positions_checkbox {
-    display: block;
-    margin: 0 0 0 13px;
-}
-    /* /JOURNEYS SELECTION */
 /* /JOURNEY*/
