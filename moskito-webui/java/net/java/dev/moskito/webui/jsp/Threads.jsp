@@ -103,12 +103,12 @@
 								<td>Does the Java virtual machine supports CPU time measurement for the current thread.</td>
 							</tr>
 							<tr class="odd">
-								<td>Content monitoring supported:</td>
+								<td>Contention monitoring supported:</td>
 								<td><ano:write name="info" property="threadContentionMonitoringSupported"/></td>
 								<td>Does the Java virtual machine supports thread contention monitoring.</td>
 							</tr>
 							<tr class="event">
-								<td>Content monitoring enabled:</td>
+								<td>Contention monitoring enabled:</td>
 								<td><ano:write name="info" property="threadContentionMonitoringEnabled"/></td>
 								<td>Is thread contention monitoring enabled?</td>
 							</tr>
