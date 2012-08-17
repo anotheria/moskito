@@ -2,10 +2,26 @@ package net.java.dev.moskito.util.threadhistory;
 
 import net.anotheria.util.NumberUtils;
 
+/**
+ * THis event contains the information about a thread creation or deletion.
+ * @author lrosenberg
+ *
+ */
 public class ThreadHistoryEvent {
-	
+	/**
+	 * History operation.
+	 * @author lrosenberg
+	 *
+	 */
 	public enum OPERATION{
-		CREATED, DELETED;
+		/**
+		 * A thread has been created.
+		 */
+		CREATED, 
+		/**
+		 * A thread has been deleted.
+		 */
+		DELETED;
 	};
 	/**
 	 * Id of the thread.
@@ -24,6 +40,12 @@ public class ThreadHistoryEvent {
 	 */
 	private long timestamp;
 	
+	/**
+	 * Creates new event.
+	 * @param aThreadId
+	 * @param aThreadName
+	 * @param anOperation
+	 */
 	public ThreadHistoryEvent(long aThreadId, String aThreadName, OPERATION anOperation){
 		threadId = aThreadId;
 		threadName = aThreadName;
@@ -47,9 +69,21 @@ public class ThreadHistoryEvent {
 		return operation;
 	}
 
+	/**
+	 * Factory method to create new 'created' event.
+	 * @param threadId
+	 * @param threadName
+	 * @return
+	 */
 	public static final ThreadHistoryEvent created(long threadId, String threadName){
 		return new ThreadHistoryEvent(threadId, threadName, OPERATION.CREATED);
 	}
+	/**
+	 * Factory method to create new 'deleted' event.
+	 * @param threadId
+	 * @param threadName
+	 * @return
+	 */
 	public static final ThreadHistoryEvent deleted(long threadId, String threadName){
 		return new ThreadHistoryEvent(threadId, threadName, OPERATION.DELETED);
 	}
@@ -58,6 +92,10 @@ public class ThreadHistoryEvent {
 		return timestamp;
 	}
 	
+	/**
+	 * Returns timestamp as ISO8601 tiemstamp string.
+	 * @return
+	 */
 	public String getNiceTimestamp(){
 		return NumberUtils.makeISO8601TimestampString(getTimestamp());
 	}

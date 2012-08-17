@@ -3,28 +3,38 @@ package net.java.dev.moskito.util.threadhistory;
 import java.lang.management.ManagementFactory;
 import java.lang.management.ThreadMXBean;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
-import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
-
-import javax.management.MXBean;
-
+/**
+ * ThreadHistoryUtility for detection of thread creation and deletion. 
+ * Once activated the ThreadHistoryUtility checks in an interval of default 1 minute (customizeable) if new thread has been created or an existing one expired (deleted).
+ * This is helpful to detect thread leakage.  
+ * @author lrosenberg
+ */
 public enum ThreadHistoryUtility {
+	/**
+	 * Singleton instance.
+	 */
 	INSTANCE;
-	
-	private boolean isActive;
+	/**
+	 * If true the history utility is active.
+	 */
+	private volatile boolean isActive;
+	/**
+	 * Internal timer.
+	 */
 	private Timer timer;
 	/**
 	 * Update interval, once a minute. We make it configurable for tests. Its volatile since it can be changed by another thread.
 	 */
 	private volatile long updateInterval = 1000L*60;
-	
+	/**
+	 * Ids of all currently running threads.
+	 */
 	private HashSet<Long> runningThreadIds = new HashSet<Long>();
 	
 	/**
@@ -36,8 +46,14 @@ public enum ThreadHistoryUtility {
 	 */
 	private volatile int maxEventsSize = 1000;
 	
+	/**
+	 * The storage for history events.
+	 */
 	private ArrayList<ThreadHistoryEvent> eventList = new ArrayList<ThreadHistoryEvent>();
 	
+	/**
+	 * Internal synchronization lock.
+	 */
 	private ReadWriteLock lock = new ReentrantReadWriteLock();
 
 	public boolean isActive(){
@@ -66,6 +82,10 @@ public enum ThreadHistoryUtility {
 		}
 		isActive = false;
 	}
+	
+	/**
+	 * Pattern for arraycopy.
+	 */
 	private static final Long[] PATTERN = new Long[0];
 
 	private void update(){
@@ -100,6 +120,10 @@ public enum ThreadHistoryUtility {
 		}
 	}
 	
+	/**
+	 * Returns the list of history events. Returns the clone of internal list.
+	 * @return
+	 */
 	public List<ThreadHistoryEvent> getThreadHistoryEvents(){
 		ArrayList<ThreadHistoryEvent> ret = null;
 		lock.readLock().lock();
