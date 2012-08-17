@@ -320,6 +320,7 @@ h2 a.hidden {background:url("<ano:write name="mskPathToImages" scope="applicatio
 
 .select_current_row_positions_checkbox {
     margin: 0 auto;
+    display: block;
 }
 
 #tree_table tr:nth-child(odd), .journeys_summary_table tr:nth-child(odd) {
@@ -362,7 +363,6 @@ h2 a.hidden {background:url("<ano:write name="mskPathToImages" scope="applicatio
 
 .deselect_all_journey_positions {
     margin: 0 auto;
-    display: block;
 }
 
 .expand_table_tree {
