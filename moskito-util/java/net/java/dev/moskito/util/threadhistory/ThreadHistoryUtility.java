@@ -48,7 +48,7 @@ public enum ThreadHistoryUtility {
 		if (isActive)
 			return;
 		
-		timer = new Timer("ThreadHistoryUpdate", true);
+		timer = new Timer("MoskitoThreadHistoryUpdater", true);
 		timer.scheduleAtFixedRate(new TimerTask() {
 			
 			@Override
