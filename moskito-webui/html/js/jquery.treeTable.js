@@ -226,7 +226,7 @@
         });
 
         if(options.expandable) {
-          var newLink = '<a href="#" title="' + options.stringExpand + '" style="margin-left: -' + options.indent + 'px; padding-left: ' + options.indent + 'px" class="expander"></a>';
+          var newLink = '<a href="#" title="' + options.stringExpand + '" style="margin-left: ' + options.indent + 'px; padding-left: ' + options.indent + 'px" class="expander"></a>';
 
           if(options.clickableNodeNames) {
             cell.wrapInner(newLink);
