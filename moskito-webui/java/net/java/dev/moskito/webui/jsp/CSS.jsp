@@ -9,6 +9,7 @@ body {background:white; font-size: 62.5%;}
 a {text-decoration:none; color:#005fc1;}
 a:hover {text-decoration:none; color:#55cc00; cursor:pointer;}
 
+/* MAIN MENU */
 .main {padding:101px 10px 0 10px; min-width:960px;}
 .main_menu {min-width:980px; position:fixed; top:0; width:100%; z-index:2;}
 .white_pl {background:white; padding:0 10px;}
@@ -44,9 +45,19 @@ a:hover {text-decoration:none; color:#55cc00; cursor:pointer;}
 .top .settings li .sub_menu {left:auto; margin-left:-54px;}
 .top .settings li .sub_menu a {padding:0; font-size:1.4em;}
 
-
 .over_color {height:3px; background:url(<ano:write name="mskPathToImages" scope="application"/>bgs.gif) 0 -743px no-repeat #f7f7f7; float:left; width:100%; position:absolute; top:50px;}
 .over_color div {height:3px; float:right; width:8px; background:url(<ano:write name="mskPathToImages" scope="application"/>bgs.gif) -3px -767px no-repeat;}
+
+    /*THREADS*/
+.main_menu_threads {position: relative;}
+
+.top ul li.main_menu_threads .sub_menu {left: -50%; margin-right: -200px; border-top: 1px solid #BEBEBE;}
+
+.top ul li.active.main_menu_threads .over_color {
+    display: none;
+}
+
+/* /MAIN MENU */
 
 .main h1 {font-weight:normal; font-size:1.8em; margin-bottom:10px; display:block; float:left; overflow:hidden;}
 
@@ -362,6 +373,7 @@ h2 a.hidden {background:url("<ano:write name="mskPathToImages" scope="applicatio
 }
 
 .deselect_all_journey_positions {
+    display: block;
     margin: 0 auto;
 }
 
