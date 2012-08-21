@@ -110,7 +110,8 @@
 								<th>Values</th>
 								<th>Last Timestamp</th>
 								<th>&nbsp;</th>
-							</tr>
+                                <th>&nbsp;</th>
+                            </tr>
 							</thead>
 							<tbody>
 							<ano:iterate name="accumulators" type="net.java.dev.moskito.webui.bean.AccumulatorInfoBean" id="accumulator" indexId="index">
@@ -121,7 +122,8 @@
 									<td><ano:write name="accumulator" property="numberOfValues"/></td>
 									<td><ano:write name="accumulator" property="lastValueTimestamp"/></td>
 									<td><a href="mskAccumulator?pId=<ano:write name="accumulator" property="id"/>" class="zoom"></a></td>
-								</tr>
+                                    <td><a href="mskAccumulatorDelete?pId=<ano:write name="accumulator" property="id"/>">D</a></td>
+                                </tr>
 							</ano:iterate>
 								<tr>
 									<td colspan="5">

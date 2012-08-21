@@ -3,13 +3,15 @@ package net.java.dev.moskito.webui;
 import net.anotheria.maf.action.ActionForward;
 import net.anotheria.maf.action.ActionMappings;
 import net.anotheria.maf.action.ActionMappingsConfigurator;
+import net.anotheria.maf.action.CommandRedirect;
 import net.java.dev.moskito.webui.action.AnalyzeJourneyAction;
 import net.java.dev.moskito.webui.action.ForceIntervalUpdateAction;
 import net.java.dev.moskito.webui.action.GetChartDataAction;
 import net.java.dev.moskito.webui.action.GetChartMetaDataAction;
 import net.java.dev.moskito.webui.action.InspectProducerAction;
-import net.java.dev.moskito.webui.action.ShowAccumulatorAction;
-import net.java.dev.moskito.webui.action.ShowAccumulatorsAction;
+import net.java.dev.moskito.webui.action.accumulators.DeleteAccumulatorAction;
+import net.java.dev.moskito.webui.action.accumulators.ShowAccumulatorAction;
+import net.java.dev.moskito.webui.action.accumulators.ShowAccumulatorsAction;
 import net.java.dev.moskito.webui.action.ShowAllProducersAction;
 import net.java.dev.moskito.webui.action.ShowChartsAction;
 import net.java.dev.moskito.webui.action.ShowDashboardAction;
@@ -167,7 +169,9 @@ public class MoskitoMappingsConfigurator implements ActionMappingsConfigurator{
 		mappings.addAlias("mskAccumulator.xml", "mskAccumulator");
 		mappings.addAlias("mskAccumulator.json", "mskAccumulator");
 		
-		
+		mappings.addMapping("mskAccumulatorDelete", DeleteAccumulatorAction.class,
+                new CommandRedirect("redirect", "mskAccumulators"));
+
 		
 		//analyze journey
 		mappings.addMapping("mskAnalyzeJourney", AnalyzeJourneyAction.class, 

@@ -1,4 +1,4 @@
-package net.java.dev.moskito.webui.action;
+package net.java.dev.moskito.webui.action.accumulators;
 
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertEquals;
@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import net.anotheria.util.debug.DebugUtilities;
+import net.java.dev.moskito.webui.action.accumulators.ShowAccumulatorsAction;
 import net.java.dev.moskito.webui.bean.AccumulatedValuesBean;
 
 import org.junit.Test;

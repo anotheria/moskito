@@ -119,6 +119,11 @@ public abstract class BaseMoskitoUIAction implements Action{
 	 */
 	public static final String DEFAULT_UNIT = "millis";
 
+    /**
+     * General id parameter, for example for accumulators or thresholds.
+     */
+    public static final String PARAM_ID = "pId";
+
 	/**
 	 * Parameter producer id.
 	 */

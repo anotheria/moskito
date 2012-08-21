@@ -1,4 +1,4 @@
-package net.java.dev.moskito.webui.action;
+package net.java.dev.moskito.webui.action.accumulators;
 
 import java.util.List;
 
@@ -12,6 +12,7 @@ import net.anotheria.util.NumberUtils;
 import net.java.dev.moskito.core.accumulation.AccumulatedValue;
 import net.java.dev.moskito.core.accumulation.Accumulator;
 import net.java.dev.moskito.core.accumulation.AccumulatorRepository;
+import net.java.dev.moskito.webui.action.BaseMoskitoUIAction;
 import net.java.dev.moskito.webui.bean.AccumulatedSingleGraphDataBean;
 import net.java.dev.moskito.webui.bean.AccumulatedValueBean;
 import net.java.dev.moskito.webui.bean.AccumulatorInfoBean;
@@ -22,13 +23,13 @@ import net.java.dev.moskito.webui.bean.NaviItem;
  * Displays a single accumulator.
  * @author lrosenberg
  */
-public class ShowAccumulatorAction extends BaseMoskitoUIAction{
+public class ShowAccumulatorAction extends BaseAccumulatorsAction {
 
 	@Override
 	public ActionCommand execute(ActionMapping mapping, FormBean formBean,
 			HttpServletRequest req, HttpServletResponse res) throws Exception {
 		
-		String accumulatorId = req.getParameter("pId");
+		String accumulatorId = req.getParameter(PARAM_ID);
 		Accumulator accumulator = AccumulatorRepository.getInstance().getAccumulatorById(accumulatorId);
 
 		AccumulatorInfoBean accInfoBean = new AccumulatorInfoBean();
@@ -69,8 +70,4 @@ public class ShowAccumulatorAction extends BaseMoskitoUIAction{
 		return "mskAccumulator?ts="+System.currentTimeMillis()+"&pId="+req.getParameter("pId");
 	}
 
-	@Override
-	protected NaviItem getCurrentNaviItem() {
-		return NaviItem.ACCUMULATORS;
-	}
 }

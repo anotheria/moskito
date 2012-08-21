@@ -1,4 +1,4 @@
-package net.java.dev.moskito.webui.action;
+package net.java.dev.moskito.webui.action.accumulators;
 
 import java.util.ArrayList;
 import java.util.Enumeration;
@@ -18,6 +18,7 @@ import net.anotheria.util.sorter.StaticQuickSorter;
 import net.java.dev.moskito.core.accumulation.AccumulatedValue;
 import net.java.dev.moskito.core.accumulation.Accumulator;
 import net.java.dev.moskito.core.accumulation.AccumulatorRepository;
+import net.java.dev.moskito.webui.action.BaseMoskitoUIAction;
 import net.java.dev.moskito.webui.bean.AccumulatedSingleGraphDataBean;
 import net.java.dev.moskito.webui.bean.AccumulatedValueBean;
 import net.java.dev.moskito.webui.bean.AccumulatedValuesBean;
@@ -29,7 +30,7 @@ import net.java.dev.moskito.webui.bean.NaviItem;
  * Displays configured accumulators and the gathered data and graphs.
  * @author lrosenberg
  */
-public class ShowAccumulatorsAction extends BaseMoskitoUIAction{
+public class ShowAccumulatorsAction extends BaseAccumulatorsAction {
 
 	//save objects
 	private static final SortType SORT_TYPE = new DummySortType();
@@ -250,8 +251,4 @@ public class ShowAccumulatorsAction extends BaseMoskitoUIAction{
 		return "mskAccumulators?ts="+System.currentTimeMillis();
 	}
 
-	@Override
-	protected NaviItem getCurrentNaviItem() {
-		return NaviItem.ACCUMULATORS;
-	}
 }
