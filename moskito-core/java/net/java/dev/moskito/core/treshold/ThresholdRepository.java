@@ -95,13 +95,13 @@ public class ThresholdRepository extends TieableRepository<Threshold> {
 	    	// Register the Hello World MBean
 	    	mbs.registerMBean(ret, name);
 	    }catch(MalformedObjectNameException e){
-	    	log.error("can't subscribe threshold to jmx", e);
+	    	log.warn("can't subscribe threshold to jmx", e);
 	    } catch (InstanceAlreadyExistsException e) {
-	    	log.error("can't subscribe threshold to jmx", e);
+	    	log.warn("can't subscribe threshold to jmx", e);
 		} catch (MBeanRegistrationException e) {
-	    	log.error("can't subscribe threshold to jmx", e);
+	    	log.warn("can't subscribe threshold to jmx", e);
 		} catch (NotCompliantMBeanException e) {
-	    	log.error("can't subscribe threshold to jmx", e);
+	    	log.warn("can't subscribe threshold to jmx", e);
 		}
 
     	return ret;
@@ -109,7 +109,7 @@ public class ThresholdRepository extends TieableRepository<Threshold> {
 
 	/**
 	 * Returns the worst threshold status in the system.
-	 * @return
+	 * @return the worst detected threshold status.
 	 */
 	public ThresholdStatus getWorstStatus(){
 		ThresholdStatus ret = ThresholdStatus.GREEN;
@@ -122,7 +122,7 @@ public class ThresholdRepository extends TieableRepository<Threshold> {
 	
 	/**
 	 * Returns the worst threshold status in the system for given threshold names.
-	 * @return
+	 * @return the orst detected threshold status for selected thresholds.
 	 */
 	public ThresholdStatus getWorstStatus(String[] names){
 		return getWorstStatus(Arrays.asList(names));
