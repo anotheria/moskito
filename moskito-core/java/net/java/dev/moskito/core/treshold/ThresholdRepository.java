@@ -42,7 +42,7 @@ public class ThresholdRepository extends TieableRepository<Threshold> {
 				break;
 			}
 		}
-		
+
 		if (target==null){
 			if (producer instanceof OnDemandStatsProducer){
 				addToAutoTie(threshold, producer);

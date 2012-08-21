@@ -37,6 +37,10 @@ public class IntervalListener implements IIntervalListener{
 	public void addTieable(Tieable toAdd){
 		updateables.add(toAdd);
 	}
+
+    public void removeTieable(Tieable toRemove){
+        updateables.remove(toRemove);
+    }
 	
 	public void addTieableAutoTieWrapper(AutoTieWrapper toAdd){
 		updateables.add(toAdd);

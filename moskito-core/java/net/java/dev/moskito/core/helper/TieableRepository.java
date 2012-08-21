@@ -109,6 +109,13 @@ public abstract class TieableRepository<T extends Tieable> implements IProducerR
 		return registry;
 	}
 
+    protected void detachFromListener(T t){
+        if (t.getDefinition().getIntervalName()!=null){
+            IntervalListener listener = getListener(t.getDefinition().getIntervalName());
+            listener.removeTieable(t);
+        }
+    }
+
 	protected void attachToListener(T t){
 		if (t.getDefinition().getIntervalName()!=null){
 			IntervalListener listener = getListener(t.getDefinition().getIntervalName());
@@ -138,6 +145,28 @@ public abstract class TieableRepository<T extends Tieable> implements IProducerR
 		
 		return t;
 	}
+
+    /**
+     * Removes previously added tieable by name.
+     * @param name name of the tieable to remove.
+     */
+    public void removeTieable(String name){
+        T t = tieable.remove(name);
+        if (t==null)
+            return;
+        detachFromListener(t);
+        try{
+            //incase its yet untied.
+            yetUntied.remove(t);
+        }catch(Exception e){/* ignored */}
+
+    }
+
+    public void removeTieable(TieableDefinition def){
+        removeTieable(def.getName());
+    }
+
+
 	
 	public T getByName(String name){
 		return tieable.get(name);

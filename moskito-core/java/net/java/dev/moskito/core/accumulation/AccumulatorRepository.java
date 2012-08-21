@@ -78,6 +78,13 @@ public class AccumulatorRepository extends TieableRepository<Accumulator> {
 		id2nameMapping.put(ret.getId(), ret.getName());
 		return ret;
 	}
+
+    public void removeAccumulatorById(String id){
+        String name = id2nameMapping.get(id);
+        if (name==null)
+            throw new IllegalArgumentException("Id: "+id+" not bound");
+        removeTieable(name);
+    }
 	
 	/**
 	 * Returns the accumulator with the corresponding id.
