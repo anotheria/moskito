@@ -122,7 +122,7 @@
 									<td><ano:write name="accumulator" property="numberOfValues"/></td>
 									<td><ano:write name="accumulator" property="lastValueTimestamp"/></td>
 									<td><a href="mskAccumulator?pId=<ano:write name="accumulator" property="id"/>" class="zoom"></a></td>
-                                    <td><a href="mskAccumulatorDelete?pId=<ano:write name="accumulator" property="id"/>">D</a></td>
+                                    <td><a href="mskAccumulatorDelete?pId=<ano:write name="accumulator" property="id"/>" class="delete_icon_12x12"></a></td>
                                 </tr>
 							</ano:iterate>
 								<tr>

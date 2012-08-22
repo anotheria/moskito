@@ -288,12 +288,21 @@ h2 a.hidden {background:url("<ano:write name="mskPathToImages" scope="applicatio
 .thresholds_list li {list-style-type:none; display:block; margin-bottom:5px;}
 .thresholds_list li input {margin-right:5px;}
 .create_widget_threshold_inner h3 {margin-bottom:7px;}
+
 .zoom {
 	background: url("<ano:write name="mskPathToImages" scope="application"/>zoom_in_icon_12x12.png") 0 1px no-repeat;
 	padding-left: 16px;
 }
 .zoom:hover {
 	background: url("<ano:write name="mskPathToImages" scope="application"/>zoom_in_icon_12x12_hovered.png") 0 1px no-repeat;
+}
+
+.delete_icon_12x12 {
+	background: url("<ano:write name="mskPathToImages" scope="application"/>delete_icon_12x12.png") 0 1px no-repeat;
+	padding-left: 16px;
+}
+.delete_icon_12x12:hover {
+	background: url("<ano:write name="mskPathToImages" scope="application"/>delete_icon_12x12_hovered.png") 0 1px no-repeat;
 }
 
 
