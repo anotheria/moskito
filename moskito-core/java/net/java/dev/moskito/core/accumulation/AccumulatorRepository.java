@@ -26,7 +26,7 @@ public class AccumulatorRepository extends TieableRepository<Accumulator> {
 	private ConcurrentMap<String, String> id2nameMapping = new ConcurrentHashMap<String, String>();
 	/**
 	 * Returns the singleton instance of the AccumulatorRepository.
-	 * @return
+	 * @return the one and only instance.
 	 */
 	public static final AccumulatorRepository getInstance(){
 		return INSTANCE;
@@ -71,7 +71,7 @@ public class AccumulatorRepository extends TieableRepository<Accumulator> {
 	/**
 	 * Creates a new accumulator out of given definition.
 	 * @param definition
-	 * @return
+	 * @return the newly created accumulator.
 	 */
 	public Accumulator createAccumulator(AccumulatorDefinition definition) {
 		Accumulator ret = createTieable(definition);

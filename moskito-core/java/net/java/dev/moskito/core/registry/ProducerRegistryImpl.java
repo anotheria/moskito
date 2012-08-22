@@ -60,7 +60,7 @@ public class ProducerRegistryImpl implements IProducerRegistry{
 	/**
 	 * The listeners list.
 	 */
-	private List<IProducerRegistryListener> listeners = new CopyOnWriteArrayList<IProducerRegistryListener>();;
+	private List<IProducerRegistryListener> listeners = new CopyOnWriteArrayList<IProducerRegistryListener>();
 	/**
 	 * The map in which the producers are stored.
 	 */

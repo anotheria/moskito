@@ -20,17 +20,32 @@ import net.java.dev.moskito.core.helper.TieableRepository;
 import net.java.dev.moskito.core.producers.IStats;
 import net.java.dev.moskito.core.producers.IStatsProducer;
 
+/**
+ * Repository that contains currently configured thresholds.
+ */
 public class ThresholdRepository extends TieableRepository<Threshold> {
-	
+
+	/**
+	 * Logger.
+	 */
 	private static Logger log = Logger.getLogger(ThresholdRepository.class);
 
+	/**
+	 * Singleton instance of this class.
+	 */
 	private static ThresholdRepository INSTANCE = new ThresholdRepository();
-	
 
-	
+
+	/**
+	 * Private constructor.
+ 	 */
 	private ThresholdRepository(){
 	}
-	
+
+	/**
+	 * Returns the singleton instance of the registry.
+	 * @return
+	 */
 	public static ThresholdRepository getInstance(){ return INSTANCE; }
 
 	protected boolean tie(Threshold threshold, IStatsProducer producer){

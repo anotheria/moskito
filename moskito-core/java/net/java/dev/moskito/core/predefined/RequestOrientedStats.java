@@ -111,17 +111,15 @@ public abstract class RequestOrientedStats extends AbstractStats {
 	private StatValue maxTime;
 	
 	private static final List<String> VALUE_NAMES = Collections.unmodifiableList(Arrays.asList(
-			new String[]{
-				"TR",
-				"TT",
-				"CR",
-				"MCR",
-				"ERR",
-				"Last",
-				"Min",
-				"Max",
-				"Avg",
-			})); 
+			"TR",
+			"TT",
+			"CR",
+			"MCR",
+			"ERR",
+			"Last",
+			"Min",
+			"Max",
+			"Avg"));
 
 	/**
 	 * Creates a new object with the given method name.

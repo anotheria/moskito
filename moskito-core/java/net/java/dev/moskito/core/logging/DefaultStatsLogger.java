@@ -102,9 +102,7 @@ public class DefaultStatsLogger implements IUpdateable{
 		output.out("=== Timestamp: "+Date.currentDate()+", ServiceId: "+target.getProducerId());
 		output.out("===============================================================================");
 		try{
-			List<IStats> stats = target.getStats();
-			for (Iterator<IStats> it = stats.iterator(); it.hasNext(); ){
-				IStats stat = it.next();
+			for (IStats stat : target.getStats()){
 				output.out(stat.toStatsString());
 			}
 		}catch(ConcurrentModificationException e){

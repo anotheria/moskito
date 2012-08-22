@@ -108,9 +108,7 @@ public class IntervalStatsLogger implements IIntervalListener{
 		output.out("=== Timestamp: "+Date.currentDate()+", ServiceId: "+target.getProducerId());
 		output.out("===============================================================================");
 		
-		List<IStats> stats = target.getStats();
-		for (Iterator<IStats> it = stats.iterator(); it.hasNext(); ){
-			IStats stat = it.next();
+		for (IStats stat: target.getStats()){
 			output.out(stat.toStatsString(interval.getName()));
 		}
 		

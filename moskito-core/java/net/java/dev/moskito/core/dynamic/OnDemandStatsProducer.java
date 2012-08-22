@@ -71,7 +71,7 @@ public class OnDemandStatsProducer implements IStatsProducer, Inspectable{
 	/**
 	 * A map where all stat and their ids (strings) are being stored.
 	 */
-	private Map<String,IStats> stats;
+	private final Map<String,IStats> stats;
 	
 	/**
 	 * A fast access variable for default (cumulated) stats.

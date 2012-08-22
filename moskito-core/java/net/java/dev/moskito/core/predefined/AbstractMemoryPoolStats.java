@@ -14,16 +14,14 @@ public abstract class AbstractMemoryPoolStats extends AbstractStats implements I
 	}
 	
 	private static final List<String> VALUE_NAMES = Collections.unmodifiableList(Arrays.asList(
-			new String[]{
-				"INIT",
-				"MIN_USED",
-				"USED",
-				"MAX_USED",
-				"MIN_COMMITED",
-				"COMMITED",
-				"MAX_COMMITED",
-				"MAX",
-			})); 
+			"INIT",
+			"MIN_USED",
+			"USED",
+			"MAX_USED",
+			"MIN_COMMITED",
+			"COMMITED",
+			"MAX_COMMITED",
+			"MAX"));
 
 	@Override
 	public List<String> getAvailableValueNames() {

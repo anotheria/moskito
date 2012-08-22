@@ -49,7 +49,7 @@ public class AccumulatedValue {
 	
 	/**
 	 * Returns the ISO8601 Timestamp.
-	 * @return
+	 * @return the timestamp in iso format.
 	 */
 	public String getISO8601Timestamp(){
 		return NumberUtils.makeISO8601TimestampString(timestamp);

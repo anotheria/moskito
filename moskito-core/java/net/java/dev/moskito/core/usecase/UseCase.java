@@ -19,7 +19,7 @@ public class UseCase {
 	/**
 	 * Pathes that are detected along the use-cases.
 	 */
-	private Map<String, UseCasePath> pathes;
+	private final Map<String, UseCasePath> pathes;
 	/**
 	 * Name of the use cases.
 	 */

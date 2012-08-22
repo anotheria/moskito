@@ -61,18 +61,16 @@ public class CacheStats extends AbstractStats{
 	private String name;
 	
 	private static final List<String> VALUE_NAMES = Collections.unmodifiableList(Arrays.asList(
-			new String[]{
-				"REQ",
-				"HIT",
-				"HR",
-				"WR",
-				"GC",
-				"RO",
-				"FU",
-				"EX",
-				"DEL",
-				"FI",
-			})); 
+			"REQ",
+			"HIT",
+			"HR",
+			"WR",
+			"GC",
+			"RO",
+			"FU",
+			"EX",
+			"DEL",
+			"FI"));
 
 	public CacheStats(){
 		this("unnamed", Constants.getDefaultIntervals());
