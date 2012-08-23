@@ -23,7 +23,8 @@ import net.java.dev.moskito.webui.action.ShowProducerAction;
 import net.java.dev.moskito.webui.action.ShowProducersForCategoryAction;
 import net.java.dev.moskito.webui.action.ShowProducersForSubsystemAction;
 import net.java.dev.moskito.webui.action.ShowRecordedUseCaseAction;
-import net.java.dev.moskito.webui.action.ShowThresholdsAction;
+import net.java.dev.moskito.webui.action.thresholds.DeleteThresholdAction;
+import net.java.dev.moskito.webui.action.thresholds.ShowThresholdsAction;
 import net.java.dev.moskito.webui.action.ShowUseCasesAction;
 
 /**
@@ -147,7 +148,9 @@ public class MoskitoMappingsConfigurator implements ActionMappingsConfigurator{
 		mappings.addAlias("mskThresholds.csv", "mskThresholds");
 		mappings.addAlias("mskThresholds.xml", "mskThresholds");
 		mappings.addAlias("mskThresholds.json", "mskThresholds");
-		
+
+		mappings.addMapping("mskThresholdDelete", DeleteThresholdAction.class,
+				new CommandRedirect("redirect", "mskThresholds"));
 
 		mappings.addMapping("mskAccumulators", ShowAccumulatorsAction.class, 
 				new ActionForward("html", "/net/java/dev/moskito/webui/jsp/Accumulators.jsp"),

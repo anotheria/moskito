@@ -30,7 +30,7 @@ public class ShowAccumulatorAction extends BaseAccumulatorsAction {
 			HttpServletRequest req, HttpServletResponse res) throws Exception {
 		
 		String accumulatorId = req.getParameter(PARAM_ID);
-		Accumulator accumulator = AccumulatorRepository.getInstance().getAccumulatorById(accumulatorId);
+		Accumulator accumulator = AccumulatorRepository.getInstance().getById(accumulatorId);
 
 		AccumulatorInfoBean accInfoBean = new AccumulatorInfoBean();
 		accInfoBean.setName(accumulator.getName());

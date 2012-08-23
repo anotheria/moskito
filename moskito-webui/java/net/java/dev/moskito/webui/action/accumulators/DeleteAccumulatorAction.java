@@ -15,7 +15,7 @@ public class DeleteAccumulatorAction extends BaseAccumulatorsAction{
 
     @Override
     public ActionCommand execute(ActionMapping mapping, FormBean formBean, HttpServletRequest req, HttpServletResponse res) throws Exception {
-        AccumulatorRepository.getInstance().removeAccumulatorById(req.getParameter(PARAM_ID));
+        AccumulatorRepository.getInstance().removeById(req.getParameter(PARAM_ID));
         return mapping.redirect();
     }
 }

@@ -94,6 +94,7 @@
 							<th>Status Change</th>
 							<th>Change Timestamp</th>
 							<th>Path</th>
+                            <td>&nbsp;</td>
 						</tr>
 						</thead>
 						<tbody>
@@ -106,6 +107,7 @@
 								<td><ano:write name="threshold" property="change"/></td>
 								<td><ano:write name="threshold" property="timestamp"/></td>
 								<td><ano:write name="threshold" property="description"/></td>
+                                <td><a href="mskThresholdDelete?pId=<ano:write name="threshold" property="id"/>" class="del"></a></td>
 							</tr>
 						</ano:iterate>
 						</tbody>

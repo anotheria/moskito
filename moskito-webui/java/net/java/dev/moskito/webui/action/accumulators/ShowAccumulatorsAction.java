@@ -137,7 +137,7 @@ public class ShowAccumulatorsAction extends BaseAccumulatorsAction {
 			List<String> accNames = new ArrayList<String>();
 			
 			for (String id : ids){
-				Accumulator acc = AccumulatorRepository.getInstance().getAccumulatorById(id);
+				Accumulator acc = AccumulatorRepository.getInstance().getById(id);
 				AccumulatedSingleGraphDataBean singleGraphDataBean = new AccumulatedSingleGraphDataBean(acc.getName());
 				singleGraphDataBeans.add(singleGraphDataBean);
 				accNames.add(acc.getName());

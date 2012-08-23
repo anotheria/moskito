@@ -1,4 +1,4 @@
-package net.java.dev.moskito.webui.action;
+package net.java.dev.moskito.webui.action.thresholds;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,6 +15,7 @@ import net.java.dev.moskito.core.treshold.Threshold;
 import net.java.dev.moskito.core.treshold.ThresholdAlert;
 import net.java.dev.moskito.core.treshold.ThresholdConditionGuard;
 import net.java.dev.moskito.core.treshold.ThresholdRepository;
+import net.java.dev.moskito.webui.action.BaseMoskitoUIAction;
 import net.java.dev.moskito.webui.bean.NaviItem;
 import net.java.dev.moskito.webui.bean.ThresholdAlertBean;
 import net.java.dev.moskito.webui.bean.ThresholdBean;
@@ -24,7 +25,7 @@ import net.java.dev.moskito.webui.bean.ThresholdInfoBean;
  * @author lrosenberg
  *
  */
-public class ShowThresholdsAction extends BaseMoskitoUIAction{
+public class ShowThresholdsAction extends BaseThresholdsAction {
 
 	@Override
 	public ActionCommand execute(ActionMapping mapping, FormBean formBean,
@@ -94,9 +95,5 @@ public class ShowThresholdsAction extends BaseMoskitoUIAction{
 		return "mskThresholds?ts="+System.currentTimeMillis();
 	}
 
-	@Override
-	protected NaviItem getCurrentNaviItem() {
-		return NaviItem.THRESHOLDS;
-	}
 
 }
