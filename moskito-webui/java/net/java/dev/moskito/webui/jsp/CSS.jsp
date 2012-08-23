@@ -95,6 +95,9 @@ a:hover {text-decoration:none; color:#55cc00; cursor:pointer;}
 .table_itseft .in table tr.even td {background:#f7f7f7; //background:f7f7f7;}
 .table_itseft .in table tr.odd td {background:white;} 
 .table_itseft .in table tr:hover td, .table_itseft .in table tr.hover_it td  {background:#e1eefa;}
+table.producer_filter_data_table tbody td:hover {
+    background: #D7E9CA!important;
+}
 .table_right {float:left; overflow-x:scroll;}
 .table_right tbody td {cursor:default; text-align:right !important;}
 
@@ -297,11 +300,11 @@ h2 a.hidden {background:url("<ano:write name="mskPathToImages" scope="applicatio
 	background: url("<ano:write name="mskPathToImages" scope="application"/>zoom_in_icon_12x12_hovered.png") 0 1px no-repeat;
 }
 
-.delete_icon_12x12 {
+.del {
 	background: url("<ano:write name="mskPathToImages" scope="application"/>delete_icon_12x12.png") 0 1px no-repeat;
 	padding-left: 16px;
 }
-.delete_icon_12x12:hover {
+.del:hover {
 	background: url("<ano:write name="mskPathToImages" scope="application"/>delete_icon_12x12_hovered.png") 0 1px no-repeat;
 }
 

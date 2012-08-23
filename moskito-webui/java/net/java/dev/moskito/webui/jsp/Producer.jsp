@@ -8,22 +8,57 @@
 </head>
 <body>
 
-<script type="text/javascript" src="../js/wz_tooltip.js"></script>
-<script type="text/javascript" src="../js/jquery-1.4.min.js"></script>
-<script type="text/javascript" src="../js/function.js"></script>
-<script type="text/javascript" src="http://www.google.com/jsapi"></script>
+    <script type="text/javascript" src="../js/wz_tooltip.js"></script>
+    <script type="text/javascript" src="../js/jquery-1.8.0.min.js"></script>
+    <script type="text/javascript" src="../js/function.js"></script>
+    <script type="text/javascript" src="http://www.google.com/jsapi"></script>
 
-<-- 
- Data for charts 
- <script>
-<ano:iterate type="net.java.dev.moskito.webui.bean.GraphDataBean" 	id="graph" name="graphDatas">	
-	var <ano:write name="graph" property="jsVariableName"/>Caption = "<ano:write name="graph" property="caption"/>";
-	var <ano:write name="graph" property="jsVariableName"/>Array = <ano:write name="graph" property="jsArrayValue"/>;
-</ano:iterate> 
+    <--
+     Data for charts
+     <script>
+    <ano:iterate type="net.java.dev.moskito.webui.bean.GraphDataBean" 	id="graph" name="graphDatas">
+        var <ano:write name="graph" property="jsVariableName"/>Caption = "<ano:write name="graph" property="caption"/>";
+        var <ano:write name="graph" property="jsVariableName"/>Array = <ano:write name="graph" property="jsArrayValue"/>;
+    </ano:iterate>
 
- </script>
--->
+     </script>
+    -->
 
+    <script type="text/javascript">
+        $(function() {
+            var $dataTable = $('table.producer_filter_data_table'),
+                dataTd = $('table.producer_filter_data_table tbody td'),
+                flagDown = true,
+                flagUp = true;
+
+            dataTd.mouseenter(function() {
+                var $this = $(this),
+                    currentTdText = $this.text();
+
+                text = currentTdText;
+
+                $(document).keydown(
+                    function( e ){
+                        if( e.keyCode == 17 && flagDown ){
+                            //console.log(text)
+                            alert(text)
+                            flagDown = false;
+                            flagUp = true;
+                        }
+                    }
+                );
+
+                $( document ).keyup(
+                    function( e ){
+                        if( e.keyCode == 17 && flagUp ){
+                            flagDown = true;
+                            flagUp = false;
+                        }
+                    }
+                );
+            })
+        });
+    </script>
 
 <jsp:include page="Menu.jsp" flush="false" />
 
@@ -98,7 +133,7 @@
 	</table>
 		
 	<div class="table_right">	
-		<table cellpadding="0" cellspacing="0">
+		<table class="producer_filter_data_table" cellpadding="0" cellspacing="0">
 		 <thead>
 		  <tr>		    
 			<ano:iterate name="decorator" property="captions" type="net.java.dev.moskito.webui.bean.StatCaptionBean" id="caption" indexId="ind">				
