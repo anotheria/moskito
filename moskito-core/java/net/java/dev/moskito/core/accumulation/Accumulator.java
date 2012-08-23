@@ -29,20 +29,11 @@ public class Accumulator extends AbstractTieable<AccumulatorDefinition> implemen
 	 * Attached stats.
 	 */
 	private IStats stats;
-	/**
-	 * Id of this accumulator for inner use (referencing).
-	 */
-	private String id;
-	/**
-	 * Instance counter.
-	 */
-	private static final AtomicInteger instanceCounter = new AtomicInteger(0);
-	
+
 	public Accumulator(AccumulatorDefinition aDefinition){
 		super(aDefinition);
 		values = new ArrayList<AccumulatedValue>();
-		id = ""+instanceCounter.incrementAndGet();
-	} 
+	}
 	
 	public void addValue(AccumulatedValue value){
 		values.add(value);
@@ -85,10 +76,4 @@ public class Accumulator extends AbstractTieable<AccumulatorDefinition> implemen
 	@Override public String toString(){
 		return getId()+" "+getName()+" "+" Def: "+getDefinition()+" active: "+isActivated()+", Values: "+(values==null?"none":""+values.size());
 	}
-	
-	public String getId(){
-		return id;
-	}
- 
-
 }

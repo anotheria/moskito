@@ -34,18 +34,15 @@
  */	
 package net.java.dev.moskito.core.logging;
 
-import java.util.ConcurrentModificationException;
-import java.util.Iterator;
-import java.util.List;
-
-import org.apache.log4j.Logger;
-
 import net.anotheria.util.Date;
 import net.anotheria.util.IdCodeGenerator;
 import net.java.dev.moskito.core.producers.IStats;
 import net.java.dev.moskito.core.producers.IStatsProducer;
 import net.java.dev.moskito.core.timing.IUpdateable;
 import net.java.dev.moskito.core.timing.UpdateTriggerServiceFactory;
+import org.apache.log4j.Logger;
+
+import java.util.ConcurrentModificationException;
 
 
 /**

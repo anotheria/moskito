@@ -173,6 +173,4 @@ public class ThresholdRepository extends TieableRepository<Threshold> {
 	protected Threshold create(TieableDefinition def){
 		return new Threshold((ThresholdDefinition)def);
 	}
-	
-	
 }

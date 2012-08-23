@@ -21,10 +21,6 @@ public class AccumulatorRepository extends TieableRepository<Accumulator> {
 	 */
 	private static final AccumulatorRepository INSTANCE = new AccumulatorRepository();
 	/**
-	 * Map that contains names of the accumulators maped by ids.
-	 */
-	private ConcurrentMap<String, String> id2nameMapping = new ConcurrentHashMap<String, String>();
-	/**
 	 * Returns the singleton instance of the AccumulatorRepository.
 	 * @return the one and only instance.
 	 */
@@ -68,34 +64,7 @@ public class AccumulatorRepository extends TieableRepository<Accumulator> {
 		return getTieables();
 	}
 
-	/**
-	 * Creates a new accumulator out of given definition.
-	 * @param definition
-	 * @return the newly created accumulator.
-	 */
-	public Accumulator createAccumulator(AccumulatorDefinition definition) {
-		Accumulator ret = createTieable(definition);
-		id2nameMapping.put(ret.getId(), ret.getName());
-		return ret;
+	public Accumulator createAccumulator(TieableDefinition def){
+		return createTieable(def);
 	}
-
-    public void removeAccumulatorById(String id){
-        String name = id2nameMapping.get(id);
-        if (name==null)
-            throw new IllegalArgumentException("Id: "+id+" not bound");
-        removeTieable(name);
-    }
-	
-	/**
-	 * Returns the accumulator with the corresponding id.
-	 * @param id
-	 * @return
-	 */
-	public Accumulator getAccumulatorById(String id){
-		String name = id2nameMapping.get(id);
-		if (name==null)
-			throw new IllegalArgumentException("Id: "+id+" not bound");
-		return getByName(name);
-	}
-
 }

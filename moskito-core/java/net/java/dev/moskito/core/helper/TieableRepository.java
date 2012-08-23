@@ -6,6 +6,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.CopyOnWriteArrayList;
 
+import net.java.dev.moskito.core.accumulation.Accumulator;
 import net.java.dev.moskito.core.producers.IStatsProducer;
 import net.java.dev.moskito.core.registry.IProducerRegistry;
 import net.java.dev.moskito.core.registry.IProducerRegistryListener;
@@ -49,6 +50,11 @@ public abstract class TieableRepository<T extends Tieable> implements IProducerR
 	 * Threshold objects that are already created and registered but yet not tied to a concrete producer/stats object.
 	 */
 	private List<T> yetUntied = new CopyOnWriteArrayList<T>();
+
+	/**
+	 * Map that contains names of the tieables maped by ids.
+	 */
+	private ConcurrentMap<String, String> id2nameMapping = new ConcurrentHashMap<String, String>();
 
 
 	public TieableRepository() {
@@ -142,11 +148,20 @@ public abstract class TieableRepository<T extends Tieable> implements IProducerR
 		}else{
 			addUntied(t);
 		}
-		
+
+		id2nameMapping.put(t.getId(), t.getName());
+
 		return t;
 	}
 
-    /**
+	public void removeById(String id){
+		String name = id2nameMapping.get(id);
+		if (name==null)
+			throw new IllegalArgumentException("Id: "+id+" not found");
+		removeTieable(name);
+	}
+
+	/**
      * Removes previously added tieable by name.
      * @param name name of the tieable to remove.
      */
@@ -176,6 +191,20 @@ public abstract class TieableRepository<T extends Tieable> implements IProducerR
 		defaultListener.intervalUpdated(null);
 	}
 
+
+	/**
+	 * Returns the tieable with the corresponding id. Usually tieables are created and addressed by name. The id
+	 * of the tieable is volatile (between starts) since it depends on initialization order. However, for some use cases
+	 * it is better to use the id previously obtained from a tieable listing as a name, that must be url encoded etc.
+	 * @param id the internal id of the tieable.
+	 * @return the Tieable with corresponding id.
+	 */
+	public T getById(String id){
+		String name = id2nameMapping.get(id);
+		if (name==null)
+			throw new IllegalArgumentException("Id: "+id+" not found");
+		return getByName(name);
+	}
 
 
 

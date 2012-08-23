@@ -20,7 +20,7 @@ public final class Accumulators {
 	 * @param name name of the accumulator, for example OldGenFree.
 	 * @param producerName Name of the producer to tie the accumulator to. For example MemoryPool-PS Old Gen-Heap.
 	 * @param valueName Name of the value to tie the accumulator to. For example Free or Used.
-	 * @return
+	 * @return created accumulator.
 	 */
 	public static Accumulator createMemoryAccumulator1m(String name, String producerName, String valueName) {
 		return createAccumulator(name, producerName, producerName, valueName, "1m");
@@ -31,7 +31,7 @@ public final class Accumulators {
 	 * @param name name of the accumulator, for example OldGenFree.
 	 * @param producerName Name of the producer to tie the accumulator to. For example MemoryPool-PS Old Gen-Heap.
 	 * @param valueName Name of the value to tie the accumulator to. For example Free or Used.
-	 * @return
+	 * @return created accumulator.
 	 */
 	public static Accumulator createMemoryAccumulator5m(String name, String producerName, String valueName) {
 		return createAccumulator(name, producerName, producerName, valueName, DEFAULT_INTERVAL);
@@ -43,7 +43,7 @@ public final class Accumulators {
 	 * @param producerName Name of the producer to tie the accumulator to. For example MemoryPool-PS Old Gen-Heap.
 	 * @param valueName Name of the value to tie the accumulator to. For example Free or Used.
 	 * @param interval interval to tie this accumulator to.
-	 * @return
+	 * @return created accumulator.
 	 */
 	public static Accumulator createMemoryAccumulator(String name, String producerName, String valueName, String interval) {
 		return createAccumulator(name, producerName, producerName, valueName, interval);
@@ -92,7 +92,6 @@ public final class Accumulators {
 	 * Creates a new accumulator for service req count.
 	 * @param name name of the accumulator.
 	 * @param producerName name of the producer.
-	 * @param interval name of the interval.
 	 */
 	public static void createServiceREQAccumulator(String name, String producerName) {
 		createServiceREQAccumulator(name, producerName, DEFAULT_INTERVAL);

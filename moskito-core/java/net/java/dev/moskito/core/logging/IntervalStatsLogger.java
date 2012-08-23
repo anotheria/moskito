@@ -34,9 +34,6 @@
  */	
 package net.java.dev.moskito.core.logging;
 
-import java.util.Iterator;
-import java.util.List;
-
 import net.anotheria.util.Date;
 import net.anotheria.util.IdCodeGenerator;
 import net.java.dev.moskito.core.producers.IStats;

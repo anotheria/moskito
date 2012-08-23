@@ -34,4 +34,10 @@ public interface Tieable extends IntervalUpdateable{
 	 */
 	String getName();
 
+	/**
+	 * Returns internal id for further operations (CRUD).
+	 * @return internal incremental id.
+	 */
+	String getId();
+
 }
