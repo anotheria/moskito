@@ -39,20 +39,21 @@
 
                 $(document).keydown(
                     function( e ){
-                        if( e.keyCode == 17 && flagDown ){
-                            //console.log(text)
-                            alert(text)
+                        if( e.keyCode == 65 && e.ctrlKey && flagDown ){
+                            console.log(text)
                             flagDown = false;
                             flagUp = true;
+                            e.preventDefault();
                         }
                     }
                 );
 
                 $( document ).keyup(
                     function( e ){
-                        if( e.keyCode == 17 && flagUp ){
+                        if( e.keyCode == 65 && flagUp ){
                             flagDown = true;
                             flagUp = false;
+                            e.preventDefault();
                         }
                     }
                 );
