@@ -44,7 +44,7 @@ import net.java.dev.moskito.core.stats.Interval;
 public class ActionStats extends RequestOrientedStats{
 	/**
 	 * Creates a new MethodStats object with the given method name.
-	 * @param aMethodName
+	 * @param aMethodName name of the method.
 	 */
 	public ActionStats(String aMethodName){
 		super(aMethodName);

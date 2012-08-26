@@ -139,6 +139,13 @@ public abstract class TieableRepository<T extends Tieable> implements IProducerR
 	
 	public T createTieable(TieableDefinition definition){
 		T t = create(definition);
+		String name = t.getName();
+		int i=1;
+		while( tieable.get(name)!=null){
+			name = t.getName()+"-"+(i++);
+			System.out.println("... Trying "+name);
+		}
+		definition.setName(name);//set net name, in order to prevent name conflicts.
 		tieable.put(t.getName(), t);
 		attachToListener(t);
 		
