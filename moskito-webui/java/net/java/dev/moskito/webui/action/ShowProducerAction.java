@@ -83,7 +83,11 @@ public class ShowProducerAction extends BaseMoskitoUIAction{
 		producerBean.setSubsystem(producer.getSubsystem());
 		producerBean.setClassName(producer.getClass().getName());
 		req.setAttribute("producer", producerBean);
-		
+
+		//copies parameter for producer selection page.
+		String target = req.getParameter("target");
+		req.setAttribute("target", target);
+
 		if (producer instanceof Inspectable)
 			req.setAttribute("inspectableFlag", Boolean.TRUE);
 		

@@ -9,6 +9,7 @@ import net.java.dev.moskito.webui.action.ForceIntervalUpdateAction;
 import net.java.dev.moskito.webui.action.GetChartDataAction;
 import net.java.dev.moskito.webui.action.GetChartMetaDataAction;
 import net.java.dev.moskito.webui.action.InspectProducerAction;
+import net.java.dev.moskito.webui.action.accumulators.CreateAccumulatorAction;
 import net.java.dev.moskito.webui.action.accumulators.DeleteAccumulatorAction;
 import net.java.dev.moskito.webui.action.accumulators.ShowAccumulatorAction;
 import net.java.dev.moskito.webui.action.accumulators.ShowAccumulatorsAction;
@@ -23,6 +24,7 @@ import net.java.dev.moskito.webui.action.ShowProducerAction;
 import net.java.dev.moskito.webui.action.ShowProducersForCategoryAction;
 import net.java.dev.moskito.webui.action.ShowProducersForSubsystemAction;
 import net.java.dev.moskito.webui.action.ShowRecordedUseCaseAction;
+import net.java.dev.moskito.webui.action.thresholds.CreateThresholdAction;
 import net.java.dev.moskito.webui.action.thresholds.DeleteThresholdAction;
 import net.java.dev.moskito.webui.action.thresholds.ShowThresholdsAction;
 import net.java.dev.moskito.webui.action.ShowUseCasesAction;
@@ -85,12 +87,14 @@ public class MoskitoMappingsConfigurator implements ActionMappingsConfigurator{
 				new ActionForward("html", "/net/java/dev/moskito/webui/jsp/Producer.jsp"),
 				new ActionForward("xml", "/net/java/dev/moskito/webui/jsp/ProducerXML.jsp"),
 				new ActionForward("csv", "/net/java/dev/moskito/webui/jsp/ProducerCSV.jsp"),
-				new ActionForward("json", "/net/java/dev/moskito/webui/jsp/ProducerJSON.jsp")
+				new ActionForward("json", "/net/java/dev/moskito/webui/jsp/ProducerJSON.jsp"),
+				new ActionForward("selection", "/net/java/dev/moskito/webui/jsp/ProducerForSelection.jsp")
 		);
 		
 		mappings.addAlias("mskShowProducer.csv", "mskShowProducer");
 		mappings.addAlias("mskShowProducer.xml", "mskShowProducer");
 		mappings.addAlias("mskShowProducer.json", "mskShowProducer");
+		mappings.addAlias("mskShowProducerForSelection", "mskShowProducer");
 
 		mappings.addMapping("mskInspectProducer", InspectProducerAction.class, 
 				new ActionForward("html", "/net/java/dev/moskito/webui/jsp/InspectProducer.jsp"),
@@ -151,6 +155,9 @@ public class MoskitoMappingsConfigurator implements ActionMappingsConfigurator{
 
 		mappings.addMapping("mskThresholdDelete", DeleteThresholdAction.class,
 				new CommandRedirect("redirect", "mskThresholds"));
+		mappings.addMapping("mskThresholdCreate", CreateThresholdAction.class,
+				new CommandRedirect("redirect", "mskThresholds"));
+
 
 		mappings.addMapping("mskAccumulators", ShowAccumulatorsAction.class, 
 				new ActionForward("html", "/net/java/dev/moskito/webui/jsp/Accumulators.jsp"),
@@ -174,6 +181,9 @@ public class MoskitoMappingsConfigurator implements ActionMappingsConfigurator{
 		
 		mappings.addMapping("mskAccumulatorDelete", DeleteAccumulatorAction.class,
                 new CommandRedirect("redirect", "mskAccumulators"));
+		mappings.addMapping("mskAccumulatorCreate", CreateAccumulatorAction.class,
+				new CommandRedirect("redirect", "mskAccumulators"));
+
 
 		
 		//analyze journey
