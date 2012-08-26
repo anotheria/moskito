@@ -83,7 +83,10 @@
 			<div>
 				<span>class: </span><span><ano:write name="producer" property="className"/></span>
 			</div>
-		</div>
+            <div>
+                <span>Add <a href="<ano:write name="linkToCurrentPage"/>&pForward=selection&target=Accumulator">Accumulator</a> or <a href="<ano:write name="linkToCurrentPage"/>&pForward=selection&target=Threshold">Threshold</a></span>
+            </div>
+        </div>
 		<div class="bot"><div><!-- --></div></div>
 	</div>
 	<div class="clear"><!-- --></div>
