@@ -29,35 +29,40 @@
             var $dataTable = $('table.producer_filter_data_table'),
                 dataTd = $('table.producer_filter_data_table tbody td'),
                 flagDown = true,
-                flagUp = true;
+                flagUp = true,
+                active_cell = undefined;
 
             dataTd.mouseenter(function() {
-                var $this = $(this),
-                    currentTdText = $this.text();
+                active_cell = $(this);
+              }).mouseleave(function() {
+                active_cell = undefined;
+            });
 
-                text = currentTdText;
+            $(document).keydown(
+                function( e ){
+                    if( e.keyCode == 65 && e.ctrlKey && flagDown ){
+                        flagDown = false;
+                        flagUp = true;
 
-                $(document).keydown(
-                    function( e ){
-                        if( e.keyCode == 65 && e.ctrlKey && flagDown ){
-                            console.log(text)
-                            flagDown = false;
-                            flagUp = true;
+                        if (active_cell){
+                            console.log(active_cell.text());
                             e.preventDefault();
                         }
                     }
-                );
+                }
+            );
 
-                $( document ).keyup(
-                    function( e ){
-                        if( e.keyCode == 65 && flagUp ){
-                            flagDown = true;
-                            flagUp = false;
+            $( document ).keyup(
+                function( e ){
+                    if( e.keyCode == 65 && flagUp ){
+                        flagDown = true;
+                        flagUp = false;
+                        if (active_cell){
                             e.preventDefault();
                         }
                     }
-                );
-            })
+                }
+            );
         });
     </script>
 
