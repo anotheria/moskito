@@ -19,6 +19,21 @@
             document.forms.CreateForm.pValueName.value = valueName;
             document.forms.CreateForm.submit();
         }
+        function switchDirection(){
+            if (document.forms.CreateForm.pGreenDir.value=='above')
+                targetValue = 'below';
+            else
+                targetValue = 'above';
+
+            document.forms.CreateForm.pYellowDir.value = targetValue;
+            document.forms.CreateForm.pOrangeDir.value = targetValue;
+            document.forms.CreateForm.pRedDir.value = targetValue;
+            document.forms.CreateForm.pPurpleDir.value = targetValue;
+        }
+
+        function switchgreenvalue(){
+            document.forms.CreateForm.pYellowValue.value=document.forms.CreateForm.pGreenValue.value;
+        }
     </script>
 
 <jsp:include page="Menu.jsp" flush="false" />
@@ -54,7 +69,7 @@
                             </option>
                         </ano:iterate>
                     </select>
-                </span>
+                </span><br/><br/>
             </div>
             <div><ano:define name="moskito.CurrentUnit" property="unitName" id="currentUnit" toScope="page" type="java.lang.String"/>
                 <span>Unit:
@@ -65,8 +80,17 @@
                             </option>
                         </ano:iterate>
                     </select>
-                </span>
+                </span><br/><br/>
             </div>
+            <ano:equal name="target" value="Threshold">
+                <div>
+                    <span><img src="<ano:write name="mskPathToImages" scope="application"/>ind_green.png"/>&nbsp; if &nbsp;<select name="pGreenDir" onchange="switchDirection();"><option>below</option><option>above</option></select>&nbsp;<input type="text" name="pGreenValue" onchange="switchgreenvalue();"> (Green)</span><br/><br/>
+                    <span><img src="<ano:write name="mskPathToImages" scope="application"/>ind_yellow.png"/>&nbsp; if &nbsp;<select name="pYellowDir"><option>below</option><option selected="true">above</option></select>&nbsp;<input type="text" name="pYellowValue"> (Yellow)</span><br/><br/>
+                    <span><img src="<ano:write name="mskPathToImages" scope="application"/>ind_orange.png"/>&nbsp; if &nbsp;<select name="pOrangeDir"><option>below</option><option selected="true">above</option></select>&nbsp;<input type="text" name="pOrangeValue"> (Orange)</span><br/><br/>
+                    <span><img src="<ano:write name="mskPathToImages" scope="application"/>ind_red.png"/>&nbsp; if &nbsp;<select name="pRedDir"><option>below</option><option selected="true">above</option></select>&nbsp;<input type="text" name="pRedValue"> (Red)</span><br/><br/>
+                    <span><img src="<ano:write name="mskPathToImages" scope="application"/>ind_purple.png"/>&nbsp; if &nbsp;<select name="pPurpleDir"><option>below</option><option selected="true">above</option></select>&nbsp;<input type="text" name="pPurpleValue"> (Purple)</span><br/><br/>
+                </div>
+            </ano:equal>
             </form>
 		</div>
 		<div class="bot"><div><!-- --></div></div>

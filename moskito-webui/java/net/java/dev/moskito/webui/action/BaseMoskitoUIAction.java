@@ -129,8 +129,19 @@ public abstract class BaseMoskitoUIAction implements Action{
 	 */
 	public static final String PARAM_PRODUCER_ID = "pProducerId";
 
+	/**
+	 * Name parameter. Used for accumulator or threshold creation.
+	 */
+	public static final String PARAM_NAME = "pName";
+
+	/**
+	 * Name of the stat parameter. This can be a method name or url or memory-pool.
+	 */
 	public static final String PARAM_STAT_NAME = "pStatName";
 
+	/**
+	 * Name of the value parameter. Value name is something like REQ, AVG etc.
+	 */
 	public static final String PARAM_VALUE_NAME = "pValueName";
 	/**
 	 * Parameter for producer category.

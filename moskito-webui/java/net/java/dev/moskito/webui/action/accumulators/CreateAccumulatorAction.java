@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * TODO comment this class
+ * This action creates a new accumulator.
  *
  * @author lrosenberg
  * @created 26.08.12 00:27
@@ -24,7 +24,7 @@ public class CreateAccumulatorAction extends BaseAccumulatorsAction{
 		String statName = req.getParameter(PARAM_STAT_NAME);
 		String intervalName = req.getParameter(PARAM_INTERVAL);
 		String unitName = req.getParameter(PARAM_UNIT);
-		String accName = req.getParameter("pName");
+		String accName = req.getParameter(PARAM_NAME);
 
 		AccumulatorDefinition ad = new AccumulatorDefinition();
 		ad.setName(accName);
