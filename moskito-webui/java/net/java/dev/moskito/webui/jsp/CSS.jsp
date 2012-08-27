@@ -350,15 +350,15 @@ h2 a.hidden {background:url("<ano:write name="mskPathToImages" scope="applicatio
     background:#f7f7f7;
 }
 
-.deselect_all_journey_positions, .expand_table_tree {
+.deselect_all_journey_positions, .expand_table_tree, .accumulators_submit_button {
     font-size: 12px;
     padding: 1px 8px;
     -webkit-border-radius: 4px;
     -moz-border-radius: 4px;
     border-radius: 4px;
 
-    -webkit-box-shadow: inset 1px 0 0 rgba(255, 255, 255, 0.125), inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.1);
-    -moz-box-shadow: inset 1px 0 0 rgba(255, 255, 255, 0.125), inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.1);
+    -webkit-box-shadow: inset 1px 0 0 rgba(255, 255, 255, 0.125), inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.2);
+    -moz-box-shadow: inset 1px 0 0 rgba(255, 255, 255, 0.125), inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.2);
     box-shadow: inset 1px 0 0 rgba(255, 255, 255, 0.125), inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.2);
     background-color: #4D9CC9;
     background-image: -ms-linear-gradient(top, #7FBFE4, #4D9CC9);
@@ -374,7 +374,7 @@ h2 a.hidden {background:url("<ano:write name="mskPathToImages" scope="applicatio
     cursor: pointer;
 }
 
-.deselect_all_journey_positions:hover, .expand_table_tree:hover {
+.deselect_all_journey_positions:hover, .expand_table_tree:hover, .accumulators_submit_button {
     background-color: #0D77B4;
     background-image: -ms-linear-gradient(top, #6EB8E4, #0D77B4);
     background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#6EB8E4), to(#0D77B4));
@@ -425,3 +425,85 @@ h2 a.hidden {background:url("<ano:write name="mskPathToImages" scope="applicatio
     background: #E1EEFA!important;
 }
 /* /JOURNEY*/
+
+
+/* ACCUMULATORS POPUP */
+.popup_box {
+    -webkit-box-shadow: 0px 2px 40px rgba(0, 0, 0, 0.4);
+    -moz-box-shadow: 0px 2px 40px rgba(0, 0, 0, 0.4);
+    box-shadow: 0px 2px 40px rgba(0, 0, 0, 0.4);
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    padding: 20px 40px 40px;
+    background: #fff;
+    z-index: 6;
+}
+
+
+
+.popup_button {
+    margin-left: 20px;
+    font-size: 16px;
+    padding: 6px 12px;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+
+    -webkit-box-shadow: inset 1px 0 0 rgba(255, 255, 255, 0.125), inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 3px rgba(0, 0, 0, 0.4);
+    -moz-box-shadow: inset 1px 0 0 rgba(255, 255, 255, 0.125), inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 3px rgba(0, 0, 0, 0.4);
+    box-shadow: inset 1px 0 0 rgba(255, 255, 255, 0.125), inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 3px rgba(0, 0, 0, 0.4);
+    background-color: #4D9CC9;
+    background-image: -ms-linear-gradient(top, #6FB7E0, #3E93C4);
+    background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#6FB7E0), to(#3E93C4));
+    background-image: -webkit-linear-gradient(top, #6FB7E0, #3E93C4);
+    background-image: -o-linear-gradient(top, #6FB7E0, #3E93C4);
+    background-image: -moz-linear-gradient(top, #6FB7E0, #3E93C4);
+    background-image: linear-gradient(top, #6FB7E0, #3E93C4);
+    border: 1px solid #CCC;
+    border-color: #6093CA #3F92B9 #2A628F;
+    color: white;
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.5);
+    cursor: pointer;
+}
+
+.popup_button:hover {
+    background-color: #0D77B4;
+    background-image: -ms-linear-gradient(top, #6EB8E4, #0D77B4);
+    background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#6EB8E4), to(#0D77B4));
+    background-image: -webkit-linear-gradient(top, #6EB8E4, #0D77B4);
+    background-image: -o-linear-gradient(top, #6EB8E4, #0D77B4);
+    background-image: -moz-linear-gradient(top, #6EB8E4, #0D77B4);
+    background-image: linear-gradient(top, #6EB8E4, #0D77B4);
+}
+
+.popup_box button.popup_button:first-child {
+    margin-left: 0;
+}
+
+.popup_box_message {
+    font-size: 1.6em;
+    color: #222;
+    margin-bottom: 30px;
+    width: 1200px;
+}
+
+.acc_popup_box_message {
+    width: 520px;
+}
+
+.popup_box_item_name {
+    font-weight: bold;
+}
+
+.popup_box_close {
+    height: 30px;
+    width: 30px;
+    background: url("../img/box_close.png") 0 0 no-repeat;
+    top: -32px;
+    left: -52px;
+    display: block;
+    position: relative;
+}
+/* ACCUMULATORS POPUP */
+

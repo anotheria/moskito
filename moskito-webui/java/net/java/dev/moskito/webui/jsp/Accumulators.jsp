@@ -8,11 +8,68 @@
 </head>
 <body>
 <script type="text/javascript" src="../js/wz_tooltip.js"></script>
-<script type="text/javascript" src="../js/jquery-1.4.min.js"></script>
+<script type="text/javascript" src="../js/jquery-1.8.0.min.js"></script>
 <script type="text/javascript" src="../js/function.js"></script>
 <script type="text/javascript" src="http://www.google.com/jsapi"></script>
 
 <jsp:include page="Menu.jsp" flush="false"/>
+
+<script type="text/javascript">
+    $(function() {
+        var $del = $('a.del');
+
+        $del.on('click', function(e) {
+            var $this = $(this),
+                currentRow = $this.parents('table.accumulators_table tr'),
+                currentAcc = currentRow.find($('.acc_name')).text();
+
+            var el = $('.popup_dialog'),
+                bg = $('.black_bg'),
+                close = $(".popup_box_close"),
+                accSpan  = $('.popup_box_item_name'),
+                confirm = $('.popup_box_confirm'),
+                cancel = $('.popup_box_cancel');
+
+            function popupDialog() {
+
+
+                el.show();
+
+                $('.popup_box').width($('.popup_box_message').width());
+
+                var wid = el.find('.popup_box').width(),
+                    box = el.find('.popup_box'),
+                    hig = el.find('.popup_box').height();
+
+                box.css('left', '50%');
+                box.css('margin-left', -wid / 2);
+                box.css('top', '50%');
+                box.css('margin-top', -hig / 2);
+                box.css('position', 'fixed');
+
+                accSpan.text(currentAcc)
+
+                bg.on('click', function() {
+                    el.hide();
+                });
+
+                close.on('click', function() {
+                    el.hide();
+                });
+
+                cancel.on('click', function() {
+                    el.hide();
+                });
+
+                return false
+            }
+
+            popupDialog($this);
+
+            e.preventDefault();
+        })
+    })
+</script>
 
 <ano:present name="data">
 <script type="text/javascript">
@@ -101,7 +158,7 @@
 				<div class="in">
 					<div class="scroller_x">
 					<form action="" method="GET">
-						<table cellpadding="0" cellspacing="0" width="100%">
+						<table class="accumulators_table" cellpadding="0" cellspacing="0" width="100%">
 							<thead>
 							<tr>
 								<th></th>
@@ -117,7 +174,7 @@
 							<ano:iterate name="accumulators" type="net.java.dev.moskito.webui.bean.AccumulatorInfoBean" id="accumulator" indexId="index">
 								<tr class="<%= ((index & 1) == 0 )? "even" : "odd" %>">
 									<td><input type="checkbox" name="id_<ano:write name="accumulator" property="id"/>" value="set" <ano:present name="<%=\"id_\"+accumulator.getId()+\"_set\"%>">checked="checked"</ano:present>/></td>
-									<td><a href="?id_<ano:write name="accumulator" property="id"/>=set"><ano:write name="accumulator" property="name"/></a></td>
+									<td><a class="acc_name" href="?id_<ano:write name="accumulator" property="id"/>=set"><ano:write name="accumulator" property="name"/></a></td>
 									<td><ano:write name="accumulator" property="path"/></td>
 									<td><ano:write name="accumulator" property="numberOfValues"/></td>
 									<td><ano:write name="accumulator" property="lastValueTimestamp"/></td>
@@ -127,7 +184,7 @@
 							</ano:iterate>
 								<tr>
 									<td colspan="5">
-										<input type="submit" value="Submit"/>
+										<input class="accumulators_submit_button" type="submit" value="Submit"/>
 										&nbsp;(Mode:&nbsp;
 											<input type="radio" name="mode" value="combined" <ano:present name="combined_set">checked="checked"</ano:present>/>&nbsp;combine
 											<input type="radio" name="mode" value="normalized" <ano:present name="normalized_set">checked="checked"</ano:present>/>&nbsp;combine and normalize
@@ -163,7 +220,19 @@
 
 	<jsp:include page="Footer.jsp" flush="false" />
 
-
+    <div class="popup_dialog" style="display:none;">
+    	<div class="black_bg"><!-- --></div>
+    	<div class="popup_box">
+   			<a class="popup_box_close"><!-- --></a>
+            <p class='popup_box_message acc_popup_box_message'>
+                Are you sure that you want to delete Accumulator <span class="popup_box_item_name"></span>
+            </p>
+            <div class="popup_button_wrapper">
+                <button class='popup_box_confirm popup_button'>Ok</button>
+                <button class='popup_box_cancel popup_button'>Cancel</button>
+            </div>
+    	</div>
+    </div>
 <ano:present name="data">
 <script type="text/javascript">
 	google.load("visualization", "1", {packages:["corechart"]});
