@@ -94,7 +94,6 @@ public class CreateThresholdAction extends BaseThresholdsAction {
 	}
 
 	private GuardedDirection string2direction(String param){
-		System.out.println("HELLO ."+param+".");
 		if (param.equalsIgnoreCase("below"))
 			return GuardedDirection.DOWN;
 		if (param.equalsIgnoreCase("above"))

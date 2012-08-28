@@ -214,6 +214,9 @@ public class ShowAccumulatorsAction extends BaseAccumulatorsAction {
 				req.setAttribute("singleGraphData", singleGraphDataBeans);
 			
 		}
+		if (getForward(req).equalsIgnoreCase("csv")){
+			res.setHeader("Content-Disposition", "attachment; filename=\"accumulators.csv\"");
+		}
 		return mapping.findCommand(getForward(req));
 	}
 	

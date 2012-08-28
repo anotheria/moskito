@@ -60,7 +60,10 @@ public class ShowAccumulatorAction extends BaseAccumulatorsAction {
 		}
 		
 		req.setAttribute("accumulatorData", singleGraphDataBean);
-	
+		if (getForward(req).equalsIgnoreCase("csv")){
+			res.setHeader("Content-Disposition", "attachment; filename=\""+accumulator.getName()+".csv\"");
+		}
+
 		return mapping.findCommand(getForward(req));
 	}
 	

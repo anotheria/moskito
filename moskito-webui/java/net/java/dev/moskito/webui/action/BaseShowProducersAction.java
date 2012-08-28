@@ -80,7 +80,11 @@ public abstract class BaseShowProducersAction extends BaseMoskitoUIAction{
 		doCustomProcessing(req, res);
 		
 		req.setAttribute("pageTitle", getPageTitle(req));
-		
+
+		if (getForward(req).equalsIgnoreCase("csv")){
+			res.setHeader("Content-Disposition", "attachment; filename=\"producers.csv\"");
+		}
+
 		return mapping.findCommand( getForward(req) );
 	}
 	
