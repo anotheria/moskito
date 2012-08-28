@@ -20,8 +20,10 @@
 
         $del.on('click', function(e) {
             var $this = $(this),
+                deleteLink = $this.attr('href'),
                 currentRow = $this.parents('table.accumulators_table tr'),
                 currentAcc = currentRow.find($('.acc_name')).text();
+            console.log(deleteLink)
 
             var el = $('.popup_dialog'),
                 bg = $('.black_bg'),
@@ -48,6 +50,10 @@
                 box.css('position', 'fixed');
 
                 accSpan.text(currentAcc)
+
+                confirm.on('click', function() {
+                    window.location = deleteLink;
+                })
 
                 bg.on('click', function() {
                     el.hide();
