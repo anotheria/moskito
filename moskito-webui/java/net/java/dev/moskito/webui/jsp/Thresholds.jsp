@@ -8,11 +8,78 @@
 </head>
 <body>
 <script type="text/javascript" src="../js/wz_tooltip.js"></script>
-<script type="text/javascript" src="../js/jquery-1.4.min.js"></script>
+<script type="text/javascript" src="../js/jquery-1.8.0.min.js"></script>
 <script type="text/javascript" src="../js/function.js"></script>
 <script type="text/javascript" src="http://www.google.com/jsapi"></script>
 
 <jsp:include page="Menu.jsp" flush="false"/>
+
+<script type="text/javascript">
+    $(function() {
+        function deleteAccumulator() {
+            var $del = $('a.del');
+
+            $del.on('click', function(e) {
+                var $this = $(this),
+                    deleteLink = $this.attr('href'),
+                    currentRow = $this.parents('table.thresholds_table tr'),
+                    currentAcc = currentRow.find($('.th_name')).text();
+                console.log(deleteLink);
+
+                var el = $('.popup_dialog'),
+                    bg = $('.black_bg'),
+                    close = $(".popup_box_close"),
+                    accSpan  = $('.popup_box_item_name'),
+                    confirm = $('.popup_box_confirm'),
+                    cancel = $('.popup_box_cancel');
+
+                function popupDialog() {
+
+
+                    el.show();
+
+                    $('.popup_box').width($('.popup_box_message').width());
+
+                    var wid = el.find('.popup_box').width(),
+                        box = el.find('.popup_box'),
+                        hig = el.find('.popup_box').height();
+
+                    box.css('left', '50%');
+                    box.css('margin-left', -wid / 2);
+                    box.css('top', '50%');
+                    box.css('margin-top', -hig / 2);
+                    box.css('position', 'fixed');
+
+                    accSpan.text(currentAcc);
+
+                    confirm.on('click', function() {
+                        window.location = deleteLink;
+                    });
+
+                    bg.on('click', function() {
+                        el.hide();
+                    });
+
+                    close.on('click', function() {
+                        el.hide();
+                    });
+
+                    cancel.on('click', function() {
+                        el.hide();
+                    });
+
+                    return false
+                }
+
+                popupDialog($this);
+
+                e.preventDefault();
+            })
+        }
+
+        deleteAccumulator();
+    })
+</script>
 
 <div class="main">
 	<div class="clear"><!-- --></div>
@@ -85,7 +152,7 @@
 				</div>
 				<div class="in">
 					<div class="scroller_x">
-					<table cellpadding="0" cellspacing="0" width="100%">
+					<table class="thresholds_table" cellpadding="0" cellspacing="0" width="100%">
 						<thead>
 						<tr>
 							<th>Name</th>
@@ -101,7 +168,7 @@
 
 						<ano:iterate name="thresholds" type="net.java.dev.moskito.webui.bean.ThresholdBean" id="threshold" indexId="index">
 							<tr class="<%= ((index & 1) == 0 )? "even" : "odd" %>">
-								<td><a href="#" onclick="openOverlay(info<ano:write name="threshold" property="id"/>); return false"><ano:write name="threshold" property="name"/></a></td>
+								<td><a class="th_name" href="#" onclick="openOverlay(info<ano:write name="threshold" property="id"/>); return false"><ano:write name="threshold" property="name"/></a></td>
 								<td><img src="<ano:write name="mskPathToImages" scope="application"/>ind_<ano:write name="threshold" property="colorCode"/>.<ano:equal name="threshold" property="colorCode" value="purple">gif</ano:equal><ano:notEqual name="threshold" property="colorCode" value="purple">png</ano:notEqual>" alt="<ano:write name="threshold" property="status"/>"/></td>
 								<td><ano:write name="threshold" property="value"/></td>
 								<td><ano:write name="threshold" property="change"/></td>
@@ -182,6 +249,19 @@
 			<div><!-- --></div>
 		</div>
 	<jsp:include page="Footer.jsp" flush="false" />
+    <div class="popup_dialog" style="display:none;">
+        <div class="black_bg"><!-- --></div>
+        <div class="popup_box">
+            <a class="popup_box_close"><!-- --></a>
+            <p class='popup_box_message acc_popup_box_message'>
+                Are you sure that you want to delete Threshold <span class="popup_box_item_name"></span>
+            </p>
+            <div class="popup_button_wrapper">
+                <button class='popup_box_confirm popup_button'>Ok</button>
+                <button class='popup_box_cancel popup_button'>Cancel</button>
+            </div>
+        </div>
+    </div>
 	</div>
 </body>
 <div class="lightbox" style="display:none;">

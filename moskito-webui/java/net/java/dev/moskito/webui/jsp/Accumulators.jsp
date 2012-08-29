@@ -16,64 +16,103 @@
 
 <script type="text/javascript">
     $(function() {
-        var $del = $('a.del');
+        function deleteAccumulator() {
+            var $del = $('a.del');
 
-        $del.on('click', function(e) {
-            var $this = $(this),
-                deleteLink = $this.attr('href'),
-                currentRow = $this.parents('table.accumulators_table tr'),
-                currentAcc = currentRow.find($('.acc_name')).text();
-            console.log(deleteLink)
+            $del.on('click', function(e) {
+                var $this = $(this),
+                    deleteLink = $this.attr('href'),
+                    currentRow = $this.parents('table.accumulators_table tr'),
+                    currentAcc = currentRow.find($('.acc_name')).text();
+                console.log(deleteLink);
 
-            var el = $('.popup_dialog'),
-                bg = $('.black_bg'),
-                close = $(".popup_box_close"),
-                accSpan  = $('.popup_box_item_name'),
-                confirm = $('.popup_box_confirm'),
-                cancel = $('.popup_box_cancel');
+                var el = $('.popup_dialog'),
+                    bg = $('.black_bg'),
+                    close = $(".popup_box_close"),
+                    accSpan  = $('.popup_box_item_name'),
+                    confirm = $('.popup_box_confirm'),
+                    cancel = $('.popup_box_cancel');
 
-            function popupDialog() {
+                function popupDialog() {
 
 
-                el.show();
+                    el.show();
 
-                $('.popup_box').width($('.popup_box_message').width());
+                    $('.popup_box').width($('.popup_box_message').width());
 
-                var wid = el.find('.popup_box').width(),
-                    box = el.find('.popup_box'),
-                    hig = el.find('.popup_box').height();
+                    var wid = el.find('.popup_box').width(),
+                        box = el.find('.popup_box'),
+                        hig = el.find('.popup_box').height();
 
-                box.css('left', '50%');
-                box.css('margin-left', -wid / 2);
-                box.css('top', '50%');
-                box.css('margin-top', -hig / 2);
-                box.css('position', 'fixed');
+                    box.css('left', '50%');
+                    box.css('margin-left', -wid / 2);
+                    box.css('top', '50%');
+                    box.css('margin-top', -hig / 2);
+                    box.css('position', 'fixed');
 
-                accSpan.text(currentAcc)
+                    accSpan.text(currentAcc);
 
-                confirm.on('click', function() {
-                    window.location = deleteLink;
-                })
+                    confirm.on('click', function() {
+                        window.location = deleteLink;
+                    });
 
-                bg.on('click', function() {
-                    el.hide();
-                });
+                    bg.on('click', function() {
+                        el.hide();
+                    });
 
-                close.on('click', function() {
-                    el.hide();
-                });
+                    close.on('click', function() {
+                        el.hide();
+                    });
 
-                cancel.on('click', function() {
-                    el.hide();
-                });
+                    cancel.on('click', function() {
+                        el.hide();
+                    });
 
+                    return false
+                }
+
+                popupDialog($this);
+
+                e.preventDefault();
+            })
+        }
+
+        function manageAutoreload() {
+            var $toggleButton = $('.autoreload_toggle_button'),
+                $settingsBox = $('.autoreload_settings'),
+                $triangle = $('.autoreload_toggle_triangle');
+
+            $toggleButton.on('click', function() {
+                $triangle.toggleClass('autoreload_toggle_triangle_right');
+                $settingsBox.slideToggle();
+            });
+
+            var $form = $('form.autoreload_settings'),
+                $setButton = $('.autoreload_set_button'),
+                $label = $('form.autoreload_settings label');
+
+            $setButton.on('click', function() {
+               var n = $('.autoreload_minutes_settings_input').val();
+
+                if(!isNaN(parseInt(n,10)) && isFinite(n) && (n > 0)){
+                    console.log('miu');
+                    document.autoreloadIntervalForm.submit();
+                }else{
+                    console.log('fuckz');
+                    $label.text('*Type number from 1 to 9999 to set intermal in minutes');
+                    $label.css({
+                        'background':'#F7D9D9',
+                        'display':'block',
+                        'padding':'4px 6px',
+                        'border-radius':'3px'
+                    });
+                }
                 return false
-            }
+            });
+        }
 
-            popupDialog($this);
-
-            e.preventDefault();
-        })
+        deleteAccumulator();
+        manageAutoreload();
     })
 </script>
 
@@ -154,6 +193,18 @@
 		</div>
 		<div class="in">
 			<h2><span>Accumulators</span></h2>
+            <div class="autoreload_wrapper">
+                <div class="autoreload_toggle_button">
+                    <div class="autoreload_toggle_triangle"></div>
+                    Autoreload
+                </div>
+                <form name="autoreloadIntervalForm" action="" class="autoreload_settings">
+                    <div class="autoreload_current_interval">Current interval:<b>5</b></div>
+                    <label>Set minutes reload interval:</label>
+                    <input class="autoreload_minutes_settings_input" type="text" placeholder="e.g.: 10">
+                    <button class="autoreload_set_button">Set</button>
+                </form>
+            </div>
 
 			<div class="clear"><!-- --></div>
 			<div class="table_itseft">
