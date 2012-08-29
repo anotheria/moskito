@@ -1,4 +1,4 @@
-package net.java.dev.moskitodemo.threshold.presentation.listener;
+package net.java.dev.moskitodemo.accumulator.listener;
 
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
