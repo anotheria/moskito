@@ -12,13 +12,11 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  * This action creates a new accumulator.
- *
  * @author lrosenberg
- * @created 26.08.12 00:27
  */
 public class CreateAccumulatorAction extends BaseAccumulatorsAction{
 	@Override
-	public ActionCommand execute(ActionMapping mapping, FormBean formBean, HttpServletRequest req, HttpServletResponse res) throws Exception {
+	public ActionCommand execute(ActionMapping mapping, FormBean formBean, HttpServletRequest req, HttpServletResponse res) {
 		String producerId = req.getParameter(PARAM_PRODUCER_ID);
 		String valueName = req.getParameter(PARAM_VALUE_NAME);
 		String statName = req.getParameter(PARAM_STAT_NAME);
@@ -33,7 +31,6 @@ public class CreateAccumulatorAction extends BaseAccumulatorsAction{
 		ad.setValueName(valueName);
 		ad.setIntervalName(intervalName);
 		ad.setTimeUnit(TimeUnit.fromString(unitName));
-		System.out.println(ad);
 		AccumulatorRepository.getInstance().createAccumulator(ad);
 
 		return mapping.redirect();
