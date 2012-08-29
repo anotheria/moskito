@@ -187,8 +187,8 @@
     </listener>
     <listener>
 		<listener-class>
-			net.java.dev.moskitodemo.threshold.presentation.listener.SetupAccumulators
-		</listener-class>
+            net.java.dev.moskitodemo.accumulator.listener.SetupAccumulators
+        </listener-class>
     </listener>
     <listener>
 		<listener-class>
