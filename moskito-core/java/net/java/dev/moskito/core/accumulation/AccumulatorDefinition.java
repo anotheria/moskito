@@ -4,7 +4,7 @@ import net.java.dev.moskito.core.helper.TieableDefinition;
 
 /**
  * The definition of an Accumulator.
- * @author another
+ * @author lrosenberg.
  *
  */
 public class AccumulatorDefinition extends TieableDefinition{
