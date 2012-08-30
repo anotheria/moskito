@@ -1,12 +1,5 @@
 package net.java.dev.moskito.core.helper;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.ConcurrentMap;
-import java.util.concurrent.CopyOnWriteArrayList;
-
-import net.java.dev.moskito.core.accumulation.Accumulator;
 import net.java.dev.moskito.core.producers.IStatsProducer;
 import net.java.dev.moskito.core.registry.IProducerRegistry;
 import net.java.dev.moskito.core.registry.IProducerRegistryListener;
@@ -14,8 +7,13 @@ import net.java.dev.moskito.core.registry.ProducerRegistryFactory;
 import net.java.dev.moskito.core.stats.impl.IntervalRegistry;
 import net.java.dev.moskito.core.timing.IUpdateable;
 import net.java.dev.moskito.core.timing.UpdateTriggerServiceFactory;
-
 import org.apache.log4j.Logger;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentMap;
+import java.util.concurrent.CopyOnWriteArrayList;
 /**
  * Basic class for repository that manages tieable objects.
  * @author lrosenberg
