@@ -532,6 +532,7 @@ h2 a.hidden {background:url("<ano:write name="mskPathToImages" scope="applicatio
 .autoreload_settings label {
     color: #252525;
     font-size: 11px;
+    padding: 0 6px;
 }
 
 .autoreload_minutes_settings_input {
@@ -635,3 +636,9 @@ h2 a.hidden {background:url("<ano:write name="mskPathToImages" scope="applicatio
     border-radius: 3px;
 }
 /* /ACCUMULATORS SET INTERVAL */
+
+/* COMMON STYLES */
+.linkToCurrentPage {
+    display: none;
+}
+/* /COMMON STYLES */

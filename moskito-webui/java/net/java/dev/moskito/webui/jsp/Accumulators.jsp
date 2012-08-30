@@ -90,26 +90,20 @@
             var $form = $('form.autoreload_settings'),
                 $setButton = $('.autoreload_set_button'),
                 $label = $('form.autoreload_settings label'),
-                currentUrl = window.location.toString(),
-                questionSignIndex = currentUrl.indexOf('?') + 1,
-                cuttedCurrentUrl = currentUrl.substring(0,questionSignIndex);
+                linkToCurrentPage = $('.linkToCurrentPage').text();
+
 
             $setButton.on('click', function() {
-               var n = $('.autoreload_minutes_settings_input').val(),
-                       newUrl = cuttedCurrentUrl+'reloadIinterval='+n+'#';
+
+                var n = $('.autoreload_minutes_settings_input').val(),
+                       newUrl = linkToCurrentPage+'&reloadIinterval='+n;
 
                 if(!isNaN(parseInt(n,10)) && isFinite(n) && (n > 0)){
-                    console.log('miu');
-/*                    $label.text('*Type number from 1 to 9999 to set intermal in minutes');
-                    $label.css({
-                        'background':'transparent',
-                        'padding':'0',
-                        'border-radius':'0'
-                    });*/
+                    console.log(newUrl);
                     window.location = newUrl;
                 }else{
                     console.log('fuckz');
-                    $label.text('\u002AType number from 1 to 9999 to set intermal in minutes');
+                    $label.text('\u002AType number from 1 to 9999 to set intermal in minutes:');
                     $label.css({
                         'background':'#F7D9D9',
                         'display':'block',
@@ -300,6 +294,7 @@
             </div>
     	</div>
     </div>
+    <div class="linkToCurrentPage"><ano:write name="linkToCurrentPage"/></div>
 <ano:present name="data">
 <script type="text/javascript">
 	google.load("visualization", "1", {packages:["corechart"]});
