@@ -35,12 +35,11 @@
 package net.java.dev.moskito.core.stats.impl;
 
 import net.java.dev.moskito.core.stats.Interval;
-import net.java.dev.moskito.core.stats.ValueHolder;
 
 /**
  * This class is a special version of long holder, that does not reset on interval update.
  * @author lrosenberg
- * @see ValueHolder
+ * @see net.java.dev.moskito.core.stats.ValueHolder
  */
 class CounterValueHolder extends LongValueHolder {
 

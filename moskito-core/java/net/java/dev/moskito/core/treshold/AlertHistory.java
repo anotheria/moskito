@@ -11,7 +11,7 @@ import org.apache.log4j.Logger;
 
 /**
  * This class contains all generated alerts at runtime. This class is an one-value-enum-singleton described by J. Bloch.
- * @author another
+ * @author lrosenberg
  *
  */
 public enum AlertHistory {
@@ -64,7 +64,10 @@ public enum AlertHistory {
 		Collections.reverse(ret);
 		return ret;
 	}
-	
+
+	/**
+	 * Configuration helper object for alert history.
+	 */
 	private static class AlertHistoryConfig{
 		/**
 		 * Returns the max number of items in the list.

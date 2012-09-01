@@ -14,14 +14,35 @@ import net.java.dev.moskito.core.stats.impl.StatValueFactory;
 
 public class QueuingSystemStats extends AbstractStats{
 
+	/**
+	 * Stat definition enum.
+	 */
 	static enum StatDef{
 		
 		SERVERS_SIZE("SS"),
+		/**
+		 * Size of the queue.
+		 */
 		QUEUE_SIZE("QS"),
+		/**
+		 * Number of arrived elements,
+		 */
 		ARRIVED("Arr"),
+		/**
+		 * Number of served elements.
+		 */
 		SERVICED("Serv"),
+		/**
+		 * Number of errors.
+		 */
 		ERRORS("Err"),
+		/**
+		 * Number of waiting times.
+		 */
 		WAITED("Wait"),
+		/**
+		 * Number of thrown away elements.
+		 */
 		THROWN_AWAY("Thr"),
 		WAITING_TIME("WT"),
 		WAITING_TIME_MIN("WTm"),
@@ -32,6 +53,9 @@ public class QueuingSystemStats extends AbstractStats{
 		SERVICE_TIME_MAX("STM"),
 		SERVICE_TIME_AVG("STA");
 
+		/**
+		 * Name of the stat object.
+		 */
 		private String statName;
 
 		private StatDef(String aStatName){

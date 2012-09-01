@@ -35,13 +35,12 @@
 package net.java.dev.moskito.core.stats.impl;
 
 import net.java.dev.moskito.core.stats.Interval;
-import net.java.dev.moskito.core.stats.ValueHolder;
 
 /**
  * This class implements a ValueHolder that is able to process int values.
  * 
  * @author lrosenberg
- * @see ValueHolder
+ * @see net.java.dev.moskito.core.stats.ValueHolder
  */
 class StringValueHolder extends AbstractValueHolder {
 

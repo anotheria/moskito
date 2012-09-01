@@ -17,14 +17,34 @@ import net.java.dev.moskito.core.stats.impl.StatValueFactory;
  * @author dmetelin
  */
 public class QueueStats extends AbstractStats{
-	
+
+	/**
+	 * The definition enum.
+	 */
 	public static enum StatDef{
-		
+		/**
+		 * Requests to the queue.
+ 		 */
 		REQUESTS("Req"),
+		/**
+		 * Number of enqueued items.
+		 */
 		ENQUEUED("Enq"),
+		/**
+		 * Number of dequeued items.
+		 */
 		DEQUEUED("Deq"),
+		/**
+		 * Number of queue full status.
+		 */
 		FULL("Full"),
+		/**
+		 * Number of empty queue accesses.
+		 */
 		EMPTY("Empty"),
+		/**
+		 * The total size of the queue.
+		 */
 		TOTAL_SIZE("TS"),
 		ENQUEUE_LAST_SIZE("ELast"),
 		ENQUEUE_MIN_SIZE("EMin"),
@@ -40,6 +60,9 @@ public class QueueStats extends AbstractStats{
 //		MAX_SIZE("EMax"),
 //		AVERAGE_SIZE("EAvg");
 
+		/**
+		 * Name of the stat.
+		 */
 		private String statName;
 
 		private StatDef(String aStatName){
@@ -83,11 +106,26 @@ public class QueueStats extends AbstractStats{
 	 * Number of dequeued elements.
 	 */
 	private StatValue dequeued;
+	/**
+	 * Number of empty elements.
+	 */
 	private StatValue empty;
+	/**
+	 * The total queue size.
+	 */
 	private StatValue totalSize;
+	/**
+	 * The last queue size.
+	 */
 	private StatValue lastSize;
 	private StatValue sumOfSizes;
+	/**
+	 * The max queue size.
+	 */
 	private StatValue maxSize;
+	/**
+	 * The min queue size.
+	 */
 	private StatValue minSize;
 
 	

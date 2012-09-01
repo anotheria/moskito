@@ -33,11 +33,20 @@ public class BuiltInOSProducer extends AbstractBuiltInProducer implements IStats
 	 * The monitored pool.
 	 */
 	private OperatingSystemMXBean mxBean;
-	//private static final String clazzname = "com.sun.management.UnixOperatingSystem";
+
+	/**
+	 * Name of the mxbean class.
+	 */
 	private static final String clazzname = "com.sun.management.UnixOperatingSystemMXBean";
-	
+
+	/**
+	 * Resolved class of the mx bean.
+	 */
 	private Class<?> clazz;
-	
+
+	/**
+	 * Logger.
+	 */
 	private static Logger log = Logger.getLogger(BuiltInOSProducer.class);
 	
 	/**

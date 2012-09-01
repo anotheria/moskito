@@ -7,8 +7,16 @@ import java.util.List;
 import net.java.dev.moskito.core.producers.AbstractStats;
 import net.java.dev.moskito.core.stats.TimeUnit;
 
+/**
+ * Base class for memory pool stats.
+ * @author lrosenberg
+ */
 public abstract class AbstractMemoryPoolStats extends AbstractStats implements IMemoryPoolStats{
-	
+
+	/**
+	 * Creates a new AbstractMemoryPoolStats object.
+	 * @param name
+	 */
 	protected AbstractMemoryPoolStats(String name){
 		super(name);
 	}

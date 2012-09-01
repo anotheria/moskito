@@ -1,5 +1,9 @@
 package net.java.dev.moskito.core.producers;
 
+/**
+ * Adapter for CallExecution interface with some default behaviour.
+ * @author lrosenberg
+ */
 public abstract class AbstractCallExecution implements CallExecution{
 
 	@Override
