@@ -40,18 +40,18 @@ import net.java.dev.moskitodemo.guestbook.business.data.Comment;
 import net.java.dev.moskitodemo.guestbook.business.data.CommentSortType;
 
 public interface ICommentService {
-	public Comment createComment() throws CommentServiceException;
+	Comment createComment() throws CommentServiceException;
 	
-	public List<Comment> getComments() throws CommentServiceException;
+	List<Comment> getComments() throws CommentServiceException;
 	
-	public Comment getComment(int id) throws CommentServiceException;
+	Comment getComment(int id) throws CommentServiceException;
 	
-	public void updateComment(Comment c) throws CommentServiceException;
+	void updateComment(Comment c) throws CommentServiceException;
 	
-	public void deleteComment(int id) throws CommentServiceException;
+	void deleteComment(int id) throws CommentServiceException;
 	
-	public void deleteComments(List<Integer> idsToDelete) throws CommentServiceException;
+	void deleteComments(List<Integer> idsToDelete) throws CommentServiceException;
 	
-	public List<Comment> getCommentsSorted(CommentSortType sortType) throws CommentServiceException;
+	List<Comment> getCommentsSorted(CommentSortType sortType) throws CommentServiceException;
 
 }
