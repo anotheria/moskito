@@ -1,19 +1,15 @@
 <%@ page language="java" contentType="text/html;charset=iso-8859-15" session="true"
-%><%@ taglib uri="/WEB-INF/tld/struts-bean.tld" prefix="bean" 
-%><%@ taglib uri="/WEB-INF/tld/struts-logic.tld" prefix="logic" 
-%><%@ taglib uri="/WEB-INF/tld/struts-html.tld" prefix="html" 
+%><%@ taglib uri="http://www.anotheria.net/ano-tags" prefix="ano"
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html:xhtml/>
-<html:html>
+<html>
 <head>
 
 	<title>Moskito Guestbook Overview</title>
 	<jsp:include page="Pragmas.jsp"/>
 	<link type="text/css" rel="stylesheet" rev="stylesheet" href="/moskitodemo/css/common.css"/>
-	<bean:message key="styles.gb.link"/>
-		<%--<link type="text/css" rel="stylesheet" rev="stylesheet" href="/moskitodemo/css/gb.css"/>--%>
+	<link type="text/css" rel="stylesheet" rev="stylesheet" href="/moskitodemo/css/gb.css"/>
 	<script type="text/javascript" src="/moskitodemo/js/jquery-1.4.min.js"></script>
 	<script type="text/javascript" src="/moskitodemo/js/guestbookController.js"></script>
 </head>
@@ -59,16 +55,16 @@
 
 								<ul>
 									<li>
-										<div>Date:</div><span><bean:write name="comment" property="date"/>&nbsp;(Central European Time)</span>
+										<div>Date:</div><span><ano:write name="comment" property="date"/>&nbsp;(Central European Time)</span>
 									</li>
 									<li>
-										<div>Author:</div><span><bean:write name="comment" property="firstName"/>&nbsp;<bean:write name="comment" property="lastName"/></span>
+										<div>Author:</div><span><ano:write name="comment" property="firstName"/>&nbsp;<ano:write name="comment" property="lastName"/></span>
 									</li>
 									<li>
-										<div>Email:</div><span><bean:write name="comment" property="email"/></span>
+										<div>Email:</div><span><ano:write name="comment" property="email"/></span>
 									</li>
 									<li>
-										<div>Message:</div><span><bean:write name="comment" property="text"/></span>
+										<div>Message:</div><span><ano:write name="comment" property="text"/></span>
 									</li>
 								</ul>
 
@@ -95,57 +91,7 @@
 		<div class="empty"><!-- --></div>
 	</div>
 </div>
-	<%--<div class="footer">--%>
-	<%--<div class="fll">--%>
-	<%--<ul>--%>
-	<%--<li><a href="#">Home</a>&nbsp;&nbsp;|&nbsp;&nbsp;</li>--%>
-	<%--<li><a href="#">Demo</a>&nbsp;&nbsp;|&nbsp;&nbsp;</li>--%>
-	<%--<li><a href="#">Docs</a>&nbsp;&nbsp;|&nbsp;&nbsp;</li>--%>
-	<%--<li><a href="#">Download</a></li>--%>
-	<%--</ul>--%>
-	<%--<span>Copyright &copy; 2006-2010 MoSKito</span>--%>
-	<%--</div>--%>
-	<%--<div class="flr">--%>
-	<%--<a href="#"><img src="images/powered.png" alt="Powered by Anotheria.net"/></a>--%>
-	<%--</div>--%>
-
-	<%--</div>--%>
 <jsp:include page="Footer.jsp" flush="true"/>
 
 </body>
-
-
-<%--<body>--%>
-<%--<table width="100%" cellpadding="3" cellspacing="0" border="0">--%>
-  <%--<tr class="lineCaptions">--%>
-  	<%--<td align="right" width="35%">&nbsp;</td>--%>
-  	<%--<td align="left" width="65%"><strong>Read comment:</strong></td>--%>
-  <%--</tr>--%>
-  <%--<tr class="lineLight">--%>
-  	<%--<td align="right" width="35%">Date:&nbsp;</td>--%>
-  	<%--<td align="left" width="65%"><bean:write name="comment" property="date"/>&nbsp;<i>(Central European Time)</td>--%>
-  <%--</tr>--%>
-  <%--<tr class="lineDark">--%>
-  	<%--<td align="right" width="35%">Author:&nbsp;</td>--%>
-  	<%--<td align="left" width="65%"></td>--%>
-  <%--</tr>--%>
-  <%--<tr class="lineLight">--%>
-  	<%--<td align="right" width="35%">Email:&nbsp;</td>--%>
-  	<%--<td align="left" width="65%">&nbsp;</td>--%>
-  <%--</tr>--%>
-  <%--<tr class="lineDark">--%>
-  	<%--<td align="right" width="35%">Text:&nbsp;</td>--%>
-  	<%--<td align="left" width="65%"><pre><bean:write name="comment" property="text"/></pre>--%>
-  	<%--</td>--%>
-  <%--</tr>--%>
-  <%--<tr class="lineLight">--%>
-  	<%--<td align="right" width="35%">&nbsp;</td>--%>
-  	<%--<td align="left" width="65%">&nbsp;</td>--%>
-  <%--</tr>--%>
-  <%--<tr class="lineDark">--%>
-  	<%--<td align="right" width="35%">&nbsp;</td>--%>
-  	<%--<td align="left" width="65%"><a href="gbookShowComments">Back</a></td>--%>
-  <%--</tr>--%>
-<%--</table>--%>
-<%--<jsp:include page="Footer.jsp" flush="true"/>--%>
-</html:html>
+</html>
