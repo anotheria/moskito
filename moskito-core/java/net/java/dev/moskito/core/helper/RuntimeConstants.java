@@ -1,6 +1,12 @@
 package net.java.dev.moskito.core.helper;
 
+/**
+ * Constants used at runtime.
+ */
 public class RuntimeConstants {
+	/**
+	 * Name of the application we are running in.
+	 */
 	private static String applicationName = "";
 	
 	public static final String getApplicationName(){

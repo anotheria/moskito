@@ -47,6 +47,11 @@ public abstract class AbstractTieable<D extends TieableDefinition> implements Ti
 	public Object getTargetStatName() {
 		return getDefinition().getStatName();
 	}
+
+	/**
+	 * Returns the id of the tieable.
+	 * @return
+	 */
 	public String getId(){
 		return id;
 	}

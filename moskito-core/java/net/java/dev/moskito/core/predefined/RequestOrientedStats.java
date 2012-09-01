@@ -109,7 +109,10 @@ public abstract class RequestOrientedStats extends AbstractStats {
 	 * Max request time
 	 */
 	private StatValue maxTime;
-	
+
+	/**
+	 * Value names for values collected by this stat.
+	 */
 	private static final List<String> VALUE_NAMES = Collections.unmodifiableList(Arrays.asList(
 			"TR",
 			"TT",
@@ -406,7 +409,13 @@ public abstract class RequestOrientedStats extends AbstractStats {
 		 * Starttime of the execution.
 		 */
 		private long startTime;
+		/**
+		 * Current trace step for journeys.
+		 */
 		private TraceStep currentStep = null;
+		/**
+		 * Currently traced call if present.
+		 */
 		private CurrentlyTracedCall currentlyTracedCall = null;
 		
 		@Override
