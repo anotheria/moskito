@@ -9,7 +9,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>net.anotheria</groupId>
   <artifactId>moskito-parent</artifactId>
-  <version>1.5.1</version>
+  <version>1.5.2-SNAPSHOT</version>
   <name>MoSKito</name>
   <description>MoSKito, MoSKito, MoSKito and moskito</description>
   <packaging>pom</packaging>
@@ -28,9 +28,9 @@
 		<module>moskito-integration</module>
     </modules>
 	<scm>
-		<url>svn:svn://svn.anotheria.net/opensource/moskito/tags/moskito-parent-1.5.1</url>
-		<connection>scm:svn:svn://svn.anotheria.net/opensource/moskito/tags/moskito-parent-1.5.1</connection>
-		<developerConnection>scm:svn:svn://svn.anotheria.net/opensource/moskito/tags/moskito-parent-1.5.1</developerConnection>
+		<url>svn:svn://svn.anotheria.net/opensource/moskito/trunk</url>
+		<connection>scm:svn:svn://svn.anotheria.net/opensource/moskito/trunk</connection>
+		<developerConnection>scm:svn:svn://svn.anotheria.net/opensource/moskito/trunk</developerConnection>
 	</scm>
 
 </project>
