@@ -3,12 +3,12 @@
 	<parent>
 		<groupId>net.anotheria</groupId>
 		<artifactId>moskito-parent</artifactId>
-		<version>1.5.1-SNAPSHOT</version>
+		<version>1.5.1</version>
 	</parent>
 
 	<modelVersion>4.0.0</modelVersion>
 	<artifactId>moskito-webcontrol</artifactId>
-	<version>1.5.1-SNAPSHOT</version>
+	<version>1.5.1</version>
 	<name>moskito monitoring application for different webui instances</name>
 	<packaging>war</packaging>
 	<build>
