@@ -16,8 +16,14 @@ import net.java.dev.moskito.core.producers.IStats;
 import net.java.dev.moskito.core.producers.IStatsProducer;
 import net.java.dev.moskito.core.util.BuiltInProducer;
 
+/**
+ * This listener registers every new producer as jmx bean.
+ */
 public class JMXBridgeListener implements IProducerRegistryListener{
 
+	/**
+	 * Logger.
+	 */
 	private static Logger log = Logger.getLogger(JMXBridgeListener.class);
 	
 	@Override
@@ -60,6 +66,13 @@ public class JMXBridgeListener implements IProducerRegistryListener{
 		}
 	}
 
+	/**
+	 * Creates JMX name for a producer.
+	 * @param producerId
+	 * @param statName
+	 * @return
+	 * @throws MalformedObjectNameException
+	 */
 	private ObjectName createName(String producerId, String statName) throws MalformedObjectNameException{
 		String appName = RuntimeConstants.getApplicationName();
 		String objectName = "moskito."+(appName.length()>0 ? appName+".":"")+"producers.:type="+producerId+"."+statName;

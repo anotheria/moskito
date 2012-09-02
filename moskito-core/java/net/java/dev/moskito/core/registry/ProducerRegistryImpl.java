@@ -129,7 +129,10 @@ public class ProducerRegistryImpl implements IProducerRegistry{
 			listener.notifyProducerUnregistered(producer);
 		}
 	}
-	
+
+	/**
+	 * Resets the impl for unittests.
+	 */
 	void reset() {
 		cleanup(); // cleaning up all context before reseting producer registry instance
 

@@ -8,6 +8,9 @@ import net.java.dev.moskito.core.producers.IStatsProducer;
  *
  */
 public class ProducerReference {
+	/**
+	 * Link to the producer. TODO in the future it should/could be a WeakReference.
+	 */
 	private final IStatsProducer target;
 	
 	public ProducerReference(IStatsProducer aProducer){

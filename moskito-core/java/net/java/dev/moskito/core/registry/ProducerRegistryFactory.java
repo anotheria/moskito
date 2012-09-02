@@ -50,7 +50,10 @@ public class ProducerRegistryFactory {
 	static{
 		init();
 	}
-	
+
+	/**
+	 * Initializes the registry. If we are not in junit mode, start built-in producers.
+	 */
 	private static void init(){
 		String junittest = System.getProperty("JUNITTEST");
 		if (junittest!=null && (junittest.equalsIgnoreCase("true")))
