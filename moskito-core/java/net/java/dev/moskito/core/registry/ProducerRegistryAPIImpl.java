@@ -212,7 +212,10 @@ public class ProducerRegistryAPIImpl implements IProducerRegistryAPI, IProducerR
 			buildProducerCacheFromScratch();
 
 		synchronized(cacheLock){
-			return _cachedProducerMap.get(producerId).get();
+			ProducerReference ref = _cachedProducerMap.get(producerId);
+			if (ref==null)
+				throw new NoSuchProducerException(producerId);
+			return ref.get();
 		}
 	}
 
