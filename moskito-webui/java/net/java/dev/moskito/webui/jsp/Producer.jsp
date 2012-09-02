@@ -45,6 +45,7 @@
                         flagUp = true;
 
                         if (active_cell){
+                            alert("A pressed");
                             console.log(active_cell.text());
                             e.preventDefault();
                         }

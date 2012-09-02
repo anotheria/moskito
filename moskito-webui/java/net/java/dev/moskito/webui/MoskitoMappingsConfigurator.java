@@ -209,7 +209,9 @@ public class MoskitoMappingsConfigurator implements ActionMappingsConfigurator{
 				new ActionForward("success", "/net/java/dev/moskito/webui/jsp/ThreadsHistory.jsp"));
 		mappings.addMapping("mskThreadsHistoryOn", net.java.dev.moskito.webui.action.threads.HistoryOnAction.class, 
 				new ActionForward("success", "/net/java/dev/moskito/webui/jsp/ThreadsHistory.jsp"));
-		
+
+		//errors
+		mappings.setOnError(new ActionForward("error", "/net/java/dev/moskito/webui/jsp/Error.jsp"));
 		
 	}
 
