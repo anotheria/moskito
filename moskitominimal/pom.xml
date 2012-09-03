@@ -1,0 +1,99 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+    <parent>
+        <groupId>net.anotheria</groupId>
+		<artifactId>moskito-parent</artifactId>
+		<version>1.5.2-SNAPSHOT</version>
+    </parent>
+
+    <modelVersion>4.0.0</modelVersion>
+    <artifactId>moskitominimal</artifactId>
+  	<version>1.5.2-SNAPSHOT</version>
+    <name>moskito minimal webapp</name>
+    <packaging>war</packaging>
+    <properties>
+        <moskito-webui-version>${project.version}</moskito-webui-version>
+    </properties>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <configuration>
+                    <artifactItems>
+                        <artifactItem>
+                            <groupId>net.anotheria</groupId>
+                            <artifactId>moskito-webui</artifactId>
+                            <version>${moskito-webui-version}</version>
+                            <type>jar</type>
+                            <overWrite>true</overWrite>
+                            <outputDirectory>${project.build.directory}/tmp</outputDirectory>
+                            <includes>img/*,js/*.js,**/*.jsp,css/*.css</includes>
+                        </artifactItem>
+                    </artifactItems>
+                </configuration>
+                <executions>
+                    <execution>
+                        <phase>compile</phase>
+                        <goals>
+                            <goal>unpack</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <artifactId>maven-war-plugin</artifactId>
+                <version>2.1</version>
+                <configuration>
+                    <webXml>etc/web.xml</webXml>
+                    <warName>moskito</warName>
+                    <webResources>
+                        <resource>
+                            <!-- this is relative to the pom.xml directory -->
+                            <directory>html</directory>
+                        </resource>
+                        <resource>
+                             
+                            <!-- this is relative to the pom.xml directory -->
+                            <directory>java</directory>
+                            <includes>
+                                <include>**/*.jsp</include>
+                            </includes>
+
+                        </resource>
+                        <resource>
+                            <directory>${project.build.directory}/tmp</directory>
+                        </resource>
+                        <resource>
+                            <!-- this is relative to the pom.xml directory -->
+                            <directory>etc/</directory>
+                            <includes>
+                                <include>**/*.tld</include>
+                            </includes>
+                            <targetPath>WEB-INF/</targetPath>
+                        </resource>
+                    </webResources>
+                </configuration>
+            </plugin>
+
+        </plugins>
+    </build>
+
+    <dependencies>
+        <dependency>
+            <groupId>net.anotheria</groupId>
+            <artifactId>moskito-core</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>net.anotheria</groupId>
+            <artifactId>moskito-webui</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>servlet-api</artifactId>
+        </dependency>
+    </dependencies>
+</project>

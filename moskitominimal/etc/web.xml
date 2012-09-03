@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE web-app
+    PUBLIC "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
+    "http://java.sun.com/j2ee/dtds/web-app_2.3.dtd">
+
+<web-app>
+    <display-name>moskito minimal</display-name>
+     	<!--  MOSKITO UI-->
+	<!--  Adding filter to moskito ui which redirects requests to /mui/* to moskito user interface -->	
+   	<filter>
+        <filter-name>MoskitoUIFilter</filter-name>
+       	<filter-class>net.java.dev.moskito.webui.MoskitoUIFilter</filter-class>
+		<init-param>
+			<param-name>path</param-name>
+			<param-value>/mui/</param-value>
+		</init-param>
+   	</filter>
+   	<filter-mapping>
+       	<filter-name>MoskitoUIFilter</filter-name>
+   	    <url-pattern>/mui/*</url-pattern>
+    </filter-mapping>
+    <!--  / MOSKITO UI END -->
+
+
+	<filter>
+        <filter-name>MoskitoCommandFilter</filter-name>
+        <filter-class>net.java.dev.moskito.web.filters.MoskitoCommandFilter</filter-class>
+    </filter>
+	<filter>
+        <filter-name>JourneyFilter</filter-name>
+        <filter-class>net.java.dev.moskito.web.filters.JourneyFilter</filter-class>
+    </filter>
+
+	<filter>
+        <filter-name>DomainFilter</filter-name>
+        <filter-class>net.java.dev.moskito.web.filters.DomainFilter</filter-class>
+		<init-param>
+			<param-name>limit</param-name>
+			<param-value>50</param-value>
+		</init-param>
+    </filter>
+
+	<filter>
+        <filter-name>UserAgentFilter</filter-name>
+        <filter-class>net.java.dev.moskito.web.filters.UserAgentFilter</filter-class>
+		<init-param>
+			<param-name>limit</param-name>
+			<param-value>100</param-value>
+		</init-param>
+    </filter>
+
+	<filter>
+        <filter-name>RefererFilter</filter-name>
+        <filter-class>net.java.dev.moskito.web.filters.RefererFilter</filter-class>
+		<init-param>
+			<param-name>limit</param-name>
+			<param-value>100</param-value>
+		</init-param>
+    </filter>
+
+	<filter>
+        <filter-name>RequestURIFilter</filter-name>
+        <filter-class>net.java.dev.moskito.web.filters.RequestURIFilter</filter-class>
+		<init-param>
+			<param-name>limit</param-name>
+			<param-value>100</param-value>
+		</init-param>
+    </filter>
+
+
+    <filter-mapping>
+        <filter-name>MoskitoCommandFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
+    <filter-mapping>
+        <filter-name>JourneyFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
+    <filter-mapping>
+        <filter-name>DomainFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
+    <filter-mapping>
+        <filter-name>RequestURIFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
+    <filter-mapping>
+        <filter-name>UserAgentFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
+    <filter-mapping>
+        <filter-name>RefererFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+    
+
+	<welcome-file-list>
+	    	<welcome-file>index.html</welcome-file>
+  	</welcome-file-list>
+
+	<!-- taglib definitions -->
+
+	<!--/jsp-config-->
+
+    <listener>
+		<listener-class>
+			net.java.dev.moskito.webui.util.StartStopListener
+		</listener-class>
+	</listener>
+    <listener>
+		<listener-class>
+			net.java.dev.moskito.web.session.SessionCountProducer
+		</listener-class>
+    </listener>
+    <listener>
+		<listener-class>
+            net.java.dev.listener.moskitominimal.listeners.SetupThresholds
+        </listener-class>
+    </listener>
+    <listener>
+		<listener-class>
+			net.java.dev.moskito.webui.util.SetupPreconfiguredAccumulators
+		</listener-class>
+	</listener>
+  		
+	
+</web-app> 
