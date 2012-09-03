@@ -15,12 +15,12 @@
 	<dependency> 
 		<groupId>net.anotheria</groupId>
 		<artifactId>ano-util</artifactId>
-		<version>1.0.8</version>
+		<version>1.0.14</version>
 	</dependency>
 	<dependency>
 		<groupId>net.anotheria</groupId>
 		<artifactId>configureme</artifactId>
-		<version>1.0.5</version>
+		<version>[1.0.5,)</version>
 	</dependency>
   </dependencies>
 </project>
