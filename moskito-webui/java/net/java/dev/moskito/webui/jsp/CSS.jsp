@@ -688,26 +688,25 @@ h2 a.hidden {background:url("<ano:write name="mskPathToImages" scope="applicatio
     border-radius: 10px 10px 0 0;
     -webkit-border-radius: 10px 10px 0 0;
     color: #292929;
-    font-size: 32px;
-    line-height: 2em;
+    font-size: 26px;
+    line-height: 2.4em;
     text-align: center;
     text-shadow: 0px 1px 0px rgba(255, 255, 255, 0.3);
+    padding: 0 30px;
 }
 
 .error_page_data_hint {
-    font-size: 22px;
-    padding-top: 60px;
+    font-size: 17px;
+    padding: 60px 30px;
     text-align: center;
     min-height: 48px;
 }
 
 .error_page_data {
     color: #292929;
-    font-size: 24px;
-    font-weight: bold;
+    font-size: 20px;
     text-align: center;
     line-height: 2em;
-    padding-left: 10px;
 }
 
 .error_page_details_wrapper {
@@ -716,7 +715,6 @@ h2 a.hidden {background:url("<ano:write name="mskPathToImages" scope="applicatio
     border-radius: 0 0 10px 10px;
     -webkit-border-radius: 0 0 10px 10px ;
     border-top: 1px solid #ECECEC;
-    margin-top: 60px;
 }
 
 .error_page_details_button {
