@@ -27,15 +27,23 @@
     <script type="text/javascript">
         $(function() {
             var $dataTable = $('table.producer_filter_data_table'),
-                dataTd = $('table.producer_filter_data_table tbody td'),
+                dataTh = $dataTable.find('th'),
+                dataTd = $dataTable.find('td'),
                 flagDown = true,
                 flagUp = true,
-                active_cell = undefined;
+                activeCell = undefined,
+                activeHeaderCell = undefined;
+
+            dataTh.mouseenter(function() {
+                activeHeaderCell = $(this).find('a');
+            }).mouseleave(function() {
+                activeHeaderCell = undefined;
+            })
 
             dataTd.mouseenter(function() {
-                active_cell = $(this);
+                activeCell = $(this);
               }).mouseleave(function() {
-                active_cell = undefined;
+                activeCell = undefined;
             });
 
             $(document).keydown(
@@ -44,9 +52,13 @@
                         flagDown = false;
                         flagUp = true;
 
-                        if (active_cell){
-                            alert("A pressed");
-                            console.log(active_cell.text());
+                        if (activeCell){
+                            console.log(activeCell.text());
+                            e.preventDefault();
+                        }
+
+                        if (activeHeaderCell){
+                            console.log(activeHeaderCell.text());
                             e.preventDefault();
                         }
                     }
@@ -58,7 +70,10 @@
                     if( e.keyCode == 65 && flagUp ){
                         flagDown = true;
                         flagUp = false;
-                        if (active_cell){
+                        if (activeCell){
+                            e.preventDefault();
+                        }
+                        if (activeHeaderCell){
                             e.preventDefault();
                         }
                     }
@@ -112,7 +127,7 @@
 	
 		<table cellpadding="0" cellspacing="0" class="fll" id="<ano:write name="decorator" property="name"/>_table">
 		  <thead>
-			<tr class="stat_header">			
+			<tr class="stat_header">
 				<th>
 					<ano:equal name="sortType" property="sortBy" value="1000">
 						<ano:equal name="sortType" property="ASC" value="true">
