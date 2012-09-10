@@ -48,7 +48,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 import net.anotheria.util.sorter.QuickSorter;
 import net.anotheria.util.sorter.Sorter;
-import net.java.dev.moskito.util.storage.Storage;
+import net.java.dev.moskito.core.util.storage.Storage;
 import net.java.dev.moskitodemo.guestbook.business.data.Comment;
 import net.java.dev.moskitodemo.guestbook.business.data.CommentSortType;
 
