@@ -21,7 +21,7 @@
 		<module>moskito-webcontrol</module>
 		<module>moskito-central</module>
 		<module>moskitodemo</module>
-        <module>moskito-annotation</module>
+		<module>moskito-annotation</module>
 		<module>moskito-integration</module>
 		<module>moskitominimal</module>
     </modules>
