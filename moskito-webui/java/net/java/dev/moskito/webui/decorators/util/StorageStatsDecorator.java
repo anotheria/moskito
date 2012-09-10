@@ -39,7 +39,7 @@ import java.util.List;
 
 import net.java.dev.moskito.core.producers.IStats;
 import net.java.dev.moskito.core.stats.TimeUnit;
-import net.java.dev.moskito.util.storage.StorageStats;
+import net.java.dev.moskito.core.util.storage.StorageStats;
 import net.java.dev.moskito.webui.bean.DoubleValueBean;
 import net.java.dev.moskito.webui.bean.LongValueBean;
 import net.java.dev.moskito.webui.bean.StatValueBean;

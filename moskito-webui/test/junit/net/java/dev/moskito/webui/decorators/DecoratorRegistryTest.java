@@ -8,7 +8,7 @@ import net.java.dev.moskito.core.predefined.MemoryStats;
 import net.java.dev.moskito.core.predefined.ServiceStats;
 import net.java.dev.moskito.core.producers.IStats;
 import net.java.dev.moskito.core.stats.TimeUnit;
-import net.java.dev.moskito.util.storage.StorageStats;
+import net.java.dev.moskito.core.util.storage.StorageStats;
 import net.java.dev.moskito.web.session.SessionCountStats;
 import net.java.dev.moskito.webui.decorators.predefined.ActionStatsDecorator;
 import net.java.dev.moskito.webui.decorators.predefined.CacheStatsDecorator;

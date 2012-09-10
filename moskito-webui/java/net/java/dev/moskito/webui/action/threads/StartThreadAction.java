@@ -7,7 +7,7 @@ import net.anotheria.maf.action.ActionCommand;
 import net.anotheria.maf.action.ActionMapping;
 import net.anotheria.maf.bean.FormBean;
 import net.anotheria.util.NumberUtils;
-import net.java.dev.moskito.util.threadhistory.ThreadHistoryUtility;
+import net.java.dev.moskito.core.util.threadhistory.ThreadHistoryUtility;
 
 public class StartThreadAction extends ThreadsHistoryAction{
 
