@@ -15,5 +15,6 @@
 
 	<modules>
 		<module>moskito-cdi</module>
+        <module>moskito-sql</module>
     </modules>
 </project>
