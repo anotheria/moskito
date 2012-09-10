@@ -41,7 +41,10 @@ import org.apache.log4j.Logger;
  * @author lrosenberg
  */
 public class Log4JOutput implements ILogOutput{
-	
+
+	/**
+	 * Underlying logger.
+	 */
 	private Logger log;
 	
 	public Log4JOutput(Logger aLog){

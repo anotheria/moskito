@@ -43,7 +43,10 @@ import java.util.List;
  * @author lrosenberg
  */
 public interface IStatsProducer {
-	
+
+	/**
+	 * Name for the builtin system registration.
+	 */
 	public static final String SUBSYSTEM_BUILTIN = "builtin";
 
 	/**

@@ -14,7 +14,10 @@ import net.java.dev.moskito.core.command.CommandProcessor;
  *
  */
 public class UseCaseRecorderCommandProcessor implements CommandProcessor{
-	
+
+	/**
+	 * Parameter name that triggers the recorder.
+	 */
 	public static final String PARAM_USE_CASE_NAME = "mskUseCaseName";
 	/**
 	 * Use-case counter.

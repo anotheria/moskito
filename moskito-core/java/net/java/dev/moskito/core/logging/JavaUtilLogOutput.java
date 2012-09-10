@@ -43,7 +43,10 @@ import java.util.logging.Logger;
  */
 
 public class JavaUtilLogOutput implements ILogOutput{
-	
+
+	/**
+	 * Underlying logger.
+	 */
 	private Logger log;
 	
 	public JavaUtilLogOutput(Logger aLog){

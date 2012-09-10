@@ -53,7 +53,10 @@ import org.apache.log4j.Logger;
  * @author lrosenberg
  */
 public class OnDemandStatsProducer implements IStatsProducer, Inspectable{
-	
+
+	/**
+	 * Logger.
+	 */
 	private static Logger log;
 	static{
 		log = Logger.getLogger(OnDemandStatsProducer.class);
@@ -189,7 +192,11 @@ public class OnDemandStatsProducer implements IStatsProducer, Inspectable{
 	protected List<IStats> getCachedStatsList(){
 		return _cachedStatsList;
 	}
-	
+
+	/**
+	 * Returns the creation info about a producer.
+	 * @return
+	 */
 	public CreationInfo getCreationInfo(){
 		return creationInfo;
 	}

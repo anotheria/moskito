@@ -59,7 +59,10 @@ public class CacheStats extends AbstractStats{
 	 * Name of the cache.
 	 */
 	private String name;
-	
+
+	/**
+	 * Valuenames constant for getAvailableValueNames method.
+	 */
 	private static final List<String> VALUE_NAMES = Collections.unmodifiableList(Arrays.asList(
 			"REQ",
 			"HIT",
