@@ -8,7 +8,7 @@
 
   <modelVersion>4.0.0</modelVersion>
   <groupId>net.anotheria</groupId>
-  <artifactId>moskito-parent</artifactId>
+  <artifactId>moskito</artifactId>
   <version>1.5.2-SNAPSHOT</version>
   <name>MoSKito</name>
   <description>MoSKito, MoSKito, MoSKito and moskito</description>
@@ -21,7 +21,6 @@
 		<module>moskito-webcontrol</module>
 		<module>moskito-central</module>
 		<module>moskitodemo</module>
-		<module>moskito-all</module>
         <module>moskito-annotation</module>
         <module>moskito-sql</module>
 		<module>moskito-integration</module>
