@@ -16,7 +16,6 @@
 
 	<modules>
 		<module>moskito-core</module>
-		<module>moskito-util</module>
 		<module>moskito-web</module>
 		<module>moskito-webui</module>
 		<module>moskito-webcontrol</module>
@@ -26,6 +25,7 @@
         <module>moskito-annotation</module>
         <module>moskito-sql</module>
 		<module>moskito-integration</module>
+		<module>moskitominimal</module>
     </modules>
 	<scm>
 		<url>svn:svn://svn.anotheria.net/opensource/moskito/trunk</url>
