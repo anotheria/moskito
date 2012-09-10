@@ -66,7 +66,7 @@ public class MoskitoWebControlUIFilterTest {
 				.valueOf(config));
 		for (ViewField field : viewConfig.getFields()) {
 			Attribute att = s.getAttribute(field.getAttributeName());
-			System.out.println(field.getAttributeName()+"="+att.getValueString());
+			//System.out.println(field.getAttributeName()+"="+att.getValueString());
 		}
 
 		// String start = "";
