@@ -19,6 +19,8 @@ public class SetupPreconfiguredAccumulators implements ServletContextListener{
 		setupThreadAccumulators();
 		log.info("Configuring session accumulators.");
 		setupSessionCountAccumulators();
+		log.info("Configuring url accumulators.");
+		setupUrlAccumulators();
 	}
 	
 	private static void setupThreadAccumulators(){
@@ -26,10 +28,10 @@ public class SetupPreconfiguredAccumulators implements ServletContextListener{
 	}
 	
 	private static void setupSessionCountAccumulators(){
-		Accumulators.createAccumulator("SessionCount CurAbsolute", "SessionCount", "Sessions", "cur", "default");
-		Accumulators.createAccumulator("SessionCount Cur1h", "SessionCount", "Sessions", "cur", "1h");
-		Accumulators.createAccumulator("SessionCount New1h", "SessionCount", "Sessions", "new", "1h");
-		Accumulators.createAccumulator("SessionCount Del1h", "SessionCount", "Sessions", "del", "1h");
+		Accumulators.createAccumulator("SessionCount Cur Absolute", "SessionCount", "Sessions", "cur", "default");
+		Accumulators.createAccumulator("SessionCount Cur 1h", "SessionCount", "Sessions", "cur", "1h");
+		Accumulators.createAccumulator("SessionCount New 1h", "SessionCount", "Sessions", "new", "1h");
+		Accumulators.createAccumulator("SessionCount Del 1h", "SessionCount", "Sessions", "del", "1h");
 	}
 	
 	
@@ -55,6 +57,18 @@ public class SetupPreconfiguredAccumulators implements ServletContextListener{
 		Accumulators.createMemoryAccumulator("OldGenUsed 1h", "MemoryPool-PS Old Gen-Heap", "Used", "1h");
 		Accumulators.createMemoryAccumulator("OldGenUsed MB 1h", "MemoryPool-PS Old Gen-Heap", "Used MB", "1h");
 	
+	}
+
+	public static void setupUrlAccumulators(){
+		Accumulators.createUrlREQAccumulator("URL REQ 5m", "cumulated", "5m");
+		Accumulators.createUrlREQAccumulator("URL REQ 1h", "cumulated", "1h");
+
+		Accumulators.createUrlAVGAccumulator("URL AVG 5m", "cumulated", "5m");
+		Accumulators.createUrlAVGAccumulator("URL AVG 1h", "cumulated", "1h");
+
+		Accumulators.createUrlTotalTimeAccumulator("URL Time 5m", "cumulated", "5m");
+		Accumulators.createUrlTotalTimeAccumulator("URL Time 1h", "cumulated", "1h");
+
 	}
 
 	@Override

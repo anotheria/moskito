@@ -143,4 +143,23 @@ public final class Accumulators {
 	public static void createUrlREQAccumulator(String name, String url, String interval) {
 		createAccumulator(name, "RequestURIFilter", url, "REQ", interval);
 	}
+
+	/**
+	 * Creates a new accumulator for total time of the url. Requires net.java.dev.moskito.web.filters.RequestURIFilter to be present in the web.xml map to the uri.
+	 * @param name name of the accumulator.
+	 * @param url url to accumulate
+	 */
+	public static void createUrlTotalTimeAccumulator(String name, String url){
+		createUrlTotalTimeAccumulator(name, url, DEFAULT_INTERVAL);
+	}
+
+	/**
+	 * Creates a new accumulator for total time of the url. Requires net.java.dev.moskito.web.filters.RequestURIFilter to be present in the web.xml map to the uri.
+	 * @param name name of the accumulator.
+	 * @param url url to accumulate
+	 * @param interval name of the interval.
+	 */
+	public static void createUrlTotalTimeAccumulator(String name, String url, String interval) {
+		createAccumulator(name, "RequestURIFilter", url, "time", interval);
+	}
 }
