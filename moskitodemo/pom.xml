@@ -3,12 +3,12 @@
     <parent>
         <groupId>net.anotheria</groupId>
 		<artifactId>moskito</artifactId>
-		<version>1.6.0-SNAPSHOT</version>
+		<version>1.6.0</version>
     </parent>
 
     <modelVersion>4.0.0</modelVersion>
     <artifactId>moskitodemo</artifactId>
-  	<version>1.6.0-SNAPSHOT</version>
+  	<version>1.6.0</version>
     <name>moskito demonstration webapp</name>
     <packaging>war</packaging>
     <properties>
@@ -132,7 +132,7 @@
         								</goals>
         							</pluginExecutionFilter>
         							<action>
-        								<ignore></ignore>
+        								<ignore />
         							</action>
         						</pluginExecution>
         						<pluginExecution>
@@ -151,7 +151,7 @@
         								</goals>
         							</pluginExecutionFilter>
         							<action>
-        								<ignore></ignore>
+        								<ignore />
         							</action>
         						</pluginExecution>
         					</pluginExecutions>
