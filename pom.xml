@@ -9,7 +9,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>net.anotheria</groupId>
   <artifactId>moskito</artifactId>
-  <version>1.5.2-SNAPSHOT</version>
+  <version>1.6.0-SNAPSHOT</version>
   <name>MoSKito</name>
   <description>MoSKito, MoSKito, MoSKito and moskito</description>
   <packaging>pom</packaging>

@@ -2,20 +2,20 @@
 
   <parent>
 	<groupId>net.anotheria</groupId>
-	<artifactId>moskito-parent</artifactId>
-	<version>1.5.2-SNAPSHOT</version>
+	<artifactId>moskito</artifactId>
+	<version>1.6.0-SNAPSHOT</version>
   </parent>
 
   <modelVersion>4.0.0</modelVersion>
   <artifactId>moskito-web</artifactId>
-  <version>1.5.2-SNAPSHOT</version>
+  <version>1.6.0-SNAPSHOT</version>
   <name>moskito web support</name>
 
   <dependencies>
 	<dependency> 
 		<groupId>net.anotheria</groupId>
 		<artifactId>ano-util</artifactId>
-		<version>1.0.0</version>
+		<version>1.0.11</version>
 	</dependency>
 	<dependency>
 		<groupId>net.anotheria</groupId>
@@ -42,7 +42,7 @@
 	<dependency>
 	  <groupId>net.anotheria</groupId>
   		<artifactId>ano-prise</artifactId>  
-		<version>1.0.5</version> 
+		<version>1.0.33</version> 
   		<scope>test</scope>	
   	</dependency>
   </dependencies>
