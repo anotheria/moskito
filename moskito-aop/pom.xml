@@ -8,10 +8,10 @@
 
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>moskito-annotation</artifactId>
+    <artifactId>moskito-aop</artifactId>
 
   	<version>1.5.2-SNAPSHOT</version>
-    <name>moskito annotations</name>
+    <name>moskito aop</name>
     <build>
         <plugins>
             <plugin>
@@ -80,7 +80,7 @@
         <dependency>
             <groupId>net.anotheria</groupId>
             <artifactId>ano-util</artifactId>
-            <version>1.0.0</version>
+            <version>1.0.15</version>
         </dependency>
         <dependency>
             <groupId>org.aspectj</groupId>
