@@ -77,6 +77,7 @@ import net.java.dev.moskito.webui.decorators.DecoratorRegistryFactory;
 import net.java.dev.moskito.webui.decorators.IDecorator;
 import net.java.dev.moskito.webui.decorators.IDecoratorRegistry;
 import net.java.dev.moskito.webui.util.WebUIConfig;
+import org.apache.log4j.Logger;
 
 /**
  * BaseAction providing some common functionality for all moskitouiactions.
@@ -167,8 +168,22 @@ public abstract class BaseMoskitoUIAction implements Action{
 	 */
 	public static final String PARAM_FILTER_ZERO = "pFilterZero";
 
+	/**
+	 * Reload interval.
+	 */
+	public static final String PARAM_RELOAD_INTERVAL = "pReloadInterval";
 
-	
+	/**
+	 * Currently set autoreload interval. Session attribute.
+	 */
+	public static final String BEAN_AUTORELOAD = "autoreloadInterval";
+
+
+	/**
+	 * Logger.
+	 */
+	private static final Logger log = Logger.getLogger(BaseMoskitoUIAction.class);
+
 	/**
 	 * Available units.
 	 */
@@ -506,6 +521,23 @@ public abstract class BaseMoskitoUIAction implements Action{
 		
 		//configuration issues.
 		req.setAttribute("config", WebUIConfig.getInstance());
+
+		//check for autoreload.
+		String pReloadInterval = req.getParameter(PARAM_RELOAD_INTERVAL);
+		if (pReloadInterval!=null && pReloadInterval.length()>0){
+			if (pReloadInterval.equalsIgnoreCase("OFF")){
+				req.getSession().removeAttribute(BEAN_AUTORELOAD);
+			}else{
+				try{
+					Integer.parseInt(pReloadInterval);
+					req.getSession().setAttribute(BEAN_AUTORELOAD, pReloadInterval);
+				}catch(NumberFormatException e){
+					log.warn("Attempt to set illegal reload time "+pReloadInterval+" ignored: ", e);
+				}
+			}
+		}
+
+
 	}
 	
 	

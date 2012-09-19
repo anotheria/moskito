@@ -3,7 +3,7 @@
 %><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-	<title>Moskito Accumulators</title>
+	<title>MoSKito Accumulators</title>
 	<link rel="stylesheet" href="mskCSS"/>
 </head>
 <body>
@@ -90,13 +90,14 @@
             var $form = $('form.autoreload_settings'),
                 $setButton = $('.autoreload_set_button'),
                 $label = $('form.autoreload_settings label'),
+                $resetButton = $('.autoreload_reset_button'),
                 linkToCurrentPage = $('.linkToCurrentPage').text();
 
 
             $setButton.on('click', function() {
 
                 var n = $('.autoreload_minutes_settings_input').val(),
-                       newUrl = linkToCurrentPage+'&reloadIinterval='+n;
+                       newUrl = linkToCurrentPage+'&pReloadInterval='+n;
 
                 if(!isNaN(parseInt(n,10)) && isFinite(n) && (n > 0)){
                     console.log(newUrl);
@@ -111,6 +112,12 @@
                         'border-radius':'3px'
                     });
                 }
+                return false
+            });
+            $resetButton.on('click', function() {
+
+                newUrl = linkToCurrentPage+'&pReloadInterval=OFF';
+                window.location = newUrl;
                 return false
             });
         }
@@ -200,13 +207,14 @@
             <div class="autoreload_wrapper">
                 <div class="autoreload_toggle_button">
                     <div class="autoreload_toggle_triangle"></div>
-                    Autoreload
+                    Autoreload <ano:present name="autoreloadInterval"><ano:write name="autoreloadInterval"/></ano:present> <ano:notPresent name="autoreloadInterval">OFF</ano:notPresent>
                 </div>
                 <form name="autoreloadIntervalForm" action="" class="autoreload_settings">
-                    <div class="autoreload_current_interval">Current interval:<b>5</b></div>
+                    <div class="autoreload_current_interval">Current interval:<b><ano:present name="autoreloadInterval"><ano:write name="autoreloadInterval"/></ano:present> <ano:notPresent name="autoreloadInterval">none</ano:notPresent></b></div>
                     <label>Set minutes reload interval:</label>
                     <input class="autoreload_minutes_settings_input" type="text" placeholder="e.g.: 10">
                     <button class="autoreload_set_button">Set</button>
+                    <ano:present name="autoreloadInterval"><button class="autoreload_reset_button">Off</button></ano:present>
                 </form>
             </div>
 
