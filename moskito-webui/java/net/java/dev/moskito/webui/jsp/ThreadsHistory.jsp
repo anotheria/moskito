@@ -46,7 +46,7 @@
  						</tr>
 						</thead>
 						<tbody>
-						<ano:iterate name="history" type="net.java.dev.moskito.util.threadhistory.ThreadHistoryEvent" id="item" indexId="index">
+						<ano:iterate name="history" type="net.java.dev.moskito.core.util.threadhistory.ThreadHistoryEvent" id="item" indexId="index">
 							<tr class="<%= ((index & 1) == 0 )? "even" : "odd" %>">
 								<td><ano:write name="item" property="niceTimestamp"/></td>
 								<td><ano:write name="item" property="operation"/></td>
