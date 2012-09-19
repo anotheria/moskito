@@ -34,11 +34,7 @@
  */	
 package net.java.dev.moskito.webui.action;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -46,6 +42,7 @@ import javax.servlet.http.HttpServletResponse;
 import net.anotheria.maf.action.Action;
 import net.anotheria.maf.action.ActionMapping;
 import net.anotheria.util.NumberUtils;
+import net.anotheria.util.StringUtils;
 import net.anotheria.util.sorter.DummySortType;
 import net.anotheria.util.sorter.SortType;
 import net.anotheria.util.sorter.StaticQuickSorter;
@@ -583,4 +580,24 @@ public abstract class BaseMoskitoUIAction implements Action{
 	}
 	
 	protected abstract NaviItem getCurrentNaviItem();
+
+	protected String rebuildQueryStringWithoutParameter(String source, String ... params){
+		if (source==null || source.length()==0)
+			return "";
+		if (params == null || params.length==0)
+			return source;
+		HashSet<String> paramsSet = new HashSet<String>(params.length);
+		paramsSet.addAll(Arrays.asList(params));
+		String tokens[] = StringUtils.tokenize(source, '&');
+		StringBuilder ret = new StringBuilder();
+		for (String t : tokens){
+			String values[] = StringUtils.tokenize(t, '=');
+			if (paramsSet.contains(values[0]))
+				continue;
+			if (ret.length()>0)
+				ret.append('&');
+			ret.append(values[0]).append('=').append(values[1]);
+		}
+		return ret.toString();
+	}
 }

@@ -251,7 +251,11 @@ public class ShowAccumulatorsAction extends BaseAccumulatorsAction {
 
 	@Override
 	protected String getLinkToCurrentPage(HttpServletRequest req) {
-		return "mskAccumulators?ts="+System.currentTimeMillis();
+		String newQS = rebuildQueryStringWithoutParameter(req.getQueryString(), "ts", "pReloadInterval");
+		if (newQS.length()>0)
+			newQS+="&";
+		newQS+="ts="+System.currentTimeMillis();
+		return "mskAccumulators?"+ newQS;
 	}
 
 }
