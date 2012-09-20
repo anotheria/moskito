@@ -17,6 +17,9 @@ import net.anotheria.util.sorter.StaticQuickSorter;
 import net.java.dev.moskito.core.predefined.ThreadStateStats;
 import net.java.dev.moskito.webui.bean.threads.ThreadStateInfoBean;
 
+/**
+ * Shows a list of threads and cumulated state's stats.
+ */
 public class ThreadsListAction extends BaseThreadsAction{
 
 	private static final DummySortType DST = new DummySortType();

@@ -10,6 +10,9 @@ import net.anotheria.maf.action.ActionMapping;
 import net.anotheria.maf.bean.FormBean;
 import net.java.dev.moskito.core.util.threadhistory.ThreadHistoryUtility;
 
+/**
+ * This action shows the ThreadsHistory.
+ */
 public class ThreadsHistoryAction extends BaseThreadsAction{
 
 	@Override

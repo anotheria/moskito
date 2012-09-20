@@ -9,6 +9,9 @@ import net.anotheria.maf.bean.FormBean;
 import net.anotheria.util.NumberUtils;
 import net.java.dev.moskito.core.util.threadhistory.ThreadHistoryUtility;
 
+/**
+ * Starts a new thread for testing purposes of the thread history.
+ */
 public class StartThreadAction extends ThreadsHistoryAction{
 
 	@Override

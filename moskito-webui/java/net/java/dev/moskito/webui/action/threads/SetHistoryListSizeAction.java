@@ -8,6 +8,9 @@ import net.anotheria.maf.action.ActionMapping;
 import net.anotheria.maf.bean.FormBean;
 import net.java.dev.moskito.core.util.threadhistory.ThreadHistoryUtility;
 
+/**
+ * Sets the size of the history array and therefore history length.
+ */
 public class SetHistoryListSizeAction extends ThreadsHistoryAction{
 
 	@Override

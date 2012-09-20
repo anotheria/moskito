@@ -11,6 +11,9 @@ import net.anotheria.maf.action.ActionMapping;
 import net.anotheria.maf.bean.FormBean;
 import net.java.dev.moskito.webui.bean.threads.ThreadsInfoBean;
 
+/**
+ * This action renders the overview page of the threads section of the webui.
+ */
 public class ThreadsOverviewAction extends BaseThreadsAction{
 
 	@Override

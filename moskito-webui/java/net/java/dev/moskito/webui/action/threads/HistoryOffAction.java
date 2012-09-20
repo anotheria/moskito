@@ -8,6 +8,9 @@ import net.anotheria.maf.action.ActionMapping;
 import net.anotheria.maf.bean.FormBean;
 import net.java.dev.moskito.core.util.threadhistory.ThreadHistoryUtility;
 
+/**
+ * Switches the history off.
+ */
 public class HistoryOffAction extends ThreadsHistoryAction{
 
 	@Override

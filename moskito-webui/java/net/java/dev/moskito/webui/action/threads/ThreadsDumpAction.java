@@ -14,6 +14,9 @@ import net.anotheria.maf.action.ActionCommand;
 import net.anotheria.maf.action.ActionMapping;
 import net.anotheria.maf.bean.FormBean;
 
+/**
+ * Creates a thread dump and presents it to the users.
+ */
 public class ThreadsDumpAction extends BaseThreadsAction{
 
 	@Override

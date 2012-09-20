@@ -27,6 +27,10 @@ public class ThreadStateInfoBean implements IComparable<ThreadStateInfoBean>{
 		state = aState;
 	}
 
+	/**
+	 * Increases the count for this state by one.
+	 * Increases the count for this state by one.
+	 */
 	public void increaseCount(){
 		count++;
 	}

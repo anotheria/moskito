@@ -5,6 +5,9 @@ import javax.servlet.http.HttpServletRequest;
 import net.java.dev.moskito.webui.action.BaseMoskitoUIAction;
 import net.java.dev.moskito.webui.bean.NaviItem;
 
+/**
+ * Base threads action.
+ */
 public abstract class BaseThreadsAction extends BaseMoskitoUIAction{
 	@Override
 	protected NaviItem getCurrentNaviItem() {
