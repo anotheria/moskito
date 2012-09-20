@@ -91,19 +91,18 @@
                 $setButton = $('.autoreload_set_button'),
                 $label = $('form.autoreload_settings label'),
                 $resetButton = $('.autoreload_reset_button'),
+                $autoreloadInterval = $('.autoreload_current_interval_data').text(),
                 linkToCurrentPage = $('.linkToCurrentPage').text();
 
+            console.log($autoreloadInterval)
 
             $setButton.on('click', function() {
-
                 var n = $('.autoreload_minutes_settings_input').val(),
                        newUrl = linkToCurrentPage+'&pReloadInterval='+n;
 
                 if(!isNaN(parseInt(n,10)) && isFinite(n) && (n > 0)){
-                    console.log(newUrl);
                     window.location = newUrl;
                 }else{
-                    console.log('fuckz');
                     $label.text('\u002AType number from 1 to 9999 to set intermal in minutes:');
                     $label.css({
                         'background':'#F7D9D9',
@@ -114,12 +113,16 @@
                 }
                 return false
             });
-            $resetButton.on('click', function() {
 
+            $resetButton.on('click', function() {
                 newUrl = linkToCurrentPage+'&pReloadInterval=OFF';
                 window.location = newUrl;
                 return false
             });
+
+            if(!($autoreloadInterval==='none')) {
+                setTimeout('window.location = window.location', ($autoreloadInterval * 60000))
+            }
         }
 
         deleteAccumulator();
@@ -204,19 +207,6 @@
 		</div>
 		<div class="in">
 			<h2><span>Accumulators</span></h2>
-            <div class="autoreload_wrapper">
-                <div class="autoreload_toggle_button">
-                    <div class="autoreload_toggle_triangle"></div>
-                    Autoreload <ano:present name="autoreloadInterval"><ano:write name="autoreloadInterval"/></ano:present> <ano:notPresent name="autoreloadInterval">OFF</ano:notPresent>
-                </div>
-                <form name="autoreloadIntervalForm" action="" class="autoreload_settings">
-                    <div class="autoreload_current_interval">Current interval:<b><ano:present name="autoreloadInterval"><ano:write name="autoreloadInterval"/></ano:present> <ano:notPresent name="autoreloadInterval">none</ano:notPresent></b></div>
-                    <label>Set minutes reload interval:</label>
-                    <input class="autoreload_minutes_settings_input" type="text" placeholder="e.g.: 10">
-                    <button class="autoreload_set_button">Set</button>
-                    <ano:present name="autoreloadInterval"><button class="autoreload_reset_button">Off</button></ano:present>
-                </form>
-            </div>
 
 			<div class="clear"><!-- --></div>
 			<div class="table_itseft">

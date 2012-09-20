@@ -105,6 +105,7 @@
 				</ul>
 				<div class="right"></div>
 				<jsp:include page="ExportMenu.jsp" flush="false" />
+                <jsp:include page="AutoreloadMenu.jsp" flush="false" />
 		</div>
 	</div>
 </div>

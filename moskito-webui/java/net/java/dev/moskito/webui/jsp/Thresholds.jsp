@@ -77,10 +77,58 @@
             })
         }
 
+        function manageAutoreload() {
+            var $toggleButton = $('.autoreload_toggle_button'),
+                $settingsBox = $('.autoreload_settings'),
+                $triangle = $('.autoreload_toggle_triangle');
+
+            $toggleButton.on('click', function() {
+                $triangle.toggleClass('autoreload_toggle_triangle_right');
+                $settingsBox.slideToggle();
+            });
+
+            var $form = $('form.autoreload_settings'),
+                $setButton = $('.autoreload_set_button'),
+                $label = $('form.autoreload_settings label'),
+                $resetButton = $('.autoreload_reset_button'),
+                $autoreloadInterval = $('.autoreload_current_interval_data').text(),
+                linkToCurrentPage = $('.linkToCurrentPage').text();
+
+            console.log($autoreloadInterval)
+
+            $setButton.on('click', function() {
+                var n = $('.autoreload_minutes_settings_input').val(),
+                       newUrl = linkToCurrentPage+'&pReloadInterval='+n;
+
+                if(!isNaN(parseInt(n,10)) && isFinite(n) && (n > 0)){
+                    window.location = newUrl;
+                }else{
+                    $label.text('\u002AType number from 1 to 9999 to set intermal in minutes:');
+                    $label.css({
+                        'background':'#F7D9D9',
+                        'display':'block',
+                        'padding':'4px 6px',
+                        'border-radius':'3px'
+                    });
+                }
+                return false
+            });
+
+            $resetButton.on('click', function() {
+                newUrl = linkToCurrentPage+'&pReloadInterval=OFF';
+                window.location = newUrl;
+                return false
+            });
+
+            if(!($autoreloadInterval==='none')) {
+                setTimeout('window.location = window.location', ($autoreloadInterval * 60000))
+            }
+        }
+
         deleteAccumulator();
+        manageAutoreload();
     })
 </script>
-
 <div class="main">
 	<div class="clear"><!-- --></div>
 
@@ -152,34 +200,33 @@
 				</div>
 				<div class="in">
 					<div class="scroller_x">
-					<table class="thresholds_table" cellpadding="0" cellspacing="0" width="100%">
-						<thead>
-						<tr>
-							<th>Name</th>
-							<th>Status</th>
-							<th>Value</th>
-							<th>Status Change</th>
-							<th>Change Timestamp</th>
-							<th>Path</th>
-                            <td>&nbsp;</td>
-						</tr>
-						</thead>
-						<tbody>
-
-						<ano:iterate name="thresholds" type="net.java.dev.moskito.webui.bean.ThresholdBean" id="threshold" indexId="index">
-							<tr class="<%= ((index & 1) == 0 )? "even" : "odd" %>">
-								<td><a class="th_name" href="#" onclick="openOverlay(info<ano:write name="threshold" property="id"/>); return false"><ano:write name="threshold" property="name"/></a></td>
-								<td><img src="<ano:write name="mskPathToImages" scope="application"/>ind_<ano:write name="threshold" property="colorCode"/>.<ano:equal name="threshold" property="colorCode" value="purple">gif</ano:equal><ano:notEqual name="threshold" property="colorCode" value="purple">png</ano:notEqual>" alt="<ano:write name="threshold" property="status"/>"/></td>
-								<td><ano:write name="threshold" property="value"/></td>
-								<td><ano:write name="threshold" property="change"/></td>
-								<td><ano:write name="threshold" property="timestamp"/></td>
-								<td><ano:write name="threshold" property="description"/></td>
-                                <td><a href="mskThresholdDelete?pId=<ano:write name="threshold" property="id"/>" class="del"></a></td>
-							</tr>
-						</ano:iterate>
-						</tbody>
-					</table>
-						</div>
+                        <table class="thresholds_table" cellpadding="0" cellspacing="0" width="100%">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Status</th>
+                                    <th>Value</th>
+                                    <th>Status Change</th>
+                                    <th>Change Timestamp</th>
+                                    <th>Path</th>
+                                    <td>&nbsp;</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <ano:iterate name="thresholds" type="net.java.dev.moskito.webui.bean.ThresholdBean" id="threshold" indexId="index">
+                                    <tr class="<%= ((index & 1) == 0 )? "even" : "odd" %>">
+                                        <td><a class="th_name" href="#" onclick="openOverlay(info<ano:write name="threshold" property="id"/>); return false"><ano:write name="threshold" property="name"/></a></td>
+                                        <td><img src="<ano:write name="mskPathToImages" scope="application"/>ind_<ano:write name="threshold" property="colorCode"/>.<ano:equal name="threshold" property="colorCode" value="purple">gif</ano:equal><ano:notEqual name="threshold" property="colorCode" value="purple">png</ano:notEqual>" alt="<ano:write name="threshold" property="status"/>"/></td>
+                                        <td><ano:write name="threshold" property="value"/></td>
+                                        <td><ano:write name="threshold" property="change"/></td>
+                                        <td><ano:write name="threshold" property="timestamp"/></td>
+                                        <td><ano:write name="threshold" property="description"/></td>
+                                        <td><a href="mskThresholdDelete?pId=<ano:write name="threshold" property="id"/>" class="del"></a></td>
+                                    </tr>
+                                </ano:iterate>
+                            </tbody>
+                        </table>
+					</div>
 					<div class="clear"><!-- --></div>
 				</div>
 				<div class="bot">
@@ -211,12 +258,12 @@
 				<div class="in">
 					<table cellpadding="0" cellspacing="0" width="100%">
 						<thead>
-						<tr>
-							<th>Timestamp</th>
-							<th>Name</th>
-							<th>Status change</th>
-							<th>Value change</th>
-						</tr>
+                            <tr>
+                                <th>Timestamp</th>
+                                <th>Name</th>
+                                <th>Status change</th>
+                                <th>Value change</th>
+                            </tr>
 						</thead>
 						<tbody>
 						<ano:iterate name="alerts" type="net.java.dev.moskito.webui.bean.ThresholdAlertBean" id="alert" indexId="index">
@@ -248,21 +295,23 @@
 		<div class="bot">
 			<div><!-- --></div>
 		</div>
-	<jsp:include page="Footer.jsp" flush="false" />
-    <div class="popup_dialog" style="display:none;">
-        <div class="black_bg"><!-- --></div>
-        <div class="popup_box">
-            <a class="popup_box_close"><!-- --></a>
-            <p class='popup_box_message acc_popup_box_message'>
-                Are you sure that you want to delete Threshold <span class="popup_box_item_name"></span>
-            </p>
-            <div class="popup_button_wrapper">
-                <button class='popup_box_confirm popup_button'>Ok</button>
-                <button class='popup_box_cancel popup_button'>Cancel</button>
+    	<jsp:include page="Footer.jsp" flush="false" />
+        <div class="popup_dialog" style="display:none;">
+            <div class="black_bg"><!-- --></div>
+            <div class="popup_box">
+                <a class="popup_box_close"><!-- --></a>
+                <p class='popup_box_message acc_popup_box_message'>
+                    Are you sure that you want to delete Threshold <span class="popup_box_item_name"></span>
+                </p>
+                <div class="popup_button_wrapper">
+                    <button class='popup_box_confirm popup_button'>Ok</button>
+                    <button class='popup_box_cancel popup_button'>Cancel</button>
+                </div>
             </div>
         </div>
     </div>
-	</div>
+</div>
+<div class="linkToCurrentPage"><ano:write name="linkToCurrentPage"/></div>
 </body>
 <div class="lightbox" style="display:none;">
 	<div class="black_bg"><!-- --></div>

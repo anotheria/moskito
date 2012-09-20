@@ -459,9 +459,9 @@ h2 a.hidden {background:url("<ano:write name="mskPathToImages" scope="applicatio
     box-shadow: inset 1px 0 0 rgba(255, 255, 255, 0.125), inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 3px rgba(0, 0, 0, 0.4);
     background-color: #4D9CC9;
     background-image: -ms-linear-gradient(top, #6FB7E0, #3E93C4);
-    background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#6FB7E0), to(#3E93C4));
-    background-image: -webkit-linear-gradient(top, #6FB7E0, #3E93C4);
-    background-image: -o-linear-gradient(top, #6FB7E0, #3E93C4);
+    background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#5C0), to(#3E93C4));
+    background-image: -webkit-linear-gradient(top, #5C0, #3E93C4);
+    background-image: -o-linear-gradient(top, #5C0, #3E93C4);
     background-image: -moz-linear-gradient(top, #6FB7E0, #3E93C4);
     background-image: linear-gradient(top, #6FB7E0, #3E93C4);
     border: 1px solid #CCC;
@@ -515,14 +515,15 @@ h2 a.hidden {background:url("<ano:write name="mskPathToImages" scope="applicatio
 .autoreload_wrapper {
     float: right;
     position: relative;
-    padding: 0 30px 0;
+    padding: 16px 30px 0;
+    margin: 0  -50px  0 -60px;
 }
 
 .autoreload_settings {
     display: none;
     position: absolute;
-    top: 14px;
-    right: 0;
+    top: 40px;
+    right: -22px;
     background: white;
     width: 160px;
     -webkit-box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.3);
@@ -556,6 +557,41 @@ h2 a.hidden {background:url("<ano:write name="mskPathToImages" scope="applicatio
     -webkit-border-radius: 4px;
     -moz-border-radius: 4px;
     border-radius: 4px;
+    -webkit-box-shadow: inset 1px 0 0 rgba(255, 255, 255, 0.125), inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 3px rgba(0, 0, 0, 0.4);
+    -moz-box-shadow: inset 1px 0 0 rgba(255, 255, 255, 0.125), inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 3px rgba(0, 0, 0, 0.4);
+    box-shadow: inset 1px 0 0 rgba(255, 255, 255, 0.125), inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 3px rgba(0, 0, 0, 0.4);
+    background-color: #3F9700;
+    background-image: -ms-linear-gradient(top, #5C0, #3F9700);
+    background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#5C0), to(#3F9700));
+    background-image: -webkit-linear-gradient(top, #5C0, #3F9700 );
+    background-image: -o-linear-gradient(top, #5C0, #3F9700);
+    background-image: -moz-linear-gradient(top, #5C0, #3F9700);
+    background-image: linear-gradient(top, #5C0, #3F9700);
+    border: 1px solid #CCC;
+    border-color: #4AB100 #3F9700 #327900;
+    color: white;
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.5);
+    cursor: pointer;
+}
+
+.autoreload_set_button:hover {
+    background-color: #0D77B4;
+    background-image: -ms-linear-gradient(top, #4FBE00, #378300);
+    background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#4FBE00), to(#378300));
+    background-image: -webkit-linear-gradient(top, #4FBE00, #378300);
+    background-image: -o-linear-gradient(top, #4FBE00, #378300);
+    background-image: -moz-linear-gradient(top, #4FBE00, #378300);
+    background-image: linear-gradient(top, #4FBE00, #378300);
+}
+
+.autoreload_reset_button {
+    display: block;
+    margin: 10px auto 0;
+    font-size: 14px;
+    padding: 2px 16px;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
 
     -webkit-box-shadow: inset 1px 0 0 rgba(255, 255, 255, 0.125), inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 3px rgba(0, 0, 0, 0.4);
     -moz-box-shadow: inset 1px 0 0 rgba(255, 255, 255, 0.125), inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 3px rgba(0, 0, 0, 0.4);
@@ -573,8 +609,7 @@ h2 a.hidden {background:url("<ano:write name="mskPathToImages" scope="applicatio
     text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.5);
     cursor: pointer;
 }
-
-.autoreload_set_button:hover {
+.autoreload_reset_button:hover {
     background-color: #0D77B4;
     background-image: -ms-linear-gradient(top, #6EB8E4, #0D77B4);
     background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#6EB8E4), to(#0D77B4));
@@ -586,14 +621,13 @@ h2 a.hidden {background:url("<ano:write name="mskPathToImages" scope="applicatio
 
 .autoreload_toggle_button {
     position: relative;
-    margin-top: -5px;
-    padding: 0 8px 0 16px;
+    padding: 4px 6px 4px 6px;
     font-size: 12px;
     -webkit-border-radius: 4px;
     -moz-border-radius: 4px;
     border-radius: 4px;
-    -webkit-box-shadow: inset 1px 0 0 rgba(255, 255, 255, 0.125), inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.2);
-    -moz-box-shadow: inset 1px 0 0 rgba(255, 255, 255, 0.125), inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.2);
+    -webkit-box-shadow: inset 1px 0 0 rgba(255, 255, 255, 0.125), inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.1);
+    -moz-box-shadow: inset 1px 0 0 rgba(255, 255, 255, 0.125), inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.1);
     box-shadow: inset 1px 0 0 rgba(255, 255, 255, 0.125), inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.1);
     background-color: #EEE;
     background-image: -ms-linear-gradient(top, #EEE, #C5C5C5);
@@ -603,7 +637,7 @@ h2 a.hidden {background:url("<ano:write name="mskPathToImages" scope="applicatio
     background-image: -moz-linear-gradient(top, #EEE, #C5C5C5);
     background-image: linear-gradient(top, #EEE, #C5C5C5);
     border: 1px solid #D1D1D1;
-    border-color: #D1D1D1 #C5C5C5 #999;
+    border-color: #D1D1D1 #C5C5C5 #AAA;
     color: #202020;
     text-shadow: 0 -1px 0 rgba(255, 255, 255, 0.7);
     cursor: pointer;
@@ -621,16 +655,17 @@ h2 a.hidden {background:url("<ano:write name="mskPathToImages" scope="applicatio
 }
 
 .autoreload_toggle_triangle {
-    background: url('<ano:write name="mskPathToImages" scope="application"/>arrow_black_down.png') no-repeat right bottom;
-    height: 8px;
-    width: 6px;
-    position: absolute;
-    left: 7px;
-    top: 3px;
+    background: url('<ano:write name="mskPathToImages" scope="application"/>ind_off_small.png') no-repeat 0 0;
+    vertical-align: -12%;
+    margin-top: -6px;
+    display: inline-block;
+    height: 12px;
+    width: 13px;
 }
 
 .autoreload_toggle_triangle_right {
-    background: url('<ano:write name="mskPathToImages" scope="application"/>arrow_black_right.png') no-repeat right bottom;
+    vertical-align: -39%;
+    background: url('<ano:write name="mskPathToImages" scope="application"/>arrow_black_right.png') no-repeat 50% 0;
 }
 
 .autoreload_current_interval {
@@ -640,6 +675,10 @@ h2 a.hidden {background:url("<ano:write name="mskPathToImages" scope="applicatio
     padding: 4px 6px;
     background: #E9F0F7;
     border-radius: 3px;
+}
+
+.autoreload_current_interval_data {
+    padding-left: 5px;
 }
 /* /ACCUMULATORS SET INTERVAL */
 
