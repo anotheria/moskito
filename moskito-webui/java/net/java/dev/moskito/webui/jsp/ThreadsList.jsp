@@ -75,6 +75,54 @@
 		<div class="bot">
 			<div><!-- --></div>
 		</div>
+
+        <br/><br/>
+
+        <div class="table_layout">
+            <div class="top">
+                <div><!-- --></div>
+            </div>
+            <div class="in">
+                <h2><span>States</span></h2>
+
+                <div class="clear"><!-- --></div>
+                <div class="table_itseft">
+                    <div class="top">
+                        <div class="left"><!-- --></div>
+                        <div class="right"><!-- --></div>
+                    </div>
+                    <div class="in">
+                        <div class="scroller_x">
+                            <table cellpadding="0" cellspacing="0" width="100%">
+                                <thead>
+                                <tr>
+                                    <th>State</th>
+                                    <th>Count</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+
+                                <ano:iterate name="states" type="net.java.dev.moskito.webui.bean.threads.ThreadStateInfoBean" id="state" indexId="index">
+                                    <tr class="<%= ((index & 1) == 0 )? "even" : "odd" %>">
+                                        <td><ano:write name="state" property="state"/></td>
+                                        <td><ano:write name="state" property="count"/></td>
+                                    </tr>
+                                </ano:iterate>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="clear"><!-- --></div>
+                    </div>
+                    <div class="bot">
+                        <div class="left"><!-- --></div>
+                        <div class="right"><!-- --></div>
+                    </div>
+                </div>
+            </div>
+            <div class="bot">
+                <div><!-- --></div>
+            </div>
+
 	</div>
 	<div class="clear"><!-- --></div>
 <jsp:include page="Footer.jsp" flush="false" />
