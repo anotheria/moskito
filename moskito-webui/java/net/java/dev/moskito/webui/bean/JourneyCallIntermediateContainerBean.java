@@ -12,9 +12,17 @@ import java.util.Map;
  *
  */
 public class JourneyCallIntermediateContainerBean {
-	//private Map<String, List<String>> stepsReversed = new HashMap<String, List<String>>();
+	/**
+	 * The reversed map of steps used to determine duplicates.
+	 */
 	private Map<String, ReversedCallHelper> stepsReversed = new HashMap<String, ReversedCallHelper>();
+	/**
+	 * Element in this countainer.
+	 */
 	private List<TraceStepBean> elements = new ArrayList<TraceStepBean>();
+	/**
+	 * Counter.
+	 */
 	private int counter = 0;
 	private final ParentHolder parentHolder = new ParentHolder();
 	
@@ -82,7 +90,9 @@ public class JourneyCallIntermediateContainerBean {
 	 *
 	 */
 	private class ParentHolder{
-		
+		/**
+		 * Holds known parents.
+ 		 */
 		private Map<Integer, Integer> parents = new HashMap<Integer, Integer>();
 		
 		private final int getParentIdByLayer(int layer, String currentId){
