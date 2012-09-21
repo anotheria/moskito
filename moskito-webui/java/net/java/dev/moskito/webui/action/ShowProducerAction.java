@@ -34,14 +34,6 @@
  */	
 package net.java.dev.moskito.webui.action;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import net.anotheria.maf.action.ActionCommand;
 import net.anotheria.maf.action.ActionMapping;
 import net.anotheria.maf.bean.FormBean;
@@ -51,16 +43,15 @@ import net.java.dev.moskito.core.inspection.CreationInfo;
 import net.java.dev.moskito.core.inspection.Inspectable;
 import net.java.dev.moskito.core.producers.IStats;
 import net.java.dev.moskito.core.producers.IStatsProducer;
-import net.java.dev.moskito.webui.bean.GraphDataBean;
-import net.java.dev.moskito.webui.bean.GraphDataValueBean;
-import net.java.dev.moskito.webui.bean.NaviItem;
-import net.java.dev.moskito.webui.bean.ProducerBean;
-import net.java.dev.moskito.webui.bean.StatBean;
-import net.java.dev.moskito.webui.bean.StatBeanSortType;
-import net.java.dev.moskito.webui.bean.StatDecoratorBean;
-import net.java.dev.moskito.webui.bean.StatValueBean;
-import net.java.dev.moskito.webui.bean.UnitBean;
+import net.java.dev.moskito.webui.bean.*;
 import net.java.dev.moskito.webui.decorators.IDecorator;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Presents a single, previously selected producer.

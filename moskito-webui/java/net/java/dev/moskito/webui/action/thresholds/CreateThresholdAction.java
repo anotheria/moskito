@@ -3,8 +3,6 @@ package net.java.dev.moskito.webui.action.thresholds;
 import net.anotheria.maf.action.ActionCommand;
 import net.anotheria.maf.action.ActionMapping;
 import net.anotheria.maf.bean.FormBean;
-import net.java.dev.moskito.core.accumulation.AccumulatorDefinition;
-import net.java.dev.moskito.core.accumulation.AccumulatorRepository;
 import net.java.dev.moskito.core.stats.TimeUnit;
 import net.java.dev.moskito.core.treshold.Threshold;
 import net.java.dev.moskito.core.treshold.ThresholdDefinition;
@@ -13,7 +11,6 @@ import net.java.dev.moskito.core.treshold.ThresholdStatus;
 import net.java.dev.moskito.core.treshold.guard.DoubleBarrierPassGuard;
 import net.java.dev.moskito.core.treshold.guard.GuardedDirection;
 import net.java.dev.moskito.core.treshold.guard.LongBarrierPassGuard;
-import net.java.dev.moskito.webui.action.accumulators.BaseAccumulatorsAction;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

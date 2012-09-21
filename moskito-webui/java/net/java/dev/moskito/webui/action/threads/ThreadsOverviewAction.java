@@ -1,15 +1,14 @@
 package net.java.dev.moskito.webui.action.threads;
 
-import java.lang.management.ManagementFactory;
-import java.lang.management.ThreadMXBean;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import net.anotheria.maf.action.ActionCommand;
 import net.anotheria.maf.action.ActionMapping;
 import net.anotheria.maf.bean.FormBean;
 import net.java.dev.moskito.webui.bean.threads.ThreadsInfoBean;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.lang.management.ManagementFactory;
+import java.lang.management.ThreadMXBean;
 
 /**
  * This action renders the overview page of the threads section of the webui.

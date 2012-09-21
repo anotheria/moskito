@@ -1,40 +1,27 @@
 package net.java.dev.moskito.webui.action;
 
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.net.URLDecoder;
-import java.net.URLEncoder;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Enumeration;
-import java.util.HashMap;
-import java.util.List;
-import java.util.zip.DataFormatException;
-import java.util.zip.Deflater;
-import java.util.zip.Inflater;
-
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import net.anotheria.maf.action.ActionCommand;
 import net.anotheria.maf.action.ActionMapping;
 import net.anotheria.maf.bean.FormBean;
 import net.anotheria.util.StringUtils;
 import net.anotheria.util.TimeUnit;
-import net.java.dev.moskito.webui.bean.DashboardBean;
-import net.java.dev.moskito.webui.bean.DashboardWidgetBean;
-import net.java.dev.moskito.webui.bean.GraphDataBean;
-import net.java.dev.moskito.webui.bean.NaviItem;
-import net.java.dev.moskito.webui.bean.ProducerBean;
-import net.java.dev.moskito.webui.bean.ProducerDecoratorBean;
-import net.java.dev.moskito.webui.bean.StatCaptionBean;
-import net.java.dev.moskito.webui.bean.WidgetType;
-
+import net.java.dev.moskito.webui.bean.*;
 import org.apache.commons.codec.binary.Base64;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.net.URLDecoder;
+import java.net.URLEncoder;
+import java.util.*;
+import java.util.zip.DataFormatException;
+import java.util.zip.Deflater;
+import java.util.zip.Inflater;
 
 /**
  * Dashboard action. This code is yet experimental and already unsupported.

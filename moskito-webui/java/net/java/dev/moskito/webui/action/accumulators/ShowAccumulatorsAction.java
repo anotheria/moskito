@@ -1,13 +1,5 @@
 package net.java.dev.moskito.webui.action.accumulators;
 
-import java.util.ArrayList;
-import java.util.Enumeration;
-import java.util.HashMap;
-import java.util.List;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import net.anotheria.maf.action.ActionCommand;
 import net.anotheria.maf.action.ActionMapping;
 import net.anotheria.maf.bean.FormBean;
@@ -18,12 +10,17 @@ import net.anotheria.util.sorter.StaticQuickSorter;
 import net.java.dev.moskito.core.accumulation.AccumulatedValue;
 import net.java.dev.moskito.core.accumulation.Accumulator;
 import net.java.dev.moskito.core.accumulation.AccumulatorRepository;
-import net.java.dev.moskito.webui.action.BaseMoskitoUIAction;
 import net.java.dev.moskito.webui.bean.AccumulatedSingleGraphDataBean;
 import net.java.dev.moskito.webui.bean.AccumulatedValueBean;
 import net.java.dev.moskito.webui.bean.AccumulatedValuesBean;
 import net.java.dev.moskito.webui.bean.AccumulatorInfoBean;
-import net.java.dev.moskito.webui.bean.NaviItem;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
+import java.util.Enumeration;
+import java.util.HashMap;
+import java.util.List;
 
 /**
 /**

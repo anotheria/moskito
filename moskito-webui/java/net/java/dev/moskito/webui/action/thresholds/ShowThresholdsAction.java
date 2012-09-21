@@ -1,25 +1,18 @@
 package net.java.dev.moskito.webui.action.thresholds;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import net.anotheria.maf.action.ActionCommand;
 import net.anotheria.maf.action.ActionMapping;
 import net.anotheria.maf.bean.FormBean;
 import net.anotheria.util.NumberUtils;
-import net.java.dev.moskito.core.treshold.AlertHistory;
-import net.java.dev.moskito.core.treshold.Threshold;
-import net.java.dev.moskito.core.treshold.ThresholdAlert;
-import net.java.dev.moskito.core.treshold.ThresholdConditionGuard;
-import net.java.dev.moskito.core.treshold.ThresholdRepository;
-import net.java.dev.moskito.webui.action.BaseMoskitoUIAction;
-import net.java.dev.moskito.webui.bean.NaviItem;
+import net.java.dev.moskito.core.treshold.*;
 import net.java.dev.moskito.webui.bean.ThresholdAlertBean;
 import net.java.dev.moskito.webui.bean.ThresholdBean;
 import net.java.dev.moskito.webui.bean.ThresholdInfoBean;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
+import java.util.List;
 /**
  * Displays configured thresholds and their statuses.
  * @author lrosenberg

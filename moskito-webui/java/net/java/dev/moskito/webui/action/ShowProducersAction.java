@@ -34,17 +34,16 @@
  */	
 package net.java.dev.moskito.webui.action;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import net.java.dev.moskito.core.producers.IStatsProducer;
 import net.java.dev.moskito.core.registry.IProducerFilter;
 import net.java.dev.moskito.core.registry.filters.CategoryFilter;
 import net.java.dev.moskito.core.registry.filters.SubsystemFilter;
 import net.java.dev.moskito.webui.bean.UnitCountBean;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ShowProducersAction extends BaseShowProducersAction{
 

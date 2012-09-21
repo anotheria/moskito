@@ -1,9 +1,9 @@
 package net.java.dev.moskito.webui.action.threads;
 
-import javax.servlet.http.HttpServletRequest;
-
 import net.java.dev.moskito.webui.action.BaseMoskitoUIAction;
 import net.java.dev.moskito.webui.bean.NaviItem;
+
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * Base threads action.

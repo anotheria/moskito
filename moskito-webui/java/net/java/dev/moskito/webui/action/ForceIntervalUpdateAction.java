@@ -1,8 +1,5 @@
 package net.java.dev.moskito.webui.action;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import net.anotheria.maf.action.ActionForward;
 import net.anotheria.maf.action.ActionMapping;
 import net.anotheria.maf.bean.FormBean;
@@ -10,6 +7,9 @@ import net.java.dev.moskito.core.stats.Interval;
 import net.java.dev.moskito.core.stats.impl.IntervalRegistry;
 import net.java.dev.moskito.core.timing.IUpdateable;
 import net.java.dev.moskito.webui.bean.NaviItem;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * This action fires an interval update. This is useful for intervals that are not updated by a timer, like snapshots.

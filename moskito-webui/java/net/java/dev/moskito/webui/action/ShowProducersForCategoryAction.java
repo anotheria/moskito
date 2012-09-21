@@ -33,12 +33,11 @@
  * THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */	
 package net.java.dev.moskito.webui.action;
-	
-import java.util.List;
-
-import javax.servlet.http.HttpServletRequest;
 
 import net.java.dev.moskito.core.producers.IStatsProducer;
+
+import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 public class ShowProducersForCategoryAction extends BaseShowProducersAction{
 	

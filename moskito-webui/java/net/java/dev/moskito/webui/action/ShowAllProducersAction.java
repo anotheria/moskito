@@ -34,12 +34,11 @@
  */	
 package net.java.dev.moskito.webui.action;
 
-import java.util.ArrayList;
-import java.util.List;
+import net.java.dev.moskito.core.producers.IStatsProducer;
 
 import javax.servlet.http.HttpServletRequest;
-
-import net.java.dev.moskito.core.producers.IStatsProducer;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * This action renders the presentation of all producers.
