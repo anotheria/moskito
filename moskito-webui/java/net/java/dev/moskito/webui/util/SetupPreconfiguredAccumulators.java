@@ -1,11 +1,10 @@
 package net.java.dev.moskito.webui.util;
 
+import net.java.dev.moskito.core.accumulation.Accumulators;
+import org.apache.log4j.Logger;
+
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
-
-import net.java.dev.moskito.core.accumulation.Accumulators;
-
-import org.apache.log4j.Logger;
 
 public class SetupPreconfiguredAccumulators implements ServletContextListener{
 	

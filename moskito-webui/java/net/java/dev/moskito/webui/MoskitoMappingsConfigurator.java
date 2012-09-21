@@ -9,10 +9,6 @@ import net.java.dev.moskito.webui.action.ForceIntervalUpdateAction;
 import net.java.dev.moskito.webui.action.GetChartDataAction;
 import net.java.dev.moskito.webui.action.GetChartMetaDataAction;
 import net.java.dev.moskito.webui.action.InspectProducerAction;
-import net.java.dev.moskito.webui.action.accumulators.CreateAccumulatorAction;
-import net.java.dev.moskito.webui.action.accumulators.DeleteAccumulatorAction;
-import net.java.dev.moskito.webui.action.accumulators.ShowAccumulatorAction;
-import net.java.dev.moskito.webui.action.accumulators.ShowAccumulatorsAction;
 import net.java.dev.moskito.webui.action.ShowAllProducersAction;
 import net.java.dev.moskito.webui.action.ShowChartsAction;
 import net.java.dev.moskito.webui.action.ShowDashboardAction;
@@ -24,10 +20,14 @@ import net.java.dev.moskito.webui.action.ShowProducerAction;
 import net.java.dev.moskito.webui.action.ShowProducersForCategoryAction;
 import net.java.dev.moskito.webui.action.ShowProducersForSubsystemAction;
 import net.java.dev.moskito.webui.action.ShowRecordedUseCaseAction;
+import net.java.dev.moskito.webui.action.ShowUseCasesAction;
+import net.java.dev.moskito.webui.action.accumulators.CreateAccumulatorAction;
+import net.java.dev.moskito.webui.action.accumulators.DeleteAccumulatorAction;
+import net.java.dev.moskito.webui.action.accumulators.ShowAccumulatorAction;
+import net.java.dev.moskito.webui.action.accumulators.ShowAccumulatorsAction;
 import net.java.dev.moskito.webui.action.thresholds.CreateThresholdAction;
 import net.java.dev.moskito.webui.action.thresholds.DeleteThresholdAction;
 import net.java.dev.moskito.webui.action.thresholds.ShowThresholdsAction;
-import net.java.dev.moskito.webui.action.ShowUseCasesAction;
 
 /**
  * Mappings configurator for MoSKito project for the AnoMaf framework.

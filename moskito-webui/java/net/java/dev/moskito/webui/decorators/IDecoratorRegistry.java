@@ -34,10 +34,10 @@
  */	
 package net.java.dev.moskito.webui.decorators;
 
-import java.util.List;
-
 import net.java.dev.moskito.core.producers.AbstractStats;
 import net.java.dev.moskito.core.producers.IStats;
+
+import java.util.List;
 
 /**
  * Internally used registry for decorator management.

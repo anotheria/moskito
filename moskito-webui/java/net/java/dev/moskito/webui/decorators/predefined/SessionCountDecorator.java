@@ -1,14 +1,14 @@
 package net.java.dev.moskito.webui.decorators.predefined;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import net.java.dev.moskito.core.producers.IStats;
 import net.java.dev.moskito.core.stats.TimeUnit;
 import net.java.dev.moskito.web.session.SessionCountStats;
 import net.java.dev.moskito.webui.bean.LongValueBean;
 import net.java.dev.moskito.webui.bean.StatValueBean;
 import net.java.dev.moskito.webui.decorators.AbstractDecorator;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class SessionCountDecorator extends AbstractDecorator{
 	private static final String CAPTIONS[] = {

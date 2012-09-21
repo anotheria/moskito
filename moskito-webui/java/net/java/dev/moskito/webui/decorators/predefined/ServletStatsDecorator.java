@@ -34,13 +34,13 @@
  */	
 package net.java.dev.moskito.webui.decorators.predefined;
 
-import java.util.List;
-
 import net.java.dev.moskito.core.predefined.ServletStats;
 import net.java.dev.moskito.core.producers.IStats;
 import net.java.dev.moskito.core.stats.TimeUnit;
 import net.java.dev.moskito.webui.bean.LongValueBean;
 import net.java.dev.moskito.webui.bean.StatValueBean;
+
+import java.util.List;
 
 public class ServletStatsDecorator extends RequestOrientedStatsDecorator{
 

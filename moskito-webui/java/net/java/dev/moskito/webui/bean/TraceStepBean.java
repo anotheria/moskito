@@ -1,9 +1,9 @@
 package net.java.dev.moskito.webui.bean;
 
+import net.anotheria.util.NumberUtils;
+
 import java.util.ArrayList;
 import java.util.List;
-
-import net.anotheria.util.NumberUtils;
 /**
  * This bean represents an element along an use-case path.
  * @author lrosenberg

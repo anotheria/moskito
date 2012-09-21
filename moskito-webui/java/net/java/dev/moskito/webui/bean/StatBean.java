@@ -34,10 +34,10 @@
  */	
 package net.java.dev.moskito.webui.bean;
 
-import java.util.List;
-
 import net.anotheria.util.BasicComparable;
 import net.anotheria.util.sorter.IComparable;
+
+import java.util.List;
 
 public class StatBean implements IComparable{
 	private String name;

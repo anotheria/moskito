@@ -34,11 +34,11 @@
  */	
 package net.java.dev.moskito.webui.decorators;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import net.anotheria.util.sorter.IComparable;
 import net.java.dev.moskito.webui.bean.StatCaptionBean;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * An abstract class which implements basic functionality common to most decorators.

@@ -34,13 +34,13 @@
  */	
 package net.java.dev.moskito.webui.decorators;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import net.java.dev.moskito.core.producers.IStats;
 import net.java.dev.moskito.core.stats.TimeUnit;
 import net.java.dev.moskito.webui.bean.StatValueBean;
 import net.java.dev.moskito.webui.bean.StringValueBean;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A NOOP decorator. Used as a substitute for missing (or yet unimplemented) decorator.

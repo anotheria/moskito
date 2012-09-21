@@ -34,11 +34,11 @@
  */	
 package net.java.dev.moskito.webui.bean;
 
-import java.util.List;
-
 import net.anotheria.util.BasicComparable;
 import net.anotheria.util.StringUtils;
 import net.anotheria.util.sorter.IComparable;
+
+import java.util.List;
 
 /**
  * Basic bean for decorator beans.

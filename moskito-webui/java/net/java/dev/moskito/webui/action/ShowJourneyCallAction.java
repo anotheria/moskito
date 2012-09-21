@@ -10,7 +10,11 @@ import net.java.dev.moskito.core.calltrace.TraceStep;
 import net.java.dev.moskito.core.journey.Journey;
 import net.java.dev.moskito.core.journey.NoSuchJourneyException;
 import net.java.dev.moskito.core.stats.TimeUnit;
-import net.java.dev.moskito.webui.bean.*;
+import net.java.dev.moskito.webui.bean.JourneyCallDuplicateStepBean;
+import net.java.dev.moskito.webui.bean.JourneyCallDuplicateStepBeanSortType;
+import net.java.dev.moskito.webui.bean.JourneyCallIntermediateContainerBean;
+import net.java.dev.moskito.webui.bean.TraceStepBean;
+import net.java.dev.moskito.webui.bean.TracedCallBean;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

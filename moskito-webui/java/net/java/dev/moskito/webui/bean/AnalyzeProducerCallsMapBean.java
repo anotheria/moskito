@@ -1,11 +1,11 @@
 package net.java.dev.moskito.webui.bean;
 
+import net.anotheria.util.sorter.StaticQuickSorter;
+import net.java.dev.moskito.webui.CurrentSelection;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import net.anotheria.util.sorter.StaticQuickSorter;
-import net.java.dev.moskito.webui.CurrentSelection;
 
 public class AnalyzeProducerCallsMapBean {
 	private Map<String, AnalyzeProducerCallsBean> beans;

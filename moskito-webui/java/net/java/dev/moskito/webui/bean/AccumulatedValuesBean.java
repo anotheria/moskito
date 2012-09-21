@@ -1,11 +1,11 @@
 package net.java.dev.moskito.webui.bean;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import net.anotheria.util.BasicComparable;
 import net.anotheria.util.NumberUtils;
 import net.anotheria.util.sorter.IComparable;
+
+import java.util.HashMap;
+import java.util.Map;
 
 //this bean is used to consolidate different accumulators
 public class AccumulatedValuesBean implements IComparable{

@@ -1,17 +1,15 @@
 package net.java.dev.moskito.webui;
 
-import java.util.Arrays;
-import java.util.List;
+import net.anotheria.maf.MAFFilter;
+import net.anotheria.maf.action.ActionMappingsConfigurator;
+import net.anotheria.util.maven.MavenVersion;
+import net.anotheria.webutils.util.VersionUtil;
+import org.apache.log4j.Logger;
 
 import javax.servlet.FilterConfig;
 import javax.servlet.ServletException;
-
-import org.apache.log4j.Logger;
-
-import net.anotheria.maf.action.ActionMappingsConfigurator;
-import net.anotheria.maf.MAFFilter;
-import net.anotheria.util.maven.MavenVersion;
-import net.anotheria.webutils.util.VersionUtil;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * MoskitoUI Filter is the main entering point of the Moskito Web User Interface.

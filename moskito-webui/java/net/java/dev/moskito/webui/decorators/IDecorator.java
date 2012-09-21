@@ -34,13 +34,13 @@
  */	
 package net.java.dev.moskito.webui.decorators;
 
-import java.util.List;
-
 import net.anotheria.util.sorter.IComparable;
 import net.java.dev.moskito.core.producers.IStats;
 import net.java.dev.moskito.core.stats.TimeUnit;
 import net.java.dev.moskito.webui.bean.StatCaptionBean;
 import net.java.dev.moskito.webui.bean.StatValueBean;
+
+import java.util.List;
 
 /**
  * A decorator prepares data from a set of stat producers for presentation.

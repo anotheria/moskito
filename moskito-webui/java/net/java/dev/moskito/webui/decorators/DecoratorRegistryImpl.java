@@ -34,11 +34,6 @@
  */	
 package net.java.dev.moskito.webui.decorators;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import net.java.dev.moskito.core.predefined.ActionStats;
 import net.java.dev.moskito.core.predefined.CacheStats;
 import net.java.dev.moskito.core.predefined.FilterStats;
@@ -66,6 +61,11 @@ import net.java.dev.moskito.webui.decorators.predefined.ServletStatsDecorator;
 import net.java.dev.moskito.webui.decorators.predefined.SessionCountDecorator;
 import net.java.dev.moskito.webui.decorators.predefined.ThreadCountDecorator;
 import net.java.dev.moskito.webui.decorators.util.StorageStatsDecorator;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Implementation of the IDecoratorRegistry.

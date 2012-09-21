@@ -43,7 +43,15 @@ import net.java.dev.moskito.core.inspection.CreationInfo;
 import net.java.dev.moskito.core.inspection.Inspectable;
 import net.java.dev.moskito.core.producers.IStats;
 import net.java.dev.moskito.core.producers.IStatsProducer;
-import net.java.dev.moskito.webui.bean.*;
+import net.java.dev.moskito.webui.bean.GraphDataBean;
+import net.java.dev.moskito.webui.bean.GraphDataValueBean;
+import net.java.dev.moskito.webui.bean.NaviItem;
+import net.java.dev.moskito.webui.bean.ProducerBean;
+import net.java.dev.moskito.webui.bean.StatBean;
+import net.java.dev.moskito.webui.bean.StatBeanSortType;
+import net.java.dev.moskito.webui.bean.StatDecoratorBean;
+import net.java.dev.moskito.webui.bean.StatValueBean;
+import net.java.dev.moskito.webui.bean.UnitBean;
 import net.java.dev.moskito.webui.decorators.IDecorator;
 
 import javax.servlet.http.HttpServletRequest;

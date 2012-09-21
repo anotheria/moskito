@@ -1,8 +1,5 @@
 package net.java.dev.moskito.webui.decorators.predefined;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import net.anotheria.util.NumberUtils;
 import net.java.dev.moskito.core.predefined.RuntimeStats;
 import net.java.dev.moskito.core.producers.IStats;
@@ -11,6 +8,9 @@ import net.java.dev.moskito.webui.bean.LongValueBean;
 import net.java.dev.moskito.webui.bean.StatValueBean;
 import net.java.dev.moskito.webui.bean.StringValueBean;
 import net.java.dev.moskito.webui.decorators.AbstractDecorator;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A decorator for the memory pool stats provided by the VM (young, survivor, oldgen etc).

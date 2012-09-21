@@ -1,10 +1,10 @@
 package net.java.dev.moskito.webui.bean;
 
+import net.anotheria.util.StringUtils;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-
-import net.anotheria.util.StringUtils;
 /**
  * This bean contains data for a single graph in multiple graph mode.
  * @author lrosenberg

@@ -1,14 +1,14 @@
 package net.java.dev.moskito.webui.decorators.predefined;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import net.java.dev.moskito.core.predefined.ThreadCountStats;
 import net.java.dev.moskito.core.producers.IStats;
 import net.java.dev.moskito.core.stats.TimeUnit;
 import net.java.dev.moskito.webui.bean.LongValueBean;
 import net.java.dev.moskito.webui.bean.StatValueBean;
 import net.java.dev.moskito.webui.decorators.AbstractDecorator;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * This decorator is used for presentation of the thread count producer.

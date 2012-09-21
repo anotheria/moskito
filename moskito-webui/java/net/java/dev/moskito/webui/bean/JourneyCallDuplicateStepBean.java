@@ -1,14 +1,14 @@
 package net.java.dev.moskito.webui.bean;
 
+import net.anotheria.util.BasicComparable;
+import net.anotheria.util.sorter.IComparable;
+
+import java.util.List;
+
 import static net.java.dev.moskito.webui.bean.JourneyCallDuplicateStepBeanSortType.SORT_BY_CALL;
 import static net.java.dev.moskito.webui.bean.JourneyCallDuplicateStepBeanSortType.SORT_BY_DURATION;
 import static net.java.dev.moskito.webui.bean.JourneyCallDuplicateStepBeanSortType.SORT_BY_POSITIONS;
 import static net.java.dev.moskito.webui.bean.JourneyCallDuplicateStepBeanSortType.SORT_BY_TIMESPENT;
-
-import java.util.List;
-
-import net.anotheria.util.BasicComparable;
-import net.anotheria.util.sorter.IComparable;
 
 /**
  * This bean represents a duplicate step during a journey call. 

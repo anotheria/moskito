@@ -34,10 +34,10 @@
  */	
 package net.java.dev.moskito.webui.bean;
 
+import net.java.dev.moskito.webui.action.BaseMoskitoUIAction;
+
 import java.util.ArrayList;
 import java.util.List;
-
-import net.java.dev.moskito.webui.action.BaseMoskitoUIAction;
 
 public class StatDecoratorBean extends AbstractDecoratorBean {
 	/**
