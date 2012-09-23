@@ -13,6 +13,9 @@
 <script type="text/javascript" src="http://www.google.com/jsapi"></script>
 
 <jsp:include page="Menu.jsp" flush="false"/>
+<%--<script>    // temp
+    window.autoReloadInterval = <ano: autoreload value>;
+</script>--%>
 
 <script type="text/javascript">
     $(function() {
@@ -91,10 +94,10 @@
                 $setButton = $('.autoreload_set_button'),
                 $label = $('form.autoreload_settings label'),
                 $resetButton = $('.autoreload_reset_button'),
-                $autoreloadInterval = $('.autoreload_current_interval_data').text(),
+                autoreloadInterval = $('.autoreload_current_interval_data').text(),
+                autoreloadValue = parseInt(autoreloadInterval, 10),
                 linkToCurrentPage = $('.linkToCurrentPage').text();
 
-            console.log($autoreloadInterval)
 
             $setButton.on('click', function() {
                 var n = $('.autoreload_minutes_settings_input').val(),
@@ -120,8 +123,9 @@
                 return false
             });
 
-            <ano:present name="autoreloadInterval">setTimeout('window.location = window.location', ($autoreloadInterval * 60000))</ano:present>
-
+            if(autoreloadValue) {
+                setTimeout('window.location = window.location', (autoreloadValue * 60000))
+            }
         }
 
         deleteAccumulator();
