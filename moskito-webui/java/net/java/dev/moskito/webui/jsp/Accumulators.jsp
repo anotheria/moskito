@@ -120,9 +120,8 @@
                 return false
             });
 
-            if(!($autoreloadInterval==='none')) {
-                setTimeout('window.location = window.location', ($autoreloadInterval * 60000))
-            }
+            <ano:present name="autoreloadInterval">setTimeout('window.location = window.location', ($autoreloadInterval * 60000))</ano:present>
+
         }
 
         deleteAccumulator();
