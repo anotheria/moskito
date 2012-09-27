@@ -17,7 +17,12 @@ a:hover {text-decoration:none; color:#55cc00; cursor:pointer;}
 .top .left_bg {width:10px; float:left; height:50px; background:url(<ano:write name="mskPathToImages" scope="application"/>bgs.gif) 0 0 no-repeat;}
 .logo {display:block; float:left; margin-top:8px; padding-bottom:16px;}
 .top .right {width:10px; height:50px; float:right; background:url(<ano:write name="mskPathToImages" scope="application"/>bgs.gif) -1px -203px no-repeat;}
-.top ul {float:left; margin-left:45px;}
+
+.top ul {
+    float:left;
+    margin-left: 3%;
+}
+
 .top ul li {float:left; list-style-type:none; display:block;}
 .top ul li a {font-size:1.4em; padding:20px 15px 14px 15px; display:block; float:left;	}
 .top ul li.active {background:url(<ano:write name="mskPathToImages" scope="application"/>bgs.gif) 0 -305px no-repeat #f7f7f7;}
@@ -515,15 +520,15 @@ h2 a.hidden {background:url("<ano:write name="mskPathToImages" scope="applicatio
 .autoreload_wrapper {
     float: right;
     position: relative;
-    padding: 16px 30px 0;
+    padding: 3px 30px 0;
     margin: 0  -50px  0 -60px;
 }
 
 .autoreload_settings {
     display: none;
     position: absolute;
-    top: 40px;
-    right: -22px;
+    top: 44px;
+    right: -34px;
     background: white;
     width: 160px;
     -webkit-box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.3);
@@ -584,7 +589,7 @@ h2 a.hidden {background:url("<ano:write name="mskPathToImages" scope="applicatio
     background-image: linear-gradient(top, #4FBE00, #378300);
 }
 
-.autoreload_reset_button {
+.autoreload_reset_button, .autoreload_close_button {
     display: block;
     margin: 10px auto 0;
     font-size: 14px;
@@ -621,25 +626,25 @@ h2 a.hidden {background:url("<ano:write name="mskPathToImages" scope="applicatio
 
 .autoreload_toggle_button {
     position: relative;
-    padding: 4px 6px 4px 6px;
-    font-size: 12px;
+    padding: 4px 6px;
+    font-size: 11px;
     -webkit-border-radius: 4px;
     -moz-border-radius: 4px;
     border-radius: 4px;
-    -webkit-box-shadow: inset 1px 0 0 rgba(255, 255, 255, 0.125), inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.1);
-    -moz-box-shadow: inset 1px 0 0 rgba(255, 255, 255, 0.125), inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.1);
-    box-shadow: inset 1px 0 0 rgba(255, 255, 255, 0.125), inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.1);
-    background-color: #EEE;
-    background-image: -ms-linear-gradient(top, #EEE, #C5C5C5);
-    background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#EEE), to(#C5C5C5));
-    background-image: -webkit-linear-gradient(top, #EEE, #C5C5C5);
-    background-image: -o-linear-gradient(top, #EEE, #C5C5C5);
-    background-image: -moz-linear-gradient(top, #EEE, #C5C5C5);
-    background-image: linear-gradient(top, #EEE, #C5C5C5);
-    border: 1px solid #D1D1D1;
-    border-color: #D1D1D1 #C5C5C5 #AAA;
+    -webkit-box-shadow: inset 1px 0 0 rgba(255, 255, 255, 0.125), inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.15);
+    -moz-box-shadow: inset 1px 0 0 rgba(255, 255, 255, 0.125), inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.15);
+    box-shadow: inset 1px 0 0 rgba(255, 255, 255, 0.125), inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.15);
+    background-color: #D6D6D6;
+    background-image: -ms-linear-gradient(top, #F3F3F3, #D6D6D6);
+    background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#F3F3F3), to(#D6D6D6));
+    background-image: -webkit-linear-gradient(top, #F3F3F3, #D6D6D6);
+    background-image: -o-linear-gradient(top, #F3F3F3, #D6D6D6);
+    background-image: -moz-linear-gradient(top, #F3F3F3, #D6D6D6);
+    background-image: linear-gradient(top, #F3F3F3, #D6D6D6);
+    border: 1px solid #B3B3B3;
+    border-color: #DBDBDB #CECECE #B3B3B3;
     color: #202020;
-    text-shadow: 0 -1px 0 rgba(255, 255, 255, 0.7);
+    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.4);
     cursor: pointer;
 }
 
@@ -654,18 +659,32 @@ h2 a.hidden {background:url("<ano:write name="mskPathToImages" scope="applicatio
     border-color: #DDD #DADADA #C4C4C4;
 }
 
-.autoreload_toggle_triangle {
-    background: url('<ano:write name="mskPathToImages" scope="application"/>ind_off_small.png') no-repeat 0 0;
-    vertical-align: -12%;
-    margin-top: -6px;
-    display: inline-block;
+.autoreload_off_indicator, .autoreload_on_indicator {
     height: 12px;
-    width: 13px;
+    width: 11px;
+    margin: -1px auto -1px;
 }
 
-.autoreload_toggle_triangle_right {
-    vertical-align: -39%;
-    background: url('<ano:write name="mskPathToImages" scope="application"/>arrow_black_right.png') no-repeat 50% 0;
+.autoreload_off_indicator {
+    background: url('<ano:write name="mskPathToImages" scope="application"/>autoreload_sprite.png') no-repeat 0 0;
+}
+
+.autoreload_on_indicator {
+    background: url('<ano:write name="mskPathToImages" scope="application"/>autoreload_sprite.png') no-repeat 0 -12px;
+}
+
+.autoreload_toggle_triangle_down, .autoreload_toggle_triangle_up {
+    height: 12px;
+    width: 11px;
+    margin: 2px auto -5px;
+}
+
+.autoreload_toggle_triangle_down {
+    background: url('<ano:write name="mskPathToImages" scope="application"/>autoreload_sprite.png') no-repeat 0 -24px;
+}
+
+.autoreload_toggle_triangle_up {
+    background: url('<ano:write name="mskPathToImages" scope="application"/>autoreload_sprite.png') no-repeat 0 -36px;
 }
 
 .autoreload_current_interval {

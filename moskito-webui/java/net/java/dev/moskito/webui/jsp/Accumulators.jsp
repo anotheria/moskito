@@ -83,11 +83,19 @@
         function manageAutoreload() {
             var $toggleButton = $('.autoreload_toggle_button'),
                 $settingsBox = $('.autoreload_settings'),
-                $triangle = $('.autoreload_toggle_triangle');
+                $closedBoxTriangle = $('.autoreload_toggle_triangle_down'),
+                $closeBoxButton = $('.autoreload_close_button');
 
             $toggleButton.on('click', function() {
-                $triangle.toggleClass('autoreload_toggle_triangle_right');
+                $closedBoxTriangle.toggleClass('autoreload_toggle_triangle_up');
                 $settingsBox.slideToggle();
+                return false
+            });
+
+            $closeBoxButton.on('click', function() {
+                $closedBoxTriangle.toggleClass('autoreload_toggle_triangle_up');
+                $settingsBox.slideToggle();
+                return false
             });
 
             var $form = $('form.autoreload_settings'),
