@@ -1,0 +1,126 @@
+package net.anotheria.moskito.core.dynamic;
+
+import net.anotheria.moskito.core.inspection.CreationInfo;
+import net.anotheria.moskito.core.predefined.ServiceStats;
+import net.anotheria.moskito.core.predefined.ServiceStatsFactory;
+import net.anotheria.moskito.core.producers.IStats;
+import net.anotheria.util.IdCodeGenerator;
+import org.junit.Test;
+
+import java.util.ArrayList;
+import java.util.Random;
+import java.util.concurrent.CountDownLatch;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.fail;
+
+
+public class OnDemandStatsProducerTest {
+	@Test public void testLimit() throws Exception {
+		OnDemandStatsProducer<ServiceStats> p = new OnDemandStatsProducer<ServiceStats>("id", "aCategory", "aSubsystem", new ServiceStatsFactory()){
+			
+			private boolean limit = false;
+			
+			public boolean limitForNewEntriesReached(){	
+				try{
+					return limit;
+				}finally{
+					limit = !limit;
+				}
+			}
+		};
+		
+		p.getStats("foo");
+		try{
+			p.getStats("this_will_throw_an_error");
+			fail("Exception expected!");
+		}catch(OnDemandStatsProducerException e){
+			
+		}
+		
+	}
+	
+	@Test public void testBasicStuff(){
+		String category = IdCodeGenerator.generateCode(20);
+		String subsystem = IdCodeGenerator.generateCode(20);
+		String id = IdCodeGenerator.generateCode(20);
+		
+		OnDemandStatsProducer<ServiceStats> p = new OnDemandStatsProducer<ServiceStats>(id, category, subsystem, new ServiceStatsFactory());
+		assertEquals(id, p.getProducerId());
+		assertEquals(category, p.getCategory());
+		assertEquals(subsystem, p.getSubsystem());
+		assertNotNull(p.toString());
+		
+		CreationInfo info = p.getCreationInfo();
+		assertNotNull(info);
+		assertNotNull(info.getStackTrace());
+	}
+
+	@Test public void testNull(){
+		String id = IdCodeGenerator.generateCode(20);
+		
+		OnDemandStatsProducer<ServiceStats> p = new OnDemandStatsProducer<ServiceStats>(id, null, null, new ServiceStatsFactory());
+		assertEquals(id, p.getProducerId());
+		assertEquals("default", p.getCategory());
+		assertEquals("default", p.getSubsystem());
+	}
+	
+	
+	private static final int THREAD_COUNT = 5;
+	private static final CountDownLatch startLatch = new CountDownLatch(1);
+	private static final CountDownLatch endLatch = new CountDownLatch(THREAD_COUNT);
+	private static final int REQUEST_COUNT = 10000;
+	private static final int RANDOM_COUNT = 100;
+	private static final Random rnd = new Random(System.currentTimeMillis());
+	@Test public void testMultipleAccess() throws Exception{
+		OnDemandStatsProducer<ServiceStats> p = new OnDemandStatsProducer<ServiceStats>("id", "aCategory", "aSubsystem", new ServiceStatsFactory());
+		ArrayList<TestThread> threads = new ArrayList<TestThread>();
+		for (int i=0; i<THREAD_COUNT; i++){
+			TestThread t = new TestThread(p);
+			t.start();
+			threads.add(t);
+		}
+		
+		long start = System.nanoTime();
+		startLatch.countDown();
+		endLatch.await();
+		long end = System.nanoTime();
+		long duration = end - start;
+		System.out.println("Tests finished in "+duration/1000/1000+" ms");
+		
+		long totalRequests = 0;
+		for (IStats s : p.getStats()){
+			totalRequests += ((ServiceStats)s).getTotalRequests();
+		}
+		
+		System.out.println("Total requests "+totalRequests+" in "+p.getStats().size()+" stats.");
+		assertEquals(THREAD_COUNT*REQUEST_COUNT, totalRequests);
+		//System.out.println(p.getStats());
+	}
+	
+	private static class TestThread extends Thread{
+		
+		private OnDemandStatsProducer<ServiceStats> producer;
+		
+		public TestThread(OnDemandStatsProducer<ServiceStats> aProducer) {
+			producer = aProducer;
+		}
+		
+		public void run(){
+			try{
+				startLatch.await();
+			}catch(InterruptedException e){}
+			for (int i=0; i<REQUEST_COUNT; i++){
+				int r = rnd.nextInt(RANDOM_COUNT);
+				try{
+					ServiceStats stats = producer.getStats(""+r);
+					stats.addRequest();
+				}catch(OnDemandStatsProducerException ignored){
+					ignored.printStackTrace();
+				}
+			}
+			endLatch.countDown();
+		}
+	}
+}
