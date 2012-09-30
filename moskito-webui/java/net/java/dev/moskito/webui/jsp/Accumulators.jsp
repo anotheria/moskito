@@ -5,6 +5,7 @@
 <head>
 	<title>MoSKito Accumulators</title>
 	<link rel="stylesheet" href="mskCSS"/>
+    <link rel="stylesheet" href="../css/print.css" type="text/css" media="print" />
 </head>
 <body>
 <script type="text/javascript" src="../js/wz_tooltip.js"></script>
