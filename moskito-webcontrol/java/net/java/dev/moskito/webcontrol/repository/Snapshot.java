@@ -50,9 +50,9 @@ public class Snapshot {
 	/*@Override
 	public boolean equals(Object obj) {
 		if (this == obj) return true;
-		if ((obj instanceof Snapshot)==false) return false;
+		if ((obj instanceof ProducerSnapshot)==false) return false;
 
-		Snapshot snapshot = (Snapshot)obj;
+		ProducerSnapshot snapshot = (ProducerSnapshot)obj;
 
 		if (snapshot.getAttributes().size() != getAttributes().size())
 			return false;

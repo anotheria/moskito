@@ -23,7 +23,7 @@ public enum Repository {
 	public Snapshot getSnapshot(String containerName, SnapshotSource source) {
 		Snapshot s = getContainer(containerName).getSnapshot(source);
 		if (s == null)
-			throw new NullPointerException("Snapshot " + containerName + " from " + source + " not found.");
+			throw new NullPointerException("ProducerSnapshot " + containerName + " from " + source + " not found.");
 		return s;
 	}
 
