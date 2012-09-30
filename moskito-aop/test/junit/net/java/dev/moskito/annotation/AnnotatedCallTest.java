@@ -32,7 +32,7 @@ public class AnnotatedCallTest {
             annotatedMethod.doSomething();
         }
         // then
-        IStatsProducer producer = (IStatsProducer) ProducerRegistryFactory.getProducerRegistryInstance().getProducer(AnnotatedMethod.class.getSimpleName());
+        IStatsProducer<?> producer = (IStatsProducer) ProducerRegistryFactory.getProducerRegistryInstance().getProducer(AnnotatedMethod.class.getSimpleName());
         IStats doSmtgStats = producer.getStats().get(1);
         assertEquals("doSomething", doSmtgStats.getName());
         assertEquals("Should be 10K calls", ANNOTATED_METHOD_CALLS + "", doSmtgStats.getValueByNameAsString("TR", null, TimeUnit.MICROSECONDS));
@@ -56,7 +56,7 @@ public class AnnotatedCallTest {
         }
 
         // then
-        IStatsProducer producer = (IStatsProducer)  ProducerRegistryFactory.getProducerRegistryInstance().getProducer(AnnotatedClass.class.getSimpleName());
+        IStatsProducer<?> producer = (IStatsProducer)  ProducerRegistryFactory.getProducerRegistryInstance().getProducer(AnnotatedClass.class.getSimpleName());
         IStats doSomeStats = producer.getStats().get(1);
         assertEquals("Should be 550 calls", 550 + "", doSomeStats.getValueByNameAsString("TR", null, TimeUnit.MICROSECONDS));
         IStats doSome2Stats = producer.getStats().get(2);
