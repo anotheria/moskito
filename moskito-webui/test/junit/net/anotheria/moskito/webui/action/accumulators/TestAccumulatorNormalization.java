@@ -1,16 +1,14 @@
-package net.java.dev.moskito.webui.action.accumulators;
+package net.anotheria.moskito.webui.action.accumulators;
 
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertEquals;
+import net.anotheria.moskito.webui.bean.AccumulatedValuesBean;
+import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import net.java.dev.moskito.webui.action.accumulators.ShowAccumulatorsAction;
-import net.java.dev.moskito.webui.bean.AccumulatedValuesBean;
-
-import org.junit.Test;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public class TestAccumulatorNormalization {
 	//this test ensures that values that 

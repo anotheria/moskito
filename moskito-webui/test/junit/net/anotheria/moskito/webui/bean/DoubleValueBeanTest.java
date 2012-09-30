@@ -1,4 +1,4 @@
-package net.java.dev.moskito.webui.bean;
+package net.anotheria.moskito.webui.bean;
 
 import org.junit.Test;
 import static org.junit.Assert.*;

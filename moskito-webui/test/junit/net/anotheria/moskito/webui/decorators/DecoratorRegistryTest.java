@@ -1,26 +1,26 @@
-package net.java.dev.moskito.webui.decorators;
+package net.anotheria.moskito.webui.decorators;
 
-import net.java.dev.moskito.core.predefined.ActionStats;
-import net.java.dev.moskito.core.predefined.CacheStats;
-import net.java.dev.moskito.core.predefined.FilterStats;
-import net.java.dev.moskito.core.predefined.MemoryPoolStats;
-import net.java.dev.moskito.core.predefined.MemoryStats;
-import net.java.dev.moskito.core.predefined.ServiceStats;
-import net.java.dev.moskito.core.producers.IStats;
-import net.java.dev.moskito.core.stats.TimeUnit;
-import net.java.dev.moskito.core.util.storage.StorageStats;
-import net.java.dev.moskito.web.session.SessionCountStats;
-import net.java.dev.moskito.webui.decorators.predefined.ActionStatsDecorator;
-import net.java.dev.moskito.webui.decorators.predefined.CacheStatsDecorator;
-import net.java.dev.moskito.webui.decorators.predefined.FilterStatsDecorator;
-import net.java.dev.moskito.webui.decorators.predefined.MemoryPoolStatsDecorator;
-import net.java.dev.moskito.webui.decorators.predefined.MemoryStatsDecorator;
-import net.java.dev.moskito.webui.decorators.predefined.ServiceStatsDecorator;
-import net.java.dev.moskito.webui.decorators.predefined.SessionCountDecorator;
-import net.java.dev.moskito.webui.decorators.util.StorageStatsDecorator;
-
+import net.anotheria.moskito.core.predefined.ActionStats;
+import net.anotheria.moskito.core.predefined.CacheStats;
+import net.anotheria.moskito.core.predefined.FilterStats;
+import net.anotheria.moskito.core.predefined.MemoryPoolStats;
+import net.anotheria.moskito.core.predefined.MemoryStats;
+import net.anotheria.moskito.core.predefined.ServiceStats;
+import net.anotheria.moskito.core.producers.IStats;
+import net.anotheria.moskito.core.stats.TimeUnit;
+import net.anotheria.moskito.core.util.storage.StorageStats;
+import net.anotheria.moskito.web.session.SessionCountStats;
+import net.anotheria.moskito.webui.decorators.predefined.ActionStatsDecorator;
+import net.anotheria.moskito.webui.decorators.predefined.CacheStatsDecorator;
+import net.anotheria.moskito.webui.decorators.predefined.FilterStatsDecorator;
+import net.anotheria.moskito.webui.decorators.predefined.MemoryPoolStatsDecorator;
+import net.anotheria.moskito.webui.decorators.predefined.MemoryStatsDecorator;
+import net.anotheria.moskito.webui.decorators.predefined.ServiceStatsDecorator;
+import net.anotheria.moskito.webui.decorators.predefined.SessionCountDecorator;
+import net.anotheria.moskito.webui.decorators.util.StorageStatsDecorator;
 import org.junit.BeforeClass;
 import org.junit.Test;
+
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertNotNull;
 
