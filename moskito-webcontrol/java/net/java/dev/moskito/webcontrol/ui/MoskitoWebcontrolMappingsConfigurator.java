@@ -14,23 +14,23 @@ import net.java.dev.moskito.webcontrol.ui.action.ViewRename;
 
 public class MoskitoWebcontrolMappingsConfigurator implements ActionMappingsConfigurator {
 
-	public void configureActionMappings() {
-		ActionMappings.addMapping("mwcShowAll", ShowAllViewsAction.class, new ActionForward("success",
+	public void configureActionMappings(ActionMappings mappings) {
+		mappings.addMapping("mwcShowAll", ShowAllViewsAction.class, new ActionForward("success",
 				"/net/java/dev/moskito/webcontrol/ui/jsp/allViews.jsp"));
-		ActionMappings.addMapping("mwcShowView", ShowViewAction.class, new ActionForward("success",
+		mappings.addMapping("mwcShowView", ShowViewAction.class, new ActionForward("success",
 				"/net/java/dev/moskito/webcontrol/ui/jsp/showView.jsp"));
-		ActionMappings.addMapping("mwcCSS", CssAction.class, new ActionForward("success", "/net/java/dev/moskito/webcontrol/ui/jsp/CSS.jsp"));
+		mappings.addMapping("mwcCSS", CssAction.class, new ActionForward("success", "/net/java/dev/moskito/webcontrol/ui/jsp/CSS.jsp"));
 
-		ActionMappings.addMapping("viewConfig", ViewConfigAction.class, new ActionForward("success",
+		mappings.addMapping("viewConfig", ViewConfigAction.class, new ActionForward("success",
 				"/net/java/dev/moskito/webcontrol/ui/jsp/viewConfig.jsp"));
 
-		ActionMappings.addMapping("viewConfig2", ViewConfigActionV2.class, new ActionForward("success",
+		mappings.addMapping("viewConfig2", ViewConfigActionV2.class, new ActionForward("success",
 				"/net/java/dev/moskito/webcontrol/ui/jsp/viewConfig2.jsp"));
-		ActionMappings.addMapping("mwcShowView2", ShowViewAction.class, new ActionForward("success",
+		mappings.addMapping("mwcShowView2", ShowViewAction.class, new ActionForward("success",
 				"/net/java/dev/moskito/webcontrol/ui/jsp/showView2.jsp"));
-		ActionMappings.addMapping("viewAdd", ViewAdd.class);
-		ActionMappings.addMapping("viewRename", ViewRename.class);
-		ActionMappings.addMapping("viewDelete", ViewDelete.class);
+		mappings.addMapping("viewAdd", ViewAdd.class);
+		mappings.addMapping("viewRename", ViewRename.class);
+		mappings.addMapping("viewDelete", ViewDelete.class);
 	}
 
 }
