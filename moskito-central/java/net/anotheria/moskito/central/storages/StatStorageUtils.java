@@ -1,10 +1,10 @@
-package net.java.dev.moskito.central.storages;
+package net.anotheria.moskito.central.storages;
 
 import net.java.dev.moskito.core.producers.IStatsSnapshot;
 
-import java.util.Date;
 import java.text.MessageFormat;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * Utility methods used in storage implementations

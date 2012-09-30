@@ -1,4 +1,4 @@
-package net.java.dev.moskito.central;
+package net.anotheria.moskito.central;
 
 public class StatStorageException extends Exception {
 

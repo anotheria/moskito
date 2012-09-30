@@ -1,14 +1,11 @@
-package net.java.dev.moskito.central;
+package net.anotheria.moskito.central;
+
+import net.anotheria.anoprise.metafactory.Service;
+import net.java.dev.moskito.core.producers.IStatsSnapshot;
+import org.distributeme.annotation.DistributeMe;
 
 import java.util.Collection;
 import java.util.Date;
-
-import net.java.dev.moskito.core.producers.IStatsSnapshot;
-
-
-import net.anotheria.anoprise.metafactory.Service;
-
-import org.distributeme.annotation.DistributeMe;
 
 /**
  * This interface represents local storage for Miskito stats.

@@ -1,17 +1,16 @@
-package net.java.dev.moskito.central.storages;
+package net.anotheria.moskito.central.storages;
 
+import net.anotheria.moskito.central.StatStorage;
+import net.anotheria.moskito.central.StatStorageException;
 import net.java.dev.moskito.core.producers.IStatsSnapshot;
 import net.java.dev.moskito.core.producers.SnapshotArchiverRegistry;
-import net.java.dev.moskito.central.StatStorage;
-import net.java.dev.moskito.central.StatStorageException;
+import org.configureme.annotations.AbortedConfiguration;
+import org.configureme.annotations.AfterInitialConfiguration;
+import org.configureme.annotations.AfterReConfiguration;
+import org.configureme.annotations.ConfigureMe;
 
 import java.util.Collection;
 import java.util.Date;
-
-import org.configureme.annotations.ConfigureMe;
-import org.configureme.annotations.AfterInitialConfiguration;
-import org.configureme.annotations.AfterReConfiguration;
-import org.configureme.annotations.AbortedConfiguration;
 
 /**
  * Remote implementation of the StatStorage

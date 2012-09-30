@@ -1,16 +1,15 @@
-package net.java.dev.moskito.central.storages;
+package net.anotheria.moskito.central.storages;
 
 import net.java.dev.moskito.core.producers.IStatsSnapshot;
+import org.apache.log4j.Logger;
+import org.configureme.annotations.AfterConfiguration;
+import org.configureme.annotations.Configure;
+import org.configureme.annotations.ConfigureMe;
+import org.configureme.annotations.DontConfigure;
 
 import java.io.File;
-import java.util.Date;
 import java.text.SimpleDateFormat;
-
-import org.configureme.annotations.ConfigureMe;
-import org.configureme.annotations.Configure;
-import org.configureme.annotations.DontConfigure;
-import org.configureme.annotations.AfterConfiguration;
-import org.apache.log4j.Logger;
+import java.util.Date;
 
 /**
  * Implementation of StorageFileResolver interface

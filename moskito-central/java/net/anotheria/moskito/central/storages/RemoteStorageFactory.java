@@ -1,7 +1,7 @@
-package net.java.dev.moskito.central.storages;
+package net.anotheria.moskito.central.storages;
 
 import net.anotheria.anoprise.metafactory.ServiceFactory;
-import net.java.dev.moskito.central.StatStorage;
+import net.anotheria.moskito.central.StatStorage;
 import org.configureme.ConfigurationManager;
 
 /**

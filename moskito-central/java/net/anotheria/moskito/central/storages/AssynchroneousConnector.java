@@ -1,9 +1,9 @@
-package net.java.dev.moskito.central.storages;
+package net.anotheria.moskito.central.storages;
 
+import net.anotheria.moskito.central.StatStorage;
 import net.anotheria.util.queue.IQueueWorker;
 import net.anotheria.util.queue.QueuedProcessor;
 import net.anotheria.util.queue.UnrecoverableQueueOverflowException;
-import net.java.dev.moskito.central.StatStorage;
 import net.java.dev.moskito.core.producers.IStatsSnapshot;
 import net.java.dev.moskito.core.stats.Interval;
 import org.apache.log4j.Logger;

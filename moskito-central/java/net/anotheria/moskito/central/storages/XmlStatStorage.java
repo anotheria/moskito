@@ -1,25 +1,24 @@
-package net.java.dev.moskito.central.storages;
+package net.anotheria.moskito.central.storages;
 
-import net.java.dev.moskito.central.StatStorage;
-import net.java.dev.moskito.central.StatStorageException;
+import net.anotheria.moskito.central.StatStorage;
+import net.anotheria.moskito.central.StatStorageException;
 import net.java.dev.moskito.core.producers.IStatsSnapshot;
-
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.DocumentBuilder;
-import java.util.Collection;
-import java.util.Date;
-import java.util.Iterator;
-import java.io.File;
-import java.io.FileWriter;
-
+import org.apache.log4j.Logger;
+import org.configureme.ConfigurationManager;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.bootstrap.DOMImplementationRegistry;
 import org.w3c.dom.ls.DOMImplementationLS;
-import org.w3c.dom.ls.LSSerializer;
 import org.w3c.dom.ls.LSOutput;
-import org.apache.log4j.Logger;
-import org.configureme.ConfigurationManager;
+import org.w3c.dom.ls.LSSerializer;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import java.io.File;
+import java.io.FileWriter;
+import java.util.Collection;
+import java.util.Date;
+import java.util.Iterator;
 
 /**
  * TODO: purpose

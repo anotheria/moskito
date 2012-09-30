@@ -1,23 +1,29 @@
 package net.java.dev.moskito.central.storages;
 
-import java.sql.*;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
-
-import net.java.dev.moskito.central.StatStorage;
-import net.java.dev.moskito.central.storages.JdbcStatStorage;
+import net.anotheria.moskito.central.StatStorage;
+import net.anotheria.moskito.central.storages.JdbcStatStorage;
 import net.java.dev.moskito.core.predefined.Constants;
 import net.java.dev.moskito.core.predefined.ServiceStats;
 import net.java.dev.moskito.core.producers.DefaultStatsSnapshot;
 import net.java.dev.moskito.core.producers.IStatsSnapshot;
 import net.java.dev.moskito.core.stats.DefaultIntervals;
 import net.java.dev.moskito.core.stats.Interval;
-
 import org.junit.Ignore;
 import org.junit.Test;
-import static junit.framework.Assert.*;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
+
+import static junit.framework.Assert.assertEquals;
 
 public class JdbcTest {
 

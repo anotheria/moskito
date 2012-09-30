@@ -1,12 +1,11 @@
-package net.java.dev.moskito.central.storages;
-
-import net.java.dev.moskito.central.StatStorage;
-import net.java.dev.moskito.central.StatStorageException;
-import net.java.dev.moskito.core.producers.IStatsSnapshot;
+package net.anotheria.moskito.central.storages;
 
 import net.anotheria.anoprise.metafactory.Extension;
 import net.anotheria.anoprise.metafactory.MetaFactory;
 import net.anotheria.anoprise.metafactory.ServiceFactory;
+import net.anotheria.moskito.central.StatStorage;
+import net.anotheria.moskito.central.StatStorageException;
+import net.java.dev.moskito.core.producers.IStatsSnapshot;
 
 import java.util.Collection;
 import java.util.Date;

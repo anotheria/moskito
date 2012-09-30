@@ -1,4 +1,4 @@
-package net.java.dev.moskito.central.storages;
+package net.anotheria.moskito.central.storages;
 
 import net.java.dev.moskito.core.producers.IStatsSnapshot;
 

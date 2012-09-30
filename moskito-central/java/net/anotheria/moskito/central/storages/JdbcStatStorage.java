@@ -1,4 +1,9 @@
-package net.java.dev.moskito.central.storages;
+package net.anotheria.moskito.central.storages;
+
+import net.anotheria.moskito.central.StatStorage;
+import net.anotheria.moskito.central.StatStorageException;
+import net.java.dev.moskito.core.producers.DefaultStatsSnapshot;
+import net.java.dev.moskito.core.producers.IStatsSnapshot;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -10,11 +15,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
-
-import net.java.dev.moskito.central.StatStorage;
-import net.java.dev.moskito.central.StatStorageException;
-import net.java.dev.moskito.core.producers.DefaultStatsSnapshot;
-import net.java.dev.moskito.core.producers.IStatsSnapshot;
 
 /**
  * TODO: Make sure the implementation saves all the snapshot data to the database

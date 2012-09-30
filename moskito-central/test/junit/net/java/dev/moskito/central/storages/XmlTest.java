@@ -1,21 +1,21 @@
 package net.java.dev.moskito.central.storages;
 
+import net.anotheria.moskito.central.StatStorage;
+import net.anotheria.moskito.central.storages.XmlStatStorage;
+import net.java.dev.moskito.core.predefined.Constants;
+import net.java.dev.moskito.core.predefined.ServiceStats;
+import net.java.dev.moskito.core.producers.DefaultStatsSnapshot;
+import net.java.dev.moskito.core.producers.IStatsSnapshot;
+import net.java.dev.moskito.core.stats.DefaultIntervals;
+import net.java.dev.moskito.core.stats.Interval;
 import org.junit.Ignore;
 import org.junit.Test;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import java.util.ArrayList;
-
-import net.java.dev.moskito.central.StatStorage;
-import net.java.dev.moskito.core.stats.Interval;
-import net.java.dev.moskito.core.stats.DefaultIntervals;
-import net.java.dev.moskito.core.predefined.ServiceStats;
-import net.java.dev.moskito.core.predefined.Constants;
-import net.java.dev.moskito.core.producers.DefaultStatsSnapshot;
-import net.java.dev.moskito.core.producers.IStatsSnapshot;
 
 
 public class XmlTest {
