@@ -1,11 +1,11 @@
 package net.anotheria.moskito.central.storages;
 
 import net.anotheria.moskito.central.StatStorage;
+import net.anotheria.moskito.core.producers.IStatsSnapshot;
+import net.anotheria.moskito.core.stats.Interval;
 import net.anotheria.util.queue.IQueueWorker;
 import net.anotheria.util.queue.QueuedProcessor;
 import net.anotheria.util.queue.UnrecoverableQueueOverflowException;
-import net.java.dev.moskito.core.producers.IStatsSnapshot;
-import net.java.dev.moskito.core.stats.Interval;
 import org.apache.log4j.Logger;
 
 import java.util.ArrayList;

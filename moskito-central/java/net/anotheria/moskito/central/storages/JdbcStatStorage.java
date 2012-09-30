@@ -2,8 +2,8 @@ package net.anotheria.moskito.central.storages;
 
 import net.anotheria.moskito.central.StatStorage;
 import net.anotheria.moskito.central.StatStorageException;
-import net.java.dev.moskito.core.producers.DefaultStatsSnapshot;
-import net.java.dev.moskito.core.producers.IStatsSnapshot;
+import net.anotheria.moskito.core.producers.DefaultStatsSnapshot;
+import net.anotheria.moskito.core.producers.IStatsSnapshot;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

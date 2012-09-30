@@ -1,7 +1,7 @@
 package net.anotheria.moskito.central;
 
 import net.anotheria.anoprise.metafactory.Service;
-import net.java.dev.moskito.core.producers.IStatsSnapshot;
+import net.anotheria.moskito.core.producers.IStatsSnapshot;
 import org.distributeme.annotation.DistributeMe;
 
 import java.util.Collection;

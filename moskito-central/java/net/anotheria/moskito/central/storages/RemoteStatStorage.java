@@ -2,8 +2,8 @@ package net.anotheria.moskito.central.storages;
 
 import net.anotheria.moskito.central.StatStorage;
 import net.anotheria.moskito.central.StatStorageException;
-import net.java.dev.moskito.core.producers.IStatsSnapshot;
-import net.java.dev.moskito.core.producers.SnapshotArchiverRegistry;
+import net.anotheria.moskito.core.producers.IStatsSnapshot;
+import net.anotheria.moskito.core.producers.SnapshotArchiverRegistry;
 import org.configureme.annotations.AbortedConfiguration;
 import org.configureme.annotations.AfterInitialConfiguration;
 import org.configureme.annotations.AfterReConfiguration;

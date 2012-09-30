@@ -2,12 +2,12 @@ package net.java.dev.moskito.central.storages;
 
 import net.anotheria.moskito.central.StatStorage;
 import net.anotheria.moskito.central.storages.XmlStatStorage;
-import net.java.dev.moskito.core.predefined.Constants;
-import net.java.dev.moskito.core.predefined.ServiceStats;
-import net.java.dev.moskito.core.producers.DefaultStatsSnapshot;
-import net.java.dev.moskito.core.producers.IStatsSnapshot;
-import net.java.dev.moskito.core.stats.DefaultIntervals;
-import net.java.dev.moskito.core.stats.Interval;
+import net.anotheria.moskito.core.predefined.Constants;
+import net.anotheria.moskito.core.predefined.ServiceStats;
+import net.anotheria.moskito.core.producers.DefaultStatsSnapshot;
+import net.anotheria.moskito.core.producers.IStatsSnapshot;
+import net.anotheria.moskito.core.stats.DefaultIntervals;
+import net.anotheria.moskito.core.stats.Interval;
 import org.junit.Ignore;
 import org.junit.Test;
 

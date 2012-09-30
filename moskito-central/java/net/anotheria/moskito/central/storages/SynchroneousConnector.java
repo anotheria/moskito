@@ -1,8 +1,8 @@
 package net.anotheria.moskito.central.storages;
 
 import net.anotheria.moskito.central.StatStorage;
-import net.java.dev.moskito.core.producers.IStatsSnapshot;
-import net.java.dev.moskito.core.stats.Interval;
+import net.anotheria.moskito.core.producers.IStatsSnapshot;
+import net.anotheria.moskito.core.stats.Interval;
 
 import java.util.ArrayList;
 import java.util.Date;

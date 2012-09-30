@@ -1,6 +1,6 @@
 package net.anotheria.moskito.central.storages;
 
-import net.java.dev.moskito.core.producers.IStatsSnapshot;
+import net.anotheria.moskito.core.producers.IStatsSnapshot;
 
 import java.io.File;
 import java.text.SimpleDateFormat;

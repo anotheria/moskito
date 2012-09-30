@@ -1,6 +1,6 @@
 package net.anotheria.moskito.central.storages;
 
-import net.java.dev.moskito.core.producers.IStatsSnapshot;
+import net.anotheria.moskito.core.producers.IStatsSnapshot;
 import org.apache.log4j.Logger;
 import org.configureme.annotations.AfterConfiguration;
 import org.configureme.annotations.Configure;

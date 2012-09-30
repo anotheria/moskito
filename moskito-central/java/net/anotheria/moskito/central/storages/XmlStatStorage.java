@@ -2,7 +2,7 @@ package net.anotheria.moskito.central.storages;
 
 import net.anotheria.moskito.central.StatStorage;
 import net.anotheria.moskito.central.StatStorageException;
-import net.java.dev.moskito.core.producers.IStatsSnapshot;
+import net.anotheria.moskito.core.producers.IStatsSnapshot;
 import org.apache.log4j.Logger;
 import org.configureme.ConfigurationManager;
 import org.w3c.dom.Document;
