@@ -1,11 +1,11 @@
 package net.java.dev.moskito.sql.stats;
 
-import net.java.dev.moskito.core.predefined.Constants;
-import net.java.dev.moskito.core.producers.AbstractStats;
-import net.java.dev.moskito.core.stats.Interval;
-import net.java.dev.moskito.core.stats.StatValue;
-import net.java.dev.moskito.core.stats.TimeUnit;
-import net.java.dev.moskito.core.stats.impl.StatValueFactory;
+import net.anotheria.moskito.core.predefined.Constants;
+import net.anotheria.moskito.core.producers.AbstractStats;
+import net.anotheria.moskito.core.stats.Interval;
+import net.anotheria.moskito.core.stats.StatValue;
+import net.anotheria.moskito.core.stats.TimeUnit;
+import net.anotheria.moskito.core.stats.impl.StatValueFactory;
 
 /**
  * Created by IntelliJ IDEA.

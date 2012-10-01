@@ -1,9 +1,9 @@
 package net.java.dev.moskito.sql.util;
 
-import net.java.dev.moskito.core.dynamic.OnDemandStatsProducerException;
-import net.java.dev.moskito.core.producers.IStats;
-import net.java.dev.moskito.core.producers.IStatsProducer;
-import net.java.dev.moskito.core.registry.ProducerRegistryFactory;
+import net.anotheria.moskito.core.dynamic.OnDemandStatsProducerException;
+import net.anotheria.moskito.core.producers.IStats;
+import net.anotheria.moskito.core.producers.IStatsProducer;
+import net.anotheria.moskito.core.registry.ProducerRegistryFactory;
 import net.java.dev.moskito.sql.stats.QueryStats;
 import net.java.dev.moskito.sql.stats.QueryStringStats;
 import net.java.dev.moskito.sql.stats.QueryStringStatsFactory;

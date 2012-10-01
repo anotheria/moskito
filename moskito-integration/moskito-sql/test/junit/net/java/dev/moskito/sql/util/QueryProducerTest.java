@@ -1,7 +1,7 @@
 package net.java.dev.moskito.sql.util;
 
-import net.java.dev.moskito.core.producers.IStats;
-import net.java.dev.moskito.core.registry.ProducerRegistryFactory;
+import net.anotheria.moskito.core.producers.IStats;
+import net.anotheria.moskito.core.registry.ProducerRegistryFactory;
 import net.java.dev.moskito.sql.callingAspect.MatcherValue;
 import net.java.dev.moskito.sql.callingAspect.MatcherValueBuilder;
 import net.java.dev.moskito.sql.callingAspect.MatcherValueDAO;
