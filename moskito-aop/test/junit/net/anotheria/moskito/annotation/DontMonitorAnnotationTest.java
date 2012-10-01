@@ -1,4 +1,4 @@
-package net.java.dev.moskito.annotation;
+package net.anotheria.moskito.annotation;
 
 import net.anotheria.moskito.core.producers.IStats;
 import net.anotheria.moskito.core.producers.IStatsProducer;

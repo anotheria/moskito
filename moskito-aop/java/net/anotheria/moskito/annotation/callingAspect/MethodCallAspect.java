@@ -1,5 +1,7 @@
-package net.java.dev.moskito.annotation.callingAspect;
+package net.anotheria.moskito.annotation.callingAspect;
 
+import net.anotheria.moskito.annotation.MonitorClass;
+import net.anotheria.moskito.annotation.MonitorMethod;
 import net.anotheria.moskito.core.calltrace.CurrentlyTracedCall;
 import net.anotheria.moskito.core.calltrace.RunningTraceContainer;
 import net.anotheria.moskito.core.calltrace.TraceStep;
@@ -8,8 +10,6 @@ import net.anotheria.moskito.core.dynamic.OnDemandStatsProducer;
 import net.anotheria.moskito.core.predefined.ServiceStats;
 import net.anotheria.moskito.core.predefined.ServiceStatsFactory;
 import net.anotheria.moskito.core.registry.ProducerRegistryFactory;
-import net.java.dev.moskito.annotation.MonitorClass;
-import net.java.dev.moskito.annotation.MonitorMethod;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -37,7 +37,7 @@ public class MethodCallAspect {
     	return doProfiling(pjp, method.producerId(), method.subsystem(), method.category());
     }
     	
-    @Around(value = "execution(* *.*(..)) && (@within(clazz) && !@annotation(net.java.dev.moskito.annotation.DontMonitorMethod))")
+    @Around(value = "execution(* *.*(..)) && (@within(clazz) && !@annotation(net.anotheria.moskito.annotation.DontMonitorMethod))")
     public Object doProfilingClass(ProceedingJoinPoint pjp, MonitorClass clazz) throws Throwable {
     	return doProfiling(pjp, clazz.producerId(), clazz.subsystem(), clazz.category());
     }

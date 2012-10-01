@@ -1,4 +1,4 @@
-package net.java.dev.moskito.annotation;
+package net.anotheria.moskito.annotation;
 
 @MonitorClass
 public class MonitorableClass {

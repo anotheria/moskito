@@ -1,4 +1,6 @@
-package net.java.dev.moskito.annotation;
+package net.anotheria.moskito.annotation;
+
+import net.anotheria.moskito.annotation.MonitorMethod;
 
 /**
  * Created by IntelliJ IDEA.

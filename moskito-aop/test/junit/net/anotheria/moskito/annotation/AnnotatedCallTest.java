@@ -1,13 +1,14 @@
-package net.java.dev.moskito.annotation;
+package net.anotheria.moskito.annotation;
 
+import net.anotheria.moskito.annotation.callingAspect.MethodCallAspect;
 import net.anotheria.moskito.core.producers.IStats;
 import net.anotheria.moskito.core.producers.IStatsProducer;
 import net.anotheria.moskito.core.registry.ProducerRegistryFactory;
 import net.anotheria.moskito.core.stats.TimeUnit;
-import net.java.dev.moskito.annotation.callingAspect.MethodCallAspect;
 import org.junit.After;
 import org.junit.Test;
-import static org.junit.Assert.*;
+
+import static org.junit.Assert.assertEquals;
 
 /**
  * SQL intercept test.
