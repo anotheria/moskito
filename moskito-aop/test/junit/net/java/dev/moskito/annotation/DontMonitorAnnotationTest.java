@@ -1,14 +1,13 @@
 package net.java.dev.moskito.annotation;
 
-import java.util.List;
-
-import net.java.dev.moskito.core.producers.IStats;
-import net.java.dev.moskito.core.producers.IStatsProducer;
-import net.java.dev.moskito.core.registry.ProducerRegistryFactory;
-
+import net.anotheria.moskito.core.producers.IStats;
+import net.anotheria.moskito.core.producers.IStatsProducer;
+import net.anotheria.moskito.core.registry.ProducerRegistryFactory;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+import java.util.List;
+
+import static org.junit.Assert.assertEquals;
 
 public class DontMonitorAnnotationTest {
 	@Test public void testDontMonitorMethod(){

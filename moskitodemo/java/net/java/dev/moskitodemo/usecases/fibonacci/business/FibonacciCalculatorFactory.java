@@ -1,8 +1,8 @@
 package net.java.dev.moskitodemo.usecases.fibonacci.business;
 
-import net.java.dev.moskito.core.dynamic.MoskitoInvokationProxy;
-import net.java.dev.moskito.core.predefined.ServiceStatsCallHandler;
-import net.java.dev.moskito.core.predefined.ServiceStatsFactory;
+import net.anotheria.moskito.core.dynamic.MoskitoInvokationProxy;
+import net.anotheria.moskito.core.predefined.ServiceStatsCallHandler;
+import net.anotheria.moskito.core.predefined.ServiceStatsFactory;
 
 public class FibonacciCalculatorFactory {
 	public static IFibonacciCalculator createFibonacciCalculator(){

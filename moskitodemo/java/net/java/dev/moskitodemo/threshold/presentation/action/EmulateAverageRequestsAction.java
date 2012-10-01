@@ -1,12 +1,12 @@
 package net.java.dev.moskitodemo.threshold.presentation.action;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import net.anotheria.maf.action.ActionCommand;
 import net.anotheria.maf.action.ActionMapping;
 import net.anotheria.maf.bean.FormBean;
-import net.java.dev.moskito.core.stats.impl.IntervalRegistry;
+import net.anotheria.moskito.core.stats.impl.IntervalRegistry;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 public class EmulateAverageRequestsAction extends AbstractEmulateAction{
 	

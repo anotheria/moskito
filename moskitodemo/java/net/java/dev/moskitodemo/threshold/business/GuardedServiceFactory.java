@@ -1,6 +1,7 @@
 package net.java.dev.moskitodemo.threshold.business;
 
-import net.java.dev.moskito.core.dynamic.ProxyUtils;
+
+import net.anotheria.moskito.core.dynamic.ProxyUtils;
 
 public class GuardedServiceFactory {
 	public GuardedService create(){

@@ -34,12 +34,12 @@
  */	
 package net.java.dev.moskitodemo.usecases.qe.business;
 
+import net.anotheria.moskito.core.dynamic.MoskitoInvokationProxy;
+import net.anotheria.moskito.core.predefined.ServiceStatsCallHandler;
+import net.anotheria.moskito.core.predefined.ServiceStatsFactory;
+
 import java.util.ArrayList;
 import java.util.List;
-
-import net.java.dev.moskito.core.dynamic.MoskitoInvokationProxy;
-import net.java.dev.moskito.core.predefined.ServiceStatsCallHandler;
-import net.java.dev.moskito.core.predefined.ServiceStatsFactory;
 
 public class QESolverImpl implements IQESolver{
 	private IQECalculator calc;

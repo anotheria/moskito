@@ -1,5 +1,10 @@
 package net.java.dev.moskitodemo.accumulator;
 
+import net.anotheria.moskito.core.predefined.ServiceStats;
+import net.anotheria.moskito.core.producers.IStats;
+import net.anotheria.moskito.core.producers.IStatsProducer;
+import net.anotheria.moskito.core.registry.ProducerRegistryFactory;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -7,12 +12,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.atomic.AtomicInteger;
 
-import net.java.dev.moskito.core.predefined.ServiceStats;
-import net.java.dev.moskito.core.producers.IStats;
-import net.java.dev.moskito.core.producers.IStatsProducer;
-import net.java.dev.moskito.core.registry.ProducerRegistryFactory;
-
-public class RandomProducer implements IStatsProducer{
+public class RandomProducer implements IStatsProducer {
 	private int limitReq;
 	private int limitTime;
 	

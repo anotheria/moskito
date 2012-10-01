@@ -34,18 +34,17 @@
  */	
 package net.java.dev.moskitodemo.servlet;
 
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.List;
-import java.util.Random;
+import net.anotheria.moskito.core.predefined.ServletStats;
+import net.anotheria.moskito.core.producers.IStats;
+import net.anotheria.moskito.web.MoskitoHttpServlet;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import net.java.dev.moskito.core.predefined.ServletStats;
-import net.java.dev.moskito.core.producers.IStats;
-import net.java.dev.moskito.web.MoskitoHttpServlet;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.List;
+import java.util.Random;
 
 /**
  * This is a simple example how to use moskito in a servlet. Basically it provides all the functionality the simple service
@@ -54,7 +53,7 @@ import net.java.dev.moskito.web.MoskitoHttpServlet;
  *
  */
 
-public class SimpleServlet extends MoskitoHttpServlet{
+public class SimpleServlet extends MoskitoHttpServlet {
 	
 	public static final int MODE_NORMAL_PROCESSING = 1;
 	public static final int MODE_RANDOM = 2;

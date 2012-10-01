@@ -34,9 +34,9 @@
  */	
 package net.java.dev.moskitodemo.guestbook.business;
 
-import net.java.dev.moskito.core.dynamic.MoskitoInvokationProxy;
-import net.java.dev.moskito.core.predefined.ServiceStatsCallHandler;
-import net.java.dev.moskito.core.predefined.ServiceStatsFactory;
+import net.anotheria.moskito.core.dynamic.MoskitoInvokationProxy;
+import net.anotheria.moskito.core.predefined.ServiceStatsCallHandler;
+import net.anotheria.moskito.core.predefined.ServiceStatsFactory;
 
 public class MonitorableAuthorizationServiceFactory {
 	private static IAuthorizationService instance;

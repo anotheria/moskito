@@ -34,13 +34,12 @@
  */	
 package net.java.dev.moskitodemo.logging;
 
-import net.java.dev.moskito.core.logging.IntervalStatsLogger;
-import net.java.dev.moskito.core.logging.Log4JOutput;
-import net.java.dev.moskito.core.producers.IStatsProducer;
-import net.java.dev.moskito.core.stats.DefaultIntervals;
+import net.anotheria.moskito.core.logging.IntervalStatsLogger;
+import net.anotheria.moskito.core.logging.Log4JOutput;
+import net.anotheria.moskito.core.producers.IStatsProducer;
+import net.anotheria.moskito.core.stats.DefaultIntervals;
 import net.java.dev.moskitodemo.simpleservice.ISimpleService;
 import net.java.dev.moskitodemo.simpleservice.test.MultiTest6M;
-
 import org.apache.log4j.BasicConfigurator;
 import org.apache.log4j.Logger;
 

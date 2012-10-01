@@ -1,6 +1,6 @@
 package net.java.dev.moskitodemo.sqltrace.persistence;
 
-import net.java.dev.moskito.core.registry.ProducerRegistryFactory;
+import net.anotheria.moskito.core.registry.ProducerRegistryFactory;
 import net.java.dev.moskito.sql.util.QueryProducer;
 import net.java.dev.moskitodemo.sqltrace.persistence.data.Comment;
 import net.java.dev.moskitodemo.sqltrace.persistence.data.CommentBuilder;

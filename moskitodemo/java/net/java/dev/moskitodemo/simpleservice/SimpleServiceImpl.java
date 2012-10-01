@@ -34,15 +34,15 @@
  */	
 package net.java.dev.moskitodemo.simpleservice;
 
+import net.anotheria.moskito.core.predefined.ServiceStats;
+import net.anotheria.moskito.core.producers.IStats;
+import net.anotheria.moskito.core.producers.IStatsProducer;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import net.java.dev.moskito.core.predefined.ServiceStats;
-import net.java.dev.moskito.core.producers.IStats;
-import net.java.dev.moskito.core.producers.IStatsProducer;
-
-public class SimpleServiceImpl implements ISimpleService, IStatsProducer{
+public class SimpleServiceImpl implements ISimpleService, IStatsProducer {
 	
 	private ServiceStats serviceStats;
 	private ServiceStats randomWaitStats;

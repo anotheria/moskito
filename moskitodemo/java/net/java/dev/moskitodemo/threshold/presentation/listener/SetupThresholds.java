@@ -1,17 +1,17 @@
 package net.java.dev.moskitodemo.threshold.presentation.listener;
 
+import net.anotheria.moskito.core.treshold.Threshold;
+import net.anotheria.moskito.core.treshold.ThresholdConditionGuard;
+import net.anotheria.moskito.core.treshold.ThresholdDefinition;
+import net.anotheria.moskito.core.treshold.ThresholdRepository;
+import net.anotheria.moskito.core.treshold.ThresholdStatus;
+import net.anotheria.moskito.core.treshold.Thresholds;
+import net.anotheria.moskito.core.treshold.guard.DoubleBarrierPassGuard;
+import net.anotheria.moskito.core.treshold.guard.GuardedDirection;
+import net.anotheria.moskito.core.treshold.guard.LongBarrierPassGuard;
+
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
-
-import net.java.dev.moskito.core.treshold.Threshold;
-import net.java.dev.moskito.core.treshold.ThresholdConditionGuard;
-import net.java.dev.moskito.core.treshold.ThresholdDefinition;
-import net.java.dev.moskito.core.treshold.ThresholdRepository;
-import net.java.dev.moskito.core.treshold.ThresholdStatus;
-import net.java.dev.moskito.core.treshold.Thresholds;
-import net.java.dev.moskito.core.treshold.guard.DoubleBarrierPassGuard;
-import net.java.dev.moskito.core.treshold.guard.GuardedDirection;
-import net.java.dev.moskito.core.treshold.guard.LongBarrierPassGuard;
 
 public class SetupThresholds implements ServletContextListener{
 

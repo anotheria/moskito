@@ -1,9 +1,10 @@
 package net.java.dev.listener.moskitominimal.listeners;
 
-import net.java.dev.moskito.core.treshold.*;
-import net.java.dev.moskito.core.treshold.guard.DoubleBarrierPassGuard;
-import net.java.dev.moskito.core.treshold.guard.GuardedDirection;
-import net.java.dev.moskito.core.treshold.guard.LongBarrierPassGuard;
+import net.anotheria.moskito.core.treshold.ThresholdConditionGuard;
+import net.anotheria.moskito.core.treshold.ThresholdStatus;
+import net.anotheria.moskito.core.treshold.Thresholds;
+import net.anotheria.moskito.core.treshold.guard.GuardedDirection;
+import net.anotheria.moskito.core.treshold.guard.LongBarrierPassGuard;
 
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;

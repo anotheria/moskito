@@ -3,7 +3,6 @@ package net.java.dev.moskitodemo;
 import java.util.Random;
 
 import javax.management.Notification;
-import javax.management.NotificationBroadcaster;
 import javax.management.NotificationBroadcasterSupport;
 
 public class JustTest extends NotificationBroadcasterSupport implements JustTestMBean{

@@ -34,9 +34,9 @@
  */	
 package net.java.dev.moskitodemo.lesssimpleservice;
 
-import net.java.dev.moskito.core.dynamic.MoskitoInvokationProxy;
-import net.java.dev.moskito.core.dynamic.PlainCallHandler;
-import net.java.dev.moskito.core.predefined.ServiceStatsFactory;
+import net.anotheria.moskito.core.dynamic.MoskitoInvokationProxy;
+import net.anotheria.moskito.core.dynamic.PlainCallHandler;
+import net.anotheria.moskito.core.predefined.ServiceStatsFactory;
 
 public class LesserSimplyServiceProxyNoStatsFactory implements ILesserSimpleServiceFactory{
 
