@@ -32,7 +32,7 @@
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR
  * THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */	
-package net.java.dev.moskitodemo.guestbook.presentation.bean;
+package net.anotheria.moskitodemo.guestbook.presentation.bean;
 
 public class CommentTableItemBean {
 	private String id;

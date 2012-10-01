@@ -1,13 +1,12 @@
-package net.java.dev.moskitodemo.guestbook.business;
+package net.anotheria.moskitodemo.guestbook.business;
+
+import net.anotheria.moskitodemo.guestbook.business.data.Comment;
+import org.apache.log4j.BasicConfigurator;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
-
-import org.apache.log4j.BasicConfigurator;
-
-import net.java.dev.moskitodemo.guestbook.business.data.Comment;
 
 /**
  * A utility class for comments clean-up (anti-spam) in offline mode.
@@ -101,7 +100,7 @@ public class CommentsCleaner {
 		comments.addAll(service.getComments());
 		System.out.println(comments.size()+" comments loaded.");
 		HashMap<String, Integer> statistics = new HashMap<String, Integer>();
-		for (Comment c : comments){ 
+		for (Comment c : comments){
 			for (int i=0; i<WORDS.length; i++){
 				if (doesFieldMatch(c.getFirstName(), WORDS[i]) || 
 						doesFieldMatch(c.getLastName(), WORDS[i]) ||

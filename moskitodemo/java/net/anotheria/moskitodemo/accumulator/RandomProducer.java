@@ -1,4 +1,4 @@
-package net.java.dev.moskitodemo.accumulator;
+package net.anotheria.moskitodemo.accumulator;
 
 import net.anotheria.moskito.core.predefined.ServiceStats;
 import net.anotheria.moskito.core.producers.IStats;

@@ -32,13 +32,13 @@
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR
  * THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */	
-package net.java.dev.moskitodemo.simpleservice.test;
+package net.anotheria.moskitodemo.simpleservice.test;
+
+import net.anotheria.moskitodemo.simpleservice.ISimpleService;
+import net.anotheria.moskitodemo.simpleservice.SimpleServiceFactory;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import net.java.dev.moskitodemo.simpleservice.ISimpleService;
-import net.java.dev.moskitodemo.simpleservice.SimpleServiceFactory;
 
 public abstract class AbstractMultiTestWithDuration {
 	

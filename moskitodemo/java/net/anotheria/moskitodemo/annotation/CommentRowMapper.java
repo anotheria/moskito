@@ -12,12 +12,12 @@
  **************************************************************************************
  */
 
-package net.java.dev.moskitodemo.annotation;
+package net.anotheria.moskitodemo.annotation;
 
 import net.anotheria.db.dao.RowMapper;
 import net.anotheria.db.dao.RowMapperException;
-import net.java.dev.moskitodemo.sqltrace.persistence.data.Comment;
-import net.java.dev.moskitodemo.sqltrace.persistence.data.CommentVO;
+import net.anotheria.moskitodemo.annotation.data.Comment;
+import net.anotheria.moskitodemo.annotation.data.CommentVO;
 import org.apache.log4j.Logger;
 
 import java.sql.ResultSet;

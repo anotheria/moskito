@@ -32,18 +32,18 @@
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR
  * THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */	
-package net.java.dev.moskitodemo.logging;
+package net.anotheria.moskitodemo.logging;
 
 import net.anotheria.moskito.core.logging.IntervalStatsLogger;
 import net.anotheria.moskito.core.logging.Log4JOutput;
 import net.anotheria.moskito.core.producers.IStatsProducer;
 import net.anotheria.moskito.core.stats.DefaultIntervals;
-import net.java.dev.moskitodemo.simpleservice.ISimpleService;
-import net.java.dev.moskitodemo.simpleservice.test.MultiTest6M;
+import net.anotheria.moskitodemo.simpleservice.ISimpleService;
+import net.anotheria.moskitodemo.simpleservice.test.MultiTest6M;
 import org.apache.log4j.BasicConfigurator;
 import org.apache.log4j.Logger;
 
-public class TestLog4JLogger extends MultiTest6M{
+public class TestLog4JLogger extends MultiTest6M {
 		
 	static{
 		BasicConfigurator.configure();

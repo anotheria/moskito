@@ -11,7 +11,7 @@
  ********************************************************************************
  */
 
-package net.java.dev.moskitodemo.annotation.data;
+package net.anotheria.moskitodemo.annotation.data;
 
 public class CommentBuilder {
 

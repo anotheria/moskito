@@ -1,4 +1,4 @@
-package net.java.dev.moskitodemo.usecases.fibonacci.business;
+package net.anotheria.moskitodemo.usecases.fibonacci.business;
 
 import net.anotheria.moskito.core.dynamic.MoskitoInvokationProxy;
 import net.anotheria.moskito.core.predefined.ServiceStatsCallHandler;

@@ -12,7 +12,7 @@
  ********************************************************************************
  */
 
-package net.java.dev.moskitodemo.annotation;
+package net.anotheria.moskitodemo.annotation;
 
 
 public class CommentsPersistenceServiceFactory{

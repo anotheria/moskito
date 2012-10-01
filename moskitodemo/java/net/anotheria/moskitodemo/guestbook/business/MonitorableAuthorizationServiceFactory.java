@@ -32,7 +32,7 @@
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR
  * THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */	
-package net.java.dev.moskitodemo.guestbook.business;
+package net.anotheria.moskitodemo.guestbook.business;
 
 import net.anotheria.moskito.core.dynamic.MoskitoInvokationProxy;
 import net.anotheria.moskito.core.predefined.ServiceStatsCallHandler;

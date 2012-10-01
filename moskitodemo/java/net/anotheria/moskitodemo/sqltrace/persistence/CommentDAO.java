@@ -12,7 +12,7 @@
  **************************************************************************************
  */
 
-package net.java.dev.moskitodemo.sqltrace.persistence;
+package net.anotheria.moskitodemo.sqltrace.persistence;
 
 import net.anotheria.db.config.JDBCConfig;
 import net.anotheria.db.config.JDBCConfigFactory;
@@ -20,9 +20,9 @@ import net.anotheria.db.dao.DAO;
 import net.anotheria.db.dao.DAOException;
 import net.anotheria.db.dao.DAOSQLException;
 import net.anotheria.db.dao.RowMapper;
+import net.anotheria.moskitodemo.sqltrace.persistence.data.Comment;
+import net.anotheria.moskitodemo.sqltrace.persistence.data.CommentVO;
 import net.anotheria.util.slicer.Segment;
-import net.java.dev.moskitodemo.sqltrace.persistence.data.Comment;
-import net.java.dev.moskitodemo.sqltrace.persistence.data.CommentVO;
 import org.apache.log4j.Logger;
 
 import java.sql.Connection;

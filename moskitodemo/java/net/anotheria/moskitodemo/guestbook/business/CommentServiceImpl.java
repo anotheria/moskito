@@ -32,13 +32,12 @@
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR
  * THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */	
-package net.java.dev.moskitodemo.guestbook.business;
+package net.anotheria.moskitodemo.guestbook.business;
 
 import net.anotheria.moskito.core.util.storage.Storage;
+import net.anotheria.moskitodemo.guestbook.business.data.Comment;
 import net.anotheria.util.sorter.QuickSorter;
 import net.anotheria.util.sorter.Sorter;
-import net.java.dev.moskitodemo.guestbook.business.data.Comment;
-import net.java.dev.moskitodemo.guestbook.business.data.CommentSortType;
 import org.apache.log4j.Logger;
 
 import java.io.File;

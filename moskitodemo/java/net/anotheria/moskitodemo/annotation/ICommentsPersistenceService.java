@@ -12,11 +12,11 @@
  ***************************************************************************************
  */
 
-package net.java.dev.moskitodemo.annotation;
+package net.anotheria.moskitodemo.annotation;
 
+import net.anotheria.moskitodemo.annotation.data.Comment;
 import net.anotheria.util.slicer.Segment;
 import net.java.dev.moskito.annotation.MonitorClass;
-import net.java.dev.moskitodemo.sqltrace.persistence.data.Comment;
 
 import java.util.List;
 

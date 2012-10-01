@@ -1,16 +1,15 @@
-package net.java.dev.moskitodemo.usecases.fibonacci.presentation.action;
-
-import java.util.concurrent.atomic.AtomicInteger;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+package net.anotheria.moskitodemo.usecases.fibonacci.presentation.action;
 
 import net.anotheria.maf.action.AbstractAction;
 import net.anotheria.maf.action.ActionCommand;
 import net.anotheria.maf.action.ActionMapping;
 import net.anotheria.maf.bean.FormBean;
-import net.java.dev.moskitodemo.usecases.fibonacci.business.FibonacciCalculatorFactory;
-import net.java.dev.moskitodemo.usecases.fibonacci.business.IFibonacciCalculator;
+import net.anotheria.moskitodemo.usecases.fibonacci.business.FibonacciCalculatorFactory;
+import net.anotheria.moskitodemo.usecases.fibonacci.business.IFibonacciCalculator;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class FibonacciCalculatorAction extends AbstractAction{
 

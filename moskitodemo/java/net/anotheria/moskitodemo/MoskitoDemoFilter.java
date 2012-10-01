@@ -1,4 +1,4 @@
-package net.java.dev.moskitodemo;
+package net.anotheria.moskitodemo;
 
 import java.util.Arrays;
 import java.util.List;

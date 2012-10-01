@@ -12,7 +12,7 @@
  ***************************************************************************************
  */
 
-package net.java.dev.moskitodemo.sqltrace.persistence;
+package net.anotheria.moskitodemo.sqltrace.persistence;
 
 import net.anotheria.db.dao.DAOException;
 

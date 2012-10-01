@@ -32,13 +32,13 @@
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR
  * THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */	
-package net.java.dev.moskitodemo.lesssimpleservice.test;
+package net.anotheria.moskitodemo.lesssimpleservice.test;
 
-import net.java.dev.moskitodemo.lesssimpleservice.AnotherTypedException;
-import net.java.dev.moskitodemo.lesssimpleservice.ILesserSimpleService;
-import net.java.dev.moskitodemo.lesssimpleservice.ILesserSimpleServiceFactory;
-import net.java.dev.moskitodemo.lesssimpleservice.LessSimpleServiceException;
-import net.java.dev.moskitodemo.lesssimpleservice.LesserSimpleServiceException;
+import net.anotheria.moskitodemo.lesssimpleservice.AnotherTypedException;
+import net.anotheria.moskitodemo.lesssimpleservice.ILesserSimpleService;
+import net.anotheria.moskitodemo.lesssimpleservice.ILesserSimpleServiceFactory;
+import net.anotheria.moskitodemo.lesssimpleservice.LessSimpleServiceException;
+import net.anotheria.moskitodemo.lesssimpleservice.LesserSimpleServiceException;
 
 public class AbstractTest {
 	public static void execute(ILesserSimpleServiceFactory factory){

@@ -11,7 +11,7 @@
  ********************************************************************************
  */
 
-package net.java.dev.moskitodemo.sqltrace.persistence.data;
+package net.anotheria.moskitodemo.sqltrace.persistence.data;
 
 public interface Comment {
 

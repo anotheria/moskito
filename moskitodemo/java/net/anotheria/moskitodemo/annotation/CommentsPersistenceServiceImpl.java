@@ -12,12 +12,12 @@
  ********************************************************************************
  */
 
-package net.java.dev.moskitodemo.annotation;
+package net.anotheria.moskitodemo.annotation;
 
 import net.anotheria.db.dao.DAOException;
 import net.anotheria.db.service.BasePersistenceServiceJDBCImpl;
+import net.anotheria.moskitodemo.annotation.data.Comment;
 import net.anotheria.util.slicer.Segment;
-import net.java.dev.moskitodemo.sqltrace.persistence.data.Comment;
 
 import java.sql.Connection;
 import java.sql.SQLException;

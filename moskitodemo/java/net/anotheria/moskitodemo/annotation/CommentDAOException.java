@@ -12,7 +12,7 @@
  **************************************************************************************
  */
 
-package net.java.dev.moskitodemo.annotation;
+package net.anotheria.moskitodemo.annotation;
 
 import net.anotheria.db.dao.DAOException;
 

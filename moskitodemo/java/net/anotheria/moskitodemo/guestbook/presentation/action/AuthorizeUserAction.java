@@ -32,15 +32,15 @@
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR
  * THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */	
-package net.java.dev.moskitodemo.guestbook.presentation.action;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+package net.anotheria.moskitodemo.guestbook.presentation.action;
 
 import net.anotheria.maf.action.ActionCommand;
 import net.anotheria.maf.action.ActionMapping;
 import net.anotheria.maf.bean.FormBean;
-import net.java.dev.moskitodemo.guestbook.presentation.bean.MessageBean;
+import net.anotheria.moskitodemo.guestbook.presentation.bean.MessageBean;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 public class AuthorizeUserAction extends BaseGuestbookAction{
 	public static final String PARAM_KEY = "pKey";

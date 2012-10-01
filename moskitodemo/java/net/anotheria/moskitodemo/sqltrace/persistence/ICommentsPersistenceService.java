@@ -12,10 +12,10 @@
  ***************************************************************************************
  */
 
-package net.java.dev.moskitodemo.sqltrace.persistence;
+package net.anotheria.moskitodemo.sqltrace.persistence;
 
+import net.anotheria.moskitodemo.sqltrace.persistence.data.Comment;
 import net.anotheria.util.slicer.Segment;
-import net.java.dev.moskitodemo.sqltrace.persistence.data.Comment;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package net.java.dev.moskitodemo.threshold.business;
+package net.anotheria.moskitodemo.threshold.business;
 
 
 import net.anotheria.moskito.core.dynamic.ProxyUtils;

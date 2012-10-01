@@ -32,9 +32,9 @@
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR
  * THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */	
-package net.java.dev.moskitodemo.lesssimpleservice.test;
+package net.anotheria.moskitodemo.lesssimpleservice.test;
 
-import net.java.dev.moskitodemo.lesssimpleservice.LesserSimpleServiceFactory;
+import net.anotheria.moskitodemo.lesssimpleservice.LesserSimpleServiceFactory;
 
 public class TestWithoutProxy extends AbstractTest{
 	public static void main(String a[]){

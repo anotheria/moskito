@@ -32,7 +32,7 @@
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR
  * THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */	
-package net.java.dev.moskitodemo.simpleservice;
+package net.anotheria.moskitodemo.simpleservice;
 
 public interface ISimpleService {
 	public void randomWait() throws Exception;

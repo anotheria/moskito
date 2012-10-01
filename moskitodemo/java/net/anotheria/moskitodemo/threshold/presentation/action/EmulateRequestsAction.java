@@ -1,4 +1,4 @@
-package net.java.dev.moskitodemo.threshold.presentation.action;
+package net.anotheria.moskitodemo.threshold.presentation.action;
 
 import net.anotheria.maf.action.ActionCommand;
 import net.anotheria.maf.action.ActionMapping;

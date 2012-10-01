@@ -32,11 +32,11 @@
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR
  * THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */	
-package net.java.dev.moskitodemo.usecases.qe.business.test;
+package net.anotheria.moskitodemo.usecases.qe.business.test;
 
-import net.java.dev.moskitodemo.usecases.qe.business.IQECalculator;
-import net.java.dev.moskitodemo.usecases.qe.business.QECalculatorException;
-import net.java.dev.moskitodemo.usecases.qe.business.QECalculatorFactory;
+import net.anotheria.moskitodemo.usecases.qe.business.IQECalculator;
+import net.anotheria.moskitodemo.usecases.qe.business.QECalculatorException;
+import net.anotheria.moskitodemo.usecases.qe.business.QECalculatorFactory;
 
 public class Test {
 	

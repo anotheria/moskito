@@ -1,4 +1,4 @@
-package net.java.dev.moskitodemo.threshold.presentation.listener;
+package net.anotheria.moskitodemo.threshold.presentation.listener;
 
 import net.anotheria.moskito.core.treshold.Threshold;
 import net.anotheria.moskito.core.treshold.ThresholdConditionGuard;

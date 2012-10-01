@@ -32,12 +32,12 @@
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR
  * THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */	
-package net.java.dev.moskitodemo.guestbook.business;
+package net.anotheria.moskitodemo.guestbook.business;
+
+import net.anotheria.moskitodemo.guestbook.business.data.Comment;
+import net.anotheria.moskitodemo.guestbook.business.data.CommentSortType;
 
 import java.util.List;
-
-import net.java.dev.moskitodemo.guestbook.business.data.Comment;
-import net.java.dev.moskitodemo.guestbook.business.data.CommentSortType;
 
 public interface ICommentService {
 	Comment createComment() throws CommentServiceException;

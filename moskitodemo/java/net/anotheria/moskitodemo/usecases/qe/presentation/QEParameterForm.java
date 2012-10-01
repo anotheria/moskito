@@ -32,7 +32,7 @@
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR
  * THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */	
-package net.java.dev.moskitodemo.usecases.qe.presentation;
+package net.anotheria.moskitodemo.usecases.qe.presentation;
 
 import net.anotheria.maf.bean.FormBean;
 

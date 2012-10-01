@@ -1,4 +1,4 @@
-package net.java.dev.moskitodemo.sqltrace.persistence;
+package net.anotheria.moskitodemo.sqltrace.persistence;
 
 /**
  * Query property.

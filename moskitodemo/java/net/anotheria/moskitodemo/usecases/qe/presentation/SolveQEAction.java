@@ -32,7 +32,7 @@
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR
  * THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */	
-package net.java.dev.moskitodemo.usecases.qe.presentation;
+package net.anotheria.moskitodemo.usecases.qe.presentation;
 
 import net.anotheria.maf.action.AbstractAction;
 import net.anotheria.maf.action.ActionCommand;
@@ -42,8 +42,6 @@ import net.anotheria.maf.bean.annotations.Form;
 import net.anotheria.moskito.core.dynamic.MoskitoInvokationProxy;
 import net.anotheria.moskito.core.predefined.ServiceStatsCallHandler;
 import net.anotheria.moskito.core.predefined.ServiceStatsFactory;
-import net.java.dev.moskitodemo.usecases.qe.business.IQESolver;
-import net.java.dev.moskitodemo.usecases.qe.business.QESolverImpl;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

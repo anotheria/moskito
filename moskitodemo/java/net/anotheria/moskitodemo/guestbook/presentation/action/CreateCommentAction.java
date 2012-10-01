@@ -32,23 +32,22 @@
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR
  * THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */	
-package net.java.dev.moskitodemo.guestbook.presentation.action;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+package net.anotheria.moskitodemo.guestbook.presentation.action;
 
 import net.anotheria.maf.action.ActionCommand;
 import net.anotheria.maf.action.ActionMapping;
 import net.anotheria.maf.bean.FormBean;
 import net.anotheria.maf.bean.annotations.Form;
+import net.anotheria.moskitodemo.guestbook.business.AntispamUtil;
+import net.anotheria.moskitodemo.guestbook.business.CommentServiceException;
+import net.anotheria.moskitodemo.guestbook.business.data.Comment;
+import net.anotheria.moskitodemo.guestbook.presentation.bean.CommentForm;
+import net.anotheria.moskitodemo.guestbook.presentation.bean.MessageBean;
 import net.java.dev.moskito.annotation.MonitorClass;
-import net.java.dev.moskitodemo.guestbook.business.AntispamUtil;
-import net.java.dev.moskitodemo.guestbook.business.CommentServiceException;
-import net.java.dev.moskitodemo.guestbook.business.data.Comment;
-import net.java.dev.moskitodemo.guestbook.presentation.bean.CommentForm;
-import net.java.dev.moskitodemo.guestbook.presentation.bean.MessageBean;
-
 import org.apache.log4j.Logger;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * Creates a new comment object from form. 
@@ -77,7 +76,7 @@ public class CreateCommentAction extends BaseGuestbookAction{
 				return mapping.success();
 			}
 			
-			Comment c = getCommentService().createComment(); 
+			Comment c = getCommentService().createComment();
 			c.setFirstName(form.getFirstName());
 			c.setLastName(form.getLastName());
 			c.setEmail(form.getEmail());

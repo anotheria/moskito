@@ -32,16 +32,16 @@
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR
  * THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */	
-package net.java.dev.moskitodemo.guestbook.presentation.action;
-
-import javax.servlet.http.HttpServletRequest;
+package net.anotheria.moskitodemo.guestbook.presentation.action;
 
 import net.anotheria.maf.action.AbstractAction;
+import net.anotheria.moskitodemo.guestbook.business.IAuthorizationService;
+import net.anotheria.moskitodemo.guestbook.business.ICommentService;
+import net.anotheria.moskitodemo.guestbook.business.MonitorableAuthorizationServiceFactory;
+import net.anotheria.moskitodemo.guestbook.business.MonitorableCommentServiceFactory;
 import net.anotheria.util.NumberUtils;
-import net.java.dev.moskitodemo.guestbook.business.IAuthorizationService;
-import net.java.dev.moskitodemo.guestbook.business.ICommentService;
-import net.java.dev.moskitodemo.guestbook.business.MonitorableAuthorizationServiceFactory;
-import net.java.dev.moskitodemo.guestbook.business.MonitorableCommentServiceFactory;
+
+import javax.servlet.http.HttpServletRequest;
 
 public abstract class BaseGuestbookAction extends AbstractAction{
 	public static final String BEAN_AUTHORIZATION = "guestbook.Authorization";

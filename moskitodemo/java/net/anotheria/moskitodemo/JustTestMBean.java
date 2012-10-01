@@ -1,4 +1,4 @@
-package net.java.dev.moskitodemo;
+package net.anotheria.moskitodemo;
 
 public interface JustTestMBean {
 	int getRequestCount();

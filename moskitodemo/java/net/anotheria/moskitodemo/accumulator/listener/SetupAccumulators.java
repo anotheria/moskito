@@ -1,7 +1,6 @@
-package net.java.dev.moskitodemo.accumulator.listener;
+package net.anotheria.moskitodemo.accumulator.listener;
 
 import net.anotheria.moskito.core.accumulation.Accumulators;
-import net.java.dev.moskitodemo.accumulator.RandomProducer;
 
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;

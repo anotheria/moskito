@@ -1,7 +1,7 @@
-package net.java.dev.moskitodemo.guestbook.business;
+package net.anotheria.moskitodemo.guestbook.business;
 
-import net.java.dev.moskitodemo.guestbook.business.data.Comment;
-import net.java.dev.moskitodemo.guestbook.presentation.bean.CommentForm;
+import net.anotheria.moskitodemo.guestbook.business.data.Comment;
+import net.anotheria.moskitodemo.guestbook.presentation.bean.CommentForm;
 
 public class AntispamUtil {
 	private static String BLACKLIST[] = {

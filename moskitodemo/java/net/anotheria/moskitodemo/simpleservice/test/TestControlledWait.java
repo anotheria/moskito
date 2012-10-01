@@ -32,9 +32,9 @@
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR
  * THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */	
-package net.java.dev.moskitodemo.simpleservice.test;
+package net.anotheria.moskitodemo.simpleservice.test;
 
-import net.java.dev.moskitodemo.simpleservice.ISimpleService;
+import net.anotheria.moskitodemo.simpleservice.ISimpleService;
 
 /**
  * This testcase waits orders the service to wait 10x 500 millis.

@@ -32,7 +32,7 @@
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR
  * THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */	
-package net.java.dev.moskitodemo.servlet;
+package net.anotheria.moskitodemo.servlet;
 
 import net.anotheria.moskito.core.predefined.ServletStats;
 import net.anotheria.moskito.core.producers.IStats;

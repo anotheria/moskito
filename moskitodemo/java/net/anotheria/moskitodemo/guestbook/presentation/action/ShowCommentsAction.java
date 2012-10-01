@@ -32,26 +32,25 @@
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR
  * THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */	
-package net.java.dev.moskitodemo.guestbook.presentation.action;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+package net.anotheria.moskitodemo.guestbook.presentation.action;
 
 import net.anotheria.anoplass.api.util.paging.PagingControl;
 import net.anotheria.maf.action.ActionCommand;
 import net.anotheria.maf.action.ActionMapping;
 import net.anotheria.maf.bean.FormBean;
+import net.anotheria.moskitodemo.guestbook.business.data.Comment;
+import net.anotheria.moskitodemo.guestbook.business.data.CommentSortType;
+import net.anotheria.moskitodemo.guestbook.presentation.bean.CommentTableHeaderBean;
+import net.anotheria.moskitodemo.guestbook.presentation.bean.CommentTableItemBean;
+import net.anotheria.moskitodemo.guestbook.presentation.bean.SortLinkBean;
 import net.anotheria.util.slicer.Segment;
 import net.anotheria.util.slicer.Slicer;
 import net.java.dev.moskito.annotation.MonitorClass;
-import net.java.dev.moskitodemo.guestbook.business.data.Comment;
-import net.java.dev.moskitodemo.guestbook.business.data.CommentSortType;
-import net.java.dev.moskitodemo.guestbook.presentation.bean.CommentTableHeaderBean;
-import net.java.dev.moskitodemo.guestbook.presentation.bean.CommentTableItemBean;
-import net.java.dev.moskitodemo.guestbook.presentation.bean.SortLinkBean;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
+import java.util.List;
 
 @MonitorClass
 public class ShowCommentsAction extends BaseGuestbookAction{

@@ -32,7 +32,7 @@
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR
  * THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */	
-package net.java.dev.moskitodemo.usecases.qe.business;
+package net.anotheria.moskitodemo.usecases.qe.business;
 
 public class QECalculatorImpl implements IQECalculator{
 

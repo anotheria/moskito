@@ -1,4 +1,4 @@
-package net.java.dev.moskitodemo.usecases.fibonacci.business;
+package net.anotheria.moskitodemo.usecases.fibonacci.business;
 
 public class FibonacciCalculatorImpl implements IFibonacciCalculator{
 

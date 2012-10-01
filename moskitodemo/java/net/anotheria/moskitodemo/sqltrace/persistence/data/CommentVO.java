@@ -12,7 +12,7 @@
  ********************************************************************************
  */
 
-package net.java.dev.moskitodemo.sqltrace.persistence.data;
+package net.anotheria.moskitodemo.sqltrace.persistence.data;
 
 import net.anotheria.util.crypt.MD5Util;
 

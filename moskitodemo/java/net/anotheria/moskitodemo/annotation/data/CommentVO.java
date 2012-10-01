@@ -12,7 +12,7 @@
  ********************************************************************************
  */
 
-package net.java.dev.moskitodemo.annotation.data;
+package net.anotheria.moskitodemo.annotation.data;
 
 import net.anotheria.util.crypt.MD5Util;
 
