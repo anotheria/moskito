@@ -1,6 +1,7 @@
 package net.java.dev.moskito.central.demo;
 
-import net.java.dev.moskito.core.stats.impl.IntervalRegistry;
+
+import net.anotheria.moskito.core.stats.impl.IntervalRegistry;
 
 import java.io.Serializable;
 

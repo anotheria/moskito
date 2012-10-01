@@ -5,10 +5,6 @@ import java.util.List;
 
 import org.apache.log4j.BasicConfigurator;
 
-import net.java.dev.moskitodemo.guestbook.business.AntispamUtil;
-import net.java.dev.moskitodemo.guestbook.business.CommentServiceFactory;
-import net.java.dev.moskitodemo.guestbook.business.ICommentService;
-import net.java.dev.moskitodemo.guestbook.business.data.Comment;
 
 public class CommentCleaner {
 	

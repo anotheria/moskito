@@ -42,6 +42,8 @@ import net.anotheria.maf.bean.annotations.Form;
 import net.anotheria.moskito.core.dynamic.MoskitoInvokationProxy;
 import net.anotheria.moskito.core.predefined.ServiceStatsCallHandler;
 import net.anotheria.moskito.core.predefined.ServiceStatsFactory;
+import net.anotheria.moskitodemo.usecases.qe.business.IQESolver;
+import net.anotheria.moskitodemo.usecases.qe.business.QESolverImpl;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

@@ -1,7 +1,7 @@
 package net.java.dev.moskito.central.demo;
 
-import net.java.dev.moskito.core.predefined.ServiceStats;
-import net.java.dev.moskito.core.predefined.Constants;
+import net.anotheria.moskito.core.predefined.ServiceStats;
+import net.anotheria.moskito.core.predefined.Constants;
 
 import java.io.Serializable;
 

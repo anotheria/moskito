@@ -36,6 +36,7 @@ package net.anotheria.moskitodemo.guestbook.business;
 
 import net.anotheria.moskito.core.util.storage.Storage;
 import net.anotheria.moskitodemo.guestbook.business.data.Comment;
+import net.anotheria.moskitodemo.guestbook.business.data.CommentSortType;
 import net.anotheria.util.sorter.QuickSorter;
 import net.anotheria.util.sorter.Sorter;
 import org.apache.log4j.Logger;
