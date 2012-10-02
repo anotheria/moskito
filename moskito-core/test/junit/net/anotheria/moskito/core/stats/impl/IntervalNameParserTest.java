@@ -48,7 +48,7 @@ import static org.junit.Assert.*;
 public class IntervalNameParserTest {
 
 	/**
-	 * Test some valid inputs
+	 * ExceptionPassingTest some valid inputs
 	 */
 	@Test
 	public void testGuessMethodWithValidParams() {
@@ -61,7 +61,7 @@ public class IntervalNameParserTest {
 	}
 	
 	/**
-	 * Test some invalid inputs
+	 * ExceptionPassingTest some invalid inputs
 	 */
 	@Test public void testGuessMethodWithInvalidParams() {
 		try {

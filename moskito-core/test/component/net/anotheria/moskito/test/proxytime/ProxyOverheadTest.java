@@ -15,7 +15,7 @@ public class ProxyOverheadTest {
 	    		impl1,
 	            new ServiceStatsCallHandler(),
 	            new ServiceStatsFactory(),
-	            "Test",
+	            "ExceptionPassingTest",
 	            "test",
 	            "test",
 	            Test.class

@@ -32,9 +32,15 @@
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR
  * THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */	
-package net.java.dev.moskito.test.plain.atomiclong;
+package net.anotheria.moskito.core.exceptions;
 
-public interface Counter {
-	void increase();
-	long getValue();
+public class ExcServiceException extends Exception{
+	/**
+	 * garbage.
+	 */
+	private static final long serialVersionUID = 1L;
+
+	public ExcServiceException(String message){
+		super(message);
+	}
 }
