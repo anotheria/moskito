@@ -56,7 +56,7 @@ public class TestSysOutLogger extends MultiTest6M {
 	}
 
 	public static void main(String a[]){
-		System.out.println("Test duration 6 Minutes...");
+		System.out.println("ExceptionPassingTest duration 6 Minutes...");
 		System.out.println("You should see stats output every minute.");
 		new TestSysOutLogger().executeTests();
 	}

@@ -60,7 +60,7 @@ public class TestLog4JLogger extends MultiTest6M {
 	}
 
 	public static void main(String a[]){
-		System.out.println("Test duration 6 Minutes...");
+		System.out.println("ExceptionPassingTest duration 6 Minutes...");
 		System.out.println("You should see stats output in log4j every minute.");
 		new TestLog4JLogger().executeTests();
 	}

@@ -34,11 +34,9 @@
  */	
 package net.java.dev.moskito.test.demo.guestbook;
 
+import net.anotheria.moskitodemo.guestbook.business.ICommentService;
+import net.anotheria.moskitodemo.guestbook.business.data.Comment;
 import net.anotheria.util.IdCodeGenerator;
-import net.java.dev.moskitodemo.guestbook.business.CommentServiceException;
-import net.java.dev.moskitodemo.guestbook.business.CommentServiceFactory;
-import net.java.dev.moskitodemo.guestbook.business.ICommentService;
-import net.java.dev.moskitodemo.guestbook.business.data.Comment;
 
 import org.apache.log4j.BasicConfigurator;
 

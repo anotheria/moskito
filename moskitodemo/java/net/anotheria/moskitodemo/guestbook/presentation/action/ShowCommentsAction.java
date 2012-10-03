@@ -38,6 +38,7 @@ import net.anotheria.anoplass.api.util.paging.PagingControl;
 import net.anotheria.maf.action.ActionCommand;
 import net.anotheria.maf.action.ActionMapping;
 import net.anotheria.maf.bean.FormBean;
+import net.anotheria.moskito.annotation.MonitorClass;
 import net.anotheria.moskitodemo.guestbook.business.data.Comment;
 import net.anotheria.moskitodemo.guestbook.business.data.CommentSortType;
 import net.anotheria.moskitodemo.guestbook.presentation.bean.CommentTableHeaderBean;
@@ -45,7 +46,6 @@ import net.anotheria.moskitodemo.guestbook.presentation.bean.CommentTableItemBea
 import net.anotheria.moskitodemo.guestbook.presentation.bean.SortLinkBean;
 import net.anotheria.util.slicer.Segment;
 import net.anotheria.util.slicer.Slicer;
-import net.java.dev.moskito.annotation.MonitorClass;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

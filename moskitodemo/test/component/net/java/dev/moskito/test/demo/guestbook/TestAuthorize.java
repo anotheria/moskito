@@ -37,10 +37,6 @@ package net.java.dev.moskito.test.demo.guestbook;
 import net.anotheria.util.IOUtils;
 import net.anotheria.util.IdCodeGenerator;
 import net.anotheria.util.StringUtils;
-import net.java.dev.moskitodemo.guestbook.business.AuthorizationServiceException;
-import net.java.dev.moskitodemo.guestbook.business.AuthorizationServiceFactory;
-import net.java.dev.moskitodemo.guestbook.business.BusinessConstants;
-import net.java.dev.moskitodemo.guestbook.business.IAuthorizationService;
 
 import org.apache.log4j.BasicConfigurator;
 

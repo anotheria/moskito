@@ -14,9 +14,9 @@
 
 package net.anotheria.moskitodemo.annotation;
 
+import net.anotheria.moskito.annotation.MonitorClass;
 import net.anotheria.moskitodemo.annotation.data.Comment;
 import net.anotheria.util.slicer.Segment;
-import net.java.dev.moskito.annotation.MonitorClass;
 
 import java.util.List;
 

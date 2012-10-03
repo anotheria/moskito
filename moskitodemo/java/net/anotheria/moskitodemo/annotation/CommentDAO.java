@@ -20,10 +20,10 @@ import net.anotheria.db.dao.DAO;
 import net.anotheria.db.dao.DAOException;
 import net.anotheria.db.dao.DAOSQLException;
 import net.anotheria.db.dao.RowMapper;
+import net.anotheria.moskito.annotation.MonitorClass;
 import net.anotheria.moskitodemo.annotation.data.Comment;
 import net.anotheria.moskitodemo.annotation.data.CommentVO;
 import net.anotheria.util.slicer.Segment;
-import net.java.dev.moskito.annotation.MonitorClass;
 import org.apache.log4j.Logger;
 
 import java.sql.Connection;
