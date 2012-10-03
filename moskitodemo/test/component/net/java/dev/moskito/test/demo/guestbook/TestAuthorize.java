@@ -34,10 +34,13 @@
  */	
 package net.java.dev.moskito.test.demo.guestbook;
 
+import net.anotheria.moskitodemo.guestbook.business.AuthorizationServiceException;
+import net.anotheria.moskitodemo.guestbook.business.AuthorizationServiceFactory;
+import net.anotheria.moskitodemo.guestbook.business.BusinessConstants;
+import net.anotheria.moskitodemo.guestbook.business.IAuthorizationService;
 import net.anotheria.util.IOUtils;
 import net.anotheria.util.IdCodeGenerator;
 import net.anotheria.util.StringUtils;
-
 import org.apache.log4j.BasicConfigurator;
 
 public class TestAuthorize {
@@ -53,7 +56,7 @@ public class TestAuthorize {
 		
 	}
 	
-	private static void test(IAuthorizationService service, String key, boolean expected) throws AuthorizationServiceException{
+	private static void test(IAuthorizationService service, String key, boolean expected) throws AuthorizationServiceException {
 		boolean result = service.keyMatches(key);
 		System.out.println("Tested with key: "+key+", result: "+result+" -> "+(result==expected?"success":"FAILURE"));
 	}

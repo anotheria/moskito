@@ -1,9 +1,13 @@
 package net.java.dev.moskito.test.demo.guestbook;
 
+import net.anotheria.moskitodemo.guestbook.business.AntispamUtil;
+import net.anotheria.moskitodemo.guestbook.business.CommentServiceFactory;
+import net.anotheria.moskitodemo.guestbook.business.ICommentService;
+import net.anotheria.moskitodemo.guestbook.business.data.Comment;
+import org.apache.log4j.BasicConfigurator;
+
 import java.util.ArrayList;
 import java.util.List;
-
-import org.apache.log4j.BasicConfigurator;
 
 
 public class CommentCleaner {

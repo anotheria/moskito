@@ -15,6 +15,7 @@
         <moskito-webui-version>${project.version}</moskito-webui-version>
     </properties>
     <build>
+        <testSourceDirectory>${project.basedir}/test/component</testSourceDirectory>
         <plugins>
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
