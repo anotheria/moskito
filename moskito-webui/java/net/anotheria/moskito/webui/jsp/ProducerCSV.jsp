@@ -5,16 +5,16 @@
 --%> subsystem: <msk:write name="producer" property="subsystem"/>,<%--
 --%> class: <msk:write name="producer" property="className"/>."
 <%--
---%><msk:iterate type="net.java.dev.moskito.webui.bean.StatDecoratorBean" id="decorator" name="decorators"><%--
+--%><msk:iterate type="net.anotheria.moskito.webui.bean.StatDecoratorBean" id="decorator" name="decorators"><%--
 --%>"<msk:write name="decorator" property="name"/>";
 "";"Name"<%-- 
---%><msk:iterate name="decorator" property="captions" type="net.java.dev.moskito.webui.bean.StatCaptionBean" id="caption" indexId="ind"><%--
+--%><msk:iterate name="decorator" property="captions" type="net.anotheria.moskito.webui.bean.StatCaptionBean" id="caption" indexId="ind"><%--
 --%>;"<msk:write name="caption" property="caption"/>"<%--
 --%></msk:iterate>s<%--
 
---%><msk:iterate name="decorator" property="stats" id="stat" type="net.java.dev.moskito.webui.bean.StatBean">
+--%><msk:iterate name="decorator" property="stats" id="stat" type="net.anotheria.moskito.webui.bean.StatBean">
 "";"<msk:write name="stat" property="name"/>";<%--
---%><msk:iterate name="stat" property="values" id="value" type="net.java.dev.moskito.webui.bean.StatValueBean"><%--
+--%><msk:iterate name="stat" property="values" id="value" type="net.anotheria.moskito.webui.bean.StatValueBean"><%--
 --%>;<msk:write name="value" property="value"/><%--
 --%></msk:iterate></msk:iterate></msk:iterate>
 

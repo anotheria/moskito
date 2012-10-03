@@ -55,7 +55,7 @@
 						</tr>
 					</thead>
 					<tbody>
-						<msk:iterate name="recorded" type="net.java.dev.moskito.webui.bean.RecordedUseCaseListItemBean" id="useCase" indexId="index">
+						<msk:iterate name="recorded" type="net.anotheria.moskito.webui.bean.RecordedUseCaseListItemBean" id="useCase" indexId="index">
 							<tr class="<%= ((index & 1) == 0 )? "even" : "odd" %>">
 								<td><msk:write name="index"/></td>
 								<td><a href="mskShowRecordedUseCase?pUseCaseName=<msk:write name="useCase" property="nameEncoded"/>">

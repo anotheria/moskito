@@ -102,7 +102,7 @@
                                 </thead>
                                 <tbody>
 
-                                <ano:iterate name="states" type="net.java.dev.moskito.webui.bean.threads.ThreadStateInfoBean" id="state" indexId="index">
+                                <ano:iterate name="states" type="net.anotheria.moskito.webui.bean.threads.ThreadStateInfoBean" id="state" indexId="index">
                                     <tr class="<%= ((index & 1) == 0 )? "even" : "odd" %>">
                                         <td><ano:write name="state" property="state"/></td>
                                         <td><ano:write name="state" property="count"/></td>

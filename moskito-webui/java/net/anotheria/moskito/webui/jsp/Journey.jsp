@@ -54,7 +54,7 @@
 					</thead>
 					<tbody>
 						
-						<msk:iterate name="recorded" type="net.java.dev.moskito.webui.bean.TracedCallListItemBean" id="tracedCall" indexId="index">
+						<msk:iterate name="recorded" type="net.anotheria.moskito.webui.bean.TracedCallListItemBean" id="tracedCall" indexId="index">
 							<tr class="<%= ((index & 1) == 0 )? "even" : "odd" %>">
 								<td><msk:write name="index"/></td>
 								 <td>

@@ -34,7 +34,7 @@ for some use-cases <a href="http://moskito.anotheria.net/documentation.html">mos
 		</div>
 	</div>
 
-	<msk:iterate name="decorators" type="net.java.dev.moskito.webui.bean.DecoratorExplanationBean" id="decorator">
+	<msk:iterate name="decorators" type="net.anotheria.moskito.webui.bean.DecoratorExplanationBean" id="decorator">
 		<div class="clear"><!-- --></div>
 		<div class="table_layout">
 			<div class="top">
@@ -64,7 +64,7 @@ for some use-cases <a href="http://moskito.anotheria.net/documentation.html">mos
 							</thead>
 							<tbody>
 							<msk:iterate name="decorator" property="captions" id="caption"
-										 type="net.java.dev.moskito.webui.bean.StatCaptionBean" indexId="index">
+										 type="net.anotheria.moskito.webui.bean.StatCaptionBean" indexId="index">
 								<tr class="<%= ((index & 1) == 0 )? "even" : "odd" %>">
 									<td><msk:write name="caption" property="caption"/></td>
 									<td><msk:write name="caption" property="shortExplanation"/></td>

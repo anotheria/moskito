@@ -46,7 +46,7 @@
 							</tr>
 						</thead>	
 						<tbody>				
-							<msk:iterate name="recordedUseCase" property="elements" type="net.java.dev.moskito.webui.bean.UseCasePathElementBean" id="element" indexId="index">
+							<msk:iterate name="recordedUseCase" property="elements" type="net.anotheria.moskito.webui.bean.UseCasePathElementBean" id="element" indexId="index">
 								<tr>
 									<msk:equal name="element" property="aborted" value="true"><tr class="stat_error"></msk:equal>
 									<msk:notEqual name="element" property="aborted" value="true"><tr class="<%= ((index & 1) == 0 )? "even" : "odd" %>"></msk:notEqual>

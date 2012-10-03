@@ -39,7 +39,7 @@
 <jsp:include page="Menu.jsp" flush="false" />
 
 <div class="main">
-<ano:iterate type="net.java.dev.moskito.webui.bean.StatDecoratorBean" id="decorator" name="decorators">
+<ano:iterate type="net.anotheria.moskito.webui.bean.StatDecoratorBean" id="decorator" name="decorators">
 	<div class="additional">
 		<div class="top"><div><!-- --></div></div>
 		<div class="add_in">
@@ -63,7 +63,7 @@
             <div><ano:define name="currentInterval" id="currentInterval" toScope="page" type="java.lang.String"/>
                 <span>Interval:
                     <select name="pInterval">
-                        <ano:iterate name="intervals" id="interval" type="net.java.dev.moskito.webui.bean.IntervalBean">
+                        <ano:iterate name="intervals" id="interval" type="net.anotheria.moskito.webui.bean.IntervalBean">
                             <option value="<ano:write name="interval" property="name"/>" <ano:equal name="interval" property="name" value="<%=currentInterval%>">selected="selected"</ano:equal>>
                                 <ano:write name="interval" property="name"/>
                             </option>
@@ -74,7 +74,7 @@
             <div><ano:define name="moskito.CurrentUnit" property="unitName" id="currentUnit" toScope="page" type="java.lang.String"/>
                 <span>Unit:
                     <select name="pUnit">
-                        <ano:iterate name="units" id="unit" type="net.java.dev.moskito.webui.bean.UnitBean">
+                        <ano:iterate name="units" id="unit" type="net.anotheria.moskito.webui.bean.UnitBean">
                             <option value="<ano:write name="unit" property="unitName"/>" <ano:equal name="unit" property="unitName" value="<%=currentUnit%>">selected="selected"</ano:equal>>
                             <ano:write name="unit" property="unitName"/>
                             </option>
@@ -116,7 +116,7 @@
 			</tr>	
 		</thead>
 		<tbody>		
-			<ano:iterate name="decorator" property="stats" id="stat" type="net.java.dev.moskito.webui.bean.StatBean" indexId="index">
+			<ano:iterate name="decorator" property="stats" id="stat" type="net.anotheria.moskito.webui.bean.StatBean" indexId="index">
 			  <tr class="<%= ((index & 1) == 0 )? "even" : "odd" %>">
 					<td>
 						<ano:write name="stat" property="name"/>
@@ -130,7 +130,7 @@
 		<table class="producer_filter_data_table" cellpadding="0" cellspacing="0">
 		 <thead>
 		  <tr>		    
-			<ano:iterate name="decorator" property="captions" type="net.java.dev.moskito.webui.bean.StatCaptionBean" id="caption" indexId="ind">				
+			<ano:iterate name="decorator" property="captions" type="net.anotheria.moskito.webui.bean.StatCaptionBean" id="caption" indexId="ind">
 			 <th>
                  <ano:write name="caption" property="caption" />
 			 </th>
@@ -138,9 +138,9 @@
 		 </tr>		
 	   </thead>
 	  <tbody>
-		  <ano:iterate name="decorator" property="stats" id="stat" type="net.java.dev.moskito.webui.bean.StatBean" indexId="index">
+		  <ano:iterate name="decorator" property="stats" id="stat" type="net.anotheria.moskito.webui.bean.StatBean" indexId="index">
 		 <tr class="<%= ((index & 1) == 0 )? "even" : "odd" %>">
-				<ano:iterate name="stat" property="values" id="value" type="net.java.dev.moskito.webui.bean.StatValueBean">
+				<ano:iterate name="stat" property="values" id="value" type="net.anotheria.moskito.webui.bean.StatValueBean">
 					<td>
 					    <a href="#" onclick="setandsubmit('<ano:write name="value" property="name"/>', '<ano:write name="stat" property="name"/>'); return false">ADD</a>
 					</td>

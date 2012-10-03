@@ -4,7 +4,7 @@
 <% int currentDepth = (Integer)request.getAttribute("currentDepth"); %>
 var tmpNode<%=currentDepth+1%>;
 
-<msk:iterate name="subnodes" type="net.java.dev.moskito.webui.bean.UseCaseElementNodeBean" id="node" indexId="index">
+<msk:iterate name="subnodes" type="net.anotheria.moskito.webui.bean.UseCaseElementNodeBean" id="node" indexId="index">
 	tmpNode<%=currentDepth+1%> = new YAHOO.widget.TextNode("<msk:write name="node" property="callShort"/>", tmpNode<%=currentDepth%>, false);
 	<% request.setAttribute("subnodes", node.getChildren()); %>
 	<% request.setAttribute("currentDepth", currentDepth+1); %>

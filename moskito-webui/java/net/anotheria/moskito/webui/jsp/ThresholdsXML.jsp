@@ -7,7 +7,7 @@
   	<state><ano:write name="systemStatus"/></state>
   </system>
   <setups>
-	<ano:iterate name="infos" type="net.java.dev.moskito.webui.bean.ThresholdInfoBean" id="info">
+	<ano:iterate name="infos" type="net.anotheria.moskito.webui.bean.ThresholdInfoBean" id="info">
 		<setup>
 			<id><ano:write name="info" property="id"/></id>
 			<name><ano:write name="info" property="name"/></name>
@@ -21,7 +21,7 @@
 		</ano:iterate>
 	</setups>
 	<thresholds>
-	<ano:iterate name="thresholds" type="net.java.dev.moskito.webui.bean.ThresholdBean" id="threshold" indexId="index">
+	<ano:iterate name="thresholds" type="net.anotheria.moskito.webui.bean.ThresholdBean" id="threshold" indexId="index">
 	<threshold>
 		<setup>setup<ano:write name="threshold" property="id"/></setup>
 		<color><ano:write name="threshold" property="colorCode"/></color>
@@ -34,7 +34,7 @@
 	</ano:iterate>
 	</thresholds>
 	<alerts>
-	<ano:iterate name="alerts" type="net.java.dev.moskito.webui.bean.ThresholdAlertBean" id="alert" indexId="index">
+	<ano:iterate name="alerts" type="net.anotheria.moskito.webui.bean.ThresholdAlertBean" id="alert" indexId="index">
 		<alert>
 			<timestamp><ano:write name="alert" property="timestamp"/></timestamp>
 			<name><ano:write name="alert" property="name"/></name>

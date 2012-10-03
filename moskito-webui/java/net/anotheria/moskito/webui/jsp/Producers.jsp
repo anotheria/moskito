@@ -18,7 +18,7 @@
 <!--
  Data for charts -->
  <script>
-<ano:iterate type="net.java.dev.moskito.webui.bean.GraphDataBean" id="graph" name="graphDatas">	
+<ano:iterate type="net.anotheria.moskito.webui.bean.GraphDataBean" id="graph" name="graphDatas">	
 	var <ano:write name="graph" property="jsVariableName"/>Caption = "<ano:write name="graph" property="caption"/>";
 	var <ano:write name="graph" property="jsVariableName"/>Array = <ano:write name="graph" property="jsArrayValue"/>;
 </ano:iterate> 
@@ -28,14 +28,14 @@
 
 
 <div class="main">
-<ano:iterate type="net.java.dev.moskito.webui.bean.ProducerDecoratorBean" 	id="decorator" name="decorators">	
+<ano:iterate type="net.anotheria.moskito.webui.bean.ProducerDecoratorBean" 	id="decorator" name="decorators">	
 <div class="clear"><!-- --></div>
 <div class="table_layout">
 	<div class="top"><div><!-- --></div></div>
 	<div class="in">
 	
-	<ano:define id="sortType" type="net.java.dev.moskito.webui.bean.ProducerBeanSortType" name="<%=decorator.getSortTypeName()%>"/>
-	<ano:define id="visibility" type="net.java.dev.moskito.webui.bean.ProducerVisibility" name="decorator" property="visibility"/>
+	<ano:define id="sortType" type="net.anotheria.moskito.webui.bean.ProducerBeanSortType" name="<%=decorator.getSortTypeName()%>"/>
+	<ano:define id="visibility" type="net.anotheria.moskito.webui.bean.ProducerVisibility" name="decorator" property="visibility"/>
 
 	<ano:equal name="visibility" value="SHOW">
 		<h2 class="titel_open">
@@ -117,7 +117,7 @@
 			</tr>	
 		</thead>
 		<tbody>	
-			<ano:iterate name="decorator" property="producers" id="producer" type="net.java.dev.moskito.webui.bean.ProducerBean" indexId="index">
+			<ano:iterate name="decorator" property="producers" id="producer" type="net.anotheria.moskito.webui.bean.ProducerBean" indexId="index">
 			 <tr class="<%= ((index & 1) == 0 )? "even" : "odd" %>">
 				<td>
 					<a href="mskShowProducer?pProducerId=<ano:write name="producer" property="id"/>"
@@ -146,7 +146,7 @@
 		<table cellpadding="0" cellspacing="0">
 		 <thead>
 		  <tr>		  
-			<ano:iterate name="decorator" property="captions" type="net.java.dev.moskito.webui.bean.StatCaptionBean" id="caption" indexId="ind">				
+			<ano:iterate name="decorator" property="captions" type="net.anotheria.moskito.webui.bean.StatCaptionBean" id="caption" indexId="ind">				
 			 <th title="<ano:write name="caption" property="shortExplanation"/>">
 
 					<!-- variable for this graph is <ano:write name="decorator" property="name"/>_<ano:write name="caption" property="jsVariableName"/> -->
@@ -196,9 +196,9 @@
 		 </tr>		
 	   </thead>
 	  <tbody>
-	   <ano:iterate name="decorator" property="producers" id="producer" type="net.java.dev.moskito.webui.bean.ProducerBean" indexId="index">
+	   <ano:iterate name="decorator" property="producers" id="producer" type="net.anotheria.moskito.webui.bean.ProducerBean" indexId="index">
 		 <tr class="<%= ((index & 1) == 0 )? "even" : "odd" %>">
-			<ano:iterate name="producer" property="values" id="value" type="net.java.dev.moskito.webui.bean.StatValueBean">
+			<ano:iterate name="producer" property="values" id="value" type="net.anotheria.moskito.webui.bean.StatValueBean">
 				<td onmouseover="Tip('<ano:write name="producer" property="id"/>.<ano:write name="value" property="name"/>&lt;br/&gt;&lt;b&gt;&lt;span align=center&gt;<ano:write name="value" property="value"/>&lt;/span&gt;&lt;/b&gt;', TEXTALIGN, 'center')" onmouseout="UnTip()">
 					<ano:write name="value" property="value" />
 				</td>

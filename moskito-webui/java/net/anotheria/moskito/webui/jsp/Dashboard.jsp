@@ -30,7 +30,7 @@
      Data for charts -->
 <%--
     <script>
-    <msk:iterate type="net.java.dev.moskito.webui.bean.GraphDataBean" 	id="graph" name="graphDatas">
+    <msk:iterate type="net.anotheria.moskito.webui.bean.GraphDataBean" 	id="graph" name="graphDatas">
         var <msk:write name="graph" property="jsVariableName"/>Caption = "<msk:write name="graph" property="caption"/>";
         var <msk:write name="graph" property="jsVariableName"/>Array = <msk:write name="graph" property="jsArrayValue"/>;
     </msk:iterate>
@@ -291,7 +291,7 @@
 
     <ul class="servlet_prod" style="display:none;">
         <li><input type="checkbox" id="c_all"/><label>Select all</label></li>
-        <li><input type="checkbox"/><label>net.java.dev.moskitodemoservlet.SimpleServlet</label></li>
+        <li><input type="checkbox"/><label>net.anotheria.moskitodemoservlet.SimpleServlet</label></li>
     </ul>
     <ul class="action_prod" style="display:none;">
         <li><input type="checkbox" id="c_all"/><label>Select all</label></li>

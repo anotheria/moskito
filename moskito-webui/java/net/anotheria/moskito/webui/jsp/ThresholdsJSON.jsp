@@ -6,7 +6,7 @@
 	"state": "<ano:write name="systemStatus"/>"
 },
 "setups":[<%--
-	--%><ano:iterate name="infos" type="net.java.dev.moskito.webui.bean.ThresholdInfoBean" id="info" indexId="i"><%--
+	--%><ano:iterate name="infos" type="net.anotheria.moskito.webui.bean.ThresholdInfoBean" id="info" indexId="i"><%--
 	--%><ano:notEqual name="i" value="0">,</ano:notEqual><ano:write name="value"/>
 	{
 	 	"id": "<ano:write name="info" property="id"/>",
@@ -20,7 +20,7 @@
 	}<%--
 --%></ano:iterate>],
 "thresholds":[
-	<ano:iterate name="thresholds" type="net.java.dev.moskito.webui.bean.ThresholdBean" id="threshold" indexId="i">
+	<ano:iterate name="thresholds" type="net.anotheria.moskito.webui.bean.ThresholdBean" id="threshold" indexId="i">
 		<ano:notEqual name="i" value="0">,</ano:notEqual><ano:write name="value"/>
 	{
 		"setup": "setup<ano:write name="threshold" property="id"/>",
@@ -33,7 +33,7 @@
 	}
 	</ano:iterate>],
 "alerts": [
-	<ano:iterate name="alerts" type="net.java.dev.moskito.webui.bean.ThresholdAlertBean" id="alert" indexId="i">
+	<ano:iterate name="alerts" type="net.anotheria.moskito.webui.bean.ThresholdAlertBean" id="alert" indexId="i">
 		<ano:notEqual name="i" value="0">,</ano:notEqual><ano:write name="value"/>
 	{
 		"timestamp": "<ano:write name="alert" property="timestamp"/>",

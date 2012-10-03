@@ -54,7 +54,7 @@
 							</tr>
 						</thead>
 						<tbody>
-							<msk:iterate name="journeys" type="net.java.dev.moskito.webui.bean.JourneyListItemBean" id="journey" indexId="index">
+							<msk:iterate name="journeys" type="net.anotheria.moskito.webui.bean.JourneyListItemBean" id="journey" indexId="index">
 								<tr class="<%= ((index & 1) == 0 )? "even" : "odd" %>">
 									<td><a href="mskShowJourney?pJourneyName=<msk:write name="journey" property="name"/>"><msk:write name="journey" property="name"/></td>
 									<td><msk:write name="journey" property="created"/></td>

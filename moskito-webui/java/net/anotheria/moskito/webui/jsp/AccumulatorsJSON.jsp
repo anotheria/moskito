@@ -7,7 +7,7 @@
 </ano:present>
 	
 	"accumulators": [
-		<ano:iterate name="accumulators" type="net.java.dev.moskito.webui.bean.AccumulatorInfoBean" id="accumulator" indexId="index">
+		<ano:iterate name="accumulators" type="net.anotheria.moskito.webui.bean.AccumulatorInfoBean" id="accumulator" indexId="index">
 		<ano:notEqual name="index" value="0">,</ano:notEqual>
 		{
 		"id": "<ano:write name="accumulator" property="id"/>",

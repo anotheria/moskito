@@ -140,7 +140,7 @@
 </ano:present>
 <ano:present name="singleGraphData">
 <script type="text/javascript">
-	<ano:iterate name="singleGraphData" type="net.java.dev.moskito.webui.bean.AccumulatedSingleGraphDataBean" id="singleGraph">
+	<ano:iterate name="singleGraphData" type="net.anotheria.moskito.webui.bean.AccumulatedSingleGraphDataBean" id="singleGraph">
 		var singleGraphData<ano:write name="singleGraph" property="nameForJS"/> = [<ano:iterate name="singleGraph" property="data" id="value" indexId="i"><ano:notEqual name="i" value="0">,</ano:notEqual><ano:write name="value"/></ano:iterate>]; ;
 	</ano:iterate>
 </script>
@@ -176,7 +176,7 @@
 		</div>
 		</ano:notPresent>
 		<ano:present name="multiple_set">
-		<ano:iterate name="singleGraphData" type="net.java.dev.moskito.webui.bean.AccumulatedSingleGraphDataBean" id="singleGraph">
+		<ano:iterate name="singleGraphData" type="net.anotheria.moskito.webui.bean.AccumulatedSingleGraphDataBean" id="singleGraph">
 		<div class="in">
 			<h2><span>Chart for <ano:write name="singleGraph" property="name"/></span></h2><a class="refresh" href="#"></a>
 
@@ -233,7 +233,7 @@
                             </tr>
 							</thead>
 							<tbody>
-							<ano:iterate name="accumulators" type="net.java.dev.moskito.webui.bean.AccumulatorInfoBean" id="accumulator" indexId="index">
+							<ano:iterate name="accumulators" type="net.anotheria.moskito.webui.bean.AccumulatorInfoBean" id="accumulator" indexId="index">
 								<tr class="<%= ((index & 1) == 0 )? "even" : "odd" %>">
 									<td><input type="checkbox" name="id_<ano:write name="accumulator" property="id"/>" value="set" <ano:present name="<%=\"id_\"+accumulator.getId()+\"_set\"%>">checked="checked"</ano:present>/></td>
 									<td><a class="acc_name" href="?id_<ano:write name="accumulator" property="id"/>=set"><ano:write name="accumulator" property="name"/></a></td>
@@ -322,7 +322,7 @@
 	</ano:notPresent>
 	<ano:present name="singleGraphData">
 	function drawLineChart() {
-		<ano:iterate name="singleGraphData" type="net.java.dev.moskito.webui.bean.AccumulatedSingleGraphDataBean" id="singleGraph">
+		<ano:iterate name="singleGraphData" type="net.anotheria.moskito.webui.bean.AccumulatedSingleGraphDataBean" id="singleGraph">
 			var chartData<ano:write name="singleGraph" property="nameForJS"/> = new google.visualization.DataTable();
 			chartData<ano:write name="singleGraph" property="nameForJS"/>.addColumn('string', 'Time');
 			chartData<ano:write name="singleGraph" property="nameForJS"/>.addColumn('number', '<ano:write name="singleGraph" property="name"/>');

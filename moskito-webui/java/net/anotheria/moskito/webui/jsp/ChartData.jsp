@@ -63,7 +63,7 @@ for some use-cases <a href="http://moskito.anotheria.net/documentation.html">mos
 							</thead>
 							<tbody>
 							<msk:iterate name="data" id="entity"
-										 type="net.java.dev.moskito.webui.bean.ChartDataEntityBean" indexId="index">
+										 type="net.anotheria.moskito.webui.bean.ChartDataEntityBean" indexId="index">
 								<tr class="<%= ((index & 1) == 0 )? "even" : "odd" %>">
 									<td><msk:write name="entity" property="producerId"/></td>
 									<td><msk:write name="entity" property="statName"/></td>

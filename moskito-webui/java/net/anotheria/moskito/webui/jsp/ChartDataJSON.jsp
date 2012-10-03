@@ -3,7 +3,7 @@
 %>{
 	"interval": "<msk:write name="interval"/>",
 	"unit": "<msk:write name="unit"/>",
-	"data": [<msk:iterate name="data" id="entity" type="net.java.dev.moskito.webui.bean.ChartDataEntityBean" indexId="i"><msk:notEqual name="i" value="0">,</msk:notEqual>{
+	"data": [<msk:iterate name="data" id="entity" type="net.anotheria.moskito.webui.bean.ChartDataEntityBean" indexId="i"><msk:notEqual name="i" value="0">,</msk:notEqual>{
 	"producerId": "<msk:write name="entity" property="producerId"/>", 
 	"statName": "<msk:write name="entity" property="statName"/>",
 	"statValueName": "<msk:write name="entity" property="statValueName"/>",
