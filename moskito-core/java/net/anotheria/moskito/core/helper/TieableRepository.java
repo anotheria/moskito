@@ -66,7 +66,7 @@ public abstract class TieableRepository<T extends Tieable> implements IProducerR
 		yetUntied.add(t);
 	}
 
-	protected void addToAutoTie(T tieable, IStatsProducer producer) {
+	protected void addToAutoTie(T tieable, IStatsProducer<?> producer) {
 		AutoTieWrapper wrapper = new AutoTieWrapper(tieable, producer);
 		if (tieable.getDefinition().getIntervalName()!=null){
 			IntervalListener listener = getListener(tieable.getDefinition().getIntervalName());
@@ -176,7 +176,7 @@ public abstract class TieableRepository<T extends Tieable> implements IProducerR
             return;
         detachFromListener(t);
         try{
-            //incase its yet untied.
+            //in case its yet untied.
             yetUntied.remove(t);
         }catch(Exception e){/* ignored */}
 
