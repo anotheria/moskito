@@ -1,4 +1,4 @@
-package net.anotheria.moskito.webui.action;
+package net.anotheria.moskito.webui.action.charts;
 
 import net.anotheria.maf.action.ActionCommand;
 import net.anotheria.maf.action.ActionMapping;
@@ -7,7 +7,6 @@ import net.anotheria.moskito.core.producers.IStats;
 import net.anotheria.moskito.core.producers.IStatsProducer;
 import net.anotheria.moskito.core.registry.IProducerRegistry;
 import net.anotheria.moskito.core.registry.ProducerRegistryFactory;
-import net.anotheria.moskito.webui.bean.NaviItem;
 import net.anotheria.moskito.webui.bean.ProducerAndTypeBean;
 import net.anotheria.moskito.webui.bean.TypeAndValueNamesBean;
 
@@ -21,18 +20,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-public class GetChartMetaDataAction extends BaseMoskitoUIAction{
+/**
+ * This action renders the available data for dynamic charts.
+ */
+public class GetChartMetaDataAction extends BaseChartsAction {
 
-	@Override
-	protected NaviItem getCurrentNaviItem() {
-		return null;
-	}
-
-	@Override
-	protected String getLinkToCurrentPage(HttpServletRequest req) {
-		return null;
-	}
-	
 	/**
 	 * Link to the producer registry.
 	 */

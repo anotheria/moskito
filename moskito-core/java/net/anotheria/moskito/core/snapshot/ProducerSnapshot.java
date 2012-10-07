@@ -10,12 +10,30 @@ import java.util.Map;
  * @since 30.09.12 15:23
  */
 public class ProducerSnapshot {
+	/**
+	 * Associated producer id.
+	 */
 	private String producerId;
+	/**
+	 * Category of the associated producer.
+	 */
 	private String category;
+	/**
+	 * Subsystem of the associated producer.
+	 */
 	private String subsystem;
+	/**
+	 * Name of the interval.
+	 */
 	private String intervalName;
 
+	/**
+	 * Name of the component.
+	 */
 	private String component;
+	/**
+	 * Name of the host.
+	 */
 	private String host;
 
 	private Map<String, StatSnapshot> stats = new HashMap<String, StatSnapshot>();

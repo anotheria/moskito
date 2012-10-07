@@ -1,4 +1,4 @@
-package net.anotheria.moskito.webui.action;
+package net.anotheria.moskito.webui.action.charts;
 
 import net.anotheria.maf.action.ActionCommand;
 import net.anotheria.maf.action.ActionMapping;
@@ -9,7 +9,6 @@ import net.anotheria.moskito.core.registry.IProducerRegistry;
 import net.anotheria.moskito.core.registry.ProducerRegistryFactory;
 import net.anotheria.moskito.core.stats.TimeUnit;
 import net.anotheria.moskito.webui.bean.ChartDataEntityBean;
-import net.anotheria.moskito.webui.bean.NaviItem;
 import net.anotheria.util.StringUtils;
 
 import javax.servlet.http.HttpServletRequest;
@@ -18,16 +17,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Delivers data for charts.
+ * Delivers data for charts. The available data can be requested by the GetChartMetaDataAction.
  * @author lrosenberg.
  *
  */
-public class GetChartDataAction extends BaseMoskitoUIAction{
-
-	@Override
-	protected NaviItem getCurrentNaviItem() {
-		return null;
-	}
+public class GetChartDataAction extends BaseChartsAction {
 
 	@Override
 	protected String getLinkToCurrentPage(HttpServletRequest req) {

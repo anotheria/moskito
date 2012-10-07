@@ -19,7 +19,10 @@ public class AccumulatedSingleGraphDataBean {
 	 * Graph data.
 	 */
 	private List<AccumulatedValueBean> data;
-	
+
+	/**
+	 * This is a helper map that contains characters an accumulator name can contains, that are prohibited in js variables and therefore have to be mapped.
+	 */
 	private static final HashMap<String, String> jsReplaceMap;
 	static{
 		jsReplaceMap = new HashMap<String, String>();

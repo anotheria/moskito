@@ -39,6 +39,9 @@ import net.anotheria.moskito.webui.action.BaseMoskitoUIAction;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * This bean contains the data for all stats which are decorated by same decorator.
+ */
 public class StatDecoratorBean extends AbstractDecoratorBean {
 	/**
 	 * List of stats bean.

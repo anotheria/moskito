@@ -1,5 +1,5 @@
 /*
- * $Id: BaseShowProducersAction.java 4402 2010-05-09 17:42:52Z another $
+ * $Id$
  * 
  * This file is part of the MoSKito software project
  * that is hosted at http://moskito.dev.java.net.
@@ -32,12 +32,11 @@
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR
  * THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package net.anotheria.moskito.webui.action;
+package net.anotheria.moskito.webui.action.charts;
 
 import net.anotheria.maf.action.ActionCommand;
 import net.anotheria.maf.action.ActionMapping;
 import net.anotheria.maf.bean.FormBean;
-import net.anotheria.moskito.webui.bean.NaviItem;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -47,12 +46,7 @@ import javax.servlet.http.HttpServletResponse;
  * 
  * @author abolbat.
  */
-public class ShowChartsAction extends BaseMoskitoUIAction {
-
-	@Override
-	protected final NaviItem getCurrentNaviItem() {
-		return NaviItem.CHARTS;
-	}
+public class ShowChartsAction extends BaseChartsAction {
 
 	@Override
 	public String getLinkToCurrentPage(HttpServletRequest req) {

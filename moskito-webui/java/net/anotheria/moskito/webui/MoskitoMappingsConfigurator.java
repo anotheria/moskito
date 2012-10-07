@@ -6,11 +6,11 @@ import net.anotheria.maf.action.ActionMappingsConfigurator;
 import net.anotheria.maf.action.CommandRedirect;
 import net.anotheria.moskito.webui.action.AnalyzeJourneyAction;
 import net.anotheria.moskito.webui.action.ForceIntervalUpdateAction;
-import net.anotheria.moskito.webui.action.GetChartDataAction;
-import net.anotheria.moskito.webui.action.GetChartMetaDataAction;
+import net.anotheria.moskito.webui.action.charts.GetChartDataAction;
+import net.anotheria.moskito.webui.action.charts.GetChartMetaDataAction;
 import net.anotheria.moskito.webui.action.InspectProducerAction;
 import net.anotheria.moskito.webui.action.ShowAllProducersAction;
-import net.anotheria.moskito.webui.action.ShowChartsAction;
+import net.anotheria.moskito.webui.action.charts.ShowChartsAction;
 import net.anotheria.moskito.webui.action.ShowDashboardAction;
 import net.anotheria.moskito.webui.action.ShowExplanationsAction;
 import net.anotheria.moskito.webui.action.ShowJourneyAction;
@@ -220,7 +220,7 @@ public class MoskitoMappingsConfigurator implements ActionMappingsConfigurator{
 
 		//errors
 		mappings.setOnError(new ActionForward("error", "/net/anotheria/moskito/webui/jsp/Error.jsp"));
-		
+
 	}
 
 }

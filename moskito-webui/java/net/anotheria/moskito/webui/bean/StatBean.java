@@ -40,6 +40,7 @@ import net.anotheria.util.sorter.IComparable;
 import java.util.List;
 
 public class StatBean implements IComparable{
+
 	private String name;
 	
 	private ValueListWrapper wrapper;
@@ -58,7 +59,7 @@ public class StatBean implements IComparable{
 	}
 	
 	
-	public int compareTo(IComparable anotherComparable, int method) {
+	@Override public int compareTo(IComparable anotherComparable, int method) {
 		StatBean anotherBean = (StatBean)anotherComparable;
 		if (method<StatBeanSortType.SORT_TYPE_LIMIT)
 			return wrapper.compareTo(anotherBean.wrapper, method);

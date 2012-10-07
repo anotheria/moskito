@@ -21,11 +21,17 @@ public class SetupPreconfiguredAccumulators implements ServletContextListener{
 		log.info("Configuring url accumulators.");
 		setupUrlAccumulators();
 	}
-	
+
+	/**
+	 * Adds accumulator for thread count.
+	 */
 	private static void setupThreadAccumulators(){
 		Accumulators.createAccumulator("ThreadCount", "ThreadCount", "ThreadCount", "current", "default");
 	}
-	
+
+	/**
+	 * Adds accumulators for session count, new and deleted sessions.
+	 */
 	private static void setupSessionCountAccumulators(){
 		Accumulators.createAccumulator("SessionCount Cur Absolute", "SessionCount", "Sessions", "cur", "default");
 		Accumulators.createAccumulator("SessionCount Cur 1h", "SessionCount", "Sessions", "cur", "1h");

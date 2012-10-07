@@ -35,7 +35,6 @@
 package net.anotheria.moskito.core.predefined;
 
 import net.anotheria.moskito.core.dynamic.IOnDemandStatsFactory;
-import net.anotheria.moskito.core.producers.IStats;
 import net.anotheria.moskito.core.stats.Interval;
 
 import java.util.Arrays;
@@ -44,14 +43,14 @@ import java.util.Arrays;
  * Factory for filter stats.
  * @author lrosenberg
  */
-public class FilterStatsFactory implements IOnDemandStatsFactory {
+public class FilterStatsFactory implements IOnDemandStatsFactory<FilterStats> {
 	/**
 	 * Intervals to create stats for.
 	 */
 	private Interval[] intervals;
 	/**
 	 * Creates a new FilterStatsFactory with custom intervals.
-	 * @param configuredIntervals
+	 * @param configuredIntervals intervals that are configured for this factory.
 	 */
 	public FilterStatsFactory(Interval[] configuredIntervals){
 		intervals = Arrays.copyOf(configuredIntervals, configuredIntervals.length);
@@ -66,7 +65,7 @@ public class FilterStatsFactory implements IOnDemandStatsFactory {
 	/**
 	 * Creates a new FilterStats object with the given name.
 	 */
-	@Override public IStats createStatsObject(String name) {
+	@Override public FilterStats createStatsObject(String name) {
 		return new FilterStats(name, intervals);
 	}
 

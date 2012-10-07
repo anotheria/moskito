@@ -8,7 +8,11 @@ public class RuntimeConstants {
 	 * Name of the application we are running in.
 	 */
 	private static String applicationName = "";
-	
+
+	/**
+	 * The application wide name of the application.
+	 * @return
+	 */
 	public static final String getApplicationName(){
 		return applicationName;
 	}

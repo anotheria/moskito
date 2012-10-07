@@ -4,7 +4,7 @@ import net.anotheria.util.NumberUtils;
 
 /**
  * Holds a value accumulated by the acucmulator.
- * @author another
+ * @author lrosenberg
  *
  */
 public class AccumulatedValue {

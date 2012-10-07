@@ -38,10 +38,9 @@ public class MoskitoUIFilter extends MAFFilter{
 			config.getServletContext().setAttribute("application.maven.version", appVersion == null ? "?" : appVersion);
 			config.getServletContext().setAttribute("moskito.maven.version", moskitoVersion == null ? "?" : moskitoVersion);
 		}catch(Exception e){
-			e.printStackTrace();
+			log.error("init("+config+")", e);
 		}
 
-//		System.out.println("Initing MoSKito WebUI...");
 		String pathToImagesParameter = config.getInitParameter("pathToImages");
 		if (pathToImagesParameter!=null && pathToImagesParameter.length()>0)
 			pathToImages = pathToImagesParameter;
