@@ -40,16 +40,24 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Decorates a producer.
+ * Decorates a producer or a set of producers.
  * @author another
  *
  */
 public class ProducerDecoratorBean extends AbstractDecoratorBean {
-	
+
+	/**
+	 * Headers.
+	 */
 	private List<MetaHeaderBean> metaheader;
-	
+	/**
+	 * Contained producers.
+ 	 */
 	private List<ProducerBean> producers;
-	
+
+	/**
+	 * Visibility of this decorated section.
+	 */
 	private ProducerVisibility visibility;
 	
 	public ProducerDecoratorBean(){

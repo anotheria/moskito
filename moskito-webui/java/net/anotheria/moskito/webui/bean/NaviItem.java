@@ -33,11 +33,17 @@ public enum NaviItem {
 	 * Constant for actions without own navigation item.
 	 */
 	NONE("None"),
-	
+	/**
+	 * Navigation item for thresholds.
+ 	 */
 	THRESHOLDS("Thresholds"),
-	
+	/**
+	 * Navigation item for accumulators.
+	 */
 	ACCUMULATORS("Accumulators"),
-	
+	/**
+	 * Navigation item for threads.
+	 */
 	THREADS("Threads");
 	
 	
