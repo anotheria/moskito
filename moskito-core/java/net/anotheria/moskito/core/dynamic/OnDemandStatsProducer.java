@@ -56,11 +56,8 @@ public class OnDemandStatsProducer<S extends IStats> implements IStatsProducer<S
 	/**
 	 * Logger.
 	 */
-	private static Logger log;
-	static{
-		log = Logger.getLogger(OnDemandStatsProducer.class);
-	}
-	
+	private static Logger log = Logger.getLogger(OnDemandStatsProducer.class);
+
 	/**
 	 * The factory for stat creation.
 	 */

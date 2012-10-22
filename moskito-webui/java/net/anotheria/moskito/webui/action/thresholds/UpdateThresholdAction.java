@@ -3,7 +3,6 @@ package net.anotheria.moskito.webui.action.thresholds;
 import net.anotheria.maf.action.ActionCommand;
 import net.anotheria.maf.action.ActionMapping;
 import net.anotheria.maf.bean.FormBean;
-import net.anotheria.moskito.core.stats.TimeUnit;
 import net.anotheria.moskito.core.treshold.Threshold;
 import net.anotheria.moskito.core.treshold.ThresholdDefinition;
 import net.anotheria.moskito.core.treshold.ThresholdRepository;
@@ -21,15 +20,14 @@ import javax.servlet.http.HttpServletResponse;
  * @author lrosenberg
  * @created 26.08.12 09:44
  */
-public class CreateThresholdAction extends BaseThresholdsAction {
+public class UpdateThresholdAction extends BaseThresholdsAction {
 	@Override
 	public ActionCommand execute(ActionMapping mapping, FormBean formBean, HttpServletRequest req, HttpServletResponse res) throws Exception {
-		String producerId = req.getParameter(PARAM_PRODUCER_ID);
-		String valueName = req.getParameter(PARAM_VALUE_NAME);
-		String statName = req.getParameter(PARAM_STAT_NAME);
-		String intervalName = req.getParameter(PARAM_INTERVAL);
-		String unitName = req.getParameter(PARAM_UNIT);
-		String accName = req.getParameter(PARAM_NAME);
+
+		String thresholdId = req.getParameter(PARAM_ID);
+		String tName = req.getParameter(PARAM_NAME);
+
+		Threshold oldThreshold = ThresholdRepository.getInstance().getById(thresholdId);
 
 		//now parse guards
 		GuardedDirection greenDir = string2direction(req.getParameter("pGreenDir"));
@@ -47,18 +45,16 @@ public class CreateThresholdAction extends BaseThresholdsAction {
 		//determine if we have to use double
 		boolean hasDots = hasDots(greenValue, yellowValue, orangeValue, redValue, purpleValue);
 
-		ThresholdDefinition td = new ThresholdDefinition();
-		td.setProducerName(producerId);
-		td.setStatName(statName);
-		td.setValueName(valueName);
-		td.setIntervalName(intervalName);
-		td.setTimeUnit(TimeUnit.fromString(unitName));
-		td.setName(accName);
+		ThresholdDefinition td = oldThreshold.getDefinition();
+		td.setName(tName);
+
+		//remove old
+		ThresholdRepository.getInstance().removeById(thresholdId);
 
 		Threshold newThreshold = ThresholdRepository.getInstance().createThreshold(td);
 		newThreshold.addGuard(hasDots ?
-			new DoubleBarrierPassGuard(ThresholdStatus.GREEN, Double.parseDouble(greenValue), greenDir):
-			new LongBarrierPassGuard(ThresholdStatus.GREEN, Long.parseLong(greenValue), greenDir)
+				new DoubleBarrierPassGuard(ThresholdStatus.GREEN, Double.parseDouble(greenValue), greenDir):
+				new LongBarrierPassGuard(ThresholdStatus.GREEN, Long.parseLong(greenValue), greenDir)
 		);
 		newThreshold.addGuard(hasDots ?
 				new DoubleBarrierPassGuard(ThresholdStatus.YELLOW, Double.parseDouble(yellowValue), yellowDir):
@@ -79,7 +75,6 @@ public class CreateThresholdAction extends BaseThresholdsAction {
 
 		return mapping.redirect();
 	}
-
 
 }
 

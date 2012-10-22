@@ -45,13 +45,13 @@ public class ShowThresholdsAction extends BaseThresholdsAction {
 			
 			bean.setTimestampForSorting(t.getStatusChangeTimestamp());
 			bean.setStatusForSorting(t.getStatus());
-			bean.setId(t.getInstanceNumber());
+			bean.setId(t.getId());
 			
 			tBeans.add(bean);
 			
 			
 			ThresholdInfoBean infoBean = new ThresholdInfoBean();
-			infoBean.setId(t.getInstanceNumber());
+			infoBean.setId(t.getId());
 			infoBean.setName(t.getName());
 			infoBean.setProducerName(t.getDefinition().getProducerName());
 			infoBean.setStatName(t.getDefinition().getStatName());
@@ -67,7 +67,7 @@ public class ShowThresholdsAction extends BaseThresholdsAction {
 		ArrayList<ThresholdAlertBean> aBeans = new ArrayList<ThresholdAlertBean>();
 		for (ThresholdAlert alert : AlertHistory.INSTANCE.getAlerts()){
 			ThresholdAlertBean alertBean = new ThresholdAlertBean();
-			alertBean.setId(alert.getThreshold().getInstanceNumber());
+			alertBean.setId(alert.getThreshold().getId());
 			alertBean.setName(alert.getThreshold().getName());
 			alertBean.setOldColorCode(alert.getOldStatus().toString().toLowerCase());
 			alertBean.setOldStatus(alert.getOldStatus().toString());

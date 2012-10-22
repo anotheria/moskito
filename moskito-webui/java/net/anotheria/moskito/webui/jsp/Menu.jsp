@@ -80,9 +80,6 @@
                     <li <ano:equal name="currentNaviItem" value="ACCUMULATORS">class="active"</ano:equal>>
                         <a href="mskAccumulators">Accumulators</a>
                     </li>
-                    <li <ano:equal name="currentNaviItem" value="CHARTS">class="active"</ano:equal>>
-                        <a href="mskShowCharts">Charts</a>
-                    </li>
                     <li class="main_menu_threads <ano:equal name="currentNaviItem" value="THREADS">active</ano:equal>">
                         <a href="mskThreads">Threads</a>
 						<div class="sub_menu">

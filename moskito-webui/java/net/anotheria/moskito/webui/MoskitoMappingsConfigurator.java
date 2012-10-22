@@ -6,11 +6,8 @@ import net.anotheria.maf.action.ActionMappingsConfigurator;
 import net.anotheria.maf.action.CommandRedirect;
 import net.anotheria.moskito.webui.action.AnalyzeJourneyAction;
 import net.anotheria.moskito.webui.action.ForceIntervalUpdateAction;
-import net.anotheria.moskito.webui.action.charts.GetChartDataAction;
-import net.anotheria.moskito.webui.action.charts.GetChartMetaDataAction;
 import net.anotheria.moskito.webui.action.InspectProducerAction;
 import net.anotheria.moskito.webui.action.ShowAllProducersAction;
-import net.anotheria.moskito.webui.action.charts.ShowChartsAction;
 import net.anotheria.moskito.webui.action.ShowDashboardAction;
 import net.anotheria.moskito.webui.action.ShowExplanationsAction;
 import net.anotheria.moskito.webui.action.ShowJourneyAction;
@@ -25,6 +22,9 @@ import net.anotheria.moskito.webui.action.accumulators.CreateAccumulatorAction;
 import net.anotheria.moskito.webui.action.accumulators.DeleteAccumulatorAction;
 import net.anotheria.moskito.webui.action.accumulators.ShowAccumulatorAction;
 import net.anotheria.moskito.webui.action.accumulators.ShowAccumulatorsAction;
+import net.anotheria.moskito.webui.action.charts.GetChartDataAction;
+import net.anotheria.moskito.webui.action.charts.GetChartMetaDataAction;
+import net.anotheria.moskito.webui.action.charts.ShowChartsAction;
 import net.anotheria.moskito.webui.action.threads.HistoryOffAction;
 import net.anotheria.moskito.webui.action.threads.HistoryOnAction;
 import net.anotheria.moskito.webui.action.threads.SetHistoryListSizeAction;
@@ -36,6 +36,7 @@ import net.anotheria.moskito.webui.action.threads.ThreadsOverviewAction;
 import net.anotheria.moskito.webui.action.thresholds.CreateThresholdAction;
 import net.anotheria.moskito.webui.action.thresholds.DeleteThresholdAction;
 import net.anotheria.moskito.webui.action.thresholds.ShowThresholdsAction;
+import net.anotheria.moskito.webui.action.thresholds.UpdateThresholdAction;
 
 /**
  * Mappings configurator for MoSKito project for the AnoMaf framework.
@@ -161,9 +162,15 @@ public class MoskitoMappingsConfigurator implements ActionMappingsConfigurator{
 		mappings.addAlias("mskThresholds.xml", "mskThresholds");
 		mappings.addAlias("mskThresholds.json", "mskThresholds");
 
+		mappings.addMapping("mskThresholdEdit", net.anotheria.moskito.webui.action.thresholds.EditThresholdAction.class,
+				new ActionForward("success", "/net/anotheria/moskito/webui/jsp/EditThreshold.jsp")
+		);
+
 		mappings.addMapping("mskThresholdDelete", DeleteThresholdAction.class,
 				new CommandRedirect("redirect", "mskThresholds"));
 		mappings.addMapping("mskThresholdCreate", CreateThresholdAction.class,
+				new CommandRedirect("redirect", "mskThresholds"));
+		mappings.addMapping("mskThresholdUpdate", UpdateThresholdAction.class,
 				new CommandRedirect("redirect", "mskThresholds"));
 
 

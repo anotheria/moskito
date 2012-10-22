@@ -9,7 +9,7 @@ import net.anotheria.moskito.core.treshold.ThresholdStatus;
  * @author lrosenberg
  *
  */
-abstract class BarrierPassGuard implements ThresholdConditionGuard {
+public abstract class BarrierPassGuard implements ThresholdConditionGuard {
 	/**
 	 * The status to activate in case the barrier has been passed.
 	 */
@@ -41,7 +41,7 @@ abstract class BarrierPassGuard implements ThresholdConditionGuard {
 	 * Returns the value as string for alert generation.
 	 * @return
 	 */
-	protected abstract String getValueAsString();
+	public abstract String getValueAsString();
 	/**
 	 * Returns the value of the producer as number.
 	 * @return
@@ -52,6 +52,10 @@ abstract class BarrierPassGuard implements ThresholdConditionGuard {
 	 * @return
 	 */
 	protected abstract Number getBarrierValueAsNumber();
+
+	public ThresholdStatus getTargetStatus(){
+		return targetStatus;
+	}
 }
 	
 

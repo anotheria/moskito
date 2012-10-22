@@ -570,6 +570,11 @@ public abstract class BaseMoskitoUIAction implements Action{
 		return maskAsExtension(link, ".csv");
 	}
 
+	/**
+	 * Masks the link as json.
+	 * @param link
+	 * @return
+	 */
 	private String maskAsJSON(String link){
 		return maskAsExtension(link, ".json");
 	}
@@ -582,9 +587,19 @@ public abstract class BaseMoskitoUIAction implements Action{
 			return link + extension;
 		return link.substring(0,indexOfQ)+extension+link.substring(indexOfQ);
 	}
-	
+
+	/**
+	 * Returns the highlighted navigation item.
+	 * @return
+	 */
 	protected abstract NaviItem getCurrentNaviItem();
 
+	/**
+	 * Rebuilds query string from source.
+	 * @param source original source.
+	 * @param params parameters that should be included in the query string.
+	 * @return
+	 */
 	protected String rebuildQueryStringWithoutParameter(String source, String ... params){
 		if (source==null || source.length()==0)
 			return "";

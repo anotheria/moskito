@@ -28,7 +28,24 @@ public class ShowJourneysAction extends BaseJourneyAction{
 	@Override
 	public ActionCommand execute(ActionMapping mapping, FormBean formBean, HttpServletRequest req, HttpServletResponse res) {
 
-		
+		String contextPath = req.getContextPath();
+		if (contextPath==null)
+			contextPath = "";
+		if (!contextPath.endsWith("/"))
+			contextPath+="/";
+
+		String url = req.getScheme();
+		url += "://";
+		url += req.getServerName();
+		if (req.getServerPort()!=80 && req.getServerPort()!=443)
+			url += ":"+req.getServerPort();
+		if (!contextPath.startsWith("/"))
+			contextPath = "/"+contextPath;
+		url += contextPath;
+		url += "?mskJourney=start&mskJourneyName=";
+
+		req.setAttribute("new_journey_url", url);
+
 		List<Journey> journeys = getJourneyManager().getJourneys();
 		List<JourneyListItemBean> beans = new ArrayList<JourneyListItemBean>(journeys.size());
 		

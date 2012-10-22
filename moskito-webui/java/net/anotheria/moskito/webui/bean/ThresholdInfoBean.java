@@ -12,7 +12,7 @@ public class ThresholdInfoBean {
 	/**
 	 * Threshold id.
 	 */
-	private int id;
+	private String id;
 	/**
 	 * Threshold name.
 	 */
@@ -50,11 +50,11 @@ public class ThresholdInfoBean {
 		guards.add(aGuard);
 	}
 
-	public int getId() {
+	public String getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 

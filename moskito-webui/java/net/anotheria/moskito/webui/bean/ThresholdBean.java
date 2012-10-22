@@ -49,7 +49,7 @@ public class ThresholdBean implements IComparable{
 	/**
 	 * Id of the threshold.
 	 */
-	private int id;
+	private String id;
 	
 	public String getValue() {
 		return value;
@@ -123,10 +123,10 @@ public class ThresholdBean implements IComparable{
 	public void setTimestampForSorting(long timestampForSorting) {
 		this.timestampForSorting = timestampForSorting;
 	}
-	public int getId() {
+	public String getId() {
 		return id;
 	}
-	public void setId(int id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 	

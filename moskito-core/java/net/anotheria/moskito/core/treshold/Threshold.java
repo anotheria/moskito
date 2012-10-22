@@ -7,7 +7,6 @@ import org.apache.log4j.Logger;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * A threshold represents a value of stats producer.
@@ -19,10 +18,6 @@ public class Threshold extends AbstractTieable<ThresholdDefinition> implements T
 	 * Logger.
 	 */
 	private static Logger log = Logger.getLogger(Threshold.class);
-	/**
-	 * Static counter for instance number assignment.
-	 */
-	private static AtomicInteger instanceCounter = new AtomicInteger(0);
 	/**
 	 * Status of the threshold.
 	 */
@@ -57,7 +52,6 @@ public class Threshold extends AbstractTieable<ThresholdDefinition> implements T
 		status = ThresholdStatus.OFF;
 		lastValue = "none yet";
 		guards = new ArrayList<ThresholdConditionGuard>();
-		instanceNumber = instanceCounter.incrementAndGet();
 	}
 	
 	public void tieToStats(IStats aStatsObject){
@@ -143,9 +137,4 @@ public class Threshold extends AbstractTieable<ThresholdDefinition> implements T
 	public void setStatusChangeTimestamp(long statusChangeTimestamp) {
 		this.statusChangeTimestamp = statusChangeTimestamp;
 	}
-	
-	public int getInstanceNumber(){
-		return instanceNumber;
-	}
-
 }

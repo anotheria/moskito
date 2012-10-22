@@ -1,7 +1,7 @@
 package net.anotheria.moskito.webui.bean;
 
 public class ThresholdAlertBean {
-	private int id;
+	private String id;
 	private String name;
 	private String timestamp;
 	private String oldStatus;
@@ -11,10 +11,10 @@ public class ThresholdAlertBean {
 	private String newStatus;
 	private String newColorCode;
 	private String newValue;
-	public int getId() {
+	public String getId() {
 		return id;
 	}
-	public void setId(int id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 	public String getName() {
