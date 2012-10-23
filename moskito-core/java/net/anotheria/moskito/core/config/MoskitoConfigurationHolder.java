@@ -1,6 +1,6 @@
 package net.anotheria.moskito.core.config;
 
-import net.anotheria.moskito.core.config.thresholds.NotificationProvider;
+import net.anotheria.moskito.core.config.thresholds.NotificationProviderConfig;
 import net.anotheria.moskito.core.treshold.alerts.provider.LogFileNotificationProvider;
 import org.configureme.ConfigurationManager;
 
@@ -41,8 +41,8 @@ public enum MoskitoConfigurationHolder {
 		config.getThresholdsAlertsConfig().getAlertHistoryConfig().setMaxNumberOfItems(200);
 		config.getThresholdsAlertsConfig().getAlertHistoryConfig().setToleratedNumberOfItems(220);
 
-		NotificationProvider[] providers = new NotificationProvider[1];
-		providers[0] = new NotificationProvider();
+		NotificationProviderConfig[] providers = new NotificationProviderConfig[1];
+		providers[0] = new NotificationProviderConfig();
 		providers[0].setClassName(LogFileNotificationProvider.class.getName());
 		providers[0].setParameter("MoskitoAlert");
 

@@ -10,18 +10,18 @@ import org.configureme.annotations.Configure;
  */
 public class ThresholdsAlertsConfig {
 	@Configure
-	private NotificationProvider[] notificationProviders = new NotificationProvider[0];
+	private NotificationProviderConfig[] notificationProviders = new NotificationProviderConfig[0];
 
 	@Configure
 	private AlertHistoryConfig alertHistoryConfig = new AlertHistoryConfig();
 
 	@Configure private int dispatcherThreadPoolSize;
 
-	public NotificationProvider[] getNotificationProviders() {
+	public NotificationProviderConfig[] getNotificationProviders() {
 		return notificationProviders;
 	}
 
-	public void setNotificationProviders(NotificationProvider[] notificationProviders) {
+	public void setNotificationProviders(NotificationProviderConfig[] notificationProviders) {
 		this.notificationProviders = notificationProviders;
 	}
 

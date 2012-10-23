@@ -2,6 +2,7 @@ package net.anotheria.moskito.core.treshold.alerts;
 
 import net.anotheria.moskito.core.config.MoskitoConfiguration;
 import net.anotheria.moskito.core.config.MoskitoConfigurationHolder;
+import net.anotheria.moskito.core.config.thresholds.NotificationProviderConfig;
 import net.anotheria.moskito.core.treshold.ThresholdStatus;
 import org.apache.log4j.Logger;
 
@@ -46,13 +47,18 @@ public enum AlertDispatcher {
 
 		//prepare providers
 		providers = new CopyOnWriteArrayList<NotificationProviderWrapper>();
-		for (net.anotheria.moskito.core.config.thresholds.NotificationProvider providerDef : config.getThresholdsAlertsConfig().getNotificationProviders()){
+		for (NotificationProviderConfig providerDef : config.getThresholdsAlertsConfig().getNotificationProviders()){
 			try{
 				NotificationProvider provider = (NotificationProvider)Class.forName(providerDef.getClassName()).newInstance();
 				provider.configure(providerDef.getParameter());
 				providers.add(new NotificationProviderWrapper(provider, ThresholdStatus.valueOf(providerDef.getGuardedStatus())));
 			}catch(Exception any){
-				Logger.getLogger(AlertDispatcher.class).error("Couldn't instantiate notification provider of class " + providerDef.getClassName() + ", check configuration.", any);
+				if (providerDef==null){
+					Logger.getLogger(AlertDispatcher.class).error("Couldn't instantiate notification provider of class due to nullity of config" + providerDef + ", check configuration.", any);
+				}else{
+					Logger.getLogger(AlertDispatcher.class).error("Couldn't instantiate notification provider of class " + providerDef.getClassName() + ", check configuration.", any);
+				}
+
 			}
 
 		}

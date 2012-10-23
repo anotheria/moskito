@@ -9,7 +9,7 @@ import org.configureme.annotations.Configure;
  * @author lrosenberg
  * @since 22.10.12 16:15
  */
-public class NotificationProvider {
+public class NotificationProviderConfig {
 	@Configure
 	private String className;
 	@Configure
