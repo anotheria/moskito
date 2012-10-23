@@ -3,6 +3,8 @@ package net.anotheria.moskito.core.treshold;
 import net.anotheria.moskito.core.helper.AbstractTieable;
 import net.anotheria.moskito.core.helper.Tieable;
 import net.anotheria.moskito.core.producers.IStats;
+import net.anotheria.moskito.core.treshold.alerts.AlertHistory;
+import net.anotheria.moskito.core.treshold.alerts.ThresholdAlert;
 import org.apache.log4j.Logger;
 
 import java.util.ArrayList;

@@ -43,6 +43,10 @@ public enum ThresholdStatus implements IComparable{
 		return ordinal() > anotherStatus.ordinal();
 	}
 
+	public boolean overrulesOrEqual(ThresholdStatus anotherStatus){
+		return this == anotherStatus || overrules(anotherStatus);
+	}
+
 	@Override
 	public int compareTo(IComparable anotherObject, int method) {
 		return BasicComparable.compareInt(ordinal(), ((ThresholdStatus)anotherObject).ordinal());

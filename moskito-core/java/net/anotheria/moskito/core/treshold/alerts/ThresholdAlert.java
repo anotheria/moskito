@@ -1,5 +1,7 @@
-package net.anotheria.moskito.core.treshold;
+package net.anotheria.moskito.core.treshold.alerts;
 
+import net.anotheria.moskito.core.treshold.Threshold;
+import net.anotheria.moskito.core.treshold.ThresholdStatus;
 import net.anotheria.util.NumberUtils;
 
 /**
@@ -80,8 +82,9 @@ public class ThresholdAlert {
 	}
 	
 	@Override public String toString(){
-		return NumberUtils.makeISO8601TimestampString(getTimestamp())+" "+threshold.getName()+", ("+getOldStatus()+"/ "+getOldValue()+") --> "+
-		"("+getNewStatus()+"/ "+getNewValue()+")";
+		return NumberUtils.makeISO8601TimestampString(getTimestamp())+" "
+				+threshold.getName()+", ("+getOldStatus()+"/ "+getOldValue()+") --> "+
+				"("+getNewStatus()+"/ "+getNewValue()+")";
 	}
 	
 	

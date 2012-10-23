@@ -1,6 +1,6 @@
-package net.anotheria.moskito.core.treshold;
+package net.anotheria.moskito.core.treshold.alerts;
 
-import org.apache.log4j.Logger;
+import net.anotheria.moskito.core.config.MoskitoConfigurationHolder;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -29,26 +29,17 @@ public enum AlertHistory {
 	 * Lock for write operations.
 	 */
 	private ReadWriteLock lock = new ReentrantReadWriteLock();
-	/**
-	 * The configuration.
-	 */
-	private AlertHistoryConfig config = new AlertHistoryConfig();
-	
-	/**
-	 * The logger.
-	 */
-	private static Logger log = Logger.getLogger("MoskitoAlert");
+
 	/**
 	 * Adds a new alert. If the number of totally saved alerts is greater than AlertHistoryConfig.getToleratedNumberOfItems() the list is cut.
 	 * @param alert
 	 */
 	public void addAlert(ThresholdAlert alert){
-		log.info(alert);
 		lock.writeLock().lock();
 		try{
 			alerts.add(alert);
-			if (alerts.size()>config.getToleratedNumberOfItems()){
-				alerts = alerts.subList(alerts.size()-config.getMaxNumberOfItems(), alerts.size()-1);
+			if (alerts.size()>MoskitoConfigurationHolder.getConfiguration().getThresholdsAlertsConfig().getAlertHistoryConfig().getToleratedNumberOfItems()){
+				alerts = alerts.subList(alerts.size()-MoskitoConfigurationHolder.getConfiguration().getThresholdsAlertsConfig().getAlertHistoryConfig().getMaxNumberOfItems(), alerts.size()-1);
 			}
 		}finally{
 			lock.writeLock().unlock();
@@ -63,25 +54,5 @@ public enum AlertHistory {
 		ret.addAll(alerts);
 		Collections.reverse(ret);
 		return ret;
-	}
-
-	/**
-	 * Configuration helper object for alert history.
-	 */
-	private static class AlertHistoryConfig{
-		/**
-		 * Returns the max number of items in the list.
-		 * @return
-		 */
-		public final int getMaxNumberOfItems(){
-			return 200;
-		}
-		/**
-		 * Returns the max number of tolerated items in the list, this value is usually 10% above the max number of items, to reduce the amount of list cut operations. 
-		 * @return
-		 */
-		public final int getToleratedNumberOfItems(){
-			return (int)(getMaxNumberOfItems()*1.1);
-		}
 	}
 }
