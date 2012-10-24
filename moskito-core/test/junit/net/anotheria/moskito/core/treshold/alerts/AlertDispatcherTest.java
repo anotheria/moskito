@@ -51,6 +51,7 @@ public class AlertDispatcherTest {
 		ThresholdAlert a2 = new ThresholdAlert(testT, ThresholdStatus.YELLOW, ThresholdStatus.ORANGE, "2", null );
 		ThresholdAlert a3 = new ThresholdAlert(testT, ThresholdStatus.ORANGE, ThresholdStatus.RED, "3", null );
 		AlertDispatcher dispatcher = AlertDispatcher.INSTANCE;
+		dispatcher.reset();//enforce dispatcher to reread its config
 		dispatcher.dispatchAlert(a1);
 		dispatcher.dispatchAlert(a2);
 		dispatcher.dispatchAlert(a3);

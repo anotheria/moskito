@@ -28,14 +28,26 @@ public enum AlertDispatcher {
 
 	private List<NotificationProviderWrapper> providers;
 
-	private final ExecutorService changeExecutor;
+	private ExecutorService changeExecutor;
 
 	private final AtomicInteger threadCounter = new AtomicInteger(0);
 
 	private static final Logger log = Logger.getLogger(AlertDispatcher.class);
 
 	private AlertDispatcher(){
+		reset();
+	}
+
+	/**
+	 * Resets and effectively restarts the dispatcher. This method is only for unit tests.
+	 */
+	void reset(){
 		MoskitoConfiguration config = MoskitoConfigurationHolder.INSTANCE.getConfiguration();
+		if (changeExecutor!=null){
+			try{
+				changeExecutor.shutdownNow();
+			}catch(Exception ignored){}
+		}
 		changeExecutor = Executors.newFixedThreadPool(config.getThresholdsAlertsConfig().getDispatcherThreadPoolSize(), new ThreadFactory() {
 			@Override
 			public Thread newThread(Runnable r) {
