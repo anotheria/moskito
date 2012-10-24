@@ -35,7 +35,7 @@
 package net.anotheria.moskito.core.timing;
 
 /**
- * This interface declares a service provider that allows to get notified periodically.
+ * This interface declares a service notificationprovider that allows to get notified periodically.
  *
  * @author lrosenberg
  */

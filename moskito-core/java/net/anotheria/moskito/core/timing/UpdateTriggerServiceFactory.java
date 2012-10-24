@@ -41,7 +41,7 @@ package net.anotheria.moskito.core.timing;
  */
 public abstract class UpdateTriggerServiceFactory {
 	/**
-	 * This holds the singleton service provider instance.
+	 * This holds the singleton service notificationprovider instance.
 	 */
 	private static final IUpdateTriggerService instance = new UpdateTriggerServiceImpl();
 

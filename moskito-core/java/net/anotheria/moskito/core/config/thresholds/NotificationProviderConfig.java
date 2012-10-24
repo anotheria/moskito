@@ -13,7 +13,7 @@ public class NotificationProviderConfig {
 	@Configure
 	private String className;
 	@Configure
-	private String parameter;
+	private String parameter = "";
 	@Configure
 	private String guardedStatus = ThresholdStatus.GREEN.name();
 
@@ -39,5 +39,9 @@ public class NotificationProviderConfig {
 
 	public void setGuardedStatus(String guardedStatus) {
 		this.guardedStatus = guardedStatus;
+	}
+
+	@Override public String toString(){
+		return "className: "+className+", parameter: "+parameter+", guardedStatus: "+guardedStatus;
 	}
 }

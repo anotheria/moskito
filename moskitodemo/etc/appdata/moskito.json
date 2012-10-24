@@ -1,0 +1,25 @@
+{
+	"@thresholdsAlertsConfig": {
+		"@notificationProviders": [
+			{
+				"className": "net.anotheria.moskito.core.treshold.alerts.notificationprovider.LogFileNotificationProvider",
+				"parameter": "MoskitoAlert",
+				"guardedStatus": "GREEN"
+			},{
+				"className": "net.anotheria.moskito.core.treshold.alerts.notificationprovider.MailNotificationProvider",
+				"parameter": "leon@leon-rosenberg.net",
+				"guardedStatus": "RED"
+			},{
+				"className": "net.anotheria.moskito.core.treshold.alerts.notificationprovider.SysoutNotificationProvider",
+				"parameter": "",
+				"guardedStatus": "GREEN"
+			}
+		],
+
+		"@alertHistoryConfig": {
+			"maxNumberOfItems": 500,
+			"toleratedNumberOfItems": 550
+		}
+
+	}
+}

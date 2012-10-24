@@ -1,7 +1,7 @@
 package net.anotheria.moskito.core.config;
 
 import net.anotheria.moskito.core.config.thresholds.NotificationProviderConfig;
-import net.anotheria.moskito.core.treshold.alerts.provider.LogFileNotificationProvider;
+import net.anotheria.moskito.core.treshold.alerts.notificationprovider.LogFileNotificationProvider;
 import org.configureme.ConfigurationManager;
 
 import java.util.logging.Logger;
@@ -21,12 +21,12 @@ public enum MoskitoConfigurationHolder {
 
 	private MoskitoConfigurationHolder(){
 		log = Logger.getLogger(getClass().getName());
-		configuration = new MoskitoConfiguration();
+		configuration = createDefaultConfiguration();
 		try{
+			//now let configuration override some config options.
 			ConfigurationManager.INSTANCE.configure(configuration);
 		}catch(IllegalArgumentException e){
 			log.info("MoSKito configuration not found, working with default configuration, more details under http://confluence.opensource.anotheria.net/display/MSK/Config");
-			configuration = createDefaultConfiguration();
 		}
 	}
 
@@ -49,6 +49,8 @@ public enum MoskitoConfigurationHolder {
 		//The default size for the threadpool for alert dispatching. This threadpool is needed to prevent app from being blocked by a slow alert notification processor.
 		//Default value is 1. Increase it if you have many alerts and many notification providers.
 		config.getThresholdsAlertsConfig().setDispatcherThreadPoolSize(1);
+
+		System.out.println("Config: "+config);
 
 		return config;
 	}

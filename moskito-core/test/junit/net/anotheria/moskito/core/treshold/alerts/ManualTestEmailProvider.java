@@ -6,13 +6,13 @@ import net.anotheria.moskito.core.config.thresholds.NotificationProviderConfig;
 import net.anotheria.moskito.core.treshold.Threshold;
 import net.anotheria.moskito.core.treshold.ThresholdDefinition;
 import net.anotheria.moskito.core.treshold.ThresholdStatus;
-import net.anotheria.moskito.core.treshold.alerts.provider.MailNotificationProvider;
+import net.anotheria.moskito.core.treshold.alerts.notificationprovider.MailNotificationProvider;
 import org.apache.log4j.BasicConfigurator;
 import org.junit.Ignore;
 import org.junit.Test;
 
 /**
- * This test is used for manual testing of the email provider.
+ * This test is used for manual testing of the email notificationprovider.
  * It shouldn't be in unit tests to prevent spam.
  *
  * @author lrosenberg

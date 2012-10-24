@@ -2,6 +2,8 @@ package net.anotheria.moskito.core.config.thresholds;
 
 import org.configureme.annotations.Configure;
 
+import java.util.Arrays;
+
 /**
  * TODO comment this class
  *
@@ -33,11 +35,19 @@ public class ThresholdsAlertsConfig {
 		this.alertHistoryConfig = alertHistoryConfig;
 	}
 
+	/**
+	 * Returns the dispatcherThreadPoolSize. To prevent from errors in pool, if the value is configured below 1, 1 is returned.
+	 * @return
+	 */
 	public int getDispatcherThreadPoolSize() {
-		return dispatcherThreadPoolSize;
+		return dispatcherThreadPoolSize<1 ? 1 : dispatcherThreadPoolSize;
 	}
 
 	public void setDispatcherThreadPoolSize(int dispatcherThreadPoolSize) {
 		this.dispatcherThreadPoolSize = dispatcherThreadPoolSize;
+	}
+
+	@Override public String toString(){
+		return "dispatcherThreadPoolSize: "+dispatcherThreadPoolSize+", alertHistoryConfig: "+alertHistoryConfig+", notificationProviders: "+ Arrays.toString(notificationProviders);
 	}
 }

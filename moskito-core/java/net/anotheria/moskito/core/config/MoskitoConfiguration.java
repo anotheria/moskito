@@ -23,6 +23,10 @@ public class MoskitoConfiguration {
 		this.thresholdsAlertsConfig = thresholdsAlertsConfig;
 	}
 
+	@Override public String toString(){
+		return "thresholdsAlertsConfig: "+thresholdsAlertsConfig;
+	}
+
 }
 
 

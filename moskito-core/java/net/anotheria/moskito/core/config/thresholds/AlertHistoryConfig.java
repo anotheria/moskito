@@ -3,7 +3,7 @@ package net.anotheria.moskito.core.config.thresholds;
 import org.configureme.annotations.Configure;
 
 /**
- * TODO comment this class
+ * This class configures the alert history in thresholds.
  *
  * @author lrosenberg
  * @since 22.10.12 17:30
@@ -32,5 +32,9 @@ public class AlertHistoryConfig {
 
 	public void setToleratedNumberOfItems(int toleratedNumberOfItems) {
 		this.toleratedNumberOfItems = toleratedNumberOfItems;
+	}
+
+	@Override public String toString(){
+		return "{maxNumberOfItems: "+maxNumberOfItems+", toleratedNumberOfItems: "+toleratedNumberOfItems+"}";
 	}
 }

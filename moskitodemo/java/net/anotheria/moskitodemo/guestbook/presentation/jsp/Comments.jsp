@@ -76,10 +76,10 @@
 									<thead>
 									<tr class="lineCaptions">
 										<ano:iterate name="headers" id="header"
-													   type="net.java.dev.moskitodemo.guestbook.presentation.bean.CommentTableHeaderBean">
+													   type="net.anotheria.moskitodemo.guestbook.presentation.bean.CommentTableHeaderBean">
 											<th><ano:write name="header" property="caption"/>&nbsp;
 												<ano:iterate name="header" property="links"
-															   type="net.java.dev.moskitodemo.guestbook.presentation.bean.SortLinkBean"
+															   type="net.anotheria.moskitodemo.guestbook.presentation.bean.SortLinkBean"
 															   id="link">
 													<ano:equal name="link" property="active" value="true">
 														<b><ano:write name="link" property="caption"/></b>
@@ -109,7 +109,7 @@
 										<%--</thead>--%>
 									<tbody>
 									<ano:iterate name="comments" id="comment"
-												   type="net.java.dev.moskitodemo.guestbook.presentation.bean.CommentTableItemBean"
+												   type="net.anotheria.moskitodemo.guestbook.presentation.bean.CommentTableItemBean"
 												   indexId="i">
 										<tr><%--<tr class="<%=i.intValue()%2==1	 ? "lineDark" : "lineLight"%>">--%>
 											<td>

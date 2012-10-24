@@ -48,7 +48,7 @@ import java.util.Random;
 
 /**
  * This is a simple example how to use moskito in a servlet. Basically it provides all the functionality the simple service
- * provider over web.
+ * notificationprovider over web.
  * @author another
  *
  */
