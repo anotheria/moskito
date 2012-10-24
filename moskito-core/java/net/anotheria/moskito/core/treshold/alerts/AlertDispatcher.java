@@ -54,9 +54,9 @@ public enum AlertDispatcher {
 				providers.add(new NotificationProviderWrapper(provider, ThresholdStatus.valueOf(providerDef.getGuardedStatus())));
 			}catch(Exception any){
 				if (providerDef==null){
-					Logger.getLogger(AlertDispatcher.class).error("Couldn't instantiate notification provider of class due to nullity of config" + providerDef + ", check configuration.", any);
+					Logger.getLogger(AlertDispatcher.class).error("Couldn't instantiate notification notificationprovider of class due to nullity of config" + providerDef + ", check configuration.", any);
 				}else{
-					Logger.getLogger(AlertDispatcher.class).error("Couldn't instantiate notification provider of class " + providerDef.getClassName() + ", check configuration.", any);
+					Logger.getLogger(AlertDispatcher.class).error("Couldn't instantiate notification notificationprovider of class " + providerDef.getClassName() + ", check configuration.", any);
 				}
 
 			}
@@ -65,7 +65,16 @@ public enum AlertDispatcher {
 
 	}
 
+	/**
+	 * Dispatch alert to the notification providers via
+	 * @param alert
+	 */
 	public void dispatchAlert(final ThresholdAlert alert){
+		//first add alert to the history.
+		//TODO this is maybe a little hacky, since we simply transfered AlertHistory from
+		//Threshold to the dispatcher. Maybe it is better way to handle it like a preconfigured notification provider.
+		AlertHistory.INSTANCE.addAlert(alert);
+		//now dispatch alert
 		changeExecutor.execute(new Runnable(){
 			public void run(){
 				for (NotificationProviderWrapper wrapper : providers){
@@ -75,7 +84,7 @@ public enum AlertDispatcher {
 							wrapper.getProvider().onNewAlert(alert);
 						}
 					}catch(Exception e){
-						log.error("Couldn't deliver notification over provider "+wrapper.getProvider()+", due" ,e);
+						log.error("Couldn't deliver notification over notificationprovider "+wrapper.getProvider()+", due" ,e);
 					}
 				}
 			}

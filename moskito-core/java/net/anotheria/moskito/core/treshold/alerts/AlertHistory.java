@@ -35,6 +35,7 @@ public enum AlertHistory {
 	 * @param alert
 	 */
 	public void addAlert(ThresholdAlert alert){
+		System.out.println("Adding alert... "+alert+", alerts: "+alerts);
 		lock.writeLock().lock();
 		try{
 			alerts.add(alert);
