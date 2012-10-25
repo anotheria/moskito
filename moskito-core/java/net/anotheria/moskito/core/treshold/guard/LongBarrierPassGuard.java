@@ -35,4 +35,5 @@ public class LongBarrierPassGuard extends BarrierPassGuard{
 	@Override protected Number getBarrierValueAsNumber(){
 		return barrierValue;
 	}
+
 }

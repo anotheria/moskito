@@ -16,7 +16,6 @@ public class DummyStatProducer implements IStatsProducer {
 	
 	public DummyStatProducer(String aProducerId){
 		producerId = aProducerId;
-		ProducerRegistryFactory.getProducerRegistryInstance().registerProducer(this);
 		ServiceStats stat1 = new ServiceStats("first");
 		ServiceStats stat2 = new ServiceStats("second");
 		ServiceStats stat3 = new ServiceStats("third");
@@ -30,6 +29,9 @@ public class DummyStatProducer implements IStatsProducer {
 		}
 		
 		stats.add(stat1);stats.add(stat2);stats.add(stat3);stats.add(stat4);
+
+		ProducerRegistryFactory.getProducerRegistryInstance().registerProducer(this);
+
 	}
 	
 	@Override

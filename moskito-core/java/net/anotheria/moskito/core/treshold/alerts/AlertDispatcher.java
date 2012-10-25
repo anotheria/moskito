@@ -90,7 +90,6 @@ public enum AlertDispatcher {
 		changeExecutor.execute(new Runnable(){
 			public void run(){
 				for (NotificationProviderWrapper wrapper : providers){
-//					System.out.println("Checking "+wrapper);
 					try{
 						if (alert.getNewStatus().overrulesOrEqual(wrapper.getStatus()) || alert.getOldStatus().overrulesOrEqual(wrapper.getStatus())){
 							wrapper.getProvider().onNewAlert(alert);

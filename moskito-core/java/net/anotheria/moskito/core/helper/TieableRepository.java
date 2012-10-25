@@ -210,6 +210,10 @@ public abstract class TieableRepository<T extends Tieable> implements IProducerR
 		return getByName(name);
 	}
 
+	protected void resetForTesting(){
+		id2nameMapping.clear();
+		tieable.clear();
+	}
 
 
 }

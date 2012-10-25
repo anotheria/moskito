@@ -1,11 +1,18 @@
 package net.anotheria.moskito.core.treshold;
 
+import net.anotheria.moskito.core.config.MoskitoConfigurationHolder;
+import net.anotheria.moskito.core.config.thresholds.GuardConfig;
+import net.anotheria.moskito.core.config.thresholds.ThresholdConfig;
+import net.anotheria.moskito.core.config.thresholds.ThresholdsConfig;
 import net.anotheria.moskito.core.dynamic.OnDemandStatsProducer;
 import net.anotheria.moskito.core.helper.RuntimeConstants;
 import net.anotheria.moskito.core.helper.TieableDefinition;
 import net.anotheria.moskito.core.helper.TieableRepository;
 import net.anotheria.moskito.core.producers.IStats;
 import net.anotheria.moskito.core.producers.IStatsProducer;
+import net.anotheria.moskito.core.stats.TimeUnit;
+import net.anotheria.moskito.core.treshold.guard.GuardedDirection;
+import net.anotheria.moskito.core.treshold.guard.LongBarrierPassGuard;
 import org.apache.log4j.Logger;
 
 import javax.management.InstanceAlreadyExistsException;
@@ -38,6 +45,7 @@ public class ThresholdRepository extends TieableRepository<Threshold> {
 	 * Private constructor.
  	 */
 	private ThresholdRepository(){
+		readConfig();
 	}
 
 	/**
@@ -170,5 +178,38 @@ public class ThresholdRepository extends TieableRepository<Threshold> {
 	 */
 	protected Threshold create(TieableDefinition def){
 		return new Threshold((ThresholdDefinition)def);
+	}
+
+	/**
+	 * Reads the config and creates configured thresholds. For now this method is only executed on startup.
+	 */
+	private void readConfig(){
+		ThresholdsConfig config = MoskitoConfigurationHolder.getConfiguration().getThresholdsConfig();
+		ThresholdConfig[] tcs = config.getThresholds();
+		if (tcs!=null && tcs.length>0){
+			for (ThresholdConfig tc  : tcs){
+				ThresholdDefinition td = new ThresholdDefinition();
+				td.setName(tc.getName());
+				td.setIntervalName(tc.getIntervalName());
+				td.setProducerName(tc.getProducerName());
+				td.setStatName(tc.getStatName());
+				td.setTimeUnit(TimeUnit.valueOf(tc.getTimeUnit()));
+				td.setValueName(tc.getValueName());
+				Threshold newThreshold = createThreshold(td);
+
+				GuardConfig[] guards =  tc.getGuards();
+				if (guards!=null && guards.length>0){
+					for (GuardConfig guard : guards ){
+						newThreshold.addGuard(new LongBarrierPassGuard(ThresholdStatus.valueOf(guard.getStatus()), Long.parseLong(guard.getValue()), GuardedDirection.valueOf(guard.getDirection())));
+					}
+				}
+			}
+		}
+	}
+
+	void reset(){
+		super.resetForTesting();
+		cleanup();
+		INSTANCE = new ThresholdRepository();
 	}
 }

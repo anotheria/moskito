@@ -4,8 +4,9 @@ import net.anotheria.moskito.core.helper.AbstractTieable;
 import net.anotheria.moskito.core.helper.Tieable;
 import net.anotheria.moskito.core.producers.IStats;
 import net.anotheria.moskito.core.treshold.alerts.AlertDispatcher;
-import net.anotheria.moskito.core.treshold.alerts.AlertHistory;
 import net.anotheria.moskito.core.treshold.alerts.ThresholdAlert;
+import net.anotheria.moskito.core.treshold.guard.GuardedDirection;
+import net.anotheria.moskito.core.treshold.guard.LongBarrierPassGuard;
 import org.apache.log4j.Logger;
 
 import java.util.ArrayList;
@@ -64,7 +65,23 @@ public class Threshold extends AbstractTieable<ThresholdDefinition> implements T
 	public void addGuard(ThresholdConditionGuard guard){
 		guards.add(guard);
 	}
-	
+
+	public void addLongGuardLineDownUp(long green, long yellow, long orange, long red, long purple){
+		addLongGuardLine(green, yellow, orange, red, purple, GuardedDirection.DOWN, GuardedDirection.UP);
+	}
+
+	public void addLongGuardLineUpDown(long green, long yellow, long orange, long red, long purple){
+		addLongGuardLine(green, yellow, orange, red, purple, GuardedDirection.UP, GuardedDirection.DOWN);
+	}
+
+	private void addLongGuardLine(long green, long yellow, long orange, long red, long purple, GuardedDirection first, GuardedDirection other){
+		addGuard(new LongBarrierPassGuard(ThresholdStatus.GREEN, green, first));
+		addGuard(new LongBarrierPassGuard(ThresholdStatus.YELLOW, yellow, other));
+		addGuard(new LongBarrierPassGuard(ThresholdStatus.ORANGE, orange, other));
+		addGuard(new LongBarrierPassGuard(ThresholdStatus.RED, red, other));
+		addGuard(new LongBarrierPassGuard(ThresholdStatus.PURPLE, purple, other));
+	}
+
 	public List<ThresholdConditionGuard> getGuards(){
 		ArrayList<ThresholdConditionGuard> ret = new ArrayList<ThresholdConditionGuard>(guards.size());
 		ret.addAll(guards);
