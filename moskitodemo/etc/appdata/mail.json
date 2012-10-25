@@ -1,6 +1,6 @@
 {
-	"host": "mail.anotheria.net",
-	"user": "moskito@anotheria.net",
-	"password": "Voa5kieS",
-	"debug": true,
+	"host": "$<moskito.mailhost>",
+	"user": "$<moskito.mailuser>",
+	"password": "$<moskito.mailpassword>",
+	"debug": false,
 }
