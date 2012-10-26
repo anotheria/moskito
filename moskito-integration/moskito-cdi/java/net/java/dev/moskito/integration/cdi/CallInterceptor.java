@@ -71,7 +71,7 @@ public class CallInterceptor implements Serializable {
                 methodStats = (ServiceStats) onDemandProducer.getStats(caseName);
             }
         } catch (OnDemandStatsProducerException e) {
-        	log.info("Couldn't get stats for case : " + caseName + ", probably limit reached");
+            log.info("Couldn't get stats for case : " + caseName + ", probably limit reached");
         }
 
         final Object[] args = ctx.getParameters();
@@ -84,7 +84,7 @@ public class CallInterceptor implements Serializable {
         TraceStep currentStep = null;
         CurrentlyTracedCall currentTrace = aRunningTrace.callTraced() ? (CurrentlyTracedCall) aRunningTrace : null;
         if (currentTrace != null) {
-            StringBuilder call = new StringBuilder(getClassName(ctx.getTarget())).append('.').append(method.getName()).append("(");
+            StringBuilder call = new StringBuilder(getClassName(ctx)).append('.').append(method.getName()).append("(");
             if (args != null && args.length > 0) {
                 for (int i = 0; i < args.length; i++) {
                     call.append(args[i]);
@@ -162,7 +162,7 @@ public class CallInterceptor implements Serializable {
      * @return string producer id
      */
     private String extractProducerId(InvocationContext ctx) {
-        return ctx.getMethod().getDeclaringClass().getName();
+        return getClassName(ctx);
     }
 
     public String getCategory() {
@@ -172,16 +172,16 @@ public class CallInterceptor implements Serializable {
     public String getSubsystem() {
         return "default";
     }
- 
+
+
     /**
-     * Get class name by class implementation.
+     * Get class name by invocation context.
      *
-     * @param implementation current implementation object
+     * @param ctx invocation context
      * @return string class name
      */
-    private static String getClassName(Object implementation) {
-        String className = implementation.getClass().getName();
-        return className.substring(className.lastIndexOf(".") + 1);
+    private static String getClassName(InvocationContext ctx) {
+        return ctx.getMethod().getDeclaringClass().getName();
     }
 
 }
