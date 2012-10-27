@@ -75,10 +75,18 @@ public class CacheStats extends AbstractStats {
 			"DEL",
 			"FI"));
 
+	/**
+	 * Creates a new 'unnamed' cache stats object with default intervals.
+	 */
 	public CacheStats(){
 		this("unnamed", Constants.getDefaultIntervals());
-	} 
-	
+	}
+
+	/**
+	 * Creates a new cachestats object.
+	 * @param aName
+	 * @param selectedIntervals
+	 */
 	public CacheStats(String aName,  Interval[] selectedIntervals){
 		Long longPattern = Long.valueOf(0);
 		name = aName;
@@ -100,92 +108,174 @@ public class CacheStats extends AbstractStats {
 	public String getName(){
 		return name;
 	}
-	
+
+	/**
+	 * Returns this caches hit ratio.
+	 * @param intervalName the name of the target interval.
+	 * @return
+	 */
 	public double getHitRatio(String intervalName){
 		return hits.getValueAsDouble(intervalName)/requests.getValueAsDouble(intervalName);
 	}
-	
+
+	/**
+	 * Adds a new cache request.
+	 */
 	public void addRequest(){
 		requests.increase();
 	}
-	
+
+	/**
+	 * Returns the number of requests in a given interval.
+	 * @param intervalName the name of the target interval.
+	 * @return
+	 */
 	public long getRequests(String intervalName){
 		return requests.getValueAsLong(intervalName);
 	}
-	
+
+	/**
+	 * Adds a new cache-hit.
+	 */
 	public void addHit(){
 		hits.increase();
 	}
 
+	/**
+	 * Returns the number of hits in a given interval.
+	 * @param intervalName the name of the target interval.
+	 * @return
+	 */
 	public long getHits(String intervalName){
 		return hits.getValueAsLong(intervalName);
 	}
-	
+
+	/**
+	 * Adds a request that was a hit. Its the same as calling addRequest();addHit().
+	 */
 	public void addHitRequest(){
 		requests.increase();
 		hits.increase();
 	}
-	
+
+	/**
+	 * Adds a write (new object) in the cache.
+	 */
 	public void addWrite(){
 		writes.increase();
 	}
-	
-	
+
+	/**
+	 * Returns the number of writes (new objects) in the cache int the given interval.
+	 * @param intervalName the name of the target interval.
+	 * @return
+	 */
 	public long getWrites(String intervalName){
 		return writes.getValueAsLong(intervalName);
 	}
 
+	/**
+	 * Adds an object removal.
+	 */
 	public void addDelete(){
 		deletes.increase();
 	}
-	
+
+	/**
+	 * Returns the number of object deletion in a given interval.
+	 * @param intervalName the name of the target interval.
+	 * @return
+	 */
 	public long getDeletes(String intervalName){
 		return deletes.getValueAsLong(intervalName);
 	}
-	
-	
+
+	/**
+	 * Adds a rollover. This is only useful for fixed size caches that support rollover.
+ 	 */
 	public void addRollover(){
 		rolloverCount.increase();
 	}
-	
+
+	/**
+	 * Adds a cache full condition. Only for caches with limited size and without rollover.
+	 */
 	public void addCacheFull(){
 		cacheFullCount.increase();
 	}
-	
+
+	/**
+	 * Returns the number of cache fulls in the specified interval.
+	 * @param intervalName the name of the target interval.
+	 * @return
+	 */
 	public long getCacheFullCount(String intervalName){
 		return cacheFullCount.getValueAsLong(intervalName);
 	}
 
+	/**
+	 * Returns the number of cache rollovers in a given interval.
+	 * @param intervalName the name of the target interval.
+	 * @return
+	 */
 	public long getRolloverCount(String intervalName){
 		return rolloverCount.getValueAsLong(intervalName);
 	}
 
-	
+
+	/**
+	 * Adds a garbage collected object. This is only supported by SoftReference caches.
+	 */
 	public void addGarbageCollected(){
 		garbageCollected.increase();
 	}
 
+	/**
+	 * Returns number of garbage collected objects in the given interval.
+	 * @param intervalName the name of the target interval.
+	 * @return
+	 */
 	public long getGarbageCollected(String intervalName){
 		return garbageCollected.getValueAsLong(intervalName);
 	}
 
+	/**
+	 * Adds a filtered object. Only supported by caches that can filter objects.
+	 */
 	public void addFiltered(){
 		filteredCount.increase();
 	}
-	
+
+	/**
+	 * Returns the number of filtered objects in a given interval.
+	 * @param intervalName the name of the target interval.
+	 * @return
+	 */
 	public long getFiltered(String intervalName){
 		return filteredCount.getValueAsLong(intervalName);
 	}
 
+	/**
+	 * Adds an expiration event. Only supported by ExpiringCaches.
+	 */
 	public void addExpired(){
 		expiredCount.increase();
 	}
 
+	/**
+	 * Return number of expired objects.
+	 * @param intervalName the name of the target interval.
+	 * @return
+	 */
 	public long getExpired(String intervalName){
 		return expiredCount.getValueAsLong(intervalName);
 	}
-	
-	//TODO dummy
+
+	/**
+	 * Returns the fill ration of the cache in a given interval. Warning: currently not supported by any cache!
+	 * @param intervalName the name of the target interval.
+	 * @return
+	 */
 	public double getFillRatio(String intervalName){
 		return 0.0;
 	}
