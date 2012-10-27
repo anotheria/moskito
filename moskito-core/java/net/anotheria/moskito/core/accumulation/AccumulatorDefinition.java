@@ -15,8 +15,14 @@ public class AccumulatorDefinition extends TieableDefinition {
 	 */
 	private int accumulationAmount;
 
+	/**
+	 * Logger.
+	 */
 	private static Logger log = Logger.getLogger(AccumulatorDefinition.class);
 
+	/**
+	 * Creates a new AccumulatorDefinition.
+	 */
 	public AccumulatorDefinition(){
 		try{
 			accumulationAmount = MoskitoConfigurationHolder.getConfiguration().getAccumulatorsConfig().getAccumulationAmount();
@@ -26,8 +32,12 @@ public class AccumulatorDefinition extends TieableDefinition {
 
 		}
 	}
-	
-	
+
+
+	/**
+	 * Returns the max amount of accumulated items. The max amount of accumulated items is a bit larger than the desired amount to reduce the amount of sublist operations.
+	 * @return
+	 */
 	public int getMaxAmountOfAccumulatedItems(){
 		return getAccumulationAmount() + (getAccumulationAmount()/10);
 	}

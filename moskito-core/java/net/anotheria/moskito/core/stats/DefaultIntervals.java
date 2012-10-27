@@ -46,7 +46,10 @@ public abstract class DefaultIntervals {
 	 * an interval of one day
 	 */
 	public static final Interval ONE_DAY = IntervalRegistry.getInstance().getInterval("1d");
-	
+
+	/**
+	 * All intervals with this prefix are considered as snapshot intervals, meaning that they are not updated automatically.
+	 */
 	public static final String PREFIX_SNAPSHOT = "snapshot";
 	
 	/**

@@ -185,7 +185,6 @@ public class ThresholdRepository extends TieableRepository<Threshold> {
 	 */
 	private void readConfig(){
 		ThresholdsConfig config = MoskitoConfigurationHolder.getConfiguration().getThresholdsConfig();
-		System.out.println("CONFIG: "+config);
 		ThresholdConfig[] tcs = config.getThresholds();
 		if (tcs!=null && tcs.length>0){
 			for (ThresholdConfig tc  : tcs){

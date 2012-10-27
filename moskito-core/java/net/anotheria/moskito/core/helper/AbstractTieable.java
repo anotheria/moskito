@@ -12,7 +12,7 @@ public abstract class AbstractTieable<D extends TieableDefinition> implements Ti
 	/**
 	 * The definition object.
 	 */
-	D definition;
+	private D definition;
 
 	/**
 	 * Id of this tieable for inner use (referencing).
