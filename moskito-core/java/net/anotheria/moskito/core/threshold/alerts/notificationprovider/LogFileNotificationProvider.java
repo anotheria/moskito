@@ -1,7 +1,7 @@
-package net.anotheria.moskito.core.treshold.alerts.notificationprovider;
+package net.anotheria.moskito.core.threshold.alerts.notificationprovider;
 
-import net.anotheria.moskito.core.treshold.alerts.NotificationProvider;
-import net.anotheria.moskito.core.treshold.alerts.ThresholdAlert;
+import net.anotheria.moskito.core.threshold.alerts.NotificationProvider;
+import net.anotheria.moskito.core.threshold.alerts.ThresholdAlert;
 import org.apache.log4j.Logger;
 
 /**
