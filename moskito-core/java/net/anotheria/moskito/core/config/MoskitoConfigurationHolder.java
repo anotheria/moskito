@@ -1,7 +1,7 @@
 package net.anotheria.moskito.core.config;
 
 import net.anotheria.moskito.core.config.thresholds.NotificationProviderConfig;
-import net.anotheria.moskito.core.treshold.alerts.notificationprovider.LogFileNotificationProvider;
+import net.anotheria.moskito.core.threshold.alerts.notificationprovider.LogFileNotificationProvider;
 import org.configureme.ConfigurationManager;
 
 import java.util.logging.Logger;

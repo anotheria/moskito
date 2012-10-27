@@ -1,4 +1,4 @@
-package net.anotheria.moskito.core.treshold.alerts;
+package net.anotheria.moskito.core.threshold.alerts;
 
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;

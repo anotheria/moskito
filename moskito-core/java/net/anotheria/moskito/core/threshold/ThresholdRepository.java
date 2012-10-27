@@ -1,4 +1,4 @@
-package net.anotheria.moskito.core.treshold;
+package net.anotheria.moskito.core.threshold;
 
 import net.anotheria.moskito.core.config.MoskitoConfigurationHolder;
 import net.anotheria.moskito.core.config.thresholds.GuardConfig;
@@ -11,8 +11,8 @@ import net.anotheria.moskito.core.helper.TieableRepository;
 import net.anotheria.moskito.core.producers.IStats;
 import net.anotheria.moskito.core.producers.IStatsProducer;
 import net.anotheria.moskito.core.stats.TimeUnit;
-import net.anotheria.moskito.core.treshold.guard.GuardedDirection;
-import net.anotheria.moskito.core.treshold.guard.LongBarrierPassGuard;
+import net.anotheria.moskito.core.threshold.guard.GuardedDirection;
+import net.anotheria.moskito.core.threshold.guard.LongBarrierPassGuard;
 import org.apache.log4j.Logger;
 
 import javax.management.InstanceAlreadyExistsException;

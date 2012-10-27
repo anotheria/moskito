@@ -1,6 +1,6 @@
-package net.anotheria.moskito.core.treshold.guard;
+package net.anotheria.moskito.core.threshold.guard;
 
-import net.anotheria.moskito.core.treshold.ThresholdStatus;
+import net.anotheria.moskito.core.threshold.ThresholdStatus;
 
 /**
  * A barrier path guard that works with long values.

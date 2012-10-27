@@ -1,4 +1,4 @@
-package net.anotheria.moskito.core.treshold.alerts;
+package net.anotheria.moskito.core.threshold.alerts;
 
 import net.anotheria.moskito.core.config.MoskitoConfigurationHolder;
 

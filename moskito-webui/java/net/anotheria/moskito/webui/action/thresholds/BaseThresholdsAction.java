@@ -1,6 +1,6 @@
 package net.anotheria.moskito.webui.action.thresholds;
 
-import net.anotheria.moskito.core.treshold.guard.GuardedDirection;
+import net.anotheria.moskito.core.threshold.guard.GuardedDirection;
 import net.anotheria.moskito.webui.action.BaseMoskitoUIAction;
 import net.anotheria.moskito.webui.bean.NaviItem;
 

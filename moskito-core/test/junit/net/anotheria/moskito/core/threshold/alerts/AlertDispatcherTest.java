@@ -1,11 +1,11 @@
-package net.anotheria.moskito.core.treshold.alerts;
+package net.anotheria.moskito.core.threshold.alerts;
 
 import net.anotheria.moskito.core.config.MoskitoConfiguration;
 import net.anotheria.moskito.core.config.MoskitoConfigurationHolder;
 import net.anotheria.moskito.core.config.thresholds.NotificationProviderConfig;
-import net.anotheria.moskito.core.treshold.Threshold;
-import net.anotheria.moskito.core.treshold.ThresholdDefinition;
-import net.anotheria.moskito.core.treshold.ThresholdStatus;
+import net.anotheria.moskito.core.threshold.Threshold;
+import net.anotheria.moskito.core.threshold.ThresholdDefinition;
+import net.anotheria.moskito.core.threshold.ThresholdStatus;
 import org.junit.After;
 import org.junit.Test;
 

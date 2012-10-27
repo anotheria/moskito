@@ -1,6 +1,6 @@
 package net.anotheria.moskito.webui.bean;
 
-import net.anotheria.moskito.core.treshold.ThresholdStatus;
+import net.anotheria.moskito.core.threshold.ThresholdStatus;
 import net.anotheria.util.BasicComparable;
 import net.anotheria.util.sorter.IComparable;
 

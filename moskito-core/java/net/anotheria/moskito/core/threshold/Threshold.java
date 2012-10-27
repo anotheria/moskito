@@ -1,12 +1,12 @@
-package net.anotheria.moskito.core.treshold;
+package net.anotheria.moskito.core.threshold;
 
 import net.anotheria.moskito.core.helper.AbstractTieable;
 import net.anotheria.moskito.core.helper.Tieable;
 import net.anotheria.moskito.core.producers.IStats;
-import net.anotheria.moskito.core.treshold.alerts.AlertDispatcher;
-import net.anotheria.moskito.core.treshold.alerts.ThresholdAlert;
-import net.anotheria.moskito.core.treshold.guard.GuardedDirection;
-import net.anotheria.moskito.core.treshold.guard.LongBarrierPassGuard;
+import net.anotheria.moskito.core.threshold.alerts.AlertDispatcher;
+import net.anotheria.moskito.core.threshold.alerts.ThresholdAlert;
+import net.anotheria.moskito.core.threshold.guard.GuardedDirection;
+import net.anotheria.moskito.core.threshold.guard.LongBarrierPassGuard;
 import org.apache.log4j.Logger;
 
 import java.util.ArrayList;

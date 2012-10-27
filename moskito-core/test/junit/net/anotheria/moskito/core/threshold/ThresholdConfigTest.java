@@ -1,4 +1,4 @@
-package net.anotheria.moskito.core.treshold;
+package net.anotheria.moskito.core.threshold;
 
 import net.anotheria.moskito.core.config.MoskitoConfiguration;
 import net.anotheria.moskito.core.config.MoskitoConfigurationHolder;

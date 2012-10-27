@@ -1,6 +1,6 @@
 package net.anotheria.moskito.core.config.thresholds;
 
-import net.anotheria.moskito.core.treshold.ThresholdStatus;
+import net.anotheria.moskito.core.threshold.ThresholdStatus;
 import org.configureme.annotations.Configure;
 
 /**

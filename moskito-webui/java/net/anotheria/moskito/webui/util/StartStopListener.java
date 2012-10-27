@@ -1,7 +1,7 @@
 package net.anotheria.moskito.webui.util;
 
 import net.anotheria.moskito.core.helper.RuntimeConstants;
-import net.anotheria.moskito.core.treshold.ThresholdRepository;
+import net.anotheria.moskito.core.threshold.ThresholdRepository;
 import net.anotheria.moskito.core.util.BuiltinUpdater;
 import org.apache.log4j.Logger;
 

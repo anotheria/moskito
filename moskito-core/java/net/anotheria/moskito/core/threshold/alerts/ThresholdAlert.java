@@ -1,7 +1,7 @@
-package net.anotheria.moskito.core.treshold.alerts;
+package net.anotheria.moskito.core.threshold.alerts;
 
-import net.anotheria.moskito.core.treshold.Threshold;
-import net.anotheria.moskito.core.treshold.ThresholdStatus;
+import net.anotheria.moskito.core.threshold.Threshold;
+import net.anotheria.moskito.core.threshold.ThresholdStatus;
 import net.anotheria.util.NumberUtils;
 
 /**

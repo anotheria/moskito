@@ -1,4 +1,4 @@
-package net.anotheria.moskito.core.treshold.alerts;
+package net.anotheria.moskito.core.threshold.alerts;
 
 /**
  * TODO comment this class

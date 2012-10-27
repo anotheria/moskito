@@ -1,4 +1,4 @@
-package net.anotheria.moskito.core.treshold.guard;
+package net.anotheria.moskito.core.threshold.guard;
 
 /**
  * Describes possible direction which can be bypassed by the threshold.

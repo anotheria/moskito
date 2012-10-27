@@ -3,11 +3,11 @@ package net.anotheria.moskito.webui.action.thresholds;
 import net.anotheria.maf.action.ActionCommand;
 import net.anotheria.maf.action.ActionMapping;
 import net.anotheria.maf.bean.FormBean;
-import net.anotheria.moskito.core.treshold.Threshold;
-import net.anotheria.moskito.core.treshold.ThresholdConditionGuard;
-import net.anotheria.moskito.core.treshold.ThresholdRepository;
-import net.anotheria.moskito.core.treshold.ThresholdStatus;
-import net.anotheria.moskito.core.treshold.guard.BarrierPassGuard;
+import net.anotheria.moskito.core.threshold.Threshold;
+import net.anotheria.moskito.core.threshold.ThresholdConditionGuard;
+import net.anotheria.moskito.core.threshold.ThresholdRepository;
+import net.anotheria.moskito.core.threshold.ThresholdStatus;
+import net.anotheria.moskito.core.threshold.guard.BarrierPassGuard;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

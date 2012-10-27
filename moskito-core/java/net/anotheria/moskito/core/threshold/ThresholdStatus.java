@@ -1,4 +1,4 @@
-package net.anotheria.moskito.core.treshold;
+package net.anotheria.moskito.core.threshold;
 
 import net.anotheria.util.BasicComparable;
 import net.anotheria.util.sorter.IComparable;

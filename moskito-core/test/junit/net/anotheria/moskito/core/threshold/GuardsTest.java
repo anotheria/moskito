@@ -1,8 +1,8 @@
-package net.anotheria.moskito.core.treshold;
+package net.anotheria.moskito.core.threshold;
 
 import net.anotheria.moskito.core.stats.impl.IntervalRegistry;
-import net.anotheria.moskito.core.treshold.guard.GuardedDirection;
-import net.anotheria.moskito.core.treshold.guard.LongBarrierPassGuard;
+import net.anotheria.moskito.core.threshold.guard.GuardedDirection;
+import net.anotheria.moskito.core.threshold.guard.LongBarrierPassGuard;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;

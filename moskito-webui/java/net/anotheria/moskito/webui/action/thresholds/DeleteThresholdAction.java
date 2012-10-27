@@ -3,7 +3,7 @@ package net.anotheria.moskito.webui.action.thresholds;
 import net.anotheria.maf.action.ActionCommand;
 import net.anotheria.maf.action.ActionMapping;
 import net.anotheria.maf.bean.FormBean;
-import net.anotheria.moskito.core.treshold.ThresholdRepository;
+import net.anotheria.moskito.core.threshold.ThresholdRepository;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

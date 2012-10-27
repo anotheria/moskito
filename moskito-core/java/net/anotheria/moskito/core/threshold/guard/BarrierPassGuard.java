@@ -1,8 +1,8 @@
-package net.anotheria.moskito.core.treshold.guard;
+package net.anotheria.moskito.core.threshold.guard;
 
-import net.anotheria.moskito.core.treshold.Threshold;
-import net.anotheria.moskito.core.treshold.ThresholdConditionGuard;
-import net.anotheria.moskito.core.treshold.ThresholdStatus;
+import net.anotheria.moskito.core.threshold.Threshold;
+import net.anotheria.moskito.core.threshold.ThresholdConditionGuard;
+import net.anotheria.moskito.core.threshold.ThresholdStatus;
 
 /**
  * A barrier pass guard fires as soon as a barrier has been passed.
