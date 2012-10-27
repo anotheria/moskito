@@ -33,6 +33,7 @@ public class ShowAccumulatorAction extends BaseAccumulatorsAction {
 		accInfoBean.setName(accumulator.getName());
 		accInfoBean.setPath(accumulator.getDefinition().describe());
 		accInfoBean.setId(accumulator.getId());
+		accInfoBean.setMaxNumberOfValues(accumulator.getDefinition().getMaxAmountOfAccumulatedItems());
 		List<AccumulatedValue> values = accumulator.getValues();
 		if (values!=null && values.size()>0){
 			accInfoBean.setNumberOfValues(values.size());

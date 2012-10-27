@@ -94,6 +94,8 @@ public class ProducerRegistryImpl implements IProducerRegistry{
 	}
 
 	@Override public IStatsProducer getProducer(String producerId){
+		if (producerId==null)
+			throw new IllegalArgumentException("Null is not a valid producerId");
 		ProducerReference ref = registry.get(producerId); 
 		return ref == null ? null : ref.get();
 	}

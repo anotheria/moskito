@@ -15,7 +15,9 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 
 /**
- * TODO comment this class
+ * This class dispatches alerts that are generated in a threshold between different recipients.
+ * This class has own thread pool that is configured by
+ * MoskitoConfiguration.getThresholdsAlertsConfig().getDispatcherThreadPoolSize().
  *
  * @author lrosenberg
  * @since 22.10.12 11:22

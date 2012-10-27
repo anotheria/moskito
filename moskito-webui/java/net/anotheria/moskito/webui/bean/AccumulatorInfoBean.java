@@ -31,6 +31,14 @@ public class AccumulatorInfoBean implements IComparable{
 	 * The timestamp from last value.
 	 */
 	private String lastValueTimestamp;
+
+	/**
+	 * The max number of value this accumulator will accumulate. The real number of values will be between 0 and maxNumberOfValues until the maxNumberOfValues
+	 * is reached first time. Afterwards its between maxNumberOfValues and maxNumberOfValues*1.1.
+	 */
+	private int maxNumberOfValues;
+
+
 	public String getName() {
 		return name;
 	}
@@ -61,6 +69,15 @@ public class AccumulatorInfoBean implements IComparable{
 	public void setId(String id) {
 		this.id = id;
 	}
+
+	public int getMaxNumberOfValues() {
+		return maxNumberOfValues;
+	}
+
+	public void setMaxNumberOfValues(int maxNumberOfValues) {
+		this.maxNumberOfValues = maxNumberOfValues;
+	}
+
 	@Override
 	public int compareTo(IComparable anotherObject, int method) {
 		return BasicComparable.compareString(getName(), ((AccumulatorInfoBean)anotherObject).getName());

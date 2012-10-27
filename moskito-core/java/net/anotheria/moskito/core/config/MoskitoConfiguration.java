@@ -1,5 +1,6 @@
 package net.anotheria.moskito.core.config;
 
+import net.anotheria.moskito.core.config.accumulators.AccumulatorsConfig;
 import net.anotheria.moskito.core.config.thresholds.ThresholdsAlertsConfig;
 import net.anotheria.moskito.core.config.thresholds.ThresholdsConfig;
 import org.configureme.annotations.Configure;
@@ -19,6 +20,9 @@ public class MoskitoConfiguration {
 	@Configure
 	private ThresholdsConfig thresholdsConfig = new ThresholdsConfig();
 
+	@Configure
+	private AccumulatorsConfig accumulatorsConfig = new AccumulatorsConfig();
+
 	public ThresholdsAlertsConfig getThresholdsAlertsConfig() {
 		return thresholdsAlertsConfig;
 	}
@@ -36,7 +40,15 @@ public class MoskitoConfiguration {
 	}
 
 	@Override public String toString(){
-		return "thresholdsAlertsConfig: "+thresholdsAlertsConfig+", thresholds: "+thresholdsConfig;
+		return "thresholdsAlertsConfig: "+thresholdsAlertsConfig+", thresholds: "+thresholdsConfig+", accumulators:" +accumulatorsConfig;
+	}
+
+	public AccumulatorsConfig getAccumulatorsConfig() {
+		return accumulatorsConfig;
+	}
+
+	public void setAccumulatorsConfig(AccumulatorsConfig accumulatorsConfig) {
+		this.accumulatorsConfig = accumulatorsConfig;
 	}
 
 }

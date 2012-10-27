@@ -1,5 +1,6 @@
 package net.anotheria.moskito.core.config.thresholds;
 
+import org.configureme.annotations.Configure;
 import org.configureme.annotations.ConfigureMe;
 
 /**
@@ -10,8 +11,11 @@ import org.configureme.annotations.ConfigureMe;
  */
 @ConfigureMe(allfields=true)
 public class GuardConfig {
+	@Configure
 	private String value;
+	@Configure
 	private String direction;
+	@Configure
 	private String status;
 
 	public GuardConfig(){

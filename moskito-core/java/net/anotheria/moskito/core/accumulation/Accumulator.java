@@ -30,7 +30,8 @@ public class Accumulator extends AbstractTieable<AccumulatorDefinition> implemen
 
 	public Accumulator(AccumulatorDefinition aDefinition){
 		super(aDefinition);
-		values = new ArrayList<AccumulatedValue>();
+		values = new ArrayList<AccumulatedValue>(aDefinition.getMaxAmountOfAccumulatedItems());
+		System.out.println("Created new accumulator "+aDefinition+" with size: "+getDefinition().getMaxAmountOfAccumulatedItems()+ " max.");
 	}
 	
 	public void addValue(AccumulatedValue value){

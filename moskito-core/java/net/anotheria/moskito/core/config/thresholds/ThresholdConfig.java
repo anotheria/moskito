@@ -1,6 +1,7 @@
 package net.anotheria.moskito.core.config.thresholds;
 
 import net.anotheria.moskito.core.stats.TimeUnit;
+import org.configureme.annotations.Configure;
 import org.configureme.annotations.ConfigureMe;
 
 import java.util.Arrays;
@@ -16,28 +17,35 @@ public class ThresholdConfig {
 	/**
 	 * Name of the threshold.
 	 */
+	@Configure
 	private String name;
 	/**
 	 * Name of the producer.
 	 */
+	@Configure
 	private String producerName;
 	/**
 	 * Name of the stat of the producer.
 	 */
+	@Configure
 	private String statName;
 	/**
 	 * Name of the value.
 	 */
+	@Configure
 	private String valueName;
 	/**
 	 * Name of the interval. 5m is default.
 	 */
+	@Configure
 	private String intervalName = "5m";
 	/**
 	 * Timeunit, default is millis.
 	 */
+	@Configure
 	private String timeUnit = TimeUnit.MILLISECONDS.name();
 
+	@Configure
 	private GuardConfig[] guards;
 
 	public GuardConfig[] getGuards() {

@@ -6,7 +6,8 @@
 		"name": "<ano:write name="accumulatorInfo" property="name"/>",
 		"path": "<ano:write name="accumulatorInfo" property="path"/>",
 		"numberOfValues": "<ano:write name="accumulatorInfo" property="numberOfValues"/>",
-		"lastValueTimestamp": "<ano:write name="accumulatorInfo" property="lastValueTimestamp"/>" 
+        "maxNumberOfValues": "<ano:write name="accumulatorInfo" property="maxNumberOfValues"/>",
+        "lastValueTimestamp": "<ano:write name="accumulatorInfo" property="lastValueTimestamp"/>"
 	},
 	"accumulatorData" : [
 	<ano:iterate name="accumulatorData" property="data" id="row" indexId="ind"

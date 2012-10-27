@@ -22,6 +22,28 @@
 		}
 
 	},
+	"@accumulatorsConfig" : {
+		"accumulationAmount": 500
+	},
+	"@thresholdsConfig": {
+		"@thresholds": [
+			{
+			"name": "Configured-5m-ThreadCount",
+			"producerName": "ThreadCount",
+			"statName": "ThreadCount",
+			"valueName": "Current",
+			"intervalName": "5m",
+			//timeUnit can be ignored here
+            "@guards": [
+				{"value": "30", "direction": "DOWN", "status": "GREEN"},
+				{"value": "30", "direction": "UP", "status": "YELLOW"},
+				{"value": "45", "direction": "UP", "status": "ORANGE"},
+				{"value": "60", "direction": "UP", "status": "RED"},
+				{"value": "100", "direction": "UP", "status": "PURPLE"},
+			]
+			}
+		]
+	},
 	//options for mail, optional and used for linking from mail config:
 	"mailhost": "mail.anotheria.net",
 	"mailuser": "moskito@anotheria.net",
