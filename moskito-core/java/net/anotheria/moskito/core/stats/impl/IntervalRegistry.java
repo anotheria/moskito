@@ -34,7 +34,6 @@
  */
 package net.anotheria.moskito.core.stats.impl;
 
-import net.anotheria.moskito.core.producers.SnapshotCreator;
 import net.anotheria.moskito.core.stats.IIntervalListener;
 import net.anotheria.moskito.core.stats.Interval;
 import net.anotheria.moskito.core.stats.IntervalRegistryListener;
@@ -99,15 +98,16 @@ public final class IntervalRegistry {
 	private IntervalRegistry() {
 		updateTriggerService = UpdateTriggerServiceFactory.getUpdateTriggerService();
 
-        registryListeners.add(new IntervalRegistryListener() {
-            public void intervalCreated(Interval aInterval) {
-                aInterval.addSecondaryIntervalListener(new IIntervalListener() {
-                    public void intervalUpdated(Interval aCaller) {
-                        SnapshotCreator.INSTANCE.createSnapshot(aCaller);
-                    }
-                });
-            }
-        });
+			//TODO readd this code later, disabled snapshots.
+//        registryListeners.add(new IntervalRegistryListener() {
+//            public void intervalCreated(Interval aInterval) {
+//                aInterval.addSecondaryIntervalListener(new IIntervalListener() {
+//                    public void intervalUpdated(Interval aCaller) {
+//                        SnapshotCreator.INSTANCE.createSnapshot(aCaller);
+//                    }
+//                });
+//            }
+//        });
     }
 
 	/**

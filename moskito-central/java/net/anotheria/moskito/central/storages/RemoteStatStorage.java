@@ -3,7 +3,6 @@ package net.anotheria.moskito.central.storages;
 import net.anotheria.moskito.central.StatStorage;
 import net.anotheria.moskito.central.StatStorageException;
 import net.anotheria.moskito.core.producers.IStatsSnapshot;
-import net.anotheria.moskito.core.producers.SnapshotArchiverRegistry;
 import org.configureme.annotations.AbortedConfiguration;
 import org.configureme.annotations.AfterInitialConfiguration;
 import org.configureme.annotations.AfterReConfiguration;
@@ -46,7 +45,7 @@ public class RemoteStatStorage implements StatStorage {
     @AfterInitialConfiguration
     public void callAfterInitialConfigurationOnly() {
         try {
-            localStorage = (StatStorage) SnapshotArchiverRegistry.INSTANCE.createStorage(storageClassName, storageParams);
+            //localStorage = (StatStorage) SnapshotArchiverRegistry.INSTANCE.createStorage(storageClassName, storageParams);
         } catch (Exception e) {
             System.err.println("Failed to create local storage");
             e.printStackTrace();
