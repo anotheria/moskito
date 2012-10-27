@@ -2,15 +2,21 @@ package net.anotheria.moskito.core.treshold.guard;
 
 /**
  * Describes possible direction which can be bypassed by the threshold.
- * @author another
+ * @author lrosenberg
  *
  */
 public enum GuardedDirection {
+	/**
+	 * The new value is lower than the guarded value.
+	 */
 	DOWN{
 		protected int getExpectedCompareResult(){
 			return -1;
 		}
 	},
+	/**
+	 * The new value is higher than the guarded value.
+	 */
 	UP{
 		protected int getExpectedCompareResult(){
 			return 1;

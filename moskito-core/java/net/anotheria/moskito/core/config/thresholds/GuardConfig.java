@@ -4,24 +4,42 @@ import org.configureme.annotations.Configure;
 import org.configureme.annotations.ConfigureMe;
 
 /**
- * TODO comment this class
+ * Guard for a single threshold status in the threshold.
  *
  * @author lrosenberg
  * @since 25.10.12 10:29
  */
 @ConfigureMe(allfields=true)
 public class GuardConfig {
+	/**
+	 * Value that have to be reached for the status change.
+	 */
 	@Configure
 	private String value;
+	/**
+	 * Direction in which the value has to be passed (UP/DOWN).
+	 */
 	@Configure
 	private String direction;
+	/**
+	 * The resulting status.
+	 */
 	@Configure
 	private String status;
 
+	/**
+	 * Creates a new guard config object.
+	 */
 	public GuardConfig(){
 
 	}
 
+	/**
+	 * Creates a new guard config object and set all fields from constructor.
+	 * @param aStatus resulting status.
+	 * @param aDirection direction for the value.
+	 * @param aValue the value.
+	 */
 	public GuardConfig(String aStatus, String aDirection, String aValue){
 		status = aStatus;
 		value  = aValue;

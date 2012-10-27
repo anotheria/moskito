@@ -28,12 +28,24 @@ public enum AlertDispatcher {
 	 */
 	INSTANCE;
 
+	/**
+	 * Notification providers.
+	 */
 	private List<NotificationProviderWrapper> providers;
 
+	/**
+	 * Internal executor service that is used to deliver threshold alerts to notification providers.
+	 */
 	private ExecutorService changeExecutor;
 
+	/**
+	 * Counter for created threads for the changeExecutor ThreadFactory.
+	 */
 	private final AtomicInteger threadCounter = new AtomicInteger(0);
 
+	/**
+	 * Log.
+	 */
 	private static final Logger log = Logger.getLogger(AlertDispatcher.class);
 
 	private AlertDispatcher(){
@@ -104,8 +116,17 @@ public enum AlertDispatcher {
 		});
 	}
 
+	/**
+	 * Wrapper for the notification provider.
+	 */
 	private static class NotificationProviderWrapper {
+		/**
+		 * Status at which this provider has to be triggered.
+		 */
 		private ThresholdStatus status;
+		/**
+		 * The provider.
+		 */
 		private NotificationProvider provider;
 
 		NotificationProviderWrapper(NotificationProvider aProvider, ThresholdStatus aStatus){

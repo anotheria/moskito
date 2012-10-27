@@ -45,6 +45,9 @@ public class ThresholdConfig {
 	@Configure
 	private String timeUnit = TimeUnit.MILLISECONDS.name();
 
+	/**
+	 * Configuration of the guards.
+	 */
 	@Configure
 	private GuardConfig[] guards;
 

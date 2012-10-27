@@ -5,18 +5,27 @@ import org.configureme.annotations.Configure;
 import java.util.Arrays;
 
 /**
- * TODO comment this class
+ * This configuration class holds all info about threshold alerts.
  *
  * @author lrosenberg
  * @since 22.10.12 16:08
  */
 public class ThresholdsAlertsConfig {
+	/**
+	 * Notification providers for notification upon threshold status changes.
+	 */
 	@Configure
 	private NotificationProviderConfig[] notificationProviders = new NotificationProviderConfig[0];
 
+	/**
+	 * Config for the embedded alert history.
+	 */
 	@Configure
 	private AlertHistoryConfig alertHistoryConfig = new AlertHistoryConfig();
 
+	/**
+	 * Thread pool size of the alert dispatcher proceeding queue.
+	 */
 	@Configure private int dispatcherThreadPoolSize;
 
 	public NotificationProviderConfig[] getNotificationProviders() {
