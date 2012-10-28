@@ -12,17 +12,26 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * TODO comment this class
+ * This notification provider sends thresholds via email.
  *
  * @author lrosenberg
  * @since 23.10.12 15:48
  */
 public class MailNotificationProvider implements NotificationProvider {
 
+	/**
+	 * List of recipients.
+	 */
 	private List<String> recipients;
 
-	private static MessagingService messagingService;
+	/**
+	 * Messaging service instance for smtp connection.
+	 */
+	private MessagingService messagingService;
 
+	/**
+	 * Log.
+	 */
 	private static Logger log = Logger.getLogger(MailNotificationProvider.class);
 
 

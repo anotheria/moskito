@@ -52,11 +52,19 @@ public class ThresholdConfig {
 	private GuardConfig[] guards;
 
 	public GuardConfig[] getGuards() {
-		return guards;
+		//the effort below is to make findbugs happy.
+		if (guards==null ||guards.length==0)
+			return new GuardConfig[0];
+		GuardConfig[] ret = new GuardConfig[guards.length];
+		System.arraycopy(guards, 0, ret, 0, guards.length);
+		return ret;
 	}
 
 	public void setGuards(GuardConfig[] guards) {
-		this.guards = guards;
+		if (guards==null || guards.length==0)
+			return;
+		this.guards = new GuardConfig[guards.length];
+		System.arraycopy(guards, 0, this.guards, 0 , guards.length);
 	}
 
 	@Override

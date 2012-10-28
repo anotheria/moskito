@@ -256,8 +256,10 @@ public class ProducerRegistryAPIImpl implements IProducerRegistryAPI, IProducerR
 		if (_cachedProducerList==null)
 			return;
 		synchronized(cacheLock){
-			_cachedProducerList.remove(producer);
-			_cachedProducerMap.remove(producer.getProducerId());
+			ProducerReference ref = _cachedProducerMap.remove(producer.getProducerId());
+			if (ref!=null)
+				_cachedProducerList.remove(ref);
+
 		}
 	}
 
