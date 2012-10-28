@@ -1,14 +1,14 @@
 package net.java.dev.moskito.integration.cdi;
 
-import net.anotheria.moskito.core.calltrace.CurrentlyTracedCall;
-import net.anotheria.moskito.core.calltrace.RunningTraceContainer;
-import net.anotheria.moskito.core.calltrace.TraceStep;
-import net.anotheria.moskito.core.calltrace.TracedCall;
-import net.anotheria.moskito.core.dynamic.OnDemandStatsProducer;
-import net.anotheria.moskito.core.dynamic.OnDemandStatsProducerException;
-import net.anotheria.moskito.core.predefined.ServiceStats;
-import net.anotheria.moskito.core.predefined.ServiceStatsFactory;
-import net.anotheria.moskito.core.registry.ProducerRegistryFactory;
+import net.java.dev.moskito.core.calltrace.CurrentlyTracedCall;
+import net.java.dev.moskito.core.calltrace.RunningTraceContainer;
+import net.java.dev.moskito.core.calltrace.TraceStep;
+import net.java.dev.moskito.core.calltrace.TracedCall;
+import net.java.dev.moskito.core.dynamic.OnDemandStatsProducer;
+import net.java.dev.moskito.core.dynamic.OnDemandStatsProducerException;
+import net.java.dev.moskito.core.predefined.ServiceStats;
+import net.java.dev.moskito.core.predefined.ServiceStatsFactory;
+import net.java.dev.moskito.core.registry.ProducerRegistryFactory;
 import org.apache.log4j.Logger;
 
 import javax.interceptor.AroundInvoke;
