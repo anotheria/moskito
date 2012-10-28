@@ -47,46 +47,50 @@ import java.util.List;
  *
  */
 public interface IProducerRegistryAPI {
-	/*
+	/**
 	 * Returns all registered producers.
 	 */
-	public List<IStatsProducer> getAllProducers();
+	List<IStatsProducer> getAllProducers();
+
 	/**
 	 * Returns all registered producers for the given category.
-	 * @param category
-	 * @return
+	 * @param category the category to be selected.
+	 * @return list of all producers with category equal to submitted category.
 	 */
-	public List<IStatsProducer> getAllProducersByCategory(String category);
+	List<IStatsProducer> getAllProducersByCategory(String category);
 	
 	/**
 	 * Returns all registered producers for the given subsystem.
-	 * @param subsystem
-	 * @return
+	 * @param subsystem the subsystem to be selected.
+	 * @return list of all producers with subsystem equal to submitted subsystem.
 	 */
-	public List<IStatsProducer> getAllProducersBySubsystem(String subsystem);
+	List<IStatsProducer> getAllProducersBySubsystem(String subsystem);
 	/**
 	 * Returns the producer with the given producerId.
 	 * @param producerId
 	 * @return
 	 */
-	public IStatsProducer getProducer(String producerId);
+	IStatsProducer getProducer(String producerId);
 	/**
 	 * Returns a filtered list of producers.
 	 * @param filters
 	 * @return
 	 */
-	public List<IStatsProducer> getProducers(IProducerFilter... filters);
+	List<IStatsProducer> getProducers(IProducerFilter... filters);
 	/**
 	 * Returns the list of available categories.
 	 * @return
 	 */
-	public List<String> getCategories();
+	List<String> getCategories();
 	/**
 	 * Returns the list of available subsystems.
 	 * @return
 	 */
-	public List<String> getSubsystems();
-	
-	//// convenience methods.
-	public List<IntervalInfo> getPresentIntervals();
+	List<String> getSubsystems();
+
+	/**
+	 * Return known configured intervals.
+	 * @return list with interval info objects for all configured and supported intervals.
+	 */
+	List<IntervalInfo> getPresentIntervals();
 } 

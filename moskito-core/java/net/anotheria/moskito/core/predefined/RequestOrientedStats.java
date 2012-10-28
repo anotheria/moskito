@@ -94,17 +94,17 @@ public abstract class RequestOrientedStats extends AbstractStats {
 	private StatValue maxCurrentRequests;
 
 	/**
-	 * the last processed request
+	 * the last processed request.
 	 */
 	private StatValue lastRequest;
 
 	/**
-	 * Min request time
+	 * Min request time.
 	 */
 	private StatValue minTime;
 
 	/**
-	 * Max request time
+	 * Max request time.
 	 */
 	private StatValue maxTime;
 
@@ -138,6 +138,11 @@ public abstract class RequestOrientedStats extends AbstractStats {
 		this("unnamed", getDefaultIntervals());
 	}
 
+	/**
+	 * Creates a new request oriented stats object with given method name and intervals.
+	 * @param aMethodName the method name.
+	 * @param aSelectedIntervals supported intervals.
+	 */
 	public RequestOrientedStats(String aMethodName, Interval[] aSelectedIntervals) {
 		methodName = aMethodName;
 
@@ -205,10 +210,21 @@ public abstract class RequestOrientedStats extends AbstractStats {
 		return getAverageRequestDuration(null);
 	}
 
+	/**
+	 * Returns the average request duration for the given interval in nanoseconds.
+	 * @param intervalName
+	 * @return
+	 */
 	public double getAverageRequestDuration(String intervalName) {
 		return totalTime.getValueAsDouble(intervalName) / totalRequests.getValueAsDouble(intervalName);
 	}
 
+	/**
+	 * Returns the average request duration for the given interval and converted to the given timeunit.
+	 * @param intervalName
+	 * @param unit
+	 * @return
+	 */
 	public double getAverageRequestDuration(String intervalName, TimeUnit unit) {
 		return unit.transformNanos(totalTime.getValueAsLong(intervalName)) / totalRequests.getValueAsDouble(intervalName);
 	}
@@ -281,7 +297,12 @@ public abstract class RequestOrientedStats extends AbstractStats {
 		return super.getValueByNameAsString(valueName, intervalName, timeUnit);
 	}
 
- 
+
+	/**
+	 * Returns a toString representation with values fo the given interval.
+	 * @param intervalName the target interval.
+	 * @return
+	 */
 	public String toString(String intervalName) {
 		String ret = methodName;
 		ret += toStatsString(intervalName);
@@ -320,6 +341,11 @@ public abstract class RequestOrientedStats extends AbstractStats {
 		return getTotalTime(null);
 	}
 
+	/**
+	 * Returns total spent time for the given interal.
+	 * @param intervalName the target interval.
+	 * @return
+	 */
 	public long getTotalTime(String intervalName) {
 		return totalTime.getValueAsLong(intervalName);
 	}
@@ -353,6 +379,11 @@ public abstract class RequestOrientedStats extends AbstractStats {
 		return getErrors(null);
 	}
 
+	/**
+	 * Returns the amount of errors for the given interval.
+	 * @param intervalName
+	 * @return
+	 */
 	public long getErrors(String intervalName) {
 		return errors.getValueAsLong(intervalName);
 	}
@@ -389,11 +420,19 @@ public abstract class RequestOrientedStats extends AbstractStats {
 		return maxTime.getValueAsLong(null);
 	}
 
+	/**
+	 * Returns the name of this request (effectively method name).
+	 * @return
+	 */
 	public String getName() {
 		return methodName;
 	}
-	
-	public CallExecution createCallExecution(){
+
+	/**
+	 * Creates a new call execution object.
+	 * @return
+	 */
+	@Override public CallExecution createCallExecution(){
 		return new RequestCallExecution();
 	}
 	

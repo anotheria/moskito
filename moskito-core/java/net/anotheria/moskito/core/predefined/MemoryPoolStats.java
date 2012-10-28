@@ -44,15 +44,27 @@ public class MemoryPoolStats extends AbstractMemoryPoolStats implements IMemoryP
 	 * Max.
 	 */
 	private StatValue max;
-	
+
+	/**
+	 * Creates a new unnamed memory pool stats object with default intervals.
+	 */
 	public MemoryPoolStats(){
 		this("unnamed", Constants.getDefaultIntervals());
-	} 
-	
+	}
+
+	/**
+	 * Creates a new unnamed memory pool stats object with default intervals.
+ 	 * @param aName name of the memory pool stats object.
+	 */
 	public MemoryPoolStats(String aName){
 		this(aName, Constants.getDefaultIntervals());
-	} 
+	}
 
+	/**
+	 * Creates a new unnamed memory pool stats object.
+	 * @param aName name of the object.
+	 * @param selectedIntervals supported intervals.
+	 */
 	public MemoryPoolStats(String aName,  Interval[] selectedIntervals){
 		super(aName);
 		init = StatValueFactory.createStatValue(0L, "init", selectedIntervals);
@@ -88,56 +100,115 @@ public class MemoryPoolStats extends AbstractMemoryPoolStats implements IMemoryP
 		return b.toString();
 	}
 
+	/**
+	 * Returns the amount of initial memory for the selected interval.
+	 * @param intervalName the target interval name.
+	 * @return
+	 */
 	public long getInit(String intervalName){
 		return init.getValueAsLong(intervalName);
 	}
-	
+
+	/**
+	 * Returns the amount of user memory for the selected interval.
+	 * @param intervalName the target interval name.
+	 * @return
+	 */
 	public long getUsed(String intervalName){
 		return used.getValueAsLong(intervalName);
 	}
+	/**
+	 * Returns the amount of min used memory for the selected interval.
+	 * @param intervalName the target interval name.
+	 * @return
+	 */
 	public long getMinUsed(String intervalName){
 		return minUsed.getValueAsLong(intervalName);
 	}
+	/**
+	 * Returns the amount of max used memory for the selected interval.
+	 * @param intervalName the target interval name.
+	 * @return
+	 */
 	public long getMaxUsed(String intervalName){
 		return maxUsed.getValueAsLong(intervalName);
 	}
 
-	
-	
+
+	/**
+	 * Returns the amount of commited memory for the selected interval.
+	 * @param intervalName the target interval name.
+	 * @return
+	 */
 	public long getCommited(String intervalName){
 		return commited.getValueAsLong(intervalName);
 	}
-	
+
+	/**
+	 * Returns the amount of min commited memory for the selected interval.
+	 * @param intervalName the target interval name.
+	 * @return
+	 */
 	public long getMinCommited(String intervalName){
 		return minCommited.getValueAsLong(intervalName);
 	}
+	/**
+	 * Returns the amount of max commited memory for the selected interval.
+	 * @param intervalName the target interval name.
+	 * @return
+	 */
 	public long getMaxCommited(String intervalName){
 		return maxCommited.getValueAsLong(intervalName);
 	}
-	
-	
+
+
+	/**
+	 * Returns the amount of max available memory for the selected interval.
+	 * @param intervalName the target interval name.
+	 * @return
+	 */
 	public long getMax(String intervalName){
 		return max.getValueAsLong(intervalName);
 	}
-	
+
+	/**
+	 * Returns the amount of free memory for the selected interval.
+	 * @param intervalName the target interval name.
+	 * @return
+	 */
 	public long getFree(String intervalName){
 		return getCommited(intervalName) - getUsed(intervalName);
 	}
 
+	/**
+	 * Sets new initial memory amount.
+	 * @param value the memory amount.
+	 */
 	public void setInit(long value){
 		init.setValueAsLong(value);
 	}
-	
+	/**
+	 * Sets new max memory amount.
+	 * @param value the memory amount.
+	 */
 	public void setMax(long value){
 		init.setValueAsLong(value);
 	}
 
+	/**
+	 * Sets new used memory amount.
+	 * @param value the memory amount.
+	 */
 	public void setUsed(long value){
 		used.setValueAsLong(value);
 		minUsed.setValueIfLesserThanCurrentAsLong(value);
 		maxUsed.setValueIfGreaterThanCurrentAsLong(value);
 	}
-	
+
+	/**
+	 * Sets new commited memory amount.
+	 * @param value the memory amount.
+	 */
 	public void setCommited(long value){
 		commited.setValueAsLong(value);
 		minCommited.setValueIfLesserThanCurrentAsLong(value);
