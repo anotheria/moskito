@@ -3,6 +3,7 @@ package net.anotheria.moskito.core.accumulation;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 
 public class AccumulatorTest {
@@ -29,6 +30,9 @@ public class AccumulatorTest {
 		//adding next one should rotate back to 200
 		acc.addValue("abc");
 		assertEquals(limit, acc.getValues().size());
+
+		//check that toString method works.
+		assertNotNull(acc.toString());
 		
 		//System.out.println(acc.getValues().get(0));
 		//System.out.println(acc.getValues().get(200-1));
