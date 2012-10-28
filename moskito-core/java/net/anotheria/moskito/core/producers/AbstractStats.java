@@ -36,12 +36,9 @@ package net.anotheria.moskito.core.producers;
 
 import net.anotheria.moskito.core.stats.TimeUnit;
 
-import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * This abstract class is the super class of all statistical value sets.
@@ -95,44 +92,6 @@ public abstract class AbstractStats implements IStats, StatsMXBean{
 		return toStatsString(null, timeUnit);
 	}
 
-
-	/**
-	 * To create snapshots IStats implementation must use getters with primitive return types for its properties.
-	 * In order to create a snapshot this implementation walks through all stats properties.
-	 * The stats properties are identified by corresponding convenience getter method that returns one of:
-	 * int, long, double
-	 * 
-	 */
-	public IStatsSnapshot createSnapshot(String aIntervalName, String producerId){
-		
-		Map<String, Number> snapshotProperties = new HashMap<String, Number>();
-		Method[] methods = this.getClass().getMethods();
-		try {
-			for (Method getter : methods) {
-				Class<?> returnType = getter.getReturnType();
-				if (getter.getName().startsWith("get")
-						&& (returnType.isAssignableFrom(int.class) || returnType.isAssignableFrom(long.class) || returnType.isAssignableFrom(double.class))) {
-                    if (getter.getParameterTypes().length == 0) {
-                        snapshotProperties.put(getter.getName().substring(3), (Number) getter.invoke(this, (Object[]) null));
-                    } else if (getter.getParameterTypes().length == 1 && getter.getParameterTypes()[0].equals(String.class)) {
-                        Object[] params = new Object[1];
-                        params[0] = aIntervalName;
-                        snapshotProperties.put(getter.getName().substring(3), (Number) getter.invoke(this, params));
-                    }
-				}
-			}
-		} catch (Exception e) {
-			throw new RuntimeException("To create snapshots IStats implementation must use getters with primitive return types for its properties");
-		}
-		
-		DefaultStatsSnapshot snapshot = new DefaultStatsSnapshot();
-		snapshot.setProperties(snapshotProperties);
-		snapshot.setName(getName());
-        snapshot.setInterfaceName(getClass().getSimpleName());
-        snapshot.setProducerId(producerId);
-        return snapshot;
-	}
-	
 	/**
 	 * Not supported by default. 
 	 */
