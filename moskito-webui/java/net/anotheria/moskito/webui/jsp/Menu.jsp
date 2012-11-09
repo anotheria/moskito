@@ -98,7 +98,7 @@
 						</div>
 						<div class="over_color"><div><!-- --></div></div>
                     </li>
-                    <li class="main_menu_threads <ano:equal name="currentNaviItem" value="MORE">active</ano:equal>">
+                    <%--<li class="main_menu_threads <ano:equal name="currentNaviItem" value="MORE">active</ano:equal>">
                         <a href="mskMore">More</a>
                         <div class="sub_menu">
                             <ul>
@@ -115,7 +115,7 @@
                             </ul>
                         </div>
                         <div class="over_color"><div><!-- --></div></div>
-                    </li>
+                    </li>--%>
 
                 </ul>
 				<div class="right"></div>
