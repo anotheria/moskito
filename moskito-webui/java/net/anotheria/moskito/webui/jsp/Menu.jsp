@@ -98,8 +98,26 @@
 						</div>
 						<div class="over_color"><div><!-- --></div></div>
                     </li>
-					
-				</ul>
+                    <li class="main_menu_threads <ano:equal name="currentNaviItem" value="MORE">active</ano:equal>">
+                        <a href="mskMore">More</a>
+                        <div class="sub_menu">
+                            <ul>
+                                <li class="separator">
+                                    <a href="mskConfig">Config</a>
+                                </li>
+                                <li class="separator">
+                                    <a href="mskLibs">Libs</a>
+                                </li>
+                                <li>
+                                    <a href="mskUpdate">Update</a>
+                                </li>
+                                <div class="clear"><!-- --></div>
+                            </ul>
+                        </div>
+                        <div class="over_color"><div><!-- --></div></div>
+                    </li>
+
+                </ul>
 				<div class="right"></div>
 				<jsp:include page="ExportMenu.jsp" flush="false" />
                 <jsp:include page="AutoreloadMenu.jsp" flush="false" />

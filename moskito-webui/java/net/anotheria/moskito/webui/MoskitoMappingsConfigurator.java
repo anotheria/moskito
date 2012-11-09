@@ -16,12 +16,13 @@ import net.anotheria.moskito.webui.action.ShowJourneysAction;
 import net.anotheria.moskito.webui.action.ShowProducerAction;
 import net.anotheria.moskito.webui.action.ShowProducersForCategoryAction;
 import net.anotheria.moskito.webui.action.ShowProducersForSubsystemAction;
-import net.anotheria.moskito.webui.action.ShowRecordedUseCaseAction;
-import net.anotheria.moskito.webui.action.ShowUseCasesAction;
 import net.anotheria.moskito.webui.action.accumulators.CreateAccumulatorAction;
 import net.anotheria.moskito.webui.action.accumulators.DeleteAccumulatorAction;
 import net.anotheria.moskito.webui.action.accumulators.ShowAccumulatorAction;
 import net.anotheria.moskito.webui.action.accumulators.ShowAccumulatorsAction;
+import net.anotheria.moskito.webui.action.additional.AdditionalSectionAction;
+import net.anotheria.moskito.webui.action.additional.ShowConfigAction;
+import net.anotheria.moskito.webui.action.additional.ShowLibsAction;
 import net.anotheria.moskito.webui.action.charts.GetChartDataAction;
 import net.anotheria.moskito.webui.action.charts.GetChartMetaDataAction;
 import net.anotheria.moskito.webui.action.charts.ShowChartsAction;
@@ -114,12 +115,12 @@ public class MoskitoMappingsConfigurator implements ActionMappingsConfigurator{
 				new ActionForward("success", "/net/anotheria/moskito/webui/jsp/Explanations.jsp")
 		);
 
-		mappings.addMapping("mskShowUseCases", ShowUseCasesAction.class, 
-				new ActionForward("success", "/net/anotheria/moskito/webui/jsp/UseCases.jsp")
-		);
-		mappings.addMapping("mskShowRecordedUseCase", ShowRecordedUseCaseAction.class, 
-				new ActionForward("success", "/net/anotheria/moskito/webui/jsp/RecordedUseCase.jsp")
-		);
+//		mappings.addMapping("mskShowUseCases", ShowUseCasesAction.class,
+//				new ActionForward("success", "/net/anotheria/moskito/webui/jsp/UseCases.jsp")
+//		);
+//		mappings.addMapping("mskShowRecordedUseCase", ShowRecordedUseCaseAction.class,
+//				new ActionForward("success", "/net/anotheria/moskito/webui/jsp/RecordedUseCase.jsp")
+//		);
 		mappings.addMapping("mskShowJourneys", ShowJourneysAction.class, 
 				new ActionForward("success", "/net/anotheria/moskito/webui/jsp/Journeys.jsp")
 		);
@@ -224,6 +225,17 @@ public class MoskitoMappingsConfigurator implements ActionMappingsConfigurator{
 				new ActionForward("success", "/net/anotheria/moskito/webui/jsp/ThreadsHistory.jsp"));
 		mappings.addMapping("mskThreadsHistoryOn", HistoryOnAction.class,
 				new ActionForward("success", "/net/anotheria/moskito/webui/jsp/ThreadsHistory.jsp"));
+
+		//additional information section
+		mappings.addMapping("mskMore", AdditionalSectionAction.class,
+				new ActionForward("success", "/net/anotheria/moskito/webui/jsp/AdditionalItems.jsp")
+		);
+		mappings.addMapping("mskConfig", ShowConfigAction.class,
+			new ActionForward("success", "/net/anotheria/moskito/webui/jsp/ConfigView.jsp")
+		);
+		mappings.addMapping("mskLibs", ShowLibsAction.class,
+				new ActionForward("success", "/net/anotheria/moskito/webui/jsp/ConfigView.jsp")
+		);
 
 		//errors
 		mappings.setOnError(new ActionForward("error", "/net/anotheria/moskito/webui/jsp/Error.jsp"));

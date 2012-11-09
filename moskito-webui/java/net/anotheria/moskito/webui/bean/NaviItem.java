@@ -18,11 +18,7 @@ public enum NaviItem {
 	 */
 	PRODUCERS("Producers"),
 	/**
-	 * Use-cases navi items.
-	 */
-	USECASES("Use Cases"),
-	/**
-	 * Monitoring sessions navi item.
+	 * Monitoring journeys navi item.
 	 */
 	JOURNEYS("Journeys"),
 	/**
@@ -44,7 +40,12 @@ public enum NaviItem {
 	/**
 	 * Navigation item for threads.
 	 */
-	THREADS("Threads");
+	THREADS("Threads"),
+	/**
+	 * Collections for additional items
+	 */
+	MORE("More")
+	;
 	
 	
 	/**
@@ -60,6 +61,7 @@ public enum NaviItem {
 		menu.add(CHARTS);
 		menu.add(ACCUMULATORS);
 		menu.add(THREADS);
+		menu.add(MORE);
 		//menu.add(USECASES);
 	}
 	/**
