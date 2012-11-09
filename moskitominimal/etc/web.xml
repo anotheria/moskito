@@ -9,7 +9,7 @@
 	<!--  Adding filter to moskito ui which redirects requests to /mui/* to moskito user interface -->	
    	<filter>
         <filter-name>MoskitoUIFilter</filter-name>
-       	<filter-class>net.java.dev.moskito.webui.MoskitoUIFilter</filter-class>
+       	<filter-class>net.anotheria.moskito.webui.MoskitoUIFilter</filter-class>
 		<init-param>
 			<param-name>path</param-name>
 			<param-value>/mui/</param-value>
@@ -24,16 +24,16 @@
 
 	<filter>
         <filter-name>MoskitoCommandFilter</filter-name>
-        <filter-class>net.java.dev.moskito.web.filters.MoskitoCommandFilter</filter-class>
+        <filter-class>net.anotheria.moskito.web.filters.MoskitoCommandFilter</filter-class>
     </filter>
 	<filter>
         <filter-name>JourneyFilter</filter-name>
-        <filter-class>net.java.dev.moskito.web.filters.JourneyFilter</filter-class>
+        <filter-class>net.anotheria.moskito.web.filters.JourneyFilter</filter-class>
     </filter>
 
 	<filter>
         <filter-name>DomainFilter</filter-name>
-        <filter-class>net.java.dev.moskito.web.filters.DomainFilter</filter-class>
+        <filter-class>net.anotheria.moskito.web.filters.DomainFilter</filter-class>
 		<init-param>
 			<param-name>limit</param-name>
 			<param-value>50</param-value>
@@ -42,7 +42,7 @@
 
 	<filter>
         <filter-name>UserAgentFilter</filter-name>
-        <filter-class>net.java.dev.moskito.web.filters.UserAgentFilter</filter-class>
+        <filter-class>net.anotheria.moskito.web.filters.UserAgentFilter</filter-class>
 		<init-param>
 			<param-name>limit</param-name>
 			<param-value>100</param-value>
@@ -51,7 +51,7 @@
 
 	<filter>
         <filter-name>RefererFilter</filter-name>
-        <filter-class>net.java.dev.moskito.web.filters.RefererFilter</filter-class>
+        <filter-class>net.anotheria.moskito.web.filters.RefererFilter</filter-class>
 		<init-param>
 			<param-name>limit</param-name>
 			<param-value>100</param-value>
@@ -60,7 +60,7 @@
 
 	<filter>
         <filter-name>RequestURIFilter</filter-name>
-        <filter-class>net.java.dev.moskito.web.filters.RequestURIFilter</filter-class>
+        <filter-class>net.anotheria.moskito.web.filters.RequestURIFilter</filter-class>
 		<init-param>
 			<param-name>limit</param-name>
 			<param-value>100</param-value>
@@ -109,22 +109,22 @@
 
     <listener>
 		<listener-class>
-			net.java.dev.moskito.webui.util.StartStopListener
+			net.anotheria.moskito.webui.util.StartStopListener
 		</listener-class>
 	</listener>
     <listener>
 		<listener-class>
-			net.java.dev.moskito.web.session.SessionCountProducer
+			net.anotheria.moskito.web.session.SessionCountProducer
 		</listener-class>
     </listener>
     <listener>
 		<listener-class>
-            net.java.dev.listener.moskitominimal.listeners.SetupThresholds
+            net.anotheria.moskitominimal.listeners.SetupThresholds
         </listener-class>
     </listener>
     <listener>
 		<listener-class>
-			net.java.dev.moskito.webui.util.SetupPreconfiguredAccumulators
+			net.anotheria.moskito.webui.util.SetupPreconfiguredAccumulators
 		</listener-class>
 	</listener>
   		
