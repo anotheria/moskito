@@ -3,7 +3,7 @@
   <parent>
 	<groupId>net.anotheria</groupId>
 	<artifactId>parent</artifactId>
-	<version>1.16</version>
+	<version>2.0</version>
   </parent>
 
   <modelVersion>4.0.0</modelVersion>
@@ -35,17 +35,17 @@
             <dependency>
                 <groupId>net.anotheria</groupId>
                 <artifactId>configureme</artifactId>
-                <version>1.1.5</version>
+                <version>2.0.0</version>
             </dependency>
             <dependency>
                 <groupId>net.anotheria</groupId>
                 <artifactId>ano-util</artifactId>
-                <version>1.0.14</version>
+                <version>2.0.0</version>
             </dependency>
             <dependency>
                 <groupId>net.anotheria</groupId>
                 <artifactId>ano-comm</artifactId>
-                <version>1.0.3</version>
+                <version>2.0.0</version>
             </dependency>
             <dependency>
                 <groupId>net.anotheria</groupId>
@@ -55,7 +55,7 @@
             <dependency>
                 <groupId>net.anotheria</groupId>
                 <artifactId>ano-plass</artifactId>
-                <version>1.0.10</version>
+                <version>2.0.0</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
