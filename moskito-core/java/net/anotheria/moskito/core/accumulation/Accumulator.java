@@ -28,6 +28,10 @@ public class Accumulator extends AbstractTieable<AccumulatorDefinition> implemen
 	 */
 	private IStats stats;
 
+	/**
+	 * Creates a new Accumulator.
+	 * @param aDefinition - accumulator definition.
+	 */
 	public Accumulator(AccumulatorDefinition aDefinition){
 		super(aDefinition);
 		values = new ArrayList<AccumulatedValue>(aDefinition.getMaxAmountOfAccumulatedItems());

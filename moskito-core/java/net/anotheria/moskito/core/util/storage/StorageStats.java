@@ -66,17 +66,32 @@ public class StorageStats extends AbstractStats {
 	 * Number of calls of the containsValue method which returned true.
 	 */
 	private StatValue containsValueHits;
-	
+
+	/**
+	 * Name of this storage.
+	 */
 	private String name;
-	
+
+	/**
+	 * Creates a new storage stats object without a name and with support for default intervals.
+	 */
 	public StorageStats(){
 		this("unnamed", Constants.getDefaultIntervals());
-	} 
-	
+	}
+
+	/**
+	 * Creates a new storage stats object with the given name and with support for default intervals.
+	 * @param name
+	 */
 	public StorageStats(String name){
 		this(name, Constants.getDefaultIntervals());
-	} 
+	}
 
+	/**
+	 * Creates a new storage stats object with the given name and intervals.
+	 * @param aName name of the storage.
+	 * @param selectedIntervals supported intervals.
+	 */
 	public StorageStats(String aName,  Interval[] selectedIntervals){
 		Long longPattern = Long.valueOf(0);
 		name = aName;
@@ -102,7 +117,7 @@ public class StorageStats extends AbstractStats {
 		return name;
 	}
 	
-	public String toStatsString(String intervalName, TimeUnit unit) {
+	@Override public String toStatsString(String intervalName, TimeUnit unit) {
 		StringBuilder b = new StringBuilder();
 		b.append(getName()).append(' ');
 		b.append(" G: ").append(gets.getValueAsLong(intervalName));
@@ -136,17 +151,27 @@ public class StorageStats extends AbstractStats {
 		return b.toString();
 	}
 
+	/**
+	 * Returns the ratio of remove operation that had no effect.
+	 * @param intervalName the name of the interval.
+	 * @return
+	 */
 	public double getNoopRemoveRatio(String intervalName){
 		return noopRemoves.getValueAsDouble(intervalName) / removes.getValueAsDouble(intervalName);
 	}
-	
+
+	/**
+	 * Returns the ratio of overwriting puts compared to all puts.
+	 * @param intervalName the name of the interval.
+	 * @return
+	 */
 	public double getOverwritePutRatio(String intervalName){
 		return overwritePuts.getValueAsDouble(intervalName) / puts.getValueAsDouble(intervalName);
 	}
 
 	public double getNewPutRatio(String intervalName){
-		long _puts = puts.getValueAsLong(intervalName);
-		return ((double)(_puts - overwritePuts.getValueAsLong(intervalName))) / _puts;
+		long putsAsLong = puts.getValueAsLong(intervalName);
+		return ((double)(putsAsLong - overwritePuts.getValueAsLong(intervalName))) / putsAsLong;
 	}
 
 	public double getMissedGetRatio(String intervalName){
@@ -154,8 +179,8 @@ public class StorageStats extends AbstractStats {
 	}
 	
 	public double getHitGetRatio(String intervalName){
-		long _gets = gets.getValueAsLong(intervalName);
-		return ((double)(_gets - missedGets.getValueAsLong(intervalName)))/_gets;
+		long getAsLong = gets.getValueAsLong(intervalName);
+		return ((double)(getAsLong - missedGets.getValueAsLong(intervalName)))/getAsLong;
 	}
 
 	public double getContainsKeyHitRatio(String intervalName){
