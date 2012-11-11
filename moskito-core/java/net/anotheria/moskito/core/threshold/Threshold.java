@@ -46,11 +46,7 @@ public class Threshold extends AbstractTieable<ThresholdDefinition> implements T
 	 * Timestamp of the last change.
 	 */
 	private long statusChangeTimestamp;
-	/**
-	 * Instance number of the current instance.
-	 */
-	private int instanceNumber;
-	
+
 	public Threshold(ThresholdDefinition aDefinition){
 		super(aDefinition);
 		status = ThresholdStatus.OFF;

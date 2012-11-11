@@ -4,7 +4,6 @@ import net.anotheria.moskito.core.predefined.RuntimeStats;
 import net.anotheria.moskito.core.producers.IStats;
 import net.anotheria.moskito.core.producers.IStatsProducer;
 import net.anotheria.moskito.core.registry.ProducerRegistryFactory;
-import org.apache.log4j.Logger;
 
 import java.lang.management.ManagementFactory;
 import java.lang.management.RuntimeMXBean;
@@ -13,7 +12,7 @@ import java.util.List;
 import java.util.TimerTask;
 
 /**
- * Builtin producer for values supplied by jmx for the operation system.
+ * Builtin producer for values supplied by jmx for the runtime.
  * @author lrosenberg
  */
 public class BuiltInRuntimeProducer extends AbstractBuiltInProducer  implements IStatsProducer, BuiltInProducer{
@@ -30,9 +29,7 @@ public class BuiltInRuntimeProducer extends AbstractBuiltInProducer  implements 
 	 * The monitored pool.
 	 */
 	private RuntimeMXBean mxBean;
-	
-	private static Logger log = Logger.getLogger(BuiltInRuntimeProducer.class);
-	
+
 	public BuiltInRuntimeProducer(){
 		mxBean = ManagementFactory.getRuntimeMXBean();
 		statsList = new ArrayList<IStats>(1);
