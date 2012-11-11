@@ -132,15 +132,27 @@ public class QueueStats extends AbstractStats {
 	 */
 	private String name;
 
+	/**
+	 * Creates a new unnamed queue stats object.
+	 */
 	public QueueStats(){
 		this("unnamed", Constants.getDefaultIntervals());
 	}
-	
+
+	/**
+	 * Creates a new queue stats object.
+	 * @param name name of the queue stats object.
+	 */
 	public QueueStats(String name){
 		this(name, Constants.getDefaultIntervals());
-	} 
-	
-	
+	}
+
+
+	/**
+	 * Creates a new queue stats object.
+	 * @param aName
+	 * @param selectedIntervals
+	 */
 	public QueueStats(String aName,  Interval[] selectedIntervals){
 		Long longPattern = Long.valueOf(0);
 		name = aName;
