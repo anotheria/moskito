@@ -41,13 +41,37 @@ public class QueuingSystemStats extends AbstractStats {
 		 * Number of thrown away elements.
 		 */
 		THROWN_AWAY("Thr"),
+		/**
+		 * Time spent by item waiting for service.
+		 */
 		WAITING_TIME("WT"),
+		/**
+		 * Min time spent by an item waiting for service.
+		 */
 		WAITING_TIME_MIN("WTm"),
+		/**
+		 * Max time spent by an item waiting for service.
+		 */
 		WAITING_TIME_MAX("WTM"),
+		/**
+		 * Average time spent by an item waiting for service.
+		 */
 		WAITING_TIME_AVG("WTA"),
+		/**
+		 * Time spent by the item in servicing.
+		 */
 		SERVICE_TIME("ST"),
+		/**
+		 * Min time spent by the item in servicing.
+		 */
 		SERVICE_TIME_MIN("STm"),
+		/**
+		 * Max  time spent by the item in servicing.
+		 */
 		SERVICE_TIME_MAX("STM"),
+		/**
+		 * Average time spent in service
+		 */
 		SERVICE_TIME_AVG("STA");
 
 		/**
@@ -83,20 +107,59 @@ public class QueuingSystemStats extends AbstractStats {
 	 * Max size value.
 	 */
 	public static final long MAX_SIZE_DEFAULT = 0L;
-	
-	
+
+
+	/**
+	 * Number of processors that process queue elements.
+	 */
 	private StatValue serversSize;
+	/**
+	 * Size of the queue.
+	 */
 	private StatValue queueSize;
+	/**
+	 * Number of arrived elements.
+	 */
 	private StatValue arrived;
+	/**
+	 * Number of served elements.
+	 */
 	private StatValue serviced;
+	/**
+	 * Number of serving errors.
+	 */
 	private StatValue errors;
-	private StatValue waited; 
+	/**
+	 * Number of waited elements.
+	 */
+	private StatValue waited;
+	/**
+	 * Number of throwed away elements due to overflow.
+	 */
 	private StatValue throwedAway;
+	/**
+	 * Time spent in the queue before processing started.
+	 */
 	private StatValue waitingTime;
+	/**
+	 * Min time spent in the queue before processing started.
+	 */
 	private StatValue waitingTimeMin;
+	/**
+	 * Max time spent in the queue before processing started.
+	 */
 	private StatValue waitingTimeMax;
+	/**
+	 * Time spent in servicing the request.
+	 */
 	private StatValue servicingTime;
+	/**
+	 * Min time spent in servicing the request.
+	 */
 	private StatValue servicingTimeMin;
+	/**
+	 * Max time spent in servicing the request.
+	 */
 	private StatValue servicingTimeMax;
 
 	
@@ -267,7 +330,7 @@ public class QueuingSystemStats extends AbstractStats {
 		return "" + timeUnit.transformNanos(maxTime);
 	}
 	
-	private String transformAveraeTimeNanos(long maxTime, TimeUnit timeUnit){
+	private String transformAverageTimeNanos(long maxTime, TimeUnit timeUnit){
 		if (maxTime == Constants.AVERAGE_TIME_DEFAULT)
 			return "NoR";
 			
@@ -288,11 +351,11 @@ public class QueuingSystemStats extends AbstractStats {
 		b.append(StatDef.WAITING_TIME.getStatLabel()).append(timeUnit.transformNanos(getWaitingTime(intervalName)));
 		b.append(StatDef.WAITING_TIME_MIN.getStatLabel()).append(transformMinTimeNanos(getWaitingTimeMin(intervalName), timeUnit));
 		b.append(StatDef.WAITING_TIME_MAX.getStatLabel()).append(transformMaxTimeNanos(getWaitingTimeMax(intervalName),timeUnit));
-		b.append(StatDef.WAITING_TIME_AVG.getStatLabel()).append(transformAveraeTimeNanos(getWaitingTimeAverage(intervalName), timeUnit));
+		b.append(StatDef.WAITING_TIME_AVG.getStatLabel()).append(transformAverageTimeNanos(getWaitingTimeAverage(intervalName), timeUnit));
 		b.append(StatDef.SERVICE_TIME.getStatLabel()).append(timeUnit.transformNanos(getServicingTime(intervalName)));
 		b.append(StatDef.SERVICE_TIME_MIN.getStatLabel()).append(transformMinTimeNanos(getServicingTimeMin(intervalName), timeUnit));
 		b.append(StatDef.SERVICE_TIME_MAX.getStatLabel()).append(transformMaxTimeNanos(getServicingTimeMax(intervalName),timeUnit));
-		b.append(StatDef.SERVICE_TIME_AVG.getStatLabel()).append(transformAveraeTimeNanos(getServicingTimeAverage(intervalName), timeUnit));
+		b.append(StatDef.SERVICE_TIME_AVG.getStatLabel()).append(transformAverageTimeNanos(getServicingTimeAverage(intervalName), timeUnit));
 
 		return b.toString();
 	}
@@ -333,7 +396,7 @@ public class QueuingSystemStats extends AbstractStats {
 			return transformMaxTimeNanos(getWaitingTimeMax(intervalName), timeUnit);
 		
 		if (valueName.equals(StatDef.WAITING_TIME_AVG.getStatName()))
-			return transformAveraeTimeNanos(getWaitingTimeAverage(intervalName), timeUnit);
+			return transformAverageTimeNanos(getWaitingTimeAverage(intervalName), timeUnit);
 		
 		if (valueName.equals(StatDef.SERVICE_TIME.getStatName()))
 			return ""+timeUnit.transformNanos(getServicingTime(intervalName));
@@ -345,7 +408,7 @@ public class QueuingSystemStats extends AbstractStats {
 			return transformMaxTimeNanos(getServicingTimeMax(intervalName), timeUnit);
 		
 		if (valueName.equals(StatDef.SERVICE_TIME_AVG.getStatName()))
-			return transformAveraeTimeNanos(getServicingTimeAverage(intervalName), timeUnit);
+			return transformAverageTimeNanos(getServicingTimeAverage(intervalName), timeUnit);
 		
 		return super.getValueByNameAsString(valueName, intervalName, timeUnit);
 	}
