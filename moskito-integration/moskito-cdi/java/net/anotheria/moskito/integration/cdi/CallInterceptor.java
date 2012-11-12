@@ -1,4 +1,4 @@
-package net.java.dev.moskito.integration.cdi;
+package net.anotheria.moskito.integration.cdi;
 
 import net.anotheria.moskito.core.calltrace.CurrentlyTracedCall;
 import net.anotheria.moskito.core.calltrace.RunningTraceContainer;
