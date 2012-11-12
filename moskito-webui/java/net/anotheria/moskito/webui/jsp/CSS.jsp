@@ -311,18 +311,22 @@ h2 a.hidden {background:url("<ano:write name="mskPathToImages" scope="applicatio
 
 .zoom {
 	background: url("<ano:write name="mskPathToImages" scope="application"/>zoom_in_icon_12x12.png") 0 1px no-repeat;
-	padding-left: 16px;
+    display: inline-block;
+    height: 14px;
+    width: 16px;
 }
 .zoom:hover {
 	background: url("<ano:write name="mskPathToImages" scope="application"/>zoom_in_icon_12x12_hovered.png") 0 2px no-repeat;
 }
 
 .del {
-	background: url("<ano:write name="mskPathToImages" scope="application"/>delete_icon_12x12.png") 0 1px no-repeat;
-	padding-left: 16px;
+	background: url("<ano:write name="mskPathToImages" scope="application"/>delete_icon_12x12.png") 0 0 no-repeat;
+    display: inline-block;
+    height: 13px;
+    width: 16px;
 }
 .del:hover {
-	background: url("<ano:write name="mskPathToImages" scope="application"/>delete_icon_12x12_hovered.png") 0 2px no-repeat;
+	background: url("<ano:write name="mskPathToImages" scope="application"/>delete_icon_12x12_hovered.png") 0 1px no-repeat;
 }
 
 
