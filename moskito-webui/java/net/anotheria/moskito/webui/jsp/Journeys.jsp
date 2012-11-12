@@ -41,8 +41,8 @@
 			<div>
 				<span>To record a new journey add <code>mskJourney=start&mskJourneyName=JOURNEY_NAME</code> to any url on this server.</span><br/><br/>
 				<span>To stop journey recording add <code>mskJourney=stop&mskJourneyName=JOURNEY_NAME</code> to any url on this server.</span><br/><br/>
-                <form name="NEWJOURNEY"><span>To start a new journey <b>now</b> enter the name for the journey <input type="text" name="name" size="10"> and <input type="button" value="click here" onclick="new_journey(document.NEWJOURNEY.name.value); return false"/></form><br/><br/>
-                <form name="STOPJOURNEY"><span>If you want to stop a journey <input type="text" name="name" size="10"> and <input type="button" value="click here" onclick="stop_journey(document.STOPJOURNEY.name.value); return false"/></form><br/><br/>
+                <form name="NEWJOURNEY" action=""><span>To start a new journey <b>now</b> enter the name for the journey <input type="text" name="name" size="10"> and <input type="button" value="click here" onclick="new_journey(document.NEWJOURNEY.name.value); return false"/></span></form><br/><br/>
+                <%--<form name="STOPJOURNEY"><span>If you want to stop a journey <input type="text" name="name" size="10"> and <input type="button" value="click here" onclick="stop_journey(document.STOPJOURNEY.name.value); return false"/></form><br/><br/>--%>
             </div>
 		</div>
 		<div class="bot"><div><!-- --></div></div>
@@ -74,11 +74,13 @@
 						<tbody>
 							<ano:iterate name="journeys" type="net.anotheria.moskito.webui.bean.JourneyListItemBean" id="journey" indexId="index">
 								<tr class="<%= ((index & 1) == 0 )? "even" : "odd" %>">
-									<td><a href="mskShowJourney?pJourneyName=<ano:write name="journey" property="name"/>"><ano:write name="journey" property="name"/></td>
+									<td><a href="mskShowJourney?pJourneyName=<ano:write name="journey" property="name"/>"><ano:write name="journey" property="name"/></a></td>
 									<td><ano:write name="journey" property="created"/></td>
 									<td><ano:write name="journey" property="lastActivity"/></td>
 									<td><ano:write name="journey" property="numberOfCalls"/></td>
-									<td><ano:write name="journey" property="active"/></td>
+									<td><ano:write name="journey" property="active"/>
+                                        <ano:equal name="journey" property="active" value="true">&nbsp;(<a href="#" onclick="stop_journey('<ano:write name="journey" property="name"/>')">stop</a>)</ano:equal>
+									</td>
 									<td><a title="analyze this journey" href="mskAnalyzeJourney?pJourneyName=<ano:write name="journey" property="name"/>" class="zoom"></a></td>
 								</tr>
 							</ano:iterate>

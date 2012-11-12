@@ -9,6 +9,7 @@ import net.anotheria.moskito.core.journey.NoSuchJourneyException;
 import net.anotheria.moskito.webui.bean.JourneyListItemBean;
 import net.anotheria.moskito.webui.bean.TracedCallListItemBean;
 import net.anotheria.util.NumberUtils;
+import org.apache.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -21,11 +22,17 @@ import java.util.List;
  *
  */
 public class ShowJourneyAction extends BaseJourneyAction{
-	
+
+	/**
+	 * Logger.
+	 */
+	private static Logger log = Logger.getLogger(ShowJourneyAction.class);
+
 	@Override
 	protected String getLinkToCurrentPage(HttpServletRequest req) {
 		return "";
 	}
+
 
 	@Override
 	public ActionCommand execute(ActionMapping mapping, FormBean formBean, HttpServletRequest req, HttpServletResponse res){
@@ -51,6 +58,11 @@ public class ShowJourneyAction extends BaseJourneyAction{
 		List<TracedCallListItemBean> beans = new ArrayList<TracedCallListItemBean>(recorded.size());
 		for (int i=0; i<recorded.size(); i++){
 			CurrentlyTracedCall tracedCall = recorded.get(i);
+			if(tracedCall == null){
+				//this is a WTF, how could a null get added here in first place.
+				log.warn("Unexpected null as tracedCall at position " + i);
+				continue;
+			}
 			TracedCallListItemBean b = new TracedCallListItemBean();
 			b.setName(tracedCall.getName());
 			b.setDate(NumberUtils.makeISO8601TimestampString(tracedCall.getCreated()));

@@ -21,7 +21,7 @@
 	</ul>
 	<div class="clear"><!-- --></div>
 		
-	<h1><span><msk:write name="journey" property="name"/></h1>
+	<h1><span><msk:write name="journey" property="name"/></span></h1>
 	
 	<div class="clear"><!-- --></div>
 	<div class="additional">
@@ -77,6 +77,7 @@
 					<div class="right"><!-- --></div>
 				</div>
 			</div>
+        </div>
    </div>
 </div>	
 </body>

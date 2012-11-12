@@ -269,7 +269,7 @@
 						<ano:iterate name="alerts" type="net.anotheria.moskito.webui.bean.ThresholdAlertBean" id="alert" indexId="index">
 							<tr class="<%= ((index & 1) == 0 )? "even" : "odd" %>">
 								<td><ano:write name="alert" property="timestamp"/></td>
-								<td><a href=""><ano:write name="alert" property="name"/></a></td>
+								<td><a href="#" onclick="openOverlay(info<ano:write name="alert" property="id"/>); return false"><ano:write name="alert" property="name"/></a></td>
 								<td>
 									<img src="<ano:write name="mskPathToImages" scope="application"/>ind_<ano:write name="alert" property="oldColorCode"/>.png" alt="<ano:write name="alert" property="oldStatus"/>"/>
 										&nbsp;<img src="<ano:write name="mskPathToImages" scope="application"/>ind_arrow.png" alt="-->"/>&nbsp;
