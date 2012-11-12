@@ -17,7 +17,7 @@ import java.util.Date;
  *
  */
 @DistributeMe(
-		initcode={"MetaFactory.addFactoryClass(net.java.dev.moskito.central.StatStorage.class, Extension.LOCAL, net.java.dev.moskito.central.storages.RemoteStorageFactory.class);"}
+		initcode={"MetaFactory.addFactoryClass(net.anotheria.moskito.central.StatStorage.class, Extension.LOCAL, net.anotheria.moskito.central.storages.RemoteStorageFactory.class);"}
 )
 public interface StatStorage extends Service {
 	

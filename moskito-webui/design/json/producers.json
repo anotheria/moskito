@@ -24,7 +24,7 @@
 			"statNames": ["cumulated","_this_server_"]
 		},
 		{
-			"id": "net.java.dev.moskitodemo.servlet.SimpleServlet",
+			"id": "net.anotheria.moskitodemo.servlet.SimpleServlet",
 			"type": "",
 			"statNames": []
 		},

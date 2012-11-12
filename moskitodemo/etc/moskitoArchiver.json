@@ -1,7 +1,7 @@
 {
-className: "net.java.dev.moskito.central.storages.AssynchroneousConnector",
+className: "net.anotheria.moskito.central.storages.AssynchroneousConnector",
 archiversConstructorMoreParams: "",
 archiverIntervals: ["5m","15m","1h","12h","1d"],
-storageClassName: "net.java.dev.moskito.central.storages.LocalProxyStorage",
+storageClassName: "net.anotheria.moskito.central.storages.LocalProxyStorage",
 storageParams: "",
 }

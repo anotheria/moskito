@@ -76,7 +76,7 @@
     	</layout>
   	</appender>
 
-  	<logger name="net.java.dev.moskito.webcontrol" additivity="false">
+  	<logger name="net.anotheria.moskito.webcontrol" additivity="false">
 		<level value="DEBUG"/>
 		<appender-ref ref="DebugAppender"/>
 		<appender-ref ref="InfoAppender"/>

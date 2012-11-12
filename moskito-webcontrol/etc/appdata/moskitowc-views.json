@@ -7,7 +7,7 @@
 		type: "field",
 		class : "int",
 		visible: true,
-		guard: "net.java.dev.moskito.webcontrol.guards.TrafficLightsGuard",
+		guard: "net.anotheria.moskito.webcontrol.guards.TrafficLightsGuard",
 		guardRules: "..400,400..500,500..",
 		format: "#,##0.0#",
 		total: "SUM"
@@ -22,7 +22,7 @@
 					class : "int",
 					visible: true,
 					path: "/producers/decorator[@name='Filter']/producer[@id='*']/values/value[@name='Req']/text()",
-					guard: "net.java.dev.moskito.webcontrol.guards.TrafficLightsGuard",
+					guard: "net.anotheria.moskito.webcontrol.guards.TrafficLightsGuard",
 					guardRules: "..4000,4000..5000,5000..",
 					format: "#,##0.0#",
 					total: "SUM"
@@ -34,7 +34,7 @@
 		          	class : "int",
 		          	visible: true,
 		          	path: "/producers/decorator[@name='Filter']/producer[@id='*']/values/value[@name='Time']/text()",
-		          	guard: "net.java.dev.moskito.webcontrol.guards.TrafficLightsGuard",
+		          	guard: "net.anotheria.moskito.webcontrol.guards.TrafficLightsGuard",
 					guardRules: "..1000000,1000000..2000000,2000000..",
 					format: "#,##0.0#",
 		          	total: "SUM"
@@ -46,7 +46,7 @@
 		          	class : "double",
 		          	visible: true,
 		          	path: "/producers/decorator[@name='Filter']/producer[@id='*']/values/value[@name='Avg']/text()",
-		          	guard: "net.java.dev.moskito.webcontrol.guards.TrafficLightsGuard",
+		          	guard: "net.anotheria.moskito.webcontrol.guards.TrafficLightsGuard",
 					guardRules: "..200,200..264,264..",
 					format: "#,##0.00",
 		          	total: "AVG"

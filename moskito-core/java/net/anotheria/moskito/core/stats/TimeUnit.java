@@ -61,7 +61,7 @@ public enum TimeUnit {
 				TimeUnit ret = TimeUnit.valueOf(str);
 				return ret;
 			}catch(IllegalArgumentException e2){
-				throw new IllegalArgumentException("No enum const class net.java.dev.moskito.core.stats.TimeUnit, tried "+orig+" and "+str);
+				throw new IllegalArgumentException("No enum const class net.anotheria.moskito.core.stats.TimeUnit, tried "+orig+" and "+str);
 			}
 		}
 	}

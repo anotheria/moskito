@@ -3,6 +3,6 @@
 	<Loader className="org.apache.catalina.loader.WebappLoader" 
 		delegate="false" 
 		reloadable="true"
-		loaderClass="net.java.dev.moskito.tomcat.MoskitoWebappClassLoader"
+		loaderClass="net.anotheria.moskito.tomcat.MoskitoWebappClassLoader"
 	/>
 </Context>
