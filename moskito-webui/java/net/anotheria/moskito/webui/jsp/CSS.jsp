@@ -224,7 +224,18 @@ h2 a.hidden {background:url("<ano:write name="mskPathToImages" scope="applicatio
 .login_block input {width:200px; margin-bottom:8px; font-size:12px;}
 .login_block .login_btn {width:auto; display:block; float:right; clear:both; margin:0; padding:0 5px;}
 .login_block h2 {margin:2px; font-size:15px;}
-.edit {float:right; margin:-2px 12px 0 0; font-size:12px; padding-left:15px; background:url("<ano:write name="mskPathToImages" scope="application"/>edit.png") 0 1px no-repeat; font-size:12px; line-height:14px;}
+
+.edit {
+    display: inline-block;
+    width: 16px;
+    height: 12px;
+    background:url("<ano:write name="mskPathToImages" scope="application"/>edit.png") 50% 1px no-repeat;
+}
+
+.edit:hover {
+    background-position: 50% 2px;
+}
+
 .edit.dash {float:left; margin:4px 12px 0 6px; font-size:12px; background-position:0 1px;}
 .widgets_left, .widgets_right {float:left; width:49.49%; min-height:200px;}
 .widgets_left .help, .widgets_right .help {padding-left:15px; background:url("<ano:write name="mskPathToImages" scope="application"/>close.png") 0 1px no-repeat; font-size:12px; line-height:14px;;}
@@ -303,7 +314,7 @@ h2 a.hidden {background:url("<ano:write name="mskPathToImages" scope="applicatio
 	padding-left: 16px;
 }
 .zoom:hover {
-	background: url("<ano:write name="mskPathToImages" scope="application"/>zoom_in_icon_12x12_hovered.png") 0 1px no-repeat;
+	background: url("<ano:write name="mskPathToImages" scope="application"/>zoom_in_icon_12x12_hovered.png") 0 2px no-repeat;
 }
 
 .del {
@@ -311,7 +322,7 @@ h2 a.hidden {background:url("<ano:write name="mskPathToImages" scope="applicatio
 	padding-left: 16px;
 }
 .del:hover {
-	background: url("<ano:write name="mskPathToImages" scope="application"/>delete_icon_12x12_hovered.png") 0 1px no-repeat;
+	background: url("<ano:write name="mskPathToImages" scope="application"/>delete_icon_12x12_hovered.png") 0 2px no-repeat;
 }
 
 
@@ -654,7 +665,7 @@ h2 a.hidden {background:url("<ano:write name="mskPathToImages" scope="applicatio
     border-color: #DDD #DADADA #C4C4C4;
 }
 
-.autoreload_toggle_triangle {
+.autoreload_off_indicator, .autoreload_on_indicator {
     background: url('<ano:write name="mskPathToImages" scope="application"/>ind_off_small.png') no-repeat 0 0;
     vertical-align: -12%;
     margin-top: -6px;
@@ -663,9 +674,13 @@ h2 a.hidden {background:url("<ano:write name="mskPathToImages" scope="applicatio
     width: 13px;
 }
 
+.autoreload_on_indicator {
+    background: url('<ano:write name="mskPathToImages" scope="application"/>ind_green_small.png') no-repeat 0 0;
+}
+
 .autoreload_toggle_triangle_right {
-    vertical-align: -39%;
-    background: url('<ano:write name="mskPathToImages" scope="application"/>arrow_black_right.png') no-repeat 50% 0;
+    vertical-align: -40%;
+    background: url('<ano:write name="mskPathToImages" scope="application"/>arrow_black_right.png') no-repeat 50% -60%;
 }
 
 .autoreload_current_interval {
