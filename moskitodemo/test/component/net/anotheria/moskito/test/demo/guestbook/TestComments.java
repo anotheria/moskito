@@ -32,7 +32,7 @@
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR
  * THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */	
-package net.java.dev.moskito.test.demo.guestbook;
+package net.anotheria.moskito.test.demo.guestbook;
 
 import net.anotheria.moskitodemo.guestbook.business.CommentServiceException;
 import net.anotheria.moskitodemo.guestbook.business.CommentServiceFactory;

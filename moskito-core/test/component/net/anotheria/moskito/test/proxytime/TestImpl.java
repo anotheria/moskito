@@ -1,4 +1,4 @@
-package net.java.dev.moskito.test.proxytime;
+package net.anotheria.moskito.test.proxytime;
 
 public class TestImpl implements Test{
 

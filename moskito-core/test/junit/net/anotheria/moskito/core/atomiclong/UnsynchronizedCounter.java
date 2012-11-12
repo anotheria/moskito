@@ -32,7 +32,7 @@
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR
  * THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */	
-package net.java.dev.moskito.test.plain.atomiclong;
+package net.anotheria.moskito.core.atomiclong;
 
 public class UnsynchronizedCounter implements Counter{
 	private long value;

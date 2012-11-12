@@ -1,4 +1,4 @@
-package net.java.dev.moskito.test.demo.guestbook;
+package net.anotheria.moskito.test.demo.guestbook;
 
 import net.anotheria.moskitodemo.guestbook.business.AntispamUtil;
 import net.anotheria.moskitodemo.guestbook.business.CommentServiceFactory;
