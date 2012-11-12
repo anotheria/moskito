@@ -9,6 +9,9 @@ import net.anotheria.moskito.core.stats.impl.StatValueFactory;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Stats for a QueuingSystem like the Enterpise Queue Processor in ano-prise.
+ */
 public class QueuingSystemStats extends AbstractStats {
 
 	/**
@@ -150,15 +153,15 @@ public class QueuingSystemStats extends AbstractStats {
 	 */
 	private StatValue waitingTimeMax;
 	/**
-	 * Time spent in servicing the request.
+	 * Time spent in servicing the requests.
 	 */
 	private StatValue servicingTime;
 	/**
-	 * Min time spent in servicing the request.
+	 * Min time spent in servicing the requests.
 	 */
 	private StatValue servicingTimeMin;
 	/**
-	 * Max time spent in servicing the request.
+	 * Max time spent in servicing the requests.
 	 */
 	private StatValue servicingTimeMax;
 

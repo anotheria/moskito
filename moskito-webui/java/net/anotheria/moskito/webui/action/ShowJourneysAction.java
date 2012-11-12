@@ -42,9 +42,11 @@ public class ShowJourneysAction extends BaseJourneyAction{
 		if (!contextPath.startsWith("/"))
 			contextPath = "/"+contextPath;
 		url += contextPath;
-		url += "?mskJourney=start&mskJourneyName=";
+		String url1 = url + "?mskJourney=start&mskJourneyName=";
+		String url2 = url + "?mskJourney=stop&mskJourneyName=";
 
-		req.setAttribute("new_journey_url", url);
+		req.setAttribute("new_journey_url", url1);
+		req.setAttribute("stop_journey_url", url2);
 
 		List<Journey> journeys = getJourneyManager().getJourneys();
 		List<JourneyListItemBean> beans = new ArrayList<JourneyListItemBean>(journeys.size());

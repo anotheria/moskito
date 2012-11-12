@@ -154,7 +154,7 @@ public class StorageStats extends AbstractStats {
 	/**
 	 * Returns the ratio of remove operation that had no effect.
 	 * @param intervalName the name of the interval.
-	 * @return
+	 * @return noon remove ratio.
 	 */
 	public double getNoopRemoveRatio(String intervalName){
 		return noopRemoves.getValueAsDouble(intervalName) / removes.getValueAsDouble(intervalName);
@@ -169,48 +169,95 @@ public class StorageStats extends AbstractStats {
 		return overwritePuts.getValueAsDouble(intervalName) / puts.getValueAsDouble(intervalName);
 	}
 
+	/**
+	 *
+	 * @param intervalName the name of the interval.
+	 * @return
+	 */
 	public double getNewPutRatio(String intervalName){
 		long putsAsLong = puts.getValueAsLong(intervalName);
 		return ((double)(putsAsLong - overwritePuts.getValueAsLong(intervalName))) / putsAsLong;
 	}
 
+	/**
+	 * Returns the ratio os gets that got no reply.
+	 * @param intervalName the name of the interval.
+	 * @return
+	 */
 	public double getMissedGetRatio(String intervalName){
 		return missedGets.getValueAsDouble(intervalName) / gets.getValueAsDouble(intervalName);
 	}
-	
+
+	/**
+	 *
+	 * @param intervalName the name of the interval.
+	 * @return
+	 */
 	public double getHitGetRatio(String intervalName){
 		long getAsLong = gets.getValueAsLong(intervalName);
 		return ((double)(getAsLong - missedGets.getValueAsLong(intervalName)))/getAsLong;
 	}
 
+	/**
+	 *
+	 * @param intervalName the name of the interval.
+	 * @return
+	 */
 	public double getContainsKeyHitRatio(String intervalName){
 		return containsKeyHits.getValueAsDouble(intervalName) / containsKeyCalls.getValueAsLong(intervalName);
 	}
 
+	/**
+	 *
+	 * @param intervalName the name of the interval.
+	 * @return
+	 */
 	public double getContainsValueHitRatio(String intervalName){
 		return containsValueHits.getValueAsDouble(intervalName) / containsValueCalls.getValueAsLong(intervalName);
 	}
-	
+
+	/**
+	 *
+	 * @param intervalName the name of the interval.
+	 * @return
+	 */
 	public double getPutGetRatio(String intervalName){
 		return puts.getValueAsDouble(intervalName) / gets.getValueAsLong(intervalName);
 	}
 
+	/**
+	 *
+	 * @param intervalName the name of the interval.
+	 * @return
+	 */
 	public double getPutRemoveRatio(String intervalName){
 		return puts.getValueAsDouble(intervalName) / removes.getValueAsLong(intervalName);
 	}
 
+	/**
+	 * Adds a new get call.
+	 */
 	public void addGet(){
 		gets.increase();
 	}
-	
+
+	/**
+	 * Adds a new miss on get (returned null).
+	 */
 	public void addMissedGet(){
 		missedGets.increase();
 	}
-	
+
+	/**
+	 * Adds a new put.
+	 */
 	public void addPut(){
 		puts.increase();
 	}
-	
+
+	/**
+	 * Adds a new put that has overwritten previous value.
+	 */
 	public void addOverwritePut(){
 		overwritePuts.increase();
 	}
@@ -226,13 +273,19 @@ public class StorageStats extends AbstractStats {
 	public void setSize(int aSize){
 		size.setValueAsInt(aSize);
 	}
-	
+
+	/**
+	 * Adds a new contains key call that was a hit (returned an object).
+	 */
 	public void addContainsKeyHit(){
 		containsKeyCalls.increase();
 		containsKeyHits.increase();
 		
 	}
 
+	/**
+	 * Adds a new contains key call that was a miss (returned null).
+	 */
 	public void addContainsKeyMiss(){
 		containsKeyCalls.increase();
 	}

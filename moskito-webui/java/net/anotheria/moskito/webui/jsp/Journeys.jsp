@@ -13,6 +13,13 @@
             location.href = location.href;
         }
 
+        function stop_journey(name){
+            var link = "<ano:write name="stop_journey_url"/>"+name;
+            window.open(link);
+            //force reload
+            location.href = location.href;
+        }
+
     </script>
 </head>
 <body>
@@ -34,8 +41,9 @@
 			<div>
 				<span>To record a new journey add <code>mskJourney=start&mskJourneyName=JOURNEY_NAME</code> to any url on this server.</span><br/><br/>
 				<span>To stop journey recording add <code>mskJourney=stop&mskJourneyName=JOURNEY_NAME</code> to any url on this server.</span><br/><br/>
-                <form name="NEWJOURNEY"><span>To start a new session <b>now</b> enter the name for the journey <input type="text" name="name" size="10"> and <input type="button" value="click here" onclick="new_journey(document.NEWJOURNEY.name.value); return false"/></form><br/><br/>
-			</div>
+                <form name="NEWJOURNEY"><span>To start a new journey <b>now</b> enter the name for the journey <input type="text" name="name" size="10"> and <input type="button" value="click here" onclick="new_journey(document.NEWJOURNEY.name.value); return false"/></form><br/><br/>
+                <form name="STOPJOURNEY"><span>If you want to stop a journey <input type="text" name="name" size="10"> and <input type="button" value="click here" onclick="stop_journey(document.STOPJOURNEY.name.value); return false"/></form><br/><br/>
+            </div>
 		</div>
 		<div class="bot"><div><!-- --></div></div>
 	</div>

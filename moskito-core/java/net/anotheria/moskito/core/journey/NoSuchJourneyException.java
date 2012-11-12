@@ -11,7 +11,7 @@ public class NoSuchJourneyException extends Exception{
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * Creates a new NoSuchMonitoringSessionException.
+	 * Creates a new NoSuchJourneyException.
 	 * @param name
 	 */
 	public NoSuchJourneyException(String name){
