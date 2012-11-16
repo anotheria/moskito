@@ -28,26 +28,20 @@
 	<dependencies>
 		<dependency>
 			<groupId>net.anotheria</groupId>
-			<artifactId>ano-util</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>net.anotheria</groupId>
-			<artifactId>ano-web</artifactId>
-			<version>1.1.1</version>
-		</dependency>
-		<dependency>
-			<groupId>net.anotheria</groupId>
 			<artifactId>ano-maf</artifactId>
 		</dependency>
-		<dependency>
+        <!-- Ano web dependency is needed for the lib-version reader -->
+        <dependency>
+            <groupId>net.anotheria</groupId>
+            <artifactId>ano-web</artifactId>
+        </dependency>
+        <dependency>
 			<groupId>net.anotheria</groupId>
 			<artifactId>ano-tags</artifactId>
-			<version>1.0.4</version>
 		</dependency>
 		<dependency>
 			<groupId>commons-codec</groupId>
 			<artifactId>commons-codec</artifactId>
-			<version>1.5</version>
 		</dependency>
 		<dependency>
 			<groupId>net.anotheria</groupId>

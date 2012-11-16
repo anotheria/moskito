@@ -15,28 +15,20 @@
 	<dependency> 
 		<groupId>net.anotheria</groupId>
 		<artifactId>ano-util</artifactId>
-		<version>1.0.1</version>
 	</dependency>
 	<dependency> 
 		<groupId>net.anotheria</groupId>
 		<artifactId>ano-prise</artifactId>
-		<version>1.0.4</version>
 	</dependency>
 	<dependency>
 		<groupId>net.anotheria</groupId>
 		<artifactId>moskito-core</artifactId>
 		<version>${project.version}</version>
 	</dependency>
-	<dependency> 
-		<groupId>net.anotheria</groupId>
-		<artifactId>distributeme-generator</artifactId>
-		<version>1.2.2</version>
-	</dependency>
     <dependency>
         <groupId>hsqldb</groupId>
         <artifactId>hsqldb</artifactId>
         <version>1.8.0.7</version>
-        <scope>test</scope>
        </dependency>
 	
   </dependencies>

@@ -15,6 +15,20 @@
 	<dependency> 
 		<groupId>net.anotheria</groupId>
 		<artifactId>ano-util</artifactId>
+        <exclusions>
+            <exclusion>
+                <groupId>blowfish</groupId>
+                <artifactId>blowfish</artifactId>
+            </exclusion>
+            <exclusion>
+                <groupId>blowfish</groupId>
+                <artifactId>blowfish</artifactId>
+            </exclusion>
+            <exclusion>
+                <groupId>net.sf.dozer</groupId>
+                <artifactId>dozer</artifactId>
+            </exclusion>
+        </exclusions>
 	</dependency>
 	<dependency>
 		<groupId>net.anotheria</groupId>

@@ -12,10 +12,6 @@
   <name>moskito web support</name>
 
   <dependencies>
-	<dependency> 
-		<groupId>net.anotheria</groupId>
-		<artifactId>ano-util</artifactId>
-	</dependency>
 	<dependency>
 		<groupId>net.anotheria</groupId>
 		<artifactId>moskito-core</artifactId>
@@ -25,7 +21,7 @@
     	<groupId>javax.servlet</groupId>
     	<artifactId>servlet-api</artifactId>
     	<scope>provided</scope>
-	</dependency>	
+	</dependency>
 	<dependency>
     	<groupId>struts</groupId>
     	<artifactId>struts</artifactId>

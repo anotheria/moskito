@@ -54,6 +54,22 @@
             </dependency>
             <dependency>
                 <groupId>net.anotheria</groupId>
+                <artifactId>ano-tags</artifactId>
+                <version>2.0.0</version>
+            </dependency>
+			<!-- for moskito sql -->
+            <dependency>
+                <groupId>net.anotheria</groupId>
+                <artifactId>ano-db</artifactId>
+                <version>2.0.0</version>
+            </dependency>
+            <dependency>
+                <groupId>net.anotheria</groupId>
+                <artifactId>ano-web</artifactId>
+                <version>2.0.0</version>
+            </dependency>
+            <dependency>
+                <groupId>net.anotheria</groupId>
                 <artifactId>ano-plass</artifactId>
                 <version>2.0.1</version>
             </dependency>
@@ -62,6 +78,22 @@
                 <artifactId>ano-prise</artifactId>
                 <version>2.0.1</version>
             </dependency>
+			<dependency>
+				<groupId>commons-codec</groupId>
+				<artifactId>commons-codec</artifactId>
+				<version>1.5</version>
+			</dependency>
+            <dependency>
+                <groupId>hsqldb</groupId>
+                <artifactId>hsqldb</artifactId>
+                <version>1.8.0.7</version>
+                <scope>test</scope>
+            </dependency>
+	        <dependency>
+	            <groupId>org.aspectj</groupId>
+	            <artifactId>aspectjrt</artifactId>
+	            <version>1.6.11</version>
+	        </dependency>
         </dependencies>
     </dependencyManagement>
 

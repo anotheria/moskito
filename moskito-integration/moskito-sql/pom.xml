@@ -80,7 +80,6 @@
         <dependency>
             <groupId>net.anotheria</groupId>
             <artifactId>ano-util</artifactId>
-			<version>1.0.8</version>
         </dependency>
         <dependency>
             <groupId>org.aspectj</groupId>
@@ -114,7 +113,6 @@
         <dependency>
             <groupId>net.anotheria</groupId>
             <artifactId>ano-db</artifactId>
-            <version>1.0.11</version>
             <scope>test</scope>
         </dependency>
     </dependencies>

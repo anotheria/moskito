@@ -229,7 +229,6 @@
         <dependency>
             <groupId>net.anotheria</groupId>
             <artifactId>ano-db</artifactId>
-            <version>1.0.11</version>
         </dependency>
     </dependencies>
 </project>
