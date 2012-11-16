@@ -15,7 +15,6 @@
 	<dependency> 
 		<groupId>net.anotheria</groupId>
 		<artifactId>ano-util</artifactId>
-		<version>1.0.11</version>
 	</dependency>
 	<dependency>
 		<groupId>net.anotheria</groupId>
@@ -35,14 +34,12 @@
 	<dependency>
     	<groupId>net.anotheria</groupId>
     	<artifactId>ano-maf</artifactId>
-    	<version>1.2.0</version>
     	<scope>provided</scope>
 	</dependency>
 	<!-- only mock support needed, therefore testing scope -->	
 	<dependency>
 	  <groupId>net.anotheria</groupId>
   		<artifactId>ano-prise</artifactId>  
-		<version>1.0.33</version> 
   		<scope>test</scope>	
   	</dependency>
   </dependencies>
