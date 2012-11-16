@@ -2,7 +2,6 @@ package net.anotheria.moskito.central;
 
 import net.anotheria.anoprise.metafactory.Service;
 import net.anotheria.moskito.core.producers.IStatsSnapshot;
-import org.distributeme.annotation.DistributeMe;
 
 import java.util.Collection;
 import java.util.Date;
@@ -16,9 +15,6 @@ import java.util.Date;
  * @author igor
  *
  */
-@DistributeMe(
-		initcode={"MetaFactory.addFactoryClass(net.anotheria.moskito.central.StatStorage.class, Extension.LOCAL, net.anotheria.moskito.central.storages.RemoteStorageFactory.class);"}
-)
 public interface StatStorage extends Service {
 	
 	/**
