@@ -14,11 +14,11 @@ public class CounterStatsFactory implements IOnDemandStatsFactory<CounterStats> 
 
 	private Interval[] intervalSelection;
 
-	CounterStatsFactory(){
+	public CounterStatsFactory(){
 		this(Constants.getDefaultIntervals());
 	}
 
-	CounterStatsFactory(Interval[] myIntervals){
+	public CounterStatsFactory(Interval[] myIntervals){
 		intervalSelection = myIntervals;
 	}
 
