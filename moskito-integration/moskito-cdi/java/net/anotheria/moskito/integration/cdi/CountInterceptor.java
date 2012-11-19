@@ -100,7 +100,7 @@ public class CountInterceptor implements Serializable {
      * @return case name
      */
     private String extractCaseName(InvocationContext ctx) {
-        return ctx.getMethod().toGenericString();
+        return ctx.getMethod().getName();
     }
 
     /**
@@ -125,7 +125,7 @@ public class CountInterceptor implements Serializable {
 
 		ProducerRuntimeDefinition ret = new ProducerRuntimeDefinition();
 		if (ann==null){
-			ret.setProducerId(c.getName());
+			ret.setProducerId(c.getSimpleName());
 			ret.setCategory("cdi-counter");
 			ret.setSubsystem("default");
 		}else{
