@@ -96,32 +96,35 @@ public class QueueStats extends AbstractStats {
 	 */
 	private StatValue requests;
 	/**
-	 * Number of enqueued elements.
+	 * Number of en-queued elements.
 	 */
 	private StatValue enqueued;
 	/**
-	 * Number of dequeued elements.
+	 * Number of de-queued elements.
 	 */
 	private StatValue dequeued;
 	/**
-	 * Number of empty elements.
+	 * Number of times the queue was empty.
 	 */
 	private StatValue empty;
 	/**
-	 * The total queue size.
+	 * The total possible  queue size.
 	 */
 	private StatValue totalSize;
 	/**
-	 * The last queue size.
+	 * The last queue size (number of elements in it).
 	 */
 	private StatValue lastSize;
+	/**
+	 * Sum of queue sizes at the moment of new element additions.
+	 */
 	private StatValue sumOfSizes;
 	/**
-	 * The max queue size.
+	 * The max queue size (number of elements in it).
 	 */
 	private StatValue maxSize;
 	/**
-	 * The min queue size.
+	 * The min queue size (number of elements in it).
 	 */
 	private StatValue minSize;
 
