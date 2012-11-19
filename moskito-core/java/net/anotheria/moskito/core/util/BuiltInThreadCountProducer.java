@@ -1,7 +1,6 @@
 package net.anotheria.moskito.core.util;
 
 import net.anotheria.moskito.core.predefined.ThreadCountStats;
-import net.anotheria.moskito.core.producers.IStats;
 import net.anotheria.moskito.core.producers.IStatsProducer;
 import net.anotheria.moskito.core.registry.IProducerRegistry;
 import net.anotheria.moskito.core.registry.ProducerRegistryFactory;
@@ -17,11 +16,11 @@ import java.util.concurrent.CopyOnWriteArrayList;
  * @author lrosenberg
  *
  */
-public class BuiltInThreadCountProducer extends AbstractBuiltInProducer implements IStatsProducer, BuiltInProducer{
+public class BuiltInThreadCountProducer extends AbstractBuiltInProducer implements IStatsProducer<ThreadCountStats>, BuiltInProducer{
 	/**
 	 * Stats objects as list.
 	 */
-	private List<IStats> statsList;
+	private List<ThreadCountStats> statsList;
 	/**
 	 * ThreadCountStats object.
 	 */
@@ -37,7 +36,7 @@ public class BuiltInThreadCountProducer extends AbstractBuiltInProducer implemen
 		
 		stats = new ThreadCountStats();
 		
-		statsList = new CopyOnWriteArrayList<IStats>();
+		statsList = new CopyOnWriteArrayList<ThreadCountStats>();
 		statsList.add(stats);
 		
 		threadMxBean = ManagementFactory.getThreadMXBean();
@@ -71,7 +70,7 @@ public class BuiltInThreadCountProducer extends AbstractBuiltInProducer implemen
 	}
 
 	@Override
-	public List<IStats> getStats() {
+	public List<ThreadCountStats> getStats() {
 		return statsList;
 	}
 

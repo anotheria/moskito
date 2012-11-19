@@ -19,12 +19,12 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
 /**
- * Aspect used to intercept  SQL query calls.
+ * Aspect used to intercept @MonitorClass annotated classes method calls.
  *
- * @author <a href="mailto:vzhovtiuk@anotheria.net">Vitaliy Zhovtiuk</a>
+ * @author <a href="mailto:vzhovtiuk@anotheria.net">Vitaliy Zhovtiuk</a>, lrosenberg
  */
 @Aspect
-public class MethodCallAspect {
+public class MethodCallAspect extends AbstractMoskitoAspect{
 	
     /**
      * Map with created producers.
@@ -137,14 +137,6 @@ public class MethodCallAspect {
                 currentTrace.endStep();
             }
         }
-    }
-
-    public String getCategory(String proposal) {
-    	return proposal==null || proposal.length()==0 ? "annotated" : proposal;
-    }
-
-    public String getSubsystem(String proposal) {
-    	return proposal==null || proposal.length()==0 ? "default" : proposal;
     }
 
     public void reset() {

@@ -53,5 +53,9 @@ public class GenericCounterStats extends AbstractStats{
 	public String toStatsString(String aIntervalName, TimeUnit unit) {
 		return null;  //To change body of implemented methods use File | Settings | File Templates.
 	}
+
+	@Override public String toString(){
+		return getName()+" "+values.values();
+	}
 }
 

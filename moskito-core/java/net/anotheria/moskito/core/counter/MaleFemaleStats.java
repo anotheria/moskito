@@ -9,11 +9,11 @@ import net.anotheria.moskito.core.stats.Interval;
  * @since 17.11.12 23:05
  */
 public class MaleFemaleStats extends GenericCounterStats{
-	public MaleFemaleStats(String name, Interval[] intervals){
-		super(name, intervals, "male", "female");
-	}
 	public MaleFemaleStats(String name){
 		super(name, "male", "female");
+	}
+	public MaleFemaleStats(String name, Interval[] intervals){
+		super(name, intervals, "male", "female");
 	}
 
 	public void incMale(){

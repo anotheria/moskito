@@ -59,6 +59,8 @@ public class CommentServiceImpl implements ICommentService{
 	private Storage<Integer, Comment> comments;
 	
 	private Sorter<Comment> sorter;
+
+	private BusinessCommentCounter counter = new BusinessCommentCounter();
 	
 	private static Logger log;
 	static{
@@ -75,19 +77,25 @@ public class CommentServiceImpl implements ICommentService{
 	public Comment createComment() throws CommentServiceException {
 		Comment c = new Comment(nextId.getAndIncrement());
 		comments.put(c.getId(), c);
+		counter.created();
 		_save();
 		return c;
 	}
 
 	public void deleteComment(int id) throws CommentServiceException {
 		Comment old = comments.remove(id);
-		if (old!=null)
+		if (old!=null){
+			counter.deleted();
 			_save();
+		}
+
 	}
 
 	public void deleteComments(List<Integer> ids) throws CommentServiceException {
-		for (Integer id : ids)
+		for (Integer id : ids){
 			comments.remove(id);
+			counter.deleted();
+		}
 		_save();
 	}
 

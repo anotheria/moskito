@@ -24,11 +24,11 @@ public class ThreadCountStats extends AbstractStats {
 	 */
 	private StatValue daemon;
 	/**
-	 * Current number of sessions.
+	 * Min number of running threads.
 	 */
 	private StatValue minCurrent;
 	/**
-	 * Current number of sessions.
+	 * Max number of running threads.
 	 */
 	private StatValue maxCurrent;
 	
