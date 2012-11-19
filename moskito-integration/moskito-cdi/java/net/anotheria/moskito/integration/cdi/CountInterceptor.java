@@ -52,10 +52,11 @@ public class CountInterceptor implements Serializable {
     @AroundInvoke
     public Object aroundInvoke(InvocationContext ctx) throws Throwable {
 
-		String producerId = extractProducerId(ctx);
+		ProducerRuntimeDefinition prd = extractProducerDefinition(ctx);
+		String producerId = prd.getProducerId();
         OnDemandStatsProducer<CounterStats> onDemandProducer = producers.get(producerId);
         if (onDemandProducer == null) {
-            onDemandProducer = new OnDemandStatsProducer(producerId, "counter", "default", new CounterStatsFactory());
+            onDemandProducer = new OnDemandStatsProducer(prd.getProducerId(), prd.getCategory(), prd.getSubsystem(), new CounterStatsFactory());
             OnDemandStatsProducer p = producers.putIfAbsent(producerId, onDemandProducer);
             if (p == null) {
                 ProducerRegistryFactory.getProducerRegistryInstance().registerProducer(onDemandProducer);
@@ -108,8 +109,8 @@ public class CountInterceptor implements Serializable {
      * @param ctx invocation context
      * @return string producer id
      */
-    private String extractProducerId(InvocationContext ctx) {
-        return getClassName(ctx);
+    private ProducerRuntimeDefinition extractProducerDefinition(InvocationContext ctx) {
+        return getProducerDefinitionFromClassOrAnnotation(ctx);
     }
 
     /**
@@ -118,8 +119,23 @@ public class CountInterceptor implements Serializable {
      * @param ctx invocation context
      * @return string class name
      */
-    private static String getClassName(InvocationContext ctx) {
-        return ctx.getMethod().getDeclaringClass().getName();
+    private static ProducerRuntimeDefinition getProducerDefinitionFromClassOrAnnotation(InvocationContext ctx) {
+		Class c = ctx.getMethod().getDeclaringClass();
+		ProducerDefinition ann = (ProducerDefinition)c.getAnnotation(ProducerDefinition.class);
+
+		ProducerRuntimeDefinition ret = new ProducerRuntimeDefinition();
+		if (ann==null){
+			ret.setProducerId(c.getName());
+			ret.setCategory("cdi-counter");
+			ret.setSubsystem("default");
+		}else{
+			ret.setProducerId(ann.producerId());
+			ret.setCategory(ann.category());
+			ret.setSubsystem(ann.subsystem());
+		}
+        return ret;
     }
+
+
 
 }
