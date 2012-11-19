@@ -3,6 +3,7 @@ package net.anotheria.moskitodemo;
 import net.anotheria.maf.action.ActionForward;
 import net.anotheria.maf.action.ActionMappings;
 import net.anotheria.maf.action.ActionMappingsConfigurator;
+import net.anotheria.moskitodemo.counter.action.PaymentAction;
 import net.anotheria.moskitodemo.guestbook.presentation.action.AuthorizeUserAction;
 import net.anotheria.moskitodemo.guestbook.presentation.action.CreateCommentAction;
 import net.anotheria.moskitodemo.guestbook.presentation.action.DeleteCommentAction;
@@ -18,7 +19,7 @@ public class DemoMappingsConfiguration implements ActionMappingsConfigurator{
 	
 	@Override public void configureActionMappings(ActionMappings mappings){
 
-		mappings.addMapping("gbookShowComments", ShowCommentsAction.class, 
+		mappings.addMapping("gbookShowComments", ShowCommentsAction.class,
 				new ActionForward("success", "/net/anotheria/moskitodemo/guestbook/presentation/jsp/Comments.jsp")
 		);
 		
@@ -52,6 +53,9 @@ public class DemoMappingsConfiguration implements ActionMappingsConfigurator{
 		mappings.addMapping("thresholdsAVG", EmulateAverageRequestsAction.class, 
 				new ActionForward("success", "/net/anotheria/moskitodemo/threshold/presentation/jsp/Success.jsp")
 		);
+
+		mappings.addMapping("paymentTest", PaymentAction.class, (ActionForward[])null);
+
 	}
 }
  
