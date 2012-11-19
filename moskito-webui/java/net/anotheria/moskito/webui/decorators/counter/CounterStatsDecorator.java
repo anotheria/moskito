@@ -10,7 +10,7 @@ import net.anotheria.moskito.core.counter.CounterStats;
  */
 public class CounterStatsDecorator extends GenericCounterDecorator{
 	private static final String CAPTIONS[] = {
-			"Count",
+			"Counter",
 	};
 
 	private static final String SHORT_EXPLANATIONS[] = {
