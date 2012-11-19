@@ -39,4 +39,9 @@ public class MaleFemaleStats extends GenericCounterStats{
 	public long getFemale(){
 		return get("female", null);
 	}
+	@Override
+	public String describeForWebUI() {
+		return "MaleFemale";
+	}
+
 }

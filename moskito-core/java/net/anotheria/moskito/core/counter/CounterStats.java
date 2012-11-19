@@ -27,4 +27,9 @@ public class CounterStats extends GenericCounterStats{
 	public long get(){
 		return get("counter", null);
 	}
+
+	@Override
+	public String describeForWebUI() {
+		return "Counter";
+	}
 }

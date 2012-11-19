@@ -34,6 +34,7 @@
  */	
 package net.anotheria.moskito.webui.decorators;
 
+import net.anotheria.moskito.core.producers.IStats;
 import net.anotheria.moskito.webui.bean.StatCaptionBean;
 import net.anotheria.util.sorter.IComparable;
 
@@ -45,7 +46,7 @@ import java.util.List;
  * @author another
  *
  */
-public abstract class AbstractDecorator implements IDecorator{
+public abstract class AbstractDecorator<S extends IStats> implements IDecorator<S>{
 	
 	/**
 	 * Constant for MegaByte.

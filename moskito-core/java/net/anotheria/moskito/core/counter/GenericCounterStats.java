@@ -8,6 +8,7 @@ import net.anotheria.moskito.core.stats.TimeUnit;
 import net.anotheria.moskito.core.stats.impl.StatValueFactory;
 
 import java.util.HashMap;
+import java.util.Set;
 
 /**
  * TODO comment this class
@@ -15,7 +16,7 @@ import java.util.HashMap;
  * @author lrosenberg
  * @since 16.11.12 23:11
  */
-public class GenericCounterStats extends AbstractStats{
+public abstract class GenericCounterStats extends AbstractStats{
 
 	private HashMap<String, StatValue> values;
 
@@ -57,5 +58,11 @@ public class GenericCounterStats extends AbstractStats{
 	@Override public String toString(){
 		return getName()+" "+values.values();
 	}
+
+	public Set<String> getPossibleNames(){
+		return values.keySet();
+	}
+
+	public abstract String describeForWebUI();
 }
 

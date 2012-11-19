@@ -372,7 +372,7 @@ public abstract class BaseMoskitoUIAction implements Action{
 					decoratorMap.put(decorator, new ArrayList<IStatsProducer>());
 
 					List<MetaHeaderBean> metaheader = new ArrayList<MetaHeaderBean>();
-					for(StatValueBean statBean:decorator.getValues(stats, intervalName, currentUnit.getUnit())){
+					for(StatValueBean statBean : (List<StatValueBean>)decorator.getValues(stats, intervalName, currentUnit.getUnit())){
 						MetaHeaderBean bean = new MetaHeaderBean(statBean.getName(), statBean.getType());
 						metaheader.add(bean);
 

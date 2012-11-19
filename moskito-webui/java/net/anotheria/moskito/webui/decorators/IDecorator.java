@@ -47,7 +47,7 @@ import java.util.List;
  * @author lrosenberg
  *
  */
-public interface IDecorator extends IComparable{
+public interface IDecorator <S extends IStats> extends IComparable{
 	/**
 	 * Returns the name of the decorator.
 	 * @return
@@ -65,7 +65,7 @@ public interface IDecorator extends IComparable{
 	 * @param unit the selected time unit.
 	 * @return
 	 */
-	List<StatValueBean> getValues(IStats stats, String interval, TimeUnit unit);
+	List<StatValueBean> getValues(S stats, String interval, TimeUnit unit);
 	/**
 	 * Returns an explanation for a caption. This is used for the explanation help page.
 	 * @param caption

@@ -47,4 +47,9 @@ public class GuestBasicPremiumStats extends GenericCounterStats{
 	public long getPremium(){
 		return get("premium", null);
 	}
+	@Override
+	public String describeForWebUI() {
+		return "GuestBasicPremium";
+	}
+
 }

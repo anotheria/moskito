@@ -103,7 +103,7 @@ public class ShowProducerAction extends BaseMoskitoUIAction{
 					decoratorMap.put(decorator, new ArrayList<IStats>());
 				decoratorMap.get(decorator).add(statObject);
 
-				for(StatValueBean statBean:decorator.getValues(statObject, intervalName, currentUnit.getUnit())){
+				for(StatValueBean statBean : (List<StatValueBean>)decorator.getValues(statObject, intervalName, currentUnit.getUnit())){
 					String graphKey = decorator.getName()+"_"+statBean.getName();
 					GraphDataBean graphDataBean = new GraphDataBean(decorator.getName()+"_"+statBean.getJsVariableName(), statBean.getName());
 					graphData.put(graphKey, graphDataBean);
