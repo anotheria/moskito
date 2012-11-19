@@ -64,5 +64,10 @@ public abstract class GenericCounterStats extends AbstractStats{
 	}
 
 	public abstract String describeForWebUI();
+
+	@Override
+	public String getValueByNameAsString(String valueName, String intervalName, TimeUnit timeUnit) {
+		return ""+values.get(valueName).getValueAsLong(intervalName);
+	}
 }
 

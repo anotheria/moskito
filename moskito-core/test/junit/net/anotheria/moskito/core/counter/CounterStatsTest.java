@@ -1,6 +1,7 @@
 package net.anotheria.moskito.core.counter;
 
 import net.anotheria.moskito.core.dynamic.OnDemandStatsProducer;
+import net.anotheria.moskito.core.stats.TimeUnit;
 import net.anotheria.moskito.core.stats.impl.IntervalRegistry;
 import org.junit.Test;
 
@@ -70,5 +71,12 @@ public class CounterStatsTest {
 		assertEquals(3, producer.getDefaultStats().get());
 	}
 
+	@Test public void testGetValueByName() throws Exception{
+		OnDemandStatsProducer<CounterStats> producer = new OnDemandStatsProducer<CounterStats>("payment", "counter", "payment", new CounterStatsFactory());
+		//now test cc payment
+		producer.getStats("cc").inc();
+
+		assertEquals("1", producer.getStats("cc").getValueByNameAsString("counter", null, TimeUnit.SECONDS));
+	}
 
 }
