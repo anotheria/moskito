@@ -9,14 +9,11 @@ import net.anotheria.moskito.core.calltrace.TracedCall;
 import net.anotheria.moskito.core.dynamic.OnDemandStatsProducer;
 import net.anotheria.moskito.core.predefined.ServiceStats;
 import net.anotheria.moskito.core.predefined.ServiceStatsFactory;
-import net.anotheria.moskito.core.registry.ProducerRegistryFactory;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 
 import java.lang.reflect.InvocationTargetException;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.ConcurrentMap;
 
 /**
  * Aspect used to intercept @MonitorClass annotated classes method calls.
@@ -25,18 +22,17 @@ import java.util.concurrent.ConcurrentMap;
  */
 @Aspect
 public class MethodCallAspect extends AbstractMoskitoAspect{
-	
-    /**
-     * Map with created producers.
-     */
-    private ConcurrentMap<String, OnDemandStatsProducer> producers = new ConcurrentHashMap<String, OnDemandStatsProducer>();
 
+	/**
+	 * Factory constant is needed to prevent continuous reinstantiation of ServiceStatsFactory objects.
+	 */
+	private static final ServiceStatsFactory FACTORY = new ServiceStatsFactory();
 
-    @Around(value = "execution(* *(..)) && (@annotation(method))")
+@Around(value = "execution(* *(..)) && (@annotation(method))")
     public Object doProfilingMethod(ProceedingJoinPoint pjp, MonitorMethod method) throws Throwable {
     	return doProfiling(pjp, method.producerId(), method.subsystem(), method.category());
     }
-    	
+
     @Around(value = "execution(* *.*(..)) && (@within(clazz) && !@annotation(net.anotheria.moskito.annotation.DontMonitorMethod))")
     public Object doProfilingClass(ProceedingJoinPoint pjp, MonitorClass clazz) throws Throwable {
     	return doProfiling(pjp, clazz.producerId(), clazz.subsystem(), clazz.category());
@@ -44,30 +40,12 @@ public class MethodCallAspect extends AbstractMoskitoAspect{
 
     private Object doProfiling(ProceedingJoinPoint pjp, String aProducerId, String aSubsystem, String aCategory) throws Throwable {
 
-    	String producerId = null;
-    	if (aProducerId!=null && aProducerId.length()>0){
-    		producerId = aProducerId;
-    	}else{
-            producerId = pjp.getSignature().getDeclaringTypeName();
-        	try{
-        		producerId = producerId.substring(producerId.lastIndexOf('.')+1);
-        	}catch(RuntimeException ignored){/* ignored */}
-    	}
-    	OnDemandStatsProducer producer = producers.get(producerId);
-    	if (producer==null){
-    		
-    		producer = new OnDemandStatsProducer(producerId, getCategory(aCategory), getSubsystem(aSubsystem), new ServiceStatsFactory());
-    		OnDemandStatsProducer p = producers.putIfAbsent(producerId, producer);
-    		if (p==null){
-    			ProducerRegistryFactory.getProducerRegistryInstance().registerProducer(producer);
-    		}else{
-    			producer = p;
-    		}
-    	}
-    	
+		OnDemandStatsProducer<ServiceStats> producer = getProducer(pjp, aProducerId, aCategory, aSubsystem, false, FACTORY);
+		String producerId = producer.getProducerId();
+
     	String caseName = pjp.getSignature().getName();
-    	ServiceStats defaultStats = (ServiceStats) producer.getDefaultStats();
-    	ServiceStats methodStats = (ServiceStats) producer.getStats(caseName);
+    	ServiceStats defaultStats = producer.getDefaultStats();
+    	ServiceStats methodStats = producer.getStats(caseName);
 
         final Object[] args = pjp.getArgs();
         final String method = pjp.getSignature().getName();
@@ -137,9 +115,5 @@ public class MethodCallAspect extends AbstractMoskitoAspect{
                 currentTrace.endStep();
             }
         }
-    }
-
-    public void reset() {
-    	producers.clear();
     }
 }

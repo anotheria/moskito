@@ -1,17 +1,15 @@
 package net.anotheria.moskito.annotation.callingAspect;
 
 import net.anotheria.moskito.annotation.Count;
+import net.anotheria.moskito.annotation.CountByParameter;
 import net.anotheria.moskito.core.counter.CounterStats;
 import net.anotheria.moskito.core.counter.CounterStatsFactory;
 import net.anotheria.moskito.core.dynamic.OnDemandStatsProducer;
-import net.anotheria.moskito.core.registry.ProducerRegistryFactory;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 
 import java.lang.reflect.InvocationTargetException;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.ConcurrentMap;
 
 /**
  * Aspect used to intercept @Count annotated classes.
@@ -20,49 +18,62 @@ import java.util.concurrent.ConcurrentMap;
  */
 @Aspect
 public class CounterAspect extends  AbstractMoskitoAspect{
-	
-    /**
-     * Map with created producers.
-     */
-    private ConcurrentMap<String, OnDemandStatsProducer<CounterStats>> producers = new ConcurrentHashMap<String, OnDemandStatsProducer<CounterStats>>();
 
+	private static final CounterStatsFactory FACTORY = new CounterStatsFactory();
 
-    @Around(value = "execution(* *(..)) && (@annotation(method))")
-    public Object doProfilingMethod(ProceedingJoinPoint pjp, Count method) throws Throwable {
-    	return doProfiling(pjp, method.producerId(), method.subsystem(), method.category());
-    }
-    	
-    @Around(value = "execution(* *.*(..)) && (@within(clazz))")
-    public Object doProfilingClass(ProceedingJoinPoint pjp, Count clazz) throws Throwable {
-    	return doProfiling(pjp, clazz.producerId(), clazz.subsystem(), clazz.category());
+	@Around(value = "execution(* *(..)) && (@annotation(method))")
+    public Object countMethod(ProceedingJoinPoint pjp, Count method) throws Throwable {
+    	return count(pjp, method.producerId(), method.subsystem(), method.category());
     }
 
-    private Object doProfiling(ProceedingJoinPoint pjp, String aProducerId, String aSubsystem, String aCategory) throws Throwable {
+	@Around(value = "execution(* *(..)) && (@annotation(method))")
+	public Object countByParameter(ProceedingJoinPoint pjp, CountByParameter method) throws Throwable {
+		return countByParameter(pjp, method.producerId(), method.subsystem(), method.category());
+	}
 
-		System.out.println("KIND: "+pjp.getKind());
+	@Around(value = "execution(* *.*(..)) && (@within(clazz))")
+    public Object countClass(ProceedingJoinPoint pjp, Count clazz) throws Throwable {
+    	return count(pjp, clazz.producerId(), clazz.subsystem(), clazz.category());
+    }
 
-    	String producerId = null;
-    	if (aProducerId!=null && aProducerId.length()>0){
-    		producerId = aProducerId;
-    	}else{
-            producerId = pjp.getSignature().getDeclaringTypeName();
-        	try{
-        		producerId = producerId.substring(producerId.lastIndexOf('.')+1);
-        	}catch(RuntimeException ignored){/* ignored */}
-    	}
-    	OnDemandStatsProducer<CounterStats> producer = producers.get(producerId);
-    	if (producer==null){
-    		
-    		producer = new OnDemandStatsProducer(producerId, getCategory(aCategory), getSubsystem(aSubsystem), new CounterStatsFactory());
-    		OnDemandStatsProducer<CounterStats> p = producers.putIfAbsent(producerId, producer);
-    		if (p==null){
-    			ProducerRegistryFactory.getProducerRegistryInstance().registerProducer(producer);
-    		}else{
-    			producer = p;
-    		}
-    	}
-    	
-    	String caseName = pjp.getSignature().getName();
+	private Object countByParameter(ProceedingJoinPoint pjp, String aProducerId, String aSubsystem, String aCategory) throws Throwable {
+
+		OnDemandStatsProducer<CounterStats> producer = getProducer(pjp, aProducerId, aCategory, aSubsystem, true, FACTORY);
+
+		final Object[] args = pjp.getArgs();
+
+		String caseName = null;
+		if (args!=null && args[0]!=null)
+			caseName = args[0].toString();
+
+
+		CounterStats defaultStats = producer.getDefaultStats();
+		CounterStats methodStats = null;
+		if (caseName!=null){
+			methodStats = producer.getStats(caseName);
+		}
+
+		defaultStats.inc();
+		if (methodStats != null) {
+			methodStats.inc();
+		}
+
+		Object ret = null;
+		try {
+			ret = pjp.proceed();
+			return ret;
+		} catch (InvocationTargetException e) {
+			throw e.getCause();
+		} finally {
+		}
+	}
+
+
+	private Object count(ProceedingJoinPoint pjp, String aProducerId, String aSubsystem, String aCategory) throws Throwable {
+
+		OnDemandStatsProducer<CounterStats> producer = getProducer(pjp, aProducerId, aCategory, aSubsystem, false, FACTORY);
+
+		String caseName = pjp.getSignature().getName();
     	CounterStats defaultStats = producer.getDefaultStats();
 		CounterStats methodStats = producer.getStats(caseName);
 
@@ -81,9 +92,5 @@ public class CounterAspect extends  AbstractMoskitoAspect{
             throw e.getCause();
         } finally {
         }
-    }
-
-    public void reset() {
-    	producers.clear();
     }
 }
