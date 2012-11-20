@@ -50,6 +50,9 @@ public enum MoskitoConfigurationHolder {
 		//Default value is 1. Increase it if you have many alerts and many notification providers.
 		config.getThresholdsAlertsConfig().setDispatcherThreadPoolSize(1);
 
+		//default number of values in an accumulaotr.
+		config.getAccumulatorsConfig().setAccumulationAmount(200);
+
 		return config;
 	}
 
