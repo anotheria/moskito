@@ -67,11 +67,9 @@ public abstract class GenericCounterStats extends AbstractStats{
 
 	@Override
 	public String getValueByNameAsString(String valueName, String intervalName, TimeUnit timeUnit) {
-		System.out.println("Called getValueByNameAsString on "+getClass().getSimpleName()+", with ("+valueName+", "+intervalName+", "+timeUnit+")");
 		if (valueName==null || valueName.equals(""))
 			throw new AssertionError("Value name can not be empty");
 		valueName = valueName.toLowerCase();
-		System.out.println("Value "+valueName+" in "+values);
 		return ""+values.get(valueName).getValueAsLong(intervalName);
 	}
 }
