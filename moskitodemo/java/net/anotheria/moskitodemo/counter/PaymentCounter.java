@@ -13,12 +13,12 @@ public class PaymentCounter {
 	/**
 	 * Electronic card payment (lastchrifteinzug in germany).
 	 */
-	public void electroniccash(){}
+	public void ec(){}
 
 	/**
 	 * Credit card payment.
 	 */
-	public void creditcard(){}
+	public void cc(){}
 
 	/**
 	 * Payment via paypal.

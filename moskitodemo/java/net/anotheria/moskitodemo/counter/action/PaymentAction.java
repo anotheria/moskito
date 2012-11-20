@@ -24,14 +24,13 @@ public class PaymentAction implements Action {
 
 	@Override
 	public void preProcess(ActionMapping actionMapping, HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws Exception {
-		//To change body of implemented methods use File | Settings | File Templates.
 	}
 
 	@Override
 	public ActionCommand execute(ActionMapping actionMapping, FormBean formBean, HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws Exception {
 
 		//simply add some payment 1
-		paymentCounter1.creditcard();paymentCounter1.creditcard();paymentCounter1.electroniccash();paymentCounter1.paypal();
+		paymentCounter1.cc();paymentCounter1.cc();paymentCounter1.ec();paymentCounter1.paypal();
 
 		//2
 		paymentCounter2.pay("cc", true);paymentCounter2.pay("cc", true);paymentCounter2.pay("ec", true);paymentCounter2.pay("paypal", true);
@@ -44,6 +43,5 @@ public class PaymentAction implements Action {
 
 	@Override
 	public void postProcess(ActionMapping actionMapping, HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws Exception {
-		//To change body of implemented methods use File | Settings | File Templates.
 	}
 }
