@@ -34,10 +34,12 @@
  */	
 package net.anotheria.moskito.core.dynamic;
 
+import net.anotheria.moskito.core.producers.IStats;
+
 /**
  * This implementation of the OnDemandStatsProducer has a hardcoded entry limit.
  */
-public class EntryCountLimitedOnDemandStatsProducer extends OnDemandStatsProducer{
+public class EntryCountLimitedOnDemandStatsProducer<S extends IStats> extends OnDemandStatsProducer<S>{
 	/**
 	 * Limit for dynamically add-able entries.
 	 */

@@ -75,7 +75,7 @@ public abstract class MoskitoFilter implements Filter{
 	/**
 	 * The internal producer instance.
 	 */
-	private OnDemandStatsProducer onDemandProducer;
+	private OnDemandStatsProducer<FilterStats> onDemandProducer;
 	
 	protected MoskitoFilter(){
 		log = Logger.getLogger(getClass());
@@ -90,12 +90,12 @@ public abstract class MoskitoFilter implements Filter{
 			return;
 		}
 		
-		FilterStats defaultStats = (FilterStats)onDemandProducer.getDefaultStats();
+		FilterStats defaultStats = onDemandProducer.getDefaultStats();
 		FilterStats caseStats = null;
 		String caseName = extractCaseName(req, res);
 		try{
 			if (caseName!=null)
-				caseStats = (FilterStats)onDemandProducer.getStats(caseName);
+				caseStats = onDemandProducer.getStats(caseName);
 		}catch(OnDemandStatsProducerException e){
 			log.info("Couldn't get stats for case : "+caseName+", probably limit reached");
 			caseStats = otherStats;
@@ -150,14 +150,14 @@ public abstract class MoskitoFilter implements Filter{
 			}
 			
 		onDemandProducer = limit == -1 ? 
-				new OnDemandStatsProducer(getProducerId(), getCategory(), getSubsystem(), new FilterStatsFactory(getMonitoringIntervals())) :
-				new EntryCountLimitedOnDemandStatsProducer(getProducerId(), getCategory(), getSubsystem(), new FilterStatsFactory(getMonitoringIntervals()), limit);
+				new OnDemandStatsProducer<FilterStats>(getProducerId(), getCategory(), getSubsystem(), new FilterStatsFactory(getMonitoringIntervals())) :
+				new EntryCountLimitedOnDemandStatsProducer<FilterStats>(getProducerId(), getCategory(), getSubsystem(), new FilterStatsFactory(getMonitoringIntervals()), limit);
 		ProducerRegistryFactory.getProducerRegistryInstance().registerProducer(onDemandProducer);
 	
 		//force request uri filter to create 'other' stats.
 		try{
 			if (limit!=-1)
-				otherStats = (FilterStats)onDemandProducer.getStats(OTHER);
+				otherStats = onDemandProducer.getStats(OTHER);
 		}catch(OnDemandStatsProducerException e){
 			log.error("Can't create default stats for limit excess", e);
 		}
@@ -169,9 +169,9 @@ public abstract class MoskitoFilter implements Filter{
 	
 	/**
 	 * Overwrite this to provide a name allocation mechanism to make request -> name mapping.
-	 * @param req
-	 * @param res
-	 * @return
+	 * @param req ServletRequest.
+	 * @param res ServletResponse.
+	 * @return name of the use case for stat storage.
 	 */
 	protected abstract String extractCaseName(ServletRequest req, ServletResponse res );
 
@@ -187,7 +187,7 @@ public abstract class MoskitoFilter implements Filter{
 
 	/**
 	 * Overwrite this method to register the filter in a category of your choice. Default is 'filter'.
-	 * @return
+	 * @return the category of this producer.
 	 */
 	protected String getCategory() {
 		return "filter";
@@ -195,7 +195,7 @@ public abstract class MoskitoFilter implements Filter{
 	
 	/**
 	 * Override this to register the filter as specially defined subsystem. Default is 'default'.
-	 * @return
+	 * @return the subsystem of this producer.
 	 */
 	protected String getSubsystem(){
 		return "default";
