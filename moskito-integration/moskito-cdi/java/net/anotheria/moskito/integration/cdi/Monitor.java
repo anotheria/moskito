@@ -18,5 +18,5 @@ public @interface Monitor {
     /**
      * Monitoring category.
      */
-    String value();
+    String value() default MonitoringCategorySelector.SERVICE;
 }

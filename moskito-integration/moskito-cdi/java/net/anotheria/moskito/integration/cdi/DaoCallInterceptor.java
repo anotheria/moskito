@@ -11,11 +11,11 @@ import javax.interceptor.Interceptor;
  */
 @Interceptor
 @Singleton
-@Monitor("dao")
+@Monitor(MonitoringCategorySelector.DAO)
 public class DaoCallInterceptor extends CallInterceptor {
 
     @Override
     public String getCategory() {
-        return "dao";
+        return MonitoringCategorySelector.DAO;
     }
 }

@@ -23,7 +23,7 @@ import java.lang.reflect.Method;
 @Interceptor
 @Singleton
 @Count
-public class CountInterceptor extends BaseInterceptor implements Serializable {
+public class CountInterceptor extends BaseInterceptor<CounterStats> implements Serializable {
 	/**
      * Serialization version unique identifier.
      */

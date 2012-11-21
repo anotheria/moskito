@@ -11,11 +11,11 @@ import javax.interceptor.Interceptor;
  */
 @Interceptor
 @Singleton
-@Monitor("service")
+@Monitor(MonitoringCategorySelector.SERVICE)
 public class ServiceCallInterceptor extends CallInterceptor {
 
 	@Override
     public String getCategory() {
-        return "service";
+        return MonitoringCategorySelector.SERVICE;
     }
 }

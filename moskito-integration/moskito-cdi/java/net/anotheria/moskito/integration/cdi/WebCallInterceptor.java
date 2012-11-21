@@ -11,11 +11,11 @@ import javax.interceptor.Interceptor;
  */
 @Interceptor
 @Singleton
-@Monitor("web")
+@Monitor(MonitoringCategorySelector.WEB)
 public class WebCallInterceptor extends CallInterceptor {
 
     @Override
     public String getCategory() {
-        return "web";
+        return MonitoringCategorySelector.WEB;
     }
 }

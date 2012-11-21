@@ -11,7 +11,9 @@ import net.anotheria.moskito.core.predefined.ServiceStats;
 import net.anotheria.moskito.core.predefined.ServiceStatsFactory;
 import org.apache.log4j.Logger;
 
+import javax.inject.Singleton;
 import javax.interceptor.AroundInvoke;
+import javax.interceptor.Interceptor;
 import javax.interceptor.InvocationContext;
 import java.io.Serializable;
 import java.lang.reflect.InvocationTargetException;
@@ -22,6 +24,9 @@ import java.lang.reflect.Method;
  *
  * @author Vitaliy Zhovtiuk, Leon Rosenberg
  */
+@Interceptor
+@Singleton
+@Monitor()
 public class CallInterceptor extends BaseInterceptor<ServiceStats> implements Serializable {
     /**
      * Serialization version unique identifier.
