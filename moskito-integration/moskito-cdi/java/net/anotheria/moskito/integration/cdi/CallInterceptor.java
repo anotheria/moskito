@@ -4,11 +4,11 @@ import net.anotheria.moskito.core.calltrace.CurrentlyTracedCall;
 import net.anotheria.moskito.core.calltrace.RunningTraceContainer;
 import net.anotheria.moskito.core.calltrace.TraceStep;
 import net.anotheria.moskito.core.calltrace.TracedCall;
+import net.anotheria.moskito.core.dynamic.IOnDemandStatsFactory;
 import net.anotheria.moskito.core.dynamic.OnDemandStatsProducer;
 import net.anotheria.moskito.core.dynamic.OnDemandStatsProducerException;
 import net.anotheria.moskito.core.predefined.ServiceStats;
 import net.anotheria.moskito.core.predefined.ServiceStatsFactory;
-import net.anotheria.moskito.core.registry.ProducerRegistryFactory;
 import org.apache.log4j.Logger;
 
 import javax.interceptor.AroundInvoke;
@@ -16,15 +16,13 @@ import javax.interceptor.InvocationContext;
 import java.io.Serializable;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.ConcurrentMap;
 
 /**
  * Generic call interceptor.
  *
  * @author Vitaliy Zhovtiuk, Leon Rosenberg
  */
-public class CallInterceptor implements Serializable {
+public class CallInterceptor extends BaseInterceptor<ServiceStats> implements Serializable {
     /**
      * Serialization version unique identifier.
      */
@@ -34,10 +32,6 @@ public class CallInterceptor implements Serializable {
      * Logger.
      */
     private Logger log = Logger.getLogger(CallInterceptor.class);
-    /**
-     * The internal producer instances.
-     */
-    private ConcurrentMap<String, OnDemandStatsProducer> producers = new ConcurrentHashMap<String, OnDemandStatsProducer>();
 
 
     /**
@@ -51,24 +45,15 @@ public class CallInterceptor implements Serializable {
     @AroundInvoke
     public Object aroundInvoke(InvocationContext ctx) throws Throwable {
 
-        String producerId = extractProducerId(ctx);
-        OnDemandStatsProducer onDemandProducer = producers.get(producerId);
-        if (onDemandProducer == null) {
-            onDemandProducer = new OnDemandStatsProducer(producerId, getCategory(), getSubsystem(), new ServiceStatsFactory());
-            OnDemandStatsProducer p = producers.putIfAbsent(producerId, onDemandProducer);
-            if (p == null) {
-                ProducerRegistryFactory.getProducerRegistryInstance().registerProducer(onDemandProducer);
-            } else {
-                onDemandProducer = p;
-            }
-        }
+		ProducerRuntimeDefinition prd = extractProducerDefinition(ctx);
+		OnDemandStatsProducer<ServiceStats> onDemandProducer = getProducer(prd);
 
-        ServiceStats defaultStats = (ServiceStats) onDemandProducer.getDefaultStats();
+        ServiceStats defaultStats = onDemandProducer.getDefaultStats();
         ServiceStats methodStats = null;
         String caseName = extractCaseName(ctx);
         try {
             if (caseName != null) {
-                methodStats = (ServiceStats) onDemandProducer.getStats(caseName);
+                methodStats = onDemandProducer.getStats(caseName);
             }
         } catch (OnDemandStatsProducerException e) {
             log.info("Couldn't get stats for case : " + caseName + ", probably limit reached");
@@ -145,43 +130,16 @@ public class CallInterceptor implements Serializable {
     }
     // CHECKSTYLE:ON
 
-    /**
-     * Extract case name from execution context.
-     *
-     * @param ctx execution context
-     * @return case name
-     */
-    private String extractCaseName(InvocationContext ctx) {
-        return ctx.getMethod().toGenericString();
-    }
-
-    /**
-     * Get producer id.
-     *
-     * @param ctx invocation context
-     * @return string producer id
-     */
-    private String extractProducerId(InvocationContext ctx) {
-        return getClassName(ctx);
-    }
-
     public String getCategory() {
         return "service";
     }
 
-    public String getSubsystem() {
-        return "default";
-    }
+	@Override
+	protected IOnDemandStatsFactory getFactory() {
+		return ServiceStatsFactory.DEFAULT_INSTANCE;
+	}
 
-
-    /**
-     * Get class name by invocation context.
-     *
-     * @param ctx invocation context
-     * @return string class name
-     */
-    private static String getClassName(InvocationContext ctx) {
-        return ctx.getMethod().getDeclaringClass().getName();
-    }
-
+	private static String getClassName(InvocationContext ctx) {
+		return ctx.getMethod().getDeclaringClass().getSimpleName();
+	}
 }

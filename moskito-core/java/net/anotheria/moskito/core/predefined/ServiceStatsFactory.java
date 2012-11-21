@@ -49,7 +49,12 @@ public class ServiceStatsFactory implements IOnDemandStatsFactory<ServiceStats> 
 	 * Configured intervals that have to be passed to the created stats object.
 	 */
 	private Interval[] intervals;
-	
+
+	/**
+	 * Default instance to spare additional object creation.
+	 */
+	public static final ServiceStatsFactory DEFAULT_INSTANCE = new ServiceStatsFactory();
+
 	/**
 	 * Creates a new factory with custom intervals.
 	 * @param configuredIntervals

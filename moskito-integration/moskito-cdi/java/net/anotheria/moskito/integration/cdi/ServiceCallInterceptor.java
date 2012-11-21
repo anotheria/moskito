@@ -1,11 +1,7 @@
 package net.anotheria.moskito.integration.cdi;
 
-import net.anotheria.moskito.core.dynamic.OnDemandStatsProducerException;
-
 import javax.inject.Singleton;
 import javax.interceptor.Interceptor;
-
-import static net.anotheria.moskito.integration.cdi.ServiceCallInterceptor.SERVICE_CATEGORY;
 
 /**
  * Service layer call interceptor.
@@ -15,23 +11,11 @@ import static net.anotheria.moskito.integration.cdi.ServiceCallInterceptor.SERVI
  */
 @Interceptor
 @Singleton
-@Monitor(SERVICE_CATEGORY)
+@Monitor("service")
 public class ServiceCallInterceptor extends CallInterceptor {
 
-    public static final String SERVICE_CATEGORY = "service";
-
-    /**
-     * Default constructor.
-     *
-     * @throws net.anotheria.moskito.core.dynamic.OnDemandStatsProducerException
-     *          producer creation failed
-     */
-    public ServiceCallInterceptor() throws OnDemandStatsProducerException {
-        super();
-    }
-
-    @Override
+	@Override
     public String getCategory() {
-        return SERVICE_CATEGORY;
+        return "service";
     }
 }

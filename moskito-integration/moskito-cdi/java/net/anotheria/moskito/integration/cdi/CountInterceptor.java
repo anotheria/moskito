@@ -2,9 +2,9 @@ package net.anotheria.moskito.integration.cdi;
 
 import net.anotheria.moskito.core.counter.CounterStats;
 import net.anotheria.moskito.core.counter.CounterStatsFactory;
+import net.anotheria.moskito.core.dynamic.IOnDemandStatsFactory;
 import net.anotheria.moskito.core.dynamic.OnDemandStatsProducer;
 import net.anotheria.moskito.core.dynamic.OnDemandStatsProducerException;
-import net.anotheria.moskito.core.registry.ProducerRegistryFactory;
 import org.apache.log4j.Logger;
 
 import javax.inject.Singleton;
@@ -14,8 +14,6 @@ import javax.interceptor.InvocationContext;
 import java.io.Serializable;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.ConcurrentMap;
 
 /**
  * Generic call interceptor.
@@ -25,20 +23,16 @@ import java.util.concurrent.ConcurrentMap;
 @Interceptor
 @Singleton
 @Count
-public class CountInterceptor implements Serializable {
+public class CountInterceptor extends BaseInterceptor implements Serializable {
 	/**
      * Serialization version unique identifier.
      */
-    private static final long serialVersionUID = -2722113871558244179L;
+    private static final long serialVersionUID = 1L;
 
     /**
      * Logger.
      */
     private Logger log = Logger.getLogger(CountInterceptor.class);
-    /**
-     * The internal producer instances.
-     */
-    private ConcurrentMap<String, OnDemandStatsProducer<CounterStats>> producers = new ConcurrentHashMap<String, OnDemandStatsProducer<CounterStats>>();
 
 
     /**
@@ -53,17 +47,7 @@ public class CountInterceptor implements Serializable {
     public Object aroundInvoke(InvocationContext ctx) throws Throwable {
 
 		ProducerRuntimeDefinition prd = extractProducerDefinition(ctx);
-		String producerId = prd.getProducerId();
-        OnDemandStatsProducer<CounterStats> onDemandProducer = producers.get(producerId);
-        if (onDemandProducer == null) {
-            onDemandProducer = new OnDemandStatsProducer(prd.getProducerId(), prd.getCategory(), prd.getSubsystem(), new CounterStatsFactory());
-            OnDemandStatsProducer p = producers.putIfAbsent(producerId, onDemandProducer);
-            if (p == null) {
-                ProducerRegistryFactory.getProducerRegistryInstance().registerProducer(onDemandProducer);
-            } else {
-                onDemandProducer = p;
-            }
-        }
+		OnDemandStatsProducer<CounterStats> onDemandProducer = getProducer(prd);
 
 		CounterStats defaultStats = onDemandProducer.getDefaultStats();
 		CounterStats methodStats = null;
@@ -93,49 +77,14 @@ public class CountInterceptor implements Serializable {
     }
     // CHECKSTYLE:ON
 
-    /**
-     * Extract case name from execution context.
-     *
-     * @param ctx execution context
-     * @return case name
-     */
-    private String extractCaseName(InvocationContext ctx) {
-        return ctx.getMethod().getName();
-    }
 
-    /**
-     * Get producer id.
-     *
-     * @param ctx invocation context
-     * @return string producer id
-     */
-    private ProducerRuntimeDefinition extractProducerDefinition(InvocationContext ctx) {
-        return getProducerDefinitionFromClassOrAnnotation(ctx);
-    }
+	@Override
+	protected IOnDemandStatsFactory getFactory() {
+		return CounterStatsFactory.DEFAULT_INSTANCE;
+	}
 
-    /**
-     * Get class name by invocation context.
-     *
-     * @param ctx invocation context
-     * @return string class name
-     */
-    private static ProducerRuntimeDefinition getProducerDefinitionFromClassOrAnnotation(InvocationContext ctx) {
-		Class c = ctx.getMethod().getDeclaringClass();
-		ProducerDefinition ann = (ProducerDefinition)c.getAnnotation(ProducerDefinition.class);
-
-		ProducerRuntimeDefinition ret = new ProducerRuntimeDefinition();
-		if (ann==null){
-			ret.setProducerId(c.getSimpleName());
-			ret.setCategory("cdi-counter");
-			ret.setSubsystem("default");
-		}else{
-			ret.setProducerId(ann.producerId());
-			ret.setCategory(ann.category());
-			ret.setSubsystem(ann.subsystem());
-		}
-        return ret;
-    }
-
-
-
+	@Override
+	protected String getCategory() {
+		return "counter";
+	}
 }

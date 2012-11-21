@@ -14,6 +14,8 @@ public class CounterStatsFactory implements IOnDemandStatsFactory<CounterStats> 
 
 	private Interval[] intervalSelection;
 
+	public static final CounterStatsFactory DEFAULT_INSTANCE = new CounterStatsFactory();
+
 	public CounterStatsFactory(){
 		this(Constants.getDefaultIntervals());
 	}
