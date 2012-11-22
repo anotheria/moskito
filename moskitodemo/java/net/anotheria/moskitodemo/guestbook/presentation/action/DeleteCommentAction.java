@@ -37,12 +37,12 @@ package net.anotheria.moskitodemo.guestbook.presentation.action;
 import net.anotheria.maf.action.ActionCommand;
 import net.anotheria.maf.action.ActionMapping;
 import net.anotheria.maf.bean.FormBean;
-import net.anotheria.moskito.aop.annotation.MonitorClass;
+import net.anotheria.moskito.aop.annotation.Monitor;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@MonitorClass
+@Monitor
 public class DeleteCommentAction extends ShowCommentsAction{
 
 	@Override

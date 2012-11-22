@@ -2,7 +2,7 @@ package net.anotheria.moskitodemo.annotation;
 
 import net.anotheria.db.config.JDBCConfig;
 import net.anotheria.db.config.JDBCConfigFactory;
-import net.anotheria.moskito.aop.annotation.MonitorMethod;
+import net.anotheria.moskito.aop.annotation.Monitor;
 import org.apache.commons.dbcp.BasicDataSource;
 
 import java.sql.Connection;
@@ -42,7 +42,7 @@ public class DBUtil {
         statement.execute(DROP_TABLE_QUERY);
     }
 
-    @MonitorMethod
+    @Monitor
     private static Connection getConnection() throws SQLException {
         BasicDataSource newDataSource = new BasicDataSource();
         JDBCConfig config = JDBCConfigFactory.getJDBCConfig();

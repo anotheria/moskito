@@ -1,9 +1,12 @@
 package net.anotheria.moskito.aop.aspect;
 
+import net.anotheria.moskito.aop.annotation.Count;
+import net.anotheria.moskito.aop.annotation.CountByParameter;
 import net.anotheria.moskito.core.counter.CounterStats;
 import net.anotheria.moskito.core.counter.CounterStatsFactory;
 import net.anotheria.moskito.core.dynamic.OnDemandStatsProducer;
 import org.aspectj.lang.ProceedingJoinPoint;
+import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 
 import java.lang.reflect.InvocationTargetException;
@@ -14,28 +17,28 @@ import java.lang.reflect.InvocationTargetException;
  * @author lrosenberg, vzhovtiuk
  */
 @Aspect
-public class CounterAspect extends AbstractMoskitoAspect<CounterStats>{
-  /*
+public class CounterAspect extends AbstractMoskitoAspect {
+
+	private static final CounterStatsFactory FACTORY = new CounterStatsFactory();
+
 	@Around(value = "execution(* *(..)) && (@annotation(method))")
     public Object countMethod(ProceedingJoinPoint pjp, Count method) throws Throwable {
     	return count(pjp, method.producerId(), method.subsystem(), method.category());
     }
-  /* */
-	     /*
+
 	@Around(value = "execution(* *(..)) && (@annotation(method))")
 	public Object countByParameter(ProceedingJoinPoint pjp, CountByParameter method) throws Throwable {
 		return countByParameter(pjp, method.producerId(), method.subsystem(), method.category());
-	}*/
+	}
 
-
-	/*@Around(value = "execution(* *.*(..)) && (@within(clazz))")
+	@Around(value = "execution(* *.*(..)) && (@within(clazz))")
     public Object countClass(ProceedingJoinPoint pjp, Count clazz) throws Throwable {
     	return count(pjp, clazz.producerId(), clazz.subsystem(), clazz.category());
-    } */
+    }
 
 	private Object countByParameter(ProceedingJoinPoint pjp, String aProducerId, String aSubsystem, String aCategory) throws Throwable {
 
-		OnDemandStatsProducer<CounterStats> producer = getProducer(pjp, aProducerId, aCategory, aSubsystem, true, CounterStatsFactory.DEFAULT_INSTANCE);
+		OnDemandStatsProducer<CounterStats> producer = getProducer(pjp, aProducerId, aCategory, aSubsystem, true, FACTORY);
 
 		final Object[] args = pjp.getArgs();
 
@@ -55,31 +58,39 @@ public class CounterAspect extends AbstractMoskitoAspect<CounterStats>{
 			methodStats.inc();
 		}
 
+		Object ret = null;
 		try {
-			return pjp.proceed();
+			ret = pjp.proceed();
+			return ret;
 		} catch (InvocationTargetException e) {
 			throw e.getCause();
+		} finally {
 		}
 	}
 
 
 	private Object count(ProceedingJoinPoint pjp, String aProducerId, String aSubsystem, String aCategory) throws Throwable {
 
-		OnDemandStatsProducer<CounterStats> producer = getProducer(pjp, aProducerId, aCategory, aSubsystem, false, CounterStatsFactory.DEFAULT_INSTANCE);
+		OnDemandStatsProducer<CounterStats> producer = getProducer(pjp, aProducerId, aCategory, aSubsystem, false, FACTORY);
 
 		String caseName = pjp.getSignature().getName();
     	CounterStats defaultStats = producer.getDefaultStats();
 		CounterStats methodStats = producer.getStats(caseName);
 
+        final Object[] args = pjp.getArgs();
+        final String method = pjp.getSignature().getName();
         defaultStats.inc();
         if (methodStats != null) {
             methodStats.inc();
         }
 
+        Object ret = null;
         try {
-            return pjp.proceed();
+            ret = pjp.proceed();
+            return ret;
         } catch (InvocationTargetException e) {
             throw e.getCause();
+        } finally {
         }
     }
 }

@@ -13,9 +13,6 @@
 
 package net.anotheria.moskitodemo.annotation.data;
 
-import net.anotheria.moskito.aop.annotation.MonitorClass;
-
-@MonitorClass
 public interface Comment {
 
 	/**

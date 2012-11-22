@@ -20,8 +20,7 @@ import java.lang.reflect.InvocationTargetException;
  * @author <a href="mailto:vzhovtiuk@anotheria.net">Vitaliy Zhovtiuk</a>, lrosenberg
  */
 @Aspect
-@Deprecated
-public class MethodCallAspect extends AbstractMoskitoAspect{
+public class MonitoringAspect extends AbstractMoskitoAspect{
 
 	/**
 	 * Factory constant is needed to prevent continuous reinstantiation of ServiceStatsFactory objects.
@@ -32,12 +31,12 @@ public class MethodCallAspect extends AbstractMoskitoAspect{
     public Object doProfilingMethod(ProceedingJoinPoint pjp, Monitor method) throws Throwable {
     	return doProfiling(pjp, method.producerId(), method.subsystem(), method.category());
     }
-
+ /* */
     @Around(value = "execution(* *.*(..)) && (@within(clazz) && !@annotation(net.anotheria.moskito.aop.annotation.DontMonitor))")
     public Object doProfilingClass(ProceedingJoinPoint pjp, Monitor clazz) throws Throwable {
     	return doProfiling(pjp, clazz.producerId(), clazz.subsystem(), clazz.category());
     }
-
+    /*  */
     private Object doProfiling(ProceedingJoinPoint pjp, String aProducerId, String aSubsystem, String aCategory) throws Throwable {
 
 		OnDemandStatsProducer<ServiceStats> producer = getProducer(pjp, aProducerId, aCategory, aSubsystem, false, FACTORY);

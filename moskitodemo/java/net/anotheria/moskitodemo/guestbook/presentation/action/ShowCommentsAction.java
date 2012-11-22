@@ -38,7 +38,7 @@ import net.anotheria.anoplass.api.util.paging.PagingControl;
 import net.anotheria.maf.action.ActionCommand;
 import net.anotheria.maf.action.ActionMapping;
 import net.anotheria.maf.bean.FormBean;
-import net.anotheria.moskito.aop.annotation.MonitorClass;
+import net.anotheria.moskito.aop.annotation.Monitor;
 import net.anotheria.moskitodemo.guestbook.business.data.Comment;
 import net.anotheria.moskitodemo.guestbook.business.data.CommentSortType;
 import net.anotheria.moskitodemo.guestbook.presentation.bean.CommentTableHeaderBean;
@@ -52,7 +52,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.List;
 
-@MonitorClass
+@Monitor
 public class ShowCommentsAction extends BaseGuestbookAction{
 	
 	public static final String P_SORT_BY = "pSortBy";
