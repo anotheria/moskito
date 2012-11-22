@@ -15,24 +15,24 @@ import java.lang.reflect.InvocationTargetException;
  */
 @Aspect
 public class CounterAspect extends AbstractMoskitoAspect<CounterStats>{
-/*
+  /*
 	@Around(value = "execution(* *(..)) && (@annotation(method))")
     public Object countMethod(ProceedingJoinPoint pjp, Count method) throws Throwable {
     	return count(pjp, method.producerId(), method.subsystem(), method.category());
     }
-  */
+  /* */
 	     /*
 	@Around(value = "execution(* *(..)) && (@annotation(method))")
 	public Object countByParameter(ProceedingJoinPoint pjp, CountByParameter method) throws Throwable {
 		return countByParameter(pjp, method.producerId(), method.subsystem(), method.category());
 	}*/
 
-	 /*
-	@Around(value = "execution(* *.*(..)) && (@within(clazz))")
+
+	/*@Around(value = "execution(* *.*(..)) && (@within(clazz))")
     public Object countClass(ProceedingJoinPoint pjp, Count clazz) throws Throwable {
     	return count(pjp, clazz.producerId(), clazz.subsystem(), clazz.category());
-    }
-       */
+    } */
+
 	private Object countByParameter(ProceedingJoinPoint pjp, String aProducerId, String aSubsystem, String aCategory) throws Throwable {
 
 		OnDemandStatsProducer<CounterStats> producer = getProducer(pjp, aProducerId, aCategory, aSubsystem, true, CounterStatsFactory.DEFAULT_INSTANCE);

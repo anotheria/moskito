@@ -1,7 +1,6 @@
 package net.anotheria.moskito.aop.aspect;
 
-import net.anotheria.moskito.aop.annotation.MonitorClass;
-import net.anotheria.moskito.aop.annotation.MonitorMethod;
+import net.anotheria.moskito.aop.annotation.Monitor;
 import net.anotheria.moskito.core.calltrace.CurrentlyTracedCall;
 import net.anotheria.moskito.core.calltrace.RunningTraceContainer;
 import net.anotheria.moskito.core.calltrace.TraceStep;
@@ -29,13 +28,13 @@ public class MethodCallAspect extends AbstractMoskitoAspect{
 	 */
 	private static final ServiceStatsFactory FACTORY = new ServiceStatsFactory();
 
-@Around(value = "execution(* *(..)) && (@annotation(method))")
-    public Object doProfilingMethod(ProceedingJoinPoint pjp, MonitorMethod method) throws Throwable {
+	@Around(value = "execution(* *(..)) && (@annotation(method))")
+    public Object doProfilingMethod(ProceedingJoinPoint pjp, Monitor method) throws Throwable {
     	return doProfiling(pjp, method.producerId(), method.subsystem(), method.category());
     }
 
-    @Around(value = "execution(* *.*(..)) && (@within(clazz) && !@annotation(net.anotheria.moskito.aop.annotation.DontMonitorMethod))")
-    public Object doProfilingClass(ProceedingJoinPoint pjp, MonitorClass clazz) throws Throwable {
+    @Around(value = "execution(* *.*(..)) && (@within(clazz) && !@annotation(net.anotheria.moskito.aop.annotation.DontMonitor))")
+    public Object doProfilingClass(ProceedingJoinPoint pjp, Monitor clazz) throws Throwable {
     	return doProfiling(pjp, clazz.producerId(), clazz.subsystem(), clazz.category());
     }
 

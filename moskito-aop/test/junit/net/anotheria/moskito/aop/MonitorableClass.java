@@ -1,12 +1,12 @@
 package net.anotheria.moskito.aop;
 
-import net.anotheria.moskito.aop.annotation.DontMonitorMethod;
-import net.anotheria.moskito.aop.annotation.MonitorClass;
+import net.anotheria.moskito.aop.annotation.DontMonitor;
+import net.anotheria.moskito.aop.annotation.Monitor;
 
-@MonitorClass
+@Monitor
 public class MonitorableClass {
 	public void monitoredMethod(){}
 	
-	@DontMonitorMethod
+	@DontMonitor
 	public void notMonitoredMethod(){}
 }
