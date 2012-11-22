@@ -1,4 +1,6 @@
-package net.anotheria.moskito.annotation;
+package net.anotheria.moskito.aop;
+
+import net.anotheria.moskito.aop.annotation.Monitor;
 
 import java.util.concurrent.TimeUnit;
 
@@ -10,7 +12,7 @@ import java.util.concurrent.TimeUnit;
  *         Time: 4:59 PM
  *         To change this template use File | Settings | File Templates.
  */
-@MonitorClass
+@Monitor
 public class AnnotatedClass {
     public void doSome() throws InterruptedException {
         TimeUnit.NANOSECONDS.sleep(1);

@@ -2,7 +2,7 @@ package net.anotheria.moskitodemo.annotation;
 
 import net.anotheria.db.config.JDBCConfig;
 import net.anotheria.db.config.JDBCConfigFactory;
-import net.anotheria.moskito.annotation.MonitorMethod;
+import net.anotheria.moskito.aop.annotation.MonitorMethod;
 import org.apache.commons.dbcp.BasicDataSource;
 
 import java.sql.Connection;

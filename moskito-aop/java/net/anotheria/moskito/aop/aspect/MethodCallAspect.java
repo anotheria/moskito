@@ -1,7 +1,7 @@
-package net.anotheria.moskito.annotation.callingAspect;
+package net.anotheria.moskito.aop.aspect;
 
-import net.anotheria.moskito.annotation.MonitorClass;
-import net.anotheria.moskito.annotation.MonitorMethod;
+import net.anotheria.moskito.aop.annotation.MonitorClass;
+import net.anotheria.moskito.aop.annotation.MonitorMethod;
 import net.anotheria.moskito.core.calltrace.CurrentlyTracedCall;
 import net.anotheria.moskito.core.calltrace.RunningTraceContainer;
 import net.anotheria.moskito.core.calltrace.TraceStep;
@@ -21,6 +21,7 @@ import java.lang.reflect.InvocationTargetException;
  * @author <a href="mailto:vzhovtiuk@anotheria.net">Vitaliy Zhovtiuk</a>, lrosenberg
  */
 @Aspect
+@Deprecated
 public class MethodCallAspect extends AbstractMoskitoAspect{
 
 	/**
@@ -33,7 +34,7 @@ public class MethodCallAspect extends AbstractMoskitoAspect{
     	return doProfiling(pjp, method.producerId(), method.subsystem(), method.category());
     }
 
-    @Around(value = "execution(* *.*(..)) && (@within(clazz) && !@annotation(net.anotheria.moskito.annotation.DontMonitorMethod))")
+    @Around(value = "execution(* *.*(..)) && (@within(clazz) && !@annotation(net.anotheria.moskito.aop.annotation.DontMonitorMethod))")
     public Object doProfilingClass(ProceedingJoinPoint pjp, MonitorClass clazz) throws Throwable {
     	return doProfiling(pjp, clazz.producerId(), clazz.subsystem(), clazz.category());
     }

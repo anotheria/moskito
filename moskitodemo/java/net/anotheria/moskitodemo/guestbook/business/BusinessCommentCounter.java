@@ -1,6 +1,6 @@
 package net.anotheria.moskitodemo.guestbook.business;
 
-import net.anotheria.moskito.annotation.Count;
+import net.anotheria.moskito.aop.annotation.Count;
 
 /**
  * TODO comment this class

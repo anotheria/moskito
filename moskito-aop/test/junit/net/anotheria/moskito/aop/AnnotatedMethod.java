@@ -1,6 +1,6 @@
-package net.anotheria.moskito.annotation;
+package net.anotheria.moskito.aop;
 
-import net.anotheria.moskito.annotation.MonitorMethod;
+import net.anotheria.moskito.aop.annotation.Monitor;
 
 /**
  * Created by IntelliJ IDEA.
@@ -11,7 +11,7 @@ import net.anotheria.moskito.annotation.MonitorMethod;
  *         To change this template use File | Settings | File Templates.
  */
 public class AnnotatedMethod {
-    @MonitorMethod
+    @Monitor
     public void doSomething() {
 
     }

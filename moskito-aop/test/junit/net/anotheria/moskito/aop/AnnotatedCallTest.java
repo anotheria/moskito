@@ -1,11 +1,9 @@
-package net.anotheria.moskito.annotation;
+package net.anotheria.moskito.aop;
 
-import net.anotheria.moskito.annotation.callingAspect.MethodCallAspect;
 import net.anotheria.moskito.core.producers.IStats;
 import net.anotheria.moskito.core.producers.IStatsProducer;
 import net.anotheria.moskito.core.registry.ProducerRegistryFactory;
 import net.anotheria.moskito.core.stats.TimeUnit;
-import org.junit.After;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
@@ -19,7 +17,6 @@ import static org.junit.Assert.assertEquals;
  */
 public class AnnotatedCallTest {
     public static final int ANNOTATED_METHOD_CALLS = 10000;
-    MethodCallAspect callAspect;
 
     @Test
     public void shouldInterceptAnnotatedMethod() throws Exception {
@@ -63,11 +60,5 @@ public class AnnotatedCallTest {
         assertEquals("Should be 750 calls", 750 + "", doSome2Stats.getValueByNameAsString("TR", null, TimeUnit.MICROSECONDS));
         IStats doSome3Stats = producer.getStats().get(3);
         assertEquals("Should be 1750 calls", 1750 + "", doSome3Stats.getValueByNameAsString("TR", null, TimeUnit.MICROSECONDS));
-    }
-    @After
-    public void tearDown() throws Exception {
-        if (callAspect != null) {
-            callAspect.reset();
-        }
     }
 }

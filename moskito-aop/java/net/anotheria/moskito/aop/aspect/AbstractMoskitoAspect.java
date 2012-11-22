@@ -1,4 +1,4 @@
-package net.anotheria.moskito.annotation.callingAspect;
+package net.anotheria.moskito.aop.aspect;
 
 import net.anotheria.moskito.core.dynamic.IOnDemandStatsFactory;
 import net.anotheria.moskito.core.dynamic.OnDemandStatsProducer;
@@ -25,7 +25,7 @@ public class AbstractMoskitoAspect<S extends IStats> {
 	/**
 	 * Returns the producer for the given pjp and producerId. Registers the producer in the registry if it's not already registered.
 	 * @param pjp the pjp is used to obtain the producer id automatically if it's not submitted.
-	 * @param aProducerId submitted producer id, used if configured in annotation.
+	 * @param aProducerId submitted producer id, used if configured in aop.
 	 * @param aCategory submitted category.
 	 * @param aSubsystem submitted subsystem.
 	 * @param withMethod if true the name of the method will be part of the automatically generated producer id.
@@ -61,10 +61,20 @@ public class AbstractMoskitoAspect<S extends IStats> {
 	}
 
 
+	/**
+	 * Returns the category to use for the producer registration.
+	 * @param proposal
+	 * @return
+	 */
 	public String getCategory(String proposal) {
 		return proposal==null || proposal.length()==0 ? "annotated" : proposal;
 	}
 
+	/**
+	 * Returns the subsystem for registration.
+	 * @param proposal
+	 * @return
+	 */
 	public String getSubsystem(String proposal) {
 		return proposal==null || proposal.length()==0 ? "default" : proposal;
 	}

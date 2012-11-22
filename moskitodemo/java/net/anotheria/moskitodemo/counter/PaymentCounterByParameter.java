@@ -1,6 +1,6 @@
 package net.anotheria.moskitodemo.counter;
 
-import net.anotheria.moskito.annotation.CountByParameter;
+import net.anotheria.moskito.aop.annotation.CountByParameter;
 
 /**
  * TODO comment this class

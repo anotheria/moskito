@@ -37,7 +37,7 @@ package net.anotheria.moskitodemo.guestbook.presentation.action;
 import net.anotheria.maf.action.ActionCommand;
 import net.anotheria.maf.action.ActionMapping;
 import net.anotheria.maf.bean.FormBean;
-import net.anotheria.moskito.annotation.MonitorClass;
+import net.anotheria.moskito.aop.annotation.MonitorClass;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
