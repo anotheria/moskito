@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>net.anotheria.moskito.core.predefined.ServiceStats</OriginalElement>
+  <nodes>
+    <node x="0.0" y="0.0">net.anotheria.moskito.core.producers.IStats</node>
+    <node x="571.5" y="333.5">net.anotheria.moskito.core.counter.CounterStats</node>
+    <node x="-428.5" y="345.5">net.anotheria.moskito.core.predefined.VirtualMemoryPoolStats</node>
+    <node x="424.5" y="-37.5">net.anotheria.moskito.core.predefined.ThreadStateStats</node>
+    <node x="-535.5" y="204.5">net.anotheria.moskito.core.predefined.QueuingSystemStats</node>
+    <node x="-347.5" y="269.0">net.anotheria.moskito.core.util.storage.StorageStats</node>
+    <node x="334.5" y="49.5">net.anotheria.moskito.core.predefined.ThreadCountStats</node>
+    <node x="-550.5" y="75.5">net.anotheria.moskito.core.predefined.OSStats</node>
+    <node x="-373.5" y="-27.5">net.anotheria.moskito.core.predefined.CacheStats</node>
+    <node x="475.5" y="169.5">net.anotheria.moskito.core.counter.GenericCounterStats</node>
+    <node x="-544.5" y="5.5">net.anotheria.moskito.core.predefined.MemoryPoolStats</node>
+    <node x="2.0" y="160.0">net.anotheria.moskito.core.predefined.RequestOrientedStats</node>
+    <node x="-189.5" y="378.5">net.anotheria.moskito.core.predefined.FilterStats</node>
+    <node x="265.5" y="199.5">net.anotheria.moskito.core.predefined.RuntimeStats</node>
+    <node x="-109.5" y="305.5">net.anotheria.moskito.core.predefined.ServletStats</node>
+    <node x="352.5" y="374.5">net.anotheria.moskito.core.predefined.ActionStats</node>
+    <node x="382.5" y="272.5">net.anotheria.moskito.core.counter.GuestBasicPremiumStats</node>
+    <node x="-473.5" y="269.5">net.anotheria.moskito.core.predefined.QueueStats</node>
+    <node x="-527.5" y="148.5">net.anotheria.moskito.core.predefined.MemoryStats</node>
+    <node x="31.0" y="80.0">net.anotheria.moskito.core.producers.AbstractStats</node>
+    <node x="35.5" y="240.0">net.anotheria.moskito.core.predefined.ServiceStats</node>
+    <node x="642.5" y="274.5">net.anotheria.moskito.core.counter.MaleFemaleStats</node>
+    <node x="90.0" y="0.0">net.anotheria.moskito.core.producers.StatsMXBean</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="net.anotheria.moskito.core.predefined.VirtualMemoryPoolStats" target="net.anotheria.moskito.core.producers.AbstractStats">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="net.anotheria.moskito.core.counter.GuestBasicPremiumStats" target="net.anotheria.moskito.core.counter.GenericCounterStats">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="net.anotheria.moskito.core.predefined.RequestOrientedStats" target="net.anotheria.moskito.core.producers.AbstractStats">
+      <point x="0.0" y="-15.0" />
+      <point x="0.0" y="15.0" />
+    </edge>
+    <edge source="net.anotheria.moskito.core.predefined.ThreadCountStats" target="net.anotheria.moskito.core.producers.AbstractStats">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="net.anotheria.moskito.core.predefined.RuntimeStats" target="net.anotheria.moskito.core.producers.AbstractStats">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="net.anotheria.moskito.core.predefined.ActionStats" target="net.anotheria.moskito.core.predefined.RequestOrientedStats">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="net.anotheria.moskito.core.counter.GenericCounterStats" target="net.anotheria.moskito.core.producers.AbstractStats">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="net.anotheria.moskito.core.predefined.CacheStats" target="net.anotheria.moskito.core.producers.AbstractStats">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="net.anotheria.moskito.core.predefined.MemoryPoolStats" target="net.anotheria.moskito.core.producers.AbstractStats">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="net.anotheria.moskito.core.predefined.ServiceStats" target="net.anotheria.moskito.core.predefined.RequestOrientedStats">
+      <point x="0.0" y="-15.0" />
+      <point x="0.0" y="15.0" />
+    </edge>
+    <edge source="net.anotheria.moskito.core.predefined.QueueStats" target="net.anotheria.moskito.core.producers.AbstractStats">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="net.anotheria.moskito.core.util.storage.StorageStats" target="net.anotheria.moskito.core.producers.AbstractStats">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="net.anotheria.moskito.core.predefined.ThreadStateStats" target="net.anotheria.moskito.core.producers.AbstractStats">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="net.anotheria.moskito.core.producers.AbstractStats" target="net.anotheria.moskito.core.producers.IStats">
+      <point x="-30.75" y="-15.0" />
+      <point x="61.75" y="55.0" />
+      <point x="35.0" y="55.0" />
+      <point x="0.0" y="15.0" />
+    </edge>
+    <edge source="net.anotheria.moskito.core.predefined.ServletStats" target="net.anotheria.moskito.core.predefined.RequestOrientedStats">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="net.anotheria.moskito.core.predefined.MemoryStats" target="net.anotheria.moskito.core.producers.AbstractStats">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="net.anotheria.moskito.core.predefined.QueuingSystemStats" target="net.anotheria.moskito.core.producers.AbstractStats">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="net.anotheria.moskito.core.counter.MaleFemaleStats" target="net.anotheria.moskito.core.counter.GenericCounterStats">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="net.anotheria.moskito.core.producers.AbstractStats" target="net.anotheria.moskito.core.producers.StatsMXBean">
+      <point x="30.75" y="-15.0" />
+      <point x="123.25" y="55.0" />
+      <point x="150.0" y="55.0" />
+      <point x="0.0" y="15.0" />
+    </edge>
+    <edge source="net.anotheria.moskito.core.predefined.FilterStats" target="net.anotheria.moskito.core.predefined.ServletStats">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="net.anotheria.moskito.core.predefined.OSStats" target="net.anotheria.moskito.core.producers.AbstractStats">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="net.anotheria.moskito.core.counter.CounterStats" target="net.anotheria.moskito.core.counter.GenericCounterStats">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="1.0" x="119.0" y="185.5" />
+  <SelectedNodes>
+    <node>net.anotheria.moskito.core.predefined.RequestOrientedStats</node>
+  </SelectedNodes>
+  <Categories />
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+

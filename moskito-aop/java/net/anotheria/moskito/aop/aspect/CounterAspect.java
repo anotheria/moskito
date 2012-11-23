@@ -58,13 +58,10 @@ public class CounterAspect extends AbstractMoskitoAspect {
 			methodStats.inc();
 		}
 
-		Object ret = null;
 		try {
-			ret = pjp.proceed();
-			return ret;
+			return pjp.proceed();
 		} catch (InvocationTargetException e) {
 			throw e.getCause();
-		} finally {
 		}
 	}
 
@@ -84,13 +81,10 @@ public class CounterAspect extends AbstractMoskitoAspect {
             methodStats.inc();
         }
 
-        Object ret = null;
         try {
-            ret = pjp.proceed();
-            return ret;
+            return pjp.proceed();
         } catch (InvocationTargetException e) {
             throw e.getCause();
-        } finally {
         }
     }
 }

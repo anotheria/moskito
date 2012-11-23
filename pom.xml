@@ -20,7 +20,6 @@
 		<module>moskito-webui</module>
 		<module>moskito-webcontrol</module>
 		<module>moskito-central</module>
-		<module>moskitodemo</module>
 		<module>moskito-aop</module>
 		<module>moskito-integration</module>
 		<module>moskitominimal</module>

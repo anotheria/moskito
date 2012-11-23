@@ -1,8 +1,0 @@
-<Context path="/moskitodemo" docBase="${catalina.home}/webapps/moskitodemo"
-        debug="0" >
-	<Loader className="org.apache.catalina.loader.WebappLoader" 
-		delegate="false" 
-		reloadable="true"
-		loaderClass="net.anotheria.moskito.tomcat.MoskitoWebappClassLoader"
-	/>
-</Context>

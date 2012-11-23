@@ -1,3 +1,0 @@
-{
-    preconfiguredJdbcUrl:"jdbc:derby:memory:comment;create=true"
-}

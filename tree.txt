@@ -1,0 +1,415 @@
+-Xms256M -Xmx512M -XX:MaxPermSize=256M
+[INFO] Scanning for projects...
+[INFO] ------------------------------------------------------------------------
+[INFO] Reactor Build Order:
+[INFO] 
+[INFO] MoSKito
+[INFO] moskito core
+[INFO] moskito web support
+[INFO] moskito embedded web user interface
+[INFO] moskito monitoring application for different webui instances
+[INFO] moskito central snapshot storage
+[INFO] moskito sql
+[INFO] moskito aop
+[INFO] moskito demonstration webapp
+[INFO] moskito cdi integration
+[INFO] moskito integration aggregator
+[INFO] moskito minimal webapp
+[INFO]                                                                         
+[INFO] ------------------------------------------------------------------------
+[INFO] Building MoSKito 2.0.1-SNAPSHOT
+[INFO] ------------------------------------------------------------------------
+[INFO] 
+[INFO] --- maven-dependency-plugin:2.1:tree (default-cli) @ moskito ---
+[INFO] net.anotheria:moskito:pom:2.0.1-SNAPSHOT
+[INFO] +- log4j:log4j:jar:1.2.17:compile
+[INFO] \- junit:junit:jar:4.5:test
+[INFO]                                                                         
+[INFO] ------------------------------------------------------------------------
+[INFO] Building moskito core 2.0.1-SNAPSHOT
+[INFO] ------------------------------------------------------------------------
+[INFO] 
+[INFO] --- maven-dependency-plugin:2.1:tree (default-cli) @ moskito-core ---
+[INFO] net.anotheria:moskito-core:jar:2.0.1-SNAPSHOT
+[INFO] +- net.anotheria:ano-util:jar:2.0.0:compile
+[INFO] |  +- blowfish:blowfish:jar:1.0:compile
+[INFO] |  \- net.sf.dozer:dozer:jar:5.1:compile
+[INFO] |     +- commons-logging:commons-logging:jar:1.1.1:compile
+[INFO] |     +- commons-beanutils:commons-beanutils:jar:1.8.0:compile
+[INFO] |     +- commons-lang:commons-lang:jar:2.4:compile
+[INFO] |     \- commons-collections:commons-collections:jar:3.2.1:compile
+[INFO] +- net.anotheria:configureme:jar:2.0.0:compile
+[INFO] |  \- org.json:json:jar:1.0:compile
+[INFO] +- net.anotheria:ano-comm:jar:2.0.0:compile
+[INFO] |  +- net.anotheria:ano-prise:jar:2.0.1:compile (version managed from 2.0.0)
+[INFO] |  |  \- net.anotheria:ano-db:jar:2.0.0:compile
+[INFO] |  |     \- commons-dbcp:commons-dbcp:jar:1.4:compile
+[INFO] |  |        \- commons-pool:commons-pool:jar:1.5.4:compile
+[INFO] |  \- javax.mail:mail:jar:1.4.1:compile
+[INFO] |     \- javax.activation:activation:jar:1.1:compile
+[INFO] +- log4j:log4j:jar:1.2.17:compile
+[INFO] \- junit:junit:jar:4.5:test
+[INFO]                                                                         
+[INFO] ------------------------------------------------------------------------
+[INFO] Building moskito web support 2.0.1-SNAPSHOT
+[INFO] ------------------------------------------------------------------------
+[INFO] 
+[INFO] --- maven-dependency-plugin:2.1:tree (default-cli) @ moskito-web ---
+[INFO] net.anotheria:moskito-web:jar:2.0.1-SNAPSHOT
+[INFO] +- net.anotheria:ano-util:jar:2.0.0:compile
+[INFO] |  +- blowfish:blowfish:jar:1.0:compile
+[INFO] |  \- net.sf.dozer:dozer:jar:5.1:compile
+[INFO] |     +- commons-logging:commons-logging:jar:1.0.4:compile
+[INFO] |     +- commons-beanutils:commons-beanutils:jar:1.8.0:compile
+[INFO] |     +- commons-lang:commons-lang:jar:2.4:compile
+[INFO] |     \- commons-collections:commons-collections:jar:3.2.1:compile
+[INFO] +- net.anotheria:moskito-core:jar:2.0.1-SNAPSHOT:compile
+[INFO] |  +- net.anotheria:configureme:jar:2.0.0:compile
+[INFO] |  |  \- org.json:json:jar:1.0:compile
+[INFO] |  \- net.anotheria:ano-comm:jar:2.0.0:compile
+[INFO] |     \- javax.mail:mail:jar:1.4.1:compile
+[INFO] |        \- javax.activation:activation:jar:1.1:compile
+[INFO] +- javax.servlet:servlet-api:jar:2.5:provided
+[INFO] +- struts:struts:jar:1.2.9:provided
+[INFO] |  +- commons-digester:commons-digester:jar:1.6:provided
+[INFO] |  |  \- xml-apis:xml-apis:jar:1.0.b2:provided
+[INFO] |  +- commons-fileupload:commons-fileupload:jar:1.0:provided
+[INFO] |  +- commons-validator:commons-validator:jar:1.1.4:provided
+[INFO] |  +- oro:oro:jar:2.0.7:provided
+[INFO] |  +- antlr:antlr:jar:2.7.2:provided
+[INFO] |  \- xalan:xalan:jar:2.5.1:provided
+[INFO] +- net.anotheria:ano-maf:jar:2.0.0:provided
+[INFO] |  \- org.reflections:reflections:jar:0.9.5:provided
+[INFO] |     +- com.google.guava:guava:jar:r08:provided
+[INFO] |     +- javassist:javassist:jar:3.12.1.GA:provided
+[INFO] |     +- org.slf4j:slf4j-api:jar:1.6.1:provided
+[INFO] |     \- dom4j:dom4j:jar:1.6.1:provided
+[INFO] +- net.anotheria:ano-prise:jar:2.0.1:test (scope not updated to compile)
+[INFO] |  \- net.anotheria:ano-db:jar:2.0.0:test
+[INFO] |     \- commons-dbcp:commons-dbcp:jar:1.4:test
+[INFO] |        \- commons-pool:commons-pool:jar:1.5.4:test
+[INFO] +- log4j:log4j:jar:1.2.17:compile
+[INFO] \- junit:junit:jar:4.5:test
+[INFO]                                                                         
+[INFO] ------------------------------------------------------------------------
+[INFO] Building moskito embedded web user interface 2.0.1-SNAPSHOT
+[INFO] ------------------------------------------------------------------------
+[INFO] 
+[INFO] --- maven-dependency-plugin:2.1:tree (default-cli) @ moskito-webui ---
+[INFO] net.anotheria:moskito-webui:jar:2.0.1-SNAPSHOT
+[INFO] +- net.anotheria:ano-util:jar:2.0.0:compile
+[INFO] |  +- blowfish:blowfish:jar:1.0:compile
+[INFO] |  \- net.sf.dozer:dozer:jar:5.1:compile
+[INFO] |     +- commons-logging:commons-logging:jar:1.1.1:compile
+[INFO] |     +- commons-lang:commons-lang:jar:2.4:compile
+[INFO] |     \- commons-collections:commons-collections:jar:3.2.1:compile
+[INFO] +- net.anotheria:ano-maf:jar:2.0.0:compile
+[INFO] |  +- net.anotheria:ano-prise:jar:2.0.1:compile
+[INFO] |  |  \- net.anotheria:ano-db:jar:2.0.0:compile
+[INFO] |  |     \- commons-dbcp:commons-dbcp:jar:1.4:compile
+[INFO] |  |        \- commons-pool:commons-pool:jar:1.5.4:compile
+[INFO] |  +- org.reflections:reflections:jar:0.9.5:compile
+[INFO] |  |  +- com.google.guava:guava:jar:r08:compile
+[INFO] |  |  +- javassist:javassist:jar:3.12.1.GA:compile
+[INFO] |  |  +- org.slf4j:slf4j-api:jar:1.6.1:compile
+[INFO] |  |  \- dom4j:dom4j:jar:1.6.1:compile
+[INFO] |  |     \- xml-apis:xml-apis:jar:1.0.b2:compile
+[INFO] |  \- org.json:json:jar:1.0:compile
+[INFO] +- net.anotheria:ano-web:jar:2.0.0:compile
+[INFO] |  \- org.jdom:jdom:jar:1.1.1:compile
+[INFO] +- net.anotheria:ano-tags:jar:2.0.0:compile
+[INFO] |  +- commons-beanutils:commons-beanutils:jar:1.8.0:compile
+[INFO] |  +- commons-el:commons-el:jar:1.0:compile
+[INFO] |  +- xerces:xercesImpl:jar:2.6.2:compile
+[INFO] |  \- xerces:xmlParserAPIs:jar:2.6.2:compile
+[INFO] +- commons-codec:commons-codec:jar:1.5:compile
+[INFO] +- net.anotheria:moskito-core:jar:2.0.1-SNAPSHOT:compile
+[INFO] |  +- net.anotheria:configureme:jar:2.0.0:compile
+[INFO] |  \- net.anotheria:ano-comm:jar:2.0.0:compile
+[INFO] |     \- javax.mail:mail:jar:1.4.1:compile
+[INFO] |        \- javax.activation:activation:jar:1.1:compile
+[INFO] +- net.anotheria:moskito-web:jar:2.0.1-SNAPSHOT:compile
+[INFO] +- javax.servlet:servlet-api:jar:2.5:provided
+[INFO] +- log4j:log4j:jar:1.2.17:compile
+[INFO] \- junit:junit:jar:4.5:test
+[INFO]                                                                         
+[INFO] ------------------------------------------------------------------------
+[INFO] Building moskito monitoring application for different webui instances 2.0.1-SNAPSHOT
+[INFO] ------------------------------------------------------------------------
+[INFO] 
+[INFO] --- maven-dependency-plugin:2.1:tree (default-cli) @ moskito-webcontrol ---
+[INFO] net.anotheria:moskito-webcontrol:war:2.0.1-SNAPSHOT
+[INFO] +- net.anotheria:ano-util:jar:2.0.0:compile
+[INFO] |  +- blowfish:blowfish:jar:1.0:compile
+[INFO] |  \- net.sf.dozer:dozer:jar:5.1:compile
+[INFO] |     +- commons-logging:commons-logging:jar:1.1.1:compile
+[INFO] |     +- commons-lang:commons-lang:jar:2.4:compile
+[INFO] |     \- commons-collections:commons-collections:jar:3.2.1:compile
+[INFO] +- net.anotheria:ano-plass:jar:2.0.1:compile
+[INFO] |  +- net.anotheria:ano-net:jar:2.0.0:compile
+[INFO] |  +- net.anotheria:ano-prise:jar:2.0.1:compile
+[INFO] |  |  \- net.anotheria:ano-db:jar:2.0.0:compile
+[INFO] |  |     \- commons-dbcp:commons-dbcp:jar:1.4:compile
+[INFO] |  |        \- commons-pool:commons-pool:jar:1.5.4:compile
+[INFO] |  \- net.anotheria:configureme:jar:2.0.0:compile
+[INFO] +- net.anotheria:ano-maf:jar:2.0.0:compile
+[INFO] |  +- org.reflections:reflections:jar:0.9.5:compile
+[INFO] |  |  +- com.google.guava:guava:jar:r08:compile
+[INFO] |  |  +- javassist:javassist:jar:3.12.1.GA:compile
+[INFO] |  |  +- org.slf4j:slf4j-api:jar:1.6.1:compile
+[INFO] |  |  \- dom4j:dom4j:jar:1.6.1:compile
+[INFO] |  |     \- xml-apis:xml-apis:jar:1.0.b2:compile
+[INFO] |  \- org.json:json:jar:1.0:compile
+[INFO] +- commons-codec:commons-codec:jar:1.5:compile
+[INFO] +- net.anotheria:moskito-core:jar:2.0.1-SNAPSHOT:compile
+[INFO] |  \- net.anotheria:ano-comm:jar:2.0.0:compile
+[INFO] |     \- javax.mail:mail:jar:1.4.1:compile
+[INFO] |        \- javax.activation:activation:jar:1.1:compile
+[INFO] +- net.anotheria:moskito-web:jar:2.0.1-SNAPSHOT:compile
+[INFO] +- javax.servlet:servlet-api:jar:2.5:provided
+[INFO] +- net.anotheria:ano-tags:jar:2.0.0:compile
+[INFO] |  +- commons-beanutils:commons-beanutils:jar:1.8.0:compile
+[INFO] |  +- commons-el:commons-el:jar:1.0:compile
+[INFO] |  +- xerces:xercesImpl:jar:2.6.2:compile
+[INFO] |  \- xerces:xmlParserAPIs:jar:2.6.2:compile
+[INFO] +- log4j:log4j:jar:1.2.17:compile
+[INFO] \- junit:junit:jar:4.5:test
+[INFO]                                                                         
+[INFO] ------------------------------------------------------------------------
+[INFO] Building moskito central snapshot storage 2.0.1-SNAPSHOT
+[INFO] ------------------------------------------------------------------------
+[INFO] 
+[INFO] --- maven-dependency-plugin:2.1:tree (default-cli) @ moskito-central ---
+[INFO] net.anotheria:moskito-central:jar:2.0.1-SNAPSHOT
+[INFO] +- net.anotheria:ano-util:jar:2.0.0:compile
+[INFO] |  +- blowfish:blowfish:jar:1.0:compile
+[INFO] |  \- net.sf.dozer:dozer:jar:5.1:compile
+[INFO] |     +- commons-logging:commons-logging:jar:1.1.1:compile
+[INFO] |     +- commons-beanutils:commons-beanutils:jar:1.8.0:compile
+[INFO] |     +- commons-lang:commons-lang:jar:2.4:compile
+[INFO] |     \- commons-collections:commons-collections:jar:3.2.1:compile
+[INFO] +- net.anotheria:ano-prise:jar:2.0.1:compile
+[INFO] |  +- net.anotheria:ano-db:jar:2.0.0:compile
+[INFO] |  |  \- commons-dbcp:commons-dbcp:jar:1.4:compile
+[INFO] |  |     \- commons-pool:commons-pool:jar:1.5.4:compile
+[INFO] |  \- net.anotheria:configureme:jar:2.0.0:compile
+[INFO] |     \- org.json:json:jar:1.0:compile
+[INFO] +- net.anotheria:moskito-core:jar:2.0.1-SNAPSHOT:compile
+[INFO] |  \- net.anotheria:ano-comm:jar:2.0.0:compile
+[INFO] |     \- javax.mail:mail:jar:1.4.1:compile
+[INFO] |        \- javax.activation:activation:jar:1.1:compile
+[INFO] +- hsqldb:hsqldb:jar:1.8.0.7:test
+[INFO] +- log4j:log4j:jar:1.2.17:compile
+[INFO] \- junit:junit:jar:4.5:test
+[INFO]                                                                         
+[INFO] ------------------------------------------------------------------------
+[INFO] Building moskito sql 2.0.1-SNAPSHOT
+[INFO] ------------------------------------------------------------------------
+[INFO] 
+[INFO] --- maven-dependency-plugin:2.1:tree (default-cli) @ moskito-sql ---
+[INFO] net.anotheria:moskito-sql:jar:2.0.1-SNAPSHOT
+[INFO] +- net.anotheria:moskito-core:jar:2.0.1-SNAPSHOT:compile
+[INFO] |  +- net.anotheria:configureme:jar:2.0.0:compile
+[INFO] |  |  \- org.json:json:jar:1.0:compile
+[INFO] |  \- net.anotheria:ano-comm:jar:2.0.0:compile
+[INFO] |     +- net.anotheria:ano-prise:jar:2.0.1:compile (version managed from 2.0.0)
+[INFO] |     \- javax.mail:mail:jar:1.4.1:compile
+[INFO] |        \- javax.activation:activation:jar:1.1:compile
+[INFO] +- net.anotheria:ano-util:jar:2.0.0:compile
+[INFO] |  +- blowfish:blowfish:jar:1.0:compile
+[INFO] |  \- net.sf.dozer:dozer:jar:5.1:compile
+[INFO] |     +- commons-logging:commons-logging:jar:1.1.1:compile
+[INFO] |     +- commons-beanutils:commons-beanutils:jar:1.8.0:compile
+[INFO] |     +- commons-lang:commons-lang:jar:2.4:compile
+[INFO] |     \- commons-collections:commons-collections:jar:3.2.1:compile
+[INFO] +- org.aspectj:aspectjrt:jar:1.6.11:compile
+[INFO] +- org.apache.derby:derby:jar:10.8.1.2:test
+[INFO] +- org.apache.derby:derbytools:jar:10.8.1.2:test
+[INFO] +- org.apache.derby:derbynet:jar:10.8.1.2:test
+[INFO] +- org.apache.derby:derbyclient:jar:10.8.1.2:test
+[INFO] +- net.anotheria:ano-db:jar:2.0.0:test (scope not updated to compile)
+[INFO] |  \- commons-dbcp:commons-dbcp:jar:1.4:test
+[INFO] |     \- commons-pool:commons-pool:jar:1.5.4:test
+[INFO] +- log4j:log4j:jar:1.2.17:compile
+[INFO] \- junit:junit:jar:4.5:test
+[INFO]                                                                         
+[INFO] ------------------------------------------------------------------------
+[INFO] Building moskito aop 2.0.1-SNAPSHOT
+[INFO] ------------------------------------------------------------------------
+[INFO] 
+[INFO] --- maven-dependency-plugin:2.1:tree (default-cli) @ moskito-aop ---
+[INFO] net.anotheria:moskito-aop:jar:2.0.1-SNAPSHOT
+[INFO] +- net.anotheria:moskito-core:jar:2.0.1-SNAPSHOT:compile
+[INFO] |  +- net.anotheria:configureme:jar:2.0.0:compile
+[INFO] |  |  \- org.json:json:jar:1.0:compile
+[INFO] |  \- net.anotheria:ano-comm:jar:2.0.0:compile
+[INFO] |     +- net.anotheria:ano-prise:jar:2.0.1:compile (version managed from 2.0.0)
+[INFO] |     |  \- net.anotheria:ano-db:jar:2.0.0:compile
+[INFO] |     |     \- commons-dbcp:commons-dbcp:jar:1.4:compile
+[INFO] |     |        \- commons-pool:commons-pool:jar:1.5.4:compile
+[INFO] |     \- javax.mail:mail:jar:1.4.1:compile
+[INFO] |        \- javax.activation:activation:jar:1.1:compile
+[INFO] +- net.anotheria:ano-util:jar:1.0.15:compile
+[INFO] |  +- blowfish:blowfish:jar:1.0:compile
+[INFO] |  \- net.sf.dozer:dozer:jar:5.1:compile
+[INFO] |     +- commons-logging:commons-logging:jar:1.1.1:compile
+[INFO] |     +- commons-beanutils:commons-beanutils:jar:1.8.0:compile
+[INFO] |     +- commons-lang:commons-lang:jar:2.4:compile
+[INFO] |     \- commons-collections:commons-collections:jar:3.2.1:compile
+[INFO] +- org.aspectj:aspectjrt:jar:1.6.11:compile
+[INFO] +- log4j:log4j:jar:1.2.17:compile
+[INFO] \- junit:junit:jar:4.5:test
+[INFO]                                                                         
+[INFO] ------------------------------------------------------------------------
+[INFO] Building moskito demonstration webapp 2.0.1-SNAPSHOT
+[INFO] ------------------------------------------------------------------------
+[INFO] 
+[INFO] --- maven-dependency-plugin:2.1:tree (default-cli) @ moskitodemo ---
+[INFO] net.anotheria:moskitodemo:war:2.0.1-SNAPSHOT
+[INFO] +- net.anotheria:ano-util:jar:2.0.0:compile
+[INFO] |  +- blowfish:blowfish:jar:1.0:compile
+[INFO] |  \- net.sf.dozer:dozer:jar:5.1:compile
+[INFO] |     +- commons-logging:commons-logging:jar:1.1.1:compile
+[INFO] |     +- commons-beanutils:commons-beanutils:jar:1.8.0:compile
+[INFO] |     +- commons-lang:commons-lang:jar:2.4:compile
+[INFO] |     \- commons-collections:commons-collections:jar:3.2.1:compile
+[INFO] +- net.anotheria:ano-plass:jar:2.0.1:compile
+[INFO] |  +- net.anotheria:ano-net:jar:2.0.0:compile
+[INFO] |  +- net.anotheria:ano-prise:jar:2.0.1:compile
+[INFO] |  \- net.anotheria:configureme:jar:2.0.0:compile
+[INFO] +- net.anotheria:ano-maf:jar:2.0.0:compile
+[INFO] |  +- org.reflections:reflections:jar:0.9.5:compile
+[INFO] |  |  +- com.google.guava:guava:jar:r08:compile
+[INFO] |  |  +- javassist:javassist:jar:3.12.1.GA:compile
+[INFO] |  |  +- org.slf4j:slf4j-api:jar:1.6.1:compile
+[INFO] |  |  \- dom4j:dom4j:jar:1.6.1:compile
+[INFO] |  |     \- xml-apis:xml-apis:jar:1.0.b2:compile
+[INFO] |  \- org.json:json:jar:1.0:compile
+[INFO] +- net.anotheria:moskito-core:jar:2.0.1-SNAPSHOT:compile
+[INFO] |  \- net.anotheria:ano-comm:jar:2.0.0:compile
+[INFO] |     \- javax.mail:mail:jar:1.4.1:compile
+[INFO] |        \- javax.activation:activation:jar:1.1:compile
+[INFO] +- net.anotheria:moskito-sql:jar:2.0.1-SNAPSHOT:compile
+[INFO] |  \- org.aspectj:aspectjrt:jar:1.6.11:compile
+[INFO] +- net.anotheria:moskito-aop:jar:2.0.1-SNAPSHOT:compile
+[INFO] +- net.anotheria:moskito-web:jar:2.0.1-SNAPSHOT:compile
+[INFO] +- net.anotheria:moskito-webui:jar:2.0.1-SNAPSHOT:compile
+[INFO] |  +- net.anotheria:ano-web:jar:2.0.0:compile
+[INFO] |  |  \- org.jdom:jdom:jar:1.1.1:compile
+[INFO] |  +- net.anotheria:ano-tags:jar:2.0.0:compile
+[INFO] |  |  +- commons-el:commons-el:jar:1.0:compile
+[INFO] |  |  +- xerces:xercesImpl:jar:2.6.2:compile
+[INFO] |  |  \- xerces:xmlParserAPIs:jar:2.6.2:compile
+[INFO] |  \- commons-codec:commons-codec:jar:1.5:compile
+[INFO] +- javax.servlet:servlet-api:jar:2.5:provided
+[INFO] +- org.apache.derby:derby:jar:10.8.1.2:compile
+[INFO] +- org.apache.derby:derbytools:jar:10.8.1.2:compile
+[INFO] +- org.apache.derby:derbynet:jar:10.8.1.2:compile
+[INFO] +- org.apache.derby:derbyclient:jar:10.8.1.2:compile
+[INFO] +- net.anotheria:ano-db:jar:2.0.0:compile
+[INFO] |  \- commons-dbcp:commons-dbcp:jar:1.4:compile
+[INFO] |     \- commons-pool:commons-pool:jar:1.5.4:compile
+[INFO] +- log4j:log4j:jar:1.2.17:compile
+[INFO] \- junit:junit:jar:4.5:test
+[INFO]                                                                         
+[INFO] ------------------------------------------------------------------------
+[INFO] Building moskito cdi integration 2.0.1-SNAPSHOT
+[INFO] ------------------------------------------------------------------------
+[INFO] 
+[INFO] --- maven-dependency-plugin:2.1:tree (default-cli) @ moskito-cdi ---
+[INFO] net.anotheria:moskito-cdi:jar:2.0.1-SNAPSHOT
+[INFO] +- net.anotheria:ano-util:jar:2.0.0:compile
+[INFO] |  +- blowfish:blowfish:jar:1.0:compile
+[INFO] |  \- net.sf.dozer:dozer:jar:5.1:compile
+[INFO] |     +- commons-logging:commons-logging:jar:1.1.1:compile
+[INFO] |     +- commons-beanutils:commons-beanutils:jar:1.8.0:compile
+[INFO] |     +- commons-lang:commons-lang:jar:2.4:compile
+[INFO] |     \- commons-collections:commons-collections:jar:3.2.1:compile
+[INFO] +- net.anotheria:configureme:jar:2.0.0:compile
+[INFO] |  \- org.json:json:jar:1.0:compile
+[INFO] +- javax.inject:javax.inject:jar:1:provided
+[INFO] +- org.jboss.interceptor:jboss-interceptor-api:jar:1.1:provided
+[INFO] +- net.anotheria:moskito-core:jar:2.0.1-SNAPSHOT:compile
+[INFO] |  \- net.anotheria:ano-comm:jar:2.0.0:compile
+[INFO] |     +- net.anotheria:ano-prise:jar:2.0.1:compile (version managed from 2.0.0)
+[INFO] |     |  \- net.anotheria:ano-db:jar:2.0.0:compile
+[INFO] |     |     \- commons-dbcp:commons-dbcp:jar:1.4:compile
+[INFO] |     |        \- commons-pool:commons-pool:jar:1.5.4:compile
+[INFO] |     \- javax.mail:mail:jar:1.4.1:compile
+[INFO] |        \- javax.activation:activation:jar:1.1:compile
+[INFO] +- log4j:log4j:jar:1.2.17:compile
+[INFO] \- junit:junit:jar:4.5:test
+[INFO]                                                                         
+[INFO] ------------------------------------------------------------------------
+[INFO] Building moskito integration aggregator 2.0.1-SNAPSHOT
+[INFO] ------------------------------------------------------------------------
+[INFO] 
+[INFO] --- maven-dependency-plugin:2.1:tree (default-cli) @ moskito-integration ---
+[INFO] net.anotheria:moskito-integration:pom:2.0.1-SNAPSHOT
+[INFO] +- log4j:log4j:jar:1.2.17:compile
+[INFO] \- junit:junit:jar:4.5:test
+[INFO]                                                                         
+[INFO] ------------------------------------------------------------------------
+[INFO] Building moskito minimal webapp 2.0.1-SNAPSHOT
+[INFO] ------------------------------------------------------------------------
+[INFO] 
+[INFO] --- maven-dependency-plugin:2.1:tree (default-cli) @ moskitominimal ---
+[INFO] net.anotheria:moskitominimal:war:2.0.1-SNAPSHOT
+[INFO] +- net.anotheria:moskito-core:jar:2.0.1-SNAPSHOT:compile
+[INFO] |  +- net.anotheria:ano-util:jar:2.0.0:compile
+[INFO] |  |  +- blowfish:blowfish:jar:1.0:compile
+[INFO] |  |  \- net.sf.dozer:dozer:jar:5.1:compile
+[INFO] |  |     +- commons-logging:commons-logging:jar:1.1.1:compile
+[INFO] |  |     +- commons-lang:commons-lang:jar:2.4:compile
+[INFO] |  |     \- commons-collections:commons-collections:jar:3.2.1:compile
+[INFO] |  +- net.anotheria:configureme:jar:2.0.0:compile
+[INFO] |  |  \- org.json:json:jar:1.0:compile
+[INFO] |  \- net.anotheria:ano-comm:jar:2.0.0:compile
+[INFO] |     +- net.anotheria:ano-prise:jar:2.0.1:compile (version managed from 2.0.0)
+[INFO] |     |  \- net.anotheria:ano-db:jar:2.0.0:compile
+[INFO] |     |     \- commons-dbcp:commons-dbcp:jar:1.4:compile
+[INFO] |     |        \- commons-pool:commons-pool:jar:1.5.4:compile
+[INFO] |     \- javax.mail:mail:jar:1.4.1:compile
+[INFO] |        \- javax.activation:activation:jar:1.1:compile
+[INFO] +- net.anotheria:moskito-webui:jar:2.0.1-SNAPSHOT:compile
+[INFO] |  +- net.anotheria:ano-maf:jar:2.0.0:compile
+[INFO] |  |  \- org.reflections:reflections:jar:0.9.5:compile
+[INFO] |  |     +- com.google.guava:guava:jar:r08:compile
+[INFO] |  |     +- javassist:javassist:jar:3.12.1.GA:compile
+[INFO] |  |     +- org.slf4j:slf4j-api:jar:1.6.1:compile
+[INFO] |  |     \- dom4j:dom4j:jar:1.6.1:compile
+[INFO] |  |        \- xml-apis:xml-apis:jar:1.0.b2:compile
+[INFO] |  +- net.anotheria:ano-web:jar:2.0.0:compile
+[INFO] |  |  \- org.jdom:jdom:jar:1.1.1:compile
+[INFO] |  +- net.anotheria:ano-tags:jar:2.0.0:compile
+[INFO] |  |  +- commons-beanutils:commons-beanutils:jar:1.8.0:compile
+[INFO] |  |  +- commons-el:commons-el:jar:1.0:compile
+[INFO] |  |  +- xerces:xercesImpl:jar:2.6.2:compile
+[INFO] |  |  \- xerces:xmlParserAPIs:jar:2.6.2:compile
+[INFO] |  +- commons-codec:commons-codec:jar:1.5:compile
+[INFO] |  \- net.anotheria:moskito-web:jar:2.0.1-SNAPSHOT:compile
+[INFO] +- javax.servlet:servlet-api:jar:2.5:provided
+[INFO] +- log4j:log4j:jar:1.2.17:compile
+[INFO] \- junit:junit:jar:4.5:test
+[INFO] ------------------------------------------------------------------------
+[INFO] Reactor Summary:
+[INFO] 
+[INFO] MoSKito ........................................... SUCCESS [1.872s]
+[INFO] moskito core ...................................... SUCCESS [0.825s]
+[INFO] moskito web support ............................... SUCCESS [0.703s]
+[INFO] moskito embedded web user interface ............... SUCCESS [0.717s]
+[INFO] moskito monitoring application for different webui instances  SUCCESS [0.121s]
+[INFO] moskito central snapshot storage .................. SUCCESS [0.059s]
+[INFO] moskito sql ....................................... SUCCESS [0.071s]
+[INFO] moskito aop ....................................... SUCCESS [0.042s]
+[INFO] moskito demonstration webapp ...................... SUCCESS [0.190s]
+[INFO] moskito cdi integration ........................... SUCCESS [0.057s]
+[INFO] moskito integration aggregator .................... SUCCESS [0.011s]
+[INFO] moskito minimal webapp ............................ SUCCESS [0.119s]
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time: 7.725s
+[INFO] Finished at: Fri Nov 16 21:56:54 CET 2012
+[INFO] Final Memory: 12M/247M
+[INFO] ------------------------------------------------------------------------
