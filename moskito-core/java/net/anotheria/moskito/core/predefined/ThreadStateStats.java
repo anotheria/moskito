@@ -51,12 +51,12 @@ public class ThreadStateStats extends AbstractStats {
 		return b.toString();
 	}
 
-	public void updateMemoryValue(long value){
+	public void updateCurrentValue(long value){
 		current.setValueAsLong(value);
 		min.setValueIfLesserThanCurrentAsLong(value);
 		max.setValueIfGreaterThanCurrentAsLong(value);
 	}
-	
+
 	public long getCurrent(String intervalName){
 		return current.getValueAsLong(intervalName);
 	}
