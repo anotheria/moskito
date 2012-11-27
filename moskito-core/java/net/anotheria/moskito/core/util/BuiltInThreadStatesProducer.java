@@ -15,7 +15,7 @@ import java.util.TimerTask;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
- * TODO comment this class
+ * This builtin producer monitors the thread states and how many threads are in each state i.e. BLOCKED, RUNNABLE etc.
  *
  * @author lrosenberg
  * @since 25.11.12 23:55
@@ -47,9 +47,9 @@ import java.util.concurrent.CopyOnWriteArrayList;
 		statsMap = new HashMap<Thread.State, ThreadStateStats>();
 		statsList = new CopyOnWriteArrayList<ThreadStateStats>();
 		statsList.add(cumulated);
-		for (Thread.State st : Thread.State.values()){
-			ThreadStateStats statsObject = new ThreadStateStats(st.name());
-			statsMap.put(st, statsObject);
+		for (Thread.State state : Thread.State.values()){
+			ThreadStateStats statsObject = new ThreadStateStats(state.name());
+			statsMap.put(state, statsObject);
 			statsList.add(statsObject);
 		}
 
@@ -70,7 +70,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
 	 * Reads and updates the thread info.
 	 */
 	private void readThreads(){
-		long ids[] = threadMxBean.getAllThreadIds();
+		long[] ids = threadMxBean.getAllThreadIds();
 
 		HashMap<Thread.State, Long> count = new HashMap<Thread.State, Long>();
 		for (int i = 0; i<ids.length; i++){
@@ -79,8 +79,9 @@ import java.util.concurrent.CopyOnWriteArrayList;
 			Thread.State state = info.getThreadState();
 
 			Long old = count.get(state);
-			if (old==null)
-				old = new Long(0);
+			if (old==null) {
+				old = 0L;
+			}
 			count.put(state, old+1);
 		}
 

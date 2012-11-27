@@ -35,12 +35,8 @@ public class StartBuiltInProducers {
 	}
 
 	private static void startJavaThreadingProducers(){
-		try{
-			new BuiltInThreadStatesProducer();
-			new BuiltInThreadCountProducer();
-		}catch(Exception e ){
-			e.printStackTrace();
-		}
+		new BuiltInThreadStatesProducer();
+		new BuiltInThreadCountProducer();
 	}
 	
 	private static void startOsProducers(){

@@ -7,5 +7,6 @@ package net.anotheria.moskito.web.filters;
  * @author lrosenberg
  *
  */
+@Deprecated
 public class MonitoringSessionFilter extends JourneyFilter{
 }
