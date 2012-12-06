@@ -1,5 +1,6 @@
 package net.anotheria.moskito.core.helper;
 
+import net.anotheria.moskito.core.producers.IStats;
 import net.anotheria.moskito.core.producers.IStatsProducer;
 import net.anotheria.moskito.core.registry.IProducerRegistry;
 import net.anotheria.moskito.core.registry.IProducerRegistryListener;
@@ -107,7 +108,7 @@ public abstract class TieableRepository<T extends Tieable> implements IProducerR
 		//nothing
 	}
 	
-	protected abstract boolean tie(T t, IStatsProducer<?> to);
+	protected abstract boolean tie(T t, IStatsProducer<? extends IStats> to);
 	
 	protected IProducerRegistry getRegistry(){
 		return registry;

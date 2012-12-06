@@ -16,6 +16,19 @@ public class AccumulatorsConfig {
 	 */
 	@Configure private int accumulationAmount;
 
+	/**
+	 * Configured Accumulators.
+	 */
+	@Configure private AccumulatorConfig[] accumulators;
+
+	public AccumulatorConfig[] getAccumulators() {
+		return accumulators;
+	}
+
+	public void setAccumulators(AccumulatorConfig[] accumulators) {
+		this.accumulators = accumulators;
+	}
+
 	public int getAccumulationAmount() {
 		return accumulationAmount;
 	}

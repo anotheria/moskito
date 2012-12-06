@@ -1,5 +1,6 @@
 package net.anotheria.moskito.core.config.thresholds;
 
+import com.google.gson.annotations.SerializedName;
 import org.configureme.annotations.Configure;
 
 import java.util.Arrays;
@@ -21,6 +22,7 @@ public class ThresholdsAlertsConfig {
 	 * Config for the embedded alert history.
 	 */
 	@Configure
+	@SerializedName("@alertHistoryConfig")
 	private AlertHistoryConfig alertHistoryConfig = new AlertHistoryConfig();
 
 	/**

@@ -1,5 +1,6 @@
 package net.anotheria.moskito.core.threshold;
 
+import net.anotheria.moskito.core.config.thresholds.ThresholdConfig;
 import net.anotheria.moskito.core.helper.AbstractTieable;
 import net.anotheria.moskito.core.helper.Tieable;
 import net.anotheria.moskito.core.producers.IStats;
@@ -152,5 +153,20 @@ public class Threshold extends AbstractTieable<ThresholdDefinition> implements T
 
 	public void setStatusChangeTimestamp(long statusChangeTimestamp) {
 		this.statusChangeTimestamp = statusChangeTimestamp;
+	}
+
+	/**
+	 * This method allows to recreate proper configuration object for this threshold.
+	 * @return
+	 */
+	public ThresholdConfig toConfigObject(){
+		ThresholdConfig ret = new ThresholdConfig();
+		ret.setIntervalName(getDefinition().getIntervalName());
+		ret.setName(getDefinition().getName());
+		ret.setProducerName(getDefinition().getProducerName());
+		ret.setStatName(getDefinition().getStatName());
+		ret.setValueName(getDefinition().getValueName());
+		ret.setTimeUnit(getDefinition().getTimeUnit().name());
+		return ret;
 	}
 }

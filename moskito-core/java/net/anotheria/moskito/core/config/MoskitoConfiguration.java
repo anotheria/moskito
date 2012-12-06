@@ -1,5 +1,6 @@
 package net.anotheria.moskito.core.config;
 
+import com.google.gson.annotations.SerializedName;
 import net.anotheria.moskito.core.config.accumulators.AccumulatorsConfig;
 import net.anotheria.moskito.core.config.thresholds.ThresholdsAlertsConfig;
 import net.anotheria.moskito.core.config.thresholds.ThresholdsConfig;
@@ -7,7 +8,8 @@ import org.configureme.annotations.Configure;
 import org.configureme.annotations.ConfigureMe;
 
 /**
- * TODO comment this class
+ * This class contains complete moskito configuration at runtime. It is configured with configureme, but can be altered
+ * programmatically. Use MoskitoConfigurationHolder.getConfiguration/setConfiguration to access/alter this class.
  *
  * @author lrosenberg
  * @since 22.10.12 15:59
@@ -15,12 +17,15 @@ import org.configureme.annotations.ConfigureMe;
 @ConfigureMe(name="moskito")
 public class MoskitoConfiguration {
 	@Configure
+	@SerializedName("@thresholdsAlertsConfig")
 	private ThresholdsAlertsConfig thresholdsAlertsConfig = new ThresholdsAlertsConfig();
 
 	@Configure
+	@SerializedName("@thresholdsConfig")
 	private ThresholdsConfig thresholdsConfig = new ThresholdsConfig();
 
 	@Configure
+	@SerializedName("@accumulatorsConfig")
 	private AccumulatorsConfig accumulatorsConfig = new AccumulatorsConfig();
 
 	public ThresholdsAlertsConfig getThresholdsAlertsConfig() {

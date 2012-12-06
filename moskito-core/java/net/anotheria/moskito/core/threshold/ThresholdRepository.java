@@ -54,7 +54,7 @@ public class ThresholdRepository extends TieableRepository<Threshold> {
 	 */
 	public static ThresholdRepository getInstance(){ return INSTANCE; }
 
-	protected boolean tie(Threshold threshold, IStatsProducer<?> producer){
+	protected boolean tie(Threshold threshold, IStatsProducer<? extends IStats> producer){
 		ThresholdDefinition definition = threshold.getDefinition();
 		IStats target = null;
 		for (IStats s : producer.getStats()){

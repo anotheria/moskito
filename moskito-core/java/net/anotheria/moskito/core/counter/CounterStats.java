@@ -20,6 +20,10 @@ public class CounterStats extends GenericCounterStats{
 		super.inc("counter");
 	}
 
+	public void incBy(long value){
+		super.incBy("counter", value);
+	}
+
 	public long get(String intervalName){
 		return get("counter", intervalName);
 	}

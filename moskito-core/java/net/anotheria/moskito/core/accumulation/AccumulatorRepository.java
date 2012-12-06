@@ -1,10 +1,15 @@
 package net.anotheria.moskito.core.accumulation;
 
+import net.anotheria.moskito.core.config.MoskitoConfigurationHolder;
+import net.anotheria.moskito.core.config.accumulators.AccumulatorConfig;
+import net.anotheria.moskito.core.config.accumulators.AccumulatorsConfig;
 import net.anotheria.moskito.core.dynamic.OnDemandStatsProducer;
 import net.anotheria.moskito.core.helper.TieableDefinition;
 import net.anotheria.moskito.core.helper.TieableRepository;
 import net.anotheria.moskito.core.producers.IStats;
 import net.anotheria.moskito.core.producers.IStatsProducer;
+import net.anotheria.moskito.core.stats.TimeUnit;
+import org.apache.log4j.Logger;
 
 import java.util.List;
 
@@ -14,16 +19,26 @@ import java.util.List;
  *
  */
 public class AccumulatorRepository extends TieableRepository<Accumulator> {
+
+	/**
+	 * Logger
+	 */
+	private static Logger log = Logger.getLogger(AccumulatorRepository.class);
+
 	/**
 	 * The singleton instance.
 	 */
-	private static final AccumulatorRepository INSTANCE = new AccumulatorRepository();
+	private static AccumulatorRepository INSTANCE = new AccumulatorRepository();
 	/**
 	 * Returns the singleton instance of the AccumulatorRepository.
 	 * @return the one and only instance.
 	 */
 	public static final AccumulatorRepository getInstance(){
 		return INSTANCE;
+	}
+
+	private AccumulatorRepository(){
+		readConfig();
 	}
 
 	@Override
@@ -65,4 +80,31 @@ public class AccumulatorRepository extends TieableRepository<Accumulator> {
 	public Accumulator createAccumulator(TieableDefinition def){
 		return createTieable(def);
 	}
+
+	/**
+	 * Reads the config and creates configured thresholds. For now this method is only executed on startup.
+	 */
+	private void readConfig(){
+		AccumulatorsConfig config = MoskitoConfigurationHolder.getConfiguration().getAccumulatorsConfig();
+		AccumulatorConfig[] acs = config.getAccumulators();
+		if (acs!=null && acs.length>0){
+			for (AccumulatorConfig ac  : acs){
+				AccumulatorDefinition ad = new AccumulatorDefinition();
+				ad.setName(ac.getName());
+				ad.setIntervalName(ac.getIntervalName());
+				ad.setProducerName(ac.getProducerName());
+				ad.setStatName(ac.getStatName());
+				ad.setTimeUnit(TimeUnit.valueOf(ac.getTimeUnit()));
+				ad.setValueName(ac.getValueName());
+				Accumulator acc = createAccumulator(ad);
+			}
+		}
+	}
+
+	void reset(){
+		super.resetForTesting();
+		//FINDBUGS OFF
+		INSTANCE = new AccumulatorRepository();
+	}
+
 }

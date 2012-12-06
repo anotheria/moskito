@@ -43,7 +43,12 @@
 			<groupId>commons-codec</groupId>
 			<artifactId>commons-codec</artifactId>
 		</dependency>
-		<dependency>
+        <!-- for json config -->
+        <dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+        </dependency>
+        <dependency>
 			<groupId>net.anotheria</groupId>
 			<artifactId>moskito-core</artifactId>
 			<version>${project.version}</version>
