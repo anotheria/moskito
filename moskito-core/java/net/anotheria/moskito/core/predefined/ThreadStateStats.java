@@ -37,9 +37,14 @@ public class ThreadStateStats extends AbstractStats {
 		super(aName);
 		current = StatValueFactory.createStatValue(0L, "current", selectedIntervals);
 		min = StatValueFactory.createStatValue(0L, "min", selectedIntervals);
+		min.setDefaultValueAsLong(Long.MAX_VALUE);
+		min.reset();
+
 		max = StatValueFactory.createStatValue(0L, "max", selectedIntervals);
-		
-		
+		max.setDefaultValueAsLong(Long.MIN_VALUE);
+		max.reset();
+
+
 	}
 	
 	@Override public String toStatsString(String intervalName, TimeUnit timeUnit) {
