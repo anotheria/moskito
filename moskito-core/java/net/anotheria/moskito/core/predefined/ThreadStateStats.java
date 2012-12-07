@@ -6,15 +6,27 @@ import net.anotheria.moskito.core.stats.StatValue;
 import net.anotheria.moskito.core.stats.TimeUnit;
 import net.anotheria.moskito.core.stats.impl.StatValueFactory;
 
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+
 /**
  * Stats object for thread states.
  * @author another
  *
  */
 public class ThreadStateStats extends AbstractStats {
-	/**
-	 * Current value.
-	 */
+
+	private static final List<String> VALUE_NAMES = Collections.unmodifiableList(Arrays.asList(
+			"CUR",
+			"MIN",
+			"MAX"
+	));
+
+
+			/**
+			 * Current value.
+			 */
 	private StatValue current;
 	/**
 	 * Min value.
@@ -72,6 +84,23 @@ public class ThreadStateStats extends AbstractStats {
 		return max.getValueAsLong(intervalName);
 	}
 
+	@Override
+	public String getValueByNameAsString(String valueName, String intervalName, String timeUnit) {
+		if (valueName==null || valueName.equals(""))
+			throw new AssertionError("Value name can not be empty");
+		valueName = valueName.toLowerCase();
+		if (valueName.equals("cur") || valueName.equals("current"))
+			return ""+getCurrent(intervalName);
+		if (valueName.equals("min"))
+			return ""+getMin(intervalName);
+		if (valueName.equals("max"))
+			return ""+getMax(intervalName);
+		return super.getValueByNameAsString(valueName, intervalName, timeUnit);
+	}
 
+	@Override
+	public List<String> getAvailableValueNames() {
+		return VALUE_NAMES;
+	}
 
 }
