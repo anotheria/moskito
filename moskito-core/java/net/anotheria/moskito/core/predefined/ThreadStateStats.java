@@ -85,7 +85,7 @@ public class ThreadStateStats extends AbstractStats {
 	}
 
 	@Override
-	public String getValueByNameAsString(String valueName, String intervalName, String timeUnit) {
+	public String getValueByNameAsString(String valueName, String intervalName, TimeUnit timeUnit) {
 		if (valueName==null || valueName.equals(""))
 			throw new AssertionError("Value name can not be empty");
 		valueName = valueName.toLowerCase();

@@ -108,8 +108,7 @@ public class ThreadCountStats extends AbstractStats {
 	}
 
 	@Override
-	public String getValueByNameAsString(String valueName, String intervalName,
-			TimeUnit timeUnit) {
+	public String getValueByNameAsString(String valueName, String intervalName, TimeUnit timeUnit) {
 		
 		if (valueName==null)
 			return null;

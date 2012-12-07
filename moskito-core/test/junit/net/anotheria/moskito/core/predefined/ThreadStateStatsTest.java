@@ -36,6 +36,7 @@ public class ThreadStateStatsTest {
 
 	}
 
+	@Test
 	public void testGetValueByName(){
 		IntervalRegistry.getInstance().forceUpdateIntervalForTestingPurposes("snapshot");
 		ThreadStateStats stats = new ThreadStateStats("foo");
