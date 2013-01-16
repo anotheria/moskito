@@ -54,6 +54,9 @@ public class DebugRequestFilter implements Filter {
                 System.out.println(sessionAttributeName+" = "+session.getAttribute(sessionAttributeName));
             }
         }
+        System.out.println("Remote ip = "+req.getRemoteAddr());
+        System.out.println("Server name = "+req.getServerName());
+        System.out.println("Server port = "+req.getServerPort());
     }
 
     @Override
