@@ -52,7 +52,13 @@ public abstract class GenericCounterStats extends AbstractStats{
 
 	@Override
 	public String toStatsString(String aIntervalName, TimeUnit unit) {
-		return null;  //To change body of implemented methods use File | Settings | File Templates.
+		StringBuilder s = new StringBuilder();
+		s.append(getName()).append(' ');
+		for (String value : values.keySet()) {
+			s.append(value).append(": ");
+			s.append(values.get(value).getValueAsLong(aIntervalName));
+		}
+		return s.toString();
 	}
 
 	@Override public String toString(){
