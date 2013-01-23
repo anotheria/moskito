@@ -4,7 +4,6 @@ import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.util.Collections;
 import java.util.Enumeration;
 
 /**
@@ -62,6 +61,9 @@ public class DebugRequestFilter implements Filter {
     private void sysOut(RequestParamType type){
         System.out.println(type.getValue());
         Enumeration enumeration = getEnumerationByType(type);
+        if(enumeration == null){
+            return;
+        }
         while(enumeration.hasMoreElements()) {
             String elementName = (String)enumeration.nextElement();
             System.out.println(elementName+" = "+ getElementValueFromRequestByType(elementName, type));
@@ -77,9 +79,9 @@ public class DebugRequestFilter implements Filter {
             case PARAMETERS:
                 return request.getParameterNames();
             case SESSION_ATTRIBUTES:
-                return getSession() == null ? Collections.emptyEnumeration() : getSession().getAttributeNames();
+                return getSession() == null ? null : getSession().getAttributeNames();
         }
-        return Collections.emptyEnumeration();
+        return null;
     }
 
     private Object getElementValueFromRequestByType(String elementName, RequestParamType type){
