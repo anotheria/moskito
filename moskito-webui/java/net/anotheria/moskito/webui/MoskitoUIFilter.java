@@ -2,6 +2,7 @@ package net.anotheria.moskito.webui;
 
 import net.anotheria.maf.MAFFilter;
 import net.anotheria.maf.action.ActionMappingsConfigurator;
+import net.anotheria.net.util.NetUtils;
 import net.anotheria.util.maven.MavenVersion;
 import net.anotheria.webutils.util.VersionUtil;
 import org.apache.log4j.Logger;
@@ -37,6 +38,8 @@ public class MoskitoUIFilter extends MAFFilter{
 			MavenVersion appVersion = VersionUtil.getWebappVersion(config.getServletContext());
 			config.getServletContext().setAttribute("application.maven.version", appVersion == null ? "?" : appVersion);
 			config.getServletContext().setAttribute("moskito.maven.version", moskitoVersion == null ? "?" : moskitoVersion);
+			String computerName = NetUtils.getComputerName();
+			config.getServletContext().setAttribute("servername", computerName==null ? "Unknown" : computerName);
 		}catch(Exception e){
 			log.error("init("+config+")", e);
 		}
