@@ -40,9 +40,8 @@ import net.anotheria.moskito.core.producers.IStats;
 import net.anotheria.moskito.core.producers.IStatsProducer;
 import org.apache.log4j.Logger;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
@@ -70,7 +69,7 @@ public class OnDemandStatsProducer<S extends IStats> implements IStatsProducer<S
 	/**
 	 * A map where all stat and their ids (strings) are being stored.
 	 */
-	private final Map<String,S> stats;
+	private final ConcurrentHashMap<String,S> stats;
 	
 	/**
 	 * A fast access variable for default (cumulated) stats.
@@ -111,7 +110,7 @@ public class OnDemandStatsProducer<S extends IStats> implements IStatsProducer<S
 		if (factory==null)
 			throw new IllegalArgumentException("Null factory is not allowed.");
 		
-		stats = new HashMap<String,S>();
+		stats = new ConcurrentHashMap<String,S>();
 		_cachedStatsList = new CopyOnWriteArrayList<S>();
 		
 		try{
@@ -124,28 +123,19 @@ public class OnDemandStatsProducer<S extends IStats> implements IStatsProducer<S
 		creationInfo = new CreationInfo(e.getStackTrace()); 
 	}
 	
-	//note, please check whether this fun is affected by broken DLC problem. 
 	public S getStats(String name) throws OnDemandStatsProducerException{
-		S stat;
-		synchronized (stats) {
-			stat = stats.get(name);
-		}
+		S stat = stats.get(name);
 		if (stat == null){
 			if (limitForNewEntriesReached())
 				throw new OnDemandStatsProducerException("Limit reached");
 			stat = factory.createStatsObject(name);
-			synchronized(stats){
-				//check whether another thread was faster
-				if (stats.get(name)==null){
-					stats.put(name, stat);
-					_cachedStatsList.add(stat);
-				}else{
-					//ok, another thread was faster, we have to throw away our object.
-					stat = stats.get(name);
-				}
+			S old = stats.putIfAbsent(name, stat);
+			if (old==null){
+				_cachedStatsList.add(stat);
+			}else{
+				stat = old;
 			}
 		}
-		
 		return stat;
 
 	}
