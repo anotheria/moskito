@@ -27,6 +27,15 @@ public class SetupPreconfiguredAccumulators implements ServletContextListener{
 	 */
 	private static void setupThreadAccumulators(){
 		Accumulators.createAccumulator("ThreadCount", "ThreadCount", "ThreadCount", "current", "default");
+		Accumulators.createAccumulator("ThreadStateRunnable-1m", "ThreadStates", "RUNNABLE", "current", "1m");
+		Accumulators.createAccumulator("ThreadStateWaiting-1m", "ThreadStates", "WAITING", "current", "1m");
+		Accumulators.createAccumulator("ThreadStateBlocked-1m", "ThreadStates", "BLOCKED", "current", "1m");
+		Accumulators.createAccumulator("ThreadStateTimedWaiting-1m", "ThreadStates", "TIMED_WAITING", "current", "1m");
+
+		Accumulators.createAccumulator("ThreadStateRunnable-5m", "ThreadStates", "RUNNABLE", "current", "5m");
+		Accumulators.createAccumulator("ThreadStateWaiting-5m", "ThreadStates", "WAITING", "current", "5m");
+		Accumulators.createAccumulator("ThreadStateBlocked-5m", "ThreadStates", "BLOCKED", "current", "5m");
+		Accumulators.createAccumulator("ThreadStateTimedWaiting-5m", "ThreadStates", "TIMED_WAITING", "current", "5m");
 	}
 
 	/**
@@ -65,12 +74,15 @@ public class SetupPreconfiguredAccumulators implements ServletContextListener{
 	}
 
 	public static void setupUrlAccumulators(){
+		Accumulators.createUrlREQAccumulator("URL REQ 1m", "cumulated", "1m");
 		Accumulators.createUrlREQAccumulator("URL REQ 5m", "cumulated", "5m");
 		Accumulators.createUrlREQAccumulator("URL REQ 1h", "cumulated", "1h");
 
+		Accumulators.createUrlAVGAccumulator("URL AVG 1m", "cumulated", "1m");
 		Accumulators.createUrlAVGAccumulator("URL AVG 5m", "cumulated", "5m");
 		Accumulators.createUrlAVGAccumulator("URL AVG 1h", "cumulated", "1h");
 
+		Accumulators.createUrlTotalTimeAccumulator("URL Time 1m", "cumulated", "1m");
 		Accumulators.createUrlTotalTimeAccumulator("URL Time 5m", "cumulated", "5m");
 		Accumulators.createUrlTotalTimeAccumulator("URL Time 1h", "cumulated", "1h");
 
