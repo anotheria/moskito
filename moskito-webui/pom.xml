@@ -30,10 +30,18 @@
 			<groupId>net.anotheria</groupId>
 			<artifactId>ano-maf</artifactId>
 		</dependency>
+        <dependency>
+            <groupId>net.anotheria</groupId>
+            <artifactId>ano-util</artifactId>
+        </dependency>
         <!-- Ano web dependency is needed for the lib-version reader -->
         <dependency>
             <groupId>net.anotheria</groupId>
             <artifactId>ano-web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>net.anotheria</groupId>
+            <artifactId>ano-plass</artifactId>
         </dependency>
         <dependency>
 			<groupId>net.anotheria</groupId>
@@ -68,5 +76,25 @@
 			<artifactId>servlet-api</artifactId>
 			<scope>provided</scope>
 		</dependency>
-	</dependencies>
+        <!-- jersey -->
+        <dependency>
+            <groupId>com.sun.jersey</groupId>
+            <artifactId>jersey-server</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.sun.jersey</groupId>
+            <artifactId>jersey-servlet</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.sun.jersey</groupId>
+            <artifactId>jersey-json</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+
+    </dependencies>
 </project>

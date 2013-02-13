@@ -35,7 +35,7 @@
 package net.anotheria.moskito.webui.decorators;
 
 import net.anotheria.moskito.core.producers.IStats;
-import net.anotheria.moskito.webui.bean.StatCaptionBean;
+import net.anotheria.moskito.webui.shared.bean.StatCaptionBean;
 import net.anotheria.util.sorter.IComparable;
 
 import java.util.ArrayList;

@@ -3,9 +3,9 @@ package net.anotheria.moskito.webui.decorators.predefined;
 import net.anotheria.moskito.core.predefined.RuntimeStats;
 import net.anotheria.moskito.core.producers.IStats;
 import net.anotheria.moskito.core.stats.TimeUnit;
-import net.anotheria.moskito.webui.bean.LongValueBean;
-import net.anotheria.moskito.webui.bean.StatValueBean;
-import net.anotheria.moskito.webui.bean.StringValueBean;
+import net.anotheria.moskito.webui.shared.bean.LongValueBean;
+import net.anotheria.moskito.webui.shared.bean.StatValueBean;
+import net.anotheria.moskito.webui.shared.bean.StringValueBean;
 import net.anotheria.moskito.webui.decorators.AbstractDecorator;
 import net.anotheria.util.NumberUtils;
 

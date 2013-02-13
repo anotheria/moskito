@@ -2,8 +2,8 @@ package net.anotheria.moskito.webui.decorators.counter;
 
 import net.anotheria.moskito.core.counter.GenericCounterStats;
 import net.anotheria.moskito.core.stats.TimeUnit;
-import net.anotheria.moskito.webui.bean.LongValueBean;
-import net.anotheria.moskito.webui.bean.StatValueBean;
+import net.anotheria.moskito.webui.shared.bean.LongValueBean;
+import net.anotheria.moskito.webui.shared.bean.StatValueBean;
 import net.anotheria.moskito.webui.decorators.AbstractDecorator;
 
 import java.util.ArrayList;

@@ -1,7 +1,7 @@
 package net.anotheria.moskito.webui;
 
 import net.anotheria.moskito.core.stats.TimeUnit;
-import net.anotheria.moskito.webui.bean.AnalyzeProducerCallsBeanSortType;
+import net.anotheria.moskito.webui.shared.bean.AnalyzeProducerCallsBeanSortType;
 
 /**
  * This bean, once initialized, holds current selection data in the thread, to prevent a lot of parameter passing between functions.
@@ -18,7 +18,7 @@ public class CurrentSelection{
 	 */
 	private String currentIntervalName;
 	/**
-	 * Currently selected sort type for analyze beans.
+	 * Currently selected sort type for analyze bean.
 	 */
 	private AnalyzeProducerCallsBeanSortType analyzeProducerCallsSortType;
 	

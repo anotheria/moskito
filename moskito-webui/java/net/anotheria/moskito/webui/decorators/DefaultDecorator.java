@@ -36,8 +36,8 @@ package net.anotheria.moskito.webui.decorators;
 
 import net.anotheria.moskito.core.producers.IStats;
 import net.anotheria.moskito.core.stats.TimeUnit;
-import net.anotheria.moskito.webui.bean.StatValueBean;
-import net.anotheria.moskito.webui.bean.StringValueBean;
+import net.anotheria.moskito.webui.shared.bean.StatValueBean;
+import net.anotheria.moskito.webui.shared.bean.StringValueBean;
 
 import java.util.ArrayList;
 import java.util.List;
