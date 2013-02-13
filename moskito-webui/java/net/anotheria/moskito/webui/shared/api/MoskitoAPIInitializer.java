@@ -1,6 +1,8 @@
 package net.anotheria.moskito.webui.shared.api;
 
 import net.anotheria.anoplass.api.APIFinder;
+import net.anotheria.moskito.webui.accumulators.api.AccumulatorAPI;
+import net.anotheria.moskito.webui.accumulators.api.AccumulatorAPIFactory;
 import net.anotheria.moskito.webui.threshold.api.ThresholdAPI;
 import net.anotheria.moskito.webui.threshold.api.ThresholdAPIFactory;
 
@@ -19,5 +21,6 @@ public class MoskitoAPIInitializer {
 		initialized = true;
 
 		APIFinder.addAPIFactory(ThresholdAPI.class, new ThresholdAPIFactory());
+		APIFinder.addAPIFactory(AccumulatorAPI.class, new AccumulatorAPIFactory());
 	}
 }

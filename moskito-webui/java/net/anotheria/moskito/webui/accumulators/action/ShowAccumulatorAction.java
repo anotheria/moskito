@@ -3,17 +3,11 @@ package net.anotheria.moskito.webui.accumulators.action;
 import net.anotheria.maf.action.ActionCommand;
 import net.anotheria.maf.action.ActionMapping;
 import net.anotheria.maf.bean.FormBean;
-import net.anotheria.moskito.core.accumulation.AccumulatedValue;
 import net.anotheria.moskito.core.accumulation.Accumulator;
 import net.anotheria.moskito.core.accumulation.AccumulatorRepository;
-import net.anotheria.moskito.webui.shared.bean.AccumulatedSingleGraphDataBean;
-import net.anotheria.moskito.webui.shared.bean.AccumulatedValueBean;
-import net.anotheria.moskito.webui.shared.bean.AccumulatorInfoBean;
-import net.anotheria.util.NumberUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.List;
 
 /**
 /**
@@ -28,36 +22,8 @@ public class ShowAccumulatorAction extends BaseAccumulatorsAction {
 		
 		String accumulatorId = req.getParameter(PARAM_ID);
 		Accumulator accumulator = AccumulatorRepository.getInstance().getById(accumulatorId);
-
-		AccumulatorInfoBean accInfoBean = new AccumulatorInfoBean();
-		accInfoBean.setName(accumulator.getName());
-		accInfoBean.setPath(accumulator.getDefinition().describe());
-		accInfoBean.setId(accumulator.getId());
-		accInfoBean.setMaxNumberOfValues(accumulator.getDefinition().getMaxAmountOfAccumulatedItems());
-		List<AccumulatedValue> values = accumulator.getValues();
-		if (values!=null && values.size()>0){
-			accInfoBean.setNumberOfValues(values.size());
-			accInfoBean.setLastValueTimestamp(values.get(values.size()-1).getISO8601Timestamp());
-		}else{
-			accInfoBean.setNumberOfValues(0);
-			accInfoBean.setLastValueTimestamp("none");
-		}
-		
-		req.setAttribute("accumulatorInfo", accInfoBean);
-		
-		AccumulatedSingleGraphDataBean singleGraphDataBean = new AccumulatedSingleGraphDataBean(accumulator.getName());
-
-		List<AccumulatedValue> accValues = accumulator.getValues();
-		for (AccumulatedValue v : accValues){
-			long timestamp = v.getTimestamp()/1000*1000;
-			//for single graph data
-			AccumulatedValueBean accValueForGraphData = new AccumulatedValueBean(NumberUtils.makeTimeString(timestamp));
-			accValueForGraphData.addValue(v.getValue());
-			accValueForGraphData.setIsoTimestamp(NumberUtils.makeISO8601TimestampString(v.getTimestamp()));
-			singleGraphDataBean.add(accValueForGraphData);
-		}
-		
-		req.setAttribute("accumulatorData", singleGraphDataBean);
+		req.setAttribute("accumulatorInfo", getAccumulatorAPI().getAccumulatorDefinition(accumulatorId));
+		req.setAttribute("accumulatorData", getAccumulatorAPI().getAccumulatorGraphData(accumulatorId));
 		if (getForward(req).equalsIgnoreCase("csv")){
 			res.setHeader("Content-Disposition", "attachment; filename=\""+accumulator.getName()+".csv\"");
 		}

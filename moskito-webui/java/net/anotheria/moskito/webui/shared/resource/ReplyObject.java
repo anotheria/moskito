@@ -2,6 +2,7 @@ package net.anotheria.moskito.webui.shared.resource;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import java.util.HashMap;
 
 /**
  * TODO comment this class
@@ -11,15 +12,33 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @XmlRootElement(name="reply")
 public class ReplyObject {
+	@XmlElement
 	private boolean success;
-	@XmlElement(required = false,nillable = true)
+	@XmlElement(required = false,nillable = false)
 	private String message;
+
+	@XmlElement
+	private HashMap<String, Object> results = new HashMap<String, Object>();
 
 	public ReplyObject(){
 
 	}
 
-	public static ReplyObject success(Object... results){
+	public ReplyObject(String name, Object result){
+		results.put(name, result);
+	}
+
+	public void addResult(String name, Object result){
+		results.put(name, result);
+	}
+
+	public static ReplyObject success(String name, Object result){
+		ReplyObject ret = new ReplyObject(name, result);
+		ret.success = true;
+		return ret;
+	}
+
+	public static ReplyObject success(){
 		ReplyObject ret = new ReplyObject();
 		ret.success = true;
 		return ret;

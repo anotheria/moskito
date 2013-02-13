@@ -6,10 +6,10 @@ import net.anotheria.maf.bean.FormBean;
 import net.anotheria.moskito.core.accumulation.AccumulatedValue;
 import net.anotheria.moskito.core.accumulation.Accumulator;
 import net.anotheria.moskito.core.accumulation.AccumulatorRepository;
-import net.anotheria.moskito.webui.shared.bean.AccumulatedSingleGraphDataBean;
-import net.anotheria.moskito.webui.shared.bean.AccumulatedValueBean;
-import net.anotheria.moskito.webui.shared.bean.AccumulatedValuesBean;
-import net.anotheria.moskito.webui.shared.bean.AccumulatorInfoBean;
+import net.anotheria.moskito.webui.accumulators.api.AccumulatedSingleGraphAO;
+import net.anotheria.moskito.webui.accumulators.api.AccumulatedValueAO;
+import net.anotheria.moskito.webui.accumulators.api.AccumulatorDefinitionAO;
+import net.anotheria.moskito.webui.accumulators.bean.AccumulatedValuesBean;
 import net.anotheria.util.NumberUtils;
 import net.anotheria.util.sorter.DummySortType;
 import net.anotheria.util.sorter.SortType;
@@ -31,7 +31,7 @@ public class ShowAccumulatorsAction extends BaseAccumulatorsAction {
 
 	//save objects
 	private static final SortType SORT_TYPE = new DummySortType();
-	
+
 	/**
 	 * Graph data modes.
 	 * @author lrosenberg
@@ -69,7 +69,7 @@ public class ShowAccumulatorsAction extends BaseAccumulatorsAction {
 			HttpServletRequest req, HttpServletResponse res) throws Exception {
 		
 		List<Accumulator> accumulators = AccumulatorRepository.getInstance().getAccumulators();
-		List<AccumulatorInfoBean> beans = new ArrayList<AccumulatorInfoBean>();
+		List<AccumulatorDefinitionAO> beans = new ArrayList<AccumulatorDefinitionAO>();
 		
 		MODE mode = MODE.fromString(req.getParameter("mode"));
 		req.setAttribute(mode.name()+"_set", Boolean.TRUE);
@@ -91,26 +91,7 @@ public class ShowAccumulatorsAction extends BaseAccumulatorsAction {
 		}catch(Exception ignored){;/*empty*/}
 		req.setAttribute("maxValues", maxValues);
 		
-		for (Accumulator a : accumulators){
-			AccumulatorInfoBean bean = new AccumulatorInfoBean();
-			
-			bean.setName(a.getName());
-			bean.setPath(a.getDefinition().describe());
-			bean.setId(a.getId());
-			List<AccumulatedValue> values = a.getValues();
-			if (values!=null && values.size()>0){
-				bean.setNumberOfValues(values.size());
-				bean.setLastValueTimestamp(values.get(values.size()-1).getISO8601Timestamp());
-			}else{
-				bean.setNumberOfValues(0);
-				bean.setLastValueTimestamp("none");
-			}
-			
-			beans.add(bean);
-		}
-
-		beans = StaticQuickSorter.sort(beans, SORT_TYPE);
-		req.setAttribute("accumulators", beans);
+		req.setAttribute("accumulators", getAccumulatorAPI().getAccumulatorDefinitions());
 		
 		List<String> ids = new ArrayList<String>();
 		
@@ -126,8 +107,8 @@ public class ShowAccumulatorsAction extends BaseAccumulatorsAction {
 		
 //		System.out.println("ids to show: "+ids);
 		if (ids.size()>0){
-		List<AccumulatedValueBean> dataBeans = new ArrayList<AccumulatedValueBean>();
-		List<AccumulatedSingleGraphDataBean> singleGraphDataBeans = new ArrayList<AccumulatedSingleGraphDataBean>(ids.size());
+		List<AccumulatedValueAO> dataBeans = new ArrayList<AccumulatedValueAO>();
+		List<AccumulatedSingleGraphAO> singleGraphDataBeans = new ArrayList<AccumulatedSingleGraphAO>(ids.size());
 			
 			//prepare values
 			HashMap<Long, AccumulatedValuesBean> values = new HashMap<Long, AccumulatedValuesBean>();
@@ -135,7 +116,7 @@ public class ShowAccumulatorsAction extends BaseAccumulatorsAction {
 			
 			for (String id : ids){
 				Accumulator acc = AccumulatorRepository.getInstance().getById(id);
-				AccumulatedSingleGraphDataBean singleGraphDataBean = new AccumulatedSingleGraphDataBean(acc.getName());
+				AccumulatedSingleGraphAO singleGraphDataBean = new AccumulatedSingleGraphAO(acc.getName());
 				singleGraphDataBeans.add(singleGraphDataBean);
 				accNames.add(acc.getName());
 				List<AccumulatedValue> accValues = acc.getValues();
@@ -149,7 +130,7 @@ public class ShowAccumulatorsAction extends BaseAccumulatorsAction {
 					bean.setValue(acc.getName(), v.getValue());
 					
 					//for single graph data
-					AccumulatedValueBean accValueForGraphData = new AccumulatedValueBean(NumberUtils.makeTimeString(timestamp));
+					AccumulatedValueAO accValueForGraphData = new AccumulatedValueAO(NumberUtils.makeTimeString(timestamp));
 					accValueForGraphData.addValue(v.getValue());
 					singleGraphDataBean.add(accValueForGraphData);
 				}
@@ -195,7 +176,7 @@ public class ShowAccumulatorsAction extends BaseAccumulatorsAction {
 			
 			//now create final data
 			for(AccumulatedValuesBean avb : valuesList){
-				AccumulatedValueBean bean = new AccumulatedValueBean(avb.getTime());
+				AccumulatedValueAO bean = new AccumulatedValueAO(avb.getTime());
 				for (String accName : accNames){
 					bean.addValue(avb.getValue(accName));
 				}

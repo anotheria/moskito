@@ -26,7 +26,7 @@ public enum NaviItem {
 	 */
 	CHARTS("Charts"),
 	/**
-	 * Constant for actions without own navigation item.
+	 * Constant for action without own navigation item.
 	 */
 	NONE("None"),
 	/**

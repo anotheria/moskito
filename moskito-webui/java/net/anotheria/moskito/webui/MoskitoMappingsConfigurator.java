@@ -4,18 +4,18 @@ import net.anotheria.maf.action.ActionForward;
 import net.anotheria.maf.action.ActionMappings;
 import net.anotheria.maf.action.ActionMappingsConfigurator;
 import net.anotheria.maf.action.CommandRedirect;
-import net.anotheria.moskito.webui.shared.action.AnalyzeJourneyAction;
+import net.anotheria.moskito.webui.journey.action.AnalyzeJourneyAction;
 import net.anotheria.moskito.webui.shared.action.ForceIntervalUpdateAction;
-import net.anotheria.moskito.webui.shared.action.InspectProducerAction;
-import net.anotheria.moskito.webui.shared.action.ShowAllProducersAction;
+import net.anotheria.moskito.webui.producers.action.InspectProducerAction;
+import net.anotheria.moskito.webui.producers.action.ShowAllProducersAction;
 import net.anotheria.moskito.webui.shared.action.ShowDashboardAction;
 import net.anotheria.moskito.webui.shared.action.ShowExplanationsAction;
-import net.anotheria.moskito.webui.shared.action.ShowJourneyAction;
-import net.anotheria.moskito.webui.shared.action.ShowJourneyCallAction;
-import net.anotheria.moskito.webui.shared.action.ShowJourneysAction;
-import net.anotheria.moskito.webui.shared.action.ShowProducerAction;
-import net.anotheria.moskito.webui.shared.action.ShowProducersForCategoryAction;
-import net.anotheria.moskito.webui.shared.action.ShowProducersForSubsystemAction;
+import net.anotheria.moskito.webui.journey.action.ShowJourneyAction;
+import net.anotheria.moskito.webui.journey.action.ShowJourneyCallAction;
+import net.anotheria.moskito.webui.journey.action.ShowJourneysAction;
+import net.anotheria.moskito.webui.producers.action.ShowProducerAction;
+import net.anotheria.moskito.webui.producers.action.ShowProducersForCategoryAction;
+import net.anotheria.moskito.webui.producers.action.ShowProducersForSubsystemAction;
 import net.anotheria.moskito.webui.accumulators.action.CreateAccumulatorAction;
 import net.anotheria.moskito.webui.accumulators.action.DeleteAccumulatorAction;
 import net.anotheria.moskito.webui.accumulators.action.ShowAccumulatorAction;
@@ -26,14 +26,14 @@ import net.anotheria.moskito.webui.shared.action.additional.ShowLibsAction;
 import net.anotheria.moskito.webui.shared.action.charts.GetChartDataAction;
 import net.anotheria.moskito.webui.shared.action.charts.GetChartMetaDataAction;
 import net.anotheria.moskito.webui.shared.action.charts.ShowChartsAction;
-import net.anotheria.moskito.webui.threads.actions.HistoryOffAction;
-import net.anotheria.moskito.webui.threads.actions.HistoryOnAction;
-import net.anotheria.moskito.webui.threads.actions.SetHistoryListSizeAction;
-import net.anotheria.moskito.webui.threads.actions.StartThreadAction;
-import net.anotheria.moskito.webui.threads.actions.ThreadsDumpAction;
-import net.anotheria.moskito.webui.threads.actions.ThreadsHistoryAction;
-import net.anotheria.moskito.webui.threads.actions.ThreadsListAction;
-import net.anotheria.moskito.webui.threads.actions.ThreadsOverviewAction;
+import net.anotheria.moskito.webui.threads.action.HistoryOffAction;
+import net.anotheria.moskito.webui.threads.action.HistoryOnAction;
+import net.anotheria.moskito.webui.threads.action.SetHistoryListSizeAction;
+import net.anotheria.moskito.webui.threads.action.StartThreadAction;
+import net.anotheria.moskito.webui.threads.action.ThreadsDumpAction;
+import net.anotheria.moskito.webui.threads.action.ThreadsHistoryAction;
+import net.anotheria.moskito.webui.threads.action.ThreadsListAction;
+import net.anotheria.moskito.webui.threads.action.ThreadsOverviewAction;
 import net.anotheria.moskito.webui.threshold.action.CreateThresholdAction;
 import net.anotheria.moskito.webui.threshold.action.DeleteThresholdAction;
 import net.anotheria.moskito.webui.threshold.action.ShowThresholdsAction;
@@ -177,20 +177,20 @@ public class MoskitoMappingsConfigurator implements ActionMappingsConfigurator{
 
 
 		mappings.addMapping("mskAccumulators", ShowAccumulatorsAction.class,
-				new ActionForward("html", "/net/anotheria/moskito/webui/shared/jsp/Accumulators.jsp"),
+				new ActionForward("html", "/net/anotheria/moskito/webui/accumulators/jsp/Accumulators.jsp"),
 				new ActionForward("xml", "/net/anotheria/moskito/webui/shared/jsp/AccumulatorsXML.jsp"),
-				new ActionForward("csv", "/net/anotheria/moskito/webui/shared/jsp/AccumulatorsCSV.jsp"),
-				new ActionForward("json", "/net/anotheria/moskito/webui/shared/jsp/AccumulatorsJSON.jsp")
+				new ActionForward("csv", "/net/anotheria/moskito/webui/accumulators/jsp/AccumulatorsCSV.jsp"),
+				new ActionForward("json", "/net/anotheria/moskito/webui/accumulators/jsp/AccumulatorsJSON.jsp")
 		);
 		mappings.addAlias("mskAccumulators.csv", "mskAccumulators");
 		mappings.addAlias("mskAccumulators.xml", "mskAccumulators");
 		mappings.addAlias("mskAccumulators.json", "mskAccumulators");
 		
 		mappings.addMapping("mskAccumulator", ShowAccumulatorAction.class,
-				new ActionForward("html", "/net/anotheria/moskito/webui/shared/jsp/Accumulator.jsp"),
+				new ActionForward("html", "/net/anotheria/moskito/webui/accumulators/jsp/Accumulator.jsp"),
 				new ActionForward("xml", "/net/anotheria/moskito/webui/shared/jsp/AccumulatorXML.jsp"),
-				new ActionForward("csv", "/net/anotheria/moskito/webui/shared/jsp/AccumulatorCSV.jsp"),
-				new ActionForward("json", "/net/anotheria/moskito/webui/shared/jsp/AccumulatorJSON.jsp")
+				new ActionForward("csv", "/net/anotheria/moskito/webui/accumulators/jsp/AccumulatorCSV.jsp"),
+				new ActionForward("json", "/net/anotheria/moskito/webui/accumulators/jsp/AccumulatorJSON.jsp")
 		);
 		mappings.addAlias("mskAccumulator.csv", "mskAccumulator");
 		mappings.addAlias("mskAccumulator.xml", "mskAccumulator");

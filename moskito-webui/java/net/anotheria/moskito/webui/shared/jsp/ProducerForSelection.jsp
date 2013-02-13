@@ -53,7 +53,7 @@
             </div>
             <br/>
             <div>
-                <span>Name: <input type="text" value="new-<ano:write name="target"/>" name="pName"></span>
+                <span>Name: <input type="text" value="new-<ano:write name="target"/>" name="name"></span>
             </div>
             <br/>
             <div>

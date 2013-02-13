@@ -59,7 +59,7 @@ public class ThresholdResource {
 	@Path("alerts")
 	public ReplyObject getAlerts(){
 		try{
-			return ReplyObject.success(thresholdAPI.getAlerts());
+			return ReplyObject.success("alerts", thresholdAPI.getAlerts());
 		}catch(APIException e){
 			throw new WebApplicationException(e);
 		}

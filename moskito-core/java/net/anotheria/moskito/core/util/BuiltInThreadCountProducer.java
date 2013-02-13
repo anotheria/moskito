@@ -12,7 +12,7 @@ import java.util.TimerTask;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
- * A built-in producer that counts threads based on jmx provided beans.
+ * A built-in producer that counts threads based on jmx provided bean.
  * @author lrosenberg
  *
  */

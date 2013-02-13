@@ -18,5 +18,5 @@ public interface ThresholdAPI extends API {
 
 	Threshold createThreshold(ThresholdPO po) throws APIException;
 
-	void removeThreshold(String parameter) throws APIException;
+	void removeThreshold(String id) throws APIException;
 }

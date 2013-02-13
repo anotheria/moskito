@@ -58,7 +58,7 @@ import java.util.List;
 
 
 /**
- * A base action for monitorable struts1 actions. Simply implement moskitoExecute method (standart stuts is execute) and your action will be monitored.
+ * A base action for monitorable struts1 action. Simply implement moskitoExecute method (standart stuts is execute) and your action will be monitored.
  * @author lrosenberg
  */
 public abstract class MoskitoAction extends Action implements IStatsProducer {

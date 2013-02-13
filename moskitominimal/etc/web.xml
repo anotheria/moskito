@@ -19,6 +19,29 @@
        	<filter-name>MoskitoUIFilter</filter-name>
    	    <url-pattern>/mui/*</url-pattern>
     </filter-mapping>
+	<!-- REST INTERFACE -->
+    <servlet>
+        <servlet-name>JerseyServletContainer</servlet-name>
+        <servlet-class>com.sun.jersey.spi.container.servlet.ServletContainer</servlet-class>
+
+        <init-param>
+            <param-name>com.sun.jersey.config.property.packages</param-name>
+            <param-value>net.anotheria.moskito.webui</param-value>
+        </init-param>
+        <init-param>
+            <param-name>com.sun.jersey.config.feature.DisableXmlSecurity</param-name>
+            <param-value>true</param-value>
+        </init-param>
+        <init-param>
+            <param-name>com.sun.jersey.api.json.POJOMappingFeature</param-name>
+            <param-value>true</param-value>
+        </init-param>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>JerseyServletContainer</servlet-name>
+        <url-pattern>/muirest/*</url-pattern>
+    </servlet-mapping>
     <!--  / MOSKITO UI END -->
 
 

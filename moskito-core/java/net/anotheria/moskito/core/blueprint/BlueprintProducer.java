@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
- * This special producer type is used whenever you have monitorable objects which are created on request and should be recycled afterwards (for example command pattern, or struts 2 actions).
+ * This special producer type is used whenever you have monitorable objects which are created on request and should be recycled afterwards (for example command pattern, or struts 2 action).
  * The problem with the per-request-creation of objects is that if you tie the usual moskito producer to them, they remain registered in the producer registry and your app leaks memory, since 
  * the objects never get collected. The solution is to use the BlueprintProducer which is used to gather the stats for a category or family of objects. You can think of blueprintproducer - object relationship 
  * as of object and its class. 
@@ -37,7 +37,7 @@ public class BlueprintProducer implements IStatsProducer{
 	private String subsystem;
 	
 	/**
-	 * Producer stats object. The default blueprint producer supports only one method - execute, and uses actionstats for storage since its the most appropriate stats object (used for struts1 actions).
+	 * Producer stats object. The default blueprint producer supports only one method - execute, and uses actionstats for storage since its the most appropriate stats object (used for struts1 action).
 	 */
 	private ActionStats stats;
 

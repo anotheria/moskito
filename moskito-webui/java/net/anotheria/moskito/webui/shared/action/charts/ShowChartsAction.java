@@ -42,7 +42,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Base action for charts presentation actions.
+ * Base action for charts presentation action.
  * 
  * @author abolbat.
  */

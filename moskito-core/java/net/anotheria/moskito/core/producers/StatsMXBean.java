@@ -4,7 +4,6 @@ import java.util.List;
 
 public interface StatsMXBean {
 	
-	String getValueByNameAsString(String valueName, String intervalName, String timeUnit);
 	/**
 	 * Returns the names of all contained stats.
 	 * @return

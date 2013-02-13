@@ -68,7 +68,7 @@ public interface IStatsProducer<S extends IStats> {
 	/**
 	 * Returns the category of this producer. A typical categorie is something like servlet, action,
 	 * service or dao. The categories are used to group different StatsProducer to get overview over
-	 * a certain layer in the application, i.e. show me all actions.
+	 * a certain layer in the application, i.e. show me all action.
 	 * 
 	 * @return the id of the category the producer belongs to.
 	 */

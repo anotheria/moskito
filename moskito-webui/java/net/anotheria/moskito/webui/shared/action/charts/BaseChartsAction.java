@@ -6,7 +6,7 @@ import net.anotheria.moskito.webui.shared.bean.NaviItem;
 import javax.servlet.http.HttpServletRequest;
 
 /**
- * Base actions for dynamic charts.
+ * Base action for dynamic charts.
  *
  * @author lrosenberg
  * @since 07.10.12 18:40
