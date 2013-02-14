@@ -5,7 +5,7 @@ import java.util.List;
 
 /**
  * This bean combines the if of the producer, its type and available stats. This is used to transfer available data to the frontend
- * for dynamic charts. A collection of this bean shows all available stats in the system.
+ * for dynamic action. A collection of this bean shows all available stats in the system.
  */
 public class ProducerAndTypeBean {
 	/**

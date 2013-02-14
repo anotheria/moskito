@@ -16,7 +16,7 @@
 <jsp:include page="Menu.jsp" flush="false" />
 
 <!--
- Data for charts -->
+ Data for action -->
  <script>
 <ano:iterate type="net.anotheria.moskito.webui.shared.bean.GraphDataBean" id="graph" name="graphDatas">
 	var <ano:write name="graph" property="jsVariableName"/>Caption = "<ano:write name="graph" property="caption"/>";

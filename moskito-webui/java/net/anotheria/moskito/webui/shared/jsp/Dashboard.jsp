@@ -27,7 +27,7 @@
 <jsp:include page="Menu.jsp" flush="false"/>
 
 <!--
-     Data for charts -->
+     Data for action -->
 <%--
     <script>
     <msk:iterate type="net.anotheria.moskito.webui.shared.bean.GraphDataBean" 	id="graph" name="graphDatas">
