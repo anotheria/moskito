@@ -1,5 +1,7 @@
 package net.anotheria.moskito.webui.shared.resource;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.util.HashMap;
@@ -11,6 +13,7 @@ import java.util.HashMap;
  * @since 13.02.13 15:26
  */
 @XmlRootElement(name="reply")
+@XmlAccessorType(XmlAccessType.FIELD)
 public class ReplyObject {
 	@XmlElement
 	private boolean success;

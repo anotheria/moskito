@@ -1,4 +1,4 @@
-package net.anotheria.moskito.webui.shared.bean;
+package net.anotheria.moskito.webui.journey.bean;
 
 import net.anotheria.moskito.webui.CurrentSelection;
 import net.anotheria.util.BasicComparable;

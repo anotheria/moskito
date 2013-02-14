@@ -1,4 +1,4 @@
-package net.anotheria.moskito.webui.shared.bean;
+package net.anotheria.moskito.webui.journey.bean;
 
 import net.anotheria.util.sorter.SortType;
 

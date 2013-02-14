@@ -27,7 +27,7 @@
 <script type="text/javascript" src="../js/jquery-1.4.min.js"></script>
 <script type="text/javascript" src="../js/function.js"></script>
 <script type="text/javascript" src="http://www.google.com/jsapi"></script>
-<jsp:include page="Menu.jsp" flush="false"/>
+<jsp:include page="../../shared/jsp/Menu.jsp" flush="false"/>
 
 <div class="main">	
 	<div class="clear"><!-- --></div>
@@ -72,7 +72,7 @@
 							</tr>
 						</thead>
 						<tbody>
-							<ano:iterate name="journeys" type="net.anotheria.moskito.webui.shared.bean.JourneyListItemBean" id="journey" indexId="index">
+							<ano:iterate name="journeys" type="net.anotheria.moskito.webui.journey.api.JourneyListItemAO" id="journey" indexId="index">
 								<tr class="<%= ((index & 1) == 0 )? "even" : "odd" %>">
 									<td><a href="mskShowJourney?pJourneyName=<ano:write name="journey" property="name"/>"><ano:write name="journey" property="name"/></a></td>
 									<td><ano:write name="journey" property="created"/></td>
@@ -99,7 +99,7 @@
 	<ano:notPresent name="journeysPresent" scope="request">
 		<i>No journeys recorded.</i>
 	</ano:notPresent>	
-	<jsp:include page="Footer.jsp" flush="false" />
+	<jsp:include page="../../shared/jsp/Footer.jsp" flush="false" />
 </div>
 </body>
 </html>

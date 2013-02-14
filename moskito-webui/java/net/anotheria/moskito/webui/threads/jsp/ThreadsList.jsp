@@ -7,7 +7,7 @@
 <link rel="stylesheet" href="mskCSS"/>
 </head>
 <body>
-<jsp:include page="Menu.jsp" flush="false" />
+<jsp:include page="../../shared/jsp/Menu.jsp" flush="false" />
 <div class="main">
 	<div class="clear"><!-- --></div>
 	
@@ -125,7 +125,7 @@
 
 	</div>
 	<div class="clear"><!-- --></div>
-<jsp:include page="Footer.jsp" flush="false" />
+<jsp:include page="../../shared/jsp/Footer.jsp" flush="false" />
 </div>	
 </body>
 </html>

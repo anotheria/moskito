@@ -1,7 +1,7 @@
 package net.anotheria.moskito.webui;
 
 import net.anotheria.moskito.core.stats.TimeUnit;
-import net.anotheria.moskito.webui.shared.bean.AnalyzeProducerCallsBeanSortType;
+import net.anotheria.moskito.webui.journey.bean.AnalyzeProducerCallsBeanSortType;
 
 /**
  * This bean, once initialized, holds current selection data in the thread, to prevent a lot of parameter passing between functions.

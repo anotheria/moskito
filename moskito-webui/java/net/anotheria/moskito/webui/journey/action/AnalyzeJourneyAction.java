@@ -8,8 +8,8 @@ import net.anotheria.moskito.core.calltrace.TraceStep;
 import net.anotheria.moskito.core.journey.Journey;
 import net.anotheria.moskito.core.journey.NoSuchJourneyException;
 import net.anotheria.moskito.webui.CurrentSelection;
-import net.anotheria.moskito.webui.shared.bean.AnalyzeProducerCallsBeanSortType;
-import net.anotheria.moskito.webui.shared.bean.AnalyzeProducerCallsMapBean;
+import net.anotheria.moskito.webui.journey.bean.AnalyzeProducerCallsBeanSortType;
+import net.anotheria.moskito.webui.journey.bean.AnalyzeProducerCallsMapBean;
 import org.apache.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;

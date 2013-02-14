@@ -3,13 +3,10 @@ package net.anotheria.moskito.webui.journey.action;
 import net.anotheria.maf.action.ActionCommand;
 import net.anotheria.maf.action.ActionMapping;
 import net.anotheria.maf.bean.FormBean;
-import net.anotheria.moskito.core.journey.Journey;
-import net.anotheria.moskito.webui.shared.bean.JourneyListItemBean;
-import net.anotheria.util.NumberUtils;
+import net.anotheria.moskito.webui.journey.api.JourneyListItemAO;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -26,7 +23,7 @@ public class ShowJourneysAction extends BaseJourneyAction{
 	}
 
 	@Override
-	public ActionCommand execute(ActionMapping mapping, FormBean formBean, HttpServletRequest req, HttpServletResponse res) {
+	public ActionCommand execute(ActionMapping mapping, FormBean formBean, HttpServletRequest req, HttpServletResponse res) throws Exception{
 
 		String contextPath = req.getContextPath();
 		if (contextPath==null)
@@ -48,22 +45,10 @@ public class ShowJourneysAction extends BaseJourneyAction{
 		req.setAttribute("new_journey_url", url1);
 		req.setAttribute("stop_journey_url", url2);
 
-		List<Journey> journeys = getJourneyManager().getJourneys();
-		List<JourneyListItemBean> beans = new ArrayList<JourneyListItemBean>(journeys.size());
+		List<JourneyListItemAO> journeys = getJourneyAPI().getJourneys();
 		
-		for (Journey j : journeys){
-			JourneyListItemBean bean = new JourneyListItemBean();
-			
-			bean.setName(j.getName());
-			bean.setActive(j.isActive());
-			bean.setCreated(NumberUtils.makeISO8601TimestampString(j.getCreatedTimestamp()));
-			bean.setLastActivity(NumberUtils.makeISO8601TimestampString(j.getLastActivityTimestamp()));
-			bean.setNumberOfCalls(j.getTracedCalls().size());
-			beans.add(bean);
-		}
-
-		req.setAttribute("journeys", beans);
-		if (beans.size()>0)
+		req.setAttribute("journeys", journeys);
+		if (journeys.size()>0)
 			req.setAttribute("journeysPresent", Boolean.TRUE);
 		return mapping.success();
 	}

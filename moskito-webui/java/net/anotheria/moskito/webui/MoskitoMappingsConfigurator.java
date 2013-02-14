@@ -123,13 +123,13 @@ public class MoskitoMappingsConfigurator implements ActionMappingsConfigurator{
 //				new ActionForward("success", "/net/anotheria/moskito/webui/jsp/RecordedUseCase.jsp")
 //		);
 		mappings.addMapping("mskShowJourneys", ShowJourneysAction.class, 
-				new ActionForward("success", "/net/anotheria/moskito/webui/shared/jsp/Journeys.jsp")
+				new ActionForward("success", "/net/anotheria/moskito/webui/journey/jsp/Journeys.jsp")
 		);
 		mappings.addMapping("mskShowJourney", ShowJourneyAction.class, 
-				new ActionForward("success", "/net/anotheria/moskito/webui/shared/jsp/Journey.jsp")
+				new ActionForward("success", "/net/anotheria/moskito/webui/journey/jsp/Journey.jsp")
 		);
 		mappings.addMapping("mskShowJourneyCall", ShowJourneyCallAction.class, 
-				new ActionForward("success", "/net/anotheria/moskito/webui/shared/jsp/JourneyCall.jsp")
+				new ActionForward("success", "/net/anotheria/moskito/webui/journey/jsp/JourneyCall.jsp")
 		);
 
 		mappings.addMapping("getChartData", GetChartDataAction.class, 
@@ -205,27 +205,27 @@ public class MoskitoMappingsConfigurator implements ActionMappingsConfigurator{
 		
 		//analyze journey
 		mappings.addMapping("mskAnalyzeJourney", AnalyzeJourneyAction.class,
-				new ActionForward("success", "/net/anotheria/moskito/webui/shared/jsp/AnalyzeJourney.jsp")
+				new ActionForward("success", "/net/anotheria/moskito/webui/journey/jsp/AnalyzeJourney.jsp")
 		);
 		
 		//threads
 		mappings.addMapping("mskThreads", ThreadsOverviewAction.class,
-				new ActionForward("success", "/net/anotheria/moskito/webui/shared/jsp/Threads.jsp"));
+				new ActionForward("success", "/net/anotheria/moskito/webui/threads/jsp/Threads.jsp"));
 		mappings.addMapping("mskThreadsList", ThreadsListAction.class,
-				new ActionForward("success", "/net/anotheria/moskito/webui/shared/jsp/ThreadsList.jsp"));
+				new ActionForward("success", "/net/anotheria/moskito/webui/threads/jsp/ThreadsList.jsp"));
 		mappings.addMapping("mskThreadsDump", ThreadsDumpAction.class,
-				new ActionForward("success", "/net/anotheria/moskito/webui/shared/jsp/ThreadsDump.jsp"));
+				new ActionForward("success", "/net/anotheria/moskito/webui/threads/jsp/ThreadsDump.jsp"));
 		mappings.addMapping("mskThreadsHistory", ThreadsHistoryAction.class,
-				new ActionForward("success", "/net/anotheria/moskito/webui/shared/jsp/ThreadsHistory.jsp"));
+				new ActionForward("success", "/net/anotheria/moskito/webui/threads/jsp/ThreadsHistory.jsp"));
 		//hidden features.
 		mappings.addMapping("mskThreadsSetHistoryListSize", SetHistoryListSizeAction.class,
-				new ActionForward("success", "/net/anotheria/moskito/webui/shared/jsp/ThreadsHistory.jsp"));
+				new ActionForward("success", "/net/anotheria/moskito/webui/threads/jsp/ThreadsHistory.jsp"));
 		mappings.addMapping("mskThreadsStartTestThread", StartThreadAction.class,
-				new ActionForward("success", "/net/anotheria/moskito/webui/shared/jsp/ThreadsHistory.jsp"));
+				new ActionForward("success", "/net/anotheria/moskito/webui/threads/jsp/ThreadsHistory.jsp"));
 		mappings.addMapping("mskThreadsHistoryOff", HistoryOffAction.class,
-				new ActionForward("success", "/net/anotheria/moskito/webui/shared/jsp/ThreadsHistory.jsp"));
+				new ActionForward("success", "/net/anotheria/moskito/webui/threads/jsp/ThreadsHistory.jsp"));
 		mappings.addMapping("mskThreadsHistoryOn", HistoryOnAction.class,
-				new ActionForward("success", "/net/anotheria/moskito/webui/shared/jsp/ThreadsHistory.jsp"));
+				new ActionForward("success", "/net/anotheria/moskito/webui/threads/jsp/ThreadsHistory.jsp"));
 
 		//additional information section
 		mappings.addMapping("mskMore", AdditionalSectionAction.class,

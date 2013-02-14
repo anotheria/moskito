@@ -6,8 +6,8 @@ import net.anotheria.maf.bean.FormBean;
 import net.anotheria.moskito.core.calltrace.CurrentlyTracedCall;
 import net.anotheria.moskito.core.journey.Journey;
 import net.anotheria.moskito.core.journey.NoSuchJourneyException;
-import net.anotheria.moskito.webui.shared.bean.JourneyListItemBean;
-import net.anotheria.moskito.webui.shared.bean.TracedCallListItemBean;
+import net.anotheria.moskito.webui.journey.api.JourneyListItemAO;
+import net.anotheria.moskito.webui.journey.bean.TracedCallListItemBean;
 import net.anotheria.util.NumberUtils;
 import org.apache.log4j.Logger;
 
@@ -45,7 +45,7 @@ public class ShowJourneyAction extends BaseJourneyAction{
 			throw new IllegalArgumentException("Journey with name "+journeyName+" not found.");
 		}
 
-		JourneyListItemBean bean = new JourneyListItemBean();
+		JourneyListItemAO bean = new JourneyListItemAO();
 			
 		bean.setName(journey.getName());
 		bean.setActive(journey.isActive());

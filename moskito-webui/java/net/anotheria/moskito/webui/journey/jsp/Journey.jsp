@@ -11,7 +11,7 @@
 <script type="text/javascript" src="../js/jquery-1.4.min.js"></script>
 <script type="text/javascript" src="../js/function.js"></script>
 <script type="text/javascript" src="http://www.google.com/jsapi"></script>
-<jsp:include page="Menu.jsp" flush="false"/>
+<jsp:include page="../../shared/jsp/Menu.jsp" flush="false"/>
 
 <div class="main">
 	<ul class="breadcrumbs">
@@ -54,7 +54,7 @@
 					</thead>
 					<tbody>
 						
-						<msk:iterate name="recorded" type="net.anotheria.moskito.webui.shared.bean.TracedCallListItemBean" id="tracedCall" indexId="index">
+						<msk:iterate name="recorded" type="net.anotheria.moskito.webui.journey.bean.TracedCallListItemBean" id="tracedCall" indexId="index">
 							<tr class="<%= ((index & 1) == 0 )? "even" : "odd" %>">
 								<td><msk:write name="index"/></td>
 								 <td>

@@ -8,7 +8,6 @@ import net.anotheria.moskito.core.accumulation.Accumulator;
 import net.anotheria.moskito.core.accumulation.AccumulatorRepository;
 import net.anotheria.moskito.webui.accumulators.api.AccumulatedSingleGraphAO;
 import net.anotheria.moskito.webui.accumulators.api.AccumulatedValueAO;
-import net.anotheria.moskito.webui.accumulators.api.AccumulatorDefinitionAO;
 import net.anotheria.moskito.webui.accumulators.bean.AccumulatedValuesBean;
 import net.anotheria.util.NumberUtils;
 import net.anotheria.util.sorter.DummySortType;
@@ -69,8 +68,7 @@ public class ShowAccumulatorsAction extends BaseAccumulatorsAction {
 			HttpServletRequest req, HttpServletResponse res) throws Exception {
 		
 		List<Accumulator> accumulators = AccumulatorRepository.getInstance().getAccumulators();
-		List<AccumulatorDefinitionAO> beans = new ArrayList<AccumulatorDefinitionAO>();
-		
+
 		MODE mode = MODE.fromString(req.getParameter("mode"));
 		req.setAttribute(mode.name()+"_set", Boolean.TRUE);
 		

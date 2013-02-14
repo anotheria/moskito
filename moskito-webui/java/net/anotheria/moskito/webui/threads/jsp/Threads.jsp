@@ -7,7 +7,7 @@
 <link rel="stylesheet" href="mskCSS"/>
 </head>
 <body>
-<jsp:include page="Menu.jsp" flush="false" />
+<jsp:include page="../../shared/jsp/Menu.jsp" flush="false" />
 <div class="main">
 	<div class="clear"><!-- --></div>
 	<div class="table_layout">
@@ -139,7 +139,7 @@
 	</div>
 	<div class="clear"><!-- --></div>
 	<a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/lang/management/ThreadMXBean.html">See Javadoc for details</a>
-<jsp:include page="Footer.jsp" flush="false" />
+<jsp:include page="../../shared/jsp/Footer.jsp" flush="false" />
 </div>	
 </body>
 </html>

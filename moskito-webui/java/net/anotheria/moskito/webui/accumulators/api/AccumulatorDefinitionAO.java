@@ -5,6 +5,7 @@ import net.anotheria.util.sorter.IComparable;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 
@@ -20,28 +21,34 @@ public class AccumulatorDefinitionAO implements IComparable{
 	/**
 	 * If of the accumulator.
 	 */
+	@XmlElement
 	private String id;
 	/**
 	 * Name of the accumulator.
 	 */
+	@XmlElement
 	private String name;
 	/**
 	 * Path to the stat values.
 	 */
+	@XmlElement
 	private String path;
 	/**
 	 * Number of accumulated values.
 	 */
+	@XmlElement
 	private int numberOfValues;
 	/**
 	 * The timestamp from last value.
 	 */
+	@XmlElement
 	private String lastValueTimestamp;
 
 	/**
 	 * The max number of value this accumulator will accumulate. The real number of values will be between 0 and maxNumberOfValues until the maxNumberOfValues
 	 * is reached first time. Afterwards its between maxNumberOfValues and maxNumberOfValues*1.1.
 	 */
+	@XmlElement
 	private int maxNumberOfValues;
 
 

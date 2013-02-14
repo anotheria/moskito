@@ -1,10 +1,17 @@
-package net.anotheria.moskito.webui.shared.bean;
+package net.anotheria.moskito.webui.journey.api;
+
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlRootElement;
+
 /**
  * This bean contains an item in the journey list.
  * @author lrosenberg.
  *
  */
-public class JourneyListItemBean {
+@XmlRootElement
+@XmlAccessorType(XmlAccessType.FIELD)
+public class JourneyListItemAO {
 	/**
 	 * Name of the session.
 	 */
