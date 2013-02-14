@@ -82,7 +82,7 @@
         });
     </script>
 
-<jsp:include page="Menu.jsp" flush="false" />
+<jsp:include page="../../shared/jsp/Menu.jsp" flush="false" />
 
 <div class="main">
 <ano:iterate type="net.anotheria.moskito.webui.shared.bean.StatDecoratorBean" id="decorator" name="decorators">

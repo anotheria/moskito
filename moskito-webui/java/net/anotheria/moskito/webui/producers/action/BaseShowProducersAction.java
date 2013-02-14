@@ -34,18 +34,20 @@
  */	
 package net.anotheria.moskito.webui.producers.action;
 
+import net.anotheria.anoplass.api.APIException;
+import net.anotheria.anoplass.api.APIFinder;
 import net.anotheria.maf.action.ActionCommand;
 import net.anotheria.maf.action.ActionMapping;
 import net.anotheria.maf.bean.FormBean;
 import net.anotheria.moskito.core.producers.IStatsProducer;
+import net.anotheria.moskito.webui.producers.api.ProducerAPI;
+import net.anotheria.moskito.webui.producers.api.UnitCountAO;
 import net.anotheria.moskito.webui.shared.action.BaseMoskitoUIAction;
 import net.anotheria.moskito.webui.shared.bean.GraphDataBean;
 import net.anotheria.moskito.webui.shared.bean.NaviItem;
-import net.anotheria.moskito.webui.shared.bean.UnitCountBean;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -55,7 +57,13 @@ import java.util.Map;
  * @author lrosenberg.
  */
 public abstract class BaseShowProducersAction extends BaseMoskitoUIAction {
-	
+
+	private static ProducerAPI producerAPI = APIFinder.findAPI(ProducerAPI.class);
+
+
+	protected ProducerAPI getProducerAPI(){
+		return producerAPI;
+	}
 	/**
 	 * Returns the list of producers for presentation.
 	 * @param req
@@ -87,23 +95,21 @@ public abstract class BaseShowProducersAction extends BaseMoskitoUIAction {
 
 		return mapping.findCommand( getForward(req) );
 	}
-	
-	protected void doCustomProcessing(HttpServletRequest req, HttpServletResponse res){
-		List<String> categories = getAPI().getCategories();
-		List<UnitCountBean> categoriesBeans = new ArrayList<UnitCountBean>(categories.size());
-		categoriesBeans.add(UnitCountBean.NONE);
-		for (String catName : categories){
-			categoriesBeans.add(new UnitCountBean(catName, getAPI().getAllProducersByCategory(catName).size()));
-		}
-		req.setAttribute("categories", categoriesBeans);
 
-		List<String> subsystems = getAPI().getSubsystems();		
-		List<UnitCountBean> subsystemsBeans = new ArrayList<UnitCountBean>(subsystems.size());
-		subsystemsBeans.add(UnitCountBean.NONE);
-		for (String subName : subsystems){
-			subsystemsBeans.add(new UnitCountBean(subName, getAPI().getAllProducersBySubsystem(subName).size()));
+	private static final UnitCountAO EMPTY_UNIT = new UnitCountAO("Select ", 0);
+
+	protected void doCustomProcessing(HttpServletRequest req, HttpServletResponse res){
+		try{
+			List<UnitCountAO> categories = getProducerAPI().getCategories();
+			categories.add(0, EMPTY_UNIT);
+			req.setAttribute("categories", categories);
+
+			List<UnitCountAO> subsystems = getProducerAPI().getSubsystems();
+			categories.add(0, EMPTY_UNIT);
+			req.setAttribute("subsystems", subsystems);
+		}catch(APIException e){
+			throw new IllegalStateException("Couldn't obtain categories/subsystems ", e);
 		}
-		req.setAttribute("subsystems", subsystemsBeans);
 	}
 
 	@Override

@@ -13,7 +13,7 @@
 <script type="text/javascript" src="../js/function.js"></script>
 <script type="text/javascript" src="http://www.google.com/jsapi"></script>
 
-<jsp:include page="Menu.jsp" flush="false" />
+<jsp:include page="../../shared/jsp/Menu.jsp" flush="false" />
 
 <!--
  Data for action -->
@@ -308,7 +308,7 @@
 		return false;
 	});
 </script>
-<jsp:include page="Footer.jsp" flush="false" />
+<jsp:include page="../../shared/jsp/Footer.jsp" flush="false" />
 </div>	
 </body>
 </html>

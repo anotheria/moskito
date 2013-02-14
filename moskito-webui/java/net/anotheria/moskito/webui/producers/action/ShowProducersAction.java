@@ -38,7 +38,7 @@ import net.anotheria.moskito.core.producers.IStatsProducer;
 import net.anotheria.moskito.core.registry.IProducerFilter;
 import net.anotheria.moskito.core.registry.filters.CategoryFilter;
 import net.anotheria.moskito.core.registry.filters.SubsystemFilter;
-import net.anotheria.moskito.webui.shared.bean.UnitCountBean;
+import net.anotheria.moskito.webui.producers.api.UnitCountAO;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -87,17 +87,17 @@ public class ShowProducersAction extends BaseShowProducersAction{
 
 	@Override public void doCustomProcessing(HttpServletRequest req, HttpServletResponse res){
 		List<String> categories = getAPI().getCategories();
-		List<UnitCountBean> categoriesBeans = new ArrayList<UnitCountBean>(categories.size());
+		List<UnitCountAO> categoriesBeans = new ArrayList<UnitCountAO>(categories.size());
 		for (String catName : categories){
-			categoriesBeans.add(new UnitCountBean(catName, getAPI().getAllProducersByCategory(catName).size()));
+			categoriesBeans.add(new UnitCountAO(catName, getAPI().getAllProducersByCategory(catName).size()));
 		}
 		req.setAttribute("categories", categoriesBeans);
 		
 		List<String> subsystems = getAPI().getSubsystems();		
 		//System.out.println("Subsystems: "+subsystems);
-		List<UnitCountBean> subsystemsBeans = new ArrayList<UnitCountBean>(subsystems.size());
+		List<UnitCountAO> subsystemsBeans = new ArrayList<UnitCountAO>(subsystems.size());
 		for (String subName : subsystems){
-			subsystemsBeans.add(new UnitCountBean(subName, getAPI().getAllProducersBySubsystem(subName).size()));
+			subsystemsBeans.add(new UnitCountAO(subName, getAPI().getAllProducersBySubsystem(subName).size()));
 		}
 		req.setAttribute("subsystems", subsystemsBeans);
  	}

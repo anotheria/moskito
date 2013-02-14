@@ -32,35 +32,40 @@
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR
  * THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */	
-package net.anotheria.moskito.webui.shared.bean;
+package net.anotheria.moskito.webui.producers.api;
+
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+
 /**
  * Represent a name/count pair. Used to present number of producers in a category or subsystem.
  * @author another
  *
  */
-public class UnitCountBean {
+@XmlRootElement
+public class UnitCountAO {
 	/**
 	 * Name of the unit.
 	 */
+	@XmlElement(name="name")
 	private String unitName;
 	/**
 	 * Number of unit entities.
 	 */
+	@XmlElement(name="count")
 	private int unitCount;
-	
-	public static final UnitCountBean NONE = new UnitCountBean("Select ", 0);
 	
 	/**
 	 * Creates a new unit count bean.
 	 */
-	public UnitCountBean(){
+	public UnitCountAO(){
 		
 	}
 	
 	/**
 	 * Creates a new unit count bean.
 	 */
-	public UnitCountBean(String anUnitName, int anUnitCount){
+	public UnitCountAO(String anUnitName, int anUnitCount){
 		unitName = anUnitName;
 		unitCount = anUnitCount;
 	}
@@ -76,5 +81,9 @@ public class UnitCountBean {
 	}
 	public void setUnitName(String unitName) {
 		this.unitName = unitName;
+	}
+
+	@Override public String toString(){
+		return unitName+"="+unitCount;
 	}
 }
