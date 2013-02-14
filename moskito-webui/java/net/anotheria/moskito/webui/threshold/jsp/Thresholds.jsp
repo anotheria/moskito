@@ -132,7 +132,7 @@
 
 	<!-- definition for overlays -->
 		<script type="text/javascript">
-		<ano:iterate name="infos" type="net.anotheria.moskito.webui.threshold.bean.ThresholdInfoBean" id="info">
+		<ano:iterate name="infos" type="net.anotheria.moskito.webui.threshold.api.ThresholdDefinitionAO" id="info">
 			var info<ano:write name="info" property="id"/> = {
 				"name": "<ano:write name="info" property="name"/>",
 				"producerName": "<ano:write name="info" property="producerName"/>",
@@ -212,7 +212,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <ano:iterate name="thresholds" type="net.anotheria.moskito.webui.threshold.bean.ThresholdBean" id="threshold" indexId="index">
+                                <ano:iterate name="thresholds" type="net.anotheria.moskito.webui.threshold.api.ThresholdStatusAO" id="threshold" indexId="index">
                                     <tr class="<%= ((index & 1) == 0 )? "even" : "odd" %>">
                                         <td><a class="th_name" href="#" onclick="openOverlay(info<ano:write name="threshold" property="id"/>); return false"><ano:write name="threshold" property="name"/></a></td>
                                         <td><img src="<ano:write name="mskPathToImages" scope="application"/>ind_<ano:write name="threshold" property="colorCode"/>.<ano:equal name="threshold" property="colorCode" value="purple">gif</ano:equal><ano:notEqual name="threshold" property="colorCode" value="purple">png</ano:notEqual>" alt="<ano:write name="threshold" property="status"/>"/></td>

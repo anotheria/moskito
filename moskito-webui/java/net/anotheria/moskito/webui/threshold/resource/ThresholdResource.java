@@ -6,7 +6,6 @@ import net.anotheria.moskito.core.threshold.Threshold;
 import net.anotheria.moskito.webui.shared.resource.ReplyObject;
 import net.anotheria.moskito.webui.threshold.api.ThresholdAPI;
 import net.anotheria.moskito.webui.threshold.api.ThresholdPO;
-import net.anotheria.moskito.webui.threshold.bean.ThresholdBean;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -14,8 +13,6 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.WebApplicationException;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * This handles thresholds in the moskito-webui rest interface.
@@ -31,8 +28,39 @@ public class ThresholdResource {
 
 	@GET
 	@Path("list")
-	public List<ThresholdBean> getThresholds(){
-		return new ArrayList<ThresholdBean>();
+	public ReplyObject getThresholds(){
+		try{
+			ReplyObject ret = ReplyObject.success();
+			ret.addResult("statuses", thresholdAPI.getThresholdStatuses());
+			ret.addResult("definitions", thresholdAPI.getThresholdDefinitions());
+			return ret;
+		}catch(APIException e){
+			throw new WebApplicationException(e);
+		}
+	}
+
+	@GET
+	@Path("definitions")
+	public ReplyObject getThresholdDefinitions(){
+		try{
+			ReplyObject ret = ReplyObject.success();
+			ret.addResult("definitions", thresholdAPI.getThresholdDefinitions());
+			return ret;
+		}catch(APIException e){
+			throw new WebApplicationException(e);
+		}
+	}
+
+	@GET
+	@Path("statuses")
+	public ReplyObject getThresholdStatuses(){
+		try{
+			ReplyObject ret = ReplyObject.success();
+			ret.addResult("statuses", thresholdAPI.getThresholdStatuses());
+			return ret;
+		}catch(APIException e){
+			throw new WebApplicationException(e);
+		}
 	}
 
 	@POST

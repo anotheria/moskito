@@ -1,42 +1,57 @@
-package net.anotheria.moskito.webui.threshold.bean;
+package net.anotheria.moskito.webui.threshold.api;
 
 import net.anotheria.moskito.core.threshold.ThresholdStatus;
 import net.anotheria.util.BasicComparable;
 import net.anotheria.util.sorter.IComparable;
+
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  * Contains runtime information about a threshold.
  * @author lrosenberg
  *
  */
-public class ThresholdBean implements IComparable{
+@XmlRootElement
+@XmlAccessorType(XmlAccessType.FIELD)
+public class ThresholdStatusAO implements IComparable{
 	/**
 	 * Name of the threshold.
 	 */
+	@XmlElement
 	private String name;
 	/**
 	 * Current status.
 	 */
+	@XmlTransient
 	private String status;
 	/**
 	 * Current color.
 	 */
+	@XmlElement
 	private String colorCode;
 	/**
 	 * Last change timestamp.
 	 */
+	@XmlElement
 	private String timestamp;
 	/**
 	 * Threshold description.
 	 */
+	@XmlElement
 	private String description;
 	/**
 	 * Current value.
 	 */
+	@XmlElement
 	private String value;
 	/**
 	 * Last change.
 	 */
+	@XmlElement
 	private String change;
 	/**
 	 * Status for sorting.
@@ -45,10 +60,12 @@ public class ThresholdBean implements IComparable{
 	/**
 	 * Timestamp for sorting.
 	 */
+	@XmlElement (name = "timestampInMillis")
 	private long timestampForSorting;
 	/**
 	 * Id of the threshold.
 	 */
+	@XmlElement
 	private String id;
 	
 	public String getValue() {
@@ -100,13 +117,13 @@ public class ThresholdBean implements IComparable{
 	
 	@Override
 	public int compareTo(IComparable anotherObject, int method) {
-		ThresholdBean anotherBean = (ThresholdBean)anotherObject;
+		ThresholdStatusAO anotherBean = (ThresholdStatusAO)anotherObject;
 		switch(method){
-		case ThresholdBeanSortType.BY_CHANGE:
+		case ThresholdStatusAOSortType.BY_CHANGE:
 			return BasicComparable.compareLong(timestampForSorting, anotherBean.timestampForSorting);
-		case ThresholdBeanSortType.BY_NAME:
+		case ThresholdStatusAOSortType.BY_NAME:
 			return BasicComparable.compareString(name, anotherBean.name);
-		case ThresholdBeanSortType.BY_STATUS:
+		case ThresholdStatusAOSortType.BY_STATUS:
 			return statusForSorting.compareTo(anotherBean.statusForSorting);
 		}
 		throw new IllegalArgumentException("Unknow sort method: "+method);

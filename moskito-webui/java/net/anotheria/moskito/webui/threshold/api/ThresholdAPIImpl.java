@@ -1,7 +1,9 @@
 package net.anotheria.moskito.webui.threshold.api;
 
+import net.anotheria.anoplass.api.APIException;
 import net.anotheria.moskito.core.stats.TimeUnit;
 import net.anotheria.moskito.core.threshold.Threshold;
+import net.anotheria.moskito.core.threshold.ThresholdConditionGuard;
 import net.anotheria.moskito.core.threshold.ThresholdDefinition;
 import net.anotheria.moskito.core.threshold.ThresholdRepository;
 import net.anotheria.moskito.core.threshold.ThresholdStatus;
@@ -113,5 +115,52 @@ public class ThresholdAPIImpl extends AbstractMoskitoAPIImpl implements Threshol
 	@Override
 	public void removeThreshold(String id) {
 		ThresholdRepository.getInstance().removeById(id);
+	}
+
+	@Override
+	public List<ThresholdStatusAO> getThresholdStatuses() throws APIException {
+		List<Threshold> thresholds = ThresholdRepository.getInstance().getThresholds();
+		ArrayList<ThresholdStatusAO> ret = new ArrayList<ThresholdStatusAO>();
+
+		for (Threshold t : thresholds){
+			ThresholdStatusAO statusAO = new ThresholdStatusAO();
+
+			statusAO.setName(t.getName());
+			statusAO.setColorCode(t.getStatus().toString().toLowerCase());
+			statusAO.setStatus(t.getStatus().toString().toLowerCase());
+			statusAO.setDescription(t.getDefinition().describe());
+			statusAO.setTimestamp(t.getStatusChangeTimestamp() == 0 ? "Never" : NumberUtils.makeISO8601TimestampString(t.getStatusChangeTimestamp()));
+			statusAO.setValue(t.getLastValue());
+			statusAO.setChange(t.getStatusChange() == null ? "Never" : t.getStatusChange());
+
+			statusAO.setTimestampForSorting(t.getStatusChangeTimestamp());
+			statusAO.setStatusForSorting(t.getStatus());
+			statusAO.setId(t.getId());
+
+			ret.add(statusAO);
+		}
+		return ret;
+	}
+
+	@Override
+	public List<ThresholdDefinitionAO> getThresholdDefinitions() throws APIException {
+		List<Threshold> thresholds = ThresholdRepository.getInstance().getThresholds();
+		ArrayList<ThresholdDefinitionAO> ret = new ArrayList<ThresholdDefinitionAO>();
+		for (Threshold t : thresholds){
+			ThresholdDefinitionAO definitionAO = new ThresholdDefinitionAO();
+			definitionAO.setId(t.getId());
+			definitionAO.setName(t.getName());
+			definitionAO.setProducerName(t.getDefinition().getProducerName());
+			definitionAO.setStatName(t.getDefinition().getStatName());
+			definitionAO.setIntervalName(t.getDefinition().getIntervalName());
+			definitionAO.setValueName(t.getDefinition().getValueName());
+			definitionAO.setDescriptionString(t.getDefinition().describe());
+			for (ThresholdConditionGuard g : t.getGuards()){
+				definitionAO.addGuard(g.toString());
+			}
+			ret.add(definitionAO);
+		}
+		return ret;
+
 	}
 }

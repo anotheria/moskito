@@ -1,8 +1,8 @@
-package net.anotheria.moskito.webui.threshold.bean;
+package net.anotheria.moskito.webui.threshold.api;
 
 import net.anotheria.util.sorter.SortType;
 
-public class ThresholdBeanSortType extends SortType {
+public class ThresholdStatusAOSortType extends SortType {
 	/**
 	 * 
 	 */
@@ -11,16 +11,16 @@ public class ThresholdBeanSortType extends SortType {
 	public static final int BY_STATUS = 2;
 	public static final int BY_CHANGE = 3;
 	
-	public ThresholdBeanSortType(){
+	public ThresholdStatusAOSortType(){
 		super(BY_NAME, ASC);
 	}
 	
-	public ThresholdBeanSortType(int method, boolean direction){
+	public ThresholdStatusAOSortType(int method, boolean direction){
 		super(method, direction);
 	}
 	
-	public static ThresholdBeanSortType create(int aValue){
+	public static ThresholdStatusAOSortType create(int aValue){
 		boolean direction = aValue == BY_NAME ? ASC : DESC;
-		return new ThresholdBeanSortType(aValue, direction);
+		return new ThresholdStatusAOSortType(aValue, direction);
 	}
 }

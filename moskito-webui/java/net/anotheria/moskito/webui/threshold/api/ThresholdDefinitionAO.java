@@ -1,4 +1,4 @@
-package net.anotheria.moskito.webui.threshold.bean;
+package net.anotheria.moskito.webui.threshold.api;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,7 +8,7 @@ import java.util.List;
  * @author lrosenberg
  *
  */
-public class ThresholdInfoBean {
+public class ThresholdDefinitionAO {
 	/**
 	 * Threshold id.
 	 */
@@ -42,7 +42,7 @@ public class ThresholdInfoBean {
 	 */
 	private List<String> guards;
 	
-	public ThresholdInfoBean(){
+	public ThresholdDefinitionAO(){
 		guards = new ArrayList<String>();
 	}
 	

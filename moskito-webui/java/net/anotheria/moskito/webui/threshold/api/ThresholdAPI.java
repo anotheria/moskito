@@ -18,5 +18,9 @@ public interface ThresholdAPI extends API {
 
 	Threshold createThreshold(ThresholdPO po) throws APIException;
 
+	List<ThresholdStatusAO> getThresholdStatuses() throws APIException;
+
+	List<ThresholdDefinitionAO> getThresholdDefinitions() throws APIException;
+
 	void removeThreshold(String id) throws APIException;
 }

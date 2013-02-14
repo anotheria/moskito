@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * TODO comment this class
+ * Creates a new threshold.
  *
  * @author lrosenberg
  * @created 26.08.12 09:44

@@ -6,7 +6,7 @@ import net.anotheria.moskito.webui.shared.api.TieablePO;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
- * TODO comment this class
+ * This parameter object is used to create a new threshold.
  *
  * @author lrosenberg
  * @since 12.02.13 16:00

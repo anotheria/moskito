@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * TODO comment this class
+ * Displays the threshold edit dialog.
  *
  * @author lrosenberg
  * @since 19.10.12 23:26
