@@ -309,7 +309,7 @@
 		data2.addColumn('number', '<ano:write name="name"/>');
 		</ano:iterate>
 		data2.addRows(data);
-		var options = {width: 1200, height: 300, title: '', chartArea.width: 1000};
+		var options = {width: 1200, height: 300, title: '', chartArea:{left:140,width:800}};
 		var chartInfo = {
 			params: '',
 			container: 'chart_accum',
@@ -327,7 +327,7 @@
 			chartData<ano:write name="singleGraph" property="nameForJS"/>.addColumn('string', 'Time');
 			chartData<ano:write name="singleGraph" property="nameForJS"/>.addColumn('number', '<ano:write name="singleGraph" property="name"/>');
 			chartData<ano:write name="singleGraph" property="nameForJS"/>.addRows(singleGraphData<ano:write name="singleGraph" property="nameForJS"/>);
-			var options = {width: 1200, height: 300, title: '<ano:write name="singleGraph" property="name"/>', chartArea.width: 1000};
+			var options = {width: 1200, height: 300, title: '<ano:write name="singleGraph" property="name"/>', chartArea:{left:140,width:800}};
 			var chartInfo = {
 				params: '',
 				container: 'chart_accum<ano:write name="singleGraph" property="nameForJS"/>',

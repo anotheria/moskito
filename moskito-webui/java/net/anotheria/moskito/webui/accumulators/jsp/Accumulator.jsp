@@ -157,7 +157,7 @@
 			chartData<ano:write name="accumulatorData" property="nameForJS"/>.addColumn('string', 'Time');
 			chartData<ano:write name="accumulatorData" property="nameForJS"/>.addColumn('number', '<ano:write name="accumulatorData" property="name"/>');
 			chartData<ano:write name="accumulatorData" property="nameForJS"/>.addRows(singleGraphData<ano:write name="accumulatorData" property="nameForJS"/>);
-			var options = {width: 1200, height: 300, title: '<ano:write name="accumulatorData" property="name"/>'};
+			var options = {width: 1200, height: 300, title: '<ano:write name="accumulatorData" property="name"/>', chartArea:{left:140,width:800}};
 			var chartInfo = {
 				params: '',
 				container: 'chart_accum<ano:write name="accumulatorData" property="nameForJS"/>',
