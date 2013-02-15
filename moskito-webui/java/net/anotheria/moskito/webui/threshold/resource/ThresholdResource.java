@@ -89,11 +89,27 @@ public class ThresholdResource {
 	@Path("alerts")
 	public ReplyObject getAlerts(){
 		try{
-			return ReplyObject.success("alerts", thresholdAPI.getAlerts());
+			return ReplyObject.success("status", thresholdAPI.getAlerts());
 		}catch(APIException e){
 			throw new WebApplicationException(e);
 		}
 	}
 
+	@GET @Path("worstStatus")
+	public ReplyObject getWorstStatus(){
+		try{
+			return ReplyObject.success("status", thresholdAPI.getWorstStatus());
+		}catch(APIException e){
+			throw new WebApplicationException(e);
+		}
+	}
 
+	@POST @Path("worstStatusForSelectedThresholds")
+	public ReplyObject getWorstStatus(StatusForm statusForm){
+		try{
+			return ReplyObject.success("status", thresholdAPI.getWorstStatus(statusForm.getThresholdNames()));
+		}catch(APIException e){
+			throw new WebApplicationException(e);
+		}
+	}
 }

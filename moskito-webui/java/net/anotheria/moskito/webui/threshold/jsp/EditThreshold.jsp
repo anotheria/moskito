@@ -14,15 +14,15 @@
     <script type="text/javascript" src="http://www.google.com/jsapi"></script>
     <script>
         function switchDirection(){
-            if (document.forms.UpdateForm.pGreenDir.value=='above')
+            if (document.forms.UpdateForm.greenDir.value=='above')
                 targetValue = 'below';
             else
                 targetValue = 'above';
 
-            document.forms.UpdateForm.pYellowDir.value = targetValue;
-            document.forms.UpdateForm.pOrangeDir.value = targetValue;
-            document.forms.UpdateForm.pRedDir.value = targetValue;
-            document.forms.UpdateForm.pPurpleDir.value = targetValue;
+            document.forms.UpdateForm.yellowDir.value = targetValue;
+            document.forms.UpdateForm.orangeDir.value = targetValue;
+            document.forms.UpdateForm.redDir.value = targetValue;
+            document.forms.UpdateForm.purpleDir.value = targetValue;
         }
 
         function switchgreenvalue(){
@@ -39,10 +39,10 @@
             <form name="UpdateForm" action="mskThresholdUpdate" method="GET">
                 <input type="hidden" name="pId" value="<ano:write name="thresholdId"/>"/>
             <div>
-                <span>Select producer for new Threshold.</span>                                                                     <br/><br/>
+                <span>Select producer for new Threshold.</span><br/><br/>
             </div>
             <div>
-                <span>Name: <input type="text" value="<ano:write name="definition" property="name"/>" name="pName" size="30"></span><br/><br/>
+                <span>Name: <input type="text" value="<ano:write name="definition" property="name"/>" name="name" size="30"></span><br/><br/>
             </div>
             <div>
                 <span>Producer: <b><ano:write name="definition" property="producerName"/></b>.</span><br/><br/>
@@ -61,11 +61,11 @@
             </div>
                 <ano:equal name="target" value="Threshold">
                 <div>
-                    <span><img src="<ano:write name="mskPathToImages" scope="application"/>ind_green.png"/>&nbsp; if &nbsp;<select name="pGreenDir" onchange="switchDirection();"><option>below</option><option>above</option></select>&nbsp;<input type="text" name="pGreenValue" onchange="switchgreenvalue();" value="<ano:write name="GREEN"/>"> (Green)</span><br/><br/>
-                    <span><img src="<ano:write name="mskPathToImages" scope="application"/>ind_yellow.png"/>&nbsp; if &nbsp;<select name="pYellowDir"><option>below</option><option selected="true">above</option></select>&nbsp;<input type="text" name="pYellowValue" value="<ano:write name="YELLOW"/>"> (Yellow)</span><br/><br/>
-                    <span><img src="<ano:write name="mskPathToImages" scope="application"/>ind_orange.png"/>&nbsp; if &nbsp;<select name="pOrangeDir"><option>below</option><option selected="true">above</option></select>&nbsp;<input type="text" name="pOrangeValue" value="<ano:write name="ORANGE"/>"> (Orange)</span><br/><br/>
-                    <span><img src="<ano:write name="mskPathToImages" scope="application"/>ind_red.png"/>&nbsp; if &nbsp;<select name="pRedDir"><option>below</option><option selected="true">above</option></select>&nbsp;<input type="text" name="pRedValue" value="<ano:write name="RED"/>"> (Red)</span><br/><br/>
-                    <span><img src="<ano:write name="mskPathToImages" scope="application"/>ind_purple.png"/>&nbsp; if &nbsp;<select name="pPurpleDir"><option>below</option><option selected="true">above</option></select>&nbsp;<input type="text" name="pPurpleValue" value="<ano:write name="PURPLE"/>"> (Purple)</span><br/><br/>
+                    <span><img src="<ano:write name="mskPathToImages" scope="application"/>ind_green.png"/>&nbsp; if &nbsp;<select name="greenDir" onchange="switchDirection();"><option>below</option><option>above</option></select>&nbsp;<input type="text" name="greenValue" onchange="switchgreenvalue();" value="<ano:write name="GREEN"/>"> (Green)</span><br/><br/>
+                    <span><img src="<ano:write name="mskPathToImages" scope="application"/>ind_yellow.png"/>&nbsp; if &nbsp;<select name="yellowDir"><option>below</option><option selected="true">above</option></select>&nbsp;<input type="text" name="yellowValue" value="<ano:write name="YELLOW"/>"> (Yellow)</span><br/><br/>
+                    <span><img src="<ano:write name="mskPathToImages" scope="application"/>ind_orange.png"/>&nbsp; if &nbsp;<select name="orangeDir"><option>below</option><option selected="true">above</option></select>&nbsp;<input type="text" name="orangeValue" value="<ano:write name="ORANGE"/>"> (Orange)</span><br/><br/>
+                    <span><img src="<ano:write name="mskPathToImages" scope="application"/>ind_red.png"/>&nbsp; if &nbsp;<select name="redDir"><option>below</option><option selected="true">above</option></select>&nbsp;<input type="text" name="redValue" value="<ano:write name="RED"/>"> (Red)</span><br/><br/>
+                    <span><img src="<ano:write name="mskPathToImages" scope="application"/>ind_purple.png"/>&nbsp; if &nbsp;<select name="purpleDir"><option>below</option><option selected="true">above</option></select>&nbsp;<input type="text" name="purpleValue" value="<ano:write name="PURPLE"/>"> (Purple)</span><br/><br/>
                 </div>
             </ano:equal>
             </form>

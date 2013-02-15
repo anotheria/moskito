@@ -55,11 +55,60 @@ public class ThresholdAPIImpl extends AbstractMoskitoAPIImpl implements Threshol
 	}
 
 	protected GuardedDirection string2direction(String param){
+		if (param==null)
+			throw new IllegalArgumentException("Empty direction parameter!");
 		if (param.equalsIgnoreCase("below"))
 			return GuardedDirection.DOWN;
 		if (param.equalsIgnoreCase("above"))
 			return GuardedDirection.UP;
 		throw new IllegalArgumentException("Unknown parameter value for direction "+param+", expected below or above.");
+	}
+
+	@Override
+	public void updateThreshold(String thresholdId, ThresholdPO po) {
+		Threshold oldThreshold = ThresholdRepository.getInstance().getById(thresholdId);
+		ThresholdDefinition td = oldThreshold.getDefinition();
+		td.setName(po.getName());
+
+		//remove old
+		ThresholdRepository.getInstance().removeById(thresholdId);
+		GuardedDirection greenDir = string2direction(po.getGreenDir());
+		GuardedDirection yellowDir = string2direction(po.getYellowDir());
+		GuardedDirection orangeDir = string2direction(po.getOrangeDir());
+		GuardedDirection redDir = string2direction(po.getRedDir());
+		GuardedDirection purpleDir = string2direction(po.getPurpleDir());
+
+		String greenValue  = po.getGreenValue();
+		String yellowValue = po.getYellowValue();
+		String orangeValue = po.getOrangeValue();
+		String redValue    = po.getRedValue();
+		String purpleValue = po.getPurpleValue();
+
+		//determine if we have to use double
+		boolean hasDots = hasDots(greenValue, yellowValue, orangeValue, redValue, purpleValue);
+
+		Threshold newThreshold = ThresholdRepository.getInstance().createThreshold(td);
+		newThreshold.addGuard(hasDots ?
+				new DoubleBarrierPassGuard(ThresholdStatus.GREEN, Double.parseDouble(greenValue), greenDir):
+				new LongBarrierPassGuard(ThresholdStatus.GREEN, Long.parseLong(greenValue), greenDir)
+		);
+		newThreshold.addGuard(hasDots ?
+				new DoubleBarrierPassGuard(ThresholdStatus.YELLOW, Double.parseDouble(yellowValue), yellowDir):
+				new LongBarrierPassGuard(ThresholdStatus.YELLOW, Long.parseLong(yellowValue), yellowDir)
+		);
+		newThreshold.addGuard(hasDots ?
+				new DoubleBarrierPassGuard(ThresholdStatus.ORANGE, Double.parseDouble(orangeValue), orangeDir):
+				new LongBarrierPassGuard(ThresholdStatus.ORANGE, Long.parseLong(orangeValue), orangeDir)
+		);
+		newThreshold.addGuard(hasDots ?
+				new DoubleBarrierPassGuard(ThresholdStatus.RED, Double.parseDouble(redValue), redDir):
+				new LongBarrierPassGuard(ThresholdStatus.RED, Long.parseLong(redValue), redDir)
+		);
+		newThreshold.addGuard(hasDots ?
+				new DoubleBarrierPassGuard(ThresholdStatus.PURPLE, Double.parseDouble(purpleValue), purpleDir):
+				new LongBarrierPassGuard(ThresholdStatus.PURPLE, Long.parseLong(purpleValue), purpleDir)
+		);
+
 	}
 
 	@Override
@@ -162,5 +211,15 @@ public class ThresholdAPIImpl extends AbstractMoskitoAPIImpl implements Threshol
 		}
 		return ret;
 
+	}
+
+	@Override
+	public ThresholdStatus getWorstStatus() throws APIException {
+		return ThresholdRepository.getInstance().getWorstStatus();
+	}
+
+	@Override
+	public ThresholdStatus getWorstStatus(List<String> thresholdNames) throws APIException {
+		return ThresholdRepository.getInstance().getWorstStatus(thresholdNames);
 	}
 }
