@@ -76,13 +76,15 @@ import java.util.concurrent.CopyOnWriteArrayList;
 		for (int i = 0; i<ids.length; i++){
 			long id = ids[i];
 			ThreadInfo info = threadMxBean.getThreadInfo(id);
-			Thread.State state = info.getThreadState();
+			if (info!=null){
+				Thread.State state = info.getThreadState();
 
-			Long old = count.get(state);
-			if (old==null) {
-				old = 0L;
+				Long old = count.get(state);
+				if (old==null) {
+					old = 0L;
+				}
+				count.put(state, old+1);
 			}
-			count.put(state, old+1);
 		}
 
 		long total = 0;
