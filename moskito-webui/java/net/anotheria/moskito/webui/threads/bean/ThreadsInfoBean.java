@@ -1,15 +1,39 @@
 package net.anotheria.moskito.webui.threads.bean;
 
 public class ThreadsInfoBean {
+	/**
+	 * Number of threads.
+	 */
 	private int threadCount;
+	/**
+	 * Number of daemon threads.
+	 */
 	private int daemonThreadCount;
+	/**
+	 * Peak number of threads.
+	 */
 	private int peakThreadCount;
+	/**
+	 * Total number of started threads.
+	 */
 	private long totalStarted;
-	
+
 	private boolean currentThreadCpuTimeSupported;
+	/**
+	 * Is measuring of the thread contention monitoring enabled?
+	 */
 	private boolean threadContentionMonitoringEnabled;
-	private boolean	threadContentionMonitoringSupported; 
-	private boolean threadCpuTimeEnabled; 
+	/**
+	 * Is measuring of the thread contention monitoring supported?
+	 */
+	private boolean	threadContentionMonitoringSupported;
+	/**
+	 * Is measuring of the cpu time spent in thread enabled?
+	 */
+	private boolean threadCpuTimeEnabled;
+	/**
+	 * Is measuring of the cpu time spent in thread supported?
+	 */
 	private boolean	threadCpuTimeSupported;
 	public int getThreadCount() {
 		return threadCount;

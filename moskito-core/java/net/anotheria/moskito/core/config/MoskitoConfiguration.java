@@ -16,14 +16,23 @@ import org.configureme.annotations.ConfigureMe;
  */
 @ConfigureMe(name="moskito")
 public class MoskitoConfiguration {
+	/**
+	 * Config object for alerting.
+	 */
 	@Configure
 	@SerializedName("@thresholdsAlertsConfig")
 	private ThresholdsAlertsConfig thresholdsAlertsConfig = new ThresholdsAlertsConfig();
 
+	/**
+	 * Config object for threshold.
+	 */
 	@Configure
 	@SerializedName("@thresholdsConfig")
 	private ThresholdsConfig thresholdsConfig = new ThresholdsConfig();
 
+	/**
+	 * Config object for accumulators.
+	 */
 	@Configure
 	@SerializedName("@accumulatorsConfig")
 	private AccumulatorsConfig accumulatorsConfig = new AccumulatorsConfig();

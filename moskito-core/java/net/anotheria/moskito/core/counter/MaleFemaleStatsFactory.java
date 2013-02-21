@@ -5,7 +5,7 @@ import net.anotheria.moskito.core.predefined.Constants;
 import net.anotheria.moskito.core.stats.Interval;
 
 /**
- * TODO comment this class
+ * Factory for male/female stats.
  *
  * @author lrosenberg
  * @since 17.11.12 22:31

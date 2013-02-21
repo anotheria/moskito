@@ -13,12 +13,24 @@ import java.util.logging.Logger;
  * @since 2.0
  */
 public enum MoskitoConfigurationHolder {
+	/**
+	 * Singleton instance.
+	 */
 	INSTANCE;
 
+	/**
+	 * Logger.
+	 */
 	private final Logger log;
 
+	/**
+	 * Configuration.
+	 */
 	private volatile MoskitoConfiguration configuration;
 
+	/**
+	 * Creates a new configuration holder.
+	 */
 	private MoskitoConfigurationHolder(){
 		log = Logger.getLogger(getClass().getName());
 		configuration = createDefaultConfiguration();

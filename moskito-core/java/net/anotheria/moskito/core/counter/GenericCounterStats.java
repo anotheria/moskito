@@ -11,13 +11,16 @@ import java.util.HashMap;
 import java.util.Set;
 
 /**
- * TODO comment this class
+ * Generic counter implementation.
  *
  * @author lrosenberg
  * @since 16.11.12 23:11
  */
 public abstract class GenericCounterStats extends AbstractStats{
 
+	/**
+	 * Map with statvalues for faster access.
+	 */
 	private HashMap<String, StatValue> values;
 
 

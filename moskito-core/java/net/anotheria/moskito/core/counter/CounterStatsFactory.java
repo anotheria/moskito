@@ -5,15 +5,21 @@ import net.anotheria.moskito.core.predefined.Constants;
 import net.anotheria.moskito.core.stats.Interval;
 
 /**
- * TODO comment this class
+ * Factory for the counter stats.
  *
  * @author lrosenberg
  * @since 17.11.12 23:05
  */
 public class CounterStatsFactory implements IOnDemandStatsFactory<CounterStats> {
 
+	/**
+	 * Selected intervals for new object creation.
+	 */
 	private Interval[] intervalSelection;
 
+	/**
+	 * Singleton instance for reducing number of classes.
+	 */
 	public static final CounterStatsFactory DEFAULT_INSTANCE = new CounterStatsFactory();
 
 	public CounterStatsFactory(){
