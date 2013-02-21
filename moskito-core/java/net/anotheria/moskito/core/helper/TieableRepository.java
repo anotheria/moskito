@@ -38,7 +38,7 @@ public abstract class TieableRepository<T extends Tieable> implements IProducerR
 	/**
 	 * Tieables. This map contains already tied tieables.
 	 */
-	private ConcurrentMap<String, T> tieable = new ConcurrentHashMap<String, T>();
+	private ConcurrentMap<String, T> tieables = new ConcurrentHashMap<String, T>();
 	/**
 	 * The listener to the default interval.
 	 */
@@ -89,7 +89,7 @@ public abstract class TieableRepository<T extends Tieable> implements IProducerR
 	}
 	
 	@Override
-	public void notifyProducerRegistered(IStatsProducer producer) {
+	public void notifyProducerRegistered(IStatsProducer<?> producer) {
 		ArrayList<T> tmpList = new ArrayList<T>();
 		tmpList.addAll(yetUntied);
 		for (T t : tmpList){
@@ -104,7 +104,7 @@ public abstract class TieableRepository<T extends Tieable> implements IProducerR
 	}
 
 	@Override
-	public void notifyProducerUnregistered(IStatsProducer producer) {
+	public void notifyProducerUnregistered(IStatsProducer<?> producer) {
 		//nothing
 	}
 	
@@ -129,8 +129,8 @@ public abstract class TieableRepository<T extends Tieable> implements IProducerR
 	}
 	
 	public List<T> getTieables() {
-		ArrayList<T> ret = new ArrayList<T>(tieable.size());
-		ret.addAll(tieable.values());
+		ArrayList<T> ret = new ArrayList<T>(tieables.size());
+		ret.addAll(tieables.values());
 		return ret;
 	}
 	
@@ -140,14 +140,14 @@ public abstract class TieableRepository<T extends Tieable> implements IProducerR
 		T t = create(definition);
 		String name = t.getName();
 		int i=1;
-		while( tieable.get(name)!=null){
+		while( tieables.get(name)!=null){
 			name = t.getName()+"-"+(i++);
 		}
 		definition.setName(name);//set net name, in order to prevent name conflicts.
-		tieable.put(t.getName(), t);
+		tieables.put(t.getName(), t);
 		attachToListener(t);
 		
-		IStatsProducer producer = getRegistry().getProducer(definition.getProducerName());
+		IStatsProducer<?> producer = getRegistry().getProducer(definition.getProducerName());
 		if (producer!=null){
 			tie(t, producer);
 		}else{
@@ -171,7 +171,7 @@ public abstract class TieableRepository<T extends Tieable> implements IProducerR
      * @param name name of the tieable to remove.
      */
     public void removeTieable(String name){
-        T t = tieable.remove(name);
+        T t = tieables.remove(name);
         if (t==null)
             return;
         detachFromListener(t);
@@ -189,7 +189,7 @@ public abstract class TieableRepository<T extends Tieable> implements IProducerR
 
 	
 	public T getByName(String name){
-		return tieable.get(name);
+		return tieables.get(name);
 	}
 	
 	public void update(){
@@ -213,7 +213,7 @@ public abstract class TieableRepository<T extends Tieable> implements IProducerR
 
 	protected void resetForTesting(){
 		id2nameMapping.clear();
-		tieable.clear();
+		tieables.clear();
 	}
 
 

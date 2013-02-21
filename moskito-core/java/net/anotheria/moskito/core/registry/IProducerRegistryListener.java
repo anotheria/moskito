@@ -46,11 +46,11 @@ public interface IProducerRegistryListener {
 	 * Called whenever a new producer is registered.
 	 * @param producer
 	 */
-	void notifyProducerRegistered(IStatsProducer producer);
+	void notifyProducerRegistered(IStatsProducer<?> producer);
 	
 	/**
 	 * Called whenever a producer is unregistered.
 	 * @param producer
 	 */
-	void notifyProducerUnregistered(IStatsProducer producer);
+	void notifyProducerUnregistered(IStatsProducer<?> producer);
 }

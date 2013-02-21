@@ -137,15 +137,15 @@ public class TraceStep implements Serializable{
 	}
 	
 	public String generateTrace(){
-		return _generateTrace().toString();
+		return internalGenerateTrace().toString();
 	}
 	
-	private StringBuilder _generateTrace(){
+	private StringBuilder internalGenerateTrace(){
 		StringBuilder b = new StringBuilder(call);
 		if (children.size()>0){
 			b.append('[');
 			for (int i=0; i<children.size(); i++){
-				b.append(children.get(i)._generateTrace());
+				b.append(children.get(i).internalGenerateTrace());
 				if (i<children.size()-1)
 					b.append(", ");
 			}
@@ -185,7 +185,7 @@ public class TraceStep implements Serializable{
 
 	/**
 	 * Appends additional string to the call description.
-	 * @param s
+	 * @param s string to append.
 	 */
 	public void appendToCall(String s){
 		call += s;

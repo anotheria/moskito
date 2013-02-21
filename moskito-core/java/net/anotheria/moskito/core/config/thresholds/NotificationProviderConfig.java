@@ -4,16 +4,25 @@ import net.anotheria.moskito.core.threshold.ThresholdStatus;
 import org.configureme.annotations.Configure;
 
 /**
- * TODO comment this class
+ * This class configures a notification provider that can generate alerts in case of threshold status change.
  *
  * @author lrosenberg
  * @since 22.10.12 16:15
  */
 public class NotificationProviderConfig {
+	/**
+	 * Name of the notification provider class.
+	 */
 	@Configure
 	private String className;
+	/**
+	 * Parameter for the notification provider instance.
+	 */
 	@Configure
 	private String parameter = "";
+	/**
+	 * Status to react on.
+	 */
 	@Configure
 	private String guardedStatus = ThresholdStatus.GREEN.name();
 

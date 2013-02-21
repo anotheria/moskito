@@ -18,7 +18,7 @@ import java.util.List;
  * @author lrosenberg
  *
  */
-public class AccumulatorRepository extends TieableRepository<Accumulator> {
+public final class AccumulatorRepository extends TieableRepository<Accumulator> {
 
 	/**
 	 * Logger

@@ -38,6 +38,7 @@ import net.anotheria.moskito.core.producers.IStats;
 
 /**
  * This implementation of the OnDemandStatsProducer has a hardcoded entry limit.
+ * @param <S> a type of IStats object.
  */
 public class EntryCountLimitedOnDemandStatsProducer<S extends IStats> extends OnDemandStatsProducer<S>{
 	/**

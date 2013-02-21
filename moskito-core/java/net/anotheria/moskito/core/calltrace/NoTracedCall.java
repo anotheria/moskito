@@ -40,6 +40,9 @@ package net.anotheria.moskito.core.calltrace;
  *
  */
 public enum NoTracedCall implements TracedCall{
+	/**
+	 * Instance, the one and only.
+	 */
 	INSTANCE;
 	
 	@Override public String toString(){

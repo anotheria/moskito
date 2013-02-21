@@ -11,6 +11,9 @@ import net.anotheria.moskito.core.stats.Interval;
  * @since 17.11.12 22:31
  */
 public class MaleFemaleStatsFactory implements IOnDemandStatsFactory<MaleFemaleStats> {
+	/**
+	 * Selection of intervals for create MaleFemaleStatsObjects.
+	 */
 	private Interval[] intervalSelection;
 
 	MaleFemaleStatsFactory(){
