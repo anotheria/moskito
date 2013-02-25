@@ -14,6 +14,7 @@ import net.anotheria.moskito.core.threshold.guard.GuardedDirection;
 import net.anotheria.moskito.core.threshold.guard.LongBarrierPassGuard;
 import net.anotheria.moskito.webui.shared.api.AbstractMoskitoAPIImpl;
 import net.anotheria.util.NumberUtils;
+import net.anotheria.util.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -65,7 +66,7 @@ public class ThresholdAPIImpl extends AbstractMoskitoAPIImpl implements Threshol
 	}
 
 	@Override
-	public void updateThreshold(String thresholdId, ThresholdPO po) {
+	public void updateThreshold(String thresholdId, ThresholdPO po) throws APIException{
 		Threshold oldThreshold = ThresholdRepository.getInstance().getById(thresholdId);
 		ThresholdDefinition td = oldThreshold.getDefinition();
 		td.setName(po.getName());
@@ -83,6 +84,8 @@ public class ThresholdAPIImpl extends AbstractMoskitoAPIImpl implements Threshol
 		String orangeValue = po.getOrangeValue();
 		String redValue    = po.getRedValue();
 		String purpleValue = po.getPurpleValue();
+
+		validateValues(greenValue, yellowValue, orangeValue, redValue, purpleValue);
 
 		//determine if we have to use double
 		boolean hasDots = hasDots(greenValue, yellowValue, orangeValue, redValue, purpleValue);
@@ -111,8 +114,24 @@ public class ThresholdAPIImpl extends AbstractMoskitoAPIImpl implements Threshol
 
 	}
 
+
+	private void validateValues(String greenValue, String yellowValue,  String orangeValue, String redValue,String purpleValue) throws APIException{
+		//fix for https://jira.opensource.anotheria.net/browse/MSK-82
+		if (StringUtils.isEmpty(greenValue))
+			throw new APIException("Cannot create new threshold. Please specify a value for 'Green' status barrier.");
+		if (StringUtils.isEmpty(yellowValue))
+			throw new APIException("Cannot create new threshold. Please specify a value for 'Yellow' status barrier.");
+		if (StringUtils.isEmpty(orangeValue))
+			throw new APIException("Cannot create new threshold. Please specify a value for 'Orange' status barrier.");
+		if (StringUtils.isEmpty(redValue))
+			throw new APIException("Cannot create new threshold. Please specify a value for 'Red' status barrier.");
+		if (StringUtils.isEmpty(purpleValue))
+			throw new APIException("Cannot create new threshold. Please specify a value for 'Purple' status barrier.");
+
+	}
+
 	@Override
-	public Threshold createThreshold(ThresholdPO po) {
+	public Threshold createThreshold(ThresholdPO po)  throws APIException{
 		//now parse guards
 		GuardedDirection greenDir = string2direction(po.getGreenDir());
 		GuardedDirection yellowDir = string2direction(po.getYellowDir());
@@ -125,6 +144,8 @@ public class ThresholdAPIImpl extends AbstractMoskitoAPIImpl implements Threshol
 		String orangeValue = po.getOrangeValue();
 		String redValue    = po.getRedValue();
 		String purpleValue = po.getPurpleValue();
+
+		validateValues(greenValue, yellowValue, orangeValue, redValue, purpleValue);
 
 		//determine if we have to use double
 		boolean hasDots = hasDots(greenValue, yellowValue, orangeValue, redValue, purpleValue);
