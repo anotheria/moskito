@@ -115,20 +115,20 @@ public class ThresholdAPIImpl extends AbstractMoskitoAPIImpl implements Threshol
 	}
 
 
-	private void validateValues(String greenValue, String yellowValue,  String orangeValue, String redValue,String purpleValue) throws APIException{
-		//fix for https://jira.opensource.anotheria.net/browse/MSK-82
-		if (StringUtils.isEmpty(greenValue))
-			throw new APIException("Cannot create new threshold. Please specify a value for 'Green' status barrier.");
-		if (StringUtils.isEmpty(yellowValue))
-			throw new APIException("Cannot create new threshold. Please specify a value for 'Yellow' status barrier.");
-		if (StringUtils.isEmpty(orangeValue))
-			throw new APIException("Cannot create new threshold. Please specify a value for 'Orange' status barrier.");
-		if (StringUtils.isEmpty(redValue))
-			throw new APIException("Cannot create new threshold. Please specify a value for 'Red' status barrier.");
-		if (StringUtils.isEmpty(purpleValue))
-			throw new APIException("Cannot create new threshold. Please specify a value for 'Purple' status barrier.");
-
-	}
+	private void validateValues(String greenValue, String yellowValue, String orangeValue, String redValue,String purpleValue) throws APIException{
+        //fix for https://jira.opensource.anotheria.net/browse/MSK-82
+        if (StringUtils.isEmpty(greenValue))
+            throw new APIException("Cannot create new threshold. Please specify a boundary value for Green status.");
+        if (StringUtils.isEmpty(yellowValue))
+            throw new APIException("Cannot create new threshold. Please specify a boundary value for Yellow status.");
+        if (StringUtils.isEmpty(orangeValue))
+            throw new APIException("Cannot create new threshold. Please specify a boundary value for Orange status.");
+        if (StringUtils.isEmpty(redValue))
+            throw new APIException("Cannot create new threshold. Please specify a boundary value for Red status.");
+        if (StringUtils.isEmpty(purpleValue))
+            throw new APIException("Cannot create new threshold. Please specify a boundary value for Purple status.");
+        
+    }
 
 	@Override
 	public Threshold createThreshold(ThresholdPO po)  throws APIException{
