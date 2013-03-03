@@ -5,6 +5,21 @@
 
 <web-app>
     <display-name>moskito minimal</display-name>
+
+	<!-- fix for jboss -->
+  <context-param>
+    <param-name>resteasy.scan</param-name>
+    <param-value>false</param-value>
+  </context-param>
+  <context-param>
+    <param-name>resteasy.scan.providers</param-name>
+    <param-value>false</param-value>
+  </context-param>
+  <context-param>
+    <param-name>resteasy.scan.resources</param-name>
+    <param-value>false</param-value>
+  </context-param>
+
      	<!--  MOSKITO UI-->
 	<!--  Adding filter to moskito ui which redirects requests to /mui/* to moskito user interface -->	
    	<filter>
