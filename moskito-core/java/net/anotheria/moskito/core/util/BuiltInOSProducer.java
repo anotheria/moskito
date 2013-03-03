@@ -43,6 +43,8 @@ public class BuiltInOSProducer extends AbstractBuiltInProducer implements IStats
 	 */
 	private Class<?> clazz;
 
+	private final boolean isUnixOS;
+	
 	/**
 	 * Logger.
 	 */
@@ -54,11 +56,14 @@ public class BuiltInOSProducer extends AbstractBuiltInProducer implements IStats
 		stats = new OSStats();
 		statsList.add(stats);
 		
-		try{
-			clazz = Class.forName(clazzname);
-		}catch(ClassNotFoundException e){
-			log.warn("Couldn't find unix version of os class: "+clazzname+", osstats won't operate properly.");
-		}
+        clazz = mxBean.getClass();
+		isUnixOS = clazz.getName().equals(clazzname);
+		
+        if (!isUnixOS) {
+            log.warn("Couldn't find unix version of os class: " + clazzname
+                    + ", osstats won't operate properly. Current type is: "
+                    + mxBean.getClass().getName());
+        }
 		
 		BuiltinUpdater.addTask(new TimerTask() {
 			@Override
@@ -93,23 +98,25 @@ public class BuiltInOSProducer extends AbstractBuiltInProducer implements IStats
 	 * Reads the management bean and extracts monitored data on regular base.
 	 */
 	private void readMbean() {
-		if (clazz==null){
-			return;
-		}
-		
-		
 		try{
-			long openFiles = getValue("OpenFileDescriptorCount");
-			long maxOpenFiles = getValue("MaxFileDescriptorCount");
-			
-			long freePhysicalMemorySize = getValue("FreePhysicalMemorySize");
-			long totalPhysicalMemorySize = getValue("TotalPhysicalMemorySize");
-			
-			long processTime = getValue("ProcessCpuTime");
-			
-			long processors = getValue("AvailableProcessors");
-			
-			stats.update((int)openFiles, (int)maxOpenFiles, freePhysicalMemorySize, totalPhysicalMemorySize, processTime, (int)processors);
+			if (isUnixOS) {
+				long openFiles = getValue("OpenFileDescriptorCount");
+				long maxOpenFiles = getValue("MaxFileDescriptorCount");
+				
+				long freePhysicalMemorySize = getValue("FreePhysicalMemorySize");
+				long totalPhysicalMemorySize = getValue("TotalPhysicalMemorySize");
+
+				long processTime = getValue("ProcessCpuTime");
+
+				long processors = getValue("AvailableProcessors");
+				
+				stats.update((int)openFiles, (int)maxOpenFiles, freePhysicalMemorySize, totalPhysicalMemorySize, processTime, (int)processors);
+
+			} else {
+				long processors = getValue("AvailableProcessors");
+
+				stats.update(-1, -1, -1, -1, -1, (int)processors);
+			}
 			
 		}catch(Exception e){
 			e.printStackTrace();
