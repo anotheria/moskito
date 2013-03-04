@@ -20,11 +20,14 @@ import static junit.framework.Assert.assertEquals;
  *         Time: 2:22 PM
  */
 public class InterceptTest {
-    private static final String INTERCEPTED_OUTPUT = "SELECT id, type, value, matcherid, dao_created, dao_updated FROM matchervalue ORDER BY id\n" +
-            "List of matchers []\n" +
-            "INSERT INTO matchervalue (id, type, value, matcherid, dao_created) VALUES (?,?,?,?,?)\n" +
-            "SELECT id, type, value, matcherid, dao_created, dao_updated FROM matchervalue WHERE matchervalue.id = ?\n" +
-            "Created MatcherValue [1] type: 1, value: 123\n";
+
+    private static final String LINESEP = System.getProperty("line.separator");
+	
+    private static final String INTERCEPTED_OUTPUT = "SELECT id, type, value, matcherid, dao_created, dao_updated FROM matchervalue ORDER BY id" + LINESEP +
+            "List of matchers []" + LINESEP +
+            "INSERT INTO matchervalue (id, type, value, matcherid, dao_created) VALUES (?,?,?,?,?)" + LINESEP+
+            "SELECT id, type, value, matcherid, dao_created, dao_updated FROM matchervalue WHERE matchervalue.id = ?" + LINESEP +
+            "Created MatcherValue [1] type: 1, value: 123" + LINESEP;
 
     private Connection connection;
 
