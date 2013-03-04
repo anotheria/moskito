@@ -59,7 +59,7 @@
 					<table cellpadding="4" cellspacing="0" width="100%">
 						<thead>
 							<tr class="stat_header">
-								<th>Session</th>
+								<th>Journey</th>
 								<th>Started</th>
 								<th>Last activity</th>
 								<th>Calls</th>
