@@ -250,9 +250,9 @@ h2 a.hidden {background:url("<ano:write name="mskPathToImages" scope="applicatio
 .thresholdOverlay table thead tr th {border-bottom:1px solid #99CCCC; text-align:left;}
 .thresholdOverlay table tr.odd {background:#F7F7F7;}
 .thresholdOverlay table tr.even {background:white;}
-.scroll {overflow-y:scroll; overflow-x:hidden; max-height:200px; clear:both; max-width:600px;}
-.scroller_x {width:100%; overflow-x:scroll;}
-
+.scroll {overflow-y:auto; overflow-x:hidden; max-height:200px; clear:both; max-width:600px;}
+.scroller_x {width:100%; overflow-x:auto;}
+.lightbox .scroll {max-width: none;}
 
 /* -- Dashboard css -- */
 .login_block {width:230px; margin:0 auto 10px auto;}
@@ -798,7 +798,7 @@ h2 a.hidden {background:url("<ano:write name="mskPathToImages" scope="applicatio
 
 .error_page_data_hint {
     font-size: 17px;
-    padding: 60px 30px;
+    padding: 20px;
     text-align: center;
     min-height: 48px;
 }
@@ -914,6 +914,21 @@ dd {
 
 .dl-horizontal dd {
     margin-left: 100px;
+}
+
+.dl-horizontal.bw dt
+{
+   width: 120px;
+}
+
+.dl-horizontal.bw dd
+{
+    margin-left: 130px;
+}
+
+.dl-horizontal.bw
+{
+    margin-right: 50px;
 }
 
 .add_in .btn
@@ -1174,8 +1189,57 @@ dd {
     margin-left: 20px;
 }
 
+.form-inline .controls span
+{
+    font-size: 12px;
+}
+
 .form-inline .controls label
 {
     margin-right: 5px;
     padding: 1px;
+}
+
+.journeys-page
+{
+    line-height: 20px;
+    margin-top: 15px;
+}
+
+.journeys-form .btn-blue
+{
+    padding: 3px 12px;
+    margin-left: 5px;
+    margin-right: 5px;
+    font-wight: bold;
+}
+
+.journeys-form input[type="text"] {
+    display: inline-block;
+    padding: 2px 6px;
+    font-size: 12px;
+    line-height: 20px;
+    height: 20px;
+    color: #555555;
+    vertical-align: middle;
+    margin-left: 5px;
+    margin-right: 5px;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+    background-color: #ffffff;
+    border: 1px solid #cccccc;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+    -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+    -webkit-transition: border linear 0.2s, box-shadow linear 0.2s;
+    -moz-transition: border linear 0.2s, box-shadow linear 0.2s;
+    -o-transition: border linear 0.2s, box-shadow linear 0.2s;
+    transition: border linear 0.2s, box-shadow linear 0.2s;
+    min-width: 150px;
+}
+
+code
+{
+    color: #008000;
 }

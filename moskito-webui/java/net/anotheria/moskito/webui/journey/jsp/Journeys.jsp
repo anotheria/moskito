@@ -29,23 +29,19 @@
 <script type="text/javascript" src="http://www.google.com/jsapi"></script>
 <jsp:include page="../../shared/jsp/Menu.jsp" flush="false"/>
 
-<div class="main">	
-	<div class="clear"><!-- --></div>
-		
-	<h3><span>Journeys</span></h3>
-	
-	<div class="clear"><!-- --></div>
+<div class="main">
 	<div class="additional">
 		<div class="top"><div><!-- --></div></div>
 		<div class="add_in">
-			<div>
-				<span>To record a new journey add <code>mskJourney=start&mskJourneyName=JOURNEY_NAME</code> to any url on this server.</span><br/><br/>
-				<span>To stop journey recording add <code>mskJourney=stop&mskJourneyName=JOURNEY_NAME</code> to any url on this server.</span><br/><br/>
-                <form name="NEWJOURNEY" action=""><span>To start a new journey <b>now</b> enter the name for the journey <input type="text" name="name" size="10"> and <input type="button" value="click here" onclick="new_journey(document.NEWJOURNEY.name.value); return false"/></span></form><br/><br/>
-                <%--<form name="STOPJOURNEY"><span>If you want to stop a journey <input type="text" name="name" size="10"> and <input type="button" value="click here" onclick="stop_journey(document.STOPJOURNEY.name.value); return false"/></form><br/><br/>--%>
+            <h3>Journeys</h3>
+            <form name="NEWJOURNEY" class="journeys-form" action=""><span>To start a new journey <b>now</b> enter the name for the journey <input type="text" name="name" size="10"> and <input type="button" value="Click here" class="btn-blue" onclick="new_journey(document.NEWJOURNEY.name.value); return false"/></span></form>
+            <%--<form name="STOPJOURNEY"><span>If you want to stop a journey <input type="text" name="name" size="10"> and <input type="button" value="click here" onclick="stop_journey(document.STOPJOURNEY.name.value); return false"/></form><br/><br/>--%>
+            <div class="journeys-page">
+				<span>To record a new journey add <code>mskJourney=start&mskJourneyName=JOURNEY_NAME</code> to any url on this server.</span><br/>
+				<span>To stop journey recording add <code>mskJourney=stop&mskJourneyName=JOURNEY_NAME</code> to any url on this server.</span>
             </div>
-		</div>
-		<div class="bot"><div><!-- --></div></div>
+        </div>
+        <div class="bot"><div><!-- --></div></div>
 	</div>
 	
 	<div class="clear"><!-- --></div>

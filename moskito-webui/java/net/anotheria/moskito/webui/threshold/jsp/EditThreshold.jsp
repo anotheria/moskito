@@ -36,42 +36,42 @@
 	<div class="additional">
 		<div class="top"><div><!-- --></div></div>
 		<div class="add_in">
-            <form name="UpdateForm" action="mskThresholdUpdate" method="GET">
+            <form name="UpdateForm" action="mskThresholdUpdate" class="form-inline" method="GET">
                 <input type="hidden" name="pId" value="<ano:write name="thresholdId"/>"/>
-            <div>
-                <span>Select producer for new Threshold.</span><br/><br/>
-            </div>
-            <div>
-                <span>Name: <input type="text" value="<ano:write name="definition" property="name"/>" name="name" size="30"></span><br/><br/>
-            </div>
-            <div>
-                <span>Producer: <b><ano:write name="definition" property="producerName"/></b>.</span><br/><br/>
-			</div>
-            <div>
-                <span>Stat: <b><ano:write name="definition" property="statName"/></b>.</span><br/><br/>
-            </div>
-            <div>
-                <span>Value: <b><ano:write name="definition" property="valueName"/></b>.</span><br/><br/>
-			</div>
-            <div>
-                <span>Interval: <b><ano:write name="definition" property="intervalName"/></b>.</span><br/><br/>
-            </div>
-            <div>
-                <span>TimeUnit: <b><ano:write name="definition" property="timeUnit"/></b>.</span><br/><br/>
-            </div>
-                <ano:equal name="target" value="Threshold">
-                <div>
-                    <span><img src="<ano:write name="mskPathToImages" scope="application"/>ind_green.png"/>&nbsp; if &nbsp;<select name="greenDir" onchange="switchDirection();"><option>below</option><option>above</option></select>&nbsp;<input type="text" name="greenValue" onchange="switchgreenvalue();" value="<ano:write name="GREEN"/>"> (Green)</span><br/><br/>
-                    <span><img src="<ano:write name="mskPathToImages" scope="application"/>ind_yellow.png"/>&nbsp; if &nbsp;<select name="yellowDir"><option>below</option><option selected="true">above</option></select>&nbsp;<input type="text" name="yellowValue" value="<ano:write name="YELLOW"/>"> (Yellow)</span><br/><br/>
-                    <span><img src="<ano:write name="mskPathToImages" scope="application"/>ind_orange.png"/>&nbsp; if &nbsp;<select name="orangeDir"><option>below</option><option selected="true">above</option></select>&nbsp;<input type="text" name="orangeValue" value="<ano:write name="ORANGE"/>"> (Orange)</span><br/><br/>
-                    <span><img src="<ano:write name="mskPathToImages" scope="application"/>ind_red.png"/>&nbsp; if &nbsp;<select name="redDir"><option>below</option><option selected="true">above</option></select>&nbsp;<input type="text" name="redValue" value="<ano:write name="RED"/>"> (Red)</span><br/><br/>
-                    <span><img src="<ano:write name="mskPathToImages" scope="application"/>ind_purple.png"/>&nbsp; if &nbsp;<select name="purpleDir"><option>below</option><option selected="true">above</option></select>&nbsp;<input type="text" name="purpleValue" value="<ano:write name="PURPLE"/>"> (Purple)</span><br/><br/>
+                <h3>Select producer for new Threshold.</h3>
+                <div class="controls">
+                    Name: <input type="text" value="<ano:write name="definition" property="name"/>" name="name" size="30">
                 </div>
-            </ano:equal>
+                <div class="controls">
+                    Producer: <b><ano:write name="definition" property="producerName"/></b>.
+                </div>
+                <div class="controls">
+                    Stat: <b><ano:write name="definition" property="statName"/></b>.
+                </div>
+                <div class="controls">
+                    Value: <b><ano:write name="definition" property="valueName"/></b>.
+                </div>
+                <div class="controls">
+                    Interval: <b><ano:write name="definition" property="intervalName"/></b>.
+                </div>
+                <div class="controls">
+                    TimeUnit: <b><ano:write name="definition" property="timeUnit"/></b>.
+                </div>
+                <ano:equal name="target" value="Threshold">
+                    <div class="clear"><!-- --></div>
+                    <div class="controls">
+                        <span><img src="<ano:write name="mskPathToImages" scope="application"/>ind_green.png"/>&nbsp; if &nbsp;<select name="greenDir" onchange="switchDirection();"><option>below</option><option>above</option></select>&nbsp;<input type="text" name="greenValue" onchange="switchgreenvalue();" value="<ano:write name="GREEN"/>"> (Green)</span><br/><br/>
+                        <span><img src="<ano:write name="mskPathToImages" scope="application"/>ind_yellow.png"/>&nbsp; if &nbsp;<select name="yellowDir"><option>below</option><option selected="true">above</option></select>&nbsp;<input type="text" name="yellowValue" value="<ano:write name="YELLOW"/>"> (Yellow)</span><br/><br/>
+                        <span><img src="<ano:write name="mskPathToImages" scope="application"/>ind_orange.png"/>&nbsp; if &nbsp;<select name="orangeDir"><option>below</option><option selected="true">above</option></select>&nbsp;<input type="text" name="orangeValue" value="<ano:write name="ORANGE"/>"> (Orange)</span><br/><br/>
+                        <span><img src="<ano:write name="mskPathToImages" scope="application"/>ind_red.png"/>&nbsp; if &nbsp;<select name="redDir"><option>below</option><option selected="true">above</option></select>&nbsp;<input type="text" name="redValue" value="<ano:write name="RED"/>"> (Red)</span><br/><br/>
+                        <span><img src="<ano:write name="mskPathToImages" scope="application"/>ind_purple.png"/>&nbsp; if &nbsp;<select name="purpleDir"><option>below</option><option selected="true">above</option></select>&nbsp;<input type="text" name="purpleValue" value="<ano:write name="PURPLE"/>"> (Purple)</span>
+                    </div>
+                </ano:equal>
+                <div class="clear"><!-- --></div>
+                <div class="controls">
+                    <input type="button" value="Update" class="btn-blue" onclick="document.forms.UpdateForm.submit(); return false">
+                </div>
             </form>
-            <div>
-                <span><input type="button" value="Update" onclick="document.forms.UpdateForm.submit(); return false"></span>
-            </div>
         </div>
 		<div class="bot"><div><!-- --></div></div>
 	</div>

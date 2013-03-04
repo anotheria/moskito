@@ -326,13 +326,23 @@
 		<div class="box_in">
 			<div class="right">
 				<div class="text_here thresholdOverlay">
-					<span>Name: </span><b id="name"></b><br/>
-					<span>producerName: </span><b id="producerName"></b><br/>
-					<span>statName: </span><b id="statName"></b><br/>
-					<span>valueName: </span><b id="valueName"></b><br/>
-					<span>intervalName: </span><b id="intervalName"></b><br/>
-					<span>descriptionString: </span><b id="descString"></b><br/>
-					<div class="scroll">
+                    <div class="additional">
+                        <div class="top"><div><!-- --></div></div>
+                        <div class="add_in ovh">
+                            <dl class="dl-horizontal bw">
+                                <dt>Name:</dt><dd id="name"></dd>
+                                <dt>producerName:</dt><dd id="producerName"></dd>
+                                <dt>statName:</dt><dd id="statName"></dd>
+                            </dl>
+                            <dl class="dl-horizontal bw">
+                                <dt>valueName:</dt><dd id="valueName"></dd>
+                                <dt>intervalName:</dt><dd id="intervalName"></dd>
+                                <dt>descriptionString:</dt><dd id="descString"></dd>
+                            </dl>
+                        </div>
+                        <div class="bot"><div><!-- --></div></div>
+                    </div>
+                    <div class="scroll">
 						<table cellpadding="0" cellspacing="0" border="0">
 							<thead>
 							<tr>
