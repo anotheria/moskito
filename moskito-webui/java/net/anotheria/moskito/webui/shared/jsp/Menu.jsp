@@ -55,7 +55,6 @@
 										<form action="" method="GET"><input name="pNameFilter" type="text" size="10" value="<ano:write name="nameFilter"/>"/>&nbsp;<input type="submit" value="Filter"/></form>
 									</li>
 								</ano:present>
-							    <div class="clear"><!-- --></div>
 							</ul>
 						</div>
 						<div class="over_color"><div><!-- --></div></div>
@@ -93,7 +92,6 @@
 								<li>
 									<a href="mskThreadsHistory">History</a>
 								</li>
-							    <div class="clear"><!-- --></div>
 							</ul>
 						</div>
 						<div class="over_color"><div><!-- --></div></div>

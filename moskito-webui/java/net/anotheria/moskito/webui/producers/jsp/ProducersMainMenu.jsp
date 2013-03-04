@@ -44,7 +44,6 @@
 									</select>								
 								</li>
 							</msk:present>
-						    <div class="clear"><!-- --></div>
 						</ul>
 					</div>
 					<div class="over_color"><div><!-- --></div></div>

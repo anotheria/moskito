@@ -88,28 +88,26 @@
 <ano:iterate type="net.anotheria.moskito.webui.shared.bean.StatDecoratorBean" id="decorator" name="decorators">
 	<div class="additional">
 		<div class="top"><div><!-- --></div></div>
-		<div class="add_in">
-			<div>
-				<span>Producer: <b><ano:write name="producer" property="id"/></b></span>				
-				<ano:present name="inspectableFlag">
-					&nbsp;<a href="mskInspectProducer?pProducerId=<ano:write name="producer" property="id"/>">inspect</a>
-				</ano:present>
-			</div>
-			<div>
-				<span>Category: </span><a href="mskShowProducersByCategory?pCategory=<ano:write name="producer" property="category"/>"><ano:write name="producer" property="category"/></a>
-			</div>
-			<div>
-				<span>Subsystem: </span><a href="mskShowProducersBySubsystem?pSubsystem=<ano:write name="producer" property="subsystem"/>"><ano:write name="producer" property="subsystem"/></a>
-			</div>
-			<div>
-				<span>class: </span><span><ano:write name="producer" property="className"/></span>
-			</div>
-            <div>
-                <span>Add <a href="<ano:write name="linkToCurrentPage"/>&pForward=selection&target=Accumulator">Accumulator</a> or <a href="<ano:write name="linkToCurrentPage"/>&pForward=selection&target=Threshold">Threshold</a></span>
+		<div class="add_in ovh">
+            <dl class="dl-horizontal">
+				<dt>Producer:</dt> <dd><b><ano:write name="producer" property="id"/></b></dd>
+
+				<dt>Category: </dt> <dd><a href="mskShowProducersByCategory?pCategory=<ano:write name="producer" property="category"/>"><ano:write name="producer" property="category"/></a></dd>
+
+				<dt>Subsystem: </dt> <dd><a href="mskShowProducersBySubsystem?pSubsystem=<ano:write name="producer" property="subsystem"/>"><ano:write name="producer" property="subsystem"/></a></dd>
+
+				<dt>class: </dt> <dd><ano:write name="producer" property="className"/></dd>
+            </dl>
+            <div class="btn-group flr">
+                <a href="<ano:write name="linkToCurrentPage"/>&pForward=selection&target=Accumulator" class="btn fll">Add Accumulator</a>
+                <a href="<ano:write name="linkToCurrentPage"/>&pForward=selection&target=Threshold" class="btn fll">Add Threshold</a>
+                <ano:present name="inspectableFlag">
+                    <a href="mskInspectProducer?pProducerId=<ano:write name="producer" property="id"/>" class="btn-blue fll">inspect</a>
+                </ano:present>
             </div>
         </div>
-		<div class="bot"><div><!-- --></div></div>
-	</div>
+        <div class="bot"><div><!-- --></div></div>
+    </div>
 	<div class="clear"><!-- --></div>
 	<div class="table_layout">
 	<div class="top"><div><!-- --></div></div>

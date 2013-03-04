@@ -11,29 +11,29 @@
 <div class="main">
 	<div class="additional">
 		<div class="top"><div><!-- --></div></div>
-		<div class="add_in">
-		<div>
-			<h3>Inspect Producer</h3>
-		</div>	
-		<div>
-			<span>producer:&nbsp;<msk:write name="producerId"/>&nbsp;</span>
-		</div>
-		<div>
-			<span>created at:&nbsp;<msk:write name="creationTime"/>&nbsp;(<msk:write name="creationTimestamp"/>)</span>
-		</div>	
-		<div class="bot"><div><!-- --></div></div>	
+		<div class="add_in ovh">
+            <h3>Inspect Producer</h3>
+            <dl class="dl-horizontal">
+                <dt>Producer:</dt><dd><msk:write name="producerId"/>&nbsp;</dd>
+                <dt>Created at:</dt><dd><msk:write name="creationTime"/>&nbsp;(<msk:write name="creationTimestamp"/>)</dd>
+            </dl>
+	    </div>
+        <div class="bot"><div><!-- --></div></div>
+    </div>
+	<div class="clear"><!-- --></div>
+    <div class="table_layout">
+        <div class="top"><div><!-- --></div></div>
+        <div class="in">
+            <ul class="inspect-list">
+                <msk:iterate name="creationTrace" type="java.lang.String" id="line">
+                    <li><msk:write name="line"/></li>
+                </msk:iterate>
+            </ul>
+        </div>
+        <div class="bot"><div><!-- --></div></div>
 	</div>
 	<div class="clear"><!-- --></div>
-	<div>
-		<ul>
-			<msk:iterate name="creationTrace" type="java.lang.String" id="line">
-				<li><msk:write name="line"/></li>
-			</msk:iterate>
-		</ul>
-	</div>
-	 <div class="clear"><!-- --></div>
 	<div class="generated">Generated at <msk:write name="timestampAsDate"/>&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;timestamp: <msk:write name="timestamp"/></div>
-</div>
 </div>
 </body>
 </html> 

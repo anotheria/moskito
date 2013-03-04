@@ -43,25 +43,19 @@
 	<div class="additional">
 		<div class="top"><div><!-- --></div></div>
 		<div class="add_in">
-            <form name="CreateForm" action="msk<ano:write name="target"/>Create" method="GET">
+            <form name="CreateForm" action="msk<ano:write name="target"/>Create" method="GET" class="form-inline">
                 <input type="hidden" name="producerId" value="<ano:write name="producer" property="id"/>"/>
                 <input type="hidden" name="target" value="<ano:write name="target"/>"/>
                 <input type="hidden" name="statName"/>
                 <input type="hidden" name="valueName"/>
-            <div>
-                <span>Select producer for new <ano:write name="target"/>.</span>
+
+            <h3>Select producer for new <ano:write name="target"/>.</h3>
+            <div class="controls">
+                <label>Name:</label> <input type="text" value="new-<ano:write name="target"/>" name="name">
             </div>
-            <br/>
-            <div>
-                <span>Name: <input type="text" value="new-<ano:write name="target"/>" name="name"></span>
-            </div>
-            <br/>
-            <div>
-    			<span>Producer: <b><ano:write name="producer" property="id"/></b> for selection.</span>
-			</div>
-               <br/>
-            <div><ano:define name="currentInterval" id="currentInterval" toScope="page" type="java.lang.String"/>
-                <span>Interval:
+            <div class="controls">
+                <ano:define name="currentInterval" id="currentInterval" toScope="page" type="java.lang.String"/>
+                <label>Interval:</label>
                     <select name="interval">
                         <ano:iterate name="intervals" id="interval" type="net.anotheria.moskito.webui.shared.bean.IntervalBean">
                             <option value="<ano:write name="interval" property="name"/>" <ano:equal name="interval" property="name" value="<%=currentInterval%>">selected="selected"</ano:equal>>
@@ -69,10 +63,10 @@
                             </option>
                         </ano:iterate>
                     </select>
-                </span><br/><br/>
             </div>
-            <div><ano:define name="moskito.CurrentUnit" property="unitName" id="currentUnit" toScope="page" type="java.lang.String"/>
-                <span>Unit:
+            <div class="controls">
+                <ano:define name="moskito.CurrentUnit" property="unitName" id="currentUnit" toScope="page" type="java.lang.String"/>
+                <label>Unit:</label>
                     <select name="unit">
                         <ano:iterate name="units" id="unit" type="net.anotheria.moskito.webui.shared.bean.UnitBean">
                             <option value="<ano:write name="unit" property="unitName"/>" <ano:equal name="unit" property="unitName" value="<%=currentUnit%>">selected="selected"</ano:equal>>
@@ -80,10 +74,13 @@
                             </option>
                         </ano:iterate>
                     </select>
-                </span><br/><br/>
+            </div>
+            <div class="controls">
+                <label>Producer:</label> <b><ano:write name="producer" property="id"/></b> for selection.
             </div>
             <ano:equal name="target" value="Threshold">
-                <div>
+                <div class="clear"><!-- --></div>
+                <div class="controls">
                     <span><img src="<ano:write name="mskPathToImages" scope="application"/>ind_green.png"/>&nbsp; if &nbsp;<select name="greenDir" onchange="switchDirection();"><option>below</option><option>above</option></select>&nbsp;<input type="text" name="greenValue" onchange="switchgreenvalue();"> (Green)</span><br/><br/>
                     <span><img src="<ano:write name="mskPathToImages" scope="application"/>ind_yellow.png"/>&nbsp; if &nbsp;<select name="yellowDir"><option>below</option><option selected="true">above</option></select>&nbsp;<input type="text" name="yellowValue"> (Yellow)</span><br/><br/>
                     <span><img src="<ano:write name="mskPathToImages" scope="application"/>ind_orange.png"/>&nbsp; if &nbsp;<select name="orangeDir"><option>below</option><option selected="true">above</option></select>&nbsp;<input type="text" name="orangeValue"> (Orange)</span><br/><br/>
