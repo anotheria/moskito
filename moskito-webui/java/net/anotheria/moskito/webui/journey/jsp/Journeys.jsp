@@ -36,7 +36,7 @@
             <h3>Journeys</h3>
             <form name="NEWJOURNEY" class="journeys-form form-inline" action="">
                 <div class="controls jinfo">To start a new journey <b>now</b><br/> enter the name for the journey</div>
-                <div class="controls jfields"><input type="text" name="name" size="10"><input type="button" value="Start" class="btn" onclick="new_journey(document.NEWJOURNEY.name.value); return false"/></div>
+                <div class="controls jfields"><input type="text" name="name"><button class="btn" onclick="new_journey(document.NEWJOURNEY.name.value); return false">Start</button></div>
                 <%--<form name="STOPJOURNEY"><span>If you want to stop a journey <input type="text" name="name" size="10"> and <input type="button" value="click here" onclick="stop_journey(document.STOPJOURNEY.name.value); return false"/></form><br/><br/>--%>
                 <div class="controls">
                     To record a new journey add <code>mskJourney=start&mskJourneyName=JOURNEY_NAME</code> to any url on this server.<br/>

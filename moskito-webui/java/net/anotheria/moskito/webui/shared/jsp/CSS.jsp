@@ -978,6 +978,12 @@ dd {
     box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
 }
 
+button.btn::-moz-focus-inner,
+input[type="submit"].btn::-moz-focus-inner {
+    padding: 0;
+    border: 0;
+}
+
 .btn:hover,
 .btn:active,
 .btn.active,
@@ -1202,7 +1208,7 @@ dd {
 
 .journeys-form input[type="text"] {
     display: inline-block;
-    padding: 0px 6px;
+    padding: 1px 6px;
     font-size: 12px;
     line-height: 20px;
     height: 20px;
