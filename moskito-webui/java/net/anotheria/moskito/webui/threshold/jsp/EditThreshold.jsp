@@ -69,7 +69,7 @@
                 </ano:equal>
                 <div class="clear"><!-- --></div>
                 <div class="controls">
-                    <input type="button" value="Update" class="btn-blue" onclick="document.forms.UpdateForm.submit(); return false">
+                    <input type="button" value="Update" class="btn" onclick="document.forms.UpdateForm.submit(); return false">
                 </div>
             </form>
         </div>

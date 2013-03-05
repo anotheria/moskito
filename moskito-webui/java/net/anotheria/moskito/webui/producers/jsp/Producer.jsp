@@ -13,7 +13,7 @@
     <script type="text/javascript" src="../js/function.js"></script>
     <script type="text/javascript" src="http://www.google.com/jsapi"></script>
 
-    <--
+    <!--
      Data for charts
      <script>
     <ano:iterate type="net.anotheria.moskito.webui.shared.bean.GraphDataBean" 	id="graph" name="graphDatas">
@@ -96,13 +96,13 @@
 
 				<dt>Subsystem: </dt> <dd><a href="mskShowProducersBySubsystem?pSubsystem=<ano:write name="producer" property="subsystem"/>"><ano:write name="producer" property="subsystem"/></a></dd>
 
-				<dt>class: </dt> <dd><ano:write name="producer" property="className"/></dd>
+				<dt>Сlass: </dt> <dd><ano:write name="producer" property="className"/></dd>
             </dl>
             <div class="btn-group flr">
                 <a href="<ano:write name="linkToCurrentPage"/>&pForward=selection&target=Accumulator" class="btn fll">Add Accumulator</a>
                 <a href="<ano:write name="linkToCurrentPage"/>&pForward=selection&target=Threshold" class="btn fll">Add Threshold</a>
                 <ano:present name="inspectableFlag">
-                    <a href="mskInspectProducer?pProducerId=<ano:write name="producer" property="id"/>" class="btn-blue fll">inspect</a>
+                    <a href="mskInspectProducer?pProducerId=<ano:write name="producer" property="id"/>" class="btn-blue fll">Inspect</a>
                 </ano:present>
             </div>
         </div>

@@ -1200,30 +1200,14 @@ dd {
     padding: 1px;
 }
 
-.journeys-page
-{
-    line-height: 20px;
-    margin-top: 15px;
-}
-
-.journeys-form .btn-blue
-{
-    padding: 3px 12px;
-    margin-left: 5px;
-    margin-right: 5px;
-    font-wight: bold;
-}
-
 .journeys-form input[type="text"] {
     display: inline-block;
-    padding: 2px 6px;
+    padding: 0px 6px;
     font-size: 12px;
     line-height: 20px;
     height: 20px;
     color: #555555;
     vertical-align: middle;
-    margin-left: 5px;
-    margin-right: 5px;
     -webkit-border-radius: 4px;
     -moz-border-radius: 4px;
     border-radius: 4px;
@@ -1236,10 +1220,39 @@ dd {
     -moz-transition: border linear 0.2s, box-shadow linear 0.2s;
     -o-transition: border linear 0.2s, box-shadow linear 0.2s;
     transition: border linear 0.2s, box-shadow linear 0.2s;
-    min-width: 150px;
+    min-width: 120px;
 }
 
 code
 {
     color: #008000;
+}
+
+.table_layout .in i
+{
+    font-size: 12px;
+}
+
+.journeys-form.form-inline .controls
+{
+    margin: 5px 20px 5px 0px;
+    padding-left: 20px;
+    border-left: 1px solid #e1e1e1;
+    line-height: 18px;
+}
+
+.journeys-form.form-inline .controls.jfields
+{
+    border: 0px;
+    margin-top: 12px;
+}
+
+.journeys-form.form-inline .controls.jinfo
+{
+    padding-left: 0px;
+    padding-right: 20px;
+    margin-right: 0px;
+    border: 0px;
+    text-align: right;
+    border-right: 1px solid #e1e1e1;
 }

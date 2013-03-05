@@ -34,12 +34,15 @@
 		<div class="top"><div><!-- --></div></div>
 		<div class="add_in">
             <h3>Journeys</h3>
-            <form name="NEWJOURNEY" class="journeys-form" action=""><span>To start a new journey <b>now</b> enter the name for the journey <input type="text" name="name" size="10"> and <input type="button" value="Click here" class="btn-blue" onclick="new_journey(document.NEWJOURNEY.name.value); return false"/></span></form>
-            <%--<form name="STOPJOURNEY"><span>If you want to stop a journey <input type="text" name="name" size="10"> and <input type="button" value="click here" onclick="stop_journey(document.STOPJOURNEY.name.value); return false"/></form><br/><br/>--%>
-            <div class="journeys-page">
-				<span>To record a new journey add <code>mskJourney=start&mskJourneyName=JOURNEY_NAME</code> to any url on this server.</span><br/>
-				<span>To stop journey recording add <code>mskJourney=stop&mskJourneyName=JOURNEY_NAME</code> to any url on this server.</span>
-            </div>
+            <form name="NEWJOURNEY" class="journeys-form form-inline" action="">
+                <div class="controls jinfo">To start a new journey <b>now</b><br/> enter the name for the journey</div>
+                <div class="controls jfields"><input type="text" name="name" size="10"><input type="button" value="Start" class="btn" onclick="new_journey(document.NEWJOURNEY.name.value); return false"/></div>
+                <%--<form name="STOPJOURNEY"><span>If you want to stop a journey <input type="text" name="name" size="10"> and <input type="button" value="click here" onclick="stop_journey(document.STOPJOURNEY.name.value); return false"/></form><br/><br/>--%>
+                <div class="controls">
+                    To record a new journey add <code>mskJourney=start&mskJourneyName=JOURNEY_NAME</code> to any url on this server.<br/>
+                    To stop journey recording add <code>mskJourney=stop&mskJourneyName=JOURNEY_NAME</code> to any url on this server.
+                </div>
+            </form>
         </div>
         <div class="bot"><div><!-- --></div></div>
 	</div>
@@ -59,12 +62,12 @@
 					<table cellpadding="4" cellspacing="0" width="100%">
 						<thead>
 							<tr class="stat_header">
-								<th>Journey</th>
-								<th>Started</th>
-								<th>Last activity</th>
-								<th>Calls</th>
+								<th width="200">Journey</th>
+								<th width="200">Started</th>
+								<th width="200">Last activity</th>
+								<th width="150">Calls</th>
 								<th>Active</th>
-								<th>&nbsp;</th>
+								<th width="50">&nbsp;</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -85,17 +88,24 @@
 
 				<div class="clear"><!-- --></div>
 						</div>
-								<div class="bot">
-									<div class="left"><!-- --></div>
-									<div class="right"><!-- --></div>
-								</div>
-							</div>
-				   </div>	
+                            <div class="bot">
+                                <div class="left"><!-- --></div>
+                                <div class="right"><!-- --></div>
+                            </div>
+                        </div>
+               </div>
+        <div class="bot"><div><!-- --></div></div>
+    </div>
 	</ano:present>		
 	<ano:notPresent name="journeysPresent" scope="request">
-		<i>No journeys recorded.</i>
+    <div class="table_layout">
+        <div class="top"><div><!-- --></div></div>
+        <div class="in">
+            <i>No journeys recorded.</i>
+        </div>
+        <div class="bot"><div><!-- --></div></div>
+    </div>
 	</ano:notPresent>	
 	<jsp:include page="../../shared/jsp/Footer.jsp" flush="false" />
-</div>
 </body>
 </html>
