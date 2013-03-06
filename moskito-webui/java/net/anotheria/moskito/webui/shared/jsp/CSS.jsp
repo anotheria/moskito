@@ -1289,9 +1289,9 @@ code
     background-position: -91px 0;
 }
 
-.main_menu li:hover .producers i,
+.main_menu li:hover .producers i
 {
-    background-position: -182px 0;
+    background-position: -181px 0;
 }
 
 .top ul li a.journeys
