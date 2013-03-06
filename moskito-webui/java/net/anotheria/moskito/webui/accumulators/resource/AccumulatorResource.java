@@ -14,15 +14,22 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.WebApplicationException;
 
 /**
- * TODO comment this class
+ * JAX-RS Resource that serves requests to accumulators.
  *
  * @author lrosenberg
  * @since 13.02.13 22:44
  */
 @Path("accumulators")
 public class AccumulatorResource {
+	/**
+	 * API Instance.
+	 */
 	private AccumulatorAPI accumulatorAPI = APIFinder.findAPI(AccumulatorAPI.class);
 
+	/**
+	 * Returns all accumulators.
+	 * @return
+	 */
 	@GET
 	@Path("list")
 	public ReplyObject getAccumulators(){
@@ -34,6 +41,11 @@ public class AccumulatorResource {
 
 	}
 
+	/**
+	 * Removes one accumulator by id.
+	 * @param id
+	 * @return
+	 */
 	@GET
 	@Path("remove/{id}")
 	public ReplyObject deleteAccumulator(@PathParam("id") String id){
@@ -45,6 +57,11 @@ public class AccumulatorResource {
 		}
 	}
 
+	/**
+	 * Returns an accumulator by id.
+	 * @param id of the accumulator to return.
+	 * @return
+	 */
 	@GET
 	@Path("get/{id}")
 	public ReplyObject getAccumulator(@PathParam("id") String id){
@@ -58,9 +75,13 @@ public class AccumulatorResource {
 		}
 	}
 
+	/**
+	 * Creates new accumulator.
+	 * @param po the accumulator parameter object.
+	 * @return
+	 */
 	@POST @Path("create")
 	public ReplyObject createAccumulator(AccumulatorPO po){
-		System.out.println("CREATING "+po);
 		try{
 			AccumulatorDefinitionAO ret = accumulatorAPI.createAccumulator(po);
 			return ReplyObject.success("created", ret);
