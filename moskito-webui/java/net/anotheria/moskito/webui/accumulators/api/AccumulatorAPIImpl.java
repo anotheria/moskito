@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * TODO comment this class
+ * Implementation of the AccumulatorAPI.
  *
  * @author lrosenberg
  * @since 13.02.13 18:13
