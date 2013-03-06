@@ -14,7 +14,7 @@
                     </li>
                 --%>
 					<ano:equal name="currentNaviItem" value="PRODUCERS">
-                        <li class="active"><a href="mskShowAllProducers">Producers</a>
+                        <li class="active"><a href="mskShowAllProducers" class="producers"><i></i>Producers</a>
 						<div class="sub_menu">
 							<ul>
 								<ano:present name="intervals" scope="request">
@@ -22,7 +22,8 @@
 										<span>Interval:</span>
 										<select onchange="javascript:handleSelect(this)">									
 								 			<jsp:include page="IntervalSelection.jsp" flush="false" />			
-										</select>								
+										</select>
+                                        <span class="vline"></span>
 									</li>
 								</ano:present
 								><ano:present name="units" scope="request">
@@ -31,6 +32,7 @@
 										<select onchange="javascript:handleSelect(this)">									
 											<jsp:include page="UnitSelection.jsp" flush="false" />
 										</select>
+                                        <span class="vline"></span>
 									</li>
 								</ano:present
 								><ano:present name="categories" scope="request">
@@ -38,7 +40,8 @@
 										<span>Category:</span>
 										<select onchange="javascript:handleSelect(this)">
 											<jsp:include page="CategorySelection.jsp" flush="false" />
-										</select>							
+										</select>
+                                        <span class="vline"></span>
 									</li>
 							    </ano:present
 							    ><ano:present name="subsystems" scope="request">
@@ -46,7 +49,8 @@
 										<span>Subsystem:</span>
 										<select onchange="javascript:handleSelect(this)">
 											<jsp:include page="SubsystemSelection.jsp" flush="false" />
-										</select>								
+										</select>
+                                        <span class="vline"></span>
 									</li>
 								</ano:present>
 								<%-- we use subsystems here, because they are present on producers page, we don't want the name filter on the producer detail page --%>
@@ -61,7 +65,7 @@
 						</li>
 					</ano:equal
 					><ano:notEqual name="currentNaviItem" value="PRODUCERS">
-						<li><a href="mskShowAllProducers">Producers</a></li>	
+						<li><a href="mskShowAllProducers" class="producers"><i></i>Producers</a></li>
 					</ano:notEqual
 					><%--ano:equal name="currentNaviItem" value="USECASES">
 						<li class="active"><a href="mskShowUseCases">Use Cases</a></li>
@@ -71,23 +75,25 @@
 					</ano:notEqual
 					--%>
                     <li <ano:equal name="currentNaviItem" value="JOURNEYS">class="active"</ano:equal>>
-                        <a href="mskShowJourneys">Journeys</a>
+                        <a href="mskShowJourneys"class="journeys"><i></i>Journeys</a>
                     </li>
 					<li <ano:equal name="currentNaviItem" value="THRESHOLDS">class="active"</ano:equal>>
-                        <a href="mskThresholds"><img src="<ano:write name="mskPathToImages" scope="application"/>ind_<ano:write name="systemStatusColor"/>_small.png" alt="System status: <ano:write name="systemStatus"/>"/>&nbsp;&nbsp;Thresholds</a>
+                        <a href="mskThresholds"class="thresholds"><i><img src="<ano:write name="mskPathToImages" scope="application"/>ind_<ano:write name="systemStatusColor"/>.png" alt="System status: <ano:write name="systemStatus"/>"/></i>Thresholds</a>
                     </li>
                     <li <ano:equal name="currentNaviItem" value="ACCUMULATORS">class="active"</ano:equal>>
-                        <a href="mskAccumulators">Accumulators</a>
+                        <a href="mskAccumulators"class="accumulators"><i></i>Accumulators</a>
                     </li>
                     <li class="main_menu_threads <ano:equal name="currentNaviItem" value="THREADS">active</ano:equal>">
-                        <a href="mskThreads">Threads</a>
+                        <a href="mskThreads" class="threads"><i></i>Threads</a>
 						<div class="sub_menu">
 							<ul>
 								<li class="separator">
 									<a href="mskThreadsList">List</a>
+                                    <span class="vline"></span>
 								</li>
 								<li class="separator">
 									<a href="mskThreadsDump">Dump</a>
+                                    <span class="vline"></span>
 								</li>
 								<li>
 									<a href="mskThreadsHistory">History</a>

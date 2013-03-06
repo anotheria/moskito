@@ -17,20 +17,18 @@ a:hover {text-decoration:none; color:#55cc00; cursor:pointer;}
 .white_pl {background:none; padding:0 10px;}
 .top {height:50px; background:white; background:url(<ano:write name="mskPathToImages" scope="application"/>bgs.gif) 0 -103px repeat-x;}
 .top .left_bg {width:10px; float:left; height:50px; background:url(<ano:write name="mskPathToImages" scope="application"/>bgs.gif) 0 0 no-repeat;}
-.logo {display:block; float:left; margin-top:8px; padding-bottom:16px;}
+.logo {display:block; float:left; margin-top:8px; padding-bottom:16px; margin-left: 15px;}
 .top .right {width:10px; height:50px; float:right; background:url(<ano:write name="mskPathToImages" scope="application"/>bgs.gif) -1px -203px no-repeat;}
-.top ul {float:left; margin-left:45px;}
+.top ul {float:left; margin-left:30px;}
 .top ul li {float:left; list-style-type:none; display:block;}
-.top ul li a {font-size:1.4em; padding:20px 15px 14px 15px; display:block; float:left;	}
+.top ul li a {font-size:1.4em; padding:18px 15px 16px 43px; display:block; float:left;	position: relative;}
 .top ul li.active {background:url(<ano:write name="mskPathToImages" scope="application"/>bgs.gif) 0 -305px no-repeat #f7f7f7;}
-.top ul li.active a {background:url(<ano:write name="mskPathToImages" scope="application"/>bgs.gif) 100% -416px no-repeat; font-size:1.4em; display:block; float:left; padding:20px 15px 14px 15px; color:black;}
+.top ul li.active a {background:url(<ano:write name="mskPathToImages" scope="application"/>bgs.gif) 100% -416px no-repeat; font-size:1.4em; display:block; float:left; color:black;}
 .top ul li .sub_menu {position:absolute; top:50px; height:30px; overflow:hidden; background:url(<ano:write name="mskPathToImages" scope="application"/>bgs.gif) 0 -533px no-repeat; left:150px; display:none;}
 .top ul li .over_color {display:none; }
 .top ul li.active .over_color {display:block;} 
 .top ul li .sub_menu ul {margin:0; margin-left:5px; white-space:nowrap; padding-right:5px; background:url(<ano:write name="mskPathToImages" scope="application"/>bgs.gif) 100% -602px no-repeat; height:30px;}
-.top ul li .sub_menu ul li {display:block; float:left; list-style-type:none; padding:7px 11px 4px 11px; background:url(<ano:write name="mskPathToImages" scope="application"/>bgs.gif) 0 -669px repeat-x; //padding:5px 11px 4px 11px; height:19px;}
-.top ul li .sub_menu ul li.separator {border-right:1px solid #bebebe;}
-.top ul li .sub_menu ul li.separator:last-child {border:0;}
+.top ul li .sub_menu ul li {display:block; float:left; list-style-type:none; padding:7px 11px 4px 11px; background:url(<ano:write name="mskPathToImages" scope="application"/>bgs.gif) 0 -669px repeat-x; //padding:5px 11px 4px 11px; height:19px; position: relative;}
 .top ul li .sub_menu ul li a {padding:0; height:auto; white-space:nowrap; color:#005fc1; cursor:pointer; background:none;}
 .top ul li .sub_menu ul li.active a {color:black !important;}
 .top ul li .sub_menu ul li a:hover {color:#55cc00 !important; text-decoration:none;}
@@ -43,7 +41,7 @@ a:hover {text-decoration:none; color:#55cc00; cursor:pointer;}
 .top ul li .sub_menu ul li input option {padding:0 7px;}
 .top ul li.active .sub_menu {display:block; overflow:hidden;}
 .top .settings {float:right;}
-.top .settings li a {font-size:1.2em; padding-top:22px;}
+.top .settings li a {font-size:1.2em; padding-top:22px; padding-left: 15px;}
 .top .settings li.active a {font-size:1.2em; padding-top:22px;}
 .top .settings li .sub_menu {left:auto; margin-left:-54px;}
 .top .settings li .sub_menu a {padding:0; font-size:1.4em;}
@@ -1261,4 +1259,137 @@ code
     border: 0px;
     text-align: right;
     border-right: 1px solid #e1e1e1;
+}
+
+.main_menu i
+{
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    background-image: url('<ano:write name="mskPathToImages" scope="application"/>icons.png');
+    background-repeat: no-repeat;
+    left: 15px;
+    position: absolute;
+    top: 16px;
+}
+
+.top ul li a.producers
+{
+    padding-left: 45px;
+}
+
+.main_menu .producers i
+{
+    background-position: 0 0;
+}
+
+.main_menu ul li.active:hover .producers i,
+.main_menu ul li.active .producers i
+{
+    background-position: -91px 0;
+}
+
+.main_menu li:hover .producers i,
+{
+    background-position: -182px 0;
+}
+
+.top ul li a.journeys
+{
+    padding-left: 48px;
+}
+
+.main_menu .journeys i
+{
+    background-position: 0 -59px;
+}
+
+.main_menu ul li.active:hover .journeys i,
+.main_menu ul li.active .journeys i
+{
+    background-position: -90px -59px;
+}
+
+.main_menu li:hover .journeys i
+{
+    background-position: -180px -59px;
+}
+
+.main_menu .thresholds i
+{
+     background-position: 0 -113px;
+}
+
+.main_menu ul li.active:hover .thresholds i,
+.main_menu ul li.active .thresholds i
+{
+    background-position: -90px -113px;
+}
+
+.main_menu li:hover .thresholds i
+{
+    background-position: -180px -113px;
+}
+
+.main_menu .thresholds img {
+    left: 25px;
+    position: absolute;
+    top: 4px;
+}
+
+.top ul li a.thresholds
+{
+    padding-left: 60px;
+}
+
+.main_menu .accumulators i
+{
+    background-position: 0 -171px;
+    top: 16px;
+}
+
+.top ul li a.accumulators
+{
+    padding-left: 45px;
+}
+
+.main_menu ul li.active:hover .accumulators i,
+.main_menu ul li.active .accumulators i
+{
+    background-position: -94px -171px;
+    top: 16px;
+}
+
+.main_menu li:hover .accumulators i
+{
+    background-position: -184px -171px;
+}
+
+.main_menu .threads i
+{
+    background-position: 0 -227px;
+}
+
+.main_menu ul li.active:hover .threads i,
+.main_menu ul li.active .threads i
+{
+    background-position: -94px -227px;
+}
+
+.main_menu li:hover .threads i
+{
+    background-position: -184px -227px;
+}
+
+.top ul li .sub_menu ul li span.vline
+{
+    display: block;
+    width: 1px;
+    height: 29px;
+    background-image: url('<ano:write name="mskPathToImages" scope="application"/>vline.png');
+    background-repeat: no-repeat;
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    margin: 0px;
 }
