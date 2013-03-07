@@ -80,20 +80,63 @@
         </plugins>
     </build>
 
-    <dependencies>
-        <dependency>
-            <groupId>net.anotheria</groupId>
-            <artifactId>moskito-core</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>net.anotheria</groupId>
-            <artifactId>moskito-webui</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>servlet-api</artifactId>
-        </dependency>
-    </dependencies>
+    <profiles>
+        <profile>
+            <id>jboss</id>
+            <dependencies>
+                <dependency>
+                    <groupId>net.anotheria</groupId>
+                    <artifactId>moskito-core</artifactId>
+                    <version>${project.version}</version>
+                </dependency>
+                <dependency>
+                    <groupId>net.anotheria</groupId>
+                    <artifactId>moskito-webui</artifactId>
+                    <version>${project.version}</version>
+                </dependency>
+                <dependency>
+                    <groupId>javax.servlet</groupId>
+                    <artifactId>servlet-api</artifactId>
+                </dependency>
+            </dependencies>
+        </profile>
+        <profile>
+            <id>webapp</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <dependencies>
+                <dependency>
+                    <groupId>net.anotheria</groupId>
+                    <artifactId>moskito-core</artifactId>
+                    <version>${project.version}</version>
+                </dependency>
+                <dependency>
+                    <groupId>net.anotheria</groupId>
+                    <artifactId>moskito-webui</artifactId>
+                    <version>${project.version}</version>
+                </dependency>
+                <dependency>
+                    <groupId>javax.servlet</groupId>
+                    <artifactId>servlet-api</artifactId>
+                </dependency>
+                <!-- jersey -->
+                <dependency>
+                    <groupId>com.sun.jersey</groupId>
+                    <artifactId>jersey-server</artifactId>
+                </dependency>
+                <dependency>
+                    <groupId>com.sun.jersey</groupId>
+                    <artifactId>jersey-servlet</artifactId>
+                </dependency>
+                <dependency>
+                    <groupId>com.sun.jersey</groupId>
+                    <artifactId>jersey-json</artifactId>
+                </dependency>
+
+            </dependencies>
+        </profile>
+    </profiles>
+
+
 </project>
