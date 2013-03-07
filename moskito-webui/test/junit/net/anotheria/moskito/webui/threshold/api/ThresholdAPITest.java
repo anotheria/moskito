@@ -48,6 +48,26 @@ public class ThresholdAPITest {
 
 	}
 
+	@Test
+	public void testUpdate() throws APIException {
+		ThresholdAPI api = APIFinder.findAPI(ThresholdAPI.class);
+
+		assertNotNull(api.getThresholdDefinitions());
+
+		ThresholdPO toCreate = createPO();
+
+		Threshold ret = api.createThreshold(toCreate);
+		assertNotNull(ret);
+
+		assertEquals(1, api.getThresholdDefinitions().size());
+
+
+		toCreate.setYellowValue("10000");
+		api.updateThreshold(ret.getId(), toCreate);
+		//TODO add checks
+	}
+
+
 	@Test public void testWrongDirectionHandling() throws APIException{
 		ThresholdAPI api = APIFinder.findAPI(ThresholdAPI.class);
 		ThresholdPO toCreate = createPO();
