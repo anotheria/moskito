@@ -4,18 +4,48 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 
+/**
+ * Represents a single threshold change alert object.
+ */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement
 public class ThresholdAlertAO {
+	/**
+	 * Id of the threshold.
+	 */
 	private String id;
+	/**
+	 * Name of the threshold.
+	 */
 	private String name;
+	/*
+	 * Timestamp of the alert.
+	 */
 	private String timestamp;
+	/**
+	 * Status before alert was triggered.
+	 */
 	private String oldStatus;
+	/**
+	 * Color before alert was triggered.
+	 */
 	private String oldColorCode;
+	/**
+	 * Value before alert was triggered.
+	 */
 	private String oldValue;
 
+	/**
+	 * Status after alert was triggered.
+	 */
 	private String newStatus;
+	/**
+	 * Color after the alert was triggered.
+	 */
 	private String newColorCode;
+	/**
+	 * New value, after the alert.
+	 */
 	private String newValue;
 	public String getId() {
 		return id;
