@@ -11,17 +11,30 @@ import java.util.List;
 import java.util.Set;
 
 /**
- * TODO comment this class
+ * Generic decorator for counter stats based decorators.
  *
  * @author lrosenberg
  * @since 19.11.12 12:10
  */
 public abstract class GenericCounterDecorator extends AbstractDecorator<GenericCounterStats> {
 
+	/**
+	 * Cached value names. Used to dynamically create value beans.
+	 */
 	private final Set<String> valueNames;
 
+	/**
+	 * Captions that this decorator support.
+	 */
 	private String[] captions;
 
+	/**
+	 * Creates a new generic decorator.
+	 * @param patternObject pattern for this concrete decorator which is a subclass of genericcounterstats.
+	 * @param captions captions of the values.
+	 * @param shortExplanations short explanations of the captions.
+	 * @param explanations explanations of the captions.
+	 */
 	public GenericCounterDecorator(GenericCounterStats patternObject, String[] captions, String[] shortExplanations, String[] explanations){
 		super( patternObject.describeForWebUI() , captions, shortExplanations, explanations);
 		valueNames = patternObject.getPossibleNames();

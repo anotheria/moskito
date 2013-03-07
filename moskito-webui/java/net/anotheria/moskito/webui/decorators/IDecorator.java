@@ -45,7 +45,7 @@ import java.util.List;
 /**
  * A decorator prepares data from a set of stat producers for presentation.
  * @author lrosenberg
- *
+ * @param <S> the stat type that his decorator proceeds.
  */
 public interface IDecorator <S extends IStats> extends IComparable{
 	/**
