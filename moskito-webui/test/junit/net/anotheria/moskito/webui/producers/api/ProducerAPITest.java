@@ -26,6 +26,7 @@ public class ProducerAPITest {
 	public void startUp(){
 		APIFinder.addAPIFactory(ProducerAPI.class, new ProducerAPIFactory());
 		System.setProperty("JUNITTEST", "true");
+		ProducerRegistryFactory.reset();
 	}
 
 	@After

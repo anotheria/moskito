@@ -2,6 +2,7 @@ package net.anotheria.moskito.webui.threshold.api;
 
 import net.anotheria.anoplass.api.APIException;
 import net.anotheria.anoplass.api.APIFinder;
+import net.anotheria.moskito.core.registry.ProducerRegistryFactory;
 import net.anotheria.moskito.core.stats.DefaultIntervals;
 import net.anotheria.moskito.core.stats.TimeUnit;
 import net.anotheria.moskito.core.threshold.Threshold;
@@ -25,6 +26,7 @@ public class ThresholdAPITest {
 	public void setup(){
 		APIFinder.cleanUp();
 		APIFinder.addAPIFactory(ThresholdAPI.class, new ThresholdAPIFactory());
+		ProducerRegistryFactory.reset();
 	}
 
 	@Test
