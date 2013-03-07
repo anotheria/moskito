@@ -24,7 +24,7 @@
     --%></ano:iterate>
 	</producers>
 	<types>
-    <ano:iterate name="typeAndValueNames" id="type" type="net.anotheria.moskito.webui.shared.bean.TypeAndValueNamesBean">
+    <ano:iterate name="typeAndValueNames" id="type" type="net.anotheria.moskito.webui.charts.bean.TypeAndValueNamesBean">
 		<type name="<ano:write name="type" property="type"/>">
 			<valueNames>
 			<ano:iterate name="type" property="valueNames" type="java.lang.String" id="valueName">

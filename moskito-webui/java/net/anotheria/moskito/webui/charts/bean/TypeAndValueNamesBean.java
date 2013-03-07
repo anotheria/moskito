@@ -1,9 +1,20 @@
-package net.anotheria.moskito.webui.shared.bean;
+package net.anotheria.moskito.webui.charts.bean;
 
 import java.util.List;
 
+
+/**
+ * Contains list of values supported by a type (producer). Used for generic chat generation, to provide list
+ * of available values per decorator to the frontend.
+ */
 public class TypeAndValueNamesBean {
+	/**
+	 * Name of the type.
+	 */
 	private String type;
+	/**
+	 * Supported value names.
+	 */
 	private List<String> valueNames;
 	
 	public TypeAndValueNamesBean(String aType, List<String> someValueNames){

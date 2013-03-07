@@ -73,6 +73,10 @@ public class StatDecoratorBean extends AbstractDecoratorBean {
 		return super.toString()+" "+stats;
 	}
 
+	/**
+	 * Returns the name of the sort type for sort links generation.
+	 * @return
+	 */
 	public String getSortTypeName(){
 		return BaseMoskitoUIAction.BEAN_SORT_TYPE_SINGLE_PRODUCER_PREFIX + getName();
 	}	

@@ -14,7 +14,7 @@
     --%></ano:iterate>
 	],
 	"types": [
-    <ano:iterate name="typeAndValueNames" id="type" type="net.anotheria.moskito.webui.shared.bean.TypeAndValueNamesBean" indexId="typeIndex"><ano:notEqual name="typeIndex" value="0">,</ano:notEqual>
+    <ano:iterate name="typeAndValueNames" id="type" type="net.anotheria.moskito.webui.charts.bean.TypeAndValueNamesBean" indexId="typeIndex"><ano:notEqual name="typeIndex" value="0">,</ano:notEqual>
     	{
     	    "name": "<ano:write name="type" property="type"/>",
 			"valueNames": [<ano:iterate name="type" property="valueNames" type="java.lang.String" id="valueName" indexId="valueindex"><ano:notEqual name="valueindex" value="0">,</ano:notEqual>"<ano:write name="valueName"/>"</ano:iterate>]

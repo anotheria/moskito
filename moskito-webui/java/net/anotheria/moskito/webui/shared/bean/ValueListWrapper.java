@@ -38,6 +38,9 @@ import net.anotheria.util.sorter.IComparable;
 
 import java.util.List;
 
+/**
+ * A Wrapper around the list of values used in a stat or producer bean.
+ */
 public class ValueListWrapper implements IComparable{
 	/**
 	 * Internal storage for the values.

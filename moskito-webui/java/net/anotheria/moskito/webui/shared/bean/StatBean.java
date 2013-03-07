@@ -39,10 +39,19 @@ import net.anotheria.util.sorter.IComparable;
 
 import java.util.List;
 
+/**
+ * Contains the values for the single stat in a producer.
+ */
 public class StatBean implements IComparable{
 
+	/**
+	 * Name of the stat.
+	 */
 	private String name;
-	
+
+	/**
+	 * StatValues of the stat.
+	 */
 	private ValueListWrapper wrapper;
 	
 	public String getName() {

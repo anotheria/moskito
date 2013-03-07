@@ -37,7 +37,7 @@ package net.anotheria.moskito.webui.shared.bean;
 import net.anotheria.util.StringUtils;
 
 /**
- * Caption for a stat bean. 
+ * Caption for a stat bean is used to draw decorator specific captions in the producer view.
  * @author lrosenberg.
  */
 public class StatCaptionBean {
@@ -53,11 +53,20 @@ public class StatCaptionBean {
 	 * Short explanation.
 	 */
 	private String shortExplanation;
-	
+
+	/**
+	 * Creates a new StatCaptionBean.
+	 */
 	public StatCaptionBean(){
 		
 	}
-	
+
+	/**
+	 * Creates a new StatCaptionBean.
+	 * @param aCaption statValue caption.
+	 * @param aShortExplanation statValue shortExplanation.
+	 * @param anExplanation statValue explanation.
+	 */
 	public StatCaptionBean(String aCaption, String aShortExplanation, String anExplanation){
 		caption = aCaption;
 		shortExplanation = aShortExplanation;
@@ -99,8 +108,17 @@ public class StatCaptionBean {
 	public String getJsVariableName(){
 		return getJsVariableName(getCaption());
 	}
-	
+
+	/**
+	 * Char array that should removed from statName to provide a valid name for the javascript variable.
+	 */
 	private static final char[] TO_REMOVE = new char[]{' ', '\t', '\n', '\r', '/'};
+
+	/**
+	 * Returns the name of javascript.
+	 * @param caption source name.
+	 * @return
+	 */
 	public static final String getJsVariableName(String caption){
 		return "v"+StringUtils.removeChars(caption, TO_REMOVE);
 		

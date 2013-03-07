@@ -8,7 +8,7 @@ import net.anotheria.moskito.core.producers.IStatsProducer;
 import net.anotheria.moskito.core.registry.IProducerRegistry;
 import net.anotheria.moskito.core.registry.ProducerRegistryFactory;
 import net.anotheria.moskito.webui.shared.bean.ProducerAndTypeBean;
-import net.anotheria.moskito.webui.shared.bean.TypeAndValueNamesBean;
+import net.anotheria.moskito.webui.charts.bean.TypeAndValueNamesBean;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
