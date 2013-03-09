@@ -8,7 +8,6 @@ import net.anotheria.moskito.webui.journey.action.AnalyzeJourneyAction;
 import net.anotheria.moskito.webui.shared.action.ForceIntervalUpdateAction;
 import net.anotheria.moskito.webui.producers.action.InspectProducerAction;
 import net.anotheria.moskito.webui.producers.action.ShowAllProducersAction;
-import net.anotheria.moskito.webui.shared.action.ShowDashboardAction;
 import net.anotheria.moskito.webui.shared.action.ShowExplanationsAction;
 import net.anotheria.moskito.webui.journey.action.ShowJourneyAction;
 import net.anotheria.moskito.webui.journey.action.ShowJourneyCallAction;
@@ -49,17 +48,6 @@ public class MoskitoMappingsConfigurator implements ActionMappingsConfigurator{
 	
 	@Override public void configureActionMappings(ActionMappings mappings){
 		mappings.addForward("mskCSS", "/net/anotheria/moskito/webui/shared/jsp/CSS.jsp");
-
-		mappings.addMapping("mskDashBoard", ShowDashboardAction.class,
-				new ActionForward("html", "/net/anotheria/moskito/webui/shared/jsp/Dashboard.jsp"),
-				new ActionForward("xml", "/net/anotheria/moskito/webui/producers/jsp/ProducersXML.jsp"),
-				new ActionForward("csv", "/net/anotheria/moskito/webui/producers/jsp/ProducersCSV.jsp"),
-				new ActionForward("json", "/net/anotheria/moskito/webui/producers/jsp/ProducersJSON.jsp")
-		);
-
-		mappings.addAlias("mskDashBoard.csv", "mskDashBoard");
-		mappings.addAlias("mskDashBoard.xml", "mskDashBoard");
-		mappings.addAlias("mskDashBoard.json", "mskDashBoard");
 
 		mappings.addMapping("mskShowAllProducers", ShowAllProducersAction.class,
 				new ActionForward("html", "/net/anotheria/moskito/webui/producers/jsp/Producers.jsp"),
