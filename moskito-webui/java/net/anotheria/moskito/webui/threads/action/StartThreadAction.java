@@ -25,7 +25,7 @@ public class StartThreadAction extends ThreadsHistoryAction{
 				try{
 					//ensure thread lives long enough to be noticed.
 					Thread.sleep(ThreadHistoryUtility.INSTANCE.getUpdateInterval()+100);
-				}catch(InterruptedException e){};
+				}catch(InterruptedException e){}
 			}
 		});
 		t.setName("TestThread_at_"+NumberUtils.makeISO8601TimestampString());

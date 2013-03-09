@@ -1,12 +1,12 @@
 package net.anotheria.moskito.webui.journey.action;
 
+import net.anotheria.anoplass.api.APIException;
 import net.anotheria.maf.action.ActionCommand;
 import net.anotheria.maf.action.ActionMapping;
 import net.anotheria.maf.bean.FormBean;
 import net.anotheria.moskito.core.calltrace.CurrentlyTracedCall;
 import net.anotheria.moskito.core.calltrace.TraceStep;
 import net.anotheria.moskito.core.journey.Journey;
-import net.anotheria.moskito.core.journey.NoSuchJourneyException;
 import net.anotheria.moskito.webui.CurrentSelection;
 import net.anotheria.moskito.webui.journey.bean.AnalyzeProducerCallsBeanSortType;
 import net.anotheria.moskito.webui.journey.bean.AnalyzeProducerCallsMapBean;
@@ -34,8 +34,8 @@ public class AnalyzeJourneyAction extends BaseJourneyAction{
 		String journeyName = req.getParameter("pJourneyName");
 		Journey journey = null;
 		try{
-			journey = getJourneyManager().getJourney(journeyName);
-		}catch(NoSuchJourneyException e){
+			journey = getJourneyAPI().getJourney(journeyName);
+		}catch(APIException e){
 			throw new IllegalArgumentException("Journey with name "+journeyName+" not found.");
 		}
 		AnalyzeProducerCallsMapBean overallCallsMap = new AnalyzeProducerCallsMapBean(journey.getName()+" - TOTAL");

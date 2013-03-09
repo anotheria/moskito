@@ -37,6 +37,9 @@ public class TraceStepBean {
 	 * If true this call is the root call.
 	 */
 	private boolean root;
+	/**
+	 * Layer is used for tree presentation.
+	 */
 	private int layer;
 	/**
 	 * The full call for debug purposes.

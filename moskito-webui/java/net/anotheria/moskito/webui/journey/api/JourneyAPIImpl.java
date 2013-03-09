@@ -5,6 +5,7 @@ import net.anotheria.anoplass.api.APIInitException;
 import net.anotheria.moskito.core.journey.Journey;
 import net.anotheria.moskito.core.journey.JourneyManager;
 import net.anotheria.moskito.core.journey.JourneyManagerFactory;
+import net.anotheria.moskito.core.journey.NoSuchJourneyException;
 import net.anotheria.moskito.webui.shared.api.AbstractMoskitoAPIImpl;
 import net.anotheria.util.NumberUtils;
 
@@ -44,5 +45,14 @@ public class JourneyAPIImpl extends AbstractMoskitoAPIImpl implements  JourneyAP
 		}
 
 		return beans;
+	}
+
+	@Override
+	public Journey getJourney(String name) throws APIException {
+		try{
+			return journeyManager.getJourney(name);
+		}catch(NoSuchJourneyException e){
+			throw new APIException("Journey not found.");
+		}
 	}
 }
