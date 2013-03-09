@@ -13,19 +13,49 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @XmlRootElement
 public class ThresholdPO extends TieablePO implements FormBean{
+	/**
+	 * Direction for the yellow guard.
+	 */
 	private String yellowDir;
+	/**
+	 * Value for the yellow guard.
+	 */
 	private String yellowValue;
 
+	/**
+	 * Direction for the orange guard.
+	 */
 	private String orangeDir;
+	/**
+	 * Value for the orange guard.
+	 */
 	private String orangeValue;
 
+	/**
+	 * Direction for the red guard.
+	 */
 	private String redDir;
+	/**
+	 * Value for the red guard.
+	 */
 	private String redValue;
 
+	/**
+	 * Direction for the purple guard.
+	 */
 	private String purpleDir;
+	/**
+	 * Value for the purple guard.
+	 */
 	private String purpleValue;
 
+	/**
+	 * Direction for the green guard.
+	 */
 	private String greenDir;
+	/**
+	 * Value for the green guard.
+	 */
 	private String greenValue;
 
 

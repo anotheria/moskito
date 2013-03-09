@@ -2,13 +2,25 @@ package net.anotheria.moskito.webui.threshold.api;
 
 import net.anotheria.util.sorter.SortType;
 
+/**
+ * Sorting help class (SortType) for ThresholdStatusAO.
+ */
 public class ThresholdStatusAOSortType extends SortType {
 	/**
-	 * 
+	 * Serial version uid.
 	 */
 	private static final long serialVersionUID = 1L;
+	/**
+	 * Sort by name.
+	 */
 	public static final int BY_NAME = 1;
+	/**
+	 * Sort by status.
+	 */
 	public static final int BY_STATUS = 2;
+	/**
+	 * Sort by change dieection.
+	 */
 	public static final int BY_CHANGE = 3;
 	
 	public ThresholdStatusAOSortType(){
