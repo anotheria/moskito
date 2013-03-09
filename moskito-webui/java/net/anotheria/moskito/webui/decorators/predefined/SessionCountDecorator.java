@@ -10,7 +10,13 @@ import net.anotheria.moskito.webui.decorators.AbstractDecorator;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Decorator for session count stats.
+ */
 public class SessionCountDecorator extends AbstractDecorator {
+	/**
+	 * Catpions.
+	 */
 	private static final String CAPTIONS[] = {
 		"Cur",
 		"Min",
@@ -18,7 +24,10 @@ public class SessionCountDecorator extends AbstractDecorator {
 		"New",
 		"Del",
 	};
-	
+
+	/**
+	 * Short explanations for the tooltip.
+	 */
 	private static final String SHORT_EXPLANATIONS[] = {
 		"Current number of sessions",
 		"Min number of sessions",
@@ -28,6 +37,9 @@ public class SessionCountDecorator extends AbstractDecorator {
 	};
 
 
+	/**
+	 * Explanations for the help page.
+	 */
 	private static final String EXPLANATIONS[] = {
 		"Current number of sessions (this feature is yet experimental)",
 		"Min number of sessions (this feature is yet experimental)",

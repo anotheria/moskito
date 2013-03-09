@@ -46,8 +46,14 @@ import net.anotheria.moskito.webui.decorators.AbstractDecorator;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Base class for requested oriented stats - extending stats objects decorators.
+ */
 public abstract class RequestOrientedStatsDecorator extends AbstractDecorator {
-	
+
+	/**
+	 * Captions.
+	 */
 	static final String CAPTIONS[] = {
 		"Req",
 		"Time",
@@ -60,7 +66,10 @@ public abstract class RequestOrientedStatsDecorator extends AbstractDecorator {
 		"Err",
 		"ERate"
 	};
-	
+
+	/**
+	 * Short explanations.
+	 */
 	static final String SHORT_EXPLANATIONS[] = {
 		"Number of requests",
 		"Time spent in millis (duration)",
@@ -73,7 +82,10 @@ public abstract class RequestOrientedStatsDecorator extends AbstractDecorator {
 		"Number of errors",
 		"Error rate in %"
 	};
- 
+
+	/**
+	 * Explanations.
+	 */
 	static final String EXPLANATIONS[] = {
 		"Total number of requests to a method/interace (in the defined interval or since start, depending on your interval selection).",
 		"Total amount of time spent in the method / interface. Although, if the called method is waiting for something to be transported from net or from disk, the value is not equal to spent processor time, this value is usually an important indicator to determine how much some functionality costs.",
@@ -87,10 +99,21 @@ public abstract class RequestOrientedStatsDecorator extends AbstractDecorator {
 		"The number of uncaught errors as percent of total requests."
 	};
 
+	/**
+	 * Creates a new decorator object with given name.
+	 * @param name name of the object.
+	 */
 	protected RequestOrientedStatsDecorator(String name){
 		super(name, CAPTIONS, SHORT_EXPLANATIONS, EXPLANATIONS);
 	}
-	
+
+	/**
+	 * Creates a new decorator with given name and parameters.
+	 * @param name name of the decorator.
+	 * @param someCaptions captions.
+	 * @param someShortExplanations short explanations.
+	 * @param someExplanations explanations.
+	 */
 	protected RequestOrientedStatsDecorator(String name, String[] someCaptions, String[] someShortExplanations, String[] someExplanations){
 		super(name, someCaptions, someShortExplanations, someExplanations);
 	}
@@ -116,8 +139,14 @@ public abstract class RequestOrientedStatsDecorator extends AbstractDecorator {
 		ret.add(new DoubleValueBean(CAPTIONS[i++], errorRate));
 		
 		return ret;
-	} 
-	
+	}
+
+	/**
+	 * Returns number of total errors for given interval.
+	 * @param statsObject target object.
+	 * @param interval interval.
+	 * @return
+	 */
 	protected long getTotalErrors(IStats statsObject, String interval){
 		return ((RequestOrientedStats)statsObject).getErrors(interval);
 	}

@@ -23,7 +23,9 @@ import java.util.List;
  */
 public class AccumulatorAPIImpl extends AbstractMoskitoAPIImpl implements AccumulatorAPI {
 
-	//save objects
+	/**
+	 * Object for caching of the sort types.
+	 */
 	private static final SortType SORT_TYPE = new DummySortType();
 
 	@Override

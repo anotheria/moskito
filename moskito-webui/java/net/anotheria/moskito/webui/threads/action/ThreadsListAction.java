@@ -20,6 +20,9 @@ import java.util.HashMap;
  */
 public class ThreadsListAction extends BaseThreadsAction{
 
+	/**
+	 * Constant for memory saving.
+	 */
 	private static final DummySortType DST = new DummySortType();
 
 	@Override

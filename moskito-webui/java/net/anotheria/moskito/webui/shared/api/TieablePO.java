@@ -3,17 +3,35 @@ package net.anotheria.moskito.webui.shared.api;
 import net.anotheria.maf.bean.FormBean;
 
 /**
- * TODO comment this class
+ * Base class for tieable parameter objects.
  *
  * @author lrosenberg
  * @since 13.02.13 17:34
  */
 public class TieablePO implements FormBean{
+	/**
+	 * Id of the producer.
+	 */
 	private String producerId;
+	/**
+	 * Name of the value for tiing.
+	 */
 	private String valueName;
+	/**
+	 * TimeUnit if applicable.
+	 */
 	private String unit;
+	/**
+	 * Name of the tieable.
+	 */
 	private String name;
+	/**
+	 * Interval.
+	 */
 	private String interval;
+	/**
+	 * Name of the stat.
+	 */
 	private String statName;
 
 	public String getProducerId() {

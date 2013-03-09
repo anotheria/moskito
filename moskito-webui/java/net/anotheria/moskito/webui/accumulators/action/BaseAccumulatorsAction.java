@@ -13,7 +13,11 @@ import javax.servlet.http.HttpServletRequest;
  */
 public abstract class BaseAccumulatorsAction extends BaseMoskitoUIAction {
 
+	/**
+	 * Accumulator api instance.
+	 */
 	private static AccumulatorAPI accumulatorAPI = APIFinder.findAPI(AccumulatorAPI.class);
+
     @Override
     protected NaviItem getCurrentNaviItem() {
         return NaviItem.ACCUMULATORS;

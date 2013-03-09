@@ -28,7 +28,9 @@ import java.util.List;
  */
 public class ShowAccumulatorsAction extends BaseAccumulatorsAction {
 
-	//save objects
+	/**
+	 * Sort type for sorting. Actually unneeded, but having a variable saves ram.
+	 */
 	private static final SortType SORT_TYPE = new DummySortType();
 
 	/**

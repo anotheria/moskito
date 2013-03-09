@@ -42,8 +42,14 @@ import net.anotheria.moskito.webui.shared.bean.StatValueBean;
 
 import java.util.List;
 
+/**
+ * Decorator for servlet stats.
+ */
 public class ServletStatsDecorator extends RequestOrientedStatsDecorator{
 
+	/**
+	 * Captions.
+	 */
 	private static final String CAPTIONS[] = {
 		"Req",
 		"Time",
@@ -61,6 +67,9 @@ public class ServletStatsDecorator extends RequestOrientedStatsDecorator{
 
 	};
 
+	/**
+	 * Short explanations.
+	 */
 	private static final String SHORT_EXPLANATIONS[] = {
 		"Number of requests",
 		"Time spent in millis (duration)",
@@ -78,6 +87,9 @@ public class ServletStatsDecorator extends RequestOrientedStatsDecorator{
 
 	};
 
+	/**
+	 * Explanations.
+	 */
 	private static final String EXPLANATIONS[] = {
 		"Total number of requests to a method/interace (in the defined interval or since start, depending on your interval selection).",
 		"Total amount of time spent in the method / interface. Although, if the called method is waiting for something to be transported from net or from disk, the value is not equal to spent processor time, this value is usually an important indicator to determine how much some functionality costs.",
@@ -94,6 +106,9 @@ public class ServletStatsDecorator extends RequestOrientedStatsDecorator{
 		"The number of uncaught errors as percent of total requests."
 	};
 
+	/**
+	 * Creates a new ServletStatsDecorator.
+	 */
 	public ServletStatsDecorator(){
 		super("Servlet", CAPTIONS, SHORT_EXPLANATIONS,EXPLANATIONS);
 	}
