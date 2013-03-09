@@ -8,7 +8,7 @@ import net.anotheria.moskito.core.producers.IStatsProducer;
 import net.anotheria.moskito.core.registry.IProducerRegistry;
 import net.anotheria.moskito.core.registry.ProducerRegistryFactory;
 import net.anotheria.moskito.core.stats.TimeUnit;
-import net.anotheria.moskito.webui.shared.bean.ChartDataEntityBean;
+import net.anotheria.moskito.webui.charts.bean.ChartDataEntityBean;
 import net.anotheria.util.StringUtils;
 
 import javax.servlet.http.HttpServletRequest;

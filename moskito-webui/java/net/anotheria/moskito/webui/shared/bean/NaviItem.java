@@ -10,10 +10,6 @@ import java.util.List;
  */
 public enum NaviItem {
 	/**
-	 * Dashboard menu item.
-	 */
-	DASHBOARD("Dashboard"),
-	/**
 	 * Producers menu item.
 	 */
 	PRODUCERS("Producers"),
@@ -54,7 +50,6 @@ public enum NaviItem {
 	private static ArrayList<NaviItem> menu;
 	static{
 		menu = new ArrayList<NaviItem>();
-		menu.add(DASHBOARD);
 		menu.add(PRODUCERS);
 		menu.add(THRESHOLDS);
 		menu.add(JOURNEYS);

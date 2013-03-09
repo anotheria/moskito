@@ -1,4 +1,4 @@
-package net.anotheria.moskito.webui.shared.bean;
+package net.anotheria.moskito.webui.charts.bean;
 
 /**
  * Represents an element in the chart data element.

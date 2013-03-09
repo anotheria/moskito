@@ -2,7 +2,7 @@
 %><%@ taglib uri="http://www.anotheria.net/ano-tags" prefix="msk" 
 %><?xml version="1.0" encoding="UTF-8"?>
 <data interval="<msk:write name="interval"/>" unit="<msk:write name="unit"/>">
-<msk:iterate name="data" id="entity" type="net.anotheria.moskito.webui.shared.bean.ChartDataEntityBean"
+<msk:iterate name="data" id="entity" type="net.anotheria.moskito.webui.charts.bean.ChartDataEntityBean"
  > <element>
 	<producerId><msk:write name="entity" property="producerId"/></producerId>
 	<statName><msk:write name="entity" property="statName"/></statName>

@@ -58,6 +58,9 @@ import java.util.Map;
  */
 public abstract class BaseShowProducersAction extends BaseMoskitoUIAction {
 
+	/**
+	 * Instance of the producer api.
+	 */
 	private static ProducerAPI producerAPI = APIFinder.findAPI(ProducerAPI.class);
 
 

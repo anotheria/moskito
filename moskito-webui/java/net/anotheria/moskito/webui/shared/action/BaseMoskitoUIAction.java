@@ -132,20 +132,6 @@ public abstract class BaseMoskitoUIAction implements Action{
 	public static final String PARAM_PRODUCER_ID = "pProducerId";
 
 	/**
-	 * Name parameter. Used for accumulator or threshold creation.
-	 */
-	public static final String PARAM_NAME = "pName";
-
-	/**
-	 * Name of the stat parameter. This can be a method name or url or memory-pool.
-	 */
-	public static final String PARAM_STAT_NAME = "pStatName";
-
-	/**
-	 * Name of the value parameter. Value name is something like REQ, AVG etc.
-	 */
-	public static final String PARAM_VALUE_NAME = "pValueName";
-	/**
 	 * Parameter for producer category.
 	 */
 	public static final String PARAM_CATEGORY = "pCategory";
@@ -607,10 +593,10 @@ public abstract class BaseMoskitoUIAction implements Action{
 			return source;
 		HashSet<String> paramsSet = new HashSet<String>(params.length);
 		paramsSet.addAll(Arrays.asList(params));
-		String tokens[] = StringUtils.tokenize(source, '&');
+		String[] tokens = StringUtils.tokenize(source, '&');
 		StringBuilder ret = new StringBuilder();
 		for (String t : tokens){
-			String values[] = StringUtils.tokenize(t, '=');
+			String[] values = StringUtils.tokenize(t, '=');
 			if (paramsSet.contains(values[0]))
 				continue;
 			if (ret.length()>0)
