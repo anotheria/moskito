@@ -76,6 +76,15 @@ public class MBeanWrapperBean {
 		return operations.size();
 	}
 
+	public String getAttributesInfo(){
+		return attributes.toString();
+	}
+
+	public String getOperationsInfo(){
+		return operations.toString();
+	}
+
+
 
 
 }
