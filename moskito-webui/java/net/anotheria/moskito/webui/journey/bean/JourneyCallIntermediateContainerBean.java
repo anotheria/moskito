@@ -24,12 +24,20 @@ public class JourneyCallIntermediateContainerBean {
 	 * Counter.
 	 */
 	private int counter = 0;
+
+	/**
+	 * Parent holder ;-)
+	 */
 	private final ParentHolder parentHolder = new ParentHolder();
 	
 	public JourneyCallIntermediateContainerBean(){
 		
 	}
-	
+
+	/**
+	 * Adds a new TraceStepBean.
+	 * @param step
+	 */
 	public void add(TraceStepBean step){
 		elements.add(step);
 		step.setId((counter++));
@@ -95,7 +103,7 @@ public class JourneyCallIntermediateContainerBean {
  		 */
 		private Map<Integer, Integer> parents = new HashMap<Integer, Integer>();
 		
-		private final int getParentIdByLayer(int layer, String currentId){
+		private int getParentIdByLayer(int layer, String currentId){
 			int _currentId = Integer.parseInt(currentId);
 			parents.put(layer, _currentId);
 			
