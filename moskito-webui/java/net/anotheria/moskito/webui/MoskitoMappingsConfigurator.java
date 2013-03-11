@@ -221,7 +221,7 @@ public class MoskitoMappingsConfigurator implements ActionMappingsConfigurator{
 				new ActionForward("success", "/net/anotheria/moskito/webui/more/jsp/AdditionalItems.jsp")
 		);
 		mappings.addMapping("mskConfig", ShowConfigAction.class,
-			new ActionForward("success", "/net/anotheria/moskito/webui/shared/jsp/ConfigView.jsp")
+			new ActionForward("success", "/net/anotheria/moskito/webui/more/jsp/Config.jsp")
 		);
 		mappings.addMapping("mskLibs", ShowLibsAction.class,
 				new ActionForward("success", "/net/anotheria/moskito/webui/shared/jsp/ConfigView.jsp")

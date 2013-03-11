@@ -14,6 +14,7 @@ import net.anotheria.moskito.core.threshold.ThresholdRepository;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -36,25 +37,28 @@ public class ShowConfigAction extends BaseAdditionalAction{
 		String jsonOutput = gson.toJson(config);
 
 
+
 		JsonParser jp = new JsonParser();
 		JsonElement je = jp.parse(jsonOutput);
 		String prettyJsonString = gson.toJson(je);
+		req.setAttribute("configstring", prettyJsonString);
 
-		res.getOutputStream().write(prettyJsonString.getBytes());
+
 
 
 		///thresholds
 		List<Threshold> thresholds = ThresholdRepository.getInstance().getThresholds();
+		ArrayList<String> thresholdStrings = new ArrayList<String>();
 		for (Threshold t : thresholds){
 			String jsonT = gson.toJson(t.toConfigObject());
 			JsonElement jeT = jp.parse(jsonT);
 			String prettyJsonStringT = gson.toJson(jeT);
-			res.getOutputStream().write(prettyJsonStringT.getBytes());
+			thresholdStrings.add(prettyJsonStringT);
 		}
 
-		res.getOutputStream().flush();
+		req.setAttribute("thresholdsStrings", thresholdStrings);
 
-		return null;
-		//return mapping.success();
+
+		return mapping.success();
 	}
 }
