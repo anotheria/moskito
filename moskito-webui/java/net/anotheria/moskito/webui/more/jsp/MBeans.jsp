@@ -50,14 +50,14 @@
                         <tr class="odd intable">
                             <td valign="top">Attributes:&nbsp;</td>
                             <td colspan="5">
-                            <table cellpadding="0" cellspacing="0" width="100%">
+                            <table cellpadding="0" cellspacing="0">
                                 <thead>
                                 <tr>
-                                    <th>Name</th>
-                                    <th>Type</th>
-                                    <th>Description</th>
-                                    <th>Read</th>
-                                    <th>Write</th>
+                                    <th width="200">Name</th>
+                                    <th width="200">Type</th>
+                                    <th width="500">Description</th>
+                                    <th width="100">Read</th>
+                                    <th width="100">Write</th>
                                 </tr>
                                 </thead>
                                 <tbody>

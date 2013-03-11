@@ -128,10 +128,11 @@ a:hover {text-decoration:none; color:#55cc00; cursor:pointer;}
 .table_itseft .in table th {background:white;}
 .table_itseft .in table th a.up {padding-right:15px; background:url(<ano:write name="mskPathToImages" scope="application"/>bgs.gif) 100% -1040px no-repeat;}
 .table_itseft .in table th a.down {padding-right:15px; background:url(<ano:write name="mskPathToImages" scope="application"/>bgs.gif) 100% -1015px no-repeat;}
-.table_itseft .in table tr.even td {background:#f7f7f7; //background:f7f7f7;}
-.table_itseft .in table tr.odd td {background:white;} 
-.table_itseft .in table tr:hover td, .table_itseft .in table tr.active td, .table_itseft .in table tr.hover_it td  {background:#e1eefa;}
-.table_itseft .in table tr.intable:hover td {background: none;}
+.table_itseft .in table tr.even td {background-color:#f7f7f7; //background:f7f7f7;}
+.table_itseft .in table tr.odd td {background-color:white;}
+.table_itseft .in table tr:hover td, .table_itseft .in table tr.active td, .table_itseft .in table tr.hover_it td  {background-color:#e1eefa;}
+.table_itseft .in table tr.intable:hover td {background-color: #FFF;}
+.table_itseft .in table tr.intable:hover tr:hover td {background-color: #e1eefa;}
 
 table.producer_filter_data_table tbody td:hover {
     background: #D7E9CA!important;
@@ -1400,7 +1401,25 @@ code
     display: none;
 }
 
+.odd.intable > td:first-child
+{
+    padding-left: 25px;
+}
+
 tr.intree
 {
     cursor: pointer;
+}
+
+tr.intree > td:first-child
+{
+    background-image: url('<ano:write name="mskPathToImages" scope="application"/>toggle-expand-dark.png');
+    background-repeat: no-repeat;
+    background-position: 6px 5px;
+    padding-left: 25px;
+}
+
+tr.intree.active > td:first-child
+{
+    background-image: url('<ano:write name="mskPathToImages" scope="application"/>toggle-collapse-dark.png');
 }
