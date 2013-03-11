@@ -28,8 +28,8 @@
 					<table cellpadding="0" cellspacing="0" width="100%">
 						<thead>
 						<tr>
-							<th>Description</th>
 							<th>Domain</th>
+							<th>Description</th>
 							<th>Class</th>
 							<th>Attributes</th>
 							<th>Operations</th>
