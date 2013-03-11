@@ -62,7 +62,7 @@ a:hover {text-decoration:none; color:#55cc00; cursor:pointer;}
     /*THREADS*/
 .main_menu_threads {position: relative;}
 
-.top ul li.main_menu_threads .sub_menu {left: -50%; margin-right: -200px; border-top: 1px solid #BEBEBE;}
+.top ul li.main_menu_threads .sub_menu {left: -50%; margin-right: -200px;}
 
 .top ul li.active.main_menu_threads .over_color {
     display: none;
@@ -121,7 +121,7 @@ a:hover {text-decoration:none; color:#55cc00; cursor:pointer;}
 .table_itseft .bot .left {background:url(<ano:write name="mskPathToImages" scope="application"/>bgs.gif) 0 -960px no-repeat;}
 .table_itseft .bot .right {background:url(<ano:write name="mskPathToImages" scope="application"/>bgs.gif) 100% -979px no-repeat;}
 .table_itseft .in table {border-collapse:collapse;}
-.table_itseft .in table td, .table_itseft .in table th {text-align:left; font-size:1.2em; padding:5px 5px 5px 5px; white-space:nowrap;}
+.table_itseft .in table td, .table_itseft .in table th {text-align:left; font-size:12px; padding:5px 5px 5px 5px; white-space:nowrap;}
 .table_itseft .in table td {padding-right:25px;}
 .table_itseft .in table th a {color:black; padding-right:15px;}
 .table_itseft .in table th a:hover {padding-right:15px; background:url(<ano:write name="mskPathToImages" scope="application"/>bgs.gif) 100% -1015px no-repeat;}
@@ -130,7 +130,8 @@ a:hover {text-decoration:none; color:#55cc00; cursor:pointer;}
 .table_itseft .in table th a.down {padding-right:15px; background:url(<ano:write name="mskPathToImages" scope="application"/>bgs.gif) 100% -1015px no-repeat;}
 .table_itseft .in table tr.even td {background:#f7f7f7; //background:f7f7f7;}
 .table_itseft .in table tr.odd td {background:white;} 
-.table_itseft .in table tr:hover td, .table_itseft .in table tr.hover_it td  {background:#e1eefa;}
+.table_itseft .in table tr:hover td, .table_itseft .in table tr.active td, .table_itseft .in table tr.hover_it td  {background:#e1eefa;}
+.table_itseft .in table tr.intable:hover td {background: none;}
 
 table.producer_filter_data_table tbody td:hover {
     background: #D7E9CA!important;
@@ -1392,4 +1393,14 @@ code
     top: 0px;
     right: 0px;
     margin: 0px;
+}
+
+.odd.intable
+{
+    display: none;
+}
+
+tr.intree
+{
+    cursor: pointer;
 }

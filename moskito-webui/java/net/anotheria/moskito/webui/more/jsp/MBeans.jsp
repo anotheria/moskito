@@ -38,7 +38,7 @@
 						</thead>
 						<tbody>
 						<ano:iterate name="mbeans" type="net.anotheria.moskito.webui.more.bean.MBeanWrapperBean" id="mbean" indexId="index">
-                        <tr class="even">
+                        <tr class="<%= ((index & 1) == 0 )? "even" : "odd" %> intree">
                             <td><ano:write name="mbean" property="domain"/></td>
                             <td><ano:write name="mbean" property="description"/></td>
                             <td><ano:write name="mbean" property="className"/></td>
@@ -47,7 +47,7 @@
                             <td><ano:write name="mbean" property="canonicalName"/></td>
                         </tr>
                         <ano:greaterThan name="mbean" property="attributesCount" value="0">
-                        <tr class="odd">
+                        <tr class="odd intable">
                             <td valign="top">Attributes:&nbsp;</td>
                             <td colspan="5">
                             <table cellpadding="0" cellspacing="0" width="100%">
@@ -100,8 +100,17 @@
 		</div>
 	</div>
 	<div class="clear"><!-- --></div>
-<jsp:include page="Footer.jsp" flush="false" />
-</div>	
+    <jsp:include page="../../shared/jsp/Footer.jsp" flush="false" />
+</div>
+<script type="text/javascript" src="../js/jquery-1.8.0.min.js"></script>
+<script type="text/javascript">
+    $(function() {
+        $("table tr.intree").click(function(){
+            $(this).next("tr.intable").toggle();
+            $(this).toggleClass("active");
+        });
+    });
+</script>
 </body>
 </html>
 
