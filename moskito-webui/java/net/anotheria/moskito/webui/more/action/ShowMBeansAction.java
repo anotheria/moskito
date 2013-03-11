@@ -4,6 +4,8 @@ import net.anotheria.maf.action.ActionCommand;
 import net.anotheria.maf.action.ActionMapping;
 import net.anotheria.maf.bean.FormBean;
 import net.anotheria.moskito.webui.more.bean.MBeanWrapperBean;
+import net.anotheria.util.sorter.DummySortType;
+import net.anotheria.util.sorter.StaticQuickSorter;
 
 import javax.management.MBeanInfo;
 import javax.management.MBeanServer;
@@ -39,6 +41,7 @@ public class ShowMBeansAction extends AdditionalSectionAction{
 				bean.setDomain(name.getDomain());
 				bean.setCanonicalName(name.getCanonicalName());
 
+
 				MBeanInfo info = ManagementFactory.getPlatformMBeanServer().getMBeanInfo(name);
 				if (info!=null){
 					bean.setDescription(info.getDescription());
@@ -50,6 +53,7 @@ public class ShowMBeansAction extends AdditionalSectionAction{
 		}
 
 		req.setAttribute("mbeansCount", beans.size());
+		beans = StaticQuickSorter.sort(beans, new DummySortType());
 		req.setAttribute("mbeans", beans);
 
 		return mapping.success();

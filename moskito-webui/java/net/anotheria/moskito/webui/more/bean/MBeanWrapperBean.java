@@ -1,23 +1,44 @@
 package net.anotheria.moskito.webui.more.bean;
 
+import net.anotheria.util.BasicComparable;
+import net.anotheria.util.sorter.IComparable;
+
 import javax.management.MBeanAttributeInfo;
 import javax.management.MBeanOperationInfo;
 import java.util.Collections;
 import java.util.List;
 
 /**
- * TODO comment this class
+ * Wrapper for mbean that contains multiple information pieces relevant for mbean view.
  *
  * @author lrosenberg
  * @since 11.03.13 12:31
  */
-public class MBeanWrapperBean {
+public class MBeanWrapperBean implements IComparable<MBeanWrapperBean>{
+	/**
+	 * Name of the implementing class.
+	 */
 	private String className;
+	/**
+	 * Description of the mbean.
+	 */
 	private String description;
+	/**
+	 * Attributes of the mbean.
+	 */
 	private List<MBeanAttributeInfo> attributes = Collections.emptyList();
+	/**
+	 * Operations of the mbean.
+	 */
 	private List<MBeanOperationInfo> operations = Collections.emptyList();
+	/**
+	 * Domain of the mbean.
+	 */
 	private String domain;
 
+	/**
+	 * Name.
+	 */
 	private String canonicalName;
 
 	public String getClassName() {
@@ -85,6 +106,8 @@ public class MBeanWrapperBean {
 	}
 
 
-
-
+	@Override
+	public int compareTo(IComparable<? extends MBeanWrapperBean> iComparable, int i) {
+		return BasicComparable.compareString(getDomain(), ((MBeanWrapperBean)iComparable).getDomain());
+	}
 }
