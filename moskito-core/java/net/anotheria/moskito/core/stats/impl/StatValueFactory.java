@@ -38,6 +38,7 @@ import net.anotheria.moskito.core.stats.IValueHolderFactory;
 import net.anotheria.moskito.core.stats.Interval;
 import net.anotheria.moskito.core.stats.StatValue;
 import net.anotheria.moskito.core.stats.StatValueTypes;
+import net.anotheria.moskito.core.stats.TypeAwareStatValue;
 
 /**
  * This factory creates StatValue instances.
@@ -66,9 +67,9 @@ public class StatValueFactory {
 	 * @param aIntervals the list of Intervals to be used
 	 * @return the StatValue instance
 	 */
-	public static StatValue createStatValue(StatValueTypes aType, String aName, Interval[] aIntervals) {
+	public static TypeAwareStatValue createStatValue(StatValueTypes aType, String aName, Interval[] aIntervals) {
 		IValueHolderFactory valueHolderFactory = StatValueTypeUtility.createValueHolderFactory(aType);
-		StatValue value = new StatValueImpl(aName, valueHolderFactory);
+		TypeAwareStatValue value = new TypeAwareStatValueImpl(aName, aType, valueHolderFactory);
 		// now we have to add the Intervals to the new value....
 		for (int i = 0; i < aIntervals.length; i++) {
 			value.addInterval(aIntervals[i]);

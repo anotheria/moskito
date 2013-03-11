@@ -190,7 +190,13 @@ public abstract class BaseShowProducersAction extends BaseMoskitoUIAction {
 					pb.setValues(values);
 					for (StatValueBean valueBean : values){
 						String graphKey = decorator.getName()+"_"+valueBean.getName();
-						graphData.get(graphKey).addValue(new GraphDataValueBean(p.getProducerId(), valueBean.getRawValue()));
+						GraphDataBean bean = graphData.get(graphKey); 
+						if (bean==null) {
+						    // FIXME!
+						    System.out.println("unable to find bean for key: " + graphKey);
+						} else {
+						    bean.addValue(new GraphDataValueBean(p.getProducerId(), valueBean.getRawValue()));
+						}
 					}
 					pbs.add(pb);
 				}catch(UnknownIntervalException e){

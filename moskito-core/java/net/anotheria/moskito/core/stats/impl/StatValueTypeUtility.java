@@ -63,6 +63,10 @@ final class StatValueTypeUtility {
 	 * Factory instance for counter values.
 	 */
 	private static CounterValueHolderFactory counterValueHolderFactory = new CounterValueHolderFactory(); 
+    /**
+     * Factory instance for double values.
+     */
+    private static DoubleValueHolderFactory doubleValueHolderFactory = new DoubleValueHolderFactory();
 	
 	/**
 	 * This method creates the responsible ValueHolderFactory from the given internal type representation.
@@ -81,6 +85,8 @@ final class StatValueTypeUtility {
 			return stringValueHolderFactory;
 		case COUNTER:
 			return counterValueHolderFactory;
+		case DOUBLE:
+		    return doubleValueHolderFactory;
 		default:
 			throw new AssertionError("Unsupported type: " + aType);
 		}
@@ -99,6 +105,8 @@ final class StatValueTypeUtility {
 			return StatValueTypes.INT;
 		if (anObject instanceof String)
 			return StatValueTypes.STRING;
+		if (anObject instanceof Double)
+		    return StatValueTypes.DOUBLE;
 		throw new AssertionError("Invalid class for object2type mapping: "	+ anObject.getClass());
 	}
 
