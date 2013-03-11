@@ -41,6 +41,12 @@ public class MBeanWrapperBean implements IComparable<MBeanWrapperBean>{
 	 */
 	private String canonicalName;
 
+
+	/**
+	 * Mbean type property which actually corresponds with a human-understandable name.
+	 */
+	private String type = "";
+
 	public String getClassName() {
 		return className;
 	}
@@ -105,9 +111,19 @@ public class MBeanWrapperBean implements IComparable<MBeanWrapperBean>{
 		return operations.toString();
 	}
 
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
 
 	@Override
 	public int compareTo(IComparable<? extends MBeanWrapperBean> iComparable, int i) {
-		return BasicComparable.compareString(getDomain(), ((MBeanWrapperBean)iComparable).getDomain());
+		int domainCompare = BasicComparable.compareString(getDomain(), ((MBeanWrapperBean)iComparable).getDomain());
+		return domainCompare == 0 ?
+				BasicComparable.compareString(getType(), ((MBeanWrapperBean)iComparable).getType()) :
+				domainCompare;
 	}
 }

@@ -40,7 +40,10 @@ public class ShowMBeansAction extends AdditionalSectionAction{
 				ObjectName name = oi.getObjectName();
 				bean.setDomain(name.getDomain());
 				bean.setCanonicalName(name.getCanonicalName());
-
+				String type = name.getKeyProperty("type");
+				if (type!=null){
+					bean.setType(type);
+				}
 
 				MBeanInfo info = ManagementFactory.getPlatformMBeanServer().getMBeanInfo(name);
 				if (info!=null){

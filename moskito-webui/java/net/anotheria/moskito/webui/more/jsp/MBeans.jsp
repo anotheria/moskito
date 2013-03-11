@@ -29,6 +29,7 @@
 						<thead>
 						<tr>
 							<th>Domain</th>
+                            <th>Type</th>
 							<th>Description</th>
 							<th>Class</th>
 							<th>Attributes</th>
@@ -40,6 +41,7 @@
 						<ano:iterate name="mbeans" type="net.anotheria.moskito.webui.more.bean.MBeanWrapperBean" id="mbean" indexId="index">
                         <tr class="<%= ((index & 1) == 0 )? "even" : "odd" %> intree">
                             <td><ano:write name="mbean" property="domain"/></td>
+                            <td><ano:write name="mbean" property="type"/></td>
                             <td><ano:write name="mbean" property="description"/></td>
                             <td><ano:write name="mbean" property="className"/></td>
                             <td><ano:write name="mbean" property="attributesCount"/></td>
@@ -49,7 +51,7 @@
                         <ano:greaterThan name="mbean" property="attributesCount" value="0">
                         <tr class="odd intable">
                             <td valign="top">Attributes:&nbsp;</td>
-                            <td colspan="5">
+                            <td colspan="6">
                             <table cellpadding="0" cellspacing="0">
                                 <thead>
                                 <tr>
