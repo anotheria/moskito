@@ -28,16 +28,16 @@
 			<h2>Current configuration</h2>
 
 			<div>
-            <textarea id="configstring-area" rows="50" cols="80">
-                JSON.stringify('');
-            </textarea>
+                <pre><ano:write name="configstring"/></pre>
             </div>
+            <%--
                <script type="text/javascript">
                    $().ready(function() {
                        var configstringJSON = $("#configstring-json").html();
                        $("#configstring-area").text(JSON.stringify(configstringJSON));
                    });
                </script>
+            --%>
 		</div>
 		<div class="bot">
 			<div><!-- --></div>
@@ -50,14 +50,11 @@
         </div>
         <div class="add_in">
             <h2>Configured thresholds</h2>
-
-            <div>
-                <textarea rows="50" cols="80">
-                    JSON.stringify('');
-                </textarea>
-
-            </div>
-
+            <ano:iterate name="thresholdsStrings" id="t">
+                <div>
+                    <pre><ano:write name="t"/></pre>
+                </div>
+            </ano:iterate>
         </div>
         <div class="bot">
             <div><!-- --></div>
