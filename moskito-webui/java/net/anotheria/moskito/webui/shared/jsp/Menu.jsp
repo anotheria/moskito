@@ -102,24 +102,29 @@
 						</div>
 						<div class="over_color"><div><!-- --></div></div>
                     </li>
-                    <%--<li class="main_menu_threads <ano:equal name="currentNaviItem" value="MORE">active</ano:equal>">
-                        <a href="mskMore">More</a>
+                    <li class="main_menu_threads <ano:equal name="currentNaviItem" value="MORE">active</ano:equal>">
+                        <a href="mskMore" class="threads"><i></i>More</a>
                         <div class="sub_menu">
                             <ul>
                                 <li class="separator">
                                     <a href="mskConfig">Config</a>
+                                    <span class="vline"></span>
+                                </li>
+                                <li class="separator">
+                                    <a href="mskMBeans">MBeans</a>
+                                    <span class="vline"></span>
                                 </li>
                                 <li class="separator">
                                     <a href="mskLibs">Libs</a>
+                                    <span class="vline"></span>
                                 </li>
                                 <li>
-                                    <a href="mskUpdate">Update</a>
+                                    <a href="#">Update</a>
                                 </li>
-                                <div class="clear"><!-- --></div>
                             </ul>
                         </div>
                         <div class="over_color"><div><!-- --></div></div>
-                    </li>--%>
+                    </li>
 
                 </ul>
 				<div class="right"></div>

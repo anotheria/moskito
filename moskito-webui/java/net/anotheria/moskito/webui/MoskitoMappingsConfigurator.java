@@ -4,27 +4,28 @@ import net.anotheria.maf.action.ActionForward;
 import net.anotheria.maf.action.ActionMappings;
 import net.anotheria.maf.action.ActionMappingsConfigurator;
 import net.anotheria.maf.action.CommandRedirect;
-import net.anotheria.moskito.webui.journey.action.AnalyzeJourneyAction;
-import net.anotheria.moskito.webui.shared.action.ForceIntervalUpdateAction;
-import net.anotheria.moskito.webui.producers.action.InspectProducerAction;
-import net.anotheria.moskito.webui.producers.action.ShowAllProducersAction;
-import net.anotheria.moskito.webui.shared.action.ShowExplanationsAction;
-import net.anotheria.moskito.webui.journey.action.ShowJourneyAction;
-import net.anotheria.moskito.webui.journey.action.ShowJourneyCallAction;
-import net.anotheria.moskito.webui.journey.action.ShowJourneysAction;
-import net.anotheria.moskito.webui.producers.action.ShowProducerAction;
-import net.anotheria.moskito.webui.producers.action.ShowProducersForCategoryAction;
-import net.anotheria.moskito.webui.producers.action.ShowProducersForSubsystemAction;
 import net.anotheria.moskito.webui.accumulators.action.CreateAccumulatorAction;
 import net.anotheria.moskito.webui.accumulators.action.DeleteAccumulatorAction;
 import net.anotheria.moskito.webui.accumulators.action.ShowAccumulatorAction;
 import net.anotheria.moskito.webui.accumulators.action.ShowAccumulatorsAction;
-import net.anotheria.moskito.webui.more.action.AdditionalSectionAction;
-import net.anotheria.moskito.webui.more.action.ShowConfigAction;
-import net.anotheria.moskito.webui.more.action.ShowLibsAction;
 import net.anotheria.moskito.webui.charts.action.GetChartDataAction;
 import net.anotheria.moskito.webui.charts.action.GetChartMetaDataAction;
 import net.anotheria.moskito.webui.charts.action.ShowChartsAction;
+import net.anotheria.moskito.webui.journey.action.AnalyzeJourneyAction;
+import net.anotheria.moskito.webui.journey.action.ShowJourneyAction;
+import net.anotheria.moskito.webui.journey.action.ShowJourneyCallAction;
+import net.anotheria.moskito.webui.journey.action.ShowJourneysAction;
+import net.anotheria.moskito.webui.more.action.AdditionalSectionAction;
+import net.anotheria.moskito.webui.more.action.ShowConfigAction;
+import net.anotheria.moskito.webui.more.action.ShowLibsAction;
+import net.anotheria.moskito.webui.more.action.ShowMBeansAction;
+import net.anotheria.moskito.webui.producers.action.InspectProducerAction;
+import net.anotheria.moskito.webui.producers.action.ShowAllProducersAction;
+import net.anotheria.moskito.webui.producers.action.ShowProducerAction;
+import net.anotheria.moskito.webui.producers.action.ShowProducersForCategoryAction;
+import net.anotheria.moskito.webui.producers.action.ShowProducersForSubsystemAction;
+import net.anotheria.moskito.webui.shared.action.ForceIntervalUpdateAction;
+import net.anotheria.moskito.webui.shared.action.ShowExplanationsAction;
 import net.anotheria.moskito.webui.threads.action.HistoryOffAction;
 import net.anotheria.moskito.webui.threads.action.HistoryOnAction;
 import net.anotheria.moskito.webui.threads.action.SetHistoryListSizeAction;
@@ -35,9 +36,9 @@ import net.anotheria.moskito.webui.threads.action.ThreadsListAction;
 import net.anotheria.moskito.webui.threads.action.ThreadsOverviewAction;
 import net.anotheria.moskito.webui.threshold.action.CreateThresholdAction;
 import net.anotheria.moskito.webui.threshold.action.DeleteThresholdAction;
+import net.anotheria.moskito.webui.threshold.action.EditThresholdAction;
 import net.anotheria.moskito.webui.threshold.action.ShowThresholdsAction;
 import net.anotheria.moskito.webui.threshold.action.UpdateThresholdAction;
-import net.anotheria.moskito.webui.threshold.action.EditThresholdAction;
 
 /**
  * Mappings configurator for MoSKito project for the AnoMaf framework.
@@ -224,6 +225,9 @@ public class MoskitoMappingsConfigurator implements ActionMappingsConfigurator{
 		);
 		mappings.addMapping("mskLibs", ShowLibsAction.class,
 				new ActionForward("success", "/net/anotheria/moskito/webui/shared/jsp/ConfigView.jsp")
+		);
+		mappings.addMapping("mskMBeans", ShowMBeansAction.class,
+				new ActionForward("success", "/net/anotheria/moskito/webui/more/jsp/MBeans.jsp")
 		);
 
 		//errors
