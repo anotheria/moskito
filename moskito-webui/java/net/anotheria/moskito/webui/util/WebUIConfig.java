@@ -3,6 +3,9 @@ package net.anotheria.moskito.webui.util;
 import org.configureme.ConfigurationManager;
 import org.configureme.annotations.ConfigureMe;
 
+/**
+ * Configuration class for web user interface config.
+ */
 @ConfigureMe(name="mskwebui", allfields=true)
 public class WebUIConfig {
 	/**

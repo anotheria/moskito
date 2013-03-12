@@ -6,6 +6,11 @@ import org.apache.log4j.Logger;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 
+/**
+ * Configures preconfigured accumulators and adds them to the running app.
+ * Since this is a ServletContextListener, it can be simply added as listener to any webapp:
+ * <listener-class>net.anotheria.moskito.webui.util.SetupPreconfiguredAccumulators</listener-class>.
+ */
 public class SetupPreconfiguredAccumulators implements ServletContextListener{
 	
 	private static Logger log = Logger.getLogger(SetupPreconfiguredAccumulators.class);
