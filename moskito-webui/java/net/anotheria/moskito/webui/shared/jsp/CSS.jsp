@@ -1375,28 +1375,28 @@ code
 .main_menu ul li.active:hover .threads i,
 .main_menu ul li.active .threads i
 {
-    background-position: -94px -277px;
+    background-position: -95px -227px;
 }
 
 .main_menu li:hover .threads i
 {
-    background-position: -184px -277px;
+    background-position: -185px -227px;
 }
 
 .main_menu .more i
 {
-    background-position: 0 -277px;
+    background-position: 0 -278px;
 }
 
 .main_menu ul li.active:hover .more i,
 .main_menu ul li.active .more i
 {
-    background-position: -94px -227px;
+    background-position: -95px -278px;
 }
 
 .main_menu li:hover .more i
 {
-    background-position: -184px -227px;
+    background-position: -186px -278px;
 }
 
 .top ul li .sub_menu ul li span.vline
