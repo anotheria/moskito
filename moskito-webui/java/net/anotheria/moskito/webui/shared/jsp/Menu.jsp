@@ -103,7 +103,7 @@
 						<div class="over_color"><div><!-- --></div></div>
                     </li>
                     <li class="main_menu_threads <ano:equal name="currentNaviItem" value="MORE">active</ano:equal>">
-                        <a href="mskMore" class="threads"><i></i>More</a>
+                        <a href="mskMore" class="more"><i></i>More</a>
                         <div class="sub_menu">
                             <ul>
                                 <li class="separator">
