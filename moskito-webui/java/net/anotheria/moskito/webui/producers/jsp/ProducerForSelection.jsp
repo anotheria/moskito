@@ -43,7 +43,7 @@
 	<div class="additional">
 		<div class="top"><div><!-- --></div></div>
 		<div class="add_in">
-            <form name="CreateForm" action="msk<ano:write name="target"/>Create" method="GET" class="form-inline">
+            <form name="CreateForm" action="msk<ano:write name="target"/>Create" method="get" class="form-inline">
                 <input type="hidden" name="producerId" value="<ano:write name="producer" property="id"/>"/>
                 <input type="hidden" name="target" value="<ano:write name="target"/>"/>
                 <input type="hidden" name="statName"/>

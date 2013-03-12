@@ -36,7 +36,7 @@
 	<div class="additional">
 		<div class="top"><div><!-- --></div></div>
 		<div class="add_in">
-            <form name="UpdateForm" action="mskThresholdUpdate" class="form-inline" method="GET">
+            <form name="UpdateForm" action="mskThresholdUpdate" class="form-inline" method="get">
                 <input type="hidden" name="pId" value="<ano:write name="thresholdId"/>"/>
                 <h3>Select producer for new Threshold.</h3>
                 <div class="controls">

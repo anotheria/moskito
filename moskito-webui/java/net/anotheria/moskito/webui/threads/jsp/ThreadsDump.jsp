@@ -82,7 +82,7 @@
 		</div>
 	</div>
 	<div class="clear"><!-- --></div>
-<jsp:include page="Footer.jsp" flush="false" />
+<jsp:include page="../../shared/jsp/Footer.jsp" flush="false" />
 </div>	
 </body>
 </html>

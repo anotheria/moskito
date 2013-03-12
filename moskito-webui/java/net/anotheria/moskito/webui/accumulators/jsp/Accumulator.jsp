@@ -66,7 +66,7 @@
 				</div>
 				<div class="in">
 					<div class="scroller_x">
-					<form action="" method="GET">
+					<form action="" method="get">
 						<table cellpadding="0" cellspacing="0" width="100%">
 							<thead>
 							<tr>
