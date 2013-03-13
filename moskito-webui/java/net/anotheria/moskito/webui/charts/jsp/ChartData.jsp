@@ -84,23 +84,23 @@ for some use-cases <a href="http://moskito.anotheria.net/documentation.html">mos
 			<div class="bot">
 			<div><!-- --></div>
 
-				<br><br><br>
+				<br/><br/><br/>
 				<h2>Your data in xml format (add pForward=xml to the current link)</h2>
-				<br><br>
+				<br/><br/>
 				<textarea rows="20" cols="80">
 				<jsp:include page="ChartDataXML.jsp" flush="false"/>
 				</textarea>
 				
-				<br><br><br>
+				<br/><br/><br/>
 				<h2>Your data in json format (add pForward=json to the current link)</h2>
-				<br><br>
+				<br/><br/>
 				<textarea rows="20" cols="80">
 				<jsp:include page="ChartDataJSON.jsp" flush="false"/>
 				</textarea>
 
-				<br><br><br>
+				<br/><br/><br/>
 				<h2>Your data in csv format (add pForward=csv to the current link)</h2>
-				<br><br>
+				<br/><br/>
 				<textarea rows="20" cols="80">
 				<jsp:include page="ChartDataCSV.jsp" flush="false"/>
 				</textarea>

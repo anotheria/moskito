@@ -127,6 +127,7 @@
 	<div class="clear"><!-- --></div>
 <jsp:include page="../../shared/jsp/Footer.jsp" flush="false" />
 </div>	
+</div>
 </body>
 </html>
 

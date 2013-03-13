@@ -5,7 +5,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 	<title>Moskito UseCases</title>
-<link rel="stylesheet" href="mskCSS">
+<link rel="stylesheet" href="mskCSS"/>
 </head>
 <body>
 <script type="text/javascript" src="../js/wz_tooltip.js"></script>

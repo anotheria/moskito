@@ -5,7 +5,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml"> 
 <head>
 	<title>Moskito Recorded UseCase: <msk:write name="recordedUseCase" property="name"/></title>
-<link rel="stylesheet" href="mskCSS">
+<link rel="stylesheet" href="mskCSS"/>
 </head>
 <body>
 <jsp:include page="Menu.jsp" flush="false"/>
@@ -47,14 +47,13 @@
 						</thead>	
 						<tbody>				
 							<msk:iterate name="recordedUseCase" property="elements" type="net.anotheria.moskito.webui.shared.bean.UseCasePathElementBean" id="element" indexId="index">
-								<tr>
-									<msk:equal name="element" property="aborted" value="true"><tr class="stat_error"></msk:equal>
-									<msk:notEqual name="element" property="aborted" value="true"><tr class="<%= ((index & 1) == 0 )? "even" : "odd" %>"></msk:notEqual>
+								<msk:equal name="element" property="aborted" value="true"><tr class="stat_error"></msk:equal>
+								<msk:notEqual name="element" property="aborted" value="true"><tr class="<%= ((index & 1) == 0 )? "even" : "odd" %>"></msk:notEqual>
 									<td><% for (int i=1; i<element.getLayer(); i++){ %><img src="../img/s.gif"/><%}%><msk:equal name="element" property="root" value="false"><img src="../img/l.gif"/></msk:equal><msk:write name="element" property="call"/></td>
 									<td><msk:write name="element" property="duration"/></td>
 									<td><msk:write name="element" property="timespent"/></td>
 									<td><msk:equal name="element" property="aborted" value="true">X</msk:equal></td>
-									</tr>
+								</tr>
 							</msk:iterate>
 						</tbody>
 					</table>

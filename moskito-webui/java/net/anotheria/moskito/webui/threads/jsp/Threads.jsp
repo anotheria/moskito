@@ -15,7 +15,7 @@
 			<div><!-- --></div>
 		</div>
 		<div class="in">
-			<h2><span>Threads stats</h2>
+			<h2><span>Threads stats</span></h2>
 
 			<div class="clear"><!-- --></div>
 			<div class="table_itseft">
@@ -78,7 +78,7 @@
 			<div><!-- --></div>
 		</div>
 		<div class="in">
-			<h2><span>Threads capabilities</h2>
+			<h2><span>Threads capabilities</span></h2>
 
 			<div class="clear"><!-- --></div>
 			<div class="table_itseft">

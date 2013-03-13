@@ -51,7 +51,7 @@
 
             <h3>Select producer for new <ano:write name="target"/>.</h3>
             <div class="controls">
-                <label>Name:</label> <input type="text" value="new-<ano:write name="target"/>" name="name">
+                <label>Name:</label> <input type="text" value="new-<ano:write name="target"/>" name="name"/>
             </div>
             <div class="controls">
                 <ano:define name="currentInterval" id="currentInterval" toScope="page" type="java.lang.String"/>
@@ -81,11 +81,11 @@
             <ano:equal name="target" value="Threshold">
                 <div class="clear"><!-- --></div>
                 <div class="controls">
-                    <span><img src="<ano:write name="mskPathToImages" scope="application"/>ind_green.png"/>&nbsp; if &nbsp;<select name="greenDir" onchange="switchDirection();"><option>below</option><option>above</option></select>&nbsp;<input type="text" name="greenValue" onchange="switchgreenvalue();"> (Green)</span><br/><br/>
-                    <span><img src="<ano:write name="mskPathToImages" scope="application"/>ind_yellow.png"/>&nbsp; if &nbsp;<select name="yellowDir"><option>below</option><option selected="true">above</option></select>&nbsp;<input type="text" name="yellowValue"> (Yellow)</span><br/><br/>
-                    <span><img src="<ano:write name="mskPathToImages" scope="application"/>ind_orange.png"/>&nbsp; if &nbsp;<select name="orangeDir"><option>below</option><option selected="true">above</option></select>&nbsp;<input type="text" name="orangeValue"> (Orange)</span><br/><br/>
-                    <span><img src="<ano:write name="mskPathToImages" scope="application"/>ind_red.png"/>&nbsp; if &nbsp;<select name="redDir"><option>below</option><option selected="true">above</option></select>&nbsp;<input type="text" name="redValue"> (Red)</span><br/><br/>
-                    <span><img src="<ano:write name="mskPathToImages" scope="application"/>ind_purple.png"/>&nbsp; if &nbsp;<select name="purpleDir"><option>below</option><option selected="true">above</option></select>&nbsp;<input type="text" name="purpleValue"> (Purple)</span><br/><br/>
+                    <span><img src="<ano:write name="mskPathToImages" scope="application"/>ind_green.png"/>&nbsp; if &nbsp;<select name="greenDir" onchange="switchDirection();"><option>below</option><option>above</option></select>&nbsp;<input type="text" name="greenValue" onchange="switchgreenvalue();"/> (Green)</span><br/><br/>
+                    <span><img src="<ano:write name="mskPathToImages" scope="application"/>ind_yellow.png"/>&nbsp; if &nbsp;<select name="yellowDir"><option>below</option><option selected="selected">above</option></select>&nbsp;<input type="text" name="yellowValue"/> (Yellow)</span><br/><br/>
+                    <span><img src="<ano:write name="mskPathToImages" scope="application"/>ind_orange.png"/>&nbsp; if &nbsp;<select name="orangeDir"><option>below</option><option selected="selected">above</option></select>&nbsp;<input type="text" name="orangeValue"/> (Orange)</span><br/><br/>
+                    <span><img src="<ano:write name="mskPathToImages" scope="application"/>ind_red.png"/>&nbsp; if &nbsp;<select name="redDir"><option>below</option><option selected="selected">above</option></select>&nbsp;<input type="text" name="redValue"/> (Red)</span><br/><br/>
+                    <span><img src="<ano:write name="mskPathToImages" scope="application"/>ind_purple.png"/>&nbsp; if &nbsp;<select name="purpleDir"><option>below</option><option selected="selected">above</option></select>&nbsp;<input type="text" name="purpleValue"/> (Purple)</span><br/><br/>
                 </div>
             </ano:equal>
             </form>

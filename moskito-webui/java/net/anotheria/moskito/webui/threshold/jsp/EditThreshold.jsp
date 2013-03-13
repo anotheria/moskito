@@ -40,7 +40,7 @@
                 <input type="hidden" name="pId" value="<ano:write name="thresholdId"/>"/>
                 <h3>Select producer for new Threshold.</h3>
                 <div class="controls">
-                    Name: <input type="text" value="<ano:write name="definition" property="name"/>" name="name" size="30">
+                    Name: <input type="text" value="<ano:write name="definition" property="name"/>" name="name" size="30"/>
                 </div>
                 <div class="controls">
                     Producer: <b><ano:write name="definition" property="producerName"/></b>.
@@ -60,16 +60,16 @@
                 <ano:equal name="target" value="Threshold">
                     <div class="clear"><!-- --></div>
                     <div class="controls">
-                        <span><img src="<ano:write name="mskPathToImages" scope="application"/>ind_green.png"/>&nbsp; if &nbsp;<select name="greenDir" onchange="switchDirection();"><option>below</option><option>above</option></select>&nbsp;<input type="text" name="greenValue" onchange="switchgreenvalue();" value="<ano:write name="GREEN"/>"> (Green)</span><br/><br/>
-                        <span><img src="<ano:write name="mskPathToImages" scope="application"/>ind_yellow.png"/>&nbsp; if &nbsp;<select name="yellowDir"><option>below</option><option selected="true">above</option></select>&nbsp;<input type="text" name="yellowValue" value="<ano:write name="YELLOW"/>"> (Yellow)</span><br/><br/>
-                        <span><img src="<ano:write name="mskPathToImages" scope="application"/>ind_orange.png"/>&nbsp; if &nbsp;<select name="orangeDir"><option>below</option><option selected="true">above</option></select>&nbsp;<input type="text" name="orangeValue" value="<ano:write name="ORANGE"/>"> (Orange)</span><br/><br/>
-                        <span><img src="<ano:write name="mskPathToImages" scope="application"/>ind_red.png"/>&nbsp; if &nbsp;<select name="redDir"><option>below</option><option selected="true">above</option></select>&nbsp;<input type="text" name="redValue" value="<ano:write name="RED"/>"> (Red)</span><br/><br/>
-                        <span><img src="<ano:write name="mskPathToImages" scope="application"/>ind_purple.png"/>&nbsp; if &nbsp;<select name="purpleDir"><option>below</option><option selected="true">above</option></select>&nbsp;<input type="text" name="purpleValue" value="<ano:write name="PURPLE"/>"> (Purple)</span>
+                        <span><img src="<ano:write name="mskPathToImages" scope="application"/>ind_green.png"/>&nbsp; if &nbsp;<select name="greenDir" onchange="switchDirection();"><option>below</option><option>above</option></select>&nbsp;<input type="text" name="greenValue" onchange="switchgreenvalue();" value="<ano:write name="GREEN"/>"/> (Green)</span><br/><br/>
+                        <span><img src="<ano:write name="mskPathToImages" scope="application"/>ind_yellow.png"/>&nbsp; if &nbsp;<select name="yellowDir"><option>below</option><option selected="selected">above</option></select>&nbsp;<input type="text" name="yellowValue" value="<ano:write name="YELLOW"/>"/> (Yellow)</span><br/><br/>
+                        <span><img src="<ano:write name="mskPathToImages" scope="application"/>ind_orange.png"/>&nbsp; if &nbsp;<select name="orangeDir"><option>below</option><option selected="selected">above</option></select>&nbsp;<input type="text" name="orangeValue" value="<ano:write name="ORANGE"/>"/> (Orange)</span><br/><br/>
+                        <span><img src="<ano:write name="mskPathToImages" scope="application"/>ind_red.png"/>&nbsp; if &nbsp;<select name="redDir"><option>below</option><option selected="selected">above</option></select>&nbsp;<input type="text" name="redValue" value="<ano:write name="RED"/>"/> (Red)</span><br/><br/>
+                        <span><img src="<ano:write name="mskPathToImages" scope="application"/>ind_purple.png"/>&nbsp; if &nbsp;<select name="purpleDir"><option>below</option><option selected="selected">above</option></select>&nbsp;<input type="text" name="purpleValue" value="<ano:write name="PURPLE"/>"/> (Purple)</span>
                     </div>
                 </ano:equal>
                 <div class="clear"><!-- --></div>
                 <div class="controls">
-                    <input type="button" value="Update" class="btn" onclick="document.forms.UpdateForm.submit(); return false">
+                    <input type="button" value="Update" class="btn" onclick="document.forms.UpdateForm.submit(); return false"/>
                 </div>
             </form>
         </div>
@@ -77,7 +77,6 @@
 	</div>
 	<div class="clear"><!-- --></div>
 	<div class="bot"><div><!-- --></div></div>
-	</div>
 </div>
 </body>
 </html>

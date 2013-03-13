@@ -6,8 +6,8 @@
 <head>
 	<title>MoSKito Recorded Journey Call: <ano:write name="recordedUseCase" property="name"/></title>
 	<link rel="stylesheet" href="mskCSS"/>
-<ano:define id="IMG" type="java.lang.String"><img src="<ano:write name="mskPathToImages" scope="application"/>msk_l.gif" border="0" alt=""></ano:define
-><ano:define id="EMPTY" type="java.lang.String"><img src="<ano:write name="mskPathToImages" scope="application"/>msk_s.gif" border="0" alt=""></ano:define
+<ano:define id="IMG" type="java.lang.String"><img src="<ano:write name="mskPathToImages" scope="application"/>msk_l.gif" border="0" alt=""/></ano:define
+><ano:define id="EMPTY" type="java.lang.String"><img src="<ano:write name="mskPathToImages" scope="application"/>msk_s.gif" border="0" alt=""/></ano:define
 >
 
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.js"></script>
@@ -222,41 +222,43 @@
 					<div class="in">
 				
 					
-					<table class="journeys_summary_table" cellpadding="0" cellspacing="0" width="100%">
-					<thead>
-							<tr class="stat_header">
-								<th>Duplicate (<ano:write name="dupStepBeansSize"/>)</th>
-                                <th><button class="deselect_all_journey_positions">Reset</button></th>
-                                <th>Calls</th>
-								<th>Positions</th>
-								<th>Time / Duration</th>
-							</tr>
-					</thead>
-					<tbody>
-							<ano:iterate name="dupStepBeans" type="net.anotheria.moskito.webui.journey.bean.JourneyCallDuplicateStepBean" id="dupStep" indexId="index">
-							 <tr>
-							 	<td><ano:write name="dupStep" property="call"/></td>
-                                <td><input type="checkbox" class="select_current_row_positions_checkbox" value=""/></td>
-                                <td><ano:write name="dupStep" property="numberOfCalls"/></td>
-							 	<td class="journeys_summary_table_positions_list" style="white-space: normal;">
-							 		<ano:iterate name="dupStep" property="positions" type="java.lang.String" id="position"><a href="#<ano:write name="position"/>"><ano:write name="position"/></a> </ano:iterate>
-							 	</td>
-							 	<td><ano:write name="dupStep" property="timespent"/> / <ano:write name="dupStep" property="duration"/></td>
-							 </tr>
-							</ano:iterate>
-					</tbody>
-					</table>
-					
-			
-					<div class="clear"><!-- --></div>
-				</div>
-				<div class="bot">
-					<div class="left"><!-- --></div>
-					<div class="right"><!-- --></div>
+						<table class="journeys_summary_table" cellpadding="0" cellspacing="0" width="100%">
+						<thead>
+								<tr class="stat_header">
+									<th>Duplicate (<ano:write name="dupStepBeansSize"/>)</th>
+	                                <th><button class="deselect_all_journey_positions">Reset</button></th>
+	                                <th>Calls</th>
+									<th>Positions</th>
+									<th>Time / Duration</th>
+								</tr>
+						</thead>
+						<tbody>
+								<ano:iterate name="dupStepBeans" type="net.anotheria.moskito.webui.journey.bean.JourneyCallDuplicateStepBean" id="dupStep" indexId="index">
+								 <tr>
+								 	<td><ano:write name="dupStep" property="call"/></td>
+	                                <td><input type="checkbox" class="select_current_row_positions_checkbox" value=""/></td>
+	                                <td><ano:write name="dupStep" property="numberOfCalls"/></td>
+								 	<td class="journeys_summary_table_positions_list" style="white-space: normal;">
+								 		<ano:iterate name="dupStep" property="positions" type="java.lang.String" id="position"><a href="#<ano:write name="position"/>"><ano:write name="position"/></a> </ano:iterate>
+								 	</td>
+								 	<td><ano:write name="dupStep" property="timespent"/> / <ano:write name="dupStep" property="duration"/></td>
+								 </tr>
+								</ano:iterate>
+						</tbody>
+						</table>
+						
+				
+						<div class="clear"><!-- --></div>
+					</div>
+					<div class="bot">
+						<div class="left"><!-- --></div>
+						<div class="right"><!-- --></div>
+					</div>
 				</div>
 			</div>
 		</div>
 	</ano:present>
+</div>
 </div>
 </body>
 </html>

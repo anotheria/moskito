@@ -155,14 +155,14 @@
 						<ano:equal name="sortType" property="ASC" value="true">
 							<a 	class="down" title="descending resort by <ano:write name="caption" property="shortExplanationLowered"/>"
 								href="<ano:write name="linkToCurrentPage"/>&amp;<ano:write name="decorator" property="sortByParameterName"/>=<ano:write name="ind"/>&amp;<ano:write name="decorator" property="sortOrderParameterName"/>=DESC"><ano:write name="caption" property="caption"/></a><a href="#"
-																								 onClick="lightbox($(this));"
+																								 onclick="lightbox($(this));"
 																								 class="chart"
 																								 title="chart">&nbsp;&nbsp;&nbsp;</a>
 						</ano:equal>
 						<ano:equal name="sortType" property="DESC" value="true">
 							<a 	class="up" title="ascending resort by <ano:write name="caption" property="shortExplanationLowered"/>"
 								href="<ano:write name="linkToCurrentPage"/>&amp;<ano:write name="decorator" property="sortByParameterName"/>=<ano:write name="ind"/>&amp;<ano:write name="decorator" property="sortOrderParameterName"/>=ASC"><ano:write name="caption" property="caption"/></a><a href="#"
-																								 onClick="lightbox($(this));"
+																								 onclick="lightbox($(this));"
 																								 class="chart"
 																								 title="chart">&nbsp;&nbsp;&nbsp;</a>
 						</ano:equal>
@@ -170,7 +170,7 @@
 					<ano:notEqual name="sortType" property="sortBy" value="<%=\"\"+ind%>">
 						<a 	class="" title="ascending sort by <ano:write name="caption" property="shortExplanationLowered"/>"
 							href="<ano:write name="linkToCurrentPage"/>&amp;<ano:write name="decorator" property="sortByParameterName"/>=<ano:write name="ind"/>&amp;<ano:write name="decorator" property="sortOrderParameterName"/>=ASC"><ano:write name="caption" property="caption"/></a><a href="#"
-																								 onClick="lightbox($(this));"
+																								 onclick="lightbox($(this));"
 																								 class="chart"
 																								 title="chart">&nbsp;&nbsp;&nbsp;</a>
 					</ano:notEqual>
