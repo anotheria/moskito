@@ -96,7 +96,6 @@ public class ShowLibsAction extends BaseAdditionalAction{
 	}
 
 	private List<URL> getClassPathUrlsForTomcat(final String context, final String contextPropertyName){
-		System.out.println("checking class path urls for tomcat "+context);
 		List<MBeanServer> servers = MBeanServerFactory.findMBeanServer(null);
 		for (MBeanServer s : servers){
 			Set<ObjectInstance> instances = s.queryMBeans(null, new QueryExp() {
@@ -109,7 +108,6 @@ public class ShowLibsAction extends BaseAdditionalAction{
 						return false;
 					if (!name.getKeyProperty(contextPropertyName).equals(context))
 						return false;
-					System.out.println("Found - "+name);
 					return true;
 				}
 
