@@ -21,7 +21,7 @@
 									<li class="separator">
 										<span>Interval:</span>
 										<select onchange="javascript:handleSelect(this)">									
-								 			<jsp:include page="IntervalSelection.jsp" flush="false" />			
+								 			<jsp:include page="../../producers/jsp/IntervalSelection.jsp" flush="false" />
 										</select>
                                         <span class="vline"></span>
 									</li>
@@ -30,7 +30,7 @@
 									<li class="separator">	
 										<span>Unit:</span>
 										<select onchange="javascript:handleSelect(this)">									
-											<jsp:include page="UnitSelection.jsp" flush="false" />
+											<jsp:include page="../../producers/jsp/UnitSelection.jsp" flush="false" />
 										</select>
                                         <span class="vline"></span>
 									</li>
@@ -39,7 +39,7 @@
 									<li class="separator">								
 										<span>Category:</span>
 										<select onchange="javascript:handleSelect(this)">
-											<jsp:include page="CategorySelection.jsp" flush="false" />
+											<jsp:include page="../../producers/jsp/CategorySelection.jsp" flush="false" />
 										</select>
                                         <span class="vline"></span>
 									</li>
@@ -48,7 +48,7 @@
 									<li class="separator">
 										<span>Subsystem:</span>
 										<select onchange="javascript:handleSelect(this)">
-											<jsp:include page="SubsystemSelection.jsp" flush="false" />
+											<jsp:include page="../../producers/jsp/SubsystemSelection.jsp" flush="false" />
 										</select>
                                         <span class="vline"></span>
 									</li>

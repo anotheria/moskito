@@ -15,10 +15,11 @@
             <div><!-- --></div>
         </div>
         <div class="add_in">
-            <h2>MoSKito config view</h2>
+            <h2>MoSKito Update</h2>
 
             <div><span>
-This page is yet not finished.
+            Your version: <ano:write name="moskito.maven.version"/><br/>
+            Central version: <ano:write name="version"/> from <ano:write name="versionTimestamp"/><br/>
 			</span></div>
 
         </div>

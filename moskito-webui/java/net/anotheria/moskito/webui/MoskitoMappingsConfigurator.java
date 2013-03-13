@@ -19,6 +19,7 @@ import net.anotheria.moskito.webui.more.action.AdditionalSectionAction;
 import net.anotheria.moskito.webui.more.action.ShowConfigAction;
 import net.anotheria.moskito.webui.more.action.ShowLibsAction;
 import net.anotheria.moskito.webui.more.action.ShowMBeansAction;
+import net.anotheria.moskito.webui.more.action.UpdateAction;
 import net.anotheria.moskito.webui.producers.action.InspectProducerAction;
 import net.anotheria.moskito.webui.producers.action.ShowAllProducersAction;
 import net.anotheria.moskito.webui.producers.action.ShowProducerAction;
@@ -230,7 +231,9 @@ public class MoskitoMappingsConfigurator implements ActionMappingsConfigurator{
 				new ActionForward("success", "/net/anotheria/moskito/webui/more/jsp/MBeans.jsp")
 		);
 
-		mappings.addForward("mskUpdate", "/net/anotheria/moskito/webui/more/jsp/Update.jsp");
+		mappings.addMapping("mskUpdate", UpdateAction.class,
+				new ActionForward("success", "/net/anotheria/moskito/webui/more/jsp/Update.jsp")
+		);
 
 
 		//errors
