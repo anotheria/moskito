@@ -113,4 +113,9 @@ public class ThresholdDefinitionAO {
 	public void setGuards(List<String> guards) {
 		this.guards = guards;
 	}
+
+	@Override
+	public String toString() {
+		return id+"/"+producerName+"/"+statName+"/"+valueName+"/"+valueName;
+	}
 }

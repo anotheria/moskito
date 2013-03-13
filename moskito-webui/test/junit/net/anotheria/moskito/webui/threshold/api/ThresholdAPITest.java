@@ -40,6 +40,7 @@ public class ThresholdAPITest {
 		Threshold ret = api.createThreshold(toCreate);
 		assertNotNull(ret);
 
+		System.out.println("THRESHOLD DEFS: "+api.getThresholdDefinitions());
 		assertEquals(1, api.getThresholdDefinitions().size());
 
 		api.removeThreshold(ret.getId());
