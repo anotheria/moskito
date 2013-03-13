@@ -56,17 +56,19 @@
                                 <thead>
                                 <tr>
                                     <th width="200">Name</th>
-                                    <th width="200">Type</th>
-                                    <th width="500">Description</th>
+                                    <th width="100">Type</th>
+                                    <th width="200">Value</th>
+                                    <th width="400">Description</th>
                                     <th width="100">Read</th>
                                     <th width="100">Write</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <ano:iterate id="info" name="mbean" property="attributes" type="javax.management.MBeanAttributeInfo" indexId="index2">
+                                <ano:iterate id="info" name="mbean" property="attributes" type="net.anotheria.moskito.webui.more.bean.MBeanAttributeWrapper" indexId="index2">
                                 <tr class="<%= ((index2 & 1) == 0 )? "even" : "odd" %>">
                                     <td><ano:write name="info" property="name"/></td>
                                     <td><ano:write name="info" property="type"/></td>
+                                    <td><ano:write name="info" property="value"/></td>
                                     <td><ano:write name="info" property="description"/></td>
                                     <td><ano:equal name="info" property="readable" value="true">x</ano:equal></td>
                                     <td><ano:equal name="info" property="writable" value="true">x</ano:equal></td>

@@ -26,7 +26,7 @@ public class MBeanWrapperBean implements IComparable<MBeanWrapperBean>{
 	/**
 	 * Attributes of the mbean.
 	 */
-	private List<MBeanAttributeInfo> attributes = Collections.emptyList();
+	private List<MBeanAttributeWrapper> attributes = Collections.emptyList();
 	/**
 	 * Operations of the mbean.
 	 */
@@ -63,11 +63,11 @@ public class MBeanWrapperBean implements IComparable<MBeanWrapperBean>{
 		this.description = description;
 	}
 
-	public List<MBeanAttributeInfo> getAttributes() {
+	public List<MBeanAttributeWrapper> getAttributes() {
 		return attributes;
 	}
 
-	public void setAttributes(List<MBeanAttributeInfo> attributes) {
+	public void setAttributes(List<MBeanAttributeWrapper> attributes) {
 		this.attributes = attributes;
 	}
 
