@@ -76,15 +76,27 @@ public class ShowLibsAction extends BaseAdditionalAction{
 	}
 
 	private List<URL> getClassPathUrls(final String context){
-		List<URL> forTomcat = getClassPathUrlsForTomcat(context);
-		if (forTomcat!=null && forTomcat.size()>0)
-			return forTomcat;
+		List<URL> forTomcat7 = getClassPathUrlsForTomcat7(context);
+		if (forTomcat7!=null && forTomcat7.size()>0)
+			return forTomcat7;
+		List<URL> forTomcat6 = getClassPathUrlsForTomcat6(context);
+		if (forTomcat6!=null && forTomcat6.size()>0)
+			return forTomcat6;
 		//add another lookup methods here.
 		return new ArrayList<URL>();
 
 	}
 
-	private List<URL> getClassPathUrlsForTomcat(final String context){
+	private List<URL> getClassPathUrlsForTomcat7(final String context){
+		return getClassPathUrlsForTomcat(context, "context");
+	}
+
+	private List<URL> getClassPathUrlsForTomcat6(final String context){
+		return getClassPathUrlsForTomcat(context, "path");
+	}
+
+	private List<URL> getClassPathUrlsForTomcat(final String context, final String contextPropertyName){
+		System.out.println("checking class path urls for tomcat "+context);
 		List<MBeanServer> servers = MBeanServerFactory.findMBeanServer(null);
 		for (MBeanServer s : servers){
 			Set<ObjectInstance> instances = s.queryMBeans(null, new QueryExp() {
@@ -95,8 +107,9 @@ public class ShowLibsAction extends BaseAdditionalAction{
 						return false;
 					if (!name.getDomain().equals("Catalina"))
 						return false;
-					if (!name.getKeyProperty("context").equals(context))
+					if (!name.getKeyProperty(contextPropertyName).equals(context))
 						return false;
+					System.out.println("Found - "+name);
 					return true;
 				}
 
