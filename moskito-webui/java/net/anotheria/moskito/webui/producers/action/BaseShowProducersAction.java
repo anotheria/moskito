@@ -121,7 +121,7 @@ public abstract class BaseShowProducersAction extends BaseMoskitoUIAction {
 			req.setAttribute("categories", categories);
 
 			List<UnitCountAO> subsystems = getProducerAPI().getSubsystems();
-			categories.add(0, EMPTY_UNIT);
+			subsystems.add(0, EMPTY_UNIT);
 			req.setAttribute("subsystems", subsystems);
 		}catch(APIException e){
 			throw new IllegalStateException("Couldn't obtain categories/subsystems ", e);
