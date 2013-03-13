@@ -3,17 +3,41 @@ package net.anotheria.moskito.webui.more.action;
 import net.anotheria.maf.action.ActionCommand;
 import net.anotheria.maf.action.ActionMapping;
 import net.anotheria.maf.bean.FormBean;
+import net.anotheria.moskito.webui.more.bean.WebappLibBean;
+import net.anotheria.util.NumberUtils;
+import net.anotheria.util.maven.MavenVersionReader;
+import org.apache.log4j.Logger;
 
+import javax.management.BadAttributeValueExpException;
+import javax.management.BadBinaryOpValueExpException;
+import javax.management.BadStringOperationException;
+import javax.management.InvalidApplicationException;
+import javax.management.MBeanServer;
+import javax.management.MBeanServerFactory;
+import javax.management.ObjectInstance;
+import javax.management.ObjectName;
+import javax.management.QueryExp;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.File;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Set;
 
 /**
- * TODO comment this class
+ * This action scans and displays current libs.
  *
  * @author lrosenberg
  * @since 28.10.12 23:41
  */
 public class ShowLibsAction extends BaseAdditionalAction{
+	/**
+	 * Logger.
+	 */
+	private static Logger log = Logger.getLogger(ShowLibsAction.class);
+
 	@Override
 	protected String getLinkToCurrentPage(HttpServletRequest req) {
 		return null;  //To change body of implemented methods use File | Settings | File Templates.
@@ -21,6 +45,74 @@ public class ShowLibsAction extends BaseAdditionalAction{
 
 	@Override
 	public ActionCommand execute(ActionMapping mapping, FormBean formBean, HttpServletRequest req, HttpServletResponse res) throws Exception {
-		return null;  //To change body of implemented methods use File | Settings | File Templates.
+
+		List<URL> classpath = getClassPathUrls(req.getContextPath());
+		List<WebappLibBean> beans = new ArrayList<WebappLibBean>();
+
+		for (URL url : classpath){
+			String fileName = url.getFile();
+			if (!fileName.endsWith(".jar"))
+				continue;
+			File f = new File(fileName);
+			WebappLibBean bean = new WebappLibBean();
+			int lastSlash = fileName.lastIndexOf('/');
+			try{
+				bean.setName(fileName.substring(lastSlash + 1));
+				bean.setMavenVersion(MavenVersionReader.readVersionFromJar(f));
+				if (bean.getMavenVersion()==null){
+					bean.setLastModified(NumberUtils.makeISO8601TimestampString(f.lastModified()));
+				}
+			}catch(Exception e){
+				log.warn("couldn't obtain lib version, skipped this url "+url, e);
+			}
+			beans.add(bean);
+
+		}
+		req.setAttribute("beansCount", beans.size());
+		req.setAttribute("beans", beans);
+
+		return mapping.success();
+
 	}
+
+	private List<URL> getClassPathUrls(final String context){
+		List<URL> forTomcat = getClassPathUrlsForTomcat(context);
+		if (forTomcat!=null && forTomcat.size()>0)
+			return forTomcat;
+		//add another lookup methods here.
+		return new ArrayList<URL>();
+
+	}
+
+	private List<URL> getClassPathUrlsForTomcat(final String context){
+		List<MBeanServer> servers = MBeanServerFactory.findMBeanServer(null);
+		for (MBeanServer s : servers){
+			Set<ObjectInstance> instances = s.queryMBeans(null, new QueryExp() {
+				@Override
+				public boolean apply(ObjectName name) throws BadStringOperationException, BadBinaryOpValueExpException, BadAttributeValueExpException, InvalidApplicationException {
+					String type = name.getKeyProperty("type");
+					if (!type.equals("WebappClassLoader"))
+						return false;
+					if (!name.getDomain().equals("Catalina"))
+						return false;
+					if (!name.getKeyProperty("context").equals(context))
+						return false;
+					return true;
+				}
+
+				@Override
+				public void setMBeanServer(MBeanServer s) {
+				}
+			});
+			if (instances.size()>0){
+				try{
+					URL[] urls = (URL[])s.getAttribute(instances.iterator().next().getObjectName(), "URLs");
+					return Arrays.asList(urls);
+				}catch(Exception e){}
+
+			}
+		}
+		return null;
+	}
+
 }

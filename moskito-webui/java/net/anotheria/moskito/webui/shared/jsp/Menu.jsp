@@ -119,7 +119,7 @@
                                     <span class="vline"></span>
                                 </li>
                                 <li>
-                                    <a href="#">Update</a>
+                                    <a href="mskUpdate">Update</a>
                                 </li>
                             </ul>
                         </div>

@@ -7,6 +7,7 @@ import net.anotheria.moskito.webui.more.bean.MBeanAttributeWrapper;
 import net.anotheria.moskito.webui.more.bean.MBeanWrapperBean;
 import net.anotheria.util.sorter.DummySortType;
 import net.anotheria.util.sorter.StaticQuickSorter;
+import org.apache.log4j.Logger;
 
 import javax.management.MBeanAttributeInfo;
 import javax.management.MBeanInfo;
@@ -16,9 +17,6 @@ import javax.management.ObjectInstance;
 import javax.management.ObjectName;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import org.apache.log4j.Logger;
-
 import java.lang.management.ManagementFactory;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -93,6 +91,9 @@ public class ShowMBeansAction extends AdditionalSectionAction{
             Object value = "-";
             try {
                 value = server.getAttribute(name, info.getName());
+				if (value instanceof Object[]){
+					value = Arrays.asList((Object[])value);
+				}
 
                 // CHECKSTYLE:OFF - we have to catch ALL exceptions
             } catch (final Exception e) {

@@ -30,14 +30,6 @@
 			<div>
                 <pre><ano:write name="configstring"/></pre>
             </div>
-            <%--
-               <script type="text/javascript">
-                   $().ready(function() {
-                       var configstringJSON = $("#configstring-json").html();
-                       $("#configstring-area").text(JSON.stringify(configstringJSON));
-                   });
-               </script>
-            --%>
 		</div>
 		<div class="bot">
 			<div><!-- --></div>

@@ -23,7 +23,9 @@
 			<h2>Additional items</h2>
 
 			<div><span>
-This menu item and the submenu items contain different additional information and functions which aren't important enough to get its own top menu point.
+This menu item and the submenu items contain different additional information and functions which aren't important enough to get its own top menu point.       <br/>
+<i>Warning:</i> many of the functions in this menu are not yet stable and should be used at own risk.
+
 			</span></div>
 
 		</div>
