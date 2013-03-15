@@ -75,7 +75,7 @@ public class BuiltInOSProducer extends AbstractBuiltInProducer implements IStats
 			public void run() {
 				readMbean();
 			}});
-		
+
 		ProducerRegistryFactory.getProducerRegistryInstance().registerProducer(this);
 	}
 	
@@ -124,7 +124,7 @@ public class BuiltInOSProducer extends AbstractBuiltInProducer implements IStats
 			}
 			
 		}catch(Exception e){
-			e.printStackTrace();
+			log.warn("Couldn't read value due to",e);
 		}
 	}
 	
