@@ -6,6 +6,7 @@ import net.anotheria.moskito.core.registry.ProducerRegistryFactory;
 import net.anotheria.moskito.core.stats.DefaultIntervals;
 import net.anotheria.moskito.core.stats.TimeUnit;
 import net.anotheria.moskito.core.threshold.Threshold;
+import net.anotheria.moskito.core.threshold.ThresholdRepository;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -27,6 +28,7 @@ public class ThresholdAPITest {
 		APIFinder.cleanUp();
 		APIFinder.addAPIFactory(ThresholdAPI.class, new ThresholdAPIFactory());
 		ProducerRegistryFactory.reset();
+		ThresholdRepository.getInstance().cleanup();
 	}
 
 	@Test
@@ -40,7 +42,6 @@ public class ThresholdAPITest {
 		Threshold ret = api.createThreshold(toCreate);
 		assertNotNull(ret);
 
-		System.out.println("THRESHOLD DEFS: "+api.getThresholdDefinitions());
 		assertEquals(1, api.getThresholdDefinitions().size());
 
 		api.removeThreshold(ret.getId());
