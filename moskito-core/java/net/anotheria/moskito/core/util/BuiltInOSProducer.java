@@ -103,6 +103,10 @@ public class BuiltInOSProducer extends AbstractBuiltInProducer implements IStats
 	 * Reads the management bean and extracts monitored data on regular base.
 	 */
 	private void readMbean() {
+		if (clazz==null){
+			log.warn("couldn't find instance of "+clazzname+", can't call methods.");
+			return;
+		}
 		try{
 			if (isUnixOS) {
 				long openFiles = getValue("OpenFileDescriptorCount");
