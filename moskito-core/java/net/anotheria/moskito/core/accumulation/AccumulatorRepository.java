@@ -101,8 +101,11 @@ public final class AccumulatorRepository extends TieableRepository<Accumulator> 
 		}
 	}
 
-	void reset(){
-		super.resetForTesting();
+    /**
+     * This method is for unit testing ONLY.
+     */
+    void reset() {
+        cleanup();
 		//FINDBUGS OFF
 		INSTANCE = new AccumulatorRepository();
 	}

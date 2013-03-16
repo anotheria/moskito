@@ -211,7 +211,10 @@ public abstract class TieableRepository<T extends Tieable> implements IProducerR
 		return getByName(name);
 	}
 
-	protected void resetForTesting(){
+    /**
+     * cleans the internal state maps.
+     */
+    protected void cleanup() {
 		id2nameMapping.clear();
 		tieables.clear();
 	}

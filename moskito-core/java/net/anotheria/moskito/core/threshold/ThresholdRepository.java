@@ -97,8 +97,7 @@ public class ThresholdRepository extends TieableRepository<Threshold> {
                 log.warn("can't unregister " + tName + ", ignored.", e);
             }
         }
-        resetForTesting(); // TODO: check if this is suitable in our case (method name suggests
-                           // something wrong)
+        super.cleanup();
     }
 	
 	private ObjectName createName(String name) throws MalformedObjectNameException {
@@ -251,8 +250,7 @@ public class ThresholdRepository extends TieableRepository<Threshold> {
 	/**
 	 * This method is for unit testing ONLY.
 	 */
-	void reset(){
-		super.resetForTesting();
+    void reset() {
 		cleanup();
 		//FINDBUGS OFF
 		INSTANCE = new ThresholdRepository();
