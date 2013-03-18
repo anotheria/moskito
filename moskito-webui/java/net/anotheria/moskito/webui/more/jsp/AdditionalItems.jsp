@@ -33,63 +33,6 @@ This menu item and the submenu items contain different additional information an
 			<div><!-- --></div>
 		</div>
 	</div>
-
-	<msk:iterate name="decorators" type="net.anotheria.moskito.webui.shared.bean.DecoratorExplanationBean" id="decorator">
-		<div class="clear"><!-- --></div>
-		<div class="table_layout">
-			<div class="top">
-				<div><!-- --></div>
-			</div>
-			<div class="in">
-
-				<h2><a name="<msk:write name="decorator" property="name"/>"><msk:write name="decorator"
-																					   property="name"/></a></h2>
-
-				<div class="clear"><!-- --></div>
-				<div class="table_itseft">
-					<div class="top">
-						<div class="left"><!-- --></div>
-						<div class="right"><!-- --></div>
-					</div>
-					<div class="in">
-
-						<table cellpadding="0" cellspacing="0" class="wrap_it"
-							   id="<msk:write name="decorator" property="name"/>_table">
-							<thead>
-							<tr class="stat_header">
-								<th>Abbreviation</th>
-								<th>Meaning</th>
-								<th>Explanation</th>
-							</tr>
-							</thead>
-							<tbody>
-							<msk:iterate name="decorator" property="captions" id="caption"
-										 type="net.anotheria.moskito.webui.shared.bean.StatCaptionBean" indexId="index">
-								<tr class="<%= ((index & 1) == 0 )? "even" : "odd" %>">
-									<td><msk:write name="caption" property="caption"/></td>
-									<td><msk:write name="caption" property="shortExplanation"/></td>
-									<td><msk:write name="caption" property="explanation"/></td>
-								</tr>
-							</msk:iterate>
-							</tbody>
-						</table>
-					</div>
-					<div class="bot">
-						<div class="left"><!-- --></div>
-						<div class="right"><!-- --></div>
-					</div>
-					<div class="clear"><!-- --></div>
-				</div>
-
-			</div>
-			<div class="bot">
-			<div><!-- --></div>
-		</div>
-		</div>
-
-
-
-	</msk:iterate>
 </div>
 </body>
 </html>
