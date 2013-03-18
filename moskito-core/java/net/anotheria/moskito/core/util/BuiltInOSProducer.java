@@ -43,6 +43,9 @@ public class BuiltInOSProducer extends AbstractBuiltInProducer implements IStats
 	 */
 	private Class<?> clazz;
 
+	/**
+	 * If true indicates.
+	 */
 	private final boolean isUnixOS;
 	
 	/**
@@ -59,7 +62,7 @@ public class BuiltInOSProducer extends AbstractBuiltInProducer implements IStats
 		try{
 			clazz = Class.forName(clazzname);
 		}catch(ClassNotFoundException e){
-			log.warn("Couldn't find unix version of os class: "+clazzname+", osstats won't operate properly.");
+			log.warn("Couldn't find unix version of os class: "+clazzname+", osstats won't operate properly - "+e.getMessage());
 		}
 
 		isUnixOS = mxBean.getClass().getName().equals("com.sun.management.UnixOperatingSystem");
@@ -104,7 +107,6 @@ public class BuiltInOSProducer extends AbstractBuiltInProducer implements IStats
 	 */
 	private void readMbean() {
 		if (clazz==null){
-			log.warn("couldn't find instance of "+clazzname+", can't call methods.");
 			return;
 		}
 		try{
