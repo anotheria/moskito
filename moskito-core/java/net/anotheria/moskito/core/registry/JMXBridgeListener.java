@@ -4,6 +4,7 @@ import net.anotheria.moskito.core.helper.RuntimeConstants;
 import net.anotheria.moskito.core.producers.IStats;
 import net.anotheria.moskito.core.producers.IStatsProducer;
 import net.anotheria.moskito.core.util.BuiltInProducer;
+import net.anotheria.util.StringUtils;
 import org.apache.log4j.Logger;
 
 import javax.management.InstanceAlreadyExistsException;
@@ -72,10 +73,23 @@ public class JMXBridgeListener implements IProducerRegistryListener{
 	 * @throws MalformedObjectNameException
 	 */
 	private ObjectName createName(String producerId, String statName) throws MalformedObjectNameException{
-		String appName = RuntimeConstants.getApplicationName();
-		String objectName = "moskito."+(appName.length()>0 ? appName+".":"")+"producers.:type="+producerId+"."+statName;
+		String appName = encodeAppName(RuntimeConstants.getApplicationName());
+		String objectName = "MoSKito."+(appName.length()>0 ? appName+".":"")+"producers:type="+producerId+"."+statName;
 		ObjectName objName = new ObjectName(objectName);
 		return objName;
+	}
+
+	private static final char[] CHARS_TO_REMOVE_FROM_NAME = {
+		' ','\t','\r','\n'
+	};
+
+	/**
+	 * Removes spaces from app name.
+	 * @param appName
+	 * @return
+	 */
+	private String encodeAppName(String appName){
+		return StringUtils.removeChars(appName, CHARS_TO_REMOVE_FROM_NAME);
 	}
 
 }
