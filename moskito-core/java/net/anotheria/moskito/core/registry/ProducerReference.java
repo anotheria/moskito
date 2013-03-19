@@ -16,7 +16,11 @@ public class ProducerReference {
 	public ProducerReference(IStatsProducer aProducer){
 		target = aProducer;
 	}
-	
+
+	/**
+	 * Returns the underlying stats producer.
+	 * @return
+	 */
 	public IStatsProducer get(){
 		return target;
 	}
