@@ -16,6 +16,15 @@
 			"maxNumberOfItems": 500,
 			"toleratedNumberOfItems": 550
 		}
-
+	},
+	"@pluginsConfig": {
+		"@plugins": [
+			{
+				"name": "NoOpPlugin",
+				"configurationName": "none",
+				"className": "net.anotheria.moskito.core.plugins.NoOpPlugin"
+			}
+		]
 	}
+	
 }

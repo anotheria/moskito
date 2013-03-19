@@ -118,6 +118,10 @@
                                     <a href="mskLibs">Libs</a>
                                     <span class="vline"></span>
                                 </li>
+                                <li class="separator">
+                                    <a href="mskPlugins">Plugins</a>
+                                    <span class="vline"></span>
+                                </li>
                                 <li>
                                     <a href="mskUpdate">Update</a>
                                 </li>

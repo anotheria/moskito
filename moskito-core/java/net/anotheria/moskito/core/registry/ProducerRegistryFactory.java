@@ -34,6 +34,7 @@
  */
 package net.anotheria.moskito.core.registry;
 
+import net.anotheria.moskito.core.plugins.PluginRepository;
 import net.anotheria.moskito.core.util.StartBuiltInProducers;
 
 /**
@@ -59,6 +60,8 @@ public class ProducerRegistryFactory {
 		if (junittest!=null && (junittest.equalsIgnoreCase("true")))
 			return;
 		StartBuiltInProducers.startbuiltin();
+		//ensure plugins are loaded.
+		PluginRepository.getInstance();
 	}
 	
 	/**

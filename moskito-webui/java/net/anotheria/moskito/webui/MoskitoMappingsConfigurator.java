@@ -16,9 +16,11 @@ import net.anotheria.moskito.webui.journey.action.ShowJourneyAction;
 import net.anotheria.moskito.webui.journey.action.ShowJourneyCallAction;
 import net.anotheria.moskito.webui.journey.action.ShowJourneysAction;
 import net.anotheria.moskito.webui.more.action.AdditionalSectionAction;
+import net.anotheria.moskito.webui.more.action.RemovePluginAction;
 import net.anotheria.moskito.webui.more.action.ShowConfigAction;
 import net.anotheria.moskito.webui.more.action.ShowLibsAction;
 import net.anotheria.moskito.webui.more.action.ShowMBeansAction;
+import net.anotheria.moskito.webui.more.action.ShowPluginsAction;
 import net.anotheria.moskito.webui.more.action.UpdateAction;
 import net.anotheria.moskito.webui.producers.action.InspectProducerAction;
 import net.anotheria.moskito.webui.producers.action.ShowAllProducersAction;
@@ -230,6 +232,14 @@ public class MoskitoMappingsConfigurator implements ActionMappingsConfigurator{
 		mappings.addMapping("mskMBeans", ShowMBeansAction.class,
 				new ActionForward("success", "/net/anotheria/moskito/webui/more/jsp/MBeans.jsp")
 		);
+		mappings.addMapping("mskPlugins", ShowPluginsAction.class,
+				new ActionForward("success", "/net/anotheria/moskito/webui/more/jsp/Plugins.jsp")
+		);
+
+		mappings.addMapping("mskRemovePlugin", RemovePluginAction.class,
+				new CommandRedirect("redirect", "mskPlugins")
+		);
+
 
 		mappings.addMapping("mskUpdate", UpdateAction.class,
 				new ActionForward("success", "/net/anotheria/moskito/webui/more/jsp/Update.jsp")

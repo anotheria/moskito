@@ -2,6 +2,7 @@ package net.anotheria.moskito.core.config;
 
 import com.google.gson.annotations.SerializedName;
 import net.anotheria.moskito.core.config.accumulators.AccumulatorsConfig;
+import net.anotheria.moskito.core.config.plugins.PluginsConfig;
 import net.anotheria.moskito.core.config.thresholds.ThresholdsAlertsConfig;
 import net.anotheria.moskito.core.config.thresholds.ThresholdsConfig;
 import org.configureme.annotations.Configure;
@@ -37,6 +38,13 @@ public class MoskitoConfiguration {
 	@SerializedName("@accumulatorsConfig")
 	private AccumulatorsConfig accumulatorsConfig = new AccumulatorsConfig();
 
+	/**
+	 * Config objects for plugins.
+	 */
+	@Configure
+	@SerializedName("@pluginsConfig")
+	private PluginsConfig pluginsConfig = new PluginsConfig();
+
 	public ThresholdsAlertsConfig getThresholdsAlertsConfig() {
 		return thresholdsAlertsConfig;
 	}
@@ -64,6 +72,16 @@ public class MoskitoConfiguration {
 	public void setAccumulatorsConfig(AccumulatorsConfig accumulatorsConfig) {
 		this.accumulatorsConfig = accumulatorsConfig;
 	}
+
+	public PluginsConfig getPluginsConfig() {
+		return pluginsConfig;
+	}
+
+	public void setPluginsConfig(PluginsConfig pluginsConfig) {
+		this.pluginsConfig = pluginsConfig;
+	}
+
+
 
 }
 
