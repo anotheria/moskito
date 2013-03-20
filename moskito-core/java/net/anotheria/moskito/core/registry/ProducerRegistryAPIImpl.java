@@ -55,7 +55,9 @@ import java.util.Map;
  *
  */
 public class ProducerRegistryAPIImpl implements IProducerRegistryAPI, IProducerRegistryListener, IntervalRegistryListener, IIntervalListener {
-	
+
+	//TODO currently we are implementing IntervalRegistryListener but we are not using it!
+
 	/**
 	 * Logger.
 	 */

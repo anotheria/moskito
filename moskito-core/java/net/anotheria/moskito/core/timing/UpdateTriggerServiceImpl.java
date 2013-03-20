@@ -56,14 +56,11 @@ class UpdateTriggerServiceImpl implements IUpdateTriggerService {
 		timer = new Timer("MoskitoIntervalUpdater", true);
 	}
 
-	/**
-	 * @see net.java.dev.moskito.core.timing.IUpdateTriggerService#addUpdateable(net.java.dev.moskito.core.timing.IUpdateable,int)
-	 */
 	public void addUpdateable(IUpdateable aUpdateable, int anUpdateSequenceInSeconds) {
 		if (anUpdateSequenceInSeconds==0)
 			return;
 		UpdateableWrapper adapter = new UpdateableWrapper(aUpdateable);
-		timer.scheduleAtFixedRate(adapter, 0, 1000L*anUpdateSequenceInSeconds);
+		timer.scheduleAtFixedRate(adapter, 1000L*anUpdateSequenceInSeconds, 1000L*anUpdateSequenceInSeconds);
 	}
 
 }

@@ -4,12 +4,6 @@ import net.anotheria.moskito.core.dynamic.OnDemandStatsProducer;
 import net.anotheria.moskito.core.dynamic.OnDemandStatsProducerException;
 import net.anotheria.moskito.core.predefined.ServiceStats;
 import net.anotheria.moskito.core.predefined.ServiceStatsFactory;
-import net.anotheria.moskito.core.snapshot.ProducerSnapshot;
-import net.anotheria.moskito.core.snapshot.SnapshotCreator;
-import net.anotheria.moskito.core.snapshot.StatSnapshot;
-import net.anotheria.moskito.core.stats.Interval;
-import net.anotheria.moskito.core.stats.impl.IntervalRegistry;
-import net.anotheria.moskito.core.timing.IUpdateable;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
@@ -20,7 +14,7 @@ import static org.junit.Assert.assertEquals;
  * @author lrosenberg
  * @since 30.09.12 15:30
  */
-public class SnapshotCreatorTest {
+public class SnapshotCreatorTest extends BaseSnapshotTest{
 	@Test public void testCreateSnapshot() throws OnDemandStatsProducerException {
 		OnDemandStatsProducer<ServiceStats> producer = setupProducer();
 		String intervalName = "5m";
@@ -71,16 +65,5 @@ public class SnapshotCreatorTest {
 		assertEquals("aCategory", snapshot.getCategory());
 		assertEquals("aSubsystem", snapshot.getSubsystem());
 		assertEquals("testProducerId", snapshot.getProducerId());
-	}
-
-	private static OnDemandStatsProducer setupProducer(){
-		OnDemandStatsProducer<ServiceStats> producer = new OnDemandStatsProducer<ServiceStats>("testProducerId", "aCategory", "aSubsystem", new ServiceStatsFactory());
-		return producer;
-	}
-
-	private static void forceIntervalUpdate(String intervalName){
-		IntervalRegistry registry = IntervalRegistry.getInstance();
-		Interval interval = registry.getInterval(intervalName);
-		((IUpdateable)interval).update();
 	}
 }

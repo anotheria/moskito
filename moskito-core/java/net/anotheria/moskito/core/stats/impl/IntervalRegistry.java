@@ -228,4 +228,8 @@ public final class IntervalRegistry {
 	public void forceUpdateIntervalForTestingPurposes(String intervalName){
 		((IntervalImpl)getInterval(intervalName)).update();
 	}
+
+	public void addIntervalRegistryListener(IntervalRegistryListener listener){
+		registryListeners.add(listener);
+	}
 }
