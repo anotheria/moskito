@@ -1,12 +1,15 @@
 package net.anotheria.moskito.core.config;
 
-import com.google.gson.annotations.SerializedName;
 import net.anotheria.moskito.core.config.accumulators.AccumulatorsConfig;
 import net.anotheria.moskito.core.config.plugins.PluginsConfig;
+import net.anotheria.moskito.core.config.producers.MBeanProducerConfig;
 import net.anotheria.moskito.core.config.thresholds.ThresholdsAlertsConfig;
 import net.anotheria.moskito.core.config.thresholds.ThresholdsConfig;
+
 import org.configureme.annotations.Configure;
 import org.configureme.annotations.ConfigureMe;
+
+import com.google.gson.annotations.SerializedName;
 
 /**
  * This class contains complete moskito configuration at runtime. It is configured with configureme, but can be altered
@@ -45,6 +48,13 @@ public class MoskitoConfiguration {
 	@SerializedName("@pluginsConfig")
 	private PluginsConfig pluginsConfig = new PluginsConfig();
 
+    /**
+     * Config object for generic MBean producers.
+     */
+    @Configure
+    @SerializedName("@mbeanProducersConfig")
+    private MBeanProducerConfig mbeanProducersConfig = new MBeanProducerConfig();
+
 	public ThresholdsAlertsConfig getThresholdsAlertsConfig() {
 		return thresholdsAlertsConfig;
 	}
@@ -81,7 +91,20 @@ public class MoskitoConfiguration {
 		this.pluginsConfig = pluginsConfig;
 	}
 
+    /**
+     * @return {@link #mbeanProducersConfig}
+     */
+    public MBeanProducerConfig getMbeanProducersConfig() {
+        return mbeanProducersConfig;
+    }
 
+    /**
+     * @param mbeanProducersConfig
+     *            new {@link MBeanProducerConfig} setup.
+     */
+    public void setMbeanProducersConfig(MBeanProducerConfig mbeanProducersConfig) {
+        this.mbeanProducersConfig = mbeanProducersConfig;
+    }
 
 }
 

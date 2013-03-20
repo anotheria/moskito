@@ -1,5 +1,6 @@
 package net.anotheria.moskito.core.util;
 
+import net.anotheria.moskito.core.config.MoskitoConfigurationHolder;
 import net.anotheria.moskito.core.registry.IProducerRegistry;
 import net.anotheria.moskito.core.registry.ProducerRegistryFactory;
 
@@ -27,6 +28,7 @@ public class StartBuiltInProducers {
 		startJavaMemoryProducers();
 		startJavaThreadingProducers();
 		startOsProducers();
+		startMBeanProducers();
 	}
 	
 	public static void restartbuiltin(){
@@ -70,5 +72,14 @@ public class StartBuiltInProducers {
 			registry.registerProducer(vp);
 		}
 		
+	}
+	
+	/**
+	 * Checks if generic MBeanProducers are enabled and creates them if desired.
+	 */
+	private static void startMBeanProducers() {
+	    if (MoskitoConfigurationHolder.getConfiguration().getMbeanProducersConfig().isRegisterAutomatically()) {
+	        MBeanProducerFactory.buildProducers();
+	    }
 	}
 }

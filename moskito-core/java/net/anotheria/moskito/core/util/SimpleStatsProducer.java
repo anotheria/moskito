@@ -1,6 +1,3 @@
-/**
- * (c) 2012 König-Software GmbH - http://www.koenig-software.de
- */
 package net.anotheria.moskito.core.util;
 
 import java.util.Collections;

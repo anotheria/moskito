@@ -57,7 +57,7 @@ public class ShowMBeansAction extends AdditionalSectionAction{
 					bean.setType(type);
 				}
 
-				MBeanInfo info = ManagementFactory.getPlatformMBeanServer().getMBeanInfo(name);
+				MBeanInfo info = s.getMBeanInfo(name);
 				if (info!=null){
 					bean.setDescription(info.getDescription());
 					bean.setAttributes(convert(info.getAttributes(), s, name));

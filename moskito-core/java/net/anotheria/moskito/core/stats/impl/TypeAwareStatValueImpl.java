@@ -1,6 +1,3 @@
-/**
- * (c) 2012 König-Software GmbH - http://www.koenig-software.de
- */
 package net.anotheria.moskito.core.stats.impl;
 
 import net.anotheria.moskito.core.stats.IValueHolderFactory;
@@ -9,11 +6,14 @@ import net.anotheria.moskito.core.stats.TypeAwareStatValue;
 
 /**
  * Extends the {@link StatValueImpl} type with a {@link StatValueTypes} value.
- *
+ * 
  * @author Michael König
  */
 public class TypeAwareStatValueImpl extends StatValueImpl implements TypeAwareStatValue {
 
+    /**
+     * the {@link StatValueTypes}.
+     */
     private final StatValueTypes type;
 
     /**
@@ -26,9 +26,7 @@ public class TypeAwareStatValueImpl extends StatValueImpl implements TypeAwareSt
      * @param aFactory
      *            the factory to create ValueHolder instances on Interval registration
      */
-    public TypeAwareStatValueImpl(final String aName,
-                                  final StatValueTypes svType,
-                                  final IValueHolderFactory aFactory) {
+    public TypeAwareStatValueImpl(final String aName, final StatValueTypes svType, final IValueHolderFactory aFactory) {
         super(aName, aFactory);
         this.type = svType;
     }
