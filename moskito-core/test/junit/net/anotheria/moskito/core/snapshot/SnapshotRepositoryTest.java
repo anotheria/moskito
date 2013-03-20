@@ -19,6 +19,7 @@ public class SnapshotRepositoryTest extends BaseSnapshotTest{
 	@Before
 	public void setup(){
 		System.setProperty("JUNITTEST", "true");
+		ProducerRegistryFactory.reset();
 	}
 
 	@Test
