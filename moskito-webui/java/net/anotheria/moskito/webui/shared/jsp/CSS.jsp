@@ -7,7 +7,9 @@ body {background:white; font-size: 62.5%;}
 .clear {clear:both !important; height:0 !important; float:none !important; padding:0 !important;}
 .fll {float:left;}
 .flr {float:right;}
+.inbl {display: inline-block;}
 .ovh {overflow:hidden;}
+.hide {display: none;}
 a {text-decoration:none; color:#005fc1;}
 a:hover {text-decoration:none; color:#55cc00; cursor:pointer;}
 
@@ -122,6 +124,8 @@ a:hover {text-decoration:none; color:#55cc00; cursor:pointer;}
 .table_itseft .bot .right {background:url(<ano:write name="mskPathToImages" scope="application"/>bgs.gif) 100% -979px no-repeat;}
 .table_itseft .in table {border-collapse:collapse;}
 .table_itseft .in table td, .table_itseft .in table th {text-align:left; font-size:12px; padding:5px 5px 5px 5px; white-space:nowrap;}
+.table_itseft .in table .oflayers th:first-child {padding-left: 25px;}
+.table_itseft .in table.wrap-table td {white-space: normal;}
 .table_itseft .in table td {padding-right:25px;}
 .table_itseft .in table th a {color:black; padding-right:15px;}
 .table_itseft .in table th a:hover {padding-right:15px; background:url(<ano:write name="mskPathToImages" scope="application"/>bgs.gif) 100% -1015px no-repeat;}
@@ -1438,4 +1442,21 @@ tr.intree > td:first-child
 tr.intree.active > td:first-child
 {
     background-image: url('<ano:write name="mskPathToImages" scope="application"/>toggle-collapse-dark.png');
+}
+
+.oflayers
+{
+    background: #FFF;
+    z-index: 200;
+    position: relative;
+    overflow: hidden;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+
+}
+
+.table_itseft .in table .intable > td
+{
+    padding: 0px;
 }
