@@ -11,27 +11,45 @@ import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
- * TODO comment this class
+ * Main class of the central.
  *
  * @author lrosenberg
  * @since 15.03.13 23:10
  */
 public class Central {
 
+	/**
+	 * Configured and therefore active storages.
+	 */
 	private ConcurrentMap<String, Storage> storages = new ConcurrentHashMap<String, Storage>();
 	/**
 	 * List used for faster iteration for snapshot delivery.
 	 */
 	private List<Storage> cachedList = new CopyOnWriteArrayList<Storage>();
 
+	/**
+	 * Configuration.
+	 */
 	private Configuration configuration;
 
+	/**
+	 * Log.
+	 */
 	private static Logger log = Logger.getLogger(Central.class);
 
+	/**
+	 * Returns the singleton instance.
+	 * @return
+	 */
 	public static Central getInstance(){
 		return CentralInstanceHolder.instance;
 	}
 
+	/**
+	 * Returns a specially configured instance. For unit tests.
+	 * @param config
+	 * @return
+	 */
 	public static Central getConfiguredInstance(Configuration config){
 		Central instance = new Central();
 		instance.setConfiguration(config);

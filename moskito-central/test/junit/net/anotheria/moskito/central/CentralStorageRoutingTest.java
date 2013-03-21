@@ -17,7 +17,7 @@ import static org.junit.Assert.assertEquals;
  * @author lrosenberg
  * @since 18.03.13 17:13
  */
-public class TestCentralStorageRouting {
+public class CentralStorageRoutingTest {
 
 	private static final Map<String, TestStorage> storages = new HashMap<String, TestStorage>();
 
