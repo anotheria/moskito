@@ -31,7 +31,7 @@ public class MBeanStatsList extends ArrayList<GenericStats> {
     /**
      * Implements a {@link TypeAwareStatValue} and adds some Xtras.
      */
-    private static class XStatValue implements TypeAwareStatValue {
+    private static final class XStatValue implements TypeAwareStatValue {
 
         private final MBeanAttributeInfo attribute;
         private final TypeAwareStatValue delegate;
@@ -250,7 +250,7 @@ public class MBeanStatsList extends ArrayList<GenericStats> {
         }
 
         /**
-         * sets the {@link #ignoreMe} flag
+         * Sets the {@link #ignoreMe} flag.
          * 
          * @param ignoreMe
          *            flag
@@ -384,7 +384,7 @@ public class MBeanStatsList extends ArrayList<GenericStats> {
     }
 
     /**
-     * @{inheritDoc
+     * @{inheritDoc}
      */
     @Override
     public boolean add(final GenericStats e) {
@@ -392,7 +392,7 @@ public class MBeanStatsList extends ArrayList<GenericStats> {
     }
 
     /**
-     * @{inheritDoc
+     * @{inheritDoc}
      */
     @Override
     public void add(final int index, final GenericStats element) {
@@ -400,7 +400,7 @@ public class MBeanStatsList extends ArrayList<GenericStats> {
     }
 
     /**
-     * @{inheritDoc
+     * @{inheritDoc}
      */
     @Override
     public boolean addAll(final Collection<? extends GenericStats> c) {
@@ -408,7 +408,7 @@ public class MBeanStatsList extends ArrayList<GenericStats> {
     }
 
     /**
-     * @{inheritDoc
+     * @{inheritDoc}
      */
     @Override
     public boolean addAll(final int index, final Collection<? extends GenericStats> c) {
@@ -416,7 +416,7 @@ public class MBeanStatsList extends ArrayList<GenericStats> {
     }
 
     /**
-     * @{inheritDoc
+     * @{inheritDoc}
      */
     @Override
     public void clear() {
@@ -424,7 +424,7 @@ public class MBeanStatsList extends ArrayList<GenericStats> {
     }
 
     /**
-     * @{inheritDoc
+     * @{inheritDoc}
      */
     @Override
     public GenericStats remove(final int index) {
@@ -432,7 +432,7 @@ public class MBeanStatsList extends ArrayList<GenericStats> {
     }
 
     /**
-     * @{inheritDoc
+     * @{inheritDoc}
      */
     @Override
     public boolean remove(final Object o) {
@@ -440,7 +440,7 @@ public class MBeanStatsList extends ArrayList<GenericStats> {
     }
 
     /**
-     * @{inheritDoc
+     * @{inheritDoc}
      */
     @Override
     public boolean removeAll(final Collection<?> c) {
@@ -448,7 +448,7 @@ public class MBeanStatsList extends ArrayList<GenericStats> {
     }
 
     /**
-     * @{inheritDoc
+     * @{inheritDoc}
      */
     @Override
     public boolean retainAll(final Collection<?> c) {
@@ -456,7 +456,7 @@ public class MBeanStatsList extends ArrayList<GenericStats> {
     }
 
     /**
-     * @{inheritDoc
+     * @{inheritDoc}
      */
     @Override
     public GenericStats set(final int index, final GenericStats element) {
@@ -609,8 +609,9 @@ public class MBeanStatsList extends ArrayList<GenericStats> {
             } else {
                 xsValue.setValueAsString(value == null ? "null" : value.toString());
             }
-
+            // CHECKSTYLE:OFF we have to catch ALL exceptions
         } catch (final Exception e) {
+        	// CHECKSTYLE:ON
             xsValue.setIgnoreMe(true); // set to ignore in future
             LOGGER.info("unable to extract value of attribute " + attribName
                     + ". it will be ignored in future. message was: " + e.getLocalizedMessage());

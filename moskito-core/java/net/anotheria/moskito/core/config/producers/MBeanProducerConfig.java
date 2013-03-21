@@ -95,7 +95,7 @@ public class MBeanProducerConfig {
     }
 
     /**
-     * @{inheritDoc
+     * @{inheritDoc}
      */
     @Override
     public String toString() {

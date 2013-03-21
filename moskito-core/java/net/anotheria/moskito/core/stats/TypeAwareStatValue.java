@@ -8,7 +8,7 @@ package net.anotheria.moskito.core.stats;
 public interface TypeAwareStatValue extends StatValue {
 
     /**
-     * returns the related {@link StatValueTypes} value.
+     * @return the related {@link StatValueTypes} value.
      */
     StatValueTypes getType();
 

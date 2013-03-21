@@ -32,13 +32,13 @@ public final class MBeanProducerFactory {
      */
     private static final Logger LOGGER = Logger.getLogger(MBeanProducerFactory.class);
 
-    /**
-     * Build a number of {@link SimpleStatsProducer}s, one for each single MBean which is currently
-     * registerd in actual JVM.
-     * 
-     * @param register
-     *            set this to true to automatically register all the producers
-     */
+	/**
+	 * Build a number of {@link SimpleStatsProducer}s, one for each single MBean
+	 * which is currently registerd in actual JVM.
+	 * 
+	 * @return an iterable of {@link SimpleStatsProducer}s matching the current
+	 *         moskito-configuration.
+	 */
     public static Iterable<SimpleStatsProducer<GenericStats>> buildProducers() {
 
         final Collection<SimpleStatsProducer<GenericStats>> result = new ArrayList<SimpleStatsProducer<GenericStats>>();
@@ -69,11 +69,13 @@ public final class MBeanProducerFactory {
         return s.replace(':', '/').replace('=', '-').replace(',', '|').replace('"', '\'').replace('#', '-');
     }
 
-    /**
-     * @param mBean
-     * @param domainConfig
-     * @return
-     */
+	/**
+	 * @param mBean
+	 *            {@link ObjectInstance}
+	 * @param domainConfig
+	 *            {@link MBeanProducerDomainConfig}
+	 * @return TRUE if MBean is of a type that we want to inspect as producer.
+	 */
     private static boolean checkClasses(final ObjectInstance mBean, final MBeanProducerDomainConfig domainConfig) {
         final String[] classes = domainConfig.getClasses();
         if (classes == null || classes.length == 0) {
@@ -91,10 +93,11 @@ public final class MBeanProducerFactory {
         return false;
     }
 
-    /**
-     * @param mBean
-     * @return
-     */
+	/**
+	 * @param mBean
+	 *            {@link ObjectInstance}
+	 * @return TRUE if MBean is in correct domain to inspect as producer.
+	 */
     private static boolean checkDomain(final ObjectInstance mBean) {
         final ObjectName mBeanName = mBean.getObjectName();
         final String domain = mBeanName.getDomain();
