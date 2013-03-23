@@ -1,4 +1,0 @@
-{
-    storageClassName: "net.anotheria.moskito.central.storages.XmlStatStorage",
-    storageParams: "net.anotheria.moskito.central.storages.ConfigurableStorageFileResolver"
-}

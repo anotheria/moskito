@@ -3,6 +3,8 @@ package net.anotheria.moskito.central.config;
 import org.configureme.annotations.Configure;
 import org.configureme.annotations.ConfigureMe;
 
+import java.util.Arrays;
+
 /**
  * TODO comment this class
  *
@@ -21,4 +23,9 @@ public class Configuration {
 	public void setStorages(StorageConfigEntry[] storages) {
 		this.storages = storages;
 	}
+
+	@Override public String toString(){
+		return "{ storages: "+ Arrays.toString(storages)+" }";
+	}
+
 }

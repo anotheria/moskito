@@ -20,6 +20,10 @@
 		<groupId>net.anotheria</groupId>
 		<artifactId>ano-prise</artifactId>
 	</dependency>
+      <dependency>
+          <groupId>net.anotheria</groupId>
+          <artifactId>ano-net</artifactId>
+      </dependency>
 	<dependency>
 		<groupId>net.anotheria</groupId>
 		<artifactId>moskito-core</artifactId>

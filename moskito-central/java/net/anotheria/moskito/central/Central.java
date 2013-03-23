@@ -4,6 +4,7 @@ import net.anotheria.moskito.central.config.Configuration;
 import net.anotheria.moskito.central.config.StorageConfigEntry;
 import net.anotheria.moskito.central.storage.Storage;
 import org.apache.log4j.Logger;
+import org.configureme.ConfigurationManager;
 
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
@@ -104,8 +105,26 @@ public class Central {
 
 
 	private static class CentralInstanceHolder{
-		static final Central instance = new Central();
+		static final Central instance;
+		static{
+			instance = new Central();
+			Configuration configuration = new Configuration();
+			try{
+				ConfigurationManager.INSTANCE.configure(configuration);
+			}catch(IllegalArgumentException e){
+				//not found
+			}
+			instance.setConfiguration(configuration);
+			instance.setup();
+
+		}
+
 	}
+
+	/*testing scope*/ Configuration getConfiguration(){
+		return configuration;
+	}
+
 
 
 }

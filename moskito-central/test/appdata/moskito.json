@@ -1,0 +1,12 @@
+{
+	"@pluginsConfig": {
+		"@plugins": [
+			{
+				"name": "EmbeddedCentralConnector",
+				"configurationName": "none",
+				"className": "net.anotheria.moskito.central.connectors.embedded.EmbeddedConnector"
+			}
+		]
+	}
+	
+}

@@ -1,5 +1,7 @@
 package net.anotheria.moskito.central;
 
+import net.anotheria.util.NumberUtils;
+
 import java.io.Serializable;
 
 /**
@@ -114,5 +116,11 @@ public class SnapshotMetaData implements Serializable {
 
 	public void setSubsystem(String subsystem) {
 		this.subsystem = subsystem;
+	}
+
+	@Override public String toString(){
+		return "pId: "+getProducerId()+", c: "+getCategory()+", s: "+getSubsystem()+", i: "+intervalName+", loc: "+
+				getComponentName()+"@"+getHostName()+", created "+ NumberUtils.makeISO8601TimestampString(creationTimestamp)+
+				" arrived: "+NumberUtils.makeISO8601TimestampString(arrivalTimestamp);
 	}
 }

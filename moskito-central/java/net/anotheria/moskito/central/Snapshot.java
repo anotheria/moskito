@@ -11,11 +11,19 @@ import java.io.Serializable;
 public class Snapshot implements Serializable {
 	private SnapshotMetaData metaData;
 
+	public Snapshot(){
+		System.out.println("CREATING snapshot");
+	}
+
 	public SnapshotMetaData getMetaData() {
 		return metaData;
 	}
 
 	public void setMetaData(SnapshotMetaData metaData) {
 		this.metaData = metaData;
+	}
+
+	@Override public String toString(){
+		return "{ MD: "+metaData.toString()+"}";
 	}
 }

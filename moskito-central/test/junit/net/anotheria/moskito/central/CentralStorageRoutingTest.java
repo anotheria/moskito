@@ -12,7 +12,7 @@ import java.util.Map;
 import static org.junit.Assert.assertEquals;
 
 /**
- * TODO comment this class
+ * Test for central routing into the storage mechanism.
  *
  * @author lrosenberg
  * @since 18.03.13 17:13
