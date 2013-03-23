@@ -27,14 +27,7 @@ public class ProducerSnapshot {
 	 */
 	private String intervalName;
 
-	/**
-	 * Name of the component.
-	 */
-	private String component;
-	/**
-	 * Name of the host.
-	 */
-	private String host;
+	private long timestamp = System.currentTimeMillis();
 
 	private Map<String, StatSnapshot> stats = new HashMap<String, StatSnapshot>();
 
@@ -80,26 +73,19 @@ public class ProducerSnapshot {
 	}
 
 	@Override public String toString(){
-		return "Snapshot Producer: (pId:"+getProducerId()+", Cat:"+getCategory()+", Sub:"+getSubsystem()+") Int: "+getIntervalName()+", Loc: "+getComponent()+"@"+getHost()+", Stats: "+getStatSnapshots();
-	}
-
-	public String getComponent() {
-		return component;
-	}
-
-	public void setComponent(String component) {
-		this.component = component;
-	}
-
-	public String getHost() {
-		return host;
-	}
-
-	public void setHost(String host) {
-		this.host = host;
+		return "Snapshot Producer: (pId:"+getProducerId()+", Cat:"+getCategory()+", Sub:"+getSubsystem()+") Int: "+getIntervalName()+", Stats: "+getStatSnapshots();
 	}
 
 	public StatSnapshot getStatSnapshot(String statName) {
 		return stats.get(statName);
 	}
+	public long getTimestamp() {
+		return timestamp;
+	}
+
+	public void setTimestamp(long timestamp) {
+		this.timestamp = timestamp;
+	}
+
+
 }

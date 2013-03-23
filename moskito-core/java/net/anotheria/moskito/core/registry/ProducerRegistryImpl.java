@@ -34,6 +34,7 @@
  */	
 package net.anotheria.moskito.core.registry;
 
+import net.anotheria.moskito.core.plugins.PluginRepository;
 import net.anotheria.moskito.core.producers.IStatsProducer;
 import org.apache.log4j.Logger;
 
@@ -145,6 +146,7 @@ public class ProducerRegistryImpl implements IProducerRegistry{
 			return;
 
 		addListener(new JMXBridgeListener());
+
 	}
 
 	public void cleanup() {
