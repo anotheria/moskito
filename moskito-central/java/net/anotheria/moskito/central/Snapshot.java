@@ -1,6 +1,8 @@
 package net.anotheria.moskito.central;
 
 import java.io.Serializable;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * TODO comment this class
@@ -11,8 +13,9 @@ import java.io.Serializable;
 public class Snapshot implements Serializable {
 	private SnapshotMetaData metaData;
 
+	private Map<String, Map<String,String>> stats = new HashMap<String, Map<String, String>>();
+
 	public Snapshot(){
-		System.out.println("CREATING snapshot");
 	}
 
 	public SnapshotMetaData getMetaData() {
@@ -23,7 +26,11 @@ public class Snapshot implements Serializable {
 		this.metaData = metaData;
 	}
 
+	public void addSnapshotData(String name, Map<String,String> values ){
+		stats.put(name, values);
+	}
+
 	@Override public String toString(){
-		return "{ MD: "+metaData.toString()+"}";
+		return "{ MD: "+metaData.toString()+", Stats: "+stats+"}";
 	}
 }

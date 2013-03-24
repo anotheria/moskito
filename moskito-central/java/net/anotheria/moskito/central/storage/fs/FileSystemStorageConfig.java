@@ -32,4 +32,8 @@ public class FileSystemStorageConfig {
 	public void setSerializer(String serializer) {
 		this.serializer = serializer;
 	}
+
+	@Override public String toString(){
+		return "Pattern: "+getPattern()+", Ser: "+getSerializer();
+	}
 }

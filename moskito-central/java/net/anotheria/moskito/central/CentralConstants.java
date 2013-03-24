@@ -16,6 +16,9 @@ public class CentralConstants {
 	public static final String PATH_TAG_PRODUCER = "{producer}";
 	public static final String PATH_TAG_DATE = "{date}";
 	public static final String PATH_TAG_TIME = "{time}";
+	public static final String PATH_TAG_CATEGORY = "{category}";
+	public static final String PATH_TAG_SUBSYSTEM = "{subsystem}";
+	public static final String PATH_TAG_INTERVAL = "{interval}";
 
 
 

@@ -1,6 +1,5 @@
 package net.anotheria.moskito.central;
 
-import net.anotheria.moskito.core.config.MoskitoConfigurationHolder;
 import net.anotheria.moskito.core.dynamic.OnDemandStatsProducer;
 import net.anotheria.moskito.core.plugins.PluginRepository;
 import net.anotheria.moskito.core.predefined.ServiceStats;
@@ -12,8 +11,6 @@ import net.anotheria.moskito.core.stats.impl.IntervalRegistry;
 import net.anotheria.moskito.core.timing.IUpdateable;
 import org.junit.Before;
 import org.junit.Test;
-
-import java.util.Arrays;
 
 /**
  * TODO comment this class
@@ -34,10 +31,7 @@ public class CentralIntegrationTest {
 	@Test
 	public void testIntegration() throws Exception{
 
-		System.out.println("Plugins config:" +MoskitoConfigurationHolder.getConfiguration().getPluginsConfig());
-		System.out.println("plugins: "+ Arrays.asList(MoskitoConfigurationHolder.getConfiguration().getPluginsConfig().getPlugins()));
 		SnapshotRepository.getInstance();
-		System.out.println("Yes... "+SnapshotRepository.getInstance());
 
 		String intervalName = "5m";
 		//force interval update
@@ -54,10 +48,6 @@ public class CentralIntegrationTest {
 		//force interval update
 		forceIntervalUpdate(intervalName);
 
-		//force interval update
-		forceIntervalUpdate(intervalName);
-
-		System.out.println("FIRED");
 		Thread.sleep(500);
 
 

@@ -8,7 +8,10 @@ import net.anotheria.moskito.core.plugins.AbstractMoskitoPlugin;
 import net.anotheria.moskito.core.snapshot.ProducerSnapshot;
 import net.anotheria.moskito.core.snapshot.SnapshotConsumer;
 import net.anotheria.moskito.core.snapshot.SnapshotRepository;
+import net.anotheria.moskito.core.snapshot.StatSnapshot;
 import net.anotheria.net.util.NetUtils;
+
+import java.util.Map;
 
 /**
  * This connector allows to run moskito central embedded in any moskito instance.
@@ -64,6 +67,11 @@ public class EmbeddedConnector extends AbstractMoskitoPlugin implements Snapshot
 
 		metaData.setCreationTimestamp(coreSnapshot.getTimestamp());
 		centralSnapshot.setMetaData(metaData);
+
+		Map<String, StatSnapshot> coreStatSnapshots = coreSnapshot.getStatSnapshots();
+		for (Map.Entry<String,StatSnapshot> coreStatSnapshot : coreStatSnapshots.entrySet()){
+			centralSnapshot.addSnapshotData(coreStatSnapshot.getKey(), coreStatSnapshot.getValue().getValues());
+		}
 
 
 		central.processIncomingSnapshot(centralSnapshot);

@@ -67,7 +67,6 @@ public class Central {
 		cachedList.clear();
 		for (StorageConfigEntry storageConfigEntry : configuration.getStorages()){
 			try{
-				System.out.println("trying "+storageConfigEntry);
 				Storage storage = Storage.class.cast(Class.forName(storageConfigEntry.getClazz()).newInstance());
 				try{
 					storage.configure(storageConfigEntry.getConfigName());

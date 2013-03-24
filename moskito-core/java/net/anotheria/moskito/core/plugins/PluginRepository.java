@@ -43,17 +43,14 @@ public class PluginRepository {
 	}
 
 	private PluginRepository(){
-		System.out.println("plugin repository loaded.");
 	}
 
 	private void setup(){
 		PluginsConfig config = MoskitoConfigurationHolder.getConfiguration().getPluginsConfig();
-		System.out.println("Loading configs");
 		if (config.getPlugins()==null)
 			return;
 		for (PluginConfig pc : config.getPlugins()){
 			log.info("Loading plugin "+pc);
-			System.out.println("Loading config "+pc);
 			try {
 				MoskitoPlugin plugin = MoskitoPlugin.class.cast(
 						Class.forName(pc.getClassName()).newInstance()

@@ -3,7 +3,7 @@
         {
             "name": "json-file",
             "clazz": "net.anotheria.moskito.central.storage.fs.FileSystemStorage",
-            "configName": "..."
+            "configName": "moskito-fs"
         }
     ]
 }
