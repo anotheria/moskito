@@ -6,11 +6,24 @@ import net.anotheria.moskito.core.stats.StatValue;
 import net.anotheria.moskito.core.stats.TimeUnit;
 import net.anotheria.moskito.core.stats.impl.StatValueFactory;
 
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+
 /**
  * Stats for thread creation.
  * @author lrosenberg
  */
 public class ThreadCountStats extends AbstractStats {
+
+	private static final List<String> VALUE_NAMES = Collections.unmodifiableList(Arrays.asList(
+			"Started",
+			"Min",
+			"Max",
+			"Daemon",
+			"Cur"
+	));
+
 	/**
 	 * Number of started threads.
 	 */
@@ -128,4 +141,8 @@ public class ThreadCountStats extends AbstractStats {
 		return super.getValueByNameAsString(valueName, intervalName, timeUnit);
 	}
 
+	@Override
+	public List<String> getAvailableValueNames() {
+		return VALUE_NAMES;
+	}
 }

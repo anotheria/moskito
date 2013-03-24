@@ -8,7 +8,21 @@ import net.anotheria.moskito.core.stats.StatValueTypes;
 import net.anotheria.moskito.core.stats.TimeUnit;
 import net.anotheria.moskito.core.stats.impl.StatValueFactory;
 
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+
 public class SessionCountStats extends AbstractStats {
+
+	private static final List<String> VALUE_NAMES = Collections.unmodifiableList(Arrays.asList(
+			"Cur",
+			"Min",
+			"Max",
+			"New",
+			"Del"
+	));
+
+
 	/**
 	 * Current number of sessions.
 	 */
@@ -117,8 +131,15 @@ public class SessionCountStats extends AbstractStats {
 		
 		return super.getValueByNameAsString(valueName, intervalName, timeUnit);
 	}
-	
+
+	@Override
 	public String toString(){
 		return toStatsString();
 	}
+
+	@Override
+	public List<String> getAvailableValueNames() {
+		return VALUE_NAMES;
+	}
+
 }
