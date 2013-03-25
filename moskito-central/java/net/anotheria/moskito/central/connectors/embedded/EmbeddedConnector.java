@@ -22,10 +22,19 @@ import java.util.Map;
  */
 public class EmbeddedConnector extends AbstractMoskitoPlugin implements SnapshotConsumer{
 
+	/**
+	 * Link to local copy of central.
+	 */
 	private Central central;
 
+	/**
+	 * Name of the component. Default is app.
+	 */
 	private String componentName = "app";
 
+	/**
+	 * Hostname.
+	 */
 	private String host;
 
 	public EmbeddedConnector(){
@@ -79,6 +88,10 @@ public class EmbeddedConnector extends AbstractMoskitoPlugin implements Snapshot
 
 	@Override public boolean equals(Object o){
 		return o == this;
+	}
+
+	@Override public String toString(){
+		return getClass().getSimpleName()+" "+componentName+"@"+host;
 	}
 }
 

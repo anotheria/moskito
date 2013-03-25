@@ -3,23 +3,13 @@ package net.anotheria.moskito.central.storage.fs;
 import net.anotheria.moskito.central.Snapshot;
 import net.anotheria.moskito.central.storage.SnapshotSerializer;
 import net.anotheria.moskito.central.storage.Storage;
-import net.anotheria.util.NumberUtils;
-import net.anotheria.util.StringUtils;
+import net.anotheria.moskito.central.storage.StorageUtils;
 import org.apache.log4j.Logger;
 import org.configureme.ConfigurationManager;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-
-import static net.anotheria.moskito.central.CentralConstants.PATH_TAG_CATEGORY;
-import static net.anotheria.moskito.central.CentralConstants.PATH_TAG_COMPONENT;
-import static net.anotheria.moskito.central.CentralConstants.PATH_TAG_DATE;
-import static net.anotheria.moskito.central.CentralConstants.PATH_TAG_HOST;
-import static net.anotheria.moskito.central.CentralConstants.PATH_TAG_INTERVAL;
-import static net.anotheria.moskito.central.CentralConstants.PATH_TAG_PRODUCER;
-import static net.anotheria.moskito.central.CentralConstants.PATH_TAG_SUBSYSTEM;
-import static net.anotheria.moskito.central.CentralConstants.PATH_TAG_TIME;
 
 /**
  * TODO comment this class
@@ -58,6 +48,11 @@ public class FileSystemStorage implements Storage {
 
 	@Override
 	public void processSnapshot(Snapshot target) {
+
+		if (!config.include(target.getMetaData().getProducerId(), target.getMetaData().getIntervalName())){
+			return;
+		}
+
 		if (serializer==null){
 			log.warn("can't serialize snapshots, ignoring "+target);
 			return;
@@ -66,15 +61,7 @@ public class FileSystemStorage implements Storage {
 		byte[] data = serializer.serialize(target);
 		//System.out.println("Serialized: "+new String(data));
 
-		String path = config.getPattern();
-		path = StringUtils.replace(path, PATH_TAG_HOST, target.getMetaData().getHostName());
-		path = StringUtils.replace(path, PATH_TAG_COMPONENT, target.getMetaData().getComponentName());
-		path = StringUtils.replace(path, PATH_TAG_PRODUCER, target.getMetaData().getProducerId());
-		path = StringUtils.replace(path, PATH_TAG_DATE,StringUtils.replace(NumberUtils.makeDigitalDateString(target.getMetaData().getCreationTimestamp()), '.', '_'));
-		path = StringUtils.replace(path, PATH_TAG_TIME,StringUtils.replace(NumberUtils.makeTimeString(target.getMetaData().getCreationTimestamp()), ':', '_'));
-		path = StringUtils.replace(path, PATH_TAG_CATEGORY, target.getMetaData().getCategory());
-		path = StringUtils.replace(path, PATH_TAG_SUBSYSTEM, target.getMetaData().getSubsystem());
-		path = StringUtils.replace(path, PATH_TAG_INTERVAL, target.getMetaData().getIntervalName());
+		String path = StorageUtils.convertPathPattern(config.getPattern(), target);
 
 		FileOutputStream fOut = null;
 		String dirName = path.substring(0, path.lastIndexOf('/'));

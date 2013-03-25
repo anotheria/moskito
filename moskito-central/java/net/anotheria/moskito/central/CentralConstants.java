@@ -19,6 +19,7 @@ public class CentralConstants {
 	public static final String PATH_TAG_CATEGORY = "{category}";
 	public static final String PATH_TAG_SUBSYSTEM = "{subsystem}";
 	public static final String PATH_TAG_INTERVAL = "{interval}";
+	public static final String PATH_TAG_STAT = "{stat}";
 
 
 

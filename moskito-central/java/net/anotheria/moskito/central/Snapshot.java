@@ -33,4 +33,14 @@ public class Snapshot implements Serializable {
 	@Override public String toString(){
 		return "{ MD: "+metaData.toString()+", Stats: "+stats+"}";
 	}
+
+	public Map<String, Map<String, String>> getStats() {
+		return stats;
+	}
+
+	public void setStats(Map<String, Map<String, String>> stats) {
+		this.stats = stats;
+	}
+
+
 }

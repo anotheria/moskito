@@ -1,4 +1,8 @@
 {
     "pattern": "/tmp/central/{host}/{component}/{producer}/{interval}/{date}/{date}_{time}_{producer}.json",
-    "serializer": "net.anotheria.moskito.central.storage.serializer.GsonSerializer"
+    "serializer": "net.anotheria.moskito.central.storage.serializer.GsonSerializer",
+    "includeIntervals": "*",
+    "excludeIntervals": "1m",
+    "includeProducers": "*",
+    "excludeProducers": ""
 }
