@@ -6,6 +6,10 @@ import net.anotheria.moskito.core.stats.StatValue;
 import net.anotheria.moskito.core.stats.TimeUnit;
 import net.anotheria.moskito.core.stats.impl.StatValueFactory;
 
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+
 /**
  * Stats object for operation system related values.
  * @author lrosenberg
@@ -123,7 +127,26 @@ public class OSStats extends AbstractStats {
 		return super.getValueByNameAsString(valueName, intervalName, timeUnit);
 	}
 
-	
+	private static final List<String> VALUE_NAMES = Collections.unmodifiableList(Arrays.asList(
+			"FREE",
+			"TOTAL",
+			"FREE MB",
+			"TOTAL MB",
+			"Open Files",
+			"Min Open Files",
+			"Max Open Files",
+			"Map supported Open Files",
+			"CPU TIME",
+			"Processors"
+	));
+
+	@Override
+	public List<String> getAvailableValueNames() {
+		return VALUE_NAMES;
+	}
+
+
+
 	public void update(int anOpenFiles, int aMaxOpenFiles, long aFreePhysicalMemorySize, long aTotalPhysicalMemorySize, long aProcessTime, int aProcessors){
 		openFiles.setValueAsInt(anOpenFiles);
 		maxOpenFiles.setValueIfGreaterThanCurrentAsInt(anOpenFiles);

@@ -61,7 +61,6 @@ public class SnapshotRepositoryTest extends BaseSnapshotTest{
 		@Override
 		public void consumeSnapshot(ProducerSnapshot snapshot) {
 			consumedCount++;
-			System.out.println("CONSUMED "+snapshot);
 		}
 
 		public int getConsumedCount(){

@@ -6,12 +6,24 @@ import net.anotheria.moskito.core.stats.StatValue;
 import net.anotheria.moskito.core.stats.TimeUnit;
 import net.anotheria.moskito.core.stats.impl.StatValueFactory;
 
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+
 /**
  * Stats object that corresponds to JMX RuntimeMbean.
  * @author another
  *
  */
 public class RuntimeStats extends AbstractStats {
+
+	private static final List<String> VALUE_NAMES = Collections.unmodifiableList(Arrays.asList(
+			"Process",
+			"Starttime",
+			"Uptime"
+	));
+
+
 	/**
 	 * Name of the process.
 	 */
@@ -87,4 +99,11 @@ public class RuntimeStats extends AbstractStats {
 	public long getUptime(String intervalName){
 		return uptime.getValueAsLong(intervalName);
 	}
+
+	@Override
+	public List<String> getAvailableValueNames() {
+		return VALUE_NAMES;
+	}
+
+
 }
