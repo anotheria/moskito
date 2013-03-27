@@ -3,6 +3,7 @@ package net.anotheria.moskito.central.storage.serializer;
 import net.anotheria.moskito.central.Snapshot;
 import net.anotheria.util.NumberUtils;
 
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -51,7 +52,11 @@ public class CSVSerializer{
 			if (!special)
 				ret.append("\""+data.get(s)+"\"");
 		}
-		return ret.toString().getBytes();
+		try {
+			return ret.toString().getBytes("UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			throw new AssertionError("UTF-8 not supported");
+		}
 	}
 
 	public byte[] getHeader(Snapshot snapshot) {
@@ -62,7 +67,11 @@ public class CSVSerializer{
 				ret.append(";");
 			ret.append("\""+s+"\"");
 		}
-		return ret.toString().getBytes();
+		try {
+			return ret.toString().getBytes("UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			throw new AssertionError("UTF-8 not supported");
+		}
 	}
 
 	private List<String> getValueNames(Snapshot snapshot){
