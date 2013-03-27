@@ -4,28 +4,46 @@ import org.configureme.annotations.Configure;
 import org.configureme.annotations.ConfigureMe;
 
 /**
- * TODO comment this class
+ * Part of the configuration of CSVFileStorage for one producer/interval/stat combination.
  *
  * @author lrosenberg
  * @since 25.03.13 10:20
  */
 @ConfigureMe
 public class CSVFileStorageConfigEntry {
+	/**
+	 * Included interval names, comma separated or '*'.
+	 */
 	@Configure
 	private String includedIntervals;
 
+	/**
+	 * Excluded interval names, comma separated.
+	 */
 	@Configure
 	private String excludedIntervals;
 
+	/**
+	 * Included producer names, comma separated or '*'.
+	 */
 	@Configure
 	private String includedProducers;
 
+	/**
+	 * Excluded producer names, comma separated.
+	 */
 	@Configure
 	private String excludedProducers;
 
+	/**
+	 * Included stat names, comma separated or '*'.
+	 */
 	@Configure
 	private String includedStats;
 
+	/**
+	 * Excluded stat names, comma separated.
+	 */
 	@Configure
 	private String excludedStats;
 

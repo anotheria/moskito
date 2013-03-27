@@ -13,23 +13,27 @@ import java.io.IOException;
 import java.util.Set;
 
 /**
- * TODO comment this class
+ * Storage that stores a producer/stat combination in csv format.
  *
  * @author lrosenberg
  * @since 24.03.13 22:41
  */
 public class CSVFileStorage implements Storage{
 
+	/**
+	 * Configuration.
+	 */
 	private CSVFileStorageConfig config;
 
+	/**
+	 * Logger.
+	 */
 	private static Logger log = Logger.getLogger(CSVFileStorage.class);
 
+	/**
+	 * Serializer instance.
+	 */
 	private CSVSerializer serializer = new CSVSerializer();
-
-
-
-	public CSVFileStorage(){
-	}
 
 	@Override
 	public void configure(String configurationName) {
