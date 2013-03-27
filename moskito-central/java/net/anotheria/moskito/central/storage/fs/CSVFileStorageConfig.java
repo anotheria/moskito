@@ -32,6 +32,19 @@ public class CSVFileStorageConfig {
 	 */
 	private List<CSVFileStorageConfigElement> elements;
 
+	/**
+	 * Global interval include.
+	 */
+	@Configure
+	private String includeIntervals = "*";
+
+	/**
+	 * Global interval exclude.
+	 */
+	@Configure
+	private String excludeIntervals = "";
+
+
 	public String getPattern() {
 		return pattern;
 	}
@@ -55,14 +68,6 @@ public class CSVFileStorageConfig {
 	public void setExcludeIntervals(String excludeIntervals) {
 		this.excludeIntervals = excludeIntervals;
 	}
-
-	@Configure
-	private String includeIntervals = "*";
-
-	@Configure
-	private String excludeIntervals = "";
-
-	private IncludeExcludeList intervals;
 
 
 	public CSVFileStorageConfigEntry[] getEntries() {
