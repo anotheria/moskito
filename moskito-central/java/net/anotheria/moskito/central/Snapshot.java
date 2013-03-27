@@ -5,14 +5,20 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * TODO comment this class
+ * Represents a single snapshot.
  *
  * @author lrosenberg
  * @since 15.03.13 23:15
  */
 public class Snapshot implements Serializable {
+	/**
+	 * The metadata. The metadata contains data about the snapshot like producerId or timestamp.
+	 */
 	private SnapshotMetaData metaData;
 
+	/**
+	 * Stat values.
+	 */
 	private Map<String, Map<String,String>> stats = new HashMap<String, Map<String, String>>();
 
 	public Snapshot(){

@@ -9,18 +9,27 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * TODO comment this class
+ * Configuration file for CSVFile Storage.
  *
  * @author lrosenberg
  * @since 25.03.13 10:00
  */
 @ConfigureMe
 public class CSVFileStorageConfig {
+	/**
+	 * Entries with producer/stat/interval definition.
+	 */
 	@Configure private CSVFileStorageConfigEntry[] entries;
 
+	/**
+	 * File pattern.
+	 */
 	@Configure
 	private String pattern;
 
+	/**
+	 * Restored config element.
+	 */
 	private List<CSVFileStorageConfigElement> elements;
 
 	public String getPattern() {
@@ -95,10 +104,21 @@ public class CSVFileStorageConfig {
 
 	}
 
+	/**
+	 * Runtime used element.
+	 */
 	private static class CSVFileStorageConfigElement{
-
+		/**
+		 * Include/Exclude list with intervals.
+		 */
 		private IncludeExcludeList intervals;
+		/**
+		 * Include/Exclude list with producers.
+		 */
 		private IncludeExcludeList producers;
+		/**
+		 * Include/Exclude list with stats.
+		 */
 		private IncludeExcludeList stats;
 
 		public CSVFileStorageConfigElement(CSVFileStorageConfigEntry entry, IncludeExcludeList outerIntervals){

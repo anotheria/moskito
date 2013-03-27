@@ -5,7 +5,7 @@ import net.anotheria.util.NumberUtils;
 import java.io.Serializable;
 
 /**
- * TODO comment this class
+ * Contains meta data about the snapshot like producerId, creation timestamp and so on.
  *
  * @author lrosenberg
  * @since 20.03.13 14:07

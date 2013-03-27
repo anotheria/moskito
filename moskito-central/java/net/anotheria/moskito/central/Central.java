@@ -103,7 +103,13 @@ public class Central {
 	}
 
 
+	/**
+	 * Central singleton instance holder.
+	 */
 	private static class CentralInstanceHolder{
+		/**
+		 * Helds the Central singleton instance.
+ 		 */
 		static final Central instance;
 		static{
 			instance = new Central();

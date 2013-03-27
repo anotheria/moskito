@@ -4,19 +4,28 @@ import org.configureme.annotations.Configure;
 import org.configureme.annotations.ConfigureMe;
 
 /**
- * TODO comment this class
+ * This part of the configuration defines a single storage.
  *
  * @author lrosenberg
  * @since 15.03.13 23:21
  */
 @ConfigureMe
 public class StorageConfigEntry {
+	/**
+	 * Name of the storage.
+	 */
 	@Configure
 	private String name;
 
+	/**
+	 * Class that implements Storage and has to be loaded.
+	 */
 	@Configure
 	private String clazz;
 
+	/**
+	 * Name of the configuration for the Storage instance.
+	 */
 	@Configure
 	private String configName;
 
