@@ -11,7 +11,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
 /**
- * TODO comment this class
+ * Manages and controls plugins at runtime.
  *
  * @author lrosenberg
  * @since 19.03.13 15:47
@@ -42,6 +42,9 @@ public class PluginRepository {
 		return PluginRepositoryHolder.instance;
 	}
 
+	/**
+	 * Private constructor.
+	 */
 	private PluginRepository(){
 	}
 
@@ -69,6 +72,12 @@ public class PluginRepository {
 		}
 	}
 
+	/**
+	 * Adds a new loaded plugin.
+	 * @param name name of the plugin for ui.
+	 * @param plugin the plugin instance.
+	 * @param config plugin config which was used to load the plugin.
+	 */
 	public void addPlugin(String name, MoskitoPlugin plugin, PluginConfig config){
 		plugins.put(name, plugin);
 		try{
@@ -80,6 +89,11 @@ public class PluginRepository {
 		}
 	}
 
+	/**
+	 * Removes a plugin. This call will call deInitialize on the plugin. The plugin is responsible to
+	 * free all used resources and un-register itself from listening.
+	 * @param name name of the plugin.
+	 */
 	public void removePlugin(String name){
 		configs.remove(name);
 		MoskitoPlugin plugin = plugins.remove(name);
@@ -94,20 +108,37 @@ public class PluginRepository {
 		}
 	}
 
+	/**
+	 * Returns the names of the active plugins.
+	 * @return
+	 */
 	public List<String> getPluginNames() {
 		ArrayList<String> ret = new ArrayList<String>();
 		ret.addAll(plugins.keySet());
 		return ret;
 	}
 
+	/**
+	 * Returns loaded plugin by name.
+	 * @param name
+	 * @return
+	 */
 	public MoskitoPlugin getPlugin(String name){
 		return plugins.get(name);
 	}
 
+	/**
+	 * Returns pluginconfig for the loaded plugin.
+	 * @param name
+	 * @return
+	 */
 	public PluginConfig getConfig(String name){
 		return configs.get(name);
 	}
 
+	/**
+	 * Singletonhelper.
+	 */
 	private static class PluginRepositoryHolder{
 		private static final PluginRepository instance = new PluginRepository();
 		static{

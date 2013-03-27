@@ -1,7 +1,7 @@
 package net.anotheria.moskito.core.plugins;
 
 /**
- * TODO comment this class
+ * This interface defines a plugin-able object that can be loaded in moskito core for customization.
  *
  * @author lrosenberg
  * @since 19.03.13 15:39

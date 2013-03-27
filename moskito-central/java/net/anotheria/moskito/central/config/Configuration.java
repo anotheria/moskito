@@ -6,13 +6,16 @@ import org.configureme.annotations.ConfigureMe;
 import java.util.Arrays;
 
 /**
- * TODO comment this class
+ * Configuration object for moskito central.
  *
  * @author lrosenberg
  * @since 15.03.13 23:11
  */
 @ConfigureMe(name="moskito-central")
 public class Configuration {
+	/**
+	 * Configured storages.
+	 */
 	@Configure
 	private StorageConfigEntry[] storages;
 
