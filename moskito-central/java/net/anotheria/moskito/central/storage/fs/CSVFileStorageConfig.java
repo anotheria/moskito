@@ -91,7 +91,6 @@ public class CSVFileStorageConfig {
 			CSVFileStorageConfigElement element = new CSVFileStorageConfigElement(entry, intervals);
 			newElements.add(element);
 		}
-		System.out.println("NewElementsList "+newElements);
 		elements = newElements;
 
 	}
