@@ -16,21 +16,39 @@ import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
- * TODO comment this class
+ * This repository creates snapshots and delivers them to snapshot consumer.
+ * Whenever an interval is updated, all producer are queried for stats, the snapshots are created and delivered to
+ * consumers.
  *
  * @author lrosenberg
  * @since 20.03.13 14:32
  */
 public class SnapshotRepository {
 
+	/**
+	 * Consumuers for snapshots.
+	 */
 	private final List<SnapshotConsumer> consumers = new CopyOnWriteArrayList<SnapshotConsumer>();
 
+	/**
+	 * Link to api.
+	 */
 	private IProducerRegistryAPI producerRegistryAPI;
 
+	/**
+	 * Processor for de-coupling snapshot creation and snapshot creation.
+	 */
 	private QueuedProcessor<ProducerSnapshot> snapshotQueuedProcessor;
 
+	/**
+	 * Logger.
+	 */
 	private static Logger log = Logger.getLogger(SnapshotRepository.class);
 
+
+	/**
+	 * Unit test indicator.
+	 */
 	private boolean inTestMode = false;
 
 	private SnapshotRepository(){
@@ -89,6 +107,9 @@ public class SnapshotRepository {
 
 	}
 
+	/**
+	 * Snapshot repository's interval listener that triggers creation of new snapshots when interval gets updated.
+	 */
 	private static class SRIntervalListener implements IIntervalListener{
 		@Override
 		public void intervalUpdated(Interval aCaller) {
@@ -96,6 +117,10 @@ public class SnapshotRepository {
 		}
 	}
 
+	/**
+	 * Snapshot repository's interval registry listener, that registers the SRIntervalListener at any newly
+	 * created interval.
+	 */
 	private static class SRIntervalRegistryListener implements IntervalRegistryListener{
 		@Override
 		public void intervalCreated(Interval aInterval) {
@@ -103,16 +128,27 @@ public class SnapshotRepository {
 		}
 	}
 
+	/**
+	 * Singleton holder.
+	 */
 	private static class SnapshotRepositoryInstanceHolder{
 		private static final SnapshotRepository instance = new SnapshotRepository();
 	}
 
+	/**
+	 * Adds a new snapshot consumer.
+	 * @param consumer
+	 */
 	public void addConsumer(SnapshotConsumer consumer){
 		if (consumers.contains(consumer))
 			consumers.remove(consumer);
 		consumers.add(consumer);
 	}
 
+	/**
+	 * Removes a previously registered consumer.
+	 * @param consumer
+	 */
 	public void removeConsumer(SnapshotConsumer consumer){
 		consumers.remove(consumer);
 	}
