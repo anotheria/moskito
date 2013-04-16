@@ -1,18 +1,19 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
-  <parent>
+	<parent>
+		<groupId>net.anotheria</groupId>
+		<artifactId>parent</artifactId>
+		<version>2.1</version>
+	</parent>
+
+	<modelVersion>4.0.0</modelVersion>
 	<groupId>net.anotheria</groupId>
-	<artifactId>parent</artifactId>
-	<version>2.1</version>
-  </parent>
-
-  <modelVersion>4.0.0</modelVersion>
-  <groupId>net.anotheria</groupId>
-  <artifactId>moskito</artifactId>
-  <version>2.2.3-SNAPSHOT</version>
-  <name>MoSKito</name>
-  <description>MoSKito, MoSKito, MoSKito and moskito</description>
-  <packaging>pom</packaging>
+	<artifactId>moskito</artifactId>
+	<version>2.2.3-SNAPSHOT</version>
+	<name>MoSKito</name>
+	<description>MoSKito, MoSKito, MoSKito and moskito</description>
+	<packaging>pom</packaging>
 
 	<modules>
 		<module>moskito-core</module>
@@ -23,10 +24,11 @@
 		<module>moskito-aop</module>
 		<module>moskito-integration</module>
 		<module>moskitominimal</module>
-    </modules>
- 
-    <properties>
-		<jersey-version>1.17</jersey-version>
+	</modules>
+
+	<properties>
+		<jersey-version>1.17.1</jersey-version>
+		<distributeme.version>2.0.0</distributeme.version>
 	</properties>
 
 
@@ -35,120 +37,136 @@
 		<connection>scm:svn:svn://svn.anotheria.net/opensource/moskito/trunk</connection>
 		<developerConnection>scm:svn:svn://svn.anotheria.net/opensource/moskito/trunk</developerConnection>
 	</scm>
-    <dependencyManagement>
-        <dependencies>
-            <dependency>
-                <groupId>net.anotheria</groupId>
-                <artifactId>configureme</artifactId>
-                <version>2.0.1</version>
-            </dependency>
-            <dependency>
-                <groupId>net.anotheria</groupId>
-                <artifactId>ano-util</artifactId>
-                <version>2.0.1</version>
-                <exclusions>
-                    <exclusion>
-                        <groupId>blowfish</groupId>
-                        <artifactId>blowfish</artifactId>
-                    </exclusion>
-                </exclusions>
-            </dependency>
-            <dependency>
-                <groupId>net.anotheria</groupId>
-                <artifactId>ano-comm</artifactId>
-                <version>2.0.0</version>
-            </dependency>
-            <dependency>
-                <groupId>net.anotheria</groupId>
-                <artifactId>ano-maf</artifactId>
-                <version>2.0.1</version>
-            </dependency>
-            <dependency>
-                <groupId>net.anotheria</groupId>
-                <artifactId>ano-tags</artifactId>
-                <version>2.0.0</version>
-            </dependency>
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>net.anotheria</groupId>
+				<artifactId>configureme</artifactId>
+				<version>2.0.1</version>
+			</dependency>
+			<dependency>
+				<groupId>net.anotheria</groupId>
+				<artifactId>ano-util</artifactId>
+				<version>2.0.1</version>
+				<exclusions>
+					<exclusion>
+						<groupId>blowfish</groupId>
+						<artifactId>blowfish</artifactId>
+					</exclusion>
+				</exclusions>
+			</dependency>
+			<dependency>
+				<groupId>net.anotheria</groupId>
+				<artifactId>ano-comm</artifactId>
+				<version>2.0.0</version>
+			</dependency>
+			<dependency>
+				<groupId>net.anotheria</groupId>
+				<artifactId>ano-maf</artifactId>
+				<version>2.0.1</version>
+			</dependency>
+			<dependency>
+				<groupId>net.anotheria</groupId>
+				<artifactId>ano-tags</artifactId>
+				<version>2.0.0</version>
+			</dependency>
 			<!-- for moskito sql -->
-            <dependency>
-                <groupId>net.anotheria</groupId>
-                <artifactId>ano-db</artifactId>
-                <version>2.0.0</version>
-            </dependency>
-            <dependency>
-                <groupId>net.anotheria</groupId>
-                <artifactId>ano-web</artifactId>
-                <version>2.0.1</version>
-            </dependency>
-            <dependency>
-                <groupId>net.anotheria</groupId>
-                <artifactId>ano-plass</artifactId>
-                <version>2.0.1</version>
-            </dependency>
-            <dependency>
-                <groupId>net.anotheria</groupId>
-                <artifactId>ano-prise</artifactId>
-                <version>2.0.1</version>
-            </dependency>
-            <dependency>
-                <groupId>net.anotheria</groupId>
-                <artifactId>ano-net</artifactId>
-                <version>2.0.0</version>
-            </dependency>
+			<dependency>
+				<groupId>net.anotheria</groupId>
+				<artifactId>ano-db</artifactId>
+				<version>2.0.0</version>
+			</dependency>
+			<dependency>
+				<groupId>net.anotheria</groupId>
+				<artifactId>ano-web</artifactId>
+				<version>2.0.1</version>
+			</dependency>
+			<dependency>
+				<groupId>net.anotheria</groupId>
+				<artifactId>ano-plass</artifactId>
+				<version>2.0.1</version>
+			</dependency>
+			<dependency>
+				<groupId>net.anotheria</groupId>
+				<artifactId>ano-prise</artifactId>
+				<version>2.0.1</version>
+			</dependency>
+			<dependency>
+				<groupId>net.anotheria</groupId>
+				<artifactId>ano-net</artifactId>
+				<version>2.0.0</version>
+			</dependency>
 			<dependency>
 				<groupId>commons-codec</groupId>
 				<artifactId>commons-codec</artifactId>
 				<version>1.5</version>
 			</dependency>
-            <dependency>
-                <groupId>hsqldb</groupId>
-                <artifactId>hsqldb</artifactId>
-                <version>1.8.0.7</version>
-                <scope>test</scope>
-            </dependency>
-	        <dependency>
-	            <groupId>org.aspectj</groupId>
-	            <artifactId>aspectjrt</artifactId>
-	            <version>1.7.1</version>
-	        </dependency>
-	        <dependency>
-	            <groupId>org.aspectj</groupId>
-	            <artifactId>aspectjtools</artifactId>
-	            <version>1.7.1</version>
-	        </dependency>
-            <dependency>
-                <groupId>com.google.code.gson</groupId>
-                <artifactId>gson</artifactId>
-                <version>2.2.2</version>
-            </dependency>
-            <!-- jersey -->
-            <dependency>
-                <groupId>com.sun.jersey</groupId>
-                <artifactId>jersey-client</artifactId>
-                <version>${jersey-version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.sun.jersey</groupId>
-                <artifactId>jersey-server</artifactId>
-                <version>${jersey-version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.sun.jersey</groupId>
-                <artifactId>jersey-servlet</artifactId>
-                <version>${jersey-version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.sun.jersey</groupId>
-                <artifactId>jersey-json</artifactId>
-                <version>${jersey-version}</version>
-            </dependency>
-            <!-- jax-rs -->
-            <dependency>
-                <groupId>javax.ws.rs</groupId>
-                <artifactId>jsr311-api</artifactId>
-                <version>1.1.1</version>
-            </dependency>
+			<dependency>
+				<groupId>hsqldb</groupId>
+				<artifactId>hsqldb</artifactId>
+				<version>1.8.0.7</version>
+				<scope>test</scope>
+			</dependency>
+			<dependency>
+				<groupId>org.aspectj</groupId>
+				<artifactId>aspectjrt</artifactId>
+				<version>1.7.1</version>
+			</dependency>
+			<dependency>
+				<groupId>org.aspectj</groupId>
+				<artifactId>aspectjtools</artifactId>
+				<version>1.7.1</version>
+			</dependency>
+			<dependency>
+				<groupId>com.google.code.gson</groupId>
+				<artifactId>gson</artifactId>
+				<version>2.2.2</version>
+			</dependency>
+			<!-- jersey -->
+			<dependency>
+				<groupId>com.sun.jersey</groupId>
+				<artifactId>jersey-client</artifactId>
+				<version>${jersey-version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.sun.jersey</groupId>
+				<artifactId>jersey-server</artifactId>
+				<version>${jersey-version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.sun.jersey</groupId>
+				<artifactId>jersey-servlet</artifactId>
+				<version>${jersey-version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.sun.jersey</groupId>
+				<artifactId>jersey-json</artifactId>
+				<version>${jersey-version}</version>
+			</dependency>
+			<!-- jax-rs -->
+			<dependency>
+				<groupId>javax.ws.rs</groupId>
+				<artifactId>jsr311-api</artifactId>
+				<version>1.1.1</version>
+			</dependency>
 
-        </dependencies>
-    </dependencyManagement>
+			<dependency>
+				<groupId>net.anotheria</groupId>
+				<artifactId>distributeme-core</artifactId>
+				<version>${distributeme.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>net.anotheria</groupId>
+				<artifactId>distributeme-support</artifactId>
+				<version>${distributeme.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>net.anotheria</groupId>
+				<artifactId>distributeme-agents</artifactId>
+				<version>${distributeme.version}</version>
+			</dependency>
+
+		</dependencies>
+	</dependencyManagement>
 
 </project>

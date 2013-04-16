@@ -18,7 +18,7 @@ import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
 
-import net.anotheria.moskito.webcontrol.IOUtils;
+import net.anotheria.moskito.core.util.IOUtils;
 import net.anotheria.moskito.webcontrol.feed.FeedGetter;
 import net.anotheria.moskito.webcontrol.feed.HttpGetter;
 import net.anotheria.moskito.webcontrol.guards.Guard;

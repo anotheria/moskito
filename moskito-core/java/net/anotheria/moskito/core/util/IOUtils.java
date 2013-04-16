@@ -1,13 +1,19 @@
-package net.anotheria.moskito.webcontrol;
+package net.anotheria.moskito.core.util;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.nio.ByteBuffer;
 import java.nio.channels.Channels;
 import java.nio.channels.ReadableByteChannel;
 import java.nio.channels.WritableByteChannel;
 
+/**
+ * 
+ * @author dagafonov
+ *
+ */
 public final class IOUtils {
 	
 	private IOUtils() {
@@ -28,6 +34,14 @@ public final class IOUtils {
 		rbch.close();
 		wbch.close();
 		return new String(baos.toByteArray());
+	}
+	
+	public static void fastChannelCopy(final InputStream src, final OutputStream dest) throws IOException {
+		ReadableByteChannel rbch = Channels.newChannel(src);
+		WritableByteChannel wbch = Channels.newChannel(dest);
+		fastChannelCopy(rbch, wbch);
+		rbch.close();
+		wbch.close();
 	}
 
 	/**
