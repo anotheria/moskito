@@ -1,0 +1,14 @@
+{
+    "@storages": [
+        {
+            "name": "json-file",
+            "clazz": "net.anotheria.moskito.central.storage.fs.FileSystemStorage",
+            "configName": "moskito-fs"
+        },
+        {
+            "name": "csv-file",
+            "clazz": "net.anotheria.moskito.central.storage.fs.CSVFileStorage",
+            "configName": "moskito-csv"
+        }
+    ]
+}

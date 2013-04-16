@@ -9,6 +9,7 @@ import net.anotheria.moskito.core.snapshot.SnapshotRepository;
 import net.anotheria.moskito.core.stats.Interval;
 import net.anotheria.moskito.core.stats.impl.IntervalRegistry;
 import net.anotheria.moskito.core.timing.IUpdateable;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -53,7 +54,7 @@ public class CentralIntegrationTest {
 
 	}
 
-	protected static OnDemandStatsProducer setupProducer(){
+	protected static OnDemandStatsProducer<ServiceStats> setupProducer(){
 		OnDemandStatsProducer<ServiceStats> producer = new OnDemandStatsProducer<ServiceStats>("testProducerId", "aCategory", "aSubsystem", new ServiceStatsFactory());
 		return producer;
 	}

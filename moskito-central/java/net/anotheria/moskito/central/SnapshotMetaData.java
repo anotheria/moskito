@@ -4,12 +4,18 @@ import net.anotheria.util.NumberUtils;
 
 import java.io.Serializable;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlRootElement;
+
 /**
  * Contains meta data about the snapshot like producerId, creation timestamp and so on.
  *
  * @author lrosenberg
  * @since 20.03.13 14:07
  */
+@XmlRootElement(name="snshmd")
+@XmlAccessorType(XmlAccessType.FIELD)
 public class SnapshotMetaData implements Serializable {
 	/**
 	 * Id of the producer.

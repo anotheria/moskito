@@ -1,0 +1,4 @@
+{
+	connectorHost: "localhost",
+	connectorPort: 9249,
+}

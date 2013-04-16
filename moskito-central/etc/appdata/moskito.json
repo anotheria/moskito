@@ -3,13 +3,18 @@
 		"@plugins": [
 			{
 				"name": "EmbeddedCentralConnector",
-				"configurationName": "none",
+				"configurationName": "aaa",
 				"className": "net.anotheria.moskito.central.connectors.embedded.EmbeddedConnector"
 			},
 			{
 				"name": "RESTRemoteCentralConnector",
 				"configurationName": "rest-connector",
 				"className": "net.anotheria.moskito.central.connectors.rest.RESTConnector",
+			},
+			{
+				"name": "DiMeRemoteCentralConnector",
+				"configurationName": "dime-connector",
+				"className": "net.anotheria.moskito.central.connectors.dime.CentralRMIConnector",
 			},
 		]
 	}

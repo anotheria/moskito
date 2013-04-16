@@ -52,7 +52,7 @@ public class CSVFileStorage implements Storage{
 	public void processSnapshot(Snapshot target) {
 		String producerId = target.getMetaData().getProducerId();
 		String interval = target.getMetaData().getIntervalName();
-		Set<String> stats = target.getStats().keySet();
+		Set<String> stats = target.getKeySet();
 		if (stats==null || stats.size()==0)
 			return;
 		for (String stat : stats){
