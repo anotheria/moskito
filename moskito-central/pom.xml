@@ -88,23 +88,6 @@
 			<activation>
 				<activeByDefault>true</activeByDefault>
 			</activation>
-			<dependencies>
-				<dependency>
-					<groupId>net.anotheria</groupId>
-					<artifactId>distributeme-core</artifactId>
-					<version>${distributeme.version}</version>
-				</dependency>
-				<dependency>
-					<groupId>net.anotheria</groupId>
-					<artifactId>distributeme-agents</artifactId>
-					<version>${distributeme.version}</version>
-				</dependency>
-				<dependency>
-					<groupId>net.anotheria</groupId>
-					<artifactId>distributeme-support</artifactId>
-					<version>${distributeme.version}</version>
-				</dependency>
-			</dependencies>
 			<build>
 				<plugins>
 					<plugin>
