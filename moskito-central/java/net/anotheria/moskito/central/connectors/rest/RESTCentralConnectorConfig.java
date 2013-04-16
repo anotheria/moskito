@@ -1,4 +1,4 @@
-package net.anotheria.moskito.central.config;
+package net.anotheria.moskito.central.connectors.rest;
 
 import org.configureme.annotations.ConfigureMe;
 
@@ -9,7 +9,7 @@ import org.configureme.annotations.ConfigureMe;
  * 
  */
 @ConfigureMe(allfields = true)
-public class RESTConfig {
+public class RESTCentralConnectorConfig {
 
 	/**
 	 * HTTP server host.

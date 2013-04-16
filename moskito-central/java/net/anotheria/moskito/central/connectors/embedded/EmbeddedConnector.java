@@ -25,7 +25,7 @@ public class EmbeddedConnector extends AbstractCentralConnector {
 	}
 
 	@Override
-	protected void sendData(String config, Snapshot snapshot) {
+	protected void sendData(Snapshot snapshot) {
 		central.processIncomingSnapshot(snapshot);
 	}
 

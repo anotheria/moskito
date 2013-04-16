@@ -14,7 +14,7 @@
 			{
 				"name": "DiMeRemoteCentralConnector",
 				"configurationName": "dime-connector",
-				"className": "net.anotheria.moskito.central.connectors.dime.CentralRMIConnector",
+				"className": "net.anotheria.moskito.central.connectors.dime.DiMeCentralConnector",
 			},
 		]
 	}

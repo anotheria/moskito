@@ -1,4 +1,4 @@
-package net.anotheria.moskito.central.config;
+package net.anotheria.moskito.central.connectors.dime;
 
 import org.configureme.annotations.ConfigureMe;
 
@@ -22,6 +22,11 @@ public class DiMeCentralConnectorConfig {
 
 	public void setConnectorPort(int connectorPort) {
 		this.connectorPort = connectorPort;
+	}
+
+	@Override
+	public String toString() {
+		return "DiMeCentralConnectorConfig [connectorHost=" + connectorHost + ", connectorPort=" + connectorPort + "]";
 	}
 
 }

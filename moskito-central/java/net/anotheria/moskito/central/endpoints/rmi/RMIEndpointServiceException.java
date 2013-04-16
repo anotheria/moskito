@@ -1,11 +1,11 @@
-package net.anotheria.moskito.central.connectors.dime;
+package net.anotheria.moskito.central.endpoints.rmi;
 
 /**
  * 
  * @author dagafonov
  *
  */
-public class CentralRMIServiceException extends Exception {
+public class RMIEndpointServiceException extends Exception {
 
 	/**
 	 * 

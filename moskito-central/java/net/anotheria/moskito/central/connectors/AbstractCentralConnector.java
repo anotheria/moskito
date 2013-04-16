@@ -29,11 +29,6 @@ public abstract class AbstractCentralConnector extends AbstractMoskitoPlugin imp
 	private String componentName = "app";
 
 	/**
-	 * 
-	 */
-	protected String configName;
-
-	/**
 	 * Hostname.
 	 */
 	private String host;
@@ -49,22 +44,6 @@ public abstract class AbstractCentralConnector extends AbstractMoskitoPlugin imp
 		if (host == null)
 			host = "unknown";
 		host = System.getProperty(CentralConstants.PROP_HOSTNAME, host);
-	}
-
-	@Override
-	public void setConfigurationName(String configurationName) {
-		super.setConfigurationName(configurationName);
-		this.configName = configurationName;
-		processConfig();
-	}
-
-	protected void processConfig() {
-		// do nothing yet
-		System.out.println(this.getClass().getName()+", process config '" + getConfigName() + "'");
-	}
-
-	public String getConfigName() {
-		return configName;
 	}
 
 	@Override
@@ -84,7 +63,7 @@ public abstract class AbstractCentralConnector extends AbstractMoskitoPlugin imp
 
 		Snapshot centralSnapshot = makeSnapshot(coreSnapshot);
 
-		sendData(getConfigName(), centralSnapshot);
+		sendData(centralSnapshot);
 
 		log.debug(this.getClass().getName() + ": " + coreSnapshot + "\r\n" + centralSnapshot);
 
@@ -112,7 +91,7 @@ public abstract class AbstractCentralConnector extends AbstractMoskitoPlugin imp
 		return centralSnapshot;
 	}
 
-	protected abstract void sendData(String config, Snapshot snapshot);
+	protected abstract void sendData(Snapshot snapshot);
 
 	@Override
 	public String toString() {

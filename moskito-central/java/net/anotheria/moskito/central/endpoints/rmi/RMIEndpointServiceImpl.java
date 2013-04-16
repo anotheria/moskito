@@ -1,4 +1,4 @@
-package net.anotheria.moskito.central.connectors.dime;
+package net.anotheria.moskito.central.endpoints.rmi;
 
 import net.anotheria.moskito.central.Central;
 import net.anotheria.moskito.central.Snapshot;
@@ -9,19 +9,19 @@ import net.anotheria.moskito.central.Snapshot;
  * @author dagafonov
  * 
  */
-public class CentralRMIServiceImpl implements CentralRMIService {
+public class RMIEndpointServiceImpl implements RMIEndpointService {
 
 	/**
 	 * Instance of local Central.
 	 */
 	private Central central;
 
-	public CentralRMIServiceImpl() {
+	public RMIEndpointServiceImpl() {
 		central = Central.getInstance();
 	}
 
 	@Override
-	public void processIncomingSnapshot(Snapshot snapshot) throws CentralRMIServiceException {
+	public void processIncomingSnapshot(Snapshot snapshot) throws RMIEndpointServiceException {
 		central.processIncomingSnapshot(snapshot);
 	}
 

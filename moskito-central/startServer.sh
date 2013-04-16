@@ -1,2 +1,2 @@
 #!/bin/sh
-java -DlocalRmiRegistryPort=9249 -DskipCentralRegistry=true -cp target/moskito-central-2.2.3-SNAPSHOT-jar-with-dependencies.jar net.anotheria.moskito.central.connectors.dime.generated.CentralRMIServer
+java -DlocalRmiRegistryPort=9249 -DskipCentralRegistry=true -cp target/moskito-central-2.2.3-SNAPSHOT-jar-with-dependencies.jar net.anotheria.moskito.central.endpoints.rmi.generated.RMIEndpointServer

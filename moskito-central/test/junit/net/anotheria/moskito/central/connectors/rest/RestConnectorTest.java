@@ -1,8 +1,5 @@
 package net.anotheria.moskito.central.connectors.rest;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-
 import java.util.HashMap;
 
 import javax.ws.rs.core.MediaType;
@@ -37,37 +34,9 @@ public class RestConnectorTest extends JerseyTest {
 	}
 
 	@Test
-	public void testGetSnapshot() throws Exception {
-		WebResource webResource = resource();
-		// String responseString =
-		// webResource.path("/central/getSnapshot").accept(MediaType.APPLICATION_JSON).get(String.class);
-		// System.out.println("*************************************\r\nresponseString="
-		// + responseString);
-
-		Snapshot responseSnapshot = webResource.path("/central/getSnapshot").accept(MediaType.APPLICATION_JSON).get(Snapshot.class);
-		// System.out.println("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&\r\nresponseSnapshot="
-		// + responseSnapshot);
-		assertNotNull(responseSnapshot);
-		assertNotNull(responseSnapshot.getStats());
-
-		HashMap<String, HashMap<String, String>> stats = responseSnapshot.getStats();
-		assertNotNull(stats);
-		assertEquals(3, stats.size());
-		assertNotNull(stats.get("test"));
-		assertNotNull(stats.get("test2"));
-		assertNotNull(stats.get("test3"));
-
-		HashMap<String, String> test = stats.get("test");
-		assertNotNull(test);
-		assertEquals(2, test.size());
-		assertNotNull(test.get("firstname"));
-		assertNotNull(test.get("lastname"));
-	}
-	
-	@Test
 	public void testAddSnapshot() {
 		WebResource webResource = resource();
-		
+
 		Snapshot sn = new Snapshot();
 
 		SnapshotMetaData metaData = new SnapshotMetaData();
@@ -83,10 +52,9 @@ public class RestConnectorTest extends JerseyTest {
 		sn.addSnapshotData("test", data);
 		sn.addSnapshotData("test2", data);
 		sn.addSnapshotData("test3", data);
-			
-		
+
 		webResource.path("/central/addSnapshot").type(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON).put(sn);
-		
+
 	}
 
 }

@@ -6,7 +6,6 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.UriBuilder;
 
 import net.anotheria.moskito.central.Snapshot;
-import net.anotheria.moskito.central.config.RESTConfig;
 import net.anotheria.moskito.central.connectors.AbstractCentralConnector;
 
 import org.apache.log4j.Logger;
@@ -22,7 +21,7 @@ public class RESTConnector extends AbstractCentralConnector {
 
 	private final static Logger log = Logger.getLogger(RESTConnector.class);
 
-	private RESTConfig restConfig;
+	private RESTCentralConnectorConfig restConfig;
 
 	private Client getClient() {
 		ClientConfig clientConfig = new DefaultClientConfig();
@@ -36,16 +35,14 @@ public class RESTConnector extends AbstractCentralConnector {
 	}
 
 	@Override
-	protected void processConfig() {
-		restConfig = new RESTConfig();
-		if (getConfigName() != null) {
-			ConfigurationManager.INSTANCE.configureAs(restConfig, getConfigName());
-			log.debug(restConfig);
-		}
+	public void setConfigurationName(String configurationName) {
+		restConfig = new RESTCentralConnectorConfig();
+		ConfigurationManager.INSTANCE.configureAs(restConfig, configurationName);
+		log.debug(restConfig);
 	}
 
 	@Override
-	protected void sendData(String config, Snapshot snapshot) {
+	protected void sendData(Snapshot snapshot) {
 		WebResource resource = getClient().resource(getBaseURI());
 		resource.accept(MediaType.APPLICATION_JSON).type(MediaType.APPLICATION_JSON).post(snapshot);
 	}
