@@ -19,6 +19,9 @@ public class EmbeddedConnector extends AbstractCentralConnector {
 	 */
 	private Central central;
 
+	/**
+	 * Default constructor.
+	 */
 	public EmbeddedConnector() {
 		super();
 		central = Central.getInstance();
@@ -30,8 +33,12 @@ public class EmbeddedConnector extends AbstractCentralConnector {
 	}
 
 	@Override
-	public boolean equals(Object o) {
-		return o == this;
+	public int hashCode() {
+		return 0;
 	}
 
+	@Override
+	public boolean equals(Object obj) {
+		return this == obj;
+	}
 }

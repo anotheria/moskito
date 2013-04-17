@@ -1,12 +1,24 @@
 package net.anotheria.moskito.central.endpoints.rmi;
 
-import org.distributeme.annotation.DistributeMe;
 import net.anotheria.anoprise.metafactory.Service;
 import net.anotheria.moskito.central.Snapshot;
 
+import org.distributeme.annotation.DistributeMe;
+
+/**
+ * Endpoint service for central connectivity.
+ * 
+ * @author dagafonov
+ * 
+ */
 @DistributeMe(moskitoSupport = false)
 public interface RMIEndpointService extends Service {
 
-	public void processIncomingSnapshot(Snapshot snapshot) throws RMIEndpointServiceException;
+	/**
+	 * Puts snapshot to the Central.
+	 * @param snapshot
+	 * @throws RMIEndpointServiceException
+	 */
+	void processIncomingSnapshot(Snapshot snapshot) throws RMIEndpointServiceException;
 
 }

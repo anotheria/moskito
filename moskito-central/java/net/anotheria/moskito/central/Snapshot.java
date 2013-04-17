@@ -39,9 +39,12 @@ public class Snapshot implements Serializable {
 	/**
 	 * Stat values.
 	 */
-	@XmlJavaTypeAdapter(MapAdapter2.class)
+	@XmlJavaTypeAdapter(MapAdapter.class)
 	private HashMap<String, HashMap<String, String>> stats = new HashMap<String, HashMap<String, String>>();
 
+	/**
+	 * Default constructor.
+	 */
 	public Snapshot() {
 
 	}
@@ -54,6 +57,12 @@ public class Snapshot implements Serializable {
 		this.metaData = metaData;
 	}
 
+	/**
+	 * Adds snapshot data to the stats map.
+	 * 
+	 * @param name
+	 * @param values
+	 */
 	public void addSnapshotData(String name, HashMap<String, String> values) {
 		stats.put(name, values);
 	}
@@ -63,6 +72,12 @@ public class Snapshot implements Serializable {
 		return "Snapshot [metaData=" + metaData + ", stats=" + stats + "]";
 	}
 
+	/**
+	 * Gets statistics by specified {@link String} key.
+	 * 
+	 * @param stat
+	 * @return {@link Map<String, String>}
+	 */
 	public Map<String, String> getStatistics(String stat) {
 		return stats.get(stat);
 	}
@@ -75,6 +90,11 @@ public class Snapshot implements Serializable {
 		return stats.keySet();
 	}
 
+	/**
+	 * Gets all statistics.
+	 * 
+	 * @return {@link HashMap<String, HashMap<String, String>>}
+	 */
 	public HashMap<String, HashMap<String, String>> getStats() {
 		if (stats == null) {
 			stats = new HashMap<String, HashMap<String, String>>();
@@ -86,11 +106,13 @@ public class Snapshot implements Serializable {
 		this.stats = stats;
 	}
 
-	public static class MapAdapter1 extends HashMapAdapter<String, String> {
-
-	}
-
-	public static class MapAdapter2 extends HashMapAdapter<String, HashMap<String, String>> {
+	/**
+	 * {@link XmlAdapter} for String, HashMap<String, String>.
+	 * 
+	 * @author dagafonov
+	 * 
+	 */
+	public static class MapAdapter extends HashMapAdapter<String, HashMap<String, String>> {
 
 	}
 

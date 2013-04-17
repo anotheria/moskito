@@ -22,7 +22,7 @@ public class RESTCentralConnectorConfig {
 	private int port;
 
 	/**
-	 * HTTP server path;
+	 * HTTP server path.
 	 */
 	private String resourcePath;
 

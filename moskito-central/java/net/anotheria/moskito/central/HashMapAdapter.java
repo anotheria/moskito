@@ -5,8 +5,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map.Entry;
 
-import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.adapters.XmlAdapter;
 
@@ -15,18 +13,21 @@ import net.anotheria.moskito.central.HashMapAdapter.MyMapType;
 /**
  * 
  * @author dagafonov
- *
+ * 
  * @param <K>
  * @param <V>
  */
 public class HashMapAdapter<K, V> extends XmlAdapter<MyMapType<K, V>, HashMap<K, V>> {
 
+	/**
+	 * Default construcotr.
+	 */
 	public HashMapAdapter() {
-		// TODO Auto-generated constructor stub
+
 	}
 
 	@Override
-	public MyMapType<K, V> marshal(HashMap<K, V> arg0) throws Exception {
+	public MyMapType<K, V> marshal(HashMap<K, V> arg0) {
 		MyMapType<K, V> myMapType = new MyMapType<K, V>();
 		for (Entry<K, V> entry : arg0.entrySet()) {
 			MyMapEntryType<K, V> myMapEntryType = new MyMapEntryType<K, V>();
@@ -38,17 +39,28 @@ public class HashMapAdapter<K, V> extends XmlAdapter<MyMapType<K, V>, HashMap<K,
 	}
 
 	@Override
-	public HashMap<K, V> unmarshal(MyMapType<K, V> arg0) throws Exception {
+	public HashMap<K, V> unmarshal(MyMapType<K, V> arg0) {
 		HashMap<K, V> hashMap = new HashMap<K, V>();
 		for (MyMapEntryType<K, V> myEntryType : arg0.entries) {
 			hashMap.put(myEntryType.key, myEntryType.value);
 		}
 		return hashMap;
 	}
-	
+
+	/**
+	 * Wrapper for all entries that stored in hash map.
+	 * 
+	 * @author dagafonov
+	 * 
+	 * @param <K>
+	 * @param <V>
+	 */
 	@XmlRootElement
 	public static class MyMapType<K, V> {
 
+		/**
+		 * All keys and values will be transformed into {@link MyMapEntryType}.
+		 */
 		private List<MyMapEntryType<K, V>> entries = new ArrayList<MyMapEntryType<K, V>>();
 
 		public List<MyMapEntryType<K, V>> getEntries() {
@@ -66,13 +78,25 @@ public class HashMapAdapter<K, V> extends XmlAdapter<MyMapType<K, V>, HashMap<K,
 
 	}
 
+	/**
+	 * Wrapper for key - value pair.
+	 * 
+	 * @author dagafonov
+	 * 
+	 * @param <K>
+	 * @param <V>
+	 */
 	@XmlRootElement
 	public static class MyMapEntryType<K, V> {
 
-//		@XmlAttribute
+		/**
+		 * Entry key.
+		 */
 		private K key;
 
-//		@XmlElement
+		/**
+		 * Entry value.
+		 */
 		private V value;
 
 		public K getKey() {

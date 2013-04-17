@@ -17,10 +17,22 @@ import com.sun.jersey.api.client.config.ClientConfig;
 import com.sun.jersey.api.client.config.DefaultClientConfig;
 import com.sun.jersey.api.json.JSONConfiguration;
 
+/**
+ * REST connector implemetation to the Central.
+ * 
+ * @author dagafonov
+ * 
+ */
 public class RESTConnector extends AbstractCentralConnector {
 
+	/**
+	 * Logger instance.
+	 */
 	private final static Logger log = Logger.getLogger(RESTConnector.class);
 
+	/**
+	 * Connector config instance.
+	 */
 	private RESTCentralConnectorConfig restConfig;
 
 	private Client getClient() {
@@ -30,6 +42,9 @@ public class RESTConnector extends AbstractCentralConnector {
 		return client;
 	}
 
+	/**
+	 * Default constructor.
+	 */
 	public RESTConnector() {
 		super();
 	}
@@ -49,11 +64,6 @@ public class RESTConnector extends AbstractCentralConnector {
 
 	private URI getBaseURI() {
 		return UriBuilder.fromUri("http://" + restConfig.getHost() + restConfig.getResourcePath()).port(restConfig.getPort()).build();
-	}
-
-	@Override
-	public boolean equals(Object o) {
-		return o == this;
 	}
 
 }

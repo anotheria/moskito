@@ -17,8 +17,14 @@ import net.anotheria.moskito.central.Snapshot;
 @Path("/central")
 public class RestEndpoint {
 
+	/**
+	 * Central instance.
+	 */
 	private Central central;
 
+	/**
+	 * Derfault constructor.
+	 */
 	public RestEndpoint() {
 		central = Central.getInstance();
 	}

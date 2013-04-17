@@ -16,6 +16,9 @@ public class RMIEndpointServiceImpl implements RMIEndpointService {
 	 */
 	private Central central;
 
+	/**
+	 * Default constructor.
+	 */
 	public RMIEndpointServiceImpl() {
 		central = Central.getInstance();
 	}

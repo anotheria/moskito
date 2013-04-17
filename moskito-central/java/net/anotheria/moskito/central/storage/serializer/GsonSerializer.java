@@ -6,16 +6,19 @@ import net.anotheria.moskito.central.Snapshot;
 import net.anotheria.moskito.central.storage.SnapshotSerializer;
 
 /**
- * TODO comment this class
- *
+ * {@link Gson} serializer.
+ * 
  * @author lrosenberg
  * @since 22.03.13 15:00
  */
 public class GsonSerializer implements SnapshotSerializer {
 
-	Gson gson = new GsonBuilder().setPrettyPrinting().create();
+	/**
+	 * {@link Gson} instance.
+	 */
+	private Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
-	public byte[] serialize(Snapshot snapshot){
+	public byte[] serialize(Snapshot snapshot) {
 		String jsonOutput = gson.toJson(snapshot);
 		return jsonOutput.getBytes();
 	}

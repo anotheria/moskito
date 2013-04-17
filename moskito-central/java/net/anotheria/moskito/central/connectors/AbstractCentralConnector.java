@@ -33,8 +33,14 @@ public abstract class AbstractCentralConnector extends AbstractMoskitoPlugin imp
 	 */
 	private String host;
 
+	/**
+	 * Logger instance.
+	 */
 	private final static Logger log = Logger.getLogger(AbstractCentralConnector.class);
 
+	/**
+	 * Default constructor.
+	 */
 	public AbstractCentralConnector() {
 		componentName = System.getProperty(CentralConstants.PROP_COMPONENT, componentName);
 		try {
@@ -68,7 +74,7 @@ public abstract class AbstractCentralConnector extends AbstractMoskitoPlugin imp
 		log.debug(this.getClass().getName() + ": " + coreSnapshot + "\r\n" + centralSnapshot);
 
 	}
-	
+
 	private Snapshot makeSnapshot(ProducerSnapshot coreSnapshot) {
 		Snapshot centralSnapshot = new Snapshot();
 
@@ -91,6 +97,11 @@ public abstract class AbstractCentralConnector extends AbstractMoskitoPlugin imp
 		return centralSnapshot;
 	}
 
+	/**
+	 * Connector specific implementation.
+	 * 
+	 * @param snapshot
+	 */
 	protected abstract void sendData(Snapshot snapshot);
 
 	@Override

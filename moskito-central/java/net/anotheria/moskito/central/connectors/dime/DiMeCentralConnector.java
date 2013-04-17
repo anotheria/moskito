@@ -20,6 +20,9 @@ import org.distributeme.core.ServiceDescriptor.Protocol;
  */
 public class DiMeCentralConnector extends AbstractCentralConnector {
 
+	/**
+	 * Logger instance.
+	 */
 	private final static Logger log = Logger.getLogger(DiMeCentralConnector.class);
 
 	/**

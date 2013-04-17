@@ -5,35 +5,59 @@ import org.configureme.annotations.Configure;
 import org.configureme.annotations.ConfigureMe;
 
 /**
- * TODO comment this class
- *
+ * FileSystemStorageConfig class.
+ * 
  * @author lrosenberg
  * @since 22.03.13 14:15
  */
 @ConfigureMe
 public class FileSystemStorageConfig {
+
+	/**
+	 * Serializer name.
+	 */
 	@Configure
 	private String serializer;
 
+	/**
+	 * excludeProducers.
+	 */
 	@Configure
 	private String includeProducers = "*";
 
+	/**
+	 * excludeProducers.
+	 */
 	@Configure
 	private String excludeProducers = "";
 
+	/**
+	 * Pattern.
+	 */
 	@Configure
 	private String pattern = "/tmp/central/{host}/{component}/{producer}/{date}/{date}_{time}_{producer}.json";
 
+	/**
+	 * includeIntervals.
+	 */
 	@Configure
 	private String includeIntervals = "*";
 
+	/**
+	 * excludeIntervals.
+	 */
 	@Configure
 	private String excludeIntervals = "";
 
+	/**
+	 * intervals.
+	 */
 	private IncludeExcludeList intervals;
 
+	/**
+	 * producers.
+	 */
 	private IncludeExcludeList producers;
-
 
 	public String getPattern() {
 		return pattern;
@@ -83,27 +107,32 @@ public class FileSystemStorageConfig {
 		this.excludeProducers = excludeProducers;
 	}
 
+	/**
+	 * afterConfiguration.
+	 */
 	@AfterConfiguration
-	public void afterConfiguration(){
+	public void afterConfiguration() {
 		intervals = new IncludeExcludeList(includeIntervals, excludeIntervals);
 		producers = new IncludeExcludeList(includeProducers, excludeProducers);
 	}
 
-
-	@Override public String toString(){
-		return "Pat: "+getPattern()+
-				", InclIntervals: "+getIncludeIntervals()+
-				", ExclIntervals: "+getExcludeIntervals()+
-				", Ser: "+getSerializer()+
-				", InclProducers: "+getIncludeProducers()+
-				", ExclProducers: "+getExcludeProducers();
+	@Override
+	public String toString() {
+		return "Pat: " + getPattern() + ", InclIntervals: " + getIncludeIntervals() + ", ExclIntervals: " + getExcludeIntervals() + ", Ser: "
+				+ getSerializer() + ", InclProducers: " + getIncludeProducers() + ", ExclProducers: " + getExcludeProducers();
 	}
 
-	public boolean include(String producerId, String intervalName){
+	/**
+	 * Checks on availability producerId and interval.
+	 * 
+	 * @param producerId
+	 * @param intervalName
+	 * @return boolean.
+	 */
+	public boolean include(String producerId, String intervalName) {
 		if (!intervals.include(intervalName))
 			return false;
 		return producers.include(producerId);
 	}
-
 
 }
