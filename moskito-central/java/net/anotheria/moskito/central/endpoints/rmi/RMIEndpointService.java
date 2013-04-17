@@ -11,7 +11,7 @@ import org.distributeme.annotation.DistributeMe;
  * @author dagafonov
  * 
  */
-@DistributeMe(moskitoSupport = false)
+@DistributeMe(moskitoSupport = false, agentsSupport = false, enableEventService = false)
 public interface RMIEndpointService extends Service {
 
 	/**
