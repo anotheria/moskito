@@ -71,11 +71,6 @@ public class RefererFilter extends MoskitoFilter {
 		return referer;
 	}
 
-	@Override
-	public String getProducerId() {
-		return "RefererFilter";
-	}
-	
 	private static String extractServerName(String referer){
 		int end; 
 		end = referer.indexOf(':');

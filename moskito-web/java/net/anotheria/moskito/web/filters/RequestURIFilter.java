@@ -63,9 +63,4 @@ public class RequestURIFilter extends MoskitoFilter {
 		}
 		return ret;
 	}
-
-	@Override
-	public String getProducerId() {
-		return "RequestURIFilter";
-	}
 }

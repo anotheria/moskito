@@ -179,10 +179,7 @@ public abstract class MoskitoFilter implements Filter{
 	 * Returns the producer id. Override this method if you want a useful name in your logs. Default is class name.
 	 */
 	protected String getProducerId() {
-		String name = getClass().getName();
-		int index = name.lastIndexOf('.');
-		return index == -1 ? 
-				name : name.substring(index+1);
+		return getClass().getSimpleName();
 	}
 
 	/**
@@ -204,4 +201,13 @@ public abstract class MoskitoFilter implements Filter{
 	protected Interval[] getMonitoringIntervals(){
 		return Constants.getDefaultIntervals();
 	}
+
+	protected OnDemandStatsProducer<FilterStats> getProducer(){
+		return onDemandProducer;
+	}
+
+	protected FilterStats getOtherStats(){
+		return otherStats;
+	}
 }
+
