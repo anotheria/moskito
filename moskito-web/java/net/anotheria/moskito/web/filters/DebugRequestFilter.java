@@ -1,105 +1,110 @@
 package net.anotheria.moskito.web.filters;
 
+import org.apache.log4j.Logger;
+
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.Enumeration;
+import java.util.Map;
 
 /**
- * This filter dump out to sysout all headers, parameters and attributes of request, session id and session's attributes if url
+ * This filter dump out to sysOut all headers, parameters and attributes of request, session id and session's attributes if url
  * have a special parameter mskDiagnosticsDebugRequest.
+ *
  * @author asamoilich.
  */
 public class DebugRequestFilter implements Filter {
 
+    /**
+     * Logger util.
+     */
+    private static Logger logger = Logger.getLogger(DebugRequestFilter.class);
+    /**
+     * If parameter with this name is presented in request than doFilter method will be executed.
+     */
     private static final String PARAM_DIAGNOSTIC_DEBUG = "mskDiagnosticsDebugRequest";
-
-    private HttpServletRequest request;
+    /**
+     * Constant for request headers.
+     */
+    private static final String HEADERS = "headers:";
+    /**
+     * Constant for request attributes.
+     */
+    private static final String ATTRIBUTES = "attributes:";
+    /**
+     * Constant for request parameters.
+     */
+    private static final String PARAMETERS = "parameters:";
+    /**
+     * Constant for session attributes.
+     */
+    private static final String SESSION_ATTRIBUTES = "sessionAttributes:";
 
     @Override
-    public void init(FilterConfig filterConfig) throws ServletException {
-    }
-
-    private enum RequestParamType{
-        HEADERS("headers:"),
-        ATTRIBUTES("attributes:"),
-        PARAMETERS("parameters:"),
-        SESSION_ATTRIBUTES("sessionAttributes:");
-
-        private String value;
-
-        private RequestParamType(String value){
-            this.value = value;
-        }
-
-        public String getValue(){
-            return value;
-        }
+    public void init(final FilterConfig filterConfig) throws ServletException {
     }
 
     @Override
-    public void doFilter(ServletRequest req, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-        if (!(req instanceof HttpServletRequest) || req.getParameter(PARAM_DIAGNOSTIC_DEBUG) == null){
+    public void doFilter(final ServletRequest req, final ServletResponse response, final FilterChain chain) throws IOException, ServletException {
+        if (!(req instanceof HttpServletRequest) || req.getParameter(PARAM_DIAGNOSTIC_DEBUG) == null) {
             chain.doFilter(req, response);
             return;
         }
-        request = (HttpServletRequest) req;
-        sysOut(RequestParamType.HEADERS);
-        sysOut(RequestParamType.ATTRIBUTES);
-        sysOut(RequestParamType.PARAMETERS);
-        HttpSession session = getSession();
-        if(session != null){
-            System.out.println("Session = "+session.getId());
-            sysOut(RequestParamType.SESSION_ATTRIBUTES);
-        }
-        System.out.println("Remote ip = "+req.getRemoteAddr());
-        System.out.println("Server name = "+req.getServerName());
-        System.out.println("Server port = "+req.getServerPort());
+        debug((HttpServletRequest) req);
+        chain.doFilter(req, response);
     }
 
-    private void sysOut(RequestParamType type){
-        System.out.println(type.getValue());
-        Enumeration enumeration = getEnumerationByType(type);
-        if(enumeration == null){
+    /**
+     * Dump out to sysOut request parameters.
+     *
+     * @param request provided {@link HttpServletRequest}
+     */
+    private void debug(final HttpServletRequest request) {
+        if (!logger.isInfoEnabled()) {
+            logger.warn("Logger INTO not enabled!");
             return;
         }
-        while(enumeration.hasMoreElements()) {
-            String elementName = (String)enumeration.nextElement();
-            System.out.println(elementName+" = "+ getElementValueFromRequestByType(elementName, type));
-        }
-    }
 
-    private Enumeration getEnumerationByType(RequestParamType type){
-        switch (type){
-            case HEADERS:
-                return request.getHeaderNames();
-            case ATTRIBUTES:
-                return request.getAttributeNames();
-            case PARAMETERS:
-                return request.getParameterNames();
-            case SESSION_ATTRIBUTES:
-                return getSession() == null ? null : getSession().getAttributeNames();
+        logger.info(HEADERS);
+        Enumeration headerEnumeration = request.getHeaderNames();
+        while (headerEnumeration.hasMoreElements()) {
+            String elementName = (String) headerEnumeration.nextElement();
+            logger.info(elementName + " = " + request.getHeader(elementName));
         }
-        return null;
-    }
 
-    private Object getElementValueFromRequestByType(String elementName, RequestParamType type){
-        switch (type){
-            case HEADERS:
-                return request.getHeader(elementName);
-            case ATTRIBUTES:
-                return request.getAttribute(elementName);
-            case PARAMETERS:
-                return request.getParameter(elementName);
-            case SESSION_ATTRIBUTES:
-                return getSession() == null ? "" : getSession().getAttribute(elementName);
+        logger.info(ATTRIBUTES);
+        Enumeration attributeEnumeration = request.getAttributeNames();
+        while (attributeEnumeration.hasMoreElements()) {
+            String elementName = (String) headerEnumeration.nextElement();
+            logger.info(elementName + " = " + request.getAttribute(elementName));
         }
-        return "";
-    }
 
-    private HttpSession getSession(){
-        return request.getSession(false);
+        logger.info(PARAMETERS);
+        Map<String, String[]> parameterMap = request.getParameterMap();
+        for (Map.Entry<String, String[]> entry : parameterMap.entrySet()) {
+            StringBuilder parameterValues = new StringBuilder();
+            if (entry.getValue() != null)
+                for (String value : entry.getValue()) {
+                    parameterValues.append(value + " ");
+                }
+            logger.info(entry.getKey() + " = " + parameterValues);
+        }
+        HttpSession session = request.getSession(false);
+        if (session != null) {
+            logger.info("Session = " + session.getId());
+            logger.info(SESSION_ATTRIBUTES);
+
+            Enumeration sessionAttrEnumeration = session.getAttributeNames();
+            while (sessionAttrEnumeration.hasMoreElements()) {
+                String elementName = (String) sessionAttrEnumeration.nextElement();
+                logger.info(elementName + " = " + session.getAttribute(elementName));
+            }
+        }
+        logger.info("Remote ip = " + request.getRemoteAddr());
+        logger.info("Server name = " + request.getServerName());
+        logger.info("Server port = " + request.getServerPort());
     }
 
     @Override
