@@ -15,24 +15,44 @@ import static net.anotheria.moskito.central.CentralConstants.PATH_TAG_SUBSYSTEM;
 import static net.anotheria.moskito.central.CentralConstants.PATH_TAG_TIME;
 
 /**
- * TODO comment this class
- *
+ * TODO comment this class.
+ * 
  * @author lrosenberg
  * @since 24.03.13 22:44
  */
-public class StorageUtils {
+public final class StorageUtils {
 
-	public static final String convertPathPattern(String path, Snapshot target, String statName){
+	/**
+	 * Default constructor.
+	 */
+	private StorageUtils() {
+		//
+	}
+
+	/**
+	 * 
+	 * @param path
+	 * @param target
+	 * @param statName
+	 * @return String
+	 */
+	public static String convertPathPattern(String path, Snapshot target, String statName) {
 		path = convertPathPattern(path, target);
 		return StringUtils.replace(path, PATH_TAG_STAT, statName);
 	}
 
-	public static final String convertPathPattern(String path, Snapshot target){
+	/**
+	 * 
+	 * @param path
+	 * @param target
+	 * @return String
+	 */
+	public static String convertPathPattern(String path, Snapshot target) {
 		path = StringUtils.replace(path, PATH_TAG_HOST, target.getMetaData().getHostName());
 		path = StringUtils.replace(path, PATH_TAG_COMPONENT, target.getMetaData().getComponentName());
 		path = StringUtils.replace(path, PATH_TAG_PRODUCER, target.getMetaData().getProducerId());
-		path = StringUtils.replace(path, PATH_TAG_DATE,StringUtils.replace(NumberUtils.makeDigitalDateString(target.getMetaData().getCreationTimestamp()), '.', '_'));
-		path = StringUtils.replace(path, PATH_TAG_TIME,StringUtils.replace(NumberUtils.makeTimeString(target.getMetaData().getCreationTimestamp()), ':', '_'));
+		path = StringUtils.replace(path, PATH_TAG_DATE, StringUtils.replace(NumberUtils.makeDigitalDateString(target.getMetaData().getCreationTimestamp()), '.', '_'));
+		path = StringUtils.replace(path, PATH_TAG_TIME, StringUtils.replace(NumberUtils.makeTimeString(target.getMetaData().getCreationTimestamp()), ':', '_'));
 		path = StringUtils.replace(path, PATH_TAG_CATEGORY, target.getMetaData().getCategory());
 		path = StringUtils.replace(path, PATH_TAG_SUBSYSTEM, target.getMetaData().getSubsystem());
 		path = StringUtils.replace(path, PATH_TAG_INTERVAL, target.getMetaData().getIntervalName());

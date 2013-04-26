@@ -47,6 +47,14 @@ public class IncludeExcludeList {
 		for (String e : ee)
 			excludes.add(e.trim());
 	}
+	
+	public Set<String> getIncludes() {
+		return includes;
+	}
+	
+	public Set<String> getExcludes() {
+		return excludes;
+	}
 
 	/**
 	 * Checks on availability query in include, exclude {@link Set}'s.
@@ -60,7 +68,7 @@ public class IncludeExcludeList {
 		}
 		return includeAll || includes.contains(query);
 	}
-
+	
 	@Override
 	public String toString() {
 		return "All: " + includeAll + ", incl: " + includes + ", excl: " + excludes;

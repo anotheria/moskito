@@ -1,0 +1,18 @@
+{
+	driver:"org.hsqldb.jdbc.JDBCDriver",
+	url:"jdbc:hsqldb:/tmp/hsqldb-central",
+	userName:"daa",
+	password:"daa",
+	persistenceUnitName:"hsqldbSnapshotStorage",
+	
+	"@mappings" : [
+		{
+			"producerName": "SessionCount",
+            "statEntityClass": "net.anotheria.moskito.central.storage.psql.HttpSessionStatisticsEntity"
+		},
+		{
+			"producerName": "testProducerId,*API,*Service*",
+            "statEntityClass": "net.anotheria.moskito.central.storage.psql.ServiceStatsEntity"
+		},
+	]
+}

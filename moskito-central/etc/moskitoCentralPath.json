@@ -1,5 +1,5 @@
 {
-    rootDirString: "/projects/companies/Anotheria/SVN/tests/xml",
+    rootDirString: "/Users/daa/projects/companies/Anotheria/SVN/tests/xml",
     storageFileFormat: "{storagedir}/{host}/{instance}/{producer}/{intervalname}/{date}",
     instanceName: "myinstance"
 }

@@ -107,7 +107,7 @@ public class Snapshot implements Serializable {
 	}
 
 	/**
-	 * {@link XmlAdapter} for String, HashMap<String, String>.
+	 * XmlAdapter for String, HashMap<String, String>.
 	 * 
 	 * @author dagafonov
 	 * 

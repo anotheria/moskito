@@ -16,10 +16,12 @@ import java.util.List;
  */
 @ConfigureMe
 public class CSVFileStorageConfig {
+	
 	/**
 	 * Entries with producer/stat/interval definition.
 	 */
-	@Configure private CSVFileStorageConfigEntry[] entries;
+	@Configure 
+	private CSVFileStorageConfigEntry[] entries;
 
 	/**
 	 * File pattern.

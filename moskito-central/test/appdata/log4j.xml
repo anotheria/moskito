@@ -14,10 +14,20 @@
 		<appender-ref ref="stdout" />
 	</logger>
 	
-	<root>
+	<logger name="org.hibernate">
+		<level value="INFO" />
+		<appender-ref ref="stdout" />
+	</logger>
+	
+	<logger name="org.configureme">
+		<level value="DEBUG" />
+		<appender-ref ref="stdout" />
+	</logger>
+	
+	<!-- <root>
 		<priority value="debug" />
 		<appender-ref ref="stdout" />
-	</root>
+	</root> -->
 
 </log4j:configuration>
   

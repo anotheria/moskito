@@ -9,6 +9,7 @@ import net.anotheria.moskito.central.Snapshot;
 import net.anotheria.moskito.central.connectors.AbstractCentralConnector;
 
 import org.apache.log4j.Logger;
+import org.codehaus.jackson.jaxrs.JacksonJaxbJsonProvider;
 import org.configureme.ConfigurationManager;
 
 import com.sun.jersey.api.client.Client;
@@ -37,6 +38,7 @@ public class RESTConnector extends AbstractCentralConnector {
 
 	private Client getClient() {
 		ClientConfig clientConfig = new DefaultClientConfig();
+		clientConfig.getClasses().add(JacksonJaxbJsonProvider.class);
 		clientConfig.getFeatures().put(JSONConfiguration.FEATURE_POJO_MAPPING, Boolean.TRUE);
 		Client client = Client.create(clientConfig);
 		return client;

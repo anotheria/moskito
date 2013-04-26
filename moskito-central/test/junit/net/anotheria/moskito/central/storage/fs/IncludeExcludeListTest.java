@@ -1,10 +1,9 @@
 package net.anotheria.moskito.central.storage.fs;
 
-import org.junit.Test;
-
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+
+import org.junit.Test;
 
 /**
  * TODO comment this class
@@ -16,7 +15,7 @@ public class IncludeExcludeListTest {
 	@Test
 	public void testAsteriskInclude(){
 		IncludeExcludeList list = new IncludeExcludeList("*", "Foo");
-		assertEquals(false, list.include("Foo"));
+		assertFalse(list.include("Foo"));
 		assertTrue(list.include("whatever"));
 		assertTrue(list.include("*"));
 		assertTrue(list.include("blubili"));

@@ -1,5 +1,6 @@
 package net.anotheria.moskito.central.connectors.dime;
 
+import org.configureme.annotations.Configure;
 import org.configureme.annotations.ConfigureMe;
 
 /**
@@ -8,17 +9,19 @@ import org.configureme.annotations.ConfigureMe;
  * @author dagafonov
  * 
  */
-@ConfigureMe(allfields = true)
+@ConfigureMe
 public class DiMeCentralConnectorConfig {
 
 	/**
 	 * Host name for connection.
 	 */
+	@Configure
 	private String connectorHost;
-	
+
 	/**
 	 * Port.
 	 */
+	@Configure
 	private int connectorPort;
 
 	public String getConnectorHost() {

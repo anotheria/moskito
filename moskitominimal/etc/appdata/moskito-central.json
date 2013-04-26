@@ -1,0 +1,9 @@
+{
+    "@storages": [
+        {
+            "name": "psql-db",
+            "clazz": "net.anotheria.moskito.central.storage.psql.PSQLStorage",
+            "configName": "moskito-psql-hibernate"
+        }
+    ]
+}

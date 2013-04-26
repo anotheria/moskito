@@ -1,7 +1,5 @@
 package net.anotheria.moskito.central;
 
-import net.anotheria.util.NumberUtils;
-
 import java.io.Serializable;
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -9,12 +7,13 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
- * Contains meta data about the snapshot like producerId, creation timestamp and so on.
- *
+ * Contains meta data about the snapshot like producerId, creation timestamp and
+ * so on.
+ * 
  * @author lrosenberg
  * @since 20.03.13 14:07
  */
-@XmlRootElement(name="snshmd")
+@XmlRootElement(name = "snshmd")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class SnapshotMetaData implements Serializable {
 	/**
@@ -56,7 +55,10 @@ public class SnapshotMetaData implements Serializable {
 	 */
 	private String subsystem;
 
-	public SnapshotMetaData(){
+	/**
+	 * Default constructor.
+	 */
+	public SnapshotMetaData() {
 		arrivalTimestamp = System.currentTimeMillis();
 	}
 
@@ -124,9 +126,10 @@ public class SnapshotMetaData implements Serializable {
 		this.subsystem = subsystem;
 	}
 
-	@Override public String toString(){
-		return "pId: "+getProducerId()+", c: "+getCategory()+", s: "+getSubsystem()+", i: "+intervalName+", loc: "+
-				getComponentName()+"@"+getHostName()+", created "+ NumberUtils.makeISO8601TimestampString(creationTimestamp)+
-				" arrived: "+NumberUtils.makeISO8601TimestampString(arrivalTimestamp);
+	@Override
+	public String toString() {
+		return "SnapshotMetaData [producerId=" + producerId + ", componentName=" + componentName + ", hostName=" + hostName + ", intervalName="
+				+ intervalName + ", creationTimestamp=" + creationTimestamp + ", arrivalTimestamp=" + arrivalTimestamp + ", category=" + category
+				+ ", subsystem=" + subsystem + "]";
 	}
 }

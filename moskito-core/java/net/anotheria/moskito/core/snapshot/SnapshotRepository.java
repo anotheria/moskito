@@ -23,7 +23,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
  * @author lrosenberg
  * @since 20.03.13 14:32
  */
-public class SnapshotRepository {
+public final class SnapshotRepository {
 
 	/**
 	 * Consumuers for snapshots.
@@ -61,7 +61,6 @@ public class SnapshotRepository {
 					}catch(Exception e){
 						log.warn("consumer "+consumer+" failed to process snapshot "+producerSnapshot);
 					}
-
 				}
 			}
 		}, 1000, 50,  log);
@@ -131,7 +130,11 @@ public class SnapshotRepository {
 	/**
 	 * Singleton holder.
 	 */
-	private static class SnapshotRepositoryInstanceHolder{
+	private static class SnapshotRepositoryInstanceHolder {
+		
+		/**
+		 * Final instance of {@link SnapshotRepository}.
+		 */
 		private static final SnapshotRepository instance = new SnapshotRepository();
 	}
 

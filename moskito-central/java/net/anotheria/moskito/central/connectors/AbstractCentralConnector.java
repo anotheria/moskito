@@ -66,13 +66,13 @@ public abstract class AbstractCentralConnector extends AbstractMoskitoPlugin imp
 
 	@Override
 	public void consumeSnapshot(ProducerSnapshot coreSnapshot) {
-
 		Snapshot centralSnapshot = makeSnapshot(coreSnapshot);
-
-		sendData(centralSnapshot);
-
-		log.debug(this.getClass().getName() + ": " + coreSnapshot + "\r\n" + centralSnapshot);
-
+		log.debug(this.getClass().getName() + ": \r\n" + centralSnapshot);
+		try {
+			sendData(centralSnapshot);
+		} catch (Exception e) {
+			log.error(this.getClass().getSimpleName() + ".sendData() failed", e);
+		}
 	}
 
 	private Snapshot makeSnapshot(ProducerSnapshot coreSnapshot) {

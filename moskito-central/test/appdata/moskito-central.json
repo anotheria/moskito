@@ -9,6 +9,11 @@
             "name": "csv-file",
             "clazz": "net.anotheria.moskito.central.storage.fs.CSVFileStorage",
             "configName": "moskito-csv"
+        },
+        {
+            "name": "psql-db",
+            "clazz": "net.anotheria.moskito.central.storage.psql.PSQLStorage",
+            "configName": "moskito-psql-hibernate"
         }
     ]
 }
