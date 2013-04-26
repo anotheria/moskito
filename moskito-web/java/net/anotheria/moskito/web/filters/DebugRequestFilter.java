@@ -2,7 +2,12 @@ package net.anotheria.moskito.web.filters;
 
 import org.apache.log4j.Logger;
 
-import javax.servlet.*;
+import javax.servlet.Filter;
+import javax.servlet.FilterChain;
+import javax.servlet.FilterConfig;
+import javax.servlet.ServletException;
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
@@ -10,8 +15,8 @@ import java.util.Enumeration;
 import java.util.Map;
 
 /**
- * This filter dump out to sysOut all headers, parameters and attributes of request, session id and session's attributes if url
- * have a special parameter mskDiagnosticsDebugRequest.
+ * This filter dump out to sysOut all headers, parameters and attributes of request, session id and session's attributes
+ * if url have a special parameter mskDiagnosticsDebugRequest.
  *
  * @author asamoilich.
  */
@@ -47,7 +52,8 @@ public class DebugRequestFilter implements Filter {
     }
 
     @Override
-    public void doFilter(final ServletRequest req, final ServletResponse response, final FilterChain chain) throws IOException, ServletException {
+    public void doFilter(final ServletRequest req, final ServletResponse response, final FilterChain chain)
+            throws IOException, ServletException {
         if (!(req instanceof HttpServletRequest) || req.getParameter(PARAM_DIAGNOSTIC_DEBUG) == null) {
             chain.doFilter(req, response);
             return;
@@ -77,7 +83,7 @@ public class DebugRequestFilter implements Filter {
         logger.info(ATTRIBUTES);
         Enumeration attributeEnumeration = request.getAttributeNames();
         while (attributeEnumeration.hasMoreElements()) {
-            String elementName = (String) headerEnumeration.nextElement();
+            String elementName = (String) attributeEnumeration.nextElement();
             logger.info(elementName + " = " + request.getAttribute(elementName));
         }
 
