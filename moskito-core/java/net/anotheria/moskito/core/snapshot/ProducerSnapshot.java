@@ -27,6 +27,11 @@ public class ProducerSnapshot {
 	 */
 	private String intervalName;
 
+	/**
+	 * Name of the class of the used stat.
+	 */
+	private String statClassName;
+
 	private long timestamp = System.currentTimeMillis();
 
 	private Map<String, StatSnapshot> stats = new HashMap<String, StatSnapshot>();
@@ -73,7 +78,7 @@ public class ProducerSnapshot {
 	}
 
 	@Override public String toString(){
-		return "Snapshot Producer: (pId:"+getProducerId()+", Cat:"+getCategory()+", Sub:"+getSubsystem()+") Int: "+getIntervalName()+", Stats: "+getStatSnapshots();
+		return "Snapshot Producer: (pId:"+getProducerId()+", Cat:"+getCategory()+", Sub:"+getSubsystem()+") Int: "+getIntervalName()+"Class: "+statClassName+", Stats: "+getStatSnapshots();
 	}
 
 	public StatSnapshot getStatSnapshot(String statName) {
@@ -86,6 +91,15 @@ public class ProducerSnapshot {
 	public void setTimestamp(long timestamp) {
 		this.timestamp = timestamp;
 	}
+
+	public String getStatClassName() {
+		return statClassName;
+	}
+
+	public void setStatClassName(String statClassName) {
+		this.statClassName = statClassName;
+	}
+
 
 
 }

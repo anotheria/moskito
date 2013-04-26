@@ -22,6 +22,9 @@ public class SnapshotCreator {
 
 
 		List<IStats> stats = producer.getStats();
+		if (stats!=null && stats.size()>0)
+			ret.setStatClassName(stats.get(0).getClass().getName());
+
 
 		//optimization
 		if (stats==null || stats.size()==0)
