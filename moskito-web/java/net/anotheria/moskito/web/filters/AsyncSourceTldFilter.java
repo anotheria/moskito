@@ -13,7 +13,6 @@ import javax.servlet.FilterConfig;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
-import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.net.InetAddress;
 
@@ -38,27 +37,6 @@ public class AsyncSourceTldFilter extends MoskitoFilter{
 		super.init(config);
 		asyncProcessor = new QueuedProcessor<TemporarlyStatsStorage>("async-tld-resolver", new QueueWorker(this), 10000, log);
 		asyncProcessor.start();
-	}
-
-	protected String extractCaseName2(ServletRequest req, ServletResponse res) {
-		if (!(req instanceof HttpServletRequest))
-			return null;
-		HttpServletRequest r = (HttpServletRequest)req;
-		String address = req.getRemoteHost();
-		if (address==null || address.length()==0)
-			address = "Unknown";
-		//TODO check if address == ip?
-		int indexOfDot = address.lastIndexOf('.');
-		String ret = null;
-		if (indexOfDot==-1){
-			ret = address;
-		}else{
-			ret = address.substring(indexOfDot);
-		}
-		if (ret.length()>TLD_LENGTH_LIMIT){
-			ret = ret.substring(0, TLD_LENGTH_LIMIT);
-		}
-		return ret;
 	}
 
 	private void writeStatsToProducer(String caseName, TemporarlyStatsStorage tss){
