@@ -44,11 +44,12 @@ public class SessionCountStats extends AbstractStats {
 	private StatValue numberOfDestroyedSessions;
 	
 	public SessionCountStats() {
-		this(Constants.getDefaultIntervals());
+		this("Sessions", Constants.getDefaultIntervals());
 	}
-	
-	public SessionCountStats(Interval[] intervals){
-		super("Sessions");
+
+
+	public SessionCountStats(String name, Interval[] intervals){
+		super(name);
 		
 		Integer pattern = Integer.valueOf(0);
 		
