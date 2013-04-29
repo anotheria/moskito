@@ -52,6 +52,9 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import java.io.IOException;
 
+/**
+ * Base class for filter based traffic monitoring.
+ */
 public abstract class MoskitoFilter implements Filter{
 	
 	/**
@@ -69,7 +72,10 @@ public abstract class MoskitoFilter implements Filter{
 	 * In this case it is good to know how many requests those, 'other' urls produce.
 	 */
 	public static final String OTHER = "-other-";
-	
+
+	/**
+	 * Cached object for stats that are not covered by gathered stats.
+	 */
 	private FilterStats otherStats = null;
 	
 	/**
