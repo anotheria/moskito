@@ -50,9 +50,4 @@ public class DomainFilter extends MoskitoFilter {
 	protected String extractCaseName(ServletRequest req, ServletResponse res) {
 		return req.getServerName();
 	}
-
-	@Override
-	public String getProducerId() {
-		return "DomainFilter";
-	}
 }
