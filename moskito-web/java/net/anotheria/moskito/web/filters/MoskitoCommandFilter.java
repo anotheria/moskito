@@ -12,9 +12,19 @@ import java.io.IOException;
 import java.util.Map;
 
 
+/**
+ * This filter checks for commands that can be executed by MoSKito and forwards them to the responsbile components.
+ */
 public class MoskitoCommandFilter implements Filter{
+	/**
+	 * Name of the command parameter (default).
+	 */
 	public static final String DEF_PARAM_COMMAND_NAME = "mskCommand";
 
+	/**
+	 * Configured command parameter name.
+	 * Currently the configured command parameter name is always the default command parameter name.
+	 */
 	private String paramCommandName;
 	
 	@Override public void destroy() {
