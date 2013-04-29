@@ -23,7 +23,6 @@ public class SourceIpSegmentFilter extends MoskitoFilter {
 	protected String extractCaseName(ServletRequest req, ServletResponse res) {
 		if (!(req instanceof HttpServletRequest))
 			return null;
-		HttpServletRequest r = (HttpServletRequest)req;
 		String ip = req.getRemoteAddr();
 		if (ip==null || ip.length()==0)
 			ip = "Unknown";

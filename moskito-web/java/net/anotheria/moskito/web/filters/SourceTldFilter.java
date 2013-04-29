@@ -27,7 +27,6 @@ public class SourceTldFilter extends MoskitoFilter {
 	protected String extractCaseName(ServletRequest req, ServletResponse res) {
 		if (!(req instanceof HttpServletRequest))
 			return null;
-		HttpServletRequest r = (HttpServletRequest)req;
 		String address = req.getRemoteHost();
 		String ip = req.getRemoteAddr();
 		if (address==null || address.length()==0)
