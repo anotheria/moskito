@@ -178,7 +178,7 @@ public abstract class MoskitoFilter implements Filter{
 	/**
 	 * Returns the producer id. Override this method if you want a useful name in your logs. Default is class name.
 	 */
-	protected String getProducerId() {
+	public String getProducerId() {
 		return getClass().getSimpleName();
 	}
 
