@@ -26,7 +26,7 @@ public class SessionByTldListener implements HttpSessionListener, ServletRequest
 	/**
 	 * The internal producer instance.
 	 */
-	private OnDemandStatsProducer<SessionCountStats> onDemandProducer;
+	private static OnDemandStatsProducer<SessionCountStats> onDemandProducer;
 
 	/**
 	 * Logger.
@@ -35,11 +35,11 @@ public class SessionByTldListener implements HttpSessionListener, ServletRequest
 
 	public static final String ATT_NAME = "_MoSKito_SessionByTldFilter_TLD";
 
-
-	public SessionByTldListener(){
+	static{
 		onDemandProducer = new OnDemandStatsProducer<SessionCountStats>("SessionCountByTld", "web", IStatsProducer.SUBSYSTEM_BUILTIN, SessionCountFactory.DEFAULT_INSTANCE);
 		ProducerRegistryFactory.getProducerRegistryInstance().registerProducer(onDemandProducer);
 	}
+
 
 	@Override
 	public void sessionCreated(HttpSessionEvent se) {
@@ -104,7 +104,7 @@ public class SessionByTldListener implements HttpSessionListener, ServletRequest
 	}
 
 
-	public void countCreatedSession(String tld){
+	private static void countCreatedSession(String tld){
 		onDemandProducer.getDefaultStats().notifySessionCreated();
 		try{
 			onDemandProducer.getStats(tld).notifySessionCreated();
@@ -113,7 +113,7 @@ public class SessionByTldListener implements HttpSessionListener, ServletRequest
 		}
 	}
 
-	public void countDestroyedSession(String tld){
+	private static void countDestroyedSession(String tld){
 		if (tld==null)
 			return;
 		onDemandProducer.getDefaultStats().notifySessionDestroyed();
