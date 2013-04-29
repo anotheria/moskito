@@ -21,7 +21,9 @@ import java.io.Serializable;
 import java.util.concurrent.atomic.AtomicInteger;
 
 
-
+/**
+ * This filter checks if the journey tracing is active for current http session and if so switches the call tracing on.
+ */
 public class JourneyFilter implements Filter{
 	
 	/**
@@ -38,7 +40,10 @@ public class JourneyFilter implements Filter{
 	 * The value of the parameter for the session monitoring stop.
 	 */
 	private static final String PARAM_VALUE_STOP = "stop";
-	
+
+	/**
+	 * Parameter name for the name of the journey.
+	 */
 	public static final String PARAM_JOURNEY_NAME = "mskJourneyName";
 
 	/**

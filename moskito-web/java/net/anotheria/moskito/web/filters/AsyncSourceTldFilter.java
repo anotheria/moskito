@@ -30,6 +30,9 @@ public class AsyncSourceTldFilter extends MoskitoFilter{
 	 */
 	public static final int TLD_LENGTH_LIMIT = 20;
 
+	/**
+	 * Processor for asynchronous processing of incoming ip adresses.
+	 */
 	private QueuedProcessor<TemporarlyStatsStorage> asyncProcessor;
 
 	@Override
@@ -92,17 +95,44 @@ public class AsyncSourceTldFilter extends MoskitoFilter{
 		}
 	}
 
+	/**
+	 * Temporary object to save request data between the request and asynchronous processing.
+	 */
 	private static class TemporarlyStatsStorage{
+		/**
+		 * Clients ip.
+		 */
 		String ip;
+		/**
+		 * Execution time.
+		 */
 		long exTime;
+		/**
+		 * Was the request finished? Finished means finally{} block has been reached without exceptions.
+		 */
 		boolean finished;
+		/**
+		 * Did a servlet exception occurred?
+		 */
 		boolean servletException;
+		/**
+		 * Did an io exception occurred?
+		 */
 		boolean ioException;
+		/**
+		 * Did a runtime exception occurred?
+		 */
 		boolean runtimeException;
+		/**
+		 * Did an Error occurred?
+		 */
 		boolean error;
 	}
 
-	private static class QueueWorker implements IQueueWorker<TemporarlyStatsStorage>{
+	/**
+	 * Internal class the processes the queue elements.
+	 */
+	private static class QueueWorker implements IQueueWorker<TemporarlyStatsStorage> {
 
 		private AsyncSourceTldFilter parent;
 

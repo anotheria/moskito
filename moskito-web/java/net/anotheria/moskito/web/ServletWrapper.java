@@ -49,14 +49,34 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * This class is used to wrap servlets dynamically in tomcat 5 with specific webapp loader.
+ * Its obsolete.
+ * @Deprecated
+ */
 public class ServletWrapper implements Servlet, IStatsProducer {
 
+	/**
+	 * The wrapped servlet.
+	 */
 	private Servlet target;
+	/**
+	 * The class object of the target servlets.
+	 */
 	private static Class<Servlet> targetClass;
-	
+
+	/**
+	 * Servlet stats.
+	 */
 	private ServletStats serviceStats;
+	/**
+	 * List for get list method.
+	 */
 	private List<IStats> cachedStatList;
-	
+
+	/**
+	 * Producer id of the servlet.
+	 */
 	private String producerId;
 
 	
