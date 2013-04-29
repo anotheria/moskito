@@ -55,9 +55,4 @@ public class UserAgentFilter extends MoskitoFilter {
 		String userAgent = r.getHeader("user-agent");
 		return userAgent;
 	}
-
-	@Override
-	public String getProducerId() {
-		return "UserAgentFilter";
-	}
 }

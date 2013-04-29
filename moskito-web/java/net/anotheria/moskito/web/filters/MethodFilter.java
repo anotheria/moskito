@@ -53,9 +53,4 @@ public class MethodFilter extends MoskitoFilter {
 			return "nonhttp";
 		return ((HttpServletRequest)req).getMethod();
 	}
-
-	@Override
-	public String getProducerId() {
-		return "MethodFilter";
-	}
 }

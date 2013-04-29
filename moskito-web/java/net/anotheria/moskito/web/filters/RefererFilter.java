@@ -46,8 +46,14 @@ import javax.servlet.http.HttpServletRequest;
  *
  */
 public class RefererFilter extends MoskitoFilter {
-	
+
+	/**
+	 * Constant for http.
+	 */
 	public static final String HTTP_PROTOCOL = "http://";
+	/**
+	 * Constant for https.
+	 */
 	public static final String HTTPS_PROTOCOL = "https://";
 
 	@Override
