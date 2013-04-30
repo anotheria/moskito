@@ -10,7 +10,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>net.anotheria</groupId>
 	<artifactId>moskito</artifactId>
-	<version>2.2.3-SNAPSHOT</version>
+	<version>2.2.3</version>
 	<name>MoSKito</name>
 	<description>MoSKito, MoSKito, MoSKito and moskito</description>
 	<packaging>pom</packaging>
@@ -33,9 +33,9 @@
 
 
 	<scm>
-		<url>svn:svn://svn.anotheria.net/opensource/moskito/trunk</url>
-		<connection>scm:svn:svn://svn.anotheria.net/opensource/moskito/trunk</connection>
-		<developerConnection>scm:svn:svn://svn.anotheria.net/opensource/moskito/trunk</developerConnection>
+		<url>svn:svn://svn.anotheria.net/opensource/moskito/tags/moskito-2.2.3</url>
+		<connection>scm:svn:svn://svn.anotheria.net/opensource/moskito/tags/moskito-2.2.3</connection>
+		<developerConnection>scm:svn:svn://svn.anotheria.net/opensource/moskito/tags/moskito-2.2.3</developerConnection>
 	</scm>
 	<dependencyManagement>
 		<dependencies>
