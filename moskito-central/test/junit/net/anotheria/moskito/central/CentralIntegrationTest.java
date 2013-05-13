@@ -26,7 +26,7 @@ public class CentralIntegrationTest {
 	public void setup() {
 		System.setProperty("JUNITTEST", "true");
 		ProducerRegistryFactory.reset();
-		// this only needed because in test mode we don't call it automagically.
+		// this only needed because in test mode we don't call it automatically.
 		PluginRepository.getInstance();
 
 	}

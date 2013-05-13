@@ -9,7 +9,7 @@ import org.configureme.annotations.ConfigureMe;
  * 
  */
 @ConfigureMe
-public class PSQLStorageConfigEntry {
+public class PSQLStorageConfigProducerNameToEntityClassMappingEntry {
 
 	/**
 	 * Included producer names, comma separated or '*'.

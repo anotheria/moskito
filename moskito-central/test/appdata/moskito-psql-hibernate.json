@@ -1,10 +1,16 @@
 {
-	driver:"org.hsqldb.jdbc.JDBCDriver",
-	url:"jdbc:hsqldb:/tmp/hsqldb-central",
-	userName:"daa",
-	password:"daa",
-	persistenceUnitName:"hsqldbSnapshotStorage",
-	
+	driver : "org.hsqldb.jdbc.JDBCDriver",
+	url : "jdbc:hsqldb:/tmp/hsqldb-central",
+	userName : "daa",
+	password : "daa",
+	hibernateDialect : "org.hibernate.dialect.HSQLDialect",
+	"@includeExclude": [
+		{
+			"includedProducers": "*",
+			"includedIntervals": "*"
+		},
+	],
+
 	"@mappings" : [
 		{
 			"producerName": "SessionCount",
@@ -14,5 +20,6 @@
 			"producerName": "testProducerId,*API,*Service*",
             "statEntityClass": "net.anotheria.moskito.central.storage.psql.ServiceStatsEntity"
 		},
-	]
+	],
+
 }

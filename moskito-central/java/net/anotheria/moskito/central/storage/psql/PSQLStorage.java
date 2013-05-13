@@ -7,10 +7,14 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
+import javax.persistence.PersistenceException;
 
 import net.anotheria.moskito.central.Snapshot;
 import net.anotheria.moskito.central.storage.Storage;
 import net.anotheria.moskito.central.storage.fs.FileSystemStorage;
+import net.anotheria.moskito.central.storage.psql.entities.JSONStatisticsEntity;
+import net.anotheria.moskito.central.storage.psql.entities.SnapshotEntity;
+import net.anotheria.moskito.central.storage.psql.entities.StatisticsEntity;
 
 import org.apache.log4j.Logger;
 import org.configureme.ConfigurationManager;
@@ -22,6 +26,11 @@ import org.configureme.ConfigurationManager;
  * 
  */
 public class PSQLStorage implements Storage {
+
+	/**
+	 * Persistence unit name defined in /META-INF/persistence.xml.
+	 */
+	private static final String PERSISTENCE_UNIT_NAME = "snapshotStorage";
 
 	/**
 	 * Logger instance.
@@ -55,11 +64,16 @@ public class PSQLStorage implements Storage {
 		map.put("javax.persistence.jdbc.user", config.getUserName());
 		map.put("javax.persistence.jdbc.password", config.getPassword());
 
+		if (config.getHibernateDialect() != null) {
+			map.put("hibernate.dialect", config.getHibernateDialect());
+			map.put("hibernate.hbm2ddl.auto", "create");
+			map.put("hibernate.show_sql", "false");
+		}
+
 		try {
-			factory = Persistence.createEntityManagerFactory(config.getPersistenceUnitName(), map);
-		} catch (Exception e) {
-			e.printStackTrace();
-			log.error("Persistence.createEntityManagerFactory(" + config.getPersistenceUnitName() + ", [" + map + "])", e);
+			factory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME, map);
+		} catch (PersistenceException e) {
+			log.error("Persistence.createEntityManagerFactory(" + PERSISTENCE_UNIT_NAME + ", [" + map + "])", e);
 		}
 	}
 
@@ -69,20 +83,13 @@ public class PSQLStorage implements Storage {
 		String producerId = target.getMetaData().getProducerId();
 		String interval = target.getMetaData().getIntervalName();
 
-		String statEntityClassName = config.getStatEntityClassName(producerId);
-		if (statEntityClassName == null) {
-			statEntityClassName = JSONStatisticsEntity.class.getName();
+		if (!config.include(producerId, interval)) {
+			return;
 		}
 
-		Class<?> entityClass = null;
-		try {
-			entityClass = Class.forName(statEntityClassName);
-		} catch (ClassNotFoundException e) {
-			log.error("Class.forName('" + statEntityClassName + "') failed", e);
-		}
-		if (entityClass == null) {
-			log.error("class '" + statEntityClassName + "' not found.");
-			return;
+		Class<? extends StatisticsEntity> statEntityClass = config.getStatEntityClassName(target.getMetaData().getStatClassName(), producerId);
+		if (statEntityClass == null) {
+			statEntityClass = JSONStatisticsEntity.class;
 		}
 
 		SnapshotEntity entity = new SnapshotEntity();
@@ -101,7 +108,7 @@ public class PSQLStorage implements Storage {
 
 			StatisticsEntity entityInstance = null;
 			try {
-				entityInstance = (StatisticsEntity) entityClass.newInstance();
+				entityInstance = statEntityClass.newInstance();
 			} catch (IllegalAccessException e) {
 				log.error("Instance cannot be instantiated", e);
 				continue;

@@ -54,6 +54,11 @@ public class SnapshotMetaData implements Serializable {
 	 * Subsystem of the producer.
 	 */
 	private String subsystem;
+	
+	/**
+	 * 
+	 */
+	private String statClassName;
 
 	/**
 	 * Default constructor.
@@ -126,10 +131,18 @@ public class SnapshotMetaData implements Serializable {
 		this.subsystem = subsystem;
 	}
 
+	public String getStatClassName() {
+		return statClassName;
+	}
+
+	public void setStatClassName(String statClassName) {
+		this.statClassName = statClassName;
+	}
+
 	@Override
 	public String toString() {
 		return "SnapshotMetaData [producerId=" + producerId + ", componentName=" + componentName + ", hostName=" + hostName + ", intervalName="
 				+ intervalName + ", creationTimestamp=" + creationTimestamp + ", arrivalTimestamp=" + arrivalTimestamp + ", category=" + category
-				+ ", subsystem=" + subsystem + "]";
+				+ ", subsystem=" + subsystem + ", statClassName=" + statClassName + "]";
 	}
 }

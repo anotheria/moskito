@@ -1,4 +1,4 @@
-package net.anotheria.moskito.central.storage.psql;
+package net.anotheria.moskito.central.storage.psql.entities;
 
 import java.io.Serializable;
 import java.util.Map;

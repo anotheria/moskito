@@ -88,6 +88,7 @@ public abstract class AbstractCentralConnector extends AbstractMoskitoPlugin imp
 		metaData.setIntervalName(coreSnapshot.getIntervalName());
 
 		metaData.setCreationTimestamp(coreSnapshot.getTimestamp());
+		metaData.setStatClassName(coreSnapshot.getStatClassName());
 		centralSnapshot.setMetaData(metaData);
 
 		Map<String, StatSnapshot> coreStatSnapshots = coreSnapshot.getStatSnapshots();

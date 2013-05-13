@@ -33,6 +33,16 @@
 		</dependency>
 		<dependency>
 			<groupId>net.anotheria</groupId>
+			<artifactId>moskito-sql</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>net.anotheria</groupId>
+			<artifactId>moskito-web</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>net.anotheria</groupId>
 			<artifactId>configureme</artifactId>
 		</dependency>
 		<dependency>
