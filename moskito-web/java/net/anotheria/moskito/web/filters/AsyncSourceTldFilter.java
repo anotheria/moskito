@@ -33,16 +33,16 @@ public class AsyncSourceTldFilter extends MoskitoFilter{
 	/**
 	 * Processor for asynchronous processing of incoming ip adresses.
 	 */
-	private QueuedProcessor<TemporarlyStatsStorage> asyncProcessor;
+	private QueuedProcessor<TemporaryStatsStorage> asyncProcessor;
 
 	@Override
 	public void init(FilterConfig config) throws ServletException {
 		super.init(config);
-		asyncProcessor = new QueuedProcessor<TemporarlyStatsStorage>("async-tld-resolver", new QueueWorker(this), 10000, log);
+		asyncProcessor = new QueuedProcessor<TemporaryStatsStorage>("async-tld-resolver", new QueueWorker(this), 10000, log);
 		asyncProcessor.start();
 	}
 
-	private void writeStatsToProducer(String caseName, TemporarlyStatsStorage tss){
+	private void writeStatsToProducer(String caseName, TemporaryStatsStorage tss){
 		OnDemandStatsProducer<FilterStats> onDemandProducer = getProducer();
 
 		FilterStats defaultStats = onDemandProducer.getDefaultStats();
@@ -98,7 +98,7 @@ public class AsyncSourceTldFilter extends MoskitoFilter{
 	/**
 	 * Temporary object to save request data between the request and asynchronous processing.
 	 */
-	private static class TemporarlyStatsStorage{
+	private static class TemporaryStatsStorage{
 		/**
 		 * Clients ip.
 		 */
@@ -132,7 +132,7 @@ public class AsyncSourceTldFilter extends MoskitoFilter{
 	/**
 	 * Internal class the processes the queue elements.
 	 */
-	private static class QueueWorker implements IQueueWorker<TemporarlyStatsStorage> {
+	private static class QueueWorker implements IQueueWorker<TemporaryStatsStorage> {
 
 		/**
 		 * Link to the filter.
@@ -144,7 +144,7 @@ public class AsyncSourceTldFilter extends MoskitoFilter{
 		}
 
 		@Override
-		public void doWork(TemporarlyStatsStorage workingElement) throws Exception {
+		public void doWork(TemporaryStatsStorage workingElement) throws Exception {
 			//resolve ip
 			String ip = workingElement.ip;
 			String hostName = InetAddress.getByName(ip).getHostName();
@@ -178,7 +178,7 @@ public class AsyncSourceTldFilter extends MoskitoFilter{
 			return;
 		}
 
-		TemporarlyStatsStorage tss = new TemporarlyStatsStorage();
+		TemporaryStatsStorage tss = new TemporaryStatsStorage();
 
 		try{
 			long startTime = System.nanoTime();
