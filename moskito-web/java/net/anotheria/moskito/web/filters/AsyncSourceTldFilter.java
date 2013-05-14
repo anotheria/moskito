@@ -134,6 +134,9 @@ public class AsyncSourceTldFilter extends MoskitoFilter{
 	 */
 	private static class QueueWorker implements IQueueWorker<TemporarlyStatsStorage> {
 
+		/**
+		 * Link to the filter.
+		 */
 		private AsyncSourceTldFilter parent;
 
 		QueueWorker(AsyncSourceTldFilter parent){
