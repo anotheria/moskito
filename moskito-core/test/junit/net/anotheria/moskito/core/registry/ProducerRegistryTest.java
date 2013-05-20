@@ -63,14 +63,12 @@ public class ProducerRegistryTest {
 		
 		@Override
 		public void notifyProducerRegistered(IStatsProducer producer) {
-			System.out.println("REGISTERED");
 			registered++;
 		}
 
 		@Override
 		public void notifyProducerUnregistered(IStatsProducer producer) {
-			System.out.println("UN-REGISTERED");
-			unregistered++;			
+			unregistered++;
 		}
 		
 	}
