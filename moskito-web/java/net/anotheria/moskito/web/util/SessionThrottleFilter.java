@@ -28,12 +28,22 @@ import java.io.IOException;
  */
 public class SessionThrottleFilter implements Filter{
 
+	/**
+	 * Session attribute flag that marks the session as seen and therefore lets it pass.
+	 */
 	public static final String SESSION_SEEN_FLAG = SessionThrottleFilter.class.getName()+"Flag";
 
+	/**
+	 * Current configuration.
+	 */
 	private SessionThrottleFilterConfig throttleConfig;
-
+	/**
+	 * Link to producer.
+	 */
 	private IStatsProducer<SessionCountStats> sessionProducer;
-
+	/**
+	 * Logger.
+	 */
 	private static Logger log = Logger.getLogger(SessionThrottleFilter.class);
 
 	@Override
@@ -58,10 +68,12 @@ public class SessionThrottleFilter implements Filter{
 			log.error("can't connect to SessionCountProducer, ensure that "+net.anotheria.moskito.web.session.SessionCountProducer.class.getName()+" is declared as listener");
 			throttleConfig = null;
 		}
-
-		System.out.println("\n\n%%% THROTTLE CONFIG "+throttleConfig+"\n\n");
 	}
 
+	/**
+	 * Reads config via configureme from sessionthrottle.json.
+	 * @return
+	 */
 	private SessionThrottleFilterConfig getConfigFromConfigureMe(){
 		SessionThrottleFilterConfig config = new SessionThrottleFilterConfig();
 		try{
@@ -72,6 +84,11 @@ public class SessionThrottleFilter implements Filter{
 		return config;
 	}
 
+	/**
+	 * Reads config from web.xml.
+	 * @param filterConfig
+	 * @return
+	 */
 	private SessionThrottleFilterConfig getConfigFromWebXML(FilterConfig filterConfig){
 		int limit = -1;
 
@@ -119,15 +136,32 @@ public class SessionThrottleFilter implements Filter{
 
 	}
 
+	/**
+	 * Configuration holder class.
+	 */
 	@ConfigureMe(name="sessionthrottle", allfields=true)
 	public static class SessionThrottleFilterConfig{
+		/**
+		 * Limit of parallel sessions.
+		 */
 		private int limit = -1;
+		/**
+		 * Target where to redirect sessions that are throttled.
+		 */
 		private String target;
 
+		/**
+		 * Empty constructor for configureme.
+		 */
 		public SessionThrottleFilterConfig(){
 
 		}
 
+		/**
+		 * Constructor for internal usage.
+		 * @param aLimit
+		 * @param aTarget
+		 */
 		public SessionThrottleFilterConfig(int aLimit, String aTarget){
 			limit = aLimit;
 			target = aTarget;
