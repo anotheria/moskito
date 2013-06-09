@@ -205,6 +205,18 @@ public class ThresholdRepository extends TieableRepository<Threshold> {
 		
 	}
 
+	public ThresholdStatus getWorstStatusWithout(List<String> names){
+		ThresholdStatus ret = ThresholdStatus.GREEN;
+		for (Threshold t : getThresholds()){
+			if (names.indexOf(t.getName())!=-1)
+				continue;
+			if (t.getStatus().overrules(ret))
+				ret = t.getStatus();
+		}
+		return ret;
+
+	}
+
 	/**
 	 * Returns active thresholds.
 	 * @return
