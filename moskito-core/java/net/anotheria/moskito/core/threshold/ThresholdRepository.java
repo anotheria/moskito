@@ -168,6 +168,41 @@ public class ThresholdRepository extends TieableRepository<Threshold> {
     	return ret;
 	}
 
+	public ExtendedThresholdStatus getExtendedWorstStatus(List<String> includedNames){
+
+		ThresholdStatus status = (includedNames == null || includedNames.size()==0) ?
+				getWorstStatus() : getWorstStatus(includedNames);
+		ExtendedThresholdStatus ret = new ExtendedThresholdStatus(status);
+		for (Threshold t : getThresholds()){
+			if (t.getStatus()!=status)
+				continue;
+			if (includedNames!=null && includedNames.indexOf(t.getName())==-1)
+				continue;
+			ThresholdInStatus tis = new ThresholdInStatus();
+			tis.setThresholdName(t.getName());
+			tis.setValue(t.getLastValue());
+			ret.add(tis);
+		}
+		return ret;
+	}
+
+	public ExtendedThresholdStatus getExtendedWorstStatusWithout(List<String> excludedNames){
+		ThresholdStatus status = getWorstStatusWithout(excludedNames);
+		ExtendedThresholdStatus ret = new ExtendedThresholdStatus(status);
+		for (Threshold t : getThresholds()){
+			if (t.getStatus()!=status)
+				continue;
+			if (excludedNames!=null && excludedNames.indexOf(t.getName())!=-1)
+				continue;
+			ThresholdInStatus tis = new ThresholdInStatus();
+			tis.setThresholdName(t.getName());
+			tis.setValue(t.getLastValue());
+			ret.add(tis);
+		}
+		return ret;
+	}
+
+
 	/**
 	 * Returns the worst threshold status in the system.
 	 * @return the worst detected threshold status.
@@ -205,6 +240,10 @@ public class ThresholdRepository extends TieableRepository<Threshold> {
 		
 	}
 
+	/**
+	 * Returns the worst threshold status in the system for all thresholds except given threshold names.
+	 * @return
+	 */
 	public ThresholdStatus getWorstStatusWithout(List<String> names){
 		ThresholdStatus ret = ThresholdStatus.GREEN;
 		for (Threshold t : getThresholds()){
