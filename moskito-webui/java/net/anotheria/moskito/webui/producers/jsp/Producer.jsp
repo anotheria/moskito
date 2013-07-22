@@ -252,7 +252,7 @@
 		var box = el.find('.box');
 		box.css('left', '50%');
 		box.css('margin-left', -wid / 2);
-		box.css('top', link.offset().top);
+        box.css('top', '50%');
 		$('.pie_chart').show();
 		$('.bar_chart').hide();
 	}
