@@ -15,6 +15,7 @@
 
     <!--
      Data for charts
+     -->
      <script>
     <ano:iterate type="net.anotheria.moskito.webui.shared.bean.GraphDataBean" 	id="graph" name="graphDatas">
         var <ano:write name="graph" property="jsVariableName"/>Caption = "<ano:write name="graph" property="caption"/>";
@@ -22,7 +23,6 @@
     </ano:iterate>
 
      </script>
-    -->
 
     <script type="text/javascript">
         $(function() {
