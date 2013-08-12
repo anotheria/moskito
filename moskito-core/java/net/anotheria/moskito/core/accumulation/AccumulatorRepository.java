@@ -33,7 +33,7 @@ public final class AccumulatorRepository extends TieableRepository<Accumulator> 
 	 * Returns the singleton instance of the AccumulatorRepository.
 	 * @return the one and only instance.
 	 */
-	public static final AccumulatorRepository getInstance(){
+	public static AccumulatorRepository getInstance(){
 		return INSTANCE;
 	}
 
