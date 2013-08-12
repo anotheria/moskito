@@ -23,7 +23,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  * @param <K>
  * @param <V>
  */
-public class Storage<K,V> implements IStatsProducer<StorageStats>, Inspectable, Map<K,V>{
+public class Storage<K,V> implements IStatsProducer<StorageStats>, Inspectable, Map<K,V> {
 	/**
 	 * Default category used for producer registration.
 	 */
@@ -158,6 +158,10 @@ public class Storage<K,V> implements IStatsProducer<StorageStats>, Inspectable, 
 		return wrapper.entrySet();
 	}
 
+	/**
+	 * Puts all elements from anotherStorage to this storage.
+	 * @param anotherStorage
+	 */
 	public void putAll(Storage<? extends K, ? extends V> anotherStorage){
 		wrapper.putAll(anotherStorage.getWrapper());
 		stats.setSize(wrapper.size());
@@ -168,8 +172,8 @@ public class Storage<K,V> implements IStatsProducer<StorageStats>, Inspectable, 
 	}
 	
 	/**
-	 * Convinience method for old hashtable users.
-	 * @return
+	 * Convenience method for old hashtable users.
+	 * @return the collection of all keys.
 	 */
 	public Collection<K> keys(){
 		return wrapper.keys();
@@ -182,15 +186,28 @@ public class Storage<K,V> implements IStatsProducer<StorageStats>, Inspectable, 
 	@Override public void clear(){
 		wrapper.clear();
 	}
-	
+
+	/**
+	 * Returns the wrapper.
+	 * @return
+	 */
 	private StorageWrapper<K, V> getWrapper(){
 		return wrapper;
 	}
-	
+
+	/**
+	 * Creates a map copy of this storage with all contained elements.
+	 * @return a map containing lal elements from the storage.
+	 */
 	public Map<K,V> toMap(){
 		return wrapper.toMap();
 	}
-	
+
+	/**
+	 * Puts all elements into a given map.
+	 * @param toFill map to fill to.
+	 * @return the map.
+	 */
 	public Map<K,V> fillMap(Map<K,V> toFill){
 		return wrapper.fillMap(toFill);
 	}
@@ -218,14 +235,27 @@ public class Storage<K,V> implements IStatsProducer<StorageStats>, Inspectable, 
 	}
 	
 	//////////////////////// OTHER
+
+	/**
+	 * Sets the subsystem of this producer.
+	 * @param aSubsystem subsystem to set.
+	 */
 	public void setSubsystem(String aSubsystem) {
 		subsystem = aSubsystem;
 	}
-	
+
+	/**
+	 * Sets the category of this producer.
+	 * @param aCategory category to set.
+	 */
 	public void setCategory(String aCategory) {
 		category = aCategory;
 	}
 
+	/**
+	 * Returns this storage's name.
+	 * @return
+	 */
 	public String getName(){
 		return name;
 	}
@@ -235,50 +265,135 @@ public class Storage<K,V> implements IStatsProducer<StorageStats>, Inspectable, 
 	}
 	
 	////// static factory methods
+
+	/**
+	 * Factory method to create a new storage backed by a hashmap.
+	 * @param <K>
+	 * @param <V>
+	 * @return
+	 */
 	public static <K,V>Storage<K,V> createHashMapStorage(){
 		return new Storage<K,V>(new MapStorageWrapper<K, V>(new HashMap<K, V>()));
 	}
 
+	/**
+	 * Factory method to create a new storage backed by a hashmap.
+	 * @param initialSize
+	 * @param <K>
+	 * @param <V>
+	 * @return
+	 */
 	public static <K,V>Storage<K,V> createHashMapStorage(int initialSize){
 		return new Storage<K,V>(new MapStorageWrapper<K, V>(new HashMap<K, V>(initialSize)));
 	}
 
+	/**
+	 * Factory method to create a new storage backed by a hashmap.
+	 * @param name
+	 * @param <K>
+	 * @param <V>
+	 * @return
+	 */
 	public static <K,V>Storage<K,V> createHashMapStorage(String name){
 		return new Storage<K,V>(name, new MapStorageWrapper<K, V>(new HashMap<K, V>()));
 	}
 
+	/**
+	 * Factory method to create a new storage backed by a concurrent hash map.
+	 * @param name
+	 * @param initialSize
+	 * @param <K>
+	 * @param <V>
+	 * @return
+	 */
 	public static <K,V>Storage<K,V> createHashMapStorage(String name, int initialSize){
 		return new Storage<K,V>(name, new MapStorageWrapper<K, V>(new HashMap<K, V>(initialSize)));
 	}
 
+	/**
+	 * Factory method to create a new storage backed by a concurrent hash map.
+	 * @param <K>
+	 * @param <V>
+	 * @return
+	 */
 	public static <K,V>Storage<K,V> createConcurrentHashMapStorage(){
 		return new Storage<K,V>(new MapStorageWrapper<K, V>(new ConcurrentHashMap<K, V>()));
 	}
 
+	/**
+	 * Factory method to create a new storage backed by a concurrent hash map.
+ 	 * @param initialSize initial size of the storage.
+	 * @param <K>
+	 * @param <V>
+	 * @return
+	 */
 	public static <K,V>Storage<K,V> createConcurrentHashMapStorage(int initialSize){
 		return new Storage<K,V>(new MapStorageWrapper<K, V>(new ConcurrentHashMap<K, V>(initialSize)));
 	}
 
+	/**
+	 * Factory method to create a new storage backed by a concurrent hash map.
+	 * @param name
+	 * @param <K>
+	 * @param <V>
+	 * @return
+	 */
 	public static <K,V>Storage<K,V> createConcurrentHashMapStorage(String name){
 		return new Storage<K,V>(name, new MapStorageWrapper<K, V>(new ConcurrentHashMap<K, V>()));
 	}
 
+	/**
+	 * Factory method to create a new storage backed by a concurrent hash map.
+	 * @param name
+	 * @param initialSize
+	 * @param <K>
+	 * @param <V>
+	 * @return
+	 */
 	public static <K,V>Storage<K,V> createConcurrentHashMapStorage(String name, int initialSize){
 		return new Storage<K,V>(name, new MapStorageWrapper<K, V>(new ConcurrentHashMap<K, V>(initialSize)));
 	}
 
+	/**
+	 * Factory method to create a new storage backed by a hashtable.
+	 * @param <K>
+	 * @param <V>
+	 * @return
+	 */
 	public static <K,V>Storage<K,V> createHashtableStorage(){
 		return new Storage<K,V>(new MapStorageWrapper<K, V>(new Hashtable<K, V>()));
 	}
 
+	/**
+	 * Factory method to create a new storage backed by a hashtable.
+	 * @param initialSize
+	 * @param <K>
+	 * @param <V>
+	 * @return
+	 */
 	public static <K,V>Storage<K,V> createHashtableStorage(int initialSize){
 		return new Storage<K,V>(new MapStorageWrapper<K, V>(new Hashtable<K, V>(initialSize)));
 	}
 
+	/**
+	 * Factory method to create a new storage backed by a hashtable.
+	 * @param name
+	 * @param <K>
+	 * @param <V>
+	 * @return
+	 */
 	public static <K,V>Storage<K,V> createHashtableStorage(String name){
 		return new Storage<K,V>(name, new MapStorageWrapper<K, V>(new Hashtable<K, V>()));
 	}
 
+	/**
+	 * Factory method to create a new storage backed by a hashtable.
+	 * @param name
+	 * @param initialSize
+	 * @param <K>
+	 * @param <V>
+	 * @return
+	 */
 	public static <K,V>Storage<K,V> createHashtableStorage(String name, int initialSize){
 		return new Storage<K,V>(name, new MapStorageWrapper<K, V>(new Hashtable<K, V>(initialSize)));
 	}
