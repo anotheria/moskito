@@ -1,5 +1,0 @@
-{
-	host: "localhost",
-	port: 8080,
-	resourcePath: "/moskito-central/central/",
-}
