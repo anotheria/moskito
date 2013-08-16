@@ -13,7 +13,8 @@ import net.anotheria.moskito.core.producers.IStatsProducer;
 import net.anotheria.moskito.core.stats.TimeUnit;
 import net.anotheria.moskito.core.threshold.guard.GuardedDirection;
 import net.anotheria.moskito.core.threshold.guard.LongBarrierPassGuard;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.management.InstanceAlreadyExistsException;
 import javax.management.InstanceNotFoundException;
@@ -34,7 +35,7 @@ public class ThresholdRepository extends TieableRepository<Threshold> {
 	/**
 	 * Logger.
 	 */
-	private static Logger log = Logger.getLogger(ThresholdRepository.class);
+	private static Logger log = LoggerFactory.getLogger(ThresholdRepository.class);
 
 	/**
 	 * Singleton instance of this class.

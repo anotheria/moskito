@@ -3,7 +3,8 @@ package net.anotheria.moskito.core.accumulation;
 import net.anotheria.moskito.core.helper.AbstractTieable;
 import net.anotheria.moskito.core.helper.Tieable;
 import net.anotheria.moskito.core.producers.IStats;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,7 +19,7 @@ public class Accumulator extends AbstractTieable<AccumulatorDefinition> implemen
 	/**
 	 * Logger.
 	 */
-	private static Logger log = Logger.getLogger(Accumulator.class);
+	private static Logger log = LoggerFactory.getLogger(Accumulator.class);
 	/**
 	 * Stored values.
 	 */

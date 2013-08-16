@@ -9,7 +9,8 @@ import net.anotheria.moskito.core.helper.TieableRepository;
 import net.anotheria.moskito.core.producers.IStats;
 import net.anotheria.moskito.core.producers.IStatsProducer;
 import net.anotheria.moskito.core.stats.TimeUnit;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.List;
 
@@ -23,7 +24,7 @@ public final class AccumulatorRepository extends TieableRepository<Accumulator> 
 	/**
 	 * Logger
 	 */
-	private static Logger log = Logger.getLogger(AccumulatorRepository.class);
+	private static Logger log = LoggerFactory.getLogger(AccumulatorRepository.class);
 
 	/**
 	 * The singleton instance.

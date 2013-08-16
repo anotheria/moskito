@@ -34,9 +34,9 @@
  */	
 package net.anotheria.moskito.core.registry;
 
-import net.anotheria.moskito.core.plugins.PluginRepository;
 import net.anotheria.moskito.core.producers.IStatsProducer;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -55,7 +55,7 @@ public class ProducerRegistryImpl implements IProducerRegistry{
 	/**
 	 * Logger.
 	 */
-	private static Logger log = Logger.getLogger(ProducerRegistryImpl.class);
+	private static Logger log = LoggerFactory.getLogger(ProducerRegistryImpl.class);
 	
 	/**
 	 * The listeners list.

@@ -4,7 +4,8 @@ import net.anotheria.moskito.core.config.MoskitoConfiguration;
 import net.anotheria.moskito.core.config.MoskitoConfigurationHolder;
 import net.anotheria.moskito.core.config.thresholds.NotificationProviderConfig;
 import net.anotheria.moskito.core.threshold.ThresholdStatus;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -46,7 +47,7 @@ public enum AlertDispatcher {
 	/**
 	 * Log.
 	 */
-	private static final Logger log = Logger.getLogger(AlertDispatcher.class);
+	private static final Logger log = LoggerFactory.getLogger(AlertDispatcher.class);
 
 	private AlertDispatcher(){
 		reset();
@@ -80,9 +81,9 @@ public enum AlertDispatcher {
 				providers.add(new NotificationProviderWrapper(provider, ThresholdStatus.valueOf(providerDef.getGuardedStatus())));
 			}catch(Exception any){
 				if (providerDef==null){
-					Logger.getLogger(AlertDispatcher.class).error("Couldn't instantiate notification notificationprovider of class due to nullity of a providerDef, check configuration.", any);
+					LoggerFactory.getLogger(AlertDispatcher.class).error("Couldn't instantiate notification notificationprovider of class due to nullity of a providerDef, check configuration.", any);
 				}else{
-					Logger.getLogger(AlertDispatcher.class).error("Couldn't instantiate notification notificationprovider of class " + providerDef.getClassName() + ", check configuration.", any);
+					LoggerFactory.getLogger(AlertDispatcher.class).error("Couldn't instantiate notification notificationprovider of class " + providerDef.getClassName() + ", check configuration.", any);
 				}
 
 			}

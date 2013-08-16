@@ -4,7 +4,8 @@ import net.anotheria.moskito.core.predefined.OSStats;
 import net.anotheria.moskito.core.producers.IStats;
 import net.anotheria.moskito.core.producers.IStatsProducer;
 import net.anotheria.moskito.core.registry.ProducerRegistryFactory;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.lang.management.ManagementFactory;
 import java.lang.management.OperatingSystemMXBean;
@@ -51,7 +52,7 @@ public class BuiltInOSProducer extends AbstractBuiltInProducer implements IStats
 	/**
 	 * Logger.
 	 */
-	private static Logger log = Logger.getLogger(BuiltInOSProducer.class);
+	private static Logger log = LoggerFactory.getLogger(BuiltInOSProducer.class);
 	
 	public BuiltInOSProducer(){
 		mxBean = ManagementFactory.getOperatingSystemMXBean();

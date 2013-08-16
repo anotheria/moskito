@@ -2,7 +2,8 @@ package net.anotheria.moskito.core.helper;
 
 import net.anotheria.moskito.core.stats.IIntervalListener;
 import net.anotheria.moskito.core.stats.Interval;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -16,7 +17,7 @@ public class IntervalListener implements IIntervalListener {
 	/**
 	 * Logger.
 	 */
-	private static Logger log = Logger.getLogger(IntervalListener.class);
+	private static Logger log = LoggerFactory.getLogger(IntervalListener.class);
 	/**
 	 * Target classes.
 	 */

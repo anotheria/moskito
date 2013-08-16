@@ -3,7 +3,8 @@ package net.anotheria.moskito.webui.util;
 import net.anotheria.moskito.core.helper.RuntimeConstants;
 import net.anotheria.moskito.core.threshold.ThresholdRepository;
 import net.anotheria.moskito.core.util.BuiltinUpdater;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
@@ -18,7 +19,7 @@ public class StartStopListener implements ServletContextListener{
 	/**
 	 * Logger.
 	 */
-	private static Logger log = Logger.getLogger(StartStopListener.class);
+	private static Logger log = LoggerFactory.getLogger(StartStopListener.class);
 
 	@Override
 	public void contextInitialized(ServletContextEvent sce) {

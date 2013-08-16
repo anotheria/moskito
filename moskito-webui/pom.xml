@@ -26,6 +26,10 @@
 	</build>
 
 	<dependencies>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+        </dependency>
 		<dependency>
 			<groupId>net.anotheria</groupId>
 			<artifactId>ano-maf</artifactId>
@@ -65,7 +69,14 @@
 			<groupId>net.anotheria</groupId>
 			<artifactId>moskito-core</artifactId>
 			<version>${project.version}</version>
-		</dependency>
+            <exclusions>
+                <exclusion>
+                    <artifactId>log4j</artifactId>
+                    <groupId>log4j</groupId>
+                </exclusion>
+            </exclusions>
+
+        </dependency>
 		<dependency>
 			<groupId>net.anotheria</groupId>
 			<artifactId>moskito-web</artifactId>
@@ -88,7 +99,10 @@
             <artifactId>junit</artifactId>
             <scope>test</scope>
         </dependency>
-
-
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 </project>

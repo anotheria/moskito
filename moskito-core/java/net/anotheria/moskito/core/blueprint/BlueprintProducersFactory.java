@@ -1,6 +1,7 @@
 package net.anotheria.moskito.core.blueprint;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -15,7 +16,7 @@ public class BlueprintProducersFactory {
 	/**
 	 * Logger.
 	 */
-	private static Logger log = Logger.getLogger(BlueprintProducersFactory.class);
+	private static Logger log = LoggerFactory.getLogger(BlueprintProducersFactory.class);
 	/**
 	 * Already instantiated producers.
 	 */

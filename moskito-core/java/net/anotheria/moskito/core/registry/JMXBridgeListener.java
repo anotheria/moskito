@@ -5,7 +5,8 @@ import net.anotheria.moskito.core.producers.IStats;
 import net.anotheria.moskito.core.producers.IStatsProducer;
 import net.anotheria.moskito.core.util.BuiltInProducer;
 import net.anotheria.util.StringUtils;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.management.InstanceAlreadyExistsException;
 import javax.management.InstanceNotFoundException;
@@ -23,7 +24,7 @@ public class JMXBridgeListener implements IProducerRegistryListener{
 	/**
 	 * Logger.
 	 */
-	private static Logger log = Logger.getLogger(JMXBridgeListener.class);
+	private static Logger log = LoggerFactory.getLogger(JMXBridgeListener.class);
 	
 	@Override
 	public void notifyProducerRegistered(IStatsProducer producer) {

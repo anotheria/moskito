@@ -7,7 +7,6 @@ import net.anotheria.moskito.core.threshold.Threshold;
 import net.anotheria.moskito.core.threshold.ThresholdDefinition;
 import net.anotheria.moskito.core.threshold.ThresholdStatus;
 import net.anotheria.moskito.core.threshold.alerts.notificationprovider.MailNotificationProvider;
-import org.apache.log4j.BasicConfigurator;
 import org.junit.Ignore;
 import org.junit.Test;
 
@@ -19,10 +18,6 @@ import org.junit.Test;
  * @since 23.10.12 16:05
  */
 public class ManualTestEmailProvider {
-
-	static{
-		BasicConfigurator.configure();
-	}
 
 	@Ignore
 	@Test public void generateMailConfigAndTriggerMail() throws Exception{

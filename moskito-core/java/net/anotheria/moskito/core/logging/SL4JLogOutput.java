@@ -32,45 +32,26 @@
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR
  * THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */	
-package net.anotheria.moskito.core.timing;
+package net.anotheria.moskito.core.logging;
 
 import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import java.util.TimerTask;
-
 
 /**
- * This class implements an adapter to handle IUpdatable instances as TimerTask.
- *
+ * A ILogOutput associated with a Log4J Logger. Logs at the INFO level.
  * @author lrosenberg
  */
-final class UpdateableWrapper extends TimerTask {
-
-	private static Logger log = LoggerFactory.getLogger(UpdateableWrapper.class);
+public class SL4JLogOutput implements ILogOutput{
 
 	/**
-	 * This is the delegate that will be called.
+	 * Underlying logger.
 	 */
-	private IUpdateable delegate;
+	private Logger log;
 	
-	/**
-	 * The constructor.
-	 * 
-	 * @param aDelegate the delegate to use 
-	 */
-	UpdateableWrapper(IUpdateable aDelegate){
-		delegate = aDelegate;
+	public SL4JLogOutput(Logger aLog){
+		this.log = aLog;
 	}
 	
-
-	@Override public void run() {
-		try{
-			delegate.update();
-		}catch(Exception e){
-			if (log!=null)
-				log.warn("Delegate update failed on "+delegate, e);
-		}
+	@Override public void out(String message){
+		log.info(message);
 	}
-
 }

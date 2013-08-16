@@ -9,7 +9,8 @@ import net.anotheria.moskito.core.dynamic.OnDemandStatsProducer;
 import net.anotheria.moskito.core.dynamic.OnDemandStatsProducerException;
 import net.anotheria.moskito.core.predefined.ServiceStats;
 import net.anotheria.moskito.core.predefined.ServiceStatsFactory;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.inject.Singleton;
 import javax.interceptor.AroundInvoke;
@@ -36,7 +37,7 @@ public class CallInterceptor extends BaseInterceptor<ServiceStats> implements Se
     /**
      * Logger.
      */
-    private Logger log = Logger.getLogger(CallInterceptor.class);
+    private Logger log = LoggerFactory.getLogger(CallInterceptor.class);
 
 
     /**

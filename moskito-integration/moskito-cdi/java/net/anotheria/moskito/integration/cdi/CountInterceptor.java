@@ -5,7 +5,8 @@ import net.anotheria.moskito.core.counter.CounterStatsFactory;
 import net.anotheria.moskito.core.dynamic.IOnDemandStatsFactory;
 import net.anotheria.moskito.core.dynamic.OnDemandStatsProducer;
 import net.anotheria.moskito.core.dynamic.OnDemandStatsProducerException;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.inject.Singleton;
 import javax.interceptor.AroundInvoke;
@@ -32,7 +33,7 @@ public class CountInterceptor extends BaseInterceptor<CounterStats> implements S
     /**
      * Logger.
      */
-    private Logger log = Logger.getLogger(CountInterceptor.class);
+    private Logger log = LoggerFactory.getLogger(CountInterceptor.class);
 
 
     /**

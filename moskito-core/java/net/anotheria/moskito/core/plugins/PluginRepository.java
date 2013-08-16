@@ -3,7 +3,8 @@ package net.anotheria.moskito.core.plugins;
 import net.anotheria.moskito.core.config.MoskitoConfigurationHolder;
 import net.anotheria.moskito.core.config.plugins.PluginConfig;
 import net.anotheria.moskito.core.config.plugins.PluginsConfig;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +22,7 @@ public class PluginRepository {
 	/**
 	 * Logger.
 	 */
-	private static Logger log = Logger.getLogger(PluginRepository.class);
+	private static Logger log = LoggerFactory.getLogger(PluginRepository.class);
 
 	/**
 	 * Plugins.

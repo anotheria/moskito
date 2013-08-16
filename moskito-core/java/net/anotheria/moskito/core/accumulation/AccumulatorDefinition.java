@@ -2,7 +2,8 @@ package net.anotheria.moskito.core.accumulation;
 
 import net.anotheria.moskito.core.config.MoskitoConfigurationHolder;
 import net.anotheria.moskito.core.helper.TieableDefinition;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * The definition of an Accumulator.
@@ -18,7 +19,7 @@ public class AccumulatorDefinition extends TieableDefinition {
 	/**
 	 * Logger.
 	 */
-	private static Logger log = Logger.getLogger(AccumulatorDefinition.class);
+	private static Logger log = LoggerFactory.getLogger(AccumulatorDefinition.class);
 
 	/**
 	 * Creates a new AccumulatorDefinition.

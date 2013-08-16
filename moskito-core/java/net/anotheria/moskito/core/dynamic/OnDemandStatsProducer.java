@@ -38,7 +38,8 @@ import net.anotheria.moskito.core.inspection.CreationInfo;
 import net.anotheria.moskito.core.inspection.Inspectable;
 import net.anotheria.moskito.core.producers.IStats;
 import net.anotheria.moskito.core.producers.IStatsProducer;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
@@ -55,7 +56,7 @@ public class OnDemandStatsProducer<S extends IStats> implements IStatsProducer<S
 	/**
 	 * Logger.
 	 */
-	private static Logger log = Logger.getLogger(OnDemandStatsProducer.class);
+	private static Logger log = LoggerFactory.getLogger(OnDemandStatsProducer.class);
 
 	/**
 	 * The factory for stat creation.

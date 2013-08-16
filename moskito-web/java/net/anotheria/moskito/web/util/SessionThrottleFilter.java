@@ -4,10 +4,11 @@ import net.anotheria.moskito.core.producers.IStatsProducer;
 import net.anotheria.moskito.core.registry.NoSuchProducerException;
 import net.anotheria.moskito.core.registry.ProducerRegistryAPIFactory;
 import net.anotheria.moskito.web.session.SessionCountStats;
-import org.apache.log4j.Logger;
 import org.configureme.ConfigurationManager;
 import org.configureme.annotations.AfterConfiguration;
 import org.configureme.annotations.ConfigureMe;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -44,7 +45,7 @@ public class SessionThrottleFilter implements Filter{
 	/**
 	 * Logger.
 	 */
-	private static Logger log = Logger.getLogger(SessionThrottleFilter.class);
+	private static Logger log = LoggerFactory.getLogger(SessionThrottleFilter.class);
 
 	@Override
 	public void init(FilterConfig filterConfig) throws ServletException {

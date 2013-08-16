@@ -6,7 +6,8 @@ import net.anotheria.maf.bean.FormBean;
 import net.anotheria.moskito.webui.more.bean.WebappLibBean;
 import net.anotheria.util.NumberUtils;
 import net.anotheria.util.maven.MavenVersionReader;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.management.BadAttributeValueExpException;
 import javax.management.BadBinaryOpValueExpException;
@@ -36,7 +37,7 @@ public class ShowLibsAction extends BaseAdditionalAction{
 	/**
 	 * Logger.
 	 */
-	private static Logger log = Logger.getLogger(ShowLibsAction.class);
+	private static Logger log = LoggerFactory.getLogger(ShowLibsAction.class);
 
 	@Override
 	protected String getLinkToCurrentPage(HttpServletRequest req) {

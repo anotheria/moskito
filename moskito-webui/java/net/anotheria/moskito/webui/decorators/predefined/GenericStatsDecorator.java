@@ -3,10 +3,6 @@
  */
 package net.anotheria.moskito.webui.decorators.predefined;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-
 import net.anotheria.moskito.core.producers.GenericStats;
 import net.anotheria.moskito.core.stats.TimeUnit;
 import net.anotheria.moskito.core.stats.TypeAwareStatValue;
@@ -17,8 +13,12 @@ import net.anotheria.moskito.webui.shared.bean.StatCaptionBean;
 import net.anotheria.moskito.webui.shared.bean.StatValueBean;
 import net.anotheria.moskito.webui.shared.bean.StringValueBean;
 import net.anotheria.util.sorter.IComparable;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import org.apache.log4j.Logger;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * @author Micha
@@ -29,19 +29,10 @@ public class GenericStatsDecorator implements IDecorator<GenericStats> {
     /**
      * Logger.
      */
-    private static final Logger LOGGER = Logger.getLogger(GenericStatsDecorator.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(GenericStatsDecorator.class);
 
     /**
      * Constructs an instance of GenericStatsDecorator.
-     * 
-     * @param aName
-     *            name of the decorator.
-     * @param captionStrings
-     *            array with captions.
-     * @param shortExplanationStrings
-     *            array with short explanations (mouse over).
-     * @param explanationStrings
-     *            array with long explanations.
      */
     public GenericStatsDecorator() {
         super();

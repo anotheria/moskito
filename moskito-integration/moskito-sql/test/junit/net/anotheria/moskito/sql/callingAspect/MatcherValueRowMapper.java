@@ -2,7 +2,8 @@ package net.anotheria.moskito.sql.callingAspect;
 
 import net.anotheria.db.dao.RowMapper;
 import net.anotheria.db.dao.RowMapperException;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -17,7 +18,7 @@ import java.sql.SQLException;
  */
 public class MatcherValueRowMapper extends RowMapper<MatcherValue> {
 
-    private static Logger log = Logger.getLogger(MatcherValueRowMapper.class);
+    private static Logger log = LoggerFactory.getLogger(MatcherValueRowMapper.class);
 
     @Override
     public MatcherValue map(ResultSet row) throws RowMapperException {

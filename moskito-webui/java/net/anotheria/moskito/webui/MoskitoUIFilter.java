@@ -6,7 +6,8 @@ import net.anotheria.moskito.webui.shared.api.MoskitoAPIInitializer;
 import net.anotheria.net.util.NetUtils;
 import net.anotheria.util.maven.MavenVersion;
 import net.anotheria.webutils.util.VersionUtil;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.servlet.FilterConfig;
 import javax.servlet.ServletException;
@@ -23,7 +24,7 @@ public class MoskitoUIFilter extends MAFFilter{
 	/**
 	 * Logger.
 	 */
-	private static final Logger log = Logger.getLogger(MoskitoUIFilter.class);
+	private static final Logger log = LoggerFactory.getLogger(MoskitoUIFilter.class);
 	
 	/**
 	 * Path to images for html-layer image linking.

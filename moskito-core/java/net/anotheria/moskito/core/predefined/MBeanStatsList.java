@@ -1,18 +1,5 @@
 package net.anotheria.moskito.core.predefined;
 
-import static net.anotheria.moskito.core.util.MBeanProducerFactory.normalize;
-
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.TimerTask;
-
-import javax.management.InstanceNotFoundException;
-import javax.management.IntrospectionException;
-import javax.management.MBeanAttributeInfo;
-import javax.management.MBeanServer;
-import javax.management.ObjectName;
-import javax.management.ReflectionException;
-
 import net.anotheria.moskito.core.producers.GenericStats;
 import net.anotheria.moskito.core.stats.Interval;
 import net.anotheria.moskito.core.stats.StatValue;
@@ -20,8 +7,20 @@ import net.anotheria.moskito.core.stats.StatValueTypes;
 import net.anotheria.moskito.core.stats.TypeAwareStatValue;
 import net.anotheria.moskito.core.stats.impl.StatValueFactory;
 import net.anotheria.moskito.core.util.BuiltinUpdater;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import org.apache.log4j.Logger;
+import javax.management.InstanceNotFoundException;
+import javax.management.IntrospectionException;
+import javax.management.MBeanAttributeInfo;
+import javax.management.MBeanServer;
+import javax.management.ObjectName;
+import javax.management.ReflectionException;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.TimerTask;
+
+import static net.anotheria.moskito.core.util.MBeanProducerFactory.normalize;
 
 /**
  * This is a self filling and unmodifiable list of MBean related {@link GenericStats}.
@@ -349,7 +348,7 @@ public class MBeanStatsList extends ArrayList<GenericStats> {
     /**
      * Logger.
      */
-    private static final Logger LOGGER = Logger.getLogger(MBeanStatsList.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(MBeanStatsList.class);
 
     /**
      * {@link MBeanServer}.

@@ -6,7 +6,8 @@ import net.anotheria.moskito.core.threshold.alerts.NotificationProvider;
 import net.anotheria.moskito.core.threshold.alerts.ThresholdAlert;
 import net.anotheria.util.NumberUtils;
 import net.anotheria.util.StringUtils;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,7 +33,7 @@ public class MailNotificationProvider implements NotificationProvider {
 	/**
 	 * Log.
 	 */
-	private static Logger log = Logger.getLogger(MailNotificationProvider.class);
+	private static Logger log = LoggerFactory.getLogger(MailNotificationProvider.class);
 
 
 	public MailNotificationProvider(){

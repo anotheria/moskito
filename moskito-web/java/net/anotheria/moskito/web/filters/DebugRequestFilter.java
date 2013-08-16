@@ -1,6 +1,7 @@
 package net.anotheria.moskito.web.filters;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -25,7 +26,7 @@ public class DebugRequestFilter implements Filter {
     /**
      * Logger util.
      */
-    private static Logger logger = Logger.getLogger(DebugRequestFilter.class);
+    private static Logger logger = LoggerFactory.getLogger(DebugRequestFilter.class);
     /**
      * If parameter with this name is presented in request than doFilter method will be executed.
      */

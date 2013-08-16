@@ -1,15 +1,5 @@
 package net.anotheria.moskito.core.util;
 
-import java.lang.management.ManagementFactory;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-
-import javax.management.MBeanServer;
-import javax.management.MBeanServerFactory;
-import javax.management.ObjectInstance;
-import javax.management.ObjectName;
-
 import net.anotheria.moskito.core.config.MoskitoConfigurationHolder;
 import net.anotheria.moskito.core.config.producers.MBeanProducerConfig;
 import net.anotheria.moskito.core.config.producers.MBeanProducerDomainConfig;
@@ -17,8 +7,17 @@ import net.anotheria.moskito.core.predefined.MBeanStatsList;
 import net.anotheria.moskito.core.producers.GenericStats;
 import net.anotheria.moskito.core.registry.IProducerRegistry;
 import net.anotheria.moskito.core.registry.ProducerRegistryFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import org.apache.log4j.Logger;
+import javax.management.MBeanServer;
+import javax.management.MBeanServerFactory;
+import javax.management.ObjectInstance;
+import javax.management.ObjectName;
+import java.lang.management.ManagementFactory;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 /**
  * A factory which creates one {@link SimpleStatsProducer} per plattform MBean.
@@ -30,7 +29,7 @@ public final class MBeanProducerFactory {
     /**
      * Logger.
      */
-    private static final Logger LOGGER = Logger.getLogger(MBeanProducerFactory.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(MBeanProducerFactory.class);
 
 	/**
 	 * Build a number of {@link SimpleStatsProducer}s, one for each single MBean

@@ -35,7 +35,8 @@
 package net.anotheria.moskito.core.command;
 
 import net.anotheria.moskito.core.usecase.recorder.UseCaseRecorderCommandProcessor;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -57,7 +58,7 @@ public enum CommandControllerImpl implements CommandController{
 	/**
 	 * Logger instance.
 	 */
-	private static final Logger log = Logger.getLogger(CommandControllerImpl.class);
+	private static final Logger log = LoggerFactory.getLogger(CommandControllerImpl.class);
 	/**
 	 * Creates a new CommandControllerImpl.
 	 */
@@ -70,7 +71,7 @@ public enum CommandControllerImpl implements CommandController{
 		if (log!=null){
 			log.debug("registering processor: "+processor+" for command: "+command);
 		}else{
-			Logger.getLogger(CommandControllerImpl.class).debug("registering processor: "+processor+" for command: "+command);
+			LoggerFactory.getLogger(CommandControllerImpl.class).debug("registering processor: "+processor+" for command: "+command);
 		}
 		CommandProcessor oldProcessor = processors.put(command, processor);
 		if (oldProcessor!=null)

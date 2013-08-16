@@ -9,7 +9,8 @@ import net.anotheria.moskito.core.journey.NoSuchJourneyException;
 import net.anotheria.moskito.webui.journey.api.JourneyListItemAO;
 import net.anotheria.moskito.webui.journey.bean.TracedCallListItemBean;
 import net.anotheria.util.NumberUtils;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -26,7 +27,7 @@ public class ShowJourneyAction extends BaseJourneyAction{
 	/**
 	 * Logger.
 	 */
-	private static Logger log = Logger.getLogger(ShowJourneyAction.class);
+	private static Logger log = LoggerFactory.getLogger(ShowJourneyAction.class);
 
 	@Override
 	protected String getLinkToCurrentPage(HttpServletRequest req) {

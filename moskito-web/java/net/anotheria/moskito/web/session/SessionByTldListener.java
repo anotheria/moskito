@@ -5,7 +5,8 @@ import net.anotheria.moskito.core.dynamic.OnDemandStatsProducerException;
 import net.anotheria.moskito.core.producers.IStatsProducer;
 import net.anotheria.moskito.core.registry.ProducerRegistryFactory;
 import net.anotheria.moskito.web.filters.SourceTldFilter;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.servlet.ServletRequestEvent;
 import javax.servlet.ServletRequestListener;
@@ -31,7 +32,7 @@ public class SessionByTldListener implements HttpSessionListener, ServletRequest
 	/**
 	 * Logger.
 	 */
-	private static Logger log = Logger.getLogger(SessionByTldListener.class);
+	private static Logger log = LoggerFactory.getLogger(SessionByTldListener.class);
 
 	public static final String ATT_NAME = "_MoSKito_SessionByTldFilter_TLD";
 

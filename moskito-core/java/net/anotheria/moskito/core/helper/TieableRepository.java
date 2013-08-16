@@ -8,7 +8,8 @@ import net.anotheria.moskito.core.registry.ProducerRegistryFactory;
 import net.anotheria.moskito.core.stats.impl.IntervalRegistry;
 import net.anotheria.moskito.core.timing.IUpdateable;
 import net.anotheria.moskito.core.timing.UpdateTriggerServiceFactory;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,7 +35,7 @@ public abstract class TieableRepository<T extends Tieable> implements IProducerR
 	/**
 	 * Logger.
 	 */
-	private static Logger log = Logger.getLogger(TieableRepository.class);
+	private static Logger log = LoggerFactory.getLogger(TieableRepository.class);
 	/**
 	 * Tieables. This map contains already tied tieables.
 	 */

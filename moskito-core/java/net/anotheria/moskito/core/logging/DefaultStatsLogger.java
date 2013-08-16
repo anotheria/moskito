@@ -40,7 +40,7 @@ import net.anotheria.moskito.core.timing.IUpdateable;
 import net.anotheria.moskito.core.timing.UpdateTriggerServiceFactory;
 import net.anotheria.util.Date;
 import net.anotheria.util.IdCodeGenerator;
-import org.apache.log4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.ConcurrentModificationException;
 
@@ -103,7 +103,7 @@ public class DefaultStatsLogger implements IUpdateable {
 				output.out(stat.toStatsString());
 			}
 		}catch(ConcurrentModificationException e){
-			Logger.getLogger(DefaultStatsLogger.class).warn("Error during iteration over stats from producer "+target+" ("+target.getClass()+"), concurrent modification of stats detected.");
+			LoggerFactory.getLogger(DefaultStatsLogger.class).warn("Error during iteration over stats from producer "+target+" ("+target.getClass()+"), concurrent modification of stats detected.");
 		}
 		
 		output.out("===============================================================================");

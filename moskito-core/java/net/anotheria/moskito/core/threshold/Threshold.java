@@ -8,7 +8,8 @@ import net.anotheria.moskito.core.threshold.alerts.AlertDispatcher;
 import net.anotheria.moskito.core.threshold.alerts.ThresholdAlert;
 import net.anotheria.moskito.core.threshold.guard.GuardedDirection;
 import net.anotheria.moskito.core.threshold.guard.LongBarrierPassGuard;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,7 +23,7 @@ public class Threshold extends AbstractTieable<ThresholdDefinition> implements T
 	/**
 	 * Logger.
 	 */
-	private static Logger log = Logger.getLogger(Threshold.class);
+	private static Logger log = LoggerFactory.getLogger(Threshold.class);
 	/**
 	 * Status of the threshold.
 	 */

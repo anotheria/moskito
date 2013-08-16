@@ -41,7 +41,8 @@ import net.anotheria.moskito.core.stats.IIntervalListener;
 import net.anotheria.moskito.core.stats.Interval;
 import net.anotheria.moskito.core.stats.IntervalRegistryListener;
 import net.anotheria.moskito.core.stats.impl.IntervalRegistry;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -61,7 +62,7 @@ public class ProducerRegistryAPIImpl implements IProducerRegistryAPI, IProducerR
 	/**
 	 * Logger.
 	 */
-	private static final Logger log = Logger.getLogger(ProducerRegistryAPIImpl.class);
+	private static final Logger log = LoggerFactory.getLogger(ProducerRegistryAPIImpl.class);
 	
 	/**
 	 * Cached producer list - used internally to reduce overhead.
@@ -142,9 +143,9 @@ public class ProducerRegistryAPIImpl implements IProducerRegistryAPI, IProducerR
 		}
 		if (log.isDebugEnabled()){
 			log.debug("Cachedproducer list contains "+_cachedProducerList.size()+" producers: ");
-			log.debug(_cachedProducerList);
+			log.debug(""+_cachedProducerList);
 			log.debug("Cached producer map contains: "+_cachedProducerMap.size()+" producers");
-			log.debug(_cachedProducerMap);
+			log.debug(""+_cachedProducerMap);
 		}
 	}
 

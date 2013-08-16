@@ -34,6 +34,13 @@ public class TieableDefinition {
 	 */
 	private TimeUnit timeUnit = TimeUnit.MILLISECONDS;
 
+
+	/**
+	 * Human readable description for the ui.
+
+	 */
+	private String description;
+
 	
 	public TimeUnit getTimeUnit() {
 		return timeUnit;
@@ -88,6 +95,14 @@ public class TieableDefinition {
 	
 	public String describe(){
 		return getProducerName()+"."+getStatName()+"."+getValueName()+"/"+getIntervalName()+"/"+getTimeUnit();
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
 

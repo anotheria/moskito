@@ -1,6 +1,7 @@
 package net.anotheria.moskito.core.usecase;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -20,7 +21,7 @@ public class UseCaseManager {
 	/**
 	 * Logger.
 	 */
-	private static Logger log = Logger.getLogger(UseCaseManager.class);
+	private static Logger log = LoggerFactory.getLogger(UseCaseManager.class);
 	
 	
 	/**

@@ -10,7 +10,8 @@ import net.anotheria.moskito.core.stats.impl.IntervalRegistry;
 import net.anotheria.util.queue.IQueueWorker;
 import net.anotheria.util.queue.QueuedProcessor;
 import net.anotheria.util.queue.UnrecoverableQueueOverflowException;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -43,7 +44,7 @@ public final class SnapshotRepository {
 	/**
 	 * Logger.
 	 */
-	private static Logger log = Logger.getLogger(SnapshotRepository.class);
+	private static Logger log = LoggerFactory.getLogger(SnapshotRepository.class);
 
 
 	/**

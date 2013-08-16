@@ -7,7 +7,8 @@ import net.anotheria.moskito.core.registry.ProducerRegistryFactory;
 import net.anotheria.moskito.sql.stats.QueryStats;
 import net.anotheria.moskito.sql.stats.QueryStringStats;
 import net.anotheria.moskito.sql.stats.QueryStringStatsFactory;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -37,7 +38,7 @@ public class QueryProducer implements IStatsProducer<QueryStats> {
      */
     private final Map<String, QueryStringStats> queryStatsMap;
 
-    private static Logger log = Logger.getLogger(QueryProducer.class);
+    private static Logger log = LoggerFactory.getLogger(QueryProducer.class);
 
     private QueryStringStatsFactory factory;
 

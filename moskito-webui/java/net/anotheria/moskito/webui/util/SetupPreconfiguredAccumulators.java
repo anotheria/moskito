@@ -1,7 +1,8 @@
 package net.anotheria.moskito.webui.util;
 
 import net.anotheria.moskito.core.accumulation.Accumulators;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
@@ -13,7 +14,7 @@ import javax.servlet.ServletContextListener;
  */
 public class SetupPreconfiguredAccumulators implements ServletContextListener{
 	
-	private static Logger log = Logger.getLogger(SetupPreconfiguredAccumulators.class);
+	private static Logger log = LoggerFactory.getLogger(SetupPreconfiguredAccumulators.class);
 
 	@Override
 	public void contextInitialized(ServletContextEvent sce) {

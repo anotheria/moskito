@@ -4,7 +4,7 @@
 	<parent>
 		<groupId>net.anotheria</groupId>
 		<artifactId>parent</artifactId>
-		<version>2.1</version>
+		<version>2.2</version>
 	</parent>
 
 	<modelVersion>4.0.0</modelVersion>
@@ -19,8 +19,6 @@
 		<module>moskito-core</module>
 		<module>moskito-web</module>
 		<module>moskito-webui</module>
-		<module>moskito-webcontrol</module>
-		<module>moskito-central</module>
 		<module>moskito-aop</module>
 		<module>moskito-integration</module>
 		<module>moskitominimal</module>
@@ -42,12 +40,12 @@
 			<dependency>
 				<groupId>net.anotheria</groupId>
 				<artifactId>configureme</artifactId>
-				<version>2.0.1</version>
+				<version>2.1.0</version>
 			</dependency>
 			<dependency>
 				<groupId>net.anotheria</groupId>
 				<artifactId>ano-util</artifactId>
-				<version>2.0.1</version>
+				<version>2.1.0</version>
 				<exclusions>
 					<exclusion>
 						<groupId>blowfish</groupId>

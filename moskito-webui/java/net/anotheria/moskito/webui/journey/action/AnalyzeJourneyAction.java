@@ -10,7 +10,8 @@ import net.anotheria.moskito.core.journey.Journey;
 import net.anotheria.moskito.webui.CurrentSelection;
 import net.anotheria.moskito.webui.journey.bean.AnalyzeProducerCallsBeanSortType;
 import net.anotheria.moskito.webui.journey.bean.AnalyzeProducerCallsMapBean;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -24,7 +25,7 @@ public class AnalyzeJourneyAction extends BaseJourneyAction{
 		return "";
 	}
 	
-	private static Logger log = Logger.getLogger(AnalyzeJourneyAction.class);
+	private static Logger log = LoggerFactory.getLogger(AnalyzeJourneyAction.class);
 
 	@Override
 	public ActionCommand execute(ActionMapping mapping, FormBean formBean, HttpServletRequest req, HttpServletResponse res){

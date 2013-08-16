@@ -21,7 +21,8 @@ import net.anotheria.db.dao.DAOException;
 import net.anotheria.db.dao.DAOSQLException;
 import net.anotheria.db.dao.RowMapper;
 import net.anotheria.util.slicer.Segment;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -34,7 +35,7 @@ import java.util.concurrent.atomic.AtomicLong;
 
 public class MatcherValueDAO implements DAO{
 
-	private static Logger log = Logger.getLogger(MatcherValueDAO.class);
+	private static Logger log = LoggerFactory.getLogger(MatcherValueDAO.class);
 	public static final String TABNAME = "matchervalue";
 
 	public static final String ATT_NAME_ID = "id";

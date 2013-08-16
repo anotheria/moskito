@@ -7,7 +7,8 @@ import net.anotheria.moskito.webui.more.bean.MBeanAttributeWrapper;
 import net.anotheria.moskito.webui.more.bean.MBeanWrapperBean;
 import net.anotheria.util.sorter.DummySortType;
 import net.anotheria.util.sorter.StaticQuickSorter;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.management.MBeanAttributeInfo;
 import javax.management.MBeanInfo;
@@ -17,7 +18,6 @@ import javax.management.ObjectInstance;
 import javax.management.ObjectName;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.lang.management.ManagementFactory;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -34,7 +34,7 @@ public class ShowMBeansAction extends AdditionalSectionAction{
     /**
      * the local logger.
      */
-    private static final Logger LOG = Logger.getLogger(ShowMBeansAction.class); 
+    private static final Logger LOG = LoggerFactory.getLogger(ShowMBeansAction.class);
     
 	/**
 	 * @{inheritDoc}

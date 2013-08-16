@@ -42,7 +42,8 @@ import net.anotheria.moskito.core.predefined.FilterStats;
 import net.anotheria.moskito.core.predefined.FilterStatsFactory;
 import net.anotheria.moskito.core.registry.ProducerRegistryFactory;
 import net.anotheria.moskito.core.stats.Interval;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -84,7 +85,7 @@ public abstract class MoskitoFilter implements Filter{
 	private OnDemandStatsProducer<FilterStats> onDemandProducer;
 	
 	protected MoskitoFilter(){
-		log = Logger.getLogger(getClass());
+		log = LoggerFactory.getLogger(getClass());
 	}
 	
 
