@@ -25,12 +25,6 @@
 		<groupId>net.anotheria</groupId>
 		<artifactId>moskito-core</artifactId>
 		<version>${project.version}</version>
-        <exclusions>
-            <exclusion>
-                <artifactId>log4j</artifactId>
-                <groupId>log4j</groupId>
-            </exclusion>
-        </exclusions>
 	</dependency>
 	<dependency>
     	<groupId>javax.servlet</groupId>
@@ -47,24 +41,18 @@
     	<groupId>net.anotheria</groupId>
     	<artifactId>ano-maf</artifactId>
     	<scope>provided</scope>
-        <exclusions>
-            <exclusion>
-                <artifactId>log4j</artifactId>
-                <groupId>log4j</groupId>
-            </exclusion>
-        </exclusions>
 	</dependency>
 	<!-- only mock support needed, therefore testing scope -->	
 	<dependency>
 	  <groupId>net.anotheria</groupId>
   		<artifactId>ano-prise</artifactId>  
   		<scope>test</scope>
-        <exclusions>
-            <exclusion>
-                <artifactId>log4j</artifactId>
-                <groupId>log4j</groupId>
-            </exclusion>
-        </exclusions>
   	</dependency>
+  <dependency>
+      <groupId>ch.qos.logback</groupId>
+      <artifactId>logback-classic</artifactId>
+	  <scope>test</scope>
+  </dependency>
+
   </dependencies>
 </project>
