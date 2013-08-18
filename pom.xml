@@ -26,7 +26,6 @@
 
 	<properties>
 		<jersey-version>1.17.1</jersey-version>
-		<distributeme.version>2.0.0</distributeme.version>
 	</properties>
 
 
@@ -146,22 +145,6 @@
 				<groupId>javax.ws.rs</groupId>
 				<artifactId>jsr311-api</artifactId>
 				<version>1.1.1</version>
-			</dependency>
-
-			<dependency>
-				<groupId>net.anotheria</groupId>
-				<artifactId>distributeme-core</artifactId>
-				<version>${distributeme.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>net.anotheria</groupId>
-				<artifactId>distributeme-support</artifactId>
-				<version>${distributeme.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>net.anotheria</groupId>
-				<artifactId>distributeme-agents</artifactId>
-				<version>${distributeme.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>org.hibernate.javax.persistence</groupId>
