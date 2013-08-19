@@ -39,7 +39,7 @@
 			<dependency>
 				<groupId>net.anotheria</groupId>
 				<artifactId>configureme</artifactId>
-				<version>2.1.0</version>
+				<version>2.2.0</version>
 			</dependency>
 			<dependency>
 				<groupId>net.anotheria</groupId>
@@ -60,18 +60,18 @@
 			<dependency>
 				<groupId>net.anotheria</groupId>
 				<artifactId>ano-maf</artifactId>
-				<version>2.0.1</version>
+				<version>2.1.0</version>
 			</dependency>
 			<dependency>
 				<groupId>net.anotheria</groupId>
 				<artifactId>ano-tags</artifactId>
-				<version>2.0.0</version>
+				<version>2.1.0</version>
 			</dependency>
 			<!-- for moskito sql -->
 			<dependency>
 				<groupId>net.anotheria</groupId>
 				<artifactId>ano-db</artifactId>
-				<version>2.0.0</version>
+				<version>2.1.0</version>
 			</dependency>
 			<dependency>
 				<groupId>net.anotheria</groupId>
@@ -86,12 +86,12 @@
 			<dependency>
 				<groupId>net.anotheria</groupId>
 				<artifactId>ano-prise</artifactId>
-				<version>2.0.1</version>
+				<version>2.1.0</version>
 			</dependency>
 			<dependency>
 				<groupId>net.anotheria</groupId>
 				<artifactId>ano-net</artifactId>
-				<version>2.0.0</version>
+				<version>2.1.0</version>
 			</dependency>
 			<dependency>
 				<groupId>commons-codec</groupId>
