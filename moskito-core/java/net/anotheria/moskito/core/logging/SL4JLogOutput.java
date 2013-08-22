@@ -37,9 +37,11 @@ package net.anotheria.moskito.core.logging;
 import org.slf4j.Logger;
 
 /**
- * A ILogOutput associated with a Log4J Logger. Logs at the INFO level.
+ * A ILogOutput associated with a SLF4J Logger. Logs at the INFO level.
+ * This class is deprecated, due to typo in the name, use SLF4JLogOutput instead.
  * @author lrosenberg
  */
+@Deprecated
 public class SL4JLogOutput implements ILogOutput{
 
 	/**
