@@ -1,4 +1,4 @@
 /**
- *  Contains filters for moskito web.
+ *  Contains filters for MoSKito web.
  */
 package net.anotheria.moskito.web.filters;
