@@ -30,9 +30,9 @@
 
 
 	<scm>
-		<url>svn:svn://svn.anotheria.net/opensource/moskito/trunk</url>
-		<connection>scm:svn:svn://svn.anotheria.net/opensource/moskito/trunk</connection>
-		<developerConnection>scm:svn:svn://svn.anotheria.net/opensource/moskito/trunk</developerConnection>
+		<url>https://github.com/anotheria/moskitok</url>
+		<connection>scm:git:git@github.com:anotheria/moskito.gittrunk</connection>
+		<developerConnection>scm:git:git@github.com:anotheria/moskito.git</developerConnection>
 	</scm>
 	<dependencyManagement>
 		<dependencies>
