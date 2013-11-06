@@ -11,6 +11,14 @@
   <version>2.3.2-SNAPSHOT</version>
   <name>moskito web support</name>
 
+    <build>
+        <resources>
+            <resource>
+                <directory>${project.basedir}/etc</directory>
+            </resource>
+        </resources>
+    </build>
+
   <dependencies>
       <dependency>
           <groupId>org.slf4j</groupId>
