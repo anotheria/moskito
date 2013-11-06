@@ -22,6 +22,9 @@
 					<include>**/*.jsp</include>
 				</includes>
 			</resource>
+            <resource>
+                <directory>${project.basedir}/etc</directory>
+            </resource>
 		</resources>
 	</build>
 
