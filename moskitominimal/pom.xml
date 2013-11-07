@@ -93,14 +93,6 @@
 						<resource>
 							<directory>${project.build.directory}/tmp</directory>
 						</resource>
-						<resource>
-							<!-- this is relative to the pom.xml directory -->
-							<directory>etc/</directory>
-							<includes>
-								<include>**/*.tld</include>
-							</includes>
-							<targetPath>WEB-INF/</targetPath>
-						</resource>
 					</webResources>
 				</configuration>
 			</plugin>
@@ -118,21 +110,12 @@
 				<activeByDefault>true</activeByDefault>
 			</activation>
 			<dependencies>
-
-				<!-- jersey -->
-				<dependency>
-					<groupId>com.sun.jersey</groupId>
-					<artifactId>jersey-server</artifactId>
-				</dependency>
-				<dependency>
-					<groupId>com.sun.jersey</groupId>
-					<artifactId>jersey-servlet</artifactId>
-				</dependency>
-				<dependency>
-					<groupId>com.sun.jersey</groupId>
-					<artifactId>jersey-json</artifactId>
-				</dependency>
-
+                <!-- Add jersey rest interface -->
+                <dependency>
+                    <groupId>net.anotheria</groupId>
+                    <artifactId>moskito-webui-jersey</artifactId>
+                    <version>${project.version}</version>
+                </dependency>
 			</dependencies>
 		</profile>
 	</profiles>
