@@ -9,21 +9,37 @@
 	<modelVersion>4.0.0</modelVersion>
 	<artifactId>moskito-webui-jersey</artifactId>
 	<version>2.3.2-SNAPSHOT</version>
-	<name>moskito embedded web user interface - rest api</name>
+	<name>moskito embedded web rest interface - jersey support</name>
+    <description>
+        This project contains dependencies and configuration (web-fragment) needed to enable moskito-webui rest interface via Jersey. To use it simply add it as dependency.
+    </description>
 
-	<build>
-		<resources>
+    <build>
+        <resources>
             <resource>
                 <directory>${project.basedir}/etc</directory>
             </resource>
-		</resources>
-	</build>
+        </resources>
+    </build>
 
 	<dependencies>
         <dependency>
-			<groupId>net.anotheria</groupId>
-			<artifactId>moskito-webui</artifactId>
-			<version>${project.version}</version>
+            <groupId>net.anotheria</groupId>
+            <artifactId>moskito-webui</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <!-- jersey -->
+        <dependency>
+            <groupId>com.sun.jersey</groupId>
+               <artifactId>jersey-server</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.sun.jersey</groupId>
+            <artifactId>jersey-servlet</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.sun.jersey</groupId>
+            <artifactId>jersey-json</artifactId>
         </dependency>
     </dependencies>
 </project>
