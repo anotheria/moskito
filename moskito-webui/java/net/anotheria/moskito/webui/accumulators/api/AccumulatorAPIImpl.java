@@ -79,6 +79,7 @@ public class AccumulatorAPIImpl extends AbstractMoskitoAPIImpl implements Accumu
 			AccumulatedValueAO accValueForGraphData = new AccumulatedValueAO(NumberUtils.makeTimeString(timestamp));
 			accValueForGraphData.addValue(v.getValue());
 			accValueForGraphData.setIsoTimestamp(NumberUtils.makeISO8601TimestampString(v.getTimestamp()));
+			accValueForGraphData.setNumericTimestamp(v.getTimestamp());
 			singleGraphDataBean.add(accValueForGraphData);
 		}
 		return singleGraphDataBean;

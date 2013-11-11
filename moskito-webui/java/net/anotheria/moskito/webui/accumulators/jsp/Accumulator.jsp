@@ -14,8 +14,13 @@
 
 <jsp:include page="../../shared/jsp/Menu.jsp" flush="false"/>
 
+<!-- Chart Engine: <ano:write name="chartEngine"/> -->
+
 <script type="text/javascript">
-	var singleGraphData<ano:write name="accumulatorData" property="nameForJS"/> = [<ano:iterate name="accumulatorData" property="data" id="value" indexId="i"><ano:notEqual name="i" value="0">,</ano:notEqual><ano:write name="value"/></ano:iterate>]; ;
+	var singleGraphData<ano:write name="accumulatorData" property="nameForJS"/> = [<ano:iterate name="accumulatorData" property="data" id="value" indexId="i"><ano:notEqual name="i" value="0">,</ano:notEqual>
+        <ano:equal name="numericTimestamps" value="true"><ano:write name="value" property="JSONWithNumericTimestamp"/></ano:equal>
+        <ano:equal name="numericTimestamps" value="false"><ano:write name="value" property="JSONWithStringTimestamp"/></ano:equal>
+        </ano:iterate>]; ;
 </script>
 
 <div class="main">

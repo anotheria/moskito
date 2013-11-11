@@ -32,6 +32,13 @@ public class AccumulatedValueAO {
 	 */
 	@XmlElement
 	private String isoTimestamp;
+
+
+	/**
+	 *
+	 */
+	@XmlElement
+	private long numericTimestamp;
 	
 	public AccumulatedValueAO(String aTimestamp){
 		timestamp = aTimestamp;
@@ -51,6 +58,20 @@ public class AccumulatedValueAO {
 	}
 	
 	@Override public String toString(){
+		//backwards compatibility.
+		return getJSONWithStringTimestamp();
+	}
+
+	public String getJSONWithNumericTimestamp(){
+		StringBuilder ret = new StringBuilder("[");
+		ret.append(numericTimestamp);
+		for (String s: values)
+			ret.append(",").append(s);
+		ret.append("]");
+		return ret.toString();
+	}
+
+	public String getJSONWithStringTimestamp(){
 		StringBuilder ret = new StringBuilder("[");
 		ret.append("\"").append(timestamp).append("\"");
 		for (String s: values)
@@ -58,7 +79,7 @@ public class AccumulatedValueAO {
 		ret.append("]");
 		return ret.toString();
 	}
-	
+
 	public String getFirstValue(){
 		return values.get(0);
 	}
@@ -69,5 +90,13 @@ public class AccumulatedValueAO {
 
 	public void setIsoTimestamp(String isoTimestamp) {
 		this.isoTimestamp = isoTimestamp;
+	}
+
+	public long getNumericTimestamp() {
+		return numericTimestamp;
+	}
+
+	public void setNumericTimestamp(long numericTimestamp) {
+		this.numericTimestamp = numericTimestamp;
 	}
 }

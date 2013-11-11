@@ -151,6 +151,8 @@ public abstract class BaseMoskitoUIAction implements Action{
 	public static final String BEAN_AUTORELOAD = "autoreloadInterval";
 
 
+	public static final String PARAM_CHART_ENGINE = "pChartEngine";
+
 	/**
 	 * Logger.
 	 */
