@@ -50,7 +50,9 @@ public class Accumulator extends AbstractTieable<AccumulatorDefinition> implemen
 	}
 	
 	public List<AccumulatedValue> getValues(){
-		return values;
+		ArrayList<AccumulatedValue> ret = new ArrayList<AccumulatedValue>(values.size());
+		ret.addAll(values);
+		return ret;
 	}
 
 	@Override
