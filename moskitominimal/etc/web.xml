@@ -6,136 +6,19 @@
 <web-app>
     <display-name>moskito minimal</display-name>
 
-	<!-- fix for jboss -->
-  <context-param>
-    <param-name>resteasy.scan</param-name>
-    <param-value>false</param-value>
-  </context-param>
-  <context-param>
-    <param-name>resteasy.scan.providers</param-name>
-    <param-value>false</param-value>
-  </context-param>
-  <context-param>
-    <param-name>resteasy.scan.resources</param-name>
-    <param-value>false</param-value>
-  </context-param>
-
-     	<!--  MOSKITO UI-->
-	<!--  Adding filter to moskito ui which redirects requests to /mui/* to moskito user interface -->	
-   	<filter>
-        <filter-name>MoskitoUIFilter</filter-name>
-       	<filter-class>net.anotheria.moskito.webui.MoskitoUIFilter</filter-class>
-		<init-param>
-			<param-name>path</param-name>
-			<param-value>/mui/</param-value>
-		</init-param>
-   	</filter>
-   	<filter-mapping>
-       	<filter-name>MoskitoUIFilter</filter-name>
-   	    <url-pattern>/mui/*</url-pattern>
-    </filter-mapping>
-	<!-- REST INTERFACE -->
-    <servlet>
-        <servlet-name>JerseyServletContainer</servlet-name>
-        <servlet-class>com.sun.jersey.spi.container.servlet.ServletContainer</servlet-class>
-
-        <init-param>
-            <param-name>com.sun.jersey.config.property.packages</param-name>
-            <param-value>net.anotheria.moskito.webui</param-value>
-        </init-param>
-        <init-param>
-            <param-name>com.sun.jersey.config.feature.DisableXmlSecurity</param-name>
-            <param-value>true</param-value>
-        </init-param>
-        <init-param>
-            <param-name>com.sun.jersey.api.json.POJOMappingFeature</param-name>
-            <param-value>true</param-value>
-        </init-param>
-    </servlet>
-
-    <servlet-mapping>
-        <servlet-name>JerseyServletContainer</servlet-name>
-        <url-pattern>/muirest/*</url-pattern>
-    </servlet-mapping>
-    <!--  / MOSKITO UI END -->
-
-
-	<filter>
-        <filter-name>MoskitoCommandFilter</filter-name>
-        <filter-class>net.anotheria.moskito.web.filters.MoskitoCommandFilter</filter-class>
-    </filter>
-	<filter>
-        <filter-name>JourneyFilter</filter-name>
-        <filter-class>net.anotheria.moskito.web.filters.JourneyFilter</filter-class>
-    </filter>
-
-	<filter>
-        <filter-name>DomainFilter</filter-name>
-        <filter-class>net.anotheria.moskito.web.filters.DomainFilter</filter-class>
-		<init-param>
-			<param-name>limit</param-name>
-			<param-value>50</param-value>
-		</init-param>
-    </filter>
-
-	<filter>
-        <filter-name>UserAgentFilter</filter-name>
-        <filter-class>net.anotheria.moskito.web.filters.UserAgentFilter</filter-class>
-		<init-param>
-			<param-name>limit</param-name>
-			<param-value>100</param-value>
-		</init-param>
-    </filter>
-
-	<filter>
-        <filter-name>RefererFilter</filter-name>
-        <filter-class>net.anotheria.moskito.web.filters.RefererFilter</filter-class>
-		<init-param>
-			<param-name>limit</param-name>
-			<param-value>100</param-value>
-		</init-param>
-    </filter>
-
-	<filter>
-        <filter-name>RequestURIFilter</filter-name>
-        <filter-class>net.anotheria.moskito.web.filters.RequestURIFilter</filter-class>
-		<init-param>
-			<param-name>limit</param-name>
-			<param-value>100</param-value>
-		</init-param>
-    </filter>
-
-
-    <filter-mapping>
-        <filter-name>MoskitoCommandFilter</filter-name>
-        <url-pattern>/*</url-pattern>
-    </filter-mapping>
-
-    <filter-mapping>
-        <filter-name>JourneyFilter</filter-name>
-        <url-pattern>/*</url-pattern>
-    </filter-mapping>
-
-    <filter-mapping>
-        <filter-name>DomainFilter</filter-name>
-        <url-pattern>/*</url-pattern>
-    </filter-mapping>
-
-    <filter-mapping>
-        <filter-name>RequestURIFilter</filter-name>
-        <url-pattern>/*</url-pattern>
-    </filter-mapping>
-
-    <filter-mapping>
-        <filter-name>UserAgentFilter</filter-name>
-        <url-pattern>/*</url-pattern>
-    </filter-mapping>
-
-    <filter-mapping>
-        <filter-name>RefererFilter</filter-name>
-        <url-pattern>/*</url-pattern>
-    </filter-mapping>
-    
+        <!-- fix for jboss -->
+      <context-param>
+        <param-name>resteasy.scan</param-name>
+        <param-value>false</param-value>
+      </context-param>
+      <context-param>
+        <param-name>resteasy.scan.providers</param-name>
+        <param-value>false</param-value>
+      </context-param>
+      <context-param>
+        <param-name>resteasy.scan.resources</param-name>
+        <param-value>false</param-value>
+      </context-param>
 
 	<welcome-file-list>
 	    	<welcome-file>index.html</welcome-file>
@@ -147,24 +30,8 @@
 
     <listener>
 		<listener-class>
-			net.anotheria.moskito.webui.util.StartStopListener
-		</listener-class>
-	</listener>
-    <listener>
-		<listener-class>
-			net.anotheria.moskito.web.session.SessionCountProducer
-		</listener-class>
-    </listener>
-    <listener>
-		<listener-class>
             net.anotheria.moskitominimal.listeners.SetupThresholds
         </listener-class>
     </listener>
-    <listener>
-		<listener-class>
-			net.anotheria.moskito.webui.util.SetupPreconfiguredAccumulators
-		</listener-class>
-	</listener>
-  		
-	
+
 </web-app> 

@@ -47,8 +47,13 @@ import java.util.List;
 
 public class ShowProducersAction extends BaseShowProducersAction{
 
-	
+	/**
+	 * Constant for current category attribute name.
+ 	 */
 	public static final String ATTR_CURRENT_CATEGORY = "currentCategory";
+	/**
+	 * Constant for current subsystem attribute name.
+	 */
 	public static final String ATTR_CURRENT_SUBSYSTEM = "currentSubsystem";
 	
 	private String getCategoryParameter(HttpServletRequest req){
@@ -94,7 +99,6 @@ public class ShowProducersAction extends BaseShowProducersAction{
 		req.setAttribute("categories", categoriesBeans);
 		
 		List<String> subsystems = getAPI().getSubsystems();		
-		//System.out.println("Subsystems: "+subsystems);
 		List<UnitCountAO> subsystemsBeans = new ArrayList<UnitCountAO>(subsystems.size());
 		for (String subName : subsystems){
 			subsystemsBeans.add(new UnitCountAO(subName, getAPI().getAllProducersBySubsystem(subName).size()));

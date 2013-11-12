@@ -5,6 +5,7 @@ import net.anotheria.maf.action.ActionMapping;
 import net.anotheria.maf.bean.FormBean;
 import net.anotheria.moskito.core.accumulation.Accumulator;
 import net.anotheria.moskito.core.accumulation.AccumulatorRepository;
+import net.anotheria.moskito.webui.charts.ChartEngine;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -27,6 +28,12 @@ public class ShowAccumulatorAction extends BaseAccumulatorsAction {
 		if (getForward(req).equalsIgnoreCase("csv")){
 			res.setHeader("Content-Disposition", "attachment; filename=\""+accumulator.getName()+".csv\"");
 		}
+
+		ChartEngine engine = ChartEngine.getChartEngine(req.getParameter(PARAM_CHART_ENGINE));
+
+		req.setAttribute("chartEngine", engine);
+		req.setAttribute("numericTimestamps", engine.requiresNumericTimestamp());
+
 
 		return mapping.findCommand(getForward(req));
 	}

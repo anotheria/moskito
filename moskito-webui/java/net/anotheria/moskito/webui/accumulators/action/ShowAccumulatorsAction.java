@@ -105,7 +105,6 @@ public class ShowAccumulatorsAction extends BaseAccumulatorsAction {
 			}
 		}
 		
-//		System.out.println("ids to show: "+ids);
 		if (ids.size()>0){
 		List<AccumulatedValueAO> dataBeans = new ArrayList<AccumulatedValueAO>();
 		List<AccumulatedSingleGraphAO> singleGraphDataBeans = new ArrayList<AccumulatedSingleGraphAO>(ids.size());
@@ -165,10 +164,6 @@ public class ShowAccumulatorsAction extends BaseAccumulatorsAction {
 					}
 				}
 			}
-//			System.out.println("!2!");
-//			for(AccumulatedValuesBean avbTemp : valuesList){
-//				System.out.println("  "+avbTemp);
-//			}
 
 			if (mode==MODE.normalized){
 				normalize(valuesList, accNames, normalizeBase);

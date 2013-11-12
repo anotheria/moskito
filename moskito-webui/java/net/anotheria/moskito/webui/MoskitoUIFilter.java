@@ -33,7 +33,7 @@ public class MoskitoUIFilter extends MAFFilter{
 	
 	@Override public void init(FilterConfig config) throws ServletException {
 		super.init(config);
-		log.info("Initing MoSKito WebUI...");
+		log.info("Initializing MoSKito WebUI...");
 		MoskitoAPIInitializer.initialize();
 
 		try{

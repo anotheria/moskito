@@ -2,12 +2,14 @@ package net.anotheria.moskito.webui.shared.bean;
 
 import net.anotheria.moskito.core.stats.TimeUnit;
 
+import java.io.Serializable;
+
 /**
  * This bean transports a timeunit into a jsp.
  * @author lrosenberg.
  *
  */
-public class UnitBean {
+public class UnitBean implements Serializable{
 	/**
 	 * The associated unit.
 	 */

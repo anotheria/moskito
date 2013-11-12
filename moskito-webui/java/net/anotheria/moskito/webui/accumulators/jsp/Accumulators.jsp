@@ -133,11 +133,13 @@
     })
 </script>
 
+<%-- this is used for a single accumulator --%>
 <ano:present name="data">
 <script type="text/javascript">
 	var data = [<ano:iterate name="data" id="value" indexId="i"><ano:notEqual name="i" value="0">,</ano:notEqual><ano:write name="value"/></ano:iterate>]; 
 </script>
 </ano:present>
+<%-- this is used for a multi accumulator selection--%>
 <ano:present name="singleGraphData">
 <script type="text/javascript">
 	<ano:iterate name="singleGraphData" type="net.anotheria.moskito.webui.accumulators.api.AccumulatedSingleGraphAO" id="singleGraph">
