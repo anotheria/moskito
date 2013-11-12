@@ -29,19 +29,11 @@
 	</properties>
 
 
-<<<<<<< HEAD
     <scm>
             <url>https://github.com/anotheria/moskito</url>
             <connection>scm:git:git@github.com:anotheria/moskito.git</connection>
             <developerConnection>scm:git:git@github.com:anotheria/moskito.git</developerConnection>
     </scm>
-=======
-	<scm>
-		<url>https://github.com/anotheria/moskitok</url>
-		<connection>scm:git:git@github.com:anotheria/moskito.gittrunk</connection>
-		<developerConnection>scm:git:git@github.com:anotheria/moskito.git</developerConnection>
-	</scm>
->>>>>>> master
 	<dependencyManagement>
 		<dependencies>
 			<dependency>
