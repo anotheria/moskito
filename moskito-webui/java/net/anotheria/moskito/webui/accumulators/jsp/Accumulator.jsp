@@ -11,18 +11,16 @@
 <script type="text/javascript" src="../js/jquery-1.4.min.js"></script>
 <script type="text/javascript" src="../js/function.js"></script>
 <script tpye="text/javascript">
-    var chartEngine = '<ano:write name="chartEngine"/>';
-    var chartLibrary = document.createElement('script');
-    chartLibrary.type = 'text/javascript';
-    if(chartEngine == 'GOOGLE_CHART_API'){
-        chartLibrary.src = '//www.google.com/jsapi';
+    var chartEngineName = '<ano:write name="chartEngine"/>';
+    var chartEngineSrc = {
+        GOOGLE_CHART_API: '//www.google.com/jsapi',
+        HIGHCHARTS: '../js/highcharts.js'
     }
-    else if(chartEngine == 'HIGHCHARTS'){
-        chartLibrary.src == '../js/highcharts.js';
-    }
-    document.getElementsByTagName('head')[0].appendChild(chartLibrary); 
+    var chartLibraryScript = document.createElement('script');
+    chartLibraryScript.type = 'text/javascript';
+    chartLibraryScript.src = chartEngineSrc[chartEngineName];
+    document.getElementsByTagName('head')[0].appendChild(chartLibraryScript); 
 </script>
-<!-- <script type="text/javascript" src="//www.google.com/jsapi"></script> -->
 
 <jsp:include page="../../shared/jsp/Menu.jsp" flush="false"/>
 
@@ -166,45 +164,70 @@
 
 
 <script type="text/javascript">
-    if(chartEngine == 'GOOGLE_CHART_API'){
-        buildGoogleChart();
-    }
-    else if(chartEngine == 'HIGHCHARTS'){
-        console.log('highcharts engine');
-    }
-
-    function buildGoogleChart(){
-        google.load("visualization", "1", {packages:["corechart"]});
-        google.setOnLoadCallback(drawLineChart);
-        //combined chart
-        function drawLineChart() {
-                var chartData<ano:write name="accumulatorData" property="nameForJS"/> = new google.visualization.DataTable();
-                chartData<ano:write name="accumulatorData" property="nameForJS"/>.addColumn('string', 'Time');
-                chartData<ano:write name="accumulatorData" property="nameForJS"/>.addColumn('number', '<ano:write name="accumulatorData" property="name"/>');
-                chartData<ano:write name="accumulatorData" property="nameForJS"/>.addRows(singleGraphData<ano:write name="accumulatorData" property="nameForJS"/>);
-                var options = {width: 1200, height: 300, title: '<ano:write name="accumulatorData" property="name"/>', chartArea:{left:140,width:800}};
-                var chartInfo = {
-                    params: '',
-                    container: 'chart_accum<ano:write name="accumulatorData" property="nameForJS"/>',
-                    type: 'LineChart',
-                    data: chartData<ano:write name="accumulatorData" property="nameForJS"/>,
-                    options: options 
-                };
-                drawChart(chartInfo);       
-        }
-        function drawChart(chartInfo) {
-            document.getElementById(chartInfo.container).chartInfo = chartInfo;
-
-            google.visualization.drawChart({
-                "containerId": chartInfo.container,
-                dataTable: chartInfo.data/*+chartInfo.params*/,
-                "chartType": chartInfo.type,
-                "options": chartInfo.options,
-                "refreshInterval": 60
+    var chartEngineInit = {
+        HIGHCHARTS: function (container, name, data){
+            $(container).highcharts({
+                title: {
+                    text: ''
+                },
+                chart: {
+                    type: 'spline'
+                },
+                xAxis: {
+                    labels:{
+                        formatter: function(){ return new Date(this.value).toLocaleTimeString(); }
+                    }
+                },
+                yAxis: {
+                    min: 0,
+                    title: {enabled: false}
+                },
+                tooltip: {
+                    formatter: function() {
+                        var time = new Date(this.x).toLocaleTimeString();
+                        return '<b>'+ time +'</b><br/>'+ name + ': '+ this.y;
+                    }
+                },
+                series: [{
+                    name: name,
+                    data: data
+                }]
             });
+        },
+        GOOGLE_CHART_API: function(container, name, data){
+            google.load("visualization", "1", {packages:["corechart"]});
+            google.setOnLoadCallback(drawLineChart);
+            //combined chart
+            function drawLineChart() {
+                    var chartData = new google.visualization.DataTable();
+                    chartData.addColumn('string', 'Time');
+                    chartData.addColumn('number', name);
+                    chartData.addRows(data);
+                    var options = {width: 1200, height: 300, title: name, chartArea:{left:140,width:800}};
+                    var chartInfo = {
+                        params: '',
+                        container: container,
+                        type: 'LineChart',
+                        data: chartData,
+                        options: options 
+                    };
+                    drawChart(chartInfo);       
+            }
+            function drawChart(chartInfo) {
+                document.getElementById(chartInfo.container).chartInfo = chartInfo;
 
+                google.visualization.drawChart({
+                    "containerId": chartInfo.container,
+                    dataTable: chartInfo.data/*+chartInfo.params*/,
+                    "chartType": chartInfo.type,
+                    "options": chartInfo.options,
+                    "refreshInterval": 60
+                });
+            }
         }
-    }
+    };
+
+    chartEngineInit[chartEngineName](/*container:*/'chart_accum<ano:write name="accumulatorData" property="nameForJS"/>', /*name:*/'<ano:write name="accumulatorData" property="name"/>', /*data:*/singleGraphData<ano:write name="accumulatorData" property="nameForJS"/>);
 
     $('.refresh').click(function() {
         location.reload(true);
