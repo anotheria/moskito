@@ -20,7 +20,7 @@
     var chartLibraryScript = document.createElement('script');
     chartLibraryScript.type = 'text/javascript';
     chartLibraryScript.src = chartEngineSrc[chartEngineName];
-    document.getElementsByTagName('body')[0].appendChild(chartLibraryScript); 
+    document.getElementsByTagName('body')[0].appendChild(chartLibraryScript);
 </script>
 
 <jsp:include page="../../shared/jsp/Menu.jsp" flush="false"/>
@@ -167,7 +167,7 @@
 <script type="text/javascript">
     var chartEngineInit = {
         HIGHCHART: function (container, name, data){
-            $(container).highcharts({
+            $('#' + container).highcharts({
                 title: {
                     text: ''
                 },
@@ -227,9 +227,15 @@
             }
         }
     };
-    $(window).load(function(){
+    if(chartEngineName = 'HIGHCHART'){
+        $(window).load(function(){
+            chartEngineInit[chartEngineName](/*container:*/'chart_accum<ano:write name="accumulatorData" property="nameForJS"/>', /*name:*/'<ano:write name="accumulatorData" property="name"/>', /*data:*/singleGraphData<ano:write name="accumulatorData" property="nameForJS"/>);
+        });
+    }
+    else{
         chartEngineInit[chartEngineName](/*container:*/'chart_accum<ano:write name="accumulatorData" property="nameForJS"/>', /*name:*/'<ano:write name="accumulatorData" property="name"/>', /*data:*/singleGraphData<ano:write name="accumulatorData" property="nameForJS"/>);
-    });
+    }
+
 
     $('.refresh').click(function() {
         location.reload(true);
