@@ -67,6 +67,9 @@ public class ThresholdStatusAO implements IComparable{
 	 */
 	@XmlElement
 	private String id;
+
+	@XmlElement
+	private long flipCount;
 	
 	public String getValue() {
 		return value;
@@ -146,6 +149,12 @@ public class ThresholdStatusAO implements IComparable{
 	public void setId(String id) {
 		this.id = id;
 	}
-	
-	
+
+	public long getFlipCount() {
+		return flipCount;
+	}
+
+	public void setFlipCount(long flipCount) {
+		this.flipCount = flipCount;
+	}
 }
