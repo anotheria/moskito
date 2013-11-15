@@ -1,16 +1,39 @@
 # What is MoSKito?
 MoSKito is an open source system for monitoring performance and behavior of Java web applications.
 
-Read more: [moskito.org](http://moskito.org) and [Confluence Documentation space](https://confluence.opensource.anotheria.net/display/MSK/Home).
+### Website
+[moskito.org](http://moskito.org)
+
+### Documentation
+[MoSKito Confluence space](https://confluence.opensource.anotheria.net/display/MSK/Home)
+
+### Blog
+[Anotheria DevBlog](http://blog.anotheria.net)
 
 # Project Overview
-This project is the heart of MoSKito system. It is what you need to fully monitor a single-node (one JVM) application: collect performance data, view and analyse it, and store some of that info.
+This project is the heart of MoSKito system. It is what you need to fully monitor a single-node (one JVM) application: collect performance data, view, analyse and store some of it.
 
 We also refer to this project as **MoSKito-Essential**, since it contains the most basic MoSKito functionality.
 
-Read more: [About MoSKito-Essential](https://confluence.opensource.anotheria.net/display/MSK/About+MoSKito-Essential) and [Start working, step by step](https://confluence.opensource.anotheria.net/display/MSK/Start+working%2C+step+by+step).
+## Features
 
-The full documentation is on [Project's Confluence space](https://confluence.opensource.anotheria.net/display/MSK/MoSKito-Essential). 
+**Multi-purpose:** collects any type of performance data, including business-related (registrations, payments, conversion, etc). 
+
+**Non-invasive:** does not require any code change. Pluggable into any application via filters, proxies, annotations, inheritance, AOP, class loaders or plain calling.
+
+**Supports all major app servers:** Tomcat, Jetty, JBoss, Glassfish, WebLogic and others.
+
+**Interval-based:** works simultaneously with short (from 1min) & long (up to 24h) time intervals, allowing instant comparison.
+
+**Data privacy:** keeps collected data locally, with no 3rd party resources involved.
+
+**Performance alarms:** watches custom functional areas, displaying performance state in the traffic-light-like notification system..
+
+**Analysis tools:** displays accumulated performance data in charts.
+
+**Live profiling:** records user actions as system calls.
+
+**Support for mobile platforms:** free iOS apps, Android app's coming soon.
 
 # Components
 
@@ -28,3 +51,12 @@ In MoSKito, we differentiate between Projects (which can be release as standalon
 
 [**MoSKito-Minimal**](https://github.com/anotheria/moskito/tree/master/moskitominimal) is a small standalone web app, used for basic Tomcat monitoring.
 
+# Install & Config
+
+Integration & Configuration guides.
+
+# ChangeLog
+
+# License
+
+# Support and Feedback
