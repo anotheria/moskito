@@ -8,18 +8,19 @@
 </head>
 <body>
 <script type="text/javascript" src="../js/wz_tooltip.js"></script>
-<script type="text/javascript" src="../js/jquery-1.4.min.js"></script>
+<script type="text/javascript" src="../js/jquery-1.8.0.min.js"></script>
 <script type="text/javascript" src="../js/function.js"></script>
-<script tpye="text/javascript">
+
+<script type="text/javascript">
     var chartEngineName = '<ano:write name="chartEngine"/>';
     var chartEngineSrc = {
         GOOGLE_CHART_API: '//www.google.com/jsapi',
-        HIGHCHARTS: '../js/highcharts.js'
+        HIGHCHART: '../js/highcharts.js'
     }
     var chartLibraryScript = document.createElement('script');
     chartLibraryScript.type = 'text/javascript';
     chartLibraryScript.src = chartEngineSrc[chartEngineName];
-    document.getElementsByTagName('head')[0].appendChild(chartLibraryScript); 
+    document.getElementsByTagName('body')[0].appendChild(chartLibraryScript); 
 </script>
 
 <jsp:include page="../../shared/jsp/Menu.jsp" flush="false"/>
@@ -165,7 +166,7 @@
 
 <script type="text/javascript">
     var chartEngineInit = {
-        HIGHCHARTS: function (container, name, data){
+        HIGHCHART: function (container, name, data){
             $(container).highcharts({
                 title: {
                     text: ''
