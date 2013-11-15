@@ -5,22 +5,22 @@
 <head>
     <title>Moskito Accumulator</title>
     <link rel="stylesheet" href="mskCSS"/>
+    <script tpye="text/javascript">
+        var chartEngineName = '<ano:write name="chartEngine"/>';
+        var chartEngineSrc = {
+            GOOGLE_CHART_API: '//www.google.com/jsapi',
+            HIGHCHARTS: '../js/highcharts.js'
+        }
+        var chartLibraryScript = document.createElement('script');
+        chartLibraryScript.type = 'text/javascript';
+        chartLibraryScript.src = chartEngineSrc[chartEngineName];
+        document.getElementsByTagName('head')[0].appendChild(chartLibraryScript); 
+    </script>
 </head>
 <body>
 <script type="text/javascript" src="../js/wz_tooltip.js"></script>
 <script type="text/javascript" src="../js/jquery-1.4.min.js"></script>
 <script type="text/javascript" src="../js/function.js"></script>
-<script tpye="text/javascript">
-    var chartEngineName = '<ano:write name="chartEngine"/>';
-    var chartEngineSrc = {
-        GOOGLE_CHART_API: '//www.google.com/jsapi',
-        HIGHCHARTS: '../js/highcharts.js'
-    }
-    var chartLibraryScript = document.createElement('script');
-    chartLibraryScript.type = 'text/javascript';
-    chartLibraryScript.src = chartEngineSrc[chartEngineName];
-    document.getElementsByTagName('head')[0].appendChild(chartLibraryScript); 
-</script>
 
 <jsp:include page="../../shared/jsp/Menu.jsp" flush="false"/>
 
