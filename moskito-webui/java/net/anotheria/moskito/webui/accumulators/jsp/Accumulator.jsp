@@ -167,36 +167,33 @@
 <script type="text/javascript">
     var chartEngineInit = {
         HIGHCHART: function (container, name, data){
-            $(window).load(function(){
-                $('#' + container).highcharts({
-                    title: {
-                        text: ''
-                    },
-                    chart: {
-                        type: 'spline'
-                    },
-                    xAxis: {
-                        labels:{
-                            formatter: function(){ return new Date(this.value).toLocaleTimeString(); }
-                        }
-                    },
-                    yAxis: {
-                        min: 0,
-                        title: {enabled: false}
-                    },
-                    tooltip: {
-                        formatter: function() {
-                            var time = new Date(this.x).toLocaleTimeString();
-                            return '<b>'+ time +'</b><br/>'+ name + ': '+ this.y;
-                        }
-                    },
-                    series: [{
-                        name: name,
-                        data: data
-                    }]
-                });
+            $('#' + container).highcharts({
+                title: {
+                    text: ''
+                },
+                chart: {
+                    type: 'spline'
+                },
+                xAxis: {
+                    labels:{
+                        formatter: function(){ return new Date(this.value).toLocaleTimeString(); }
+                    }
+                },
+                yAxis: {
+                    min: 0,
+                    title: {enabled: false}
+                },
+                tooltip: {
+                    formatter: function() {
+                        var time = new Date(this.x).toLocaleTimeString();
+                        return '<b>'+ time +'</b><br/>'+ name + ': '+ this.y;
+                    }
+                },
+                series: [{
+                    name: name,
+                    data: data
+                }]
             });
-
         },
         GOOGLE_CHART_API: function(container, name, data){
             google.load("visualization", "1", {packages:["corechart"]});
@@ -230,8 +227,15 @@
             }
         }
     };
+    if(chartEngineName = 'HIGHCHART'){
+        $(window).load(function(){
+            chartEngineInit[chartEngineName](/*container:*/'chart_accum<ano:write name="accumulatorData" property="nameForJS"/>', /*name:*/'<ano:write name="accumulatorData" property="name"/>', /*data:*/singleGraphData<ano:write name="accumulatorData" property="nameForJS"/>);
+        });
+    }
+    else{
+        chartEngineInit[chartEngineName](/*container:*/'chart_accum<ano:write name="accumulatorData" property="nameForJS"/>', /*name:*/'<ano:write name="accumulatorData" property="name"/>', /*data:*/singleGraphData<ano:write name="accumulatorData" property="nameForJS"/>);
+    }
 
-    chartEngineInit[chartEngineName](/*container:*/'chart_accum<ano:write name="accumulatorData" property="nameForJS"/>', /*name:*/'<ano:write name="accumulatorData" property="name"/>', /*data:*/singleGraphData<ano:write name="accumulatorData" property="nameForJS"/>);
 
     $('.refresh').click(function() {
         location.reload(true);
