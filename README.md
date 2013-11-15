@@ -1,25 +1,23 @@
 # What is MoSKito?
 MoSKito is an open source system for monitoring performance and behavior of Java web applications.
 
-### Website
-[moskito.org](http://moskito.org)
+### [moskito.org](http://moskito.org)
 
-### Documentation
-[MoSKito Confluence space](https://confluence.opensource.anotheria.net/display/MSK/Home)
 
-### Blog
-[Anotheria DevBlog](http://blog.anotheria.net)
+### [Documentation](https://confluence.opensource.anotheria.net/display/MSK/Home)
 
-# Project Overview
+### [Blog](http://blog.anotheria.net)
+
+# What the Project does?
 This project is the heart of MoSKito system. It is what you need to fully monitor a single-node (one JVM) application: collect performance data, view, analyse and store some of it.
 
 We also refer to this project as **MoSKito-Essential**, since it contains the most basic MoSKito functionality.
 
-## Features
+## Why is it good?
 
-**Multi-purpose:** collects any type of performance data, including business-related (registrations, payments, conversion, etc). 
+**Multi-purpose:** collects any possible type of performance data, including business-related (registrations, payments, conversion, etc). 
 
-**Non-invasive:** does not require any code change. Pluggable into any application via filters, proxies, annotations, inheritance, AOP, class loaders or plain calling.
+**Non-invasive:** does not require any code change.
 
 **Supports all major app servers:** Tomcat, Jetty, JBoss, Glassfish, WebLogic and others.
 
@@ -35,9 +33,13 @@ We also refer to this project as **MoSKito-Essential**, since it contains the mo
 
 **Support for mobile platforms:** free iOS apps, Android app's coming soon.
 
-# Components
+[Read more about these features.](https://confluence.opensource.anotheria.net/display/MSK/MoSKito-Essential+Overview)
 
-In MoSKito, we differentiate between Projects (which can be release as standalone applications) and Components (which are parts of a project in *maven* sense). Below is the list of components that make up this Project.
+## What's inside?
+
+In MoSKito, we differentiate between Projects (which can be release as standalone applications) and Components (which are parts of a project in *maven* sense). [Read more...](http://blog.anotheria.net/?p=485&preview=true) 
+
+Below is the list of **components** that make up this Project.
 
 [**MoSKito-Core**](https://github.com/anotheria/moskito/tree/master/moskito-core) is the main MoSKito engine that does all performance counting.
 
@@ -53,10 +55,38 @@ In MoSKito, we differentiate between Projects (which can be release as standalon
 
 # Install & Config
 
-Integration & Configuration guides.
+MoSKito doesn't need any operations with your code. It plugs into any application via filters, proxies, annotations, inheritance, AOP, class loaders or plain calling.
 
-# ChangeLog
+1. [Get it](https://confluence.opensource.anotheria.net/display/MSK/Getting+MoSKito-Essential)
+2. [Integrate it into your app](https://confluence.opensource.anotheria.net/display/MSK/Integration+Guide)
+3. [Configure it](https://confluence.opensource.anotheria.net/display/MSK/Configuration+Guide)
+4. [Set up UI](https://confluence.opensource.anotheria.net/display/MSK/Embedding+Moskito-WebUI+Into+Your+Application)
+
+**Enjoy!**
+
+
+# [ChangeLog](https://confluence.opensource.anotheria.net/display/MSK/Change+Log)
 
 # License
 
+MoSKito is free and open source (MIT License). Use it as you wish.
+
+[Read License](https://github.com/anotheria/moskito/blob/master/LICENSE)
+
+# Project resources
+
+#### [Webpage](http://www.moskito.org/)
+#### [FAQ](https://confluence.opensource.anotheria.net/display/MSK/MoSKito+FAQ)
+#### [Documentation](https://confluence.opensource.anotheria.net/display/MSK/MoSKito-Essential)
+
 # Support and Feedback
+
+**We're willing to help anyone.**
+
+For any questions, write to [moskito@anotheria.net](mailto: moskito@anotheria.net).
+
+# Other MoSKito Projects
+
+## [MoSKito-Central](https://github.com/anotheria/moskito-central)
+
+## [MoSKito-Control](https://github.com/anotheria/moskito-control)
