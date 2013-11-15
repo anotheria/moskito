@@ -227,7 +227,7 @@
             }
         }
     };
-    if(chartEngineName = 'HIGHCHART'){
+    if(chartEngineName == 'HIGHCHART'){
         $(window).load(function(){
             chartEngineInit[chartEngineName](/*container:*/'chart_accum<ano:write name="accumulatorData" property="nameForJS"/>', /*name:*/'<ano:write name="accumulatorData" property="name"/>', /*data:*/singleGraphData<ano:write name="accumulatorData" property="nameForJS"/>);
         });
