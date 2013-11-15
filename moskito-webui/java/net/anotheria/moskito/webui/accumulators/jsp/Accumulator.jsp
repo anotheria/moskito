@@ -10,18 +10,8 @@
 <script type="text/javascript" src="../js/wz_tooltip.js"></script>
 <script type="text/javascript" src="../js/jquery-1.8.0.min.js"></script>
 <script type="text/javascript" src="../js/function.js"></script>
-
-<script type="text/javascript">
-    var chartEngineName = '<ano:write name="chartEngine"/>';
-    var chartEngineSrc = {
-        GOOGLE_CHART_API: '//www.google.com/jsapi',
-        HIGHCHART: '../js/highcharts.js'
-    }
-    var chartLibraryScript = document.createElement('script');
-    chartLibraryScript.type = 'text/javascript';
-    chartLibraryScript.src = chartEngineSrc[chartEngineName];
-    document.getElementsByTagName('body')[0].appendChild(chartLibraryScript);
-</script>
+<script type="text/javascript" src="//www.google.com/jsapi"></script>
+<script type="text/javascript" src="../js/highcharts.js"></script>
 
 <jsp:include page="../../shared/jsp/Menu.jsp" flush="false"/>
 
@@ -165,6 +155,8 @@
 
 
 <script type="text/javascript">
+    var chartEngineName = '<ano:write name="chartEngine"/>';
+
     var chartEngineInit = {
         HIGHCHART: function (container, name, data){
             $('#' + container).highcharts({
@@ -227,15 +219,8 @@
             }
         }
     };
-    if(chartEngineName == 'HIGHCHART'){
-        $(window).load(function(){
-            chartEngineInit[chartEngineName](/*container:*/'chart_accum<ano:write name="accumulatorData" property="nameForJS"/>', /*name:*/'<ano:write name="accumulatorData" property="name"/>', /*data:*/singleGraphData<ano:write name="accumulatorData" property="nameForJS"/>);
-        });
-    }
-    else{
-        chartEngineInit[chartEngineName](/*container:*/'chart_accum<ano:write name="accumulatorData" property="nameForJS"/>', /*name:*/'<ano:write name="accumulatorData" property="name"/>', /*data:*/singleGraphData<ano:write name="accumulatorData" property="nameForJS"/>);
-    }
-
+    
+    chartEngineInit[chartEngineName](/*container:*/'chart_accum<ano:write name="accumulatorData" property="nameForJS"/>', /*name:*/'<ano:write name="accumulatorData" property="name"/>', /*data:*/singleGraphData<ano:write name="accumulatorData" property="nameForJS"/>);
 
     $('.refresh').click(function() {
         location.reload(true);
