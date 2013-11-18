@@ -4,6 +4,8 @@
 
 It allows to view and analyse the performance data of your application, collected by MoSKito-Core, in your browser.
 
+![image](https://confluence.opensource.anotheria.net/download/attachments/21627004/moskito-webui_700px.png)
+
 ### What's under the hood?
 
 MoSKito-WebUI uses an in-house miniature action mapping framework called *ano-maf*, a set of actions and JSP's and some very basic tags.
