@@ -1,4 +1,4 @@
-![MoSKito](https://confluence.opensource.anotheria.net/download/attachments/21626886/moskito_logo.png "MoSKito Monitoring")
+![MoSKito](https://confluence.opensource.anotheria.net/download/attachments/21626886/moskito_logo_300px.png "MoSKito Monitoring")
 
 # What is MoSKito?
 MoSKito is an open source system for monitoring performance and behavior of Java web applications.
