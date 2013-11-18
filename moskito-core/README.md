@@ -1,12 +1,18 @@
-# What is MoSKito-Core?
+# What the Component does?
 
-**MoSKito-Core** is the heart of [MoSKito Monitoring system](https://moskito.org), the main engine that does all performance counting.
+**MoSKito-Core** is the engine that does all performance counting for [MoSKito Monitoring system](https://moskito.org).
 
-It contains [Producers, Stats and Intervals](https://confluence.opensource.anotheria.net/display/MSK/MoSKito+Concepts#MoSKitoConcepts-producers). It also defines [Accumulators](https://confluence.opensource.anotheria.net/display/MSK/MoSKito+Concepts#MoSKitoConcepts-accumulators) and [Thresholds](https://confluence.opensource.anotheria.net/display/MSK/MoSKito+Concepts#MoSKitoConcepts-thresholds).
+It contains Producers, Stats and Intervals. It also defines Accumulators and Thresholds. 
+
+Read [MoSKito Concepts](https://confluence.opensource.anotheria.net/display/MSK/MoSKito+Concepts) to know what these names mean.
+
+# Resources
 
 #### [Component's Documentation page](https://confluence.opensource.anotheria.net/display/MSK/MoSKito-Core)
 
 
-###Any questions? 
+# Support & Questions
+
+Any questions?
 
 Do not hesitate and write to [moskito@anotheria.net](mailto: moskito@anotheria.net).
