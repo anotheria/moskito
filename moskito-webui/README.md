@@ -6,6 +6,8 @@ It allows to view and analyse the performance data of your application, collecte
 
 ![image](https://confluence.opensource.anotheria.net/download/attachments/21627004/moskito-webui_700px.png)
 
+*MoSKito-WebUI is a component of MoSKito-Essential Project, which is a part of MoSKito-Monitoring system.*
+
 ### What's under the hood?
 
 MoSKito-WebUI uses an in-house miniature action mapping framework called *ano-maf*, a set of actions and JSP's and some very basic tags.
