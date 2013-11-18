@@ -9,7 +9,7 @@ MoSKito is an open source system for monitoring performance and behavior of Java
 ### [Blog](http://blog.anotheria.net)
 
 # What the Project does?
-This project is the heart of MoSKito system. It is what you need to fully monitor a single-node (one JVM) application: collect performance data, view, analyse and store some of it.
+This Project is the heart of MoSKito system. It's what you need to fully monitor a single-node (one JVM) application: collect performance data, view, analyse and store some of it.
 
 We also refer to this project as **MoSKito-Essential**, since it contains the most basic MoSKito functionality.
 
@@ -25,7 +25,7 @@ We also refer to this project as **MoSKito-Essential**, since it contains the mo
 
 **Data privacy:** keeps collected data locally, with no 3rd party resources involved.
 
-**Performance alarms:** watches custom functional areas, displaying performance state in the traffic-light-like notification system..
+**Performance thresholds:** reports a selected parameter's health  with the traffic-light-like notification system.
 
 **Analysis tools:** displays accumulated performance data in charts.
 
@@ -33,7 +33,13 @@ We also refer to this project as **MoSKito-Essential**, since it contains the mo
 
 **Support for mobile platforms:** free iOS apps, Android app's coming soon.
 
-[Read more about these features.](https://confluence.opensource.anotheria.net/display/MSK/MoSKito-Essential+Overview)
+[Read more about the Project and its features](https://confluence.opensource.anotheria.net/display/MSK/MoSKito-Essential+Overview)
+
+## Why do I trust it?
+
+1. MoSKito started at 2007 and never stopped developing since then.
+2. Since 2008, it's absolutely stable and production-ready. 
+3. MoSKito's being used on many production systems ([Allyouneed](https://www.allyouneed.com), [friendscout24](http://www.friendscout24.de), [c-date.com](http://www.c-date.com), [parship.de](http://www.parship.de) and others).
 
 ## What's inside?
 
@@ -43,7 +49,7 @@ Below is the list of **components** that make up this Project.
 
 [**MoSKito-Core**](https://github.com/anotheria/moskito/tree/master/moskito-core) is the main MoSKito engine that does all performance counting.
 
-[**MoSKito-Web**](https://github.com/anotheria/moskito/tree/master/moskito-web) contains general support for web applications: base classes for filters and servlets.
+[**MoSKito-Web**](https://github.com/anotheria/moskito/tree/master/moskito-web) contains support for web applications: base classes for filters and servlets.
 
 [**MoSKito-WebUI**](https://github.com/anotheria/moskito/tree/master/moskito-webui) is the embedded  web-based user interface.
 
@@ -81,12 +87,12 @@ MoSKito is free and open source (MIT License). Use it as you wish.
 
 # Support and Feedback
 
-**We're willing to help anyone.**
+**We're willing to help everyone.**
 
 For any questions, write to [moskito@anotheria.net](mailto: moskito@anotheria.net).
 
 # Other MoSKito Projects
 
-## [MoSKito-Central](https://github.com/anotheria/moskito-central)
+### [MoSKito-Central](https://github.com/anotheria/moskito-central)
 
-## [MoSKito-Control](https://github.com/anotheria/moskito-control)
+### [MoSKito-Control](https://github.com/anotheria/moskito-control)
