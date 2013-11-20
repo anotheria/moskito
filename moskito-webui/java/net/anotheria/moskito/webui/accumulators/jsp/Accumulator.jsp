@@ -5,6 +5,7 @@
 <head>
     <title>Moskito Accumulator</title>
     <link rel="stylesheet" href="mskCSS"/>
+    <link rel="stylesheet" type="text/css" href="../css/jquery.jqplot.css">
 </head>
 <body>
 <script type="text/javascript" src="../js/wz_tooltip.js"></script>
@@ -12,6 +13,11 @@
 <script type="text/javascript" src="../js/function.js"></script>
 <script type="text/javascript" src="//www.google.com/jsapi"></script>
 <script type="text/javascript" src="../js/highcharts.js"></script>
+<!-- jqplot core + plugins -->
+<script type="text/javascript" src="../js/jquery.jqplot.js"></script>
+<script type="text/javascript" src="../js/jqplot.cursor.js"></script>
+<script type="text/javascript" src="../js/jqplot.dateAxisRenderer.js"></script>
+<script type="text/javascript" src="../js/jqplot.highlighter.js"></script>
 
 <jsp:include page="../../shared/jsp/Menu.jsp" flush="false"/>
 
@@ -217,6 +223,33 @@
                     "refreshInterval": 60
                 });
             }
+        },
+        JQPLOT: function(container, name, data){
+            var plot1 = $.jqplot(container, [data], { 
+                title: name,
+                axes:{
+                    xaxis: {
+                        renderer:$.jqplot.DateAxisRenderer
+                    }
+                },
+                cursor:{ 
+                    show: true,
+                    zoom:true, 
+                    showTooltip:false
+                },
+                highlighter: {
+                    show: true,
+                    sizeAdjust: 7.5
+                },
+                seriesDefaults: {
+                    color: '#5E7CFF'
+                },
+                grid: {
+                    background: '#fefefe'
+                }
+            });
+
+            $('#' + container).click(function() { plot1.resetZoom() });
         }
     };
     
