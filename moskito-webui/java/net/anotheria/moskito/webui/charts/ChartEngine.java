@@ -14,6 +14,7 @@ public enum ChartEngine {
 		public boolean requiresNumericTimestamp(){ return false;}
 	},
 	HIGHCHART("high_chart", "highchart"),
+	JQPLOT("jq_plot", "jqplot"),
 	RAPHAELJS("raphaeljs", "raphael"),
 	;
 
