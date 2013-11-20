@@ -15,7 +15,6 @@ public enum ChartEngine {
 	},
 	HIGHCHART("high_chart", "highchart"),
 	JQPLOT("jq_plot", "jqplot"),
-	RAPHAELJS("raphaeljs", "raphael"),
 	;
 
 	private List<String> names;
