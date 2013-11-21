@@ -19,6 +19,8 @@
 <script type="text/javascript" src="../js/jqplot.dateAxisRenderer.js"></script>
 <script type="text/javascript" src="../js/jqplot.highlighter.js"></script>
 
+<script type="text/javascript" src="../js/chartEngineIniter.js"></script>
+
 <jsp:include page="../../shared/jsp/Menu.jsp" flush="false"/>
 
 <!-- Chart Engine: <ano:write name="chartEngine"/> -->
@@ -162,98 +164,13 @@
 
 <script type="text/javascript">
     var chartEngineName = '<ano:write name="chartEngine"/>';
-
-    var chartEngineInit = {
-        HIGHCHART: function (container, name, data){
-            $('#' + container).highcharts({
-                title: {
-                    text: ''
-                },
-                chart: {
-                    type: 'spline'
-                },
-                xAxis: {
-                    labels:{
-                        formatter: function(){ return new Date(this.value).toLocaleTimeString(); }
-                    }
-                },
-                yAxis: {
-                    min: 0,
-                    title: {enabled: false}
-                },
-                tooltip: {
-                    formatter: function() {
-                        var time = new Date(this.x).toLocaleTimeString();
-                        return '<b>'+ time +'</b><br/>'+ name + ': '+ this.y;
-                    }
-                },
-                series: [{
-                    name: name,
-                    data: data
-                }]
-            });
-        },
-        GOOGLE_CHART_API: function(container, name, data){
-            google.load("visualization", "1", {packages:["corechart"]});
-            google.setOnLoadCallback(drawLineChart);
-            //combined chart
-            function drawLineChart() {
-                    var chartData = new google.visualization.DataTable();
-                    chartData.addColumn('string', 'Time');
-                    chartData.addColumn('number', name);
-                    chartData.addRows(data);
-                    var options = {width: 1200, height: 300, title: name, chartArea:{left:140,width:800}};
-                    var chartInfo = {
-                        params: '',
-                        container: container,
-                        type: 'LineChart',
-                        data: chartData,
-                        options: options 
-                    };
-                    drawChart(chartInfo);       
-            }
-            function drawChart(chartInfo) {
-                document.getElementById(chartInfo.container).chartInfo = chartInfo;
-
-                google.visualization.drawChart({
-                    "containerId": chartInfo.container,
-                    dataTable: chartInfo.data/*+chartInfo.params*/,
-                    "chartType": chartInfo.type,
-                    "options": chartInfo.options,
-                    "refreshInterval": 60
-                });
-            }
-        },
-        JQPLOT: function(container, name, data){
-            var plot1 = $.jqplot(container, [data], { 
-                title: name,
-                axes:{
-                    xaxis: {
-                        renderer:$.jqplot.DateAxisRenderer
-                    }
-                },
-                cursor:{ 
-                    show: true,
-                    zoom:true, 
-                    showTooltip:false
-                },
-                highlighter: {
-                    show: true,
-                    sizeAdjust: 7.5
-                },
-                seriesDefaults: {
-                    color: '#5E7CFF'
-                },
-                grid: {
-                    background: '#fefefe'
-                }
-            });
-
-            $('#' + container).click(function() { plot1.resetZoom() });
-        }
+    var chartParams = {
+        container: 'chart_accum<ano:write name="accumulatorData" property="nameForJS"/>',
+        name: '<ano:write name="accumulatorData" property="name"/>',
+        data: singleGraphData<ano:write name="accumulatorData" property="nameForJS"/>
     };
-    
-    chartEngineInit[chartEngineName](/*container:*/'chart_accum<ano:write name="accumulatorData" property="nameForJS"/>', /*name:*/'<ano:write name="accumulatorData" property="name"/>', /*data:*/singleGraphData<ano:write name="accumulatorData" property="nameForJS"/>);
+
+    chartEngineIniter[chartEngineName](chartParams);
 
     $('.refresh').click(function() {
         location.reload(true);

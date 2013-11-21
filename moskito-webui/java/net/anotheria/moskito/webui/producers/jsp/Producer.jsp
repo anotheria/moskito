@@ -12,11 +12,19 @@
     <script type="text/javascript" src="../js/jquery-1.8.0.min.js"></script>
     <script type="text/javascript" src="../js/function.js"></script>
     <script type="text/javascript" src="http://www.google.com/jsapi"></script>
+    <script type="text/javascript" src="../js/highcharts.js"></script>
+    <!-- jqplot core + plugins -->
+    <script type="text/javascript" src="../js/jquery.jqplot.js"></script>
+    <script type="text/javascript" src="../js/jqplot.cursor.js"></script>
+    <script type="text/javascript" src="../js/jqplot.dateAxisRenderer.js"></script>
+    <script type="text/javascript" src="../js/jqplot.highlighter.js"></script>
+
+    <script type="text/javascript" src="../js/chartEngineIniter.js"></script>
 
     <!--
      Data for charts
      -->
-     <script>
+    <script>
     <ano:iterate type="net.anotheria.moskito.webui.shared.bean.GraphDataBean" 	id="graph" name="graphDatas">
         var <ano:write name="graph" property="jsVariableName"/>Caption = "<ano:write name="graph" property="caption"/>";
         var <ano:write name="graph" property="jsVariableName"/>Array = <ano:write name="graph" property="jsArrayValue"/>;

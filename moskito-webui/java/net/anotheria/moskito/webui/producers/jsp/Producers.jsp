@@ -12,6 +12,14 @@
 <script type="text/javascript" src="../js/jquery-1.4.min.js"></script>
 <script type="text/javascript" src="../js/function.js"></script>
 <script type="text/javascript" src="http://www.google.com/jsapi"></script>
+<script type="text/javascript" src="../js/highcharts.js"></script>
+<!-- jqplot core + plugins -->
+<script type="text/javascript" src="../js/jquery.jqplot.js"></script>
+<script type="text/javascript" src="../js/jqplot.cursor.js"></script>
+<script type="text/javascript" src="../js/jqplot.dateAxisRenderer.js"></script>
+<script type="text/javascript" src="../js/jqplot.highlighter.js"></script>
+
+<script type="text/javascript" src="../js/chartEngineIniter.js"></script>
 
 <jsp:include page="../../shared/jsp/Menu.jsp" flush="false" />
 
