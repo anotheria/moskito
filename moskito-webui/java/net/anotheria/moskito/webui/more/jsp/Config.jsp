@@ -71,6 +71,22 @@
             <div><!-- --></div>
         </div>
     </div>
+
+
+    <div class="additional">
+        <div class="top">
+            <div><!-- --></div>
+        </div>
+        <div class="add_in">
+            <h2>WebUI Config (mskwebui.json)</h2>
+            producerChartWidth:  <ano:write name="config" property="producerChartWidth"/><br>
+            producerChartHeight: <ano:write name="config" property="producerChartHeight"/><br>
+            defaultChartEngine: <ano:write name="config" property="defaultChartEngine"/><br>
+        </div>
+        <div class="bot">
+            <div><!-- --></div>
+        </div>
+    </div>
 </div>
 </body>
 </html>

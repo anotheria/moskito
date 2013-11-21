@@ -1,5 +1,7 @@
 package net.anotheria.moskito.webui.charts;
 
+import net.anotheria.moskito.webui.util.WebUIConfig;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,7 +39,7 @@ public enum ChartEngine {
 			}
 		}
 		//default
-		return GOOGLE_CHART_API;
+		return WebUIConfig.getInstance().getDefaultChartEngine();
 	}
 
 	public boolean requiresNumericTimestamp(){
