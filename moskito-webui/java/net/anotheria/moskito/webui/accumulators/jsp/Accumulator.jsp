@@ -12,14 +12,14 @@
 <script type="text/javascript" src="../js/jquery-1.8.0.min.js"></script>
 <script type="text/javascript" src="../js/function.js"></script>
 <script type="text/javascript" src="//www.google.com/jsapi"></script>
-<script type="text/javascript" src="../js/highcharts.js"></script>
+<script type="text/javascript" src="../js/charts/highcharts.js"></script>
 <!-- jqplot core + plugins -->
-<script type="text/javascript" src="../js/jquery.jqplot.js"></script>
-<script type="text/javascript" src="../js/jqplot.cursor.js"></script>
-<script type="text/javascript" src="../js/jqplot.dateAxisRenderer.js"></script>
-<script type="text/javascript" src="../js/jqplot.highlighter.js"></script>
+<script type="text/javascript" src="../js/charts/jqplot/jquery.jqplot.js"></script>
+<script type="text/javascript" src="../js/charts/jqplot/jqplot.cursor.js"></script>
+<script type="text/javascript" src="../js/charts/jqplot/jqplot.dateAxisRenderer.js"></script>
+<script type="text/javascript" src="../js/charts/jqplot/jqplot.highlighter.js"></script>
 
-<script type="text/javascript" src="../js/chartEngineIniter.js"></script>
+<script type="text/javascript" src="../js/charts/chartEngineIniter.js"></script>
 
 <jsp:include page="../../shared/jsp/Menu.jsp" flush="false"/>
 
@@ -163,7 +163,7 @@
 
 
 <script type="text/javascript">
-    var chartEngineName = '<ano:write name="chartEngine"/>';
+    var chartEngineName = '<ano:write name="chartEngine"/>' || 'GOOGLE_CHART_API';
     var chartParams = {
         container: 'chart_accum<ano:write name="accumulatorData" property="nameForJS"/>',
         name: '<ano:write name="accumulatorData" property="name"/>',

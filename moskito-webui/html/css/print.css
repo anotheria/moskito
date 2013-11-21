@@ -58,4 +58,10 @@ a {
     border-radius: 5px;
     border-top-left-radius: 0;
 }
+.bar_chart, .pie_chart{
+    display: none;
+}
+.bar_chart.active, .pie_chart.active{
+    display: block;
+}
 /* ---------  /ACCUMULATORS PAGE ------------ */

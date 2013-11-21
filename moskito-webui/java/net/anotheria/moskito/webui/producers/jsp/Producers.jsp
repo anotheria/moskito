@@ -12,14 +12,18 @@
 <script type="text/javascript" src="../js/jquery-1.4.min.js"></script>
 <script type="text/javascript" src="../js/function.js"></script>
 <script type="text/javascript" src="http://www.google.com/jsapi"></script>
-<script type="text/javascript" src="../js/highcharts.js"></script>
+<script type="text/javascript" src="../js/charts/highcharts.js"></script>
 <!-- jqplot core + plugins -->
-<script type="text/javascript" src="../js/jquery.jqplot.js"></script>
-<script type="text/javascript" src="../js/jqplot.cursor.js"></script>
-<script type="text/javascript" src="../js/jqplot.dateAxisRenderer.js"></script>
-<script type="text/javascript" src="../js/jqplot.highlighter.js"></script>
+<script type="text/javascript" src="../js/charts/jqplot/jquery.jqplot.js"></script>
+<script type="text/javascript" src="../js/charts/jqplot/jqplot.cursor.js"></script>
+<script type="text/javascript" src="../js/charts/jqplot/jqplot.dateAxisRenderer.js"></script>
+<script type="text/javascript" src="../js/charts/jqplot/jqplot.highlighter.js"></script>
+<script type="text/javascript" src="../js/charts/jqplot/jqplot.pieRenderer.min.js"></script>
+<script type="text/javascript" src="../js/charts/jqplot/jqplot.donutRenderer.min.js"></script>
+<script type="text/javascript" src="../js/charts/jqplot/jqplot.barRenderer.min.js"></script>
+<script type="text/javascript" src="../js/charts/jqplot/jqplot.categoryAxisRenderer.min.js"></script>
 
-<script type="text/javascript" src="../js/chartEngineIniter.js"></script>
+<script type="text/javascript" src="../js/charts/chartEngineIniter.js"></script>
 
 <jsp:include page="../../shared/jsp/Menu.jsp" flush="false" />
 
@@ -163,14 +167,12 @@
 						<ano:equal name="sortType" property="ASC" value="true">
 							<a 	class="down" title="descending resort by <ano:write name="caption" property="shortExplanationLowered"/>"
 								href="<ano:write name="linkToCurrentPage"/>&amp;<ano:write name="decorator" property="sortByParameterName"/>=<ano:write name="ind"/>&amp;<ano:write name="decorator" property="sortOrderParameterName"/>=DESC"><ano:write name="caption" property="caption"/></a><a href="#"
-																								 onclick="lightbox($(this));"
 																								 class="chart"
 																								 title="chart">&nbsp;&nbsp;&nbsp;</a>
 						</ano:equal>
 						<ano:equal name="sortType" property="DESC" value="true">
 							<a 	class="up" title="ascending resort by <ano:write name="caption" property="shortExplanationLowered"/>"
 								href="<ano:write name="linkToCurrentPage"/>&amp;<ano:write name="decorator" property="sortByParameterName"/>=<ano:write name="ind"/>&amp;<ano:write name="decorator" property="sortOrderParameterName"/>=ASC"><ano:write name="caption" property="caption"/></a><a href="#"
-																								 onclick="lightbox($(this));"
 																								 class="chart"
 																								 title="chart">&nbsp;&nbsp;&nbsp;</a>
 						</ano:equal>
@@ -178,7 +180,6 @@
 					<ano:notEqual name="sortType" property="sortBy" value="<%=\"\"+ind%>">
 						<a 	class="" title="ascending sort by <ano:write name="caption" property="shortExplanationLowered"/>"
 							href="<ano:write name="linkToCurrentPage"/>&amp;<ano:write name="decorator" property="sortByParameterName"/>=<ano:write name="ind"/>&amp;<ano:write name="decorator" property="sortOrderParameterName"/>=ASC"><ano:write name="caption" property="caption"/></a><a href="#"
-																								 onclick="lightbox($(this));"
 																								 class="chart"
 																								 title="chart">&nbsp;&nbsp;&nbsp;</a>
 					</ano:notEqual>
@@ -264,28 +265,30 @@
 <script type="text/javascript">
 	google.load('visualization', '1', {packages: ['piechart']});
 	google.load('visualization', '1', {packages: ['columnchart']});
-	function lightbox(link) {
-		$('.lightbox').show();
-		var el = $('.lightbox');
-		$('.pie_chart').show();
-		$('.bar_chart').hide();
-		$('.lightbox .box').css('width', 'auto');
-		$('.lightbox .box').width($('.lightbox .box_in').width());
+    function lightbox(lightbox) {
+        var $lightbox = $(lightbox),
+        	$modal = $('.box', $lightbox);
 
-		var wid = el.find('.box').width();
-		var box = el.find('.box');
-		var hig = el.find('.box').height();
-		box.css('left', '50%');
-		box.css('margin-left', -wid / 2);
-		box.css('top', '50%');
-		box.css('margin-top', -hig / 2);
-		box.css('position', 'fixed');
-		return false;
-	}
+        $lightbox.show();
+        $('.pie_chart', $lightbox).show();
+        $('.bar_chart', $lightbox).hide();
+        $modal.css('width', 'auto').width($modal.width());
+
+        modal.css({
+            left: '50%',
+            marginLeft: -$modal.width()/2,
+            top: '50%',
+            marginTop: -$modal.height()/2,
+            position: 'fixed'
+        });
+        
+        return false;
+    }
 	
 	//var datas = new Array;
 	var cap, mas, data;
 	$('.chart').click(function() {
+		lightbox(this);
 		cap = eval($(this).parent().find('input').val()+'Caption');
 		mas = eval($(this).parent().find('input').val()+'Array');
 		data = new google.visualization.DataTable();
@@ -298,7 +301,7 @@
 		return false;
 	});
 
-	$('.pie_chart').live('click', function() {
+	$('.pie_chart').click(function() {
 		new google.visualization.ColumnChart(
           document.getElementById('chartcontainer')).
             draw(data, {is3D:true, width: <ano:write name="config" property="producerChartWidth"/>, height:<ano:write name="config" property="producerChartHeight"/>, title: cap, legendFontSize: 12, legend:'label'});
@@ -307,7 +310,7 @@
 		return false;
 	});
 
-	$('.bar_chart').live('click', function() {
+	$('.bar_chart').click(function() {
 		new google.visualization.PieChart(
           document.getElementById('chartcontainer')).
             draw(data, {is3D:true, width: <ano:write name="config" property="producerChartWidth"/>, height:<ano:write name="config" property="producerChartHeight"/>, title: cap, legendFontSize: 12, legend:'label'});
