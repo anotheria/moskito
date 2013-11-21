@@ -44,6 +44,7 @@ import net.anotheria.moskito.core.stats.impl.IntervalRegistry;
 import net.anotheria.moskito.core.threshold.ThresholdRepository;
 import net.anotheria.moskito.core.threshold.ThresholdStatus;
 import net.anotheria.moskito.webui.CurrentSelection;
+import net.anotheria.moskito.webui.charts.ChartEngine;
 import net.anotheria.moskito.webui.decorators.DecoratorRegistryFactory;
 import net.anotheria.moskito.webui.decorators.IDecoratorRegistry;
 import net.anotheria.moskito.webui.shared.bean.IntervalBean;
@@ -151,7 +152,15 @@ public abstract class BaseMoskitoUIAction implements Action{
 	public static final String BEAN_AUTORELOAD = "autoreloadInterval";
 
 
+	/**
+	 * Parameter name for the chart engine selection parameter.
+	 */
 	public static final String PARAM_CHART_ENGINE = "pChartEngine";
+
+	/**
+	 * Bean name for the session bean (been in http session) for chart engine selection.
+	 */
+	public static final String BEAN_CHART_ENGINE = "ChartEngine";
 
 	/**
 	 * Logger.
@@ -383,6 +392,21 @@ public abstract class BaseMoskitoUIAction implements Action{
 			}
 		}
 
+		//check chart engine
+		String pChartEngine = req.getParameter(PARAM_CHART_ENGINE);
+		ChartEngine chartEngine;
+		if (pChartEngine!=null && pChartEngine.length()>0){
+			chartEngine = ChartEngine.getChartEngine(pChartEngine);
+			req.getSession().setAttribute(BEAN_CHART_ENGINE, chartEngine);
+		}else{
+			chartEngine = (ChartEngine) req.getSession().getAttribute(BEAN_CHART_ENGINE);
+			if (chartEngine==null){
+				chartEngine = ChartEngine.getChartEngine(null);
+			}
+		}
+
+		req.setAttribute("chartEngine", chartEngine);
+		req.setAttribute("numericTimestamps", chartEngine.requiresNumericTimestamp());
 
 	}
 	

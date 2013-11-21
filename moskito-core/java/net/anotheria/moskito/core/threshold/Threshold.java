@@ -49,11 +49,17 @@ public class Threshold extends AbstractTieable<ThresholdDefinition> implements T
 	 */
 	private long statusChangeTimestamp;
 
+	/**
+	 * Counts the number of flips (status changes) by this thresholds. THis helps to identify flipping - instable thresholds.
+	 */
+	private int flipCount;
+
 	public Threshold(ThresholdDefinition aDefinition){
 		super(aDefinition);
 		status = ThresholdStatus.OFF;
 		lastValue = "none yet";
 		guards = new ArrayList<ThresholdConditionGuard>();
+		flipCount = 0;
 	}
 	
 	public void tieToStats(IStats aStatsObject){
@@ -124,6 +130,7 @@ public class Threshold extends AbstractTieable<ThresholdDefinition> implements T
 		
 		//generate alert.
 		if (status != futureStatus){
+			flipCount++;
 			//generate alert
 			statusChange = status+" --> "+futureStatus;
 			statusChangeTimestamp = System.currentTimeMillis();
@@ -154,6 +161,10 @@ public class Threshold extends AbstractTieable<ThresholdDefinition> implements T
 
 	public void setStatusChangeTimestamp(long statusChangeTimestamp) {
 		this.statusChangeTimestamp = statusChangeTimestamp;
+	}
+
+	public int getFlipCount() {
+		return flipCount;
 	}
 
 	/**

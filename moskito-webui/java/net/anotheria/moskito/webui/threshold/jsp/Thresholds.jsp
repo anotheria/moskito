@@ -206,6 +206,7 @@
                                     <th>Value</th>
                                     <th>Status Change</th>
                                     <th>Change Timestamp</th>
+                                    <th>Flip count</th>
                                     <th>Path</th>
                                     <td>&nbsp;</td>
                                     <td>&nbsp;</td>
@@ -219,6 +220,7 @@
                                         <td><ano:write name="threshold" property="value"/></td>
                                         <td><ano:write name="threshold" property="change"/></td>
                                         <td><ano:write name="threshold" property="timestamp"/></td>
+                                        <td><ano:write name="threshold" property="flipCount"/></td>
                                         <td><ano:write name="threshold" property="description"/></td>
                                         <td><a href="mskThresholdEdit?pId=<ano:write name="threshold" property="id"/>" class="edit"></a></td>
                                         <td><a href="mskThresholdDelete?pId=<ano:write name="threshold" property="id"/>" class="del"></a></td>
