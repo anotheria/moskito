@@ -1,5 +1,6 @@
 package net.anotheria.moskito.webui.util;
 
+import net.anotheria.moskito.webui.charts.ChartEngine;
 import org.configureme.ConfigurationManager;
 import org.configureme.annotations.ConfigureMe;
 
@@ -17,6 +18,11 @@ public class WebUIConfig {
 	 */
 	private int producerChartHeight = 600;
 
+	/**
+	 * Default ChartEngine.
+	 */
+	private ChartEngine defaultChartEngine = ChartEngine.GOOGLE_CHART_API;
+
 	public int getProducerChartWidth() {
 		return producerChartWidth;
 	}
@@ -28,6 +34,14 @@ public class WebUIConfig {
 	}
 	public void setProducerChartHeight(int producerChartHeight) {
 		this.producerChartHeight = producerChartHeight;
+	}
+
+	public ChartEngine getDefaultChartEngine() {
+		return defaultChartEngine;
+	}
+
+	public void setDefaultChartEngine(ChartEngine defaultChartEngine) {
+		this.defaultChartEngine = defaultChartEngine;
 	}
 
 	/**
@@ -49,4 +63,6 @@ public class WebUIConfig {
 			}catch(IllegalArgumentException e){;}//ignore
 		}
 	}
+
+
 }

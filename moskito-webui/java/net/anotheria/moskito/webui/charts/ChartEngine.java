@@ -1,10 +1,13 @@
 package net.anotheria.moskito.webui.charts;
 
+import net.anotheria.moskito.webui.util.WebUIConfig;
+
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * TODO comment this class
+ * this enum contains selection of supported engines. It may be suboptimal that the supported engines are hardcoded via enum,
+ * and we may open it up via config in the future, if such a need will emerge.
  *
  * @author lrosenberg
  * @since 11.11.13 13:46
@@ -15,7 +18,6 @@ public enum ChartEngine {
 	},
 	HIGHCHART("high_chart", "highchart"),
 	JQPLOT("jq_plot", "jqplot"),
-	RAPHAELJS("raphaeljs", "raphael"),
 	;
 
 	private List<String> names;
@@ -37,10 +39,14 @@ public enum ChartEngine {
 			}
 		}
 		//default
-		return GOOGLE_CHART_API;
+		return WebUIConfig.getInstance().getDefaultChartEngine();
 	}
 
 	public boolean requiresNumericTimestamp(){
 		return true;
+	}
+
+	public List<String> getNames(){
+		return names;
 	}
 }
