@@ -4,7 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * TODO comment this class
+ * this enum contains selection of supported engines. It may be suboptimal that the supported engines are hardcoded via enum,
+ * and we may open it up via config in the future, if such a need will emerge.
  *
  * @author lrosenberg
  * @since 11.11.13 13:46
@@ -41,5 +42,9 @@ public enum ChartEngine {
 
 	public boolean requiresNumericTimestamp(){
 		return true;
+	}
+
+	public List<String> getNames(){
+		return names;
 	}
 }
