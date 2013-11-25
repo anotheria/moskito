@@ -4,6 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 	<title>MoSKito Accumulators</title>
+    <link rel="stylesheet" type="text/css" href="../css/jquery.jqplot.css">
 	<link rel="stylesheet" href="mskCSS"/>
 </head>
 <body>
@@ -11,6 +12,14 @@
 <script type="text/javascript" src="../js/jquery-1.8.0.min.js"></script>
 <script type="text/javascript" src="../js/function.js"></script>
 <script type="text/javascript" src="//www.google.com/jsapi"></script>
+<script type="text/javascript" src="../js/charts/highcharts/highcharts.js"></script>
+<!-- jqplot core + plugins -->
+<script type="text/javascript" src="../js/charts/jqplot/jquery.jqplot.js"></script>
+<script type="text/javascript" src="../js/charts/jqplot/jqplot.cursor.js"></script>
+<script type="text/javascript" src="../js/charts/jqplot/jqplot.highlighter.js"></script>
+<script type="text/javascript" src="../js/charts/jqplot/jqplot.dateAxisRenderer.js"></script>
+
+<script type="text/javascript" src="../js/charts/chartEngineIniter.js"></script>
 
 <jsp:include page="../../shared/jsp/Menu.jsp" flush="false"/>
 <%--<script>    // temp
@@ -300,63 +309,18 @@
     <div class="linkToCurrentPage"><ano:write name="linkToCurrentPage"/></div>
 <ano:present name="data">
 <script type="text/javascript">
-	google.load("visualization", "1", {packages:["corechart"]});
-	google.setOnLoadCallback(drawLineChart);
-	//combined chart
-	<ano:notPresent name="singleGraphData">
-	function drawLineChart() {
-		var data2 = new google.visualization.DataTable();
-		data2.addColumn('string', 'Time');
-		<ano:iterate name="accNames" type="java.lang.String" id="name">
-		data2.addColumn('number', '<ano:write name="name"/>');
-		</ano:iterate>
-		data2.addRows(data);
-		var options = {width: 1200, height: 300, title: '', chartArea:{left:140,width:800}};
-		var chartInfo = {
-			params: '',
-			container: 'chart_accum',
-			type: '<ano:write name="type"/>',
-			data: data2,
-			options: options 
-		};
-		drawChart(chartInfo);		
-	}
-	</ano:notPresent>
-	<ano:present name="singleGraphData">
-	function drawLineChart() {
-		<ano:iterate name="singleGraphData" type="net.anotheria.moskito.webui.accumulators.api.AccumulatedSingleGraphAO" id="singleGraph">
-			var chartData<ano:write name="singleGraph" property="nameForJS"/> = new google.visualization.DataTable();
-			chartData<ano:write name="singleGraph" property="nameForJS"/>.addColumn('string', 'Time');
-			chartData<ano:write name="singleGraph" property="nameForJS"/>.addColumn('number', '<ano:write name="singleGraph" property="name"/>');
-			chartData<ano:write name="singleGraph" property="nameForJS"/>.addRows(singleGraphData<ano:write name="singleGraph" property="nameForJS"/>);
-			var options = {width: 1200, height: 300, title: '<ano:write name="singleGraph" property="name"/>', chartArea:{left:140,width:800}};
-			var chartInfo = {
-				params: '',
-				container: 'chart_accum<ano:write name="singleGraph" property="nameForJS"/>',
-				type: '<ano:write name="type"/>',
-				data: chartData<ano:write name="singleGraph" property="nameForJS"/>,
-				options: options 
-			};
-			drawChart(chartInfo);		
-		</ano:iterate>
-	}
-	</ano:present>
-	function drawChart(chartInfo) {
-		document.getElementById(chartInfo.container).chartInfo = chartInfo;
+    var chartEngineName = '<ano:write name="chartEngine"/>' || 'GOOGLE_CHART_API';
+    var chartParams = {
+        container: 'chart_accum<ano:write name="singleGraph" property="nameForJS"/>',
+        name: '<ano:write name="singleGraph" property="name"/>',
+        data: data
+    };
 
-		google.visualization.drawChart({
-			"containerId": chartInfo.container,
-			dataTable: chartInfo.data/*+chartInfo.params*/,
-			"chartType": chartInfo.type,
-			"options": chartInfo.options,
-			"refreshInterval": 60
-		});
-
-	}
+    chartEngineIniter[chartEngineName](chartParams);
 
 	$('.refresh').click(function() {
 		location.reload(true);
-	})
+	});
 
 
 </script>

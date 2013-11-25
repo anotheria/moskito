@@ -3,15 +3,29 @@
 %><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<title>Moskito Producers <ano:write name="pageTitle" /></title>
-<link rel="stylesheet" href="mskCSS"/>
+	<title>Moskito Producers <ano:write name="pageTitle" /></title>
+	<link rel="stylesheet" href="mskCSS"/>
+	<link rel="stylesheet" type="text/css" href="../css/charts.css">
+    <link rel="stylesheet" type="text/css" href="../css/jquery.jqplot.css">
 </head>
 <body>
 
 <script type="text/javascript" src="../js/wz_tooltip.js"></script>
-<script type="text/javascript" src="../js/jquery-1.4.min.js"></script>
+<script type="text/javascript" src="../js/jquery-1.8.0.min.js"></script>
 <script type="text/javascript" src="../js/function.js"></script>
 <script type="text/javascript" src="http://www.google.com/jsapi"></script>
+<script type="text/javascript" src="../js/charts/highcharts/highcharts.js"></script>
+<!-- jqplot core + plugins -->
+<script type="text/javascript" src="../js/charts/jqplot/jquery.jqplot.js"></script>
+<script type="text/javascript" src="../js/charts/jqplot/jqplot.cursor1.js"></script>
+<script type="text/javascript" src="../js/charts/jqplot/jqplot.dateAxisRenderer1.js"></script>
+<script type="text/javascript" src="../js/charts/jqplot/jqplot.highlighter1.js"></script>
+<script type="text/javascript" src="../js/charts/jqplot/jqplot.pieRenderer.min.js"></script>
+<script type="text/javascript" src="../js/charts/jqplot/jqplot.donutRenderer.min.js"></script>
+<script type="text/javascript" src="../js/charts/jqplot/jqplot.categoryAxisRenderer.min.js"></script>
+<script type="text/javascript" src="../js/charts/jqplot/jqplot.barRenderer.min.js"></script>
+
+<script type="text/javascript" src="../js/charts/chartEngineIniter.js"></script>
 
 <jsp:include page="../../shared/jsp/Menu.jsp" flush="false" />
 
@@ -155,14 +169,12 @@
 						<ano:equal name="sortType" property="ASC" value="true">
 							<a 	class="down" title="descending resort by <ano:write name="caption" property="shortExplanationLowered"/>"
 								href="<ano:write name="linkToCurrentPage"/>&amp;<ano:write name="decorator" property="sortByParameterName"/>=<ano:write name="ind"/>&amp;<ano:write name="decorator" property="sortOrderParameterName"/>=DESC"><ano:write name="caption" property="caption"/></a><a href="#"
-																								 onclick="lightbox($(this));"
 																								 class="chart"
 																								 title="chart">&nbsp;&nbsp;&nbsp;</a>
 						</ano:equal>
 						<ano:equal name="sortType" property="DESC" value="true">
 							<a 	class="up" title="ascending resort by <ano:write name="caption" property="shortExplanationLowered"/>"
 								href="<ano:write name="linkToCurrentPage"/>&amp;<ano:write name="decorator" property="sortByParameterName"/>=<ano:write name="ind"/>&amp;<ano:write name="decorator" property="sortOrderParameterName"/>=ASC"><ano:write name="caption" property="caption"/></a><a href="#"
-																								 onclick="lightbox($(this));"
 																								 class="chart"
 																								 title="chart">&nbsp;&nbsp;&nbsp;</a>
 						</ano:equal>
@@ -170,7 +182,6 @@
 					<ano:notEqual name="sortType" property="sortBy" value="<%=\"\"+ind%>">
 						<a 	class="" title="ascending sort by <ano:write name="caption" property="shortExplanationLowered"/>"
 							href="<ano:write name="linkToCurrentPage"/>&amp;<ano:write name="decorator" property="sortByParameterName"/>=<ano:write name="ind"/>&amp;<ano:write name="decorator" property="sortOrderParameterName"/>=ASC"><ano:write name="caption" property="caption"/></a><a href="#"
-																								 onclick="lightbox($(this));"
 																								 class="chart"
 																								 title="chart">&nbsp;&nbsp;&nbsp;</a>
 					</ano:notEqual>
@@ -242,8 +253,8 @@
 			<div class="right">
 				<div class="text_here">
 					<div id="chartcontainer"></div>
-					<a href="#" class="pie_chart"></a> <!-- changes to bar_chart -->
-					<a href="#" style="display:none;" class="bar_chart"></a>
+					<a href="#" class="pie_chart active"></a> <!-- changes to bar_chart -->
+					<a href="#" class="bar_chart"></a>
 				</div>
 			</div>
 		</div>
@@ -254,59 +265,79 @@
 	</div>
 </div>
 <script type="text/javascript">
-	google.load('visualization', '1', {packages: ['piechart']});
-	google.load('visualization', '1', {packages: ['columnchart']});
-	function lightbox(link) {
-		$('.lightbox').show();
-		var el = $('.lightbox');
-		$('.pie_chart').show();
-		$('.bar_chart').hide();
-		$('.lightbox .box').css('width', 'auto');
-		$('.lightbox .box').width($('.lightbox .box_in').width());
-
-		var wid = el.find('.box').width();
-		var box = el.find('.box');
-		var hig = el.find('.box').height();
-		box.css('left', '50%');
-		box.css('margin-left', -wid / 2);
-		box.css('top', '50%');
-		box.css('margin-top', -hig / 2);
-		box.css('position', 'fixed');
-		return false;
-	}
-	
 	//var datas = new Array;
-	var cap, mas, data;
+    //google.load('visualization', '1', {packages: ['piechart']});
+    //google.load('visualization', '1', {packages: ['columnchart']});
+	//var cap, mas, data;
+    var chartParams,
+        chartEngineName = '<ano:write name="chartEngine"/>' || 'JQPlOT';
+
+
 	$('.chart').click(function() {
-		cap = eval($(this).parent().find('input').val()+'Caption');
+		/*
+        cap = eval($(this).parent().find('input').val()+'Caption');
 		mas = eval($(this).parent().find('input').val()+'Array');
 		data = new google.visualization.DataTable();
-        data.addColumn('string', 'Producer');
+        data.addColumn('string', 'Stat');
         data.addColumn('number', 'val');
 		data.addRows(mas);
 		new google.visualization.PieChart(
           document.getElementById('chartcontainer')).
             draw(data, {is3D:true, width: <ano:write name="config" property="producerChartWidth"/>, height:<ano:write name="config" property="producerChartHeight"/>, title: cap, legendFontSize: 12, legend:'label'});
-		return false;
+        */
+		lightbox();
+        chartParams = {
+            container: 'chartcontainer',
+            name: eval($(this).parent().find('input').val()+'Caption'),
+            data: eval($(this).parent().find('input').val()+'Array'),
+            type: 'PieChart'
+        };
+
+        chartEngineIniter[chartEngineName](chartParams);
+
+        return false;
 	});
 
-	$('.pie_chart').live('click', function() {
-		new google.visualization.ColumnChart(
+	$('.pie_chart').click(function() {
+		/*new google.visualization.ColumnChart(
           document.getElementById('chartcontainer')).
             draw(data, {is3D:true, width: <ano:write name="config" property="producerChartWidth"/>, height:<ano:write name="config" property="producerChartHeight"/>, title: cap, legendFontSize: 12, legend:'label'});
-		$('.pie_chart').hide();
-		$('.bar_chart').show();
-		return false;
+            */
+        chartParams.type = 'ColumnChart';
+        chartEngineIniter[chartEngineName](chartParams);
+        $('.bar_chart').addClass('active').siblings('.active').removeClass('active');
+
+        return false;
 	});
 
-	$('.bar_chart').live('click', function() {
-		new google.visualization.PieChart(
-          document.getElementById('chartcontainer')).
-            draw(data, {is3D:true, width: <ano:write name="config" property="producerChartWidth"/>, height:<ano:write name="config" property="producerChartHeight"/>, title: cap, legendFontSize: 12, legend:'label'});
-		$('.pie_chart').show();
-		$('.bar_chart').hide();
-		return false;
+	$('.bar_chart').click(function() {
+        chartParams.type = 'PieChart';
+
+        chartEngineIniter[chartEngineName](chartParams);
+		$('.pie_chart').addClass('active').siblings('.active').removeClass('active');
+
+        return false;
 	});
+
+	function lightbox() {
+	    var $lightbox = $('.lightbox');
+	    var $modal = $('.box', $lightbox);
+
+	    $lightbox.show();
+	    $('.pie_chart').addClass('active').siblings('.active').removeClass('active');
+
+	    $modal.css('width', 'auto').width($modal.width());
+
+	    $modal.css({
+	        left: '50%',
+	        marginLeft: -$modal.width()/2,
+	        top: '50%',
+	        marginTop: -$modal.height()/2,
+	        position: 'fixed'
+	    });
+
+	    return false;
+	}
 </script>
 <jsp:include page="../../shared/jsp/Footer.jsp" flush="false" />
 </div>	
