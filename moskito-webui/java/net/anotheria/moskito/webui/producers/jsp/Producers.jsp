@@ -3,25 +3,27 @@
 %><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<title>Moskito Producers <ano:write name="pageTitle" /></title>
-<link rel="stylesheet" href="mskCSS"/>
+	<title>Moskito Producers <ano:write name="pageTitle" /></title>
+	<link rel="stylesheet" href="mskCSS"/>
+	<link rel="stylesheet" type="text/css" href="../css/charts.css">
+    <link rel="stylesheet" type="text/css" href="../css/jquery.jqplot.css">
 </head>
 <body>
 
 <script type="text/javascript" src="../js/wz_tooltip.js"></script>
-<script type="text/javascript" src="../js/jquery-1.4.min.js"></script>
+<script type="text/javascript" src="../js/jquery-1.8.0.min.js"></script>
 <script type="text/javascript" src="../js/function.js"></script>
 <script type="text/javascript" src="http://www.google.com/jsapi"></script>
-<script type="text/javascript" src="../js/charts/highcharts.js"></script>
+<script type="text/javascript" src="../js/charts/highcharts/highcharts.js"></script>
 <!-- jqplot core + plugins -->
 <script type="text/javascript" src="../js/charts/jqplot/jquery.jqplot.js"></script>
-<script type="text/javascript" src="../js/charts/jqplot/jqplot.cursor.js"></script>
-<script type="text/javascript" src="../js/charts/jqplot/jqplot.dateAxisRenderer.js"></script>
-<script type="text/javascript" src="../js/charts/jqplot/jqplot.highlighter.js"></script>
+<script type="text/javascript" src="../js/charts/jqplot/jqplot.cursor1.js"></script>
+<script type="text/javascript" src="../js/charts/jqplot/jqplot.dateAxisRenderer1.js"></script>
+<script type="text/javascript" src="../js/charts/jqplot/jqplot.highlighter1.js"></script>
 <script type="text/javascript" src="../js/charts/jqplot/jqplot.pieRenderer.min.js"></script>
 <script type="text/javascript" src="../js/charts/jqplot/jqplot.donutRenderer.min.js"></script>
-<script type="text/javascript" src="../js/charts/jqplot/jqplot.barRenderer.min.js"></script>
 <script type="text/javascript" src="../js/charts/jqplot/jqplot.categoryAxisRenderer.min.js"></script>
+<script type="text/javascript" src="../js/charts/jqplot/jqplot.barRenderer.min.js"></script>
 
 <script type="text/javascript" src="../js/charts/chartEngineIniter.js"></script>
 
@@ -251,8 +253,8 @@
 			<div class="right">
 				<div class="text_here">
 					<div id="chartcontainer"></div>
-					<a href="#" class="pie_chart"></a> <!-- changes to bar_chart -->
-					<a href="#" style="display:none;" class="bar_chart"></a>
+					<a href="#" class="pie_chart active"></a> <!-- changes to bar_chart -->
+					<a href="#" class="bar_chart"></a>
 				</div>
 			</div>
 		</div>
@@ -263,61 +265,79 @@
 	</div>
 </div>
 <script type="text/javascript">
-	google.load('visualization', '1', {packages: ['piechart']});
-	google.load('visualization', '1', {packages: ['columnchart']});
-    function lightbox(lightbox) {
-        var $lightbox = $(lightbox),
-        	$modal = $('.box', $lightbox);
-
-        $lightbox.show();
-        $('.pie_chart', $lightbox).show();
-        $('.bar_chart', $lightbox).hide();
-        $modal.css('width', 'auto').width($modal.width());
-
-        modal.css({
-            left: '50%',
-            marginLeft: -$modal.width()/2,
-            top: '50%',
-            marginTop: -$modal.height()/2,
-            position: 'fixed'
-        });
-        
-        return false;
-    }
-	
 	//var datas = new Array;
-	var cap, mas, data;
+    //google.load('visualization', '1', {packages: ['piechart']});
+    //google.load('visualization', '1', {packages: ['columnchart']});
+	//var cap, mas, data;
+    var chartParams,
+        chartEngineName = '<ano:write name="chartEngine"/>' || 'JQPlOT';
+
+
 	$('.chart').click(function() {
-		lightbox(this);
-		cap = eval($(this).parent().find('input').val()+'Caption');
+		/*
+        cap = eval($(this).parent().find('input').val()+'Caption');
 		mas = eval($(this).parent().find('input').val()+'Array');
 		data = new google.visualization.DataTable();
-        data.addColumn('string', 'Producer');
+        data.addColumn('string', 'Stat');
         data.addColumn('number', 'val');
 		data.addRows(mas);
 		new google.visualization.PieChart(
           document.getElementById('chartcontainer')).
             draw(data, {is3D:true, width: <ano:write name="config" property="producerChartWidth"/>, height:<ano:write name="config" property="producerChartHeight"/>, title: cap, legendFontSize: 12, legend:'label'});
-		return false;
+        */
+		lightbox();
+        chartParams = {
+            container: 'chartcontainer',
+            name: eval($(this).parent().find('input').val()+'Caption'),
+            data: eval($(this).parent().find('input').val()+'Array'),
+            type: 'PieChart'
+        };
+
+        chartEngineIniter[chartEngineName](chartParams);
+
+        return false;
 	});
 
 	$('.pie_chart').click(function() {
-		new google.visualization.ColumnChart(
+		/*new google.visualization.ColumnChart(
           document.getElementById('chartcontainer')).
             draw(data, {is3D:true, width: <ano:write name="config" property="producerChartWidth"/>, height:<ano:write name="config" property="producerChartHeight"/>, title: cap, legendFontSize: 12, legend:'label'});
-		$('.pie_chart').hide();
-		$('.bar_chart').show();
-		return false;
+            */
+        chartParams.type = 'ColumnChart';
+        chartEngineIniter[chartEngineName](chartParams);
+        $('.bar_chart').addClass('active').siblings('.active').removeClass('active');
+
+        return false;
 	});
 
 	$('.bar_chart').click(function() {
-		new google.visualization.PieChart(
-          document.getElementById('chartcontainer')).
-            draw(data, {is3D:true, width: <ano:write name="config" property="producerChartWidth"/>, height:<ano:write name="config" property="producerChartHeight"/>, title: cap, legendFontSize: 12, legend:'label'});
-		$('.pie_chart').show();
-		$('.bar_chart').hide();
-		return false;
+        chartParams.type = 'PieChart';
+
+        chartEngineIniter[chartEngineName](chartParams);
+		$('.pie_chart').addClass('active').siblings('.active').removeClass('active');
+
+        return false;
 	});
+
+	function lightbox() {
+	    var $lightbox = $('.lightbox');
+	    var $modal = $('.box', $lightbox);
+
+	    $lightbox.show();
+	    $('.pie_chart').addClass('active').siblings('.active').removeClass('active');
+
+	    $modal.css('width', 'auto').width($modal.width());
+
+	    $modal.css({
+	        left: '50%',
+	        marginLeft: -$modal.width()/2,
+	        top: '50%',
+	        marginTop: -$modal.height()/2,
+	        position: 'fixed'
+	    });
+
+	    return false;
+	}
 </script>
 <jsp:include page="../../shared/jsp/Footer.jsp" flush="false" />
 </div>	

@@ -1,3 +1,5 @@
+if (google) google.load("visualization", "1", {packages:["corechart"]});
+
 var chartEngineIniter = {
     HIGHCHART: function (params){
         var types = {
@@ -6,16 +8,24 @@ var chartEngineIniter = {
             LineChart: 'spline'
         };
 
-        $('#' + params.container).highcharts({
+        var options = {
             title: {
-                text: ''
+                text: params.name
             },
             chart: {
                 type: types[params.type] || 'spline',
             },
             xAxis: {
                 labels:{
-                    formatter: function(){ return new Date(this.value).toLocaleTimeString(); }
+                    formatter: function(){
+                        console.log(this)
+                        var val;
+
+                        if(params.type=='LineChart') val =  new Date(this.value).toLocaleTimeString();
+                        else val = this.val;
+
+                        return val;
+                    }
                 }
             },
             yAxis: {
@@ -24,44 +34,52 @@ var chartEngineIniter = {
             },
             tooltip: {
                 formatter: function() {
+                    console.log(this)
                     var time = new Date(this.x).toLocaleTimeString();
-                    return '<b>'+ time +'</b><br/>'+ name + ': '+ this.y;
+                    var label;
+                    if(params.type=='LineChart') label = '<b>'+ time +'</b><br/>'+ name + ': '+ this.y;
+                    else label  = name + '  ' + this.y;
+                    return label;
                 }
             },
             series: [{
                 name: params.name,
-                data: params.data
+                data: params.data || []
             }]
-        });
+        };
+
+        if(params.type == 'ColumnChart'){
+            var columnSeries = [];
+            params.data.forEach(function(item){
+                columnSeries.push({name: item[0], data: [item[1]]});
+            });
+            options.series = columnSeries;
+        }
+
+        $('#' + params.container).highcharts(options);
     },
     GOOGLE_CHART_API: function(params){
-        //type name by default
-        google.load("visualization", "1", {packages:["corechart"]});
-        google.setOnLoadCallback(drawLineChart);
-        //combined chart
-        function drawLineChart() {
-                var chartData = new google.visualization.DataTable();
-                chartData.addColumn('string', 'Time');
-                chartData.addColumn('number', params.name);
-                chartData.addRows(params.data);
-                var options = {width: 1200, height: 300, title: params.name, chartArea:{left:140,width:800}};
-                var chartInfo = {
-                    params: '',
-                    container: params.container,
-                    type: params.type || 'LineChart',
-                    data: chartData,
-                    options: options 
-                };
+        var chartData = new google.visualization.DataTable();
+        chartData.addColumn('string', 'Time');
+        chartData.addColumn('number', params.name);
+        chartData.addRows(params.data || []);
+        var options = {/*width: 1200, height: 300,*/ title: params.name/*, chartArea:{left:140,width:800}*/};
+        var chartInfo = {
+            params: '',
+            container: params.container,
+            type: params.type || 'LineChart',
+            data: chartData,
+            options: options 
+        };
 
-                document.getElementById(chartInfo.container).chartInfo = chartInfo;
-                google.visualization.drawChart({
-                    "containerId": chartInfo.container,
-                    dataTable: chartInfo.data/*+chartInfo.params*/,
-                    "chartType": chartInfo.type,
-                    "options": chartInfo.options,
-                    "refreshInterval": 60
-                });     
-        }
+        document.getElementById(chartInfo.container).chartInfo = chartInfo;
+        google.visualization.drawChart({
+            "containerId": chartInfo.container,
+            dataTable: chartInfo.data/*+chartInfo.params*/,
+            "chartType": chartInfo.type,
+            "options": chartInfo.options,
+            "refreshInterval": 60
+        });
     },
     JQPLOT: function(params){
         var types = {
@@ -69,30 +87,75 @@ var chartEngineIniter = {
             ColumnChart: $.jqplot.BarRenderer,
             LineChart: $.jqplot.DateAxisRenderer
         };
-        var plot1 = $.jqplot(params.container, [params.data], { 
+
+        var data = params.data;
+
+        var options = {
             title: params.name,
-            axes:{
-                xaxis: {
-                    renderer: types[params.type] || $.jqplot.DateAxisRenderer
+            seriesDefaults: {
+                renderer: types[params.type] || $.jqplot.DateAxisRenderer,
+                rendererOptions: {
+                    showDataLabels: true
                 }
             },
-            cursor:{ 
-                show: true,
-                zoom:true, 
-                showTooltip:false
-            },
-            highlighter: {
-                show: true,
-                sizeAdjust: 7.5
-            },
-            seriesDefaults: {
-                color: '#5E7CFF'
+            axesDefaults: {
+                tickOptions: {
+                    show: true
+                }
             },
             grid: {
                 background: '#fefefe'
+            },
+            legend: { show:true, location: 'e', xoffset: 100 }
+        };
+        
+        if(params.type == 'LineChart' || !params.type) {
+            options.cursor = { 
+                show: true,
+                zoom:true, 
+                showTooltip:false
+            };
+            options.highlighter = {
+                show: true,
+                sizeAdjust: 7.5
+            };
+            options.axes = {
+                xaxis: {
+                    renderer: $.jqplot.DateAxisRenderer
+                }
             }
-        });
+            delete options.seriesDefaults;
+        }
+        if(params.type == 'ColumnChart') {
+            options.seriesDefaults.rendererOptions =  {
+                barPadding: 20,
+                barMargin: 0,
+                barWidth: 100
+            }
+            options.series = [];
+            var columnData = [];
+            data.forEach(function(item){
+                options.series.push({label: item[0]});
+                columnData.push([item[1]]);
+            });
+            data = columnData;
+            options.axes = {
+                xaxis: {
+                    renderer: $.jqplot.CategoryAxisRenderer,
+                    tickOptions: {
+                        show: false
+                    }
+                }
+            }
+            //delete options.legend;
+        }
+        else{
+            data = [params.data || []];
+        }
+        $('#' + params.container).empty();
+        var plot1 = $.jqplot(params.container, data || [], options);
 
-        $('#' + params.container).click(function() { plot1.resetZoom() });
+        if(params.type == 'LineChart') $('#' + params.container).click(function() { plot1.resetZoom() });
+        if(params.type == 'ColumnChart') $('.jqplot-table-legend').css('right', '55px');
     }
 };

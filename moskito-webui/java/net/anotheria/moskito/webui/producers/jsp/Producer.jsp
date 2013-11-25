@@ -5,6 +5,8 @@
 <head>
 	<title>Moskito Producer <ano:write name="producer" property="id"/> </title>
 	<link rel="stylesheet" href="mskCSS"/>
+    <link rel="stylesheet" type="text/css" href="../css/charts.css">
+    <link rel="stylesheet" type="text/css" href="../css/jquery.jqplot.css">
 </head>
 <body>
 
@@ -12,7 +14,7 @@
     <script type="text/javascript" src="../js/jquery-1.8.0.min.js"></script>
     <script type="text/javascript" src="../js/function.js"></script>
     <script type="text/javascript" src="http://www.google.com/jsapi"></script>
-    <script type="text/javascript" src="../js/charts/highcharts.js"></script>
+    <script type="text/javascript" src="../js/charts/highcharts/highcharts.js"></script>
     <!-- jqplot core + plugins -->
     <script type="text/javascript" src="../js/charts/jqplot/jquery.jqplot.js"></script>
     <script type="text/javascript" src="../js/charts/jqplot/jqplot.cursor.js"></script>
@@ -20,8 +22,9 @@
     <script type="text/javascript" src="../js/charts/jqplot/jqplot.highlighter.js"></script>
     <script type="text/javascript" src="../js/charts/jqplot/jqplot.pieRenderer.min.js"></script>
     <script type="text/javascript" src="../js/charts/jqplot/jqplot.donutRenderer.min.js"></script>
-    <script type="text/javascript" src="../js/charts/jqplot/jqplot.barRenderer.min.js"></script>
     <script type="text/javascript" src="../js/charts/jqplot/jqplot.categoryAxisRenderer.min.js"></script>
+    <script type="text/javascript" src="../js/charts/jqplot/jqplot.barRenderer.min.js"></script>
+
 
     <script type="text/javascript" src="../js/charts/chartEngineIniter.js"></script>
 
@@ -252,8 +255,62 @@
 	</div>
 </div>
 <script type="text/javascript">
-    function lightbox(lightbox) {
-        var $lightbox = $(lightbox);
+    //var datas = new Array;
+    //google.load('visualization', '1', {packages: ['piechart']});
+    //google.load('visualization', '1', {packages: ['columnchart']});
+    //var cap, mas, data;
+    var chartParams,
+        chartEngineName = '<ano:write name="chartEngine"/>' || 'JQPlOT';
+
+
+    $('.chart').click(function() {
+        /*
+        cap = eval($(this).parent().find('input').val()+'Caption');
+        mas = eval($(this).parent().find('input').val()+'Array');
+        data = new google.visualization.DataTable();
+        data.addColumn('string', 'Stat');
+        data.addColumn('number', 'val');
+        data.addRows(mas);
+        new google.visualization.PieChart(
+          document.getElementById('chartcontainer')).
+            draw(data, {is3D:true, width: <ano:write name="config" property="producerChartWidth"/>, height:<ano:write name="config" property="producerChartHeight"/>, title: cap, legendFontSize: 12, legend:'label'});
+        */
+        lightbox();
+        chartParams = {
+            container: 'chartcontainer',
+            name: eval($(this).parent().find('input').val()+'Caption'),
+            data: eval($(this).parent().find('input').val()+'Array'),
+            type: 'PieChart'
+        };
+
+        chartEngineIniter[chartEngineName](chartParams);
+
+        return false;
+    });
+
+    $('.pie_chart').click(function() {
+        /*new google.visualization.ColumnChart(
+          document.getElementById('chartcontainer')).
+            draw(data, {is3D:true, width: <ano:write name="config" property="producerChartWidth"/>, height:<ano:write name="config" property="producerChartHeight"/>, title: cap, legendFontSize: 12, legend:'label'});
+            */
+        chartParams.type = 'ColumnChart';
+        chartEngineIniter[chartEngineName](chartParams);
+        $('.bar_chart').addClass('active').siblings('.active').removeClass('active');
+
+        return false;
+    });
+
+    $('.bar_chart').click(function() {
+        chartParams.type = 'PieChart';
+
+        chartEngineIniter[chartEngineName](chartParams);
+        $('.pie_chart').addClass('active').siblings('.active').removeClass('active');
+
+        return false;
+    });
+
+    function lightbox() {
+        var $lightbox = $('.lightbox');
         var $modal = $('.box', $lightbox);
 
         $lightbox.show();
@@ -261,7 +318,7 @@
 
         $modal.css('width', 'auto').width($modal.width());
 
-        modal.css({
+        $modal.css({
             left: '50%',
             marginLeft: -$modal.width()/2,
             top: '50%',
@@ -271,54 +328,6 @@
 
         return false;
     }
-	//var datas = new Array;
-    //google.load('visualization', '1', {packages: ['piechart']});
-    //google.load('visualization', '1', {packages: ['columnchart']});
-	//var cap, mas, data;
-    var chartParams,
-        chartEngineName = '<ano:write name="chartEngine"/>' || 'GOOGLE_CHART_API';
-
-
-	$('.chart').click(function() {
-		/*
-        cap = eval($(this).parent().find('input').val()+'Caption');
-		mas = eval($(this).parent().find('input').val()+'Array');
-		data = new google.visualization.DataTable();
-        data.addColumn('string', 'Stat');
-        data.addColumn('number', 'val');
-		data.addRows(mas);
-		new google.visualization.PieChart(
-          document.getElementById('chartcontainer')).
-            draw(data, {is3D:true, width: <ano:write name="config" property="producerChartWidth"/>, height:<ano:write name="config" property="producerChartHeight"/>, title: cap, legendFontSize: 12, legend:'label'});
-        */
-		lightbox(this);
-
-        chartParams = {
-            container: 'chartcontainer',
-            name: eval($(this).parent().find('input').val()+'Caption'),
-            data: eval($(this).parent().find('input').val()+'Array'),
-            type: 'PieChart'
-        };
-
-        chartEngineIniter[chartEngineName](chartParams);
-	});
-
-	$('.pie_chart').click(function() {
-		/*new google.visualization.ColumnChart(
-          document.getElementById('chartcontainer')).
-            draw(data, {is3D:true, width: <ano:write name="config" property="producerChartWidth"/>, height:<ano:write name="config" property="producerChartHeight"/>, title: cap, legendFontSize: 12, legend:'label'});
-            */
-        chartParams.type = 'ColumnChart';
-        chartEngineIniter[chartEngineName](chartParams);
-        $('.bar_chart').addClass('active').siblings('.active').removeClass('active');
-
-	});
-
-	$('.bar_chart').click(function() {
-        chartParams.type = 'PieChart';
-        chartEngineIniter[chartEngineName](chartParams);
-		$('.pie_chart').addClass('active').siblings('.active').removeClass('active');
-	});
 </script>
 </div>	
 </body>

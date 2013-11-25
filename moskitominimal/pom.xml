@@ -57,7 +57,7 @@
 							<type>jar</type>
 							<overWrite>true</overWrite>
 							<outputDirectory>${project.build.directory}/tmp</outputDirectory>
-							<includes>img/*,js/*.js,**/*.jsp,css/*.css</includes>
+							<includes>img/*,js/*.js, js/charts/*.js,js/charts/highcharts/*.js,js/charts/jqplot/*.js,**/*.jsp,css/*.css</includes>
 						</artifactItem>
 					</artifactItems>
 				</configuration>
