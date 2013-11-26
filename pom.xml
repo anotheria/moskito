@@ -26,6 +26,7 @@
 
 	<properties>
 		<jersey-version>1.17.1</jersey-version>
+		<distributeme-version>2.1.2-SNAPSHOT</distributeme-version>
 	</properties>
 
 
@@ -171,6 +172,23 @@
 				<artifactId>hsqldb</artifactId>
 				<version>2.2.9</version>
 			</dependency>
+			<!-- distributeme -->
+			<dependency>
+				<groupId>net.anotheria</groupId>
+				<artifactId>distributeme-core</artifactId>
+				<version>${distributeme-version}</version>
+			</dependency>
+			<dependency>
+				<groupId>net.anotheria</groupId>
+				<artifactId>distributeme-generator</artifactId>
+				<version>${distributeme-version}</version>
+			</dependency>
+			<dependency>
+				<groupId>net.anotheria</groupId>
+				<artifactId>distributeme-support</artifactId>
+				<version>${distributeme-version}</version>
+			</dependency>
+			
 
 		</dependencies>
 	</dependencyManagement>
