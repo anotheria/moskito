@@ -3,8 +3,6 @@ package net.anotheria.moskito.webui.accumulators.api;
 import net.anotheria.anoplass.api.API;
 import net.anotheria.anoplass.api.APIException;
 import net.anotheria.anoprise.metafactory.Service;
-import org.distributeme.annotation.DistributeMe;
-import org.distributeme.core.ServiceDescriptor;
 
 import java.util.List;
 
@@ -14,7 +12,6 @@ import java.util.List;
  * @author lrosenberg
  * @since 13.02.13 18:13
  */
-@DistributeMe(protocols = ServiceDescriptor.Protocol.JAXRS)
 public interface AccumulatorAPI extends API,Service {
 	/**
 	 * Creates a new accumulator from user input.

@@ -1,17 +1,19 @@
 package net.anotheria.moskito.integration.cdi.scopes;
 
 import net.anotheria.moskito.core.producers.IStatsProducer;
+import net.anotheria.moskito.core.registry.ProducerRegistryFactory;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * TODO comment this class
+ * This is a wrapper class that allows to register a producer for scope stats in the registry.
  *
  * @author lrosenberg
  * @since 26.11.13 17:02
  */
 public class ScopeInstanceCreationProducer implements IStatsProducer<ScopeCountStats>{
+
 
 	private String id;
 	private String category;
@@ -28,6 +30,8 @@ public class ScopeInstanceCreationProducer implements IStatsProducer<ScopeCountS
 		subsystem = aSubsystem;
 		stats = new ArrayList<ScopeCountStats>(1);
 		stats.add(statsObject);
+
+		ProducerRegistryFactory.getProducerRegistryInstance().registerProducer(this);
 	}
 
 	@Override
