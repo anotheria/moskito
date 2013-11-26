@@ -14,7 +14,11 @@ import javax.enterprise.event.Observes;
  * @author lrosenberg
  * @since 26.11.13 16:55
  */
-public class ScopeInstanceCreationListener {
+public final class ScopeInstanceCreationListener {
+
+	private ScopeInstanceCreationListener(){
+
+	}
 
 	private static ScopeCountStats requestStats = new ScopeCountStats("request");
 	private static ScopeCountStats sessionStats = new ScopeCountStats("session");
@@ -32,34 +36,42 @@ public class ScopeInstanceCreationListener {
 	}
 
 	public static void requestContextInitialized(@Observes @Initialized(RequestScoped.class) Object event){
+		System.out.println("--- RequestScoped CREATED "+event+" "+event.getClass());
 		requestStats.notifyInstanceCreated();
 	}
 
 	public static void requestContextDestroyed(@Observes @Destroyed(RequestScoped.class) Object event){
+		System.out.println("--- RequestScoped DESTROYED "+event+" "+event.getClass());
 		requestStats.notifyInstanceDestroyed();
 	}
 
 	public static void sessionContextInitialized(@Observes @Initialized(SessionScoped.class) Object event){
+		System.out.println("--- SessionScoped CREATED "+event+" "+event.getClass());
 		sessionStats.notifyInstanceCreated();
 	}
 
 	public static void sessionContextDestroyed(@Observes @Destroyed(SessionScoped.class) Object event){
+		System.out.println("--- SessionScoped DESTROYED "+event+" "+event.getClass());
 		sessionStats.notifyInstanceDestroyed();
 	}
 
 	public static void conversationContextInitialized(@Observes @Initialized(ConversationScoped.class) Object event){
+		System.out.println("--- ConversationScoped CREATED");
 		conversationStats.notifyInstanceCreated();
 	}
 
 	public static void conversationContextDestroyed(@Observes @Destroyed(ConversationScoped.class) Object event){
+		System.out.println("--- ConversationScoped DESTROYED");
 		conversationStats.notifyInstanceDestroyed();
 	}
 
 	public static void applicationContextInitialized(@Observes @Initialized(ApplicationScoped.class) Object event){
+		System.out.println("--- ApplicationScoped CREATED");
 		applicationStats.notifyInstanceCreated();
 	}
 
 	public static void applicationContextDestroyed(@Observes @Destroyed(ApplicationScoped.class) Object event){
+		System.out.println("--- ApplicationScoped DESTROYED");
 		applicationStats.notifyInstanceDestroyed();
 	}
 

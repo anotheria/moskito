@@ -65,6 +65,7 @@ import net.anotheria.moskito.webui.decorators.predefined.MemoryPoolStatsDecorato
 import net.anotheria.moskito.webui.decorators.predefined.MemoryStatsDecorator;
 import net.anotheria.moskito.webui.decorators.predefined.OSStatsDecorator;
 import net.anotheria.moskito.webui.decorators.predefined.RuntimeStatsDecorator;
+import net.anotheria.moskito.webui.decorators.predefined.ScopeCountDecorator;
 import net.anotheria.moskito.webui.decorators.predefined.ServiceStatsDecorator;
 import net.anotheria.moskito.webui.decorators.predefined.ServletStatsDecorator;
 import net.anotheria.moskito.webui.decorators.predefined.SessionCountDecorator;
@@ -131,6 +132,15 @@ public class DecoratorRegistryImpl implements IDecoratorRegistry{
 		registry.put(CounterStats.class, new CounterStatsDecorator());
 		registry.put(MaleFemaleStats.class, new MaleFemaleStatsDecorator());
 		registry.put(GuestBasicPremiumStats.class, new GuestBasicPremiumStatsDecorator());
+
+		//this can be present at runtime but can be also not present. Therefore we catch this exception.
+		//if moskito-cdi is in the classpath we register the decorator.
+		try{
+			Class scsClass = Class.forName("net.anotheria.moskito.integration.cdi.scopes.ScopeCountStats");
+			registry.put(scsClass, new ScopeCountDecorator());
+		}catch(ClassNotFoundException e){
+			//ignoring this exception,
+		}
 	}
 	
 	@Override public void addDecorator(Class <? extends AbstractStats> clazz, IDecorator decorator){
