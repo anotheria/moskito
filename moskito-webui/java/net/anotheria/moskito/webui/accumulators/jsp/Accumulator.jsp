@@ -166,8 +166,9 @@
     var chartEngineName = '<ano:write name="chartEngine"/>' || 'GOOGLE_CHART_API';
     var chartParams = {
         container: 'chart_accum<ano:write name="accumulatorData" property="nameForJS"/>',
-        name: '<ano:write name="accumulatorData" property="name"/>',
-        data: singleGraphData<ano:write name="accumulatorData" property="nameForJS"/>
+        names: ['<ano:write name="accumulatorData" property="name"/>'],
+        data: singleGraphData<ano:write name="accumulatorData" property="nameForJS"/>,
+        type: 'LineChart'
     };
 
     chartEngineIniter[chartEngineName](chartParams);

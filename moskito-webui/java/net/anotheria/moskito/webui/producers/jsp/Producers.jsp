@@ -17,9 +17,6 @@
 <script type="text/javascript" src="../js/charts/highcharts/highcharts.js"></script>
 <!-- jqplot core + plugins -->
 <script type="text/javascript" src="../js/charts/jqplot/jquery.jqplot.js"></script>
-<script type="text/javascript" src="../js/charts/jqplot/jqplot.cursor1.js"></script>
-<script type="text/javascript" src="../js/charts/jqplot/jqplot.dateAxisRenderer1.js"></script>
-<script type="text/javascript" src="../js/charts/jqplot/jqplot.highlighter1.js"></script>
 <script type="text/javascript" src="../js/charts/jqplot/jqplot.pieRenderer.min.js"></script>
 <script type="text/javascript" src="../js/charts/jqplot/jqplot.donutRenderer.min.js"></script>
 <script type="text/javascript" src="../js/charts/jqplot/jqplot.categoryAxisRenderer.min.js"></script>
@@ -288,7 +285,7 @@
 		lightbox();
         chartParams = {
             container: 'chartcontainer',
-            name: eval($(this).parent().find('input').val()+'Caption'),
+            names: [eval($(this).parent().find('input').val()+'Caption')],
             data: eval($(this).parent().find('input').val()+'Array'),
             type: 'PieChart'
         };

@@ -310,10 +310,13 @@
 <ano:present name="data">
 <script type="text/javascript">
     var chartEngineName = '<ano:write name="chartEngine"/>' || 'GOOGLE_CHART_API';
+    var names = ('<ano:write name="singleGraph" property="name"/>' && ['<ano:write name="singleGraph" property="name"/>']) || '<ano:write name="accNames"/>'.slice(1, -1).split(', ');
+
     var chartParams = {
         container: 'chart_accum<ano:write name="singleGraph" property="nameForJS"/>',
-        name: '<ano:write name="singleGraph" property="name"/>',
-        data: data
+        names: names,
+        data: data,
+        type: 'LineChart'
     };
 
     chartEngineIniter[chartEngineName](chartParams);
