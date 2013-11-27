@@ -61,9 +61,11 @@ var chartEngineIniter = {
     GOOGLE_CHART_API: function(params){
         var chartData = new google.visualization.DataTable();
         chartData.addColumn('string', 'Time');
-        chartData.addColumn('number', params.name);
+        for(var i=0; i<params.names.length; i++){
+            chartData.addColumn('number', params.names[i]);
+        }
         chartData.addRows(params.data || []);
-        var options = {/*width: 1200, height: 300,*/ title: params.name/*, chartArea:{left:140,width:800}*/};
+        var options = {/*width: 1200, height: 300,*/ is3D:true, title: params.name/*, chartArea:{left:140,width:800}*/};
         var chartInfo = {
             params: '',
             container: params.container,
@@ -125,8 +127,30 @@ var chartEngineIniter = {
                 }
             }
             delete options.seriesDefaults;
+            options.series = [];
+            params.names.forEach(function(name){
+                options.series.push({label: name});
+            });
+            /*options.seriesDefaults = {
+                show: true
+            }*/
+
+            var lineData = [];
+            if (!params.data[0]) return;
+            params.data[0].forEach(function(item, index){
+                if(index !== 0) lineData.push([]);
+            });
+            params.data.forEach(function(item){
+                item.forEach(function(val, index){
+                    if(index !== 0){
+                        lineData[index-1].push([item[0], val]);
+                    }
+                })
+            });
+
+            data = lineData;
         }
-        if(params.type == 'ColumnChart') {
+        else if(params.type == 'ColumnChart') {
             options.seriesDefaults.rendererOptions =  {
                 barPadding: 20,
                 barMargin: 0,
