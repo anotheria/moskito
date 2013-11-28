@@ -6,7 +6,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Count all accesses to the target. This is a 'light' version of @MonitorClass, @MonitorMethod annotations.
+ * Count all accesses to the target. This is a 'light' version of @Monitor annotation.
  *
  * @author lrosenberg
  * @since 18.11.12 23:50
