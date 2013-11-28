@@ -14,7 +14,6 @@
 <script type="text/javascript" src="../js/jquery-1.8.0.min.js"></script>
 <script type="text/javascript" src="../js/function.js"></script>
 <script type="text/javascript" src="http://www.google.com/jsapi"></script>
-<script type="text/javascript" src="../js/charts/highcharts/highcharts.js"></script>
 <!-- jqplot core + plugins -->
 <script type="text/javascript" src="../js/charts/jqplot/jquery.jqplot.js"></script>
 <script type="text/javascript" src="../js/charts/jqplot/jqplot.pieRenderer.min.js"></script>
@@ -262,26 +261,12 @@
 	</div>
 </div>
 <script type="text/javascript">
-	//var datas = new Array;
-    //google.load('visualization', '1', {packages: ['piechart']});
-    //google.load('visualization', '1', {packages: ['columnchart']});
-	//var cap, mas, data;
+
     var chartParams,
         chartEngineName = '<ano:write name="chartEngine"/>' || 'JQPlOT';
 
 
 	$('.chart').click(function() {
-		/*
-        cap = eval($(this).parent().find('input').val()+'Caption');
-		mas = eval($(this).parent().find('input').val()+'Array');
-		data = new google.visualization.DataTable();
-        data.addColumn('string', 'Stat');
-        data.addColumn('number', 'val');
-		data.addRows(mas);
-		new google.visualization.PieChart(
-          document.getElementById('chartcontainer')).
-            draw(data, {is3D:true, width: <ano:write name="config" property="producerChartWidth"/>, height:<ano:write name="config" property="producerChartHeight"/>, title: cap, legendFontSize: 12, legend:'label'});
-        */
 		lightbox();
         chartParams = {
             container: 'chartcontainer',
@@ -296,10 +281,6 @@
 	});
 
 	$('.pie_chart').click(function() {
-		/*new google.visualization.ColumnChart(
-          document.getElementById('chartcontainer')).
-            draw(data, {is3D:true, width: <ano:write name="config" property="producerChartWidth"/>, height:<ano:write name="config" property="producerChartHeight"/>, title: cap, legendFontSize: 12, legend:'label'});
-            */
         chartParams.type = 'ColumnChart';
         chartEngineIniter[chartEngineName](chartParams);
         $('.bar_chart').addClass('active').siblings('.active').removeClass('active');
