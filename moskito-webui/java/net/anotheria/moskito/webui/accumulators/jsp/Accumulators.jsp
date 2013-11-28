@@ -151,8 +151,10 @@
 <%-- this is used for a multi accumulator selection--%>
 <ano:present name="singleGraphData">
 <script type="text/javascript">
+    var multipleGraphData = [];
 	<ano:iterate name="singleGraphData" type="net.anotheria.moskito.webui.accumulators.api.AccumulatedSingleGraphAO" id="singleGraph">
-		var singleGraphData<ano:write name="singleGraph" property="nameForJS"/> = [<ano:iterate name="singleGraph" property="data" id="value" indexId="i"><ano:notEqual name="i" value="0">,</ano:notEqual><ano:write name="value"/></ano:iterate>]; ;
+        multipleGraphData.push([<ano:iterate name="singleGraph" property="data" id="value" indexId="i"><ano:notEqual name="i" value="0">,</ano:notEqual><ano:write name="value"/></ano:iterate>])
+		//var singleGraphData<ano:write name="singleGraph" property="nameForJS"/> = [<ano:iterate name="singleGraph" property="data" id="value" indexId="i"><ano:notEqual name="i" value="0">,</ano:notEqual><ano:write name="value"/></ano:iterate>] ;
 	</ano:iterate>
 </script>
 </ano:present>
@@ -310,16 +312,36 @@
 <ano:present name="data">
 <script type="text/javascript">
     var chartEngineName = '<ano:write name="chartEngine"/>' || 'GOOGLE_CHART_API';
-    var names = ('<ano:write name="singleGraph" property="name"/>' && ['<ano:write name="singleGraph" property="name"/>']) || '<ano:write name="accNames"/>'.slice(1, -1).split(', ');
 
-    var chartParams = {
-        container: 'chart_accum<ano:write name="singleGraph" property="nameForJS"/>',
-        names: names,
-        data: data,
-        type: 'LineChart'
-    };
+    // Many charts
+    if ('multipleGraphData' in window){
+        var names = '<ano:write name="accNames"/>'.slice(1, -1).split(', ');
+        multipleGraphData.forEach(function(graphData, index){
+            var chartParams = {
+                container: ('chart_accum' + names[index]).split('-').join('_'),
+                names: [names[index]],
+                data: graphData,
+                type: 'LineChart'
+            };
 
-    chartEngineIniter[chartEngineName](chartParams);
+            chartEngineIniter[chartEngineName](chartParams);
+        });
+
+    }
+    // One chart with one or more lines
+    else{
+        var names = ('<ano:write name="singleGraph" property="name"/>' && ['<ano:write name="singleGraph" property="name"/>']) || '<ano:write name="accNames"/>'.slice(1, -1).split(', ');
+
+        var chartParams = {
+            container: 'chart_accum<ano:write name="singleGraph" property="nameForJS"/>',
+            names: names,
+            data: data,
+            type: 'LineChart'
+        };
+
+        chartEngineIniter[chartEngineName](chartParams);
+    }
+
 
 	$('.refresh').click(function() {
 		location.reload(true);
