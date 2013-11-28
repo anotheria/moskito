@@ -12,7 +12,7 @@
 <script type="text/javascript" src="../js/jquery-1.8.0.min.js"></script>
 <script type="text/javascript" src="../js/function.js"></script>
 <script type="text/javascript" src="//www.google.com/jsapi"></script>
-<script type="text/javascript" src="../js/charts/highcharts/highcharts.js"></script>
+
 <!-- jqplot core + plugins -->
 <script type="text/javascript" src="../js/charts/jqplot/jquery.jqplot.js"></script>
 <script type="text/javascript" src="../js/charts/jqplot/jqplot.cursor.js"></script>
