@@ -37,4 +37,8 @@ public class ShowAccumulatorAction extends BaseAccumulatorsAction {
 		return "mskAccumulator?ts="+System.currentTimeMillis()+"&pId="+req.getParameter("pId");
 	}
 
+	@Override
+	protected String getPageName() {
+		return "accumulator";
+	}
 }

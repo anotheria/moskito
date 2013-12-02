@@ -408,6 +408,9 @@ public abstract class BaseMoskitoUIAction implements Action{
 		req.setAttribute("chartEngine", chartEngine);
 		req.setAttribute("numericTimestamps", chartEngine.requiresNumericTimestamp());
 
+		//set pagename
+		req.setAttribute("pagename", getPageName());
+
 	}
 	
 	
@@ -488,4 +491,6 @@ public abstract class BaseMoskitoUIAction implements Action{
 		}
 		return ret.toString();
 	}
+
+	protected String getPageName(){ return "unnamed"; }
 }

@@ -23,6 +23,11 @@ public class WebUIConfig {
 	 */
 	private ChartEngine defaultChartEngine = ChartEngine.GOOGLE_CHART_API;
 
+	/**
+	 * If true sends a tracking pixel to counter.moskito.org to track worldwide usage.
+	 */
+	private boolean trackUsage = true;
+
 	public int getProducerChartWidth() {
 		return producerChartWidth;
 	}
@@ -63,6 +68,15 @@ public class WebUIConfig {
 			}catch(IllegalArgumentException e){;}//ignore
 		}
 	}
+
+	public boolean isTrackUsage() {
+		return trackUsage;
+	}
+
+	public void setTrackUsage(boolean trackUsage) {
+		this.trackUsage = trackUsage;
+	}
+
 
 
 }

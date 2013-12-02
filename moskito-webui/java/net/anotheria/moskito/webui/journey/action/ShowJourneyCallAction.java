@@ -123,4 +123,10 @@ public class ShowJourneyCallAction extends BaseJourneyAction{
 		
 	}
 
+	@Override
+	protected String getPageName() {
+		return "journey_call";
+	}
+
+
 }

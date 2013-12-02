@@ -30,4 +30,10 @@ public class ShowThresholdsAction extends BaseThresholdsAction {
 	}
 
 
+	@Override
+	protected String getPageName() {
+		return "thresholds";
+	}
+
+
 }

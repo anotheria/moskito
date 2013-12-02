@@ -231,4 +231,10 @@ public class ShowAccumulatorsAction extends BaseAccumulatorsAction {
 		return "mskAccumulators?"+ newQS;
 	}
 
+	@Override
+	protected String getPageName() {
+		return "accumulators";
+	}
+
+
 }

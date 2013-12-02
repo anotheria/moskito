@@ -63,4 +63,9 @@ public class ShowChartsAction extends BaseChartsAction {
 		return mapping.findCommand("html");
 	}
 
+	@Override
+	protected String getPageName() {
+		return "charts";
+	}
+
 }

@@ -54,4 +54,10 @@ public class ShowPluginsAction extends BaseAdditionalAction{
 		httpServletRequest.setAttribute("pluginsCount", beans.size());
 		return actionMapping.success();
 	}
+
+	@Override
+	protected String getPageName() {
+		return "plugins";
+	}
+
 }

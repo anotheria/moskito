@@ -47,5 +47,10 @@ public class ShowExplanationsAction extends BaseMoskitoUIAction{
 	protected final NaviItem getCurrentNaviItem() {
 		return NaviItem.NONE;
 	}
+	@Override
+	protected String getPageName() {
+		return "explanations";
+	}
+
 
 }

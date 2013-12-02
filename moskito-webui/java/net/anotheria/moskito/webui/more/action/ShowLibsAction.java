@@ -127,4 +127,10 @@ public class ShowLibsAction extends BaseAdditionalAction{
 		return null;
 	}
 
+	@Override
+	protected String getPageName() {
+		return "libs";
+	}
+
+
 }

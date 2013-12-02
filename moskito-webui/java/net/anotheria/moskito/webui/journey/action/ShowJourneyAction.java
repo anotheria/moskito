@@ -74,5 +74,11 @@ public class ShowJourneyAction extends BaseJourneyAction{
 		req.setAttribute("recorded", beans);
 		return mapping.success();
 	}
-	
+
+	@Override
+	protected String getPageName() {
+		return "journey";
+	}
+
+
 }

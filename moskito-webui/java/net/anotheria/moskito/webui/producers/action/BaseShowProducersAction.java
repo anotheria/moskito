@@ -254,6 +254,10 @@ public abstract class BaseShowProducersAction extends BaseMoskitoUIAction {
 		return sortType;
 	}
 
+	@Override
+	protected String getPageName() {
+		return "producers";
+	}
 
 
 

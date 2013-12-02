@@ -67,4 +67,10 @@ public class ShowConfigAction extends BaseAdditionalAction{
 
 		return mapping.success();
 	}
+
+	@Override
+	protected String getPageName() {
+		return "config";
+	}
+
 }
