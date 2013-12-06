@@ -317,7 +317,7 @@
         var names = '<ano:write name="accNames"/>'.slice(1, -1).split(', ');
         multipleGraphData.forEach(function(graphData, index){
             var chartParams = {
-                container: ('chart_accum' + names[index]).split('-').join('_'),
+                container: ('chart_accum' + names[index]).split('-').join('_').split(' ').join('_'),
                 names: [names[index]],
                 data: graphData,
                 type: 'LineChart'
