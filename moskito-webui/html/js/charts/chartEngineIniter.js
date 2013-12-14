@@ -3,12 +3,18 @@ if (google) google.load("visualization", "1", {packages:["corechart"]});
 var chartEngineIniter = {
     GOOGLE_CHART_API: function(params){
         var chartData = new google.visualization.DataTable();
-        chartData.addColumn('string', 'Time');
-        for(var i=0; i<params.names.length; i++){
-            chartData.addColumn('number', params.names[i]);
-        }
+        chartData.addColumn('string', 'Stat');
+
+	if($.isArray(params.name)) {
+		for(var i=0; i<params.names.length; i++) {
+			chartData.addColumn('number', params.names[i]);
+		}
+	} else {
+		chartData.addColumn('number', params.name);
+	}
+
         chartData.addRows(params.data || []);
-        var options = {/*width: 1200, height: 300,*/ is3D:true, title: params.name, chartArea:{width: '77%', left: 100}};
+        var options = {is3D:true, title: params.name, chartArea:{width: '77%', left: 100}};
         var chartInfo = {
             params: '',
             container: params.container,
@@ -20,7 +26,7 @@ var chartEngineIniter = {
         document.getElementById(chartInfo.container).chartInfo = chartInfo;
         google.visualization.drawChart({
             "containerId": chartInfo.container,
-            dataTable: chartInfo.data/*+chartInfo.params*/,
+            dataTable: chartInfo.data,
             "chartType": chartInfo.type,
             "options": chartInfo.options,
             "refreshInterval": 60
