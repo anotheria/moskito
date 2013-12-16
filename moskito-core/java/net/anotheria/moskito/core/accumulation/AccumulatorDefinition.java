@@ -51,4 +51,8 @@ public class AccumulatorDefinition extends TieableDefinition {
 		this.accumulationAmount = accumulationAmount;
 	}
 
+	@Override public String toString(){
+		return super.toString()+" Max: "+accumulationAmount;
+	}
+
 }
