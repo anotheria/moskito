@@ -69,8 +69,6 @@ public class ShowAccumulatorsAction extends BaseAccumulatorsAction {
 	public ActionCommand execute(ActionMapping mapping, FormBean formBean,
 			HttpServletRequest req, HttpServletResponse res) throws Exception {
 		
-		List<Accumulator> accumulators = AccumulatorRepository.getInstance().getAccumulators();
-
 		MODE mode = MODE.fromString(req.getParameter("mode"));
 		req.setAttribute(mode.name()+"_set", Boolean.TRUE);
 		
