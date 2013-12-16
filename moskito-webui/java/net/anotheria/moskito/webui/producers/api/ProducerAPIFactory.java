@@ -1,7 +1,6 @@
 package net.anotheria.moskito.webui.producers.api;
 
 import net.anotheria.anoplass.api.APIFactory;
-import net.anotheria.moskito.core.registry.ProducerRegistryAPIImpl;
 
 /**
  * TODO comment this class
