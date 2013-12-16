@@ -271,7 +271,8 @@
             container: 'chartcontainer',
             names: [eval($(this).parent().find('input').val()+'Caption')],
             data: eval($(this).parent().find('input').val()+'Array'),
-            type: 'PieChart'
+            type: 'PieChart',
+            title: ''
         };
 
         chartEngineIniter[chartEngineName](chartParams);

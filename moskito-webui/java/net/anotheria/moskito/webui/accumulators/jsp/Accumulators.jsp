@@ -320,7 +320,8 @@
                 container: ('chart_accum' + names[index]).split('-').join('_').split(' ').join('_'),
                 names: [names[index]],
                 data: graphData,
-                type: 'LineChart'
+                type: 'LineChart',
+                title: names[index]
             };
 
             chartEngineIniter[chartEngineName](chartParams);
@@ -335,7 +336,8 @@
             container: 'chart_accum<ano:write name="singleGraph" property="nameForJS"/>',
             names: names,
             data: data,
-            type: 'LineChart'
+            type: 'LineChart',
+            title: ''
         };
 
         chartEngineIniter[chartEngineName](chartParams);
