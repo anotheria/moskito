@@ -5,16 +5,12 @@ var chartEngineIniter = {
         var chartData = new google.visualization.DataTable();
         chartData.addColumn('string', 'Stat');
 
-	if($.isArray(params.name)) {
 		for(var i=0; i<params.names.length; i++) {
 			chartData.addColumn('number', params.names[i]);
 		}
-	} else {
-		chartData.addColumn('number', params.name);
-	}
 
         chartData.addRows(params.data || []);
-        var options = {is3D:true, title: params.name, chartArea:{width: '77%', left: 100}};
+        var options = {is3D:true, title: params.title || '', chartArea:{width: '77%', left: 100}};
         var chartInfo = {
             params: '',
             container: params.container,
@@ -42,7 +38,7 @@ var chartEngineIniter = {
         var data = params.data;
 
         var options = {
-            title: params.name,
+            title: params.title || '',
             seriesDefaults: {
                 renderer: types[params.type] || $.jqplot.DateAxisRenderer,
                 rendererOptions: {
@@ -101,9 +97,9 @@ var chartEngineIniter = {
         }
         else if(params.type == 'ColumnChart') {
             options.seriesDefaults.rendererOptions =  {
-                barPadding: 20,
+                barPadding: 5,
                 barMargin: 0,
-                barWidth: 100
+                barWidth: 60
             }
             options.series = [];
             var columnData = [];

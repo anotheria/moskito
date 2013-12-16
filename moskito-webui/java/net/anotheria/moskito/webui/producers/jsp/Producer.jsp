@@ -264,7 +264,6 @@
 
     $('.chart').click(function() {
         /*
-        cap = eval($(this).parent().find('input').val()+'Caption');
         mas = eval($(this).parent().find('input').val()+'Array');
         data = new google.visualization.DataTable();
         data.addColumn('string', 'Stat');
@@ -277,9 +276,10 @@
         lightbox();
         chartParams = {
             container: 'chartcontainer',
-            name: eval($(this).parent().find('input').val()+'Caption'),
+            names: [eval($(this).parent().find('input').val()+'Caption')],
             data: eval($(this).parent().find('input').val()+'Array'),
-            type: 'PieChart'
+            type: 'PieChart',
+            title: eval($(this).parent().find('input').val()+'Caption')
         };
 
         chartEngineIniter[chartEngineName](chartParams);
