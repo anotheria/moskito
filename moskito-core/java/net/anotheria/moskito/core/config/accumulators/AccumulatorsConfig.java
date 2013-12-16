@@ -14,7 +14,7 @@ public class AccumulatorsConfig {
 	 * This setting only applies for accumulators created AFTER the change.
 	 * This setting is reconfigurable on the fly.
 	 */
-	@Configure private int accumulationAmount;
+	@Configure private int accumulationAmount = 200;
 
 	/**
 	 * Configured Accumulators.
