@@ -104,4 +104,8 @@ public class AccumulatorConfig {
 	public void setAccumulationAmount(int accumulationAmount) {
 		this.accumulationAmount = accumulationAmount;
 	}
+
+	@Override public String toString(){
+		return getName()+" = "+getProducerName()+"."+getStatName()+"."+getValueName()+" "+getIntervalName()+" "+getTimeUnit();
+	}
 }
