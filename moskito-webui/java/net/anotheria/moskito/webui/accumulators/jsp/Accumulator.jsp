@@ -168,7 +168,8 @@
         container: 'chart_accum<ano:write name="accumulatorData" property="nameForJS"/>',
         names: ['<ano:write name="accumulatorData" property="name"/>'],
         data: singleGraphData<ano:write name="accumulatorData" property="nameForJS"/>,
-        type: 'LineChart'
+        type: 'LineChart',
+        title: ''
     };
 
     chartEngineIniter[chartEngineName](chartParams);

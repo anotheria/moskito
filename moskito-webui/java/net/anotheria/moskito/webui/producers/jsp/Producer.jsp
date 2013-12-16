@@ -264,7 +264,6 @@
 
     $('.chart').click(function() {
         /*
-        cap = eval($(this).parent().find('input').val()+'Caption');
         mas = eval($(this).parent().find('input').val()+'Array');
         data = new google.visualization.DataTable();
         data.addColumn('string', 'Stat');
@@ -279,7 +278,8 @@
             container: 'chartcontainer',
             names: [eval($(this).parent().find('input').val()+'Caption')],
             data: eval($(this).parent().find('input').val()+'Array'),
-            type: 'PieChart'
+            type: 'PieChart',
+            title: eval($(this).parent().find('input').val()+'Caption')
         };
 
         chartEngineIniter[chartEngineName](chartParams);
