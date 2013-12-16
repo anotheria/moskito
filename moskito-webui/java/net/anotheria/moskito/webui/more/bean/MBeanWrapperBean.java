@@ -3,7 +3,6 @@ package net.anotheria.moskito.webui.more.bean;
 import net.anotheria.util.BasicComparable;
 import net.anotheria.util.sorter.IComparable;
 
-import javax.management.MBeanAttributeInfo;
 import javax.management.MBeanOperationInfo;
 import java.util.Collections;
 import java.util.List;
