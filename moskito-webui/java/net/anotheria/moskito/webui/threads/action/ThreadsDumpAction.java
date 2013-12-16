@@ -27,6 +27,10 @@ public class ThreadsDumpAction extends BaseThreadsAction{
 
 		return mapping.success();
 	}
+	@Override
+	protected String getPageName() {
+		return "threads_dump";
+	}
 
 	
 }

@@ -77,4 +77,10 @@ public class AnalyzeJourneyAction extends BaseJourneyAction{
 			addStep(childStep, maps);
 		}
 	}
+
+	@Override
+	protected String getPageName() {
+		return "journey_analyze";
+	}
+
 }

@@ -23,4 +23,10 @@ public class AdditionalSectionAction extends BaseAdditionalAction{
 	public ActionCommand execute(ActionMapping mapping, FormBean formBean, HttpServletRequest req, HttpServletResponse res) throws Exception {
 		return mapping.success();
 	}
+
+	@Override
+	protected String getPageName() {
+		return "more";
+	}
+
 }

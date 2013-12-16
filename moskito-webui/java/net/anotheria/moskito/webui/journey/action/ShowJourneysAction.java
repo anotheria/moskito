@@ -52,6 +52,11 @@ public class ShowJourneysAction extends BaseJourneyAction{
 			req.setAttribute("journeysPresent", Boolean.TRUE);
 		return mapping.success();
 	}
-	
+
+	@Override
+	protected String getPageName() {
+		return "journeys";
+	}
+
 
 }

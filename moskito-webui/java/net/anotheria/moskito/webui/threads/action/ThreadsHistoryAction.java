@@ -29,4 +29,10 @@ public class ThreadsHistoryAction extends BaseThreadsAction{
 		return mapping.success();
 	}
 
+	@Override
+	protected String getPageName() {
+		return "threads_history";
+	}
+
+
 }

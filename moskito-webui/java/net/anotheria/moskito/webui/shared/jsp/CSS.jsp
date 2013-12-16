@@ -1460,3 +1460,9 @@ tr.intree.active > td:first-child
 {
     padding: 0px;
 }
+
+ img.ipix
+{
+     display: block; width: 1px; height: 1px; position: absolute; bottom: 0; left: 0; 
+}
+ 

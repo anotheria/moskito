@@ -234,7 +234,6 @@
 		<div class="bot"><div><!-- --></div></div>
 	</div>
 	</ano:iterate>
-	<div class="generated">Generated at <ano:write name="timestampAsDate"/>&nbsp;&nbsp;|&nbsp;&nbsp;timestamp: <ano:write name="timestamp"/>&nbsp;&nbsp;|&nbsp;&nbsp;Interval updated at: <ano:write name="currentIntervalUpdateTimestamp"/>&nbsp;&nbsp;|&nbsp;&nbsp; Interval age: <ano:write name="currentIntervalUpdateAge"/></div>
 <div class="lightbox" style="display:none;">
 	<div class="black_bg"><!-- --></div>
 	<div class="box">

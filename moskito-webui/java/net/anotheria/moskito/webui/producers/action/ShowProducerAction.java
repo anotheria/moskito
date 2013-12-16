@@ -206,5 +206,10 @@ public class ShowProducerAction extends BaseMoskitoUIAction {
 		return NaviItem.PRODUCERS;
 	}
 
+	@Override
+	protected String getPageName() {
+		return "producer";
+	}
+
 
 }

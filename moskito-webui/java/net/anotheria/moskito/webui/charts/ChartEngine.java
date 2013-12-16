@@ -16,7 +16,6 @@ public enum ChartEngine {
 	GOOGLE_CHART_API("google", "googlechart", "googlechartapi"){
 		public boolean requiresNumericTimestamp(){ return false;}
 	},
-	HIGHCHART("high_chart", "highchart"),
 	JQPLOT("jq_plot", "jqplot"),
 	;
 

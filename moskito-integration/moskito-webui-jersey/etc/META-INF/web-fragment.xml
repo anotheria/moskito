@@ -28,12 +28,12 @@
     </servlet-mapping>
     <!--  / MOSKITO UI END -->
     <ordering>
+        <after>
+            <name>MoSKitoWebUI</name>
+        </after>
         <before>
             <others/>
         </before>
-		<after>
-			<name>MoSKitoWebUI</name>
-		</after>
     </ordering>
 </web-fragment>
 

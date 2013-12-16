@@ -84,4 +84,9 @@ public class InspectProducerAction extends BaseMoskitoUIAction {
 		return NaviItem.NONE;
 	}
 
+	@Override
+	protected String getPageName() {
+		return "inspect";
+	}
+
 }

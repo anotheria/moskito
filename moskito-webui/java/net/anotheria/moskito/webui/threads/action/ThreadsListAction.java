@@ -56,5 +56,10 @@ public class ThreadsListAction extends BaseThreadsAction{
 		return mapping.success();
 	}
 
-	
+	@Override
+	protected String getPageName() {
+		return "threads";
+	}
+
+
 }

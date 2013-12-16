@@ -55,6 +55,11 @@ public class RefererFilter extends MoskitoFilter {
 	 * Constant for https.
 	 */
 	public static final String HTTPS_PROTOCOL = "https://";
+	/**
+	 * Limit for the url length.
+	 */
+	public static final int URI_LIMIT = 80;
+
 
 	@Override
 	protected String extractCaseName(ServletRequest req, ServletResponse res) {
@@ -73,7 +78,11 @@ public class RefererFilter extends MoskitoFilter {
 		String refererServerName = extractServerName(referer);
 		if (currentServerName.equals(refererServerName))
 			return "_this_server_";
-		
+
+		if (referer.length()>URI_LIMIT){
+			referer = referer.substring(0, URI_LIMIT-3)+"...";
+		}
+
 		return referer;
 	}
 
