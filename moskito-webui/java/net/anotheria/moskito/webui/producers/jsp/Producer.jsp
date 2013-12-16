@@ -277,7 +277,7 @@
         lightbox();
         chartParams = {
             container: 'chartcontainer',
-            name: eval($(this).parent().find('input').val()+'Caption'),
+            names: [eval($(this).parent().find('input').val()+'Caption')],
             data: eval($(this).parent().find('input').val()+'Array'),
             type: 'PieChart'
         };
