@@ -8,6 +8,8 @@ import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.locks.ReadWriteLock;
+import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 /**
  * An accumulator accumulates value from a defined producer over some period of time or series of values.
@@ -30,6 +32,11 @@ public class Accumulator extends AbstractTieable<AccumulatorDefinition> implemen
 	private IStats stats;
 
 	/**
+	 * Lock.
+	 */
+	private ReadWriteLock lock = new ReentrantReadWriteLock();
+
+	/**
 	 * Creates a new Accumulator.
 	 * @param aDefinition - accumulator definition.
 	 */
@@ -39,9 +46,14 @@ public class Accumulator extends AbstractTieable<AccumulatorDefinition> implemen
 	}
 	
 	public void addValue(AccumulatedValue value){
-		values.add(value);
-		if (values.size()>getDefinition().getMaxAmountOfAccumulatedItems()){
-			values = values.subList(getDefinition().getMaxAmountOfAccumulatedItems()-getDefinition().getAccumulationAmount()+1, values.size());
+		try{
+			lock.writeLock().lock();
+			values.add(value);
+			if (values.size()>getDefinition().getMaxAmountOfAccumulatedItems()){
+				values = values.subList(getDefinition().getMaxAmountOfAccumulatedItems()-getDefinition().getAccumulationAmount()+1, values.size());
+			}
+		}finally{
+			lock.writeLock().unlock();
 		}
 	}
 	
@@ -50,9 +62,14 @@ public class Accumulator extends AbstractTieable<AccumulatorDefinition> implemen
 	}
 	
 	public List<AccumulatedValue> getValues(){
-		ArrayList<AccumulatedValue> ret = new ArrayList<AccumulatedValue>(values.size());
-		ret.addAll(values);
-		return ret;
+		try{
+			lock.readLock().lock();
+			ArrayList<AccumulatedValue> ret = new ArrayList<AccumulatedValue>(values.size());
+			ret.addAll(values);
+			return ret;
+		}finally{
+			lock.readLock().unlock();
+		}
 	}
 
 	@Override
