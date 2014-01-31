@@ -7,10 +7,7 @@ import net.anotheria.moskito.core.stats.StatValue;
 import net.anotheria.moskito.core.stats.TimeUnit;
 import net.anotheria.moskito.core.stats.impl.StatValueFactory;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Generic counter implementation.
@@ -25,6 +22,10 @@ public abstract class GenericCounterStats extends AbstractStats{
 	 */
 	private HashMap<String, StatValue> values;
 
+	/**
+	 * Available value names.
+	 */
+	private final List<String> valueNames;
 
 	protected GenericCounterStats(String name, Interval[] intervals, String firstCounter, String ... moreCounters){
 		super(name);
@@ -35,7 +36,7 @@ public abstract class GenericCounterStats extends AbstractStats{
 				values.put(mc, StatValueFactory.createStatValue(Long.valueOf(0L), mc, intervals));
 			}
 		}
-
+		valueNames = Collections.unmodifiableList(new ArrayList<String>(values.keySet()));
 	}
 
 	protected GenericCounterStats(String name, String firstCounter, String ... moreCounters){
@@ -86,7 +87,7 @@ public abstract class GenericCounterStats extends AbstractStats{
 
 	@Override
 	public List<String> getAvailableValueNames() {
-		return new ArrayList<String>(values.keySet());
+		return valueNames;
 	}
 }
 
