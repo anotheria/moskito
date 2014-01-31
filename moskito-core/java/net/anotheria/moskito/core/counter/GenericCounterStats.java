@@ -7,7 +7,9 @@ import net.anotheria.moskito.core.stats.StatValue;
 import net.anotheria.moskito.core.stats.TimeUnit;
 import net.anotheria.moskito.core.stats.impl.StatValueFactory;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -80,6 +82,11 @@ public abstract class GenericCounterStats extends AbstractStats{
 			throw new AssertionError("Value name can not be empty");
 		valueName = valueName.toLowerCase();
 		return ""+values.get(valueName).getValueAsLong(intervalName);
+	}
+
+	@Override
+	public List<String> getAvailableValueNames() {
+		return new ArrayList<String>(values.keySet());
 	}
 }
 
