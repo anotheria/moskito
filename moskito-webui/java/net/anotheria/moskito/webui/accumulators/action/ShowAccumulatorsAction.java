@@ -175,7 +175,9 @@ public class ShowAccumulatorsAction extends BaseAccumulatorsAction {
 				}
 				dataBeans.add(bean);
 			}
-			
+
+			//generally its not always a good idea to use subList, but since that list isn't reused,
+			//as in subList or subList of subList, its ok.
 			if (dataBeans.size()>maxValues)
 				dataBeans = dataBeans.subList(dataBeans.size()-maxValues, dataBeans.size());
 

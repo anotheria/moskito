@@ -50,7 +50,11 @@ public class Accumulator extends AbstractTieable<AccumulatorDefinition> implemen
 			lock.writeLock().lock();
 			values.add(value);
 			if (values.size()>getDefinition().getMaxAmountOfAccumulatedItems()){
-				values = values.subList(getDefinition().getMaxAmountOfAccumulatedItems()-getDefinition().getAccumulationAmount()+1, values.size());
+				ArrayList<AccumulatedValue> newValues = new ArrayList<AccumulatedValue>(values.size());
+				for (int i=getDefinition().getMaxAmountOfAccumulatedItems()-getDefinition().getAccumulationAmount()+1; i<values.size(); i++){
+					newValues.add(values.get(i));
+				}
+				values = newValues;
 			}
 		}finally{
 			lock.writeLock().unlock();
