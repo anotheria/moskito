@@ -120,7 +120,8 @@ public abstract class RequestOrientedStats extends AbstractStats {
 			"Last",
 			"Min",
 			"Max",
-			"Avg"));
+			"Avg"
+	));
 
 	/**
 	 * Creates a new object with the given method name.
