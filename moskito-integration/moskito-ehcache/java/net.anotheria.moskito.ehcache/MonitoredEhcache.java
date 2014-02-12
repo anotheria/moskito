@@ -25,6 +25,9 @@ import java.util.TimerTask;
  */
 public class MonitoredEhcache extends EhcacheDecoratorAdapter {
 
+    /**
+     * Producer that keeps the stats produced by underlying cache.
+     */
     private OnDemandStatsProducer<EhcacheStats> cacheProducer;
 
     /**
@@ -39,7 +42,7 @@ public class MonitoredEhcache extends EhcacheDecoratorAdapter {
     /**
      * Creates monitored proxy instance for underlying cache with given update period and default statistics accuracy.
      *
-     * @param instance underlying cache.
+     * @param instance     underlying cache.
      * @param updatePeriod Ehcache statistics accuracy.
      */
     public MonitoredEhcache(Ehcache instance, long updatePeriod) {
@@ -49,7 +52,7 @@ public class MonitoredEhcache extends EhcacheDecoratorAdapter {
     /**
      * Creates monitored proxy instance for underlying cache with given statistics accuracy.
      *
-     * @param instance underlying cache.
+     * @param instance           underlying cache.
      * @param statisticsAccuracy Ehcache statistics accuracy.
      */
     public MonitoredEhcache(Ehcache instance, int statisticsAccuracy) {
@@ -59,9 +62,9 @@ public class MonitoredEhcache extends EhcacheDecoratorAdapter {
     /**
      * Creates monitored proxy instance for underlying cache with given parameters.
      *
-     * @param instance underlying cache.
+     * @param instance           underlying cache.
      * @param statisticsAccuracy Ehcache statistics accuracy.
-     * @param updatePeriod period (in milliseconds) in which stats values will be updated.
+     * @param updatePeriod       period (in milliseconds) in which stats values will be updated.
      */
     public MonitoredEhcache(Ehcache instance, int statisticsAccuracy, long updatePeriod) {
         this(instance, statisticsAccuracy, "Ehcache", "cache", updatePeriod);
@@ -70,11 +73,11 @@ public class MonitoredEhcache extends EhcacheDecoratorAdapter {
     /**
      * Creates monitored proxy instance for underlying cache with given parameters.
      *
-     * @param instance underlying cache.
+     * @param instance           underlying cache.
      * @param statisticsAccuracy Ehcache statistics accuracy.
-     * @param category category for related stats producer.
-     * @param subsystem subsystem for related stats producer.
-     * @param updatePeriod period (in milliseconds) in which stats values will be updated.
+     * @param category           category for related stats producer.
+     * @param subsystem          subsystem for related stats producer.
+     * @param updatePeriod       period (in milliseconds) in which stats values will be updated.
      */
     public MonitoredEhcache(Ehcache instance, int statisticsAccuracy, String category, String subsystem, long updatePeriod) {
         super(instance);
