@@ -7,6 +7,11 @@ import net.anotheria.moskito.core.stats.TimeUnit;
 import net.anotheria.moskito.core.stats.impl.StatValueFactory;
 import net.anotheria.moskito.ehcache.decorators.EhcacheStatsDecorator;
 import net.anotheria.moskito.webui.decorators.DecoratorRegistryFactory;
+import net.anotheria.util.StringUtils;
+
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * Container for Ehcache related stats.
@@ -113,6 +118,52 @@ public class EhcacheStats extends AbstractStats {
      */
     private StatValue writerQueueLength;
 
+    /* value names for values that this stats keeps */
+    public static final String STATISTICS_ACCURACY = "statisticsAccuracy";
+    public static final String HIT_RATIO = "hitRatio";
+    public static final String HITS = "hits";
+    public static final String IN_MEMORY_HITS = "inMemoryHits";
+    public static final String OFF_HEAP_HITS = "offHeapHits";
+    public static final String ON_DISK_HITS = "onDiskHits";
+    public static final String MISSES = "misses";
+    public static final String IN_MEMORY_MISSES = "inMemoryMisses";
+    public static final String OFF_HEAP_MISSES = "offHeapMisses";
+    public static final String ON_DISK_MISSES = "onDiskMisses";
+    public static final String ELEMENTS = "elements";
+    public static final String IN_MEMORY_ELEMENTS = "inMemoryElements";
+    public static final String OFF_HEAP_ELEMENTS = "offHeapElements";
+    public static final String ON_DISK_ELEMENTS = "onDiskElements";
+    public static final String AVERAGE_GET_TIME = "averageGetTime";
+    public static final String AVERAGE_SEARCH_TIME = "averageSearchTime";
+    public static final String SEARCHES_PER_SECOND = "searchesPerSecond";
+    public static final String EVICTION_COUNT = "evictionCount";
+    public static final String WRITER_QUEUE_LENGTH = "writerQueueLength";
+
+    /**
+     * List of value names for values, collected by this stats.
+     */
+    private static final List<String> VALUE_NAMES = Collections.unmodifiableList(Arrays.asList(
+            STATISTICS_ACCURACY,
+            HIT_RATIO,
+            HITS,
+            IN_MEMORY_HITS,
+            OFF_HEAP_HITS,
+            ON_DISK_HITS,
+            MISSES,
+            IN_MEMORY_MISSES,
+            OFF_HEAP_MISSES,
+            ON_DISK_MISSES,
+            ELEMENTS,
+            IN_MEMORY_ELEMENTS,
+            OFF_HEAP_ELEMENTS,
+            ON_DISK_ELEMENTS,
+            AVERAGE_GET_TIME,
+            AVERAGE_SEARCH_TIME,
+            SEARCHES_PER_SECOND,
+            EVICTION_COUNT,
+            WRITER_QUEUE_LENGTH
+    ));
+
 
     /**
      * Creates a new stats object of this type with given name.
@@ -121,29 +172,31 @@ public class EhcacheStats extends AbstractStats {
      */
     public EhcacheStats(String name) {
         super(name);
-        this.statisticsAccuracy = StatValueFactory.createStatValue("", "statisticsAccuracy", Constants.getDefaultIntervals());
-        this.hitRatio = StatValueFactory.createStatValue(0.0d, "hitRatio", Constants.getDefaultIntervals());
-        this.hits = newLongStatValue("hits");
-        this.inMemoryHits = newLongStatValue("inMemoryHits");
-        this.offHeapHits = newLongStatValue("offHeapHits");
-        this.onDiskHits = newLongStatValue("onDiskHits");
-        this.misses = newLongStatValue("misses");
-        this.inMemoryMisses = newLongStatValue("inMemoryMisses");
-        this.offHeapMisses = newLongStatValue("offHeapMisses");
-        this.onDiskMisses = newLongStatValue("onDiskMisses");
-        this.elements = newLongStatValue("elements");
-        this.inMemoryElements = newLongStatValue("inMemoryElements");
-        this.offHeapElements = newLongStatValue("offHeapElements");
-        this.onDiskElements = newLongStatValue("onDiskElements");
-        this.averageGetTime = StatValueFactory.createStatValue(0.0d, "averageGetTime", Constants.getDefaultIntervals()); // in milliseconds
-        this.averageSearchTime = newLongStatValue("averageSearchTime"); // in milliseconds
-        this.searchesPerSecond = newLongStatValue("searchesPerSecond");
-        this.evictionCount = newLongStatValue("evictionCount");
-        this.writerQueueLength = newLongStatValue("writerQueueLength");
+        this.statisticsAccuracy = newStringStatValue(STATISTICS_ACCURACY);
+        this.hitRatio = newDoubleStatValue(HIT_RATIO);
+        this.hits = newLongStatValue(HITS);
+        this.inMemoryHits = newLongStatValue(IN_MEMORY_HITS);
+        this.offHeapHits = newLongStatValue(OFF_HEAP_HITS);
+        this.onDiskHits = newLongStatValue(ON_DISK_HITS);
+        this.misses = newLongStatValue(MISSES);
+        this.inMemoryMisses = newLongStatValue(IN_MEMORY_MISSES);
+        this.offHeapMisses = newLongStatValue(OFF_HEAP_MISSES);
+        this.onDiskMisses = newLongStatValue(ON_DISK_MISSES);
+        this.elements = newLongStatValue(ELEMENTS);
+        this.inMemoryElements = newLongStatValue(IN_MEMORY_ELEMENTS);
+        this.offHeapElements = newLongStatValue(OFF_HEAP_ELEMENTS);
+        this.onDiskElements = newLongStatValue(ON_DISK_ELEMENTS);
+        this.averageGetTime = newDoubleStatValue(AVERAGE_GET_TIME); // in milliseconds
+        this.averageSearchTime = newLongStatValue(AVERAGE_SEARCH_TIME); // in milliseconds
+        this.searchesPerSecond = newLongStatValue(SEARCHES_PER_SECOND);
+        this.evictionCount = newLongStatValue(EVICTION_COUNT);
+        this.writerQueueLength = newLongStatValue(WRITER_QUEUE_LENGTH);
     }
 
+
     /**
-     * Creates new {@link net.anotheria.moskito.core.stats.StatValue} that holds the long value with given name and default intervals.
+     * Creates new {@link net.anotheria.moskito.core.stats.StatValue} that holds the long value with given name
+     * and default intervals.
      *
      * @param valueName name of the stat value.
      *
@@ -153,6 +206,29 @@ public class EhcacheStats extends AbstractStats {
         return StatValueFactory.createStatValue(0L, valueName, Constants.getDefaultIntervals());
     }
 
+    /**
+     * Creates new {@link net.anotheria.moskito.core.stats.StatValue} that holds the double value with given name
+     * and default intervals.
+     *
+     * @param valueName name of the stat value.
+     *
+     * @return {@link net.anotheria.moskito.core.stats.StatValue}.
+     */
+    private StatValue newDoubleStatValue(String valueName) {
+        return StatValueFactory.createStatValue(0.0d, valueName, Constants.getDefaultIntervals());
+    }
+
+    /**
+     * Creates new {@link net.anotheria.moskito.core.stats.StatValue} that holds the string value with given name
+     * and default intervals.
+     *
+     * @param valueName name of the stat value.
+     *
+     * @return {@link net.anotheria.moskito.core.stats.StatValue}.
+     */
+    private StatValue newStringStatValue(String valueName) {
+        return StatValueFactory.createStatValue("", valueName, Constants.getDefaultIntervals());
+    }
 
     public StatValue getStatisticsAccuracy() {
         return statisticsAccuracy;
@@ -230,6 +306,76 @@ public class EhcacheStats extends AbstractStats {
         return writerQueueLength;
     }
 
+    @Override
+    public List<String> getAvailableValueNames () {
+        return VALUE_NAMES;
+    }
+
+    @Override
+    public String getValueByNameAsString(String valueName, String intervalName, TimeUnit timeUnit) {
+        if (StringUtils.isEmpty(valueName)) {
+            throw new AssertionError("Value name can not be null or empty");
+        }
+        if (valueName.equals(AVERAGE_GET_TIME)) {
+            return "" + timeUnit.transformMillis(getAverageGetTime().getValueAsDouble(intervalName));
+        }
+        if (valueName.equals(AVERAGE_SEARCH_TIME)) {
+            return "" + timeUnit.transformMillis(getAverageSearchTime().getValueAsLong(intervalName));
+        }
+        if (valueName.equals(STATISTICS_ACCURACY)) {
+            return getStatisticsAccuracy().getValueAsString(intervalName);
+        }
+        if (valueName.equals(HIT_RATIO)) {
+            return getHitRatio().getValueAsString(intervalName);
+        }
+        if (valueName.equals(HITS)) {
+            return getHits().getValueAsString(intervalName);
+        }
+        if (valueName.equals(IN_MEMORY_HITS)) {
+            return getInMemoryHits().getValueAsString(intervalName);
+        }
+        if (valueName.equals(OFF_HEAP_HITS)) {
+            return getOffHeapHits().getValueAsString(intervalName);
+        }
+        if (valueName.equals(ON_DISK_HITS)) {
+            return getOnDiskHits().getValueAsString(intervalName);
+        }
+        if (valueName.equals(MISSES)) {
+            return getMisses().getValueAsString(intervalName);
+        }
+        if (valueName.equals(IN_MEMORY_MISSES)) {
+            return getInMemoryMisses().getValueAsString(intervalName);
+        }
+        if (valueName.equals(OFF_HEAP_MISSES)) {
+            return getOffHeapMisses().getValueAsString(intervalName);
+        }
+        if (valueName.equals(ON_DISK_MISSES)) {
+            return getOnDiskMisses().getValueAsString(intervalName);
+        }
+        if (valueName.equals(ELEMENTS)) {
+            return getElements().getValueAsString(intervalName);
+        }
+        if (valueName.equals(IN_MEMORY_ELEMENTS)) {
+            return getInMemoryElements().getValueAsString(intervalName);
+        }
+        if (valueName.equals(OFF_HEAP_ELEMENTS)) {
+            return getOffHeapElements().getValueAsString(intervalName);
+        }
+        if (valueName.equals(ON_DISK_ELEMENTS)) {
+            return getOnDiskElements().getValueAsString(intervalName);
+        }
+        if (valueName.equals(SEARCHES_PER_SECOND)) {
+            return getSearchesPerSecond().getValueAsString(intervalName);
+        }
+        if (valueName.equals(EVICTION_COUNT)) {
+            return getEvictionCount().getValueAsString(intervalName);
+        }
+        if (valueName.equals(WRITER_QUEUE_LENGTH)) {
+            return getWriterQueueLength().getValueAsString(intervalName);
+        }
+
+        return super.getValueByNameAsString(valueName, intervalName, timeUnit);
+    }
 
     @Override
     public String toStatsString(String aIntervalName, TimeUnit unit) {
@@ -248,8 +394,8 @@ public class EhcacheStats extends AbstractStats {
                 ",  inMemoryElements=" + inMemoryElements.getValueAsString(aIntervalName) +
                 ",  offHeapElements=" + offHeapElements.getValueAsString(aIntervalName) +
                 ",  onDiskElements=" + onDiskElements.getValueAsString(aIntervalName) +
-                ",  averageGetTime=" + averageGetTime.getValueAsString(aIntervalName) +
-                ",  averageSearchTime=" + averageSearchTime.getValueAsString(aIntervalName) +
+                ",  averageGetTime=" + unit.transformMillis(averageGetTime.getValueAsDouble(aIntervalName)) +
+                ",  averageSearchTime=" + unit.transformMillis(averageSearchTime.getValueAsLong(aIntervalName)) +
                 ",  searchesPerSecond=" + searchesPerSecond.getValueAsString(aIntervalName) +
                 ",  evictionCount=" + evictionCount.getValueAsString(aIntervalName) +
                 ",  writerQueueLength=" + writerQueueLength.getValueAsString(aIntervalName) +
