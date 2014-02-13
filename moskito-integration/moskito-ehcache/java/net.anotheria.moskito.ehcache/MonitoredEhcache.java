@@ -104,7 +104,7 @@ public class MonitoredEhcache extends EhcacheDecoratorAdapter {
      */
     private EhcacheStats getProducerStats() {
         try {
-            return cacheProducer.getStats(underlyingCache.getName());
+            return cacheProducer.getStats("cumulated");
         } catch (OnDemandStatsProducerException e) {
             throw new IllegalStateException(e);
         }
@@ -117,6 +117,7 @@ public class MonitoredEhcache extends EhcacheDecoratorAdapter {
         EhcacheStats stats = getProducerStats();
         Statistics statistics = underlyingCache.getStatistics();
 
+        stats.getStatisticsAccuracy().setValueAsString(statistics.getStatisticsAccuracyDescription());
         stats.getHits().setValueAsLong(statistics.getCacheHits());
         stats.getMisses().setValueAsLong(statistics.getCacheMisses());
         stats.getElements().setValueAsLong(statistics.getObjectCount());
