@@ -24,6 +24,11 @@ public class EhcacheStats extends AbstractStats {
     private StatValue statisticsAccuracy;
 
     /**
+     * The part of accesses that result in cache hits.
+     */
+    private StatValue hitRatio;
+
+    /**
      * @see net.sf.ehcache.Statistics#getCacheHits()
      */
     private StatValue hits;
@@ -117,6 +122,7 @@ public class EhcacheStats extends AbstractStats {
     public EhcacheStats(String name) {
         super(name);
         this.statisticsAccuracy = StatValueFactory.createStatValue("", "statisticsAccuracy", Constants.getDefaultIntervals());
+        this.hitRatio = StatValueFactory.createStatValue(0.0d, "hitRatio", Constants.getDefaultIntervals());
         this.hits = newLongStatValue("hits");
         this.inMemoryHits = newLongStatValue("inMemoryHits");
         this.offHeapHits = newLongStatValue("offHeapHits");
@@ -150,6 +156,10 @@ public class EhcacheStats extends AbstractStats {
 
     public StatValue getStatisticsAccuracy() {
         return statisticsAccuracy;
+    }
+
+    public StatValue getHitRatio() {
+        return hitRatio;
     }
 
     public StatValue getHits() {
@@ -225,6 +235,7 @@ public class EhcacheStats extends AbstractStats {
     public String toStatsString(String aIntervalName, TimeUnit unit) {
         return "EhcacheStats{" +
                 " statisticsAccuracy=" + statisticsAccuracy.getValueAsString(aIntervalName) +
+                ",  hitRatio=" + hitRatio.getValueAsString(aIntervalName) +
                 ",  hits=" + hits.getValueAsString(aIntervalName) +
                 ",  inMemoryHits=" + inMemoryHits.getValueAsString(aIntervalName) +
                 ",  offHeapHits=" + offHeapHits.getValueAsString(aIntervalName) +

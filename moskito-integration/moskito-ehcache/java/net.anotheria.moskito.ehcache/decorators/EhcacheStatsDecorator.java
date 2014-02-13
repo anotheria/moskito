@@ -26,6 +26,7 @@ public class EhcacheStatsDecorator extends AbstractDecorator {
      */
     static final String CAPTIONS[] = {
             "Accuracy",
+            "HitRatio",
             "Hits",
             "InMemoryHits",
             "OffHeapHits",
@@ -50,6 +51,7 @@ public class EhcacheStatsDecorator extends AbstractDecorator {
      */
     static final String SHORT_EXPLANATIONS[] = {
             "Statistics accuracy",
+            "Cache hit ratio",
             "Cache hits",
             "In-memory cache hits",
             "Off-heap cache hits",
@@ -75,6 +77,7 @@ public class EhcacheStatsDecorator extends AbstractDecorator {
      */
     static final String EXPLANATIONS[] = {
             "A human readable description of the accuracy setting. One of \"None\", \"Best Effort\" or \"Guaranteed\". Accurately measuring statistics can be expensive",
+            "The part of accesses that result in cache hits",
             "The number of times a requested item was found in the cache",
             "The number of times a requested item was found in the memory store",
             "The number of times a requested item was found in the off-heap store",
@@ -110,6 +113,7 @@ public class EhcacheStatsDecorator extends AbstractDecorator {
         int i = 0;
 
         bean.add(new StringValueBean(CAPTIONS[i++], stats.getStatisticsAccuracy().getValueAsString(interval)));
+        bean.add(new DoubleValueBean(CAPTIONS[i++], stats.getHitRatio().getValueAsDouble(interval)));
         bean.add(new LongValueBean(CAPTIONS[i++], stats.getHits().getValueAsLong(interval)));
         bean.add(new LongValueBean(CAPTIONS[i++], stats.getInMemoryHits().getValueAsLong(interval)));
         bean.add(new LongValueBean(CAPTIONS[i++], stats.getOffHeapHits().getValueAsLong(interval)));

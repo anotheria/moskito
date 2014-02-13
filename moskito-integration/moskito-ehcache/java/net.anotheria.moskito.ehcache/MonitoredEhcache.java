@@ -116,8 +116,11 @@ public class MonitoredEhcache extends EhcacheDecoratorAdapter {
     private void updateStats() {
         EhcacheStats stats = getProducerStats();
         Statistics statistics = underlyingCache.getStatistics();
+        double accesses = statistics.getCacheHits() + statistics.getCacheMisses();
+        double hitRatio = accesses != 0 ? statistics.getCacheHits() / accesses : 0;
 
         stats.getStatisticsAccuracy().setValueAsString(statistics.getStatisticsAccuracyDescription());
+        stats.getHitRatio().setValueAsDouble(hitRatio);
         stats.getHits().setValueAsLong(statistics.getCacheHits());
         stats.getMisses().setValueAsLong(statistics.getCacheMisses());
         stats.getElements().setValueAsLong(statistics.getObjectCount());
