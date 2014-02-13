@@ -5,6 +5,8 @@ import net.anotheria.moskito.core.producers.AbstractStats;
 import net.anotheria.moskito.core.stats.StatValue;
 import net.anotheria.moskito.core.stats.TimeUnit;
 import net.anotheria.moskito.core.stats.impl.StatValueFactory;
+import net.anotheria.moskito.ehcache.decorators.EhcacheStatsDecorator;
+import net.anotheria.moskito.webui.decorators.DecoratorRegistryFactory;
 
 /**
  * Container for Ehcache related stats.
@@ -127,8 +129,8 @@ public class EhcacheStats extends AbstractStats {
         this.inMemoryElements = newLongStatValue("inMemoryElements");
         this.offHeapElements = newLongStatValue("offHeapElements");
         this.onDiskElements = newLongStatValue("onDiskElements");
-        this.averageGetTime = StatValueFactory.createStatValue(0.0d, "averageGetTime", Constants.getDefaultIntervals());
-        this.averageSearchTime = newLongStatValue("averageSearchTime");
+        this.averageGetTime = StatValueFactory.createStatValue(0.0d, "averageGetTime", Constants.getDefaultIntervals()); // in milliseconds
+        this.averageSearchTime = newLongStatValue("averageSearchTime"); // in milliseconds
         this.searchesPerSecond = newLongStatValue("searchesPerSecond");
         this.evictionCount = newLongStatValue("evictionCount");
         this.writerQueueLength = newLongStatValue("writerQueueLength");
@@ -241,6 +243,11 @@ public class EhcacheStats extends AbstractStats {
                 ",  evictionCount=" + evictionCount.getValueAsString(aIntervalName) +
                 ",  writerQueueLength=" + writerQueueLength.getValueAsString(aIntervalName) +
                 '}';
+    }
+
+    /* this block will register stats decorator when the class is loaded at the first time */
+    static {
+        DecoratorRegistryFactory.getDecoratorRegistry().addDecorator(EhcacheStats.class, new EhcacheStatsDecorator());
     }
 
 }
