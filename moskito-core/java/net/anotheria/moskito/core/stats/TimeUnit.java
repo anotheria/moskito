@@ -39,6 +39,50 @@ public enum TimeUnit {
 	public long transformNanos(long nanos){
 		return nanos / factor;
 	}
+
+    /**
+     * Transforms (double) milliseconds to internal format.
+     * @param millis
+     * @return
+     */
+    public double transformMillis(double millis){
+        switch (this) {
+            case NANOSECONDS: {
+                return millis * MILLISECONDS.factor;
+            }
+            case MICROSECONDS: {
+                return millis * MICROSECONDS.factor;
+            }
+            case SECONDS: {
+                return millis / 1000;
+            }
+            default: {
+                return millis;
+            }
+        }
+    }
+
+    /**
+     * Transforms (long) milliseconds to internal format.
+     * @param millis
+     * @return
+     */
+    public long transformMillis(long millis){
+        switch (this) {
+            case NANOSECONDS: {
+                return millis * MILLISECONDS.factor;
+            }
+            case MICROSECONDS: {
+                return millis * MICROSECONDS.factor;
+            }
+            case SECONDS: {
+                return millis / 1000;
+            }
+            default: {
+                return millis;
+            }
+        }
+    }
 	
 	/**
 	 * Helper method to create a TimeUnit from potentially incorrect textual representation (nanos, nanoseconds, seconds, millis, etc work).

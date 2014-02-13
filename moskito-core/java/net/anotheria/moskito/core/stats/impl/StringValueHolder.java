@@ -37,7 +37,7 @@ package net.anotheria.moskito.core.stats.impl;
 import net.anotheria.moskito.core.stats.Interval;
 
 /**
- * This class implements a ValueHolder that is able to process int values.
+ * This class implements a ValueHolder that is able to process string values.
  * 
  * @author lrosenberg
  */
