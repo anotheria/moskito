@@ -16,7 +16,7 @@
 	<modules>
 		<module>moskito-cdi</module>
         <module>moskito-sql</module>
-        <!--module>moskito-ehcache</module-->
+        <module>moskito-ehcache</module>
         <module>moskito-webui-jersey</module>
     </modules>
 </project>
