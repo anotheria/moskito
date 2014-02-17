@@ -21,6 +21,7 @@
 		<module>moskito-webui</module>
 		<module>moskito-aop</module>
 		<module>moskito-integration</module>
+		<module>moskito-extensions</module>
 		<module>moskitominimal</module>
   </modules>
 
