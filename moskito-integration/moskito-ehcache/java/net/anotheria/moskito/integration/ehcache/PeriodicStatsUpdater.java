@@ -1,4 +1,4 @@
-package net.anotheria.moskito.ehcache;
+package net.anotheria.moskito.integration.ehcache;
 
 import java.util.Timer;
 import java.util.TimerTask;
