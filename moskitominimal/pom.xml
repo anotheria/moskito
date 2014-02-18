@@ -26,6 +26,12 @@
 			<artifactId>moskito-webui</artifactId>
 			<version>${project.version}</version>
 		</dependency>
+        <!-- needed for mailgun provider, if you want to change the recipient edit moskito.json -->
+        <dependency>
+            <groupId>net.anotheria</groupId>
+            <artifactId>moskito-notification-providers</artifactId>
+            <version>${project.version}</version>
+        </dependency>
 		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>servlet-api</artifactId>
