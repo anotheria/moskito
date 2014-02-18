@@ -1,11 +1,11 @@
-package net.anotheria.moskito.ehcache;
+package net.anotheria.moskito.integration.ehcache;
 
 import net.anotheria.moskito.core.predefined.Constants;
 import net.anotheria.moskito.core.producers.AbstractStats;
 import net.anotheria.moskito.core.stats.StatValue;
 import net.anotheria.moskito.core.stats.TimeUnit;
 import net.anotheria.moskito.core.stats.impl.StatValueFactory;
-import net.anotheria.moskito.ehcache.decorators.EhcacheStatsDecorator;
+import net.anotheria.moskito.integration.ehcache.decorators.EhcacheStatsDecorator;
 import net.anotheria.moskito.webui.decorators.DecoratorRegistryFactory;
 import net.anotheria.util.StringUtils;
 

@@ -1,9 +1,11 @@
-package net.anotheria.moskito.ehcache;
+package net.anotheria.moskito.integration.ehcache;
 
 import net.anotheria.moskito.core.dynamic.OnDemandStatsProducer;
 import net.anotheria.moskito.core.dynamic.OnDemandStatsProducerException;
 import net.anotheria.moskito.core.registry.IProducerRegistryAPI;
 import net.anotheria.moskito.core.registry.ProducerRegistryAPIFactory;
+import net.anotheria.moskito.integration.ehcache.EhcacheStats;
+import net.anotheria.moskito.integration.ehcache.MonitoredEhcache;
 import net.sf.ehcache.CacheManager;
 import net.sf.ehcache.Ehcache;
 import net.sf.ehcache.Element;
@@ -18,7 +20,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 /**
- * Tests for {@link MonitoredEhcache}.
+ * Tests for {@link net.anotheria.moskito.integration.ehcache.MonitoredEhcache}.
  *
  * @author Vladyslav Bezuhlyi
  */

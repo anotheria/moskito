@@ -1,8 +1,8 @@
-package net.anotheria.moskito.ehcache.decorators;
+package net.anotheria.moskito.integration.ehcache.decorators;
 
 import net.anotheria.moskito.core.producers.IStats;
 import net.anotheria.moskito.core.stats.TimeUnit;
-import net.anotheria.moskito.ehcache.EhcacheStats;
+import net.anotheria.moskito.integration.ehcache.EhcacheStats;
 import net.anotheria.moskito.webui.decorators.AbstractDecorator;
 import net.anotheria.moskito.webui.shared.bean.DoubleValueBean;
 import net.anotheria.moskito.webui.shared.bean.LongValueBean;
@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * {@link net.anotheria.moskito.ehcache.EhcacheStats} decorator for MoSKito WebUI.
+ * {@link net.anotheria.moskito.integration.ehcache.EhcacheStats} decorator for MoSKito WebUI.
  *
  * @author Vladyslav Bezuhlyi
  *
@@ -99,7 +99,7 @@ public class EhcacheStatsDecorator extends AbstractDecorator {
 
 
     /**
-     * Creates a new decorator for {@link net.anotheria.moskito.ehcache.EhcacheStats}.
+     * Creates a new decorator for {@link net.anotheria.moskito.integration.ehcache.EhcacheStats}.
      */
     public EhcacheStatsDecorator() {
         super("Ehcache", CAPTIONS, SHORT_EXPLANATIONS, EXPLANATIONS);

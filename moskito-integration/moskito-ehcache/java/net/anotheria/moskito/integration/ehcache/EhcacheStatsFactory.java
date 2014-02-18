@@ -1,14 +1,14 @@
-package net.anotheria.moskito.ehcache;
+package net.anotheria.moskito.integration.ehcache;
 
 import net.anotheria.moskito.core.dynamic.IOnDemandStatsFactory;
 
 /**
- * Factory for {@link net.anotheria.moskito.ehcache.EhcacheStats}.
+ * Factory for {@link EhcacheStats}.
  *
  * @author Vladyslav Bezuhlyi
  *
  * @see net.anotheria.moskito.core.dynamic.IOnDemandStatsFactory
- * @see net.anotheria.moskito.ehcache.EhcacheStats
+ * @see EhcacheStats
  */
 public class EhcacheStatsFactory implements IOnDemandStatsFactory<EhcacheStats> {
 

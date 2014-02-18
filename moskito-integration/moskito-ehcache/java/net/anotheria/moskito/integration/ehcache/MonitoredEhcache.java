@@ -1,4 +1,4 @@
-package net.anotheria.moskito.ehcache;
+package net.anotheria.moskito.integration.ehcache;
 
 import net.anotheria.moskito.core.dynamic.OnDemandStatsProducer;
 import net.anotheria.moskito.core.dynamic.OnDemandStatsProducerException;
@@ -19,7 +19,7 @@ import java.util.TimerTask;
  *
  * @author Vladyslav Bezuhlyi
  *
- * @see net.anotheria.moskito.ehcache.PeriodicStatsUpdater
+ * @see PeriodicStatsUpdater
  * @see net.anotheria.moskito.core.util.BuiltInMemoryProducer
  * @see net.sf.ehcache.terracotta.InternalEhcache
  */
@@ -100,7 +100,7 @@ public class MonitoredEhcache extends EhcacheDecoratorAdapter {
     /**
      * Retrieves internal producer's stats.
      *
-     * @return {@link net.anotheria.moskito.ehcache.EhcacheStats} instance related to this cache.
+     * @return {@link EhcacheStats} instance related to this cache.
      */
     private EhcacheStats getProducerStats() {
         try {
