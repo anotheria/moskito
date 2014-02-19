@@ -5,13 +5,14 @@
          dynamicConfig="true">
 
     <cache name="test-cache"
-           maxElementsInMemory="150"
+           maxEntriesLocalHeap="150"
            eternal="false"
            overflowToDisk="false"
            timeToIdleSeconds="90"
            timeToLiveSeconds="60"
            memoryStoreEvictionPolicy="LFU"
            transactionalMode="off">
+        <persistence strategy="none"/>
     </cache>
 
 </ehcache>

@@ -73,9 +73,9 @@ import net.anotheria.moskito.webui.decorators.predefined.ThreadStatesDecorator;
 import net.anotheria.moskito.webui.decorators.util.StorageStatsDecorator;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * Implementation of the IDecoratorRegistry.
@@ -104,7 +104,7 @@ public class DecoratorRegistryImpl implements IDecoratorRegistry{
 	}
 
 	DecoratorRegistryImpl(){
-		registry = new HashMap<Class<? extends AbstractStats>,IDecorator>();
+		registry = new ConcurrentHashMap<Class<? extends AbstractStats>, IDecorator>();
 		configure();
 	}
 	

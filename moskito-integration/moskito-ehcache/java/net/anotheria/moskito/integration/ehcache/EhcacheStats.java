@@ -5,6 +5,7 @@ import net.anotheria.moskito.core.producers.AbstractStats;
 import net.anotheria.moskito.core.stats.StatValue;
 import net.anotheria.moskito.core.stats.TimeUnit;
 import net.anotheria.moskito.core.stats.impl.StatValueFactory;
+import net.anotheria.moskito.core.util.MoskitoWebUi;
 import net.anotheria.moskito.integration.ehcache.decorators.EhcacheStatsDecorator;
 import net.anotheria.moskito.webui.decorators.DecoratorRegistryFactory;
 import net.anotheria.util.StringUtils;
@@ -402,9 +403,18 @@ public class EhcacheStats extends AbstractStats {
                 '}';
     }
 
-    /* this block will register stats decorator when the class is loaded at the first time */
+    /* if you have MoSKito WebUI this block will register stats decorator when the class is loaded at the first time */
     static {
-        DecoratorRegistryFactory.getDecoratorRegistry().addDecorator(EhcacheStats.class, new EhcacheStatsDecorator());
+        if(MoskitoWebUi.isPresent()) {
+            new StatsDecoratorRegistrator().register();
+        }
+    }
+
+    /* will be initialized only if MoSKito WebUI is embedded into application */
+    private static final class StatsDecoratorRegistrator {
+        public void register() {
+            DecoratorRegistryFactory.getDecoratorRegistry().addDecorator(EhcacheStats.class, new EhcacheStatsDecorator());
+        }
     }
 
 }
