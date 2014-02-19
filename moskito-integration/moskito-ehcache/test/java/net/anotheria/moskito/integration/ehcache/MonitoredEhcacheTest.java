@@ -4,8 +4,6 @@ import net.anotheria.moskito.core.dynamic.OnDemandStatsProducer;
 import net.anotheria.moskito.core.dynamic.OnDemandStatsProducerException;
 import net.anotheria.moskito.core.registry.IProducerRegistryAPI;
 import net.anotheria.moskito.core.registry.ProducerRegistryAPIFactory;
-import net.anotheria.moskito.integration.ehcache.EhcacheStats;
-import net.anotheria.moskito.integration.ehcache.MonitoredEhcache;
 import net.sf.ehcache.CacheManager;
 import net.sf.ehcache.Ehcache;
 import net.sf.ehcache.Element;
@@ -56,7 +54,7 @@ public class MonitoredEhcacheTest {
         }
 
         Thread.sleep(2000L); // give some time to update producer's stats
-        EhcacheStats stats = producer.getStats(cache.getName());
+        EhcacheStats stats = producer.getStats("cumulated");
         assertEquals(100, stats.getElements().getValueAsLong());
         assertEquals(150, stats.getHits().getValueAsLong());
 
