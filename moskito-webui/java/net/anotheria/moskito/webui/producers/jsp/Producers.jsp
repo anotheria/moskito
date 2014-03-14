@@ -16,6 +16,7 @@
 <script type="text/javascript" src="http://www.google.com/jsapi"></script>
 <!-- jqplot core + plugins -->
 <script type="text/javascript" src="../js/charts/jqplot/jquery.jqplot.js"></script>
+<script type="text/javascript" src="../js/charts/jqplot/jqplot.highlighter.js"></script>
 <script type="text/javascript" src="../js/charts/jqplot/jqplot.pieRenderer.min.js"></script>
 <script type="text/javascript" src="../js/charts/jqplot/jqplot.donutRenderer.min.js"></script>
 <script type="text/javascript" src="../js/charts/jqplot/jqplot.categoryAxisRenderer.min.js"></script>
