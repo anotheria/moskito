@@ -1,7 +1,8 @@
 package net.anotheria.moskito.webui.testremote;
 
+import net.anotheria.moskito.webui.shared.api.MoskitoAPIInitializer;
 import net.anotheria.moskito.webui.threshold.api.ThresholdAPI;
-import net.anotheria.moskito.webui.threshold.api.generated.RemoteThresholdAPIStub;
+import net.anotheria.moskito.webui.util.APILookupUtility;
 
 /**
  * TODO comment this class
@@ -11,7 +12,8 @@ import net.anotheria.moskito.webui.threshold.api.generated.RemoteThresholdAPIStu
  */
 public class TestRemoteThresholds {
 	public static void main(String a[]) throws Exception{
-		ThresholdAPI api = new RemoteThresholdAPIStub();
+		MoskitoAPIInitializer.initialize();
+		ThresholdAPI api = APILookupUtility.getThresholdAPI();
 		System.out.println("Remote status is "+api.getWorstStatus());
 	}
 }

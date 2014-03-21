@@ -1,0 +1,12 @@
+{
+	"producerChartWidth": 1200,
+	"producerChartHeight": 600,
+    "connectivityMode": "REMOTE",
+    "@remotes": [
+        {
+            "name": "Test",
+            "host": "localhost",
+            "port": 9401
+        }
+    ]
+}
