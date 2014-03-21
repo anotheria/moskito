@@ -3,6 +3,7 @@ package net.anotheria.moskito.webui.util;
 import net.anotheria.anoplass.api.API;
 import net.anotheria.anoplass.api.APIFinder;
 import net.anotheria.moskito.webui.accumulators.api.AccumulatorAPI;
+import net.anotheria.moskito.webui.threads.api.ThreadAPI;
 import net.anotheria.moskito.webui.threshold.api.ThresholdAPI;
 import org.distributeme.core.ServiceDescriptor;
 
@@ -50,6 +51,13 @@ public class APILookupUtility {
 				APIFinder.findAPI(AccumulatorAPI.class) :
 				findRemote(AccumulatorAPI.class);
 	}
+
+	public static ThreadAPI getThreadAPI() {
+		return isLocal() ?
+				APIFinder.findAPI(ThreadAPI.class) :
+				findRemote(ThreadAPI.class);
+	}
+
 
 	private static <T extends API> T findRemote(Class<T> targetClass){
 		String serviceId = null;
@@ -109,4 +117,5 @@ public class APILookupUtility {
 
 
 	}
+
 }
