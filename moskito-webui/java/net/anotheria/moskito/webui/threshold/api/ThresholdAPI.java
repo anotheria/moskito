@@ -2,8 +2,11 @@ package net.anotheria.moskito.webui.threshold.api;
 
 import net.anotheria.anoplass.api.API;
 import net.anotheria.anoplass.api.APIException;
+import net.anotheria.anoprise.metafactory.Service;
 import net.anotheria.moskito.core.threshold.Threshold;
 import net.anotheria.moskito.core.threshold.ThresholdStatus;
+
+import org.distributeme.annotation.DistributeMe;
 
 import java.util.List;
 
@@ -13,7 +16,8 @@ import java.util.List;
  * @author lrosenberg
  * @since 11.02.13 18:45
  */
-public interface ThresholdAPI extends API {
+@DistributeMe(agentsSupport=false)
+public interface ThresholdAPI extends API, Service {
 
 	List<ThresholdAlertAO> getAlerts() throws APIException;
 

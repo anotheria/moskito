@@ -238,6 +238,7 @@ public class ThresholdAPIImpl extends AbstractMoskitoAPIImpl implements Threshol
 
 	@Override
 	public ThresholdStatus getWorstStatus() throws APIException {
+		System.out.println("GET WORST STATUS CALLED: "+ThresholdRepository.getInstance().getWorstStatus());
 		return ThresholdRepository.getInstance().getWorstStatus();
 	}
 
