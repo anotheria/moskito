@@ -2,13 +2,15 @@ package net.anotheria.moskito.webui.shared.api;
 
 import net.anotheria.maf.bean.FormBean;
 
+import java.io.Serializable;
+
 /**
  * Base class for tieable parameter objects.
  *
  * @author lrosenberg
  * @since 13.02.13 17:34
  */
-public class TieablePO implements FormBean{
+public class TieablePO implements FormBean, Serializable {
 	/**
 	 * Id of the producer.
 	 */

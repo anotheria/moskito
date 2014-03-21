@@ -1,5 +1,6 @@
 package net.anotheria.moskito.webui.threshold.api;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,7 +9,7 @@ import java.util.List;
  * @author lrosenberg
  *
  */
-public class ThresholdDefinitionAO {
+public class ThresholdDefinitionAO implements Serializable{
 	/**
 	 * Threshold id.
 	 */

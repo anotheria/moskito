@@ -7,6 +7,7 @@ import net.anotheria.moskito.core.threshold.Threshold;
 import net.anotheria.moskito.core.threshold.ThresholdStatus;
 
 import org.distributeme.annotation.DistributeMe;
+import org.distributeme.annotation.SupportService;
 
 import java.util.List;
 
@@ -17,6 +18,7 @@ import java.util.List;
  * @since 11.02.13 18:45
  */
 @DistributeMe(agentsSupport=false)
+@SupportService
 public interface ThresholdAPI extends API, Service {
 
 	List<ThresholdAlertAO> getAlerts() throws APIException;

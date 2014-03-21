@@ -4,6 +4,7 @@ import net.anotheria.anoplass.api.APIFinder;
 import net.anotheria.moskito.webui.accumulators.api.AccumulatorAPI;
 import net.anotheria.moskito.webui.shared.action.BaseMoskitoUIAction;
 import net.anotheria.moskito.webui.shared.bean.NaviItem;
+import net.anotheria.moskito.webui.util.APILookupUtility;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -28,7 +29,7 @@ public abstract class BaseAccumulatorsAction extends BaseMoskitoUIAction {
     }
 
 	protected AccumulatorAPI getAccumulatorAPI(){
-		return accumulatorAPI;
+		return APILookupUtility.getAccumulatorAPI();
 	}
 
 }
