@@ -1,7 +1,8 @@
 package net.anotheria.moskito.core.predefined;
 
-import net.anotheria.moskito.core.predefined.RequestOrientedStats;
 import net.anotheria.moskito.core.producers.CallExecution;
+import net.anotheria.moskito.core.stats.TimeUnit;
+import net.anotheria.moskito.core.stats.impl.IntervalRegistry;
 import org.junit.Test;
 
 import java.util.Random;
@@ -65,5 +66,42 @@ public class RequestOrientedStatsTest {
 		
 		assertNotNull(stats.toStatsString());
 		assertNotNull(stats.toString());
+	}
+
+	//this test tries to reproduce a rounding error i encountered at a live presentation, where
+	//values stored by accumulator would differ badly.
+	@Test public void testAverageAccumulation(){
+		RequestOrientedStats stats = new RequestOrientedStats() {};
+		stats.addExecutionTime(100000); //100 ms
+		stats.addRequest();
+		stats.addExecutionTime(150000); //100 ms
+		stats.addRequest();
+		IntervalRegistry.getInstance().forceUpdateIntervalForTestingPurposes("1m");
+		assertEquals(""+stats.getAverageRequestDuration("1m", TimeUnit.MICROSECONDS), stats.getValueByNameAsString("avg", "1m", TimeUnit.MICROSECONDS));
+		assertEquals(""+stats.getAverageRequestDuration("1m", TimeUnit.MILLISECONDS), stats.getValueByNameAsString("avg", "1m", TimeUnit.MILLISECONDS));
+		assertEquals("125.0",  stats.getValueByNameAsString("avg", "1m", TimeUnit.MICROSECONDS));
+
+		stats.addExecutionTime(77777777);
+		stats.addRequest();
+		IntervalRegistry.getInstance().forceUpdateIntervalForTestingPurposes("1m");
+		assertEquals(""+stats.getAverageRequestDuration("1m", TimeUnit.MICROSECONDS), stats.getValueByNameAsString("avg", "1m", TimeUnit.MICROSECONDS));
+		assertEquals(""+stats.getAverageRequestDuration("1m", TimeUnit.MILLISECONDS), stats.getValueByNameAsString("avg", "1m", TimeUnit.MILLISECONDS));
+		assertEquals(""+stats.getAverageRequestDuration("1m", TimeUnit.SECONDS), stats.getValueByNameAsString("avg", "1m", TimeUnit.SECONDS));
+		assertEquals("77777.0",  stats.getValueByNameAsString("avg", "1m", TimeUnit.MICROSECONDS));
+		assertEquals("77.0",  stats.getValueByNameAsString("avg", "1m", TimeUnit.MILLISECONDS));
+		assertEquals("0.0",  stats.getValueByNameAsString("avg", "1m", TimeUnit.SECONDS));
+
+		stats.addExecutionTime(1077777);
+		stats.addRequest();
+		stats.addExecutionTime(100);
+		stats.addRequest();
+		IntervalRegistry.getInstance().forceUpdateIntervalForTestingPurposes("1m");
+		System.out.println(stats.getAverageRequestDuration("1m", TimeUnit.MICROSECONDS));
+		System.out.println(stats.getAverageRequestDuration("1m", TimeUnit.MILLISECONDS));
+		System.out.println(stats.getValueByNameAsString("avg", "1m", TimeUnit.MICROSECONDS));
+		System.out.println(stats.getValueByNameAsString("avg", "1m", TimeUnit.MILLISECONDS));
+		System.out.println(stats.getAverageRequestDuration("1m", TimeUnit.SECONDS));
+		System.out.println(stats.getValueByNameAsString("avg", "1m", TimeUnit.SECONDS));
+
 	}
 }
