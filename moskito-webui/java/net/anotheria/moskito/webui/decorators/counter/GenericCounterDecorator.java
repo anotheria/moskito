@@ -2,8 +2,8 @@ package net.anotheria.moskito.webui.decorators.counter;
 
 import net.anotheria.moskito.core.counter.GenericCounterStats;
 import net.anotheria.moskito.core.stats.TimeUnit;
-import net.anotheria.moskito.webui.shared.bean.LongValueBean;
-import net.anotheria.moskito.webui.shared.bean.StatValueBean;
+import net.anotheria.moskito.webui.producers.api.LongValueAO;
+import net.anotheria.moskito.webui.producers.api.StatValueAO;
 import net.anotheria.moskito.webui.decorators.AbstractDecorator;
 
 import java.util.ArrayList;
@@ -41,11 +41,11 @@ public abstract class GenericCounterDecorator extends AbstractDecorator<GenericC
 		this.captions = captions;
 	}
 
-	@Override public List<StatValueBean> getValues(GenericCounterStats stats, String interval, TimeUnit unit) {
-		List<StatValueBean> ret = new ArrayList<StatValueBean>(valueNames.size());
+	@Override public List<StatValueAO> getValues(GenericCounterStats stats, String interval, TimeUnit unit) {
+		List<StatValueAO> ret = new ArrayList<StatValueAO>(valueNames.size());
 		int i=0;
 		for (String name : valueNames){
-			ret.add(new LongValueBean(captions[i++], stats.get(name, interval)));
+			ret.add(new LongValueAO(captions[i++], stats.get(name, interval)));
 		}
 		return ret;
 	}

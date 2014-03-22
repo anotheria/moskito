@@ -14,12 +14,15 @@ import java.util.List;
 public class ProducerAO implements Serializable{
 	private String producerId;
 
-	private List<IStats> stats;
 	private String category;
 	private String subsystem;
 	private String producerClassName;
 
 	private boolean inspectable;
+
+	private List<StatValueAO> values;
+
+	private Class<? extends IStats> statsClazz;
 
 	public String getProducerId() {
 		return producerId;
@@ -27,14 +30,6 @@ public class ProducerAO implements Serializable{
 
 	public void setProducerId(String producerId) {
 		this.producerId = producerId;
-	}
-
-	public List<IStats> getStats() {
-		return stats;
-	}
-
-	public void setStats(List<IStats> stats) {
-		this.stats = stats;
 	}
 
 	public String getCategory() {
@@ -68,5 +63,23 @@ public class ProducerAO implements Serializable{
 	public void setInspectable(boolean inspectable) {
 		this.inspectable = inspectable;
 	}
+
+	public Class<? extends IStats> getStatsClazz() {
+		return statsClazz;
+	}
+
+	public void setStatsClazz(Class<? extends IStats> statsClazz) {
+		this.statsClazz = statsClazz;
+	}
+
+
+	public List<StatValueAO> getValues() {
+		return values;
+	}
+
+	public void setValues(List<StatValueAO> values) {
+		this.values = values;
+	}
+
 
 }

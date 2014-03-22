@@ -1,5 +1,5 @@
 #!/bin/bash
-export VERSION=2.4.3-SNAPSHOT
+export VERSION=2.5.0-SNAPSHOT
 
 CLASSPATH=test/appdata:target/moskito-webui-$VERSION-jar-with-dependencies.jar
 echo CLASSPATH: $CLASSPATH

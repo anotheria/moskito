@@ -137,7 +137,7 @@
 	  <tbody>
 		  <ano:iterate name="decorator" property="stats" id="stat" type="net.anotheria.moskito.webui.shared.bean.StatBean" indexId="index">
 		 <tr class="<%= ((index & 1) == 0 )? "even" : "odd" %>">
-				<ano:iterate name="stat" property="values" id="value" type="net.anotheria.moskito.webui.shared.bean.StatValueBean">
+				<ano:iterate name="stat" property="values" id="value" type="net.anotheria.moskito.webui.producers.api.StatValueAO">
 					<td>
 					    <a href="#" onclick="setandsubmit('<ano:write name="value" property="name"/>', '<ano:write name="stat" property="name"/>'); return false">ADD</a>
 					</td>

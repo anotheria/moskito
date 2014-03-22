@@ -205,7 +205,7 @@
 	  <tbody>
 	   <ano:iterate name="decorator" property="producers" id="producer" type="net.anotheria.moskito.webui.shared.bean.ProducerBean" indexId="index">
 		 <tr class="<%= ((index & 1) == 0 )? "even" : "odd" %>">
-			<ano:iterate name="producer" property="values" id="value" type="net.anotheria.moskito.webui.shared.bean.StatValueBean">
+			<ano:iterate name="producer" property="values" id="value" type="net.anotheria.moskito.webui.producers.api.StatValueAO">
 				<td onmouseover="Tip('<ano:write name="producer" property="id"/>.<ano:write name="value" property="name"/>&lt;br/&gt;&lt;b&gt;&lt;span align=center&gt;<ano:write name="value" property="value"/>&lt;/span&gt;&lt;/b&gt;', TEXTALIGN, 'center')" onmouseout="UnTip()">
 					<ano:write name="value" property="value" />
 				</td>

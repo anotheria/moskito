@@ -11,7 +11,7 @@
 <%--
 --%><ano:iterate name="decorator" property="producers" id="producer" type="net.anotheria.moskito.webui.shared.bean.ProducerBean"><%--
 --%>"";<ano:write name="producer" property="id"/>;<ano:write name="producer" property="category"/>;<ano:write name="producer" property="subsystem"/><%--
---%><ano:iterate name="producer" property="values" id="value" type="net.anotheria.moskito.webui.shared.bean.StatValueBean"><%--
+--%><ano:iterate name="producer" property="values" id="value" type="net.anotheria.moskito.webui.producers.api.StatValueAO"><%--
 --%>;<ano:write name="value" property="value"/><%--
 --%></ano:iterate><%--
 --%>;<ano:write name="producer" property="className"/><%--

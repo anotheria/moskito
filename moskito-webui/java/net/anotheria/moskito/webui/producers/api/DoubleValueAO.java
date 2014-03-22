@@ -32,7 +32,7 @@
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR
  * THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */	
-package net.anotheria.moskito.webui.shared.bean;
+package net.anotheria.moskito.webui.producers.api;
 
 import net.anotheria.util.BasicComparable;
 import net.anotheria.util.sorter.IComparable;
@@ -42,7 +42,7 @@ import net.anotheria.util.sorter.IComparable;
  * @author lrosenberg.
  *
  */
-public class DoubleValueBean extends StatValueBean{
+public class DoubleValueAO extends StatValueAO {
 	/**
 	 * Internal storage.
 	 */
@@ -53,11 +53,11 @@ public class DoubleValueBean extends StatValueBean{
 	private String doubleAsString;
 	
 	/**
-	 * Creates a new DoubleValueBean.
+	 * Creates a new DoubleValueAO.
 	 * @param name
 	 * @param aValue
 	 */
-	public DoubleValueBean(String name, double aValue){
+	public DoubleValueAO(String name, double aValue){
 		super(name);
 		if (!Double.isInfinite(aValue))
 			doubleValue = ((double)Math.round(aValue * 1000)) / 1000;
@@ -82,7 +82,7 @@ public class DoubleValueBean extends StatValueBean{
 	}
 	 
 	@Override public int compareTo(IComparable anotherComparable, int ignored) {
-		return BasicComparable.compareDouble(doubleValue, ((DoubleValueBean)anotherComparable).doubleValue);
+		return BasicComparable.compareDouble(doubleValue, ((DoubleValueAO)anotherComparable).doubleValue);
 	}
 
 	@Override

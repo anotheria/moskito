@@ -3,8 +3,8 @@ package net.anotheria.moskito.webui.decorators.predefined;
 import net.anotheria.moskito.core.producers.IStats;
 import net.anotheria.moskito.core.stats.TimeUnit;
 import net.anotheria.moskito.web.session.SessionCountStats;
-import net.anotheria.moskito.webui.shared.bean.LongValueBean;
-import net.anotheria.moskito.webui.shared.bean.StatValueBean;
+import net.anotheria.moskito.webui.producers.api.LongValueAO;
+import net.anotheria.moskito.webui.producers.api.StatValueAO;
 import net.anotheria.moskito.webui.decorators.AbstractDecorator;
 
 import java.util.ArrayList;
@@ -54,17 +54,17 @@ public class SessionCountDecorator extends AbstractDecorator {
 	}
 	
 
-	@Override public List<StatValueBean> getValues(IStats statsObject, String interval, TimeUnit unit) {
+	@Override public List<StatValueAO> getValues(IStats statsObject, String interval, TimeUnit unit) {
 		SessionCountStats stats = (SessionCountStats)statsObject;
-		List<StatValueBean> ret = new ArrayList<StatValueBean>(CAPTIONS.length);
+		List<StatValueAO> ret = new ArrayList<StatValueAO>(CAPTIONS.length);
 		
 		int i = 0;
 		
-		ret.add(new LongValueBean(CAPTIONS[i++], mapToLong(stats.getCurrentSessionCount(interval))));
-		ret.add(new LongValueBean(CAPTIONS[i++], mapToLong(stats.getMinSessionCount(interval))));
-		ret.add(new LongValueBean(CAPTIONS[i++], mapToLong(stats.getMaxSessionCount(interval))));
-		ret.add(new LongValueBean(CAPTIONS[i++], mapToLong(stats.getCreatedSessionCount(interval))));
-		ret.add(new LongValueBean(CAPTIONS[i++], mapToLong(stats.getDestroyedSessionCount(interval))));
+		ret.add(new LongValueAO(CAPTIONS[i++], mapToLong(stats.getCurrentSessionCount(interval))));
+		ret.add(new LongValueAO(CAPTIONS[i++], mapToLong(stats.getMinSessionCount(interval))));
+		ret.add(new LongValueAO(CAPTIONS[i++], mapToLong(stats.getMaxSessionCount(interval))));
+		ret.add(new LongValueAO(CAPTIONS[i++], mapToLong(stats.getCreatedSessionCount(interval))));
+		ret.add(new LongValueAO(CAPTIONS[i++], mapToLong(stats.getDestroyedSessionCount(interval))));
 		
 		return ret;
 	}

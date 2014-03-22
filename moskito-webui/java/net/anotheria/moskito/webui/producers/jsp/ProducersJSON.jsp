@@ -13,7 +13,7 @@
 					subsystem: "<ano:write name="producer" property="subsystem"/>",
 					class: "<ano:write name="producer" property="className"/>",
 		            values: [
-					<ano:iterate name="producer" property="values" id="value" type="net.anotheria.moskito.webui.shared.bean.StatValueBean" indexId="ind"><%
+					<ano:iterate name="producer" property="values" id="value" type="net.anotheria.moskito.webui.producers.api.StatValueAO" indexId="ind"><%
 						String tagCaption = ((net.anotheria.moskito.webui.shared.bean.StatCaptionBean)captions.get(ind.intValue())).getCaption();
 					%>
 					{

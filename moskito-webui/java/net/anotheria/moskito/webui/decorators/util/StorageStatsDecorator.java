@@ -37,9 +37,9 @@ package net.anotheria.moskito.webui.decorators.util;
 import net.anotheria.moskito.core.producers.IStats;
 import net.anotheria.moskito.core.stats.TimeUnit;
 import net.anotheria.moskito.core.util.storage.StorageStats;
-import net.anotheria.moskito.webui.shared.bean.DoubleValueBean;
-import net.anotheria.moskito.webui.shared.bean.LongValueBean;
-import net.anotheria.moskito.webui.shared.bean.StatValueBean;
+import net.anotheria.moskito.webui.producers.api.DoubleValueAO;
+import net.anotheria.moskito.webui.producers.api.LongValueAO;
+import net.anotheria.moskito.webui.producers.api.StatValueAO;
 import net.anotheria.moskito.webui.decorators.AbstractDecorator;
 
 import java.util.ArrayList;
@@ -152,37 +152,37 @@ public class StorageStatsDecorator extends AbstractDecorator {
 	}
 	
 
-	@Override public List<StatValueBean> getValues(IStats statsObject, String interval, TimeUnit unit) {
+	@Override public List<StatValueAO> getValues(IStats statsObject, String interval, TimeUnit unit) {
 		StorageStats stats = (StorageStats)statsObject;
-		List<StatValueBean> ret = new ArrayList<StatValueBean>(CAPTIONS.length);
+		List<StatValueAO> ret = new ArrayList<StatValueAO>(CAPTIONS.length);
 		
 		int i = 0;
 		
-		ret.add(new LongValueBean(CAPTIONS[i++], stats.getGets(interval)));
-		ret.add(new LongValueBean(CAPTIONS[i++], stats.getMissedGets(interval)));
-		ret.add(new DoubleValueBean(CAPTIONS[i++], stats.getMissedGetRatio(interval)));
-		ret.add(new DoubleValueBean(CAPTIONS[i++], stats.getHitGetRatio(interval)));
+		ret.add(new LongValueAO(CAPTIONS[i++], stats.getGets(interval)));
+		ret.add(new LongValueAO(CAPTIONS[i++], stats.getMissedGets(interval)));
+		ret.add(new DoubleValueAO(CAPTIONS[i++], stats.getMissedGetRatio(interval)));
+		ret.add(new DoubleValueAO(CAPTIONS[i++], stats.getHitGetRatio(interval)));
 
-		ret.add(new LongValueBean(CAPTIONS[i++], stats.getPuts(interval)));
-		ret.add(new LongValueBean(CAPTIONS[i++], stats.getOverwritePuts(interval)));
-		ret.add(new DoubleValueBean(CAPTIONS[i++], stats.getOverwritePutRatio(interval)));
-		ret.add(new DoubleValueBean(CAPTIONS[i++], stats.getNewPutRatio(interval)));
+		ret.add(new LongValueAO(CAPTIONS[i++], stats.getPuts(interval)));
+		ret.add(new LongValueAO(CAPTIONS[i++], stats.getOverwritePuts(interval)));
+		ret.add(new DoubleValueAO(CAPTIONS[i++], stats.getOverwritePutRatio(interval)));
+		ret.add(new DoubleValueAO(CAPTIONS[i++], stats.getNewPutRatio(interval)));
 
-		ret.add(new LongValueBean(CAPTIONS[i++], stats.getRemoves(interval)));
-		ret.add(new LongValueBean(CAPTIONS[i++], stats.getNoopRemoves(interval)));
-		ret.add(new DoubleValueBean(CAPTIONS[i++], stats.getNoopRemoveRatio(interval)));
+		ret.add(new LongValueAO(CAPTIONS[i++], stats.getRemoves(interval)));
+		ret.add(new LongValueAO(CAPTIONS[i++], stats.getNoopRemoves(interval)));
+		ret.add(new DoubleValueAO(CAPTIONS[i++], stats.getNoopRemoveRatio(interval)));
 		
-		ret.add(new DoubleValueBean(CAPTIONS[i++], stats.getPutGetRatio(interval)));
-		ret.add(new DoubleValueBean(CAPTIONS[i++], stats.getPutRemoveRatio(interval)));
-		ret.add(new LongValueBean(CAPTIONS[i++], stats.getSize(interval)));
+		ret.add(new DoubleValueAO(CAPTIONS[i++], stats.getPutGetRatio(interval)));
+		ret.add(new DoubleValueAO(CAPTIONS[i++], stats.getPutRemoveRatio(interval)));
+		ret.add(new LongValueAO(CAPTIONS[i++], stats.getSize(interval)));
 		
-		ret.add(new LongValueBean(CAPTIONS[i++], stats.getContainsKeyCalls(interval)));
-		ret.add(new LongValueBean(CAPTIONS[i++], stats.getContainsKeyHits(interval)));
-		ret.add(new DoubleValueBean(CAPTIONS[i++], stats.getContainsKeyHitRatio(interval)));
+		ret.add(new LongValueAO(CAPTIONS[i++], stats.getContainsKeyCalls(interval)));
+		ret.add(new LongValueAO(CAPTIONS[i++], stats.getContainsKeyHits(interval)));
+		ret.add(new DoubleValueAO(CAPTIONS[i++], stats.getContainsKeyHitRatio(interval)));
 		
-		ret.add(new LongValueBean(CAPTIONS[i++], stats.getContainsValueCalls(interval)));
-		ret.add(new LongValueBean(CAPTIONS[i++], stats.getContainsValueHits(interval)));
-		ret.add(new DoubleValueBean(CAPTIONS[i++], stats.getContainsValueHitRatio(interval)));
+		ret.add(new LongValueAO(CAPTIONS[i++], stats.getContainsValueCalls(interval)));
+		ret.add(new LongValueAO(CAPTIONS[i++], stats.getContainsValueHits(interval)));
+		ret.add(new DoubleValueAO(CAPTIONS[i++], stats.getContainsValueHitRatio(interval)));
 		
 		return ret;
 	}

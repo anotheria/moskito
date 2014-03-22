@@ -36,8 +36,8 @@ package net.anotheria.moskito.webui.decorators;
 
 import net.anotheria.moskito.core.producers.IStats;
 import net.anotheria.moskito.core.stats.TimeUnit;
-import net.anotheria.moskito.webui.shared.bean.StatValueBean;
-import net.anotheria.moskito.webui.shared.bean.StringValueBean;
+import net.anotheria.moskito.webui.producers.api.StatValueAO;
+import net.anotheria.moskito.webui.producers.api.StringValueAO;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -56,9 +56,9 @@ public class DefaultDecorator extends AbstractDecorator{
 		super("missing decorator", new String[]{"UNSET"}, new String[]{"UNSET"}, new String[]{"UNSET"});
 	}
 
-	@Override public List<StatValueBean> getValues(IStats stats, String interval, TimeUnit unit) {
-		List<StatValueBean> beans = new ArrayList<StatValueBean>(1);
-		beans.add(new StringValueBean("none", "no decorator for "+stats.getClass()));
+	@Override public List<StatValueAO> getValues(IStats stats, String interval, TimeUnit unit) {
+		List<StatValueAO> beans = new ArrayList<StatValueAO>(1);
+		beans.add(new StringValueAO("none", "no decorator for "+stats.getClass()));
 		return beans;
 	}
 	 

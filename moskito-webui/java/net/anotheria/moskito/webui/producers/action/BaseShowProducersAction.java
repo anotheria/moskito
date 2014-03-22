@@ -42,7 +42,6 @@ import net.anotheria.moskito.core.producers.IStats;
 import net.anotheria.moskito.core.stats.UnknownIntervalException;
 import net.anotheria.moskito.webui.decorators.IDecorator;
 import net.anotheria.moskito.webui.producers.api.ProducerAO;
-import net.anotheria.moskito.webui.producers.api.ProducerAPI;
 import net.anotheria.moskito.webui.producers.api.UnitCountAO;
 import net.anotheria.moskito.webui.shared.action.BaseMoskitoUIAction;
 import net.anotheria.moskito.webui.shared.bean.GraphDataBean;
@@ -53,9 +52,8 @@ import net.anotheria.moskito.webui.shared.bean.ProducerBean;
 import net.anotheria.moskito.webui.shared.bean.ProducerBeanSortType;
 import net.anotheria.moskito.webui.shared.bean.ProducerDecoratorBean;
 import net.anotheria.moskito.webui.shared.bean.ProducerVisibility;
-import net.anotheria.moskito.webui.shared.bean.StatValueBean;
+import net.anotheria.moskito.webui.producers.api.StatValueAO;
 import net.anotheria.moskito.webui.shared.bean.UnitBean;
-import net.anotheria.moskito.webui.util.APILookupUtility;
 import net.anotheria.util.sorter.StaticQuickSorter;
 
 import javax.servlet.http.HttpServletRequest;
@@ -135,13 +133,12 @@ public abstract class BaseShowProducersAction extends BaseMoskitoUIAction {
 
 		for (ProducerAO producer : producers){
 			try{
-				IStats stats = (IStats)producer.getStats().get(0);
-				IDecorator decorator = getDecoratorRegistry().getDecorator(stats);
+				IDecorator decorator = getDecoratorRegistry().getDecorator(producer.getStatsClazz());
 				if (!decoratorMap.containsKey(decorator)){
 					decoratorMap.put(decorator, new ArrayList<ProducerAO>());
 
 					List<MetaHeaderBean> metaheader = new ArrayList<MetaHeaderBean>();
-					for(StatValueBean statBean : (List<StatValueBean>)decorator.getValues(stats, intervalName, currentUnit.getUnit())){
+					for(StatValueAO statBean : (List<StatValueAO>)decorator.getValues(stats, intervalName, currentUnit.getUnit())){
 						MetaHeaderBean bean = new MetaHeaderBean(statBean.getName(), statBean.getType());
 						metaheader.add(bean);
 
@@ -175,11 +172,10 @@ public abstract class BaseShowProducersAction extends BaseMoskitoUIAction {
 					pb.setClassName(p.getProducerClassName());
 					pb.setSubsystem(p.getSubsystem());
 					pb.setId(p.getProducerId());
-					IStats firstStats = (IStats)p.getStats().get(0);
-					//System.out.println("Trying "+decorator+", cz: "+decorator.getClass()+", int: "+intervalName+", unit: "+currentUnit.getUnit());
-					List<StatValueBean> values = decorator.getValues(firstStats, intervalName, currentUnit.getUnit());
+					List<StatValueAO> values = p.getValues();
+					//List<StatValueAO> values = decorator.getValues(firstStats, intervalName, currentUnit.getUnit());
 					pb.setValues(values);
-					for (StatValueBean valueBean : values){
+					for (StatValueAO valueBean : values){
 						String graphKey = decorator.getName()+"_"+valueBean.getName();
 						GraphDataBean bean = graphData.get(graphKey); 
 						if (bean==null) {

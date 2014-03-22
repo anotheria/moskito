@@ -3,8 +3,8 @@ package net.anotheria.moskito.webui.decorators.predefined;
 import net.anotheria.moskito.core.predefined.OSStats;
 import net.anotheria.moskito.core.producers.IStats;
 import net.anotheria.moskito.core.stats.TimeUnit;
-import net.anotheria.moskito.webui.shared.bean.LongValueBean;
-import net.anotheria.moskito.webui.shared.bean.StatValueBean;
+import net.anotheria.moskito.webui.producers.api.LongValueAO;
+import net.anotheria.moskito.webui.producers.api.StatValueAO;
 import net.anotheria.moskito.webui.decorators.AbstractDecorator;
 
 import java.util.ArrayList;
@@ -78,22 +78,22 @@ public class OSStatsDecorator extends AbstractDecorator {
 		super(aName, CAPTIONS, SHORT_EXPLANATIONS, EXPLANATIONS);
 	}
 
-	@Override public List<StatValueBean> getValues(IStats statsObject, String interval, TimeUnit unit) {
+	@Override public List<StatValueAO> getValues(IStats statsObject, String interval, TimeUnit unit) {
 		OSStats stats = (OSStats)statsObject;
 
-		List<StatValueBean> ret = new ArrayList<StatValueBean>(CAPTIONS.length);
+		List<StatValueAO> ret = new ArrayList<StatValueAO>(CAPTIONS.length);
 		int i = 0;
-		ret.add(new LongValueBean(CAPTIONS[i++], stats.getOpenFiles(interval)));
-		ret.add(new LongValueBean(CAPTIONS[i++], stats.getMinOpenFiles(interval)));
-		ret.add(new LongValueBean(CAPTIONS[i++], stats.getMaxOpenFiles(interval)));
-		ret.add(new LongValueBean(CAPTIONS[i++], stats.getMaxSupportedOpenFiles(interval)));
+		ret.add(new LongValueAO(CAPTIONS[i++], stats.getOpenFiles(interval)));
+		ret.add(new LongValueAO(CAPTIONS[i++], stats.getMinOpenFiles(interval)));
+		ret.add(new LongValueAO(CAPTIONS[i++], stats.getMaxOpenFiles(interval)));
+		ret.add(new LongValueAO(CAPTIONS[i++], stats.getMaxSupportedOpenFiles(interval)));
 
-		ret.add(new LongValueBean(CAPTIONS[i++], unit.transformNanos(stats.getProcessCPUTime(interval))));
-		ret.add(new LongValueBean(CAPTIONS[i++], stats.getFreePhysicalMemory(interval)));
-		ret.add(new LongValueBean(CAPTIONS[i++], stats.getFreePhysicalMemory(interval)/MB));
-		ret.add(new LongValueBean(CAPTIONS[i++], stats.getTotalPhysicalMemory(interval)));
-		ret.add(new LongValueBean(CAPTIONS[i++], stats.getTotalPhysicalMemory(interval)/MB));
-		ret.add(new LongValueBean(CAPTIONS[i++], stats.getProcessors(interval)));
+		ret.add(new LongValueAO(CAPTIONS[i++], unit.transformNanos(stats.getProcessCPUTime(interval))));
+		ret.add(new LongValueAO(CAPTIONS[i++], stats.getFreePhysicalMemory(interval)));
+		ret.add(new LongValueAO(CAPTIONS[i++], stats.getFreePhysicalMemory(interval)/MB));
+		ret.add(new LongValueAO(CAPTIONS[i++], stats.getTotalPhysicalMemory(interval)));
+		ret.add(new LongValueAO(CAPTIONS[i++], stats.getTotalPhysicalMemory(interval)/MB));
+		ret.add(new LongValueAO(CAPTIONS[i++], stats.getProcessors(interval)));
 		
 		return ret;
 	}

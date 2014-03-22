@@ -15,7 +15,7 @@
 			<subsystem><msk:write name="producer" property="subsystem" filter="true"/></subsystem>
 			<class><msk:write name="producer" property="className" filter="true"/></class>
             <values>
-			<msk:iterate name="producer" property="values" id="value" type="net.anotheria.moskito.webui.shared.bean.StatValueBean" indexId="ind"><%
+			<msk:iterate name="producer" property="values" id="value" type="net.anotheria.moskito.webui.producers.api.StatValueAO" indexId="ind"><%
 				String tagCaption = ((net.anotheria.moskito.webui.shared.bean.StatCaptionBean)captions.get(ind.intValue())).getCaption();
 			%><value name="<%=tagCaption%>" type="<msk:write name="value" property="type"/>"><msk:write name="value" property="value"/></value>
 			</msk:iterate>

@@ -34,6 +34,7 @@
  */	
 package net.anotheria.moskito.webui.shared.bean;
 
+import net.anotheria.moskito.webui.producers.api.StatValueAO;
 import net.anotheria.util.BasicComparable;
 import net.anotheria.util.sorter.IComparable;
 
@@ -108,11 +109,11 @@ public class ProducerBean implements IComparable{
 		this.subsystem = subsystem;
 	}
 	
-	public void setValues(List<StatValueBean> someValues){
+	public void setValues(List<StatValueAO> someValues){
 		wrapper = new ValueListWrapper(someValues);
 	}
 	
-	public List<StatValueBean> getValues(){
+	public List<StatValueAO> getValues(){
 		return wrapper.getValues();
 	}
 

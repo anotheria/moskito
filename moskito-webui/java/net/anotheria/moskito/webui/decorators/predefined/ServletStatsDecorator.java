@@ -37,8 +37,8 @@ package net.anotheria.moskito.webui.decorators.predefined;
 import net.anotheria.moskito.core.predefined.ServletStats;
 import net.anotheria.moskito.core.producers.IStats;
 import net.anotheria.moskito.core.stats.TimeUnit;
-import net.anotheria.moskito.webui.shared.bean.LongValueBean;
-import net.anotheria.moskito.webui.shared.bean.StatValueBean;
+import net.anotheria.moskito.webui.producers.api.LongValueAO;
+import net.anotheria.moskito.webui.producers.api.StatValueAO;
 
 import java.util.List;
 
@@ -117,14 +117,14 @@ public class ServletStatsDecorator extends RequestOrientedStatsDecorator{
 		super(name, CAPTIONS, SHORT_EXPLANATIONS, EXPLANATIONS);
 	}
 	
-	@Override public List<StatValueBean> getValues(IStats statsObject, String interval, TimeUnit unit) {
-		List<StatValueBean> ret = super.getValues(statsObject, interval, unit);
+	@Override public List<StatValueAO> getValues(IStats statsObject, String interval, TimeUnit unit) {
+		List<StatValueAO> ret = super.getValues(statsObject, interval, unit);
 		
 		ServletStats stats = (ServletStats)statsObject;
 		int i = 0 ;
-		ret.add(new LongValueBean(CAPTIONS[i++], stats.getIoExceptions(interval)));
-		ret.add(new LongValueBean(CAPTIONS[i++], stats.getServletExceptions(interval)));
-		ret.add(new LongValueBean(CAPTIONS[i++], stats.getRuntimeExceptions(interval)));
+		ret.add(new LongValueAO(CAPTIONS[i++], stats.getIoExceptions(interval)));
+		ret.add(new LongValueAO(CAPTIONS[i++], stats.getServletExceptions(interval)));
+		ret.add(new LongValueAO(CAPTIONS[i++], stats.getRuntimeExceptions(interval)));
 		
 		return ret;
 	}

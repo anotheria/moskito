@@ -32,49 +32,46 @@
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR
  * THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */	
-package net.anotheria.moskito.webui.shared.bean;
+package net.anotheria.moskito.webui.producers.api;
 
-import net.anotheria.util.BasicComparable;
+import net.anotheria.moskito.webui.shared.bean.StatCaptionBean;
 import net.anotheria.util.sorter.IComparable;
 /**
- * StatValueBean for string values.
- * @author lrosenberg.
+ * This is the base bean for stat value bean.
+ * @author lrosenberg
  *
  */
-public class StringValueBean extends StatValueBean{
-	
+public abstract class StatValueAO implements IComparable{
 	/**
-	 * Value object.
+	 * Name of the stat value.
 	 */
-	private String value;
+	private String name;
 	
+	protected StatValueAO(String aName){
+		name = aName;
+	}
+	
+	@Override public String toString(){
+		return getValue();
+	}
 	/**
-	 * Creates a new StringValue bean with given name and value.
-	 * @param aName
-	 * @param aValue
+	 * Returns the value.
+	 * @return
 	 */
-	public StringValueBean(String aName, String aValue){
-		super(aName);
-		value = aValue;
+	public abstract String getValue();
+	public abstract String getRawValue();
+	/**
+	 * Returns the type.
+	 * @return
+	 */
+	public abstract String getType();
+	
+	public String getName(){
+		return name;
 	}
 	
-	@Override public String getType(){
-		return "string";
+	public String getJsVariableName(){
+		return StatCaptionBean.getJsVariableName(getName());
 	}
-	
-	@Override public String getValue(){
-		return value;
-	}
-
-	@Override public int compareTo(IComparable anotherComparable, int ignored) {
-		return BasicComparable.compareString(value, ((StringValueBean)anotherComparable).value);
-	}
-
-	@Override
-	public String getRawValue() {
-		return "NaN";
-	}
-	
-	
 	
 }

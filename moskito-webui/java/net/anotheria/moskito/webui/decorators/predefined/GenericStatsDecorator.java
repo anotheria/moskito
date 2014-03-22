@@ -7,11 +7,11 @@ import net.anotheria.moskito.core.producers.GenericStats;
 import net.anotheria.moskito.core.stats.TimeUnit;
 import net.anotheria.moskito.core.stats.TypeAwareStatValue;
 import net.anotheria.moskito.webui.decorators.IDecorator;
-import net.anotheria.moskito.webui.shared.bean.DoubleValueBean;
-import net.anotheria.moskito.webui.shared.bean.LongValueBean;
+import net.anotheria.moskito.webui.producers.api.DoubleValueAO;
+import net.anotheria.moskito.webui.producers.api.LongValueAO;
 import net.anotheria.moskito.webui.shared.bean.StatCaptionBean;
-import net.anotheria.moskito.webui.shared.bean.StatValueBean;
-import net.anotheria.moskito.webui.shared.bean.StringValueBean;
+import net.anotheria.moskito.webui.producers.api.StatValueAO;
+import net.anotheria.moskito.webui.producers.api.StringValueAO;
 import net.anotheria.util.sorter.IComparable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -74,11 +74,11 @@ public class GenericStatsDecorator implements IDecorator<GenericStats> {
      * {@inheritDoc}
      */
     @Override
-    public List<StatValueBean> getValues(final GenericStats stats,
+    public List<StatValueAO> getValues(final GenericStats stats,
                                          final String interval,
                                          final TimeUnit unit) {
         final List<String> names = stats.getAvailableValueNames();
-        final List<StatValueBean> ret = new ArrayList<StatValueBean>(names.size());
+        final List<StatValueAO> ret = new ArrayList<StatValueAO>(names.size());
 
         for (final String name : names) {
             final TypeAwareStatValue sValue = stats.getValueByName(name);
@@ -88,14 +88,14 @@ public class GenericStatsDecorator implements IDecorator<GenericStats> {
             } else {
                 switch (sValue.getType()) {
                     case DOUBLE:
-                        ret.add(new DoubleValueBean(name, sValue.getValueAsDouble(interval)));
+                        ret.add(new DoubleValueAO(name, sValue.getValueAsDouble(interval)));
                         break;
                     case INT:
                     case LONG:
-                        ret.add(new LongValueBean(name, sValue.getValueAsLong(interval)));
+                        ret.add(new LongValueAO(name, sValue.getValueAsLong(interval)));
                         break;
                     default:
-                        ret.add(new StringValueBean(name, sValue.getValueAsString(interval)));
+                        ret.add(new StringValueAO(name, sValue.getValueAsString(interval)));
                         break;
                 }
             }

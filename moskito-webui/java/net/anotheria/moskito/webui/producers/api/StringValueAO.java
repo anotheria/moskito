@@ -32,43 +32,49 @@
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR
  * THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */	
-package net.anotheria.moskito.webui.shared.bean;
+package net.anotheria.moskito.webui.producers.api;
 
 import net.anotheria.util.BasicComparable;
-import net.anotheria.util.NumberUtils;
 import net.anotheria.util.sorter.IComparable;
-
 /**
- * Stat value bean for long data types.
- * @author lrosenberg
+ * StatValueAO for string values.
+ * @author lrosenberg.
  *
  */
-public class LongValueBean extends StatValueBean{
-	/**
-	 * Internal value storage.
-	 */
-	private long longValue;
+public class StringValueAO extends StatValueAO {
 	
-	public LongValueBean(String name, long aValue){
-		super(name);
-		longValue = aValue;
+	/**
+	 * Value object.
+	 */
+	private String value;
+	
+	/**
+	 * Creates a new StringValue bean with given name and value.
+	 * @param aName
+	 * @param aValue
+	 */
+	public StringValueAO(String aName, String aValue){
+		super(aName);
+		value = aValue;
 	}
 	
 	@Override public String getType(){
-		return "long";
+		return "string";
 	}
 	
 	@Override public String getValue(){
-		return longValue == Long.MAX_VALUE || longValue== Long.MIN_VALUE ? "NoR" : ""+NumberUtils.getDotedNumberUS(longValue);
-	}
-	
-	@Override public int compareTo(IComparable anotherComparable, int ignored) {
-		return BasicComparable.compareLong(longValue, ((LongValueBean)anotherComparable).longValue);
-	}
-	
-	@Override
-	public String getRawValue() {
-		return ""+longValue;
+		return value;
 	}
 
+	@Override public int compareTo(IComparable anotherComparable, int ignored) {
+		return BasicComparable.compareString(value, ((StringValueAO)anotherComparable).value);
+	}
+
+	@Override
+	public String getRawValue() {
+		return "NaN";
+	}
+	
+	
+	
 }
