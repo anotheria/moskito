@@ -48,7 +48,6 @@ import net.anotheria.moskito.webui.producers.api.UnitCountAO;
 import net.anotheria.moskito.webui.shared.action.BaseMoskitoUIAction;
 import net.anotheria.moskito.webui.shared.bean.GraphDataBean;
 import net.anotheria.moskito.webui.shared.bean.GraphDataValueBean;
-import net.anotheria.moskito.webui.shared.bean.MetaHeaderBean;
 import net.anotheria.moskito.webui.shared.bean.NaviItem;
 import net.anotheria.moskito.webui.shared.bean.ProducerBean;
 import net.anotheria.moskito.webui.shared.bean.ProducerBeanSortType;
@@ -137,7 +136,6 @@ public abstract class BaseShowProducersAction extends BaseMoskitoUIAction {
 	protected List<ProducerDecoratorBean> getDecoratedProducers(HttpServletRequest req, List<IStatsProducer> producers, Map<String, GraphDataBean> graphData){
 
 		Map<IDecorator, List<IStatsProducer>> decoratorMap = new HashMap<IDecorator,List<IStatsProducer>>();
-		Map<IDecorator, List<MetaHeaderBean>> metaheaderMap = new HashMap<IDecorator, List<MetaHeaderBean>>();
 
 		String intervalName = getCurrentInterval(req);
 		UnitBean currentUnit = getCurrentUnit(req);
@@ -149,16 +147,11 @@ public abstract class BaseShowProducersAction extends BaseMoskitoUIAction {
 				if (!decoratorMap.containsKey(decorator)){
 					decoratorMap.put(decorator, new ArrayList<IStatsProducer>());
 
-					List<MetaHeaderBean> metaheader = new ArrayList<MetaHeaderBean>();
 					for(StatValueBean statBean : (List<StatValueBean>)decorator.getValues(stats, intervalName, currentUnit.getUnit())){
-						MetaHeaderBean bean = new MetaHeaderBean(statBean.getName(), statBean.getType());
-						metaheader.add(bean);
-
 						String graphKey = decorator.getName()+"_"+statBean.getName();
 						GraphDataBean graphDataBean = new GraphDataBean(decorator.getName()+"_"+statBean.getJsVariableName(), statBean.getName());
 						graphData.put(graphKey, graphDataBean);
 					}
-					metaheaderMap.put(decorator, metaheader);
 				}
 				decoratorMap.get(decorator).add(producer);
 			}catch(IndexOutOfBoundsException e){
@@ -173,8 +166,6 @@ public abstract class BaseShowProducersAction extends BaseMoskitoUIAction {
 			ProducerDecoratorBean b = new ProducerDecoratorBean();
 			b.setName(decorator.getName());
 			b.setCaptions(decorator.getCaptions());
-
-			b.setMetaHeader(metaheaderMap.get(decorator));
 
 			List<ProducerBean> pbs = new ArrayList<ProducerBean>();
 			for (IStatsProducer p : decoratorMap.get(decorator)){
