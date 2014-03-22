@@ -88,7 +88,7 @@ public class ShowProducerAction extends BaseMoskitoUIAction {
 		String pFilterZero = req.getParameter(PARAM_FILTER_ZERO);
 		boolean filterZero = pFilterZero != null && pFilterZero.equalsIgnoreCase("true");
 		
-		List<IStats> allStats = producer.getStats();
+		List<IStats> allStats = null; //producer.getStats(); TODO will crash
 		Map<String, GraphDataBean> graphData = new HashMap<String, GraphDataBean>();
 		
 		for (IStats statObject : allStats){

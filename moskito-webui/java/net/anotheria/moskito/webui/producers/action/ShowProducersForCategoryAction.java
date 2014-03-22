@@ -34,7 +34,6 @@
  */	
 package net.anotheria.moskito.webui.producers.action;
 
-import net.anotheria.moskito.core.producers.IStatsProducer;
 import net.anotheria.moskito.webui.producers.api.ProducerAO;
 
 import javax.servlet.http.HttpServletRequest;
@@ -50,7 +49,7 @@ public class ShowProducersForCategoryAction extends BaseShowProducersAction{
 	@Override protected List<ProducerAO> getProducers(HttpServletRequest req) {
 		String currentCategory = getCategoryParameter(req);
 		req.setAttribute("currentCategory", currentCategory);
-		return getProducerAPI().getAllProducersByCategory(currentCategory);
+		return getProducerAPI().getAllProducersByCategory(currentCategory, getCurrentInterval(req), getCurrentUnit(req).getUnit());
 	}
 	
 	@Override 	public String getPageTitle(HttpServletRequest req){

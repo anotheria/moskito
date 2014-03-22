@@ -77,7 +77,7 @@ public class ShowProducersAction extends BaseShowProducersAction{
 		String subsystem = getSubsystemParameter(req);
 		if(subsystem!= null && subsystem.length() > 0)
 			filters.add(new SubsystemFilter(subsystem));
-		return getProducerAPI().getProducers(filters.toArray(new IProducerFilter[0]));
+		return getProducerAPI().getProducers(filters.toArray(new IProducerFilter[0]), getCurrentInterval(req), getCurrentUnit(req).getUnit());
 	}
 	
 	@Override public String getPageTitle(HttpServletRequest req){

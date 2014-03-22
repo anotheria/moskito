@@ -1,6 +1,5 @@
 package net.anotheria.moskito.webui.producers.api;
 
-import com.sun.org.glassfish.external.statistics.Stats;
 import net.anotheria.anoplass.api.APIException;
 import net.anotheria.anoplass.api.APIInitException;
 import net.anotheria.moskito.core.producers.IStats;
@@ -56,14 +55,14 @@ public class ProducerAPIImpl extends AbstractMoskitoAPIImpl implements ProducerA
 	}
 
 	@Override
-	public List<ProducerAO> getAllProducers() {
-		return convertStatsProducerListToAO(producerRegistryAPI.getAllProducers());
+	public List<ProducerAO> getAllProducers(String intervalName, TimeUnit timeUnit) {
+		return convertStatsProducerListToAO(producerRegistryAPI.getAllProducers(), intervalName, timeUnit);
 	}
 
-	private List<ProducerAO> convertStatsProducerListToAO(List<IStatsProducer> producers){
+	private List<ProducerAO> convertStatsProducerListToAO(List<IStatsProducer> producers, String intervalName, TimeUnit timeUnit){
 		LinkedList<ProducerAO> ret = new LinkedList<ProducerAO>();
 		for (IStatsProducer p : producers){
-			ret.add(convertStatsProducerToAO(p));
+			ret.add(convertStatsProducerToAO(p, intervalName, timeUnit));
 		}
 		return ret;
 	}
@@ -81,30 +80,31 @@ public class ProducerAPIImpl extends AbstractMoskitoAPIImpl implements ProducerA
 
 		//ao.setStats(p.getStats());
 
-		IDecorator<? extends Stats> decorator = decoratorRegistry.getDecorator(ao.getStatsClazz());
+		IDecorator decorator = decoratorRegistry.getDecorator(ao.getStatsClazz());
 		ao.setValues(decorator.getValues(firstStats, intervalName, timeUnit));
 
 		return ao;
 	}
 
 	@Override
-	public List<ProducerAO> getAllProducersByCategory(String currentCategory) {
-		return convertStatsProducerListToAO(producerRegistryAPI.getAllProducersByCategory(currentCategory));
+	public List<ProducerAO> getAllProducersByCategory(String currentCategory, String intervalName, TimeUnit timeUnit) {
+		return convertStatsProducerListToAO(producerRegistryAPI.getAllProducersByCategory(currentCategory), intervalName, timeUnit);
 	}
 
 	@Override
-	public List<ProducerAO> getProducers(IProducerFilter[] iProducerFilters) {
+	public List<ProducerAO> getProducers(IProducerFilter[] iProducerFilters, String intervalName, TimeUnit timeUnit) {
 		throw new RuntimeException("Not yet implemented");
 	}
 
 	@Override
-	public List<ProducerAO> getAllProducersBySubsystem(String currentSubsystem) {
-		return convertStatsProducerListToAO(producerRegistryAPI.getAllProducersBySubsystem(currentSubsystem));
+	public List<ProducerAO> getAllProducersBySubsystem(String currentSubsystem, String intervalName, TimeUnit timeUnit) {
+		return convertStatsProducerListToAO(producerRegistryAPI.getAllProducersBySubsystem(currentSubsystem), intervalName, timeUnit);
 	}
 
 	@Override
 	public ProducerAO getProducer(String producerId) throws APIException {
 		IStatsProducer producer = producerRegistryAPI.getProducer(producerId);
-		return convertStatsProducerToAO(producer);
+		System.out.println("EXPECT a crash");
+		return convertStatsProducerToAO(producer, null, null);
 	}
 }

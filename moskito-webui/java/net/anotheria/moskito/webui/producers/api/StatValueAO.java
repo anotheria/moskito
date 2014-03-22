@@ -36,12 +36,15 @@ package net.anotheria.moskito.webui.producers.api;
 
 import net.anotheria.moskito.webui.shared.bean.StatCaptionBean;
 import net.anotheria.util.sorter.IComparable;
+
+import java.io.Serializable;
+
 /**
  * This is the base bean for stat value bean.
  * @author lrosenberg
  *
  */
-public abstract class StatValueAO implements IComparable{
+public abstract class StatValueAO implements IComparable, Serializable{
 	/**
 	 * Name of the stat value.
 	 */

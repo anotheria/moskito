@@ -36,6 +36,7 @@ package net.anotheria.moskito.webui.producers.api;
 
 import net.anotheria.util.BasicComparable;
 import net.anotheria.util.sorter.IComparable;
+
 /**
  * StatValueAO for string values.
  * @author lrosenberg.

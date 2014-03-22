@@ -66,14 +66,6 @@ public class ProducerDecoratorBean extends AbstractDecoratorBean {
 		visibility = ProducerVisibility.SHOW;
 	}
 
-	public List<MetaHeaderBean> getMetaHeader(){
-		return metaheader;
-	}
-	
-	public void setMetaHeader(List<MetaHeaderBean> someMetaheaders){
-		this.metaheader = someMetaheaders;
-	}
-	
 	public List<ProducerBean> getProducers() {
 		return producers;
 	}
