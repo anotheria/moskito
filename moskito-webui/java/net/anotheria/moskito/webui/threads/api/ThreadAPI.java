@@ -18,4 +18,12 @@ import java.util.List;
 @SupportService
 public interface ThreadAPI extends API, Service {
 	List<ThreadInfoAO> getThreadInfos() throws APIException;
+
+	/**
+	 * This methid is used to start a test thread for history testing purposes.
+	 * @throws APIException
+	 */
+	void startTestThread() throws APIException;
+
+	List<ThreadInfoAO> getThreadDump() throws APIException;
 }

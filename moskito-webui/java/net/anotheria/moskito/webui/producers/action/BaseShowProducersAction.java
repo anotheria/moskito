@@ -35,14 +35,13 @@
 package net.anotheria.moskito.webui.producers.action;
 
 import net.anotheria.anoplass.api.APIException;
-import net.anotheria.anoplass.api.APIFinder;
 import net.anotheria.maf.action.ActionCommand;
 import net.anotheria.maf.action.ActionMapping;
 import net.anotheria.maf.bean.FormBean;
 import net.anotheria.moskito.core.producers.IStats;
-import net.anotheria.moskito.core.producers.IStatsProducer;
 import net.anotheria.moskito.core.stats.UnknownIntervalException;
 import net.anotheria.moskito.webui.decorators.IDecorator;
+import net.anotheria.moskito.webui.producers.api.ProducerAO;
 import net.anotheria.moskito.webui.producers.api.ProducerAPI;
 import net.anotheria.moskito.webui.producers.api.UnitCountAO;
 import net.anotheria.moskito.webui.shared.action.BaseMoskitoUIAction;
@@ -56,6 +55,7 @@ import net.anotheria.moskito.webui.shared.bean.ProducerDecoratorBean;
 import net.anotheria.moskito.webui.shared.bean.ProducerVisibility;
 import net.anotheria.moskito.webui.shared.bean.StatValueBean;
 import net.anotheria.moskito.webui.shared.bean.UnitBean;
+import net.anotheria.moskito.webui.util.APILookupUtility;
 import net.anotheria.util.sorter.StaticQuickSorter;
 
 import javax.servlet.http.HttpServletRequest;
@@ -72,20 +72,11 @@ import java.util.Map;
 public abstract class BaseShowProducersAction extends BaseMoskitoUIAction {
 
 	/**
-	 * Instance of the producer api.
-	 */
-	private static ProducerAPI producerAPI = APIFinder.findAPI(ProducerAPI.class);
-
-
-	protected ProducerAPI getProducerAPI(){
-		return producerAPI;
-	}
-	/**
 	 * Returns the list of producers for presentation.
 	 * @param req
 	 * @return
 	 */
-	protected abstract List<IStatsProducer> getProducers(HttpServletRequest req);
+	protected abstract List<ProducerAO> getProducers(HttpServletRequest req);
 	/**
 	 * Returns the page title. 
 	 * @param req
@@ -134,20 +125,20 @@ public abstract class BaseShowProducersAction extends BaseMoskitoUIAction {
 	}
 
 	//todo make separate method for graphData in future
-	protected List<ProducerDecoratorBean> getDecoratedProducers(HttpServletRequest req, List<IStatsProducer> producers, Map<String, GraphDataBean> graphData){
+	protected List<ProducerDecoratorBean> getDecoratedProducers(HttpServletRequest req, List<ProducerAO> producers, Map<String, GraphDataBean> graphData){
 
-		Map<IDecorator, List<IStatsProducer>> decoratorMap = new HashMap<IDecorator,List<IStatsProducer>>();
+		Map<IDecorator, List<ProducerAO>> decoratorMap = new HashMap<IDecorator,List<ProducerAO>>();
 		Map<IDecorator, List<MetaHeaderBean>> metaheaderMap = new HashMap<IDecorator, List<MetaHeaderBean>>();
 
 		String intervalName = getCurrentInterval(req);
 		UnitBean currentUnit = getCurrentUnit(req);
 
-		for (IStatsProducer producer : producers){
+		for (ProducerAO producer : producers){
 			try{
 				IStats stats = (IStats)producer.getStats().get(0);
 				IDecorator decorator = getDecoratorRegistry().getDecorator(stats);
 				if (!decoratorMap.containsKey(decorator)){
-					decoratorMap.put(decorator, new ArrayList<IStatsProducer>());
+					decoratorMap.put(decorator, new ArrayList<ProducerAO>());
 
 					List<MetaHeaderBean> metaheader = new ArrayList<MetaHeaderBean>();
 					for(StatValueBean statBean : (List<StatValueBean>)decorator.getValues(stats, intervalName, currentUnit.getUnit())){
@@ -177,11 +168,11 @@ public abstract class BaseShowProducersAction extends BaseMoskitoUIAction {
 			b.setMetaHeader(metaheaderMap.get(decorator));
 
 			List<ProducerBean> pbs = new ArrayList<ProducerBean>();
-			for (IStatsProducer p : decoratorMap.get(decorator)){
+			for (ProducerAO p : decoratorMap.get(decorator)){
 				try {
 					ProducerBean pb = new ProducerBean();
 					pb.setCategory(p.getCategory());
-					pb.setClassName(p.getClass().getName());
+					pb.setClassName(p.getProducerClassName());
 					pb.setSubsystem(p.getSubsystem());
 					pb.setId(p.getProducerId());
 					IStats firstStats = (IStats)p.getStats().get(0);

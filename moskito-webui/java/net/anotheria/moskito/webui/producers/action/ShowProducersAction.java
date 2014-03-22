@@ -34,11 +34,11 @@
  */	
 package net.anotheria.moskito.webui.producers.action;
 
-import net.anotheria.moskito.core.producers.IStatsProducer;
+import net.anotheria.anoplass.api.APIException;
 import net.anotheria.moskito.core.registry.IProducerFilter;
 import net.anotheria.moskito.core.registry.filters.CategoryFilter;
 import net.anotheria.moskito.core.registry.filters.SubsystemFilter;
-import net.anotheria.moskito.webui.producers.api.UnitCountAO;
+import net.anotheria.moskito.webui.producers.api.ProducerAO;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -69,7 +69,7 @@ public class ShowProducersAction extends BaseShowProducersAction{
 	} 
 	
 	@Override
-	protected List<IStatsProducer> getProducers(HttpServletRequest req) {
+	protected List<ProducerAO> getProducers(HttpServletRequest req) {
 		List<IProducerFilter> filters = new ArrayList<IProducerFilter>();
 		String category = getCategoryParameter(req);
 		if(category != null && category.length() > 0)
@@ -77,7 +77,7 @@ public class ShowProducersAction extends BaseShowProducersAction{
 		String subsystem = getSubsystemParameter(req);
 		if(subsystem!= null && subsystem.length() > 0)
 			filters.add(new SubsystemFilter(subsystem));
-		return getAPI().getProducers(filters.toArray(new IProducerFilter[0]));
+		return getProducerAPI().getProducers(filters.toArray(new IProducerFilter[0]));
 	}
 	
 	@Override public String getPageTitle(HttpServletRequest req){
@@ -90,20 +90,14 @@ public class ShowProducersAction extends BaseShowProducersAction{
 		return "mskShowProducers?ts="+System.currentTimeMillis();
 	}
 
-	@Override public void doCustomProcessing(HttpServletRequest req, HttpServletResponse res){
-		List<String> categories = getAPI().getCategories();
-		List<UnitCountAO> categoriesBeans = new ArrayList<UnitCountAO>(categories.size());
-		for (String catName : categories){
-			categoriesBeans.add(new UnitCountAO(catName, getAPI().getAllProducersByCategory(catName).size()));
+	@Override public void doCustomProcessing(HttpServletRequest req, HttpServletResponse res) {
+		try{
+			req.setAttribute("categories", getProducerAPI().getCategories());
+			req.setAttribute("subsystems", getProducerAPI().getSubsystems());
+		}catch(APIException e){
+			//TODO handle exception maybe?
+			throw new RuntimeException("Can't retrieve categories or subsystems", e);
 		}
-		req.setAttribute("categories", categoriesBeans);
-		
-		List<String> subsystems = getAPI().getSubsystems();		
-		List<UnitCountAO> subsystemsBeans = new ArrayList<UnitCountAO>(subsystems.size());
-		for (String subName : subsystems){
-			subsystemsBeans.add(new UnitCountAO(subName, getAPI().getAllProducersBySubsystem(subName).size()));
-		}
-		req.setAttribute("subsystems", subsystemsBeans);
  	}
 
 }

@@ -41,6 +41,7 @@ import net.anotheria.moskito.core.inspection.CreationInfo;
 import net.anotheria.moskito.core.inspection.Inspectable;
 import net.anotheria.moskito.core.producers.IStats;
 import net.anotheria.moskito.core.producers.IStatsProducer;
+import net.anotheria.moskito.webui.producers.api.ProducerAO;
 import net.anotheria.moskito.webui.shared.action.BaseMoskitoUIAction;
 import net.anotheria.moskito.webui.shared.bean.GraphDataBean;
 import net.anotheria.moskito.webui.shared.bean.GraphDataValueBean;
@@ -76,7 +77,7 @@ public class ShowProducerAction extends BaseMoskitoUIAction {
 
 		Map<IDecorator, List<IStats>> decoratorMap = new HashMap<IDecorator,List<IStats>>();
 		
-		IStatsProducer producer = getAPI().getProducer(req.getParameter(PARAM_PRODUCER_ID));
+		ProducerAO producer = getProducerAPI().getProducer(req.getParameter(PARAM_PRODUCER_ID));
 		ProducerBean producerBean = new ProducerBean();
 		producerBean.setId(producer.getProducerId());
 		producerBean.setCategory(producer.getCategory());
@@ -88,9 +89,6 @@ public class ShowProducerAction extends BaseMoskitoUIAction {
 		String target = req.getParameter("target");
 		req.setAttribute("target", target);
 
-		if (producer instanceof Inspectable)
-			req.setAttribute("inspectableFlag", Boolean.TRUE);
-		
 		String pFilterZero = req.getParameter(PARAM_FILTER_ZERO);
 		boolean filterZero = pFilterZero != null && pFilterZero.equalsIgnoreCase("true");
 		

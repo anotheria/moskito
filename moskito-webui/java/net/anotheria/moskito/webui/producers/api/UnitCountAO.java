@@ -36,6 +36,7 @@ package net.anotheria.moskito.webui.producers.api;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import java.io.Serializable;
 
 /**
  * Represent a name/count pair. Used to present number of producers in a category or subsystem.
@@ -43,7 +44,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  *
  */
 @XmlRootElement
-public class UnitCountAO {
+public class UnitCountAO implements Serializable{
 	/**
 	 * Name of the unit.
 	 */

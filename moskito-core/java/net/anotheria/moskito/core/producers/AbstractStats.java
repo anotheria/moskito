@@ -36,6 +36,7 @@ package net.anotheria.moskito.core.producers;
 
 import net.anotheria.moskito.core.stats.TimeUnit;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -45,7 +46,7 @@ import java.util.List;
  * 
  * @author lrosenberg
  */
-public abstract class AbstractStats implements IStats, StatsMXBean{
+public abstract class AbstractStats implements IStats, StatsMXBean, Serializable{
 	
 	/**
 	 * Constant for MegaByte.

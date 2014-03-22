@@ -47,9 +47,11 @@ import net.anotheria.moskito.webui.CurrentSelection;
 import net.anotheria.moskito.webui.charts.ChartEngine;
 import net.anotheria.moskito.webui.decorators.DecoratorRegistryFactory;
 import net.anotheria.moskito.webui.decorators.IDecoratorRegistry;
+import net.anotheria.moskito.webui.producers.api.ProducerAPI;
 import net.anotheria.moskito.webui.shared.bean.IntervalBean;
 import net.anotheria.moskito.webui.shared.bean.NaviItem;
 import net.anotheria.moskito.webui.shared.bean.UnitBean;
+import net.anotheria.moskito.webui.util.APILookupUtility;
 import net.anotheria.moskito.webui.util.WebUIConfig;
 import net.anotheria.util.NumberUtils;
 import net.anotheria.util.StringUtils;
@@ -233,7 +235,8 @@ public abstract class BaseMoskitoUIAction implements Action{
 		super();
 		dummySortType = new DummySortType();
 	}
-	
+
+	@Deprecated
 	protected IProducerRegistryAPI getAPI(){
 		return api;
 	}
@@ -493,4 +496,9 @@ public abstract class BaseMoskitoUIAction implements Action{
 	}
 
 	protected String getPageName(){ return "unnamed"; }
+
+	protected ProducerAPI getProducerAPI(){
+		return APILookupUtility.getProducerAPI();
+	}
+
 }

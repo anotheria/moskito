@@ -3,6 +3,7 @@ package net.anotheria.moskito.webui.util;
 import net.anotheria.anoplass.api.API;
 import net.anotheria.anoplass.api.APIFinder;
 import net.anotheria.moskito.webui.accumulators.api.AccumulatorAPI;
+import net.anotheria.moskito.webui.producers.api.ProducerAPI;
 import net.anotheria.moskito.webui.threads.api.ThreadAPI;
 import net.anotheria.moskito.webui.threshold.api.ThresholdAPI;
 import org.distributeme.core.ServiceDescriptor;
@@ -14,7 +15,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
 /**
- * TODO comment this class
+ * This utility is used to separate between local apis and remote apis and provide remote instances.
  *
  * @author lrosenberg
  * @since 21.03.14 17:41
@@ -58,6 +59,11 @@ public class APILookupUtility {
 				findRemote(ThreadAPI.class);
 	}
 
+	public static ProducerAPI getProducerAPI() {
+		return isLocal() ?
+				APIFinder.findAPI(ProducerAPI.class) :
+				findRemote(ProducerAPI.class);
+	}
 
 	private static <T extends API> T findRemote(Class<T> targetClass){
 		String serviceId = null;

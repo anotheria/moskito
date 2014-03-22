@@ -26,6 +26,9 @@ public class ThreadInfoAO implements Serializable{
 	private long waitedCount;
 	private long waitedTime;
 
+
+	private StackTraceElement[] stackTrace;
+
 	public ThreadInfoAO(ThreadInfo jmxInfo){
 		threadId = jmxInfo.getThreadId();
 		threadName = jmxInfo.getThreadName();
@@ -140,4 +143,12 @@ public class ThreadInfoAO implements Serializable{
 	public void setWaitedTime(long waitedTime) {
 		this.waitedTime = waitedTime;
 	}
+	public StackTraceElement[] getStackTrace() {
+		return stackTrace;
+	}
+
+	public void setStackTrace(StackTraceElement[] stackTrace) {
+		this.stackTrace = stackTrace;
+	}
+
 }

@@ -10,16 +10,13 @@
 	//registrationIpMapping: "192.168.200.5:10.0.0.0",
 	
 	"listener.1": "org.distributeme.core.listener.ServerLifecycleSysOutPrinterListener",
+	"interceptor.1": "org.distributeme.test.interception.interceptor.LogOutBeforeCallInterceptor", 
 	//"interceptor.1": "org.distributeme.core.interceptor.availabilitytesting.ServiceUnavailableByPropertyInterceptor", 
 	//"interceptor.2": "org.distributeme.core.interceptor.availabilitytesting.ServerSideSlowDownByPropertyInterceptor",
 	//"interceptor.3": "org.distributeme.core.interceptor.availabilitytesting.ServerSideSlowDownByConfigurationInterceptor", 
+	"interceptor.50": "org.distributeme.test.interception.interceptor.LogOutAfterCallInterceptor",
 	
 	test: {
-		bolbat: {
-			registryContainerPort: 8080,
-			registryContainerHost: "localhost",				
-		},
-
 		interceptors: {
 //			"interceptor.1": "org.distributeme.test.interception.interceptor.LogOutBeforeCallInterceptor", 
 			"interceptor.2": "org.distributeme.test.interception.interceptor.InterceptSumInterceptor", 
