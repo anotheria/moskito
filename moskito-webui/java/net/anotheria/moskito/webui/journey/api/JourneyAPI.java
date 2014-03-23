@@ -2,7 +2,10 @@ package net.anotheria.moskito.webui.journey.api;
 
 import net.anotheria.anoplass.api.API;
 import net.anotheria.anoplass.api.APIException;
+import net.anotheria.anoprise.metafactory.Service;
 import net.anotheria.moskito.core.journey.Journey;
+import org.distributeme.annotation.DistributeMe;
+import org.distributeme.annotation.SupportService;
 
 import java.util.List;
 
@@ -12,7 +15,9 @@ import java.util.List;
  * @author lrosenberg
  * @since 14.02.13 10:00
  */
-public interface JourneyAPI extends API {
+@DistributeMe(agentsSupport = false)
+@SupportService
+public interface JourneyAPI extends API, Service {
 	/**
 	 * Returns list of available journeys.
 	 * @return

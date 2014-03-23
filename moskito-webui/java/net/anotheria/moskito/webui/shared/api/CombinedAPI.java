@@ -1,6 +1,7 @@
 package net.anotheria.moskito.webui.shared.api;
 
 import net.anotheria.moskito.webui.accumulators.api.AccumulatorAPI;
+import net.anotheria.moskito.webui.journey.api.JourneyAPI;
 import net.anotheria.moskito.webui.producers.api.ProducerAPI;
 import net.anotheria.moskito.webui.threads.api.ThreadAPI;
 import net.anotheria.moskito.webui.threshold.api.ThresholdAPI;
@@ -15,6 +16,6 @@ import org.distributeme.annotation.DistributeMe;
  */
 
 @DistributeMe(agentsSupport=false)
-@CombinedService(services={ThresholdAPI.class, AccumulatorAPI.class, ThreadAPI.class, ProducerAPI.class})
+@CombinedService(services={ThresholdAPI.class, AccumulatorAPI.class, ThreadAPI.class, ProducerAPI.class, JourneyAPI.class})
 public class CombinedAPI {
 }
