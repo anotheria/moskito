@@ -3,6 +3,7 @@ package net.anotheria.moskito.webui.util;
 import net.anotheria.anoplass.api.API;
 import net.anotheria.anoplass.api.APIFinder;
 import net.anotheria.moskito.webui.accumulators.api.AccumulatorAPI;
+import net.anotheria.moskito.webui.journey.api.JourneyAPI;
 import net.anotheria.moskito.webui.producers.api.ProducerAPI;
 import net.anotheria.moskito.webui.threads.api.ThreadAPI;
 import net.anotheria.moskito.webui.threshold.api.ThresholdAPI;
@@ -40,10 +41,16 @@ public class APILookupUtility {
 		return currentRemoteInstance;
 	}
 
+	public static JourneyAPI getJourneyAPI(){
+		return isLocal() ?
+				APIFinder.findAPI(JourneyAPI.class) :
+				findRemote(JourneyAPI.class);
+	}
+
 	public static ThresholdAPI getThresholdAPI(){
 		return isLocal() ?
 			APIFinder.findAPI(ThresholdAPI.class) :
-			findRemote(ThresholdAPI.class);//, RemoteThresholdAPIStub.class, ThresholdAPIConstants.getServiceId()));
+			findRemote(ThresholdAPI.class);
 	}
 
 
