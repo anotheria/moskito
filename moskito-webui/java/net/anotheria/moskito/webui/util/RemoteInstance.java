@@ -52,4 +52,12 @@ public class RemoteInstance {
 		return getName()+"@"+getHost()+":"+getPort();
 	}
 
+	public String getSelectKey(){
+		return getHost()+"-"+getPort();
+	}
+
+	public boolean equalsByKey(String key){
+		return getSelectKey().equals(key);
+	}
+
 }

@@ -49,9 +49,11 @@ import net.anotheria.moskito.webui.decorators.DecoratorRegistryFactory;
 import net.anotheria.moskito.webui.decorators.IDecoratorRegistry;
 import net.anotheria.moskito.webui.producers.api.ProducerAPI;
 import net.anotheria.moskito.webui.shared.bean.IntervalBean;
+import net.anotheria.moskito.webui.shared.bean.LabelValueBean;
 import net.anotheria.moskito.webui.shared.bean.NaviItem;
 import net.anotheria.moskito.webui.shared.bean.UnitBean;
 import net.anotheria.moskito.webui.util.APILookupUtility;
+import net.anotheria.moskito.webui.util.RemoteInstance;
 import net.anotheria.moskito.webui.util.WebUIConfig;
 import net.anotheria.util.NumberUtils;
 import net.anotheria.util.StringUtils;
@@ -66,6 +68,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -413,6 +416,17 @@ public abstract class BaseMoskitoUIAction implements Action{
 
 		//set pagename
 		req.setAttribute("pagename", getPageName());
+		req.setAttribute("connection", APILookupUtility.describeConnectivity());
+
+		//prepare selector.
+		LinkedList<LabelValueBean> connectivityOptions = new LinkedList<LabelValueBean>();
+		connectivityOptions.add(new LabelValueBean("Local", "Local"));
+		for (RemoteInstance ri : WebUIConfig.getInstance().getRemotes()){
+			connectivityOptions.add(new LabelValueBean(ri.toString(), ri.getSelectKey()));
+		}
+		req.setAttribute("connectivityOptions", connectivityOptions);
+		req.setAttribute("selectedConnectivity", APILookupUtility.isLocal() ? "Local" : APILookupUtility.getCurrentRemoteInstance().getSelectKey());
+
 
 	}
 	

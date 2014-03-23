@@ -23,15 +23,19 @@ import java.util.concurrent.ConcurrentMap;
  */
 public class APILookupUtility {
 
+
+
 	private static RemoteInstance currentRemoteInstance;
 
 	private static ConcurrentMap<RemoteInstance, ConcurrentMap<Class<? extends API>, API>> remotes = new ConcurrentHashMap<RemoteInstance, ConcurrentMap<Class<? extends API>,API>>();
 
-	private static boolean isLocal(){
-		return WebUIConfig.getInstance().getConnectivityMode()==ConnectivityMode.LOCAL;
+	private static ConnectivityMode currentConnectivityMode = WebUIConfig.getInstance().getConnectivityMode();
+
+	public static boolean isLocal(){
+		return currentConnectivityMode ==ConnectivityMode.LOCAL;
 	}
 
-	private static RemoteInstance getCurrentRemoteInstance(){
+	public static RemoteInstance getCurrentRemoteInstance(){
 		if (currentRemoteInstance !=null)
 			return currentRemoteInstance;
 		RemoteInstance[] instances = WebUIConfig.getInstance().getRemotes();
@@ -127,8 +131,22 @@ public class APILookupUtility {
 		} catch (IllegalAccessException e) {
 			throw new IllegalStateException("Constructor with ServiceDescriptor parameter can not be accessed in remote stub", e);
 		}
-
-
 	}
+
+	public static final String describeConnectivity(){
+		return isLocal() ? "Local" : "Remote: "+currentRemoteInstance;
+	}
+
+	public static ConnectivityMode getCurrentConnectivityMode() {
+		return currentConnectivityMode;
+	}
+
+	public static void setCurrentRemoteInstance(RemoteInstance currentRemoteInstance) {
+		APILookupUtility.currentRemoteInstance = currentRemoteInstance;
+	}
+	public static void setCurrentConnectivityMode(ConnectivityMode currentConnectivityMode) {
+		APILookupUtility.currentConnectivityMode = currentConnectivityMode;
+	}
+
 
 }

@@ -47,10 +47,6 @@ import java.util.List;
 public class ProducerDecoratorBean extends AbstractDecoratorBean {
 
 	/**
-	 * Headers.
-	 */
-	private List<MetaHeaderBean> metaheader;
-	/**
 	 * Contained producers.
  	 */
 	private List<ProducerBean> producers;
@@ -61,7 +57,6 @@ public class ProducerDecoratorBean extends AbstractDecoratorBean {
 	private ProducerVisibility visibility;
 	
 	public ProducerDecoratorBean(){
-		metaheader = new ArrayList<MetaHeaderBean>();
 		producers = new ArrayList<ProducerBean>();
 		visibility = ProducerVisibility.SHOW;
 	}

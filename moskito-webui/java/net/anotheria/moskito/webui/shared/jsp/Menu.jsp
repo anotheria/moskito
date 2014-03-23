@@ -59,6 +59,14 @@
 										<form action="" method="GET"><input name="pNameFilter" type="text" size="10" value="<ano:write name="nameFilter"/>"/>&nbsp;<input type="submit" value="Filter"/></form>
 									</li>
 								</ano:present>
+
+                                <li class="separator"><form name="SelectServer" action="mskSelectServer" method="GET">
+                                <span>Server:</span><select onchange="javascript:handleSelect(this)">
+                                    <ano:iterate name="connectivityOptions" id="option" type="net.anotheria.moskito.webui.shared.bean.LabelValueBean">
+                                        <option value="mskSelectServer?pTargetServer=<ano:write name="option" property="value"/>" <ano:equal name="option" property="value" name2="selectedConnectivity">selected</ano:equal>><ano:write name="option" property="label"/></option>
+                                    </ano:iterate>
+                                </select>
+                                </form></li>
 							</ul>
 						</div>
 						<div class="over_color"><div><!-- --></div></div>

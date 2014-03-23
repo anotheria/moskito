@@ -28,6 +28,7 @@ import net.anotheria.moskito.webui.producers.action.ShowProducerAction;
 import net.anotheria.moskito.webui.producers.action.ShowProducersForCategoryAction;
 import net.anotheria.moskito.webui.producers.action.ShowProducersForSubsystemAction;
 import net.anotheria.moskito.webui.shared.action.ForceIntervalUpdateAction;
+import net.anotheria.moskito.webui.shared.action.SelectServerAction;
 import net.anotheria.moskito.webui.shared.action.ShowExplanationsAction;
 import net.anotheria.moskito.webui.threads.action.HistoryOffAction;
 import net.anotheria.moskito.webui.threads.action.HistoryOnAction;
@@ -238,6 +239,10 @@ public class MoskitoMappingsConfigurator implements ActionMappingsConfigurator{
 
 		mappings.addMapping("mskRemovePlugin", RemovePluginAction.class,
 				new CommandRedirect("redirect", "mskPlugins")
+		);
+
+		mappings.addMapping("mskSelectServer", SelectServerAction.class,
+			new CommandRedirect("redirect", "mskShowAllProducers")
 		);
 
 
