@@ -1,4 +1,6 @@
-package net.anotheria.moskito.webui.more.bean;
+package net.anotheria.moskito.webui.shared.api;
+
+import java.io.Serializable;
 
 /**
  * TODO comment this class
@@ -6,7 +8,7 @@ package net.anotheria.moskito.webui.more.bean;
  * @author lrosenberg
  * @since 19.03.13 23:39
  */
-public class PluginBean {
+public class PluginAO implements Serializable{
 	private String name;
 	private String description;
 	private String className;

@@ -16,6 +16,6 @@ import org.distributeme.annotation.DistributeMe;
  */
 
 @DistributeMe(agentsSupport=false)
-@CombinedService(services={ThresholdAPI.class, AccumulatorAPI.class, ThreadAPI.class, ProducerAPI.class, JourneyAPI.class})
+@CombinedService(services={ThresholdAPI.class, AccumulatorAPI.class, ThreadAPI.class, ProducerAPI.class, JourneyAPI.class, AdditionalFunctionalityAPI.class})
 public class CombinedAPI {
 }

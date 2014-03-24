@@ -5,6 +5,7 @@ import net.anotheria.anoplass.api.APIFinder;
 import net.anotheria.moskito.webui.accumulators.api.AccumulatorAPI;
 import net.anotheria.moskito.webui.journey.api.JourneyAPI;
 import net.anotheria.moskito.webui.producers.api.ProducerAPI;
+import net.anotheria.moskito.webui.shared.api.AdditionalFunctionalityAPI;
 import net.anotheria.moskito.webui.threads.api.ThreadAPI;
 import net.anotheria.moskito.webui.threshold.api.ThresholdAPI;
 import org.distributeme.core.ServiceDescriptor;
@@ -75,6 +76,13 @@ public class APILookupUtility {
 				APIFinder.findAPI(ProducerAPI.class) :
 				findRemote(ProducerAPI.class);
 	}
+
+	public static AdditionalFunctionalityAPI getAdditionalFunctionalityAPI() {
+		return isLocal() ?
+				APIFinder.findAPI(AdditionalFunctionalityAPI.class) :
+				findRemote(AdditionalFunctionalityAPI.class);
+	}
+
 
 	private static <T extends API> T findRemote(Class<T> targetClass){
 		String serviceId = null;

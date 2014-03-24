@@ -1,6 +1,8 @@
-package net.anotheria.moskito.webui.more.bean;
+package net.anotheria.moskito.webui.shared.api;
 
 import net.anotheria.util.maven.MavenVersion;
+
+import java.io.Serializable;
 
 /**
  * TODO comment this class
@@ -8,7 +10,7 @@ import net.anotheria.util.maven.MavenVersion;
  * @author lrosenberg
  * @since 13.03.13 14:57
  */
-public class WebappLibBean {
+public class WebappLibBean implements Serializable{
 	/**
 	 * Name of the lib.
 	 */

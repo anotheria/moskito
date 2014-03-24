@@ -3,7 +3,7 @@ package net.anotheria.moskito.webui.more.action;
 import net.anotheria.maf.action.ActionCommand;
 import net.anotheria.maf.action.ActionMapping;
 import net.anotheria.maf.bean.FormBean;
-import net.anotheria.moskito.webui.more.bean.WebappLibBean;
+import net.anotheria.moskito.webui.shared.api.WebappLibBean;
 import net.anotheria.util.NumberUtils;
 import net.anotheria.util.maven.MavenVersionReader;
 import org.slf4j.Logger;

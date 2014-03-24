@@ -184,6 +184,12 @@
             <artifactId>distributeme-support</artifactId>
             <version>2.1.0</version>
         </dependency>
+        <!-- TODO remove, its only for testing purposes -->
+        <dependency>
+            <groupId>net.anotheria</groupId>
+            <artifactId>distributeme-test</artifactId>
+            <version>2.1.0</version>
+        </dependency>
         <dependency>
             <groupId>net.anotheria</groupId>
             <artifactId>ano-prise</artifactId>
