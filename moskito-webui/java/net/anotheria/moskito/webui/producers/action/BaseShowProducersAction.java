@@ -55,6 +55,7 @@ import net.anotheria.util.sorter.StaticQuickSorter;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.ws.rs.HEAD;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -123,7 +124,6 @@ public abstract class BaseShowProducersAction extends BaseMoskitoUIAction {
 	protected List<ProducerDecoratorBean> getDecoratedProducers(HttpServletRequest req, List<ProducerAO> producers, Map<String, GraphDataBean> graphData){
 
 		Map<IDecorator, List<ProducerAO>> decoratorMap = new HashMap<IDecorator,List<ProducerAO>>();
-
 		for (ProducerAO producer : producers){
 			try{
 				IDecorator decorator = getDecoratorRegistry().getDecorator(producer.getStatsClazz());
@@ -131,7 +131,6 @@ public abstract class BaseShowProducersAction extends BaseMoskitoUIAction {
 					decoratorMap.put(decorator, new ArrayList<ProducerAO>());
 
 					for(StatValueAO statBean : producer.getValues()){
-
 						String graphKey = decorator.getName()+"_"+statBean.getName();
 						GraphDataBean graphDataBean = new GraphDataBean(decorator.getName()+"_"+statBean.getJsVariableName(), statBean.getName());
 						graphData.put(graphKey, graphDataBean);
