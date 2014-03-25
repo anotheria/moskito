@@ -55,7 +55,7 @@ the version info is extracted and presented.
                             </tr>
                             </thead>
                             <tbody>
-                            <ano:iterate name="beans" type="net.anotheria.moskito.webui.shared.api.WebappLibBean" id="bean" indexId="index">
+                            <ano:iterate name="beans" type="net.anotheria.moskito.webui.shared.api.LibAO" id="bean" indexId="index">
                                 <tr class="<%= ((index & 1) == 0 )? "even" : "odd" %>">
                                     <td><ano:write name="bean" property="name"/></td>
                                     <td><ano:write name="bean" property="group"/></td>

@@ -3,7 +3,7 @@ package net.anotheria.moskito.webui.more.action;
 import net.anotheria.maf.action.ActionCommand;
 import net.anotheria.maf.action.ActionMapping;
 import net.anotheria.maf.bean.FormBean;
-import net.anotheria.moskito.webui.shared.api.WebappLibBean;
+import net.anotheria.moskito.webui.shared.api.LibAO;
 import net.anotheria.util.NumberUtils;
 import net.anotheria.util.maven.MavenVersionReader;
 import org.slf4j.Logger;
@@ -48,14 +48,14 @@ public class ShowLibsAction extends BaseAdditionalAction{
 	public ActionCommand execute(ActionMapping mapping, FormBean formBean, HttpServletRequest req, HttpServletResponse res) throws Exception {
 
 		List<URL> classpath = getClassPathUrls(req.getContextPath());
-		List<WebappLibBean> beans = new ArrayList<WebappLibBean>();
+		List<LibAO> beans = new ArrayList<LibAO>();
 
 		for (URL url : classpath){
 			String fileName = url.getFile();
 			if (!fileName.endsWith(".jar"))
 				continue;
 			File f = new File(fileName);
-			WebappLibBean bean = new WebappLibBean();
+			LibAO bean = new LibAO();
 			int lastSlash = fileName.lastIndexOf('/');
 			try{
 				bean.setName(fileName.substring(lastSlash + 1));
