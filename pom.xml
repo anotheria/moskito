@@ -45,7 +45,7 @@
 			<dependency>
 				<groupId>net.anotheria</groupId>
 				<artifactId>ano-util</artifactId>
-				<version>2.1.1-SNAPSHOT</version>
+				<version>2.1.1</version>
 				<exclusions>
 					<exclusion>
 						<groupId>blowfish</groupId>
