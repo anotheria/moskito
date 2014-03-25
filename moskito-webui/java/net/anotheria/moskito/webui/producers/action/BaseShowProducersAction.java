@@ -55,7 +55,6 @@ import net.anotheria.util.sorter.StaticQuickSorter;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.ws.rs.HEAD;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -130,7 +129,7 @@ public abstract class BaseShowProducersAction extends BaseMoskitoUIAction {
 				if (!decoratorMap.containsKey(decorator)){
 					decoratorMap.put(decorator, new ArrayList<ProducerAO>());
 
-					for(StatValueAO statBean : producer.getValues()){
+					for(StatValueAO statBean : producer.getFirstStatsValues()){
 						String graphKey = decorator.getName()+"_"+statBean.getName();
 						GraphDataBean graphDataBean = new GraphDataBean(decorator.getName()+"_"+statBean.getJsVariableName(), statBean.getName());
 						graphData.put(graphKey, graphDataBean);
@@ -158,8 +157,8 @@ public abstract class BaseShowProducersAction extends BaseMoskitoUIAction {
 					pb.setClassName(p.getProducerClassName());
 					pb.setSubsystem(p.getSubsystem());
 					pb.setId(p.getProducerId());
-					List<StatValueAO> values = p.getValues();
-					//List<StatValueAO> values = decorator.getValues(firstStats, intervalName, currentUnit.getUnit());
+					List<StatValueAO> values = p.getFirstStatsValues();
+					//List<StatValueAO> values = decorator.getFirstStatsValues(firstStats, intervalName, currentUnit.getUnit());
 					pb.setValues(values);
 					for (StatValueAO valueBean : values){
 						String graphKey = decorator.getName()+"_"+valueBean.getName();

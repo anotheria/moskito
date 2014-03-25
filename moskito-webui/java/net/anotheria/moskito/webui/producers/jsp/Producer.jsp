@@ -115,9 +115,9 @@
             <div class="btn-group flr">
                 <a href="<ano:write name="linkToCurrentPage"/>&pForward=selection&target=Accumulator" class="btn fll">Add Accumulator</a>
                 <a href="<ano:write name="linkToCurrentPage"/>&pForward=selection&target=Threshold" class="btn fll">Add Threshold</a>
-                <ano:equal name="producer" property="inspectable" value="true">
+                <%--ano:equal name="producer" property="inspectable" value="true">
                     <a href="mskInspectProducer?pProducerId=<ano:write name="producer" property="id"/>" class="btn-blue fll">Inspect</a>
-                </ano:equal>
+                </ano:equal--%>
             </div>
         </div>
         <div class="bot"><div><!-- --></div></div>

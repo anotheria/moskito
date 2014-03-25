@@ -12,7 +12,7 @@ import org.distributeme.annotation.SupportService;
 import java.util.List;
 
 /**
- * TODO comment this class
+ * API for operations on thresholds.
  *
  * @author lrosenberg
  * @since 11.02.13 18:45

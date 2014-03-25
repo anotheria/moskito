@@ -31,5 +31,5 @@ public interface ProducerAPI extends API, Service {
 
 	List<ProducerAO> getAllProducersBySubsystem(String currentSubsystem, String intervalName, TimeUnit timeUnit);
 
-	ProducerAO getProducer(String producerId) throws APIException;
+	ProducerAO getProducer(String producerId, String intervalName, TimeUnit timeUnit) throws APIException;
 }

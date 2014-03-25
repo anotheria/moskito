@@ -3,6 +3,7 @@ package net.anotheria.moskito.webui.producers.api;
 import net.anotheria.moskito.core.producers.IStats;
 
 import java.io.Serializable;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -20,9 +21,18 @@ public class ProducerAO implements Serializable{
 
 	private boolean inspectable;
 
-	private List<StatValueAO> values;
+	private List<StatValueAO> firstStatsValues;
+
+	/**
+	 * All stat values as list of lists. The included list contains one stat - line with multiple values.
+	 */
+	private List<List<StatValueAO>> allValues;
 
 	private Class<? extends IStats> statsClazz;
+
+	public ProducerAO(){
+		allValues = new LinkedList<List<StatValueAO>>();
+	}
 
 	public String getProducerId() {
 		return producerId;
@@ -73,13 +83,23 @@ public class ProducerAO implements Serializable{
 	}
 
 
-	public List<StatValueAO> getValues() {
-		return values;
+	public List<StatValueAO> getFirstStatsValues() {
+		return firstStatsValues;
 	}
 
-	public void setValues(List<StatValueAO> values) {
-		this.values = values;
+	public void setFirstStatsValues(List<StatValueAO> firstStatsValues) {
+		this.firstStatsValues = firstStatsValues;
 	}
 
+	public void addValueLine(List<StatValueAO> line){
+		allValues.add(line);
+	}
 
+	public List<List<StatValueAO>> getAllValues() {
+		return allValues;
+	}
+
+	public void setAllValues(List<List<StatValueAO>> allValues) {
+		this.allValues = allValues;
+	}
 }

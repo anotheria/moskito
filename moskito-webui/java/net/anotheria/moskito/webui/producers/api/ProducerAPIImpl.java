@@ -68,6 +68,10 @@ public class ProducerAPIImpl extends AbstractMoskitoAPIImpl implements ProducerA
 	}
 
 	private ProducerAO convertStatsProducerToAO(IStatsProducer<? extends IStats> p, String intervalName, TimeUnit timeUnit){
+		return convertStatsProducerToAO(p, intervalName, timeUnit, false);
+	}
+
+	private ProducerAO convertStatsProducerToAO(IStatsProducer<? extends IStats> p, String intervalName, TimeUnit timeUnit, boolean createAllStats){
 		ProducerAO ao = new ProducerAO();
 		ao.setProducerId(p.getProducerId());
 		ao.setCategory(p.getCategory());
@@ -81,7 +85,17 @@ public class ProducerAPIImpl extends AbstractMoskitoAPIImpl implements ProducerA
 		//ao.setStats(p.getStats());
 
 		IDecorator decorator = decoratorRegistry.getDecorator(ao.getStatsClazz());
-		ao.setValues(decorator.getValues(firstStats, intervalName, timeUnit));
+		ao.setFirstStatsValues(decorator.getValues(firstStats, intervalName, timeUnit));
+
+		if (createAllStats){
+			//if create all stats are set, we have to create all stats, not just the first stat.
+			List<? extends IStats> allStats = p.getStats();
+			for (IStats statObject : allStats){
+				//lets assume that all stats of the same producer are of the same type.
+				List<StatValueAO> valuesList = (List<StatValueAO>)decorator.getValues(statObject, intervalName, timeUnit);
+				ao.addValueLine(valuesList);
+			}
+		}
 
 		return ao;
 	}
@@ -102,9 +116,9 @@ public class ProducerAPIImpl extends AbstractMoskitoAPIImpl implements ProducerA
 	}
 
 	@Override
-	public ProducerAO getProducer(String producerId) throws APIException {
+	public ProducerAO getProducer(String producerId, String intervalName, TimeUnit timeUnit) throws APIException {
 		IStatsProducer producer = producerRegistryAPI.getProducer(producerId);
 		System.out.println("EXPECT a crash");
-		return convertStatsProducerToAO(producer, null, null);
+		return convertStatsProducerToAO(producer, intervalName, timeUnit, true);
 	}
 }
