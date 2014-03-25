@@ -37,19 +37,20 @@ package net.anotheria.moskito.webui.producers.action;
 import net.anotheria.maf.action.ActionCommand;
 import net.anotheria.maf.action.ActionMapping;
 import net.anotheria.maf.bean.FormBean;
-import net.anotheria.moskito.core.producers.IStats;
+import net.anotheria.moskito.core.inspection.CreationInfo;
 import net.anotheria.moskito.webui.decorators.IDecorator;
 import net.anotheria.moskito.webui.producers.api.ProducerAO;
+import net.anotheria.moskito.webui.producers.api.StatLineAO;
+import net.anotheria.moskito.webui.producers.api.StatValueAO;
 import net.anotheria.moskito.webui.shared.action.BaseMoskitoUIAction;
 import net.anotheria.moskito.webui.shared.bean.GraphDataBean;
 import net.anotheria.moskito.webui.shared.bean.GraphDataValueBean;
 import net.anotheria.moskito.webui.shared.bean.NaviItem;
-import net.anotheria.moskito.webui.shared.bean.ProducerBean;
 import net.anotheria.moskito.webui.shared.bean.StatBean;
 import net.anotheria.moskito.webui.shared.bean.StatBeanSortType;
 import net.anotheria.moskito.webui.shared.bean.StatDecoratorBean;
-import net.anotheria.moskito.webui.producers.api.StatValueAO;
 import net.anotheria.moskito.webui.shared.bean.UnitBean;
+import net.anotheria.util.NumberUtils;
 import net.anotheria.util.sorter.StaticQuickSorter;
 
 import javax.servlet.http.HttpServletRequest;
@@ -72,12 +73,12 @@ public class ShowProducerAction extends BaseMoskitoUIAction {
 		UnitBean currentUnit = getCurrentUnit(req);
 
 		ProducerAO producer = getProducerAPI().getProducer(req.getParameter(PARAM_PRODUCER_ID), intervalName, currentUnit.getUnit());
-		ProducerBean producerBean = new ProducerBean();
+		/*ProducerBean producerBean = new ProducerBean();
 		producerBean.setId(producer.getProducerId());
 		producerBean.setCategory(producer.getCategory());
 		producerBean.setSubsystem(producer.getSubsystem());
-		producerBean.setClassName(producer.getClass().getName());
-		req.setAttribute("producer", producerBean);
+		producerBean.setClassName(producer.getClass().getName());*/
+		req.setAttribute("producer", producer);
 
 		//copies parameter for producer selection page.
 		String target = req.getParameter("target");
@@ -90,10 +91,10 @@ public class ShowProducerAction extends BaseMoskitoUIAction {
 		Map<String, GraphDataBean> graphData = new HashMap<String, GraphDataBean>();
 
 
-		List<List<StatValueAO>> allValues = producer.getAllValues();
-		for (List<StatValueAO> statLine : allValues){
+		List<StatLineAO> allLines = producer.getLines();
+		for (StatLineAO statLine : allLines){
 			try{
-				for(StatValueAO statBean : statLine){
+				for(StatValueAO statBean : statLine.getValues()){
 					String graphKey = decorator.getName()+"_"+statBean.getName();
 					GraphDataBean graphDataBean = new GraphDataBean(decorator.getName()+"_"+statBean.getJsVariableName(), statBean.getName());
 					graphData.put(graphKey, graphDataBean);
@@ -113,18 +114,17 @@ public class ShowProducerAction extends BaseMoskitoUIAction {
 		b.setName(decorator.getName());
 		b.setCaptions(decorator.getCaptions());
 		List<StatBean> sbs = new ArrayList<StatBean>();
-		//todo the do think that there are multiple, but in reality there is only one, remove the decorator outer loop in the future.
-		List<List<StatValueAO>> statsForDecorator = producer.getAllValues();
-		for (int i=1; i<statsForDecorator.size(); i++){
-			List<StatValueAO> statsLine = statsForDecorator.get(i);
+		for (int i=1; i<allLines.size(); i++){
+			StatLineAO line = allLines.get(i);
+			List<StatValueAO> statsLine = line.getValues();
 			//TODO fix filterzero.
 //			if (!filterZero || !s.isEmpty(intervalName)){
 				StatBean sb = new StatBean();
-				sb.setName("I don't know my name");//s.getName());
+				sb.setName(line.getStatName());//s.getName());
 				List<StatValueAO> statValues = statsLine;
 				for (StatValueAO valueBean : statValues){
 					String graphKey = decorator.getName()+"_"+valueBean.getName();
-					graphData.get(graphKey).addValue(new GraphDataValueBean("ttt"/*s.getName()*/, valueBean.getRawValue()));
+					graphData.get(graphKey).addValue(new GraphDataValueBean(line.getStatName(), valueBean.getRawValue()));
 				}
 				sb.setValues(statValues);
 				sbs.add(sb);
@@ -134,10 +134,10 @@ public class ShowProducerAction extends BaseMoskitoUIAction {
 
 
 		//make cumulated entry
-		List<StatValueAO> s = statsForDecorator.get(0);
+		StatLineAO s = allLines.get(0);
 		StatBean sb = new StatBean();
-		sb.setName("cumulated");//s.getName());
-		sb.setValues(s);
+		sb.setName(s.getStatName());//s.getName());
+		sb.setValues(s.getValues());
 		//
 		b.addStatsBean(sb);
 
@@ -154,17 +154,13 @@ public class ShowProducerAction extends BaseMoskitoUIAction {
 	private void inspectProducer(HttpServletRequest req, ProducerAO producer){
 		if (! (producer.isInspectable()))
 			return;
-		System.out.println("TODO FIX ME inspectProducer");
-/*
-		Inspectable inspectable = (Inspectable)producer;
-		CreationInfo cInfo = inspectable.getCreationInfo();
+		CreationInfo cInfo = producer.getCreationInfo();
 		req.setAttribute("creationTimestamp", cInfo.getTimestamp());
 		req.setAttribute("creationTime", NumberUtils.makeISO8601TimestampString(cInfo.getTimestamp()));
 		List<String> stackTraceList = new ArrayList<String>(cInfo.getStackTrace().length);
 		for (StackTraceElement elem : cInfo.getStackTrace())
 			stackTraceList.add(elem.toString());
 		req.setAttribute("creationTrace", stackTraceList);
-		*/
 	}
 	
 	@Override protected String getLinkToCurrentPage(HttpServletRequest req) {

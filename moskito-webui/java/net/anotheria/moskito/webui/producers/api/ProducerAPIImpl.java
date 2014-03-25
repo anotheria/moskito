@@ -2,6 +2,7 @@ package net.anotheria.moskito.webui.producers.api;
 
 import net.anotheria.anoplass.api.APIException;
 import net.anotheria.anoplass.api.APIInitException;
+import net.anotheria.moskito.core.inspection.Inspectable;
 import net.anotheria.moskito.core.producers.IStats;
 import net.anotheria.moskito.core.producers.IStatsProducer;
 import net.anotheria.moskito.core.registry.IProducerFilter;
@@ -77,8 +78,9 @@ public class ProducerAPIImpl extends AbstractMoskitoAPIImpl implements ProducerA
 		ao.setCategory(p.getCategory());
 		ao.setSubsystem(p.getSubsystem());
 		ao.setProducerClassName(p.getClass().getName());
-		//TODO this is maybe not that great...
-		//we have to check if IStats values are too heavyweigt to be sent via rmi.
+		if (p instanceof Inspectable)
+			ao.setCreationInfo(((Inspectable)p).getCreationInfo());
+
 		IStats firstStats = p.getStats().get(0);
 		ao.setStatsClazz((Class<? extends IStats>) firstStats.getClass());
 
@@ -92,8 +94,10 @@ public class ProducerAPIImpl extends AbstractMoskitoAPIImpl implements ProducerA
 			List<? extends IStats> allStats = p.getStats();
 			for (IStats statObject : allStats){
 				//lets assume that all stats of the same producer are of the same type.
-				List<StatValueAO> valuesList = (List<StatValueAO>)decorator.getValues(statObject, intervalName, timeUnit);
-				ao.addValueLine(valuesList);
+				StatLineAO line = new StatLineAO();
+				line.setStatName(statObject.getName());
+				line.setValues(decorator.getValues(statObject, intervalName, timeUnit));
+				ao.addStatLine(line);
 			}
 		}
 

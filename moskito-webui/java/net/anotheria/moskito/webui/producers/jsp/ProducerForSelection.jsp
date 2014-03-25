@@ -3,7 +3,7 @@
 %><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-	<title>Moskito Producer <ano:write name="producer" property="id"/> for Selection </title>
+	<title>Moskito Producer <ano:write name="producer" property="producerId"/> for Selection </title>
 	<link rel="stylesheet" href="mskCSS"/>
 </head>
 <body>
@@ -44,7 +44,7 @@
 		<div class="top"><div><!-- --></div></div>
 		<div class="add_in">
             <form name="CreateForm" action="msk<ano:write name="target"/>Create" method="get" class="form-inline">
-                <input type="hidden" name="producerId" value="<ano:write name="producer" property="id"/>"/>
+                <input type="hidden" name="producerId" value="<ano:write name="producer" property="producerId"/>"/>
                 <input type="hidden" name="target" value="<ano:write name="target"/>"/>
                 <input type="hidden" name="statName"/>
                 <input type="hidden" name="valueName"/>
@@ -76,7 +76,7 @@
                     </select>
             </div>
             <div class="controls">
-                <label>Producer:</label> <b><ano:write name="producer" property="id"/></b> for selection.
+                <label>Producer:</label> <b><ano:write name="producer" property="producerId"/></b> for selection.
             </div>
             <ano:equal name="target" value="Threshold">
                 <div class="clear"><!-- --></div>
@@ -96,7 +96,7 @@
 	<div class="table_layout">
 	<div class="top"><div><!-- --></div></div>
 	<div class="in">
-	<h2><ano:write name="producer" property="id" /></h2>
+	<h2><ano:write name="producer" property="producerId" /></h2>
 	<a target="_blank" class="help" href="mskShowExplanations#<ano:write name="decorator" property="name"/>">Help</a>&nbsp;	
 		<div class="clear"><!-- --></div>
 		<div class="table_itseft">

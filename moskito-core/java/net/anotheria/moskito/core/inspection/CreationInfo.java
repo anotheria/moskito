@@ -34,13 +34,14 @@
  */	
 package net.anotheria.moskito.core.inspection;
 
+import java.io.Serializable;
 import java.util.Arrays;
 
 /**
  * An object that stores the info about the creation of another object. As for now the timestamp of the creation is stored along with the stacktrace.
  * @author lrosenberg
  */
-public class CreationInfo {
+public class CreationInfo implements Serializable{
 	/**
 	 * Timestamp of the creation.
 	 */

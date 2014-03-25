@@ -1,5 +1,6 @@
 package net.anotheria.moskito.webui.producers.api;
 
+import net.anotheria.moskito.core.inspection.CreationInfo;
 import net.anotheria.moskito.core.producers.IStats;
 
 import java.io.Serializable;
@@ -19,19 +20,22 @@ public class ProducerAO implements Serializable{
 	private String subsystem;
 	private String producerClassName;
 
-	private boolean inspectable;
-
 	private List<StatValueAO> firstStatsValues;
+
+	/**
+	 * CreationInfo is set for all inspectable producers.
+	 */
+	private CreationInfo creationInfo;
 
 	/**
 	 * All stat values as list of lists. The included list contains one stat - line with multiple values.
 	 */
-	private List<List<StatValueAO>> allValues;
+	private List<StatLineAO> lines;
 
 	private Class<? extends IStats> statsClazz;
 
 	public ProducerAO(){
-		allValues = new LinkedList<List<StatValueAO>>();
+		lines = new LinkedList<StatLineAO>();
 	}
 
 	public String getProducerId() {
@@ -66,12 +70,12 @@ public class ProducerAO implements Serializable{
 		this.producerClassName = producerClassName;
 	}
 
+	/**
+	 * Is inspectable, true if there is a creation info available.
+	 * @return
+	 */
 	public boolean isInspectable() {
-		return inspectable;
-	}
-
-	public void setInspectable(boolean inspectable) {
-		this.inspectable = inspectable;
+		return creationInfo!=null;
 	}
 
 	public Class<? extends IStats> getStatsClazz() {
@@ -91,15 +95,21 @@ public class ProducerAO implements Serializable{
 		this.firstStatsValues = firstStatsValues;
 	}
 
-	public void addValueLine(List<StatValueAO> line){
-		allValues.add(line);
+	public void addStatLine(StatLineAO line){
+		lines.add(line);
+	}
+	public List<StatLineAO> getLines() {
+		return lines;
+	}
+	public CreationInfo getCreationInfo() {
+		return creationInfo;
 	}
 
-	public List<List<StatValueAO>> getAllValues() {
-		return allValues;
+	public void setCreationInfo(CreationInfo creationInfo) {
+		this.creationInfo = creationInfo;
 	}
 
-	public void setAllValues(List<List<StatValueAO>> allValues) {
-		this.allValues = allValues;
-	}
+
+
+
 }
