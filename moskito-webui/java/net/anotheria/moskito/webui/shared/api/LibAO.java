@@ -10,7 +10,7 @@ import java.io.Serializable;
  * @author lrosenberg
  * @since 13.03.13 14:57
  */
-public class WebappLibBean implements Serializable{
+public class LibAO implements Serializable{
 	/**
 	 * Name of the lib.
 	 */
@@ -66,7 +66,7 @@ public class WebappLibBean implements Serializable{
 
 	@Override
 	public String toString() {
-		return "WebappLibBean{" +
+		return "LibAO{" +
 				"name='" + name + '\'' +
 				", mavenVersion=" + mavenVersion +
 				", lastModified='" + lastModified + '\'' +
