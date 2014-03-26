@@ -1,6 +1,4 @@
-package net.anotheria.moskito.webui.charts;
-
-import net.anotheria.moskito.webui.util.WebUIConfig;
+package net.anotheria.moskito.webui.util;
 
 import java.util.ArrayList;
 import java.util.List;
