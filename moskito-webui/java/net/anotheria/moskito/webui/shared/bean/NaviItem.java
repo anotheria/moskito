@@ -18,10 +18,6 @@ public enum NaviItem {
 	 */
 	JOURNEYS("Journeys"),
 	/**
-	 * Charts navi item.
-	 */
-	CHARTS("Charts"),
-	/**
 	 * Constant for action without own navigation item.
 	 */
 	NONE("None"),
@@ -53,7 +49,6 @@ public enum NaviItem {
 		menu.add(PRODUCERS);
 		menu.add(THRESHOLDS);
 		menu.add(JOURNEYS);
-		menu.add(CHARTS);
 		menu.add(ACCUMULATORS);
 		menu.add(THREADS);
 		menu.add(MORE);
