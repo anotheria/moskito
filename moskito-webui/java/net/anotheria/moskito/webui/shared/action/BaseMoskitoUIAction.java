@@ -44,7 +44,7 @@ import net.anotheria.moskito.core.stats.impl.IntervalRegistry;
 import net.anotheria.moskito.core.threshold.ThresholdRepository;
 import net.anotheria.moskito.core.threshold.ThresholdStatus;
 import net.anotheria.moskito.webui.CurrentSelection;
-import net.anotheria.moskito.webui.charts.ChartEngine;
+import net.anotheria.moskito.webui.util.ChartEngine;
 import net.anotheria.moskito.webui.decorators.DecoratorRegistryFactory;
 import net.anotheria.moskito.webui.decorators.IDecoratorRegistry;
 import net.anotheria.moskito.webui.producers.api.ProducerAPI;

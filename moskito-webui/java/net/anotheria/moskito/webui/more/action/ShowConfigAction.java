@@ -11,7 +11,7 @@ import net.anotheria.moskito.core.config.MoskitoConfiguration;
 import net.anotheria.moskito.core.config.MoskitoConfigurationHolder;
 import net.anotheria.moskito.core.threshold.Threshold;
 import net.anotheria.moskito.core.threshold.ThresholdRepository;
-import net.anotheria.moskito.webui.charts.ChartEngine;
+import net.anotheria.moskito.webui.util.ChartEngine;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

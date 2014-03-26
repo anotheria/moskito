@@ -1,6 +1,5 @@
 package net.anotheria.moskito.webui.util;
 
-import net.anotheria.moskito.webui.charts.ChartEngine;
 import org.configureme.ConfigurationManager;
 import org.configureme.annotations.ConfigureMe;
 

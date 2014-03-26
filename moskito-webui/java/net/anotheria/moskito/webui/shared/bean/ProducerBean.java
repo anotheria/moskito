@@ -44,6 +44,7 @@ import java.util.List;
  * Represents the data for a single producer view.
  * @author lrosenberg.
  */
+@Deprecated
 public class ProducerBean implements IComparable{
 	/**
 	 * Id of the producer.
