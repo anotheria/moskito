@@ -24,7 +24,7 @@ public class StartBuiltInProducers {
 		if (initialized)
 			return;
 		initialized = true;
-		
+
 		startJavaMemoryProducers();
 		startJavaThreadingProducers();
 		startOsProducers();
@@ -37,39 +37,47 @@ public class StartBuiltInProducers {
 	}
 
 	private static void startJavaThreadingProducers(){
+		if (!MoskitoConfigurationHolder.getConfiguration().getBuiltinProducersConfig().isJavaThreadingProducers())
+			return;
 		new BuiltInThreadStatesProducer();
 		new BuiltInThreadCountProducer();
 	}
 	
 	private static void startOsProducers(){
-		new BuiltInOSProducer();		
-		new BuiltInRuntimeProducer();
+		if (MoskitoConfigurationHolder.getConfiguration().getBuiltinProducersConfig().isOsProducer())
+			new BuiltInOSProducer();
+		if (MoskitoConfigurationHolder.getConfiguration().getBuiltinProducersConfig().isRuntimeProducer())
+			new BuiltInRuntimeProducer();
 	}
 	
 	private static void startJavaMemoryProducers(){
 		IProducerRegistry registry = ProducerRegistryFactory.getProducerRegistryInstance();
-		registry.registerProducer(new BuiltInMemoryProducer(BuiltInMemoryProducer.FREE));
-		registry.registerProducer(new BuiltInMemoryProducer(BuiltInMemoryProducer.MAX));
-		registry.registerProducer(new BuiltInMemoryProducer(BuiltInMemoryProducer.TOTAL));
-		
-		HashMap<MemoryType, List<BuiltInMemoryPoolProducer>> producers = new HashMap<MemoryType, List<BuiltInMemoryPoolProducer>>();
-		
-		List<MemoryPoolMXBean> pools = ManagementFactory.getMemoryPoolMXBeans();
-		for (MemoryPoolMXBean pool : pools){
-			BuiltInMemoryPoolProducer p = new BuiltInMemoryPoolProducer(pool); 
-			registry.registerProducer(p);
-			List<BuiltInMemoryPoolProducer> pp = producers.get(pool.getType());
-			if (pp==null){
-				pp = new ArrayList<BuiltInMemoryPoolProducer>();
-				producers.put(pool.getType(), pp);
-			}
-			pp.add(p);
+		if (MoskitoConfigurationHolder.getConfiguration().getBuiltinProducersConfig().isJavaMemoryProducers()){
+			registry.registerProducer(new BuiltInMemoryProducer(BuiltInMemoryProducer.FREE));
+			registry.registerProducer(new BuiltInMemoryProducer(BuiltInMemoryProducer.MAX));
+			registry.registerProducer(new BuiltInMemoryProducer(BuiltInMemoryProducer.TOTAL));
 		}
-		
-		//now finally add virtual producers
-		for (Map.Entry<MemoryType,List<BuiltInMemoryPoolProducer>> t : producers.entrySet()){
-			BuiltInMemoryPoolVirtualProducer vp = new BuiltInMemoryPoolVirtualProducer(t.getKey(), t.getValue());
-			registry.registerProducer(vp);
+
+		if (MoskitoConfigurationHolder.getConfiguration().getBuiltinProducersConfig().isJavaMemoryPoolProducers()){
+			HashMap<MemoryType, List<BuiltInMemoryPoolProducer>> producers = new HashMap<MemoryType, List<BuiltInMemoryPoolProducer>>();
+
+			List<MemoryPoolMXBean> pools = ManagementFactory.getMemoryPoolMXBeans();
+			for (MemoryPoolMXBean pool : pools){
+				BuiltInMemoryPoolProducer p = new BuiltInMemoryPoolProducer(pool);
+				registry.registerProducer(p);
+				List<BuiltInMemoryPoolProducer> pp = producers.get(pool.getType());
+				if (pp==null){
+					pp = new ArrayList<BuiltInMemoryPoolProducer>();
+					producers.put(pool.getType(), pp);
+				}
+				pp.add(p);
+			}
+
+			//now finally add virtual producers
+			for (Map.Entry<MemoryType,List<BuiltInMemoryPoolProducer>> t : producers.entrySet()){
+				BuiltInMemoryPoolVirtualProducer vp = new BuiltInMemoryPoolVirtualProducer(t.getKey(), t.getValue());
+				registry.registerProducer(vp);
+			}
 		}
 		
 	}
