@@ -77,7 +77,8 @@ public class ProducerAPIImpl extends AbstractMoskitoAPIImpl implements ProducerA
 		ao.setProducerId(p.getProducerId());
 		ao.setCategory(p.getCategory());
 		ao.setSubsystem(p.getSubsystem());
-		ao.setProducerClassName(p.getClass().getName());
+		ao.setProducerClassName(p.getClass().getSimpleName());
+		ao.setFullProducerClassName(p.getClass().getName());
 		if (p instanceof Inspectable)
 			ao.setCreationInfo(((Inspectable)p).getCreationInfo());
 

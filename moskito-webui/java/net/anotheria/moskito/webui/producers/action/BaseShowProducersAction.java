@@ -41,14 +41,13 @@ import net.anotheria.maf.bean.FormBean;
 import net.anotheria.moskito.core.stats.UnknownIntervalException;
 import net.anotheria.moskito.webui.decorators.IDecorator;
 import net.anotheria.moskito.webui.producers.api.ProducerAO;
+import net.anotheria.moskito.webui.producers.api.ProducerAOSortType;
 import net.anotheria.moskito.webui.producers.api.StatValueAO;
 import net.anotheria.moskito.webui.producers.api.UnitCountAO;
 import net.anotheria.moskito.webui.shared.action.BaseMoskitoUIAction;
 import net.anotheria.moskito.webui.shared.bean.GraphDataBean;
 import net.anotheria.moskito.webui.shared.bean.GraphDataValueBean;
 import net.anotheria.moskito.webui.shared.bean.NaviItem;
-import net.anotheria.moskito.webui.shared.bean.ProducerBean;
-import net.anotheria.moskito.webui.shared.bean.ProducerBeanSortType;
 import net.anotheria.moskito.webui.shared.bean.ProducerDecoratorBean;
 import net.anotheria.moskito.webui.shared.bean.ProducerVisibility;
 import net.anotheria.util.sorter.StaticQuickSorter;
@@ -149,17 +148,9 @@ public abstract class BaseShowProducersAction extends BaseMoskitoUIAction {
 			b.setName(decorator.getName());
 			b.setCaptions(decorator.getCaptions());
 
-			List<ProducerBean> pbs = new ArrayList<ProducerBean>();
 			for (ProducerAO p : decoratorMap.get(decorator)){
 				try {
-					ProducerBean pb = new ProducerBean();
-					pb.setCategory(p.getCategory());
-					pb.setClassName(p.getProducerClassName());
-					pb.setSubsystem(p.getSubsystem());
-					pb.setId(p.getProducerId());
 					List<StatValueAO> values = p.getFirstStatsValues();
-					//List<StatValueAO> values = decorator.getFirstStatsValues(firstStats, intervalName, currentUnit.getUnit());
-					pb.setValues(values);
 					for (StatValueAO valueBean : values){
 						String graphKey = decorator.getName()+"_"+valueBean.getName();
 						GraphDataBean bean = graphData.get(graphKey); 
@@ -170,12 +161,11 @@ public abstract class BaseShowProducersAction extends BaseMoskitoUIAction {
 						    bean.addValue(new GraphDataValueBean(p.getProducerId(), valueBean.getRawValue()));
 						}
 					}
-					pbs.add(pb);
 				}catch(UnknownIntervalException e){
 					//do nothing, apparently we have a decorator which has no interval support for THIS interval.
 				}
 			}
-			b.setProducerBeans(StaticQuickSorter.sort(pbs, getProducerBeanSortType(b, req)));
+			b.setProducerBeans(StaticQuickSorter.sort(decoratorMap.get(decorator), getProducerBeanSortType(b, req)));
 			b.setVisibility(getProducerVisibility(b, req));
 			beans.add(b);
 		}
@@ -204,23 +194,23 @@ public abstract class BaseShowProducersAction extends BaseMoskitoUIAction {
 		return visibility;
 	}
 
-	private ProducerBeanSortType getProducerBeanSortType(ProducerDecoratorBean decoratorBean, HttpServletRequest req){
-		ProducerBeanSortType sortType;
+	private ProducerAOSortType getProducerBeanSortType(ProducerDecoratorBean decoratorBean, HttpServletRequest req){
+		ProducerAOSortType sortType;
 		String paramSortBy = req.getParameter(decoratorBean.getSortByParameterName());
 		if (paramSortBy!=null && paramSortBy.length()>0){
 			try{
 				int sortBy = Integer.parseInt(paramSortBy);
 				String paramSortOrder = req.getParameter(decoratorBean.getSortOrderParameterName());
 				boolean sortOrder = paramSortOrder!=null && paramSortOrder.equals("ASC") ?
-						ProducerBeanSortType.ASC : ProducerBeanSortType.DESC;
-				sortType = new ProducerBeanSortType(sortBy, sortOrder);
+						ProducerAOSortType.ASC : ProducerAOSortType.DESC;
+				sortType = new ProducerAOSortType(sortBy, sortOrder);
 				req.getSession().setAttribute(decoratorBean.getSortTypeName(), sortType);
 				return sortType;
 			}catch(NumberFormatException skip){}
 		}
-		sortType = (ProducerBeanSortType)req.getSession().getAttribute(decoratorBean.getSortTypeName());
+		sortType = (ProducerAOSortType)req.getSession().getAttribute(decoratorBean.getSortTypeName());
 		if (sortType==null){
-			sortType = new ProducerBeanSortType();
+			sortType = new ProducerAOSortType();
 			req.getSession().setAttribute(decoratorBean.getSortTypeName(), sortType);
 		}
 		return sortType;

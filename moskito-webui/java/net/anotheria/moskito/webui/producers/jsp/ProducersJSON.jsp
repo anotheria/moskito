@@ -7,13 +7,13 @@
 	date: "<ano:write name="timestampAsDate"/>", 
     <ano:iterate type="net.anotheria.moskito.webui.shared.bean.ProducerDecoratorBean" id="decorator" name="decorators"><ano:define name="decorator" property="captions" type="java.util.List" id="captions"/>
     "<ano:write name="decorator" property="name"/>" : {
-		<ano:iterate name="decorator" property="producers" id="producer" type="net.anotheria.moskito.webui.shared.bean.ProducerBean">
-		          "<ano:write name="producer" property="id"/>": {
+		<ano:iterate name="decorator" property="producers" id="producer" type="net.anotheria.moskito.webui.producers.api.ProducerAO">
+		          "<ano:write name="producer" property="producerId"/>": {
 		            category: "<ano:write name="producer" property="category"/>",
 					subsystem: "<ano:write name="producer" property="subsystem"/>",
-					class: "<ano:write name="producer" property="className"/>",
+					class: "<ano:write name="producer" property="producerClassName"/>",
 		            values: [
-					<ano:iterate name="producer" property="values" id="value" type="net.anotheria.moskito.webui.producers.api.StatValueAO" indexId="ind"><%
+					<ano:iterate name="producer" property="firstStatsValues" id="value" type="net.anotheria.moskito.webui.producers.api.StatValueAO" indexId="ind"><%
 						String tagCaption = ((net.anotheria.moskito.webui.shared.bean.StatCaptionBean)captions.get(ind.intValue())).getCaption();
 					%>
 					{

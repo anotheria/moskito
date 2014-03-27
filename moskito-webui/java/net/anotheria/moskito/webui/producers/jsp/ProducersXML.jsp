@@ -9,13 +9,13 @@
   <msk:iterate type="net.anotheria.moskito.webui.shared.bean.ProducerDecoratorBean" id="decorator" name="decorators">
     <decorator name="<msk:write name="decorator" property="name" filter="true"/>"><%--
     --%><msk:define name="decorator" property="captions" type="java.util.List" id="captions"/><%--
-	--%><msk:iterate name="decorator" property="producers" id="producer" type="net.anotheria.moskito.webui.shared.bean.ProducerBean">
-          <producer id="<msk:write name="producer" property="id" filter="true"/>">
+	--%><msk:iterate name="decorator" property="producers" id="producer" type="net.anotheria.moskito.webui.producers.api.ProducerAO ">
+          <producer id="<msk:write name="producer" property="producerId" filter="true"/>">
             <category><msk:write name="producer" property="category" filter="true"/></category>
 			<subsystem><msk:write name="producer" property="subsystem" filter="true"/></subsystem>
-			<class><msk:write name="producer" property="className" filter="true"/></class>
+			<class><msk:write name="producer" property="producerClassName" filter="true"/></class>
             <values>
-			<msk:iterate name="producer" property="values" id="value" type="net.anotheria.moskito.webui.producers.api.StatValueAO" indexId="ind"><%
+			<msk:iterate name="producer" property="firstStatsValues" id="value" type="net.anotheria.moskito.webui.producers.api.StatValueAO" indexId="ind"><%
 				String tagCaption = ((net.anotheria.moskito.webui.shared.bean.StatCaptionBean)captions.get(ind.intValue())).getCaption();
 			%><value name="<%=tagCaption%>" type="<msk:write name="value" property="type"/>"><msk:write name="value" property="value"/></value>
 			</msk:iterate>

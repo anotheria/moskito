@@ -32,7 +32,7 @@
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR
  * THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */	
-package net.anotheria.moskito.webui.shared.bean;
+package net.anotheria.moskito.webui.producers.api;
 
 import net.anotheria.util.sorter.SortType;
 
@@ -41,7 +41,7 @@ import net.anotheria.util.sorter.SortType;
  * @author lrosenberg
  *
  */
-public class ProducerBeanSortType extends SortType{
+public class ProducerAOSortType extends SortType{
 	
 	/**
 	 * SerialVersionUID.
@@ -77,14 +77,14 @@ public class ProducerBeanSortType extends SortType{
 	 * @param aSortBy
 	 * @param aSortOrder
 	 */
-	public ProducerBeanSortType(int aSortBy, boolean aSortOrder){
+	public ProducerAOSortType(int aSortBy, boolean aSortOrder){
 		super(aSortBy, aSortOrder);
 	}
 	
 	/**
 	 * Creates a new producer sort type.
 	 */
-	public ProducerBeanSortType(){
+	public ProducerAOSortType(){
 		this(SORT_BY_DEFAULT, ASC);
 	}
 }

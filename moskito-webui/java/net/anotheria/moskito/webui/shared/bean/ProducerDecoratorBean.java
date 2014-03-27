@@ -34,9 +34,10 @@
  */	
 package net.anotheria.moskito.webui.shared.bean;
 
+import net.anotheria.moskito.webui.producers.api.ProducerAO;
 import net.anotheria.moskito.webui.shared.action.BaseMoskitoUIAction;
 
-import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -49,7 +50,7 @@ public class ProducerDecoratorBean extends AbstractDecoratorBean {
 	/**
 	 * Contained producers.
  	 */
-	private List<ProducerBean> producers;
+	private List<ProducerAO> producers;
 
 	/**
 	 * Visibility of this decorated section.
@@ -57,19 +58,19 @@ public class ProducerDecoratorBean extends AbstractDecoratorBean {
 	private ProducerVisibility visibility;
 	
 	public ProducerDecoratorBean(){
-		producers = new ArrayList<ProducerBean>();
+		producers = new LinkedList<ProducerAO>();
 		visibility = ProducerVisibility.SHOW;
 	}
 
-	public List<ProducerBean> getProducers() {
+	public List<ProducerAO> getProducers() {
 		return producers;
 	}
 	
-	public void addProducerBean(ProducerBean producerBean){
+	public void addProducerBean(ProducerAO producerBean){
 		producers.add(producerBean);
 	}
 	
-	public void setProducerBeans(List<ProducerBean> someProducers){
+	public void setProducerBeans(List<ProducerAO> someProducers){
 		producers = someProducers;
 	}	
 	

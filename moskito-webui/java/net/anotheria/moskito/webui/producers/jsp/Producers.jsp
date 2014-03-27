@@ -44,7 +44,7 @@
 	<div class="top"><div><!-- --></div></div>
 	<div class="in">
 	
-	<ano:define id="sortType" type="net.anotheria.moskito.webui.shared.bean.ProducerBeanSortType" name="<%=decorator.getSortTypeName()%>"/>
+	<ano:define id="sortType" type="net.anotheria.moskito.webui.producers.api.ProducerAOSortType" name="<%=decorator.getSortTypeName()%>"/>
 	<ano:define id="visibility" type="net.anotheria.moskito.webui.shared.bean.ProducerVisibility" name="decorator" property="visibility"/>
 
 	<ano:equal name="visibility" value="SHOW">
@@ -127,12 +127,12 @@
 			</tr>	
 		</thead>
 		<tbody>	
-			<ano:iterate name="decorator" property="producers" id="producer" type="net.anotheria.moskito.webui.shared.bean.ProducerBean" indexId="index">
+			<ano:iterate name="decorator" property="producers" id="producer" type="net.anotheria.moskito.webui.producers.api.ProducerAO" indexId="index">
 			 <tr class="<%= ((index & 1) == 0 )? "even" : "odd" %>">
 				<td>
-					<a href="mskShowProducer?pProducerId=<ano:write name="producer" property="id"/>"
+					<a href="mskShowProducer?pProducerId=<ano:write name="producer" property="producerId"/>"
 					   title="Show details for this producer">
-					   <ano:write name="producer" property="id" />
+					   <ano:write name="producer" property="producerId" />
 					 </a>
 				</td>
 				<td>
@@ -203,15 +203,15 @@
 		 </tr>		
 	   </thead>
 	  <tbody>
-	   <ano:iterate name="decorator" property="producers" id="producer" type="net.anotheria.moskito.webui.shared.bean.ProducerBean" indexId="index">
+	   <ano:iterate name="decorator" property="producers" id="producer" type="net.anotheria.moskito.webui.producers.api.ProducerAO" indexId="index">
 		 <tr class="<%= ((index & 1) == 0 )? "even" : "odd" %>">
-			<ano:iterate name="producer" property="values" id="value" type="net.anotheria.moskito.webui.producers.api.StatValueAO">
-				<td onmouseover="Tip('<ano:write name="producer" property="id"/>.<ano:write name="value" property="name"/>&lt;br/&gt;&lt;b&gt;&lt;span align=center&gt;<ano:write name="value" property="value"/>&lt;/span&gt;&lt;/b&gt;', TEXTALIGN, 'center')" onmouseout="UnTip()">
+			<ano:iterate name="producer" property="firstStatsValues" id="value" type="net.anotheria.moskito.webui.producers.api.StatValueAO">
+				<td onmouseover="Tip('<ano:write name="producer" property="producerId"/>.<ano:write name="value" property="name"/>&lt;br/&gt;&lt;b&gt;&lt;span align=center&gt;<ano:write name="value" property="value"/>&lt;/span&gt;&lt;/b&gt;', TEXTALIGN, 'center')" onmouseout="UnTip()">
 					<ano:write name="value" property="value" />
 				</td>
 			</ano:iterate>
-			<td class="al_left" onmouseover="Tip('<ano:write name="producer" property="fullClassName"/>&lt;br/&gt;&lt;b&gt;&lt;span align=center&gt;&lt;/span&gt;&lt;/b&gt;', TEXTALIGN, 'center')" onmouseout="UnTip()">
-				<ano:write name="producer" property="className" />
+			<td class="al_left" onmouseover="Tip('<ano:write name="producer" property="fullProducerClassName"/>', TEXTALIGN, 'center')" onmouseout="UnTip()">
+				<ano:write name="producer" property="producerClassName" />
 			</td>
 		</tr>	
 		</ano:iterate>	
