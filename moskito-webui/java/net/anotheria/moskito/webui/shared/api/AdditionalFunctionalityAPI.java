@@ -21,4 +21,12 @@ public interface AdditionalFunctionalityAPI extends API, Service{
 
 	void removePlugin(String pluginName) throws APIException;
 
+	/**
+	 * Forces an intentional interval update. This can be useful to make a snapshot between two intervals, which are
+	 * not time related (for example the snapshot interval) or to force a time interval update for testing purposes.
+	 * @param intervalName
+	 * @throws APIException
+	 */
+	void forceIntervalUpdate(String intervalName) throws APIException;
+
 }

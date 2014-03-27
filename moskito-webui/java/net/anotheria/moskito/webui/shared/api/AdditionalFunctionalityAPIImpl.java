@@ -3,6 +3,9 @@ package net.anotheria.moskito.webui.shared.api;
 import net.anotheria.anoplass.api.APIException;
 import net.anotheria.moskito.core.config.plugins.PluginConfig;
 import net.anotheria.moskito.core.plugins.PluginRepository;
+import net.anotheria.moskito.core.stats.Interval;
+import net.anotheria.moskito.core.stats.impl.IntervalRegistry;
+import net.anotheria.moskito.core.timing.IUpdateable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,5 +48,12 @@ public class AdditionalFunctionalityAPIImpl extends AbstractMoskitoAPIImpl imple
 	@Override
 	public void removePlugin(String pluginName) throws APIException {
 		PluginRepository.getInstance().removePlugin(pluginName);
+	}
+
+	@Override
+	public void forceIntervalUpdate(String intervalName) throws APIException {
+		IntervalRegistry registry = IntervalRegistry.getInstance();
+		Interval interval = registry.getInterval(intervalName);
+		((IUpdateable)interval).update();
 	}
 }
