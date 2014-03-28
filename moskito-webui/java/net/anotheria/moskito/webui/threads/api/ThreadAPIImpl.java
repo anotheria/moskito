@@ -62,4 +62,26 @@ public class ThreadAPIImpl extends AbstractMoskitoAPIImpl implements ThreadAPI {
 		System.out.println("Started TEST thread: "+t.getId()+", "+t.getName());
 
 	}
+
+	@Override
+	public void activateHistory() throws APIException {
+		ThreadHistoryUtility.INSTANCE.activate();
+	}
+
+	@Override
+	public void deactivateHistory() throws APIException {
+		ThreadHistoryUtility.INSTANCE.deactivate();
+	}
+
+	@Override
+	public ActiveThreadHistoryAO getActiveThreadHistory() throws APIException {
+		ActiveThreadHistoryAO ret = new ActiveThreadHistoryAO();
+
+		ret.setActive(ThreadHistoryUtility.INSTANCE.isActive());
+		ret.setListSize(ThreadHistoryUtility.INSTANCE.getMaxEventsSize());
+		if (ret.isActive())
+			ret.setEvents(ThreadHistoryUtility.INSTANCE.getThreadHistoryEvents());
+
+		return ret;
+	}
 }

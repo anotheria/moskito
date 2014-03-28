@@ -26,4 +26,15 @@ public interface ThreadAPI extends API, Service {
 	void startTestThread() throws APIException;
 
 	List<ThreadInfoAO> getThreadDump() throws APIException;
+
+	void activateHistory() throws APIException;
+
+	void deactivateHistory() throws APIException;
+
+	/**
+	 * Returns current thread history if its active. (If not the events are not set, but the object is returned nevertheless).
+	 * @return
+	 * @throws APIException
+	 */
+	ActiveThreadHistoryAO getActiveThreadHistory() throws APIException;
 }

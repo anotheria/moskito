@@ -3,7 +3,7 @@ package net.anotheria.moskito.webui.threads.action;
 import net.anotheria.maf.action.ActionCommand;
 import net.anotheria.maf.action.ActionMapping;
 import net.anotheria.maf.bean.FormBean;
-import net.anotheria.moskito.core.util.threadhistory.ThreadHistoryUtility;
+import net.anotheria.moskito.webui.threads.api.ActiveThreadHistoryAO;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -16,15 +16,16 @@ public class ThreadsHistoryAction extends BaseThreadsAction{
 	@Override
 	public ActionCommand execute(ActionMapping mapping, FormBean formBean,
 			HttpServletRequest req, HttpServletResponse res) throws Exception {
+
+		ActiveThreadHistoryAO history = getThreadAPI().getActiveThreadHistory();
 		
-		boolean historyOn = ThreadHistoryUtility.INSTANCE.isActive();
-		req.setAttribute("active", Boolean.valueOf(historyOn));
-		req.setAttribute("listsize", ThreadHistoryUtility.INSTANCE.getMaxEventsSize());
+		req.setAttribute("active", Boolean.valueOf(history.isActive()));
+		req.setAttribute("listsize", history.getListSize());
 		
-		if (!historyOn)
+		if (!history.isActive())
 			return mapping.success();
 		
-		req.setAttribute("history", ThreadHistoryUtility.INSTANCE.getThreadHistoryEvents());
+		req.setAttribute("history", history.getEvents());
 		
 		return mapping.success();
 	}
