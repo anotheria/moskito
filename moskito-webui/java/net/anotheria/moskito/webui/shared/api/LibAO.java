@@ -5,7 +5,7 @@ import net.anotheria.util.maven.MavenVersion;
 import java.io.Serializable;
 
 /**
- * TODO comment this class
+ * Represents a library entry.
  *
  * @author lrosenberg
  * @since 13.03.13 14:57

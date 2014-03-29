@@ -37,7 +37,7 @@
  						</tr>
 						</thead>
 						<tbody>
-						<ano:iterate name="mbeans" type="net.anotheria.moskito.webui.more.bean.MBeanWrapperBean" id="mbean" indexId="index">
+						<ano:iterate name="mbeans" type="net.anotheria.moskito.webui.shared.api.MBeanWrapperAO" id="mbean" indexId="index">
                         <tr class="<%= ((index & 1) == 0 )? "even" : "odd" %> intree">
                             <td valign="top"><ano:write name="mbean" property="domain"/></td>
                             <td valign="top"><ano:write name="mbean" property="type"/></td>
@@ -64,7 +64,7 @@
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        <ano:iterate id="info" name="mbean" property="attributes" type="net.anotheria.moskito.webui.more.bean.MBeanAttributeWrapper" indexId="index2">
+                                        <ano:iterate id="info" name="mbean" property="attributes" type="net.anotheria.moskito.webui.shared.api.MBeanAttributeWrapperAO" indexId="index2">
                                         <tr class="<%= ((index2 & 1) == 0 )? "even" : "odd" %>">
                                             <td>&nbsp;</td>
                                             <td valign="top"><ano:write name="info" property="name"/></td>

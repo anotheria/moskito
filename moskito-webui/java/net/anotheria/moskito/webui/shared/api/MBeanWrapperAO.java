@@ -1,9 +1,10 @@
-package net.anotheria.moskito.webui.more.bean;
+package net.anotheria.moskito.webui.shared.api;
 
 import net.anotheria.util.BasicComparable;
 import net.anotheria.util.sorter.IComparable;
 
 import javax.management.MBeanOperationInfo;
+import java.io.Serializable;
 import java.util.Collections;
 import java.util.List;
 
@@ -13,7 +14,7 @@ import java.util.List;
  * @author lrosenberg
  * @since 11.03.13 12:31
  */
-public class MBeanWrapperBean implements IComparable<MBeanWrapperBean>{
+public class MBeanWrapperAO implements IComparable<MBeanWrapperAO>, Serializable{
 	/**
 	 * Name of the implementing class.
 	 */
@@ -25,7 +26,7 @@ public class MBeanWrapperBean implements IComparable<MBeanWrapperBean>{
 	/**
 	 * Attributes of the mbean.
 	 */
-	private List<MBeanAttributeWrapper> attributes = Collections.emptyList();
+	private List<MBeanAttributeWrapperAO> attributes = Collections.emptyList();
 	/**
 	 * Operations of the mbean.
 	 */
@@ -39,6 +40,9 @@ public class MBeanWrapperBean implements IComparable<MBeanWrapperBean>{
 	 * Name.
 	 */
 	private String canonicalName;
+
+
+
 
 
 	/**
@@ -62,11 +66,11 @@ public class MBeanWrapperBean implements IComparable<MBeanWrapperBean>{
 		this.description = description;
 	}
 
-	public List<MBeanAttributeWrapper> getAttributes() {
+	public List<MBeanAttributeWrapperAO> getAttributes() {
 		return attributes;
 	}
 
-	public void setAttributes(List<MBeanAttributeWrapper> attributes) {
+	public void setAttributes(List<MBeanAttributeWrapperAO> attributes) {
 		this.attributes = attributes;
 	}
 
@@ -119,10 +123,10 @@ public class MBeanWrapperBean implements IComparable<MBeanWrapperBean>{
 	}
 
 	@Override
-	public int compareTo(IComparable<? extends MBeanWrapperBean> iComparable, int i) {
-		int domainCompare = BasicComparable.compareString(getDomain(), ((MBeanWrapperBean)iComparable).getDomain());
+	public int compareTo(IComparable<? extends MBeanWrapperAO> iComparable, int i) {
+		int domainCompare = BasicComparable.compareString(getDomain(), ((MBeanWrapperAO)iComparable).getDomain());
 		return domainCompare == 0 ?
-				BasicComparable.compareString(getType(), ((MBeanWrapperBean)iComparable).getType()) :
+				BasicComparable.compareString(getType(), ((MBeanWrapperAO)iComparable).getType()) :
 				domainCompare;
 	}
 }

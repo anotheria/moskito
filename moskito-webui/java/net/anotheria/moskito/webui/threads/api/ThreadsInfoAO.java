@@ -1,9 +1,11 @@
 package net.anotheria.moskito.webui.threads.api;
 
+import java.io.Serializable;
+
 /**
  * Contains information about threads in the system.
  */
-public class ThreadsInfoAO {
+public class ThreadsInfoAO implements Serializable{
 	/**
 	 * Number of threads.
 	 */

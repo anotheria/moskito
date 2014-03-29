@@ -29,4 +29,11 @@ public interface AdditionalFunctionalityAPI extends API, Service{
 	 */
 	void forceIntervalUpdate(String intervalName) throws APIException;
 
+	/**
+	 * Returns the list of available beans.
+	 * @return
+	 * @throws APIException
+	 */
+	List<MBeanWrapperAO> getMBeans() throws APIException;
+
 }

@@ -1,19 +1,20 @@
-package net.anotheria.moskito.webui.more.bean;
+package net.anotheria.moskito.webui.shared.api;
 
 import javax.management.MBeanAttributeInfo;
+import java.io.Serializable;
 
 /**
  * @author Michael König
  */
-public class MBeanAttributeWrapper {
+public class MBeanAttributeWrapperAO implements Serializable{
 
     private final MBeanAttributeInfo attribInfo;
     private final Object value;
 
     /**
-     * Constructs an MBeanAttributeWrapper.
+     * Constructs an MBeanAttributeWrapperAO.
      */
-    public MBeanAttributeWrapper(final MBeanAttributeInfo attribInfo, final Object value) {
+    public MBeanAttributeWrapperAO(final MBeanAttributeInfo attribInfo, final Object value) {
         this.attribInfo = attribInfo;
         this.value = value;
     }
