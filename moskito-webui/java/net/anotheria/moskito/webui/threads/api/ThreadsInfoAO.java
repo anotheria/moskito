@@ -1,6 +1,9 @@
-package net.anotheria.moskito.webui.threads.bean;
+package net.anotheria.moskito.webui.threads.api;
 
-public class ThreadsInfoBean {
+/**
+ * Contains information about threads in the system.
+ */
+public class ThreadsInfoAO {
 	/**
 	 * Number of threads.
 	 */

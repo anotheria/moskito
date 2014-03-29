@@ -84,4 +84,24 @@ public class ThreadAPIImpl extends AbstractMoskitoAPIImpl implements ThreadAPI {
 
 		return ret;
 	}
+
+	@Override
+	public ThreadsInfoAO getThreadsInfo() throws APIException {
+
+		ThreadMXBean mxBean = ManagementFactory.getThreadMXBean();
+		ThreadsInfoAO infoAO = new ThreadsInfoAO();
+
+
+		infoAO.setThreadCount(mxBean.getThreadCount());
+		infoAO.setDaemonThreadCount(mxBean.getDaemonThreadCount());
+		infoAO.setPeakThreadCount(mxBean.getPeakThreadCount());
+		infoAO.setTotalStarted(mxBean.getTotalStartedThreadCount());
+
+		infoAO.setCurrentThreadCpuTimeSupported(mxBean.isCurrentThreadCpuTimeSupported());
+		infoAO.setThreadContentionMonitoringEnabled(mxBean.isThreadContentionMonitoringEnabled());
+		infoAO.setThreadContentionMonitoringSupported(mxBean.isThreadContentionMonitoringSupported());
+		infoAO.setThreadCpuTimeEnabled(mxBean.isThreadCpuTimeEnabled());
+		infoAO.setThreadCpuTimeSupported(mxBean.isThreadCpuTimeSupported());
+		return infoAO;
+	}
 }

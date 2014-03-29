@@ -37,4 +37,11 @@ public interface ThreadAPI extends API, Service {
 	 * @throws APIException
 	 */
 	ActiveThreadHistoryAO getActiveThreadHistory() throws APIException;
+
+	/**
+	 * Returns ThreadsInfoAO.
+	 * @return
+	 * @throws APIException
+	 */
+	ThreadsInfoAO getThreadsInfo() throws APIException;
 }
