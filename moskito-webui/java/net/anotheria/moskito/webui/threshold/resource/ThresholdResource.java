@@ -2,7 +2,6 @@ package net.anotheria.moskito.webui.threshold.resource;
 
 import net.anotheria.anoplass.api.APIException;
 import net.anotheria.anoplass.api.APIFinder;
-import net.anotheria.moskito.core.threshold.Threshold;
 import net.anotheria.moskito.webui.shared.resource.ReplyObject;
 import net.anotheria.moskito.webui.threshold.api.ThresholdAPI;
 import net.anotheria.moskito.webui.threshold.api.ThresholdPO;
@@ -67,7 +66,7 @@ public class ThresholdResource {
 	@Path("create")
 	public ReplyObject createThreshold(ThresholdPO po){
 		try{
-			Threshold t = thresholdAPI.createThreshold(po);
+			thresholdAPI.createThreshold(po);
 			return ReplyObject.success();
 		}catch(APIException e){
 			throw new WebApplicationException(e);

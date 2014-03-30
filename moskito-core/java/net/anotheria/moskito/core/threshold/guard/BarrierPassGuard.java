@@ -4,12 +4,14 @@ import net.anotheria.moskito.core.threshold.Threshold;
 import net.anotheria.moskito.core.threshold.ThresholdConditionGuard;
 import net.anotheria.moskito.core.threshold.ThresholdStatus;
 
+import java.io.Serializable;
+
 /**
  * A barrier pass guard fires as soon as a barrier has been passed.
  * @author lrosenberg
  *
  */
-public abstract class BarrierPassGuard implements ThresholdConditionGuard {
+public abstract class BarrierPassGuard implements ThresholdConditionGuard, Serializable {
 	/**
 	 * The status to activate in case the barrier has been passed.
 	 */

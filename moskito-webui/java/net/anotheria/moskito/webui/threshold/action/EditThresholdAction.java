@@ -3,11 +3,10 @@ package net.anotheria.moskito.webui.threshold.action;
 import net.anotheria.maf.action.ActionCommand;
 import net.anotheria.maf.action.ActionMapping;
 import net.anotheria.maf.bean.FormBean;
-import net.anotheria.moskito.core.threshold.Threshold;
 import net.anotheria.moskito.core.threshold.ThresholdConditionGuard;
-import net.anotheria.moskito.core.threshold.ThresholdRepository;
 import net.anotheria.moskito.core.threshold.ThresholdStatus;
 import net.anotheria.moskito.core.threshold.guard.BarrierPassGuard;
+import net.anotheria.moskito.webui.threshold.api.ThresholdDefinitionAO;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -26,14 +25,14 @@ public class EditThresholdAction extends BaseThresholdsAction{
 	public ActionCommand execute(ActionMapping actionMapping, FormBean formBean, HttpServletRequest request, HttpServletResponse httpServletResponse) throws Exception {
 
 		String thresholdId = request.getParameter(PARAM_ID);
-		Threshold t = ThresholdRepository.getInstance().getById(thresholdId);
+		ThresholdDefinitionAO definition = getThresholdAPI().getThresholdDefinition(thresholdId);
 
 		request.setAttribute("target", "Threshold");
-		request.setAttribute("definition", t.getDefinition());
+		request.setAttribute("definition", definition);
 
-		request.setAttribute("thresholdId", t.getId());
+		request.setAttribute("thresholdId", thresholdId);
 
-		List<ThresholdConditionGuard> guards =  t.getGuards();
+		List<ThresholdConditionGuard> guards =  getThresholdAPI().getGuardsForThreshold(thresholdId);
 		HashMap<ThresholdStatus, String> guardValues = new HashMap<ThresholdStatus, String>();
 		for (ThresholdConditionGuard g : guards){
 			//we only support barrier guards for now.

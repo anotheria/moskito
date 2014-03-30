@@ -3,13 +3,14 @@ package net.anotheria.moskito.webui.threshold.api;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
+import java.io.Serializable;
 
 /**
  * Represents a single threshold change alert object.
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement
-public class ThresholdAlertAO {
+public class ThresholdAlertAO implements Serializable{
 	/**
 	 * Id of the threshold.
 	 */

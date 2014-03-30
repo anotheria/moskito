@@ -131,7 +131,7 @@ public class ThresholdAPIImpl extends AbstractMoskitoAPIImpl implements Threshol
     }
 
 	@Override
-	public Threshold createThreshold(ThresholdPO po)  throws APIException{
+	public void createThreshold(ThresholdPO po)  throws APIException{
 		//now parse guards
 		GuardedDirection greenDir = string2direction(po.getGreenDir());
 		GuardedDirection yellowDir = string2direction(po.getYellowDir());
@@ -179,7 +179,6 @@ public class ThresholdAPIImpl extends AbstractMoskitoAPIImpl implements Threshol
 				new DoubleBarrierPassGuard(ThresholdStatus.PURPLE, Double.parseDouble(purpleValue), purpleDir):
 				new LongBarrierPassGuard(ThresholdStatus.PURPLE, Long.parseLong(purpleValue), purpleDir)
 		);
-		return newThreshold;
 	}
 
 	@Override
@@ -219,31 +218,46 @@ public class ThresholdAPIImpl extends AbstractMoskitoAPIImpl implements Threshol
 		List<Threshold> thresholds = ThresholdRepository.getInstance().getThresholds();
 		ArrayList<ThresholdDefinitionAO> ret = new ArrayList<ThresholdDefinitionAO>();
 		for (Threshold t : thresholds){
-			ThresholdDefinitionAO definitionAO = new ThresholdDefinitionAO();
-			definitionAO.setId(t.getId());
-			definitionAO.setName(t.getName());
-			definitionAO.setProducerName(t.getDefinition().getProducerName());
-			definitionAO.setStatName(t.getDefinition().getStatName());
-			definitionAO.setIntervalName(t.getDefinition().getIntervalName());
-			definitionAO.setValueName(t.getDefinition().getValueName());
-			definitionAO.setDescriptionString(t.getDefinition().describe());
-			for (ThresholdConditionGuard g : t.getGuards()){
-				definitionAO.addGuard(g.toString());
-			}
-			ret.add(definitionAO);
+			ret.add(definition2AO(t));
 		}
 		return ret;
 
 	}
 
+	private ThresholdDefinitionAO definition2AO(Threshold t){
+		ThresholdDefinitionAO definitionAO = new ThresholdDefinitionAO();
+		definitionAO.setId(t.getId());
+		definitionAO.setName(t.getName());
+		definitionAO.setProducerName(t.getDefinition().getProducerName());
+		definitionAO.setStatName(t.getDefinition().getStatName());
+		definitionAO.setIntervalName(t.getDefinition().getIntervalName());
+		definitionAO.setValueName(t.getDefinition().getValueName());
+		definitionAO.setDescriptionString(t.getDefinition().describe());
+		definitionAO.setTimeUnit(t.getDefinition().getTimeUnit());
+		for (ThresholdConditionGuard g : t.getGuards()){
+			definitionAO.addGuard(g.toString());
+		}
+		return definitionAO;
+	}
+
 	@Override
 	public ThresholdStatus getWorstStatus() throws APIException {
-		System.out.println("GET WORST STATUS CALLED: "+ThresholdRepository.getInstance().getWorstStatus());
 		return ThresholdRepository.getInstance().getWorstStatus();
 	}
 
 	@Override
 	public ThresholdStatus getWorstStatus(List<String> thresholdNames) throws APIException {
 		return ThresholdRepository.getInstance().getWorstStatus(thresholdNames);
+	}
+
+	@Override
+	public ThresholdDefinitionAO getThresholdDefinition(String id) throws APIException {
+		return definition2AO(ThresholdRepository.getInstance().getById(id));
+	}
+
+	@Override
+	public List<ThresholdConditionGuard> getGuardsForThreshold(String thresholdId) throws APIException {
+		Threshold threshold = ThresholdRepository.getInstance().getById(thresholdId);
+		return threshold.getGuards();
 	}
 }
