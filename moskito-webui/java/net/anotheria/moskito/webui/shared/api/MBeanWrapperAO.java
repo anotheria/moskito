@@ -15,6 +15,12 @@ import java.util.List;
  * @since 11.03.13 12:31
  */
 public class MBeanWrapperAO implements IComparable<MBeanWrapperAO>, Serializable{
+
+	/**
+	 * SerialVersionUID.
+	 */
+	private static final long serialVersionUID = 1L;
+
 	/**
 	 * Name of the implementing class.
 	 */

@@ -11,6 +11,12 @@ import java.io.Serializable;
  * @since 13.03.13 14:57
  */
 public class LibAO implements Serializable{
+
+	/**
+	 * SerialVersionUID.
+	 */
+	private static final long serialVersionUID = 1L;
+
 	/**
 	 * Name of the lib.
 	 */

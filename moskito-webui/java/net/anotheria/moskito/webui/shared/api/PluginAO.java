@@ -3,15 +3,33 @@ package net.anotheria.moskito.webui.shared.api;
 import java.io.Serializable;
 
 /**
- * TODO comment this class
+ * Represents a plugin.
  *
  * @author lrosenberg
  * @since 19.03.13 23:39
  */
 public class PluginAO implements Serializable{
+
+	/**
+	 * SerialVersionUID.
+	 */
+	private static final long serialVersionUID = 1L;
+
+	/**
+	 * Name of the plugin.
+	 */
 	private String name;
+	/**
+	 * Description of the plugin.
+	 */
 	private String description;
+	/**
+	 * Plugin class name.
+	 */
 	private String className;
+	/**
+	 * Name of the plugin configuration.
+	 */
 	private String configurationName;
 
 	public String getName() {
