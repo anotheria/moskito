@@ -1,6 +1,221 @@
 <%@ page language="java" contentType="text/html;charset=UTF-8" session="true"
 %><%@ taglib uri="http://www.anotheria.net/ano-tags" prefix="ano"
-%><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+%><!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/html">
+
+<jsp:include page="../../shared/jsp/InspectHeader.jsp" flush="false"/>
+
+<%--
+<div class="modal fade inspect-list" id="inspect" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">Inspect Producer</h4>
+            </div>
+            <div class="modal-body">
+                <ul>
+                    <li>net.anotheria.moskito.core.dynamic.OnDemandStatsProducer.<init>(OnDemandStatsProducer.java:123)</init></li>
+
+                    <li>net.anotheria.moskito.core.dynamic.MoskitoInvokationProxy.<init>(MoskitoInvokationProxy.java:123)</init></li>
+
+                    <li>net.anotheria.baldur.common.util.ProxyUtil.createMoskitoProxy(ProxyUtil.java:61)</li>
+
+                    <li>net.anotheria.baldur.business.messaging.persistence.convesationdatafs.ConversationFSPersistenceServiceFactory.create(ConversationFSPersistenceServiceFactory.java:14)</li>
+
+                    <li>net.anotheria.baldur.business.messaging.persistence.convesationdatafs.ConversationFSPersistenceServiceFactory.create(ConversationFSPersistenceServiceFactory.java:1)</li>
+
+                    <li>net.anotheria.anoprise.metafactory.MetaFactory._create(MetaFactory.java:152)</li>
+
+                    <li>net.anotheria.anoprise.metafactory.MetaFactory.get(MetaFactory.java:203)</li>
+
+                    <li>net.anotheria.anoprise.metafactory.MetaFactory.get(MetaFactory.java:177)</li>
+
+                    <li>net.anotheria.baldur.business.messaging.MessagingServiceImpl.<init>(MessagingServiceImpl.java:79)</init></li>
+
+                    <li>net.anotheria.baldur.business.messaging.MessagingServiceFactory.create(MessagingServiceFactory.java:16)</li>
+
+                    <li>net.anotheria.baldur.business.messaging.MessagingServiceFactory.create(MessagingServiceFactory.java:1)</li>
+
+                    <li>net.anotheria.anoprise.metafactory.MetaFactory._create(MetaFactory.java:152)</li>
+
+                    <li>net.anotheria.anoprise.metafactory.MetaFactory.get(MetaFactory.java:203)</li>
+
+                    <li>net.anotheria.anoprise.metafactory.MetaFactory.get(MetaFactory.java:177)</li>
+
+                    <li>net.anotheria.baldur.business.notification.NotificationServiceImpl.<init>(NotificationServiceImpl.java:124)</init></li>
+
+                    <li>net.anotheria.baldur.business.notification.NotificationServiceFactory.create(NotificationServiceFactory.java:16)</li>
+
+                    <li>net.anotheria.baldur.business.notification.NotificationServiceFactory.create(NotificationServiceFactory.java:1)</li>
+
+                    <li>net.anotheria.anoprise.metafactory.MetaFactory._create(MetaFactory.java:152)</li>
+
+                    <li>net.anotheria.anoprise.metafactory.MetaFactory.get(MetaFactory.java:203)</li>
+
+                    <li>net.anotheria.anoprise.metafactory.MetaFactory.get(MetaFactory.java:177)</li>
+
+                    <li>net.anotheria.baldur.business.matching.profile.job.MatchingProcessor.<init>(MatchingProcessor.java:89)</init></li>
+
+                    <li>net.anotheria.baldur.business.schedule.job.MatchingJob.getProcessor(MatchingJob.java:31)</li>
+
+                    <li>net.anotheria.baldur.business.schedule.ScheduleServiceImpl.startSchedule(ScheduleServiceImpl.java:109)</li>
+
+                    <li>net.anotheria.baldur.business.schedule.ScheduleServiceImpl.<init>(ScheduleServiceImpl.java:84)</init></li>
+
+                    <li>sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)</li>
+
+                    <li>sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:57)</li>
+
+                    <li>sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)</li>
+
+                    <li>java.lang.reflect.Constructor.newInstance(Constructor.java:526)</li>
+
+                    <li>java.lang.Class.newInstance(Class.java:374)</li>
+
+                    <li>net.anotheria.anoprise.metafactory.MetaFactory._create(MetaFactory.java:126)</li>
+
+                    <li>net.anotheria.anoprise.metafactory.MetaFactory.get(MetaFactory.java:203)</li>
+
+                    <li>net.anotheria.anoprise.metafactory.MetaFactory.get(MetaFactory.java:177)</li>
+
+                    <li>net.anotheria.baldur.ui.shared.ContextInitializer.forceInitialization(ContextInitializer.java:49)</li>
+
+                    <li>net.anotheria.baldur.ui.shared.ContextInitializer.contextInitialized(ContextInitializer.java:70)</li>
+
+                    <li>org.apache.catalina.core.StandardContext.listenerStart(StandardContext.java:4887)</li>
+
+                    <li>org.apache.catalina.core.StandardContext.startInternal(StandardContext.java:5381)</li>
+
+                    <li>org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:150)</li>
+
+                    <li>org.apache.catalina.core.ContainerBase.addChildInternal(ContainerBase.java:901)</li>
+
+                    <li>org.apache.catalina.core.ContainerBase.addChild(ContainerBase.java:877)</li>
+
+                    <li>org.apache.catalina.core.StandardHost.addChild(StandardHost.java:633)</li>
+
+                    <li>org.apache.catalina.startup.HostConfig.deployWAR(HostConfig.java:977)</li>
+
+                    <li>org.apache.catalina.startup.HostConfig$DeployWar.run(HostConfig.java:1654)</li>
+
+                    <li>java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:471)</li>
+
+                    <li>java.util.concurrent.FutureTask.run(FutureTask.java:262)</li>
+
+                    <li>java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)</li>
+
+                    <li>java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)</li>
+
+                    <li>java.lang.Thread.run(Thread.java:744)</li>
+
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+--%>
+
+<section id="main">
+<div class="content">
+
+<div class="box">
+    <div class="box-content paddner">
+        <dl class="dl-horizontal pull-left">
+            <dt>Producer:</dt>
+            <dd>${producer.producerId}</dd>
+            <dt>Category:</dt>
+            <dd><a href="mskShowProducersByCategory?pCategory=${producer.category}">${producer.category}</a></dd>
+            <dt>Subsystem:</dt>
+            <dd><a href="mskShowProducersBySubsystem?pSubsystem=${producer.subsystem}">${producer.subsystem}</a></dd>
+            <dt>Сlass:</dt>
+            <dd>${producer.producerClassName}</dd>
+        </dl>
+        <div class="pull-right">
+            <a href="${linkToCurrentPage}&pForward=selection&target=Accumulator" class="btn btn-default">Add Accumulator</a>
+            <a href="${linkToCurrentPage}&pForward=selection&target=Threshold" class="btn btn-default">Add Threshold</a>
+            <ano:equal name="producer" property="inspectable" value="true">
+                <a href="mskInspectProducer?pProducerId=${producer.producerId}" data-toggle="modal" data-target="#inspect" class="btn btn-success">Inspect</a>
+            </ano:equal>
+        </div>
+    </div>
+</div>
+
+<ano:iterate type="net.anotheria.moskito.webui.shared.bean.StatDecoratorBean" id="decorator" name="decorators">
+<div class="box">
+    <div class="box-title">
+        <a class="accordion-toggle tooltip-bottom" title="Close/Open" data-toggle="collapse" href="#collapseproducer"><i class="fa fa-caret-right"></i></a>
+        <h3 class="pull-left">
+            ${producer.producerId}
+        </h3>
+        <div class="box-right-nav">
+            <a href="" class="tooltip-bottom" title="Help"><i class="fa fa-info-circle"></i></a>
+        </div>
+    </div>
+    <div id="collapseproducer" class="box-content accordion-body collapse in">
+        <table class="table table-left table-striped tablesorter">
+            <thead>
+            <tr>
+                <th>Name <i class="fa fa-caret-down"></i></th>
+            </tr>
+            </thead>
+            <tbody>
+            <ano:iterate name="decorator" property="stats" id="stat" type="net.anotheria.moskito.webui.shared.bean.StatBean" indexId="index">
+                <tr>
+                    <td>${stat.name}</td>
+                </tr>
+            </ano:iterate>
+            </tbody>
+        </table>
+        <div class="table-right">
+            <table class="table table-striped tablesorter">
+                <thead>
+                <tr>
+                    <ano:iterate name="decorator" property="captions" type="net.anotheria.moskito.webui.shared.bean.StatCaptionBean" id="caption" indexId="ind">
+                        <th title="<ano:write name="caption" property="shortExplanation"/>">
+                            ${caption.caption} <i class="fa fa-caret-down"></i><i class="chart-icon tooltip-bottom" title="Show chart"></i></th>
+                        </th>
+                    </ano:iterate>
+
+                </tr>
+                </thead>
+                <tbody>
+                <ano:iterate name="decorator" property="stats" id="stat" type="net.anotheria.moskito.webui.shared.bean.StatBean" indexId="index">
+                    <tr>
+                        <ano:iterate name="stat" property="values" id="value" type="net.anotheria.moskito.webui.producers.api.StatValueAO">
+                            <td title="${stat.name}.${value.name}=${value.value}">
+                                ${value.value}
+                            </td>
+                        </ano:iterate>
+                    </tr>
+                </ano:iterate>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+</ano:iterate>
+
+
+</div>
+
+<footer id="footer" class="navbar-default">
+    <p class="text-center">Generated at 2014-03-27T18:00:49,923  |  timestamp: 1395939649923  |  Interval updated at: Never  |   Interval age: n.A.</p>
+    <p class="text-center">App version: net.anotheria/moskito-counter 1-SNAPSHOT file: 2013-12-16T21:47:20,000  |  MoSKito version: net.anotheria/moskito-webui-jersey 2.4.1-SNAPSHOT file: 2013-12-16T21:46:50,000  |  Server: counter</p>
+</footer>
+
+</section>
+</body>
+</html>
+
+
+
+
+
+
+<%--
+PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 	<title>Moskito Producer <ano:write name="producer" property="producerId"/> </title>
@@ -332,3 +547,4 @@
 </body>
 </html>
 
+    --%>
