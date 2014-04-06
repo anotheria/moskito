@@ -18,7 +18,7 @@ public class RemovePluginAction extends BaseAdditionalAction {
 	@Override
 	public ActionCommand execute(ActionMapping mapping, FormBean formBean, HttpServletRequest req, HttpServletResponse res) throws Exception {
 		String pluginName = req.getParameter("pPluginName");
-		PluginRepository.getInstance().removePlugin(pluginName);
+		getAdditionalFunctionalityAPI().removePlugin(pluginName);
 		return mapping.redirect();
 	}
 

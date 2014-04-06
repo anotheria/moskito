@@ -1,0 +1,32 @@
+{
+	"producerChartWidth": 1200,
+	"producerChartHeight": 600,
+    "connectivityMode": "REMOTE",
+    "@remotes": [
+        {
+            "name": "Develop",
+            "host": "localhost",
+            "port": 9401
+        },
+        {
+            "name": "web01",
+            "host": "web01.prod",
+            "port": 9401
+        },
+        {
+            "name": "web02",
+            "host": "web02.prod",
+            "port": 9401
+        },
+        {
+            "name": "UserService",
+            "host": "biz01.prod",
+            "port": 9401
+        },
+        {
+            "name": "ProfileService",
+            "host": "biz01.prod",
+            "port": 9402
+        }
+    ]
+}

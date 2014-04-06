@@ -8,9 +8,6 @@ import net.anotheria.moskito.webui.accumulators.action.CreateAccumulatorAction;
 import net.anotheria.moskito.webui.accumulators.action.DeleteAccumulatorAction;
 import net.anotheria.moskito.webui.accumulators.action.ShowAccumulatorAction;
 import net.anotheria.moskito.webui.accumulators.action.ShowAccumulatorsAction;
-import net.anotheria.moskito.webui.charts.action.GetChartDataAction;
-import net.anotheria.moskito.webui.charts.action.GetChartMetaDataAction;
-import net.anotheria.moskito.webui.charts.action.ShowChartsAction;
 import net.anotheria.moskito.webui.journey.action.AnalyzeJourneyAction;
 import net.anotheria.moskito.webui.journey.action.ShowJourneyAction;
 import net.anotheria.moskito.webui.journey.action.ShowJourneyCallAction;
@@ -28,6 +25,7 @@ import net.anotheria.moskito.webui.producers.action.ShowProducerAction;
 import net.anotheria.moskito.webui.producers.action.ShowProducersForCategoryAction;
 import net.anotheria.moskito.webui.producers.action.ShowProducersForSubsystemAction;
 import net.anotheria.moskito.webui.shared.action.ForceIntervalUpdateAction;
+import net.anotheria.moskito.webui.shared.action.SelectServerAction;
 import net.anotheria.moskito.webui.shared.action.ShowExplanationsAction;
 import net.anotheria.moskito.webui.threads.action.HistoryOffAction;
 import net.anotheria.moskito.webui.threads.action.HistoryOnAction;
@@ -124,26 +122,7 @@ public class MoskitoMappingsConfigurator implements ActionMappingsConfigurator{
 				new ActionForward("success", "/net/anotheria/moskito/webui/journey/jsp/JourneyCall.jsp")
 		);
 
-		mappings.addMapping("getChartData", GetChartDataAction.class, 
-				new ActionForward("html", "/net/anotheria/moskito/webui/charts/jsp/ChartData.jsp"),
-				new ActionForward("xml", "/net/anotheria/moskito/webui/charts/jsp/ChartDataXML.jsp"),
-				new ActionForward("csv", "/net/anotheria/moskito/webui/charts/jsp/ChartDataCSV.jsp"),
-				new ActionForward("json", "/net/anotheria/moskito/webui/charts/jsp/ChartDataJSON.jsp")
 
-		);
-		
-		mappings.addMapping("getChartMetaData", GetChartMetaDataAction.class, 
-				new ActionForward("html", "/net/anotheria/moskito/webui/charts/jsp/ChartMetaData.jsp"),
-				new ActionForward("xml", "/net/anotheria/moskito/webui/charts/jsp/ChartMetaDataXML.jsp"),
-				new ActionForward("csv", "/net/anotheria/moskito/webui/charts/jsp/ChartMetaDataCSV.jsp"),
-				new ActionForward("json", "/net/anotheria/moskito/webui/charts/jsp/ChartMetaDataJSON.jsp")
-
-		);
-		
-		mappings.addMapping("mskShowCharts", ShowChartsAction.class,
-				new ActionForward("html", "/net/anotheria/moskito/webui/charts/jsp/Charts.jsp")
-		);
-		
 		mappings.addMapping("mskForceIntervalUpdate", ForceIntervalUpdateAction.class, (ActionForward[])null);
 
 		mappings.addMapping("mskThresholds", ShowThresholdsAction.class,
@@ -238,6 +217,10 @@ public class MoskitoMappingsConfigurator implements ActionMappingsConfigurator{
 
 		mappings.addMapping("mskRemovePlugin", RemovePluginAction.class,
 				new CommandRedirect("redirect", "mskPlugins")
+		);
+
+		mappings.addMapping("mskSelectServer", SelectServerAction.class,
+			new CommandRedirect("redirect", "mskShowAllProducers")
 		);
 
 

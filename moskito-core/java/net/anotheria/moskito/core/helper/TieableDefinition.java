@@ -2,13 +2,15 @@ package net.anotheria.moskito.core.helper;
 
 import net.anotheria.moskito.core.stats.TimeUnit;
 
+import java.io.Serializable;
+
 /**
  * Class that defines moskito components which are tie-able, which means can serve as target for action.
- * Thresholds and accumulators are using tiebles.
+ * Thresholds and accumulators are using tie-ables.
  * @author lrosenberg
  *
  */
-public class TieableDefinition {
+public class TieableDefinition implements Serializable{
 	/**
 	 * Name of the tieable.
 	 */
@@ -30,7 +32,7 @@ public class TieableDefinition {
 	 */
 	private String intervalName;
 	/**
-	 * Timeunit, default is millis.
+	 * TimeUnit, default is millis.
 	 */
 	private TimeUnit timeUnit = TimeUnit.MILLISECONDS;
 

@@ -11,7 +11,8 @@ import net.anotheria.moskito.core.config.MoskitoConfiguration;
 import net.anotheria.moskito.core.config.MoskitoConfigurationHolder;
 import net.anotheria.moskito.core.threshold.Threshold;
 import net.anotheria.moskito.core.threshold.ThresholdRepository;
-import net.anotheria.moskito.webui.charts.ChartEngine;
+import net.anotheria.moskito.webui.util.ChartEngine;
+import net.anotheria.moskito.webui.util.WebUIConfig;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -44,6 +45,9 @@ public class ShowConfigAction extends BaseAdditionalAction{
 		String prettyJsonString = gson.toJson(je);
 		req.setAttribute("configstring", prettyJsonString);
 
+		if (WebUIConfig.getInstance().getConnectivityMode().isRemote()){
+			req.setAttribute("remoteConfig", getAdditionalFunctionalityAPI().getConfigurationAsString());
+		}
 
 
 

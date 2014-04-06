@@ -34,6 +34,7 @@
  */	
 package net.anotheria.moskito.webui.shared.bean;
 
+import net.anotheria.moskito.webui.producers.api.StatValueAO;
 import net.anotheria.util.sorter.IComparable;
 
 import java.util.List;
@@ -45,17 +46,17 @@ public class ValueListWrapper implements IComparable{
 	/**
 	 * Internal storage for the values.
 	 */
-	private List<StatValueBean> values;
+	private List<StatValueAO> values;
 	
-	public ValueListWrapper(List<StatValueBean> someValues){
+	public ValueListWrapper(List<StatValueAO> someValues){
 		values = someValues;
 	}
 
-	public List<StatValueBean> getValues() {
+	public List<StatValueAO> getValues() {
 		return values;
 	}
 
-	public void setValues(List<StatValueBean> values) {
+	public void setValues(List<StatValueAO> values) {
 		this.values = values;
 	}
 	

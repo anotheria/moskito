@@ -34,6 +34,7 @@
  */	
 package net.anotheria.moskito.webui.shared.bean;
 
+import net.anotheria.moskito.webui.producers.api.StatValueAO;
 import net.anotheria.util.BasicComparable;
 import net.anotheria.util.sorter.IComparable;
 
@@ -60,10 +61,10 @@ public class StatBean implements IComparable{
 	public void setName(String name) {
 		this.name = name;
 	}
-	public List<StatValueBean> getValues() {
+	public List<StatValueAO> getValues() {
 		return wrapper.getValues();
 	}
-	public void setValues(List<StatValueBean> values) {
+	public void setValues(List<StatValueAO> values) {
 		wrapper = new ValueListWrapper(values);
 	}
 	

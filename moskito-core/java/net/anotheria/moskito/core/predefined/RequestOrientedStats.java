@@ -61,7 +61,7 @@ public abstract class RequestOrientedStats extends AbstractStats {
 	/**
 	 * All currently selected intervals.
 	 */
-	private Interval selectedIntervals[];
+	private transient Interval selectedIntervals[];
 
 	/**
 	 * Name of the method.

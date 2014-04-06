@@ -44,7 +44,7 @@
 						</thead>
 						<tbody>
 
-						<ano:iterate name="infos" type="java.lang.management.ThreadInfo" id="info" indexId="index">
+						<ano:iterate name="infos" type="net.anotheria.moskito.webui.threads.api.ThreadInfoAO" id="info" indexId="index">
 							<tr class="even">
 								<td><ano:write name="info" property="threadId"/></td>
 								<td><ano:write name="info" property="threadName"/></td>

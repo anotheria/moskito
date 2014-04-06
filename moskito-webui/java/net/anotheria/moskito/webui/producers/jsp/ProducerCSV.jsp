@@ -14,7 +14,7 @@
 
 --%><msk:iterate name="decorator" property="stats" id="stat" type="net.anotheria.moskito.webui.shared.bean.StatBean">
 "";"<msk:write name="stat" property="name"/>";<%--
---%><msk:iterate name="stat" property="values" id="value" type="net.anotheria.moskito.webui.shared.bean.StatValueBean"><%--
+--%><msk:iterate name="stat" property="values" id="value" type="net.anotheria.moskito.webui.producers.api.StatValueAO"><%--
 --%>;<msk:write name="value" property="value"/><%--
 --%></msk:iterate></msk:iterate></msk:iterate>
 

@@ -3,8 +3,8 @@ package net.anotheria.moskito.webui.decorators.predefined;
 import net.anotheria.moskito.core.predefined.IMemoryPoolStats;
 import net.anotheria.moskito.core.producers.IStats;
 import net.anotheria.moskito.core.stats.TimeUnit;
-import net.anotheria.moskito.webui.shared.bean.LongValueBean;
-import net.anotheria.moskito.webui.shared.bean.StatValueBean;
+import net.anotheria.moskito.webui.producers.api.LongValueAO;
+import net.anotheria.moskito.webui.producers.api.StatValueAO;
 import net.anotheria.moskito.webui.decorators.AbstractDecorator;
 
 import java.util.ArrayList;
@@ -99,28 +99,28 @@ public class MemoryPoolStatsDecorator extends AbstractDecorator {
 		super(aName, CAPTIONS, SHORT_EXPLANATIONS, EXPLANATIONS);
 	}
 
-	@Override public List<StatValueBean> getValues(IStats statsObject, String interval, TimeUnit unit) {
+	@Override public List<StatValueAO> getValues(IStats statsObject, String interval, TimeUnit unit) {
 		IMemoryPoolStats stats = (IMemoryPoolStats)statsObject;
-		List<StatValueBean> ret = new ArrayList<StatValueBean>(CAPTIONS.length);
+		List<StatValueAO> ret = new ArrayList<StatValueAO>(CAPTIONS.length);
 		int i = 0;
-		ret.add(new LongValueBean(CAPTIONS[i++], stats.getFree(interval)));
-		ret.add(new LongValueBean(CAPTIONS[i++], stats.getFree(interval)/MB));
-		ret.add(new LongValueBean(CAPTIONS[i++], stats.getInit(interval)));
-		ret.add(new LongValueBean(CAPTIONS[i++], stats.getInit(interval)/MB));
-		ret.add(new LongValueBean(CAPTIONS[i++], stats.getMinUsed(interval)));
-		ret.add(new LongValueBean(CAPTIONS[i++], stats.getMinUsed(interval)/MB));
-		ret.add(new LongValueBean(CAPTIONS[i++], stats.getUsed(interval)));
-		ret.add(new LongValueBean(CAPTIONS[i++], stats.getUsed(interval)/MB));
-		ret.add(new LongValueBean(CAPTIONS[i++], stats.getMaxUsed(interval)));
-		ret.add(new LongValueBean(CAPTIONS[i++], stats.getMaxUsed(interval)/MB));
-		ret.add(new LongValueBean(CAPTIONS[i++], stats.getMinCommited(interval)));
-		ret.add(new LongValueBean(CAPTIONS[i++], stats.getMinCommited(interval)/MB));
-		ret.add(new LongValueBean(CAPTIONS[i++], stats.getCommited(interval)));
-		ret.add(new LongValueBean(CAPTIONS[i++], stats.getCommited(interval)/MB));
-		ret.add(new LongValueBean(CAPTIONS[i++], stats.getMaxCommited(interval)));
-		ret.add(new LongValueBean(CAPTIONS[i++], stats.getMaxCommited(interval)/MB));
-		ret.add(new LongValueBean(CAPTIONS[i++], stats.getMax(interval)));
-		ret.add(new LongValueBean(CAPTIONS[i++], stats.getMax(interval)/MB));
+		ret.add(new LongValueAO(CAPTIONS[i++], stats.getFree(interval)));
+		ret.add(new LongValueAO(CAPTIONS[i++], stats.getFree(interval)/MB));
+		ret.add(new LongValueAO(CAPTIONS[i++], stats.getInit(interval)));
+		ret.add(new LongValueAO(CAPTIONS[i++], stats.getInit(interval)/MB));
+		ret.add(new LongValueAO(CAPTIONS[i++], stats.getMinUsed(interval)));
+		ret.add(new LongValueAO(CAPTIONS[i++], stats.getMinUsed(interval)/MB));
+		ret.add(new LongValueAO(CAPTIONS[i++], stats.getUsed(interval)));
+		ret.add(new LongValueAO(CAPTIONS[i++], stats.getUsed(interval)/MB));
+		ret.add(new LongValueAO(CAPTIONS[i++], stats.getMaxUsed(interval)));
+		ret.add(new LongValueAO(CAPTIONS[i++], stats.getMaxUsed(interval)/MB));
+		ret.add(new LongValueAO(CAPTIONS[i++], stats.getMinCommited(interval)));
+		ret.add(new LongValueAO(CAPTIONS[i++], stats.getMinCommited(interval)/MB));
+		ret.add(new LongValueAO(CAPTIONS[i++], stats.getCommited(interval)));
+		ret.add(new LongValueAO(CAPTIONS[i++], stats.getCommited(interval)/MB));
+		ret.add(new LongValueAO(CAPTIONS[i++], stats.getMaxCommited(interval)));
+		ret.add(new LongValueAO(CAPTIONS[i++], stats.getMaxCommited(interval)/MB));
+		ret.add(new LongValueAO(CAPTIONS[i++], stats.getMax(interval)));
+		ret.add(new LongValueAO(CAPTIONS[i++], stats.getMax(interval)/MB));
 		return ret;
 	}
 

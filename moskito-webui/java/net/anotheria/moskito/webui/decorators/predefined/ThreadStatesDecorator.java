@@ -2,8 +2,8 @@ package net.anotheria.moskito.webui.decorators.predefined;
 
 import net.anotheria.moskito.core.predefined.ThreadStateStats;
 import net.anotheria.moskito.core.stats.TimeUnit;
-import net.anotheria.moskito.webui.shared.bean.LongValueBean;
-import net.anotheria.moskito.webui.shared.bean.StatValueBean;
+import net.anotheria.moskito.webui.producers.api.LongValueAO;
+import net.anotheria.moskito.webui.producers.api.StatValueAO;
 import net.anotheria.moskito.webui.decorators.AbstractDecorator;
 
 import java.util.ArrayList;
@@ -53,12 +53,12 @@ public class ThreadStatesDecorator extends AbstractDecorator<ThreadStateStats>{
 	}
 
 
-	@Override public List<StatValueBean> getValues(ThreadStateStats statsObject, String interval, TimeUnit unit) {
-		List<StatValueBean> ret = new ArrayList<StatValueBean>(CAPTIONS.length);
+	@Override public List<StatValueAO> getValues(ThreadStateStats statsObject, String interval, TimeUnit unit) {
+		List<StatValueAO> ret = new ArrayList<StatValueAO>(CAPTIONS.length);
 		int i = 0;
-		ret.add(new LongValueBean(CAPTIONS[i++], statsObject.getMin(interval)));
-		ret.add(new LongValueBean(CAPTIONS[i++], statsObject.getCurrent(interval)));
-		ret.add(new LongValueBean(CAPTIONS[i++], statsObject.getMax(interval)));
+		ret.add(new LongValueAO(CAPTIONS[i++], statsObject.getMin(interval)));
+		ret.add(new LongValueAO(CAPTIONS[i++], statsObject.getCurrent(interval)));
+		ret.add(new LongValueAO(CAPTIONS[i++], statsObject.getMax(interval)));
 		return ret;
 	}
 }

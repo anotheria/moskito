@@ -7,7 +7,6 @@ import net.anotheria.moskito.core.accumulation.AccumulatorDefinition;
 import net.anotheria.moskito.core.accumulation.AccumulatorRepository;
 import net.anotheria.moskito.core.stats.TimeUnit;
 import net.anotheria.moskito.webui.shared.api.AbstractMoskitoAPIImpl;
-import net.anotheria.util.NumberUtils;
 import net.anotheria.util.sorter.DummySortType;
 import net.anotheria.util.sorter.SortType;
 import net.anotheria.util.sorter.StaticQuickSorter;
@@ -49,6 +48,10 @@ public class AccumulatorAPIImpl extends AbstractMoskitoAPIImpl implements Accumu
 		AccumulatorRepository.getInstance().removeById(id);
 	}
 
+	@Override public AccumulatorAO getAccumulator(String id) throws APIException{
+		return new AccumulatorAO(AccumulatorRepository.getInstance().getById(id));
+	}
+
 	public AccumulatorDefinitionAO getAccumulatorDefinition(String accId) throws APIException{
 		Accumulator a = AccumulatorRepository.getInstance().getById(accId);
 		AccumulatorDefinitionAO bean = new AccumulatorDefinitionAO();
@@ -72,16 +75,7 @@ public class AccumulatorAPIImpl extends AbstractMoskitoAPIImpl implements Accumu
 		Accumulator accumulator = AccumulatorRepository.getInstance().getById(id);
 		AccumulatedSingleGraphAO singleGraphDataBean = new AccumulatedSingleGraphAO(accumulator.getName());
 
-		List<AccumulatedValue> accValues = accumulator.getValues();
-		for (AccumulatedValue v : accValues){
-			long timestamp = v.getTimestamp()/1000*1000;
-			//for single graph data
-			AccumulatedValueAO accValueForGraphData = new AccumulatedValueAO(NumberUtils.makeTimeString(timestamp));
-			accValueForGraphData.addValue(v.getValue());
-			accValueForGraphData.setIsoTimestamp(NumberUtils.makeISO8601TimestampString(v.getTimestamp()));
-			accValueForGraphData.setNumericTimestamp(v.getTimestamp());
-			singleGraphDataBean.add(accValueForGraphData);
-		}
+		singleGraphDataBean.setData(new AccumulatorAO(accumulator).getValues());
 		return singleGraphDataBean;
 	}
 

@@ -1,6 +1,5 @@
 package net.anotheria.moskito.webui.util;
 
-import net.anotheria.moskito.webui.charts.ChartEngine;
 import org.configureme.ConfigurationManager;
 import org.configureme.annotations.ConfigureMe;
 
@@ -22,6 +21,16 @@ public class WebUIConfig {
 	 * Default ChartEngine.
 	 */
 	private ChartEngine defaultChartEngine = ChartEngine.GOOGLE_CHART_API;
+
+	/**
+	 * List of remote instances. Remote instances are only active if mode is remote.
+	 */
+	private RemoteInstance[] remotes;
+
+	/**
+	 * Connectivity mode, available values are default or local.
+	 */
+	private ConnectivityMode connectivityMode = ConnectivityMode.LOCAL;
 
 	/**
 	 * If true sends a tracking pixel to counter.moskito.org to track worldwide usage.
@@ -77,6 +86,19 @@ public class WebUIConfig {
 		this.trackUsage = trackUsage;
 	}
 
+	public RemoteInstance[] getRemotes() {
+		return remotes;
+	}
 
+	public void setRemotes(RemoteInstance[] remotes) {
+		this.remotes = remotes;
+	}
 
+	public ConnectivityMode getConnectivityMode() {
+		return connectivityMode;
+	}
+
+	public void setConnectivityMode(ConnectivityMode connectivityMode) {
+		this.connectivityMode = connectivityMode;
+	}
 }

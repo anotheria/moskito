@@ -69,4 +69,10 @@ public interface Interval {
 	 */
 	int getLength();
 
+	/**
+	 * Returns the timestamp (ms) of the last update to this interval.
+	 * @return
+	 */
+	long getLastUpdateTimestamp();
+
 }

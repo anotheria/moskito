@@ -34,7 +34,7 @@
  */	
 package net.anotheria.moskito.webui.producers.action;
 
-import net.anotheria.moskito.core.producers.IStatsProducer;
+import net.anotheria.moskito.webui.producers.api.ProducerAO;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
@@ -48,18 +48,18 @@ import java.util.List;
 public class ShowAllProducersAction extends BaseShowProducersAction{
 
 	@Override
-	protected List<IStatsProducer> getProducers(HttpServletRequest req) {
+	protected List<ProducerAO> getProducers(HttpServletRequest req) {
 		String nameFilter = req.getParameter("pNameFilter");
 		if (nameFilter==null){
 			nameFilter="";
 		}
 		req.setAttribute("nameFilter", nameFilter);
-		List<IStatsProducer> all = getAPI().getAllProducers();
+		List<ProducerAO> all = getProducerAPI().getAllProducers(getCurrentInterval(req), getCurrentUnit(req).getUnit());
 		if (nameFilter.length()==0)
 			return all;
 		nameFilter = nameFilter.toLowerCase();
-		ArrayList<IStatsProducer> filtered = new ArrayList<IStatsProducer>();
-		for (IStatsProducer p : all){
+		ArrayList<ProducerAO> filtered = new ArrayList<ProducerAO>();
+		for (ProducerAO p : all){
 			if (p.getProducerId().toLowerCase().startsWith(nameFilter)){
 				filtered.add(p);
 			}

@@ -5,11 +5,11 @@
 				"className": "net.anotheria.moskito.core.threshold.alerts.notificationprovider.LogFileNotificationProvider",
 				"parameter": "MoskitoAlert",
 				"guardedStatus": "GREEN"
-			},{
+			}/*,{
 				"className": "net.anotheria.moskito.extensions.notificationproviders.MailgunNotificationProvider",
 				"parameter": "leon@leon-rosenberg.net",
 				"guardedStatus": "GREEN"
-			}
+			}  */
 		],
 
 		"@alertHistoryConfig": {

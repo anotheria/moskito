@@ -18,6 +18,7 @@ import net.anotheria.moskito.core.timing.IUpdateable;
 
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.concurrent.atomic.AtomicLong;
 
 /**
  * This class implements an Inveral with a name and an unique id that is furthermore a 
@@ -53,6 +54,8 @@ class IntervalImpl implements IUpdateable, Interval {
 	 * This List holds all secondary listeners.
 	 */
 	private List<IIntervalListener> secondaryIntervalListeners;
+
+	private AtomicLong lastUpdateTimestamp = new AtomicLong();
 	
 	/**
 	 * This is the constructor.
@@ -98,6 +101,7 @@ class IntervalImpl implements IUpdateable, Interval {
 	}
 
 	@Override public void update() {
+		lastUpdateTimestamp.set(System.currentTimeMillis());
 		notifyListeners(primaryIntervalListeners);
 		notifyListeners(secondaryIntervalListeners);
 	}
@@ -119,6 +123,11 @@ class IntervalImpl implements IUpdateable, Interval {
 	@Override
 	public String toString(){
 		return "["+id+"] "+name+" length: "+length+", "+primaryIntervalListeners.size()+" / "+secondaryIntervalListeners.size();
+	}
+
+	@Override
+	public long getLastUpdateTimestamp(){
+		return lastUpdateTimestamp.get();
 	}
 
 }

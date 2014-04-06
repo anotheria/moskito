@@ -1,5 +1,8 @@
 package net.anotheria.moskito.webui.threshold.api;
 
+import net.anotheria.moskito.core.stats.TimeUnit;
+
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,7 +11,7 @@ import java.util.List;
  * @author lrosenberg
  *
  */
-public class ThresholdDefinitionAO {
+public class ThresholdDefinitionAO implements Serializable{
 	/**
 	 * Threshold id.
 	 */
@@ -41,6 +44,8 @@ public class ThresholdDefinitionAO {
 	 * The attached guards.
 	 */
 	private List<String> guards;
+
+	private TimeUnit timeUnit;
 	
 	public ThresholdDefinitionAO(){
 		guards = new ArrayList<String>();
@@ -117,5 +122,13 @@ public class ThresholdDefinitionAO {
 	@Override
 	public String toString() {
 		return id+"/"+producerName+"/"+statName+"/"+valueName+"/"+valueName;
+	}
+
+	public TimeUnit getTimeUnit() {
+		return timeUnit;
+	}
+
+	public void setTimeUnit(TimeUnit timeUnit) {
+		this.timeUnit = timeUnit;
 	}
 }

@@ -37,9 +37,9 @@ package net.anotheria.moskito.webui.decorators.predefined;
 import net.anotheria.moskito.core.predefined.CacheStats;
 import net.anotheria.moskito.core.producers.IStats;
 import net.anotheria.moskito.core.stats.TimeUnit;
-import net.anotheria.moskito.webui.shared.bean.DoubleValueBean;
-import net.anotheria.moskito.webui.shared.bean.LongValueBean;
-import net.anotheria.moskito.webui.shared.bean.StatValueBean;
+import net.anotheria.moskito.webui.producers.api.DoubleValueAO;
+import net.anotheria.moskito.webui.producers.api.LongValueAO;
+import net.anotheria.moskito.webui.producers.api.StatValueAO;
 import net.anotheria.moskito.webui.decorators.AbstractDecorator;
 
 import java.util.ArrayList;
@@ -99,19 +99,19 @@ public class CacheStatsDecorator extends AbstractDecorator {
 	}
 	
 
-	@Override public List<StatValueBean> getValues(IStats statsObject, String interval, TimeUnit unit) {
+	@Override public List<StatValueAO> getValues(IStats statsObject, String interval, TimeUnit unit) {
 		CacheStats stats = (CacheStats)statsObject;
-		List<StatValueBean> ret = new ArrayList<StatValueBean>(CAPTIONS.length);
+		List<StatValueAO> ret = new ArrayList<StatValueAO>(CAPTIONS.length);
 		int i = 0;
-		ret.add(new LongValueBean(CAPTIONS[i++], stats.getRequests(interval)));
-		ret.add(new LongValueBean(CAPTIONS[i++], stats.getHits(interval)));
-		ret.add(new DoubleValueBean(CAPTIONS[i++], stats.getHitRatio(interval)));
-		ret.add(new LongValueBean(CAPTIONS[i++], stats.getWrites(interval)));
-		ret.add(new LongValueBean(CAPTIONS[i++], stats.getGarbageCollected(interval)));
-		ret.add(new LongValueBean(CAPTIONS[i++], stats.getRolloverCount(interval)));
-		ret.add(new LongValueBean(CAPTIONS[i++], stats.getExpired(interval)));
-		ret.add(new LongValueBean(CAPTIONS[i++], stats.getFiltered(interval)));
-		ret.add(new DoubleValueBean(CAPTIONS[i++], stats.getFillRatio(interval)));
+		ret.add(new LongValueAO(CAPTIONS[i++], stats.getRequests(interval)));
+		ret.add(new LongValueAO(CAPTIONS[i++], stats.getHits(interval)));
+		ret.add(new DoubleValueAO(CAPTIONS[i++], stats.getHitRatio(interval)));
+		ret.add(new LongValueAO(CAPTIONS[i++], stats.getWrites(interval)));
+		ret.add(new LongValueAO(CAPTIONS[i++], stats.getGarbageCollected(interval)));
+		ret.add(new LongValueAO(CAPTIONS[i++], stats.getRolloverCount(interval)));
+		ret.add(new LongValueAO(CAPTIONS[i++], stats.getExpired(interval)));
+		ret.add(new LongValueAO(CAPTIONS[i++], stats.getFiltered(interval)));
+		ret.add(new DoubleValueAO(CAPTIONS[i++], stats.getFillRatio(interval)));
 		return ret;
 	}
 

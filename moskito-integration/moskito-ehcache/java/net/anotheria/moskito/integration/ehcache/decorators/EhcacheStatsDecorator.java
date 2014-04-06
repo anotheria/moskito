@@ -4,10 +4,10 @@ import net.anotheria.moskito.core.producers.IStats;
 import net.anotheria.moskito.core.stats.TimeUnit;
 import net.anotheria.moskito.integration.ehcache.EhcacheStats;
 import net.anotheria.moskito.webui.decorators.AbstractDecorator;
-import net.anotheria.moskito.webui.shared.bean.DoubleValueBean;
-import net.anotheria.moskito.webui.shared.bean.LongValueBean;
-import net.anotheria.moskito.webui.shared.bean.StatValueBean;
-import net.anotheria.moskito.webui.shared.bean.StringValueBean;
+import net.anotheria.moskito.webui.producers.api.DoubleValueAO;
+import net.anotheria.moskito.webui.producers.api.LongValueAO;
+import net.anotheria.moskito.webui.producers.api.StatValueAO;
+import net.anotheria.moskito.webui.producers.api.StringValueAO;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -107,30 +107,30 @@ public class EhcacheStatsDecorator extends AbstractDecorator {
 
 
     @Override
-    public List<StatValueBean> getValues(IStats statsObject, String interval, TimeUnit unit) {
+    public List<StatValueAO> getValues(IStats statsObject, String interval, TimeUnit unit) {
         EhcacheStats stats = (EhcacheStats) statsObject;
-        List<StatValueBean> bean = new ArrayList<StatValueBean>(CAPTIONS.length);
+        List<StatValueAO> bean = new ArrayList<StatValueAO>(CAPTIONS.length);
         int i = 0;
 
-        bean.add(new StringValueBean(CAPTIONS[i++], stats.getStatisticsAccuracy().getValueAsString(interval)));
-        bean.add(new DoubleValueBean(CAPTIONS[i++], stats.getHitRatio().getValueAsDouble(interval)));
-        bean.add(new LongValueBean(CAPTIONS[i++], stats.getHits().getValueAsLong(interval)));
-        bean.add(new LongValueBean(CAPTIONS[i++], stats.getInMemoryHits().getValueAsLong(interval)));
-        bean.add(new LongValueBean(CAPTIONS[i++], stats.getOffHeapHits().getValueAsLong(interval)));
-        bean.add(new LongValueBean(CAPTIONS[i++], stats.getOnDiskHits().getValueAsLong(interval)));
-        bean.add(new LongValueBean(CAPTIONS[i++], stats.getMisses().getValueAsLong(interval)));
-        bean.add(new LongValueBean(CAPTIONS[i++], stats.getInMemoryMisses().getValueAsLong(interval)));
-        bean.add(new LongValueBean(CAPTIONS[i++], stats.getOffHeapMisses().getValueAsLong(interval)));
-        bean.add(new LongValueBean(CAPTIONS[i++], stats.getOnDiskMisses().getValueAsLong(interval)));
-        bean.add(new LongValueBean(CAPTIONS[i++], stats.getElements().getValueAsLong(interval)));
-        bean.add(new LongValueBean(CAPTIONS[i++], stats.getInMemoryElements().getValueAsLong(interval)));
-        bean.add(new LongValueBean(CAPTIONS[i++], stats.getOffHeapElements().getValueAsLong(interval)));
-        bean.add(new LongValueBean(CAPTIONS[i++], stats.getOnDiskElements().getValueAsLong(interval)));
-        bean.add(new DoubleValueBean(CAPTIONS[i++], unit.transformMillis(stats.getAverageGetTime().getValueAsDouble(interval))));
-        bean.add(new LongValueBean(CAPTIONS[i++], unit.transformMillis(stats.getAverageGetTime().getValueAsLong(interval))));
-        bean.add(new LongValueBean(CAPTIONS[i++], stats.getSearchesPerSecond().getValueAsLong(interval)));
-        bean.add(new LongValueBean(CAPTIONS[i++], stats.getEvictionCount().getValueAsLong(interval)));
-        bean.add(new LongValueBean(CAPTIONS[i++], stats.getWriterQueueLength().getValueAsLong(interval)));
+        bean.add(new StringValueAO(CAPTIONS[i++], stats.getStatisticsAccuracy().getValueAsString(interval)));
+        bean.add(new DoubleValueAO(CAPTIONS[i++], stats.getHitRatio().getValueAsDouble(interval)));
+        bean.add(new LongValueAO(CAPTIONS[i++], stats.getHits().getValueAsLong(interval)));
+        bean.add(new LongValueAO(CAPTIONS[i++], stats.getInMemoryHits().getValueAsLong(interval)));
+        bean.add(new LongValueAO(CAPTIONS[i++], stats.getOffHeapHits().getValueAsLong(interval)));
+        bean.add(new LongValueAO(CAPTIONS[i++], stats.getOnDiskHits().getValueAsLong(interval)));
+        bean.add(new LongValueAO(CAPTIONS[i++], stats.getMisses().getValueAsLong(interval)));
+        bean.add(new LongValueAO(CAPTIONS[i++], stats.getInMemoryMisses().getValueAsLong(interval)));
+        bean.add(new LongValueAO(CAPTIONS[i++], stats.getOffHeapMisses().getValueAsLong(interval)));
+        bean.add(new LongValueAO(CAPTIONS[i++], stats.getOnDiskMisses().getValueAsLong(interval)));
+        bean.add(new LongValueAO(CAPTIONS[i++], stats.getElements().getValueAsLong(interval)));
+        bean.add(new LongValueAO(CAPTIONS[i++], stats.getInMemoryElements().getValueAsLong(interval)));
+        bean.add(new LongValueAO(CAPTIONS[i++], stats.getOffHeapElements().getValueAsLong(interval)));
+        bean.add(new LongValueAO(CAPTIONS[i++], stats.getOnDiskElements().getValueAsLong(interval)));
+        bean.add(new DoubleValueAO(CAPTIONS[i++], unit.transformMillis(stats.getAverageGetTime().getValueAsDouble(interval))));
+        bean.add(new LongValueAO(CAPTIONS[i++], unit.transformMillis(stats.getAverageGetTime().getValueAsLong(interval))));
+        bean.add(new LongValueAO(CAPTIONS[i++], stats.getSearchesPerSecond().getValueAsLong(interval)));
+        bean.add(new LongValueAO(CAPTIONS[i++], stats.getEvictionCount().getValueAsLong(interval)));
+        bean.add(new LongValueAO(CAPTIONS[i++], stats.getWriterQueueLength().getValueAsLong(interval)));
 
         return bean;
     }

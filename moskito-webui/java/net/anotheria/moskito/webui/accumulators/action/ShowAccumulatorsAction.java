@@ -3,13 +3,10 @@ package net.anotheria.moskito.webui.accumulators.action;
 import net.anotheria.maf.action.ActionCommand;
 import net.anotheria.maf.action.ActionMapping;
 import net.anotheria.maf.bean.FormBean;
-import net.anotheria.moskito.core.accumulation.AccumulatedValue;
-import net.anotheria.moskito.core.accumulation.Accumulator;
-import net.anotheria.moskito.core.accumulation.AccumulatorRepository;
 import net.anotheria.moskito.webui.accumulators.api.AccumulatedSingleGraphAO;
 import net.anotheria.moskito.webui.accumulators.api.AccumulatedValueAO;
+import net.anotheria.moskito.webui.accumulators.api.AccumulatorAO;
 import net.anotheria.moskito.webui.accumulators.bean.AccumulatedValuesBean;
-import net.anotheria.util.NumberUtils;
 import net.anotheria.util.sorter.DummySortType;
 import net.anotheria.util.sorter.SortType;
 import net.anotheria.util.sorter.StaticQuickSorter;
@@ -112,24 +109,21 @@ public class ShowAccumulatorsAction extends BaseAccumulatorsAction {
 			List<String> accNames = new ArrayList<String>();
 			
 			for (String id : ids){
-				Accumulator acc = AccumulatorRepository.getInstance().getById(id);
+				AccumulatorAO acc = getAccumulatorAPI().getAccumulator(id);
 				AccumulatedSingleGraphAO singleGraphDataBean = new AccumulatedSingleGraphAO(acc.getName());
 				singleGraphDataBeans.add(singleGraphDataBean);
 				accNames.add(acc.getName());
-				List<AccumulatedValue> accValues = acc.getValues();
-				for (AccumulatedValue v : accValues){
-					long timestamp = v.getTimestamp()/1000*1000;
+				List<AccumulatedValueAO> accValues = acc.getValues();
+				singleGraphDataBean.setData(accValues);
+				for (AccumulatedValueAO v : accValues){
+					long timestamp = v.getNumericTimestamp();
 					AccumulatedValuesBean bean = values.get(timestamp);
 					if (bean==null){
 						bean = new AccumulatedValuesBean(timestamp);
 						values.put(timestamp, bean);
 					}
-					bean.setValue(acc.getName(), v.getValue());
+					bean.setValue(acc.getName(), v.getFirstValue());
 					
-					//for single graph data
-					AccumulatedValueAO accValueForGraphData = new AccumulatedValueAO(NumberUtils.makeTimeString(timestamp));
-					accValueForGraphData.addValue(v.getValue());
-					singleGraphDataBean.add(accValueForGraphData);
 				}
 			}
 			List<AccumulatedValuesBean> valuesList = StaticQuickSorter.sort(values.values(), SORT_TYPE);

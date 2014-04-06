@@ -21,7 +21,7 @@ public class CreateThresholdAction extends BaseThresholdsAction {
 	public ActionCommand execute(ActionMapping mapping, @Form(ThresholdPO.class)FormBean formBean, HttpServletRequest req, HttpServletResponse res) throws Exception {
 
 		ThresholdPO po = (ThresholdPO)formBean;
-		Threshold t = getThresholdAPI().createThreshold(po);
+		getThresholdAPI().createThreshold(po);
 
 		return mapping.redirect();
 	}

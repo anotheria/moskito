@@ -3,7 +3,7 @@
 %><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-	<title>Moskito Producer <ano:write name="producer" property="id"/> </title>
+	<title>Moskito Producer <ano:write name="producer" property="producerId"/> </title>
 	<link rel="stylesheet" href="mskCSS"/>
     <link rel="stylesheet" type="text/css" href="../css/charts.css">
     <link rel="stylesheet" type="text/css" href="../css/jquery.jqplot.css">
@@ -104,20 +104,20 @@
 		<div class="top"><div><!-- --></div></div>
 		<div class="add_in ovh">
             <dl class="dl-horizontal">
-				<dt>Producer:</dt> <dd><b><ano:write name="producer" property="id"/></b></dd>
+				<dt>Producer:</dt> <dd><b><ano:write name="producer" property="producerId"/></b></dd>
 
 				<dt>Category: </dt> <dd><a href="mskShowProducersByCategory?pCategory=<ano:write name="producer" property="category"/>"><ano:write name="producer" property="category"/></a></dd>
 
 				<dt>Subsystem: </dt> <dd><a href="mskShowProducersBySubsystem?pSubsystem=<ano:write name="producer" property="subsystem"/>"><ano:write name="producer" property="subsystem"/></a></dd>
 
-				<dt>Сlass: </dt> <dd><ano:write name="producer" property="className"/></dd>
+				<dt>Сlass: </dt> <dd><ano:write name="producer" property="producerClassName"/></dd>
             </dl>
             <div class="btn-group flr">
                 <a href="<ano:write name="linkToCurrentPage"/>&pForward=selection&target=Accumulator" class="btn fll">Add Accumulator</a>
                 <a href="<ano:write name="linkToCurrentPage"/>&pForward=selection&target=Threshold" class="btn fll">Add Threshold</a>
-                <ano:present name="inspectableFlag">
-                    <a href="mskInspectProducer?pProducerId=<ano:write name="producer" property="id"/>" class="btn-blue fll">Inspect</a>
-                </ano:present>
+                <ano:equal name="producer" property="inspectable" value="true">
+                    <a href="mskInspectProducer?pProducerId=<ano:write name="producer" property="producerId"/>" class="btn-blue fll">Inspect</a>
+                </ano:equal>
             </div>
         </div>
         <div class="bot"><div><!-- --></div></div>
@@ -126,7 +126,7 @@
 	<div class="table_layout">
 	<div class="top"><div><!-- --></div></div>
 	<div class="in">
-	<h2><ano:write name="producer" property="id" /></h2>
+	<h2><ano:write name="producer" property="producerId" /></h2>
 	<a target="_blank" class="help" href="mskShowExplanations#<ano:write name="decorator" property="name"/>">Help</a>&nbsp;	
 	<ano:define id="sortType" type="net.anotheria.moskito.webui.shared.bean.StatBeanSortType" name="<%=decorator.getSortTypeName()%>"/>
 		<div class="clear"><!-- --></div>
@@ -204,7 +204,7 @@
 	  <tbody>
 		  <ano:iterate name="decorator" property="stats" id="stat" type="net.anotheria.moskito.webui.shared.bean.StatBean" indexId="index">
 		 <tr class="<%= ((index & 1) == 0 )? "even" : "odd" %>">
-				<ano:iterate name="stat" property="values" id="value" type="net.anotheria.moskito.webui.shared.bean.StatValueBean">
+				<ano:iterate name="stat" property="values" id="value" type="net.anotheria.moskito.webui.producers.api.StatValueAO">
 					<td onmouseover="Tip('<ano:write name="stat" property="name"/>.<ano:write name="value" property="name"/>&lt;br/&gt;&lt;b&gt;&lt;span align=center&gt;<ano:write name="value" property="value"/>&lt;/span&gt;&lt;/b&gt;', TEXTALIGN, 'center')" onmouseout="UnTip()">
 							<ano:write name="value" property="value" />
 					</td>

@@ -39,8 +39,7 @@ import net.anotheria.maf.action.ActionCommand;
 import net.anotheria.maf.action.ActionMapping;
 import net.anotheria.maf.bean.FormBean;
 import net.anotheria.moskito.core.inspection.CreationInfo;
-import net.anotheria.moskito.core.inspection.Inspectable;
-import net.anotheria.moskito.core.producers.IStatsProducer;
+import net.anotheria.moskito.webui.producers.api.ProducerAO;
 import net.anotheria.moskito.webui.shared.action.BaseMoskitoUIAction;
 import net.anotheria.moskito.webui.shared.bean.NaviItem;
 import net.anotheria.util.NumberUtils;
@@ -55,14 +54,13 @@ import java.util.List;
  */
 public class InspectProducerAction extends BaseMoskitoUIAction {
 		
-	@Override public ActionCommand execute(ActionMapping mapping, FormBean bean, HttpServletRequest req, HttpServletResponse res) {
+	@Override public ActionCommand execute(ActionMapping mapping, FormBean bean, HttpServletRequest req, HttpServletResponse res) throws Exception{
 
-		IStatsProducer producer = getAPI().getProducer(req.getParameter(PARAM_PRODUCER_ID));
-		if (! (producer instanceof Inspectable))
+		ProducerAO producer = getProducerAPI().getProducer(req.getParameter(PARAM_PRODUCER_ID), getCurrentInterval(req), getCurrentUnit(req).getUnit());
+		if (! (producer.isInspectable()))
 			throw new IllegalArgumentException("Producer not inspectable.");
 		
-		Inspectable inspectable = (Inspectable)producer;
-		CreationInfo cInfo = inspectable.getCreationInfo();
+		CreationInfo cInfo = producer.getCreationInfo();
 		req.setAttribute("creationTimestamp", cInfo.getTimestamp());
 		req.setAttribute("creationTime", NumberUtils.makeISO8601TimestampString(cInfo.getTimestamp()));
 		List<String> stackTraceList = new ArrayList<String>(cInfo.getStackTrace().length);

@@ -1,7 +1,7 @@
 package net.anotheria.moskito.webui;
 
 import net.anotheria.moskito.core.stats.TimeUnit;
-import net.anotheria.moskito.webui.journey.bean.AnalyzeProducerCallsBeanSortType;
+import net.anotheria.moskito.webui.journey.api.AnalyzedProducerCallsAOSortType;
 
 /**
  * This bean, once initialized, holds current selection data in the thread, to prevent a lot of parameter passing between functions.
@@ -20,7 +20,7 @@ public class CurrentSelection{
 	/**
 	 * Currently selected sort type for analyze bean.
 	 */
-	private AnalyzeProducerCallsBeanSortType analyzeProducerCallsSortType;
+	private AnalyzedProducerCallsAOSortType analyzeProducerCallsSortType;
 	
 	public static CurrentSelection get(){
 		return selection.get();
@@ -29,7 +29,7 @@ public class CurrentSelection{
 	private void reset(){
 		currentTimeUnit = null;
 		currentIntervalName = null;
-		analyzeProducerCallsSortType = new AnalyzeProducerCallsBeanSortType();
+		analyzeProducerCallsSortType = new AnalyzedProducerCallsAOSortType();
 	}
 	
 	public static CurrentSelection resetAndGet(){
@@ -65,12 +65,12 @@ public class CurrentSelection{
 		this.currentIntervalName = currentIntervalName;
 	}
 
-	public AnalyzeProducerCallsBeanSortType getAnalyzeProducerCallsSortType() {
+	public AnalyzedProducerCallsAOSortType getAnalyzeProducerCallsSortType() {
 		return analyzeProducerCallsSortType;
 	}
 
 	public void setAnalyzeProducerCallsSortType(
-			AnalyzeProducerCallsBeanSortType analyzeProducerCallsSortType) {
+			AnalyzedProducerCallsAOSortType analyzeProducerCallsSortType) {
 		this.analyzeProducerCallsSortType = analyzeProducerCallsSortType;
 	}
 }

@@ -2,12 +2,14 @@ package net.anotheria.moskito.core.util.threadhistory;
 
 import net.anotheria.util.NumberUtils;
 
+import java.io.Serializable;
+
 /**
  * THis event contains the information about a thread creation or deletion.
  * @author lrosenberg
  *
  */
-public class ThreadHistoryEvent {
+public class ThreadHistoryEvent implements Serializable{
 	/**
 	 * History operation.
 	 * @author lrosenberg

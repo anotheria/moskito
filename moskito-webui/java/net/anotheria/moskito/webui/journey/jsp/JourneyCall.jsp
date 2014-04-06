@@ -178,7 +178,7 @@
 						</tr>
 				</thead>
 				<tbody>
-						<ano:iterate name="tracedCall" property="elements" type="net.anotheria.moskito.webui.journey.bean.TraceStepBean" id="traceStep" indexId="index">
+						<ano:iterate name="tracedCall" property="elements" type="net.anotheria.moskito.webui.journey.api.TracedCallStepAO" id="traceStep" indexId="index">
 					   	<%--
 					   		<ano:equal name="traceStep" property="aborted" value="true"><tr class="stat_error" id="node-<ano:write name="traceStep" property="id"/>"></ano:equal>
 							<ano:notEqual name="traceStep" property="aborted" value="true"><tr class="< %= ((index & 1) == 0 )? "even" : "odd" % >" id="node-<ano:write name="id"/>"></ano:notEqual> 
@@ -233,7 +233,7 @@
 								</tr>
 						</thead>
 						<tbody>
-								<ano:iterate name="dupStepBeans" type="net.anotheria.moskito.webui.journey.bean.JourneyCallDuplicateStepBean" id="dupStep" indexId="index">
+								<ano:iterate name="dupStepBeans" type="net.anotheria.moskito.webui.journey.api.TracedCallDuplicateStepsAO" id="dupStep" indexId="index">
 								 <tr>
 								 	<td><ano:write name="dupStep" property="call"/></td>
 	                                <td><input type="checkbox" class="select_current_row_positions_checkbox" value=""/></td>

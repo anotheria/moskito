@@ -35,6 +35,8 @@
 package net.anotheria.moskito.webui.producers.action;
 
 import net.anotheria.moskito.core.producers.IStatsProducer;
+import net.anotheria.moskito.webui.producers.api.ProducerAO;
+import net.anotheria.moskito.webui.producers.api.ProducerAPI;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
@@ -52,10 +54,10 @@ public class ShowProducersForSubsystemAction extends BaseShowProducersAction{
 	}
 
 	@Override
-	protected List<IStatsProducer> getProducers(HttpServletRequest req) {
+	protected List<ProducerAO> getProducers(HttpServletRequest req) {
 		String currentSubsystem = getSubsystemParameter(req);
 		req.setAttribute("currentSubsystem", currentSubsystem);
-		return getAPI().getAllProducersBySubsystem(currentSubsystem);
+		return getProducerAPI().getAllProducersBySubsystem(currentSubsystem, getCurrentInterval(req), getCurrentUnit(req).getUnit());
 	}
 
 	@Override public String getPageTitle(HttpServletRequest req){

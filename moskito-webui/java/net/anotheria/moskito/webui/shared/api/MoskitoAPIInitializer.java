@@ -32,5 +32,6 @@ public class MoskitoAPIInitializer {
 		APIFinder.addAPIFactory(JourneyAPI.class, new JourneyAPIFactory());
 		APIFinder.addAPIFactory(ThreadAPI.class,  new ThreadAPIFactory());
 		APIFinder.addAPIFactory(ProducerAPI.class, new ProducerAPIFactory());
+		APIFinder.addAPIFactory(AdditionalFunctionalityAPI.class, new AdditionalFunctionalityAPIFactory());
 	}
 }

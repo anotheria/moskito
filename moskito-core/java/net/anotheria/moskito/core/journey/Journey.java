@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * A monitoring session at the runtime of recording.
+ * A monitoring journey at the runtime of recording.
  * @author lrosenberg
  *
  */

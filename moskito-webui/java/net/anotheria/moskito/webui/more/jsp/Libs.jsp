@@ -15,7 +15,7 @@
             <div><!-- --></div>
         </div>
         <div class="add_in">
-            <h2>MoSKito config view</h2>
+            <h2>MoSKito lib view</h2>
 
             <div><span>
 Jars that are part of the classpath are scanned and read on this page. If they are maven built (contain pom.properties file),
@@ -55,7 +55,7 @@ the version info is extracted and presented.
                             </tr>
                             </thead>
                             <tbody>
-                            <ano:iterate name="beans" type="net.anotheria.moskito.webui.more.bean.WebappLibBean" id="bean" indexId="index">
+                            <ano:iterate name="beans" type="net.anotheria.moskito.webui.shared.api.LibAO" id="bean" indexId="index">
                                 <tr class="<%= ((index & 1) == 0 )? "even" : "odd" %>">
                                     <td><ano:write name="bean" property="name"/></td>
                                     <td><ano:write name="bean" property="group"/></td>

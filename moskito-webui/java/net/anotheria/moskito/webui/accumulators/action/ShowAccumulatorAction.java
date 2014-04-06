@@ -3,8 +3,6 @@ package net.anotheria.moskito.webui.accumulators.action;
 import net.anotheria.maf.action.ActionCommand;
 import net.anotheria.maf.action.ActionMapping;
 import net.anotheria.maf.bean.FormBean;
-import net.anotheria.moskito.core.accumulation.Accumulator;
-import net.anotheria.moskito.core.accumulation.AccumulatorRepository;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -21,11 +19,10 @@ public class ShowAccumulatorAction extends BaseAccumulatorsAction {
 			HttpServletRequest req, HttpServletResponse res) throws Exception {
 		
 		String accumulatorId = req.getParameter(PARAM_ID);
-		Accumulator accumulator = AccumulatorRepository.getInstance().getById(accumulatorId);
 		req.setAttribute("accumulatorInfo", getAccumulatorAPI().getAccumulatorDefinition(accumulatorId));
 		req.setAttribute("accumulatorData", getAccumulatorAPI().getAccumulatorGraphData(accumulatorId));
 		if (getForward(req).equalsIgnoreCase("csv")){
-			res.setHeader("Content-Disposition", "attachment; filename=\""+accumulator.getName()+".csv\"");
+			res.setHeader("Content-Disposition", "attachment; filename=\""+getAccumulatorAPI().getAccumulatorDefinition(accumulatorId).getName()+".csv\"");
 		}
 
 		return mapping.findCommand(getForward(req));

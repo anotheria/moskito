@@ -3,8 +3,8 @@ package net.anotheria.moskito.webui.decorators.predefined;
 import net.anotheria.moskito.core.predefined.MemoryStats;
 import net.anotheria.moskito.core.producers.IStats;
 import net.anotheria.moskito.core.stats.TimeUnit;
-import net.anotheria.moskito.webui.shared.bean.LongValueBean;
-import net.anotheria.moskito.webui.shared.bean.StatValueBean;
+import net.anotheria.moskito.webui.producers.api.LongValueAO;
+import net.anotheria.moskito.webui.producers.api.StatValueAO;
 import net.anotheria.moskito.webui.decorators.AbstractDecorator;
 
 import java.util.ArrayList;
@@ -61,16 +61,16 @@ public class MemoryStatsDecorator extends AbstractDecorator {
 	}
 	
 
-	@Override public List<StatValueBean> getValues(IStats statsObject, String interval, TimeUnit unit) {
+	@Override public List<StatValueAO> getValues(IStats statsObject, String interval, TimeUnit unit) {
 		MemoryStats stats = (MemoryStats)statsObject;
-		List<StatValueBean> ret = new ArrayList<StatValueBean>(CAPTIONS.length);
+		List<StatValueAO> ret = new ArrayList<StatValueAO>(CAPTIONS.length);
 		int i = 0;
-		ret.add(new LongValueBean(CAPTIONS[i++], stats.getCurrent(interval)));
-		ret.add(new LongValueBean(CAPTIONS[i++], stats.getMin(interval)));
-		ret.add(new LongValueBean(CAPTIONS[i++], stats.getMax(interval)));
-		ret.add(new LongValueBean(CAPTIONS[i++], stats.getCurrent(interval)/MB));
-		ret.add(new LongValueBean(CAPTIONS[i++], stats.getMin(interval)/MB));
-		ret.add(new LongValueBean(CAPTIONS[i++], stats.getMax(interval)/MB));
+		ret.add(new LongValueAO(CAPTIONS[i++], stats.getCurrent(interval)));
+		ret.add(new LongValueAO(CAPTIONS[i++], stats.getMin(interval)));
+		ret.add(new LongValueAO(CAPTIONS[i++], stats.getMax(interval)));
+		ret.add(new LongValueAO(CAPTIONS[i++], stats.getCurrent(interval)/MB));
+		ret.add(new LongValueAO(CAPTIONS[i++], stats.getMin(interval)/MB));
+		ret.add(new LongValueAO(CAPTIONS[i++], stats.getMax(interval)/MB));
 		return ret;
 	}
 }

@@ -13,7 +13,7 @@
           	<msk:iterate name="decorator" property="stats" id="statBean" type="net.anotheria.moskito.webui.shared.bean.StatBean">
           		<method name="<msk:write name="statBean" property="name"/>">
           		<msk:define name="decorator" property="captions" type="java.util.List" id="captions"/>
-    	      	<msk:iterate name="statBean" property="values" id="value" type="net.anotheria.moskito.webui.shared.bean.StatValueBean" indexId="ind"><%
+    	      	<msk:iterate name="statBean" property="values" id="value" type="net.anotheria.moskito.webui.producers.api.StatValueAO" indexId="ind"><%
     	      		String tagCaption = ((net.anotheria.moskito.webui.shared.bean.StatCaptionBean)captions.get(ind.intValue())).getCaption();
 				%><value name="<%=tagCaption%>" type="<msk:write name="value" property="type"/>"><msk:write name="value" property="value"/></value>
 	          	</msk:iterate>

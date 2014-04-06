@@ -54,7 +54,7 @@ Plugins that are currently present and loaded.
                             </tr>
                             </thead>
                             <tbody>
-                            <ano:iterate name="plugins" type="net.anotheria.moskito.webui.more.bean.PluginBean" id="plugin" indexId="index">
+                            <ano:iterate name="plugins" type="net.anotheria.moskito.webui.shared.api.PluginAO" id="plugin" indexId="index">
                                 <tr class="<%= ((index & 1) == 0 )? "even" : "odd" %>">
                                     <td><ano:write name="plugin" property="name"/></td>
                                     <td><ano:write name="plugin" property="className"/></td>

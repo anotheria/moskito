@@ -96,7 +96,12 @@ public class DecoratorRegistryImpl implements IDecoratorRegistry{
 		IDecorator specificDecorator = registry.get(stats.getClass());
 		return specificDecorator == null ? defaultDecorator : specificDecorator;
 	}
-	
+
+	@Override public IDecorator getDecorator(Class<? extends IStats> statsClazz) {
+		IDecorator specificDecorator = registry.get(statsClazz);
+		return specificDecorator == null ? defaultDecorator : specificDecorator;
+	}
+
 	@Override public List<IDecorator> getDecorators(){
 		List<IDecorator> ret = new ArrayList<IDecorator>();
 		ret.addAll(registry.values());

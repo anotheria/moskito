@@ -33,7 +33,7 @@
 	<div class="clear"><!-- --></div>
 --%>	
 
-	<ano:iterate name="callsList" type="net.anotheria.moskito.webui.journey.bean.AnalyzeProducerCallsMapBean" id="call">
+	<ano:iterate name="callsList" type="net.anotheria.moskito.webui.journey.api.AnalyzedProducerCallsMapAO" id="call">
 	<ano:equal name="call" property="empty" value="false">
 	<div class="table_layout">
 	<div class="top"><div><!-- --></div></div>
@@ -55,7 +55,7 @@
 			</tr>
 		</thead>
 		<tbody>		
-			<ano:iterate name="call" property="producerCallsBeans" id="producerCallsBean" type="net.anotheria.moskito.webui.journey.bean.AnalyzeProducerCallsBean" indexId="index">
+			<ano:iterate name="call" property="producerCallsBeans" id="producerCallsBean" type="net.anotheria.moskito.webui.journey.api.AnalyzedProducerCallsAO" indexId="index">
 			  <tr class="<%= ((index & 1) == 0 )? "even" : "odd" %>">
 					<td>
 						<ano:write name="producerCallsBean" property="producerId"/>
@@ -78,7 +78,7 @@
 			</tr>
 		</thead>
 		<tbody>
-			<ano:iterate name="call" property="producerCallsBeans" id="producerCallsBean" type="net.anotheria.moskito.webui.journey.bean.AnalyzeProducerCallsBean" indexId="index">
+			<ano:iterate name="call" property="producerCallsBeans" id="producerCallsBean" type="net.anotheria.moskito.webui.journey.api.AnalyzedProducerCallsAO" indexId="index">
 			  <tr class="<%= ((index & 1) == 0 )? "even" : "odd" %>">
 					<td>
 						<ano:write name="producerCallsBean" property="numberOfCalls"/>

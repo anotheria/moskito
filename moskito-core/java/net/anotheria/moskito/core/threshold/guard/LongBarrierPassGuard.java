@@ -2,12 +2,14 @@ package net.anotheria.moskito.core.threshold.guard;
 
 import net.anotheria.moskito.core.threshold.ThresholdStatus;
 
+import java.io.Serializable;
+
 /**
  * A barrier path guard that works with long values.
  * @author another
  *
  */
-public class LongBarrierPassGuard extends BarrierPassGuard{
+public class LongBarrierPassGuard extends BarrierPassGuard implements Serializable{
 	/**
 	 * The threshold value of the guard.
 	 */

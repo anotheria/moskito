@@ -1,10 +1,9 @@
 package net.anotheria.moskito.webui.threshold.action;
 
-import net.anotheria.anoplass.api.APIFinder;
-import net.anotheria.moskito.core.threshold.guard.GuardedDirection;
 import net.anotheria.moskito.webui.shared.action.BaseMoskitoUIAction;
 import net.anotheria.moskito.webui.shared.bean.NaviItem;
 import net.anotheria.moskito.webui.threshold.api.ThresholdAPI;
+import net.anotheria.moskito.webui.util.APILookupUtility;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -16,11 +15,6 @@ import javax.servlet.http.HttpServletRequest;
  */
 public abstract class BaseThresholdsAction extends BaseMoskitoUIAction {
 
-	/**
-	 * Threshold API instance.
-	 */
-	private ThresholdAPI thresholdAPI = APIFinder.findAPI(ThresholdAPI.class);
-
 	@Override
 	protected NaviItem getCurrentNaviItem() {
 		return NaviItem.THRESHOLDS;
@@ -31,7 +25,7 @@ public abstract class BaseThresholdsAction extends BaseMoskitoUIAction {
 	}
 
 	protected ThresholdAPI getThresholdAPI(){
-		return thresholdAPI;
+		return APILookupUtility.getThresholdAPI();
 	}
 
 

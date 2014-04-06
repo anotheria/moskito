@@ -24,6 +24,7 @@ import javax.management.MalformedObjectNameException;
 import javax.management.NotCompliantMBeanException;
 import javax.management.ObjectName;
 import java.lang.management.ManagementFactory;
+import java.security.AccessControlException;
 import java.util.Arrays;
 import java.util.List;
 
@@ -164,7 +165,10 @@ public class ThresholdRepository extends TieableRepository<Threshold> {
 	    	log.warn("can't subscribe threshold to jmx", e);
 		} catch (NotCompliantMBeanException e) {
 	    	log.warn("can't subscribe threshold to jmx", e);
-        }
+        } catch(AccessControlException e){
+			log.warn("can't create jmx bean due to access control problems", e);
+		}
+
 
     	return ret;
 	}

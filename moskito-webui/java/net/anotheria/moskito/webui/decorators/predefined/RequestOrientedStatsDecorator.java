@@ -38,9 +38,9 @@ import net.anotheria.moskito.core.predefined.Constants;
 import net.anotheria.moskito.core.predefined.RequestOrientedStats;
 import net.anotheria.moskito.core.producers.IStats;
 import net.anotheria.moskito.core.stats.TimeUnit;
-import net.anotheria.moskito.webui.shared.bean.DoubleValueBean;
-import net.anotheria.moskito.webui.shared.bean.LongValueBean;
-import net.anotheria.moskito.webui.shared.bean.StatValueBean;
+import net.anotheria.moskito.webui.producers.api.DoubleValueAO;
+import net.anotheria.moskito.webui.producers.api.LongValueAO;
+import net.anotheria.moskito.webui.producers.api.StatValueAO;
 import net.anotheria.moskito.webui.decorators.AbstractDecorator;
 
 import java.util.ArrayList;
@@ -118,25 +118,25 @@ public abstract class RequestOrientedStatsDecorator extends AbstractDecorator {
 		super(name, someCaptions, someShortExplanations, someExplanations);
 	}
 
-	@Override public List<StatValueBean> getValues(IStats statsObject, String interval, TimeUnit unit) {
+	@Override public List<StatValueAO> getValues(IStats statsObject, String interval, TimeUnit unit) {
 		RequestOrientedStats stats = (RequestOrientedStats)statsObject;
-		List<StatValueBean> ret = new ArrayList<StatValueBean>(CAPTIONS.length);
+		List<StatValueAO> ret = new ArrayList<StatValueAO>(CAPTIONS.length);
 		int i = 0;
 		long totalRequests = stats.getTotalRequests(interval);
-		ret.add(new LongValueBean(CAPTIONS[i++], totalRequests));
-		ret.add(new LongValueBean(CAPTIONS[i++], unit.transformNanos(stats.getTotalTime(interval))));
-		ret.add(new LongValueBean(CAPTIONS[i++], stats.getCurrentRequests(interval)));
-		ret.add(new LongValueBean(CAPTIONS[i++], stats.getMaxCurrentRequests(interval)));
+		ret.add(new LongValueAO(CAPTIONS[i++], totalRequests));
+		ret.add(new LongValueAO(CAPTIONS[i++], unit.transformNanos(stats.getTotalTime(interval))));
+		ret.add(new LongValueAO(CAPTIONS[i++], stats.getCurrentRequests(interval)));
+		ret.add(new LongValueAO(CAPTIONS[i++], stats.getMaxCurrentRequests(interval)));
 		long min = stats.getMinTime(interval);
-		ret.add(new LongValueBean(CAPTIONS[i++], min == Constants.MIN_TIME_DEFAULT ? min : unit.transformNanos(min)));
+		ret.add(new LongValueAO(CAPTIONS[i++], min == Constants.MIN_TIME_DEFAULT ? min : unit.transformNanos(min)));
 		long max = stats.getMaxTime(interval);
-		ret.add(new LongValueBean(CAPTIONS[i++], max == Constants.MAX_TIME_DEFAULT ? max : unit.transformNanos(max)));
-		ret.add(new DoubleValueBean(CAPTIONS[i++], stats.getAverageRequestDuration(interval, unit)));
-		ret.add(new LongValueBean(CAPTIONS[i++], unit.transformNanos(stats.getLastRequest(interval))));
-		ret.add(new LongValueBean(CAPTIONS[i++], stats.getErrors(interval)));
+		ret.add(new LongValueAO(CAPTIONS[i++], max == Constants.MAX_TIME_DEFAULT ? max : unit.transformNanos(max)));
+		ret.add(new DoubleValueAO(CAPTIONS[i++], stats.getAverageRequestDuration(interval, unit)));
+		ret.add(new LongValueAO(CAPTIONS[i++], unit.transformNanos(stats.getLastRequest(interval))));
+		ret.add(new LongValueAO(CAPTIONS[i++], stats.getErrors(interval)));
 		double errorRate = totalRequests == 0? 0:((double)getTotalErrors(statsObject, interval))/totalRequests;
 		errorRate = (double)((int)((errorRate * 10000)))/100;
-		ret.add(new DoubleValueBean(CAPTIONS[i++], errorRate));
+		ret.add(new DoubleValueAO(CAPTIONS[i++], errorRate));
 		
 		return ret;
 	}

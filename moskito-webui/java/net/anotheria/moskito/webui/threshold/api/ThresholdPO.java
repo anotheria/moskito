@@ -4,6 +4,7 @@ import net.anotheria.maf.bean.FormBean;
 import net.anotheria.moskito.webui.shared.api.TieablePO;
 
 import javax.xml.bind.annotation.XmlRootElement;
+import java.io.Serializable;
 
 /**
  * This parameter object is used to create a new threshold.
@@ -12,7 +13,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @since 12.02.13 16:00
  */
 @XmlRootElement
-public class ThresholdPO extends TieablePO implements FormBean{
+public class ThresholdPO extends TieablePO implements FormBean, Serializable{
 	/**
 	 * Direction for the yellow guard.
 	 */

@@ -38,20 +38,18 @@ import net.anotheria.maf.action.ActionCommand;
 import net.anotheria.maf.action.ActionMapping;
 import net.anotheria.maf.bean.FormBean;
 import net.anotheria.moskito.core.inspection.CreationInfo;
-import net.anotheria.moskito.core.inspection.Inspectable;
-import net.anotheria.moskito.core.producers.IStats;
-import net.anotheria.moskito.core.producers.IStatsProducer;
+import net.anotheria.moskito.webui.decorators.IDecorator;
+import net.anotheria.moskito.webui.producers.api.ProducerAO;
+import net.anotheria.moskito.webui.producers.api.StatLineAO;
+import net.anotheria.moskito.webui.producers.api.StatValueAO;
 import net.anotheria.moskito.webui.shared.action.BaseMoskitoUIAction;
 import net.anotheria.moskito.webui.shared.bean.GraphDataBean;
 import net.anotheria.moskito.webui.shared.bean.GraphDataValueBean;
 import net.anotheria.moskito.webui.shared.bean.NaviItem;
-import net.anotheria.moskito.webui.shared.bean.ProducerBean;
 import net.anotheria.moskito.webui.shared.bean.StatBean;
 import net.anotheria.moskito.webui.shared.bean.StatBeanSortType;
 import net.anotheria.moskito.webui.shared.bean.StatDecoratorBean;
-import net.anotheria.moskito.webui.shared.bean.StatValueBean;
 import net.anotheria.moskito.webui.shared.bean.UnitBean;
-import net.anotheria.moskito.webui.decorators.IDecorator;
 import net.anotheria.util.NumberUtils;
 import net.anotheria.util.sorter.StaticQuickSorter;
 
@@ -74,37 +72,29 @@ public class ShowProducerAction extends BaseMoskitoUIAction {
 		String intervalName = getCurrentInterval(req);
 		UnitBean currentUnit = getCurrentUnit(req);
 
-		Map<IDecorator, List<IStats>> decoratorMap = new HashMap<IDecorator,List<IStats>>();
-		
-		IStatsProducer producer = getAPI().getProducer(req.getParameter(PARAM_PRODUCER_ID));
-		ProducerBean producerBean = new ProducerBean();
+		ProducerAO producer = getProducerAPI().getProducer(req.getParameter(PARAM_PRODUCER_ID), intervalName, currentUnit.getUnit());
+		/*ProducerBean producerBean = new ProducerBean();
 		producerBean.setId(producer.getProducerId());
 		producerBean.setCategory(producer.getCategory());
 		producerBean.setSubsystem(producer.getSubsystem());
-		producerBean.setClassName(producer.getClass().getName());
-		req.setAttribute("producer", producerBean);
+		producerBean.setClassName(producer.getClass().getName());*/
+		req.setAttribute("producer", producer);
 
 		//copies parameter for producer selection page.
 		String target = req.getParameter("target");
 		req.setAttribute("target", target);
 
-		if (producer instanceof Inspectable)
-			req.setAttribute("inspectableFlag", Boolean.TRUE);
-		
 		String pFilterZero = req.getParameter(PARAM_FILTER_ZERO);
 		boolean filterZero = pFilterZero != null && pFilterZero.equalsIgnoreCase("true");
-		
-		List<IStats> allStats = producer.getStats();
-		Map<String, GraphDataBean> graphData = new HashMap<String, GraphDataBean>();
-		
-		for (IStats statObject : allStats){
-			try{
-				IDecorator decorator = getDecoratorRegistry().getDecorator(statObject);
-				if (!decoratorMap.containsKey(decorator))
-					decoratorMap.put(decorator, new ArrayList<IStats>());
-				decoratorMap.get(decorator).add(statObject);
 
-				for(StatValueBean statBean : (List<StatValueBean>)decorator.getValues(statObject, intervalName, currentUnit.getUnit())){
+		IDecorator decorator = getDecoratorRegistry().getDecorator(producer.getStatsClazz());
+		Map<String, GraphDataBean> graphData = new HashMap<String, GraphDataBean>();
+
+
+		List<StatLineAO> allLines = producer.getLines();
+		for (StatLineAO statLine : allLines){
+			try{
+				for(StatValueAO statBean : statLine.getValues()){
 					String graphKey = decorator.getName()+"_"+statBean.getName();
 					GraphDataBean graphDataBean = new GraphDataBean(decorator.getName()+"_"+statBean.getJsVariableName(), statBean.getName());
 					graphData.put(graphKey, graphDataBean);
@@ -115,44 +105,44 @@ public class ShowProducerAction extends BaseMoskitoUIAction {
 		}
 		
 		//bla bla, now prepare view
-		List<IDecorator> decorators = new ArrayList<IDecorator>(decoratorMap.keySet());
+		List<IDecorator> decorators = new ArrayList<IDecorator>(1);
+		decorators.add(decorator);
 		List<StatDecoratorBean> beans = new ArrayList<StatDecoratorBean>();
 		//sort
 		
-		for (IDecorator decorator : decorators){
-			StatDecoratorBean b = new StatDecoratorBean();
-			b.setName(decorator.getName());
-			b.setCaptions(decorator.getCaptions());
-			List<StatBean> sbs = new ArrayList<StatBean>();
-			List<IStats> statsForDecorator = decoratorMap.get(decorator); 
-			for (int i=1; i<statsForDecorator.size(); i++){
-				IStats s = statsForDecorator.get(i);
-				if (!filterZero || !s.isEmpty(intervalName)){
-					StatBean sb = new StatBean();
-					sb.setName(s.getName());
-					List<StatValueBean> statValues = decorator.getValues(s, intervalName, currentUnit.getUnit()); 
-					for (StatValueBean valueBean : statValues){
-						String graphKey = decorator.getName()+"_"+valueBean.getName();
-						graphData.get(graphKey).addValue(new GraphDataValueBean(s.getName(), valueBean.getRawValue()));
-					}
-					sb.setValues(statValues);
-					sbs.add(sb);
+		StatDecoratorBean b = new StatDecoratorBean();
+		b.setName(decorator.getName());
+		b.setCaptions(decorator.getCaptions());
+		List<StatBean> sbs = new ArrayList<StatBean>();
+		for (int i=1; i<allLines.size(); i++){
+			StatLineAO line = allLines.get(i);
+			List<StatValueAO> statsLine = line.getValues();
+			//TODO fix filterzero.
+//			if (!filterZero || !s.isEmpty(intervalName)){
+				StatBean sb = new StatBean();
+				sb.setName(line.getStatName());//s.getName());
+				List<StatValueAO> statValues = statsLine;
+				for (StatValueAO valueBean : statValues){
+					String graphKey = decorator.getName()+"_"+valueBean.getName();
+					graphData.get(graphKey).addValue(new GraphDataValueBean(line.getStatName(), valueBean.getRawValue()));
 				}
-			}
-			b.setStats(StaticQuickSorter.sort(sbs, getStatBeanSortType(b, req)));
-			
-
-			//make cumulated entry
-			IStats s = statsForDecorator.get(0);
-			StatBean sb = new StatBean();
-			sb.setName(s.getName());
-			sb.setValues(decorator.getValues(s, intervalName, currentUnit.getUnit()));
-			//
-			b.addStatsBean(sb);
-
-			beans.add(b);
+				sb.setValues(statValues);
+				sbs.add(sb);
+//			}
 		}
-		
+		b.setStats(StaticQuickSorter.sort(sbs, getStatBeanSortType(b, req)));
+
+
+		//make cumulated entry
+		StatLineAO s = allLines.get(0);
+		StatBean sb = new StatBean();
+		sb.setName(s.getStatName());//s.getName());
+		sb.setValues(s.getValues());
+		//
+		b.addStatsBean(sb);
+
+		beans.add(b);
+
 		req.setAttribute("decorators", beans);
 		req.setAttribute("graphDatas", graphData.values());
 		
@@ -161,12 +151,10 @@ public class ShowProducerAction extends BaseMoskitoUIAction {
 		return mapping.findCommand( getForward(req) );
 	}
 	
-	private void inspectProducer(HttpServletRequest req, IStatsProducer producer){
-		if (! (producer instanceof Inspectable))
+	private void inspectProducer(HttpServletRequest req, ProducerAO producer){
+		if (! (producer.isInspectable()))
 			return;
-		req.setAttribute("inspectableFlag", true);
-		Inspectable inspectable = (Inspectable)producer;
-		CreationInfo cInfo = inspectable.getCreationInfo();
+		CreationInfo cInfo = producer.getCreationInfo();
 		req.setAttribute("creationTimestamp", cInfo.getTimestamp());
 		req.setAttribute("creationTime", NumberUtils.makeISO8601TimestampString(cInfo.getTimestamp()));
 		List<String> stackTraceList = new ArrayList<String>(cInfo.getStackTrace().length);

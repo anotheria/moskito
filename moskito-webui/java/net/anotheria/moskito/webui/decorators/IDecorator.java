@@ -37,7 +37,7 @@ package net.anotheria.moskito.webui.decorators;
 import net.anotheria.moskito.core.producers.IStats;
 import net.anotheria.moskito.core.stats.TimeUnit;
 import net.anotheria.moskito.webui.shared.bean.StatCaptionBean;
-import net.anotheria.moskito.webui.shared.bean.StatValueBean;
+import net.anotheria.moskito.webui.producers.api.StatValueAO;
 import net.anotheria.util.sorter.IComparable;
 
 import java.util.List;
@@ -65,7 +65,7 @@ public interface IDecorator <S extends IStats> extends IComparable{
 	 * @param unit the selected time unit.
 	 * @return
 	 */
-	List<StatValueBean> getValues(S stats, String interval, TimeUnit unit);
+	List<StatValueAO> getValues(S stats, String interval, TimeUnit unit);
 	/**
 	 * Returns an explanation for a caption. This is used for the explanation help page.
 	 * @param caption

@@ -50,7 +50,7 @@ public interface IDecoratorRegistry {
 	 * @param stats
 	 * @return
 	 */
-	IDecorator getDecorator(IStats stats);
+	@Deprecated IDecorator getDecorator(IStats stats);
 	/**
 	 * Returns all known decorators.
 	 * @return
@@ -58,4 +58,12 @@ public interface IDecoratorRegistry {
 	List<IDecorator> getDecorators();
 
 	void addDecorator(Class <? extends AbstractStats> clazz, IDecorator decorator);
+
+	/**
+	 * Returns the decorator for the given stats class.
+	 * @param stats
+	 * @return
+	 */
+	IDecorator getDecorator(Class<? extends IStats> stats);
+
 }
