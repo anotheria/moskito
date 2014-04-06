@@ -52,14 +52,8 @@ public class ProducerDecoratorBean extends AbstractDecoratorBean {
  	 */
 	private List<ProducerAO> producers;
 
-	/**
-	 * Visibility of this decorated section.
-	 */
-	private ProducerVisibility visibility;
-	
 	public ProducerDecoratorBean(){
 		producers = new LinkedList<ProducerAO>();
-		visibility = ProducerVisibility.SHOW;
 	}
 
 	public List<ProducerAO> getProducers() {
@@ -75,20 +69,8 @@ public class ProducerDecoratorBean extends AbstractDecoratorBean {
 	}	
 	
 	
-	public ProducerVisibility getVisibility() {
-		return visibility;
-	}
-
-	public void setVisibility(ProducerVisibility aVisibility) {
-		this.visibility = aVisibility;
-	}
-
 	public String getSortTypeName(){
 		return BaseMoskitoUIAction.BEAN_SORT_TYPE_PREFIX + getName();
 	}
 	
-	public String getProducerVisibilityBeanName() {
-		//default - is expanded
-		return BaseMoskitoUIAction.BEAN_VISIBILITY_TYPE_PREFIX + getName();
-	}
 }

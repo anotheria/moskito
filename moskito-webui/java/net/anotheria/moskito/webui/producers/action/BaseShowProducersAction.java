@@ -165,32 +165,10 @@ public abstract class BaseShowProducersAction extends BaseMoskitoUIAction {
 				}
 			}
 			b.setProducerBeans(StaticQuickSorter.sort(decoratorMap.get(decorator), getProducerBeanSortType(b, req)));
-			b.setVisibility(getProducerVisibility(b, req));
 			beans.add(b);
 		}
 
 		return beans;
-	}
-
-	private ProducerVisibility getProducerVisibility(ProducerDecoratorBean decoratorBean, HttpServletRequest req){
-
-		ProducerVisibility visibility;
-
-		String paramVisibility = req.getParameter(decoratorBean.getProducerVisibilityParameterName());
-		if (paramVisibility != null && paramVisibility.length() > 0){
-			visibility = ProducerVisibility.fromString(paramVisibility);
-			req.getSession().setAttribute(decoratorBean.getProducerVisibilityBeanName(), visibility);
-			return visibility;
-		}
-
-		visibility = (ProducerVisibility)req.getSession().getAttribute(decoratorBean.getProducerVisibilityBeanName());
-
-		if (visibility == null) {
-			visibility = ProducerVisibility.SHOW;
-			req.getSession().setAttribute(decoratorBean.getProducerVisibilityBeanName(), visibility);
-		}
-
-		return visibility;
 	}
 
 	private ProducerAOSortType getProducerBeanSortType(ProducerDecoratorBean decoratorBean, HttpServletRequest req){
