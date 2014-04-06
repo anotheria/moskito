@@ -30,6 +30,8 @@
 <script src="../ext/custom-scrollbar/jquery.mCustomScrollbar.js"></script>
 <script src="../ext/select2-3.4.6/select2.js" type="text/javascript"></script>
 <script src="../int/js/common.js" type="text/javascript"></script>
+<!-- currently for handle select only -->
+<script type="text/javascript" src="../js/function.js"></script>
 
 <header id="header" class="navbar navbar-fixed-top navbar-default">
             <span class="caret-aside pull-left tooltip-bottom" title="Close/Open">
@@ -46,42 +48,16 @@
     <div class="navbar-collapse collapse">
         <form role="form" class="navbar-form navbar-left">
             <div class="form-group">
-                <select class="select2" data-placeholder="Interval">
-                    <option value="mskShowAllProducers?ts=1395951429786&amp;pInterval=snapshot">
-                        snapshot
-                    </option>
-
-                    <option selected="selected" value="mskShowAllProducers?ts=1395951429786&amp;pInterval=default">
-                        default
-                    </option>
-
-                    <option value="mskShowAllProducers?ts=1395951429786&amp;pInterval=1m">
-                        1m
-                    </option>
-
-                    <option value="mskShowAllProducers?ts=1395951429786&amp;pInterval=5m">
-                        5m
-                    </option>
-
-                    <option value="mskShowAllProducers?ts=1395951429786&amp;pInterval=15m">
-                        15m
-                    </option>
-
-                    <option value="mskShowAllProducers?ts=1395951429786&amp;pInterval=1h">
-                        1h
-                    </option>
-
-                    <option value="mskShowAllProducers?ts=1395951429786&amp;pInterval=12h">
-                        12h
-                    </option>
-
-                    <option value="mskShowAllProducers?ts=1395951429786&amp;pInterval=1d">
-                        1d
-                    </option>
+                <select class="select2" data-placeholder="Interval" onchange="javascript:handleSelect(this)">
+                    <ano:iterate name="intervals" id="interval" type="net.anotheria.moskito.webui.shared.api.IntervalInfoAO">
+                        <option value="${linkToCurrentPage}&amp;pInterval=${interval.name}" ${interval.name==requestScope.currentInterval ? "selected" : ""}>
+                            <ano:write name="interval" property="name"/>
+                        </option>
+                    </ano:iterate>
                 </select>
             </div>
             <div class="form-group">
-                <select class="select2" data-placeholder="Interval">
+                <select class="select2" data-placeholder="Unit" onchange="javascript:handleSelect(this)">
                 <ano:iterate name="units" id="unit" type="net.anotheria.moskito.webui.shared.bean.UnitBean">
                     <option value="${linkToCurrentPage}&amp;pUnit=${unit.unitName}" ${unit.unitName==requestScope.currentUnit ? "selected" : ""}>
                         ${unit.unitName}
@@ -118,7 +94,7 @@
 <div class="form-box">
     <label>Filter</label>
 
-    <select class="select2" data-placeholder="Category">
+    <select class="select2" data-placeholder="Category" onchange="javascript:handleSelect(this)">
         <ano:iterate name="categories" id="category" type="net.anotheria.moskito.webui.producers.api.UnitCountAO">
             <option>Select</option>
             <option value="mskShowProducersByCategory?pCategory=${category.unitName}" ${category.unitName==requestScope.currentCategory ? "selected" : ""}>
@@ -127,7 +103,7 @@
         </ano:iterate>
     </select>
 
-    <select class="select2" data-placeholder="Subsystem">
+    <select class="select2" data-placeholder="Subsystem" onchange="javascript:handleSelect(this)">
             <option>Select</option>
         <ano:iterate name="subsystems" id="subsystem" type="net.anotheria.moskito.webui.producers.api.UnitCountAO">
             <option value="mskShowProducersBySubsystem?pSubsystem=${subsystem.unitName}" ${subsystem.unitName==requestScope.currentSubsystem ? "selected" : ""}>
@@ -142,70 +118,13 @@
 
 <div class="form-box">
     <label>Server selector</label>
-    <select class="select2" data-placeholder="Subsystem">
-        <option value="mskShowProducersBySubsystem?pSubsystem=Select ">
-            Subsystem
-        </option>
-
-        <option value="mskShowProducersBySubsystem?pSubsystem=ano-site">
-            ano-site(511)
-        </option>
-
-        <option value="mskShowProducersBySubsystem?pSubsystem=default">
-            default(111)
-        </option>
-
-        <option value="mskShowProducersBySubsystem?pSubsystem=builtin">
-            builtin(15)
-        </option>
-
-        <option value="mskShowProducersBySubsystem?pSubsystem=persistence">
-            persistence(4)
-        </option>
-
-        <option value="mskShowProducersBySubsystem?pSubsystem=asg-cms">
-            asg-cms(40)
-        </option>
-
-        <option value="mskShowProducersBySubsystem?pSubsystem=biz">
-            biz(31)
-        </option>
-
-        <option value="mskShowProducersBySubsystem?pSubsystem=portal-kit-persistence">
-            portal-kit-persistence(2)
-        </option>
-
-        <option value="mskShowProducersBySubsystem?pSubsystem=monitoring">
-            monitoring(1)
-        </option>
-
-        <option value="mskShowProducersBySubsystem?pSubsystem=maf">
-            maf(1)
-        </option>
-
-        <option value="mskShowProducersBySubsystem?pSubsystem=portal-kit">
-            portal-kit(4)
-        </option>
-
-        <option value="mskShowProducersBySubsystem?pSubsystem=asg-fed">
-            asg-fed(4)
-        </option>
-
-        <option value="mskShowProducersBySubsystem?pSubsystem=tracking">
-            tracking(5)
-        </option>
-
-        <option value="mskShowProducersBySubsystem?pSubsystem=admin">
-            admin(2)
-        </option>
-
-        <option value="mskShowProducersBySubsystem?pSubsystem=mail">
-            mail(2)
-        </option>
-
-        <option value="mskShowProducersBySubsystem?pSubsystem=asg-fixture">
-            asg-fixture(2)
-        </option>
+    <form name="SelectServer" action="mskSelectServer" method="GET">
+    <select class="select2" data-placeholder="Select Server" onchange="javascript:handleSelect(this)">
+            <ano:iterate name="connectivityOptions" id="option" type="net.anotheria.moskito.webui.shared.bean.LabelValueBean">
+                <option value="mskSelectServer?pTargetServer=${option.value}" ${option.value==requestScope.selectedConnectivity ? "selected" : ""}>${option.label}</option>
+            </ano:iterate>
+        </select>
+        </form></li>
     </select>
 </div>
 
