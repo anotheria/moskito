@@ -1,7 +1,7 @@
 {
 	"producerChartWidth": 1200,
 	"producerChartHeight": 600,
-    "connectivityMode": "REMOTE",
+    "connectivityMode": "LOCAL",
     "@remotes": [
         {
             "name": "Develop",
