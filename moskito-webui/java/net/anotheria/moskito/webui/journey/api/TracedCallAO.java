@@ -1,13 +1,14 @@
-package net.anotheria.moskito.webui.journey.bean;
+package net.anotheria.moskito.webui.journey.api;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 /**
- * This bean stores traced calls.
+ * This bean stores a traced call.
  * @author lrosenberg
  *
  */
-public class TracedCallBean {
+public class TracedCallAO implements Serializable{
 	/**
 	 * Name of the traced call.
 	 */
@@ -23,10 +24,13 @@ public class TracedCallBean {
 	/**
 	 * Elements of the traced call.
 	 */
-	private List<TraceStepBean> elements;
+	private List<TracedCallStepAO> elements;
+
+
+	private List<TracedCallDuplicateStepsAO> duplicateSteps;
 	
-	public TracedCallBean(){
-		elements = new ArrayList<TraceStepBean>();
+	public TracedCallAO(){
+		elements = new ArrayList<TracedCallStepAO>();
 	}
 	
 	public long getCreated() {
@@ -41,10 +45,10 @@ public class TracedCallBean {
 	public void setDate(String date) {
 		this.date = date;
 	}
-	public List<TraceStepBean> getElements() {
+	public List<TracedCallStepAO> getElements() {
 		return elements;
 	}
-	public void setElements(List<TraceStepBean> elements) {
+	public void setElements(List<TracedCallStepAO> elements) {
 		this.elements = elements;
 	}
 	public String getName() {
@@ -54,11 +58,19 @@ public class TracedCallBean {
 		this.name = name;
 	}
 	
-	public void addElement(TraceStepBean element){
+	public void addElement(TracedCallStepAO element){
 		elements.add(element);
 	}
 	
 	@Override public String toString(){
 		return "Name:" + name+", date: "+date+", elements: "+elements;
 	}
+	public List<TracedCallDuplicateStepsAO> getDuplicateSteps() {
+		return duplicateSteps;
+	}
+
+	public void setDuplicateSteps(List<TracedCallDuplicateStepsAO> duplicateSteps) {
+		this.duplicateSteps = duplicateSteps;
+	}
+
 }

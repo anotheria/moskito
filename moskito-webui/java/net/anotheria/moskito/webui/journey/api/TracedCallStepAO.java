@@ -1,14 +1,15 @@
-package net.anotheria.moskito.webui.journey.bean;
+package net.anotheria.moskito.webui.journey.api;
 
 import net.anotheria.util.NumberUtils;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 /**
- * This bean represents an element along an use-case path.
+ * This bean represents a single step of a traced call.
  * @author lrosenberg
  */
-public class TraceStepBean {
+public class TracedCallStepAO implements Serializable{
 	/**
 	 * Method call.
 	 */
@@ -28,7 +29,7 @@ public class TraceStepBean {
 	/**
 	 * Children calls.
 	 */
-	private List<TraceStepBean> children;
+	private List<TracedCallStepAO> children;
 	/**
 	 * Ident for representation.
 	 */
@@ -56,11 +57,11 @@ public class TraceStepBean {
 	 */
 	private int parentId;
 	
-	public TraceStepBean(){
-		children = new ArrayList<TraceStepBean>();
+	public TracedCallStepAO(){
+		children = new ArrayList<TracedCallStepAO>();
 	}
 	
-	public void addChild(TraceStepBean c){
+	public void addChild(TracedCallStepAO c){
 		children.add(c);
 	}
 
@@ -85,11 +86,11 @@ public class TraceStepBean {
 		call = aCall;
 	}
 
-	public List<TraceStepBean> getChildren() {
+	public List<TracedCallStepAO> getChildren() {
 		return children;
 	}
 
-	public void setChildren(List<TraceStepBean> children) {
+	public void setChildren(List<TracedCallStepAO> children) {
 		this.children = children;
 	}
 

@@ -1,13 +1,13 @@
-package net.anotheria.moskito.webui.journey.bean;
+package net.anotheria.moskito.webui.journey.api;
 
 import net.anotheria.util.sorter.SortType;
 
 /**
- * Sort type class for the JourneyCallDuplicateStepBean.
+ * Sort type class for the TracedCallDuplicateStepsAO.
  * @author lrosenberg
  *
  */
-public final class JourneyCallDuplicateStepBeanSortType extends SortType{
+public final class TracedCallDuplicateStepsAOSortType extends SortType{
 	
 	/**
 	 * 
@@ -34,15 +34,15 @@ public final class JourneyCallDuplicateStepBeanSortType extends SortType{
 	 */
 	public static final int SORT_BY_DEFAULT = SORT_BY_CALL;
 	
-	public JourneyCallDuplicateStepBeanSortType(){
+	public TracedCallDuplicateStepsAOSortType(){
 		super(SORT_BY_DEFAULT);
 	}
 
-	public JourneyCallDuplicateStepBeanSortType(int aSortBy){
+	public TracedCallDuplicateStepsAOSortType(int aSortBy){
 		super(aSortBy);
 	}
 
-	public JourneyCallDuplicateStepBeanSortType(int aSortBy, boolean aSortOrder){
+	public TracedCallDuplicateStepsAOSortType(int aSortBy, boolean aSortOrder){
 		super(aSortBy, aSortOrder);
 	}
 }

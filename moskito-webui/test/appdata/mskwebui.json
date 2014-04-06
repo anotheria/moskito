@@ -1,12 +1,17 @@
 {
 	"producerChartWidth": 1200,
 	"producerChartHeight": 600,
-    "connectivityMode": "REMOTE",
+    "connectivityMode": "LOCAL",
     "@remotes": [
         {
             "name": "Develop",
             "host": "localhost",
             "port": 9401
+        },
+        {
+            "name": "Burgershop",
+            "host": "localhost",
+            "port": 9402
         },
         {
             "name": "web01",

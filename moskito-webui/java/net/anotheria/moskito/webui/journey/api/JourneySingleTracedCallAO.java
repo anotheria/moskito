@@ -1,5 +1,6 @@
-package net.anotheria.moskito.webui.journey.bean;
+package net.anotheria.moskito.webui.journey.api;
 
+import java.io.Serializable;
 import java.net.URLEncoder;
 
 /**
@@ -7,7 +8,7 @@ import java.net.URLEncoder;
  * @author lrosenberg
  *
  */
-public class TracedCallListItemBean {
+public class JourneySingleTracedCallAO implements Serializable{
 	/**
 	 * Name of the call. 
 	 */

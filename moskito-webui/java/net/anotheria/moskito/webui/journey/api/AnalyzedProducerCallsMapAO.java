@@ -1,4 +1,4 @@
-package net.anotheria.moskito.webui.journey.bean;
+package net.anotheria.moskito.webui.journey.api;
 
 import net.anotheria.moskito.webui.CurrentSelection;
 import net.anotheria.util.sorter.StaticQuickSorter;
@@ -10,11 +10,11 @@ import java.util.Map;
 /**
  * This bean is used to perform analyze producer calls and order analyze producer calls bean by producer id.
  */
-public class AnalyzeProducerCallsMapBean {
+public class AnalyzedProducerCallsMapAO {
 	/**
-	 * Map with AnalyzeProducerCallsBean beans for each producer.
+	 * Map with AnalyzedProducerCallsAO beans for each producer.
 	 */
-	private Map<String, AnalyzeProducerCallsBean> beans;
+	private Map<String, AnalyzedProducerCallsAO> beans;
 	/**
 	 * Name of the analyzed part.
 	 */
@@ -29,9 +29,9 @@ public class AnalyzeProducerCallsMapBean {
 	 */
 	private long totalDuration;
 	
-	public AnalyzeProducerCallsMapBean(String aName){
+	public AnalyzedProducerCallsMapAO(String aName){
 		name = aName;
-		beans = new HashMap<String, AnalyzeProducerCallsBean>();
+		beans = new HashMap<String, AnalyzedProducerCallsAO>();
 	}
 	
 	@Override public String toString(){
@@ -44,9 +44,9 @@ public class AnalyzeProducerCallsMapBean {
 	 * @param duration duration of the call.
 	 */
 	public void addProducerCall(String producerId, long duration){
-		AnalyzeProducerCallsBean bean = beans.get(producerId);
+		AnalyzedProducerCallsAO bean = beans.get(producerId);
 		if (bean==null){
-			bean = new AnalyzeProducerCallsBean(producerId);
+			bean = new AnalyzedProducerCallsAO(producerId);
 			beans.put(producerId, bean);
 		}
 		bean.addCall(duration);
@@ -59,7 +59,7 @@ public class AnalyzeProducerCallsMapBean {
 		return name;
 	}
 	
-	public List<AnalyzeProducerCallsBean> getProducerCallsBeans(){
+	public List<AnalyzedProducerCallsAO> getProducerCallsBeans(){
 		return StaticQuickSorter.sort(beans.values(), CurrentSelection.get().getAnalyzeProducerCallsSortType());
 	}
 	

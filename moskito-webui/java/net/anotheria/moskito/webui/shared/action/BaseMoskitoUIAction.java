@@ -37,35 +37,29 @@ package net.anotheria.moskito.webui.shared.action;
 import net.anotheria.maf.action.Action;
 import net.anotheria.maf.action.ActionMapping;
 import net.anotheria.moskito.core.registry.IProducerRegistryAPI;
-import net.anotheria.moskito.core.registry.IntervalInfo;
 import net.anotheria.moskito.core.registry.ProducerRegistryAPIFactory;
 import net.anotheria.moskito.core.stats.TimeUnit;
 import net.anotheria.moskito.core.stats.impl.IntervalRegistry;
 import net.anotheria.moskito.core.threshold.ThresholdRepository;
 import net.anotheria.moskito.core.threshold.ThresholdStatus;
 import net.anotheria.moskito.webui.CurrentSelection;
-import net.anotheria.moskito.webui.util.ChartEngine;
 import net.anotheria.moskito.webui.decorators.DecoratorRegistryFactory;
 import net.anotheria.moskito.webui.decorators.IDecoratorRegistry;
 import net.anotheria.moskito.webui.producers.api.ProducerAPI;
-import net.anotheria.moskito.webui.shared.bean.IntervalBean;
 import net.anotheria.moskito.webui.shared.bean.LabelValueBean;
 import net.anotheria.moskito.webui.shared.bean.NaviItem;
 import net.anotheria.moskito.webui.shared.bean.UnitBean;
 import net.anotheria.moskito.webui.util.APILookupUtility;
+import net.anotheria.moskito.webui.util.ChartEngine;
 import net.anotheria.moskito.webui.util.RemoteInstance;
 import net.anotheria.moskito.webui.util.WebUIConfig;
 import net.anotheria.util.NumberUtils;
 import net.anotheria.util.StringUtils;
-import net.anotheria.util.sorter.DummySortType;
-import net.anotheria.util.sorter.SortType;
-import net.anotheria.util.sorter.StaticQuickSorter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.LinkedList;
@@ -221,11 +215,7 @@ public abstract class BaseMoskitoUIAction implements Action{
 	 * ProducerId for moskito.
 	 */
 	private String myProducerId;
-	/**
-	 * Sort type.
-	 */
-	private SortType dummySortType;
-	
+
 	static{
 		api = new ProducerRegistryAPIFactory().createProducerRegistryAPI();
 		decoratorRegistry = DecoratorRegistryFactory.getDecoratorRegistry();
@@ -236,14 +226,8 @@ public abstract class BaseMoskitoUIAction implements Action{
 	 */
 	protected BaseMoskitoUIAction(){
 		super();
-		dummySortType = new DummySortType();
 	}
 
-	@Deprecated
-	protected IProducerRegistryAPI getAPI(){
-		return api;
-	}
-	
 	public String getSubsystem(){
 		return "moskitoUI";
 	}
@@ -343,11 +327,7 @@ public abstract class BaseMoskitoUIAction implements Action{
 		
 		
 		///////////// prepare intervals
-		List<IntervalInfo> intervalInfos = getAPI().getPresentIntervals();
-		List<IntervalBean> intervalBeans = new ArrayList<IntervalBean>(intervalInfos.size());
-		for (IntervalInfo info : intervalInfos)
-			intervalBeans.add(new IntervalBean(info.getIntervalName(), NumberUtils.makeISO8601TimestampString(info.getLastUpdateTimestamp()), info.getLength()));
-		req.setAttribute("intervals", StaticQuickSorter.sort(intervalBeans, dummySortType));
+		req.setAttribute("intervals", APILookupUtility.getAdditionalFunctionalityAPI().getIntervalInfos());
 		req.setAttribute("currentInterval", currentIntervalName);
 		
 		////////////// prepare units
@@ -364,6 +344,7 @@ public abstract class BaseMoskitoUIAction implements Action{
 		req.setAttribute("currentNaviItem", getCurrentNaviItem());
 		
 		//prepare interval timestamp and age.
+		//TODO this should go over the AdditionalFunctionalityAPI
 		Long currentIntervalUpdateTimestamp = IntervalRegistry.getInstance().getUpdateTimestamp(currentIntervalName);
 		if (currentIntervalUpdateTimestamp==null){
 			req.setAttribute("currentIntervalUpdateTimestamp", "Never");
@@ -375,7 +356,8 @@ public abstract class BaseMoskitoUIAction implements Action{
 		
 		req.setAttribute("currentCategory", "");
 		req.setAttribute("currentSubsystem", "");
-		
+
+		//TODO this should go over threshold API.
 		ThresholdStatus systemStatus = ThresholdRepository.getInstance().getWorstStatus();
 		req.setAttribute("systemStatus", systemStatus);
 		req.setAttribute("systemStatusColor", systemStatus.toString().toLowerCase());

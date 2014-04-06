@@ -1,4 +1,4 @@
-package net.anotheria.moskito.webui.journey.bean;
+package net.anotheria.moskito.webui.journey.api;
 
 import net.anotheria.moskito.webui.CurrentSelection;
 import net.anotheria.util.BasicComparable;
@@ -9,7 +9,7 @@ import net.anotheria.util.sorter.IComparable;
  * @author lrosenberg
  *
  */
-public class AnalyzeProducerCallsBean implements IComparable<AnalyzeProducerCallsBean> {
+public class AnalyzedProducerCallsAO implements IComparable<AnalyzedProducerCallsAO> {
 	/**
 	 * ProducerId.
 	 */
@@ -23,7 +23,7 @@ public class AnalyzeProducerCallsBean implements IComparable<AnalyzeProducerCall
 	 */
 	private long totalTimeSpent = 0;
 	
-	public AnalyzeProducerCallsBean(String aProducerId){
+	public AnalyzedProducerCallsAO(String aProducerId){
 		producerId = aProducerId;
 	}
 	
@@ -53,14 +53,14 @@ public class AnalyzeProducerCallsBean implements IComparable<AnalyzeProducerCall
 	}
 
 	@Override
-	public int compareTo(IComparable<? extends AnalyzeProducerCallsBean> anotherComparable,	int method) {
-		AnalyzeProducerCallsBean anotherBean = (AnalyzeProducerCallsBean)anotherComparable;
+	public int compareTo(IComparable<? extends AnalyzedProducerCallsAO> anotherComparable,	int method) {
+		AnalyzedProducerCallsAO anotherBean = (AnalyzedProducerCallsAO)anotherComparable;
 		switch(method){
-		case AnalyzeProducerCallsBeanSortType.SORT_BY_NAME:
+		case AnalyzedProducerCallsAOSortType.SORT_BY_NAME:
 			return BasicComparable.compareString(producerId, anotherBean.producerId);
-		case AnalyzeProducerCallsBeanSortType.SORT_BY_CALLS:
+		case AnalyzedProducerCallsAOSortType.SORT_BY_CALLS:
 			return BasicComparable.compareLong(numberOfCalls, anotherBean.numberOfCalls);
-		case AnalyzeProducerCallsBeanSortType.SORT_BY_DURATION:
+		case AnalyzedProducerCallsAOSortType.SORT_BY_DURATION:
 			return BasicComparable.compareLong(totalTimeSpent, anotherBean.totalTimeSpent);
 		default: 
 			throw new IllegalArgumentException("Unsupported method "+method);

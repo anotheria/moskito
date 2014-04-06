@@ -3,6 +3,7 @@ package net.anotheria.moskito.webui.journey.api;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
+import java.io.Serializable;
 
 /**
  * This bean contains an item in the journey list.
@@ -11,7 +12,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
-public class JourneyListItemAO {
+public class JourneyListItemAO implements Serializable{
 	/**
 	 * Name of the session.
 	 */

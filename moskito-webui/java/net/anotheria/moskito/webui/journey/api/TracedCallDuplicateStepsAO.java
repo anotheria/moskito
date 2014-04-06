@@ -1,8 +1,9 @@
-package net.anotheria.moskito.webui.journey.bean;
+package net.anotheria.moskito.webui.journey.api;
 
 import net.anotheria.util.BasicComparable;
 import net.anotheria.util.sorter.IComparable;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -10,7 +11,7 @@ import java.util.List;
  * @author lrosenberg
  *
  */
-public class JourneyCallDuplicateStepBean implements IComparable<JourneyCallDuplicateStepBean>{
+public class TracedCallDuplicateStepsAO implements IComparable<TracedCallDuplicateStepsAO>, Serializable{
 	/**
 	 * Call description aka method name and parameters.
 	 */
@@ -60,17 +61,17 @@ public class JourneyCallDuplicateStepBean implements IComparable<JourneyCallDupl
 	}
 	@Override
 	public int compareTo(
-			IComparable<? extends JourneyCallDuplicateStepBean> anotherObject,
+			IComparable<? extends TracedCallDuplicateStepsAO> anotherObject,
 			int method) {
 		switch(method){
-		case JourneyCallDuplicateStepBeanSortType.SORT_BY_CALL:
-			return BasicComparable.compareString(call, ((JourneyCallDuplicateStepBean)anotherObject).call);
-		case JourneyCallDuplicateStepBeanSortType.SORT_BY_POSITIONS:
-			return BasicComparable.compareList(positions, ((JourneyCallDuplicateStepBean)anotherObject).positions);
-		case JourneyCallDuplicateStepBeanSortType.SORT_BY_TIMESPENT:
-			return BasicComparable.compareLong(timespent, ((JourneyCallDuplicateStepBean)anotherObject).timespent);
-		case JourneyCallDuplicateStepBeanSortType.SORT_BY_DURATION:
-			return BasicComparable.compareLong(duration, ((JourneyCallDuplicateStepBean)anotherObject).duration);
+		case TracedCallDuplicateStepsAOSortType.SORT_BY_CALL:
+			return BasicComparable.compareString(call, ((TracedCallDuplicateStepsAO)anotherObject).call);
+		case TracedCallDuplicateStepsAOSortType.SORT_BY_POSITIONS:
+			return BasicComparable.compareList(positions, ((TracedCallDuplicateStepsAO)anotherObject).positions);
+		case TracedCallDuplicateStepsAOSortType.SORT_BY_TIMESPENT:
+			return BasicComparable.compareLong(timespent, ((TracedCallDuplicateStepsAO)anotherObject).timespent);
+		case TracedCallDuplicateStepsAOSortType.SORT_BY_DURATION:
+			return BasicComparable.compareLong(duration, ((TracedCallDuplicateStepsAO)anotherObject).duration);
 		default:
 			throw new IllegalArgumentException("Unsupported method: "+method);
 		}

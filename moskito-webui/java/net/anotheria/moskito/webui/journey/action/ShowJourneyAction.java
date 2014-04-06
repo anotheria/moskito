@@ -4,18 +4,14 @@ import net.anotheria.anoplass.api.APIException;
 import net.anotheria.maf.action.ActionCommand;
 import net.anotheria.maf.action.ActionMapping;
 import net.anotheria.maf.bean.FormBean;
-import net.anotheria.moskito.core.calltrace.CurrentlyTracedCall;
-import net.anotheria.moskito.core.journey.Journey;
+import net.anotheria.moskito.webui.journey.api.JourneyAO;
 import net.anotheria.moskito.webui.journey.api.JourneyListItemAO;
-import net.anotheria.moskito.webui.journey.bean.TracedCallListItemBean;
 import net.anotheria.util.NumberUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * The action displays a journey as a whole.
@@ -36,42 +32,19 @@ public class ShowJourneyAction extends BaseJourneyAction{
 
 
 	@Override
-	public ActionCommand execute(ActionMapping mapping, FormBean formBean, HttpServletRequest req, HttpServletResponse res){
+	public ActionCommand execute(ActionMapping mapping, FormBean formBean, HttpServletRequest req, HttpServletResponse res) throws APIException{
 
 		String journeyName = req.getParameter("pJourneyName");
-		Journey journey = null;
-		try{
-			journey = getJourneyAPI().getJourney(journeyName);
-		}catch(APIException e){
-			throw new IllegalArgumentException("Journey with name "+journeyName+" not found.");
-		}
-
+		JourneyAO journey = getJourneyAPI().getJourney(journeyName);
 		JourneyListItemAO bean = new JourneyListItemAO();
-			
+
 		bean.setName(journey.getName());
 		bean.setActive(journey.isActive());
 		bean.setCreated(NumberUtils.makeISO8601TimestampString(journey.getCreatedTimestamp()));
 		bean.setLastActivity(NumberUtils.makeISO8601TimestampString(journey.getLastActivityTimestamp()));
-		bean.setNumberOfCalls(journey.getTracedCalls().size());
+		bean.setNumberOfCalls(journey.getCalls().size());
 		req.setAttribute("journey", bean);
-
-		List<CurrentlyTracedCall> recorded = journey.getTracedCalls();
-		List<TracedCallListItemBean> beans = new ArrayList<TracedCallListItemBean>(recorded.size());
-		for (int i=0; i<recorded.size(); i++){
-			CurrentlyTracedCall tracedCall = recorded.get(i);
-			if(tracedCall == null){
-				//this is a WTF, how could a null get added here in first place.
-				log.warn("Unexpected null as tracedCall at position " + i);
-				continue;
-			}
-			TracedCallListItemBean b = new TracedCallListItemBean();
-			b.setName(tracedCall.getName());
-			b.setDate(NumberUtils.makeISO8601TimestampString(tracedCall.getCreated()));
-			b.setContainedSteps(tracedCall.getNumberOfSteps());
-			beans.add(b);
-		}
-		
-		req.setAttribute("recorded", beans);
+		req.setAttribute("recorded", journey.getCalls());
 		return mapping.success();
 	}
 

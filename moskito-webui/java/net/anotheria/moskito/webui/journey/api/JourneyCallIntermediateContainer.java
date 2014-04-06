@@ -1,4 +1,4 @@
-package net.anotheria.moskito.webui.journey.bean;
+package net.anotheria.moskito.webui.journey.api;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -11,7 +11,7 @@ import java.util.Map;
  * @author lrosenberg
  *
  */
-public class JourneyCallIntermediateContainerBean {
+public class JourneyCallIntermediateContainer {
 	/**
 	 * The reversed map of steps used to determine duplicates.
 	 */
@@ -19,7 +19,7 @@ public class JourneyCallIntermediateContainerBean {
 	/**
 	 * Element in this countainer.
 	 */
-	private List<TraceStepBean> elements = new ArrayList<TraceStepBean>();
+	private List<TracedCallStepAO> elements = new ArrayList<TracedCallStepAO>();
 	/**
 	 * Counter.
 	 */
@@ -30,15 +30,15 @@ public class JourneyCallIntermediateContainerBean {
 	 */
 	private final ParentHolder parentHolder = new ParentHolder();
 	
-	public JourneyCallIntermediateContainerBean(){
+	public JourneyCallIntermediateContainer(){
 		
 	}
 
 	/**
-	 * Adds a new TraceStepBean.
+	 * Adds a new TracedCallStepAO.
 	 * @param step
 	 */
-	public void add(TraceStepBean step){
+	public void add(TracedCallStepAO step){
 		elements.add(step);
 		step.setId((counter++));
 		ReversedCallHelper helper = stepsReversed.get(step.getCall());
@@ -51,7 +51,7 @@ public class JourneyCallIntermediateContainerBean {
 		step.setParentId(parentHolder.getParentIdByLayer(step.getLayer(), step.getNiceId()));
 	}
 	
-	public List<TraceStepBean> getElements(){
+	public List<TracedCallStepAO> getElements(){
 		return elements;
 	}
 

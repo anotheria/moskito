@@ -1,8 +1,8 @@
-package net.anotheria.moskito.webui.journey.bean;
+package net.anotheria.moskito.webui.journey.api;
 
 import net.anotheria.util.sorter.SortType;
 
-public class AnalyzeProducerCallsBeanSortType extends SortType{
+public class AnalyzedProducerCallsAOSortType extends SortType{
 	/**
 	 * SerialVersionUID.
 	 */
@@ -24,15 +24,15 @@ public class AnalyzeProducerCallsBeanSortType extends SortType{
 	 */
 	public static final int SORT_BY_DEFAULT = SORT_BY_NAME;
 	
-	public AnalyzeProducerCallsBeanSortType(){
+	public AnalyzedProducerCallsAOSortType(){
 		super(SORT_BY_DEFAULT, true);
 	}
 
-	public AnalyzeProducerCallsBeanSortType(int sortType, boolean sortOrder){
+	public AnalyzedProducerCallsAOSortType(int sortType, boolean sortOrder){
 		super(sortType, sortOrder);
 	}
 	
-	public static final AnalyzeProducerCallsBeanSortType fromStrings(String aSortByString, String aSortOrderString){
+	public static final AnalyzedProducerCallsAOSortType fromStrings(String aSortByString, String aSortOrderString){
 		if (aSortByString==null || aSortByString.length()==0)
 			throw new IllegalArgumentException("Empty sort by not allowed");
 		if (aSortOrderString==null || aSortOrderString.length()==0)
@@ -46,6 +46,6 @@ public class AnalyzeProducerCallsBeanSortType extends SortType{
 			sortBy = SORT_BY_NAME;
 		if (sortBy==-1)
 			throw new IllegalArgumentException("Unexpected value for sortBy: "+sortBy);
-		return new AnalyzeProducerCallsBeanSortType(sortBy, aSortOrderString.equalsIgnoreCase("ASC"));
+		return new AnalyzedProducerCallsAOSortType(sortBy, aSortOrderString.equalsIgnoreCase("ASC"));
 	}
 }

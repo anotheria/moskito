@@ -6,6 +6,10 @@ import net.anotheria.moskito.core.plugins.PluginRepository;
 import net.anotheria.moskito.core.stats.Interval;
 import net.anotheria.moskito.core.stats.impl.IntervalRegistry;
 import net.anotheria.moskito.core.timing.IUpdateable;
+import net.anotheria.util.NumberUtils;
+import net.anotheria.util.sorter.DummySortType;
+import net.anotheria.util.sorter.SortType;
+import net.anotheria.util.sorter.StaticQuickSorter;
 
 import javax.management.JMException;
 import javax.management.MBeanAttributeInfo;
@@ -26,6 +30,16 @@ import java.util.Set;
  * @since 24.03.14 22:53
  */
 public class AdditionalFunctionalityAPIImpl extends AbstractMoskitoAPIImpl implements AdditionalFunctionalityAPI{
+
+	/**
+	 * Sort type.
+	 */
+	private SortType dummySortType;
+
+	public AdditionalFunctionalityAPIImpl(){
+		dummySortType = new DummySortType();
+	}
+
 	@Override
 	public List<PluginAO> getPlugins() throws APIException {
 		List<String> pluginNames = PluginRepository.getInstance().getPluginNames();
@@ -132,4 +146,17 @@ public class AdditionalFunctionalityAPIImpl extends AbstractMoskitoAPIImpl imple
 		return res;
 	}
 
+	@Override
+	public List<IntervalInfoAO> getIntervalInfos() throws APIException {
+		List<Interval> intervals = IntervalRegistry.getInstance().getIntervals();
+		List<IntervalInfoAO> ret = new ArrayList<IntervalInfoAO>(intervals.size());
+		for (Interval interval : intervals){
+		 	IntervalInfoAO info = new IntervalInfoAO();
+			info.setName(interval.getName());
+			info.setUpdateTimestamp(NumberUtils.makeISO8601TimestampString(interval.getLastUpdateTimestamp()));
+			info.setLength(interval.getLength());
+			ret.add(info);
+		}
+		return StaticQuickSorter.sort(ret, dummySortType);
+	}
 }

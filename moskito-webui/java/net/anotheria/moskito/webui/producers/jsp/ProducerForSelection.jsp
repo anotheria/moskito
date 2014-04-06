@@ -57,7 +57,7 @@
                 <ano:define name="currentInterval" id="currentInterval" toScope="page" type="java.lang.String"/>
                 <label>Interval:</label>
                     <select name="interval">
-                        <ano:iterate name="intervals" id="interval" type="net.anotheria.moskito.webui.shared.bean.IntervalBean">
+                        <ano:iterate name="intervals" id="interval" type="net.anotheria.moskito.webui.shared.api.IntervalInfoAO">
                             <option value="<ano:write name="interval" property="name"/>" <ano:equal name="interval" property="name" value="<%=currentInterval%>">selected="selected"</ano:equal>>
                                 <ano:write name="interval" property="name"/>
                             </option>

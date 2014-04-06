@@ -32,17 +32,19 @@
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR
  * THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */	
-package net.anotheria.moskito.webui.shared.bean;
+package net.anotheria.moskito.webui.shared.api;
 
 import net.anotheria.util.BasicComparable;
 import net.anotheria.util.sorter.IComparable;
+
+import java.io.Serializable;
 
 /**
  * This bean represents an interval.
  * @author lrosenberg.
  *
  */
-public class IntervalBean implements IComparable{
+public class IntervalInfoAO implements IComparable, Serializable{
 	/**
 	 * Name of the interval.
 	 */
@@ -55,22 +57,23 @@ public class IntervalBean implements IComparable{
 	 * Age of the interval.
 	 */
 	private String age;
+
 	/**
 	 * Length of the interval.
 	 */
 	private int length;
 	
-	public IntervalBean(){
+	public IntervalInfoAO(){
 		
 	}
 	
-	public IntervalBean(String aName, String anUpdateTimestamp, int aLength){
+	public IntervalInfoAO(String aName, String anUpdateTimestamp, int aLength){
 		name = aName;
 		updateTimestamp = anUpdateTimestamp;
 		length = aLength;
 	}
 	
-	public IntervalBean(String aName, String anUpdateTimestamp, String anAge, int aLength){
+	public IntervalInfoAO(String aName, String anUpdateTimestamp, String anAge, int aLength){
 		name = aName;
 		updateTimestamp = anUpdateTimestamp;
 		age = anAge;
@@ -97,9 +100,18 @@ public class IntervalBean implements IComparable{
 	public void setAge(String age) {
 		this.age = age;
 	}
-	
+
+	public int getLength() {
+		return length;
+	}
+
+	public void setLength(int length) {
+		this.length = length;
+	}
+
+
 	@Override public int compareTo(IComparable anotherComparable, int aMethod){
-		return BasicComparable.compareInt(length, ((IntervalBean)anotherComparable).length);
+		return BasicComparable.compareInt(length, ((IntervalInfoAO)anotherComparable).length);
 	}
 	
 	@Override public String toString(){

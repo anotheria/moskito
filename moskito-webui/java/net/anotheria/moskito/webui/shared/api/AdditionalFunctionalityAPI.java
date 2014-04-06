@@ -36,4 +36,11 @@ public interface AdditionalFunctionalityAPI extends API, Service{
 	 */
 	List<MBeanWrapperAO> getMBeans() throws APIException;
 
+	/**
+	 * Returns interval infos.
+	 * @return
+	 * @throws APIException
+	 */
+	List<IntervalInfoAO> getIntervalInfos() throws APIException;
+
 }
