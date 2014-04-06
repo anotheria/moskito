@@ -2,6 +2,7 @@ package net.anotheria.moskito.core.config;
 
 import net.anotheria.moskito.core.config.accumulators.AccumulatorsConfig;
 import net.anotheria.moskito.core.config.plugins.PluginsConfig;
+import net.anotheria.moskito.core.config.producers.BuiltinProducersConfig;
 import net.anotheria.moskito.core.config.producers.MBeanProducerConfig;
 import net.anotheria.moskito.core.config.thresholds.ThresholdsAlertsConfig;
 import net.anotheria.moskito.core.config.thresholds.ThresholdsConfig;
@@ -55,6 +56,10 @@ public class MoskitoConfiguration {
     @SerializedName("@mbeanProducersConfig")
     private MBeanProducerConfig mbeanProducersConfig = new MBeanProducerConfig();
 
+	@Configure
+	@SerializedName("@builtinProducersConfig")
+	private BuiltinProducersConfig builtinProducersConfig = new BuiltinProducersConfig();
+
 	public ThresholdsAlertsConfig getThresholdsAlertsConfig() {
 		return thresholdsAlertsConfig;
 	}
@@ -106,6 +111,13 @@ public class MoskitoConfiguration {
         this.mbeanProducersConfig = mbeanProducersConfig;
     }
 
+	public BuiltinProducersConfig getBuiltinProducersConfig() {
+		return builtinProducersConfig;
+	}
+
+	public void setBuiltinProducersConfig(BuiltinProducersConfig builtinProducersConfig) {
+		this.builtinProducersConfig = builtinProducersConfig;
+	}
 }
 
 
