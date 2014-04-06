@@ -15,7 +15,13 @@ import java.util.List;
  * @since 21.03.14 23:05
  */
 public class AccumulatorAO implements Serializable {
+	/**
+	 * Name of the accumulator.
+	 */
 	private String name;
+	/**
+	 * Accumulated values over the time.
+	 */
 	private List<AccumulatedValueAO> values;
 
 	public AccumulatorAO(Accumulator acc){

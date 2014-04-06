@@ -4,26 +4,62 @@ import java.io.Serializable;
 import java.lang.management.ThreadInfo;
 
 /**
- * TODO comment this class
+ * Mapped JMX ThreadInfo class.
  *
  * @author lrosenberg
  * @since 21.03.14 23:32
  */
 public class ThreadInfoAO implements Serializable{
+	/**
+	 * Internal id of the thread.
+	 */
 	private long threadId;
+	/**
+	 * Name of the thread.
+	 */
 	private String threadName;
+	/**
+	 * State the thread is in.
+	 */
 	private Thread.State threadState;
+	/**
+	 * If true the thread is in a native stack.
+	 */
 	private boolean inNative;
+	/**
+	 * If true the thread is suspended.
+	 */
 	private boolean suspended;
 
+	/**
+	 * Name of the lock if applicable.
+	 */
 	private String lockName;
+	/**
+	 * If of the lock owner id.
+	 */
 	private long lockOwnerId;
+	/**
+	 * Name of the lock owner.
+	 */
 	private String lockOwnerName;
 
+	/**
+	 * Number of times the thread was in BLOCKED mode.
+	 */
 	private long blockedCount;
+	/**
+	 * Time spent blocked.
+	 */
 	private long blockedTime;
 
+	/**
+	 * Number of times the thread was in WAITING mode.
+	 */
 	private long waitedCount;
+	/**
+	 * Time spent waiting.
+	 */
 	private long waitedTime;
 
 
