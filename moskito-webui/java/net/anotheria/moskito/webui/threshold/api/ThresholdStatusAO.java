@@ -49,11 +49,19 @@ public class ThresholdStatusAO implements IComparable, Serializable{
 	 */
 	@XmlElement
 	private String value;
+
 	/**
-	 * Last change.
+	 * Previous color code.
 	 */
-	@XmlElement
-	private String change;
+	@XmlTransient
+	private String previousColorCode;
+
+	/**
+	 * Previous status.
+	 */
+	@XmlTransient
+	private String previousStatus;
+
 	/**
 	 * Status for sorting.
 	 */
@@ -112,13 +120,6 @@ public class ThresholdStatusAO implements IComparable, Serializable{
 	@Override public String toString(){
 		return getName()+" "+getStatus()+" "+getTimestamp()+" "+getDescription()+" "+getValue();
 	}
-	public String getChange() {
-		return change;
-	}
-	public void setChange(String change) {
-		this.change = change;
-	}
-	
 	@Override
 	public int compareTo(IComparable anotherObject, int method) {
 		ThresholdStatusAO anotherBean = (ThresholdStatusAO)anotherObject;
@@ -157,5 +158,21 @@ public class ThresholdStatusAO implements IComparable, Serializable{
 
 	public void setFlipCount(long flipCount) {
 		this.flipCount = flipCount;
+	}
+
+	public String getPreviousColorCode() {
+		return previousColorCode;
+	}
+
+	public void setPreviousColorCode(String previousColorCode) {
+		this.previousColorCode = previousColorCode;
+	}
+
+	public String getPreviousStatus() {
+		return previousStatus;
+	}
+
+	public void setPreviousStatus(String previousStatus) {
+		this.previousStatus = previousStatus;
 	}
 }

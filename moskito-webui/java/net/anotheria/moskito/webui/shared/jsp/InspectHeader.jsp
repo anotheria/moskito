@@ -84,13 +84,14 @@
 </div>
 
 <ul class="nav nav-sidebar">
-    <li class="active"><a href="mskShowAllProducers">Producers <i class="fa fa-wrench"></i></a></li>
-    <li><a href="mskShowJourneys">Journeys <i class="fa fa-eye"></i></a></li>
-    <li><a href="mskThresholds">Thresholds <i class="fa fa-dot-circle-o"></i></a></li>
-    <li><a href="mskAccumulators">Accumulators <i class="fa fa-signal"></i></a></li>
-    <li><a href="mskThreads">Threads <i class="fa fa-bars"></i></a></li>
+    <li ${requestScope.currentNaviItem.id == "producers" ? "class=\"active\"" : ""}><a href="mskShowAllProducers">Producers <i class="fa fa-wrench"></i></a></li>
+    <li ${requestScope.currentNaviItem.id == "journeys" ? "class=\"active\"" : ""}><a href="mskShowJourneys">Journeys <i class="fa fa-eye"></i></a></li>
+    <li ${requestScope.currentNaviItem.id == "thresholds" ? "class=\"active\"" : ""}><a href="mskThresholds">Thresholds <i class="fa fa-dot-circle-o"></i></a></li>
+    <li ${requestScope.currentNaviItem.id == "accumulators" ? "class=\"active\"" : ""}><a href="mskAccumulators">Accumulators <i class="fa fa-signal"></i></a></li>
+    <li ${requestScope.currentNaviItem.id == "threads" ? "class=\"active\"" : ""}><a href="mskThreads">Threads <i class="fa fa-bars"></i></a></li>
 </ul>
 
+<ano:equal name="pagename" value="producers">
 <div class="form-box">
     <label>Filter</label>
 
@@ -113,8 +114,8 @@
     </select>
 
     <input type="text" class="form-control" placeholder="Name Filter">
-
 </div>
+</ano:equal>
 
 <div class="form-box">
     <label>Server selector</label>

@@ -41,13 +41,14 @@ public class Threshold extends AbstractTieable<ThresholdDefinition> implements T
 	 */
 	private String lastValue;
 	/**
-	 * Last change as string (description).
-	 */
-	private String statusChange = null;
-	/**
 	 * Timestamp of the last change.
 	 */
 	private long statusChangeTimestamp;
+
+	/**
+	 * Previous status.
+	 */
+	private ThresholdStatus previousStatus = ThresholdStatus.OFF;
 
 	/**
 	 * Counts the number of flips (status changes) by this thresholds. THis helps to identify flipping - instable thresholds.
@@ -132,7 +133,7 @@ public class Threshold extends AbstractTieable<ThresholdDefinition> implements T
 		if (status != futureStatus){
 			flipCount++;
 			//generate alert
-			statusChange = status+" --> "+futureStatus;
+			previousStatus = status;
 			statusChangeTimestamp = System.currentTimeMillis();
 			AlertDispatcher.INSTANCE.dispatchAlert(new ThresholdAlert(this, status, futureStatus, previousValue, lastValue));
 		}
@@ -145,14 +146,6 @@ public class Threshold extends AbstractTieable<ThresholdDefinition> implements T
 	
 	@Override public String toString(){
 		return getName()+" "+getStatus()+" Def: "+getDefinition()+" LastValue: "+getLastValue()+", Guards: "+guards+" active: "+isActivated()+", Stats: "+getStats();
-	}
-
-	public String getStatusChange() {
-		return statusChange;
-	}
-
-	public void setStatusChange(String statusChange) {
-		this.statusChange = statusChange;
 	}
 
 	public long getStatusChangeTimestamp() {
@@ -180,5 +173,9 @@ public class Threshold extends AbstractTieable<ThresholdDefinition> implements T
 		ret.setValueName(getDefinition().getValueName());
 		ret.setTimeUnit(getDefinition().getTimeUnit().name());
 		return ret;
+	}
+
+	public ThresholdStatus getPreviousStatus() {
+		return previousStatus;
 	}
 }
