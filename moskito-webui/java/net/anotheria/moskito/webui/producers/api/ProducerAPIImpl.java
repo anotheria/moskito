@@ -19,7 +19,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- * TODO comment this class
+ * Implementation of the producer api.
  *
  * @author lrosenberg
  * @since 14.02.13 11:49
