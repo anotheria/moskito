@@ -35,6 +35,25 @@
 		</div>
 	</div>
 
+    <ano:present name="remoteConfig">
+    <div class="additional">
+        <div class="top">
+            <div><!-- --></div>
+        </div>
+        <div class="add_in">
+            <h2>Remote configuration</h2>
+
+            <div>
+                <pre><ano:write name="remoteConfig"/></pre>
+            </div>
+        </div>
+        <div class="bot">
+            <div><!-- --></div>
+        </div>
+    </div>
+    </ano:present>
+
+
     <div class="additional">
         <div class="top">
             <div><!-- --></div>
@@ -79,9 +98,16 @@
         </div>
         <div class="add_in">
             <h2>WebUI Config (mskwebui.json)</h2>
-            producerChartWidth:  <ano:write name="config" property="producerChartWidth"/><br>
-            producerChartHeight: <ano:write name="config" property="producerChartHeight"/><br>
-            defaultChartEngine: <ano:write name="config" property="defaultChartEngine"/><br>
+            producerChartWidth:  ${config.producerChartWidth}<br>
+            producerChartHeight: ${config.producerChartHeight}<br>
+            defaultChartEngine: ${config.defaultChartEngine}<br>
+            connectivityMode:  ${config.connectivityMode}<br>
+            Remotes:
+            <ul>
+            <ano:iterate id="remote" type="net.anotheria.moskito.webui.util.RemoteInstance" name="config" property="remotes">
+                <li>${remote}</li>
+            </ano:iterate>
+            </ul>
         </div>
         <div class="bot">
             <div><!-- --></div>

@@ -1,6 +1,12 @@
 package net.anotheria.moskito.webui.shared.api;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParser;
 import net.anotheria.anoplass.api.APIException;
+import net.anotheria.moskito.core.config.MoskitoConfiguration;
+import net.anotheria.moskito.core.config.MoskitoConfigurationHolder;
 import net.anotheria.moskito.core.config.plugins.PluginConfig;
 import net.anotheria.moskito.core.plugins.PluginRepository;
 import net.anotheria.moskito.core.stats.Interval;
@@ -158,5 +164,19 @@ public class AdditionalFunctionalityAPIImpl extends AbstractMoskitoAPIImpl imple
 			ret.add(info);
 		}
 		return StaticQuickSorter.sort(ret, dummySortType);
+	}
+
+	@Override
+	public String getConfigurationAsString() throws APIException {
+		MoskitoConfiguration config = MoskitoConfigurationHolder.getConfiguration();
+		Gson gson = new GsonBuilder().setPrettyPrinting().create();
+		String jsonOutput = gson.toJson(config);
+
+
+
+		JsonParser jp = new JsonParser();
+		JsonElement je = jp.parse(jsonOutput);
+		String prettyJsonString = gson.toJson(je);
+		return prettyJsonString;
 	}
 }

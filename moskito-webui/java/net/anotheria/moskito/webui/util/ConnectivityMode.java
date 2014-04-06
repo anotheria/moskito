@@ -7,5 +7,13 @@ package net.anotheria.moskito.webui.util;
  * @since 21.03.14 17:36
  */
 public enum ConnectivityMode {
-	LOCAL, REMOTE
+	LOCAL{
+		public boolean isRemote(){ return false;}
+	},
+	REMOTE{
+		public boolean isRemote(){ return true;}
+	}
+	;
+
+	public abstract boolean isRemote();
 }

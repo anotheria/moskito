@@ -43,4 +43,10 @@ public interface AdditionalFunctionalityAPI extends API, Service{
 	 */
 	List<IntervalInfoAO> getIntervalInfos() throws APIException;
 
+	/**
+	 * Returns current configuration as string for presentation purposes.
+	 * @return
+	 * @throws APIException
+	 */
+	String getConfigurationAsString() throws APIException;
 }
