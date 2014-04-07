@@ -1,6 +1,143 @@
 <%@ page language="java" contentType="text/html;charset=UTF-8" session="true"
 %><%@ taglib uri="http://www.anotheria.net/ano-tags" prefix="ano"
-%><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+%>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/html">
+<jsp:include page="../../shared/jsp/InspectHeader.jsp" flush="false"/>
+<section id="main">
+<div class="content">
+
+<div class="box">
+    <div class="box-title">
+        <a class="accordion-toggle tooltip-bottom" title="Close/Open" data-toggle="collapse" href="#collapse1"><i class="fa fa-caret-right"></i></a>
+        <h3 class="pull-left">
+            Chart for URL REQ 5m
+        </h3>
+        <div class="box-right-nav">
+            <a href="" class="tooltip-bottom" title="Refresh"><i class="fa fa-refresh"></i></a>
+        </div>
+    </div>
+    <div id="collapse1" class="box-content accordion-body collapse in">
+        <div class="paddner"><div id="chart_div"></div></div>
+    </div>
+</div>
+
+
+<div class="box">
+    <form action="" method="get">
+    <div class="box-title">
+        <a class="accordion-toggle tooltip-bottom" title="Close/Open" data-toggle="collapse" href="#collapselist"><i class="fa fa-caret-right"></i></a>
+        <h3 class="pull-left">
+            Accumulators
+        </h3>
+        <div class="box-right-nav">
+            <a href="" class="tooltip-bottom" title="Help"><i class="fa fa-info-circle"></i></a>
+        </div>
+    </div>
+
+<div id="collapselist" class="box-content accordion-body collapse in">
+    <table class="table table-striped tablesorter">
+        <thead>
+        <tr>
+            <th></th>
+            <th>Name<i class="fa fa-caret-down"></i></th>
+            <th>Path <i class="fa fa-caret-down"></i></th>
+            <th>Values <i class="fa fa-caret-down"></i><i class="chart-icon tooltip-bottom" title="Show chart"></i></th>
+            <th>Last Timestamp <i class="fa fa-caret-down"></i><i class="chart-icon tooltip-bottom" title="Show chart"></i></th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <ano:iterate name="accumulators" type="net.anotheria.moskito.webui.accumulators.api.AccumulatorDefinitionAO" id="accumulator" indexId="index">
+            <tr>
+                <td><input type="checkbox" name="id_${accumulator.id}" value="set" <ano:present name="<%=\"id_\"+accumulator.getId()+\"_set\"%>">checked="checked"</ano:present>/></td>
+                <td><a href="?id_${accumulator.id}=set">${accumulator.name}</a></td>
+                <td>${accumulator.path}</td>
+                <td>${accumulator.numberOfValues}</td>
+                <td>${accumulator.lastValueTimestamp}</td>
+                <td>
+                    <a href="mskAccumulatorDelete?pId=${accumulator.id}" class="action-icon delete-icon tooltip-bottom" title="Delete"><i class="fa fa-ban"></i></a>
+                    <a href="mskAccumulator?pId=${accumulator.id}" class="action-icon show-icon tooltip-bottom" title="Show"><i class="fa fa-search-plus"></i></a>
+                </td>
+            </tr>
+        </ano:iterate>
+        </tbody>
+    </table>
+</div>
+<div class="box-footer">
+    <div class="form-inline">
+        <div class="form-group">
+            <button class="btn btn-success">Submit</button>
+        </div>
+        <div class="form-group">
+            (Mode:
+        </div>
+        <div class="radio">
+            <label>
+                <input type="radio" checked="checked" value="combined" name="mode"> combine
+            </label>
+        </div>
+        <div class="radio">
+            <label>
+                <input type="radio" value="normalized" name="mode"> combine and normalize
+            </label>
+        </div>
+        <div class="radio">
+            <label>
+                <input type="radio" value="multiple" name="mode"> multiple graphs
+            </label>
+        </div>
+        <div class="form-group">
+            )
+        </div>
+
+        <div class="form-group">
+            (Type:&nbsp;
+        </div>
+        <div class="radio">
+            <label>
+                <input type="radio" checked="checked" value="LineChart" name="type">&nbsp;Line
+            </label>
+        </div>
+        <div class="radio">
+            <label>
+                <input type="radio" value="PieChart" name="type">&nbsp;Pie
+            </label>
+        </div>
+        <div class="radio">
+            <label>
+                <input type="radio" value="BarChart" name="type">&nbsp;Bar
+            </label>
+        </div>
+        <div class="radio">
+            <label>
+                <input type="radio" value="ColumnChart" name="type">&nbsp;Column
+            </label>
+        </div>
+        <div class="form-group">
+            )
+        </div>
+        <input type="hidden" value="100" name="normalizeBase">
+        <input type="hidden" value="200" name="maxValues">
+    </div>
+</div>
+        </form>
+</div>
+
+</div>
+
+
+<jsp:include page="../../shared/jsp/InspectFooter.jsp" flush="false"/>
+
+</section>
+</body>
+</html>
+
+
+<%-- OLD
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 	<title>MoSKito Accumulators</title>
@@ -21,9 +158,6 @@
 <script type="text/javascript" src="../js/charts/chartEngineIniter.js"></script>
 
 <jsp:include page="../../shared/jsp/Menu.jsp" flush="false"/>
-<%--<script>    // temp
-    window.autoReloadInterval = <ano: autoreload value>;
-</script>--%>
 
 <script type="text/javascript">
     $(function() {
@@ -141,13 +275,13 @@
     })
 </script>
 
-<%-- this is used for a single accumulator --%>
+< %-- this is used for a single accumulator --% >
 <ano:present name="data">
 <script type="text/javascript">
 	var data = [<ano:iterate name="data" id="value" indexId="i"><ano:notEqual name="i" value="0">,</ano:notEqual><ano:write name="value"/></ano:iterate>]; 
 </script>
 </ano:present>
-<%-- this is used for a multi accumulator selection--%>
+< %-- this is used for a multi accumulator selection--% >
 <ano:present name="singleGraphData">
 <script type="text/javascript">
     var multipleGraphData = [];
@@ -354,3 +488,4 @@
 </div>
 </body>
 </html>  
+                    --%>
