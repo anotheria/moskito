@@ -39,20 +39,20 @@
         <div class="box-title">
             <a class="accordion-toggle tooltip-bottom" title="Close/Open" data-toggle="collapse" href="#collapse-chart"><i class="fa fa-caret-right"></i></a>
             <h3 class="pull-left">
-               Single Chart for <ano:iterate name="accNames" type="java.lang.String" id="name">${name}</ano:iterate>
+               Chart for <ano:iterate name="accNames" type="java.lang.String" id="name">${name}</ano:iterate>
             </h3>
             <div class="box-right-nav">
                 <a href="" class="tooltip-bottom" title="Refresh"><i class="fa fa-refresh"></i></a>
             </div>
         </div>
         <div id="collapse-chart" class="box-content accordion-body collapse in">
-            <div class="paddner"><div id="chart_div"></div></div>
+            <div class="paddner"><div id="chart_accum${singleGraph.nameForJS}"></div></div>
         </div>
     </div>
 </ano:notPresent>
 <%-- /single chart box --%>
 
-<%-- Chart box for single chart --%>
+<%-- Chart boxes for multiple charts --%>
 <ano:present name="data">
     <ano:present name="multiple_set">
         <ano:iterate name="singleGraphData" type="net.anotheria.moskito.webui.accumulators.api.AccumulatedSingleGraphAO" id="singleGraph">
