@@ -4,10 +4,10 @@
 		<filter class="ch.qos.logback.classic.filter.ThresholdFilter">
 			<level>DEBUG</level>
 		</filter>
-		<file>logs/msk-control-debug.log</file>
+		<file>logs/moskito-debug.log</file>
 		<append>true</append>
 		<rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
-			<fileNamePattern>logs/msk-control-debug.%i.log.zip</fileNamePattern>
+			<fileNamePattern>logs/moskito-debug.%i.log.zip</fileNamePattern>
 			<minIndex>1</minIndex>
 			<maxIndex>5</maxIndex>
 		</rollingPolicy>
@@ -23,10 +23,10 @@
 		<filter class="ch.qos.logback.classic.filter.ThresholdFilter">
 			<level>INFO</level>
 		</filter>
-		<file>logs/msk-control-info.log</file>
+		<file>logs/moskito-info.log</file>
 		<append>true</append>
 		<rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
-			<fileNamePattern>logs/msk-control-info.%i.log.zip</fileNamePattern>
+			<fileNamePattern>logs/moskito-info.%i.log.zip</fileNamePattern>
 			<minIndex>1</minIndex>
 			<maxIndex>5</maxIndex>
 		</rollingPolicy>
@@ -42,10 +42,10 @@
 		<filter class="ch.qos.logback.classic.filter.ThresholdFilter">
 			<level>WARN</level>
 		</filter>
-		<file>logs/msk-control-warn.log</file>
+		<file>logs/moskito-warn.log</file>
 		<append>true</append>
 		<rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
-			<fileNamePattern>logs/msk-control-warn.%i.log.zip</fileNamePattern>
+			<fileNamePattern>logs/moskito-warn.%i.log.zip</fileNamePattern>
 			<minIndex>1</minIndex>
 			<maxIndex>5</maxIndex>
 		</rollingPolicy>
@@ -61,10 +61,10 @@
 		<filter class="ch.qos.logback.classic.filter.ThresholdFilter">
 			<level>ERROR</level>
 		</filter>
-		<file>logs/msk-control-error.log</file>
+		<file>logs/moskito-error.log</file>
 		<append>true</append>
 		<rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
-			<fileNamePattern>logs/msk-control-error.%i.log.zip</fileNamePattern>
+			<fileNamePattern>logs/moskito-error.%i.log.zip</fileNamePattern>
 			<minIndex>1</minIndex>
 			<maxIndex>5</maxIndex>
 		</rollingPolicy>
