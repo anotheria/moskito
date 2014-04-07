@@ -43,8 +43,8 @@
                         <td>${threshold.flipCount}</td>
                         <td>${threshold.description}</td>
                         <td>
-                            <a href="mskThresholdEdit?pId=${threshold.id}" class="action-icon delete-icon tooltip-bottom" title="Delete"><i class="fa fa-ban"></i></a>
-                            <a href="mskThresholdDelete?pId=${threshold.id}" class="action-icon edit-icon tooltip-bottom" title="Edit"><i class="fa fa-pencil"></i></a>
+                            <a href="mskThresholdDelete?pId=${threshold.id}" class="action-icon delete-icon tooltip-bottom" title="Delete"><i class="fa fa-ban"></i></a>
+                            <a href="mskThresholdEdit?pId=${threshold.id}" class="action-icon edit-icon tooltip-bottom" title="Edit"><i class="fa fa-pencil"></i></a>
                         </td>
                     </tr>
                     </ano:iterate>
