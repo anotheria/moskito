@@ -196,11 +196,6 @@ public abstract class BaseMoskitoUIAction implements Action{
 	public static final String BEAN_SORT_TYPE_SINGLE_PRODUCER_PREFIX = BEAN_SORT_TYPE_PREFIX+".single";
 	
 	/**
-	 * Prefix for producer visibility session storage.
-	 */
-	public static final String BEAN_VISIBILITY_TYPE_PREFIX = "producer.VisibilityType";
-	
-	/**
 	 * Instance of the producer registry api.
 	 */
 	private static IProducerRegistryAPI api;
