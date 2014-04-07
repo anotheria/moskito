@@ -7,21 +7,117 @@
 <section id="main">
 <div class="content">
 
-<div class="box">
-    <div class="box-title">
-        <a class="accordion-toggle tooltip-bottom" title="Close/Open" data-toggle="collapse" href="#collapse1"><i class="fa fa-caret-right"></i></a>
-        <h3 class="pull-left">
-            Chart for URL REQ 5m
-        </h3>
-        <div class="box-right-nav">
-            <a href="" class="tooltip-bottom" title="Refresh"><i class="fa fa-refresh"></i></a>
+<script type="text/javascript" src="//www.google.com/jsapi"></script>
+<!-- jqplot core + plugins -->
+<script type="text/javascript" src="../js/charts/jqplot/jquery.jqplot.js"></script>
+<script type="text/javascript" src="../js/charts/jqplot/jqplot.cursor.js"></script>
+<script type="text/javascript" src="../js/charts/jqplot/jqplot.highlighter.js"></script>
+<script type="text/javascript" src="../js/charts/jqplot/jqplot.dateAxisRenderer.js"></script>
+
+<script type="text/javascript" src="../js/charts/chartEngineIniter.js"></script>
+
+    <%-- this is used for a single accumulator --%>
+    <ano:present name="data">
+        <script type="text/javascript">
+            var data = [<ano:iterate name="data" id="value" indexId="i"><ano:notEqual name="i" value="0">,</ano:notEqual>${value}</ano:iterate>];
+        </script>
+    </ano:present>
+    <%-- this is used for a multi accumulator selection--%>
+    <ano:present name="singleGraphData">
+        <script type="text/javascript">
+            var multipleGraphData = [];
+            <ano:iterate name="singleGraphData" type="net.anotheria.moskito.webui.accumulators.api.AccumulatedSingleGraphAO" id="singleGraph">
+            multipleGraphData.push([<ano:iterate name="singleGraph" property="data" id="value" indexId="i"><ano:notEqual name="i" value="0">,</ano:notEqual>${value}</ano:iterate>])
+            //var singleGraphData<ano:write name="singleGraph" property="nameForJS"/> = [<ano:iterate name="singleGraph" property="data" id="value" indexId="i"><ano:notEqual name="i" value="0">,</ano:notEqual>${value}</ano:iterate>] ;
+            </ano:iterate>
+        </script>
+    </ano:present>
+
+<%-- single chart box with  charts --%>
+<ano:notPresent name="multiple_set">
+    <div class="box">
+        <div class="box-title">
+            <a class="accordion-toggle tooltip-bottom" title="Close/Open" data-toggle="collapse" href="#collapse-chart"><i class="fa fa-caret-right"></i></a>
+            <h3 class="pull-left">
+               Single Chart for <ano:iterate name="accNames" type="java.lang.String" id="name">${name}</ano:iterate>
+            </h3>
+            <div class="box-right-nav">
+                <a href="" class="tooltip-bottom" title="Refresh"><i class="fa fa-refresh"></i></a>
+            </div>
+        </div>
+        <div id="collapse-chart" class="box-content accordion-body collapse in">
+            <div class="paddner"><div id="chart_div"></div></div>
         </div>
     </div>
-    <div id="collapse1" class="box-content accordion-body collapse in">
-        <div class="paddner"><div id="chart_div"></div></div>
-    </div>
-</div>
+</ano:notPresent>
+<%-- /single chart box --%>
 
+<%-- Chart box for single chart --%>
+<ano:present name="data">
+    <ano:present name="multiple_set">
+        <ano:iterate name="singleGraphData" type="net.anotheria.moskito.webui.accumulators.api.AccumulatedSingleGraphAO" id="singleGraph">
+
+        <div class="box">
+        <div class="box-title">
+            <a class="accordion-toggle tooltip-bottom" title="Close/Open" data-toggle="collapse" href="#collapse-chart-${singleGraph.nameForJS}"><i class="fa fa-caret-right"></i></a>
+            <h3 class="pull-left">
+                Chart for ${singleGraph.name}
+            </h3>
+            <div class="box-right-nav">
+                <a href="" class="tooltip-bottom" title="Refresh"><i class="fa fa-refresh"></i></a>
+            </div>
+        </div>
+        <div id="collapse-chart-${singleGraph.nameForJS}" class="box-content accordion-body collapse in">
+            <div class="paddner"><div id="chart_accum${singleGraph.nameForJS}"></div></div>
+        </div>
+    </div>
+            </ano:iterate>
+        </ano:present>
+</ano:present>
+
+    <ano:present name="data">
+        <script type="text/javascript">
+            var chartEngineName = '${chartEngine}' || 'GOOGLE_CHART_API';
+
+            // Many charts
+            if ('multipleGraphData' in window){
+                var names = '${accNames}'.slice(1, -1).split(', ');
+                multipleGraphData.forEach(function(graphData, index){
+                    var chartParams = {
+                        container: ('chart_accum' + names[index]).split('-').join('_').split(' ').join('_'),
+                        names: [names[index]],
+                        data: graphData,
+                        type: 'LineChart',
+                        title: names[index]
+                    };
+
+                    chartEngineIniter[chartEngineName](chartParams);
+                });
+
+            }
+            // One chart with one or more lines
+            else{
+                var names = ('${singleGraph.name}' && ['${singleGraph.name}']) || '${accNames}'.slice(1, -1).split(', ');
+
+                var chartParams = {
+                    container: 'chart_accum${singleGraph.nameForJS}',
+                    names: names,
+                    data: data,
+                    type: 'LineChart',
+                    title: ''
+                };
+
+                chartEngineIniter[chartEngineName](chartParams);
+            }
+
+
+            $('.refresh').click(function() {
+                location.reload(true);
+            });
+
+
+        </script>
+    </ano:present>
 
 <div class="box">
     <form action="" method="get">
@@ -137,27 +233,7 @@
 <%-- OLD
 
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-	<title>MoSKito Accumulators</title>
-    <link rel="stylesheet" type="text/css" href="../css/jquery.jqplot.css">
-	<link rel="stylesheet" href="mskCSS"/>
-</head>
-<body>
-<script type="text/javascript" src="../js/wz_tooltip.js"></script>
-<script type="text/javascript" src="../js/jquery-1.8.0.min.js"></script>
-<script type="text/javascript" src="../js/function.js"></script>
-<script type="text/javascript" src="//www.google.com/jsapi"></script>
-<!-- jqplot core + plugins -->
-<script type="text/javascript" src="../js/charts/jqplot/jquery.jqplot.js"></script>
-<script type="text/javascript" src="../js/charts/jqplot/jqplot.cursor.js"></script>
-<script type="text/javascript" src="../js/charts/jqplot/jqplot.highlighter.js"></script>
-<script type="text/javascript" src="../js/charts/jqplot/jqplot.dateAxisRenderer.js"></script>
 
-<script type="text/javascript" src="../js/charts/chartEngineIniter.js"></script>
-
-<jsp:include page="../../shared/jsp/Menu.jsp" flush="false"/>
 
 <script type="text/javascript">
     $(function() {
@@ -275,80 +351,11 @@
     })
 </script>
 
-< %-- this is used for a single accumulator --% >
-<ano:present name="data">
-<script type="text/javascript">
-	var data = [<ano:iterate name="data" id="value" indexId="i"><ano:notEqual name="i" value="0">,</ano:notEqual><ano:write name="value"/></ano:iterate>]; 
-</script>
-</ano:present>
-< %-- this is used for a multi accumulator selection--% >
-<ano:present name="singleGraphData">
-<script type="text/javascript">
-    var multipleGraphData = [];
-	<ano:iterate name="singleGraphData" type="net.anotheria.moskito.webui.accumulators.api.AccumulatedSingleGraphAO" id="singleGraph">
-        multipleGraphData.push([<ano:iterate name="singleGraph" property="data" id="value" indexId="i"><ano:notEqual name="i" value="0">,</ano:notEqual><ano:write name="value"/></ano:iterate>])
-		//var singleGraphData<ano:write name="singleGraph" property="nameForJS"/> = [<ano:iterate name="singleGraph" property="data" id="value" indexId="i"><ano:notEqual name="i" value="0">,</ano:notEqual><ano:write name="value"/></ano:iterate>] ;
-	</ano:iterate>
-</script>
-</ano:present>
 
 <div class="main">
 	<div class="clear"><!-- --></div>
 	<!-- chart section -->
-	<ano:present name="data">
-	<div class="table_layout">
-		<div class="top">
-			<div><!-- --></div>
-		</div>
-		<ano:notPresent name="multiple_set">
-		<div class="in">
-			<h2><span>Chart for <ano:iterate name="accNames" type="java.lang.String" id="name"><ano:write name="name"/> </ano:iterate></span></h2><a class="refresh" href="#"></a>
 
-			<div class="clear"><!-- --></div>
-			<div class="table_itseft">
-				<div class="top">
-					<div class="left"><!-- --></div>
-					<div class="right"><!-- --></div>
-				</div>
-				<div class="in">
-					<div id="chart_accum"></div>
-					<div class="clear"><!-- --></div>
-				</div>
-				<div class="bot">
-					<div class="left"><!-- --></div>
-					<div class="right"><!-- --></div>
-				</div>
-			</div>
-		</div>
-		</ano:notPresent>
-		<ano:present name="multiple_set">
-		<ano:iterate name="singleGraphData" type="net.anotheria.moskito.webui.accumulators.api.AccumulatedSingleGraphAO" id="singleGraph">
-		<div class="in">
-			<h2><span>Chart for <ano:write name="singleGraph" property="name"/></span></h2><a class="refresh" href="#"></a>
-
-			<div class="clear"><!-- --></div>
-			<div class="table_itseft">
-				<div class="top">
-					<div class="left"><!-- --></div>
-					<div class="right"><!-- --></div>
-				</div>
-				<div class="in">
-					<div id="chart_accum<ano:write name="singleGraph" property="nameForJS"/>"></div>
-					<div class="clear"><!-- --></div>
-				</div>
-				<div class="bot">
-					<div class="left"><!-- --></div>
-					<div class="right"><!-- --></div>
-				</div>
-			</div>
-		</div>
-		</ano:iterate>
-		</ano:present>
-		<div class="bot">
-			<div><!-- --></div>
-		</div>
-	</div>
-	</ano:present>
 	<div class="clear"><!-- --></div>
 	<div class="table_layout">
 		<div class="top">
@@ -442,49 +449,7 @@
     	</div>
     </div>
     <div class="linkToCurrentPage"><ano:write name="linkToCurrentPage"/></div>
-<ano:present name="data">
-<script type="text/javascript">
-    var chartEngineName = '<ano:write name="chartEngine"/>' || 'GOOGLE_CHART_API';
 
-    // Many charts
-    if ('multipleGraphData' in window){
-        var names = '<ano:write name="accNames"/>'.slice(1, -1).split(', ');
-        multipleGraphData.forEach(function(graphData, index){
-            var chartParams = {
-                container: ('chart_accum' + names[index]).split('-').join('_').split(' ').join('_'),
-                names: [names[index]],
-                data: graphData,
-                type: 'LineChart',
-                title: names[index]
-            };
-
-            chartEngineIniter[chartEngineName](chartParams);
-        });
-
-    }
-    // One chart with one or more lines
-    else{
-        var names = ('<ano:write name="singleGraph" property="name"/>' && ['<ano:write name="singleGraph" property="name"/>']) || '<ano:write name="accNames"/>'.slice(1, -1).split(', ');
-
-        var chartParams = {
-            container: 'chart_accum<ano:write name="singleGraph" property="nameForJS"/>',
-            names: names,
-            data: data,
-            type: 'LineChart',
-            title: ''
-        };
-
-        chartEngineIniter[chartEngineName](chartParams);
-    }
-
-
-	$('.refresh').click(function() {
-		location.reload(true);
-	});
-
-
-</script>
-</ano:present>
 </div>
 </body>
 </html>  
