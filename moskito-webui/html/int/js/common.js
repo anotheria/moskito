@@ -79,8 +79,4 @@ $(function () {
     $(".select2").select2();
 
     $(".scrollbar").mCustomScrollbar();
-
-    $(".table-right, .h-scrollbar").mCustomScrollbar({
-        horizontalScroll:true
-    });
 });
