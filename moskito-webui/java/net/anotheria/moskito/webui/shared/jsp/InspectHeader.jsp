@@ -92,9 +92,9 @@
         <li class="active">
             <a href="mskThreads">Threads <i class="fa fa-bars"></i></a>
             <ul class="nav sub-menu">
-                <li><a href="#">List <i class="fa fa-list"></i></a></li>
-                <li><a href="#">Dump <i class="fa fa-upload"></i></a></li>
-                <li><a href="#">History <i class="fa fa-file-text"></i></a></li>
+                <li><a href="mskThreadsList">List <i class="fa fa-list"></i></a></li>
+                <li><a href="mskThreadsDump">Dump <i class="fa fa-upload"></i></a></li>
+                <li><a href="mskThreadsHistory">History <i class="fa fa-file-text"></i></a></li>
             </ul>
         </li>
     </ano:equal>
