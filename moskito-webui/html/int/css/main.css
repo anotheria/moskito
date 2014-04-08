@@ -76,7 +76,7 @@ body {
     height: 24px;
     background-image: url("../img/logo.png");
     background-repeat: no-repeat;
-    margin: 25px auto 2px;
+    margin: 18px auto 2px;
     -webkit-transition: all 0.22s linear;
     -moz-transition: all 0.22s linear;
     -o-transition: all 0.22s linear;
@@ -94,11 +94,20 @@ body {
 
 .version {
     position: absolute;
-    left: 8px;
-    top: 8px;
+    left: 0;
+    width: 100%;
+    top: 70px;
     color: #ffffff;
     opacity: 0.3;
-    font-size: 12px;
+    font-size: 11px;
+    -webkit-transition: all 0.12s linear;
+    -moz-transition: all 0.12s linear;
+    -o-transition: all 0.12s linear;
+    transition: all 0.12s linear;
+}
+
+.aside-collapse .version {
+    opacity: 0;
 }
 
 ul.nav-sidebar > li {
@@ -154,6 +163,46 @@ body.status-orange ul.nav-sidebar > li > a {
 
 body.status-orange ul.nav-sidebar > li.active > a {
     background: #FFA734;
+}
+
+body.status-purple ul.nav-sidebar > li > a {
+    border-left: 4px solid #b44bc4;
+}
+
+body.status-purple ul.nav-sidebar > li.active > a {
+    background: #b44bc4;
+}
+
+body.status-yellow ul.nav-sidebar > li > a {
+    border-left: 4px solid #e4be3c;
+}
+
+body.status-yellow ul.nav-sidebar > li.active > a {
+    background: #e4be3c;
+}
+
+.status.status-green {
+    background: #91c322;
+}
+
+.status.status-orange {
+    background: #ffa734;
+}
+
+.status.status-red {
+    background: #d24646;
+}
+
+.status.status-grey {
+    background: #a3a3a3;
+}
+
+.status.status-purple {
+    background: #b44bc4;
+}
+
+.status.status-yellow {
+    background: #e9cc06;
 }
 
 .caret-aside {
@@ -264,8 +313,10 @@ body.status-orange ul.nav-sidebar > li.active > a {
 
 .table > thead > tr > th, .table > tbody > tr > th, .table > tfoot > tr > th, .table > thead > tr > td, .table > tbody > tr > td, .table > tfoot > tr > td {
     border-top: none;
-    padding: 9px 20px;
+    padding: 7px 20px;
     white-space: nowrap;
+    font-size: 12px;
+    font-family: Arial, sans-serif;
 }
 
 .table.tablesorter > thead > tr > th {
@@ -421,6 +472,7 @@ body.status-orange ul.nav-sidebar > li.active > a {
     float: left;
     overflow-y: hidden;
     overflow-x: auto;
+    margin-right: -1px;
 }
 
 i.chart-icon {
@@ -615,22 +667,6 @@ i.chart-icon {
     margin-top: 3px;
 }
 
-.status.status-green {
-    background: #91c322;
-}
-
-.status.status-orange {
-    background: #ffa734;
-}
-
-.status.status-red {
-    background: #d24646;
-}
-
-.status.status-grey {
-    background: #a3a3a3;
-}
-
 .fa-long-arrow-right {
     font-size: 14px;
     color: #bebebe;
@@ -640,9 +676,9 @@ i.chart-icon {
 a.action-icon {
     float: right;
     display: inline-block;
-    margin: -9px 0;
-    padding: 9px 10px 8px;
-    min-width: 40px;
+    margin: -7px 0;
+    padding: 5px 6px;
+    min-width: 31px;
     text-align: center;
     margin-right: -20px;
     margin-left: 20px;
@@ -652,7 +688,7 @@ a.action-icon {
     transition: all 0.12s linear;
     font-size: 16px;
     color: #FFF;
-    height: 38px;
+    height: 31px;
     position: relative;
     overflow: hidden;
 }
@@ -685,7 +721,11 @@ tr:hover a.action-icon.show-icon {
 }
 
 thead tr th:last-child {
-    width: 100%;
+    width: 90%;
+}
+
+.th-actions {
+    min-width: 160px;
 }
 
 .box.inspect-list {
@@ -726,4 +766,19 @@ thead tr th:last-child {
 
 .box-footer .form-inline .radio input {
     margin-right: 2px;
+}
+
+.jour-left {
+    float: left;
+    border-right: 1px solid #e5e5e5;
+    padding-right: 30px;
+}
+
+.jour-right {
+    margin-left: 390px;
+}
+
+.jour-left .form-control {
+    min-width: 255px;
+    margin-right: 5px;
 }
