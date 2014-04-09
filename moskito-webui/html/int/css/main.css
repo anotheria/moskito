@@ -306,9 +306,9 @@ body.status-yellow ul.nav-sidebar > li.active > a {
 .box-title h3 {
     margin: 14px 20px;
     line-height: 21px;
-    font-size: 18px;
+    font-size: 16px;
     float: left;
-    font-weight: 300;
+    font-weight: 400;
 }
 
 .table > thead > tr > th, .table > tbody > tr > th, .table > tfoot > tr > th, .table > thead > tr > td, .table > tbody > tr > td, .table > tfoot > tr > td {
@@ -499,9 +499,45 @@ i.chart-icon {
 }
 
 .sub-menu {
-    padding: 15px 10px;
+    padding: 0;
     background: rgba(0,0,0,0.2);
     margin-bottom: -1px;
+}
+
+.sub-menu li a {
+    background: none;
+    color: #FFF;
+    padding: 8px 15px 8px 50px;
+    opacity: 0.4;
+    background-image: url('../img/line.png');
+    background-repeat: no-repeat;
+    background-position: 5px center;
+    -webkit-transition: all 0.12s linear;
+    -moz-transition: all 0.12s linear;
+    -o-transition: all 0.12s linear;
+    transition: all 0.12s linear;
+}
+
+.sub-menu li a:focus,
+.sub-menu li a:active,
+.sub-menu li a:hover {
+    background: none;
+    opacity: 0.7;
+    background-image: url('../img/line.png');
+    background-repeat: no-repeat;
+    background-position: 25px center;
+}
+
+.sub-menu li.active a:hover,
+.sub-menu li.active a {
+    opacity: 1;
+    background-position: 25px center;
+}
+
+.sub-menu li a i {
+    position: absolute;
+    right: 20px;
+    top: 12px;
 }
 
 .form-box {

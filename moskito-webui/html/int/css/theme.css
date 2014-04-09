@@ -49,6 +49,8 @@ dl {
 .btn {
     font-family: "Lato", Exo sans-serif;
     font-size: 13px;
+    padding: 7px 12px;
+    min-width: 70px;
 }
 
 .btn-default {
@@ -135,4 +137,10 @@ fieldset[disabled] .btn-success.active {
 
 .text-green {
     color: #91c322;
+}
+
+#main .form-control {
+    background: #f5f5f5;
+    border: 1px solid #dddddd;
+    box-shadow: none;
 }

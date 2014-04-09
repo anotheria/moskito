@@ -127,3 +127,34 @@
         opacity: 1;
     }
 }
+
+.content {
+    position: relative;
+    -moz-animation: content 1s alternate;
+    -webkit-animation: content 1s alternate;
+    -ms-animation: content 1s alternate;
+}
+
+@keyframes content {
+    0% {
+        top: -20px;
+        opacity: 0;
+    }
+
+    100% {
+        top: 0;
+        opacity: 1;
+    }
+}
+
+@-webkit-keyframes content {
+    0% {
+        top: -20px;
+        opacity: 0;
+    }
+
+    100% {
+        top: 0;
+        opacity: 1;
+    }
+}
