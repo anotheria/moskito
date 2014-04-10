@@ -100,11 +100,6 @@
         opacity: 0;
     }
 
-    50% {
-        top: 5px;
-        opacity: 1;
-    }
-
     100% {
         top: 0;
         opacity: 1;
@@ -115,11 +110,6 @@
     0% {
         top: -100px;
         opacity: 0;
-    }
-
-    50% {
-        top: 5px;
-        opacity: 1;
     }
 
     100% {

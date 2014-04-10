@@ -99,8 +99,8 @@ fieldset[disabled] .btn-primary.active {
 
 .btn-success {
     color: #fff;
-    background-color: #9ac834;
-    border-color: #9ac834;
+    background-color: #53d769;
+    border-color: #53d769;
 }
 .btn-success:hover,
 .btn-success:focus,
@@ -108,8 +108,8 @@ fieldset[disabled] .btn-primary.active {
 .btn-success.active,
 .open .dropdown-toggle.btn-success {
     color: #fff;
-    background-color: #8cba27;
-    border-color: #8cba27;
+    background-color: #64BD63;
+    border-color: #64BD63;
 }
 .btn-success:active,
 .btn-success.active,
@@ -131,12 +131,12 @@ fieldset[disabled] .btn-success:active,
 .btn-success.disabled.active,
 .btn-success[disabled].active,
 fieldset[disabled] .btn-success.active {
-    background-color: #8cba27;
-    border-color: #8cba27;
+    background-color: #64BD63;
+    border-color: #64BD63;
 }
 
 .text-green {
-    color: #91c322;
+    color: #64BD63;
 }
 
 #main .form-control {

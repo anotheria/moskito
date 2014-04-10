@@ -126,8 +126,8 @@
                     <a href="threads.html">Threads <i class="fa fa-bars"></i></a>
                     <ul class="nav sub-menu">
                         <li class="active"><a href="threads_list.html">List <i class="fa fa-list"></i></a></li>
-                        <li><a href="#">Dump <i class="fa fa-upload"></i></a></li>
-                        <li><a href="#">History <i class="fa fa-file-text"></i></a></li>
+                        <li><a href="threads_dump.html">Dump <i class="fa fa-upload"></i></a></li>
+                        <li><a href="threads_history.html">History <i class="fa fa-file-text"></i></a></li>
                     </ul>
                 </li>
             </ul>
@@ -141,7 +141,7 @@
                     <div class="box-title">
                         <a class="accordion-toggle tooltip-bottom" title="Close/Open" data-toggle="collapse" href="#collapse1"><i class="fa fa-caret-right"></i></a>
                         <h3 class="pull-left">
-                            Threads capabilities
+                            Threads (32)
                         </h3>
                         <div class="box-right-nav">
                             <a href="" class="tooltip-bottom" title="Help"><i class="fa fa-info-circle"></i></a>
@@ -150,77 +150,133 @@
                     <div id="collapse1" class="box-content accordion-body collapse in">
                         <table class="table table-striped tablesorter">
                             <thead>
-                                <tr>
-                                    <th>Stat <i class="fa fa-caret-down"></i></th>
-                                    <th>Req <i class="fa fa-caret-down"></i></th>
-                                    <th>Explanation <i class="fa fa-caret-down"></i></th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>Thread count</td>
-                                    <td>23</td>
-                                    <td>The current number of live threads including both daemon and non-daemon threads.</td>
-                                </tr>
-                                <tr>
-                                    <td>Daemon count</td>
-                                    <td>22</td>
-                                    <td>The current number of live daemon threads.</td>
-                                </tr>
-                                <tr>
-                                    <td>Peak</td>
-                                    <td>20</td>
-                                    <td>The peak live thread count since the Java virtual machine started or peak was reset.</td>
-                                </tr>
-                                <tr>
-                                    <td>Total started</td>
-                                    <td>15</td>
-                                    <td>The total number of threads created and also started since the Java virtual machine started.</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-
-                <div class="box">
-                    <div class="box-title">
-                        <a class="accordion-toggle tooltip-bottom" title="Close/Open" data-toggle="collapse" href="#collapse2"><i class="fa fa-caret-right"></i></a>
-                        <h3 class="pull-left">
-                            Threads stats
-                        </h3>
-                        <div class="box-right-nav">
-                            <a href="" class="tooltip-bottom" title="Help"><i class="fa fa-info-circle"></i></a>
-                        </div>
-                    </div>
-                    <div id="collapse2" class="box-content accordion-body collapse in">
-                        <table class="table table-striped tablesorter">
-                            <thead>
                             <tr>
-                                <th>Stat <i class="fa fa-caret-down"></i></th>
-                                <th>Req <i class="fa fa-caret-down"></i></th>
-                                <th>Explanation <i class="fa fa-caret-down"></i></th>
+                                <th>ID <i class="fa fa-caret-down"></i></th>
+                                <th>Name <i class="fa fa-caret-down"></i></th>
+                                <th>State <i class="fa fa-caret-down"></i></th>
+                                <th>inNative <i class="fa fa-caret-down"></i></th>
+                                <th>suspened <i class="fa fa-caret-down"></i></th>
+                                <th>Lock name <i class="fa fa-caret-down"></i></th>
+                                <th>Lock owner id <i class="fa fa-caret-down"></i></th>
+                                <th>Lock owner name <i class="fa fa-caret-down"></i></th>
+                                <th>Blocked count <i class="fa fa-caret-down"></i></th>
+                                <th>Blocked time <i class="fa fa-caret-down"></i></th>
+                                <th>Waited count <i class="fa fa-caret-down"></i></th>
+                                <th>Waited time <i class="fa fa-caret-down"></i></th>
                             </tr>
                             </thead>
                             <tbody>
                             <tr>
-                                <td>Thread count</td>
-                                <td>23</td>
-                                <td>The current number of live threads including both daemon and non-daemon threads.</td>
+                                <td>72</td>
+                                <td>http-bio-8080-exec-14</td>
+                                <td>WAITING</td>
+                                <td></td>
+                                <td></td>
+                                <td>java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject@20ad44be</td>
+                                <td>-1</td>
+                                <td></td>
+                                <td>0</td>
+                                <td>-1</td>
+                                <td>5</td>
+                                <td>-1</td>
                             </tr>
                             <tr>
-                                <td>Daemon count</td>
-                                <td>22</td>
-                                <td>The current number of live daemon threads.</td>
+                                <td>72</td>
+                                <td>http-bio-8080-exec-14</td>
+                                <td>WAITING</td>
+                                <td></td>
+                                <td></td>
+                                <td>java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject@20ad44be</td>
+                                <td>-1</td>
+                                <td></td>
+                                <td>0</td>
+                                <td>-1</td>
+                                <td>5</td>
+                                <td>-1</td>
                             </tr>
                             <tr>
-                                <td>Peak</td>
-                                <td>20</td>
-                                <td>The peak live thread count since the Java virtual machine started or peak was reset.</td>
+                                <td>72</td>
+                                <td>http-bio-8080-exec-14</td>
+                                <td>WAITING</td>
+                                <td></td>
+                                <td></td>
+                                <td>java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject@20ad44be</td>
+                                <td>-1</td>
+                                <td></td>
+                                <td>0</td>
+                                <td>-1</td>
+                                <td>5</td>
+                                <td>-1</td>
                             </tr>
                             <tr>
-                                <td>Total started</td>
-                                <td>15</td>
-                                <td>The total number of threads created and also started since the Java virtual machine started.</td>
+                                <td>72</td>
+                                <td>http-bio-8080-exec-14</td>
+                                <td>WAITING</td>
+                                <td></td>
+                                <td></td>
+                                <td>java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject@20ad44be</td>
+                                <td>-1</td>
+                                <td></td>
+                                <td>0</td>
+                                <td>-1</td>
+                                <td>5</td>
+                                <td>-1</td>
+                            </tr>
+                            <tr>
+                                <td>72</td>
+                                <td>http-bio-8080-exec-14</td>
+                                <td>WAITING</td>
+                                <td></td>
+                                <td></td>
+                                <td>java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject@20ad44be</td>
+                                <td>-1</td>
+                                <td></td>
+                                <td>0</td>
+                                <td>-1</td>
+                                <td>5</td>
+                                <td>-1</td>
+                            </tr>
+                            <tr>
+                                <td>72</td>
+                                <td>http-bio-8080-exec-14</td>
+                                <td>WAITING</td>
+                                <td></td>
+                                <td></td>
+                                <td>java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject@20ad44be</td>
+                                <td>-1</td>
+                                <td></td>
+                                <td>0</td>
+                                <td>-1</td>
+                                <td>5</td>
+                                <td>-1</td>
+                            </tr>
+                            <tr>
+                                <td>72</td>
+                                <td>http-bio-8080-exec-14</td>
+                                <td>WAITING</td>
+                                <td></td>
+                                <td></td>
+                                <td>java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject@20ad44be</td>
+                                <td>-1</td>
+                                <td></td>
+                                <td>0</td>
+                                <td>-1</td>
+                                <td>5</td>
+                                <td>-1</td>
+                            </tr>
+                            <tr>
+                                <td>72</td>
+                                <td>http-bio-8080-exec-14</td>
+                                <td>WAITING</td>
+                                <td></td>
+                                <td></td>
+                                <td>java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject@20ad44be</td>
+                                <td>-1</td>
+                                <td></td>
+                                <td>0</td>
+                                <td>-1</td>
+                                <td>5</td>
+                                <td>-1</td>
                             </tr>
                             </tbody>
                         </table>
