@@ -117,7 +117,7 @@ ul.nav-sidebar > li {
 
 ul.nav-sidebar > li > a:focus,
 ul.nav-sidebar > li > a {
-    background: #434651;
+    background: #4e515b;
     color: #FFF;
     opacity: 0.6;
     padding: 15px 15px;
@@ -142,7 +142,7 @@ ul.nav-sidebar > li.active > a {
     opacity: 1;
 }
 
-body.status-red ul.nav-sidebar > li > a:hover {
+body.status-red ul.nav-sidebar > li > a {
     border-left: 4px solid #d24646;
 }
 
@@ -151,7 +151,7 @@ body.status-red ul.nav-sidebar > li.active > a {
     border-left: 4px solid #d24646;
 }
 
-body.status-green ul.nav-sidebar > li > a:hover {
+body.status-green ul.nav-sidebar > li > a {
     border-left: 4px solid #64BD63;
 }
 
@@ -160,7 +160,7 @@ body.status-green ul.nav-sidebar > li.active > a {
     border-left: 4px solid #64BD63;
 }
 
-body.status-orange ul.nav-sidebar > li > a:hover {
+body.status-orange ul.nav-sidebar > li > a {
     border-left: 4px solid #FFA734;
 }
 
@@ -169,7 +169,7 @@ body.status-orange ul.nav-sidebar > li.active > a {
     border-left: 4px solid #FFA734;
 }
 
-body.status-purple ul.nav-sidebar > li > a:hover {
+body.status-purple ul.nav-sidebar > li > a {
     border-left: 4px solid #b44bc4;
 }
 
@@ -178,7 +178,7 @@ body.status-purple ul.nav-sidebar > li.active > a {
     border-left: 4px solid #b44bc4;
 }
 
-body.status-yellow ul.nav-sidebar > li > a:hover {
+body.status-yellow ul.nav-sidebar > li > a {
     border-left: 4px solid #e4be3c;
 }
 
