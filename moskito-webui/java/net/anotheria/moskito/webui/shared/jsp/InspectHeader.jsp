@@ -68,7 +68,7 @@
         </form>
 
         <ul class="nav navbar-nav pull-right">
-            <li><a href="">Autoreload OF</a></li>
+            <li><a href="">Autoreload OFF</a></li>
             <li><a href="">Export</a></li>
             <li><a href="">Help</a></li>
         </ul>
@@ -92,9 +92,9 @@
         <li class="active">
             <a href="mskThreads">Threads <i class="fa fa-bars"></i></a>
             <ul class="nav sub-menu">
-                <li><a href="mskThreadsList">List <i class="fa fa-list"></i></a></li>
-                <li><a href="mskThreadsDump">Dump <i class="fa fa-upload"></i></a></li>
-                <li><a href="mskThreadsHistory">History <i class="fa fa-file-text"></i></a></li>
+                <li ${currentSubNaviItem.isSelected("list") ? "class=\"active\"" : ""}><a href="mskThreadsList">List <i class="fa fa-list"></i></a></li>
+                <li ${currentSubNaviItem.isSelected("dump") ? "class=\"active\"" : ""}><a href="mskThreadsDump">Dump <i class="fa fa-upload"></i></a></li>
+                <li ${currentSubNaviItem.isSelected("history") ? "class=\"active\"" : ""}><a href="mskThreadsHistory">History <i class="fa fa-file-text"></i></a></li>
             </ul>
         </li>
     </ano:equal>

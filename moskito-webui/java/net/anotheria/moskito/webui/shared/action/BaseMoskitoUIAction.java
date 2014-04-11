@@ -461,6 +461,15 @@ public abstract class BaseMoskitoUIAction implements Action{
 	protected abstract NaviItem getCurrentNaviItem();
 
 	/**
+	 * Returns the highlighted sub navigation item, if subnavigation is active.
+	 * This method returns a string instead of naviitem, because we actually don't need
+	 * @return
+	 */
+	protected NaviItem getCurrentSubNaviItem(){
+		return NaviItem.NONE;
+	}
+
+	/**
 	 * Rebuilds query string from source.
 	 * @param source original source.
 	 * @param params parameters that should be included in the query string.
@@ -491,5 +500,6 @@ public abstract class BaseMoskitoUIAction implements Action{
 	protected ProducerAPI getProducerAPI(){
 		return APILookupUtility.getProducerAPI();
 	}
+
 
 }
