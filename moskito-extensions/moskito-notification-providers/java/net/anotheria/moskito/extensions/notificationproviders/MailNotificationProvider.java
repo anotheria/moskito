@@ -1,4 +1,4 @@
-package net.anotheria.moskito.core.threshold.alerts.notificationprovider;
+package net.anotheria.moskito.extensions.notificationproviders;
 
 import net.anotheria.communication.data.SimpleMailMessage;
 import net.anotheria.communication.service.MessagingService;
