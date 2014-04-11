@@ -337,6 +337,7 @@ public abstract class BaseMoskitoUIAction implements Action{
 		req.setAttribute("linkToCurrentPageAsJson", maskAsJSON(getLinkToCurrentPage(req)));
 		
 		req.setAttribute("currentNaviItem", getCurrentNaviItem());
+		req.setAttribute("currentSubNaviItem", getCurrentSubNaviItem());
 		
 		//prepare interval timestamp and age.
 		//TODO this should go over the AdditionalFunctionalityAPI
