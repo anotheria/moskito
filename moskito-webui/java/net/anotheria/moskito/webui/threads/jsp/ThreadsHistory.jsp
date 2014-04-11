@@ -13,8 +13,8 @@
                 <dl class="dl-horizontal">
                     <dt>Thread History is <ano:equal name="active" value="true"><b>ON</b> (<a href="mskThreadsHistoryOff?">OFF</a>)</ano:equal><ano:equal name="active" value="false"><b>OFF</b> (<a href="mskThreadsHistoryOn?">ON</a>)</ano:equal><b>ON</b></dt>
                     <dd><input type="checkbox" class="js-switch" checked /></dd>
-                    <dt>Thread History size is ${listsize}</dt>
-                    <dd>1000</dd>
+                    <dt>Thread History size is</dt>
+                    <dd>${listsize}</dd>
                 </dl>
             </div>
         </div>

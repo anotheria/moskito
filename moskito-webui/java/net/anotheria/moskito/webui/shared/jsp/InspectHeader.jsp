@@ -12,6 +12,7 @@
     <link type="text/css" rel="stylesheet" href="../ext/font-awesome-4.0.3/css/font-awesome.css">
     <link type="text/css" rel="stylesheet" rev="stylesheet" href="../ext/select2-3.4.6/select2.css" />
     <link type="text/css" rel="stylesheet" rev="stylesheet" href="../int/css/common.css" />
+    <link type="text/css" rel="stylesheet" rev="stylesheet" href="../ext/switchery/switchery.min.css" />
 
     <!--[if lt IE 9]><script src="../int/js/ie8-responsive-file-warning.js"></script><![endif]-->
     <!--[if lt IE 8]><link type="text/css" rel="stylesheet" rev="stylesheet" href="../static-int/css/bootstrap-ie7.css" /><![endif]-->
@@ -30,6 +31,7 @@
 <script src="../ext/custom-scrollbar/jquery.mCustomScrollbar.js"></script>
 <script src="../ext/select2-3.4.6/select2.js" type="text/javascript"></script>
 <script src="../int/js/common.js" type="text/javascript"></script>
+<script src="../ext/switchery/switchery.min.js" type="text/javascript"></script>
 <!-- currently for handle select only -->
 <script type="text/javascript" src="../js/function.js"></script>
 
@@ -92,9 +94,9 @@
         <li class="active">
             <a href="mskThreads">Threads <i class="fa fa-bars"></i></a>
             <ul class="nav sub-menu">
-                <li ${currentSubNaviItem.isSelected("list") ? "class=\"active\"" : ""}><a href="mskThreadsList">List <i class="fa fa-list"></i></a></li>
-                <li ${currentSubNaviItem.isSelected("dump") ? "class=\"active\"" : ""}><a href="mskThreadsDump">Dump <i class="fa fa-upload"></i></a></li>
-                <li ${currentSubNaviItem.isSelected("history") ? "class=\"active\"" : ""}><a href="mskThreadsHistory">History <i class="fa fa-file-text"></i></a></li>
+                <li ${currentSubNaviItem.isSelected("threads_list") ? "class=\"active\"" : ""}><a href="mskThreadsList">List <i class="fa fa-list"></i></a></li>
+                <li ${currentSubNaviItem.isSelected("threads_dump") ? "class=\"active\"" : ""}><a href="mskThreadsDump">Dump <i class="fa fa-upload"></i></a></li>
+                <li ${currentSubNaviItem.isSelected("threads_history") ? "class=\"active\"" : ""}><a href="mskThreadsHistory">History <i class="fa fa-file-text"></i></a></li>
             </ul>
         </li>
     </ano:equal>
