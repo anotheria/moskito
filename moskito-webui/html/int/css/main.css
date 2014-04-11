@@ -57,6 +57,7 @@ body {
     -moz-transition: all 0.12s linear;
     -o-transition: all 0.12s linear;
     transition: all 0.12s linear;
+    box-shadow: -4px 0 0 rgba(0, 0, 0, 0.2) inset;
 }
 
 .header-box {
@@ -116,11 +117,11 @@ ul.nav-sidebar > li {
 
 ul.nav-sidebar > li > a:focus,
 ul.nav-sidebar > li > a {
-    background: #4d515c;
+    background: #4e515b;
     color: #FFF;
     opacity: 0.6;
     padding: 15px 15px;
-    border-left: 4px solid #738DE7;
+    border-left: 4px solid #434651;
     position: relative;
 }
 
@@ -147,14 +148,16 @@ body.status-red ul.nav-sidebar > li > a {
 
 body.status-red ul.nav-sidebar > li.active > a {
     background: #d24646;
+    border-left: 4px solid #d24646;
 }
 
 body.status-green ul.nav-sidebar > li > a {
-    border-left: 4px solid #99c732;
+    border-left: 4px solid #64BD63;
 }
 
 body.status-green ul.nav-sidebar > li.active > a {
-    background: #99c732;
+    background: #64BD63;
+    border-left: 4px solid #64BD63;
 }
 
 body.status-orange ul.nav-sidebar > li > a {
@@ -163,6 +166,7 @@ body.status-orange ul.nav-sidebar > li > a {
 
 body.status-orange ul.nav-sidebar > li.active > a {
     background: #FFA734;
+    border-left: 4px solid #FFA734;
 }
 
 body.status-purple ul.nav-sidebar > li > a {
@@ -171,6 +175,7 @@ body.status-purple ul.nav-sidebar > li > a {
 
 body.status-purple ul.nav-sidebar > li.active > a {
     background: #b44bc4;
+    border-left: 4px solid #b44bc4;
 }
 
 body.status-yellow ul.nav-sidebar > li > a {
@@ -179,18 +184,19 @@ body.status-yellow ul.nav-sidebar > li > a {
 
 body.status-yellow ul.nav-sidebar > li.active > a {
     background: #e4be3c;
+    border-left: 4px solid #e4be3c;
 }
 
 .status.status-green {
-    background: #91c322;
+    background: #53d769;
 }
 
 .status.status-orange {
-    background: #ffa734;
+    background: #ff8023;
 }
 
 .status.status-red {
-    background: #d24646;
+    background: #fc3e39;
 }
 
 .status.status-grey {
@@ -202,7 +208,7 @@ body.status-yellow ul.nav-sidebar > li.active > a {
 }
 
 .status.status-yellow {
-    background: #e9cc06;
+    background: #ffde00;
 }
 
 .caret-aside {
@@ -313,7 +319,7 @@ body.status-yellow ul.nav-sidebar > li.active > a {
 
 .table > thead > tr > th, .table > tbody > tr > th, .table > tfoot > tr > th, .table > thead > tr > td, .table > tbody > tr > td, .table > tfoot > tr > td {
     border-top: none;
-    padding: 7px 20px;
+    padding: 8px 20px;
     white-space: nowrap;
     font-size: 12px;
     font-family: Arial, sans-serif;
@@ -361,6 +367,11 @@ body.status-yellow ul.nav-sidebar > li.active > a {
     transform: rotate(180deg);
     position: relative;
     bottom: -2px;
+}
+
+.table input[type="radio"],
+.table input[type="checkbox"] {
+    margin: 0;
 }
 
 .box .table {
@@ -569,7 +580,7 @@ i.chart-icon {
 }
 
 #aside .select2-container .select2-choice {
-    background: #434651;
+    background: #3c3f49;
     color: #afb0b2;
 }
 
@@ -622,10 +633,11 @@ i.chart-icon {
 }
 
 #aside .form-control {
-    background: #434651;
+    background: #3c3f49;
     border: none;
     box-shadow: none;
     color: #AFB0B2;
+    border-radius: 5px;
 }
 
 #aside .form-control:hover,
@@ -700,7 +712,7 @@ i.chart-icon {
     height: 12px;
     background: #a3a3a3;
     border-radius: 12px;
-    margin-top: 3px;
+    margin-bottom: -2px;
 }
 
 .fa-long-arrow-right {
@@ -712,9 +724,9 @@ i.chart-icon {
 a.action-icon {
     float: right;
     display: inline-block;
-    margin: -7px 0;
+    margin: -8px 0;
     padding: 5px 6px;
-    min-width: 31px;
+    min-width: 33px;
     text-align: center;
     margin-right: -20px;
     margin-left: 20px;
@@ -724,7 +736,7 @@ a.action-icon {
     transition: all 0.12s linear;
     font-size: 16px;
     color: #FFF;
-    height: 31px;
+    height: 33px;
     position: relative;
     overflow: hidden;
 }
@@ -817,4 +829,30 @@ thead tr th:last-child {
 .jour-left .form-control {
     min-width: 255px;
     margin-right: 5px;
+}
+
+.dump-list ul {
+    margin: 0;
+}
+
+.dump-list ul li {
+    padding: 4px 0;
+    word-wrap: break-word;
+}
+
+.switchery {
+    border: none;
+    background-color: #E5E5E5;
+    height: 26px;
+    width: 45px;
+}
+
+.switchery > small {
+    width: 26px;
+    height: 26px;
+}
+
+dd .switchery {
+    margin-bottom: 2px;
+    margin-top: -4px;
 }
