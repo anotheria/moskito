@@ -6,6 +6,13 @@
 
 <jsp:include page="../../shared/jsp/InspectHeader.jsp" flush="false"/>
 <section id="main">
+    <ano:equal name="active" value="false">
+    <div class="alert alert-warning alert-dismissable">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+        History is off, slide the button to switch it on.
+    </div>
+    </ano:equal>
+
     <div class="content">
 
         <div class="box">
@@ -30,7 +37,7 @@
             };
         </script>
 
-
+        <ano:equal name="active" value="true">
         <div class="box">
             <div class="box-title">
                 <a class="accordion-toggle tooltip-bottom" title="Close/Open" data-toggle="collapse" href="#collapse2"><i class="fa fa-caret-right"></i></a>
@@ -64,6 +71,7 @@
                 </table>
             </div>
         </div>
+        </ano:equal>
 
     </div>
 <jsp:include page="../../shared/jsp/InspectFooter.jsp" flush="false"/>
