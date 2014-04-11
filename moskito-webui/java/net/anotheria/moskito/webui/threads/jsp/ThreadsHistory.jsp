@@ -11,13 +11,24 @@
         <div class="box">
             <div class="box-content paddner">
                 <dl class="dl-horizontal">
-                    <dt>Thread History is <ano:equal name="active" value="true"><b>ON</b> (<a href="mskThreadsHistoryOff?">OFF</a>)</ano:equal><ano:equal name="active" value="false"><b>OFF</b> (<a href="mskThreadsHistoryOn?">ON</a>)</ano:equal><b>ON</b></dt>
-                    <dd><input type="checkbox" class="js-switch" checked /></dd>
+                    <dt>Thread History</dt>
+                    <dd><input type="checkbox" class="js-switch" <ano:equal name="active" value="true">checked</ano:equal> /></dd>
                     <dt>Thread History size is</dt>
                     <dd>${listsize}</dd>
                 </dl>
             </div>
         </div>
+
+        <script>
+            var changeCheckbox = document.querySelector('.js-switch');
+
+            changeCheckbox.onchange = function() {
+                if (changeCheckbox.checked)
+                    window.location.href =  "mskThreadsHistoryOn";
+                else
+                    window.location.href =  "mskThreadsHistoryOff";
+            };
+        </script>
 
 
         <div class="box">
