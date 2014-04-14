@@ -179,4 +179,9 @@ public class AdditionalFunctionalityAPIImpl extends AbstractMoskitoAPIImpl imple
 		String prettyJsonString = gson.toJson(je);
 		return prettyJsonString;
 	}
+
+	@Override
+	public Long getIntervalUpdateTimestamp(String intervalName) throws APIException {
+		return IntervalRegistry.getInstance().getUpdateTimestamp(intervalName);
+	}
 }

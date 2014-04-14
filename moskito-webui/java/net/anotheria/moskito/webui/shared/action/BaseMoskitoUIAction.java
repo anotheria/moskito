@@ -36,19 +36,19 @@ package net.anotheria.moskito.webui.shared.action;
 
 import net.anotheria.maf.action.Action;
 import net.anotheria.maf.action.ActionMapping;
-import net.anotheria.moskito.core.registry.IProducerRegistryAPI;
-import net.anotheria.moskito.core.registry.ProducerRegistryAPIFactory;
 import net.anotheria.moskito.core.stats.TimeUnit;
-import net.anotheria.moskito.core.stats.impl.IntervalRegistry;
-import net.anotheria.moskito.core.threshold.ThresholdRepository;
 import net.anotheria.moskito.core.threshold.ThresholdStatus;
 import net.anotheria.moskito.webui.CurrentSelection;
+import net.anotheria.moskito.webui.accumulators.api.AccumulatorAPI;
 import net.anotheria.moskito.webui.decorators.DecoratorRegistryFactory;
 import net.anotheria.moskito.webui.decorators.IDecoratorRegistry;
+import net.anotheria.moskito.webui.journey.api.JourneyAPI;
 import net.anotheria.moskito.webui.producers.api.ProducerAPI;
+import net.anotheria.moskito.webui.shared.api.AdditionalFunctionalityAPI;
 import net.anotheria.moskito.webui.shared.bean.LabelValueBean;
 import net.anotheria.moskito.webui.shared.bean.NaviItem;
 import net.anotheria.moskito.webui.shared.bean.UnitBean;
+import net.anotheria.moskito.webui.threshold.api.ThresholdAPI;
 import net.anotheria.moskito.webui.util.APILookupUtility;
 import net.anotheria.moskito.webui.util.ChartEngine;
 import net.anotheria.moskito.webui.util.RemoteInstance;
@@ -196,10 +196,6 @@ public abstract class BaseMoskitoUIAction implements Action{
 	public static final String BEAN_SORT_TYPE_SINGLE_PRODUCER_PREFIX = BEAN_SORT_TYPE_PREFIX+".single";
 	
 	/**
-	 * Instance of the producer registry api.
-	 */
-	private static IProducerRegistryAPI api;
-	/**
 	 * Instance of the decorator registry.
 	 */
 	private static IDecoratorRegistry decoratorRegistry;
@@ -212,7 +208,6 @@ public abstract class BaseMoskitoUIAction implements Action{
 	private String myProducerId;
 
 	static{
-		api = new ProducerRegistryAPIFactory().createProducerRegistryAPI();
 		decoratorRegistry = DecoratorRegistryFactory.getDecoratorRegistry();
 	}
 
@@ -340,8 +335,7 @@ public abstract class BaseMoskitoUIAction implements Action{
 		req.setAttribute("currentSubNaviItem", getCurrentSubNaviItem());
 		
 		//prepare interval timestamp and age.
-		//TODO this should go over the AdditionalFunctionalityAPI
-		Long currentIntervalUpdateTimestamp = IntervalRegistry.getInstance().getUpdateTimestamp(currentIntervalName);
+		Long currentIntervalUpdateTimestamp = getAdditionalFunctionalityAPI().getIntervalUpdateTimestamp(currentIntervalName);
 		if (currentIntervalUpdateTimestamp==null){
 			req.setAttribute("currentIntervalUpdateTimestamp", "Never");
 			req.setAttribute("currentIntervalUpdateAge", "n.A.");
@@ -353,8 +347,7 @@ public abstract class BaseMoskitoUIAction implements Action{
 		req.setAttribute("currentCategory", "");
 		req.setAttribute("currentSubsystem", "");
 
-		//TODO this should go over threshold API.
-		ThresholdStatus systemStatus = ThresholdRepository.getInstance().getWorstStatus();
+		ThresholdStatus systemStatus = getThresholdAPI().getWorstStatus();
 		req.setAttribute("systemStatus", systemStatus);
 		req.setAttribute("systemStatusColor", systemStatus.toString().toLowerCase());
 		
@@ -502,5 +495,19 @@ public abstract class BaseMoskitoUIAction implements Action{
 		return APILookupUtility.getProducerAPI();
 	}
 
+	protected ThresholdAPI getThresholdAPI(){
+		return APILookupUtility.getThresholdAPI();
+	}
 
+	protected JourneyAPI getJourneyAPI(){
+		return APILookupUtility.getJourneyAPI();
+	}
+
+	protected AccumulatorAPI getAccumulatorAPI(){
+		return APILookupUtility.getAccumulatorAPI();
+	}
+
+	protected AdditionalFunctionalityAPI getAdditionalFunctionalityAPI(){
+		return APILookupUtility.getAdditionalFunctionalityAPI();
+	}
 }

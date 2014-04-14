@@ -10,8 +10,12 @@
 	<artifactId>moskito-webui</artifactId>
 	<version>2.5.0-SNAPSHOT</version>
 	<name>moskito embedded web user interface</name>
+    <properties>
+        <distributeme.version>2.1.2</distributeme.version>
+    </properties>
 
-	<build>
+    <build>
+
 		<resources>
 			<resource>
 				<directory>${project.basedir}/html</directory>
@@ -172,23 +176,17 @@
         <dependency>
             <groupId>net.anotheria</groupId>
             <artifactId>distributeme-core</artifactId>
-            <version>2.1.2-SNAPSHOT</version>
+            <version>${distributeme.version}</version>
         </dependency>
         <dependency>
             <groupId>net.anotheria</groupId>
             <artifactId>distributeme-generator</artifactId>
-            <version>2.1.2-SNAPSHOT</version>
+            <version>${distributeme.version}</version>
         </dependency>
         <dependency>
             <groupId>net.anotheria</groupId>
             <artifactId>distributeme-support</artifactId>
-            <version>2.1.2-SNAPSHOT</version>
-        </dependency>
-        <!-- TODO remove, its only for testing purposes -->
-        <dependency>
-            <groupId>net.anotheria</groupId>
-            <artifactId>distributeme-test</artifactId>
-            <version>2.1.2-SNAPSHOT</version>
+            <version>${distributeme.version}</version>
         </dependency>
         <dependency>
             <groupId>net.anotheria</groupId>
