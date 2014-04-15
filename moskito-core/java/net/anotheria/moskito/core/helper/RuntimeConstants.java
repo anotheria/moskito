@@ -14,7 +14,7 @@ public class RuntimeConstants {
 	 * @return
 	 */
 	public static final String getApplicationName(){
-		return applicationName;
+		return applicationName == null ? "" : applicationName;
 	}
 	
 	public static final void setApplicationName(String value){
