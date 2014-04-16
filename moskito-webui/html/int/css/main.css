@@ -856,3 +856,7 @@ dd .switchery {
     margin-bottom: 2px;
     margin-top: -4px;
 }
+
+.form-box .form-group {
+    margin-bottom: 5px;
+}

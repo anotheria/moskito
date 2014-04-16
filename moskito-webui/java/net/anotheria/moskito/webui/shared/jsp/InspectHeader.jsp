@@ -146,15 +146,15 @@
 <div class="form-box">
     <label>Quick connect</label>
     <form name="QuickConnect" action="mskQuickConnect" method="GET">
-    <div class="form-group">
-        <input type="text" class="form-control" name="pServerName" placeholder="Host">
-    </div>
-    <div class="form-group">
-        <input type="text" class="form-control" name="pServerPort" placeholder="Port">
-        <span class="input-group-btn">
-            <button class="btn btn-default" type="button" onclick="submit();">Connect</button>
-      </span>
-    </div>
+        <div class="form-group">
+            <input type="text" class="form-control" name="pServerName" placeholder="Host">
+        </div>
+        <div class="form-group">
+            <input type="text" class="form-control" name="pServerPort" placeholder="Port">
+        </div>
+        <div class="form-group text-right">
+            <button class="btn btn-success" type="button" onclick="submit();">Connect</button>
+        </div>
     </form>
 </div>
 
