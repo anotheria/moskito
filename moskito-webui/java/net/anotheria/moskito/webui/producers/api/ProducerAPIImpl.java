@@ -83,11 +83,11 @@ public class ProducerAPIImpl extends AbstractMoskitoAPIImpl implements ProducerA
 			ao.setCreationInfo(((Inspectable)p).getCreationInfo());
 
 		IStats firstStats = p.getStats().get(0);
-		ao.setStatsClazz((Class<? extends IStats>) firstStats.getClass());
+		ao.setStatsClazzName(firstStats.getClass().getName());
 
 		//ao.setStats(p.getStats());
 
-		IDecorator decorator = decoratorRegistry.getDecorator(ao.getStatsClazz());
+		IDecorator decorator = decoratorRegistry.getDecorator(ao.getStatsClazzName());
 		ao.setFirstStatsValues(decorator.getValues(firstStats, intervalName, timeUnit));
 
 		if (createAllStats){

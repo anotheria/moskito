@@ -123,7 +123,7 @@ public abstract class BaseShowProducersAction extends BaseMoskitoUIAction {
 		Map<IDecorator, List<ProducerAO>> decoratorMap = new HashMap<IDecorator,List<ProducerAO>>();
 		for (ProducerAO producer : producers){
 			try{
-				IDecorator decorator = getDecoratorRegistry().getDecorator(producer.getStatsClazz());
+				IDecorator decorator = getDecoratorRegistry().getDecorator(producer.getStatsClazzName());
 				if (!decoratorMap.containsKey(decorator)){
 					decoratorMap.put(decorator, new ArrayList<ProducerAO>());
 

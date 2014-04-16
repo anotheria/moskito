@@ -82,7 +82,7 @@ public class ShowProducerAction extends BaseMoskitoUIAction {
 		String pFilterZero = req.getParameter(PARAM_FILTER_ZERO);
 		boolean filterZero = pFilterZero != null && pFilterZero.equalsIgnoreCase("true");
 
-		IDecorator decorator = getDecoratorRegistry().getDecorator(producer.getStatsClazz());
+		IDecorator decorator = getDecoratorRegistry().getDecorator(producer.getStatsClazzName());
 		Map<String, GraphDataBean> graphData = new HashMap<String, GraphDataBean>();
 
 

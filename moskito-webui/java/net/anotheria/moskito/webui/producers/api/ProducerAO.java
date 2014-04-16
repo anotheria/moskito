@@ -1,7 +1,6 @@
 package net.anotheria.moskito.webui.producers.api;
 
 import net.anotheria.moskito.core.inspection.CreationInfo;
-import net.anotheria.moskito.core.producers.IStats;
 import net.anotheria.util.BasicComparable;
 import net.anotheria.util.sorter.IComparable;
 
@@ -35,7 +34,7 @@ public class ProducerAO implements Serializable, IComparable{
 	 */
 	private List<StatLineAO> lines;
 
-	private Class<? extends IStats> statsClazz;
+	private String statsClazzName;
 
 	public ProducerAO(){
 		lines = new LinkedList<StatLineAO>();
@@ -81,12 +80,12 @@ public class ProducerAO implements Serializable, IComparable{
 		return creationInfo!=null;
 	}
 
-	public Class<? extends IStats> getStatsClazz() {
-		return statsClazz;
+	public String getStatsClazzName() {
+		return statsClazzName;
 	}
 
-	public void setStatsClazz(Class<? extends IStats> statsClazz) {
-		this.statsClazz = statsClazz;
+	public void setStatsClazzName(String aStatsClazzName) {
+		statsClazzName = aStatsClazzName;
 	}
 
 
