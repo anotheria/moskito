@@ -11,8 +11,8 @@
     <link type="text/css" rel="stylesheet" rev="stylesheet" href="../ext/bootstrap-sortable/contents/bootstrap-sortable.css" />
     <link type="text/css" rel="stylesheet" href="../ext/font-awesome-4.0.3/css/font-awesome.css">
     <link type="text/css" rel="stylesheet" rev="stylesheet" href="../ext/select2-3.4.6/select2.css" />
-    <link type="text/css" rel="stylesheet" rev="stylesheet" href="../int/css/common.css" />
     <link type="text/css" rel="stylesheet" rev="stylesheet" href="../ext/switchery/switchery.min.css" />
+    <link type="text/css" rel="stylesheet" rev="stylesheet" href="../int/css/common.css" />
 
     <!--[if lt IE 9]><script src="../int/js/ie8-responsive-file-warning.js"></script><![endif]-->
     <!--[if lt IE 8]><link type="text/css" rel="stylesheet" rev="stylesheet" href="../static-int/css/bootstrap-ie7.css" /><![endif]-->
