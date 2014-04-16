@@ -9,6 +9,8 @@ import java.util.Random;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+
 public class RequestOrientedStatsTest {
 	@Test public void testCalculation(){
 		RequestOrientedStats stats = new RequestOrientedStats(){};
@@ -103,5 +105,21 @@ public class RequestOrientedStatsTest {
 		System.out.println(stats.getAverageRequestDuration("1m", TimeUnit.SECONDS));
 		System.out.println(stats.getValueByNameAsString("avg", "1m", TimeUnit.SECONDS));
 
+	}
+
+	@Test public void testPauseResumeCallExecution() throws InterruptedException{
+		RequestOrientedStats stats = new RequestOrientedStats(){};
+		CallExecution execution = stats.createCallExecution();
+		execution.startExecution();
+		Thread.sleep(20);
+		execution.pauseExecution();
+		Thread.sleep(20);
+		execution.resumeExecution();
+		Thread.sleep(20);
+		execution.finishExecution();
+
+		assertEquals(1, stats.getTotalRequests());
+		//we add some 5 milliseconds on top, but ensure that total duration is below 60ms, which the test as such took.
+		assertTrue(1000L*1000*45>stats.getTotalTime());
 	}
 }

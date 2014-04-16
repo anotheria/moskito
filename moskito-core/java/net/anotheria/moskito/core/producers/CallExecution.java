@@ -12,17 +12,22 @@ public interface CallExecution {
 	void startExecution();
 	
 	/**
-	 * Starts the execution. If recordUseCase is true and a use case is running, the current progress will be stored.
-	 * @param recordUseCase
+	 * Starts the execution. If traceCall is true and a use case is running, the current progress will be stored.
+	 * @param traceCall if true the call is also traced.
 	 */
 	void startExecution(boolean traceCall);
 
 	/**
-	 * Starts an execution. Provides trace informations.
+	 * Starts an execution. Provides trace information.
 	 * @param callDescription
 	 */
 	void startExecution(String callDescription);
 
+	/**
+	 * Starts execution, provides option to switch the tracing on and provide call description in case tracing is on.
+	 * @param traceCall if true tracing is supported.
+	 * @param callDescription call description, for example method names or parameters.
+	 */
 	void startExecution(boolean traceCall, String callDescription);
 
 	/**
@@ -49,4 +54,14 @@ public interface CallExecution {
 	 * Notifies that the execution is aborted. Same as notifyExecutionError(); finishExecution(result);.
 	 */
 	void abortExecution(String result);
+
+	/**
+	 * Pauses the execution.
+	 */
+	void pauseExecution();
+
+	/**
+	 * Resumes a previously paused execution.
+	 */
+	void resumeExecution();
 }

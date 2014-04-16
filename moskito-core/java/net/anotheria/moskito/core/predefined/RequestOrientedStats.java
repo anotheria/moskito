@@ -478,20 +478,31 @@ public abstract class RequestOrientedStats extends AbstractStats {
 		}
 
 		@Override
-		public void startExecution(boolean recordUseCase, String useCaseDescription) {
+		public void startExecution(boolean traceCall, String callDescription) {
 			addRequest();
 			startTime = System.nanoTime();
 			
-			if (recordUseCase){
+			if (traceCall){
 				TracedCall tracedCall = RunningTraceContainer.getCurrentlyTracedCall();
 				currentlyTracedCall = tracedCall.callTraced() ? 
 						(CurrentlyTracedCall)tracedCall : null;
 				if (currentlyTracedCall !=null){
-					currentStep = currentlyTracedCall.startStep(useCaseDescription == null ? getName():useCaseDescription);
+					currentStep = currentlyTracedCall.startStep(callDescription == null ? getName():callDescription);
 				}
 			}
 		}
-		
+
+		@Override
+		public void pauseExecution() {
+			long exTime = System.nanoTime() - startTime;
+			addExecutionTime(exTime);
+			startTime = 0;
+		}
+
+		@Override
+		public void resumeExecution() {
+			startTime = System.nanoTime();
+		}
 	}
 
 	@Override
