@@ -26,6 +26,11 @@
 			<artifactId>moskito-webui</artifactId>
 			<version>${project.version}</version>
 		</dependency>
+        <dependency>
+            <groupId>net.anotheria</groupId>
+            <artifactId>moskito-inspect-embedded</artifactId>
+            <version>${project.version}</version>
+        </dependency>
         <!-- needed for mailgun provider, if you want to change the recipient edit moskito.json -->
         <dependency>
             <groupId>net.anotheria</groupId>
