@@ -25,6 +25,7 @@ import net.anotheria.moskito.webui.producers.action.ShowProducerAction;
 import net.anotheria.moskito.webui.producers.action.ShowProducersForCategoryAction;
 import net.anotheria.moskito.webui.producers.action.ShowProducersForSubsystemAction;
 import net.anotheria.moskito.webui.shared.action.ForceIntervalUpdateAction;
+import net.anotheria.moskito.webui.shared.action.QuickConnectAction;
 import net.anotheria.moskito.webui.shared.action.SelectServerAction;
 import net.anotheria.moskito.webui.shared.action.ShowExplanationsAction;
 import net.anotheria.moskito.webui.threads.action.HistoryOffAction;
@@ -221,6 +222,10 @@ public class MoskitoMappingsConfigurator implements ActionMappingsConfigurator{
 
 		mappings.addMapping("mskSelectServer", SelectServerAction.class,
 			new CommandRedirect("redirect", "mskShowAllProducers")
+		);
+
+		mappings.addMapping("mskQuickConnect", QuickConnectAction.class,
+				new CommandRedirect("redirect", "mskShowAllProducers")
 		);
 
 

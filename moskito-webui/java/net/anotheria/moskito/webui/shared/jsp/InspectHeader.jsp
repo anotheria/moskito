@@ -139,8 +139,23 @@
                 <option value="mskSelectServer?pTargetServer=${option.value}" ${option.value==requestScope.selectedConnectivity ? "selected" : ""}>${option.label}</option>
             </ano:iterate>
         </select>
-        </form></li>
+        </form>
     </select>
+</div>
+
+<div class="form-box">
+    <label>Quick connect</label>
+    <form name="QuickConnect" action="mskQuickConnect" method="GET">
+    <div class="form-group">
+        <input type="text" class="form-control" name="pServerName" placeholder="Host">
+    </div>
+    <div class="form-group">
+        <input type="text" class="form-control" name="pServerPort" placeholder="Port">
+        <span class="input-group-btn">
+            <button class="btn btn-default" type="button" onclick="submit();">Connect</button>
+      </span>
+    </div>
+    </form>
 </div>
 
 <span class="shadow-line"></span>

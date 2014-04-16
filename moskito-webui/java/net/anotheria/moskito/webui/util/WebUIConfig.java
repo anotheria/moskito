@@ -66,6 +66,13 @@ public class WebUIConfig {
 		return WebUIConfigInstanceHolder.instance;
 	}
 
+	public void addRemote(RemoteInstance newRemoteInstance) {
+		RemoteInstance[] oldRemotes = remotes;
+		remotes = new RemoteInstance[oldRemotes.length+1];
+		System.arraycopy(oldRemotes, 0, remotes, 0, oldRemotes.length);
+		remotes[remotes.length-1] = newRemoteInstance;
+	}
+
 	/**
 	 * Singleton holder class.
 	 */
@@ -101,4 +108,6 @@ public class WebUIConfig {
 	public void setConnectivityMode(ConnectivityMode connectivityMode) {
 		this.connectivityMode = connectivityMode;
 	}
+
+
 }
