@@ -11,7 +11,6 @@
     <link type="text/css" rel="stylesheet" rev="stylesheet" href="../ext/bootstrap-sortable/contents/bootstrap-sortable.css" />
     <link type="text/css" rel="stylesheet" href="../ext/font-awesome-4.0.3/css/font-awesome.css">
     <link type="text/css" rel="stylesheet" rev="stylesheet" href="../ext/select2-3.4.6/select2.css" />
-    <link type="text/css" rel="stylesheet" href="../ext/treegrid/css/jquery.treegrid.css">
     <link type="text/css" rel="stylesheet" rev="stylesheet" href="../int/css/common.css" />
 
     <!--[if lt IE 9]><script src="../int/js/ie8-responsive-file-warning.js"></script><![endif]-->
@@ -30,8 +29,6 @@
 <script src="../ext/tablesorter/jquery.tablesorter.js" type="text/javascript"></script>
 <script src="../ext/custom-scrollbar/jquery.mCustomScrollbar.js"></script>
 <script src="../ext/select2-3.4.6/select2.js" type="text/javascript"></script>
-<script type="text/javascript" src="../ext/treegrid/js/jquery.treegrid.js"></script>
-<script type="text/javascript" src="../ext/treegrid/js/jquery.treegrid.bootstrap3.js"></script>
 <script src="../int/js/common.js" type="text/javascript"></script>
 
         <header id="header" class="navbar navbar-fixed-top navbar-default">
@@ -133,15 +130,61 @@
         <section id="main">
             <div class="content">
 
-                <ol class="breadcrumb">
-                    <li><a href="#">Journeys</a></li>
-                    <li><a href="#">unnamed1397824003259</a></li>
-                    <li class="active">unnamed1397824003259-30-/moskito-inspect/mskShowAllProducers</li>
-                </ol>
+
 
                 <div class="box">
                     <div class="box-title">
                         <a class="accordion-toggle tooltip-bottom" title="Close/Open" data-toggle="collapse" href="#collapse2"><i class="fa fa-caret-right"></i></a>
+                        <h3 class="pull-left">
+                            unnamed1397824003259 - TOTAL
+                        </h3>
+                        <div class="box-right-nav">
+                            <a href="" class="tooltip-bottom" title="Help"><i class="fa fa-info-circle"></i></a>
+                        </div>
+                    </div>
+                    <div id="collapse2" class="box-content accordion-body collapse in">
+                        <table class="table table-left table-striped tablesorter">
+                            <thead>
+                                <tr>
+                                    <th>ProducerId</th>
+                                    <th>Calls</th>
+                                    <th>Duration</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>AdditionalFunctionalityAPI</td>
+                                    <td>21</td>
+                                    <td>24</td>
+                                </tr>
+                                <tr>
+                                    <td>JourneyAPI</td>
+                                    <td>21</td>
+                                    <td>24</td>
+                                </tr>
+                                <tr>
+                                    <td>ProducerAPI</td>
+                                    <td>21</td>
+                                    <td>24</td>
+                                </tr>
+                                <tr>
+                                    <td>ThresholdAPI</td>
+                                    <td>21</td>
+                                    <td>24</td>
+                                </tr>
+                                <tr>
+                                    <td><b>Total:</b></td>
+                                    <td>21</td>
+                                    <td>24</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="box">
+                    <div class="box-title">
+                        <a class="accordion-toggle tooltip-bottom" title="Close/Open" data-toggle="collapse" href="#collapse3"><i class="fa fa-caret-right"></i></a>
                         <h3 class="pull-left">
                             unnamed1397824003259-30-/moskito-inspect/mskShowAllProducers
                         </h3>
@@ -149,86 +192,91 @@
                             <a href="" class="tooltip-bottom" title="Help"><i class="fa fa-info-circle"></i></a>
                         </div>
                     </div>
-
-                    <p class="paddner">
-                        <span>1397824247772</span>  <span>2014-04-18T14:30:47,772</span>
-                    </p>
-                    <div id="collapse2" class="box-content accordion-body collapse in">
-
-                        <table class="table table-striped tree">
+                    <div id="collapse3" class="box-content accordion-body collapse in">
+                        <table class="table table-left table-striped tablesorter">
                             <thead>
-                                <tr>
-                                    <th><button class="btn btn-primary tree-expand">Expand</button></th>
-                                    <th>Call</th>
-                                    <th>Gross duration</th>
-                                    <th>Net duration</th>
-                                    <th>Aborted</th>
-                                </tr>
+                            <tr>
+                                <th>ProducerId</th>
+                                <th>Calls</th>
+                                <th>Duration</th>
+                            </tr>
                             </thead>
                             <tbody>
-                                <tr class="treegrid-1">
-                                    <td>001</td>
-                                    <td>ROOT</td>
-                                    <td>0</td>
-                                    <td>-5</td>
-                                    <td></td>
-                                </tr>
-                                <tr class="treegrid-2 treegrid-parent-1">
-                                    <td>002</td>
-                                    <td>AdditionalFunctionalityAPI.getIntervalInfos() = [Interval: snapshot, age: null, ts: 1970-01-01T01... </td>
-                                    <td>0</td>
-                                    <td>-5</td>
-                                    <td></td>
-                                </tr>
-                                <tr class="treegrid-3 treegrid-parent-1">
-                                    <td>003</td>
-                                    <td>AdditionalFunctionalityAPI.getIntervalUpdateTimestamp(default) = null </td>
-                                    <td>0</td>
-                                    <td>-5</td>
-                                    <td></td>
-                                </tr>
-                                <tr class="treegrid-4 treegrid-parent-3">
-                                    <td>004</td>
-                                    <td>ThresholdAPI.init() = null</td>
-                                    <td>0</td>
-                                    <td>-5</td>
-                                    <td></td>
-                                </tr>
-                                <tr class="treegrid-5 treegrid-parent-3">
-                                    <td>005</td>
-                                    <td>ThresholdAPI.init() = null</td>
-                                    <td>0</td>
-                                    <td>-5</td>
-                                    <td></td>
-                                </tr>
-                                <tr class="treegrid-6 treegrid-parent-3">
-                                    <td>006</td>
-                                    <td>ThresholdAPI.init() = null</td>
-                                    <td>0</td>
-                                    <td>-5</td>
-                                    <td></td>
-                                </tr>
-                                <tr class="treegrid-7 treegrid-parent-5">
-                                    <td>007</td>
-                                    <td>ThresholdAPI.init() = null</td>
-                                    <td>0</td>
-                                    <td>-5</td>
-                                    <td></td>
-                                </tr>
-                                <tr class="treegrid-8 treegrid-parent-5">
-                                    <td>008</td>
-                                    <td>ThresholdAPI.init() = null</td>
-                                    <td>0</td>
-                                    <td>-5</td>
-                                    <td></td>
-                                </tr>
-                                <tr class="treegrid-9 treegrid-parent-8">
-                                    <td>009</td>
-                                    <td>ThresholdAPI.init() = null</td>
-                                    <td>0</td>
-                                    <td>-5</td>
-                                    <td></td>
-                                </tr>
+                            <tr>
+                                <td>AdditionalFunctionalityAPI</td>
+                                <td>21</td>
+                                <td>24</td>
+                            </tr>
+                            <tr>
+                                <td>JourneyAPI</td>
+                                <td>21</td>
+                                <td>24</td>
+                            </tr>
+                            <tr>
+                                <td>ProducerAPI</td>
+                                <td>21</td>
+                                <td>24</td>
+                            </tr>
+                            <tr>
+                                <td>ThresholdAPI</td>
+                                <td>21</td>
+                                <td>24</td>
+                            </tr>
+                            <tr>
+                                <td><b>Total:</b></td>
+                                <td>21</td>
+                                <td>24</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="box">
+                    <div class="box-title">
+                        <a class="accordion-toggle tooltip-bottom" title="Close/Open" data-toggle="collapse" href="#collapse3"><i class="fa fa-caret-right"></i></a>
+                        <h3 class="pull-left">
+                            unnamed1397824003259-30-/moskito-inspect/mskShowAllProducers
+                        </h3>
+                        <div class="box-right-nav">
+                            <a href="" class="tooltip-bottom" title="Help"><i class="fa fa-info-circle"></i></a>
+                        </div>
+                    </div>
+                    <div id="collapse3" class="box-content accordion-body collapse in">
+                        <table class="table table-left table-striped tablesorter">
+                            <thead>
+                            <tr>
+                                <th>ProducerId</th>
+                                <th>Calls</th>
+                                <th>Duration</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>AdditionalFunctionalityAPI</td>
+                                <td>21</td>
+                                <td>24</td>
+                            </tr>
+                            <tr>
+                                <td>JourneyAPI</td>
+                                <td>21</td>
+                                <td>24</td>
+                            </tr>
+                            <tr>
+                                <td>ProducerAPI</td>
+                                <td>21</td>
+                                <td>24</td>
+                            </tr>
+                            <tr>
+                                <td>ThresholdAPI</td>
+                                <td>21</td>
+                                <td>24</td>
+                            </tr>
+                            <tr>
+                                <td><b>Total:</b></td>
+                                <td>21</td>
+                                <td>24</td>
+                            </tr>
                             </tbody>
                         </table>
                     </div>
@@ -242,24 +290,6 @@
             </footer>
 
         </section>
-    <script>
-        $(document).ready(function() {
-            $('.tree').treegrid({
-                expanderExpandedClass: 'glyphicon glyphicon-minus',
-                expanderCollapsedClass: 'glyphicon glyphicon-plus'
-            }).treegrid('collapseAll');
-
-            $('.table').on('click','.tree-expand', function() {
-                $('.tree').treegrid('expandAll');
-                $('.tree-expand').addClass('tree-collapse').removeClass('tree-expand').html('Collapse');
-            });
-
-            $('.table').on('click','.tree-collapse', function() {
-                $('.tree').treegrid('collapseAll');
-                $('.tree-collapse').addClass('tree-expand').removeClass('tree-collapse').html('Expand');
-            });
-        });
-    </script>
 </body>
 </html>
 
