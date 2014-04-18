@@ -167,3 +167,9 @@ fieldset[disabled] .btn-success.active {
     border: 1px solid #E5E5E5;
     box-shadow: none;
 }
+
+.breadcrumb {
+    background: none;
+    padding: 0;
+    margin-top: -5px;
+}

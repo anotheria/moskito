@@ -935,3 +935,15 @@ body.error-page .content .btn {
 .form-group .dl-horizontal dd {
     margin-left: 120px;
 }
+
+p.paddner {
+    margin-bottom: 0;
+    padding-bottom: 12px;
+    color: #555;
+}
+
+p.paddner span {
+    color: #999;
+    display: inline-block;
+    margin-right: 10px;
+}
