@@ -896,3 +896,42 @@ body.error-page .content .btn {
 .error_page_details_content {
     line-height: 24px;
 }
+
+.switch-direction {
+    margin-left: 44px;
+}
+
+.status-control {
+    height: 34px;
+    width: 34px;
+    line-height: 32px;
+    text-align: center;
+    border-radius: 5px;
+}
+
+.switch-direction .status-control {
+    margin-left: -44px;
+}
+
+.form-group .row {
+    margin-left: -5px;
+    margin-right: -5px;
+    margin-bottom: 10px;
+}
+
+.form-group .row:hover .status-control {
+    background: #E5E5E5;
+}
+
+.form-group .row .col-md-6 {
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.form-group .dl-horizontal dt {
+    width: 100px;
+}
+
+.form-group .dl-horizontal dd {
+    margin-left: 120px;
+}
