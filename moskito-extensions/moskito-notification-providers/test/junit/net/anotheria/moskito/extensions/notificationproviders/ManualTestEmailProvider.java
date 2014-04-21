@@ -43,7 +43,7 @@ public class ManualTestEmailProvider {
 		ThresholdDefinition td = new ThresholdDefinition();
 		td.setName("TEST");
 		Threshold testT = new Threshold(td);
-		ThresholdAlert a1 = new ThresholdAlert(testT, ThresholdStatus.GREEN, ThresholdStatus.YELLOW, "1", null );
+		ThresholdAlert a1 = new ThresholdAlert(testT, ThresholdStatus.GREEN, ThresholdStatus.YELLOW, "1", null, 0);
 		AlertDispatcher dispatcher = AlertDispatcher.INSTANCE;
 		dispatcher.dispatchAlert(a1);
 		DummyNotificationProvider.getInstance().await(1000);
