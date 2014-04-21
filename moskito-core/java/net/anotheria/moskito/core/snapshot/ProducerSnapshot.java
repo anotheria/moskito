@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * TODO comment this class
+ * A snapshot of producer's data after an interval passed.
  *
  * @author lrosenberg
  * @since 30.09.12 15:23
