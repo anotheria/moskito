@@ -7,12 +7,18 @@ import net.anotheria.moskito.core.stats.TimeUnit;
 import java.util.List;
 
 /**
- * TODO comment this class
+ * This is a utility class that creates snapshot for further usage.
  *
  * @author lrosenberg
  * @since 30.09.12 15:28
  */
 public class SnapshotCreator {
+	/**
+	 * Creates a snapshot for a producer.
+	 * @param producer
+	 * @param intervalName
+	 * @return
+	 */
 	public static ProducerSnapshot createSnapshot(IStatsProducer producer, String intervalName){
 		ProducerSnapshot ret = new ProducerSnapshot();
 		ret.setCategory(producer.getCategory());
@@ -39,6 +45,13 @@ public class SnapshotCreator {
 		return ret;
 	}
 
+	/**
+	 * Creates a snapshot for one stat object.
+	 * @param stat
+	 * @param intervalName
+	 * @param valueNames
+	 * @return
+	 */
 	private static StatSnapshot createStatSnapshot(IStats stat, String intervalName, List<String> valueNames){
 		StatSnapshot snapshot = new StatSnapshot(stat.getName());
 

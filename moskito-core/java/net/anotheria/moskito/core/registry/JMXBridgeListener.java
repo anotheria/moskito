@@ -80,8 +80,11 @@ public class JMXBridgeListener implements IProducerRegistryListener{
 		return objName;
 	}
 
+	/**
+	 * Chats that should be removed from bean name prior to registering it with jmx in order to create valid names.
+	 */
 	private static final char[] CHARS_TO_REMOVE_FROM_NAME = {
-		' ','\t','\r','\n'
+		' ','\t','\r','\n', '(', ')','+','-'
 	};
 
 	/**

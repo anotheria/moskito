@@ -135,7 +135,7 @@ public class Threshold extends AbstractTieable<ThresholdDefinition> implements T
 			//generate alert
 			previousStatus = status;
 			statusChangeTimestamp = System.currentTimeMillis();
-			AlertDispatcher.INSTANCE.dispatchAlert(new ThresholdAlert(this, status, futureStatus, previousValue, lastValue));
+			AlertDispatcher.INSTANCE.dispatchAlert(new ThresholdAlert(this, status, futureStatus, previousValue, lastValue, flipCount));
 		}
 		status = futureStatus;
 	}
