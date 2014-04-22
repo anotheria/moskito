@@ -18,9 +18,9 @@
 }
 
 .alert {
-    -moz-animation: alert 2s alternate;
-    -webkit-animation: alert 2s alternate;
-    -ms-animation: alert 2s alternate;
+    -moz-animation: alert 1s alternate;
+    -webkit-animation: alert 1s alternate;
+    -ms-animation: alert 1s alternate;
     position: relative;
 }
 

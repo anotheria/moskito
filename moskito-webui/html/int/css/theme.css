@@ -145,14 +145,28 @@ fieldset[disabled] .btn-success.active {
     box-shadow: none;
 }
 
-.modal-dialog {
+.modal-dialog.form {
     max-width: 460px;
 }
 
+.modal-content {
+    border: none;
+    border-radius: 5px;
+}
+
 .modal-header {
-    background: #F9F9F9;
+    background: #738DE7;
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
+    border-bottom: none;
+    color: #FFF;
+}
+
+.modal .close {
+    color: #FFF;
+    text-shadow: none;
+    font-weight: 100;
+    font-size: 28px;
 }
 
 .modal-footer {
@@ -160,6 +174,7 @@ fieldset[disabled] .btn-success.active {
     border-bottom-left-radius: 5px;
     border-bottom-right-radius: 5px;
     margin-top: 0;
+    padding: 14px 20px;
 }
 
 .modal .form-control {

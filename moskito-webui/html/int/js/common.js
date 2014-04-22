@@ -11,7 +11,6 @@ function resize_table(el) {
     var tl = el.find('table:first');
     var tr = el.find('.table-right');
     tr.width(in_t.width()-tl.width());
-    console.log(tr);
 }
 
 // resize table listner
@@ -72,7 +71,6 @@ $(function () {
     $('table.table tr').hover(function() {
             var tr_num = $(this).parents().filter('table').find('tr').index($(this));
             $(this).parents().filter('.box').find('.table-right tr').eq(tr_num).addClass('hover_it');
-            console.log('fff');
         },
         function() {
             var tr_num = $(this).parents().filter('table').find('tr').index($(this));
@@ -91,4 +89,14 @@ $(function () {
     $(".select2").select2();
 
     $(".scrollbar").mCustomScrollbar();
+
+    $('ul.nav-sidebar > li').click(function () {
+        $('ul.nav-sidebar > li').removeClass('active');
+        $(this).addClass('active');
+    });
+
+    $('.tree').treegrid({
+        expanderExpandedClass: 'glyphicon glyphicon-minus',
+        expanderCollapsedClass: 'glyphicon glyphicon-plus'
+    }).treegrid('collapseAll');
 });

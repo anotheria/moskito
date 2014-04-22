@@ -11,6 +11,7 @@
     <link type="text/css" rel="stylesheet" rev="stylesheet" href="../ext/bootstrap-sortable/contents/bootstrap-sortable.css" />
     <link type="text/css" rel="stylesheet" href="../ext/font-awesome-4.0.3/css/font-awesome.css">
     <link type="text/css" rel="stylesheet" rev="stylesheet" href="../ext/select2-3.4.6/select2.css" />
+    <link type="text/css" rel="stylesheet" rev="stylesheet" href="../ext/switchery/switchery.min.css" />
     <link type="text/css" rel="stylesheet" rev="stylesheet" href="../int/css/common.css" />
 
     <!--[if lt IE 9]><script src="../int/js/ie8-responsive-file-warning.js"></script><![endif]-->
@@ -29,7 +30,29 @@
 <script src="../ext/tablesorter/jquery.tablesorter.js" type="text/javascript"></script>
 <script src="../ext/custom-scrollbar/jquery.mCustomScrollbar.js"></script>
 <script src="../ext/select2-3.4.6/select2.js" type="text/javascript"></script>
+<script src="../ext/switchery/switchery.min.js" type="text/javascript"></script>
 <script src="../int/js/common.js" type="text/javascript"></script>
+<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+<script type="text/javascript">
+    google.load("visualization", "1", {packages:["corechart"]});
+    google.setOnLoadCallback(drawChart);
+    function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+            ['Task', 'Hours per Day'],
+            ['Work',     11],
+            ['Eat',      2],
+            ['Commute',  2],
+            ['Watch TV', 2],
+            ['Sleep',    7]
+        ]);
+
+        var options = {};
+
+        var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
+        chart.draw(data, options);
+    }
+</script>
+
 
         <header id="header" class="navbar navbar-fixed-top navbar-default">
             <span class="caret-aside pull-left tooltip-bottom" title="Close/Open">
@@ -1037,6 +1060,32 @@
             </footer>
 
         </section>
+
+<div class="modal fade" id="chart" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">Modla title</h4>
+            </div>
+            <div class="modal-body">
+                <div id="chart_div" style="height: 300px;"></div>
+            </div>
+            <div class="modal-footer">
+                <div class="text-center">
+                    <ul class="switcher">
+                        <li><i title="" class="chart-icon"></i></li>
+                        <li><input type="checkbox" class="js-switch" /></li>
+                        <li><i title="" class="chart-column-icon"></i></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+        $('#chart').modal('show');
+</script>
 </body>
 </html>
 
