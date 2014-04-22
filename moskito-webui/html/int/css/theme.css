@@ -162,11 +162,20 @@ fieldset[disabled] .btn-success.active {
     color: #FFF;
 }
 
-.modal .close {
+.modal .modal-header .close {
     color: #FFF;
+}
+
+.modal-dialog.gray .modal-content {
+    background: #E5E5E5;
+}
+
+.modal .close {
     text-shadow: none;
     font-weight: 100;
     font-size: 28px;
+    position: relative;
+    z-index: 1000;
 }
 
 .modal-footer {

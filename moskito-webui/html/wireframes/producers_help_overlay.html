@@ -1061,27 +1061,78 @@
 
         </section>
 
-<div class="modal fade" id="chart" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
+<div class="modal fade" id="help" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog gray">
         <div class="modal-content">
-            <div class="modal-body">
+            <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <div id="chart_div" style="height: 300px;"></div>
+                <h4 class="modal-title">Help</h4>
             </div>
-            <div class="modal-footer">
-                <div class="text-center">
-                    <ul class="switcher">
-                        <li><i title="" class="chart-icon"></i></li>
-                        <li><input type="checkbox" class="js-switch" /></li>
-                        <li><i title="" class="chart-column-icon"></i></li>
-                    </ul>
+            <div class="modal-body">
+                <div class="box">
+                    <div class="box-title">
+                        <h3 class="pull-left">
+                            Explanations for moskito stats page
+                        </h3>
+                    </div>
+                    <div class="box-content">
+                        <div class="paddner">
+                            This page explains what the abreviations used on the producers overview page mean. However, it doesn't explain how to interpret the data. Since the data is strongly use-case dependent, its mostly up to you to give it a correct interpretations, but for some use-cases moskito's documentation and HOWTOs are quite useful.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="box">
+                    <div class="box-title">
+                        <h3 class="pull-left">
+                            Box name
+                        </h3>
+                    </div>
+                    <div class="box-content">
+                        <table class="table table-striped tablesorter">
+                            <thead>
+                            <tr>
+                                <th>Abbreviation</th>
+                                <th>Meaning</th>
+                                <th>Explanation</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>Req</td>
+                                <td>Number of requests</td>
+                                <td>Total number of requests to an action (in the defined interval or since start, depending on your interval selection).</td>
+                            </tr>
+                            <tr>
+                                <td>Req</td>
+                                <td>Number of requests</td>
+                                <td>Total number of requests to an action (in the defined interval or since start, depending on your interval selection).</td>
+                            </tr>
+                            <tr>
+                                <td>Req</td>
+                                <td>Number of requests</td>
+                                <td>Total number of requests to an action (in the defined interval or since start, depending on your interval selection).</td>
+                            </tr>
+                            <tr>
+                                <td>Req</td>
+                                <td>Number of requests</td>
+                                <td>Total number of requests to an action (in the defined interval or since start, depending on your interval selection).</td>
+                            </tr>
+                            <tr>
+                                <td>Req</td>
+                                <td>Number of requests</td>
+                                <td>Total number of requests to an action (in the defined interval or since start, depending on your interval selection).</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
 <script>
-        $('#chart').modal('show');
+        $('#help').modal('show');
 </script>
 </body>
 </html>
