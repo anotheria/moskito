@@ -103,6 +103,23 @@
     <ano:notEqual name="currentNaviItem" property="id" value="threads">
         <li><a href="mskThreads">Threads <i class="fa fa-bars"></i></a></li>
     </ano:notEqual>
+    <!-- Submenu for everything else -->
+    <ano:equal name="currentNaviItem" property="id" value="more">
+    <li class="active">
+        <a href="mskMore">Everything else <i class="fa fa-bookmark"></i></a>
+        <ul class="nav sub-menu">
+            <li><a href="else_config.html">Config <i class="fa fa-cog"></i></a></li>
+            <li><a href="else_mbeans.html">MBeans <i class="fa fa-briefcase"></i></a></li>
+            <li><a href="else_libs.html">Libs <i class="fa fa-file-text"></i></a></li>
+            <li class="active"><a href="mskPlugins">Plugins <i class="fa fa-cloud"></i></a></li>
+            <li><a href="else_update.html">Update  <i class="fa fa-upload"></i></a></li>
+        </ul>
+    </li>
+    </ano:equal>
+    <ano:notEqual name="currentNaviItem" property="id" value="more">
+        <a href="mskMore">Everything else <i class="fa fa-bookmark"></i></a>
+    </ano:notEqual>
+
 </ul>
 
 <ano:equal name="pagename" value="producers">
