@@ -61,9 +61,9 @@
                     <ano:iterate id="info" name="mbean" property="attributes" type="net.anotheria.moskito.webui.shared.api.MBeanAttributeWrapperAO" indexId="index2">
                         <tr>
                             <td>${info.name}</td>
-                            <td><ano:write name="info" property="type"/></td>
-                            <td><ano:write name="info" property="value"/></td>
-                            <td><ano:write name="info" property="description"/></td>
+                            <td>${info.type}</td>
+                            <td>${info.value}</td>
+                            <td>${info.description}</td>
                             <td><ano:equal name="info" property="readable" value="true">+</ano:equal></td>
                             <td><ano:equal name="info" property="writable" value="true">+</ano:equal></td>
                         </tr>
