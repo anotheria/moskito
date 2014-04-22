@@ -444,7 +444,7 @@ public abstract class RequestOrientedStats extends AbstractStats {
 	private class RequestCallExecution extends AbstractCallExecution {
 
 		/**
-		 * Starttime of the execution.
+		 * Start time of the execution.
 		 */
 		private long startTime;
 		/**
@@ -455,11 +455,17 @@ public abstract class RequestOrientedStats extends AbstractStats {
 		 * Currently traced call if present.
 		 */
 		private CurrentlyTracedCall currentlyTracedCall = null;
+
+		/**
+		 * Duration so far.
+		 */
+		private long duration = 0;
 		
 		@Override
 		public void finishExecution(String result) {
 			long exTime = System.nanoTime() - startTime;
-			addExecutionTime(exTime);
+			duration += exTime;
+			addExecutionTime(duration);
 			notifyRequestFinished();
 			if (currentStep!=null){
 				currentStep.setDuration(exTime);
@@ -494,13 +500,17 @@ public abstract class RequestOrientedStats extends AbstractStats {
 
 		@Override
 		public void pauseExecution() {
-			long exTime = System.nanoTime() - startTime;
-			addExecutionTime(exTime);
+			if (startTime==0)
+				return;
+			duration += System.nanoTime() - startTime;
 			startTime = 0;
 		}
 
 		@Override
 		public void resumeExecution() {
+			//if resume execution is called twice, the first resume should be handled.
+			if (startTime!=0)
+				pauseExecution();
 			startTime = System.nanoTime();
 		}
 	}
