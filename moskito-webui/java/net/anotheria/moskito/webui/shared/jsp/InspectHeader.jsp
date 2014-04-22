@@ -105,14 +105,14 @@
     </ano:notEqual>
     <!-- Submenu for everything else -->
     <ano:equal name="currentNaviItem" property="id" value="more">
-    <li class="active">
+        <li class="active">
         <a href="mskMore">Everything else <i class="fa fa-bookmark"></i></a>
         <ul class="nav sub-menu">
-            <li><a href="else_config.html">Config <i class="fa fa-cog"></i></a></li>
-            <li><a href="else_mbeans.html">MBeans <i class="fa fa-briefcase"></i></a></li>
-            <li><a href="else_libs.html">Libs <i class="fa fa-file-text"></i></a></li>
-            <li class="active"><a href="mskPlugins">Plugins <i class="fa fa-cloud"></i></a></li>
-            <li><a href="else_update.html">Update  <i class="fa fa-upload"></i></a></li>
+            <li ${currentSubNaviItem.isSelected("more_config") ? "class=\"active\"" : ""}><a href="mskConfig">Config <i class="fa fa-cog"></i></a></li>
+            <li ${currentSubNaviItem.isSelected("more_beans") ? "class=\"active\"" : ""}><a href="mskMBeans">MBeans <i class="fa fa-briefcase"></i></a></li>
+            <li ${currentSubNaviItem.isSelected("more_libs") ? "class=\"active\"" : ""}><a href="mskLibs">Libs <i class="fa fa-file-text"></i></a></li>
+            <li ${currentSubNaviItem.isSelected("more_plugins") ? "class=\"active\"" : ""}><a href="mskPlugins">Plugins <i class="fa fa-cloud"></i></a></li>
+            <li ${currentSubNaviItem.isSelected("more_update") ? "class=\"active\"" : ""}><a href="mskUpdate">Update  <i class="fa fa-upload"></i></a></li>
         </ul>
     </li>
     </ano:equal>
