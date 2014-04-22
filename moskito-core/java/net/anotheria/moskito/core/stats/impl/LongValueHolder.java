@@ -41,7 +41,7 @@ import java.util.concurrent.atomic.AtomicLong;
 /**
  * This class implements a ValueHolder that is able to process long values.
  * @author lrosenberg
- * @see ValueHolder
+ * @see net.anotheria.moskito.core.stats.ValueHolder
  */
 class LongValueHolder extends AbstractValueHolder {
 
