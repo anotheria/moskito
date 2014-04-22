@@ -4,6 +4,7 @@ import net.anotheria.maf.action.ActionCommand;
 import net.anotheria.maf.action.ActionMapping;
 import net.anotheria.maf.bean.FormBean;
 import net.anotheria.moskito.webui.shared.api.LibAO;
+import net.anotheria.moskito.webui.shared.bean.NaviItem;
 import net.anotheria.util.NumberUtils;
 import net.anotheria.util.maven.MavenVersionReader;
 import org.slf4j.Logger;
@@ -131,6 +132,12 @@ public class ShowLibsAction extends BaseAdditionalAction{
 	protected String getPageName() {
 		return "libs";
 	}
+
+	@Override
+	protected NaviItem getCurrentSubNaviItem() {
+		return NaviItem.MORE_LIBS;
+	}
+
 
 
 }

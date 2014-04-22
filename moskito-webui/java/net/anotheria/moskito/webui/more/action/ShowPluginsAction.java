@@ -4,6 +4,7 @@ import net.anotheria.maf.action.ActionCommand;
 import net.anotheria.maf.action.ActionMapping;
 import net.anotheria.maf.bean.FormBean;
 import net.anotheria.moskito.webui.shared.api.PluginAO;
+import net.anotheria.moskito.webui.shared.bean.NaviItem;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -33,5 +34,11 @@ public class ShowPluginsAction extends BaseAdditionalAction{
 	protected String getPageName() {
 		return "plugins";
 	}
+
+	@Override
+	protected NaviItem getCurrentSubNaviItem() {
+		return NaviItem.MORE_PLUGINS;
+	}
+
 
 }

@@ -11,6 +11,7 @@ import net.anotheria.moskito.core.config.MoskitoConfiguration;
 import net.anotheria.moskito.core.config.MoskitoConfigurationHolder;
 import net.anotheria.moskito.core.threshold.Threshold;
 import net.anotheria.moskito.core.threshold.ThresholdRepository;
+import net.anotheria.moskito.webui.shared.bean.NaviItem;
 import net.anotheria.moskito.webui.util.ChartEngine;
 import net.anotheria.moskito.webui.util.WebUIConfig;
 
@@ -76,5 +77,11 @@ public class ShowConfigAction extends BaseAdditionalAction{
 	protected String getPageName() {
 		return "config";
 	}
+
+	@Override
+	protected NaviItem getCurrentSubNaviItem() {
+		return NaviItem.MORE_CONFIG;
+	}
+
 
 }
