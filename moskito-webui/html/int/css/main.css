@@ -325,7 +325,7 @@ body.status-yellow ul.nav-sidebar > li.active > a {
     font-family: Arial, sans-serif;
 }
 
-.table.tablesorter > thead > tr > th {
+.table > thead > tr > th {
     background: #cdd5f1;
     border-bottom: none;
     color: #818798;
@@ -333,15 +333,15 @@ body.status-yellow ul.nav-sidebar > li.active > a {
     white-space: nowrap;
 }
 
-.table.tablesorter > thead > tr > th {
+.table > thead > tr > th {
     cursor: pointer;
 }
 
-.table.tablesorter > thead > tr > th:hover {
+.table > thead > tr > th:hover {
     color: #6a728a;
 }
 
-.table.tablesorter > thead > tr > th .fa {
+.table > thead > tr > th .fa {
     opacity: 0;
     display: inline-block;
     margin-left: 5px;
@@ -351,16 +351,16 @@ body.status-yellow ul.nav-sidebar > li.active > a {
     transition: all 0.12s linear;
 }
 
-.table.tablesorter > thead > tr > th:hover .fa {
+.table > thead > tr > th:hover .fa {
     opacity: 0.5;
 }
 
-.table.tablesorter > thead > tr > th.headerSortUp .fa,
-.table.tablesorter > thead > tr > th.headerSortDown .fa {
+.table > thead > tr > th.headerSortUp .fa,
+.table > thead > tr > th.headerSortDown .fa {
     opacity: 1;
 }
 
-.table.tablesorter > thead > tr > th.headerSortUp .fa {
+.table > thead > tr > th.headerSortUp .fa {
     -moz-transform: rotate(180deg); /* Firefox */
     -webkit-transform: rotate(180deg); /* Safari, Chrome */
     -o-transform: rotate(180deg); /* Opera */
@@ -895,4 +895,66 @@ body.error-page .content .btn {
 
 .error_page_details_content {
     line-height: 24px;
+}
+
+.switch-direction {
+    margin-left: 44px;
+}
+
+.status-control {
+    height: 34px;
+    width: 34px;
+    line-height: 32px;
+    text-align: center;
+    border-radius: 5px;
+}
+
+.switch-direction .status-control {
+    margin-left: -44px;
+}
+
+.form-group .row {
+    margin-left: -5px;
+    margin-right: -5px;
+    margin-bottom: 10px;
+}
+
+.form-group .row:hover .status-control {
+    background: #E5E5E5;
+}
+
+.form-group .row .col-md-6 {
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.form-group .dl-horizontal dt {
+    width: 100px;
+}
+
+.form-group .dl-horizontal dd {
+    margin-left: 120px;
+}
+
+p.paddner {
+    margin-bottom: 0;
+    padding-bottom: 12px;
+    color: #555;
+}
+
+p.paddner span {
+    color: #999;
+    display: inline-block;
+    margin-right: 10px;
+}
+
+.table th .btn {
+    padding: 2px 8px;
+    min-width: inherit;
+    margin: -3px 0;
+}
+
+.treegrid-expander {
+    font-size: 18px;
+    color: #738DE7;
 }

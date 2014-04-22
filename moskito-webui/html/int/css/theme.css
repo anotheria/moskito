@@ -144,3 +144,32 @@ fieldset[disabled] .btn-success.active {
     border: 1px solid #dddddd;
     box-shadow: none;
 }
+
+.modal-dialog {
+    max-width: 460px;
+}
+
+.modal-header {
+    background: #F9F9F9;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
+
+.modal-footer {
+    background: #F9F9F9;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    margin-top: 0;
+}
+
+.modal .form-control {
+    background: #F9F9F9;
+    border: 1px solid #E5E5E5;
+    box-shadow: none;
+}
+
+.breadcrumb {
+    background: none;
+    padding: 0;
+    margin-top: -5px;
+}
