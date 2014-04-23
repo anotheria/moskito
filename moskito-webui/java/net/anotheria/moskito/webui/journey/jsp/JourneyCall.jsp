@@ -57,6 +57,10 @@
     </div>
 <jsp:include page="../../shared/jsp/InspectFooter.jsp" flush="false"/>
 </section>
+<!-- autoexpand tree -->
+<script>
+    $('.tree').treegrid('expandAll');
+</script>
 <script>
     $(document).ready(function() {
         $('.table').on('click','.tree-expand', function() {
