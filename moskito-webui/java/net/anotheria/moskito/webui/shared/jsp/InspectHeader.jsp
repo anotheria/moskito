@@ -39,6 +39,14 @@
 <script src="../ext/select2-3.4.6/select2.js" type="text/javascript"></script>
 <script src="../int/js/common.js" type="text/javascript"></script>
 <script src="../ext/switchery/switchery.min.js" type="text/javascript"></script>
+
+
+<ano:equal name="currentSubNaviItem" property="id" value="more_config">
+    <script type="text/javascript" src="../ext/google-code-prettify/prettify.js"></script>
+    <script type="text/javascript" src="../ext/google-code-prettify/application.js"></script>
+</ano:equal>
+
+
 <!-- currently for handle select only -->
 <script type="text/javascript" src="../js/function.js"></script>
 
