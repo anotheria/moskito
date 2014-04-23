@@ -889,15 +889,20 @@ dd .switchery {
     margin-bottom: 5px;
 }
 
+body.home-page,
 body.error-page {
     background: #E5E5E5;
 }
 
+body.home-page .content,
 body.error-page .content {
     text-align: center;
     padding-top: 80px;
+    max-width: 800px;
+    margin: 0 auto;
 }
 
+body.home-page .content h1,
 body.error-page .content h1 {
     font-weight: 100;
     font-size: 36px;
@@ -911,14 +916,15 @@ body.error-page .content h1 {
     margin: 10px auto;
 }
 
+body.home-page .content p,
 body.error-page .content p {
     font-weight: 300;
     font-size: 16px;
-    opacity: 0.5;
 }
 
+body.home-page .content .btn,
 body.error-page .content .btn {
-    margin: 30px 0;
+    margin: 30px 2px;
 }
 
 .error_page_details_content {
