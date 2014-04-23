@@ -22,10 +22,10 @@
             </p>
             <div id="collapse2" class="box-content accordion-body collapse in">
 
-                <table class="table table-striped tree">
+                <table class="table table-striped tree ">
                     <thead>
                     <tr>
-                        <th><button class="btn btn-primary tree-expand">Expand</button></th>
+                        <th>&nbsp;</th>
                         <th>Call</th>
                         <th>Gross duration</th>
                         <th>Net duration</th>
@@ -38,7 +38,7 @@
                             <ano:equal name="traceStep" property="aborted" value="true"><tr class="stat_error" id="node-<ano:write name="traceStep" property="id"/>"></ano:equal>
                          <ano:notEqual name="traceStep" property="aborted" value="true"><tr class="< %= ((index & 1) == 0 )? "even" : "odd" % >" id="node-<ano:write name="id"/>"></ano:notEqual>
                      --%>
-                        <tr class="treegrid-${index} <ano:equal name="traceStep" property="parentAvailable" value="true">treegrid-parent-<ano:write name="traceStep" property="parentId"/></ano:equal>" id="node-${traceStep.id}">
+                        <tr class="treegrid-${index} <ano:equal name="traceStep" property="parentAvailable" value="true">treegrid-parent-${traceStep.parentId}</ano:equal>" id="node-${traceStep.id}">
                             <td>${traceStep.niceId}</td>
                             <td><span onmouseover="Tip('<ano:write name="traceStep" property="fullCall" filter="true"/>', WIDTH, 500)" onmouseout="UnTip()">
                                 <ano:write name="traceStep" property="call" filter="true"/>
