@@ -330,8 +330,12 @@ public abstract class BaseMoskitoUIAction implements Action{
 		req.setAttribute("linkToCurrentPageAsXml", maskAsXML(getLinkToCurrentPage(req)));
 		req.setAttribute("linkToCurrentPageAsCsv", maskAsCSV(getLinkToCurrentPage(req)));
 		req.setAttribute("linkToCurrentPageAsJson", maskAsJSON(getLinkToCurrentPage(req)));
-		
-		req.setAttribute("currentNaviItem", getCurrentNaviItem());
+
+
+		NaviItem currentNaviItem = getCurrentNaviItem();
+		if (currentNaviItem==null)
+			currentNaviItem = NaviItem.NONE;
+		req.setAttribute("currentNaviItem", currentNaviItem);
 		req.setAttribute("currentSubNaviItem", getCurrentSubNaviItem());
 		
 		//prepare interval timestamp and age.

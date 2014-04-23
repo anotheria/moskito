@@ -39,9 +39,9 @@ public class MoskitoUIFilter extends MAFFilter{
 		try{
 			MavenVersion moskitoVersion = VersionUtil.getWebappLibVersion(config.getServletContext(), "moskito-webui");
 			MavenVersion appVersion = VersionUtil.getWebappVersion(config.getServletContext());
-			config.getServletContext().setAttribute("application.maven.version", appVersion == null ? "?" : appVersion);
-			config.getServletContext().setAttribute("moskito.maven.version", moskitoVersion == null ? "?" : moskitoVersion);
-			config.getServletContext().setAttribute("moskito.version_string", moskitoVersion == null ? "unknown" : moskitoVersion.getVersion());
+			config.getServletContext().setAttribute("application_maven_version", appVersion == null ? "?" : appVersion);
+			config.getServletContext().setAttribute("moskito_maven_version", moskitoVersion == null ? "?" : moskitoVersion);
+			config.getServletContext().setAttribute("moskito_version_string", (moskitoVersion == null || moskitoVersion.getVersion().length()==0)? "unknown" : moskitoVersion.getVersion());
 			String computerName = NetUtils.getComputerName();
 			config.getServletContext().setAttribute("servername", computerName==null ? "Unknown" : computerName);
 		}catch(Exception e){

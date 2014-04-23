@@ -3,6 +3,6 @@
         page isELIgnored="false" %>
 <footer id="footer" class="navbar-default">
     <p class="text-center">Generated at ${timestampAsDate}  |  timestamp: ${timestamp}  |  Interval updated at: ${currentIntervalUpdateTimestamp}  |   Interval age: ${currentIntervalUpdateAge}</p>
-    <p class="text-center">App version: ${application.maven.version}  |  MoSKito version: ${moskito.maven.version} | Server: ${servername} || Connection: ${connection}</p>
-    <ano:equal name="config" property="trackUsage" value="true"><img src="//counter.moskito.org/counter/webui/${moskito.version_string}/${pagename}" class="ipix"> </ano:equal>
+    <p class="text-center">App version: ${application_maven_version}  |  MoSKito version: ${moskito_maven_version} | Server: ${servername} | Connection: ${connection}</p>
+    <ano:equal name="config" property="trackUsage" value="true"><img src="//counter.moskito.org/counter/inspect/${applicationScope.moskito_version_string}/${pagename}" class="ipix"> </ano:equal>
 </footer>
