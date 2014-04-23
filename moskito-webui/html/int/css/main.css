@@ -982,10 +982,13 @@ p.paddner span {
     margin: -3px 0;
 }
 
-.glyphicon-plus:before,
 .treegrid-expander {
-    font-size: 18px;
+    display: inline-block;
+    font-size: 14px;
     color: #738DE7;
+    margin-right: 10px;
+    position: relative;
+    bottom: -2px;
 }
 
 .table tr.treegrid-parent > td {

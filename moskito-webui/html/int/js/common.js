@@ -96,7 +96,7 @@ $(function () {
     });
 
     $('.tree').treegrid({
-        expanderExpandedClass: 'glyphicon glyphicon-minus',
-        expanderCollapsedClass: 'glyphicon glyphicon-plus'
+        expanderExpandedClass: 'fa fa-minus',
+        expanderCollapsedClass: 'fa fa-plus'
     }).treegrid('collapseAll');
 });
