@@ -3,7 +3,6 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/html">
 <jsp:include page="../../shared/jsp/InspectHeader.jsp" flush="false"/>
-<link type="text/css" rel="stylesheet" href="../ext/google-code-prettify/prettify.css">  
 <script type="text/javascript" src="../ext/google-code-prettify/prettify.js"></script>
 <script type="text/javascript" src="../ext/google-code-prettify/application.js"></script>
 <section id="main">

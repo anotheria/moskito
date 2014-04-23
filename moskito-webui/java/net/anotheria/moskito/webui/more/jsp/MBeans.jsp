@@ -5,7 +5,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/html">
 
 <jsp:include page="../../shared/jsp/InspectHeader.jsp" flush="false"/>
-<link type="text/css" rel="stylesheet" href="../ext/treegrid/css/jquery.treegrid.css">  <script type="text/javascript" src="../ext/treegrid/js/jquery.treegrid.js"></script>
+  <script type="text/javascript" src="../ext/treegrid/js/jquery.treegrid.js"></script>
 <script type="text/javascript" src="../ext/treegrid/js/jquery.treegrid.bootstrap3.js"></script>
 
 <section id="main">
