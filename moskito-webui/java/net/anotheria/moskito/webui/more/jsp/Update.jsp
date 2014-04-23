@@ -18,7 +18,7 @@
                 <div class="paddner">
                     <dl class="dl-horizontal">
                         <dt>Your version:</dt>
-                        <dd><ano:write name="moskito.maven.version"/></dd>
+                        <dd><ano:write name="moskito_maven_version"/></dd>
                         <dt>Central version:</dt>
                         <dd><ano:write name="version"/> from <ano:write name="versionTimestamp"/></dd>
                     </dl>
