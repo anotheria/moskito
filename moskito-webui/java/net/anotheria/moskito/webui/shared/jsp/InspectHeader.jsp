@@ -139,7 +139,7 @@
     </li>
     </ano:equal>
     <ano:notEqual name="currentNaviItem" property="id" value="more">
-        <a href="mskMore">Everything else <i class="fa fa-bookmark"></i></a>
+        <li><a href="mskMore">Everything else <i class="fa fa-bookmark"></i></a></li>
     </ano:notEqual>
 
 </ul>
