@@ -20,6 +20,9 @@
     <ano:equal name="currentSubNaviItem" property="id" value="more_mbeans">
         <link type="text/css" rel="stylesheet" href="../ext/treegrid/css/jquery.treegrid.css"> 
     </ano:equal>
+    <ano:equal name="currentNaviItem" property="id" value="journeys">
+        <link type="text/css" rel="stylesheet" href="../ext/treegrid/css/jquery.treegrid.css"> 
+    </ano:equal>
 
     <!--[if lt IE 9]><script src="../int/js/ie8-responsive-file-warning.js"></script><![endif]-->
     <!--[if lt IE 8]><link type="text/css" rel="stylesheet" rev="stylesheet" href="../static-int/css/bootstrap-ie7.css" /><![endif]-->
@@ -46,6 +49,10 @@
     <script type="text/javascript" src="../ext/google-code-prettify/application.js"></script>
 </ano:equal>
 
+<ano:equal name="currentNaviItem" property="id" value="journeys">
+    <script type="text/javascript" src="../ext/treegrid/js/jquery.treegrid.js"></script>
+    <script type="text/javascript" src="../ext/treegrid/js/jquery.treegrid.bootstrap3.js"></script>
+</ano:equal>
 
 <!-- currently for handle select only -->
 <script type="text/javascript" src="../js/function.js"></script>
@@ -95,7 +102,7 @@
 <aside id="aside" class="scrollbar">
 
 <div class="header-box">
-    <span class="version">v 2.5.0-SNAPSHOT</span>
+    <span class="version">v  ${moskito_version_string}</span>
     <i class="logo"></i>
     <span class="logo-title">MoSKito Inspect</span>
 </div>
