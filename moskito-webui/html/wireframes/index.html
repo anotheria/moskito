@@ -22,7 +22,7 @@
     <![endif]-->
 </head>
 
-<body class="status-yellow error-page">
+<body class="status-yellow home-page">
 
 <script src="../ext/jquery-1.10.2/jquery-1.10.2.min.js" type="text/javascript"></script>
 <script src="../ext/bootstrap-3.1.1/js/bootstrap.min.js" type="text/javascript"></script>
@@ -148,16 +148,14 @@
             <div class="content">
 
                 <img src="../int/img/moskito.png" height="100">
-                <h1>Encountered an error</h1>
+                <h1>MoSKito minimal</h1>
                 <span class="liner"></span>
                 <p>
-                    Constructor with ServiceDescriptor parameter can not be invoked in remote stub
+                    This is a very minimal installation allowing you to make a first glance at MoSKito. It will help you monitor threads and memory of your current webcontainer, but that's actually it.
+                    For all the powerful features of MoSKito visit
                 </p>
-                <button class="btn error_page_details_button btn-default">Details</button>
-
-                <div class="container text-left error_page_details_content display_none_property" style="padding-bottom: 30px; display: block;">
-                    [net.anotheria.moskito.webui.util.APILookupUtility.findRemote(APILookupUtility.java:136), net.anotheria.moskito.webui.util.APILookupUtility.findRemote(APILookupUtility.java:110), net.anotheria.moskito.webui.util.APILookupUtility.getAdditionalFunctionalityAPI(APILookupUtility.java:81), net.anotheria.moskito.webui.shared.action.BaseMoskitoUIAction.preProcess(BaseMoskitoUIAction.java:320), net.anotheria.maf.MAFFilter.doPerform(MAFFilter.java:260), net.anotheria.maf.MAFFilter.doFilter(MAFFilter.java:215), org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:243), org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:210), org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:222), org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:123), org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:502), org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:171), org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:100), org.apache.catalina.valves.AccessLogValve.invoke(AccessLogValve.java:953), org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:118), org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:408), org.apache.coyote.ajp.AjpProcessor.process(AjpProcessor.java:200), org.apache.coyote.AbstractProtocol$AbstractConnectionHandler.process(AbstractProtocol.java:603), org.apache.tomcat.util.net.JIoEndpoint$SocketProcessor.run(JIoEndpoint.java:310), java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145), java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615), java.lang.Thread.run(Thread.java:744)]
-                </div>
+                <a href="http://www.moskito.org/" class="btn btn-primary">MoSKito homepage</a>
+                <a href="https://confluence.opensource.anotheria.net/display/MSK/Home" class="btn btn-primary">MoSKito Confluence Space</a>
 
             </div>
 
