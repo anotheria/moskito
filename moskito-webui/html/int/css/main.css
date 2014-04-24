@@ -297,6 +297,7 @@ body.status-yellow ul.nav-sidebar > li.active > a {
     box-shadow: 0 2px 0 rgba(0,0,0,0.04);
     border-radius: 5px;
     margin-bottom: 30px;
+    position: relative;
 }
 
 .box-content {
@@ -1057,4 +1058,17 @@ ul.switcher li i.chart-icon {
     opacity: 1;
     margin: 0 5px;
     bottom: -2px;
+}
+
+.headcol {
+    position:absolute;
+    width: 200px;
+    left:0;
+    top:auto;
+}
+
+.table1fixed {
+    margin-left: 190px;
+    overflow-x:scroll;
+    overflow-y:visible;
 }
