@@ -22,47 +22,38 @@
     </div>
 </div>
 <div id="collapse${decorator.name}" class="box-content accordion-body collapse in">
-<table class="table table-left table-striped tablesorter">
-    <thead>
-    <tr>
-        <th>Producer Id <i class="fa fa-caret-down"></i></th>
-    </tr>
-    </thead>
-    <tbody>
-    <ano:iterate name="decorator" property="producers" id="producer" type="net.anotheria.moskito.webui.producers.api.ProducerAO">
-    <tr>
-        <td><a href="mskShowProducer?pProducerId=${producer.producerId}" title="Show details for this producer">${producer.producerId}</a></td>
-    </tr>
-    </ano:iterate>
-    </tbody>
-</table>
-<div class="table-right">
-    <table class="table table-striped tablesorter">
-        <thead>
-        <tr>
-            <th>Category <i class="fa fa-caret-down"></i></th>
-            <th>Subsystem <i class="fa fa-caret-down"></i></th>
-            <ano:iterate name="decorator" property="captions" type="net.anotheria.moskito.webui.shared.bean.StatCaptionBean" id="caption" indexId="ind">
-                <th title="${caption.shortExplanation}">${caption.caption} <i class="fa fa-caret-down"></i><i class="chart-icon tooltip-bottom" title="Show chart"></i></th>
+
+
+    <div class="table1fixed">
+        <table class="table table-striped tablesorter">
+            <thead>
+            <tr>
+                <th class="headcol">Producer Id <i class="fa fa-caret-down"></i></th>
+                <th>Category <i class="fa fa-caret-down"></i></th>
+                <th>Subsystem <i class="fa fa-caret-down"></i></th>
+                <ano:iterate name="decorator" property="captions" type="net.anotheria.moskito.webui.shared.bean.StatCaptionBean" id="caption" indexId="ind">
+                    <th title="${caption.shortExplanation}">${caption.caption} <i class="fa fa-caret-down"></i><i class="chart-icon tooltip-bottom" title="Show chart"></i></th>
+                </ano:iterate>
+                <th>Class</th>
+            </tr>
+            </thead>
+            <tbody>
+                    <%-- writing out values --%>
+            <ano:iterate name="decorator" property="producers" id="producer" type="net.anotheria.moskito.webui.producers.api.ProducerAO">
+            <tr>
+                <td class="headcol"><a href="mskShowProducer?pProducerId=${producer.producerId}" title="Show details for this producer">${producer.producerId}</a></td>
+                <td><a href="mskShowProducersByCategory?pCategory=${producer.category}">${producer.category}</a></td>
+                <td><a href="mskShowProducersBySubsystem?pSubsystem=${producer.subsystem}">${producer.subsystem}</a></td>
+                <ano:iterate name="producer" property="firstStatsValues" id="value" type="net.anotheria.moskito.webui.producers.api.StatValueAO">
+                    <td title="${producer.producerId}.${value.name}=${value.value}">${value.value}</td>
+                </ano:iterate>
+                <td>${producer.producerClassName}</td>
+            </tr>
             </ano:iterate>
-            <th>Class</th>
-        </tr>
-        </thead>
-        <tbody>
-        <%-- writing out values --%>
-        <ano:iterate name="decorator" property="producers" id="producer" type="net.anotheria.moskito.webui.producers.api.ProducerAO">
-        <tr>
-            <td><a href="mskShowProducersByCategory?pCategory=${producer.category}">${producer.category}</a></td>
-            <td><a href="mskShowProducersBySubsystem?pSubsystem=${producer.subsystem}">${producer.subsystem}</a></td>
-            <ano:iterate name="producer" property="firstStatsValues" id="value" type="net.anotheria.moskito.webui.producers.api.StatValueAO">
-                <td title="${producer.producerId}.${value.name}=${value.value}">${value.value}</td>
-            </ano:iterate>
-            <td>${producer.producerClassName}</td>
-        </tr>
-        </ano:iterate>
-        </tbody>
-    </table>
-</div>
+            </tbody>
+        </table>
+    </div>
+
 </div>
 </div>
 </ano:iterate>
