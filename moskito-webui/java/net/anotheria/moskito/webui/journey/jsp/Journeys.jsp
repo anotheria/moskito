@@ -72,20 +72,22 @@
         <th>Last activity <i class="fa fa-caret-down"></i></th>
         <th>Calls <i class="fa fa-caret-down"></i></th>
         <th>Active <i class="fa fa-caret-down"></i></th>
-        <th>&nbsp; <i class="fa fa-caret-down"></i></th>
+        <th>&nbsp;</th>
+        <th>&nbsp;</th>
     </tr>
     </thead>
     <tbody>
     <ano:iterate name="journeys" type="net.anotheria.moskito.webui.journey.api.JourneyListItemAO" id="journey" indexId="index">
         <tr>
-            <td><a href="mskShowJourney?pJourneyName=<ano:write name="journey" property="name"/>"><ano:write name="journey" property="name"/></a></td>
+            <td><a class="tooltip-bottom" title="Show steps in journey ${journey.name}" href="mskShowJourney?pJourneyName=${journey.name}">${journey.name}</a></td>
             <td><ano:write name="journey" property="created"/></td>
             <td><ano:write name="journey" property="lastActivity"/></td>
             <td><ano:write name="journey" property="numberOfCalls"/></td>
             <td><ano:write name="journey" property="active"/>
                 <ano:equal name="journey" property="active" value="true">&nbsp;(<a href="#" onclick="stop_journey('<ano:write name="journey" property="name"/>')">stop</a>)</ano:equal>
             </td>
-            <td><a title="analyze this journey" href="mskAnalyzeJourney?pJourneyName=<ano:write name="journey" property="name"/>"><i class="fa fa-search"></i></a></td>
+
+            <td><a class="action-icon show-icon tooltip-bottom" title="" data-original-title="Show steps in journey ${journey.name}"  href="mskShowJourney?pJourneyName=${journey.name}"><i class="fa fa-search"></i></a><a class="action-icon show-icon tooltip-bottom" title="" data-original-title="Analyze journey ${journey.name}"  href="mskAnalyzeJourney?pJourneyName=${journey.name}"><i class="fa fa-search-plus"></i></a></td>
         </tr>
     </ano:iterate>
     </tbody>
