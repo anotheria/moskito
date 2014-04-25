@@ -43,6 +43,7 @@ $(function() {
 //	);
 
 	//setting submenu
+    /*
 	function submenu_shadow() {
 	if ($('.sub_menu').is(':visible')) {
 		$('.main').css('padding-top', '101px');
@@ -63,6 +64,7 @@ $(function() {
 		$('.main').css('padding-top', '71px');
 	}
 	};
+	*/
 
 
 
@@ -174,26 +176,6 @@ $(function() {
 				//submenu_shadow();
 				}, 500);
 	});*/
-
-	//hover table function
-	$('table.fll tr').hover(function() {
-		var tr_num = $(this).parents().filter('table').find('tr').index($(this));
-		$(this).parents().filter('.in').find('.table_right tr').eq(tr_num).addClass('hover_it');
-	},
-	function() {
-		var tr_num = $(this).parents().filter('table').find('tr').index($(this));
-		$(this).parents().filter('.in').find('.table_right tr').eq(tr_num).removeClass('hover_it');
-	});
-
-
-	$('.table_right table tr').hover(function() {
-		var tr_num = $(this).parents().filter('table').find('tr').index($(this));
-		$(this).parents().filter('.in').find('table.fll tr').eq(tr_num).addClass('hover_it');
-	},
-	function() {
-		var tr_num = $(this).parents().filter('table').find('tr').index($(this));
-		$(this).parents().filter('.in').find('table.fll tr').eq(tr_num).removeClass('hover_it');
-	});
 
 	//root table hover effect
 	$('.its_root td').hover(function() {

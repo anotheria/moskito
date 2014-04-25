@@ -6,26 +6,6 @@ $(window).scroll(function(){
     }
 });//scroll
 
-function resize_table(el) {
-    var in_t = el.find('.box-content');
-    var tl = el.find('table:first');
-    var tr = el.find('.table-right');
-    tr.width(in_t.width()-tl.width());
-}
-
-// resize table listner
-$(window).bind('resize', function() {
-    $('.box').each(
-        function() {
-            resize_table($(this));
-        }
-    );
-
-    if ($(window).width() < 800) {
-        $('body').addClass('aside-collapse');
-    }
-});
-
 $(function () {
     if (Array.prototype.forEach) {
         var elems = Array.prototype.slice.call(document.querySelectorAll('.js-switch'));
@@ -59,32 +39,7 @@ $(function () {
     $('.tooltip-left').tooltip({placement:'left'}).on('show', function (e) {e.stopPropagation();});
     $('.tooltip-right').tooltip({placement:'right'}).on('show', function (e) {e.stopPropagation();});
 
-    $('.box').each(
-        function() {
-            resize_table($(this));
-        }
-    );
-
     $(".tablesorter").tablesorter();
-
-    //hover table function
-    $('table.table tr').hover(function() {
-            var tr_num = $(this).parents().filter('table').find('tr').index($(this));
-            $(this).parents().filter('.box').find('.table-right tr').eq(tr_num).addClass('hover_it');
-        },
-        function() {
-            var tr_num = $(this).parents().filter('table').find('tr').index($(this));
-            $(this).parents().filter('.box').find('.table-right tr').eq(tr_num).removeClass('hover_it');
-        });
-
-    $('.table-right table tr').hover(function() {
-            var tr_num = $(this).parents().filter('table').find('tr').index($(this));
-            $(this).parents().filter('.box').find('table.table tr').eq(tr_num).addClass('hover_it');
-        },
-        function() {
-            var tr_num = $(this).parents().filter('table').find('tr').index($(this));
-            $(this).parents().filter('.box').find('table.table tr').eq(tr_num).removeClass('hover_it');
-        });
 
     $(".select2").select2();
 
@@ -94,6 +49,15 @@ $(function () {
         $('ul.nav-sidebar > li').removeClass('active');
         $(this).addClass('active');
     });
+
+    var max = 0
+
+    $('.headcol').each(function() {
+        var width = $(this).width(); if( max < width) { max = width}
+    });
+
+    $('.headcol').width(max);
+    $('.table1fixed').css('margin-left', max + 39);
 
     $('.tree').treegrid({
         expanderExpandedClass: 'fa fa-minus',
