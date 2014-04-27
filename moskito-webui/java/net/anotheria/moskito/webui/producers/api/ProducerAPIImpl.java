@@ -123,7 +123,6 @@ public class ProducerAPIImpl extends AbstractMoskitoAPIImpl implements ProducerA
 	@Override
 	public ProducerAO getProducer(String producerId, String intervalName, TimeUnit timeUnit) throws APIException {
 		IStatsProducer producer = producerRegistryAPI.getProducer(producerId);
-		System.out.println("EXPECT a crash");
 		return convertStatsProducerToAO(producer, intervalName, timeUnit, true);
 	}
 }

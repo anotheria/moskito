@@ -53,7 +53,7 @@
     <script type="text/javascript" src="../ext/treegrid/js/jquery.treegrid.js"></script>
     <script type="text/javascript" src="../ext/treegrid/js/jquery.treegrid.bootstrap3.js"></script>
 </ano:equal>
-
+<ano:define name="moskito.CurrentUnit" property="unitName" id="currentUnit" toScope="page" type="java.lang.String"/>
 <!-- currently for handle select only -->
 <script type="text/javascript" src="../js/function.js"></script>
 
@@ -83,7 +83,7 @@
             <div class="form-group">
                 <select class="select2" data-placeholder="Unit" onchange="javascript:handleSelect(this)">
                 <ano:iterate name="units" id="unit" type="net.anotheria.moskito.webui.shared.bean.UnitBean">
-                    <option value="${linkToCurrentPage}&amp;pUnit=${unit.unitName}" ${unit.unitName==requestScope.currentUnit ? "selected" : ""}>
+                    <option value="${linkToCurrentPage}&amp;pUnit=${unit.unitName}" ${unit.unitName.equals(currentUnit) ? "selected" : ""}>
                         ${unit.unitName}
                     </option>
                 </ano:iterate>
