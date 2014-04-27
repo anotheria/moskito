@@ -1068,8 +1068,8 @@ ul.switcher li i.chart-icon {
 
 .table1fixed {
     margin-left: 190px;
-    overflow-x:scroll;
-    overflow-y:visible;
+    overflow-x: auto;
+    overflow-y: visible;
 }
 
 .modal-table {
