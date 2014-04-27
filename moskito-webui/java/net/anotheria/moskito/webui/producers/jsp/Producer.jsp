@@ -24,7 +24,7 @@
             <a href="${linkToCurrentPage}&pForward=selection&target=Accumulator" class="btn btn-default">Add Accumulator</a>
             <a href="${linkToCurrentPage}&pForward=selection&target=Threshold" class="btn btn-default">Add Threshold</a>
             <ano:equal name="producer" property="inspectable" value="true">
-                <a href="mskInspectProducer?pProducerId=${producer.producerId}" data-toggle="modal" data-target="#inspect" class="btn btn-success">Inspect</a>
+                <a href="#inspect" data-toggle="modal" data-target="#inspect" class="btn btn-success">Inspect</a>
             </ano:equal>
         </div>
     </div>
@@ -74,6 +74,24 @@
 
 
 </div>
+
+    <div class="modal fade inspect-list" id="inspect" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabel">Inspect Producer '${producer.producerId}' creation location:</h4>
+                </div>
+                <div class="modal-body">
+                    <ul>
+                        <ano:iterate name="creationTrace" type="java.lang.String" id="line">
+                            <li>${line}</li>
+                        </ano:iterate>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
 
 <jsp:include page="../../shared/jsp/InspectFooter.jsp" flush="false"/>
 </section>
