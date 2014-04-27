@@ -1071,3 +1071,11 @@ ul.switcher li i.chart-icon {
     overflow-x:scroll;
     overflow-y:visible;
 }
+
+.modal-table {
+    padding: 0;
+}
+
+.modal-table table {
+    margin-bottom: 5px;
+}
