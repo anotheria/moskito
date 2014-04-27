@@ -19,7 +19,6 @@ import net.anotheria.moskito.webui.more.action.ShowLibsAction;
 import net.anotheria.moskito.webui.more.action.ShowMBeansAction;
 import net.anotheria.moskito.webui.more.action.ShowPluginsAction;
 import net.anotheria.moskito.webui.more.action.UpdateAction;
-import net.anotheria.moskito.webui.producers.action.InspectProducerAction;
 import net.anotheria.moskito.webui.producers.action.ShowAllProducersAction;
 import net.anotheria.moskito.webui.producers.action.ShowProducerAction;
 import net.anotheria.moskito.webui.producers.action.ShowProducersForCategoryAction;
@@ -98,12 +97,7 @@ public class MoskitoMappingsConfigurator implements ActionMappingsConfigurator{
 		mappings.addAlias("mskShowProducer.json", "mskShowProducer");
 		mappings.addAlias("mskShowProducerForSelection", "mskShowProducer");
 
-		mappings.addMapping("mskInspectProducer", InspectProducerAction.class, 
-				new ActionForward("html", "/net/anotheria/moskito/webui/producers/jsp/InspectProducer.jsp"),
-				new ActionForward("xml", "/net/anotheria/moskito/webui/shared/jsp/InspectProducerXML.jsp")
-		);
-		
-		mappings.addMapping("mskShowExplanations", ShowExplanationsAction.class, 
+		mappings.addMapping("mskShowExplanations", ShowExplanationsAction.class,
 				new ActionForward("success", "/net/anotheria/moskito/webui/shared/jsp/Explanations.jsp")
 		);
 
