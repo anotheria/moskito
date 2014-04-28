@@ -145,10 +145,6 @@ fieldset[disabled] .btn-success.active {
     box-shadow: none;
 }
 
-.modal-dialog.form {
-    max-width: 460px;
-}
-
 .modal-content {
     border: none;
     border-radius: 5px;

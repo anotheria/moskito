@@ -1074,8 +1074,9 @@ ul.switcher li i.chart-icon {
 
 .modal-table {
     padding: 0;
+    overflow-x: auto;
 }
 
 .modal-table table {
-    margin-bottom: 5px;
+    margin-bottom: 0;
 }
