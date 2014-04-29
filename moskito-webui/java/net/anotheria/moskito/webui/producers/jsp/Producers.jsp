@@ -6,10 +6,13 @@
 <jsp:include page="../../shared/jsp/InspectHeader.jsp" flush="false"/>
 
 <section id="main">
+<%--
+Commented out for now. We may add this later as welcome message (to all layers).
 <div class="alert alert-warning alert-dismissable">
     <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
     <strong>Welcome</strong> to moskito WebUI. <a href="">How it work?</a>
 </div>
+--%>
 <div class="content">
 
 <ano:iterate type="net.anotheria.moskito.webui.shared.bean.ProducerDecoratorBean" id="decorator" name="decorators">
