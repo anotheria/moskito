@@ -21,10 +21,10 @@
             <dd>${producer.producerClassName}</dd>
         </dl>
         <div class="pull-right">
-            <a href="${linkToCurrentPage}&pForward=selection&target=Accumulator" class="btn btn-default" onclick="new_accumulator(); return false">Add Accumulator</a>
-            <a href="${linkToCurrentPage}&pForward=selection&target=Threshold" class="btn btn-default" onclick="new_threshold(); return false">Add Threshold</a>
+            <a href="${linkToCurrentPage}&pForward=selection&target=Accumulator" class="btn btn-default" onclick="new_accumulator(); return false"><i class="fa fa-plus"></i> Accumulator</a>
+            <a href="${linkToCurrentPage}&pForward=selection&target=Threshold" class="btn btn-default" onclick="new_threshold(); return false"><i class="fa fa-plus"></i> Threshold</a>
             <ano:equal name="producer" property="inspectable" value="true">
-                <a href="#inspect" data-toggle="modal" data-target="#inspect" class="btn btn-success">Inspect</a>
+                <a href="#inspect" data-toggle="modal" data-target="#inspect" class="btn btn-success"><i class="fa fa-search"></i> Inspect</a>
             </ano:equal>
         </div>
     </div>
