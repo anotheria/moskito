@@ -101,13 +101,7 @@ public class MoskitoMappingsConfigurator implements ActionMappingsConfigurator{
 				new ActionForward("success", "/net/anotheria/moskito/webui/shared/jsp/Explanations.jsp")
 		);
 
-//		mappings.addMapping("mskShowUseCases", ShowUseCasesAction.class,
-//				new ActionForward("success", "/net/anotheria/moskito/webui/jsp/UseCases.jsp")
-//		);
-//		mappings.addMapping("mskShowRecordedUseCase", ShowRecordedUseCaseAction.class,
-//				new ActionForward("success", "/net/anotheria/moskito/webui/jsp/RecordedUseCase.jsp")
-//		);
-		mappings.addMapping("mskShowJourneys", ShowJourneysAction.class, 
+		mappings.addMapping("mskShowJourneys", ShowJourneysAction.class,
 				new ActionForward("success", "/net/anotheria/moskito/webui/journey/jsp/Journeys.jsp")
 		);
 		mappings.addMapping("mskShowJourney", ShowJourneyAction.class, 
