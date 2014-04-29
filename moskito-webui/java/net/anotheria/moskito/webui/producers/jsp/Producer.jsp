@@ -183,7 +183,7 @@
                                 <select name="interval" class="form-control" id="Interval">
                                     <ano:iterate name="intervals" id="interval" type="net.anotheria.moskito.webui.shared.api.IntervalInfoAO">
                                         <option value="${interval.name}" <ano:equal name="interval" property="name" value="<%=currentInterval%>">selected="selected"</ano:equal>>
-                                            <ano:write name="interval" property="name"/>
+                                            ${interval.name}
                                         </option>
                                     </ano:iterate>
                                 </select>
@@ -195,7 +195,7 @@
                                 <select name="unit" id="TimeUnite" class="form-control">
                                     <ano:iterate name="units" id="unit" type="net.anotheria.moskito.webui.shared.bean.UnitBean">
                                         <option value="<ano:write name="unit" property="unitName"/>" <ano:equal name="unit" property="unitName" value="<%=currentUnit%>">selected="selected"</ano:equal>>
-                                            <ano:write name="unit" property="unitName"/>
+                                            ${unit.unitName}
                                         </option>
                                     </ano:iterate>
                                 </select>
@@ -227,7 +227,7 @@
                             <td>${stat.name}</td>
                             <ano:iterate name="stat" property="values" id="value" type="net.anotheria.moskito.webui.producers.api.StatValueAO">
                                 <td>
-                                    <a href="#" onclick="setandsubmit('${value.name}', '${stat.name}'); return false">CREATE</a>
+                                    <a href="#" onclick="setandsubmit('${value.name}', '${stat.name}'); return false"><i class="fa fa-plus"></i></a>
                                 </td>
                             </ano:iterate>
                         </tr>
@@ -314,7 +314,7 @@
                                 <td>${stat.name}</td>
                                 <ano:iterate name="stat" property="values" id="value" type="net.anotheria.moskito.webui.producers.api.StatValueAO">
                                     <td>
-                                        <a href="#" onclick="setandsubmitAccumulator('${value.name}', '${stat.name}'); return false">CREATE</a>
+                                        <a href="#" onclick="setandsubmitAccumulator('${value.name}', '${stat.name}'); return false"><i class="fa fa-plus"></i></a>
                                     </td>
                                 </ano:iterate>
                             </tr>
