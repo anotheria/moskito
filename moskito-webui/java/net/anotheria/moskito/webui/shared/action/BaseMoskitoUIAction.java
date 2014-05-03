@@ -31,7 +31,7 @@
  * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, 
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR
  * THE USE OR OTHER DEALINGS IN THE SOFTWARE.
- */	
+ */
 package net.anotheria.moskito.webui.shared.action;
 
 import net.anotheria.maf.action.Action;
@@ -71,7 +71,7 @@ import java.util.List;
  *
  */
 public abstract class BaseMoskitoUIAction implements Action{
-	
+
 	/**
 	 * Constant for the forward parameter.
 	 */
@@ -124,17 +124,17 @@ public abstract class BaseMoskitoUIAction implements Action{
 	 * Parameter for producer subsystem.
 	 */
 	public static final String PARAM_SUBSYSTEM = "pSubsystem";
-	
-	/** 
+
+	/**
 	 * SortBy usually accompanied by an integer that defines the sort method.
 	 */
 	public static final String PARAM_SORT_BY = "pSortBy";
-	
+
 	/**
 	 * Sort order, ASC or DESC.
 	 */
 	public static final String PARAM_SORT_ORDER = "pSortOrder";
-	
+
 	/**
 	 * If set (to true) the zero request values will be removed from producer presentation.
 	 */
@@ -157,6 +157,11 @@ public abstract class BaseMoskitoUIAction implements Action{
 	public static final String PARAM_CHART_ENGINE = "pChartEngine";
 
 	/**
+	 * Attribute name for indication if menu navigation is collapsed or not.
+	 */
+	public static final String ATTR_IS_NAV_MENU_COLLAPSED = "isNavMenuCollapsed";
+
+	/**
 	 * Bean name for the session bean (been in http session) for chart engine selection.
 	 */
 	public static final String BEAN_CHART_ENGINE = "ChartEngine";
@@ -175,9 +180,9 @@ public abstract class BaseMoskitoUIAction implements Action{
 		new UnitBean(TimeUnit.MICROSECONDS),
 		new UnitBean(TimeUnit.NANOSECONDS),
 	};
-	
+
 	/**
-	 * Default unit. 
+	 * Default unit.
 	 */
 	public static final UnitBean DEFAULT_UNIT_BEAN = AVAILABLE_UNITS[1]; //millis
 	/**
@@ -194,14 +199,14 @@ public abstract class BaseMoskitoUIAction implements Action{
 	 * Prefix for producer sort type session storage.
 	 */
 	public static final String BEAN_SORT_TYPE_SINGLE_PRODUCER_PREFIX = BEAN_SORT_TYPE_PREFIX+".single";
-	
+
 	/**
 	 * Instance of the decorator registry.
 	 */
 	private static IDecoratorRegistry decoratorRegistry;
 
 
-	
+
 	/**
 	 * ProducerId for moskito.
 	 */
@@ -221,13 +226,13 @@ public abstract class BaseMoskitoUIAction implements Action{
 	public String getSubsystem(){
 		return "moskitoUI";
 	}
-	
+
 	public String getProducerId(){
 		if (myProducerId==null)
 			myProducerId = "moskito."+getClass().getName().substring(getClass().getName().lastIndexOf('.')+1);
 		return myProducerId;
 	}
-	
+
 	/**
 	 * Returns the specified forward.
 	 * @param req
@@ -239,7 +244,7 @@ public abstract class BaseMoskitoUIAction implements Action{
 			forward = DEFAULT_FORWARD;
 		return forward;
 	}
-	
+
 	/**
 	 * Returns the currently selected interval, either as parameter or from session.
 	 * @param req
@@ -248,7 +253,7 @@ public abstract class BaseMoskitoUIAction implements Action{
 	protected String getCurrentInterval(HttpServletRequest req){
 		return getCurrentInterval(req, true);
 	}
-	
+
 	/**
 	 * Returns the currently selected interval, either as parameter or from session.
 	 * @param req
@@ -267,7 +272,7 @@ public abstract class BaseMoskitoUIAction implements Action{
 			req.getSession().setAttribute(BEAN_INTERVAL, interval);
 		return interval;
 	}
-	
+
 	/**
 	 * Returns the currently selected unit either from request or session.
 	 * @param req
@@ -276,7 +281,7 @@ public abstract class BaseMoskitoUIAction implements Action{
 	protected UnitBean getCurrentUnit(HttpServletRequest req){
 		return getCurrentUnit(req, true);
 	}
-	
+
 	/**
 	 * Returns the currently selected unit either from request or session.
 	 * @param req
@@ -294,7 +299,7 @@ public abstract class BaseMoskitoUIAction implements Action{
 			}
 			return ret;
 		}
-		
+
 		int index = -1;
 		for (int i = 0; i<AVAILABLE_UNITS_LIST.size(); i++){
 			if (AVAILABLE_UNITS_LIST.get(i).getUnitName().equalsIgnoreCase(unitParameter)){
@@ -311,20 +316,20 @@ public abstract class BaseMoskitoUIAction implements Action{
 	@Override
 	public void preProcess(ActionMapping mapping, HttpServletRequest req, HttpServletResponse res) throws Exception {
 		String currentIntervalName = getCurrentInterval(req);
-		
+
 		CurrentSelection currentSelection = CurrentSelection.resetAndGet();
 		currentSelection.setCurrentIntervalName(currentIntervalName);
-		
-		
+
+
 		///////////// prepare intervals
 		req.setAttribute("intervals", APILookupUtility.getAdditionalFunctionalityAPI().getIntervalInfos());
 		req.setAttribute("currentInterval", currentIntervalName);
-		
+
 		////////////// prepare units
 		req.setAttribute("units", AVAILABLE_UNITS_LIST);
 		//ensure current unit is properly set.
 		currentSelection.setCurrentTimeUnit(getCurrentUnit(req).getUnit());
-		
+
 		//Link to current page
 		req.setAttribute("linkToCurrentPage", getLinkToCurrentPage(req));
 		req.setAttribute("linkToCurrentPageAsXml", maskAsXML(getLinkToCurrentPage(req)));
@@ -337,7 +342,7 @@ public abstract class BaseMoskitoUIAction implements Action{
 			currentNaviItem = NaviItem.NONE;
 		req.setAttribute("currentNaviItem", currentNaviItem);
 		req.setAttribute("currentSubNaviItem", getCurrentSubNaviItem());
-		
+
 		//prepare interval timestamp and age.
 		Long currentIntervalUpdateTimestamp = getAdditionalFunctionalityAPI().getIntervalUpdateTimestamp(currentIntervalName);
 		if (currentIntervalUpdateTimestamp==null){
@@ -347,14 +352,14 @@ public abstract class BaseMoskitoUIAction implements Action{
 			req.setAttribute("currentIntervalUpdateTimestamp", NumberUtils.makeISO8601TimestampString(currentIntervalUpdateTimestamp));
 			req.setAttribute("currentIntervalUpdateAge", (System.currentTimeMillis()-currentIntervalUpdateTimestamp)/1000+" seconds");
 		}
-		
+
 		req.setAttribute("currentCategory", "");
 		req.setAttribute("currentSubsystem", "");
 
 		ThresholdStatus systemStatus = getThresholdAPI().getWorstStatus();
 		req.setAttribute("systemStatus", systemStatus);
 		req.setAttribute("systemStatusColor", systemStatus.toString().toLowerCase());
-		
+
 		//configuration issues.
 		req.setAttribute("config", WebUIConfig.getInstance());
 
@@ -402,11 +407,11 @@ public abstract class BaseMoskitoUIAction implements Action{
 		req.setAttribute("connectivityOptions", connectivityOptions);
 		req.setAttribute("selectedConnectivity", APILookupUtility.isLocal() ? "Local" : APILookupUtility.getCurrentRemoteInstance().getSelectKey());
 
-
+		checkNavigationMenuState(req);
 	}
-	
-	
-	
+
+
+
 	@Override
 	public void postProcess(ActionMapping mapping, HttpServletRequest req, HttpServletResponse res) throws Exception {
 		long timestamp = System.currentTimeMillis();
@@ -417,19 +422,19 @@ public abstract class BaseMoskitoUIAction implements Action{
 
 	/**
 	 * Returns the link to the current page.
-	 * @param req 
+	 * @param req
 	 * @return
 	 */
 	protected abstract String getLinkToCurrentPage(HttpServletRequest req);
-	
+
 	protected static IDecoratorRegistry getDecoratorRegistry(){
 		return decoratorRegistry;
 	}
-	
+
 	private String maskAsXML(String link){
 		return maskAsExtension(link, ".xml");
 	}
-	
+
 	private String maskAsCSV(String link){
 		return maskAsExtension(link, ".csv");
 	}
@@ -491,6 +496,23 @@ public abstract class BaseMoskitoUIAction implements Action{
 			ret.append(values[0]).append('=').append(values[1]);
 		}
 		return ret.toString();
+	}
+
+	/**
+	 * Check, if navigation menu default state present in request. If there is no state, set default value.
+	 *
+	 * @param req
+	 * 		{@link HttpServletRequest}
+	 */
+	private void checkNavigationMenuState(final HttpServletRequest req) {
+		if (req == null)
+			return;
+
+		if (req.getSession().getAttribute(ATTR_IS_NAV_MENU_COLLAPSED) != null)
+			return;
+
+		// here we can specify default collapse value
+		req.getSession().setAttribute(ATTR_IS_NAV_MENU_COLLAPSED, false);
 	}
 
 	protected String getPageName(){ return "unnamed"; }
