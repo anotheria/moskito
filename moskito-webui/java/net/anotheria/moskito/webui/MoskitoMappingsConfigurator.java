@@ -25,6 +25,7 @@ import net.anotheria.moskito.webui.producers.action.ShowProducersForCategoryActi
 import net.anotheria.moskito.webui.producers.action.ShowProducersForSubsystemAction;
 import net.anotheria.moskito.webui.shared.action.ForceIntervalUpdateAction;
 import net.anotheria.moskito.webui.shared.action.QuickConnectAction;
+import net.anotheria.moskito.webui.shared.action.SaveNavMenuStateAction;
 import net.anotheria.moskito.webui.shared.action.SelectServerAction;
 import net.anotheria.moskito.webui.shared.action.ShowExplanationsAction;
 import net.anotheria.moskito.webui.threads.action.HistoryOffAction;
@@ -221,6 +222,8 @@ public class MoskitoMappingsConfigurator implements ActionMappingsConfigurator{
 				new ActionForward("success", "/net/anotheria/moskito/webui/more/jsp/Update.jsp")
 		);
 
+		// ajax
+		mappings.addMapping("mskSaveNavMenuState", SaveNavMenuStateAction.class);
 
 		//errors
 		mappings.setOnError(new ActionForward("error", "/net/anotheria/moskito/webui/shared/jsp/Error.jsp"));

@@ -25,6 +25,12 @@ $(function () {
 
     $('.caret-aside').click(function() {
         $('body').toggleClass('aside-collapse');
+
+        $.post("mskSaveNavMenuState", {isNavMenuCollapsed : $('body').hasClass('aside-collapse')}, function(resp){
+            if (resp.status == 'ERROR'){
+                //console.log(resp);
+            }
+        });
         setTimeout(function() {
             $('.box').each(
                 function() {
