@@ -15,12 +15,12 @@ function getBaseUrl() {
 
 
 // function to resize tables
-//function resize_table(el) {
-//	var in_t = el.find('.in');
-//			var tl = el.find('table:first');
-//			var tr = el.find('.table_right');
-//			tr.width(in_t.width()-tl.width()-1);
-//}
+function resize_table(el) {
+	var in_t = el.find('.in');
+			var tl = el.find('table:first');
+			var tr = el.find('.table_right');
+			tr.width(in_t.width()-tl.width()-1);
+}
 
 // resize table listner
 //$(window).bind('resize', function() {
