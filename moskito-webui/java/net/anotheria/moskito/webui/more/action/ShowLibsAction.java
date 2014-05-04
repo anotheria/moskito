@@ -138,6 +138,10 @@ public class ShowLibsAction extends BaseAdditionalAction{
 		return NaviItem.MORE_LIBS;
 	}
 
+	@Override
+	protected String getSubTitle() {
+		return "Libs";
+	}
 
 
 }

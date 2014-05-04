@@ -3,7 +3,7 @@
         page isELIgnored="false" %>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <title>MoSKito Inspect</title>
+    <title>${title}</title>
     <link href='http://fonts.googleapis.com/css?family=Lato:100,300,400,700' rel='stylesheet' type='text/css'>
     <link type="text/css" rel="stylesheet" href="http://fonts.googleapis.com/css?family=Mr+Bedfort">
     <link type="text/css" rel="stylesheet" rev="stylesheet" href="../ext/bootstrap-3.1.1/css/bootstrap.css" />

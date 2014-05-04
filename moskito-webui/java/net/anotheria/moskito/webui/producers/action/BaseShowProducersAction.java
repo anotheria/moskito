@@ -198,6 +198,10 @@ public abstract class BaseShowProducersAction extends BaseMoskitoUIAction {
 		return "producers";
 	}
 
+	@Override
+	protected String getSubTitle() {
+		return "Producers";
+	}
 
 
 }

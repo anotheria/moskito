@@ -21,6 +21,12 @@ public abstract class BaseThreadsAction extends BaseMoskitoUIAction {
 		return null;
 	}
 
+
+	@Override
+	protected String getSubTitle() {
+		return "Threads";
+	}
+
 	protected ThreadAPI getThreadAPI(){
 		return APILookupUtility.getThreadAPI();
 	}

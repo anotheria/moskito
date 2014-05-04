@@ -166,6 +166,8 @@ public abstract class BaseMoskitoUIAction implements Action{
 	 */
 	public static final String BEAN_CHART_ENGINE = "ChartEngine";
 
+	public static final String DEFAULT_TITLE = "MoSKito Inspect";
+
 	/**
 	 * Logger.
 	 */
@@ -408,6 +410,15 @@ public abstract class BaseMoskitoUIAction implements Action{
 		req.setAttribute("selectedConnectivity", APILookupUtility.isLocal() ? "Local" : APILookupUtility.getCurrentRemoteInstance().getSelectKey());
 
 		checkNavigationMenuState(req);
+
+		//set page title.
+		String subTitle = getSubTitle();
+		String title = DEFAULT_TITLE;
+		if (subTitle!=null && subTitle.length()>0){
+			title += " :: "+subTitle;
+		}
+		req.setAttribute("title", title);
+
 	}
 
 
@@ -535,5 +546,9 @@ public abstract class BaseMoskitoUIAction implements Action{
 
 	protected AdditionalFunctionalityAPI getAdditionalFunctionalityAPI(){
 		return APILookupUtility.getAdditionalFunctionalityAPI();
+	}
+
+	protected String getSubTitle(){
+		return "";
 	}
 }

@@ -83,5 +83,9 @@ public class ShowConfigAction extends BaseAdditionalAction{
 		return NaviItem.MORE_CONFIG;
 	}
 
+	@Override
+	protected String getSubTitle() {
+		return "Configuration";
+	}
 
 }
