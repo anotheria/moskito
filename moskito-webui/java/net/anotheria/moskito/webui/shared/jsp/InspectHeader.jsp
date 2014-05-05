@@ -14,6 +14,14 @@
     <link type="text/css" rel="stylesheet" rev="stylesheet" href="../ext/switchery/switchery.min.css" />
     <link type="text/css" rel="stylesheet" rev="stylesheet" href="../int/css/common.css" />
 
+    <!--[if lt IE 9]><script src="../int/js/ie8-responsive-file-warning.js"></script><![endif]-->
+    <!--[if lt IE 8]><link type="text/css" rel="stylesheet" rev="stylesheet" href="../static-int/css/bootstrap-ie7.css" /><![endif]-->
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+
     <ano:equal name="currentSubNaviItem" property="id" value="more_config">
         <link href="../ext/google-code-prettify/prettify.css" rel="stylesheet" type="text/css">
     </ano:equal>
@@ -23,14 +31,6 @@
     <ano:equal name="currentNaviItem" property="id" value="journeys">
         <link type="text/css" rel="stylesheet" href="../ext/treegrid/css/jquery.treegrid.css"> 
     </ano:equal>
-
-    <!--[if lt IE 9]><script src="../int/js/ie8-responsive-file-warning.js"></script><![endif]-->
-    <!--[if lt IE 8]><link type="text/css" rel="stylesheet" rev="stylesheet" href="../static-int/css/bootstrap-ie7.css" /><![endif]-->
-    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
-    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-    <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
-    <![endif]-->
 </head>
 
 <body class="status-${systemStatusColor}<ano:notEmpty name="isNavMenuCollapsed"><ano:iF test="${isNavMenuCollapsed}"> aside-collapse</ano:iF></ano:notEmpty>" >
