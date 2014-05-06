@@ -29,7 +29,7 @@
                         <th>Change Timestamp <i class="fa fa-caret-down"></i></th>
                         <th>FlipCount <i class="fa fa-caret-down"></i></th>
                         <th>Path <i class="fa fa-caret-down"></i></th>
-                        <th></th>
+                        <th class="th-actions"></th>
                     </tr>
                     </thead>
                     <tbody>

@@ -26,7 +26,7 @@
                         <th># <i class="fa fa-caret-down"></i></th>
                         <th>Url</th>
                         <th>Date <i class="fa fa-caret-down"></i></th>
-                        <th>Steps <i class="fa fa-caret-down"></i></i></th>
+                        <th>Steps <i class="fa fa-caret-down"></i></th>
                     </tr>
                     </thead>
                     <tbody>

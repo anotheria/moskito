@@ -37,7 +37,7 @@
                         <th>Class</th>
                         <th>Configuration</th>
                         <th>Description</th>
-                        <th></th>
+                        <th class="th-actions"></th>
                     </tr>
                     </thead>
                     <tbody>
@@ -56,6 +56,7 @@
         </div>
     </div>
     <jsp:include page="../../shared/jsp/InspectFooter.jsp" flush="false"/>
+</section>
 </body>
 </html>
 

@@ -33,7 +33,7 @@
     </ano:equal>
 </head>
 
-<body class="status-${systemStatusColor}<ano:notEmpty name="isNavMenuCollapsed"><ano:iF test="${isNavMenuCollapsed}"> aside-collapse</ano:iF></ano:notEmpty>" >
+<body class="status-${systemStatusColor}<ano:notEmpty name="isNavMenuCollapsed"><ano:iF test="${isNavMenuCollapsed}"> aside-collapse</ano:iF></ano:notEmpty>">
 
 <script src="../ext/jquery-1.10.2/jquery-1.10.2.min.js" type="text/javascript"></script>
 <script src="../ext/bootstrap-3.1.1/js/bootstrap.min.js" type="text/javascript"></script>
