@@ -51,6 +51,10 @@ $(function () {
 
     $(".scrollbar").mCustomScrollbar();
 
+    $(".hscrollbar").mCustomScrollbar({
+        horizontalScroll:true
+    });
+
     $('ul.nav-sidebar > li').click(function () {
         $('ul.nav-sidebar > li').removeClass('active');
         $(this).addClass('active');

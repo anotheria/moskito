@@ -18,7 +18,7 @@
                 </div>
             </div>
 
-            <div id="collapse1" class="box-content accordion-body collapse in">
+            <div id="collapse1" class="box-content accordion-body collapse in hscrollbar">
                 <table class="table table-striped tree">
                     <thead>
                         <tr>
@@ -36,7 +36,7 @@
                             <tr class="treegrid-${index}">
                                 <td>${mbean.domain}</td>
                                 <td>${mbean.type}</td>
-                                <td>${mbean.description}</td>
+                                <td class="wrap">${mbean.description}</td>
                                 <td>${mbean.className}</td>
                                 <td>${mbean.attributesCount}</td>
                                 <td>${mbean.operationsCount}</td>
@@ -63,7 +63,7 @@
                                                         <td>${info.name}</td>
                                                         <td>${info.type}</td>
                                                         <td>${info.value}</td>
-                                                        <td class="wrap">${info.description}</td>
+                                                        <td>${info.description}</td>
                                                         <td><ano:equal name="info" property="readable" value="true">+</ano:equal></td>
                                                         <td><ano:equal name="info" property="writable" value="true">+</ano:equal></td>
                                                     </tr>

@@ -801,6 +801,10 @@ thead tr th:last-child {
     width: 90%;
 }
 
+.hscrollbar thead tr th:last-child {
+    width: auto;
+}
+
 .th-actions {
     min-width: 160px;
 }
@@ -1069,14 +1073,19 @@ ul.switcher li i.chart-icon {
 .table1fixed {
     margin-left: 190px;
     overflow-x: auto;
-    overflow-y: visible;
+    overflow-y: auto;
 }
 
 .modal-table {
     padding: 0;
     overflow-x: auto;
+    overflow-y: auto;
 }
 
 .modal-table table {
     margin-bottom: 0;
+}
+
+.mCSB_horizontal .mCSB_container table {
+    margin-right: 100px;
 }
