@@ -77,9 +77,11 @@
             </div>
         </div>
     </div>
-<jsp:include page="../../shared/jsp/InspectFooter.jsp" flush="false"/>
+
       <script type="text/javascript" src="../ext/treegrid/js/jquery.treegrid.js"></script>
     <script type="text/javascript" src="../ext/treegrid/js/jquery.treegrid.bootstrap3.js"></script>
+    <jsp:include page="../../shared/jsp/InspectFooter.jsp" flush="false"/>
+
 </section>
 </body>
 </html>
