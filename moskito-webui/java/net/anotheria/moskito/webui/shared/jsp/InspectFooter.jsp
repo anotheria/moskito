@@ -7,10 +7,12 @@
     <ano:equal name="config" property="trackUsage" value="true"><img src="//counter.moskito.org/counter/inspect/${applicationScope.moskito_version_string}/${pagename}" class="ipix"> </ano:equal>
 </footer>
 
+<script src="../ext/jquery-1.10.2/jquery-1.10.2.min.js" type="text/javascript"></script>
+<script src="../ext/bootstrap-3.1.1/js/bootstrap.min.js" type="text/javascript"></script>
 <script src="../ext/tablesorter/jquery.tablesorter.js" type="text/javascript"></script>
 <script src="../ext/custom-scrollbar/jquery.mCustomScrollbar.concat.min.js"></script>
 <script src="../ext/select2-3.4.6/select2.js" type="text/javascript"></script>
-<script src="../int/js/common.js" type="text/javascript"></script>
+
 <script src="../ext/switchery/switchery.min.js" type="text/javascript"></script>
 
 <ano:equal name="currentSubNaviItem" property="id" value="more_config">
@@ -22,3 +24,5 @@
     <script type="text/javascript" src="../ext/treegrid/js/jquery.treegrid.js"></script>
     <script type="text/javascript" src="../ext/treegrid/js/jquery.treegrid.bootstrap3.js"></script>
 </ano:equal>
+
+<script src="../int/js/common.js" type="text/javascript"></script>

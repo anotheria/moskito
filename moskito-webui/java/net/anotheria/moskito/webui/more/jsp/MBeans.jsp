@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html;charset=UTF-8" session="true" %>
 <%@ taglib prefix="ano" uri="http://www.anotheria.net/ano-tags" %>
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/html">
+<html xmlns="http://www.w3.org/1999/xhtml">
 <jsp:include page="../../shared/jsp/InspectHeader.jsp" flush="false"/>
 <section id="main">
     <div class="content">
@@ -78,10 +78,9 @@
         </div>
     </div>
 
+    <jsp:include page="../../shared/jsp/InspectFooter.jsp" flush="false"/>
       <script type="text/javascript" src="../ext/treegrid/js/jquery.treegrid.js"></script>
     <script type="text/javascript" src="../ext/treegrid/js/jquery.treegrid.bootstrap3.js"></script>
-    <jsp:include page="../../shared/jsp/InspectFooter.jsp" flush="false"/>
-
 </section>
 </body>
 </html>

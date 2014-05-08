@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html;charset=UTF-8" session="true" %>
 <%@ taglib prefix="ano" uri="http://www.anotheria.net/ano-tags" %>
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/html">
+<html xmlns="http://www.w3.org/1999/xhtml">
 <jsp:include page="../../shared/jsp/InspectHeader.jsp" flush="false"/>
 <section id="main">
     <div class="content">
@@ -23,12 +23,12 @@
         <ano:present name="remoteConfig">
         <div class="box">
             <div class="box-title">
-                <a class="accordion-toggle tooltip-bottom" title="Close/Open" data-toggle="collapse" href="#collapse1"><i class="fa fa-caret-right"></i></a>
+                <a class="accordion-toggle tooltip-bottom" title="Close/Open" data-toggle="collapse" href="#collapse2"><i class="fa fa-caret-right"></i></a>
                 <h3 class="pull-left">
                     Remote configuration of the connected component.
                 </h3>
             </div>
-            <div id="collapse1" class="box-content accordion-body collapse in">
+            <div id="collapse2" class="box-content accordion-body collapse in">
 <pre class="prettyprint linenums"><code class="language-js">
     <ano:write name="remoteConfig"/>
 </code></pre>
@@ -38,12 +38,12 @@
 
         <div class="box">
             <div class="box-title">
-                <a class="accordion-toggle tooltip-bottom" title="Close/Open" data-toggle="collapse" href="#collapse2"><i class="fa fa-caret-right"></i></a>
+                <a class="accordion-toggle tooltip-bottom" title="Close/Open" data-toggle="collapse" href="#collapse3"><i class="fa fa-caret-right"></i></a>
                 <h3 class="pull-left">
                     Configured thresholds
                 </h3>
             </div>
-            <div id="collapse2" class="box-content accordion-body collapse in">
+            <div id="collapse3" class="box-content accordion-body collapse in">
 <pre class="prettyprint linenums"><code class="language-js">
 <ano:iterate name="thresholdsStrings" id="t">
 <ano:write name="t"/>
@@ -54,12 +54,12 @@
 
         <div class="box">
             <div class="box-title">
-                <a class="accordion-toggle tooltip-bottom" title="Close/Open" data-toggle="collapse" href="#collapse3"><i class="fa fa-caret-right"></i></a>
+                <a class="accordion-toggle tooltip-bottom" title="Close/Open" data-toggle="collapse" href="#collapse4"><i class="fa fa-caret-right"></i></a>
                 <h3 class="pull-left">
                     Chart Engines
                 </h3>
             </div>
-            <div id="collapse3" class="box-content accordion-body collapse in">
+            <div id="collapse4" class="box-content accordion-body collapse in">
                 <div class="paddner">
                     <b>Available engines:</b>
 
@@ -78,12 +78,12 @@
 
         <div class="box">
             <div class="box-title">
-                <a class="accordion-toggle tooltip-bottom" title="Close/Open" data-toggle="collapse" href="#collapse4"><i class="fa fa-caret-right"></i></a>
+                <a class="accordion-toggle tooltip-bottom" title="Close/Open" data-toggle="collapse" href="#collapse5"><i class="fa fa-caret-right"></i></a>
                 <h3 class="pull-left">
                     WebUI Config (mskwebui.json)
                 </h3>
             </div>
-            <div id="collapse4" class="box-content accordion-body collapse in">
+            <div id="collapse5" class="box-content accordion-body collapse in">
                 <dl class="dl-horizontal pull-left">
                     <dt>producerChartWidth:</dt>
                     <dd>${config.producerChartWidth}</dd>

@@ -31,9 +31,6 @@
     <ano:equal name="currentNaviItem" property="id" value="journeys">
         <link type="text/css" rel="stylesheet" href="../ext/treegrid/css/jquery.treegrid.css"> 
     </ano:equal>
-
-    <script src="../ext/jquery-1.10.2/jquery-1.10.2.min.js" type="text/javascript"></script>
-    <script src="../ext/bootstrap-3.1.1/js/bootstrap.min.js" type="text/javascript"></script>
 </head>
 
 <body class="status-${systemStatusColor}<ano:notEmpty name="isNavMenuCollapsed"><ano:iF test="${isNavMenuCollapsed}"> aside-collapse</ano:iF></ano:notEmpty>">
@@ -157,13 +154,12 @@
 <div class="form-box">
     <label>Server selector</label>
     <form name="SelectServer" action="mskSelectServer" method="GET">
-    <select class="select2" data-placeholder="Select Server" onchange="javascript:handleSelect(this)">
+        <select class="select2" data-placeholder="Select Server" onchange="javascript:handleSelect(this)">
             <ano:iterate name="connectivityOptions" id="option" type="net.anotheria.moskito.webui.shared.bean.LabelValueBean">
                 <option value="mskSelectServer?pTargetServer=${option.value}" ${option.value==requestScope.selectedConnectivity ? "selected" : ""}>${option.label}</option>
             </ano:iterate>
         </select>
-        </form>
-    </select>
+    </form>
 </div>
 
 <div class="form-box">
