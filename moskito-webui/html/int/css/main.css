@@ -723,7 +723,7 @@ i.chart-column-icon {
 }
 
 #main .box-content .mCSB_scrollTools .mCSB_dragger .mCSB_dragger_bar {
-    background: #000;
+    background: #999;
     opacity: 0;
     -webkit-transition: all 0.12s linear;
     -moz-transition: all 0.12s linear;
@@ -732,7 +732,7 @@ i.chart-column-icon {
 }
 
 #main .box-content:hover .mCSB_scrollTools .mCSB_dragger .mCSB_dragger_bar {
-    opacity: 0.2;
+    opacity: 0.4;
 }
 
 #main .mCSB_horizontal > .mCSB_container {
