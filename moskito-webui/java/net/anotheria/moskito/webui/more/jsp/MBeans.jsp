@@ -17,7 +17,7 @@
             </div>
 
             <div id="collapse1" class="box-content accordion-body collapse in hscrollbar">
-                <table class="table table-striped tree" style="width: auto;">
+                <table class="table table-striped tree">
                     <thead>
                         <tr>
                             <th>Domain</th>
@@ -60,8 +60,8 @@
                                                     <tr>
                                                         <td>${info.name}</td>
                                                         <td>${info.type}</td>
-                                                        <td>${info.value}</td>
-                                                        <td>${info.description}</td>
+                                                        <td class="wrap">${info.value}</td>
+                                                        <td class="wrap">${info.description}</td>
                                                         <td><ano:equal name="info" property="readable" value="true">+</ano:equal></td>
                                                         <td><ano:equal name="info" property="writable" value="true">+</ano:equal></td>
                                                     </tr>
