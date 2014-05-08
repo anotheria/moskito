@@ -182,6 +182,10 @@ fieldset[disabled] .btn-success.active {
     padding: 14px 20px;
 }
 
+.modal-footer.text-center {
+    text-align: center;
+}
+
 .modal .form-control {
     background: #F9F9F9;
     border: 1px solid #E5E5E5;

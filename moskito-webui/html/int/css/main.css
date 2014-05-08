@@ -1107,3 +1107,16 @@ ul.switcher li i.chart-icon {
 .mCSB_horizontal .mCSB_container table {
     margin-right: 100px;
 }
+
+.modal.modal-danger .modal-footer {
+    border: none;
+    background: none;
+}
+
+.modal.modal-danger .modal-dialog {
+    width: 400px;
+}
+
+.modal.modal-danger .modal-header {
+    background: #D9534F;
+}
