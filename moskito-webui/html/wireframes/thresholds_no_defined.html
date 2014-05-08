@@ -175,35 +175,7 @@
                 <p class="text-center">App version: net.anotheria/moskito-counter 1-SNAPSHOT file: 2013-12-16T21:47:20,000  |  MoSKito version: net.anotheria/moskito-webui-jersey 2.4.1-SNAPSHOT file: 2013-12-16T21:46:50,000  |  Server: counter</p>
             </footer>
 
-            <div class="container">
-                <a href="#mskThresholdDelete" data-toggle="modal" data-target="#mskThresholdDelete" data-id="12" class="threshold-delete">link11</a>
-            </div>
-
-
         </section>
-            <div class="modal fade modal-danger" id="mskThresholdDelete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                            <h4 class="modal-title" id="myModalLabel">Delete this Threshold?</h4>
-                        </div>
-                        <div class="modal-footer text-center">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                            <a href="#" class="btn btn-danger threshold-delete-confirm">Delete</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-<script>
-
-    $('.container').on('click','.threshold-delete', function() {
-        var dataid = $(this).attr('data-id');
-        $('.threshold-delete-confirm').attr("href", "mskThresholdDelete?pId=" + dataid);
-    });
-
-</script>
 </body>
 </html>
 
