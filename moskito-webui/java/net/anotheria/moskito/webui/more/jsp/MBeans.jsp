@@ -17,7 +17,7 @@
             </div>
 
             <div id="collapse1" class="box-content accordion-body collapse in hscrollbar">
-                <table class="table table-striped tree">
+                <table class="table table-striped tree" style="width: auto;">
                     <thead>
                         <tr>
                             <th>Domain</th>

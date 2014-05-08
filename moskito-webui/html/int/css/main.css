@@ -801,6 +801,10 @@ thead tr th:last-child {
     width: 90%;
 }
 
+.hscrollbar thead tr th:last-child {
+    width: auto;
+}
+
 .th-actions {
     min-width: 160px;
 }
