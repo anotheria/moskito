@@ -79,6 +79,7 @@
     </div>
 
     <jsp:include page="../../shared/jsp/InspectFooter.jsp" flush="false"/>
+
 </section>
 </body>
 </html>

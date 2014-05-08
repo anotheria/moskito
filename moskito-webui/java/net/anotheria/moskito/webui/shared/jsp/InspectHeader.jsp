@@ -4,25 +4,24 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <title>${title}</title>
-    <link href='http://fonts.googleapis.com/css?family=Lato:100,300,400,700' rel='stylesheet' type='text/css'>
-    <link type="text/css" rel="stylesheet" href="http://fonts.googleapis.com/css?family=Mr+Bedfort">
+    <link href='http://fonts.googleapis.com/css?family=Lato:100,300,400,700' rel='stylesheet' type='text/css' />
+    <link type="text/css" rel="stylesheet" href="http://fonts.googleapis.com/css?family=Mr+Bedfort" />
     <link type="text/css" rel="stylesheet" rev="stylesheet" href="../ext/bootstrap-3.1.1/css/bootstrap.css" />
     <link type="text/css" rel="stylesheet" rev="stylesheet" href="../ext/custom-scrollbar/jquery.mCustomScrollbar.css" />
     <link type="text/css" rel="stylesheet" rev="stylesheet" href="../ext/bootstrap-sortable/contents/bootstrap-sortable.css" />
-    <link type="text/css" rel="stylesheet" href="../ext/font-awesome-4.0.3/css/font-awesome.css">
+    <link type="text/css" rel="stylesheet" href="../ext/font-awesome-4.0.3/css/font-awesome.css" />
     <link type="text/css" rel="stylesheet" rev="stylesheet" href="../ext/select2-3.4.6/select2.css" />
     <link type="text/css" rel="stylesheet" rev="stylesheet" href="../ext/switchery/switchery.min.css" />
     <ano:equal name="currentSubNaviItem" property="id" value="more_config">
-        <link href="../ext/google-code-prettify/prettify.css" rel="stylesheet" type="text/css">
+        <link rel="stylesheet" type="text/css" href="../ext/google-code-prettify/prettify.css" />
     </ano:equal>
     <ano:equal name="currentSubNaviItem" property="id" value="more_mbeans">
-        <link type="text/css" rel="stylesheet" href="../ext/treegrid/css/jquery.treegrid.css"> 
+        <link rel="stylesheet" type="text/css" href="../ext/treegrid/css/jquery.treegrid.css" />
     </ano:equal>
     <ano:equal name="currentNaviItem" property="id" value="journeys">
-        <link type="text/css" rel="stylesheet" href="../ext/treegrid/css/jquery.treegrid.css"> 
+        <link type="text/css" rel="stylesheet" href="../ext/treegrid/css/jquery.treegrid.css" /> 
     </ano:equal>
     <link type="text/css" rel="stylesheet" rev="stylesheet" href="../int/css/common.css" />
-
     <!--[if lt IE 9]><script src="../int/js/ie8-responsive-file-warning.js"></script><![endif]-->
     <!--[if lt IE 8]><link type="text/css" rel="stylesheet" rev="stylesheet" href="../static-int/css/bootstrap-ie7.css" /><![endif]-->
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->

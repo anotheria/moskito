@@ -1,6 +1,5 @@
-<%@ page language="java" contentType="text/html;charset=UTF-8"	session="true"
-        %><%@ taglib uri="http://www.anotheria.net/ano-tags" prefix="ano"
-        %>
+<%@ page language="java" contentType="text/html;charset=UTF-8" session="true" %>
+<%@ taglib prefix="ano" uri="http://www.anotheria.net/ano-tags" %>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <jsp:include page="../../shared/jsp/InspectHeader.jsp" flush="true"/>
