@@ -52,8 +52,14 @@ $(function () {
     $(".scrollbar").mCustomScrollbar();
 
     $(".hscrollbar").mCustomScrollbar({
+        advanced:{
+            updateOnContentResize: true
+        },
         horizontalScroll:true
     });
+
+    $('.hscrollbar .mCSB_scrollTools').css('position','fixed');
+    $('.hscrollbar').mCustomScrollbar("update");
 
     $('ul.nav-sidebar > li').click(function () {
         $('ul.nav-sidebar > li').removeClass('active');

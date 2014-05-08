@@ -700,6 +700,11 @@ i.chart-column-icon {
     display: none;
 }
 
+.hscrollbar .mCSB_scrollTools {
+    position: fixed;
+    z-index: 2000;
+}
+
 #aside .mCSB_scrollTools .mCSB_dragger .mCSB_dragger_bar {
     border-radius: 10px;
     height: 100%;
