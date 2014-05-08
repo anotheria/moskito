@@ -79,101 +79,103 @@
 
 <aside id="aside" class="scrollbar">
 
-<div class="header-box">
-    <span class="version">v  ${moskito_version_string}</span>
-    <i class="logo"></i>
-    <span class="logo-title">MoSKito Inspect</span>
-</div>
+    <div class="header-box">
+        <span class="version">v  ${moskito_version_string}</span>
+        <a href="/">
+            <i class="logo"></i>
+            <span class="logo-title">MoSKito Inspect</span>
+        </a>
+    </div>
 
-<ul class="nav nav-sidebar">
-    <li ${requestScope.currentNaviItem.id == "producers" ? "class=\"active\"" : ""}><a href="mskShowAllProducers">Producers <i class="fa fa-wrench"></i></a></li>
-    <li ${requestScope.currentNaviItem.id == "journeys" ? "class=\"active\"" : ""}><a href="mskShowJourneys">Journeys <i class="fa fa-eye"></i></a></li>
-    <li ${requestScope.currentNaviItem.id == "thresholds" ? "class=\"active\"" : ""}><a href="mskThresholds">Thresholds <i class="fa fa-dot-circle-o"></i></a></li>
-    <li ${requestScope.currentNaviItem.id == "accumulators" ? "class=\"active\"" : ""}><a href="mskAccumulators">Accumulators <i class="fa fa-signal"></i></a></li>
-    <ano:equal name="currentNaviItem" property="id" value="threads">
-        <li class="active">
-            <a href="mskThreads">Threads <i class="fa fa-bars"></i></a>
+    <ul class="nav nav-sidebar">
+        <li ${requestScope.currentNaviItem.id == "producers" ? "class=\"active\"" : ""}><a href="mskShowAllProducers">Producers <i class="fa fa-wrench"></i></a></li>
+        <li ${requestScope.currentNaviItem.id == "journeys" ? "class=\"active\"" : ""}><a href="mskShowJourneys">Journeys <i class="fa fa-eye"></i></a></li>
+        <li ${requestScope.currentNaviItem.id == "thresholds" ? "class=\"active\"" : ""}><a href="mskThresholds">Thresholds <i class="fa fa-dot-circle-o"></i></a></li>
+        <li ${requestScope.currentNaviItem.id == "accumulators" ? "class=\"active\"" : ""}><a href="mskAccumulators">Accumulators <i class="fa fa-signal"></i></a></li>
+        <ano:equal name="currentNaviItem" property="id" value="threads">
+            <li class="active">
+                <a href="mskThreads">Threads <i class="fa fa-bars"></i></a>
+                <ul class="nav sub-menu">
+                    <li ${currentSubNaviItem.isSelected("threads_list") ? "class=\"active\"" : ""}><a href="mskThreadsList">List <i class="fa fa-list"></i></a></li>
+                    <li ${currentSubNaviItem.isSelected("threads_dump") ? "class=\"active\"" : ""}><a href="mskThreadsDump">Dump <i class="fa fa-upload"></i></a></li>
+                    <li ${currentSubNaviItem.isSelected("threads_history") ? "class=\"active\"" : ""}><a href="mskThreadsHistory">History <i class="fa fa-file-text"></i></a></li>
+                </ul>
+            </li>
+        </ano:equal>
+        <ano:notEqual name="currentNaviItem" property="id" value="threads">
+            <li><a href="mskThreads">Threads <i class="fa fa-bars"></i></a></li>
+        </ano:notEqual>
+        <!-- Submenu for everything else -->
+        <ano:equal name="currentNaviItem" property="id" value="more">
+            <li class="active">
+            <a href="mskMore">Everything else <i class="fa fa-bookmark"></i></a>
             <ul class="nav sub-menu">
-                <li ${currentSubNaviItem.isSelected("threads_list") ? "class=\"active\"" : ""}><a href="mskThreadsList">List <i class="fa fa-list"></i></a></li>
-                <li ${currentSubNaviItem.isSelected("threads_dump") ? "class=\"active\"" : ""}><a href="mskThreadsDump">Dump <i class="fa fa-upload"></i></a></li>
-                <li ${currentSubNaviItem.isSelected("threads_history") ? "class=\"active\"" : ""}><a href="mskThreadsHistory">History <i class="fa fa-file-text"></i></a></li>
+                <li ${currentSubNaviItem.isSelected("more_config")  ? "class=\"active\"" : ""}><a href="mskConfig">Config <i class="fa fa-cog"></i></a></li>
+                <li ${currentSubNaviItem.isSelected("more_mbeans")  ? "class=\"active\"" : ""}><a href="mskMBeans">MBeans <i class="fa fa-coffee"></i></a></li>
+                <li ${currentSubNaviItem.isSelected("more_libs")    ? "class=\"active\"" : ""}><a href="mskLibs">Libs <i class="fa fa-file-text"></i></a></li>
+                <li ${currentSubNaviItem.isSelected("more_plugins") ? "class=\"active\"" : ""}><a href="mskPlugins">Plugins <i class="fa fa-cloud"></i></a></li>
+                <li ${currentSubNaviItem.isSelected("more_update")  ? "class=\"active\"" : ""}><a href="mskUpdate">Update  <i class="fa fa-upload"></i></a></li>
             </ul>
         </li>
-    </ano:equal>
-    <ano:notEqual name="currentNaviItem" property="id" value="threads">
-        <li><a href="mskThreads">Threads <i class="fa fa-bars"></i></a></li>
-    </ano:notEqual>
-    <!-- Submenu for everything else -->
-    <ano:equal name="currentNaviItem" property="id" value="more">
-        <li class="active">
-        <a href="mskMore">Everything else <i class="fa fa-bookmark"></i></a>
-        <ul class="nav sub-menu">
-            <li ${currentSubNaviItem.isSelected("more_config")  ? "class=\"active\"" : ""}><a href="mskConfig">Config <i class="fa fa-cog"></i></a></li>
-            <li ${currentSubNaviItem.isSelected("more_mbeans")  ? "class=\"active\"" : ""}><a href="mskMBeans">MBeans <i class="fa fa-coffee"></i></a></li>
-            <li ${currentSubNaviItem.isSelected("more_libs")    ? "class=\"active\"" : ""}><a href="mskLibs">Libs <i class="fa fa-file-text"></i></a></li>
-            <li ${currentSubNaviItem.isSelected("more_plugins") ? "class=\"active\"" : ""}><a href="mskPlugins">Plugins <i class="fa fa-cloud"></i></a></li>
-            <li ${currentSubNaviItem.isSelected("more_update")  ? "class=\"active\"" : ""}><a href="mskUpdate">Update  <i class="fa fa-upload"></i></a></li>
-        </ul>
-    </li>
-    </ano:equal>
-    <ano:notEqual name="currentNaviItem" property="id" value="more">
-        <li><a href="mskMore">Everything else <i class="fa fa-bookmark"></i></a></li>
-    </ano:notEqual>
+        </ano:equal>
+        <ano:notEqual name="currentNaviItem" property="id" value="more">
+            <li><a href="mskMore">Everything else <i class="fa fa-bookmark"></i></a></li>
+        </ano:notEqual>
 
-</ul>
+    </ul>
 
-<ano:equal name="pagename" value="producers">
-<div class="form-box">
-    <label>Filter</label>
+    <ano:equal name="pagename" value="producers">
+    <div class="form-box">
+        <label>Filter</label>
 
-    <select class="select2" data-placeholder="Category" onchange="javascript:handleSelect(this)">
-        <option>Select</option>
-        <ano:iterate name="categories" id="category" type="net.anotheria.moskito.webui.producers.api.UnitCountAO">
-            <option value="mskShowProducersByCategory?pCategory=${category.unitName}" ${category.unitName==requestScope.currentCategory ? "selected" : ""}>
-            ${category.unitName} (${category.unitCount})
-            </option>
-        </ano:iterate>
-    </select>
-
-    <select class="select2" data-placeholder="Subsystem" onchange="javascript:handleSelect(this)">
-        <option>Select</option>
-        <ano:iterate name="subsystems" id="subsystem" type="net.anotheria.moskito.webui.producers.api.UnitCountAO">
-            <option value="mskShowProducersBySubsystem?pSubsystem=${subsystem.unitName}" ${subsystem.unitName==requestScope.currentSubsystem ? "selected" : ""}>
-                    ${subsystem.unitName} (${subsystem.unitCount})
-            </option>
-        </ano:iterate>
-    </select>
-
-    <input type="text" class="form-control" placeholder="Name Filter">
-</div>
-</ano:equal>
-
-<div class="form-box">
-    <label>Server selector</label>
-    <form name="SelectServer" action="mskSelectServer" method="GET">
-        <select class="select2" data-placeholder="Select Server" onchange="javascript:handleSelect(this)">
-            <ano:iterate name="connectivityOptions" id="option" type="net.anotheria.moskito.webui.shared.bean.LabelValueBean">
-                <option value="mskSelectServer?pTargetServer=${option.value}" ${option.value==requestScope.selectedConnectivity ? "selected" : ""}>${option.label}</option>
+        <select class="select2" data-placeholder="Category" onchange="javascript:handleSelect(this)">
+            <option>Select</option>
+            <ano:iterate name="categories" id="category" type="net.anotheria.moskito.webui.producers.api.UnitCountAO">
+                <option value="mskShowProducersByCategory?pCategory=${category.unitName}" ${category.unitName==requestScope.currentCategory ? "selected" : ""}>
+                ${category.unitName} (${category.unitCount})
+                </option>
             </ano:iterate>
         </select>
-    </form>
-</div>
 
-<div class="form-box">
-    <label>Quick connect</label>
-    <form name="QuickConnect" action="mskQuickConnect" method="GET">
-        <div class="form-group">
-            <input type="text" class="form-control" name="pServerName" placeholder="Host">
-        </div>
-        <div class="form-group">
-            <input type="text" class="form-control" name="pServerPort" placeholder="Port">
-        </div>
-        <div class="form-group text-right">
-            <button class="btn btn-success" type="button" onclick="submit();">Connect</button>
-        </div>
-    </form>
-</div>
+        <select class="select2" data-placeholder="Subsystem" onchange="javascript:handleSelect(this)">
+            <option>Select</option>
+            <ano:iterate name="subsystems" id="subsystem" type="net.anotheria.moskito.webui.producers.api.UnitCountAO">
+                <option value="mskShowProducersBySubsystem?pSubsystem=${subsystem.unitName}" ${subsystem.unitName==requestScope.currentSubsystem ? "selected" : ""}>
+                        ${subsystem.unitName} (${subsystem.unitCount})
+                </option>
+            </ano:iterate>
+        </select>
 
-<span class="shadow-line"></span>
+        <input type="text" class="form-control" placeholder="Name Filter">
+    </div>
+    </ano:equal>
+
+    <div class="form-box">
+        <label>Server selector</label>
+        <form name="SelectServer" action="mskSelectServer" method="GET">
+            <select class="select2" data-placeholder="Select Server" onchange="javascript:handleSelect(this)">
+                <ano:iterate name="connectivityOptions" id="option" type="net.anotheria.moskito.webui.shared.bean.LabelValueBean">
+                    <option value="mskSelectServer?pTargetServer=${option.value}" ${option.value==requestScope.selectedConnectivity ? "selected" : ""}>${option.label}</option>
+                </ano:iterate>
+            </select>
+        </form>
+    </div>
+
+    <div class="form-box">
+        <label>Quick connect</label>
+        <form name="QuickConnect" action="mskQuickConnect" method="GET">
+            <div class="form-group">
+                <input type="text" class="form-control" name="pServerName" placeholder="Host">
+            </div>
+            <div class="form-group">
+                <input type="text" class="form-control" name="pServerPort" placeholder="Port">
+            </div>
+            <div class="form-group text-right">
+                <button class="btn btn-success" type="button" onclick="submit();">Connect</button>
+            </div>
+        </form>
+    </div>
+
+    <span class="shadow-line"></span>
 
 </aside>
