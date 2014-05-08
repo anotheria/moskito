@@ -14,9 +14,7 @@
                 </h3>
             </div>
             <div id="collapse1" class="box-content accordion-body collapse in">
-<pre class="prettyprint linenums"><code class="language-js">
-<ano:write name="configstring"/>
-</code></pre>
+                <pre class="prettyprint linenums"><code class="language-js"><ano:write name="configstring"/></code></pre>
             </div>
         </div>
 
@@ -29,9 +27,7 @@
                 </h3>
             </div>
             <div id="collapse2" class="box-content accordion-body collapse in">
-<pre class="prettyprint linenums"><code class="language-js">
-    <ano:write name="remoteConfig"/>
-</code></pre>
+                <pre class="prettyprint linenums"><code class="language-js"><ano:write name="remoteConfig"/></code></pre>
             </div>
         </div>
         </ano:present>
@@ -44,11 +40,7 @@
                 </h3>
             </div>
             <div id="collapse3" class="box-content accordion-body collapse in">
-<pre class="prettyprint linenums"><code class="language-js">
-<ano:iterate name="thresholdsStrings" id="t">
-<ano:write name="t"/>
-</ano:iterate>
-</code></pre>
+                <pre class="prettyprint linenums"><code class="language-js"><ano:iterate name="thresholdsStrings" id="t"><ano:write name="t"/></ano:iterate></code></pre>
             </div>
         </div>
 
