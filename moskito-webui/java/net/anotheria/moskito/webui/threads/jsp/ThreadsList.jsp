@@ -67,7 +67,7 @@
                     <a href="" class="tooltip-bottom" title="Help"><i class="fa fa-info-circle"></i></a>
                 </div>
             </div>
-            <div id="collapse2" class="box-content accordion-body collapse in hscrollbar">
+            <div id="collapse2" class="box-content accordion-body collapse in">
                 <table class="table table-striped tablesorter">
                     <thead>
                     <tr>
