@@ -34,25 +34,6 @@
 </head>
 
 <body class="status-${systemStatusColor}<ano:notEmpty name="isNavMenuCollapsed"><ano:iF test="${isNavMenuCollapsed}"> aside-collapse</ano:iF></ano:notEmpty>">
-
-<script src="../ext/jquery-1.10.2/jquery-1.10.2.min.js" type="text/javascript"></script>
-<script src="../ext/bootstrap-3.1.1/js/bootstrap.min.js" type="text/javascript"></script>
-<script src="../ext/tablesorter/jquery.tablesorter.js" type="text/javascript"></script>
-<script src="../ext/custom-scrollbar/jquery.mCustomScrollbar.concat.min.js"></script>
-<script src="../ext/select2-3.4.6/select2.js" type="text/javascript"></script>
-<script src="../int/js/common.js" type="text/javascript"></script>
-<script src="../ext/switchery/switchery.min.js" type="text/javascript"></script>
-
-
-<ano:equal name="currentSubNaviItem" property="id" value="more_config">
-    <script type="text/javascript" src="../ext/google-code-prettify/prettify.js"></script>
-    <script type="text/javascript" src="../ext/google-code-prettify/application.js"></script>
-</ano:equal>
-
-<ano:equal name="currentNaviItem" property="id" value="journeys">
-    <script type="text/javascript" src="../ext/treegrid/js/jquery.treegrid.js"></script>
-    <script type="text/javascript" src="../ext/treegrid/js/jquery.treegrid.bootstrap3.js"></script>
-</ano:equal>
 <ano:define name="moskito.CurrentUnit" property="unitName" id="currentUnit" toScope="page" type="java.lang.String"/>
 <!-- currently for handle select only -->
 <script type="text/javascript" src="../js/function.js"></script>
