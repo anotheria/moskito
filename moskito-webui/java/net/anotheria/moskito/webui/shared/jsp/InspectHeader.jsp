@@ -88,13 +88,13 @@
     </div>
 
     <ul class="nav nav-sidebar">
-        <li ${requestScope.currentNaviItem.id == "producers" ? "class=\"active\"" : ""}><a href="mskShowAllProducers">Producers <i class="fa fa-wrench"></i></a></li>
-        <li ${requestScope.currentNaviItem.id == "journeys" ? "class=\"active\"" : ""}><a href="mskShowJourneys">Journeys <i class="fa fa-eye"></i></a></li>
-        <li ${requestScope.currentNaviItem.id == "thresholds" ? "class=\"active\"" : ""}><a href="mskThresholds">Thresholds <i class="fa fa-dot-circle-o"></i></a></li>
-        <li ${requestScope.currentNaviItem.id == "accumulators" ? "class=\"active\"" : ""}><a href="mskAccumulators">Accumulators <i class="fa fa-signal"></i></a></li>
+        <li ${requestScope.currentNaviItem.id == "producers" ? "class=\"active\"" : ""}><a href="mskShowAllProducers" title="Producers" class="sidebar-tooltip-right">Producers <i class="fa fa-wrench"></i></a></li>
+        <li ${requestScope.currentNaviItem.id == "journeys" ? "class=\"active\"" : ""}><a href="mskShowJourneys" title="Journeys" class="sidebar-tooltip-right">Journeys <i class="fa fa-eye"></i></a></li>
+        <li ${requestScope.currentNaviItem.id == "thresholds" ? "class=\"active\"" : ""}><a href="mskThresholds" title="Thresholds" class="sidebar-tooltip-right">Thresholds <i class="fa fa-dot-circle-o"></i></a></li>
+        <li ${requestScope.currentNaviItem.id == "accumulators" ? "class=\"active\"" : ""}><a href="mskAccumulators" title="Accumulators" class="sidebar-tooltip-right">Accumulators <i class="fa fa-signal"></i></a></li>
         <ano:equal name="currentNaviItem" property="id" value="threads">
             <li class="active">
-                <a href="mskThreads">Threads <i class="fa fa-bars"></i></a>
+                <a href="mskThreads" title="Threads" class="sidebar-tooltip-right">Threads <i class="fa fa-bars"></i></a>
                 <ul class="nav sub-menu">
                     <li ${currentSubNaviItem.isSelected("threads_list") ? "class=\"active\"" : ""}><a href="mskThreadsList">List <i class="fa fa-list"></i></a></li>
                     <li ${currentSubNaviItem.isSelected("threads_dump") ? "class=\"active\"" : ""}><a href="mskThreadsDump">Dump <i class="fa fa-upload"></i></a></li>
@@ -103,12 +103,12 @@
             </li>
         </ano:equal>
         <ano:notEqual name="currentNaviItem" property="id" value="threads">
-            <li><a href="mskThreads">Threads <i class="fa fa-bars"></i></a></li>
+            <li><a href="mskThreads" title="Threads" class="sidebar-tooltip-right">Threads <i class="fa fa-bars"></i></a></li>
         </ano:notEqual>
         <!-- Submenu for everything else -->
         <ano:equal name="currentNaviItem" property="id" value="more">
             <li class="active">
-            <a href="mskMore">Everything else <i class="fa fa-bookmark"></i></a>
+            <a href="mskMore" title="Everything else" class="sidebar-tooltip-right">Everything else <i class="fa fa-bookmark"></i></a>
             <ul class="nav sub-menu">
                 <li ${currentSubNaviItem.isSelected("more_config")  ? "class=\"active\"" : ""}><a href="mskConfig">Config <i class="fa fa-cog"></i></a></li>
                 <li ${currentSubNaviItem.isSelected("more_mbeans")  ? "class=\"active\"" : ""}><a href="mskMBeans">MBeans <i class="fa fa-coffee"></i></a></li>
