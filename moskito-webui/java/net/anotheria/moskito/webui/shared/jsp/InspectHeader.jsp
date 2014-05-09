@@ -96,9 +96,9 @@
             <li class="active">
                 <a href="mskThreads" title="Threads" class="sidebar-tooltip-right">Threads <i class="fa fa-bars"></i></a>
                 <ul class="nav sub-menu">
-                    <li ${currentSubNaviItem.isSelected("threads_list") ? "class=\"active\"" : ""}><a href="mskThreadsList">List <i class="fa fa-list"></i></a></li>
-                    <li ${currentSubNaviItem.isSelected("threads_dump") ? "class=\"active\"" : ""}><a href="mskThreadsDump">Dump <i class="fa fa-upload"></i></a></li>
-                    <li ${currentSubNaviItem.isSelected("threads_history") ? "class=\"active\"" : ""}><a href="mskThreadsHistory">History <i class="fa fa-file-text"></i></a></li>
+                    <li ${currentSubNaviItem.isSelected("threads_list") ? "class=\"active\"" : ""}><a href="mskThreadsList" title="List" class="sidebar-tooltip-right">List <i class="fa fa-list"></i></a></li>
+                    <li ${currentSubNaviItem.isSelected("threads_dump") ? "class=\"active\"" : ""}><a href="mskThreadsDump" title="Dump" class="sidebar-tooltip-right">Dump <i class="fa fa-upload"></i></a></li>
+                    <li ${currentSubNaviItem.isSelected("threads_history") ? "class=\"active\"" : ""}><a href="mskThreadsHistory" title="History" class="sidebar-tooltip-right">History <i class="fa fa-file-text"></i></a></li>
                 </ul>
             </li>
         </ano:equal>
@@ -110,16 +110,16 @@
             <li class="active">
             <a href="mskMore" title="Everything else" class="sidebar-tooltip-right">Everything else <i class="fa fa-bookmark"></i></a>
             <ul class="nav sub-menu">
-                <li ${currentSubNaviItem.isSelected("more_config")  ? "class=\"active\"" : ""}><a href="mskConfig">Config <i class="fa fa-cog"></i></a></li>
-                <li ${currentSubNaviItem.isSelected("more_mbeans")  ? "class=\"active\"" : ""}><a href="mskMBeans">MBeans <i class="fa fa-coffee"></i></a></li>
-                <li ${currentSubNaviItem.isSelected("more_libs")    ? "class=\"active\"" : ""}><a href="mskLibs">Libs <i class="fa fa-file-text"></i></a></li>
-                <li ${currentSubNaviItem.isSelected("more_plugins") ? "class=\"active\"" : ""}><a href="mskPlugins">Plugins <i class="fa fa-cloud"></i></a></li>
-                <li ${currentSubNaviItem.isSelected("more_update")  ? "class=\"active\"" : ""}><a href="mskUpdate">Update  <i class="fa fa-upload"></i></a></li>
+                <li ${currentSubNaviItem.isSelected("more_config")  ? "class=\"active\"" : ""}><a href="mskConfig" title="Config" class="sidebar-tooltip-right">Config <i class="fa fa-cog"></i></a></li>
+                <li ${currentSubNaviItem.isSelected("more_mbeans")  ? "class=\"active\"" : ""}><a href="mskMBeans" title="MBeans" class="sidebar-tooltip-right">MBeans <i class="fa fa-coffee"></i></a></li>
+                <li ${currentSubNaviItem.isSelected("more_libs")    ? "class=\"active\"" : ""}><a href="mskLibs" title="Libs" class="sidebar-tooltip-right">Libs <i class="fa fa-file-text"></i></a></li>
+                <li ${currentSubNaviItem.isSelected("more_plugins") ? "class=\"active\"" : ""}><a href="mskPlugins" title="Plugins" class="sidebar-tooltip-right">Plugins <i class="fa fa-cloud"></i></a></li>
+                <li ${currentSubNaviItem.isSelected("more_update")  ? "class=\"active\"" : ""}><a href="mskUpdate" title="Update" class="sidebar-tooltip-right">Update  <i class="fa fa-upload"></i></a></li>
             </ul>
         </li>
         </ano:equal>
         <ano:notEqual name="currentNaviItem" property="id" value="more">
-            <li><a href="mskMore">Everything else <i class="fa fa-bookmark"></i></a></li>
+            <li><a href="mskMore" title="Everything else" class="sidebar-tooltip-right">Everything else <i class="fa fa-bookmark"></i></a></li>
         </ano:notEqual>
 
     </ul>
