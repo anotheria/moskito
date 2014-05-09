@@ -44,7 +44,7 @@ $(function () {
     $('.tooltip-top').tooltip({placement:'top'}).on('show', function (e) {e.stopPropagation();});
     $('.tooltip-left').tooltip({placement:'left'}).on('show', function (e) {e.stopPropagation();});
     $('.tooltip-right').tooltip({placement:'right'}).on('show', function (e) {e.stopPropagation();});
-    $('.aside-collapse .sidebar-tooltip-right').tooltip({placement:'right', container: 'body'}).on('show', function (e) {e.stopPropagation();});
+    $(document).tooltip({selector: '.aside-collapse .sidebar-tooltip-right', placement:'right', container: 'body'}).on('show', function (e) {e.stopPropagation();});
 
     $(".tablesorter").tablesorter();
 
