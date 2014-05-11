@@ -27,6 +27,7 @@
                         <th>Url</th>
                         <th>Date <i class="fa fa-caret-down"></i></th>
                         <th>Steps <i class="fa fa-caret-down"></i></th>
+                        <th>Duration <i class="fa fa-caret-down"></i></th>
                     </tr>
                     </thead>
                     <tbody>
@@ -40,6 +41,7 @@
                             </td>
                             <td>${tracedCall.date}</td>
                             <td>${tracedCall.containedSteps}</td>
+                            <td>${tracedCall.duration}</td>
 
                         </tr>
                     </ano:iterate>

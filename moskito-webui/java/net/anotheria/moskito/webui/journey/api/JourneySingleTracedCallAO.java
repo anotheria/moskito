@@ -23,7 +23,23 @@ public class JourneySingleTracedCallAO implements Serializable{
 	 * @return
 	 */
 	private int containedSteps;
-	
+
+	/**
+	 * Call duration.
+	 */
+	private long duration;
+
+	public long getDuration() {
+		return duration;
+	}
+
+	public void setDuration(long duration) {
+		this.duration = duration;
+		//fix the negative durations.
+		if (this.duration<1)
+			this.duration*=-1;
+	}
+
 	public String getDate() {
 		return date;
 	}
