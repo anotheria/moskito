@@ -38,7 +38,7 @@ import net.anotheria.maf.action.Action;
 import net.anotheria.maf.action.ActionMapping;
 import net.anotheria.moskito.core.stats.TimeUnit;
 import net.anotheria.moskito.core.threshold.ThresholdStatus;
-import net.anotheria.moskito.webui.CurrentSelection;
+import net.anotheria.moskito.webui.MoSKitoWebUIContext;
 import net.anotheria.moskito.webui.accumulators.api.AccumulatorAPI;
 import net.anotheria.moskito.webui.decorators.DecoratorRegistryFactory;
 import net.anotheria.moskito.webui.decorators.IDecoratorRegistry;
@@ -319,9 +319,20 @@ public abstract class BaseMoskitoUIAction implements Action{
 	public void preProcess(ActionMapping mapping, HttpServletRequest req, HttpServletResponse res) throws Exception {
 		String currentIntervalName = getCurrentInterval(req);
 
-		CurrentSelection currentSelection = CurrentSelection.resetAndGet();
-		currentSelection.setCurrentIntervalName(currentIntervalName);
+		MoSKitoWebUIContext context = MoSKitoWebUIContext.getCallContextAndReset();
+		context.setCurrentIntervalName(currentIntervalName);
+		context.setCurrentSession(req.getSession());
 
+
+		//we need to set navi/subnavi item to none, in order to prevent exceptions in rendering of the menu.
+		NaviItem currentNaviItem = getCurrentNaviItem();
+		if (currentNaviItem==null)
+			currentNaviItem = NaviItem.NONE;
+		req.setAttribute("currentNaviItem", currentNaviItem);
+		NaviItem currentSubNaviItem = getCurrentSubNaviItem();
+		if (currentSubNaviItem==null)
+			currentSubNaviItem = NaviItem.NONE;
+		req.setAttribute("currentSubNaviItem", currentSubNaviItem);
 
 		///////////// prepare intervals
 		req.setAttribute("intervals", APILookupUtility.getAdditionalFunctionalityAPI().getIntervalInfos());
@@ -330,7 +341,7 @@ public abstract class BaseMoskitoUIAction implements Action{
 		////////////// prepare units
 		req.setAttribute("units", AVAILABLE_UNITS_LIST);
 		//ensure current unit is properly set.
-		currentSelection.setCurrentTimeUnit(getCurrentUnit(req).getUnit());
+		context.setCurrentTimeUnit(getCurrentUnit(req).getUnit());
 
 		//Link to current page
 		req.setAttribute("linkToCurrentPage", getLinkToCurrentPage(req));
@@ -338,12 +349,6 @@ public abstract class BaseMoskitoUIAction implements Action{
 		req.setAttribute("linkToCurrentPageAsCsv", maskAsCSV(getLinkToCurrentPage(req)));
 		req.setAttribute("linkToCurrentPageAsJson", maskAsJSON(getLinkToCurrentPage(req)));
 
-
-		NaviItem currentNaviItem = getCurrentNaviItem();
-		if (currentNaviItem==null)
-			currentNaviItem = NaviItem.NONE;
-		req.setAttribute("currentNaviItem", currentNaviItem);
-		req.setAttribute("currentSubNaviItem", getCurrentSubNaviItem());
 
 		//prepare interval timestamp and age.
 		Long currentIntervalUpdateTimestamp = getAdditionalFunctionalityAPI().getIntervalUpdateTimestamp(currentIntervalName);

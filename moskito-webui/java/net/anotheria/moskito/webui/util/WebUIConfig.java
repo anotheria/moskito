@@ -32,6 +32,12 @@ public class WebUIConfig {
 	 */
 	private ConnectivityMode connectivityMode = ConnectivityMode.LOCAL;
 
+
+	/**
+	 * Usage mode, default is shared.
+	 */
+	private UsageMode usageMode = UsageMode.SHARED;
+
 	/**
 	 * If true sends a tracking pixel to counter.moskito.org to track worldwide usage.
 	 */
@@ -109,5 +115,12 @@ public class WebUIConfig {
 		this.connectivityMode = connectivityMode;
 	}
 
+	public UsageMode getUsageMode() {
+		return usageMode;
+	}
+
+	public void setUsageMode(UsageMode usageMode) {
+		this.usageMode = usageMode;
+	}
 
 }
