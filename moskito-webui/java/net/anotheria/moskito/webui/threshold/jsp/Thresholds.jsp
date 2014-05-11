@@ -42,8 +42,8 @@
                         <td>${threshold.timestamp}</td>
                         <td>${threshold.flipCount}</td>
                         <td>${threshold.description}</td>
-                        <td>
-                            <a href="mskThresholdDelete?pId=${threshold.id}" class="action-icon delete-icon tooltip-bottom" title="Delete ${threshold.name}"><i class="fa fa-ban"></i></a>
+                        <td class="actions-links">
+                            <a href="#mskThresholdDelete" data-toggle="modal" data-target="#mskThresholdDelete" data-id="${threshold.id}" class="action-icon delete-icon tooltip-bottom" title="Delete ${threshold.name}"><i class="fa fa-ban"></i></a>
                             <a href="mskThresholdEdit?pId=${threshold.id}" class="action-icon edit-icon tooltip-bottom" title="Edit ${threshold.name}"><i class="fa fa-pencil"></i></a>
                         </td>
                     </tr>
@@ -89,7 +89,29 @@
 
     </div>
 
+    <div class="modal fade modal-danger" id="mskThresholdDelete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabel">Delete this Threshold?</h4>
+                </div>
+                <div class="modal-footer text-center">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <a href="#" class="btn btn-danger threshold-delete-confirm">Delete</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <jsp:include page="../../shared/jsp/InspectFooter.jsp" flush="false"/>
+
+    <script type="text/javascript">
+        $('.actions-links').on('click','.delete-icon', function() {
+            var dataid = $(this).attr('data-id');
+            $('.threshold-delete-confirm').attr("href", "mskThresholdDelete?pId=" + dataid);
+        });
+    </script>
 
 </section>
 </body>

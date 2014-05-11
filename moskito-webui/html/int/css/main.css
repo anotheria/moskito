@@ -71,6 +71,10 @@ body {
     transition: all 0.12s linear;
 }
 
+.header-box a {
+    display: block;
+}
+
 .logo {
     display: block;
     width: 58px;
@@ -91,6 +95,15 @@ body {
     display: block;
     font-family: "Lato", Exo sans-serif;
     font-weight: 300;
+}
+
+.header-box a:hover,
+a:hover .logo-title {
+    text-decoration: none !important;
+}
+
+.header-box a:active .logo {
+    top: 2px;
 }
 
 .version {
@@ -1093,4 +1106,17 @@ ul.switcher li i.chart-icon {
 
 .mCSB_horizontal .mCSB_container table {
     margin-right: 100px;
+}
+
+.modal.modal-danger .modal-footer {
+    border: none;
+    background: none;
+}
+
+.modal.modal-danger .modal-dialog {
+    width: 400px;
+}
+
+.modal.modal-danger .modal-header {
+    background: #D9534F;
 }
