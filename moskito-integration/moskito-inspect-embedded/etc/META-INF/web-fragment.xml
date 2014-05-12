@@ -16,6 +16,10 @@
         <filter-name>MoskitoUIFilter</filter-name>
         <url-pattern>/moskito-inspect/*</url-pattern>
     </filter-mapping>
+    <filter-mapping>
+        <filter-name>MoskitoUIFilter</filter-name>
+        <url-pattern>/moskito-inspect/</url-pattern>
+    </filter-mapping>
     <ordering>
         <before>
             <others/>
