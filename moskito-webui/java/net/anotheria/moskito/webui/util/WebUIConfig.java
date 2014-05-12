@@ -25,7 +25,7 @@ public class WebUIConfig {
 	/**
 	 * List of remote instances. Remote instances are only active if mode is remote.
 	 */
-	private RemoteInstance[] remotes;
+	private RemoteInstance[] remotes = new RemoteInstance[0];
 
 	/**
 	 * Connectivity mode, available values are default or local.
