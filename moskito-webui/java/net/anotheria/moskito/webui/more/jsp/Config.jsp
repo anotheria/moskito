@@ -85,6 +85,8 @@
                     <dd>${config.defaultChartEngine}</dd>
                     <dt>connectivityMode:</dt>
                     <dd>${config.connectivityMode}</dd>
+                    <dt>usageMode:</dt>
+                    <dd>${config.usageMode}</dd>
                 </dl>
                 <div class="paddner">
                     <b>Remotes:</b>
