@@ -18,13 +18,13 @@ Commented out for now. We may add this later as welcome message (to all layers).
 <ano:iterate type="net.anotheria.moskito.webui.shared.bean.ProducerDecoratorBean" id="decorator" name="decorators">
 <div class="box">
 <div class="box-title">
-    <a class="accordion-toggle tooltip-bottom" title="Close/Open" data-toggle="collapse" href="#collapse${decorator.name}"><i class="fa fa-caret-right"></i></a>
+    <a class="accordion-toggle tooltip-bottom" title="Close/Open" data-toggle="collapse" href="#collapse${decorator.decoratorNameForCss}"><i class="fa fa-caret-right"></i></a>
     <h3 class="pull-left">${decorator.name}</h3>
     <div class="box-right-nav">
         <a href="" class="tooltip-bottom" title="Help"><i class="fa fa-info-circle"></i></a>
     </div>
 </div>
-<div id="collapse${decorator.name}" class="box-content accordion-body collapse in">
+<div id="collapse${decorator.decoratorNameForCss}" class="box-content accordion-body collapse in">
 
 
     <div class="table1fixed">

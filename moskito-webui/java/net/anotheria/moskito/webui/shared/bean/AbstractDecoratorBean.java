@@ -34,6 +34,7 @@
  */	
 package net.anotheria.moskito.webui.shared.bean;
 
+import net.anotheria.moskito.webui.shared.action.BaseMoskitoUIAction;
 import net.anotheria.util.BasicComparable;
 import net.anotheria.util.StringUtils;
 import net.anotheria.util.sorter.IComparable;
@@ -84,4 +85,7 @@ public abstract class AbstractDecoratorBean implements IComparable{
 		return "p"+StringUtils.capitalize(name)+"SortOrder";
 	}
 
+	public String getDecoratorNameForCss(){
+		return StringUtils.removeChars(getName(), BaseMoskitoUIAction.WHITESPACES);
+	}
 }
