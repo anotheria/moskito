@@ -25,7 +25,7 @@
                 <table class="table table-striped tree ">
                     <thead>
                     <tr>
-                        <th>&nbsp;</th>
+                        <th><button class="btn btn-primary tree-expand">Expand</button></th>
                         <th>Call</th>
                         <th>Gross duration</th>
                         <th>Net duration</th>
