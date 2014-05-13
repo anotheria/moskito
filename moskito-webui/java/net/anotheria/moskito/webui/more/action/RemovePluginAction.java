@@ -3,13 +3,12 @@ package net.anotheria.moskito.webui.more.action;
 import net.anotheria.maf.action.ActionCommand;
 import net.anotheria.maf.action.ActionMapping;
 import net.anotheria.maf.bean.FormBean;
-import net.anotheria.moskito.core.plugins.PluginRepository;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * TODO comment this class
+ * Removes a plugin with given name from plugin repository.
  *
  * @author lrosenberg
  * @since 20.03.13 00:10

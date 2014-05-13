@@ -1,9 +1,7 @@
 package net.anotheria.moskito.webui.journey.action;
 
-import net.anotheria.moskito.webui.journey.api.JourneyAPI;
 import net.anotheria.moskito.webui.shared.action.BaseMoskitoUIAction;
 import net.anotheria.moskito.webui.shared.bean.NaviItem;
-import net.anotheria.moskito.webui.util.APILookupUtility;
 
 /**
  * Base action for journeys.

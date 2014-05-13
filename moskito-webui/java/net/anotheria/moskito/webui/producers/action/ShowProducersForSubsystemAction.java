@@ -34,9 +34,7 @@
  */	
 package net.anotheria.moskito.webui.producers.action;
 
-import net.anotheria.moskito.core.producers.IStatsProducer;
 import net.anotheria.moskito.webui.producers.api.ProducerAO;
-import net.anotheria.moskito.webui.producers.api.ProducerAPI;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;

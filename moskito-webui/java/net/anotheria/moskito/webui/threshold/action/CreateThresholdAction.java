@@ -4,7 +4,6 @@ import net.anotheria.maf.action.ActionCommand;
 import net.anotheria.maf.action.ActionMapping;
 import net.anotheria.maf.bean.FormBean;
 import net.anotheria.maf.bean.annotations.Form;
-import net.anotheria.moskito.core.threshold.Threshold;
 import net.anotheria.moskito.webui.threshold.api.ThresholdPO;
 
 import javax.servlet.http.HttpServletRequest;

@@ -7,8 +7,6 @@ import net.anotheria.maf.bean.FormBean;
 import net.anotheria.moskito.webui.MoSKitoWebUIContext;
 import net.anotheria.moskito.webui.journey.api.AnalyzedProducerCallsAOSortType;
 import net.anotheria.moskito.webui.journey.api.AnalyzedProducerCallsMapAO;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -20,8 +18,9 @@ public class AnalyzeJourneyAction extends BaseJourneyAction{
 	protected String getLinkToCurrentPage(HttpServletRequest req) {
 		return "";
 	}
-	
-	private static Logger log = LoggerFactory.getLogger(AnalyzeJourneyAction.class);
+
+	//not used
+	//private static Logger log = LoggerFactory.getLogger(AnalyzeJourneyAction.class);
 
 	@Override
 	public ActionCommand execute(ActionMapping mapping, FormBean formBean, HttpServletRequest req, HttpServletResponse res) throws APIException{
