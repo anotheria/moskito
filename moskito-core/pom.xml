@@ -36,11 +36,6 @@
 		<groupId>net.anotheria</groupId>
 		<artifactId>configureme</artifactId>
 	</dependency>
-      <!-- for mail support -->
-      <dependency>
-          <groupId>net.anotheria</groupId>
-          <artifactId>ano-comm</artifactId>
-      </dependency>
       <dependency>
           <groupId>com.google.code.gson</groupId>
           <artifactId>gson</artifactId>

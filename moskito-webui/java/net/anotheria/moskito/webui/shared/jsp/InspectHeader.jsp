@@ -1,0 +1,181 @@
+<%@ page language="java" contentType="text/html;charset=UTF-8" session="true"%><%@
+        taglib uri="http://www.anotheria.net/ano-tags" prefix="ano"%><%@
+        page isELIgnored="false" %>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>${title}</title>
+    <link href='http://fonts.googleapis.com/css?family=Lato:100,300,400,700' rel='stylesheet' type='text/css' />
+    <link type="text/css" rel="stylesheet" href="http://fonts.googleapis.com/css?family=Mr+Bedfort" />
+    <link type="text/css" rel="stylesheet" rev="stylesheet" href="../ext/bootstrap-3.1.1/css/bootstrap.css" />
+    <link type="text/css" rel="stylesheet" rev="stylesheet" href="../ext/custom-scrollbar/jquery.mCustomScrollbar.css" />
+    <link type="text/css" rel="stylesheet" href="../ext/font-awesome-4.0.3/css/font-awesome.css" />
+    <link type="text/css" rel="stylesheet" rev="stylesheet" href="../ext/select2-3.4.6/select2.css" />
+    <link type="text/css" rel="stylesheet" rev="stylesheet" href="../ext/switchery/switchery.min.css" />
+    <ano:equal name="currentSubNaviItem" property="id" value="more_config">
+        <link rel="stylesheet" type="text/css" href="../ext/google-code-prettify/prettify.css" />
+    </ano:equal>
+    <ano:equal name="currentSubNaviItem" property="id" value="more_mbeans">
+        <link rel="stylesheet" type="text/css" href="../ext/treegrid/css/jquery.treegrid.css" />
+    </ano:equal>
+    <ano:equal name="currentNaviItem" property="id" value="journeys">
+        <link rel="stylesheet" type="text/css" href="../ext/treegrid/css/jquery.treegrid.css" />
+    </ano:equal>
+    <link type="text/css" rel="stylesheet" rev="stylesheet" href="../int/css/common.css" />
+    <!--[if lt IE 9]><script src="../int/js/ie8-responsive-file-warning.js"></script><![endif]-->
+    <!--[if lt IE 8]><link type="text/css" rel="stylesheet" rev="stylesheet" href="../static-int/css/bootstrap-ie7.css" /><![endif]-->
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body class="status-${systemStatusColor}<ano:notEmpty name="isNavMenuCollapsed"><ano:iF test="${isNavMenuCollapsed}"> aside-collapse</ano:iF></ano:notEmpty>">
+<ano:define name="moskito.CurrentUnit" property="unitName" id="currentUnit" toScope="page" type="java.lang.String"/>
+<!-- currently for handle select only -->
+<script type="text/javascript" src="../js/function.js"></script>
+
+<header id="header" class="navbar navbar-fixed-top navbar-default">
+            <span class="caret-aside pull-left tooltip-bottom" title="Close/Open">
+                <i class="fa fa-caret-left"></i>
+            </span>
+
+    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+    </button>
+
+    <div class="navbar-collapse collapse">
+        <form role="form" class="navbar-form navbar-left">
+            <div class="form-group">
+                <select class="select2" data-placeholder="Interval" onchange="javascript:handleSelect(this)">
+                    <ano:iterate name="intervals" id="interval" type="net.anotheria.moskito.webui.shared.api.IntervalInfoAO">
+                        <option value="${linkToCurrentPage}&amp;pInterval=${interval.name}" ${interval.name==requestScope.currentInterval ? "selected" : ""}>
+                            <ano:write name="interval" property="name"/>
+                        </option>
+                    </ano:iterate>
+                </select>
+            </div>
+            <div class="form-group">
+                <select class="select2" data-placeholder="Unit" onchange="javascript:handleSelect(this)">
+                <ano:iterate name="units" id="unit" type="net.anotheria.moskito.webui.shared.bean.UnitBean">
+                    <option value="${linkToCurrentPage}&amp;pUnit=${unit.unitName}" ${unit.unitName.equals(currentUnit) ? "selected" : ""}>
+                        ${unit.unitName}
+                    </option>
+                </ano:iterate>
+                </select>
+            </div>
+        </form>
+
+        <ul class="nav navbar-nav pull-right">
+            <li><a href="">Autoreload OFF</a></li>
+            <li><a href="">Export</a></li>
+            <li><a href="">Help</a></li>
+        </ul>
+    </div>
+</header>
+
+<aside id="aside" class="scrollbar">
+
+    <div class="header-box">
+        <span class="version">v  ${moskito_version_string}</span>
+        <a href="/">
+            <i class="logo"></i>
+            <span class="logo-title">MoSKito Inspect</span>
+        </a>
+    </div>
+
+    <ul class="nav nav-sidebar">
+        <li ${requestScope.currentNaviItem.id == "producers" ? "class=\"active\"" : ""}><a href="mskShowAllProducers" title="Producers" class="sidebar-tooltip-right">Producers <i class="fa fa-wrench"></i></a></li>
+        <li ${requestScope.currentNaviItem.id == "journeys" ? "class=\"active\"" : ""}><a href="mskShowJourneys" title="Journeys" class="sidebar-tooltip-right">Journeys <i class="fa fa-eye"></i></a></li>
+        <li ${requestScope.currentNaviItem.id == "thresholds" ? "class=\"active\"" : ""}><a href="mskThresholds" title="Thresholds" class="sidebar-tooltip-right">Thresholds <i class="fa fa-dot-circle-o"></i></a></li>
+        <li ${requestScope.currentNaviItem.id == "accumulators" ? "class=\"active\"" : ""}><a href="mskAccumulators" title="Accumulators" class="sidebar-tooltip-right">Accumulators <i class="fa fa-signal"></i></a></li>
+        <ano:equal name="currentNaviItem" property="id" value="threads">
+            <li class="active">
+                <a href="mskThreads" title="Threads" class="sidebar-tooltip-right">Threads <i class="fa fa-bars"></i></a>
+                <ul class="nav sub-menu">
+                    <li ${currentSubNaviItem.isSelected("threads_list") ? "class=\"active\"" : ""}><a href="mskThreadsList" title="List" class="sidebar-tooltip-right">List <i class="fa fa-list"></i></a></li>
+                    <li ${currentSubNaviItem.isSelected("threads_dump") ? "class=\"active\"" : ""}><a href="mskThreadsDump" title="Dump" class="sidebar-tooltip-right">Dump <i class="fa fa-upload"></i></a></li>
+                    <li ${currentSubNaviItem.isSelected("threads_history") ? "class=\"active\"" : ""}><a href="mskThreadsHistory" title="History" class="sidebar-tooltip-right">History <i class="fa fa-file-text"></i></a></li>
+                </ul>
+            </li>
+        </ano:equal>
+        <ano:notEqual name="currentNaviItem" property="id" value="threads">
+            <li><a href="mskThreads" title="Threads" class="sidebar-tooltip-right">Threads <i class="fa fa-bars"></i></a></li>
+        </ano:notEqual>
+        <!-- Submenu for everything else -->
+        <ano:equal name="currentNaviItem" property="id" value="more">
+            <li class="active">
+            <a href="mskMore" title="Everything else" class="sidebar-tooltip-right">Everything else <i class="fa fa-bookmark"></i></a>
+            <ul class="nav sub-menu">
+                <li ${currentSubNaviItem.isSelected("more_config")  ? "class=\"active\"" : ""}><a href="mskConfig" title="Config" class="sidebar-tooltip-right">Config <i class="fa fa-cog"></i></a></li>
+                <li ${currentSubNaviItem.isSelected("more_mbeans")  ? "class=\"active\"" : ""}><a href="mskMBeans" title="MBeans" class="sidebar-tooltip-right">MBeans <i class="fa fa-coffee"></i></a></li>
+                <li ${currentSubNaviItem.isSelected("more_libs")    ? "class=\"active\"" : ""}><a href="mskLibs" title="Libs" class="sidebar-tooltip-right">Libs <i class="fa fa-file-text"></i></a></li>
+                <li ${currentSubNaviItem.isSelected("more_plugins") ? "class=\"active\"" : ""}><a href="mskPlugins" title="Plugins" class="sidebar-tooltip-right">Plugins <i class="fa fa-cloud"></i></a></li>
+                <li ${currentSubNaviItem.isSelected("more_update")  ? "class=\"active\"" : ""}><a href="mskUpdate" title="Update" class="sidebar-tooltip-right">Update  <i class="fa fa-upload"></i></a></li>
+            </ul>
+        </li>
+        </ano:equal>
+        <ano:notEqual name="currentNaviItem" property="id" value="more">
+            <li><a href="mskMore" title="Everything else" class="sidebar-tooltip-right">Everything else <i class="fa fa-bookmark"></i></a></li>
+        </ano:notEqual>
+
+    </ul>
+
+    <ano:equal name="pagename" value="producers">
+    <div class="form-box">
+        <label>Filter</label>
+
+        <select class="select2" data-placeholder="Category" onchange="javascript:handleSelect(this)">
+            <option>Select</option>
+            <ano:iterate name="categories" id="category" type="net.anotheria.moskito.webui.producers.api.UnitCountAO">
+                <option value="mskShowProducersByCategory?pCategory=${category.unitName}" ${category.unitName==requestScope.currentCategory ? "selected" : ""}>
+                ${category.unitName} (${category.unitCount})
+                </option>
+            </ano:iterate>
+        </select>
+
+        <select class="select2" data-placeholder="Subsystem" onchange="javascript:handleSelect(this)">
+            <option>Select</option>
+            <ano:iterate name="subsystems" id="subsystem" type="net.anotheria.moskito.webui.producers.api.UnitCountAO">
+                <option value="mskShowProducersBySubsystem?pSubsystem=${subsystem.unitName}" ${subsystem.unitName==requestScope.currentSubsystem ? "selected" : ""}>
+                        ${subsystem.unitName} (${subsystem.unitCount})
+                </option>
+            </ano:iterate>
+        </select>
+
+        <input type="text" class="form-control" placeholder="Name Filter">
+    </div>
+    </ano:equal>
+
+    <div class="form-box">
+        <label>Server selector</label>
+        <form name="SelectServer" action="mskSelectServer" method="GET">
+            <select class="select2" data-placeholder="Select Server" onchange="javascript:handleSelect(this)">
+                <ano:iterate name="connectivityOptions" id="option" type="net.anotheria.moskito.webui.shared.bean.LabelValueBean">
+                    <option value="mskSelectServer?pTargetServer=${option.value}" ${option.value==requestScope.selectedConnectivity ? "selected" : ""}>${option.label}</option>
+                </ano:iterate>
+            </select>
+        </form>
+    </div>
+
+    <div class="form-box">
+        <label>Quick connect</label>
+        <form name="QuickConnect" action="mskQuickConnect" method="GET">
+            <div class="form-group">
+                <input type="text" class="form-control" name="pServerName" placeholder="Host">
+            </div>
+            <div class="form-group">
+                <input type="text" class="form-control" name="pServerPort" placeholder="Port">
+            </div>
+            <div class="form-group text-right">
+                <button class="btn btn-success" type="button" onclick="submit();">Connect</button>
+            </div>
+        </form>
+    </div>
+
+    <span class="shadow-line"></span>
+
+</aside>

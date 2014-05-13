@@ -10,7 +10,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
 /**
- * TODO comment this class
+ * The basic aspect class.
  *
  * @author lrosenberg
  * @since 19.11.12 00:00

@@ -2,6 +2,7 @@ package net.anotheria.moskito.webui.util;
 
 import net.anotheria.anoplass.api.API;
 import net.anotheria.anoplass.api.APIFinder;
+import net.anotheria.moskito.webui.MoSKitoWebUIContext;
 import net.anotheria.moskito.webui.accumulators.api.AccumulatorAPI;
 import net.anotheria.moskito.webui.journey.api.JourneyAPI;
 import net.anotheria.moskito.webui.producers.api.ProducerAPI;
@@ -10,6 +11,7 @@ import net.anotheria.moskito.webui.threads.api.ThreadAPI;
 import net.anotheria.moskito.webui.threshold.api.ThresholdAPI;
 import org.distributeme.core.ServiceDescriptor;
 
+import javax.servlet.http.HttpSession;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -33,10 +35,26 @@ public class APILookupUtility {
 	private static ConnectivityMode currentConnectivityMode = WebUIConfig.getInstance().getConnectivityMode();
 
 	public static boolean isLocal(){
-		return currentConnectivityMode ==ConnectivityMode.LOCAL;
+		//if current usage mode is personal, every change made to the connectivity mode is global.
+		if (WebUIConfig.getInstance().getUsageMode() == UsageMode.PERSONAL)
+			return currentConnectivityMode == ConnectivityMode.LOCAL;
+		HttpSession session = MoSKitoWebUIContext.getCallContext().getCurrentSession();
+		//if session is null, which can't happen (hope so), we fall back to personal behaviour silently.
+		if (session==null)
+			return currentConnectivityMode == ConnectivityMode.LOCAL;
+		ConnectivityMode mode = (ConnectivityMode)session.getAttribute(ConnectivityMode.class.getName());
+		return mode == null ?  true : mode == ConnectivityMode.LOCAL ;
+
 	}
 
 	public static RemoteInstance getCurrentRemoteInstance(){
+
+		if (WebUIConfig.getInstance().getUsageMode()==UsageMode.PERSONAL)
+			return getCurrentRemoteInstanceForPersonalUsage();
+		return getCurrentRemoteInstanceForSharedUsage();
+	}
+
+	private static RemoteInstance getCurrentRemoteInstanceForPersonalUsage(){
 		if (currentRemoteInstance !=null)
 			return currentRemoteInstance;
 		RemoteInstance[] instances = WebUIConfig.getInstance().getRemotes();
@@ -44,6 +62,20 @@ public class APILookupUtility {
 			throw new IllegalStateException("Can't select first remote instance, but obviously remote usage is configured");
 		currentRemoteInstance = instances[0];
 		return currentRemoteInstance;
+
+	}
+
+	private static RemoteInstance getCurrentRemoteInstanceForSharedUsage(){
+		RemoteInstance mySelectedInstance = (RemoteInstance)MoSKitoWebUIContext.getCallContext().getCurrentSession().getAttribute(RemoteInstance.class.getName());
+		if (mySelectedInstance !=null)
+			return mySelectedInstance;
+		RemoteInstance[] instances = WebUIConfig.getInstance().getRemotes();
+		if (instances==null || instances.length<1)
+			throw new IllegalStateException("Can't select first remote instance, but obviously remote usage is configured");
+		mySelectedInstance = instances[0];
+		MoSKitoWebUIContext.getCallContext().getCurrentSession().setAttribute(RemoteInstance.class.getName(), mySelectedInstance);
+		return mySelectedInstance;
+
 	}
 
 	public static JourneyAPI getJourneyAPI(){
@@ -142,7 +174,7 @@ public class APILookupUtility {
 	}
 
 	public static final String describeConnectivity(){
-		return isLocal() ? "Local" : "Remote: "+currentRemoteInstance;
+		return isLocal() ? "Local" : "Remote: "+getCurrentRemoteInstance();
 	}
 
 	public static ConnectivityMode getCurrentConnectivityMode() {
@@ -150,10 +182,20 @@ public class APILookupUtility {
 	}
 
 	public static void setCurrentRemoteInstance(RemoteInstance currentRemoteInstance) {
-		APILookupUtility.currentRemoteInstance = currentRemoteInstance;
+		if (WebUIConfig.getInstance().getUsageMode()==UsageMode.PERSONAL) {
+			APILookupUtility.currentRemoteInstance = currentRemoteInstance;
+			return;
+		}
+		MoSKitoWebUIContext.getCallContext().getCurrentSession().setAttribute(RemoteInstance.class.getName(), currentRemoteInstance);
+
 	}
 	public static void setCurrentConnectivityMode(ConnectivityMode currentConnectivityMode) {
-		APILookupUtility.currentConnectivityMode = currentConnectivityMode;
+		if (WebUIConfig.getInstance().getUsageMode()==UsageMode.PERSONAL) {
+			APILookupUtility.currentConnectivityMode = currentConnectivityMode;
+			return;
+		}
+		MoSKitoWebUIContext.getCallContext().getCurrentSession().setAttribute(ConnectivityMode.class.getName(), currentConnectivityMode);
+
 	}
 
 

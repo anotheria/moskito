@@ -2,11 +2,11 @@
  * $Id$
  * 
  * This file is part of the MoSKito software project
- * that is hosted at http://moskito.dev.java.net.
+ * that is hosted at http://www.moskito.org.
  * 
  * All MoSKito files are distributed under MIT License:
  * 
- * Copyright (c) 2006 The MoSKito Project Team.
+ * Copyright (c) 2006-2014 The MoSKito Project Team.
  * 
  * Permission is hereby granted, free of charge,
  * to any person obtaining a copy of this software and
@@ -41,7 +41,7 @@ import java.util.concurrent.atomic.AtomicLong;
 /**
  * This class implements a ValueHolder that is able to process long values.
  * @author lrosenberg
- * @see ValueHolder
+ * @see net.anotheria.moskito.core.stats.ValueHolder
  */
 class LongValueHolder extends AbstractValueHolder {
 
@@ -77,14 +77,14 @@ class LongValueHolder extends AbstractValueHolder {
 	}
 
 	/**
-	 * @see net.java.dev.moskito.core.stats.IIntervalListener#intervalUpdated(net.java.dev.moskito.core.stats.impl.IntervalImpl)
+	 * @see net.anotheria.moskito.core.stats.IIntervalListener#intervalUpdated(net.anotheria.moskito.core.stats.Interval)
 	 */
 	@Override public void intervalUpdated(Interval caller) {
 		lastValue = currentValue.getAndSet(defaultValue);
 	}
 
 	/**
-	 * @see net.java.dev.moskito.core.stats.IIntervalListener#intervalUpdated(net.java.dev.moskito.core.stats.impl.IntervalImpl)
+	 * @see net.anotheria.moskito.core.stats.IIntervalListener#intervalUpdated(net.anotheria.moskito.core.stats.Interval)
 	 */
 	protected void updateLastValueFromCurrent() {
 		lastValue = currentValue.get();
@@ -100,7 +100,7 @@ class LongValueHolder extends AbstractValueHolder {
 	}
 
 	/**
-	 * @see net.java.dev.moskito.core.stats.impl.AbstractValueHolder#toString()
+	 * @see net.anotheria.moskito.core.stats.impl.AbstractValueHolder#toString()
 	 */
 	@Override
 	public String toString() {
@@ -112,7 +112,7 @@ class LongValueHolder extends AbstractValueHolder {
 	}
 
 	/**
-	 * @see net.java.dev.moskito.core.stats.ValueHolder#increase()
+	 * @see net.anotheria.moskito.core.stats.ValueHolder#increase()
 	 */
 	@Override public void increase() {
 		currentValue.incrementAndGet();

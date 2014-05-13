@@ -3,6 +3,7 @@ package net.anotheria.moskito.webui.more.action;
 import net.anotheria.maf.action.ActionCommand;
 import net.anotheria.maf.action.ActionMapping;
 import net.anotheria.maf.bean.FormBean;
+import net.anotheria.moskito.webui.shared.bean.NaviItem;
 import net.anotheria.util.NumberUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -58,4 +59,9 @@ public class UpdateAction extends BaseAdditionalAction {
 
 		return actionMapping.success();
 	}
+	@Override
+	protected NaviItem getCurrentSubNaviItem() {
+		return NaviItem.MORE_UPDATE;
+	}
+
 }

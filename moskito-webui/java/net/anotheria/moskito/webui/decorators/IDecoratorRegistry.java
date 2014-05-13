@@ -66,4 +66,12 @@ public interface IDecoratorRegistry {
 	 */
 	IDecorator getDecorator(Class<? extends IStats> stats);
 
+	/**
+	 * This method is added to enable remote registry instances work without having the need to transfer the
+	 * decorator class via network.
+	 * @param statsClassName
+	 * @return
+	 */
+	IDecorator getDecorator(String statsClassName);
+
 }

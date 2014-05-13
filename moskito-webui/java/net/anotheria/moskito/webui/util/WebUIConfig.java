@@ -25,12 +25,18 @@ public class WebUIConfig {
 	/**
 	 * List of remote instances. Remote instances are only active if mode is remote.
 	 */
-	private RemoteInstance[] remotes;
+	private RemoteInstance[] remotes = new RemoteInstance[0];
 
 	/**
 	 * Connectivity mode, available values are default or local.
 	 */
 	private ConnectivityMode connectivityMode = ConnectivityMode.LOCAL;
+
+
+	/**
+	 * Usage mode, default is shared.
+	 */
+	private UsageMode usageMode = UsageMode.SHARED;
 
 	/**
 	 * If true sends a tracking pixel to counter.moskito.org to track worldwide usage.
@@ -64,6 +70,13 @@ public class WebUIConfig {
 	 */
 	public static final WebUIConfig getInstance(){
 		return WebUIConfigInstanceHolder.instance;
+	}
+
+	public void addRemote(RemoteInstance newRemoteInstance) {
+		RemoteInstance[] oldRemotes = remotes;
+		remotes = new RemoteInstance[oldRemotes.length+1];
+		System.arraycopy(oldRemotes, 0, remotes, 0, oldRemotes.length);
+		remotes[remotes.length-1] = newRemoteInstance;
 	}
 
 	/**
@@ -101,4 +114,13 @@ public class WebUIConfig {
 	public void setConnectivityMode(ConnectivityMode connectivityMode) {
 		this.connectivityMode = connectivityMode;
 	}
+
+	public UsageMode getUsageMode() {
+		return usageMode;
+	}
+
+	public void setUsageMode(UsageMode usageMode) {
+		this.usageMode = usageMode;
+	}
+
 }

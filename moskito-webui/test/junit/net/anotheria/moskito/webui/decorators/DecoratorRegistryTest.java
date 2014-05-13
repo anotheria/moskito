@@ -43,10 +43,10 @@ public class DecoratorRegistryTest {
 	}
 	
 	private void testResolution(Class<? extends IStats> statsPattern, Class<? extends IDecorator> decoratorPattern) throws Exception{
-		IDecorator resolvedDecorator = registry.getDecorator(statsPattern.newInstance());
+		IDecorator resolvedDecorator = registry.getDecorator(statsPattern);
 		assertNotNull("Resolved decorator was null! ", resolvedDecorator);
 		assertEquals("Resolved decorator is not of expected type", decoratorPattern, resolvedDecorator.getClass());
-		//this is not necessarly a registry test, but it ensures that the returned type actually can basically handle pattern type.
+		//this is not necessarily a registry test, but it ensures that the returned type actually can basically handle pattern type.
 		assertNotNull(resolvedDecorator.getValues(statsPattern.newInstance(), null, TimeUnit.MILLISECONDS));
 	}
 }

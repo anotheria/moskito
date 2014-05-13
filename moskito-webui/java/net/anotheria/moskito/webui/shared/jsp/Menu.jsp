@@ -100,7 +100,7 @@
                                     <span class="vline"></span>
 								</li>
 								<li class="separator">
-									<a href="mskThreadsDump">Dump</a>
+									<a href="">Dump</a>
                                     <span class="vline"></span>
 								</li>
 								<li>

@@ -21,7 +21,9 @@ abstract class BaseJourneyAction extends BaseMoskitoUIAction {
 		return NaviItem.JOURNEYS;
 	}
 
-	protected JourneyAPI getJourneyAPI(){
-		return APILookupUtility.getJourneyAPI();
+	@Override
+	protected String getSubTitle() {
+		return "Journeys";
 	}
+
 }

@@ -47,18 +47,15 @@ public enum TimeUnit {
      */
     public double transformMillis(double millis){
         switch (this) {
-            case NANOSECONDS: {
+            case NANOSECONDS:
                 return millis * MILLISECONDS.factor;
-            }
-            case MICROSECONDS: {
+            case MICROSECONDS:
                 return millis * MICROSECONDS.factor;
-            }
-            case SECONDS: {
+            case SECONDS:
                 return millis / 1000;
-            }
-            default: {
+            default:
                 return millis;
-            }
+
         }
     }
 
@@ -69,18 +66,15 @@ public enum TimeUnit {
      */
     public long transformMillis(long millis){
         switch (this) {
-            case NANOSECONDS: {
+            case NANOSECONDS:
                 return millis * MILLISECONDS.factor;
-            }
-            case MICROSECONDS: {
+            case MICROSECONDS:
                 return millis * MICROSECONDS.factor;
-            }
-            case SECONDS: {
+            case SECONDS:
                 return millis / 1000;
-            }
-            default: {
+            default:
                 return millis;
-            }
+
         }
     }
 	

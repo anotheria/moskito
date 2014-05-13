@@ -1,6 +1,6 @@
 package net.anotheria.moskito.webui.journey.api;
 
-import net.anotheria.moskito.webui.CurrentSelection;
+import net.anotheria.moskito.webui.MoSKitoWebUIContext;
 import net.anotheria.util.sorter.StaticQuickSorter;
 
 import java.util.HashMap;
@@ -60,7 +60,7 @@ public class AnalyzedProducerCallsMapAO {
 	}
 	
 	public List<AnalyzedProducerCallsAO> getProducerCallsBeans(){
-		return StaticQuickSorter.sort(beans.values(), CurrentSelection.get().getAnalyzeProducerCallsSortType());
+		return StaticQuickSorter.sort(beans.values(), MoSKitoWebUIContext.getCallContext().getAnalyzeProducerCallsSortType());
 	}
 	
 	public boolean isEmpty(){
@@ -80,7 +80,7 @@ public class AnalyzedProducerCallsMapAO {
 	}
 	
 	public long getTotalDurationTransformed(){
-		return CurrentSelection.get().getCurrentTimeUnit().transformNanos(getTotalDuration());
+		return MoSKitoWebUIContext.getCallContext().getCurrentTimeUnit().transformNanos(getTotalDuration());
 	}
 
 	public void setTotalDuration(long totalDuration) {

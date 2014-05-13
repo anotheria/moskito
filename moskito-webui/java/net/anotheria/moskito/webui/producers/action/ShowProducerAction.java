@@ -73,11 +73,6 @@ public class ShowProducerAction extends BaseMoskitoUIAction {
 		UnitBean currentUnit = getCurrentUnit(req);
 
 		ProducerAO producer = getProducerAPI().getProducer(req.getParameter(PARAM_PRODUCER_ID), intervalName, currentUnit.getUnit());
-		/*ProducerBean producerBean = new ProducerBean();
-		producerBean.setId(producer.getProducerId());
-		producerBean.setCategory(producer.getCategory());
-		producerBean.setSubsystem(producer.getSubsystem());
-		producerBean.setClassName(producer.getClass().getName());*/
 		req.setAttribute("producer", producer);
 
 		//copies parameter for producer selection page.
@@ -87,7 +82,7 @@ public class ShowProducerAction extends BaseMoskitoUIAction {
 		String pFilterZero = req.getParameter(PARAM_FILTER_ZERO);
 		boolean filterZero = pFilterZero != null && pFilterZero.equalsIgnoreCase("true");
 
-		IDecorator decorator = getDecoratorRegistry().getDecorator(producer.getStatsClazz());
+		IDecorator decorator = getDecoratorRegistry().getDecorator(producer.getStatsClazzName());
 		Map<String, GraphDataBean> graphData = new HashMap<String, GraphDataBean>();
 
 

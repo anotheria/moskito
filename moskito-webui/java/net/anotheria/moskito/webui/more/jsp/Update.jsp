@@ -1,38 +1,33 @@
-<%@ page language="java" contentType="text/html;charset=UTF-8"	session="true"
-        %><%@ taglib uri="http://www.anotheria.net/ano-tags" prefix="ano"
-        %><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<%@ page language="java" contentType="text/html;charset=UTF-8" session="true" %>
+<%@ taglib prefix="ano" uri="http://www.anotheria.net/ano-tags" %>
+<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-    <title>Moskito Libs</title>
-    <link rel="stylesheet" href="mskCSS"/>
-</head>
-<body>
-<jsp:include page="../../shared/jsp/Menu.jsp" flush="false" />
+<jsp:include page="../../shared/jsp/InspectHeader.jsp" flush="true"/>
+<section id="main">
+    <div class="content">
 
-<div class="main">
-    <div class="additional">
-        <div class="top">
-            <div><!-- --></div>
-        </div>
-        <div class="add_in">
-            <h2>MoSKito Update</h2>
-
-            <div><span>
-            Your version: <ano:write name="moskito.maven.version"/><br/>
-            Central version: <ano:write name="version"/> from <ano:write name="versionTimestamp"/><br/>
-			</span></div>
-
-        </div>
-        <div class="bot">
-            <div><!-- --></div>
+        <div class="box">
+            <div class="box-title">
+                <a class="accordion-toggle tooltip-bottom" title="Close/Open" data-toggle="collapse" href="#collapse1"><i class="fa fa-caret-right"></i></a>
+                <h3 class="pull-left">
+                    MoSKito Update Check
+                </h3>
+            </div>
+            <div id="collapse1" class="box-content accordion-body collapse in">
+                <div class="paddner">
+                    <dl class="dl-horizontal">
+                        <dt>Your version:</dt>
+                        <dd><ano:write name="moskito_maven_version"/></dd>
+                        <dt>Central version:</dt>
+                        <dd><ano:write name="version"/> from <ano:write name="versionTimestamp"/></dd>
+                    </dl>
+                </div>
+            </div>
         </div>
     </div>
 
-    <div class="clear"><!-- --></div>
+    <jsp:include page="../../shared/jsp/InspectFooter.jsp" flush="true"/>
 
-    <div class="clear"><!-- --></div>
-    <jsp:include page="../../shared/jsp/Footer.jsp" flush="false" />
-</div>
+</section>
 </body>
 </html>
-

@@ -34,8 +34,13 @@ public class ThresholdAlert {
 	 * Value after the change.
 	 */
 	private String newValue;
+
+	/**
+	 * Flip count of this threshold. Flip count is the amount of status changes by a threshold.
+	 */
+	private int flipCount;
 	
-	public ThresholdAlert(Threshold aThreshold, ThresholdStatus anOldStatus, ThresholdStatus aNewStatus, String anOldValue, String aNewValue){
+	public ThresholdAlert(Threshold aThreshold, ThresholdStatus anOldStatus, ThresholdStatus aNewStatus, String anOldValue, String aNewValue, int flipCount){
 		timestamp = System.currentTimeMillis();
 		threshold = aThreshold;
 		oldStatus = anOldStatus;
@@ -80,11 +85,19 @@ public class ThresholdAlert {
 	public void setNewValue(String newValue) {
 		this.newValue = newValue;
 	}
-	
+
+	public int getFlipCount() {
+		return flipCount;
+	}
+
+	public void setFlipCount(int flipCount) {
+		this.flipCount = flipCount;
+	}
+
 	@Override public String toString(){
 		return NumberUtils.makeISO8601TimestampString(getTimestamp())+" "
 				+threshold.getName()+", ("+getOldStatus()+"/ "+getOldValue()+") --> "+
-				"("+getNewStatus()+"/ "+getNewValue()+")";
+				"("+getNewStatus()+"/ "+getNewValue()+")"+" FP: "+flipCount;
 	}
 	
 	

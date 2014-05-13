@@ -32,4 +32,8 @@ public abstract class BaseAccumulatorsAction extends BaseMoskitoUIAction {
 		return APILookupUtility.getAccumulatorAPI();
 	}
 
+	@Override
+	protected String getSubTitle() {
+		return "Accumulators";
+	}
 }

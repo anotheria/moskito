@@ -13,6 +13,7 @@
   <name>notification providers</name>
 
   <dependencies>
+      <!-- needed for mailgun -->
       <dependency>
           <groupId>com.sun.jersey</groupId>
           <artifactId>jersey-client</artifactId>
@@ -32,31 +33,10 @@
           <artifactId>logback-classic</artifactId>
           <!--scope>test</scope-->
       </dependency>
+      <!-- For email notifications via ano-comm, transitive dependencies to mail and activation-->
+      <dependency>
+          <groupId>net.anotheria</groupId>
+          <artifactId>ano-comm</artifactId>
+      </dependency>
   </dependencies>
-
-  <build>
-      <plugins>
-          <plugin>
-              <artifactId>maven-assembly-plugin</artifactId>
-              <version>2.2</version>
-              <configuration>
-                  <descriptorRefs>
-                      <descriptorRef>jar-with-dependencies</descriptorRef>
-                  </descriptorRefs>
-              </configuration>
-              <executions>
-                  <execution>
-                      <id>make-assembly</id>
-                      <!-- this is used for inheritance merges -->
-                      <phase>package</phase>
-                      <!-- append to the packaging phase. -->
-                      <goals>
-                          <goal>single</goal>
-                          <!-- goals == mojos -->
-                      </goals>
-                  </execution>
-              </executions>
-          </plugin>
-      </plugins>
-  </build>
 </project>

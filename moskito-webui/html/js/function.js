@@ -1,15 +1,15 @@
 // JavaScript Document
 
 function handleSelect(elm) {
-	var baseUrl = getBaseUrl();	
+	var baseUrl = getBaseUrl();
 	var targetUrl = baseUrl + elm.value;
-	window.location = targetUrl;	
+	window.location = targetUrl;
 }
 
 function getBaseUrl() {
 
 	var url = location.href;  // entire url including querystring - also: window.location.href;
-    var baseURL = url.substring(0, url.lastIndexOf('/')+1);   	
+    var baseURL = url.substring(0, url.lastIndexOf('/')+1);
     return baseURL;
 }
 
@@ -23,26 +23,27 @@ function resize_table(el) {
 }
 
 // resize table listner
-$(window).bind('resize', function() {
-	$('.table_itseft').each(
-		function() {
-			resize_table($(this));
-		}
-	);
-});
+//$(window).bind('resize', function() {
+//	$('.table_itseft').each(
+//		function() {
+//			resize_table($(this));
+//		}
+//	);
+//});
 
 $(function() {
 
 	var timeOutId;
 
 	// resize when loaded
-	$('.table_itseft').each(
-		function() {
-			resize_table($(this));
-		}
-	);
+//	$('.table_itseft').each(
+//		function() {
+//			resize_table($(this));
+//		}
+//	);
 
 	//setting submenu
+    /*
 	function submenu_shadow() {
 	if ($('.sub_menu').is(':visible')) {
 		$('.main').css('padding-top', '101px');
@@ -63,6 +64,7 @@ $(function() {
 		$('.main').css('padding-top', '71px');
 	}
 	};
+	*/
 
 
 
@@ -93,7 +95,7 @@ $(function() {
 	//		$(this).parent().parent().find('.filter, .table_itseft, .help').show();
 	//		$(this).removeClass('hidden');
 	//		filter_2_open();
-	//		return false;			
+	//		return false;
 	//	} else {
 	//		$(this).parent().parent().css('padding-bottom', '0');
 	//		$(this).parent().parent().find('.filter, .table_itseft, .filter_2, .help').hide();
@@ -175,26 +177,6 @@ $(function() {
 				}, 500);
 	});*/
 
-	//hover table function
-	$('table.fll tr').hover(function() {
-		var tr_num = $(this).parents().filter('table').find('tr').index($(this));
-		$(this).parents().filter('.in').find('.table_right tr').eq(tr_num).addClass('hover_it');
-	},
-	function() {
-		var tr_num = $(this).parents().filter('table').find('tr').index($(this));
-		$(this).parents().filter('.in').find('.table_right tr').eq(tr_num).removeClass('hover_it');		
-	});
-
-
-	$('.table_right table tr').hover(function() {
-		var tr_num = $(this).parents().filter('table').find('tr').index($(this));
-		$(this).parents().filter('.in').find('table.fll tr').eq(tr_num).addClass('hover_it');
-	},
-	function() {
-		var tr_num = $(this).parents().filter('table').find('tr').index($(this));
-		$(this).parents().filter('.in').find('table.fll tr').eq(tr_num).removeClass('hover_it');
-	});
-
 	//root table hover effect
 	$('.its_root td').hover(function() {
 			//$(this).parents().filter('tr:first').addClass('hover_it');
@@ -269,11 +251,11 @@ $(function() {
 		$('.create_ch_btn').show();
 	});
 
-	$('.chart_overlay .delete_btn').live('click', function() {
-		if ($('.chart_overlay table tbody tr').length == 0) {
-			$('.create_ch_btn').hide();
-		};
-	});
+//	$('.chart_overlay .delete_btn').live('click', function() {
+//		if ($('.chart_overlay table tbody tr').length == 0) {
+//			$('.create_ch_btn').hide();
+//		};
+//	});
 
 	//close lightbox
 $('.black_bg, .close_box').click(function() {
@@ -288,7 +270,7 @@ $('.black_bg, .close_box').click(function() {
 		$('.main .help').parents().filter('.table_layout').find('.in:last').show();
 	}
 });
-	
+
 });
 
 //lightbox function

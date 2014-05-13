@@ -49,7 +49,6 @@ import net.anotheria.moskito.webui.shared.bean.GraphDataBean;
 import net.anotheria.moskito.webui.shared.bean.GraphDataValueBean;
 import net.anotheria.moskito.webui.shared.bean.NaviItem;
 import net.anotheria.moskito.webui.shared.bean.ProducerDecoratorBean;
-import net.anotheria.moskito.webui.shared.bean.ProducerVisibility;
 import net.anotheria.util.sorter.StaticQuickSorter;
 
 import javax.servlet.http.HttpServletRequest;
@@ -124,7 +123,7 @@ public abstract class BaseShowProducersAction extends BaseMoskitoUIAction {
 		Map<IDecorator, List<ProducerAO>> decoratorMap = new HashMap<IDecorator,List<ProducerAO>>();
 		for (ProducerAO producer : producers){
 			try{
-				IDecorator decorator = getDecoratorRegistry().getDecorator(producer.getStatsClazz());
+				IDecorator decorator = getDecoratorRegistry().getDecorator(producer.getStatsClazzName());
 				if (!decoratorMap.containsKey(decorator)){
 					decoratorMap.put(decorator, new ArrayList<ProducerAO>());
 
@@ -166,32 +165,10 @@ public abstract class BaseShowProducersAction extends BaseMoskitoUIAction {
 				}
 			}
 			b.setProducerBeans(StaticQuickSorter.sort(decoratorMap.get(decorator), getProducerBeanSortType(b, req)));
-			b.setVisibility(getProducerVisibility(b, req));
 			beans.add(b);
 		}
 
 		return beans;
-	}
-
-	private ProducerVisibility getProducerVisibility(ProducerDecoratorBean decoratorBean, HttpServletRequest req){
-
-		ProducerVisibility visibility;
-
-		String paramVisibility = req.getParameter(decoratorBean.getProducerVisibilityParameterName());
-		if (paramVisibility != null && paramVisibility.length() > 0){
-			visibility = ProducerVisibility.fromString(paramVisibility);
-			req.getSession().setAttribute(decoratorBean.getProducerVisibilityBeanName(), visibility);
-			return visibility;
-		}
-
-		visibility = (ProducerVisibility)req.getSession().getAttribute(decoratorBean.getProducerVisibilityBeanName());
-
-		if (visibility == null) {
-			visibility = ProducerVisibility.SHOW;
-			req.getSession().setAttribute(decoratorBean.getProducerVisibilityBeanName(), visibility);
-		}
-
-		return visibility;
 	}
 
 	private ProducerAOSortType getProducerBeanSortType(ProducerDecoratorBean decoratorBean, HttpServletRequest req){
@@ -221,6 +198,10 @@ public abstract class BaseShowProducersAction extends BaseMoskitoUIAction {
 		return "producers";
 	}
 
+	@Override
+	protected String getSubTitle() {
+		return "Producers";
+	}
 
 
 }

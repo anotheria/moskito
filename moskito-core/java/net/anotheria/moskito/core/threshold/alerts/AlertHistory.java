@@ -20,7 +20,7 @@ public enum AlertHistory {
 	 */
 	INSTANCE;
 	//its ok to return the original list, since all operations create a copy. The only thing we need to care about is 
-	//simulataneous add, and that is guarded by the lock.
+	//simultaneous add, and that is guarded by the lock.
 	/**
 	 * List of alerts.
 	 */
@@ -39,7 +39,7 @@ public enum AlertHistory {
 		try{
 			alerts.add(alert);
 			if (alerts.size()>MoskitoConfigurationHolder.getConfiguration().getThresholdsAlertsConfig().getAlertHistoryConfig().getToleratedNumberOfItems()){
-				//Changed the logic, not to use sublist anymore, but istead create a new list, if the size is growing too large.
+				//Changed the logic, not to use sublist anymore, but instead create a new list, if the size is growing too large.
 				//Question remains, if we should get rid of copyonwrite and add a read lock instead.
 				CopyOnWriteArrayList<ThresholdAlert> newAlerts = new CopyOnWriteArrayList<ThresholdAlert>();
 				for (int i=alerts.size()-MoskitoConfigurationHolder.getConfiguration().getThresholdsAlertsConfig().getAlertHistoryConfig().getMaxNumberOfItems(); i< alerts.size(); i++){

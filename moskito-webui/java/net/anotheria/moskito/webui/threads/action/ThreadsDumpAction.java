@@ -3,6 +3,7 @@ package net.anotheria.moskito.webui.threads.action;
 import net.anotheria.maf.action.ActionCommand;
 import net.anotheria.maf.action.ActionMapping;
 import net.anotheria.maf.bean.FormBean;
+import net.anotheria.moskito.webui.shared.bean.NaviItem;
 import net.anotheria.moskito.webui.threads.api.ThreadInfoAO;
 
 import javax.servlet.http.HttpServletRequest;
@@ -28,5 +29,8 @@ public class ThreadsDumpAction extends BaseThreadsAction{
 		return "threads_dump";
 	}
 
-	
+	@Override
+	protected NaviItem getCurrentSubNaviItem() {
+		return NaviItem.THREADS_DUMP;
+	}
 }

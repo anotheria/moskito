@@ -86,19 +86,22 @@ public class DecoratorRegistryImpl implements IDecoratorRegistry{
 	/**
 	 * Internal decorator map.
 	 */
-	private Map<Class<? extends AbstractStats>,IDecorator> registry;
+	private Map<String,IDecorator> registry;
 	/**
 	 * Default decorator instance for missing decorators.
 	 */
 	private IDecorator defaultDecorator;
 	
 	@Override public IDecorator getDecorator(IStats stats) {
-		IDecorator specificDecorator = registry.get(stats.getClass());
-		return specificDecorator == null ? defaultDecorator : specificDecorator;
+		return getDecorator(stats.getClass().getName());
 	}
 
 	@Override public IDecorator getDecorator(Class<? extends IStats> statsClazz) {
-		IDecorator specificDecorator = registry.get(statsClazz);
+		return getDecorator(statsClazz.getName());
+	}
+
+	@Override public IDecorator getDecorator(String className) {
+		IDecorator specificDecorator = registry.get(className);
 		return specificDecorator == null ? defaultDecorator : specificDecorator;
 	}
 
@@ -109,37 +112,37 @@ public class DecoratorRegistryImpl implements IDecoratorRegistry{
 	}
 
 	DecoratorRegistryImpl(){
-		registry = new ConcurrentHashMap<Class<? extends AbstractStats>, IDecorator>();
+		registry = new ConcurrentHashMap<String, IDecorator>();
 		configure();
 	}
 	
 	//leon: replace this hard-wired-method with a property or xml config one day
 	private void configure(){
 		defaultDecorator = new DefaultDecorator();
-		registry.put(ServiceStats.class, new ServiceStatsDecorator());
-		registry.put(ActionStats.class, new ActionStatsDecorator());
-		registry.put(ServletStats.class, new ServletStatsDecorator());
-		registry.put(FilterStats.class, new FilterStatsDecorator());
-		registry.put(CacheStats.class, new CacheStatsDecorator());
-		registry.put(StorageStats.class, new StorageStatsDecorator());
-		registry.put(MemoryStats.class, new MemoryStatsDecorator());
-		registry.put(MemoryPoolStats.class, new MemoryPoolStatsDecorator());
-		registry.put(VirtualMemoryPoolStats.class, new MemoryPoolStatsDecorator("VirtualMemoryPool"));
-		registry.put(SessionCountStats.class, new SessionCountDecorator());
-		registry.put(ThreadCountStats.class, new ThreadCountDecorator());
-		registry.put(ThreadStateStats.class, new ThreadStatesDecorator());
-		registry.put(OSStats.class, new OSStatsDecorator());
-		registry.put(RuntimeStats.class, new RuntimeStatsDecorator());
-		registry.put(GenericStats.class, new GenericStatsDecorator());
+		addDecorator(ServiceStats.class, new ServiceStatsDecorator());
+		addDecorator(ActionStats.class, new ActionStatsDecorator());
+		addDecorator(ServletStats.class, new ServletStatsDecorator());
+		addDecorator(FilterStats.class, new FilterStatsDecorator());
+		addDecorator(CacheStats.class, new CacheStatsDecorator());
+		addDecorator(StorageStats.class, new StorageStatsDecorator());
+		addDecorator(MemoryStats.class, new MemoryStatsDecorator());
+		addDecorator(MemoryPoolStats.class, new MemoryPoolStatsDecorator());
+		addDecorator(VirtualMemoryPoolStats.class, new MemoryPoolStatsDecorator("VirtualMemoryPool"));
+		addDecorator(SessionCountStats.class, new SessionCountDecorator());
+		addDecorator(ThreadCountStats.class, new ThreadCountDecorator());
+		addDecorator(ThreadStateStats.class, new ThreadStatesDecorator());
+		addDecorator(OSStats.class, new OSStatsDecorator());
+		addDecorator(RuntimeStats.class, new RuntimeStatsDecorator());
+		addDecorator(GenericStats.class, new GenericStatsDecorator());
 
 		//counters
-		registry.put(CounterStats.class, new CounterStatsDecorator());
-		registry.put(MaleFemaleStats.class, new MaleFemaleStatsDecorator());
-		registry.put(GuestBasicPremiumStats.class, new GuestBasicPremiumStatsDecorator());
+		addDecorator(CounterStats.class, new CounterStatsDecorator());
+		addDecorator(MaleFemaleStats.class, new MaleFemaleStatsDecorator());
+		addDecorator(GuestBasicPremiumStats.class, new GuestBasicPremiumStatsDecorator());
 	}
 	
 	@Override public void addDecorator(Class <? extends AbstractStats> clazz, IDecorator decorator){
-		registry.put(clazz, decorator);
+		registry.put(clazz.getName(), decorator);
 	}
 	
 }

@@ -149,6 +149,9 @@ public class ProducerRegistryImpl implements IProducerRegistry{
 
 	}
 
+	/**
+	 * This method is primary used for unit tests.
+	 */
 	public void cleanup() {
 		ArrayList<ProducerReference> producerReferences = new ArrayList<ProducerReference>();
 		producerReferences.addAll(registry.values());

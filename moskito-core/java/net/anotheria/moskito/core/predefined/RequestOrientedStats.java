@@ -444,7 +444,7 @@ public abstract class RequestOrientedStats extends AbstractStats {
 	private class RequestCallExecution extends AbstractCallExecution {
 
 		/**
-		 * Starttime of the execution.
+		 * Start time of the execution.
 		 */
 		private long startTime;
 		/**
@@ -455,11 +455,17 @@ public abstract class RequestOrientedStats extends AbstractStats {
 		 * Currently traced call if present.
 		 */
 		private CurrentlyTracedCall currentlyTracedCall = null;
+
+		/**
+		 * Duration so far.
+		 */
+		private long duration = 0;
 		
 		@Override
 		public void finishExecution(String result) {
 			long exTime = System.nanoTime() - startTime;
-			addExecutionTime(exTime);
+			duration += exTime;
+			addExecutionTime(duration);
 			notifyRequestFinished();
 			if (currentStep!=null){
 				currentStep.setDuration(exTime);
@@ -478,20 +484,35 @@ public abstract class RequestOrientedStats extends AbstractStats {
 		}
 
 		@Override
-		public void startExecution(boolean recordUseCase, String useCaseDescription) {
+		public void startExecution(boolean traceCall, String callDescription) {
 			addRequest();
 			startTime = System.nanoTime();
 			
-			if (recordUseCase){
+			if (traceCall){
 				TracedCall tracedCall = RunningTraceContainer.getCurrentlyTracedCall();
 				currentlyTracedCall = tracedCall.callTraced() ? 
 						(CurrentlyTracedCall)tracedCall : null;
 				if (currentlyTracedCall !=null){
-					currentStep = currentlyTracedCall.startStep(useCaseDescription == null ? getName():useCaseDescription);
+					currentStep = currentlyTracedCall.startStep(callDescription == null ? getName():callDescription);
 				}
 			}
 		}
-		
+
+		@Override
+		public void pauseExecution() {
+			if (startTime==0)
+				return;
+			duration += System.nanoTime() - startTime;
+			startTime = 0;
+		}
+
+		@Override
+		public void resumeExecution() {
+			//if resume execution is called twice, the first resume should be handled.
+			if (startTime!=0)
+				pauseExecution();
+			startTime = System.nanoTime();
+		}
 	}
 
 	@Override

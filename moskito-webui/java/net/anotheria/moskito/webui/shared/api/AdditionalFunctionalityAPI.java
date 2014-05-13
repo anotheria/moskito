@@ -49,4 +49,6 @@ public interface AdditionalFunctionalityAPI extends API, Service{
 	 * @throws APIException
 	 */
 	String getConfigurationAsString() throws APIException;
+
+	Long getIntervalUpdateTimestamp(String intervalName) throws APIException;
 }

@@ -79,6 +79,7 @@ public class JourneyAPIImpl extends AbstractMoskitoAPIImpl implements  JourneyAP
 			b.setName(tracedCall.getName());
 			b.setDate(NumberUtils.makeISO8601TimestampString(tracedCall.getCreated()));
 			b.setContainedSteps(tracedCall.getNumberOfSteps());
+			b.setDuration(tracedCall.getRootStep().getDuration());
 			calls.add(b);
 		}
 

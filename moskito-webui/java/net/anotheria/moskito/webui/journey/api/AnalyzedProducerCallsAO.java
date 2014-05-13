@@ -1,6 +1,6 @@
 package net.anotheria.moskito.webui.journey.api;
 
-import net.anotheria.moskito.webui.CurrentSelection;
+import net.anotheria.moskito.webui.MoSKitoWebUIContext;
 import net.anotheria.util.BasicComparable;
 import net.anotheria.util.sorter.IComparable;
 
@@ -45,7 +45,7 @@ public class AnalyzedProducerCallsAO implements IComparable<AnalyzedProducerCall
 	}
 	
 	public long getTotalTimeSpentTransformed(){
-		return CurrentSelection.get().getCurrentTimeUnit().transformNanos(totalTimeSpent);
+		return MoSKitoWebUIContext.getCallContext().getCurrentTimeUnit().transformNanos(totalTimeSpent);
 	}
 	
 	public String getProducerId(){

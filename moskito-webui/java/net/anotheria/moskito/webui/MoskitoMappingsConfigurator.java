@@ -19,12 +19,13 @@ import net.anotheria.moskito.webui.more.action.ShowLibsAction;
 import net.anotheria.moskito.webui.more.action.ShowMBeansAction;
 import net.anotheria.moskito.webui.more.action.ShowPluginsAction;
 import net.anotheria.moskito.webui.more.action.UpdateAction;
-import net.anotheria.moskito.webui.producers.action.InspectProducerAction;
 import net.anotheria.moskito.webui.producers.action.ShowAllProducersAction;
 import net.anotheria.moskito.webui.producers.action.ShowProducerAction;
 import net.anotheria.moskito.webui.producers.action.ShowProducersForCategoryAction;
 import net.anotheria.moskito.webui.producers.action.ShowProducersForSubsystemAction;
 import net.anotheria.moskito.webui.shared.action.ForceIntervalUpdateAction;
+import net.anotheria.moskito.webui.shared.action.QuickConnectAction;
+import net.anotheria.moskito.webui.shared.action.SaveNavMenuStateAction;
 import net.anotheria.moskito.webui.shared.action.SelectServerAction;
 import net.anotheria.moskito.webui.shared.action.ShowExplanationsAction;
 import net.anotheria.moskito.webui.threads.action.HistoryOffAction;
@@ -97,22 +98,11 @@ public class MoskitoMappingsConfigurator implements ActionMappingsConfigurator{
 		mappings.addAlias("mskShowProducer.json", "mskShowProducer");
 		mappings.addAlias("mskShowProducerForSelection", "mskShowProducer");
 
-		mappings.addMapping("mskInspectProducer", InspectProducerAction.class, 
-				new ActionForward("html", "/net/anotheria/moskito/webui/producers/jsp/InspectProducer.jsp"),
-				new ActionForward("xml", "/net/anotheria/moskito/webui/shared/jsp/InspectProducerXML.jsp")
-		);
-		
-		mappings.addMapping("mskShowExplanations", ShowExplanationsAction.class, 
+		mappings.addMapping("mskShowExplanations", ShowExplanationsAction.class,
 				new ActionForward("success", "/net/anotheria/moskito/webui/shared/jsp/Explanations.jsp")
 		);
 
-//		mappings.addMapping("mskShowUseCases", ShowUseCasesAction.class,
-//				new ActionForward("success", "/net/anotheria/moskito/webui/jsp/UseCases.jsp")
-//		);
-//		mappings.addMapping("mskShowRecordedUseCase", ShowRecordedUseCaseAction.class,
-//				new ActionForward("success", "/net/anotheria/moskito/webui/jsp/RecordedUseCase.jsp")
-//		);
-		mappings.addMapping("mskShowJourneys", ShowJourneysAction.class, 
+		mappings.addMapping("mskShowJourneys", ShowJourneysAction.class,
 				new ActionForward("success", "/net/anotheria/moskito/webui/journey/jsp/Journeys.jsp")
 		);
 		mappings.addMapping("mskShowJourney", ShowJourneyAction.class, 
@@ -223,11 +213,17 @@ public class MoskitoMappingsConfigurator implements ActionMappingsConfigurator{
 			new CommandRedirect("redirect", "mskShowAllProducers")
 		);
 
+		mappings.addMapping("mskQuickConnect", QuickConnectAction.class,
+				new CommandRedirect("redirect", "mskShowAllProducers")
+		);
+
 
 		mappings.addMapping("mskUpdate", UpdateAction.class,
 				new ActionForward("success", "/net/anotheria/moskito/webui/more/jsp/Update.jsp")
 		);
 
+		// ajax
+		mappings.addMapping("mskSaveNavMenuState", SaveNavMenuStateAction.class);
 
 		//errors
 		mappings.setOnError(new ActionForward("error", "/net/anotheria/moskito/webui/shared/jsp/Error.jsp"));

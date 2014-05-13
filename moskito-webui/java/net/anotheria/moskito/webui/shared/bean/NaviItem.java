@@ -36,7 +36,10 @@ public enum NaviItem {
 	/**
 	 * Collections for additional items
 	 */
-	MORE("More")
+	MORE("Everything else"),
+
+	THREADS_LIST("List"), THREADS_DUMP("Dump"), THREADS_HISTORY("History"),
+	MORE_LIBS("Libs"),MORE_PLUGINS("Plugins"),MORE_CONFIG("Config"),MORE_UPDATE("Update"),MORE_MBEANS("MBeans")
 	;
 	
 	
@@ -73,5 +76,9 @@ public enum NaviItem {
 	
 	public static final List<NaviItem> getMenu(){
 		return menu;
+	}
+
+	public boolean isSelected(String id){
+		return getId().equals(id);
 	}
 }

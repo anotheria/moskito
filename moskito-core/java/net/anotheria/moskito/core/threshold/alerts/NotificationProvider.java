@@ -1,7 +1,8 @@
 package net.anotheria.moskito.core.threshold.alerts;
 
 /**
- * TODO comment this class
+ * Interface that has to be implemented to provide own notification provider. A notification provider is called
+ * upon any changes in thresholds and allows you to react on that change.
  *
  * @author lrosenberg
  * @since 22.10.12 16:36

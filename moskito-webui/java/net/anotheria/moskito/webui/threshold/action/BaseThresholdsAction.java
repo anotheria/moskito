@@ -28,5 +28,9 @@ public abstract class BaseThresholdsAction extends BaseMoskitoUIAction {
 		return APILookupUtility.getThresholdAPI();
 	}
 
+	@Override
+	protected String getSubTitle() {
+		return "Thresholds";
+	}
 
 }

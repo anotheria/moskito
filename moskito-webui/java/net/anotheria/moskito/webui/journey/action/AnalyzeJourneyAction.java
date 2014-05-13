@@ -4,7 +4,7 @@ import net.anotheria.anoplass.api.APIException;
 import net.anotheria.maf.action.ActionCommand;
 import net.anotheria.maf.action.ActionMapping;
 import net.anotheria.maf.bean.FormBean;
-import net.anotheria.moskito.webui.CurrentSelection;
+import net.anotheria.moskito.webui.MoSKitoWebUIContext;
 import net.anotheria.moskito.webui.journey.api.AnalyzedProducerCallsAOSortType;
 import net.anotheria.moskito.webui.journey.api.AnalyzedProducerCallsMapAO;
 import org.slf4j.Logger;
@@ -37,7 +37,7 @@ public class AnalyzeJourneyAction extends BaseJourneyAction{
 		String sortBy = req.getParameter("pSortBy");
 		if ( sortBy!=null && sortBy.length()>0){
 			AnalyzedProducerCallsAOSortType st = AnalyzedProducerCallsAOSortType.fromStrings(sortBy, sortOrder);
-			CurrentSelection.get().setAnalyzeProducerCallsSortType(st);
+			MoSKitoWebUIContext.getCallContext().setAnalyzeProducerCallsSortType(st);
 		}
 		return mapping.success();
 	}
