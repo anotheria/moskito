@@ -83,9 +83,5 @@ public abstract class AbstractDecoratorBean implements IComparable{
 	public String getSortOrderParameterName(){
 		return "p"+StringUtils.capitalize(name)+"SortOrder";
 	}
-	
-	public String getProducerVisibilityParameterName(){
-		return "p" + StringUtils.capitalize(name)+"ProducerVisibilityName";
-	}
 
 }
