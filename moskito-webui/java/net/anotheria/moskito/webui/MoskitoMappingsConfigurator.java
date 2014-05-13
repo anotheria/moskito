@@ -50,8 +50,6 @@ import net.anotheria.moskito.webui.threshold.action.UpdateThresholdAction;
 public class MoskitoMappingsConfigurator implements ActionMappingsConfigurator{
 	
 	@Override public void configureActionMappings(ActionMappings mappings){
-		mappings.addForward("mskCSS", "/net/anotheria/moskito/webui/shared/jsp/CSS.jsp");
-
 		mappings.addMapping("mskShowAllProducers", ShowAllProducersAction.class,
 				new ActionForward("html", "/net/anotheria/moskito/webui/producers/jsp/Producers.jsp"),
 				new ActionForward("xml", "/net/anotheria/moskito/webui/producers/jsp/ProducersXML.jsp"),
