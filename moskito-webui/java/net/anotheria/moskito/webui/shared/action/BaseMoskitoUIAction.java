@@ -166,6 +166,9 @@ public abstract class BaseMoskitoUIAction implements Action{
 	 */
 	public static final String BEAN_CHART_ENGINE = "ChartEngine";
 
+	/**
+	 * Default title string for the web page &lt;title$gt; element.
+	 */
 	public static final String DEFAULT_TITLE = "MoSKito Inspect";
 
 	/**
