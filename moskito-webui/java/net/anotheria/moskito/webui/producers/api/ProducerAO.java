@@ -9,17 +9,32 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- * TODO comment this class
+ * Producer API Object.
  *
  * @author lrosenberg
  * @since 22.03.14 14:03
  */
 public class ProducerAO implements Serializable, IComparable{
-	private String producerId;
 
+	/**
+	 * Id of the producer.
+	 */
+	private String producerId;
+	/**
+	 * Category of the producer.
+ 	 */
 	private String category;
+	/**
+	 * Subsystem producer belongs too.
+	 */
 	private String subsystem;
+	/**
+	 * Class name, short (class.getSimpleName());
+	 */
 	private String producerClassName;
+	/**
+	 * Class name, long (class.getName());
+	 */
 	private String fullProducerClassName;
 
 	private List<StatValueAO> firstStatsValues;
@@ -34,6 +49,9 @@ public class ProducerAO implements Serializable, IComparable{
 	 */
 	private List<StatLineAO> lines;
 
+	/**
+	 * Clazz name of the stats object contained in this producer (for decorator selection).
+	 */
 	private String statsClazzName;
 
 	public ProducerAO(){
