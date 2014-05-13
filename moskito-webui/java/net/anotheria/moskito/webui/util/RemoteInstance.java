@@ -2,14 +2,16 @@ package net.anotheria.moskito.webui.util;
 
 import org.configureme.annotations.ConfigureMe;
 
+import java.io.Serializable;
+
 /**
- * TODO comment this class
+ * Configuration of an instance that is accessable via rmi.
  *
  * @author lrosenberg
  * @since 21.03.14 17:28
  */
 @ConfigureMe(allfields = true)
-public class RemoteInstance {
+public class RemoteInstance implements Serializable{
 	/**
 	 * Name of this instance.
 	 */
@@ -52,10 +54,19 @@ public class RemoteInstance {
 		return getName()+"@"+getHost()+":"+getPort();
 	}
 
+	/**
+	 * Returns a string key for select field (unique string so to say).
+	 * @return
+	 */
 	public String getSelectKey(){
 		return getHost()+"-"+getPort();
 	}
 
+	/**
+	 * Returns true if this object's select key (getSelectKey()) equals to the submitted value.
+	 * @param key
+	 * @return
+	 */
 	public boolean equalsByKey(String key){
 		return getSelectKey().equals(key);
 	}
