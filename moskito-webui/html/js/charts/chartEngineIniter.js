@@ -28,64 +28,90 @@ var chartEngineIniter = {
             "refreshInterval": 60
         });
     },
+
     JQPLOT: function(params){
         var types = {
             PieChart: $.jqplot.PieRenderer,
             ColumnChart: $.jqplot.BarRenderer,
+            BarChart: $.jqplot.BarRenderer,
             LineChart: $.jqplot.DateAxisRenderer
         };
 
         var data = params.data;
 
-        var options = {
+        var options = { // -------------------------------------------------------------------------- Common Options
             title: params.title || '',
+            axesDefaults: {
+                tickOptions: {
+                    show: true,
+                    autoscale: true
+                }
+            },
             seriesDefaults: {
                 renderer: types[params.type] || $.jqplot.DateAxisRenderer,
                 rendererOptions: {
                     showDataLabels: true
                 }
             },
-            axesDefaults: {
-                tickOptions: {
-                    show: true
-                }
-            },
             grid: {
-                background: '#fefefe'
+                drawGridLines: true,
+                gridLineColor: '#666666',
+                background: 'transparent',
+                borderColor: 'transparent',
+                borderWidth: 0.0,
+                shadow: false
             },
-            legend: { show:true, location: 'e', xoffset: 100 }
-        };
-        
-        if(params.type == 'LineChart' || !params.type) {
-            options.cursor = { 
+            legend: {
+                renderer: $.jqplot.EnhancedLegendRenderer,
                 show: true,
-                zoom:true, 
-                showTooltip:false
+                location: 'ne',
+                placement: 'outsideGrid',
+                rendererOptions: {
+                    numberColumns: 1
+                }
+            }
+        };
+
+        if(params.type == 'LineChart' || !params.type) { // ---------------------------------------- Line Chart
+            delete options.seriesDefaults;
+
+            options.axes = {
+                xaxis: {
+                    renderer: $.jqplot.DateAxisRenderer,
+                    tickOptions: {
+                        show: true,
+                        formatString: '%H:%M'
+                    }
+                }
+            }
+            options.cursor = {
+                show: true,
+                zoom: true,
+                showTooltip: false
             };
             options.highlighter = {
                 show: true,
-                sizeAdjust: 7.5
-            };
-            options.axes = {
-                xaxis: {
-                    renderer: $.jqplot.DateAxisRenderer
+                sizeAdjust: 10,
+                useAxesFormatters: true,
+                tooltipContentEditor: function tooltipContentEditor(str, seriesIndex, pointIndex, plot) {
+                    /* displays series label with x and y values value */
+                    return plot.series[seriesIndex]['label'] + ': <br><b>' + str + '</b>'; // str comes from useAxesFormatters: true option
                 }
-            }
-            delete options.seriesDefaults;
+            };
+
             options.series = [];
             params.names.forEach(function(name){
+                /* also it's labels for legend by default at the same time */
                 options.series.push({label: name});
             });
-            /*options.seriesDefaults = {
-                show: true
-            }*/
 
             var lineData = [];
-            if (!params.data[0]) return;
-            params.data[0].forEach(function(item, index){
+            if (!data[0]) return;
+            /* memory allocation for values-per-line arrays */
+            data[0].forEach(function(item, index){
                 if(index !== 0) lineData.push([]);
             });
-            params.data.forEach(function(item){
+            data.forEach(function(item){
                 item.forEach(function(val, index){
                     if(index !== 0){
                         lineData[index-1].push([item[0], val]);
@@ -95,29 +121,90 @@ var chartEngineIniter = {
 
             data = lineData;
         }
-        else if(params.type == 'ColumnChart') {
+
+        else if(params.type == 'ColumnChart') { // -------------------------------------------------- Column Chart
             options.seriesDefaults.rendererOptions =  {
                 barPadding: 5,
-                barMargin: 0,
-                barWidth: 60
+                barMargin: 10,
+                barWidth: 50
             }
+
             options.series = [];
-            var columnData = [];
-            data.forEach(function(item){
-                options.series.push({label: item[0]});
-                columnData.push([item[1]]);
+            params.names.forEach(function(name){
+                options.series.push({label: name});
             });
-            data = columnData;
+
+            var timeTicks = [];
+            var columnValues = [];
+
+            if (!data[0]) return;
+            /* group - columns with the same label (color) */
+            /* memory allocation for values-per-column-group arrays */
+            data[0].forEach(function(item, index){
+                if(index !== 0) columnValues.push([]); // excluding time tick value
+            });
+
+            data.forEach(function(item){
+                timeTicks.push(item[0]);
+                item.forEach(function(value, index){
+                    if(index !== 0){
+                        columnValues[index - 1].push(value);
+                    }
+                })
+            });
+
             options.axes = {
                 xaxis: {
                     renderer: $.jqplot.CategoryAxisRenderer,
-                    tickOptions: {
-                        show: false
-                    }
+                    ticks: timeTicks
                 }
             }
-            //delete options.legend;
+            options.legend = {
+                show: true,
+                location: 'ne',
+                placement: 'outsideGrid'
+            }
+
+            data = columnValues;
+
         }
+
+        else if(params.type == 'BarChart') { // ------------------------------------------------------ Bar Chart
+            options.axes = {
+                yaxis: {
+                    renderer: $.jqplot.CategoryAxisRenderer
+                }
+            }
+            options.seriesDefaults.rendererOptions =  {
+                barPadding: 5,
+                barMargin: 0,
+                barWidth: 15,
+                barDirection: 'horizontal'
+            }
+            options.series = [];
+            var barData = [];
+            data.forEach(function(item){
+                options.series.push({label: item[0]});
+                barData.push([item[1]]);
+            });
+            data = barData;
+            options.highlighter = {
+                show:true,
+                sizeAdjust: 10,
+                tooltipAxes: 'both',
+                useAxesFormatters: true
+            }
+        }
+
+        else if(params.type == 'PieChart') { // ------------------------------------------------------- Pie Chart
+            options.highlighter = {
+                show:true,
+                sizeAdjust: 10,
+                tooltipAxes: 'both',
+                useAxesFormatters: true
+            }
+        }
+
         else{
             data = [params.data || []];
         }
@@ -125,6 +212,6 @@ var chartEngineIniter = {
         var plot1 = $.jqplot(params.container, data || [], options);
 
         if(params.type == 'LineChart') $('#' + params.container).click(function() { plot1.resetZoom() });
-        if(params.type == 'ColumnChart') $('.jqplot-table-legend').css('right', '55px');
+        if(params.type == 'ColumnChart' || params.type == 'BarChart') $('.jqplot-table-legend').css('right', '55px');
     }
 };
