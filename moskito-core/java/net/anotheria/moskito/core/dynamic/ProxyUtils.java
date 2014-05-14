@@ -110,7 +110,7 @@ public class ProxyUtils {
 		return createServiceInstance(impl, null, "dao", subsystem, interf, additionalInterfaces);
 	}
 
-	//TODO change this to use concurrent map symantec.
+	//TODO change this to use concurrent map semantics.
 	private static int getInstanceCounter(String name){
 		AtomicInteger counter = instanceCounters.get(name);
 		if (counter!=null)
