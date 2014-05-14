@@ -46,6 +46,21 @@ $(function () {
     $('.tooltip-right').tooltip({placement:'right'}).on('show', function (e) {e.stopPropagation();});
     $(document).tooltip({selector: '.aside-collapse .sidebar-tooltip-right', placement:'right', container: 'body'}).on('show', function (e) {e.stopPropagation();});
 
+    $.tablesorter.addParser({
+        // set a unique id
+        id: 'commaNumber',
+        is: function(s) {
+            // return false so this parser is not auto detected
+            return false;
+        },
+        format: function(s) {
+            // format your data for normalization
+            return s.replace(/\,/g,"");
+        },
+        // set type, either numeric or text
+        type: 'numeric'
+    });
+
     $(".tablesorter").tablesorter();
 
     $(".select2").select2();
