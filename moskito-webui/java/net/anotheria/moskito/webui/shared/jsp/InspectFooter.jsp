@@ -9,6 +9,7 @@
 
 <script src="../ext/jquery-1.10.2/jquery-1.10.2.min.js" type="text/javascript"></script>
 <script src="../ext/bootstrap-3.1.1/js/bootstrap.min.js" type="text/javascript"></script>
+<script src="../ext/tablesorter/jquery.metadata.js" type="text/javascript"></script>
 <script src="../ext/tablesorter/jquery.tablesorter.js" type="text/javascript"></script>
 <script src="../ext/select2-3.4.6/select2.js" type="text/javascript"></script>
 
