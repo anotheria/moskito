@@ -130,6 +130,7 @@ public class JourneyAPIImpl extends AbstractMoskitoAPIImpl implements  JourneyAP
 		b.setRoot(recursion == 0);
 		b.setLayer(recursion);
 		b.setDuration(unit.transformNanos(element.getDuration()));
+		b.setLevel(recursion);
 		StringBuilder ident = new StringBuilder();
 		for (int i=0; i<recursion; i++)
 			ident.append("&nbsp;&nbsp;");
