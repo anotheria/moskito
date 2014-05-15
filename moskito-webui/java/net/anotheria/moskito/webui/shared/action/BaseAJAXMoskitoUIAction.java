@@ -1,10 +1,5 @@
 package net.anotheria.moskito.webui.shared.action;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.io.PrintWriter;
-
 import net.anotheria.maf.action.AbortExecutionException;
 import net.anotheria.maf.action.Action;
 import net.anotheria.maf.action.ActionCommand;
@@ -14,6 +9,11 @@ import net.anotheria.maf.json.JSONResponse;
 import org.json.JSONException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.io.PrintWriter;
 
 /**
  * Abstract AJAX action.
@@ -42,45 +42,12 @@ public abstract class BaseAJAXMoskitoUIAction implements Action {
 	 */
 	public static final String ERROR_MSG_INTERNAL_SERVER_ERROR = "Internal server error";
 
-	/**
-	 * Performs validation. Override this method in subclasses.
-	 * All errors should be reflected in provided {@link JSONResponse}.
-	 *
-	 * @param req
-	 * 		{@link HttpServletRequest}
-	 * @param response
-	 * 		{@link JSONResponse}
-	 */
-	protected void validate(final HttpServletRequest req, final JSONResponse response) {
-		// do nothing by default
-
-		if (LOGGER.isTraceEnabled())
-			LOGGER.trace("Nothing to validate. Skipping.");
-	}
-
-	@Override
-	public final void preProcess(final ActionMapping mapping, final HttpServletRequest req, final HttpServletResponse res) throws AbortExecutionException {
-		// Invoking real preProcess
-		try {
-			invokePreProcess(mapping, req, res);
-		} catch (final IOException e) {
-			throw new AbortExecutionException();
-		} catch (final JSONException e) {
-			throw new AbortExecutionException();
-		}
-	}
 
 	@Override
 	public final ActionCommand execute(ActionMapping mapping, FormBean bean, HttpServletRequest req, HttpServletResponse res) throws AbortExecutionException {
 		JSONResponse response = new JSONResponse();
 
-		validate(req, response);
-
 		try {
-			if (response.hasErrors()) {
-				writeTextToResponse(res, response);
-				return null;
-			}
 
 			invokeExecute(mapping, bean, req, res, response);
 			writeTextToResponse(res, response);
@@ -97,33 +64,6 @@ public abstract class BaseAJAXMoskitoUIAction implements Action {
 				throw new AbortExecutionException();
 			}
 		}
-	}
-
-	@Override
-	public final void postProcess(final ActionMapping mapping, final HttpServletRequest req, final HttpServletResponse res) throws AbortExecutionException {
-		// Invoking real postProcess
-		invokePostProcess(mapping, req, res);
-	}
-
-	/**
-	 * Override this method for invoking preProcess code.
-	 *
-	 * @param mapping
-	 * 		- action mapping
-	 * @param req
-	 * 		- request
-	 * @param res
-	 * 		- response
-	 * @throws AbortExecutionException
-	 * @throws IOException
-	 * @throws JSONException
-	 */
-	protected void invokePreProcess(final ActionMapping mapping, final HttpServletRequest req, final HttpServletResponse res) throws AbortExecutionException,
-			IOException, JSONException {
-		// do nothing by default
-
-		if (LOGGER.isTraceEnabled())
-			LOGGER.trace("Nothing to preProcess. Skipping.");
 	}
 
 	/**
@@ -146,26 +86,6 @@ public abstract class BaseAJAXMoskitoUIAction implements Action {
 	protected void invokeExecute(final ActionMapping mapping, final FormBean bean, final HttpServletRequest req, final HttpServletResponse res, final JSONResponse jsonResponse)
 			throws AbortExecutionException, IOException, JSONException {
 
-		if (LOGGER.isTraceEnabled())
-			LOGGER.trace("You should override this method.");
-	}
-
-	/**
-	 * Override this method for invoking postProcess code.
-	 *
-	 * @param mapping
-	 * 		- action mapping
-	 * @param req
-	 * 		- request
-	 * @param res
-	 * 		- response
-	 * @throws AbortExecutionException
-	 */
-	protected void invokePostProcess(final ActionMapping mapping, final HttpServletRequest req, final HttpServletResponse res) throws AbortExecutionException {
-		// do nothing by default
-
-		if (LOGGER.isTraceEnabled())
-			LOGGER.trace("Nothing to postProcess. Skipping.");
 	}
 
 	/**
@@ -198,5 +118,15 @@ public abstract class BaseAJAXMoskitoUIAction implements Action {
 		PrintWriter writer = res.getWriter();
 		writer.write(text);
 		writer.flush();
+	}
+
+	@Override
+	public void preProcess(ActionMapping mapping, HttpServletRequest req, HttpServletResponse res) throws Exception {
+
+	}
+
+	@Override
+	public void postProcess(ActionMapping mapping, HttpServletRequest req, HttpServletResponse res) throws Exception {
+
 	}
 }
