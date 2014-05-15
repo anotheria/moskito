@@ -5337,16 +5337,14 @@
     <script>
         $(document).ready(function() {
             $('.table').on('click','.tree-expand', function() {
-                $("table.tree").treeTable({
-                    collapsedByDefault: false
-                });
+                $("table.tree tr.collapsed").removeClass('collapsed').addClass('expanded');
+                $("table.tree tr[style='display: none;']").css('display','table-row');
                 $('.tree-expand').addClass('tree-collapse').removeClass('tree-expand').html('Collapse');
             });
 
             $('.table').on('click','.tree-collapse', function() {
-                $("table.tree").treeTable({
-                    collapsedByDefault: true
-                });
+                $("table.tree tr.expanded").removeClass('expanded').addClass('collapsed');
+                $("table.tree tr[style='display: table-row;']").css('display','none');
                 $('.tree-collapse').addClass('tree-expand').removeClass('tree-collapse').html('Expand');
             });
         });
