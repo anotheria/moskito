@@ -72,7 +72,7 @@
         <ul class="nav navbar-nav pull-right">
             <li><a href="">Autoreload OFF</a></li>
             <li><a href="">Export</a></li>
-            <li><a href="">Help</a></li>
+            <li><a href="mskShowExplanations">Help</a></li>
         </ul>
     </div>
 </header>

@@ -1,5 +1,8 @@
 package net.anotheria.moskito.webui.shared.bean;
 
+import net.anotheria.moskito.webui.shared.action.BaseMoskitoUIAction;
+import net.anotheria.util.StringUtils;
+
 import java.util.List;
 
 /**
@@ -28,6 +31,8 @@ public class DecoratorExplanationBean {
 	public void setName(String name) {
 		this.name = name;
 	}
-	
-	
+
+	public String getDecoratorNameForCss(){
+		return StringUtils.removeChars(getName(), BaseMoskitoUIAction.WHITESPACES);
+	}
 }
