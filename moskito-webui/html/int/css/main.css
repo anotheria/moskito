@@ -1120,3 +1120,130 @@ ul.switcher li i.chart-icon {
 .modal.modal-danger .modal-header {
     background: #D9534F;
 }
+
+tr[data-level="1"] td:first-child {
+    padding-left: 40px;
+}
+tr[data-level="2"] td:first-child {
+    padding-left: 60px;
+}
+tr[data-level="3"] td:first-child {
+    padding-left: 80px;
+}
+tr[data-level="4"] td:first-child {
+    padding-left: 100px;
+}
+tr[data-level="5"] td:first-child {
+     padding-left: 120px;
+}
+tr[data-level="6"] td:first-child {
+     padding-left: 140px;
+}
+tr[data-level="7"] td:first-child {
+    padding-left: 160px;
+}
+tr[data-level="8"] td:first-child {
+    padding-left: 180px;
+}
+tr[data-level="9"] td:first-child {
+    padding-left: 200px;
+}
+tr[data-level="10"] td:first-child {
+    padding-left: 220px;
+}
+tr[data-level="11"] td:first-child {
+    padding-left: 240px;
+}
+tr[data-level="12"] td:first-child {
+    padding-left: 260px;
+}
+tr[data-level="13"] td:first-child {
+    padding-left: 280px;
+}
+tr[data-level="14"] td:first-child {
+    padding-left: 300px;
+}
+tr[data-level="15"] td:first-child {
+    padding-left: 320px;
+}
+tr[data-level="16"] td:first-child {
+    padding-left: 340px;
+}
+tr[data-level="17"] td:first-child {
+    padding-left: 360px;
+}
+tr[data-level="18"] td:first-child {
+    padding-left: 380px;
+}
+tr[data-level="19"] td:first-child {
+    padding-left: 400px;
+}
+tr[data-level="20"] td:first-child {
+    padding-left: 420px;
+}
+
+i.plus,
+i.minus {
+    display: none;
+    font-size: 21px;
+    line-height: 21px;
+    margin: -5px 0;
+    margin-left: -10px;
+    color: #738DE7;
+    cursor: pointer;
+    width: 30px;
+    text-align: center;
+    position: relative;
+    bottom: -1px;
+}
+
+i.plus {
+    bottom: -3px;
+}
+
+.collapsed td i.plus,
+.expanded td i.minus {
+    display: inline-block;
+}
+
+.collapsed:hover td i.plus,
+.expanded:hover td i.minus {
+    color: #000;
+}
+
+i.vline {
+    display: inline-block;
+    width: 5px;
+    height: 26px;
+    margin: -10px 0;
+    margin-right: 15px;
+    border-right: 1px dotted #bdbdbd;
+}
+
+.collapsed td i.vline,
+.expanded td i.vline {
+    display: none;
+}
+
+.table-tree td:first-child > div {
+    position: relative;
+}
+
+.table-tree td:first-child > div:before {
+    border-color: #bdbdbd;
+    border-image: none;
+    border-style: dotted;
+    border-width: 1px 0 0;
+    content: "";
+    display: block;
+    left: 5px;
+    position: absolute;
+    top: 8px;
+    width: 7px;
+    z-index: 1;
+}
+
+.table-tree .collapsed td:first-child > div:before,
+.table-tree .expanded td:first-child > div:before {
+    display: none;
+}
