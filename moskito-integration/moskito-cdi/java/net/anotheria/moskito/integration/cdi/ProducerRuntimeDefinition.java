@@ -7,8 +7,17 @@ package net.anotheria.moskito.integration.cdi;
  * @since 19.11.12 16:49
  */
 class ProducerRuntimeDefinition {
+	/**
+	 * Producer Id.
+	 */
 	private String producerId;
+	/**
+	 * Producer category.
+	 */
 	private String category;
+	/**
+	 * Producer subsystem.
+	 */
 	private String subsystem;
 
 	public String getProducerId() {
