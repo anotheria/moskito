@@ -91,8 +91,6 @@ $(function () {
     $('.headcol').width(max);
     $('.table1fixed').css('margin-left', max + 39);
 
-    $('.tree').treegrid({
-        expanderExpandedClass: 'fa fa-minus',
-        expanderCollapsedClass: 'fa fa-plus'
-    }).treegrid('collapseAll');
+
+    $("table.tree").treeTable();
 });
