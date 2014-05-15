@@ -112,7 +112,7 @@ public class MoskitoMappingsConfigurator implements ActionMappingsConfigurator{
 		);
 
 
-		mappings.addMapping("mskForceIntervalUpdate", ForceIntervalUpdateAction.class, (ActionForward[])null);
+		mappings.addMapping("mskForceIntervalUpdate", ForceIntervalUpdateAction.class);
 
 		mappings.addMapping("mskThresholds", ShowThresholdsAction.class,
 				new ActionForward("html", "/net/anotheria/moskito/webui/threshold/jsp/Thresholds.jsp"),
