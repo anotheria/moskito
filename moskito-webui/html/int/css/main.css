@@ -1151,6 +1151,36 @@ tr[data-level="9"] td:first-child {
 tr[data-level="10"] td:first-child {
     padding-left: 220px;
 }
+tr[data-level="11"] td:first-child {
+    padding-left: 240px;
+}
+tr[data-level="12"] td:first-child {
+    padding-left: 260px;
+}
+tr[data-level="13"] td:first-child {
+    padding-left: 280px;
+}
+tr[data-level="14"] td:first-child {
+    padding-left: 300px;
+}
+tr[data-level="15"] td:first-child {
+    padding-left: 320px;
+}
+tr[data-level="16"] td:first-child {
+    padding-left: 340px;
+}
+tr[data-level="17"] td:first-child {
+    padding-left: 360px;
+}
+tr[data-level="18"] td:first-child {
+    padding-left: 380px;
+}
+tr[data-level="19"] td:first-child {
+    padding-left: 400px;
+}
+tr[data-level="20"] td:first-child {
+    padding-left: 420px;
+}
 
 i.plus,
 i.minus {
