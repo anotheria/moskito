@@ -71,7 +71,6 @@
                         <th>Last activity <i class="fa fa-caret-down"></i></th>
                         <th>Calls <i class="fa fa-caret-down"></i></th>
                         <th>Active <i class="fa fa-caret-down"></i></th>
-                        <th>&nbsp;</th>
                         <th class="th-actions">&nbsp;</th>
                     </tr>
                     </thead>

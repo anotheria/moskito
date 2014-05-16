@@ -31,8 +31,8 @@
                     </thead>
                     <tbody>
                         <ano:iterate name="mbeans" type="net.anotheria.moskito.webui.shared.api.MBeanWrapperAO" id="mbean" indexId="index">
-                            <tr class="treegrid-${index}">
-                                <td>${mbean.domain}</td>
+                            <tr data-level="0">
+                                <td><div><i class="minus">–</i><i class="plus">+</i>${mbean.domain}</div></td>
                                 <td>${mbean.type}</td>
                                 <td class="wrap">${mbean.description}</td>
                                 <td>${mbean.className}</td>
@@ -41,7 +41,7 @@
                                 <td>${mbean.canonicalName}</td>
                             </tr>
                             <ano:greaterThan name="mbean" property="attributesCount" value="0">
-                                <tr class="treegrid-${index}-sub treegrid-parent-${index} treegrid-parent">
+                                <tr data-level="1">
                                     <td><b>Attributes:</b></td>
                                     <td colspan="6">
                                         <table class="table table-striped">

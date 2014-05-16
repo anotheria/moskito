@@ -4,7 +4,6 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/html">
 <jsp:include page="../../shared/jsp/InspectHeader.jsp" flush="false"/>
-<script type="text/javascript" src="../ext/jquery-tree-table/jquery.treeTable.min.js"></script>
 <section id="main">
     <div class="content">
         <div class="box">

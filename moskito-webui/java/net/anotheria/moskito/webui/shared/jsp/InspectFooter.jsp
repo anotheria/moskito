@@ -21,13 +21,11 @@
 </ano:equal>
 
 <ano:equal name="currentNaviItem" property="id" value="journeys">
-    <script type="text/javascript" src="../ext/treegrid/js/jquery.treegrid.js"></script>
-    <script type="text/javascript" src="../ext/treegrid/js/jquery.treegrid.bootstrap3.js"></script>
+    <script type="text/javascript" src="../ext/jquery-tree-table/jquery.treeTable.min.js"></script>
 </ano:equal>
 
 <ano:equal name="currentSubNaviItem" property="id" value="more_mbeans">
-    <script type="text/javascript" src="../ext/treegrid/js/jquery.treegrid.js"></script>
-    <script type="text/javascript" src="../ext/treegrid/js/jquery.treegrid.bootstrap3.js"></script>
+    <script type="text/javascript" src="../ext/jquery-tree-table/jquery.treeTable.min.js"></script>
 </ano:equal>
 
 <script src="../ext/custom-scrollbar/jquery.mCustomScrollbar.concat.min.js"></script>
