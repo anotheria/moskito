@@ -41,7 +41,7 @@
                                 <td>${mbean.canonicalName}</td>
                             </tr>
                             <ano:greaterThan name="mbean" property="attributesCount" value="0">
-                                <tr data-level="1">
+                                <tr data-level="1" class="treegrid-parent">
                                     <td><b>Attributes:</b></td>
                                     <td colspan="6">
                                         <table class="table table-striped">

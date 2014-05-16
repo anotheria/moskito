@@ -81,7 +81,7 @@
 
     <div class="header-box">
         <span class="version">v  ${moskito_version_string}</span>
-        <a href="/">
+        <a href="">
             <i class="logo"></i>
             <span class="logo-title">MoSKito Inspect</span>
         </a>
