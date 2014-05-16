@@ -69,7 +69,7 @@ Commented out for now. We may add this later as welcome message (to all layers).
 
 <script type="text/javascript">
     function showHelpDialog(producerName){
-        $.ajax({url: "/moskito/moskito-inspect/mskGetExplanationsByName?pName=" + producerName,
+        $.ajax({url: "/moskito-inspect/mskGetExplanationsByName?pName=" + producerName,
             dataType: "json",
             success: function (data) {
                 populateAndShowModal(data);
@@ -80,7 +80,7 @@ Commented out for now. We may add this later as welcome message (to all layers).
         if(!$dialogTpl) return;
         var $dialogTplBody = $($dialogTpl.find('.modal-body')[0]);
         var $box = $($dialogTplBody.find('.box')[0]);
-        $dialogTplBody.empty()
+        $dialogTplBody.empty();
         for(var i=0; i< data.length;i++){
             var $boxClone = $box.clone();
             $boxClone.find('.box-title h3')[0].innerHTML = data[i].caption;
