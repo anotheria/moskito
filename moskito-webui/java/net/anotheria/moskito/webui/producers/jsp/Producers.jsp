@@ -69,7 +69,7 @@ Commented out for now. We may add this later as welcome message (to all layers).
 
 <script type="text/javascript">
     function showHelpDialog(producerName){
-        $.ajax({url: "/moskito-inspect/mskGetExplanationsByName?pName=" + producerName,
+        $.ajax({url: getBaseUrl() + "mskGetExplanationsByName?pName=" + producerName,
             dataType: "json",
             success: function (data) {
                 populateAndShowModal(data);
