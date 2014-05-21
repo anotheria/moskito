@@ -21,7 +21,7 @@ Commented out for now. We may add this later as welcome message (to all layers).
     <a class="accordion-toggle tooltip-bottom" title="Close/Open" data-toggle="collapse" href="#collapse${decorator.decoratorNameForCss}"><i class="fa fa-caret-right"></i></a>
     <h3 class="pull-left">${decorator.name}</h3>
     <div class="box-right-nav">
-        <a onclick="showHelpDialog('${decorator.name}');return false;" href="" class="tooltip-bottom" title="Help"><i class="fa fa-info-circle"></i></a>
+        <a onclick="showProducerHelpModal('${decorator.name}');return false;" href="" class="tooltip-bottom" title="Help"><i class="fa fa-info-circle"></i></a>
     </div>
 </div>
 <div id="collapse${decorator.decoratorNameForCss}" class="box-content accordion-body collapse in">
@@ -44,11 +44,11 @@ Commented out for now. We may add this later as welcome message (to all layers).
                     <%-- writing out values --%>
             <ano:iterate name="decorator" property="producers" id="producer" type="net.anotheria.moskito.webui.producers.api.ProducerAO">
             <tr>
-                <td class="headcol"><a href="mskShowProducer?pProducerId=${producer.producerId}" title="Show details for this producer">${producer.producerId}</a></td>
+                <td class="headcol"><a href="mskShowProducer?pProducerId=${producer.producerId}" class="tooltip-bottom" title="Show details for producer ${producer.producerId}">${producer.producerId}</a></td>
                 <td><a href="mskShowProducersByCategory?pCategory=${producer.category}">${producer.category}</a></td>
                 <td><a href="mskShowProducersBySubsystem?pSubsystem=${producer.subsystem}">${producer.subsystem}</a></td>
                 <ano:iterate name="producer" property="firstStatsValues" id="value" type="net.anotheria.moskito.webui.producers.api.StatValueAO">
-                    <td title="${producer.producerId}.${value.name}=${value.value}">${value.value}</td>
+                    <td class="tooltip-bottom" title="${producer.producerId}.${value.name}=${value.value}">${value.value}</td>
                 </ano:iterate>
                 <td>${producer.producerClassName}</td>
             </tr>
@@ -66,57 +66,7 @@ Commented out for now. We may add this later as welcome message (to all layers).
 
 <jsp:include page="../../shared/jsp/InspectFooter.jsp"/>
 </section>
-
-<script type="text/javascript">
-    function showHelpDialog(producerName){
-        $.ajax({url: getBaseUrl() + "mskGetExplanationsByName?pName=" + producerName,
-            dataType: "json",
-            success: function (data) {
-                populateAndShowModal(data);
-            }});
-    }
-    function populateAndShowModal(data){
-        var $dialogTpl = $($('#help_template')[0]);
-        if(!$dialogTpl) return;
-        var $dialogTplBody = $($dialogTpl.find('.modal-body')[0]);
-        var $box = $($dialogTplBody.find('.box')[0]);
-        $dialogTplBody.empty();
-        for(var i=0; i< data.length;i++){
-            var $boxClone = $box.clone();
-            $boxClone.find('.box-title h3')[0].innerHTML = data[i].caption;
-            $boxClone.find('.box-content .paddner')[0].innerHTML = data[i].explanation;
-            $dialogTplBody.append($boxClone);
-        }
-        $dialogTpl.modal('show');
-    }
-</script>
-
-<div class="modal fade" id="help_template" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog gray">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title">Help</h4>
-            </div>
-            <div class="modal-body">
-                <div class="box">
-                    <div class="box-title">
-                        <h3 class="pull-left">
-                            __box_title__
-                        </h3>
-                    </div>
-                    <div class="box-content">
-                        <div class="paddner">
-                            __box_content__
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-    </div>
-</div>
-
+<jsp:include page="snippet/ProducerHelpModal.jsp"/>
 </body>
 </html>
 
