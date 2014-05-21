@@ -10,11 +10,11 @@
 		<ano:iterate name="accumulators" type="net.anotheria.moskito.webui.accumulators.api.AccumulatorDefinitionAO" id="accumulator" indexId="index">
 		<ano:notEqual name="index" value="0">,</ano:notEqual>
 		{
-		"id": "<ano:write name="accumulator" property="id"/>",
-		"name": "<ano:write name="accumulator" property="name"/>",
-		"path": "<ano:write name="accumulator" property="path"/>",
-		"values": "<ano:write name="accumulator" property="numberOfValues"/>",
-		"lasttimestamp": "<ano:write name="accumulator" property="lastValueTimestamp"/>"
+		"id": "${accumulator.id}",
+		"name": "${accumulator.name}",
+		"path": "${accumulator.path}",
+		"values": "${accumulator.numberOfValues}",
+		"lasttimestamp": "${accumulator.lastValueTimestamp}"
 		}
 		</ano:iterate>]
 }

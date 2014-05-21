@@ -1,10 +1,10 @@
 <%@ page language="java" contentType="text/xml;charset=UTF-8" session="true"
 %><%@ taglib uri="http://www.anotheria.net/ano-tags" prefix="msk" 
 %><?xml version="1.0" encoding="UTF-8"?>
-<producer id="<msk:write name="producer" property="id"/>">
+<producer id="${producer.producerId}">
 	<category><msk:write name="producer" property="category"/></category>
 	<subsystem><msk:write name="producer" property="subsystem"/></subsystem>
-	<class><msk:write name="producer" property="className"/></class>
+	<class><msk:write name="producer" property="producerClassName"/></class>
 	<interval><msk:write name="currentInterval"/></interval>
 	<timestamp><msk:write name="timestamp"/></timestamp>
 	<date><msk:write name="timestampAsDate"/></date>

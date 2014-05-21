@@ -70,15 +70,18 @@
         </form>
 
         <ul class="nav navbar-nav pull-right">
-            <li><a href="">Autoreload OFF</a></li>
+            <%-- removing autoreload feature for now, we can readd it later --%>
+            <%-- <li><a href="">Autoreload OFF</a></li> --%>
+            <ano:equal name="exportSupported" value="true">
             <li class="dropdown">
                 <a data-toggle="dropdown" href="#">Export</a>
                 <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
-                    <li><a href="#">XML</a></li>
-                    <li><a href="#">JSON</a></li>
-                    <li><a href="#">CSV</a></li>
+                    <li><a target="_blank" href="<ano:write name="linkToCurrentPageAsXml"/>&amp;pForward=xml">XML</a></li>
+                    <li><a target="_blank" href="<ano:write name="linkToCurrentPageAsJson"/>&amp;pForward=json">JSON</a></li>
+                    <li><a target="_blank" href="<ano:write name="linkToCurrentPageAsCsv"/>&amp;pForward=csv">CSV</a></li>
                 </ul>
             </li>
+            </ano:equal>
             <li><a href="mskShowExplanations">Help</a></li>
         </ul>
     </div>

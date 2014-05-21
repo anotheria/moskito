@@ -117,7 +117,7 @@ public class MoskitoMappingsConfigurator implements ActionMappingsConfigurator{
 		mappings.addMapping("mskThresholds", ShowThresholdsAction.class,
 				new ActionForward("html", "/net/anotheria/moskito/webui/threshold/jsp/Thresholds.jsp"),
 				new ActionForward("xml", "/net/anotheria/moskito/webui/threshold/jsp/ThresholdsXML.jsp"),
-				new ActionForward("csv", "/net/anotheria/moskito/webui/shared/jsp/ThresholdsCSV.jsp"),
+				new ActionForward("csv", "/net/anotheria/moskito/webui/threshold/jsp/ThresholdsCSV.jsp"),
 				new ActionForward("json", "/net/anotheria/moskito/webui/threshold/jsp/ThresholdsJSON.jsp")
 		);
 		mappings.addAlias("mskThresholds.csv", "mskThresholds");
@@ -138,7 +138,7 @@ public class MoskitoMappingsConfigurator implements ActionMappingsConfigurator{
 
 		mappings.addMapping("mskAccumulators", ShowAccumulatorsAction.class,
 				new ActionForward("html", "/net/anotheria/moskito/webui/accumulators/jsp/Accumulators.jsp"),
-				new ActionForward("xml", "/net/anotheria/moskito/webui/shared/jsp/AccumulatorsXML.jsp"),
+				new ActionForward("xml", "/net/anotheria/moskito/webui/accumulators/jsp/AccumulatorsXML.jsp"),
 				new ActionForward("csv", "/net/anotheria/moskito/webui/accumulators/jsp/AccumulatorsCSV.jsp"),
 				new ActionForward("json", "/net/anotheria/moskito/webui/accumulators/jsp/AccumulatorsJSON.jsp")
 		);
