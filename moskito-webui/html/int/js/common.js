@@ -4,6 +4,12 @@ $(window).scroll(function(){
     } else if($(this).scrollTop() <= 1 && $('body').hasClass("scroll")) {
         $('body').removeClass("scroll");
     }
+
+    if ($(document).scrollTop() >= $(document).height() - $(window).height() - 180) {
+        $('.box-footer').removeClass('fixed');
+    } else if($(document).scrollTop() < $(document).height() - $(window).height()){
+        $('.box-footer').addClass('fixed');
+    }
 });//scroll
 
 $(function () {

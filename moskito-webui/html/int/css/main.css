@@ -850,6 +850,25 @@ thead tr th:last-child {
     padding: 8px 20px;
 }
 
+.box-footer .fixed-box {
+    bottom: -100px;
+}
+
+.box-footer.fixed .fixed-box {
+    position: fixed;
+    left: 220px;
+    bottom: 0;
+    width: 100%;
+    min-height: 50px;
+    padding: 8px 50px;
+    box-shadow: 0 -2px 20px rgba(0, 0, 0, 0.2);
+    background: #FFF;
+    -webkit-transition: all 0.22s linear;
+    -moz-transition: all 0.22s linear;
+    -o-transition: all 0.22s linear;
+    transition: all 0.22s linear;
+}
+
 .box-footer .btn {
     margin: 0 20px 0 0;
 }

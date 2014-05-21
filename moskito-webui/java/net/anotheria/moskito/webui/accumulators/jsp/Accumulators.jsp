@@ -136,7 +136,7 @@
                     <table class="table table-striped tablesorter">
                         <thead>
                         <tr>
-                            <th></th>
+                            <th><button class="btn btn-primary">Submit</button></th>
                             <th>Name<i class="fa fa-caret-down"></i></th>
                             <th>Path <i class="fa fa-caret-down"></i></th>
                             <th>Values <i class="fa fa-caret-down"></i><i class="chart-icon tooltip-bottom" title="Show chart"></i></th>
@@ -162,62 +162,64 @@
                     </table>
                 </div>
 
-                <div class="box-footer">
-                    <div class="form-inline">
-                        <div class="form-group">
-                            <button class="btn btn-success">Submit</button>
-                        </div>
-                        <div class="form-group">
-                            (Mode:
-                        </div>
-                        <div class="radio">
-                            <label>
-                                <input type="radio" checked="checked" value="combined" name="mode"> combine
-                            </label>
-                        </div>
-                        <div class="radio">
-                            <label>
-                                <input type="radio" value="normalized" name="mode"> combine and normalize
-                            </label>
-                        </div>
-                        <div class="radio">
-                            <label>
-                                <input type="radio" value="multiple" name="mode"> multiple graphs
-                            </label>
-                        </div>
-                        <div class="form-group">
-                            )
-                        </div>
+                <div class="box-footer fixed">
+                    <div class="fixed-box">
+                        <div class="form-inline">
+                            <div class="form-group">
+                                <button class="btn btn-primary">Submit</button>
+                            </div>
+                            <div class="form-group">
+                                (Mode:
+                            </div>
+                            <div class="radio">
+                                <label>
+                                    <input type="radio" checked="checked" value="combined" name="mode"> combine
+                                </label>
+                            </div>
+                            <div class="radio">
+                                <label>
+                                    <input type="radio" value="normalized" name="mode"> combine and normalize
+                                </label>
+                            </div>
+                            <div class="radio">
+                                <label>
+                                    <input type="radio" value="multiple" name="mode"> multiple graphs
+                                </label>
+                            </div>
+                            <div class="form-group">
+                                )
+                            </div>
 
-                        <div class="form-group">
-                            (Type:&nbsp;
+                            <div class="form-group">
+                                (Type:&nbsp;
+                            </div>
+                            <div class="radio">
+                                <label>
+                                    <input type="radio" checked="checked" value="LineChart" name="type">&nbsp;Line
+                                </label>
+                            </div>
+                            <div class="radio">
+                                <label>
+                                    <input type="radio" value="PieChart" name="type">&nbsp;Pie
+                                </label>
+                            </div>
+                            <div class="radio">
+                                <label>
+                                    <input type="radio" value="BarChart" name="type">&nbsp;Bar
+                                </label>
+                            </div>
+                            <div class="radio">
+                                <label>
+                                    <input type="radio" value="ColumnChart" name="type">&nbsp;Column
+                                </label>
+                            </div>
+                            <div class="form-group">
+                                )
+                            </div>
+                            <input type="hidden" value="100" name="normalizeBase">
+                            <input type="hidden" value="200" name="maxValues">
                         </div>
-                        <div class="radio">
-                            <label>
-                                <input type="radio" checked="checked" value="LineChart" name="type">&nbsp;Line
-                            </label>
-                        </div>
-                        <div class="radio">
-                            <label>
-                                <input type="radio" value="PieChart" name="type">&nbsp;Pie
-                            </label>
-                        </div>
-                        <div class="radio">
-                            <label>
-                                <input type="radio" value="BarChart" name="type">&nbsp;Bar
-                            </label>
-                        </div>
-                        <div class="radio">
-                            <label>
-                                <input type="radio" value="ColumnChart" name="type">&nbsp;Column
-                            </label>
-                        </div>
-                        <div class="form-group">
-                            )
-                        </div>
-                        <input type="hidden" value="100" name="normalizeBase">
-                        <input type="hidden" value="200" name="maxValues">
-                    </div>
+                     </div>
                 </div>
             </form>
         </div>
