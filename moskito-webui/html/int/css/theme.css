@@ -51,6 +51,8 @@ dl {
     font-size: 13px;
     padding: 7px 12px;
     min-width: 70px;
+    background-color: #EEEEEE;
+    border-color: #E3E3E3;
 }
 
 .btn-default {
