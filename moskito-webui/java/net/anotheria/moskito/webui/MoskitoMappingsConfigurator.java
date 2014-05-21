@@ -40,6 +40,7 @@ import net.anotheria.moskito.webui.threads.action.ThreadsOverviewAction;
 import net.anotheria.moskito.webui.threshold.action.CreateThresholdAction;
 import net.anotheria.moskito.webui.threshold.action.DeleteThresholdAction;
 import net.anotheria.moskito.webui.threshold.action.EditThresholdAction;
+import net.anotheria.moskito.webui.threshold.action.GetThresholdDefinitionAction;
 import net.anotheria.moskito.webui.threshold.action.ShowThresholdsAction;
 import net.anotheria.moskito.webui.threshold.action.UpdateThresholdAction;
 
@@ -224,6 +225,7 @@ public class MoskitoMappingsConfigurator implements ActionMappingsConfigurator{
 		// ajax
 		mappings.addMapping("mskSaveNavMenuState", SaveNavMenuStateAction.class);
 		mappings.addMapping("mskGetExplanationsByName", GetExplanationsByDecoratorNameAction.class);
+		mappings.addMapping("mskGetThresholdDefinition", GetThresholdDefinitionAction.class);
 
 		//errors
 		mappings.setOnError(new ActionForward("error", "/net/anotheria/moskito/webui/shared/jsp/Error.jsp"));
