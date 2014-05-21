@@ -450,6 +450,14 @@ table td.wrap,
     background: #faeddd !important;
 }
 
+.table tr.checked > td {
+    background: #e0fbdf !important;
+    -webkit-transition: all 0.22s linear;
+    -moz-transition: all 0.22s linear;
+    -o-transition: all 0.22s linear;
+    transition: all 0.22s linear;
+}
+
 .alert {
     border-radius: 0;
     border: none;
@@ -869,7 +877,14 @@ thead tr th:last-child {
     transition: all 0.22s linear;
 }
 
-.box-footer .btn {
+.fixed-box .btn {
+    -webkit-transition: all 0.22s linear;
+    -moz-transition: all 0.22s linear;
+    -o-transition: all 0.22s linear;
+    transition: all 0.22s linear;
+}
+
+.box-footer .btns {
     margin: 0 20px 0 0;
 }
 

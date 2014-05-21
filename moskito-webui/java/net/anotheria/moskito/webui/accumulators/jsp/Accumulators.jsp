@@ -147,7 +147,7 @@
                         <tbody>
                         <ano:iterate name="accumulators" type="net.anotheria.moskito.webui.accumulators.api.AccumulatorDefinitionAO" id="accumulator" indexId="index">
                             <tr>
-                                <td><input type="checkbox" name="id_${accumulator.id}" value="set" <ano:present name="<%=\"id_\"+accumulator.getId()+\"_set\"%>">checked="checked"</ano:present>/></td>
+                                <td><input type="checkbox" class="checktr" name="id_${accumulator.id}" value="set" <ano:present name="<%=\"id_\"+accumulator.getId()+\"_set\"%>">checked="checked"</ano:present>/></td>
                                 <td><a href="?id_${accumulator.id}=set">${accumulator.name}</a></td>
                                 <td>${accumulator.path}</td>
                                 <td>${accumulator.numberOfValues}</td>
@@ -165,8 +165,9 @@
                 <div class="box-footer fixed">
                     <div class="fixed-box">
                         <div class="form-inline">
-                            <div class="form-group">
-                                <button class="btn btn-primary">Submit</button>
+                            <div class="form-group btns">
+                                <button class="btn btn-default btn-submit">Submit</button>
+                                <button class="btn btn-default btn-clear hide">Clear</button>
                             </div>
                             <div class="form-group">
                                 (Mode:
@@ -248,6 +249,47 @@
             var dataid = $(this).attr('data-id');
             $('.accumulator-delete-confirm').attr("href", "mskAccumulatorDelete?pId=" + dataid);
         });
+
+        $(window).scroll(function(){
+            if ($(document).scrollTop() >= $(document).height() - $(window).height() - 180) {
+                $('.box-footer').removeClass('fixed');
+            } else if($(document).scrollTop() < $(document).height() - $(window).height()){
+                $('.box-footer').addClass('fixed');
+            }
+        });//scroll
+
+        $('.checktr:checked').closest('tr').addClass('checked');
+        if($('.checktr').is(':checked')) {
+            $('.fixed-box .btn-submit').addClass('btn-success');
+            $('.fixed-box .btn-clear').removeClass('hide');
+        }
+
+        $('.fixed-box .btn-clear').click(function() {
+            $('.table tr').removeClass('checked');
+            $('.checktr').prop('checked', false);
+            $(this).addClass('hide');
+        });
+
+        $('.table tr')
+            .filter(':has(:checkbox:checked)')
+            .addClass('checked')
+            .end()
+            .click(function(event) {
+                $(this).toggleClass('checked');
+                if (event.target.type !== 'checkbox') {
+                    $(':checkbox', this).prop('checked', function() {
+                        return !this.checked;
+                    });
+                }
+                if ($('.checktr').is(':checked')) {
+                    $('.fixed-box .btn-submit').addClass('btn-success');
+                    $('.fixed-box .btn-clear').removeClass('hide');
+                }
+                else {
+                    $('.fixed-box .btn-submit').removeClass('btn-success');
+                    $('.fixed-box .btn-clear').addClass('hide');
+                }
+            });
     </script>
 
 </section>
