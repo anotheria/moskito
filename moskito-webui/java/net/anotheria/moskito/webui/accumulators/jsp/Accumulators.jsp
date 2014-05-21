@@ -154,7 +154,7 @@
                                 <td>${accumulator.lastValueTimestamp}</td>
                                 <td class="actions-links">
                                     <a href="#mskAccumulatorDelete" data-toggle="modal" data-target="#mskAccumulatorDelete" data-id="${accumulator.id}" class="action-icon delete-icon tooltip-bottom" title="Delete"><i class="fa fa-ban"></i></a>
-                                    <a href="mskAccumulator?pId=${accumulator.id}" class="action-icon show-icon tooltip-bottom" title="Show"><i class="fa fa-search-plus"></i></a>
+                                    <a href="?id_${accumulator.id}=set" class="action-icon show-icon tooltip-bottom" title="Show"><i class="fa fa-search-plus"></i></a>
                                 </td>
                             </tr>
                         </ano:iterate>

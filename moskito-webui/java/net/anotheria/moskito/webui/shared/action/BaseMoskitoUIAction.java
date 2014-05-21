@@ -431,6 +431,8 @@ public abstract class BaseMoskitoUIAction implements Action{
 		}
 		req.setAttribute("title", title);
 
+		req.setAttribute("exportSupported", exportSupported());
+
 	}
 
 
@@ -562,5 +564,13 @@ public abstract class BaseMoskitoUIAction implements Action{
 
 	protected String getSubTitle(){
 		return "";
+	}
+
+	/**
+	 * Override and return true if your action supports csv/xml/json export.
+	 * @return
+	 */
+	protected boolean exportSupported(){
+		return false;
 	}
 }
