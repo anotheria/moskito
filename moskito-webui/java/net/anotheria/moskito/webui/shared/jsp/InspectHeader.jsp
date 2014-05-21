@@ -71,7 +71,14 @@
 
         <ul class="nav navbar-nav pull-right">
             <li><a href="">Autoreload OFF</a></li>
-            <li><a href="">Export</a></li>
+            <li class="dropdown">
+                <a data-toggle="dropdown" href="#">Export</a>
+                <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+                    <li><a href="#">XML</a></li>
+                    <li><a href="#">JSON</a></li>
+                    <li><a href="#">CSV</a></li>
+                </ul>
+            </li>
             <li><a href="mskShowExplanations">Help</a></li>
         </ul>
     </div>

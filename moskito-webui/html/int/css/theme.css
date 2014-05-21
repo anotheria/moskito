@@ -197,3 +197,13 @@ fieldset[disabled] .btn-success.active {
     padding: 0;
     margin-top: -5px;
 }
+
+.dropdown-menu {
+    min-width: 120px;
+}
+
+.dropdown-menu > li > a:hover, .dropdown-menu > li > a:focus,
+.select2-results .select2-highlighted {
+    background: #738DE7;
+    color: #FFF;
+}
