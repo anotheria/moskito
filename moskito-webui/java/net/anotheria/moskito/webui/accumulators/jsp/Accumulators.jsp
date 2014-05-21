@@ -165,7 +165,7 @@
                 <div class="box-footer fixed">
                     <div class="fixed-box">
                         <div class="form-inline">
-                            <div class="form-group">
+                            <div class="form-group btns">
                                 <button class="btn btn-default btn-submit">Submit</button>
                                 <button class="btn btn-default btn-clear hide">Clear</button>
                             </div>
