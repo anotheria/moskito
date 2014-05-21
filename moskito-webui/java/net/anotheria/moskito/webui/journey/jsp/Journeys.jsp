@@ -5,6 +5,14 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <jsp:include page="../../shared/jsp/InspectHeader.jsp" flush="false"/>
 <section id="main">
+    <ano:notPresent name="journeysPresent">
+        <div class="alert alert-warning alert-dismissable">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+            You have no journeys yet, you can start a journey by following the instructions below or programmatically.
+        </div>
+    </ano:notPresent>
+
+
     <div class="content">
 
         <script type="text/javascript">
@@ -52,6 +60,7 @@
             </div>
         </div>
 
+        <ano:present name="journeysPresent">
         <div class="box">
             <div class="box-title">
                 <a class="accordion-toggle tooltip-bottom" title="Close/Open" data-toggle="collapse" href="#collapse2"><i class="fa fa-caret-right"></i></a>
@@ -78,11 +87,11 @@
                     <ano:iterate name="journeys" type="net.anotheria.moskito.webui.journey.api.JourneyListItemAO" id="journey" indexId="index">
                         <tr>
                             <td><a class="tooltip-bottom" title="Show steps in journey ${journey.name}" href="mskShowJourney?pJourneyName=${journey.name}">${journey.name}</a></td>
-                            <td><ano:write name="journey" property="created"/></td>
-                            <td><ano:write name="journey" property="lastActivity"/></td>
-                            <td><ano:write name="journey" property="numberOfCalls"/></td>
-                            <td><ano:write name="journey" property="active"/>
-                                <ano:equal name="journey" property="active" value="true">&nbsp;(<a href="#" onclick="stop_journey('<ano:write name="journey" property="name"/>')">stop</a>)</ano:equal>
+                            <td>${journey.created}</td>
+                            <td>${journey.lastActivity}</td>
+                            <td>${journey.numberOfCalls}</td>
+                            <td>${journey.active}&nbsp;
+                                <ano:equal name="journey" property="active" value="true">&nbsp;(<a href="#" onclick="stop_journey('${journey.name}')">stop</a>)</ano:equal>
                             </td>
 
                             <td><a class="action-icon show-icon tooltip-bottom" title="" data-original-title="Show steps in journey ${journey.name}"  href="mskShowJourney?pJourneyName=${journey.name}"><i class="fa fa-search"></i></a><a class="action-icon show-icon tooltip-bottom" title="" data-original-title="Analyze journey ${journey.name}"  href="mskAnalyzeJourney?pJourneyName=${journey.name}"><i class="fa fa-search-plus"></i></a></td>
@@ -92,6 +101,7 @@
                 </table>
             </div>
         </div>
+        </ano:present>
 
     </div>
 
