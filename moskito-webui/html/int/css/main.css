@@ -1281,3 +1281,7 @@ i.vline {
 .table-tree .expanded td:first-child > div:before {
     display: none;
 }
+
+.tooltip {
+    white-space: pre-wrap;
+}
