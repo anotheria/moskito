@@ -40,9 +40,7 @@
                      --%>
                         <tr data-level="${traceStep.level}">
                             <td><div><i class="minus">–</i><i class="plus">+</i><i class="vline"></i>${traceStep.niceId}</div></td>
-                            <td><span onmouseover="Tip('<ano:write name="traceStep" property="fullCall" filter="true"/>', WIDTH, 500)" onmouseout="UnTip()">
-                                <ano:write name="traceStep" property="call" filter="true"/>
-							</span></td>
+                            <td class="tooltip-bottom" title="<ano:write name="traceStep" property="fullCall" filter="true"/>">${traceStep.call}</td>
                                 <%--<td onmouseover="Tip('<ano:write name="traceStep" property="fullCall" filter="true"/>', WIDTH, 500)" onmouseout="UnTip()"><% for (int i=1; i<traceStep.getLayer(); i++){ %><%= EMPTY %><%}%><ano:equal name="traceStep" property="root" value="false"><%=IMG%></ano:equal><ano:write name="traceStep" property="call" filter="true"/></td>--%>
                             <td>${traceStep.duration}</td>
                             <td>${traceStep.timespent}</td>
