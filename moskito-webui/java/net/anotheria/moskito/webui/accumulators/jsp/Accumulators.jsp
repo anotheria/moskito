@@ -166,7 +166,8 @@
                     <div class="fixed-box">
                         <div class="form-inline">
                             <div class="form-group">
-                                <button class="btn">Submit</button>
+                                <button class="btn btn-default btn-submit">Submit</button>
+                                <button class="btn btn-default btn-clear hide">Clear</button>
                             </div>
                             <div class="form-group">
                                 (Mode:
@@ -259,10 +260,17 @@
 
         $('.checktr:checked').closest('tr').addClass('checked');
         if($('.checktr').is(':checked')) {
-            $('.fixed-box .btn').addClass('btn-success');
+            $('.fixed-box .btn-submit').addClass('btn-success');
+            $('.fixed-box .btn-clear').removeClass('hide');
         }
 
-        $('.table tbody > tr')
+        $('.fixed-box .btn-clear').click(function() {
+            $('.table tr').removeClass('checked');
+            $('.checktr').prop('checked', false);
+            $(this).addClass('hide');
+        });
+
+        $('.table tr')
             .filter(':has(:checkbox:checked)')
             .addClass('checked')
             .end()
@@ -273,10 +281,14 @@
                         return !this.checked;
                     });
                 }
-                if ($('.checktr').is(':checked'))
-                    $('.fixed-box .btn').addClass('btn-success');
-                else
-                    $('.fixed-box .btn').removeClass('btn-success');
+                if ($('.checktr').is(':checked')) {
+                    $('.fixed-box .btn-submit').addClass('btn-success');
+                    $('.fixed-box .btn-clear').removeClass('hide');
+                }
+                else {
+                    $('.fixed-box .btn-submit').removeClass('btn-success');
+                    $('.fixed-box .btn-clear').addClass('hide');
+                }
             });
     </script>
 
