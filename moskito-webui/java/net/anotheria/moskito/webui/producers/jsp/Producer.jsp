@@ -38,7 +38,7 @@
             ${producer.producerId}
         </h3>
         <div class="box-right-nav">
-            <a href="" class="tooltip-bottom" title="Help"><i class="fa fa-info-circle"></i></a>
+            <a onclick="showProducerHelpModal('${decorator.name}');return false;" href="" class="tooltip-bottom" title="Help"><i class="fa fa-info-circle"></i></a>
         </div>
     </div>
     <div id="collapseproducer" class="box-content accordion-body collapse in">
@@ -332,6 +332,7 @@
 
 
 <jsp:include page="../../shared/jsp/InspectFooter.jsp" flush="false"/>
+<jsp:include page="snippet/ProducerHelpModal.jsp"/>
 </section>
 
 <script>
@@ -370,8 +371,6 @@
     function switchgreenvalue(){
         document.forms.CreateThreshold.yellowValue.value=document.forms.CreateThreshold.greenValue.value;
     }
-</script>
-
 </script>
 
 </body>
