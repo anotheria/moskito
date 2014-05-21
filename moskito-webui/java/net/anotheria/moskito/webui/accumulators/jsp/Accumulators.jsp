@@ -136,7 +136,7 @@
                     <table class="table table-striped tablesorter">
                         <thead>
                         <tr>
-                            <th><button class="btn btn-primary">Submit</button></th>
+                            <th></th>
                             <th>Name<i class="fa fa-caret-down"></i></th>
                             <th>Path <i class="fa fa-caret-down"></i></th>
                             <th>Values <i class="fa fa-caret-down"></i><i class="chart-icon tooltip-bottom" title="Show chart"></i></th>
