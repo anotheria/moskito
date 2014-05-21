@@ -166,7 +166,7 @@
                     <div class="fixed-box">
                         <div class="form-inline">
                             <div class="form-group">
-                                <button class="btn btn-primary">Submit</button>
+                                <button class="btn">Submit</button>
                             </div>
                             <div class="form-group">
                                 (Mode:
