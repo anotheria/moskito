@@ -70,7 +70,7 @@
                         <th>Timestamp <i class="fa fa-caret-down"></i></th>
                         <th>Name <i class="fa fa-caret-down"></i></th>
                         <th>Status change <i class="fa fa-caret-down"></i></th>
-                        <th>Value change <i class="fa fa-caret-down"></i><i class="chart-icon tooltip-bottom" title="Show chart"></i></th>
+                        <th>Value change <i class="fa fa-caret-down"></i></th>
                     </tr>
                     </thead>
                     <tbody>
