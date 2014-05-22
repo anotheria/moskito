@@ -18,7 +18,7 @@
 
 		<resources>
 			<resource>
-				<directory>${project.basedir}/html</directory>
+				<directory>${project.basedir}/html/</directory>
 			</resource>
 			<resource>
 				<directory>${project.basedir}/java</directory>

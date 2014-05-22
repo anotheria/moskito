@@ -1,6 +1,7 @@
 package net.anotheria.moskito.webui.threshold.api;
 
 import net.anotheria.moskito.core.stats.TimeUnit;
+import net.anotheria.moskito.core.threshold.ThresholdConditionGuard;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -43,15 +44,15 @@ public class ThresholdDefinitionAO implements Serializable{
 	/**
 	 * The attached guards.
 	 */
-	private List<String> guards;
+	private List<ThresholdConditionGuard> guards;
 
 	private TimeUnit timeUnit;
 	
 	public ThresholdDefinitionAO(){
-		guards = new ArrayList<String>();
+		guards = new ArrayList<ThresholdConditionGuard>();
 	}
 	
-	public void addGuard(String aGuard){
+	public void addGuard(ThresholdConditionGuard aGuard){
 		guards.add(aGuard);
 	}
 
@@ -111,11 +112,11 @@ public class ThresholdDefinitionAO implements Serializable{
 		this.descriptionString = descriptionString;
 	}
 
-	public List<String> getGuards() {
+	public List<ThresholdConditionGuard> getGuards() {
 		return guards;
 	}
 
-	public void setGuards(List<String> guards) {
+	public void setGuards(List<ThresholdConditionGuard> guards) {
 		this.guards = guards;
 	}
 

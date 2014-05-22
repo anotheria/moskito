@@ -9,6 +9,7 @@ import net.anotheria.moskito.webui.accumulators.action.DeleteAccumulatorAction;
 import net.anotheria.moskito.webui.accumulators.action.ShowAccumulatorAction;
 import net.anotheria.moskito.webui.accumulators.action.ShowAccumulatorsAction;
 import net.anotheria.moskito.webui.journey.action.AnalyzeJourneyAction;
+import net.anotheria.moskito.webui.journey.action.DeleteJourneyAction;
 import net.anotheria.moskito.webui.journey.action.ShowJourneyAction;
 import net.anotheria.moskito.webui.journey.action.ShowJourneyCallAction;
 import net.anotheria.moskito.webui.journey.action.ShowJourneysAction;
@@ -40,6 +41,7 @@ import net.anotheria.moskito.webui.threads.action.ThreadsOverviewAction;
 import net.anotheria.moskito.webui.threshold.action.CreateThresholdAction;
 import net.anotheria.moskito.webui.threshold.action.DeleteThresholdAction;
 import net.anotheria.moskito.webui.threshold.action.EditThresholdAction;
+import net.anotheria.moskito.webui.threshold.action.GetThresholdDefinitionAction;
 import net.anotheria.moskito.webui.threshold.action.ShowThresholdsAction;
 import net.anotheria.moskito.webui.threshold.action.UpdateThresholdAction;
 
@@ -111,13 +113,17 @@ public class MoskitoMappingsConfigurator implements ActionMappingsConfigurator{
 				new ActionForward("success", "/net/anotheria/moskito/webui/journey/jsp/JourneyCall.jsp")
 		);
 
+		mappings.addMapping("mskDeleteJourney", DeleteJourneyAction.class,
+				new CommandRedirect("redirect", "mskShowJourneys")
+		);
 
-		mappings.addMapping("mskForceIntervalUpdate", ForceIntervalUpdateAction.class, (ActionForward[])null);
+
+		mappings.addMapping("mskForceIntervalUpdate", ForceIntervalUpdateAction.class);
 
 		mappings.addMapping("mskThresholds", ShowThresholdsAction.class,
 				new ActionForward("html", "/net/anotheria/moskito/webui/threshold/jsp/Thresholds.jsp"),
 				new ActionForward("xml", "/net/anotheria/moskito/webui/threshold/jsp/ThresholdsXML.jsp"),
-				new ActionForward("csv", "/net/anotheria/moskito/webui/shared/jsp/ThresholdsCSV.jsp"),
+				new ActionForward("csv", "/net/anotheria/moskito/webui/threshold/jsp/ThresholdsCSV.jsp"),
 				new ActionForward("json", "/net/anotheria/moskito/webui/threshold/jsp/ThresholdsJSON.jsp")
 		);
 		mappings.addAlias("mskThresholds.csv", "mskThresholds");
@@ -138,7 +144,7 @@ public class MoskitoMappingsConfigurator implements ActionMappingsConfigurator{
 
 		mappings.addMapping("mskAccumulators", ShowAccumulatorsAction.class,
 				new ActionForward("html", "/net/anotheria/moskito/webui/accumulators/jsp/Accumulators.jsp"),
-				new ActionForward("xml", "/net/anotheria/moskito/webui/shared/jsp/AccumulatorsXML.jsp"),
+				new ActionForward("xml", "/net/anotheria/moskito/webui/accumulators/jsp/AccumulatorsXML.jsp"),
 				new ActionForward("csv", "/net/anotheria/moskito/webui/accumulators/jsp/AccumulatorsCSV.jsp"),
 				new ActionForward("json", "/net/anotheria/moskito/webui/accumulators/jsp/AccumulatorsJSON.jsp")
 		);
@@ -224,6 +230,7 @@ public class MoskitoMappingsConfigurator implements ActionMappingsConfigurator{
 		// ajax
 		mappings.addMapping("mskSaveNavMenuState", SaveNavMenuStateAction.class);
 		mappings.addMapping("mskGetExplanationsByName", GetExplanationsByDecoratorNameAction.class);
+		mappings.addMapping("mskGetThresholdDefinition", GetThresholdDefinitionAction.class);
 
 		//errors
 		mappings.setOnError(new ActionForward("error", "/net/anotheria/moskito/webui/shared/jsp/Error.jsp"));

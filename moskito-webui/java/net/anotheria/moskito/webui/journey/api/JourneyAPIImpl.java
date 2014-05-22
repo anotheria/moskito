@@ -130,6 +130,7 @@ public class JourneyAPIImpl extends AbstractMoskitoAPIImpl implements  JourneyAP
 		b.setRoot(recursion == 0);
 		b.setLayer(recursion);
 		b.setDuration(unit.transformNanos(element.getDuration()));
+		b.setLevel(recursion);
 		StringBuilder ident = new StringBuilder();
 		for (int i=0; i<recursion; i++)
 			ident.append("&nbsp;&nbsp;");
@@ -137,13 +138,13 @@ public class JourneyAPIImpl extends AbstractMoskitoAPIImpl implements  JourneyAP
 		b.setAborted(element.isAborted());
 		container.add(b);
 
-		long timespentInChilds = 0;
+		long timeSpentInChildren = 0;
 		for (TraceStep p : element.getChildren()){
 
-			timespentInChilds += p.getDuration();
+			timeSpentInChildren += p.getDuration();
 			fillUseCasePathElementBeanList(container, p, recursion+1, unit);
 		}
-		b.setTimespent(unit.transformNanos((element.getDuration() - timespentInChilds)));
+		b.setTimespent(unit.transformNanos((element.getDuration() - timeSpentInChildren)));
 	}
 
 	@Override
@@ -194,4 +195,9 @@ public class JourneyAPIImpl extends AbstractMoskitoAPIImpl implements  JourneyAP
 		}
 	}
 
+
+	@Override
+	public void deleteJourney(String journeyName) throws APIException {
+		journeyManager.removeJourney(journeyName);
+	}
 }

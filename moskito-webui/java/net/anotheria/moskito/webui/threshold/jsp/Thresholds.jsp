@@ -3,7 +3,7 @@
         %><!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/html">
 
-<jsp:include page="../../shared/jsp/InspectHeader.jsp" flush="false"/>
+<jsp:include page="../../shared/jsp/Header.jsp" flush="false"/>
 
 <section id="main">
     <div class="content">
@@ -70,7 +70,7 @@
                         <th>Timestamp <i class="fa fa-caret-down"></i></th>
                         <th>Name <i class="fa fa-caret-down"></i></th>
                         <th>Status change <i class="fa fa-caret-down"></i></th>
-                        <th>Value change <i class="fa fa-caret-down"></i><i class="chart-icon tooltip-bottom" title="Show chart"></i></th>
+                        <th>Value change <i class="fa fa-caret-down"></i></th>
                     </tr>
                     </thead>
                     <tbody>
@@ -104,7 +104,7 @@
         </div>
     </div>
 
-    <jsp:include page="../../shared/jsp/InspectFooter.jsp" flush="false"/>
+    <jsp:include page="../../shared/jsp/Footer.jsp" flush="false"/>
     <jsp:include page="snippet/ThresholdUpdateModal.jsp"/>
 
     <script type="text/javascript">

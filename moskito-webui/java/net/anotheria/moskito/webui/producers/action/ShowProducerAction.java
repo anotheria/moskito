@@ -194,5 +194,9 @@ public class ShowProducerAction extends BaseMoskitoUIAction {
 		return "producer";
 	}
 
+	@Override
+	protected boolean exportSupported() {
+		return true;
+	}
 
 }

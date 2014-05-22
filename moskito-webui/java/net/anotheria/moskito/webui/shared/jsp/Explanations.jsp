@@ -1,95 +1,87 @@
-<%@ page language="java" contentType="text/html;charset=UTF-8" session="true" %>
-<%@ taglib uri="http://www.anotheria.net/ano-tags" prefix="msk" %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-	<title>Moskito stats explained</title>
-	<link rel="stylesheet" href="mskCSS"/>
-</head>
-<body>
+<%@ page language="java" contentType="text/html;charset=UTF-8"	session="true"
+        %><%@ taglib uri="http://www.anotheria.net/ano-tags" prefix="ano"
+        %><!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/html">
 
-<script type="text/javascript" src="../js/wz_tooltip.js"></script>
-<script type="text/javascript" src="../js/jquery-1.4.min.js"></script>
-<script type="text/javascript" src="../js/function.js"></script>
+<jsp:include page="Header.jsp" flush="false"/>
 
-<jsp:include page="Menu.jsp" flush="false"/>
-
-<div class="main">
-	<div class="additional">
-		<div class="top">
-			<div><!-- --></div>
-		</div>
-		<div class="add_in">
-			<h2>Explanations for moskito stats page</h2>
-
-			<div><span>
-This page explains what the abreviations used on the producers overview page mean. However, it doesn't explain how to interpret
-the data. Since the data is strongly use-case dependent, its mostly up to you to give it a correct interpretations, but 
-for some use-cases <a href="http://moskito.anotheria.net/documentation.html">moskito's documentation and HOWTOs</a> are quite useful.
-			</span></div>
-
-		</div>
-		<div class="bot">
-			<div><!-- --></div>
-		</div>
-	</div>
-
-	<msk:iterate name="decorators" type="net.anotheria.moskito.webui.shared.bean.DecoratorExplanationBean" id="decorator">
-		<div class="clear"><!-- --></div>
-		<div class="table_layout">
-			<div class="top">
-				<div><!-- --></div>
-			</div>
-			<div class="in">
-
-				<h2><a name="<msk:write name="decorator" property="name"/>"><msk:write name="decorator"
-																					   property="name"/></a></h2>
-
-				<div class="clear"><!-- --></div>
-				<div class="table_itseft">
-					<div class="top">
-						<div class="left"><!-- --></div>
-						<div class="right"><!-- --></div>
-					</div>
-					<div class="in">
-
-						<table cellpadding="0" cellspacing="0" class="wrap_it"
-							   id="<msk:write name="decorator" property="name"/>_table">
-							<thead>
-							<tr class="stat_header">
-								<th>Abbreviation</th>
-								<th>Meaning</th>
-								<th>Explanation</th>
-							</tr>
-							</thead>
-							<tbody>
-							<msk:iterate name="decorator" property="captions" id="caption"
-										 type="net.anotheria.moskito.webui.shared.bean.StatCaptionBean" indexId="index">
-								<tr class="<%= ((index & 1) == 0 )? "even" : "odd" %>">
-									<td><msk:write name="caption" property="caption"/></td>
-									<td><msk:write name="caption" property="shortExplanation"/></td>
-									<td><msk:write name="caption" property="explanation"/></td>
-								</tr>
-							</msk:iterate>
-							</tbody>
-						</table>
-					</div>
-					<div class="bot">
-						<div class="left"><!-- --></div>
-						<div class="right"><!-- --></div>
-					</div>
-					<div class="clear"><!-- --></div>
-				</div>
-
-			</div>
-			<div class="bot">
-			<div><!-- --></div>
-		</div>
-		</div>
+<section id="main">
+    <%--
+    Commented out for now. We may add this later as welcome message (to all layers).
+    <div class="alert alert-warning alert-dismissable">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+        <strong>Welcome</strong> to moskito WebUI. <a href="">How it work?</a>
+    </div>
+    --%>
+    <div class="content">
 
 
+        <div class="box">
+            <div class="box-title">
+                <a class="accordion-toggle tooltip-bottom" title="Close/Open" data-toggle="collapse" href="#collapse1"><i class="fa fa-caret-right"></i></a>
+                <h3 class="pull-left">
+                    Help
+                </h3>
+            </div>
+            <div id="collapse1" class="box-content accordion-body collapse in">
+                <div class="paddner">
+                    This page gives you some quick help and links.
+                    <ul>
+                        <li><a target="_blank" href="http://www.moskito.org">MoSKito Homepage</a> is the best starting point.</li>
+                        <li><a target="_blank" href="http://blog.anotheria.net/category/msk/">anotheria devblog</a> contains a lot of articles about MoSKito, in particular:</li>
+                        <li><a target="_blank" href="http://blog.anotheria.net/msk/the-complete-moskito-integration-guide-step-1/">The complete integration guide</a>.</li>
+                        <li>You could also check <a target="_blank" href="https://confluence.opensource.anotheria.net/display/MSK/Change+Log">the recent changes</a></li>
+                        <li>or <a target="_blank" href="https://confluence.opensource.anotheria.net/display/MSK/MoSKito-WebUI+User+Guide">MoSKito Inspect Manual</a></li>
+                        <li>and finally <a target="_blank" hred="http://opensource.anotheria.net/">anotheria open source hub</a>.</li>
+                        <li>MoSKito is free and opensource, <a target="_blank" href="https://github.com/anotheria/moskito">fork the project sources on github</a> and participate!</li>
+                    </ul>
+                    This page explains what the abbreviations used on the producers overview page mean. However, it doesn't explain how to interpret
+                    the data. Since the data is strongly use-case dependent, its mostly up to you to give it a correct interpretations, but
+                    for some use-cases <a href="http://moskito.anotheria.net/documentation.html">moskito's documentation and HOWTOs</a> are quite useful.
+                </div>
+            </div>
+        </div>
 
-	</msk:iterate>
-</div>
+
+        <ano:iterate name="decorators" type="net.anotheria.moskito.webui.shared.bean.DecoratorExplanationBean" id="decorator">
+            <div class="box">
+                <div class="box-title">
+                    <a class="accordion-toggle tooltip-bottom" title="Close/Open" data-toggle="collapse" href="#collapse${decorator.decoratorNameForCss}"><i class="fa fa-caret-right"></i></a>
+                    <h3 class="pull-left">${decorator.name}</h3>
+                </div>
+                <div id="collapse${decorator.decoratorNameForCss}" class="box-content accordion-body collapse in">
+
+
+                    <div class="table1fixed">
+                        <table class="table table-striped tablesorter">
+                            <thead>
+                            <tr>
+                                <th class="headcol">Abbreviation<i class="fa fa-caret-down"></i></th>
+                                <th>Meaning <i class="fa fa-caret-down"></i></th>
+                                <th>Explanation <i class="fa fa-caret-down"></i></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <ano:iterate name="decorator" property="captions" id="caption"
+                                         type="net.anotheria.moskito.webui.shared.bean.StatCaptionBean">
+                                <tr >
+                                    <td class="headcol">${caption.caption}</td>
+                                    <td>${caption.shortExplanation}</td>
+                                    <td>${caption.explanation}</td>
+                                </tr>
+                            </ano:iterate>
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+        </ano:iterate>
+
+
+    </div>
+
+        <jsp:include page="Footer.jsp"/>
+</section>
 </body>
 </html>

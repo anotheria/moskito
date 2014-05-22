@@ -236,7 +236,7 @@ public class ThresholdAPIImpl extends AbstractMoskitoAPIImpl implements Threshol
 		definitionAO.setDescriptionString(t.getDefinition().describe());
 		definitionAO.setTimeUnit(t.getDefinition().getTimeUnit());
 		for (ThresholdConditionGuard g : t.getGuards()){
-			definitionAO.addGuard(g.toString());
+			definitionAO.addGuard(g);
 		}
 		return definitionAO;
 	}

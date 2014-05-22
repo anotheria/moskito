@@ -56,7 +56,10 @@ public class TracedCallStepAO implements Serializable{
 	 * This is a temporarly id within the journey call for linking purposes for the tree plugin.
 	 */
 	private int parentId;
-	
+
+	private int level;
+
+
 	public TracedCallStepAO(){
 		children = new ArrayList<TracedCallStepAO>();
 	}
@@ -173,4 +176,12 @@ public class TracedCallStepAO implements Serializable{
 	public boolean isParentAvailable(){
 		return parentId>=0;
 	}
+	public int getLevel() {
+		return level;
+	}
+
+	public void setLevel(int level) {
+		this.level = level;
+	}
+
 }

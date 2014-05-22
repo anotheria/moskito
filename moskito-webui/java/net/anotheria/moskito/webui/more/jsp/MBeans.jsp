@@ -2,7 +2,7 @@
 <%@ taglib prefix="ano" uri="http://www.anotheria.net/ano-tags" %>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
-<jsp:include page="../../shared/jsp/InspectHeader.jsp" flush="false"/>
+<jsp:include page="../../shared/jsp/Header.jsp" flush="false"/>
 <section id="main">
     <div class="content">
         <div class="box">
@@ -31,8 +31,8 @@
                     </thead>
                     <tbody>
                         <ano:iterate name="mbeans" type="net.anotheria.moskito.webui.shared.api.MBeanWrapperAO" id="mbean" indexId="index">
-                            <tr class="treegrid-${index}">
-                                <td>${mbean.domain}</td>
+                            <tr data-level="0">
+                                <td><div><i class="minus">–</i><i class="plus">+</i>${mbean.domain}</div></td>
                                 <td>${mbean.type}</td>
                                 <td class="wrap">${mbean.description}</td>
                                 <td>${mbean.className}</td>
@@ -41,7 +41,7 @@
                                 <td>${mbean.canonicalName}</td>
                             </tr>
                             <ano:greaterThan name="mbean" property="attributesCount" value="0">
-                                <tr class="treegrid-${index}-sub treegrid-parent-${index} treegrid-parent">
+                                <tr data-level="1" class="treegrid-parent">
                                     <td><b>Attributes:</b></td>
                                     <td colspan="6">
                                         <table class="table table-striped">
@@ -78,7 +78,7 @@
         </div>
     </div>
 
-    <jsp:include page="../../shared/jsp/InspectFooter.jsp" flush="false"/>
+    <jsp:include page="../../shared/jsp/Footer.jsp" flush="false"/>
 
 </section>
 </body>

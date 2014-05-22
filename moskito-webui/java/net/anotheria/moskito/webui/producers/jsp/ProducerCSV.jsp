@@ -1,21 +1,19 @@
-<%@ page language="java" contentType="application/msexcel;charset=UTF-8" session="true"
-%><%@ taglib uri="http://www.anotheria.net/ano-tags" prefix="msk" 
-%>"producer: <msk:write name="producer" property="id"/>,<%--
---%> category: <msk:write name="producer" property="category"/>,<%--
---%> subsystem: <msk:write name="producer" property="subsystem"/>,<%--
---%> class: <msk:write name="producer" property="className"/>."
+<%@ page language="java" contentType="application/msexcel;charset=UTF-8" session="true" isELIgnored="false"
+%><%@ taglib uri="http://www.anotheria.net/ano-tags" prefix="ano"
+%>"producer: ${producer.producerId},<%--
+--%> category: ${producer.category},<%--
+--%> subsystem: ${producer.subsystem},<%--
+--%> class: ${producer.producerClassName}."
 <%--
---%><msk:iterate type="net.anotheria.moskito.webui.shared.bean.StatDecoratorBean" id="decorator" name="decorators"><%--
---%>"<msk:write name="decorator" property="name"/>";
+--%><ano:iterate type="net.anotheria.moskito.webui.shared.bean.StatDecoratorBean" id="decorator" name="decorators"><%--
+--%>"${decorator.name}";
 "";"Name"<%-- 
---%><msk:iterate name="decorator" property="captions" type="net.anotheria.moskito.webui.shared.bean.StatCaptionBean" id="caption" indexId="ind"><%--
---%>;"<msk:write name="caption" property="caption"/>"<%--
---%></msk:iterate>s<%--
+--%><ano:iterate name="decorator" property="captions" type="net.anotheria.moskito.webui.shared.bean.StatCaptionBean" id="caption" indexId="ind">;"${caption.caption}"</ano:iterate>s<%--
 
---%><msk:iterate name="decorator" property="stats" id="stat" type="net.anotheria.moskito.webui.shared.bean.StatBean">
-"";"<msk:write name="stat" property="name"/>";<%--
---%><msk:iterate name="stat" property="values" id="value" type="net.anotheria.moskito.webui.producers.api.StatValueAO"><%--
---%>;<msk:write name="value" property="value"/><%--
---%></msk:iterate></msk:iterate></msk:iterate>
+--%><ano:iterate name="decorator" property="stats" id="stat" type="net.anotheria.moskito.webui.shared.bean.StatBean">
+"";"${stat.name}";<%--
+--%><ano:iterate name="stat" property="values" id="value" type="net.anotheria.moskito.webui.producers.api.StatValueAO"><%--
+--%>;${value.value}<%--
+--%></ano:iterate></ano:iterate></ano:iterate>
 
-"Generated at <msk:write name="timestampAsDate"/>, timestamp: <msk:write name="timestamp"/>"
+"Generated at <ano:write name="timestampAsDate"/>, timestamp: <ano:write name="timestamp"/>"

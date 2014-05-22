@@ -3,7 +3,7 @@
 %>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
-<jsp:include page="../../shared/jsp/InspectHeader.jsp" flush="false"/>
+<jsp:include page="../../shared/jsp/Header.jsp" flush="false"/>
 
 <script type="text/javascript" src="//www.google.com/jsapi"></script>
 <!-- jqplot core + plugins -->
@@ -139,22 +139,22 @@
                             <th></th>
                             <th>Name<i class="fa fa-caret-down"></i></th>
                             <th>Path <i class="fa fa-caret-down"></i></th>
-                            <th>Values <i class="fa fa-caret-down"></i><i class="chart-icon tooltip-bottom" title="Show chart"></i></th>
-                            <th>Last Timestamp <i class="fa fa-caret-down"></i><i class="chart-icon tooltip-bottom" title="Show chart"></i></th>
+                            <th>Values <i class="fa fa-caret-down"></i></th>
+                            <th>Last Timestamp <i class="fa fa-caret-down"></i></th>
                             <th class="th-actions"></th>
                         </tr>
                         </thead>
                         <tbody>
                         <ano:iterate name="accumulators" type="net.anotheria.moskito.webui.accumulators.api.AccumulatorDefinitionAO" id="accumulator" indexId="index">
                             <tr>
-                                <td><input type="checkbox" name="id_${accumulator.id}" value="set" <ano:present name="<%=\"id_\"+accumulator.getId()+\"_set\"%>">checked="checked"</ano:present>/></td>
+                                <td><input type="checkbox" class="checktr" name="id_${accumulator.id}" value="set" <ano:present name="<%=\"id_\"+accumulator.getId()+\"_set\"%>">checked="checked"</ano:present>/></td>
                                 <td><a href="?id_${accumulator.id}=set">${accumulator.name}</a></td>
                                 <td>${accumulator.path}</td>
                                 <td>${accumulator.numberOfValues}</td>
                                 <td>${accumulator.lastValueTimestamp}</td>
                                 <td class="actions-links">
                                     <a href="#mskAccumulatorDelete" data-toggle="modal" data-target="#mskAccumulatorDelete" data-id="${accumulator.id}" class="action-icon delete-icon tooltip-bottom" title="Delete"><i class="fa fa-ban"></i></a>
-                                    <a href="mskAccumulator?pId=${accumulator.id}" class="action-icon show-icon tooltip-bottom" title="Show"><i class="fa fa-search-plus"></i></a>
+                                    <a href="?id_${accumulator.id}=set" class="action-icon show-icon tooltip-bottom" title="Show"><i class="fa fa-search-plus"></i></a>
                                 </td>
                             </tr>
                         </ano:iterate>
@@ -162,62 +162,65 @@
                     </table>
                 </div>
 
-                <div class="box-footer">
-                    <div class="form-inline">
-                        <div class="form-group">
-                            <button class="btn btn-success">Submit</button>
-                        </div>
-                        <div class="form-group">
-                            (Mode:
-                        </div>
-                        <div class="radio">
-                            <label>
-                                <input type="radio" checked="checked" value="combined" name="mode"> combine
-                            </label>
-                        </div>
-                        <div class="radio">
-                            <label>
-                                <input type="radio" value="normalized" name="mode"> combine and normalize
-                            </label>
-                        </div>
-                        <div class="radio">
-                            <label>
-                                <input type="radio" value="multiple" name="mode"> multiple graphs
-                            </label>
-                        </div>
-                        <div class="form-group">
-                            )
-                        </div>
+                <div class="box-footer fixed">
+                    <div class="fixed-box">
+                        <div class="form-inline">
+                            <div class="form-group btns">
+                                <button class="btn btn-default btn-submit">Submit</button>
+                                <button class="btn btn-default btn-clear hide">Clear</button>
+                            </div>
+                            <div class="form-group">
+                                (Mode:
+                            </div>
+                            <div class="radio">
+                                <label>
+                                    <input type="radio" checked="checked" value="combined" name="mode"> combine
+                                </label>
+                            </div>
+                            <div class="radio">
+                                <label>
+                                    <input type="radio" value="normalized" name="mode"> combine and normalize
+                                </label>
+                            </div>
+                            <div class="radio">
+                                <label>
+                                    <input type="radio" value="multiple" name="mode"> multiple graphs
+                                </label>
+                            </div>
+                            <div class="form-group">
+                                )
+                            </div>
 
-                        <div class="form-group">
-                            (Type:&nbsp;
+                            <div class="form-group">
+                                (Type:&nbsp;
+                            </div>
+                            <div class="radio">
+                                <label>
+                                    <input type="radio" checked="checked" value="LineChart" name="type">&nbsp;Line
+                                </label>
+                            </div>
+                            <div class="radio">
+                                <label>
+                                    <input type="radio" value="PieChart" name="type">&nbsp;Pie
+                                </label>
+                            </div>
+                            <div class="radio">
+                                <label>
+                                    <input type="radio" value="BarChart" name="type">&nbsp;Bar
+                                </label>
+                            </div>
+                            <div class="radio">
+                                <label>
+                                    <input type="radio" value="ColumnChart" name="type">&nbsp;Column
+                                </label>
+                            </div>
+                            <div class="form-group">
+                                )
+                            </div>
+                            <input type="hidden" value="100" name="normalizeBase">
+                            <input type="hidden" value="200" name="maxValues">
                         </div>
-                        <div class="radio">
-                            <label>
-                                <input type="radio" checked="checked" value="LineChart" name="type">&nbsp;Line
-                            </label>
-                        </div>
-                        <div class="radio">
-                            <label>
-                                <input type="radio" value="PieChart" name="type">&nbsp;Pie
-                            </label>
-                        </div>
-                        <div class="radio">
-                            <label>
-                                <input type="radio" value="BarChart" name="type">&nbsp;Bar
-                            </label>
-                        </div>
-                        <div class="radio">
-                            <label>
-                                <input type="radio" value="ColumnChart" name="type">&nbsp;Column
-                            </label>
-                        </div>
-                        <div class="form-group">
-                            )
-                        </div>
-                        <input type="hidden" value="100" name="normalizeBase">
-                        <input type="hidden" value="200" name="maxValues">
-                    </div>
+                     </div>
                 </div>
             </form>
         </div>
@@ -239,13 +242,54 @@
         </div>
     </div>
 
-    <jsp:include page="../../shared/jsp/InspectFooter.jsp" flush="false"/>
+    <jsp:include page="../../shared/jsp/Footer.jsp" flush="false"/>
 
     <script type="text/javascript">
         $('.actions-links').on('click','.delete-icon', function() {
             var dataid = $(this).attr('data-id');
             $('.accumulator-delete-confirm').attr("href", "mskAccumulatorDelete?pId=" + dataid);
         });
+
+        $(window).scroll(function(){
+            if ($(document).scrollTop() >= $(document).height() - $(window).height() - 180) {
+                $('.box-footer').removeClass('fixed');
+            } else if($(document).scrollTop() < $(document).height() - $(window).height()){
+                $('.box-footer').addClass('fixed');
+            }
+        });//scroll
+
+        $('.checktr:checked').closest('tr').addClass('checked');
+        if($('.checktr').is(':checked')) {
+            $('.fixed-box .btn-submit').addClass('btn-success');
+            $('.fixed-box .btn-clear').removeClass('hide');
+        }
+
+        $('.fixed-box .btn-clear').click(function() {
+            $('.table tr').removeClass('checked');
+            $('.checktr').prop('checked', false);
+            $(this).addClass('hide');
+        });
+
+        $('.table tr')
+            .filter(':has(:checkbox:checked)')
+            .addClass('checked')
+            .end()
+            .click(function(event) {
+                $(this).toggleClass('checked');
+                if (event.target.type !== 'checkbox') {
+                    $(':checkbox', this).prop('checked', function() {
+                        return !this.checked;
+                    });
+                }
+                if ($('.checktr').is(':checked')) {
+                    $('.fixed-box .btn-submit').addClass('btn-success');
+                    $('.fixed-box .btn-clear').removeClass('hide');
+                }
+                else {
+                    $('.fixed-box .btn-submit').removeClass('btn-success');
+                    $('.fixed-box .btn-clear').addClass('hide');
+                }
+            });
     </script>
 
 </section>

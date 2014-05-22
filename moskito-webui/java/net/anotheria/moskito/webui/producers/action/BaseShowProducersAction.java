@@ -204,4 +204,8 @@ public abstract class BaseShowProducersAction extends BaseMoskitoUIAction {
 	}
 
 
+	@Override
+	protected boolean exportSupported() {
+		return true;
+	}
 }

@@ -3,7 +3,7 @@
 %>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/html">
-<jsp:include page="../../shared/jsp/InspectHeader.jsp" flush="false"/>
+<jsp:include page="../../shared/jsp/Header.jsp" flush="false"/>
 <section id="main">
     <div class="content">
         <div class="box">
@@ -22,7 +22,7 @@
             </p>
             <div id="collapse2" class="box-content accordion-body collapse in">
 
-                <table class="table table-striped tree ">
+                <table class="table table-striped table-tree tree">
                     <thead>
                     <tr>
                         <th><button class="btn btn-primary tree-expand">Expand</button></th>
@@ -33,16 +33,14 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <ano:iterate name="tracedCall" property="elements" type="net.anotheria.moskito.webui.journey.api.TracedCallStepAO" id="traceStep" indexId="index">
+                    <ano:iterate name="tracedCall" property="elements" type="net.anotheria.moskito.webui.journey.api.TracedCallStepAO" id="traceStep">
                         <%--
                             <ano:equal name="traceStep" property="aborted" value="true"><tr class="stat_error" id="node-<ano:write name="traceStep" property="id"/>"></ano:equal>
                          <ano:notEqual name="traceStep" property="aborted" value="true"><tr class="< %= ((index & 1) == 0 )? "even" : "odd" % >" id="node-<ano:write name="id"/>"></ano:notEqual>
                      --%>
-                        <tr class="treegrid-${index} <ano:equal name="traceStep" property="parentAvailable" value="true">treegrid-parent-${traceStep.parentId}</ano:equal>" id="node-${traceStep.id}">
-                            <td>${traceStep.niceId}</td>
-                            <td><span onmouseover="Tip('<ano:write name="traceStep" property="fullCall" filter="true"/>', WIDTH, 500)" onmouseout="UnTip()">
-                                <ano:write name="traceStep" property="call" filter="true"/>
-							</span></td>
+                        <tr data-level="${traceStep.level}">
+                            <td><div><i class="minus">–</i><i class="plus">+</i><i class="vline"></i>${traceStep.niceId}</div></td>
+                            <td class="tooltip-bottom" title="<ano:write name="traceStep" property="fullCall" filter="true"/>">${traceStep.call}</td>
                                 <%--<td onmouseover="Tip('<ano:write name="traceStep" property="fullCall" filter="true"/>', WIDTH, 500)" onmouseout="UnTip()"><% for (int i=1; i<traceStep.getLayer(); i++){ %><%= EMPTY %><%}%><ano:equal name="traceStep" property="root" value="false"><%=IMG%></ano:equal><ano:write name="traceStep" property="call" filter="true"/></td>--%>
                             <td>${traceStep.duration}</td>
                             <td>${traceStep.timespent}</td>
@@ -55,21 +53,20 @@
         </div>
 
     </div>
-<jsp:include page="../../shared/jsp/InspectFooter.jsp" flush="false"/>
+<jsp:include page="../../shared/jsp/Footer.jsp" flush="false"/>
 </section>
 <!-- autoexpand tree -->
 <script>
-    $('.tree').treegrid('expandAll');
-</script>
-<script>
     $(document).ready(function() {
         $('.table').on('click','.tree-expand', function() {
-            $('.tree').treegrid('expandAll');
+            $("table.tree tr.collapsed").removeClass('collapsed').addClass('expanded');
+            $("table.tree tr[style='display: none;']").css('display','table-row');
             $('.tree-expand').addClass('tree-collapse').removeClass('tree-expand').html('Collapse');
         });
 
         $('.table').on('click','.tree-collapse', function() {
-            $('.tree').treegrid('collapseAll');
+            $("table.tree tr.expanded").removeClass('expanded').addClass('collapsed');
+            $("table.tree tr[style='display: table-row;']").css('display','none');
             $('.tree-collapse').addClass('tree-expand').removeClass('tree-collapse').html('Expand');
         });
     });

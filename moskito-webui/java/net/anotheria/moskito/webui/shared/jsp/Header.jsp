@@ -6,23 +6,23 @@
     <title>${title}</title>
     <link href='http://fonts.googleapis.com/css?family=Lato:100,300,400,700' rel='stylesheet' type='text/css' />
     <link type="text/css" rel="stylesheet" href="http://fonts.googleapis.com/css?family=Mr+Bedfort" />
-    <link type="text/css" rel="stylesheet" rev="stylesheet" href="../ext/bootstrap-3.1.1/css/bootstrap.css" />
-    <link type="text/css" rel="stylesheet" rev="stylesheet" href="../ext/custom-scrollbar/jquery.mCustomScrollbar.css" />
-    <link type="text/css" rel="stylesheet" href="../ext/font-awesome-4.0.3/css/font-awesome.css" />
-    <link type="text/css" rel="stylesheet" rev="stylesheet" href="../ext/select2-3.4.6/select2.css" />
-    <link type="text/css" rel="stylesheet" rev="stylesheet" href="../ext/switchery/switchery.min.css" />
+    <link type="text/css" rel="stylesheet" rev="stylesheet" href="../moskito/ext/bootstrap-3.1.1/css/bootstrap.css" />
+    <link type="text/css" rel="stylesheet" rev="stylesheet" href="../moskito/ext/custom-scrollbar/jquery.mCustomScrollbar.css" />
+    <link type="text/css" rel="stylesheet" href="../moskito/ext/font-awesome-4.0.3/css/font-awesome.css" />
+    <link type="text/css" rel="stylesheet" rev="stylesheet" href="../moskito/ext/select2-3.4.6/select2.css" />
+    <link type="text/css" rel="stylesheet" rev="stylesheet" href="../moskito/ext/switchery/switchery.min.css" />
     <ano:equal name="currentSubNaviItem" property="id" value="more_config">
-        <link rel="stylesheet" type="text/css" href="../ext/google-code-prettify/prettify.css" />
+        <link rel="stylesheet" type="text/css" href="../moskito/ext/google-code-prettify/prettify.css" />
     </ano:equal>
     <ano:equal name="currentSubNaviItem" property="id" value="more_mbeans">
-        <link rel="stylesheet" type="text/css" href="../ext/treegrid/css/jquery.treegrid.css" />
+        <link rel="stylesheet" type="text/css" href="../moskito/ext/treegrid/css/jquery.treegrid.css" />
     </ano:equal>
     <ano:equal name="currentNaviItem" property="id" value="journeys">
-        <link rel="stylesheet" type="text/css" href="../ext/treegrid/css/jquery.treegrid.css" />
+        <link rel="stylesheet" type="text/css" href="../moskito/ext/treegrid/css/jquery.treegrid.css" />
     </ano:equal>
-    <link type="text/css" rel="stylesheet" rev="stylesheet" href="../int/css/common.css" />
+    <link type="text/css" rel="stylesheet" rev="stylesheet" href="../moskito/int/css/common.css" />
     <!--[if lt IE 9]><script src="../int/js/ie8-responsive-file-warning.js"></script><![endif]-->
-    <!--[if lt IE 8]><link type="text/css" rel="stylesheet" rev="stylesheet" href="../static-int/css/bootstrap-ie7.css" /><![endif]-->
+    <!--[if lt IE 8]><link type="text/css" rel="stylesheet" rev="stylesheet" href="../moskito/static-int/css/bootstrap-ie7.css" /><![endif]-->
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
@@ -70,9 +70,19 @@
         </form>
 
         <ul class="nav navbar-nav pull-right">
-            <li><a href="">Autoreload OFF</a></li>
-            <li><a href="">Export</a></li>
-            <li><a href="">Help</a></li>
+            <%-- removing autoreload feature for now, we can readd it later --%>
+            <%-- <li><a href="">Autoreload OFF</a></li> --%>
+            <ano:equal name="exportSupported" value="true">
+            <li class="dropdown">
+                <a data-toggle="dropdown" href="#">Export</a>
+                <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+                    <li><a target="_blank" href="<ano:write name="linkToCurrentPageAsXml"/>&amp;pForward=xml">XML</a></li>
+                    <li><a target="_blank" href="<ano:write name="linkToCurrentPageAsJson"/>&amp;pForward=json">JSON</a></li>
+                    <li><a target="_blank" href="<ano:write name="linkToCurrentPageAsCsv"/>&amp;pForward=csv">CSV</a></li>
+                </ul>
+            </li>
+            </ano:equal>
+            <li><a href="mskShowExplanations">Help</a></li>
         </ul>
     </div>
 </header>
@@ -81,7 +91,7 @@
 
     <div class="header-box">
         <span class="version">v  ${moskito_version_string}</span>
-        <a href="/">
+        <a href="">
             <i class="logo"></i>
             <span class="logo-title">MoSKito Inspect</span>
         </a>

@@ -230,5 +230,9 @@ public class ShowAccumulatorsAction extends BaseAccumulatorsAction {
 		return "accumulators";
 	}
 
+	@Override
+	protected boolean exportSupported() {
+		return true;
+	}
 
 }
