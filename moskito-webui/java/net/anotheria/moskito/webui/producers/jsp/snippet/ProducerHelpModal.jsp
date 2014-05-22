@@ -19,7 +19,7 @@
             var $boxClone = $box.clone();
             $boxClone.find('.box-title h3').html(data[i].caption);
             $boxClone.find('.box-content .paddner').html(data[i].explanation);
-            if(i == (data.length - 1) ) $boxClone.addClass('last');
+            if(i === data.length - 1 ) $boxClone.addClass('last');
             $dialogTplBody.append($boxClone);
         }
         $dialogTpl.modal('show');
@@ -45,7 +45,6 @@
                         </div>
                     </div>
                 </div>
-
             </div>
         </div>
     </div>
