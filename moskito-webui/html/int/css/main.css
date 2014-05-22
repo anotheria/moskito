@@ -339,6 +339,10 @@ body.status-yellow ul.nav-sidebar > li.active > a {
     font-weight: 400;
 }
 
+.box.last {
+    margin-bottom: 0;
+}
+
 .table > thead > tr > th, .table > tbody > tr > th, .table > tfoot > tr > th, .table > thead > tr > td, .table > tbody > tr > td, .table > tfoot > tr > td {
     border-top: none;
     padding: 8px 20px;
