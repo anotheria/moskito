@@ -33,7 +33,7 @@
 <body class="status-${systemStatusColor}<ano:notEmpty name="isNavMenuCollapsed"><ano:iF test="${isNavMenuCollapsed}"> aside-collapse</ano:iF></ano:notEmpty>">
 <ano:define name="moskito.CurrentUnit" property="unitName" id="currentUnit" toScope="page" type="java.lang.String"/>
 <!-- currently for handle select only -->
-<script type="text/javascript" src="../js/function.js"></script>
+<script type="text/javascript" src="../moskito/int/js/function.js"></script>
 
 <header id="header" class="navbar navbar-fixed-top navbar-default">
             <span class="caret-aside pull-left tooltip-bottom" title="Close/Open">
