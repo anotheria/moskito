@@ -3,7 +3,7 @@
 %><!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/html">
 
-<jsp:include page="../../shared/jsp/InspectHeader.jsp" flush="false"/>
+<jsp:include page="../../shared/jsp/Header.jsp" flush="false"/>
 
 <section id="main">
 <%--
@@ -64,7 +64,7 @@ Commented out for now. We may add this later as welcome message (to all layers).
 
 </div>
 
-<jsp:include page="../../shared/jsp/InspectFooter.jsp"/>
+<jsp:include page="../../shared/jsp/Footer.jsp"/>
 </section>
 <jsp:include page="snippet/ProducerHelpModal.jsp"/>
 </body>

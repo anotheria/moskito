@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 
-<jsp:include page="../../shared/jsp/InspectHeader.jsp" flush="false"/>
+<jsp:include page="../../shared/jsp/Header.jsp" flush="false"/>
 
 <section id="main">
     <div class="content">
@@ -105,7 +105,7 @@
         <p class="text-right">&nbsp;&nbsp;<a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/lang/management/ThreadMXBean.html" class="btn btn-primary">See Javadoc for details</a><br/><br/></p>
     </div>
 
-    <jsp:include page="../../shared/jsp/InspectFooter.jsp" flush="false"/>
+    <jsp:include page="../../shared/jsp/Footer.jsp" flush="false"/>
 
 </section>
 </body>

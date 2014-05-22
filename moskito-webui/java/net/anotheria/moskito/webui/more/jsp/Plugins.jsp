@@ -2,7 +2,7 @@
 <%@ taglib prefix="ano" uri="http://www.anotheria.net/ano-tags" %>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
-<jsp:include page="../../shared/jsp/InspectHeader.jsp" flush="false"/>
+<jsp:include page="../../shared/jsp/Header.jsp" flush="false"/>
 <section id="main">
     <div class="content">
 
@@ -54,7 +54,7 @@
         </div>
     </div>
 
-    <jsp:include page="../../shared/jsp/InspectFooter.jsp" flush="false"/>
+    <jsp:include page="../../shared/jsp/Footer.jsp" flush="false"/>
 
 </section>
 </body>

@@ -3,7 +3,7 @@
 %>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
-<jsp:include page="../../shared/jsp/InspectHeader.jsp" flush="false"/>
+<jsp:include page="../../shared/jsp/Header.jsp" flush="false"/>
 <section id="main">
     <ano:notPresent name="journeysPresent">
         <div class="alert alert-warning alert-dismissable">
@@ -111,7 +111,7 @@
 
     </div>
 
-    <jsp:include page="../../shared/jsp/InspectFooter.jsp" flush="false"/>
+    <jsp:include page="../../shared/jsp/Footer.jsp" flush="false"/>
 </section>
 </body>
 </html>
