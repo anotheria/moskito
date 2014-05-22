@@ -35,7 +35,7 @@
                     <tbody>
                     <ano:iterate name="thresholds" type="net.anotheria.moskito.webui.threshold.api.ThresholdStatusAO" id="threshold" indexId="index">
                     <tr>
-                        <td><a href="mskThresholdEdit?pId=${threshold.id}">${threshold.name}</a></td>
+                        <td><a onclick="showThresholdUpdateModal(${threshold.id}); return false" href="#">${threshold.name}</a></td>
                         <td><i class="status status-${threshold.colorCode}"></i></td>
                         <td>${threshold.value}</td>
                         <td><i class="status status-${threshold.previousColorCode}"></i> <i class="fa fa-long-arrow-right"></i> <i class="status status-${threshold.colorCode}"></i></td>
@@ -105,6 +105,7 @@
     </div>
 
     <jsp:include page="../../shared/jsp/InspectFooter.jsp" flush="false"/>
+    <jsp:include page="snippet/ThresholdUpdateModal.jsp"/>
 
     <script type="text/javascript">
         $('.actions-links').on('click','.delete-icon', function() {
@@ -114,6 +115,7 @@
     </script>
 
 </section>
+
 </body>
 </html>
 
