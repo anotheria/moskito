@@ -139,8 +139,8 @@
                             <th></th>
                             <th>Name<i class="fa fa-caret-down"></i></th>
                             <th>Path <i class="fa fa-caret-down"></i></th>
-                            <th>Values <i class="fa fa-caret-down"></i><i class="chart-icon tooltip-bottom" title="Show chart"></i></th>
-                            <th>Last Timestamp <i class="fa fa-caret-down"></i><i class="chart-icon tooltip-bottom" title="Show chart"></i></th>
+                            <th>Values <i class="fa fa-caret-down"></i></th>
+                            <th>Last Timestamp <i class="fa fa-caret-down"></i></th>
                             <th class="th-actions"></th>
                         </tr>
                         </thead>
