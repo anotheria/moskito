@@ -94,7 +94,13 @@
                                 <ano:equal name="journey" property="active" value="true">&nbsp;(<a href="#" onclick="stop_journey('${journey.name}')">stop</a>)</ano:equal>
                             </td>
 
-                            <td><a class="action-icon show-icon tooltip-bottom" title="" data-original-title="Show steps in journey ${journey.name}"  href="mskShowJourney?pJourneyName=${journey.name}"><i class="fa fa-search"></i></a><a class="action-icon show-icon tooltip-bottom" title="" data-original-title="Analyze journey ${journey.name}"  href="mskAnalyzeJourney?pJourneyName=${journey.name}"><i class="fa fa-search-plus"></i></a></td>
+                            <td>
+                                <a class="action-icon delete-icon tooltip-bottom" title="" data-original-title="Delete ${journey.name}" href="mskDeleteJourney?pJourneyName=${journey.name}"><i class="fa fa-ban"></i></a>
+                                <a class="action-icon show-icon tooltip-bottom" title="" data-original-title="Show steps in journey ${journey.name}"  href="mskShowJourney?pJourneyName=${journey.name}"><i class="fa fa-search"></i></a>
+                                <a class="action-icon show-icon tooltip-bottom" title="" data-original-title="Analyze journey ${journey.name}"  href="mskAnalyzeJourney?pJourneyName=${journey.name}"><i class="fa fa-search-plus"></i></a>
+
+                            </td>
+
                         </tr>
                     </ano:iterate>
                     </tbody>

@@ -36,4 +36,6 @@ public interface JourneyAPI extends API, Service {
 	TracedCallAO getTracedCall(String journeyName, int callPosition, TimeUnit unit) throws APIException;
 
 	List<AnalyzedProducerCallsMapAO> analyzeJourney(String journeyName) throws APIException;
+
+	void deleteJourney(String journeyName) throws APIException;
 }

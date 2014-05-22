@@ -9,6 +9,7 @@ import net.anotheria.moskito.webui.accumulators.action.DeleteAccumulatorAction;
 import net.anotheria.moskito.webui.accumulators.action.ShowAccumulatorAction;
 import net.anotheria.moskito.webui.accumulators.action.ShowAccumulatorsAction;
 import net.anotheria.moskito.webui.journey.action.AnalyzeJourneyAction;
+import net.anotheria.moskito.webui.journey.action.DeleteJourneyAction;
 import net.anotheria.moskito.webui.journey.action.ShowJourneyAction;
 import net.anotheria.moskito.webui.journey.action.ShowJourneyCallAction;
 import net.anotheria.moskito.webui.journey.action.ShowJourneysAction;
@@ -110,6 +111,10 @@ public class MoskitoMappingsConfigurator implements ActionMappingsConfigurator{
 		);
 		mappings.addMapping("mskShowJourneyCall", ShowJourneyCallAction.class, 
 				new ActionForward("success", "/net/anotheria/moskito/webui/journey/jsp/JourneyCall.jsp")
+		);
+
+		mappings.addMapping("mskDeleteJourney", DeleteJourneyAction.class,
+				new CommandRedirect("redirect", "mskShowJourneys")
 		);
 
 
