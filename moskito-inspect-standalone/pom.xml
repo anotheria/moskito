@@ -73,7 +73,7 @@
 							<type>jar</type>
 							<overWrite>true</overWrite>
 							<outputDirectory>${project.build.directory}/tmp</outputDirectory>
-							<includes>moskito/**,</includes>
+							<includes>moskito/**,**/*.jsp</includes>
 						</artifactItem>
 					</artifactItems>
 				</configuration>
