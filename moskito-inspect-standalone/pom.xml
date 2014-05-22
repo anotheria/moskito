@@ -73,7 +73,7 @@
 							<type>jar</type>
 							<overWrite>true</overWrite>
 							<outputDirectory>${project.build.directory}/tmp</outputDirectory>
-							<includes>wireframes/*,img/*,js/*.js, js/charts/*.js,js/charts/highcharts/*.js,js/charts/jqplot/*.js,**/*.jsp,css/*.css, int/**, ext/**</includes>
+							<includes>moskito/**,</includes>
 						</artifactItem>
 					</artifactItems>
 				</configuration>
