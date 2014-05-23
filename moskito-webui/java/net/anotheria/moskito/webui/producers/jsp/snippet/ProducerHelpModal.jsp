@@ -2,7 +2,7 @@
 <%@ taglib uri="http://www.anotheria.net/ano-tags" prefix="ano"%>
 <script type="text/javascript">
     function showProducerHelpModal(producerName){
-        $.ajax({url: getBaseUrl() + "mskGetExplanationsByName?pName=" + producerName,
+        $.ajax({url: "mskGetExplanationsByName?pName=" + producerName,
             dataType: "json",
             success: function (data) {
                 populateAndShowModal(data, producerName);

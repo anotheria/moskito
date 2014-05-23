@@ -3,38 +3,50 @@
 
 <script type="text/javascript">
     function showThresholdUpdateModal(tresholdId){
-        $.ajax({url: getBaseUrl() + "mskGetThresholdDefinition?pId=" + tresholdId,
+        $.ajax({url: "mskGetThresholdDefinition?pId=" + tresholdId,
             dataType: "json",
             success: function (data) {
-                populateAndShowTresholdEditModal(data);
+                populateAndShowThresholdEditModal(data);
             }});
     }
-    function populateAndShowTresholdEditModal(data){
+    function populateAndShowThresholdEditModal(data){
         var $dialogTpl = $($('#updateThresholdTemplate')[0]);
-        alert(data);
-        /*
         if(!$dialogTpl) return;
-        $dialogTpl.find('.modal-title').html(producerName);
-        var $dialogTplBody = $($dialogTpl.find('.modal-body')[0]);
-        var $box = $($dialogTplBody.find('.box')[0]);
-        $dialogTplBody.empty();
-        for(var i=0; i< data.length;i++){
-            var $boxClone = $box.clone();
-            $boxClone.find('.box-title h3').html(data[i].caption);
-            $boxClone.find('.box-content .paddner').html(data[i].explanation);
-            if(i === data.length - 1 ) $boxClone.addClass('last');
-            $dialogTplBody.append($boxClone);
+        document.forms.UpdateThreshold.pId.value = data.id;
+        document.forms.UpdateThreshold.name.value = data.name;
+
+        for(var i=0; i< data.guards.length;i++){
+            var guard = data.guards[i];
+            switch(data.guards[i].targetStatus) {
+                case 'GREEN':
+                    document.forms.UpdateThreshold.greenDir.value = guard.direction;
+                    document.forms.UpdateThreshold.greenValue.value = guard.barrierValue;
+                    break;
+                case 'YELLOW':
+                    document.forms.UpdateThreshold.yellowDir.value = guard.direction;
+                    document.forms.UpdateThreshold.yellowValue.value = guard.barrierValue;
+                    break;
+                case 'ORANGE':
+                    document.forms.UpdateThreshold.orangeDir.value = guard.direction;
+                    document.forms.UpdateThreshold.orangeValue.value = guard.barrierValue;
+                    break;
+                case 'RED':
+                    document.forms.UpdateThreshold.redDir.value = guard.direction;
+                    document.forms.UpdateThreshold.redValue.value = guard.barrierValue;
+                    break;
+                case 'PURPLE':
+                    document.forms.UpdateThreshold.purpleDir.value = guard.direction;
+                    document.forms.UpdateThreshold.purpleValue.value = guard.barrierValue;
+                    break;
+            }
         }
-        */
+        $dialogTpl.find('#producerName').html(data.producerName);
+        $dialogTpl.find('#interval').html(data.intervalName);
+        $dialogTpl.find('#unit').html(data.timeUnit);
+
         $dialogTpl.modal('show');
     }
 
-    function setandsubmit(valueName, statName){
-        //alert('Value name is '+valueName+" in stat  "+statName);
-        document.forms.UpdateThreshold.statName.value = statName;
-        document.forms.UpdateThreshold.valueName.value = valueName;
-        document.forms.UpdateThreshold.submit();
-    }
     function switchDirection(){
         if (document.forms.UpdateThreshold.greenDir.value=='above')
             targetValue = 'below';
@@ -48,17 +60,17 @@
     }
 
     function switchgreenvalue(){
-        document.forms.CreateThreshold.yellowValue.value=document.forms.CreateThreshold.greenValue.value;
+        document.forms.UpdateThreshold.yellowValue.value = document.forms.UpdateThreshold.greenValue.value;
     }
 </script>
 
 <div class="modal fade" id="updateThresholdTemplate" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog form">
         <form name="UpdateThreshold" action="mskThresholdUpdate" method="GET">
-            <input type="hidden" name="producerId" value="${producer.producerId}"/>
             <input type="hidden" name="target" value="Threshold"/>
             <input type="hidden" name="statName"/>
             <input type="hidden" name="valueName"/>
+            <input type="hidden" name="pId"/>
 
             <div class="modal-content">
                 <div class="modal-header">
@@ -134,67 +146,25 @@
                         </div>
                     </div>
 
-                    <div class="form-group">
-                        <div class="row">
-                            <div class="col-md-6">
-                                <ano:define name="currentInterval" id="currentInterval" toScope="page" type="java.lang.String"/>
-                                <label for="Interval">Interval</label>
-                                <select name="interval" class="form-control" id="Interval">
-                                    <ano:iterate name="intervals" id="interval" type="net.anotheria.moskito.webui.shared.api.IntervalInfoAO">
-                                        <option value="${interval.name}" <ano:equal name="interval" property="name" value="<%=currentInterval%>">selected="selected"</ano:equal>>
-                                                ${interval.name}
-                                        </option>
-                                    </ano:iterate>
-                                </select>
-                            </div>
-                            <div class="col-md-6">
-                                <ano:define name="moskito.CurrentUnit" property="unitName" id="currentUnit" toScope="page" type="java.lang.String"/>
-
-                                <label for="TimeUnite">TimeUnit</label>
-                                <select name="unit" id="TimeUnite" class="form-control">
-                                    <ano:iterate name="units" id="unit" type="net.anotheria.moskito.webui.shared.bean.UnitBean">
-                                        <option value="<ano:write name="unit" property="unitName"/>" <ano:equal name="unit" property="unitName" value="<%=currentUnit%>">selected="selected"</ano:equal>>
-                                                ${unit.unitName}
-                                        </option>
-                                    </ano:iterate>
-                                </select>
-
-                            </div>
-                        </div>
-                    </div>
                 </div>
+
                 <div class="form-group">
                     <dl class="dl-horizontal">
                         <dt>Producer:</dt>
-                        <dd>${producer.producerId}</dd>
+                        <dd id="producerName"></dd>
+                    </dl>
+                    <dl class="dl-horizontal">
+                        <dt>Interval:</dt>
+                        <dd id="interval"></dd>
+                    </dl>
+                    <dl class="dl-horizontal">
+                        <dt>TimeUnit:</dt>
+                        <dd id="unit"></dd>
                     </dl>
                 </div>
 
-                <div class="modal-table">
-                    <table class="table table-striped tablesorter">
-                        <thead>
-                        <tr>
-                            <th>Name</th>
-                            <ano:iterate name="decorator" property="captions" type="net.anotheria.moskito.webui.shared.bean.StatCaptionBean" id="caption" indexId="ind">
-                                <th>${caption.caption}</th>
-                            </ano:iterate>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <ano:iterate name="decorator" property="stats" id="stat" type="net.anotheria.moskito.webui.shared.bean.StatBean" indexId="index">
-                            <tr>
-                                <td>${stat.name}</td>
-                                <ano:iterate name="stat" property="values" id="value" type="net.anotheria.moskito.webui.producers.api.StatValueAO">
-                                    <td>
-                                        <a href="#" onclick="setandsubmit('${value.name}', '${stat.name}'); return false"><i class="fa fa-plus"></i></a>
-                                    </td>
-                                </ano:iterate>
-                            </tr>
-                        </ano:iterate>
-                        </tbody>
-                    </table>
-                </div>
                 <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">Update</button>
                     <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
                 </div>
             </div>
