@@ -52,8 +52,6 @@
             </div>
         </div>
 
-        --- ${dupStepBeansSize} ---
-
         <%-- duplicates --%>
         <ano:present name="dupStepBeansSize">
         <div class="box">
