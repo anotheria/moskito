@@ -72,5 +72,4 @@ public class TracedCallAO implements Serializable{
 	public void setDuplicateSteps(List<TracedCallDuplicateStepsAO> duplicateSteps) {
 		this.duplicateSteps = duplicateSteps;
 	}
-
 }
