@@ -44,7 +44,7 @@
                         <td>${threshold.description}</td>
                         <td class="actions-links">
                             <a href="#mskThresholdDelete" data-toggle="modal" data-target="#mskThresholdDelete" data-id="${threshold.id}" class="action-icon delete-icon tooltip-bottom" title="Delete ${threshold.name}"><i class="fa fa-ban"></i></a>
-                            <a href="mskThresholdEdit?pId=${threshold.id}" class="action-icon edit-icon tooltip-bottom" title="Edit ${threshold.name}"><i class="fa fa-pencil"></i></a>
+                            <a onclick="showThresholdUpdateModal(${threshold.id}); return false" href="#" class="action-icon edit-icon tooltip-bottom" title="Edit ${threshold.name}"><i class="fa fa-pencil"></i></a>
                         </td>
                     </tr>
                     </ano:iterate>
