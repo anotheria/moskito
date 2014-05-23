@@ -1126,6 +1126,13 @@ ul.switcher li i.chart-icon {
     top:auto;
 }
 
+.headcol a {
+    display: block;
+    max-width: 200px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
 .table1fixed {
     margin-left: 190px;
     overflow-x: auto;
