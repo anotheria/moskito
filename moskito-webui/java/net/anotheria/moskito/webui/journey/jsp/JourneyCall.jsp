@@ -8,7 +8,7 @@
     <div class="content">
         <div class="box">
             <div class="box-title">
-                <a class="accordion-toggle tooltip-bottom" title="Close/Open" data-toggle="collapse" href="#collapse2"><i class="fa fa-caret-right"></i></a>
+                <i class="fa fa-caret-right"></i>
                 <h3 class="pull-left">
                     <a href="mskShowJourneys">Journeys</a> :: <a href="mskShowJourney?pJourneyName=${journeyName}">${journeyName}</a>  :: ${tracedCall.name}
                 </h3>
@@ -20,7 +20,7 @@
             <p class="paddner">
                 <span><ano:write name="tracedCall" property="created"/>&nbsp;&nbsp;<ano:write name="tracedCall" property="date"/> &nbsp;&nbsp;</span>
             </p>
-            <div id="collapse2" class="box-content accordion-body collapse in">
+            <div class="box-content">
 
                 <table class="table table-striped table-tree tree">
                     <thead>

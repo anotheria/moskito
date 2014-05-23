@@ -33,7 +33,7 @@
 
         <div class="box">
             <div class="box-title">
-                <a class="accordion-toggle tooltip-bottom" title="Close/Open" data-toggle="collapse" href="#collapseJourneys"><i class="fa fa-caret-right"></i></a>
+                <i class="fa fa-caret-right"></i>
                 <h3 class="pull-left">
                     Journeys
                 </h3>
@@ -41,7 +41,7 @@
                     <a href="" class="tooltip-bottom" title="Help"><i class="fa fa-info-circle"></i></a>
                 </div>
             </div>
-            <div id="collapseJourneys" class="box-content accordion-body collapse in">
+            <div class="box-content">
                 <div class="paddner">
                     <div class="jour-left form-inline">
                         <p>To start a new journey now enter the name for the journey</p>
@@ -63,7 +63,7 @@
         <ano:present name="journeysPresent">
         <div class="box">
             <div class="box-title">
-                <a class="accordion-toggle tooltip-bottom" title="Close/Open" data-toggle="collapse" href="#collapseRecorded"><i class="fa fa-caret-right"></i></a>
+                <i class="fa fa-caret-right"></i>
                 <h3 class="pull-left">
                     Recorded journeys.
                 </h3>
@@ -71,7 +71,7 @@
                     <a href="" class="tooltip-bottom" title="Help"><i class="fa fa-info-circle"></i></a>
                 </div>
             </div>
-            <div id="collapseRecorded" class="box-content accordion-body collapse in">
+            <div class="box-content">
                 <table class="table table-striped tablesorter">
                     <thead>
                     <tr>
