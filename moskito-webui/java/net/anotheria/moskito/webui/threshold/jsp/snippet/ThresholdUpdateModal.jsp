@@ -19,39 +19,45 @@
             var guard = data.guards[i];
             switch(data.guards[i].targetStatus) {
                 case 'GREEN':
-                    document.forms.UpdateThreshold.greenDir.value = guard.direction;
                     document.forms.UpdateThreshold.greenValue.value = guard.barrierValue;
+                    selectOption('greenDir', guard.direction);
                     break;
                 case 'YELLOW':
-                    document.forms.UpdateThreshold.yellowDir.value = guard.direction;
                     document.forms.UpdateThreshold.yellowValue.value = guard.barrierValue;
+                    selectOption('yellowDir', guard.direction);
                     break;
                 case 'ORANGE':
-                    document.forms.UpdateThreshold.orangeDir.value = guard.direction;
                     document.forms.UpdateThreshold.orangeValue.value = guard.barrierValue;
+                    selectOption('orangeDir', guard.direction);
                     break;
                 case 'RED':
-                    document.forms.UpdateThreshold.redDir.value = guard.direction;
                     document.forms.UpdateThreshold.redValue.value = guard.barrierValue;
+                    selectOption('redDir', guard.direction);
                     break;
                 case 'PURPLE':
-                    document.forms.UpdateThreshold.purpleDir.value = guard.direction;
                     document.forms.UpdateThreshold.purpleValue.value = guard.barrierValue;
+                    selectOption('purpleDir', guard.direction);
                     break;
             }
         }
-        $dialogTpl.find('#producerName').html(data.producerName);
-        $dialogTpl.find('#interval').html(data.intervalName);
-        $dialogTpl.find('#unit').html(data.timeUnit);
+        $dialogTpl.find('#producerName').text(data.producerName);
+        $dialogTpl.find('#interval').text(data.intervalName);
+        $dialogTpl.find('#unit').text(data.timeUnit);
 
         $dialogTpl.modal('show');
     }
 
+    function selectOption(selectName, optionValue) {
+        $("select[name=" + selectName + "] option").filter(function() {
+            return $(this).prop('value') == optionValue;
+        }).prop('selected', true);
+    }
+
     function switchDirection(){
-        if (document.forms.UpdateThreshold.greenDir.value=='above')
-            targetValue = 'below';
+        if (document.forms.UpdateThreshold.greenDir.value=='UP')
+            targetValue = 'DOWN';
         else
-            targetValue = 'above';
+            targetValue = 'UP';
 
         document.forms.UpdateThreshold.yellowDir.value = targetValue;
         document.forms.UpdateThreshold.orangeDir.value = targetValue;
@@ -88,7 +94,10 @@
                                 <label>Guards</label>
                                 <div class="switch-direction">
                                     <div class="status-control pull-left tooltip-bottom" title="Green"><i class="status status-green"></i></div>
-                                    <select onchange="switchDirection();" name="greenDir" class="form-control"><option>below</option><option>above</option></select>
+                                    <select onchange="switchDirection();" name="greenDir" class="form-control">
+                                        <option value="DOWN">below</option>
+                                        <option value="UP">above</option>
+                                    </select>
                                 </div>
                             </div>
                             <div class="col-md-6">
@@ -101,7 +110,10 @@
                             <div class="col-md-6">
                                 <div class="switch-direction">
                                     <div class="status-control pull-left tooltip-bottom" title="Yellow"><i class="status status-yellow"></i></div>
-                                    <select onchange="switchDirection();" name="yellowDir" class="form-control"><option>below</option><option selected="selected">above</option></select>
+                                    <select onchange="switchDirection();" name="yellowDir" class="form-control">
+                                        <option value="DOWN">below</option>
+                                        <option value="UP">above</option>
+                                    </select>
                                 </div>
                             </div>
                             <div class="col-md-6">
@@ -113,7 +125,10 @@
                             <div class="col-md-6">
                                 <div class="switch-direction">
                                     <div class="status-control pull-left tooltip-bottom" title="Orange"><i class="status status-orange"></i></div>
-                                    <select onchange="switchDirection();" name="orangeDir" class="form-control"><option>below</option><option selected="selected">above</option></select>
+                                    <select onchange="switchDirection();" name="orangeDir" class="form-control">
+                                        <option value="DOWN">below</option>
+                                        <option value="UP">above</option>
+                                    </select>
                                 </div>
                             </div>
                             <div class="col-md-6">
@@ -125,7 +140,10 @@
                             <div class="col-md-6">
                                 <div class="switch-direction">
                                     <div class="status-control pull-left tooltip-bottom" title="Red"><i class="status status-red"></i></div>
-                                    <select onchange="switchDirection();" name="redDir" class="form-control"><option>below</option><option selected="selected">above</option></select>
+                                    <select onchange="switchDirection();" name="redDir" class="form-control">
+                                        <option value="DOWN">below</option>
+                                        <option value="UP">above</option>
+                                    </select>
                                 </div>
                             </div>
                             <div class="col-md-6">
@@ -137,7 +155,10 @@
                             <div class="col-md-6">
                                 <div class="switch-direction">
                                     <div class="status-control pull-left tooltip-bottom" title="Purple"><i class="status status-purple"></i></div>
-                                    <select onchange="switchDirection();" name="purpleDir" class="form-control"><option>below</option><option  selected="selected">above</option></select>
+                                    <select onchange="switchDirection();" name="purpleDir" class="form-control">
+                                        <option value="DOWN">below</option>
+                                        <option value="UP">above</option>
+                                    </select>
                                 </div>
                             </div>
                             <div class="col-md-6">
