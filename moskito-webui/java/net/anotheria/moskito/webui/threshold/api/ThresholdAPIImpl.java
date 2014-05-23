@@ -65,19 +65,27 @@ public class ThresholdAPIImpl extends AbstractMoskitoAPIImpl implements Threshol
 		throw new IllegalArgumentException("Unknown parameter value for direction "+param+", expected below or above.");
 	}
 
+    protected GuardedDirection enumName2direction(String param){
+        if (param==null)
+            throw new IllegalArgumentException("Empty direction parameter!");
+        try {
+            return GuardedDirection.valueOf(param);
+        } catch (Exception e) {
+            throw new IllegalArgumentException("Unknown parameter value for direction "+param+", expected DOWN or UP.");
+        }
+    }
+
 	@Override
 	public void updateThreshold(String thresholdId, ThresholdPO po) throws APIException{
 		Threshold oldThreshold = ThresholdRepository.getInstance().getById(thresholdId);
 		ThresholdDefinition td = oldThreshold.getDefinition();
 		td.setName(po.getName());
 
-		//remove old
-		ThresholdRepository.getInstance().removeById(thresholdId);
-		GuardedDirection greenDir = string2direction(po.getGreenDir());
-		GuardedDirection yellowDir = string2direction(po.getYellowDir());
-		GuardedDirection orangeDir = string2direction(po.getOrangeDir());
-		GuardedDirection redDir = string2direction(po.getRedDir());
-		GuardedDirection purpleDir = string2direction(po.getPurpleDir());
+		GuardedDirection greenDir = enumName2direction(po.getGreenDir());
+		GuardedDirection yellowDir = enumName2direction(po.getYellowDir());
+		GuardedDirection orangeDir = enumName2direction(po.getOrangeDir());
+		GuardedDirection redDir = enumName2direction(po.getRedDir());
+		GuardedDirection purpleDir = enumName2direction(po.getPurpleDir());
 
 		String greenValue  = po.getGreenValue();
 		String yellowValue = po.getYellowValue();
@@ -86,6 +94,9 @@ public class ThresholdAPIImpl extends AbstractMoskitoAPIImpl implements Threshol
 		String purpleValue = po.getPurpleValue();
 
 		validateValues(greenValue, yellowValue, orangeValue, redValue, purpleValue);
+
+        //remove old
+        ThresholdRepository.getInstance().removeById(thresholdId);
 
 		//determine if we have to use double
 		boolean hasDots = hasDots(greenValue, yellowValue, orangeValue, redValue, purpleValue);
