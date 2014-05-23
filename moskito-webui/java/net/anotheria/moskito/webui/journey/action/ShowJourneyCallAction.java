@@ -11,7 +11,6 @@ import net.anotheria.util.sorter.StaticQuickSorter;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -39,7 +38,7 @@ public class ShowJourneyCallAction extends BaseJourneyAction{
 		TracedCallAO bean = getJourneyAPI().getTracedCall(journeyName, callPosition, getCurrentUnit(req).getUnit());
 
 		//check for duplicates
-		List<TracedCallDuplicateStepsAO> dupStepBeans = new ArrayList<TracedCallDuplicateStepsAO>();
+		List<TracedCallDuplicateStepsAO> dupStepBeans = bean.getDuplicateSteps();
 
 		if (dupStepBeans.size()>0){
 			int sortBy = TracedCallDuplicateStepsAOSortType.SORT_BY_DEFAULT;
