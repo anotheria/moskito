@@ -156,7 +156,7 @@
             </ano:iterate>
         </select>
 
-        <input type="text" class="form-control" placeholder="Name Filter">
+        <form name="Filter" action="mskShowAllProducers" method="GET"><input type="text" name="pNameFilter" value="${nameFilter}" class="form-control" placeholder="Name Filter"></form>
     </div>
     </ano:equal>
 
