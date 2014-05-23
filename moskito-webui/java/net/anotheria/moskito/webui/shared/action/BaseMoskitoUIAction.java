@@ -341,10 +341,6 @@ public abstract class BaseMoskitoUIAction implements Action{
 			currentSubNaviItem = NaviItem.NONE;
 		req.setAttribute("currentSubNaviItem", currentSubNaviItem);
 
-		///////////// prepare intervals
-		req.setAttribute("intervals", APILookupUtility.getAdditionalFunctionalityAPI().getIntervalInfos());
-		req.setAttribute("currentInterval", currentIntervalName);
-
 		////////////// prepare units
 		req.setAttribute("units", AVAILABLE_UNITS_LIST);
 		//ensure current unit is properly set.
@@ -356,6 +352,28 @@ public abstract class BaseMoskitoUIAction implements Action{
 		req.setAttribute("linkToCurrentPageAsCsv", maskAsCSV(getLinkToCurrentPage(req)));
 		req.setAttribute("linkToCurrentPageAsJson", maskAsJSON(getLinkToCurrentPage(req)));
 
+
+		//configuration issues.
+		req.setAttribute("config", WebUIConfig.getInstance());
+
+		//moved connectivity app, otherwise we don't have selector in case of an error.
+		//set pagename
+		req.setAttribute("pagename", getPageName());
+		req.setAttribute("connection", APILookupUtility.describeConnectivity());
+
+		//prepare selector.
+		LinkedList<LabelValueBean> connectivityOptions = new LinkedList<LabelValueBean>();
+		connectivityOptions.add(new LabelValueBean("Local", "Local"));
+		for (RemoteInstance ri : WebUIConfig.getInstance().getRemotes()){
+			connectivityOptions.add(new LabelValueBean(ri.toString(), ri.getSelectKey()));
+		}
+		req.setAttribute("connectivityOptions", connectivityOptions);
+		req.setAttribute("selectedConnectivity", APILookupUtility.isLocal() ? "Local" : APILookupUtility.getCurrentRemoteInstance().getSelectKey());
+
+
+		///////////// prepare intervals
+		req.setAttribute("intervals", APILookupUtility.getAdditionalFunctionalityAPI().getIntervalInfos());
+		req.setAttribute("currentInterval", currentIntervalName);
 
 		//prepare interval timestamp and age.
 		Long currentIntervalUpdateTimestamp = getAdditionalFunctionalityAPI().getIntervalUpdateTimestamp(currentIntervalName);
@@ -374,8 +392,6 @@ public abstract class BaseMoskitoUIAction implements Action{
 		req.setAttribute("systemStatus", systemStatus);
 		req.setAttribute("systemStatusColor", systemStatus.toString().toLowerCase());
 
-		//configuration issues.
-		req.setAttribute("config", WebUIConfig.getInstance());
 
 		//check for autoreload.
 		String pReloadInterval = req.getParameter(PARAM_RELOAD_INTERVAL);
@@ -407,19 +423,6 @@ public abstract class BaseMoskitoUIAction implements Action{
 
 		req.setAttribute("chartEngine", chartEngine);
 		req.setAttribute("numericTimestamps", chartEngine.requiresNumericTimestamp());
-
-		//set pagename
-		req.setAttribute("pagename", getPageName());
-		req.setAttribute("connection", APILookupUtility.describeConnectivity());
-
-		//prepare selector.
-		LinkedList<LabelValueBean> connectivityOptions = new LinkedList<LabelValueBean>();
-		connectivityOptions.add(new LabelValueBean("Local", "Local"));
-		for (RemoteInstance ri : WebUIConfig.getInstance().getRemotes()){
-			connectivityOptions.add(new LabelValueBean(ri.toString(), ri.getSelectKey()));
-		}
-		req.setAttribute("connectivityOptions", connectivityOptions);
-		req.setAttribute("selectedConnectivity", APILookupUtility.isLocal() ? "Local" : APILookupUtility.getCurrentRemoteInstance().getSelectKey());
 
 		checkNavigationMenuState(req);
 

@@ -18,7 +18,8 @@
         </div>
 
     </div>
-
+    <!-- FOOTER -->
+    <jsp:include page="Footer.jsp" flush="false"/>
 </section>
 </body>
 </html>
