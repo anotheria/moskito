@@ -24,6 +24,10 @@ THIS PAGE ISN'T IN USE ANYMORE
 <script type="text/javascript" src="../js/charts/jqplot/jqplot.cursor.js"></script>
 <script type="text/javascript" src="../js/charts/jqplot/jqplot.highlighter.js"></script>
 <script type="text/javascript" src="../js/charts/jqplot/jqplot.dateAxisRenderer.js"></script>
+<script type="text/javascript" src="../js/charts/jqplot/jqplot.pieRenderer.min.js"></script>
+<script type="text/javascript" src="../js/charts/jqplot/jqplot.donutRenderer.min.js"></script>
+<script type="text/javascript" src="../js/charts/jqplot/jqplot.categoryAxisRenderer.min.js"></script>
+<script type="text/javascript" src="../js/charts/jqplot/jqplot.barRenderer.min.js"></script>
 
 <script type="text/javascript" src="../js/charts/chartEngineIniter.js"></script>
 
