@@ -25,10 +25,6 @@ public class ThreadsOverviewAction extends BaseThreadsAction{
 	}
 
 	@Override
-	protected String getLinkToCurrentPage(HttpServletRequest req) {
-		return null;
-	}
-	@Override
 	protected String getPageName() {
 		return "threads_overview";
 	}

@@ -16,7 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 public class AdditionalSectionAction extends BaseAdditionalAction{
 	@Override
 	protected String getLinkToCurrentPage(HttpServletRequest req) {
-		return "mskMore";
+		return "mskMore?ts="+System.currentTimeMillis();
 	}
 
 	@Override

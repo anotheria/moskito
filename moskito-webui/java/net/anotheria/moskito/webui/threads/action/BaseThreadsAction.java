@@ -17,8 +17,8 @@ public abstract class BaseThreadsAction extends BaseMoskitoUIAction {
 	}
 
 	@Override
-	protected String getLinkToCurrentPage(HttpServletRequest req) {
-		return null;
+	protected final String getLinkToCurrentPage(HttpServletRequest req) {
+		return "mskThreads?ts="+System.currentTimeMillis();
 	}
 
 

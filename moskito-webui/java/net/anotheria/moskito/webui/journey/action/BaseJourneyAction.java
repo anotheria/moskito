@@ -28,7 +28,7 @@ abstract class BaseJourneyAction extends BaseMoskitoUIAction {
 	@Override
 
 	protected String getLinkToCurrentPage(HttpServletRequest req) {
-		return "mskShowJourneys";
+		return "mskShowJourneys?ts="+System.currentTimeMillis();
 	}
 
 }

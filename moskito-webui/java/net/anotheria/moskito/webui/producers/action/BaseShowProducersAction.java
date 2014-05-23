@@ -101,11 +101,9 @@ public abstract class BaseShowProducersAction extends BaseMoskitoUIAction {
 	protected void doCustomProcessing(HttpServletRequest req, HttpServletResponse res){
 		try{
 			List<UnitCountAO> categories = getProducerAPI().getCategories();
-			categories.add(0, EMPTY_UNIT);
 			req.setAttribute("categories", categories);
 
 			List<UnitCountAO> subsystems = getProducerAPI().getSubsystems();
-			subsystems.add(0, EMPTY_UNIT);
 			req.setAttribute("subsystems", subsystems);
 		}catch(APIException e){
 			throw new IllegalStateException("Couldn't obtain categories/subsystems ", e);

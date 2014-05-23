@@ -18,11 +18,6 @@ public class ShowJourneysAction extends BaseJourneyAction{
 	
 	
 	@Override
-	protected String getLinkToCurrentPage(HttpServletRequest req) {
-		return "";
-	}
-
-	@Override
 	public ActionCommand execute(ActionMapping mapping, FormBean formBean, HttpServletRequest req, HttpServletResponse res) throws Exception{
 
 		String contextPath = req.getContextPath();
