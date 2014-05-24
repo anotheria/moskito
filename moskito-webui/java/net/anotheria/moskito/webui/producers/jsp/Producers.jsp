@@ -32,7 +32,10 @@
                 <th>Category <i class="fa fa-caret-down"></i></th>
                 <th>Subsystem <i class="fa fa-caret-down"></i></th>
                 <ano:iterate name="decorator" property="captions" type="net.anotheria.moskito.webui.shared.bean.StatCaptionBean" id="caption" indexId="ind">
-                    <th title="${caption.shortExplanation}">${caption.caption} <i class="fa fa-caret-down"></i><i class="chart-icon tooltip-bottom" title="Show chart"></i></th>
+                    <th title="${caption.shortExplanation}" class="table-column">
+                        <!-- variable for this graph is <ano:write name="decorator" property="name"/>_<ano:write name="caption" property="jsVariableName"/> -->
+                        <input type="hidden" value="<ano:write name="decorator" property="name"/>_<ano:write name="caption" property="jsVariableName"/>"/>${caption.caption}<i class="fa fa-caret-down"></i><i class="chart-icon tooltip-bottom" title="Show chart"></i>
+                    </th>
                 </ano:iterate>
                 <th>Class</th>
             </tr>
@@ -60,7 +63,7 @@
 
 
 </div>
-
+<jsp:include page="../../producers/jsp/ChartEngenine.jsp"/>
 <jsp:include page="../../shared/jsp/InspectFooter.jsp"/>
 </section>
 </body>

@@ -6,9 +6,9 @@
     <title>MoSKito Inspect</title>
     <link href='http://fonts.googleapis.com/css?family=Lato:100,300,400,700' rel='stylesheet' type='text/css'>
     <link type="text/css" rel="stylesheet" href="http://fonts.googleapis.com/css?family=Mr+Bedfort">
+    <link type="text/css" rel="stylesheet" rev="stylesheet" href="../ext/treegrid/css/jquery.treegrid.css" />
     <link type="text/css" rel="stylesheet" rev="stylesheet" href="../ext/bootstrap-3.1.1/css/bootstrap.css" />
     <link type="text/css" rel="stylesheet" rev="stylesheet" href="../ext/custom-scrollbar/jquery.mCustomScrollbar.css" />
-    <link type="text/css" rel="stylesheet" rev="stylesheet" href="../ext/bootstrap-sortable/contents/bootstrap-sortable.css" />
     <link type="text/css" rel="stylesheet" href="../ext/font-awesome-4.0.3/css/font-awesome.css">
     <link type="text/css" rel="stylesheet" rev="stylesheet" href="../ext/select2-3.4.6/select2.css" />
     <link type="text/css" rel="stylesheet" rev="stylesheet" href="../ext/switchery/switchery.min.css" />
@@ -36,6 +36,7 @@
 <body class="status-${systemStatusColor}<ano:notEmpty name="isNavMenuCollapsed"><ano:iF test="${isNavMenuCollapsed}"> aside-collapse</ano:iF></ano:notEmpty>" >
 
 <script src="../ext/jquery-1.10.2/jquery-1.10.2.min.js" type="text/javascript"></script>
+<script src="../ext/treegrid/js/jquery.treegrid.js" type="text/javascript"></script>
 <script src="../ext/bootstrap-3.1.1/js/bootstrap.min.js" type="text/javascript"></script>
 <script src="../ext/tablesorter/jquery.tablesorter.js" type="text/javascript"></script>
 <script src="../ext/custom-scrollbar/jquery.mCustomScrollbar.js"></script>
@@ -57,6 +58,29 @@
 <!-- currently for handle select only -->
 <script type="text/javascript" src="../js/function.js"></script>
 
+<ano:notEmpty name="graphDatas">
+
+<!-- jqplot core + plugins -->
+<script type="text/javascript" src="../js/charts/jqplot/jquery.jqplot.js"></script>
+<script type="text/javascript" src="../js/charts/jqplot/jqplot.pieRenderer.min.js"></script>
+<script type="text/javascript" src="../js/charts/jqplot/jqplot.donutRenderer.min.js"></script>
+<script type="text/javascript" src="../js/charts/jqplot/jqplot.categoryAxisRenderer.min.js"></script>
+<script type="text/javascript" src="../js/charts/jqplot/jqplot.barRenderer.min.js"></script>
+<script type="text/javascript" src="http://www.google.com/jsapi"></script>
+
+<script type="text/javascript" src="../js/charts/chartEngineIniter.js"></script>
+
+<!--
+ Data for action -->
+<script>
+    <ano:iterate type="net.anotheria.moskito.webui.shared.bean.GraphDataBean" id="graph" name="graphDatas">
+    var <ano:write name="graph" property="jsVariableName"/>Caption = "<ano:write name="graph" property="caption"/>";
+    var <ano:write name="graph" property="jsVariableName"/>Array = <ano:write name="graph" property="jsArrayValue"/>;
+    </ano:iterate>
+
+</script>
+<!-- -->
+</ano:notEmpty>
 <header id="header" class="navbar navbar-fixed-top navbar-default">
             <span class="caret-aside pull-left tooltip-bottom" title="Close/Open">
                 <i class="fa fa-caret-left"></i>
