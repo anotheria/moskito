@@ -69,7 +69,6 @@ Commented out for now. We may add this later as welcome message (to all layers).
 
 <jsp:include page="../../shared/jsp/Footer.jsp"/>
 <jsp:include page="../../producers/jsp/ChartEngenine.jsp"/>
-<jsp:include page="../../shared/jsp/InspectFooter.jsp"/>
 </section>
 <jsp:include page="snippet/ProducerHelpModal.jsp"/>
 </body>
