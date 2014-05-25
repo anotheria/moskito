@@ -37,14 +37,14 @@
 <script type="text/javascript" src="../moskito/int/js/function.js"></script>
 <ano:notEmpty name="graphDatas">
 <!-- jqplot core + plugins -->
-<script type="text/javascript" src="../js/charts/jqplot/jquery.jqplot.js"></script>
-<script type="text/javascript" src="../js/charts/jqplot/jqplot.pieRenderer.min.js"></script>
-<script type="text/javascript" src="../js/charts/jqplot/jqplot.donutRenderer.min.js"></script>
-<script type="text/javascript" src="../js/charts/jqplot/jqplot.categoryAxisRenderer.min.js"></script>
-<script type="text/javascript" src="../js/charts/jqplot/jqplot.barRenderer.min.js"></script>
+<script type="text/javascript" src="../moskito/int/js/charts/jqplot/jquery.jqplot.js"></script>
+<script type="text/javascript" src="../moskito/int/js/charts/jqplot/jqplot.pieRenderer.min.js"></script>
+<script type="text/javascript" src="../moskito/int/js/charts/jqplot/jqplot.donutRenderer.min.js"></script>
+<script type="text/javascript" src="../moskito/int/js/charts/jqplot/jqplot.categoryAxisRenderer.min.js"></script>
+<script type="text/javascript" src="../moskito/int/js/charts/jqplot/jqplot.barRenderer.min.js"></script>
 <script type="text/javascript" src="http://www.google.com/jsapi"></script>
 
-<script type="text/javascript" src="../js/charts/chartEngineIniter.js"></script>
+<script type="text/javascript" src="../moskito/int/js/charts/chartEngineIniter.js"></script>
 
 <!--
  Data for action -->
