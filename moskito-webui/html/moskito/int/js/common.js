@@ -46,7 +46,10 @@ $(function () {
     $('.tooltip-right').tooltip({placement:'right', container: 'body'}).on('show', function (e) {e.stopPropagation();});
     $(document).tooltip({selector: '.aside-collapse .sidebar-tooltip-right', placement:'right', container: 'body'}).on('show', function (e) {e.stopPropagation();});
 
-    $('.popover-bottom').popover({placement:'bottom', container: 'body'})
+    $('.popover-bottom').popover({placement:'bottom', container: 'body'}).click(function(){
+        $('.popover-bottom').not(this).popover('hide');
+        return false;
+    });
 
     $.tablesorter.addParser({
         // set a unique id

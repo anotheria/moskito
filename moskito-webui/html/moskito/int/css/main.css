@@ -1300,3 +1300,12 @@ i.vline {
 .popover-bottom {
     cursor: help;
 }
+
+.popover-content {
+    word-wrap: break-word;
+}
+
+span.call-info {
+    display: inline-block;
+    margin-left: 15px;
+}

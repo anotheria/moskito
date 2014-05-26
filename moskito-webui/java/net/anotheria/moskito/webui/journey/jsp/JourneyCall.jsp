@@ -8,7 +8,6 @@
     <div class="content">
         <div class="box">
             <div class="box-title">
-                <i class="fa fa-caret-right"></i>
                 <h3 class="pull-left">
                     <a href="mskShowJourneys">Journeys</a> :: <a href="mskShowJourney?pJourneyName=${journeyName}">${journeyName}</a>  :: ${tracedCall.name}
                 </h3>
@@ -26,7 +25,6 @@
                     <thead>
                     <tr>
                         <th><button class="btn btn-primary tree-expand">Expand</button></th>
-                        <th>Call</th>
                         <th>Gross duration</th>
                         <th>Net duration</th>
                         <th>Aborted</th>
@@ -39,8 +37,12 @@
                          <ano:notEqual name="traceStep" property="aborted" value="true"><tr class="< %= ((index & 1) == 0 )? "even" : "odd" % >" id="node-<ano:write name="id"/>"></ano:notEqual>
                      --%>
                         <tr data-level="${traceStep.level}">
-                            <td><div><i class="minus">–</i><i class="plus">+</i><i class="vline"></i>${traceStep.niceId}</div></td>
-                            <td class="popover-bottom" data-content="<ano:write name="traceStep" property="fullCall" filter="true"/>"><ano:write name="traceStep" property="call" filter="true"/></td>
+                            <td>
+                                <div>
+                                    <i class="minus">–</i><i class="plus">+</i><i class="vline"></i>${traceStep.niceId}
+                                    <span class="popover-bottom call-info" data-content="<ano:write name="traceStep" property="fullCall" filter="true"/>"><ano:write name="traceStep" property="call" filter="true"/></span>
+                                </div>
+                            </td>
                                 <%--<td onmouseover="Tip('<ano:write name="traceStep" property="fullCall" filter="true"/>', WIDTH, 500)" onmouseout="UnTip()"><% for (int i=1; i<traceStep.getLayer(); i++){ %><%= EMPTY %><%}%><ano:equal name="traceStep" property="root" value="false"><%=IMG%></ano:equal><ano:write name="traceStep" property="call" filter="true"/></td>--%>
                             <td>${traceStep.duration}</td>
                             <td>${traceStep.timespent}</td>
@@ -56,7 +58,6 @@
         <ano:present name="dupStepBeansSize">
         <div class="box">
             <div class="box-title">
-                <a class="accordion-toggle tooltip-bottom" title="Close/Open" data-toggle="collapse" href="#collapseduplicates"><i class="fa fa-caret-right"></i></a>
                 <h3 class="pull-left">
                     Duplicates
                 </h3>
