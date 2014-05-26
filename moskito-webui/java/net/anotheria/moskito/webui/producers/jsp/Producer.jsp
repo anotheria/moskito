@@ -76,7 +76,7 @@
 
 </div>
 
-<jsp:include page="../../producers/jsp/ChartEngenine.jsp"/>
+<jsp:include page="../../producers/jsp/ChartEngine.jsp"/>
 
     <div class="modal fade inspect-list" id="inspect" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
