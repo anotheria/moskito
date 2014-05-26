@@ -2,7 +2,7 @@
         taglib uri="http://www.anotheria.net/ano-tags" prefix="ano"%><%@
         page isELIgnored="false" %>
 <div class="modal fade" id="chart" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog" style="width: 900px;heigth: 600px">
+    <div class="modal-dialog" style="width: calc(${config.producerChartWidth}px + 150px); heigth: ${config.producerChartHeight}px">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
