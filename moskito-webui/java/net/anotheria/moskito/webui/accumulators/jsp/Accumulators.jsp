@@ -21,44 +21,46 @@
 <section id="main">
     <div class="content">
 
-        <%-- this is used for a single accumulator --%>
-        <ano:present name="data">
+    <ano:present name="data">
+        <%-- this data is used for a single (combined or combined&normalized) chart --%>
+        <ano:notPresent name="multiple_set">
             <script type="text/javascript">
                 var data = [<ano:iterate name="data" id="value" indexId="i"><ano:notEqual name="i" value="0">,</ano:notEqual>${value}</ano:iterate>];
             </script>
-        </ano:present>
-        <%-- this is used for a multi accumulator selection--%>
-        <ano:present name="singleGraphData">
-            <script type="text/javascript">
-                var multipleGraphData = [];
-                <ano:iterate name="singleGraphData" type="net.anotheria.moskito.webui.accumulators.api.AccumulatedSingleGraphAO" id="singleGraph">
-                multipleGraphData.push([<ano:iterate name="singleGraph" property="data" id="value" indexId="i"><ano:notEqual name="i" value="0">,</ano:notEqual>${value}</ano:iterate>])
-                //var singleGraphData<ano:write name="singleGraph" property="nameForJS"/> = [<ano:iterate name="singleGraph" property="data" id="value" indexId="i"><ano:notEqual name="i" value="0">,</ano:notEqual>${value}</ano:iterate>] ;
-                </ano:iterate>
-            </script>
+        </ano:notPresent>
+        <%-- this data is used for multiple charts --%>
+        <ano:present name="multiple_set">
+            <ano:present name="singleGraphData">
+                <script type="text/javascript">
+                    var multipleGraphData = [];
+                    <ano:iterate name="singleGraphData" type="net.anotheria.moskito.webui.accumulators.api.AccumulatedSingleGraphAO" id="singleGraph">
+                    multipleGraphData.push([<ano:iterate name="singleGraph" property="data" id="value" indexId="i"><ano:notEqual name="i" value="0">,</ano:notEqual>${value}</ano:iterate>])
+                    //var singleGraphData<ano:write name="singleGraph" property="nameForJS"/> = [<ano:iterate name="singleGraph" property="data" id="value" indexId="i"><ano:notEqual name="i" value="0">,</ano:notEqual>${value}</ano:iterate>] ;
+                    </ano:iterate>
+                </script>
+            </ano:present>
         </ano:present>
 
-        <%-- single chart box with  charts --%>
-        <ano:notPresent name="multiple_set">
-            <div class="box">
-                <div class="box-title">
-                    <a class="accordion-toggle tooltip-bottom" title="Close/Open" data-toggle="collapse" href="#collapse-chart"><i class="fa fa-caret-right"></i></a>
-                    <h3 class="pull-left">
-                        Chart for <ano:iterate name="accNames" type="java.lang.String" id="name">${name}</ano:iterate>
-                    </h3>
-                    <div class="box-right-nav">
-                        <a href="" class="tooltip-bottom" title="Refresh"><i class="fa fa-refresh"></i></a>
+        <%-- single chart box with charts --%>
+            <ano:notPresent name="multiple_set">
+                <div class="box">
+                    <div class="box-title">
+                        <a class="accordion-toggle tooltip-bottom" title="Close/Open" data-toggle="collapse" href="#collapse-chart"><i class="fa fa-caret-right"></i></a>
+                        <h3 class="pull-left">
+                            Chart for <ano:iterate name="accNames" type="java.lang.String" id="name">${name}</ano:iterate>
+                        </h3>
+                        <div class="box-right-nav">
+                            <a href="" class="tooltip-bottom" title="Refresh"><i class="fa fa-refresh"></i></a>
+                        </div>
+                    </div>
+                    <div id="collapse-chart" class="box-content accordion-body collapse in">
+                        <div class="paddner"><div id="chart_accum${singleGraph.nameForJS}"></div></div>
                     </div>
                 </div>
-                <div id="collapse-chart" class="box-content accordion-body collapse in">
-                    <div class="paddner"><div id="chart_accum${singleGraph.nameForJS}"></div></div>
-                </div>
-            </div>
-        </ano:notPresent>
+            </ano:notPresent>
         <%-- /single chart box --%>
 
         <%-- Chart boxes for multiple charts --%>
-        <ano:present name="data">
             <ano:present name="multiple_set">
                 <ano:iterate name="singleGraphData" type="net.anotheria.moskito.webui.accumulators.api.AccumulatedSingleGraphAO" id="singleGraph">
 
@@ -78,9 +80,8 @@
                     </div>
                 </ano:iterate>
             </ano:present>
-        </ano:present>
+            <%-- /charts' boxes --%>
 
-        <ano:present name="data">
             <script type="text/javascript">
                 var chartEngineName = '${chartEngine}' || 'GOOGLE_CHART_API';
 
