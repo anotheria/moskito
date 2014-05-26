@@ -13,72 +13,6 @@ function getBaseUrl() {
     return baseURL;
 }
 
-
-// function to resize tables
-function resize_table(el) {
-	var in_t = el.find('.in');
-			var tl = el.find('table:first');
-			var tr = el.find('.table_right');
-			tr.width(in_t.width()-tl.width()-1);
-}
-
-// resize table listner
-//$(window).bind('resize', function() {
-//	$('.table_itseft').each(
-//		function() {
-//			resize_table($(this));
-//		}
-//	);
-//});
-
-$(function() {
-
-	var timeOutId;
-
-	// resize when loaded
-//	$('.table_itseft').each(
-//		function() {
-//			resize_table($(this));
-//		}
-//	);
-
-	//setting submenu
-    /*
-	function submenu_shadow() {
-	if ($('.sub_menu').is(':visible')) {
-		$('.main').css('padding-top', '101px');
-		//console.log($('.sub_menu').parent())
-		$('.main_menu li.active .over_color').width($('.sub_menu').parent().width())
-	} else {
-		$('.main').css('padding-top', '71px');
-	}
-	};
-
-	submenu_shadow();
-
-	function submenu_shadow_hover(el) {
-	if ($('.sub_menu').is(':visible')) {
-		$('.main').css('padding-top', '101px');
-		el.parent().find('.over_color').width(el.parent().width());
-	} else {
-		$('.main').css('padding-top', '71px');
-	}
-	};
-	*/
-
-
-
-
-	//setting first level navigation if active
-	$('.top ul li.active:first').each(function() {
-		var yes = $(this).find('.sub_menu').length;
-		if (!yes) {
-			$(this).css('height', $(this).height()-1);
-			$(this).css('border-bottom','1px solid #98b9da');
-			$(this).css('overflow','hidden');
-		}
-	});
-
 	//opens bottom filter if row cols >= 10
 	function filter_2_open(){
 		$('.table_itseft').each(function(){
@@ -88,103 +22,8 @@ $(function() {
 		})
 	};
 
-	//hides tables
-	//$('h2 a').click(function() {
-	//	if ($(this).hasClass('hidden')){
-	//		$(this).parent().parent().css('padding-bottom', '5px');
-	//		$(this).parent().parent().find('.filter, .table_itseft, .help').show();
-	//		$(this).removeClass('hidden');
-	//		filter_2_open();
-	//		return false;
-	//	} else {
-	//		$(this).parent().parent().css('padding-bottom', '0');
-	//		$(this).parent().parent().find('.filter, .table_itseft, .filter_2, .help').hide();
-	//		$(this).addClass('hidden');
-	//		return false;
-	//	}
-	//});
-
 
 	filter_2_open();
- $('.top ul li a').click(function() {
-		if (!$(this).parent().hasClass('active') && $(this).parent().find('.sub_menu').length != 0) {
-			clearTimeout(timeOutId);
-			$('.top ul li.passive.active').removeClass('active');
-			$('.top ul li.passive').removeClass('passive');
-			$(this).parent().addClass('active passive');
-			var yes = $(this).parent().find('.sub_menu').length;
-			if (!yes) {
-				$(this).css('height', $(this).height()-1);
-				$(this).css('border-bottom','1px solid #98b9da');
-				$(this).css('overflow','hidden');
-			}
-			//submenu_shadow();
-			submenu_shadow_hover($(this));
-
-		}
-	});/*,
-	function() {
-			if ($(this).parent().hasClass('passive')) {
-				timeOutId = setTimeout(function() {$('.top ul li.passive.active').removeClass('active');
-				$('.top ul li.passive').removeClass('passive');
-				$(this).css('height', 'auto');
-				$(this).css('border-bottom','none');
-				}, 500);
-//				$(this).parent().removeClass('active');
-//				$(this).parent().removeClass('passive');
-
-			}
-	}); */
-	//show submenus
-	/* $('.top ul li a').hover(function() {
-		if (!$(this).parent().hasClass('active') && $(this).parent().find('.sub_menu').length != 0) {
-			clearTimeout(timeOutId);
-			$('.top ul li.passive.active').removeClass('active');
-			$('.top ul li.passive').removeClass('passive');
-			$(this).parent().addClass('active passive');
-			var yes = $(this).parent().find('.sub_menu').length;
-			if (!yes) {
-				$(this).css('height', $(this).height()-1);
-				$(this).css('border-bottom','1px solid #98b9da');
-				$(this).css('overflow','hidden');
-			}
-			//submenu_shadow();
-			submenu_shadow_hover($(this));
-
-		}
-	},
-	function() {
-			if ($(this).parent().hasClass('passive')) {
-				timeOutId = setTimeout(function() {$('.top ul li.passive.active').removeClass('active');
-				$('.top ul li.passive').removeClass('passive');
-				$(this).css('height', 'auto');
-				$(this).css('border-bottom','none');
-				}, 500);
-//				$(this).parent().removeClass('active');
-//				$(this).parent().removeClass('passive');
-
-			}
-	}); */
-
-	/*$('.top ul li .sub_menu').hover(function() {
-		clearTimeout(timeOutId);
-	}, function() {
-		timeOutId = setTimeout(function() {$('.top ul li.passive.active').removeClass('active');
-				$('.top ul li.passive').removeClass('passive');
-				$(this).css('height', 'auto');
-				$(this).css('border-bottom','none');
-				//submenu_shadow();
-				}, 500);
-	});*/
-
-	//root table hover effect
-	$('.its_root td').hover(function() {
-			//$(this).parents().filter('tr:first').addClass('hover_it');
-
-	},function() {
-		//$(this).parent().removeClass('hover_it');
-	});
-
 
 	//setting parameters of tree
 	function setClosed() {
@@ -215,9 +54,6 @@ $(function() {
 		}
 
 	});
-
-
-
 
 	//test errors
 	function set_errors() {
@@ -251,12 +87,6 @@ $(function() {
 		$('.create_ch_btn').show();
 	});
 
-//	$('.chart_overlay .delete_btn').live('click', function() {
-//		if ($('.chart_overlay table tbody tr').length == 0) {
-//			$('.create_ch_btn').hide();
-//		};
-//	});
-
 	//close lightbox
 $('.black_bg, .close_box').click(function() {
 	$('.lightbox .name_ch').val('');
@@ -271,30 +101,6 @@ $('.black_bg, .close_box').click(function() {
 	}
 });
 
-});
-
-//lightbox function
-//function lightbox() {
-//	var text = $(this).attr('title');
-//	var el = $('.lightbox');
-//	el.find('.box_in').html(text);
-//	var wid = el.find('.box').width();
-//	el.find('.box').css('left', '50%');
-//	el.find('.box').css('marign-left', -wid/2);
-//	el.find('.box').css('top', '50%');
-//	el.find('.box').css('position', 'fixed');
-//	el.fadeIn('fast');
-//		var el = $('.lightbox');
-//		var wid = el.find('.box').width();
-//		var box = el.find('.box');
-//		box.css('left', '50%');
-//		box.css('margin-left', -wid / 2);
-//		box.css('top', '50%');
-//		box.css('position', 'fixed');
-//		$('.pie_chart').show();
-//		$('.bar_chart').hide();
-
-//};
 
 
 

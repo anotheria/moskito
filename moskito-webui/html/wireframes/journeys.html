@@ -1,405 +1,297 @@
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/html">
-
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <title>Moskito WebUI</title>
-    <link href='http://fonts.googleapis.com/css?family=Lato:300,400,700' rel='stylesheet' type='text/css'>
+<html xmlns="http://www.w3.org/1999/xhtml"><head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>MoSKito Inspect :: Journeys</title>
+    <link href="http://fonts.googleapis.com/css?family=Lato:100,300,400,700" rel="stylesheet" type="text/css">
     <link type="text/css" rel="stylesheet" href="http://fonts.googleapis.com/css?family=Mr+Bedfort">
-    <link type="text/css" rel="stylesheet" rev="stylesheet" href="../ext/bootstrap-3.1.1/css/bootstrap.css" />
-    <link type="text/css" rel="stylesheet" rev="stylesheet" href="../ext/custom-scrollbar/jquery.mCustomScrollbar.css" />
-    <link type="text/css" rel="stylesheet" rev="stylesheet" href="../ext/bootstrap-sortable/contents/bootstrap-sortable.css" />
-    <link type="text/css" rel="stylesheet" href="../ext/font-awesome-4.0.3/css/font-awesome.css">
-    <link type="text/css" rel="stylesheet" rev="stylesheet" href="../ext/select2-3.4.6/select2.css" />
-    <link type="text/css" rel="stylesheet" rev="stylesheet" href="../int/css/common.css" />
+    <link type="text/css" rel="stylesheet" rev="stylesheet" href="../moskito/ext/bootstrap-3.1.1/css/bootstrap.css">
+    <link type="text/css" rel="stylesheet" rev="stylesheet" href="../moskito/ext/custom-scrollbar/jquery.mCustomScrollbar.css">
+    <link type="text/css" rel="stylesheet" href="../moskito/ext/font-awesome-4.0.3/css/font-awesome.css">
+    <link type="text/css" rel="stylesheet" rev="stylesheet" href="../moskito/ext/select2-3.4.6/select2.css">
+    <link type="text/css" rel="stylesheet" rev="stylesheet" href="../moskito/ext/switchery/switchery.min.css">
 
+
+
+    <link rel="stylesheet" type="text/css" href="../moskito/ext/treegrid/css/jquery.treegrid.css">
+
+    <link type="text/css" rel="stylesheet" rev="stylesheet" href="../moskito/int/css/common.css">
     <!--[if lt IE 9]><script src="../int/js/ie8-responsive-file-warning.js"></script><![endif]-->
-    <!--[if lt IE 8]><link type="text/css" rel="stylesheet" rev="stylesheet" href="../static-int/css/bootstrap-ie7.css" /><![endif]-->
+    <!--[if lt IE 8]><link type="text/css" rel="stylesheet" rev="stylesheet" href="../moskito/static-int/css/bootstrap-ie7.css" /><![endif]-->
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
     <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
     <![endif]-->
-</head>
 
-<body class="status-purple">
+<body class="status-green">
 
-<script src="../ext/jquery-1.10.2/jquery-1.10.2.min.js" type="text/javascript"></script>
-<script src="../ext/bootstrap-3.1.1/js/bootstrap.min.js" type="text/javascript"></script>
-<script src="../ext/tablesorter/jquery.tablesorter.js" type="text/javascript"></script>
-<script src="../ext/custom-scrollbar/jquery.mCustomScrollbar.js"></script>
-<script src="../ext/select2-3.4.6/select2.js" type="text/javascript"></script>
-<script src="../int/js/common.js" type="text/javascript"></script>
+<!-- currently for handle select only -->
 
-        <header id="header" class="navbar navbar-fixed-top navbar-default">
-            <span class="caret-aside pull-left tooltip-bottom" title="Close/Open">
+<header id="header" class="navbar navbar-fixed-top navbar-default">
+            <span class="caret-aside pull-left tooltip-bottom" title="" data-original-title="Close/Open">
                 <i class="fa fa-caret-left"></i>
             </span>
 
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
+    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+    </button>
 
-            <div class="navbar-collapse collapse">
-                <form role="form" class="navbar-form navbar-left">
-                    <div class="form-group">
-                        <select class="select2" data-placeholder="Interval">
-                            <option value="mskShowAllProducers?ts=1395951429786&amp;pInterval=snapshot">
-                                snapshot
-                            </option>
+    <div class="navbar-collapse collapse">
+        <form role="form" class="navbar-form navbar-left">
+            <div class="form-group">
+                <div class="select2-container select2" id="s2id_autogen1"><a href="javascript:void(0)" class="select2-choice" tabindex="-1">   <span class="select2-chosen" id="select2-chosen-2">
+                            default
+                        </span><abbr class="select2-search-choice-close"></abbr>   <span class="select2-arrow" role="presentation"><b role="presentation"></b></span></a><label for="s2id_autogen2" class="select2-offscreen"></label><input class="select2-focusser select2-offscreen" type="text" aria-haspopup="true" role="button" aria-labelledby="select2-chosen-2" id="s2id_autogen2"><div class="select2-drop select2-display-none select2-with-searchbox">   <div class="select2-search">       <label for="s2id_autogen2_search" class="select2-offscreen"></label>       <input type="text" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" class="select2-input" role="combobox" aria-expanded="true" aria-autocomplete="list" aria-owns="select2-results-2" id="s2id_autogen2_search" placeholder="">   </div>   <ul class="select2-results" role="listbox" id="select2-results-2">   </ul></div></div><select class="select2 select2-offscreen" data-placeholder="Interval" onchange="javascript:handleSelect(this)" tabindex="-1" title="">
 
-                            <option selected="selected" value="mskShowAllProducers?ts=1395951429786&amp;pInterval=default">
-                                default
-                            </option>
+                <option value="mskShowJourneys?ts=1400849627813&amp;pInterval=snapshot">
+                    snapshot
+                </option>
 
-                            <option value="mskShowAllProducers?ts=1395951429786&amp;pInterval=1m">
-                                1m
-                            </option>
+                <option value="mskShowJourneys?ts=1400849627813&amp;pInterval=default" selected="">
+                    default
+                </option>
 
-                            <option value="mskShowAllProducers?ts=1395951429786&amp;pInterval=5m">
-                                5m
-                            </option>
+                <option value="mskShowJourneys?ts=1400849627813&amp;pInterval=1m">
+                    1m
+                </option>
 
-                            <option value="mskShowAllProducers?ts=1395951429786&amp;pInterval=15m">
-                                15m
-                            </option>
+                <option value="mskShowJourneys?ts=1400849627813&amp;pInterval=5m">
+                    5m
+                </option>
 
-                            <option value="mskShowAllProducers?ts=1395951429786&amp;pInterval=1h">
-                                1h
-                            </option>
+                <option value="mskShowJourneys?ts=1400849627813&amp;pInterval=15m">
+                    15m
+                </option>
 
-                            <option value="mskShowAllProducers?ts=1395951429786&amp;pInterval=12h">
-                                12h
-                            </option>
+                <option value="mskShowJourneys?ts=1400849627813&amp;pInterval=1h">
+                    1h
+                </option>
 
-                            <option value="mskShowAllProducers?ts=1395951429786&amp;pInterval=1d">
-                                1d
-                            </option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <select class="select2" data-placeholder="Interval">
-                            <option value="mskShowAllProducers?ts=1395955899582&amp;pUnit=SECONDS">
-                                SECONDS
-                            </option>
+                <option value="mskShowJourneys?ts=1400849627813&amp;pInterval=12h">
+                    12h
+                </option>
 
-                            <option selected="selected" value="mskShowAllProducers?ts=1395955899582&amp;pUnit=MILLISECONDS">
-                                MILLISECONDS
-                            </option>
+                <option value="mskShowJourneys?ts=1400849627813&amp;pInterval=1d">
+                    1d
+                </option>
 
-                            <option value="mskShowAllProducers?ts=1395955899582&amp;pUnit=MICROSECONDS">
-                                MICROSECONDS
-                            </option>
-
-                            <option value="mskShowAllProducers?ts=1395955899582&amp;pUnit=NANOSECONDS">
-                                NANOSECONDS
-                            </option>
-                        </select>
-                    </div>
-                </form>
-
-                <ul class="nav navbar-nav pull-right">
-                    <li><a href="">Autoreload OF</a></li>
-                    <li><a href="">Export</a></li>
-                    <li><a href="">Help</a></li>
-                </ul>
+            </select>
             </div>
-        </header>
+            <div class="form-group">
+                <div class="select2-container select2" id="s2id_autogen3"><a href="javascript:void(0)" class="select2-choice" tabindex="-1">   <span class="select2-chosen" id="select2-chosen-4">
+                        MILLISECONDS
+                    </span><abbr class="select2-search-choice-close"></abbr>   <span class="select2-arrow" role="presentation"><b role="presentation"></b></span></a><label for="s2id_autogen4" class="select2-offscreen"></label><input class="select2-focusser select2-offscreen" type="text" aria-haspopup="true" role="button" aria-labelledby="select2-chosen-4" id="s2id_autogen4"><div class="select2-drop select2-display-none select2-with-searchbox">   <div class="select2-search">       <label for="s2id_autogen4_search" class="select2-offscreen"></label>       <input type="text" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" class="select2-input" role="combobox" aria-expanded="true" aria-autocomplete="list" aria-owns="select2-results-4" id="s2id_autogen4_search" placeholder="">   </div>   <ul class="select2-results" role="listbox" id="select2-results-4">   </ul></div></div><select class="select2 select2-offscreen" data-placeholder="Unit" onchange="javascript:handleSelect(this)" tabindex="-1" title="">
 
-        <aside id="aside" class="scrollbar">
+                <option value="mskShowJourneys?ts=1400849627813&amp;pUnit=SECONDS">
+                    SECONDS
+                </option>
 
-            <div class="header-box">
-                <span class="version">v 2.5.0-SNAPSHOT</span>
-                <i class="logo"></i>
-                <span class="logo-title">MoSKito Inspect</span>
+                <option value="mskShowJourneys?ts=1400849627813&amp;pUnit=MILLISECONDS" selected="">
+                    MILLISECONDS
+                </option>
+
+                <option value="mskShowJourneys?ts=1400849627813&amp;pUnit=MICROSECONDS">
+                    MICROSECONDS
+                </option>
+
+                <option value="mskShowJourneys?ts=1400849627813&amp;pUnit=NANOSECONDS">
+                    NANOSECONDS
+                </option>
+
+            </select>
             </div>
+        </form>
 
-            <ul class="nav nav-sidebar">
-                <li><a href="producers.html">Producers <i class="fa fa-wrench"></i></a></li>
-                <li class="active"><a href="journeys.html">Journeys <i class="fa fa-eye"></i></a></li>
-                <li><a href="thresholds.html">Thresholds <i class="fa fa-dot-circle-o"></i></a></li>
-                <li><a href="accumulators.html">Accumulators <i class="fa fa-signal"></i></a></li>
-                <li>
-                    <a href="threads.html">Threads <i class="fa fa-bars"></i></a>
-                    <ul class="nav sub-menu">
-                        <li><a href="threads_list.html">List <i class="fa fa-list"></i></a></li>
-                        <li><a href="threads_dump.html">Dump <i class="fa fa-upload"></i></a></li>
-                        <li><a href="threads_history.html">History <i class="fa fa-file-text"></i></a></li>
-                    </ul>
-                </li>
-                <li>
-                    <a href="#">Everything else <i class="fa fa-bookmark"></i></a>
-                    <ul class="nav sub-menu">
-                        <li><a href="else_config.html">Config <i class="fa fa-cog"></i></a></li>
-                        <li><a href="else_mbeans.html">MBeans <i class="fa fa-briefcase"></i></a></li>
-                        <li><a href="else_libs.html">Libs <i class="fa fa-file-text"></i></a></li>
-                        <li><a href="else_plugins.html">Plugins <i class="fa fa-cloud"></i></a></li>
-                        <li><a href="else_update.html">Update  <i class="fa fa-upload"></i></a></li>
-                    </ul>
-                </li>
-            </ul>
+        <ul class="nav navbar-nav pull-right">
 
-        </aside>
 
-        <section id="main">
-            <div class="content">
 
-                <div class="box">
-                    <div class="box-title">
-                        <a class="accordion-toggle tooltip-bottom" title="Close/Open" data-toggle="collapse" href="#collapse1"><i class="fa fa-caret-right"></i></a>
-                        <h3 class="pull-left">
-                            Journeys
-                        </h3>
-                        <div class="box-right-nav">
-                            <a href="" class="tooltip-bottom" title="Help"><i class="fa fa-info-circle"></i></a>
+            <li><a href="mskShowExplanations">Help</a></li>
+        </ul>
+    </div>
+</header>
+
+<aside id="aside" class="scrollbar mCustomScrollbar _mCS_1"><div class="mCustomScrollBox mCS-light" id="mCSB_1" style="position:relative; height:100%; overflow:hidden; max-width:100%;"><div class="mCSB_container" style="position: relative; top: 0px;">
+
+    <div class="header-box">
+        <span class="version">v  2.5.0-SNAPSHOT</span>
+        <a href="">
+            <i class="logo"></i>
+            <span class="logo-title">MoSKito Inspect</span>
+        </a>
+    </div>
+
+    <ul class="nav nav-sidebar">
+        <li><a href="mskShowAllProducers" title="Producers" class="sidebar-tooltip-right">Producers <i class="fa fa-wrench"></i></a></li>
+        <li class="active"><a href="mskShowJourneys" title="Journeys" class="sidebar-tooltip-right">Journeys <i class="fa fa-eye"></i></a></li>
+        <li><a href="mskThresholds" title="Thresholds" class="sidebar-tooltip-right">Thresholds <i class="fa fa-dot-circle-o"></i></a></li>
+        <li><a href="mskAccumulators" title="Accumulators" class="sidebar-tooltip-right">Accumulators <i class="fa fa-signal"></i></a></li>
+
+
+        <li><a href="mskThreads" title="Threads" class="sidebar-tooltip-right">Threads <i class="fa fa-bars"></i></a></li>
+
+        <!-- Submenu for everything else -->
+
+
+        <li><a href="mskMore" title="Everything else" class="sidebar-tooltip-right">Everything else <i class="fa fa-bookmark"></i></a></li>
+
+
+    </ul>
+
+
+
+    <div class="form-box">
+        <label>Server selector</label>
+        <form name="SelectServer" action="mskSelectServer" method="GET">
+            <div class="select2-container select2" id="s2id_autogen5"><a href="javascript:void(0)" class="select2-choice" tabindex="-1">   <span class="select2-chosen" id="select2-chosen-6">Local</span><abbr class="select2-search-choice-close"></abbr>   <span class="select2-arrow" role="presentation"><b role="presentation"></b></span></a><label for="s2id_autogen6" class="select2-offscreen"></label><input class="select2-focusser select2-offscreen" type="text" aria-haspopup="true" role="button" aria-labelledby="select2-chosen-6" id="s2id_autogen6"><div class="select2-drop select2-display-none select2-with-searchbox">   <div class="select2-search">       <label for="s2id_autogen6_search" class="select2-offscreen"></label>       <input type="text" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" class="select2-input" role="combobox" aria-expanded="true" aria-autocomplete="list" aria-owns="select2-results-6" id="s2id_autogen6_search" placeholder="">   </div>   <ul class="select2-results" role="listbox" id="select2-results-6">   </ul></div></div><select class="select2 select2-offscreen" data-placeholder="Select Server" onchange="javascript:handleSelect(this)" tabindex="-1" title="">
+
+            <option value="mskSelectServer?pTargetServer=Local" selected="">Local</option>
+
+            <option value="mskSelectServer?pTargetServer=localhost-9401">Develop@localhost:9401</option>
+
+            <option value="mskSelectServer?pTargetServer=web01.prod-9401">web01@web01.prod:9401</option>
+
+            <option value="mskSelectServer?pTargetServer=web02.prod-9401">web02@web02.prod:9401</option>
+
+            <option value="mskSelectServer?pTargetServer=biz01.prod-9401">UserService@biz01.prod:9401</option>
+
+            <option value="mskSelectServer?pTargetServer=biz01.prod-9402">ProfileService@biz01.prod:9402</option>
+
+        </select>
+        </form>
+    </div>
+
+    <div class="form-box">
+        <label>Quick connect</label>
+        <form name="QuickConnect" action="mskQuickConnect" method="GET">
+            <div class="form-group">
+                <input type="text" class="form-control" name="pServerName" placeholder="Host">
+            </div>
+            <div class="form-group">
+                <input type="text" class="form-control" name="pServerPort" placeholder="Port">
+            </div>
+            <div class="form-group text-right">
+                <button class="btn btn-success" type="button" onclick="submit();">Connect</button>
+            </div>
+        </form>
+    </div>
+
+    <span class="shadow-line"></span>
+
+</div><div class="mCSB_scrollTools" style="position: absolute; display: block;"><div class="mCSB_draggerContainer"><div class="mCSB_dragger" style="position: absolute; height: 532px; top: 0px;" oncontextmenu="return false;"><div class="mCSB_dragger_bar" style="position: relative; line-height: 532px;"></div></div><div class="mCSB_draggerRail"></div></div></div></div></aside>
+<section id="main">
+
+
+
+    <div class="content">
+
+
+        <div class="box">
+            <div class="box-title">
+                <a class="accordion-toggle tooltip-bottom" title="" data-toggle="collapse" href="#collapseJourneys" data-original-title="Close/Open"><i class="fa fa-caret-right"></i></a>
+                <h3 class="pull-left">
+                    Journeys
+                </h3>
+                <div class="box-right-nav">
+                    <a href="" class="tooltip-bottom" title="" data-original-title="Help"><i class="fa fa-info-circle"></i></a>
+                </div>
+            </div>
+            <div id="collapseJourneys" class="box-content accordion-body collapse in">
+                <div class="paddner">
+                    <div class="jour-left form-inline">
+                        <p>To start a new journey now enter the name for the journey</p>
+                        <div class="form-group">
+                            <form name="NEWJOURNEY">
+                                <input type="text" name="name" class="form-control" placeholder="Enter Name">
+                                <button class="btn btn-success" onclick="new_journey(document.NEWJOURNEY.name.value); return false">Start</button>
+                            </form>
                         </div>
                     </div>
-                    <div id="collapse1" class="box-content accordion-body collapse in">
-                        <div class="paddner">
-                            <div class="jour-left form-inline">
-                                <p>To start a new journey now enter the name for the journey</p>
-                                <div class="form-group">
-                                    <input type="text" class="form-control" placeholder="Enter Name">
-                                    <button class="btn btn-success">Start</button>
-                                </div>
-                            </div>
-                            <div class="jour-right">
-                                <p>To record a new journey add <span class="text-green">mskJourney=start&mskJourneyName=JOURNEY_NAME</span> to any url on this server.</p>
-                                <p>To stop journey recording add <span class="text-green">mskJourney=stop&mskJourneyName=JOURNEY_NAME</span> to any url on this server.</p>
-                            </div>
-                        </div>
+                    <div class="jour-right">
+                        <p>To record a new journey add <span class="text-green">mskJourney=start&amp;mskJourneyName=JOURNEY_NAME</span> to any url on this server.</p>
+                        <p>To stop journey recording add <span class="text-green">mskJourney=stop&amp;mskJourneyName=JOURNEY_NAME</span> to any url on this server.</p>
                     </div>
                 </div>
+            </div>
+        </div>
 
-                <div class="box">
-                <div class="box-title">
-                    <a class="accordion-toggle tooltip-bottom" title="Close/Open" data-toggle="collapse" href="#collapse2"><i class="fa fa-caret-right"></i></a>
-                    <h3 class="pull-left">
-                        Box name 1
-                    </h3>
-                    <div class="box-right-nav">
-                        <a href="" class="tooltip-bottom" title="Help"><i class="fa fa-info-circle"></i></a>
-                    </div>
+
+        <div class="box">
+            <div class="box-title">
+                <a class="accordion-toggle tooltip-bottom" title="" data-toggle="collapse" href="#collapseRecorded" data-original-title="Close/Open"><i class="fa fa-caret-right"></i></a>
+                <h3 class="pull-left">
+                    Recorded journeys.
+                </h3>
+                <div class="box-right-nav">
+                    <a href="" class="tooltip-bottom" title="" data-original-title="Help"><i class="fa fa-info-circle"></i></a>
                 </div>
-                <div id="collapse2" class="box-content accordion-body collapse in">
-                <table class="table table-left table-striped tablesorter">
+            </div>
+            <div id="collapseRecorded" class="box-content accordion-body collapse in">
+                <table class="table table-striped tablesorter">
                     <thead>
                     <tr>
-                        <th>Producer Id <i class="fa fa-caret-down"></i></th>
+                        <th class="header">Journey <i class="fa fa-caret-down"></i></th>
+                        <th class="header">Started <i class="fa fa-caret-down"></i></th>
+                        <th class="header">Last activity <i class="fa fa-caret-down"></i></th>
+                        <th class="header">Calls <i class="fa fa-caret-down"></i></th>
+                        <th class="header">Active <i class="fa fa-caret-down"></i></th>
+                        <th class="th-actions header">&nbsp;</th>
                     </tr>
                     </thead>
                     <tbody>
+
                     <tr>
-                        <td><a href="#">DomainFilter</a></td>
+                        <td><a class="tooltip-bottom" title="" href="mskShowJourney?pJourneyName=unnamed1400849627792" data-original-title="Show steps in journey unnamed1400849627792">unnamed1400849627792</a></td>
+                        <td>2014-05-23T14:53:47,805</td>
+                        <td>2014-05-23T14:53:47,810</td>
+                        <td>1</td>
+                        <td>true&nbsp;
+                            &nbsp;(<a href="#" onclick="stop_journey('unnamed1400849627792')">stop</a>)
+                        </td>
+
+                        <td>
+                            <a class="action-icon delete-icon tooltip-bottom" title="" data-original-title="Delete unnamed1400849627792" href="mskDeleteJourney?pJourneyName=unnamed1400849627792"><i class="fa fa-ban"></i></a>
+                            <a class="action-icon show-icon tooltip-bottom" title="" data-original-title="Show steps in journey unnamed1400849627792" href="mskShowJourney?pJourneyName=unnamed1400849627792"><i class="fa fa-search"></i></a>
+                            <a class="action-icon show-icon tooltip-bottom" title="" data-original-title="Analyze journey unnamed1400849627792" href="mskAnalyzeJourney?pJourneyName=unnamed1400849627792"><i class="fa fa-search-plus"></i></a>
+
+                        </td>
+
                     </tr>
-                    <tr>
-                        <td><a href="#">RefererFilter</a></td>
-                    </tr>
-                    <tr>
-                        <td><a href="#">RequestURIFilter</a></td>
-                    </tr>
-                    <tr>
-                        <td><a href="#">UserAgentFilter</a></td>
-                    </tr>
-                    <tr>
-                        <td><a href="#">DomainFilter</a></td>
-                    </tr>
-                    <tr>
-                        <td><a href="#">RefererFilter</a></td>
-                    </tr>
-                    <tr>
-                        <td><a href="#">RequestURIFilter</a></td>
-                    </tr>
-                    <tr>
-                        <td><a href="#">UserAgentFilter</a></td>
-                    </tr>
+
                     </tbody>
                 </table>
-                <div class="table-right">
-                    <table class="table table-striped tablesorter">
-                        <thead>
-                        <tr>
-                            <th>Producer Id <i class="fa fa-caret-down"></i></th>
-                            <th>Category <i class="fa fa-caret-down"></i></th>
-                            <th>Subsystem <i class="fa fa-caret-down"></i></th>
-                            <th>Req <i class="fa fa-caret-down"></i><i class="chart-icon tooltip-bottom" title="Show chart"></i></th>
-                            <th>Time <i class="fa fa-caret-down"></i><i class="chart-icon tooltip-bottom" title="Show chart"></i></th>
-                            <th>CR <i class="fa fa-caret-down"></i><i class="chart-icon tooltip-bottom" title="Show chart"></i></th>
-                            <th>MCR <i class="fa fa-caret-down"></i><i class="chart-icon tooltip-bottom" title="Show chart"></i></th>
-                            <th>MIN <i class="fa fa-caret-down"></i><i class="chart-icon tooltip-bottom" title="Show chart"></i></th>
-                            <th>MAX <i class="fa fa-caret-down"></i><i class="chart-icon tooltip-bottom" title="Show chart"></i></th>
-                            <th>Avg <i class="fa fa-caret-down"></i><i class="chart-icon tooltip-bottom" title="Show chart"></i></th>
-                            <th>Last <i class="fa fa-caret-down"></i><i class="chart-icon tooltip-bottom" title="Show chart"></i></th>
-                            <th>Err <i class="fa fa-caret-down"></i><i class="chart-icon tooltip-bottom" title="Show chart"></i></th>
-                            <th>IOE <i class="fa fa-caret-down"></i><i class="chart-icon tooltip-bottom" title="Show chart"></i></th>
-                            <th>SEE <i class="fa fa-caret-down"></i><i class="chart-icon tooltip-bottom" title="Show chart"></i></th>
-                            <th>RTE <i class="fa fa-caret-down"></i><i class="chart-icon tooltip-bottom" title="Show chart"></i></th>
-                            <th>ERate <i class="fa fa-caret-down"></i><i class="chart-icon tooltip-bottom" title="Show chart"></i></th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr>
-                            <td><a href="#">DomainFilter</a></td>
-                            <td><a href="#">filter</a></td>
-                            <td><a href="#">default</a></td>
-                            <td>122,2</td>
-                            <td>5,122</td>
-                            <td>0</td>
-                            <td>6</td>
-                            <td>0</td>
-                            <td>12</td>
-                            <td>0.518</td>
-                            <td>0</td>
-                            <td>0</td>
-                            <td>1.330</td>
-                            <td>0</td>
-                            <td>0</td>
-                            <td>149</td>
-                        </tr>
-                        <tr>
-                            <td><a href="#">RefererFilter</a></td>
-                            <td><a href="#">filter</a></td>
-                            <td><a href="#">default</a></td>
-                            <td>11,122</td>
-                            <td>5,759</td>
-                            <td>0</td>
-                            <td>6</td>
-                            <td>0</td>
-                            <td>15</td>
-                            <td>0.518</td>
-                            <td>0</td>
-                            <td>0</td>
-                            <td>1.330</td>
-                            <td>0</td>
-                            <td>0</td>
-                            <td>121</td>
-                        </tr>
-                        <tr>
-                            <td><a href="#">RequestURIFilter</a></td>
-                            <td><a href="#">filter</a></td>
-                            <td><a href="#">default</a></td>
-                            <td>5,32</td>
-                            <td>12,759</td>
-                            <td>0</td>
-                            <td>2</td>
-                            <td>0</td>
-                            <td>11</td>
-                            <td>0.518</td>
-                            <td>0</td>
-                            <td>0</td>
-                            <td>1.330</td>
-                            <td>0</td>
-                            <td>0</td>
-                            <td>118</td>
-                        </tr>
-                        <tr>
-                            <td><a href="#">UserAgentFilter</a></td>
-                            <td><a href="#">filter</a></td>
-                            <td><a href="#">default</a></td>
-                            <td>4,001</td>
-                            <td>232.1</td>
-                            <td>0</td>
-                            <td>1</td>
-                            <td>0</td>
-                            <td>18</td>
-                            <td>0.518</td>
-                            <td>0</td>
-                            <td>0</td>
-                            <td>1.330</td>
-                            <td>0</td>
-                            <td>0</td>
-                            <td>72</td>
-                        </tr>
-                        <tr>
-                            <td><a href="#">DomainFilter</a></td>
-                            <td><a href="#">filter</a></td>
-                            <td><a href="#">default</a></td>
-                            <td>122,2</td>
-                            <td>5,122</td>
-                            <td>0</td>
-                            <td>6</td>
-                            <td>0</td>
-                            <td>12</td>
-                            <td>0.518</td>
-                            <td>0</td>
-                            <td>0</td>
-                            <td>1.330</td>
-                            <td>0</td>
-                            <td>0</td>
-                            <td>149</td>
-                        </tr>
-                        <tr>
-                            <td><a href="#">RefererFilter</a></td>
-                            <td><a href="#">filter</a></td>
-                            <td><a href="#">default</a></td>
-                            <td>11,122</td>
-                            <td>5,759</td>
-                            <td>0</td>
-                            <td>6</td>
-                            <td>0</td>
-                            <td>15</td>
-                            <td>0.518</td>
-                            <td>0</td>
-                            <td>0</td>
-                            <td>1.330</td>
-                            <td>0</td>
-                            <td>0</td>
-                            <td>121</td>
-                        </tr>
-                        <tr>
-                            <td><a href="#">RequestURIFilter</a></td>
-                            <td><a href="#">filter</a></td>
-                            <td><a href="#">default</a></td>
-                            <td>5,32</td>
-                            <td>12,759</td>
-                            <td>0</td>
-                            <td>2</td>
-                            <td>0</td>
-                            <td>11</td>
-                            <td>0.518</td>
-                            <td>0</td>
-                            <td>0</td>
-                            <td>1.330</td>
-                            <td>0</td>
-                            <td>0</td>
-                            <td>118</td>
-                        </tr>
-                        <tr>
-                            <td><a href="#">UserAgentFilter</a></td>
-                            <td><a href="#">filter</a></td>
-                            <td><a href="#">default</a></td>
-                            <td>4,001</td>
-                            <td>232.1</td>
-                            <td>0</td>
-                            <td>1</td>
-                            <td>0</td>
-                            <td>18</td>
-                            <td>0.518</td>
-                            <td>0</td>
-                            <td>0</td>
-                            <td>1.330</td>
-                            <td>0</td>
-                            <td>0</td>
-                            <td>72</td>
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>
-                </div>
-                </div>
-
             </div>
-
-            <footer id="footer" class="navbar-default">
-                <p class="text-center">Generated at 2014-03-27T18:00:49,923  |  timestamp: 1395939649923  |  Interval updated at: Never  |   Interval age: n.A.</p>
-                <p class="text-center">App version: net.anotheria/moskito-counter 1-SNAPSHOT file: 2013-12-16T21:47:20,000  |  MoSKito version: net.anotheria/moskito-webui-jersey 2.4.1-SNAPSHOT file: 2013-12-16T21:46:50,000  |  Server: counter</p>
-            </footer>
-
-        </section>
-</body>
-</html>
+        </div>
 
 
+    </div>
+
+
+    <footer id="footer" class="navbar-default">
+        <p class="text-center">Generated at 2014-05-23T14:53:47,814  |  timestamp: 1400849627814  |  Interval updated at: Never  |   Interval age: n.A.</p>
+        <p class="text-center">App version: net.anotheria/moskito-inspect-standalone 2.5.0-SNAPSHOT file: 2014-05-23T14:02:26,000  |  MoSKito version: net.anotheria/moskito-webui-jersey 2.5.0-SNAPSHOT file: 2014-05-12T00:02:40,000 | Server: newest | Connection: Local</p>
+        <img src="//counter.moskito.org/counter/inspect/2.5.0-SNAPSHOT/journeys" class="ipix"> 
+    </footer>
+
+    <script src="../moskito/ext/jquery-1.10.2/jquery-1.10.2.min.js" type="text/javascript"></script>
+
+    <script type="text/javascript" src="../moskito/ext/jquery-tree-table/jquery.treeTable.min.js"></script>
+
+
+    <script src="../moskito/ext/bootstrap-3.1.1/js/bootstrap.min.js" type="text/javascript"></script>
+    <script src="../moskito/ext/tablesorter/jquery.metadata.js" type="text/javascript"></script>
+    <script src="../moskito/ext/tablesorter/jquery.tablesorter.js" type="text/javascript"></script>
+    <script src="../moskito/ext/select2-3.4.6/select2.js" type="text/javascript"></script>
+
+    <script src="../moskito/ext/switchery/switchery.min.js" type="text/javascript"></script>
+
+
+
+    <script src="../moskito/ext/custom-scrollbar/jquery.mCustomScrollbar.concat.min.js"></script>
+
+    <script src="../moskito/int/js/common.js" type="text/javascript"></script>
+</section>
+
+<span role="status" aria-live="polite" class="select2-hidden-accessible"></span><span role="status" aria-live="polite" class="select2-hidden-accessible"></span><span role="status" aria-live="polite" class="select2-hidden-accessible"></span></body></html>

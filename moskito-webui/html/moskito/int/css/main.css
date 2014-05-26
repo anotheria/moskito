@@ -1296,3 +1296,7 @@ i.vline {
 .tooltip {
     white-space: pre-wrap;
 }
+
+.popover-bottom {
+    cursor: help;
+}

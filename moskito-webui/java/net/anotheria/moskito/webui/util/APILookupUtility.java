@@ -165,11 +165,11 @@ public class APILookupUtility {
 		}catch (NoSuchMethodException e) {
 			throw new IllegalStateException("Constructor with ServiceDescriptor parameter not found in remote stub", e);
 		} catch (InvocationTargetException e) {
-			throw new IllegalStateException("Constructor with ServiceDescriptor parameter can not be invoked in remote stub", e);
+			throw new IllegalStateException("Cannot connect to "+ri+", due: "+e.getTargetException().getMessage()+". Server at "+ri.getHost()+", port: "+ri.getPort()+" is down or not properly configured", e);
 		} catch (InstantiationException e) {
-			throw new IllegalStateException("Constructor with ServiceDescriptor parameter can not be instantiated in remote stub", e);
+			throw new IllegalStateException("Cannot connect to "+ri+", due: "+e.getMessage()+". Server at "+ri.getHost()+", port: "+ri.getPort()+" is down or not properly configured", e);
 		} catch (IllegalAccessException e) {
-			throw new IllegalStateException("Constructor with ServiceDescriptor parameter can not be accessed in remote stub", e);
+			throw new IllegalStateException("Cannot connect to "+ri+", due: "+e.getMessage()+". Server at "+ri.getHost()+", port: "+ri.getPort()+" is down or not properly configured", e);
 		}
 	}
 

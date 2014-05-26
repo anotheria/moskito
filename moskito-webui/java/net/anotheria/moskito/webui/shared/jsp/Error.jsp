@@ -7,7 +7,7 @@
 <section id="main">
     <div class="content">
 
-        <img src="../int/img/moskito.png" height="100">
+        <img src="../moskito/int/img/moskito.png" height="100">
         <h1>MoSKito encountered an error:</h1>
         <span class="liner"></span>
         <p>
@@ -18,7 +18,8 @@
         </div>
 
     </div>
-
+    <!-- FOOTER -->
+    <jsp:include page="Footer.jsp" flush="false"/>
 </section>
 </body>
 </html>
