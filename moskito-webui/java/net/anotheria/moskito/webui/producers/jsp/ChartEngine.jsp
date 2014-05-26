@@ -2,14 +2,14 @@
         taglib uri="http://www.anotheria.net/ano-tags" prefix="ano"%><%@
         page isELIgnored="false" %>
 <div class="modal fade" id="chart" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
+    <div class="modal-dialog" style="width: 900px;heigth: 600px">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                 <h4 class="modal-title">Title</h4>
             </div>
             <div class="modal-body">
-                <div id="chart_div" style="height: 300px;"></div>
+                <div id="chart_div" style="width: ${config.producerChartWidth}px; height: ${config.producerChartHeight}px;"></div>
             </div>
             <div class="modal-footer">
                 <div class="text-center">
@@ -42,6 +42,7 @@
             title: ''
         };
         chartEngineIniter[chartEngineName](chartParams);
+        $('modal-title').text(eval(that.parent('.table-column').find('input').val()+'Caption'));
         $('#chart').modal('show');
     });
 
