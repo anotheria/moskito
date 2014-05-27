@@ -10,7 +10,7 @@ var chartEngineIniter = {
 		}
 
         chartData.addRows(params.data || []);
-        var options = {is3D:true, title: params.title || '', chartArea:{width: '80%', left: 75}};
+        var options = {is3D:true, title: params.title || '', chartArea:{width: '80%', left: 75}, width: params.width, height: params.height};
         var chartInfo = {
             params: '',
             container: params.container,
