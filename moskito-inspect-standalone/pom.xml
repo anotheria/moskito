@@ -150,7 +150,7 @@
                 <!-- Add jersey rest interface -->
                 <dependency>
                     <groupId>net.anotheria</groupId>
-                    <artifactId>moskito-webui-jersey</artifactId>
+                    <artifactId>moskito-inspect-jersey</artifactId>
                     <version>${project.version}</version>
                 </dependency>
 			</dependencies>
