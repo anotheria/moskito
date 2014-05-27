@@ -35,7 +35,7 @@
 
     $('.chart-icon').click(function() {
         var that = $(this);
-
+        var $chart = $('#chart');
         chartParams = {
             container: 'chart_div',
             names: [eval(that.parent('.table-column').find('input').val()+'Caption')],
@@ -45,9 +45,9 @@
             width: ${config.producerChartWidth},
             height: ${config.producerChartHeight}
         };
-        $('modal-title').text(eval(that.parent('.table-column').find('input').val()+'Caption'));
+        $chart.find('.modal-title').text(eval(that.parent('.table-column').find('input').val()+'Caption'));
         chartEngineIniter[chartEngineName](chartParams);
-        $('#chart').modal('show');
+        $chart.modal('show');
     });
 
     $charSwitcher.on('change', function(){
