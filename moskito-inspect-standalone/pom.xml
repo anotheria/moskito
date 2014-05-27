@@ -151,7 +151,7 @@
                 <dependency>
                     <groupId>net.anotheria</groupId>
                     <artifactId>moskito-webui-jersey</artifactId>
-                    <version>${project.version}</version>
+                    <version>2.5.0</version>
                 </dependency>
 			</dependencies>
 		</profile>
