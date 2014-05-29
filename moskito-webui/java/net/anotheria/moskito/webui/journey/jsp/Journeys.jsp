@@ -33,7 +33,6 @@
 
         <div class="box">
             <div class="box-title">
-                <i class="fa fa-caret-right"></i>
                 <h3 class="pull-left">
                     Journeys
                 </h3>

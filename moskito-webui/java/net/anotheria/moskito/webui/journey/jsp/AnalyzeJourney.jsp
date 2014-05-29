@@ -11,7 +11,6 @@
 
         <div class="box">
             <div class="box-title">
-                <a class="accordion-toggle tooltip-bottom" title="Close/Open" data-toggle="collapse" href="#collapse${index}"><i class="fa fa-caret-right"></i></a>
                 <h3 class="pull-left">
                     ${call.name}
                 </h3>
@@ -19,7 +18,7 @@
                     <a href="" class="tooltip-bottom" title="Help"><i class="fa fa-info-circle"></i></a>
                 </div>
             </div>
-            <div id="collapse${index}" class="box-content accordion-body collapse in">
+            <div id="collapse${index}" class="box-content">
                 <table class="table table-left table-striped tablesorter">
                     <thead>
                     <tr>
