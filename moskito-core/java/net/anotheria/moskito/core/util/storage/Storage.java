@@ -8,11 +8,13 @@ import net.anotheria.moskito.core.registry.ProducerRegistryFactory;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.TreeMap;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -397,6 +399,28 @@ public class Storage<K,V> implements IStatsProducer<StorageStats>, Inspectable, 
 	public static <K,V>Storage<K,V> createHashtableStorage(String name, int initialSize){
 		return new Storage<K,V>(name, new MapStorageWrapper<K, V>(new Hashtable<K, V>(initialSize)));
 	}
-	
-	
+
+	/**
+	 * Creates a new TreeMap backed Storage.
+	 * @param name name of the map
+	 * @param <K>
+	 * @param <V>
+	 * @return
+	 */
+	public static <K,V>Storage<K,V> createTreeMapStorage(String name){
+		return new Storage<K, V>(name, new MapStorageWrapper<K, V>(new TreeMap<K, V>()));
+	}
+
+	/**
+	 * Creates a new TreeMap backed Storage.
+	 * @param name name
+	 * @param comparator comparator
+	 * @param <K>
+	 * @param <V>
+	 * @return
+	 */
+	public static <K,V>Storage<K,V> createTreeMapStorage(String name, Comparator comparator){
+		return new Storage<K, V>(name, new MapStorageWrapper<K, V>(new TreeMap<K, V>(comparator)));
+	}
+
 }
