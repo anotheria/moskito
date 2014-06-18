@@ -18,23 +18,24 @@ import org.junit.Test;
  * @author lrosenberg
  * @since 23.10.12 16:05
  */
-public class ManualTestEmailProvider {
+public class ManualTestEmailProviderTest {
 
-	@Ignore
+    @Ignore
 	@Test public void generateMailConfigAndTriggerMail() throws Exception{
 		//prepare config
 		MoskitoConfiguration config = new MoskitoConfiguration();
 
 		config.getThresholdsAlertsConfig().setDispatcherThreadPoolSize(1);
 
-		NotificationProviderConfig[] providers = new NotificationProviderConfig[4];
+		NotificationProviderConfig[] providers = new NotificationProviderConfig[1];
 		providers[0] = new NotificationProviderConfig();
-		providers[0].setClassName(MailNotificationProvider.class.getName());
-		providers[0].setParameter("leon@leon-rosenberg.net,rosenberg.leon@gmail.com, michael.schuetz@anotheria.net");
+		providers[0].setClassName(MailgunNotificationProvider.class.getName());
+		//providers[0].setParameter("leon@leon-rosenberg.net,rosenberg.leon@gmail.com, michael.schuetz@anotheria.net");
+        providers[0].setParameter("{\"recipients\":\"leon@leon-rosenberg.net,rosenberg.leon@gmail.com,michael.schuetz@anotheria.net\", \"templateUrl\":\"template.htm\"}");
 		providers[0].setGuardedStatus(ThresholdStatus.YELLOW.name());
-		providers[3] = new NotificationProviderConfig();
+		/*providers[3] = new NotificationProviderConfig();
 		providers[3].setClassName(DummyNotificationProvider.class.getName());
-		providers[3].setParameter("1");
+		providers[3].setParameter("1");*/
 
 		config.getThresholdsAlertsConfig().setNotificationProviders(providers);
 		MoskitoConfigurationHolder.INSTANCE.setConfiguration(config);
@@ -46,7 +47,7 @@ public class ManualTestEmailProvider {
 		ThresholdAlert a1 = new ThresholdAlert(testT, ThresholdStatus.GREEN, ThresholdStatus.YELLOW, "1", null, 0);
 		AlertDispatcher dispatcher = AlertDispatcher.INSTANCE;
 		dispatcher.dispatchAlert(a1);
-		DummyNotificationProvider.getInstance().await(1000);
+		Thread.currentThread().sleep(3000);
 
 		System.out.println("Check the mailbox now");
 

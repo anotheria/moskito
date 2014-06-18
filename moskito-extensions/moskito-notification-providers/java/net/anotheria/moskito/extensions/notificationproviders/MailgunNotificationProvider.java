@@ -1,5 +1,7 @@
 package net.anotheria.moskito.extensions.notificationproviders;
 
+import net.anotheria.communication.data.HtmlMailMessage;
+import net.anotheria.communication.service.MessagingService;
 import net.anotheria.moskito.core.threshold.alerts.NotificationProvider;
 
 import com.sun.jersey.api.client.Client;
@@ -8,13 +10,17 @@ import com.sun.jersey.api.client.WebResource;
 import com.sun.jersey.api.client.filter.HTTPBasicAuthFilter;
 import com.sun.jersey.core.util.MultivaluedMapImpl;
 import net.anotheria.moskito.core.threshold.alerts.ThresholdAlert;
+import net.anotheria.moskito.core.util.IOUtils;
+import net.anotheria.moskito.extensions.notificationtemplate.AlertThresholdTemplate;
 import net.anotheria.util.NumberUtils;
 import net.anotheria.util.StringUtils;
+import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.ws.rs.core.MediaType;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  * MailGun notification provider.
@@ -64,6 +70,8 @@ public class MailgunNotificationProvider implements NotificationProvider {
 	 */
 	private final String sender;
 
+    private String templateString;
+
 	/**
 	 * Client instance. This one is shared between messages.
 	 */
@@ -90,12 +98,19 @@ public class MailgunNotificationProvider implements NotificationProvider {
 
 	@Override
 	public void configure(String parameter) {
-		recipients = new ArrayList<String>();
-		String tokens[] = StringUtils.tokenize(parameter, ',');
-		for (String t : tokens){
-			if (t.length()>0)
-				recipients.add(t.trim());
-		}
+        try{
+        JSONObject config = new JSONObject(parameter);
+
+        String tokens[] = StringUtils.tokenize(config.getString("recipients"), ',');
+        recipients = new ArrayList<String>();
+        for (String t : tokens){
+            if (t.length()>0)
+                recipients.add(t.trim());
+        }
+        templateString = IOUtils.getInputStreamAsString(ClassLoader.getSystemResourceAsStream(config.getString("templateUrl")));
+        } catch (Throwable e){
+
+        }
 	}
 
 	@Override
@@ -111,29 +126,38 @@ public class MailgunNotificationProvider implements NotificationProvider {
 		mailText += "OldValue: "+alert.getOldValue()+"\n";
 		mailText += "NewValue: "+alert.getNewValue()+"\n";
 
-		WebResource webResource = client.resource("https://api.mailgun.net/v2/moskito.org/messages");
+        AlertThresholdTemplate alertThresholdTemplate = new AlertThresholdTemplate(alert);
+        String htmlTEXT = alertThresholdTemplate.process(templateString);
 
-		MultivaluedMapImpl formData = new MultivaluedMapImpl();
-		formData.add("from", "MoSKito Alerts <moskito-alert@moskito.org>");
-		for (String r : recipients){
-			formData.add("to", r);
-		}
-		formData.add("subject", subject);
-		formData.add("text", mailText);
+        try {
+            WebResource webResource = client.resource("https://api.mailgun.net/v2/moskito.org/messages");
 
-		try{
-			ClientResponse response = webResource.type(MediaType.APPLICATION_FORM_URLENCODED).post(ClientResponse.class, formData);
+            MultivaluedMapImpl formData = new MultivaluedMapImpl();
+            formData.add("from", "MoSKito Alerts <moskito-alert@moskito.org>");
+            for (String r : recipients) {
+                formData.add("to", r);
+            }
+            formData.add("subject", subject);
+            formData.add("text", mailText);
+            formData.add("html", htmlTEXT);
+            try {
+                ClientResponse response = webResource.type(MediaType.APPLICATION_FORM_URLENCODED).post(ClientResponse.class, formData);
 
-			if (response.getStatus()!=200){
-		 		log.warn("Couldn't send email, status expected 200, got "+response.getStatus());
-			}else{
-				byte data[] = new byte[response.getLength()];
-				response.getEntityInputStream().read(data);
-				log.debug("Successfully sent notification mail "+new String(data));
+                if (response.getStatus() != 200) {
+                    log.warn("Couldn't send email, status expected 200, got " + response.getStatus());
+                } else {
+                    byte data[] = new byte[response.getLength()];
+                    response.getEntityInputStream().read(data);
+                    log.debug("Successfully sent notification mail " + new String(data));
 
-			}
-		}catch(Exception e){
-			log.error("Couldn't send email", e);
-		}
+                }
+            } catch (Throwable e) {
+                e.printStackTrace();
+                log.error("Couldn't send email", e);
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+            log.error("Couldn't send email", e);
+        }
 	}
 }

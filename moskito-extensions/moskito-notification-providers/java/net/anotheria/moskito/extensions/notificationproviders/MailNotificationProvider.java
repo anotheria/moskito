@@ -1,11 +1,14 @@
 package net.anotheria.moskito.extensions.notificationproviders;
 
-import net.anotheria.communication.data.SimpleMailMessage;
+import net.anotheria.communication.data.HtmlMailMessage;
 import net.anotheria.communication.service.MessagingService;
 import net.anotheria.moskito.core.threshold.alerts.NotificationProvider;
 import net.anotheria.moskito.core.threshold.alerts.ThresholdAlert;
+import net.anotheria.moskito.core.util.IOUtils;
+import net.anotheria.moskito.extensions.notificationtemplate.AlertThresholdTemplate;
 import net.anotheria.util.NumberUtils;
 import net.anotheria.util.StringUtils;
+import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -30,6 +33,8 @@ public class MailNotificationProvider implements NotificationProvider {
 	 */
 	private MessagingService messagingService;
 
+    private String templateString;
+
 	/**
 	 * Log.
 	 */
@@ -43,12 +48,15 @@ public class MailNotificationProvider implements NotificationProvider {
 	@Override
 	public void configure(String parameter) {
 		try{
+            JSONObject config = new JSONObject(parameter);
+
 			messagingService = MessagingService.getInstance();
-			String tokens[] = StringUtils.tokenize(parameter, ',');
+			String tokens[] = StringUtils.tokenize(config.getString("recipients"), ',');
 			for (String t : tokens){
 				if (t.length()>0)
 					recipients.add(t.trim());
 			}
+            templateString = IOUtils.getInputStreamAsString(ClassLoader.getSystemResourceAsStream(config.getString("templateUrl")));
 		}catch(Throwable t){
 			log.warn("couldn't parse recipients  "+parameter, t);
 		}
@@ -68,13 +76,16 @@ public class MailNotificationProvider implements NotificationProvider {
 		mailtext += "OldValue: "+alert.getOldValue()+"\n";
 		mailtext += "NewValue: "+alert.getNewValue()+"\n";
 
-		SimpleMailMessage message = new SimpleMailMessage();
 
+        HtmlMailMessage message = new HtmlMailMessage();
 
-		message.setSender("moskito@anotheria.net");
-		message.setSenderName("MoSKito Threshold Alert");
-		message.setSubject(subject);
-		message.setMessage(mailtext);
+        message.setSender("moskito@anotheria.net");
+        message.setSenderName("MoSKito Threshold Alert");
+        message.setSubject(subject);
+        message.setPlainTextContent(mailtext);
+        AlertThresholdTemplate alertThresholdTemplate = new AlertThresholdTemplate(alert);
+        message.setHtmlContent(alertThresholdTemplate.process(templateString));
+
 
 		for (String r : recipients){
 			message.setRecipient(r);
