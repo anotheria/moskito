@@ -3,6 +3,7 @@ package net.anotheria.moskito.sql.callingAspect;
 import net.anotheria.moskito.sql.util.TestDBUtil;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.io.ByteArrayOutputStream;
@@ -19,6 +20,7 @@ import static junit.framework.Assert.assertEquals;
  *         Date: 11/29/11
  *         Time: 2:22 PM
  */
+@Ignore
 public class InterceptTest {
 
     private static final String LINESEP = System.getProperty("line.separator");
