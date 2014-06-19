@@ -1,5 +1,7 @@
 package net.anotheria.moskito.core.threshold.alerts;
 
+import net.anotheria.moskito.core.config.thresholds.NotificationProviderConfig;
+
 import java.util.concurrent.atomic.AtomicLong;
 
 /**
@@ -15,7 +17,7 @@ public class TestNotificationProvider  implements NotificationProvider{
 	private static AtomicLong alertCounter = new AtomicLong(0);
 
 	@Override
-	public void configure(String parameter) {
+	public void configure(NotificationProviderConfig config) {
 		//To change body of implemented methods use File | Settings | File Templates.
 	}
 

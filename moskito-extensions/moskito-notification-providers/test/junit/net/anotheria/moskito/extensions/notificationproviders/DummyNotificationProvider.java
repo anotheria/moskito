@@ -1,5 +1,6 @@
 package net.anotheria.moskito.extensions.notificationproviders;
 
+import net.anotheria.moskito.core.config.thresholds.NotificationProviderConfig;
 import net.anotheria.moskito.core.threshold.alerts.NotificationProvider;
 import net.anotheria.moskito.core.threshold.alerts.ThresholdAlert;
 
@@ -21,8 +22,8 @@ public class DummyNotificationProvider implements NotificationProvider{
 	}
 
 	@Override
-	public void configure(String parameter) {
-		latch = new CountDownLatch(Integer.parseInt(parameter));
+	public void configure(NotificationProviderConfig config) {
+		latch = new CountDownLatch(Integer.parseInt(config.getProperties().get("count")));
 	}
 
 	@Override

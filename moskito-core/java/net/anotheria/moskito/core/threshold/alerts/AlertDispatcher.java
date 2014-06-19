@@ -77,13 +77,13 @@ public enum AlertDispatcher {
 		for (NotificationProviderConfig providerDef : config.getThresholdsAlertsConfig().getNotificationProviders()){
 			try{
 				NotificationProvider provider = (NotificationProvider)Class.forName(providerDef.getClassName()).newInstance();
-				provider.configure(providerDef.getParameter());
+				provider.configure(providerDef);
 				providers.add(new NotificationProviderWrapper(provider, ThresholdStatus.valueOf(providerDef.getGuardedStatus())));
 			}catch(Exception any){
 				if (providerDef==null){
-					LoggerFactory.getLogger(AlertDispatcher.class).error("Couldn't instantiate notification notificationprovider of class due to nullity of a providerDef, check configuration.", any);
+					LoggerFactory.getLogger(AlertDispatcher.class).error("Couldn't instantiate notification provider due to nullity of a providerDef, check configuration.", any);
 				}else{
-					LoggerFactory.getLogger(AlertDispatcher.class).error("Couldn't instantiate notification notificationprovider of class " + providerDef.getClassName() + ", check configuration.", any);
+					LoggerFactory.getLogger(AlertDispatcher.class).error("Couldn't instantiate notification provider of class " + providerDef.getClassName() + ", check configuration.", any);
 				}
 
 			}

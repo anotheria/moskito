@@ -2,6 +2,10 @@ package net.anotheria.moskito.core.config.thresholds;
 
 import net.anotheria.moskito.core.threshold.ThresholdStatus;
 import org.configureme.annotations.Configure;
+import org.configureme.annotations.SetAll;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * This class configures a notification provider that can generate alerts in case of threshold status change.
@@ -16,15 +20,12 @@ public class NotificationProviderConfig {
 	@Configure
 	private String className;
 	/**
-	 * Parameter for the notification provider instance.
-	 */
-	@Configure
-	private String parameter = "";
-	/**
 	 * Status to react on.
 	 */
 	@Configure
 	private String guardedStatus = ThresholdStatus.GREEN.name();
+
+	private Map<String,String> properties = new HashMap<String, String>();
 
 	public String getClassName() {
 		return className;
@@ -32,14 +33,6 @@ public class NotificationProviderConfig {
 
 	public void setClassName(String className) {
 		this.className = className;
-	}
-
-	public String getParameter() {
-		return parameter;
-	}
-
-	public void setParameter(String parameter) {
-		this.parameter = parameter;
 	}
 
 	public String getGuardedStatus() {
@@ -51,6 +44,15 @@ public class NotificationProviderConfig {
 	}
 
 	@Override public String toString(){
-		return "className: "+className+", parameter: "+parameter+", guardedStatus: "+guardedStatus;
+		return "className: "+className+", guardedStatus: "+guardedStatus+" properties: "+properties;
+	}
+
+	@SetAll public void setProperty(String name, String value){
+		properties.put(name, value);
+	}
+
+	public Map<String,String> getProperties(){
+		return properties;
 	}
 }
+

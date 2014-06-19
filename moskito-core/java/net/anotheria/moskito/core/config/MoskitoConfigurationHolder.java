@@ -56,7 +56,7 @@ public enum MoskitoConfigurationHolder {
 		NotificationProviderConfig[] providers = new NotificationProviderConfig[1];
 		providers[0] = new NotificationProviderConfig();
 		providers[0].setClassName(LogFileNotificationProvider.class.getName());
-		providers[0].setParameter("MoskitoAlert");
+		providers[0].setProperty("appenderName", "MoskitoAlert");
 
 		//The default size for the threadpool for alert dispatching. This threadpool is needed to prevent app from being blocked by a slow alert notification processor.
 		//Default value is 1. Increase it if you have many alerts and many notification providers.

@@ -2,13 +2,13 @@ package net.anotheria.moskito.extensions.notificationproviders;
 
 import net.anotheria.communication.data.HtmlMailMessage;
 import net.anotheria.communication.service.MessagingService;
+import net.anotheria.moskito.core.config.thresholds.NotificationProviderConfig;
 import net.anotheria.moskito.core.threshold.alerts.NotificationProvider;
 import net.anotheria.moskito.core.threshold.alerts.ThresholdAlert;
 import net.anotheria.moskito.core.util.IOUtils;
 import net.anotheria.moskito.extensions.notificationtemplate.AlertThresholdTemplate;
 import net.anotheria.util.NumberUtils;
 import net.anotheria.util.StringUtils;
-import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -46,19 +46,17 @@ public class MailNotificationProvider implements NotificationProvider {
 	}
 
 	@Override
-	public void configure(String parameter) {
+	public void configure(NotificationProviderConfig config) {
 		try{
-            JSONObject config = new JSONObject(parameter);
-
 			messagingService = MessagingService.getInstance();
-			String tokens[] = StringUtils.tokenize(config.getString("recipients"), ',');
+			String tokens[] = StringUtils.tokenize(config.getProperties().get("recipients"), ',');
 			for (String t : tokens){
 				if (t.length()>0)
 					recipients.add(t.trim());
 			}
-            templateString = IOUtils.getInputStreamAsString(ClassLoader.getSystemResourceAsStream(config.getString("templateUrl")));
-		}catch(Throwable t){
-			log.warn("couldn't parse recipients  "+parameter, t);
+            templateString = IOUtils.getInputStreamAsString(ClassLoader.getSystemResourceAsStream(config.getProperties().get("templateUrl")));
+		}catch(Exception t){
+			log.warn("couldn't parse recipients from config  "+templateString, t);
 		}
 
 	}

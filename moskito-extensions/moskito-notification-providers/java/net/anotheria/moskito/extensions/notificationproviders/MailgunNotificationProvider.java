@@ -1,26 +1,22 @@
 package net.anotheria.moskito.extensions.notificationproviders;
 
-import net.anotheria.communication.data.HtmlMailMessage;
-import net.anotheria.communication.service.MessagingService;
-import net.anotheria.moskito.core.threshold.alerts.NotificationProvider;
-
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.WebResource;
 import com.sun.jersey.api.client.filter.HTTPBasicAuthFilter;
 import com.sun.jersey.core.util.MultivaluedMapImpl;
+import net.anotheria.moskito.core.config.thresholds.NotificationProviderConfig;
+import net.anotheria.moskito.core.threshold.alerts.NotificationProvider;
 import net.anotheria.moskito.core.threshold.alerts.ThresholdAlert;
 import net.anotheria.moskito.core.util.IOUtils;
 import net.anotheria.moskito.extensions.notificationtemplate.AlertThresholdTemplate;
 import net.anotheria.util.NumberUtils;
 import net.anotheria.util.StringUtils;
-import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.ws.rs.core.MediaType;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 /**
  * MailGun notification provider.
@@ -97,17 +93,15 @@ public class MailgunNotificationProvider implements NotificationProvider {
 	}
 
 	@Override
-	public void configure(String parameter) {
+	public void configure(NotificationProviderConfig config) {
         try{
-        JSONObject config = new JSONObject(parameter);
-
-        String tokens[] = StringUtils.tokenize(config.getString("recipients"), ',');
+        String tokens[] = StringUtils.tokenize(config.getProperties().get("recipients"), ',');
         recipients = new ArrayList<String>();
         for (String t : tokens){
             if (t.length()>0)
                 recipients.add(t.trim());
         }
-        templateString = IOUtils.getInputStreamAsString(ClassLoader.getSystemResourceAsStream(config.getString("templateUrl")));
+        templateString = IOUtils.getInputStreamAsString(ClassLoader.getSystemResourceAsStream(config.getProperties().get("templateUrl")));
         } catch (Throwable e){
 
         }

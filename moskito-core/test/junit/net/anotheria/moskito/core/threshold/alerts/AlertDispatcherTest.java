@@ -38,7 +38,7 @@ public class AlertDispatcherTest {
 		providers[2].setGuardedStatus(ThresholdStatus.RED.name());
 		providers[3] = new NotificationProviderConfig();
 		providers[3].setClassName(DummyNotificationProvider.class.getName());
-		providers[3].setParameter("3");
+		providers[3].setProperty("count", "3");
 
 		config.getThresholdsAlertsConfig().setNotificationProviders(providers);
 		MoskitoConfigurationHolder.INSTANCE.setConfiguration(config);

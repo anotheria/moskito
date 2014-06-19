@@ -31,7 +31,9 @@ public class ManualTestEmailProviderTest {
 		providers[0] = new NotificationProviderConfig();
 		providers[0].setClassName(MailgunNotificationProvider.class.getName());
 		//providers[0].setParameter("leon@leon-rosenberg.net,rosenberg.leon@gmail.com, michael.schuetz@anotheria.net");
-        providers[0].setParameter("{\"recipients\":\"leon@leon-rosenberg.net,rosenberg.leon@gmail.com,michael.schuetz@anotheria.net\", \"templateUrl\":\"template.htm\"}");
+
+        providers[0].setProperty("recipients","leon@leon-rosenberg.net,rosenberg.leon@gmail.com,michael.schuetz@anotheria.net");
+		providers[0].setProperty("templateUrl", "template.htm");
 		providers[0].setGuardedStatus(ThresholdStatus.YELLOW.name());
 		/*providers[3] = new NotificationProviderConfig();
 		providers[3].setClassName(DummyNotificationProvider.class.getName());

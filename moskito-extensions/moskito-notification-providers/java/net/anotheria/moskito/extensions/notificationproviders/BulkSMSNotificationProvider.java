@@ -1,11 +1,9 @@
 package net.anotheria.moskito.extensions.notificationproviders;
 
+import net.anotheria.moskito.core.config.thresholds.NotificationProviderConfig;
 import net.anotheria.moskito.core.threshold.alerts.NotificationProvider;
 import net.anotheria.moskito.core.threshold.alerts.ThresholdAlert;
 import net.anotheria.util.IOUtils;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -71,29 +69,10 @@ public class BulkSMSNotificationProvider implements NotificationProvider {
     private String recipients;
 
     @Override
-    public void configure(final String parameter) {
-        try {
-            JSONObject config = new JSONObject(parameter);
-
-            user = config.getString("user");
-            password = config.getString("password");
-
-            StringBuilder sb = new StringBuilder();
-
-            JSONArray array = config.getJSONArray("recipients");
-
-            for (int i = 0; i < array.length(); i++) {
-                if (i != 0) {
-                    sb.append(",");
-                }
-
-                sb.append(array.getString(i));
-            }
-
-            recipients = sb.toString();
-        } catch (JSONException e) {
-            throw new RuntimeException("Can't parse");
-        }
+    public void configure(NotificationProviderConfig config) {
+		user = config.getProperties().get("user");
+		password = config.getProperties().get("password");
+		recipients = config.getProperties().get("recipients");
     }
 
     @Override

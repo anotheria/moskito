@@ -1,5 +1,6 @@
 package net.anotheria.moskito.core.threshold.alerts.notificationprovider;
 
+import net.anotheria.moskito.core.config.thresholds.NotificationProviderConfig;
 import net.anotheria.moskito.core.threshold.alerts.NotificationProvider;
 import net.anotheria.moskito.core.threshold.alerts.ThresholdAlert;
 
@@ -12,7 +13,7 @@ import net.anotheria.moskito.core.threshold.alerts.ThresholdAlert;
 public class SysoutNotificationProvider  implements NotificationProvider {
 
 	@Override
-	public void configure(String parameter) {
+	public void configure(NotificationProviderConfig config) {
 		//nothing to configure here.
 	}
 

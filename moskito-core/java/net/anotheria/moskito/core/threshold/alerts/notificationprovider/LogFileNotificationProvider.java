@@ -1,5 +1,6 @@
 package net.anotheria.moskito.core.threshold.alerts.notificationprovider;
 
+import net.anotheria.moskito.core.config.thresholds.NotificationProviderConfig;
 import net.anotheria.moskito.core.threshold.alerts.NotificationProvider;
 import net.anotheria.moskito.core.threshold.alerts.ThresholdAlert;
 import org.slf4j.Logger;
@@ -16,8 +17,8 @@ public class LogFileNotificationProvider implements NotificationProvider{
 	private Logger log;
 
 	@Override
-	public void configure(String parameter) {
-		log = LoggerFactory.getLogger(parameter);
+	public void configure(NotificationProviderConfig config) {
+		log = LoggerFactory.getLogger(config.getProperties().get("appenderName"));
 	}
 
 	@Override

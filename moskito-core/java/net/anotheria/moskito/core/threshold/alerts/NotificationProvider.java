@@ -1,5 +1,7 @@
 package net.anotheria.moskito.core.threshold.alerts;
 
+import net.anotheria.moskito.core.config.thresholds.NotificationProviderConfig;
+
 /**
  * Interface that has to be implemented to provide own notification provider. A notification provider is called
  * upon any changes in thresholds and allows you to react on that change.
@@ -9,10 +11,11 @@ package net.anotheria.moskito.core.threshold.alerts;
  */
 public interface NotificationProvider {
 	/**
-	 * Called by the alert dispatcher upon creation with a parameter configured by the config.
-	 * @param parameter
+	 * Called by the alert dispatcher upon creation with a configuration. Use config.getProperties() for custom
+	 * properties.
+	 * @param config
 	 */
-	public void configure(String parameter);
+	public void configure(NotificationProviderConfig config);
 
 	/**
 	 * Called whenever a new alert has been created in the system.
