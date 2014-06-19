@@ -100,20 +100,24 @@ public class BulkSMSNotificationProvider implements NotificationProvider {
     public void onNewAlert(ThresholdAlert alert) {
         final String query = formatQuery(alert);
 
+        OutputStreamWriter writer = null;
+
         try {
             URLConnection conn = PROVIDER_URL.openConnection();
             conn.setDoOutput(true);
 
-            try (OutputStreamWriter writer = new OutputStreamWriter(conn.getOutputStream())) {
-                writer.write(query);
-                writer.flush();
-            }
+            writer = new OutputStreamWriter(conn.getOutputStream());
+
+            writer.write(query);
+            writer.flush();
 
             String response = IOUtils.readInputStreamBufferedAsString(conn.getInputStream(), ENCODING);
 
             LOGGER.info("onNewAlert(): Request sent: [" + query + "]. Response received: [" + response + "].");
         } catch (IOException e) {
             LOGGER.error(e.getMessage(), e);
+        } finally {
+            IOUtils.closeIgnoringException(writer);
         }
     }
 
