@@ -10,7 +10,12 @@
                 "className": "net.anotheria.moskito.extensions.notificationproviders.BulkSMSNotificationProvider",
                 "parameter": "{\"user\":\"moskito\", \"password\":\"qweqweqwe\",\"recipients\":[\"380973777273\",\"4915122345102\"]}",
                 "guardedStatus": "GREEN"
-            }
+            },
+            {
+				"className": "net.anotheria.moskito.extensions.notificationproviders.MailgunNotificationProvider",
+				"parameter": "{\"recipients\":\"leon@leon-rosenberg.net\", \"templateUrl\":\"template.htm\"}",
+				"guardedStatus": "GREEN"
+			}
 		],
 
 		"@alertHistoryConfig": {
