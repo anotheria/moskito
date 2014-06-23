@@ -1,0 +1,22 @@
+{
+	"@thresholdsAlertsConfig": {
+		"@notificationProviders": [
+            {
+				"className": "net.anotheria.moskito.extensions.notificationproviders.MailNotificationProvider",
+                "recipients": "leon@leon-rosenberg.net",
+                /*"recipients": "ykoval@anotheria.net",*/
+                "thresholdMailHTMLTplUrl":"thresholdMailTplHTML.htm",
+                "thresholdMailTextTplUrl":"thresholdMailTplPlainText.txt",
+				"guardedStatus": "GREEN"
+			},
+            {
+                "className": "net.anotheria.moskito.extensions.notificationproviders.MailgunNotificationProvider",
+                "recipients": "leon@leon-rosenberg.net",
+                /*"recipients": "ykoval@anotheria.net",*/
+                "thresholdMailHTMLTplUrl":"thresholdMailTplHTML.htm",
+                "thresholdMailTextTplUrl":"thresholdMailTplPlainText.txt",
+                "guardedStatus": "GREEN"
+            }
+		]
+	}
+}

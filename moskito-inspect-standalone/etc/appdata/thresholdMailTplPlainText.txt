@@ -1,0 +1,7 @@
+Threshold alert:\n
+ISO Timestamp:  {mail:timestamp}\n\n
+Threshold:      {mail:threshold}\n
+OldStatus:      {mail:oldStatus}\n
+NewStatus:      {mail:newStatus}\n
+OldValue:       {mail:oldValue}\n
+NewValue:       {mail:newValue}

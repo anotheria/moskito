@@ -33,7 +33,9 @@ public class ManualTestEmailProviderTest {
 		//providers[0].setParameter("leon@leon-rosenberg.net,rosenberg.leon@gmail.com, michael.schuetz@anotheria.net");
 
         providers[0].setProperty("recipients","leon@leon-rosenberg.net,rosenberg.leon@gmail.com,michael.schuetz@anotheria.net");
-		providers[0].setProperty("templateUrl", "template.htm");
+        //providers[0].setProperty(MailerConfigKey.RECIPIENTS.getKey(),"ykoval@anotheria.net");
+		providers[0].setProperty(MailerConfigKey.THRESHOLD_ALERT_HTML_PATH.getKey(), "thresholdMailTplHTML.htm");
+        providers[0].setProperty(MailerConfigKey.THRESHOLD_ALERT_TEXT_PATH.getKey(), "thresholdMailTplPlainText.txt");
 		providers[0].setGuardedStatus(ThresholdStatus.YELLOW.name());
 		/*providers[3] = new NotificationProviderConfig();
 		providers[3].setClassName(DummyNotificationProvider.class.getName());
@@ -49,7 +51,7 @@ public class ManualTestEmailProviderTest {
 		ThresholdAlert a1 = new ThresholdAlert(testT, ThresholdStatus.GREEN, ThresholdStatus.YELLOW, "1", null, 0);
 		AlertDispatcher dispatcher = AlertDispatcher.INSTANCE;
 		dispatcher.dispatchAlert(a1);
-		Thread.currentThread().sleep(3000);
+		Thread.currentThread().sleep(10000);
 
 		System.out.println("Check the mailbox now");
 
