@@ -20,7 +20,7 @@ import org.junit.Test;
  */
 public class ManualTestEmailProviderTest {
 
-    @Ignore
+    //@Ignore
 	@Test public void generateMailConfigAndTriggerMail() throws Exception{
 		//prepare config
 		MoskitoConfiguration config = new MoskitoConfiguration();
@@ -32,10 +32,10 @@ public class ManualTestEmailProviderTest {
 		providers[0].setClassName(MailgunNotificationProvider.class.getName());
 		//providers[0].setParameter("leon@leon-rosenberg.net,rosenberg.leon@gmail.com, michael.schuetz@anotheria.net");
 
-        providers[0].setProperty("recipients","leon@leon-rosenberg.net,rosenberg.leon@gmail.com,michael.schuetz@anotheria.net");
-        //providers[0].setProperty(MailerConfigKey.RECIPIENTS.getKey(),"ykoval@anotheria.net");
-		providers[0].setProperty(MailerConfigKey.THRESHOLD_ALERT_HTML_PATH.getKey(), "thresholdMailTplHTML.htm");
-        providers[0].setProperty(MailerConfigKey.THRESHOLD_ALERT_TEXT_PATH.getKey(), "thresholdMailTplPlainText.txt");
+        //providers[0].setProperty("recipients","leon@leon-rosenberg.net,rosenberg.leon@gmail.com,michael.schuetz@anotheria.net");
+        providers[0].setProperty(NotificationProviderConfigKey.RECIPIENTS.getKey(),"ykoval@anotheria.net");
+		providers[0].setProperty(NotificationProviderConfigKey.HTML_TEMPLATE_PATH.getKey(), "thresholdAlertTemplate.htm");
+        providers[0].setProperty(NotificationProviderConfigKey.TEXT_TEMPLATE_PATH.getKey(), "thresholdAlertTemplate.txt");
 		providers[0].setGuardedStatus(ThresholdStatus.YELLOW.name());
 		/*providers[3] = new NotificationProviderConfig();
 		providers[3].setClassName(DummyNotificationProvider.class.getName());

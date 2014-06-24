@@ -1,17 +1,19 @@
 package net.anotheria.moskito.extensions.notificationproviders;
 
 /**
+ * Notification provider config key enum.
+ *
  * @author Yuriy Koval'.
  */
-public enum MailerConfigKey {
+public enum NotificationProviderConfigKey {
 
-    THRESHOLD_ALERT_HTML_PATH("thresholdMailHTMLTplUrl"),
-    THRESHOLD_ALERT_TEXT_PATH("thresholdMailTextTplUrl"),
+    HTML_TEMPLATE_PATH("htmlTemplatePath"),
+    TEXT_TEMPLATE_PATH("textTemplatePath"),
     RECIPIENTS("recipients");
 
     private String key;
 
-    MailerConfigKey(final String key) {
+    NotificationProviderConfigKey(final String key) {
         this.key = key;
     }
 

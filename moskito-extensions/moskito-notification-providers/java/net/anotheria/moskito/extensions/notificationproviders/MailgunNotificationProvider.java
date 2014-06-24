@@ -9,7 +9,7 @@ import net.anotheria.moskito.core.config.thresholds.NotificationProviderConfig;
 import net.anotheria.moskito.core.threshold.alerts.NotificationProvider;
 import net.anotheria.moskito.core.threshold.alerts.ThresholdAlert;
 import net.anotheria.moskito.core.util.IOUtils;
-import net.anotheria.moskito.extensions.notificationtemplate.AlertThresholdTemplate;
+import net.anotheria.moskito.extensions.notificationtemplate.ThresholdAlertTemplate;
 import net.anotheria.util.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -66,14 +66,14 @@ public class MailgunNotificationProvider implements NotificationProvider {
     private final String sender;
 
     /**
-     * Html mail template string.
+     * Html mail template.
      */
-    private String htmlTemplateString;
+    private String htmlTemplate;
 
     /**
-     * Plain text mail template string.
+     * Plain text mail template.
      */
-    private String plainTextTemplateString;
+    private String plainTextTemplate;
 
     /**
      * Client instance. This one is shared between messages.
@@ -102,18 +102,18 @@ public class MailgunNotificationProvider implements NotificationProvider {
     @Override
     public void configure(NotificationProviderConfig config) {
         try {
-            String tokens[] = StringUtils.tokenize(config.getProperties().get(MailerConfigKey.RECIPIENTS.getKey()), ',');
+            String tokens[] = StringUtils.tokenize(config.getProperties().get(NotificationProviderConfigKey.RECIPIENTS.getKey()), ',');
             recipients = new ArrayList<String>();
             for (String t : tokens) {
                 if (t.length() > 0)
                     recipients.add(t.trim());
             }
-            htmlTemplateString = IOUtils.getInputStreamAsString(
+            htmlTemplate = IOUtils.getInputStreamAsString(
                     ClassLoader.getSystemResourceAsStream(
-                            config.getProperties().get(MailerConfigKey.THRESHOLD_ALERT_HTML_PATH.getKey())));
-            plainTextTemplateString = IOUtils.getInputStreamAsString(
+                            config.getProperties().get(NotificationProviderConfigKey.HTML_TEMPLATE_PATH.getKey())));
+            plainTextTemplate = IOUtils.getInputStreamAsString(
                     ClassLoader.getSystemResourceAsStream(
-                            config.getProperties().get(MailerConfigKey.THRESHOLD_ALERT_TEXT_PATH.getKey())));
+                            config.getProperties().get(NotificationProviderConfigKey.TEXT_TEMPLATE_PATH.getKey())));
         } catch (Throwable e) {
             log.warn("couldn't initialize config  " + config, e);
         }
@@ -133,14 +133,14 @@ public class MailgunNotificationProvider implements NotificationProvider {
             }
             formData.add("subject", subject);
 
-            AlertThresholdTemplate alertThresholdTemplate = new AlertThresholdTemplate(alert);
-            if(!StringUtils.isEmpty(plainTextTemplateString)) {
-                formData.add("text", alertThresholdTemplate.process(plainTextTemplateString));
+            ThresholdAlertTemplate thresholdAlertTemplate = new ThresholdAlertTemplate(alert);
+            if(!StringUtils.isEmpty(plainTextTemplate)) {
+                formData.add("text", thresholdAlertTemplate.process(plainTextTemplate));
             } else {
-                formData.add("text", ThresholdAlertMailUtil.alertToPlainText(alert));
+                formData.add("text", ThresholdAlertConverter.toPlainText(alert));
             }
-            if(!StringUtils.isEmpty(htmlTemplateString)) {
-                formData.add("html", alertThresholdTemplate.process(htmlTemplateString));
+            if(!StringUtils.isEmpty(htmlTemplate)) {
+                formData.add("html", thresholdAlertTemplate.process(htmlTemplate));
             }
 
                 try {

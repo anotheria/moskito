@@ -6,7 +6,7 @@ import net.anotheria.moskito.core.config.thresholds.NotificationProviderConfig;
 import net.anotheria.moskito.core.threshold.alerts.NotificationProvider;
 import net.anotheria.moskito.core.threshold.alerts.ThresholdAlert;
 import net.anotheria.moskito.core.util.IOUtils;
-import net.anotheria.moskito.extensions.notificationtemplate.AlertThresholdTemplate;
+import net.anotheria.moskito.extensions.notificationtemplate.ThresholdAlertTemplate;
 import net.anotheria.util.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -56,17 +56,17 @@ public class MailNotificationProvider implements NotificationProvider {
     public void configure(NotificationProviderConfig config) {
         try {
             messagingService = MessagingService.getInstance();
-            String tokens[] = StringUtils.tokenize(config.getProperties().get(MailerConfigKey.RECIPIENTS.getKey()), ',');
+            String tokens[] = StringUtils.tokenize(config.getProperties().get(NotificationProviderConfigKey.RECIPIENTS.getKey()), ',');
             for (String t : tokens) {
                 if (t.length() > 0)
                     recipients.add(t.trim());
             }
             htmlTemplateString = IOUtils.getInputStreamAsString(
                     ClassLoader.getSystemResourceAsStream(
-                            config.getProperties().get(MailerConfigKey.THRESHOLD_ALERT_HTML_PATH.getKey())));
+                            config.getProperties().get(NotificationProviderConfigKey.HTML_TEMPLATE_PATH.getKey())));
             plainTextTemplateString = IOUtils.getInputStreamAsString(
                     ClassLoader.getSystemResourceAsStream(
-                            config.getProperties().get(MailerConfigKey.THRESHOLD_ALERT_TEXT_PATH.getKey())));
+                            config.getProperties().get(NotificationProviderConfigKey.TEXT_TEMPLATE_PATH.getKey())));
         } catch (Exception t) {
             log.warn("couldn't parse recipients from config  " + htmlTemplateString, t);
         }
@@ -81,15 +81,15 @@ public class MailNotificationProvider implements NotificationProvider {
         message.setSenderName("MoSKito Threshold Alert");
         message.setSubject("Threshold alert: " + alert);
 
-        AlertThresholdTemplate alertThresholdTemplate = new AlertThresholdTemplate(alert);
+        ThresholdAlertTemplate thresholdAlertTemplate = new ThresholdAlertTemplate(alert);
 
         if (!StringUtils.isEmpty(plainTextTemplateString)) {
-            message.setPlainTextContent(alertThresholdTemplate.process(plainTextTemplateString));
+            message.setPlainTextContent(thresholdAlertTemplate.process(plainTextTemplateString));
         } else {
-            message.setPlainTextContent(ThresholdAlertMailUtil.alertToPlainText(alert));
+            message.setPlainTextContent(ThresholdAlertConverter.toPlainText(alert));
         }
         if (!StringUtils.isEmpty(htmlTemplateString)) {
-            message.setHtmlContent(alertThresholdTemplate.process(htmlTemplateString));
+            message.setHtmlContent(thresholdAlertTemplate.process(htmlTemplateString));
         }
 
         if (!StringUtils.isEmpty(plainTextTemplateString) || !StringUtils.isEmpty(htmlTemplateString)) {
