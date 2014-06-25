@@ -3,6 +3,7 @@ package net.anotheria.moskito.core.predefined;
 import net.anotheria.moskito.core.producers.AbstractStats;
 import net.anotheria.moskito.core.stats.Interval;
 import net.anotheria.moskito.core.stats.StatValue;
+import net.anotheria.moskito.core.stats.StatValueTypes;
 import net.anotheria.moskito.core.stats.TimeUnit;
 import net.anotheria.moskito.core.stats.impl.StatValueFactory;
 
@@ -33,9 +34,14 @@ public class OSStats extends AbstractStats {
 	 */
 	private StatValue maxSupportedOpenFiles;
 	/**
-	 * CPU Time by this process.
+	 * Relative CPU Time by this process (since last interval).
 	 */
 	private StatValue processCpuTime;
+	/**
+	 * Total CPU Time by this process.
+	 */
+	private StatValue processTotalCpuTime;
+
 	/**
 	 * Selfexplaining.
 	 */
@@ -69,7 +75,8 @@ public class OSStats extends AbstractStats {
 		minOpenFiles.reset();
 
 		maxSupportedOpenFiles = StatValueFactory.createStatValue(0, "minOpenFiles", selectedIntervals);
-		processCpuTime = StatValueFactory.createStatValue(0L, "processCpuTime", selectedIntervals);
+		processCpuTime = StatValueFactory.createStatValue(StatValueTypes.DIFFLONG, "processCpuTime", selectedIntervals);
+		processTotalCpuTime = StatValueFactory.createStatValue(0L, "processTotalCpuTime", selectedIntervals);
 		freePhysicalMemory = StatValueFactory.createStatValue(0L, "freePhysicalMemory", selectedIntervals);
 		totalPhysicalMemory = StatValueFactory.createStatValue(0L, "totalPhysicalMemory", selectedIntervals);
 		processors = StatValueFactory.createStatValue(0, "processors", selectedIntervals);
@@ -86,6 +93,7 @@ public class OSStats extends AbstractStats {
 		ret.append(" minopenfiles: ").append(openFiles.getValueAsInt(intervalName));
 		ret.append(" maxallowedopenfiles: ").append(maxSupportedOpenFiles.getValueAsInt(intervalName));
 		ret.append(" cputime: ").append(processCpuTime.getValueAsLong(intervalName));
+		ret.append(" totalcputime: ").append(processTotalCpuTime.getValueAsLong(intervalName));
 		ret.append(" freemem: ").append(freePhysicalMemory.getValueAsLong(intervalName));
 		ret.append(" totalmem: ").append(totalPhysicalMemory.getValueAsLong(intervalName));
 		ret.append(" processors: ").append(processors.getValueAsInt(intervalName));
@@ -121,6 +129,8 @@ public class OSStats extends AbstractStats {
 
 		if (valueName.equals("cputime") || valueName.equals("cpu time"))
 			return ""+getProcessCPUTime(intervalName);
+		if (valueName.equals("total cputime") || valueName.equals("total cpu time") || valueName.equals("totalcputime") )
+			return ""+getProcessTotalCPUTime(intervalName);
 		if (valueName.equals("processors"))
 			return ""+getProcessors(intervalName);
 		
@@ -137,6 +147,7 @@ public class OSStats extends AbstractStats {
 			"Max Open Files",
 			"Map supported Open Files",
 			"CPU TIME",
+			"Total CPU TIME",
 			"Processors"
 	));
 
@@ -153,6 +164,7 @@ public class OSStats extends AbstractStats {
 		minOpenFiles.setValueIfLesserThanCurrentAsInt(anOpenFiles);
 		
 		maxSupportedOpenFiles.setValueAsInt(aMaxOpenFiles);
+		processTotalCpuTime.setValueAsLong(aProcessTime);
 		processCpuTime.setValueAsLong(aProcessTime);
 		processors.setValueAsLong(aProcessors);
 		
@@ -179,7 +191,11 @@ public class OSStats extends AbstractStats {
 	public long getProcessCPUTime(String intervalName){
 		return processCpuTime.getValueAsLong(intervalName);
 	}
-	
+
+	public long getProcessTotalCPUTime(String intervalName){
+		return processTotalCpuTime.getValueAsLong(intervalName);
+	}
+
 	public int getProcessors(String intervalName){
 		return processors.getValueAsInt(intervalName);
 	}

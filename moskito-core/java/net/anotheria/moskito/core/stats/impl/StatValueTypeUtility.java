@@ -67,6 +67,11 @@ final class StatValueTypeUtility {
      * Factory instance for double values.
      */
     private static DoubleValueHolderFactory doubleValueHolderFactory = new DoubleValueHolderFactory();
+
+	/**
+	 * Factory instance for LongDiff values.
+	 */
+	private static DiffLongValueHolderFactory diffLongValueHolderFactory = new DiffLongValueHolderFactory();
 	
 	/**
 	 * This method creates the responsible ValueHolderFactory from the given internal type representation.
@@ -87,6 +92,8 @@ final class StatValueTypeUtility {
 			return counterValueHolderFactory;
 		case DOUBLE:
 		    return doubleValueHolderFactory;
+		case DIFFLONG:
+			return diffLongValueHolderFactory;
 		default:
 			throw new AssertionError("Unsupported type: " + aType);
 		}
@@ -94,8 +101,8 @@ final class StatValueTypeUtility {
 	
 	/**
 	 * 
-	 * 
-	 * @param aObject
+	 * Creates stat value by java object type.
+	 * @param anObject pattern.
 	 * @return
 	 */
 	protected static StatValueTypes object2type(Object anObject) {

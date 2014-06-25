@@ -25,5 +25,7 @@ public enum StatValueTypes {
 	/**
 	 * Counter is similar to long, except that they do not get resetted on interval update.
 	 */
-	COUNTER
+	COUNTER,
+
+	DIFFLONG;
 }

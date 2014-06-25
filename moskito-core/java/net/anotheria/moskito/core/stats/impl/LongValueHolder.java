@@ -209,4 +209,8 @@ class LongValueHolder extends AbstractValueHolder {
 		return ""+currentValue.get();
 	}
 
+	protected void setLastValue(long aValue){
+		lastValue = aValue;
+	}
+
 }

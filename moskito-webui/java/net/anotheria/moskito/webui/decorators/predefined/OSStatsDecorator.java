@@ -27,6 +27,7 @@ public class OSStatsDecorator extends AbstractDecorator {
 		"AvailableOpenFiles",
 		
 		"CPU Time",
+		"Total CPU Time",
 		"Free Memory",
 		"Free Memory MB",
 		"Total Memory",
@@ -44,6 +45,7 @@ public class OSStatsDecorator extends AbstractDecorator {
 		"Available open files",
 		
 		"CPU time in nanos",
+		"Total CPU time in nanos",
 		"Free Memory",
 		"Free Memory MB",
 		"Total Memory",
@@ -62,6 +64,7 @@ public class OSStatsDecorator extends AbstractDecorator {
 		"Max available file descriptors to be opened by the application",
 		
 		"cpu time in nanoseconds used by the system",
+		"total cpu time in nanoseconds used by the system",
 		"Free physical memory in the system",
 		"Free physical memory in the system in MB",
 		"Total physical memory in the system (constant)",
@@ -89,6 +92,7 @@ public class OSStatsDecorator extends AbstractDecorator {
 		ret.add(new LongValueAO(CAPTIONS[i++], stats.getMaxSupportedOpenFiles(interval)));
 
 		ret.add(new LongValueAO(CAPTIONS[i++], unit.transformNanos(stats.getProcessCPUTime(interval))));
+		ret.add(new LongValueAO(CAPTIONS[i++], unit.transformNanos(stats.getProcessTotalCPUTime(interval))));
 		ret.add(new LongValueAO(CAPTIONS[i++], stats.getFreePhysicalMemory(interval)));
 		ret.add(new LongValueAO(CAPTIONS[i++], stats.getFreePhysicalMemory(interval)/MB));
 		ret.add(new LongValueAO(CAPTIONS[i++], stats.getTotalPhysicalMemory(interval)));
