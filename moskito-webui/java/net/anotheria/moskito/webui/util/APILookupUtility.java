@@ -26,12 +26,19 @@ import java.util.concurrent.ConcurrentMap;
  */
 public class APILookupUtility {
 
-
-
+	/**
+	 * Currently setup remote instance.
+	 */
 	private static RemoteInstance currentRemoteInstance;
 
+	/**
+	 * A map with all remote instance.
+	 */
 	private static ConcurrentMap<RemoteInstance, ConcurrentMap<Class<? extends API>, API>> remotes = new ConcurrentHashMap<RemoteInstance, ConcurrentMap<Class<? extends API>,API>>();
 
+	/**
+	 * Currently configured ConnectivityMode (local or remote).
+	 */
 	private static ConnectivityMode currentConnectivityMode = WebUIConfig.getInstance().getConnectivityMode();
 
 	public static boolean isLocal(){
