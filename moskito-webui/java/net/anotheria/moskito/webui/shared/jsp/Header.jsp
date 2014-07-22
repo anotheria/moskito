@@ -4,8 +4,8 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <title>${title}</title>
-    <link href='http://fonts.googleapis.com/css?family=Lato:100,300,400,700' rel='stylesheet' type='text/css' />
-    <link type="text/css" rel="stylesheet" href="http://fonts.googleapis.com/css?family=Mr+Bedfort" />
+    <link href='//fonts.googleapis.com/css?family=Lato:100,300,400,700' rel='stylesheet' type='text/css' />
+    <link type="text/css" rel="stylesheet" href="//fonts.googleapis.com/css?family=Mr+Bedfort" />
     <link type="text/css" rel="stylesheet" rev="stylesheet" href="../moskito/ext/bootstrap-3.1.1/css/bootstrap.css" />
     <link type="text/css" rel="stylesheet" rev="stylesheet" href="../moskito/ext/custom-scrollbar/jquery.mCustomScrollbar.css" />
     <link type="text/css" rel="stylesheet" href="../moskito/ext/font-awesome-4.0.3/css/font-awesome.css" />
@@ -42,7 +42,7 @@
 <script type="text/javascript" src="../moskito/int/js/charts/jqplot/jqplot.donutRenderer.min.js"></script>
 <script type="text/javascript" src="../moskito/int/js/charts/jqplot/jqplot.categoryAxisRenderer.min.js"></script>
 <script type="text/javascript" src="../moskito/int/js/charts/jqplot/jqplot.barRenderer.min.js"></script>
-<script type="text/javascript" src="http://www.google.com/jsapi"></script>
+<script type="text/javascript" src="//www.google.com/jsapi"></script>
 
 <script type="text/javascript" src="../moskito/int/js/charts/chartEngineIniter.js"></script>
 
