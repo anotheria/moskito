@@ -37,6 +37,12 @@
             <artifactId>moskito-inspect-embedded</artifactId>
             <version>${project.version}</version>
         </dependency>
+		<!-- REST Interface with jersey, Remove this if you want to deploy in jboss -->
+        <dependency>
+            <groupId>net.anotheria</groupId>
+            <artifactId>moskito-inspect-jersey</artifactId>
+            <version>${project.version}</version>
+        </dependency>
         <!-- needed for mailgun provider, if you want to change the recipient edit moskito.json -->
         <dependency>
             <groupId>net.anotheria</groupId>
