@@ -101,8 +101,8 @@ public class ShowAccumulatorsAction extends BaseAccumulatorsAction {
 		}
 		
 		if (ids.size()>0){
-		List<AccumulatedValueAO> dataBeans = new ArrayList<AccumulatedValueAO>();
-		List<AccumulatedSingleGraphAO> singleGraphDataBeans = new ArrayList<AccumulatedSingleGraphAO>(ids.size());
+			List<AccumulatedValueAO> dataBeans = new ArrayList<AccumulatedValueAO>();
+			List<AccumulatedSingleGraphAO> singleGraphDataBeans = new ArrayList<AccumulatedSingleGraphAO>(ids.size());
 			
 			//prepare values
 			HashMap<Long, AccumulatedValuesBean> values = new HashMap<Long, AccumulatedValuesBean>();
