@@ -1,5 +1,6 @@
 package net.anotheria.moskito.webui.util.offlinecharts;
 
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -17,11 +18,11 @@ public class OfflineChart {
 	/**
 	 * Definition of chart lines.
 	 */
-	private List<OfflineChartLineDefinition> lineDefinitions;
+	private List<OfflineChartLineDefinition> lineDefinitions = new LinkedList<OfflineChartLineDefinition>();
 	/**
 	 * Points with values for all lines.
 	 */
-	private List<OfflineChartPoint> points;
+	private List<OfflineChartPoint> points = new LinkedList<OfflineChartPoint>();
 
 	public String getCaption() {
 		return caption;
@@ -49,5 +50,13 @@ public class OfflineChart {
 
 	@Override public String toString(){
 		return "Chart "+getCaption()+", LineDefinitions: "+getLineDefinitions()+", Points: "+getPoints();
+	}
+
+	public void addLineDefinition(OfflineChartLineDefinition offlineChartLineDefinition) {
+		lineDefinitions.add(offlineChartLineDefinition);
+	}
+
+	public void addPoint(OfflineChartPoint ocp) {
+		points.add(ocp);
 	}
 }

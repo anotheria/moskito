@@ -13,6 +13,10 @@ public class OfflineChartLineDefinition {
 	 */
 	private String lineName;
 
+	public OfflineChartLineDefinition(String aLineName){
+		lineName = aLineName;
+	}
+
 	public String getLineName() {
 		return lineName;
 	}

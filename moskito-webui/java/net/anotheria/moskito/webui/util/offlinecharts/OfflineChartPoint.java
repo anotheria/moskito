@@ -23,6 +23,36 @@ public class OfflineChartPoint {
 	 */
 	private long timestamp;
 
+	public List<String> getValues() {
+		return values;
+	}
 
+	public void setValues(List<String> values) {
+		this.values = values;
+	}
 
+	public String getTimestampAsString() {
+		return timestampAsString;
+	}
+
+	public void setTimestampAsString(String timestampAsString) {
+		this.timestampAsString = timestampAsString;
+	}
+
+	public long getTimestamp() {
+		return timestamp;
+	}
+
+	public void setTimestamp(long timestamp) {
+		this.timestamp = timestamp;
+	}
+
+	@Override
+	public String toString() {
+		return "OfflineChartPoint{" +
+				"values=" + values +
+				", timestampAsString='" + timestampAsString + '\'' +
+				", timestamp=" + timestamp +
+				'}';
+	}
 }

@@ -20,7 +20,6 @@ public class DummyOfflineChartGenerator implements OfflineChartGenerator{
 	public static String PATH_TO_FILE = "";
 
 	public static void setContextPath(String contextPath){
-		System.out.println("ContextPath: "+contextPath);
 		PATH_TO_FILE = _pathToFile1 + contextPath + _pathToFile2;
 	}
 
