@@ -128,19 +128,22 @@ public class ProducerRegistryAPIImpl implements IProducerRegistryAPI, IProducerR
 	private void rebuildProducerCache(Collection<IStatsProducer> producers){
 		log.debug("Rebuilding producer cache with "+producers.size()+" producers.");
 		log.debug("Following producers known: "+producers);
-		synchronized(cacheLock){
+
+        synchronized(cacheLock){
 			//lets create lists with more place to store as actually need, we will probably need it.
-			int approxSize = (int)(producers.size()*1.5);
-			_cachedProducerList = new ArrayList<ProducerReference>(approxSize);
-			for (IStatsProducer sp : producers){
-				_cachedProducerList.add(new ProducerReference(sp));	
-			}
-			
-			
-			_cachedProducerMap = new HashMap<String,ProducerReference>(approxSize);
-			for (IStatsProducer p : producers)
-				_cachedProducerMap.put(p.getProducerId(), new ProducerReference(p));
+			final int approxSize = (int)(producers.size()*1.5);
+
+            _cachedProducerList = new ArrayList<ProducerReference>(approxSize);
+            _cachedProducerMap = new HashMap<String,ProducerReference>(approxSize);
+
+            for (IStatsProducer sp : producers){
+				final ProducerReference reference = new ProducerReference(sp);
+
+                _cachedProducerList.add(reference);
+                _cachedProducerMap.put(sp.getProducerId(), reference);
+            }
 		}
+
 		if (log.isDebugEnabled()){
 			log.debug("Cachedproducer list contains "+_cachedProducerList.size()+" producers: ");
 			log.debug(""+_cachedProducerList);
