@@ -1,25 +1,5 @@
 package net.anotheria.moskito.sql.util;
 
-import net.anotheria.moskito.core.producers.IStats;
-import net.anotheria.moskito.core.registry.ProducerRegistryFactory;
-import net.anotheria.moskito.sql.callingAspect.MatcherValue;
-import net.anotheria.moskito.sql.callingAspect.MatcherValueBuilder;
-import net.anotheria.moskito.sql.callingAspect.MatcherValueDAO;
-import net.anotheria.moskito.sql.stats.QueryStats;
-import net.anotheria.moskito.sql.stats.QueryStringStats;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
-
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-
-import static junit.framework.Assert.assertNotNull;
-import static junit.framework.Assert.assertTrue;
-import static junit.framework.Assert.assertEquals;
-
 /**
  * SQL intercept test.
  *
@@ -28,7 +8,7 @@ import static junit.framework.Assert.assertEquals;
  *         Time: 2:22 PM
  */
 public class QueryProducerTest {
-
+	          /*
     private Connection connection;
     private QueryProducer queryProducer;
 
@@ -128,4 +108,5 @@ public class QueryProducerTest {
         TestDBUtil.dropTable(connection);
         connection.close();
     }
+    */
 }

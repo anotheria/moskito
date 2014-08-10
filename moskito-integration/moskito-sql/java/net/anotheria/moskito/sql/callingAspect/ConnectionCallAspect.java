@@ -4,9 +4,11 @@ import net.anotheria.moskito.core.calltrace.CurrentlyTracedCall;
 import net.anotheria.moskito.core.calltrace.RunningTraceContainer;
 import net.anotheria.moskito.core.calltrace.TraceStep;
 import net.anotheria.moskito.core.calltrace.TracedCall;
-import net.anotheria.moskito.sql.util.QueryProducer;
+import net.anotheria.moskito.core.dynamic.OnDemandStatsProducer;
+import net.anotheria.moskito.core.registry.ProducerRegistryFactory;
+import net.anotheria.moskito.sql.stats.QueryStats;
+import net.anotheria.moskito.sql.stats.QueryStatsFactory;
 import org.aspectj.lang.ProceedingJoinPoint;
-import org.aspectj.lang.annotation.AfterThrowing;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
@@ -53,38 +55,60 @@ public class ConnectionCallAspect {
 	 * Empty string .
 	 */
 	private static final String EMPTY = "";
+
 	/**
-	 * {@link QueryProducer} instance.
+	 * Query stats producer.
 	 */
-	private QueryProducer queryProducer;
+	private OnDemandStatsProducer<QueryStats> producer;
 
 	/**
 	 * Constructor.
 	 */
 	public ConnectionCallAspect() {
-		queryProducer = new QueryProducer();
+		producer = new OnDemandStatsProducer<QueryStats>("SQLQueries", "sql", "sql", QueryStatsFactory.DEFAULT_INSTANCE);
+		ProducerRegistryFactory.getProducerRegistryInstance().registerProducer(producer);
 	}
 
 	@Pointcut(JDBC_CALLS)
 	public void connectionService(String smt) {
 	}
 
-	@Around(value = "connectionService(smt)", argNames = "pjp,smt")
-	public Object doBasicProfiling(ProceedingJoinPoint pjp, String smt) throws Throwable {
+	@Around(value = "connectionService(statement)", argNames = "pjp,statement")
+	public Object doBasicProfiling(ProceedingJoinPoint pjp, String statement) throws Throwable {
 		long callTime = System.nanoTime();
+		QueryStats cumulatedStats = producer.getDefaultStats();
+		QueryStats statementStats = producer.getStats(statement);
+		//add Request Count, increase CR,MCR
+		cumulatedStats.addRequest();
+		if (statementStats!=null)
+			statementStats.addRequest();
 		// start stopwatch
 		//System.out.println(smt);
-		queryProducer.beforeQuery(smt);
+		boolean success = true;
 		try {
 			Object retVal = pjp.proceed();
-			final long callDurationTime = System.nanoTime() - callTime;
-			queryProducer.afterQuery(smt, callDurationTime);
-			doProfiling(smt, true, callDurationTime);
 			// stop stopwatch
 			return retVal;
 		} catch (Throwable t) {
-			doProfiling(smt, false, System.nanoTime() - callTime);
+			success = false;
+			cumulatedStats.notifyError();
+			if (statementStats!=null)
+				statementStats.notifyError();
 			throw t;
+		} finally{
+			final long callDurationTime = System.nanoTime() - callTime;
+			//add execution time
+			cumulatedStats.addExecutionTime(callDurationTime);
+			if (statementStats!=null)
+				statementStats.addExecutionTime(callDurationTime);
+			//notify request finished / decrease CR/MCR
+			cumulatedStats.notifyRequestFinished();
+			if (statementStats != null){
+				statementStats.notifyRequestFinished();
+			}
+
+			addTrace(statement, false, callDurationTime);
+
 		}
 
 
@@ -95,10 +119,10 @@ public class ConnectionCallAspect {
 	 *
 	 * @param smt sql statement
 	 */
-	@AfterThrowing(JDBC_CALLS)
-	public void afterThrowingQueryCall(String smt) {
-		queryProducer.failedQuery(smt);
-	}
+	//@AfterThrowing(JDBC_CALLS)
+	//public void afterThrowingQueryCall(String smt) {
+	//	queryProducer.failedQuery(smt);
+	//}
 
 	/**
 	 * Perform additional profiling - for Journey stuff.
@@ -106,11 +130,11 @@ public class ConnectionCallAspect {
 	 * @param statement prepared statement
 	 * @param isSuccess is success
 	 */
-	private void doProfiling(String statement, final boolean isSuccess, final long duration) {
+	private void addTrace(String statement, final boolean isSuccess, final long duration) {
 		TracedCall aRunningTrace = RunningTraceContainer.getCurrentlyTracedCall();
 		CurrentlyTracedCall currentTrace = aRunningTrace.callTraced() ? (CurrentlyTracedCall) aRunningTrace : null;
 		if (currentTrace != null) {
-			TraceStep currentStep = currentTrace.startStep((isSuccess ? EMPTY : SQL_QUERY_FAILED) + "SQL : (' " + statement + "')", queryProducer);
+			TraceStep currentStep = currentTrace.startStep((isSuccess ? EMPTY : SQL_QUERY_FAILED) + "SQL : (' " + statement + "')", producer);
 			if (!isSuccess)
 				currentStep.setAborted();
 			currentStep.setDuration(duration);
