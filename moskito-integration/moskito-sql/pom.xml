@@ -79,6 +79,12 @@
         </dependency>
         <dependency>
             <groupId>net.anotheria</groupId>
+            <artifactId>moskito-webui</artifactId>
+            <version>${project.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>net.anotheria</groupId>
             <artifactId>ano-util</artifactId>
         </dependency>
         <dependency>
