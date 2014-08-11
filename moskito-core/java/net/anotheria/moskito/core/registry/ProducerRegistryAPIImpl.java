@@ -46,6 +46,7 @@ import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -276,7 +277,8 @@ public class ProducerRegistryAPIImpl implements IProducerRegistryAPI, IProducerR
 			if (! (ret.contains(p.getCategory())))
 				ret.add(p.getCategory());
 		}
-		return ret;
+       Collections.sort(ret);
+       return ret;
 	}
 
 	@Override public List<String> getSubsystems() {
@@ -286,6 +288,7 @@ public class ProducerRegistryAPIImpl implements IProducerRegistryAPI, IProducerR
 			if (! (ret.contains(p.getSubsystem())))
 				ret.add(p.getSubsystem());
 		}
+        Collections.sort(ret);
 		return ret;
 	}
 }
