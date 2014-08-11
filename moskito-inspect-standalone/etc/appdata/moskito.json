@@ -11,12 +11,15 @@
                 "user": "moskito",
                 "password": "qweqweqwe",
                 "recipients": "380973777273,4915122345102",
+                "templatePath": "thresholdAlertTemplate.txt",
                 "guardedStatus": "GREEN"
             },
             {
 				"className": "net.anotheria.moskito.extensions.notificationproviders.MailgunNotificationProvider",
 				"recipients": "leon@leon-rosenberg.net",
-				"templateUrl":"template.htm",
+                /*"recipients": "ykoval@anotheria.net",*/
+				"htmlTemplatePath":"thresholdAlertTemplate.htm",
+                "textTemplatePath":"thresholdAlertTemplate.txt",
 				"guardedStatus": "GREEN"
 			}
 		],

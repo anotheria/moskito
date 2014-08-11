@@ -7,7 +7,7 @@ import net.anotheria.util.content.template.TemplateUtility;
 /**
  * {@link ThresholdAlert} mail template.
  */
-public class AlertThresholdTemplate extends AbstractMailTemplate {
+public class ThresholdAlertTemplate extends AbstractMailTemplate {
 	/**
 	 * {@link ThresholdAlert#threshold} template variable name.
 	 */
@@ -38,10 +38,10 @@ public class AlertThresholdTemplate extends AbstractMailTemplate {
 	 *
 	 * @param thresholdAlert {@link ThresholdAlert}
 	 */
-	public AlertThresholdTemplate(final ThresholdAlert thresholdAlert) {
+	public ThresholdAlertTemplate(final ThresholdAlert thresholdAlert) {
 		if (thresholdAlert == null)
 			throw new IllegalArgumentException("thresholdAlert is null");
-		setParameter(THRESHOLD, thresholdAlert.getThreshold().toString());
+		setParameter(THRESHOLD, thresholdAlert.getThreshold().getName());
 		setParameter(TIMESTAMP, NumberUtils.makeISO8601TimestampString(thresholdAlert.getTimestamp()));
 		setParameter(OLD_STATUS, thresholdAlert.getOldStatus().name());
 		setParameter(NEW_STATUS, thresholdAlert.getNewStatus().name());
