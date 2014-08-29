@@ -18,17 +18,14 @@
 
 		<resources>
 			<resource>
-				<directory>${project.basedir}/html/</directory>
+				<directory>${project.basedir}/src/main/resources</directory>
 			</resource>
 			<resource>
-				<directory>${project.basedir}/java</directory>
+				<directory>${project.basedir}/src/main/java</directory>
 				<includes>
 					<include>**/*.jsp</include>
 				</includes>
 			</resource>
-            <resource>
-                <directory>${project.basedir}/etc</directory>
-            </resource>
 		</resources>
         <plugins>
         <plugin>
