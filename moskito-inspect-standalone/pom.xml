@@ -98,16 +98,13 @@
 				<artifactId>maven-war-plugin</artifactId>
 				<version>2.1</version>
 				<configuration>
-					<webXml>etc/web.xml</webXml>
 					<warName>moskito</warName>
 					<webResources>
 						<resource>
-							<!-- this is relative to the pom.xml directory -->
-							<directory>html</directory>
+							<directory>src/main/webapp</directory>
 						</resource>
 						<resource>
-							<!-- this is relative to the pom.xml directory -->
-							<directory>java</directory>
+							<directory>src/main/java</directory>
 							<includes>
 								<include>**/*.jsp</include>
 							</includes>
