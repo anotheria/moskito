@@ -14,14 +14,6 @@
         This project contains dependencies and configuration (web-fragment) needed to enable moskito-inspect in embedded mode. To use it simply add it as dependency.
     </description>
 
-    <build>
-        <resources>
-            <resource>
-                <directory>${project.basedir}/etc</directory>
-            </resource>
-        </resources>
-    </build>
-
 	<dependencies>
         <dependency>
             <groupId>net.anotheria</groupId>
