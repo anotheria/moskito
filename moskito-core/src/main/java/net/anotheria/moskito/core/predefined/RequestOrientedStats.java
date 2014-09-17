@@ -230,6 +230,12 @@ public abstract class RequestOrientedStats extends AbstractStats {
 		return unit.transformNanos(totalTime.getValueAsLong(intervalName)) / totalRequests.getValueAsDouble(intervalName);
 	}
 
+	public double getErrorRate(String intervalName){
+		long tr = getTotalRequests(intervalName);
+		double errorRate = tr == 0? 0:((double)getErrors(intervalName))/tr;
+		return (double)((int)((errorRate * 10000)))/100;
+	}
+
 	/**
 	 * A string representation of this object. It contains of a set of labels with according values.
 	 * The labels are: TR, TT, CR, MCR, ERR and Avg Request Time.<br>
@@ -270,6 +276,7 @@ public abstract class RequestOrientedStats extends AbstractStats {
 			ret.append(timeUnit.transformNanos(maxTimeTmp));
 		
 		ret.append(" Avg: ").append(getAverageRequestDuration(intervalName, timeUnit));
+		ret.append(" ERate: ").append(getErrorRate(intervalName));
 		return ret.toString();
 	}
 	
@@ -278,23 +285,26 @@ public abstract class RequestOrientedStats extends AbstractStats {
 			throw new AssertionError("Value name can not be empty");
 		valueName = valueName.toLowerCase();
 		if (valueName.equals("tr") || valueName.equals("req"))
-			return ""+totalRequests.getValueAsLong(intervalName);
+			return "" + totalRequests.getValueAsLong(intervalName);
 		if (valueName.equals("tt")|| valueName.equals("time") || valueName.equals("totaltime"))
-			return ""+timeUnit.transformNanos(totalTime.getValueAsLong(intervalName));
+			return "" + timeUnit.transformNanos(totalTime.getValueAsLong(intervalName));
 		if (valueName.equals("cr"))
-			return ""+currentRequests.getValueAsLong(intervalName);
+			return "" + currentRequests.getValueAsLong(intervalName);
 		if (valueName.equals("mcr"))
-			return ""+maxCurrentRequests.getValueAsLong(intervalName);
+			return "" + maxCurrentRequests.getValueAsLong(intervalName);
 		if (valueName.equals("err"))
-			return ""+errors.getValueAsLong(intervalName);
+			return "" + errors.getValueAsLong(intervalName);
 		if (valueName.equals("last"))
-			return ""+timeUnit.transformNanos(lastRequest.getValueAsLong(intervalName));
+			return "" + timeUnit.transformNanos(lastRequest.getValueAsLong(intervalName));
 		if (valueName.equals("min"))
-			return ""+timeUnit.transformNanos(minTime.getValueAsLong(intervalName));
+			return "" + timeUnit.transformNanos(minTime.getValueAsLong(intervalName));
 		if (valueName.equals("max"))
-			return ""+timeUnit.transformNanos(maxTime.getValueAsLong(intervalName));
+			return "" + timeUnit.transformNanos(maxTime.getValueAsLong(intervalName));
 		if (valueName.equals("avg"))
-			return ""+getAverageRequestDuration(intervalName, timeUnit);
+			return "" + getAverageRequestDuration(intervalName, timeUnit);
+		if (valueName.equals("erate") || valueName.equals("errorrate") || valueName.equals("errrate"))
+			return "" + getErrorRate(intervalName);
+
 		return super.getValueByNameAsString(valueName, intervalName, timeUnit);
 	}
 

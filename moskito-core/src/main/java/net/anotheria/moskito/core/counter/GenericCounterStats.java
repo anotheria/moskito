@@ -15,7 +15,7 @@ import java.util.*;
  * @author lrosenberg
  * @since 16.11.12 23:11
  */
-public abstract class GenericCounterStats extends AbstractStats{
+	public abstract class GenericCounterStats extends AbstractStats{
 
 	/**
 	 * Map with statvalues for faster access.
