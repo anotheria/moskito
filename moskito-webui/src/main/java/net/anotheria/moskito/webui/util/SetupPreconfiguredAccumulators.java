@@ -13,7 +13,10 @@ import javax.servlet.ServletContextListener;
  * <listener-class>net.anotheria.moskito.webui.util.SetupPreconfiguredAccumulators</listener-class>.
  */
 public class SetupPreconfiguredAccumulators implements ServletContextListener{
-	
+
+	/**
+	 * Log.
+	 */
 	private static Logger log = LoggerFactory.getLogger(SetupPreconfiguredAccumulators.class);
 
 	@Override
@@ -26,6 +29,7 @@ public class SetupPreconfiguredAccumulators implements ServletContextListener{
 		setupSessionCountAccumulators();
 		log.info("Configuring url accumulators.");
 		setupUrlAccumulators();
+		setupCPUAccumulators();
 	}
 
 	/**
@@ -92,6 +96,11 @@ public class SetupPreconfiguredAccumulators implements ServletContextListener{
 		Accumulators.createUrlTotalTimeAccumulator("URL Time 5m", "cumulated", "5m");
 		Accumulators.createUrlTotalTimeAccumulator("URL Time 1h", "cumulated", "1h");
 
+	}
+
+	public static void setupCPUAccumulators(){
+		Accumulators.createAccumulator("CPU Time", "OS", "OS", "CPU Time", "default");
+		//OS.OS.CPU Time/default/NANOSECONDS
 	}
 
 	@Override
