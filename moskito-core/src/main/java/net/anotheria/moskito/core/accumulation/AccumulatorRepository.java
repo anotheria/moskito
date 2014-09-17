@@ -8,6 +8,7 @@ import net.anotheria.moskito.core.helper.TieableDefinition;
 import net.anotheria.moskito.core.helper.TieableRepository;
 import net.anotheria.moskito.core.producers.IStats;
 import net.anotheria.moskito.core.producers.IStatsProducer;
+import net.anotheria.moskito.core.shared.TouchEverything;
 import net.anotheria.moskito.core.stats.TimeUnit;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -40,6 +41,7 @@ public final class AccumulatorRepository extends TieableRepository<Accumulator> 
 
 	private AccumulatorRepository(){
 		readConfig();
+		TouchEverything.touchEverythingButMe(AccumulatorRepository.class);
 	}
 
 	@Override

@@ -35,6 +35,7 @@
 package net.anotheria.moskito.core.registry;
 
 import net.anotheria.moskito.core.plugins.PluginRepository;
+import net.anotheria.moskito.core.shared.TouchEverything;
 import net.anotheria.moskito.core.util.StartBuiltInProducers;
 
 /**
@@ -50,6 +51,7 @@ public class ProducerRegistryFactory {
 	
 	static{
 		init();
+		TouchEverything.touchEverythingButMe(IProducerRegistry.class);
 	}
 
 	/**

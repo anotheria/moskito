@@ -10,6 +10,7 @@ import net.anotheria.moskito.core.helper.TieableDefinition;
 import net.anotheria.moskito.core.helper.TieableRepository;
 import net.anotheria.moskito.core.producers.IStats;
 import net.anotheria.moskito.core.producers.IStatsProducer;
+import net.anotheria.moskito.core.shared.TouchEverything;
 import net.anotheria.moskito.core.stats.TimeUnit;
 import net.anotheria.moskito.core.threshold.guard.GuardedDirection;
 import net.anotheria.moskito.core.threshold.guard.LongBarrierPassGuard;
@@ -49,6 +50,7 @@ public class ThresholdRepository extends TieableRepository<Threshold> {
  	 */
 	private ThresholdRepository(){
 		readConfig();
+		TouchEverything.touchEverythingButMe(ThresholdRepository.class);
 	}
 
 	/**
