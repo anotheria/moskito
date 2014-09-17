@@ -99,7 +99,9 @@ public class SetupPreconfiguredAccumulators implements ServletContextListener{
 	}
 
 	public static void setupCPUAccumulators(){
-		Accumulators.createAccumulator("CPU Time", "OS", "OS", "CPU Time", "default");
+		Accumulators.createAccumulator("CPU Time 1m", "OS", "OS", "CPU Time", "1m");
+		Accumulators.createAccumulator("CPU Time 5m", "OS", "OS", "CPU Time", "5m");
+		Accumulators.createAccumulator("CPU Time 1h", "OS", "OS", "CPU Time", "1h");
 		//OS.OS.CPU Time/default/NANOSECONDS
 	}
 
