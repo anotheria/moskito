@@ -34,7 +34,9 @@
  */
 package net.anotheria.moskito.core.registry;
 
+import net.anotheria.moskito.core.accumulation.AccumulatorRepository;
 import net.anotheria.moskito.core.plugins.PluginRepository;
+import net.anotheria.moskito.core.threshold.ThresholdRepository;
 import net.anotheria.moskito.core.util.StartBuiltInProducers;
 
 /**
@@ -62,6 +64,10 @@ public class ProducerRegistryFactory {
 		StartBuiltInProducers.startbuiltin();
 		//ensure plugins are loaded.
 		PluginRepository.getInstance();
+		//ensure accumulators are initialized.
+		AccumulatorRepository.getInstance();
+		//ensure thresholds are initialized.
+		ThresholdRepository.getInstance();
 	}
 	
 	/**
