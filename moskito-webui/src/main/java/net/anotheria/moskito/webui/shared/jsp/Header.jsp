@@ -71,6 +71,7 @@
     </button>
 
     <div class="navbar-collapse collapse">
+        <div class="text-center"> 
         <form role="form" class="navbar-form navbar-left">
             <div class="form-group">
                 <select class="select2" data-placeholder="Interval" onchange="javascript:handleSelect(this)">
@@ -92,6 +93,8 @@
             </div>
         </form>
 
+        <span style="display: inline-block; position:relative; top:15px;">Interval age: ${currentIntervalUpdateAge} | Server: ${servername} | Connection: ${connection}</span>
+
         <ul class="nav navbar-nav pull-right">
             <%-- removing autoreload feature for now, we can readd it later --%>
             <%-- <li><a href="">Autoreload OFF</a></li> --%>
@@ -108,6 +111,7 @@
             <li><a href="mskShowExplanations">Help</a></li>
         </ul>
     </div>
+     </div>
 </header>
 
 <aside id="aside" class="scrollbar">
