@@ -1,4 +1,8 @@
 package net.anotheria.moskito.core.accumulation;
+
+
+import net.anotheria.moskito.core.stats.TimeUnit;
+
 /**
  * Utility class for accumulator handling and factory methods.
  * @author lrosenberg
@@ -56,18 +60,23 @@ public final class Accumulators {
 	 * @param statName name of the stat object (for example cumulated, or an url, or a service method).
 	 * @param valueName name of the value, like AVG, REQ, Free etc.
 	 * @param intervalName name of the interval.
+	 * @param timeUnit time unit in which the accumulator should be managed and the values recalculated.
 	 * @return
 	 */
-	public static Accumulator createAccumulator(String name, String producerName, String statName, String valueName, String intervalName) {
+	public static Accumulator createAccumulator(String name, String producerName, String statName, String valueName, String intervalName, TimeUnit timeUnit) {
 		AccumulatorDefinition definition = new AccumulatorDefinition();
 		definition.setName(name);
 		definition.setProducerName(producerName);
 		definition.setStatName(statName);
 		definition.setValueName(valueName);
 		definition.setIntervalName(intervalName);
-	
+
 		Accumulator acc = AccumulatorRepository.getInstance().createAccumulator(definition);
 		return acc;
+	}
+
+	public static Accumulator createAccumulator(String name, String producerName, String statName, String valueName, String intervalName) {
+		return createAccumulator(name, producerName, statName, valueName, intervalName, TimeUnit.MILLISECONDS);
 	}
 
 	/**

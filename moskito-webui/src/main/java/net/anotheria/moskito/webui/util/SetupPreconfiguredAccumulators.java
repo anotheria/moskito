@@ -1,6 +1,7 @@
 package net.anotheria.moskito.webui.util;
 
 import net.anotheria.moskito.core.accumulation.Accumulators;
+import net.anotheria.moskito.core.stats.TimeUnit;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -99,9 +100,9 @@ public class SetupPreconfiguredAccumulators implements ServletContextListener{
 	}
 
 	public static void setupCPUAccumulators(){
-		Accumulators.createAccumulator("CPU Time 1m", "OS", "OS", "CPU Time", "1m");
-		Accumulators.createAccumulator("CPU Time 5m", "OS", "OS", "CPU Time", "5m");
-		Accumulators.createAccumulator("CPU Time 1h", "OS", "OS", "CPU Time", "1h");
+		Accumulators.createAccumulator("CPU Time 1m", "OS", "OS", "CPU Time", "1m", TimeUnit.MILLISECONDS);
+		Accumulators.createAccumulator("CPU Time 5m", "OS", "OS", "CPU Time", "5m", TimeUnit.MILLISECONDS);
+		Accumulators.createAccumulator("CPU Time 1h", "OS", "OS", "CPU Time", "1h", TimeUnit.MILLISECONDS);
 		//OS.OS.CPU Time/default/NANOSECONDS
 	}
 
