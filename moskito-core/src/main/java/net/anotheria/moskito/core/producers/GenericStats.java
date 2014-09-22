@@ -7,10 +7,9 @@ import net.anotheria.moskito.core.stats.TypeAwareStatValue;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.NavigableMap;
-import java.util.TreeMap;
 
 /**
  * A generic {@link IStats} type containing {@link TypeAwareStatValue}s.
@@ -22,7 +21,7 @@ public class GenericStats extends AbstractStats {
     /**
      * all the {@link TypeAwareStatValue}s.
      */
-    private final NavigableMap<String, TypeAwareStatValue> values;
+    private final Map<String, TypeAwareStatValue> values;
 
     /**
      * Constructs an instance of GenericStats.
@@ -32,7 +31,7 @@ public class GenericStats extends AbstractStats {
      */
     public GenericStats(final String aName) {
         super(aName);
-        this.values = new TreeMap<String, TypeAwareStatValue>();
+        this.values = new LinkedHashMap<String, TypeAwareStatValue>();
     }
 
     /**
@@ -47,12 +46,7 @@ public class GenericStats extends AbstractStats {
      */
     @Override
     public List<String> getAvailableValueNames() {
-        // hmpf...
-        final List<String> res = new ArrayList<String>(values.size());
-        for (final String key : values.navigableKeySet()) {
-            res.add(key);
-        }
-        return res;
+        return new ArrayList<String>(values.keySet());
     }
 
     /**
