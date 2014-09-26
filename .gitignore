@@ -4,3 +4,4 @@
 target
 templates
 logs
+moskito-integration/moskito-inspect-embedded/src/main/resources/META-INF/resources
