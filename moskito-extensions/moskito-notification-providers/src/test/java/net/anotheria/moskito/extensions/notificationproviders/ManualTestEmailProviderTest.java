@@ -20,7 +20,7 @@ import org.junit.Test;
  */
 public class ManualTestEmailProviderTest {
 
-    //@Ignore
+    @Ignore
 	@Test public void generateMailConfigAndTriggerMail() throws Exception{
 		//prepare config
 		MoskitoConfiguration config = new MoskitoConfiguration();
