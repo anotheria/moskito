@@ -10,7 +10,6 @@ import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
 import javax.ws.rs.WebApplicationException;
 
 /**
@@ -20,9 +19,11 @@ import javax.ws.rs.WebApplicationException;
  * @since 11.02.13 18:24
  */
 @Path("/thresholds")
-@Produces("application/json")
 public class ThresholdResource {
 
+	/**
+	 * Threshold API.
+	 */
 	private ThresholdAPI thresholdAPI = APIFinder.findAPI(ThresholdAPI.class);
 
 	@GET
