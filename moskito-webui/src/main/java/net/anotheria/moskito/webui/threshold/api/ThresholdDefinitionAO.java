@@ -3,6 +3,8 @@ package net.anotheria.moskito.webui.threshold.api;
 import net.anotheria.moskito.core.stats.TimeUnit;
 import net.anotheria.moskito.core.threshold.ThresholdConditionGuard;
 
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -12,38 +14,47 @@ import java.util.List;
  * @author lrosenberg
  *
  */
+@XmlRootElement
 public class ThresholdDefinitionAO implements Serializable{
 	/**
 	 * Threshold id.
 	 */
+	@XmlElement
 	private String id;
 	/**
 	 * Threshold name.
 	 */
+	@XmlElement
 	private String name;
 	/**
 	 * Name of the associated producer.
 	 */
+	@XmlElement
 	private String producerName;
 	/**
 	 * Name of the stat.
 	 */
+	@XmlElement
 	private String statName;
 	/**
 	 * Name of the value.
 	 */
+	@XmlElement
 	private String valueName;
 	/**
 	 * Name of the interval.
 	 */
+	@XmlElement
 	private String intervalName;
 	/**
 	 * The description string for this threshold.
 	 */
+	@XmlElement
 	private String descriptionString;
 	/**
 	 * The attached guards.
 	 */
+	@XmlElement
 	private List<ThresholdConditionGuard> guards;
 
 	private TimeUnit timeUnit;

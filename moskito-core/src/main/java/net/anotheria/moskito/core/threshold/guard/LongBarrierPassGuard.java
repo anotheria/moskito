@@ -2,6 +2,7 @@ package net.anotheria.moskito.core.threshold.guard;
 
 import net.anotheria.moskito.core.threshold.ThresholdStatus;
 
+import javax.xml.bind.annotation.XmlElement;
 import java.io.Serializable;
 
 /**
@@ -9,10 +10,12 @@ import java.io.Serializable;
  * @author another
  *
  */
+
 public class LongBarrierPassGuard extends BarrierPassGuard implements Serializable{
 	/**
 	 * The threshold value of the guard.
 	 */
+	@XmlElement
 	private long barrierValue;
 
 	/**

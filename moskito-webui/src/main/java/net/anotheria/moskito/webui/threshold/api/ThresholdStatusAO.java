@@ -16,7 +16,7 @@ import java.io.Serializable;
  * @author lrosenberg
  *
  */
-@XmlRootElement
+@XmlRootElement(name="ThresholdStatus")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class ThresholdStatusAO implements IComparable, Serializable{
 	/**
@@ -65,6 +65,7 @@ public class ThresholdStatusAO implements IComparable, Serializable{
 	/**
 	 * Status for sorting.
 	 */
+	@XmlTransient
 	private ThresholdStatus statusForSorting;
 	/**
 	 * Timestamp for sorting.

@@ -92,5 +92,27 @@ public class ReplyObject {
 		return ret;
 	}
 
+	@Override public String toString(){
+		StringBuilder ret = new StringBuilder("ReplyObject ");
+		ret.append("Success: ").append(success);
+		if (message!=null){
+			ret.append(", Message: ").append(message);
+		}
+		ret.append(", Results: ").append(results);
+		return ret.toString();
+	}
+
+	public boolean isSuccessful(){
+		return success;
+	}
+
+	public String getMessage(){
+		return message;
+	}
+
+	public HashMap getResults(){
+		return results;
+	}
+
 
 }
