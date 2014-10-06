@@ -21,13 +21,13 @@ import java.util.Map;
 import java.util.Set;
 
 /**
- * TODO comment this class
+ * Writer for xml output of the reply object.
  *
  * @author lrosenberg
  * @since 06.10.14 13:20
  */
 @Provider
-@Produces("text/xml")
+@Produces(MediaType.APPLICATION_XML)
 public class ReplyObjectWriter implements MessageBodyWriter<ReplyObject> {
 	@Override
 	public boolean isWriteable(Class<?> type, Type genericType, Annotation[] annotations, MediaType mediaType) {
