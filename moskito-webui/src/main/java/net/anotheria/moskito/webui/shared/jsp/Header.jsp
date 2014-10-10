@@ -1,6 +1,22 @@
-<%@ page language="java" contentType="text/html;charset=UTF-8" session="true"%><%@
-        taglib uri="http://www.anotheria.net/ano-tags" prefix="ano"%><%@
-        page isELIgnored="false" %>
+<%@ page language="java" contentType="text/html;charset=UTF-8" session="true"
+    %><%@ taglib uri="http://www.anotheria.net/ano-tags" prefix="ano"
+    %><%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="core"
+    %><%@ page isELIgnored="false" %>
+
+<%--for d3ds--%>
+<style>
+    .legend{
+        margin-bottom:76px;
+        display:inline-block;
+        border-collapse: collapse;
+        border-spacing: 0px;
+    }
+    .legend td{
+        padding:4px 5px;
+        vertical-align:bottom;
+    }
+</style>
+
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <title>${title}</title>
@@ -35,27 +51,38 @@
 <!-- currently for handle select only -->
 <script type="text/javascript" src="../moskito/ext/jquery-1.10.2/jquery-1.10.2.min.js"></script>
 <script type="text/javascript" src="../moskito/int/js/function.js"></script>
+
 <ano:notEmpty name="graphDatas">
-<!-- jqplot core + plugins -->
-<script type="text/javascript" src="../moskito/int/js/charts/jqplot/jquery.jqplot.js"></script>
-<script type="text/javascript" src="../moskito/int/js/charts/jqplot/jqplot.pieRenderer.min.js"></script>
-<script type="text/javascript" src="../moskito/int/js/charts/jqplot/jqplot.donutRenderer.min.js"></script>
-<script type="text/javascript" src="../moskito/int/js/charts/jqplot/jqplot.categoryAxisRenderer.min.js"></script>
-<script type="text/javascript" src="../moskito/int/js/charts/jqplot/jqplot.barRenderer.min.js"></script>
-<script type="text/javascript" src="//www.google.com/jsapi"></script>
+    <core:if test="${chartEngine eq 'JQPLOT'}">
+        <script type="text/javascript" src="../moskito/int/js/charts/jqplot/jquery.jqplot.js"></script>
+        <script type="text/javascript" src="../moskito/int/js/charts/jqplot/jqplot.cursor.js"></script>
+        <script type="text/javascript" src="../moskito/int/js/charts/jqplot/jqplot.highlighter.js"></script>
+        <script type="text/javascript" src="../moskito/int/js/charts/jqplot/jqplot.dateAxisRenderer.js"></script>
+        <script type="text/javascript" src="../moskito/int/js/charts/jqplot/jqplot.pieRenderer.js"></script>
+        <script type="text/javascript" src="../moskito/int/js/charts/jqplot/jqplot.donutRenderer.js"></script>
+        <script type="text/javascript" src="../moskito/int/js/charts/jqplot/jqplot.categoryAxisRenderer.js"></script>
+        <script type="text/javascript" src="../moskito/int/js/charts/jqplot/jqplot.barRenderer.js"></script>
+    </core:if>
+    <core:if test="${chartEngine eq 'GOOGLE_CHART_API'}">
+        <script type="text/javascript" src="//www.google.com/jsapi"></script>
+    </core:if>
+    <core:if test="${chartEngine eq 'D3'}">
+        <script type="text/javascript" src="../moskito/int/js/charts/d3/d3.js" charset="utf-8"></script>
+        <script type="text/javascript" src="../moskito/int/js/charts/d3routine.js" charset="utf-8"></script>
+    </core:if>
 
-<script type="text/javascript" src="../moskito/int/js/charts/chartEngineIniter.js"></script>
+    <script type="text/javascript" src="../moskito/int/js/charts/chartEngineIniter.js"></script>
 
-<!--
- Data for action -->
-<script>
-    <ano:iterate type="net.anotheria.moskito.webui.shared.bean.GraphDataBean" id="graph" name="graphDatas">
-    var <ano:write name="graph" property="jsVariableName"/>Caption = "<ano:write name="graph" property="caption"/>";
-    var <ano:write name="graph" property="jsVariableName"/>Array = <ano:write name="graph" property="jsArrayValue"/>;
-    </ano:iterate>
+    <!--
+     Data for action -->
+    <script>
+        <ano:iterate type="net.anotheria.moskito.webui.shared.bean.GraphDataBean" id="graph" name="graphDatas">
+        var <ano:write name="graph" property="jsVariableName"/>Caption = "<ano:write name="graph" property="caption"/>";
+        var <ano:write name="graph" property="jsVariableName"/>Array = <ano:write name="graph" property="jsArrayValue"/>;
+        </ano:iterate>
 
-</script>
-<!-- -->
+    </script>
+    <!-- -->
 </ano:notEmpty>
 
 <header id="header" class="navbar navbar-fixed-top navbar-default">
