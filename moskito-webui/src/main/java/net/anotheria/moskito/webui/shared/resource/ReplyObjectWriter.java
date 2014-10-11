@@ -1,5 +1,6 @@
 package net.anotheria.moskito.webui.shared.resource;
 
+import net.anotheria.moskito.webui.producers.api.UnitCountAO;
 import net.anotheria.moskito.webui.threshold.api.ThresholdStatusAO;
 
 import javax.ws.rs.Produces;
@@ -55,7 +56,7 @@ public class ReplyObjectWriter implements MessageBodyWriter<ReplyObject> {
 			entityStream.write("<results>".getBytes());
 			HashMap results = replyObject.getResults();
 			Set<Map.Entry> resultSet = results.entrySet();
-			JAXBContext context = JAXBContext.newInstance(ThresholdStatusAO.class);
+			JAXBContext context = JAXBContext.newInstance(ThresholdStatusAO.class, UnitCountAO.class);
 			Marshaller m = context.createMarshaller();
 			m.setProperty("jaxb.fragment", Boolean.TRUE);
 

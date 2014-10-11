@@ -34,6 +34,8 @@
  */	
 package net.anotheria.moskito.webui.producers.api;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.io.Serializable;
@@ -44,6 +46,7 @@ import java.io.Serializable;
  *
  */
 @XmlRootElement
+@XmlAccessorType(XmlAccessType.FIELD)
 public class UnitCountAO implements Serializable{
 	/**
 	 * Name of the unit.
