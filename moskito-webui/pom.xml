@@ -107,6 +107,11 @@
 			<groupId>net.anotheria</groupId>
 			<artifactId>ano-tags</artifactId>
 		</dependency>
+        <dependency>
+            <groupId>jstl</groupId>
+            <artifactId>jstl</artifactId>
+            <version>1.2</version>
+        </dependency>
 		<dependency>
 			<groupId>commons-codec</groupId>
 			<artifactId>commons-codec</artifactId>
