@@ -9,20 +9,22 @@ import net.anotheria.moskito.core.stats.TypeAwareStatValue;
 import net.anotheria.moskito.webui.decorators.IDecorator;
 import net.anotheria.moskito.webui.producers.api.DoubleValueAO;
 import net.anotheria.moskito.webui.producers.api.LongValueAO;
-import net.anotheria.moskito.webui.shared.bean.StatCaptionBean;
 import net.anotheria.moskito.webui.producers.api.StatValueAO;
 import net.anotheria.moskito.webui.producers.api.StringValueAO;
+import net.anotheria.moskito.webui.shared.bean.StatCaptionBean;
 import net.anotheria.util.sorter.IComparable;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 /**
- * @author Micha
- * 
+ * This is a gerneric stats-decorator implementation - will be used by default for all 'not build-in' stats.
+ *
+ * @author Michael König
  */
 public class GenericStatsDecorator implements IDecorator<GenericStats> {
 
@@ -31,11 +33,15 @@ public class GenericStatsDecorator implements IDecorator<GenericStats> {
      */
     private static final Logger LOGGER = LoggerFactory.getLogger(GenericStatsDecorator.class);
 
+    private final String name;
+    private final List<StatCaptionBean> captions = new ArrayList<StatCaptionBean>();
+
+
     /**
      * Constructs an instance of GenericStatsDecorator.
      */
-    public GenericStatsDecorator() {
-        super();
+    public GenericStatsDecorator(final String name) {
+        this.name = name;
     }
 
     /**
@@ -51,7 +57,26 @@ public class GenericStatsDecorator implements IDecorator<GenericStats> {
      */
     @Override
     public List<StatCaptionBean> getCaptions() {
-        return Collections.emptyList();
+        return Collections.unmodifiableList(captions);
+    }
+
+	/**
+	 * can be used to determine if decorator was initialized already.
+	 *
+	 * @return TRUE | FALSE
+	 */
+	public boolean isInitialized() {
+		return !captions.isEmpty();
+	}
+
+    /**
+     * Add a caption value.
+     *
+     * @param name the caption
+     * @param type short description
+     */
+    public void addCaption(String name, String type) {
+        captions.add(new StatCaptionBean(name, name + " as " + type, ""));
     }
 
     /**
@@ -59,6 +84,11 @@ public class GenericStatsDecorator implements IDecorator<GenericStats> {
      */
     @Override
     public String getExplanation(final String caption) {
+        for (StatCaptionBean scb : captions) {
+            if (scb.getCaption().equals(caption)) {
+                return scb.getExplanation();
+            }
+        }
         return "n.a.";
     }
 
@@ -67,7 +97,7 @@ public class GenericStatsDecorator implements IDecorator<GenericStats> {
      */
     @Override
     public String getName() {
-        return "GenericStats";
+        return name;
     }
 
     /**
@@ -102,5 +132,20 @@ public class GenericStatsDecorator implements IDecorator<GenericStats> {
         }
 
         return ret;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String toString() {
+	    final StringBuilder sb = new StringBuilder();
+	    sb.append("GenericStatsDecorator: ").append(name).append(" - ");
+
+	    for (StatCaptionBean c : captions) {
+		    sb.append(c.getCaption()).append("; ");
+	    }
+
+	    return sb.toString();
     }
 }

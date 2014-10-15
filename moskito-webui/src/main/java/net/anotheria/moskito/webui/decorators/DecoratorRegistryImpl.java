@@ -50,7 +50,6 @@ import net.anotheria.moskito.core.predefined.ThreadCountStats;
 import net.anotheria.moskito.core.predefined.ThreadStateStats;
 import net.anotheria.moskito.core.predefined.VirtualMemoryPoolStats;
 import net.anotheria.moskito.core.producers.AbstractStats;
-import net.anotheria.moskito.core.producers.GenericStats;
 import net.anotheria.moskito.core.producers.IStats;
 import net.anotheria.moskito.core.util.storage.StorageStats;
 import net.anotheria.moskito.web.session.SessionCountStats;
@@ -87,10 +86,6 @@ public class DecoratorRegistryImpl implements IDecoratorRegistry{
 	 * Internal decorator map.
 	 */
 	private Map<String,IDecorator> registry;
-	/**
-	 * Default decorator instance for missing decorators.
-	 */
-	private IDecorator defaultDecorator;
 	
 	@Override public IDecorator getDecorator(IStats stats) {
 		return getDecorator(stats.getClass().getName());
@@ -102,7 +97,13 @@ public class DecoratorRegistryImpl implements IDecoratorRegistry{
 
 	@Override public IDecorator getDecorator(String className) {
 		IDecorator specificDecorator = registry.get(className);
-		return specificDecorator == null ? defaultDecorator : specificDecorator;
+
+		if (specificDecorator == null) {
+			specificDecorator = new GenericStatsDecorator(className);
+			addDecorator(className, specificDecorator);
+		}
+
+		return specificDecorator;
 	}
 
 	@Override public List<IDecorator> getDecorators(){
@@ -118,7 +119,6 @@ public class DecoratorRegistryImpl implements IDecoratorRegistry{
 	
 	//leon: replace this hard-wired-method with a property or xml config one day
 	private void configure(){
-		defaultDecorator = new DefaultDecorator();
 		addDecorator(ServiceStats.class, new ServiceStatsDecorator());
 		addDecorator(ActionStats.class, new ActionStatsDecorator());
 		addDecorator(ServletStats.class, new ServletStatsDecorator());
@@ -133,16 +133,25 @@ public class DecoratorRegistryImpl implements IDecoratorRegistry{
 		addDecorator(ThreadStateStats.class, new ThreadStatesDecorator());
 		addDecorator(OSStats.class, new OSStatsDecorator());
 		addDecorator(RuntimeStats.class, new RuntimeStatsDecorator());
-		addDecorator(GenericStats.class, new GenericStatsDecorator());
 
 		//counters
 		addDecorator(CounterStats.class, new CounterStatsDecorator());
 		addDecorator(MaleFemaleStats.class, new MaleFemaleStatsDecorator());
 		addDecorator(GuestBasicPremiumStats.class, new GuestBasicPremiumStatsDecorator());
 	}
-	
-	@Override public void addDecorator(Class <? extends AbstractStats> clazz, IDecorator decorator){
-		registry.put(clazz.getName(), decorator);
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override public void addDecorator(Class <? extends AbstractStats> clazz, IDecorator decorator) {
+		addDecorator(clazz.getName(), decorator);
 	}
-	
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public void addDecorator(String clazzName, IDecorator decorator) {
+		registry.put(clazzName, decorator);
+	}
 }
