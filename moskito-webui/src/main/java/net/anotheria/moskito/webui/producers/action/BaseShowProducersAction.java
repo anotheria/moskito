@@ -40,6 +40,7 @@ import net.anotheria.maf.action.ActionMapping;
 import net.anotheria.maf.bean.FormBean;
 import net.anotheria.moskito.core.stats.UnknownIntervalException;
 import net.anotheria.moskito.webui.decorators.IDecorator;
+import net.anotheria.moskito.webui.decorators.predefined.GenericStatsDecorator;
 import net.anotheria.moskito.webui.producers.api.ProducerAO;
 import net.anotheria.moskito.webui.producers.api.ProducerAOSortType;
 import net.anotheria.moskito.webui.producers.api.StatValueAO;
@@ -58,11 +59,19 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 /**
  * Base action for producers presentation action.
  * @author lrosenberg.
  */
 public abstract class BaseShowProducersAction extends BaseMoskitoUIAction {
+
+    /**
+     * Logger.
+     */
+    private static final Logger LOG = LoggerFactory.getLogger(BaseShowProducersAction.class);
 
 	/**
 	 * Returns the list of producers for presentation.
@@ -121,9 +130,11 @@ public abstract class BaseShowProducersAction extends BaseMoskitoUIAction {
 		Map<IDecorator, List<ProducerAO>> decoratorMap = new HashMap<IDecorator,List<ProducerAO>>();
 		for (ProducerAO producer : producers){
 			try{
-				IDecorator decorator = getDecoratorRegistry().getDecorator(producer.getStatsClazzName());
-				if (!decoratorMap.containsKey(decorator)){
-					decoratorMap.put(decorator, new ArrayList<ProducerAO>());
+				IDecorator decorator = findOrCreateDecorator(producer);
+				List<ProducerAO> decoratoredProducers = decoratorMap.get(decorator);
+				if (decoratoredProducers == null){
+					decoratoredProducers = new ArrayList<ProducerAO>();
+					decoratorMap.put(decorator, decoratoredProducers);
 
 					for(StatValueAO statBean : producer.getFirstStatsValues()){
 						String graphKey = decorator.getName()+"_"+statBean.getName();
@@ -131,21 +142,21 @@ public abstract class BaseShowProducersAction extends BaseMoskitoUIAction {
 						graphData.put(graphKey, graphDataBean);
 					}
 				}
-				decoratorMap.get(decorator).add(producer);
+				decoratoredProducers.add(producer);
 			}catch(IndexOutOfBoundsException e){
 				//producer has no stats at all, ignoring
 			}
 		}
 
-
 		List<ProducerDecoratorBean> beans = new ArrayList<ProducerDecoratorBean>();
 
-		for (IDecorator decorator : decoratorMap.keySet()){
+		for (Map.Entry<IDecorator, List<ProducerAO>> entry : decoratorMap.entrySet()){
+			IDecorator decorator = entry.getKey();
 			ProducerDecoratorBean b = new ProducerDecoratorBean();
 			b.setName(decorator.getName());
 			b.setCaptions(decorator.getCaptions());
 
-			for (ProducerAO p : decoratorMap.get(decorator)){
+			for (ProducerAO p : entry.getValue()) {
 				try {
 					List<StatValueAO> values = p.getFirstStatsValues();
 					for (StatValueAO valueBean : values){
@@ -189,6 +200,22 @@ public abstract class BaseShowProducersAction extends BaseMoskitoUIAction {
 			req.getSession().setAttribute(decoratorBean.getSortTypeName(), sortType);
 		}
 		return sortType;
+	}
+
+	private IDecorator findOrCreateDecorator(ProducerAO producer) {
+		final IDecorator decorator = getDecoratorRegistry().getDecorator(producer.getStatsClazzName());
+		if (decorator instanceof GenericStatsDecorator) {
+			final GenericStatsDecorator genericDecorator = (GenericStatsDecorator) decorator;
+			if (!genericDecorator.isInitialized()) {
+				for (StatValueAO statBean : producer.getFirstStatsValues()) {
+					genericDecorator.addCaption(statBean.getName(), statBean.getType());
+				}
+			}
+			LOG.info("for producer '" + producer.getProducerId() + "', a new generic stats decorator was created: " + decorator);
+		} else {
+			LOG.info("for producer '" + producer.getProducerId() + "', a build-in decorator was created: " + decorator.getName());
+		}
+		return decorator;
 	}
 
 	@Override

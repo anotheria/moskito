@@ -57,7 +57,21 @@ public interface IDecoratorRegistry {
 	 */
 	List<IDecorator> getDecorators();
 
+	/**
+	 * Add a decorator instance suitable for given Stats-Class.
+	 *
+	 * @param clazz Statistic-Class
+	 * @param decorator The decorator to add
+	 */
 	void addDecorator(Class <? extends AbstractStats> clazz, IDecorator decorator);
+
+	/**
+	 * Add a decorator instance suitable for given Stats-Class.
+	 *
+	 * @param clazzName Name of Stats-Class
+	 * @param decorator The decorator to add
+	 */
+	void addDecorator(String clazzName, IDecorator decorator);
 
 	/**
 	 * Returns the decorator for the given stats class.
