@@ -30,10 +30,14 @@ import java.util.*;
 	protected GenericCounterStats(String name, Interval[] intervals, String firstCounter, String ... moreCounters){
 		super(name);
 		values = new HashMap<String, StatValue>();
-		values.put(firstCounter, StatValueFactory.createStatValue(Long.valueOf(0L), firstCounter, intervals));
+		StatValue firstCounterValue = StatValueFactory.createStatValue(Long.valueOf(0L), firstCounter, intervals);
+		addStatValues(firstCounterValue);
+		values.put(firstCounter, firstCounterValue);
 		if (moreCounters!=null){
 			for (String mc : moreCounters){
-				values.put(mc, StatValueFactory.createStatValue(Long.valueOf(0L), mc, intervals));
+				StatValue additionalValue = StatValueFactory.createStatValue(Long.valueOf(0L), mc, intervals);
+				addStatValues(additionalValue);
+				values.put(mc, additionalValue);
 			}
 		}
 		valueNames = Collections.unmodifiableList(new ArrayList<String>(values.keySet()));

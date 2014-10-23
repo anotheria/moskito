@@ -37,7 +37,7 @@ package net.anotheria.moskito.core.predefined;
 import net.anotheria.moskito.core.stats.Interval;
 
 /**
- * Actionstats for action oriented ui frameworks like struts.
+ * ActionStats for action oriented ui frameworks like struts.
  * @author lrosenberg
  *
  */

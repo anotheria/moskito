@@ -56,6 +56,8 @@ public class ThreadStateStats extends AbstractStats {
 		max.setDefaultValueAsLong(Long.MIN_VALUE);
 		max.reset();
 
+		addStatValues(current, min, max);
+
 
 	}
 	

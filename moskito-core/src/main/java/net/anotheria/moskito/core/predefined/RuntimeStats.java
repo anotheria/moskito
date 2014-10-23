@@ -49,7 +49,9 @@ public class RuntimeStats extends AbstractStats {
 		super(aName);
 		processName = StatValueFactory.createStatValue("", "processName", selectedIntervals);
 		startTime = StatValueFactory.createStatValue(0L, "startTime", selectedIntervals); 
-		uptime = StatValueFactory.createStatValue(0L, "uptime", selectedIntervals); 
+		uptime = StatValueFactory.createStatValue(0L, "uptime", selectedIntervals);
+
+		addStatValues(processName, startTime, uptime);
 	}
 	
 	public void update(String aName, long aStartTime, long anUptime){

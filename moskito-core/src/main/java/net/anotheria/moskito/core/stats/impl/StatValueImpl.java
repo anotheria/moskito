@@ -34,6 +34,7 @@
  */	
 package net.anotheria.moskito.core.stats.impl;
 
+import net.anotheria.moskito.core.stats.IIntervalListener;
 import net.anotheria.moskito.core.stats.IValueHolderFactory;
 import net.anotheria.moskito.core.stats.Interval;
 import net.anotheria.moskito.core.stats.StatValue;
@@ -66,7 +67,7 @@ class StatValueImpl implements StatValue {
 	/**
 	 * This map holds all values by the interval name it is responsible for. So every 
 	 * registered Interval will be represented by an own entry. Besides this Map contains 
-	 * the abolute value. 
+	 * the absolute value.
 	 */
 	private Map<String, ValueHolder> values;
 	
@@ -88,7 +89,7 @@ class StatValueImpl implements StatValue {
 	private transient IValueHolderFactory factory;
 	
 	/**
-	 * This is the contructor.
+	 * This is the constructor.
 	 * 
 	 * @param aName the name of the statistic value
 	 * @param aFactory the factory to create ValueHolder instances on Interval registration
@@ -321,5 +322,14 @@ class StatValueImpl implements StatValue {
 	
 	public String getValueAsString(){
 		return getValueAsString(null);
+	}
+
+	@Override
+	public void destroy() {
+		IntervalRegistry reg = IntervalRegistry.getInstance();
+		for (Map.Entry<String, ValueHolder> entry :values.entrySet()){
+			if (entry.getValue() instanceof IIntervalListener)
+				reg.getInterval(entry.getKey()).removePrimaryIntervalListener((IIntervalListener)entry.getValue());
+		}
 	}
 }

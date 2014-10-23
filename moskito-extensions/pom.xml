@@ -15,5 +15,6 @@
 
 	<modules>
 		<module>moskito-notification-providers</module>
+		<module>moskito-additional-producers</module>
     </modules>
 </project>

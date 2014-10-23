@@ -272,4 +272,10 @@ public interface StatValue {
 	
 	String getValueAsString(String anIntervalName);
 
+	/**
+	 * Called when the owner stats object is removed from the system.
+	 * Upon this call the StatValue should clean up any references it still holds and unregister itself from events.
+	 */
+	void destroy();
+
 }

@@ -130,5 +130,13 @@ class IntervalImpl implements IUpdateable, Interval {
 		return lastUpdateTimestamp.get();
 	}
 
+	public long getPrimaryListenerCount(){
+		return primaryIntervalListeners.size();
+	}
+
+	public long getSecondaryListenerCount(){
+		return secondaryIntervalListeners.size();
+	}
+
 }
 

@@ -205,6 +205,9 @@ public class QueuingSystemStats extends AbstractStats {
 		servicingTimeMax = StatValueFactory.createStatValue(longPattern, "servicingTimeMax", selectedIntervals);
 		servicingTimeMax.setDefaultValueAsLong(Constants.MAX_TIME_DEFAULT);
 		servicingTimeMax.reset();
+
+		addStatValues(serversSize, queueSize, arrived, serviced, errors, waited, throwedAway, waitingTime, waitingTimeMin,
+				waitingTimeMax, servicingTime, servicingTimeMin, servicingTimeMax);
 	
 	}
 	

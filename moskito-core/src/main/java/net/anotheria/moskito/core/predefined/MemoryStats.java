@@ -40,7 +40,8 @@ public class MemoryStats extends AbstractStats {
 		current = StatValueFactory.createStatValue(0L, "current", selectedIntervals);
 		min = StatValueFactory.createStatValue(0L, "min", selectedIntervals);
 		max = StatValueFactory.createStatValue(0L, "max", selectedIntervals);
-		
+
+		addStatValues(current, min, max);
 		
 	}
 	

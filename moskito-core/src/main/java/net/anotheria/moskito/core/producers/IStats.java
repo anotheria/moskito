@@ -103,4 +103,11 @@ public interface IStats {
 	 * @return
 	 */
 	boolean isEmpty(String intervalName);
+
+	/**
+	 * Called when this stats object is removed from the system. Usually stat objects reside in the system forever, however
+	 * for producers that register and unregister stats objects (for example RollingOnDemandStatsProducer) it is useful to destroy the objects.
+	 * Upon this call the stats object should clean up any references it still holds and unregister itself from events.
+	 */
+	void destroy();
 }

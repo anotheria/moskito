@@ -86,6 +86,7 @@ public class ServletStats extends RequestOrientedStats{
 		ioExceptions = StatValueFactory.createStatValue(pattern, "ioexceptions", getSelectedIntervals());
 		servletExceptions = StatValueFactory.createStatValue(pattern, "servletExceptions", getSelectedIntervals());
 		runtimeExceptions = StatValueFactory.createStatValue(pattern, "runtimeExceptions", getSelectedIntervals());
+		addStatValues(ioExceptions, servletExceptions, runtimeExceptions);
 	}
 	
 	@Override public String toStatsString(String intervalName, TimeUnit timeUnit){

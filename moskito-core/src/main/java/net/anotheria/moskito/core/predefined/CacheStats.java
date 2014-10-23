@@ -32,7 +32,7 @@ public class CacheStats extends AbstractStats {
 	 */
 	private StatValue garbageCollected;
 	/**
-	 * Number of rollovered items if supported by this cache implementation.
+	 * Number of roll-overed items if supported by this cache implementation.
 	 */
 	private StatValue rolloverCount;
 	
@@ -102,6 +102,7 @@ public class CacheStats extends AbstractStats {
 		deletes = StatValueFactory.createStatValue(longPattern, "deletes", selectedIntervals);
 		
 		//fillRatio = StatValueFactory.createStatValue(new Double(0.0), "fillRatio" , selectedIntervals);
+		addStatValues(requests, hits, writes, garbageCollected, rolloverCount, expiredCount, filteredCount, cacheFullCount, deletes);
 
 	}
 	

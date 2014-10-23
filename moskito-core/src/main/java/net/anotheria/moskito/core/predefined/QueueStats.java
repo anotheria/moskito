@@ -173,6 +173,8 @@ public class QueueStats extends AbstractStats {
 		maxSize = StatValueFactory.createStatValue(longPattern, "maxSize", selectedIntervals);
 		maxSize.setDefaultValueAsLong(Constants.MAX_TIME_DEFAULT);
 		maxSize.reset();
+
+		addStatValues(requests, enqueued, dequeued, empty, totalSize, lastSize, sumOfSizes, minSize, maxSize);
 		
 	}
 	
