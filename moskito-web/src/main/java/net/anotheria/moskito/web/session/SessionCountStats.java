@@ -61,7 +61,9 @@ public class SessionCountStats extends AbstractStats {
 		maxNumberOfSessions.setDefaultValueAsInt(Integer.MIN_VALUE);
 		maxNumberOfSessions.reset();
 		numberOfCreatedSessions = StatValueFactory.createStatValue(pattern, "createdSessions", intervals); 
-		numberOfDestroyedSessions = StatValueFactory.createStatValue(pattern, "destroyedSessions", intervals); 
+		numberOfDestroyedSessions = StatValueFactory.createStatValue(pattern, "destroyedSessions", intervals);
+
+		addStatValues(numberOfCreatedSessions, maxNumberOfSessions, minNumberOfSessions, numberOfCreatedSessions, numberOfDestroyedSessions);
 		
 	}
 	
