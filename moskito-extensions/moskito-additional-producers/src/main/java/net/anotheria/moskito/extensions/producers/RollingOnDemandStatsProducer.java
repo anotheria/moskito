@@ -159,6 +159,7 @@ public class RollingOnDemandStatsProducer<S extends IStats> implements IStatsPro
 			if (old==null){
 				_cachedStatsList.add(stat);
 			}else{
+				stat.destroy(); // <---- "stat" was not inserted into the map and remains unused. destroy it
 				stat = old;
 			}
 		}

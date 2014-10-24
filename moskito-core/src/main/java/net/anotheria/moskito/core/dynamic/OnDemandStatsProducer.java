@@ -136,6 +136,7 @@ public class OnDemandStatsProducer<S extends IStats> implements IStatsProducer<S
 			if (old==null){
 				_cachedStatsList.add(stat);
 			}else{
+				stat.destroy(); // <---- "stat" was not inserted into the map and remains unused. destroy it
 				stat = old;
 			}
 		}
