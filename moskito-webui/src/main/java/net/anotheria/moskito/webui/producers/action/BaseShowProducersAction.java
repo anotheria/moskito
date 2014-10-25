@@ -211,9 +211,9 @@ public abstract class BaseShowProducersAction extends BaseMoskitoUIAction {
 					genericDecorator.addCaption(statBean.getName(), statBean.getType());
 				}
 			}
-			LOG.info("for producer '" + producer.getProducerId() + "', a new generic stats decorator was created: " + decorator);
+			LOG.debug("for producer '" + producer.getProducerId() + "', a new generic stats decorator was created: " + decorator);
 		} else {
-			LOG.info("for producer '" + producer.getProducerId() + "', a build-in decorator was created: " + decorator.getName());
+			LOG.debug("for producer '" + producer.getProducerId() + "', a build-in decorator was created: " + decorator.getName());
 		}
 		return decorator;
 	}
