@@ -3,13 +3,13 @@
   <parent>
 	<groupId>net.anotheria</groupId>
 	<artifactId>moskito</artifactId>
-	<version>2.5.4-SNAPSHOT</version>
+	<version>2.5.4</version>
 	<relativePath>../../pom.xml</relativePath>
   </parent>
 
   <modelVersion>4.0.0</modelVersion>
   <artifactId>moskito-notification-providers</artifactId>
-  <version>2.5.4-SNAPSHOT</version>
+  <version>2.5.4</version>
   <name>notification providers</name>
 
   <dependencies>
