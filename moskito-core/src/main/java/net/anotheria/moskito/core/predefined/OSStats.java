@@ -80,6 +80,8 @@ public class OSStats extends AbstractStats {
 		freePhysicalMemory = StatValueFactory.createStatValue(0L, "freePhysicalMemory", selectedIntervals);
 		totalPhysicalMemory = StatValueFactory.createStatValue(0L, "totalPhysicalMemory", selectedIntervals);
 		processors = StatValueFactory.createStatValue(0, "processors", selectedIntervals);
+
+		addStatValues(openFiles, maxOpenFiles, minOpenFiles, maxSupportedOpenFiles, processCpuTime, processTotalCpuTime, freePhysicalMemory, totalPhysicalMemory, processors);
 		
 	}
 

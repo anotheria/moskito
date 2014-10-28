@@ -13,7 +13,7 @@
 package net.anotheria.moskito.core.stats;
 
 /**
- * This interface desclares any type-specific holder 
+ * This interface declares any type-specific holder
  * implementation and declares the interface to support some basic mathematical operations 
  * needed for statistical aggregations.
  *

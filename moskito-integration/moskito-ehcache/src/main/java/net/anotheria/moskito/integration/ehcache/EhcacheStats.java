@@ -192,6 +192,7 @@ public class EhcacheStats extends AbstractStats {
         this.searchesPerSecond = newLongStatValue(SEARCHES_PER_SECOND);
         this.evictionCount = newLongStatValue(EVICTION_COUNT);
         this.writerQueueLength = newLongStatValue(WRITER_QUEUE_LENGTH);
+
     }
 
 
@@ -204,7 +205,9 @@ public class EhcacheStats extends AbstractStats {
      * @return {@link net.anotheria.moskito.core.stats.StatValue}.
      */
     private StatValue newLongStatValue(String valueName) {
-        return StatValueFactory.createStatValue(0L, valueName, Constants.getDefaultIntervals());
+        StatValue sv = StatValueFactory.createStatValue(0L, valueName, Constants.getDefaultIntervals());
+		addStatValues(sv);
+		return sv;
     }
 
     /**
@@ -216,7 +219,10 @@ public class EhcacheStats extends AbstractStats {
      * @return {@link net.anotheria.moskito.core.stats.StatValue}.
      */
     private StatValue newDoubleStatValue(String valueName) {
-        return StatValueFactory.createStatValue(0.0d, valueName, Constants.getDefaultIntervals());
+		StatValue sv = StatValueFactory.createStatValue(0.0d, valueName, Constants.getDefaultIntervals());
+		addStatValues(sv);
+		return sv;
+
     }
 
     /**
@@ -228,7 +234,9 @@ public class EhcacheStats extends AbstractStats {
      * @return {@link net.anotheria.moskito.core.stats.StatValue}.
      */
     private StatValue newStringStatValue(String valueName) {
-        return StatValueFactory.createStatValue("", valueName, Constants.getDefaultIntervals());
+		StatValue sv = StatValueFactory.createStatValue("", valueName, Constants.getDefaultIntervals());
+		addStatValues(sv);
+        return sv;
     }
 
     public StatValue getStatisticsAccuracy() {

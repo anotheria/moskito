@@ -75,4 +75,17 @@ public interface Interval {
 	 */
 	long getLastUpdateTimestamp();
 
+	/**
+	 * Returns number of registered primary listeners. For debug/information purposes.
+	 * @return
+	 */
+	long getPrimaryListenerCount();
+
+	/**
+	 * Returns amount of registered secondary listeners. For debug/information purposes.
+	 * @return
+	 */
+	long getSecondaryListenerCount();
+
+
 }
