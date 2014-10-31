@@ -8,10 +8,6 @@
 </head>
 <body>
 
-    <script type="text/javascript" src="../js/wz_tooltip.js"></script>
-    <script type="text/javascript" src="../js/jquery-1.8.0.min.js"></script>
-    <script type="text/javascript" src="../js/function.js"></script>
-    <script type="text/javascript" src="http://www.google.com/jsapi"></script>
     <script>
         function switchDirection(){
             if (document.forms.UpdateForm.greenDir.value=='above')
