@@ -79,7 +79,7 @@ public class JSStatsDecorator extends AbstractDecorator {
 		 * DOM minimum load time.
 		 */
 		DOM_MIN(
-				"DomMin",
+				"DOMMin",
 				"DOM minimum load time",
 				"DOM minimum load time"
 		),
@@ -87,7 +87,7 @@ public class JSStatsDecorator extends AbstractDecorator {
 		 * DOM maximum load time.
 		 */
 		DOM_MAX(
-				"DomMax",
+				"DOMMax",
 				"DOM maximum load time",
 				"DOM maximum load time"
 		),
