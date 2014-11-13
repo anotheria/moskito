@@ -5,6 +5,7 @@ import net.anotheria.moskito.core.dynamic.OnDemandStatsProducer;
 import net.anotheria.moskito.core.dynamic.OnDemandStatsProducerException;
 import net.anotheria.moskito.core.predefined.JSStats;
 import net.anotheria.moskito.core.predefined.JSStatsFactory;
+import net.anotheria.moskito.core.producers.IStatsProducer;
 import net.anotheria.moskito.core.registry.ProducerRegistryFactory;
 import net.anotheria.util.StringUtils;
 import org.slf4j.Logger;
@@ -48,13 +49,26 @@ public class JSTalkBackFilter implements Filter {
 	 */
 	private static final String WINDOW_LOAD_TIME = "windowLoadTime";
 	/**
+	 * Producer id request parameter name.
+	 */
+	private static final String PRODUCER_ID = "producerId";
+	/**
+	 * Producer category request parameter name.
+	 */
+	private static final String CATEGORY = "category";
+	/**
+	 * Producer subsystem request parameter name.
+	 */
+	private static final String SUBSYSTEM = "subsystem";
+	/**
 	 * {@link Logger} instance.
 	 */
 	private Logger log;
 	/**
-	 * {@link OnDemandStatsProducer} instance.
+	 * Init parameter 'limit' value.
+	 * See {@link #INIT_PARAM_LIMIT}.
 	 */
-	private OnDemandStatsProducer<JSStats> onDemandProducer;
+	private int limit = -1;
 
 	/**
 	 * Constructor.
@@ -65,7 +79,6 @@ public class JSTalkBackFilter implements Filter {
 
 	@Override
 	public void init(FilterConfig filterConfig) throws ServletException {
-		int limit = -1;
 		String pLimit = filterConfig.getInitParameter(INIT_PARAM_LIMIT);
 		if (pLimit != null) {
 			try {
@@ -74,48 +87,113 @@ public class JSTalkBackFilter implements Filter {
 				log.warn("couldn't parse limit \"" + pLimit + "\", assume -1 aka no limit.");
 			}
 		}
-
-		onDemandProducer = limit == -1 ? new OnDemandStatsProducer<JSStats>(getProducerId(), getCategory(), getSubSystem(), new JSStatsFactory()) :
-				new EntryCountLimitedOnDemandStatsProducer<JSStats>(getProducerId(), getCategory(), getSubSystem(), new JSStatsFactory(), limit);
-
-		ProducerRegistryFactory.getProducerRegistryInstance().registerProducer(onDemandProducer);
 	}
 
 	@Override
 	public void doFilter(final ServletRequest servletRequest, final ServletResponse servletResponse, final FilterChain filterChain) throws IOException, ServletException {
-		if (onDemandProducer == null) {
-			log.error("Access to filter before it's inited!");
+		if (!(servletRequest instanceof HttpServletRequest) || !(servletResponse instanceof HttpServletResponse)) {
 			filterChain.doFilter(servletRequest, servletResponse);
 			return;
 		}
 
-		if (servletRequest instanceof HttpServletRequest && servletResponse instanceof HttpServletResponse) {
-			HttpServletRequest request = (HttpServletRequest) servletRequest;
-			HttpServletResponse response = (HttpServletResponse) servletResponse;
+		HttpServletRequest request = (HttpServletRequest) servletRequest;
+		HttpServletResponse response = (HttpServletResponse) servletResponse;
 
-			final String urlPath = request.getParameter(URL);
-			if (StringUtils.isEmpty(urlPath)) {
-				filterChain.doFilter(servletRequest, servletResponse);
-				return;
-			}
+		final String producerId = getValueOrDefault(request, PRODUCER_ID, getDefaultProducerId());
+		final String category = getValueOrDefault(request, CATEGORY, getDefaultCategory());
+		final String subsystem = getValueOrDefault(request, SUBSYSTEM, getDefaultSubsystem());
 
-			final String domLoadTime = request.getParameter(DOM_LOAD_TIME);
-			final String windowLoadTime = request.getParameter(WINDOW_LOAD_TIME);
+		final OnDemandStatsProducer producer = getProducer(producerId, category, subsystem);
+		if (producer == null) {
+			filterChain.doFilter(servletRequest, servletResponse);
+			return;
+		}
 
-			try {
-				final JSStats jsStats = onDemandProducer.getStats(urlPath);
-				if (!StringUtils.isEmpty(domLoadTime) && isLong(domLoadTime) && Long.valueOf(domLoadTime) > 0)
-					jsStats.addDOMLoadTime(Long.valueOf(domLoadTime));
-				if (!StringUtils.isEmpty(windowLoadTime) && isLong(windowLoadTime) && Long.valueOf(windowLoadTime) > 0)
-					jsStats.addWindowLoadTime(Long.valueOf(windowLoadTime));
+		final String urlPath = request.getParameter(URL);
+		if (StringUtils.isEmpty(urlPath)) {
+			filterChain.doFilter(servletRequest, servletResponse);
+			return;
+		}
 
-				writeNoContentResponse(response);
-			} catch (OnDemandStatsProducerException e) {
-				log.info("Couldn't get stats for : " + urlPath + ", probably limit reached");
-			}
+		final String domLoadTime = request.getParameter(DOM_LOAD_TIME);
+		final String windowLoadTime = request.getParameter(WINDOW_LOAD_TIME);
+
+		try {
+			final JSStats jsStats = (JSStats) producer.getStats(urlPath);
+			if (!StringUtils.isEmpty(domLoadTime) && isLong(domLoadTime) && Long.valueOf(domLoadTime) > 0)
+				jsStats.addDOMLoadTime(Long.valueOf(domLoadTime));
+			if (!StringUtils.isEmpty(windowLoadTime) && isLong(windowLoadTime) && Long.valueOf(windowLoadTime) > 0)
+				jsStats.addWindowLoadTime(Long.valueOf(windowLoadTime));
+
+			writeNoContentResponse(response);
+		} catch (OnDemandStatsProducerException e) {
+			log.info("Couldn't get stats for : " + urlPath + ", probably limit reached");
 		}
 
 		filterChain.doFilter(servletRequest, servletResponse);
+	}
+
+	/**
+	 * Returns parameter value from request if exists, otherwise - default value.
+	 *
+	 * @param req          {@link HttpServletRequest}
+	 * @param paramName    name of the parameter
+	 * @param defaultValue parameter default value
+	 * @return request parameter value
+	 */
+	private String getValueOrDefault(HttpServletRequest req, String paramName, String defaultValue) {
+		final String value = req.getParameter(paramName);
+		return StringUtils.isEmpty(value) ? defaultValue : value;
+	}
+
+	/**
+	 * Returns producer by given producer id.
+	 * If it was not found then new producer will be created.
+	 * If existing producer is not supported then producer with default producer id will be returned.
+	 * If producer with default producer id is not supported then will be returned {@code null}.
+	 *
+	 * @param producerId id of the producer
+	 * @param category   name of the category
+	 * @param subsystem  name of the subsystem
+	 * @return JSStats producer
+	 */
+	@SuppressWarnings("unchecked")
+	private OnDemandStatsProducer<JSStats> getProducer(final String producerId, final String category, final String subsystem) {
+		final IStatsProducer statsProducer = ProducerRegistryFactory.getProducerRegistryInstance().getProducer(producerId);
+		// create new
+		if (statsProducer == null)
+			return createProducer(producerId, category, subsystem);
+		// use existing
+		if (statsProducer instanceof OnDemandStatsProducer && OnDemandStatsProducer.class.cast(statsProducer).getDefaultStats() instanceof JSStats)
+			return (OnDemandStatsProducer<JSStats>) statsProducer;
+
+		final IStatsProducer defaultStatsProducer = ProducerRegistryFactory.getProducerRegistryInstance().getProducer(getDefaultProducerId());
+		// create default
+		if (defaultStatsProducer == null)
+			return createProducer(getDefaultProducerId(), category, subsystem);
+		// use existing default
+		if (statsProducer instanceof OnDemandStatsProducer && OnDemandStatsProducer.class.cast(statsProducer).getDefaultStats() instanceof JSStats)
+			return (OnDemandStatsProducer<JSStats>) defaultStatsProducer;
+
+		log.warn("Can't create OnDemandStatsProducer<JSStats> producer with passed id: [" + producerId + "] and default id: [" + getDefaultProducerId() + "].");
+
+		return null;
+	}
+
+	/**
+	 * Creates producer with given producer id, category and subsystem and register it in producer registry.
+	 *
+	 * @param producerId id of the producer
+	 * @param category   name of the category
+	 * @param subsystem  name of the subsystem
+	 * @return JSStats producer
+	 */
+	private OnDemandStatsProducer<JSStats> createProducer(final String producerId, final String category, final String subsystem) {
+		OnDemandStatsProducer<JSStats> producer = limit == -1 ? new OnDemandStatsProducer<JSStats>(producerId, category, subsystem, new JSStatsFactory()) :
+				new EntryCountLimitedOnDemandStatsProducer<JSStats>(producerId, category, subsystem, new JSStatsFactory(), limit);
+
+		ProducerRegistryFactory.getProducerRegistryInstance().registerProducer(producer);
+		return producer;
 	}
 
 	/**
@@ -143,25 +221,25 @@ public class JSTalkBackFilter implements Filter {
 	 *
 	 * @return producer id
 	 */
-	public String getProducerId() {
+	public String getDefaultProducerId() {
 		return getClass().getSimpleName();
 	}
 
 	/**
-	 * Returns producer category name.
+	 * Returns default producer category name.
 	 *
 	 * @return producer category name
 	 */
-	public String getCategory() {
-		return "filter";
+	public String getDefaultCategory() {
+		return "default";
 	}
 
 	/**
-	 * Returns subsystem name.
+	 * Returns default subsystem name.
 	 *
 	 * @return subsystem name
 	 */
-	public String getSubSystem() {
+	public String getDefaultSubsystem() {
 		return "default";
 	}
 

@@ -1,5 +1,18 @@
 /**
  * Script for JSTalkBackFilter.
+ *
+ * Example of usage:
+ *     <script type="text/javascript"
+ *     src="/moskito/js/jstalkback.js?
+ *     filter=/moskito/jstalkbackfilter&
+ *     producerId=PRODUCER_ID&
+ *     category=CATEGORY_NAME&
+ *     subsystem=NAME_OF_THE_SUBSYSTEM"></script>
+ *
+ * 'filter' parameter is a path to the JSTalkBackFilter, mandatory.
+ * 'producerId' parameter is an id of the producer, if was not specified - default value will be used.
+ * 'category' parameter is category name of the producer, if was not specified - default value will be used.
+ * 'subsystem' parameter is a subsystem of the producer, if was not specified - default value will be used.
  */
 (function () {
     var settings = getSettings(),
@@ -43,6 +56,12 @@
         src += "url=" + encodeURIComponent(pathName);
         src += "&domLoadTime=" + domLoadTime;
         src += "&windowLoadTime=" + windowLoadTime;
+        if (settings.producerId)
+            src += "&producerId=" + settings.producerId;
+        if (settings.category)
+            src += "&category=" + settings.category;
+        if (settings.subsystem)
+            src += "&subsystem=" + settings.subsystem;
 
         new Image().src = src;
     }

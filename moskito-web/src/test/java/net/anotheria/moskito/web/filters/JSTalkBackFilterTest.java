@@ -48,19 +48,19 @@ public class JSTalkBackFilterTest {
 		JSTalkBackFilter filter = new JSTalkBackFilter();
 		filter.init(TestingUtil.createFilterConfig());
 
-		HttpServletResponse response = callFilter(filter, "", 0, 0);
+		HttpServletResponse response = callFilter(filter, "JSTalkBackFilter", "", 0, 0);
 		assertEquals(0, response.getStatus());
 		assertNull(response.getContentType());
 
-		response = callFilter(filter, url, 1000, 3000);
+		response = callFilter(filter, "JSTalkBackFilter2", url, 1000, 3000);
 		assertEquals(HttpServletResponse.SC_NO_CONTENT, response.getStatus());
 		assertEquals("image/gif", response.getContentType());
 
-		response = callFilter(filter, url, 2000, 6000);
+		response = callFilter(filter, "JSTalkBackFilter2", url, 2000, 6000);
 		assertEquals(HttpServletResponse.SC_NO_CONTENT, response.getStatus());
 		assertEquals("image/gif", response.getContentType());
 
-		List<IStats> stats = new ProducerRegistryAPIFactory().createProducerRegistryAPI().getProducer(filter.getProducerId()).getStats();
+		List<IStats> stats = new ProducerRegistryAPIFactory().createProducerRegistryAPI().getProducer("JSTalkBackFilter2").getStats();
 
 		assertEquals("Expected predefined producer and producer with name: " + url, 2, stats.size());
 		assertEquals("cumulated", stats.get(0).getName());
@@ -80,14 +80,14 @@ public class JSTalkBackFilterTest {
 
 		// check seconds
 		TimeUnit timeUnit = TimeUnit.SECONDS;
-		assertEquals(1, jsStats.getDomMinLoadTime(intervalName, TimeUnit.SECONDS));
-		assertEquals(2, jsStats.getDomMaxLoadTime(intervalName, TimeUnit.SECONDS));
-		assertEquals(1.5, jsStats.getAverageDOMLoadTime(intervalName, TimeUnit.SECONDS), 0.0);
-		assertEquals(2, jsStats.getDomLastLoadTime(intervalName, TimeUnit.SECONDS));
-		assertEquals(3, jsStats.getWindowMinLoadTime(intervalName, TimeUnit.SECONDS));
-		assertEquals(6, jsStats.getWindowMaxLoadTime(intervalName, TimeUnit.SECONDS));
-		assertEquals(4.5, jsStats.getAverageWindowLoadTime(intervalName, TimeUnit.SECONDS), 0.0);
-		assertEquals(6, jsStats.getWindowLastLoadTime(intervalName, TimeUnit.SECONDS));
+		assertEquals(timeUnit.transformMillis(1000), jsStats.getDomMinLoadTime(intervalName, TimeUnit.SECONDS));
+		assertEquals(timeUnit.transformMillis(2000), jsStats.getDomMaxLoadTime(intervalName, TimeUnit.SECONDS));
+		assertEquals(timeUnit.transformMillis(1500.0), jsStats.getAverageDOMLoadTime(intervalName, TimeUnit.SECONDS), 0.0);
+		assertEquals(timeUnit.transformMillis(2000), jsStats.getDomLastLoadTime(intervalName, TimeUnit.SECONDS));
+		assertEquals(timeUnit.transformMillis(3000), jsStats.getWindowMinLoadTime(intervalName, TimeUnit.SECONDS));
+		assertEquals(timeUnit.transformMillis(6000), jsStats.getWindowMaxLoadTime(intervalName, TimeUnit.SECONDS));
+		assertEquals(timeUnit.transformMillis(4500.0), jsStats.getAverageWindowLoadTime(intervalName, TimeUnit.SECONDS), 0.0);
+		assertEquals(timeUnit.transformMillis(6000), jsStats.getWindowLastLoadTime(intervalName, TimeUnit.SECONDS));
 
 		// check microseconds
 		timeUnit = TimeUnit.MICROSECONDS;
@@ -121,8 +121,8 @@ public class JSTalkBackFilterTest {
 	 * @throws IOException      on filter errors
 	 * @throws ServletException on filter errors
 	 */
-	private HttpServletResponse callFilter(final JSTalkBackFilter filter, final String url, final long domLoadTime, final long windowLoadTime) throws IOException, ServletException {
-		HttpServletRequest req = MockFactory.createMock(HttpServletRequest.class, createMockedHttpServletRequest(url, domLoadTime, windowLoadTime));
+	private HttpServletResponse callFilter(final JSTalkBackFilter filter, final String producerId, final String url, final long domLoadTime, final long windowLoadTime) throws IOException, ServletException {
+		HttpServletRequest req = MockFactory.createMock(HttpServletRequest.class, createMockedHttpServletRequest(producerId, url, domLoadTime, windowLoadTime));
 		HttpServletResponse res = MockFactory.createMock(HttpServletResponse.class, new HttpServletResponseMock());
 		FilterChain chain = TestingUtil.createFilterChain();
 		filter.doFilter(req, res, chain);
@@ -132,13 +132,16 @@ public class JSTalkBackFilterTest {
 	/**
 	 * Creates mocked instance of HttpServletRequest.
 	 *
+	 *
+	 * @param producerId id of the producer
 	 * @param url            page url
 	 * @param domLoadTime    DOM load time
 	 * @param windowLoadTime page load time
 	 * @return {@link HttpServletRequestMock}
 	 */
-	private HttpServletRequestMock createMockedHttpServletRequest(final String url, final long domLoadTime, final long windowLoadTime) {
+	private HttpServletRequestMock createMockedHttpServletRequest(final String producerId, final String url, final long domLoadTime, final long windowLoadTime) {
 		final HttpServletRequestMock mocked = new HttpServletRequestMock();
+		mocked.addParameter("producerId", producerId);
 		mocked.addParameter("url", url);
 		mocked.addParameter("domLoadTime", String.valueOf(domLoadTime));
 		mocked.addParameter("windowLoadTime", String.valueOf(windowLoadTime));
