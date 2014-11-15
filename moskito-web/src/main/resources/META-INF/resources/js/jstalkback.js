@@ -16,34 +16,55 @@
  */
 (function () {
     var settings = getSettings(),
-        startTime = new Date().getTime();
+        startTime = new Date().getTime(),
+        timing = window.performance && window.performance.timing,
+        domLoadEndTime = 0;
+
+    // if performance.timing not supported
+    if (!timing) {
+        /**
+         * DOM load event listener.
+         * Fired when DOM for the page is constructed.
+         */
+        document.addEventListener('DOMContentLoaded', function () {
+            domLoadEndTime = new Date().getTime();
+        });
+    }
 
     /**
-     * Window load event handler.
+     * Window load event listener.
      * Fired when page completely loaded - DOM, images, scripts, sub-frames etc.
      */
     window.addEventListener("load", function () {
-        var time = new Date().getTime() - startTime;
-
-        notifyFilter({
-            windowLoadTime: time
-        });
+        setTimeout(function () {
+            var data = calculateTimeData();
+            notifyFilter(data);
+        }, 0);
     }, false);
 
     /**
-     * DOM load event handler.
-     * Fired when DOM for the page is constructed.
+     * Calculate DOM load time and window load time.
+     * If performance.timing is supported then it will be used for the calculation.
+     *
+     * @returns {{domLoadTime: number, windowLoadTime: number}}
      */
-    document.addEventListener('DOMContentLoaded', function () {
-        var time = new Date().getTime() - startTime;
+    function calculateTimeData() {
+        var now = new Date().getTime();
+        if (timing) {
+            return {
+                domLoadTime: timing.domContentLoadedEventEnd - timing.domContentLoadedEventStart,
+                windowLoadTime: timing.loadEventEnd - timing.navigationStart
+            };
+        }
 
-        notifyFilter({
-            domLoadTime: time
-        });
-    });
+        return {
+            domLoadTime: domLoadEndTime - startTime,
+            windowLoadTime: now - startTime
+        };
+    }
 
     /**
-     * Notify Moskito JSTalkBackFilter with stats.
+     * Notify Moskito JSTalkBackFilter about given stats.
      *
      * @param data - stats data
      */

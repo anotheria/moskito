@@ -111,7 +111,7 @@ public class JSStatsDecorator extends AbstractDecorator {
 		 * Web page minimum load time.
 		 */
 		WIN_MIN(
-				"WinMin",
+				"WindowMin",
 				"Window minimum load time",
 				"Web page minimum load time - including DOM, images, scripts and sub-frames."
 		),
@@ -119,7 +119,7 @@ public class JSStatsDecorator extends AbstractDecorator {
 		 * Web page maximum load time.
 		 */
 		WIN_MAX(
-				"WinMax",
+				"WindowMax",
 				"Window maximum load time",
 				"Web page maximum load time - including DOM, images, scripts and sub-frames."
 		),
@@ -127,7 +127,7 @@ public class JSStatsDecorator extends AbstractDecorator {
 		 * Web page average load time.
 		 */
 		WIN_AVG(
-				"WinAvg",
+				"WindowAvg",
 				"Window average load time",
 				"Web page average load time - including DOM, images, scripts and sub-frames."
 		),
@@ -135,7 +135,7 @@ public class JSStatsDecorator extends AbstractDecorator {
 		 * Web page last load time.
 		 */
 		WIN_LAST(
-				"WinLast",
+				"WindowLast",
 				"Window last load time",
 				"Web page average load time - including DOM, images, scripts and sub-frames."
 		);
