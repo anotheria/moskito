@@ -3,8 +3,8 @@ package net.anotheria.moskito.web.filters;
 import net.anotheria.moskito.core.dynamic.EntryCountLimitedOnDemandStatsProducer;
 import net.anotheria.moskito.core.dynamic.OnDemandStatsProducer;
 import net.anotheria.moskito.core.dynamic.OnDemandStatsProducerException;
-import net.anotheria.moskito.core.predefined.JSStats;
-import net.anotheria.moskito.core.predefined.JSStatsFactory;
+import net.anotheria.moskito.core.predefined.BrowserStats;
+import net.anotheria.moskito.core.predefined.BrowserStatsFactory;
 import net.anotheria.moskito.core.producers.IStatsProducer;
 import net.anotheria.moskito.core.registry.ProducerRegistryFactory;
 import net.anotheria.util.StringUtils;
@@ -119,11 +119,11 @@ public class JSTalkBackFilter implements Filter {
 		final String windowLoadTime = request.getParameter(WINDOW_LOAD_TIME);
 
 		try {
-			final JSStats jsStats = (JSStats) producer.getStats(urlPath);
+			final BrowserStats browserStats = (BrowserStats) producer.getStats(urlPath);
 			if (!StringUtils.isEmpty(domLoadTime) && isLong(domLoadTime) && Long.valueOf(domLoadTime) > 0)
-				jsStats.addDOMLoadTime(Long.valueOf(domLoadTime));
+				browserStats.addDOMLoadTime(Long.valueOf(domLoadTime));
 			if (!StringUtils.isEmpty(windowLoadTime) && isLong(windowLoadTime) && Long.valueOf(windowLoadTime) > 0)
-				jsStats.addWindowLoadTime(Long.valueOf(windowLoadTime));
+				browserStats.addWindowLoadTime(Long.valueOf(windowLoadTime));
 
 			writeNoContentResponse(response);
 		} catch (OnDemandStatsProducerException e) {
@@ -155,27 +155,27 @@ public class JSTalkBackFilter implements Filter {
 	 * @param producerId id of the producer
 	 * @param category   name of the category
 	 * @param subsystem  name of the subsystem
-	 * @return JSStats producer
+	 * @return BrowserStats producer
 	 */
 	@SuppressWarnings("unchecked")
-	private OnDemandStatsProducer<JSStats> getProducer(final String producerId, final String category, final String subsystem) {
+	private OnDemandStatsProducer<BrowserStats> getProducer(final String producerId, final String category, final String subsystem) {
 		final IStatsProducer statsProducer = ProducerRegistryFactory.getProducerRegistryInstance().getProducer(producerId);
 		// create new
 		if (statsProducer == null)
 			return createProducer(producerId, category, subsystem);
 		// use existing
-		if (statsProducer instanceof OnDemandStatsProducer && OnDemandStatsProducer.class.cast(statsProducer).getDefaultStats() instanceof JSStats)
-			return (OnDemandStatsProducer<JSStats>) statsProducer;
+		if (statsProducer instanceof OnDemandStatsProducer && OnDemandStatsProducer.class.cast(statsProducer).getDefaultStats() instanceof BrowserStats)
+			return (OnDemandStatsProducer<BrowserStats>) statsProducer;
 
 		final IStatsProducer defaultStatsProducer = ProducerRegistryFactory.getProducerRegistryInstance().getProducer(getDefaultProducerId());
 		// create default
 		if (defaultStatsProducer == null)
 			return createProducer(getDefaultProducerId(), category, subsystem);
 		// use existing default
-		if (statsProducer instanceof OnDemandStatsProducer && OnDemandStatsProducer.class.cast(statsProducer).getDefaultStats() instanceof JSStats)
-			return (OnDemandStatsProducer<JSStats>) defaultStatsProducer;
+		if (statsProducer instanceof OnDemandStatsProducer && OnDemandStatsProducer.class.cast(statsProducer).getDefaultStats() instanceof BrowserStats)
+			return (OnDemandStatsProducer<BrowserStats>) defaultStatsProducer;
 
-		log.warn("Can't create OnDemandStatsProducer<JSStats> producer with passed id: [" + producerId + "] and default id: [" + getDefaultProducerId() + "].");
+		log.warn("Can't create OnDemandStatsProducer<BrowserStats> producer with passed id: [" + producerId + "] and default id: [" + getDefaultProducerId() + "].");
 
 		return null;
 	}
@@ -186,11 +186,11 @@ public class JSTalkBackFilter implements Filter {
 	 * @param producerId id of the producer
 	 * @param category   name of the category
 	 * @param subsystem  name of the subsystem
-	 * @return JSStats producer
+	 * @return BrowserStats producer
 	 */
-	private OnDemandStatsProducer<JSStats> createProducer(final String producerId, final String category, final String subsystem) {
-		OnDemandStatsProducer<JSStats> producer = limit == -1 ? new OnDemandStatsProducer<JSStats>(producerId, category, subsystem, new JSStatsFactory()) :
-				new EntryCountLimitedOnDemandStatsProducer<JSStats>(producerId, category, subsystem, new JSStatsFactory(), limit);
+	private OnDemandStatsProducer<BrowserStats> createProducer(final String producerId, final String category, final String subsystem) {
+		OnDemandStatsProducer<BrowserStats> producer = limit == -1 ? new OnDemandStatsProducer<BrowserStats>(producerId, category, subsystem, new BrowserStatsFactory()) :
+				new EntryCountLimitedOnDemandStatsProducer<BrowserStats>(producerId, category, subsystem, new BrowserStatsFactory(), limit);
 
 		ProducerRegistryFactory.getProducerRegistryInstance().registerProducer(producer);
 		return producer;

@@ -2,7 +2,7 @@ package net.anotheria.moskito.web.filters;
 
 import net.anotheria.anoprise.mocking.MockFactory;
 import net.anotheria.anoprise.mocking.Mocking;
-import net.anotheria.moskito.core.predefined.JSStats;
+import net.anotheria.moskito.core.predefined.BrowserStats;
 import net.anotheria.moskito.core.producers.IStats;
 import net.anotheria.moskito.core.registry.ProducerRegistryAPIFactory;
 import net.anotheria.moskito.core.registry.ProducerRegistryFactory;
@@ -65,51 +65,51 @@ public class JSTalkBackFilterTest {
 		assertEquals("Expected predefined producer and producer with name: " + url, 2, stats.size());
 		assertEquals("cumulated", stats.get(0).getName());
 
-		final JSStats jsStats = (JSStats) stats.get(1);
-		assertEquals(url, jsStats.getName());
+		final BrowserStats browserStats = (BrowserStats) stats.get(1);
+		assertEquals(url, browserStats.getName());
 
 		// check milliseconds
-		assertEquals(1000, jsStats.getDomMinLoadTime(intervalName, TimeUnit.MILLISECONDS));
-		assertEquals(2000, jsStats.getDomMaxLoadTime(intervalName, TimeUnit.MILLISECONDS));
-		assertEquals(1500.0, jsStats.getAverageDOMLoadTime(intervalName, TimeUnit.MILLISECONDS), 0.0);
-		assertEquals(2000, jsStats.getDomLastLoadTime(intervalName, TimeUnit.MILLISECONDS));
-		assertEquals(3000, jsStats.getWindowMinLoadTime(intervalName, TimeUnit.MILLISECONDS));
-		assertEquals(6000, jsStats.getWindowMaxLoadTime(intervalName, TimeUnit.MILLISECONDS));
-		assertEquals(4500.0, jsStats.getAverageWindowLoadTime(intervalName, TimeUnit.MILLISECONDS), 0.0);
-		assertEquals(6000, jsStats.getWindowLastLoadTime(intervalName, TimeUnit.MILLISECONDS));
+		assertEquals(1000, browserStats.getDomMinLoadTime(intervalName, TimeUnit.MILLISECONDS));
+		assertEquals(2000, browserStats.getDomMaxLoadTime(intervalName, TimeUnit.MILLISECONDS));
+		assertEquals(1500.0, browserStats.getAverageDOMLoadTime(intervalName, TimeUnit.MILLISECONDS), 0.0);
+		assertEquals(2000, browserStats.getDomLastLoadTime(intervalName, TimeUnit.MILLISECONDS));
+		assertEquals(3000, browserStats.getWindowMinLoadTime(intervalName, TimeUnit.MILLISECONDS));
+		assertEquals(6000, browserStats.getWindowMaxLoadTime(intervalName, TimeUnit.MILLISECONDS));
+		assertEquals(4500.0, browserStats.getAverageWindowLoadTime(intervalName, TimeUnit.MILLISECONDS), 0.0);
+		assertEquals(6000, browserStats.getWindowLastLoadTime(intervalName, TimeUnit.MILLISECONDS));
 
 		// check seconds
 		TimeUnit timeUnit = TimeUnit.SECONDS;
-		assertEquals(timeUnit.transformMillis(1000), jsStats.getDomMinLoadTime(intervalName, TimeUnit.SECONDS));
-		assertEquals(timeUnit.transformMillis(2000), jsStats.getDomMaxLoadTime(intervalName, TimeUnit.SECONDS));
-		assertEquals(timeUnit.transformMillis(1500.0), jsStats.getAverageDOMLoadTime(intervalName, TimeUnit.SECONDS), 0.0);
-		assertEquals(timeUnit.transformMillis(2000), jsStats.getDomLastLoadTime(intervalName, TimeUnit.SECONDS));
-		assertEquals(timeUnit.transformMillis(3000), jsStats.getWindowMinLoadTime(intervalName, TimeUnit.SECONDS));
-		assertEquals(timeUnit.transformMillis(6000), jsStats.getWindowMaxLoadTime(intervalName, TimeUnit.SECONDS));
-		assertEquals(timeUnit.transformMillis(4500.0), jsStats.getAverageWindowLoadTime(intervalName, TimeUnit.SECONDS), 0.0);
-		assertEquals(timeUnit.transformMillis(6000), jsStats.getWindowLastLoadTime(intervalName, TimeUnit.SECONDS));
+		assertEquals(timeUnit.transformMillis(1000), browserStats.getDomMinLoadTime(intervalName, TimeUnit.SECONDS));
+		assertEquals(timeUnit.transformMillis(2000), browserStats.getDomMaxLoadTime(intervalName, TimeUnit.SECONDS));
+		assertEquals(timeUnit.transformMillis(1500.0), browserStats.getAverageDOMLoadTime(intervalName, TimeUnit.SECONDS), 0.0);
+		assertEquals(timeUnit.transformMillis(2000), browserStats.getDomLastLoadTime(intervalName, TimeUnit.SECONDS));
+		assertEquals(timeUnit.transformMillis(3000), browserStats.getWindowMinLoadTime(intervalName, TimeUnit.SECONDS));
+		assertEquals(timeUnit.transformMillis(6000), browserStats.getWindowMaxLoadTime(intervalName, TimeUnit.SECONDS));
+		assertEquals(timeUnit.transformMillis(4500.0), browserStats.getAverageWindowLoadTime(intervalName, TimeUnit.SECONDS), 0.0);
+		assertEquals(timeUnit.transformMillis(6000), browserStats.getWindowLastLoadTime(intervalName, TimeUnit.SECONDS));
 
 		// check microseconds
 		timeUnit = TimeUnit.MICROSECONDS;
-		assertEquals(timeUnit.transformMillis(1000), jsStats.getDomMinLoadTime(intervalName, TimeUnit.MICROSECONDS));
-		assertEquals(timeUnit.transformMillis(2000), jsStats.getDomMaxLoadTime(intervalName, TimeUnit.MICROSECONDS));
-		assertEquals(timeUnit.transformMillis(1500.0), jsStats.getAverageDOMLoadTime(intervalName, TimeUnit.MICROSECONDS), 0.0);
-		assertEquals(timeUnit.transformMillis(2000), jsStats.getDomLastLoadTime(intervalName, TimeUnit.MICROSECONDS));
-		assertEquals(timeUnit.transformMillis(3000), jsStats.getWindowMinLoadTime(intervalName, TimeUnit.MICROSECONDS));
-		assertEquals(timeUnit.transformMillis(6000), jsStats.getWindowMaxLoadTime(intervalName, TimeUnit.MICROSECONDS));
-		assertEquals(timeUnit.transformMillis(4500.0), jsStats.getAverageWindowLoadTime(intervalName, TimeUnit.MICROSECONDS), 0.0);
-		assertEquals(timeUnit.transformMillis(6000), jsStats.getWindowLastLoadTime(intervalName, TimeUnit.MICROSECONDS));
+		assertEquals(timeUnit.transformMillis(1000), browserStats.getDomMinLoadTime(intervalName, TimeUnit.MICROSECONDS));
+		assertEquals(timeUnit.transformMillis(2000), browserStats.getDomMaxLoadTime(intervalName, TimeUnit.MICROSECONDS));
+		assertEquals(timeUnit.transformMillis(1500.0), browserStats.getAverageDOMLoadTime(intervalName, TimeUnit.MICROSECONDS), 0.0);
+		assertEquals(timeUnit.transformMillis(2000), browserStats.getDomLastLoadTime(intervalName, TimeUnit.MICROSECONDS));
+		assertEquals(timeUnit.transformMillis(3000), browserStats.getWindowMinLoadTime(intervalName, TimeUnit.MICROSECONDS));
+		assertEquals(timeUnit.transformMillis(6000), browserStats.getWindowMaxLoadTime(intervalName, TimeUnit.MICROSECONDS));
+		assertEquals(timeUnit.transformMillis(4500.0), browserStats.getAverageWindowLoadTime(intervalName, TimeUnit.MICROSECONDS), 0.0);
+		assertEquals(timeUnit.transformMillis(6000), browserStats.getWindowLastLoadTime(intervalName, TimeUnit.MICROSECONDS));
 
 		// check microseconds
 		timeUnit = TimeUnit.NANOSECONDS;
-		assertEquals(timeUnit.transformMillis(1000), jsStats.getDomMinLoadTime(intervalName, TimeUnit.NANOSECONDS));
-		assertEquals(timeUnit.transformMillis(2000), jsStats.getDomMaxLoadTime(intervalName, TimeUnit.NANOSECONDS));
-		assertEquals(timeUnit.transformMillis(1500.0), jsStats.getAverageDOMLoadTime(intervalName, TimeUnit.NANOSECONDS), 0.0);
-		assertEquals(timeUnit.transformMillis(2000), jsStats.getDomLastLoadTime(intervalName, TimeUnit.NANOSECONDS));
-		assertEquals(timeUnit.transformMillis(3000), jsStats.getWindowMinLoadTime(intervalName, TimeUnit.NANOSECONDS));
-		assertEquals(timeUnit.transformMillis(6000), jsStats.getWindowMaxLoadTime(intervalName, TimeUnit.NANOSECONDS));
-		assertEquals(timeUnit.transformMillis(4500.0), jsStats.getAverageWindowLoadTime(intervalName, TimeUnit.NANOSECONDS), 0.0);
-		assertEquals(timeUnit.transformMillis(6000), jsStats.getWindowLastLoadTime(intervalName, TimeUnit.NANOSECONDS));
+		assertEquals(timeUnit.transformMillis(1000), browserStats.getDomMinLoadTime(intervalName, TimeUnit.NANOSECONDS));
+		assertEquals(timeUnit.transformMillis(2000), browserStats.getDomMaxLoadTime(intervalName, TimeUnit.NANOSECONDS));
+		assertEquals(timeUnit.transformMillis(1500.0), browserStats.getAverageDOMLoadTime(intervalName, TimeUnit.NANOSECONDS), 0.0);
+		assertEquals(timeUnit.transformMillis(2000), browserStats.getDomLastLoadTime(intervalName, TimeUnit.NANOSECONDS));
+		assertEquals(timeUnit.transformMillis(3000), browserStats.getWindowMinLoadTime(intervalName, TimeUnit.NANOSECONDS));
+		assertEquals(timeUnit.transformMillis(6000), browserStats.getWindowMaxLoadTime(intervalName, TimeUnit.NANOSECONDS));
+		assertEquals(timeUnit.transformMillis(4500.0), browserStats.getAverageWindowLoadTime(intervalName, TimeUnit.NANOSECONDS), 0.0);
+		assertEquals(timeUnit.transformMillis(6000), browserStats.getWindowLastLoadTime(intervalName, TimeUnit.NANOSECONDS));
 	}
 
 	/**

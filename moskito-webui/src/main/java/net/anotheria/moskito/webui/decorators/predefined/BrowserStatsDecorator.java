@@ -1,6 +1,6 @@
 package net.anotheria.moskito.webui.decorators.predefined;
 
-import net.anotheria.moskito.core.predefined.JSStats;
+import net.anotheria.moskito.core.predefined.BrowserStats;
 import net.anotheria.moskito.core.producers.IStats;
 import net.anotheria.moskito.core.stats.TimeUnit;
 import net.anotheria.moskito.webui.decorators.AbstractDecorator;
@@ -11,53 +11,53 @@ import net.anotheria.moskito.webui.producers.api.StatValueAO;
 import java.util.ArrayList;
 import java.util.List;
 
-import static net.anotheria.moskito.webui.decorators.predefined.JSStatsDecorator.JSStatsDecoratorValueName.DOM_AVG;
-import static net.anotheria.moskito.webui.decorators.predefined.JSStatsDecorator.JSStatsDecoratorValueName.DOM_LAST;
-import static net.anotheria.moskito.webui.decorators.predefined.JSStatsDecorator.JSStatsDecoratorValueName.DOM_MAX;
-import static net.anotheria.moskito.webui.decorators.predefined.JSStatsDecorator.JSStatsDecoratorValueName.DOM_MIN;
-import static net.anotheria.moskito.webui.decorators.predefined.JSStatsDecorator.JSStatsDecoratorValueName.WIN_AVG;
-import static net.anotheria.moskito.webui.decorators.predefined.JSStatsDecorator.JSStatsDecoratorValueName.WIN_LAST;
-import static net.anotheria.moskito.webui.decorators.predefined.JSStatsDecorator.JSStatsDecoratorValueName.WIN_MAX;
-import static net.anotheria.moskito.webui.decorators.predefined.JSStatsDecorator.JSStatsDecoratorValueName.WIN_MIN;
+import static net.anotheria.moskito.webui.decorators.predefined.BrowserStatsDecorator.BrowserStatsDecoratorValueName.DOM_AVG;
+import static net.anotheria.moskito.webui.decorators.predefined.BrowserStatsDecorator.BrowserStatsDecoratorValueName.DOM_LAST;
+import static net.anotheria.moskito.webui.decorators.predefined.BrowserStatsDecorator.BrowserStatsDecoratorValueName.DOM_MAX;
+import static net.anotheria.moskito.webui.decorators.predefined.BrowserStatsDecorator.BrowserStatsDecoratorValueName.DOM_MIN;
+import static net.anotheria.moskito.webui.decorators.predefined.BrowserStatsDecorator.BrowserStatsDecoratorValueName.WIN_AVG;
+import static net.anotheria.moskito.webui.decorators.predefined.BrowserStatsDecorator.BrowserStatsDecoratorValueName.WIN_LAST;
+import static net.anotheria.moskito.webui.decorators.predefined.BrowserStatsDecorator.BrowserStatsDecoratorValueName.WIN_MAX;
+import static net.anotheria.moskito.webui.decorators.predefined.BrowserStatsDecorator.BrowserStatsDecoratorValueName.WIN_MIN;
 
 /**
- * Decorator for {@link JSStats}.
+ * Decorator for {@link BrowserStats}.
  *
  * @author Illya Bogatyrchuk
  */
-public class JSStatsDecorator extends AbstractDecorator {
+public class BrowserStatsDecorator extends AbstractDecorator {
 	/**
 	 * Captions.
 	 */
-	private static final String[] CAPTIONS = JSStatsDecoratorValueName.getCaptions();
+	private static final String[] CAPTIONS = BrowserStatsDecoratorValueName.getCaptions();
 	/**
 	 * Short explanations.
 	 */
-	private static final String[] SHORT_EXPLANATIONS = JSStatsDecoratorValueName.getShortExplanations();
+	private static final String[] SHORT_EXPLANATIONS = BrowserStatsDecoratorValueName.getShortExplanations();
 	/**
 	 * Detailed explanations.
 	 */
-	private static final String[] EXPLANATIONS = JSStatsDecoratorValueName.getExplanations();
+	private static final String[] EXPLANATIONS = BrowserStatsDecoratorValueName.getExplanations();
 
 	/**
 	 * Constructor.
 	 */
-	public JSStatsDecorator() {
-		super("JSStats", CAPTIONS, SHORT_EXPLANATIONS, EXPLANATIONS);
+	public BrowserStatsDecorator() {
+		super("BrowserStats", CAPTIONS, SHORT_EXPLANATIONS, EXPLANATIONS);
 	}
 
 	@Override
 	public List<StatValueAO> getValues(final IStats stats, final String interval, final TimeUnit unit) {
-		JSStats jsStats = (JSStats) stats;
+		BrowserStats browserStats = (BrowserStats) stats;
 
-		long domMinLoadTime = jsStats.getDomMinLoadTime(interval, unit);
-		long domMaxLoadTime = jsStats.getDomMaxLoadTime(interval, unit);
-		double domAverageLoadTime = jsStats.getAverageDOMLoadTime(interval, unit);
-		long domLastLoadTime = jsStats.getDomLastLoadTime(interval, unit);
-		long winMinLoadTime = jsStats.getWindowMinLoadTime(interval, unit);
-		long winMaxLoadTime = jsStats.getWindowMaxLoadTime(interval, unit);
-		double winAverageLoadTime = jsStats.getAverageWindowLoadTime(interval, unit);
-		long winLastLoadTime = jsStats.getWindowLastLoadTime(interval, unit);
+		long domMinLoadTime = browserStats.getDomMinLoadTime(interval, unit);
+		long domMaxLoadTime = browserStats.getDomMaxLoadTime(interval, unit);
+		double domAverageLoadTime = browserStats.getAverageDOMLoadTime(interval, unit);
+		long domLastLoadTime = browserStats.getDomLastLoadTime(interval, unit);
+		long winMinLoadTime = browserStats.getWindowMinLoadTime(interval, unit);
+		long winMaxLoadTime = browserStats.getWindowMaxLoadTime(interval, unit);
+		double winAverageLoadTime = browserStats.getAverageWindowLoadTime(interval, unit);
+		long winLastLoadTime = browserStats.getWindowLastLoadTime(interval, unit);
 
 		List<StatValueAO> result = new ArrayList<StatValueAO>();
 		result.add(new LongValueAO(DOM_MIN.getCaption(), domMinLoadTime));
@@ -72,9 +72,9 @@ public class JSStatsDecorator extends AbstractDecorator {
 	}
 
 	/**
-	 * Represents JSStat value name.
+	 * Represents BrowserStats value name.
 	 */
-	public static enum JSStatsDecoratorValueName {
+	public static enum BrowserStatsDecoratorValueName {
 		/**
 		 * DOM minimum load time.
 		 */
@@ -160,7 +160,7 @@ public class JSStatsDecorator extends AbstractDecorator {
 		 * @param shortExplanation stat short explanation
 		 * @param explanation      stat full explanation
 		 */
-		JSStatsDecoratorValueName(final String caption, final String shortExplanation, final String explanation) {
+		BrowserStatsDecoratorValueName(final String caption, final String shortExplanation, final String explanation) {
 			this.caption = caption;
 			this.shortExplanation = shortExplanation;
 			this.explanation = explanation;
@@ -184,8 +184,8 @@ public class JSStatsDecorator extends AbstractDecorator {
 		 * @return array of captions
 		 */
 		public static String[] getCaptions() {
-			List<String> result = new ArrayList<String>(JSStatsDecoratorValueName.values().length);
-			for (JSStatsDecoratorValueName valueName : JSStatsDecoratorValueName.values())
+			List<String> result = new ArrayList<String>(BrowserStatsDecoratorValueName.values().length);
+			for (BrowserStatsDecoratorValueName valueName : BrowserStatsDecoratorValueName.values())
 				result.add(valueName.getCaption());
 			return result.toArray(new String[result.size()]);
 		}
@@ -196,8 +196,8 @@ public class JSStatsDecorator extends AbstractDecorator {
 		 * @return array of short explanations
 		 */
 		public static String[] getShortExplanations() {
-			List<String> result = new ArrayList<String>(JSStatsDecoratorValueName.values().length);
-			for (JSStatsDecoratorValueName valueName : JSStatsDecoratorValueName.values())
+			List<String> result = new ArrayList<String>(BrowserStatsDecoratorValueName.values().length);
+			for (BrowserStatsDecoratorValueName valueName : BrowserStatsDecoratorValueName.values())
 				result.add(valueName.getShortExplanation());
 			return result.toArray(new String[result.size()]);
 		}
@@ -208,8 +208,8 @@ public class JSStatsDecorator extends AbstractDecorator {
 		 * @return array of explanations
 		 */
 		public static String[] getExplanations() {
-			List<String> result = new ArrayList<String>(JSStatsDecoratorValueName.values().length);
-			for (JSStatsDecoratorValueName valueName : JSStatsDecoratorValueName.values())
+			List<String> result = new ArrayList<String>(BrowserStatsDecoratorValueName.values().length);
+			for (BrowserStatsDecoratorValueName valueName : BrowserStatsDecoratorValueName.values())
 				result.add(valueName.getExplanation());
 			return result.toArray(new String[result.size()]);
 		}
