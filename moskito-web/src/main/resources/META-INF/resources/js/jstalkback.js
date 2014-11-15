@@ -49,7 +49,6 @@
      * @returns {{domLoadTime: number, windowLoadTime: number}}
      */
     function calculateTimeData() {
-        var now = new Date().getTime();
         if (timing) {
             return {
                 domLoadTime: timing.domContentLoadedEventEnd - timing.domContentLoadedEventStart,
@@ -59,7 +58,7 @@
 
         return {
             domLoadTime: domLoadEndTime - startTime,
-            windowLoadTime: now - startTime
+            windowLoadTime: new Date().getTime() - startTime
         };
     }
 
