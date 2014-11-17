@@ -17,7 +17,7 @@ import java.util.List;
  *
  * @author Illya Bogatyrchuk
  */
-public class JSStats extends AbstractStats {
+public class PageInBrowserStats extends AbstractStats {
 	/**
 	 * Url of the page.
 	 */
@@ -35,10 +35,6 @@ public class JSStats extends AbstractStats {
 	 */
 	private StatValue domLastLoadTime;
 	/**
-	 * The number of total requests with DOM loads stats.
-	 */
-	private StatValue totalDomLoads;
-	/**
 	 * Total DOM load time.
 	 */
 	private StatValue totalDomLoadTime;
@@ -55,17 +51,17 @@ public class JSStats extends AbstractStats {
 	 */
 	private StatValue windowLastLoadTime;
 	/**
-	 * The number of total requests with page loads stats.
-	 */
-	private StatValue totalWindowLoads;
-	/**
 	 * Total web page load time.
 	 */
 	private StatValue totalWindowLoadTime;
 	/**
+	 * The number of total requests with loads stats.
+	 */
+	private StatValue numberOfLoads;
+	/**
 	 * Available value names.
 	 */
-	private static final List<String> VALUE_NAMES = Collections.unmodifiableList(JSStatsValueName.getValueNames());
+	private static final List<String> VALUE_NAMES = Collections.unmodifiableList(PageInBrowserStatsValueName.getValueNames());
 
 	/**
 	 * Constructor.
@@ -73,7 +69,7 @@ public class JSStats extends AbstractStats {
 	 * @param urlPath           page's url
 	 * @param selectedIntervals array of {@link Interval}
 	 */
-	public JSStats(final String urlPath, final Interval[] selectedIntervals) {
+	public PageInBrowserStats(final String urlPath, final Interval[] selectedIntervals) {
 		url = urlPath;
 
 		final long pattern = 0L;
@@ -82,13 +78,12 @@ public class JSStats extends AbstractStats {
 		domMinLoadTime = StatValueFactory.createStatValue(pattern, "domMinLoadTime", intervals);
 		domMaxLoadTime = StatValueFactory.createStatValue(pattern, "domMaxLoadTime", intervals);
 		domLastLoadTime = StatValueFactory.createStatValue(pattern, "domLastLoadTime", intervals);
-		totalDomLoads = StatValueFactory.createStatValue(pattern, "totalDomLoads", intervals);
 		totalDomLoadTime = StatValueFactory.createStatValue(pattern, "totalDomLoadTime", intervals);
 		windowMinLoadTime = StatValueFactory.createStatValue(pattern, "windowMinLoadTime", intervals);
 		windowMaxLoadTime = StatValueFactory.createStatValue(pattern, "windowMaxLoadTime", intervals);
 		windowLastLoadTime = StatValueFactory.createStatValue(pattern, "windowLastLoadTime", intervals);
-		totalWindowLoads = StatValueFactory.createStatValue(pattern, "totalWindowLoads", intervals);
 		totalWindowLoadTime = StatValueFactory.createStatValue(pattern, "totalWindowLoadTime", intervals);
+		numberOfLoads = StatValueFactory.createStatValue(pattern, "numberOfLoads", intervals);
 
 		domMinLoadTime.setDefaultValueAsLong(Constants.MIN_TIME_DEFAULT);
 		domMinLoadTime.reset();
@@ -102,29 +97,21 @@ public class JSStats extends AbstractStats {
 	}
 
 	/**
-	 * Adds DOM load time to the stats.
+	 * Adds DOM load time and page load time to the stats.
 	 *
-	 * @param loadTime DOM load time
+	 * @param domLoadTime    DOM load time
+	 * @param windowLoadTime web page load time
 	 */
-	public void addDOMLoadTime(final long loadTime) {
-		totalDomLoadTime.increaseByLong(loadTime);
-		domMinLoadTime.setValueIfLesserThanCurrentAsLong(loadTime);
-		domMaxLoadTime.setValueIfGreaterThanCurrentAsLong(loadTime);
-		domLastLoadTime.setValueAsLong(loadTime);
-		totalDomLoads.increase();
-	}
-
-	/**
-	 * Adds web page load time to the stats.
-	 *
-	 * @param loadTime web page load time
-	 */
-	public void addWindowLoadTime(final long loadTime) {
-		totalWindowLoadTime.increaseByLong(loadTime);
-		windowMinLoadTime.setValueIfLesserThanCurrentAsLong(loadTime);
-		windowMaxLoadTime.setValueIfGreaterThanCurrentAsLong(loadTime);
-		windowLastLoadTime.setValueAsLong(loadTime);
-		totalWindowLoads.increase();
+	public void addLoadTime(final long domLoadTime, final long windowLoadTime) {
+		totalDomLoadTime.increaseByLong(domLoadTime);
+		domMinLoadTime.setValueIfLesserThanCurrentAsLong(domLoadTime);
+		domMaxLoadTime.setValueIfGreaterThanCurrentAsLong(domLoadTime);
+		domLastLoadTime.setValueAsLong(domLoadTime);
+		totalWindowLoadTime.increaseByLong(windowLoadTime);
+		windowMinLoadTime.setValueIfLesserThanCurrentAsLong(windowLoadTime);
+		windowMaxLoadTime.setValueIfGreaterThanCurrentAsLong(windowLoadTime);
+		windowLastLoadTime.setValueAsLong(windowLoadTime);
+		numberOfLoads.increase();
 	}
 
 	@Override
@@ -165,6 +152,17 @@ public class JSStats extends AbstractStats {
 	 */
 	public long getDomLastLoadTime(final String intervalName, final TimeUnit unit) {
 		return unit.transformMillis(domLastLoadTime.getValueAsLong(intervalName));
+	}
+
+	/**
+	 * Returns total DOM loads time for given interval and {@link TimeUnit}.
+	 *
+	 * @param intervalName name of the interval
+	 * @param unit         {@link TimeUnit}
+	 * @return total DOM loads time
+	 */
+	public long getTotalDomLoadTime(final String intervalName, final TimeUnit unit) {
+		return unit.transformMillis(totalDomLoadTime.getValueAsLong(intervalName));
 	}
 
 	/**
@@ -210,7 +208,7 @@ public class JSStats extends AbstractStats {
 	 * @return average DOM load time
 	 */
 	public double getAverageDOMLoadTime(final String intervalName, final TimeUnit unit) {
-		return unit.transformMillis(totalDomLoadTime.getValueAsLong(intervalName)) / totalDomLoads.getValueAsDouble(intervalName);
+		return unit.transformMillis(totalDomLoadTime.getValueAsLong(intervalName)) / numberOfLoads.getValueAsDouble(intervalName);
 	}
 
 	/**
@@ -221,7 +219,27 @@ public class JSStats extends AbstractStats {
 	 * @return average web page load time
 	 */
 	public double getAverageWindowLoadTime(final String intervalName, final TimeUnit unit) {
-		return unit.transformMillis(totalWindowLoadTime.getValueAsLong(intervalName)) / totalWindowLoads.getValueAsDouble(intervalName);
+		return unit.transformMillis(totalWindowLoadTime.getValueAsLong(intervalName)) / numberOfLoads.getValueAsDouble(intervalName);
+	}
+
+	/**
+	 * Returns total page loads time for given interval and {@link TimeUnit}.
+	 *
+	 * @param intervalName name of the interval
+	 * @param unit         {@link TimeUnit}
+	 * @return total page loads time
+	 */
+	public long getTotalWindowLoadTime(final String intervalName, final TimeUnit unit) {
+		return unit.transformMillis(totalWindowLoadTime.getValueAsLong(intervalName));
+	}
+
+	/**
+	 * Returns the number of total requests with loads stats.
+	 *
+	 * @return the number of total requests with loads stats
+	 */
+	public long getNumberOfLoads() {
+		return numberOfLoads.getValueAsLong();
 	}
 
 	@Override
@@ -230,42 +248,42 @@ public class JSStats extends AbstractStats {
 		builder.append(url);
 
 		if (getDomMinLoadTime(intervalName, unit) == Constants.MIN_TIME_DEFAULT)
-			builder.append(toFormattedStatsString(JSStatsValueName.DOM_MIN, "NoR"));
+			builder.append(toFormattedStatsString(PageInBrowserStatsValueName.DOM_MIN, "NoR"));
 		else
-			builder.append(toFormattedStatsString(JSStatsValueName.DOM_MIN, String.valueOf(getDomMinLoadTime(intervalName, unit))));
+			builder.append(toFormattedStatsString(PageInBrowserStatsValueName.DOM_MIN, String.valueOf(getDomMinLoadTime(intervalName, unit))));
 
 		if (getDomMaxLoadTime(intervalName, unit) == Constants.MAX_TIME_DEFAULT)
-			builder.append(toFormattedStatsString(JSStatsValueName.DOM_MAX, "NoR"));
+			builder.append(toFormattedStatsString(PageInBrowserStatsValueName.DOM_MAX, "NoR"));
 		else
-			builder.append(toFormattedStatsString(JSStatsValueName.DOM_MAX, String.valueOf(getDomMaxLoadTime(intervalName, unit))));
+			builder.append(toFormattedStatsString(PageInBrowserStatsValueName.DOM_MAX, String.valueOf(getDomMaxLoadTime(intervalName, unit))));
 
-		builder.append(toFormattedStatsString(JSStatsValueName.DOM_AVG, String.valueOf(getAverageDOMLoadTime(intervalName, unit))));
-		builder.append(toFormattedStatsString(JSStatsValueName.DOM_LAST, String.valueOf(getDomLastLoadTime(intervalName, unit))));
+		builder.append(toFormattedStatsString(PageInBrowserStatsValueName.DOM_AVG, String.valueOf(getAverageDOMLoadTime(intervalName, unit))));
+		builder.append(toFormattedStatsString(PageInBrowserStatsValueName.DOM_LAST, String.valueOf(getDomLastLoadTime(intervalName, unit))));
 
 		if (getWindowMinLoadTime(intervalName, unit) == Constants.MIN_TIME_DEFAULT)
-			builder.append(toFormattedStatsString(JSStatsValueName.WIN_MIN, "NoR"));
+			builder.append(toFormattedStatsString(PageInBrowserStatsValueName.WIN_MIN, "NoR"));
 		else
-			builder.append(toFormattedStatsString(JSStatsValueName.WIN_MIN, String.valueOf(getWindowMinLoadTime(intervalName, unit))));
+			builder.append(toFormattedStatsString(PageInBrowserStatsValueName.WIN_MIN, String.valueOf(getWindowMinLoadTime(intervalName, unit))));
 
 		if (getWindowMaxLoadTime(intervalName, unit) == Constants.MAX_TIME_DEFAULT)
-			builder.append(toFormattedStatsString(JSStatsValueName.WIN_MAX, "NoR"));
+			builder.append(toFormattedStatsString(PageInBrowserStatsValueName.WIN_MAX, "NoR"));
 		else
-			builder.append(toFormattedStatsString(JSStatsValueName.WIN_MAX, String.valueOf(getWindowMaxLoadTime(intervalName, unit))));
+			builder.append(toFormattedStatsString(PageInBrowserStatsValueName.WIN_MAX, String.valueOf(getWindowMaxLoadTime(intervalName, unit))));
 
-		builder.append(toFormattedStatsString(JSStatsValueName.WIN_AVG, String.valueOf(getAverageWindowLoadTime(intervalName, unit))));
-		builder.append(toFormattedStatsString(JSStatsValueName.WIN_LAST, String.valueOf(getWindowLastLoadTime(intervalName, unit))));
+		builder.append(toFormattedStatsString(PageInBrowserStatsValueName.WIN_AVG, String.valueOf(getAverageWindowLoadTime(intervalName, unit))));
+		builder.append(toFormattedStatsString(PageInBrowserStatsValueName.WIN_LAST, String.valueOf(getWindowLastLoadTime(intervalName, unit))));
 
 		return builder.toString();
 	}
 
 	/**
-	 * Utility for formatting stats string by incoming {@link JSStatsValueName} and value.
+	 * Utility for formatting stats string by incoming {@link PageInBrowserStats.PageInBrowserStatsValueName} and value.
 	 *
-	 * @param valueName {@link JSStatsValueName}
+	 * @param valueName {@link PageInBrowserStats.PageInBrowserStatsValueName}
 	 * @param value     string representation of value
 	 * @return formatted stats string
 	 */
-	private String toFormattedStatsString(final JSStatsValueName valueName, final String value) {
+	private String toFormattedStatsString(final PageInBrowserStatsValueName valueName, final String value) {
 		return " " + valueName.getValueName() + ": " + value;
 	}
 
@@ -274,8 +292,8 @@ public class JSStats extends AbstractStats {
 		if (StringUtils.isEmpty(valueName))
 			throw new AssertionError("Value name can not be empty");
 
-		final JSStatsValueName jsStatsValueName = JSStatsValueName.getByName(valueName);
-		switch (jsStatsValueName) {
+		final PageInBrowserStatsValueName statsValueName = PageInBrowserStatsValueName.getByName(valueName);
+		switch (statsValueName) {
 			case DOM_MIN:
 				return String.valueOf(getDomMinLoadTime(intervalName, timeUnit));
 			case DOM_MAX:
@@ -292,6 +310,12 @@ public class JSStats extends AbstractStats {
 				return String.valueOf(getAverageWindowLoadTime(intervalName, timeUnit));
 			case WIN_LAST:
 				return String.valueOf(getWindowLastLoadTime(intervalName, timeUnit));
+			case NUMBER_OF_LOADS:
+				return String.valueOf(getNumberOfLoads());
+			case TOTAL_DOM:
+				return String.valueOf(getTotalDomLoadTime(intervalName, timeUnit));
+			case TOTAL_WIN:
+				return String.valueOf(getTotalWindowLoadTime(intervalName, timeUnit));
 			default:
 				return super.getValueByNameAsString(valueName, intervalName, timeUnit);
 		}
@@ -303,9 +327,9 @@ public class JSStats extends AbstractStats {
 	}
 
 	/**
-	 * Represents JSStat value name.
+	 * Represents PageInBrowserStats value name.
 	 */
-	public static enum JSStatsValueName {
+	public static enum PageInBrowserStatsValueName {
 		/**
 		 * DOM minimum load time.
 		 */
@@ -339,6 +363,18 @@ public class JSStats extends AbstractStats {
 		 */
 		WIN_LAST("WinLast"),
 		/**
+		 * Total DOM loads time.
+		 */
+		TOTAL_DOM("TotalDOM"),
+		/**
+		 * Total window loads time.
+		 */
+		TOTAL_WIN("TotalWindow"),
+		/**
+		 * Number of requests with loads stats.
+		 */
+		NUMBER_OF_LOADS("Count"),
+		/**
 		 * Default value.
 		 */
 		DEFAULT("default");
@@ -353,7 +389,7 @@ public class JSStats extends AbstractStats {
 		 *
 		 * @param valueName stats value name
 		 */
-		JSStatsValueName(final String valueName) {
+		PageInBrowserStatsValueName(final String valueName) {
 			this.valueName = valueName;
 		}
 
@@ -362,14 +398,14 @@ public class JSStats extends AbstractStats {
 		}
 
 		/**
-		 * Returns {@link JSStats.JSStatsValueName} by incoming value name.
+		 * Returns {@link PageInBrowserStats.PageInBrowserStatsValueName} by incoming value name.
 		 * If value was not found, {@link #DEFAULT} will be returned.
 		 *
 		 * @param name name of the value
-		 * @return {@link JSStats.JSStatsValueName}
+		 * @return {@link PageInBrowserStats.PageInBrowserStatsValueName}
 		 */
-		public static JSStatsValueName getByName(final String name) {
-			for (JSStatsValueName valueName : JSStatsValueName.values())
+		public static PageInBrowserStatsValueName getByName(final String name) {
+			for (PageInBrowserStatsValueName valueName : PageInBrowserStatsValueName.values())
 				if (valueName.name().equalsIgnoreCase(name))
 					return valueName;
 
@@ -382,8 +418,8 @@ public class JSStats extends AbstractStats {
 		 * @return collection of value names
 		 */
 		public static List<String> getValueNames() {
-			List<String> valueNames = new ArrayList<String>(JSStatsValueName.values().length);
-			for (JSStatsValueName valueName : JSStatsValueName.values())
+			List<String> valueNames = new ArrayList<String>(PageInBrowserStatsValueName.values().length);
+			for (PageInBrowserStatsValueName valueName : PageInBrowserStatsValueName.values())
 				valueNames.add(valueName.getValueName());
 			return valueNames;
 		}

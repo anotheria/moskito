@@ -4,11 +4,11 @@ import net.anotheria.moskito.core.dynamic.IOnDemandStatsFactory;
 import net.anotheria.moskito.core.stats.Interval;
 
 /**
- * Factory that creates JSStats objects for on demand producers.
+ * Factory that creates PageInBrowserStats objects for on demand producers.
  *
  * @author Illya Bogatyrchuk
  */
-public class JSStatsFactory implements IOnDemandStatsFactory<JSStats> {
+public class PageInBrowserStatsFactory implements IOnDemandStatsFactory<PageInBrowserStats> {
 	/**
 	 * Array of {@link Interval}.
 	 */
@@ -17,7 +17,7 @@ public class JSStatsFactory implements IOnDemandStatsFactory<JSStats> {
 	/**
 	 * Constructor.
 	 */
-	public JSStatsFactory() {
+	public PageInBrowserStatsFactory() {
 		this(Constants.getDefaultIntervals());
 	}
 
@@ -26,12 +26,12 @@ public class JSStatsFactory implements IOnDemandStatsFactory<JSStats> {
 	 *
 	 * @param intervalSelection selected intervals
 	 */
-	public JSStatsFactory(final Interval[] intervalSelection) {
+	public PageInBrowserStatsFactory(final Interval[] intervalSelection) {
 		this.intervalSelection = intervalSelection;
 	}
 
 	@Override
-	public JSStats createStatsObject(final String url) {
-		return new JSStats(url, intervalSelection);
+	public PageInBrowserStats createStatsObject(final String url) {
+		return new PageInBrowserStats(url, intervalSelection);
 	}
 }
