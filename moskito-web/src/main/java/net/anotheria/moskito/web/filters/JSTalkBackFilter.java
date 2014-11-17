@@ -3,8 +3,8 @@ package net.anotheria.moskito.web.filters;
 import net.anotheria.moskito.core.dynamic.EntryCountLimitedOnDemandStatsProducer;
 import net.anotheria.moskito.core.dynamic.OnDemandStatsProducer;
 import net.anotheria.moskito.core.dynamic.OnDemandStatsProducerException;
-import net.anotheria.moskito.core.predefined.BrowserStats;
-import net.anotheria.moskito.core.predefined.BrowserStatsFactory;
+import net.anotheria.moskito.core.predefined.PageInBrowserStats;
+import net.anotheria.moskito.core.predefined.PageInBrowserStatsFactory;
 import net.anotheria.moskito.core.producers.IStatsProducer;
 import net.anotheria.moskito.core.registry.ProducerRegistryFactory;
 import net.anotheria.util.StringUtils;
@@ -119,11 +119,9 @@ public class JSTalkBackFilter implements Filter {
 		final String windowLoadTime = request.getParameter(WINDOW_LOAD_TIME);
 
 		try {
-			final BrowserStats browserStats = (BrowserStats) producer.getStats(urlPath);
-			if (!StringUtils.isEmpty(domLoadTime) && isLong(domLoadTime) && Long.valueOf(domLoadTime) > 0)
-				browserStats.addDOMLoadTime(Long.valueOf(domLoadTime));
-			if (!StringUtils.isEmpty(windowLoadTime) && isLong(windowLoadTime) && Long.valueOf(windowLoadTime) > 0)
-				browserStats.addWindowLoadTime(Long.valueOf(windowLoadTime));
+			final PageInBrowserStats stats = (PageInBrowserStats) producer.getStats(urlPath);
+			if (isLoadTimeValid(domLoadTime) && isLoadTimeValid(windowLoadTime))
+				stats.addLoadTime(Long.valueOf(domLoadTime), Long.valueOf(windowLoadTime));
 
 			writeNoContentResponse(response);
 		} catch (OnDemandStatsProducerException e) {
@@ -147,6 +145,16 @@ public class JSTalkBackFilter implements Filter {
 	}
 
 	/**
+	 * Validate given load time request parameter.
+	 *
+	 * @param loadTimeParam string representation of load time
+	 * @return {@code true} if given load time string is numeric value and greater than 0, otherwise - {@code false}
+	 */
+	private boolean isLoadTimeValid(final String loadTimeParam) {
+		return !StringUtils.isEmpty(loadTimeParam) && isLong(loadTimeParam) && Long.valueOf(loadTimeParam) > 0;
+	}
+
+	/**
 	 * Returns producer by given producer id.
 	 * If it was not found then new producer will be created.
 	 * If existing producer is not supported then producer with default producer id will be returned.
@@ -155,25 +163,25 @@ public class JSTalkBackFilter implements Filter {
 	 * @param producerId id of the producer
 	 * @param category   name of the category
 	 * @param subsystem  name of the subsystem
-	 * @return BrowserStats producer
+	 * @return PageInBrowserStats producer
 	 */
 	@SuppressWarnings("unchecked")
-	private OnDemandStatsProducer<BrowserStats> getProducer(final String producerId, final String category, final String subsystem) {
+	private OnDemandStatsProducer<PageInBrowserStats> getProducer(final String producerId, final String category, final String subsystem) {
 		final IStatsProducer statsProducer = ProducerRegistryFactory.getProducerRegistryInstance().getProducer(producerId);
 		// create new
 		if (statsProducer == null)
 			return createProducer(producerId, category, subsystem);
 		// use existing
-		if (statsProducer instanceof OnDemandStatsProducer && OnDemandStatsProducer.class.cast(statsProducer).getDefaultStats() instanceof BrowserStats)
-			return (OnDemandStatsProducer<BrowserStats>) statsProducer;
+		if (statsProducer instanceof OnDemandStatsProducer && OnDemandStatsProducer.class.cast(statsProducer).getDefaultStats() instanceof PageInBrowserStats)
+			return (OnDemandStatsProducer<PageInBrowserStats>) statsProducer;
 
 		final IStatsProducer defaultStatsProducer = ProducerRegistryFactory.getProducerRegistryInstance().getProducer(getDefaultProducerId());
 		// create default
 		if (defaultStatsProducer == null)
 			return createProducer(getDefaultProducerId(), category, subsystem);
 		// use existing default
-		if (statsProducer instanceof OnDemandStatsProducer && OnDemandStatsProducer.class.cast(statsProducer).getDefaultStats() instanceof BrowserStats)
-			return (OnDemandStatsProducer<BrowserStats>) defaultStatsProducer;
+		if (statsProducer instanceof OnDemandStatsProducer && OnDemandStatsProducer.class.cast(statsProducer).getDefaultStats() instanceof PageInBrowserStats)
+			return (OnDemandStatsProducer<PageInBrowserStats>) defaultStatsProducer;
 
 		log.warn("Can't create OnDemandStatsProducer<BrowserStats> producer with passed id: [" + producerId + "] and default id: [" + getDefaultProducerId() + "].");
 
@@ -186,11 +194,11 @@ public class JSTalkBackFilter implements Filter {
 	 * @param producerId id of the producer
 	 * @param category   name of the category
 	 * @param subsystem  name of the subsystem
-	 * @return BrowserStats producer
+	 * @return PageInBrowserStats producer
 	 */
-	private OnDemandStatsProducer<BrowserStats> createProducer(final String producerId, final String category, final String subsystem) {
-		OnDemandStatsProducer<BrowserStats> producer = limit == -1 ? new OnDemandStatsProducer<BrowserStats>(producerId, category, subsystem, new BrowserStatsFactory()) :
-				new EntryCountLimitedOnDemandStatsProducer<BrowserStats>(producerId, category, subsystem, new BrowserStatsFactory(), limit);
+	private OnDemandStatsProducer<PageInBrowserStats> createProducer(final String producerId, final String category, final String subsystem) {
+		OnDemandStatsProducer<PageInBrowserStats> producer = limit == -1 ? new OnDemandStatsProducer<PageInBrowserStats>(producerId, category, subsystem, new PageInBrowserStatsFactory()) :
+				new EntryCountLimitedOnDemandStatsProducer<PageInBrowserStats>(producerId, category, subsystem, new PageInBrowserStatsFactory(), limit);
 
 		ProducerRegistryFactory.getProducerRegistryInstance().registerProducer(producer);
 		return producer;
