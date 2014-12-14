@@ -7,7 +7,6 @@
     <ano:equal name="config" property="trackUsage" value="true"><img src="//counter.moskito.org/counter/inspect/${applicationScope.moskito_version_string}/${pagename}" class="ipix"> </ano:equal>
 </footer>
 
-<script src="../moskito/ext/jquery-1.10.2/jquery-1.10.2.min.js" type="text/javascript"></script>
 <script src="../moskito/ext/bootstrap-3.1.1/js/bootstrap.min.js" type="text/javascript"></script>
 <script src="../moskito/ext/tablesorter/jquery.metadata.js" type="text/javascript"></script>
 <script src="../moskito/ext/tablesorter/jquery.tablesorter.js" type="text/javascript"></script>

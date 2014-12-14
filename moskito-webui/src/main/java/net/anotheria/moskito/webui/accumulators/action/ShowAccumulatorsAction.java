@@ -7,6 +7,7 @@ import net.anotheria.moskito.webui.accumulators.api.AccumulatedSingleGraphAO;
 import net.anotheria.moskito.webui.accumulators.api.AccumulatedValueAO;
 import net.anotheria.moskito.webui.accumulators.api.AccumulatorAO;
 import net.anotheria.moskito.webui.accumulators.bean.AccumulatedValuesBean;
+import net.anotheria.util.NumberUtils;
 import net.anotheria.util.sorter.DummySortType;
 import net.anotheria.util.sorter.SortType;
 import net.anotheria.util.sorter.StaticQuickSorter;
@@ -164,6 +165,9 @@ public class ShowAccumulatorsAction extends BaseAccumulatorsAction {
 			//now create final data
 			for(AccumulatedValuesBean avb : valuesList){
 				AccumulatedValueAO bean = new AccumulatedValueAO(avb.getTime());
+				bean.setIsoTimestamp(NumberUtils.makeISO8601TimestampString(avb.getTimestamp()));
+				bean.setNumericTimestamp(avb.getTimestamp());
+
 				for (String accName : accNames){
 					bean.addValue(avb.getValue(accName));
 				}

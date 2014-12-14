@@ -32,11 +32,9 @@ $(function () {
             }
         });
         setTimeout(function() {
-            $('.box').each(
-                function() {
-                    resize_table($(this));
-                }
-            );
+            if(chartEngineIniter && chartEngineIniter.d3charts && chartEngineIniter.d3charts.dispatch){
+                chartEngineIniter.d3charts.dispatch.resizeLineCharts();
+            }
         }, 200);
     });
 
@@ -97,5 +95,7 @@ $(function () {
     $('.table1fixed').css('margin-left', max + 39);
 
 
-    $("table.tree").treeTable();
+    var $treeTable = $("table.tree");
+    if($treeTable.length > 0)
+        $treeTable.treeTable();
 });

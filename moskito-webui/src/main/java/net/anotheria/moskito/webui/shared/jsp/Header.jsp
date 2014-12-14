@@ -2,28 +2,13 @@
     %><%@ taglib uri="http://www.anotheria.net/ano-tags" prefix="ano"
     %><%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="core"
     %><%@ page isELIgnored="false" %>
-
-<%--for d3ds--%>
-<style>
-    .legend{
-        margin-bottom:76px;
-        display:inline-block;
-        border-collapse: collapse;
-        border-spacing: 0px;
-    }
-    .legend td{
-        padding:4px 5px;
-        vertical-align:bottom;
-    }
-</style>
-
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <title>${title}</title>
-    <link href='../moskito/font/style.css' rel='stylesheet' type='text/css' /> 
     <link type="text/css" rel="stylesheet" rev="stylesheet" href="../moskito/ext/bootstrap-3.1.1/css/bootstrap.css" />
     <link type="text/css" rel="stylesheet" rev="stylesheet" href="../moskito/ext/custom-scrollbar/jquery.mCustomScrollbar.css" />
     <link type="text/css" rel="stylesheet" href="../moskito/ext/font-awesome-4.0.3/css/font-awesome.css" />
+    <link type="text/css" rel="stylesheet" rev="stylesheet" href="../moskito/font/style.css" />
     <link type="text/css" rel="stylesheet" rev="stylesheet" href="../moskito/ext/select2-3.4.6/select2.css" />
     <link type="text/css" rel="stylesheet" rev="stylesheet" href="../moskito/ext/switchery/switchery.min.css" />
     <ano:equal name="currentSubNaviItem" property="id" value="more_config">
@@ -43,6 +28,20 @@
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
     <![endif]-->
+
+    <%--for d3ds--%>
+    <style>
+        .legend{
+            margin-bottom:76px;
+            display:inline-block;
+            border-collapse: collapse;
+            border-spacing: 0px;
+        }
+        .legend td{
+            padding:4px 5px;
+            vertical-align:bottom;
+        }
+    </style>
 </head>
 
 <body class="status-${systemStatusColor}<ano:notEmpty name="isNavMenuCollapsed"><ano:iF test="${isNavMenuCollapsed}"> aside-collapse</ano:iF></ano:notEmpty>">
@@ -51,16 +50,15 @@
 <script type="text/javascript" src="../moskito/ext/jquery-1.10.2/jquery-1.10.2.min.js"></script>
 <script type="text/javascript" src="../moskito/int/js/function.js"></script>
 
-<ano:notEmpty name="graphDatas">
     <core:if test="${chartEngine eq 'JQPLOT'}">
-        <script type="text/javascript" src="../moskito/int/js/charts/jqplot/jquery.jqplot.js"></script>
-        <script type="text/javascript" src="../moskito/int/js/charts/jqplot/jqplot.cursor.js"></script>
-        <script type="text/javascript" src="../moskito/int/js/charts/jqplot/jqplot.highlighter.js"></script>
-        <script type="text/javascript" src="../moskito/int/js/charts/jqplot/jqplot.dateAxisRenderer.js"></script>
-        <script type="text/javascript" src="../moskito/int/js/charts/jqplot/jqplot.pieRenderer.js"></script>
-        <script type="text/javascript" src="../moskito/int/js/charts/jqplot/jqplot.donutRenderer.js"></script>
-        <script type="text/javascript" src="../moskito/int/js/charts/jqplot/jqplot.categoryAxisRenderer.js"></script>
-        <script type="text/javascript" src="../moskito/int/js/charts/jqplot/jqplot.barRenderer.js"></script>
+        <script type="text/javascript" src="../moskito/int/js/charts/jqplot/jquery.jqplot.min.js"></script>
+        <script type="text/javascript" src="../moskito/int/js/charts/jqplot/jqplot.cursor.min.js"></script>
+        <script type="text/javascript" src="../moskito/int/js/charts/jqplot/jqplot.highlighter.min.js"></script>
+        <script type="text/javascript" src="../moskito/int/js/charts/jqplot/jqplot.dateAxisRenderer.min.js"></script>
+        <script type="text/javascript" src="../moskito/int/js/charts/jqplot/jqplot.pieRenderer.min.js"></script>
+        <script type="text/javascript" src="../moskito/int/js/charts/jqplot/jqplot.donutRenderer.min.js"></script>
+        <script type="text/javascript" src="../moskito/int/js/charts/jqplot/jqplot.categoryAxisRenderer.min.js"></script>
+        <script type="text/javascript" src="../moskito/int/js/charts/jqplot/jqplot.barRenderer.min.js"></script>
     </core:if>
     <core:if test="${chartEngine eq 'GOOGLE_CHART_API'}">
         <script type="text/javascript" src="//www.google.com/jsapi"></script>
@@ -72,6 +70,7 @@
 
     <script type="text/javascript" src="../moskito/int/js/charts/chartEngineIniter.js"></script>
 
+<ano:notEmpty name="graphDatas">
     <!--
      Data for action -->
     <script>

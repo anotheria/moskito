@@ -1,22 +1,8 @@
-<%@ page language="java" contentType="text/html;charset=UTF-8" session="true"
-%><%@ taglib uri="http://www.anotheria.net/ano-tags" prefix="ano"
-%>
+<%@ page language="java" contentType="text/html;charset=UTF-8" session="true"%>
+<%@ taglib uri="http://www.anotheria.net/ano-tags" prefix="ano"%>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <jsp:include page="../../shared/jsp/Header.jsp" flush="false"/>
-
-<script type="text/javascript" src="//www.google.com/jsapi"></script>
-<!-- jqplot core + plugins -->
-<script type="text/javascript" src="../js/charts/jqplot/jquery.jqplot.js"></script>
-<script type="text/javascript" src="../js/charts/jqplot/jqplot.cursor.js"></script>
-<script type="text/javascript" src="../js/charts/jqplot/jqplot.highlighter.js"></script>
-<script type="text/javascript" src="../js/charts/jqplot/jqplot.dateAxisRenderer.js"></script>
-<script type="text/javascript" src="../js/charts/jqplot/jqplot.pieRenderer.min.js"></script>
-<script type="text/javascript" src="../js/charts/jqplot/jqplot.donutRenderer.min.js"></script>
-<script type="text/javascript" src="../js/charts/jqplot/jqplot.categoryAxisRenderer.min.js"></script>
-<script type="text/javascript" src="../js/charts/jqplot/jqplot.barRenderer.min.js"></script>
-
-<script type="text/javascript" src="../moskito/int/js/charts/chartEngineIniter.js"></script>
 
 <section id="main">
     <div class="content">
@@ -25,7 +11,11 @@
         <%-- this data is used for a single (combined or combined&normalized) chart --%>
         <ano:notPresent name="multiple_set">
             <script type="text/javascript">
-                var data = [<ano:iterate name="data" id="value" indexId="i"><ano:notEqual name="i" value="0">,</ano:notEqual>${value}</ano:iterate>];
+                var data = [
+                    <ano:iterate name="data" type="net.anotheria.moskito.webui.accumulators.api.AccumulatedValueAO" id="value" indexId="i">
+                        <ano:notEqual name="i" value="0">,</ano:notEqual><ano:write name="value" property="JSONWithNumericTimestamp"/>
+                    </ano:iterate>
+                ];
             </script>
         </ano:notPresent>
         <%-- this data is used for multiple charts --%>
@@ -34,8 +24,11 @@
                 <script type="text/javascript">
                     var multipleGraphData = [];
                     <ano:iterate name="singleGraphData" type="net.anotheria.moskito.webui.accumulators.api.AccumulatedSingleGraphAO" id="singleGraph">
-                    multipleGraphData.push([<ano:iterate name="singleGraph" property="data" id="value" indexId="i"><ano:notEqual name="i" value="0">,</ano:notEqual>${value}</ano:iterate>])
-                    //var singleGraphData<ano:write name="singleGraph" property="nameForJS"/> = [<ano:iterate name="singleGraph" property="data" id="value" indexId="i"><ano:notEqual name="i" value="0">,</ano:notEqual>${value}</ano:iterate>] ;
+                    multipleGraphData.push([
+                        <ano:iterate name="singleGraph" property="data" id="value" indexId="i">
+                            <ano:notEqual name="i" value="0">,</ano:notEqual><ano:write name="value" property="JSONWithNumericTimestamp"/>
+                        </ano:iterate>
+                    ]);
                     </ano:iterate>
                 </script>
             </ano:present>
@@ -47,14 +40,14 @@
                     <div class="box-title">
                         <a class="accordion-toggle tooltip-bottom" title="Close/Open" data-toggle="collapse" href="#collapse-chart"><i class="fa fa-caret-right"></i></a>
                         <h3 class="pull-left">
-                            Chart for <ano:iterate name="accNames" type="java.lang.String" id="name">${name}</ano:iterate>
+                            Combined charts
                         </h3>
                         <div class="box-right-nav">
                             <a href="" class="tooltip-bottom" title="Refresh"><i class="fa fa-refresh"></i></a>
                         </div>
                     </div>
                     <div id="collapse-chart" class="box-content accordion-body collapse in">
-                        <div class="paddner"><div id="chart_accum${singleGraph.nameForJS}"></div></div>
+                        <div class="paddner"><div id="chart_accum${singleGraph.nameForJS}" class="accumulator-chart"></div></div>
                     </div>
                 </div>
             </ano:notPresent>
@@ -75,7 +68,7 @@
                             </div>
                         </div>
                         <div id="collapse-chart-${singleGraph.nameForJS}" class="box-content accordion-body collapse in">
-                            <div class="paddner"><div id="chart_accum${singleGraph.nameForJS}"></div></div>
+                            <div class="paddner"><div id="chart_accum${singleGraph.nameForJS}" class="accumulator-chart"></div></div>
                         </div>
                     </div>
                 </ano:iterate>
@@ -94,7 +87,8 @@
                             names: [names[index]],
                             data: graphData,
                             type: '<ano:write name="type"/>',
-                            title: names[index]
+                            title: names[index],
+                            dataType: 'datetime'
                         };
 
                         chartEngineIniter[chartEngineName](chartParams);
@@ -110,7 +104,8 @@
                         names: names,
                         data: data,
                         type: '<ano:write name="type"/>',
-                        title: ''
+                        title: '',
+                        dataType: 'datetime'
                     };
 
                     chartEngineIniter[chartEngineName](chartParams);
@@ -196,7 +191,7 @@
                                 )
                             </div>
 
-                            <div class="form-group">
+                            <%--<div class="form-group">
                                 (Type:&nbsp;
                             </div>
                             <div class="radio">
@@ -221,7 +216,8 @@
                             </div>
                             <div class="form-group">
                                 )
-                            </div>
+                            </div>--%>
+                            <input type="hidden" value="LineChart" name="type">
                             <input type="hidden" value="100" name="normalizeBase">
                             <input type="hidden" value="200" name="maxValues">
                         </div>
