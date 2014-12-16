@@ -30,7 +30,7 @@ var chartEngineIniter = {
             container: params.container,
             type: params.type || 'LineChart',
             data: chartData,
-            options: options 
+            options: options
         };
 
         document.getElementById(chartInfo.container).chartInfo = chartInfo;
@@ -196,13 +196,12 @@ var D3chart = (function () {
                 _setHeight(containerId, height);
             };
 
-            var _createSvg = function(containerId){
-                var svg = containers[containerId].container.append("svg");
-                svg.attr("class", "graph")
+            var _createSvg = function (containerId) {
+                var svg = containers[containerId].container.append("svg").attr("class", "graph")
                     .attr("width", _getWidth(containerId) + margin.left + margin.right)
                     .attr("height", _getHeight(containerId) + margin.top + margin.bottom)
-                    .append("g")
-                    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+                    .append("g");
+                svg.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
                 containers[containerId].svg = svg;
             };
@@ -346,8 +345,7 @@ var D3chart = (function () {
                 lines[containerId] = line;
             };
 
-            var _renderLine = function (containerId) {
-                var svg = containers[containerId].svg;
+            var _renderLine = function (containerId, svg) {
                 var line = lines[containerId];
                 var color = _getColorFunc(containerId);
 
@@ -360,10 +358,9 @@ var D3chart = (function () {
                     });
             };
 
-            var _renderGrid = function (containerId) {
+            var _renderGrid = function (containerId, svg) {
                 var xGrid = grids[containerId].xGrid;
                 var yGrid = grids[containerId].yGrid;
-                var svg = containers[containerId].svg;
 
                 xGrid.tickSize(-_getHeight(containerId), 0, 0);
                 yGrid.tickSize(-_getWidth(containerId), 0, 0);
@@ -384,10 +381,9 @@ var D3chart = (function () {
                 yScale.range([_getHeight(containerId), 0]);
             };
 
-            var _renderAxises = function (containerId) {
+            var _renderAxises = function (containerId, svg) {
                 var xAxis = axises[containerId].xAxis;
                 var yAxis = axises[containerId].yAxis;
-                var svg = containers[containerId].svg;
 
                 svg.select('.x.axis')
                     .attr("transform", "translate(0," + _getHeight(containerId) + ")")
@@ -466,8 +462,8 @@ var D3chart = (function () {
                     });
             };
 
-            var _renderFocus = function (containerId) {
-                containers[containerId].svg.select("rect.focusRect")
+            var _renderFocus = function (containerId, svg) {
+                svg.select("rect.focusRect")
                     .attr("width", _getWidth(containerId))
                     .attr("height", _getHeight(containerId));
             };
@@ -492,10 +488,8 @@ var D3chart = (function () {
                         });
                 };
 
-                var updateLegend = function (containerId, data) {
-                    var svg = containers[containerId].svg;
-                    var existing = svg.selectAll(".lineChartLegend")
-                        .data(data);
+                var updateLegend = function (containerId, svg, data) {
+                    var existing = svg.selectAll(".lineChartLegend").data(data);
                     setLegendText(existing);
                     setLegendRect(containerId, existing);
                     existing.exit().remove();
@@ -547,8 +541,8 @@ var D3chart = (function () {
                             .text('\u25C0')
                             .on("click", function () {
                                 if (slicer.hasPrev()) {
-                                    updateLegend(containerId, slicer.prev());
-                                    _renderLegend(containerId);
+                                    updateLegend(containerId, svg, slicer.prev());
+                                    _renderLegend(containerId, svg);
                                 }
                             });
 
@@ -559,16 +553,15 @@ var D3chart = (function () {
                             .text("\u25B6")
                             .on("click", function () {
                                 if (slicer.hasNext()) {
-                                    updateLegend(containerId, slicer.next());
-                                    _renderLegend(containerId);
+                                    updateLegend(containerId, svg, slicer.next());
+                                    _renderLegend(containerId, svg);
                                 }
                             });
                     }
                 }
             }();
 
-            var _renderLegend = function (containerId) {
-                var svg = containers[containerId].svg;
+            var _renderLegend = function (containerId, svg) {
                 svg.selectAll(".lineChartLegend rect")
                     .attr("x", _getWidth(containerId) - 18)
                     .attr("y", 4);
@@ -603,7 +596,7 @@ var D3chart = (function () {
                 _createAxises(containerId);
                 _createGrid(containerId);
                 _createLine(containerId, timeValues);
-                _renderAxises(containerId);
+                _renderAxises(containerId, containers[containerId].svg);
 
                 var dotsValues = data.map(function (d, dataIdx) {
                     return {
