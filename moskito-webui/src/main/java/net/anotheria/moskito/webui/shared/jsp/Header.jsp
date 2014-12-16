@@ -49,26 +49,15 @@
 <!-- currently for handle select only -->
 <script type="text/javascript" src="../moskito/ext/jquery-1.10.2/jquery-1.10.2.min.js"></script>
 <script type="text/javascript" src="../moskito/int/js/function.js"></script>
-
-    <core:if test="${chartEngine eq 'JQPLOT'}">
-        <script type="text/javascript" src="../moskito/int/js/charts/jqplot/jquery.jqplot.min.js"></script>
-        <script type="text/javascript" src="../moskito/int/js/charts/jqplot/jqplot.cursor.min.js"></script>
-        <script type="text/javascript" src="../moskito/int/js/charts/jqplot/jqplot.highlighter.min.js"></script>
-        <script type="text/javascript" src="../moskito/int/js/charts/jqplot/jqplot.dateAxisRenderer.min.js"></script>
-        <script type="text/javascript" src="../moskito/int/js/charts/jqplot/jqplot.pieRenderer.min.js"></script>
-        <script type="text/javascript" src="../moskito/int/js/charts/jqplot/jqplot.donutRenderer.min.js"></script>
-        <script type="text/javascript" src="../moskito/int/js/charts/jqplot/jqplot.categoryAxisRenderer.min.js"></script>
-        <script type="text/javascript" src="../moskito/int/js/charts/jqplot/jqplot.barRenderer.min.js"></script>
-    </core:if>
     <core:if test="${chartEngine eq 'GOOGLE_CHART_API'}">
         <script type="text/javascript" src="//www.google.com/jsapi"></script>
     </core:if>
     <core:if test="${chartEngine eq 'D3'}">
-        <script type="text/javascript" src="../moskito/int/js/charts/d3/d3.js" charset="utf-8"></script>
-        <script type="text/javascript" src="../moskito/int/js/charts/d3routine.js" charset="utf-8"></script>
+        <script type="text/javascript" src="../moskito/ext/d3/d3.js" charset="utf-8"></script>
+        <script type="text/javascript" src="../moskito/ext/d3/d3routine.js" charset="utf-8"></script>
     </core:if>
 
-    <script type="text/javascript" src="../moskito/int/js/charts/chartEngineIniter.js"></script>
+    <script type="text/javascript" src="../moskito/int/js/chartEngineIniter.js"></script>
 
 <ano:notEmpty name="graphDatas">
     <!--

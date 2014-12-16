@@ -15,8 +15,6 @@ public enum ChartEngine {
 		public boolean requiresNumericTimestamp(){ return false;}
 	},
 
-	JQPLOT("jq_plot", "jqplot"),
-
 	D3("d3");
 
 	private List<String> names;
