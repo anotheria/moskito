@@ -20,7 +20,7 @@ public class WebUIConfig {
 	/**
 	 * Default ChartEngine.
 	 */
-	private ChartEngine defaultChartEngine = ChartEngine.GOOGLE_CHART_API;
+	private ChartEngine defaultChartEngine = ChartEngine.D3;
 
 	/**
 	 * List of remote instances. Remote instances are only active if mode is remote.

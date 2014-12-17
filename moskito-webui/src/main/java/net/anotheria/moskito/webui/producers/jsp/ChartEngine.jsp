@@ -27,7 +27,7 @@
 <script type="text/javascript">
 
     var chartParams,
-            chartEngineName = '<ano:write name="chartEngine"/>' || 'JQPLOT';
+            chartEngineName = '<ano:write name="chartEngine"/>' || 'D3';
 
     var $charSwitcher = $('ul.switcher input.js-switch');
 

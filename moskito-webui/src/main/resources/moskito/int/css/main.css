@@ -1309,3 +1309,104 @@ span.call-info {
     display: inline-block;
     margin-left: 15px;
 }
+
+.accumulator-chart {
+    min-height: 300px;
+    min-width: 600px;
+    font: 12px sans-serif;
+}
+/* D3 svg */
+.accumulator-chart .axis path,
+.accumulator-chart .axis line {
+    fill: none;
+    stroke: #000;
+    shape-rendering: crispEdges;
+}
+
+.accumulator-chart .line {
+    fill: none;
+    stroke: steelblue;
+    stroke-width: 1.5px;
+}
+
+.accumulator-chart .grid .tick {
+    stroke: lightgrey;
+    opacity: 0.7;
+}
+
+.accumulator-chart .grid path {
+    stroke-width: 0;
+}
+
+.accumulator-chart .legendButtons{
+    cursor: pointer;
+}
+/* D3 svg end */
+
+.accumulator-chart-tooltip {
+    position: absolute;
+    min-width: 100px;
+    height: auto;
+    padding: 10px;
+    background-color: white;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+    -webkit-box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
+    -moz-box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
+    box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
+    pointer-events: none;
+    opacity: 0.8;
+    display: table;
+    table-layout: fixed;
+    z-index: 100;
+}
+
+.accumulator-chart-tooltip.hidden {
+    display: none;
+}
+
+.accumulator-chart-tooltip p {
+    margin: 0;
+    font-family: sans-serif;
+    font-size: 12px;
+    line-height: 16px;
+    text-align: left;
+}
+
+.accumulator-chart-tooltip .tooltip-title {
+    text-align: center;
+    display: table-row;
+}
+
+.accumulator-chart-tooltip .tooltip-section {
+    display: table-row;
+    margin: 0;
+    font-family: sans-serif;
+    font-size: 12px;
+    line-height: 16px;
+    vertical-align: middle;
+}
+
+.accumulator-chart-tooltip .tooltip-section .tooltip-key {
+    float: left;
+    line-height: 16px;
+    margin-right: 10px;
+    display: table-cell;
+}
+
+.accumulator-chart-tooltip .tooltip-section .tooltip-value {
+    float: right;
+    font-weight: bold;
+    height: 18px;
+    text-align: right;
+    display: table-cell;
+}
+
+.accumulator-chart-tooltip .tooltip-section .tooltip-swatch {
+    float: left;
+    height: 16px;
+    margin-right: 4px;
+    width: 16px;
+    display: table-cell;
+}

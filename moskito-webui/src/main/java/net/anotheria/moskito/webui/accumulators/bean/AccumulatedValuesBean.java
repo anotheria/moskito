@@ -64,4 +64,13 @@ public class AccumulatedValuesBean implements IComparable{
 	public String getValue(String name){
 		return values.get(name);
 	}
+
+	/**
+	 * Return the timestamp as numeric value.
+	 *
+	 * @return timestamp
+	 */
+	public long getTimestamp() {
+		return timestamp;
+	}
 }
