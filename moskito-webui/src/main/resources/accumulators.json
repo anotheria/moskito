@@ -1,0 +1,5 @@
+[
+    {"CPU Time 1h": "http://localhost:8080/moskito/moskito-inspect/mskAccumulators?id_46=set"},
+    {"CPU Time 5m":"http://localhost:8080/moskito/moskito-inspect/mskAccumulators?id_45=set"},
+    {"OldGenFree 1h":"http://localhost:8080/moskito/moskito-inspect/mskAccumulators?id_18=set"}
+]

@@ -11,13 +11,15 @@ import net.anotheria.util.NumberUtils;
 import net.anotheria.util.sorter.DummySortType;
 import net.anotheria.util.sorter.SortType;
 import net.anotheria.util.sorter.StaticQuickSorter;
+import org.codehaus.jackson.map.ObjectMapper;
+import org.codehaus.jackson.map.type.CollectionType;
+import org.codehaus.jackson.map.type.MapType;
+import org.codehaus.jackson.map.type.SimpleType;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.ArrayList;
-import java.util.Enumeration;
-import java.util.HashMap;
-import java.util.List;
+import java.io.IOException;
+import java.util.*;
 
 /**
 /**
@@ -31,7 +33,14 @@ public class ShowAccumulatorsAction extends BaseAccumulatorsAction {
 	 */
 	private static final SortType SORT_TYPE = new DummySortType();
 
-	/**
+    /**
+     * Collection of accumulators that contains accumulator's name as a key
+     * and accumulator's link as a value
+     */
+    private HashMap<String,String> jsonMap = new HashMap<String, String>();
+
+
+    /**
 	 * Graph data modes.
 	 * @author lrosenberg
 	 *
@@ -62,11 +71,30 @@ public class ShowAccumulatorsAction extends BaseAccumulatorsAction {
 			return combined;
 		}
 	}
-	
+
+    /**
+     * Reads of json file
+     * @return map of accumulators
+     * @throws IOException
+     * @author ksolodovnik
+     */
+    private HashMap<String,String> read() throws IOException{
+        ObjectMapper objectMapper = new ObjectMapper();
+        List<HashMap<String,String>> parsedResult = objectMapper.reader(CollectionType.construct(List.class, MapType.construct(HashMap.class, SimpleType.construct(String.class), SimpleType.construct(String.class)))).readValue(ShowAccumulatorsAction.class.getClassLoader().getResourceAsStream("accumulators.json"));
+        HashMap<String,String> resultMap = new HashMap<String, String>();
+        for(Map<String,String> map:parsedResult){
+            resultMap.putAll(map);
+        }
+        return resultMap;
+    }
+
 	@Override
 	public ActionCommand execute(ActionMapping mapping, FormBean formBean,
 			HttpServletRequest req, HttpServletResponse res) throws Exception {
-		
+
+        jsonMap = read();
+        req.setAttribute("acc" ,jsonMap);
+
 		MODE mode = MODE.fromString(req.getParameter("mode"));
 		req.setAttribute(mode.name()+"_set", Boolean.TRUE);
 		
