@@ -81,9 +81,13 @@
                 // Many charts
                 if ('multipleGraphData' in window){
                     var names = '${accNames}'.slice(1, -1).split(', ');
+                    var containerSelectors = $('.accumulator-chart', function () {
+                        return 'chart_accum' + $(this).attr("id");
+                    });
+
                     multipleGraphData.forEach(function(graphData, index){
                         var chartParams = {
-                            container: ('chart_accum' + names[index]).split('-').join('_').split(' ').join('_'),
+                            container: containerSelectors[index],
                             names: [names[index]],
                             data: graphData,
                             type: '<ano:write name="type"/>',
