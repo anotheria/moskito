@@ -49,9 +49,10 @@ var chartEngineIniter = {
 
         var count = 0;
         var data = params.data.map( function(d) {
-            var res =  {label: d[0], color:colorTable[count], value:d[1]};
-            count = (count + 4) % colorTable.length;
-            return res;
+            return {
+                label: d[0],
+                value:d[1]
+            };
         });
 
         var d3Chart = D3chart.getInstance();
@@ -74,6 +75,396 @@ var D3chart = (function () {
                 ];
             return d3.scale.ordinal().range(d3.merge([d3Colors, extraColors])).domain(names);
         };
+
+        var slicesManager = function (elementsPerSlice, data) {
+            var perSlice = elementsPerSlice || 10,
+                currentSlice = 0,
+                totalSlices = Math.ceil(data.length / perSlice),
+                getOffset = function () {
+                    return (currentSlice - 1) * perSlice;
+                },
+                getSlice = function (sliceNumber) {
+                    if (sliceNumber < 1) sliceNumber = 1;
+                    if (sliceNumber > totalSlices) sliceNumber = totalSlices;
+
+                    currentSlice = sliceNumber;
+                    var start = getOffset(),
+                        end = start + perSlice;
+                    return data.slice(start, end);
+                }, next = function () {
+                    return getSlice(currentSlice + 1);
+                }, prev = function () {
+                    return getSlice(currentSlice - 1)
+                }, hasNext = function () {
+                    return currentSlice < totalSlices;
+                }, hasPrev = function () {
+                    return currentSlice > 1;
+                },
+                getSlicesNumber = function () {
+                    return totalSlices;
+                };
+            return {
+                next: next,
+                prev: prev,
+                hasNext: hasNext,
+                hasPrev: hasPrev,
+                getSlice: getSlice,
+                getSlicesNumber: getSlicesNumber
+            }
+        };
+
+        var template = function (html, data) {
+            return html.replace(/{(\w*)}/g, function (m, key) {
+                return data.hasOwnProperty(key) ? data[key] : "";
+            });
+        };
+
+        var createLegend = function () {
+            var setLegendText = function (legend, dy) {
+                legend.select("text")
+                    .attr("dy", dy)
+                    .style("text-anchor", "end")
+                    .text(function (d) {
+                        return d.value;
+                    });
+            };
+
+            var setLegendRect = function (legend, width, height) {
+                legend.select("rect")
+                    .attr("width", width)
+                    .attr("height", height)
+                    .style("fill", function (d) {
+                        return d.color;
+                    });
+            };
+
+            var updateLegend = function (svg, data, options) {
+                var existing = svg.selectAll(".legend").data(data);
+                setLegendText(existing, options.textDy);
+                setLegendRect(existing, options.rectWidth, options.rectHeight);
+                existing.exit().remove();
+
+                var newAdded = existing.enter().append("g")
+                    .attr("class", "legend")
+                    .attr("transform", function (d, i) {
+                        return "translate(0," + i * 20 + ")";
+                    })
+                    .on("mouseover", function(d){
+                        if(options.mouseover)
+                            options.mouseover(d.index);
+                    })
+                    .on("mouseout", function(d){
+                        if(options.mouseout)
+                            options.mouseout(d.index);
+                    });
+                newAdded.append("text");
+                newAdded.append("rect");
+                setLegendText(newAdded, options.textDy);
+                setLegendRect(newAdded, options.rectWidth, options.rectHeight);
+
+                svg.selectAll(".legendButtons")
+                    .attr("transform", "translate(0," + data.length * 20 + ")");
+            };
+
+            return function (svg, options) {
+                var legendsPerSlice = options.legendsPerSlice,
+                    names = options.names;
+
+                var slicer = slicesManager(legendsPerSlice, names);
+                var showLegendButtons = slicer.getSlicesNumber() > 1,
+                    namesSlice = slicer.getSlice(1);
+
+                var legend = svg.selectAll(".legend")
+                    .data(namesSlice)
+                    .enter().append("g")
+                    .attr("class", "legend")
+                    .attr("transform", function (d, i) {
+                        return "translate(0," + i * 20 + ")";
+                    })
+                    .on("mouseover", function(d){
+                        if(options.mouseover)
+                            options.mouseover(d.index);
+                    })
+                    .on("mouseout", function(d){
+                        if(options.mouseout)
+                            options.mouseout(d.index);
+                    });
+                legend.append("text");
+                legend.append("rect");
+                setLegendText(legend, options.textDy);
+                setLegendRect(legend, options.rectWidth, options.rectHeight);
+
+                if (showLegendButtons) {
+                    var buttons = svg
+                        .append("g")
+                        .attr("class", "legendButtons")
+                        .attr("transform", "translate(0," + namesSlice.length * 20 + ")");
+
+                    buttons.append("text")
+                        .attr("class", "prevButton")
+                        .attr("dy", "1em")
+                        .style("text-anchor", "end")
+                        .text('\u25C0')
+                        .on("click", function () {
+                            if (slicer.hasPrev()) {
+                                updateLegend(svg, slicer.prev(), options);
+                                renderLegend(svg, options);
+                            }
+                        });
+
+                    buttons.append("text")
+                        .attr("class", "nextButton")
+                        .attr("dy", "1em")
+                        .style("text-anchor", "end")
+                        .text("\u25B6")
+                        .on("click", function () {
+                            if (slicer.hasNext()) {
+                                updateLegend(svg, slicer.next(), options);
+                                renderLegend(svg, options);
+                            }
+                        });
+                }
+            }
+        }();
+
+        var renderLegend = function (svg, options) {
+            var containerWidth = options.containerWidth;
+
+            svg.selectAll(".legend rect")
+                .attr("x", containerWidth - 18)
+                .attr("y", 4);
+            svg.selectAll(".legend text")
+                .attr("x", containerWidth - 24)
+                .attr("y", 9);
+            svg.selectAll(".legendButtons .prevButton")
+                .attr("x", containerWidth - 24)
+                .attr("y", 9);
+            svg.selectAll(".legendButtons .nextButton")
+                .attr("x", containerWidth - 10)
+                .attr("y", 9);
+        };
+
+        var pieChart = function () {
+            var colorFunc;
+
+            var showChartTooltip = function () {
+                var tooltip = d3.select(".d3-chart-tooltip");
+                if (tooltip.empty()) {
+                    tooltip = d3.select("body").append("div")
+                        .attr("class", "d3-chart-tooltip hidden");
+                }
+
+                var tooltipSectionTmpl = '<div class="tooltip-section">' +
+                    '<div class="tooltip-swatch" style="background-color: {color}"></div>' +
+                    '<div class="tooltip-key">{name}</div>' +
+                    '<div class="tooltip-value">{value}</div>' +
+                    '</div>';
+
+                return function (rect, data) {
+                    var tooltipSectionsHtml = data.map(function (d) {
+                            return template(tooltipSectionTmpl, d);
+                        }),
+                        html = [].concat.call(tooltipSectionsHtml);
+
+                    var d3mouse = d3.mouse(rect),
+                        bodyRect = document.body.getBoundingClientRect(),
+                        svgRect = rect.getBoundingClientRect(),
+                        offsetLeft = svgRect.left - bodyRect.left,
+                        left = d3mouse[0] + offsetLeft+ 10;
+
+                    tooltip.html(html.join(""))
+                        .style("left", (d3.event.pageX) + "px")
+                        .style("top", (d3.event.pageY - 28) + "px");
+                }
+            }();
+
+            var pieTop = function (d, rx, ry, ir) {
+                if (d.endAngle - d.startAngle == 0) return "M 0 0";
+                var sx = rx * Math.cos(d.startAngle),
+                    sy = ry * Math.sin(d.startAngle),
+                    ex = rx * Math.cos(d.endAngle),
+                    ey = ry * Math.sin(d.endAngle);
+
+                var ret = [];
+                ret.push("M", sx, sy, "A", rx, ry, "0", (d.endAngle - d.startAngle > Math.PI ? 1 : 0), "1", ex, ey, "L", ir * ex, ir * ey);
+                ret.push("A", ir * rx, ir * ry, "0", (d.endAngle - d.startAngle > Math.PI ? 1 : 0), "0", ir * sx, ir * sy, "z");
+                return ret.join(" ");
+            };
+
+            var pieOuter = function (d, rx, ry, h) {
+                var startAngle = (d.startAngle > Math.PI ? Math.PI : d.startAngle);
+                var endAngle = (d.endAngle > Math.PI ? Math.PI : d.endAngle);
+
+                var sx = rx * Math.cos(startAngle),
+                    sy = ry * Math.sin(startAngle),
+                    ex = rx * Math.cos(endAngle),
+                    ey = ry * Math.sin(endAngle);
+
+                var ret = [];
+                ret.push("M", sx, h + sy, "A", rx, ry, "0 0 1", ex, h + ey, "L", ex, ey, "A", rx, ry, "0 0 0", sx, sy, "z");
+                return ret.join(" ");
+            };
+
+            var getPercent = function(d) {
+                return (d.endAngle - d.startAngle > 0.2 ?
+                    Math.round(1000 * (d.endAngle - d.startAngle) / (Math.PI * 2)) / 10 + '%' : '');
+            };
+
+            var renderPie = function (svg, data, x, y, rx, ry, ir, h) {
+                var slicesContainer = svg.append("g")
+                    .attr("transform", "translate(" + x + "," + y + ")")
+                    .attr("class", "slices");
+
+                slicesContainer.selectAll(".topSlice").data(data).enter().append("path").attr("class", "topSlice")
+                    .style("fill", function (d) {
+                        return colorFunc(d.data.name);
+                    })
+                    .style("stroke", function (d) {
+                        return colorFunc(d.data.name);
+                    })
+                    .attr("d", function (d) {
+                        return pieTop(d, rx, ry, ir);
+                    });
+
+                slicesContainer.selectAll(".outerSlice").data(data).enter().append("path").attr("class", "outerSlice")
+                    .style("fill", function (d) {
+                        return d3.hsl(colorFunc(d.data.name)).darker(0.7);
+                    })
+                    .attr("d", function (d) {
+                        return pieOuter(d, rx - .5, ry - .5, h);
+                    });
+
+                slicesContainer.selectAll(".percent").data(data).enter().append("text").attr("class", "percent")
+                    .attr("x", function (d) {
+                        return 0.6 * rx * Math.cos(0.5 * (d.startAngle + d.endAngle));
+                    })
+                    .attr("y", function (d) {
+                        return 0.6 * ry * Math.sin(0.5 * (d.startAngle + d.endAngle));
+                    })
+                    .text(getPercent);
+            };
+
+            var renderInteractivePart = function (svg, data, x, y, rx, ry, ir, h) {
+                var slicesContainer = svg.append("g")
+                    .attr("transform", "translate(" + x + "," + y + ")")
+                    .attr("class", "interactivePart");
+
+                var onMouseOver = function (d, id) {
+                    d3.select(".d3-chart-tooltip").classed("hidden", false);
+                    slicesContainer.selectAll("*[data-slice-number='" + id + "']").style("opacity", .4);
+                };
+
+                var onMouseOut = function (d, id) {
+                    slicesContainer.selectAll("*[data-slice-number='" + id + "']").style("opacity", 0);
+                    d3.select(".d3-chart-tooltip").classed("hidden", true);
+                };
+
+                var onMouseMove = function(d){
+                    showChartTooltip(this, [
+                            {
+                                color: colorFunc(d.data.name),
+                                name: d.data.name,
+                                value: d.data.value
+                            }
+                        ]
+                    );
+                };
+
+                slicesContainer.selectAll(".topSlice").data(data).enter().append("path").attr("class", "topSlice")
+                    .attr("data-slice-number", function (d, i) {
+                        return i;
+                    })
+                    .style("opacity", 0)
+                    .style("fill", function (d) {
+                        return d3.hsl(colorFunc(d.data.name)).brighter(1);
+                    })
+                    .attr("d", function (d) {
+                        return pieTop(d, rx, ry, ir);
+                    })
+                    .on("mouseover", onMouseOver)
+                    .on("mouseout", onMouseOut)
+                    .on("mousemove", onMouseMove);
+
+                slicesContainer.selectAll(".outerSlice").data(data).enter().append("path").attr("class", "outerSlice")
+                    .attr("data-slice-number", function (d, i) {
+                        return i;
+                    })
+                    .style("opacity", 0)
+                    .style("fill", function (d) {
+                        return d3.hsl(colorFunc(d.data.name)).brighter(1);
+                    })
+                    .attr("d", function (d) {
+                        return pieOuter(d, rx - .5, ry - .5, h);
+                    })
+                    .on("mouseover", onMouseOver)
+                    .on("mouseout", onMouseOut)
+                    .on("mousemove", onMouseMove);
+            };
+
+            return (pieChart = function (containerId, params) {
+                var width = params.width,
+                    height = params.height,
+                    edge = 100;
+
+                var names = params.data.map(function (d) {
+                    return d[0];
+                });
+
+                colorFunc = chartColors(names);
+
+                var data = params.data.map(function (d) {
+                    return {
+                        name: d[0],
+                        value: d[1]
+                    };
+                });
+
+                var pieChartData = d3.layout.pie().sort(null).value(function (d) {
+                    return d.value;
+                })(data);
+
+                var radius = Math.min(width, height) / 2;
+                var svg = d3.select(containerId).append("svg")
+                    .attr("width", width)
+                    .attr("class", "pieChart")
+                    .attr("height", height)
+                    .append("g");
+
+                var x = radius + edge,
+                    y = radius * 0.6 + edge,
+                    rx = radius,
+                    ry = radius * 0.6,
+                    h = radius * 0.2;
+
+                renderPie(svg, pieChartData, x, y, rx, ry, 0, h);
+                renderInteractivePart(svg, pieChartData, x, y, rx+7, ry+7, 0, h);
+
+                var legendOptions = {
+                    legendsPerSlice: 15,
+                    mouseover: function(id){
+                        d3.select(".interactivePart").selectAll("*[data-slice-number='" + id + "']").style("opacity", .4);
+                    },
+                    mouseout: function(id){
+                        d3.select(".interactivePart").selectAll("*[data-slice-number='" + id + "']").style("opacity", 0);
+                    },
+                    containerWidth: width,
+                    names: names.map(function (item, idx) {
+                        return {
+                            index: idx,
+                            value: item,
+                            color: colorFunc(item)
+                        }
+                    }),
+                    rectWidth: 14,
+                    rectHeight: 14,
+                    textDy: ".50em"
+                };
+
+                createLegend(svg, legendOptions);
+                renderLegend(svg, legendOptions);
+            })(arguments[0], arguments[1]);
+        };
+
         var lineChart = function () {
             var multiFormat = d3.time.format.multi([
                     [".%L", function (d) {
@@ -101,63 +492,21 @@ var D3chart = (function () {
                 formatTime = d3.time.format("%H:%M"),
                 margin = {top: 20, right: 80, bottom: 30, left: 150};
 
-            var slicesManager = function (elementsPerSlice, data) {
-                var perSlice = elementsPerSlice || 10,
-                    currentSlice = 0,
-                    totalSlices = Math.ceil(data.length / perSlice),
-                    getOffset = function () {
-                        return (currentSlice - 1) * perSlice;
-                    },
-                    getSlice = function (sliceNumber) {
-                        if (sliceNumber < 1) sliceNumber = 1;
-                        if (sliceNumber > totalSlices) sliceNumber = totalSlices;
-
-                        currentSlice = sliceNumber;
-                        var start = getOffset(),
-                            end = start + perSlice;
-                        return data.slice(start, end);
-                    }, next = function () {
-                        return getSlice(currentSlice + 1);
-                    }, prev = function () {
-                        return getSlice(currentSlice - 1)
-                    }, hasNext = function () {
-                        return currentSlice < totalSlices;
-                    }, hasPrev = function () {
-                        return currentSlice > 1;
-                    },
-                    getSlicesNumber = function () {
-                        return totalSlices;
-                    };
-                return {
-                    next: next,
-                    prev: prev,
-                    hasNext: hasNext,
-                    hasPrev: hasPrev,
-                    getSlice: getSlice,
-                    getSlicesNumber: getSlicesNumber
-                }
-            };
-
-            var showChartTooltip = function buildTooltip() {
-                var tooltip = d3.select(".accumulator-chart-tooltip");
+            var showChartTooltip = function () {
+                var tooltip = d3.select(".d3-chart-tooltip");
                 if (tooltip.empty()) {
                     tooltip = d3.select("body").append("div")
-                        .attr("class", "accumulator-chart-tooltip hidden");
+                        .attr("class", "d3-chart-tooltip hidden");
                 }
 
-                var template = function (html, data) {
-                        return html.replace(/{(\w*)}/g, function (m, key) {
-                            return data.hasOwnProperty(key) ? data[key] : "";
-                        });
-                    },
-                    titleSectionTmpl = '<div class="tooltip-section tooltip-title"><strong>{title}</strong></div>',
+                var titleSectionTmpl = '<div class="tooltip-section tooltip-title"><strong>{title}</strong></div>',
                     tooltipSectionTmpl = '<div class="tooltip-section">' +
                         '<div class="tooltip-swatch" style="background-color: {color}"></div>' +
                         '<div class="tooltip-key">{name}</div>' +
                         '<div class="tooltip-value">{value}</div>' +
                         '</div>';
 
-                return function (containerId, rect, tooltipSelector, title, data) {
+                return function (containerId, rect, title, data) {
                     var titleSectionHtml = template(titleSectionTmpl, {title: title}),
                         tooltipSectionsHtml = data.map(function (d) {
                             return template(tooltipSectionTmpl, d);
@@ -417,11 +766,11 @@ var D3chart = (function () {
                     .style("pointer-events", "all")
                     .on("mouseover", function () {
                         focus.style("display", null);
-                        d3.select(".accumulator-chart-tooltip").classed("hidden", false);
+                        d3.select(".d3-chart-tooltip").classed("hidden", false);
                     })
                     .on("mouseout", function () {
                         focus.style("display", "none");
-                        d3.select(".accumulator-chart-tooltip").classed("hidden", true);
+                        d3.select(".d3-chart-tooltip").classed("hidden", true);
                     })
                     .on("mousemove", function () {
                         var xScale = scales[containerId].xScale;
@@ -458,7 +807,7 @@ var D3chart = (function () {
                                 .attr("r", 3.5);
                         });
 
-                        showChartTooltip(containerId, self, ".accumulator-chart-tooltip", formatTime(d.time), tooltipData);
+                        showChartTooltip(containerId, self, formatTime(d.time), tooltipData);
                     });
             };
 
@@ -466,114 +815,6 @@ var D3chart = (function () {
                 svg.select("rect.focusRect")
                     .attr("width", _getWidth(containerId))
                     .attr("height", _getHeight(containerId));
-            };
-
-            var _createLegend = function () {
-                var setLegendText = function (legend) {
-                    legend.select("text")
-                        .attr("dy", ".35em")
-                        .style("text-anchor", "end")
-                        .text(function (d) {
-                            return d;
-                        });
-                };
-
-                var setLegendRect = function (containerId, legend) {
-                    var color = _getColorFunc(containerId);
-                    legend.select("rect")
-                        .attr("width", 10)
-                        .attr("height", 10)
-                        .style("fill", function (d) {
-                            return color(d);
-                        });
-                };
-
-                var updateLegend = function (containerId, svg, data) {
-                    var existing = svg.selectAll(".lineChartLegend").data(data);
-                    setLegendText(existing);
-                    setLegendRect(containerId, existing);
-                    existing.exit().remove();
-
-                    var newAdded = existing.enter().append("g")
-                        .attr("class", "lineChartLegend")
-                        .attr("transform", function (d, i) {
-                            return "translate(0," + i * 20 + ")";
-                        });
-                    newAdded.append("text");
-                    newAdded.append("rect");
-                    setLegendText(newAdded);
-                    setLegendRect(containerId, newAdded);
-
-                    svg.selectAll(".legendButtons")
-                        .attr("transform", "translate(0," + data.length * 20 + ")");
-                };
-
-                return function (containerId, legendsPerSlice) {
-                    var svg = containers[containerId].svg;
-                    var names = containers[containerId].names;
-
-                    var slicer = slicesManager(legendsPerSlice, names);
-                    var showLegendButtons = slicer.getSlicesNumber() > 1,
-                        namesSlice = slicer.getSlice(1);
-
-                    var legend = svg.selectAll(".lineChartLegend")
-                        .data(namesSlice)
-                        .enter().append("g")
-                        .attr("class", "lineChartLegend")
-                        .attr("transform", function (d, i) {
-                            return "translate(0," + i * 20 + ")";
-                        });
-                    legend.append("text");
-                    legend.append("rect");
-                    setLegendText(legend);
-                    setLegendRect(containerId, legend);
-
-                    if (showLegendButtons) {
-                        var buttons = svg
-                            .append("g")
-                            .attr("class", "legendButtons")
-                            .attr("transform", "translate(0," + namesSlice.length * 20 + ")");
-
-                        buttons.append("text")
-                            .attr("class", "prevButton")
-                            .attr("dy", "1em")
-                            .style("text-anchor", "end")
-                            .text('\u25C0')
-                            .on("click", function () {
-                                if (slicer.hasPrev()) {
-                                    updateLegend(containerId, svg, slicer.prev());
-                                    _renderLegend(containerId, svg);
-                                }
-                            });
-
-                        buttons.append("text")
-                            .attr("class", "nextButton")
-                            .attr("dy", "1em")
-                            .style("text-anchor", "end")
-                            .text("\u25B6")
-                            .on("click", function () {
-                                if (slicer.hasNext()) {
-                                    updateLegend(containerId, svg, slicer.next());
-                                    _renderLegend(containerId, svg);
-                                }
-                            });
-                    }
-                }
-            }();
-
-            var _renderLegend = function (containerId, svg) {
-                svg.selectAll(".lineChartLegend rect")
-                    .attr("x", _getWidth(containerId) - 18)
-                    .attr("y", 4);
-                svg.selectAll(".lineChartLegend text")
-                    .attr("x", _getWidth(containerId) - 24)
-                    .attr("y", 9);
-                svg.selectAll(".legendButtons .prevButton")
-                    .attr("x", _getWidth(containerId) - 24)
-                    .attr("y", 9);
-                svg.selectAll(".legendButtons .nextButton")
-                    .attr("x", _getWidth(containerId) - 10)
-                    .attr("y", 9);
             };
 
             var init = function (containerId, names, data, options) {
@@ -611,7 +852,23 @@ var D3chart = (function () {
                 });
 
                 _createAndRenderFocuses(containerId, dotsValues);
-                _createLegend(containerId, options.legendsPerSlice);
+
+                var legendOptions = {
+                    legendsPerSlice: 7,
+                    containerWidth: _getWidth(containerId),
+                    names: containers[containerId].names.map(function (name, idx) {
+                        return {
+                            index: idx,
+                            value: name,
+                            color: _getColorFunc(containerId)(name)
+                        }
+                    }) ,
+                    rectWidth: 10,
+                    rectHeight: 10,
+                    textDy: ".35em"
+                };
+
+                createLegend(containers[containerId].svg, legendOptions);
             };
 
             var render = function (containerId) {
@@ -630,7 +887,7 @@ var D3chart = (function () {
                 _renderAxises(containerId, transition);
                 _renderGrid(containerId, transition);
                 _renderLine(containerId, transition);
-                _renderLegend(containerId, transition);
+                renderLegend(transition, {containerWidth: _getWidth(containerId)});
                 _renderFocus(containerId, transition);
 
                 chartContainer.select("svg").attr('width', chartContainer.style("width"));
@@ -743,51 +1000,10 @@ var D3chart = (function () {
                 .attr("text-anchor", "middle");
         }
 
-        // function to handle pieChart.
-        function pieChart(pD, params) {
-
-            var pieDim = {w: params.width, h: params.height};
-            var edge = 5;
-            pieDim.r = Math.min(pieDim.w, pieDim.h) / 2;
-            var svg = d3.select("#" + params.container).append("svg").attr("width", (pieDim.r + edge) * 2).attr("height", (pieDim.r + edge) * 2);
-            svg.append("g").attr("id", "donut");
-
-            Donut3D.draw("donut", pD, pieDim.r + edge, pieDim.r * 0.8 + edge, pieDim.r, pieDim.r * 0.8, pieDim.r * 0.2, 0.4);
-        }
-
-        // function to handle legend.
-        function legend(id, lD) {
-
-            // create table for legend.
-            var legend = d3.select(id).append("table").attr('class', 'legend');
-
-            // create one row per segment.
-            var tr = legend.append("tbody").selectAll("tr").data(lD).enter().append("tr");
-
-            // create the first column for each segment.
-            tr.append("td").append("svg").attr("width", '16').attr("height", '16').append("rect")
-                .attr("width", '16').attr("height", '16')
-                .attr("fill", function (d) {
-                    return d.color;
-                });
-
-            // create the second column for each segment.
-            tr.append("td").text(function (d) {
-                return d.label;
-            });
-
-            // create the third column for each segment.
-            tr.append("td").attr("class", 'legendFreq')
-                .text(function (d) {
-                    return d3.format(",")(d.value);
-                });
-        }
-
         return function (id, fData, params) {
             switch (params.type){
                 case "PieChart":
-                    pieChart(fData, params);
-                    legend(id, fData);
+                    pieChart(id, params);
                     break;
                 case "ColumnChart":
                     histoGram(id, fData, params);
@@ -810,37 +1026,3 @@ var D3chart = (function () {
         }
     };
 })();
-
-var colorTable = [
-    "#FF3030",
-    "#EE2C2C",
-    "#CD2626",
-    "#8B1A1A",
-    "#FF7F24",
-    "#EE7621",
-    "#CD661D",
-    "#8B4513",
-    "#FFB90F",
-    "#EEAD0E",
-    "#CD950C",
-    "#8B6508",
-    "#CAFF70",
-    "#BCEE68",
-    "#A2CD5A",
-    "#6E8B3D",
-    "#00FF00",
-    "#00EE00",
-    "#00CD00",
-    "#008B00",
-    "#00FFFF",
-    "#00EEEE",
-    "#00CDCD",
-    "#008B8B",
-    "#1E90FF",
-    "#1C86EE",
-    "#1874CD",
-    "#104E8B",
-    "#BF3EFF",
-    "#B23AEE",
-    "#9A32CD",
-    "#68228B"];

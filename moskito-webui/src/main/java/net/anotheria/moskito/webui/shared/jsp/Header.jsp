@@ -53,8 +53,7 @@
         <script type="text/javascript" src="//www.google.com/jsapi"></script>
     </core:if>
     <core:if test="${chartEngine eq 'D3'}">
-        <script type="text/javascript" src="../moskito/ext/d3/d3.js" charset="utf-8"></script>
-        <script type="text/javascript" src="../moskito/ext/d3/d3routine.js" charset="utf-8"></script>
+        <script type="text/javascript" src="../moskito/ext/d3/d3.min.js" charset="utf-8"></script>
     </core:if>
 
     <script type="text/javascript" src="../moskito/int/js/chartEngineIniter.js"></script>

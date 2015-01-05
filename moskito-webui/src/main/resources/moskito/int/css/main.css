@@ -1338,12 +1338,12 @@ span.call-info {
     stroke-width: 0;
 }
 
-.accumulator-chart .legendButtons{
+svg .legendButtons{
     cursor: pointer;
 }
 /* D3 svg end */
 
-.accumulator-chart-tooltip {
+.d3-chart-tooltip {
     position: absolute;
     min-width: 100px;
     height: auto;
@@ -1359,14 +1359,14 @@ span.call-info {
     opacity: 0.8;
     display: table;
     table-layout: fixed;
-    z-index: 100;
+    z-index: 2000;
 }
 
-.accumulator-chart-tooltip.hidden {
+.d3-chart-tooltip.hidden {
     display: none;
 }
 
-.accumulator-chart-tooltip p {
+.d3-chart-tooltip p {
     margin: 0;
     font-family: sans-serif;
     font-size: 12px;
@@ -1374,12 +1374,12 @@ span.call-info {
     text-align: left;
 }
 
-.accumulator-chart-tooltip .tooltip-title {
+.d3-chart-tooltip .tooltip-title {
     text-align: center;
     display: table-row;
 }
 
-.accumulator-chart-tooltip .tooltip-section {
+.d3-chart-tooltip .tooltip-section {
     display: table-row;
     margin: 0;
     font-family: sans-serif;
@@ -1388,14 +1388,14 @@ span.call-info {
     vertical-align: middle;
 }
 
-.accumulator-chart-tooltip .tooltip-section .tooltip-key {
+.d3-chart-tooltip .tooltip-section .tooltip-key {
     float: left;
     line-height: 16px;
     margin-right: 10px;
     display: table-cell;
 }
 
-.accumulator-chart-tooltip .tooltip-section .tooltip-value {
+.d3-chart-tooltip .tooltip-section .tooltip-value {
     float: right;
     font-weight: bold;
     height: 18px;
@@ -1403,10 +1403,31 @@ span.call-info {
     display: table-cell;
 }
 
-.accumulator-chart-tooltip .tooltip-section .tooltip-swatch {
+.d3-chart-tooltip .tooltip-section .tooltip-swatch {
     float: left;
     height: 16px;
     margin-right: 4px;
     width: 16px;
     display: table-cell;
+}
+
+.pieChart path.slice {
+    stroke-width: 2px;
+}
+
+.pieChart polyline {
+    opacity: .3;
+    stroke: black;
+    stroke-width: 2px;
+    fill: none;
+}
+
+.pieChart text.percent {
+    fill: white;
+    text-anchor: middle;
+    font-size: 14px;
+}
+
+.pieChart .legend text {
+    font-size: 14px;
 }
