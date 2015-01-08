@@ -33,7 +33,10 @@
 
     $('#chart').find('.modal-dialog').css("width", ${config.producerChartWidth}+40);//modal body padding 20px left+right
 
-    $('.chart-icon').click(function() {
+    $('.chart-icon').click(function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+
         var that = $(this);
         var $chart = $('#chart');
         chartParams = {

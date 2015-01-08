@@ -43,11 +43,8 @@ var chartEngineIniter = {
         });
     },
     D3 : function(params){
-        var barColor = 'steelblue';
-
         $('#' + params.container).empty();
 
-        var count = 0;
         var data = params.data.map( function(d) {
             return {
                 label: d[0],
@@ -112,6 +109,8 @@ var D3chart = (function () {
                 getSlicesNumber: getSlicesNumber
             }
         };
+
+        var valueFormat = d3.format(",");
 
         var template = function (html, data) {
             return html.replace(/{(\w*)}/g, function (m, key) {
@@ -364,7 +363,7 @@ var D3chart = (function () {
                             {
                                 color: colorFunc(d.data.name),
                                 name: d.data.name,
-                                value: d.data.value
+                                value: valueFormat(d.data.value)
                             }
                         ]
                     );
@@ -792,7 +791,7 @@ var D3chart = (function () {
                             tooltipData.push({
                                 color: color(timeValue.name),
                                 name: timeValue.name,
-                                value: timeValue.value
+                                value: valueFormat(timeValue.value)
                             });
 
                             if (isNaN(timeValue.value)) {
@@ -934,79 +933,287 @@ var D3chart = (function () {
             })(arguments[0], arguments[1], arguments[2]);
         };
 
-        // function to handle histogram.
-        function histoGram(id, fDIn, params) {
-            var barColor = 'steelblue';
+        var barChart = function () {
+            var MAX_INTERVAL_NAME_PX_LENGTH = 150,
+                NAVIGATION_HEIGHT = 25,
+                MIN_BAR_HEIGHT = 50,
+                BAR_MARGIN = 10;
 
-            var hGDim = {t: 60, r: 0, b: 30, l: 0};
-            hGDim.w = params.width - hGDim.l - hGDim.r;
-            hGDim.h = params.height - hGDim.t - hGDim.b;
+            var measureText = function (text, classname) {
+                if (!text || text.length === 0) return {height: 0, width: 0};
 
-            var fD = fDIn.map(function (d) {
-                return [d.label, d.value];
-            });
+                var container = d3.select('body').append('svg').attr('class', classname);
+                container.append('text').attr({x: -1000, y: -1000}).text(text);
 
-            //create svg for histogram.
-            var hGsvg = d3.select(id).append("svg")
-                .attr("width", hGDim.w + hGDim.l + hGDim.r)
-                .attr("height", hGDim.h + hGDim.t + hGDim.b).append("g")
-                .attr("transform", "translate(" + hGDim.l + "," + hGDim.t + ")");
+                var bbox = container.node().getBBox();
+                container.remove();
 
-            // create function for x-axis mapping.
-            var x = d3.scale.ordinal().rangeRoundBands([0, hGDim.w], 0.1)
-                .domain(fD.map(function (d) {
-                    return d[0];
-                }));
+                return {height: bbox.height, width: bbox.width};
+            };
 
-            // Add x-axis to the histogram svg.
-            hGsvg.append("g").attr("class", "x axis")
-                .attr("transform", "translate(0," + hGDim.h + ")")
-                .call(d3.svg.axis().scale(x).orient("bottom"));
+            var truncateText = function (text, size) {
+                if (!text || text.length === 0)
+                    return "";
+                return text.length > size ? text.substr(0, size - 1) + "..." : text;
+            };
 
-            // Create function for y-axis map.
-            var y = d3.scale.linear().range([hGDim.h, 0])
-                .domain([0, d3.max(fD, function (d) {
-                    return d[1];
-                })]);
+            var showChartTooltip = function () {
+                var tooltip = d3.select(".d3-chart-tooltip");
+                if (tooltip.empty()) {
+                    tooltip = d3.select("body").append("div")
+                        .attr("class", "d3-chart-tooltip hidden");
+                }
 
-            // Create bars for histogram to contain rectangles and freq labels.
-            var bars = hGsvg.selectAll(".bar").data(fD).enter()
-                .append("g").attr("class", "bar");
+                var tooltipSectionTmpl = '<div class="tooltip-section">' +
+                    '<div class="tooltip-key">{name}</div>' +
+                    '<div class="tooltip-value">{value}</div>' +
+                    '</div>';
 
-            //create the rectangles.
-            bars.append("rect")
-                .attr("x", function (d) {
-                    return x(d[0]);
-                })
-                .attr("y", function (d) {
-                    return y(d[1]);
-                })
-                .attr("width", x.rangeBand())
-                .attr("height", function (d) {
-                    return hGDim.h - y(d[1]);
-                })
-                .attr('fill', barColor);
+                return function (data) {
+                    var tooltipSectionsHtml = data.map(function (d) {
+                            return template(tooltipSectionTmpl, d);
+                        }),
+                        html = [].concat.call(tooltipSectionsHtml);
 
-            //Create the frequency labels above the rectangles.
-            bars.append("text").text(function (d) {
-                return d3.format(",")(d[1])
-            })
-                .attr("x", function (d) {
-                    return x(d[0]) + x.rangeBand() / 2;
-                })
-                .attr("y", function (d) {
-                    return y(d[1]) - 5;
-                })
-                .attr("text-anchor", "middle");
-        }
+                    tooltip.html(html.join(""))
+                        .style("left", (d3.event.pageX) + "px")
+                        .style("top", (d3.event.pageY - 28) + "px");
+                }
+            }();
+
+            var createSvg = function (containerId, width, height, margin) {
+                var svg = d3.select(containerId).append("svg")
+                    .attr("class", "d3-bar-chart")
+                    .attr("width", width + margin.left + margin.right)
+                    .attr("height", height + margin.top + margin.bottom)
+                    .append("g")
+                    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+                svg.append("g")
+                    .attr("class", "x axis");
+
+                svg.append("g")
+                    .attr("class", "y axis");
+
+                return svg;
+            };
+
+            var createBar = function (svg, x, y, barHeight, maxCharsCount, data) {
+                var bar = svg.insert("g", ".y.axis")
+                    .attr("class", "enter")
+                    .attr("transform", "translate(0,5)")
+                    .selectAll("g")
+                    .data(data)
+                    .enter().append("g");
+
+                bar.append("rect")
+                    .attr("width", function (d) {
+                        return x(d.value);
+                    })
+                    .attr("height", barHeight)
+                    .attr("x", 0)
+                    .attr("y", function (d, i) {
+                        return y(i);
+                    });
+
+                bar.append("text")
+                    .attr("x", -20)
+                    .attr("y", function (d, i) {
+                        return y(i);
+                    })
+                    .attr("dy", barHeight / 2)
+                    .style("text-anchor", "end")
+                    .text(function (d) {
+                        return truncateText(d.name, maxCharsCount);
+                    })
+                    .on("mouseover", function (d) {
+                        d3.select(".d3-chart-tooltip").classed("hidden", false);
+                    })
+                    .on("mouseout", function (d) {
+                        d3.select(".d3-chart-tooltip").classed("hidden", true);
+                    })
+                    .on("mousemove", function (d) {
+                        showChartTooltip([
+                            {
+                                name: d.name,
+                                value: valueFormat(d.value)
+                            }
+                        ]);
+                    });
+
+                bar.append("text")
+                    .attr("x", function (d) {
+                        if (d.valueTextSize.width + 20 > x(d.value))
+                            return x(d.value) + 30;
+
+                        return x(d.value) / 2
+                    })
+                    .attr("y", function (d, i) {
+                        return y(i);
+                    })
+                    .style("fill", function (d) {
+                        if (d.valueTextSize.width + 20 > x(d.value))
+                            return "steelblue";
+
+                        return "white";
+                    })
+                    .attr("dx", -3)
+                    .attr("dy", barHeight / 2)
+                    .style("text-anchor", function (d) {
+                        if (d.valueTextSize.width + 20 > x(d.value))
+                            return "start";
+
+                        return "middle";
+                    })
+                    .attr("class", "valueText")
+                    .text(function (d) {
+                        return valueFormat(d.value);
+                    });
+
+                return bar;
+            };
+
+            var drawBars = function () {
+                var barHeight;
+
+                return function (svg, x, y, xAxis, yAxis, maxCharsCount, data) {
+                    var exit = svg.selectAll(".enter")
+                        .attr("class", "exit");
+
+                    var exitTransition = exit.transition()
+                        .duration(750)
+                        .style("opacity", 1e-6)
+                        .remove();
+
+                    x.domain([0, d3.max(data, function (d) {
+                        return d.value;
+                    })]).nice(5);
+
+                    y.domain(data.map(function (d, i) {
+                        return i;
+                    }));
+
+                    svg.selectAll(".x.axis").transition()
+                        .duration(750)
+                        .call(xAxis);
+
+                    barHeight = !barHeight ? y.rangeBand() : barHeight;
+
+                    var enter = createBar(svg, x, y, barHeight, maxCharsCount, data)
+                        .style("opacity", 1);
+
+                    enter.select("text").style("fill-opacity", 1e-6);
+
+                    var enterTransition = enter.transition()
+                        .duration(750)
+                        .delay(function (d, i) {
+                            return i * 25;
+                        });
+
+                    enterTransition.select("rect")
+                        .attr("width", function (d) {
+                            return x(d.value);
+                        });
+
+                    enterTransition.select("text")
+                        .style("fill-opacity", 1);
+                };
+            };
+
+            var getNameSettings = function (data) {
+                var maxPxLength = d3.max(data, function (d) {
+                    return d.nameTextSize.width;
+                });
+
+                var dataEls = data.filter(function (el) {
+                    return el.nameTextSize.width === maxPxLength;
+                });
+
+                if (dataEls.length == 0) {
+                    return {
+                        maxNamePxLength: MAX_INTERVAL_NAME_PX_LENGTH,
+                        maxCharsCount: 10
+                    }
+                }
+
+                var maxPixelLength = dataEls[0].nameTextSize.width,
+                    maxCharsLength = dataEls[0].name.length;
+
+                var maxNamePxLength = maxPixelLength > MAX_INTERVAL_NAME_PX_LENGTH ? MAX_INTERVAL_NAME_PX_LENGTH : maxPixelLength,
+                    maxCharsCount = maxPixelLength > MAX_INTERVAL_NAME_PX_LENGTH ? Math.floor(MAX_INTERVAL_NAME_PX_LENGTH / maxPixelLength * maxCharsLength) : maxCharsLength;
+
+                return {
+                    maxNamePxLength: maxNamePxLength,
+                    maxCharsCount: maxCharsCount
+                }
+            };
+
+            return (barChart = function (containerId, params) {
+                var data = params.data.map(function (d) {
+                    return {
+                        name: d[0],
+                        value: d[1],
+                        nameTextSize: measureText("" + d[0], "d3-bar-chart-text-measure"),
+                        valueTextSize: measureText("" + d[1], "d3-bar-chart-text-measure")
+                    };
+                });
+
+                var namesSettings = getNameSettings(data);
+
+                var margin = {top: 30, right: 50, bottom: 30, left: namesSettings.maxNamePxLength + 50},
+                    width = params.width - margin.left - margin.right,
+                    height = params.height - margin.top - margin.bottom - NAVIGATION_HEIGHT;
+
+                var perSlice = Math.floor((height) / (BAR_MARGIN * 2 + MIN_BAR_HEIGHT)),
+                    showNavigation = data.length > perSlice,
+                    slicer = slicesManager(perSlice, data);
+
+                var x = d3.scale.linear().range([0, width]),
+                    y = d3.scale.ordinal().rangeRoundBands([0, height], 0.1);
+
+                var xAxis = d3.svg.axis()
+                    .scale(x)
+                    .orient("top")
+                    .ticks(5)
+                    .tickFormat(valueFormat);
+
+                var yAxis = d3.svg.axis()
+                    .scale(y)
+                    .orient("left");
+
+                var svg = createSvg(containerId, width, height, margin);
+                var draw = drawBars();
+
+                draw(svg, x, y, xAxis, yAxis, namesSettings.maxCharsCount, slicer.getSlice(1));
+
+                if (showNavigation) {
+                    var navigationDiv = d3.select(containerId).append("div")
+                        .attr("class", "d3-bar-chart-navigation");
+
+                    navigationDiv.append("span")
+                        .attr("id", "prevSlide")
+                        .attr("class", "glyphicon glyphicon-chevron-left")
+                        .on("click", function () {
+                            draw(svg, x, y, xAxis, yAxis, namesSettings.maxCharsCount, slicer.prev());
+                        });
+
+                    navigationDiv.append("span")
+                        .attr("id", "nextSlide")
+                        .attr("class", "glyphicon glyphicon-chevron-right")
+                        .on("click", function () {
+                            draw(svg, x, y, xAxis, yAxis, namesSettings.maxCharsCount, slicer.next());
+                        });
+                }
+            })(arguments[0], arguments[1]);
+        };
 
         return function (id, fData, params) {
-            switch (params.type){
+            switch (params.type) {
                 case "PieChart":
                     pieChart(id, params);
                     break;
                 case "ColumnChart":
-                    histoGram(id, fData, params);
+                    barChart(id, params);
                     break;
                 case "LineChart":
                     lineChart(id, params.names, params.data);
