@@ -43,7 +43,7 @@
             container: 'chart_div',
             names: [eval(that.parent('.table-column').find('input').val()+'Caption')],
             data: eval(that.parent('.table-column').find('input').val()+'Array'),
-            type: 'PieChart',
+            type: $charSwitcher.is(':checked') ? 'ColumnChart' : 'PieChart',
             title: '',
             width: ${config.producerChartWidth},
             height: ${config.producerChartHeight}
@@ -54,14 +54,7 @@
     });
 
     $charSwitcher.on('change', function(){
-        if ($(this).is(':checked')){
-
-            chartParams.type = 'ColumnChart';
-            chartEngineIniter[chartEngineName](chartParams);
-        } else {
-
-            chartParams.type = 'PieChart';
-            chartEngineIniter[chartEngineName](chartParams);
-        }
+        chartParams.type = $(this).is(':checked') ? 'ColumnChart' : 'PieChart';
+        chartEngineIniter[chartEngineName](chartParams);
     });
 </script>
