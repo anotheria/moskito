@@ -338,7 +338,11 @@ public class MBeanStatsList extends ArrayList<GenericStats> {
             delegate.setValueIfLesserThanCurrentAsLong(aValue);
         }
 
-    }
+		@Override
+		public void destroy() {
+			delegate.destroy();
+		}
+	}
 
     /**
      * serialVersionUID.

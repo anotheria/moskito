@@ -70,7 +70,9 @@ public class ThreadCountStats extends AbstractStats {
 		maxCurrent.reset();
 
 		started = StatValueFactory.createStatValue(pattern, "started", intervals); 
-		daemon = StatValueFactory.createStatValue(pattern, "daemon", intervals); 
+		daemon = StatValueFactory.createStatValue(pattern, "daemon", intervals);
+
+		addStatValues(current, minCurrent, maxCurrent, started, daemon);
 
 	}
 	

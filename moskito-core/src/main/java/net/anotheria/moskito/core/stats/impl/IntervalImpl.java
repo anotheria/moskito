@@ -21,7 +21,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.atomic.AtomicLong;
 
 /**
- * This class implements an Inveral with a name and an unique id that is furthermore a 
+ * This class implements an Interval with a name and an unique id that is furthermore a
  * registry for primary and secondary update listeners. 
  * On calling the update() method it will notify the primary listener first 
  * and afterwards the secondary listeners.    
@@ -128,6 +128,14 @@ class IntervalImpl implements IUpdateable, Interval {
 	@Override
 	public long getLastUpdateTimestamp(){
 		return lastUpdateTimestamp.get();
+	}
+
+	public long getPrimaryListenerCount(){
+		return primaryIntervalListeners.size();
+	}
+
+	public long getSecondaryListenerCount(){
+		return secondaryIntervalListeners.size();
 	}
 
 }

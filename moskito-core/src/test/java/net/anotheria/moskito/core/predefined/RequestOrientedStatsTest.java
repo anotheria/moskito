@@ -120,7 +120,7 @@ public class RequestOrientedStatsTest {
 
 		assertEquals(1, stats.getTotalRequests());
 		//we add some 5 milliseconds on top, but ensure that total duration is below 60ms, which the test as such took.
-		assertTrue(1000L*1000*45>stats.getTotalTime());
+		assertTrue(1000L*1000*50>stats.getTotalTime());
 	}
 
 	@Test public void testDoublePause()  throws InterruptedException {
@@ -138,7 +138,7 @@ public class RequestOrientedStatsTest {
 
 		assertEquals(1, stats.getTotalRequests());
 		//we add some 5 milliseconds on top, but ensure that total duration is below 60ms, which the test as such took.
-		assertTrue(1000L * 1000 * 45 > stats.getTotalTime());
+		assertTrue(1000L * 1000 * 50 > stats.getTotalTime());
 	}
 
 	@Test public void testDoubleResume()  throws InterruptedException {
@@ -155,7 +155,8 @@ public class RequestOrientedStatsTest {
 
 		assertEquals(1, stats.getTotalRequests());
 		//we add some 5 milliseconds on top, but ensure that total duration is below 60ms, which the test as such took.
-		assertTrue(1000L * 1000 * 45 > stats.getTotalTime());
+		System.out.println(stats.getTotalTime());
+		assertTrue(1000L * 1000 * 50 > stats.getTotalTime());
 	}
 
 }

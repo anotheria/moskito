@@ -34,15 +34,16 @@
  */	
 package net.anotheria.moskito.core.producers;
 
+import net.anotheria.moskito.core.stats.StatValue;
 import net.anotheria.moskito.core.stats.TimeUnit;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
  * This abstract class is the super class of all statistical value sets.
- * 
  * @author lrosenberg
  */
 public abstract class AbstractStats implements IStats, StatsMXBean{
@@ -52,15 +53,20 @@ public abstract class AbstractStats implements IStats, StatsMXBean{
 	 */
 	protected static final long MB = 1024L*1024;
 
-
 	/**
-	 * Name of the stats object. This can be a method name, an url, a business keyfigure etc.
+	 * Name of the stats object. This can be a method name, an url, a business key figure etc.
 	 */
 	private String name;
 	/**
 	 * Cached empty list object.
 	 */
 	private static final List<String> EMPTY_LIST = Collections.unmodifiableList(new ArrayList<String>());
+
+	/**
+	 * Contains all stat values that are part of this StatsObject. This is used to properly destroy them.
+	 */
+	private LinkedList<StatValue> statValuesList = new LinkedList<StatValue>();
+
 	/**
 	 * Creates a new AbstractStats object.
 	 */
@@ -116,5 +122,20 @@ public abstract class AbstractStats implements IStats, StatsMXBean{
 
 	@Override public boolean isEmpty(String intervalName){
 		return false;
+	}
+
+	@Override
+	public void destroy() {
+		for (StatValue v : statValuesList){
+			v.destroy();
+		}
+	}
+
+	protected void addStatValues(StatValue... values){
+		if (values==null)
+			return;
+		for (StatValue v : values){
+			statValuesList.add(v);
+		}
 	}
 }

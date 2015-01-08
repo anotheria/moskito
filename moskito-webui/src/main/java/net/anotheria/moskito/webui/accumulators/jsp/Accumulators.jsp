@@ -81,8 +81,8 @@
                 // Many charts
                 if ('multipleGraphData' in window){
                     var names = '${accNames}'.slice(1, -1).split(', ');
-                    var containerSelectors = $('.accumulator-chart', function () {
-                        return 'chart_accum' + $(this).attr("id");
+                    var containerSelectors = $('.accumulator-chart').map(function(){
+                        return $(this).attr("id");
                     });
 
                     multipleGraphData.forEach(function(graphData, index){

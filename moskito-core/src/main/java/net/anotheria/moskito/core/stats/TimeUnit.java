@@ -1,11 +1,11 @@
 package net.anotheria.moskito.core.stats;
 /**
- * Timeunit is used to transform internal stored time into nanos and forth.
+ * TimeUnit is used to transform internal stored time into nanos and forth.
  * @author lrosenberg
  */
 public enum TimeUnit {
 	/**
-	 * Nanosecods, native measurement unit.
+	 * Nanoseconds, native measurement unit.
 	 */
 	NANOSECONDS(1),
 	/**
@@ -25,7 +25,7 @@ public enum TimeUnit {
 	 */
 	private long factor;
 	/**
-	 * Creates a new timeunit with given transformation factor.
+	 * Creates a new TimeUnit with given transformation factor.
 	 * @param aFactor
 	 */
 	private TimeUnit(long aFactor){

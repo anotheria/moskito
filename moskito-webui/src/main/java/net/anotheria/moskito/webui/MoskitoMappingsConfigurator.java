@@ -41,7 +41,6 @@ import net.anotheria.moskito.webui.threads.action.ThreadsListAction;
 import net.anotheria.moskito.webui.threads.action.ThreadsOverviewAction;
 import net.anotheria.moskito.webui.threshold.action.CreateThresholdAction;
 import net.anotheria.moskito.webui.threshold.action.DeleteThresholdAction;
-import net.anotheria.moskito.webui.threshold.action.EditThresholdAction;
 import net.anotheria.moskito.webui.threshold.action.GetThresholdDefinitionAction;
 import net.anotheria.moskito.webui.threshold.action.ShowThresholdsAction;
 import net.anotheria.moskito.webui.threshold.action.UpdateThresholdAction;
@@ -91,8 +90,8 @@ public class MoskitoMappingsConfigurator implements ActionMappingsConfigurator{
 				new ActionForward("html", "/net/anotheria/moskito/webui/producers/jsp/Producer.jsp"),
 				new ActionForward("xml", "/net/anotheria/moskito/webui/producers/jsp/ProducerXML.jsp"),
 				new ActionForward("csv", "/net/anotheria/moskito/webui/producers/jsp/ProducerCSV.jsp"),
-				new ActionForward("json", "/net/anotheria/moskito/webui/shared/jsp/ProducerJSON.jsp"),
-				new ActionForward("selection", "/net/anotheria/moskito/webui/producers/jsp/ProducerForSelection.jsp")
+				new ActionForward("json", "/net/anotheria/moskito/webui/shared/jsp/ProducerJSON.jsp")
+				//new ActionForward("selection", "/net/anotheria/moskito/webui/producers/jsp/ProducerForSelection.jsp")
 		);
 		
 		mappings.addAlias("mskShowProducer.csv", "mskShowProducer");
@@ -131,9 +130,9 @@ public class MoskitoMappingsConfigurator implements ActionMappingsConfigurator{
 		mappings.addAlias("mskThresholds.xml", "mskThresholds");
 		mappings.addAlias("mskThresholds.json", "mskThresholds");
 
-		mappings.addMapping("mskThresholdEdit", EditThresholdAction.class,
-				new ActionForward("success", "/net/anotheria/moskito/webui/threshold/jsp/EditThreshold.jsp")
-		);
+		//mappings.addMapping("mskThresholdEdit", EditThresholdAction.class,
+		//		new ActionForward("success", "/net/anotheria/moskito/webui/threshold/jsp/EditThreshold.jsp")
+		//);
 
 		mappings.addMapping("mskThresholdDelete", DeleteThresholdAction.class,
 				new CommandRedirect("redirect", "mskThresholds"));

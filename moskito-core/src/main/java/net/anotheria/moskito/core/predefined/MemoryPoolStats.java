@@ -82,7 +82,8 @@ public class MemoryPoolStats extends AbstractMemoryPoolStats implements IMemoryP
 		maxCommited =  StatValueFactory.createStatValue(0L, "maxCommited", selectedIntervals);
  
 		max = StatValueFactory.createStatValue(0L, "max", selectedIntervals);
-		
+
+		addStatValues(init, used, minUsed, maxUsed, commited, minCommited, maxCommited, max);
 		
 	}
 	

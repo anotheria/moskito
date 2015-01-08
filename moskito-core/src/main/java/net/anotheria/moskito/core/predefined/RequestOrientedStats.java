@@ -84,7 +84,7 @@ public abstract class RequestOrientedStats extends AbstractStats {
 	private StatValue currentRequests;
 
 	/**
-	 * Errors occured in this method / class and caught by the surrounding stub/skeleton.
+	 * Errors occurred in this method / class and caught by the surrounding stub/skeleton.
 	 */
 	private StatValue errors;
 
@@ -163,6 +163,8 @@ public abstract class RequestOrientedStats extends AbstractStats {
 		maxTime = StatValueFactory.createStatValue(pattern, "maxTime", aSelectedIntervals);
 		maxTime.setDefaultValueAsLong(Constants.MAX_TIME_DEFAULT);
 		maxTime.reset();
+
+		addStatValues(totalRequests, totalTime, currentRequests, maxCurrentRequests, errors, lastRequest, minTime, maxTime);
 	}
 
 	/**
