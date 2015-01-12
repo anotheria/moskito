@@ -936,7 +936,7 @@ var D3chart = (function () {
         var barChart = function () {
             var MAX_INTERVAL_NAME_PX_LENGTH = 150,
                 NAVIGATION_HEIGHT = 25,
-                MIN_BAR_HEIGHT = 50,
+                BAR_HEIGHT = 50,
                 BAR_MARGIN = 10;
 
             var measureText = function (text, classname) {
@@ -1013,15 +1013,15 @@ var D3chart = (function () {
                     .attr("height", barHeight)
                     .attr("x", 0)
                     .attr("y", function (d, i) {
-                        return y(i);
+                        return y(i) - barHeight/2;
                     });
 
                 bar.append("text")
                     .attr("x", -20)
                     .attr("y", function (d, i) {
-                        return y(i);
+                        return y(i) - barHeight/2;
                     })
-                    .attr("dy", barHeight / 2)
+                    .attr("dy", "2em")
                     .style("text-anchor", "end")
                     .text(function (d) {
                         return truncateText(d.name, maxCharsCount);
@@ -1049,7 +1049,7 @@ var D3chart = (function () {
                         return x(d.value) / 2
                     })
                     .attr("y", function (d, i) {
-                        return y(i);
+                        return y(i) - barHeight/2;
                     })
                     .style("fill", function (d) {
                         if (d.valueTextSize.width + 20 > x(d.value))
@@ -1058,7 +1058,7 @@ var D3chart = (function () {
                         return "white";
                     })
                     .attr("dx", -3)
-                    .attr("dy", barHeight / 2)
+                    .attr("dy", "2em")
                     .style("text-anchor", function (d) {
                         if (d.valueTextSize.width + 20 > x(d.value))
                             return "start";
@@ -1074,8 +1074,6 @@ var D3chart = (function () {
             };
 
             var drawBars = function () {
-                var barHeight;
-
                 return function (svg, x, y, xAxis, yAxis, maxCharsCount, data) {
                     var exit = svg.selectAll(".enter")
                         .attr("class", "exit");
@@ -1097,9 +1095,7 @@ var D3chart = (function () {
                         .duration(750)
                         .call(xAxis);
 
-                    barHeight = !barHeight ? y.rangeBand() : barHeight;
-
-                    var enter = createBar(svg, x, y, barHeight, maxCharsCount, data)
+                    var enter = createBar(svg, x, y, BAR_HEIGHT, maxCharsCount, data)
                         .style("opacity", 1);
 
                     enter.select("text").style("fill-opacity", 1e-6);
@@ -1164,12 +1160,12 @@ var D3chart = (function () {
                     width = params.width - margin.left - margin.right,
                     height = params.height - margin.top - margin.bottom - NAVIGATION_HEIGHT;
 
-                var perSlice = Math.floor((height) / (BAR_MARGIN * 2 + MIN_BAR_HEIGHT)),
+                var perSlice = Math.floor((height) / (BAR_MARGIN * 2 + BAR_HEIGHT)),
                     showNavigation = data.length > perSlice,
                     slicer = slicesManager(perSlice, data);
 
                 var x = d3.scale.linear().range([0, width]),
-                    y = d3.scale.ordinal().rangeRoundBands([0, height], 0.1);
+                    y = d3.scale.ordinal().rangeRoundBands([0, height], 1);
 
                 var xAxis = d3.svg.axis()
                     .scale(x)
