@@ -124,6 +124,44 @@
             </script>
         </ano:present>
 
+    <!-- selections of accumulators -->
+    <div class="box">
+        <form action="" method="get">
+            <div class="box-title">
+                <a class="accordion-toggle tooltip-bottom" title="Close/Open" data-toggle="collapse" href="#collapselist2"><i class="fa fa-caret-right"></i></a>
+                <h3 class="pull-left">
+                    Set of accumulators
+                </h3>
+                <div class="box-right-nav">
+                    <a href="" class="tooltip-bottom" title="Help"><i class="fa fa-info-circle"></i></a>
+                </div>
+            </div>
+            <div id="collapselist2" class="box-content accordion-body collapse in">
+                <table class="table table-striped tablesorter">
+                    <thead>
+                    <tr>
+                        <th>Name<i class="fa fa-caret-down"></i></th>
+                        <th>Link <i class="fa fa-caret-down"></i></th>
+                        <th class="th-actions"></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <ano:iterate id="accumul" name="acc">
+                        <ano:iterate name="accumulators" type="net.anotheria.moskito.webui.accumulators.api.AccumulatorDefinitionAO" id="accumulator" indexId="index">
+                            <ano:iF test="${accumulator.name == accumul}">
+                                <tr>
+                                    <td>${accumul}</td>
+                                    <td><a href="?id_${accumulator.id}=set">/moskito/moskito-inspect/mskAccumulators?id_${accumulator.id}=set</a></td>
+                                </tr>
+                            </ano:iF>
+                        </ano:iterate>
+                    </ano:iterate>
+                    </tbody>
+                </table>
+            </div>
+        </form>
+    </div>
+
         <div class="box">
             <form action="" method="get">
                 <div class="box-title">

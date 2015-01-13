@@ -1,46 +1,67 @@
 {
-	"@thresholdsAlertsConfig": {
-		"@notificationProviders": [
-			{
-				"className": "net.anotheria.moskito.core.threshold.alerts.notificationprovider.LogFileNotificationProvider",
-				"appenderName": "MoskitoAlert",
-				"guardedStatus": "GREEN"
-			}
-/* Uncomment (and add a comma at the end of the previous block) if you want sms notifications. You'll need an account too.
+    "@thresholdsAlertsConfig": {
+        "@notificationProviders": [
             {
-                "className": "net.anotheria.moskito.extensions.notificationproviders.BulkSMSNotificationProvider",
-                "user": "moskito",
-                "password": "qweqweqwe",
-                "recipients": "380973777273,4915122345102",
-                "templatePath": "thresholdAlertTemplate.txt",
+                "className": "net.anotheria.moskito.core.threshold.alerts.notificationprovider.LogFileNotificationProvider",
+                "appenderName": "MoskitoAlert",
                 "guardedStatus": "GREEN"
-            },
-*/
-/*Uncomment if you want mail notification.
-            {
-				"className": "net.anotheria.moskito.extensions.notificationproviders.MailgunNotificationProvider",
-				"recipients": "leon@leon-rosenberg.net",
-                /*"recipients": "ykoval@anotheria.net",*/
-				"htmlTemplatePath":"thresholdAlertTemplate.htm",
-                "textTemplatePath":"thresholdAlertTemplate.txt",
-				"guardedStatus": "GREEN"
-			}
-*/
-		],
+            }
+            /* Uncomment (and add a comma at the end of the previous block) if you want sms notifications. You'll need an account too.
+             {
+             "className": "net.anotheria.moskito.extensions.notificationproviders.BulkSMSNotificationProvider",
+             "user": "moskito",
+             "password": "qweqweqwe",
+             "recipients": "380973777273,4915122345102",
+             "templatePath": "thresholdAlertTemplate.txt",
+             "guardedStatus": "GREEN"
+             },
+             */
+            /*Uncomment if you want mail notification.
+             {
+             "className": "net.anotheria.moskito.extensions.notificationproviders.MailgunNotificationProvider",
+             "recipients": "leon@leon-rosenberg.net",
+             /*"recipients": "ykoval@anotheria.net",*/
+            /*    "htmlTemplatePath":"thresholdAlertTemplate.htm",
+             "textTemplatePath":"thresholdAlertTemplate.txt",
+             "guardedStatus": "GREEN"
+             }
+             */
+        ],
 
-		"@alertHistoryConfig": {
-			"maxNumberOfItems": 500,
-			"toleratedNumberOfItems": 550
-		}
-	},
-	"@pluginsConfig": {
-		"@plugins": [
-			{
-				"name": "NoOpPlugin",
-				"configurationName": "none",
-				"className": "net.anotheria.moskito.core.plugins.NoOpPlugin"
-			}
-		]
-	}
-	
+        "@alertHistoryConfig": {
+            "maxNumberOfItems": 500,
+            "toleratedNumberOfItems": 550
+        }
+    },
+
+    "@accumulatorsConfig" : {
+        "accumulationAmount": 250,
+        "@accumulators": [
+            {
+                "name": "SendMessage5M",
+                "producerName": "MessagingAPI",
+                "statName": "sendMessage",
+                "valueName": "Req",
+                "intervalName": "5m"
+            },
+            {
+                "name": "SendMessage1D",
+                "producerName": "MessagingAPI",
+                "statName": "sendMessage",
+                "valueName": "Req",
+                "intervalName": "1d"
+            }
+        ]
+    },
+
+    "@pluginsConfig": {
+        "@plugins": [
+            {
+                "name": "NoOpPlugin",
+                "configurationName": "none",
+                "className": "net.anotheria.moskito.core.plugins.NoOpPlugin"
+            }
+        ]
+    }
+
 }

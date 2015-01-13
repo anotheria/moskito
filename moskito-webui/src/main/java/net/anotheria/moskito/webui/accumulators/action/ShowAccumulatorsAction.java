@@ -3,6 +3,10 @@ package net.anotheria.moskito.webui.accumulators.action;
 import net.anotheria.maf.action.ActionCommand;
 import net.anotheria.maf.action.ActionMapping;
 import net.anotheria.maf.bean.FormBean;
+import net.anotheria.moskito.core.config.MoskitoConfiguration;
+import net.anotheria.moskito.core.config.MoskitoConfigurationHolder;
+import net.anotheria.moskito.core.config.accumulators.AccumulatorConfig;
+import net.anotheria.moskito.core.config.accumulators.AccumulatorsConfig;
 import net.anotheria.moskito.webui.accumulators.api.AccumulatedSingleGraphAO;
 import net.anotheria.moskito.webui.accumulators.api.AccumulatedValueAO;
 import net.anotheria.moskito.webui.accumulators.api.AccumulatorAO;
@@ -66,7 +70,17 @@ public class ShowAccumulatorsAction extends BaseAccumulatorsAction {
 	@Override
 	public ActionCommand execute(ActionMapping mapping, FormBean formBean,
 			HttpServletRequest req, HttpServletResponse res) throws Exception {
-		
+
+        //selections of accumulators
+        MoskitoConfiguration config = MoskitoConfigurationHolder.getConfiguration();
+        AccumulatorsConfig configuration = config.getAccumulatorsConfig();
+        AccumulatorConfig[] ar = configuration.getAccumulators();
+        ArrayList<String> listNames = new ArrayList<String>();
+        for(int i=0; i<ar.length;i++){
+            listNames.add(ar[i].getName());
+        }
+        req.setAttribute("acc", listNames);
+
 		MODE mode = MODE.fromString(req.getParameter("mode"));
 		req.setAttribute(mode.name()+"_set", Boolean.TRUE);
 		
