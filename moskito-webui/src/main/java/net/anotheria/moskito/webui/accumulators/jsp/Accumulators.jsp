@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html;charset=UTF-8" session="true"%>
 <%@ taglib uri="http://www.anotheria.net/ano-tags" prefix="ano"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <jsp:include page="../../shared/jsp/Header.jsp" flush="false"/>
@@ -123,6 +124,40 @@
 
             </script>
         </ano:present>
+
+        <!-- selections of accumulators -->
+        <div class="box">
+            <form action="" method="get">
+                <div class="box-title">
+                    <a class="accordion-toggle tooltip-bottom" title="Close/Open" data-toggle="collapse" href="#collapselist2"><i class="fa fa-caret-right"></i></a>
+                    <h3 class="pull-left">
+                        Set of accumulators
+                    </h3>
+                    <div class="box-right-nav">
+                        <a href="" class="tooltip-bottom" title="Help"><i class="fa fa-info-circle"></i></a>
+                    </div>
+                </div>
+                <div id="collapselist2" class="box-content accordion-body collapse in">
+                    <table class="table table-striped tablesorter">
+                        <thead>
+                        <tr>
+                            <th>Name<i class="fa fa-caret-down"></i></th>
+                            <th>Link <i class="fa fa-caret-down"></i></th>
+                            <th class="th-actions"></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <c:forEach var="accumulator" items="${acc}">
+                            <td>${accumulator.key}</td>
+                            <td><a href="${accumulator.value}">${accumulator.value}</a></td>
+                        </tr>
+                        </c:forEach>
+                        </tbody>
+                    </table>
+                </div>
+            </form>
+        </div>
 
         <div class="box">
             <form action="" method="get">
