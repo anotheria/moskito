@@ -215,7 +215,7 @@ public abstract class RequestOrientedStats extends AbstractStats {
 
 	/**
 	 * Returns the average request duration for the given interval in nanoseconds.
-	 * @param intervalName
+	 * @param intervalName name of the interval.
 	 * @return
 	 */
 	public double getAverageRequestDuration(String intervalName) {
