@@ -3,14 +3,18 @@ package net.anotheria.moskito.webui.accumulators.action;
 import net.anotheria.maf.action.ActionCommand;
 import net.anotheria.maf.action.ActionMapping;
 import net.anotheria.maf.bean.FormBean;
+import net.anotheria.moskito.core.accumulation.Accumulator;
+import net.anotheria.moskito.core.accumulation.AccumulatorRepository;
 import net.anotheria.moskito.core.config.MoskitoConfiguration;
 import net.anotheria.moskito.core.config.MoskitoConfigurationHolder;
-import net.anotheria.moskito.core.config.accumulators.AccumulatorConfig;
+import net.anotheria.moskito.core.config.accumulators.AccumulatorSetConfig;
+import net.anotheria.moskito.core.config.accumulators.AccumulatorSetMode;
 import net.anotheria.moskito.core.config.accumulators.AccumulatorsConfig;
 import net.anotheria.moskito.webui.accumulators.api.AccumulatedSingleGraphAO;
 import net.anotheria.moskito.webui.accumulators.api.AccumulatedValueAO;
 import net.anotheria.moskito.webui.accumulators.api.AccumulatorAO;
 import net.anotheria.moskito.webui.accumulators.bean.AccumulatedValuesBean;
+import net.anotheria.moskito.webui.accumulators.bean.AccumulatorSetBean;
 import net.anotheria.util.NumberUtils;
 import net.anotheria.util.sorter.DummySortType;
 import net.anotheria.util.sorter.SortType;
@@ -21,6 +25,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -66,24 +71,56 @@ public class ShowAccumulatorsAction extends BaseAccumulatorsAction {
 			return combined;
 		}
 	}
+
+	private AccumulatorSetMode getModeFromParameter(String parameterValue){
+		if (parameterValue == null ||parameterValue.length()==0)
+			return AccumulatorSetMode.COMBINED; //default
+
+		for (AccumulatorSetMode mode : AccumulatorSetMode.values()){
+			if (mode.name().equalsIgnoreCase(parameterValue))
+				return mode;
+		}
+
+		return AccumulatorSetMode.COMBINED; //default
+	}
 	
 	@Override
 	public ActionCommand execute(ActionMapping mapping, FormBean formBean,
 			HttpServletRequest req, HttpServletResponse res) throws Exception {
 
-        //selections of accumulators
+		//handling of accumulator sets
         MoskitoConfiguration config = MoskitoConfigurationHolder.getConfiguration();
         AccumulatorsConfig configuration = config.getAccumulatorsConfig();
-        AccumulatorConfig[] ar = configuration.getAccumulators();
-        ArrayList<String> listNames = new ArrayList<String>();
-        for(int i=0; i<ar.length;i++){
-            listNames.add(ar[i].getName());
-        }
-        req.setAttribute("acc", listNames);
+		AccumulatorSetConfig setConfigs[] = configuration.getAccumulatorSets();
+		LinkedList<AccumulatorSetBean> acSetBeans = new LinkedList<AccumulatorSetBean>();
+		for (AccumulatorSetConfig asc : setConfigs){
+			AccumulatorSetBean bean = new AccumulatorSetBean();
+			bean.setName(asc.getName());
+			StringBuilder names = new StringBuilder();
+			StringBuilder link = new StringBuilder("mskAccumulators?");
+			for (String n : asc.getAccumulatorNames()){
+				if (names.length()>0)
+					names.append(", ");
+				names.append(n);
+				Accumulator acc = AccumulatorRepository.getInstance().getByName(n);
+				if (acc != null){
+					link.append("id_").append(acc.getId()).append("=set&");
+				}
+			}
+			link.append("mode=").append(asc.getMode().name().toLowerCase());
+			bean.setAccumulatorNames(names.toString());
+			bean.setLink(link.toString());
+			acSetBeans.add(bean);
+		}
+		if (acSetBeans.size()>0) {
+			req.setAttribute("accumulatorSetBeans", acSetBeans);
+		}
 
-		MODE mode = MODE.fromString(req.getParameter("mode"));
-		req.setAttribute(mode.name()+"_set", Boolean.TRUE);
-		
+		//selected accumulator handling
+		AccumulatorSetMode mode = getModeFromParameter(req.getParameter("mode"));
+		req.setAttribute(mode.name().toLowerCase()+"_set", Boolean.TRUE);
+
+		//chart type is obsolete, can be removed
 		String chartType = req.getParameter("type");
 		if (chartType==null || chartType.length()==0)
 			chartType="LineChart";
@@ -172,7 +209,7 @@ public class ShowAccumulatorsAction extends BaseAccumulatorsAction {
 				}
 			}
 
-			if (mode==MODE.normalized){
+			if (mode==AccumulatorSetMode.NORMALIZED){
 				normalize(valuesList, accNames, normalizeBase);
 			}
 			
@@ -195,7 +232,7 @@ public class ShowAccumulatorsAction extends BaseAccumulatorsAction {
 
 			req.setAttribute("data", dataBeans);
 			req.setAttribute("accNames", accNames);
-			if (mode==MODE.multiple)
+			if (mode==AccumulatorSetMode.MULTIPLE)
 				req.setAttribute("singleGraphData", singleGraphDataBeans);
 			
 		}
@@ -227,7 +264,6 @@ public class ShowAccumulatorsAction extends BaseAccumulatorsAction {
 			//step2 recalculate
 			for (int i=0; i<values.size(); i++){
 				float newValue = (valueCopy.get(i)-min)*multiplier;
-				//System.out.println(values.get(i).getValue(name)+" --> "+newValue);
 				values.get(i).setValue(name, ""+newValue);
 			}
 		}

@@ -125,12 +125,12 @@
         </ano:present>
 
     <!-- selections of accumulators -->
-    <div class="box">
-        <form action="" method="get">
+    <ano:present name="accumulatorSetBeans">
+        <div class="box">
             <div class="box-title">
                 <a class="accordion-toggle tooltip-bottom" title="Close/Open" data-toggle="collapse" href="#collapselist2"><i class="fa fa-caret-right"></i></a>
                 <h3 class="pull-left">
-                    Set of accumulators
+                    Accumulator sets
                 </h3>
                 <div class="box-right-nav">
                     <a href="" class="tooltip-bottom" title="Help"><i class="fa fa-info-circle"></i></a>
@@ -140,27 +140,23 @@
                 <table class="table table-striped tablesorter">
                     <thead>
                     <tr>
-                        <th>Name<i class="fa fa-caret-down"></i></th>
-                        <th>Link <i class="fa fa-caret-down"></i></th>
-                        <th class="th-actions"></th>
+                        <th>Set<i class="fa fa-caret-down"></i></th>
+                        <th>Accumulators <i class="fa fa-caret-down"></i></th>
                     </tr>
                     </thead>
                     <tbody>
-                    <ano:iterate id="accumul" name="acc">
-                        <ano:iterate name="accumulators" type="net.anotheria.moskito.webui.accumulators.api.AccumulatorDefinitionAO" id="accumulator" indexId="index">
-                            <ano:iF test="${accumulator.name == accumul}">
-                                <tr>
-                                    <td>${accumul}</td>
-                                    <td><a href="?id_${accumulator.id}=set">/moskito/moskito-inspect/mskAccumulators?id_${accumulator.id}=set</a></td>
-                                </tr>
-                            </ano:iF>
-                        </ano:iterate>
+                    <ano:iterate id="acSet" name="accumulatorSetBeans" type="net.anotheria.moskito.webui.accumulators.bean.AccumulatorSetBean">
+                        <tr>
+                            <td><a href="${acSet.link}">${acSet.name}</a></td>
+                            <td>${acSet.accumulatorNames}</td>
+                        </tr>
                     </ano:iterate>
                     </tbody>
                 </table>
             </div>
-        </form>
-    </div>
+        </div>
+    </ano:present>
+    <!-- /selections of accumulators -->
 
         <div class="box">
             <form action="" method="get">
@@ -216,17 +212,17 @@
                             </div>
                             <div class="radio">
                                 <label>
-                                    <input type="radio" checked="checked" value="combined" name="mode"> combine
+                                    <input type="radio" <ano:equal name="combined_set" value="true">checked="checked"</ano:equal> value="combined" name="mode"> combine
                                 </label>
                             </div>
                             <div class="radio">
                                 <label>
-                                    <input type="radio" value="normalized" name="mode"> combine and normalize
+                                    <input type="radio" value="normalized" name="mode" <ano:equal name="normalized_set" value="true">checked="checked"</ano:equal>> combine and normalize
                                 </label>
                             </div>
                             <div class="radio">
                                 <label>
-                                    <input type="radio" value="multiple" name="mode"> multiple graphs
+                                    <input type="radio" value="multiple" name="mode" <ano:equal name="multiple_set" value="true">checked="checked"</ano:equal>> multiple graphs
                                 </label>
                             </div>
                             <div class="form-group">

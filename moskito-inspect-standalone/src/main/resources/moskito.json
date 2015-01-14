@@ -36,21 +36,31 @@
 
     "@accumulatorsConfig" : {
         "accumulationAmount": 250,
-        "@accumulators": [
+        "@accumulatorSets": [
             {
-                "name": "SendMessage5M",
-                "producerName": "MessagingAPI",
-                "statName": "sendMessage",
-                "valueName": "Req",
-                "intervalName": "5m"
+                "name": "Threads 1 Minute",
+                "accumulatorNames": ["ThreadCount", "ThreadStateBlocked-1m", "ThreadStateRunnable-1m", "ThreadStateTimedWaiting-1m", "ThreadStateWaiting-1m"]
             },
             {
-                "name": "SendMessage1D",
-                "producerName": "MessagingAPI",
-                "statName": "sendMessage",
-                "valueName": "Req",
-                "intervalName": "1d"
+              "name": "Threads 5 Minutes",
+              "accumulatorNames": ["ThreadCount", "ThreadStateBlocked-5m", "ThreadStateRunnable-5m", "ThreadStateTimedWaiting-5m", "ThreadStateWaiting-5m"]
+            },
+            {
+              "name": "Web 1 Minute",
+              "accumulatorNames": ["SessionCount Cur Absolute", "URL AVG 1m", "URL REQ 1m", "URL Time 1m"],
+              "mode": "MULTIPLE"
+            },
+            {
+              "name": "Web 5 Minutes",
+              "accumulatorNames": ["SessionCount Cur Absolute", "URL AVG 5m", "URL REQ 5m", "URL Time 5m"],
+              "mode": "MULTIPLE"
+            },
+            {
+              "name": "Web 1 Hour",
+              "accumulatorNames": ["SessionCount Cur Absolute", "URL AVG 1h", "URL REQ 1h", "URL Time 1h"],
+              "mode": "MULTIPLE"
             }
+
         ]
     },
 
