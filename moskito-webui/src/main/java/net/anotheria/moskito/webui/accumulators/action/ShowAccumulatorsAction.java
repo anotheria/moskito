@@ -92,28 +92,30 @@ public class ShowAccumulatorsAction extends BaseAccumulatorsAction {
         MoskitoConfiguration config = MoskitoConfigurationHolder.getConfiguration();
         AccumulatorsConfig configuration = config.getAccumulatorsConfig();
 		AccumulatorSetConfig setConfigs[] = configuration.getAccumulatorSets();
-		LinkedList<AccumulatorSetBean> acSetBeans = new LinkedList<AccumulatorSetBean>();
-		for (AccumulatorSetConfig asc : setConfigs){
-			AccumulatorSetBean bean = new AccumulatorSetBean();
-			bean.setName(asc.getName());
-			StringBuilder names = new StringBuilder();
-			StringBuilder link = new StringBuilder("mskAccumulators?");
-			for (String n : asc.getAccumulatorNames()){
-				if (names.length()>0)
-					names.append(", ");
-				names.append(n);
-				Accumulator acc = AccumulatorRepository.getInstance().getByName(n);
-				if (acc != null){
-					link.append("id_").append(acc.getId()).append("=set&");
+		if (setConfigs!=null && setConfigs.length>0) {
+			LinkedList<AccumulatorSetBean> acSetBeans = new LinkedList<AccumulatorSetBean>();
+			for (AccumulatorSetConfig asc : setConfigs) {
+				AccumulatorSetBean bean = new AccumulatorSetBean();
+				bean.setName(asc.getName());
+				StringBuilder names = new StringBuilder();
+				StringBuilder link = new StringBuilder("mskAccumulators?");
+				for (String n : asc.getAccumulatorNames()) {
+					if (names.length() > 0)
+						names.append(", ");
+					names.append(n);
+					Accumulator acc = AccumulatorRepository.getInstance().getByName(n);
+					if (acc != null) {
+						link.append("id_").append(acc.getId()).append("=set&");
+					}
 				}
+				link.append("mode=").append(asc.getMode().name().toLowerCase());
+				bean.setAccumulatorNames(names.toString());
+				bean.setLink(link.toString());
+				acSetBeans.add(bean);
 			}
-			link.append("mode=").append(asc.getMode().name().toLowerCase());
-			bean.setAccumulatorNames(names.toString());
-			bean.setLink(link.toString());
-			acSetBeans.add(bean);
-		}
-		if (acSetBeans.size()>0) {
-			req.setAttribute("accumulatorSetBeans", acSetBeans);
+			if (acSetBeans.size() > 0) {
+				req.setAttribute("accumulatorSetBeans", acSetBeans);
+			}
 		}
 
 		//selected accumulator handling
