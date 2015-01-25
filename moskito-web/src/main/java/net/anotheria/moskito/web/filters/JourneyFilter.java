@@ -1,12 +1,15 @@
 package net.anotheria.moskito.web.filters;
 
 import net.anotheria.moskito.core.calltrace.CurrentlyTracedCall;
+import net.anotheria.moskito.core.calltrace.NoTracedCall;
 import net.anotheria.moskito.core.calltrace.RunningTraceContainer;
 import net.anotheria.moskito.core.calltrace.TracedCall;
 import net.anotheria.moskito.core.journey.Journey;
 import net.anotheria.moskito.core.journey.JourneyManager;
 import net.anotheria.moskito.core.journey.JourneyManagerFactory;
 import net.anotheria.moskito.core.journey.NoSuchJourneyException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -17,8 +20,6 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.io.Serializable;
-import java.util.concurrent.atomic.AtomicInteger;
 
 
 /**
@@ -45,6 +46,11 @@ public class JourneyFilter implements Filter{
 	 * Parameter name for the name of the journey.
 	 */
 	public static final String PARAM_JOURNEY_NAME = "mskJourneyName";
+
+	/**
+	 * Log.
+	 */
+	private static Logger log = LoggerFactory.getLogger(JourneyFilter.class);
 
 	/**
 	 * JourneyManager instance.
@@ -76,9 +82,10 @@ public class JourneyFilter implements Filter{
 					}
 				}
 		}
-		
+
+		String url = "none";
 		if (record!=null){
-			String url = req.getServletPath();
+			url = req.getServletPath();
 			if (req.getPathInfo()!=null)
 				url += req.getPathInfo();
 			if (req.getQueryString()!=null)
@@ -90,7 +97,11 @@ public class JourneyFilter implements Filter{
 		}finally{
 			if (record!=null){
 				TracedCall last = RunningTraceContainer.endTrace();
-				journey.addUseCase((CurrentlyTracedCall)last);
+				if (last instanceof NoTracedCall){
+					log.warn("Unexpectedly last is a NoTracedCall instead of CurrentlyTracedCall for "+url);
+				}else {
+					journey.addUseCase((CurrentlyTracedCall) last);
+				}
 				
 				//removes the running use case to cleanup the thread local. Otherwise tomcat will be complaining...
 				RunningTraceContainer.cleanup();
