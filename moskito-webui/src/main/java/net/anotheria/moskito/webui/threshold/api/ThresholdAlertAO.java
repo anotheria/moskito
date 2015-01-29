@@ -2,6 +2,7 @@ package net.anotheria.moskito.webui.threshold.api;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.io.Serializable;
 
@@ -9,45 +10,55 @@ import java.io.Serializable;
  * Represents a single threshold change alert object.
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlRootElement
+@XmlRootElement(name="ThresholdAlert")
 public class ThresholdAlertAO implements Serializable{
 	/**
 	 * Id of the threshold.
 	 */
+    @XmlElement
 	private String id;
 	/**
 	 * Name of the threshold.
 	 */
+    @XmlElement
 	private String name;
 	/*
 	 * Timestamp of the alert.
 	 */
+    @XmlElement
 	private String timestamp;
 	/**
 	 * Status before alert was triggered.
 	 */
+    @XmlElement
 	private String oldStatus;
 	/**
 	 * Color before alert was triggered.
 	 */
+    @XmlElement
 	private String oldColorCode;
 	/**
 	 * Value before alert was triggered.
 	 */
+    @XmlElement
 	private String oldValue;
 
 	/**
 	 * Status after alert was triggered.
 	 */
+    @XmlElement
 	private String newStatus;
 	/**
 	 * Color after the alert was triggered.
 	 */
+    @XmlElement
 	private String newColorCode;
 	/**
 	 * New value, after the alert.
 	 */
+    @XmlElement
 	private String newValue;
+
 	public String getId() {
 		return id;
 	}

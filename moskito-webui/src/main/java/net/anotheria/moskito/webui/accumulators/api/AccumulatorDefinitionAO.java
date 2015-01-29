@@ -16,7 +16,7 @@ import java.io.Serializable;
  * @author lrosenberg
  *
  */
-@XmlRootElement
+@XmlRootElement(name = "Accumulator")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class AccumulatorDefinitionAO implements IComparable, Serializable{
 	/**
