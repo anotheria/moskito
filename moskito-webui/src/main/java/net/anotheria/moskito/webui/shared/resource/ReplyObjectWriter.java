@@ -3,6 +3,7 @@ package net.anotheria.moskito.webui.shared.resource;
 import net.anotheria.moskito.webui.accumulators.api.AccumulatorDefinitionAO;
 import net.anotheria.moskito.webui.producers.api.UnitCountAO;
 import net.anotheria.moskito.webui.threshold.api.ThresholdAlertAO;
+import net.anotheria.moskito.webui.threshold.api.ThresholdDefinitionAO;
 import net.anotheria.moskito.webui.threshold.api.ThresholdStatusAO;
 
 import javax.ws.rs.Produces;
@@ -59,7 +60,7 @@ public class ReplyObjectWriter implements MessageBodyWriter<ReplyObject> {
 			HashMap results = replyObject.getResults();
 			Set<Map.Entry> resultSet = results.entrySet();
             JAXBContext context = JAXBContext.newInstance(ThresholdAlertAO.class, ThresholdStatusAO.class,
-                    AccumulatorDefinitionAO.class, UnitCountAO.class);
+                    AccumulatorDefinitionAO.class, ThresholdDefinitionAO.class, UnitCountAO.class);
 			Marshaller m = context.createMarshaller();
 			m.setProperty("jaxb.fragment", Boolean.TRUE);
 
