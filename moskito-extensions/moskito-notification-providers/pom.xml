@@ -1,0 +1,42 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+  <parent>
+	<groupId>net.anotheria</groupId>
+	<artifactId>moskito</artifactId>
+	<version>2.5.6-SNAPSHOT</version>
+	<relativePath>../../pom.xml</relativePath>
+  </parent>
+
+  <modelVersion>4.0.0</modelVersion>
+  <artifactId>moskito-notification-providers</artifactId>
+  <version>2.5.6-SNAPSHOT</version>
+  <name>notification providers</name>
+
+  <dependencies>
+      <!-- needed for mailgun -->
+      <dependency>
+          <groupId>com.sun.jersey</groupId>
+          <artifactId>jersey-client</artifactId>
+          <version>1.18</version>
+      </dependency>
+      <dependency>
+		<groupId>net.anotheria</groupId>
+		<artifactId>moskito-core</artifactId>
+		<version>${project.version}</version>
+	</dependency>
+      <dependency>
+          <groupId>org.slf4j</groupId>
+          <artifactId>slf4j-api</artifactId>
+      </dependency>
+      <dependency>
+          <groupId>ch.qos.logback</groupId>
+          <artifactId>logback-classic</artifactId>
+          <!--scope>test</scope-->
+      </dependency>
+      <!-- For email notifications via ano-comm, transitive dependencies to mail and activation-->
+      <dependency>
+          <groupId>net.anotheria</groupId>
+          <artifactId>ano-comm</artifactId>
+      </dependency>
+  </dependencies>
+</project>

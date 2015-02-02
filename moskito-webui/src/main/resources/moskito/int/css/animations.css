@@ -1,0 +1,150 @@
+.logo{
+    -moz-animation: logo 1s alternate;
+    -webkit-animation: logo 1s alternate;
+    -ms-animation: logo 1s alternate;
+}
+
+.logo-title {
+    -moz-animation: logo-title 2s alternate;
+    -webkit-animation: logo-title 2s alternate;
+    -ms-animation: logo-title 2s alternate;
+}
+
+.aside-collapse .logo-title {
+    -moz-animation: logo-title2 2s alternate;
+    -webkit-animation: logo-title2 2s alternate;
+    -ms-animation: logo-title2 2s alternate;
+    opacity: 0;
+}
+
+.alert {
+    -moz-animation: alert 1s alternate;
+    -webkit-animation: alert 1s alternate;
+    -ms-animation: alert 1s alternate;
+    position: relative;
+}
+
+@keyframes logo {
+    0% {
+        top: -70px;
+        opacity: 0;
+    }
+
+    50% {
+        top: 5px;
+        opacity: 1;
+    }
+
+    100% {
+        top: 0;
+        opacity: 1;
+    }
+}
+
+@-webkit-keyframes logo {
+    0% {
+        top: -70px;
+        opacity: 0;
+    }
+
+    50% {
+        top: 5px;
+        opacity: 1;
+    }
+
+    100% {
+        top: 0;
+        opacity: 1;
+    }
+}
+
+@keyframes logo-title {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+@-webkit-keyframes logo-title {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+@keyframes logo-title2 {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+
+@-webkit-keyframes logo-title2 {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+
+@keyframes alert {
+    0% {
+        top: -100px;
+        opacity: 0;
+    }
+
+    100% {
+        top: 0;
+        opacity: 1;
+    }
+}
+
+@-webkit-keyframes alert {
+    0% {
+        top: -100px;
+        opacity: 0;
+    }
+
+    100% {
+        top: 0;
+        opacity: 1;
+    }
+}
+
+.content {
+    position: relative;
+    -moz-animation: content 1s alternate;
+    -webkit-animation: content 1s alternate;
+    -ms-animation: content 1s alternate;
+}
+
+@keyframes content {
+    0% {
+        top: -20px;
+        opacity: 0;
+    }
+
+    100% {
+        top: 0;
+        opacity: 1;
+    }
+}
+
+@-webkit-keyframes content {
+    0% {
+        top: -20px;
+        opacity: 0;
+    }
+
+    100% {
+        top: 0;
+        opacity: 1;
+    }
+}

@@ -1,0 +1,14 @@
+{
+	"@thresholdsAlertsConfig": {
+		"@notificationProviders": [
+            {
+                "className": "net.anotheria.moskito.extensions.notificationproviders.MailgunNotificationProvider",
+                "recipients": "leon@leon-rosenberg.net",
+                /*"recipients": "ykoval@anotheria.net",*/
+                "htmlTemplatePath":"thresholdAlertTemplate.htm",
+                "textTemplatePath":"thresholdAlertTemplate.txt",
+                "guardedStatus": "GREEN"
+            }
+		]
+	}
+}

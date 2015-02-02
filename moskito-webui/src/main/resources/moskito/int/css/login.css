@@ -1,0 +1,164 @@
+body {
+    background: #e5e5e5;
+    text-align: center;
+    margin-top: 60px;
+}
+
+h1 {
+    font-size: 32px;
+    font-weight: 100;
+    margin-top: 10px;
+    margin-bottom: 30px;
+}
+
+.login-box {
+    width: 340px;
+    margin: 0 auto;
+    text-align: left;
+}
+
+.box-title {
+    overflow: hidden;
+}
+
+.box-title h3 {
+    line-height: 30px;
+    font-size: 21px;
+}
+
+.login-box .form-control {
+    padding-left: 44px;
+}
+
+.login-box .form-group {
+    position: relative;
+    margin-bottom: 10px;
+}
+
+.login-box .form-group.login-btn {
+    margin-bottom: 0;
+}
+
+.login-box .form-group i.fa {
+    position: absolute;
+    left: 17px;
+    top: 15px;
+    font-size: 16px;
+    opacity: 0.4;
+}
+
+.form-control {
+    background: #f2f2f2;
+    border: none;
+    box-shadow: 0 1px 0 #dadada inset;
+    height: 40px;
+}
+
+.form-control:focus {
+    box-shadow: 0 1px 0 #999 inset;
+}
+
+a.help-link {
+    float: right;
+    color: #CCC;
+}
+
+.form-group.login-btn {
+    margin-top: 15px;
+}
+
+.btn {
+    height: 38px;
+}
+
+.login-box{
+    -moz-animation: login-box 1s alternate;
+    -webkit-animation: login-box 1s alternate;
+    -ms-animation: login-box 1s alternate;
+    position: relative;
+}
+
+@keyframes login-box {
+    0% {
+        top: -70px;
+        opacity: 0;
+    }
+
+    50% {
+        top: 5px;
+        opacity: 1;
+    }
+
+    100% {
+        top: 0;
+        opacity: 1;
+    }
+}
+
+@-webkit-keyframes login-box {
+    0% {
+        top: -70px;
+        opacity: 0;
+    }
+
+    50% {
+        top: 5px;
+        opacity: 1;
+    }
+
+    100% {
+        top: 0;
+        opacity: 1;
+    }
+}
+
+.login-box.error{
+    -moz-animation: error 1s alternate;
+    -webkit-animation: error 1s alternate;
+    -ms-animation: error 1s alternate;
+    position: relative;
+}
+
+@keyframes error {
+    0% {
+        left: 0;
+    }
+
+    20% {
+        left: -50px;
+    }
+
+    40% {
+        left: 40px;
+    }
+
+    60% {
+        left: -20px;
+    }
+
+    100% {
+        left: 0;
+    }
+}
+
+@-webkit-keyframes error {
+    0% {
+        left: 0;
+    }
+
+    20% {
+        left: -50px;
+    }
+
+    40% {
+        left: 40px;
+    }
+
+    60% {
+        left: -20px;
+    }
+
+    100% {
+        left: 0;
+    }
+}

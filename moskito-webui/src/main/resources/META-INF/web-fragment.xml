@@ -1,0 +1,22 @@
+<web-fragment metadata-complete="true" version="3.0"
+              xmlns="http://java.sun.com/xml/ns/javaee"
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-fragment_3_0.xsd">
+    <name>MoSKitoInspectShared</name>
+    <listener>
+        <listener-class>
+            net.anotheria.moskito.webui.util.StartStopListener
+        </listener-class>
+    </listener>
+    <listener>
+        <listener-class>
+            net.anotheria.moskito.webui.util.SetupPreconfiguredAccumulators
+        </listener-class>
+    </listener>
+    <ordering>
+        <before>
+            <others/>
+        </before>
+    </ordering>
+</web-fragment>
+

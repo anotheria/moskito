@@ -1,0 +1,297 @@
+<html xmlns="http://www.w3.org/1999/xhtml"><head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>MoSKito Inspect :: Journeys</title>
+    <link href="http://fonts.googleapis.com/css?family=Lato:100,300,400,700" rel="stylesheet" type="text/css">
+    <link type="text/css" rel="stylesheet" href="http://fonts.googleapis.com/css?family=Mr+Bedfort">
+    <link type="text/css" rel="stylesheet" rev="stylesheet" href="../moskito/ext/bootstrap-3.1.1/css/bootstrap.css">
+    <link type="text/css" rel="stylesheet" rev="stylesheet" href="../moskito/ext/custom-scrollbar/jquery.mCustomScrollbar.css">
+    <link type="text/css" rel="stylesheet" href="../moskito/ext/font-awesome-4.0.3/css/font-awesome.css">
+    <link type="text/css" rel="stylesheet" rev="stylesheet" href="../moskito/ext/select2-3.4.6/select2.css">
+    <link type="text/css" rel="stylesheet" rev="stylesheet" href="../moskito/ext/switchery/switchery.min.css">
+
+
+
+    <link rel="stylesheet" type="text/css" href="../moskito/ext/treegrid/css/jquery.treegrid.css">
+
+    <link type="text/css" rel="stylesheet" rev="stylesheet" href="../moskito/int/css/common.css">
+    <!--[if lt IE 9]><script src="../int/js/ie8-responsive-file-warning.js"></script><![endif]-->
+    <!--[if lt IE 8]><link type="text/css" rel="stylesheet" rev="stylesheet" href="../moskito/static-int/css/bootstrap-ie7.css" /><![endif]-->
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+
+<body class="status-green">
+
+<!-- currently for handle select only -->
+
+<header id="header" class="navbar navbar-fixed-top navbar-default">
+            <span class="caret-aside pull-left tooltip-bottom" title="" data-original-title="Close/Open">
+                <i class="fa fa-caret-left"></i>
+            </span>
+
+    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+    </button>
+
+    <div class="navbar-collapse collapse">
+        <form role="form" class="navbar-form navbar-left">
+            <div class="form-group">
+                <div class="select2-container select2" id="s2id_autogen1"><a href="javascript:void(0)" class="select2-choice" tabindex="-1">   <span class="select2-chosen" id="select2-chosen-2">
+                            default
+                        </span><abbr class="select2-search-choice-close"></abbr>   <span class="select2-arrow" role="presentation"><b role="presentation"></b></span></a><label for="s2id_autogen2" class="select2-offscreen"></label><input class="select2-focusser select2-offscreen" type="text" aria-haspopup="true" role="button" aria-labelledby="select2-chosen-2" id="s2id_autogen2"><div class="select2-drop select2-display-none select2-with-searchbox">   <div class="select2-search">       <label for="s2id_autogen2_search" class="select2-offscreen"></label>       <input type="text" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" class="select2-input" role="combobox" aria-expanded="true" aria-autocomplete="list" aria-owns="select2-results-2" id="s2id_autogen2_search" placeholder="">   </div>   <ul class="select2-results" role="listbox" id="select2-results-2">   </ul></div></div><select class="select2 select2-offscreen" data-placeholder="Interval" onchange="javascript:handleSelect(this)" tabindex="-1" title="">
+
+                <option value="mskShowJourneys?ts=1400849627813&amp;pInterval=snapshot">
+                    snapshot
+                </option>
+
+                <option value="mskShowJourneys?ts=1400849627813&amp;pInterval=default" selected="">
+                    default
+                </option>
+
+                <option value="mskShowJourneys?ts=1400849627813&amp;pInterval=1m">
+                    1m
+                </option>
+
+                <option value="mskShowJourneys?ts=1400849627813&amp;pInterval=5m">
+                    5m
+                </option>
+
+                <option value="mskShowJourneys?ts=1400849627813&amp;pInterval=15m">
+                    15m
+                </option>
+
+                <option value="mskShowJourneys?ts=1400849627813&amp;pInterval=1h">
+                    1h
+                </option>
+
+                <option value="mskShowJourneys?ts=1400849627813&amp;pInterval=12h">
+                    12h
+                </option>
+
+                <option value="mskShowJourneys?ts=1400849627813&amp;pInterval=1d">
+                    1d
+                </option>
+
+            </select>
+            </div>
+            <div class="form-group">
+                <div class="select2-container select2" id="s2id_autogen3"><a href="javascript:void(0)" class="select2-choice" tabindex="-1">   <span class="select2-chosen" id="select2-chosen-4">
+                        MILLISECONDS
+                    </span><abbr class="select2-search-choice-close"></abbr>   <span class="select2-arrow" role="presentation"><b role="presentation"></b></span></a><label for="s2id_autogen4" class="select2-offscreen"></label><input class="select2-focusser select2-offscreen" type="text" aria-haspopup="true" role="button" aria-labelledby="select2-chosen-4" id="s2id_autogen4"><div class="select2-drop select2-display-none select2-with-searchbox">   <div class="select2-search">       <label for="s2id_autogen4_search" class="select2-offscreen"></label>       <input type="text" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" class="select2-input" role="combobox" aria-expanded="true" aria-autocomplete="list" aria-owns="select2-results-4" id="s2id_autogen4_search" placeholder="">   </div>   <ul class="select2-results" role="listbox" id="select2-results-4">   </ul></div></div><select class="select2 select2-offscreen" data-placeholder="Unit" onchange="javascript:handleSelect(this)" tabindex="-1" title="">
+
+                <option value="mskShowJourneys?ts=1400849627813&amp;pUnit=SECONDS">
+                    SECONDS
+                </option>
+
+                <option value="mskShowJourneys?ts=1400849627813&amp;pUnit=MILLISECONDS" selected="">
+                    MILLISECONDS
+                </option>
+
+                <option value="mskShowJourneys?ts=1400849627813&amp;pUnit=MICROSECONDS">
+                    MICROSECONDS
+                </option>
+
+                <option value="mskShowJourneys?ts=1400849627813&amp;pUnit=NANOSECONDS">
+                    NANOSECONDS
+                </option>
+
+            </select>
+            </div>
+        </form>
+
+        <ul class="nav navbar-nav pull-right">
+
+
+
+            <li><a href="mskShowExplanations">Help</a></li>
+        </ul>
+    </div>
+</header>
+
+<aside id="aside" class="scrollbar mCustomScrollbar _mCS_1"><div class="mCustomScrollBox mCS-light" id="mCSB_1" style="position:relative; height:100%; overflow:hidden; max-width:100%;"><div class="mCSB_container" style="position: relative; top: 0px;">
+
+    <div class="header-box">
+        <span class="version">v  2.5.0-SNAPSHOT</span>
+        <a href="">
+            <i class="logo"></i>
+            <span class="logo-title">MoSKito Inspect</span>
+        </a>
+    </div>
+
+    <ul class="nav nav-sidebar">
+        <li><a href="mskShowAllProducers" title="Producers" class="sidebar-tooltip-right">Producers <i class="fa fa-wrench"></i></a></li>
+        <li class="active"><a href="mskShowJourneys" title="Journeys" class="sidebar-tooltip-right">Journeys <i class="fa fa-eye"></i></a></li>
+        <li><a href="mskThresholds" title="Thresholds" class="sidebar-tooltip-right">Thresholds <i class="fa fa-dot-circle-o"></i></a></li>
+        <li><a href="mskAccumulators" title="Accumulators" class="sidebar-tooltip-right">Accumulators <i class="fa fa-signal"></i></a></li>
+
+
+        <li><a href="mskThreads" title="Threads" class="sidebar-tooltip-right">Threads <i class="fa fa-bars"></i></a></li>
+
+        <!-- Submenu for everything else -->
+
+
+        <li><a href="mskMore" title="Everything else" class="sidebar-tooltip-right">Everything else <i class="fa fa-bookmark"></i></a></li>
+
+
+    </ul>
+
+
+
+    <div class="form-box">
+        <label>Server selector</label>
+        <form name="SelectServer" action="mskSelectServer" method="GET">
+            <div class="select2-container select2" id="s2id_autogen5"><a href="javascript:void(0)" class="select2-choice" tabindex="-1">   <span class="select2-chosen" id="select2-chosen-6">Local</span><abbr class="select2-search-choice-close"></abbr>   <span class="select2-arrow" role="presentation"><b role="presentation"></b></span></a><label for="s2id_autogen6" class="select2-offscreen"></label><input class="select2-focusser select2-offscreen" type="text" aria-haspopup="true" role="button" aria-labelledby="select2-chosen-6" id="s2id_autogen6"><div class="select2-drop select2-display-none select2-with-searchbox">   <div class="select2-search">       <label for="s2id_autogen6_search" class="select2-offscreen"></label>       <input type="text" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" class="select2-input" role="combobox" aria-expanded="true" aria-autocomplete="list" aria-owns="select2-results-6" id="s2id_autogen6_search" placeholder="">   </div>   <ul class="select2-results" role="listbox" id="select2-results-6">   </ul></div></div><select class="select2 select2-offscreen" data-placeholder="Select Server" onchange="javascript:handleSelect(this)" tabindex="-1" title="">
+
+            <option value="mskSelectServer?pTargetServer=Local" selected="">Local</option>
+
+            <option value="mskSelectServer?pTargetServer=localhost-9401">Develop@localhost:9401</option>
+
+            <option value="mskSelectServer?pTargetServer=web01.prod-9401">web01@web01.prod:9401</option>
+
+            <option value="mskSelectServer?pTargetServer=web02.prod-9401">web02@web02.prod:9401</option>
+
+            <option value="mskSelectServer?pTargetServer=biz01.prod-9401">UserService@biz01.prod:9401</option>
+
+            <option value="mskSelectServer?pTargetServer=biz01.prod-9402">ProfileService@biz01.prod:9402</option>
+
+        </select>
+        </form>
+    </div>
+
+    <div class="form-box">
+        <label>Quick connect</label>
+        <form name="QuickConnect" action="mskQuickConnect" method="GET">
+            <div class="form-group">
+                <input type="text" class="form-control" name="pServerName" placeholder="Host">
+            </div>
+            <div class="form-group">
+                <input type="text" class="form-control" name="pServerPort" placeholder="Port">
+            </div>
+            <div class="form-group text-right">
+                <button class="btn btn-success" type="button" onclick="submit();">Connect</button>
+            </div>
+        </form>
+    </div>
+
+    <span class="shadow-line"></span>
+
+</div><div class="mCSB_scrollTools" style="position: absolute; display: block;"><div class="mCSB_draggerContainer"><div class="mCSB_dragger" style="position: absolute; height: 532px; top: 0px;" oncontextmenu="return false;"><div class="mCSB_dragger_bar" style="position: relative; line-height: 532px;"></div></div><div class="mCSB_draggerRail"></div></div></div></div></aside>
+<section id="main">
+
+
+
+    <div class="content">
+
+
+        <div class="box">
+            <div class="box-title">
+                <a class="accordion-toggle tooltip-bottom" title="" data-toggle="collapse" href="#collapseJourneys" data-original-title="Close/Open"><i class="fa fa-caret-right"></i></a>
+                <h3 class="pull-left">
+                    Journeys
+                </h3>
+                <div class="box-right-nav">
+                    <a href="" class="tooltip-bottom" title="" data-original-title="Help"><i class="fa fa-info-circle"></i></a>
+                </div>
+            </div>
+            <div id="collapseJourneys" class="box-content accordion-body collapse in">
+                <div class="paddner">
+                    <div class="jour-left form-inline">
+                        <p>To start a new journey now enter the name for the journey</p>
+                        <div class="form-group">
+                            <form name="NEWJOURNEY">
+                                <input type="text" name="name" class="form-control" placeholder="Enter Name">
+                                <button class="btn btn-success" onclick="new_journey(document.NEWJOURNEY.name.value); return false">Start</button>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="jour-right">
+                        <p>To record a new journey add <span class="text-green">mskJourney=start&amp;mskJourneyName=JOURNEY_NAME</span> to any url on this server.</p>
+                        <p>To stop journey recording add <span class="text-green">mskJourney=stop&amp;mskJourneyName=JOURNEY_NAME</span> to any url on this server.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="box">
+            <div class="box-title">
+                <a class="accordion-toggle tooltip-bottom" title="" data-toggle="collapse" href="#collapseRecorded" data-original-title="Close/Open"><i class="fa fa-caret-right"></i></a>
+                <h3 class="pull-left">
+                    Recorded journeys.
+                </h3>
+                <div class="box-right-nav">
+                    <a href="" class="tooltip-bottom" title="" data-original-title="Help"><i class="fa fa-info-circle"></i></a>
+                </div>
+            </div>
+            <div id="collapseRecorded" class="box-content accordion-body collapse in">
+                <table class="table table-striped tablesorter">
+                    <thead>
+                    <tr>
+                        <th class="header">Journey <i class="fa fa-caret-down"></i></th>
+                        <th class="header">Started <i class="fa fa-caret-down"></i></th>
+                        <th class="header">Last activity <i class="fa fa-caret-down"></i></th>
+                        <th class="header">Calls <i class="fa fa-caret-down"></i></th>
+                        <th class="header">Active <i class="fa fa-caret-down"></i></th>
+                        <th class="th-actions header">&nbsp;</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+
+                    <tr>
+                        <td><a class="tooltip-bottom" title="" href="mskShowJourney?pJourneyName=unnamed1400849627792" data-original-title="Show steps in journey unnamed1400849627792">unnamed1400849627792</a></td>
+                        <td>2014-05-23T14:53:47,805</td>
+                        <td>2014-05-23T14:53:47,810</td>
+                        <td>1</td>
+                        <td>true&nbsp;
+                            &nbsp;(<a href="#" onclick="stop_journey('unnamed1400849627792')">stop</a>)
+                        </td>
+
+                        <td>
+                            <a class="action-icon delete-icon tooltip-bottom" title="" data-original-title="Delete unnamed1400849627792" href="mskDeleteJourney?pJourneyName=unnamed1400849627792"><i class="fa fa-ban"></i></a>
+                            <a class="action-icon show-icon tooltip-bottom" title="" data-original-title="Show steps in journey unnamed1400849627792" href="mskShowJourney?pJourneyName=unnamed1400849627792"><i class="fa fa-search"></i></a>
+                            <a class="action-icon show-icon tooltip-bottom" title="" data-original-title="Analyze journey unnamed1400849627792" href="mskAnalyzeJourney?pJourneyName=unnamed1400849627792"><i class="fa fa-search-plus"></i></a>
+
+                        </td>
+
+                    </tr>
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+
+    </div>
+
+
+    <footer id="footer" class="navbar-default">
+        <p class="text-center">Generated at 2014-05-23T14:53:47,814  |  timestamp: 1400849627814  |  Interval updated at: Never  |   Interval age: n.A.</p>
+        <p class="text-center">App version: net.anotheria/moskito-inspect-standalone 2.5.0-SNAPSHOT file: 2014-05-23T14:02:26,000  |  MoSKito version: net.anotheria/moskito-webui-jersey 2.5.0-SNAPSHOT file: 2014-05-12T00:02:40,000 | Server: newest | Connection: Local</p>
+        <img src="//counter.moskito.org/counter/inspect/2.5.0-SNAPSHOT/journeys" class="ipix"> 
+    </footer>
+
+    <script src="../moskito/ext/jquery-1.10.2/jquery-1.10.2.min.js" type="text/javascript"></script>
+
+    <script type="text/javascript" src="../moskito/ext/jquery-tree-table/jquery.treeTable.min.js"></script>
+
+
+    <script src="../moskito/ext/bootstrap-3.1.1/js/bootstrap.min.js" type="text/javascript"></script>
+    <script src="../moskito/ext/tablesorter/jquery.metadata.js" type="text/javascript"></script>
+    <script src="../moskito/ext/tablesorter/jquery.tablesorter.js" type="text/javascript"></script>
+    <script src="../moskito/ext/select2-3.4.6/select2.js" type="text/javascript"></script>
+
+    <script src="../moskito/ext/switchery/switchery.min.js" type="text/javascript"></script>
+
+
+
+    <script src="../moskito/ext/custom-scrollbar/jquery.mCustomScrollbar.concat.min.js"></script>
+
+    <script src="../moskito/int/js/common.js" type="text/javascript"></script>
+</section>
+
+<span role="status" aria-live="polite" class="select2-hidden-accessible"></span><span role="status" aria-live="polite" class="select2-hidden-accessible"></span><span role="status" aria-live="polite" class="select2-hidden-accessible"></span></body></html>

@@ -1,0 +1,37 @@
+{
+	registryContainerPort: 9229,
+	registryContainerHost: "localhost",
+	
+	//if true the server will log all exceptions including expected exception (defined by the interface), otherwise expected exceptions will be ignored
+	logServerSideExceptions: false,
+	//if true the client (stub) will log all caught exceptions (remote exception and runtime exceptions)
+	logClientSideExceptions: false,
+	
+	//registrationIpMapping: "192.168.200.5:10.0.0.0",
+	
+	"listener.1": "org.distributeme.core.listener.ServerLifecycleSysOutPrinterListener",
+	//"interceptor.1": "org.distributeme.test.interception.interceptor.LogOutBeforeCallInterceptor",
+	//"interceptor.1": "org.distributeme.core.interceptor.availabilitytesting.ServiceUnavailableByPropertyInterceptor", 
+	//"interceptor.2": "org.distributeme.core.interceptor.availabilitytesting.ServerSideSlowDownByPropertyInterceptor",
+	//"interceptor.3": "org.distributeme.core.interceptor.availabilitytesting.ServerSideSlowDownByConfigurationInterceptor", 
+	"interceptor.50": "org.distributeme.test.interception.interceptor.LogOutAfterCallInterceptor",
+	
+	test: {
+		interceptors: {
+//			"interceptor.1": "org.distributeme.test.interception.interceptor.LogOutBeforeCallInterceptor", 
+			"interceptor.2": "org.distributeme.test.interception.interceptor.InterceptSumInterceptor", 
+			"interceptor.3": "org.distributeme.test.interception.interceptor.ModifyReturnValueInterceptor",
+			"interceptor.4": "org.distributeme.test.interception.interceptor.InterceptInClientInterceptor",
+			"interceptor.5": "org.distributeme.test.interception.interceptor.InspectParameterExample",
+			"interceptor.6": "org.distributeme.test.interception.interceptor.PiggybackingInterceptor",
+			"interceptor.10": "org.distributeme.core.interceptor.moskito.MoskitoJourneyInterceptor",
+//			"interceptor.50": "org.distributeme.test.interception.interceptor.LogOutAfterCallInterceptor",
+		},
+		
+		"flip": {
+			"interceptor.1": "org.distributeme.core.interceptor.availabilitytesting.FlippingServiceUnavailableByConfigurationInterceptor", 
+			"interceptor.2": "org.distributeme.core.interceptor.availabilitytesting.FlippingServerSideSlowDownByConfigurationInterceptor",
+			"interceptor.3": "org.distributeme.core.interceptor.availabilitytesting.FlippingServerSideSlowDownByConfigurationInterceptor", 
+		},
+	}
+}  

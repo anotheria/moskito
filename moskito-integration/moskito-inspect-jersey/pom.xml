@@ -1,0 +1,37 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+	<parent>
+		<groupId>net.anotheria</groupId>
+		<artifactId>moskito-integration</artifactId>
+		<version>2.5.6-SNAPSHOT</version>
+	</parent>
+
+	<modelVersion>4.0.0</modelVersion>
+	<artifactId>moskito-inspect-jersey</artifactId>
+	<version>2.5.6-SNAPSHOT</version>
+	<name>moskito embedded web rest interface - jersey support</name>
+    <description>
+        This project contains dependencies and configuration (web-fragment) needed to enable moskito-inspect rest interface via Jersey. To use it simply add it as dependency.
+    </description>
+
+	<dependencies>
+        <dependency>
+            <groupId>net.anotheria</groupId>
+            <artifactId>moskito-webui</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <!-- jersey -->
+        <dependency>
+            <groupId>com.sun.jersey</groupId>
+               <artifactId>jersey-server</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.sun.jersey</groupId>
+            <artifactId>jersey-servlet</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.sun.jersey</groupId>
+            <artifactId>jersey-json</artifactId>
+        </dependency>
+    </dependencies>
+</project>

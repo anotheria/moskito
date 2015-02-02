@@ -1,0 +1,17 @@
+{
+	"producerChartWidth": 1200,
+	"producerChartHeight": 600,
+    "connectivityMode": "LOCAL",
+    "@remotes": [
+        {
+            "name": "TestServer",
+            "host": "test1.example.com",
+            "port": 9401
+        },
+        {
+            "name": "Another Test Server",
+            "host": "test1.example.com",
+            "port": 9402
+        }
+    ]
+}
