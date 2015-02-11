@@ -7,7 +7,7 @@ body {
 }
 
 #main {
-    background: #e5e5e5;
+    background: #eeeeee;
     margin-top: 50px;
     margin-left: 220px;
     position: relative;
@@ -35,7 +35,7 @@ body {
 #footer {
     min-height: 60px;
     background: #FFF;
-    border-top: 1px solid #d6d6d6;
+    border-top: 1px solid #DDD;
     padding: 30px 50px 20px;
     font-size: 13px;
     color: #777;
@@ -1475,4 +1475,51 @@ svg .legendButtons{
 
 .d3-bar-chart-navigation #nextSlide{
     top: 0;
+}
+
+.dashboard-line {
+    border-bottom: 1px solid #DDD;
+    margin-bottom: 30px;
+}
+
+.dashboard-line:last-child {
+    border: none;
+}
+
+.box.threshold-item {
+    min-height: 46px;
+    padding: 13px 15px;
+    position: relative;
+}
+
+.box.threshold-item .status {
+    position: absolute;
+    left: 20px;
+    top: 16px;
+}
+
+.box.threshold-item .threshold-title {
+    display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    padding-left: 30px;
+}
+
+.gauge-content {
+    display: inline-block;
+    margin: 15px 0;
+}
+
+.gauge-info {
+    margin-top: 10px;
+}
+
+.gauge-info .gauge-info-item {
+    color: #999;
+    cursor: help;
+}
+
+.gauge-info .gauge-info-item:hover {
+    color: #444;
 }
