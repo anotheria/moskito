@@ -124,6 +124,40 @@
             </script>
         </ano:present>
 
+    <!-- selections of accumulators -->
+    <ano:present name="accumulatorSetBeans">
+        <div class="box">
+            <div class="box-title">
+                <a class="accordion-toggle tooltip-bottom" title="Close/Open" data-toggle="collapse" href="#collapselist2"><i class="fa fa-caret-right"></i></a>
+                <h3 class="pull-left">
+                    Accumulator sets
+                </h3>
+                <div class="box-right-nav">
+                    <a href="" class="tooltip-bottom" title="Help"><i class="fa fa-info-circle"></i></a>
+                </div>
+            </div>
+            <div id="collapselist2" class="box-content accordion-body collapse in">
+                <table class="table table-striped tablesorter">
+                    <thead>
+                    <tr>
+                        <th>Set<i class="fa fa-caret-down"></i></th>
+                        <th>Accumulators <i class="fa fa-caret-down"></i></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <ano:iterate id="acSet" name="accumulatorSetBeans" type="net.anotheria.moskito.webui.accumulators.bean.AccumulatorSetBean">
+                        <tr>
+                            <td><a href="${acSet.link}">${acSet.name}</a></td>
+                            <td>${acSet.accumulatorNames}</td>
+                        </tr>
+                    </ano:iterate>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </ano:present>
+    <!-- /selections of accumulators -->
+
         <div class="box">
             <form action="" method="get">
                 <div class="box-title">
@@ -178,17 +212,17 @@
                             </div>
                             <div class="radio">
                                 <label>
-                                    <input type="radio" checked="checked" value="combined" name="mode"> combine
+                                    <input type="radio" <ano:equal name="combined_set" value="true">checked="checked"</ano:equal> value="combined" name="mode"> combine
                                 </label>
                             </div>
                             <div class="radio">
                                 <label>
-                                    <input type="radio" value="normalized" name="mode"> combine and normalize
+                                    <input type="radio" value="normalized" name="mode" <ano:equal name="normalized_set" value="true">checked="checked"</ano:equal>> combine and normalize
                                 </label>
                             </div>
                             <div class="radio">
                                 <label>
-                                    <input type="radio" value="multiple" name="mode"> multiple graphs
+                                    <input type="radio" value="multiple" name="mode" <ano:equal name="multiple_set" value="true">checked="checked"</ano:equal>> multiple graphs
                                 </label>
                             </div>
                             <div class="form-group">

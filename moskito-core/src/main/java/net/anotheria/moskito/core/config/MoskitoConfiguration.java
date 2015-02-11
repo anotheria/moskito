@@ -1,6 +1,7 @@
 package net.anotheria.moskito.core.config;
 
 import net.anotheria.moskito.core.config.accumulators.AccumulatorsConfig;
+import net.anotheria.moskito.core.config.gauges.GaugesConfig;
 import net.anotheria.moskito.core.config.plugins.PluginsConfig;
 import net.anotheria.moskito.core.config.producers.BuiltinProducersConfig;
 import net.anotheria.moskito.core.config.producers.MBeanProducerConfig;
@@ -13,7 +14,7 @@ import org.configureme.annotations.ConfigureMe;
 import com.google.gson.annotations.SerializedName;
 
 /**
- * This class contains complete moskito configuration at runtime. It is configured with configureme, but can be altered
+ * This class contains complete moskito configuration at runtime. It is configured with ConfigureMe, but can be altered
  * programmatically. Use MoskitoConfigurationHolder.getConfiguration/setConfiguration to access/alter this class.
  *
  * @author lrosenberg
@@ -29,11 +30,18 @@ public class MoskitoConfiguration {
 	private ThresholdsAlertsConfig thresholdsAlertsConfig = new ThresholdsAlertsConfig();
 
 	/**
-	 * Config object for threshold.
+	 * Config object for thresholds.
 	 */
 	@Configure
 	@SerializedName("@thresholdsConfig")
 	private ThresholdsConfig thresholdsConfig = new ThresholdsConfig();
+
+	/**
+	 * Config object for gauges.
+	 */
+	@Configure
+	@SerializedName("@gaugesConfig")
+	private GaugesConfig gaugesConfig = new GaugesConfig();
 
 	/**
 	 * Config object for accumulators.
@@ -77,7 +85,7 @@ public class MoskitoConfiguration {
 	}
 
 	@Override public String toString(){
-		return "thresholdsAlertsConfig: "+thresholdsAlertsConfig+", thresholds: "+thresholdsConfig+", accumulators:" +accumulatorsConfig;
+		return "thresholdsAlertsConfig: "+thresholdsAlertsConfig+", thresholds: "+thresholdsConfig+", accumulators:" +accumulatorsConfig+", gauges: "+gaugesConfig;
 	}
 
 	public AccumulatorsConfig getAccumulatorsConfig() {
@@ -117,6 +125,14 @@ public class MoskitoConfiguration {
 
 	public void setBuiltinProducersConfig(BuiltinProducersConfig builtinProducersConfig) {
 		this.builtinProducersConfig = builtinProducersConfig;
+	}
+
+	public GaugesConfig getGaugesConfig() {
+		return gaugesConfig;
+	}
+
+	public void setGaugesConfig(GaugesConfig gaugesConfig) {
+		this.gaugesConfig = gaugesConfig;
 	}
 }
 

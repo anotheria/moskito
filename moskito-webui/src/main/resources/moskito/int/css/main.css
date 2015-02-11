@@ -1428,8 +1428,51 @@ svg .legendButtons{
     font-size: 14px;
 }
 
-.pieChart .legend .text {
+.pieChart .legend text {
     font-size: 14px;
 }
 
+.d3-bar-chart rect {
+    fill: steelblue;
+}
 
+.d3-bar-chart rect:hover {
+    fill: brown;
+}
+
+.d3-bar-chart text, .d3-bar-chart-text-measure {
+    font-size: 14px;
+}
+
+.d3-bar-chart .axis path,
+.d3-bar-chart .axis line {
+    fill: none;
+    stroke: #000;
+    stroke-opacity: .5;
+    shape-rendering: crispEdges;
+}
+
+.d3-bar-chart .valueText {
+    font-weight: bold;
+}
+
+.d3-bar-chart-navigation {
+    text-align: center;
+}
+
+.d3-bar-chart-navigation #prevSlide,
+.d3-bar-chart-navigation #nextSlide {
+    font-size: 20px;
+    color: #738de7;
+    margin: 0 10px;
+    cursor: pointer;
+}
+
+.d3-bar-chart-navigation #prevSlide:hover,
+.d3-bar-chart-navigation #nextSlide:hover {
+    color: #D5DDF8;
+}
+
+.d3-bar-chart-navigation #nextSlide{
+    top: 0;
+}

@@ -46,7 +46,7 @@ import net.anotheria.moskito.core.stats.impl.StatValueFactory;
  */
 public class ServletStats extends RequestOrientedStats{
 	/**
-	 * IOExceptions occured in this method / class and caught by the surrounding stub/skeleton.
+	 * IOExceptions occurred in this method / class and caught by the surrounding stub/skeleton.
 	 */
 	private StatValue ioExceptions;
 	

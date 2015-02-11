@@ -2,6 +2,8 @@ package net.anotheria.moskito.core.config.accumulators;
 
 import org.configureme.annotations.Configure;
 
+import java.util.Arrays;
+
 /**
  * TODO comment this class
  *
@@ -17,9 +19,15 @@ public class AccumulatorsConfig {
 	@Configure private int accumulationAmount = 200;
 
 	/**
-	 * Configured Accumulators.
+	 * Configured accumulators.
 	 */
 	@Configure private AccumulatorConfig[] accumulators;
+
+	/**
+	 * Configured accumulator sets.
+	 */
+	@Configure private AccumulatorSetConfig[] accumulatorSets;
+
 
 	public AccumulatorConfig[] getAccumulators() {
 		return accumulators;
@@ -35,5 +43,17 @@ public class AccumulatorsConfig {
 
 	public void setAccumulationAmount(int accumulationAmount) {
 		this.accumulationAmount = accumulationAmount;
+	}
+
+	public AccumulatorSetConfig[] getAccumulatorSets() {
+		return accumulatorSets;
+	}
+
+	public void setAccumulatorSets(AccumulatorSetConfig[] accumulatorSets) {
+		this.accumulatorSets = accumulatorSets;
+	}
+
+	@Override public String toString(){
+		return "Amount: "+accumulationAmount+", accumulators: "+ Arrays.toString(accumulators) + ", accumulatorSets: "+Arrays.toString(accumulatorSets);
 	}
 }

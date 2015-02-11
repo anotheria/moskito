@@ -3,8 +3,7 @@ package net.anotheria.moskito.webui.threshold.api;
 import net.anotheria.moskito.core.stats.TimeUnit;
 import net.anotheria.moskito.core.threshold.ThresholdConditionGuard;
 
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.*;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,7 +13,8 @@ import java.util.List;
  * @author lrosenberg
  *
  */
-@XmlRootElement
+@XmlRootElement(name = "ThresholdDefinition")
+@XmlAccessorType(XmlAccessType.FIELD)
 public class ThresholdDefinitionAO implements Serializable{
 	/**
 	 * Threshold id.
@@ -54,7 +54,7 @@ public class ThresholdDefinitionAO implements Serializable{
 	/**
 	 * The attached guards.
 	 */
-	@XmlElement
+	@XmlTransient
 	private List<ThresholdConditionGuard> guards;
 
 	private TimeUnit timeUnit;
