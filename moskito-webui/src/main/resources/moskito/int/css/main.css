@@ -1428,6 +1428,8 @@ svg .legendButtons{
     font-size: 14px;
 }
 
-.pieChart .legend text {
+.pieChart .legend .text {
     font-size: 14px;
 }
+
+
