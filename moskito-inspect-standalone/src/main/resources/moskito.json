@@ -64,6 +64,37 @@
         ]
     },
 
+    "@dashboardsConfig": {
+        "@dashboards": [
+          {
+            "name": "Web",
+            "@charts": [
+              {
+                "accumulators": ["URL REQ 5m"]
+              },
+              {
+                "accumulators": ["URL Time 5m"]
+              },
+              {
+                "accumulators": ["URL AVG 5m"]
+              },
+              {
+                "accumulators": ["SessionCount Cur Absolute"]
+              },
+              {
+                "caption": "Threads",
+                "accumulators": ["ThreadCount", "ThreadStateBlocked-1m", "ThreadStateRunnable-1m", "ThreadStateTimedWaiting-1m", "ThreadStateWaiting-1m"]
+              }
+
+            ]
+          },
+          {
+            "name": "Empty Dashboard"
+          }
+        ]
+
+    },
+
     "@pluginsConfig": {
         "@plugins": [
             {
