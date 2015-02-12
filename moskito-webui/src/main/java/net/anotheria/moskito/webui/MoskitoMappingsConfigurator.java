@@ -9,6 +9,7 @@ import net.anotheria.moskito.webui.accumulators.action.DeleteAccumulatorAction;
 import net.anotheria.moskito.webui.accumulators.action.GenerateChartAction;
 import net.anotheria.moskito.webui.accumulators.action.ShowAccumulatorAction;
 import net.anotheria.moskito.webui.accumulators.action.ShowAccumulatorsAction;
+import net.anotheria.moskito.webui.dashboards.action.ShowDashboardAction;
 import net.anotheria.moskito.webui.journey.action.AnalyzeJourneyAction;
 import net.anotheria.moskito.webui.journey.action.DeleteJourneyAction;
 import net.anotheria.moskito.webui.journey.action.ShowJourneyAction;
@@ -235,6 +236,12 @@ public class MoskitoMappingsConfigurator implements ActionMappingsConfigurator{
 
 		//errors
 		mappings.setOnError(new ActionForward("error", "/net/anotheria/moskito/webui/shared/jsp/Error.jsp"));
+
+		//dashboards
+		mappings.addMapping("mskDashboard", ShowDashboardAction.class,
+				new ActionForward("success", "/net/anotheria/moskito/webui/dashboards/jsp/Dashboard.jsp")
+		);
+
 
 	}
 

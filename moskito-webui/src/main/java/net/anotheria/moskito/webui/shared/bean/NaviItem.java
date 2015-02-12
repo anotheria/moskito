@@ -30,6 +30,10 @@ public enum NaviItem {
 	 */
 	ACCUMULATORS("Accumulators"),
 	/**
+	 * Navigation item for dashboards.
+	 */
+	DASHBOARDS("Dashboards"),
+	/**
 	 * Navigation item for threads.
 	 */
 	THREADS("Threads"),
@@ -49,6 +53,7 @@ public enum NaviItem {
 	private static ArrayList<NaviItem> menu;
 	static{
 		menu = new ArrayList<NaviItem>();
+		menu.add(DASHBOARDS);
 		menu.add(PRODUCERS);
 		menu.add(THRESHOLDS);
 		menu.add(JOURNEYS);
