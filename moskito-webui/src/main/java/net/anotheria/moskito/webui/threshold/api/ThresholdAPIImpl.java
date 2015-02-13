@@ -17,6 +17,7 @@ import net.anotheria.util.NumberUtils;
 import net.anotheria.util.StringUtils;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 /**
@@ -203,6 +204,42 @@ public class ThresholdAPIImpl extends AbstractMoskitoAPIImpl implements Threshol
 		ArrayList<ThresholdStatusAO> ret = new ArrayList<ThresholdStatusAO>();
 
 		for (Threshold t : thresholds){
+			ThresholdStatusAO statusAO = new ThresholdStatusAO();
+
+			statusAO.setName(t.getName());
+			statusAO.setColorCode(t.getStatus().toString().toLowerCase());
+			statusAO.setStatus(t.getStatus().toString().toLowerCase());
+			statusAO.setDescription(t.getDefinition().describe());
+			statusAO.setTimestamp(t.getStatusChangeTimestamp() == 0 ? "Never" : NumberUtils.makeISO8601TimestampString(t.getStatusChangeTimestamp()));
+			statusAO.setValue(t.getLastValue());
+			statusAO.setPreviousColorCode(t.getPreviousStatus().toString().toLowerCase());
+			statusAO.setPreviousStatus(t.getPreviousStatus().toString().toLowerCase());
+
+			statusAO.setTimestampForSorting(t.getStatusChangeTimestamp());
+			statusAO.setStatusForSorting(t.getStatus());
+			statusAO.setId(t.getId());
+			statusAO.setFlipCount(t.getFlipCount());
+
+
+			ret.add(statusAO);
+		}
+		return ret;
+	}
+
+	@Override
+	public List<ThresholdStatusAO> getThresholdStatuses(String ... names) throws APIException {
+		if (names==null)
+			return getThresholdStatuses();
+		HashSet<String> nameSet = new HashSet<String>();
+		for (String n : names)
+			nameSet.add(n);
+
+		List<Threshold> thresholds = ThresholdRepository.getInstance().getThresholds();
+		ArrayList<ThresholdStatusAO> ret = new ArrayList<ThresholdStatusAO>();
+
+		for (Threshold t : thresholds){
+			if (!nameSet.contains(t.getName()))
+				continue;
 			ThresholdStatusAO statusAO = new ThresholdStatusAO();
 
 			statusAO.setName(t.getName());

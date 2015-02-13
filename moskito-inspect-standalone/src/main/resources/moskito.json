@@ -86,7 +86,9 @@
                 "accumulators": ["ThreadCount", "ThreadStateBlocked-1m", "ThreadStateRunnable-1m", "ThreadStateTimedWaiting-1m", "ThreadStateWaiting-1m"]
               }
 
-            ]
+            ],
+            "@thresholds": ["ThreadCount","OldGenFree", "PermGenFree"]
+
           },
           {
             "name": "Empty Dashboard"
