@@ -28,6 +28,16 @@ public class DashboardChartBean {
 		this.chartData = chartData;
 	}
 
+	private String[] lineNames;
+
+	public String[] getLineNames() {
+		return lineNames;
+	}
+
+	public void setLineNames(String[] lineNames) {
+		this.lineNames = lineNames;
+	}
+
 	@Override
 	public String toString() {
 		return "DashboardChartBean{" +

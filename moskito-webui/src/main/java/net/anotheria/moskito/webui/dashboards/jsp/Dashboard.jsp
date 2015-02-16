@@ -257,13 +257,17 @@
         <ano:equal name="chartsPresent" value="true">
             <script type="text/javascript">
                 var multipleGraphData = [];
+                var multipleGraphNames = [];
                 <ano:iterate id="chart" name="charts" type="net.anotheria.moskito.webui.dashboards.bean.DashboardChartBean">
-                <% System.out.println("--- "+chart); %>
                 <ano:define id="singleChart" toScope="page" scope="page" name="chart" property="chartData" type="net.anotheria.moskito.webui.accumulators.api.AccumulatedSingleGraphAO"/>
-                    <% System.out.println("--- "+singleChart); %>
                 multipleGraphData.push([
                     <ano:iterate name="singleChart" property="data" id="value" indexId="i">
                     <ano:notEqual name="i" value="0">,</ano:notEqual><ano:write name="value" property="JSONWithNumericTimestamp"/>
+                    </ano:iterate>
+                ]);
+                multipleGraphNames.push([
+                    <ano:iterate name="chart" property="lineNames" id="lineName" indexId="i">
+                    <ano:notEqual name="i" value="0">,</ano:notEqual>'<ano:write name="lineName"/>'
                     </ano:iterate>
                 ]);
                 </ano:iterate>

@@ -9,15 +9,19 @@ import net.anotheria.moskito.core.config.dashboards.ChartConfig;
 import net.anotheria.moskito.core.config.dashboards.DashboardConfig;
 import net.anotheria.moskito.core.config.dashboards.DashboardsConfig;
 import net.anotheria.moskito.webui.accumulators.api.AccumulatedSingleGraphAO;
+import net.anotheria.moskito.webui.accumulators.api.AccumulatedValueAO;
 import net.anotheria.moskito.webui.accumulators.api.AccumulatorAO;
 import net.anotheria.moskito.webui.dashboards.bean.DashboardChartBean;
 import net.anotheria.moskito.webui.threshold.api.ThresholdStatusAO;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * TODO comment this class
@@ -26,6 +30,9 @@ import java.util.List;
  * @since 12.02.15 14:02
  */
 public class ShowDashboardAction extends BaseDashboardAction {
+
+	private static final String VALUE_PLACEHOLDER = "XXX";
+
 	@Override
 	public ActionCommand execute(ActionMapping actionMapping, FormBean formBean, HttpServletRequest request, HttpServletResponse response) throws Exception {
 
@@ -89,16 +96,99 @@ public class ShowDashboardAction extends BaseDashboardAction {
 				if (cc.getAccumulators().length == 1){
 					//this means we have a single accumulator chart
 					AccumulatorAO accumulator = getAccumulatorAPI().getAccumulatorByName(cc.getAccumulators()[0]);
-					System.out.println("Getting accumulator for "+ Arrays.toString(cc.getAccumulators())+" - "+accumulator);
 					AccumulatedSingleGraphAO graphAO = getAccumulatorAPI().getAccumulatorGraphData(accumulator.getId());
-					System.out.println("GraphAO: "+graphAO);
 					bean.setChartData(graphAO);
-					chartBeans.add(bean);
+					String[] lineNames = new String[1];
+					lineNames[0] = graphAO.getName();
+					bean.setLineNames(lineNames);
 
 				}
 
-				//TODO we disable charts with multiple accumulators for now.
-				//chartBeans.add(bean);
+				if (cc.getAccumulators().length>1){
+					// this means we have a chart with multiple data.
+					System.out.println("Building charts for "+Arrays.toString(cc.getAccumulators()));
+					//first get single charts
+					Map<Long, ArrayList<String>> chartValues = new HashMap<Long, ArrayList<String>>();
+					List<AccumulatedSingleGraphAO> singleCharts = new LinkedList<AccumulatedSingleGraphAO>();
+					for (String accName : cc.getAccumulators()){
+						AccumulatorAO acc = getAccumulatorAPI().getAccumulatorByName(accName);
+						AccumulatedSingleGraphAO graphAO = getAccumulatorAPI().getAccumulatorGraphData(acc.getId());
+						singleCharts.add(graphAO);
+					}
+					System.out.println("Source charts: "+singleCharts);
+
+					//ok, now lets prepare map with final values.
+					//for that we iterate over all single charts and create an entry in the final map for each
+					for (AccumulatedSingleGraphAO singleChart : singleCharts){
+						List<AccumulatedValueAO> valueList = singleChart.getData();
+						for (AccumulatedValueAO value : valueList){
+							long timestamp = value.getNumericTimestamp();
+							timestamp = timestamp / 1000 * 1000; //remove some unneeded details.
+							if (!chartValues.containsKey(timestamp)){
+								//otherwise a previous list already created some values.
+								//create a new entry with so many placeholders as there are charts.
+								ArrayList<String> futureValueList = new ArrayList<String>(singleCharts.size());
+								for (int i=0; i<singleCharts.size();i++)
+									futureValueList.add(VALUE_PLACEHOLDER);
+								chartValues.put(timestamp, futureValueList);
+
+							}
+						}
+					}
+					//after the above loop we now have a map with all timestamps and placeholders for each values in this list.
+					System.out.println("Intermediate data: "+chartValues);
+
+					//now next step - set the proper values.
+					// we separate the two very similar iterations, to be sure that the amount of values is properly set in the second iteration and
+					//all daa objects are in place.
+					for (int i =0; i<singleCharts.size(); i++){
+						AccumulatedSingleGraphAO singleChart = singleCharts.get(i);
+						List<AccumulatedValueAO> valueList = singleChart.getData();
+						for (AccumulatedValueAO value : valueList){
+							long timestamp = value.getNumericTimestamp();
+							timestamp = timestamp / 1000 * 1000; //remove some unneeded details.
+							ArrayList<String> futureValueList = chartValues.get(timestamp);
+							futureValueList.set(i, value.getFirstValue());
+
+						}
+					}
+					//after the above loop we now have a map with all timestamps and values when we have them. Now we only have to remove remaining placeholder.
+					System.out.println("Intermediate data 2: "+chartValues);
+
+					//now remove PLACEHOLDER - for now we only replace them with 0.
+					//in control we replace them with nearest value (left or right) but that might actually be misleading here.
+					for (List<String> someValues : chartValues.values()) {
+						for (int i=0; i<someValues.size(); i++){
+							if (someValues.get(i).equals(VALUE_PLACEHOLDER))
+								someValues.set(i, "0");
+						}
+					}
+
+
+					//finally set the data.
+					String[] lineNames = new String[singleCharts.size()];
+					for (int i=0; i<singleCharts.size(); i++){
+						lineNames[i] = singleCharts.get(i).getName();
+					}
+					bean.setLineNames(lineNames);
+
+
+					AccumulatedSingleGraphAO finalChart = new AccumulatedSingleGraphAO("-");
+					List<AccumulatedValueAO> finalChartData = new ArrayList<AccumulatedValueAO>();
+					for (Long l : chartValues.keySet()){
+						System.out.println("Examine "+l);
+						AccumulatedValueAO ao = new AccumulatedValueAO(""+l);
+						ao.setNumericTimestamp(l);
+						ao.addValues(chartValues.get(l));
+						finalChartData.add(ao);
+					}
+					finalChart.setData(finalChartData);
+					bean.setChartData(finalChart);
+					System.out.println("Final chart: "+finalChart);
+				}
+
+
+				chartBeans.add(bean);
 			}
 
 			if (chartBeans.size()>0) {

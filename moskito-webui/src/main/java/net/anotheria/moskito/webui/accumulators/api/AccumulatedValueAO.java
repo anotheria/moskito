@@ -51,6 +51,10 @@ public class AccumulatedValueAO implements Serializable{
 		values.add(value);
 	}
 
+	public void addValues(List<String> someValues){
+		values.addAll(someValues);
+	}
+
 	public String getTimestamp() {
 		return timestamp;
 	}
