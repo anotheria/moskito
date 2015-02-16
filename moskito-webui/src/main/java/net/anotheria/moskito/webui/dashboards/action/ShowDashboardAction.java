@@ -211,4 +211,10 @@ public class ShowDashboardAction extends BaseDashboardAction {
 
 		return actionMapping.success();
 	}
+
+	@Override
+	protected String getPageName() {
+		return "dashboard";
+	}
+
 }
