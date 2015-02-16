@@ -25,7 +25,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * TODO comment this class
+ * This action renders a dashboard. If no dashboard is selected explicitly the first dashboard is taken.
  *
  * @author lrosenberg
  * @since 12.02.15 14:02
