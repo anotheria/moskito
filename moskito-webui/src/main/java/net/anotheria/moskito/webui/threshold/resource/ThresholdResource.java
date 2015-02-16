@@ -13,7 +13,7 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.WebApplicationException;
 
 /**
- * This handles thresholds in the moskito-webui rest interface.
+ * This handles thresholds in the moskito-inspect rest interface.
  *
  * @author lrosenberg
  * @since 11.02.13 18:24

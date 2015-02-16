@@ -10,6 +10,7 @@ import java.util.List;
 
 /**
  * This bean contains a list of values for one timestamp.
+ * This is the main data part of a chart.
  * @author lrosenberg
  *
  */
