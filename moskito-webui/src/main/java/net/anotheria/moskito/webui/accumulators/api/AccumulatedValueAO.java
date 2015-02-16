@@ -1,5 +1,8 @@
 package net.anotheria.moskito.webui.accumulators.api;
 
+import net.anotheria.util.BasicComparable;
+import net.anotheria.util.sorter.IComparable;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -16,7 +19,7 @@ import java.util.List;
  */
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
-public class AccumulatedValueAO implements Serializable{
+public class AccumulatedValueAO implements Serializable, IComparable<AccumulatedValueAO>{
 	/**
 	 * Values aka data for graphs.
 	 */
@@ -104,5 +107,10 @@ public class AccumulatedValueAO implements Serializable{
 
 	public void setNumericTimestamp(long numericTimestamp) {
 		this.numericTimestamp = numericTimestamp;
+	}
+
+	@Override
+	public int compareTo(IComparable<? extends AccumulatedValueAO> iComparable, int i) {
+		return BasicComparable.compareLong(getNumericTimestamp(), ((AccumulatedValueAO)iComparable).getNumericTimestamp());
 	}
 }
