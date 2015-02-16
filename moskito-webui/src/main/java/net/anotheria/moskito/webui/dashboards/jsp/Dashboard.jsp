@@ -301,7 +301,7 @@
             <div class="row">
                 <ano:iterate name="thresholds" type="net.anotheria.moskito.webui.threshold.api.ThresholdStatusAO" id="threshold">
                 <div class="col-lg-2 col-md-3 col-sm-4">
-                    <div class="box threshold-item">
+                    <div class="box threshold-item tooltip-bottom" title="${threshold.name} ${threshold.value}">
                         <i class="status status-${threshold.colorCode}"></i>
                         <span class="threshold-title">${threshold.name}&nbsp;${threshold.value}</span>
                     </div>
