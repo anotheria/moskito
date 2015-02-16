@@ -262,7 +262,7 @@
                 <ano:define id="singleChart" toScope="page" scope="page" name="chart" property="chartData" type="net.anotheria.moskito.webui.accumulators.api.AccumulatedSingleGraphAO"/>
                     <% System.out.println("--- "+singleChart); %>
                 multipleGraphData.push([
-                    <ano:iterate name="chartData" property="data" id="value" indexId="i">
+                    <ano:iterate name="singleChart" property="data" id="value" indexId="i">
                     <ano:notEqual name="i" value="0">,</ano:notEqual><ano:write name="value" property="JSONWithNumericTimestamp"/>
                     </ano:iterate>
                 ]);
