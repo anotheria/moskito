@@ -140,7 +140,7 @@
     <ul class="nav nav-sidebar">
         <ano:equal name="currentNaviItem" property="id" value="dashboards">
             <li class="active">
-                <a href="mskDashboard" title="Dashboards" class="sidebar-tooltip-right">Dashboards <i class="fa fa-tachometer"></i></a>
+                <a href="mskDashboard" title="Dashboards" class="sidebar-tooltip-right">Dashboards (beta) <i class="fa fa-tachometer"></i></a>
                 <ul class="nav sub-menu">
                     <ano:iterate name="dashboardsMenuItems" id="item">
                         <li ${requestScope.selectedDashboard == item.name ? "class=\"active\"" : ""}><a href="mskDashboard?dashboard=${item.urlParameter}" title="${item.name}" class="sidebar-tooltip-right">${item.name} <i class="fa fa-tachometer"></i></a></li>
@@ -149,7 +149,7 @@
             </li>
         </ano:equal>
         <ano:notEqual name="currentNaviItem" property="id" value="dashboards">
-            <li><a href="mskDashboard" title="Dashboards" class="sidebar-tooltip-right">Dashboards <i class="fa fa-tachometer"></i></a></li>
+            <li><a href="mskDashboard" title="Dashboards" class="sidebar-tooltip-right">Dashboards (beta) <i class="fa fa-tachometer"></i></a></li>
         </ano:notEqual>
         <li ${requestScope.currentNaviItem.id == "producers" ? "class=\"active\"" : ""}><a href="mskShowAllProducers" title="Producers" class="sidebar-tooltip-right">Producers <i class="fa fa-wrench"></i></a></li>
         <li ${requestScope.currentNaviItem.id == "journeys" ? "class=\"active\"" : ""}><a href="mskShowJourneys" title="Journeys" class="sidebar-tooltip-right">Journeys <i class="fa fa-eye"></i></a></li>
