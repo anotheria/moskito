@@ -290,7 +290,7 @@
                             </div> --%>
                         </div>
                         <div id="collapse_chart${index}" class="box-content accordion-body collapse in">
-                            <div class="paddner"><div id="chart_div"></div></div>
+                            <div class="paddner"><div id="chart_div${index}" class="accumulator-chart"></div></div>
                         </div>
                     </div>
                 </div>
@@ -298,6 +298,32 @@
             </div>
 
         </div>
+
+
+            <script type="text/javascript">
+                var chartEngineName = '${chartEngine}' || 'GOOGLE_CHART_API';
+
+                var names = multipleGraphNames.map(function (graphNames) {
+                    return graphNames;
+                });
+
+                var containerSelectors = $('.accumulator-chart').map(function () {
+                    return $(this).attr("id");
+                });
+
+                multipleGraphData.forEach(function (graphData, index) {
+                    var chartParams = {
+                        container: containerSelectors[index],
+                        names: names[index],
+                        data: graphData,
+                        type: 'LineChart',
+                        title: names[index],
+                        dataType: 'datetime'
+                    };
+
+                    chartEngineIniter[chartEngineName](chartParams);
+                });
+            </script>
         </ano:equal>
 
         <ano:equal name="thresholdsPresent" value="true">
