@@ -67,16 +67,16 @@
     "@dashboardsConfig": {
         "@dashboards": [
           {
-            "name": "Web",
+            "name": "Example Dashboard",
             "@charts": [
               {
-                "accumulators": ["URL REQ 5m"]
+                "accumulators": ["URL REQ 1m"]
               },
               {
-                "accumulators": ["URL Time 5m"]
+                "accumulators": ["URL Time 1m"]
               },
               {
-                "accumulators": ["URL AVG 5m"]
+                "accumulators": ["URL AVG 1m"]
               },
               {
                 "accumulators": ["SessionCount Cur Absolute"]

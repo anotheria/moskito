@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html;charset=UTF-8"	session="true"
         %><%@ taglib uri="http://www.anotheria.net/ano-tags" prefix="ano"
-        %><!DOCTYPE html>
+        %>
+<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/html">
 
 <jsp:include page="../../shared/jsp/Header.jsp" flush="false"/>
@@ -254,42 +255,42 @@
         </ano:equal>
 
         <ano:equal name="chartsPresent" value="true">
+            <script type="text/javascript">
+                var multipleGraphData = [];
+                <ano:iterate id="chart" name="charts" type="net.anotheria.moskito.webui.dashboards.bean.DashboardChartBean">
+                <% System.out.println("--- "+chart); %>
+                <ano:define id="singleChart" toScope="page" scope="page" name="chart" property="chartData" type="net.anotheria.moskito.webui.accumulators.api.AccumulatedSingleGraphAO"/>
+                    <% System.out.println("--- "+singleChart); %>
+                multipleGraphData.push([
+                    <ano:iterate name="chartData" property="data" id="value" indexId="i">
+                    <ano:notEqual name="i" value="0">,</ano:notEqual><ano:write name="value" property="JSONWithNumericTimestamp"/>
+                    </ano:iterate>
+                ]);
+                </ano:iterate>
+            </script>
+
         <div class="dashboard-line">
 
             <div class="row">
+                <ano:iterate id="chart" name="charts" type="net.anotheria.moskito.webui.dashboards.bean.DashboardChartBean" indexId="index">
                 <div class="col-lg-6 col-md-12">
                     <div class="box">
                         <div class="box-title">
-                            <a class="accordion-toggle tooltip-bottom" title="Close/Open" data-toggle="collapse" href="#collapse1"><i class="fa fa-caret-right"></i></a>
+                            <a class="accordion-toggle tooltip-bottom" title="Close/Open" data-toggle="collapse" href="#collapse_chart${index}"><i class="fa fa-caret-right"></i></a>
                             <h3 class="pull-left">
-                                Chart for URL REQ 5m
+                                ${chart.caption}
                             </h3>
+                            <%--
                             <div class="box-right-nav">
                                 <a href="" class="tooltip-bottom" title="Refresh"><i class="fa fa-refresh"></i></a>
-                            </div>
+                            </div> --%>
                         </div>
-                        <div id="collapse1" class="box-content accordion-body collapse in">
+                        <div id="collapse_chart${index}" class="box-content accordion-body collapse in">
                             <div class="paddner"><div id="chart_div"></div></div>
                         </div>
                     </div>
                 </div>
-
-                <div class="col-lg-6 col-md-12">
-                    <div class="box">
-                        <div class="box-title">
-                            <a class="accordion-toggle tooltip-bottom" title="Close/Open" data-toggle="collapse" href="#collapse1"><i class="fa fa-caret-right"></i></a>
-                            <h3 class="pull-left">
-                                Chart for URL REQ 5m
-                            </h3>
-                            <div class="box-right-nav">
-                                <a href="" class="tooltip-bottom" title="Refresh"><i class="fa fa-refresh"></i></a>
-                            </div>
-                        </div>
-                        <div id="collapse2" class="box-content accordion-body collapse in">
-                            <div class="paddner"><div id="chart_div2"></div></div>
-                        </div>
-                    </div>
-                </div>
+                </ano:iterate>
             </div>
 
         </div>

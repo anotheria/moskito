@@ -5,12 +5,18 @@ import net.anotheria.maf.action.ActionMapping;
 import net.anotheria.maf.bean.FormBean;
 import net.anotheria.moskito.core.config.MoskitoConfiguration;
 import net.anotheria.moskito.core.config.MoskitoConfigurationHolder;
+import net.anotheria.moskito.core.config.dashboards.ChartConfig;
 import net.anotheria.moskito.core.config.dashboards.DashboardConfig;
 import net.anotheria.moskito.core.config.dashboards.DashboardsConfig;
+import net.anotheria.moskito.webui.accumulators.api.AccumulatedSingleGraphAO;
+import net.anotheria.moskito.webui.accumulators.api.AccumulatorAO;
+import net.anotheria.moskito.webui.dashboards.bean.DashboardChartBean;
 import net.anotheria.moskito.webui.threshold.api.ThresholdStatusAO;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -50,8 +56,6 @@ public class ShowDashboardAction extends BaseDashboardAction {
 			}
 		}
 
-		System.out.println("Selected dashboard "+selectedDashboard+", name: "+dashboardName);
-
 		if (selectedDashboard == null){
 			return actionMapping.success();
 		}
@@ -64,6 +68,45 @@ public class ShowDashboardAction extends BaseDashboardAction {
 			thresholdsPresent = true;
 		}
 
+		//prepare charts
+		if (selectedDashboard.getCharts()!=null && selectedDashboard.getCharts().length>0){
+			LinkedList<DashboardChartBean> chartBeans = new LinkedList<DashboardChartBean>();
+			for (ChartConfig cc : selectedDashboard.getCharts()){
+				DashboardChartBean bean = new DashboardChartBean();
+				if (cc.getCaption()!=null){
+					bean.setCaption(cc.getCaption());
+				}else{
+					String caption = "";
+					for (String acc : cc.getAccumulators()){
+						if (caption.length()!=0)
+							caption += " ";
+						caption += acc;
+					}
+					bean.setCaption(caption);
+				}
+
+				//now check the data.
+				if (cc.getAccumulators().length == 1){
+					//this means we have a single accumulator chart
+					AccumulatorAO accumulator = getAccumulatorAPI().getAccumulatorByName(cc.getAccumulators()[0]);
+					System.out.println("Getting accumulator for "+ Arrays.toString(cc.getAccumulators())+" - "+accumulator);
+					AccumulatedSingleGraphAO graphAO = getAccumulatorAPI().getAccumulatorGraphData(accumulator.getId());
+					System.out.println("GraphAO: "+graphAO);
+					bean.setChartData(graphAO);
+					chartBeans.add(bean);
+
+				}
+
+				//TODO we disable charts with multiple accumulators for now.
+				//chartBeans.add(bean);
+			}
+
+			if (chartBeans.size()>0) {
+				request.setAttribute("charts", chartBeans);
+				chartsPresent = true;
+
+			}
+		}
 
 
 
