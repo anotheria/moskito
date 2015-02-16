@@ -7,8 +7,8 @@ import net.anotheria.maf.action.CommandRedirect;
 import net.anotheria.moskito.webui.accumulators.action.CreateAccumulatorAction;
 import net.anotheria.moskito.webui.accumulators.action.DeleteAccumulatorAction;
 import net.anotheria.moskito.webui.accumulators.action.GenerateChartAction;
-import net.anotheria.moskito.webui.accumulators.action.ShowAccumulatorAction;
 import net.anotheria.moskito.webui.accumulators.action.ShowAccumulatorsAction;
+import net.anotheria.moskito.webui.dashboards.action.ShowDashboardAction;
 import net.anotheria.moskito.webui.journey.action.AnalyzeJourneyAction;
 import net.anotheria.moskito.webui.journey.action.DeleteJourneyAction;
 import net.anotheria.moskito.webui.journey.action.ShowJourneyAction;
@@ -152,16 +152,6 @@ public class MoskitoMappingsConfigurator implements ActionMappingsConfigurator{
 		mappings.addAlias("mskAccumulators.xml", "mskAccumulators");
 		mappings.addAlias("mskAccumulators.json", "mskAccumulators");
 		
-		mappings.addMapping("mskAccumulator", ShowAccumulatorAction.class,
-				new ActionForward("html", "/net/anotheria/moskito/webui/accumulators/jsp/Accumulator.jsp"),
-				new ActionForward("xml", "/net/anotheria/moskito/webui/shared/jsp/AccumulatorXML.jsp"),
-				new ActionForward("csv", "/net/anotheria/moskito/webui/accumulators/jsp/AccumulatorCSV.jsp"),
-				new ActionForward("json", "/net/anotheria/moskito/webui/accumulators/jsp/AccumulatorJSON.jsp")
-		);
-		mappings.addAlias("mskAccumulator.csv", "mskAccumulator");
-		mappings.addAlias("mskAccumulator.xml", "mskAccumulator");
-		mappings.addAlias("mskAccumulator.json", "mskAccumulator");
-		
 		mappings.addMapping("mskAccumulatorDelete", DeleteAccumulatorAction.class,
                 new CommandRedirect("redirect", "mskAccumulators"));
 		mappings.addMapping("mskAccumulatorCreate", CreateAccumulatorAction.class,
@@ -235,6 +225,12 @@ public class MoskitoMappingsConfigurator implements ActionMappingsConfigurator{
 
 		//errors
 		mappings.setOnError(new ActionForward("error", "/net/anotheria/moskito/webui/shared/jsp/Error.jsp"));
+
+		//dashboards
+		mappings.addMapping("mskDashboard", ShowDashboardAction.class,
+				new ActionForward("success", "/net/anotheria/moskito/webui/dashboards/jsp/Dashboard.jsp")
+		);
+
 
 	}
 

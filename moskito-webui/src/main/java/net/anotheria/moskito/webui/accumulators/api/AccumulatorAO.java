@@ -19,6 +19,12 @@ public class AccumulatorAO implements Serializable {
 	 * Name of the accumulator.
 	 */
 	private String name;
+
+	/**
+	 * Id of the accumulator.
+	 */
+	private String id;
+
 	/**
 	 * Accumulated values over the time.
 	 */
@@ -26,6 +32,7 @@ public class AccumulatorAO implements Serializable {
 
 	public AccumulatorAO(Accumulator acc){
 		name = acc.getName();
+		id = acc.getId();
 		values = new LinkedList<AccumulatedValueAO>();
 		for (AccumulatedValue v : acc.getValues()){
 			long timestamp = v.getTimestamp()/1000*1000;
@@ -48,5 +55,13 @@ public class AccumulatorAO implements Serializable {
 
 	public List<AccumulatedValueAO> getValues() {
 		return values;
+	}
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
 	}
 }

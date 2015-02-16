@@ -39,4 +39,6 @@ public interface AccumulatorAPI extends API, Service {
 	AccumulatedSingleGraphAO getAccumulatorGraphData(String id) throws APIException;
 
 	AccumulatorAO getAccumulator(String id) throws APIException;
+
+	AccumulatorAO getAccumulatorByName(String name) throws APIException;
 }

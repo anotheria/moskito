@@ -1,5 +1,8 @@
 package net.anotheria.moskito.webui.accumulators.api;
 
+import net.anotheria.util.BasicComparable;
+import net.anotheria.util.sorter.IComparable;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -10,12 +13,13 @@ import java.util.List;
 
 /**
  * This bean contains a list of values for one timestamp.
+ * This is the main data part of a chart.
  * @author lrosenberg
  *
  */
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
-public class AccumulatedValueAO implements Serializable{
+public class AccumulatedValueAO implements Serializable, IComparable<AccumulatedValueAO>{
 	/**
 	 * Values aka data for graphs.
 	 */
@@ -48,6 +52,10 @@ public class AccumulatedValueAO implements Serializable{
 
 	public void addValue(String value) {
 		values.add(value);
+	}
+
+	public void addValues(List<String> someValues){
+		values.addAll(someValues);
 	}
 
 	public String getTimestamp() {
@@ -99,5 +107,10 @@ public class AccumulatedValueAO implements Serializable{
 
 	public void setNumericTimestamp(long numericTimestamp) {
 		this.numericTimestamp = numericTimestamp;
+	}
+
+	@Override
+	public int compareTo(IComparable<? extends AccumulatedValueAO> iComparable, int i) {
+		return BasicComparable.compareLong(getNumericTimestamp(), ((AccumulatedValueAO)iComparable).getNumericTimestamp());
 	}
 }

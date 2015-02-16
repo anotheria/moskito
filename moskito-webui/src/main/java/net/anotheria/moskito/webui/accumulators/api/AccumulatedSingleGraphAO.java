@@ -68,4 +68,12 @@ public class AccumulatedSingleGraphAO implements Serializable{
 		ret = StringUtils.replace(ret, jsReplaceMap);
 		return ret;
 	}
+
+	@Override
+	public String toString() {
+		return "AccumulatedSingleGraphAO{" +
+				"data=" + data +
+				", name='" + name + '\'' +
+				'}';
+	}
 }
