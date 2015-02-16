@@ -59,4 +59,6 @@ public abstract class BaseDashboardAction extends BaseMoskitoUIAction {
 		return dashboardsConfig.getDashboards()[0].getName();
 
 	}
+
+
 }
