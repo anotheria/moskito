@@ -70,6 +70,14 @@
             "name": "Example Dashboard",
             "@charts": [
               {
+                "caption": "Memory",
+                "accumulators": ["OldGenFree MB 1m", "OldGenUsed MB 1m", "PermGenFree MB 1m"]
+              },
+              {
+                "caption": "Threads",
+                "accumulators": ["ThreadCount", "ThreadStateBlocked-1m", "ThreadStateRunnable-1m", "ThreadStateTimedWaiting-1m", "ThreadStateWaiting-1m"]
+              },
+              {
                 "accumulators": ["URL REQ 1m"]
               },
               {
@@ -82,8 +90,7 @@
                 "accumulators": ["SessionCount Cur Absolute"]
               },
               {
-                "caption": "Threads",
-                "accumulators": ["ThreadCount", "ThreadStateBlocked-1m", "ThreadStateRunnable-1m", "ThreadStateTimedWaiting-1m", "ThreadStateWaiting-1m"]
+                "accumulators": ["CPU Time 1m"]
               }
 
             ],

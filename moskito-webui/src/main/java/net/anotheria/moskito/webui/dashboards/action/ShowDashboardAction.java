@@ -13,18 +13,19 @@ import net.anotheria.moskito.webui.accumulators.api.AccumulatedValueAO;
 import net.anotheria.moskito.webui.accumulators.api.AccumulatorAO;
 import net.anotheria.moskito.webui.dashboards.bean.DashboardChartBean;
 import net.anotheria.moskito.webui.threshold.api.ThresholdStatusAO;
+import net.anotheria.util.sorter.DummySortType;
+import net.anotheria.util.sorter.StaticQuickSorter;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
 /**
- * TODO comment this class
+ * This action renders a dashboard. If no dashboard is selected explicitly the first dashboard is taken.
  *
  * @author lrosenberg
  * @since 12.02.15 14:02
@@ -32,6 +33,8 @@ import java.util.Map;
 public class ShowDashboardAction extends BaseDashboardAction {
 
 	private static final String VALUE_PLACEHOLDER = "XXX";
+
+	private static final DummySortType SORT_TYPE = new DummySortType();
 
 	@Override
 	public ActionCommand execute(ActionMapping actionMapping, FormBean formBean, HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -106,7 +109,6 @@ public class ShowDashboardAction extends BaseDashboardAction {
 
 				if (cc.getAccumulators().length>1){
 					// this means we have a chart with multiple data.
-					System.out.println("Building charts for "+Arrays.toString(cc.getAccumulators()));
 					//first get single charts
 					Map<Long, ArrayList<String>> chartValues = new HashMap<Long, ArrayList<String>>();
 					List<AccumulatedSingleGraphAO> singleCharts = new LinkedList<AccumulatedSingleGraphAO>();
@@ -115,7 +117,6 @@ public class ShowDashboardAction extends BaseDashboardAction {
 						AccumulatedSingleGraphAO graphAO = getAccumulatorAPI().getAccumulatorGraphData(acc.getId());
 						singleCharts.add(graphAO);
 					}
-					System.out.println("Source charts: "+singleCharts);
 
 					//ok, now lets prepare map with final values.
 					//for that we iterate over all single charts and create an entry in the final map for each
@@ -136,7 +137,6 @@ public class ShowDashboardAction extends BaseDashboardAction {
 						}
 					}
 					//after the above loop we now have a map with all timestamps and placeholders for each values in this list.
-					System.out.println("Intermediate data: "+chartValues);
 
 					//now next step - set the proper values.
 					// we separate the two very similar iterations, to be sure that the amount of values is properly set in the second iteration and
@@ -153,7 +153,6 @@ public class ShowDashboardAction extends BaseDashboardAction {
 						}
 					}
 					//after the above loop we now have a map with all timestamps and values when we have them. Now we only have to remove remaining placeholder.
-					System.out.println("Intermediate data 2: "+chartValues);
 
 					//now remove PLACEHOLDER - for now we only replace them with 0.
 					//in control we replace them with nearest value (left or right) but that might actually be misleading here.
@@ -176,15 +175,17 @@ public class ShowDashboardAction extends BaseDashboardAction {
 					AccumulatedSingleGraphAO finalChart = new AccumulatedSingleGraphAO("-");
 					List<AccumulatedValueAO> finalChartData = new ArrayList<AccumulatedValueAO>();
 					for (Long l : chartValues.keySet()){
-						System.out.println("Examine "+l);
 						AccumulatedValueAO ao = new AccumulatedValueAO(""+l);
 						ao.setNumericTimestamp(l);
 						ao.addValues(chartValues.get(l));
 						finalChartData.add(ao);
 					}
+
+					//now sort.
+					finalChartData = StaticQuickSorter.sort(finalChartData, SORT_TYPE);
+
 					finalChart.setData(finalChartData);
 					bean.setChartData(finalChart);
-					System.out.println("Final chart: "+finalChart);
 				}
 
 
