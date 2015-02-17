@@ -1312,7 +1312,7 @@ span.call-info {
 
 .accumulator-chart {
     min-height: 300px;
-    min-width: 600px;
+    min-width: 450px;
     font: 12px sans-serif;
 }
 /* D3 svg */
