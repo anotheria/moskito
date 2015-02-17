@@ -318,7 +318,11 @@
                         data: graphData,
                         type: 'LineChart',
                         title: names[index],
-                        dataType: 'datetime'
+                        dataType: 'datetime',
+                        options: {
+                            legendsPerSlice: 5,
+                            margin: {top: 20, right: 40, bottom: 20, left: 80}
+                        }
                     };
 
                     chartEngineIniter[chartEngineName](chartParams);

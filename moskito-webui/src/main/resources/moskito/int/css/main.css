@@ -1329,6 +1329,12 @@ span.call-info {
     stroke-width: 1.5px;
 }
 
+.accumulator-chart .line:hover {
+    fill: none;
+    stroke: steelblue;
+    stroke-width: 3.0px;
+}
+
 .accumulator-chart .grid .tick {
     stroke: lightgrey;
     opacity: 0.7;

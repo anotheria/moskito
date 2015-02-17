@@ -1,7 +1,7 @@
-if (typeof google != 'undefined') google.load("visualization", "1", {packages:["corechart"]});
+if (typeof google != 'undefined') google.load("visualization", "1", {packages: ["corechart"]});
 
 var chartEngineIniter = {
-    GOOGLE_CHART_API: function(params){
+    GOOGLE_CHART_API: function (params) {
         var chartData = new google.visualization.DataTable(),
             chartRows = params.data || [],
             chartColumnType = params.dataType || 'string';
@@ -24,7 +24,7 @@ var chartEngineIniter = {
         }
 
         chartData.addRows(chartRows);
-        var options = {is3D:true, title: params.title || '', chartArea:{width: '80%', left: 75}, width: params.width, height: params.height};
+        var options = {is3D: true, title: params.title || '', chartArea: {width: '80%', left: 75}, width: params.width, height: params.height};
         var chartInfo = {
             params: '',
             container: params.container,
@@ -42,19 +42,19 @@ var chartEngineIniter = {
             "refreshInterval": 60
         });
     },
-    D3 : function(params){
+    D3: function (params) {
         $('#' + params.container).empty();
 
-        var data = params.data.map( function(d) {
+        var data = params.data.map(function (d) {
             return {
                 label: d[0],
-                value:d[1]
+                value: d[1]
             };
         });
 
         var d3Chart = D3chart.getInstance();
 
-        d3Chart("#"+params.container, data, params);
+        d3Chart("#" + params.container, data, params);
     }
 };
 
@@ -148,12 +148,12 @@ var D3chart = (function () {
                     .attr("transform", function (d, i) {
                         return "translate(0," + i * 20 + ")";
                     })
-                    .on("mouseover", function(d){
-                        if(options.mouseover)
+                    .on("mouseover", function (d) {
+                        if (options.mouseover)
                             options.mouseover(d.index);
                     })
-                    .on("mouseout", function(d){
-                        if(options.mouseout)
+                    .on("mouseout", function (d) {
+                        if (options.mouseout)
                             options.mouseout(d.index);
                     });
                 newAdded.append("text");
@@ -180,12 +180,12 @@ var D3chart = (function () {
                     .attr("transform", function (d, i) {
                         return "translate(0," + i * 20 + ")";
                     })
-                    .on("mouseover", function(d){
-                        if(options.mouseover)
+                    .on("mouseover", function (d) {
+                        if (options.mouseover)
                             options.mouseover(d.index);
                     })
-                    .on("mouseout", function(d){
-                        if(options.mouseout)
+                    .on("mouseout", function (d) {
+                        if (options.mouseout)
                             options.mouseout(d.index);
                     });
                 legend.append("text");
@@ -269,7 +269,7 @@ var D3chart = (function () {
                         bodyRect = document.body.getBoundingClientRect(),
                         svgRect = rect.getBoundingClientRect(),
                         offsetLeft = svgRect.left - bodyRect.left,
-                        left = d3mouse[0] + offsetLeft+ 10;
+                        left = d3mouse[0] + offsetLeft + 10;
 
                     tooltip.html(html.join(""))
                         .style("left", (d3.event.pageX) + "px")
@@ -304,7 +304,7 @@ var D3chart = (function () {
                 return ret.join(" ");
             };
 
-            var getPercent = function(d) {
+            var getPercent = function (d) {
                 return (d.endAngle - d.startAngle > 0.2 ?
                     Math.round(1000 * (d.endAngle - d.startAngle) / (Math.PI * 2)) / 10 + '%' : '');
             };
@@ -358,7 +358,7 @@ var D3chart = (function () {
                     d3.select(".d3-chart-tooltip").classed("hidden", true);
                 };
 
-                var onMouseMove = function(d){
+                var onMouseMove = function (d) {
                     showChartTooltip(this, [
                             {
                                 color: colorFunc(d.data.name),
@@ -436,14 +436,14 @@ var D3chart = (function () {
                     h = radius * 0.2;
 
                 renderPie(svg, pieChartData, x, y, rx, ry, 0, h);
-                renderInteractivePart(svg, pieChartData, x, y, rx+7, ry+7, 0, h);
+                renderInteractivePart(svg, pieChartData, x, y, rx + 7, ry + 7, 0, h);
 
                 var legendOptions = {
                     legendsPerSlice: 15,
-                    mouseover: function(id){
+                    mouseover: function (id) {
                         d3.select(".interactivePart").selectAll("*[data-slice-number='" + id + "']").style("opacity", .4);
                     },
-                    mouseout: function(id){
+                    mouseout: function (id) {
                         d3.select(".interactivePart").selectAll("*[data-slice-number='" + id + "']").style("opacity", 0);
                     },
                     containerWidth: width,
@@ -488,8 +488,7 @@ var D3chart = (function () {
                         return true;
                     }]
                 ]),
-                formatTime = d3.time.format("%H:%M"),
-                margin = {top: 20, right: 80, bottom: 30, left: 150};
+                formatTime = d3.time.format("%H:%M");
 
             var showChartTooltip = function () {
                 var tooltip = d3.select(".d3-chart-tooltip");
@@ -528,7 +527,7 @@ var D3chart = (function () {
                 }
             }();
 
-            var _createContainer = function (containerId, names, data) {
+            var _createContainer = function (containerId, names, data, options) {
                 var chartContainer = d3.select(containerId);
                 containers[containerId] = {};
                 containers[containerId].container = chartContainer;
@@ -538,14 +537,16 @@ var D3chart = (function () {
                 };
                 containers[containerId].data = data;
 
-                var width = parseInt(chartContainer.style("width"), 10) - margin.left - margin.right,
+                var margin = options.margin,
+                    width = parseInt(chartContainer.style("width"), 10) - margin.left - margin.right,
                     height = parseInt(chartContainer.style("height"), 10) - margin.top - margin.bottom;
                 _setWidth(containerId, width);
                 _setHeight(containerId, height);
             };
 
-            var _createSvg = function (containerId) {
-                var svg = containers[containerId].container.append("svg").attr("class", "graph")
+            var _createSvg = function (containerId, options) {
+                var margin = options.margin,
+                    svg = containers[containerId].container.append("svg").attr("class", "graph")
                     .attr("width", _getWidth(containerId) + margin.left + margin.right)
                     .attr("height", _getHeight(containerId) + margin.top + margin.bottom)
                     .append("g");
@@ -598,7 +599,7 @@ var D3chart = (function () {
                 });
 
                 yScale.domain([
-                    minValue < 0 ? minValue : 0,
+                        minValue < 0 ? minValue : 0,
                     d3.max(timeValues, function (t) {
                         return d3.max(t.values, function (v) {
                             return v.value;
@@ -817,8 +818,8 @@ var D3chart = (function () {
             };
 
             var init = function (containerId, names, data, options) {
-                _createContainer(containerId, names, data);
-                _createSvg(containerId);
+                _createContainer(containerId, names, data, options);
+                _createSvg(containerId, options);
 
                 var timeValues = names.map(function (name, namesIdx) {
                     return {
@@ -835,7 +836,6 @@ var D3chart = (function () {
                 _createScales(containerId, timeValues);
                 _createAxises(containerId);
                 _createGrid(containerId);
-                _createLine(containerId, timeValues);
                 _renderAxises(containerId, containers[containerId].svg);
 
                 var dotsValues = data.map(function (d, dataIdx) {
@@ -851,9 +851,10 @@ var D3chart = (function () {
                 });
 
                 _createAndRenderFocuses(containerId, dotsValues);
+                _createLine(containerId, timeValues);
 
                 var legendOptions = {
-                    legendsPerSlice: 7,
+                    legendsPerSlice: options.legendsPerSlice,
                     containerWidth: _getWidth(containerId),
                     names: containers[containerId].names.map(function (name, idx) {
                         return {
@@ -861,7 +862,7 @@ var D3chart = (function () {
                             value: name,
                             color: _getColorFunc(containerId)(name)
                         }
-                    }) ,
+                    }),
                     rectWidth: 10,
                     rectHeight: 10,
                     textDy: ".35em"
@@ -870,9 +871,10 @@ var D3chart = (function () {
                 createLegend(containers[containerId].svg, legendOptions);
             };
 
-            var render = function (containerId) {
+            var render = function (containerId, options) {
                 var chartContainer = containers[containerId].container;
                 var svg = containers[containerId].svg;
+                var margin = options.margin;
                 var width = parseInt(chartContainer.style("width"), 10) - margin.left - margin.right;
                 var height = parseInt(chartContainer.style("height"), 10) - margin.top - margin.bottom;
 
@@ -899,10 +901,12 @@ var D3chart = (function () {
                 grids = {},
                 lines = {};
 
-            return (lineChart = function (containerId, inputNames, inputData) {
-                init(containerId, inputNames, inputData, {
-                    legendsPerSlice: 7
-                });
+            return (lineChart = function (containerId, params) {
+                var inputNames = params.names,
+                    inputData = params.data,
+                    options = params.options;
+
+                init(containerId, inputNames, inputData, options);
 
                 d3.select(window).on('resize.' + containerId, function () {
                     var resizeTimer = -1;
@@ -910,7 +914,7 @@ var D3chart = (function () {
                         if (resizeTimer > -1)
                             clearTimeout(resizeTimer);
                         resizeTimer = setTimeout(function () {
-                            render(containerId);
+                            render(containerId, options);
                         }, 100);
                     };
                 }());
@@ -923,14 +927,14 @@ var D3chart = (function () {
                     dispatch.on("resizeLineCharts", function () {
                         Object.keys(containers).forEach(function (containerId, index) {
                             setTimeout(function () {
-                                render(containerId);
+                                render(containerId, options);
                             }, (index + 1) * 10);
                         });
                     });
                 }
 
-                render(containerId);
-            })(arguments[0], arguments[1], arguments[2]);
+                render(containerId, options);
+            })(arguments[0], arguments[1]);
         };
 
         var barChart = function () {
@@ -1013,13 +1017,13 @@ var D3chart = (function () {
                     .attr("height", barHeight)
                     .attr("x", 0)
                     .attr("y", function (d, i) {
-                        return y(i) - barHeight/2;
+                        return y(i) - barHeight / 2;
                     });
 
                 bar.append("text")
                     .attr("x", -20)
                     .attr("y", function (d, i) {
-                        return y(i) - barHeight/2;
+                        return y(i) - barHeight / 2;
                     })
                     .attr("dy", "2em")
                     .style("text-anchor", "end")
@@ -1049,7 +1053,7 @@ var D3chart = (function () {
                         return x(d.value) / 2
                     })
                     .attr("y", function (d, i) {
-                        return y(i) - barHeight/2;
+                        return y(i) - barHeight / 2;
                     })
                     .style("fill", function (d) {
                         if (d.valueTextSize.width + 20 > x(d.value))
@@ -1212,16 +1216,16 @@ var D3chart = (function () {
                     barChart(id, params);
                     break;
                 case "LineChart":
-                    lineChart(id, params.names, params.data);
+                    lineChart(id, params);
                     break;
                 default:
-                    lineChart(id, params.names, params.data);
+                    lineChart(id, params);
             }
         }
     }
 
     return {
-        getInstance: function(){
+        getInstance: function () {
             if (instance === undefined) {
                 instance = createD3chart();
             }

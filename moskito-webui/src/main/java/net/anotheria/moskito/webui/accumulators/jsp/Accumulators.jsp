@@ -92,7 +92,11 @@
                             data: graphData,
                             type: '<ano:write name="type"/>',
                             title: names[index],
-                            dataType: 'datetime'
+                            dataType: 'datetime',
+                            options: {
+                                legendsPerSlice: 7,
+                                margin: {top: 20, right: 80, bottom: 30, left: 150}
+                            }
                         };
 
                         chartEngineIniter[chartEngineName](chartParams);
@@ -109,7 +113,11 @@
                         data: data,
                         type: '<ano:write name="type"/>',
                         title: '',
-                        dataType: 'datetime'
+                        dataType: 'datetime',
+                        options: {
+                            legendsPerSlice: 7,
+                            margin: {top: 20, right: 80, bottom: 30, left: 150}
+                        }
                     };
 
                     chartEngineIniter[chartEngineName](chartParams);
