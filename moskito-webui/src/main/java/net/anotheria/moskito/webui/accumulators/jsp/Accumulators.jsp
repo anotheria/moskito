@@ -54,10 +54,10 @@
         <%-- /single chart box --%>
 
         <%-- Chart boxes for multiple charts --%>
+           <div>
             <ano:present name="multiple_set">
                 <ano:iterate name="singleGraphData" type="net.anotheria.moskito.webui.accumulators.api.AccumulatedSingleGraphAO" id="singleGraph">
-
-                    <div class="box">
+                    <div class="box" id="parentBox">
                         <div class="box-title">
                             <a class="accordion-toggle tooltip-bottom" title="Close/Open" data-toggle="collapse" href="#collapse-chart-${singleGraph.nameForJS}"><i class="fa fa-caret-right"></i></a>
                             <h3 class="pull-left">
@@ -65,6 +65,7 @@
                             </h3>
                             <div class="box-right-nav">
                                 <a href="" class="tooltip-bottom" title="Refresh"><i class="fa fa-refresh"></i></a>
+                                <a class="up tooltip-bottom" title="Up" href="#"><i class="fa fa-angle-up"></i></a> <a class="down tooltip-bottom" title="Down" href="#"><i class="fa fa-angle-down"></i></a>
                             </div>
                         </div>
                         <div id="collapse-chart-${singleGraph.nameForJS}" class="box-content accordion-body collapse in">
@@ -73,7 +74,24 @@
                     </div>
                 </ano:iterate>
             </ano:present>
-            <%-- /charts' boxes --%>
+            </div>
+        <%-- /charts' boxes --%>
+
+            <script type="text/javascript">
+                //changing the order of multiple charts
+                $(document).ready(function(){
+                    $(".up").click(function(){
+                        var pdiv = $(this).closest('#parentBox');
+                        pdiv.insertBefore(pdiv.prev());
+                        return false
+                    });
+                    $(".down").click(function(){
+                        var pdiv = $(this).closest('#parentBox');
+                        pdiv.insertAfter(pdiv.next());
+                        return false
+                    });
+                });
+            </script>
 
             <script type="text/javascript">
                 var chartEngineName = '${chartEngine}' || 'GOOGLE_CHART_API';
