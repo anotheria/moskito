@@ -797,9 +797,20 @@ var D3chart = (function () {
                             d1 = dotsValues[i] || d0,
                             d = x0 - d0.time > d1.time - x0 ? d1 : d0;
 
-                        var sortedValues = d.values.slice().sort(function(a,b){
-                            var diff = a.value - b.value;
-                            return !isFinite(diff) ? !isFinite(a.value) ? 1 : -1 : diff;
+                        var sortedValues = d.values.slice().sort(function (a, b) {
+                            var aValue = a.value,
+                                bValue = b.value;
+
+                            if (!isFinite(aValue) && !isFinite(bValue))
+                                return 0;
+
+                            if (!isFinite(aValue))
+                                return 1;
+
+                            if (!isFinite(bValue))
+                                return -1;
+
+                            return aValue - bValue;
                         });
 
                         var y0 = yScale.invert(d3.mouse(self)[1]),
