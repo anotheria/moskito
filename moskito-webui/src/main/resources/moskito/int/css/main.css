@@ -1329,7 +1329,7 @@ span.call-info {
     stroke-width: 1.5px;
 }
 
-.accumulator-chart .line:hover {
+.accumulator-chart .line.hover {
     fill: none;
     stroke: steelblue;
     stroke-width: 3.0px;
@@ -1394,11 +1394,19 @@ svg .legendButtons{
     vertical-align: middle;
 }
 
+.d3-chart-tooltip span {
+    vertical-align: -12px;
+}
+
 .d3-chart-tooltip .tooltip-section .tooltip-key {
     float: left;
     line-height: 16px;
     margin-right: 10px;
     display: table-cell;
+}
+
+.d3-chart-tooltip .tooltip-section .tooltip-key.highlight{
+    font-weight: bold;
 }
 
 .d3-chart-tooltip .tooltip-section .tooltip-value {

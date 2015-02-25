@@ -306,7 +306,7 @@ var D3chart = (function () {
 
             var getPercent = function (d) {
                 return (d.endAngle - d.startAngle > 0.2 ?
-                    Math.round(1000 * (d.endAngle - d.startAngle) / (Math.PI * 2)) / 10 + '%' : '');
+                Math.round(1000 * (d.endAngle - d.startAngle) / (Math.PI * 2)) / 10 + '%' : '');
             };
 
             var renderPie = function (svg, data, x, y, rx, ry, ir, h) {
@@ -500,13 +500,15 @@ var D3chart = (function () {
                 var titleSectionTmpl = '<div class="tooltip-section tooltip-title"><strong>{title}</strong></div>',
                     tooltipSectionTmpl = '<div class="tooltip-section">' +
                         '<div class="tooltip-swatch" style="background-color: {color}"></div>' +
-                        '<div class="tooltip-key">{name}</div>' +
+                        '<div class="tooltip-key{highlight}">{name}</div>' +
                         '<div class="tooltip-value">{value}</div>' +
                         '</div>';
 
                 return function (containerId, rect, title, data) {
                     var titleSectionHtml = template(titleSectionTmpl, {title: title}),
                         tooltipSectionsHtml = data.map(function (d) {
+                            d.highlight = d.highlight ? " highlight" : "";
+
                             return template(tooltipSectionTmpl, d);
                         }),
                         html = [].concat.call(titleSectionHtml, tooltipSectionsHtml);
@@ -547,9 +549,9 @@ var D3chart = (function () {
             var _createSvg = function (containerId, options) {
                 var margin = options.margin,
                     svg = containers[containerId].container.append("svg").attr("class", "graph")
-                    .attr("width", _getWidth(containerId) + margin.left + margin.right)
-                    .attr("height", _getHeight(containerId) + margin.top + margin.bottom)
-                    .append("g");
+                        .attr("width", _getWidth(containerId) + margin.left + margin.right)
+                        .attr("height", _getHeight(containerId) + margin.top + margin.bottom)
+                        .append("g");
                 svg.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
                 containers[containerId].svg = svg;
@@ -599,7 +601,7 @@ var D3chart = (function () {
                 });
 
                 yScale.domain([
-                        minValue < 0 ? minValue : 0,
+                    minValue < 0 ? minValue : 0,
                     d3.max(timeValues, function (t) {
                         return d3.max(t.values, function (v) {
                             return v.value;
@@ -688,6 +690,7 @@ var D3chart = (function () {
                     .data(timeValues)
                     .enter().append("g")
                     .attr("class", "timeValue");
+
                 timeValue.append("path")
                     .attr("class", "line");
 
@@ -771,10 +774,16 @@ var D3chart = (function () {
                     .on("mouseout", function () {
                         focus.style("display", "none");
                         d3.select(".d3-chart-tooltip").classed("hidden", true);
+                        svg.selectAll(".line").classed("hover", false);
                     })
                     .on("mousemove", function () {
                         var xScale = scales[containerId].xScale;
                         var yScale = scales[containerId].yScale;
+
+                        var bisectValue = d3.bisector(function (d) {
+                            return d.value;
+                        }).left;
+
 
                         var bisectDate = d3.bisector(function (d) {
                             return d.time;
@@ -788,11 +797,23 @@ var D3chart = (function () {
                             d1 = dotsValues[i] || d0,
                             d = x0 - d0.time > d1.time - x0 ? d1 : d0;
 
+                        var sortedValues = d.values.slice().sort(function(a,b){
+                            var diff = a.value - b.value;
+                            return !isFinite(diff) ? !isFinite(a.value) ? 1 : -1 : diff;
+                        });
+
+                        var y0 = yScale.invert(d3.mouse(self)[1]),
+                            iValue = bisectValue(sortedValues, y0, 1),
+                            v0 = sortedValues[iValue - 1],
+                            v1 = sortedValues[iValue] || v0,
+                            v = y0 - v0.value > v1.value - y0 ? v1 : v0;
+
                         d.values.forEach(function (timeValue, ind) {
                             tooltipData.push({
                                 color: color(timeValue.name),
                                 name: timeValue.name,
-                                value: valueFormat(timeValue.value)
+                                value: valueFormat(timeValue.value),
+                                highlight: v.lineId == ind
                             });
 
                             if (isNaN(timeValue.value)) {
@@ -802,9 +823,13 @@ var D3chart = (function () {
 
                             focusDots[ind]
                                 .attr("transform",
-                                    "translate(" + xScale(d.time) + "," +
-                                    yScale(timeValue.value) + ")")
+                                "translate(" + xScale(d.time) + "," +
+                                yScale(timeValue.value) + ")")
                                 .attr("r", 3.5);
+                        });
+
+                        svg.selectAll(".line").each(function (el) {
+                            d3.select(this).classed("hover", el.lineId == v.lineId);
                         });
 
                         showChartTooltip(containerId, self, formatTime(d.time), tooltipData);
@@ -823,6 +848,7 @@ var D3chart = (function () {
 
                 var timeValues = names.map(function (name, namesIdx) {
                     return {
+                        lineId: namesIdx,
                         name: name,
                         values: data.map(function (d, dataIdx) {
                             return {
@@ -843,6 +869,7 @@ var D3chart = (function () {
                         time: new Date(d[0]),
                         values: names.map(function (name, nameIdx) {
                             return {
+                                lineId: nameIdx,
                                 value: d[nameIdx + 1],
                                 name: name
                             }
@@ -850,8 +877,8 @@ var D3chart = (function () {
                     }
                 });
 
-                _createAndRenderFocuses(containerId, dotsValues);
                 _createLine(containerId, timeValues);
+                _createAndRenderFocuses(containerId, dotsValues);
 
                 var legendOptions = {
                     legendsPerSlice: options.legendsPerSlice,
