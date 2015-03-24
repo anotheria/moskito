@@ -83,6 +83,7 @@
         <dependency>
             <groupId>net.anotheria</groupId>
             <artifactId>ano-db</artifactId>
+			<version>2.1.0</version>
             <scope>test</scope>
         </dependency>
         <!-- Enable logback logging -->

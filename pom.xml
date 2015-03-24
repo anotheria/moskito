@@ -68,12 +68,6 @@
 				<artifactId>ano-tags</artifactId>
 				<version>2.1.0</version>
 			</dependency>
-			<!-- for moskito sql -->
-			<dependency>
-				<groupId>net.anotheria</groupId>
-				<artifactId>ano-db</artifactId>
-				<version>2.1.0</version>
-			</dependency>
 			<dependency>
 				<groupId>net.anotheria</groupId>
 				<artifactId>ano-web</artifactId>

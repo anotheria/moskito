@@ -173,6 +173,12 @@
             <groupId>net.anotheria</groupId>
             <artifactId>ano-prise</artifactId>
             <version>2.1.0</version>
+			<exclusions>
+				<exclusion>
+				  <groupId>net.anotheria</groupId>
+	              <artifactId>ano-db</artifactId>
+				</exclusion>
+			</exclusions>
         </dependency>
 
 

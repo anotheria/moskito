@@ -30,6 +30,10 @@
                 <groupId>blowfish</groupId>
                 <artifactId>blowfish</artifactId>
             </exclusion>
+            <exclusion>
+                <groupId>net.sf.dozer</groupId>
+                <artifactId>dozer</artifactId>
+            </exclusion>
         </exclusions>
 	</dependency>
 	<dependency>
