@@ -5,6 +5,7 @@ import net.anotheria.maf.action.ActionCommand;
 import net.anotheria.maf.action.ActionMapping;
 import net.anotheria.maf.bean.FormBean;
 import net.anotheria.moskito.webui.MoSKitoWebUIContext;
+import net.anotheria.moskito.webui.shared.bean.NaviItem;
 import net.anotheria.moskito.webui.util.APILookupUtility;
 import net.anotheria.moskito.webui.util.ConnectivityMode;
 import net.anotheria.moskito.webui.util.RemoteInstance;
@@ -19,7 +20,7 @@ import javax.servlet.http.HttpServletResponse;
  * @author lrosenberg
  * @since 24.03.14 00:33
  */
-public class SelectServerAction extends AbstractAction{
+public class SelectServerAction extends BaseMoskitoUIAction{
 	@Override
 	public ActionCommand execute(ActionMapping mapping, FormBean formBean, HttpServletRequest req, HttpServletResponse res) throws Exception {
         MoSKitoWebUIContext.getCallContext().setCurrentSession(req.getSession());
@@ -38,4 +39,14 @@ public class SelectServerAction extends AbstractAction{
 		}
 		return mapping.redirect();
 	}
+
+    @Override
+    protected String getLinkToCurrentPage(HttpServletRequest req) {
+        return null;
+    }
+
+    @Override
+    protected NaviItem getCurrentNaviItem() {
+        return NaviItem.NONE;
+    }
 }
