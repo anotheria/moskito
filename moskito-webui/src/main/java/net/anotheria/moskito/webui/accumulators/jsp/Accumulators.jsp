@@ -113,7 +113,7 @@
                             dataType: 'datetime',
                             options: {
                                 legendsPerSlice: 7,
-                                margin: {top: 20, right: 80, bottom: 30, left: 150}
+                                margin: {top: 20, right: 40, bottom: 30, left: 40}
                             }
                         };
 
@@ -134,7 +134,7 @@
                         dataType: 'datetime',
                         options: {
                             legendsPerSlice: 7,
-                            margin: {top: 20, right: 80, bottom: 30, left: 150}
+                            margin: {top: 20, right: 40, bottom: 30, left: 40}
                         }
                     };
 

@@ -629,7 +629,14 @@ var D3chart = (function () {
                 var yAxis = d3.svg.axis()
                     .scale(yScale)
                     .orient("left")
-                    .ticks(5);
+                    .ticks(5)
+                    .tickFormat(function (d) {
+                        if (d < 1000)
+                            return d;
+
+                        var prefix = d3.formatPrefix(d);
+                        return prefix.scale(d).toFixed() + prefix.symbol;
+                    });
 
                 svg.append("g")
                     .attr("class", "x axis");
@@ -780,13 +787,12 @@ var D3chart = (function () {
                         var xScale = scales[containerId].xScale;
                         var yScale = scales[containerId].yScale;
 
-                        var bisectValue = d3.bisector(function (d) {
-                            return d.value;
-                        }).left;
-
-
                         var bisectDate = d3.bisector(function (d) {
                             return d.time;
+                        }).left;
+
+                        var bisectValue = d3.bisector(function (d) {
+                            return d.value;
                         }).left;
 
                         var self = this;

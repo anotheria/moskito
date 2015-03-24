@@ -321,7 +321,7 @@
                         dataType: 'datetime',
                         options: {
                             legendsPerSlice: 5,
-                            margin: {top: 20, right: 40, bottom: 20, left: 80}
+                            margin: {top: 20, right: 10, bottom: 20, left: 40}
                         }
                     };
 
