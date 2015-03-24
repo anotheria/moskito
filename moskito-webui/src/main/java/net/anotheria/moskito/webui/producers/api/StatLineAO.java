@@ -28,4 +28,12 @@ public class StatLineAO implements Serializable{
 	public void setValues(List<StatValueAO> values) {
 		this.values = values;
 	}
+
+	@Override
+	public String toString() {
+		return "StatLineAO{" +
+				"statName='" + statName + '\'' +
+				", values=" + values +
+				'}';
+	}
 }

@@ -160,4 +160,13 @@ public class ProducerAO implements Serializable, IComparable{
 	public void setFullProducerClassName(String fullProducerClassName) {
 		this.fullProducerClassName = fullProducerClassName;
 	}
+
+	@Override
+	public String toString() {
+		return "ProducerAO{" +
+				"producerId='" + producerId + '\'' +
+				", subsystem='" + subsystem + '\'' +
+				", category='" + category + '\'' +
+				'}';
+	}
 }

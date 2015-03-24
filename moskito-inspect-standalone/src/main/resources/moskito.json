@@ -104,6 +104,41 @@
 
     },
 
+    "@gaugesConfig": {
+        "@gauges": [
+          {
+            "name": "Constant",
+            "@minValue": {
+                "constant": 0
+            },
+            "@currentValue": {
+              "constant": 70
+            },
+            "@maxValue": {
+              "constant":100
+            }
+          },
+          {
+            "name": "Sessions",
+            "@minValue": {
+              "constant": 0
+            },
+            "@currentValue": {
+              "producerName": "SessionCount",
+              "statName": "Sessions",
+              "valueName": "cur",
+              "intervalName": "default"
+            },
+            "@maxValue": {
+              "producerName": "SessionCount",
+              "statName": "Sessions",
+              "valueName": "max",
+              "intervalName": "default"
+            }
+          }
+        ]
+    },
+
     "@pluginsConfig": {
         "@plugins": [
             {
