@@ -17,255 +17,63 @@
     <div class="content">
 
         <ano:equal name="gaugesPresent" value="true">
-        <!-- gauges js -->
+            <!-- gauges js -->
             <script language="JavaScript">
-            var gauges = [];
-            <ano:iterate name="gauges" type="net.anotheria.moskito.webui.gauges.api.GaugeAO" id="gauge">
+                var gauges = [];
+                <ano:iterate name="gauges" type="net.anotheria.moskito.webui.gauges.api.GaugeAO" id="gauge">
                 gauges.push({
-                "name": '${gauge.name}',
-                "caption": '${gauge.caption}',
-                "complete": ${gauge.complete},
-                "min": ${gauge.min},
-                "current": ${gauge.current},
-                "max": ${gauge.max}
+                    "name": '${gauge.name}',
+                    "caption": '${gauge.caption}',
+                    "complete": ${gauge.complete},
+                    "min": ${gauge.min.rawValue},
+                    "current": ${gauge.current.rawValue},
+                    "max": ${gauge.max.rawValue}
                 });
-            </ano:iterate>
+                </ano:iterate>
             </script>
+
             <!-- gauges -->
-        <div class="dashboard-line">
-            <div class="row">
-                <div class="col-lg-3 col-md-4 col-sm-6">
-                    <div class="box gauge-item">
-                        <div class="box-title">
-                            <a class="accordion-toggle tooltip-bottom" title="Close/Open" data-toggle="collapse" href="#collapse3"><i class="fa fa-caret-right"></i></a>
-                            <h3 class="pull-left">
-                                Gauges Name
-                            </h3>
-                        </div>
-                        <div id="collapse3" class="box-content accordion-body collapse in">
-                            <div class="paddner text-center">
-                                <div class="gauge-content">
-                                    <img src="../resources/moskito/int/img/gauge.png" alt="">
-                                </div>
-                                <div class="gauge-info row">
-                                    <div class="col-xs-4 gauge-info-item tooltip-bottom" title="Some info">
-                                        Min
-                                    </div>
-                                    <div class="col-xs-4 gauge-info-item tooltip-bottom" title="Some info">
-                                        Current
-                                    </div>
-                                    <div class="col-xs-4 gauge-info-item tooltip-bottom" title="Some info">
-                                        Max
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-4 col-sm-6">
-                    <div class="box gauge-item">
-                        <div class="box-title">
-                            <a class="accordion-toggle tooltip-bottom" title="Close/Open" data-toggle="collapse" href="#collapse4"><i class="fa fa-caret-right"></i></a>
-                            <h3 class="pull-left">
-                                Gauges Name
-                            </h3>
-                        </div>
-                        <div id="collapse4" class="box-content accordion-body collapse in">
-                            <div class="paddner text-center">
-                                <div class="gauge-content">
-                                    <img src="../resources/moskito/int/img/gauge.png" alt="">
-                                </div>
-                                <div class="gauge-info row">
-                                    <div class="col-xs-4 gauge-info-item tooltip-bottom" title="Some info">
-                                        Min
-                                    </div>
-                                    <div class="col-xs-4 gauge-info-item tooltip-bottom" title="Some info">
-                                        Current
-                                    </div>
-                                    <div class="col-xs-4 gauge-info-item tooltip-bottom" title="Some info">
-                                        Max
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-4 col-sm-6">
-                    <div class="box gauge-item">
-                        <div class="box-title">
-                            <a class="accordion-toggle tooltip-bottom" title="Close/Open" data-toggle="collapse" href="#collapse5"><i class="fa fa-caret-right"></i></a>
-                            <h3 class="pull-left">
-                                Gauges Name
-                            </h3>
-                        </div>
-                        <div id="collapse5" class="box-content accordion-body collapse in">
-                            <div class="paddner text-center">
-                                <div class="gauge-content">
-                                    <img src="../resources/moskito/int/img/gauge.png" alt="">
-                                </div>
-                                <div class="gauge-info row">
-                                    <div class="col-xs-4 gauge-info-item tooltip-bottom" title="Some info">
-                                        Min
-                                    </div>
-                                    <div class="col-xs-4 gauge-info-item tooltip-bottom" title="Some info">
-                                        Current
-                                    </div>
-                                    <div class="col-xs-4 gauge-info-item tooltip-bottom" title="Some info">
-                                        Max
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-4 col-sm-6">
-                    <div class="box gauge-item">
-                        <div class="box-title">
-                            <a class="accordion-toggle tooltip-bottom" title="Close/Open" data-toggle="collapse" href="#collapse6"><i class="fa fa-caret-right"></i></a>
-                            <h3 class="pull-left">
-                                Gauges Name
-                            </h3>
-                        </div>
-                        <div id="collapse6" class="box-content accordion-body collapse in">
-                            <div class="paddner text-center">
-                                <div class="gauge-content">
-                                    <img src="../resources/moskito/int/img/gauge.png" alt="">
-                                </div>
-                                <div class="gauge-info row">
-                                    <div class="col-xs-4 gauge-info-item tooltip-bottom" title="Some info">
-                                        Min
-                                    </div>
-                                    <div class="col-xs-4 gauge-info-item tooltip-bottom" title="Some info">
-                                        Current
-                                    </div>
-                                    <div class="col-xs-4 gauge-info-item tooltip-bottom" title="Some info">
-                                        Max
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+            <div class="dashboard-line">
+                <div class="row">
+                    <ano:iterate name="gauges" type="net.anotheria.moskito.webui.gauges.api.GaugeAO" id="gauge" indexId="index">
+                        <div class="col-lg-3 col-md-4 col-sm-6">
+                            <div class="box gauge-item">
+                                <div class="box-title">
+                                    <a class="accordion-toggle tooltip-bottom" title="Close/Open" data-toggle="collapse" href="#gauge_collapse_chart${index}"><i class="fa fa-caret-right"></i></a>
 
-                <div class="col-lg-3 col-md-4 col-sm-6">
-                    <div class="box gauge-item">
-                        <div class="box-title">
-                            <a class="accordion-toggle tooltip-bottom" title="Close/Open" data-toggle="collapse" href="#collapse7"><i class="fa fa-caret-right"></i></a>
-                            <h3 class="pull-left">
-                                Gauges Name
-                            </h3>
-                        </div>
-                        <div id="collapse7" class="box-content accordion-body collapse in">
-                            <div class="paddner text-center">
-                                <div class="gauge-content">
-                                    <img src="../resources/moskito/int/img/gauge.png" alt="">
+                                    <h3 class="pull-left">
+                                        ${gauge.caption}
+                                    </h3>
                                 </div>
-                                <div class="gauge-info row">
-                                    <div class="col-xs-4 gauge-info-item tooltip-bottom" title="Some info">
-                                        Min
-                                    </div>
-                                    <div class="col-xs-4 gauge-info-item tooltip-bottom" title="Some info">
-                                        Current
-                                    </div>
-                                    <div class="col-xs-4 gauge-info-item tooltip-bottom" title="Some info">
-                                        Max
+                                <div id="gauge_collapse_chart${index}" class="box-content accordion-body collapse in">
+                                    <div class="paddner text-center">
+                                        <div id="gaugeChart${index}" class="gauge-content gauge-chart"></div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </ano:iterate>
                 </div>
-
-                <div class="col-lg-3 col-md-4 col-sm-6">
-                    <div class="box gauge-item">
-                        <div class="box-title">
-                            <a class="accordion-toggle tooltip-bottom" title="Close/Open" data-toggle="collapse" href="#collapse10"><i class="fa fa-caret-right"></i></a>
-                            <h3 class="pull-left">
-                                Gauges Name
-                            </h3>
-                        </div>
-                        <div id="collapse10" class="box-content accordion-body collapse in">
-                            <div class="paddner text-center">
-                                <div class="gauge-content">
-                                    <img src="../resources/moskito/int/img/gauge.png" alt="">
-                                </div>
-                                <div class="gauge-info row">
-                                    <div class="col-xs-4 gauge-info-item tooltip-bottom" title="Some info">
-                                        Min
-                                    </div>
-                                    <div class="col-xs-4 gauge-info-item tooltip-bottom" title="Some info">
-                                        Current
-                                    </div>
-                                    <div class="col-xs-4 gauge-info-item tooltip-bottom" title="Some info">
-                                        Max
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-lg-3 col-md-4 col-sm-6">
-                    <div class="box gauge-item">
-                        <div class="box-title">
-                            <a class="accordion-toggle tooltip-bottom" title="Close/Open" data-toggle="collapse" href="#collapse8"><i class="fa fa-caret-right"></i></a>
-                            <h3 class="pull-left">
-                                Gauges Name
-                            </h3>
-                        </div>
-                        <div id="collapse8" class="box-content accordion-body collapse in">
-                            <div class="paddner text-center">
-                                <div class="gauge-content">
-                                    <img src="../resources/moskito/int/img/gauge.png" alt="">
-                                </div>
-                                <div class="gauge-info row">
-                                    <div class="col-xs-4 gauge-info-item tooltip-bottom" title="Some info">
-                                        Min
-                                    </div>
-                                    <div class="col-xs-4 gauge-info-item tooltip-bottom" title="Some info">
-                                        Current
-                                    </div>
-                                    <div class="col-xs-4 gauge-info-item tooltip-bottom" title="Some info">
-                                        Max
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-lg-3 col-md-4 col-sm-6">
-                    <div class="box gauge-item">
-                        <div class="box-title">
-                            <a class="accordion-toggle tooltip-bottom" title="Close/Open" data-toggle="collapse" href="#collapse9"><i class="fa fa-caret-right"></i></a>
-                            <h3 class="pull-left">
-                                Gauges Name
-                            </h3>
-                        </div>
-                        <div id="collapse9" class="box-content accordion-body collapse in">
-                            <div class="paddner text-center">
-                                <div class="gauge-content">
-                                    <img src="../resources/moskito/int/img/gauge.png" alt="">
-                                </div>
-                                <div class="gauge-info row">
-                                    <div class="col-xs-4 gauge-info-item tooltip-bottom" title="Some info">
-                                        Min
-                                    </div>
-                                    <div class="col-xs-4 gauge-info-item tooltip-bottom" title="Some info">
-                                        Current
-                                    </div>
-                                    <div class="col-xs-4 gauge-info-item tooltip-bottom" title="Some info">
-                                        Max
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
             </div>
-        </div>
-        <!-- // end gauges -->
+            <!-- // end gauges -->
+
+            <script type="text/javascript">
+                var chartEngineName = '${chartEngine}' || 'GOOGLE_CHART_API';
+
+                var gaugeContainerSelectors = $('.gauge-chart').map(function () {
+                    return $(this).attr("id");
+                });
+
+                gauges.forEach(function (gaugeData, index) {
+                    var chartParams = {
+                        container: gaugeContainerSelectors[index],
+                        data: gaugeData,
+                        type: 'GaugeChart'
+                    };
+
+                    chartEngineIniter[chartEngineName](chartParams);
+                });
+            </script>
         </ano:equal>
 
         <ano:equal name="chartsPresent" value="true">
