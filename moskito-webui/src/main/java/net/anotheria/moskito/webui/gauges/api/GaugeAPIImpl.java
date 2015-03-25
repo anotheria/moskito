@@ -86,7 +86,7 @@ public class GaugeAPIImpl extends AbstractMoskitoAPIImpl implements GaugeAPI {
 				) {
 			complete = false;
 		}
-		ao.setComplete(true);
+		ao.setComplete(complete);
 		return ao;
 	}
 
