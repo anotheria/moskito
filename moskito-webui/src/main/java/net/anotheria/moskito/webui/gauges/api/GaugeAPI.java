@@ -9,7 +9,7 @@ import org.distributeme.annotation.SupportService;
 import java.util.List;
 
 /**
- * TODO comment this class
+ * This API provides access to gauges.
  *
  * @author lrosenberg
  * @since 25.03.15 11:40
@@ -17,5 +17,18 @@ import java.util.List;
 @DistributeMe(agentsSupport=false)
 @SupportService
 public interface GaugeAPI extends API, Service{
+	/**
+	 * Returns all configured gauges with their current min/max/current values.
+	 * @return
+	 * @throws APIException
+	 */
 	List<GaugeAO> getGauges() throws APIException;
+
+	/**
+	 * Returns named gauges and their values. This method is used by the dashboard.
+	 * @param names
+	 * @return
+	 * @throws APIException
+	 */
+	List<GaugeAO> getGauges(String ... names) throws APIException;
 }

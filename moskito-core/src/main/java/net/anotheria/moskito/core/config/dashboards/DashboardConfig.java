@@ -26,13 +26,13 @@ public class DashboardConfig {
 	private ChartConfig [] charts;
 
 	/**
-	 * Names of the thresholds that should on that dashboard.
+	 * Names of the thresholds that should be on that dashboard.
 	 */
 	@Configure
 	private String [] thresholds;
 
 	/**
-	 * Names of the gauges that should on that dashboard.
+	 * Names of the gauges that should be on that dashboard.
 	 */
 	@Configure
 	private String [] gauges;

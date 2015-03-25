@@ -1,5 +1,6 @@
 package net.anotheria.moskito.webui.gauges.api;
 
+import net.anotheria.anoplass.api.APIException;
 import net.anotheria.anoplass.api.APIInitException;
 import net.anotheria.moskito.core.config.MoskitoConfigurationHolder;
 import net.anotheria.moskito.core.config.gauges.GaugeConfig;
@@ -44,10 +45,34 @@ public class GaugeAPIImpl extends AbstractMoskitoAPIImpl implements GaugeAPI {
 		return gaugeAOList;
 	}
 
+	@Override
+	public List<GaugeAO> getGauges(String... names) throws APIException {
+		if (names==null)
+			throw new APIException("Unexpected parameter null for gauge names");
+
+		LinkedList<GaugeAO> ret = new LinkedList<GaugeAO>();
+		for (String name : names){
+			GaugeConfig config = getGaugeConfigByName(name);
+			ret.add(createGaugeAO(config));
+		}
+		return ret;
+	}
+
+	private GaugeConfig getGaugeConfigByName(String name) throws APIException{
+		GaugesConfig gg = MoskitoConfigurationHolder.getConfiguration().getGaugesConfig();
+		for (GaugeConfig g : gg.getGauges()){
+			if (g.getName().equals(name))
+				return g;
+		}
+		throw new APIException("Can't find gauge configuration for '"+name+"'");
+
+	}
+
 	private GaugeAO createGaugeAO(GaugeConfig fromConfig){
 
 		GaugeAO ao = new GaugeAO();
 		ao.setName(fromConfig.getName());
+		ao.setCaption(fromConfig.getCaption());
 		boolean complete = true;
 		StatValueAO current = gaugeValue2statValue(fromConfig.getCurrentValue());
 		ao.setCurrent(current);
@@ -84,10 +109,7 @@ public class GaugeAPIImpl extends AbstractMoskitoAPIImpl implements GaugeAPI {
 					return new StringValueAO(null, "Error");
 				}
 			}
-
 		}
-
-
 		return new StringValueAO(null, "n.A.");
 	}
 

@@ -12,6 +12,7 @@ import net.anotheria.moskito.webui.accumulators.api.AccumulatedSingleGraphAO;
 import net.anotheria.moskito.webui.accumulators.api.AccumulatedValueAO;
 import net.anotheria.moskito.webui.accumulators.api.AccumulatorAO;
 import net.anotheria.moskito.webui.dashboards.bean.DashboardChartBean;
+import net.anotheria.moskito.webui.gauges.api.GaugeAO;
 import net.anotheria.moskito.webui.threshold.api.ThresholdStatusAO;
 import net.anotheria.util.sorter.DummySortType;
 import net.anotheria.util.sorter.StaticQuickSorter;
@@ -76,6 +77,13 @@ public class ShowDashboardAction extends BaseDashboardAction {
 			List<ThresholdStatusAO> thresholds = getThresholdAPI().getThresholdStatuses(selectedDashboard.getThresholds());
 			request.setAttribute("thresholds", thresholds);
 			thresholdsPresent = true;
+		}
+
+		//prepare gauges
+		if (selectedDashboard.getGauges()!=null && selectedDashboard.getGauges().length>0){
+			List<GaugeAO> gauges = getGaugeAPI().getGauges(selectedDashboard.getGauges());
+			request.setAttribute("gauges", gauges);
+			gaugesPresent = true;
 		}
 
 		//prepare charts

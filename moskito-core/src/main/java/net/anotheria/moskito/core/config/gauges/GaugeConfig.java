@@ -21,6 +21,8 @@ public class GaugeConfig implements Serializable{
 	private GaugeValueConfig currentValue;
 	@Configure
 	private GaugeValueConfig maxValue;
+	@Configure
+	private String caption;
 
 	public GaugeValueConfig getCurrentValue() {
 		return currentValue;
@@ -52,6 +54,14 @@ public class GaugeConfig implements Serializable{
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public String getCaption() {
+		return caption == null ? getName() : caption;
+	}
+
+	public void setCaption(String caption) {
+		this.caption = caption;
 	}
 
 	@Override public String toString(){

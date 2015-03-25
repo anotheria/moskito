@@ -94,7 +94,8 @@
               }
 
             ],
-            "@thresholds": ["ThreadCount","OldGenFree", "PermGenFree"]
+            "@thresholds": ["ThreadCount","OldGenFree", "PermGenFree"],
+            "@gauges": ["Blocked", "FreeMem", "Running", "Sessions"]
 
           },
           {
@@ -133,6 +134,62 @@
               "producerName": "SessionCount",
               "statName": "Sessions",
               "valueName": "max",
+              "intervalName": "default"
+            }
+          },
+          {
+            "name": "FreeMem",
+            "@minValue": {
+              "constant": 0
+            },
+            "@currentValue": {
+              "producerName": "JavaRuntimeFree",
+              "statName": "JavaRuntimeFree",
+              "valueName": "Current Mb",
+              "intervalName": "default"
+            },
+            "@maxValue": {
+              "producerName": "JavaRuntimeFree",
+              "statName": "JavaRuntimeFree",
+              "valueName": "Max Mb",
+              "intervalName": "default"
+            }
+          },
+          {
+            "name": "Blocked",
+            "caption": "Blocked Threads",
+            "@minValue": {
+              "constant": 0
+            },
+            "@currentValue": {
+              "producerName": "ThreadStates",
+              "statName": "BLOCKED",
+              "valueName": "Current",
+              "intervalName": "1m"
+            },
+            "@maxValue": {
+              "producerName": "ThreadCount",
+              "statName": "ThreadCount",
+              "valueName": "current",
+              "intervalName": "default"
+            }
+          },
+          {
+            "name": "Running",
+            "caption": "Running Threads",
+            "@minValue": {
+              "constant": 0
+            },
+            "@currentValue": {
+              "producerName": "ThreadStates",
+              "statName": "RUNNABLE",
+              "valueName": "Current",
+              "intervalName": "1m"
+            },
+            "@maxValue": {
+              "producerName": "ThreadCount",
+              "statName": "ThreadCount",
+              "valueName": "current",
               "intervalName": "default"
             }
           }

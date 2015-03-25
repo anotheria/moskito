@@ -13,6 +13,7 @@
 <ano:iterate name="gauges" type="net.anotheria.moskito.webui.gauges.api.GaugeAO" id="gauge">
     gauges.push({
         "name": '${gauge.name}',
+        "caption": '${gauge.caption}',
         "complete": ${gauge.complete},
         "min": ${gauge.min},
         "current": ${gauge.current},

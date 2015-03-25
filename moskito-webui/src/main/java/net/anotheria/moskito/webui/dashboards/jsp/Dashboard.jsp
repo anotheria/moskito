@@ -17,7 +17,21 @@
     <div class="content">
 
         <ano:equal name="gaugesPresent" value="true">
-        <!-- gauges -->
+        <!-- gauges js -->
+            <script language="JavaScript">
+            var gauges = [];
+            <ano:iterate name="gauges" type="net.anotheria.moskito.webui.gauges.api.GaugeAO" id="gauge">
+                gauges.push({
+                "name": '${gauge.name}',
+                "caption": '${gauge.caption}',
+                "complete": ${gauge.complete},
+                "min": ${gauge.min},
+                "current": ${gauge.current},
+                "max": ${gauge.max}
+                });
+            </ano:iterate>
+            </script>
+            <!-- gauges -->
         <div class="dashboard-line">
             <div class="row">
                 <div class="col-lg-3 col-md-4 col-sm-6">
@@ -251,7 +265,7 @@
 
             </div>
         </div>
-        <-- // end gauges -->
+        <!-- // end gauges -->
         </ano:equal>
 
         <ano:equal name="chartsPresent" value="true">

@@ -21,6 +21,10 @@ public class GaugeAO {
 	 */
 	private String name;
 	/**
+	 * Caption of the gauge box.
+	 */
+	private String caption;
+	/**
 	 * Min value.
 	 */
 	private StatValueAO min;
@@ -102,5 +106,11 @@ public class GaugeAO {
 				'}';
 	}
 
+	public String getCaption() {
+		return caption;
+	}
 
+	public void setCaption(String caption) {
+		this.caption = caption;
+	}
 }
