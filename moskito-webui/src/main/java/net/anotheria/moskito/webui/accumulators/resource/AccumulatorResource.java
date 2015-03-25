@@ -1,10 +1,9 @@
 package net.anotheria.moskito.webui.accumulators.resource;
 
 import net.anotheria.anoplass.api.APIException;
-import net.anotheria.anoplass.api.APIFinder;
-import net.anotheria.moskito.webui.accumulators.api.AccumulatorAPI;
 import net.anotheria.moskito.webui.accumulators.api.AccumulatorDefinitionAO;
 import net.anotheria.moskito.webui.accumulators.api.AccumulatorPO;
+import net.anotheria.moskito.webui.shared.resource.AbstractResource;
 import net.anotheria.moskito.webui.shared.resource.ReplyObject;
 
 import javax.ws.rs.GET;
@@ -20,11 +19,7 @@ import javax.ws.rs.WebApplicationException;
  * @since 13.02.13 22:44
  */
 @Path("accumulators")
-public class AccumulatorResource {
-	/**
-	 * API Instance.
-	 */
-	private AccumulatorAPI accumulatorAPI = APIFinder.findAPI(AccumulatorAPI.class);
+public class AccumulatorResource extends AbstractResource{
 
 	/**
 	 * Returns all accumulators.
@@ -34,7 +29,7 @@ public class AccumulatorResource {
 	@Path("list")
 	public ReplyObject getAccumulators(){
 		try{
-			return ReplyObject.success("accumulators", accumulatorAPI.getAccumulatorDefinitions() );
+			return ReplyObject.success("accumulators", getAccumulatorAPI().getAccumulatorDefinitions() );
 		}catch(APIException e){
 			throw new WebApplicationException(e);
 		}
@@ -50,7 +45,7 @@ public class AccumulatorResource {
 	@Path("remove/{id}")
 	public ReplyObject deleteAccumulator(@PathParam("id") String id){
 		try{
-			accumulatorAPI.removeAccumulator(id);
+			getAccumulatorAPI().removeAccumulator(id);
 			return ReplyObject.success();
 		}catch(APIException e){
 			throw new WebApplicationException(e);
@@ -67,8 +62,8 @@ public class AccumulatorResource {
 	public ReplyObject getAccumulator(@PathParam("id") String id){
 		try{
 			ReplyObject ro = ReplyObject.success();
-			ro.addResult("accumulator", accumulatorAPI.getAccumulatorDefinition(id));
-			ro.addResult("graphData", accumulatorAPI.getAccumulatorGraphData(id));
+			ro.addResult("accumulator", getAccumulatorAPI().getAccumulatorDefinition(id));
+			ro.addResult("graphData", getAccumulatorAPI().getAccumulatorGraphData(id));
 			return ro;
 		}catch(APIException e){
 			throw new WebApplicationException(e);
@@ -83,7 +78,7 @@ public class AccumulatorResource {
 	@POST @Path("create")
 	public ReplyObject createAccumulator(AccumulatorPO po){
 		try{
-			AccumulatorDefinitionAO ret = accumulatorAPI.createAccumulator(po);
+			AccumulatorDefinitionAO ret = getAccumulatorAPI().createAccumulator(po);
 			return ReplyObject.success("created", ret);
 		}catch(APIException e){
 			throw new WebApplicationException(e);
