@@ -42,6 +42,7 @@ import net.anotheria.moskito.webui.MoSKitoWebUIContext;
 import net.anotheria.moskito.webui.accumulators.api.AccumulatorAPI;
 import net.anotheria.moskito.webui.decorators.DecoratorRegistryFactory;
 import net.anotheria.moskito.webui.decorators.IDecoratorRegistry;
+import net.anotheria.moskito.webui.gauges.api.GaugeAPI;
 import net.anotheria.moskito.webui.journey.api.JourneyAPI;
 import net.anotheria.moskito.webui.producers.api.ProducerAPI;
 import net.anotheria.moskito.webui.shared.api.AdditionalFunctionalityAPI;
@@ -559,6 +560,10 @@ public abstract class BaseMoskitoUIAction implements Action{
 
 	protected AccumulatorAPI getAccumulatorAPI(){
 		return APILookupUtility.getAccumulatorAPI();
+	}
+
+	protected GaugeAPI getGaugeAPI() {
+		return APILookupUtility.getGaugeAPI();
 	}
 
 	protected AdditionalFunctionalityAPI getAdditionalFunctionalityAPI(){

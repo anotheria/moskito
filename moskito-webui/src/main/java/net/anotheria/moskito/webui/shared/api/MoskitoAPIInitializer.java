@@ -3,6 +3,8 @@ package net.anotheria.moskito.webui.shared.api;
 import net.anotheria.anoplass.api.APIFinder;
 import net.anotheria.moskito.webui.accumulators.api.AccumulatorAPI;
 import net.anotheria.moskito.webui.accumulators.api.AccumulatorAPIFactory;
+import net.anotheria.moskito.webui.gauges.api.GaugeAPI;
+import net.anotheria.moskito.webui.gauges.api.GaugeAPIFactory;
 import net.anotheria.moskito.webui.journey.api.JourneyAPI;
 import net.anotheria.moskito.webui.journey.api.JourneyAPIFactory;
 import net.anotheria.moskito.webui.producers.api.ProducerAPI;
@@ -33,5 +35,7 @@ public class MoskitoAPIInitializer {
 		APIFinder.addAPIFactory(ThreadAPI.class,  new ThreadAPIFactory());
 		APIFinder.addAPIFactory(ProducerAPI.class, new ProducerAPIFactory());
 		APIFinder.addAPIFactory(AdditionalFunctionalityAPI.class, new AdditionalFunctionalityAPIFactory());
+		APIFinder.addAPIFactory(GaugeAPI.class, new GaugeAPIFactory());
+
 	}
 }
