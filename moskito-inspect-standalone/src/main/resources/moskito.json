@@ -95,7 +95,7 @@
 
             ],
             "@thresholds": ["ThreadCount","OldGenFree", "PermGenFree"],
-            "@gauges": ["Blocked", "FreeMem", "Running", "Sessions"]
+            "@gauges": ["Blocked", "Memory", "Running", "Sessions"]
 
           },
           {
@@ -138,14 +138,15 @@
             }
           },
           {
-            "name": "FreeMem",
+            "name": "Memory",
+            "caption": "Used memory",
             "@minValue": {
               "constant": 0
             },
             "@currentValue": {
-              "producerName": "JavaRuntimeFree",
-              "statName": "JavaRuntimeFree",
-              "valueName": "Current Mb",
+              "producerName": "Heap memory",
+              "statName": "Heap memory",
+              "valueName": "Used Mb",
               "intervalName": "default"
             },
             "@maxValue": {
