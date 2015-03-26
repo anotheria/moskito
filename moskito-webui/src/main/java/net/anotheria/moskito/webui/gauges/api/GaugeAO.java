@@ -85,15 +85,15 @@ public class GaugeAO {
 
 	@XmlElement(name="current")
 	public String getCurrentValue(){
-		return current.getValue();
+		return current.getRawValue();
 	}
 	@XmlElement(name="min")
 	public String getMinValue(){
-		return min.getValue();
+		return min.getRawValue();
 	}
 	@XmlElement(name="max")
 	public String getMaxValue(){
-		return max.getValue();
+		return max.getRawValue();
 	}
 
 	@Override
