@@ -150,9 +150,9 @@
               "intervalName": "default"
             },
             "@maxValue": {
-              "producerName": "JavaRuntimeFree",
-              "statName": "JavaRuntimeFree",
-              "valueName": "Max Mb",
+              "producerName": "JavaRuntimeMax",
+              "statName": "JavaRuntimeMax",
+              "valueName": "Current Mb",
               "intervalName": "default"
             }
           },
