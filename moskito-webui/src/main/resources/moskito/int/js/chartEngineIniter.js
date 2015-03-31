@@ -380,6 +380,9 @@ var D3chart = (function () {
                     .style("fill", function (d) {
                         return d3.hsl(colorFunc(d.data.name)).brighter(1);
                     })
+                    .style("stroke", function (d) {
+                        return d3.hsl(colorFunc(d.data.name)).brighter(1);
+                    })
                     .attr("d", function (d) {
                         return pieTop(d, rx, ry, ir);
                     })
