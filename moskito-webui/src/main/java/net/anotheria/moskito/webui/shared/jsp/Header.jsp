@@ -178,6 +178,7 @@
                 <li ${currentSubNaviItem.isSelected("more_libs")    ? "class=\"active\"" : ""}><a href="mskLibs" title="Libs" class="sidebar-tooltip-right">Libs <i class="fa fa-file-text"></i></a></li>
                 <li ${currentSubNaviItem.isSelected("more_plugins") ? "class=\"active\"" : ""}><a href="mskPlugins" title="Plugins" class="sidebar-tooltip-right">Plugins <i class="fa fa-cloud"></i></a></li>
                 <li ${currentSubNaviItem.isSelected("more_update")  ? "class=\"active\"" : ""}><a href="mskUpdate" title="Update" class="sidebar-tooltip-right">Update  <i class="fa fa-upload"></i></a></li>
+                <li ${currentSubNaviItem.isSelected("more_gauges")  ? "class=\"active\"" : ""}><a href="mskGauges" title="Gauges" class="sidebar-tooltip-right">Gauges  <i class="fa fa-tachometer"></i></a></li>
             </ul>
         </li>
         </ano:equal>
