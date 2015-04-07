@@ -110,7 +110,7 @@ var D3chart = (function () {
                 return num;
 
             var prefix = d3.formatPrefix(num),
-                fpNum = prefix.scale(num).toFixed(digits);
+                fpNum = parseFloat(prefix.scale(num).toFixed(digits));
 
             return (fpNum % 1 == 0 ? fpNum.toPrecision(1) : fpNum) + prefix.symbol;
         };
