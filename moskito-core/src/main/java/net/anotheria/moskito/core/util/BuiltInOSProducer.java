@@ -37,7 +37,7 @@ public class BuiltInOSProducer extends AbstractBuiltInProducer implements IStats
 	/**
 	 * Name of the mxbean class.
 	 */
-	private static final String clazzname = "sun.management.OperatingSystemImpl";//"com.sun.management.UnixOperatingSystemMXBean";
+	private static final String clazzname = "com.sun.management.UnixOperatingSystemMXBean";
 
 	/**
 	 * Resolved class of the mx bean.
