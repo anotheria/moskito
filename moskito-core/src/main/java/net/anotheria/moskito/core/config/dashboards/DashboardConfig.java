@@ -3,6 +3,7 @@ package net.anotheria.moskito.core.config.dashboards;
 import org.configureme.annotations.Configure;
 import org.configureme.annotations.ConfigureMe;
 
+import java.io.Serializable;
 import java.util.Arrays;
 
 /**
@@ -12,7 +13,7 @@ import java.util.Arrays;
  * @since 12.02.15 00:58
  */
 @ConfigureMe
-public class DashboardConfig {
+public class DashboardConfig implements Serializable{
 	/**
 	 * Name of the dashboard.
 	 */

@@ -1,5 +1,6 @@
 package net.anotheria.moskito.webui.dashboards.action;
 
+import net.anotheria.anoplass.api.APIException;
 import net.anotheria.maf.action.ActionMapping;
 import net.anotheria.moskito.core.config.MoskitoConfiguration;
 import net.anotheria.moskito.core.config.MoskitoConfigurationHolder;
@@ -48,16 +49,11 @@ public abstract class BaseDashboardAction extends BaseMoskitoUIAction {
 		req.setAttribute("selectedDashboard", getSelectedDashboard(req));
 	}
 
-	protected String getSelectedDashboard(HttpServletRequest req){
+	protected String getSelectedDashboard(HttpServletRequest req) throws APIException{
 		String dashboardName = req.getParameter("dashboard");
 		if (dashboardName!=null)
 			return dashboardName;
-		MoskitoConfiguration config = MoskitoConfigurationHolder.getConfiguration();
-		DashboardsConfig dashboardsConfig = config.getDashboardsConfig();
-		if (dashboardsConfig == null || dashboardsConfig.getDashboards() == null ||dashboardsConfig.getDashboards().length == 0)
-			return null;
-		return dashboardsConfig.getDashboards()[0].getName();
-
+		return getDashboardAPI().getDefaultDashboardName();
 	}
 
 

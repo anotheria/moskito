@@ -3,10 +3,11 @@ package net.anotheria.moskito.core.config.dashboards;
 import org.configureme.annotations.Configure;
 import org.configureme.annotations.ConfigureMe;
 
+import java.io.Serializable;
 import java.util.Arrays;
 
 @ConfigureMe
-public class ChartConfig {
+public class ChartConfig implements Serializable{
 
 	@Configure
 	private String caption;

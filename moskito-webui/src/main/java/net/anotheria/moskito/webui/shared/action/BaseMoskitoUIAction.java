@@ -40,6 +40,7 @@ import net.anotheria.moskito.core.stats.TimeUnit;
 import net.anotheria.moskito.core.threshold.ThresholdStatus;
 import net.anotheria.moskito.webui.MoSKitoWebUIContext;
 import net.anotheria.moskito.webui.accumulators.api.AccumulatorAPI;
+import net.anotheria.moskito.webui.dashboards.api.DashboardAPI;
 import net.anotheria.moskito.webui.decorators.DecoratorRegistryFactory;
 import net.anotheria.moskito.webui.decorators.IDecoratorRegistry;
 import net.anotheria.moskito.webui.gauges.api.GaugeAPI;
@@ -568,6 +569,10 @@ public abstract class BaseMoskitoUIAction implements Action{
 
 	protected AdditionalFunctionalityAPI getAdditionalFunctionalityAPI(){
 		return APILookupUtility.getAdditionalFunctionalityAPI();
+	}
+
+	protected DashboardAPI getDashboardAPI(){
+		return APILookupUtility.getDashboardAPI();
 	}
 
 	protected String getSubTitle(){

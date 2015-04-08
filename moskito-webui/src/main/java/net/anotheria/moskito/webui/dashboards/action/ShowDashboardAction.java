@@ -3,11 +3,8 @@ package net.anotheria.moskito.webui.dashboards.action;
 import net.anotheria.maf.action.ActionCommand;
 import net.anotheria.maf.action.ActionMapping;
 import net.anotheria.maf.bean.FormBean;
-import net.anotheria.moskito.core.config.MoskitoConfiguration;
-import net.anotheria.moskito.core.config.MoskitoConfigurationHolder;
 import net.anotheria.moskito.core.config.dashboards.ChartConfig;
 import net.anotheria.moskito.core.config.dashboards.DashboardConfig;
-import net.anotheria.moskito.core.config.dashboards.DashboardsConfig;
 import net.anotheria.moskito.webui.accumulators.api.AccumulatedSingleGraphAO;
 import net.anotheria.moskito.webui.accumulators.api.AccumulatedValueAO;
 import net.anotheria.moskito.webui.accumulators.api.AccumulatorAO;
@@ -53,19 +50,8 @@ public class ShowDashboardAction extends BaseDashboardAction {
 		request.setAttribute("thresholdsPresent", thresholdsPresent);
 		request.setAttribute("showHelp", !(gaugesPresent || chartsPresent || thresholdsPresent));
 
-		MoskitoConfiguration mskConfig = MoskitoConfigurationHolder.getConfiguration();
-		DashboardsConfig dashboardsConfig = mskConfig.getDashboardsConfig();
-		if (dashboardsConfig==null || dashboardsConfig.getDashboards()==null || dashboardsConfig.getDashboards().length ==0){
-			return actionMapping.success();
-		}
 
-		DashboardConfig selectedDashboard = null;
-
-		for (DashboardConfig dc : dashboardsConfig.getDashboards()){
-			if (dc.getName()!=null && dc.getName().equals(dashboardName)){
-				selectedDashboard = dc;
-			}
-		}
+		DashboardConfig selectedDashboard = getDashboardAPI().getDashboardConfig(dashboardName);
 
 		if (selectedDashboard == null){
 			return actionMapping.success();
