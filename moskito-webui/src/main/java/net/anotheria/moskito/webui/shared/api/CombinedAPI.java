@@ -10,7 +10,7 @@ import org.distributeme.annotation.CombinedService;
 import org.distributeme.annotation.DistributeMe;
 
 /**
- * TODO comment this class
+ * This interface is used for DistributeMe as Marker of all required services. If a new API is added to the project, it MUST be added here too.
  *
  * @author lrosenberg
  * @since 21.03.14 22:03
