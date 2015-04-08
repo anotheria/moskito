@@ -6,7 +6,6 @@ import net.anotheria.maf.bean.FormBean;
 import net.anotheria.moskito.core.accumulation.Accumulator;
 import net.anotheria.moskito.core.accumulation.AccumulatorRepository;
 import net.anotheria.moskito.core.config.MoskitoConfiguration;
-import net.anotheria.moskito.core.config.MoskitoConfigurationHolder;
 import net.anotheria.moskito.core.config.accumulators.AccumulatorSetConfig;
 import net.anotheria.moskito.core.config.accumulators.AccumulatorSetMode;
 import net.anotheria.moskito.core.config.accumulators.AccumulatorsConfig;
@@ -89,7 +88,7 @@ public class ShowAccumulatorsAction extends BaseAccumulatorsAction {
 			HttpServletRequest req, HttpServletResponse res) throws Exception {
 
 		//handling of accumulator sets
-        MoskitoConfiguration config = MoskitoConfigurationHolder.getConfiguration();
+        MoskitoConfiguration config = getAdditionalFunctionalityAPI().getConfiguration();
         AccumulatorsConfig configuration = config.getAccumulatorsConfig();
 		AccumulatorSetConfig setConfigs[] = configuration.getAccumulatorSets();
 		if (setConfigs!=null && setConfigs.length>0) {

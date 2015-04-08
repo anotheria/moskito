@@ -3,6 +3,8 @@ package net.anotheria.moskito.core.config.plugins;
 import org.configureme.annotations.Configure;
 import org.configureme.annotations.ConfigureMe;
 
+import java.io.Serializable;
+
 /**
  * Config for plugins.
  *
@@ -10,7 +12,7 @@ import org.configureme.annotations.ConfigureMe;
  * @since 19.03.13 15:48
  */
 @ConfigureMe
-public class PluginsConfig {
+public class PluginsConfig implements Serializable {
 	/**
 	 * Configured plugin list.
 	 */

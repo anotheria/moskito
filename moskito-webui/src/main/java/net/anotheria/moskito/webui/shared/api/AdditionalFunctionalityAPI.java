@@ -3,6 +3,7 @@ package net.anotheria.moskito.webui.shared.api;
 import net.anotheria.anoplass.api.API;
 import net.anotheria.anoplass.api.APIException;
 import net.anotheria.anoprise.metafactory.Service;
+import net.anotheria.moskito.core.config.MoskitoConfiguration;
 import org.distributeme.annotation.DistributeMe;
 import org.distributeme.annotation.SupportService;
 
@@ -51,4 +52,11 @@ public interface AdditionalFunctionalityAPI extends API, Service{
 	String getConfigurationAsString() throws APIException;
 
 	Long getIntervalUpdateTimestamp(String intervalName) throws APIException;
+
+	/**
+	 * Returns MoSKito Configuration
+	 * @return
+	 * @throws APIException
+	 */
+	MoskitoConfiguration getConfiguration() throws APIException;
 }

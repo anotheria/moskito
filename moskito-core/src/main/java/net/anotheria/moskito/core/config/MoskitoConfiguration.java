@@ -12,6 +12,8 @@ import net.anotheria.moskito.core.config.thresholds.ThresholdsConfig;
 import org.configureme.annotations.Configure;
 import org.configureme.annotations.ConfigureMe;
 
+import java.io.Serializable;
+
 /**
  * This class contains complete moskito configuration at runtime. It is configured with ConfigureMe, but can be altered
  * programmatically. Use MoskitoConfigurationHolder.getConfiguration/setConfiguration to access/alter this class.
@@ -20,7 +22,7 @@ import org.configureme.annotations.ConfigureMe;
  * @since 22.10.12 15:59
  */
 @ConfigureMe(name="moskito")
-public class MoskitoConfiguration {
+public class MoskitoConfiguration implements Serializable{
 	/**
 	 * Config object for alerting.
 	 */

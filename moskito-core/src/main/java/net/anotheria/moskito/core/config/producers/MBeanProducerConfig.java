@@ -1,5 +1,6 @@
 package net.anotheria.moskito.core.config.producers;
 
+import java.io.Serializable;
 import java.util.Arrays;
 
 import org.configureme.annotations.Configure;
@@ -7,7 +8,7 @@ import org.configureme.annotations.Configure;
 /**
  * @author Michael König
  */
-public class MBeanProducerConfig {
+public class MBeanProducerConfig implements Serializable {
 
     /**
      * Indicates if the producers will be registered automatically. Defaults to FALSE.

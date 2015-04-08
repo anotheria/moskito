@@ -2,6 +2,7 @@ package net.anotheria.moskito.core.config.thresholds;
 
 import org.configureme.annotations.Configure;
 
+import java.io.Serializable;
 import java.util.Arrays;
 
 /**
@@ -10,7 +11,7 @@ import java.util.Arrays;
  * @author lrosenberg
  * @since 25.10.12 10:29
  */
-public class ThresholdsConfig {
+public class ThresholdsConfig implements Serializable {
 
 
 	/**

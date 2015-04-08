@@ -4,6 +4,8 @@ import net.anotheria.moskito.core.stats.TimeUnit;
 import org.configureme.annotations.Configure;
 import org.configureme.annotations.ConfigureMe;
 
+import java.io.Serializable;
+
 /**
  * This configuration class represents a single accumulator.
  *
@@ -11,7 +13,7 @@ import org.configureme.annotations.ConfigureMe;
  * @since 03.12.12 10:58
  */
 @ConfigureMe(allfields = true)
-public class AccumulatorConfig {
+public class AccumulatorConfig implements Serializable {
 	/**
 	 * Name of the accumulator.
 	 */

@@ -3,6 +3,8 @@ package net.anotheria.moskito.core.config.producers;
 import org.configureme.annotations.Configure;
 import org.configureme.annotations.ConfigureMe;
 
+import java.io.Serializable;
+
 /**
  * Builtin producers config. This config determines which built-in producers are started automagically.
  *
@@ -10,7 +12,7 @@ import org.configureme.annotations.ConfigureMe;
  * @since 26.03.14 00:52
  */
 @ConfigureMe(allfields = true)
-public class BuiltinProducersConfig {
+public class BuiltinProducersConfig implements Serializable {
 	@Configure
 	private boolean javaMemoryProducers = true;
 	@Configure

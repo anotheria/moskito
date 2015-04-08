@@ -4,6 +4,7 @@ import net.anotheria.moskito.core.stats.TimeUnit;
 import org.configureme.annotations.Configure;
 import org.configureme.annotations.ConfigureMe;
 
+import java.io.Serializable;
 import java.util.Arrays;
 
 /**
@@ -13,7 +14,7 @@ import java.util.Arrays;
  * @since 25.10.12 10:29
  */
 @ConfigureMe(allfields = true)
-public class ThresholdConfig {
+public class ThresholdConfig implements Serializable {
 	/**
 	 * Name of the threshold.
 	 */

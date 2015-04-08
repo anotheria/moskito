@@ -3,6 +3,7 @@ package net.anotheria.moskito.core.config.accumulators;
 import org.configureme.annotations.Configure;
 import org.configureme.annotations.ConfigureMe;
 
+import java.io.Serializable;
 import java.util.Arrays;
 
 /**
@@ -12,7 +13,7 @@ import java.util.Arrays;
  * @since 14.01.15 10:04
  */
 @ConfigureMe(allfields = true)
-public class AccumulatorSetConfig {
+public class AccumulatorSetConfig implements Serializable {
 	@Configure
 	private String name;
 

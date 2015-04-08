@@ -3,6 +3,7 @@ package net.anotheria.moskito.core.config.thresholds;
 import com.google.gson.annotations.SerializedName;
 import org.configureme.annotations.Configure;
 
+import java.io.Serializable;
 import java.util.Arrays;
 
 /**
@@ -11,7 +12,7 @@ import java.util.Arrays;
  * @author lrosenberg
  * @since 22.10.12 16:08
  */
-public class ThresholdsAlertsConfig {
+public class ThresholdsAlertsConfig implements Serializable {
 	/**
 	 * Notification providers for notification upon threshold status changes.
 	 */

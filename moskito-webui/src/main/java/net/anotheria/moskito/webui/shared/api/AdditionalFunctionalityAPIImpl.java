@@ -184,4 +184,8 @@ public class AdditionalFunctionalityAPIImpl extends AbstractMoskitoAPIImpl imple
 	public Long getIntervalUpdateTimestamp(String intervalName) throws APIException {
 		return IntervalRegistry.getInstance().getUpdateTimestamp(intervalName);
 	}
+
+	public MoskitoConfiguration getConfiguration(){
+		return MoskitoConfigurationHolder.getConfiguration();
+	}
 }

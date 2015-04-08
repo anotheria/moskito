@@ -2,6 +2,7 @@ package net.anotheria.moskito.core.config.accumulators;
 
 import org.configureme.annotations.Configure;
 
+import java.io.Serializable;
 import java.util.Arrays;
 
 /**
@@ -10,7 +11,7 @@ import java.util.Arrays;
  * @author lrosenberg
  * @since 26.10.12 13:19
  */
-public class AccumulatorsConfig {
+public class AccumulatorsConfig implements Serializable {
 	/**
 	 * The default amount of accumulated values in the accumulator.
 	 * This setting only applies for accumulators created AFTER the change.
