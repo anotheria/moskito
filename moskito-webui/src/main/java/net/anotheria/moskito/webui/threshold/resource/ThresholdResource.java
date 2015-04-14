@@ -5,6 +5,7 @@ import net.anotheria.moskito.webui.shared.resource.AbstractResource;
 import net.anotheria.moskito.webui.shared.resource.ReplyObject;
 import net.anotheria.moskito.webui.threshold.api.ThresholdPO;
 
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -21,7 +22,6 @@ import javax.ws.rs.WebApplicationException;
 public class ThresholdResource extends AbstractResource{
 
 	@GET
-	@Path("list")
 	public ReplyObject getThresholds(){
 		try{
 			ReplyObject ret = ReplyObject.success();
@@ -58,7 +58,6 @@ public class ThresholdResource extends AbstractResource{
 	}
 
 	@POST
-	@Path("create")
 	public ReplyObject createThreshold(ThresholdPO po){
 		try{
 			getThresholdAPI().createThreshold(po);
@@ -68,40 +67,12 @@ public class ThresholdResource extends AbstractResource{
 		}
 	}
 
-	@GET
-	@Path("remove/{id}")
+	@DELETE
+	@Path("/{id}")
 	public ReplyObject deleteThreshold(@PathParam("id") String id){
 		try{
 			getThresholdAPI().removeThreshold(id);
 			return ReplyObject.success();
-		}catch(APIException e){
-			throw new WebApplicationException(e);
-		}
-	}
-
-	@GET
-	@Path("alerts")
-	public ReplyObject getAlerts(){
-		try{
-			return ReplyObject.success("status", getThresholdAPI().getAlerts());
-		}catch(APIException e){
-			throw new WebApplicationException(e);
-		}
-	}
-
-	@GET @Path("worstStatus")
-	public ReplyObject getWorstStatus(){
-		try{
-			return ReplyObject.success("status", getThresholdAPI().getWorstStatus());
-		}catch(APIException e){
-			throw new WebApplicationException(e);
-		}
-	}
-
-	@POST @Path("worstStatusForSelectedThresholds")
-	public ReplyObject getWorstStatus(StatusForm statusForm){
-		try{
-			return ReplyObject.success("status", getThresholdAPI().getWorstStatus(statusForm.getThresholdNames()));
 		}catch(APIException e){
 			throw new WebApplicationException(e);
 		}

@@ -94,6 +94,7 @@ public class AccumulatorAPIImpl extends AbstractMoskitoAPIImpl implements Accumu
 			bean.setName(a.getName());
 			bean.setPath(a.getDefinition().describe());
 			bean.setId(a.getId());
+			bean.setMaxNumberOfValues(a.getDefinition().getMaxAmountOfAccumulatedItems());
 			List<AccumulatedValue> values = a.getValues();
 			if (values!=null && values.size()>0){
 				bean.setNumberOfValues(values.size());
