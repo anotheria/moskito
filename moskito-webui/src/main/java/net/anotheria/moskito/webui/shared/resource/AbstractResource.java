@@ -1,6 +1,7 @@
 package net.anotheria.moskito.webui.shared.resource;
 
 import net.anotheria.moskito.webui.accumulators.api.AccumulatorAPI;
+import net.anotheria.moskito.webui.dashboards.api.DashboardAPI;
 import net.anotheria.moskito.webui.gauges.api.GaugeAPI;
 import net.anotheria.moskito.webui.journey.api.JourneyAPI;
 import net.anotheria.moskito.webui.producers.api.ProducerAPI;
@@ -34,6 +35,8 @@ public abstract class AbstractResource {
 	protected GaugeAPI getGaugeAPI() {
 		return APILookupUtility.getGaugeAPI();
 	}
+
+	protected DashboardAPI getDashboardAPI(){ return APILookupUtility.getDashboardAPI(); }
 
 	protected AdditionalFunctionalityAPI getAdditionalFunctionalityAPI(){
 		return APILookupUtility.getAdditionalFunctionalityAPI();

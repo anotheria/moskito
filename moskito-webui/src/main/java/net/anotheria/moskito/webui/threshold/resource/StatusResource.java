@@ -21,7 +21,7 @@ public class StatusResource extends AbstractResource {
 	@GET
 	public ReplyObject getWorstStatus(){
 		try{
-			return ReplyObject.success("status", getThresholdAPI().getWorstStatus());
+			return ReplyObject.success("status", getThresholdAPI().getWorstStatus().name());
 		}catch(APIException e){
 			throw new WebApplicationException(e);
 		}
@@ -30,7 +30,7 @@ public class StatusResource extends AbstractResource {
 	@POST
 	public ReplyObject getWorstStatus(StatusForm statusForm){
 		try{
-			return ReplyObject.success("status", getThresholdAPI().getWorstStatus(statusForm.getThresholdNames()));
+			return ReplyObject.success("status", getThresholdAPI().getWorstStatus(statusForm.getThresholdNames()).name());
 		}catch(APIException e){
 			throw new WebApplicationException(e);
 		}
