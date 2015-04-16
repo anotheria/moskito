@@ -6,12 +6,21 @@ import org.configureme.annotations.ConfigureMe;
 import java.io.Serializable;
 import java.util.Arrays;
 
+/**
+ * Configuration holder for a single chart in a dashboard.
+ */
 @ConfigureMe
 public class ChartConfig implements Serializable{
 
+	/**
+	 * Chart caption.
+	 */
 	@Configure
 	private String caption;
 
+	/**
+	 * Referenced accumulators.
+	 */
 	@Configure
 	private String[] accumulators;
 
