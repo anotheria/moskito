@@ -6,6 +6,7 @@ import net.anotheria.moskito.webui.accumulators.api.AccumulatorPO;
 import net.anotheria.moskito.webui.shared.resource.AbstractResource;
 import net.anotheria.moskito.webui.shared.resource.ReplyObject;
 
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -26,7 +27,6 @@ public class AccumulatorResource extends AbstractResource{
 	 * @return
 	 */
 	@GET
-	@Path("list")
 	public ReplyObject getAccumulators(){
 		try{
 			return ReplyObject.success("accumulators", getAccumulatorAPI().getAccumulatorDefinitions() );
@@ -41,8 +41,8 @@ public class AccumulatorResource extends AbstractResource{
 	 * @param id
 	 * @return
 	 */
-	@GET
-	@Path("remove/{id}")
+	@DELETE
+	@Path("/{id}")
 	public ReplyObject deleteAccumulator(@PathParam("id") String id){
 		try{
 			getAccumulatorAPI().removeAccumulator(id);
@@ -58,12 +58,12 @@ public class AccumulatorResource extends AbstractResource{
 	 * @return
 	 */
 	@GET
-	@Path("get/{id}")
+	@Path("/{id}")
 	public ReplyObject getAccumulator(@PathParam("id") String id){
 		try{
 			ReplyObject ro = ReplyObject.success();
 			ro.addResult("accumulator", getAccumulatorAPI().getAccumulatorDefinition(id));
-			ro.addResult("graphData", getAccumulatorAPI().getAccumulatorGraphData(id));
+			ro.addResult("chartData", getAccumulatorAPI().getAccumulatorGraphData(id));
 			return ro;
 		}catch(APIException e){
 			throw new WebApplicationException(e);
@@ -75,7 +75,7 @@ public class AccumulatorResource extends AbstractResource{
 	 * @param po the accumulator parameter object.
 	 * @return
 	 */
-	@POST @Path("create")
+	@POST
 	public ReplyObject createAccumulator(AccumulatorPO po){
 		try{
 			AccumulatorDefinitionAO ret = getAccumulatorAPI().createAccumulator(po);

@@ -1,6 +1,9 @@
-package net.anotheria.moskito.webui.dashboards.bean;
+package net.anotheria.moskito.webui.dashboards.api;
 
 import net.anotheria.moskito.webui.accumulators.api.AccumulatedSingleGraphAO;
+
+import javax.xml.bind.annotation.XmlRootElement;
+import java.io.Serializable;
 
 /**
  * TODO comment this class
@@ -8,7 +11,8 @@ import net.anotheria.moskito.webui.accumulators.api.AccumulatedSingleGraphAO;
  * @author lrosenberg
  * @since 14.02.15 00:46
  */
-public class DashboardChartBean {
+@XmlRootElement (name = "Chart")
+public class DashboardChartAO implements Serializable{
 	private String caption;
 	private AccumulatedSingleGraphAO chartData;
 
@@ -40,7 +44,7 @@ public class DashboardChartBean {
 
 	@Override
 	public String toString() {
-		return "DashboardChartBean{" +
+		return "DashboardChartAO{" +
 				"caption='" + caption + '\'' +
 				", chartData=" + chartData +
 				'}';

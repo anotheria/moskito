@@ -23,13 +23,13 @@ public interface ProducerAPI extends API, Service {
 
 	List<UnitCountAO> getSubsystems() throws APIException;
 
-	List<ProducerAO> getAllProducers(String intervalName, TimeUnit timeUnit);
+	List<ProducerAO> getAllProducers(String intervalName, TimeUnit timeUnit)throws APIException;
 
-	List<ProducerAO> getAllProducersByCategory(String currentCategory, String intervalName, TimeUnit timeUnit);
+	List<ProducerAO> getAllProducersByCategory(String currentCategory, String intervalName, TimeUnit timeUnit)throws APIException;
 
-	List<ProducerAO> getProducers(IProducerFilter[] iProducerFilters, String intervalName, TimeUnit timeUnit);
+	List<ProducerAO> getProducers(IProducerFilter[] iProducerFilters, String intervalName, TimeUnit timeUnit)throws APIException;
 
-	List<ProducerAO> getAllProducersBySubsystem(String currentSubsystem, String intervalName, TimeUnit timeUnit);
+	List<ProducerAO> getAllProducersBySubsystem(String currentSubsystem, String intervalName, TimeUnit timeUnit)throws APIException;
 
 	ProducerAO getProducer(String producerId, String intervalName, TimeUnit timeUnit) throws APIException;
 }
