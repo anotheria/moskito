@@ -1,6 +1,5 @@
 package net.anotheria.moskito.webui.shared.action;
 
-import net.anotheria.maf.action.AbstractAction;
 import net.anotheria.maf.action.ActionCommand;
 import net.anotheria.maf.action.ActionMapping;
 import net.anotheria.maf.bean.FormBean;
@@ -38,7 +37,13 @@ public class SelectServerAction extends BaseMoskitoUIAction{
 		return mapping.redirect();
 	}
 
-    @Override
+	@Override
+	public void preProcess(ActionMapping mapping, HttpServletRequest req, HttpServletResponse res) throws Exception {
+		//only do basic stuff.
+		prepareBasics(req);
+	}
+
+	@Override
     protected String getLinkToCurrentPage(HttpServletRequest req) {
         return null;
     }

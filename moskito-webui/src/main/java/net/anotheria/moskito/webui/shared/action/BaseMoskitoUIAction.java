@@ -324,8 +324,7 @@ public abstract class BaseMoskitoUIAction implements Action{
 		return ret;
 	}
 
-	@Override
-	public void preProcess(ActionMapping mapping, HttpServletRequest req, HttpServletResponse res) throws Exception {
+	protected void prepareBasics(HttpServletRequest req){
 		String currentIntervalName = getCurrentInterval(req);
 
 		MoSKitoWebUIContext context = MoSKitoWebUIContext.getCallContextAndReset();
@@ -353,6 +352,14 @@ public abstract class BaseMoskitoUIAction implements Action{
 		req.setAttribute("linkToCurrentPageAsXml", maskAsXML(getLinkToCurrentPage(req)));
 		req.setAttribute("linkToCurrentPageAsCsv", maskAsCSV(getLinkToCurrentPage(req)));
 		req.setAttribute("linkToCurrentPageAsJson", maskAsJSON(getLinkToCurrentPage(req)));
+
+	}
+
+	@Override
+	public void preProcess(ActionMapping mapping, HttpServletRequest req, HttpServletResponse res) throws Exception {
+		String currentIntervalName = getCurrentInterval(req);
+
+		prepareBasics(req);
 
 
 		//configuration issues.
