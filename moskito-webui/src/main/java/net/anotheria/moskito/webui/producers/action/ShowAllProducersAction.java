@@ -34,6 +34,7 @@
  */	
 package net.anotheria.moskito.webui.producers.action;
 
+import net.anotheria.anoplass.api.APIException;
 import net.anotheria.moskito.webui.producers.api.ProducerAO;
 
 import javax.servlet.http.HttpServletRequest;
@@ -48,7 +49,7 @@ import java.util.List;
 public class ShowAllProducersAction extends BaseShowProducersAction{
 
 	@Override
-	protected List<ProducerAO> getProducers(HttpServletRequest req) {
+	protected List<ProducerAO> getProducers(HttpServletRequest req) throws APIException {
 		String nameFilter = req.getParameter("pNameFilter");
 		if (nameFilter==null){
 			nameFilter="";
