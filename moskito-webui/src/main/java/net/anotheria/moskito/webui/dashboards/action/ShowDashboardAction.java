@@ -3,24 +3,11 @@ package net.anotheria.moskito.webui.dashboards.action;
 import net.anotheria.maf.action.ActionCommand;
 import net.anotheria.maf.action.ActionMapping;
 import net.anotheria.maf.bean.FormBean;
-import net.anotheria.moskito.core.config.dashboards.ChartConfig;
 import net.anotheria.moskito.core.config.dashboards.DashboardConfig;
-import net.anotheria.moskito.webui.accumulators.api.AccumulatedSingleGraphAO;
-import net.anotheria.moskito.webui.accumulators.api.AccumulatedValueAO;
-import net.anotheria.moskito.webui.accumulators.api.AccumulatorAO;
-import net.anotheria.moskito.webui.dashboards.bean.DashboardChartBean;
-import net.anotheria.moskito.webui.gauges.api.GaugeAO;
-import net.anotheria.moskito.webui.threshold.api.ThresholdStatusAO;
-import net.anotheria.util.sorter.DummySortType;
-import net.anotheria.util.sorter.StaticQuickSorter;
+import net.anotheria.moskito.webui.dashboards.api.DashboardAO;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
 
 /**
  * This action renders a dashboard. If no dashboard is selected explicitly the first dashboard is taken.
@@ -29,10 +16,6 @@ import java.util.Map;
  * @since 12.02.15 14:02
  */
 public class ShowDashboardAction extends BaseDashboardAction {
-
-	private static final String VALUE_PLACEHOLDER = "XXX";
-
-	private static final DummySortType SORT_TYPE = new DummySortType();
 
 	@Override
 	public ActionCommand execute(ActionMapping actionMapping, FormBean formBean, HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -57,144 +40,26 @@ public class ShowDashboardAction extends BaseDashboardAction {
 			return actionMapping.success();
 		}
 
+		DashboardAO dashboard = getDashboardAPI().getDashboard(dashboardName);
+
 		//now we definitely have a selected dashboard.
 		//prepare thresholds
-		if (selectedDashboard.getThresholds()!=null && selectedDashboard.getThresholds().length>0){
-			List<ThresholdStatusAO> thresholds = getThresholdAPI().getThresholdStatuses(selectedDashboard.getThresholds());
-			request.setAttribute("thresholds", thresholds);
+		if (dashboard.getThresholds()!=null && dashboard.getThresholds().size()>0){
+			request.setAttribute("thresholds", dashboard.getThresholds());
 			thresholdsPresent = true;
 		}
 
 		//prepare gauges
-		if (selectedDashboard.getGauges()!=null && selectedDashboard.getGauges().length>0){
-			List<GaugeAO> gauges = getGaugeAPI().getGauges(selectedDashboard.getGauges());
-			request.setAttribute("gauges", gauges);
+		if (dashboard.getGauges()!=null && dashboard.getGauges().size()>0){
+			request.setAttribute("gauges", dashboard.getGauges());
 			gaugesPresent = true;
 		}
 
-		//prepare charts
-		if (selectedDashboard.getCharts()!=null && selectedDashboard.getCharts().length>0){
-			LinkedList<DashboardChartBean> chartBeans = new LinkedList<DashboardChartBean>();
-			for (ChartConfig cc : selectedDashboard.getCharts()){
-				DashboardChartBean bean = new DashboardChartBean();
-				if (cc.getCaption()!=null){
-					bean.setCaption(cc.getCaption());
-				}else{
-					String caption = "";
-					for (String acc : cc.getAccumulators()){
-						if (caption.length()!=0)
-							caption += " ";
-						caption += acc;
-					}
-					bean.setCaption(caption);
-				}
-
-				//now check the data.
-				if (cc.getAccumulators().length == 1){
-					//this means we have a single accumulator chart
-					AccumulatorAO accumulator = getAccumulatorAPI().getAccumulatorByName(cc.getAccumulators()[0]);
-					AccumulatedSingleGraphAO graphAO = getAccumulatorAPI().getAccumulatorGraphData(accumulator.getId());
-					bean.setChartData(graphAO);
-					String[] lineNames = new String[1];
-					lineNames[0] = graphAO.getName();
-					bean.setLineNames(lineNames);
-
-				}
-
-				if (cc.getAccumulators().length>1){
-					// this means we have a chart with multiple data.
-					//first get single charts
-					Map<Long, ArrayList<String>> chartValues = new HashMap<Long, ArrayList<String>>();
-					List<AccumulatedSingleGraphAO> singleCharts = new LinkedList<AccumulatedSingleGraphAO>();
-					for (String accName : cc.getAccumulators()){
-						AccumulatorAO acc = getAccumulatorAPI().getAccumulatorByName(accName);
-						AccumulatedSingleGraphAO graphAO = getAccumulatorAPI().getAccumulatorGraphData(acc.getId());
-						singleCharts.add(graphAO);
-					}
-
-					//ok, now lets prepare map with final values.
-					//for that we iterate over all single charts and create an entry in the final map for each
-					for (AccumulatedSingleGraphAO singleChart : singleCharts){
-						List<AccumulatedValueAO> valueList = singleChart.getData();
-						for (AccumulatedValueAO value : valueList){
-							long timestamp = value.getNumericTimestamp();
-							timestamp = timestamp / 1000 * 1000; //remove some unneeded details.
-							if (!chartValues.containsKey(timestamp)){
-								//otherwise a previous list already created some values.
-								//create a new entry with so many placeholders as there are charts.
-								ArrayList<String> futureValueList = new ArrayList<String>(singleCharts.size());
-								for (int i=0; i<singleCharts.size();i++)
-									futureValueList.add(VALUE_PLACEHOLDER);
-								chartValues.put(timestamp, futureValueList);
-
-							}
-						}
-					}
-					//after the above loop we now have a map with all timestamps and placeholders for each values in this list.
-
-					//now next step - set the proper values.
-					// we separate the two very similar iterations, to be sure that the amount of values is properly set in the second iteration and
-					//all daa objects are in place.
-					for (int i =0; i<singleCharts.size(); i++){
-						AccumulatedSingleGraphAO singleChart = singleCharts.get(i);
-						List<AccumulatedValueAO> valueList = singleChart.getData();
-						for (AccumulatedValueAO value : valueList){
-							long timestamp = value.getNumericTimestamp();
-							timestamp = timestamp / 1000 * 1000; //remove some unneeded details.
-							ArrayList<String> futureValueList = chartValues.get(timestamp);
-							futureValueList.set(i, value.getFirstValue());
-
-						}
-					}
-					//after the above loop we now have a map with all timestamps and values when we have them. Now we only have to remove remaining placeholder.
-
-					//now remove PLACEHOLDER - for now we only replace them with 0.
-					//in control we replace them with nearest value (left or right) but that might actually be misleading here.
-					for (List<String> someValues : chartValues.values()) {
-						for (int i=0; i<someValues.size(); i++){
-							if (someValues.get(i).equals(VALUE_PLACEHOLDER))
-								someValues.set(i, "0");
-						}
-					}
-
-
-					//finally set the data.
-					String[] lineNames = new String[singleCharts.size()];
-					for (int i=0; i<singleCharts.size(); i++){
-						lineNames[i] = singleCharts.get(i).getName();
-					}
-					bean.setLineNames(lineNames);
-
-
-					AccumulatedSingleGraphAO finalChart = new AccumulatedSingleGraphAO("-");
-					List<AccumulatedValueAO> finalChartData = new ArrayList<AccumulatedValueAO>();
-					for (Long l : chartValues.keySet()){
-						AccumulatedValueAO ao = new AccumulatedValueAO(""+l);
-						ao.setNumericTimestamp(l);
-						ao.addValues(chartValues.get(l));
-						finalChartData.add(ao);
-					}
-
-					//now sort.
-					finalChartData = StaticQuickSorter.sort(finalChartData, SORT_TYPE);
-
-					finalChart.setData(finalChartData);
-					bean.setChartData(finalChart);
-				}
-
-
-				chartBeans.add(bean);
-			}
-
-			if (chartBeans.size()>0) {
-				request.setAttribute("charts", chartBeans);
-				chartsPresent = true;
-
-			}
+		//charts gauges
+		if (dashboard.getCharts()!=null && dashboard.getCharts().size()>0){
+			request.setAttribute("charts", dashboard.getCharts());
+			chartsPresent = true;
 		}
-
-
-
 
 
 		//maybe the value has changed.

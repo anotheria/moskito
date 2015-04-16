@@ -13,6 +13,10 @@ import java.util.List;
  */
 @XmlRootElement(name="DashboardDefinition")
 public class DashboardDefinitionAO {
+	/**
+	 * Name of the Dashboard.
+	 */
+	private String name;
 	private List<String> gauges = Collections.EMPTY_LIST;
 	private List<String> thresholds = Collections.EMPTY_LIST;
 	private List<DashboardChartDefinitionAO> charts = new LinkedList<DashboardChartDefinitionAO>();
@@ -45,5 +49,13 @@ public class DashboardDefinitionAO {
 
 	public void setCharts(List<DashboardChartDefinitionAO> charts) {
 		this.charts = charts;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 }
