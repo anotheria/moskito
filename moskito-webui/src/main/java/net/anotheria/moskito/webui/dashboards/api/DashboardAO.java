@@ -5,6 +5,7 @@ import net.anotheria.moskito.webui.threshold.api.ThresholdStatusAO;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -14,7 +15,7 @@ import java.util.List;
  * @since 16.04.15 13:17
  */
 @XmlRootElement(name="Dashboard")
-public class DashboardAO {
+public class DashboardAO implements Serializable{
 	@XmlElement
 	private String name;
 
