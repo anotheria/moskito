@@ -4,6 +4,11 @@
     "connectivityMode": "LOCAL",
     "@remotes": [
         {
+            "name": "Burgershop Local",
+            "host": "localhost",
+            "port": 9401
+        },
+        {
             "name": "TestServer",
             "host": "test1.example.com",
             "port": 9401
