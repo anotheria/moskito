@@ -192,7 +192,7 @@
     <div class="form-box">
         <label>Filter</label>
 
-        <select class="select2" data-placeholder="Select" onchange="javascript:handleSelect(this)">
+        <select class="select2" data-placeholder="Select category" onchange="javascript:handleSelect(this)">
             <option></option>
             <ano:iterate name="categories" id="category" type="net.anotheria.moskito.webui.producers.api.UnitCountAO">
                 <option value="mskShowProducersByCategory?pCategory=${category.unitName}" ${category.unitName==requestScope.currentCategory ? "selected" : ""}>
@@ -201,7 +201,7 @@
             </ano:iterate>
         </select>
 
-        <select class="select2" data-placeholder="Select" onchange="javascript:handleSelect(this)">
+        <select class="select2" data-placeholder="Select subsystem" onchange="javascript:handleSelect(this)">
             <option></option>
             <ano:iterate name="subsystems" id="subsystem" type="net.anotheria.moskito.webui.producers.api.UnitCountAO">
                 <option value="mskShowProducersBySubsystem?pSubsystem=${subsystem.unitName}" ${subsystem.unitName==requestScope.currentSubsystem ? "selected" : ""}>
