@@ -4,7 +4,9 @@ import net.anotheria.anoplass.api.API;
 import net.anotheria.anoplass.api.APIException;
 import net.anotheria.anoprise.metafactory.Service;
 import org.distributeme.annotation.DistributeMe;
+import org.distributeme.annotation.FailBy;
 import org.distributeme.annotation.SupportService;
+import org.distributeme.core.failing.RetryCallOnce;
 
 import java.util.List;
 
@@ -16,6 +18,7 @@ import java.util.List;
  */
 @DistributeMe(agentsSupport=false)
 @SupportService
+@FailBy(strategyClass=RetryCallOnce.class)
 public interface AccumulatorAPI extends API, Service {
 	/**
 	 * Creates a new accumulator from user input.

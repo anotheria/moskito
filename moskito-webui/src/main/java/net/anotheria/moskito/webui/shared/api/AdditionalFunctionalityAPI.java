@@ -5,7 +5,9 @@ import net.anotheria.anoplass.api.APIException;
 import net.anotheria.anoprise.metafactory.Service;
 import net.anotheria.moskito.core.config.MoskitoConfiguration;
 import org.distributeme.annotation.DistributeMe;
+import org.distributeme.annotation.FailBy;
 import org.distributeme.annotation.SupportService;
+import org.distributeme.core.failing.RetryCallOnce;
 
 import java.util.List;
 
@@ -17,6 +19,7 @@ import java.util.List;
  */
 @DistributeMe(agentsSupport = false)
 @SupportService
+@FailBy(strategyClass=RetryCallOnce.class)
 public interface AdditionalFunctionalityAPI extends API, Service{
 	List<PluginAO> getPlugins() throws APIException;
 

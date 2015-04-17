@@ -6,7 +6,9 @@ import net.anotheria.anoprise.metafactory.Service;
 import net.anotheria.moskito.core.registry.IProducerFilter;
 import net.anotheria.moskito.core.stats.TimeUnit;
 import org.distributeme.annotation.DistributeMe;
+import org.distributeme.annotation.FailBy;
 import org.distributeme.annotation.SupportService;
+import org.distributeme.core.failing.RetryCallOnce;
 
 import java.util.List;
 
@@ -18,6 +20,7 @@ import java.util.List;
  */
 @DistributeMe(agentsSupport=false)
 @SupportService
+@FailBy(strategyClass=RetryCallOnce.class)
 public interface ProducerAPI extends API, Service {
 	List<UnitCountAO> getCategories() throws APIException;
 
