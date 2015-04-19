@@ -12,7 +12,13 @@ import net.anotheria.moskito.core.stats.TimeUnit;
 import net.anotheria.moskito.webui.decorators.DecoratorRegistryFactory;
 import net.anotheria.moskito.webui.decorators.IDecorator;
 import net.anotheria.moskito.webui.decorators.IDecoratorRegistry;
+import net.anotheria.moskito.webui.producers.api.filters.ProducerFilter;
 import net.anotheria.moskito.webui.shared.api.AbstractMoskitoAPIImpl;
+import net.anotheria.moskito.webui.util.ProducerFilterConfig;
+import net.anotheria.moskito.webui.util.WebUIConfig;
+import org.configureme.ConfigurationManager;
+import org.configureme.annotations.AfterConfiguration;
+import org.configureme.annotations.ConfigureMe;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -28,11 +34,54 @@ public class ProducerAPIImpl extends AbstractMoskitoAPIImpl implements ProducerA
 	private IProducerRegistryAPI producerRegistryAPI;
 	private IDecoratorRegistry decoratorRegistry = DecoratorRegistryFactory.getDecoratorRegistry();
 
+	private volatile List<ProducerFilter> producerFilters;
+
+	/**
+	 * Called after the configuration has been read.
+	 */
+	private void apiAfterConfiguration(){
+		List<ProducerFilter> newProducerFilters = new ArrayList<ProducerFilter>();
+		ProducerFilterConfig filterConfig[] = WebUIConfig.getInstance().getFilters();
+		if (filterConfig==null || filterConfig.length==0)
+			return;
+		for (ProducerFilterConfig pfc : filterConfig){
+			try {
+				ProducerFilter filter = (ProducerFilter)Class.forName(pfc.getClazzName()).newInstance();
+				filter.customize(pfc.getParameter());
+				newProducerFilters.add(filter);
+			} catch (InstantiationException e) {
+				log.warn("Can't initialize filter of class "+pfc.getClazzName());
+			} catch (IllegalAccessException e) {
+				log.warn("Can't initialize filter of class " + pfc.getClazzName());
+			} catch (ClassNotFoundException e) {
+				log.warn("Can't initialize filter of class " + pfc.getClazzName());
+			}
+		}
+
+		producerFilters = newProducerFilters;
+
+	}
+
+	@ConfigureMe(name="moskito-inspect")
+	public class ConfigurationHook{
+		@AfterConfiguration public void afterConfiguration(){
+			apiAfterConfiguration();
+		}
+	}
+
 	@Override
 	public void init() throws APIInitException {
 		super.init();
 
 		producerRegistryAPI = new ProducerRegistryAPIFactory().createProducerRegistryAPI();
+		//force load of configuration.
+		WebUIConfig.getInstance();
+		ConfigurationHook configurationHook = new ConfigurationHook();
+		try{
+			ConfigurationManager.INSTANCE.configure(configurationHook);
+		}catch(IllegalArgumentException e){
+			log.warn("Can't register configuration hook for moskito-inspect.json, re-configuration will not be supported");
+		}
 	}
 
 	@Override
@@ -57,7 +106,25 @@ public class ProducerAPIImpl extends AbstractMoskitoAPIImpl implements ProducerA
 
 	@Override
 	public List<ProducerAO> getAllProducers(String intervalName, TimeUnit timeUnit) {
-		return convertStatsProducerListToAO(producerRegistryAPI.getAllProducers(), intervalName, timeUnit);
+
+		if (producerFilters==null || producerFilters.size()==0)
+			return convertStatsProducerListToAO(producerRegistryAPI.getAllProducers(), intervalName, timeUnit);
+
+		List<IStatsProducer> allProducers =  producerRegistryAPI.getAllProducers();
+		ArrayList<ProducerAO> ret = new ArrayList<ProducerAO>();
+		for (IStatsProducer<?> p : allProducers){
+			boolean mayPass = true;
+			for (ProducerFilter filter : producerFilters){
+				if (!filter.mayPass(p)){
+					mayPass = false;
+					break;
+				}
+			}
+			if (mayPass)
+				ret.add(convertStatsProducerToAO(p, intervalName, timeUnit));
+		}
+
+		return ret;
 	}
 
 	private List<ProducerAO> convertStatsProducerListToAO(List<IStatsProducer> producers, String intervalName, TimeUnit timeUnit){

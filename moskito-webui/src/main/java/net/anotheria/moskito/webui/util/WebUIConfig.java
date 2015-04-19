@@ -6,7 +6,7 @@ import org.configureme.annotations.ConfigureMe;
 /**
  * Configuration class for web user interface config.
  */
-@ConfigureMe(name="mskwebui", allfields=true)
+@ConfigureMe(name="moskito-inspect", allfields=true)
 public class WebUIConfig {
 	/**
 	 * Width of the producerChart.
@@ -31,6 +31,12 @@ public class WebUIConfig {
 	 * Connectivity mode, available values are default or local.
 	 */
 	private ConnectivityMode connectivityMode = ConnectivityMode.LOCAL;
+
+	/**
+	 * ProducerFilterConfig allows to configure filters that will exclude producers from overview.
+	 *
+	 */
+	private ProducerFilterConfig[] filters = new ProducerFilterConfig[0];
 
 
 	/**
@@ -123,4 +129,11 @@ public class WebUIConfig {
 		this.usageMode = usageMode;
 	}
 
+	public ProducerFilterConfig[] getFilters() {
+		return filters;
+	}
+
+	public void setFilters(ProducerFilterConfig[] filters) {
+		this.filters = filters;
+	}
 }

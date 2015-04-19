@@ -18,5 +18,13 @@
             "host": "test1.example.com",
             "port": 9402
         }
+    ],
+    "@filters": [
+        {
+            //this producer filter will remove internal APIs from the producer list.
+            "clazzName": "net.anotheria.moskito.webui.producers.api.filters.InternalProducerFilter",
+            "parameter": "none"
+        }
     ]
+
 }
