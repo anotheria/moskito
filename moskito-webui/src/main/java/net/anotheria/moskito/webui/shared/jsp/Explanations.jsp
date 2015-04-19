@@ -31,13 +31,13 @@
                         <li><a target="_blank" href="http://blog.anotheria.net/category/msk/">anotheria devblog</a> contains a lot of articles about MoSKito, in particular:</li>
                         <li><a target="_blank" href="http://blog.anotheria.net/msk/the-complete-moskito-integration-guide-step-1/">The complete integration guide</a>.</li>
                         <li>You could also check <a target="_blank" href="https://confluence.opensource.anotheria.net/display/MSK/Change+Log">the recent changes</a></li>
-                        <li>or <a target="_blank" href="https://confluence.opensource.anotheria.net/display/MSK/MoSKito-WebUI+User+Guide">MoSKito Inspect Manual</a></li>
+                        <li>or <a target="_blank" href="https://confluence.opensource.anotheria.net/display/MSK/MoSKito-Inspect+User+Guide">MoSKito Inspect Manual</a></li>
                         <li>and finally <a target="_blank" hred="http://opensource.anotheria.net/">anotheria open source hub</a>.</li>
                         <li>MoSKito is free and opensource, <a target="_blank" href="https://github.com/anotheria/moskito">fork the project sources on github</a> and participate!</li>
                     </ul>
                     This page explains what the abbreviations used on the producers overview page mean. However, it doesn't explain how to interpret
                     the data. Since the data is strongly use-case dependent, its mostly up to you to give it a correct interpretations, but
-                    for some use-cases <a href="http://moskito.anotheria.net/documentation.html">moskito's documentation and HOWTOs</a> are quite useful.
+                    for some use-cases <a href="https://confluence.opensource.anotheria.net/display/MSK">moskito's documentation and HOWTOs</a> are quite useful.
                 </div>
             </div>
         </div>
