@@ -38,6 +38,7 @@ import net.anotheria.maf.action.Action;
 import net.anotheria.maf.action.ActionMapping;
 import net.anotheria.moskito.core.stats.TimeUnit;
 import net.anotheria.moskito.core.threshold.ThresholdStatus;
+import net.anotheria.moskito.webui.Features;
 import net.anotheria.moskito.webui.MoSKitoWebUIContext;
 import net.anotheria.moskito.webui.accumulators.api.AccumulatorAPI;
 import net.anotheria.moskito.webui.dashboards.api.DashboardAPI;
@@ -172,6 +173,16 @@ public abstract class BaseMoskitoUIAction implements Action{
 	 * Default title string for the web page &lt;title$gt; element.
 	 */
 	public static final String DEFAULT_TITLE = "MoSKito Inspect";
+
+	/**
+	 * If set to off the configured filtering of producer names will be switched off.
+	 */
+	public static final String PARAM_FILTERING = "pFiltering";
+
+	/**
+	 * Value that switches filtering feature off.
+	 */
+	public static final String PARAM_VALUE_FILTER_OFF = "off";
 
 	/**
 	 * Logger.
@@ -330,6 +341,10 @@ public abstract class BaseMoskitoUIAction implements Action{
 		MoSKitoWebUIContext context = MoSKitoWebUIContext.getCallContextAndReset();
 		context.setCurrentIntervalName(currentIntervalName);
 		context.setCurrentSession(req.getSession());
+
+		String paramFilteringOff = req.getParameter(PARAM_FILTERING);
+		if (paramFilteringOff!=null && paramFilteringOff.equals(PARAM_VALUE_FILTER_OFF))
+			context.addAttribute(Features.PRODUCER_FILTERING.name(), Boolean.FALSE);
 
 
 		//we need to set navi/subnavi item to none, in order to prevent exceptions in rendering of the menu.
