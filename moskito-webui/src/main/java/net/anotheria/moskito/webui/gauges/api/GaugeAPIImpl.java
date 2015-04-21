@@ -2,6 +2,7 @@ package net.anotheria.moskito.webui.gauges.api;
 
 import net.anotheria.anoplass.api.APIException;
 import net.anotheria.anoplass.api.APIInitException;
+import net.anotheria.moskito.core.config.MoskitoConfiguration;
 import net.anotheria.moskito.core.config.MoskitoConfigurationHolder;
 import net.anotheria.moskito.core.config.gauges.GaugeConfig;
 import net.anotheria.moskito.core.config.gauges.GaugeValueConfig;
@@ -17,6 +18,7 @@ import net.anotheria.moskito.webui.producers.api.StatValueAO;
 import net.anotheria.moskito.webui.producers.api.StringValueAO;
 import net.anotheria.moskito.webui.shared.api.AbstractMoskitoAPIImpl;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -28,14 +30,45 @@ import java.util.List;
  */
 public class GaugeAPIImpl extends AbstractMoskitoAPIImpl implements GaugeAPI {
 
+	/**
+	 * RegistryAPI.
+	 */
 	private IProducerRegistryAPI producerRegistryAPI;
+
+	private List<GaugeZoneAO> defaultZones;
 
 	@Override
 	public void init() throws APIInitException {
 		super.init();
 		producerRegistryAPI = new ProducerRegistryAPIFactory().createProducerRegistryAPI();
+
+		MoskitoConfiguration configuration = getConfiguration();
+		GaugeZoneConfig[] defaultZonesConfig = configuration.getGaugesConfig().getDefaultZones();
+		if (defaultZonesConfig == null || defaultZonesConfig.length == 0){
+			defaultZones = createDefaultZones();
+		}else{
+			defaultZones = new ArrayList<GaugeZoneAO>();
+			for (GaugeZoneConfig zoneConfig : defaultZonesConfig){
+				defaultZones.add(zoneAOFromZoneConfig(zoneConfig));
+			}
+		}
 	}
 
+	/**
+	 * This method creates some default zones if nothing is configured.
+	 * @return
+	 */
+	private List<GaugeZoneAO> createDefaultZones(){
+		ArrayList<GaugeZoneAO> ret = new ArrayList<GaugeZoneAO>();
+		GaugeZoneAO redZone = new GaugeZoneAO();
+		redZone.setColor("red");
+		redZone.setLeft(0.9f);
+		redZone.setRight(1.0f);
+		ret.add(redZone);
+		return ret;
+	}
+
+	@Override
 	public List<GaugeAO> getGauges(){
 		GaugesConfig gg = MoskitoConfigurationHolder.getConfiguration().getGaugesConfig();
 		List<GaugeAO> gaugeAOList = new LinkedList<GaugeAO>();
@@ -93,15 +126,21 @@ public class GaugeAPIImpl extends AbstractMoskitoAPIImpl implements GaugeAPI {
 		//prepare zones
 		if (fromConfig.getZones()!=null && fromConfig.getZones().length>0){
 			for (GaugeZoneConfig zoneConfig : fromConfig.getZones()){
-				GaugeZoneAO zoneAO = new GaugeZoneAO();
-				zoneAO.setColor(zoneConfig.getColor());
-				zoneAO.setLeft(zoneConfig.getLeft());
-				zoneAO.setRight(zoneConfig.getRight());
-				ao.addZone(zoneAO);
+				ao.addZone(zoneAOFromZoneConfig(zoneConfig));
 			}
+		}else{
+			ao.setZones(defaultZones);
 		}
 
 		return ao;
+	}
+
+	private GaugeZoneAO zoneAOFromZoneConfig(GaugeZoneConfig zoneConfig){
+		GaugeZoneAO zoneAO = new GaugeZoneAO();
+		zoneAO.setColor(zoneConfig.getColor());
+		zoneAO.setLeft(zoneConfig.getLeft());
+		zoneAO.setRight(zoneConfig.getRight());
+		return zoneAO;
 	}
 
 	private StatValueAO gaugeValue2statValue(GaugeValueConfig config){
@@ -126,5 +165,7 @@ public class GaugeAPIImpl extends AbstractMoskitoAPIImpl implements GaugeAPI {
 		}
 		return new StringValueAO(null, "n.A.");
 	}
+
+
 
 }

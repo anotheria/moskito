@@ -217,7 +217,20 @@
               "intervalName": "default"
             }
           }
-        ]
+        ],
+      "@defaultZones":[
+        {
+          "color": "orange",
+          "left": 0.85,
+          "right": 0.9
+        },
+        {
+          "color": "red",
+          "left": 0.9,
+          "right": 1
+        }
+      ]
+
     },
 
     "@pluginsConfig": {
