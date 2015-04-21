@@ -1258,6 +1258,13 @@ var D3chart = (function () {
         };
 
         var gaugeChart = function () {
+            var zoneColours = {
+                "green": "#109618",
+                "yellow": "#FFFF00",
+                "orange": "#FF9900",
+                "red": "#DC3912"
+            };
+
             /**
              * Represents gauge.
              * http://bl.ocks.org/tomerd/1499279.
@@ -1283,14 +1290,6 @@ var D3chart = (function () {
 
                     this.config.majorTicks = configuration.majorTicks || 5;
                     this.config.minorTicks = configuration.minorTicks || 2;
-
-                    this.config.greenColor = configuration.greenColor || "#109618";
-                    this.config.yellowColor = configuration.yellowColor || "#FF9900";
-                    this.config.redColor = configuration.redColor || "#DC3912";
-
-                    this.config.greenZones = configuration.greenZones || [];
-                    this.config.yellowZones = configuration.yellowZones || [];
-                    this.config.redZones = configuration.redZones || [];
 
                     this.config.transitionDuration = configuration.transitionDuration || 500;
                 };
@@ -1340,16 +1339,9 @@ var D3chart = (function () {
                         .style("stroke", "#e0e0e0")
                         .style("stroke-width", "2px");
 
-                    this.config.greenZones.forEach(function (zone) {
-                        self.drawBand(zone.from, zone.to, self.config.greenColor);
-                    });
-
-                    this.config.yellowZones.forEach(function (zone) {
-                        self.drawBand(zone.from, zone.to, self.config.yellowColor);
-                    });
-
-                    this.config.redZones.forEach(function (zone) {
-                        self.drawBand(zone.from, zone.to, self.config.redColor);
+                    // draw band zones
+                    this.config.bandZones.forEach(function (zone) {
+                        self.drawBand(zone.from, zone.to, zone.colorCode);
                     });
 
                     // show label
@@ -1567,8 +1559,19 @@ var D3chart = (function () {
 
             var _createGauge = function (containerId, config) {
                 var range = config.max - config.min;
-                config.yellowZones = [{from: config.min + range * 0.75, to: config.min + range * 0.9}];
-                config.redZones = [{from: config.min + range * 0.9, to: config.max}];
+
+                config.bandZones = [];
+
+                config.zones.forEach(function (zone) {
+                    if (!zone || !zone.enabled || !zone.color)
+                        return;
+
+                    config.bandZones.push({
+                        colorCode: zone.colorCode || zoneColours[zone.color],
+                        from: config.min + range * zone.from,
+                        to: config.min + range * zone.to
+                    })
+                });
 
                 var gauge = new Gauge(containerId, config);
                 _gauges.push(gauge);
@@ -1590,7 +1593,8 @@ var D3chart = (function () {
                     min: undefined != d.min ? d.min : 0,
                     max: undefined != d.max ? d.max : 100,
                     minorTicks: 5,
-                    current: undefined != d.current ? d.current : 0
+                    current: undefined != d.current ? d.current : 0,
+                    zones: d.zones || []
                 };
 
                 _createGauge(container, config);
