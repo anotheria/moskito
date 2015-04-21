@@ -117,7 +117,30 @@
             },
             "@maxValue": {
               "constant":100
-            }
+            },
+            "@zones":[
+              {
+                "color": "green",
+                "left": 0,
+                "right": 0.25
+              },
+              {
+                "color": "yellow",
+                "left": 0.25,
+                "right": 0.5
+              },
+              {
+                "color": "orange",
+                "left": 0.5,
+                "right": 0.75
+              },
+              {
+                "color": "red",
+                "left": 0.75,
+                "right": 1
+              }
+            ]
+
           },
           {
             "name": "Sessions",

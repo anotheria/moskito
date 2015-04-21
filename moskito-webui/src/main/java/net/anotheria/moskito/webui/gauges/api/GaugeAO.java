@@ -7,6 +7,8 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.io.Serializable;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * Represents a gauge with its values.
@@ -41,6 +43,8 @@ public class GaugeAO implements Serializable{
 	 * Could all values be set?
 	 */
 	private boolean complete;
+
+	private List<GaugeZoneAO> zones = new LinkedList<GaugeZoneAO>();
 
 	public StatValueAO getCurrent() {
 		return current;
@@ -104,6 +108,7 @@ public class GaugeAO implements Serializable{
 				", current=" + current +
 				", min=" + min +
 				", max=" + max +
+				", zones= "+zones+
 				'}';
 	}
 
@@ -113,5 +118,21 @@ public class GaugeAO implements Serializable{
 
 	public void setCaption(String caption) {
 		this.caption = caption;
+	}
+
+	public List<GaugeZoneAO> getZones() {
+		return zones;
+	}
+
+	public void setZones(List<GaugeZoneAO> zones) {
+		this.zones = zones;
+	}
+
+	public void addZone(GaugeZoneAO zone){
+		zones.add(zone);
+	}
+
+	public boolean getCustomZonesAvailable(){
+		return zones!=null && zones.size()>0;
 	}
 }

@@ -4,6 +4,7 @@ import org.configureme.annotations.Configure;
 import org.configureme.annotations.ConfigureMe;
 
 import java.io.Serializable;
+import java.util.Arrays;
 
 /**
  * TODO comment this class
@@ -23,6 +24,8 @@ public class GaugeConfig implements Serializable{
 	private GaugeValueConfig maxValue;
 	@Configure
 	private String caption;
+	@Configure
+	private GaugeZoneConfig[] zones;
 
 	public GaugeValueConfig getCurrentValue() {
 		return currentValue;
@@ -64,7 +67,15 @@ public class GaugeConfig implements Serializable{
 		this.caption = caption;
 	}
 
+	public GaugeZoneConfig[] getZones() {
+		return zones;
+	}
+
+	public void setZones(GaugeZoneConfig[] zones) {
+		this.zones = zones;
+	}
+
 	@Override public String toString(){
-		return "Name: "+getName()+", Min: "+getMinValue()+", Cur: "+getCurrentValue()+", Max: "+getMaxValue();
+		return "Name: "+getName()+", Min: "+getMinValue()+", Cur: "+getCurrentValue()+", Max: "+getMaxValue()+", Zones: "+ Arrays.toString(zones);
 	}
 }

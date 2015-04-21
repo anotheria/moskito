@@ -5,6 +5,7 @@ import net.anotheria.anoplass.api.APIInitException;
 import net.anotheria.moskito.core.config.MoskitoConfigurationHolder;
 import net.anotheria.moskito.core.config.gauges.GaugeConfig;
 import net.anotheria.moskito.core.config.gauges.GaugeValueConfig;
+import net.anotheria.moskito.core.config.gauges.GaugeZoneConfig;
 import net.anotheria.moskito.core.config.gauges.GaugesConfig;
 import net.anotheria.moskito.core.producers.IStats;
 import net.anotheria.moskito.core.producers.IStatsProducer;
@@ -87,6 +88,19 @@ public class GaugeAPIImpl extends AbstractMoskitoAPIImpl implements GaugeAPI {
 			complete = false;
 		}
 		ao.setComplete(complete);
+
+
+		//prepare zones
+		if (fromConfig.getZones()!=null && fromConfig.getZones().length>0){
+			for (GaugeZoneConfig zoneConfig : fromConfig.getZones()){
+				GaugeZoneAO zoneAO = new GaugeZoneAO();
+				zoneAO.setColor(zoneConfig.getColor());
+				zoneAO.setLeft(zoneConfig.getLeft());
+				zoneAO.setRight(zoneConfig.getRight());
+				ao.addZone(zoneAO);
+			}
+		}
+
 		return ao;
 	}
 
