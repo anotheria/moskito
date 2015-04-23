@@ -44,6 +44,9 @@ public class GaugeAO implements Serializable{
 	 */
 	private boolean complete;
 
+	/**
+	 * Zones associated with this gauge.
+	 */
 	private List<GaugeZoneAO> zones = new LinkedList<GaugeZoneAO>();
 
 	public StatValueAO getCurrent() {

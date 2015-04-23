@@ -5,7 +5,7 @@ import net.anotheria.anoplass.api.APIFinder;
 import net.anotheria.anoprise.metafactory.ServiceFactory;
 
 /**
- * TODO comment this class
+ * The factory for the gauge api.
  *
  * @author lrosenberg
  * @since 25.03.15 12:07

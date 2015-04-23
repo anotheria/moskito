@@ -3,14 +3,23 @@ package net.anotheria.moskito.webui.gauges.api;
 import java.io.Serializable;
 
 /**
- * TODO comment this class
+ * Represents a gauge zone (area of color in a gauge).
  *
  * @author lrosenberg
  * @since 21.04.15 08:49
  */
 public class GaugeZoneAO implements Serializable{
+	/**
+	 * Zones color.
+	 */
 	private String color;
+	/**
+	 * Start of the zone in percent (0.0 - 1.0).
+	 */
 	private float left;
+	/**
+	 * End of the zone in percent (0.0 - 1.0).
+	 */
 	private float right;
 
 	public String getColor() {
