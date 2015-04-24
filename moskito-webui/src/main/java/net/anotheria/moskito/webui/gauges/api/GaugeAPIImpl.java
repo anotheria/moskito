@@ -72,6 +72,8 @@ public class GaugeAPIImpl extends AbstractMoskitoAPIImpl implements GaugeAPI {
 	public List<GaugeAO> getGauges(){
 		GaugesConfig gg = MoskitoConfigurationHolder.getConfiguration().getGaugesConfig();
 		List<GaugeAO> gaugeAOList = new LinkedList<GaugeAO>();
+		if (gg == null || gg.getGauges() == null || gg.getGauges().length == 0)
+			return gaugeAOList;
 		for (GaugeConfig g : gg.getGauges()){
 			GaugeAO ao = createGaugeAO(g);
 			gaugeAOList.add(ao);
