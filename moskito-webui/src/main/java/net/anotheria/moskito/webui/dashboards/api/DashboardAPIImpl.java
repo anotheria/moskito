@@ -250,14 +250,15 @@ public class DashboardAPIImpl extends AbstractMoskitoAPIImpl implements Dashboar
 
 					finalChart.setData(finalChartData);
 					bean.setChartData(finalChart);
-					chartBeans.add(bean);
 
 				}
+				chartBeans.add(bean);
 
 
-				ret.setCharts(chartBeans);
 			}
+			ret.setCharts(chartBeans);
 		}
+
 		return ret;
 	}
 }
