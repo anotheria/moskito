@@ -12,7 +12,6 @@ import javax.servlet.http.HttpServletRequest;
  * @since 23.03.15 21:37
  */
 abstract class BaseGaugesAction extends BaseMoskitoUIAction {
-	//return null sofar
 	@Override
 	protected String getLinkToCurrentPage(HttpServletRequest req) {
 		return null;
