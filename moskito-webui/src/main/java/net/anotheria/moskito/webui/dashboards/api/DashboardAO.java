@@ -62,4 +62,14 @@ public class DashboardAO implements Serializable{
 	public void setCharts(List<DashboardChartAO> charts) {
 		this.charts = charts;
 	}
+
+	@Override
+	public String toString() {
+		return "DashboardAO{" +
+				"charts=" + charts +
+				", name='" + name + '\'' +
+				", gauges=" + gauges +
+				", thresholds=" + thresholds +
+				'}';
+	}
 }
