@@ -42,7 +42,6 @@ public class SamplingEngine {
 	}
 
 	public void addSample(Sample sample){
-		System.out.println("Adding sample " + sample);
 		//do queue later
 
 		processSample(sample);

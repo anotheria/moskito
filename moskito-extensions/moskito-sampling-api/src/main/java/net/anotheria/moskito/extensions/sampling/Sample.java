@@ -36,4 +36,13 @@ public class Sample {
 	public void setValues(Map<String, String> values) {
 		this.values = values;
 	}
+
+	@Override
+	public String toString() {
+		return "Sample{" +
+				"producerId='" + producerId + '\'' +
+				", statMapperId='" + statMapperId + '\'' +
+				", values=" + values +
+				'}';
+	}
 }
