@@ -45,6 +45,11 @@ import net.anotheria.moskito.webui.threshold.action.DeleteThresholdAction;
 import net.anotheria.moskito.webui.threshold.action.GetThresholdDefinitionAction;
 import net.anotheria.moskito.webui.threshold.action.ShowThresholdsAction;
 import net.anotheria.moskito.webui.threshold.action.UpdateThresholdAction;
+import net.anotheria.moskito.webui.tracers.action.CreateTracerAction;
+import net.anotheria.moskito.webui.tracers.action.DisableTracerAction;
+import net.anotheria.moskito.webui.tracers.action.RemoveTracerAction;
+import net.anotheria.moskito.webui.tracers.action.ShowTracerAction;
+import net.anotheria.moskito.webui.tracers.action.ShowTracersAction;
 
 /**
  * Mappings configurator for MoSKito project for the AnoMaf framework.
@@ -164,6 +169,19 @@ public class MoskitoMappingsConfigurator implements ActionMappingsConfigurator{
 		//gauges, now just for testing purposes
 		mappings.addMapping("mskGauges", ShowGaugesAction.class,
 			new ActionForward("success", "/net/anotheria/moskito/webui/gauges/jsp/Gauges.jsp"));
+
+		//tracers
+		mappings.addMapping("mskTracers", ShowTracersAction.class,
+				new ActionForward("success", "/net/anotheria/moskito/webui/tracers/jsp/Tracers.jsp"));
+		mappings.addMapping("mskTracer", ShowTracerAction.class,
+				new ActionForward("success", "/net/anotheria/moskito/webui/tracers/jsp/Tracer.jsp"));
+
+		mappings.addMapping("mskCreateTracer", CreateTracerAction.class);
+		mappings.addMapping("mskRemoveTracer", RemoveTracerAction.class,
+				new CommandRedirect("redirect", "mskTracers"));
+		mappings.addMapping("mskDisableTracer", DisableTracerAction.class,
+				new CommandRedirect("redirect", "mskTracers"));
+
 
 
 		//analyze journey

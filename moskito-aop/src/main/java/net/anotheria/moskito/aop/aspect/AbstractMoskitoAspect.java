@@ -31,7 +31,7 @@ public class AbstractMoskitoAspect<S extends IStats> {
 	 * @param withMethod if true the name of the method will be part of the automatically generated producer id.
 	 * @return
 	 */
-	protected  OnDemandStatsProducer<S> getProducer(ProceedingJoinPoint pjp, String aProducerId, String aCategory, String aSubsystem, boolean withMethod, IOnDemandStatsFactory<S> factory){
+	protected  OnDemandStatsProducer<S> getProducer(ProceedingJoinPoint pjp, String aProducerId, String aCategory, String aSubsystem, boolean withMethod, IOnDemandStatsFactory<S> factory, boolean tracingSupported){
 		String producerId = null;
 		if (aProducerId!=null && aProducerId.length()>0){
 			producerId = aProducerId;
@@ -49,6 +49,7 @@ public class AbstractMoskitoAspect<S extends IStats> {
 		if (producer==null){
 
 			producer = new OnDemandStatsProducer(producerId, getCategory(aCategory), getSubsystem(aSubsystem), factory);
+			producer.setTracingSupported(tracingSupported);
 			OnDemandStatsProducer<S> p = producers.putIfAbsent(producerId, producer);
 			if (p==null){
 				ProducerRegistryFactory.getProducerRegistryInstance().registerProducer(producer);

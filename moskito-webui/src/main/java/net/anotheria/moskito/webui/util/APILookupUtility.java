@@ -11,6 +11,7 @@ import net.anotheria.moskito.webui.producers.api.ProducerAPI;
 import net.anotheria.moskito.webui.shared.api.AdditionalFunctionalityAPI;
 import net.anotheria.moskito.webui.threads.api.ThreadAPI;
 import net.anotheria.moskito.webui.threshold.api.ThresholdAPI;
+import net.anotheria.moskito.webui.tracers.api.TracerAPI;
 import org.distributeme.core.ServiceDescriptor;
 
 import javax.servlet.http.HttpSession;
@@ -42,6 +43,7 @@ public class APILookupUtility {
 	 * Currently configured ConnectivityMode (local or remote).
 	 */
 	private static ConnectivityMode currentConnectivityMode = WebUIConfig.getInstance().getConnectivityMode();
+	private static TracerAPI tracerAPI;
 
 	public static boolean isLocal(){
 		//if current usage mode is personal, every change made to the connectivity mode is global.
@@ -135,6 +137,13 @@ public class APILookupUtility {
 				APIFinder.findAPI(DashboardAPI.class) :
 				findRemote(DashboardAPI.class);
 	}
+
+	public static TracerAPI getTracerAPI() {
+		return isLocal() ?
+				APIFinder.findAPI(TracerAPI.class) :
+				findRemote(TracerAPI.class);
+	}
+
 
 
 

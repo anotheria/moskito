@@ -9,6 +9,8 @@ import net.anotheria.moskito.core.registry.IProducerFilter;
 import net.anotheria.moskito.core.registry.IProducerRegistryAPI;
 import net.anotheria.moskito.core.registry.ProducerRegistryAPIFactory;
 import net.anotheria.moskito.core.stats.TimeUnit;
+import net.anotheria.moskito.core.tracer.TracerRepository;
+import net.anotheria.moskito.core.tracer.TracingAwareProducer;
 import net.anotheria.moskito.webui.Features;
 import net.anotheria.moskito.webui.decorators.DecoratorRegistryFactory;
 import net.anotheria.moskito.webui.decorators.IDecorator;
@@ -126,6 +128,14 @@ public class ProducerAPIImpl extends AbstractMoskitoAPIImpl implements ProducerA
 		ao.setFullProducerClassName(p.getClass().getName());
 		if (p instanceof Inspectable)
 			ao.setCreationInfo(((Inspectable)p).getCreationInfo());
+		boolean traceable = false;
+		if (p instanceof TracingAwareProducer){
+			traceable = ((TracingAwareProducer)p).tracingSupported();
+		}
+		ao.setTraceable(traceable);
+		if (traceable){
+			ao.setTraced(TracerRepository.getInstance().isTracingEnabledForProducer(p.getProducerId()));
+		}
 
 		IStats firstStats = p.getStats().get(0);
 		ao.setStatsClazzName(firstStats.getClass().getName());

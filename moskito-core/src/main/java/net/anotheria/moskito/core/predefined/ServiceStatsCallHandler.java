@@ -41,6 +41,7 @@ import net.anotheria.moskito.core.calltrace.TracedCall;
 import net.anotheria.moskito.core.dynamic.IOnDemandCallHandler;
 import net.anotheria.moskito.core.producers.IStats;
 import net.anotheria.moskito.core.producers.IStatsProducer;
+import net.anotheria.moskito.core.tracer.TracerRepository;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -60,19 +61,32 @@ public class ServiceStatsCallHandler implements IOnDemandCallHandler {
 		TracedCall aRunningTrace = RunningTraceContainer.getCurrentlyTracedCall();
 		TraceStep currentStep = null;
 		CurrentlyTracedCall currentTrace = aRunningTrace.callTraced() ?
-				(CurrentlyTracedCall)aRunningTrace : null; 
-		if (currentTrace !=null){
-			StringBuilder call = new StringBuilder(producer.getProducerId()).append('.').append(method.getName()).append("(");
+				(CurrentlyTracedCall)aRunningTrace : null;
+
+		TracerRepository tracerRepository = TracerRepository.getInstance();
+		String producerId = producer.getProducerId();
+		boolean tracePassingOfThisProducer = tracerRepository.isTracingEnabledForProducer(producerId);
+
+		String call = null;
+
+		if (currentTrace !=null || tracePassingOfThisProducer){
+			StringBuilder callB = new StringBuilder(producer.getProducerId()).append('.').append(method.getName()).append("(");
 			if (args!=null && args.length>0){
 				for (int i=0; i<args.length; i++){
-					call.append(args[i]);
+					callB.append(args[i]);
 					if (i<args.length-1)
-						call.append(", ");
+						callB.append(", ");
 				}
 			}
-			call.append(")");
-			currentStep = currentTrace.startStep(call.toString(), producer);
+			callB.append(")");
+			call = callB.toString();
 		}
+
+		if (currentTrace !=null) {
+			currentStep = currentTrace.startStep(call, producer);
+		}
+
+
 		long startTime = System.nanoTime();
 		Object ret = null;
 		try{
@@ -107,6 +121,11 @@ public class ServiceStatsCallHandler implements IOnDemandCallHandler {
 			}
 			if (currentTrace !=null)
 				currentTrace.endStep();
+
+			if (tracePassingOfThisProducer) {
+				tracerRepository.addTracedExecution(producerId, call, Thread.currentThread().getStackTrace(), exTime);
+			}
+
 		}
 	}
 } 

@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html;charset=UTF-8" session="true"
 %><%@ taglib uri="http://www.anotheria.net/ano-tags" prefix="ano"
-%><!DOCTYPE html>
+%><%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"
+%>
+<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/html">
 
 <jsp:include page="../../shared/jsp/Header.jsp" flush="false"/>
@@ -23,9 +25,19 @@
         <div class="pull-right">
             <a href="${linkToCurrentPage}&pForward=selection&target=Accumulator" class="btn btn-default" onclick="new_accumulator(); return false"><i class="fa fa-plus"></i> Accumulator</a>
             <a href="${linkToCurrentPage}&pForward=selection&target=Threshold" class="btn btn-default" onclick="new_threshold(); return false"><i class="fa fa-plus"></i> Threshold</a>
-            <ano:equal name="producer" property="inspectable" value="true">
+            <c:if test="${producer.traceable}">
+                <c:choose>
+                <c:when test="${producer.traced}">
+                    <a href="mskTracer?pProducerId=${producer.producerId}" class="btn btn-success" onclick=""><i class="fa fa-binoculars"></i> Tracer</a>
+                </c:when>
+                <c:otherwise>
+                    <a href="mskCreateTracer?pProducerId=${producer.producerId}" class="btn btn-default" onclick=""><i class="fa fa-plus"></i> Tracer</a>
+                </c:otherwise>
+                </c:choose>
+            </c:if>
+            <c:if test="${producer.inspectable}">
                 <a href="#inspect" data-toggle="modal" data-target="#inspect" class="btn btn-success"><i class="fa fa-search"></i> Inspect</a>
-            </ano:equal>
+            </c:if>
         </div>
     </div>
 </div>

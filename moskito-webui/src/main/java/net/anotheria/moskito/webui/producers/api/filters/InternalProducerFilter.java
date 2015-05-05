@@ -9,6 +9,7 @@ import net.anotheria.moskito.webui.producers.api.ProducerAPI;
 import net.anotheria.moskito.webui.shared.api.AdditionalFunctionalityAPI;
 import net.anotheria.moskito.webui.threads.api.ThreadAPI;
 import net.anotheria.moskito.webui.threshold.api.ThresholdAPI;
+import net.anotheria.moskito.webui.tracers.api.TracerAPI;
 
 import java.util.HashSet;
 
@@ -32,6 +33,7 @@ public class InternalProducerFilter implements ProducerFilter {
 		internalProducerNames.add(DashboardAPI.class.getSimpleName());
 		internalProducerNames.add(ThreadAPI.class.getSimpleName());
 		internalProducerNames.add(JourneyAPI.class.getSimpleName());
+		internalProducerNames.add(TracerAPI.class.getSimpleName());
 	}
 
 	@Override

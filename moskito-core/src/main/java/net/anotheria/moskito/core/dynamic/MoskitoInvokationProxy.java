@@ -121,6 +121,7 @@ public class MoskitoInvokationProxy implements InvocationHandler{
 		
 		handler = aHandler;
 		producer = new OnDemandStatsProducer(producerId, category, subsystem, factory);
+		producer.setTracingSupported(true);
 		
 		ProducerRegistryFactory.getProducerRegistryInstance().registerProducer(producer);
 		

@@ -8,6 +8,7 @@ import net.anotheria.moskito.core.calltrace.TracedCall;
 import net.anotheria.moskito.core.dynamic.OnDemandStatsProducer;
 import net.anotheria.moskito.core.predefined.ServiceStats;
 import net.anotheria.moskito.core.predefined.ServiceStatsFactory;
+import net.anotheria.moskito.core.tracer.TracerRepository;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -39,7 +40,7 @@ public class MonitoringAspect extends AbstractMoskitoAspect{
     /*  */
     private Object doProfiling(ProceedingJoinPoint pjp, String aProducerId, String aSubsystem, String aCategory) throws Throwable {
 
-		OnDemandStatsProducer<ServiceStats> producer = getProducer(pjp, aProducerId, aCategory, aSubsystem, false, FACTORY);
+		OnDemandStatsProducer<ServiceStats> producer = getProducer(pjp, aProducerId, aCategory, aSubsystem, false, FACTORY, true);
 		String producerId = producer.getProducerId();
 
     	String caseName = pjp.getSignature().getName();
@@ -55,18 +56,26 @@ public class MonitoringAspect extends AbstractMoskitoAspect{
         TracedCall aRunningTrace = RunningTraceContainer.getCurrentlyTracedCall();
         TraceStep currentStep = null;
         CurrentlyTracedCall currentTrace = aRunningTrace.callTraced() ? (CurrentlyTracedCall) aRunningTrace : null;
-        if (currentTrace != null) {
-            StringBuilder call = new StringBuilder(producerId).append('.').append(method).append("(");
+
+        TracerRepository tracerRepository = TracerRepository.getInstance();
+        boolean tracePassingOfThisProducer = tracerRepository.isTracingEnabledForProducer(producerId);
+
+        String call = null;
+        if (currentTrace != null || tracePassingOfThisProducer) {
+            StringBuilder callB = new StringBuilder(producerId).append('.').append(method).append("(");
             if (args != null && args.length > 0) {
                 for (int i = 0; i < args.length; i++) {
-                    call.append(args[i]);
+                    callB.append(args[i]);
                     if (i < args.length - 1) {
-                        call.append(", ");
+                        callB.append(", ");
                     }
                 }
             }
-            call.append(")");
-            currentStep = currentTrace.startStep(call.toString(), producer);
+            callB.append(")");
+            call = callB.toString();
+        }
+        if (currentTrace != null) {
+            currentStep = currentTrace.startStep(call, producer);
         }
         long startTime = System.nanoTime();
         Object ret = null;
@@ -113,6 +122,9 @@ public class MonitoringAspect extends AbstractMoskitoAspect{
             if (currentTrace != null) {
                 currentTrace.endStep();
             }
+
+            if (tracePassingOfThisProducer)
+                tracerRepository.addTracedExecution(producerId, call, Thread.currentThread().getStackTrace(), exTime);
         }
     }
 }

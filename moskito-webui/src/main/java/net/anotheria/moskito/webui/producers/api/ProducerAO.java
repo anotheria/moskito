@@ -54,6 +54,10 @@ public class ProducerAO implements Serializable, IComparable{
 	 */
 	private String statsClazzName;
 
+	private boolean traceable;
+
+	private boolean traced;
+
 	public ProducerAO(){
 		lines = new LinkedList<StatLineAO>();
 	}
@@ -168,5 +172,21 @@ public class ProducerAO implements Serializable, IComparable{
 				", subsystem='" + subsystem + '\'' +
 				", category='" + category + '\'' +
 				'}';
+	}
+
+	public boolean isTraceable() {
+		return traceable;
+	}
+
+	public void setTraceable(boolean traceable) {
+		this.traceable = traceable;
+	}
+
+	public boolean isTraced() {
+		return traced;
+	}
+
+	public void setTraced(boolean traced) {
+		this.traced = traced;
 	}
 }
