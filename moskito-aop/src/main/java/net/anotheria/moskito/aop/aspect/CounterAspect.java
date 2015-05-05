@@ -38,7 +38,7 @@ public class CounterAspect extends AbstractMoskitoAspect {
 
 	private Object countByParameter(ProceedingJoinPoint pjp, String aProducerId, String aSubsystem, String aCategory) throws Throwable {
 
-		OnDemandStatsProducer<CounterStats> producer = getProducer(pjp, aProducerId, aCategory, aSubsystem, true, FACTORY);
+		OnDemandStatsProducer<CounterStats> producer = getProducer(pjp, aProducerId, aCategory, aSubsystem, true, FACTORY, false);
 
 		final Object[] args = pjp.getArgs();
 
@@ -68,7 +68,7 @@ public class CounterAspect extends AbstractMoskitoAspect {
 
 	private Object count(ProceedingJoinPoint pjp, String aProducerId, String aSubsystem, String aCategory) throws Throwable {
 
-		OnDemandStatsProducer<CounterStats> producer = getProducer(pjp, aProducerId, aCategory, aSubsystem, false, FACTORY);
+		OnDemandStatsProducer<CounterStats> producer = getProducer(pjp, aProducerId, aCategory, aSubsystem, false, FACTORY, false);
 
 		String caseName = pjp.getSignature().getName();
     	CounterStats defaultStats = producer.getDefaultStats();

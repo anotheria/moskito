@@ -7,7 +7,7 @@
     <title>${title}</title>
     <link type="text/css" rel="stylesheet" rev="stylesheet" href="../moskito/ext/bootstrap-3.1.1/css/bootstrap.css" />
     <link type="text/css" rel="stylesheet" rev="stylesheet" href="../moskito/ext/custom-scrollbar/jquery.mCustomScrollbar.css" />
-    <link type="text/css" rel="stylesheet" href="../moskito/ext/font-awesome-4.0.3/css/font-awesome.css" />
+    <link type="text/css" rel="stylesheet" href="../moskito/ext/font-awesome-4.3.0/css/font-awesome.css" />
     <link type="text/css" rel="stylesheet" rev="stylesheet" href="../moskito/font/style.css" />
     <link type="text/css" rel="stylesheet" rev="stylesheet" href="../moskito/ext/select2-3.4.6/select2.css" />
     <link type="text/css" rel="stylesheet" rev="stylesheet" href="../moskito/ext/switchery/switchery.min.css" />
@@ -154,7 +154,7 @@
         <li ${requestScope.currentNaviItem.id == "producers" ? "class=\"active\"" : ""}><a href="mskShowAllProducers" title="Producers" class="sidebar-tooltip-right">Producers <i class="fa fa-wrench"></i></a></li>
         <li ${requestScope.currentNaviItem.id == "journeys" ? "class=\"active\"" : ""}><a href="mskShowJourneys" title="Journeys" class="sidebar-tooltip-right">Journeys <i class="fa fa-eye"></i></a></li>
         <li ${requestScope.currentNaviItem.id == "thresholds" ? "class=\"active\"" : ""}><a href="mskThresholds" title="Thresholds" class="sidebar-tooltip-right">Thresholds <i class="fa fa-dot-circle-o"></i></a></li>
-        <li ${requestScope.currentNaviItem.id == "accumulators" ? "class=\"active\"" : ""}><a href="mskAccumulators" title="Accumulators" class="sidebar-tooltip-right">Accumulators <i class="fa fa-signal"></i></a></li>
+        <li ${requestScope.currentNaviItem.id == "accumulators" ? "class=\"active\"" : ""}><a href="mskAccumulators" title="Accumulators" class="sidebar-tooltip-right">Accumulators <i class="fa fa-line-chart"></i></a></li>
         <ano:equal name="currentNaviItem" property="id" value="threads">
             <li class="active">
                 <a href="mskThreads" title="Threads" class="sidebar-tooltip-right">Threads <i class="fa fa-bars"></i></a>
@@ -179,6 +179,8 @@
                 <li ${currentSubNaviItem.isSelected("more_plugins") ? "class=\"active\"" : ""}><a href="mskPlugins" title="Plugins" class="sidebar-tooltip-right">Plugins <i class="fa fa-cloud"></i></a></li>
                 <li ${currentSubNaviItem.isSelected("more_update")  ? "class=\"active\"" : ""}><a href="mskUpdate" title="Update" class="sidebar-tooltip-right">Update  <i class="fa fa-upload"></i></a></li>
                 <li ${currentSubNaviItem.isSelected("more_gauges")  ? "class=\"active\"" : ""}><a href="mskGauges" title="Gauges" class="sidebar-tooltip-right">Gauges  <i class="fa fa-tachometer"></i></a></li>
+                <li ${currentSubNaviItem.isSelected("more_tracers")  ? "class=\"active\"" : ""}><a href="mskTracers" title="Tracers" class="sidebar-tooltip-right">Tracers  <i class="fa fa-binoculars"></i></a></li>
+
             </ul>
         </li>
         </ano:equal>

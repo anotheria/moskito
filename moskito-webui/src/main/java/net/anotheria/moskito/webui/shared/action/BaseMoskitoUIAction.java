@@ -52,6 +52,7 @@ import net.anotheria.moskito.webui.shared.bean.LabelValueBean;
 import net.anotheria.moskito.webui.shared.bean.NaviItem;
 import net.anotheria.moskito.webui.shared.bean.UnitBean;
 import net.anotheria.moskito.webui.threshold.api.ThresholdAPI;
+import net.anotheria.moskito.webui.tracers.api.TracerAPI;
 import net.anotheria.moskito.webui.util.APILookupUtility;
 import net.anotheria.moskito.webui.util.ChartEngine;
 import net.anotheria.moskito.webui.util.RemoteInstance;
@@ -595,6 +596,10 @@ public abstract class BaseMoskitoUIAction implements Action{
 
 	protected DashboardAPI getDashboardAPI(){
 		return APILookupUtility.getDashboardAPI();
+	}
+
+	protected TracerAPI getTracerAPI(){
+		return APILookupUtility.getTracerAPI();
 	}
 
 	protected String getSubTitle(){
