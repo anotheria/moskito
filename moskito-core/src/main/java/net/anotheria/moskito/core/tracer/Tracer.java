@@ -1,7 +1,7 @@
 package net.anotheria.moskito.core.tracer;
 
-import java.util.LinkedList;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
  * TODO comment this class
@@ -13,12 +13,12 @@ public class Tracer {
 	private String producerId;
 	private boolean enabled;
 
-	private List<Object> traces;
+	private List<Trace> traces;
 
 	public Tracer(String aProducerId){
 		producerId = aProducerId;
 		enabled = true;
-		traces = new LinkedList<Object>();
+		traces = new CopyOnWriteArrayList<Trace>();
 	}
 
 	public String getProducerId(){
@@ -35,5 +35,13 @@ public class Tracer {
 
 	public int getEntryCount(){
 		return traces == null ? 0 : traces.size();
+	}
+
+	public void addTrace(Trace aTrace){
+		traces.add(aTrace);
+	}
+
+	public List<Trace> getTraces(){
+		return traces;
 	}
 }

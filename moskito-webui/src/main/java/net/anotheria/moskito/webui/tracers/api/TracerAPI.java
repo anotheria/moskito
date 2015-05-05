@@ -3,6 +3,7 @@ package net.anotheria.moskito.webui.tracers.api;
 import net.anotheria.anoplass.api.API;
 import net.anotheria.anoplass.api.APIException;
 import net.anotheria.anoprise.metafactory.Service;
+import net.anotheria.moskito.core.stats.TimeUnit;
 import org.distributeme.annotation.DistributeMe;
 import org.distributeme.annotation.FailBy;
 import org.distributeme.annotation.SupportService;
@@ -24,7 +25,7 @@ public interface TracerAPI extends API, Service {
 
 	TracerAO getTracer(String producerId) throws APIException;
 
-	TracerLogAO getTracerLog(String producerId) throws APIException;
+	List<TraceAO> getTraces(String producerId, TimeUnit timeUnit) throws APIException;
 
 	void createTracer(String producerId) throws APIException;
 

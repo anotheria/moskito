@@ -1,10 +1,13 @@
 package net.anotheria.moskito.webui.tracers.api;
 
 import net.anotheria.anoplass.api.APIException;
+import net.anotheria.moskito.core.stats.TimeUnit;
+import net.anotheria.moskito.core.tracer.Trace;
 import net.anotheria.moskito.core.tracer.Tracer;
 import net.anotheria.moskito.core.tracer.TracerRepository;
 import net.anotheria.moskito.webui.shared.api.AbstractMoskitoAPIImpl;
 
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
@@ -53,8 +56,17 @@ public class TracerAPIImpl extends AbstractMoskitoAPIImpl implements TracerAPI{
 	}
 
 	@Override
-	public TracerLogAO getTracerLog(String producerId) throws APIException {
-		return null;
+	public List<TraceAO> getTraces(String producerId, TimeUnit timeUnit) throws APIException {
+		List<Trace> traces = TracerRepository.getInstance().getTraces(producerId);
+		LinkedList<TraceAO> ret = new LinkedList<TraceAO>();
+		for (Trace t : traces){
+			TraceAO ao  = new TraceAO();
+			ao.setCall(t.getCall());
+			ao.setElements(Arrays.asList(t.getElements()));
+			ao.setDuration(timeUnit.transformNanos(t.getDuration()));
+			ret.add(ao);
+		}
+		return ret;
 	}
 
 	@Override

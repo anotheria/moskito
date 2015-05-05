@@ -47,8 +47,17 @@ public class TracerRepository {
 
 	}
 
-	public void addTracedExecution(String call, StackTraceElement[] stackTraceElements, long executionTime){
-		System.out.println("Add traced execution "+call+", "+stackTraceElements+", "+executionTime);
+	public void addTracedExecution(String producerId, String call, StackTraceElement[] stackTraceElements, long executionTime){
+		Trace newTrace = new Trace();
+		newTrace.setCall(call);
+		newTrace.setDuration(executionTime);
+		newTrace.setElements(stackTraceElements);
+		Tracer myTracer = getTracer(producerId);
+		if (myTracer == null){
+			log.warn("Got a new incoming trace, but not tracer! ProducerId: "+producerId+", Call: "+call);
+			return;
+		}
+		myTracer.addTrace(newTrace);
 	}
 
 	public void enableTracingForProducerId(String producerId){
@@ -75,4 +84,9 @@ public class TracerRepository {
 	public Tracer getTracer(String producerId) {
 		return tracers.get(producerId);
 	}
+
+	public List<Trace> getTraces(String producerId){
+		return getTracer(producerId).getTraces();
+	}
+
 }

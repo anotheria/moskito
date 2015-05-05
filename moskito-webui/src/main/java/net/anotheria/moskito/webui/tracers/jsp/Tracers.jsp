@@ -4,6 +4,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <jsp:include page="../../shared/jsp/Header.jsp" flush="false"/>
 <section id="main">
+    <div class="alert alert-warning alert-dismissable">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+        Please note that Tracers and Traces are currently beta. Use carefully.
+        <a href="mailto:moskito-users@lists.anotheria.net">Feedback</a>!
+    </div>
+
     <div class="content">
 
         <div class="box">
@@ -40,8 +46,8 @@
                     <tbody>
                     <ano:iterate name="tracers" type="net.anotheria.moskito.webui.tracers.api.TracerAO" id="tracer" indexId="index">
                         <tr>
-                            <td>${tracer.producerId}</td>
-                            <td><a href="mskTracer?pProducerId=${tracer.producerId}">${tracer.enabled}</a></td>
+                            <td><a href="mskTracer?pProducerId=${tracer.producerId}">${tracer.producerId}</a></td>
+                            <td>${tracer.enabled}</td>
                             <td>${tracer.entryCount}</td>
                             <td>
                                 <a href="mskRemoveTracer?pProducerId=${tracer.producerId}" class="action-icon delete-icon tooltip-bottom" title="Delete"><i class="fa fa-ban"></i></a>

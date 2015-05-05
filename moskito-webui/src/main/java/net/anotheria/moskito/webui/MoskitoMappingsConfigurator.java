@@ -48,6 +48,7 @@ import net.anotheria.moskito.webui.threshold.action.UpdateThresholdAction;
 import net.anotheria.moskito.webui.tracers.action.CreateTracerAction;
 import net.anotheria.moskito.webui.tracers.action.DisableTracerAction;
 import net.anotheria.moskito.webui.tracers.action.RemoveTracerAction;
+import net.anotheria.moskito.webui.tracers.action.ShowTracerAction;
 import net.anotheria.moskito.webui.tracers.action.ShowTracersAction;
 
 /**
@@ -172,6 +173,9 @@ public class MoskitoMappingsConfigurator implements ActionMappingsConfigurator{
 		//tracers
 		mappings.addMapping("mskTracers", ShowTracersAction.class,
 				new ActionForward("success", "/net/anotheria/moskito/webui/tracers/jsp/Tracers.jsp"));
+		mappings.addMapping("mskTracer", ShowTracerAction.class,
+				new ActionForward("success", "/net/anotheria/moskito/webui/tracers/jsp/Tracer.jsp"));
+
 		mappings.addMapping("mskCreateTracer", CreateTracerAction.class);
 		mappings.addMapping("mskRemoveTracer", RemoveTracerAction.class,
 				new CommandRedirect("redirect", "mskTracers"));

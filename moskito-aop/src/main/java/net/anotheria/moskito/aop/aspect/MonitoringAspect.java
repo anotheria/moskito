@@ -124,7 +124,7 @@ public class MonitoringAspect extends AbstractMoskitoAspect{
             }
 
             if (tracePassingOfThisProducer)
-                tracerRepository.addTracedExecution(call, null, exTime);
+                tracerRepository.addTracedExecution(producerId, call, Thread.currentThread().getStackTrace(), exTime);
         }
     }
 }

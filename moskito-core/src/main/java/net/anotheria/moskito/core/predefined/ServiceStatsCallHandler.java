@@ -64,7 +64,8 @@ public class ServiceStatsCallHandler implements IOnDemandCallHandler {
 				(CurrentlyTracedCall)aRunningTrace : null;
 
 		TracerRepository tracerRepository = TracerRepository.getInstance();
-		boolean tracePassingOfThisProducer = tracerRepository.isTracingEnabledForProducer(producer.getProducerId());
+		String producerId = producer.getProducerId();
+		boolean tracePassingOfThisProducer = tracerRepository.isTracingEnabledForProducer(producerId);
 
 		String call = null;
 
@@ -121,8 +122,9 @@ public class ServiceStatsCallHandler implements IOnDemandCallHandler {
 			if (currentTrace !=null)
 				currentTrace.endStep();
 
-			if (tracePassingOfThisProducer)
-				tracerRepository.addTracedExecution(call, null, exTime);
+			if (tracePassingOfThisProducer) {
+				tracerRepository.addTracedExecution(producerId, call, Thread.currentThread().getStackTrace(), exTime);
+			}
 
 		}
 	}
