@@ -48,7 +48,8 @@ public class TracerAPIImpl extends AbstractMoskitoAPIImpl implements TracerAPI{
 
 	@Override
 	public TracerAO getTracer(String producerId) throws APIException {
-		return null;
+		Tracer tracer = TracerRepository.getInstance().getTracer(producerId);
+		return tracer == null ? null : tracer2AO(tracer);
 	}
 
 	@Override

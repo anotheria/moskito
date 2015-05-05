@@ -72,4 +72,7 @@ public class TracerRepository {
 		return new ArrayList<Tracer>(tracers.values());
 	}
 
+	public Tracer getTracer(String producerId) {
+		return tracers.get(producerId);
+	}
 }
