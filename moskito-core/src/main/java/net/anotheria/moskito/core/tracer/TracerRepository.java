@@ -1,5 +1,8 @@
 package net.anotheria.moskito.core.tracer;
 
+import net.anotheria.moskito.core.config.MoskitoConfigurationHolder;
+import net.anotheria.moskito.core.config.tracing.TracingConfiguration;
+import net.anotheria.util.NumberUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -20,6 +23,8 @@ public class TracerRepository {
 	 */
 	private static Logger log = LoggerFactory.getLogger(TracerRepository.class);
 
+	private static Logger traceLog = LoggerFactory.getLogger("MoSKitoTracer");
+
 	/**
 	 * Singleton instance of this class.
 	 */
@@ -27,12 +32,10 @@ public class TracerRepository {
 
 	private ConcurrentMap<String,Tracer> tracers = new ConcurrentHashMap<String, Tracer>();
 
-
 	/**
 	 * Private constructor.
 	 */
 	private TracerRepository(){
-
 	}
 
 	/**
@@ -41,23 +44,46 @@ public class TracerRepository {
 	 */
 	public static TracerRepository getInstance(){ return INSTANCE; }
 
+	/**
+	 * Returns true if tracing is enabled globally and in particular for this producer.
+	 * @param producerId
+	 * @return
+	 */
 	public boolean isTracingEnabledForProducer(String producerId){
+		//check if tracing is completely disabled.
+		if (!MoskitoConfigurationHolder.getConfiguration().getTracingConfig().isTracingEnabled())
+			return false;
+
 		Tracer tracer = tracers.get(producerId);
 		return tracer != null && tracer.isEnabled();
 
 	}
 
 	public void addTracedExecution(String producerId, String call, StackTraceElement[] stackTraceElements, long executionTime){
-		Trace newTrace = new Trace();
-		newTrace.setCall(call);
-		newTrace.setDuration(executionTime);
-		newTrace.setElements(stackTraceElements);
-		Tracer myTracer = getTracer(producerId);
-		if (myTracer == null){
-			log.warn("Got a new incoming trace, but not tracer! ProducerId: "+producerId+", Call: "+call);
-			return;
+
+		TracingConfiguration config = MoskitoConfigurationHolder.getConfiguration().getTracingConfig();
+		if (!config.isTracingEnabled())
+			return ;
+
+		if (config.isInspectEnabled()) {
+			Trace newTrace = new Trace();
+			newTrace.setCall(call);
+			newTrace.setDuration(executionTime);
+			newTrace.setElements(stackTraceElements);
+			Tracer myTracer = getTracer(producerId);
+			if (myTracer == null) {
+				log.warn("Got a new incoming trace, but not tracer! ProducerId: " + producerId + ", Call: " + call);
+				return;
+			}
+			myTracer.addTrace(newTrace);
 		}
-		myTracer.addTrace(newTrace);
+
+		if (config.isLoggingEnabled()){
+			traceLog.info(NumberUtils.makeISO8601TimestampString()+", call: "+call+" duration: "+executionTime);
+			for (StackTraceElement e : stackTraceElements){
+				traceLog.info("\t"+e.toString());
+			}
+		}
 	}
 
 	public void enableTracingForProducerId(String producerId){
