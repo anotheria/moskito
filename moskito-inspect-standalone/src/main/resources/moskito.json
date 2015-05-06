@@ -241,6 +241,14 @@
                 "className": "net.anotheria.moskito.core.plugins.NoOpPlugin"
             }
         ]
+    },
+
+    "@tracingConfig": {
+      "tracingEnabled": true,
+      "loggingEnabled": true,
+      "inspectEnabled": true,
+      "maxTraces": 50,
+      "tracers": []
     }
 
 }
