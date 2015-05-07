@@ -1,126 +1,119 @@
-package net.anotheria.moskito.integration.cdi;
+package net.anotheria.moskito.integration.cdi.monitor;
 
+import net.anotheria.moskito.core.calltrace.TracingUtil;
 import net.anotheria.moskito.core.calltrace.CurrentlyTracedCall;
 import net.anotheria.moskito.core.calltrace.RunningTraceContainer;
 import net.anotheria.moskito.core.calltrace.TraceStep;
 import net.anotheria.moskito.core.calltrace.TracedCall;
-import net.anotheria.moskito.core.dynamic.IOnDemandStatsFactory;
 import net.anotheria.moskito.core.dynamic.OnDemandStatsProducer;
 import net.anotheria.moskito.core.dynamic.OnDemandStatsProducerException;
 import net.anotheria.moskito.core.predefined.ServiceStats;
 import net.anotheria.moskito.core.predefined.ServiceStatsFactory;
+import net.anotheria.moskito.integration.cdi.ProducerFinder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.inject.Singleton;
 import javax.interceptor.AroundInvoke;
+import javax.interceptor.AroundTimeout;
 import javax.interceptor.Interceptor;
 import javax.interceptor.InvocationContext;
-import java.io.Serializable;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
 /**
- * Generic call interceptor.
- *
- * @author Vitaliy Zhovtiuk, Leon Rosenberg
+ * @author Alex Osadchy
  */
+@Monitor
 @Interceptor
-@Singleton
-@Monitor()
-public class CallInterceptor extends BaseInterceptor<ServiceStats> implements Serializable {
+public class MonitorInterceptor {
+
     /**
-     * Serialization version unique identifier.
+     * {@link Logger} instance.
      */
-    private static final long serialVersionUID = -2722113871558244179L;
+    private static final Logger LOGGER = LoggerFactory.getLogger(MonitorInterceptor.class);
 
     /**
-     * Logger.
-     */
-    private Logger log = LoggerFactory.getLogger(CallInterceptor.class);
-
-
-    /**
-     * Around method invoke.
      *
-     * @param ctx context
-     * @return method result
-     * @throws Throwable any exception
+     * @param ctx {@link InvocationContext}
+     * @return result of the intercepted method
+     * @throws Throwable
      */
-    // CHECKSTYLE:OFF
+    @AroundTimeout
     @AroundInvoke
-    public Object aroundInvoke(InvocationContext ctx) throws Throwable {
+    public Object intercept(final InvocationContext ctx) throws Throwable {
+        final Method method = ctx.getMethod();
+        final Monitor annotation = method.getDeclaringClass().getAnnotation(Monitor.class);
 
-		ProducerRuntimeDefinition prd = extractProducerDefinition(ctx);
-		OnDemandStatsProducer<ServiceStats> onDemandProducer = getProducer(prd);
+        // if producer id isn't specified by client - use class name
+        final String producerId = annotation.producerId().isEmpty() ? method.getDeclaringClass().getSimpleName() : annotation.producerId();
+        final String caseName = ctx.getMethod().getName();
+        final OnDemandStatsProducer<ServiceStats> onDemandProducer = ProducerFinder.getProducer(producerId, annotation.category(), annotation.subsystem(), ServiceStatsFactory.DEFAULT_INSTANCE);
 
-        ServiceStats defaultStats = onDemandProducer.getDefaultStats();
+        final ServiceStats defaultStats = onDemandProducer.getDefaultStats();
+        defaultStats.addRequest();
+
         ServiceStats methodStats = null;
-        String caseName = extractCaseName(ctx);
         try {
-            if (caseName != null) {
-                methodStats = onDemandProducer.getStats(caseName);
-            }
+            methodStats = onDemandProducer.getStats(caseName);
         } catch (OnDemandStatsProducerException e) {
-            log.info("Couldn't get stats for case : " + caseName + ", probably limit reached");
+             LOGGER.info("Couldn't get stats for case : " + caseName + ", probably limit reached");
         }
 
-        final Object[] args = ctx.getParameters();
-        final Method method = ctx.getMethod();
-        defaultStats.addRequest();
         if (methodStats != null) {
             methodStats.addRequest();
         }
+
         TracedCall aRunningTrace = RunningTraceContainer.getCurrentlyTracedCall();
         TraceStep currentStep = null;
         CurrentlyTracedCall currentTrace = aRunningTrace.callTraced() ? (CurrentlyTracedCall) aRunningTrace : null;
         if (currentTrace != null) {
-            StringBuilder call = new StringBuilder(getClassName(ctx)).append('.').append(method.getName()).append("(");
-            if (args != null && args.length > 0) {
-                for (int i = 0; i < args.length; i++) {
-                    call.append(args[i]);
-                    if (i < args.length - 1) {
-                        call.append(", ");
-                    }
-                }
-            }
-            call.append(")");
-            currentStep = currentTrace.startStep(call.toString(), onDemandProducer);
+            currentStep = currentTrace.startStep(TracingUtil.buildCall(method, ctx.getParameters()), onDemandProducer);
         }
-        long startTime = System.nanoTime();
+
+        final long startTime = System.nanoTime();
+
         Object ret = null;
         try {
             ret = ctx.proceed();
             return ret;
         } catch (InvocationTargetException e) {
             defaultStats.notifyError();
+
             if (methodStats != null) {
                 methodStats.notifyError();
             }
-            //System.out.println("exception of class: "+e.getCause()+" is thrown");
+
             if (currentStep != null) {
                 currentStep.setAborted();
             }
+
             throw e.getCause();
         } catch (Throwable t) {
             defaultStats.notifyError();
+
             if (methodStats != null) {
                 methodStats.notifyError();
             }
+
             if (currentStep != null) {
                 currentStep.setAborted();
             }
             throw t;
         } finally {
-            long exTime = System.nanoTime() - startTime;
+            final long exTime = System.nanoTime() - startTime;
+
             defaultStats.addExecutionTime(exTime);
+
             if (methodStats != null) {
                 methodStats.addExecutionTime(exTime);
             }
+
             defaultStats.notifyRequestFinished();
+
             if (methodStats != null) {
                 methodStats.notifyRequestFinished();
             }
+
             if (currentStep != null) {
                 currentStep.setDuration(exTime);
                 try {
@@ -129,23 +122,11 @@ public class CallInterceptor extends BaseInterceptor<ServiceStats> implements Se
                     currentStep.appendToCall(" = ERR: " + t.getMessage() + " (" + t.getClass() + ")");
                 }
             }
+
             if (currentTrace != null) {
                 currentTrace.endStep();
             }
         }
+
     }
-    // CHECKSTYLE:ON
-
-    public String getCategory() {
-        return "service";
-    }
-
-	@Override
-	protected IOnDemandStatsFactory getFactory() {
-		return ServiceStatsFactory.DEFAULT_INSTANCE;
-	}
-
-	private static String getClassName(InvocationContext ctx) {
-		return ctx.getMethod().getDeclaringClass().getSimpleName();
-	}
 }
