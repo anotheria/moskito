@@ -66,7 +66,13 @@ public class BuiltInOSProducer extends AbstractBuiltInProducer implements IStats
 			log.warn("Couldn't find unix version of os class: "+clazzname+", osstats won't operate properly - "+e.getMessage());
 		}
 
-		isUnixOS = mxBean.getClass().getName().equals("com.sun.management.UnixOperatingSystem");
+		char version=System.getProperty("java.version").charAt(2);
+
+		if (version > '7'){
+			isUnixOS = mxBean.getClass().getName().equals("sun.management.OperatingSystemImpl");
+		}else{
+			isUnixOS = mxBean.getClass().getName().equals("com.sun.management.UnixOperatingSystem");
+		}
 		
         if (!isUnixOS) {
             log.warn("Couldn't find unix version of os class: " + clazzname

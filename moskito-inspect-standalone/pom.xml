@@ -13,7 +13,7 @@
 	<packaging>war</packaging>
 	<properties>
 		<moskito-webui-version>${project.version}</moskito-webui-version>
-        <aspectj.version>1.7.4</aspectj.version>
+        <aspectj.version>1.8.2</aspectj.version>
 	</properties>
 
 	<dependencies>
@@ -146,6 +146,7 @@
                             <artifactId>moskito-aop</artifactId>
                         </aspectLibrary>
                     </aspectLibraries>
+					<complianceLevel>1.7</complianceLevel>
                     <source>1.7</source>
                     <target>1.7</target>
                 </configuration>
