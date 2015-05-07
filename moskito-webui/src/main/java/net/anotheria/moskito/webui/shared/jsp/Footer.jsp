@@ -27,6 +27,10 @@
     <script type="text/javascript" src="../moskito/ext/jquery-tree-table/jquery.treeTable.min.js"></script>
 </ano:equal>
 
+<ano:equal name="currentSubNaviItem" property="id" value="more_tracers">
+    <script type="text/javascript" src="../moskito/ext/jquery-tree-table/jquery.treeTable.min.js"></script>
+</ano:equal>
+
 <script src="../moskito/ext/custom-scrollbar/jquery.mCustomScrollbar.concat.min.js"></script>
 
 <script src="../moskito/int/js/common.js" type="text/javascript"></script>

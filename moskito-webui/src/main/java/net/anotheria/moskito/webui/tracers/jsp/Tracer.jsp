@@ -21,8 +21,8 @@
                     Tracer for ${tracer.producerId}, enabled: ${tracer.enabled}.
                 </h3>
             </div>
-            <div id="collapse2" class="box-content accordion-body collapse in">
-                <table class="table table-striped">
+            <div class="box-content">
+                <table class="table table-striped table-tree tree">
                     <thead>
                     <tr>
                         <th>Call</th>
@@ -32,12 +32,16 @@
                     </thead>
                     <tbody>
                     <ano:iterate name="traces" type="net.anotheria.moskito.webui.tracers.api.TraceAO" id="trace">
-                        <tr>
-                            <td>${trace.call}</td>
+                        <tr data-level="0">
+                            <td>
+                                <div>
+                                    <i class="minus">–</i><i class="plus">+</i><i class="vline"></i>${trace.call}
+                                </div>
+                            </td>
                             <td>${trace.elementCount}</td>
                             <td>${trace.duration}</td>
                         </tr>
-                        <tr class="dump-list">
+                        <tr class="dump-list" data-level="1">
                             <td colspan="3">
                                 <ul>
                                     <ano:iterate name="trace" property="elements" id="element" type="java.lang.StackTraceElement">
