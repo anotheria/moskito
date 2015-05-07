@@ -16,7 +16,6 @@
 
         <div class="box">
             <div class="box-title">
-                <a class="accordion-toggle tooltip-bottom" title="Close/Open" data-toggle="collapse" href="#collapse2"><i class="fa fa-caret-right"></i></a>
                 <h3 class="pull-left">
                     Tracer for ${tracer.producerId}, enabled: ${tracer.enabled}.
                 </h3>
