@@ -37,8 +37,17 @@ public class Tracer {
 		return traces == null ? 0 : traces.size();
 	}
 
-	public void addTrace(Trace aTrace){
+	public void addTrace(Trace aTrace, int toleratedAmount, int maxAmount){
 		traces.add(aTrace);
+		if (traces.size() <= toleratedAmount)
+			return;
+		List<Trace> oldTraces = traces;
+		traces = new CopyOnWriteArrayList<Trace>();
+		int offset = toleratedAmount - maxAmount;
+		//int = 1 and not 0, we are copying one less than we could, because we want exactly max amount.
+		for (int i=1; i<=maxAmount; i++) {
+			traces.add(oldTraces.get(i + offset));
+		}
 	}
 
 	public List<Trace> getTraces(){

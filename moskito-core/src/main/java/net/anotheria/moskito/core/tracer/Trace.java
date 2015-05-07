@@ -1,5 +1,7 @@
 package net.anotheria.moskito.core.tracer;
 
+import java.util.Arrays;
+
 /**
  * TODO comment this class
  *
@@ -33,5 +35,9 @@ public class Trace {
 
 	public void setElements(StackTraceElement[] elements) {
 		this.elements = elements;
+	}
+
+	@Override public String toString(){
+		return call+" "+(elements==null? "no elements" : Arrays.toString(getElements()))+", dur: "+duration;
 	}
 }

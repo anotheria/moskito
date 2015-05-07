@@ -75,7 +75,7 @@ public class TracerRepository {
 				log.warn("Got a new incoming trace, but not tracer! ProducerId: " + producerId + ", Call: " + call);
 				return;
 			}
-			myTracer.addTrace(newTrace);
+			myTracer.addTrace(newTrace, config.getToleratedTracesAmount(), config.getMaxTraces());
 		}
 
 		if (config.isLoggingEnabled()){
