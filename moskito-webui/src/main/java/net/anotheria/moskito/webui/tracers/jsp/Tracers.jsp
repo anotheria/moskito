@@ -52,7 +52,7 @@
                             <td>
                                 <a href="mskRemoveTracer?pProducerId=${tracer.producerId}" class="action-icon delete-icon tooltip-bottom" title="Delete"><i class="fa fa-ban"></i></a>
                                 <a href="mskDisableTracer?pProducerId=${tracer.producerId}" class="action-icon delete-icon tooltip-bottom" title="Disable"><i class="fa fa-toggle-off"></i></a>
-                                <a href="mskRemoveTracer?pProducerId=${tracer.producerId}" class="action-icon delete-icon tooltip-bottom" title="ShowProducer"><i class="fa fa-search-plus"></i></a>
+                                <a href="mskShowProducer?pProducerId=${tracer.producerId}" class="action-icon show-icon tooltip-bottom" title="ShowProducer"><i class="fa fa-search-plus"></i></a>
                             </td>
                         </tr>
                     </ano:iterate>

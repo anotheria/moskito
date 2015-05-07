@@ -9,6 +9,7 @@ import net.anotheria.moskito.core.config.producers.BuiltinProducersConfig;
 import net.anotheria.moskito.core.config.producers.MBeanProducerConfig;
 import net.anotheria.moskito.core.config.thresholds.ThresholdsAlertsConfig;
 import net.anotheria.moskito.core.config.thresholds.ThresholdsConfig;
+import net.anotheria.moskito.core.config.tracing.TracingConfiguration;
 import org.configureme.annotations.Configure;
 import org.configureme.annotations.ConfigureMe;
 
@@ -75,6 +76,10 @@ public class MoskitoConfiguration implements Serializable{
 	@Configure
 	@SerializedName("@builtinProducersConfig")
 	private BuiltinProducersConfig builtinProducersConfig = new BuiltinProducersConfig();
+
+	@Configure
+	@SerializedName("@tracingConfig")
+	private TracingConfiguration tracingConfig = new TracingConfiguration();
 
 	public ThresholdsAlertsConfig getThresholdsAlertsConfig() {
 		return thresholdsAlertsConfig;
@@ -149,6 +154,14 @@ public class MoskitoConfiguration implements Serializable{
 
 	public void setDashboardsConfig(DashboardsConfig dashboardsConfig) {
 		this.dashboardsConfig = dashboardsConfig;
+	}
+
+	public TracingConfiguration getTracingConfig() {
+		return tracingConfig;
+	}
+
+	public void setTracingConfig(TracingConfiguration tracingConfig) {
+		this.tracingConfig = tracingConfig;
 	}
 }
 
