@@ -9,6 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.interceptor.AroundInvoke;
+import javax.interceptor.AroundTimeout;
 import javax.interceptor.Interceptor;
 import javax.interceptor.InvocationContext;
 import java.lang.reflect.InvocationTargetException;
@@ -37,24 +38,23 @@ public class CountInterceptor {
      * @throws Throwable any exception
      */
     @AroundInvoke
+    @AroundTimeout
     public Object aroundInvoke(InvocationContext ctx) throws Throwable {
         final Method method = ctx.getMethod();
 
-        if (method != null) {
-            final Count annotation = method.getDeclaringClass().getAnnotation(Count.class);
-            final CountParameter parameter = method.getAnnotation(CountParameter.class);
+        final Count annotation = method.getDeclaringClass().getAnnotation(Count.class);
+        final CountParameter parameter = method.getAnnotation(CountParameter.class);
 
-            final String producerId = annotation.producerId().isEmpty() ? method.getDeclaringClass().getSimpleName() : annotation.producerId();
-            final String caseName = (parameter != null && !parameter.value().isEmpty()) ? parameter.value() : method.getName();
-            final OnDemandStatsProducer<CounterStats> onDemandProducer = ProducerFinder.getProducer(producerId, annotation.category(), annotation.subsystem(), CounterStatsFactory.DEFAULT_INSTANCE);
+        final String producerId = annotation.producerId().isEmpty() ? method.getDeclaringClass().getSimpleName() : annotation.producerId();
+        final String caseName = (parameter != null && !parameter.value().isEmpty()) ? parameter.value() : method.getName();
+        final OnDemandStatsProducer<CounterStats> onDemandProducer = ProducerFinder.getProducer(producerId, annotation.category(), annotation.subsystem(), CounterStatsFactory.DEFAULT_INSTANCE);
 
-            onDemandProducer.getDefaultStats().inc();
+        onDemandProducer.getDefaultStats().inc();
 
-            try {
-                onDemandProducer.getStats(caseName).inc();
-            } catch (OnDemandStatsProducerException e) {
-                LOGGER.info("Couldn't get stats for case : " + caseName + ", probably limit reached");
-            }
+        try {
+            onDemandProducer.getStats(caseName).inc();
+        } catch (OnDemandStatsProducerException e) {
+            LOGGER.info("Couldn't get stats for case : " + caseName + ", probably limit reached");
         }
 
         try {
