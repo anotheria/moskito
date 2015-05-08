@@ -5,6 +5,12 @@
 <jsp:include page="../../shared/jsp/Header.jsp" flush="false"/>
 
 <section id="main">
+    <ano:equal name="newAccumulatorAdded" value="true">
+        <div class="alert alert-warning alert-dismissable">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+           Accumulator <ano:write name="newAccumulatorName"/> added!
+        </div>
+    </ano:equal>
     <div class="content">
 
     <ano:present name="data">

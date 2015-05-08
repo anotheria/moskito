@@ -6,6 +6,12 @@
 <jsp:include page="../../shared/jsp/Header.jsp" flush="false"/>
 
 <section id="main">
+    <ano:equal name="newThresholdAdded" value="true">
+        <div class="alert alert-warning alert-dismissable">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+            Threshold <ano:write name="newThresholdName"/> added!
+        </div>
+    </ano:equal>
     <div class="content">
 
         <div class="box">
