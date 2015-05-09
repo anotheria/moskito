@@ -57,7 +57,7 @@ public abstract class AbstractInterceptor<T extends IStats> {
         }
 
         try {
-            return  (OnDemandStatsProducer) producer;
+            return  (OnDemandStatsProducer) ProducerRegistryFactory.getProducerRegistryInstance().getProducer(producerId);
         } catch (ClassCastException e) {
             LOGGER.error("getProducer(): Unexpected producer type", e);
             return null;
