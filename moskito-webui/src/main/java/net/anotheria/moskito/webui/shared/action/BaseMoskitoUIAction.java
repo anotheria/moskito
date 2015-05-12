@@ -460,6 +460,7 @@ public abstract class BaseMoskitoUIAction implements Action{
 		req.setAttribute("title", title);
 
 		req.setAttribute("exportSupported", exportSupported());
+		req.setAttribute("logoUrl", WebUIConfig.getInstance().getCustomLogoUrl());
 
 	}
 

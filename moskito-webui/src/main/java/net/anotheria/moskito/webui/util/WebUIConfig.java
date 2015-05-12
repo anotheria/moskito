@@ -48,6 +48,11 @@ public class WebUIConfig {
 	 * If true sends a tracking pixel to counter.moskito.org to track worldwide usage.
 	 */
 	private boolean trackUsage = true;
+	/**
+	 * Custom logo url
+	 */
+	private String customLogoUrl="";
+
 
 	public int getProducerChartWidth() {
 		return producerChartWidth;
@@ -136,4 +141,13 @@ public class WebUIConfig {
 	public void setFilters(ProducerFilterConfig[] filters) {
 		this.filters = filters;
 	}
+
+	public String getCustomLogoUrl() {
+		return customLogoUrl;
+	}
+
+	public void setCustomLogoUrl(String customLogoUrl) {
+		this.customLogoUrl = customLogoUrl;
+	}
 }
+
