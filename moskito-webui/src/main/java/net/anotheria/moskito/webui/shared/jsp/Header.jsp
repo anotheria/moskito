@@ -130,11 +130,19 @@
 <aside id="aside" class="scrollbar">
 
     <div class="header-box">
+        <ano:notEmpty name="logoUrl">
+        <a href="">
+        <i class="logo-custom">
+            <img src="${logoUrl}"></i>
+            </a>
+        </ano:notEmpty>
+        <ano:empty name="logoUrl">
         <span class="version">v ${moskito_version_string}</span>
         <a href="">
             <i class="logo"></i>
             <span class="logo-title">MoSKito Inspect</span>
         </a>
+        </ano:empty>
     </div>
 
     <ul class="nav nav-sidebar">

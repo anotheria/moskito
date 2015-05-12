@@ -2,6 +2,7 @@
 	"producerChartWidth": 1200,
 	"producerChartHeight": 600,
     "connectivityMode": "LOCAL",
+    "customLogoUrl":"",
     "@remotes": [
         {
             "name": "Burgershop Local",
