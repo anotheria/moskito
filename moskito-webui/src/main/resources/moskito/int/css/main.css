@@ -150,7 +150,7 @@ ul.nav-sidebar > li > a {
     background: #4e515b;
     color: #FFF;
     opacity: 0.6;
-    padding: 15px 15px;
+    padding: 10px 15px;
     border-left: 4px solid #434651;
     position: relative;
 }
@@ -166,7 +166,7 @@ ul.nav-sidebar > li.active > ul {
 ul.nav-sidebar > li > a i {
     position: absolute;
     right: 20px;
-    top: 17px;
+    top: 12px;
 }
 
 ul.nav-sidebar > li > a:active,
