@@ -3,8 +3,9 @@ package net.anotheria.moskito.core.config;
 import net.anotheria.moskito.core.config.thresholds.NotificationProviderConfig;
 import net.anotheria.moskito.core.threshold.alerts.notificationprovider.LogFileNotificationProvider;
 import org.configureme.ConfigurationManager;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import java.util.logging.Logger;
 
 /**
  * This class is configuration holder object for the MoskitoConfiguration. Currently the reconfiguration option of
@@ -32,7 +33,7 @@ public enum MoskitoConfigurationHolder {
 	 * Creates a new configuration holder.
 	 */
 	private MoskitoConfigurationHolder(){
-		log = Logger.getLogger(getClass().getName());
+		log = LoggerFactory.getLogger(MoskitoConfigurationHolder.class);
 		configuration = createDefaultConfiguration();
 		try{
 			//now let configuration override some config options.
