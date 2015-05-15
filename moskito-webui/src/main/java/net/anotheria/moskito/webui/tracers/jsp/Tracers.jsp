@@ -53,10 +53,10 @@
                             <td>
                                 <a href="mskRemoveTracer?pProducerId=${tracer.producerId}" class="action-icon delete-icon tooltip-bottom" title="Delete"><i class="fa fa-ban"></i></a>
                                 <c:if test="${tracer.enabled}">
-                                    <a href="mskDisableTracer?pProducerId=${tracer.producerId}" class="action-icon btn-success tooltip-bottom" title="Disable"><i class="fa fa-toggle-off"></i></a>
+                                    <a href="mskDisableTracer?pProducerId=${tracer.producerId}" class="action-icon toggle-on-icon tooltip-bottom" title="On - Disable"><i class="fa fa-toggle-on"></i></a>
                                 </c:if>
                                 <c:if test="${tracer.disabled}">
-                                    <a href="mskEnableTracer?pProducerId=${tracer.producerId}" class="action-icon btn-danger tooltip-bottom" title="Enable"><i class="fa fa-toggle-off"></i></a>
+                                    <a href="mskEnableTracer?pProducerId=${tracer.producerId}" class="action-icon toggle-off-icon tooltip-bottom" title="Off - Enable"><i class="fa fa-toggle-off"></i></a>
                                 </c:if>
                                 <a href="mskShowProducer?pProducerId=${tracer.producerId}" class="action-icon show-icon tooltip-bottom" title="ShowProducer"><i class="fa fa-search-plus"></i></a>
                             </td>
