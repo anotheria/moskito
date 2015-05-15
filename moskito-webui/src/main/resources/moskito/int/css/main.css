@@ -815,7 +815,7 @@ a.action-icon {
     min-width: 33px;
     text-align: center;
     margin-right: -20px;
-    margin-left: 20px;
+    margin-left: 21px;
     -webkit-transition: all 0.12s linear;
     -moz-transition: all 0.12s linear;
     -o-transition: all 0.12s linear;
@@ -842,10 +842,12 @@ tr:hover a.action-icon i {
     opacity: 1;
 }
 
+tr:hover a.action-icon.toggle-off-icon,
 tr:hover a.action-icon.delete-icon {
     background: #ebb1b1;
 }
 
+tr:hover a.action-icon.toggle-on-icon,
 tr:hover a.action-icon.edit-icon {
     background: #c8e59e;
 }
@@ -1563,4 +1565,12 @@ svg .legendButtons{
 
 .gauge-info .gauge-info-item:hover {
     color: #444;
+}
+
+tr.tr-toggle-off td {
+    background: #f7dede !important;
+}
+
+tr.tr-toggle-off:hover td {
+    background: #f7d0d0 !important;
 }
