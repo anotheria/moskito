@@ -3,14 +3,23 @@ package net.anotheria.moskito.webui.tracers.api;
 import java.io.Serializable;
 
 /**
- * TODO comment this class
+ * This class represents a tracer from APIs point of view.
  *
  * @author lrosenberg
  * @since 05.05.15 00:43
  */
 public class TracerAO implements Serializable {
+	/**
+	 * Id of the producer this Tracer is bound to.
+	 */
 	private String producerId;
+	/**
+	 * Number of recorded traces.
+	 */
 	private int entryCount;
+	/**
+	 * State of the Tracer -> enabled or disabled. Disabled tracer doesn't collect any traces.
+	 */
 	private boolean enabled;
 
 	public boolean isEnabled() {

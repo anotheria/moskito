@@ -10,8 +10,17 @@ import java.util.List;
  * @since 05.05.15 00:43
  */
 public class TraceAO implements Serializable {
+	/**
+	 * Call description.
+	 */
 	private String call;
+	/**
+	 * Stack trace of the call.
+	 */
 	private List<StackTraceElement> elements;
+	/**
+	 * Duration of the call in nanoseconds.
+	 */
 	private long duration;
 
 	public String getCall() {

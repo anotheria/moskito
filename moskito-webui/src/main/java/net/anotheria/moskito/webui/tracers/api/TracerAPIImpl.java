@@ -13,7 +13,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- * TODO comment this class
+ * Implementation of the TracerAPI.
  *
  * @author lrosenberg
  * @since 05.05.15 00:42
