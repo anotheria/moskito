@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html;charset=UTF-8" session="true" %>
 <%@ taglib prefix="ano" uri="http://www.anotheria.net/ano-tags" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <jsp:include page="../../shared/jsp/Header.jsp" flush="false"/>
@@ -51,7 +52,12 @@
                             <td>${tracer.entryCount}</td>
                             <td>
                                 <a href="mskRemoveTracer?pProducerId=${tracer.producerId}" class="action-icon delete-icon tooltip-bottom" title="Delete"><i class="fa fa-ban"></i></a>
-                                <a href="mskDisableTracer?pProducerId=${tracer.producerId}" class="action-icon delete-icon tooltip-bottom" title="Disable"><i class="fa fa-toggle-off"></i></a>
+                                <c:if test="${tracer.enabled}">
+                                    <a href="mskDisableTracer?pProducerId=${tracer.producerId}" class="action-icon btn-success tooltip-bottom" title="Disable"><i class="fa fa-toggle-off"></i></a>
+                                </c:if>
+                                <c:if test="${tracer.disabled}">
+                                    <a href="mskEnableTracer?pProducerId=${tracer.producerId}" class="action-icon btn-danger tooltip-bottom" title="Enable"><i class="fa fa-toggle-off"></i></a>
+                                </c:if>
                                 <a href="mskShowProducer?pProducerId=${tracer.producerId}" class="action-icon show-icon tooltip-bottom" title="ShowProducer"><i class="fa fa-search-plus"></i></a>
                             </td>
                         </tr>

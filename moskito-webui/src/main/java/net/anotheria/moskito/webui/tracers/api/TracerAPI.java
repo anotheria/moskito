@@ -32,4 +32,7 @@ public interface TracerAPI extends API, Service {
 	void removeTracer(String producerId) throws APIException;
 
 	void disableTracer(String producerId) throws APIException;
+
+	void enableTracer(String producerId) throws APIException;
+
 }

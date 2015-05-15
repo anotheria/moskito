@@ -78,4 +78,9 @@ public class TracerAPIImpl extends AbstractMoskitoAPIImpl implements TracerAPI{
 	public void disableTracer(String producerId) throws APIException {
 		TracerRepository.getInstance().disableTrackingForProducerId(producerId);
 	}
+
+	@Override
+	public void enableTracer(String producerId) throws APIException {
+		TracerRepository.getInstance().enableTracingForProducerId(producerId);
+	}
 }

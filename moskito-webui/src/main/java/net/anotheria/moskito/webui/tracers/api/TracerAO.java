@@ -17,6 +17,10 @@ public class TracerAO implements Serializable {
 		return enabled;
 	}
 
+	public boolean isDisabled(){
+		return !isEnabled();
+	}
+
 	public void setEnabled(boolean enabled) {
 		this.enabled = enabled;
 	}
