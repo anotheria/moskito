@@ -847,13 +847,27 @@ tr:hover a.action-icon.delete-icon {
     background: #ebb1b1;
 }
 
+tr:hover a.action-icon.toggle-off-icon:hover,
+tr:hover a.action-icon.delete-icon:hover {
+    background: #e5a3a3;
+}
+
 tr:hover a.action-icon.toggle-on-icon,
 tr:hover a.action-icon.edit-icon {
     background: #c8e59e;
 }
 
+tr:hover a.action-icon.toggle-on-icon:hover,
+tr:hover a.action-icon.edit-icon:hover {
+    background: #bade87;
+}
+
 tr:hover a.action-icon.show-icon {
     background: #f0e298;
+}
+
+tr:hover a.action-icon.show-icon:hover {
+    background: #ecd974;
 }
 
 thead tr th:last-child {
