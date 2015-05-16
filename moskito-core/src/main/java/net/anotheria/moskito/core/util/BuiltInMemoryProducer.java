@@ -86,11 +86,6 @@ public class BuiltInMemoryProducer  extends AbstractBuiltInProducer implements I
 		return statsList;
 	}
 
-	@Override
-	public String getSubsystem() {
-		return SUBSYSTEM_BUILTIN;
-	}
-	
 	/**
 	 * Resolver interface for different subtypes of memory usage (free, total, max).
 	 * @author another

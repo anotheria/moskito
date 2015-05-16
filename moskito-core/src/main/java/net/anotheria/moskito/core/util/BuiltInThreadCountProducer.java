@@ -16,7 +16,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
  * @author lrosenberg
  *
  */
-public class BuiltInThreadCountProducer extends AbstractBuiltInProducer implements IStatsProducer<ThreadCountStats>, BuiltInProducer{
+public class BuiltInThreadCountProducer extends AbstractBuiltInProducer<ThreadCountStats> implements IStatsProducer<ThreadCountStats>, BuiltInProducer{
 	/**
 	 * Stats objects as list.
 	 */
@@ -72,10 +72,5 @@ public class BuiltInThreadCountProducer extends AbstractBuiltInProducer implemen
 	@Override
 	public List<ThreadCountStats> getStats() {
 		return statsList;
-	}
-
-	@Override
-	public String getSubsystem() {
-		return SUBSYSTEM_BUILTIN;
 	}
 }

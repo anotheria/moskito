@@ -6,7 +6,7 @@
  * 
  * All MoSKito files are distributed under MIT License:
  * 
- * Copyright (c) 2006 The MoSKito Project Team.
+ * Copyright (c) 2006-2015 The MoSKito Project Team.
  * 
  * Permission is hereby granted, free of charge,
  * to any person obtaining a copy of this software and
@@ -49,11 +49,15 @@ import java.util.concurrent.CopyOnWriteArrayList;
 /**
  * This producer is used when the different method producing stats aren't known at compile time (or you don't want to use 
  * them). It is used by the InvocationProxy to add methods dynamically as they being called, but also by the filters, like
- * RequestURIFilter dynamically adding a stat for each new uri.  
+ * RequestURIFilter dynamically adding a stat for each new uri.
+ *
  * @author lrosenberg
  */
 public class OnDemandStatsProducer<S extends IStats> implements IStatsProducer<S>, Inspectable, TracingAwareProducer {
 
+	/**
+	 * Constant for cumulated (aggregated) stats name.
+	 */
 	public static final String CUMULATED_STATS_NAME = "cumulated";
 
 	/**

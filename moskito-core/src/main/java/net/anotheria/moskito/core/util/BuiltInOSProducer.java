@@ -104,11 +104,6 @@ public class BuiltInOSProducer extends AbstractBuiltInProducer implements IStats
 		return statsList;
 	}
 
-	@Override
-	public String getSubsystem() {
-		return SUBSYSTEM_BUILTIN;
-	}
-
 	/**
 	 * Reads the management bean and extracts monitored data on regular base.
 	 */

@@ -20,7 +20,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
  * @author lrosenberg
  * @since 25.11.12 23:55
  */
-	public class BuiltInThreadStatesProducer extends AbstractBuiltInProducer implements IStatsProducer<ThreadStateStats>, BuiltInProducer{
+public class BuiltInThreadStatesProducer extends AbstractBuiltInProducer<ThreadStateStats> implements IStatsProducer<ThreadStateStats>, BuiltInProducer{
 	/**
 	 * Cumulated stats object.
 	 */
@@ -113,8 +113,4 @@ import java.util.concurrent.CopyOnWriteArrayList;
 		return statsList;
 	}
 
-	@Override
-	public String getSubsystem() {
-		return SUBSYSTEM_BUILTIN;
-	}
 }
