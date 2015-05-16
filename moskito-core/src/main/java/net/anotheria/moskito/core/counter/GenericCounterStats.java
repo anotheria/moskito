@@ -7,7 +7,12 @@ import net.anotheria.moskito.core.stats.StatValue;
 import net.anotheria.moskito.core.stats.TimeUnit;
 import net.anotheria.moskito.core.stats.impl.StatValueFactory;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Set;
+
 
 /**
  * Generic counter implementation.
@@ -15,7 +20,7 @@ import java.util.*;
  * @author lrosenberg
  * @since 16.11.12 23:11
  */
-	public abstract class GenericCounterStats extends AbstractStats{
+public abstract class GenericCounterStats extends AbstractStats{
 
 	/**
 	 * Map with statvalues for faster access.
