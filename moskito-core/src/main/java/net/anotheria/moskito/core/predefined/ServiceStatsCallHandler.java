@@ -67,23 +67,22 @@ public class ServiceStatsCallHandler implements IOnDemandCallHandler {
 		String producerId = producer.getProducerId();
 		boolean tracePassingOfThisProducer = tracerRepository.isTracingEnabledForProducer(producerId);
 
-		String call = null;
+		StringBuilder call = null;
 
 		if (currentTrace !=null || tracePassingOfThisProducer){
-			StringBuilder callB = new StringBuilder(producer.getProducerId()).append('.').append(method.getName()).append("(");
+			call = new StringBuilder(producer.getProducerId()).append('.').append(method.getName()).append("(");
 			if (args!=null && args.length>0){
 				for (int i=0; i<args.length; i++){
-					callB.append(args[i]);
+					call.append(args[i]);
 					if (i<args.length-1)
-						callB.append(", ");
+						call.append(", ");
 				}
 			}
-			callB.append(")");
-			call = callB.toString();
+			call.append(")");
 		}
 
 		if (currentTrace !=null) {
-			currentStep = currentTrace.startStep(call, producer);
+			currentStep = currentTrace.startStep(call.toString(), producer);
 		}
 
 
@@ -104,6 +103,8 @@ public class ServiceStatsCallHandler implements IOnDemandCallHandler {
 			methodStats.notifyError();
 			if (currentStep!=null)
 				currentStep.setAborted();
+			if (tracePassingOfThisProducer)
+				call.append("ERR: ").append(t.getMessage());
 			throw t;
 		}finally{
 			long exTime = System.nanoTime() - startTime;
@@ -123,7 +124,8 @@ public class ServiceStatsCallHandler implements IOnDemandCallHandler {
 				currentTrace.endStep();
 
 			if (tracePassingOfThisProducer) {
-				tracerRepository.addTracedExecution(producerId, call, Thread.currentThread().getStackTrace(), exTime);
+				call.append(" = ").append(ret);
+				tracerRepository.addTracedExecution(producerId, call.toString(), Thread.currentThread().getStackTrace(), exTime);
 			}
 
 		}
