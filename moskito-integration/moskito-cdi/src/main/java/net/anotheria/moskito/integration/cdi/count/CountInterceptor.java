@@ -10,6 +10,7 @@ import javax.interceptor.AroundInvoke;
 import javax.interceptor.AroundTimeout;
 import javax.interceptor.Interceptor;
 import javax.interceptor.InvocationContext;
+import java.io.Serializable;
 import java.lang.reflect.Method;
 
 /**
@@ -18,9 +19,14 @@ import java.lang.reflect.Method;
  * @author Alex Osadchy
  * @author Leon Rosenberg
  */
-@Interceptor
 @Count
-public class CountInterceptor extends AbstractInterceptor<CounterStats> {
+@Interceptor
+public class CountInterceptor extends AbstractInterceptor<CounterStats> implements Serializable {
+
+    /**
+     * Serial Version ID.
+     */
+    private static final long serialVersionUID = 1L;
 
     @Override
     protected final Class<CounterStats> getStatsClass() {

@@ -15,6 +15,7 @@ import javax.interceptor.AroundInvoke;
 import javax.interceptor.AroundTimeout;
 import javax.interceptor.Interceptor;
 import javax.interceptor.InvocationContext;
+import java.io.Serializable;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
@@ -25,7 +26,12 @@ import java.lang.reflect.Method;
  */
 @Monitor
 @Interceptor
-public class MonitorInterceptor extends AbstractInterceptor<ServiceStats> {
+public class MonitorInterceptor extends AbstractInterceptor<ServiceStats> implements Serializable {
+
+    /**
+     * Serial Version ID.
+     */
+    private static final long serialVersionUID = 1L;
 
     @Override
     protected final Class<ServiceStats> getStatsClass() {
