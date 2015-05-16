@@ -108,7 +108,7 @@ public abstract class AbstractInterceptor<T extends IStats> {
      */
     protected static <T extends Annotation> T getAnnotationFromContext(InvocationContext context, Class<T> clazz) {
         T result = context.getMethod().getAnnotation(clazz);
-        return result != null ? result : context.getMethod().getDeclaringClass().getAnnotation(clazz);
+        return result != null ? result : context.getTarget().getClass().getAnnotation(clazz);
     }
 
     /**
