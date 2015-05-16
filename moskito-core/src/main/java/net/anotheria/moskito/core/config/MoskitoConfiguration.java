@@ -73,10 +73,16 @@ public class MoskitoConfiguration implements Serializable{
     @SerializedName("@mbeanProducersConfig")
     private MBeanProducerConfig mbeanProducersConfig = new MBeanProducerConfig();
 
+	/**
+	 * Configuration for builtin producers. Allows to switch off builtin producers.
+	 */
 	@Configure
 	@SerializedName("@builtinProducersConfig")
 	private BuiltinProducersConfig builtinProducersConfig = new BuiltinProducersConfig();
 
+	/**
+	 * Configuration for tracing.
+	 */
 	@Configure
 	@SerializedName("@tracingConfig")
 	private TracingConfiguration tracingConfig = new TracingConfiguration();
