@@ -38,7 +38,7 @@ public abstract class GenericCounterStats extends AbstractStats{
 		StatValue firstCounterValue = StatValueFactory.createStatValue(Long.valueOf(0L), firstCounter, intervals);
 		addStatValues(firstCounterValue);
 		values.put(firstCounter, firstCounterValue);
-		if (moreCounters!=null){
+		if (moreCounters != null){
 			for (String mc : moreCounters){
 				StatValue additionalValue = StatValueFactory.createStatValue(Long.valueOf(0L), mc, intervals);
 				addStatValues(additionalValue);
