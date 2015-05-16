@@ -61,7 +61,7 @@ public abstract class RequestOrientedStats extends AbstractStats {
 	/**
 	 * All currently selected intervals.
 	 */
-	private transient Interval selectedIntervals[];
+	private transient Interval[] selectedIntervals;
 
 	/**
 	 * Name of the method.
@@ -206,8 +206,7 @@ public abstract class RequestOrientedStats extends AbstractStats {
 
 	/**
 	 * Returns the average time of the request execution duration.
-	 * 
-	 * @return
+	 * @return average request duration for default internal.
 	 */
 	public double getAverageRequestDuration() {
 		return getAverageRequestDuration(null);
@@ -224,8 +223,8 @@ public abstract class RequestOrientedStats extends AbstractStats {
 
 	/**
 	 * Returns the average request duration for the given interval and converted to the given timeunit.
-	 * @param intervalName
-	 * @param unit
+	 * @param intervalName name of the interval.
+	 * @param unit timeunit.
 	 * @return
 	 */
 	public double getAverageRequestDuration(String intervalName, TimeUnit unit) {
