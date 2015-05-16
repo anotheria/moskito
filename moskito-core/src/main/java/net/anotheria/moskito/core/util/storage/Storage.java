@@ -274,7 +274,7 @@ public class Storage<K,V> implements IStatsProducer<StorageStats>, Inspectable, 
 	 * @param <V>
 	 * @return
 	 */
-	public static <K,V>Storage<K,V> createHashMapStorage(){
+	public static <K,V> Storage<K,V> createHashMapStorage(){
 		return new Storage<K,V>(new MapStorageWrapper<K, V>(new HashMap<K, V>()));
 	}
 
@@ -285,7 +285,7 @@ public class Storage<K,V> implements IStatsProducer<StorageStats>, Inspectable, 
 	 * @param <V>
 	 * @return
 	 */
-	public static <K,V>Storage<K,V> createHashMapStorage(int initialSize){
+	public static <K,V> Storage<K,V> createHashMapStorage(int initialSize){
 		return new Storage<K,V>(new MapStorageWrapper<K, V>(new HashMap<K, V>(initialSize)));
 	}
 
@@ -296,7 +296,7 @@ public class Storage<K,V> implements IStatsProducer<StorageStats>, Inspectable, 
 	 * @param <V>
 	 * @return
 	 */
-	public static <K,V>Storage<K,V> createHashMapStorage(String name){
+	public static <K,V> Storage<K,V> createHashMapStorage(String name){
 		return new Storage<K,V>(name, new MapStorageWrapper<K, V>(new HashMap<K, V>()));
 	}
 
@@ -308,7 +308,7 @@ public class Storage<K,V> implements IStatsProducer<StorageStats>, Inspectable, 
 	 * @param <V>
 	 * @return
 	 */
-	public static <K,V>Storage<K,V> createHashMapStorage(String name, int initialSize){
+	public static <K,V> Storage<K,V> createHashMapStorage(String name, int initialSize){
 		return new Storage<K,V>(name, new MapStorageWrapper<K, V>(new HashMap<K, V>(initialSize)));
 	}
 
@@ -318,7 +318,7 @@ public class Storage<K,V> implements IStatsProducer<StorageStats>, Inspectable, 
 	 * @param <V>
 	 * @return
 	 */
-	public static <K,V>Storage<K,V> createConcurrentHashMapStorage(){
+	public static <K,V> Storage<K,V> createConcurrentHashMapStorage(){
 		return new Storage<K,V>(new MapStorageWrapper<K, V>(new ConcurrentHashMap<K, V>()));
 	}
 
@@ -329,7 +329,7 @@ public class Storage<K,V> implements IStatsProducer<StorageStats>, Inspectable, 
 	 * @param <V>
 	 * @return
 	 */
-	public static <K,V>Storage<K,V> createConcurrentHashMapStorage(int initialSize){
+	public static <K,V> Storage<K,V> createConcurrentHashMapStorage(int initialSize){
 		return new Storage<K,V>(new MapStorageWrapper<K, V>(new ConcurrentHashMap<K, V>(initialSize)));
 	}
 
@@ -340,7 +340,7 @@ public class Storage<K,V> implements IStatsProducer<StorageStats>, Inspectable, 
 	 * @param <V>
 	 * @return
 	 */
-	public static <K,V>Storage<K,V> createConcurrentHashMapStorage(String name){
+	public static <K,V> Storage<K,V> createConcurrentHashMapStorage(String name){
 		return new Storage<K,V>(name, new MapStorageWrapper<K, V>(new ConcurrentHashMap<K, V>()));
 	}
 
@@ -352,7 +352,7 @@ public class Storage<K,V> implements IStatsProducer<StorageStats>, Inspectable, 
 	 * @param <V>
 	 * @return
 	 */
-	public static <K,V>Storage<K,V> createConcurrentHashMapStorage(String name, int initialSize){
+	public static <K,V> Storage<K,V> createConcurrentHashMapStorage(String name, int initialSize){
 		return new Storage<K,V>(name, new MapStorageWrapper<K, V>(new ConcurrentHashMap<K, V>(initialSize)));
 	}
 
@@ -362,7 +362,7 @@ public class Storage<K,V> implements IStatsProducer<StorageStats>, Inspectable, 
 	 * @param <V>
 	 * @return
 	 */
-	public static <K,V>Storage<K,V> createHashtableStorage(){
+	public static <K,V> Storage<K,V> createHashtableStorage(){
 		return new Storage<K,V>(new MapStorageWrapper<K, V>(new Hashtable<K, V>()));
 	}
 
@@ -373,7 +373,7 @@ public class Storage<K,V> implements IStatsProducer<StorageStats>, Inspectable, 
 	 * @param <V>
 	 * @return
 	 */
-	public static <K,V>Storage<K,V> createHashtableStorage(int initialSize){
+	public static <K,V> Storage<K,V> createHashtableStorage(int initialSize){
 		return new Storage<K,V>(new MapStorageWrapper<K, V>(new Hashtable<K, V>(initialSize)));
 	}
 
@@ -384,7 +384,7 @@ public class Storage<K,V> implements IStatsProducer<StorageStats>, Inspectable, 
 	 * @param <V>
 	 * @return
 	 */
-	public static <K,V>Storage<K,V> createHashtableStorage(String name){
+	public static <K,V> Storage<K,V> createHashtableStorage(String name){
 		return new Storage<K,V>(name, new MapStorageWrapper<K, V>(new Hashtable<K, V>()));
 	}
 
@@ -396,7 +396,7 @@ public class Storage<K,V> implements IStatsProducer<StorageStats>, Inspectable, 
 	 * @param <V>
 	 * @return
 	 */
-	public static <K,V>Storage<K,V> createHashtableStorage(String name, int initialSize){
+	public static <K,V> Storage<K,V> createHashtableStorage(String name, int initialSize){
 		return new Storage<K,V>(name, new MapStorageWrapper<K, V>(new Hashtable<K, V>(initialSize)));
 	}
 
@@ -407,7 +407,7 @@ public class Storage<K,V> implements IStatsProducer<StorageStats>, Inspectable, 
 	 * @param <V>
 	 * @return
 	 */
-	public static <K,V>Storage<K,V> createTreeMapStorage(String name){
+	public static <K,V> Storage<K,V> createTreeMapStorage(String name){
 		return new Storage<K, V>(name, new MapStorageWrapper<K, V>(new TreeMap<K, V>()));
 	}
 
@@ -419,7 +419,7 @@ public class Storage<K,V> implements IStatsProducer<StorageStats>, Inspectable, 
 	 * @param <V>
 	 * @return
 	 */
-	public static <K,V>Storage<K,V> createTreeMapStorage(String name, Comparator comparator){
+	public static <K,V> Storage<K,V> createTreeMapStorage(String name, Comparator comparator){
 		return new Storage<K, V>(name, new MapStorageWrapper<K, V>(new TreeMap<K, V>(comparator)));
 	}
 
