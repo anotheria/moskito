@@ -8,7 +8,7 @@ import net.anotheria.moskito.core.producers.IStatsProducer;
  * @author lrosenberg
  *
  */
-abstract class AbstractBuiltInProducer<S extends IStats> implements IStatsProducer<S>{
+public abstract class AbstractBuiltInProducer<S extends IStats> implements IStatsProducer<S>{
 
 	/**
 	 * Name for the builtin system registration.

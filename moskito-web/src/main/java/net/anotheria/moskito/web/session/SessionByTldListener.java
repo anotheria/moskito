@@ -2,8 +2,8 @@ package net.anotheria.moskito.web.session;
 
 import net.anotheria.moskito.core.dynamic.OnDemandStatsProducer;
 import net.anotheria.moskito.core.dynamic.OnDemandStatsProducerException;
-import net.anotheria.moskito.core.producers.IStatsProducer;
 import net.anotheria.moskito.core.registry.ProducerRegistryFactory;
+import net.anotheria.moskito.core.util.AbstractBuiltInProducer;
 import net.anotheria.moskito.web.filters.SourceTldFilter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -37,7 +37,7 @@ public class SessionByTldListener implements HttpSessionListener, ServletRequest
 	public static final String ATT_NAME = "_MoSKito_SessionByTldFilter_TLD";
 
 	static{
-		onDemandProducer = new OnDemandStatsProducer<SessionCountStats>("SessionCountByTld", "web", IStatsProducer.SUBSYSTEM_BUILTIN, SessionCountFactory.DEFAULT_INSTANCE);
+		onDemandProducer = new OnDemandStatsProducer<SessionCountStats>("SessionCountByTld", "web", AbstractBuiltInProducer.SUBSYSTEM_BUILTIN, SessionCountFactory.DEFAULT_INSTANCE);
 		ProducerRegistryFactory.getProducerRegistryInstance().registerProducer(onDemandProducer);
 	}
 
