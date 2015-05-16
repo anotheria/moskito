@@ -60,22 +60,21 @@ public class MonitoringAspect extends AbstractMoskitoAspect{
         TracerRepository tracerRepository = TracerRepository.getInstance();
         boolean tracePassingOfThisProducer = tracerRepository.isTracingEnabledForProducer(producerId);
 
-        String call = null;
+        StringBuilder call = null;
         if (currentTrace != null || tracePassingOfThisProducer) {
-            StringBuilder callB = new StringBuilder(producerId).append('.').append(method).append("(");
+            call = new StringBuilder(producerId).append('.').append(method).append("(");
             if (args != null && args.length > 0) {
                 for (int i = 0; i < args.length; i++) {
-                    callB.append(args[i]);
+                    call.append(args[i]);
                     if (i < args.length - 1) {
-                        callB.append(", ");
+                        call.append(", ");
                     }
                 }
             }
-            callB.append(")");
-            call = callB.toString();
+            call.append(")");
         }
         if (currentTrace != null) {
-            currentStep = currentTrace.startStep(call, producer);
+            currentStep = currentTrace.startStep(call.toString(), producer);
         }
         long startTime = System.nanoTime();
         Object ret = null;
@@ -87,7 +86,6 @@ public class MonitoringAspect extends AbstractMoskitoAspect{
             if (methodStats != null) {
                 methodStats.notifyError();
             }
-            //System.out.println("exception of class: "+e.getCause()+" is thrown");
             if (currentStep != null) {
                 currentStep.setAborted();
             }
@@ -99,6 +97,9 @@ public class MonitoringAspect extends AbstractMoskitoAspect{
             }
             if (currentStep != null) {
                 currentStep.setAborted();
+            }
+            if (tracePassingOfThisProducer) {
+                call.append(" ERR "+t.getMessage());
             }
             throw t;
         } finally {
@@ -123,8 +124,10 @@ public class MonitoringAspect extends AbstractMoskitoAspect{
                 currentTrace.endStep();
             }
 
-            if (tracePassingOfThisProducer)
-                tracerRepository.addTracedExecution(producerId, call, Thread.currentThread().getStackTrace(), exTime);
+            if (tracePassingOfThisProducer) {
+                call.append(" = " + ret);
+                tracerRepository.addTracedExecution(producerId, call.toString(), Thread.currentThread().getStackTrace(), exTime);
+            }
         }
     }
 }
