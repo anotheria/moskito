@@ -93,21 +93,10 @@ public final class IntervalRegistry {
 	private List<IntervalRegistryListener> registryListeners = new CopyOnWriteArrayList<IntervalRegistryListener>();
 
 	/**
-	 * The contructor.
+	 * The constructor.
 	 */
 	private IntervalRegistry() {
 		updateTriggerService = UpdateTriggerServiceFactory.getUpdateTriggerService();
-
-			//TODO readd this code later, disabled snapshots.
-//        registryListeners.add(new IntervalRegistryListener() {
-//            public void intervalCreated(Interval aInterval) {
-//                aInterval.addSecondaryIntervalListener(new IIntervalListener() {
-//                    public void intervalUpdated(Interval aCaller) {
-//                        SnapshotCreator.INSTANCE.createSnapshot(aCaller);
-//                    }
-//                });
-//            }
-//        });
     }
 
 	/**
@@ -199,7 +188,6 @@ public final class IntervalRegistry {
 
 	/**
 	 * This method returns the next free id.
-	 * 
 	 * @return the next id
 	 */
 	private int obtainNextUniqueId() {
@@ -208,7 +196,6 @@ public final class IntervalRegistry {
 
 	/**
 	 * This method returns a list containing all known Intervals.
-	 *  
 	 * @return the Interval list
 	 */
 	public List<Interval> getIntervals() {
@@ -218,7 +205,7 @@ public final class IntervalRegistry {
 	/**
 	 * Returns last update timestamp of an interval by name.
 	 * @param intervalName name of the interval.
-	 * @return
+	 * @return returns the timestamp in milliseconds since 1970 for the interval update.
 	 */
 	public Long getUpdateTimestamp(String intervalName){
 		return intervalName == null ? Long.valueOf(0) : intervalUpdateTimestamp.get(intervalName);
