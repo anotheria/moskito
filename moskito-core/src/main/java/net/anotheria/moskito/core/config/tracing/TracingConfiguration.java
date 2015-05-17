@@ -3,6 +3,8 @@ package net.anotheria.moskito.core.config.tracing;
 import org.configureme.annotations.Configure;
 import org.configureme.annotations.ConfigureMe;
 
+import java.io.Serializable;
+
 /**
  * Configuration for tracing.
  *
@@ -10,7 +12,7 @@ import org.configureme.annotations.ConfigureMe;
  * @since 06.05.15 10:30
  */
 @ConfigureMe (allfields = true)
-public class TracingConfiguration {
+public class TracingConfiguration implements Serializable{
 	/**
 	 * Completely turn tracing on/off. Default is on.
 	 */
