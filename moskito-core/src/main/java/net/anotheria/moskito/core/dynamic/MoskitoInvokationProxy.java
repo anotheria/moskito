@@ -94,7 +94,7 @@ public class MoskitoInvokationProxy implements InvocationHandler{
 	private Object implementation;
 	
 	/**
-	 * A handler object for the call execution
+	 * A handler object for the call execution.
 	 */
 	private IOnDemandCallHandler handler;
 	
@@ -127,12 +127,28 @@ public class MoskitoInvokationProxy implements InvocationHandler{
 		
 		guessExceptions();
 	}
-	
+
+	/**
+	 * Creates a new MoskitoInvokationProxy.
+	 * @param anImplementation object for monitoring. Should implement the supplied interfaces.
+	 * @param aHandler a handler.
+	 * @param factory factory for stats objects.
+	 * @param interfaces multiple interfaces that should be supported.
+	 */
 	public MoskitoInvokationProxy(Object anImplementation, IOnDemandCallHandler aHandler, IOnDemandStatsFactory factory, Class<?>... interfaces ){
 		this(anImplementation, aHandler, factory, guessProducerId(anImplementation), null, null, interfaces);
 	}
 
-	public MoskitoInvokationProxy(Object anImplementation, IOnDemandCallHandler aHandler, IOnDemandStatsFactory factory, String category, String subsystem, Class<?>... interfaces ){
+	/**
+	 * Creates a new MoskitoInvokationProxy.
+	 * @param anImplementation object for monitoring. Should implement the supplied interfaces.
+	 * @param aHandler a handler.
+	 * @param factory factory for stats objects.
+	 * @param category category for presentation.
+	 * @param subsystem subsystem for presentation.
+	 * @param interfaces multiple interfaces that should be supported.
+	 */
+	public MoskitoInvokationProxy(Object anImplementation, IOnDemandCallHandler aHandler, IOnDemandStatsFactory factory, String category, String subsystem, Class<?>... interfaces) {
 		this(anImplementation, aHandler, factory, guessProducerId(anImplementation), category, subsystem, interfaces);
 	}
 	
@@ -142,12 +158,12 @@ public class MoskitoInvokationProxy implements InvocationHandler{
 	}
 	
 	/**
-	 * Looks up all possible exceptions
+	 * Looks up all possible exceptions.
 	 */
 	private void guessExceptions(){
-		List <Class<?>> tmpExceptionList = new ArrayList<Class<?>>();
+		List<Class<?>> tmpExceptionList = new ArrayList<Class<?>>();
 		for (Class<?> c:supportedInterfaces){
-			Method methods[] = c.getDeclaredMethods();
+			Method[] methods = c.getDeclaredMethods();
 			for (Method m:methods){
 				for (Class<?> exc : m.getExceptionTypes()){
 					if (!tmpExceptionList.contains(exc))

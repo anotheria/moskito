@@ -4,7 +4,7 @@ import org.configureme.annotations.Configure;
 import org.configureme.annotations.ConfigureMe;
 
 /**
- * TODO comment this class
+ * Configuration for tracing.
  *
  * @author lrosenberg
  * @since 06.05.15 10:30
