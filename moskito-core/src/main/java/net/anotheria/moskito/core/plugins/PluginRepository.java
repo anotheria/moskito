@@ -39,7 +39,7 @@ public final class PluginRepository {
 	 * Returns plugin repository singleton instance.
 	 * @return the instance of this repository.
 	 */
-	public static final PluginRepository getInstance(){
+	public static PluginRepository getInstance(){
 		return PluginRepositoryHolder.instance;
 	}
 
@@ -111,7 +111,7 @@ public final class PluginRepository {
 
 	/**
 	 * Returns the names of the active plugins.
-	 * @return
+	 * @return list of loaded plugins.
 	 */
 	public List<String> getPluginNames() {
 		ArrayList<String> ret = new ArrayList<String>();
@@ -121,8 +121,8 @@ public final class PluginRepository {
 
 	/**
 	 * Returns loaded plugin by name.
-	 * @param name
-	 * @return
+	 * @param name name of the plugin.
+	 * @return Plugin by name.
 	 */
 	public MoskitoPlugin getPlugin(String name){
 		return plugins.get(name);
@@ -130,8 +130,8 @@ public final class PluginRepository {
 
 	/**
 	 * Returns pluginconfig for the loaded plugin.
-	 * @param name
-	 * @return
+	 * @param name nane of the plugin.
+	 * @return PluginConfig for specified plugin.
 	 */
 	public PluginConfig getConfig(String name){
 		return configs.get(name);
