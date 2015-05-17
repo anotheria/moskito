@@ -83,7 +83,7 @@ public final class AccumulatorRepository extends TieableRepository<Accumulator> 
 	}
 
 	/**
-	 * Reads the config and creates configured thresholds. For now this method is only executed on startup.
+	 * Reads the config and creates configured accumulators. For now this method is only executed on startup.
 	 */
 	private void readConfig(){
 		AccumulatorsConfig config = MoskitoConfigurationHolder.getConfiguration().getAccumulatorsConfig();
@@ -98,6 +98,9 @@ public final class AccumulatorRepository extends TieableRepository<Accumulator> 
 				ad.setTimeUnit(TimeUnit.valueOf(ac.getTimeUnit()));
 				ad.setValueName(ac.getValueName());
 				Accumulator acc = createAccumulator(ad);
+				if (log.isDebugEnabled()){
+					log.debug("Created accumulator "+acc);
+				}
 			}
 		}
 	}
