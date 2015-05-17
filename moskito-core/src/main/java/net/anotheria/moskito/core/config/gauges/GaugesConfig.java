@@ -42,6 +42,6 @@ public class GaugesConfig implements Serializable {
 	}
 
 	@Override public String toString(){
-		return "GaugesConfig with gauges: "+ Arrays.toString(gauges)+", defaultZones: "+defaultZones;
+		return "GaugesConfig with gauges: "+ Arrays.toString(gauges)+", defaultZones: "+Arrays.toString(defaultZones);
 	}
 }
