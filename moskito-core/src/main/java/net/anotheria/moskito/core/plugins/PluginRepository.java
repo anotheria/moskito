@@ -17,7 +17,7 @@ import java.util.concurrent.ConcurrentMap;
  * @author lrosenberg
  * @since 19.03.13 15:47
  */
-public class PluginRepository {
+public final class PluginRepository {
 
 	/**
 	 * Logger.
@@ -37,7 +37,7 @@ public class PluginRepository {
 
 	/**
 	 * Returns plugin repository singleton instance.
-	 * @return
+	 * @return the instance of this repository.
 	 */
 	public static final PluginRepository getInstance(){
 		return PluginRepositoryHolder.instance;
@@ -141,6 +141,9 @@ public class PluginRepository {
 	 * Singletonhelper.
 	 */
 	private static class PluginRepositoryHolder{
+		/**
+		 * Instance of the PluginRepository.
+		 */
 		private static final PluginRepository instance = new PluginRepository();
 		static{
 			instance.setup();
