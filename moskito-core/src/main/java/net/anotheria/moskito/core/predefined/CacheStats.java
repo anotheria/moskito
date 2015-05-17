@@ -264,9 +264,9 @@ public class CacheStats extends AbstractStats {
 	}
 
 	/**
-	 * Return number of expired objects.
+	 * Return number of expired objects. Please note this value represents the amount of expired objects actually reported by the cache. If the cache is calculating expiration on request, the value will only represent the amount of detect expired elements.
 	 * @param intervalName the name of the target interval.
-	 * @return
+	 * @return returns the number of expired objects in the cache in the given interval.
 	 */
 	public long getExpired(String intervalName){
 		return expiredCount.getValueAsLong(intervalName);
