@@ -14,8 +14,16 @@ import java.util.concurrent.atomic.AtomicInteger;
  *
  */
 public class ProxyUtils {
+
 	/**
-	 * Internal storage for instancecounters.
+	 * Hide constructor.
+	 */
+	private ProxyUtils(){
+
+	}
+
+	/**
+	 * Internal storage for instance counters.
 	 */
 	private static ConcurrentMap<String,AtomicInteger> instanceCounters = new ConcurrentHashMap<String, AtomicInteger>();
 	/**
@@ -28,7 +36,7 @@ public class ProxyUtils {
 	 * @param handler handler for the calls.
 	 * @param statsFactory the factory for the stats.
 	 * @param interf interfaces.
-	 * @return
+	 * @return a newly created proxy of type T.
 	 */
 	public static <T> T createInstance(T impl, String name, String category, String subsystem, IOnDemandCallHandler handler, IOnDemandStatsFactory statsFactory, Class<T> interf, Class<?>... additionalInterfaces){
 		if (name==null)
@@ -65,7 +73,7 @@ public class ProxyUtils {
 	 * @param subsystem subsystem of this instance.
 	 * @param interf class of T, main interface of the service.
 	 * @param additionalInterfaces additional helper interfaces, that should be supported as well.
-	 * @return
+	 * @return a newly created proxy of type T.
 	 */
 	public static <T> T createServiceInstance(T impl, String name, String category, String subsystem, Class<T> interf, Class<?>... additionalInterfaces){
 		return createInstance(impl, 
@@ -87,7 +95,7 @@ public class ProxyUtils {
  	 * @param subsystem
  	 * @param interf
  	 * @param additionalInterfaces
- 	 * @return
+	 * @return a newly created proxy of type T.
  	 */
 	public static <T> T createServiceInstance(T impl, String category, String subsystem, Class<T> interf, Class<?>... additionalInterfaces){
 		return createServiceInstance(impl, null, category, subsystem, interf, additionalInterfaces);
@@ -100,17 +108,30 @@ public class ProxyUtils {
 	 * @param subsystem subsystem of the service.
 	 * @param interf Class of T.
 	 * @param additionalInterfaces Additional interfaces if applicable.
-	 * @return
+	 * @return a newly created proxy of type T.
 	 */
 	public static <T> T createServiceInstance(T impl, String subsystem, Class<T> interf, Class<?>... additionalInterfaces){
 		return createServiceInstance(impl, null, "service", subsystem, interf, additionalInterfaces);
 	}
 
+	/**
+	 * Shortcut method to create an instance of category dao.
+	 * @param impl implementation of T.
+	 * @param subsystem subsystem of the dao.
+	 * @param interf Class of T.
+	 * @param additionalInterfaces additional interfaces if applicable.
+	 * @param <T> main dao interface.
+	 * @return a newly created proxy of type T.
+	 */
 	public static <T> T createDAOInstance(T impl, String subsystem, Class<T> interf, Class<?>... additionalInterfaces){
 		return createServiceInstance(impl, null, "dao", subsystem, interf, additionalInterfaces);
 	}
 
-	//TODO change this to use concurrent map semantics.
+	/**
+	 * Returns a new counter for instance with core-name 'name'. We support multiple producers with same name by adding a minus <number> to the name, like Service, Service-1 etc.
+	 * @param name proposed name of the instance.
+	 * @return instance count for known instances with name 'name'.
+	 */
 	private static int getInstanceCounter(String name){
 		AtomicInteger counter = instanceCounters.get(name);
 		if (counter!=null)
