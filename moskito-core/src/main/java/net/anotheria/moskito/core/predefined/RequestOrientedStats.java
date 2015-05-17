@@ -215,7 +215,7 @@ public abstract class RequestOrientedStats extends AbstractStats {
 	/**
 	 * Returns the average request duration for the given interval in nanoseconds.
 	 * @param intervalName name of the interval.
-	 * @return
+	 * @return average request duration.
 	 */
 	public double getAverageRequestDuration(String intervalName) {
 		return totalTime.getValueAsDouble(intervalName) / totalRequests.getValueAsDouble(intervalName);
@@ -231,6 +231,11 @@ public abstract class RequestOrientedStats extends AbstractStats {
 		return unit.transformNanos(totalTime.getValueAsLong(intervalName)) / totalRequests.getValueAsDouble(intervalName);
 	}
 
+	/**
+	 * Returns the error rate. This value was previously calculated in decorator, but we moved it into the stats object to be able to define threshold on top of it.
+	 * @param intervalName name of the interval.
+	 * @return the error rate in percent.
+	 */
 	public double getErrorRate(String intervalName){
 		long tr = getTotalRequests(intervalName);
 		double errorRate = tr == 0? 0:((double)getErrors(intervalName))/tr;
@@ -322,6 +327,7 @@ public abstract class RequestOrientedStats extends AbstractStats {
 	}
 
 	/**
+	 * Returns the method name, which is the unique identifier of this stats object within its producer context.
 	 * @return
 	 */
 	public String getMethodName() {
@@ -329,7 +335,8 @@ public abstract class RequestOrientedStats extends AbstractStats {
 	}
 
 	/**
-	 * @param string
+	 * Sets the method name.
+	 * @param string method name parameter.
 	 */
 	public void setMethodName(String string) {
 		methodName = string;
@@ -342,12 +349,17 @@ public abstract class RequestOrientedStats extends AbstractStats {
 		return totalRequests.getValueAsLong(intervalName);
 	}
 
+	/**
+	 * Returns the total number of requests for the default interval.
+	 * @return number of requests.
+	 */
 	public long getTotalRequests() {
 		return totalRequests.getValueAsLong(null);
 	}
 
 	/**
-	 * @return
+	 * Returns the total spent time for the default interval.
+	 * @return time spent in this stats in nanoseconds.
 	 */
 	public long getTotalTime() {
 		return getTotalTime(null);
@@ -400,10 +412,19 @@ public abstract class RequestOrientedStats extends AbstractStats {
 		return errors.getValueAsLong(intervalName);
 	}
 
+	/**
+	 * Returns the duration of the last request in default interval in nanoseconds.
+	 * @return duration of last request in nanoseconds.
+	 */
 	public long getLastRequest() {
 		return getLastRequest(null);
 	}
 
+	/**
+	 * Returns the duration of the last request in an interval in nanoseconds.
+	 * @param intervalName
+	 * @return duration of last request in nanoseconds.
+	 */
 	public long getLastRequest(String intervalName) {
 		return lastRequest.getValueAsLong(intervalName);
 	}
