@@ -1,11 +1,15 @@
 package net.anotheria.moskito.core.config.producers;
 
 import org.configureme.annotations.Configure;
+import org.configureme.annotations.ConfigureMe;
+
+import java.io.Serializable;
 
 /**
  * @author Michael König
  */
-public class MBeanProducerDomainConfig {
+@ConfigureMe
+public class MBeanProducerDomainConfig implements Serializable{
 
     /**
      * the name of MBean domain to configure.
