@@ -6,15 +6,21 @@ import java.io.Serializable;
 import java.util.Arrays;
 
 /**
- * TODO comment this class
+ * Gauges section of the config.
  *
  * @author lrosenberg
  * @since 29.12.14 01:53
  */
 public class GaugesConfig implements Serializable {
+	/**
+	 * Configured gauges.
+	 */
 	@Configure
 	private GaugeConfig[] gauges;
 
+	/**
+	 * Default zones if no zones are configured in a gauge.
+	 */
 	@Configure
 	private GaugeZoneConfig[] defaultZones;
 

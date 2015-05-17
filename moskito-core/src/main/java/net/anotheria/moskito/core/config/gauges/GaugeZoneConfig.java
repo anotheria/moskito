@@ -6,7 +6,7 @@ import org.configureme.annotations.ConfigureMe;
 import java.io.Serializable;
 
 /**
- * TODO comment this class
+ * Config for a gauge zone, a coloured zone in the gauge.
  *
  * @author lrosenberg
  * @since 21.04.15 08:43

@@ -7,23 +7,41 @@ import java.io.Serializable;
 import java.util.Arrays;
 
 /**
- * TODO comment this class
+ * Configuration object for a single gauge..
  *
  * @author lrosenberg
  * @since 29.12.14 01:53
  */
 @ConfigureMe
 public class GaugeConfig implements Serializable{
+	/**
+	 * Name of the gauge.
+	 */
 	@Configure
 	private String name;
+	/**
+	 * Min value of the gauge.
+	 */
 	@Configure
 	private GaugeValueConfig minValue;
+	/**
+	 * Current value of the gauge.
+	 */
 	@Configure
 	private GaugeValueConfig currentValue;
+	/**
+	 * Max value of the gauge.
+	 */
 	@Configure
 	private GaugeValueConfig maxValue;
+	/**
+	 * Caption of the gauge.
+	 */
 	@Configure
 	private String caption;
+	/**
+	 * Optional zones.
+	 */
 	@Configure
 	private GaugeZoneConfig[] zones;
 
