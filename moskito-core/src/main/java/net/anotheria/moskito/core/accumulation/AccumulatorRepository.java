@@ -107,10 +107,11 @@ public final class AccumulatorRepository extends TieableRepository<Accumulator> 
 
     /**
      * This method is for unit testing ONLY.
+	 * The Findbugs warning is suppressed, because this method is for unit testing only.
      */
+	@SuppressWarnings("ST_WRITE_TO_STATIC_FROM_INSTANCE_METHOD")
     void reset() {
         cleanup();
-		//FINDBUGS OFF
 		INSTANCE = new AccumulatorRepository();
 	}
 
