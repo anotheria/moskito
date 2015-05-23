@@ -1,5 +1,8 @@
 package net.anotheria.moskito.aop.aspect;
 
+import net.anotheria.moskito.aop.annotation.Accumulate;
+import net.anotheria.moskito.core.accumulation.AccumulatorDefinition;
+import net.anotheria.moskito.core.accumulation.AccumulatorRepository;
 import net.anotheria.moskito.core.dynamic.IOnDemandStatsFactory;
 import net.anotheria.moskito.core.dynamic.OnDemandStatsProducer;
 import net.anotheria.moskito.core.producers.IStats;
@@ -53,6 +56,21 @@ public class AbstractMoskitoAspect<S extends IStats> {
 			OnDemandStatsProducer<S> p = producers.putIfAbsent(producerId, producer);
 			if (p==null){
 				ProducerRegistryFactory.getProducerRegistryInstance().registerProducer(producer);
+
+				//now check for annotations.
+				Class producerClass = pjp.getSignature().getDeclaringType();
+				Accumulate annotation = (Accumulate) producerClass.getAnnotation(Accumulate.class);
+				if (annotation != null){
+					AccumulatorDefinition definition = new AccumulatorDefinition();
+					definition.setName(annotation.name());
+					definition.setIntervalName(annotation.intervalName());
+					definition.setProducerName(producer.getProducerId());
+					definition.setStatName("cumulated");
+					definition.setValueName(annotation.valueName());
+					definition.setTimeUnit(annotation.timeUnit());
+					AccumulatorRepository.getInstance().createAccumulator(definition);
+				}
+
 			}else{
 				producer = p;
 			}
