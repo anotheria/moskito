@@ -12,7 +12,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
 /**
- * TODO comment this class
+ * Repository where tracers are saved.
  *
  * @author lrosenberg
  * @since 05.05.15 00:31
@@ -23,6 +23,9 @@ public class TracerRepository {
 	 */
 	private static Logger log = LoggerFactory.getLogger(TracerRepository.class);
 
+	/**
+	 * Log for logged traces.
+	 */
 	private static Logger traceLog = LoggerFactory.getLogger("MoSKitoTracer");
 
 	/**
@@ -30,6 +33,9 @@ public class TracerRepository {
 	 */
 	private static TracerRepository INSTANCE = new TracerRepository();
 
+	/**
+	 * Currently existing tracers.
+	 */
 	private ConcurrentMap<String,Tracer> tracers = new ConcurrentHashMap<String, Tracer>();
 
 	/**
