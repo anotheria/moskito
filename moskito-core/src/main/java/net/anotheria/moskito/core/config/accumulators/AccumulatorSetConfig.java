@@ -7,19 +7,28 @@ import java.io.Serializable;
 import java.util.Arrays;
 
 /**
- * TODO comment this class
+ * This is a configuration set which allows to choose multiple accumulators at once by clicking a single link.
  *
  * @author lrosenberg
  * @since 14.01.15 10:04
  */
 @ConfigureMe(allfields = true)
 public class AccumulatorSetConfig implements Serializable {
+	/**
+	 * Name of the set.
+	 */
 	@Configure
 	private String name;
 
+	/**
+	 * Names of the accumulators that participate in this set.
+	 */
 	@Configure
 	private String[] accumulatorNames;
 
+	/**
+	 * Mode of the selection (single charts or combined chart).
+	 */
 	@Configure
 	private AccumulatorSetMode mode = AccumulatorSetMode.COMBINED;
 

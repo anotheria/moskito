@@ -6,7 +6,7 @@ import java.io.Serializable;
 import java.util.Arrays;
 
 /**
- * TODO comment this class
+ * This class configures accumulators.
  *
  * @author lrosenberg
  * @since 26.10.12 13:19

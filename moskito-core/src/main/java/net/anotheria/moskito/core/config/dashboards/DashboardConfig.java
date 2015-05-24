@@ -7,7 +7,7 @@ import java.io.Serializable;
 import java.util.Arrays;
 
 /**
- * TODO comment this class
+ * Configuration of a single Dashboard.
  *
  * @author lrosenberg
  * @since 12.02.15 00:58

@@ -7,13 +7,16 @@ import java.io.Serializable;
 import java.util.Arrays;
 
 /**
- * TODO comment this class
+ * Configuration of Dashboards. This is a container class for single dashboards.
  *
  * @author lrosenberg
  * @since 12.02.15 00:58
  */
 @ConfigureMe
 public class DashboardsConfig implements Serializable {
+	/**
+	 * Contained dashboards.
+	 */
 	@Configure private DashboardConfig[] dashboards;
 
 	public DashboardConfig[] getDashboards() {
