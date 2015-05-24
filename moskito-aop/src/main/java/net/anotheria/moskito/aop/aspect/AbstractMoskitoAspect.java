@@ -9,6 +9,7 @@ import net.anotheria.moskito.core.producers.IStats;
 import net.anotheria.moskito.core.registry.ProducerRegistryFactory;
 import org.aspectj.lang.ProceedingJoinPoint;
 
+import java.lang.reflect.Method;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
@@ -62,13 +63,36 @@ public class AbstractMoskitoAspect<S extends IStats> {
 				Accumulate annotation = (Accumulate) producerClass.getAnnotation(Accumulate.class);
 				if (annotation != null){
 					AccumulatorDefinition definition = new AccumulatorDefinition();
-					definition.setName(annotation.name());
+					if (annotation.name() != null && annotation.name().length() >0) {
+						definition.setName(annotation.name());
+					}else{
+						definition.setName(producer.getProducerId()+"."+annotation.valueName()+"."+annotation.intervalName());
+					}
 					definition.setIntervalName(annotation.intervalName());
 					definition.setProducerName(producer.getProducerId());
 					definition.setStatName("cumulated");
 					definition.setValueName(annotation.valueName());
 					definition.setTimeUnit(annotation.timeUnit());
 					AccumulatorRepository.getInstance().createAccumulator(definition);
+				}
+
+				Method[] methods = producerClass.getMethods();
+				for (Method m : methods){
+					Accumulate methodAnnotation = (Accumulate) m.getAnnotation(Accumulate.class);
+					if (methodAnnotation != null){
+						AccumulatorDefinition definition = new AccumulatorDefinition();
+						if (annotation.name() != null && annotation.name().length() >0) {
+							definition.setName(annotation.name());
+						}else{
+							definition.setName(producer.getProducerId()+"."+m.getName()+"."+annotation.valueName()+"."+annotation.intervalName());
+						}
+						definition.setIntervalName(annotation.intervalName());
+						definition.setProducerName(producer.getProducerId());
+						definition.setStatName(m.getName());
+						definition.setValueName(annotation.valueName());
+						definition.setTimeUnit(annotation.timeUnit());
+						AccumulatorRepository.getInstance().createAccumulator(definition);
+					}
 				}
 
 			}else{
