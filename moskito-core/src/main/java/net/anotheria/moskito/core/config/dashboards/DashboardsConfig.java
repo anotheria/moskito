@@ -14,7 +14,7 @@ import java.util.Arrays;
  */
 @ConfigureMe
 public class DashboardsConfig implements Serializable {
-	@Configure private DashboardConfig dashboards[];
+	@Configure private DashboardConfig[] dashboards;
 
 	public DashboardConfig[] getDashboards() {
 		return dashboards;

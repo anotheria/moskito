@@ -42,7 +42,7 @@ public class ProxyUtils {
 		if (name==null)
 			name = extractName(interf);
 		
-		Class<?> interfacesParameter[] = new Class<?>[additionalInterfaces==null ? 1 : 1+additionalInterfaces.length];
+		Class<?>[] interfacesParameter = new Class<?>[additionalInterfaces==null ? 1 : 1+additionalInterfaces.length];
 		interfacesParameter[0] = interf;
 		if (additionalInterfaces!=null){
 			for (int i=0; i<additionalInterfaces.length; i++){

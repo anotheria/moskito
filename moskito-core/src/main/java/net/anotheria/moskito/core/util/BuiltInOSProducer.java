@@ -144,7 +144,7 @@ public class BuiltInOSProducer extends AbstractBuiltInProducer implements IStats
 		return result;
 	}
 	
-	public static void main(String a[]){
+	public static void main(String[] a){
 		new BuiltInOSProducer();
 	}
 

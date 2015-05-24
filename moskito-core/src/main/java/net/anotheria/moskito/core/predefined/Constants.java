@@ -47,7 +47,7 @@ public class Constants {
 	/**
 	 * Default intervals, used if you don't specify anything special. As for now, the default intervals are one minute, 5 minutes, 15 minutes, one hour and one day.
 	 */
-	private static final Interval DEFAULT_INTERVALS[] = {
+	private static final Interval[] DEFAULT_INTERVALS = {
 		DefaultIntervals.ONE_MINUTE, 
 		DefaultIntervals.FIVE_MINUTES,
 		DefaultIntervals.FIFTEEN_MINUTES,
