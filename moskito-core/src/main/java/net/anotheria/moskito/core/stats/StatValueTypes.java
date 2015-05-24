@@ -26,6 +26,8 @@ public enum StatValueTypes {
 	 * Counter is similar to long, except that they do not get resetted on interval update.
 	 */
 	COUNTER,
-
+	/**
+	 * This is a type used in CPU Counter. It doesn't keep an absolute long value, but rather the diff to previous value.
+	 */
 	DIFFLONG;
 }

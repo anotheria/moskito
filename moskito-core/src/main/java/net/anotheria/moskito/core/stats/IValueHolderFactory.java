@@ -51,5 +51,5 @@ public interface IValueHolderFactory {
 	 * @param aInterval the Interval to be used
 	 * @return the new ValueHolder instance
 	 */
-	public ValueHolder createValueHolder(Interval aInterval);
+	ValueHolder createValueHolder(Interval aInterval);
 }

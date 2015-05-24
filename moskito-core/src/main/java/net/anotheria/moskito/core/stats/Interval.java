@@ -86,6 +86,4 @@ public interface Interval {
 	 * @return
 	 */
 	long getSecondaryListenerCount();
-
-
 }
