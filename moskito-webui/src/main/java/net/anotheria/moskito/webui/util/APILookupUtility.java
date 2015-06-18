@@ -51,9 +51,14 @@ public class APILookupUtility {
 			return currentConnectivityMode == ConnectivityMode.LOCAL;
 		HttpSession session = MoSKitoWebUIContext.getCallContext().getCurrentSession();
 		//if session is null, which can't happen (hope so), we fall back to personal behaviour silently.
-		if (session==null)
+		if (session==null )
 			return currentConnectivityMode == ConnectivityMode.LOCAL;
-		ConnectivityMode mode = (ConnectivityMode)session.getAttribute(ConnectivityMode.class.getName());
+		ConnectivityMode mode = null;
+		try{
+			mode = (ConnectivityMode)session.getAttribute(ConnectivityMode.class.getName());
+		}catch(IllegalStateException sessionAlreadyInvalidated){
+			//ignore
+		}
 		return mode == null ?  true : mode == ConnectivityMode.LOCAL ;
 
 	}
