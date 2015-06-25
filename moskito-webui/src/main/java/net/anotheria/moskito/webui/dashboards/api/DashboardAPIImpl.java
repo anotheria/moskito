@@ -188,7 +188,9 @@ public class DashboardAPIImpl extends AbstractMoskitoAPIImpl implements Dashboar
 						List<AccumulatedValueAO> valueList = singleChart.getData();
 						for (AccumulatedValueAO value : valueList){
 							long timestamp = value.getNumericTimestamp();
-							timestamp = timestamp / 1000 * 1000; //remove some unneeded details.
+							// we now say that everything that happens within a minute has same timestamp.
+							// This means that the data in the chart is rounded on a minute base.
+							timestamp = timestamp / 60000 * 60000; //remove some unneeded details - //
 							if (!chartValues.containsKey(timestamp)){
 								//otherwise a previous list already created some values.
 								//create a new entry with so many placeholders as there are charts.
