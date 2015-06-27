@@ -260,35 +260,6 @@
                             <div class="form-group">
                                 )
                             </div>
-
-                            <%--<div class="form-group">
-                                (Type:&nbsp;
-                            </div>
-                            <div class="radio">
-                                <label>
-                                    <input type="radio" checked="checked" value="LineChart" name="type">&nbsp;Line
-                                </label>
-                            </div>
-                            <div class="radio">
-                                <label>
-                                    <input type="radio" value="PieChart" name="type">&nbsp;Pie
-                                </label>
-                            </div>
-                            <div class="radio">
-                                <label>
-                                    <input type="radio" value="BarChart" name="type">&nbsp;Bar
-                                </label>
-                            </div>
-                            <div class="radio">
-                                <label>
-                                    <input type="radio" value="ColumnChart" name="type">&nbsp;Column
-                                </label>
-                            </div>
-                            <div class="form-group">
-                                )
-                            </div>--%>
-                            <input type="hidden" value="LineChart" name="type">
-                            <input type="hidden" value="100" name="normalizeBase">
                             <input type="hidden" value="200" name="maxValues">
                         </div>
                      </div>
