@@ -44,4 +44,9 @@ public interface AccumulatorAPI extends API, Service {
 	AccumulatorAO getAccumulator(String id) throws APIException;
 
 	AccumulatorAO getAccumulatorByName(String name) throws APIException;
+
+	MultilineChartAO getNormalizedAccumulatorGraphData(List<String> ids) throws APIException;
+
+	MultilineChartAO getCombinedAccumulatorGraphData(List<String> ids) throws APIException;
+
 }

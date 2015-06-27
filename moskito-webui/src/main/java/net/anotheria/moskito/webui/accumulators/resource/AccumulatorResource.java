@@ -11,7 +11,8 @@ import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
-import javax.ws.rs.WebApplicationException;
+import javax.ws.rs.QueryParam;
+import java.util.List;
 
 /**
  * JAX-RS Resource that serves requests to accumulators.
@@ -31,9 +32,8 @@ public class AccumulatorResource extends AbstractResource{
 		try{
 			return ReplyObject.success("accumulators", getAccumulatorAPI().getAccumulatorDefinitions() );
 		}catch(APIException e){
-			throw new WebApplicationException(e);
+			return ReplyObject.error(e);
 		}
-
 	}
 
 	/**
@@ -48,7 +48,7 @@ public class AccumulatorResource extends AbstractResource{
 			getAccumulatorAPI().removeAccumulator(id);
 			return ReplyObject.success();
 		}catch(APIException e){
-			throw new WebApplicationException(e);
+			return ReplyObject.error(e);
 		}
 	}
 
@@ -66,7 +66,41 @@ public class AccumulatorResource extends AbstractResource{
 			ro.addResult("chartData", getAccumulatorAPI().getAccumulatorGraphData(id));
 			return ro;
 		}catch(APIException e){
-			throw new WebApplicationException(e);
+			return ReplyObject.error(e);
+		}
+	}
+
+	/**
+	 * Returns an accumulator by id.
+	 * @param ids of the accumulator to return.
+	 * @return
+	 */
+	@GET
+	@Path("normalized")
+	public ReplyObject getAccumulatorsNormalized(@QueryParam("id") List<String> ids){
+		try{
+			ReplyObject ro = ReplyObject.success();
+			ro.addResult("chart", getAccumulatorAPI().getNormalizedAccumulatorGraphData(ids));
+			return ro;
+		}catch(APIException e){
+			return ReplyObject.error(e);
+		}
+	}
+
+	/**
+	 * Returns an accumulator by id.
+	 * @param ids of the accumulator to return.
+	 * @return
+	 */
+	@GET
+	@Path("combined")
+	public ReplyObject getAccumulatorsCombined(@QueryParam("id") List<String> ids){
+		try{
+			ReplyObject ro = ReplyObject.success();
+			ro.addResult("chart", getAccumulatorAPI().getCombinedAccumulatorGraphData(ids));
+			return ro;
+		}catch(APIException e){
+			return ReplyObject.error(e);
 		}
 	}
 
@@ -81,7 +115,7 @@ public class AccumulatorResource extends AbstractResource{
 			AccumulatorDefinitionAO ret = getAccumulatorAPI().createAccumulator(po);
 			return ReplyObject.success("created", ret);
 		}catch(APIException e){
-			throw new WebApplicationException(e);
+			return ReplyObject.error(e);
 		}
 	}
 
