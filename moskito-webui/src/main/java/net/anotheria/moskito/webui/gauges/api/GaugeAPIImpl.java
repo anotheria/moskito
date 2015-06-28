@@ -11,6 +11,7 @@ import net.anotheria.moskito.core.config.gauges.GaugesConfig;
 import net.anotheria.moskito.core.producers.IStats;
 import net.anotheria.moskito.core.producers.IStatsProducer;
 import net.anotheria.moskito.core.registry.IProducerRegistryAPI;
+import net.anotheria.moskito.core.registry.NoSuchProducerException;
 import net.anotheria.moskito.core.registry.ProducerRegistryAPIFactory;
 import net.anotheria.moskito.core.stats.TimeUnit;
 import net.anotheria.moskito.webui.producers.api.LongValueAO;
@@ -151,7 +152,12 @@ public class GaugeAPIImpl extends AbstractMoskitoAPIImpl implements GaugeAPI {
 		}
 
 		//ok, its not a constant
-		IStatsProducer producer = producerRegistryAPI.getProducer(config.getProducerName());
+		IStatsProducer producer = null;
+		try{
+			producer = producerRegistryAPI.getProducer(config.getProducerName());
+		}catch(NoSuchProducerException e){
+			//this is alternative to producer == null and is handled in next if.
+		}
 		if (producer == null )
 			return new StringValueAO(null, "no producer");
 		for (IStats s : (List<IStats>)producer.getStats()){
