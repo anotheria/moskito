@@ -14,8 +14,15 @@ import java.lang.reflect.Method;
  */
 public class StartMoSKitoInspectBackendForRemote {
 
+	/**
+	 * Log.
+	 */
 	private static Logger log = LoggerFactory.getLogger(StartMoSKitoInspectBackendForRemote.class);
 
+	/**
+	 * Starts MoSKito Inspect Backend.
+	 * @throws MoSKitoInspectStartException
+	 */
 	public static void startMoSKitoInspectBackend() throws MoSKitoInspectStartException{
 		Class serverClazz = null;
 		Exception exception = null;

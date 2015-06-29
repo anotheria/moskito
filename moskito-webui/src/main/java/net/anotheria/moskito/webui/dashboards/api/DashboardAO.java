@@ -16,6 +16,9 @@ import java.util.List;
  */
 @XmlRootElement(name="Dashboard")
 public class DashboardAO implements Serializable{
+	/**
+	 * Dashboard name.
+	 */
 	@XmlElement
 	private String name;
 
@@ -25,9 +28,15 @@ public class DashboardAO implements Serializable{
 	@XmlElement
 	private List<GaugeAO> gauges;
 
+	/**
+	 * Thresholds.
+	 */
 	@XmlElement
 	private List<ThresholdStatusAO> thresholds;
 
+	/**
+	 * Charts of this dashboard.
+	 */
 	@XmlElement
 	private List<DashboardChartAO> charts;
 

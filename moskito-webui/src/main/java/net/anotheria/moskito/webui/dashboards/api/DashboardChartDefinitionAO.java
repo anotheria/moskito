@@ -6,7 +6,7 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * TODO comment this class
+ * A chart definition.
  *
  * @author lrosenberg
  * @since 15.04.15 22:41

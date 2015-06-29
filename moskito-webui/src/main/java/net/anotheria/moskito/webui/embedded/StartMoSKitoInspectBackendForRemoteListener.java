@@ -14,6 +14,9 @@ import javax.servlet.ServletContextListener;
  */
 public class StartMoSKitoInspectBackendForRemoteListener implements ServletContextListener {
 
+	/**
+	 * Log.
+	 */
 	private static Logger log = LoggerFactory.getLogger(StartMoSKitoInspectBackendForRemoteListener.class);
 
 	@Override

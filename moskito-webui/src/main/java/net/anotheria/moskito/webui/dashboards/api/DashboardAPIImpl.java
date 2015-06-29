@@ -27,21 +27,36 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * TODO comment this class
+ * Implementation of the DashboardAPI.
  *
  * @author lrosenberg
  * @since 08.04.15 12:46
  */
 public class DashboardAPIImpl extends AbstractMoskitoAPIImpl implements DashboardAPI{
 
+	/**
+	 * Placeholder for chart values.
+	 */
 	private static final String VALUE_PLACEHOLDER = "XXX";
 
 	private static final DummySortType SORT_TYPE = new DummySortType();
 
+	/**
+	 * Used to bring similar x values (time seconds) to same x point on the axis.
+	 */
 	public static final long X_AXIS_RESOLUTION = 60000;
 
+	/**
+	 * GaugeAPI.
+	 */
 	private GaugeAPI gaugeAPI;
+	/**
+	 * ThresholdAPI.
+	 */
 	private ThresholdAPI thresholdAPI;
+	/**
+	 * AccumulatorAPI.
+	 */
 	private AccumulatorAPI accumulatorAPI;
 
 

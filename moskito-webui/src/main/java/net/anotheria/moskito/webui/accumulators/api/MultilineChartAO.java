@@ -9,7 +9,13 @@ import java.util.List;
  * @since 27.06.15 16:19
  */
 public class MultilineChartAO {
+	/**
+	 * Chart data.
+	 */
 	private List<AccumulatedValueAO> data;
+	/**
+	 * Line names.
+	 */
 	private List<String> names;
 
 	public List<AccumulatedValueAO> getData() {

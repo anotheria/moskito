@@ -6,15 +6,26 @@ import javax.xml.bind.annotation.XmlRootElement;
 import java.io.Serializable;
 
 /**
- * TODO comment this class
+ * A single chart on the dashboard.
  *
  * @author lrosenberg
  * @since 14.02.15 00:46
  */
 @XmlRootElement (name = "Chart")
 public class DashboardChartAO implements Serializable{
+	/**
+	 * Caption of this chart.
+	 */
 	private String caption;
+	/**
+	 * Chart data for chart lines.
+	 */
 	private AccumulatedSingleGraphAO chartData;
+
+	/**
+	 * Names of the lines.
+	 */
+	private String[] lineNames;
 
 	public String getCaption() {
 		return caption;
@@ -31,8 +42,6 @@ public class DashboardChartAO implements Serializable{
 	public void setChartData(AccumulatedSingleGraphAO chartData) {
 		this.chartData = chartData;
 	}
-
-	private String[] lineNames;
 
 	public String[] getLineNames() {
 		return lineNames;

@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.LinkedList;
 
 /**
- * TODO comment this class
+ * Base action for all dashboards action.
  *
  * @author lrosenberg
  * @since 12.02.15 14:02
@@ -49,6 +49,12 @@ public abstract class BaseDashboardAction extends BaseMoskitoUIAction {
 		req.setAttribute("selectedDashboard", getSelectedDashboard(req));
 	}
 
+	/**
+	 * Returns currently selected dashboard.
+	 * @param req the http servlet request.
+	 * @return
+	 * @throws APIException
+	 */
 	protected String getSelectedDashboard(HttpServletRequest req) throws APIException{
 		String dashboardName = req.getParameter("dashboard");
 		if (dashboardName!=null)
