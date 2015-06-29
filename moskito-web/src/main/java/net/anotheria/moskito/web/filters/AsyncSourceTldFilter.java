@@ -102,31 +102,31 @@ public class AsyncSourceTldFilter extends MoskitoFilter{
 		/**
 		 * Clients ip.
 		 */
-		String ip;
+		private String ip;
 		/**
 		 * Execution time.
 		 */
-		long exTime;
+		private long exTime;
 		/**
 		 * Was the request finished? Finished means finally{} block has been reached without exceptions.
 		 */
-		boolean finished;
+		private boolean finished;
 		/**
 		 * Did a servlet exception occurred?
 		 */
-		boolean servletException;
+		private boolean servletException;
 		/**
 		 * Did an io exception occurred?
 		 */
-		boolean ioException;
+		private boolean ioException;
 		/**
 		 * Did a runtime exception occurred?
 		 */
-		boolean runtimeException;
+		private boolean runtimeException;
 		/**
 		 * Did an Error occurred?
 		 */
-		boolean error;
+		private boolean error;
 	}
 
 	/**
