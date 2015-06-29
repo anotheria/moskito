@@ -15,8 +15,6 @@ import net.anotheria.moskito.webui.accumulators.api.AccumulatorAO;
 import net.anotheria.moskito.webui.accumulators.api.MultilineChartAO;
 import net.anotheria.moskito.webui.accumulators.bean.AccumulatedValuesBean;
 import net.anotheria.moskito.webui.accumulators.bean.AccumulatorSetBean;
-import net.anotheria.util.sorter.DummySortType;
-import net.anotheria.util.sorter.SortType;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -31,11 +29,6 @@ import java.util.List;
  * @author lrosenberg
  */
 public class ShowAccumulatorsAction extends BaseAccumulatorsAction {
-
-	/**
-	 * Sort type for sorting. Actually unneeded, but having a variable saves ram.
-	 */
-	private static final SortType SORT_TYPE = new DummySortType();
 
 	/**
 	 * Graph data modes.
@@ -119,7 +112,6 @@ public class ShowAccumulatorsAction extends BaseAccumulatorsAction {
 		AccumulatorSetMode mode = getModeFromParameter(req.getParameter("mode"));
 		req.setAttribute(mode.name().toLowerCase()+"_set", Boolean.TRUE);
 
-		int normalizeBase = 100;
 		int maxValues = 200;
 		try{
 			maxValues = Integer.parseInt(req.getParameter("maxValues"));

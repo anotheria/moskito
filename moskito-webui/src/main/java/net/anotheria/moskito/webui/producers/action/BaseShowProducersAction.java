@@ -104,8 +104,6 @@ public abstract class BaseShowProducersAction extends BaseMoskitoUIAction {
 		return mapping.findCommand( getForward(req) );
 	}
 
-	private static final UnitCountAO EMPTY_UNIT = new UnitCountAO("Select ", 0);
-
 	protected void doCustomProcessing(HttpServletRequest req, HttpServletResponse res){
 		try{
 			List<UnitCountAO> categories = getProducerAPI().getCategories();

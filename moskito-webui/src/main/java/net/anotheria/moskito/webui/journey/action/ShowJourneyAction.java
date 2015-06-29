@@ -7,8 +7,6 @@ import net.anotheria.maf.bean.FormBean;
 import net.anotheria.moskito.webui.journey.api.JourneyAO;
 import net.anotheria.moskito.webui.journey.api.JourneyListItemAO;
 import net.anotheria.util.NumberUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -19,11 +17,6 @@ import javax.servlet.http.HttpServletResponse;
  *
  */
 public class ShowJourneyAction extends BaseJourneyAction{
-
-	/**
-	 * Logger.
-	 */
-	private static Logger log = LoggerFactory.getLogger(ShowJourneyAction.class);
 
 	@Override
 	protected String getLinkToCurrentPage(HttpServletRequest req) {

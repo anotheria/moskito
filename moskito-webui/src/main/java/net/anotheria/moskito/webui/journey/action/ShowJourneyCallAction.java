@@ -44,12 +44,12 @@ public class ShowJourneyCallAction extends BaseJourneyAction{
 			int sortBy = TracedCallDuplicateStepsAOSortType.SORT_BY_DEFAULT;
 			try{
 				sortBy = Integer.parseInt(req.getParameter(PARAM_SORT_BY));
-			}catch(Exception ignored){}
+			}catch(Exception ignored){;}
 			
 			boolean sortOrder = TracedCallDuplicateStepsAOSortType.ASC;
 			try{
 				sortOrder = req.getParameter(PARAM_SORT_ORDER).equalsIgnoreCase("ASC");
-			}catch(Exception ignored){}
+			}catch(Exception ignored){;}
 			dupStepBeans = StaticQuickSorter.sort(dupStepBeans, new TracedCallDuplicateStepsAOSortType(sortBy, sortOrder));
 
 			req.setAttribute("dupStepBeansSize", dupStepBeans.size());

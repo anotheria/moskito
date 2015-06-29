@@ -10,7 +10,7 @@ public final class OfflineChartGeneratorFactory {
 
 	private static OfflineChartGenerator generator = new DummyOfflineChartGenerator();
 
-	public static final OfflineChartGenerator getGenerator(){
+	public static OfflineChartGenerator getGenerator(){
 		return generator;
 	}
 }
