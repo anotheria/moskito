@@ -96,14 +96,14 @@
                 var multipleGraphData = [];
                 var multipleGraphNames = [];
                 <ano:iterate id="chart" name="charts" type="net.anotheria.moskito.webui.dashboards.api.DashboardChartAO">
-                <ano:define id="singleChart" toScope="page" scope="page" name="chart" property="chartData" type="net.anotheria.moskito.webui.accumulators.api.AccumulatedSingleGraphAO"/>
+                <ano:define id="singleChart" toScope="page" scope="page" name="chart" property="chart" type="net.anotheria.moskito.webui.accumulators.api.MultilineChartAO"/>
                 multipleGraphData.push([
                     <ano:iterate name="singleChart" property="data" id="value" indexId="i">
                     <ano:notEqual name="i" value="0">,</ano:notEqual><ano:write name="value" property="JSONWithNumericTimestamp"/>
                     </ano:iterate>
                 ]);
                 multipleGraphNames.push([
-                    <ano:iterate name="chart" property="lineNames" id="lineName" indexId="i">
+                    <ano:iterate name="singleChart" property="names" id="lineName" indexId="i">
                     <ano:notEqual name="i" value="0">,</ano:notEqual>'<ano:write name="lineName"/>'
                     </ano:iterate>
                 ]);

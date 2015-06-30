@@ -1,6 +1,6 @@
 package net.anotheria.moskito.webui.dashboards.api;
 
-import net.anotheria.moskito.webui.accumulators.api.AccumulatedSingleGraphAO;
+import net.anotheria.moskito.webui.accumulators.api.MultilineChartAO;
 
 import javax.xml.bind.annotation.XmlRootElement;
 import java.io.Serializable;
@@ -20,12 +20,7 @@ public class DashboardChartAO implements Serializable{
 	/**
 	 * Chart data for chart lines.
 	 */
-	private AccumulatedSingleGraphAO chartData;
-
-	/**
-	 * Names of the lines.
-	 */
-	private String[] lineNames;
+	private MultilineChartAO chart;
 
 	public String getCaption() {
 		return caption;
@@ -35,27 +30,19 @@ public class DashboardChartAO implements Serializable{
 		this.caption = caption;
 	}
 
-	public AccumulatedSingleGraphAO getChartData() {
-		return chartData;
+	public MultilineChartAO getChart() {
+		return chart;
 	}
 
-	public void setChartData(AccumulatedSingleGraphAO chartData) {
-		this.chartData = chartData;
-	}
-
-	public String[] getLineNames() {
-		return lineNames;
-	}
-
-	public void setLineNames(String[] lineNames) {
-		this.lineNames = lineNames;
+	public void setChart(MultilineChartAO chart) {
+		this.chart = chart;
 	}
 
 	@Override
 	public String toString() {
 		return "DashboardChartAO{" +
 				"caption='" + caption + '\'' +
-				", chartData=" + chartData +
+				", chart=" + chart +
 				'}';
 	}
 }

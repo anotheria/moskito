@@ -8,23 +8,17 @@ import net.anotheria.moskito.core.config.MoskitoConfigurationHolder;
 import net.anotheria.moskito.core.config.dashboards.ChartConfig;
 import net.anotheria.moskito.core.config.dashboards.DashboardConfig;
 import net.anotheria.moskito.core.config.dashboards.DashboardsConfig;
-import net.anotheria.moskito.webui.accumulators.api.AccumulatedSingleGraphAO;
-import net.anotheria.moskito.webui.accumulators.api.AccumulatedValueAO;
-import net.anotheria.moskito.webui.accumulators.api.AccumulatorAO;
 import net.anotheria.moskito.webui.accumulators.api.AccumulatorAPI;
+import net.anotheria.moskito.webui.accumulators.api.MultilineChartAO;
 import net.anotheria.moskito.webui.gauges.api.GaugeAPI;
 import net.anotheria.moskito.webui.shared.api.AbstractMoskitoAPIImpl;
 import net.anotheria.moskito.webui.threshold.api.ThresholdAPI;
 import net.anotheria.util.sorter.DummySortType;
-import net.anotheria.util.sorter.StaticQuickSorter;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Implementation of the DashboardAPI.
@@ -163,6 +157,7 @@ public class DashboardAPIImpl extends AbstractMoskitoAPIImpl implements Dashboar
 		if (config.getCharts()!=null && config.getCharts().length>0){
 			LinkedList<DashboardChartAO> chartBeans = new LinkedList<DashboardChartAO>();
 			for (ChartConfig cc : config.getCharts()){
+
 				DashboardChartAO bean = new DashboardChartAO();
 				if (cc.getCaption()!=null){
 					bean.setCaption(cc.getCaption());
@@ -176,104 +171,15 @@ public class DashboardAPIImpl extends AbstractMoskitoAPIImpl implements Dashboar
 					bean.setCaption(caption);
 				}
 
-				//now check the data.
-				if (cc.getAccumulators().length == 1){
-					//this means we have a single accumulator chart
-					AccumulatorAO accumulator = accumulatorAPI.getAccumulatorByName(cc.getAccumulators()[0]);
-					AccumulatedSingleGraphAO graphAO = accumulatorAPI.getAccumulatorGraphData(accumulator.getId());
-					bean.setChartData(graphAO);
-					String[] lineNames = new String[1];
-					lineNames[0] = graphAO.getName();
-					bean.setLineNames(lineNames);
-
+				LinkedList<String> chartIds = new LinkedList<String>();
+				for (String cName : cc.getAccumulators()){
+					chartIds.add(accumulatorAPI.getAccumulatorByName(cName).getId());
 				}
 
-				if (cc.getAccumulators().length>1){
-					// this means we have a chart with multiple data.
-					//first get single charts
-					Map<Long, ArrayList<String>> chartValues = new HashMap<Long, ArrayList<String>>();
-					List<AccumulatedSingleGraphAO> singleCharts = new LinkedList<AccumulatedSingleGraphAO>();
-					for (String accName : cc.getAccumulators()){
-						AccumulatorAO acc = accumulatorAPI.getAccumulatorByName(accName);
-						AccumulatedSingleGraphAO graphAO = accumulatorAPI.getAccumulatorGraphData(acc.getId());
-						singleCharts.add(graphAO);
-					}
+				MultilineChartAO chartAO = accumulatorAPI.getCombinedAccumulatorGraphData(chartIds);
 
-					//ok, now lets prepare map with final values.
-					//for that we iterate over all single charts and create an entry in the final map for each
-					for (AccumulatedSingleGraphAO singleChart : singleCharts){
-						List<AccumulatedValueAO> valueList = singleChart.getData();
-						for (AccumulatedValueAO value : valueList){
-							long timestamp = value.getNumericTimestamp();
-							// we now say that everything that happens within a minute has same timestamp.
-							// This means that the data in the chart is rounded on a minute base.
-							timestamp = timestamp / X_AXIS_RESOLUTION * X_AXIS_RESOLUTION; //remove some unneeded details - //
-							if (!chartValues.containsKey(timestamp)){
-								//otherwise a previous list already created some values.
-								//create a new entry with so many placeholders as there are charts.
-								ArrayList<String> futureValueList = new ArrayList<String>(singleCharts.size());
-								for (int i=0; i<singleCharts.size();i++)
-									futureValueList.add(VALUE_PLACEHOLDER);
-								chartValues.put(timestamp, futureValueList);
-
-							}
-						}
-					}
-					//after the above loop we now have a map with all timestamps and placeholders for each values in this list.
-
-					//now next step - set the proper values.
-					// we separate the two very similar iterations, to be sure that the amount of values is properly set in the second iteration and
-					//all daa objects are in place.
-					for (int i =0; i<singleCharts.size(); i++){
-						AccumulatedSingleGraphAO singleChart = singleCharts.get(i);
-						List<AccumulatedValueAO> valueList = singleChart.getData();
-						for (AccumulatedValueAO value : valueList){
-							long timestamp = value.getNumericTimestamp();
-							timestamp = timestamp / X_AXIS_RESOLUTION * X_AXIS_RESOLUTION; //remove some unneeded details.
-							ArrayList<String> futureValueList = chartValues.get(timestamp);
-							futureValueList.set(i, value.getFirstValue());
-
-						}
-					}
-					//after the above loop we now have a map with all timestamps and values when we have them. Now we only have to remove remaining placeholder.
-
-					//now remove PLACEHOLDER - for now we only replace them with 0.
-					//in control we replace them with nearest value (left or right) but that might actually be misleading here.
-					for (List<String> someValues : chartValues.values()) {
-						for (int i=0; i<someValues.size(); i++){
-							if (someValues.get(i).equals(VALUE_PLACEHOLDER))
-								someValues.set(i, "0");
-						}
-					}
-
-
-					//finally set the data.
-					String[] lineNames = new String[singleCharts.size()];
-					for (int i=0; i<singleCharts.size(); i++){
-						lineNames[i] = singleCharts.get(i).getName();
-					}
-					bean.setLineNames(lineNames);
-
-
-					AccumulatedSingleGraphAO finalChart = new AccumulatedSingleGraphAO("-");
-					List<AccumulatedValueAO> finalChartData = new ArrayList<AccumulatedValueAO>();
-					for (Long l : chartValues.keySet()){
-						AccumulatedValueAO ao = new AccumulatedValueAO(""+l);
-						ao.setNumericTimestamp(l);
-						ao.addValues(chartValues.get(l));
-						finalChartData.add(ao);
-					}
-
-					//now sort.
-					finalChartData = StaticQuickSorter.sort(finalChartData, SORT_TYPE);
-
-					finalChart.setData(finalChartData);
-					bean.setChartData(finalChart);
-
-				}
+				bean.setChart(chartAO);
 				chartBeans.add(bean);
-
-
 			}
 			ret.setCharts(chartBeans);
 		}

@@ -33,4 +33,12 @@ public class MultilineChartAO {
 	public void setNames(List<String> names) {
 		this.names = names;
 	}
+
+	@Override
+	public String toString() {
+		return "MultilineChartAO{" +
+				"data=" + data +
+				", names=" + names +
+				'}';
+	}
 }
