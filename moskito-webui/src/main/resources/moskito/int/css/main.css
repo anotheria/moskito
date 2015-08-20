@@ -39,6 +39,8 @@ body {
     padding: 30px 50px 20px;
     font-size: 13px;
     color: #777;
+    text-align: left;
+    position: relative;
 }
 
 .scroll #header {
@@ -1587,4 +1589,35 @@ tr.tr-toggle-off td {
 
 tr.tr-toggle-off:hover td {
     background: #f7d0d0 !important;
+}
+
+.iphone-app-icon {
+    width: 13px;
+    opacity: 0.4;
+    margin-top: -4px;
+    margin-bottom: -2px;
+    margin-left: 10px;
+}
+
+li.iphone-app-link a {
+    border-left: 1px solid #e5e5e5;
+}
+
+a:hover .iphone-app-icon {
+    opacity: 1;
+}
+
+.footer-content {
+    padding-right: 200px;
+    position: relative;
+}
+
+.iphone-banner {
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+
+.iphone-banner img {
+    height: 48px;
 }
