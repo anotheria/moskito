@@ -122,6 +122,7 @@
             </li>
             </ano:equal>
             <li><a href="mskShowExplanations">Help</a></li>
+            <li class="iphone-app-link"><a href="https://itunes.apple.com/us/app/moskito-ui/id531387262?mt=8">Using iPhone? <img src="../moskito/int/img/iphone.svg" class="iphone-app-icon"></a></li>
         </ul>
     </div>
      </div>

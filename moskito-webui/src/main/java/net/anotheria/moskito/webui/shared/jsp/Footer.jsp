@@ -1,11 +1,12 @@
 <%@ page language="java" contentType="text/html;charset=UTF-8" session="true"%><%@
         taglib uri="http://www.anotheria.net/ano-tags" prefix="ano"%><%@
         page isELIgnored="false" %>
-<footer id="footer" class="navbar-default">
+<footer id="footer" class="navbar-default"><div class="footer-content">
     <p class="text-center">Generated at ${timestampAsDate}  |  timestamp: ${timestamp}  |  Interval updated at: ${currentIntervalUpdateTimestamp}  |   Interval age: ${currentIntervalUpdateAge}</p>
     <p class="text-center">App version: ${application_maven_version}  |  MoSKito version: ${moskito_maven_version} | Server: ${servername} | Connection: ${connection}</p>
     <ano:equal name="config" property="trackUsage" value="true"><img src="//counter.moskito.org/counter/inspect/${applicationScope.moskito_version_string}/${pagename}" class="ipix"> </ano:equal>
-</footer>
+    <a href="https://itunes.apple.com/us/app/moskito-ui/id531387262?mt=8" class="iphone-banner"><img src="../moskito/int/img/iphone_banner.png" alt="Download MoSKito iOS App"></a>
+</div></footer>
 
 <script src="../moskito/ext/bootstrap-3.1.1/js/bootstrap.min.js" type="text/javascript"></script>
 <script src="../moskito/ext/tablesorter/jquery.metadata.js" type="text/javascript"></script>
