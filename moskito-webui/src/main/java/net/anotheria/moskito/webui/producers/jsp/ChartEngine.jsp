@@ -15,8 +15,8 @@
                 <div class="text-center">
                     <ul class="switcher">
                         <li><i title="" class="chart-icon pie_chart"></i></li>
-                        <li><input type="checkbox" class="js-switch" /></li>
                         <li><i title="" class="chart-column-icon bar_chart"></i></li>
+                        <li><i title="" class="heatmap-chart-icon heatmap_chart"></i></li>
                     </ul>
                 </div>
             </div>
@@ -33,6 +33,11 @@
 
     $('#chart').find('.modal-dialog').css("width", ${config.producerChartWidth}+40);//modal body padding 20px left+right
 
+    $('.pie_chart').click( function(){
+        chartParams.type = 'PieChart';
+        chartEngineIniter[chartEngineName](chartParams);
+    });
+
     $('.chart-icon').click(function(e) {
         e.preventDefault();
         e.stopPropagation();
@@ -43,7 +48,7 @@
             container: 'chart_div',
             names: [eval(that.parent('.table-column').find('input').val()+'Caption')],
             data: eval(that.parent('.table-column').find('input').val()+'Array'),
-            type: $charSwitcher.is(':checked') ? 'ColumnChart' : 'PieChart',
+            type: 'PieChart',
             title: '',
             width: ${config.producerChartWidth},
             height: ${config.producerChartHeight}
@@ -53,8 +58,13 @@
         $chart.modal('show');
     });
 
-    $charSwitcher.on('change', function(){
-        chartParams.type = $(this).is(':checked') ? 'ColumnChart' : 'PieChart';
+    $('.bar_chart').click( function(){
+        chartParams.type = 'ColumnChart';
         chartEngineIniter[chartEngineName](chartParams);
+    });
+
+    $('.heatmap_chart').click( function(){
+        chartParams.type = 'highChart';
+        chartEngineIniter['HIGHCHART'](chartParams);
     });
 </script>

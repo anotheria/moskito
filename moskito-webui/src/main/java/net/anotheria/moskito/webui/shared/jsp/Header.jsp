@@ -56,6 +56,10 @@
         <script type="text/javascript" src="../moskito/ext/d3/d3.min.js" charset="utf-8"></script>
     </core:if>
 
+    <script src="http://code.highcharts.com/highcharts.js"></script>
+    <script src="http://code.highcharts.com/modules/heatmap.js"></script>
+    <script src="http://code.highcharts.com/modules/exporting.js"></script>
+
     <script type="text/javascript" src="../moskito/int/js/chartEngineIniter.js"></script>
 
 <ano:notEmpty name="graphDatas">

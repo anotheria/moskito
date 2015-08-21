@@ -48,7 +48,106 @@ var chartEngineIniter = {
         var d3Chart = D3chart.getInstance();
 
         d3Chart("#" + params.container, params);
+    },
+    HIGHCHART: function(params) {
+        $('#' + params.container).empty();
+        createHeatMap(params);
     }
+
+
+};
+
+function createHeatMap(params) {
+
+    this.chartParams = params;
+
+    var dataList = params.data.map(function (d) {
+        return {
+            name: d[0],
+            value: d[1]
+        };
+    });
+
+
+    var mapColumnSize = Math.round(Math.sqrt(dataList.length)) + 1,
+        mapRowSize = Math.ceil( dataList.length / mapColumnSize);
+
+    var xCategories = Array.apply(null, Array(mapColumnSize)).map(String.prototype.valueOf,""),
+        yCategories = Array.apply(null, Array(mapRowSize)).map(String.prototype.valueOf,"");
+
+
+    var dataPoints = new Array(),
+        dataNames = new Array();
+
+    var i = 0,j = 0;
+
+    var rowStep = 0;
+    dataList.forEach(function(item, k, dataList) {
+        dataPoints.push([i, j, item.value]);
+        dataNames.push(item.name);
+        rowStep++;
+        if (rowStep < mapColumnSize) i++;
+        else {
+            j++;
+            i = 0;
+            rowStep = 0;
+        }
+    });
+
+    $('#chart_div').highcharts({
+
+        chart: {
+            type: 'heatmap',
+            marginTop: 40,
+            marginBottom: 80
+        },
+
+        title: {
+            text: ''
+        },
+
+        xAxis: {
+            categories: xCategories
+        },
+
+        yAxis: {
+            categories: yCategories,
+            title: null
+        },
+
+        colorAxis: {
+            min: 0,
+            minColor: '#FFFFFF',
+            maxColor: Highcharts.getOptions().colors[0]
+        },
+
+        legend: {
+            align: 'right',
+            layout: 'vertical',
+            margin: 0,
+            verticalAlign: 'top',
+            y: 25,
+            symbolHeight: 280
+        },
+
+        tooltip: {
+            formatter: function () {
+                return dataNames[this.point.x+this.point.y*this.series.xAxis.categories.length] + ' ' +
+                    '<b>' + this.point.value + '</b> ';
+            }
+        },
+
+        series: [{
+            name: 'Producers',
+            borderWidth: 1,
+            data: dataPoints,
+            dataLabels: {
+                enabled: true,
+                color: '#000000'
+            }
+        }]
+
+    });
 };
 
 var D3chart = (function () {
