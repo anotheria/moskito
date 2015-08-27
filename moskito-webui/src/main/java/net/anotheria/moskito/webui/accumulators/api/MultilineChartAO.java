@@ -1,5 +1,6 @@
 package net.anotheria.moskito.webui.accumulators.api;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -8,7 +9,7 @@ import java.util.List;
  * @author lrosenberg
  * @since 27.06.15 16:19
  */
-public class MultilineChartAO {
+public class MultilineChartAO implements Serializable{
 	/**
 	 * Chart data.
 	 */
