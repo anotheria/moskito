@@ -1837,11 +1837,12 @@ var D3chart = (function () {
                 renderHeatMap(svg, dataPoints, conf);
 
 
-                var legendConf = {
+                var legendHeight = 15,
+                    legendConf = {
                     width: width,
-                    height: height,
+                    height: height - 2*legendHeight,
                     legendCellSize: 12,
-                    legendHeight: 15
+                    legendHeight: legendHeight
                 };
 
                 renderLegend(svg, legendConf);
