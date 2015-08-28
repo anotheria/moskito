@@ -1600,3 +1600,16 @@ tr.tr-toggle-off td {
 tr.tr-toggle-off:hover td {
     background: #f7d0d0 !important;
 }
+
+
+/*
+Heat map
+*/
+.heatMap rect.cell-border {
+    stroke: #eee;
+    stroke-width:0.3px;
+}
+
+.heatMap rect {
+    opacity: 0.8;
+}

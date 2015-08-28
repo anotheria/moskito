@@ -64,7 +64,7 @@
     });
 
     $('.heatmap_chart').click( function(){
-        chartParams.type = 'highChart';
-        chartEngineIniter['HIGHCHART'](chartParams);
+        chartParams.type = 'HeatMapChart';
+        chartEngineIniter[chartEngineName](chartParams);
     });
 </script>

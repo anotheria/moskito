@@ -48,106 +48,8 @@ var chartEngineIniter = {
         var d3Chart = D3chart.getInstance();
 
         d3Chart("#" + params.container, params);
-    },
-    HIGHCHART: function(params) {
-        $('#' + params.container).empty();
-        createHeatMap(params);
     }
 
-
-};
-
-function createHeatMap(params) {
-
-    this.chartParams = params;
-
-    var dataList = params.data.map(function (d) {
-        return {
-            name: d[0],
-            value: d[1]
-        };
-    });
-
-
-    var mapColumnSize = Math.round(Math.sqrt(dataList.length)) + 1,
-        mapRowSize = Math.ceil( dataList.length / mapColumnSize);
-
-    var xCategories = Array.apply(null, Array(mapColumnSize)).map(String.prototype.valueOf,""),
-        yCategories = Array.apply(null, Array(mapRowSize)).map(String.prototype.valueOf,"");
-
-
-    var dataPoints = new Array(),
-        dataNames = new Array();
-
-    var i = 0,j = 0;
-
-    var rowStep = 0;
-    dataList.forEach(function(item, k, dataList) {
-        dataPoints.push([i, j, item.value]);
-        dataNames.push(item.name);
-        rowStep++;
-        if (rowStep < mapColumnSize) i++;
-        else {
-            j++;
-            i = 0;
-            rowStep = 0;
-        }
-    });
-
-    $('#chart_div').highcharts({
-
-        chart: {
-            type: 'heatmap',
-            marginTop: 40,
-            marginBottom: 80
-        },
-
-        title: {
-            text: ''
-        },
-
-        xAxis: {
-            categories: xCategories
-        },
-
-        yAxis: {
-            categories: yCategories,
-            title: null
-        },
-
-        colorAxis: {
-            min: 0,
-            minColor: '#FFFFFF',
-            maxColor: Highcharts.getOptions().colors[0]
-        },
-
-        legend: {
-            align: 'right',
-            layout: 'vertical',
-            margin: 0,
-            verticalAlign: 'top',
-            y: 25,
-            symbolHeight: 280
-        },
-
-        tooltip: {
-            formatter: function () {
-                return dataNames[this.point.x+this.point.y*this.series.xAxis.categories.length] + ' ' +
-                    '<b>' + this.point.value + '</b> ';
-            }
-        },
-
-        series: [{
-            name: 'Producers',
-            borderWidth: 1,
-            data: dataPoints,
-            dataLabels: {
-                enabled: true,
-                color: '#000000'
-            }
-        }]
-
-    });
 };
 
 var D3chart = (function () {
@@ -1700,6 +1602,254 @@ var D3chart = (function () {
             })(arguments[0], arguments[1]);
         };
 
+        var heatMapChart = function () {
+
+            var showChartTooltip = function () {
+                var tooltip = d3.select(".d3-chart-tooltip");
+                if (tooltip.empty()) {
+                    tooltip = d3.select("body").append("div")
+                        .attr("class", "d3-chart-tooltip hidden");
+                }
+
+                var tooltipSectionTmpl = '<div class="tooltip-section">' +
+                    '<div class="tooltip-swatch" style="background-color: {color}"></div>' +
+                    '<div class="tooltip-key">{name}</div>' +
+                    '<div class="tooltip-value">{value}</div>' +
+                    '</div>';
+
+                return function (rect, data) {
+                    var tooltipSectionsHtml = data.map(function (d) {
+                            return template(tooltipSectionTmpl, d);
+                        }),
+                        html = [].concat.call(tooltipSectionsHtml);
+
+                    tooltip.html(html.join(""))
+                        .style("left", (d3.event.pageX) + "px")
+                        .style("top", (d3.event.pageY - 28) + "px");
+                }
+            }();
+
+
+            function renderHeatMap(svg, data, conf) {
+                var lowest = Number.POSITIVE_INFINITY;
+                var highest = Number.NEGATIVE_INFINITY;
+                var tmp;
+                for (var i = data.length - 1; i >= 0; i--) {
+                    tmp = data[i].value;
+                    if (tmp < lowest) lowest = tmp;
+                    if (tmp > highest) highest = tmp;
+                }
+
+                var legendHeight = 15,
+                    col_number = conf.col_number,
+                    row_number = conf.row_number,
+                    width = conf.width,
+                    height = conf.height - 2*legendHeight,
+                    xCellSize = width / row_number,
+                    yCellSize = height / col_number,
+                    border = 1,
+                    bordercolor = '#335E82',
+                    hcrow = conf.hcrow,
+                    hccol = conf.hccol;
+
+
+                    var colorScale = d3.scale.linear()
+                        .domain([lowest, highest])
+                        .range(["white", "#1f77b4"]);
+
+                    var legendScale = d3.scale.linear()
+                        .domain([lowest, highest])
+                        .range([10, width - 10]);
+
+                    var onMouseMove = function (d, color) {
+                        showChartTooltip(this, [
+                                {
+                                    color: color,
+                                    name: d.statName,
+                                    value: d.value
+                                }
+                            ]
+                        );
+                    };
+
+                    var heatMapContainer = svg.append("g").attr("class", "g3");
+                    var heatMap = heatMapContainer.selectAll(".cellg")
+                        .data(data, function (d) {
+                            return d.col + ':' + d.row;
+                        })
+                        .enter()
+                        .append("rect")
+                        .attr("x", function (d) {
+                            return hccol.indexOf(d.col) * xCellSize;
+                        })
+                        .attr("y", function (d) {
+                            return hcrow.indexOf(d.row) * yCellSize;
+                        })
+                        .attr("class", function (d) {
+                            return "cell cell-border cr" + (d.row - 1) + " cc" + (d.col - 1);
+                        })
+                        .attr("width", xCellSize)
+                        .attr("height", yCellSize)
+                        .style("fill", function (d) {
+                            return colorScale(d.value);
+                        })
+                        .on("mouseover", function () {
+                            d3.select(".d3-chart-tooltip").classed("hidden", false);
+                        })
+                        .on("mousemove", function (d) {
+                            onMouseMove(d, colorScale(d.value));
+                            legendPointer
+                                .transition()
+                                .attr("transform", "translate(" + _getLegendCursorPosition(d.value) + "," + (height + 8) + ")")
+                        })
+                        .on("mouseout", function () {
+                            d3.select(".d3-chart-tooltip").classed("hidden", true);
+                        });
+
+
+                    var _getLegendCursorPosition = function (value) {
+                        return legendScale(value);
+                    }
+
+                    //----------------
+                    //border for heatmap container
+                    //----------------
+                    var borderPath = heatMapContainer.append("rect")
+                        .attr("x", 0)
+                        .attr("y", 0)
+                        .attr("height", yCellSize * col_number)
+                        .attr("width", xCellSize * row_number)
+                        .style("stroke", bordercolor)
+                        .style("fill", "none")
+                        .style("stroke-width", border);
+
+                    //----------------
+                    //Legend pointer
+                    //-----------------
+
+                    var legendPointer = svg.selectAll(".lehendPointer")
+                        .data([1])
+                        .enter()
+                        .append("path")
+                        .attr("d", d3.svg.symbol().type("triangle-down"))
+                        .attr("transform", "translate(100," + (height + 8) + ")")
+                        .style("fill", "grey");
+
+            };
+
+            function renderLegend(svg, conf) {
+                //----------------
+                //Gradient legend
+                //----------------
+                var legend = svg.selectAll(".legend")
+                    .data([1])
+                    .enter().append("g")
+                    .attr("class", "legend");
+
+                var gradient = legend
+                    .append("linearGradient")
+                    .attr("y1", "0")
+                    .attr("y2", "0")
+                    .attr("x1", 0)
+                    .attr("x2", conf.width)
+                    .attr("id", "gradient")
+                    .attr("gradientUnits", "userSpaceOnUse")
+
+                gradient
+                    .append("stop")
+                    .attr("offset", "0")
+                    .attr("stop-color", "#ffffff")
+
+                gradient
+                    .append("stop")
+                    .attr("offset", "1")
+                    .attr("stop-color", "#1f77b4")
+
+                legend
+                    .append("rect")
+                    .attr("x", 0)
+                    .attr("y", conf.height + (conf.legendCellSize))
+                    .attr("width", conf.width)
+                    .attr("height", conf.legendHeight)
+                    .attr("fill", "url(#gradient)");
+            };
+
+            function _getdataPoins(dataList, mapColumnSize) {
+                var dataPoints = new Array(),
+                    i = 0,
+                    j = 0,
+                    rowStep = 0;
+                dataList.forEach(function(item, k, dataList) {
+                    dataPoints.push({
+                            value: item.value,
+                            row: j,
+                            col: i,
+                            statName: item.name
+                        }
+                    );
+                    rowStep++;
+                    if (rowStep < mapColumnSize) i++;
+                    else {
+                        j++;
+                        i = 0;
+                        rowStep = 0;
+                    }
+                });
+
+                return dataPoints;
+            }
+
+            return (heatMapChart = function (containerId, params) {
+                var width = params.width,
+                    height = params.height;
+
+                var dataList = params.data.map(function (d) {
+                    return {
+                        name: d[0],
+                        value: d[1]
+                    };
+                });
+
+                var mapColumnSize = dataList.length == 1? 1:Math.round(Math.sqrt(dataList.length)) + 1,
+                    mapRowSize = Math.ceil( dataList.length / mapColumnSize);
+
+                var xCategories = Array.apply(null, {length: mapRowSize}).map(Number.call, Number),
+                    yCategories = Array.apply(null, {length: mapColumnSize}).map(Number.call, Number)
+
+
+                var dataPoints = _getdataPoins(dataList, mapColumnSize);
+
+                var conf = {
+                    col_number: mapRowSize,
+                    row_number: mapColumnSize ,
+                    hcrow: xCategories,
+                    hccol: yCategories,
+                    width: width,
+                    height: height
+                };
+
+                var svg = d3.select(containerId).append("svg")
+                    .attr("width", width)
+                    .attr("class", "heatMap")
+                    .attr("height", height)
+                    .append("g");
+
+                renderHeatMap(svg, dataPoints, conf);
+
+
+                var legendConf = {
+                    width: width,
+                    height: height,
+                    legendCellSize: 12,
+                    legendHeight: 15
+                };
+
+                renderLegend(svg, legendConf);
+
+            })(arguments[0], arguments[1]);
+        };
+
+
         return function (id, params) {
             switch (params.type) {
                 case "PieChart":
@@ -1713,6 +1863,9 @@ var D3chart = (function () {
                     break;
                 case "GaugeChart":
                     gaugeChart(id, params);
+                    break;
+                case "HeatMapChart":
+                    heatMapChart(id, params);
                     break;
                 default:
                     lineChart(id, params);
