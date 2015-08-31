@@ -573,6 +573,7 @@ i.chart-icon {
     opacity: 0;
     margin-bottom: -1px;
     margin-top: -4px;
+    cursor: pointer;
 }
 
 i.chart-column-icon {
@@ -582,6 +583,17 @@ i.chart-column-icon {
     width: 15px;
     height: 15px;
     position: relative;
+    cursor: pointer;
+}
+
+i.heatmap-chart-icon {
+    display: inline-block;
+    background: url('../img/heatmap.png') no-repeat;
+    background-size: 15px auto;
+    width: 15px;
+    height: 15px;
+    position: relative;
+    cursor: pointer;
 }
 
 .table th:hover i.chart-icon {
@@ -1620,4 +1632,16 @@ a:hover .iphone-app-icon {
 
 .iphone-banner img {
     height: 48px;
+}
+
+/*
+Heat map
+*/
+.heatMap rect.cell-border {
+    stroke: #eee;
+    stroke-width:0.3px;
+}
+
+.heatMap rect {
+    opacity: 0.8;
 }

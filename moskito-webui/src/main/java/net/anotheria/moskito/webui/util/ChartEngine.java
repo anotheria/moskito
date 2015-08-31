@@ -15,7 +15,9 @@ public enum ChartEngine {
 		public boolean requiresNumericTimestamp(){ return false;}
 	},
 
-	D3("d3");
+	D3("d3"),
+
+    HIGHCHART("highChart");
 
 	private List<String> names;
 
