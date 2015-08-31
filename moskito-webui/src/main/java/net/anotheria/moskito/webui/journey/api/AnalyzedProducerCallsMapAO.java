@@ -3,6 +3,7 @@ package net.anotheria.moskito.webui.journey.api;
 import net.anotheria.moskito.webui.MoSKitoWebUIContext;
 import net.anotheria.util.sorter.StaticQuickSorter;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -10,7 +11,7 @@ import java.util.Map;
 /**
  * This bean is used to perform analyze producer calls and order analyze producer calls bean by producer id.
  */
-public class AnalyzedProducerCallsMapAO {
+public class AnalyzedProducerCallsMapAO implements Serializable {
 	/**
 	 * Map with AnalyzedProducerCallsAO beans for each producer.
 	 */
