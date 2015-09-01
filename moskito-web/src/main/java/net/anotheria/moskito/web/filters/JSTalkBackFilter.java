@@ -91,10 +91,8 @@ public class JSTalkBackFilter implements Filter {
 
 	@Override
 	public void doFilter(final ServletRequest servletRequest, final ServletResponse servletResponse, final FilterChain filterChain) throws IOException, ServletException {
-		if (!(servletRequest instanceof HttpServletRequest) || !(servletResponse instanceof HttpServletResponse)) {
-			filterChain.doFilter(servletRequest, servletResponse);
+		if (!(servletRequest instanceof HttpServletRequest) || !(servletResponse instanceof HttpServletResponse))
 			return;
-		}
 
 		HttpServletRequest request = (HttpServletRequest) servletRequest;
 		HttpServletResponse response = (HttpServletResponse) servletResponse;
@@ -104,16 +102,12 @@ public class JSTalkBackFilter implements Filter {
 		final String subsystem = getValueOrDefault(request, SUBSYSTEM, getDefaultSubsystem());
 
 		final OnDemandStatsProducer producer = getProducer(producerId, category, subsystem);
-		if (producer == null) {
-			filterChain.doFilter(servletRequest, servletResponse);
+		if (producer == null)
 			return;
-		}
 
 		final String urlPath = request.getParameter(URL);
-		if (StringUtils.isEmpty(urlPath)) {
-			filterChain.doFilter(servletRequest, servletResponse);
+		if (StringUtils.isEmpty(urlPath))
 			return;
-		}
 
 		final String domLoadTime = request.getParameter(DOM_LOAD_TIME);
 		final String windowLoadTime = request.getParameter(WINDOW_LOAD_TIME);
@@ -132,8 +126,6 @@ public class JSTalkBackFilter implements Filter {
 		} catch (OnDemandStatsProducerException e) {
 			log.info("Couldn't get stats for : " + urlPath + ", probably limit reached");
 		}
-
-		filterChain.doFilter(servletRequest, servletResponse);
 	}
 
 	/**
