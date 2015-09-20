@@ -121,7 +121,7 @@ public class ServletStatsDecorator extends RequestOrientedStatsDecorator{
 		List<StatValueAO> ret = super.getValues(statsObject, interval, unit);
 		
 		ServletStats stats = (ServletStats)statsObject;
-		int i = 0 ;
+		int i = 9 ; // IOE
 		ret.add(new LongValueAO(CAPTIONS[i++], stats.getIoExceptions(interval)));
 		ret.add(new LongValueAO(CAPTIONS[i++], stats.getServletExceptions(interval)));
 		ret.add(new LongValueAO(CAPTIONS[i++], stats.getRuntimeExceptions(interval)));
