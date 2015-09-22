@@ -38,6 +38,8 @@ public class WebUIConfig {
 	 */
 	private ProducerFilterConfig[] filters = new ProducerFilterConfig[0];
 
+	private DecoratorConfig[] decorators;
+
 
 	/**
 	 * Usage mode, default is shared.
@@ -148,6 +150,14 @@ public class WebUIConfig {
 
 	public void setCustomLogoUrl(String customLogoUrl) {
 		this.customLogoUrl = customLogoUrl;
+	}
+
+	public DecoratorConfig[] getDecorators() {
+		return decorators;
+	}
+
+	public void setDecorators(DecoratorConfig[] decorators) {
+		this.decorators = decorators;
 	}
 }
 

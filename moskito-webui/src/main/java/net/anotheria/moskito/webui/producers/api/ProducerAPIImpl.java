@@ -17,6 +17,7 @@ import net.anotheria.moskito.webui.decorators.IDecorator;
 import net.anotheria.moskito.webui.decorators.IDecoratorRegistry;
 import net.anotheria.moskito.webui.producers.api.filters.ProducerFilter;
 import net.anotheria.moskito.webui.shared.api.AbstractMoskitoAPIImpl;
+import net.anotheria.moskito.webui.util.DecoratorConfig;
 import net.anotheria.moskito.webui.util.ProducerFilterConfig;
 import net.anotheria.moskito.webui.util.WebUIConfig;
 import org.configureme.ConfigurationManager;
@@ -24,6 +25,7 @@ import org.configureme.annotations.AfterConfiguration;
 import org.configureme.annotations.ConfigureMe;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -58,6 +60,25 @@ public class ProducerAPIImpl extends AbstractMoskitoAPIImpl implements ProducerA
 				log.warn("Can't initialize filter of class " + pfc.getClazzName());
 			} catch (ClassNotFoundException e) {
 				log.warn("Can't initialize filter of class " + pfc.getClazzName());
+			}
+		}
+
+		DecoratorConfig[] decoratorConfigs = WebUIConfig.getInstance().getDecorators();
+		if (decoratorConfigs != null){
+			log.debug("Configuring decorator configs "+ Arrays.toString(decoratorConfigs));
+			for (DecoratorConfig config : decoratorConfigs){
+				try{
+					Class decoratorClass = Class.forName(config.getDecoratorClazzName());
+					IDecorator decorator = (IDecorator) decoratorClass.newInstance();
+					DecoratorRegistryFactory.getDecoratorRegistry().addDecorator(config.getStatClazzName(), decorator);
+
+				}catch (ClassNotFoundException e){
+					log.warn("can't configure decorator "+config+" due ", e);
+				} catch (InstantiationException e) {
+					log.warn("can't configure decorator " + config + " due ", e);
+				} catch (IllegalAccessException e) {
+					log.warn("can't configure decorator "+config+" due ", e);
+				}
 			}
 		}
 

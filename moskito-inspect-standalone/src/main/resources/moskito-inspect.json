@@ -35,6 +35,19 @@
             "clazzName": "net.anotheria.moskito.webui.producers.api.filters.InternalProducerFilter",
             "parameter": "none"
         }
+    ],
+
+    "@decorators": [
+      {
+        "statClazzName": "net.anotheria.moskito.web.session.SessionCountStats",
+        "decoratorClazzName" : "net.anotheria.moskito.webui.decorators.predefined.SessionCountDecorator"
+      },
+      {
+        "statClazzName": "org.distributeme.core.stats.RoutingStats",
+        "decoratorClazzName" : "org.distributeme.core.stats.RoutingStatsDecorator"
+      }
     ]
+
+
 
 }
