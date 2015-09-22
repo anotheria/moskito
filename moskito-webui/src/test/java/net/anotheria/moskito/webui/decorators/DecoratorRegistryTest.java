@@ -9,14 +9,12 @@ import net.anotheria.moskito.core.predefined.ServiceStats;
 import net.anotheria.moskito.core.producers.IStats;
 import net.anotheria.moskito.core.stats.TimeUnit;
 import net.anotheria.moskito.core.util.storage.StorageStats;
-import net.anotheria.moskito.web.session.SessionCountStats;
 import net.anotheria.moskito.webui.decorators.predefined.ActionStatsDecorator;
 import net.anotheria.moskito.webui.decorators.predefined.CacheStatsDecorator;
 import net.anotheria.moskito.webui.decorators.predefined.FilterStatsDecorator;
 import net.anotheria.moskito.webui.decorators.predefined.MemoryPoolStatsDecorator;
 import net.anotheria.moskito.webui.decorators.predefined.MemoryStatsDecorator;
 import net.anotheria.moskito.webui.decorators.predefined.ServiceStatsDecorator;
-import net.anotheria.moskito.webui.decorators.predefined.SessionCountDecorator;
 import net.anotheria.moskito.webui.decorators.util.StorageStatsDecorator;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -38,7 +36,6 @@ public class DecoratorRegistryTest {
 		testResolution(MemoryPoolStats.class, MemoryPoolStatsDecorator.class);
 		testResolution(MemoryStats.class, MemoryStatsDecorator.class);
 		testResolution(ServiceStats.class, ServiceStatsDecorator.class);
-		testResolution(SessionCountStats.class, SessionCountDecorator.class);
 		testResolution(StorageStats.class, StorageStatsDecorator.class);
 	}
 	
