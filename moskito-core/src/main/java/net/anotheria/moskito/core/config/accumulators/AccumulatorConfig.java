@@ -1,5 +1,6 @@
 package net.anotheria.moskito.core.config.accumulators;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import net.anotheria.moskito.core.stats.TimeUnit;
 import org.configureme.annotations.Configure;
 import org.configureme.annotations.ConfigureMe;
@@ -13,6 +14,7 @@ import java.io.Serializable;
  * @since 03.12.12 10:58
  */
 @ConfigureMe(allfields = true)
+@SuppressFBWarnings(value = {"EI_EXPOSE_REP2", "EI_EXPOSE_REP"}, justification = "This is the way configureme works, it provides beans for access")
 public class AccumulatorConfig implements Serializable {
 	/**
 	 * Name of the accumulator.

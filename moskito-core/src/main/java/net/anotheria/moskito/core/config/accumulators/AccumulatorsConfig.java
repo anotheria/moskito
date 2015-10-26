@@ -1,6 +1,8 @@
 package net.anotheria.moskito.core.config.accumulators;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.configureme.annotations.Configure;
+import org.configureme.annotations.ConfigureMe;
 
 import java.io.Serializable;
 import java.util.Arrays;
@@ -11,6 +13,8 @@ import java.util.Arrays;
  * @author lrosenberg
  * @since 26.10.12 13:19
  */
+@SuppressFBWarnings(value = {"EI_EXPOSE_REP2", "EI_EXPOSE_REP"}, justification = "This is the way configureme works, it provides beans for access")
+@ConfigureMe
 public class AccumulatorsConfig implements Serializable {
 	/**
 	 * The default amount of accumulated values in the accumulator.
