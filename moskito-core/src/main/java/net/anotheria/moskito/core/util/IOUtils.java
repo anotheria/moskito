@@ -8,6 +8,7 @@ import java.nio.ByteBuffer;
 import java.nio.channels.Channels;
 import java.nio.channels.ReadableByteChannel;
 import java.nio.channels.WritableByteChannel;
+import java.nio.charset.Charset;
 
 /**
  * 
@@ -33,7 +34,7 @@ public final class IOUtils {
 		fastChannelCopy(rbch, wbch);
 		rbch.close();
 		wbch.close();
-		return new String(baos.toByteArray());
+		return new String(baos.toByteArray(), Charset.forName("UTF-8"));
 	}
 	
 	public static void fastChannelCopy(final InputStream src, final OutputStream dest) throws IOException {
