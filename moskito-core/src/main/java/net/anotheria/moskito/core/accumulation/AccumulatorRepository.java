@@ -1,5 +1,6 @@
 package net.anotheria.moskito.core.accumulation;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import net.anotheria.moskito.core.config.MoskitoConfigurationHolder;
 import net.anotheria.moskito.core.config.accumulators.AccumulatorConfig;
 import net.anotheria.moskito.core.config.accumulators.AccumulatorsConfig;
@@ -109,7 +110,7 @@ public final class AccumulatorRepository extends TieableRepository<Accumulator> 
      * This method is for unit testing ONLY.
 	 * The Findbugs warning is suppressed, because this method is for unit testing only.
      */
-	@SuppressWarnings("ST_WRITE_TO_STATIC_FROM_INSTANCE_METHOD")
+	@SuppressFBWarnings(value = "ST_WRITE_TO_STATIC_FROM_INSTANCE_METHOD", justification = "This method is for unit testing only.")
     void reset() {
         cleanup();
 		INSTANCE = new AccumulatorRepository();
