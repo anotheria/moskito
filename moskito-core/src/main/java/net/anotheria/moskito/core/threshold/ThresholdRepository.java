@@ -1,5 +1,6 @@
 package net.anotheria.moskito.core.threshold;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import net.anotheria.moskito.core.config.MoskitoConfigurationHolder;
 import net.anotheria.moskito.core.config.thresholds.GuardConfig;
 import net.anotheria.moskito.core.config.thresholds.ThresholdConfig;
@@ -321,9 +322,9 @@ public class ThresholdRepository extends TieableRepository<Threshold> {
 	/**
 	 * This method is for unit testing ONLY.
 	 */
-    void reset() {
+	@SuppressFBWarnings(value = "ST_WRITE_TO_STATIC_FROM_INSTANCE_METHOD", justification = "This method is only for unit tests.")
+	void reset() {
 		cleanup();
-		//FINDBUGS OFF
 		INSTANCE = new ThresholdRepository();
 	}
 
