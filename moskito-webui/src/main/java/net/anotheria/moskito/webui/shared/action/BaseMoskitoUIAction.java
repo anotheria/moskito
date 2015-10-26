@@ -224,7 +224,7 @@ public abstract class BaseMoskitoUIAction implements Action{
 	 */
 	private static IDecoratorRegistry decoratorRegistry;
 
-	public static char[] WHITESPACES = {
+	public static final char[] WHITESPACES = {
 			' ', '\r','\n','\t','\'','"','<','>'
 	};
 
