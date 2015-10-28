@@ -11,7 +11,7 @@
     <version>2.6.4-SNAPSHOT</version>
     <name>moskito embedded web user interface</name>
     <properties>
-        <distributeme.version>2.1.3</distributeme.version>
+        <distributeme.version>2.2.1</distributeme.version>
     </properties>
 
     <build>
