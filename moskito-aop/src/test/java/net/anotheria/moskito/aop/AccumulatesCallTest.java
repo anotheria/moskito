@@ -16,14 +16,12 @@ public class AccumulatesCallTest {
     public void testAccumulatesClass(){
         AccumulatesAnnotatedClass monitorable = new AccumulatesAnnotatedClass();
 
-        int N = 10;
-        for (int i = 0; i < N; i++) {
-            monitorable.notAnnotatedFunc();
-        }
-
-        monitorable.annotatedFunc();
+        monitorable.annotatedFuncAll();
+        monitorable.notAnnotatedFunc();
+        monitorable.annotatedFuncHolder();
+        monitorable.annotatedFuncSingle();
 
         List<Accumulator> accumulators= AccumulatorRepository.getInstance().getAccumulators();
-        assertEquals(6, accumulators.size());
+        assertEquals(9, accumulators.size());
     }
 }

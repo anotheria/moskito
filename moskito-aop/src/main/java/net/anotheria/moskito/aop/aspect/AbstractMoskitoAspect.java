@@ -85,13 +85,13 @@ public class AbstractMoskitoAspect<S extends IStats> {
      */
     private void createMethodLevelAccumulators(OnDemandStatsProducer<S> producer, Class producerClass, Method method) {
         //several @Accumulators in accumulators holder
-        Accumulates accAnnotationHolderMethods = (Accumulates) producerClass.getAnnotation(Accumulates.class);
+        Accumulates accAnnotationHolderMethods = (Accumulates) method.getAnnotation(Accumulates.class);
         if (accAnnotationHolderMethods != null && accAnnotationHolderMethods.value() != null) {
             Accumulate[] accAnnotations  = accAnnotationHolderMethods.value();
             for (Accumulate accAnnotation : accAnnotations) {
                 createAccumulator(
                         producer.getProducerId(),
-                        method.getAnnotation(Accumulate.class),
+                        accAnnotation,
                         formAccumulatorNameForMethod(producer, accAnnotation, method),
                         method.getName()
                 );
