@@ -1,5 +1,6 @@
 package net.anotheria.moskito.core.config.tracing;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.configureme.annotations.Configure;
 import org.configureme.annotations.ConfigureMe;
 
@@ -65,10 +66,12 @@ public class TracingConfiguration implements Serializable{
 		this.maxTraces = maxTraces;
 	}
 
+	@SuppressFBWarnings("EI_EXPOSE_REP")
 	public String[] getTracers() {
 		return tracers;
 	}
 
+	@SuppressFBWarnings("EI_EXPOSE_REP2")
 	public void setTracers(String[] tracers) {
 		this.tracers = tracers;
 	}

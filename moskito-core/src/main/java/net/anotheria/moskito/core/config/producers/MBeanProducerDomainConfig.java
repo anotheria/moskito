@@ -1,5 +1,6 @@
 package net.anotheria.moskito.core.config.producers;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.configureme.annotations.Configure;
 import org.configureme.annotations.ConfigureMe;
 
@@ -27,7 +28,8 @@ public class MBeanProducerDomainConfig implements Serializable{
     /**
      * @return {@link #classes}
      */
-    public String[] getClasses() {
+    @SuppressFBWarnings("EI_EXPOSE_REP")
+	public String[] getClasses() {
         return classes;
     }
 
@@ -41,7 +43,8 @@ public class MBeanProducerDomainConfig implements Serializable{
     /**
      * @param classes
      */
-    public void setClasses(final String[] classes) {
+    @SuppressFBWarnings("EI_EXPOSE_REP2")
+	public void setClasses(final String[] classes) {
         this.classes = classes;
     }
 
