@@ -6,6 +6,7 @@ import net.anotheria.maf.bean.FormBean;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.net.URLEncoder;
 
 /**
  * TODO comment this class
@@ -18,7 +19,7 @@ public class CreateTracerAction extends BaseTracersAction{
 	public ActionCommand execute(ActionMapping actionMapping, FormBean formBean, HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws Exception {
 		String producerId = httpServletRequest.getParameter(PARAM_PRODUCER_ID);
 		getTracerAPI().createTracer(producerId);
-		httpServletResponse.sendRedirect("mskShowProducer?"+PARAM_PRODUCER_ID+"="+producerId);
+		httpServletResponse.sendRedirect("mskShowProducer?"+PARAM_PRODUCER_ID+"="+ URLEncoder.encode(producerId, "UTF-8"));
 		return null;
 	}
 }
