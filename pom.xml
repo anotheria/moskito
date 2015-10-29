@@ -149,11 +149,4 @@
             <scope>provided</scope>
         </dependency>
     </dependencies>
-    <repositories>
-            <repository>
-                    <id>erichseifert.de</id>
-                    <url>http://mvn.erichseifert.de/maven2</url>
-            </repository>
-    </repositories>
-
 </project>
