@@ -1,5 +1,12 @@
-package net.anotheria.moskito.webui.decorators;
+package net.anotheria.moskito.core.decorators;
 
+import net.anotheria.moskito.core.decorators.predefined.ActionStatsDecorator;
+import net.anotheria.moskito.core.decorators.predefined.CacheStatsDecorator;
+import net.anotheria.moskito.core.decorators.predefined.FilterStatsDecorator;
+import net.anotheria.moskito.core.decorators.predefined.MemoryPoolStatsDecorator;
+import net.anotheria.moskito.core.decorators.predefined.MemoryStatsDecorator;
+import net.anotheria.moskito.core.decorators.predefined.ServiceStatsDecorator;
+import net.anotheria.moskito.core.decorators.util.StorageStatsDecorator;
 import net.anotheria.moskito.core.predefined.ActionStats;
 import net.anotheria.moskito.core.predefined.CacheStats;
 import net.anotheria.moskito.core.predefined.FilterStats;
@@ -9,18 +16,11 @@ import net.anotheria.moskito.core.predefined.ServiceStats;
 import net.anotheria.moskito.core.producers.IStats;
 import net.anotheria.moskito.core.stats.TimeUnit;
 import net.anotheria.moskito.core.util.storage.StorageStats;
-import net.anotheria.moskito.webui.decorators.predefined.ActionStatsDecorator;
-import net.anotheria.moskito.webui.decorators.predefined.CacheStatsDecorator;
-import net.anotheria.moskito.webui.decorators.predefined.FilterStatsDecorator;
-import net.anotheria.moskito.webui.decorators.predefined.MemoryPoolStatsDecorator;
-import net.anotheria.moskito.webui.decorators.predefined.MemoryStatsDecorator;
-import net.anotheria.moskito.webui.decorators.predefined.ServiceStatsDecorator;
-import net.anotheria.moskito.webui.decorators.util.StorageStatsDecorator;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertNotNull;
+import static org.junit.Assert.assertEquals;
 
 public class DecoratorRegistryTest {
 	

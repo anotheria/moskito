@@ -32,43 +32,60 @@
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR
  * THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */	
-package net.anotheria.moskito.webui.producers.api;
+package net.anotheria.moskito.core.decorators;
 
-import net.anotheria.util.BasicComparable;
-import net.anotheria.util.NumberUtils;
-import net.anotheria.util.sorter.IComparable;
+import net.anotheria.moskito.core.producers.AbstractStats;
+import net.anotheria.moskito.core.producers.IStats;
+
+import java.util.List;
 
 /**
- * Stat value bean for long data types.
+ * Internally used registry for decorator management.
  * @author lrosenberg
  *
  */
-public class LongValueAO extends StatValueAO {
+public interface IDecoratorRegistry {
 	/**
-	 * Internal value storage.
+	 * Returns the decorator for the given stats object.
+	 * @param stats
+	 * @return
 	 */
-	private long longValue;
-	
-	public LongValueAO(String name, long aValue){
-		super(name);
-		longValue = aValue;
-	}
-	
-	@Override public String getType(){
-		return "long";
-	}
-	
-	@Override public String getValue(){
-		return longValue == Long.MAX_VALUE || longValue== Long.MIN_VALUE ? "NoR" : ""+NumberUtils.getDotedNumberUS(longValue);
-	}
-	
-	@Override public int compareTo(IComparable anotherComparable, int ignored) {
-		return BasicComparable.compareLong(longValue, ((LongValueAO)anotherComparable).longValue);
-	}
-	
-	@Override
-	public String getRawValue() {
-		return ""+longValue;
-	}
+	@Deprecated IDecorator getDecorator(IStats stats);
+	/**
+	 * Returns all known decorators.
+	 * @return
+	 */
+	List<IDecorator> getDecorators();
+
+	/**
+	 * Add a decorator instance suitable for given Stats-Class.
+	 *
+	 * @param clazz Statistic-Class
+	 * @param decorator The decorator to add
+	 */
+	void addDecorator(Class <? extends AbstractStats> clazz, IDecorator decorator);
+
+	/**
+	 * Add a decorator instance suitable for given Stats-Class.
+	 *
+	 * @param clazzName Name of Stats-Class
+	 * @param decorator The decorator to add
+	 */
+	void addDecorator(String clazzName, IDecorator decorator);
+
+	/**
+	 * Returns the decorator for the given stats class.
+	 * @param stats
+	 * @return
+	 */
+	IDecorator getDecorator(Class<? extends IStats> stats);
+
+	/**
+	 * This method is added to enable remote registry instances work without having the need to transfer the
+	 * decorator class via network.
+	 * @param statsClassName
+	 * @return
+	 */
+	IDecorator getDecorator(String statsClassName);
 
 }

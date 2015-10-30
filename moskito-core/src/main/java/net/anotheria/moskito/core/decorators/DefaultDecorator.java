@@ -32,61 +32,34 @@
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR
  * THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */	
-package net.anotheria.moskito.webui.producers.api;
+package net.anotheria.moskito.core.decorators;
 
-import net.anotheria.util.BasicComparable;
-import net.anotheria.util.sorter.IComparable;
+import net.anotheria.moskito.core.decorators.value.StatValueAO;
+import net.anotheria.moskito.core.decorators.value.StringValueAO;
+import net.anotheria.moskito.core.producers.IStats;
+import net.anotheria.moskito.core.stats.TimeUnit;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
- * Stat value bean for double values.
- * @author lrosenberg.
+ * A NOOP decorator. Used as a substitute for missing (or yet unimplemented) decorator.
+ * @author lrosenberg
  *
  */
-public class DoubleValueAO extends StatValueAO {
-	/**
-	 * Internal storage.
-	 */
-	private double doubleValue;
-	/**
-	 * Cached string representation.
-	 */
-	private String doubleAsString;
+public class DefaultDecorator extends AbstractDecorator{
 	
 	/**
-	 * Creates a new DoubleValueAO.
-	 * @param name
-	 * @param aValue
+	 * Constructor.
 	 */
-	public DoubleValueAO(String name, double aValue){
-		super(name);
-		if (!Double.isInfinite(aValue))
-			doubleValue = ((double)Math.round(aValue * 1000)) / 1000;
-		else
-			doubleValue = aValue;
-		
-		double floatingPart = doubleValue - (int)doubleValue;
-		String fpAsString = ""+floatingPart;
-		if (fpAsString.length()>6)
-			fpAsString = fpAsString.substring(0, 5);
-		while(fpAsString.length()<5)
-			fpAsString += "0";
-		doubleAsString = (int)doubleValue+"."+fpAsString.substring(2);
-	}
-	
-	@Override public String getValue(){
-		return doubleAsString;
-	}
-	
-	@Override public String getType(){
-		return "double";
-	}
-	 
-	@Override public int compareTo(IComparable anotherComparable, int ignored) {
-		return BasicComparable.compareDouble(doubleValue, ((DoubleValueAO)anotherComparable).doubleValue);
+	public DefaultDecorator(){
+		super("missing decorator", new String[]{"UNSET"}, new String[]{"UNSET"}, new String[]{"UNSET"});
 	}
 
-	@Override
-	public String getRawValue() {
-		return ""+doubleValue;
+	@Override public List<StatValueAO> getValues(IStats stats, String interval, TimeUnit unit) {
+		List<StatValueAO> beans = new ArrayList<StatValueAO>(1);
+		beans.add(new StringValueAO("none", "no decorator for "+stats.getClass()));
+		return beans;
 	}
+	 
 }

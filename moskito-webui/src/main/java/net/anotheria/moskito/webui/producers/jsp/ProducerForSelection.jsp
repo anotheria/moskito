@@ -123,7 +123,7 @@
 		<table class="producer_filter_data_table" cellpadding="0" cellspacing="0">
 		 <thead>
 		  <tr>		    
-			<ano:iterate name="decorator" property="captions" type="net.anotheria.moskito.webui.shared.bean.StatCaptionBean" id="caption" indexId="ind">
+			<ano:iterate name="decorator" property="captions" type="net.anotheria.moskito.core.decorators.value.StatCaptionBean" id="caption" indexId="ind">
 			 <th>
                  <ano:write name="caption" property="caption" />
 			 </th>
@@ -133,7 +133,7 @@
 	  <tbody>
 		  <ano:iterate name="decorator" property="stats" id="stat" type="net.anotheria.moskito.webui.shared.bean.StatBean" indexId="index">
 		 <tr class="<%= ((index & 1) == 0 )? "even" : "odd" %>">
-				<ano:iterate name="stat" property="values" id="value" type="net.anotheria.moskito.webui.producers.api.StatValueAO">
+				<ano:iterate name="stat" property="values" id="value" type="net.anotheria.moskito.core.decorators.value.StatValueAO">
 					<td>
 					    <a href="#" onclick="setandsubmit('<ano:write name="value" property="name"/>', '<ano:write name="stat" property="name"/>'); return false">ADD</a>
 					</td>

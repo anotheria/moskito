@@ -1,5 +1,6 @@
 package net.anotheria.moskito.webui.producers.api;
 
+import net.anotheria.moskito.core.decorators.value.StatValueAO;
 import net.anotheria.moskito.core.inspection.CreationInfo;
 import net.anotheria.util.BasicComparable;
 import net.anotheria.util.sorter.IComparable;

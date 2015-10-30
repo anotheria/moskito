@@ -2,6 +2,7 @@ package net.anotheria.moskito.web.session;
 
 import net.anotheria.anoprise.mocking.MockFactory;
 import net.anotheria.moskito.core.stats.impl.IntervalRegistry;
+import net.anotheria.moskito.core.util.session.SessionCountStats;
 import org.junit.Test;
 
 import javax.servlet.http.HttpSession;

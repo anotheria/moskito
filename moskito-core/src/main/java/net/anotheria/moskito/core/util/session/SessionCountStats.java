@@ -1,4 +1,4 @@
-package net.anotheria.moskito.web.session;
+package net.anotheria.moskito.core.util.session;
 
 import net.anotheria.moskito.core.predefined.Constants;
 import net.anotheria.moskito.core.producers.AbstractStats;

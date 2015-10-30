@@ -63,7 +63,7 @@
                             </thead>
                             <tbody>
                             <ano:iterate name="decorator" property="captions" id="caption"
-                                         type="net.anotheria.moskito.webui.shared.bean.StatCaptionBean">
+                                         type="net.anotheria.moskito.core.decorators.value.StatCaptionBean">
                                 <tr >
                                     <td class="headcol">${caption.caption}</td>
                                     <td>${caption.shortExplanation}</td>

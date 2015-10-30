@@ -3,7 +3,7 @@ package net.anotheria.moskito.web.util;
 import net.anotheria.moskito.core.producers.IStatsProducer;
 import net.anotheria.moskito.core.registry.NoSuchProducerException;
 import net.anotheria.moskito.core.registry.ProducerRegistryAPIFactory;
-import net.anotheria.moskito.web.session.SessionCountStats;
+import net.anotheria.moskito.core.util.session.SessionCountStats;
 import org.configureme.ConfigurationManager;
 import org.configureme.annotations.AfterConfiguration;
 import org.configureme.annotations.ConfigureMe;

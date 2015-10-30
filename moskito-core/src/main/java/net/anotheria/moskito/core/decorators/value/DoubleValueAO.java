@@ -32,50 +32,61 @@
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR
  * THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */	
-package net.anotheria.moskito.webui.producers.api;
+package net.anotheria.moskito.core.decorators.value;
 
 import net.anotheria.util.BasicComparable;
 import net.anotheria.util.sorter.IComparable;
 
 /**
- * StatValueAO for string values.
+ * Stat value bean for double values.
  * @author lrosenberg.
  *
  */
-public class StringValueAO extends StatValueAO {
-	
+public class DoubleValueAO extends StatValueAO {
 	/**
-	 * Value object.
+	 * Internal storage.
 	 */
-	private String value;
+	private double doubleValue;
+	/**
+	 * Cached string representation.
+	 */
+	private String doubleAsString;
 	
 	/**
-	 * Creates a new StringValue bean with given name and value.
-	 * @param aName
+	 * Creates a new DoubleValueAO.
+	 * @param name
 	 * @param aValue
 	 */
-	public StringValueAO(String aName, String aValue){
-		super(aName);
-		value = aValue;
-	}
-	
-	@Override public String getType(){
-		return "string";
+	public DoubleValueAO(String name, double aValue){
+		super(name);
+		if (!Double.isInfinite(aValue))
+			doubleValue = ((double)Math.round(aValue * 1000)) / 1000;
+		else
+			doubleValue = aValue;
+		
+		double floatingPart = doubleValue - (int)doubleValue;
+		String fpAsString = ""+floatingPart;
+		if (fpAsString.length()>6)
+			fpAsString = fpAsString.substring(0, 5);
+		while(fpAsString.length()<5)
+			fpAsString += "0";
+		doubleAsString = (int)doubleValue+"."+fpAsString.substring(2);
 	}
 	
 	@Override public String getValue(){
-		return value;
+		return doubleAsString;
 	}
-
+	
+	@Override public String getType(){
+		return "double";
+	}
+	 
 	@Override public int compareTo(IComparable anotherComparable, int ignored) {
-		return BasicComparable.compareString(value, ((StringValueAO)anotherComparable).value);
+		return BasicComparable.compareDouble(doubleValue, ((DoubleValueAO)anotherComparable).doubleValue);
 	}
 
 	@Override
 	public String getRawValue() {
-		return "NaN";
+		return ""+doubleValue;
 	}
-	
-	
-	
 }
