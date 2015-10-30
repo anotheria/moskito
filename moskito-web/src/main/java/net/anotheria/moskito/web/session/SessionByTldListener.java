@@ -4,6 +4,8 @@ import net.anotheria.moskito.core.dynamic.OnDemandStatsProducer;
 import net.anotheria.moskito.core.dynamic.OnDemandStatsProducerException;
 import net.anotheria.moskito.core.registry.ProducerRegistryFactory;
 import net.anotheria.moskito.core.util.AbstractBuiltInProducer;
+import net.anotheria.moskito.core.util.session.SessionCountFactory;
+import net.anotheria.moskito.core.util.session.SessionCountStats;
 import net.anotheria.moskito.web.filters.SourceTldFilter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

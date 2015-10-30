@@ -1,6 +1,6 @@
 package net.anotheria.moskito.webui.gauges.api;
 
-import net.anotheria.moskito.webui.producers.api.StatValueAO;
+import net.anotheria.moskito.core.decorators.value.StatValueAO;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;

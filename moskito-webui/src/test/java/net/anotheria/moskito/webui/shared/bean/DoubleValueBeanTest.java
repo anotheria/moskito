@@ -1,6 +1,6 @@
 package net.anotheria.moskito.webui.shared.bean;
 
-import net.anotheria.moskito.webui.producers.api.DoubleValueAO;
+import net.anotheria.moskito.core.decorators.value.DoubleValueAO;
 import org.junit.Test;
 import static org.junit.Assert.*;
 

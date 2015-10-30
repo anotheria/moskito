@@ -1,3 +1,4 @@
+<%@ page import="net.anotheria.moskito.core.decorators.value.StatCaptionBean" %>
 <%@ page language="java" contentType="text/xml;charset=UTF-8" session="true"
 %><%@ taglib uri="http://www.anotheria.net/ano-tags" prefix="msk" 
 %><?xml version="1.0" encoding="UTF-8"?>
@@ -13,8 +14,8 @@
           	<msk:iterate name="decorator" property="stats" id="statBean" type="net.anotheria.moskito.webui.shared.bean.StatBean">
           		<method name="<msk:write name="statBean" property="name"/>">
           		<msk:define name="decorator" property="captions" type="java.util.List" id="captions"/>
-    	      	<msk:iterate name="statBean" property="values" id="value" type="net.anotheria.moskito.webui.producers.api.StatValueAO" indexId="ind"><%
-    	      		String tagCaption = ((net.anotheria.moskito.webui.shared.bean.StatCaptionBean)captions.get(ind.intValue())).getCaption();
+    	      	<msk:iterate name="statBean" property="values" id="value" type="net.anotheria.moskito.core.decorators.value.StatValueAO" indexId="ind"><%
+    	      		String tagCaption = ((StatCaptionBean)captions.get(ind.intValue())).getCaption();
 				%><value name="<%=tagCaption%>" type="<msk:write name="value" property="type"/>"><msk:write name="value" property="value"/></value>
 	          	</msk:iterate>
 	          	</method>

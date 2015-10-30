@@ -14,9 +14,9 @@ import net.anotheria.moskito.core.registry.IProducerRegistryAPI;
 import net.anotheria.moskito.core.registry.NoSuchProducerException;
 import net.anotheria.moskito.core.registry.ProducerRegistryAPIFactory;
 import net.anotheria.moskito.core.stats.TimeUnit;
-import net.anotheria.moskito.webui.producers.api.LongValueAO;
-import net.anotheria.moskito.webui.producers.api.StatValueAO;
-import net.anotheria.moskito.webui.producers.api.StringValueAO;
+import net.anotheria.moskito.core.decorators.value.LongValueAO;
+import net.anotheria.moskito.core.decorators.value.StatValueAO;
+import net.anotheria.moskito.core.decorators.value.StringValueAO;
 import net.anotheria.moskito.webui.shared.api.AbstractMoskitoAPIImpl;
 
 import java.util.ArrayList;

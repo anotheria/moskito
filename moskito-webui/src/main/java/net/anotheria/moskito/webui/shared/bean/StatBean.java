@@ -34,7 +34,7 @@
  */	
 package net.anotheria.moskito.webui.shared.bean;
 
-import net.anotheria.moskito.webui.producers.api.StatValueAO;
+import net.anotheria.moskito.core.decorators.value.StatValueAO;
 import net.anotheria.util.BasicComparable;
 import net.anotheria.util.sorter.IComparable;
 

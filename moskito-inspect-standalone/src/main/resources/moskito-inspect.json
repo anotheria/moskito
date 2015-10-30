@@ -39,8 +39,8 @@
 
     "@decorators": [
       {
-        "statClazzName": "net.anotheria.moskito.web.session.SessionCountStats",
-        "decoratorClazzName" : "net.anotheria.moskito.webui.decorators.predefined.SessionCountDecorator"
+        "statClazzName": "net.anotheria.moskito.core.util.session.SessionCountStats",
+        "decoratorClazzName" : "net.anotheria.moskito.core.decorators.util.SessionCountDecorator"
       },
       {
         "statClazzName": "org.distributeme.core.stats.RoutingStats",

@@ -34,6 +34,7 @@
  */	
 package net.anotheria.moskito.webui.shared.bean;
 
+import net.anotheria.moskito.core.decorators.value.StatCaptionBean;
 import net.anotheria.moskito.webui.shared.action.BaseMoskitoUIAction;
 import net.anotheria.util.BasicComparable;
 import net.anotheria.util.StringUtils;

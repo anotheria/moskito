@@ -9,7 +9,7 @@ public class MoskitoWebUi {
 
     public static boolean isPresent() {
         try {
-            Class.forName("net.anotheria.moskito.webui.decorators.DecoratorRegistryFactory");
+            Class.forName("net.anotheria.moskito.core.decorators.DecoratorRegistryFactory");
             return true;
         } catch (ClassNotFoundException e) {
             return false;

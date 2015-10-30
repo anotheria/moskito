@@ -3,10 +3,10 @@ package net.anotheria.moskito.webui.shared.action;
 import net.anotheria.maf.action.ActionCommand;
 import net.anotheria.maf.action.ActionMapping;
 import net.anotheria.maf.bean.FormBean;
+import net.anotheria.moskito.core.decorators.DecoratorRegistryFactory;
+import net.anotheria.moskito.core.decorators.IDecorator;
 import net.anotheria.moskito.webui.shared.bean.DecoratorExplanationBean;
 import net.anotheria.moskito.webui.shared.bean.NaviItem;
-import net.anotheria.moskito.webui.decorators.DecoratorRegistryFactory;
-import net.anotheria.moskito.webui.decorators.IDecorator;
 import net.anotheria.util.sorter.DummySortType;
 import net.anotheria.util.sorter.StaticQuickSorter;
 

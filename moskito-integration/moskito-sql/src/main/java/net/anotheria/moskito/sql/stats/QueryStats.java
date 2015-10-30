@@ -3,7 +3,7 @@ package net.anotheria.moskito.sql.stats;
 import net.anotheria.moskito.core.predefined.RequestOrientedStats;
 import net.anotheria.moskito.core.stats.Interval;
 import net.anotheria.moskito.core.util.MoskitoWebUi;
-import net.anotheria.moskito.webui.decorators.DecoratorRegistryFactory;
+import net.anotheria.moskito.core.decorators.DecoratorRegistryFactory;
 
 /**
  * Stats object for sql queries.

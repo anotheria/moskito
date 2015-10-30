@@ -34,7 +34,7 @@ Commented out for now. We may add this later as welcome message (to all layers).
                 <th class="headcol">Producer Id <i class="fa fa-caret-down"></i></th>
                 <th>Category <i class="fa fa-caret-down"></i></th>
                 <th>Subsystem <i class="fa fa-caret-down"></i></th>
-                <ano:iterate name="decorator" property="captions" type="net.anotheria.moskito.webui.shared.bean.StatCaptionBean" id="caption" indexId="ind">
+                <ano:iterate name="decorator" property="captions" type="net.anotheria.moskito.core.decorators.value.StatCaptionBean" id="caption" indexId="ind">
                     <th title="${caption.shortExplanation}" class="{sorter: 'commaNumber'} table-column">
                         <!-- variable for this graph is <ano:write name="decorator" property="name"/>_<ano:write name="caption" property="jsVariableName"/> -->
                         <input type="hidden" value="<ano:write name="decorator" property="name"/>_<ano:write name="caption" property="jsVariableName"/>"/>${caption.caption}<i class="fa fa-caret-down"></i><i class="chart-icon tooltip-bottom" title="Show chart"></i>
@@ -50,7 +50,7 @@ Commented out for now. We may add this later as welcome message (to all layers).
                 <td class="headcol"><a href="mskShowProducer?pProducerId=${producer.producerId}" class="tooltip-bottom" title="Show details for producer ${producer.producerId}">${producer.producerId}</a></td>
                 <td><a href="mskShowProducersByCategory?pCategory=${producer.category}">${producer.category}</a></td>
                 <td><a href="mskShowProducersBySubsystem?pSubsystem=${producer.subsystem}">${producer.subsystem}</a></td>
-                <ano:iterate name="producer" property="firstStatsValues" id="value" type="net.anotheria.moskito.webui.producers.api.StatValueAO">
+                <ano:iterate name="producer" property="firstStatsValues" id="value" type="net.anotheria.moskito.core.decorators.value.StatValueAO">
                     <td class="tooltip-bottom" title="${producer.producerId}.${value.name}=${value.value}">${value.value}</td>
                 </ano:iterate>
                 <td>${producer.producerClassName}</td>

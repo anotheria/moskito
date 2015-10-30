@@ -8,11 +8,11 @@
 --%><ano:iterate type="net.anotheria.moskito.webui.shared.bean.StatDecoratorBean" id="decorator" name="decorators"><%--
 --%>"${decorator.name}";
 "";"Name"<%-- 
---%><ano:iterate name="decorator" property="captions" type="net.anotheria.moskito.webui.shared.bean.StatCaptionBean" id="caption" indexId="ind">;"${caption.caption}"</ano:iterate>s<%--
+--%><ano:iterate name="decorator" property="captions" type="net.anotheria.moskito.core.decorators.value.StatCaptionBean" id="caption" indexId="ind">;"${caption.caption}"</ano:iterate>s<%--
 
 --%><ano:iterate name="decorator" property="stats" id="stat" type="net.anotheria.moskito.webui.shared.bean.StatBean">
 "";"${stat.name}";<%--
---%><ano:iterate name="stat" property="values" id="value" type="net.anotheria.moskito.webui.producers.api.StatValueAO"><%--
+--%><ano:iterate name="stat" property="values" id="value" type="net.anotheria.moskito.core.decorators.value.StatValueAO"><%--
 --%>;${value.value}<%--
 --%></ano:iterate></ano:iterate></ano:iterate>
 

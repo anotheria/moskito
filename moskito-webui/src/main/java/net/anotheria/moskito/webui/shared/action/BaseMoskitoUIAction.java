@@ -36,14 +36,14 @@ package net.anotheria.moskito.webui.shared.action;
 
 import net.anotheria.maf.action.Action;
 import net.anotheria.maf.action.ActionMapping;
+import net.anotheria.moskito.core.decorators.DecoratorRegistryFactory;
+import net.anotheria.moskito.core.decorators.IDecoratorRegistry;
 import net.anotheria.moskito.core.stats.TimeUnit;
 import net.anotheria.moskito.core.threshold.ThresholdStatus;
 import net.anotheria.moskito.webui.Features;
 import net.anotheria.moskito.webui.MoSKitoWebUIContext;
 import net.anotheria.moskito.webui.accumulators.api.AccumulatorAPI;
 import net.anotheria.moskito.webui.dashboards.api.DashboardAPI;
-import net.anotheria.moskito.webui.decorators.DecoratorRegistryFactory;
-import net.anotheria.moskito.webui.decorators.IDecoratorRegistry;
 import net.anotheria.moskito.webui.gauges.api.GaugeAPI;
 import net.anotheria.moskito.webui.journey.api.JourneyAPI;
 import net.anotheria.moskito.webui.producers.api.ProducerAPI;
