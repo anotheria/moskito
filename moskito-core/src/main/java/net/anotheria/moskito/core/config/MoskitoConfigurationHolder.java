@@ -1,7 +1,5 @@
 package net.anotheria.moskito.core.config;
 
-import net.anotheria.moskito.core.config.thresholds.NotificationProviderConfig;
-import net.anotheria.moskito.core.threshold.alerts.notificationprovider.LogFileNotificationProvider;
 import org.configureme.ConfigurationManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -54,10 +52,10 @@ public enum MoskitoConfigurationHolder {
 		config.getThresholdsAlertsConfig().getAlertHistoryConfig().setMaxNumberOfItems(200);
 		config.getThresholdsAlertsConfig().getAlertHistoryConfig().setToleratedNumberOfItems(220);
 
-		NotificationProviderConfig[] providers = new NotificationProviderConfig[1];
-		providers[0] = new NotificationProviderConfig();
-		providers[0].setClassName(LogFileNotificationProvider.class.getName());
-		providers[0].setProperty("appenderName", "MoskitoAlert");
+		//NotificationProviderConfig[] providers = new NotificationProviderConfig[1];
+		//providers[0] = new NotificationProviderConfig();
+		//providers[0].setClassName(LogFileNotificationProvider.class.getName());
+		//providers[0].setProperty("appenderName", "MoskitoAlert");
 
 		//The default size for the threadpool for alert dispatching. This threadpool is needed to prevent app from being blocked by a slow alert notification processor.
 		//Default value is 1. Increase it if you have many alerts and many notification providers.

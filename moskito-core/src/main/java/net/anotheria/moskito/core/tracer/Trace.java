@@ -1,5 +1,7 @@
 package net.anotheria.moskito.core.tracer;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 import java.util.Arrays;
 
 /**
@@ -29,10 +31,12 @@ public class Trace {
 		this.duration = duration;
 	}
 
+	@SuppressFBWarnings("EI_EXPOSE_REP")
 	public StackTraceElement[] getElements() {
 		return elements;
 	}
 
+	@SuppressFBWarnings("EI_EXPOSE_REP2")
 	public void setElements(StackTraceElement[] elements) {
 		this.elements = elements;
 	}
