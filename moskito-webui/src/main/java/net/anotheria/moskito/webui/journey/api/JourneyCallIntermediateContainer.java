@@ -97,7 +97,7 @@ public class JourneyCallIntermediateContainer {
 	 * @author lrosenberg
 	 *
 	 */
-	private class ParentHolder{
+	static private class ParentHolder{
 		/**
 		 * Holds known parents.
  		 */

@@ -113,7 +113,7 @@ public class GenerateChartAction implements Action {
 
     }
 
-    class TemporaryPoint implements IComparable{
+    static class TemporaryPoint implements IComparable{
 
         private long timestamp;
         private String[] values;

@@ -49,12 +49,12 @@ public class ReplyObjectWriter implements MessageBodyWriter<ReplyObject> {
 		try {
 
 			entityStream.write(
-					"<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>".getBytes()
+					"<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>".getBytes("UTF-8")
 			);
 			entityStream.write("<reply>".getBytes());
-			entityStream.write(("<success>"+replyObject.isSuccessful()+"</success>").getBytes());
+			entityStream.write(("<success>"+replyObject.isSuccessful()+"</success>").getBytes("UTF-8"));
 			if (replyObject.getMessage()!=null)
-				entityStream.write(("<message>"+replyObject.getMessage()+"</message>").getBytes());
+				entityStream.write(("<message>"+replyObject.getMessage()+"</message>").getBytes("UTF-8"));
 
 			entityStream.write("<results>".getBytes());
 			HashMap results = replyObject.getResults();

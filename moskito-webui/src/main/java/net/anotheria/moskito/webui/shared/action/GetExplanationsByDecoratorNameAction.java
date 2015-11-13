@@ -42,7 +42,7 @@ public class GetExplanationsByDecoratorNameAction implements Action{
 			if (decorator.getName().equals(name)){
 				Gson gson = new GsonBuilder().setPrettyPrinting().create();
 				String jsonOutput = gson.toJson(decorator.getCaptions());
-				res.getOutputStream().write(jsonOutput.getBytes());
+				res.getOutputStream().write(jsonOutput.getBytes("UTF-8"));
 				res.getOutputStream().flush();
 				return null;
 			}

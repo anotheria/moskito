@@ -1,5 +1,6 @@
 package net.anotheria.moskito.webui.util;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.configureme.ConfigurationManager;
 import org.configureme.annotations.ConfigureMe;
 
@@ -7,6 +8,7 @@ import org.configureme.annotations.ConfigureMe;
  * Configuration class for web user interface config.
  */
 @ConfigureMe(name="moskito-inspect", allfields=true)
+@SuppressFBWarnings({"EI_EXPOSE_REP","EI_EXPOSE_REP2"})
 public class WebUIConfig {
 	/**
 	 * Width of the producerChart.

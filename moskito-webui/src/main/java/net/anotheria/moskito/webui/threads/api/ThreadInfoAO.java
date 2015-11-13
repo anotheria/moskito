@@ -1,5 +1,7 @@
 package net.anotheria.moskito.webui.threads.api;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 import java.io.Serializable;
 import java.lang.management.ThreadInfo;
 
@@ -179,10 +181,12 @@ public class ThreadInfoAO implements Serializable{
 	public void setWaitedTime(long waitedTime) {
 		this.waitedTime = waitedTime;
 	}
+	@SuppressFBWarnings("EI_EXPOSE_REP")
 	public StackTraceElement[] getStackTrace() {
 		return stackTrace;
 	}
 
+	@SuppressFBWarnings("EI_EXPOSE_REP2")
 	public void setStackTrace(StackTraceElement[] stackTrace) {
 		this.stackTrace = stackTrace;
 	}

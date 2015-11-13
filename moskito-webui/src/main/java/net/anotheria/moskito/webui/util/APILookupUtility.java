@@ -43,7 +43,6 @@ public class APILookupUtility {
 	 * Currently configured ConnectivityMode (local or remote).
 	 */
 	private static ConnectivityMode currentConnectivityMode = WebUIConfig.getInstance().getConnectivityMode();
-	private static TracerAPI tracerAPI;
 
 	public static boolean isLocal(){
 		//if current usage mode is personal, every change made to the connectivity mode is global.
