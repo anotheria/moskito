@@ -10,11 +10,13 @@ import net.anotheria.moskito.core.config.accumulators.AccumulatorSetConfig;
 import net.anotheria.moskito.core.config.accumulators.AccumulatorSetMode;
 import net.anotheria.moskito.core.config.accumulators.AccumulatorsConfig;
 import net.anotheria.moskito.webui.accumulators.api.AccumulatedSingleGraphAO;
-import net.anotheria.moskito.webui.accumulators.api.AccumulatedValueAO;
 import net.anotheria.moskito.webui.accumulators.api.AccumulatorAO;
 import net.anotheria.moskito.webui.accumulators.api.MultilineChartAO;
 import net.anotheria.moskito.webui.accumulators.bean.AccumulatedValuesBean;
 import net.anotheria.moskito.webui.accumulators.bean.AccumulatorSetBean;
+import org.apache.commons.lang.StringUtils;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -143,21 +145,26 @@ public class ShowAccumulatorsAction extends BaseAccumulatorsAction {
 
 				req.setAttribute("data", mchartAO.getData());
 				req.setAttribute("accNames", mchartAO.getNames());
-
-			}else {
+				req.setAttribute("accumulatorsColors", mchartAO.getAccumulatorsColorsDataJSON());
+			} else {
 
 				//create multiple graphs with one line each.
 				List<AccumulatedSingleGraphAO> singleGraphDataBeans = new ArrayList<AccumulatedSingleGraphAO>(ids.size());
+				List<String> accumulatorsNames = new ArrayList<String>();
 
 				for (String id : ids) {
-					AccumulatorAO acc = getAccumulatorAPI().getAccumulator(id);
-					AccumulatedSingleGraphAO singleGraphDataBean = new AccumulatedSingleGraphAO(acc.getName());
+					final AccumulatorAO accumulator = getAccumulatorAPI().getAccumulator(id);
+					// collect accumulators names
+					accumulatorsNames.add(accumulator.getName());
+					// collect graph beans
+					final AccumulatedSingleGraphAO singleGraphDataBean = getAccumulatorAPI().getAccumulatorGraphData(id);
+					singleGraphDataBean.setData(accumulator.getValues());
 					singleGraphDataBeans.add(singleGraphDataBean);
-					List<AccumulatedValueAO> accValues = acc.getValues();
-					singleGraphDataBean.setData(accValues);
 				}
 
+				req.setAttribute("accNames", accumulatorsNames);
 				req.setAttribute("singleGraphData", singleGraphDataBeans);
+				req.setAttribute("accumulatorsColors", accumulatorsColorsToJSON(singleGraphDataBeans));
 				req.setAttribute("data", Boolean.TRUE);
 			}
 			
@@ -221,4 +228,24 @@ public class ShowAccumulatorsAction extends BaseAccumulatorsAction {
 		return true;
 	}
 
+	/**
+	 * Maps collection of {@link AccumulatedSingleGraphAO} to JSON representation.
+	 * Accumulator will be mapped only if accumulator has the preconfigured color.
+	 *
+	 * @param graphAOs collection of {@link AccumulatedSingleGraphAO}
+	 * @return JSON array with accumulators colors
+	 */
+	private JSONArray accumulatorsColorsToJSON(final List<AccumulatedSingleGraphAO> graphAOs) {
+		final JSONArray jsonArray = new JSONArray();
+
+		for (AccumulatedSingleGraphAO graphAO : graphAOs) {
+			if (StringUtils.isEmpty(graphAO.getName()) || StringUtils.isEmpty(graphAO.getColor()))
+				continue;
+
+			final JSONObject jsonObject = graphAO.mapColorDataToJSON();
+			jsonArray.put(jsonObject);
+		}
+
+		return jsonArray;
+	}
 }

@@ -95,6 +95,7 @@
             <script type="text/javascript">
                 var multipleGraphData = [];
                 var multipleGraphNames = [];
+                var multipleGraphColors = [];
                 <ano:iterate id="chart" name="charts" type="net.anotheria.moskito.webui.dashboards.api.DashboardChartAO">
                 <ano:define id="singleChart" toScope="page" scope="page" name="chart" property="chart" type="net.anotheria.moskito.webui.accumulators.api.MultilineChartAO"/>
                 multipleGraphData.push([
@@ -107,6 +108,9 @@
                     <ano:notEqual name="i" value="0">,</ano:notEqual>'<ano:write name="lineName"/>'
                     </ano:iterate>
                 ]);
+                multipleGraphColors.push(
+                    <ano:write name="singleChart" property="accumulatorsColorsDataJSON"/>
+                );
                 </ano:iterate>
             </script>
 
@@ -153,6 +157,7 @@
                         container: containerSelectors[index],
                         names: names[index],
                         data: graphData,
+                        colors: multipleGraphColors[index],
                         type: 'LineChart',
                         title: names[index],
                         dataType: 'datetime',

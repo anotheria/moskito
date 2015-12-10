@@ -41,6 +41,13 @@
                 </ano:present>
             </ano:present>
 
+            <%-- accumulators colors data --%>
+            <ano:present name="accumulatorsColors">
+                <script type="text/javascript">
+                    var accumulatorsColors = <ano:write name="accumulatorsColors"/>;
+                </script>
+            </ano:present>
+
             <%-- single chart box with charts --%>
             <ano:notPresent name="multiple_set">
                 <div class="box">
@@ -135,6 +142,7 @@
                             container: containerSelectors[index],
                             names: [names[index]],
                             data: graphData,
+                            colors: accumulatorsColors,
                             type: '<ano:write name="type"/>',
                             title: names[index],
                             dataType: 'datetime',
@@ -156,6 +164,7 @@
                         container: 'chart_accum${singleGraph.nameForJS}',
                         names: names,
                         data: data,
+                        colors: accumulatorsColors,
                         type: '<ano:write name="type"/>',
                         title: '',
                         dataType: 'datetime',

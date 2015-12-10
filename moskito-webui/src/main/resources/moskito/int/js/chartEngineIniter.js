@@ -536,13 +536,26 @@ var D3chart = (function () {
                 }
             }();
 
-            var _createContainer = function (containerId, names, data, options) {
+            var _createContainer = function (containerId, names, data, colorsData, options) {
                 var chartContainer = d3.select(containerId);
                 containers[containerId] = {};
                 containers[containerId].container = chartContainer;
                 containers[containerId].names = names;
                 containers[containerId].color = function () {
-                    return chartColors(names);
+                    var colorsFromConfigFunc = function (name) {
+                            return colorsData.filter(function (el) {
+                                return el.name == name;
+                            })[0];
+                        },
+                        defaultColorsFunc = chartColors(names);
+
+                    return function (name) {
+                        var colorDataFromConfig = colorsFromConfigFunc(name);
+                        if (!colorDataFromConfig || !colorDataFromConfig.color)
+                            return defaultColorsFunc(name);
+
+                        return colorDataFromConfig.color;
+                    };
                 };
                 containers[containerId].data = data;
 
@@ -866,8 +879,8 @@ var D3chart = (function () {
                     .attr("height", _getHeight(containerId));
             };
 
-            var init = function (containerId, names, data, options) {
-                _createContainer(containerId, names, data, options);
+            var init = function (containerId, names, data, colorsData, options) {
+                _createContainer(containerId, names, data, colorsData, options);
                 _createSvg(containerId, options);
 
                 var timeValues = names.map(function (name, namesIdx) {
@@ -955,9 +968,10 @@ var D3chart = (function () {
             return (lineChart = function (containerId, params) {
                 var inputNames = params.names,
                     inputData = params.data,
+                    colorsData = params.colors,
                     options = params.options;
 
-                init(containerId, inputNames, inputData, options);
+                init(containerId, inputNames, inputData, colorsData, options);
 
                 d3.select(window).on('resize.' + containerId, function () {
                     var resizeTimer = -1;
