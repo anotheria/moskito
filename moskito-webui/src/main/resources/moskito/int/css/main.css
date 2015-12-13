@@ -1619,6 +1619,10 @@ a:hover .iphone-app-icon {
     opacity: 1;
 }
 
+.save_as:hover {
+    cursor: pointer;
+}
+
 .footer-content {
     padding-right: 200px;
     position: relative;
