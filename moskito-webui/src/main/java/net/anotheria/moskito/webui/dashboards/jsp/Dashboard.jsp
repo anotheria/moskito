@@ -56,7 +56,7 @@
                                 <div class="box-title">
                                     <a class="accordion-toggle tooltip-bottom" title="Close/Open" data-toggle="collapse" href="#gauge_collapse_chart${index}"><i class="fa fa-caret-right"></i></a>
 
-                                    <h3 class="pull-left">
+                                    <h3 class="pull-left chart-header">
                                         ${gauge.caption}
                                     </h3>
                                 </div>
@@ -122,13 +122,13 @@
                     <div class="box">
                         <div class="box-title">
                             <a class="accordion-toggle tooltip-bottom" title="Close/Open" data-toggle="collapse" href="#collapse_chart${index}"><i class="fa fa-caret-right"></i></a>
-                            <h3 class="pull-left">
+                            <h3 class="pull-left chart-header">
                                 ${chart.caption}
                             </h3>
-                            <%--
+
                             <div class="box-right-nav">
-                                <a href="" class="tooltip-bottom" title="Refresh"><i class="fa fa-refresh"></i></a>
-                            </div> --%>
+                                <a class="tooltip-bottom save_as" title="Save as" onclick="saveSvgAsPng(${index}+4)"><i class="fa fa-download"></i></a>
+                            </div>
                         </div>
                         <div id="collapse_chart${index}" class="box-content accordion-body collapse in">
                             <div class="paddner"><div id="chart_div${index}" class="accumulator-chart"></div></div>
@@ -171,6 +171,76 @@
                 });
             </script>
         </ano:equal>
+
+        <script type="text/javascript">
+             function saveSvgAsPng(index) {
+                var svg = document.getElementsByTagName("svg")[index];
+                $("svg").css("background-color","#FFFFFF");
+
+                $( ".graph" ).append( '<style type="text/css">' +
+                '.axis path,'+
+                '.axis line {'+
+                    'fill: none;'+
+                    'stroke: #000;'+
+                    'shape-rendering: crispEdges;'+
+                '}'+
+                '.legend, .tick {'+
+                'font: 12px sans-serif;'+
+                '}'+
+
+                '.line {'+
+                'fill: none;'+
+                'stroke: steelblue;'+
+                'stroke-width: 1.5px;'+
+                '}'+
+
+                '.line.hover {'+
+                'fill: none;'+
+                'stroke: steelblue;'+
+                'stroke-width: 3.0px;'+
+                '}'+
+
+                '.grid .tick {'+
+                'stroke: lightgrey;'+
+                'opacity: 0.7;'+
+                '}'+
+                '.grid path {'+
+                'stroke-width: 0;'+
+                '}'+
+                '</style>' );
+                var svgData = new XMLSerializer().serializeToString(svg);
+
+                var canvas = document.createElement("canvas");
+                canvas.width  = 1200;
+                canvas.height = 800;
+                var ctx = canvas.getContext("2d");
+                ctx.fillStyle="white";
+                ctx.fill();
+
+                var img = document.createElement("img");
+                img.setAttribute("src", "data:image/svg+xml;base64," + btoa(svgData));
+
+                img.onload = function () {
+                    ctx.drawImage(img, 0, 0);
+                    var canvasdata = canvas.toDataURL("image/png")
+                    var a = document.createElement("a");
+                    var file_name = getChartFileName(index);
+
+                    a.download = file_name + ".png";
+                    a.href = canvasdata;
+                    document.body.appendChild(a);
+                    a.click();
+
+                };
+            };
+
+            function getChartFileName(index) {
+                var t = new Date($.now());
+                var current_date = t.getFullYear()+'-'+ t.getMonth()+'-'+ t.getDate()+'__'+t.getHours()+'-'+ t.getMinutes()
+                var chart_header = document.getElementsByClassName("chart-header")[index];
+                return $.trim(chart_header.innerText).split(' ').join('_')+'_'+current_date;
+            }
+        </script>
 
         <ano:equal name="thresholdsPresent" value="true">
         <div class="dashboard-line">
