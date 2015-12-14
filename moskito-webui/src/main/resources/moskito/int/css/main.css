@@ -366,9 +366,9 @@ body.status-yellow ul.nav-sidebar > li.active > a {
 .box-title h3 {
     margin: 10px 20px;
     line-height: 20px;
-    font-size: 16px;
+    font-size: 14px;
     float: left;
-    font-weight: 400;
+    font-weight: 600;
 }
 
 .box.last {
