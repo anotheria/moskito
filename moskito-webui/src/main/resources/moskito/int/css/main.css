@@ -1652,3 +1652,25 @@ Heat map
 .heatMap rect {
     opacity: 0.8;
 }
+
+
+.dashboard-line-footer {
+    margin-bottom: 10px;
+}
+
+.dashboard-line-nav-box {
+    margin-top: -10px;
+}
+
+.dashboard-line-nav-box li a {
+    color: #777;
+}
+
+.dashboard-line-nav-box li a i {
+    margin-right: 5px;
+}
+
+.dashboard-line-nav-box li a:hover {
+    text-decoration: none;
+    color: #333;
+}
