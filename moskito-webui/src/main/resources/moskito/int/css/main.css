@@ -24,7 +24,7 @@ body {
 #header {
     background: #FFF;
     border: none;
-    box-shadow: 0 2px 0 rgba(0,0,0,0.04);
+    box-shadow: 0 1px 0 rgba(0,0,0,0.06);
     left: 220px;
     -webkit-transition: all 0.12s linear;
     -moz-transition: all 0.12s linear;
@@ -59,7 +59,6 @@ body {
     -moz-transition: all 0.12s linear;
     -o-transition: all 0.12s linear;
     transition: all 0.12s linear;
-    box-shadow: -4px 0 0 rgba(0, 0, 0, 0.2) inset;
 }
 
 .header-box {
@@ -149,7 +148,6 @@ ul.nav-sidebar > li {
 
 ul.nav-sidebar > li > a:focus,
 ul.nav-sidebar > li > a {
-    background: #4e515b;
     color: #FFF;
     opacity: 0.6;
     padding: 10px 15px;
@@ -171,10 +169,11 @@ ul.nav-sidebar > li > a i {
     top: 12px;
 }
 
+ul.nav-sidebar > li > a:focus,
 ul.nav-sidebar > li > a:active,
 ul.nav-sidebar > li > a:hover {
     opacity: 1;
-    background: #4d515c;
+    background: rgba(255,255,255,0.05);
 }
 
 ul.nav-sidebar > li.active > a {
@@ -336,7 +335,7 @@ body.status-yellow ul.nav-sidebar > li.active > a {
 .box {
     background: #FFF;
     min-height: 50px;
-    box-shadow: 0 2px 0 rgba(0,0,0,0.04);
+    box-shadow: 0 1px 0 rgba(0,0,0,0.06);
     border-radius: 5px;
     margin-bottom: 30px;
     position: relative;
@@ -357,12 +356,16 @@ body.status-yellow ul.nav-sidebar > li.active > a {
 }
 
 .box-title {
-    min-height: 50px;
+    min-height: 40px;
+}
+
+.box-title.title-with-border {
+   border-bottom: 1px solid #EEE;
 }
 
 .box-title h3 {
-    margin: 14px 20px;
-    line-height: 21px;
+    margin: 10px 20px;
+    line-height: 20px;
     font-size: 16px;
     float: left;
     font-weight: 400;
@@ -445,8 +448,8 @@ table td.wrap,
     color: #444;
     margin-right: -25px;
     display: inline-block;
-    width: 50px;
-    line-height: 50px;
+    width: 40px;
+    line-height: 40px;
     display: inline-block;
     float: left;
     text-align: center;
@@ -536,12 +539,12 @@ table td.wrap,
     transition: all 0.12s linear;
     display: inline-block;
     float: right;
-    line-height: 50px;
-    width: 50px;
+    line-height: 40px;
+    width: 40px;
     text-align: center;
 }
 
-.box-right-nav:hover a {
+.box-right-nav a:hover {
     opacity: 0.8;
 }
 
