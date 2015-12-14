@@ -65,6 +65,7 @@
                         </h3>
 
                         <div class="box-right-nav">
+                            <%--<a href="" class="tooltip-bottom" title="Send email"><i class="fa fa-paper-plane"></i></a>--%>
                             <a class="tooltip-bottom save_as" id="save_as" title="Save as"><i class="fa fa-download"></i></a>
                             <a href="" class="tooltip-bottom" title="Refresh"><i class="fa fa-refresh"></i></a>
                         </div>
@@ -396,29 +397,32 @@
             $( ".graph" ).append( '<style type="text/css">' +
             '.axis path,'+
             '.axis line {'+
-            'fill: none;'+
-            'stroke: #000;'+
-            'shape-rendering: crispEdges;'+
+                'fill: none;'+
+                'stroke: #000;'+
+                'shape-rendering: crispEdges;'+
+            '}'+
+            '.legend, .tick {'+
+                'font: 12px sans-serif;'+
             '}'+
 
             '.line {'+
-            'fill: none;'+
-            'stroke: steelblue;'+
-            'stroke-width: 1.5px;'+
+                'fill: none;'+
+                'stroke: steelblue;'+
+                'stroke-width: 1.5px;'+
             '}'+
 
             '.line.hover {'+
             'fill: none;'+
-            'stroke: steelblue;'+
-            'stroke-width: 3.0px;'+
+                'stroke: steelblue;'+
+                'stroke-width: 3.0px;'+
             '}'+
 
             '.grid .tick {'+
-            'stroke: lightgrey;'+
-            'opacity: 0.7;'+
+                'stroke: lightgrey;'+
+                'opacity: 0.7;'+
             '}'+
             '.grid path {'+
-            'stroke-width: 0;'+
+                'stroke-width: 0;'+
             '}'+
             '</style>' );
             var svgData = new XMLSerializer().serializeToString(svg);
