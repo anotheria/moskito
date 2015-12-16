@@ -389,13 +389,24 @@
                 });
     </script>
 
-    <script type="text/javascript">
-        $('.save_as').click( function() {
-            var svg = document.querySelector("svg");
-            $("svg").css("background-color","#FFFFFF");
 
-            $( ".graph" ).append( '<style type="text/css">' +
-            '.axis path,'+
+
+        <script type="text/javascript">
+        $('.save_as').click( function() {
+            var chartWidth = 1120,
+                    chartHeight = 300,
+                    margin = 40;
+
+            var svgOrigin = document.querySelector("svg");
+            //copy svg chart
+            var svg = svgOrigin.cloneNode(true);
+
+            svg.setAttribute("style", "background-color: #FFFFFF;");
+            svg.setAttribute("x",margin);
+            svg.setAttribute("y",margin);
+
+
+            var css = '.axis path,'+
             '.axis line {'+
                 'fill: none;'+
                 'stroke: #000;'+
@@ -423,13 +434,24 @@
             '}'+
             '.grid path {'+
                 'stroke-width: 0;'+
-            '}'+
-            '</style>' );
+            '}';
+
+            var style = document.createElement('style');
+            style.type = 'text/css';
+            if (style.styleSheet){
+                style.styleSheet.cssText = css;
+            } else {
+                style.appendChild(document.createTextNode(css));
+            }
+
+            svg.appendChild(style);
+
             var svgData = new XMLSerializer().serializeToString(svg);
+            svgData ='<svg xmlns="http://www.w3.org/2000/svg"  style="background-color: #FFFFFF;" width="1200" height="380" >' + svgData + '</svg>';
 
             var canvas = document.createElement("canvas");
-            canvas.width  = 1200;
-            canvas.height = 800;
+            canvas.width  = chartWidth + 2*margin;
+            canvas.height = chartHeight + 2*margin;
             var ctx = canvas.getContext("2d");
             ctx.fillStyle="white";
             ctx.fill();
