@@ -138,6 +138,7 @@ public class AccumulatorAPIImpl extends AbstractMoskitoAPIImpl implements Accumu
 	public MultilineChartAO getAccumulatorGraphData(List<String> ids, boolean normalized) throws APIException {
 
 		int normalizeBase = 100;
+		//TODO actually this limit is hardcoded, we should make it dynamic.
 		int maxValues = 200;
 
 		if (ids.size() == 0)
@@ -218,8 +219,11 @@ public class AccumulatorAPIImpl extends AbstractMoskitoAPIImpl implements Accumu
 
 		//generally its not always a good idea to use subList, but since that list isn't reused,
 		//as in subList or subList of subList, its ok.
-		if (dataBeans.size()>maxValues)
-			dataBeans = dataBeans.subList(dataBeans.size()-maxValues, dataBeans.size());
+		if (dataBeans.size()>maxValues) {
+			List<AccumulatedValueAO> shorterList = new ArrayList<AccumulatedValueAO>();
+			shorterList.addAll(dataBeans.subList(dataBeans.size() - maxValues, dataBeans.size()));
+			dataBeans = shorterList;
+		}
 
 		MultilineChartAO ret = new MultilineChartAO();
 		ret.setData(dataBeans);
