@@ -15,6 +15,7 @@ import net.anotheria.moskito.webui.shared.api.AbstractMoskitoAPIImpl;
 import net.anotheria.moskito.webui.threshold.api.ThresholdAPI;
 import net.anotheria.util.sorter.DummySortType;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.LinkedList;
@@ -185,5 +186,19 @@ public class DashboardAPIImpl extends AbstractMoskitoAPIImpl implements Dashboar
 		}
 
 		return ret;
+	}
+
+	@Override
+	public List<String> getDashboardNames() throws APIException {
+		List<String> dashboardNames = new ArrayList<String>();
+		MoskitoConfiguration config = MoskitoConfigurationHolder.getConfiguration();
+		DashboardsConfig dashboardsConfig = config.getDashboardsConfig();
+		if (dashboardsConfig.getDashboards()!=null){
+			for (DashboardConfig dc : dashboardsConfig.getDashboards()){
+				dashboardNames.add(dc.getName());
+			}
+		}
+		return dashboardNames;
+
 	}
 }

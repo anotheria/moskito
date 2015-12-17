@@ -2,10 +2,6 @@ package net.anotheria.moskito.webui.dashboards.action;
 
 import net.anotheria.anoplass.api.APIException;
 import net.anotheria.maf.action.ActionMapping;
-import net.anotheria.moskito.core.config.MoskitoConfiguration;
-import net.anotheria.moskito.core.config.MoskitoConfigurationHolder;
-import net.anotheria.moskito.core.config.dashboards.DashboardConfig;
-import net.anotheria.moskito.core.config.dashboards.DashboardsConfig;
 import net.anotheria.moskito.webui.dashboards.bean.DashboardMenuItemBean;
 import net.anotheria.moskito.webui.shared.action.BaseMoskitoUIAction;
 import net.anotheria.moskito.webui.shared.bean.NaviItem;
@@ -13,6 +9,7 @@ import net.anotheria.moskito.webui.shared.bean.NaviItem;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.LinkedList;
+import java.util.List;
 
 /**
  * Base action for all dashboards action.
@@ -37,12 +34,9 @@ public abstract class BaseDashboardAction extends BaseMoskitoUIAction {
 		LinkedList<DashboardMenuItemBean> dashboardsMenu = new LinkedList<DashboardMenuItemBean>();
 
 		//prepare list of dashboards
-		MoskitoConfiguration config = MoskitoConfigurationHolder.getConfiguration();
-		DashboardsConfig dashboardsConfig = config.getDashboardsConfig();
-		if (dashboardsConfig.getDashboards()!=null){
-			for (DashboardConfig dc : dashboardsConfig.getDashboards()){
-				dashboardsMenu.add(new DashboardMenuItemBean(dc.getName()));
-			}
+		List<String> names = getDashboardAPI().getDashboardNames();
+		for (String name : names){
+			dashboardsMenu.add(new DashboardMenuItemBean(name));
 		}
 
 		req.setAttribute("dashboardsMenuItems", dashboardsMenu);

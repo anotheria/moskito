@@ -28,4 +28,7 @@ public interface DashboardAPI extends API, Service{
 	List<DashboardDefinitionAO> getDashboardDefinitions() throws APIException;
 
 	DashboardAO getDashboard(String name) throws APIException;
+
+	List<String> getDashboardNames() throws APIException;
+
 }
