@@ -41,6 +41,13 @@
                 </ano:present>
             </ano:present>
 
+            <%-- accumulators colors data --%>
+            <ano:present name="accumulatorsColors">
+                <script type="text/javascript">
+                    var accumulatorsColors = <ano:write name="accumulatorsColors"/>;
+                </script>
+            </ano:present>
+
             <%-- single chart box with charts --%>
             <ano:notPresent name="multiple_set">
                 <div class="box">
@@ -48,7 +55,7 @@
                         <a class="accordion-toggle tooltip-bottom" title="Close/Open" data-toggle="collapse"
                            href="#collapse-chart"><i class="fa fa-caret-right"></i></a>
 
-                        <h3 class="pull-left">
+                        <h3 class="pull-left chart-header">
                             <ano:iF test="${fn:length(accNames) eq 1}">
                                 ${accNames[0]}
                             </ano:iF>
@@ -58,6 +65,8 @@
                         </h3>
 
                         <div class="box-right-nav">
+                            <%--<a href="" class="tooltip-bottom" title="Send email"><i class="fa fa-paper-plane"></i></a>--%>
+                            <a class="tooltip-bottom save_as" id="save_as" title="Save as"><i class="fa fa-download"></i></a>
                             <a href="" class="tooltip-bottom" title="Refresh"><i class="fa fa-refresh"></i></a>
                         </div>
                     </div>
@@ -135,6 +144,7 @@
                             container: containerSelectors[index],
                             names: [names[index]],
                             data: graphData,
+                            colors: accumulatorsColors,
                             type: '<ano:write name="type"/>',
                             title: names[index],
                             dataType: 'datetime',
@@ -156,6 +166,7 @@
                         container: 'chart_accum${singleGraph.nameForJS}',
                         names: names,
                         data: data,
+                        colors: accumulatorsColors,
                         type: '<ano:write name="type"/>',
                         title: '',
                         dataType: 'datetime',
@@ -376,6 +387,75 @@
                         $('.fixed-box .btn-clear').addClass('hide');
                     }
                 });
+    </script>
+
+    <script type="text/javascript">
+        $('.save_as').click( function() {
+            var svg = document.querySelector("svg");
+            $("svg").css("background-color","#FFFFFF");
+
+            $( ".graph" ).append( '<style type="text/css">' +
+            '.axis path,'+
+            '.axis line {'+
+                'fill: none;'+
+                'stroke: #000;'+
+                'shape-rendering: crispEdges;'+
+            '}'+
+            '.legend, .tick {'+
+                'font: 12px sans-serif;'+
+            '}'+
+
+            '.line {'+
+                'fill: none;'+
+                'stroke: steelblue;'+
+                'stroke-width: 1.5px;'+
+            '}'+
+
+            '.line.hover {'+
+            'fill: none;'+
+                'stroke: steelblue;'+
+                'stroke-width: 3.0px;'+
+            '}'+
+
+            '.grid .tick {'+
+                'stroke: lightgrey;'+
+                'opacity: 0.7;'+
+            '}'+
+            '.grid path {'+
+                'stroke-width: 0;'+
+            '}'+
+            '</style>' );
+            var svgData = new XMLSerializer().serializeToString(svg);
+
+            var canvas = document.createElement("canvas");
+            canvas.width  = 1200;
+            canvas.height = 800;
+            var ctx = canvas.getContext("2d");
+            ctx.fillStyle="white";
+            ctx.fill();
+
+            var img = document.createElement("img");
+            img.setAttribute("src", "data:image/svg+xml;base64," + btoa(svgData));
+
+            img.onload = function () {
+                ctx.drawImage(img, 0, 0);
+                var canvasdata = canvas.toDataURL("image/png")
+                var a = document.createElement("a");
+                var file_name = getChartFileName();
+
+                a.download = file_name + ".png";
+                a.href = canvasdata;
+                document.body.appendChild(a);
+                a.click();
+
+            };
+        });
+
+        function getChartFileName() {
+            var t = new Date($.now());
+            var current_date = t.getFullYear()+'-'+ t.getMonth()+'-'+ t.getDate()+'__'+t.getHours()+'-'+ t.getMinutes()
+            return $.trim($('.chart-header').text()).split(' ').join('_')+'_'+current_date;
+        }
     </script>
 
 </section>

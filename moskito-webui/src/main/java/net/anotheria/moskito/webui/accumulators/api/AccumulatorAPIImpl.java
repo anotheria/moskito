@@ -5,6 +5,7 @@ import net.anotheria.moskito.core.accumulation.AccumulatedValue;
 import net.anotheria.moskito.core.accumulation.Accumulator;
 import net.anotheria.moskito.core.accumulation.AccumulatorDefinition;
 import net.anotheria.moskito.core.accumulation.AccumulatorRepository;
+import net.anotheria.moskito.core.config.MoskitoConfigurationHolder;
 import net.anotheria.moskito.core.stats.TimeUnit;
 import net.anotheria.moskito.webui.accumulators.bean.AccumulatedValuesBean;
 import net.anotheria.moskito.webui.shared.api.AbstractMoskitoAPIImpl;
@@ -91,6 +92,7 @@ public class AccumulatorAPIImpl extends AbstractMoskitoAPIImpl implements Accumu
 		AccumulatedSingleGraphAO singleGraphDataBean = new AccumulatedSingleGraphAO(accumulator.getName());
 
 		singleGraphDataBean.setData(new AccumulatorAO(accumulator).getValues());
+		singleGraphDataBean.setColor(MoskitoConfigurationHolder.getConfiguration().getAccumulatorsConfig().getAccumulatorColor(accumulator.getName()));
 		return singleGraphDataBean;
 	}
 
@@ -150,11 +152,11 @@ public class AccumulatorAPIImpl extends AbstractMoskitoAPIImpl implements Accumu
 
 		for (String id : ids){
 			AccumulatorAO acc = getAccumulator(id);
-			AccumulatedSingleGraphAO singleGraphDataBean = new AccumulatedSingleGraphAO(acc.getName());
+			AccumulatedSingleGraphAO singleGraphDataBean = getAccumulatorGraphData(id);
 			singleGraphDataBeans.add(singleGraphDataBean);
+
 			accNames.add(acc.getName());
 			List<AccumulatedValueAO> accValues = acc.getValues();
-			singleGraphDataBean.setData(accValues);
 			for (AccumulatedValueAO v : accValues){
 				long timestamp = v.getNumericTimestamp();
 				timestamp = timestamp /  MINUTE * MINUTE;
@@ -222,6 +224,7 @@ public class AccumulatorAPIImpl extends AbstractMoskitoAPIImpl implements Accumu
 		MultilineChartAO ret = new MultilineChartAO();
 		ret.setData(dataBeans);
 		ret.setNames(accNames);
+		ret.setSingleGraphAOs(singleGraphDataBeans);
 		return ret;
 	}
 

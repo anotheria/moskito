@@ -60,7 +60,20 @@
               "accumulatorNames": ["SessionCount Cur Absolute", "URL AVG 1h", "URL REQ 1h", "URL Time 1h"],
               "mode": "MULTIPLE"
             }
-
+        ],
+        "@accumulatorsColors": [
+            {
+                "name": "CPU Time 1h",
+                "color": "#FF0000"
+            },
+            {
+                "name": "CPU Time 1m",
+                "color": "#00FF00"
+            },
+            {
+                "name": "CPU Time 5m",
+                "color": "#0000FF"
+            }
         ]
     },
 

@@ -10,6 +10,7 @@ import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 
 /**
  * TODO comment this class
@@ -18,33 +19,72 @@ import static org.junit.Assert.assertNotNull;
  * @since 06.03.13 07:25
  */
 public class AccumulatorAPITest {
+	/**
+	 * {@link AccumulatorAPI} instance.
+	 */
+	private AccumulatorAPI testApi;
 
-	@Before @After public void setup(){
+	@Before
+	@After
+	public void setup() {
 		APIFinder.cleanUp();
 		APIFinder.addAPIFactory(AccumulatorAPI.class, new AccumulatorAPIFactory());
+
+		testApi = APIFinder.findAPI(AccumulatorAPI.class);
 	}
 
-	@Test public void testCreateDelete() throws APIException{
+	@Test
+	public void testCreateDelete() throws APIException {
 		AccumulatorAPI api = APIFinder.findAPI(AccumulatorAPI.class);
 
 		assertNotNull(api.getAccumulatorDefinitions());
 
-
-		AccumulatorPO toCreate = new AccumulatorPO();
-		toCreate.setInterval(DefaultIntervals.FIVE_MINUTES.getName());
-		toCreate.setName("test");
-		toCreate.setProducerId("Non-Existing");
-		toCreate.setStatName("Foo");
-		toCreate.setUnit(TimeUnit.MILLISECONDS.name());
-
-		AccumulatorDefinitionAO ret = api.createAccumulator(toCreate);
-		assertNotNull(ret);
-
+		final AccumulatorDefinitionAO ret = createAccumulator("test");
 		assertEquals(1, api.getAccumulatorDefinitions().size());
 
 		api.removeAccumulator(ret.getId());
 		assertEquals(0, api.getAccumulatorDefinitions().size());
+	}
 
+	@Test
+	public void testGetAccumulatorGraphData() throws Exception {
+		final AccumulatorDefinitionAO accumulatorDef1 = createAccumulator("testAccumulator1");
+		final AccumulatorDefinitionAO accumulatorDef2 = createAccumulator("testAccumulator2");
+		final AccumulatorDefinitionAO accumulatorDef3 = createAccumulator("testAccumulator3");
 
+		final AccumulatedSingleGraphAO accumulatorGraphAO1 = testApi.getAccumulatorGraphData(accumulatorDef1.getId());
+		assertNotNull(accumulatorGraphAO1);
+		assertEquals("Should be equals", "testAccumulator1", accumulatorGraphAO1.getName());
+		assertEquals("Should be equals", "testColor1", accumulatorGraphAO1.getColor());
+
+		final AccumulatedSingleGraphAO accumulatorGraphAO2 = testApi.getAccumulatorGraphData(accumulatorDef2.getId());
+		assertNotNull(accumulatorGraphAO2);
+		assertEquals("Should be equals", "testAccumulator2", accumulatorGraphAO2.getName());
+		assertEquals("Should be equals", "testColor2", accumulatorGraphAO2.getColor());
+
+		final AccumulatedSingleGraphAO accumulatorGraphAO3 = testApi.getAccumulatorGraphData(accumulatorDef3.getId());
+		assertNotNull(accumulatorGraphAO3);
+		assertEquals("Should be equals", "testAccumulator3", accumulatorGraphAO3.getName());
+		assertNull("Should be null", accumulatorGraphAO3.getColor());
+	}
+
+	/**
+	 * Creates {@link AccumulatorDefinitionAO}.
+	 *
+	 * @param name accumulator name
+	 * @return {@link AccumulatorDefinitionAO}
+	 */
+	private AccumulatorDefinitionAO createAccumulator(final String name) throws APIException {
+		final AccumulatorPO toCreate = new AccumulatorPO();
+		toCreate.setInterval(DefaultIntervals.FIVE_MINUTES.getName());
+		toCreate.setName(name);
+		toCreate.setProducerId("Non-Existing");
+		toCreate.setStatName("Foo");
+		toCreate.setUnit(TimeUnit.MILLISECONDS.name());
+
+		final AccumulatorDefinitionAO accumulatorDefinitionAO = testApi.createAccumulator(toCreate);
+		assertNotNull(accumulatorDefinitionAO);
+
+		return accumulatorDefinitionAO;
 	}
 }

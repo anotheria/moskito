@@ -1,6 +1,7 @@
 package net.anotheria.moskito.core.config.accumulators;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import net.anotheria.util.StringUtils;
 import org.configureme.annotations.Configure;
 import org.configureme.annotations.ConfigureMe;
 
@@ -33,6 +34,11 @@ public class AccumulatorsConfig implements Serializable {
 	 */
 	@Configure private AccumulatorSetConfig[] accumulatorSets;
 
+	/**
+	 * Configured accumulators colors.
+	 */
+	@Configure
+	private AccumulatorGraphColor[] accumulatorsColors;
 
 	public AccumulatorConfig[] getAccumulators() {
 		return accumulators;
@@ -58,7 +64,38 @@ public class AccumulatorsConfig implements Serializable {
 		this.accumulatorSets = accumulatorSets;
 	}
 
+	public AccumulatorGraphColor[] getAccumulatorsColors() {
+		return accumulatorsColors;
+	}
+
+	public void setAccumulatorsColors(AccumulatorGraphColor[] accumulatorsColors) {
+		this.accumulatorsColors = accumulatorsColors;
+	}
+
+	/**
+	 * Returns accumulator color by given accumulator name.
+	 *
+	 * @param accumulatorName name of the accumulator
+	 * @return accumulator color or {@code null} if accumulator with given name was not found
+	 */
+	public String getAccumulatorColor(final String accumulatorName) {
+		if (StringUtils.isEmpty(accumulatorName))
+			throw new IllegalArgumentException("accumulatorName is null");
+		if (accumulatorsColors == null || accumulatorsColors.length == 0)
+			return null;
+
+		for (AccumulatorGraphColor accumulator : accumulatorsColors) {
+			if (accumulatorName.equals(accumulator.getName()))
+				return accumulator.getColor();
+		}
+
+		return null;
+	}
+
 	@Override public String toString(){
-		return "Amount: "+accumulationAmount+", accumulators: "+ Arrays.toString(accumulators) + ", accumulatorSets: "+Arrays.toString(accumulatorSets);
+		return "Amount: " + accumulationAmount + ", " +
+				"accumulators: " + Arrays.toString(accumulators) +
+				", accumulatorSets: " + Arrays.toString(accumulatorSets) +
+				", accumulatorsColors: " + Arrays.toString(accumulatorsColors);
 	}
 }
