@@ -73,7 +73,7 @@
                 <div class="dashboard-line-footer text-right">
                     <ul class="dashboard-line-nav-box list-unstyled">
                         <li>
-                            <a onclick="saveGuagesSvgAsPng()" class="save_as"><i class="fa fa-download"></i> Save all Gauges as</a>
+                            <a onclick="saveGuagesSvgAsPng()" class="save_as"><i class="fa fa-download"></i> Save all Gauges</a>
                         </li>
                     </ul>
                 </div>
@@ -135,7 +135,7 @@
                             </h3>
 
                             <div class="box-right-nav">
-                                <a class="tooltip-bottom save_as" title="Save as" onclick="saveSvgAsPng(${index}+4)"><i class="fa fa-download"></i></a>
+                                <a class="tooltip-bottom save_as" title="Save" onclick="saveSvgAsPng(${index}+4)"><i class="fa fa-download"></i></a>
                             </div>
                         </div>
                         <div id="collapse_chart${index}" class="box-content accordion-body collapse in">
@@ -290,7 +290,7 @@
             function saveSvgAsPng(index) {
                 var chartWidth = 525,
                         chartHeight = 321,
-                        margin = 50;
+                        margin = 30;
 
                 var svgOrigin = document.getElementsByTagName("svg")[index];
                 var svg = svgOrigin.cloneNode(true);
@@ -342,7 +342,7 @@
 
                 var svgData = new XMLSerializer().serializeToString(svg);
 
-                svgData ='<svg xmlns="http://www.w3.org/2000/svg"  style="background-color: #FFFFFF;" width="800" height="421" >' + svgData + '</svg>';
+                svgData ='<svg xmlns="http://www.w3.org/2000/svg"  style="background-color: #FFFFFF;" width="800" height="381" >' + svgData + '</svg>';
 
                 var canvas = document.createElement("canvas");
                 canvas.width  = chartWidth + 2*margin;

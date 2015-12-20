@@ -66,7 +66,7 @@
 
                         <div class="box-right-nav">
                             <%--<a href="" class="tooltip-bottom" title="Send email"><i class="fa fa-paper-plane"></i></a>--%>
-                            <a class="tooltip-bottom save_as" id="save_as" title="Save as"><i class="fa fa-download"></i></a>
+                            <a class="tooltip-bottom save_as" id="save_as" title="Save"><i class="fa fa-download"></i></a>
                             <a href="" class="tooltip-bottom" title="Refresh"><i class="fa fa-refresh"></i></a>
                         </div>
                     </div>
