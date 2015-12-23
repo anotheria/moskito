@@ -252,6 +252,11 @@
                 "name": "NoOpPlugin",
                 "configurationName": "none",
                 "className": "net.anotheria.moskito.core.plugins.NoOpPlugin"
+            },
+            {
+                "name": "DiskSpaceMonitoringPlugin",
+                "configurationName": "none",
+                "className": "net.anotheria.moskito.extensions.DiskSpaceMonitoringPlugin"
             }
         ]
     },
