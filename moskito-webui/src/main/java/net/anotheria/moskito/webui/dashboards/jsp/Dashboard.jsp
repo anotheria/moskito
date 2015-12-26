@@ -69,6 +69,14 @@
                         </div>
                     </ano:iterate>
                 </div>
+
+                <div class="dashboard-line-footer text-right">
+                    <ul class="dashboard-line-nav-box list-unstyled">
+                        <li>
+                            <a onclick="saveGuagesSvgAsPng()" class="save_as"><i class="fa fa-download"></i> Save all Gauges</a>
+                        </li>
+                    </ul>
+                </div>
             </div>
             <!-- // end gauges -->
 
@@ -127,7 +135,7 @@
                             </h3>
 
                             <div class="box-right-nav">
-                                <a class="tooltip-bottom save_as" title="Save as" onclick="saveSvgAsPng(${index}+4)"><i class="fa fa-download"></i></a>
+                                <a class="tooltip-bottom save_as" title="Save" onclick="saveSvgAsPng(${index}+4)"><i class="fa fa-download"></i></a>
                             </div>
                         </div>
                         <div id="collapse_chart${index}" class="box-content accordion-body collapse in">
@@ -172,17 +180,131 @@
             </script>
         </ano:equal>
 
+        //Guages
         <script type="text/javascript">
-             function saveSvgAsPng(index) {
-                var svg = document.getElementsByTagName("svg")[index];
-                $("svg").css("background-color","#FFFFFF");
+             function saveGuagesSvgAsPng() {
 
-                $( ".graph" ).append( '<style type="text/css">' +
-                '.axis path,'+
+//                 var xValBegin= 100, xStep = 200;
+                 var guageWidth = 144,
+                         guageHeight = 144,
+                         marginLeft = 50,
+                         marginRight = 50,
+                         marginTop = 50,
+                         marginBottom = 50,
+                         indent=20;
+
+                 var allSvgsCode = '<svg xmlns="http://www.w3.org/2000/svg" class="gauge1" width="800" height="244" style="background-color: #FFFFFF;">';
+
+
+                var svgs = document.getElementsByClassName("gauge");
+                 for(var i = 0; i < svgs.length;i++) {
+                     var svgOrigin =svgs[i];
+
+                     //copy svg chart
+                     var svg = svgOrigin.cloneNode(true);
+
+                     svg.setAttribute("x", marginLeft + i*(guageWidth+indent))
+                     svg.setAttribute("y", marginTop)
+                     svg.setAttribute("style", "background-color: #FFFFFF;");
+
+                     var css = '.axis path,' +
+                     '.axis line {' +
+                        'fill: none;' +
+                        'stroke: #000;' +
+                        'shape-rendering: crispEdges;' +
+                     '}' +
+                        '.legend, .tick {' +
+                        'font: 12px sans-serif;' +
+                     '}' +
+                      'text {' +
+                         'font: 12px sans-serif;' +
+                     '}' +
+                     '.line {' +
+                        'fill: none;' +
+                        'stroke: steelblue;' +
+                        'stroke-width: 1.5px;' +
+                     '}' +
+                     '.line.hover {' +
+                        'fill: none;' +
+                        'stroke: steelblue;' +
+                        'stroke-width: 3.0px;' +
+                     '}' +
+
+                     '.grid .tick {' +
+                        'stroke: lightgrey;' +
+                        'opacity: 0.7;' +
+                     '}' +
+                     '.grid path {' +
+                        'stroke-width: 0;' +
+                     '}';
+
+                     var style = document.createElement('style');
+                     style.type = 'text/css';
+                     if (style.styleSheet){
+                         style.styleSheet.cssText = css;
+                     } else {
+                         style.appendChild(document.createTextNode(css));
+                     }
+
+                     svg.appendChild(style);
+
+                     allSvgsCode+= new XMLSerializer().serializeToString(svg);
+                 }
+                 allSvgsCode+='</svg>';
+
+                 var svgData = allSvgsCode;
+                 var canvas = document.createElement("canvas");
+                 canvas.width  = marginLeft + marginRight+svgs.length*guageHeight+(svgs.length-1)*indent;
+                 canvas.height = guageHeight + marginBottom+marginTop;
+                 var ctx = canvas.getContext("2d");
+                 ctx.fillStyle="white";
+                 ctx.fill();
+                 var img = document.createElement("img");
+
+                 var imagesData=btoa(svgData)
+
+                img.setAttribute("src", "data:image/svg+xml;base64," + imagesData);
+
+                img.onload = function () {
+                    ctx.drawImage(img, 0, 0);
+                    var canvasdata = canvas.toDataURL("image/png")
+                    var a = document.createElement("a");
+                    var file_name = getChartFileNameG();
+
+                    a.download = file_name + ".png";
+                    a.href = canvasdata;
+                    document.body.appendChild(a);
+                    a.click();
+
+                };
+            };
+
+            function getChartFileNameG() {
+                var t = new Date($.now());
+                var current_date = t.getFullYear()+'-'+ t.getMonth()+'-'+ t.getDate()+'__'+t.getHours()+'-'+ t.getMinutes()
+                return "Guages_"+current_date;
+            }
+        </script>
+
+        <script type="text/javascript">
+            function saveSvgAsPng(index) {
+                var chartWidth = 525,
+                        chartHeight = 321,
+                        margin = 30;
+
+                var svgOrigin = document.getElementsByTagName("svg")[index];
+                var svg = svgOrigin.cloneNode(true);
+
+
+                svg.setAttribute("style", "background-color: #FFFFFF;");
+                svg.setAttribute("x",margin);
+                svg.setAttribute("y",margin);
+
+                var css = '.axis path,'+
                 '.axis line {'+
-                    'fill: none;'+
-                    'stroke: #000;'+
-                    'shape-rendering: crispEdges;'+
+                'fill: none;'+
+                'stroke: #000;'+
+                'shape-rendering: crispEdges;'+
                 '}'+
                 '.legend, .tick {'+
                 'font: 12px sans-serif;'+
@@ -206,13 +328,25 @@
                 '}'+
                 '.grid path {'+
                 'stroke-width: 0;'+
-                '}'+
-                '</style>' );
+                '}';
+
+                var style = document.createElement('style');
+                style.type = 'text/css';
+                if (style.styleSheet){
+                    style.styleSheet.cssText = css;
+                } else {
+                    style.appendChild(document.createTextNode(css));
+                }
+
+                svg.appendChild(style);
+
                 var svgData = new XMLSerializer().serializeToString(svg);
 
+                svgData ='<svg xmlns="http://www.w3.org/2000/svg"  style="background-color: #FFFFFF;" width="800" height="381" >' + svgData + '</svg>';
+
                 var canvas = document.createElement("canvas");
-                canvas.width  = 1200;
-                canvas.height = 800;
+                canvas.width  = chartWidth + 2*margin;
+                canvas.height = chartHeight + 2*margin;
                 var ctx = canvas.getContext("2d");
                 ctx.fillStyle="white";
                 ctx.fill();
