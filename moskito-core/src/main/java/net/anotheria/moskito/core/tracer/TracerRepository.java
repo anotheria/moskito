@@ -48,7 +48,9 @@ public class TracerRepository {
 	 * Returns the singleton instance of the TracerRepository.
 	 * @return
 	 */
-	public static TracerRepository getInstance(){ return INSTANCE; }
+	public static TracerRepository getInstance(){
+		return INSTANCE;
+	}
 
 	/**
 	 * Returns true if tracing is enabled globally and in particular for this producer.

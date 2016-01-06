@@ -57,7 +57,9 @@ public class ThresholdRepository extends TieableRepository<Threshold> {
 	 * Returns the singleton instance of the registry.
 	 * @return
 	 */
-	public static ThresholdRepository getInstance(){ return INSTANCE; }
+	public static ThresholdRepository getInstance(){
+		return INSTANCE;
+	}
 
 	protected boolean tie(Threshold threshold, IStatsProducer<? extends IStats> producer){
 		ThresholdDefinition definition = threshold.getDefinition();
