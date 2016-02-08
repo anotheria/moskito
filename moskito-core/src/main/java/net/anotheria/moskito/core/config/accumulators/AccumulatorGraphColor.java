@@ -4,6 +4,8 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.configureme.annotations.Configure;
 import org.configureme.annotations.ConfigureMe;
 
+import java.io.Serializable;
+
 /**
  * Configuration which allow to specify color of the accumulator's graph.
  *
@@ -11,7 +13,7 @@ import org.configureme.annotations.ConfigureMe;
  */
 @ConfigureMe(allfields = true)
 @SuppressFBWarnings(value = {"EI_EXPOSE_REP2", "EI_EXPOSE_REP"}, justification = "This is the way configureme works, it provides beans for access")
-public class AccumulatorGraphColor {
+public class AccumulatorGraphColor implements Serializable{
 	/**
 	 * Name of the accumulator.
 	 */
