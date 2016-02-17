@@ -161,7 +161,7 @@ public abstract class BaseShowProducersAction extends BaseMoskitoUIAction {
 						GraphDataBean bean = graphData.get(graphKey); 
 						if (bean==null) {
 						    // FIXME!
-						    System.out.println("unable to find bean for key: " + graphKey);
+						    LOG.warn("unable to find bean for key: " + graphKey);
 						} else {
 						    bean.addValue(new GraphDataValueBean(p.getProducerId(), valueBean.getRawValue()));
 						}
