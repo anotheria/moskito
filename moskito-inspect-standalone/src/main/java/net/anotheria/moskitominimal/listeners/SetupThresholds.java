@@ -5,19 +5,22 @@ import net.anotheria.moskito.core.threshold.ThresholdStatus;
 import net.anotheria.moskito.core.threshold.Thresholds;
 import net.anotheria.moskito.core.threshold.guard.GuardedDirection;
 import net.anotheria.moskito.core.threshold.guard.LongBarrierPassGuard;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 
 public class SetupThresholds implements ServletContextListener{
+	private static final Logger LOGGER = LoggerFactory.getLogger(SetupThresholds.class);
 
 	@Override
 	public void contextInitialized(ServletContextEvent sce) {
 		
-		System.out.println("Configuring thresholds ... ");
+		LOGGER.info("Configuring thresholds ... ");
 		setupMemory();
 		setupThreadCount();
-		System.out.println(" ... done.");
+		LOGGER.info(" ... done.");
 	}
 	
 	private void setupMemory() {

@@ -4,6 +4,8 @@ import net.anotheria.moskito.core.calltrace.CurrentlyTracedCall;
 import net.anotheria.moskito.core.calltrace.RunningTraceContainer;
 import net.anotheria.moskito.core.calltrace.TracedCall;
 import net.anotheria.moskito.core.command.CommandProcessor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -14,6 +16,8 @@ import java.util.concurrent.atomic.AtomicInteger;
  *
  */
 public class UseCaseRecorderCommandProcessor implements CommandProcessor{
+
+	private static final Logger LOGGER = LoggerFactory.getLogger(UseCaseRecorderCommandProcessor.class);
 
 	/**
 	 * Parameter name that triggers the recorder.
@@ -33,14 +37,14 @@ public class UseCaseRecorderCommandProcessor implements CommandProcessor{
 			useCaseName = "unnamed"+unnamedCounter.incrementAndGet();
 		RunningTraceContainer.startTracedCall(useCaseName);
 		
-		System.out.println("Starting command: "+useCaseName);
+		LOGGER.info("Starting command: "+useCaseName);
 	}
 
 	@Override
 	public void stopCommand(String command, Map<String, String[]> parameters) {
-		System.out.println("Stoping command: "+command);
+		LOGGER.info("Stoping command: "+command);
 		TracedCall last = RunningTraceContainer.endTrace();
-		System.out.println("LAST_ "+last);
+		LOGGER.info("LAST_ "+last);
 		UseCaseRecorderFactory.getUseCaseRecorder().addRecordedUseCase((CurrentlyTracedCall)last);
 	}
 	
