@@ -4,6 +4,8 @@ import net.anotheria.anoplass.api.APIException;
 import net.anotheria.moskito.core.util.threadhistory.ThreadHistoryUtility;
 import net.anotheria.moskito.webui.shared.api.AbstractMoskitoAPIImpl;
 import net.anotheria.util.NumberUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.lang.management.ManagementFactory;
 import java.lang.management.ThreadInfo;
@@ -19,6 +21,9 @@ import java.util.List;
  * @since 14.02.13 11:45
  */
 public class ThreadAPIImpl extends AbstractMoskitoAPIImpl implements ThreadAPI {
+
+	private static final Logger LOGGER = LoggerFactory.getLogger(ThreadAPIImpl.class);
+
 	@Override
 	public List<ThreadInfoAO> getThreadInfos() throws APIException {
 		ThreadMXBean mxBean = ManagementFactory.getThreadMXBean();
@@ -59,7 +64,7 @@ public class ThreadAPIImpl extends AbstractMoskitoAPIImpl implements ThreadAPI {
 		});
 		t.setName("TestThread_at_"+ NumberUtils.makeISO8601TimestampString());
 		t.start();
-		System.out.println("Started TEST thread: "+t.getId()+", "+t.getName());
+		LOGGER.info("Started TEST thread: "+t.getId()+", "+t.getName());
 
 	}
 

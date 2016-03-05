@@ -1,6 +1,7 @@
 package net.anotheria.moskito.aop.aspect;
 
 import net.anotheria.moskito.aop.annotation.Monitor;
+import net.anotheria.moskito.aop.util.AnnotationUtils;
 import net.anotheria.moskito.core.calltrace.CurrentlyTracedCall;
 import net.anotheria.moskito.core.calltrace.RunningTraceContainer;
 import net.anotheria.moskito.core.calltrace.TraceStep;
@@ -19,6 +20,7 @@ import java.lang.reflect.InvocationTargetException;
  * Aspect used to intercept @MonitorClass annotated classes method calls.
  *
  * @author <a href="mailto:vzhovtiuk@anotheria.net">Vitaliy Zhovtiuk</a>, lrosenberg
+ * @author bvanchuhov
  */
 @Aspect
 public class MonitoringAspect extends AbstractMoskitoAspect{
@@ -33,10 +35,21 @@ public class MonitoringAspect extends AbstractMoskitoAspect{
     	return doProfiling(pjp, method.producerId(), method.subsystem(), method.category());
     }
  /* */
-    @Around(value = "execution(* *.*(..)) && (@within(clazz) && !@annotation(net.anotheria.moskito.aop.annotation.DontMonitor))")
-    public Object doProfilingClass(ProceedingJoinPoint pjp, Monitor clazz) throws Throwable {
-    	return doProfiling(pjp, clazz.producerId(), clazz.subsystem(), clazz.category());
+    @Around(value = "execution(* *.*(..)) && (!@annotation(net.anotheria.moskito.aop.annotation.DontMonitor))")
+    public Object doProfilingClass(ProceedingJoinPoint pjp) throws Throwable {
+        Class clazz = pjp.getSignature().getDeclaringType();
+        if (clazz.getAnnotations().length == 0) {
+            return pjp.proceed();
+        }
+
+        Monitor monitor = AnnotationUtils.findAnnotation(clazz, Monitor.class);
+        if (monitor == null) {
+            return pjp.proceed();
+        }
+
+        return doProfiling(pjp, monitor.producerId(), monitor.subsystem(), monitor.category());
     }
+
     /*  */
     private Object doProfiling(ProceedingJoinPoint pjp, String aProducerId, String aSubsystem, String aCategory) throws Throwable {
 

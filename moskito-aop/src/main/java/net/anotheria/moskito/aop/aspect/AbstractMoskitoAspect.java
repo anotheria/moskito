@@ -2,6 +2,8 @@ package net.anotheria.moskito.aop.aspect;
 
 import net.anotheria.moskito.aop.annotation.Accumulate;
 import net.anotheria.moskito.aop.annotation.Accumulates;
+import net.anotheria.moskito.aop.util.AnnotationUtils;
+import net.anotheria.moskito.aop.util.MoskitoUtils;
 import net.anotheria.moskito.core.accumulation.AccumulatorDefinition;
 import net.anotheria.moskito.core.accumulation.AccumulatorRepository;
 import net.anotheria.moskito.core.dynamic.IOnDemandStatsFactory;
@@ -37,13 +39,13 @@ public class AbstractMoskitoAspect<S extends IStats> {
      * @return
      */
     protected  OnDemandStatsProducer<S> getProducer(ProceedingJoinPoint pjp, String aProducerId, String aCategory, String aSubsystem, boolean withMethod, IOnDemandStatsFactory<S> factory, boolean tracingSupported){
-        String producerId = null;
+        String producerId;
         if (aProducerId!=null && aProducerId.length()>0){
             producerId = aProducerId;
         }else{
             producerId = pjp.getSignature().getDeclaringTypeName();
             try{
-                producerId = producerId.substring(producerId.lastIndexOf('.')+1);
+                producerId = MoskitoUtils.producerName(producerId);
             }catch(RuntimeException ignored){/* ignored */}
         }
 
@@ -114,7 +116,7 @@ public class AbstractMoskitoAspect<S extends IStats> {
      */
     private void createClassLevelAccumulators(OnDemandStatsProducer<S> producer, Class producerClass) {
         //several @Accumulators in accumulators holder
-        Accumulates accAnnotationHolder = (Accumulates) producerClass.getAnnotation(Accumulates.class);
+        Accumulates accAnnotationHolder = AnnotationUtils.findAnnotation(producerClass, Accumulates.class);//(Accumulates) producerClass.getAnnotation(Accumulates.class);
         if (accAnnotationHolder != null && accAnnotationHolder.value() != null) {
             Accumulate[] accAnnotations  = accAnnotationHolder.value();
             for (Accumulate accAnnotation : accAnnotations) {
@@ -127,7 +129,7 @@ public class AbstractMoskitoAspect<S extends IStats> {
         }
 
         //If there is no @Accumulates annotation but @Accumulate is present
-        Accumulate annotation = (Accumulate) producerClass.getAnnotation(Accumulate.class);
+        Accumulate annotation = AnnotationUtils.findAnnotation(producerClass, Accumulate.class);//producerClass.getAnnotation(Accumulate.class);
         createAccumulator(
                 producer.getProducerId(),
                 annotation,
