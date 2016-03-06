@@ -180,7 +180,7 @@
             </script>
         </ano:equal>
 
-        //Guages
+        <!-- Gauges -->
         <script type="text/javascript">
              function saveGuagesSvgAsPng() {
 
