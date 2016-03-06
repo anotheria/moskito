@@ -1,6 +1,7 @@
 package net.anotheria.moskito.webui.accumulators.api;
 
 import org.apache.commons.lang.StringUtils;
+import org.codehaus.jackson.annotate.JsonIgnore;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -57,6 +58,7 @@ public class MultilineChartAO implements Serializable{
 	 *
 	 * @return JSON array with accumulators colors
 	 */
+	@JsonIgnore
 	public JSONArray getAccumulatorsColorsDataJSON() {
 		final JSONArray jsonArray = new JSONArray();
 		if (singleGraphAOs == null || singleGraphAOs.isEmpty())
