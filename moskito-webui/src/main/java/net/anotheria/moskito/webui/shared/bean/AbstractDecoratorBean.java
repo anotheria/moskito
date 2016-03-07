@@ -89,4 +89,10 @@ public abstract class AbstractDecoratorBean implements IComparable{
 	public String getDecoratorNameForCss(){
 		return StringUtils.removeChars(getName(), BaseMoskitoUIAction.WHITESPACES);
 	}
+
+	@Override
+	public String toString() {
+		return "name='" + name + '\'' +
+				", captions=" + captions;
+	}
 }

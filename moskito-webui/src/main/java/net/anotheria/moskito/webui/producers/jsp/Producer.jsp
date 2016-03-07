@@ -78,8 +78,22 @@
                     </ano:iterate>
                 </tr>
             </ano:iterate>
-            </tr>
             </tbody>
+            <ano:present name="decorator" property="cumulatedStat">
+                <ano:define id="cumulatedStat" name="decorator" property="cumulatedStat"/>
+                <tfoot>
+                <tr>
+                    <td>${cumulatedStat.name}</td>
+                    <ano:iterate name="cumulatedStat" property="values" id="value" type="net.anotheria.moskito.core.decorators.value.StatValueAO">
+                        <td title="${stat.name}.${value.name}=${value.value}">
+                                ${value.value}
+                        </td>
+                    </ano:iterate>
+                </tr>
+                <tfoot>
+            </ano:present>
+
+
         </table>
     </div>
 </div>
