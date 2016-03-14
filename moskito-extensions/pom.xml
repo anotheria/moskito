@@ -18,5 +18,6 @@
 		<module>moskito-additional-producers</module>
 		<module>moskito-sampling-api</module>
         <module>moskito-disk-space-monitoring</module>
+        <module>moskito-mongodb</module>
     </modules>
 </project>
