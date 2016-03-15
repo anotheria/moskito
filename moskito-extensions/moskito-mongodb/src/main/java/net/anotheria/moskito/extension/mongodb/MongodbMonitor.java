@@ -8,7 +8,6 @@ import net.anotheria.moskito.core.dynamic.OnDemandStatsProducerException;
 import net.anotheria.moskito.core.registry.ProducerRegistryFactory;
 import net.anotheria.moskito.extension.mongodb.config.MongodbMonitorConfig;
 import org.bson.Document;
-import org.bson.codecs.IntegerCodec;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -32,7 +31,7 @@ public class MongodbMonitor {
     private static OnDemandStatsProducer<MongodbStats> producer;
 
     public MongodbMonitor() {
-        producer = new OnDemandStatsProducer<MongodbStats>("MongoMonitor", "Monitor", "db", new MongodbStatsFactory());
+        producer = new OnDemandStatsProducer<>("MongoMonitor", "Monitor", "db", new MongodbStatsFactory());
         ProducerRegistryFactory.getProducerRegistryInstance().registerProducer(producer);
         Executors.newSingleThreadScheduledExecutor().scheduleAtFixedRate(new UpdateTask(), 0,
                 MongodbMonitorConfig.getInstance().getUpdatePeriod(), TimeUnit.MINUTES);

@@ -1,13 +1,15 @@
 package net.anotheria.moskito.extension.mongodb;
 
+import net.anotheria.moskito.core.dynamic.OnDemandStatsProducer;
+import net.anotheria.moskito.core.registry.ProducerRegistryFactory;
 import org.junit.BeforeClass;
-import org.junit.Ignore;
 import org.junit.Test;
+
+import static org.junit.Assert.assertNotNull;
 
 /**
  * Test for mongodb monitor
  */
-@Ignore
 public class MongodbMonitorTest {
 
     @BeforeClass
@@ -17,7 +19,9 @@ public class MongodbMonitorTest {
     }
 
     @Test
-    public void test(){
-        new MongodbMonitor();
+    public void testCreation(){
+        OnDemandStatsProducer<MongodbStats>producer = new OnDemandStatsProducer<>("MongoMonitor", "Monitor", "db", new MongodbStatsFactory());
+        ProducerRegistryFactory.getProducerRegistryInstance().registerProducer(producer);
+        assertNotNull(ProducerRegistryFactory.getProducerRegistryInstance().getProducer("MongoMonitor"));
     }
 }
