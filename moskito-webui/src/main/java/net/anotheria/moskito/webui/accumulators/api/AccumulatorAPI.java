@@ -13,8 +13,6 @@ import java.util.List;
 /**
  * API Implementation for accumulators. Provides access to stored accumulators, their values and allows to create new.
  *
- * @author lrosenberg
- * @since 13.02.13 18:13
  */
 @DistributeMe(agentsSupport=false)
 @SupportService
@@ -40,6 +38,8 @@ public interface AccumulatorAPI extends API, Service {
 	AccumulatorDefinitionAO getAccumulatorDefinition(String id) throws APIException;
 
 	AccumulatedSingleGraphAO getAccumulatorGraphData(String id) throws APIException;
+
+	AccumulatedSingleGraphAO getAccumulatorGraphDataByName(String name) throws APIException;
 
 	AccumulatorAO getAccumulator(String id) throws APIException;
 

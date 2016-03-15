@@ -97,6 +97,11 @@ public class AccumulatorAPIImpl extends AbstractMoskitoAPIImpl implements Accumu
 	}
 
 	@Override
+	public AccumulatedSingleGraphAO getAccumulatorGraphDataByName(String name) throws APIException {
+		return getAccumulatorGraphData(AccumulatorRepository.getInstance().getByName(name).getId());
+	}
+
+	@Override
 	public List<AccumulatorDefinitionAO> getAccumulatorDefinitions() throws APIException {
 		List<Accumulator> accumulators = AccumulatorRepository.getInstance().getAccumulators();
 		List<AccumulatorDefinitionAO> ret = new ArrayList<AccumulatorDefinitionAO>();
