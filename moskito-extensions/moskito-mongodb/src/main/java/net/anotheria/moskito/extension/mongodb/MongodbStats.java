@@ -31,13 +31,13 @@ public class MongodbStats extends AbstractStats {
 
     public MongodbStats(String aName) {
         super(aName);
-        this.flushes = newLongStatValue(MongoStatsFields.FLUSHES.toString());
-        this.total_ms_write = newLongStatValue(MongoStatsFields.TOTAL_MS_WRITE.toString());
+        this.flushes = newIntStatValue(MongoStatsFields.FLUSHES.toString());
+        this.total_ms_write = newIntStatValue(MongoStatsFields.TOTAL_MS_WRITE.toString());
         this.avg_ms_write = newDoubleStatValue(MongoStatsFields.AVG_MS_WRITE.toString());
-        this.last_ms_write = newLongStatValue(MongoStatsFields.LAST_MS_WRITE.toString());
-        this.current_connections = newLongStatValue(MongoStatsFields.CURRENT_CONNECTIONS.toString());
-        this.available_connections = newLongStatValue(MongoStatsFields.AVAIlABLE_CONNECTIONS.toString());
-        this.total_created_connections = newLongStatValue(MongoStatsFields.TOTAL_CREATED_CONNECTIONS.toString());
+        this.last_ms_write = newIntStatValue(MongoStatsFields.LAST_MS_WRITE.toString());
+        this.current_connections = newIntStatValue(MongoStatsFields.CURRENT_CONNECTIONS.toString());
+        this.available_connections = newIntStatValue(MongoStatsFields.AVAIlABLE_CONNECTIONS.toString());
+        this.total_created_connections = newIntStatValue(MongoStatsFields.TOTAL_CREATED_CONNECTIONS.toString());
     }
 
     public StatValue getFlushes() {
@@ -96,8 +96,8 @@ public class MongodbStats extends AbstractStats {
         this.total_created_connections = total_created_connections;
     }
 
-    private StatValue newLongStatValue(String valueName) {
-        StatValue sv = StatValueFactory.createStatValue(0L, valueName, Constants.getDefaultIntervals());
+    private StatValue newIntStatValue(String valueName) {
+        StatValue sv = StatValueFactory.createStatValue(0, valueName, Constants.getDefaultIntervals());
         addStatValues(sv);
         return sv;
     }

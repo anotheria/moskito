@@ -8,6 +8,7 @@ import net.anotheria.moskito.core.dynamic.OnDemandStatsProducerException;
 import net.anotheria.moskito.core.registry.ProducerRegistryFactory;
 import net.anotheria.moskito.extension.mongodb.config.MongodbMonitorConfig;
 import org.bson.Document;
+import org.bson.codecs.IntegerCodec;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -77,18 +78,18 @@ public class MongodbMonitor {
     private void updateFlushing(Map<String, Object> map) {
         Map<String, Object> backgroundFlushing = ((Map<String, Object>) map.get("backgroundFlushing"));
         MongodbStats stats = getProducerStats();
-        stats.getFlushes().setValueAsLong(((Long) backgroundFlushing.get("flushes")));
-        stats.getTotal_ms_write().setValueAsLong(((Long) backgroundFlushing.get("total_ms")));
+        stats.getFlushes().setValueAsInt(((Integer) backgroundFlushing.get("flushes")));
+        stats.getTotal_ms_write().setValueAsInt(((Integer) backgroundFlushing.get("total_ms")));
         stats.getAvg_ms_write().setValueAsDouble(((Double) backgroundFlushing.get("average_ms")));
-        stats.getLast_ms_write().setValueAsLong(((Long) backgroundFlushing.get("last_ms")));
+        stats.getLast_ms_write().setValueAsInt(((Integer) backgroundFlushing.get("last_ms")));
     }
 
     private void updateConnections(Map<String, Object> map) {
         Map<String, Object> connections = ((Map<String, Object>) map.get("connections"));
         MongodbStats stats = getProducerStats();
-        stats.getCurrent_connections().setValueAsLong(((Long) connections.get("current")));
-        stats.getAvailable_connections().setValueAsLong(((Long) connections.get("available")));
-        stats.getTotal_created_connections().setValueAsLong(((Long) connections.get("totalCreated")));
+        stats.getCurrent_connections().setValueAsInt(((Integer) connections.get("current")));
+        stats.getAvailable_connections().setValueAsInt(((Integer) connections.get("available")));
+        stats.getTotal_created_connections().setValueAsInt(((Integer) connections.get("totalCreated")));
     }
 
     private MongodbStats getProducerStats() {
