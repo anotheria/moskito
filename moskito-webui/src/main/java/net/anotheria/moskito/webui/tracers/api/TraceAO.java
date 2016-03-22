@@ -10,6 +10,11 @@ import java.util.List;
  * @since 05.05.15 00:43
  */
 public class TraceAO implements Serializable {
+
+	/**
+	 * Id.
+	 */
+	private String id;
 	/**
 	 * Call description.
 	 */
@@ -49,5 +54,13 @@ public class TraceAO implements Serializable {
 
 	public int getElementCount(){
 		return elements == null ? 0 : elements.size();
+	}
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
 	}
 }

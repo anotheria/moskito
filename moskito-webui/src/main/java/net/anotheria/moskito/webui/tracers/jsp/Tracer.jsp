@@ -24,9 +24,10 @@
                 <table class="table table-striped table-tree tree">
                     <thead>
                     <tr>
-                        <th>Call</th>
+                        <th>Id</th>
                         <th>Elements</th>
                         <th>Duration</th>
+                        <th>Call</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -34,14 +35,15 @@
                         <tr data-level="0">
                             <td>
                                 <div>
-                                    <i class="minus">–</i><i class="plus">+</i><i class="vline"></i>${trace.call}
+                                    <i class="minus">–</i><i class="plus">+</i><i class="vline"></i>Trace-${trace.id}
                                 </div>
                             </td>
                             <td>${trace.elementCount}</td>
                             <td>${trace.duration}</td>
+                            <td>${trace.call}</td>
                         </tr>
                         <tr class="dump-list" data-level="1">
-                            <td colspan="3">
+                            <td colspan="4">
                                 <ul>
                                     <ano:iterate name="trace" property="elements" id="element" type="java.lang.StackTraceElement">
                                         <li>${element}</li>
