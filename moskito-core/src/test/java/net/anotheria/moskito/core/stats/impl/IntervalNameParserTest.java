@@ -37,7 +37,6 @@ package net.anotheria.moskito.core.stats.impl;
 import net.anotheria.moskito.core.stats.UnknownIntervalLengthException;
 import org.junit.Test;
 
-import static junit.framework.Assert.fail;
 import static org.junit.Assert.*;
 
 /**
