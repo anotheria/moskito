@@ -1,17 +1,19 @@
 package net.anotheria.moskito.core.tracer;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import net.anotheria.util.BasicComparable;
+import net.anotheria.util.sorter.IComparable;
 
 import java.util.Arrays;
 import java.util.concurrent.atomic.AtomicLong;
 
 /**
- * TODO comment this class
+ * Contains a single trace.
  *
  * @author lrosenberg
  * @since 05.05.15 17:54
  */
-public class Trace {
+public class Trace implements IComparable<Trace>{
 	private static AtomicLong counter = new AtomicLong();
 	private long id = counter.incrementAndGet();
 	private String call;
@@ -50,5 +52,17 @@ public class Trace {
 
 	public long getId(){
 		return id;
+	}
+
+	@Override
+	public int compareTo(IComparable<? extends Trace> iComparable, int method) {
+		switch(method){
+			case TraceSortType.SORT_BY_ID:
+				return BasicComparable.compareLong(id, ((Trace)iComparable).getId());
+			case TraceSortType.SORT_BY_DURATION:
+				return BasicComparable.compareLong(duration, ((Trace)iComparable).getDuration());
+			default:
+				throw new IllegalArgumentException("Method "+method+" is not supported");
+		}
 	}
 }

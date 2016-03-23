@@ -42,6 +42,11 @@ public class TracingConfiguration implements Serializable{
 	@Configure
 	private String[] tracers;
 
+	/**
+	 * Shrinking strategy - how to remove obsolete traces.
+	 */
+	private ShrinkingStrategy shrinkingStrategy = ShrinkingStrategy.FIFO;
+
 	public boolean isInspectEnabled() {
 		return inspectEnabled;
 	}
@@ -86,5 +91,13 @@ public class TracingConfiguration implements Serializable{
 
 	public int getToleratedTracesAmount(){
 		return getMaxTraces() + getMaxTraces()/10;
+	}
+
+	public ShrinkingStrategy getShrinkingStrategy() {
+		return shrinkingStrategy;
+	}
+
+	public void setShrinkingStrategy(ShrinkingStrategy shrinkingStrategy) {
+		this.shrinkingStrategy = shrinkingStrategy;
 	}
 }
