@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 
@@ -69,9 +70,9 @@ public abstract class GenericCounterStats extends AbstractStats{
 	public String toStatsString(String aIntervalName, TimeUnit unit) {
 		StringBuilder s = new StringBuilder();
 		s.append(getName()).append(' ');
-		for (String value : values.keySet()) {
-			s.append(value).append(": ");
-			s.append(values.get(value).getValueAsLong(aIntervalName));
+		for (Map.Entry<String,StatValue> entry : values.entrySet()) {
+			s.append(entry.getKey()).append(": ");
+			s.append(entry.getValue().getValueAsLong(aIntervalName));
 		}
 		return s.toString();
 	}
