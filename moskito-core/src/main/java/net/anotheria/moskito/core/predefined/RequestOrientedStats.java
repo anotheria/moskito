@@ -239,7 +239,7 @@ public abstract class RequestOrientedStats extends AbstractStats {
 	public double getErrorRate(String intervalName){
 		long tr = getTotalRequests(intervalName);
 		double errorRate = tr == 0? 0:((double)getErrors(intervalName))/tr;
-		return (double)((int)((errorRate * 10000)))/100;
+		return (double)((int)(errorRate * 10000))/100;
 	}
 
 	/**
