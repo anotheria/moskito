@@ -1,5 +1,6 @@
 package net.anotheria.moskito.core.config;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.configureme.ConfigurationManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -79,6 +80,7 @@ public enum MoskitoConfigurationHolder {
 	 * This method allows to set configuration from outside and is solely for testing purposes (junit). Do not use otherwise please.
 	 * @param configuration
 	 */
+	@SuppressFBWarnings("ME_ENUM_FIELD_SETTER")
 	public void setConfiguration(MoskitoConfiguration configuration){
 		this.configuration = configuration;
 	}
