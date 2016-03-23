@@ -50,5 +50,5 @@ public interface IProducerFilter {
 	 * @param producer the producer in question.
 	 * @return true if the producer fits the filter criteria, false otherwise.
 	 */
-	public boolean doesFit(IStatsProducer producer);
+	boolean doesFit(IStatsProducer producer);
 }

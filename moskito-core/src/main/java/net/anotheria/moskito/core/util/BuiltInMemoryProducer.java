@@ -92,7 +92,7 @@ public class BuiltInMemoryProducer  extends AbstractBuiltInProducer implements I
 	 *
 	 */
 	private interface RuntimeMemoryResolver {
-		public long getMemoryValue();
+		long getMemoryValue();
 	}
 
 	
