@@ -45,6 +45,7 @@ public class TracingConfiguration implements Serializable{
 	/**
 	 * Shrinking strategy - how to remove obsolete traces.
 	 */
+	@Configure
 	private ShrinkingStrategy shrinkingStrategy = ShrinkingStrategy.FIFO;
 
 	public boolean isInspectEnabled() {
