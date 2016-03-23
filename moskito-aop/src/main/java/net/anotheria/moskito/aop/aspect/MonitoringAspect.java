@@ -6,9 +6,13 @@ import net.anotheria.moskito.core.calltrace.RunningTraceContainer;
 import net.anotheria.moskito.core.calltrace.TraceStep;
 import net.anotheria.moskito.core.calltrace.TracedCall;
 import net.anotheria.moskito.core.dynamic.OnDemandStatsProducer;
+import net.anotheria.moskito.core.journey.Journey;
+import net.anotheria.moskito.core.journey.JourneyManagerFactory;
 import net.anotheria.moskito.core.predefined.ServiceStats;
 import net.anotheria.moskito.core.predefined.ServiceStatsFactory;
+import net.anotheria.moskito.core.tracer.Trace;
 import net.anotheria.moskito.core.tracer.TracerRepository;
+import net.anotheria.moskito.core.tracer.Tracers;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -18,7 +22,8 @@ import java.lang.reflect.InvocationTargetException;
 /**
  * Aspect used to intercept @MonitorClass annotated classes method calls.
  *
- * @author <a href="mailto:vzhovtiuk@anotheria.net">Vitaliy Zhovtiuk</a>, lrosenberg
+ * @author Vitaliy Zhovtiuk
+ * @author lrosenberg
  * @author bvanchuhov
  */
 @Aspect
@@ -61,10 +66,32 @@ public class MonitoringAspect extends AbstractMoskitoAspect{
 
         TracerRepository tracerRepository = TracerRepository.getInstance();
         boolean tracePassingOfThisProducer = tracerRepository.isTracingEnabledForProducer(producerId);
+		Trace trace = null;
+		boolean journeyStartedByMe = false;
+
+		//we create trace here already, because we want to reserve a new trace id.
+		if (tracePassingOfThisProducer){
+			trace = new Trace();
+		}
+
+
+		if (currentTrace == null && tracePassingOfThisProducer){
+			//ok, we will create a new journey on the fly.
+			String journeyCallName = Tracers.getCallName(trace);
+			RunningTraceContainer.startTracedCall(journeyCallName);
+			journeyStartedByMe = true;
+
+			currentTrace = (CurrentlyTracedCall) RunningTraceContainer.getCurrentlyTracedCall();
+		}
+
 
         StringBuilder call = null;
         if (currentTrace != null || tracePassingOfThisProducer) {
-            call = new StringBuilder(producerId).append('.').append(method).append("(");
+
+            call = new StringBuilder();
+			if (tracePassingOfThisProducer)
+				call.append(Tracers.getCallName(trace)).append(' ');
+			call.append(producerId).append('.').append(method).append("(");
             if (args != null && args.length > 0) {
                 for (int i = 0; i < args.length; i++) {
                     call.append(args[i]);
@@ -128,7 +155,19 @@ public class MonitoringAspect extends AbstractMoskitoAspect{
 
             if (tracePassingOfThisProducer) {
                 call.append(" = " + ret);
-                tracerRepository.addTracedExecution(producerId, call.toString(), Thread.currentThread().getStackTrace(), exTime);
+				trace.setCall(call.toString());
+				trace.setDuration(exTime);
+				trace.setElements(Thread.currentThread().getStackTrace());
+
+				if (journeyStartedByMe) {
+					//now finish the journey.
+					Journey myJourney = JourneyManagerFactory.getJourneyManager().getOrCreateJourney(Tracers.getJourneyNameForTracers());
+					myJourney.addUseCase((CurrentlyTracedCall) RunningTraceContainer.endTrace());
+					RunningTraceContainer.cleanup();
+				}
+
+
+				tracerRepository.addTracedExecution(producerId, trace);
             }
         }
     }

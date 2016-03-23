@@ -67,28 +67,24 @@ public class TracerRepository {
 
 	}
 
-	public void addTracedExecution(String producerId, String call, StackTraceElement[] stackTraceElements, long executionTime){
+	public void addTracedExecution(String producerId, Trace aNewTrace){
 
 		TracingConfiguration config = MoskitoConfigurationHolder.getConfiguration().getTracingConfig();
 		if (!config.isTracingEnabled())
 			return ;
 
 		if (config.isInspectEnabled()) {
-			Trace newTrace = new Trace();
-			newTrace.setCall(call);
-			newTrace.setDuration(executionTime);
-			newTrace.setElements(stackTraceElements);
 			Tracer myTracer = getTracer(producerId);
 			if (myTracer == null) {
-				log.warn("Got a new incoming trace, but not tracer! ProducerId: " + producerId + ", Call: " + call);
+				log.warn("Got a new incoming trace, but not tracer! ProducerId: " + producerId + ", Call: " + aNewTrace.getCall());
 				return;
 			}
-			myTracer.addTrace(newTrace, config.getToleratedTracesAmount(), config.getMaxTraces());
+			myTracer.addTrace(aNewTrace, config.getToleratedTracesAmount(), config.getMaxTraces());
 		}
 
 		if (config.isLoggingEnabled()){
-			traceLog.info(NumberUtils.makeISO8601TimestampString()+", call: "+call+" duration: "+executionTime);
-			for (StackTraceElement e : stackTraceElements){
+			traceLog.info(NumberUtils.makeISO8601TimestampString()+", call: "+aNewTrace.getCall()+" duration: "+aNewTrace.getDuration());
+			for (StackTraceElement e : aNewTrace.getElements()){
 				traceLog.info("\t"+e.toString());
 			}
 		}
@@ -120,7 +116,11 @@ public class TracerRepository {
 	}
 
 	public List<Trace> getTraces(String producerId){
-		return getTracer(producerId).getTraces();
+		try {
+			return getTracer(producerId).getTraces();
+		}catch(NullPointerException e){
+			throw new IllegalArgumentException("No traces for producer: "+producerId);
+		}
 	}
 
 }

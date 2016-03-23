@@ -1,5 +1,8 @@
 package net.anotheria.moskito.core.tracer;
 
+import net.anotheria.moskito.core.journey.JourneyManager;
+import net.anotheria.moskito.core.journey.JourneyManagerFactory;
+
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
@@ -12,6 +15,8 @@ import java.util.concurrent.CopyOnWriteArrayList;
 public class Tracer {
 	private String producerId;
 	private boolean enabled;
+
+	private static JourneyManager journeyManager = JourneyManagerFactory.getJourneyManager();
 
 	private List<Trace> traces;
 
@@ -44,10 +49,15 @@ public class Tracer {
 		List<Trace> oldTraces = traces;
 		traces = new CopyOnWriteArrayList<Trace>();
 		int offset = toleratedAmount - maxAmount;
-		//int = 1 and not 0, we are copying one less than we could, because we want exactly max amount.
-		for (int i=1; i<=maxAmount; i++) {
-			traces.add(oldTraces.get(i + offset));
+
+		for (int i=0; i<oldTraces.size(); i++){
+			if (i>=(1+offset) && i<=(maxAmount+offset)){
+				traces.add(oldTraces.get(i));
+			}else{
+				journeyManager.getOrCreateJourney(Tracers.getJourneyNameForTracers()).removeStepByName(Tracers.getCallName(oldTraces.get(i)));
+			}
 		}
+
 	}
 
 	public List<Trace> getTraces(){
