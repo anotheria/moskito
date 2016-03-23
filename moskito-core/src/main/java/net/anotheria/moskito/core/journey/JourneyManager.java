@@ -37,6 +37,13 @@ public interface JourneyManager {
 	 * @param journey journey to remove.
 	 */
 	void removeJourney(Journey journey);
+
+	/**
+	 * Returns an existing journey or creates a new one.
+	 * @param name
+	 * @return
+	 */
+	Journey getOrCreateJourney(String name);
 	
 	
 }
