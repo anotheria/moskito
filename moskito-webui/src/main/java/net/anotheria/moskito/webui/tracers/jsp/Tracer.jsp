@@ -26,6 +26,7 @@
                     <tr>
                         <th>Id</th>
                         <th>Elements</th>
+                        <th>Date</th>
                         <th>Duration</th>
                         <th>Call</th>
                     </tr>
@@ -39,6 +40,7 @@
                                 </div>
                             </td>
                             <td>${trace.elementCount}</td>
+                            <td>${trace.created}</td>
                             <td>${trace.duration}</td>
                             <td>${trace.call}</td>
                         </tr>

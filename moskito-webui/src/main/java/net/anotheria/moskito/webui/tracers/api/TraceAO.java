@@ -27,6 +27,10 @@ public class TraceAO implements Serializable {
 	 * Duration of the call in nanoseconds.
 	 */
 	private long duration;
+    /**
+     * Date of trace creation.
+     */
+    private String created;
 
 	public String getCall() {
 		return call;
@@ -63,4 +67,12 @@ public class TraceAO implements Serializable {
 	public void setId(String id) {
 		this.id = id;
 	}
+
+    public String getCreated() {
+        return created;
+    }
+
+    public void setCreated(String created) {
+        this.created = created;
+    }
 }

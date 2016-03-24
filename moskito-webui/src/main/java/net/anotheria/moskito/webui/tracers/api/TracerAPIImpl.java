@@ -6,6 +6,7 @@ import net.anotheria.moskito.core.tracer.Trace;
 import net.anotheria.moskito.core.tracer.Tracer;
 import net.anotheria.moskito.core.tracer.TracerRepository;
 import net.anotheria.moskito.webui.shared.api.AbstractMoskitoAPIImpl;
+import net.anotheria.util.NumberUtils;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -65,6 +66,7 @@ public class TracerAPIImpl extends AbstractMoskitoAPIImpl implements TracerAPI{
 			ao.setCall(t.getCall());
 			ao.setElements(Arrays.asList(t.getElements()));
 			ao.setDuration(timeUnit.transformNanos(t.getDuration()));
+            ao.setCreated(NumberUtils.makeISO8601TimestampString(t.getCreatedTimestamp()));
 			ret.add(ao);
 		}
 		return ret;

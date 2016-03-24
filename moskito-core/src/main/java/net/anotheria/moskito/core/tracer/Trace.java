@@ -19,8 +19,16 @@ public class Trace implements IComparable<Trace>{
 	private String call;
 	private long duration;
 	private StackTraceElement[] elements;
+    /**
+     * Timestamp of the trace creation.
+     */
+    private long createdTimestamp;
 
-	public String getCall() {
+    public Trace() {
+        createdTimestamp = System.currentTimeMillis();
+    }
+
+    public String getCall() {
 		return call;
 	}
 
@@ -54,7 +62,15 @@ public class Trace implements IComparable<Trace>{
 		return id;
 	}
 
-	@Override
+    public long getCreatedTimestamp() {
+        return createdTimestamp;
+    }
+
+    public void setCreatedTimestamp(long createdTimestamp) {
+        this.createdTimestamp = createdTimestamp;
+    }
+
+    @Override
 	public int compareTo(IComparable<? extends Trace> iComparable, int method) {
 		switch(method){
 			case TraceSortType.SORT_BY_ID:
