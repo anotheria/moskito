@@ -15,6 +15,8 @@ import net.anotheria.util.StringUtils;
 import net.anotheria.util.sorter.DummySortType;
 import net.anotheria.util.sorter.IComparable;
 import net.anotheria.util.sorter.StaticQuickSorter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -28,6 +30,7 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
 public class GenerateChartAction implements Action {
+    private static Logger log = LoggerFactory.getLogger(GenerateChartAction.class);
 
     private static final String PNG_CONTENT_TYPE = "image/png";
     private static final String ZIP_CONTENT_TYPE = "application/zip";
@@ -37,7 +40,7 @@ public class GenerateChartAction implements Action {
     public ActionCommand execute(ActionMapping mapping, FormBean formBean, HttpServletRequest req, HttpServletResponse res) throws Exception {
         String namesParam = req.getParameter("names");
         String isZip = req.getParameter("zip");
-        System.out.println("Generating chart names: "+namesParam);
+        log.debug("Generating chart names: "+namesParam);
 
         AccumulatorAPI accumulatorAPI = APILookupUtility.getAccumulatorAPI();
 
@@ -82,18 +85,18 @@ public class GenerateChartAction implements Action {
             chart.addLineDefinition(new OfflineChartLineDefinition(accData.getName()));
             chartSourceData[i++] = accData;
 
-            System.out.println("Adding on pos " + (i - 1) + " " + accData);
+            log.debug("Adding on pos " + (i - 1) + " " + accData);
         }
 
         if (accNames.length > 1) fileName = "CombinedChart";
         else if (chartSourceData.length == 1) fileName = chartSourceData[0].getName();
 
-        System.out.println("Preparing data");
+        log.debug("Preparing data");
         //prepare data
         Map<String, TemporaryPoint> tmppoints = new HashMap();
         for (i = 0; i < chartSourceData.length; i++) {
             AccumulatedSingleGraphAO accData = chartSourceData[i];
-            System.out.println("Processing " + accData + " with values " + accData.getData());
+            log.debug("Processing " + accData + " with values " + accData.getData());
             for (AccumulatedValueAO value : accData.getData()) {
                 TemporaryPoint point = tmppoints.get(value.getTimestamp());
                 if (point == null) {
@@ -106,7 +109,7 @@ public class GenerateChartAction implements Action {
             }
         }
 
-        System.out.println("TMP POINTS: " + tmppoints);
+        log.debug("TMP POINTS: " + tmppoints);
 
         //now create the actual chart object
         Collection<TemporaryPoint> points = tmppoints.values();
@@ -126,7 +129,7 @@ public class GenerateChartAction implements Action {
 
     private void addToZipFile(String fileName, ZipOutputStream zos, byte[] bytes) throws IOException {
 
-        System.out.println("Writing '" + fileName + "' to zip file");
+        log.debug("Writing '" + fileName + "' to zip file");
 
         ZipEntry zipEntry = new ZipEntry(fileName);
         zipEntry.setSize(bytes.length);
