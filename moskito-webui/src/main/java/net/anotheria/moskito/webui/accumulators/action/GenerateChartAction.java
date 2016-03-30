@@ -64,6 +64,7 @@ public class GenerateChartAction implements Action {
                 addToZipFile(offlineChart.getName(), zos, offlineChart.getData());
             }
 
+            zos.close();
             res.setContentType(ZIP_CONTENT_TYPE);
             res.setHeader("Content-Disposition", "attachment;filename=" + ZIP_FILE_NAME);
             res.getOutputStream().write(baos.toByteArray());
