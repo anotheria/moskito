@@ -135,7 +135,7 @@
                             </h3>
 
                             <div class="box-right-nav">
-                                <a class="tooltip-bottom save_as" title="Save" onclick="saveSvgAsPng(${index}+4)"><i class="fa fa-download"></i></a>
+                                <a class="tooltip-bottom save_as" title="Save" onclick="saveSvgAsPng(${index}+countGauges())"><i class="fa fa-download"></i></a>
                             </div>
                         </div>
                         <div id="collapse_chart${index}" class="box-content accordion-body collapse in">
@@ -261,9 +261,11 @@
                  ctx.fill();
                  var img = document.createElement("img");
 
-                 var imagesData=btoa(svgData)
-
-                img.setAttribute("src", "data:image/svg+xml;base64," + imagesData);
+                 var img = document.createElement("img");
+                 var encoded_svg = btoa(svgData.replace(/[\u00A0-\u2666]/g, function(c) {
+                     return '&#' + c.charCodeAt(0) + ';';
+                 }));
+                 img.setAttribute("src", "data:image/svg+xml;base64," + encoded_svg);
 
                 img.onload = function () {
                     ctx.drawImage(img, 0, 0);
@@ -287,6 +289,9 @@
         </script>
 
         <script type="text/javascript">
+            function countGauges() {
+                return $('.gauge').length;
+            }
             function saveSvgAsPng(index) {
                 var chartWidth = 525,
                         chartHeight = 321,
@@ -352,7 +357,10 @@
                 ctx.fill();
 
                 var img = document.createElement("img");
-                img.setAttribute("src", "data:image/svg+xml;base64," + btoa(svgData));
+                var encoded_svg = btoa(svgData.replace(/[\u00A0-\u2666]/g, function(c) {
+                    return '&#' + c.charCodeAt(0) + ';';
+                }));
+                img.setAttribute("src", "data:image/svg+xml;base64," + encoded_svg);
 
                 img.onload = function () {
                     ctx.drawImage(img, 0, 0);

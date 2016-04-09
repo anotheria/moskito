@@ -457,7 +457,12 @@
             ctx.fill();
 
             var img = document.createElement("img");
-            img.setAttribute("src", "data:image/svg+xml;base64," + btoa(svgData));
+            window.unescape = window.unescape || window.decodeURI;
+            var img = document.createElement("img");
+            var encoded_svg = btoa(svgData.replace(/[\u00A0-\u2666]/g, function(c) {
+                return '&#' + c.charCodeAt(0) + ';';
+            }));
+            img.setAttribute("src", "data:image/svg+xml;base64," + encoded_svg);
 
             img.onload = function () {
                 ctx.drawImage(img, 0, 0);
