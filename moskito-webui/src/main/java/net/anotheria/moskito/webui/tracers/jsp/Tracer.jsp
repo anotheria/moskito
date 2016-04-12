@@ -36,7 +36,8 @@
                         <tr data-level="0">
                             <td>
                                 <div>
-                                    <i class="minus">–</i><i class="plus">+</i><i class="vline"></i>Trace-${trace.id}
+                                    <i class="minus">–</i><i class="plus">+</i><i class="vline"></i>
+                                    <a href="mskShowJourneyCall?pJourneyName=${journeyName}&pTracedCallName=Trace-${trace.id}">Trace-${trace.id}</a>
                                 </div>
                             </td>
                             <td>${trace.elementCount}</td>

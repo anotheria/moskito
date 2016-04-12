@@ -161,7 +161,7 @@ public class MonitoringAspect extends AbstractMoskitoAspect{
 
 				if (journeyStartedByMe) {
 					//now finish the journey.
-					Journey myJourney = JourneyManagerFactory.getJourneyManager().getOrCreateJourney(Tracers.getJourneyNameForTracers());
+					Journey myJourney = JourneyManagerFactory.getJourneyManager().getOrCreateJourney(Tracers.getJourneyNameForTracers(producerId));
 					myJourney.addUseCase((CurrentlyTracedCall) RunningTraceContainer.endTrace());
 					RunningTraceContainer.cleanup();
 				}

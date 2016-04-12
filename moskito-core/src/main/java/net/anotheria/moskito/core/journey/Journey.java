@@ -100,4 +100,15 @@ public class Journey {
 
 		}
 	}
+
+	public CurrentlyTracedCall getStepByName(String stepName){
+		for (int i=0; i<tracedCalls.size(); i++){
+			CurrentlyTracedCall ctc = tracedCalls.get(i);
+			if (ctc.getName().equals(stepName)){
+				return ctc;
+			}
+
+		}
+		return null;
+	}
 }

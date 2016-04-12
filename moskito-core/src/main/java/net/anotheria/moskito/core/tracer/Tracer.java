@@ -84,7 +84,7 @@ public class Tracer {
 						if (i < maxAmount) {
 							traces.add(oldTraces.get(i));
 						} else {
-							journeyManager.getOrCreateJourney(Tracers.getJourneyNameForTracers()).removeStepByName(Tracers.getCallName(oldTraces.get(i)));
+							journeyManager.getOrCreateJourney(Tracers.getJourneyNameForTracers(producerId)).removeStepByName(Tracers.getCallName(oldTraces.get(i)));
 						}
 					}
 					break;
@@ -97,7 +97,7 @@ public class Tracer {
 						if (i>=(1+offset) && i<=(maxAmount+offset)){
 							traces.add(oldTraces.get(i));
 						}else{
-							journeyManager.getOrCreateJourney(Tracers.getJourneyNameForTracers()).removeStepByName(Tracers.getCallName(oldTraces.get(i)));
+							journeyManager.getOrCreateJourney(Tracers.getJourneyNameForTracers(producerId)).removeStepByName(Tracers.getCallName(oldTraces.get(i)));
 						}
 					}
 					break;
