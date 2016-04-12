@@ -13,10 +13,19 @@ import java.io.Serializable;
  */
 @ConfigureMe(allfields = true)
 public class BuiltinProducersConfig implements Serializable {
+	/**
+	 * Start Java Memory Producers.
+	 */
 	@Configure
 	private boolean javaMemoryProducers = true;
+	/**
+	 * Start Java Memory Pool Producers.
+	 */
 	@Configure
 	private boolean javaMemoryPoolProducers = true;
+	/**
+	 * Start Java Threading Producers.
+	 */
 	@Configure
 	private boolean javaThreadingProducers = true;
 	@Configure
