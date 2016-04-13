@@ -8,6 +8,7 @@ import net.anotheria.moskito.core.config.MoskitoConfigurationHolder;
 import net.anotheria.moskito.core.config.dashboards.ChartConfig;
 import net.anotheria.moskito.core.config.dashboards.DashboardConfig;
 import net.anotheria.moskito.core.config.dashboards.DashboardsConfig;
+import net.anotheria.moskito.webui.accumulators.api.AccumulatorAO;
 import net.anotheria.moskito.webui.accumulators.api.AccumulatorAPI;
 import net.anotheria.moskito.webui.accumulators.api.MultilineChartAO;
 import net.anotheria.moskito.webui.gauges.api.GaugeAPI;
@@ -174,7 +175,17 @@ public class DashboardAPIImpl extends AbstractMoskitoAPIImpl implements Dashboar
 
 				LinkedList<String> chartIds = new LinkedList<String>();
 				for (String cName : cc.getAccumulators()){
-					chartIds.add(accumulatorAPI.getAccumulatorByName(cName).getId());
+					try{
+						AccumulatorAO accumulatorAO = accumulatorAPI.getAccumulatorByName(cName);
+						if (accumulatorAO!=null)
+							chartIds.add(accumulatorAO.getId());
+					}catch(IllegalArgumentException e){
+						//this exception is thrown if there is no accumulator with this name registered (yet).
+						//we just skip it here, because we don't want the whole screen to crash.
+						if (log.isDebugEnabled())
+							log.debug("attempted to access non existing accumulator with name "+cName);
+					}
+
 				}
 
 				MultilineChartAO chartAO = accumulatorAPI.getCombinedAccumulatorGraphData(chartIds);
