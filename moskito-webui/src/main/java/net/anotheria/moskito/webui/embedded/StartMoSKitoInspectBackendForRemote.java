@@ -20,16 +20,25 @@ public class StartMoSKitoInspectBackendForRemote {
 	private static Logger log = LoggerFactory.getLogger(StartMoSKitoInspectBackendForRemote.class);
 
 	/**
-	 * Starts MoSKito Inspect Backend.
+	 * Starts MoSKito Inspect Backend. Uses default port.
 	 * @throws MoSKitoInspectStartException
 	 */
-	public static void startMoSKitoInspectBackend() throws MoSKitoInspectStartException{
+	public static void startMoSKitoInspectBackend() throws MoSKitoInspectStartException {
+		startMoSKitoInspectBackend(-1);
+	}
+
+	/**
+	 * Starts MoSKito Inspect Backend.
+	 * @param port port on which to start moskito rmi listener. If not specified (-1) either default or configured by distributeme port is used.
+	 * @throws MoSKitoInspectStartException
+	 */
+	public static void startMoSKitoInspectBackend(int port) throws MoSKitoInspectStartException{
 		Class serverClazz = null;
 		Exception exception = null;
 		try{
 			serverClazz = Class.forName("net.anotheria.moskito.webui.shared.api.generated.CombinedAPIServer");
-			Method startMethod = serverClazz.getMethod("createCombinedServicesAndRegisterLocally");
-			startMethod.invoke(null);
+			Method startMethod = serverClazz.getMethod("createCombinedServicesAndRegisterLocally", int.class);
+			startMethod.invoke(null, port);
 		}catch(ClassNotFoundException e){
 			exception = e;
 			log.error("Couldn't find the backend server class", e);
