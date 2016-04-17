@@ -87,7 +87,7 @@
         <div class="text-center"> 
         <form role="form" class="navbar-form navbar-left">
             <div class="form-group">
-                <select class="select2" data-placeholder="Interval" onchange="javascript:handleSelect(this)">
+                <select class="select2" data-placeholder="Interval" onchange="handleSelect(this)">
                     <ano:iterate name="intervals" id="interval" type="net.anotheria.moskito.webui.shared.api.IntervalInfoAO">
                         <option value="${linkToCurrentPage}&amp;pInterval=${interval.name}" ${interval.name==requestScope.currentInterval ? "selected" : ""}>
                             <ano:write name="interval" property="name"/>
@@ -96,7 +96,7 @@
                 </select>
             </div>
             <div class="form-group">
-                <select class="select2" data-placeholder="Unit" onchange="javascript:handleSelect(this)">
+                <select class="select2" data-placeholder="Unit" onchange="handleSelect(this)">
                 <ano:iterate name="units" id="unit" type="net.anotheria.moskito.webui.shared.bean.UnitBean">
                     <option value="${linkToCurrentPage}&amp;pUnit=${unit.unitName}" ${unit.unitName.equals(currentUnit) ? "selected" : ""}>
                         ${unit.unitName}
@@ -177,6 +177,26 @@
         <ano:notEqual name="currentNaviItem" property="id" value="threads">
             <li><a href="mskThreads" title="Threads" class="sidebar-tooltip-right">Threads <i class="fa fa-bars"></i></a></li>
         </ano:notEqual>
+        <!-- Tracers --->
+        <ano:notEqual name="currentNaviItem" property="id" value="tracers">
+            <li><a href="mskTracers" title="Tracers" class="sidebar-tooltip-right">Tracers <i class="fa fa-binoculars"></i></a></li>
+        </ano:notEqual>
+        <ano:equal name="currentNaviItem" property="id" value="tracers">
+            <li class="active"><a href="mskTracers" title="Tracers" class="sidebar-tooltip-right">Tracers <i class="fa fa-binoculars"></i></a></li>
+            <ul class="nav sub-menu">
+                <ano:iterate id="subMenuElement" name="tracerSubmenuNames">
+                    <li <%--${currentSubNaviItem.isSelected("threads_list") ? "class=\"active\"" : ""} --%>><a href="mskTracer?pProducerId=${subMenuElement}" title="${subMenuElement}" class="sidebar-tooltip-right">${subMenuElement} <i class="fa fa-arrow-circle-right"></i></a></li>
+                </ano:iterate>
+            </ul>
+        </ano:equal>
+        <!-- Tracers end -->
+
+
+        <ano:notEqual name="currentNaviItem" property="id" value="plugins">
+            <li><a href="mskPlugins" title="Plugins" class="sidebar-tooltip-right">Plugins <i class="fa fa-plug"></i></a></li>
+        </ano:notEqual>
+
+
         <!-- Submenu for everything else -->
         <ano:equal name="currentNaviItem" property="id" value="more">
             <li class="active">
@@ -185,11 +205,9 @@
                 <li ${currentSubNaviItem.isSelected("more_config")  ? "class=\"active\"" : ""}><a href="mskConfig" title="Config" class="sidebar-tooltip-right">Config <i class="fa fa-cog"></i></a></li>
                 <li ${currentSubNaviItem.isSelected("more_mbeans")  ? "class=\"active\"" : ""}><a href="mskMBeans" title="MBeans" class="sidebar-tooltip-right">MBeans <i class="fa fa-coffee"></i></a></li>
                 <li ${currentSubNaviItem.isSelected("more_libs")    ? "class=\"active\"" : ""}><a href="mskLibs" title="Libs" class="sidebar-tooltip-right">Libs <i class="fa fa-file-text"></i></a></li>
-                <li ${currentSubNaviItem.isSelected("more_plugins") ? "class=\"active\"" : ""}><a href="mskPlugins" title="Plugins" class="sidebar-tooltip-right">Plugins <i class="fa fa-cloud"></i></a></li>
                 <li ${currentSubNaviItem.isSelected("more_update")  ? "class=\"active\"" : ""}><a href="mskUpdate" title="Update" class="sidebar-tooltip-right">Update  <i class="fa fa-upload"></i></a></li>
                 <li ${currentSubNaviItem.isSelected("more_gauges")  ? "class=\"active\"" : ""}><a href="mskGauges" title="Gauges" class="sidebar-tooltip-right">Gauges  <i class="fa fa-tachometer"></i></a></li>
-                <li ${currentSubNaviItem.isSelected("more_tracers")  ? "class=\"active\"" : ""}><a href="mskTracers" title="Tracers" class="sidebar-tooltip-right">Tracers  <i class="fa fa-binoculars"></i></a></li>
-
+                <li ${currentSubNaviItem.isSelected("more_plugins") ? "class=\"active\"" : ""}><a href="mskPlugins" title="Plugins" class="sidebar-tooltip-right">Plugins <i class="fa fa-cloud"></i></a></li>
             </ul>
         </li>
         </ano:equal>
@@ -203,7 +221,7 @@
     <div class="form-box">
         <label>Filter</label>
 
-        <select class="select2" data-placeholder="Select category" onchange="javascript:handleSelect(this)">
+        <select class="select2" data-placeholder="Select category" onchange="handleSelect(this)">
             <option></option>
             <ano:iterate name="categories" id="category" type="net.anotheria.moskito.webui.producers.api.UnitCountAO">
                 <option value="mskShowProducersByCategory?pCategory=${category.unitName}" ${category.unitName==requestScope.currentCategory ? "selected" : ""}>
@@ -212,7 +230,7 @@
             </ano:iterate>
         </select>
 
-        <select class="select2" data-placeholder="Select subsystem" onchange="javascript:handleSelect(this)">
+        <select class="select2" data-placeholder="Select subsystem" onchange="handleSelect(this)">
             <option></option>
             <ano:iterate name="subsystems" id="subsystem" type="net.anotheria.moskito.webui.producers.api.UnitCountAO">
                 <option value="mskShowProducersBySubsystem?pSubsystem=${subsystem.unitName}" ${subsystem.unitName==requestScope.currentSubsystem ? "selected" : ""}>
@@ -228,7 +246,7 @@
     <div class="form-box">
         <label>Server selector</label>
         <form name="SelectServer" action="mskSelectServer" method="GET">
-            <select class="select2" data-placeholder="Select Server" onchange="javascript:handleSelect(this)">
+            <select class="select2" data-placeholder="Select Server" onchange="handleSelect(this)">
                 <ano:iterate name="connectivityOptions" id="option" type="net.anotheria.moskito.webui.shared.bean.LabelValueBean">
                     <option value="mskSelectServer?pTargetServer=${option.value}" ${option.value==requestScope.selectedConnectivity ? "selected" : ""}>${option.label}</option>
                 </ano:iterate>

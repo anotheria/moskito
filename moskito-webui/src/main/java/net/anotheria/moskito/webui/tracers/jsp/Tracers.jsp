@@ -53,6 +53,7 @@
                                     <a href="mskEnableTracer?pProducerId=${tracer.producerId}" class="action-icon toggle-off-icon tooltip-bottom" title="Off - Enable"><i class="fa fa-toggle-off"></i></a>
                                 </c:if>
                                 <a href="mskShowProducer?pProducerId=${tracer.producerId}" class="action-icon show-icon tooltip-bottom" title="ShowProducer"><i class="fa fa-search-plus"></i></a>
+                                <a href="mskAnalyzeJourney?pJourneyName=Traced-${tracer.producerId}" class="action-icon show-icon tooltip-bottom" title="" data-original-title="Analyze all traced calls in ${tracer.producerId}"><i class="fa fa-search-plus"></i></a>
                             </td>
                         </tr>
                     </ano:iterate>

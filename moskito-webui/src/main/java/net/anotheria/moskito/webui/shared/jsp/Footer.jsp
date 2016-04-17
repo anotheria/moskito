@@ -28,7 +28,7 @@
     <script type="text/javascript" src="../moskito/ext/jquery-tree-table/jquery.treeTable.min.js"></script>
 </ano:equal>
 
-<ano:equal name="currentSubNaviItem" property="id" value="more_tracers">
+<ano:equal name="currentNaviItem" property="id" value="tracers">
     <script type="text/javascript" src="../moskito/ext/jquery-tree-table/jquery.treeTable.min.js"></script>
 </ano:equal>
 

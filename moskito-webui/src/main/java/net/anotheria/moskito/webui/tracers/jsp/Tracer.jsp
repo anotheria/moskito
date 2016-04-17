@@ -8,11 +8,6 @@
 --%>
 <section id="main">
     <div class="content">
-        <div class="alert alert-warning alert-dismissable">
-            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-            Please note that Tracers and Traces are currently beta. Use carefully.
-            <a href="mailto:moskito-users@lists.anotheria.net">Feedback</a>!
-        </div>
 
         <div class="box">
             <div class="box-title">
@@ -25,9 +20,9 @@
                     <thead>
                     <tr>
                         <th>Id</th>
-                        <th>Elements</th>
                         <th>Date</th>
                         <th>Duration</th>
+                        <th>Pre-Exec Calls</th>
                         <th>Call</th>
                     </tr>
                     </thead>
@@ -40,13 +35,13 @@
                                     <a href="mskShowJourneyCall?pJourneyName=${journeyName}&pTracedCallName=Trace-${trace.id}">Trace-${trace.id}</a>
                                 </div>
                             </td>
-                            <td>${trace.elementCount}</td>
                             <td>${trace.created}</td>
                             <td>${trace.duration}</td>
+                            <td>${trace.elementCount}</td>
                             <td>${trace.call}</td>
                         </tr>
                         <tr class="dump-list" data-level="1">
-                            <td colspan="4">
+                            <td colspan="5">
                                 <ul>
                                     <ano:iterate name="trace" property="elements" id="element" type="java.lang.StackTraceElement">
                                         <li>${element}</li>
