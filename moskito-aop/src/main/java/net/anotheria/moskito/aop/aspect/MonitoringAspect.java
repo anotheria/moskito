@@ -5,6 +5,7 @@ import net.anotheria.moskito.core.calltrace.CurrentlyTracedCall;
 import net.anotheria.moskito.core.calltrace.RunningTraceContainer;
 import net.anotheria.moskito.core.calltrace.TraceStep;
 import net.anotheria.moskito.core.calltrace.TracedCall;
+import net.anotheria.moskito.core.calltrace.TracingUtil;
 import net.anotheria.moskito.core.dynamic.OnDemandStatsProducer;
 import net.anotheria.moskito.core.journey.Journey;
 import net.anotheria.moskito.core.journey.JourneyManagerFactory;
@@ -87,20 +88,7 @@ public class MonitoringAspect extends AbstractMoskitoAspect{
 
         StringBuilder call = null;
         if (currentTrace != null || tracePassingOfThisProducer) {
-
-            call = new StringBuilder();
-			if (tracePassingOfThisProducer)
-				call.append(Tracers.getCallName(trace)).append(' ');
-			call.append(producerId).append('.').append(method).append("(");
-            if (args != null && args.length > 0) {
-                for (int i = 0; i < args.length; i++) {
-                    call.append(args[i]);
-                    if (i < args.length - 1) {
-                        call.append(", ");
-                    }
-                }
-            }
-            call.append(")");
+			call = TracingUtil.buildCall(producerId, method, args, tracePassingOfThisProducer ? Tracers.getCallName(trace) : null);
         }
         if (currentTrace != null) {
             currentStep = currentTrace.startStep(call.toString(), producer);
@@ -154,7 +142,7 @@ public class MonitoringAspect extends AbstractMoskitoAspect{
             }
 
             if (tracePassingOfThisProducer) {
-                call.append(" = " + ret);
+                call.append(" = ").append(TracingUtil.parameter2string(ret));
 				trace.setCall(call.toString());
 				trace.setDuration(exTime);
 				trace.setElements(Thread.currentThread().getStackTrace());

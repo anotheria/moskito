@@ -4,6 +4,7 @@ import com.google.gson.annotations.SerializedName;
 import net.anotheria.moskito.core.config.accumulators.AccumulatorsConfig;
 import net.anotheria.moskito.core.config.dashboards.DashboardsConfig;
 import net.anotheria.moskito.core.config.gauges.GaugesConfig;
+import net.anotheria.moskito.core.config.journey.JourneyConfig;
 import net.anotheria.moskito.core.config.plugins.PluginsConfig;
 import net.anotheria.moskito.core.config.producers.BuiltinProducersConfig;
 import net.anotheria.moskito.core.config.producers.MBeanProducerConfig;
@@ -87,6 +88,10 @@ public class MoskitoConfiguration implements Serializable{
 	@SerializedName("@tracingConfig")
 	private TracingConfiguration tracingConfig = new TracingConfiguration();
 
+	@Configure
+	@SerializedName("@journeyConfig")
+	private JourneyConfig journeyConfig = new JourneyConfig();
+
 	public ThresholdsAlertsConfig getThresholdsAlertsConfig() {
 		return thresholdsAlertsConfig;
 	}
@@ -168,6 +173,14 @@ public class MoskitoConfiguration implements Serializable{
 
 	public void setTracingConfig(TracingConfiguration tracingConfig) {
 		this.tracingConfig = tracingConfig;
+	}
+
+	public JourneyConfig getJourneyConfig() {
+		return journeyConfig;
+	}
+
+	public void setJourneyConfig(JourneyConfig journeyConfig) {
+		this.journeyConfig = journeyConfig;
 	}
 }
 

@@ -34,6 +34,8 @@
  */	
 package net.anotheria.moskito.core.calltrace;
 
+import net.anotheria.moskito.core.config.MoskitoConfigurationHolder;
+import net.anotheria.moskito.core.config.journey.JourneyConfig;
 import net.anotheria.moskito.core.producers.IStatsProducer;
 
 import java.io.Serializable;
@@ -65,6 +67,11 @@ public class CurrentlyTracedCall implements TracedCall, Serializable{
 	 * Creation timestamp.
 	 */
 	private long created;
+
+	/**
+	 * The journey configuration at start of the journey.
+	 */
+	private transient JourneyConfig journeyConfig = MoskitoConfigurationHolder.getConfiguration().getJourneyConfig();
 	
 	/**
 	 * Creates a new CurrentlyTracedCall.
@@ -145,5 +152,9 @@ public class CurrentlyTracedCall implements TracedCall, Serializable{
 	
 	public TraceStep getCurrentStep(){
 		return current;
+	}
+
+	public JourneyConfig getJourneyConfig(){
+		return journeyConfig;
 	}
 }
