@@ -1,8 +1,5 @@
 package net.anotheria.moskito.webui.shared.bean;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * Items in the navigation.
  *
@@ -42,30 +39,18 @@ public enum NaviItem {
 	 */
 	TRACERS("Tracers"),
 	/**
+	 * Plugins.
+	 */
+	PLUGINS("Plugins"),
+	/**
 	 * Collections for additional items
 	 */
 	MORE("Everything else"),
 
 	THREADS_LIST("List"), THREADS_DUMP("Dump"), THREADS_HISTORY("History"),
-	MORE_LIBS("Libs"),MORE_PLUGINS("Plugins"),MORE_CONFIG("Config"),MORE_UPDATE("Update"),MORE_MBEANS("MBeans"), MORE_GAUGES("Gauges"),
+	MORE_LIBS("Libs"),MORE_CONFIG("Config"),MORE_UPDATE("Update"),MORE_MBEANS("MBeans"), MORE_GAUGES("Gauges"),
 	;
 	
-	
-	/**
-	 * Current menu.
-	 */
-	private static ArrayList<NaviItem> menu;
-	static{
-		menu = new ArrayList<NaviItem>();
-		menu.add(DASHBOARDS);
-		menu.add(PRODUCERS);
-		menu.add(THRESHOLDS);
-		menu.add(JOURNEYS);
-		menu.add(ACCUMULATORS);
-		menu.add(THREADS);
-		menu.add(MORE);
-		//menu.add(USECASES);
-	}
 	/**
 	 * Caption of the navi item.
 	 */
@@ -83,10 +68,6 @@ public enum NaviItem {
 		return caption;
 	}
 	
-	public static final List<NaviItem> getMenu(){
-		return menu;
-	}
-
 	public boolean isSelected(String id){
 		return getId().equals(id);
 	}

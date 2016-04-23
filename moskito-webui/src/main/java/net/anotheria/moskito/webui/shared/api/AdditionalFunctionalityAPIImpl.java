@@ -8,10 +8,12 @@ import net.anotheria.anoplass.api.APIException;
 import net.anotheria.moskito.core.config.MoskitoConfiguration;
 import net.anotheria.moskito.core.config.MoskitoConfigurationHolder;
 import net.anotheria.moskito.core.config.plugins.PluginConfig;
+import net.anotheria.moskito.core.plugins.MoskitoPlugin;
 import net.anotheria.moskito.core.plugins.PluginRepository;
 import net.anotheria.moskito.core.stats.Interval;
 import net.anotheria.moskito.core.stats.impl.IntervalRegistry;
 import net.anotheria.moskito.core.timing.IUpdateable;
+import net.anotheria.moskito.webui.plugins.VisualMoSKitoPlugin;
 import net.anotheria.util.NumberUtils;
 import net.anotheria.util.sorter.DummySortType;
 import net.anotheria.util.sorter.SortType;
@@ -54,8 +56,10 @@ public class AdditionalFunctionalityAPIImpl extends AbstractMoskitoAPIImpl imple
 			PluginAO ao = new PluginAO();
 
 			ao.setName(s);
+			MoskitoPlugin plugin = PluginRepository.getInstance().getPlugin(s);
+
 			try{
-				ao.setDescription(""+PluginRepository.getInstance().getPlugin(s));
+				ao.setDescription(""+plugin);
 			}catch(Exception e){
 				ao.setDescription("Error: "+e.getMessage());
 			}
@@ -68,6 +72,14 @@ public class AdditionalFunctionalityAPIImpl extends AbstractMoskitoAPIImpl imple
 				ao.setConfigurationName(config.getConfigurationName());
 				ao.setClassName(config.getClassName());
 			}
+
+			if (plugin instanceof VisualMoSKitoPlugin){
+				VisualMoSKitoPlugin vmp = (VisualMoSKitoPlugin)plugin;
+				ao.setSubNaviItemIcon(vmp.getSubMenuIcon());
+				ao.setSubNaviItemText(vmp.getSubMenuName());
+				ao.setWebEnabled(true);
+			}
+
 			ret.add(ao);
 		}
 		return ret;
