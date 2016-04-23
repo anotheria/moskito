@@ -69,12 +69,12 @@ public final class TracingUtil {
 
 		if (!journeyConfig.isToStringCollections() && parameter instanceof Collection){
 			handled = true;
-			ret.append(parameter.getClass()).append(" with ").append(((Collection)parameter).size()).append("elements");
+			ret.append(parameter.getClass().getSimpleName()).append(" with ").append(((Collection)parameter).size()).append("elements");
 		}
 
 		if (!journeyConfig.isToStringMaps() && parameter instanceof Map){
 			handled = true;
-			ret.append(parameter.getClass()).append(" with ").append(((Map)parameter).size()).append("elements");
+			ret.append(parameter.getClass().getSimpleName()).append(" with ").append(((Map)parameter).size()).append(" elements");
 		}
 
 		if (!handled){
