@@ -38,11 +38,13 @@ import net.anotheria.moskito.core.calltrace.CurrentlyTracedCall;
 import net.anotheria.moskito.core.calltrace.RunningTraceContainer;
 import net.anotheria.moskito.core.calltrace.TraceStep;
 import net.anotheria.moskito.core.calltrace.TracedCall;
+import net.anotheria.moskito.core.calltrace.TracingUtil;
 import net.anotheria.moskito.core.dynamic.IOnDemandCallHandler;
 import net.anotheria.moskito.core.producers.IStats;
 import net.anotheria.moskito.core.producers.IStatsProducer;
 import net.anotheria.moskito.core.tracer.Trace;
 import net.anotheria.moskito.core.tracer.TracerRepository;
+import net.anotheria.moskito.core.tracer.Tracers;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -69,21 +71,14 @@ public class ServiceStatsCallHandler implements IOnDemandCallHandler {
 		boolean tracePassingOfThisProducer = tracerRepository.isTracingEnabledForProducer(producerId);
 		Trace trace = null;
 		//we create a trace at the beginning to reuse same id for the journey.
-		if (tracePassingOfThisProducer)
+		if (tracePassingOfThisProducer) {
 			trace = new Trace();
+		}
 
 		StringBuilder call = null;
 
 		if (currentTrace !=null || tracePassingOfThisProducer){
-			call = new StringBuilder(producer.getProducerId()).append('.').append(method.getName()).append("(");
-			if (args!=null && args.length>0){
-				for (int i=0; i<args.length; i++){
-					call.append(args[i]);
-					if (i<args.length-1)
-						call.append(", ");
-				}
-			}
-			call.append(")");
+			call = TracingUtil.buildCall(producerId, method.getName(), args, tracePassingOfThisProducer ? Tracers.getCallName(trace) : null);
 		}
 
 		if (currentTrace !=null) {
@@ -119,7 +114,7 @@ public class ServiceStatsCallHandler implements IOnDemandCallHandler {
 			if (currentStep!=null){
 				currentStep.setDuration(exTime);
 				try{
-					currentStep.appendToCall(" = "+ret);
+					currentStep.appendToCall(" = "+TracingUtil.parameter2string(ret));
 				}catch(Throwable t){
 					currentStep.appendToCall(" = ERR: "+t.getMessage()+" ("+t.getClass()+")");
 				}
@@ -128,7 +123,7 @@ public class ServiceStatsCallHandler implements IOnDemandCallHandler {
 				currentTrace.endStep();
 
 			if (tracePassingOfThisProducer) {
-				call.append(" = ").append(ret);
+				call.append(" = ").append(TracingUtil.parameter2string(ret));
 				trace.setCall(call.toString());
 				trace.setDuration(exTime);
 				trace.setElements(Thread.currentThread().getStackTrace());
