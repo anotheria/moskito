@@ -46,13 +46,15 @@ public abstract class AbstractInterceptor<T extends IStats> {
      * @param producerId producer id
      * @param category category
      * @param subsystem subsystem
+     * @param tracingSupported is tracing supported
      * @return {@link OnDemandStatsProducer}
      */
-    protected final OnDemandStatsProducer getProducer(String producerId, String category, String subsystem){
-        IStatsProducer producer = ProducerRegistryFactory.getProducerRegistryInstance().getProducer(producerId);
+    protected final OnDemandStatsProducer getProducer(String producerId, String category, String subsystem, boolean tracingSupported){
+        OnDemandStatsProducer<T> producer = (OnDemandStatsProducer<T>) ProducerRegistryFactory.getProducerRegistryInstance().getProducer(producerId);
 
         if (producer == null) {
             producer = new OnDemandStatsProducer<T>(producerId, category, subsystem, getStatsFactory());
+            producer.setTracingSupported(tracingSupported);
             ProducerRegistryFactory.getProducerRegistryInstance().registerProducer(producer);
         }
 

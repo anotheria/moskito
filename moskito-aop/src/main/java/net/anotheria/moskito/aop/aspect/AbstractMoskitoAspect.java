@@ -36,6 +36,8 @@ public class AbstractMoskitoAspect<S extends IStats> {
      * @param aCategory submitted category.
      * @param aSubsystem submitted subsystem.
      * @param withMethod if true the name of the method will be part of the automatically generated producer id.
+     * @param factory OnDemandStatsProducer factory
+     * @param tracingSupported is tracing supported
      * @return
      */
     protected  OnDemandStatsProducer<S> getProducer(ProceedingJoinPoint pjp, String aProducerId, String aCategory, String aSubsystem, boolean withMethod, IOnDemandStatsFactory<S> factory, boolean tracingSupported){

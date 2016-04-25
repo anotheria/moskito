@@ -7,8 +7,13 @@ import net.anotheria.moskito.core.calltrace.TracedCall;
 import net.anotheria.moskito.core.calltrace.TracingUtil;
 import net.anotheria.moskito.core.dynamic.IOnDemandStatsFactory;
 import net.anotheria.moskito.core.dynamic.OnDemandStatsProducer;
+import net.anotheria.moskito.core.journey.Journey;
+import net.anotheria.moskito.core.journey.JourneyManagerFactory;
 import net.anotheria.moskito.core.predefined.ServiceStats;
 import net.anotheria.moskito.core.predefined.ServiceStatsFactory;
+import net.anotheria.moskito.core.tracer.Trace;
+import net.anotheria.moskito.core.tracer.TracerRepository;
+import net.anotheria.moskito.core.tracer.Tracers;
 import net.anotheria.moskito.integration.cdi.AbstractInterceptor;
 
 import javax.interceptor.AroundInvoke;
@@ -53,12 +58,13 @@ public class MonitorInterceptor extends AbstractInterceptor<ServiceStats> implem
     @AroundInvoke
     public Object intercept(final InvocationContext ctx) throws Throwable {
         final Method method = ctx.getMethod();
+        final Object[] parameters = ctx.getParameters();
         final Monitor annotation = getAnnotationFromContext(ctx, Monitor.class);
 
         // if producer id isn't specified by client - use class name
         final String producerId = annotation.producerId().isEmpty() ? method.getDeclaringClass().getSimpleName() : annotation.producerId();
 
-        final OnDemandStatsProducer onDemandProducer = getProducer(producerId, annotation.category(), annotation.subsystem());
+        final OnDemandStatsProducer onDemandProducer = getProducer(producerId, annotation.category(), annotation.subsystem(), true);
 
         if (onDemandProducer == null) {
             return proceed(ctx);
@@ -75,9 +81,36 @@ public class MonitorInterceptor extends AbstractInterceptor<ServiceStats> implem
 
         final TracedCall aRunningTrace = RunningTraceContainer.getCurrentlyTracedCall();
         TraceStep currentStep = null;
-        final CurrentlyTracedCall currentTrace = aRunningTrace.callTraced() ? (CurrentlyTracedCall) aRunningTrace : null;
+        CurrentlyTracedCall currentTrace = aRunningTrace.callTraced() ? (CurrentlyTracedCall) aRunningTrace : null;
         if (currentTrace != null) {
-            currentStep = currentTrace.startStep(TracingUtil.buildCall(method, ctx.getParameters()), onDemandProducer);
+            currentStep = currentTrace.startStep(TracingUtil.buildCall(method, parameters), onDemandProducer);
+        }
+
+        TracerRepository tracerRepository = TracerRepository.getInstance();
+        boolean tracePassingOfThisProducer = tracerRepository.isTracingEnabledForProducer(producerId);
+        Trace trace = null;
+        boolean journeyStartedByMe = false;
+
+        //we create trace here already, because we want to reserve a new trace id.
+        if (tracePassingOfThisProducer){
+            trace = new Trace();
+        }
+
+        if (currentTrace == null && tracePassingOfThisProducer){
+            //ok, we will create a new journey on the fly.
+            String journeyCallName = Tracers.getCallName(trace);
+            RunningTraceContainer.startTracedCall(journeyCallName);
+            journeyStartedByMe = true;
+
+            currentTrace = (CurrentlyTracedCall) RunningTraceContainer.getCurrentlyTracedCall();
+        }
+
+        StringBuilder call = null;
+        if (currentTrace != null || tracePassingOfThisProducer) {
+            call = TracingUtil.buildCall(producerId, method.getName(), parameters, tracePassingOfThisProducer ? Tracers.getCallName(trace) : null);
+        }
+        if (currentTrace != null) {
+            currentStep = currentTrace.startStep(call.toString(), onDemandProducer);
         }
 
         final long startTime = System.nanoTime();
@@ -102,6 +135,8 @@ public class MonitorInterceptor extends AbstractInterceptor<ServiceStats> implem
                 methodStats.notifyError();
             if (currentStep != null)
                 currentStep.setAborted();
+            if (tracePassingOfThisProducer)
+                call.append(" ERR "+t.getMessage());
 
             throw t;
         } finally {
@@ -120,7 +155,7 @@ public class MonitorInterceptor extends AbstractInterceptor<ServiceStats> implem
             if (currentStep != null) {
                 currentStep.setDuration(exTime);
                 try {
-                    currentStep.appendToCall(" = " + ret);
+                    currentStep.appendToCall(" = " + TracingUtil.parameter2string(ret));
                 } catch (Throwable t) {
                     currentStep.appendToCall(" = ERR: " + t.getMessage() + " (" + t.getClass() + ")");
                 }
@@ -128,6 +163,23 @@ public class MonitorInterceptor extends AbstractInterceptor<ServiceStats> implem
 
             if (currentTrace != null) {
                 currentTrace.endStep();
+            }
+
+            if (tracePassingOfThisProducer) {
+                call.append(" = ").append(TracingUtil.parameter2string(ret));
+                trace.setCall(call.toString());
+                trace.setDuration(exTime);
+                trace.setElements(Thread.currentThread().getStackTrace());
+
+                if (journeyStartedByMe) {
+                    //now finish the journey.
+                    Journey myJourney = JourneyManagerFactory.getJourneyManager().getOrCreateJourney(Tracers.getJourneyNameForTracers(producerId));
+                    myJourney.addUseCase((CurrentlyTracedCall) RunningTraceContainer.endTrace());
+                    RunningTraceContainer.cleanup();
+                }
+
+
+                tracerRepository.addTracedExecution(producerId, trace);
             }
         }
     }
