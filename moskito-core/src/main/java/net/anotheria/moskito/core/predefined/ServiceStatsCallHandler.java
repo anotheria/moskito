@@ -84,6 +84,8 @@ public class ServiceStatsCallHandler implements IOnDemandCallHandler {
 			String journeyCallName = Tracers.getCallName(trace);
 			RunningTraceContainer.startTracedCall(journeyCallName);
 			journeyStartedByMe = true;
+
+			currentTrace = (CurrentlyTracedCall) RunningTraceContainer.getCurrentlyTracedCall();
 		}
 
 		StringBuilder call = null;
