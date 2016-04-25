@@ -76,10 +76,19 @@ public class TraceStep implements Serializable{
 	 */
 	private transient IStatsProducer producer;
 
+	/**
+	 * Creates a new trace step.
+	 * @param aCall string description of the call.
+	 */
 	public TraceStep(String aCall){
 		this(aCall, null);
 	}
-	
+
+	/**
+	 * Creates a new trace step.
+	 * @param aCall call description.
+	 * @param aProducer the executing producer.
+	 */
 	public TraceStep(String aCall, IStatsProducer aProducer){
 		call = aCall;
 		children = new ArrayList<TraceStep>();
@@ -93,21 +102,34 @@ public class TraceStep implements Serializable{
 	public List<TraceStep> getChildren(){
 		return children;
 	}
-	
+
+	/**
+	 * Sets the parent step of this step.
+	 * @param step
+	 */
 	public void setParent(TraceStep step){
 		parent = step;
 	}
-	
+
+	/**
+	 * Returns the parent step. Parent step is the caller.
+	 * @return the parent step of this step.
+	 */
 	public TraceStep getParent(){
 		return parent;
 	}
-	
+
+	/**
+	 * Returns the last step in this execution.
+	 * @return this step if it has no chidlren or the last step from the children.
+	 */
 	public TraceStep getLastStep(){
 		if (children==null || children.size()==0)
 			return this;
 		return children.get(children.size()-1).getLastStep();
 	}
-	
+
+	@Override
 	public String toString(){
 		StringBuilder ret = new StringBuilder(getCall()).append(" D: ").append(getDuration()).append(" ns");
 		if (isAborted())
@@ -130,7 +152,11 @@ public class TraceStep implements Serializable{
 			ret.append('\t');
 		return ret;
 	}
-	
+
+	/**
+	 * Adds a new child to this step.
+	 * @param p
+	 */
 	public void addChild(TraceStep p){
 		children.add(p);
 		p.setParent(this);
@@ -156,6 +182,10 @@ public class TraceStep implements Serializable{
 		return b;
 	}
 
+	/**
+	 * Returns true if this step is marked as aborted/exceptional.
+	 * @return true if the step has been aborted by an exception.
+	 */
 	public boolean isAborted() {
 		return aborted;
 	}
@@ -167,11 +197,19 @@ public class TraceStep implements Serializable{
 	public void setAborted(){
 		aborted = true;
 	}
-	
+
+	/**
+	 * Returns the total duration of this step.
+	 * @return
+	 */
 	public long getDuration() {
 		return duration;
 	}
-	
+
+	/**
+	 * Returns the net duration, which means total duration minus the duration of all children.
+	 * @return
+	 */
 	public long getNetDuration(){
 		long ret = duration;
 		for (TraceStep s : children )
@@ -197,7 +235,11 @@ public class TraceStep implements Serializable{
 			sum += s.getNumberOfIncludedSteps();
 		return sum;
 	}
-	
+
+	/**
+	 * Returns associated producer.
+	 * @return associated producer.
+	 */
 	public IStatsProducer getProducer(){
 		return producer;
 	}

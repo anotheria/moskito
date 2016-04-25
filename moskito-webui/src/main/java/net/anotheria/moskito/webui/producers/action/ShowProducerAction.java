@@ -31,17 +31,17 @@
  * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, 
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR
  * THE USE OR OTHER DEALINGS IN THE SOFTWARE.
- */	
+ */
 package net.anotheria.moskito.webui.producers.action;
 
 import net.anotheria.maf.action.ActionCommand;
 import net.anotheria.maf.action.ActionMapping;
 import net.anotheria.maf.bean.FormBean;
+import net.anotheria.moskito.core.decorators.IDecorator;
+import net.anotheria.moskito.core.decorators.value.StatValueAO;
 import net.anotheria.moskito.core.inspection.CreationInfo;
-import net.anotheria.moskito.webui.decorators.IDecorator;
 import net.anotheria.moskito.webui.producers.api.ProducerAO;
 import net.anotheria.moskito.webui.producers.api.StatLineAO;
-import net.anotheria.moskito.webui.producers.api.StatValueAO;
 import net.anotheria.moskito.webui.shared.action.BaseMoskitoUIAction;
 import net.anotheria.moskito.webui.shared.bean.GraphDataBean;
 import net.anotheria.moskito.webui.shared.bean.GraphDataValueBean;
@@ -52,6 +52,8 @@ import net.anotheria.moskito.webui.shared.bean.StatDecoratorBean;
 import net.anotheria.moskito.webui.shared.bean.UnitBean;
 import net.anotheria.util.NumberUtils;
 import net.anotheria.util.sorter.StaticQuickSorter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -66,7 +68,15 @@ import java.util.Map;
  *
  */
 public class ShowProducerAction extends BaseMoskitoUIAction {
-	
+	/**
+	 * Cumulated caption value.
+	 */
+	private static final String CUMULATED_STAT_NAME_VALUE = "cumulated";
+	/**
+	 * {@link Logger} instance.
+	 */
+	private static final Logger LOGGER = LoggerFactory.getLogger(ShowProducerAction.class);
+
 	@Override public ActionCommand execute(ActionMapping mapping, FormBean bean, HttpServletRequest req, HttpServletResponse res) throws Exception {
 
 		String intervalName = getCurrentInterval(req);
@@ -79,8 +89,8 @@ public class ShowProducerAction extends BaseMoskitoUIAction {
 		String target = req.getParameter("target");
 		req.setAttribute("target", target);
 
-		String pFilterZero = req.getParameter(PARAM_FILTER_ZERO);
-		boolean filterZero = pFilterZero != null && pFilterZero.equalsIgnoreCase("true");
+		//String pFilterZero = req.getParameter(PARAM_FILTER_ZERO);
+		//boolean filterZero = pFilterZero != null && pFilterZero.equalsIgnoreCase("true");
 
 		IDecorator decorator = getDecoratorRegistry().getDecorator(producer.getStatsClazzName());
 		Map<String, GraphDataBean> graphData = new HashMap<String, GraphDataBean>();
@@ -98,54 +108,154 @@ public class ShowProducerAction extends BaseMoskitoUIAction {
 				//producer has no stats at all, ignoring
 			}
 		}
-		
-		//bla bla, now prepare view
-		List<IDecorator> decorators = new ArrayList<IDecorator>(1);
-		decorators.add(decorator);
+
 		List<StatDecoratorBean> beans = new ArrayList<StatDecoratorBean>();
 		//sort
-		
-		StatDecoratorBean b = new StatDecoratorBean();
-		b.setName(decorator.getName());
-		b.setCaptions(decorator.getCaptions());
-		List<StatBean> sbs = new ArrayList<StatBean>();
-		for (int i=1; i<allLines.size(); i++){
-			StatLineAO line = allLines.get(i);
-			List<StatValueAO> statsLine = line.getValues();
-			//TODO fix filterzero.
-//			if (!filterZero || !s.isEmpty(intervalName)){
-				StatBean sb = new StatBean();
-				sb.setName(line.getStatName());//s.getName());
-				List<StatValueAO> statValues = statsLine;
-				for (StatValueAO valueBean : statValues){
-					String graphKey = decorator.getName()+"_"+valueBean.getName();
-					graphData.get(graphKey).addValue(new GraphDataValueBean(line.getStatName(), valueBean.getRawValue()));
-				}
-				sb.setValues(statValues);
-				sbs.add(sb);
-//			}
-		}
-		b.setStats(StaticQuickSorter.sort(sbs, getStatBeanSortType(b, req)));
 
+		final StatDecoratorBean decoratorBean = new StatDecoratorBean();
+		decoratorBean.setName(decorator.getName());
+		decoratorBean.setCaptions(decorator.getCaptions());
 
-		//make cumulated entry
-		StatLineAO s = allLines.get(0);
-		StatBean sb = new StatBean();
-		sb.setName(s.getStatName());//s.getName());
-		sb.setValues(s.getValues());
-		//
-		b.addStatsBean(sb);
+		final StatBeanSortType sortType = getStatBeanSortType(decoratorBean, req);
 
-		beans.add(b);
+		// populate stats
+		populateStats(decoratorBean, allLines, sortType);
+
+		// populate cumulated stat
+		populateCumulatedStats(decoratorBean, allLines);
+
+		beans.add(decoratorBean);
+
+		// populate graph data
+		populateGraphData(decorator, graphData, allLines);
 
 		req.setAttribute("decorators", beans);
 		req.setAttribute("graphDatas", graphData.values());
-		
+
 		inspectProducer(req, producer);
-		
+
 		return mapping.findCommand( getForward(req) );
 	}
-	
+
+	/**
+	 * Allows to set all stats to decorator except cumulated stat.
+	 * Stats will be sorted using given sort type.
+	 *
+	 * @param statDecoratorBean {@link StatDecoratorBean}
+	 * @param allStatLines      list of {@link StatLineAO}, all stats present in producer
+	 * @param sortType          {@link StatBeanSortType}
+	 */
+	private void populateStats(final StatDecoratorBean statDecoratorBean, final List<StatLineAO> allStatLines, final StatBeanSortType sortType) {
+		if (allStatLines == null || allStatLines.isEmpty()) {
+			LOGGER.warn("Producer's stats are empty");
+			return;
+		}
+
+		final int cumulatedIndex = getCumulatedIndex(allStatLines);
+
+		// stats
+		final List<StatBean> statBeans = new ArrayList<>();
+		for (int i = 0; i < allStatLines.size(); i++) {
+			if (i == cumulatedIndex)
+				continue;
+
+			final StatLineAO line = allStatLines.get(i);
+			final List<StatValueAO> statValues = line.getValues();
+
+			final StatBean statBean = new StatBean();
+			statBean.setName(line.getStatName());
+			statBean.setValues(statValues);
+			statBeans.add(statBean);
+		}
+
+		// sort stat beans
+		StaticQuickSorter.sort(statBeans, sortType);
+
+		// set stats
+		statDecoratorBean.setStats(statBeans);
+	}
+
+	/**
+	 * Allows to set cumulated stat to decorator bean.
+	 *
+	 * @param decoratorBean {@link StatDecoratorBean}
+	 * @param allStatLines  list of {@link StatLineAO}, all stats present in producer
+	 */
+	private void populateCumulatedStats(final StatDecoratorBean decoratorBean, final List<StatLineAO> allStatLines) {
+		if (allStatLines == null || allStatLines.isEmpty()) {
+			LOGGER.warn("Producer's stats are empty");
+			return;
+		}
+
+		final int cumulatedIndex = getCumulatedIndex(allStatLines);
+		if (cumulatedIndex == -1)
+			return;
+
+		final StatLineAO cumulatedStatLineAO = allStatLines.get(cumulatedIndex);
+
+		final StatBean cumulatedStat = new StatBean();
+		cumulatedStat.setName(cumulatedStatLineAO.getStatName());
+		cumulatedStat.setValues(cumulatedStatLineAO.getValues());
+
+		decoratorBean.setCumulatedStat(cumulatedStat);
+	}
+
+	/**
+	 * Allows to populate graph data.
+	 *
+	 * @param decorator    {@link IDecorator}
+	 * @param graphData    map with graph data
+	 * @param allStatLines list of {@link StatLineAO}, all stats present in producer
+	 */
+	private void populateGraphData(final IDecorator decorator, final Map<String, GraphDataBean> graphData, final List<StatLineAO> allStatLines) {
+		final int cumulatedIndex = getCumulatedIndex(allStatLines);
+
+		for (int i = 0; i < allStatLines.size(); i++) {
+			if (i == cumulatedIndex)
+				continue;
+
+			//TODO fix filterzero.
+//			if (!filterZero || !s.isEmpty(intervalName)){
+
+			final StatLineAO line = allStatLines.get(i);
+			final List<StatValueAO> statValues = line.getValues();
+
+			for (StatValueAO statValue : statValues) {
+				final String graphKey = decorator.getName() + "_" + statValue.getName();
+				final GraphDataValueBean value = new GraphDataValueBean(line.getStatName(), statValue.getRawValue());
+
+				final GraphDataBean graphDataBean = graphData.get(graphKey);
+				if (graphDataBean != null)
+					graphDataBean.addValue(value);
+			}
+		}
+	}
+
+	/**
+	 * Returns index of cumulated stat in producer's stats.
+	 *
+	 * @param allStatLines list of {@link StatLineAO}
+	 * @return index of cumulated stat or {@value -1} if was not found
+	 */
+	private int getCumulatedIndex(final List<StatLineAO> allStatLines) {
+		if (allStatLines == null || allStatLines.isEmpty()) {
+			return -1;
+		}
+
+		int cumulatedIndex = -1;
+
+		for (int i = 0, allStatLinesSize = allStatLines.size(); i < allStatLinesSize; i++) {
+			final StatLineAO statLine = allStatLines.get(i);
+
+			if (CUMULATED_STAT_NAME_VALUE.equals(statLine.getStatName())) {
+				cumulatedIndex = i;
+				break;
+			}
+		}
+
+		return cumulatedIndex;
+	}
+
 	private void inspectProducer(HttpServletRequest req, ProducerAO producer){
 		if (! (producer.isInspectable()))
 			return;
@@ -157,7 +267,7 @@ public class ShowProducerAction extends BaseMoskitoUIAction {
 			stackTraceList.add(elem.toString());
 		req.setAttribute("creationTrace", stackTraceList);
 	}
-	
+
 	@Override protected String getLinkToCurrentPage(HttpServletRequest req) {
 		return "mskShowProducer"+"?"+PARAM_PRODUCER_ID+"="+req.getParameter(PARAM_PRODUCER_ID);
 	}
@@ -169,7 +279,7 @@ public class ShowProducerAction extends BaseMoskitoUIAction {
 			try{
 				int sortBy = Integer.parseInt(paramSortBy);
 				String paramSortOrder = req.getParameter(decoratorBean.getSortOrderParameterName());
-				boolean sortOrder = paramSortOrder!=null && paramSortOrder.equals("ASC") ? 
+				boolean sortOrder = paramSortOrder!=null && paramSortOrder.equals("ASC") ?
 						StatBeanSortType.ASC : StatBeanSortType.DESC;
 				sortType = new StatBeanSortType(sortBy, sortOrder);
 				req.getSession().setAttribute(decoratorBean.getSortTypeName(), sortType);
@@ -183,7 +293,7 @@ public class ShowProducerAction extends BaseMoskitoUIAction {
 		}
 		return sortType;
 	}
-	
+
 	@Override
 	protected NaviItem getCurrentNaviItem() {
 		return NaviItem.PRODUCERS;

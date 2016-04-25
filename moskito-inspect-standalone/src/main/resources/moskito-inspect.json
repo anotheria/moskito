@@ -1,0 +1,53 @@
+{
+	"producerChartWidth": 1200,
+	"producerChartHeight": 600,
+    "connectivityMode": "LOCAL",
+    "customLogoUrl":"",
+    "@remotes": [
+        {
+            "name": "Burgershop Local",
+            "host": "localhost",
+            "port": 9401
+        },
+        {
+            "name": "TestServer",
+            "host": "test1.example.com",
+            "port": 9401
+        },
+        {
+            "name": "Another Test Server",
+            "host": "test1.example.com",
+            "port": 9402
+        }
+    ],
+    "@filters": [
+        /*
+            This producer would filter anything by name, for example *API, *FOO* or Simple ThresholdAPI.
+            Similar producers are net.anotheria.moskito.webui.producers.api.filters.ProducerCategoryFilter and
+            net.anotheria.moskito.webui.producers.api.filters.ProducerSubsystemFilter
+        {
+            "clazzName": "net.anotheria.moskito.webui.producers.api.filters.ProducerIdFilter",
+            "parameter": "ThresholdAPI"
+        },*/
+        {
+            //this producer filter will remove internal APIs from the producer list.
+            //remove it if you want to use it
+            "clazzName": "net.anotheria.moskito.webui.producers.api.filters.InternalProducerFilter",
+            "parameter": "none"
+        }
+    ],
+
+    "@decorators": [
+      {
+        "statClazzName": "net.anotheria.moskito.core.util.session.SessionCountStats",
+        "decoratorClazzName" : "net.anotheria.moskito.core.decorators.util.SessionCountDecorator"
+      },
+      {
+        "statClazzName": "org.distributeme.core.stats.RoutingStats",
+        "decoratorClazzName" : "org.distributeme.core.stats.RoutingStatsDecorator"
+      }
+    ]
+
+
+
+}

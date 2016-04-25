@@ -15,11 +15,11 @@ public interface NotificationProvider {
 	 * properties.
 	 * @param config
 	 */
-	public void configure(NotificationProviderConfig config);
+	void configure(NotificationProviderConfig config);
 
 	/**
 	 * Called whenever a new alert has been created in the system.
 	 * @param alert
 	 */
-	public void onNewAlert(ThresholdAlert alert);
+	void onNewAlert(ThresholdAlert alert);
 }

@@ -2,13 +2,15 @@ package net.anotheria.moskito.core.config.thresholds;
 
 import org.configureme.annotations.Configure;
 
+import java.io.Serializable;
+
 /**
  * This class configures the alert history in thresholds.
  *
  * @author lrosenberg
  * @since 22.10.12 17:30
  */
-public class AlertHistoryConfig {
+public class AlertHistoryConfig implements Serializable {
 	/**
 	 * The max number of items in the history.
 	 */

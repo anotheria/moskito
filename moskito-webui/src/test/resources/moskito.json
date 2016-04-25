@@ -1,0 +1,17 @@
+{
+    "@accumulatorsConfig": {
+        "accumulationAmount": 250,
+        "@accumulators": [],
+        "@accumulatorSets": [],
+        "@accumulatorsColors": [
+            {
+                "name": "testAccumulator1",
+                "color": "testColor1"
+            },
+            {
+                "name": "testAccumulator2",
+                "color": "testColor2"
+            }
+        ]
+    }
+}

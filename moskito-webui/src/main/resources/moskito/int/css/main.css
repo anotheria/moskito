@@ -7,7 +7,7 @@ body {
 }
 
 #main {
-    background: #e5e5e5;
+    background: #eeeeee;
     margin-top: 50px;
     margin-left: 220px;
     position: relative;
@@ -24,7 +24,7 @@ body {
 #header {
     background: #FFF;
     border: none;
-    box-shadow: 0 2px 0 rgba(0,0,0,0.04);
+    box-shadow: 0 1px 0 rgba(0,0,0,0.06);
     left: 220px;
     -webkit-transition: all 0.12s linear;
     -moz-transition: all 0.12s linear;
@@ -35,10 +35,12 @@ body {
 #footer {
     min-height: 60px;
     background: #FFF;
-    border-top: 1px solid #d6d6d6;
+    border-top: 1px solid #DDD;
     padding: 30px 50px 20px;
     font-size: 13px;
     color: #777;
+    text-align: left;
+    position: relative;
 }
 
 .scroll #header {
@@ -57,7 +59,6 @@ body {
     -moz-transition: all 0.12s linear;
     -o-transition: all 0.12s linear;
     transition: all 0.12s linear;
-    box-shadow: -4px 0 0 rgba(0, 0, 0, 0.2) inset;
 }
 
 .header-box {
@@ -89,6 +90,19 @@ body {
     position: relative;
 }
 
+.logo-custom {
+    display: block;
+    width: 58px;
+    height: 24px;
+    background-repeat: no-repeat;
+    margin: 18px auto 2px;
+    -webkit-transition: all 0.22s linear;
+    -moz-transition: all 0.22s linear;
+    -o-transition: all 0.22s linear;
+    transition: all 0.22s linear;
+    position: relative;
+}
+
 .logo-title {
     font-size: 18px;
     color: #FFF;
@@ -103,6 +117,10 @@ a:hover .logo-title {
 }
 
 .header-box a:active .logo {
+    top: 2px;
+}
+
+.header-box a:active .logo-custom {
     top: 2px;
 }
 
@@ -130,10 +148,9 @@ ul.nav-sidebar > li {
 
 ul.nav-sidebar > li > a:focus,
 ul.nav-sidebar > li > a {
-    background: #4e515b;
     color: #FFF;
     opacity: 0.6;
-    padding: 15px 15px;
+    padding: 10px 15px;
     border-left: 4px solid #434651;
     position: relative;
 }
@@ -149,13 +166,14 @@ ul.nav-sidebar > li.active > ul {
 ul.nav-sidebar > li > a i {
     position: absolute;
     right: 20px;
-    top: 17px;
+    top: 12px;
 }
 
+ul.nav-sidebar > li > a:focus,
 ul.nav-sidebar > li > a:active,
 ul.nav-sidebar > li > a:hover {
     opacity: 1;
-    background: #4d515c;
+    background: rgba(255,255,255,0.05);
 }
 
 ul.nav-sidebar > li.active > a {
@@ -298,6 +316,16 @@ body.status-yellow ul.nav-sidebar > li.active > a {
     opacity: 0.5;
 }
 
+.aside-collapse .logo-custom {
+    position: absolute;
+    right: 5px;
+    top: 16px;
+    background-size: 40px auto;
+    width: 40px;
+    margin: 0;
+    opacity: 0.5;
+}
+
 .aside-collapse #main {
     margin-left: 50px;
 }
@@ -307,7 +335,7 @@ body.status-yellow ul.nav-sidebar > li.active > a {
 .box {
     background: #FFF;
     min-height: 50px;
-    box-shadow: 0 2px 0 rgba(0,0,0,0.04);
+    box-shadow: 0 1px 0 rgba(0,0,0,0.06);
     border-radius: 5px;
     margin-bottom: 30px;
     position: relative;
@@ -328,15 +356,19 @@ body.status-yellow ul.nav-sidebar > li.active > a {
 }
 
 .box-title {
-    min-height: 50px;
+    min-height: 40px;
+}
+
+.box-title.title-with-border {
+   border-bottom: 1px solid #EEE;
 }
 
 .box-title h3 {
-    margin: 14px 20px;
-    line-height: 21px;
-    font-size: 16px;
+    margin: 10px 20px;
+    line-height: 20px;
+    font-size: 14px;
     float: left;
-    font-weight: 400;
+    font-weight: 600;
 }
 
 .box.last {
@@ -416,8 +448,8 @@ table td.wrap,
     color: #444;
     margin-right: -25px;
     display: inline-block;
-    width: 50px;
-    line-height: 50px;
+    width: 40px;
+    line-height: 40px;
     display: inline-block;
     float: left;
     text-align: center;
@@ -507,12 +539,12 @@ table td.wrap,
     transition: all 0.12s linear;
     display: inline-block;
     float: right;
-    line-height: 50px;
-    width: 50px;
+    line-height: 40px;
+    width: 40px;
     text-align: center;
 }
 
-.box-right-nav:hover a {
+.box-right-nav a:hover {
     opacity: 0.8;
 }
 
@@ -544,6 +576,7 @@ i.chart-icon {
     opacity: 0;
     margin-bottom: -1px;
     margin-top: -4px;
+    cursor: pointer;
 }
 
 i.chart-column-icon {
@@ -553,6 +586,17 @@ i.chart-column-icon {
     width: 15px;
     height: 15px;
     position: relative;
+    cursor: pointer;
+}
+
+i.heatmap-chart-icon {
+    display: inline-block;
+    background: url('../img/heatmap.png') no-repeat;
+    background-size: 15px auto;
+    width: 15px;
+    height: 15px;
+    position: relative;
+    cursor: pointer;
 }
 
 .table th:hover i.chart-icon {
@@ -788,7 +832,7 @@ a.action-icon {
     min-width: 33px;
     text-align: center;
     margin-right: -20px;
-    margin-left: 20px;
+    margin-left: 21px;
     -webkit-transition: all 0.12s linear;
     -moz-transition: all 0.12s linear;
     -o-transition: all 0.12s linear;
@@ -815,16 +859,32 @@ tr:hover a.action-icon i {
     opacity: 1;
 }
 
+tr:hover a.action-icon.toggle-off-icon,
 tr:hover a.action-icon.delete-icon {
     background: #ebb1b1;
 }
 
+tr:hover a.action-icon.toggle-off-icon:hover,
+tr:hover a.action-icon.delete-icon:hover {
+    background: #e5a3a3;
+}
+
+tr:hover a.action-icon.toggle-on-icon,
 tr:hover a.action-icon.edit-icon {
     background: #c8e59e;
 }
 
+tr:hover a.action-icon.toggle-on-icon:hover,
+tr:hover a.action-icon.edit-icon:hover {
+    background: #bade87;
+}
+
 tr:hover a.action-icon.show-icon {
     background: #f0e298;
+}
+
+tr:hover a.action-icon.show-icon:hover {
+    background: #ecd974;
 }
 
 thead tr th:last-child {
@@ -1312,7 +1372,7 @@ span.call-info {
 
 .accumulator-chart {
     min-height: 300px;
-    min-width: 600px;
+    min-width: 450px;
     font: 12px sans-serif;
 }
 /* D3 svg */
@@ -1327,6 +1387,12 @@ span.call-info {
     fill: none;
     stroke: steelblue;
     stroke-width: 1.5px;
+}
+
+.accumulator-chart .line.hover {
+    fill: none;
+    stroke: steelblue;
+    stroke-width: 3.0px;
 }
 
 .accumulator-chart .grid .tick {
@@ -1388,11 +1454,19 @@ svg .legendButtons{
     vertical-align: middle;
 }
 
+.d3-chart-tooltip span {
+    vertical-align: -12px;
+}
+
 .d3-chart-tooltip .tooltip-section .tooltip-key {
     float: left;
     line-height: 16px;
     margin-right: 10px;
     display: table-cell;
+}
+
+.d3-chart-tooltip .tooltip-section .tooltip-key.highlight{
+    font-weight: bold;
 }
 
 .d3-chart-tooltip .tooltip-section .tooltip-value {
@@ -1475,4 +1549,128 @@ svg .legendButtons{
 
 .d3-bar-chart-navigation #nextSlide{
     top: 0;
+}
+
+.dashboard-line {
+    border-bottom: 1px solid #DDD;
+    margin-bottom: 30px;
+}
+
+.dashboard-line:last-child {
+    border: none;
+}
+
+.box.threshold-item {
+    min-height: 46px;
+    padding: 13px 15px;
+    position: relative;
+}
+
+.box.threshold-item .status {
+    position: absolute;
+    left: 20px;
+    top: 16px;
+}
+
+.box.threshold-item .threshold-title {
+    display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    padding-left: 30px;
+}
+
+.gauge-content {
+    display: inline-block;
+    margin: 15px 0;
+}
+
+.gauge-info {
+    margin-top: 10px;
+}
+
+.gauge-info .gauge-info-item {
+    color: #999;
+    cursor: help;
+}
+
+.gauge-info .gauge-info-item:hover {
+    color: #444;
+}
+
+tr.tr-toggle-off td {
+    background: #f7dede !important;
+}
+
+tr.tr-toggle-off:hover td {
+    background: #f7d0d0 !important;
+}
+
+.iphone-app-icon {
+    width: 13px;
+    opacity: 0.4;
+    margin-top: -4px;
+    margin-bottom: -2px;
+    margin-left: 10px;
+}
+
+li.iphone-app-link a {
+    border-left: 1px solid #e5e5e5;
+}
+
+a:hover .iphone-app-icon {
+    opacity: 1;
+}
+
+.save_as:hover {
+    cursor: pointer;
+}
+
+.footer-content {
+    padding-right: 200px;
+    position: relative;
+}
+
+.iphone-banner {
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+
+.iphone-banner img {
+    height: 48px;
+}
+
+/*
+Heat map
+*/
+.heatMap rect.cell-border {
+    stroke: #eee;
+    stroke-width:0.3px;
+}
+
+.heatMap rect {
+    opacity: 0.8;
+}
+
+
+.dashboard-line-footer {
+    margin-bottom: 10px;
+}
+
+.dashboard-line-nav-box {
+    margin-top: -10px;
+}
+
+.dashboard-line-nav-box li a {
+    color: #777;
+}
+
+.dashboard-line-nav-box li a i {
+    margin-right: 5px;
+}
+
+.dashboard-line-nav-box li a:hover {
+    text-decoration: none;
+    color: #333;
 }

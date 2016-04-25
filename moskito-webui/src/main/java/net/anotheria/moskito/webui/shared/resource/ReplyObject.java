@@ -92,6 +92,13 @@ public class ReplyObject {
 		return ret;
 	}
 
+	public static ReplyObject error(Throwable exc){
+		ReplyObject ret = new ReplyObject();
+		ret.success = false;
+		ret.message = exc.getClass().getSimpleName()+": "+exc.getMessage();
+		return ret;
+	}
+
 	@Override public String toString(){
 		StringBuilder ret = new StringBuilder("ReplyObject ");
 		ret.append("Success: ").append(success);

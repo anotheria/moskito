@@ -1,15 +1,14 @@
 package net.anotheria.moskito.webui.shared.action;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-
 import net.anotheria.maf.action.AbortExecutionException;
 import net.anotheria.maf.action.ActionMapping;
 import net.anotheria.maf.bean.FormBean;
 import net.anotheria.maf.json.JSONResponse;
-import net.anotheria.util.StringUtils;
 import org.json.JSONException;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 
 /**
  * Save nav menu state action.

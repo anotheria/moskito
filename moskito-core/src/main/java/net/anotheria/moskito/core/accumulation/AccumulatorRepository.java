@@ -1,5 +1,6 @@
 package net.anotheria.moskito.core.accumulation;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import net.anotheria.moskito.core.config.MoskitoConfigurationHolder;
 import net.anotheria.moskito.core.config.accumulators.AccumulatorConfig;
 import net.anotheria.moskito.core.config.accumulators.AccumulatorsConfig;
@@ -83,7 +84,7 @@ public final class AccumulatorRepository extends TieableRepository<Accumulator> 
 	}
 
 	/**
-	 * Reads the config and creates configured thresholds. For now this method is only executed on startup.
+	 * Reads the config and creates configured accumulators. For now this method is only executed on startup.
 	 */
 	private void readConfig(){
 		AccumulatorsConfig config = MoskitoConfigurationHolder.getConfiguration().getAccumulatorsConfig();
@@ -98,16 +99,20 @@ public final class AccumulatorRepository extends TieableRepository<Accumulator> 
 				ad.setTimeUnit(TimeUnit.valueOf(ac.getTimeUnit()));
 				ad.setValueName(ac.getValueName());
 				Accumulator acc = createAccumulator(ad);
+				if (log.isDebugEnabled()){
+					log.debug("Created accumulator "+acc);
+				}
 			}
 		}
 	}
 
     /**
      * This method is for unit testing ONLY.
+	 * The Findbugs warning is suppressed, because this method is for unit testing only.
      */
+	@SuppressFBWarnings(value = "ST_WRITE_TO_STATIC_FROM_INSTANCE_METHOD", justification = "This method is for unit testing only.")
     void reset() {
         cleanup();
-		//FINDBUGS OFF
 		INSTANCE = new AccumulatorRepository();
 	}
 

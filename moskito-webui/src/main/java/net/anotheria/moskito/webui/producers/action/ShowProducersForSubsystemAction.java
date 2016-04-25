@@ -34,6 +34,7 @@
  */	
 package net.anotheria.moskito.webui.producers.action;
 
+import net.anotheria.anoplass.api.APIException;
 import net.anotheria.moskito.webui.producers.api.ProducerAO;
 
 import javax.servlet.http.HttpServletRequest;
@@ -52,7 +53,7 @@ public class ShowProducersForSubsystemAction extends BaseShowProducersAction{
 	}
 
 	@Override
-	protected List<ProducerAO> getProducers(HttpServletRequest req) {
+	protected List<ProducerAO> getProducers(HttpServletRequest req)  throws APIException {
 		String currentSubsystem = getSubsystemParameter(req);
 		req.setAttribute("currentSubsystem", currentSubsystem);
 		return getProducerAPI().getAllProducersBySubsystem(currentSubsystem, getCurrentInterval(req), getCurrentUnit(req).getUnit());

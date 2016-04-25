@@ -89,11 +89,8 @@ public class JourneyAPIImpl extends AbstractMoskitoAPIImpl implements  JourneyAP
 		return ret;
 	}
 
-	@Override
-	public TracedCallAO getTracedCall(String journeyName, int callPosition, TimeUnit unit) throws APIException {
-		Journey journey = getJourneyByName(journeyName);
-		CurrentlyTracedCall useCase = journey.getTracedCalls().get(callPosition);
 
+	private TracedCallAO mapTracedCall(CurrentlyTracedCall useCase, TimeUnit unit){
 		TraceStep root = useCase.getRootStep();
 		TracedCallAO ret = new TracedCallAO();
 		ret.setName(useCase.getName());
@@ -122,6 +119,21 @@ public class JourneyAPIImpl extends AbstractMoskitoAPIImpl implements  JourneyAP
 		ret.setDuplicateSteps(dupSteps);
 
 		return ret;
+	}
+
+	@Override
+	public TracedCallAO getTracedCallByName(String journeyName, String traceName, TimeUnit unit)  throws APIException{
+		Journey journey = getJourneyByName(journeyName);
+		CurrentlyTracedCall call = journey.getStepByName(traceName);
+		return mapTracedCall(call, unit);
+	}
+
+
+	@Override
+	public TracedCallAO getTracedCall(String journeyName, int callPosition, TimeUnit unit) throws APIException {
+		Journey journey = getJourneyByName(journeyName);
+		CurrentlyTracedCall call = journey.getTracedCalls().get(callPosition);
+		return mapTracedCall(call, unit);
 	}
 
 	private void fillUseCasePathElementBeanList(JourneyCallIntermediateContainer container, TraceStep element, int recursion, TimeUnit unit){

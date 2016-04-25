@@ -1,6 +1,6 @@
-<%@ page language="java" contentType="application/json;charset=UTF-8" session="true"
-%><%@ taglib uri="http://www.anotheria.net/ano-tags" prefix="ano" 
-%>{
+    <%@ page import="net.anotheria.moskito.core.decorators.value.StatCaptionBean"%><%@ page language="java" contentType="application/json;charset=UTF-8" session="true"
+    %><%@ taglib uri="http://www.anotheria.net/ano-tags" prefix="ano"
+    %>{
 	query: "AllProducers",
 	interval: "<ano:write name="currentInterval"/>",
 	timestamp: "<ano:write name="timestamp"/>",
@@ -13,8 +13,8 @@
 					subsystem: "<ano:write name="producer" property="subsystem"/>",
 					class: "<ano:write name="producer" property="producerClassName"/>",
 		            values: [
-					<ano:iterate name="producer" property="firstStatsValues" id="value" type="net.anotheria.moskito.webui.producers.api.StatValueAO" indexId="ind"><%
-						String tagCaption = ((net.anotheria.moskito.webui.shared.bean.StatCaptionBean)captions.get(ind.intValue())).getCaption();
+					<ano:iterate name="producer" property="firstStatsValues" id="value" type="net.anotheria.moskito.core.decorators.value.StatValueAO" indexId="ind"><%
+						String tagCaption = ((StatCaptionBean)captions.get(ind.intValue())).getCaption();
 					%>
 					{
 						name: "<%=tagCaption%>",

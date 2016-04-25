@@ -1,11 +1,11 @@
 package net.anotheria.moskito.webui.threshold.resource;
 
 import net.anotheria.anoplass.api.APIException;
-import net.anotheria.anoplass.api.APIFinder;
+import net.anotheria.moskito.webui.shared.resource.AbstractResource;
 import net.anotheria.moskito.webui.shared.resource.ReplyObject;
-import net.anotheria.moskito.webui.threshold.api.ThresholdAPI;
 import net.anotheria.moskito.webui.threshold.api.ThresholdPO;
 
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -13,26 +13,20 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.WebApplicationException;
 
 /**
- * This handles thresholds in the moskito-webui rest interface.
+ * This handles thresholds in the moskito-inspect rest interface.
  *
  * @author lrosenberg
  * @since 11.02.13 18:24
  */
 @Path("/thresholds")
-public class ThresholdResource {
-
-	/**
-	 * Threshold API.
-	 */
-	private ThresholdAPI thresholdAPI = APIFinder.findAPI(ThresholdAPI.class);
+public class ThresholdResource extends AbstractResource{
 
 	@GET
-	@Path("list")
 	public ReplyObject getThresholds(){
 		try{
 			ReplyObject ret = ReplyObject.success();
-			ret.addResult("statuses", thresholdAPI.getThresholdStatuses());
-			ret.addResult("definitions", thresholdAPI.getThresholdDefinitions());
+			ret.addResult("statuses", getThresholdAPI().getThresholdStatuses());
+			ret.addResult("definitions", getThresholdAPI().getThresholdDefinitions());
 			return ret;
 		}catch(APIException e){
 			throw new WebApplicationException(e);
@@ -44,7 +38,7 @@ public class ThresholdResource {
 	public ReplyObject getThresholdDefinitions(){
 		try{
 			ReplyObject ret = ReplyObject.success();
-			ret.addResult("definitions", thresholdAPI.getThresholdDefinitions());
+			ret.addResult("definitions", getThresholdAPI().getThresholdDefinitions());
 			return ret;
 		}catch(APIException e){
 			throw new WebApplicationException(e);
@@ -56,7 +50,7 @@ public class ThresholdResource {
 	public ReplyObject getThresholdStatuses(){
 		try{
 			ReplyObject ret = ReplyObject.success();
-			ret.addResult("statuses", thresholdAPI.getThresholdStatuses());
+			ret.addResult("statuses", getThresholdAPI().getThresholdStatuses());
 			return ret;
 		}catch(APIException e){
 			throw new WebApplicationException(e);
@@ -64,50 +58,21 @@ public class ThresholdResource {
 	}
 
 	@POST
-	@Path("create")
 	public ReplyObject createThreshold(ThresholdPO po){
 		try{
-			thresholdAPI.createThreshold(po);
+			getThresholdAPI().createThreshold(po);
 			return ReplyObject.success();
 		}catch(APIException e){
 			throw new WebApplicationException(e);
 		}
 	}
 
-	@GET
-	@Path("remove/{id}")
+	@DELETE
+	@Path("/{id}")
 	public ReplyObject deleteThreshold(@PathParam("id") String id){
 		try{
-			thresholdAPI.removeThreshold(id);
+			getThresholdAPI().removeThreshold(id);
 			return ReplyObject.success();
-		}catch(APIException e){
-			throw new WebApplicationException(e);
-		}
-	}
-
-	@GET
-	@Path("alerts")
-	public ReplyObject getAlerts(){
-		try{
-			return ReplyObject.success("status", thresholdAPI.getAlerts());
-		}catch(APIException e){
-			throw new WebApplicationException(e);
-		}
-	}
-
-	@GET @Path("worstStatus")
-	public ReplyObject getWorstStatus(){
-		try{
-			return ReplyObject.success("status", thresholdAPI.getWorstStatus());
-		}catch(APIException e){
-			throw new WebApplicationException(e);
-		}
-	}
-
-	@POST @Path("worstStatusForSelectedThresholds")
-	public ReplyObject getWorstStatus(StatusForm statusForm){
-		try{
-			return ReplyObject.success("status", thresholdAPI.getWorstStatus(statusForm.getThresholdNames()));
 		}catch(APIException e){
 			throw new WebApplicationException(e);
 		}

@@ -34,7 +34,6 @@
  */	
 package net.anotheria.moskito.core.command;
 
-import net.anotheria.moskito.core.usecase.recorder.UseCaseRecorderCommandProcessor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -64,7 +63,6 @@ public enum CommandControllerImpl implements CommandController{
 	 */
 	private CommandControllerImpl() {
 		processors = new HashMap<String, CommandProcessor>();
-		registerCommandProcessor("recordUseCase", new UseCaseRecorderCommandProcessor());
 	}
 	 
 	@Override public void registerCommandProcessor(String command, CommandProcessor processor) {

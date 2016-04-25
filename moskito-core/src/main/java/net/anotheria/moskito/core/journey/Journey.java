@@ -89,4 +89,26 @@ public class Journey {
 	public String toString(){
 		return getName()+" with "+getTracedCalls().size()+" calls.";
 	}
+
+	public void removeStepByName(String stepName){
+		for (int i=0; i<tracedCalls.size(); i++){
+			CurrentlyTracedCall ctc = tracedCalls.get(i);
+			if (ctc.getName().equals(stepName)){
+				tracedCalls.remove(i);
+				return;
+			}
+
+		}
+	}
+
+	public CurrentlyTracedCall getStepByName(String stepName){
+		for (int i=0; i<tracedCalls.size(); i++){
+			CurrentlyTracedCall ctc = tracedCalls.get(i);
+			if (ctc.getName().equals(stepName)){
+				return ctc;
+			}
+
+		}
+		return null;
+	}
 }

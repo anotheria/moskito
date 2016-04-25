@@ -1,12 +1,14 @@
 package net.anotheria.moskito.webui.util;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.configureme.ConfigurationManager;
 import org.configureme.annotations.ConfigureMe;
 
 /**
  * Configuration class for web user interface config.
  */
-@ConfigureMe(name="mskwebui", allfields=true)
+@ConfigureMe(name="moskito-inspect", allfields=true)
+@SuppressFBWarnings({"EI_EXPOSE_REP", "EI_EXPOSE_REP2"})
 public class WebUIConfig {
 	/**
 	 * Width of the producerChart.
@@ -32,6 +34,14 @@ public class WebUIConfig {
 	 */
 	private ConnectivityMode connectivityMode = ConnectivityMode.LOCAL;
 
+	/**
+	 * ProducerFilterConfig allows to configure filters that will exclude producers from overview.
+	 *
+	 */
+	private ProducerFilterConfig[] filters = new ProducerFilterConfig[0];
+
+	private DecoratorConfig[] decorators;
+
 
 	/**
 	 * Usage mode, default is shared.
@@ -42,6 +52,11 @@ public class WebUIConfig {
 	 * If true sends a tracking pixel to counter.moskito.org to track worldwide usage.
 	 */
 	private boolean trackUsage = true;
+	/**
+	 * Custom logo url
+	 */
+	private String customLogoUrl="";
+
 
 	public int getProducerChartWidth() {
 		return producerChartWidth;
@@ -123,4 +138,28 @@ public class WebUIConfig {
 		this.usageMode = usageMode;
 	}
 
+	public ProducerFilterConfig[] getFilters() {
+		return filters;
+	}
+
+	public void setFilters(ProducerFilterConfig[] filters) {
+		this.filters = filters;
+	}
+
+	public String getCustomLogoUrl() {
+		return customLogoUrl;
+	}
+
+	public void setCustomLogoUrl(String customLogoUrl) {
+		this.customLogoUrl = customLogoUrl;
+	}
+
+	public DecoratorConfig[] getDecorators() {
+		return decorators;
+	}
+
+	public void setDecorators(DecoratorConfig[] decorators) {
+		this.decorators = decorators;
+	}
 }
+

@@ -93,4 +93,4 @@ public interface IProducerRegistryAPI {
 	 * @return list with interval info objects for all configured and supported intervals.
 	 */
 	List<IntervalInfo> getPresentIntervals();
-} 
+}

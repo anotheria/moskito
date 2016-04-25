@@ -156,4 +156,3 @@ public enum ThreadHistoryUtility {
 		return updateInterval;
 	}
 }
- 

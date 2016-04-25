@@ -1,9 +1,10 @@
 package net.anotheria.moskito.web.session;
 
-import net.anotheria.moskito.core.producers.IStats;
 import net.anotheria.moskito.core.producers.IStatsProducer;
 import net.anotheria.moskito.core.registry.IProducerRegistry;
 import net.anotheria.moskito.core.registry.ProducerRegistryFactory;
+import net.anotheria.moskito.core.util.AbstractBuiltInProducer;
+import net.anotheria.moskito.core.util.session.SessionCountStats;
 
 import javax.servlet.http.HttpSessionEvent;
 import javax.servlet.http.HttpSessionListener;
@@ -11,11 +12,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * This producer attaches itself to webcontainer session management and 
- * @author another
+ * This producer attaches itself to webcontainer session management and counts created and deleted sessions.
+ * @author lrosenberg
  *
  */
-public class SessionCountProducer implements HttpSessionListener, IStatsProducer {
+public class SessionCountProducer extends AbstractBuiltInProducer<SessionCountStats> implements HttpSessionListener, IStatsProducer<SessionCountStats> {
 
 	/**
 	 * SessionCount stats object.
@@ -24,13 +25,16 @@ public class SessionCountProducer implements HttpSessionListener, IStatsProducer
 	/**
 	 * List which contains exactly one stat object.
 	 */
-	private List<IStats> statsList;
-	
+	private List<SessionCountStats> statsList;
+
+	/**
+	 * Creates a new SessionCountProducer.
+	 */
 	public SessionCountProducer(){
 		
 		stats = new SessionCountStats();
 		
-		statsList = new ArrayList<IStats>();
+		statsList = new ArrayList<SessionCountStats>();
 		statsList.add(stats);
 		
 		IProducerRegistry reg = ProducerRegistryFactory.getProducerRegistryInstance();
@@ -59,7 +63,7 @@ public class SessionCountProducer implements HttpSessionListener, IStatsProducer
 	}
 
 	@Override
-	public List<IStats> getStats() {
+	public List<SessionCountStats> getStats() {
 		return statsList;
 	}
 

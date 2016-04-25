@@ -17,7 +17,7 @@ import java.util.concurrent.ConcurrentMap;
  * @author lrosenberg
  * @since 19.03.13 15:47
  */
-public class PluginRepository {
+public final class PluginRepository {
 
 	/**
 	 * Logger.
@@ -37,9 +37,9 @@ public class PluginRepository {
 
 	/**
 	 * Returns plugin repository singleton instance.
-	 * @return
+	 * @return the instance of this repository.
 	 */
-	public static final PluginRepository getInstance(){
+	public static PluginRepository getInstance(){
 		return PluginRepositoryHolder.instance;
 	}
 
@@ -111,7 +111,7 @@ public class PluginRepository {
 
 	/**
 	 * Returns the names of the active plugins.
-	 * @return
+	 * @return list of loaded plugins.
 	 */
 	public List<String> getPluginNames() {
 		ArrayList<String> ret = new ArrayList<String>();
@@ -121,8 +121,8 @@ public class PluginRepository {
 
 	/**
 	 * Returns loaded plugin by name.
-	 * @param name
-	 * @return
+	 * @param name name of the plugin.
+	 * @return Plugin by name.
 	 */
 	public MoskitoPlugin getPlugin(String name){
 		return plugins.get(name);
@@ -130,8 +130,8 @@ public class PluginRepository {
 
 	/**
 	 * Returns pluginconfig for the loaded plugin.
-	 * @param name
-	 * @return
+	 * @param name nane of the plugin.
+	 * @return PluginConfig for specified plugin.
 	 */
 	public PluginConfig getConfig(String name){
 		return configs.get(name);
@@ -141,6 +141,9 @@ public class PluginRepository {
 	 * Singletonhelper.
 	 */
 	private static class PluginRepositoryHolder{
+		/**
+		 * Instance of the PluginRepository.
+		 */
 		private static final PluginRepository instance = new PluginRepository();
 		static{
 			instance.setup();

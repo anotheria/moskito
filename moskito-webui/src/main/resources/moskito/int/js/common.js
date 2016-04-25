@@ -53,11 +53,10 @@ $(function () {
         // set a unique id
         id: 'commaNumber',
         is: function(s) {
-            // return false so this parser is not auto detected
-            return false;
+            return /^[0-9]?[0-9,\.]*$/.test(s);
         },
         format: function(s) {
-            // format your data for normalization
+//            return jQuery.tablesorter.formatFloat( s.replace(/,/g,'') );
             return s.replace(/\,/g,"");
         },
         // set type, either numeric or text

@@ -3,8 +3,11 @@ package net.anotheria.moskito.webui.shared.api;
 import net.anotheria.anoplass.api.API;
 import net.anotheria.anoplass.api.APIException;
 import net.anotheria.anoprise.metafactory.Service;
+import net.anotheria.moskito.core.config.MoskitoConfiguration;
 import org.distributeme.annotation.DistributeMe;
+import org.distributeme.annotation.FailBy;
 import org.distributeme.annotation.SupportService;
+import org.distributeme.core.failing.RetryCallOnce;
 
 import java.util.List;
 
@@ -16,6 +19,7 @@ import java.util.List;
  */
 @DistributeMe(agentsSupport = false)
 @SupportService
+@FailBy(strategyClass=RetryCallOnce.class)
 public interface AdditionalFunctionalityAPI extends API, Service{
 	List<PluginAO> getPlugins() throws APIException;
 
@@ -51,4 +55,11 @@ public interface AdditionalFunctionalityAPI extends API, Service{
 	String getConfigurationAsString() throws APIException;
 
 	Long getIntervalUpdateTimestamp(String intervalName) throws APIException;
+
+	/**
+	 * Returns MoSKito Configuration
+	 * @return
+	 * @throws APIException
+	 */
+	MoskitoConfiguration getConfiguration() throws APIException;
 }

@@ -60,11 +60,6 @@ public class BuiltInRuntimeProducer extends AbstractBuiltInProducer  implements 
 		return statsList;
 	}
 
-	@Override
-	public String getSubsystem() {
-		return SUBSYSTEM_BUILTIN;
-	}
-	
 	private void readMbean() {
 		long starttime = mxBean.getStartTime();
 		long uptime = mxBean.getUptime();

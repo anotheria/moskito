@@ -7,20 +7,21 @@ import net.anotheria.maf.action.CommandRedirect;
 import net.anotheria.moskito.webui.accumulators.action.CreateAccumulatorAction;
 import net.anotheria.moskito.webui.accumulators.action.DeleteAccumulatorAction;
 import net.anotheria.moskito.webui.accumulators.action.GenerateChartAction;
-import net.anotheria.moskito.webui.accumulators.action.ShowAccumulatorAction;
 import net.anotheria.moskito.webui.accumulators.action.ShowAccumulatorsAction;
+import net.anotheria.moskito.webui.dashboards.action.ShowDashboardAction;
+import net.anotheria.moskito.webui.gauges.action.ShowGaugesAction;
 import net.anotheria.moskito.webui.journey.action.AnalyzeJourneyAction;
 import net.anotheria.moskito.webui.journey.action.DeleteJourneyAction;
 import net.anotheria.moskito.webui.journey.action.ShowJourneyAction;
 import net.anotheria.moskito.webui.journey.action.ShowJourneyCallAction;
 import net.anotheria.moskito.webui.journey.action.ShowJourneysAction;
 import net.anotheria.moskito.webui.more.action.AdditionalSectionAction;
-import net.anotheria.moskito.webui.more.action.RemovePluginAction;
 import net.anotheria.moskito.webui.more.action.ShowConfigAction;
 import net.anotheria.moskito.webui.more.action.ShowLibsAction;
 import net.anotheria.moskito.webui.more.action.ShowMBeansAction;
-import net.anotheria.moskito.webui.more.action.ShowPluginsAction;
 import net.anotheria.moskito.webui.more.action.UpdateAction;
+import net.anotheria.moskito.webui.plugins.action.RemovePluginAction;
+import net.anotheria.moskito.webui.plugins.action.ShowPluginsAction;
 import net.anotheria.moskito.webui.producers.action.ShowAllProducersAction;
 import net.anotheria.moskito.webui.producers.action.ShowProducerAction;
 import net.anotheria.moskito.webui.producers.action.ShowProducersForCategoryAction;
@@ -44,6 +45,12 @@ import net.anotheria.moskito.webui.threshold.action.DeleteThresholdAction;
 import net.anotheria.moskito.webui.threshold.action.GetThresholdDefinitionAction;
 import net.anotheria.moskito.webui.threshold.action.ShowThresholdsAction;
 import net.anotheria.moskito.webui.threshold.action.UpdateThresholdAction;
+import net.anotheria.moskito.webui.tracers.action.CreateTracerAction;
+import net.anotheria.moskito.webui.tracers.action.DisableTracerAction;
+import net.anotheria.moskito.webui.tracers.action.EnableTracerAction;
+import net.anotheria.moskito.webui.tracers.action.RemoveTracerAction;
+import net.anotheria.moskito.webui.tracers.action.ShowTracerAction;
+import net.anotheria.moskito.webui.tracers.action.ShowTracersAction;
 
 /**
  * Mappings configurator for MoSKito project for the AnoMaf framework.
@@ -152,24 +159,33 @@ public class MoskitoMappingsConfigurator implements ActionMappingsConfigurator{
 		mappings.addAlias("mskAccumulators.xml", "mskAccumulators");
 		mappings.addAlias("mskAccumulators.json", "mskAccumulators");
 		
-		mappings.addMapping("mskAccumulator", ShowAccumulatorAction.class,
-				new ActionForward("html", "/net/anotheria/moskito/webui/accumulators/jsp/Accumulator.jsp"),
-				new ActionForward("xml", "/net/anotheria/moskito/webui/shared/jsp/AccumulatorXML.jsp"),
-				new ActionForward("csv", "/net/anotheria/moskito/webui/accumulators/jsp/AccumulatorCSV.jsp"),
-				new ActionForward("json", "/net/anotheria/moskito/webui/accumulators/jsp/AccumulatorJSON.jsp")
-		);
-		mappings.addAlias("mskAccumulator.csv", "mskAccumulator");
-		mappings.addAlias("mskAccumulator.xml", "mskAccumulator");
-		mappings.addAlias("mskAccumulator.json", "mskAccumulator");
-		
 		mappings.addMapping("mskAccumulatorDelete", DeleteAccumulatorAction.class,
                 new CommandRedirect("redirect", "mskAccumulators"));
 		mappings.addMapping("mskAccumulatorCreate", CreateAccumulatorAction.class,
 				new CommandRedirect("redirect", "mskAccumulators"));
+
+
+		//gauges, now just for testing purposes
+		mappings.addMapping("mskGauges", ShowGaugesAction.class,
+			new ActionForward("success", "/net/anotheria/moskito/webui/gauges/jsp/Gauges.jsp"));
 		mappings.addMapping("mskGenerateChart", GenerateChartAction.class);
 
+		//tracers
+		mappings.addMapping("mskTracers", ShowTracersAction.class,
+				new ActionForward("success", "/net/anotheria/moskito/webui/tracers/jsp/Tracers.jsp"));
+		mappings.addMapping("mskTracer", ShowTracerAction.class,
+				new ActionForward("success", "/net/anotheria/moskito/webui/tracers/jsp/Tracer.jsp"));
 
-		
+		mappings.addMapping("mskCreateTracer", CreateTracerAction.class);
+		mappings.addMapping("mskRemoveTracer", RemoveTracerAction.class,
+				new CommandRedirect("redirect", "mskTracers"));
+		mappings.addMapping("mskDisableTracer", DisableTracerAction.class,
+				new CommandRedirect("redirect", "mskTracers"));
+		mappings.addMapping("mskEnableTracer", EnableTracerAction.class,
+				new CommandRedirect("redirect", "mskTracers"));
+
+
+
 		//analyze journey
 		mappings.addMapping("mskAnalyzeJourney", AnalyzeJourneyAction.class,
 				new ActionForward("success", "/net/anotheria/moskito/webui/journey/jsp/AnalyzeJourney.jsp")
@@ -235,6 +251,12 @@ public class MoskitoMappingsConfigurator implements ActionMappingsConfigurator{
 
 		//errors
 		mappings.setOnError(new ActionForward("error", "/net/anotheria/moskito/webui/shared/jsp/Error.jsp"));
+
+		//dashboards
+		mappings.addMapping("mskDashboard", ShowDashboardAction.class,
+				new ActionForward("success", "/net/anotheria/moskito/webui/dashboards/jsp/Dashboard.jsp")
+		);
+
 
 	}
 

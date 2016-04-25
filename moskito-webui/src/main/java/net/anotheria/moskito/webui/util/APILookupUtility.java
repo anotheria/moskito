@@ -4,11 +4,14 @@ import net.anotheria.anoplass.api.API;
 import net.anotheria.anoplass.api.APIFinder;
 import net.anotheria.moskito.webui.MoSKitoWebUIContext;
 import net.anotheria.moskito.webui.accumulators.api.AccumulatorAPI;
+import net.anotheria.moskito.webui.dashboards.api.DashboardAPI;
+import net.anotheria.moskito.webui.gauges.api.GaugeAPI;
 import net.anotheria.moskito.webui.journey.api.JourneyAPI;
 import net.anotheria.moskito.webui.producers.api.ProducerAPI;
 import net.anotheria.moskito.webui.shared.api.AdditionalFunctionalityAPI;
 import net.anotheria.moskito.webui.threads.api.ThreadAPI;
 import net.anotheria.moskito.webui.threshold.api.ThresholdAPI;
+import net.anotheria.moskito.webui.tracers.api.TracerAPI;
 import org.distributeme.core.ServiceDescriptor;
 
 import javax.servlet.http.HttpSession;
@@ -47,9 +50,14 @@ public class APILookupUtility {
 			return currentConnectivityMode == ConnectivityMode.LOCAL;
 		HttpSession session = MoSKitoWebUIContext.getCallContext().getCurrentSession();
 		//if session is null, which can't happen (hope so), we fall back to personal behaviour silently.
-		if (session==null)
+		if (session==null )
 			return currentConnectivityMode == ConnectivityMode.LOCAL;
-		ConnectivityMode mode = (ConnectivityMode)session.getAttribute(ConnectivityMode.class.getName());
+		ConnectivityMode mode = null;
+		try{
+			mode = (ConnectivityMode)session.getAttribute(ConnectivityMode.class.getName());
+		}catch(IllegalStateException sessionAlreadyInvalidated){
+			//ignore
+		}
 		return mode == null ?  true : mode == ConnectivityMode.LOCAL ;
 
 	}
@@ -121,6 +129,26 @@ public class APILookupUtility {
 				APIFinder.findAPI(AdditionalFunctionalityAPI.class) :
 				findRemote(AdditionalFunctionalityAPI.class);
 	}
+
+	public static GaugeAPI getGaugeAPI() {
+		return isLocal() ?
+				APIFinder.findAPI(GaugeAPI.class) :
+				findRemote(GaugeAPI.class);
+	}
+
+	public static DashboardAPI getDashboardAPI() {
+		return isLocal() ?
+				APIFinder.findAPI(DashboardAPI.class) :
+				findRemote(DashboardAPI.class);
+	}
+
+	public static TracerAPI getTracerAPI() {
+		return isLocal() ?
+				APIFinder.findAPI(TracerAPI.class) :
+				findRemote(TracerAPI.class);
+	}
+
+
 
 
 	private static <T extends API> T findRemote(Class<T> targetClass){

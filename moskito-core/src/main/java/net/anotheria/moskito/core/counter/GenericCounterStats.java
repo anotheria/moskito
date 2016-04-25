@@ -7,7 +7,13 @@ import net.anotheria.moskito.core.stats.StatValue;
 import net.anotheria.moskito.core.stats.TimeUnit;
 import net.anotheria.moskito.core.stats.impl.StatValueFactory;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
 
 /**
  * Generic counter implementation.
@@ -15,7 +21,7 @@ import java.util.*;
  * @author lrosenberg
  * @since 16.11.12 23:11
  */
-	public abstract class GenericCounterStats extends AbstractStats{
+public abstract class GenericCounterStats extends AbstractStats{
 
 	/**
 	 * Map with statvalues for faster access.
@@ -33,7 +39,7 @@ import java.util.*;
 		StatValue firstCounterValue = StatValueFactory.createStatValue(Long.valueOf(0L), firstCounter, intervals);
 		addStatValues(firstCounterValue);
 		values.put(firstCounter, firstCounterValue);
-		if (moreCounters!=null){
+		if (moreCounters != null){
 			for (String mc : moreCounters){
 				StatValue additionalValue = StatValueFactory.createStatValue(Long.valueOf(0L), mc, intervals);
 				addStatValues(additionalValue);
@@ -64,9 +70,9 @@ import java.util.*;
 	public String toStatsString(String aIntervalName, TimeUnit unit) {
 		StringBuilder s = new StringBuilder();
 		s.append(getName()).append(' ');
-		for (String value : values.keySet()) {
-			s.append(value).append(": ");
-			s.append(values.get(value).getValueAsLong(aIntervalName));
+		for (Map.Entry<String,StatValue> entry : values.entrySet()) {
+			s.append(entry.getKey()).append(": ");
+			s.append(entry.getValue().getValueAsLong(aIntervalName));
 		}
 		return s.toString();
 	}

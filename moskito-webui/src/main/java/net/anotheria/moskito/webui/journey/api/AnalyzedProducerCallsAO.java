@@ -4,12 +4,14 @@ import net.anotheria.moskito.webui.MoSKitoWebUIContext;
 import net.anotheria.util.BasicComparable;
 import net.anotheria.util.sorter.IComparable;
 
+import java.io.Serializable;
+
 /**
  * This bean contains analysis results for a single producer, it contains producer id, number of calls to this producer and the time spent.
  * @author lrosenberg
  *
  */
-public class AnalyzedProducerCallsAO implements IComparable<AnalyzedProducerCallsAO> {
+public class AnalyzedProducerCallsAO implements IComparable<AnalyzedProducerCallsAO> , Serializable{
 	/**
 	 * ProducerId.
 	 */

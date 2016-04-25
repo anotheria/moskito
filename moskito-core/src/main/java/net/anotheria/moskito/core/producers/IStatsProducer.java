@@ -40,14 +40,10 @@ import java.util.List;
  * This interface declares a stats producer. A stats producer is something that produces stats, it might be 
  * a servlet, an action, a service, but also an exectuion pattern. Basically anything you want to monitor is a stats producer since it produces 
  * monitoring stats. A stats producer is also referred to as monitoring point.
+ * @param <S> a subclass of IStats.
  * @author lrosenberg
  */
 public interface IStatsProducer<S extends IStats> {
-
-	/**
-	 * Name for the builtin system registration.
-	 */
-	public static final String SUBSYSTEM_BUILTIN = "builtin";
 
 	/**
 	 * Returns the list of all stats.

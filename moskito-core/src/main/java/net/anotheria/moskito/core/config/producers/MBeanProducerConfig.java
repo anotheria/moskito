@@ -1,13 +1,15 @@
 package net.anotheria.moskito.core.config.producers;
 
-import java.util.Arrays;
-
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.configureme.annotations.Configure;
+
+import java.io.Serializable;
+import java.util.Arrays;
 
 /**
  * @author Michael König
  */
-public class MBeanProducerConfig {
+public class MBeanProducerConfig implements Serializable {
 
     /**
      * Indicates if the producers will be registered automatically. Defaults to FALSE.
@@ -44,7 +46,8 @@ public class MBeanProducerConfig {
     /**
      * @return {@link #domains}
      */
-    public MBeanProducerDomainConfig[] getDomains() {
+    @SuppressFBWarnings("EI_EXPOSE_REP")
+	public MBeanProducerDomainConfig[] getDomains() {
         return domains;
     }
 
@@ -74,7 +77,8 @@ public class MBeanProducerConfig {
      * @param domains
      *            {@link MBeanProducerDomainConfig}
      */
-    public void setDomains(final MBeanProducerDomainConfig[] domains) {
+    @SuppressFBWarnings("EI_EXPOSE_REP2")
+	public void setDomains(final MBeanProducerDomainConfig[] domains) {
         this.domains = domains;
     }
 

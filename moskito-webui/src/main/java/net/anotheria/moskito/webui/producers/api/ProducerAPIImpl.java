@@ -2,6 +2,9 @@ package net.anotheria.moskito.webui.producers.api;
 
 import net.anotheria.anoplass.api.APIException;
 import net.anotheria.anoplass.api.APIInitException;
+import net.anotheria.moskito.core.decorators.DecoratorRegistryFactory;
+import net.anotheria.moskito.core.decorators.IDecorator;
+import net.anotheria.moskito.core.decorators.IDecoratorRegistry;
 import net.anotheria.moskito.core.inspection.Inspectable;
 import net.anotheria.moskito.core.producers.IStats;
 import net.anotheria.moskito.core.producers.IStatsProducer;
@@ -9,12 +12,20 @@ import net.anotheria.moskito.core.registry.IProducerFilter;
 import net.anotheria.moskito.core.registry.IProducerRegistryAPI;
 import net.anotheria.moskito.core.registry.ProducerRegistryAPIFactory;
 import net.anotheria.moskito.core.stats.TimeUnit;
-import net.anotheria.moskito.webui.decorators.DecoratorRegistryFactory;
-import net.anotheria.moskito.webui.decorators.IDecorator;
-import net.anotheria.moskito.webui.decorators.IDecoratorRegistry;
+import net.anotheria.moskito.core.tracer.TracerRepository;
+import net.anotheria.moskito.core.tracer.TracingAwareProducer;
+import net.anotheria.moskito.webui.Features;
+import net.anotheria.moskito.webui.producers.api.filters.ProducerFilter;
 import net.anotheria.moskito.webui.shared.api.AbstractMoskitoAPIImpl;
+import net.anotheria.moskito.webui.util.DecoratorConfig;
+import net.anotheria.moskito.webui.util.ProducerFilterConfig;
+import net.anotheria.moskito.webui.util.WebUIConfig;
+import org.configureme.ConfigurationManager;
+import org.configureme.annotations.AfterConfiguration;
+import org.configureme.annotations.ConfigureMe;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -28,11 +39,73 @@ public class ProducerAPIImpl extends AbstractMoskitoAPIImpl implements ProducerA
 	private IProducerRegistryAPI producerRegistryAPI;
 	private IDecoratorRegistry decoratorRegistry = DecoratorRegistryFactory.getDecoratorRegistry();
 
+	private volatile List<ProducerFilter> producerFilters;
+
+	/**
+	 * Called after the configuration has been read.
+	 */
+	private void apiAfterConfiguration(){
+		List<ProducerFilter> newProducerFilters = new ArrayList<ProducerFilter>();
+		ProducerFilterConfig filterConfig[] = WebUIConfig.getInstance().getFilters();
+		if (filterConfig==null || filterConfig.length==0)
+			return;
+		for (ProducerFilterConfig pfc : filterConfig){
+			try {
+				ProducerFilter filter = (ProducerFilter)Class.forName(pfc.getClazzName()).newInstance();
+				filter.customize(pfc.getParameter());
+				newProducerFilters.add(filter);
+			} catch (InstantiationException e) {
+				log.warn("Can't initialize filter of class "+pfc.getClazzName());
+			} catch (IllegalAccessException e) {
+				log.warn("Can't initialize filter of class " + pfc.getClazzName());
+			} catch (ClassNotFoundException e) {
+				log.warn("Can't initialize filter of class " + pfc.getClazzName());
+			}
+		}
+
+		DecoratorConfig[] decoratorConfigs = WebUIConfig.getInstance().getDecorators();
+		if (decoratorConfigs != null){
+			log.debug("Configuring decorator configs "+ Arrays.toString(decoratorConfigs));
+			for (DecoratorConfig config : decoratorConfigs){
+				try{
+					Class decoratorClass = Class.forName(config.getDecoratorClazzName());
+					IDecorator decorator = (IDecorator) decoratorClass.newInstance();
+					DecoratorRegistryFactory.getDecoratorRegistry().addDecorator(config.getStatClazzName(), decorator);
+
+				}catch (ClassNotFoundException e){
+					log.warn("can't configure decorator "+config+" due ", e);
+				} catch (InstantiationException e) {
+					log.warn("can't configure decorator " + config + " due ", e);
+				} catch (IllegalAccessException e) {
+					log.warn("can't configure decorator "+config+" due ", e);
+				}
+			}
+		}
+
+		producerFilters = newProducerFilters;
+
+	}
+
+	@ConfigureMe(name="moskito-inspect")
+	public class ConfigurationHook{
+		@AfterConfiguration public void afterConfiguration(){
+			apiAfterConfiguration();
+		}
+	}
+
 	@Override
 	public void init() throws APIInitException {
 		super.init();
 
 		producerRegistryAPI = new ProducerRegistryAPIFactory().createProducerRegistryAPI();
+		//force load of configuration.
+		WebUIConfig.getInstance();
+		ConfigurationHook configurationHook = new ConfigurationHook();
+		try{
+			ConfigurationManager.INSTANCE.configure(configurationHook);
+		}catch(IllegalArgumentException e){
+			log.warn("Can't register configuration hook for moskito-inspect.json, re-configuration will not be supported");
+		}
 	}
 
 	@Override
@@ -53,11 +126,6 @@ public class ProducerAPIImpl extends AbstractMoskitoAPIImpl implements ProducerA
 			subsystemsAO.add(new UnitCountAO(subName, producerRegistryAPI.getAllProducersBySubsystem(subName).size()));
 		}
 		return subsystemsAO;
-	}
-
-	@Override
-	public List<ProducerAO> getAllProducers(String intervalName, TimeUnit timeUnit) {
-		return convertStatsProducerListToAO(producerRegistryAPI.getAllProducers(), intervalName, timeUnit);
 	}
 
 	private List<ProducerAO> convertStatsProducerListToAO(List<IStatsProducer> producers, String intervalName, TimeUnit timeUnit){
@@ -81,6 +149,14 @@ public class ProducerAPIImpl extends AbstractMoskitoAPIImpl implements ProducerA
 		ao.setFullProducerClassName(p.getClass().getName());
 		if (p instanceof Inspectable)
 			ao.setCreationInfo(((Inspectable)p).getCreationInfo());
+		boolean traceable = false;
+		if (p instanceof TracingAwareProducer){
+			traceable = ((TracingAwareProducer)p).tracingSupported();
+		}
+		ao.setTraceable(traceable);
+		if (traceable){
+			ao.setTraced(TracerRepository.getInstance().isTracingEnabledForProducer(p.getProducerId()));
+		}
 
 		IStats firstStats = p.getStats().get(0);
 		ao.setStatsClazzName(firstStats.getClass().getName());
@@ -105,19 +181,52 @@ public class ProducerAPIImpl extends AbstractMoskitoAPIImpl implements ProducerA
 		return ao;
 	}
 
+	private List<ProducerAO> filterProducersAndConvertToAO(List<IStatsProducer> producers, String intervalName, TimeUnit timeUnit){
+		ArrayList<ProducerAO> ret = new ArrayList<ProducerAO>();
+		for (IStatsProducer<?> p : producers){
+			boolean mayPass = true;
+			for (ProducerFilter filter : producerFilters){
+				if (!filter.mayPass(p)){
+					mayPass = false;
+					break;
+				}
+			}
+			if (mayPass)
+				ret.add(convertStatsProducerToAO(p, intervalName, timeUnit));
+		}
+
+		return ret;
+
+	}
+
+	@Override
+	public List<ProducerAO> getAllProducers(String intervalName, TimeUnit timeUnit) {
+
+		if (producerFilters==null || producerFilters.size()==0 || !Features.PRODUCER_FILTERING.isEnabled())
+			return convertStatsProducerListToAO(producerRegistryAPI.getAllProducers(), intervalName, timeUnit);
+
+		List<IStatsProducer> allProducers =  producerRegistryAPI.getAllProducers();
+		return filterProducersAndConvertToAO(allProducers, intervalName, timeUnit);
+	}
+
+
 	@Override
 	public List<ProducerAO> getAllProducersByCategory(String currentCategory, String intervalName, TimeUnit timeUnit) {
-		return convertStatsProducerListToAO(producerRegistryAPI.getAllProducersByCategory(currentCategory), intervalName, timeUnit);
+		if (producerFilters==null || producerFilters.size()==0 || !Features.PRODUCER_FILTERING.isEnabled())
+			return convertStatsProducerListToAO(producerRegistryAPI.getAllProducersByCategory(currentCategory), intervalName, timeUnit);
+
+		return filterProducersAndConvertToAO(producerRegistryAPI.getAllProducersByCategory(currentCategory), intervalName, timeUnit);
+	}
+
+
+	@Override
+	public List<ProducerAO> getAllProducersBySubsystem(String currentSubsystem, String intervalName, TimeUnit timeUnit) {
+		return convertStatsProducerListToAO(producerRegistryAPI.getAllProducersBySubsystem(currentSubsystem), intervalName, timeUnit);
 	}
 
 	@Override
 	public List<ProducerAO> getProducers(IProducerFilter[] iProducerFilters, String intervalName, TimeUnit timeUnit) {
 		throw new RuntimeException("Not yet implemented");
-	}
-
-	@Override
-	public List<ProducerAO> getAllProducersBySubsystem(String currentSubsystem, String intervalName, TimeUnit timeUnit) {
-		return convertStatsProducerListToAO(producerRegistryAPI.getAllProducersBySubsystem(currentSubsystem), intervalName, timeUnit);
 	}
 
 	@Override

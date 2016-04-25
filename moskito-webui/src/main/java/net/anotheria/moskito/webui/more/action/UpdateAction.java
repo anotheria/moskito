@@ -39,11 +39,11 @@ public class UpdateAction extends BaseAdditionalAction {
 			URL url = new URL(MAVEN_URL);
 			URLConnection con = url.openConnection();
 			InputStream in = con.getInputStream();
-			String jsonReply = "";
+			StringBuilder jsonReply = new StringBuilder();
 			while(in.available()>0){
-				jsonReply += (char)in.read();
+				jsonReply.append((char)in.read());
 			}
-			JSONObject obj = new JSONObject(jsonReply);
+			JSONObject obj = new JSONObject(jsonReply.toString());
 			JSONObject response = obj.getJSONObject("response");
 			JSONArray docs = response.getJSONArray("docs");
 			JSONObject artifact = docs.getJSONObject(0);

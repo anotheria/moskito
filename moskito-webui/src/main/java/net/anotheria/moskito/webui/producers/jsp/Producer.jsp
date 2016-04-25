@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html;charset=UTF-8" session="true"
 %><%@ taglib uri="http://www.anotheria.net/ano-tags" prefix="ano"
-%><!DOCTYPE html>
+%><%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"
+%>
+<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/html">
 
 <jsp:include page="../../shared/jsp/Header.jsp" flush="false"/>
@@ -23,9 +25,19 @@
         <div class="pull-right">
             <a href="${linkToCurrentPage}&pForward=selection&target=Accumulator" class="btn btn-default" onclick="new_accumulator(); return false"><i class="fa fa-plus"></i> Accumulator</a>
             <a href="${linkToCurrentPage}&pForward=selection&target=Threshold" class="btn btn-default" onclick="new_threshold(); return false"><i class="fa fa-plus"></i> Threshold</a>
-            <ano:equal name="producer" property="inspectable" value="true">
+            <c:if test="${producer.traceable}">
+                <c:choose>
+                <c:when test="${producer.traced}">
+                    <a href="mskTracer?pProducerId=${producer.producerId}" class="btn btn-success" onclick=""><i class="fa fa-binoculars"></i> Tracer</a>
+                </c:when>
+                <c:otherwise>
+                    <a href="mskCreateTracer?pProducerId=${producer.producerId}" class="btn btn-default" onclick=""><i class="fa fa-plus"></i> Tracer</a>
+                </c:otherwise>
+                </c:choose>
+            </c:if>
+            <c:if test="${producer.inspectable}">
                 <a href="#inspect" data-toggle="modal" data-target="#inspect" class="btn btn-success"><i class="fa fa-search"></i> Inspect</a>
-            </ano:equal>
+            </c:if>
         </div>
     </div>
 </div>
@@ -46,8 +58,8 @@
             <thead>
             <tr>
                 <th>Name <i class="fa fa-caret-down"></i></th>
-                <ano:iterate name="decorator" property="captions" type="net.anotheria.moskito.webui.shared.bean.StatCaptionBean" id="caption" indexId="ind">
-                    <th title="<ano:write name="caption" property="shortExplanation"/>" class="table-column">
+                <ano:iterate name="decorator" property="captions" type="net.anotheria.moskito.core.decorators.value.StatCaptionBean" id="caption" indexId="ind">
+                    <th title="<ano:write name="caption" property="shortExplanation"/>" class="{sorter: 'commaNumber'} table-column">
                         <!-- variable for this graph is <ano:write name="decorator" property="name"/>_<ano:write name="caption" property="jsVariableName"/> -->
                         <input type="hidden" value="<ano:write name="decorator" property="name"/>_<ano:write name="caption" property="jsVariableName"/>"/>${caption.caption} <i class="fa fa-caret-down"></i><i class="chart-icon tooltip-bottom" title="Show chart"></i></th>
                     </th>
@@ -59,15 +71,29 @@
             <ano:iterate name="decorator" property="stats" id="stat" type="net.anotheria.moskito.webui.shared.bean.StatBean" indexId="index">
                 <tr>
                     <td>${stat.name}</td>
-                    <ano:iterate name="stat" property="values" id="value" type="net.anotheria.moskito.webui.producers.api.StatValueAO">
+                    <ano:iterate name="stat" property="values" id="value" type="net.anotheria.moskito.core.decorators.value.StatValueAO">
                         <td title="${stat.name}.${value.name}=${value.value}">
                             ${value.value}
                         </td>
                     </ano:iterate>
                 </tr>
             </ano:iterate>
-            </tr>
             </tbody>
+            <ano:present name="decorator" property="cumulatedStat">
+                <ano:define id="cumulatedStat" name="decorator" property="cumulatedStat"/>
+                <tfoot>
+                <tr>
+                    <td>${cumulatedStat.name}</td>
+                    <ano:iterate name="cumulatedStat" property="values" id="value" type="net.anotheria.moskito.core.decorators.value.StatValueAO">
+                        <td title="${stat.name}.${value.name}=${value.value}">
+                                ${value.value}
+                        </td>
+                    </ano:iterate>
+                </tr>
+                <tfoot>
+            </ano:present>
+
+
         </table>
     </div>
 </div>
@@ -219,7 +245,7 @@
                     <thead>
                     <tr>
                         <th>Name</th>
-                        <ano:iterate name="decorator" property="captions" type="net.anotheria.moskito.webui.shared.bean.StatCaptionBean" id="caption" indexId="ind">
+                        <ano:iterate name="decorator" property="captions" type="net.anotheria.moskito.core.decorators.value.StatCaptionBean" id="caption" indexId="ind">
                             <th>${caption.caption}</th>
                         </ano:iterate>
                     </tr>
@@ -228,7 +254,7 @@
                     <ano:iterate name="decorator" property="stats" id="stat" type="net.anotheria.moskito.webui.shared.bean.StatBean" indexId="index">
                         <tr>
                             <td>${stat.name}</td>
-                            <ano:iterate name="stat" property="values" id="value" type="net.anotheria.moskito.webui.producers.api.StatValueAO">
+                            <ano:iterate name="stat" property="values" id="value" type="net.anotheria.moskito.core.decorators.value.StatValueAO">
                                 <td>
                                     <a href="#" onclick="setandsubmit('${value.name}', '${stat.name}'); return false"><i class="fa fa-plus"></i></a>
                                 </td>
@@ -306,7 +332,7 @@
                         <thead>
                         <tr>
                             <th>Name</th>
-                            <ano:iterate name="decorator" property="captions" type="net.anotheria.moskito.webui.shared.bean.StatCaptionBean" id="caption" indexId="ind">
+                            <ano:iterate name="decorator" property="captions" type="net.anotheria.moskito.core.decorators.value.StatCaptionBean" id="caption" indexId="ind">
                                 <th>${caption.caption}</th>
                             </ano:iterate>
                         </tr>
@@ -315,7 +341,7 @@
                         <ano:iterate name="decorator" property="stats" id="stat" type="net.anotheria.moskito.webui.shared.bean.StatBean" indexId="index">
                             <tr>
                                 <td>${stat.name}</td>
-                                <ano:iterate name="stat" property="values" id="value" type="net.anotheria.moskito.webui.producers.api.StatValueAO">
+                                <ano:iterate name="stat" property="values" id="value" type="net.anotheria.moskito.core.decorators.value.StatValueAO">
                                     <td>
                                         <a href="#" onclick="setandsubmitAccumulator('${value.name}', '${stat.name}'); return false"><i class="fa fa-plus"></i></a>
                                     </td>

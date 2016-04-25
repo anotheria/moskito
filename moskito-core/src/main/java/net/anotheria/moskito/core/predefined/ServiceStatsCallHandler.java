@@ -41,6 +41,8 @@ import net.anotheria.moskito.core.calltrace.TracedCall;
 import net.anotheria.moskito.core.dynamic.IOnDemandCallHandler;
 import net.anotheria.moskito.core.producers.IStats;
 import net.anotheria.moskito.core.producers.IStatsProducer;
+import net.anotheria.moskito.core.tracer.Trace;
+import net.anotheria.moskito.core.tracer.TracerRepository;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -60,9 +62,20 @@ public class ServiceStatsCallHandler implements IOnDemandCallHandler {
 		TracedCall aRunningTrace = RunningTraceContainer.getCurrentlyTracedCall();
 		TraceStep currentStep = null;
 		CurrentlyTracedCall currentTrace = aRunningTrace.callTraced() ?
-				(CurrentlyTracedCall)aRunningTrace : null; 
-		if (currentTrace !=null){
-			StringBuilder call = new StringBuilder(producer.getProducerId()).append('.').append(method.getName()).append("(");
+				(CurrentlyTracedCall)aRunningTrace : null;
+
+		TracerRepository tracerRepository = TracerRepository.getInstance();
+		String producerId = producer.getProducerId();
+		boolean tracePassingOfThisProducer = tracerRepository.isTracingEnabledForProducer(producerId);
+		Trace trace = null;
+		//we create a trace at the beginning to reuse same id for the journey.
+		if (tracePassingOfThisProducer)
+			trace = new Trace();
+
+		StringBuilder call = null;
+
+		if (currentTrace !=null || tracePassingOfThisProducer){
+			call = new StringBuilder(producer.getProducerId()).append('.').append(method.getName()).append("(");
 			if (args!=null && args.length>0){
 				for (int i=0; i<args.length; i++){
 					call.append(args[i]);
@@ -71,8 +84,13 @@ public class ServiceStatsCallHandler implements IOnDemandCallHandler {
 				}
 			}
 			call.append(")");
+		}
+
+		if (currentTrace !=null) {
 			currentStep = currentTrace.startStep(call.toString(), producer);
 		}
+
+
 		long startTime = System.nanoTime();
 		Object ret = null;
 		try{
@@ -81,7 +99,6 @@ public class ServiceStatsCallHandler implements IOnDemandCallHandler {
 		}catch(InvocationTargetException e){
 			defaultStats.notifyError();
 			methodStats.notifyError();
-			//System.out.println("exception of class: "+e.getCause()+" is thrown");
 			if (currentStep!=null)
 				currentStep.setAborted();
 			throw e.getCause();
@@ -90,6 +107,8 @@ public class ServiceStatsCallHandler implements IOnDemandCallHandler {
 			methodStats.notifyError();
 			if (currentStep!=null)
 				currentStep.setAborted();
+			if (tracePassingOfThisProducer)
+				call.append("ERR: ").append(t.getMessage());
 			throw t;
 		}finally{
 			long exTime = System.nanoTime() - startTime;
@@ -107,6 +126,15 @@ public class ServiceStatsCallHandler implements IOnDemandCallHandler {
 			}
 			if (currentTrace !=null)
 				currentTrace.endStep();
+
+			if (tracePassingOfThisProducer) {
+				call.append(" = ").append(ret);
+				trace.setCall(call.toString());
+				trace.setDuration(exTime);
+				trace.setElements(Thread.currentThread().getStackTrace());
+				tracerRepository.addTracedExecution(producerId, trace);
+			}
+
 		}
 	}
 } 

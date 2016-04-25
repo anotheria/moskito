@@ -6,7 +6,9 @@ import net.anotheria.anoprise.metafactory.Service;
 import net.anotheria.moskito.core.threshold.ThresholdConditionGuard;
 import net.anotheria.moskito.core.threshold.ThresholdStatus;
 import org.distributeme.annotation.DistributeMe;
+import org.distributeme.annotation.FailBy;
 import org.distributeme.annotation.SupportService;
+import org.distributeme.core.failing.RetryCallOnce;
 
 import java.util.List;
 
@@ -18,6 +20,7 @@ import java.util.List;
  */
 @DistributeMe(agentsSupport=false)
 @SupportService
+@FailBy(strategyClass=RetryCallOnce.class)
 public interface ThresholdAPI extends API, Service {
 
 	List<ThresholdAlertAO> getAlerts() throws APIException;
@@ -25,6 +28,8 @@ public interface ThresholdAPI extends API, Service {
 	void createThreshold(ThresholdPO po) throws APIException;
 
 	List<ThresholdStatusAO> getThresholdStatuses() throws APIException;
+
+	List<ThresholdStatusAO> getThresholdStatuses(String ... names) throws APIException;
 
 	List<ThresholdDefinitionAO> getThresholdDefinitions() throws APIException;
 

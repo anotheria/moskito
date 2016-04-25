@@ -32,6 +32,12 @@ public class PluginAO implements Serializable{
 	 */
 	private String configurationName;
 
+	private boolean webEnabled;
+
+	private String subNaviItemText;
+
+	private String subNaviItemIcon;
+
 	public String getName() {
 		return name;
 	}
@@ -62,5 +68,29 @@ public class PluginAO implements Serializable{
 
 	public void setConfigurationName(String configurationName) {
 		this.configurationName = configurationName;
+	}
+
+	public String getSubNaviItemIcon() {
+		return subNaviItemIcon;
+	}
+
+	public void setSubNaviItemIcon(String subNaviItemIcon) {
+		this.subNaviItemIcon = subNaviItemIcon;
+	}
+
+	public String getSubNaviItemText() {
+		return subNaviItemText;
+	}
+
+	public void setSubNaviItemText(String subNaviItemText) {
+		this.subNaviItemText = subNaviItemText;
+	}
+
+	public boolean isWebEnabled() {
+		return webEnabled;
+	}
+
+	public void setWebEnabled(boolean webEnabled) {
+		this.webEnabled = webEnabled;
 	}
 }

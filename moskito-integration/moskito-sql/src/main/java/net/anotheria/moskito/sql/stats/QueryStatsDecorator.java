@@ -34,7 +34,7 @@
  */	
 package net.anotheria.moskito.sql.stats;
 
-import net.anotheria.moskito.webui.decorators.predefined.RequestOrientedStatsDecorator;
+import net.anotheria.moskito.core.decorators.predefined.RequestOrientedStatsDecorator;
 
 public class QueryStatsDecorator extends RequestOrientedStatsDecorator {
 	public QueryStatsDecorator(){

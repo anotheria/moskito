@@ -1,5 +1,7 @@
 package net.anotheria.moskito.webui.producers.api;
 
+import net.anotheria.moskito.core.decorators.value.StatValueAO;
+
 import java.io.Serializable;
 import java.util.List;
 
@@ -27,5 +29,13 @@ public class StatLineAO implements Serializable{
 
 	public void setValues(List<StatValueAO> values) {
 		this.values = values;
+	}
+
+	@Override
+	public String toString() {
+		return "StatLineAO{" +
+				"statName='" + statName + '\'' +
+				", values=" + values +
+				'}';
 	}
 }

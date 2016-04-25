@@ -60,8 +60,190 @@
               "accumulatorNames": ["SessionCount Cur Absolute", "URL AVG 1h", "URL REQ 1h", "URL Time 1h"],
               "mode": "MULTIPLE"
             }
-
+        ],
+        "@accumulatorsColors": [
+            {
+                "name": "CPU Time 1h",
+                "color": "#FF0000"
+            },
+            {
+                "name": "CPU Time 1m",
+                "color": "#00FF00"
+            },
+            {
+                "name": "CPU Time 5m",
+                "color": "#0000FF"
+            }
         ]
+    },
+
+    "@dashboardsConfig": {
+        "@dashboards": [
+          {
+            "name": "Example Dashboard",
+            "@charts": [
+              {
+                "caption": "Memory",
+                "accumulators": ["OldGenFree MB 1m", "OldGenUsed MB 1m", "PermGenFree MB 1m"]
+              },
+              {
+                "caption": "Threads",
+                "accumulators": ["ThreadCount", "ThreadStateBlocked-1m", "ThreadStateRunnable-1m", "ThreadStateTimedWaiting-1m", "ThreadStateWaiting-1m"]
+              },
+              {
+                "accumulators": ["URL REQ 1m"]
+              },
+              {
+                "accumulators": ["URL Time 1m"]
+              },
+              {
+                "accumulators": ["URL AVG 1m"]
+              },
+              {
+                "accumulators": ["SessionCount Cur Absolute"]
+              },
+              {
+                "accumulators": ["CPU Time 1m"]
+              }
+
+            ],
+            "@thresholds": ["ThreadCount","OldGenFree", "PermGenFree"],
+            "@gauges": ["Blocked", "Memory", "Running", "Sessions"]
+
+          },
+          {
+            "name": "Empty Dashboard"
+          }
+        ]
+
+    },
+
+    "@gaugesConfig": {
+        "@gauges": [
+          {
+            "name": "Constant",
+            "@minValue": {
+                "constant": 0
+            },
+            "@currentValue": {
+              "constant": 70
+            },
+            "@maxValue": {
+              "constant":100
+            },
+            "@zones":[
+              {
+                "color": "green",
+                "left": 0,
+                "right": 0.25
+              },
+              {
+                "color": "yellow",
+                "left": 0.25,
+                "right": 0.5
+              },
+              {
+                "color": "orange",
+                "left": 0.5,
+                "right": 0.75
+              },
+              {
+                "color": "red",
+                "left": 0.75,
+                "right": 1
+              }
+            ]
+
+          },
+          {
+            "name": "Sessions",
+            "@minValue": {
+              "constant": 0
+            },
+            "@currentValue": {
+              "producerName": "SessionCount",
+              "statName": "Sessions",
+              "valueName": "cur",
+              "intervalName": "default"
+            },
+            "@maxValue": {
+              "producerName": "SessionCount",
+              "statName": "Sessions",
+              "valueName": "max",
+              "intervalName": "default"
+            }
+          },
+          {
+            "name": "Memory",
+            "caption": "Used memory",
+            "@minValue": {
+              "constant": 0
+            },
+            "@currentValue": {
+              "producerName": "Heap memory",
+              "statName": "Heap memory",
+              "valueName": "Used Mb",
+              "intervalName": "default"
+            },
+            "@maxValue": {
+              "producerName": "JavaRuntimeMax",
+              "statName": "JavaRuntimeMax",
+              "valueName": "Current Mb",
+              "intervalName": "default"
+            }
+          },
+          {
+            "name": "Blocked",
+            "caption": "Blocked Threads",
+            "@minValue": {
+              "constant": 0
+            },
+            "@currentValue": {
+              "producerName": "ThreadStates",
+              "statName": "BLOCKED",
+              "valueName": "Current",
+              "intervalName": "1m"
+            },
+            "@maxValue": {
+              "producerName": "ThreadCount",
+              "statName": "ThreadCount",
+              "valueName": "current",
+              "intervalName": "default"
+            }
+          },
+          {
+            "name": "Running",
+            "caption": "Running Threads",
+            "@minValue": {
+              "constant": 0
+            },
+            "@currentValue": {
+              "producerName": "ThreadStates",
+              "statName": "RUNNABLE",
+              "valueName": "Current",
+              "intervalName": "1m"
+            },
+            "@maxValue": {
+              "producerName": "ThreadCount",
+              "statName": "ThreadCount",
+              "valueName": "current",
+              "intervalName": "default"
+            }
+          }
+        ],
+      "@defaultZones":[
+        {
+          "color": "orange",
+          "left": 0.85,
+          "right": 0.9
+        },
+        {
+          "color": "red",
+          "left": 0.9,
+          "right": 1
+        }
+      ]
+
     },
 
     "@pluginsConfig": {
@@ -70,8 +252,21 @@
                 "name": "NoOpPlugin",
                 "configurationName": "none",
                 "className": "net.anotheria.moskito.core.plugins.NoOpPlugin"
+            },
+            {
+                "name": "DiskSpaceMonitoringPlugin",
+                "configurationName": "none",
+                "className": "net.anotheria.moskito.extensions.DiskSpaceMonitoringPlugin"
             }
         ]
+    },
+
+    "@tracingConfig": {
+      "tracingEnabled": true,
+      "loggingEnabled": true,
+      "inspectEnabled": true,
+      "maxTraces": 50,
+      "tracers": []
     }
 
 }

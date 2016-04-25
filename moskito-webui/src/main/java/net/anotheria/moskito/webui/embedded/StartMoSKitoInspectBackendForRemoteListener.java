@@ -14,12 +14,24 @@ import javax.servlet.ServletContextListener;
  */
 public class StartMoSKitoInspectBackendForRemoteListener implements ServletContextListener {
 
+	/**
+	 * Log.
+	 */
 	private static Logger log = LoggerFactory.getLogger(StartMoSKitoInspectBackendForRemoteListener.class);
+
+	public static final String RMI_PORT_PARAMETER_NAME = "moskitoRmiPort";
 
 	@Override
 	public void contextInitialized(ServletContextEvent servletContextEvent) {
+
+		int port = -1;
 		try{
-			StartMoSKitoInspectBackendForRemote.startMoSKitoInspectBackend();
+			port = Integer.parseInt(servletContextEvent.getServletContext().getInitParameter(RMI_PORT_PARAMETER_NAME));
+			log.info("MoSKito RMI Port set to "+port);
+		}catch(Exception e){}
+
+		try{
+			StartMoSKitoInspectBackendForRemote.startMoSKitoInspectBackend(port);
 		}catch(MoSKitoInspectStartException e){
 			log.error("Couldn't auto-start MoSKito Inspect in embedded mode ", e);
 		}
@@ -27,6 +39,5 @@ public class StartMoSKitoInspectBackendForRemoteListener implements ServletConte
 
 	@Override
 	public void contextDestroyed(ServletContextEvent servletContextEvent) {
-
 	}
 }

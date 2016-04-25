@@ -69,7 +69,7 @@ public class ShowProducersAction extends BaseShowProducersAction{
 	} 
 	
 	@Override
-	protected List<ProducerAO> getProducers(HttpServletRequest req) {
+	protected List<ProducerAO> getProducers(HttpServletRequest req)  throws APIException {
 		List<IProducerFilter> filters = new ArrayList<IProducerFilter>();
 		String category = getCategoryParameter(req);
 		if(category != null && category.length() > 0)

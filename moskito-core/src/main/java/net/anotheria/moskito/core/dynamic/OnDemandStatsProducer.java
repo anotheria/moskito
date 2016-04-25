@@ -6,7 +6,7 @@
  * 
  * All MoSKito files are distributed under MIT License:
  * 
- * Copyright (c) 2006 The MoSKito Project Team.
+ * Copyright (c) 2006-2015 The MoSKito Project Team.
  * 
  * Permission is hereby granted, free of charge,
  * to any person obtaining a copy of this software and
@@ -38,6 +38,7 @@ import net.anotheria.moskito.core.inspection.CreationInfo;
 import net.anotheria.moskito.core.inspection.Inspectable;
 import net.anotheria.moskito.core.producers.IStats;
 import net.anotheria.moskito.core.producers.IStatsProducer;
+import net.anotheria.moskito.core.tracer.TracingAwareProducer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -48,11 +49,15 @@ import java.util.concurrent.CopyOnWriteArrayList;
 /**
  * This producer is used when the different method producing stats aren't known at compile time (or you don't want to use 
  * them). It is used by the InvocationProxy to add methods dynamically as they being called, but also by the filters, like
- * RequestURIFilter dynamically adding a stat for each new uri.  
+ * RequestURIFilter dynamically adding a stat for each new uri.
+ *
  * @author lrosenberg
  */
-public class OnDemandStatsProducer<S extends IStats> implements IStatsProducer<S>, Inspectable {
+public class OnDemandStatsProducer<S extends IStats> implements IStatsProducer<S>, Inspectable, TracingAwareProducer {
 
+	/**
+	 * Constant for cumulated (aggregated) stats name.
+	 */
 	public static final String CUMULATED_STATS_NAME = "cumulated";
 
 	/**
@@ -96,6 +101,11 @@ public class OnDemandStatsProducer<S extends IStats> implements IStatsProducer<S
 	 * CreationInfo object initialized on startup.
 	 */
 	private CreationInfo creationInfo;
+
+	/**
+	 * If true tracing is supported by this producer. Default is false.
+	 */
+	private boolean tracingSupported = false;
 	
 	/**
 	 * Creates a new OnDemandStatsProducer instance.
@@ -193,6 +203,13 @@ public class OnDemandStatsProducer<S extends IStats> implements IStatsProducer<S
 	public CreationInfo getCreationInfo(){
 		return creationInfo;
 	}
-	
-	
+
+	public void setTracingSupported(boolean tracingSupported) {
+		this.tracingSupported = tracingSupported;
+	}
+
+	@Override
+	public boolean tracingSupported() {
+		return tracingSupported;
+	}
 }

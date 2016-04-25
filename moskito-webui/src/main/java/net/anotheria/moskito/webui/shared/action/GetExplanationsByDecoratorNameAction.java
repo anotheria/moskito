@@ -6,9 +6,9 @@ import net.anotheria.maf.action.Action;
 import net.anotheria.maf.action.ActionCommand;
 import net.anotheria.maf.action.ActionMapping;
 import net.anotheria.maf.bean.FormBean;
-import net.anotheria.moskito.webui.decorators.DecoratorRegistryFactory;
-import net.anotheria.moskito.webui.decorators.IDecorator;
-import net.anotheria.moskito.webui.decorators.IDecoratorRegistry;
+import net.anotheria.moskito.core.decorators.DecoratorRegistryFactory;
+import net.anotheria.moskito.core.decorators.IDecorator;
+import net.anotheria.moskito.core.decorators.IDecoratorRegistry;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -42,7 +42,7 @@ public class GetExplanationsByDecoratorNameAction implements Action{
 			if (decorator.getName().equals(name)){
 				Gson gson = new GsonBuilder().setPrettyPrinting().create();
 				String jsonOutput = gson.toJson(decorator.getCaptions());
-				res.getOutputStream().write(jsonOutput.getBytes());
+				res.getOutputStream().write(jsonOutput.getBytes("UTF-8"));
 				res.getOutputStream().flush();
 				return null;
 			}

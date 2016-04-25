@@ -28,6 +28,9 @@ public class ShowJourneyCallAction extends BaseJourneyAction{
 	public ActionCommand execute(ActionMapping mapping, FormBean formBean, HttpServletRequest req, HttpServletResponse res) throws APIException{
 
 		String journeyName = req.getParameter("pJourneyName");
+
+		String tracedCallName = req.getParameter("pTracedCallName");
+
 		int callPosition = 0;
 		try{ 
 			callPosition = Integer.parseInt(req.getParameter("pPos"));
@@ -35,7 +38,10 @@ public class ShowJourneyCallAction extends BaseJourneyAction{
 				
 		req.setAttribute("journeyName", journeyName);
 
-		TracedCallAO bean = getJourneyAPI().getTracedCall(journeyName, callPosition, getCurrentUnit(req).getUnit());
+
+		TracedCallAO bean = tracedCallName !=null && tracedCallName.length()>0 ?
+				getJourneyAPI().getTracedCallByName(journeyName, tracedCallName, getCurrentUnit(req).getUnit()) :
+				getJourneyAPI().getTracedCall(journeyName, callPosition, getCurrentUnit(req).getUnit());
 
 		//check for duplicates
 		List<TracedCallDuplicateStepsAO> dupStepBeans = bean.getDuplicateSteps();
@@ -44,12 +50,14 @@ public class ShowJourneyCallAction extends BaseJourneyAction{
 			int sortBy = TracedCallDuplicateStepsAOSortType.SORT_BY_DEFAULT;
 			try{
 				sortBy = Integer.parseInt(req.getParameter(PARAM_SORT_BY));
-			}catch(Exception ignored){}
+			}catch(Exception ignored){
+			}
 			
 			boolean sortOrder = TracedCallDuplicateStepsAOSortType.ASC;
 			try{
 				sortOrder = req.getParameter(PARAM_SORT_ORDER).equalsIgnoreCase("ASC");
-			}catch(Exception ignored){}
+			}catch(Exception ignored){
+			}
 			dupStepBeans = StaticQuickSorter.sort(dupStepBeans, new TracedCallDuplicateStepsAOSortType(sortBy, sortOrder));
 
 			req.setAttribute("dupStepBeansSize", dupStepBeans.size());

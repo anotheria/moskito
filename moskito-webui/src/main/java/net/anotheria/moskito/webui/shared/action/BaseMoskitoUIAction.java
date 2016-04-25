@@ -36,12 +36,15 @@ package net.anotheria.moskito.webui.shared.action;
 
 import net.anotheria.maf.action.Action;
 import net.anotheria.maf.action.ActionMapping;
+import net.anotheria.moskito.core.decorators.DecoratorRegistryFactory;
+import net.anotheria.moskito.core.decorators.IDecoratorRegistry;
 import net.anotheria.moskito.core.stats.TimeUnit;
 import net.anotheria.moskito.core.threshold.ThresholdStatus;
+import net.anotheria.moskito.webui.Features;
 import net.anotheria.moskito.webui.MoSKitoWebUIContext;
 import net.anotheria.moskito.webui.accumulators.api.AccumulatorAPI;
-import net.anotheria.moskito.webui.decorators.DecoratorRegistryFactory;
-import net.anotheria.moskito.webui.decorators.IDecoratorRegistry;
+import net.anotheria.moskito.webui.dashboards.api.DashboardAPI;
+import net.anotheria.moskito.webui.gauges.api.GaugeAPI;
 import net.anotheria.moskito.webui.journey.api.JourneyAPI;
 import net.anotheria.moskito.webui.producers.api.ProducerAPI;
 import net.anotheria.moskito.webui.shared.api.AdditionalFunctionalityAPI;
@@ -49,6 +52,7 @@ import net.anotheria.moskito.webui.shared.bean.LabelValueBean;
 import net.anotheria.moskito.webui.shared.bean.NaviItem;
 import net.anotheria.moskito.webui.shared.bean.UnitBean;
 import net.anotheria.moskito.webui.threshold.api.ThresholdAPI;
+import net.anotheria.moskito.webui.tracers.api.TracerAPI;
 import net.anotheria.moskito.webui.util.APILookupUtility;
 import net.anotheria.moskito.webui.util.ChartEngine;
 import net.anotheria.moskito.webui.util.RemoteInstance;
@@ -172,6 +176,16 @@ public abstract class BaseMoskitoUIAction implements Action{
 	public static final String DEFAULT_TITLE = "MoSKito Inspect";
 
 	/**
+	 * If set to off the configured filtering of producer names will be switched off.
+	 */
+	public static final String PARAM_FILTERING = "pFiltering";
+
+	/**
+	 * Value that switches filtering feature off.
+	 */
+	public static final String PARAM_VALUE_FILTER_OFF = "off";
+
+	/**
 	 * Logger.
 	 */
 	private static final Logger log = LoggerFactory.getLogger(BaseMoskitoUIAction.class);
@@ -210,7 +224,7 @@ public abstract class BaseMoskitoUIAction implements Action{
 	 */
 	private static IDecoratorRegistry decoratorRegistry;
 
-	public static char[] WHITESPACES = {
+	public static final char[] WHITESPACES = {
 			' ', '\r','\n','\t','\'','"','<','>'
 	};
 
@@ -322,13 +336,16 @@ public abstract class BaseMoskitoUIAction implements Action{
 		return ret;
 	}
 
-	@Override
-	public void preProcess(ActionMapping mapping, HttpServletRequest req, HttpServletResponse res) throws Exception {
+	protected void prepareBasics(HttpServletRequest req){
 		String currentIntervalName = getCurrentInterval(req);
 
 		MoSKitoWebUIContext context = MoSKitoWebUIContext.getCallContextAndReset();
 		context.setCurrentIntervalName(currentIntervalName);
 		context.setCurrentSession(req.getSession());
+
+		String paramFilteringOff = req.getParameter(PARAM_FILTERING);
+		if (paramFilteringOff!=null && paramFilteringOff.equals(PARAM_VALUE_FILTER_OFF))
+			context.addAttribute(Features.PRODUCER_FILTERING.name(), Boolean.FALSE);
 
 
 		//we need to set navi/subnavi item to none, in order to prevent exceptions in rendering of the menu.
@@ -351,6 +368,14 @@ public abstract class BaseMoskitoUIAction implements Action{
 		req.setAttribute("linkToCurrentPageAsXml", maskAsXML(getLinkToCurrentPage(req)));
 		req.setAttribute("linkToCurrentPageAsCsv", maskAsCSV(getLinkToCurrentPage(req)));
 		req.setAttribute("linkToCurrentPageAsJson", maskAsJSON(getLinkToCurrentPage(req)));
+
+	}
+
+	@Override
+	public void preProcess(ActionMapping mapping, HttpServletRequest req, HttpServletResponse res) throws Exception {
+		String currentIntervalName = getCurrentInterval(req);
+
+		prepareBasics(req);
 
 
 		//configuration issues.
@@ -435,6 +460,7 @@ public abstract class BaseMoskitoUIAction implements Action{
 		req.setAttribute("title", title);
 
 		req.setAttribute("exportSupported", exportSupported());
+		req.setAttribute("logoUrl", WebUIConfig.getInstance().getCustomLogoUrl());
 
 	}
 
@@ -561,8 +587,20 @@ public abstract class BaseMoskitoUIAction implements Action{
 		return APILookupUtility.getAccumulatorAPI();
 	}
 
+	protected GaugeAPI getGaugeAPI() {
+		return APILookupUtility.getGaugeAPI();
+	}
+
 	protected AdditionalFunctionalityAPI getAdditionalFunctionalityAPI(){
 		return APILookupUtility.getAdditionalFunctionalityAPI();
+	}
+
+	protected DashboardAPI getDashboardAPI(){
+		return APILookupUtility.getDashboardAPI();
+	}
+
+	protected TracerAPI getTracerAPI(){
+		return APILookupUtility.getTracerAPI();
 	}
 
 	protected String getSubTitle(){

@@ -3,6 +3,10 @@ package net.anotheria.moskito.webui.shared.api;
 import net.anotheria.anoplass.api.APIFinder;
 import net.anotheria.moskito.webui.accumulators.api.AccumulatorAPI;
 import net.anotheria.moskito.webui.accumulators.api.AccumulatorAPIFactory;
+import net.anotheria.moskito.webui.dashboards.api.DashboardAPI;
+import net.anotheria.moskito.webui.dashboards.api.DashboardAPIFactory;
+import net.anotheria.moskito.webui.gauges.api.GaugeAPI;
+import net.anotheria.moskito.webui.gauges.api.GaugeAPIFactory;
 import net.anotheria.moskito.webui.journey.api.JourneyAPI;
 import net.anotheria.moskito.webui.journey.api.JourneyAPIFactory;
 import net.anotheria.moskito.webui.producers.api.ProducerAPI;
@@ -11,6 +15,8 @@ import net.anotheria.moskito.webui.threads.api.ThreadAPI;
 import net.anotheria.moskito.webui.threads.api.ThreadAPIFactory;
 import net.anotheria.moskito.webui.threshold.api.ThresholdAPI;
 import net.anotheria.moskito.webui.threshold.api.ThresholdAPIFactory;
+import net.anotheria.moskito.webui.tracers.api.TracerAPI;
+import net.anotheria.moskito.webui.tracers.api.TracerAPIFactory;
 
 /**
  * Initializer for APIFactory for the APILayer. Must be called once at application start. Future versions of ano-plass
@@ -33,5 +39,9 @@ public class MoskitoAPIInitializer {
 		APIFinder.addAPIFactory(ThreadAPI.class,  new ThreadAPIFactory());
 		APIFinder.addAPIFactory(ProducerAPI.class, new ProducerAPIFactory());
 		APIFinder.addAPIFactory(AdditionalFunctionalityAPI.class, new AdditionalFunctionalityAPIFactory());
+		APIFinder.addAPIFactory(GaugeAPI.class, new GaugeAPIFactory());
+		APIFinder.addAPIFactory(DashboardAPI.class, new DashboardAPIFactory());
+		APIFinder.addAPIFactory(TracerAPI.class, new TracerAPIFactory());
+
 	}
 }

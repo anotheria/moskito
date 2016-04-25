@@ -5,7 +5,9 @@ import net.anotheria.anoplass.api.APIException;
 import net.anotheria.anoprise.metafactory.Service;
 import net.anotheria.moskito.core.stats.TimeUnit;
 import org.distributeme.annotation.DistributeMe;
+import org.distributeme.annotation.FailBy;
 import org.distributeme.annotation.SupportService;
+import org.distributeme.core.failing.RetryCallOnce;
 
 import java.util.List;
 
@@ -17,6 +19,7 @@ import java.util.List;
  */
 @DistributeMe(agentsSupport = false)
 @SupportService
+@FailBy(strategyClass=RetryCallOnce.class)
 public interface JourneyAPI extends API, Service {
 	/**
 	 * Returns list of available journeys.
@@ -34,6 +37,8 @@ public interface JourneyAPI extends API, Service {
 	JourneyAO getJourney(String name) throws APIException;
 
 	TracedCallAO getTracedCall(String journeyName, int callPosition, TimeUnit unit) throws APIException;
+
+	TracedCallAO getTracedCallByName(String journeyName, String traceName, TimeUnit unit) throws APIException;
 
 	List<AnalyzedProducerCallsMapAO> analyzeJourney(String journeyName) throws APIException;
 

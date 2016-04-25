@@ -16,13 +16,21 @@ public class GuestBasicPremiumStats extends GenericCounterStats{
 	public GuestBasicPremiumStats(String name, Interval[] intervals){
 		super(name, intervals, "guest", "basic", "premium");
 	}
-
+	/**
+	 * Increases guest value.
+	 */
 	public void incGuest(){
 		super.inc("guest");
 	}
+	/**
+	 * Increases basic value.
+	 */
 	public void incBasic(){
 		super.inc("basic");
 	}
+	/**
+	 * Increases premium value.
+	 */
 	public void incPremium(){
 		super.inc("premium");
 	}

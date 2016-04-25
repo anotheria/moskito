@@ -87,9 +87,13 @@ class IntervalNameParser {
 			caption = aCaption;
 		}
 		
-		int getFactor(){ return factor; }
+		int getFactor(){
+			return factor;
+		}
 		
-		char getCaption(){ return caption; }
+		char getCaption(){
+			return caption;
+		}
 	}
 	/**
 	 * Internal map for TimeUnit lookups.

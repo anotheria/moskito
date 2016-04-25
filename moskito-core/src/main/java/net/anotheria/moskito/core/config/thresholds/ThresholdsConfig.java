@@ -1,7 +1,9 @@
 package net.anotheria.moskito.core.config.thresholds;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.configureme.annotations.Configure;
 
+import java.io.Serializable;
 import java.util.Arrays;
 
 /**
@@ -10,7 +12,8 @@ import java.util.Arrays;
  * @author lrosenberg
  * @since 25.10.12 10:29
  */
-public class ThresholdsConfig {
+@SuppressFBWarnings(value = {"EI_EXPOSE_REP2", "EI_EXPOSE_REP"}, justification = "This is the way configureme works, it provides beans for access")
+public class ThresholdsConfig implements Serializable {
 
 
 	/**

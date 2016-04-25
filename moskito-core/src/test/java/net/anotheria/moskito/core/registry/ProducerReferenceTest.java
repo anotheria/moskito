@@ -1,7 +1,7 @@
 package net.anotheria.moskito.core.registry;
 
-import junit.framework.Assert;
 import net.anotheria.moskito.core.producers.IStatsProducer;
+import org.junit.Assert;
 import org.junit.Test;
 
 import java.util.List;

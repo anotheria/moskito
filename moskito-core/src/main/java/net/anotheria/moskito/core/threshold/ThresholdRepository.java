@@ -1,5 +1,6 @@
 package net.anotheria.moskito.core.threshold;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import net.anotheria.moskito.core.config.MoskitoConfigurationHolder;
 import net.anotheria.moskito.core.config.thresholds.GuardConfig;
 import net.anotheria.moskito.core.config.thresholds.ThresholdConfig;
@@ -11,6 +12,7 @@ import net.anotheria.moskito.core.helper.TieableRepository;
 import net.anotheria.moskito.core.producers.IStats;
 import net.anotheria.moskito.core.producers.IStatsProducer;
 import net.anotheria.moskito.core.stats.TimeUnit;
+import net.anotheria.moskito.core.threshold.guard.DoubleBarrierPassGuard;
 import net.anotheria.moskito.core.threshold.guard.GuardedDirection;
 import net.anotheria.moskito.core.threshold.guard.LongBarrierPassGuard;
 import org.slf4j.Logger;
@@ -55,7 +57,9 @@ public class ThresholdRepository extends TieableRepository<Threshold> {
 	 * Returns the singleton instance of the registry.
 	 * @return
 	 */
-	public static ThresholdRepository getInstance(){ return INSTANCE; }
+	public static ThresholdRepository getInstance(){
+		return INSTANCE;
+	}
 
 	protected boolean tie(Threshold threshold, IStatsProducer<? extends IStats> producer){
 		ThresholdDefinition definition = threshold.getDefinition();
@@ -295,8 +299,22 @@ public class ThresholdRepository extends TieableRepository<Threshold> {
 
 				GuardConfig[] guards =  tc.getGuards();
 				if (guards!=null && guards.length>0){
+					boolean hasDots = false;
+					for (GuardConfig guard : guards ) {
+						hasDots |= hasDots(guard.getValue());
+					}
+
 					for (GuardConfig guard : guards ){
-						newThreshold.addGuard(new LongBarrierPassGuard(ThresholdStatus.valueOf(guard.getStatus()), Long.parseLong(guard.getValue()), GuardedDirection.valueOf(guard.getDirection())));
+						newThreshold.addGuard(
+								hasDots ?
+										new DoubleBarrierPassGuard(ThresholdStatus.valueOf(guard.getStatus()),
+												Double.parseDouble(guard.getValue()),
+												GuardedDirection.valueOf(guard.getDirection()))
+										:
+										new LongBarrierPassGuard(ThresholdStatus.valueOf(guard.getStatus()),
+												Long.parseLong(guard.getValue()),
+												GuardedDirection.valueOf(guard.getDirection()))
+						);
 					}
 				}
 			}
@@ -306,9 +324,20 @@ public class ThresholdRepository extends TieableRepository<Threshold> {
 	/**
 	 * This method is for unit testing ONLY.
 	 */
-    void reset() {
+	@SuppressFBWarnings(value = "ST_WRITE_TO_STATIC_FROM_INSTANCE_METHOD", justification = "This method is only for unit tests.")
+	void reset() {
 		cleanup();
-		//FINDBUGS OFF
 		INSTANCE = new ThresholdRepository();
 	}
+
+	private boolean hasDots(String ... params){
+		if (params==null)
+			return false;
+		for (String p : params){
+			if (p!=null && p.indexOf('.')>0)
+				return true;
+		}
+		return false;
+	}
+
 }

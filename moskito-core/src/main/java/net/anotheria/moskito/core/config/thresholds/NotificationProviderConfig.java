@@ -4,6 +4,7 @@ import net.anotheria.moskito.core.threshold.ThresholdStatus;
 import org.configureme.annotations.Configure;
 import org.configureme.annotations.SetAll;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -13,7 +14,7 @@ import java.util.Map;
  * @author lrosenberg
  * @since 22.10.12 16:15
  */
-public class NotificationProviderConfig {
+public class NotificationProviderConfig implements Serializable {
 	/**
 	 * Name of the notification provider class.
 	 */

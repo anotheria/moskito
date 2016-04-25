@@ -6,7 +6,7 @@
  * 
  * All MoSKito files are distributed under MIT License:
  * 
- * Copyright (c) 2006 The MoSKito Project Team.
+ * Copyright (c) 2006-2015 The MoSKito Project Team.
  * 
  * Permission is hereby granted, free of charge,
  * to any person obtaining a copy of this software and
@@ -31,7 +31,7 @@
  * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, 
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR
  * THE USE OR OTHER DEALINGS IN THE SOFTWARE.
- */	
+ */
 package net.anotheria.moskito.core.registry;
 
 import net.anotheria.moskito.core.producers.IStatsProducer;
@@ -41,127 +41,137 @@ import org.slf4j.LoggerFactory;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
- * The ProducerRegistryImplementation is a singleton object, but for webapp-reloading issues it doesn't contain a 
+ * The ProducerRegistryImplementation is a singleton object, but for webapp-reloading issues it doesn't contain a
  * getInstance() method. Instead please use the ProducerRegistryFactory for instantiation.
+ *
  * @author lrosenberg
  */
-public class ProducerRegistryImpl implements IProducerRegistry{
-	
-	/**
-	 * Logger.
-	 */
-	private static Logger log = LoggerFactory.getLogger(ProducerRegistryImpl.class);
-	
-	/**
-	 * The listeners list.
-	 */
-	private List<IProducerRegistryListener> listeners = new CopyOnWriteArrayList<IProducerRegistryListener>();
-	/**
-	 * The map in which the producers are stored.
-	 */
-	private Map<String,ProducerReference> registry = new ConcurrentHashMap<String, ProducerReference>();
-	
-	/**
-	 * Creates the ProducerRegistryImpl singleton instance.
-	 */
-	ProducerRegistryImpl(){
-		reset();
-	}
+public class ProducerRegistryImpl implements IProducerRegistry {
 
-	@Override public void addListener(IProducerRegistryListener listener) {
-		listeners.add(listener);
-	}
+    /**
+     * {@link Logger} instance.
+     */
+    private static final Logger LOGGER = LoggerFactory.getLogger(ProducerRegistryImpl.class);
 
-	@Override public void removeListener(IProducerRegistryListener listener) {
-		listeners.remove(listener);
-	}
+    /**
+     * The map in which the producers are stored.
+     */
+    private final ConcurrentMap<String, ProducerReference> registry = new ConcurrentHashMap<String, ProducerReference>();
 
-	@Override public Collection<IStatsProducer> getProducers() {
-		ArrayList<IStatsProducer> ret = new ArrayList<IStatsProducer>();
-		for (ProducerReference r : getProducerReferences()){
-			if (r.get()!=null)
-				ret.add(r.get());
-		}
-		return ret;
-	}
-	
-	@Override public Collection<ProducerReference> getProducerReferences() {
-		return registry.values();
-	}
+    /**
+     * The listeners list.
+     */
+    private final List<IProducerRegistryListener> listeners = new CopyOnWriteArrayList<IProducerRegistryListener>();
 
-	@Override public IStatsProducer getProducer(String producerId){
-		if (producerId==null)
-			throw new IllegalArgumentException("Null is not a valid producerId");
-		ProducerReference ref = registry.get(producerId); 
-		return ref == null ? null : ref.get();
-	}
+    /**
+     * Creates the ProducerRegistryImpl singleton instance.
+     */
+    ProducerRegistryImpl() {
+        reset();
+    }
 
-	@Override public void registerProducer(IStatsProducer producer) {
-		//null pointer exceptions in the toString method of the producer shouldn't crash here.
-		String producerToString = null;
-		try{
-			producerToString = producer.toString();
-		}catch(Exception e){
-			producerToString = "Illegal to string method: "+e.getMessage()+", "+e.getClass();
-		}
-		log.info("Registry register producer: "+producer.getProducerId()+" / "+producerToString);
-		ProducerReference previousRef = registry.put(producer.getProducerId(), new ProducerReference(producer));
-		IStatsProducer previous = previousRef == null ? null : previousRef.get();
-		if (previous!=null)
-			log.info("Under this name a producer was already registered: "+previous);
-		
-		//now create a mx bean.
-		
-		for(IProducerRegistryListener listener : listeners){
-			if (previous!=null)
-				listener.notifyProducerUnregistered(previous);
-			listener.notifyProducerRegistered(producer);
-		}
-	}
+    @Override
+    public void addListener(IProducerRegistryListener listener) {
+        listeners.add(listener);
+    }
+
+    @Override
+    public void removeListener(IProducerRegistryListener listener) {
+        listeners.remove(listener);
+    }
+
+    @Override
+    public Collection<IStatsProducer> getProducers() {
+        ArrayList<IStatsProducer> ret = new ArrayList<IStatsProducer>();
+        for (ProducerReference r : getProducerReferences()) {
+            if (r.get() != null)
+                ret.add(r.get());
+        }
+        return ret;
+    }
+
+    @Override
+    public Collection<ProducerReference> getProducerReferences() {
+        return registry.values();
+    }
+
+    @Override
+    public IStatsProducer getProducer(String producerId) {
+        if (producerId == null)
+            throw new IllegalArgumentException("Null is not a valid producerId");
+        ProducerReference ref = registry.get(producerId);
+        return ref == null ? null : ref.get();
+    }
+
+    @Override
+    public void registerProducer(IStatsProducer producer) {
+        //null pointer exceptions in the toString method of the producer shouldn't crash here.
+        String producerToString = null;
+        try {
+            producerToString = producer.toString();
+        } catch (Exception e) {
+            producerToString = "Illegal to string method: " + e.getMessage() + ", " + e.getClass();
+        }
+
+        LOGGER.info("Registry register producer: " + producer.getProducerId() + " / " + producerToString);
+
+        ProducerReference previousRef = registry.putIfAbsent(producer.getProducerId(), new ProducerReference(producer));
+
+        IStatsProducer previous = (previousRef == null) ? null : previousRef.get();
+
+        if (previous != null) {
+            LOGGER.info("Under this name a producer was already registered: " + previous);
+        } else {
+            for (IProducerRegistryListener listener : listeners) {
+                listener.notifyProducerRegistered(producer);
+            }
+        }
+    }
 
 
-	@Override public void unregisterProducer(IStatsProducer producer) {
-		registry.remove(producer.getProducerId());
-		for(IProducerRegistryListener listener : listeners){
-			listener.notifyProducerUnregistered(producer);
-		}
-	}
+    @Override
+    public void unregisterProducer(IStatsProducer producer) {
+        registry.remove(producer.getProducerId());
+        for (IProducerRegistryListener listener : listeners) {
+            listener.notifyProducerUnregistered(producer);
+        }
+    }
 
-	/**
-	 * Resets the impl for unittests.
-	 */
-	void reset() {
-		cleanup(); // cleaning up all context before reseting producer registry instance
+    /**
+     * Resets the impl for unittests.
+     */
+    void reset() {
+        cleanup(); // cleaning up all context before reseting producer registry instance
 
-		listeners.clear();
-		registry.clear();
+        listeners.clear();
+        registry.clear();
 
-		String junittest = System.getProperty("JUNITTEST");
-		if (junittest != null && (junittest.equalsIgnoreCase("true"))) // preventing listiner's initialization for JUnit run's
-			return;
+        String junittest = System.getProperty("JUNITTEST");
+        if (junittest != null && (junittest.equalsIgnoreCase("true"))) // preventing listiner's initialization for JUnit run's
+            return;
 
-		addListener(new JMXBridgeListener());
+        addListener(new JMXBridgeListener());
 
-	}
+    }
 
-	/**
-	 * This method is primary used for unit tests.
-	 */
-	public void cleanup() {
-		ArrayList<ProducerReference> producerReferences = new ArrayList<ProducerReference>();
-		producerReferences.addAll(registry.values());
-		for (ProducerReference p : producerReferences) {
-			try {
-				if (p.get()!=null)
-					unregisterProducer(p.get());
-			} catch (Exception e) {
-				log.warn("can't unregister producer " + p, e);
-			}
-		}
-	}
+    /**
+     * This method is primary used for unit tests.
+     */
+    public void cleanup() {
+        ArrayList<ProducerReference> producerReferences = new ArrayList<ProducerReference>();
+        producerReferences.addAll(registry.values());
+        for (ProducerReference p : producerReferences) {
+            try {
+                if (p.get() != null)
+                    unregisterProducer(p.get());
+            } catch (Exception e) {
+                LOGGER.warn("can't unregister producer " + p, e);
+            }
+        }
+    }
 }

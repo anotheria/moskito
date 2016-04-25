@@ -57,10 +57,5 @@ public class BuiltInMemoryPoolVirtualProducer  extends AbstractBuiltInProducer i
 		return statsList;
 	}
 
-	@Override
-	public String getSubsystem() {
-		return SUBSYSTEM_BUILTIN;
-	}
-
 }
 

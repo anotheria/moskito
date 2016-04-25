@@ -3,7 +3,9 @@ package net.anotheria.moskito.core.stats.impl;
 import net.anotheria.moskito.core.stats.Interval;
 
 /**
- * TODO comment this class
+ * This value holder is meant for values that are continuously increasing and where you want to monitor not an absolute amount per interval but a change.
+ * For example the amount of CPU Ticks used by the process. It will be continuously increasing, so the value itself won't help you, but to know the relative
+ * change you need to know the diff in the value between the beginning and the end of the interval.
  *
  * @author lrosenberg
  * @since 26.06.14 01:21

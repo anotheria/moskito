@@ -6,25 +6,22 @@ import net.anotheria.maf.bean.FormBean;
 import net.anotheria.moskito.core.accumulation.Accumulator;
 import net.anotheria.moskito.core.accumulation.AccumulatorRepository;
 import net.anotheria.moskito.core.config.MoskitoConfiguration;
-import net.anotheria.moskito.core.config.MoskitoConfigurationHolder;
 import net.anotheria.moskito.core.config.accumulators.AccumulatorSetConfig;
 import net.anotheria.moskito.core.config.accumulators.AccumulatorSetMode;
 import net.anotheria.moskito.core.config.accumulators.AccumulatorsConfig;
 import net.anotheria.moskito.webui.accumulators.api.AccumulatedSingleGraphAO;
-import net.anotheria.moskito.webui.accumulators.api.AccumulatedValueAO;
 import net.anotheria.moskito.webui.accumulators.api.AccumulatorAO;
+import net.anotheria.moskito.webui.accumulators.api.MultilineChartAO;
 import net.anotheria.moskito.webui.accumulators.bean.AccumulatedValuesBean;
 import net.anotheria.moskito.webui.accumulators.bean.AccumulatorSetBean;
-import net.anotheria.util.NumberUtils;
-import net.anotheria.util.sorter.DummySortType;
-import net.anotheria.util.sorter.SortType;
-import net.anotheria.util.sorter.StaticQuickSorter;
+import org.apache.commons.lang.StringUtils;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.Enumeration;
-import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -34,11 +31,6 @@ import java.util.List;
  * @author lrosenberg
  */
 public class ShowAccumulatorsAction extends BaseAccumulatorsAction {
-
-	/**
-	 * Sort type for sorting. Actually unneeded, but having a variable saves ram.
-	 */
-	private static final SortType SORT_TYPE = new DummySortType();
 
 	/**
 	 * Graph data modes.
@@ -89,7 +81,7 @@ public class ShowAccumulatorsAction extends BaseAccumulatorsAction {
 			HttpServletRequest req, HttpServletResponse res) throws Exception {
 
 		//handling of accumulator sets
-        MoskitoConfiguration config = MoskitoConfigurationHolder.getConfiguration();
+        MoskitoConfiguration config = getAdditionalFunctionalityAPI().getConfiguration();
         AccumulatorsConfig configuration = config.getAccumulatorsConfig();
 		AccumulatorSetConfig setConfigs[] = configuration.getAccumulatorSets();
 		if (setConfigs!=null && setConfigs.length>0) {
@@ -122,18 +114,6 @@ public class ShowAccumulatorsAction extends BaseAccumulatorsAction {
 		AccumulatorSetMode mode = getModeFromParameter(req.getParameter("mode"));
 		req.setAttribute(mode.name().toLowerCase()+"_set", Boolean.TRUE);
 
-		//chart type is obsolete, can be removed
-		String chartType = req.getParameter("type");
-		if (chartType==null || chartType.length()==0)
-			chartType="LineChart";
-		req.setAttribute("type", chartType);
-		
-		
-		int normalizeBase = 100;
-		try{
-			normalizeBase = Integer.parseInt(req.getParameter("normalizeBase"));
-		}catch(Exception ignored){}
-		req.setAttribute("normalizeBase", normalizeBase);
 		int maxValues = 200;
 		try{
 			maxValues = Integer.parseInt(req.getParameter("maxValues"));
@@ -155,89 +135,46 @@ public class ShowAccumulatorsAction extends BaseAccumulatorsAction {
 		}
 		
 		if (ids.size()>0){
-			List<AccumulatedValueAO> dataBeans = new ArrayList<AccumulatedValueAO>();
-			List<AccumulatedSingleGraphAO> singleGraphDataBeans = new ArrayList<AccumulatedSingleGraphAO>(ids.size());
-			
-			//prepare values
-			HashMap<Long, AccumulatedValuesBean> values = new HashMap<Long, AccumulatedValuesBean>();
-			List<String> accNames = new ArrayList<String>();
-			
-			for (String id : ids){
-				AccumulatorAO acc = getAccumulatorAPI().getAccumulator(id);
-				AccumulatedSingleGraphAO singleGraphDataBean = new AccumulatedSingleGraphAO(acc.getName());
-				singleGraphDataBeans.add(singleGraphDataBean);
-				accNames.add(acc.getName());
-				List<AccumulatedValueAO> accValues = acc.getValues();
-				singleGraphDataBean.setData(accValues);
-				for (AccumulatedValueAO v : accValues){
-					long timestamp = v.getNumericTimestamp();
-					AccumulatedValuesBean bean = values.get(timestamp);
-					if (bean==null){
-						bean = new AccumulatedValuesBean(timestamp);
-						values.put(timestamp, bean);
-					}
-					bean.setValue(acc.getName(), v.getFirstValue());
-					
+
+			if (mode == AccumulatorSetMode.COMBINED || mode == AccumulatorSetMode.NORMALIZED){
+				MultilineChartAO mchartAO = null;
+				if (mode == AccumulatorSetMode.COMBINED)
+					mchartAO = getAccumulatorAPI().getCombinedAccumulatorGraphData(ids);
+				if (mode == AccumulatorSetMode.NORMALIZED)
+					mchartAO = getAccumulatorAPI().getNormalizedAccumulatorGraphData(ids);
+
+				req.setAttribute("data", mchartAO.getData());
+				req.setAttribute("accNames", mchartAO.getNames());
+				req.setAttribute("accumulatorsColors", mchartAO.getAccumulatorsColorsDataJSON());
+			} else {
+
+				//create multiple graphs with one line each.
+				List<AccumulatedSingleGraphAO> singleGraphDataBeans = new ArrayList<AccumulatedSingleGraphAO>(ids.size());
+				List<String> accumulatorsNames = new ArrayList<String>();
+
+				for (String id : ids) {
+					final AccumulatorAO accumulator = getAccumulatorAPI().getAccumulator(id);
+					// collect accumulators names
+					accumulatorsNames.add(accumulator.getName());
+					// collect graph beans
+					final AccumulatedSingleGraphAO singleGraphDataBean = getAccumulatorAPI().getAccumulatorGraphData(id);
+					singleGraphDataBean.setData(accumulator.getValues());
+					singleGraphDataBeans.add(singleGraphDataBean);
 				}
-			}
-			List<AccumulatedValuesBean> valuesList = StaticQuickSorter.sort(values.values(), SORT_TYPE);
-			
-			//now check if the data is complete
-			//Stores last known values to allow filling in of missing values (combining 1m and 5m values)
-			HashMap<String, String> lastValue = new HashMap<String, String>();
 
-			//filling last (or first) values.
-			for (String accName : accNames){
-				//first put 'some' initial value.
-				lastValue.put(accName, "0");
-				//now search for first non-null value
-				for(AccumulatedValuesBean accValueBean : valuesList){
-					String aValue = accValueBean.getValue(accName);
-					if (aValue!=null){
-						lastValue.put(accName, aValue);
-						break;
-					}
-				}
-			}
-			
-			for(AccumulatedValuesBean accValueBean : valuesList){
-				for (String accName : accNames){
-					String value = accValueBean.getValue(accName);
-					if (value==null){
-						accValueBean.setValue(accName, lastValue.get(accName));
-					}else{
-						lastValue.put(accName, value);
-					}
-				}
-			}
-
-			if (mode==AccumulatorSetMode.NORMALIZED){
-				normalize(valuesList, accNames, normalizeBase);
-			}
-			
-			//now create final data
-			for(AccumulatedValuesBean avb : valuesList){
-				AccumulatedValueAO bean = new AccumulatedValueAO(avb.getTime());
-				bean.setIsoTimestamp(NumberUtils.makeISO8601TimestampString(avb.getTimestamp()));
-				bean.setNumericTimestamp(avb.getTimestamp());
-
-				for (String accName : accNames){
-					bean.addValue(avb.getValue(accName));
-				}
-				dataBeans.add(bean);
-			}
-
-			//generally its not always a good idea to use subList, but since that list isn't reused,
-			//as in subList or subList of subList, its ok.
-			if (dataBeans.size()>maxValues)
-				dataBeans = dataBeans.subList(dataBeans.size()-maxValues, dataBeans.size());
-
-			req.setAttribute("data", dataBeans);
-			req.setAttribute("accNames", accNames);
-			if (mode==AccumulatorSetMode.MULTIPLE)
+				req.setAttribute("accNames", accumulatorsNames);
 				req.setAttribute("singleGraphData", singleGraphDataBeans);
+				req.setAttribute("accumulatorsColors", accumulatorsColorsToJSON(singleGraphDataBeans));
+				req.setAttribute("data", Boolean.TRUE);
+			}
 			
 		}
+
+        if (req.getParameter("newAccumulator") != null) {
+            req.setAttribute("newAccumulatorAdded", "true");
+            req.setAttribute("newAccumulatorName", req.getParameter("newAccumulator"));
+        }
+
 		if (getForward(req).equalsIgnoreCase("csv")){
 			res.setHeader("Content-Disposition", "attachment; filename=\"accumulators.csv\"");
 		}
@@ -291,4 +228,24 @@ public class ShowAccumulatorsAction extends BaseAccumulatorsAction {
 		return true;
 	}
 
+	/**
+	 * Maps collection of {@link AccumulatedSingleGraphAO} to JSON representation.
+	 * Accumulator will be mapped only if accumulator has the preconfigured color.
+	 *
+	 * @param graphAOs collection of {@link AccumulatedSingleGraphAO}
+	 * @return JSON array with accumulators colors
+	 */
+	private JSONArray accumulatorsColorsToJSON(final List<AccumulatedSingleGraphAO> graphAOs) {
+		final JSONArray jsonArray = new JSONArray();
+
+		for (AccumulatedSingleGraphAO graphAO : graphAOs) {
+			if (StringUtils.isEmpty(graphAO.getName()) || StringUtils.isEmpty(graphAO.getColor()))
+				continue;
+
+			final JSONObject jsonObject = graphAO.mapColorDataToJSON();
+			jsonArray.put(jsonObject);
+		}
+
+		return jsonArray;
+	}
 }

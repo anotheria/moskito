@@ -75,7 +75,7 @@ public final class SnapshotRepository {
 
 	}
 
-	public static final SnapshotRepository getInstance(){
+	public static SnapshotRepository getInstance(){
 		return SnapshotRepositoryInstanceHolder.instance;
 	}
 

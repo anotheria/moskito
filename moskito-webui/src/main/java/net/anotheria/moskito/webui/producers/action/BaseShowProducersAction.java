@@ -38,12 +38,12 @@ import net.anotheria.anoplass.api.APIException;
 import net.anotheria.maf.action.ActionCommand;
 import net.anotheria.maf.action.ActionMapping;
 import net.anotheria.maf.bean.FormBean;
+import net.anotheria.moskito.core.decorators.IDecorator;
+import net.anotheria.moskito.core.decorators.predefined.GenericStatsDecorator;
+import net.anotheria.moskito.core.decorators.value.StatValueAO;
 import net.anotheria.moskito.core.stats.UnknownIntervalException;
-import net.anotheria.moskito.webui.decorators.IDecorator;
-import net.anotheria.moskito.webui.decorators.predefined.GenericStatsDecorator;
 import net.anotheria.moskito.webui.producers.api.ProducerAO;
 import net.anotheria.moskito.webui.producers.api.ProducerAOSortType;
-import net.anotheria.moskito.webui.producers.api.StatValueAO;
 import net.anotheria.moskito.webui.producers.api.UnitCountAO;
 import net.anotheria.moskito.webui.shared.action.BaseMoskitoUIAction;
 import net.anotheria.moskito.webui.shared.bean.GraphDataBean;
@@ -51,6 +51,8 @@ import net.anotheria.moskito.webui.shared.bean.GraphDataValueBean;
 import net.anotheria.moskito.webui.shared.bean.NaviItem;
 import net.anotheria.moskito.webui.shared.bean.ProducerDecoratorBean;
 import net.anotheria.util.sorter.StaticQuickSorter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -58,9 +60,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * Base action for producers presentation action.
@@ -78,7 +77,7 @@ public abstract class BaseShowProducersAction extends BaseMoskitoUIAction {
 	 * @param req
 	 * @return
 	 */
-	protected abstract List<ProducerAO> getProducers(HttpServletRequest req);
+	protected abstract List<ProducerAO> getProducers(HttpServletRequest req) throws APIException;
 	/**
 	 * Returns the page title. 
 	 * @param req
@@ -87,7 +86,7 @@ public abstract class BaseShowProducersAction extends BaseMoskitoUIAction {
 	public abstract String getPageTitle(HttpServletRequest req);
 	
 	@Override
-	public ActionCommand execute(ActionMapping mapping, FormBean formBean, HttpServletRequest req, HttpServletResponse res) {
+	public ActionCommand execute(ActionMapping mapping, FormBean formBean, HttpServletRequest req, HttpServletResponse res) throws APIException{
 
 		Map<String, GraphDataBean> graphData = new HashMap<String, GraphDataBean>();
 
@@ -104,8 +103,6 @@ public abstract class BaseShowProducersAction extends BaseMoskitoUIAction {
 
 		return mapping.findCommand( getForward(req) );
 	}
-
-	private static final UnitCountAO EMPTY_UNIT = new UnitCountAO("Select ", 0);
 
 	protected void doCustomProcessing(HttpServletRequest req, HttpServletResponse res){
 		try{
@@ -164,7 +161,7 @@ public abstract class BaseShowProducersAction extends BaseMoskitoUIAction {
 						GraphDataBean bean = graphData.get(graphKey); 
 						if (bean==null) {
 						    // FIXME!
-						    System.out.println("unable to find bean for key: " + graphKey);
+						    LOG.warn("unable to find bean for key: " + graphKey);
 						} else {
 						    bean.addValue(new GraphDataValueBean(p.getProducerId(), valueBean.getRawValue()));
 						}

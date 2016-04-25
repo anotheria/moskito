@@ -50,7 +50,7 @@ public interface IStatsSnapshot {
 	 */
 	String getName();
 
-	public Map<String, Number> getProperties();
+	Map<String, Number> getProperties();
 	
     Date getDateCreated();
 

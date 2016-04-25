@@ -3,18 +3,21 @@
   <parent>
         <groupId>net.anotheria</groupId>
         <artifactId>moskito</artifactId>
-        <version>2.5.6-SNAPSHOT</version>
+        <version>2.7.4-SNAPSHOT</version>
   </parent>
 
   <modelVersion>4.0.0</modelVersion>
   <groupId>net.anotheria</groupId>
   <artifactId>moskito-extensions</artifactId>
-  <version>2.5.6-SNAPSHOT</version>
+  <version>2.7.4-SNAPSHOT</version>
   <name>moskito extensions aggregator</name>
   <packaging>pom</packaging>
 
 	<modules>
 		<module>moskito-notification-providers</module>
 		<module>moskito-additional-producers</module>
+		<module>moskito-sampling-api</module>
+        <module>moskito-disk-space-monitoring</module>
+        <module>moskito-mongodb</module>
     </modules>
 </project>

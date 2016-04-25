@@ -1,10 +1,10 @@
 package net.anotheria.moskito.core.config;
 
-import net.anotheria.moskito.core.config.thresholds.NotificationProviderConfig;
-import net.anotheria.moskito.core.threshold.alerts.notificationprovider.LogFileNotificationProvider;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.configureme.ConfigurationManager;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import java.util.logging.Logger;
 
 /**
  * This class is configuration holder object for the MoskitoConfiguration. Currently the reconfiguration option of
@@ -32,7 +32,7 @@ public enum MoskitoConfigurationHolder {
 	 * Creates a new configuration holder.
 	 */
 	private MoskitoConfigurationHolder(){
-		log = Logger.getLogger(getClass().getName());
+		log = LoggerFactory.getLogger(MoskitoConfigurationHolder.class);
 		configuration = createDefaultConfiguration();
 		try{
 			//now let configuration override some config options.
@@ -53,10 +53,10 @@ public enum MoskitoConfigurationHolder {
 		config.getThresholdsAlertsConfig().getAlertHistoryConfig().setMaxNumberOfItems(200);
 		config.getThresholdsAlertsConfig().getAlertHistoryConfig().setToleratedNumberOfItems(220);
 
-		NotificationProviderConfig[] providers = new NotificationProviderConfig[1];
-		providers[0] = new NotificationProviderConfig();
-		providers[0].setClassName(LogFileNotificationProvider.class.getName());
-		providers[0].setProperty("appenderName", "MoskitoAlert");
+		//NotificationProviderConfig[] providers = new NotificationProviderConfig[1];
+		//providers[0] = new NotificationProviderConfig();
+		//providers[0].setClassName(LogFileNotificationProvider.class.getName());
+		//providers[0].setProperty("appenderName", "MoskitoAlert");
 
 		//The default size for the threadpool for alert dispatching. This threadpool is needed to prevent app from being blocked by a slow alert notification processor.
 		//Default value is 1. Increase it if you have many alerts and many notification providers.
@@ -80,6 +80,7 @@ public enum MoskitoConfigurationHolder {
 	 * This method allows to set configuration from outside and is solely for testing purposes (junit). Do not use otherwise please.
 	 * @param configuration
 	 */
+	@SuppressFBWarnings("ME_ENUM_FIELD_SETTER")
 	public void setConfiguration(MoskitoConfiguration configuration){
 		this.configuration = configuration;
 	}

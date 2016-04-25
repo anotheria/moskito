@@ -1,5 +1,6 @@
 package net.anotheria.moskito.webui.producers.api;
 
+import net.anotheria.moskito.core.decorators.value.StatValueAO;
 import net.anotheria.moskito.core.inspection.CreationInfo;
 import net.anotheria.util.BasicComparable;
 import net.anotheria.util.sorter.IComparable;
@@ -53,6 +54,10 @@ public class ProducerAO implements Serializable, IComparable{
 	 * Clazz name of the stats object contained in this producer (for decorator selection).
 	 */
 	private String statsClazzName;
+
+	private boolean traceable;
+
+	private boolean traced;
 
 	public ProducerAO(){
 		lines = new LinkedList<StatLineAO>();
@@ -159,5 +164,30 @@ public class ProducerAO implements Serializable, IComparable{
 
 	public void setFullProducerClassName(String fullProducerClassName) {
 		this.fullProducerClassName = fullProducerClassName;
+	}
+
+	@Override
+	public String toString() {
+		return "ProducerAO{" +
+				"producerId='" + producerId + '\'' +
+				", subsystem='" + subsystem + '\'' +
+				", category='" + category + '\'' +
+				'}';
+	}
+
+	public boolean isTraceable() {
+		return traceable;
+	}
+
+	public void setTraceable(boolean traceable) {
+		this.traceable = traceable;
+	}
+
+	public boolean isTraced() {
+		return traced;
+	}
+
+	public void setTraced(boolean traced) {
+		this.traced = traced;
 	}
 }

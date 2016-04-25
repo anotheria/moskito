@@ -46,7 +46,11 @@ public class StatDecoratorBean extends AbstractDecoratorBean {
 	/**
 	 * List of stats bean.
 	 */
-	private List<StatBean> stats; 
+	private List<StatBean> stats;
+	/**
+	 * Cumulated stat.
+	 */
+	private StatBean cumulatedStat;
 
 	/**
 	 * Creates a new StatDecoratorBean.
@@ -69,8 +73,21 @@ public class StatDecoratorBean extends AbstractDecoratorBean {
 		stats = someBeans;
 	}
 
-	@Override public String toString(){
-		return super.toString()+" "+stats;
+	public StatBean getCumulatedStat() {
+		return cumulatedStat;
+	}
+
+	public void setCumulatedStat(StatBean cumulatedStat) {
+		this.cumulatedStat = cumulatedStat;
+	}
+
+	@Override
+	public String toString() {
+		return "StatDecoratorBean{" +
+				super.toString() +
+				", stats=" + stats +
+				", cumulatedStat=" + cumulatedStat +
+				'}';
 	}
 
 	/**

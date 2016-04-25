@@ -3,6 +3,8 @@ package net.anotheria.moskito.core.config.thresholds;
 import org.configureme.annotations.Configure;
 import org.configureme.annotations.ConfigureMe;
 
+import java.io.Serializable;
+
 /**
  * Guard for a single threshold status in the threshold.
  *
@@ -10,7 +12,7 @@ import org.configureme.annotations.ConfigureMe;
  * @since 25.10.12 10:29
  */
 @ConfigureMe(allfields=true)
-public class GuardConfig {
+public class GuardConfig implements Serializable {
 	/**
 	 * Value that have to be reached for the status change.
 	 */

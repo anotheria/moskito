@@ -4,16 +4,21 @@ import net.anotheria.moskito.core.stats.TimeUnit;
 import net.anotheria.moskito.webui.journey.api.AnalyzedProducerCallsAOSortType;
 
 import javax.servlet.http.HttpSession;
+import java.io.Serializable;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
- * TODO comment this class
+ * This class is used as a thread local variable for
  *
  * @author lrosenberg
  * @since 11.05.14 18:08
  */
 public class MoSKitoWebUIContext {
 
-
+	/**
+	 * Http Session.
+	 */
 	private HttpSession currentSession;
 
 	/**
@@ -30,6 +35,12 @@ public class MoSKitoWebUIContext {
 	private AnalyzedProducerCallsAOSortType analyzeProducerCallsSortType;
 
 
+
+	/**
+	 * Simple container map to pass attributes between modules.
+	 */
+	private Map<String,Serializable> attributes = new HashMap<String, Serializable>();
+
 	public HttpSession getCurrentSession() {
 		return currentSession;
 	}
@@ -43,6 +54,7 @@ public class MoSKitoWebUIContext {
 		currentTimeUnit     = anotherContext.currentTimeUnit;
 		currentIntervalName = anotherContext.currentIntervalName;
 		analyzeProducerCallsSortType = anotherContext.analyzeProducerCallsSortType;
+		attributes = (HashMap<String,Serializable>)((HashMap<String,Serializable>)anotherContext.attributes).clone();
 	}
 
 
@@ -115,4 +127,13 @@ public class MoSKitoWebUIContext {
 	public static void remove(){
 		currentCallContext.remove();
 	}
+
+	public void addAttribute(String attributeName, Serializable attributeValue){
+		attributes.put(attributeName, attributeValue);
+	}
+
+	public Serializable getAttribute(String attributeName){
+		return attributes.get(attributeName);
+	}
+
 }

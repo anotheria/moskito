@@ -4,3 +4,4 @@
 target
 templates
 logs
+cov-int

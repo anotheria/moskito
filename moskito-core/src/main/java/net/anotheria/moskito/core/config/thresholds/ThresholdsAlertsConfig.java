@@ -1,8 +1,10 @@
 package net.anotheria.moskito.core.config.thresholds;
 
 import com.google.gson.annotations.SerializedName;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.configureme.annotations.Configure;
 
+import java.io.Serializable;
 import java.util.Arrays;
 
 /**
@@ -11,7 +13,7 @@ import java.util.Arrays;
  * @author lrosenberg
  * @since 22.10.12 16:08
  */
-public class ThresholdsAlertsConfig {
+public class ThresholdsAlertsConfig implements Serializable {
 	/**
 	 * Notification providers for notification upon threshold status changes.
 	 */
@@ -30,10 +32,12 @@ public class ThresholdsAlertsConfig {
 	 */
 	@Configure private int dispatcherThreadPoolSize;
 
+	@SuppressFBWarnings("EI_EXPOSE_REP")
 	public NotificationProviderConfig[] getNotificationProviders() {
 		return notificationProviders;
 	}
 
+	@SuppressFBWarnings("EI_EXPOSE_REP2")
 	public void setNotificationProviders(NotificationProviderConfig[] notificationProviders) {
 		this.notificationProviders = notificationProviders;
 	}

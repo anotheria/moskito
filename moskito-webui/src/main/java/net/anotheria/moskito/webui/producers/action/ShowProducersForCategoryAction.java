@@ -34,6 +34,7 @@
  */	
 package net.anotheria.moskito.webui.producers.action;
 
+import net.anotheria.anoplass.api.APIException;
 import net.anotheria.moskito.webui.producers.api.ProducerAO;
 
 import javax.servlet.http.HttpServletRequest;
@@ -46,7 +47,7 @@ public class ShowProducersForCategoryAction extends BaseShowProducersAction{
 		return param == null ? "none" : param;
 	}
 
-	@Override protected List<ProducerAO> getProducers(HttpServletRequest req) {
+	@Override protected List<ProducerAO> getProducers(HttpServletRequest req) throws APIException{
 		String currentCategory = getCategoryParameter(req);
 		req.setAttribute("currentCategory", currentCategory);
 		return getProducerAPI().getAllProducersByCategory(currentCategory, getCurrentInterval(req), getCurrentUnit(req).getUnit());

@@ -76,6 +76,25 @@
 		</encoder>
 	</appender>
 
+	<appender name="MoSKitoTracerAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+			<level>INFO</level>
+		</filter>
+		<file>logs/moskito-traces.log</file>
+		<append>true</append>
+		<rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
+			<fileNamePattern>logs/moskito-traces.%i.log.zip</fileNamePattern>
+			<minIndex>1</minIndex>
+			<maxIndex>5</maxIndex>
+		</rollingPolicy>
+		<triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+			<maxFileSize>100MB</maxFileSize>
+		</triggeringPolicy>
+		<encoder>
+			<pattern>%msg%n</pattern>
+		</encoder>
+	</appender>
+
 	<appender name="ConsoleAppender" class="ch.qos.logback.core.ConsoleAppender">
 		<filter class="ch.qos.logback.classic.filter.ThresholdFilter">
 			<level>INFO</level>
@@ -85,12 +104,17 @@
 		</encoder>
 	</appender>
 
+	<logger name="MoSKitoTracer" level="INFO" additivity="false">
+		<appender-ref ref="MoSKitoTracerAppender" />
+	</logger>
+
 	<logger name="net.anotheria.moskito" level="INFO" additivity="false">
 		<appender-ref ref="InfoAppender" />
 		<appender-ref ref="WarnAppender" />
 		<appender-ref ref="ErrorAppender" />
 		<appender-ref ref="ConsoleAppender" />
 	</logger>
+
 
 	<root level="ERROR">
 		<appender-ref ref="ErrorAppender" />
