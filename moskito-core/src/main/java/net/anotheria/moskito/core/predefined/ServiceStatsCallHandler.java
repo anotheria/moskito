@@ -40,6 +40,8 @@ import net.anotheria.moskito.core.calltrace.TraceStep;
 import net.anotheria.moskito.core.calltrace.TracedCall;
 import net.anotheria.moskito.core.calltrace.TracingUtil;
 import net.anotheria.moskito.core.dynamic.IOnDemandCallHandler;
+import net.anotheria.moskito.core.journey.Journey;
+import net.anotheria.moskito.core.journey.JourneyManagerFactory;
 import net.anotheria.moskito.core.producers.IStats;
 import net.anotheria.moskito.core.producers.IStatsProducer;
 import net.anotheria.moskito.core.tracer.Trace;
@@ -70,21 +72,27 @@ public class ServiceStatsCallHandler implements IOnDemandCallHandler {
 		String producerId = producer.getProducerId();
 		boolean tracePassingOfThisProducer = tracerRepository.isTracingEnabledForProducer(producerId);
 		Trace trace = null;
+		boolean journeyStartedByMe = false;
+
 		//we create a trace at the beginning to reuse same id for the journey.
 		if (tracePassingOfThisProducer) {
 			trace = new Trace();
 		}
 
-		StringBuilder call = null;
+		if (currentTrace == null && tracePassingOfThisProducer) {
+			//ok, we will create a new journey on the fly.
+			String journeyCallName = Tracers.getCallName(trace);
+			RunningTraceContainer.startTracedCall(journeyCallName);
+			journeyStartedByMe = true;
+		}
 
-		if (currentTrace !=null || tracePassingOfThisProducer){
+		StringBuilder call = null;
+		if (currentTrace != null || tracePassingOfThisProducer) {
 			call = TracingUtil.buildCall(producerId, method.getName(), args, tracePassingOfThisProducer ? Tracers.getCallName(trace) : null);
 		}
-
-		if (currentTrace !=null) {
+		if (currentTrace != null) {
 			currentStep = currentTrace.startStep(call.toString(), producer);
 		}
-
 
 		long startTime = System.nanoTime();
 		Object ret = null;
@@ -127,6 +135,14 @@ public class ServiceStatsCallHandler implements IOnDemandCallHandler {
 				trace.setCall(call.toString());
 				trace.setDuration(exTime);
 				trace.setElements(Thread.currentThread().getStackTrace());
+
+				if (journeyStartedByMe) {
+					//now finish the journey.
+					Journey myJourney = JourneyManagerFactory.getJourneyManager().getOrCreateJourney(Tracers.getJourneyNameForTracers(producerId));
+					myJourney.addUseCase((CurrentlyTracedCall) RunningTraceContainer.endTrace());
+					RunningTraceContainer.cleanup();
+				}
+
 				tracerRepository.addTracedExecution(producerId, trace);
 			}
 
