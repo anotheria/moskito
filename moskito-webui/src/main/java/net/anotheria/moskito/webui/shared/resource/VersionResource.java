@@ -1,7 +1,7 @@
 package net.anotheria.moskito.webui.shared.resource;
 
+import net.anotheria.moskito.webui.util.VersionUtil;
 import net.anotheria.util.maven.MavenVersion;
-import net.anotheria.webutils.util.VersionUtil;
 
 import javax.servlet.ServletContext;
 import javax.ws.rs.GET;

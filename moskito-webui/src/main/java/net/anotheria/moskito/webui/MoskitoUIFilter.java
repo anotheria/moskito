@@ -3,9 +3,9 @@ package net.anotheria.moskito.webui;
 import net.anotheria.maf.MAFFilter;
 import net.anotheria.maf.action.ActionMappingsConfigurator;
 import net.anotheria.moskito.webui.shared.api.MoskitoAPIInitializer;
+import net.anotheria.moskito.webui.util.VersionUtil;
 import net.anotheria.net.util.NetUtils;
 import net.anotheria.util.maven.MavenVersion;
-import net.anotheria.webutils.util.VersionUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

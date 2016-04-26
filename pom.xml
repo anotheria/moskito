@@ -70,11 +70,6 @@
 			</dependency>
 			<dependency>
 				<groupId>net.anotheria</groupId>
-				<artifactId>ano-web</artifactId>
-				<version>2.1.0</version>
-			</dependency>
-			<dependency>
-				<groupId>net.anotheria</groupId>
 				<artifactId>ano-plass</artifactId>
 				<version>2.1.1</version>
 			</dependency>

@@ -94,11 +94,6 @@
             <groupId>net.anotheria</groupId>
             <artifactId>ano-util</artifactId>
         </dependency>
-        <!-- Ano web dependency is needed for the lib-version reader -->
-        <dependency>
-            <groupId>net.anotheria</groupId>
-            <artifactId>ano-web</artifactId>
-        </dependency>
         <dependency>
             <groupId>net.anotheria</groupId>
             <artifactId>ano-plass</artifactId>
