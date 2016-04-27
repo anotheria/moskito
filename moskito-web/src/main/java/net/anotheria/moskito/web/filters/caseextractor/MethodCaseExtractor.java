@@ -32,27 +32,19 @@
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR
  * THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */	
-package net.anotheria.moskito.web.filters;
+package net.anotheria.moskito.web.filters.caseextractor;
 
-import net.anotheria.moskito.web.MoskitoFilter;
-
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 
 /**
- * This filter distinguishes by the method of the request.
- * @deprecated use MethodCaseExtractor with GenericMonitoringFilter instead.
+ * This filter measures calls by http-method (GET, POST)
  * @author lrosenberg
  *
  */
-@Deprecated
-public class MethodFilter extends MoskitoFilter {
+public class MethodCaseExtractor extends AbstractFilterCaseExtractor{
 
 	@Override
-	protected String extractCaseName(ServletRequest req, ServletResponse res) {
-		if (!(req instanceof HttpServletRequest))
-			return "nonhttp";
-		return ((HttpServletRequest)req).getMethod();
+	public String extractCaseName(HttpServletRequest req) {
+		return req.getMethod();
 	}
 }
