@@ -23,45 +23,18 @@
             <filter-name>JourneyStarterFilter</filter-name>
             <filter-class>net.anotheria.moskito.web.filters.JourneyStarterFilter</filter-class>
         </filter>
-    <filter>
-            <filter-name>DomainFilter</filter-name>
-            <filter-class>net.anotheria.moskito.web.filters.DomainFilter</filter-class>
-            <init-param>
-                <param-name>limit</param-name>
-                <param-value>50</param-value>
-            </init-param>
-        </filter>
-
-        <filter>
-            <filter-name>UserAgentFilter</filter-name>
-            <filter-class>net.anotheria.moskito.web.filters.UserAgentFilter</filter-class>
-            <init-param>
-                <param-name>limit</param-name>
-                <param-value>100</param-value>
-            </init-param>
-        </filter>
-
-        <filter>
-            <filter-name>RefererFilter</filter-name>
-            <filter-class>net.anotheria.moskito.web.filters.RefererFilter</filter-class>
-            <init-param>
-                <param-name>limit</param-name>
-                <param-value>100</param-value>
-            </init-param>
-        </filter>
-
-        <filter>
-            <filter-name>RequestURIFilter</filter-name>
-            <filter-class>net.anotheria.moskito.web.filters.RequestURIFilter</filter-class>
-            <init-param>
-                <param-name>limit</param-name>
-                <param-value>100</param-value>
-            </init-param>
-        </filter>
-
         <filter>
             <filter-name>JSTalkBackFilter</filter-name>
             <filter-class>net.anotheria.moskito.web.filters.JSTalkBackFilter</filter-class>
+            <init-param>
+                <param-name>limit</param-name>
+                <param-value>100</param-value>
+            </init-param>
+        </filter>
+
+        <filter>
+            <filter-name>GenericMonitoringFilter</filter-name>
+            <filter-class>net.anotheria.moskito.web.filters.GenericMonitoringFilter</filter-class>
             <init-param>
                 <param-name>limit</param-name>
                 <param-value>100</param-value>
@@ -83,25 +56,12 @@
             <filter-name>JourneyStarterFilter</filter-name>
             <url-pattern>/*</url-pattern>
         </filter-mapping>
+
         <filter-mapping>
-            <filter-name>DomainFilter</filter-name>
+            <filter-name>GenericMonitoringFilter</filter-name>
             <url-pattern>/*</url-pattern>
         </filter-mapping>
 
-        <filter-mapping>
-            <filter-name>RequestURIFilter</filter-name>
-            <url-pattern>/*</url-pattern>
-        </filter-mapping>
-
-        <filter-mapping>
-            <filter-name>UserAgentFilter</filter-name>
-            <url-pattern>/*</url-pattern>
-        </filter-mapping>
-
-        <filter-mapping>
-            <filter-name>RefererFilter</filter-name>
-            <url-pattern>/*</url-pattern>
-        </filter-mapping>
         <filter-mapping>
             <filter-name>JSTalkBackFilter</filter-name>
             <url-pattern>/jstalkbackfilter/*</url-pattern>

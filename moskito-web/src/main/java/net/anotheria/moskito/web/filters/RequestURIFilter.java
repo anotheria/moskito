@@ -43,8 +43,10 @@ import javax.servlet.http.HttpServletRequest;
 /**
  * This filter measures the urls by the request uri.
  * @author lrosenberg
+ * @deprecated use GenericMonitoringFilter instead.
  *
  */
+@Deprecated
 public class RequestURIFilter extends MoskitoFilter {
 	/**
 	 * Limit for the url length.
