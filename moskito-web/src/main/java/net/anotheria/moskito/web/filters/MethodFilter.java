@@ -41,10 +41,12 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 
 /**
- * This filter distincts by the method of the request.
+ * This filter distinguishes by the method of the request.
+ * @deprecated use MethodCaseExtractor with GenericMonitoringFilter instead.
  * @author lrosenberg
  *
  */
+@Deprecated
 public class MethodFilter extends MoskitoFilter {
 
 	@Override

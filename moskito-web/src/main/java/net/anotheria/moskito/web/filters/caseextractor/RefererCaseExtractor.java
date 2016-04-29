@@ -32,37 +32,62 @@
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR
  * THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */	
-package net.anotheria.moskito.web.filters;
+package net.anotheria.moskito.web.filters.caseextractor;
 
-import net.anotheria.moskito.web.MoskitoFilter;
-
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 
+
 /**
- * This filter measures the urls by the request uri.
+ * This extractor measures calls by referer.
  * @author lrosenberg
- * @deprecated use GenericMonitoringFilter instead.
  *
  */
-@Deprecated
-public class RequestURIFilter extends MoskitoFilter {
+public class RefererCaseExtractor extends AbstractFilterCaseExtractor{
+
+	/**
+	 * Constant for http.
+	 */
+	public static final String HTTP_PROTOCOL = "http://";
+	/**
+	 * Constant for https.
+	 */
+	public static final String HTTPS_PROTOCOL = "https://";
+
 	/**
 	 * Limit for the url length.
 	 */
 	public static final int URI_LIMIT = 80;
 
 	@Override
-	protected String extractCaseName(ServletRequest req, ServletResponse res) {
-		if (!(req instanceof HttpServletRequest))
+	public String extractCaseName(HttpServletRequest r) {
+		String referer = r.getHeader("referer");
+		if (referer==null || referer.length()==0)
 			return null;
-		HttpServletRequest r = (HttpServletRequest)req;
-		String ret = r.getRequestURI();
-		//TODO make this configurable
-		if (ret.length()>URI_LIMIT){
-			ret = ret.substring(0, URI_LIMIT-3)+"...";
+		if (referer.startsWith(HTTP_PROTOCOL))
+			referer = referer.substring(HTTP_PROTOCOL.length());
+		if (referer.startsWith(HTTPS_PROTOCOL))
+			referer = referer.substring(HTTPS_PROTOCOL.length());
+
+		String currentServerName = r.getServerName();
+		String refererServerName = extractServerName(referer);
+		if (currentServerName.equals(refererServerName))
+			return "_this_server_";
+
+		if (referer.length()>URI_LIMIT){
+			referer = referer.substring(0, URI_LIMIT-3)+"...";
 		}
-		return ret;
+
+		return referer;
 	}
+
+	private static String extractServerName(String referer){
+		int end;
+		end = referer.indexOf(':');
+		if (end==-1)
+			end = referer.indexOf('/');
+		if (end==-1)
+			return null;
+		return referer.substring(0,end);
+	}
+
 }

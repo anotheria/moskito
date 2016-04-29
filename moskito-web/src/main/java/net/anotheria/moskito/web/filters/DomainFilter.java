@@ -42,8 +42,10 @@ import javax.servlet.ServletResponse;
 /**
  * This filter counts the requests by the domain.
  * @author lrosenberg
+ * @deprecated use GenericMonitoringFilter instead.
  *
  */
+@Deprecated
 public class DomainFilter extends MoskitoFilter {
 
 	@Override

@@ -32,37 +32,19 @@
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR
  * THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */	
-package net.anotheria.moskito.web.filters;
+package net.anotheria.moskito.web.filters.caseextractor;
 
-import net.anotheria.moskito.web.MoskitoFilter;
-
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 
 /**
- * This filter measures the urls by the request uri.
+ * This filter measures calls by server name used by the user / domain field.
  * @author lrosenberg
- * @deprecated use GenericMonitoringFilter instead.
  *
  */
-@Deprecated
-public class RequestURIFilter extends MoskitoFilter {
-	/**
-	 * Limit for the url length.
-	 */
-	public static final int URI_LIMIT = 80;
+public class DomainCaseExtractor extends AbstractFilterCaseExtractor{
 
 	@Override
-	protected String extractCaseName(ServletRequest req, ServletResponse res) {
-		if (!(req instanceof HttpServletRequest))
-			return null;
-		HttpServletRequest r = (HttpServletRequest)req;
-		String ret = r.getRequestURI();
-		//TODO make this configurable
-		if (ret.length()>URI_LIMIT){
-			ret = ret.substring(0, URI_LIMIT-3)+"...";
-		}
-		return ret;
+	public String extractCaseName(HttpServletRequest req) {
+		return req.getServerName();
 	}
 }

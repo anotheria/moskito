@@ -43,8 +43,10 @@ import javax.servlet.http.HttpServletRequest;
 /**
  * This filter measures calls by referer.
  * @author lrosenberg
+ * Use net.anotheria.moskito.web.filters.GenericMonitoringFilter with RefererCaseExtractor instead.
  *
  */
+@Deprecated
 public class RefererFilter extends MoskitoFilter {
 
 	/**

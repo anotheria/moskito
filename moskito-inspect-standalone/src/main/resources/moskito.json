@@ -257,7 +257,13 @@
                 "name": "DiskSpaceMonitoringPlugin",
                 "configurationName": "none",
                 "className": "net.anotheria.moskito.extensions.DiskSpaceMonitoringPlugin"
-            }
+            }/*,
+          {
+            "name": "VisualPoCPlugin",
+            "configurationName": "none",
+            "className": "net.anotheria.moskitoplugin.emptypage.EmptyPagePlugin"
+          }    */
+
         ]
     },
 
@@ -267,6 +273,15 @@
       "inspectEnabled": true,
       "maxTraces": 50,
       "tracers": []
-    }
+    },
+    "@filterConfig": {
+      "caseExtractors": [
+        "net.anotheria.moskito.web.filters.caseextractor.RequestURICaseExtractor",
+        "net.anotheria.moskito.web.filters.caseextractor.RefererCaseExtractor",
+        "net.anotheria.moskito.web.filters.caseextractor.MethodCaseExtractor",
+        "net.anotheria.moskito.web.filters.caseextractor.UserAgentCaseExtractor",
+        "net.anotheria.moskito.web.filters.caseextractor.DomainCaseExtractor"
+    ]
+  }
 
 }

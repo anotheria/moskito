@@ -42,9 +42,11 @@ import javax.servlet.http.HttpServletRequest;
 
 /**
  * This filter measures the url calls by the used user-agent.
+ * @deprecated use UserAgentCaseExtractor and GenericMonitoringFilter instead.
  * @author lrosenberg
  *
  */
+@Deprecated
 public class UserAgentFilter extends MoskitoFilter {
 
 	@Override

@@ -116,7 +116,7 @@ public final class Accumulators {
 	}
 
 	/**
-	 * Creates a new accumulator for avg response time of the url. Requires net.java.dev.moskito.web.filters.RequestURIFilter to be present in the web.xml map to the uri.
+	 * Creates a new accumulator for avg response time of the url. Requires net.anotheria.moskito.web.filters.GenericMonitoringFilter to be present in the web.xml map to the uri.
 	 * @param name name of the accumulator.
 	 * @param url url to accumulate
 	 */
@@ -125,17 +125,17 @@ public final class Accumulators {
 	}
 	
 	/**
-	 * Creates a new accumulator for avg response time of the url. Requires net.java.dev.moskito.web.filters.RequestURIFilter to be present in the web.xml map to the uri.
+	 * Creates a new accumulator for avg response time of the url. Requires net.anotheria.moskito.web.filters.GenericMonitoringFilter to be present in the web.xml map to the uri.
 	 * @param name name of the accumulator.
 	 * @param url url to accumulate
 	 * @param interval name of the interval.
 	 */
 	public static void createUrlAVGAccumulator(String name, String url, String interval) {
-		createAccumulator(name, "RequestURIFilter", url, "AVG", interval);
+		createAccumulator(name, "RequestURI", url, "AVG", interval);
 	}
 
 	/**
-	 * Creates a new accumulator for request count of the url. Requires net.java.dev.moskito.web.filters.RequestURIFilter to be present in the web.xml map to the uri.
+	 * Creates a new accumulator for request count of the url. Requires net.anotheria.moskito.web.filters.GenericMonitoringFilter to be present in the web.xml map to the uri.
 	 * @param name name of the accumulator.
 	 * @param url url to accumulate
 	 */
@@ -144,17 +144,17 @@ public final class Accumulators {
 	}
 	
 	/**
-	 * Creates a new accumulator for request count of the url. Requires net.java.dev.moskito.web.filters.RequestURIFilter to be present in the web.xml map to the uri.
+	 * Creates a new accumulator for request count of the url. Requires net.anotheria.moskito.web.filters.GenericMonitoringFilter to be present in the web.xml map to the uri.
 	 * @param name name of the accumulator.
 	 * @param url url to accumulate
 	 * @param interval name of the interval.
 	 */
 	public static void createUrlREQAccumulator(String name, String url, String interval) {
-		createAccumulator(name, "RequestURIFilter", url, "REQ", interval);
+		createAccumulator(name, "RequestURI", url, "REQ", interval);
 	}
 
 	/**
-	 * Creates a new accumulator for total time of the url. Requires net.java.dev.moskito.web.filters.RequestURIFilter to be present in the web.xml map to the uri.
+	 * Creates a new accumulator for total time of the url. Requires net.anotheria.moskito.web.filters.GenericMonitoringFilter to be present in the web.xml map to the uri.
 	 * @param name name of the accumulator.
 	 * @param url url to accumulate
 	 */
@@ -163,12 +163,12 @@ public final class Accumulators {
 	}
 
 	/**
-	 * Creates a new accumulator for total time of the url. Requires net.java.dev.moskito.web.filters.RequestURIFilter to be present in the web.xml map to the uri.
+	 * Creates a new accumulator for total time of the url. Requires net.anotheria.moskito.web.filters.GenericMonitoringFilter to be present in the web.xml map to the uri.
 	 * @param name name of the accumulator.
 	 * @param url url to accumulate
 	 * @param interval name of the interval.
 	 */
 	public static void createUrlTotalTimeAccumulator(String name, String url, String interval) {
-		createAccumulator(name, "RequestURIFilter", url, "time", interval);
+		createAccumulator(name, "RequestURI", url, "time", interval);
 	}
 }
