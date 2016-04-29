@@ -337,7 +337,7 @@ body.status-yellow ul.nav-sidebar > li.active > a {
     min-height: 50px;
     box-shadow: 0 1px 0 rgba(0,0,0,0.06);
     border-radius: 5px;
-    margin-bottom: 30px;
+    margin-bottom: 20px;
     position: relative;
 }
 
@@ -651,6 +651,10 @@ i.heatmap-chart-icon {
 
 .form-box {
     padding: 30px 10px 0;
+}
+
+#aside .form-box:last-child {
+    padding-bottom: 20px;
 }
 
 .select2-container {
@@ -1007,7 +1011,8 @@ dd .switchery {
 }
 
 .form-box .form-group {
-    margin-bottom: 5px;
+    margin-bottom: 0;
+    padding-bottom: 5px;
 }
 
 body.home-page,
@@ -1673,4 +1678,14 @@ Heat map
 .dashboard-line-nav-box li a:hover {
     text-decoration: none;
     color: #333;
+}
+
+.dashboard-line .row {
+    margin-left: -10px;
+    margin-right: -10px;
+}
+
+.dashboard-line .row > div {
+    padding-left: 10px;
+    padding-right: 10px;
 }
