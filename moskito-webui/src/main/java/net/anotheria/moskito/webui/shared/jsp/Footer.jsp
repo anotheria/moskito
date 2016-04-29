@@ -8,6 +8,70 @@
     <a href="https://itunes.apple.com/us/app/moskito-ui/id531387262?mt=8" class="iphone-banner"><img src="../moskito/int/img/iphone_banner.png" alt="Download MoSKito iOS App"></a>
 </div></footer>
 
+<!-- Modal -->
+<div class="modal fade" id="contactUs" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Free Consultation</h4>
+            </div>
+            <div class="modal-body">
+                <form id="feedbackForm" data-toggle="validator" method="post" role="form">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group error">
+                                <label for="fName">First Name<span class="required-item">*</span></label>
+                                <input type="text" id="fName" name="fName" placeholder="First Name" class="form-control" data-error="Please, enter your First Name" required>
+                                <div class="help-block with-errors"></div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label for="lName">Last Name<span class="required-item">*</span></label>
+                                <input type="text" id="lName" name="lName" placeholder="Last Name" class="form-control" data-error="Please, enter your Last Name" required>
+                                <div class="help-block with-errors"></div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label for="cEmail">Email<span class="required-item">*</span></label>
+                                <input type="email" id="cEmail" name="cEmail" placeholder="Email address" class="form-control" data-error="Sorry, that email address is invalid" required>
+                                <div class="help-block with-errors"></div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label for="cCompany">Company</label>
+                                <input type="text" id="cCompany" name="cCompany" placeholder="Company name" class="form-control">
+                            </div>
+                        </div>
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label for="Note">Note<span class="required-item">*</span></label>
+                                <textarea id="Note" name="Note" placeholder="Note" class="form-control" required></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-actions">
+                        <div class="pull-right">
+                            <button type="button" class="btn btn-default btn-lg" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary btn-lg">Send</button>
+                        </div>
+                    </div>
+                </form>
+
+                <div class="submit-message" style="display:none;">
+                    <p><strong>Thank you.</strong> Your message has been sent.</p>
+                    <div class="modal-actions">
+                        <button type="button" class="btn btn-default pull-right" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script src="../moskito/ext/bootstrap-3.1.1/js/bootstrap.min.js" type="text/javascript"></script>
 <script src="../moskito/ext/tablesorter/jquery.metadata.js" type="text/javascript"></script>
 <script src="../moskito/ext/tablesorter/jquery.tablesorter.js" type="text/javascript"></script>
@@ -33,7 +97,8 @@
 </ano:equal>
 
 <script src="../moskito/ext/custom-scrollbar/jquery.mCustomScrollbar.concat.min.js"></script>
-
+<script src="../moskito/ext/jquery-serialize-object/jquery.serialize-object.min.js" type="text/javascript"></script>
+<script src="../moskito/ext/bootstrap-validator/validator.min.js" type="text/javascript"></script>
 <script src="../moskito/int/js/common.js" type="text/javascript"></script>
 
 <!-- begin olark code -->

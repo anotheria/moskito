@@ -97,4 +97,23 @@ $(function () {
     var $treeTable = $("table.tree");
     if($treeTable.length > 0)
         $treeTable.treeTable();
+
+    $('#feedbackForm').validator().on('submit', function (e) {
+        if (e.isDefaultPrevented()) {
+        } else {
+            e.preventDefault()
+            $.ajax({
+                url: 'http://moskito-moskitorize.rhcloud.com/feedback',
+                type: 'post',
+                dataType: 'json',
+                contentType: 'application/json;charset=utf-8',
+                data: JSON.stringify($("#feedbackForm").serializeObject()),
+                success: function(data) {
+                }
+            });
+            $('#feedbackForm').hide();
+            $('.submit-message').show();
+            return false;
+        }
+    });
 });

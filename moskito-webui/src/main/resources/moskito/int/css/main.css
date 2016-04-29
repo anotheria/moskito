@@ -153,6 +153,7 @@ ul.nav-sidebar > li > a {
     padding: 10px 15px;
     border-left: 4px solid #434651;
     position: relative;
+    font-size: 14px;
 }
 
 ul.nav-sidebar > li > ul {
@@ -497,7 +498,6 @@ table td.wrap,
 .alert {
     border-radius: 0;
     border: none;
-    box-shadow: 0 2px 0 rgba(0, 0, 0, 0.04);
     margin: 0;
     min-height: 50px;
     text-align: center;
@@ -1688,4 +1688,53 @@ Heat map
 .dashboard-line .row > div {
     padding-left: 10px;
     padding-right: 10px;
+}
+
+.page-content {
+    padding: 30px 50px;
+    background: #FFF;
+    font-size: 14px;
+}
+
+.point-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.point-list li {
+    padding-left: 20px;
+    position: relative;
+    padding-bottom: 5px;
+}
+
+.point-list li:after {
+    content: "";
+    display: block;
+    position: absolute;
+    left: 0;
+    top: 5px;
+    border-radius: 30px;
+    width: 8px;
+    height: 8px;
+    background: #738de7;
+}
+
+.form-btn-list .btn {
+    margin-right: 5px;
+}
+
+.form-group label {
+    font-weight: 600;
+    font-size: 11px;
+    color: #777;
+    text-transform: uppercase;
+}
+
+.modal-actions {
+    overflow: hidden;
+}
+
+.modal-actions .btn {
+    margin-left: 5px;
 }
