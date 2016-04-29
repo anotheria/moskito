@@ -107,7 +107,7 @@ public class ConnectionCallAspect {
 				statementStats.notifyRequestFinished();
 			}
 
-			addTrace(statement, false, callDurationTime);
+			addTrace(statement, success, callDurationTime);
 
 		}
 
