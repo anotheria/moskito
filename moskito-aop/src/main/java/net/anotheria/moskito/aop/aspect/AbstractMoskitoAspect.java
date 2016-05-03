@@ -2,7 +2,6 @@ package net.anotheria.moskito.aop.aspect;
 
 import net.anotheria.moskito.aop.annotation.Accumulate;
 import net.anotheria.moskito.aop.annotation.Accumulates;
-import net.anotheria.moskito.aop.util.AnnotationUtils;
 import net.anotheria.moskito.aop.util.MoskitoUtils;
 import net.anotheria.moskito.core.accumulation.AccumulatorDefinition;
 import net.anotheria.moskito.core.accumulation.AccumulatorRepository;
@@ -10,6 +9,7 @@ import net.anotheria.moskito.core.dynamic.IOnDemandStatsFactory;
 import net.anotheria.moskito.core.dynamic.OnDemandStatsProducer;
 import net.anotheria.moskito.core.producers.IStats;
 import net.anotheria.moskito.core.registry.ProducerRegistryFactory;
+import net.anotheria.moskito.core.util.annotation.AnnotationUtils;
 import org.aspectj.lang.ProceedingJoinPoint;
 
 import java.lang.reflect.Method;
@@ -31,6 +31,7 @@ public class AbstractMoskitoAspect<S extends IStats> {
 
     /**
      * Returns the producer for the given pjp and producerId. Registers the producer in the registry if it's not already registered.
+     *
      * @param pjp the pjp is used to obtain the producer id automatically if it's not submitted.
      * @param aProducerId submitted producer id, used if configured in aop.
      * @param aCategory submitted category.
@@ -64,13 +65,11 @@ public class AbstractMoskitoAspect<S extends IStats> {
                 ProducerRegistryFactory.getProducerRegistryInstance().registerProducer(producer);
 
                 //now check for annotations.
-                Class producerClass = pjp.getSignature().getDeclaringType();
+                final Class producerClass = pjp.getSignature().getDeclaringType();
 
                 createClassLevelAccumulators(producer, producerClass);
-
-                Method[] methods = producerClass.getMethods();
-                for (Method m : methods){
-                    createMethodLevelAccumulators(producer, producerClass, m);
+                for (Method method : producerClass.getMethods()){
+                    createMethodLevelAccumulators(producer, method);
                 }
 
             }else{
@@ -82,12 +81,12 @@ public class AbstractMoskitoAspect<S extends IStats> {
     }
 
     /**
-     * Create method level accumulators
-     * @param producer
-     * @param producerClass
+     * Create method level accumulators.
+     *
+     * @param producer {@link OnDemandStatsProducer}
      * @param method annotated method
      */
-    private void createMethodLevelAccumulators(OnDemandStatsProducer<S> producer, Class producerClass, Method method) {
+    private void createMethodLevelAccumulators(OnDemandStatsProducer<S> producer, Method method) {
         //several @Accumulators in accumulators holder
         Accumulates accAnnotationHolderMethods = (Accumulates) method.getAnnotation(Accumulates.class);
         if (accAnnotationHolderMethods != null && accAnnotationHolderMethods.value() != null) {
@@ -112,9 +111,10 @@ public class AbstractMoskitoAspect<S extends IStats> {
     }
 
     /**
-     * Create accumulators for class
-     * @param producer
-     * @param producerClass
+     * Create accumulators for class.
+     *
+     * @param producer {@link OnDemandStatsProducer}
+     * @param producerClass producer class
      */
     private void createClassLevelAccumulators(OnDemandStatsProducer<S> producer, Class producerClass) {
         //several @Accumulators in accumulators holder
@@ -153,7 +153,8 @@ public class AbstractMoskitoAspect<S extends IStats> {
     }
 
     /**
-     * Create accumulator and register it
+     * Create accumulator and register it.
+     *
      * @param producerId id of the producer
      * @param annotation Accumulate annotation
      * @param accName Accumulator name
@@ -181,8 +182,9 @@ public class AbstractMoskitoAspect<S extends IStats> {
 
     /**
      * Returns the category to use for the producer registration.
-     * @param proposal
-     * @return
+     *
+     * @param proposal proposal
+     * @return category
      */
     public String getCategory(String proposal) {
         return proposal==null || proposal.length()==0 ? "annotated" : proposal;
@@ -190,8 +192,9 @@ public class AbstractMoskitoAspect<S extends IStats> {
 
     /**
      * Returns the subsystem for registration.
-     * @param proposal
-     * @return
+     *
+     * @param proposal proposal
+     * @return subsystem
      */
     public String getSubsystem(String proposal) {
         return proposal==null || proposal.length()==0 ? "default" : proposal;

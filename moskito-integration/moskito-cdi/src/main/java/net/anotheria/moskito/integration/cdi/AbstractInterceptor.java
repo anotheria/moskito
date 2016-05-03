@@ -9,7 +9,7 @@ import net.anotheria.moskito.core.producers.IStats;
 import net.anotheria.moskito.core.registry.ProducerRegistryFactory;
 import net.anotheria.moskito.integration.cdi.accumulation.Accumulate;
 import net.anotheria.moskito.integration.cdi.accumulation.Accumulates;
-import net.anotheria.moskito.integration.cdi.util.AnnotationUtils;
+import net.anotheria.moskito.core.util.annotation.AnnotationUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -66,9 +66,8 @@ public abstract class AbstractInterceptor<T extends IStats> {
             //check for annotations
             createClassLevelAccumulators(producer, producerClass);
 
-            Method[] methods = producerClass.getMethods();
-            for (Method m : methods){
-                createMethodLevelAccumulators(producer, producerClass, m);
+            for (Method method : producerClass.getMethods()){
+                createMethodLevelAccumulators(producer, method);
             }
         }
 
@@ -143,12 +142,12 @@ public abstract class AbstractInterceptor<T extends IStats> {
     }
 
     /**
-     * Create method level accumulators
-     * @param producer
-     * @param producerClass
+     * Create method level accumulators.
+     *
+     * @param producer {@link OnDemandStatsProducer}
      * @param method annotated method
      */
-    private void createMethodLevelAccumulators(OnDemandStatsProducer<T> producer, Class producerClass, Method method) {
+    private void createMethodLevelAccumulators(OnDemandStatsProducer<T> producer, Method method) {
         //several @Accumulators in accumulators holder
         Accumulates accAnnotationHolderMethods = (Accumulates) method.getAnnotation(Accumulates.class);
         if (accAnnotationHolderMethods != null && accAnnotationHolderMethods.value() != null) {
@@ -173,9 +172,10 @@ public abstract class AbstractInterceptor<T extends IStats> {
     }
 
     /**
-     * Create accumulators for class
-     * @param producer
-     * @param producerClass
+     * Create accumulators for class.
+     *
+     * @param producer {@link OnDemandStatsProducer}
+     * @param producerClass producer class
      */
     private void createClassLevelAccumulators(OnDemandStatsProducer<T> producer, Class producerClass) {
         //several @Accumulators in accumulators holder
@@ -214,7 +214,8 @@ public abstract class AbstractInterceptor<T extends IStats> {
     }
 
     /**
-     * Create accumulator and register it
+     * Create accumulator and register it.
+     *
      * @param producerId id of the producer
      * @param annotation Accumulate annotation
      * @param accName Accumulator name
