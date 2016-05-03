@@ -64,7 +64,7 @@ public class MonitorInterceptor extends AbstractInterceptor<ServiceStats> implem
         // if producer id isn't specified by client - use class name
         final String producerId = annotation.producerId().isEmpty() ? method.getDeclaringClass().getSimpleName() : annotation.producerId();
 
-        final OnDemandStatsProducer onDemandProducer = getProducer(producerId, annotation.category(), annotation.subsystem(), true);
+        final OnDemandStatsProducer onDemandProducer = getProducer(method.getDeclaringClass(), producerId, annotation.category(), annotation.subsystem(), true);
 
         if (onDemandProducer == null) {
             return proceed(ctx);

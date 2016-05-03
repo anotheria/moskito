@@ -1,17 +1,22 @@
 package net.anotheria.moskito.integration.cdi;
 
+import net.anotheria.moskito.core.accumulation.AccumulatorDefinition;
+import net.anotheria.moskito.core.accumulation.AccumulatorRepository;
 import net.anotheria.moskito.core.dynamic.IOnDemandStatsFactory;
 import net.anotheria.moskito.core.dynamic.OnDemandStatsProducer;
 import net.anotheria.moskito.core.dynamic.OnDemandStatsProducerException;
 import net.anotheria.moskito.core.producers.IStats;
-import net.anotheria.moskito.core.producers.IStatsProducer;
 import net.anotheria.moskito.core.registry.ProducerRegistryFactory;
+import net.anotheria.moskito.integration.cdi.accumulation.Accumulate;
+import net.anotheria.moskito.integration.cdi.accumulation.Accumulates;
+import net.anotheria.moskito.integration.cdi.util.AnnotationUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.interceptor.InvocationContext;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 
 /**
  * Base class for all interceptors.
@@ -43,19 +48,28 @@ public abstract class AbstractInterceptor<T extends IStats> {
     /**
      * Returns {@link OnDemandStatsProducer}.
      *
+     * @param producerClass producer class
      * @param producerId producer id
      * @param category category
      * @param subsystem subsystem
      * @param tracingSupported is tracing supported
      * @return {@link OnDemandStatsProducer}
      */
-    protected final OnDemandStatsProducer getProducer(String producerId, String category, String subsystem, boolean tracingSupported){
+    protected final OnDemandStatsProducer getProducer(Class producerClass, String producerId, String category, String subsystem, boolean tracingSupported){
         OnDemandStatsProducer<T> producer = (OnDemandStatsProducer<T>) ProducerRegistryFactory.getProducerRegistryInstance().getProducer(producerId);
 
         if (producer == null) {
             producer = new OnDemandStatsProducer<T>(producerId, category, subsystem, getStatsFactory());
             producer.setTracingSupported(tracingSupported);
             ProducerRegistryFactory.getProducerRegistryInstance().registerProducer(producer);
+
+            //check for annotations
+            createClassLevelAccumulators(producer, producerClass);
+
+            Method[] methods = producerClass.getMethods();
+            for (Method m : methods){
+                createMethodLevelAccumulators(producer, producerClass, m);
+            }
         }
 
         try {
@@ -125,6 +139,103 @@ public abstract class AbstractInterceptor<T extends IStats> {
             return ctx.proceed();
         } catch (InvocationTargetException e) {
             throw e.getCause();
+        }
+    }
+
+    /**
+     * Create method level accumulators
+     * @param producer
+     * @param producerClass
+     * @param method annotated method
+     */
+    private void createMethodLevelAccumulators(OnDemandStatsProducer<T> producer, Class producerClass, Method method) {
+        //several @Accumulators in accumulators holder
+        Accumulates accAnnotationHolderMethods = (Accumulates) method.getAnnotation(Accumulates.class);
+        if (accAnnotationHolderMethods != null && accAnnotationHolderMethods.value() != null) {
+            Accumulate[] accAnnotations  = accAnnotationHolderMethods.value();
+            for (Accumulate accAnnotation : accAnnotations) {
+                createAccumulator(
+                        producer.getProducerId(),
+                        accAnnotation,
+                        formAccumulatorNameForMethod(producer, accAnnotation, method),
+                        method.getName()
+                );
+            }
+        }
+
+        //If there is no @Accumulates annotation but @Accumulate is present
+        createAccumulator(
+                producer.getProducerId(),
+                method.getAnnotation(Accumulate.class),
+                formAccumulatorNameForMethod(producer, method.getAnnotation(Accumulate.class), method),
+                method.getName()
+        );
+    }
+
+    /**
+     * Create accumulators for class
+     * @param producer
+     * @param producerClass
+     */
+    private void createClassLevelAccumulators(OnDemandStatsProducer<T> producer, Class producerClass) {
+        //several @Accumulators in accumulators holder
+        Accumulates accAnnotationHolder = AnnotationUtils.findAnnotation(producerClass, Accumulates.class);//(Accumulates) producerClass.getAnnotation(Accumulates.class);
+        if (accAnnotationHolder != null && accAnnotationHolder.value() != null) {
+            Accumulate[] accAnnotations  = accAnnotationHolder.value();
+            for (Accumulate accAnnotation : accAnnotations) {
+                createAccumulator(
+                        producer.getProducerId(),
+                        accAnnotation,
+                        formAccumulatorNameForClass(producer, accAnnotation),
+                        "cumulated");
+            }
+        }
+
+        //If there is no @Accumulates annotation but @Accumulate is present
+        Accumulate annotation = AnnotationUtils.findAnnotation(producerClass, Accumulate.class);//producerClass.getAnnotation(Accumulate.class);
+        createAccumulator(
+                producer.getProducerId(),
+                annotation,
+                formAccumulatorNameForClass(producer, annotation),
+                "cumulated"
+        );
+    }
+
+    private String formAccumulatorNameForMethod(final OnDemandStatsProducer<T> producer, final Accumulate annotation, final Method m) {
+        if (producer != null && annotation != null && m != null)
+            return producer.getProducerId()+"."+m.getName()+"."+annotation.valueName()+"."+annotation.intervalName();
+        return "";
+    }
+
+    private String formAccumulatorNameForClass(final OnDemandStatsProducer<T> producer, final Accumulate annotation) {
+        if (producer != null && annotation != null)
+            return producer.getProducerId()+"."+annotation.valueName()+"."+annotation.intervalName();
+        return "";
+    }
+
+    /**
+     * Create accumulator and register it
+     * @param producerId id of the producer
+     * @param annotation Accumulate annotation
+     * @param accName Accumulator name
+     * @param statsName Statistics name
+     */
+    private void createAccumulator(String producerId, Accumulate annotation, String accName, String statsName) {
+        if (annotation != null && producerId != null && !producerId.isEmpty() &&
+                accName!=null && !accName.isEmpty() && statsName != null && !statsName.isEmpty()){
+
+            AccumulatorDefinition definition = new AccumulatorDefinition();
+            if (annotation.name() != null && annotation.name().length() >0) {
+                definition.setName(annotation.name());
+            }else{
+                definition.setName(accName);
+            }
+            definition.setIntervalName(annotation.intervalName());
+            definition.setProducerName(producerId);
+            definition.setStatName(statsName);
+            definition.setValueName(annotation.valueName());
+            definition.setTimeUnit(annotation.timeUnit());
+            AccumulatorRepository.getInstance().createAccumulator(definition);
         }
     }
 }
