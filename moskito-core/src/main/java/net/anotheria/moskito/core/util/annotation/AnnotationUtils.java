@@ -1,4 +1,4 @@
-package net.anotheria.moskito.aop.util;
+package net.anotheria.moskito.core.util.annotation;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.AnnotatedElement;

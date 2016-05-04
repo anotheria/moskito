@@ -1,4 +1,4 @@
-package net.anotheria.moskito.aop.util;
+package net.anotheria.moskito.core.util.annotation;
 
 import org.junit.Test;
 
@@ -6,7 +6,7 @@ import java.lang.annotation.Inherited;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
-import static net.anotheria.moskito.aop.util.AnnotationUtils.findAnnotation;
+import static net.anotheria.moskito.core.util.annotation.AnnotationUtils.findAnnotation;
 import static org.junit.Assert.assertTrue;
 
 /**
