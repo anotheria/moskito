@@ -55,7 +55,7 @@ public class CountInterceptor extends AbstractInterceptor<CounterStats> implemen
 
         final String producerId = annotation.producerId().isEmpty() ? method.getDeclaringClass().getSimpleName() : annotation.producerId();
         final String caseName = (parameter != null && !parameter.value().isEmpty()) ? parameter.value() : method.getName();
-        final OnDemandStatsProducer onDemandProducer = getProducer(producerId, annotation.category(), annotation.subsystem(), false);
+        final OnDemandStatsProducer onDemandProducer = getProducer(method.getDeclaringClass(), producerId, annotation.category(), annotation.subsystem(), false);
 
         if (onDemandProducer != null) {
             final CounterStats defaultStats = getDefaultStats(onDemandProducer);
