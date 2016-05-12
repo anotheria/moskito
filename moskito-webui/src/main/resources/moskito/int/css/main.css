@@ -36,7 +36,7 @@ body {
     min-height: 60px;
     background: #FFF;
     border-top: 1px solid #DDD;
-    padding: 30px 50px 20px;
+    padding: 30px 50px 10px;
     font-size: 13px;
     color: #777;
     text-align: left;
@@ -1636,12 +1636,6 @@ a:hover .iphone-app-icon {
     position: relative;
 }
 
-.iphone-banner {
-    position: absolute;
-    right: 0;
-    top: 0;
-}
-
 .iphone-banner img {
     height: 48px;
 }
@@ -1690,9 +1684,8 @@ Heat map
     padding-right: 10px;
 }
 
-.page-content {
-    padding: 30px 50px;
-    background: #FFF;
+.page-content > .box {
+    padding: 30px 30px;
     font-size: 14px;
 }
 
@@ -1737,4 +1730,61 @@ Heat map
 
 .modal-actions .btn {
     margin-left: 5px;
+}
+
+#footer h4 {
+    margin-top: 0;
+    text-transform: uppercase;
+    font-size: 16px;
+}
+
+.inform-line {
+    text-align: center;
+}
+
+.inform-line ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.inform-line li {
+   display: inline-block;
+    vertical-align: middle;
+    padding: 0 10px;
+}
+
+#habla_window_div {
+    width: 220px !important;
+    margin: 0 !important;
+    position: absolute;
+    top: inherit;
+    bottom: 0;
+    left: 0;
+    right: inherit;
+}
+
+#habla_window_div.olrk-fixed-bottom .habla_panel_border, #habla_window_div.olrk-fixed-bottom #habla_topbar_div {
+    border-top-left-radius: 0 !important;
+    border-top-right-radius: 0 !important;
+}
+
+#habla_window_div #habla_topbar_div {
+    background-color: #859be8 !important;
+}
+
+#habla_window_div #habla_topbar_div {
+    line-height: 20px;
+}
+
+#aside {
+    padding-bottom: 40px;
+}
+
+.page-content > .box h3 {
+    margin-bottom: 20px;
+}
+
+.iphone-banner {
+    float: right;
 }

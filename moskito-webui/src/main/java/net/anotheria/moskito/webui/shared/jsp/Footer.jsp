@@ -1,12 +1,32 @@
 <%@ page language="java" contentType="text/html;charset=UTF-8" session="true"%><%@
         taglib uri="http://www.anotheria.net/ano-tags" prefix="ano"%><%@
         page isELIgnored="false" %>
-<footer id="footer" class="navbar-default"><div class="footer-content">
-    <p class="text-center">Generated at ${timestampAsDate}  |  timestamp: ${timestamp}  |  Interval updated at: ${currentIntervalUpdateTimestamp}  |   Interval age: ${currentIntervalUpdateAge}</p>
-    <p class="text-center">App version: ${application_maven_version}  |  MoSKito version: ${moskito_maven_version} | Server: ${servername} | Connection: ${connection}</p>
+<footer id="footer" class="navbar-default">
+    <div class="row">
+        <div class="col-md-3">
+            <h4>Contacts</h4>
+            <p>Developed by <a href="">Anotheria</a><br/>Email: <a href="mailto:support@moskito.org">support@moskito.org</a></p>
+            <div class="form-group">
+                <a ref="#contactUs" data-toggle="modal" data-target="#contactUs" class="btn btn-primary">Free Consultation</a>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="inform-line">
+                <ul>
+                    <li>Generated at ${timestampAsDate}</li>
+                    <li>Timestamp: ${timestamp}</li>
+                    <li>Interval updated at: ${currentIntervalUpdateTimestamp}</li>
+                    <li>Interval age: ${currentIntervalUpdateAge}</li>
+                    <li><a href="#Version" data-toggle="modal" data-target="#Version">More app info</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <a href="https://itunes.apple.com/us/app/moskito-ui/id531387262?mt=8" class="iphone-banner"><img src="../moskito/int/img/iphone_banner.png" alt="Download MoSKito iOS App"></a>
+        </div>
+    </div>
     <ano:equal name="config" property="trackUsage" value="true"><img src="//counter.moskito.org/counter/inspect/${applicationScope.moskito_version_string}/${pagename}" class="ipix"> </ano:equal>
-    <a href="https://itunes.apple.com/us/app/moskito-ui/id531387262?mt=8" class="iphone-banner"><img src="../moskito/int/img/iphone_banner.png" alt="Download MoSKito iOS App"></a>
-</div></footer>
+</footer>
 
 <!-- Modal -->
 <div class="modal fade" id="contactUs" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
@@ -67,6 +87,30 @@
                         <button type="button" class="btn btn-default pull-right" data-dismiss="modal">Close</button>
                     </div>
                 </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="Version" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">App information</h4>
+            </div>
+            <div class="modal-body">
+                <dl class="dl-horizontal">
+                    <dt>App version:</dt>
+                    <dd>${application_maven_version}</dd>
+                    <dt>MoSKito version</dt>
+                    <dd>${moskito_maven_version}</dd>
+                    <dt>Server:</dt>
+                    <dd>${servername}</dd>
+                    <dt>Connection:</dt>
+                    <dd>${connection}</dd>
+                </dl>
             </div>
         </div>
     </div>

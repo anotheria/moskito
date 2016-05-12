@@ -113,194 +113,124 @@
 
         <aside id="aside" class="scrollbar">
 
-            <div class="header-box">
-                <span class="version">v 2.5.0-SNAPSHOT</span>
-                <i class="logo"></i>
-                <span class="logo-title">MoSKito Inspect</span>
-            </div>
+            <div class="aside-container">
 
-            <ul class="nav nav-sidebar">
-                <li class="active"><a href="producers.html">Producers <i class="fa fa-wrench"></i></a></li>
-                <li><a href="journeys.html">Journeys <i class="fa fa-eye"></i></a></li>
-                <li><a href="thresholds.html">Thresholds <i class="fa fa-dot-circle-o"></i></a></li>
-                <li><a href="accumulators.html">Accumulators <i class="fa fa-signal"></i></a></li>
-                <li>
-                    <a href="threads.html">Threads <i class="fa fa-bars"></i></a>
-                    <ul class="nav sub-menu">
-                        <li><a href="threads_list.html">List <i class="fa fa-list"></i></a></li>
-                        <li><a href="threads_dump.html">Dump <i class="fa fa-upload"></i></a></li>
-                        <li><a href="threads_history.html">History <i class="fa fa-file-text"></i></a></li>
-                    </ul>
-                </li>
-                <li>
-                    <a href="#">Everything else <i class="fa fa-bookmark"></i></a>
-                    <ul class="nav sub-menu">
-                        <li><a href="else_config.html">Config <i class="fa fa-cog"></i></a></li>
-                        <li><a href="else_mbeans.html">MBeans <i class="fa fa-briefcase"></i></a></li>
-                        <li><a href="else_libs.html">Libs <i class="fa fa-file-text"></i></a></li>
-                        <li><a href="else_plugins.html">Plugins <i class="fa fa-cloud"></i></a></li>
-                        <li><a href="else_update.html">Update  <i class="fa fa-upload"></i></a></li>
-                    </ul>
-                </li>
-            </ul>
+                <div class="header-box">
+                    <span class="version">v 2.5.0-SNAPSHOT</span>
+                    <i class="logo"></i>
+                    <span class="logo-title">MoSKito Inspect</span>
+                </div>
 
-            <div class="form-box">
-            <label>Filter</label>
+                <ul class="nav nav-sidebar">
+                    <li class="active"><a href="producers.html">Producers <i class="fa fa-wrench"></i></a></li>
+                    <li><a href="journeys.html">Journeys <i class="fa fa-eye"></i></a></li>
+                    <li><a href="thresholds.html">Thresholds <i class="fa fa-dot-circle-o"></i></a></li>
+                    <li><a href="accumulators.html">Accumulators <i class="fa fa-signal"></i></a></li>
+                    <li>
+                        <a href="threads.html">Threads <i class="fa fa-bars"></i></a>
+                        <ul class="nav sub-menu">
+                            <li><a href="threads_list.html">List <i class="fa fa-list"></i></a></li>
+                            <li><a href="threads_dump.html">Dump <i class="fa fa-upload"></i></a></li>
+                            <li><a href="threads_history.html">History <i class="fa fa-file-text"></i></a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#">Everything else <i class="fa fa-bookmark"></i></a>
+                        <ul class="nav sub-menu">
+                            <li><a href="else_config.html">Config <i class="fa fa-cog"></i></a></li>
+                            <li><a href="else_mbeans.html">MBeans <i class="fa fa-briefcase"></i></a></li>
+                            <li><a href="else_libs.html">Libs <i class="fa fa-file-text"></i></a></li>
+                            <li><a href="else_plugins.html">Plugins <i class="fa fa-cloud"></i></a></li>
+                            <li><a href="else_update.html">Update  <i class="fa fa-upload"></i></a></li>
+                        </ul>
+                    </li>
+                </ul>
 
-            <select class="select2" data-placeholder="Category">
-                <option value="mskShowProducersByCategory?pCategory=Select ">
-                    Category
-                </option>
+                <div class="form-box">
+                <label>Filter</label>
 
-                <option value="mskShowProducersByCategory?pCategory=box">
-                    box(387)
-                </option>
+                <select class="select2" data-placeholder="Category">
+                    <option value="mskShowProducersByCategory?pCategory=Select ">
+                        Category
+                    </option>
 
-                <option value="mskShowProducersByCategory?pCategory=api">
-                    api(45)
-                </option>
+                    <option value="mskShowProducersByCategory?pCategory=box">
+                        box(387)
+                    </option>
 
-                <option value="mskShowProducersByCategory?pCategory=memory">
-                    memory(10)
-                </option>
+                    <option value="mskShowProducersByCategory?pCategory=api">
+                        api(45)
+                    </option>
 
-                <option value="mskShowProducersByCategory?pCategory=web">
-                    web(1)
-                </option>
+                    <option value="mskShowProducersByCategory?pCategory=memory">
+                        memory(10)
+                    </option>
 
-                <option value="mskShowProducersByCategory?pCategory=cache">
-                    cache(52)
-                </option>
+                    <option value="mskShowProducersByCategory?pCategory=web">
+                        web(1)
+                    </option>
 
-                <option value="mskShowProducersByCategory?pCategory=page">
-                    page(37)
-                </option>
+                    <option value="mskShowProducersByCategory?pCategory=cache">
+                        cache(52)
+                    </option>
 
-                <option value="mskShowProducersByCategory?pCategory=box-handler">
-                    box-handler(26)
-                </option>
+                    <option value="mskShowProducersByCategory?pCategory=page">
+                        page(37)
+                    </option>
 
-                <option value="mskShowProducersByCategory?pCategory=action">
-                    action(63)
-                </option>
+                    <option value="mskShowProducersByCategory?pCategory=box-handler">
+                        box-handler(26)
+                    </option>
 
-                <option value="mskShowProducersByCategory?pCategory=persistence-service">
-                    persistence-service(1)
-                </option>
+                    <option value="mskShowProducersByCategory?pCategory=action">
+                        action(63)
+                    </option>
 
-                <option value="mskShowProducersByCategory?pCategory=threads">
-                    threads(2)
-                </option>
+                    <option value="mskShowProducersByCategory?pCategory=persistence-service">
+                        persistence-service(1)
+                    </option>
 
-                <option value="mskShowProducersByCategory?pCategory=filter">
-                    filter(5)
-                </option>
+                    <option value="mskShowProducersByCategory?pCategory=threads">
+                        threads(2)
+                    </option>
 
-                <option value="mskShowProducersByCategory?pCategory=service">
-                    service(86)
-                </option>
+                    <option value="mskShowProducersByCategory?pCategory=filter">
+                        filter(5)
+                    </option>
 
-                <option value="mskShowProducersByCategory?pCategory=servlet">
-                    servlet(3)
-                </option>
+                    <option value="mskShowProducersByCategory?pCategory=service">
+                        service(86)
+                    </option>
 
-                <option value="mskShowProducersByCategory?pCategory=business">
-                    business(5)
-                </option>
+                    <option value="mskShowProducersByCategory?pCategory=servlet">
+                        servlet(3)
+                    </option>
 
-                <option value="mskShowProducersByCategory?pCategory=storage">
-                    storage(7)
-                </option>
+                    <option value="mskShowProducersByCategory?pCategory=business">
+                        business(5)
+                    </option>
 
-                <option value="mskShowProducersByCategory?pCategory=annotated">
-                    annotated(1)
-                </option>
+                    <option value="mskShowProducersByCategory?pCategory=storage">
+                        storage(7)
+                    </option>
 
-                <option value="mskShowProducersByCategory?pCategory=runtime">
-                    runtime(1)
-                </option>
+                    <option value="mskShowProducersByCategory?pCategory=annotated">
+                        annotated(1)
+                    </option>
 
-                <option value="mskShowProducersByCategory?pCategory=os">
-                    os(1)
-                </option>
+                    <option value="mskShowProducersByCategory?pCategory=runtime">
+                        runtime(1)
+                    </option>
 
-                <option value="mskShowProducersByCategory?pCategory=integration">
-                    integration(2)
-                </option>
-            </select>
+                    <option value="mskShowProducersByCategory?pCategory=os">
+                        os(1)
+                    </option>
 
-            <select class="select2" data-placeholder="Subsystem">
-                <option value="mskShowProducersBySubsystem?pSubsystem=Select ">
-                    Subsystem
-                </option>
+                    <option value="mskShowProducersByCategory?pCategory=integration">
+                        integration(2)
+                    </option>
+                </select>
 
-                <option value="mskShowProducersBySubsystem?pSubsystem=ano-site">
-                    ano-site(511)
-                </option>
-
-                <option value="mskShowProducersBySubsystem?pSubsystem=default">
-                    default(111)
-                </option>
-
-                <option value="mskShowProducersBySubsystem?pSubsystem=builtin">
-                    builtin(15)
-                </option>
-
-                <option value="mskShowProducersBySubsystem?pSubsystem=persistence">
-                    persistence(4)
-                </option>
-
-                <option value="mskShowProducersBySubsystem?pSubsystem=asg-cms">
-                    asg-cms(40)
-                </option>
-
-                <option value="mskShowProducersBySubsystem?pSubsystem=biz">
-                    biz(31)
-                </option>
-
-                <option value="mskShowProducersBySubsystem?pSubsystem=portal-kit-persistence">
-                    portal-kit-persistence(2)
-                </option>
-
-                <option value="mskShowProducersBySubsystem?pSubsystem=monitoring">
-                    monitoring(1)
-                </option>
-
-                <option value="mskShowProducersBySubsystem?pSubsystem=maf">
-                    maf(1)
-                </option>
-
-                <option value="mskShowProducersBySubsystem?pSubsystem=portal-kit">
-                    portal-kit(4)
-                </option>
-
-                <option value="mskShowProducersBySubsystem?pSubsystem=asg-fed">
-                    asg-fed(4)
-                </option>
-
-                <option value="mskShowProducersBySubsystem?pSubsystem=tracking">
-                    tracking(5)
-                </option>
-
-                <option value="mskShowProducersBySubsystem?pSubsystem=admin">
-                    admin(2)
-                </option>
-
-                <option value="mskShowProducersBySubsystem?pSubsystem=mail">
-                    mail(2)
-                </option>
-
-                <option value="mskShowProducersBySubsystem?pSubsystem=asg-fixture">
-                    asg-fixture(2)
-                </option>
-            </select>
-
-            <input type="text" class="form-control" placeholder="Name Filter">
-
-            </div>
-
-            <div class="form-box">
-                <label>Server selector</label>
                 <select class="select2" data-placeholder="Subsystem">
                     <option value="mskShowProducersBySubsystem?pSubsystem=Select ">
                         Subsystem
@@ -366,8 +296,80 @@
                         asg-fixture(2)
                     </option>
                 </select>
-            </div>
 
+                <input type="text" class="form-control" placeholder="Name Filter">
+
+                </div>
+
+                <div class="form-box">
+                    <label>Server selector</label>
+                    <select class="select2" data-placeholder="Subsystem">
+                        <option value="mskShowProducersBySubsystem?pSubsystem=Select ">
+                            Subsystem
+                        </option>
+
+                        <option value="mskShowProducersBySubsystem?pSubsystem=ano-site">
+                            ano-site(511)
+                        </option>
+
+                        <option value="mskShowProducersBySubsystem?pSubsystem=default">
+                            default(111)
+                        </option>
+
+                        <option value="mskShowProducersBySubsystem?pSubsystem=builtin">
+                            builtin(15)
+                        </option>
+
+                        <option value="mskShowProducersBySubsystem?pSubsystem=persistence">
+                            persistence(4)
+                        </option>
+
+                        <option value="mskShowProducersBySubsystem?pSubsystem=asg-cms">
+                            asg-cms(40)
+                        </option>
+
+                        <option value="mskShowProducersBySubsystem?pSubsystem=biz">
+                            biz(31)
+                        </option>
+
+                        <option value="mskShowProducersBySubsystem?pSubsystem=portal-kit-persistence">
+                            portal-kit-persistence(2)
+                        </option>
+
+                        <option value="mskShowProducersBySubsystem?pSubsystem=monitoring">
+                            monitoring(1)
+                        </option>
+
+                        <option value="mskShowProducersBySubsystem?pSubsystem=maf">
+                            maf(1)
+                        </option>
+
+                        <option value="mskShowProducersBySubsystem?pSubsystem=portal-kit">
+                            portal-kit(4)
+                        </option>
+
+                        <option value="mskShowProducersBySubsystem?pSubsystem=asg-fed">
+                            asg-fed(4)
+                        </option>
+
+                        <option value="mskShowProducersBySubsystem?pSubsystem=tracking">
+                            tracking(5)
+                        </option>
+
+                        <option value="mskShowProducersBySubsystem?pSubsystem=admin">
+                            admin(2)
+                        </option>
+
+                        <option value="mskShowProducersBySubsystem?pSubsystem=mail">
+                            mail(2)
+                        </option>
+
+                        <option value="mskShowProducersBySubsystem?pSubsystem=asg-fixture">
+                            asg-fixture(2)
+                        </option>
+                    </select>
+                </div>
+            </div>
         </aside>
 
         <section id="main">
@@ -376,48 +378,51 @@
                 <strong>Welcome</strong> to moskito WebUI. <a href="">How it work?</a>
             </div>
 
-            <div class="page-content">
-                <div class="row m-b-40">
-                    <div class="col-lg-4">
-                        <h1>Help</h1>
-                        <h4>Don't wait for your customers to tell you that your site is down!</h4>
-                        <p>MoSKito Monitoring for Java applications. Complete ecosystem for DevOps. Free & open source.</p>
-                        <p>
-                            This page gives you some quick help and links.
-                        </p>
-                    </div>
-                    <div class="col-lg-4">
-                        <h3>Help links</h3>
-                        <ul class="point-list">
-                            <li><a href="http://www.moskito.org/" target="_blank">MoSKito Homepage</a> is the best starting point.</li>
-                            <li><a href="http://blog.anotheria.net/category/msk/" target="_blank">anotheria devblog</a> contains a lot of articles about MoSKito, in particular:</li>
-                            <li><a href="http://blog.anotheria.net/msk/the-complete-moskito-integration-guide-step-1/" target="_blank">The complete integration guide</a>.</li>
-                            <li>You could also check <a href="https://confluence.opensource.anotheria.net/display/MSK/Change+Log" target="_blank">the recent changes</a></li>
-                            <li>or <a href="https://confluence.opensource.anotheria.net/display/MSK/MoSKito-Inspect+User+Guide" target="_blank">MoSKito Inspect Manual</a></li>
-                            <li>and finally <a href="http://opensource.anotheria.net/" target="_blank">anotheria open source hub</a>.</li>
-                            <li>MoSKito is free and opensource, <a href="https://github.com/anotheria/moskito" target="_blank">fork the project sources on github</a> and participate!</li>
-                        </ul>
-                    </div>
-                    <div class="col-lg-4">
-                        <h3>FeedBack</h3>
-                        <p>
-                            Please send your comments, suggestions or any other kind of positive or negative feedback.
-                        </p>
-                        <div class="form-group">
-                            <a ref="#contactUs" data-toggle="modal" data-target="#contactUs" class="btn btn-primary btn-lg">Send FeedBack now</a>
-                        </div>
-                        <p>
-                            For questions or help please use MoSKito users mailing list: moskito-users@lists.anotheria.net
-                        </p>
-                        <div class="form-group form-btn-list">
-                            <a href="http://lists.anotheria.net/cgi-bin/mailman/listinfo/moskito-users" class="btn btn-primary">Subscribe</a>
-                            <a href="http://moskito-users.1088230.n5.nabble.com/" class="btn btn-default">Arcives on nabble</a>
+            <div class="content">
+
+                <div class="page-content">
+                    <div class="box">
+                        <div class="row m-b-40">
+                            <div class="col-lg-4">
+                                <h3>Help</h3>
+                                <h4>Don't wait for your customers to tell you that your site is down!</h4>
+                                <p>MoSKito Monitoring for Java applications. Complete ecosystem for DevOps. Free & open source.</p>
+                                <p>
+                                    This page gives you some quick help and links.
+                                </p>
+                            </div>
+                            <div class="col-lg-4">
+                                <h3>Help links</h3>
+                                <ul class="point-list">
+                                    <li><a href="http://www.moskito.org/" target="_blank">MoSKito Homepage</a> is the best starting point.</li>
+                                    <li><a href="http://blog.anotheria.net/category/msk/" target="_blank">anotheria devblog</a> contains a lot of articles about MoSKito, in particular:</li>
+                                    <li><a href="http://blog.anotheria.net/msk/the-complete-moskito-integration-guide-step-1/" target="_blank">The complete integration guide</a>.</li>
+                                    <li>You could also check <a href="https://confluence.opensource.anotheria.net/display/MSK/Change+Log" target="_blank">the recent changes</a></li>
+                                    <li>or <a href="https://confluence.opensource.anotheria.net/display/MSK/MoSKito-Inspect+User+Guide" target="_blank">MoSKito Inspect Manual</a></li>
+                                    <li>and finally <a href="http://opensource.anotheria.net/" target="_blank">anotheria open source hub</a>.</li>
+                                    <li>MoSKito is free and opensource, <a href="https://github.com/anotheria/moskito" target="_blank">fork the project sources on github</a> and participate!</li>
+                                </ul>
+                            </div>
+                            <div class="col-lg-4">
+                                <h3>FeedBack</h3>
+                                <p>
+                                    Please send your comments, suggestions or any other kind of positive or negative feedback.
+                                </p>
+                                <div class="form-group">
+                                    <a ref="#contactUs" data-toggle="modal" data-target="#contactUs" class="btn btn-primary btn-lg">Send FeedBack now</a>
+                                </div>
+                                <p>
+                                    For questions or help please use MoSKito users mailing list: moskito-users@lists.anotheria.net
+                                </p>
+                                <div class="form-group form-btn-list">
+                                    <a href="http://lists.anotheria.net/cgi-bin/mailman/listinfo/moskito-users" class="btn btn-primary">Subscribe</a>
+                                    <a href="http://moskito-users.1088230.n5.nabble.com/" class="btn btn-default">Arcives on nabble</a>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <div class="content">
                 <div class="box">
                     <div class="box-title">
                         <a class="accordion-toggle tooltip-bottom" title="Close/Open" data-toggle="collapse" href="#collapse1"><i class="fa fa-caret-right"></i></a>
@@ -991,8 +996,29 @@
             </div>
 
             <footer id="footer" class="navbar-default">
-                <p class="text-center">Generated at 2014-03-27T18:00:49,923  |  timestamp: 1395939649923  |  Interval updated at: Never  |   Interval age: n.A.</p>
-                <p class="text-center">App version: net.anotheria/moskito-counter 1-SNAPSHOT file: 2013-12-16T21:47:20,000  |  MoSKito version: net.anotheria/moskito-webui-jersey 2.4.1-SNAPSHOT file: 2013-12-16T21:46:50,000  |  Server: counter</p>
+                <div class="row">
+                    <div class="col-md-3">
+                        <h4>Contacts</h4>
+                        <p>Developed by <a href="">Anotheria</a><br/>Email: <a href="mailto:support@moskito.org">support@moskito.org</a></p>
+                        <div class="form-group">
+                            <a ref="#contactUs" data-toggle="modal" data-target="#contactUs" class="btn btn-primary">Free Consultation</a>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="inform-line">
+                            <ul>
+                                <li>Generated at 2014-03-27T18:00:49,923</li>
+                                <li>Timestamp: 1395939649923</li>
+                                <li>Interval updated at: Never</li>
+                                <li>Interval age: n.A.</li>
+                                <li><a href="#Version" data-toggle="modal" data-target="#Version">More app info</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <a class="iphone-banner pull-right" href="#"><img alt="" src="../resources/moskito/int/img/iphone_banner.png"></a>
+                    </div>
+                </div>
             </footer>
 
         </section>
@@ -1061,6 +1087,56 @@
         </div>
     </div>
 </div>
+
+<!-- Modal -->
+<div class="modal fade" id="Version" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">App information</h4>
+            </div>
+            <div class="modal-body">
+                <dl class="dl-horizontal">
+                    <dt>App version:</dt>
+                    <dd>net.anotheria/moskito-inspect-standalone 2.5.0-SNAPSHOT</dd>
+                    <dt>file:</dt>
+                    <dd>2014-05-23T14:02:26,000</dd>
+                    <dt>MoSKito version</dt>
+                    <dd>net.anotheria/moskito-webui-jersey 2.5.0-SNAPSHOT</dd>
+                    <dt>file:</dt>
+                    <dd>2014-05-12T00:02:40,000</dd>
+                    <dt>Server:</dt>
+                    <dd>Newest</dd>
+                    <dt>Connection:</dt>
+                    <dd>Local</dd>
+                </dl>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- begin olark code -->
+<script data-cfasync="false" type='text/javascript'>/*<![CDATA[*/window.olark||(function(c){var f=window,d=document,l=f.location.protocol=="https:"?"https:":"http:",z=c.name,r="load";var nt=function(){
+    f[z]=function(){
+        (a.s=a.s||[]).push(arguments)};var a=f[z]._={
+    },q=c.methods.length;while(q--){(function(n){f[z][n]=function(){
+        f[z]("call",n,arguments)}})(c.methods[q])}a.l=c.loader;a.i=nt;a.p={
+        0:+new Date};a.P=function(u){
+        a.p[u]=new Date-a.p[0]};function s(){
+        a.P(r);f[z](r)}f.addEventListener?f.addEventListener(r,s,false):f.attachEvent("on"+r,s);var ld=function(){function p(hd){
+        hd="head";return["<",hd,"></",hd,"><",i,' onl' + 'oad="var d=',g,";d.getElementsByTagName('head')[0].",j,"(d.",h,"('script')).",k,"='",l,"//",a.l,"'",'"',"></",i,">"].join("")}var i="body",m=d[i];if(!m){
+        return setTimeout(ld,100)}a.P(1);var j="appendChild",h="createElement",k="src",n=d[h]("div"),v=n[j](d[h](z)),b=d[h]("iframe"),g="document",e="domain",o;n.style.display="none";m.insertBefore(n,m.firstChild).id=z;b.frameBorder="0";b.id=z+"-loader";if(/MSIE[ ]+6/.test(navigator.userAgent)){
+        b.src="javascript:false"}b.allowTransparency="true";v[j](b);try{
+        b.contentWindow[g].open()}catch(w){
+        c[e]=d[e];o="javascript:var d="+g+".open();d.domain='"+d.domain+"';";b[k]=o+"void(0);"}try{
+        var t=b.contentWindow[g];t.write(p());t.close()}catch(x){
+        b[k]=o+'d.write("'+p().replace(/"/g,String.fromCharCode(92)+'"')+'");d.close();'}a.P(2)};ld()};nt()})({
+    loader: "static.olark.com/jsclient/loader0.js",name:"olark",methods:["configure","extend","declare","identify"]});
+/* custom configuration goes here (www.olark.com/documentation) */
+olark.identify('7961-404-10-9387');/*]]>*/</script><noscript><a href="https://www.olark.com/site/7961-404-10-9387/contact" title="Contact us" target="_blank">Questions? Feedback?</a> powered by <a href="http://www.olark.com?welcome" title="Olark live chat software">Olark live chat software</a></noscript>
+<!-- end olark code -->
 
 </body>
 </html>
