@@ -106,7 +106,6 @@
                 <ul class="nav navbar-nav pull-right">
                     <li><a href="">Autoreload OF</a></li>
                     <li><a href="">Export</a></li>
-                    <li><a href="">Help</a></li>
                 </ul>
             </div>
         </header>
@@ -121,7 +120,7 @@
                     <span class="logo-title">MoSKito Inspect</span>
                 </div>
 
-                <ul class="nav nav-sidebar">
+                <ul class="nav nav-sidebar nav-status">
                     <li class="active"><a href="producers.html">Producers <i class="fa fa-wrench"></i></a></li>
                     <li><a href="journeys.html">Journeys <i class="fa fa-eye"></i></a></li>
                     <li><a href="thresholds.html">Thresholds <i class="fa fa-dot-circle-o"></i></a></li>
@@ -142,6 +141,19 @@
                             <li><a href="else_libs.html">Libs <i class="fa fa-file-text"></i></a></li>
                             <li><a href="else_plugins.html">Plugins <i class="fa fa-cloud"></i></a></li>
                             <li><a href="else_update.html">Update  <i class="fa fa-upload"></i></a></li>
+                        </ul>
+                    </li>
+                </ul>
+
+                <ul class="nav nav-sidebar contacts-nav">
+                    <li>
+                        <a href="#">About<i class="fa fa-info-circle"></i></a>
+                        <ul class="nav sub-menu">
+                            <li><a href="#Version" data-toggle="modal" data-target="#Version">Version</a></li>
+                            <li><a href="#About" data-toggle="modal" data-target="#About">What is MoSkito?</a></li>
+                            <li><a href="http://moskito.org" target="_blank">Documentation</a></li>
+                            <li><a href="#Version" data-toggle="modal" data-target="#Version">Need help?</a></li>
+                            <li><a href="#Contacts" data-toggle="modal" data-target="#Contacts">Contacts</a></li>
                         </ul>
                     </li>
                 </ul>
@@ -370,6 +382,7 @@
                     </select>
                 </div>
             </div>
+
         </aside>
 
         <section id="main">
@@ -382,640 +395,93 @@
 
                 <div class="page-content">
                     <div class="box">
-                        <div class="row m-b-40">
-                            <div class="col-lg-4">
-                                <h3>Help</h3>
-                                <h4>Don't wait for your customers to tell you that your site is down!</h4>
-                                <p>MoSKito Monitoring for Java applications. Complete ecosystem for DevOps. Free & open source.</p>
-                                <p>
-                                    This page gives you some quick help and links.
-                                </p>
-                            </div>
-                            <div class="col-lg-4">
-                                <h3>Help links</h3>
-                                <ul class="point-list">
-                                    <li><a href="http://www.moskito.org/" target="_blank">MoSKito Homepage</a> is the best starting point.</li>
-                                    <li><a href="http://blog.anotheria.net/category/msk/" target="_blank">anotheria devblog</a> contains a lot of articles about MoSKito, in particular:</li>
-                                    <li><a href="http://blog.anotheria.net/msk/the-complete-moskito-integration-guide-step-1/" target="_blank">The complete integration guide</a>.</li>
-                                    <li>You could also check <a href="https://confluence.opensource.anotheria.net/display/MSK/Change+Log" target="_blank">the recent changes</a></li>
-                                    <li>or <a href="https://confluence.opensource.anotheria.net/display/MSK/MoSKito-Inspect+User+Guide" target="_blank">MoSKito Inspect Manual</a></li>
-                                    <li>and finally <a href="http://opensource.anotheria.net/" target="_blank">anotheria open source hub</a>.</li>
-                                    <li>MoSKito is free and opensource, <a href="https://github.com/anotheria/moskito" target="_blank">fork the project sources on github</a> and participate!</li>
-                                </ul>
-                            </div>
-                            <div class="col-lg-4">
-                                <h3>FeedBack</h3>
-                                <p>
-                                    Please send your comments, suggestions or any other kind of positive or negative feedback.
-                                </p>
-                                <div class="form-group">
-                                    <a ref="#contactUs" data-toggle="modal" data-target="#contactUs" class="btn btn-primary btn-lg">Send FeedBack now</a>
-                                </div>
-                                <p>
-                                    For questions or help please use MoSKito users mailing list: moskito-users@lists.anotheria.net
-                                </p>
-                                <div class="form-group form-btn-list">
-                                    <a href="http://lists.anotheria.net/cgi-bin/mailman/listinfo/moskito-users" class="btn btn-primary">Subscribe</a>
-                                    <a href="http://moskito-users.1088230.n5.nabble.com/" class="btn btn-default">Arcives on nabble</a>
-                                </div>
+                        <h3>Help links</h3>
+                        <ul class="point-list">
+                            <li><a href="http://www.moskito.org/" target="_blank">MoSKito Homepage</a> is the best starting point.</li>
+                            <li><a href="http://blog.anotheria.net/category/msk/" target="_blank">anotheria devblog</a> contains a lot of articles about MoSKito, in particular:</li>
+                            <li><a href="http://blog.anotheria.net/msk/the-complete-moskito-integration-guide-step-1/" target="_blank">The complete integration guide</a>.</li>
+                            <li>You could also check <a href="https://confluence.opensource.anotheria.net/display/MSK/Change+Log" target="_blank">the recent changes</a></li>
+                            <li>or <a href="https://confluence.opensource.anotheria.net/display/MSK/MoSKito-Inspect+User+Guide" target="_blank">MoSKito Inspect Manual</a></li>
+                            <li>and finally <a href="http://opensource.anotheria.net/" target="_blank">anotheria open source hub</a>.</li>
+                            <li>MoSKito is free and opensource, <a href="https://github.com/anotheria/moskito" target="_blank">fork the project sources on github</a> and participate!</li>
+                        </ul>
+                    </div>
+                    <div class="box">
+                        <h3>Ask question?</h3>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <form id="feedbackForm" data-toggle="validator" method="post" role="form">
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <div class="form-group">
+                                                <label for="typeRequest">Type of request</label>
+                                                <select class="form-control" name="typeRequest" id="typeRequest">
+                                                    <option>Feedback</option>
+                                                    <option>Support</option>
+                                                    <option>Customisation</option>
+                                                    <option>Other</option>
+                                                </select>
+                                                <div class="help-block with-errors"></div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <div class="form-group error">
+                                                <label for="fName">First Name<span class="required-item">*</span></label>
+                                                <input type="text" id="fName" name="fName" placeholder="First Name" class="form-control" data-error="Please, enter your First Name" required>
+                                                <div class="help-block with-errors"></div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label for="lName">Last Name<span class="required-item">*</span></label>
+                                                <input type="text" id="lName" name="lName" placeholder="Last Name" class="form-control" data-error="Please, enter your Last Name" required>
+                                                <div class="help-block with-errors"></div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-12">
+                                            <div class="form-group">
+                                                <label for="cEmail">Email<span class="required-item">*</span></label>
+                                                <input type="email" id="cEmail" name="cEmail" placeholder="Email address" class="form-control" data-error="Sorry, that email address is invalid" required>
+                                                <div class="help-block with-errors"></div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-12">
+                                            <div class="form-group">
+                                                <label for="cCompany">Company</label>
+                                                <input type="text" id="cCompany" name="cCompany" placeholder="Company name" class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-12">
+                                            <div class="form-group">
+                                                <label for="Note">Note<span class="required-item">*</span></label>
+                                                <textarea id="Note" name="Note" placeholder="Write you question here" class="form-control" required></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="modal-actions">
+                                        <div class="pull-right">
+                                            <button type="button" class="btn btn-default btn-lg" data-dismiss="modal">Close</button>
+                                            <button type="submit" class="btn btn-primary btn-lg">Send</button>
+                                        </div>
+                                    </div>
+                                </form>
                             </div>
                         </div>
                     </div>
                 </div>
-
-                <div class="box">
-                    <div class="box-title">
-                        <a class="accordion-toggle tooltip-bottom" title="Close/Open" data-toggle="collapse" href="#collapse1"><i class="fa fa-caret-right"></i></a>
-                        <h3 class="pull-left">
-                            Box name 1
-                        </h3>
-                        <div class="box-right-nav">
-                            <a href="" class="tooltip-bottom" title="Help"><i class="fa fa-info-circle"></i></a>
-                        </div>
-                    </div>
-                    <div id="collapse1" class="box-content accordion-body collapse in">
-
-                        <div class="table1fixed">
-                        <table class="table table-striped tablesorter">
-                            <thead>
-                            <tr>
-                                <th class="headcol">Producer Id <i class="fa fa-caret-down"></i></th>
-                                <th>Category <i class="fa fa-caret-down"></i></th>
-                                <th>Subsystem <i class="fa fa-caret-down"></i></th>
-                                <th>Req <i class="fa fa-caret-down"></i><i class="chart-icon tooltip-bottom" title="Show chart"></i></th>
-                                <th class="{sorter: 'commaNumber'}">Time <i class="fa fa-caret-down"></i><i class="chart-icon tooltip-bottom" title="Show chart"></i></th>
-                                <th>CR <i class="fa fa-caret-down"></i><i class="chart-icon tooltip-bottom" title="Show chart"></i></th>
-                                <th>MCR <i class="fa fa-caret-down"></i><i class="chart-icon tooltip-bottom" title="Show chart"></i></th>
-                                <th>MIN <i class="fa fa-caret-down"></i><i class="chart-icon tooltip-bottom" title="Show chart"></i></th>
-                                <th>MAX <i class="fa fa-caret-down"></i><i class="chart-icon tooltip-bottom" title="Show chart"></i></th>
-                                <th>Avg <i class="fa fa-caret-down"></i><i class="chart-icon tooltip-bottom" title="Show chart"></i></th>
-                                <th>Last <i class="fa fa-caret-down"></i><i class="chart-icon tooltip-bottom" title="Show chart"></i></th>
-                                <th>Err <i class="fa fa-caret-down"></i><i class="chart-icon tooltip-bottom" title="Show chart"></i></th>
-                                <th>IOE <i class="fa fa-caret-down"></i><i class="chart-icon tooltip-bottom" title="Show chart"></i></th>
-                                <th>SEE <i class="fa fa-caret-down"></i><i class="chart-icon tooltip-bottom" title="Show chart"></i></th>
-                                <th>RTE <i class="fa fa-caret-down"></i><i class="chart-icon tooltip-bottom" title="Show chart"></i></th>
-                                <th>ERate <i class="fa fa-caret-down"></i><i class="chart-icon tooltip-bottom" title="Show chart"></i></th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr>
-                                <td class="headcol"><a href="#">DomainDomainFilter DomainDomainFilter DomainDomainFilter</a></td>
-                                <td><a href="#">filter</a></td>
-                                <td><a href="#">default</a></td>
-                                <td>122,2</td>
-                                <td>990,592</td>
-                                <td>0</td>
-                                <td>6</td>
-                                <td>0</td>
-                                <td>12</td>
-                                <td>0.518</td>
-                                <td>0</td>
-                                <td>0</td>
-                                <td>1.330</td>
-                                <td>0</td>
-                                <td>0</td>
-                                <td>149</td>
-                            </tr>
-                            <tr>
-                                <td class="headcol"><a href="#">DomainDomainFilter DomainDomainFilter DomainDomainFilter</a></td>
-                                <td><a href="#">filter</a></td>
-                                <td><a href="#">default</a></td>
-                                <td>122,2122,22323</td>
-                                <td>369,784</td>
-                                <td>0</td>
-                                <td>6</td>
-                                <td>0</td>
-                                <td>12</td>
-                                <td>0.518</td>
-                                <td>0</td>
-                                <td>0</td>
-                                <td>1.330</td>
-                                <td>0</td>
-                                <td>0</td>
-                                <td>149</td>
-                            </tr>
-                            <tr>
-                                <td class="headcol"><a href="#">DomainDomainFilter DomainDomainFilter DomainDomainFilter</a></td>
-                                <td><a href="#">filter</a></td>
-                                <td><a href="#">default</a></td>
-                                <td>122,2</td>
-                                <td>10,006,160</td>
-                                <td>0</td>
-                                <td>6</td>
-                                <td>0</td>
-                                <td>12</td>
-                                <td>0.518</td>
-                                <td>0</td>
-                                <td>0</td>
-                                <td>1.330</td>
-                                <td>0</td>
-                                <td>0</td>
-                                <td>149</td>
-                            </tr>
-                            <tr>
-                                <td class="headcol"><a href="#">RefererFilter</a></td>
-                                <td><a href="#">filter</a></td>
-                                <td><a href="#">default</a></td>
-                                <td>11,12211,122</td>
-                                <td>10,795,400</td>
-                                <td>0</td>
-                                <td>6</td>
-                                <td>0</td>
-                                <td>15</td>
-                                <td>0.518</td>
-                                <td>0</td>
-                                <td>0</td>
-                                <td>1.330</td>
-                                <td>0</td>
-                                <td>0</td>
-                                <td>121</td>
-                            </tr>
-                            <tr>
-                                <td class="headcol"><a href="#">RequestURIFilter</a></td>
-                                <td><a href="#">filter</a></td>
-                                <td><a href="#">default</a></td>
-                                <td>5,32</td>
-                                <td>4,500,952</td>
-                                <td>0</td>
-                                <td>2</td>
-                                <td>0</td>
-                                <td>11</td>
-                                <td>0.518</td>
-                                <td>0</td>
-                                <td>0</td>
-                                <td>1.330</td>
-                                <td>0</td>
-                                <td>0</td>
-                                <td>118</td>
-                            </tr>
-                            <tr>
-                                <td class="headcol"><a href="#">RequestURIFilter</a></td>
-                                <td><a href="#">filter</a></td>
-                                <td><a href="#">default</a></td>
-                                <td>5,32</td>
-                                <td>4,500,952</td>
-                                <td>0</td>
-                                <td>2</td>
-                                <td>0</td>
-                                <td>11</td>
-                                <td>0.518</td>
-                                <td>0</td>
-                                <td>0</td>
-                                <td>1.330</td>
-                                <td>0</td>
-                                <td>0</td>
-                                <td>118</td>
-                            </tr>
-                            <tr>
-                                <td class="headcol"><a href="#">RequestURIFilter</a></td>
-                                <td><a href="#">filter</a></td>
-                                <td><a href="#">default</a></td>
-                                <td>5,32</td>
-                                <td>4,500,952</td>
-                                <td>0</td>
-                                <td>2</td>
-                                <td>0</td>
-                                <td>11</td>
-                                <td>0.518</td>
-                                <td>0</td>
-                                <td>0</td>
-                                <td>1.330</td>
-                                <td>0</td>
-                                <td>0</td>
-                                <td>118</td>
-                            </tr>
-                            <tr>
-                                <td class="headcol"><a href="#">RequestURIFilter</a></td>
-                                <td><a href="#">filter</a></td>
-                                <td><a href="#">default</a></td>
-                                <td>5,32</td>
-                                <td>4,500,952</td>
-                                <td>0</td>
-                                <td>2</td>
-                                <td>0</td>
-                                <td>11</td>
-                                <td>0.518</td>
-                                <td>0</td>
-                                <td>0</td>
-                                <td>1.330</td>
-                                <td>0</td>
-                                <td>0</td>
-                                <td>118</td>
-                            </tr>
-                            <tr>
-                                <td class="headcol"><a href="#">RequestURIFilter</a></td>
-                                <td><a href="#">filter</a></td>
-                                <td><a href="#">default</a></td>
-                                <td>5,32</td>
-                                <td>4,500,952</td>
-                                <td>0</td>
-                                <td>2</td>
-                                <td>0</td>
-                                <td>11</td>
-                                <td>0.518</td>
-                                <td>0</td>
-                                <td>0</td>
-                                <td>1.330</td>
-                                <td>0</td>
-                                <td>0</td>
-                                <td>118</td>
-                            </tr>
-                            <tr>
-                                <td class="headcol"><a href="#">RequestURIFilter</a></td>
-                                <td><a href="#">filter</a></td>
-                                <td><a href="#">default</a></td>
-                                <td>5,32</td>
-                                <td>4,500,952</td>
-                                <td>0</td>
-                                <td>2</td>
-                                <td>0</td>
-                                <td>11</td>
-                                <td>0.518</td>
-                                <td>0</td>
-                                <td>0</td>
-                                <td>1.330</td>
-                                <td>0</td>
-                                <td>0</td>
-                                <td>118</td>
-                            </tr>
-                            <tr>
-                                <td class="headcol"><a href="#">RequestURIFilter</a></td>
-                                <td><a href="#">filter</a></td>
-                                <td><a href="#">default</a></td>
-                                <td>5,32</td>
-                                <td>4,500,952</td>
-                                <td>0</td>
-                                <td>2</td>
-                                <td>0</td>
-                                <td>11</td>
-                                <td>0.518</td>
-                                <td>0</td>
-                                <td>0</td>
-                                <td>1.330</td>
-                                <td>0</td>
-                                <td>0</td>
-                                <td>118</td>
-                            </tr>
-                            <tr>
-                                <td class="headcol"><a href="#">RequestURIFilter</a></td>
-                                <td><a href="#">filter</a></td>
-                                <td><a href="#">default</a></td>
-                                <td>5,32</td>
-                                <td>4,500,952</td>
-                                <td>0</td>
-                                <td>2</td>
-                                <td>0</td>
-                                <td>11</td>
-                                <td>0.518</td>
-                                <td>0</td>
-                                <td>0</td>
-                                <td>1.330</td>
-                                <td>0</td>
-                                <td>0</td>
-                                <td>118</td>
-                            </tr>
-                            <tr>
-                                <td class="headcol"><a href="#">RequestURIFilter</a></td>
-                                <td><a href="#">filter</a></td>
-                                <td><a href="#">default</a></td>
-                                <td>5,32</td>
-                                <td>4,500,952</td>
-                                <td>0</td>
-                                <td>2</td>
-                                <td>0</td>
-                                <td>11</td>
-                                <td>0.518</td>
-                                <td>0</td>
-                                <td>0</td>
-                                <td>1.330</td>
-                                <td>0</td>
-                                <td>0</td>
-                                <td>118</td>
-                            </tr>
-                            <tr>
-                                <td class="headcol"><a href="#">RequestURIFilter</a></td>
-                                <td><a href="#">filter</a></td>
-                                <td><a href="#">default</a></td>
-                                <td>5,32</td>
-                                <td>4,500,952</td>
-                                <td>0</td>
-                                <td>2</td>
-                                <td>0</td>
-                                <td>11</td>
-                                <td>0.518</td>
-                                <td>0</td>
-                                <td>0</td>
-                                <td>1.330</td>
-                                <td>0</td>
-                                <td>0</td>
-                                <td>118</td>
-                            </tr>
-                            <tr>
-                                <td class="headcol"><a href="#">RequestURIFilter</a></td>
-                                <td><a href="#">filter</a></td>
-                                <td><a href="#">default</a></td>
-                                <td>5,32</td>
-                                <td>4,500,952</td>
-                                <td>0</td>
-                                <td>2</td>
-                                <td>0</td>
-                                <td>11</td>
-                                <td>0.518</td>
-                                <td>0</td>
-                                <td>0</td>
-                                <td>1.330</td>
-                                <td>0</td>
-                                <td>0</td>
-                                <td>118</td>
-                            </tr>
-                            <tr>
-                                <td class="headcol"><a href="#">RequestURIFilter</a></td>
-                                <td><a href="#">filter</a></td>
-                                <td><a href="#">default</a></td>
-                                <td>5,32</td>
-                                <td>4,500,952</td>
-                                <td>0</td>
-                                <td>2</td>
-                                <td>0</td>
-                                <td>11</td>
-                                <td>0.518</td>
-                                <td>0</td>
-                                <td>0</td>
-                                <td>1.330</td>
-                                <td>0</td>
-                                <td>0</td>
-                                <td>118</td>
-                            </tr>
-                            <tr>
-                                <td class="headcol"><a href="#">RequestURIFilter</a></td>
-                                <td><a href="#">filter</a></td>
-                                <td><a href="#">default</a></td>
-                                <td>5,32</td>
-                                <td>4,500,952</td>
-                                <td>0</td>
-                                <td>2</td>
-                                <td>0</td>
-                                <td>11</td>
-                                <td>0.518</td>
-                                <td>0</td>
-                                <td>0</td>
-                                <td>1.330</td>
-                                <td>0</td>
-                                <td>0</td>
-                                <td>118</td>
-                            </tr>
-                            <tr>
-                                <td class="headcol"><a href="#">RequestURIFilter</a></td>
-                                <td><a href="#">filter</a></td>
-                                <td><a href="#">default</a></td>
-                                <td>5,32</td>
-                                <td>4,500,952</td>
-                                <td>0</td>
-                                <td>2</td>
-                                <td>0</td>
-                                <td>11</td>
-                                <td>0.518</td>
-                                <td>0</td>
-                                <td>0</td>
-                                <td>1.330</td>
-                                <td>0</td>
-                                <td>0</td>
-                                <td>118</td>
-                            </tr>
-                            <tr>
-                                <td class="headcol"><a href="#">RequestURIFilter</a></td>
-                                <td><a href="#">filter</a></td>
-                                <td><a href="#">default</a></td>
-                                <td>5,32</td>
-                                <td>4,500,952</td>
-                                <td>0</td>
-                                <td>2</td>
-                                <td>0</td>
-                                <td>11</td>
-                                <td>0.518</td>
-                                <td>0</td>
-                                <td>0</td>
-                                <td>1.330</td>
-                                <td>0</td>
-                                <td>0</td>
-                                <td>118</td>
-                            </tr>
-                            <tr>
-                                <td class="headcol"><a href="#">RequestURIFilter</a></td>
-                                <td><a href="#">filter</a></td>
-                                <td><a href="#">default</a></td>
-                                <td>5,32</td>
-                                <td>4,500,952</td>
-                                <td>0</td>
-                                <td>2</td>
-                                <td>0</td>
-                                <td>11</td>
-                                <td>0.518</td>
-                                <td>0</td>
-                                <td>0</td>
-                                <td>1.330</td>
-                                <td>0</td>
-                                <td>0</td>
-                                <td>118</td>
-                            </tr>
-                            <tr>
-                                <td class="headcol"><a href="#">RequestURIFilter</a></td>
-                                <td><a href="#">filter</a></td>
-                                <td><a href="#">default</a></td>
-                                <td>5,32</td>
-                                <td>4,500,952</td>
-                                <td>0</td>
-                                <td>2</td>
-                                <td>0</td>
-                                <td>11</td>
-                                <td>0.518</td>
-                                <td>0</td>
-                                <td>0</td>
-                                <td>1.330</td>
-                                <td>0</td>
-                                <td>0</td>
-                                <td>118</td>
-                            </tr>
-                            <tr>
-                                <td class="headcol"><a href="#">RequestURIFilter</a></td>
-                                <td><a href="#">filter</a></td>
-                                <td><a href="#">default</a></td>
-                                <td>5,32</td>
-                                <td>4,500,952</td>
-                                <td>0</td>
-                                <td>2</td>
-                                <td>0</td>
-                                <td>11</td>
-                                <td>0.518</td>
-                                <td>0</td>
-                                <td>0</td>
-                                <td>1.330</td>
-                                <td>0</td>
-                                <td>0</td>
-                                <td>118</td>
-                            </tr>
-                            </tbody>
-                        </table>
-                        </div>
-                    </div>
-                </div>
-
-
-
-                <div class="box">
-                    <div class="box-title">
-                        <a class="accordion-toggle tooltip-bottom" title="Close/Open" data-toggle="collapse" href="#collapse1"><i class="fa fa-caret-right"></i></a>
-                        <h3 class="pull-left">
-                            Box name 1
-                        </h3>
-                        <div class="box-right-nav">
-                            <a href="" class="tooltip-bottom" title="Help"><i class="fa fa-info-circle"></i></a>
-                        </div>
-                    </div>
-                    <div id="collapse1" class="box-content accordion-body collapse in">
-
-                        <div class="table1fixed">
-                            <table class="table table-striped tablesorter">
-                                <thead>
-                                <tr>
-                                    <th class="headcol">Producer Id <i class="fa fa-caret-down"></i></th>
-                                    <th>Category <i class="fa fa-caret-down"></i></th>
-                                    <th>Subsystem <i class="fa fa-caret-down"></i></th>
-                                    <th>Req <i class="fa fa-caret-down"></i><i class="chart-icon tooltip-bottom" title="Show chart"></i></th>
-                                    <th class="{sorter: 'commaNumber'}">Time <i class="fa fa-caret-down"></i><i class="chart-icon tooltip-bottom" title="Show chart"></i></th>
-                                    <th>CR <i class="fa fa-caret-down"></i><i class="chart-icon tooltip-bottom" title="Show chart"></i></th>
-                                    <th>MCR <i class="fa fa-caret-down"></i><i class="chart-icon tooltip-bottom" title="Show chart"></i></th>
-                                    <th>MIN <i class="fa fa-caret-down"></i><i class="chart-icon tooltip-bottom" title="Show chart"></i></th>
-                                    <th>MAX <i class="fa fa-caret-down"></i><i class="chart-icon tooltip-bottom" title="Show chart"></i></th>
-                                    <th>Avg <i class="fa fa-caret-down"></i><i class="chart-icon tooltip-bottom" title="Show chart"></i></th>
-                                    <th>Last <i class="fa fa-caret-down"></i><i class="chart-icon tooltip-bottom" title="Show chart"></i></th>
-                                    <th>Err <i class="fa fa-caret-down"></i><i class="chart-icon tooltip-bottom" title="Show chart"></i></th>
-                                    <th>IOE <i class="fa fa-caret-down"></i><i class="chart-icon tooltip-bottom" title="Show chart"></i></th>
-                                    <th>SEE <i class="fa fa-caret-down"></i><i class="chart-icon tooltip-bottom" title="Show chart"></i></th>
-                                    <th>RTE <i class="fa fa-caret-down"></i><i class="chart-icon tooltip-bottom" title="Show chart"></i></th>
-                                    <th>ERate <i class="fa fa-caret-down"></i><i class="chart-icon tooltip-bottom" title="Show chart"></i></th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr>
-                                    <td class="headcol"><a href="#">DomainDomainFilter</a></td>
-                                    <td><a href="#">filter</a></td>
-                                    <td><a href="#">default</a></td>
-                                    <td>122,2</td>
-                                    <td>990,592</td>
-                                    <td>0</td>
-                                    <td>6</td>
-                                    <td>0</td>
-                                    <td>12</td>
-                                    <td>0.518</td>
-                                    <td>0</td>
-                                    <td>0</td>
-                                    <td>1.330</td>
-                                    <td>0</td>
-                                    <td>0</td>
-                                    <td>149</td>
-                                </tr>
-                                <tr>
-                                    <td class="headcol"><a href="#">DomainDomainFilter</a></td>
-                                    <td><a href="#">filter</a></td>
-                                    <td><a href="#">default</a></td>
-                                    <td>122,2122,22323</td>
-                                    <td>369,784</td>
-                                    <td>0</td>
-                                    <td>6</td>
-                                    <td>0</td>
-                                    <td>12</td>
-                                    <td>0.518</td>
-                                    <td>0</td>
-                                    <td>0</td>
-                                    <td>1.330</td>
-                                    <td>0</td>
-                                    <td>0</td>
-                                    <td>149</td>
-                                </tr>
-                                <tr>
-                                    <td class="headcol"><a href="#">DomainDomainFilterr</a></td>
-                                    <td><a href="#">filter</a></td>
-                                    <td><a href="#">default</a></td>
-                                    <td>122,2</td>
-                                    <td>10,006,160</td>
-                                    <td>0</td>
-                                    <td>6</td>
-                                    <td>0</td>
-                                    <td>12</td>
-                                    <td>0.518</td>
-                                    <td>0</td>
-                                    <td>0</td>
-                                    <td>1.330</td>
-                                    <td>0</td>
-                                    <td>0</td>
-                                    <td>149</td>
-                                </tr>
-                                <tr>
-                                    <td class="headcol"><a href="#">RefererFilter</a></td>
-                                    <td><a href="#">filter</a></td>
-                                    <td><a href="#">default</a></td>
-                                    <td>11,12211,122</td>
-                                    <td>10,795,400</td>
-                                    <td>0</td>
-                                    <td>6</td>
-                                    <td>0</td>
-                                    <td>15</td>
-                                    <td>0.518</td>
-                                    <td>0</td>
-                                    <td>0</td>
-                                    <td>1.330</td>
-                                    <td>0</td>
-                                    <td>0</td>
-                                    <td>121</td>
-                                </tr>
-                                <tr>
-                                    <td class="headcol"><a href="#">RequestURIFilter</a></td>
-                                    <td><a href="#">filter</a></td>
-                                    <td><a href="#">default</a></td>
-                                    <td>5,32</td>
-                                    <td>4,500,952</td>
-                                    <td>0</td>
-                                    <td>2</td>
-                                    <td>0</td>
-                                    <td>11</td>
-                                    <td>0.518</td>
-                                    <td>0</td>
-                                    <td>0</td>
-                                    <td>1.330</td>
-                                    <td>0</td>
-                                    <td>0</td>
-                                    <td>118</td>
-                                </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-
             </div>
 
             <footer id="footer" class="navbar-default">
                 <div class="row">
-                    <div class="col-md-3">
-                        <h4>Contacts</h4>
-                        <p>Developed by <a href="">Anotheria</a><br/>Email: <a href="mailto:support@moskito.org">support@moskito.org</a></p>
-                        <div class="form-group">
-                            <a ref="#contactUs" data-toggle="modal" data-target="#contactUs" class="btn btn-primary">Free Consultation</a>
+                    <div class="col-md-4">
+                        <div class="footer-info">
+                            Developed by <a href="">Anotheria</a>
+                            <br>Email: <a href="mailto:support@moskito.org">support@moskito.org</a>
                         </div>
                     </div>
-                    <div class="col-md-6">
-                        <div class="inform-line">
-                            <ul>
-                                <li>Generated at 2014-03-27T18:00:49,923</li>
-                                <li>Timestamp: 1395939649923</li>
-                                <li>Interval updated at: Never</li>
-                                <li>Interval age: n.A.</li>
-                                <li><a href="#Version" data-toggle="modal" data-target="#Version">More app info</a></li>
-                            </ul>
-                        </div>
+                    <div class="col-md-4">
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-4">
                         <a class="iphone-banner pull-right" href="#"><img alt="" src="../resources/moskito/int/img/iphone_banner.png"></a>
                     </div>
                 </div>
@@ -1035,6 +501,18 @@
             <div class="modal-body">
                 <form id="feedbackForm" data-toggle="validator" method="post" role="form">
                     <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label for="typeRequest">Type of request</label>
+                                <select class="form-control" name="typeRequest" id="typeRequest">
+                                    <option>Feedback</option>
+                                    <option>Support</option>
+                                    <option>Customisation</option>
+                                    <option>Other</option>
+                                </select>
+                                <div class="help-block with-errors"></div>
+                            </div>
+                        </div>
                         <div class="col-sm-6">
                             <div class="form-group error">
                                 <label for="fName">First Name<span class="required-item">*</span></label>
@@ -1065,7 +543,7 @@
                         <div class="col-sm-12">
                             <div class="form-group">
                                 <label for="Note">Note<span class="required-item">*</span></label>
-                                <textarea id="Note" name="Note" placeholder="Note" class="form-control" required></textarea>
+                                <textarea id="Note" name="Note" placeholder="Write you question here" class="form-control" required></textarea>
                             </div>
                         </div>
                     </div>
@@ -1094,7 +572,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title">App information</h4>
+                <h4 class="modal-title">Version</h4>
             </div>
             <div class="modal-body">
                 <dl class="dl-horizontal">
@@ -1116,6 +594,105 @@
     </div>
 </div>
 
+<!-- About -->
+<div class="modal fade" id="About" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">What is MoSkito?</h4>
+            </div>
+            <div class="modal-body">
+                <div class="modal-logo">
+                    <img src="../resources/moskito/int/img/logo_blue.png">
+                    <span class="logo-text">MoSKito Inspect</span>
+                    <span class="logo-version">v 2.5.0-SNAPSHOT</span>
+                </div>
+                <h4>Don't wait for your customers to tell you that your site is down!</h4>
+                <p>MoSKito Monitoring for Java applications. Complete ecosystem for DevOps. Free & open source.</p>
+                <p>
+                    MoSKito is an open source system for monitoring Java web applications.
+                </p>
+                <p>
+                    <strong>With MoSKito, you may:</strong>
+                </p>
+                <ul>
+                    <li>
+                        collect, store and analyse any type of performance data (MoSKito-Essential),
+                    </li>
+                    <li>
+                        create personalised storage for the collected data (MoSKito-Central),
+                    </li>
+                    </li>
+                    <li>
+                        effectively monitor multi-node applications (MoSKito-Control).
+                    </li>
+                </ul>
+                <p>
+                    In fact, MoSKito is a complete system kit for DevOps (as well as classical Devs and Ops) who care about performance of their web apps.
+                </p>
+                <p>
+                    On this Confluence Space, you will find all the existing MoSKito documents. Browse the sections below, navigate the Confluence sidebar or use Search to find the documents you currently need.
+                </p>
+                <p>
+                    <strong>Enjoy!</strong>
+                    <br/>
+                    <strong><a href="http://anotheria.net">Anotheria</a> Team</strong>
+                </p>
+                <div class="modal-actions">
+                    <div class="pull-right">
+                        <button class="btn btn-default btn-lg" data-dismiss="modal">Close</button>
+                        <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#contactUs" data-dismiss="modal">Ask question?</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="Contacts" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Contacts</h4>
+            </div>
+            <div class="modal-body">
+                <dl class="dl-horizontal">
+                    <dt>Email:</dt>
+                    <dd><a href="mailto:support@moskito.org">support@moskito.org</a></dd>
+                    <dt>Phone:</dt>
+                    <dd><a href="skype:+49(0)4035716835">+49 (0) 40 357 168 35</a></dd>
+                    <dt>Feedback</dt>
+                    <dd><a href="#contactUs" data-toggle="modal" data-target="#contactUs" data-dismiss="modal">Feedback Form</a></dd>
+                    <dt>Website:</dt>
+                    <dd><a href="http://moskito.org" target="_blank">moskito.org</a></dd>
+                </dl>
+                <div class="modal-actions">
+                    <div class="pull-right">
+                        <button class="btn btn-default btn-lg" data-dismiss="modal">Close</button>
+                        <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#contactUs" data-dismiss="modal">Ask question?</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="olark-box-wrapper">
+
+    <!-- Olark click-to-chat tab -->
+    <div class="side-chat-container">
+        <a id="side-chat" href="javascript:void(0);" onclick="changeClass()">
+            Help Desk
+        </a>
+    </div>
+
+    <!-- Empty container for Olark chat box  -->
+    <div id="olark-box-container"></div>
+
+</div>
 
 <!-- begin olark code -->
 <script data-cfasync="false" type='text/javascript'>/*<![CDATA[*/window.olark||(function(c){var f=window,d=document,l=f.location.protocol=="https:"?"https:":"http:",z=c.name,r="load";var nt=function(){
@@ -1135,8 +712,52 @@
         b[k]=o+'d.write("'+p().replace(/"/g,String.fromCharCode(92)+'"')+'");d.close();'}a.P(2)};ld()};nt()})({
     loader: "static.olark.com/jsclient/loader0.js",name:"olark",methods:["configure","extend","declare","identify"]});
 /* custom configuration goes here (www.olark.com/documentation) */
+olark.configure('box.inline', true);
+olark('api.box.expand');
 olark.identify('7961-404-10-9387');/*]]>*/</script><noscript><a href="https://www.olark.com/site/7961-404-10-9387/contact" title="Contact us" target="_blank">Questions? Feedback?</a> powered by <a href="http://www.olark.com?welcome" title="Olark live chat software">Olark live chat software</a></noscript>
 <!-- end olark code -->
+
+<script type='text/javascript'>
+    var changeClass;
+
+    (function (d, olk) {
+        // These functions are helpers for the below
+        function getOlarkWrapper() {
+            return d.getElementById("olark-box-wrapper");
+        }
+
+        function setOlarkVisible(olark_wrapper) {
+            olark_wrapper.className = "chatbox-open";
+        }
+
+        function setOlarkHidden(olark_wrapper) {
+            olark_wrapper.className = "chatbox-closed";
+        }
+
+        function olarkIsVisible(olark_wrapper) {
+            return olark_wrapper.className.match(/(?:^|\s)chatbox-open(?!\S)/);
+        }
+
+        // This is used by the link to show/hide the inline page element
+        changeClass = function() {
+            var olark_wrapper = getOlarkWrapper();
+            // Get the HTML object containing the Olark chat box
+            // If the chat box is already open, close id
+            if (olarkIsVisible(olark_wrapper)) {
+                setOlarkHidden(olark_wrapper);
+            } else {
+                setOlarkVisible(olark_wrapper);
+            }
+        }
+
+        // This is used to cause the box to auto-open if a visitor is already in conversation
+        olk('api.visitor.getDetails', function (details) {
+            if (details.isConversing) {
+                setOlarkVisible(getOlarkWrapper());
+            }
+        });
+    }(document, olark));
+</script>
 
 </body>
 </html>

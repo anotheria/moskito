@@ -17,47 +17,82 @@
 
         <div class="page-content">
             <div class="box">
-                <div class="row m-b-40">
-                    <div class="col-lg-4">
-                        <h3>Help</h3>
-                        <h4>Don't wait for your customers to tell you that your site is down!</h4>
-                        <p>MoSKito Monitoring for Java applications. Complete ecosystem for DevOps. Free & open source.</p>
-                        <p>
-                            This page gives you some quick help and links.
-                        </p>
-                    </div>
-                    <div class="col-lg-4">
-                        <h3>Help links</h3>
-                        <ul class="point-list">
-                            <li><a href="http://www.moskito.org/" target="_blank">MoSKito Homepage</a> is the best starting point.</li>
-                            <li><a href="http://blog.anotheria.net/category/msk/" target="_blank">anotheria devblog</a> contains a lot of articles about MoSKito, in particular:</li>
-                            <li><a href="http://blog.anotheria.net/msk/the-complete-moskito-integration-guide-step-1/" target="_blank">The complete integration guide</a>.</li>
-                            <li>You could also check <a href="https://confluence.opensource.anotheria.net/display/MSK/Change+Log" target="_blank">the recent changes</a></li>
-                            <li>or <a href="https://confluence.opensource.anotheria.net/display/MSK/MoSKito-Inspect+User+Guide" target="_blank">MoSKito Inspect Manual</a></li>
-                            <li>and finally <a href="http://opensource.anotheria.net/" target="_blank">anotheria open source hub</a>.</li>
-                            <li>MoSKito is free and opensource, <a href="https://github.com/anotheria/moskito" target="_blank">fork the project sources on github</a> and participate!</li>
-                        </ul>
-                    </div>
-                    <div class="col-lg-4">
-                        <h3>FeedBack</h3>
-                        <p>
-                            Please send your comments, suggestions or any other kind of positive or negative feedback.
-                        </p>
-                        <div class="form-group">
-                            <a ref="#contactUs" data-toggle="modal" data-target="#contactUs" class="btn btn-primary btn-lg">Send FeedBack now</a>
-                        </div>
-                        <p>
-                            For questions or help please use MoSKito users mailing list: moskito-users@lists.anotheria.net
-                        </p>
-                        <div class="form-group form-btn-list">
-                            <a href="http://lists.anotheria.net/cgi-bin/mailman/listinfo/moskito-users" class="btn btn-primary">Subscribe</a>
-                            <a href="http://moskito-users.1088230.n5.nabble.com/" class="btn btn-default">Arcives on nabble</a>
-                        </div>
+                <h3>Help links</h3>
+                <ul class="point-list">
+                    <li><a href="http://www.moskito.org/" target="_blank">MoSKito Homepage</a> is the best starting point.</li>
+                    <li><a href="http://blog.anotheria.net/category/msk/" target="_blank">anotheria devblog</a> contains a lot of articles about MoSKito, in particular:</li>
+                    <li><a href="http://blog.anotheria.net/msk/the-complete-moskito-integration-guide-step-1/" target="_blank">The complete integration guide</a>.</li>
+                    <li>You could also check <a href="https://confluence.opensource.anotheria.net/display/MSK/Change+Log" target="_blank">the recent changes</a></li>
+                    <li>or <a href="https://confluence.opensource.anotheria.net/display/MSK/MoSKito-Inspect+User+Guide" target="_blank">MoSKito Inspect Manual</a></li>
+                    <li>and finally <a href="http://opensource.anotheria.net/" target="_blank">anotheria open source hub</a>.</li>
+                    <li>MoSKito is free and opensource, <a href="https://github.com/anotheria/moskito" target="_blank">fork the project sources on github</a> and participate!</li>
+                </ul>
+            </div>
+            <div class="box">
+                <h3>Ask question?</h3>
+                <div class="row">
+                    <div class="col-md-6">
+                        <form id="feedbackForm" data-toggle="validator" method="post" role="form">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        <label for="typeRequest">Type of request</label>
+                                        <select class="form-control" name="typeRequest" id="typeRequest">
+                                            <option>Feedback</option>
+                                            <option>Support</option>
+                                            <option>Customisation</option>
+                                            <option>Other</option>
+                                        </select>
+                                        <div class="help-block with-errors"></div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group error">
+                                        <label for="fName">First Name<span class="required-item">*</span></label>
+                                        <input type="text" id="fName" name="fName" placeholder="First Name" class="form-control" data-error="Please, enter your First Name" required>
+                                        <div class="help-block with-errors"></div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label for="lName">Last Name<span class="required-item">*</span></label>
+                                        <input type="text" id="lName" name="lName" placeholder="Last Name" class="form-control" data-error="Please, enter your Last Name" required>
+                                        <div class="help-block with-errors"></div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        <label for="cEmail">Email<span class="required-item">*</span></label>
+                                        <input type="email" id="cEmail" name="cEmail" placeholder="Email address" class="form-control" data-error="Sorry, that email address is invalid" required>
+                                        <div class="help-block with-errors"></div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        <label for="cCompany">Company</label>
+                                        <input type="text" id="cCompany" name="cCompany" placeholder="Company name" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        <label for="Note">Note<span class="required-item">*</span></label>
+                                        <textarea id="Note" name="Note" placeholder="Write you question here" class="form-control" required></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-actions">
+                                <div class="pull-right">
+                                    <button type="button" class="btn btn-default btn-lg" data-dismiss="modal">Close</button>
+                                    <button type="submit" class="btn btn-primary btn-lg">Send</button>
+                                </div>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
         </div>
 
+        <!--
         <ano:iterate name="decorators" type="net.anotheria.moskito.webui.shared.bean.DecoratorExplanationBean" id="decorator">
             <div class="box">
                 <div class="box-title">
@@ -92,6 +127,7 @@
                 </div>
             </div>
         </ano:iterate>
+        -->
 
 
     </div>

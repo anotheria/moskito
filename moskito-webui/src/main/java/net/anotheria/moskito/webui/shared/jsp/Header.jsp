@@ -121,7 +121,6 @@
                 </ul>
             </li>
             </ano:equal>
-            <li><a href="mskShowExplanations">Help</a></li>
             <li class="iphone-app-link"><a href="https://itunes.apple.com/us/app/moskito-ui/id531387262?mt=8">Using iPhone? <img src="../moskito/int/img/iphone.svg" class="iphone-app-icon"></a></li>
         </ul>
     </div>
@@ -223,7 +222,19 @@
         <ano:notEqual name="currentNaviItem" property="id" value="more">
             <li><a href="mskMore" title="Everything else" class="sidebar-tooltip-right">Everything else <i class="fa fa-bookmark"></i></a></li>
         </ano:notEqual>
+    </ul>
 
+    <ul class="nav nav-sidebar contacts-nav">
+        <li>
+            <a href="#">About<i class="fa fa-info-circle"></i></a>
+            <ul class="nav sub-menu">
+                <li><a href="#Version" data-toggle="modal" data-target="#Version">Version</a></li>
+                <li><a href="#About" data-toggle="modal" data-target="#About">What is MoSkito?</a></li>
+                <li><a href="http://moskito.org" target="_blank">Documentation</a></li>
+                <li><a href="mskShowExplanations">Need help?</a></li>
+                <li><a href="#Contacts" data-toggle="modal" data-target="#Contacts">Contacts</a></li>
+            </ul>
+        </li>
     </ul>
 
     <ano:equal name="pagename" value="producers">

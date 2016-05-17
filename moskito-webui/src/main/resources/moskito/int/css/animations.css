@@ -27,7 +27,6 @@
     -moz-animation: alert 1s alternate;
     -webkit-animation: alert 1s alternate;
     -ms-animation: alert 1s alternate;
-    position: relative;
 }
 
 @keyframes logo {
@@ -136,24 +135,34 @@
 
 @keyframes alert {
     0% {
-        top: -100px;
+        right: -70px;
         opacity: 0;
     }
 
+    50% {
+        right: 10px;
+        opacity: 1;
+    }
+
     100% {
-        top: 0;
+        right: 10px;
         opacity: 1;
     }
 }
 
 @-webkit-keyframes alert {
     0% {
-        top: -100px;
+        right: -70px;
         opacity: 0;
     }
 
+    50% {
+        right: 10px;
+        opacity: 1;
+    }
+
     100% {
-        top: 0;
+        right: 10px;
         opacity: 1;
     }
 }
