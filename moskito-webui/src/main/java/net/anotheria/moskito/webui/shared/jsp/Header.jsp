@@ -199,7 +199,7 @@
             <li class="active"><a href="mskPlugins" title="Plugins" class="sidebar-tooltip-right">Plugins <i class="fa fa-plug"></i></a></li>
             <ul class="nav sub-menu">
             <ano:iterate name="pluginsForNavi" id="plugin">
-                <li <%--${requestScope.selectedDashboard == item.name ? "class=\"active\"" : ""}--%>><a href="mskPlugin?plugin=${plugin.name}" title="${plugin.subNaviItemText}" class="sidebar-tooltip-right">${plugin.subNaviItemText} <i class="fa fa-${plugin.subNaviItemIcon}"></i></a></li>
+                <li <ano:equal name="plugin" property="webSelected" value="true">class="active"</ano:equal>><a href="${plugin.navigationEntryAction}" title="${plugin.subNaviItemText}" class="sidebar-tooltip-right">${plugin.subNaviItemText} <i class="fa fa-${plugin.subNaviItemIcon}"></i></a></li>
             </ano:iterate>
             </ul>
 

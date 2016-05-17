@@ -34,9 +34,25 @@ public class PluginAO implements Serializable{
 
 	private boolean webEnabled;
 
+	/**
+	 * Text for the plugin.
+	 */
 	private String subNaviItemText;
 
+	/**
+	 * Icon for the plugin.
+	 */
 	private String subNaviItemIcon;
+
+	/**
+	 * Action used from the navigation to enter plugin's view.
+	 */
+	private String navigationEntryAction;
+
+	/**
+	 * If true the current plugin has been selected in web interface.
+	 */
+	private boolean webSelected;
 
 	public String getName() {
 		return name;
@@ -92,5 +108,21 @@ public class PluginAO implements Serializable{
 
 	public void setWebEnabled(boolean webEnabled) {
 		this.webEnabled = webEnabled;
+	}
+
+	public String getNavigationEntryAction() {
+		return navigationEntryAction;
+	}
+
+	public void setNavigationEntryAction(String navigationEntryAction) {
+		this.navigationEntryAction = navigationEntryAction;
+	}
+
+	public boolean isWebSelected() {
+		return webSelected;
+	}
+
+	public void setWebSelected(boolean webSelected) {
+		this.webSelected = webSelected;
 	}
 }

@@ -111,11 +111,21 @@ public final class PluginRepository {
 
 	/**
 	 * Returns the names of the active plugins.
-	 * @return list of loaded plugins.
+	 * @return list of loaded plugins names.
 	 */
 	public List<String> getPluginNames() {
 		ArrayList<String> ret = new ArrayList<String>();
 		ret.addAll(plugins.keySet());
+		return ret;
+	}
+
+	/**
+	 * Returns all active plugins.
+	 * @return list of loaded plugins.
+	 */
+	public List<MoskitoPlugin> getPlugins() {
+		ArrayList<MoskitoPlugin> ret = new ArrayList<MoskitoPlugin>();
+		ret.addAll(plugins.values());
 		return ret;
 	}
 

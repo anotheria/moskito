@@ -77,6 +77,7 @@ public class AdditionalFunctionalityAPIImpl extends AbstractMoskitoAPIImpl imple
 				VisualMoSKitoPlugin vmp = (VisualMoSKitoPlugin)plugin;
 				ao.setSubNaviItemIcon(vmp.getSubMenuIcon());
 				ao.setSubNaviItemText(vmp.getSubMenuName());
+				ao.setNavigationEntryAction(vmp.getNavigationEntryAction());
 				ao.setWebEnabled(true);
 			}
 

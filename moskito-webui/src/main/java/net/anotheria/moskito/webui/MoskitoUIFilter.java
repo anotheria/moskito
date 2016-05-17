@@ -2,6 +2,7 @@ package net.anotheria.moskito.webui;
 
 import net.anotheria.maf.MAFFilter;
 import net.anotheria.maf.action.ActionMappingsConfigurator;
+import net.anotheria.moskito.webui.plugins.PluginMappingsConfigurator;
 import net.anotheria.moskito.webui.shared.api.MoskitoAPIInitializer;
 import net.anotheria.moskito.webui.util.VersionUtil;
 import net.anotheria.net.util.NetUtils;
@@ -69,7 +70,7 @@ public class MoskitoUIFilter extends MAFFilter{
 
 	@Override
 	protected List<ActionMappingsConfigurator> getConfigurators(){
-		return Arrays.asList(new ActionMappingsConfigurator[]{ new MoskitoMappingsConfigurator() });
+		return Arrays.asList(new MoskitoMappingsConfigurator(), new PluginMappingsConfigurator());
 	}
 
 
