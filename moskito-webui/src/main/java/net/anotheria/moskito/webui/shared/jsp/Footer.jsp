@@ -155,9 +155,6 @@
                     In fact, MoSKito is a complete system kit for DevOps (as well as classical Devs and Ops) who care about performance of their web apps.
                 </p>
                 <p>
-                    On this Confluence Space, you will find all the existing MoSKito documents. Browse the sections below, navigate the Confluence sidebar or use Search to find the documents you currently need.
-                </p>
-                <p>
                     <strong>Enjoy!</strong>
                     <br/>
                     <strong><a href="http://moskito.org" target="_blank">Moskito Team</a></strong>
