@@ -32,10 +32,10 @@
                             <div class="form-group">
                                 <label for="typeRequest">Type of request</label>
                                 <select class="form-control" name="typeRequest" id="typeRequest">
-                                    <option>Feedback</option>
-                                    <option>Support</option>
-                                    <option>Customisation</option>
-                                    <option>Other</option>
+                                    <option value="Feedback">Feedback</option>
+                                    <option value="Support">Support</option>
+                                    <option value="Customization">Customization</option>
+                                    <option value="Other">Other</option>
                                 </select>
                                 <div class="help-block with-errors"></div>
                             </div>
@@ -99,7 +99,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title">Version</h4>
+                <h4 class="modal-title">MoSKito Version</h4>
             </div>
             <div class="modal-body">
                 <dl class="dl-horizontal">
@@ -184,8 +184,6 @@
                     <dd><a href="mailto:support@moskito.org">support@moskito.org</a></dd>
                     <dt>Phone:</dt>
                     <dd><a href="skype:+49(0)4035716835">+49 (0) 40 357 168 35</a></dd>
-                    <dt>Feedback</dt>
-                    <dd><a href="#contactUs" data-toggle="modal" data-target="#contactUs" data-dismiss="modal">Feedback Form</a></dd>
                     <dt>Website:</dt>
                     <dd><a href="http://moskito.org" target="_blank">moskito.org</a></dd>
                 </dl>

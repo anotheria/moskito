@@ -145,7 +145,7 @@
         </ano:empty>
     </div>
 
-    <ul class="nav nav-sidebar">
+    <ul class="nav nav-sidebar nav-status">
         <ano:equal name="currentNaviItem" property="id" value="dashboards">
             <li class="active">
                 <a href="mskDashboard" title="Dashboards" class="sidebar-tooltip-right">Dashboards<i class="fa fa-tachometer"></i></a>

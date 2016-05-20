@@ -38,10 +38,10 @@
                                     <div class="form-group">
                                         <label for="typeRequest">Type of request</label>
                                         <select class="form-control" name="typeRequest" id="typeRequest">
-                                            <option>Feedback</option>
-                                            <option>Support</option>
-                                            <option>Customisation</option>
-                                            <option>Other</option>
+                                            <option value="Feedback">Feedback</option>
+                                            <option value="Support">Support</option>
+                                            <option value="Customization">Customization</option>
+                                            <option value="Other">Other</option>
                                         </select>
                                         <div class="help-block with-errors"></div>
                                     </div>
