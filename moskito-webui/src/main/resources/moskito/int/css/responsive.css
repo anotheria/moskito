@@ -17,6 +17,11 @@
         margin-left: 0;
         margin-top: 20px;
     }
+
+    .box-feedback,
+    .box-help-links {
+        min-height: inherit;
+    }
 }
 
 @media (max-width: 767px) {

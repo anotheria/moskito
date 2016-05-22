@@ -5,7 +5,7 @@
     <div class="row">
         <div class="col-md-4">
             <div class="footer-info">
-                Developed by <a href="http://moskito.org" target="_blank">MoSKito team</a>
+                Developed by <a href="http://anotheria.org" target="_blank">Anotheria</a>
                 <br>Email: <a href="mailto:support@moskito.org">support@moskito.org</a>
             </div>
         </div>
@@ -23,7 +23,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="myModalLabel">Ask question?</h4>
+                <h4 class="modal-title" id="myModalLabel">Ask Question?</h4>
             </div>
             <div class="modal-body">
                 <form id="feedbackForm" data-toggle="validator" method="post" role="form">
@@ -106,7 +106,7 @@
                     <dt>App version:</dt>
                     <dd>${application_maven_version}</dd>
                     <dt>MoSKito version</dt>
-                    <dd>${moskito_maven_version}</dd>
+                    <dd>v ${moskito_version_string}</dd>
                     <dt>Server:</dt>
                     <dd>${servername}</dd>
                     <dt>Connection:</dt>
@@ -162,7 +162,7 @@
                 <div class="modal-actions">
                     <div class="pull-right">
                         <button class="btn btn-default btn-lg" data-dismiss="modal">Close</button>
-                        <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#contactUs" data-dismiss="modal">Ask question?</button>
+                        <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#contactUs" data-dismiss="modal">Ask Question?</button>
                     </div>
                 </div>
             </div>
@@ -190,7 +190,7 @@
                 <div class="modal-actions">
                     <div class="pull-right">
                         <button class="btn btn-default btn-lg" data-dismiss="modal">Close</button>
-                        <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#contactUs" data-dismiss="modal">Ask question?</button>
+                        <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#contactUs" data-dismiss="modal">Ask Question?</button>
                     </div>
                 </div>
             </div>
@@ -234,7 +234,7 @@
     <!-- Olark click-to-chat tab -->
     <div class="side-chat-container">
         <a id="side-chat" href="javascript:void(0);" onclick="changeClass()">
-            Help Desk
+            <i class="fa fa-comment"></i> Helpdesk
         </a>
     </div>
 

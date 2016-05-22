@@ -233,3 +233,25 @@ h1, .h1, h2, .h2, h3, .h3 {
 .has-error .help-block, .has-error .control-label, .has-error .radio, .has-error .checkbox, .has-error .radio-inline, .has-error .checkbox-inline {
     color: #d24646;
 }
+
+.icon-16 {
+    font-size: 16px;
+}
+
+.row.row-padding-10 {
+    margin-left: -10px;
+    margin-right: -10px;
+}
+
+.row.row-padding-10 > div {
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.modal .close {
+    opacity: 0.4;
+}
+
+.modal .close:hover {
+    opacity: 0.6;
+}

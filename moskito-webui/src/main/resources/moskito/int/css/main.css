@@ -62,7 +62,7 @@ body {
 }
 
 .header-box {
-    height: 100px;
+    height: 80px;
     position: relative;
     overflow: hidden;
     text-align: center;
@@ -184,7 +184,7 @@ ul.nav-sidebar > li.active > a {
     opacity: 1;
 }
 
-body.status-red ul.nav-sidebar.nav-status > li > a {
+body.status-red ul.nav-sidebar.alert > li > a {
     border-left: 4px solid #d24646;
 }
 
@@ -500,7 +500,7 @@ table td.wrap,
 .alert {
     position: fixed;
     right: 0;
-    top: 60px;
+    top: 50px;
     z-index: 1000;
     border-radius: 0;
     border: none;
@@ -1694,7 +1694,7 @@ Heat map
     padding-right: 10px;
 }
 
-.page-content > .box {
+.page-content .box {
     padding: 30px 30px;
     font-size: 14px;
 }
@@ -1765,7 +1765,7 @@ Heat map
     padding: 0 10px;
 }
 
-.page-content > .box h3 {
+.page-content .box h3 {
     margin-bottom: 20px;
     margin-top: 0;
     font-size: 18px;
@@ -1867,4 +1867,14 @@ Heat map
     font-size: 11px;
     display: block;
     color: #999;
+}
+.ipix {
+    opacity: 0;
+    height: 1px;
+    width: 1px;
+}
+
+.box-feedback,
+.box-help-links {
+    min-height: 540px;
 }
