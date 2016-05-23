@@ -121,6 +121,7 @@
                 </ul>
             </li>
             </ano:equal>
+            <li><a href="mskShowExplanations"><i class="fa fa-info-circle icon-16"></i></a></li>
             <li class="iphone-app-link"><a href="https://itunes.apple.com/us/app/moskito-ui/id531387262?mt=8">Using iPhone? <img src="../moskito/int/img/iphone.svg" class="iphone-app-icon"></a></li>
         </ul>
     </div>
@@ -137,7 +138,6 @@
             </a>
         </ano:notEmpty>
         <ano:empty name="logoUrl">
-        <span class="version">v ${moskito_version_string}</span>
         <a href="">
             <i class="logo"></i>
             <span class="logo-title">MoSKito Inspect</span>
@@ -145,7 +145,7 @@
         </ano:empty>
     </div>
 
-    <ul class="nav nav-sidebar">
+    <ul class="nav nav-sidebar nav-status">
         <ano:equal name="currentNaviItem" property="id" value="dashboards">
             <li class="active">
                 <a href="mskDashboard" title="Dashboards" class="sidebar-tooltip-right">Dashboards<i class="fa fa-tachometer"></i></a>

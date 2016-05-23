@@ -24,9 +24,9 @@
 }
 
 .alert {
-    -moz-animation: alert 1s alternate;
-    -webkit-animation: alert 1s alternate;
-    -ms-animation: alert 1s alternate;
+    -moz-animation: alert 2s alternate;
+    -webkit-animation: alert 2s alternate;
+    -ms-animation: alert 2s alternate;
 }
 
 @keyframes logo {
@@ -135,13 +135,13 @@
 
 @keyframes alert {
     0% {
-        right: -70px;
+        right: -100px;
         opacity: 0;
     }
 
     50% {
-        right: 10px;
-        opacity: 1;
+        right: -100px;
+        opacity: 0;
     }
 
     100% {
@@ -152,13 +152,13 @@
 
 @-webkit-keyframes alert {
     0% {
-        right: -70px;
+        right: -100px;
         opacity: 0;
     }
 
     50% {
-        right: 10px;
-        opacity: 1;
+        right: -100px;
+        opacity: 0;
     }
 
     100% {
