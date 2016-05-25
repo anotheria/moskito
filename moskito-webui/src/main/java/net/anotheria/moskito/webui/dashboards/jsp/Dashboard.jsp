@@ -54,7 +54,7 @@
                                         "enabled": true,
                                         "from": ${zone.left},
                                         "to": ${zone.right}
-                                    };;;;;
+                                    }
                                 </ano:iterate>
                             ]
                             </ano:equal>
