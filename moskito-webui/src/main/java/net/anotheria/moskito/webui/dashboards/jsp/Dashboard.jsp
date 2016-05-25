@@ -47,7 +47,7 @@
                     "zones": <ano:equal name="gauge" property="customZonesAvailable" value="false">[]</ano:equal>
                             <ano:equal name="gauge" property="customZonesAvailable" value="true">
                             [
-                                <ano:iterate id="zone" name="gauge" property="zones" type="net.anotheria.moskito.webui.gauges.api.GaugeZoneAO" indexId="zoneIndex"><ano:greaterThan name="zoneIndex" value="0">,; </ano:greaterThan>
+                                <ano:iterate id="zone" name="gauge" property="zones" type="net.anotheria.moskito.webui.gauges.api.GaugeZoneAO" indexId="zoneIndex"><ano:greaterThan name="zoneIndex" value="0">,</ano:greaterThan>
                                     {
                                         "color": '${zone.color}',
                                         "colorCode": '',
