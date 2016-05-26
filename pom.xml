@@ -27,6 +27,9 @@
 
 	<properties>
 		<jersey-version>1.18.1</jersey-version>
+        <source-version>1.7</source-version>
+        <target-version>1.7</target-version>
+
 	</properties>
 
 
