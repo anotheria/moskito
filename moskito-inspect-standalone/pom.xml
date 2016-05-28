@@ -195,11 +195,6 @@
                     <artifactId>moskito-inspect-jersey</artifactId>
                     <version>${project.version}</version>
                 </dependency>
-                <dependency>
-                    <groupId>net.anotheria</groupId>
-                    <artifactId>moskitoplugins</artifactId>
-                    <version>${moskitoplugins-version}</version>
-                </dependency>
             </dependencies>
             <build>
                 <plugins>
@@ -212,15 +207,6 @@
                                     <groupId>net.anotheria</groupId>
                                     <artifactId>moskito-webui</artifactId>
                                     <version>${moskito-webui-version}</version>
-                                    <type>jar</type>
-                                    <overWrite>true</overWrite>
-                                    <outputDirectory>${project.build.directory}/tmp</outputDirectory>
-                                    <includes>moskito/**,**/*.jsp</includes>
-                                </artifactItem>
-                                <artifactItem>
-                                    <groupId>net.anotheria</groupId>
-                                    <artifactId>moskitoplugins</artifactId>
-                                    <version>${moskitoplugins-version}</version>
                                     <type>jar</type>
                                     <overWrite>true</overWrite>
                                     <outputDirectory>${project.build.directory}/tmp</outputDirectory>
