@@ -156,12 +156,11 @@
             <version>5.1</version>
             <exclusions>
                 <exclusion>
+                    <groupId>org.springframework</groupId>
                     <artifactId>spring</artifactId>
                 </exclusion>
             </exclusions>
         </dependency>
-
-
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
