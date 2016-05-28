@@ -134,8 +134,6 @@ public abstract class AbstractStats implements IStats, StatsMXBean{
 	protected void addStatValues(StatValue... values){
 		if (values==null)
 			return;
-		for (StatValue v : values){
-			statValuesList.add(v);
-		}
+		Collections.addAll(statValuesList, values);
 	}
 }
