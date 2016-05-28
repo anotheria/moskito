@@ -62,9 +62,7 @@ public class ProxyUtils {
 		Class<?>[] interfacesParameter = new Class<?>[additionalInterfaces==null ? 1 : 1 + additionalInterfaces.length];
 		interfacesParameter[0] = interf;
 		if (additionalInterfaces!=null){
-			for (int i=0; i<additionalInterfaces.length; i++){
-				interfacesParameter[i+1] = additionalInterfaces[i];
-			}
+			System.arraycopy(additionalInterfaces, 0, interfacesParameter, 1, additionalInterfaces.length);
 		}
 		return interfacesParameter;
 	}
