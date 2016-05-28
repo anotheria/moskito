@@ -18,6 +18,7 @@ import javax.management.ObjectName;
 import javax.management.ReflectionException;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.TimerTask;
 
 import static net.anotheria.moskito.core.util.MBeanProducerFactory.normalize;
@@ -501,11 +502,7 @@ public class MBeanStatsList extends ArrayList<GenericStats> {
 
         try {
             final MBeanAttributeInfo[] all = server.getMBeanInfo(mbean).getAttributes();
-
-            for (final MBeanAttributeInfo attribute : all) {
-                attributes.add(attribute);
-            }
-
+            Collections.addAll(attributes, all);
         } catch (final IntrospectionException e) {
             LOGGER.info("unable to determine attributes of MBean: " + mbean, e);
 

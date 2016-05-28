@@ -17,6 +17,7 @@ import net.anotheria.util.NumberUtils;
 import net.anotheria.util.StringUtils;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 
@@ -231,8 +232,7 @@ public class ThresholdAPIImpl extends AbstractMoskitoAPIImpl implements Threshol
 		if (names==null)
 			return getThresholdStatuses();
 		HashSet<String> nameSet = new HashSet<String>();
-		for (String n : names)
-			nameSet.add(n);
+		Collections.addAll(nameSet, names);
 
 		List<Threshold> thresholds = ThresholdRepository.getInstance().getThresholds();
 		ArrayList<ThresholdStatusAO> ret = new ArrayList<ThresholdStatusAO>();
