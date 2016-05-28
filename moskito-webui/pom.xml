@@ -10,9 +10,6 @@
     <artifactId>moskito-webui</artifactId>
     <version>2.7.5-SNAPSHOT</version>
     <name>moskito embedded web user interface</name>
-    <properties>
-        <distributeme.version>2.3.0</distributeme.version>
-    </properties>
 
     <build>
 

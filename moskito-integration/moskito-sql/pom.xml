@@ -17,7 +17,24 @@
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>aspectj-maven-plugin</artifactId>
-                <version>1.4</version>
+                <version>${aspectj-maven-plugin.version}</version>
+                <configuration>
+                    <complianceLevel>${aspectj-maven-plugin.complianceLevel}</complianceLevel>
+                    <source>${source-version}</source>
+                    <target>${target-version}</target>
+                </configuration>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.aspectj</groupId>
+                        <artifactId>aspectjrt</artifactId>
+                        <version>${aspectj.version}</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>org.aspectj</groupId>
+                        <artifactId>aspectjtools</artifactId>
+                        <version>${aspectj.version}</version>
+                    </dependency>
+                </dependencies>
                 <executions>
                     <execution>
                         <goals>
@@ -27,8 +44,8 @@
                             <!-- use this goal to weave all your test classes -->
                         </goals>
                         <configuration>
-                            <source>1.6</source>
-                            <target>1.6</target>
+                            <source>${source-version}</source>
+                            <target>${target-version}</target>
                         </configuration>
                     </execution>
                 </executions>

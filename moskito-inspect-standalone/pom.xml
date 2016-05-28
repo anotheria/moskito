@@ -11,10 +11,6 @@
 	<version>2.7.5-SNAPSHOT</version>
 	<name>MoSKito Inspect Standalone Application</name>
 	<packaging>war</packaging>
-	<properties>
-		<moskito-webui-version>${project.version}</moskito-webui-version>
-        <aspectj.version>1.8.2</aspectj.version>
-	</properties>
 
 	<dependencies>
 		<dependency>
@@ -104,7 +100,7 @@
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>aspectj-maven-plugin</artifactId>
-                <version>1.4</version>
+                <version>${aspectj-maven-plugin.version}</version>
                 <dependencies>
                     <dependency>
                         <groupId>org.aspectj</groupId>
@@ -125,8 +121,8 @@
                         </aspectLibrary>
                     </aspectLibraries>
 					<complianceLevel>1.7</complianceLevel>
-                    <source>1.7</source>
-                    <target>1.7</target>
+                    <source>${source-version}</source>
+                    <target>${target-version}</target>
                 </configuration>
                 <executions>
                     <execution>
@@ -192,9 +188,6 @@
             <activation>
                 <activeByDefault>false</activeByDefault>
             </activation>
-            <properties>
-                <moskitoplugins-version>1.0.0-SNAPSHOT</moskitoplugins-version>
-            </properties>
             <dependencies>
                 <!-- Add jersey rest interface -->
                 <dependency>

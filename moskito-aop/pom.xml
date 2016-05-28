@@ -11,28 +11,29 @@
     <artifactId>moskito-aop</artifactId>
   	<version>2.7.5-SNAPSHOT</version>
     <name>moskito aop</name>
-	<properties>
-		<aspectj.version>1.7.4</aspectj.version>
-	</properties>
     <build>
         <plugins>
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>aspectj-maven-plugin</artifactId>
-                <version>1.4</version>
+                <version>${aspectj-maven-plugin.version}</version>
+				<configuration>
+					<complianceLevel>${aspectj-maven-plugin.complianceLevel}</complianceLevel>
+					<source>${source-version}</source>
+					<target>${target-version}</target>
+				</configuration>
 				<dependencies>
-		        <dependency>
-		            <groupId>org.aspectj</groupId>
-		            <artifactId>aspectjrt</artifactId>
-					<version>${aspectj.version}</version>
-		        </dependency>
-		        <dependency>
-		            <groupId>org.aspectj</groupId>
-		            <artifactId>aspectjtools</artifactId>
-					<version>${aspectj.version}</version>
-		        </dependency>
-		</dependencies>
-
+					<dependency>
+						<groupId>org.aspectj</groupId>
+						<artifactId>aspectjrt</artifactId>
+						<version>${aspectj.version}</version>
+					</dependency>
+					<dependency>
+						<groupId>org.aspectj</groupId>
+						<artifactId>aspectjtools</artifactId>
+						<version>${aspectj.version}</version>
+					</dependency>
+				</dependencies>
                 <executions>
                     <execution>
                         <goals>
@@ -42,8 +43,8 @@
                             <!-- use this goal to weave all your test classes -->
                         </goals>
                         <configuration>
-                            <source>1.7</source>
-                            <target>1.7</target>
+							<source>${source-version}</source>
+							<target>${target-version}</target>
                         </configuration>
                     </execution>
                 </executions>
@@ -68,7 +69,7 @@
         									aspectj-maven-plugin
         								</artifactId>
         								<versionRange>
-        									[1.4,)
+        									[${aspectj-maven-plugin.version},)
         								</versionRange>
         								<goals>
         									<goal>compile</goal>
