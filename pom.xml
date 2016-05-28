@@ -97,12 +97,12 @@
 			<dependency>
 				<groupId>org.aspectj</groupId>
 				<artifactId>aspectjrt</artifactId>
-				<version>1.7.4</version>
+				<version>${aspectj.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>org.aspectj</groupId>
 				<artifactId>aspectjtools</artifactId>
-				<version>1.7.4</version>
+				<version>${aspectj.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>com.google.code.gson</groupId>
