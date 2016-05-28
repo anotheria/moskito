@@ -25,7 +25,7 @@ public class ProxyUtils {
 	/**
 	 * Internal storage for instance counters.
 	 */
-	private static ConcurrentMap<String,AtomicInteger> instanceCounters = new ConcurrentHashMap<String, AtomicInteger>();
+	private static final ConcurrentMap<String,AtomicInteger>  instanceCounters = new ConcurrentHashMap<>();
 	/**
 	 * Creates a new proxied instance for an existing implementation.
 	 * @param <T> interface type.
@@ -41,14 +41,8 @@ public class ProxyUtils {
 	public static <T> T createInstance(T impl, String name, String category, String subsystem, IOnDemandCallHandler handler, IOnDemandStatsFactory statsFactory, Class<T> interf, Class<?>... additionalInterfaces){
 		if (name==null)
 			name = extractName(interf);
-		
-		Class<?>[] interfacesParameter = new Class<?>[additionalInterfaces==null ? 1 : 1+additionalInterfaces.length];
-		interfacesParameter[0] = interf;
-		if (additionalInterfaces!=null){
-			for (int i=0; i<additionalInterfaces.length; i++){
-				interfacesParameter[i+1] = additionalInterfaces[i];
-			}
-		}
+
+		Class<?>[] interfacesParameter = mergeInterfaces(interf, additionalInterfaces);
 		
 		MoskitoInvokationProxy proxy = new MoskitoInvokationProxy(
 				impl,
@@ -63,7 +57,18 @@ public class ProxyUtils {
 		@SuppressWarnings("unchecked") T ret = (T) proxy.createProxy();
 		return ret;
 	}
-	
+
+	public static <T> Class<?>[] mergeInterfaces(Class<T> interf, Class<?>... additionalInterfaces) {
+		Class<?>[] interfacesParameter = new Class<?>[additionalInterfaces==null ? 1 : 1 + additionalInterfaces.length];
+		interfacesParameter[0] = interf;
+		if (additionalInterfaces!=null){
+			for (int i=0; i<additionalInterfaces.length; i++){
+				interfacesParameter[i+1] = additionalInterfaces[i];
+			}
+		}
+		return interfacesParameter;
+	}
+
 	/**
 	 * Creates a monitored proxy instance for a service. Service in this context means, that the ServiceStatsCallHandler and ServiceStatsFactory are used.
 	 * @param <T> the server interface.
@@ -149,7 +154,7 @@ public class ProxyUtils {
 	 * @param clazz the target clazz..
 	 * @return
 	 */
-	private static final String extractName(Class<?> clazz){
+	private static String extractName(Class<?> clazz){
 		String name = clazz.getName();
 		if (name==null)
 			name = "";
