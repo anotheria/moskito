@@ -53,10 +53,6 @@
         </dependency>
         <dependency>
             <groupId>net.anotheria</groupId>
-            <artifactId>ano-util</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>net.anotheria</groupId>
             <artifactId>ano-plass</artifactId>
         </dependency>
         <dependency>
@@ -143,7 +139,7 @@
             </exclusions>
         </dependency>
 
-        <!-- readded explicit dependency to dozer for form mapping -->
+        <!-- re-added explicit dependency to dozer for form mapping -->
         <dependency>
             <groupId>net.anotheria</groupId>
             <artifactId>ano-util</artifactId>
