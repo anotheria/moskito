@@ -89,7 +89,7 @@ public class AbstractMoskitoAspect<S extends IStats> {
     private void createMethodLevelAccumulators(OnDemandStatsProducer<S> producer, Method method) {
         //several @Accumulators in accumulators holder
         Accumulates accAnnotationHolderMethods = (Accumulates) method.getAnnotation(Accumulates.class);
-        if (accAnnotationHolderMethods != null && accAnnotationHolderMethods.value() != null) {
+        if (accAnnotationHolderMethods != null) {
             Accumulate[] accAnnotations  = accAnnotationHolderMethods.value();
             for (Accumulate accAnnotation : accAnnotations) {
                 createAccumulator(
@@ -119,7 +119,7 @@ public class AbstractMoskitoAspect<S extends IStats> {
     private void createClassLevelAccumulators(OnDemandStatsProducer<S> producer, Class producerClass) {
         //several @Accumulators in accumulators holder
         Accumulates accAnnotationHolder = AnnotationUtils.findAnnotation(producerClass, Accumulates.class);//(Accumulates) producerClass.getAnnotation(Accumulates.class);
-        if (accAnnotationHolder != null && accAnnotationHolder.value() != null) {
+        if (accAnnotationHolder != null) {
             Accumulate[] accAnnotations  = accAnnotationHolder.value();
             for (Accumulate accAnnotation : accAnnotations) {
                 createAccumulator(
@@ -165,7 +165,7 @@ public class AbstractMoskitoAspect<S extends IStats> {
                 accName!=null && !accName.isEmpty() && statsName != null && !statsName.isEmpty()){
 
             AccumulatorDefinition definition = new AccumulatorDefinition();
-            if (annotation.name() != null && annotation.name().length() >0) {
+            if (annotation.name().length() > 0) {
                 definition.setName(annotation.name());
             }else{
                 definition.setName(accName);

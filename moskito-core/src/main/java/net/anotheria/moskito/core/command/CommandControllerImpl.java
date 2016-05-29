@@ -72,8 +72,9 @@ public enum CommandControllerImpl implements CommandController{
 			LoggerFactory.getLogger(CommandControllerImpl.class).debug("registering processor: "+processor+" for command: "+command);
 		}
 		CommandProcessor oldProcessor = processors.put(command, processor);
-		if (oldProcessor!=null)
+		if (oldProcessor!=null) {
 			log.info("Implicitely unregistered processor: "+processor+" for command: "+command);
+		}
 		
 	}
 

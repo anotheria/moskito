@@ -23,11 +23,9 @@ public enum ChartEngine {
 
 	private ChartEngine(String... someNames){
 		names = new ArrayList<>(someNames.length);
-		if (someNames!=null){
-			for (String s :someNames){
-				names.add(s.toLowerCase());
-			}
-		}
+		for (String s :someNames){
+            names.add(s.toLowerCase());
+        }
 	}
 
 	public static ChartEngine getChartEngine(String aName){

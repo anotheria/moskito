@@ -44,7 +44,7 @@ public class GenerateChartAction implements Action {
 
         AccumulatorAPI accumulatorAPI = APILookupUtility.getAccumulatorAPI();
 
-        if (isZip == null || (isZip != null && isZip.equals("false"))) {
+        if (isZip == null || isZip.equals("false")) {
             ChartData offlineChart = getOfflineChart(namesParam, accumulatorAPI);
 
             res.setContentType(PNG_CONTENT_TYPE);
@@ -53,7 +53,7 @@ public class GenerateChartAction implements Action {
             res.getOutputStream().write(offlineChart.getData());
 
         }
-        else if (isZip != null && isZip.equals("true")) {
+        else if (isZip.equals("true")) {
             String[] names = StringUtils.tokenize(namesParam, ',');
 
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
