@@ -109,8 +109,7 @@ public class DecoratorRegistryImpl implements IDecoratorRegistry {
 	}
 
 	@Override public List<IDecorator> getDecorators(){
-		List<IDecorator> ret = new ArrayList<IDecorator>();
-		ret.addAll(registry.values());
+		List<IDecorator> ret = new ArrayList<IDecorator>(registry.values());
 		return ret;
 	}
 

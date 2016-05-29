@@ -91,8 +91,7 @@ public abstract class TieableRepository<T extends Tieable> implements IProducerR
 	
 	@Override
 	public void notifyProducerRegistered(IStatsProducer<?> producer) {
-		ArrayList<T> tmpList = new ArrayList<T>();
-		tmpList.addAll(yetUntied);
+		ArrayList<T> tmpList = new ArrayList<T>(yetUntied);
 		for (T t : tmpList){
 			if (t.getDefinition().getProducerName().equals(producer.getProducerId())){
 				try{

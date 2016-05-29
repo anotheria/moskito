@@ -56,8 +56,7 @@ public enum AlertHistory {
 	 * @return
 	 */
 	public List<ThresholdAlert> getAlerts(){
-		List<ThresholdAlert> ret = new ArrayList<ThresholdAlert>();
-		ret.addAll(alerts);
+		List<ThresholdAlert> ret = new ArrayList<ThresholdAlert>(alerts);
 		Collections.reverse(ret);
 		return ret;
 	}

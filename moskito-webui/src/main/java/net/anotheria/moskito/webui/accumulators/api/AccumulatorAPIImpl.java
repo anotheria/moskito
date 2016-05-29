@@ -225,8 +225,7 @@ public class AccumulatorAPIImpl extends AbstractMoskitoAPIImpl implements Accumu
 		//generally its not always a good idea to use subList, but since that list isn't reused,
 		//as in subList or subList of subList, its ok.
 		if (dataBeans.size()>maxValues) {
-			List<AccumulatedValueAO> shorterList = new ArrayList<AccumulatedValueAO>();
-			shorterList.addAll(dataBeans.subList(dataBeans.size() - maxValues, dataBeans.size()));
+			List<AccumulatedValueAO> shorterList = new ArrayList<AccumulatedValueAO>(dataBeans.subList(dataBeans.size() - maxValues, dataBeans.size()));
 			dataBeans = shorterList;
 		}
 

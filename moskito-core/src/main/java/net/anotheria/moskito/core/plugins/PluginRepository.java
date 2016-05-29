@@ -114,8 +114,7 @@ public final class PluginRepository {
 	 * @return list of loaded plugins names.
 	 */
 	public List<String> getPluginNames() {
-		ArrayList<String> ret = new ArrayList<String>();
-		ret.addAll(plugins.keySet());
+		ArrayList<String> ret = new ArrayList<String>(plugins.keySet());
 		return ret;
 	}
 
@@ -124,8 +123,7 @@ public final class PluginRepository {
 	 * @return list of loaded plugins.
 	 */
 	public List<MoskitoPlugin> getPlugins() {
-		ArrayList<MoskitoPlugin> ret = new ArrayList<MoskitoPlugin>();
-		ret.addAll(plugins.values());
+		ArrayList<MoskitoPlugin> ret = new ArrayList<MoskitoPlugin>(plugins.values());
 		return ret;
 	}
 

@@ -47,8 +47,7 @@ public class JourneyManagerImpl implements JourneyManager{
 	}
 
 	@Override public List<Journey> getJourneys() {
-		ArrayList<Journey> ret = new ArrayList<Journey>();//do not call journeys size since it will synchronize the map
-		ret.addAll(journeys.values());
+		ArrayList<Journey> ret = new ArrayList<Journey>(journeys.values());//do not call journeys size since it will synchronize the map
 		return ret;
 	}
 
