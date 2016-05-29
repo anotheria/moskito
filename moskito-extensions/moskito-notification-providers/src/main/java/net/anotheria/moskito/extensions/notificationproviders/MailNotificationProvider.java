@@ -49,7 +49,7 @@ public class MailNotificationProvider implements NotificationProvider {
 
 
     public MailNotificationProvider() {
-        recipients = new ArrayList<String>();
+        recipients = new ArrayList<>();
     }
 
     @Override

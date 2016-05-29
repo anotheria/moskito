@@ -26,7 +26,7 @@ public class NotificationProviderConfig implements Serializable {
 	@Configure
 	private String guardedStatus = ThresholdStatus.GREEN.name();
 
-	private Map<String,String> properties = new HashMap<String, String>();
+	private Map<String,String> properties = new HashMap<>();
 
 	public String getClassName() {
 		return className;

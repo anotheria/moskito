@@ -65,7 +65,7 @@ public class PageInBrowserStatsDecorator extends AbstractDecorator {
 		long totalWinLoadTime = pageInBrowserStats.getTotalWindowLoadTime(interval, unit);
 		long numberOfLoads = pageInBrowserStats.getNumberOfLoads();
 
-		List<StatValueAO> result = new ArrayList<StatValueAO>();
+		List<StatValueAO> result = new ArrayList<>(11);
 		result.add(new LongValueAO(DOM_MIN.getCaption(), domMinLoadTime));
 		result.add(new LongValueAO(DOM_MAX.getCaption(), domMaxLoadTime));
 		result.add(new DoubleValueAO(DOM_AVG.getCaption(), domAverageLoadTime));

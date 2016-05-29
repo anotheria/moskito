@@ -25,7 +25,7 @@ public class ProxyUtils {
 	/**
 	 * Internal storage for instance counters.
 	 */
-	private static final ConcurrentMap<String,AtomicInteger>  instanceCounters = new ConcurrentHashMap<>();
+	private static final ConcurrentMap<String,AtomicInteger> instanceCounters = new ConcurrentHashMap<>();
 	/**
 	 * Creates a new proxied instance for an existing implementation.
 	 * @param <T> interface type.

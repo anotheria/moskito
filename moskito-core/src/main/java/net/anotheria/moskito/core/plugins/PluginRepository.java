@@ -27,12 +27,12 @@ public final class PluginRepository {
 	/**
 	 * Plugins.
 	 */
-	private ConcurrentMap<String, MoskitoPlugin> plugins = new ConcurrentHashMap<String, MoskitoPlugin>();
+	private ConcurrentMap<String, MoskitoPlugin> plugins = new ConcurrentHashMap<>();
 
 	/**
 	 * Cached configs.
 	 */
-	private ConcurrentMap<String,PluginConfig> configs = new ConcurrentHashMap<String,PluginConfig>();
+	private ConcurrentMap<String,PluginConfig> configs = new ConcurrentHashMap<>();
 
 
 	/**

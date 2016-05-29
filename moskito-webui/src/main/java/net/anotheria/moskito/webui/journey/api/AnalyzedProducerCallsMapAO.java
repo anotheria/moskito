@@ -32,7 +32,7 @@ public class AnalyzedProducerCallsMapAO implements Serializable {
 	
 	public AnalyzedProducerCallsMapAO(String aName){
 		name = aName;
-		beans = new HashMap<String, AnalyzedProducerCallsAO>();
+		beans = new HashMap<>();
 	}
 	
 	@Override public String toString(){

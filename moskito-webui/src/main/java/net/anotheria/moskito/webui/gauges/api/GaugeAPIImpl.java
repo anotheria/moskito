@@ -48,7 +48,7 @@ public class GaugeAPIImpl extends AbstractMoskitoAPIImpl implements GaugeAPI {
 		if (defaultZonesConfig == null || defaultZonesConfig.length == 0){
 			defaultZones = createDefaultZones();
 		}else{
-			defaultZones = new ArrayList<GaugeZoneAO>();
+			defaultZones = new ArrayList<>(defaultZonesConfig.length);
 			for (GaugeZoneConfig zoneConfig : defaultZonesConfig){
 				defaultZones.add(zoneAOFromZoneConfig(zoneConfig));
 			}
@@ -60,7 +60,7 @@ public class GaugeAPIImpl extends AbstractMoskitoAPIImpl implements GaugeAPI {
 	 * @return
 	 */
 	private List<GaugeZoneAO> createDefaultZones(){
-		ArrayList<GaugeZoneAO> ret = new ArrayList<GaugeZoneAO>();
+		ArrayList<GaugeZoneAO> ret = new ArrayList<>(1);
 		GaugeZoneAO redZone = new GaugeZoneAO();
 		redZone.setColor("red");
 		redZone.setLeft(0.9f);

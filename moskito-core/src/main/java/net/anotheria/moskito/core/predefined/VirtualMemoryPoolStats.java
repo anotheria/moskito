@@ -38,7 +38,7 @@ public class VirtualMemoryPoolStats extends AbstractMemoryPoolStats implements I
 	 */
 	public VirtualMemoryPoolStats(String aName,  Interval[] selectedIntervals){
 		super(aName);
-		realStats = new ArrayList<MemoryPoolStats>();
+		realStats = new ArrayList<>();
 	}
 	
 	/**

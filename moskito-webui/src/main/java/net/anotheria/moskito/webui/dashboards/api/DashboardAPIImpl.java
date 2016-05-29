@@ -195,15 +195,16 @@ public class DashboardAPIImpl extends AbstractMoskitoAPIImpl implements Dashboar
 
 	@Override
 	public List<String> getDashboardNames() throws APIException {
-		List<String> dashboardNames = new ArrayList<String>();
 		MoskitoConfiguration config = MoskitoConfigurationHolder.getConfiguration();
 		DashboardsConfig dashboardsConfig = config.getDashboardsConfig();
-		if (dashboardsConfig.getDashboards()!=null){
-			for (DashboardConfig dc : dashboardsConfig.getDashboards()){
+		DashboardConfig[] dashboards = dashboardsConfig.getDashboards();
+		if (dashboards != null){
+			List<String> dashboardNames = new ArrayList<>(dashboards.length);
+			for (DashboardConfig dc : dashboards){
 				dashboardNames.add(dc.getName());
 			}
+			return dashboardNames;
 		}
-		return dashboardNames;
-
+		return new ArrayList<>(0);
 	}
 }

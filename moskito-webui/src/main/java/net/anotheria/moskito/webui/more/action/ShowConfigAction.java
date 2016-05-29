@@ -54,7 +54,7 @@ public class ShowConfigAction extends BaseAdditionalAction{
 
 		///thresholds
 		List<Threshold> thresholds = ThresholdRepository.getInstance().getThresholds();
-		ArrayList<String> thresholdStrings = new ArrayList<String>();
+		List<String> thresholdStrings = new ArrayList<>(thresholds.size());
 		for (Threshold t : thresholds){
 			String jsonT = gson.toJson(t.toConfigObject());
 			JsonElement jeT = jp.parse(jsonT);

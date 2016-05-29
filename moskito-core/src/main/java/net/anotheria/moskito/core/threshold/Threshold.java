@@ -59,7 +59,7 @@ public class Threshold extends AbstractTieable<ThresholdDefinition> implements T
 		super(aDefinition);
 		status = ThresholdStatus.OFF;
 		lastValue = "none yet";
-		guards = new ArrayList<ThresholdConditionGuard>();
+		guards = new ArrayList<>();
 		flipCount = 0;
 	}
 	

@@ -161,7 +161,7 @@ public class MoskitoInvokationProxy implements InvocationHandler{
 	 * Looks up all possible exceptions.
 	 */
 	private void guessExceptions(){
-		List<Class<?>> tmpExceptionList = new ArrayList<Class<?>>();
+		List<Class<?>> tmpExceptionList = new ArrayList<>();
 		for (Class<?> c:supportedInterfaces){
 			Method[] methods = c.getDeclaredMethods();
 			for (Method m:methods){

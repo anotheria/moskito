@@ -61,7 +61,7 @@ public class ProducerRegistryImpl implements IProducerRegistry {
     /**
      * The map in which the producers are stored.
      */
-    private final ConcurrentMap<String, ProducerReference> registry = new ConcurrentHashMap<String, ProducerReference>();
+    private final ConcurrentMap<String, ProducerReference> registry = new ConcurrentHashMap<>();
 
     /**
      * The listeners list.
@@ -87,7 +87,7 @@ public class ProducerRegistryImpl implements IProducerRegistry {
 
     @Override
     public Collection<IStatsProducer> getProducers() {
-        ArrayList<IStatsProducer> ret = new ArrayList<IStatsProducer>();
+        List<IStatsProducer> ret = new ArrayList<>();
         for (ProducerReference r : getProducerReferences()) {
             if (r.get() != null)
                 ret.add(r.get());

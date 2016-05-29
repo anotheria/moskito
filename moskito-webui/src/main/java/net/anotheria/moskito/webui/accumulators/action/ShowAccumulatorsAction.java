@@ -122,7 +122,7 @@ public class ShowAccumulatorsAction extends BaseAccumulatorsAction {
 		
 		req.setAttribute("accumulators", getAccumulatorAPI().getAccumulatorDefinitions());
 		
-		List<String> ids = new ArrayList<String>();
+		List<String> ids = new ArrayList<>();
 		
 		Enumeration<?> names = req.getParameterNames();
 		while(names.hasMoreElements()){
@@ -133,8 +133,9 @@ public class ShowAccumulatorsAction extends BaseAccumulatorsAction {
 				req.setAttribute(name+"_set", Boolean.TRUE);
 			}
 		}
-		
-		if (ids.size()>0){
+
+		int numberOfIds = ids.size();
+		if (numberOfIds > 0){
 
 			if (mode == AccumulatorSetMode.COMBINED || mode == AccumulatorSetMode.NORMALIZED){
 				MultilineChartAO mchartAO = null;
@@ -149,8 +150,8 @@ public class ShowAccumulatorsAction extends BaseAccumulatorsAction {
 			} else {
 
 				//create multiple graphs with one line each.
-				List<AccumulatedSingleGraphAO> singleGraphDataBeans = new ArrayList<AccumulatedSingleGraphAO>(ids.size());
-				List<String> accumulatorsNames = new ArrayList<String>();
+				List<AccumulatedSingleGraphAO> singleGraphDataBeans = new ArrayList<>(numberOfIds);
+				List<String> accumulatorsNames = new ArrayList<>(numberOfIds);
 
 				for (String id : ids) {
 					final AccumulatorAO accumulator = getAccumulatorAPI().getAccumulator(id);

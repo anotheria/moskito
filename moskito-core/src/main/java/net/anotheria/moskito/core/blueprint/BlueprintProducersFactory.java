@@ -20,7 +20,7 @@ public class BlueprintProducersFactory {
 	/**
 	 * Already instantiated producers.
 	 */
-	private static final Map<String, BlueprintProducer> producers = new HashMap<String, BlueprintProducer>();
+	private static final Map<String, BlueprintProducer> producers = new HashMap<>();
 	
 	
 	/**

@@ -22,7 +22,7 @@ public enum ChartEngine {
 	private List<String> names;
 
 	private ChartEngine(String... someNames){
-		names = new ArrayList<String>();
+		names = new ArrayList<>(someNames.length);
 		if (someNames!=null){
 			for (String s :someNames){
 				names.add(s.toLowerCase());

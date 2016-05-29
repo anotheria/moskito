@@ -59,7 +59,7 @@ public class ShowAllProducersAction extends BaseShowProducersAction{
 		if (nameFilter.length()==0)
 			return all;
 		nameFilter = nameFilter.toLowerCase();
-		ArrayList<ProducerAO> filtered = new ArrayList<ProducerAO>();
+		List<ProducerAO> filtered = new ArrayList<>();
 		for (ProducerAO p : all){
 			if (p.getProducerId().toLowerCase().startsWith(nameFilter)){
 				filtered.add(p);

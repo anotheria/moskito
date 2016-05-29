@@ -17,6 +17,7 @@ import net.anotheria.util.sorter.StaticQuickSorter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Implementation of the AccumulatorAPI.
@@ -104,7 +105,7 @@ public class AccumulatorAPIImpl extends AbstractMoskitoAPIImpl implements Accumu
 	@Override
 	public List<AccumulatorDefinitionAO> getAccumulatorDefinitions() throws APIException {
 		List<Accumulator> accumulators = AccumulatorRepository.getInstance().getAccumulators();
-		List<AccumulatorDefinitionAO> ret = new ArrayList<AccumulatorDefinitionAO>();
+		List<AccumulatorDefinitionAO> ret = new ArrayList<>(accumulators.size());
 
 		for (Accumulator a : accumulators){
 			AccumulatorDefinitionAO bean = new AccumulatorDefinitionAO();
@@ -146,15 +147,15 @@ public class AccumulatorAPIImpl extends AbstractMoskitoAPIImpl implements Accumu
 		//TODO actually this limit is hardcoded, we should make it dynamic.
 		int maxValues = 200;
 
-		if (ids.size() == 0)
+		int numberOfIds = ids.size();
+		if (numberOfIds == 0)
 			throw new APIException("No accumulators selected");
 
-		List<AccumulatedValueAO> dataBeans = new ArrayList<AccumulatedValueAO>();
-		List<AccumulatedSingleGraphAO> singleGraphDataBeans = new ArrayList<AccumulatedSingleGraphAO>(ids.size());
+		List<AccumulatedSingleGraphAO> singleGraphDataBeans = new ArrayList<>(numberOfIds);
 
 		//prepare values
-		HashMap<Long, AccumulatedValuesBean> values = new HashMap<Long, AccumulatedValuesBean>();
-		List<String> accNames = new ArrayList<String>();
+		Map<Long, AccumulatedValuesBean> values = new HashMap<>(numberOfIds);
+		List<String> accNames = new ArrayList<>(numberOfIds);
 
 		for (String id : ids){
 			AccumulatorAO acc = getAccumulator(id);
@@ -179,7 +180,7 @@ public class AccumulatorAPIImpl extends AbstractMoskitoAPIImpl implements Accumu
 
 		//now check if the data is complete
 		//Stores last known values to allow filling in of missing values (combining 1m and 5m values)
-		HashMap<String, String> lastValue = new HashMap<String, String>();
+		Map<String, String> lastValue = new HashMap<>(accNames.size());
 
 		//filling last (or first) values.
 		for (String accName : accNames){
@@ -211,6 +212,7 @@ public class AccumulatorAPIImpl extends AbstractMoskitoAPIImpl implements Accumu
 		}
 
 		//now create final data
+		List<AccumulatedValueAO> dataBeans = new ArrayList<>(valuesList.size());
 		for(AccumulatedValuesBean avb : valuesList){
 			AccumulatedValueAO bean = new AccumulatedValueAO(avb.getTime());
 			bean.setIsoTimestamp(NumberUtils.makeISO8601TimestampString(avb.getTimestamp()));

@@ -26,7 +26,7 @@ public abstract class TieableRepository<T extends Tieable> implements IProducerR
 	/**
 	 * Interval listeners.
 	 */
-	private ConcurrentMap<String, IntervalListener> listeners = new ConcurrentHashMap<String, IntervalListener>();
+	private ConcurrentMap<String, IntervalListener> listeners = new ConcurrentHashMap<>();
 	
 	/**
 	 * Reference to producer registry.
@@ -39,7 +39,7 @@ public abstract class TieableRepository<T extends Tieable> implements IProducerR
 	/**
 	 * Tieables. This map contains already tied tieables.
 	 */
-	private ConcurrentMap<String, T> tieables = new ConcurrentHashMap<String, T>();
+	private ConcurrentMap<String, T> tieables = new ConcurrentHashMap<>();
 	/**
 	 * The listener to the default interval.
 	 */
@@ -54,7 +54,7 @@ public abstract class TieableRepository<T extends Tieable> implements IProducerR
 	/**
 	 * Map that contains names of the tieables maped by ids.
 	 */
-	private ConcurrentMap<String, String> id2nameMapping = new ConcurrentHashMap<String, String>();
+	private ConcurrentMap<String, String> id2nameMapping = new ConcurrentHashMap<>();
 
 
 	public TieableRepository() {

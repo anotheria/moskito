@@ -51,7 +51,7 @@ public class AdditionalFunctionalityAPIImpl extends AbstractMoskitoAPIImpl imple
 	@Override
 	public List<PluginAO> getPlugins() throws APIException {
 		List<String> pluginNames = PluginRepository.getInstance().getPluginNames();
-		ArrayList<PluginAO> ret = new ArrayList<PluginAO>();
+		List<PluginAO> ret = new ArrayList<>(pluginNames.size());
 		for (String s : pluginNames){
 			PluginAO ao = new PluginAO();
 
@@ -102,7 +102,7 @@ public class AdditionalFunctionalityAPIImpl extends AbstractMoskitoAPIImpl imple
 	@Override public List<MBeanWrapperAO> getMBeans() throws APIException{
 		try{
 			List<MBeanServer> servers = MBeanServerFactory.findMBeanServer(null);
-			List<MBeanWrapperAO> beans = new ArrayList<MBeanWrapperAO>();
+			List<MBeanWrapperAO> beans = new ArrayList<>(servers.size());
 
 			for (MBeanServer s : servers){
 				Set<ObjectInstance> instances = s.queryMBeans(null, null);
@@ -143,7 +143,7 @@ public class AdditionalFunctionalityAPIImpl extends AbstractMoskitoAPIImpl imple
 	 */
 	private List<MBeanAttributeWrapperAO> convert(final MBeanAttributeInfo[] infos,
 												final MBeanServer server, final ObjectName name) {
-		final List<MBeanAttributeWrapperAO> res = new ArrayList<MBeanAttributeWrapperAO>();
+		final List<MBeanAttributeWrapperAO> res = new ArrayList<>(infos.length);
 
 		for (final MBeanAttributeInfo info : infos) {
 			Object value = "-";

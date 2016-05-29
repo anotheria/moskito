@@ -114,7 +114,7 @@ public class DecoratorRegistryImpl implements IDecoratorRegistry {
 	}
 
 	DecoratorRegistryImpl(){
-		registry = new ConcurrentHashMap<String, IDecorator>();
+		registry = new ConcurrentHashMap<>();
 		configure();
 	}
 	

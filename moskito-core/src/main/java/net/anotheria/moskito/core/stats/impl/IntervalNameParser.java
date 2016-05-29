@@ -100,8 +100,9 @@ class IntervalNameParser {
 	 */
 	private static Map<Character, TimeUnit> lookupMap;
 	static{
-		lookupMap = new HashMap<Character, TimeUnit>();
-		for (TimeUnit u : TimeUnit.values()){
+		TimeUnit[] timeUnits = TimeUnit.values();
+		lookupMap = new HashMap<>(timeUnits.length);
+		for (TimeUnit u : timeUnits){
 			lookupMap.put(u.getCaption(), u);
 		}
 	}

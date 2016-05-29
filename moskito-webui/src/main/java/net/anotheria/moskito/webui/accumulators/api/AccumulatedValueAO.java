@@ -47,7 +47,7 @@ public class AccumulatedValueAO implements Serializable, IComparable<Accumulated
 	
 	public AccumulatedValueAO(String aTimestamp){
 		timestamp = aTimestamp;
-		values = new ArrayList<String>();
+		values = new ArrayList<>();
 	}
 
 	public void addValue(String value) {

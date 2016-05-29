@@ -69,10 +69,10 @@ public class OfflineChartGeneratorImpl implements OfflineChartGenerator{
 
     private class ChartAxes {
         // data for x axis
-        private List<Date> xData = new ArrayList<Date>();
+        private List<Date> xData = new ArrayList<>();
 
         //List with data for y axis
-        private List<List<Double>>  yDataList = new LinkedList<List<Double>>();
+        private List<List<Double>>  yDataList = new LinkedList<>();
 
         public ChartAxes(int lineAmounts) {
             for (int i = 0; i < lineAmounts; i++) {

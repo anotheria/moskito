@@ -28,7 +28,7 @@ public class ThreadAPIImpl extends AbstractMoskitoAPIImpl implements ThreadAPI {
 	public List<ThreadInfoAO> getThreadInfos() throws APIException {
 		ThreadMXBean mxBean = ManagementFactory.getThreadMXBean();
 		long ids[] = mxBean.getAllThreadIds();
-		ArrayList<ThreadInfoAO> infos = new ArrayList<ThreadInfoAO>();
+		List<ThreadInfoAO> infos = new ArrayList<>(ids.length);
 		for (long id : ids){
 			infos.add(new ThreadInfoAO(mxBean.getThreadInfo(id)));
 		}

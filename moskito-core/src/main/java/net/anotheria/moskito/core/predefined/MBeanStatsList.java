@@ -498,11 +498,11 @@ public class MBeanStatsList extends ArrayList<GenericStats> {
      * @return {@link Collection} of {@link MBeanAttributeInfo}s
      */
     private Collection<MBeanAttributeInfo> getAttributes() {
-        final Collection<MBeanAttributeInfo> attributes = new ArrayList<MBeanAttributeInfo>();
-
         try {
             final MBeanAttributeInfo[] all = server.getMBeanInfo(mbean).getAttributes();
+            final Collection<MBeanAttributeInfo> attributes = new ArrayList<>(all.length);
             Collections.addAll(attributes, all);
+            return attributes;
         } catch (final IntrospectionException e) {
             LOGGER.info("unable to determine attributes of MBean: " + mbean, e);
 
@@ -513,7 +513,7 @@ public class MBeanStatsList extends ArrayList<GenericStats> {
             LOGGER.info("unable to determine attributes of MBean: " + mbean, e);
         }
 
-        return attributes;
+        return new ArrayList<>(0);
     }
 
     /**

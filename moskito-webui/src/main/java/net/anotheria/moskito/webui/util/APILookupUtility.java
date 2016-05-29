@@ -37,7 +37,7 @@ public class APILookupUtility {
 	/**
 	 * A map with all remote instance.
 	 */
-	private static ConcurrentMap<RemoteInstance, ConcurrentMap<Class<? extends API>, API>> remotes = new ConcurrentHashMap<RemoteInstance, ConcurrentMap<Class<? extends API>,API>>();
+	private static ConcurrentMap<RemoteInstance, ConcurrentMap<Class<? extends API>, API>> remotes = new ConcurrentHashMap<>(1);
 
 	/**
 	 * Currently configured ConnectivityMode (local or remote).
@@ -181,7 +181,7 @@ public class APILookupUtility {
 		RemoteInstance ri = getCurrentRemoteInstance();
 		ConcurrentMap<Class<? extends API>, API> stubsByInterface = remotes.get(ri);
 		if (stubsByInterface==null){
-			ConcurrentHashMap<Class<? extends API>, API> newStubsByInterface = new ConcurrentHashMap<Class<? extends API>, API>();
+			ConcurrentHashMap<Class<? extends API>, API> newStubsByInterface = new ConcurrentHashMap<>(0);
 			ConcurrentMap old = remotes.putIfAbsent(ri, newStubsByInterface);
 			stubsByInterface = old == null ? newStubsByInterface : old;
 		}

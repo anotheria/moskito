@@ -2,11 +2,7 @@ package net.anotheria.moskito.core.util.threadhistory;
 
 import java.lang.management.ManagementFactory;
 import java.lang.management.ThreadMXBean;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
+import java.util.*;
 import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
@@ -36,7 +32,7 @@ public enum ThreadHistoryUtility {
 	/**
 	 * Ids of all currently running threads.
 	 */
-	private HashSet<Long> runningThreadIds = new HashSet<Long>();
+	private Set<Long> runningThreadIds = new HashSet<>();
 	
 	/**
 	 * ThreadMXBean reference.
@@ -50,7 +46,7 @@ public enum ThreadHistoryUtility {
 	/**
 	 * The storage for history events.
 	 */
-	private ArrayList<ThreadHistoryEvent> eventList = new ArrayList<ThreadHistoryEvent>();
+	private List<ThreadHistoryEvent> eventList = new ArrayList<>();
 	
 	/**
 	 * Internal synchronization lock.

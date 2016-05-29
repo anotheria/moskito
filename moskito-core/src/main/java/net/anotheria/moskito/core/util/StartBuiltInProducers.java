@@ -64,7 +64,7 @@ public class StartBuiltInProducers {
 				registry.registerProducer(p);
 				List<BuiltInMemoryPoolProducer> pp = producers.get(pool.getType());
 				if (pp==null){
-					pp = new ArrayList<BuiltInMemoryPoolProducer>();
+					pp = new ArrayList<>(pools.size());
 					producers.put(pool.getType(), pp);
 				}
 				pp.add(p);

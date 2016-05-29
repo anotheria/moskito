@@ -61,8 +61,8 @@ public enum CommandControllerImpl implements CommandController{
 	/**
 	 * Creates a new CommandControllerImpl.
 	 */
-	private CommandControllerImpl() {
-		processors = new HashMap<String, CommandProcessor>();
+	CommandControllerImpl() {
+		processors = new HashMap<>();
 	}
 	 
 	@Override public void registerCommandProcessor(String command, CommandProcessor processor) {

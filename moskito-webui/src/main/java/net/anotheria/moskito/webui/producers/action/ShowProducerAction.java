@@ -93,7 +93,7 @@ public class ShowProducerAction extends BaseMoskitoUIAction {
 		//boolean filterZero = pFilterZero != null && pFilterZero.equalsIgnoreCase("true");
 
 		IDecorator decorator = getDecoratorRegistry().getDecorator(producer.getStatsClazzName());
-		Map<String, GraphDataBean> graphData = new HashMap<String, GraphDataBean>();
+		Map<String, GraphDataBean> graphData = new HashMap<>();
 
 
 		List<StatLineAO> allLines = producer.getLines();
@@ -109,7 +109,7 @@ public class ShowProducerAction extends BaseMoskitoUIAction {
 			}
 		}
 
-		List<StatDecoratorBean> beans = new ArrayList<StatDecoratorBean>();
+		List<StatDecoratorBean> beans = new ArrayList<>(1);
 		//sort
 
 		final StatDecoratorBean decoratorBean = new StatDecoratorBean();
@@ -154,8 +154,9 @@ public class ShowProducerAction extends BaseMoskitoUIAction {
 		final int cumulatedIndex = getCumulatedIndex(allStatLines);
 
 		// stats
-		final List<StatBean> statBeans = new ArrayList<>();
-		for (int i = 0; i < allStatLines.size(); i++) {
+		int allStatLinesSize = allStatLines.size();
+		final List<StatBean> statBeans = new ArrayList<>(allStatLinesSize);
+		for (int i = 0; i < allStatLinesSize; i++) {
 			if (i == cumulatedIndex)
 				continue;
 

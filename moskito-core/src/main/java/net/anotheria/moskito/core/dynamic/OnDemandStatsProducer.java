@@ -44,6 +44,7 @@ import org.slf4j.LoggerFactory;
 
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
@@ -77,7 +78,7 @@ public class OnDemandStatsProducer<S extends IStats> implements IStatsProducer<S
 	/**
 	 * A map where all stat and their ids (strings) are being stored.
 	 */
-	private final ConcurrentHashMap<String,S> stats;
+	private final ConcurrentMap<String,S> stats;
 	
 	/**
 	 * A fast access variable for default (cumulated) stats.
@@ -123,7 +124,7 @@ public class OnDemandStatsProducer<S extends IStats> implements IStatsProducer<S
 		if (factory==null)
 			throw new IllegalArgumentException("Null factory is not allowed.");
 		
-		stats = new ConcurrentHashMap<String,S>();
+		stats = new ConcurrentHashMap<>();
 		_cachedStatsList = new CopyOnWriteArrayList<S>();
 		
 		try{

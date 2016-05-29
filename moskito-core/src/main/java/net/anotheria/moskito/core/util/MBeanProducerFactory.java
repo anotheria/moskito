@@ -40,7 +40,7 @@ public final class MBeanProducerFactory {
 	 */
     public static Iterable<SimpleStatsProducer<GenericStats>> buildProducers() {
 
-        final Collection<SimpleStatsProducer<GenericStats>> result = new ArrayList<SimpleStatsProducer<GenericStats>>();
+        final Collection<SimpleStatsProducer<GenericStats>> result = new ArrayList<>();
 
         for (final MBeanServer server : getServers()) {
             if (LOGGER.isDebugEnabled()) {

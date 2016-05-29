@@ -60,7 +60,7 @@ public class ThresholdDefinitionAO implements Serializable{
 	private TimeUnit timeUnit;
 	
 	public ThresholdDefinitionAO(){
-		guards = new ArrayList<ThresholdConditionGuard>();
+		guards = new ArrayList<>();
 	}
 	
 	public void addGuard(ThresholdConditionGuard aGuard){

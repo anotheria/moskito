@@ -39,7 +39,7 @@ public class MoSKitoWebUIContext {
 	/**
 	 * Simple container map to pass attributes between modules.
 	 */
-	private Map<String,Serializable> attributes = new HashMap<String, Serializable>();
+	private Map<String,Serializable> attributes = new HashMap<>();
 
 	public HttpSession getCurrentSession() {
 		return currentSession;

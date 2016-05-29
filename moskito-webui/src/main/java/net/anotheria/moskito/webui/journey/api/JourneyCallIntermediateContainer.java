@@ -15,11 +15,11 @@ public class JourneyCallIntermediateContainer {
 	/**
 	 * The reversed map of steps used to determine duplicates.
 	 */
-	private Map<String, ReversedCallHelper> stepsReversed = new HashMap<String, ReversedCallHelper>();
+	private Map<String, ReversedCallHelper> stepsReversed = new HashMap<>();
 	/**
 	 * Element in this countainer.
 	 */
-	private List<TracedCallStepAO> elements = new ArrayList<TracedCallStepAO>();
+	private List<TracedCallStepAO> elements = new ArrayList<>();
 	/**
 	 * Counter.
 	 */
@@ -69,7 +69,7 @@ public class JourneyCallIntermediateContainer {
 	 *
 	 */
 	public static class ReversedCallHelper{
-		private List<String> positions = new ArrayList<String>();
+		private List<String> positions = new ArrayList<>();
 		private long timespent = 0;
 		private long duration = 0;
 		
@@ -101,7 +101,7 @@ public class JourneyCallIntermediateContainer {
 		/**
 		 * Holds known parents.
  		 */
-		private Map<Integer, Integer> parents = new HashMap<Integer, Integer>();
+		private Map<Integer, Integer> parents = new HashMap<>();
 		
 		private int getParentIdByLayer(int layer, String currentId){
 			int _currentId = Integer.parseInt(currentId);

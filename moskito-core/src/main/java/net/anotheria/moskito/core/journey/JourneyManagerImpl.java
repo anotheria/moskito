@@ -19,7 +19,7 @@ public class JourneyManagerImpl implements JourneyManager{
 	 * Creates a new JourneyManagerImpl.
 	 */
 	JourneyManagerImpl(){
-		journeys = new ConcurrentHashMap<String, Journey>();
+		journeys = new ConcurrentHashMap<>();
 	}
 	
 	@Override public Journey createJourney(String name) {

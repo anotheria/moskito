@@ -91,7 +91,7 @@ public class TraceStep implements Serializable{
 	 */
 	public TraceStep(String aCall, IStatsProducer aProducer){
 		call = aCall;
-		children = new ArrayList<TraceStep>();
+		children = new ArrayList<>();
 		producer = aProducer;
 	}
 	

@@ -36,7 +36,7 @@ public class TracerRepository {
 	/**
 	 * Currently existing tracers.
 	 */
-	private ConcurrentMap<String,Tracer> tracers = new ConcurrentHashMap<String, Tracer>();
+	private ConcurrentMap<String,Tracer> tracers = new ConcurrentHashMap<>();
 
 	/**
 	 * Private constructor.
