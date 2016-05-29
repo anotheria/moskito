@@ -116,8 +116,7 @@ public class MonitoringAspect extends AbstractMoskitoAspect{
                 currentStep.setAborted();
             }
             if (tracePassingOfThisProducer) {
-                call.append(" ERR ");
-                call.append(t.getMessage());
+                call.append(" ERR ").append(t.getMessage());
             }
             throw t;
         } finally {

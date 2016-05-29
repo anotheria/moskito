@@ -136,8 +136,7 @@ public class MonitorInterceptor extends AbstractInterceptor<ServiceStats> implem
             if (currentStep != null)
                 currentStep.setAborted();
             if (tracePassingOfThisProducer) {
-                call.append(" ERR ");
-                call.append(t.getMessage());
+                call.append(" ERR ").append(t.getMessage());
             }
 
             throw t;
