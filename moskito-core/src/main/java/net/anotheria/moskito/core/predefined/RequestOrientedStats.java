@@ -41,6 +41,7 @@ import net.anotheria.moskito.core.calltrace.TracedCall;
 import net.anotheria.moskito.core.producers.AbstractCallExecution;
 import net.anotheria.moskito.core.producers.AbstractStats;
 import net.anotheria.moskito.core.producers.CallExecution;
+import net.anotheria.moskito.core.producers.IStatsProducer;
 import net.anotheria.moskito.core.stats.Interval;
 import net.anotheria.moskito.core.stats.StatValue;
 import net.anotheria.moskito.core.stats.TimeUnit;
@@ -525,7 +526,9 @@ public abstract class RequestOrientedStats extends AbstractStats {
 				currentlyTracedCall = tracedCall.callTraced() ? 
 						(CurrentlyTracedCall)tracedCall : null;
 				if (currentlyTracedCall !=null){
-					currentStep = currentlyTracedCall.startStep(callDescription == null ? getName():callDescription);
+					IStatsProducer producer = null;
+					String call = callDescription == null ? getName() : callDescription;
+					currentStep = currentlyTracedCall.startStep(call, producer);
 				}
 			}
 		}
