@@ -53,7 +53,7 @@ public class AbstractMoskitoAspect<S extends IStats> {
         }
 
         if (withMethod)
-            producerId += "."+pjp.getSignature().getName();
+            producerId += '.' +pjp.getSignature().getName();
 
         OnDemandStatsProducer<S> producer = producers.get(producerId);
         if (producer==null){
@@ -142,13 +142,13 @@ public class AbstractMoskitoAspect<S extends IStats> {
 
     private String formAccumulatorNameForMethod(final OnDemandStatsProducer<S> producer, final Accumulate annotation, final Method m) {
         if (producer != null && annotation != null && m != null)
-            return producer.getProducerId()+"."+m.getName()+"."+annotation.valueName()+"."+annotation.intervalName();
+            return producer.getProducerId()+ '.' +m.getName()+ '.' +annotation.valueName()+ '.' +annotation.intervalName();
         return "";
     }
 
     private String formAccumulatorNameForClass(final OnDemandStatsProducer<S> producer, final Accumulate annotation) {
         if (producer != null && annotation != null)
-            return producer.getProducerId()+"."+annotation.valueName()+"."+annotation.intervalName();
+            return producer.getProducerId()+ '.' +annotation.valueName()+ '.' +annotation.intervalName();
         return "";
     }
 

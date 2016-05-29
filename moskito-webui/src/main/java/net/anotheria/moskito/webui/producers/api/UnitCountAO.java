@@ -88,6 +88,6 @@ public class UnitCountAO implements Serializable{
 	}
 
 	@Override public String toString(){
-		return unitName+"="+unitCount;
+		return unitName+ '=' +unitCount;
 	}
 }

@@ -158,13 +158,13 @@ public class APILookupUtility {
 			Method m = constantsClass.getMethod("getServiceId");
 			serviceId = (String)m.invoke(null);
 		}catch(ClassNotFoundException e){
-			throw new AssertionError("Can not find supporting classes for "+targetClass+" " + e.getMessage());
+			throw new AssertionError("Can not find supporting classes for "+targetClass+ ' ' + e.getMessage());
 		} catch (NoSuchMethodException e) {
-			throw new AssertionError("Can not find supporting classes or methods for "+targetClass+" " + e.getMessage());
+			throw new AssertionError("Can not find supporting classes or methods for "+targetClass+ ' ' + e.getMessage());
 		} catch (InvocationTargetException e) {
-			throw new AssertionError("Can not obtain service id "+targetClass+" " + e.getMessage());
+			throw new AssertionError("Can not obtain service id "+targetClass+ ' ' + e.getMessage());
 		} catch (IllegalAccessException e) {
-			throw new AssertionError("Can not obtain service id "+targetClass+" " + e.getMessage());
+			throw new AssertionError("Can not obtain service id "+targetClass+ ' ' + e.getMessage());
 		}
 
 		Class<? extends T> remoteStubClass = null;

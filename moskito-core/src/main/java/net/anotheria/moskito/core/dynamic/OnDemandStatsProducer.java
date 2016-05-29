@@ -175,7 +175,7 @@ public class OnDemandStatsProducer<S extends IStats> implements IStatsProducer<S
 	}
 	
 	@Override public String toString(){
-		return "OnDemandProducer ("+getProducerNameExtension()+"): "+getProducerId()+":"+getSubsystem()+":"+getCategory();
+		return "OnDemandProducer ("+getProducerNameExtension()+"): "+getProducerId()+ ':' +getSubsystem()+ ':' +getCategory();
 	}
 	
 	/**

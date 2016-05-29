@@ -203,13 +203,13 @@ public abstract class AbstractInterceptor<T extends IStats> {
 
     private String formAccumulatorNameForMethod(final OnDemandStatsProducer<T> producer, final Accumulate annotation, final Method m) {
         if (producer != null && annotation != null && m != null)
-            return producer.getProducerId()+"."+m.getName()+"."+annotation.valueName()+"."+annotation.intervalName();
+            return producer.getProducerId()+ '.' +m.getName()+ '.' +annotation.valueName()+ '.' +annotation.intervalName();
         return "";
     }
 
     private String formAccumulatorNameForClass(final OnDemandStatsProducer<T> producer, final Accumulate annotation) {
         if (producer != null && annotation != null)
-            return producer.getProducerId()+"."+annotation.valueName()+"."+annotation.intervalName();
+            return producer.getProducerId()+ '.' +annotation.valueName()+ '.' +annotation.intervalName();
         return "";
     }
 

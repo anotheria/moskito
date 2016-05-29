@@ -97,7 +97,7 @@ public abstract class TieableRepository<T extends Tieable> implements IProducerR
 				try{
 					tie(t, producer);
 				}catch(Exception e){
-					log.error("notifyProducerRegistered("+producer+")",e );
+					log.error("notifyProducerRegistered("+producer+ ')',e );
 				}
 			}
 		}
@@ -141,7 +141,7 @@ public abstract class TieableRepository<T extends Tieable> implements IProducerR
 		String name = t.getName();
 		int i=1;
 		while( tieables.get(name)!=null){
-			name = t.getName()+"-"+(i++);
+			name = t.getName()+ '-' +(i++);
 		}
 		definition.setName(name);//set net name, in order to prevent name conflicts.
 		tieables.put(t.getName(), t);

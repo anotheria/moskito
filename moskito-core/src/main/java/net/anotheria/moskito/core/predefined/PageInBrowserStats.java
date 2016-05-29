@@ -284,7 +284,7 @@ public class PageInBrowserStats extends AbstractStats {
 	 * @return formatted stats string
 	 */
 	private String toFormattedStatsString(final PageInBrowserStatsValueName valueName, final String value) {
-		return " " + valueName.getValueName() + ": " + value;
+		return ' ' + valueName.getValueName() + ": " + value;
 	}
 
 	@Override

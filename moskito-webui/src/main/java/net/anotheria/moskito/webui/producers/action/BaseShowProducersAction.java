@@ -134,8 +134,8 @@ public abstract class BaseShowProducersAction extends BaseMoskitoUIAction {
 					decoratorMap.put(decorator, decoratoredProducers);
 
 					for(StatValueAO statBean : producer.getFirstStatsValues()){
-						String graphKey = decorator.getName()+"_"+statBean.getName();
-						GraphDataBean graphDataBean = new GraphDataBean(decorator.getName()+"_"+statBean.getJsVariableName(), statBean.getName());
+						String graphKey = decorator.getName()+ '_' +statBean.getName();
+						GraphDataBean graphDataBean = new GraphDataBean(decorator.getName()+ '_' +statBean.getJsVariableName(), statBean.getName());
 						graphData.put(graphKey, graphDataBean);
 					}
 				}
@@ -157,7 +157,7 @@ public abstract class BaseShowProducersAction extends BaseMoskitoUIAction {
 				try {
 					List<StatValueAO> values = p.getFirstStatsValues();
 					for (StatValueAO valueBean : values){
-						String graphKey = decorator.getName()+"_"+valueBean.getName();
+						String graphKey = decorator.getName()+ '_' +valueBean.getName();
 						GraphDataBean bean = graphData.get(graphKey); 
 						if (bean==null) {
 						    // FIXME!

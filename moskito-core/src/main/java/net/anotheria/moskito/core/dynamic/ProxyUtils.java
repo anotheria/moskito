@@ -48,7 +48,7 @@ public class ProxyUtils {
 				impl,
 				handler,
 				statsFactory,
-				name+"-"+getInstanceCounter(name),
+				name+ '-' +getInstanceCounter(name),
 				category,
 				subsystem,
 				interfacesParameter

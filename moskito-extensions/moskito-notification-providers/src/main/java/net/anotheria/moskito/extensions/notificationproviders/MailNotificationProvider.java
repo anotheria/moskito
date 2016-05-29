@@ -101,7 +101,7 @@ public class MailNotificationProvider implements NotificationProvider {
                         log.error("Can't send message to " + r);
 
                 } catch (Exception e) {
-                    log.error("onNewAlert(" + alert + "), to:  " + r + ")", e);
+                    log.error("onNewAlert(" + alert + "), to:  " + r + ')', e);
                 }
             }
         } else {

@@ -85,7 +85,7 @@ public class TracerRepository {
 		if (config.isLoggingEnabled()){
 			traceLog.info(NumberUtils.makeISO8601TimestampString()+", call: "+aNewTrace.getCall()+" duration: "+aNewTrace.getDuration());
 			for (StackTraceElement e : aNewTrace.getElements()){
-				traceLog.info("\t"+e.toString());
+				traceLog.info('\t' +e.toString());
 			}
 		}
 	}

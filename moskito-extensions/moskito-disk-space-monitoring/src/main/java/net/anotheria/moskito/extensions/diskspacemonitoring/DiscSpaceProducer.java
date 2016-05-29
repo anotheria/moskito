@@ -101,6 +101,6 @@ public class DiscSpaceProducer implements IStatsProducer {
     }
 
     @Override public String toString(){
-        return super.toString()+" "+this.getClass().getSimpleName();
+        return super.toString()+ ' ' +this.getClass().getSimpleName();
     }
 }

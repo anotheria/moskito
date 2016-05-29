@@ -135,7 +135,7 @@ public class TraceStep implements Serializable{
 		if (isAborted())
 			ret.append(" aborted.");
 		else
-			ret.append(".");
+			ret.append('.');
 		return ret.toString();
 	}
 	

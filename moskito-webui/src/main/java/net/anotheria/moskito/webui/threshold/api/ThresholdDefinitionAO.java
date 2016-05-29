@@ -133,7 +133,7 @@ public class ThresholdDefinitionAO implements Serializable{
 
 	@Override
 	public String toString() {
-		return id+"/"+producerName+"/"+statName+"/"+valueName+"/"+valueName;
+		return id+ '/' +producerName+ '/' +statName+ '/' +valueName+ '/' +valueName;
 	}
 
 	public TimeUnit getTimeUnit() {

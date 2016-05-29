@@ -51,7 +51,7 @@ public class RemoteInstance implements Serializable{
 	}
 
 	public String toString(){
-		return getName()+"@"+getHost()+":"+getPort();
+		return getName()+ '@' +getHost()+ ':' +getPort();
 	}
 
 	/**
@@ -59,7 +59,7 @@ public class RemoteInstance implements Serializable{
 	 * @return
 	 */
 	public String getSelectKey(){
-		return getHost()+"-"+getPort();
+		return getHost()+ '-' +getPort();
 	}
 
 	/**

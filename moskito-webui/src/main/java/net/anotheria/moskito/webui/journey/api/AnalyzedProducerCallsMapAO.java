@@ -36,7 +36,7 @@ public class AnalyzedProducerCallsMapAO implements Serializable {
 	}
 	
 	@Override public String toString(){
-		return name + " "+beans;
+		return name + ' ' +beans;
 	}
 
 	/**

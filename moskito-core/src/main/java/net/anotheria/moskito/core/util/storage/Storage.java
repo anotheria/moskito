@@ -79,7 +79,7 @@ public class Storage<K,V> implements IStatsProducer<StorageStats>, Inspectable, 
 	 * @param aWrapper wrapper name
 	 */
 	public Storage(String aName, StorageWrapper<K, V> aWrapper){
-		name = aName + "-"+ instanceCount.incrementAndGet();
+		name = aName + '-' + instanceCount.incrementAndGet();
 		wrapper = aWrapper;
 		stats = new StorageStats(name);
 		

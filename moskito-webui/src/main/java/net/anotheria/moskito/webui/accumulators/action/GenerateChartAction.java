@@ -86,7 +86,7 @@ public class GenerateChartAction implements Action {
             chart.addLineDefinition(new OfflineChartLineDefinition(accData.getName()));
             chartSourceData[i++] = accData;
 
-            log.debug("Adding on pos " + (i - 1) + " " + accData);
+            log.debug("Adding on pos " + (i - 1) + ' ' + accData);
         }
 
         if (accNames.length > 1) fileName = "CombinedChart";

@@ -69,7 +69,7 @@ public class EntryCountLimitedOnDemandStatsProducer<S extends IStats> extends On
 	}
 	
 	@Override public String toString(){
-		return super.toString()+" ("+getCachedStatsList().size()+" / "+limit+")";
+		return super.toString()+" ("+getCachedStatsList().size()+" / "+limit+ ')';
 	}
 	
 	

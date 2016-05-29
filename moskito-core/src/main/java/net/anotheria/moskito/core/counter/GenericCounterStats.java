@@ -78,7 +78,7 @@ public abstract class GenericCounterStats extends AbstractStats{
 	}
 
 	@Override public String toString(){
-		return getName()+" "+values.values();
+		return getName()+ ' ' +values.values();
 	}
 
 	public Set<String> getPossibleNames(){

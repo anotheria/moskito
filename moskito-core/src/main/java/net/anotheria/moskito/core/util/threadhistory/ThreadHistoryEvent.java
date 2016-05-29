@@ -56,7 +56,7 @@ public class ThreadHistoryEvent implements Serializable{
 	}
 	
 	@Override public String toString(){
-		return getNiceTimestamp()+" "+getThreadId()+" "+getThreadName()+" "+getOperation();
+		return getNiceTimestamp()+ ' ' +getThreadId()+ ' ' +getThreadName()+ ' ' +getOperation();
 	}
 
 	public long getThreadId() {

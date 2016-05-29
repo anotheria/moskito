@@ -145,7 +145,7 @@ public class Threshold extends AbstractTieable<ThresholdDefinition> implements T
 	}
 	
 	@Override public String toString(){
-		return getName()+" "+getStatus()+" Def: "+getDefinition()+" LastValue: "+getLastValue()+", Guards: "+guards+" active: "+isActivated()+", Stats: "+getStats();
+		return getName()+ ' ' +getStatus()+" Def: "+getDefinition()+" LastValue: "+getLastValue()+", Guards: "+guards+" active: "+isActivated()+", Stats: "+getStats();
 	}
 
 	public long getStatusChangeTimestamp() {

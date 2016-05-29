@@ -134,7 +134,7 @@ public class MonitoringAspect extends AbstractMoskitoAspect{
                 try {
                     currentStep.appendToCall(" = " + TracingUtil.parameter2string(ret));
                 } catch (Throwable t) {
-                    currentStep.appendToCall(" = ERR: " + t.getMessage() + " (" + t.getClass() + ")");
+                    currentStep.appendToCall(" = ERR: " + t.getMessage() + " (" + t.getClass() + ')');
                 }
             }
             if (currentTrace != null) {

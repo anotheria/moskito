@@ -108,7 +108,7 @@ public class ThresholdRepository extends TieableRepository<Threshold> {
 	
 	private ObjectName createName(String name) throws MalformedObjectNameException {
         String appName = RuntimeConstants.getApplicationName();
-		String objectName = "moskito."+(appName.length()>0 ? appName+".":"")+"thresholds:type="+name;
+		String objectName = "moskito."+(appName.length()>0 ? appName+ '.' :"")+"thresholds:type="+name;
         ObjectName objName = new ObjectName(objectName);
         return objName;
 	}

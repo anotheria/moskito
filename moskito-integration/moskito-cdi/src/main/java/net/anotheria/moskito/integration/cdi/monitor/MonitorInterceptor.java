@@ -158,7 +158,7 @@ public class MonitorInterceptor extends AbstractInterceptor<ServiceStats> implem
                 try {
                     currentStep.appendToCall(" = " + TracingUtil.parameter2string(ret));
                 } catch (Throwable t) {
-                    currentStep.appendToCall(" = ERR: " + t.getMessage() + " (" + t.getClass() + ")");
+                    currentStep.appendToCall(" = ERR: " + t.getMessage() + " (" + t.getClass() + ')');
                 }
             }
 

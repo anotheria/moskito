@@ -45,7 +45,7 @@ public class ConnectionCallAspect {
 			"|| call(boolean java.sql.Statement.execute(String,int[]))" +
 			"|| call(boolean java.sql.Statement.execute(String,String[]))" +
 			"|| call(void java.sql.Statement.addBatch(String))" +
-			")" +
+			')' +
 			"&& args(smt) && !within(net.anotheria.moskito.sql.aspect.ConnectionCallAspect)";
 	/**
 	 * Query failed.

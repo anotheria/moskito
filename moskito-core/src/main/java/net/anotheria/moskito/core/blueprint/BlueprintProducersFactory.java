@@ -46,7 +46,7 @@ public class BlueprintProducersFactory {
 			//end producer lookup
 			return producer;
 		}catch(Exception e){
-			log.error("getBlueprintProducer("+producerId+", "+category+", "+subsystem+")", e);
+			log.error("getBlueprintProducer("+producerId+", "+category+", "+subsystem+ ')', e);
 			throw new RuntimeException("Handler instantiation failed - "+e.getMessage());
 		}
 		

@@ -46,7 +46,7 @@ public class MoskitoUIFilter extends MAFFilter{
 			String computerName = NetUtils.getComputerName();
 			config.getServletContext().setAttribute("servername", computerName==null ? "Unknown" : computerName);
 		}catch(Exception e){
-			log.error("init("+config+")", e);
+			log.error("init("+config+ ')', e);
 		}
 
 		String pathToImagesParameter = config.getInitParameter("pathToImages");

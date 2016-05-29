@@ -105,7 +105,7 @@ public class MBeanProducerConfig implements Serializable {
     public String toString() {
         return "MBeanProducerConfig{" + "registerAutomatically=" + registerAutomatically + ", updateAutomatically="
                 + updateAutomatically + ", delayBeforeFirstUpdate=" + delayBeforeFirstUpdate + ", domains="
-                + Arrays.toString(domains) + "}";
+                + Arrays.toString(domains) + '}';
     }
 
 }

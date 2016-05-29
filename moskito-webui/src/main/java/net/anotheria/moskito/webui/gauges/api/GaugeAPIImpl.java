@@ -101,7 +101,7 @@ public class GaugeAPIImpl extends AbstractMoskitoAPIImpl implements GaugeAPI {
 			if (g.getName().equals(name))
 				return g;
 		}
-		throw new APIException("Can't find gauge configuration for '"+name+"'");
+		throw new APIException("Can't find gauge configuration for '"+name+ '\'');
 
 	}
 

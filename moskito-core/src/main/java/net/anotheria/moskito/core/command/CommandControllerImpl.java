@@ -86,26 +86,26 @@ public enum CommandControllerImpl implements CommandController{
 	}
 
 	@Override public void startCommand(String command, Map<String, String[]> parameters) {
-		log.debug("startCommand("+command+", "+parameters+")");
+		log.debug("startCommand("+command+", "+parameters+ ')');
 		CommandProcessor processor = processors.get(command);
 		if (processor==null)
 			return;
 		try{
 			processor.startCommand(command, parameters);
 		}catch(Exception e){
-			log.error("caught in startCommand("+command+", "+parameters+")", e);
+			log.error("caught in startCommand("+command+", "+parameters+ ')', e);
 		}
 	}
 
 	@Override public void stopCommand(String command, Map<String, String[]> parameters) {
-		log.debug("stopCommand("+command+", "+parameters+")");
+		log.debug("stopCommand("+command+", "+parameters+ ')');
 		CommandProcessor processor = processors.get(command);
 		if (processor==null)
 			return;
 		try{
 			processor.stopCommand(command, parameters);
 		}catch(Exception e){
-			log.error("caught in stopCommand("+command+", "+parameters+")", e);
+			log.error("caught in stopCommand("+command+", "+parameters+ ')', e);
 		}
 	}
 

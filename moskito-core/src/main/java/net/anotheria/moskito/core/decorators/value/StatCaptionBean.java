@@ -120,7 +120,7 @@ public class StatCaptionBean {
 	 * @return
 	 */
 	public static final String getJsVariableName(String caption){
-		return "v"+StringUtils.removeChars(caption, TO_REMOVE);
+		return 'v' +StringUtils.removeChars(caption, TO_REMOVE);
 		
 	}
 

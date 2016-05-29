@@ -37,6 +37,6 @@ public class AlertHistoryConfig implements Serializable {
 	}
 
 	@Override public String toString(){
-		return "{maxNumberOfItems: "+maxNumberOfItems+", toleratedNumberOfItems: "+toleratedNumberOfItems+"}";
+		return "{maxNumberOfItems: "+maxNumberOfItems+", toleratedNumberOfItems: "+toleratedNumberOfItems+ '}';
 	}
 }

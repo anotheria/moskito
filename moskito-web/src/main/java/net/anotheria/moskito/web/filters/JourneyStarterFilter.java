@@ -73,8 +73,8 @@ public class JourneyStarterFilter implements Filter{
 		if (req.getPathInfo()!=null)
 			url += req.getPathInfo();
 		if (req.getQueryString()!=null)
-			url += "?"+req.getQueryString();
-		RunningTraceContainer.startTracedCall(record.getUseCaseName() + "-" + url);
+			url += '?' +req.getQueryString();
+		RunningTraceContainer.startTracedCall(record.getUseCaseName() + '-' + url);
 
 		try{
 			filterChain.doFilter(servletRequest, servletResponse);

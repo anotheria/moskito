@@ -75,7 +75,7 @@ public class JMXBridgeListener implements IProducerRegistryListener{
 	 */
 	private ObjectName createName(String producerId, String statName) throws MalformedObjectNameException{
 		String appName = encodeAppName(RuntimeConstants.getApplicationName());
-		String objectName = "MoSKito."+(appName.length()>0 ? appName+".":"")+"producers:type="+producerId+"."+statName;
+		String objectName = "MoSKito."+(appName.length()>0 ? appName+ '.' :"")+"producers:type="+producerId+ '.' +statName;
 		ObjectName objName = new ObjectName(objectName);
 		return objName;
 	}

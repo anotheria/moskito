@@ -73,7 +73,7 @@ public class SessionCountProducer extends AbstractBuiltInProducer<SessionCountSt
 	}
 	
 	@Override public String toString(){
-		return getProducerId()+" "+getStats();
+		return getProducerId()+ ' ' +getStats();
 		
 	}
 }

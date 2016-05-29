@@ -91,7 +91,7 @@ public class QueuingSystemStats extends AbstractStats {
 		}
 		
 		public String getStatLabel(){
-			return " " + statName + ": ";
+			return ' ' + statName + ": ";
 		}
 		
 		public static List<String> getStatNames(){
