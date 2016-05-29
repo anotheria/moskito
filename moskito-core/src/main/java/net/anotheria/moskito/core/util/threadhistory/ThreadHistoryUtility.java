@@ -124,9 +124,9 @@ public enum ThreadHistoryUtility {
 	public List<ThreadHistoryEvent> getThreadHistoryEvents(){
 		ArrayList<ThreadHistoryEvent> ret = null;
 		lock.readLock().lock();
-		try{
-			ret = (ArrayList<ThreadHistoryEvent>) eventList.clone();
-		}finally{
+		try {
+			ret = new ArrayList<>(eventList);
+		} finally {
 			lock.readLock().unlock();
 		}
 		return ret;
