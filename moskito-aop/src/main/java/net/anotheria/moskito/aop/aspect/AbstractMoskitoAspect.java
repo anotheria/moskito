@@ -15,6 +15,7 @@ import org.aspectj.lang.ProceedingJoinPoint;
 import java.lang.reflect.Method;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentMap;
 
 /**
  * The basic aspect class.
@@ -27,7 +28,7 @@ public class AbstractMoskitoAspect<S extends IStats> {
     /**
      * Map with created producers.
      */
-    private Map<String, OnDemandStatsProducer<S>> producers = new ConcurrentHashMap<>();
+    private ConcurrentMap<String, OnDemandStatsProducer<S>> producers = new ConcurrentHashMap<>();
 
     /**
      * Returns the producer for the given pjp and producerId. Registers the producer in the registry if it's not already registered.
