@@ -58,7 +58,15 @@ public class ProxyUtils {
 		return ret;
 	}
 
-	public static <T> Class<?>[] mergeInterfaces(Class<T> interf, Class<?>... additionalInterfaces) {
+	/**
+	 * Creates an array consisting of an interface class (first parameter) and optionally some more additional interface
+	 * classes.
+	 *
+	 * @param interf The interface that will be positioned as the first element of the array
+	 * @param additionalInterfaces Optional additional interfaces, that will be appended to the array
+     * @return an array containing the interface and some more interfaces if given
+     */
+	public static Class<?>[] mergeInterfaces(Class<?> interf, Class<?>... additionalInterfaces) {
 		Class<?>[] interfacesParameter = new Class<?>[additionalInterfaces==null ? 1 : 1 + additionalInterfaces.length];
 		interfacesParameter[0] = interf;
 		if (additionalInterfaces!=null){
