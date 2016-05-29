@@ -104,7 +104,7 @@ public enum ThreadHistoryUtility {
 				}
 			}
 			//now check deleted
-			for (Long oldId : oldIds.toArray(PATTERN)){
+			for (Long oldId : oldIds.toArray(new Long[oldIds.size()])){
 				ThreadHistoryEvent event = ThreadHistoryEvent.deleted(oldId, "");
 				runningThreadIds.remove(oldId);
 				eventList.add(event);
