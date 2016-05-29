@@ -60,7 +60,7 @@ public abstract class AbstractStats implements IStats, StatsMXBean{
 	/**
 	 * Cached empty list object.
 	 */
-	private static final List<String> EMPTY_LIST = Collections.unmodifiableList(new ArrayList<String>());
+	private static final List<String> EMPTY_LIST = Collections.emptyList();
 
 	/**
 	 * Contains all stat values that are part of this StatsObject. This is used to properly destroy them.
