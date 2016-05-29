@@ -163,14 +163,8 @@ public class DashboardAPIImpl extends AbstractMoskitoAPIImpl implements Dashboar
 				DashboardChartAO bean = new DashboardChartAO();
 				if (cc.getCaption()!=null){
 					bean.setCaption(cc.getCaption());
-				}else{
-					String caption = "";
-					for (String acc : cc.getAccumulators()){
-						if (caption.length()!=0)
-							caption += " ";
-						caption += acc;
-					}
-					bean.setCaption(caption);
+				} else{
+					bean.setCaption(cc.buildCaption());
 				}
 
 				LinkedList<String> chartIds = new LinkedList<String>();

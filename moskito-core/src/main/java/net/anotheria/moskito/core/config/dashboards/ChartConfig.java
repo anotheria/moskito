@@ -49,4 +49,18 @@ public class ChartConfig implements Serializable{
 				", caption='" + caption + '\'' +
 				'}';
 	}
+
+	public String buildCaption() {
+		StringBuilder captionBuilder = new StringBuilder();
+
+		int numAccumulators = accumulators.length;
+		for (int i = 0; i < numAccumulators; i++) {
+			String accumulator = accumulators[i];
+			captionBuilder.append(accumulator);
+			if (i != numAccumulators - 1) {
+				captionBuilder.append(' ');
+			}
+		}
+		return captionBuilder.toString();
+	}
 }
