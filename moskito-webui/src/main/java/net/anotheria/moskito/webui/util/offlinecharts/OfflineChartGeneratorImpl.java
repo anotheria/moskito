@@ -111,7 +111,7 @@ public class OfflineChartGeneratorImpl implements OfflineChartGenerator{
 
         private double getPointY(String s) {
             int toG = 1000000000;
-            return !s.equals("") ? Double.parseDouble(s)/ toG : 0;
+            return !s.isEmpty() ? Double.parseDouble(s)/ toG : 0;
         }
 
     }

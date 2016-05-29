@@ -180,7 +180,7 @@ public class ServletStats extends RequestOrientedStats{
 	@Override
 	public String getValueByNameAsString(String valueName, String intervalName,
 			TimeUnit timeUnit) {
-		if (valueName==null || valueName.equals(""))
+		if (valueName==null || valueName.isEmpty())
 			throw new AssertionError("Value name can not be empty");
 		valueName = valueName.toLowerCase();
 
