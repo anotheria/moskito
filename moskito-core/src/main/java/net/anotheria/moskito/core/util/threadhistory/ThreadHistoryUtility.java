@@ -89,7 +89,7 @@ public enum ThreadHistoryUtility {
 		lock.writeLock().lock();
 		try{
 			long[] ids = mxBean.getAllThreadIds();
-			HashSet<Long> oldIds = (HashSet<Long> )runningThreadIds.clone();
+			Set<Long> oldIds = new HashSet<>(runningThreadIds);
 			for (long _id : ids){
 				Long id = _id;
 				oldIds.remove(id);
