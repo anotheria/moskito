@@ -62,7 +62,8 @@ public class MonitorInterceptor extends AbstractInterceptor<ServiceStats> implem
         final Monitor annotation = getAnnotationFromContext(ctx, Monitor.class);
 
         // if producer id isn't specified by client - use class name
-        final String producerId = annotation.producerId().isEmpty() ? method.getDeclaringClass().getSimpleName() : annotation.producerId();
+        String className = method.getDeclaringClass().getSimpleName();
+        final String producerId = annotation.producerId().isEmpty() ? className : annotation.producerId();
 
         final OnDemandStatsProducer onDemandProducer = getProducer(method.getDeclaringClass(), producerId, annotation.category(), annotation.subsystem(), true);
 
@@ -82,8 +83,11 @@ public class MonitorInterceptor extends AbstractInterceptor<ServiceStats> implem
         final TracedCall aRunningTrace = RunningTraceContainer.getCurrentlyTracedCall();
         TraceStep currentStep = null;
         CurrentlyTracedCall currentTrace = aRunningTrace.callTraced() ? (CurrentlyTracedCall) aRunningTrace : null;
+        String methodName = method.getName();
         if (currentTrace != null) {
-            currentStep = currentTrace.startStep(TracingUtil.buildCall(method, parameters), onDemandProducer);
+            String optionalPrefix = null;
+            String call = TracingUtil.buildCall(className, methodName, parameters, optionalPrefix).toString();
+            currentStep = currentTrace.startStep(call, onDemandProducer);
         }
 
         TracerRepository tracerRepository = TracerRepository.getInstance();
@@ -107,7 +111,7 @@ public class MonitorInterceptor extends AbstractInterceptor<ServiceStats> implem
 
         StringBuilder call = null;
         if (currentTrace != null || tracePassingOfThisProducer) {
-            call = TracingUtil.buildCall(producerId, method.getName(), parameters, tracePassingOfThisProducer ? Tracers.getCallName(trace) : null);
+            call = TracingUtil.buildCall(producerId, methodName, parameters, tracePassingOfThisProducer ? Tracers.getCallName(trace) : null);
         }
         if (currentTrace != null) {
             currentStep = currentTrace.startStep(call.toString(), onDemandProducer);
