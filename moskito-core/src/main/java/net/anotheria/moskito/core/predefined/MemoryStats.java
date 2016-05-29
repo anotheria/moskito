@@ -77,19 +77,19 @@ public class MemoryStats extends AbstractStats {
 		valueName = valueName.toLowerCase();
 
 		if (valueName.equals("current") || valueName.equals("cur"))
-			return ""+getCurrent(intervalName);
+			return String.valueOf(getCurrent(intervalName));
 		if (valueName.equals("current mb") || valueName.equals("cur mb"))
-			return ""+(getCurrent(intervalName)/MB);
+			return String.valueOf(getCurrent(intervalName) / MB);
 
 		if (valueName.equals("min") )
-			return ""+getMin(intervalName);
+			return String.valueOf(getMin(intervalName));
 		if (valueName.equals("min mb"))
-			return ""+(getMin(intervalName)/MB);
+			return String.valueOf(getMin(intervalName) / MB);
 
 		if (valueName.equals("max") )
-			return ""+getMax(intervalName);
+			return String.valueOf(getMax(intervalName));
 		if (valueName.equals("max mb"))
-			return ""+(getMax(intervalName)/MB);
+			return String.valueOf(getMax(intervalName) / MB);
 
 		return super.getValueByNameAsString(valueName, intervalName, timeUnit);
 	}

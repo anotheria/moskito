@@ -30,7 +30,7 @@ public class LongBarrierPassGuard extends BarrierPassGuard implements Serializab
 	}
 	
 	@Override public String getValueAsString(){
-		return ""+barrierValue;
+		return String.valueOf(barrierValue);
 	}
 	
 	@Override protected Number getValueAsNumber(String aValue){

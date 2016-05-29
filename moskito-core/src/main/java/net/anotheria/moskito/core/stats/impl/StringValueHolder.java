@@ -140,7 +140,7 @@ class StringValueHolder extends AbstractValueHolder {
 	}
 
 	@Override public void setValueAsInt(int aValue) {
-		currentValue = ""+aValue;
+		currentValue = String.valueOf(aValue);
 	}
 
 	@Override public void setValueAsLong(long aValue) {
@@ -152,7 +152,7 @@ class StringValueHolder extends AbstractValueHolder {
 	}
 
 	@Override public void setDefaultValueAsInt(int aValue) {
-		defaultValue = ""+aValue;
+		defaultValue = String.valueOf(aValue);
 	}
 
 	@Override public void setDefaultValueAsDouble(double aValue) {
@@ -184,7 +184,7 @@ class StringValueHolder extends AbstractValueHolder {
 		return lastValue;
 	}
 	@Override public String getCurrentValueAsString() {
-		return ""+currentValue;
+		return currentValue;
 	}
 
 }

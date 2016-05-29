@@ -24,7 +24,7 @@ public class MatcherValueRowMapper extends RowMapper<MatcherValue> {
     public MatcherValue map(ResultSet row) throws RowMapperException {
         try {
             long id = row.getLong(1);
-            MatcherValue ret = new MatcherValueVO("" + id);
+            MatcherValue ret = new MatcherValueVO(String.valueOf(id));
             ret.setType(row.getInt(2));
             ret.setValue(row.getString(3));
             ret.setMatcherId(row.getString(4));

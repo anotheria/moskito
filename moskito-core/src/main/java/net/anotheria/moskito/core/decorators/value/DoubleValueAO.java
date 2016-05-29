@@ -65,7 +65,7 @@ public class DoubleValueAO extends StatValueAO {
 			doubleValue = aValue;
 		
 		double floatingPart = doubleValue - (int)doubleValue;
-		String fpAsString = ""+floatingPart;
+		String fpAsString = String.valueOf(floatingPart);
 		if (fpAsString.length()>6)
 			fpAsString = fpAsString.substring(0, 5);
 		while(fpAsString.length()<5)
@@ -87,6 +87,6 @@ public class DoubleValueAO extends StatValueAO {
 
 	@Override
 	public String getRawValue() {
-		return ""+doubleValue;
+		return String.valueOf(doubleValue);
 	}
 }

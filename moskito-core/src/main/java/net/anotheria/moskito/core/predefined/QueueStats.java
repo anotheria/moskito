@@ -283,34 +283,34 @@ public class QueueStats extends AbstractStats {
 			throw new AssertionError("Value name can not be empty");
 		
 		if (valueName.equalsIgnoreCase(StatDef.REQUESTS.getStatName()))
-				return ""+getRequests(intervalName);
+				return String.valueOf(getRequests(intervalName));
 				
 		if (valueName.equalsIgnoreCase(StatDef.ENQUEUED.getStatName()))
-			return ""+getEnqueued(intervalName);
+			return String.valueOf(getEnqueued(intervalName));
 		
 		if (valueName.equalsIgnoreCase(StatDef.DEQUEUED.getStatName()))
-			return ""+getDequeued(intervalName);
+			return String.valueOf(getDequeued(intervalName));
 		
 		if (valueName.equalsIgnoreCase(StatDef.FULL.getStatName()))
-			return ""+getFull(intervalName);
+			return String.valueOf(getFull(intervalName));
 		
 		if (valueName.equalsIgnoreCase(StatDef.EMPTY.getStatName()))
-			return ""+getEmpty(intervalName);
+			return String.valueOf(getEmpty(intervalName));
 		
 		if (valueName.equalsIgnoreCase(StatDef.TOTAL_SIZE.getStatName()))
-			return ""+getTotalSize(intervalName);
+			return String.valueOf(getTotalSize(intervalName));
 		
 		if (valueName.equalsIgnoreCase(StatDef.ENQUEUE_LAST_SIZE.getStatName()))
-			return ""+getOnRequestLastSize(intervalName);
+			return String.valueOf(getOnRequestLastSize(intervalName));
 		
 		if (valueName.equalsIgnoreCase(StatDef.ENQUEUE_MIN_SIZE.getStatName()))
-			return ""+getOnRequestMinSize(intervalName);
+			return String.valueOf(getOnRequestMinSize(intervalName));
 		
 		if (valueName.equalsIgnoreCase(StatDef.ENQUEUE_MAX_SIZE.getStatName()))
-			return ""+getOnRequestMaxSize(intervalName);
+			return String.valueOf(getOnRequestMaxSize(intervalName));
 		
 		if (valueName.equals(StatDef.ENQUEUE_AVERAGE_SIZE.getStatName()))
-			return ""+getOnRequestAverageSize(intervalName);
+			return String.valueOf(getOnRequestAverageSize(intervalName));
 
 		return super.getValueByNameAsString(valueName, intervalName, timeUnit);
 	}

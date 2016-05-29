@@ -29,7 +29,7 @@ public abstract class AbstractTieable<D extends TieableDefinition> implements Ti
 	 */
 	protected AbstractTieable(D aDefinition){
 		definition = aDefinition;
-		id = ""+instanceCounter.incrementAndGet();
+		id = String.valueOf(instanceCounter.incrementAndGet());
 
 	}
 	

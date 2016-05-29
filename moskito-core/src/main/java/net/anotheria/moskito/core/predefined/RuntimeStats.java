@@ -83,9 +83,9 @@ public class RuntimeStats extends AbstractStats {
 		if (valueName.equals("process") || valueName.equals("name") || valueName.equals("processname"))
 			return processName.getValueAsString(intervalName);
 		if (valueName.equals("starttime"))
-			return ""+getStartTime(intervalName);
+			return String.valueOf(getStartTime(intervalName));
 		if (valueName.equals("uptime"))
-			return ""+getUptime(intervalName);
+			return String.valueOf(getUptime(intervalName));
 		
 		return super.getValueByNameAsString(valueName, intervalName, timeUnit);
 	}

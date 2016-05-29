@@ -44,7 +44,7 @@ public class MonitoredEhcacheTest {
         /* adding 100 elements into cache */
         List<Element> elements = new LinkedList<Element>();
         for(int i = 1; i <= 100; i++) {
-            elements.add(new Element("element"+i, ""+i));
+            elements.add(new Element("element"+i, String.valueOf(i)));
         }
 
         /* let's hit the cache for 150 times */

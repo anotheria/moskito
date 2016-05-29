@@ -307,25 +307,25 @@ public class CacheStats extends AbstractStats {
 			throw new AssertionError("Value name can not be empty");
 		valueName = valueName.toLowerCase();
 		if (valueName.equals("req"))
-			return ""+requests.getValueAsLong(intervalName);
+			return String.valueOf(requests.getValueAsLong(intervalName));
 		if (valueName.equals("hit"))
-			return ""+hits.getValueAsLong(intervalName);
+			return String.valueOf(hits.getValueAsLong(intervalName));
 		if (valueName.equals("hr"))
-			return ""+getHitRatio(intervalName);
+			return String.valueOf(getHitRatio(intervalName));
 		if (valueName.equals("wr"))
-			return ""+writes.getValueAsLong(intervalName);
+			return String.valueOf(writes.getValueAsLong(intervalName));
 		if (valueName.equals("gc"))
-			return ""+garbageCollected.getValueAsLong(intervalName);
+			return String.valueOf(garbageCollected.getValueAsLong(intervalName));
 		if (valueName.equals("ro"))
-			return ""+rolloverCount.getValueAsLong(intervalName);
+			return String.valueOf(rolloverCount.getValueAsLong(intervalName));
 		if (valueName.equals("fu"))
-			return ""+cacheFullCount.getValueAsLong(intervalName);
+			return String.valueOf(cacheFullCount.getValueAsLong(intervalName));
 		if (valueName.equals("ex"))
-			return ""+expiredCount.getValueAsLong(intervalName);
+			return String.valueOf(expiredCount.getValueAsLong(intervalName));
 		if (valueName.equals("del"))
-			return ""+deletes.getValueAsLong(intervalName);
+			return String.valueOf(deletes.getValueAsLong(intervalName));
 		if (valueName.equals("fi"))
-			return ""+filteredCount.getValueAsLong(intervalName);
+			return String.valueOf(filteredCount.getValueAsLong(intervalName));
 		return super.getValueByNameAsString(valueName, intervalName, timeUnit);
 	}
 }

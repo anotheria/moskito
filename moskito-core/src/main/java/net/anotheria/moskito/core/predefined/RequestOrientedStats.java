@@ -291,25 +291,25 @@ public abstract class RequestOrientedStats extends AbstractStats {
 			throw new AssertionError("Value name can not be empty");
 		valueName = valueName.toLowerCase();
 		if (valueName.equals("tr") || valueName.equals("req"))
-			return "" + totalRequests.getValueAsLong(intervalName);
+			return String.valueOf(totalRequests.getValueAsLong(intervalName));
 		if (valueName.equals("tt")|| valueName.equals("time") || valueName.equals("totaltime"))
-			return "" + timeUnit.transformNanos(totalTime.getValueAsLong(intervalName));
+			return String.valueOf(timeUnit.transformNanos(totalTime.getValueAsLong(intervalName)));
 		if (valueName.equals("cr"))
-			return "" + currentRequests.getValueAsLong(intervalName);
+			return String.valueOf(currentRequests.getValueAsLong(intervalName));
 		if (valueName.equals("mcr"))
-			return "" + maxCurrentRequests.getValueAsLong(intervalName);
+			return String.valueOf(maxCurrentRequests.getValueAsLong(intervalName));
 		if (valueName.equals("err"))
-			return "" + errors.getValueAsLong(intervalName);
+			return String.valueOf(errors.getValueAsLong(intervalName));
 		if (valueName.equals("last"))
-			return "" + timeUnit.transformNanos(lastRequest.getValueAsLong(intervalName));
+			return String.valueOf(timeUnit.transformNanos(lastRequest.getValueAsLong(intervalName)));
 		if (valueName.equals("min"))
-			return "" + timeUnit.transformNanos(minTime.getValueAsLong(intervalName));
+			return String.valueOf(timeUnit.transformNanos(minTime.getValueAsLong(intervalName)));
 		if (valueName.equals("max"))
-			return "" + timeUnit.transformNanos(maxTime.getValueAsLong(intervalName));
+			return String.valueOf(timeUnit.transformNanos(maxTime.getValueAsLong(intervalName)));
 		if (valueName.equals("avg"))
-			return "" + getAverageRequestDuration(intervalName, timeUnit);
+			return String.valueOf(getAverageRequestDuration(intervalName, timeUnit));
 		if (valueName.equals("erate") || valueName.equals("errorrate") || valueName.equals("errrate"))
-			return "" + getErrorRate(intervalName);
+			return String.valueOf(getErrorRate(intervalName));
 
 		return super.getValueByNameAsString(valueName, intervalName, timeUnit);
 	}

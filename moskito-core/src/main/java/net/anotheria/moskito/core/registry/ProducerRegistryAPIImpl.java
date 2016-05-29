@@ -147,9 +147,9 @@ public class ProducerRegistryAPIImpl implements IProducerRegistryAPI, IProducerR
 
 		if (log.isDebugEnabled()){
 			log.debug("Cachedproducer list contains "+_cachedProducerList.size()+" producers: ");
-			log.debug(""+_cachedProducerList);
+			log.debug(String.valueOf(_cachedProducerList));
 			log.debug("Cached producer map contains: "+_cachedProducerMap.size()+" producers");
-			log.debug(""+_cachedProducerMap);
+			log.debug(String.valueOf(_cachedProducerMap));
 		}
 	}
 

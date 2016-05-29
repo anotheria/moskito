@@ -259,7 +259,7 @@ public class AccumulatorAPIImpl extends AbstractMoskitoAPIImpl implements Accumu
 			//step2 recalculate
 			for (int i=0; i<values.size(); i++){
 				float newValue = (valueCopy.get(i)-min)*multiplier;
-				values.get(i).setValue(name, ""+newValue);
+				values.get(i).setValue(name, String.valueOf(newValue));
 			}
 		}
 	}

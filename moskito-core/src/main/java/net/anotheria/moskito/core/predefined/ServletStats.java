@@ -185,11 +185,11 @@ public class ServletStats extends RequestOrientedStats{
 		valueName = valueName.toLowerCase();
 
 		if (valueName.equals("ioexc"))
-			return "" + ioExceptions.getValueAsLong(intervalName); 
+			return String.valueOf(ioExceptions.getValueAsLong(intervalName));
 		if (valueName.equals("seexc"))
-			return "" + servletExceptions.getValueAsLong(intervalName);
+			return String.valueOf(servletExceptions.getValueAsLong(intervalName));
 		if (valueName.equals("rtexc"))
-			return "" + runtimeExceptions.getValueAsLong(intervalName);
+			return String.valueOf(runtimeExceptions.getValueAsLong(intervalName));
 		return super.getValueByNameAsString(valueName, intervalName, timeUnit);
 	}
 }

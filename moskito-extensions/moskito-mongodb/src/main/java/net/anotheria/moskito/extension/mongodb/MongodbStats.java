@@ -117,13 +117,13 @@ public class MongodbStats extends AbstractStats {
             return getFlushes().getValueAsString(intervalName);
         }
         if (valueName.equals(MongoStatsFields.TOTAL_MS_WRITE.toString())) {
-            return "" + timeUnit.transformMillis(getTotal_ms_write().getValueAsLong(intervalName));
+            return String.valueOf(timeUnit.transformMillis(getTotal_ms_write().getValueAsLong(intervalName)));
         }
         if (valueName.equals(MongoStatsFields.AVG_MS_WRITE.toString())) {
-            return "" + timeUnit.transformMillis(getAvg_ms_write().getValueAsDouble(intervalName));
+            return String.valueOf(timeUnit.transformMillis(getAvg_ms_write().getValueAsDouble(intervalName)));
         }
         if (valueName.equals(MongoStatsFields.LAST_MS_WRITE.toString())) {
-            return "" + timeUnit.transformMillis(getLast_ms_write().getValueAsDouble(intervalName));
+            return String.valueOf(timeUnit.transformMillis(getLast_ms_write().getValueAsDouble(intervalName)));
         }
         if (valueName.equals(MongoStatsFields.CURRENT_CONNECTIONS.toString())) {
             return getCurrent_connections().getValueAsString(intervalName);

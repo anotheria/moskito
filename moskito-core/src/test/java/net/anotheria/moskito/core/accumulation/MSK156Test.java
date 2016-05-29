@@ -16,7 +16,7 @@ public class MSK156Test {
 
 		//fill the list.
 		for (int i=0; i<10; i++){
-			acc.addValue("" + i);
+			acc.addValue(String.valueOf(i));
 		}
 
 		//this call shouldn't crash yet.
@@ -24,7 +24,7 @@ public class MSK156Test {
 
 		//fill the list until the sublist is too long, 2800 or more.
 		for (int i=0; i<5600*2; i++){
-			acc.addValue("" + i);
+			acc.addValue(String.valueOf(i));
 		}
 
 		//this call should produce stackoverflow.

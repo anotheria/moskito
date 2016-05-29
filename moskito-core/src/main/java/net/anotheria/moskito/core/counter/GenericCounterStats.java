@@ -92,7 +92,7 @@ public abstract class GenericCounterStats extends AbstractStats{
 		if (valueName==null || valueName.equals(""))
 			throw new AssertionError("Value name can not be empty");
 		valueName = valueName.toLowerCase();
-		return ""+values.get(valueName).getValueAsLong(intervalName);
+		return String.valueOf(values.get(valueName).getValueAsLong(intervalName));
 	}
 
 	@Override

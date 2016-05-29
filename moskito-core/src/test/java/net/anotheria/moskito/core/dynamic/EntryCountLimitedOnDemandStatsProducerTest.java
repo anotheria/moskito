@@ -22,7 +22,7 @@ public class EntryCountLimitedOnDemandStatsProducerTest {
 		p.setLimit(limit);
 		assertEquals("expected previously set limit", limit, p.getLimit());
 		for (int i=0; i<limit; i++)
-			p.getStats(""+i);
+			p.getStats(String.valueOf(i));
 		//now limit should be reached.
 		try{
 			p.getStats("bla");

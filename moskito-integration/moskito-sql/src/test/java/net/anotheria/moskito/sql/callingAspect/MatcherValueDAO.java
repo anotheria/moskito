@@ -260,7 +260,7 @@ public class MatcherValueDAO implements DAO{
 				int rows = ps.executeUpdate();
 				if (rows!=1)
 					throw new DAOException("Create failed, updated rows: "+rows);
-				MatcherValueVO newMatchervalue = new MatcherValueVO(""+nextId);
+				MatcherValueVO newMatchervalue = new MatcherValueVO(String.valueOf(nextId));
 				newMatchervalue.copyAttributesFrom(matchervalue);
 				con.commit();
 				return newMatchervalue;
@@ -300,7 +300,7 @@ public class MatcherValueDAO implements DAO{
 					int rows = ps.executeUpdate();
 					if (rows!=1)
 						throw new DAOException("Create failed, updated rows: "+rows);
-					MatcherValueVO newMatchervalue = new MatcherValueVO(""+nextId);
+					MatcherValueVO newMatchervalue = new MatcherValueVO(String.valueOf(nextId));
 					newMatchervalue.copyAttributesFrom(matchervalue);
 					ret.add(newMatchervalue);
 				}

@@ -59,7 +59,7 @@ public class AdditionalFunctionalityAPIImpl extends AbstractMoskitoAPIImpl imple
 			MoskitoPlugin plugin = PluginRepository.getInstance().getPlugin(s);
 
 			try{
-				ao.setDescription(""+plugin);
+				ao.setDescription(String.valueOf(plugin));
 			}catch(Exception e){
 				ao.setDescription("Error: "+e.getMessage());
 			}
