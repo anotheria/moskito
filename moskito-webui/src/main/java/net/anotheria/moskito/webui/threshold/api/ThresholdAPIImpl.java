@@ -77,7 +77,7 @@ public class ThresholdAPIImpl extends AbstractMoskitoAPIImpl implements Threshol
 
 	@Override
 	public void updateThreshold(String thresholdId, ThresholdPO po) throws APIException{
-		Threshold oldThreshold = ThresholdRepository.getInstance().getById(thresholdId);
+		Threshold oldThreshold =  ThresholdRepository.getInstance().getById(thresholdId);
 		ThresholdDefinition td = oldThreshold.getDefinition();
 		td.setName(po.getName());
 

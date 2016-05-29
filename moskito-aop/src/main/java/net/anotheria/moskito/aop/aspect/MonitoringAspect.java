@@ -28,7 +28,7 @@ import java.lang.reflect.InvocationTargetException;
  * @author bvanchuhov
  */
 @Aspect
-public class MonitoringAspect extends AbstractMoskitoAspect{
+public class MonitoringAspect extends AbstractMoskitoAspect<ServiceStats>{
 
 	/**
 	 * Factory constant is needed to prevent continuous reinstantiation of ServiceStatsFactory objects.

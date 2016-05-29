@@ -20,7 +20,7 @@ import java.util.List;
  * @author lrosenberg
  *
  */
-public final class AccumulatorRepository extends TieableRepository<Accumulator> {
+public final class AccumulatorRepository<S extends IStats> extends TieableRepository<Accumulator, S> {
 
 	/**
 	 * Logger
@@ -30,12 +30,12 @@ public final class AccumulatorRepository extends TieableRepository<Accumulator> 
 	/**
 	 * The singleton instance.
 	 */
-	private static AccumulatorRepository INSTANCE = new AccumulatorRepository();
+	private static AccumulatorRepository<? extends IStats> INSTANCE = new AccumulatorRepository<>();
 	/**
 	 * Returns the singleton instance of the AccumulatorRepository.
 	 * @return the one and only instance.
 	 */
-	public static AccumulatorRepository getInstance(){
+	public static AccumulatorRepository<? extends IStats> getInstance(){
 		return INSTANCE;
 	}
 
@@ -113,7 +113,7 @@ public final class AccumulatorRepository extends TieableRepository<Accumulator> 
 	@SuppressFBWarnings(value = "ST_WRITE_TO_STATIC_FROM_INSTANCE_METHOD", justification = "This method is for unit testing only.")
     void reset() {
         cleanup();
-		INSTANCE = new AccumulatorRepository();
+		INSTANCE = new AccumulatorRepository<>();
 	}
 
 }

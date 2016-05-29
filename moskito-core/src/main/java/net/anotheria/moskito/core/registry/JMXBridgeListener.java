@@ -19,7 +19,7 @@ import java.util.List;
 /**
  * This listener registers every new producer as jmx bean.
  */
-public class JMXBridgeListener implements IProducerRegistryListener{
+public class JMXBridgeListener<S extends IStats> implements IProducerRegistryListener<S> {
 
 	/**
 	 * Logger.
@@ -27,10 +27,10 @@ public class JMXBridgeListener implements IProducerRegistryListener{
 	private static Logger log = LoggerFactory.getLogger(JMXBridgeListener.class);
 	
 	@Override
-	public void notifyProducerRegistered(IStatsProducer producer) {
+	public void notifyProducerRegistered(IStatsProducer<S> producer) {
 		if (producer instanceof BuiltInProducer)
 			return;
-		List<IStats> stats = producer.getStats();
+		List<S> stats = producer.getStats();
 		MBeanServer mbs = ManagementFactory.getPlatformMBeanServer();
 	    if (stats == null)
 	    	return;
@@ -48,8 +48,8 @@ public class JMXBridgeListener implements IProducerRegistryListener{
 	}
 
 	@Override
-	public void notifyProducerUnregistered(IStatsProducer producer) {
-		List<IStats> stats = producer.getStats();
+	public void notifyProducerUnregistered(IStatsProducer<S> producer) {
+		List<S> stats = producer.getStats();
 		MBeanServer mbs = ManagementFactory.getPlatformMBeanServer();
 	    if (stats == null)
 	    	return;

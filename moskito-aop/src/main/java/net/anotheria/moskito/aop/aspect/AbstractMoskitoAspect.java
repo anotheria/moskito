@@ -59,7 +59,7 @@ public class AbstractMoskitoAspect<S extends IStats> {
         OnDemandStatsProducer<S> producer = producers.get(producerId);
         if (producer==null){
 
-            producer = new OnDemandStatsProducer(producerId, getCategory(aCategory), getSubsystem(aSubsystem), factory);
+            producer = new OnDemandStatsProducer<>(producerId, getCategory(aCategory), getSubsystem(aSubsystem), factory);
             producer.setTracingSupported(tracingSupported);
             OnDemandStatsProducer<S> p = producers.putIfAbsent(producerId, producer);
             if (p==null){

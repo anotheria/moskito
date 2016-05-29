@@ -81,8 +81,8 @@ public class ThresholdConfigTest {
 	}
 
 	@Test public void findConfiguredThreshold(){
-		Threshold first = ThresholdRepository.getInstance().getByName("ThresholdConfigTest-FIRST");
-		Threshold second = ThresholdRepository.getInstance().getByName("ThresholdConfigTest-SECOND");
+		Threshold first =  ThresholdRepository.getInstance().getByName("ThresholdConfigTest-FIRST");
+		Threshold second =  ThresholdRepository.getInstance().getByName("ThresholdConfigTest-SECOND");
 		assertNotNull(first);
 		assertNotNull(second);
 		assertNull(first.getStats());

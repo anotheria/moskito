@@ -182,7 +182,7 @@ public class APILookupUtility {
 		ConcurrentMap<Class<? extends API>, API> stubsByInterface = remotes.get(ri);
 		if (stubsByInterface==null){
 			ConcurrentHashMap<Class<? extends API>, API> newStubsByInterface = new ConcurrentHashMap<>(0);
-			ConcurrentMap old = remotes.putIfAbsent(ri, newStubsByInterface);
+			ConcurrentMap<Class<? extends API>, API> old = remotes.putIfAbsent(ri, newStubsByInterface);
 			stubsByInterface = old == null ? newStubsByInterface : old;
 		}
 

@@ -94,7 +94,7 @@ public class GenerateChartAction implements Action {
 
         log.debug("Preparing data");
         //prepare data
-        Map<String, TemporaryPoint> tmppoints = new HashMap(chartSourceData.length);
+        Map<String, TemporaryPoint> tmppoints = new HashMap<>(chartSourceData.length);
         for (i = 0; i < chartSourceData.length; i++) {
             AccumulatedSingleGraphAO accData = chartSourceData[i];
             log.debug("Processing " + accData + " with values " + accData.getData());

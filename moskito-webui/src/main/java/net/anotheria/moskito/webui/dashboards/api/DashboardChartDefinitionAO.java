@@ -14,7 +14,7 @@ import java.util.List;
 @XmlRootElement(name="chart")
 public class DashboardChartDefinitionAO implements Serializable{
 	private String caption;
-	private List<String> accumulatorNames = Collections.EMPTY_LIST;
+	private List<String> accumulatorNames = Collections.emptyList();
 
 	public List<String> getAccumulatorNames() {
 		return accumulatorNames;

@@ -129,7 +129,7 @@ public class ProducerAPIImpl extends AbstractMoskitoAPIImpl implements ProducerA
 	}
 
 	private List<ProducerAO> convertStatsProducerListToAO(List<IStatsProducer> producers, String intervalName, TimeUnit timeUnit){
-		LinkedList<ProducerAO> ret = new LinkedList<ProducerAO>();
+		LinkedList<ProducerAO> ret = new LinkedList<>();
 		for (IStatsProducer p : producers){
 			ret.add(convertStatsProducerToAO(p, intervalName, timeUnit));
 		}

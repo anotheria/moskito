@@ -22,7 +22,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
  *
  * @param <T>
  */
-public abstract class TieableRepository<T extends Tieable> implements IProducerRegistryListener, IUpdateable {
+public abstract class TieableRepository<T extends Tieable, S extends IStats> implements IProducerRegistryListener<S>, IUpdateable {
 	/**
 	 * Interval listeners.
 	 */
@@ -90,7 +90,7 @@ public abstract class TieableRepository<T extends Tieable> implements IProducerR
 	}
 	
 	@Override
-	public void notifyProducerRegistered(IStatsProducer<?> producer) {
+	public void notifyProducerRegistered(IStatsProducer<S> producer) {
 		ArrayList<T> tmpList = new ArrayList<T>(yetUntied);
 		for (T t : tmpList){
 			if (t.getDefinition().getProducerName().equals(producer.getProducerId())){
@@ -104,7 +104,7 @@ public abstract class TieableRepository<T extends Tieable> implements IProducerR
 	}
 
 	@Override
-	public void notifyProducerUnregistered(IStatsProducer<?> producer) {
+	public void notifyProducerUnregistered(IStatsProducer<S> producer) {
 		//nothing
 	}
 	

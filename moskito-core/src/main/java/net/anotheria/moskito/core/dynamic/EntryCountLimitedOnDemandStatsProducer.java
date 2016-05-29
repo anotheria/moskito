@@ -46,7 +46,7 @@ public class EntryCountLimitedOnDemandStatsProducer<S extends IStats> extends On
 	 */
 	private int limit;
 
-	public EntryCountLimitedOnDemandStatsProducer(String aProducerId, String aCategory, String aSubsystem, IOnDemandStatsFactory aStatsFactory, int aLimit){
+	public EntryCountLimitedOnDemandStatsProducer(String aProducerId, String aCategory, String aSubsystem, IOnDemandStatsFactory<S> aStatsFactory, int aLimit){
 		super(aProducerId, aCategory, aSubsystem, aStatsFactory);
 		limit = aLimit;
 	}

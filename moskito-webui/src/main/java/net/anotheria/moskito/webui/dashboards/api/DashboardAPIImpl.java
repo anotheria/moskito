@@ -100,7 +100,7 @@ public class DashboardAPIImpl extends AbstractMoskitoAPIImpl implements Dashboar
 		MoskitoConfiguration config = getConfiguration();
 		DashboardsConfig dashboardsConfig = config.getDashboardsConfig();
 		if (dashboardsConfig == null || dashboardsConfig.getDashboards() == null ||dashboardsConfig.getDashboards().length == 0)
-			return Collections.EMPTY_LIST;
+			return Collections.emptyList();
 		LinkedList<DashboardDefinitionAO> ret = new LinkedList<DashboardDefinitionAO>();
 		for (DashboardConfig dashboardConfig : dashboardsConfig.getDashboards()){
 			DashboardDefinitionAO ao = new DashboardDefinitionAO();

@@ -152,7 +152,7 @@ public class GaugeAPIImpl extends AbstractMoskitoAPIImpl implements GaugeAPI {
 		}
 
 		//ok, its not a constant
-		IStatsProducer producer = null;
+		IStatsProducer<?> producer = null;
 		try{
 			producer = producerRegistryAPI.getProducer(config.getProducerName());
 		}catch(NoSuchProducerException e){
@@ -160,7 +160,7 @@ public class GaugeAPIImpl extends AbstractMoskitoAPIImpl implements GaugeAPI {
 		}
 		if (producer == null )
 			return new StringValueAO(null, "no producer");
-		for (IStats s : (List<IStats>)producer.getStats()){
+		for (IStats s : producer.getStats()){
 			if (s.getName().equals(config.getStatName())){
 				String value = s.getValueByNameAsString(config.getValueName(), config.getIntervalName(), TimeUnit.valueOf(config.getTimeUnit()));
 				try {
