@@ -7,10 +7,7 @@ import net.anotheria.moskito.core.registry.ProducerRegistryFactory;
 import java.lang.management.ManagementFactory;
 import java.lang.management.MemoryPoolMXBean;
 import java.lang.management.MemoryType;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * A utility for starting built-in producers upon moskito start / initialization.
@@ -59,7 +56,7 @@ public class StartBuiltInProducers {
 		}
 
 		if (MoskitoConfigurationHolder.getConfiguration().getBuiltinProducersConfig().isJavaMemoryPoolProducers()){
-			HashMap<MemoryType, List<BuiltInMemoryPoolProducer>> producers = new HashMap<MemoryType, List<BuiltInMemoryPoolProducer>>();
+			Map<MemoryType, List<BuiltInMemoryPoolProducer>> producers = new EnumMap<>(MemoryType.class);
 
 			List<MemoryPoolMXBean> pools = ManagementFactory.getMemoryPoolMXBeans();
 			for (MemoryPoolMXBean pool : pools){
