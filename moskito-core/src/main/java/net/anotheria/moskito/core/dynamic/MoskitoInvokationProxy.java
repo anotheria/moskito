@@ -154,7 +154,7 @@ public class MoskitoInvokationProxy implements InvocationHandler{
 	
 	private static String guessProducerId(Object implementation){
 		String className = implementation.getClass().getName();
-		return className.substring(className.lastIndexOf(".")+1);
+		return className.substring(className.lastIndexOf('.')+1);
 	}
 	
 	/**
