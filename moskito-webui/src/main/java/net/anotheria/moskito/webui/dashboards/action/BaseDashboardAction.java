@@ -24,7 +24,7 @@ public abstract class BaseDashboardAction extends BaseMoskitoUIAction {
 	}
 	@Override
 	protected String getLinkToCurrentPage(HttpServletRequest req) {
-		return "";
+		return "?ts="+System.currentTimeMillis();
 	}
 
 	@Override
