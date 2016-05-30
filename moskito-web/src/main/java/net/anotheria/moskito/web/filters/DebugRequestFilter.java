@@ -94,7 +94,8 @@ public class DebugRequestFilter implements Filter {
             StringBuilder parameterValues = new StringBuilder();
             if (entry.getValue() != null)
                 for (String value : entry.getValue()) {
-                    parameterValues.append(value + " ");
+                    parameterValues.append(value);
+                    parameterValues.append(' ');
                 }
             logger.info(entry.getKey() + " = " + parameterValues);
         }

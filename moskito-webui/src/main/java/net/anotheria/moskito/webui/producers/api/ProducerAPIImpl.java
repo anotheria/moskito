@@ -45,10 +45,10 @@ public class ProducerAPIImpl extends AbstractMoskitoAPIImpl implements ProducerA
 	 * Called after the configuration has been read.
 	 */
 	private void apiAfterConfiguration(){
-		List<ProducerFilter> newProducerFilters = new ArrayList<ProducerFilter>();
 		ProducerFilterConfig filterConfig[] = WebUIConfig.getInstance().getFilters();
 		if (filterConfig==null || filterConfig.length==0)
 			return;
+		List<ProducerFilter> newProducerFilters = new ArrayList<>(filterConfig.length);
 		for (ProducerFilterConfig pfc : filterConfig){
 			try {
 				ProducerFilter filter = (ProducerFilter)Class.forName(pfc.getClazzName()).newInstance();
@@ -129,7 +129,7 @@ public class ProducerAPIImpl extends AbstractMoskitoAPIImpl implements ProducerA
 	}
 
 	private List<ProducerAO> convertStatsProducerListToAO(List<IStatsProducer> producers, String intervalName, TimeUnit timeUnit){
-		LinkedList<ProducerAO> ret = new LinkedList<ProducerAO>();
+		LinkedList<ProducerAO> ret = new LinkedList<>();
 		for (IStatsProducer p : producers){
 			ret.add(convertStatsProducerToAO(p, intervalName, timeUnit));
 		}
@@ -182,7 +182,7 @@ public class ProducerAPIImpl extends AbstractMoskitoAPIImpl implements ProducerA
 	}
 
 	private List<ProducerAO> filterProducersAndConvertToAO(List<IStatsProducer> producers, String intervalName, TimeUnit timeUnit){
-		ArrayList<ProducerAO> ret = new ArrayList<ProducerAO>();
+		List<ProducerAO> ret = new ArrayList<>();
 		for (IStatsProducer<?> p : producers){
 			boolean mayPass = true;
 			for (ProducerFilter filter : producerFilters){

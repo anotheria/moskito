@@ -73,19 +73,17 @@ public class JourneyStarterFilter implements Filter{
 		if (req.getPathInfo()!=null)
 			url += req.getPathInfo();
 		if (req.getQueryString()!=null)
-			url += "?"+req.getQueryString();
-		RunningTraceContainer.startTracedCall(record.getUseCaseName() + "-" + url);
+			url += '?' +req.getQueryString();
+		RunningTraceContainer.startTracedCall(record.getUseCaseName() + '-' + url);
 
 		try{
 			filterChain.doFilter(servletRequest, servletResponse);
 		}finally{
-			if (record!=null){
-				TracedCall last = RunningTraceContainer.endTrace();
-				journey.addUseCase((CurrentlyTracedCall)last);
+			TracedCall last = RunningTraceContainer.endTrace();
+			journey.addUseCase((CurrentlyTracedCall)last);
 
-				//removes the running use case to cleanup the thread local. Otherwise tomcat will be complaining...
-				RunningTraceContainer.cleanup();
-			}
+			//removes the running use case to cleanup the thread local. Otherwise tomcat will be complaining...
+			RunningTraceContainer.cleanup();
 		}
 
 	}

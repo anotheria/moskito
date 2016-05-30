@@ -79,16 +79,16 @@ public class RequestOrientedStatsTest {
 		stats.addExecutionTime(150000); //100 ms
 		stats.addRequest();
 		IntervalRegistry.getInstance().forceUpdateIntervalForTestingPurposes("1m");
-		assertEquals(""+stats.getAverageRequestDuration("1m", TimeUnit.MICROSECONDS), stats.getValueByNameAsString("avg", "1m", TimeUnit.MICROSECONDS));
-		assertEquals(""+stats.getAverageRequestDuration("1m", TimeUnit.MILLISECONDS), stats.getValueByNameAsString("avg", "1m", TimeUnit.MILLISECONDS));
+		assertEquals(String.valueOf(stats.getAverageRequestDuration("1m", TimeUnit.MICROSECONDS)), stats.getValueByNameAsString("avg", "1m", TimeUnit.MICROSECONDS));
+		assertEquals(String.valueOf(stats.getAverageRequestDuration("1m", TimeUnit.MILLISECONDS)), stats.getValueByNameAsString("avg", "1m", TimeUnit.MILLISECONDS));
 		assertEquals("125.0",  stats.getValueByNameAsString("avg", "1m", TimeUnit.MICROSECONDS));
 
 		stats.addExecutionTime(77777777);
 		stats.addRequest();
 		IntervalRegistry.getInstance().forceUpdateIntervalForTestingPurposes("1m");
-		assertEquals(""+stats.getAverageRequestDuration("1m", TimeUnit.MICROSECONDS), stats.getValueByNameAsString("avg", "1m", TimeUnit.MICROSECONDS));
-		assertEquals(""+stats.getAverageRequestDuration("1m", TimeUnit.MILLISECONDS), stats.getValueByNameAsString("avg", "1m", TimeUnit.MILLISECONDS));
-		assertEquals(""+stats.getAverageRequestDuration("1m", TimeUnit.SECONDS), stats.getValueByNameAsString("avg", "1m", TimeUnit.SECONDS));
+		assertEquals(String.valueOf(stats.getAverageRequestDuration("1m", TimeUnit.MICROSECONDS)), stats.getValueByNameAsString("avg", "1m", TimeUnit.MICROSECONDS));
+		assertEquals(String.valueOf(stats.getAverageRequestDuration("1m", TimeUnit.MILLISECONDS)), stats.getValueByNameAsString("avg", "1m", TimeUnit.MILLISECONDS));
+		assertEquals(String.valueOf(stats.getAverageRequestDuration("1m", TimeUnit.SECONDS)), stats.getValueByNameAsString("avg", "1m", TimeUnit.SECONDS));
 		assertEquals("77777.0",  stats.getValueByNameAsString("avg", "1m", TimeUnit.MICROSECONDS));
 		assertEquals("77.0",  stats.getValueByNameAsString("avg", "1m", TimeUnit.MILLISECONDS));
 		assertEquals("0.0",  stats.getValueByNameAsString("avg", "1m", TimeUnit.SECONDS));

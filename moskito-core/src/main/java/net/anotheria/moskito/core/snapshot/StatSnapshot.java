@@ -18,7 +18,7 @@ public class StatSnapshot {
 	/**
 	 * Map with values.
 	 */
-	private Map<String, String> values = new HashMap<String, String>();
+	private Map<String, String> values = new HashMap<>();
 
 	/**
 	 * Creates a new stat snapshot object.

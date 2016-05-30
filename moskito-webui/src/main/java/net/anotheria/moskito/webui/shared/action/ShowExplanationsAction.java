@@ -30,9 +30,9 @@ public class ShowExplanationsAction extends BaseMoskitoUIAction{
 	@Override
 	public ActionCommand execute(ActionMapping mapping, FormBean formBean, HttpServletRequest req, HttpServletResponse res) {
 
-		List<DecoratorExplanationBean> beans = new ArrayList<DecoratorExplanationBean>();
 		List<IDecorator> decorators = DecoratorRegistryFactory.getDecoratorRegistry().getDecorators();
 		decorators = StaticQuickSorter.sort(decorators, new DummySortType());
+		List<DecoratorExplanationBean> beans = new ArrayList<>(decorators.size());
 		for (IDecorator d : decorators){
 			DecoratorExplanationBean bean = new DecoratorExplanationBean();
 			bean.setName(d.getName());

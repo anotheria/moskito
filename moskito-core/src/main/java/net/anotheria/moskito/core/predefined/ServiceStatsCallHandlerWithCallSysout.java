@@ -76,7 +76,7 @@ public class ServiceStatsCallHandlerWithCallSysout implements IOnDemandCallHandl
 	}
 
 	@Override public Object invoke(Object target, Object[] args, Method method, Class<?> targetClass, Class<?>[] declaredExceptions, IStats aDefaultStats, IStats aMethodStats, IStatsProducer producer) throws Throwable {
-		String callId = overallCallCounter.incrementAndGet()+"-"+instanceId + "-"+callCounter.incrementAndGet();
+		String callId = overallCallCounter.incrementAndGet()+"-"+instanceId + '-' +callCounter.incrementAndGet();
 		
 		ServiceStats defaultStats = (ServiceStats)aDefaultStats;
 		ServiceStats methodStats = (ServiceStats)aMethodStats;
@@ -128,14 +128,14 @@ public class ServiceStatsCallHandlerWithCallSysout implements IOnDemandCallHandl
 			//System.out.println("exception of class: "+e.getCause()+" is thrown");
 			if (currentElement!=null)
 				currentElement.setAborted();
-			debugOutPostCall.append("ERR (E) ").append(e.getCause().getMessage()).append(" ").append(e.getCause().toString());
+			debugOutPostCall.append("ERR (E) ").append(e.getCause().getMessage()).append(' ').append(e.getCause().toString());
 			throw e.getCause();
 		}catch(Throwable t){
 			defaultStats.notifyError();
 			methodStats.notifyError();
 			if (currentElement!=null)
 				currentElement.setAborted();
-			debugOutPostCall.append("ERR (T) ").append(t.getMessage()).append(" ").append(t.toString());
+			debugOutPostCall.append("ERR (T) ").append(t.getMessage()).append(' ').append(t.toString());
 			throw t;
 		}finally{
 			defaultStats.notifyRequestFinished();

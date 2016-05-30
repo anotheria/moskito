@@ -35,7 +35,7 @@ public abstract class GenericCounterStats extends AbstractStats{
 
 	protected GenericCounterStats(String name, Interval[] intervals, String firstCounter, String ... moreCounters){
 		super(name);
-		values = new HashMap<String, StatValue>();
+		values = new HashMap<>();
 		StatValue firstCounterValue = StatValueFactory.createStatValue(Long.valueOf(0L), firstCounter, intervals);
 		addStatValues(firstCounterValue);
 		values.put(firstCounter, firstCounterValue);
@@ -78,7 +78,7 @@ public abstract class GenericCounterStats extends AbstractStats{
 	}
 
 	@Override public String toString(){
-		return getName()+" "+values.values();
+		return getName()+ ' ' +values.values();
 	}
 
 	public Set<String> getPossibleNames(){
@@ -89,10 +89,10 @@ public abstract class GenericCounterStats extends AbstractStats{
 
 	@Override
 	public String getValueByNameAsString(String valueName, String intervalName, TimeUnit timeUnit) {
-		if (valueName==null || valueName.equals(""))
+		if (valueName==null || valueName.isEmpty())
 			throw new AssertionError("Value name can not be empty");
 		valueName = valueName.toLowerCase();
-		return ""+values.get(valueName).getValueAsLong(intervalName);
+		return String.valueOf(values.get(valueName).getValueAsLong(intervalName));
 	}
 
 	@Override

@@ -16,9 +16,7 @@ import net.anotheria.moskito.webui.shared.api.AbstractMoskitoAPIImpl;
 import net.anotheria.util.NumberUtils;
 import net.anotheria.util.StringUtils;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
+import java.util.*;
 
 /**
  * TODO comment this class
@@ -29,8 +27,9 @@ import java.util.List;
 public class ThresholdAPIImpl extends AbstractMoskitoAPIImpl implements ThresholdAPI{
 	@Override
 	public List<ThresholdAlertAO> getAlerts() {
-		ArrayList<ThresholdAlertAO> aBeans = new ArrayList<ThresholdAlertAO>();
-		for (ThresholdAlert alert : AlertHistory.INSTANCE.getAlerts()){
+		List<ThresholdAlert> alerts = AlertHistory.INSTANCE.getAlerts();
+		List<ThresholdAlertAO> aBeans = new ArrayList<>(alerts.size());
+		for (ThresholdAlert alert : alerts){
 			ThresholdAlertAO alertBean = new ThresholdAlertAO();
 			alertBean.setId(alert.getThreshold().getId());
 			alertBean.setName(alert.getThreshold().getName());
@@ -78,7 +77,7 @@ public class ThresholdAPIImpl extends AbstractMoskitoAPIImpl implements Threshol
 
 	@Override
 	public void updateThreshold(String thresholdId, ThresholdPO po) throws APIException{
-		Threshold oldThreshold = ThresholdRepository.getInstance().getById(thresholdId);
+		Threshold oldThreshold =  ThresholdRepository.getInstance().getById(thresholdId);
 		ThresholdDefinition td = oldThreshold.getDefinition();
 		td.setName(po.getName());
 
@@ -201,7 +200,7 @@ public class ThresholdAPIImpl extends AbstractMoskitoAPIImpl implements Threshol
 	@Override
 	public List<ThresholdStatusAO> getThresholdStatuses() throws APIException {
 		List<Threshold> thresholds = ThresholdRepository.getInstance().getThresholds();
-		ArrayList<ThresholdStatusAO> ret = new ArrayList<ThresholdStatusAO>();
+		List<ThresholdStatusAO> ret = new ArrayList<>(thresholds.size());
 
 		for (Threshold t : thresholds){
 			ThresholdStatusAO statusAO = new ThresholdStatusAO();
@@ -230,12 +229,11 @@ public class ThresholdAPIImpl extends AbstractMoskitoAPIImpl implements Threshol
 	public List<ThresholdStatusAO> getThresholdStatuses(String ... names) throws APIException {
 		if (names==null)
 			return getThresholdStatuses();
-		HashSet<String> nameSet = new HashSet<String>();
-		for (String n : names)
-			nameSet.add(n);
+		Set<String> nameSet = new HashSet<>(names.length);
+		Collections.addAll(nameSet, names);
 
 		List<Threshold> thresholds = ThresholdRepository.getInstance().getThresholds();
-		ArrayList<ThresholdStatusAO> ret = new ArrayList<ThresholdStatusAO>();
+		List<ThresholdStatusAO> ret = new ArrayList<>(thresholds.size());
 
 		for (Threshold t : thresholds){
 			if (!nameSet.contains(t.getName()))
@@ -265,7 +263,7 @@ public class ThresholdAPIImpl extends AbstractMoskitoAPIImpl implements Threshol
 	@Override
 	public List<ThresholdDefinitionAO> getThresholdDefinitions() throws APIException {
 		List<Threshold> thresholds = ThresholdRepository.getInstance().getThresholds();
-		ArrayList<ThresholdDefinitionAO> ret = new ArrayList<ThresholdDefinitionAO>();
+		List<ThresholdDefinitionAO> ret = new ArrayList<>(thresholds.size());
 		for (Threshold t : thresholds){
 			ret.add(definition2AO(t));
 		}

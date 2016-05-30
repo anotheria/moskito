@@ -88,15 +88,15 @@ public class ThreadStateStats extends AbstractStats {
 
 	@Override
 	public String getValueByNameAsString(String valueName, String intervalName, TimeUnit timeUnit) {
-		if (valueName==null || valueName.equals(""))
+		if (valueName==null || valueName.isEmpty())
 			throw new AssertionError("Value name can not be empty");
 		valueName = valueName.toLowerCase();
 		if (valueName.equals("cur") || valueName.equals("current"))
-			return ""+getCurrent(intervalName);
+			return String.valueOf(getCurrent(intervalName));
 		if (valueName.equals("min"))
-			return ""+getMin(intervalName);
+			return String.valueOf(getMin(intervalName));
 		if (valueName.equals("max"))
-			return ""+getMax(intervalName);
+			return String.valueOf(getMax(intervalName));
 		return super.getValueByNameAsString(valueName, intervalName, timeUnit);
 	}
 

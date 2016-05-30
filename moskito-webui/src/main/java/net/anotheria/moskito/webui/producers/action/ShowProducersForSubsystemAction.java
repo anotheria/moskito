@@ -64,7 +64,7 @@ public class ShowProducersForSubsystemAction extends BaseShowProducersAction{
 	}
 
 	@Override public String getLinkToCurrentPage(HttpServletRequest req){
-		return "mskShowProducersBySubsystem?"+PARAM_SUBSYSTEM+"="+getSubsystemParameter(req);
+		return "mskShowProducersBySubsystem?"+PARAM_SUBSYSTEM+ '=' +getSubsystemParameter(req);
 	}
 
 }

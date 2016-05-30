@@ -30,7 +30,7 @@ public class TracedCallAO implements Serializable{
 	private List<TracedCallDuplicateStepsAO> duplicateSteps;
 	
 	public TracedCallAO(){
-		elements = new ArrayList<TracedCallStepAO>();
+		elements = new ArrayList<>();
 	}
 	
 	public long getCreated() {

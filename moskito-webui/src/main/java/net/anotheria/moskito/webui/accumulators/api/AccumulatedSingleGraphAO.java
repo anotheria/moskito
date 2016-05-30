@@ -14,6 +14,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 /**
  * This bean contains data for a single graph in multiple graph mode.
  * @author lrosenberg
@@ -42,9 +44,9 @@ public class AccumulatedSingleGraphAO implements Serializable{
 	/**
 	 * This is a helper map that contains characters an accumulator name can contains, that are prohibited in js variables and therefore have to be mapped.
 	 */
-	private static final HashMap<String, String> jsReplaceMap;
+	private static final Map<String, String> jsReplaceMap;
 	static{
-		jsReplaceMap = new HashMap<String, String>();
+		jsReplaceMap = new HashMap<>(4);
 		jsReplaceMap.put(" ", "_");
 		jsReplaceMap.put("-", "_");
 		jsReplaceMap.put("+", "_");
@@ -53,7 +55,7 @@ public class AccumulatedSingleGraphAO implements Serializable{
 	
 	public AccumulatedSingleGraphAO(String aName){
 		name = aName;
-		data = new ArrayList<AccumulatedValueAO>();
+		data = new ArrayList<>();
 	}
 	
 	public String getName() {

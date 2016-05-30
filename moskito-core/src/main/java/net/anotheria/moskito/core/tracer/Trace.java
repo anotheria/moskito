@@ -55,7 +55,7 @@ public class Trace implements IComparable<Trace>{
 	}
 
 	@Override public String toString(){
-		return id+" "+call+" "+(elements==null? "no elements" : Arrays.toString(getElements()))+", dur: "+duration;
+		return id+" "+call+ ' ' +(elements==null? "no elements" : Arrays.toString(getElements()))+", dur: "+duration;
 	}
 
 	public long getId(){

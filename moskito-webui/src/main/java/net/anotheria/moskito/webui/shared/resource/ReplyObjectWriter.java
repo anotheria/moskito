@@ -68,11 +68,11 @@ public class ReplyObjectWriter implements MessageBodyWriter<ReplyObject> {
 			for (Map.Entry entry : resultSet){
 				String sectionName = entry.getKey().toString();
 				//System.out.println("TO WRITE : "+entry.getValue()+", "+entry.getValue().getClass());
-				entityStream.write(("<"+sectionName+">").getBytes());
+				entityStream.write(('<' +sectionName+ '>').getBytes());
 				if (entry.getValue() instanceof List){
 					writeList((List)entry.getValue(), m, entityStream);
 				}
-				entityStream.write(("</"+sectionName+">").getBytes());
+				entityStream.write(("</"+sectionName+ '>').getBytes());
 			}
 
 

@@ -39,7 +39,7 @@ public class MoSKitoWebUIContext {
 	/**
 	 * Simple container map to pass attributes between modules.
 	 */
-	private Map<String,Serializable> attributes = new HashMap<String, Serializable>();
+	private Map<String,Serializable> attributes = new HashMap<>();
 
 	public HttpSession getCurrentSession() {
 		return currentSession;
@@ -50,11 +50,11 @@ public class MoSKitoWebUIContext {
 	}
 
 	private void copyFromAnotherContext(MoSKitoWebUIContext anotherContext){
-		currentSession      = anotherContext.currentSession;
-		currentTimeUnit     = anotherContext.currentTimeUnit;
+		currentSession = anotherContext.currentSession;
+		currentTimeUnit = anotherContext.currentTimeUnit;
 		currentIntervalName = anotherContext.currentIntervalName;
 		analyzeProducerCallsSortType = anotherContext.analyzeProducerCallsSortType;
-		attributes = (HashMap<String,Serializable>)((HashMap<String,Serializable>)anotherContext.attributes).clone();
+		attributes = new HashMap<>(anotherContext.attributes);
 	}
 
 

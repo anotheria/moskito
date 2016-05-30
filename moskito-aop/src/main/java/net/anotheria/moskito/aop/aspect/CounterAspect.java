@@ -17,7 +17,7 @@ import java.lang.reflect.InvocationTargetException;
  * @author lrosenberg, vzhovtiuk
  */
 @Aspect
-public class CounterAspect extends AbstractMoskitoAspect {
+public class CounterAspect extends AbstractMoskitoAspect<CounterStats> {
 
 	private static final CounterStatsFactory FACTORY = new CounterStatsFactory();
 

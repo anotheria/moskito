@@ -91,7 +91,7 @@ public class TraceStep implements Serializable{
 	 */
 	public TraceStep(String aCall, IStatsProducer aProducer){
 		call = aCall;
-		children = new ArrayList<TraceStep>();
+		children = new ArrayList<>();
 		producer = aProducer;
 	}
 	
@@ -121,12 +121,16 @@ public class TraceStep implements Serializable{
 
 	/**
 	 * Returns the last step in this execution.
+	 *
 	 * @return this step if it has no chidlren or the last step from the children.
 	 */
-	public TraceStep getLastStep(){
-		if (children==null || children.size()==0)
-			return this;
-		return children.get(children.size()-1).getLastStep();
+	public TraceStep getLastStep() {
+		TraceStep result = this;
+		while (true) {
+			if (result.children == null || result.children.size() == 0)
+				return result;
+			result = result.children.get(result.children.size() - 1);
+		}
 	}
 
 	@Override
@@ -135,7 +139,7 @@ public class TraceStep implements Serializable{
 		if (isAborted())
 			ret.append(" aborted.");
 		else
-			ret.append(".");
+			ret.append('.');
 		return ret.toString();
 	}
 	

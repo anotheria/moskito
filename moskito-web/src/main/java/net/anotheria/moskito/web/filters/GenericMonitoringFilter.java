@@ -68,15 +68,14 @@ public class GenericMonitoringFilter implements Filter {
 	private FilterStats getCaseStats(String caseName, OnDemandStatsProducer<FilterStats> producer){
 		if (caseName == null)
 			return null;
-		try{
-			if (caseName!=null)
-				return producer.getStats(caseName);
-		}catch(OnDemandStatsProducerException e){
-			log.debug("Couldn't get stats for case : "+caseName+", probably limit reached");
+		try {
+			return producer.getStats(caseName);
+		} catch (OnDemandStatsProducerException e) {
+			log.debug("Couldn't get stats for case : " + caseName + ", probably limit reached");
 			try {
 				return producer.getStats(OTHER);
 			} catch (OnDemandStatsProducerException e1) {
-				log.error("This can't happen, 'OtherStats' aka "+OTHER+" doesn't exists in producer for case "+caseName);
+				log.error("This can't happen, 'OtherStats' aka " + OTHER + " doesn't exists in producer for case " + caseName);
 			}
 		}
 		return null;

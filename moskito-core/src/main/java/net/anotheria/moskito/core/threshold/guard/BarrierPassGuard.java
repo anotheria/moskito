@@ -37,7 +37,7 @@ public abstract class BarrierPassGuard implements ThresholdConditionGuard, Seria
 	}
 	
 	@Override public String toString(){
-		return targetStatus+" if "+direction+" "+getValueAsString();
+		return targetStatus+" if "+direction+ ' ' +getValueAsString();
 	}
 	/**
 	 * Returns the value as string for alert generation.

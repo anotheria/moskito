@@ -102,7 +102,7 @@ public class JourneyAPIImpl extends AbstractMoskitoAPIImpl implements  JourneyAP
 		ret.setElements(container.getElements());
 
 		//check for duplicates
-		List<TracedCallDuplicateStepsAO> dupSteps = new ArrayList<TracedCallDuplicateStepsAO>();
+		List<TracedCallDuplicateStepsAO> dupSteps = new ArrayList<>();
 		Map<String,JourneyCallIntermediateContainer.ReversedCallHelper > stepsReversed = container.getReversedSteps();
 		for (Map.Entry<String, JourneyCallIntermediateContainer.ReversedCallHelper> entry : stepsReversed.entrySet()){
 			if (entry.getValue()!=null && entry.getValue().getPositions().size()>1){
@@ -161,15 +161,13 @@ public class JourneyAPIImpl extends AbstractMoskitoAPIImpl implements  JourneyAP
 
 	@Override
 	public List<AnalyzedProducerCallsMapAO> analyzeJourney(String journeyName) throws APIException {
-		List<AnalyzedProducerCallsMapAO> callsList = new ArrayList<AnalyzedProducerCallsMapAO>();
 		Journey journey = getJourneyByName(journeyName);
-
-
+		List<CurrentlyTracedCall> tracedCalls = journey.getTracedCalls();
+		List<AnalyzedProducerCallsMapAO> callsList = new ArrayList<>(tracedCalls.size() + 1);
 
 		AnalyzedProducerCallsMapAO overallCallsMap = new AnalyzedProducerCallsMapAO(journey.getName()+" - TOTAL");
 		callsList.add(overallCallsMap);
 
-		List<CurrentlyTracedCall> tracedCalls = journey.getTracedCalls();
 		for (CurrentlyTracedCall tc : tracedCalls){
 			if (tc==null){
 				log.warn("TracedCall is null!");

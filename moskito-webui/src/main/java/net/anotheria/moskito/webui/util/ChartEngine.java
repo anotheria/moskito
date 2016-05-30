@@ -22,12 +22,10 @@ public enum ChartEngine {
 	private List<String> names;
 
 	private ChartEngine(String... someNames){
-		names = new ArrayList<String>();
-		if (someNames!=null){
-			for (String s :someNames){
-				names.add(s.toLowerCase());
-			}
-		}
+		names = new ArrayList<>(someNames.length);
+		for (String s :someNames){
+            names.add(s.toLowerCase());
+        }
 	}
 
 	public static ChartEngine getChartEngine(String aName){

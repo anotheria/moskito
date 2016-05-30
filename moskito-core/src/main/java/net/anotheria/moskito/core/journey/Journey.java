@@ -40,7 +40,7 @@ public class Journey {
 		name = aName;
 		createdTimestamp = System.currentTimeMillis();
 		active = true;
-		tracedCalls = new ArrayList<CurrentlyTracedCall>();
+		tracedCalls = new ArrayList<>();
 	}
 	
 	/**

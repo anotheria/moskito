@@ -2,11 +2,7 @@ package net.anotheria.moskito.core.util.threadhistory;
 
 import java.lang.management.ManagementFactory;
 import java.lang.management.ThreadMXBean;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
+import java.util.*;
 import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
@@ -36,7 +32,7 @@ public enum ThreadHistoryUtility {
 	/**
 	 * Ids of all currently running threads.
 	 */
-	private HashSet<Long> runningThreadIds = new HashSet<Long>();
+	private Set<Long> runningThreadIds = new HashSet<>();
 	
 	/**
 	 * ThreadMXBean reference.
@@ -50,7 +46,7 @@ public enum ThreadHistoryUtility {
 	/**
 	 * The storage for history events.
 	 */
-	private ArrayList<ThreadHistoryEvent> eventList = new ArrayList<ThreadHistoryEvent>();
+	private List<ThreadHistoryEvent> eventList = new ArrayList<>();
 	
 	/**
 	 * Internal synchronization lock.
@@ -93,7 +89,7 @@ public enum ThreadHistoryUtility {
 		lock.writeLock().lock();
 		try{
 			long[] ids = mxBean.getAllThreadIds();
-			HashSet<Long> oldIds = (HashSet<Long> )runningThreadIds.clone();
+			Set<Long> oldIds = new HashSet<>(runningThreadIds);
 			for (long _id : ids){
 				Long id = _id;
 				oldIds.remove(id);
@@ -104,7 +100,7 @@ public enum ThreadHistoryUtility {
 				}
 			}
 			//now check deleted
-			for (Long oldId : oldIds.toArray(PATTERN)){
+			for (Long oldId : oldIds.toArray(new Long[oldIds.size()])){
 				ThreadHistoryEvent event = ThreadHistoryEvent.deleted(oldId, "");
 				runningThreadIds.remove(oldId);
 				eventList.add(event);
@@ -128,9 +124,9 @@ public enum ThreadHistoryUtility {
 	public List<ThreadHistoryEvent> getThreadHistoryEvents(){
 		ArrayList<ThreadHistoryEvent> ret = null;
 		lock.readLock().lock();
-		try{
-			ret = (ArrayList<ThreadHistoryEvent>) eventList.clone();
-		}finally{
+		try {
+			ret = new ArrayList<>(eventList);
+		} finally {
 			lock.readLock().unlock();
 		}
 		return ret;

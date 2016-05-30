@@ -31,7 +31,7 @@ public class ReplyObject {
 	 * Map with results object.
 	 */
 	@XmlElement
-	private HashMap<String, Object> results = new HashMap<String, Object>();
+	private HashMap<String, Object> results = new HashMap<>();
 
 	/**
 	 * Creates a new empty result object.

@@ -40,7 +40,7 @@ public class BuiltInMemoryPoolProducer  extends AbstractBuiltInProducer  impleme
 	 */
 	public BuiltInMemoryPoolProducer(MemoryPoolMXBean aPool){
 		pool = aPool;
-		producerId = "MemoryPool-"+pool.getName()+"-"+(pool.getType()==MemoryType.HEAP? "Heap" : "NonHeap");
+		producerId = "MemoryPool-"+pool.getName()+ '-' +(pool.getType()==MemoryType.HEAP? "Heap" : "NonHeap");
 		statsList = new CopyOnWriteArrayList<IStats>();
 		stats = new MemoryPoolStats(producerId);
 		statsList.add(stats);
@@ -90,7 +90,7 @@ public class BuiltInMemoryPoolProducer  extends AbstractBuiltInProducer  impleme
 	}
 	
 	@Override public String toString(){
-		return super.toString()+" "+pool.getName();
+		return super.toString()+ ' ' +pool.getName();
 	}
 }
 

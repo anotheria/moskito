@@ -28,6 +28,6 @@ public class LogFileNotificationProvider implements NotificationProvider{
 			LoggerFactory.getLogger(LogFileNotificationProvider.class).warn("Logger not set, cannot log, aborted.");
 			return;
 		}
-		log.info(""+alert);
+		log.info(String.valueOf(alert));
 	}
 }

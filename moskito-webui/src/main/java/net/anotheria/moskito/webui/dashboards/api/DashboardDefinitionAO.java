@@ -18,8 +18,8 @@ public class DashboardDefinitionAO implements Serializable{
 	 * Name of the Dashboard.
 	 */
 	private String name;
-	private List<String> gauges = Collections.EMPTY_LIST;
-	private List<String> thresholds = Collections.EMPTY_LIST;
+	private List<String> gauges = Collections.emptyList();
+	private List<String> thresholds = Collections.emptyList();
 	private List<DashboardChartDefinitionAO> charts = new LinkedList<DashboardChartDefinitionAO>();
 
 	public List<String> getGauges() {

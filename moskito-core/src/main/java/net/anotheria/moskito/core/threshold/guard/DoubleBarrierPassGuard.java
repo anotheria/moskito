@@ -19,7 +19,7 @@ public class DoubleBarrierPassGuard extends BarrierPassGuard{
 	
 	@Override
 	public String getValueAsString(){
-		return ""+barrierValue;
+		return String.valueOf(barrierValue);
 	}
 	@Override
 	protected Number getValueAsNumber(String aValue){

@@ -100,6 +100,6 @@ public class Accumulator extends AbstractTieable<AccumulatorDefinition> implemen
 	}
 
 	@Override public String toString(){
-		return getId()+" "+getName()+" "+" Def: "+getDefinition()+" active: "+isActivated()+", Values: "+(values==null?"none":""+values.size());
+		return getId()+ ' ' +getName()+ ' ' +" Def: "+getDefinition()+" active: "+isActivated()+", Values: "+(values==null?"none": String.valueOf(values.size()));
 	}
 }

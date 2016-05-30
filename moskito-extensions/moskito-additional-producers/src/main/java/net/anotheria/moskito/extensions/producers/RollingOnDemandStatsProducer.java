@@ -188,7 +188,7 @@ public class RollingOnDemandStatsProducer<S extends IStats> implements IStatsPro
 	}
 	
 	@Override public String toString(){
-		return "RollingOnDemandStatsProducer: "+getProducerId()+":"+getSubsystem()+":"+getCategory();
+		return "RollingOnDemandStatsProducer: "+getProducerId()+ ':' +getSubsystem()+ ':' +getCategory();
 	}
 	
 	protected List<S> getCachedStatsList(){

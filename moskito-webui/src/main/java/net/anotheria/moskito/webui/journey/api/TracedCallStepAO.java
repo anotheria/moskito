@@ -61,7 +61,7 @@ public class TracedCallStepAO implements Serializable{
 
 
 	public TracedCallStepAO(){
-		children = new ArrayList<TracedCallStepAO>();
+		children = new ArrayList<>();
 	}
 	
 	public void addChild(TracedCallStepAO c){

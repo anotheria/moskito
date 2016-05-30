@@ -73,6 +73,6 @@ public class GuardConfig implements Serializable {
 	}
 
 	@Override public String toString(){
-		return status +" if "+direction+" "+value;
+		return status +" if "+direction+ ' ' +value;
 	}
 }

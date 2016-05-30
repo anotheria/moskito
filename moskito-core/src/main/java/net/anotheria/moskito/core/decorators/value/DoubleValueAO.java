@@ -37,6 +37,9 @@ package net.anotheria.moskito.core.decorators.value;
 import net.anotheria.util.BasicComparable;
 import net.anotheria.util.sorter.IComparable;
 
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
+
 /**
  * Stat value bean for double values.
  * @author lrosenberg.
@@ -63,16 +66,11 @@ public class DoubleValueAO extends StatValueAO {
 			doubleValue = ((double)Math.round(aValue * 1000)) / 1000;
 		else
 			doubleValue = aValue;
-		
-		double floatingPart = doubleValue - (int)doubleValue;
-		String fpAsString = ""+floatingPart;
-		if (fpAsString.length()>6)
-			fpAsString = fpAsString.substring(0, 5);
-		while(fpAsString.length()<5)
-			fpAsString += "0";
-		doubleAsString = (int)doubleValue+"."+fpAsString.substring(2);
+
+		DecimalFormat decimalFormat = new DecimalFormat("0.000");
+		doubleAsString = decimalFormat.format(doubleValue);
 	}
-	
+
 	@Override public String getValue(){
 		return doubleAsString;
 	}
@@ -87,6 +85,6 @@ public class DoubleValueAO extends StatValueAO {
 
 	@Override
 	public String getRawValue() {
-		return ""+doubleValue;
+		return String.valueOf(doubleValue);
 	}
 }

@@ -24,7 +24,7 @@ public class InternalProducerFilter implements ProducerFilter {
 	private final HashSet<String> internalProducerNames;
 
 	public InternalProducerFilter(){
-		internalProducerNames = new HashSet<String>();
+		internalProducerNames = new HashSet<>(9);
 		internalProducerNames.add(ProducerAPI.class.getSimpleName());
 		internalProducerNames.add(ThresholdAPI.class.getSimpleName());
 		internalProducerNames.add(AccumulatorAPI.class.getSimpleName());

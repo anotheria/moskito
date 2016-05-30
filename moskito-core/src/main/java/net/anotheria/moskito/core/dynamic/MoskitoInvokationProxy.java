@@ -34,6 +34,7 @@
  */	
 package net.anotheria.moskito.core.dynamic;
 
+import net.anotheria.moskito.core.producers.IStats;
 import net.anotheria.moskito.core.producers.IStatsProducer;
 import net.anotheria.moskito.core.registry.ProducerRegistryFactory;
 
@@ -78,7 +79,7 @@ import java.util.List;
  * @author lrosenberg
  *
  */
-public class MoskitoInvokationProxy implements InvocationHandler{
+public class MoskitoInvokationProxy<S extends IStats> implements InvocationHandler{
 	/**
 	 * Supported interfaces.
 	 */
@@ -101,7 +102,7 @@ public class MoskitoInvokationProxy implements InvocationHandler{
 	/**
 	 * Producer for the stats which is learning the methods on the fly.
 	 */
-	private OnDemandStatsProducer producer;
+	private OnDemandStatsProducer<S> producer;
 	
 	/**
 	 * Creates a new MoskitoInvocationProxy with given implementation, handler and stats factory, and interfaces to monitor.
@@ -113,14 +114,14 @@ public class MoskitoInvokationProxy implements InvocationHandler{
 	 * @param subsystem the key/name/id for the monitored i.e. user,shop,messaging
 	 * @param interfaces interfaces which can be called from outside, i.e. MyService
 	 */
-	public MoskitoInvokationProxy(Object anImplementation, IOnDemandCallHandler aHandler, IOnDemandStatsFactory factory, String producerId, String category, String subsystem, Class<?>... interfaces ){
+	public MoskitoInvokationProxy(Object anImplementation, IOnDemandCallHandler aHandler, IOnDemandStatsFactory<S> factory, String producerId, String category, String subsystem, Class<?>... interfaces ){
 		if (interfaces.length==0)
 			throw new RuntimeException("No interfaces specified!");
 		implementation = anImplementation;
 		supportedInterfaces = interfaces;
 		
 		handler = aHandler;
-		producer = new OnDemandStatsProducer(producerId, category, subsystem, factory);
+		producer = new OnDemandStatsProducer<>(producerId, category, subsystem, factory);
 		producer.setTracingSupported(true);
 		
 		ProducerRegistryFactory.getProducerRegistryInstance().registerProducer(producer);
@@ -154,14 +155,14 @@ public class MoskitoInvokationProxy implements InvocationHandler{
 	
 	private static String guessProducerId(Object implementation){
 		String className = implementation.getClass().getName();
-		return className.substring(className.lastIndexOf(".")+1);
+		return className.substring(className.lastIndexOf('.')+1);
 	}
 	
 	/**
 	 * Looks up all possible exceptions.
 	 */
 	private void guessExceptions(){
-		List<Class<?>> tmpExceptionList = new ArrayList<Class<?>>();
+		List<Class<?>> tmpExceptionList = new ArrayList<>();
 		for (Class<?> c:supportedInterfaces){
 			Method[] methods = c.getDeclaredMethods();
 			for (Method m:methods){

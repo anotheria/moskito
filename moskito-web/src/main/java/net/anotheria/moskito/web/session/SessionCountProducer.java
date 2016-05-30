@@ -34,7 +34,7 @@ public class SessionCountProducer extends AbstractBuiltInProducer<SessionCountSt
 		
 		stats = new SessionCountStats();
 		
-		statsList = new ArrayList<SessionCountStats>();
+		statsList = new ArrayList<>(1);
 		statsList.add(stats);
 		
 		IProducerRegistry reg = ProducerRegistryFactory.getProducerRegistryInstance();
@@ -73,7 +73,7 @@ public class SessionCountProducer extends AbstractBuiltInProducer<SessionCountSt
 	}
 	
 	@Override public String toString(){
-		return getProducerId()+" "+getStats();
+		return getProducerId()+ ' ' +getStats();
 		
 	}
 }

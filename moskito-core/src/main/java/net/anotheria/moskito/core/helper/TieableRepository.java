@@ -22,11 +22,11 @@ import java.util.concurrent.CopyOnWriteArrayList;
  *
  * @param <T>
  */
-public abstract class TieableRepository<T extends Tieable> implements IProducerRegistryListener, IUpdateable {
+public abstract class TieableRepository<T extends Tieable, S extends IStats> implements IProducerRegistryListener<S>, IUpdateable {
 	/**
 	 * Interval listeners.
 	 */
-	private ConcurrentMap<String, IntervalListener> listeners = new ConcurrentHashMap<String, IntervalListener>();
+	private ConcurrentMap<String, IntervalListener> listeners = new ConcurrentHashMap<>();
 	
 	/**
 	 * Reference to producer registry.
@@ -39,7 +39,7 @@ public abstract class TieableRepository<T extends Tieable> implements IProducerR
 	/**
 	 * Tieables. This map contains already tied tieables.
 	 */
-	private ConcurrentMap<String, T> tieables = new ConcurrentHashMap<String, T>();
+	private ConcurrentMap<String, T> tieables = new ConcurrentHashMap<>();
 	/**
 	 * The listener to the default interval.
 	 */
@@ -54,7 +54,7 @@ public abstract class TieableRepository<T extends Tieable> implements IProducerR
 	/**
 	 * Map that contains names of the tieables maped by ids.
 	 */
-	private ConcurrentMap<String, String> id2nameMapping = new ConcurrentHashMap<String, String>();
+	private ConcurrentMap<String, String> id2nameMapping = new ConcurrentHashMap<>();
 
 
 	public TieableRepository() {
@@ -90,22 +90,21 @@ public abstract class TieableRepository<T extends Tieable> implements IProducerR
 	}
 	
 	@Override
-	public void notifyProducerRegistered(IStatsProducer<?> producer) {
-		ArrayList<T> tmpList = new ArrayList<T>();
-		tmpList.addAll(yetUntied);
+	public void notifyProducerRegistered(IStatsProducer<S> producer) {
+		ArrayList<T> tmpList = new ArrayList<T>(yetUntied);
 		for (T t : tmpList){
 			if (t.getDefinition().getProducerName().equals(producer.getProducerId())){
 				try{
 					tie(t, producer);
 				}catch(Exception e){
-					log.error("notifyProducerRegistered("+producer+")",e );
+					log.error("notifyProducerRegistered("+producer+ ')',e );
 				}
 			}
 		}
 	}
 
 	@Override
-	public void notifyProducerUnregistered(IStatsProducer<?> producer) {
+	public void notifyProducerUnregistered(IStatsProducer<S> producer) {
 		//nothing
 	}
 	
@@ -142,7 +141,7 @@ public abstract class TieableRepository<T extends Tieable> implements IProducerR
 		String name = t.getName();
 		int i=1;
 		while( tieables.get(name)!=null){
-			name = t.getName()+"-"+(i++);
+			name = t.getName()+ '-' +(i++);
 		}
 		definition.setName(name);//set net name, in order to prevent name conflicts.
 		tieables.put(t.getName(), t);

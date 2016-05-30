@@ -49,7 +49,7 @@ public class ShowLibsAction extends BaseAdditionalAction{
 	public ActionCommand execute(ActionMapping mapping, FormBean formBean, HttpServletRequest req, HttpServletResponse res) throws Exception {
 
 		List<URL> classpath = getClassPathUrls(req.getContextPath());
-		List<LibAO> beans = new ArrayList<LibAO>();
+		List<LibAO> beans = new ArrayList<>(classpath.size());
 
 		for (URL url : classpath){
 			String fileName = url.getFile();
@@ -85,7 +85,7 @@ public class ShowLibsAction extends BaseAdditionalAction{
 		if (forTomcat6!=null && forTomcat6.size()>0)
 			return forTomcat6;
 		//add another lookup methods here.
-		return new ArrayList<URL>();
+		return new ArrayList<>(0);
 
 	}
 

@@ -63,17 +63,17 @@ public final class IntervalRegistry {
 	/**
 	 * This Map holds all Intervals by their ids.
 	 */
-	private Map<Integer, Interval> intervalsById = new ConcurrentHashMap<Integer, Interval>();
+	private Map<Integer, Interval> intervalsById = new ConcurrentHashMap<>();
 
 	/**
 	 * This Map holds all Intervals by their names.
 	 */
-	private Map<String, Interval> intervalsByName = new ConcurrentHashMap<String, Interval>();
+	private Map<String, Interval> intervalsByName = new ConcurrentHashMap<>();
 	
 	/**
 	 * This map stores last update timestamps for registered intervals by name.
 	 */
-	private Map<String, Long> intervalUpdateTimestamp = new ConcurrentHashMap<String, Long>();
+	private Map<String, Long> intervalUpdateTimestamp = new ConcurrentHashMap<>();
 
 	/**
 	 * This is a Thread-safe counter to generate VM-wide uniqe ids for new Interval instances.

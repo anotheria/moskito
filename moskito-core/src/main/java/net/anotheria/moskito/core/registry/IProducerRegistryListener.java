@@ -34,6 +34,7 @@
  */	
 package net.anotheria.moskito.core.registry;
 
+import net.anotheria.moskito.core.producers.IStats;
 import net.anotheria.moskito.core.producers.IStatsProducer;
 
 /**
@@ -41,16 +42,16 @@ import net.anotheria.moskito.core.producers.IStatsProducer;
  * @author lrosenberg
  *
  */
-public interface IProducerRegistryListener {
+public interface IProducerRegistryListener<S extends IStats> {
 	/**
 	 * Called whenever a new producer is registered.
 	 * @param producer
 	 */
-	void notifyProducerRegistered(IStatsProducer<?> producer);
+	void notifyProducerRegistered(IStatsProducer<S> producer);
 	
 	/**
 	 * Called whenever a producer is unregistered.
 	 * @param producer
 	 */
-	void notifyProducerUnregistered(IStatsProducer<?> producer);
+	void notifyProducerUnregistered(IStatsProducer<S> producer);
 }

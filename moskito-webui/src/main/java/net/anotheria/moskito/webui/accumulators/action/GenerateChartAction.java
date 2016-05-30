@@ -44,7 +44,7 @@ public class GenerateChartAction implements Action {
 
         AccumulatorAPI accumulatorAPI = APILookupUtility.getAccumulatorAPI();
 
-        if (isZip == null || (isZip != null && isZip.equals("false"))) {
+        if (isZip == null || isZip.equals("false")) {
             ChartData offlineChart = getOfflineChart(namesParam, accumulatorAPI);
 
             res.setContentType(PNG_CONTENT_TYPE);
@@ -53,7 +53,7 @@ public class GenerateChartAction implements Action {
             res.getOutputStream().write(offlineChart.getData());
 
         }
-        else if (isZip != null && isZip.equals("true")) {
+        else if (isZip.equals("true")) {
             String[] names = StringUtils.tokenize(namesParam, ',');
 
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -86,7 +86,7 @@ public class GenerateChartAction implements Action {
             chart.addLineDefinition(new OfflineChartLineDefinition(accData.getName()));
             chartSourceData[i++] = accData;
 
-            log.debug("Adding on pos " + (i - 1) + " " + accData);
+            log.debug("Adding on pos " + (i - 1) + ' ' + accData);
         }
 
         if (accNames.length > 1) fileName = "CombinedChart";
@@ -94,7 +94,7 @@ public class GenerateChartAction implements Action {
 
         log.debug("Preparing data");
         //prepare data
-        Map<String, TemporaryPoint> tmppoints = new HashMap();
+        Map<String, TemporaryPoint> tmppoints = new HashMap<>(chartSourceData.length);
         for (i = 0; i < chartSourceData.length; i++) {
             AccumulatedSingleGraphAO accData = chartSourceData[i];
             log.debug("Processing " + accData + " with values " + accData.getData());

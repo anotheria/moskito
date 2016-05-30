@@ -42,6 +42,6 @@ class JourneyRecord implements Serializable {
 	}
 
 	public String getUseCaseName(){
-		return getName()+"-"+getRequestCount();
+		return getName()+ '-' +getRequestCount();
 	}
 }

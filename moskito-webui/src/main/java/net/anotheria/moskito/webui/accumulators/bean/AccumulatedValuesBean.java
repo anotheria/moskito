@@ -27,7 +27,7 @@ public class AccumulatedValuesBean implements IComparable{
 	 */
 	public AccumulatedValuesBean(long aTimestamp){
 		timestamp = aTimestamp;
-		values = new HashMap<String, String>();
+		values = new HashMap<>();
 	}
 	
 	@Override public String toString(){

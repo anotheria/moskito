@@ -37,32 +37,32 @@ public abstract class AbstractMemoryPoolStats extends AbstractStats implements I
 	}
 	
 	@Override public String getValueByNameAsString(String valueName, String intervalName, TimeUnit timeUnit){
-		if (valueName==null || valueName.equals(""))
+		if (valueName==null || valueName.isEmpty())
 			throw new AssertionError("Value name can not be empty");
 		valueName = valueName.toLowerCase();
 		
 		if (valueName.equals("init"))
-			return ""+getInit(intervalName);
+			return String.valueOf(getInit(intervalName));
 		if (valueName.equals("min_used"))
-			return ""+getMinUsed(intervalName);
+			return String.valueOf(getMinUsed(intervalName));
 		if (valueName.equals("used"))
-			return ""+getUsed(intervalName);
+			return String.valueOf(getUsed(intervalName));
 		if (valueName.equals("used mb"))
-			return ""+getUsed(intervalName)/MB;
+			return String.valueOf(getUsed(intervalName) / MB);
 		if (valueName.equals("max_used"))
-			return ""+getMaxUsed(intervalName);
+			return String.valueOf(getMaxUsed(intervalName));
 		if (valueName.equals("min_commited"))
-			return ""+getMinCommited(intervalName);
+			return String.valueOf(getMinCommited(intervalName));
 		if (valueName.equals("commited"))
-			return ""+getCommited(intervalName);
+			return String.valueOf(getCommited(intervalName));
 		if (valueName.equals("max_commited"))
-			return ""+getMaxCommited(intervalName);
+			return String.valueOf(getMaxCommited(intervalName));
 		if (valueName.equals("max"))
-			return ""+getMax(intervalName);
+			return String.valueOf(getMax(intervalName));
 		if (valueName.equals("free"))
-			return ""+getFree(intervalName);
+			return String.valueOf(getFree(intervalName));
 		if (valueName.equals("free mb"))
-			return ""+getFree(intervalName)/MB;
+			return String.valueOf(getFree(intervalName) / MB);
 		
 		return super.getValueByNameAsString(valueName, intervalName, timeUnit);
 	}

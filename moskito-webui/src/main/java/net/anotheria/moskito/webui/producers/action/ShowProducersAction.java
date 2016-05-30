@@ -70,14 +70,14 @@ public class ShowProducersAction extends BaseShowProducersAction{
 	
 	@Override
 	protected List<ProducerAO> getProducers(HttpServletRequest req)  throws APIException {
-		List<IProducerFilter> filters = new ArrayList<IProducerFilter>();
+		List<IProducerFilter> filters = new ArrayList<>(2);
 		String category = getCategoryParameter(req);
 		if(category != null && category.length() > 0)
 			filters.add(new CategoryFilter(category));
 		String subsystem = getSubsystemParameter(req);
 		if(subsystem!= null && subsystem.length() > 0)
 			filters.add(new SubsystemFilter(subsystem));
-		return getProducerAPI().getProducers(filters.toArray(new IProducerFilter[0]), getCurrentInterval(req), getCurrentUnit(req).getUnit());
+		return getProducerAPI().getProducers(filters.toArray(new IProducerFilter[filters.size()]), getCurrentInterval(req), getCurrentUnit(req).getUnit());
 	}
 	
 	@Override public String getPageTitle(HttpServletRequest req){

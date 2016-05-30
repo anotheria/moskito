@@ -150,7 +150,7 @@ public abstract class AbstractInterceptor<T extends IStats> {
     private void createMethodLevelAccumulators(OnDemandStatsProducer<T> producer, Method method) {
         //several @Accumulators in accumulators holder
         Accumulates accAnnotationHolderMethods = (Accumulates) method.getAnnotation(Accumulates.class);
-        if (accAnnotationHolderMethods != null && accAnnotationHolderMethods.value() != null) {
+        if (accAnnotationHolderMethods != null) {
             Accumulate[] accAnnotations  = accAnnotationHolderMethods.value();
             for (Accumulate accAnnotation : accAnnotations) {
                 createAccumulator(
@@ -180,7 +180,7 @@ public abstract class AbstractInterceptor<T extends IStats> {
     private void createClassLevelAccumulators(OnDemandStatsProducer<T> producer, Class producerClass) {
         //several @Accumulators in accumulators holder
         Accumulates accAnnotationHolder = AnnotationUtils.findAnnotation(producerClass, Accumulates.class);//(Accumulates) producerClass.getAnnotation(Accumulates.class);
-        if (accAnnotationHolder != null && accAnnotationHolder.value() != null) {
+        if (accAnnotationHolder != null) {
             Accumulate[] accAnnotations  = accAnnotationHolder.value();
             for (Accumulate accAnnotation : accAnnotations) {
                 createAccumulator(
@@ -203,13 +203,13 @@ public abstract class AbstractInterceptor<T extends IStats> {
 
     private String formAccumulatorNameForMethod(final OnDemandStatsProducer<T> producer, final Accumulate annotation, final Method m) {
         if (producer != null && annotation != null && m != null)
-            return producer.getProducerId()+"."+m.getName()+"."+annotation.valueName()+"."+annotation.intervalName();
+            return producer.getProducerId()+ '.' +m.getName()+ '.' +annotation.valueName()+ '.' +annotation.intervalName();
         return "";
     }
 
     private String formAccumulatorNameForClass(final OnDemandStatsProducer<T> producer, final Accumulate annotation) {
         if (producer != null && annotation != null)
-            return producer.getProducerId()+"."+annotation.valueName()+"."+annotation.intervalName();
+            return producer.getProducerId()+ '.' +annotation.valueName()+ '.' +annotation.intervalName();
         return "";
     }
 
@@ -226,7 +226,7 @@ public abstract class AbstractInterceptor<T extends IStats> {
                 accName!=null && !accName.isEmpty() && statsName != null && !statsName.isEmpty()){
 
             AccumulatorDefinition definition = new AccumulatorDefinition();
-            if (annotation.name() != null && annotation.name().length() >0) {
+            if (annotation.name().length() > 0) {
                 definition.setName(annotation.name());
             }else{
                 definition.setName(accName);

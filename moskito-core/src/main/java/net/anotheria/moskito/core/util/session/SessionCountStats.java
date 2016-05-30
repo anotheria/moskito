@@ -122,15 +122,15 @@ public class SessionCountStats extends AbstractStats {
 		valueName = valueName.toLowerCase();
 		
 		if (valueName.equals("cur") || valueName.equals("current"))
-			return ""+getCurrentSessionCount(intervalName);
+			return String.valueOf(getCurrentSessionCount(intervalName));
 		if (valueName.equals("min"))
-			return ""+getMinSessionCount(intervalName);
+			return String.valueOf(getMinSessionCount(intervalName));
 		if (valueName.equals("max"))
-			return ""+getMaxSessionCount(intervalName);
+			return String.valueOf(getMaxSessionCount(intervalName));
 		if (valueName.equals("new"))
-			return ""+getCreatedSessionCount(intervalName);
+			return String.valueOf(getCreatedSessionCount(intervalName));
 		if (valueName.equals("del"))
-			return ""+getDestroyedSessionCount(intervalName);
+			return String.valueOf(getDestroyedSessionCount(intervalName));
 		
 		return super.getValueByNameAsString(valueName, intervalName, timeUnit);
 	}

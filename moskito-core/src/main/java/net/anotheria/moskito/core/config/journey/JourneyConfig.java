@@ -56,6 +56,6 @@ public class JourneyConfig implements Serializable{
 	}
 
 	public String toString(){
-		return "JourneyConfig: ("+parameterLengthLimit+", "+toStringCollections+", "+toStringMaps+")";
+		return "JourneyConfig: ("+parameterLengthLimit+", "+toStringCollections+", "+toStringMaps+ ')';
 	}
 }

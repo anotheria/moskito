@@ -15,7 +15,7 @@ public class AccumulatorTest {
 		def.setAccumulationAmount(limit);
 		
 		for (int i=0; i<limit; i++){
-			acc.addValue(""+i);
+			acc.addValue(String.valueOf(i));
 			assertEquals(i+1, acc.getValues().size());
 		}
 		

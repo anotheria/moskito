@@ -183,11 +183,11 @@ class IntValueHolder extends AbstractValueHolder {
 	}
 	
 	@Override public String getValueAsString() {
-		return ""+lastValue;
+		return String.valueOf(lastValue);
 	}
 
 	@Override public String getCurrentValueAsString() {
-		return ""+currentValue.get();
+		return String.valueOf(currentValue.get());
 	}
 
 }

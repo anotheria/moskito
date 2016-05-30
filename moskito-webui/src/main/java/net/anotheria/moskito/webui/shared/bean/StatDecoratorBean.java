@@ -56,7 +56,7 @@ public class StatDecoratorBean extends AbstractDecoratorBean {
 	 * Creates a new StatDecoratorBean.
 	 */
 	public StatDecoratorBean(){
-		stats = new ArrayList<StatBean>();
+		stats = new ArrayList<>();
 	}
 
 

@@ -18,13 +18,13 @@ public class ThresholdAlertConverter {
      */
     public static String toPlainText(ThresholdAlert thresholdAlert) {
         String text = "Threshold alert:\n";
-        text += "Timestamp: "+thresholdAlert.getTimestamp()+"\n";
-        text += "ISO Timestamp: "+ NumberUtils.makeISO8601TimestampString(thresholdAlert.getTimestamp())+"\n";
-        text += "Threshold: "+thresholdAlert.getThreshold().getName()+"\n";
-        text += "OldStatus: "+thresholdAlert.getOldStatus()+"\n";
-        text += "NewStatus: "+thresholdAlert.getNewStatus()+"\n";
-        text += "OldValue: "+thresholdAlert.getOldValue()+"\n";
-        text += "NewValue: "+thresholdAlert.getNewValue()+"\n";
+        text += "Timestamp: "+thresholdAlert.getTimestamp()+ '\n';
+        text += "ISO Timestamp: "+ NumberUtils.makeISO8601TimestampString(thresholdAlert.getTimestamp())+ '\n';
+        text += "Threshold: "+thresholdAlert.getThreshold().getName()+ '\n';
+        text += "OldStatus: "+thresholdAlert.getOldStatus()+ '\n';
+        text += "NewStatus: "+thresholdAlert.getNewStatus()+ '\n';
+        text += "OldValue: "+thresholdAlert.getOldValue()+ '\n';
+        text += "NewValue: "+thresholdAlert.getNewValue()+ '\n';
         return text;
     }
 }
