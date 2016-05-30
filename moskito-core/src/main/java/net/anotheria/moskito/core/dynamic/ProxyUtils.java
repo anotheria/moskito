@@ -66,7 +66,7 @@ public class ProxyUtils {
 	 * @param additionalInterfaces Optional additional interfaces, that will be appended to the array
      * @return an array containing the interface and some more interfaces if given
      */
-	public static Class<?>[] mergeInterfaces(Class<?> interf, Class<?>... additionalInterfaces) {
+	static Class<?>[] mergeInterfaces(Class<?> interf, Class<?>... additionalInterfaces) {
 		Class<?>[] interfacesParameter = new Class<?>[additionalInterfaces==null ? 1 : 1 + additionalInterfaces.length];
 		interfacesParameter[0] = interf;
 		if (additionalInterfaces!=null){
