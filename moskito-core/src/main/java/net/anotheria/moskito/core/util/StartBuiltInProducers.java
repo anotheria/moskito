@@ -7,7 +7,10 @@ import net.anotheria.moskito.core.registry.ProducerRegistryFactory;
 import java.lang.management.ManagementFactory;
 import java.lang.management.MemoryPoolMXBean;
 import java.lang.management.MemoryType;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.EnumMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * A utility for starting built-in producers upon moskito start / initialization.

@@ -8,7 +8,10 @@ import net.anotheria.moskito.core.registry.ProducerRegistryFactory;
 import java.lang.management.ManagementFactory;
 import java.lang.management.ThreadInfo;
 import java.lang.management.ThreadMXBean;
-import java.util.*;
+import java.util.EnumMap;
+import java.util.List;
+import java.util.Map;
+import java.util.TimerTask;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 /**

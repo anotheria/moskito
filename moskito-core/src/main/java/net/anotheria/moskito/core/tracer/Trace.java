@@ -14,10 +14,25 @@ import java.util.concurrent.atomic.AtomicLong;
  * @since 05.05.15 17:54
  */
 public class Trace implements IComparable<Trace>{
+	/**
+	 * Static counter that provides a new id to each instance.
+	 */
 	private static AtomicLong counter = new AtomicLong();
+	/**
+	 * Id of this instance.
+	 */
 	private long id = counter.incrementAndGet();
+	/**
+	 * Call for this trace.
+	 */
 	private String call;
+	/**
+	 * Duration of this trace.
+	 */
 	private long duration;
+	/**
+	 * Elements in the stackTrace prior to Tracer activation.
+	 */
 	private StackTraceElement[] elements;
     /**
      * Timestamp of the trace creation.
