@@ -1,13 +1,11 @@
 package net.anotheria.moskito.core.decorators.value;
 
-import org.junit.Ignore;
+import java.util.Locale;
 import org.junit.Test;
 
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.*;
 
-
-@Ignore
 public class DoubleValueAOTest {
 
 
@@ -146,7 +144,15 @@ public class DoubleValueAOTest {
         assertFormatting(Math.PI, "3.142");
     }
 
-    public void assertFormatting(double doubleValue, String expected) {
+	@Test
+	public void ignoreLocaleSettings() {
+		Locale defaultLocale = Locale.getDefault();
+		Locale.setDefault(Locale.GERMAN);
+		assertFormatting(Double.MAX_VALUE, "9223372036854776.000");
+		Locale.setDefault(defaultLocale);
+	}
+
+    private void assertFormatting(double doubleValue, String expected) {
         DoubleValueAO doubleValueAO = new DoubleValueAO("name", doubleValue);
         String returnValue = doubleValueAO.getValue();
         assertThat(returnValue, is(expected));

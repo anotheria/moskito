@@ -34,11 +34,11 @@
  */	
 package net.anotheria.moskito.core.decorators.value;
 
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
+
 import net.anotheria.util.BasicComparable;
 import net.anotheria.util.sorter.IComparable;
-
-import java.text.DecimalFormat;
-import java.text.NumberFormat;
 
 /**
  * Stat value bean for double values.
@@ -54,11 +54,21 @@ public class DoubleValueAO extends StatValueAO {
 	 * Cached string representation.
 	 */
 	private String doubleAsString;
-	
+
+	private static DecimalFormat decimalFormat = createDecimalFormat();
+
+	private static DecimalFormat createDecimalFormat() {
+		DecimalFormat decimalFormat = new DecimalFormat("0.000");
+		DecimalFormatSymbols decimalFormatSymbols = new DecimalFormatSymbols();
+		decimalFormatSymbols.setDecimalSeparator('.');
+		decimalFormat.setDecimalFormatSymbols(decimalFormatSymbols);
+		return decimalFormat;
+	}
+
 	/**
 	 * Creates a new DoubleValueAO.
-	 * @param name
-	 * @param aValue
+	 * @param name identifies the value
+	 * @param aValue the value itself
 	 */
 	public DoubleValueAO(String name, double aValue){
 		super(name);
@@ -67,7 +77,6 @@ public class DoubleValueAO extends StatValueAO {
 		else
 			doubleValue = aValue;
 
-		DecimalFormat decimalFormat = new DecimalFormat("0.000");
 		doubleAsString = decimalFormat.format(doubleValue);
 	}
 
