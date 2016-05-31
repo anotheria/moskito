@@ -3,6 +3,7 @@
 	"producerChartHeight": 600,
     "connectivityMode": "LOCAL",
     "customLogoUrl":"",
+    "showOnlineHelp": true,
     "@remotes": [
         {
             "name": "Burgershop Local",
