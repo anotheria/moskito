@@ -262,6 +262,11 @@
             "name": "VisualPoCPlugin",
             "configurationName": "none",
             "className": "net.anotheria.moskitoplugin.emptypage.EmptyPagePlugin"
+          },
+          {
+            "name": "TopPlugin",
+            "configurationName": "none",
+            "className": "net.anotheria.moskitoplugin.topproducers.TopProducersPlugin"
           }
 
         ]
