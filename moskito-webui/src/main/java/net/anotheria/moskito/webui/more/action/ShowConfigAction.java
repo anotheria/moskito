@@ -21,7 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * TODO comment this class
+ * This action shows current configuration, local or remote.
  *
  * @author lrosenberg
  * @since 28.10.12 23:41
