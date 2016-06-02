@@ -17,6 +17,11 @@ import java.util.List;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class ThresholdDefinitionAO implements Serializable{
 	/**
+	 * SerialVersionUID.
+	 */
+	private static final long serialVersionUID = 1L;
+
+	/**
 	 * Threshold id.
 	 */
 	@XmlElement

@@ -13,6 +13,12 @@ import java.io.Serializable;
  */
 @ConfigureMe
 public class JourneyConfig implements Serializable{
+
+	/**
+	 * SerialVersionUID.
+	 */
+	private static final long serialVersionUID = 1L;
+
 	/**
 	 * Limit for the parameter length. Default is 100. If parameter length is more than configured, it will be cut. This also applies to return values.
 	 */

@@ -13,6 +13,11 @@ import java.util.Map;
  */
 public class AnalyzedProducerCallsMapAO implements Serializable {
 	/**
+	 * SerialVersionUID.
+	 */
+	private static final long serialVersionUID = 1L;
+
+	/**
 	 * Map with AnalyzedProducerCallsAO beans for each producer.
 	 */
 	private Map<String, AnalyzedProducerCallsAO> beans;

@@ -13,6 +13,11 @@ import java.io.Serializable;
 @XmlRootElement(name="ThresholdAlert")
 public class ThresholdAlertAO implements Serializable{
 	/**
+	 * SerialVersionUID.
+	 */
+	private static final long serialVersionUID = 1;
+
+	/**
 	 * Id of the threshold.
 	 */
     @XmlElement

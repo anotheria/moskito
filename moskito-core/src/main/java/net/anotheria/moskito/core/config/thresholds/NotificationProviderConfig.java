@@ -16,6 +16,11 @@ import java.util.Map;
  */
 public class NotificationProviderConfig implements Serializable {
 	/**
+	 * SerialVersionUID.
+	 */
+	private static final long serialVersionUID = 1L;
+
+	/**
 	 * Name of the notification provider class.
 	 */
 	@Configure

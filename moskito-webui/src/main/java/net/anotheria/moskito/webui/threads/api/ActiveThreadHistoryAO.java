@@ -12,6 +12,11 @@ import java.util.List;
  * @since 28.03.14 09:38
  */
 public class ActiveThreadHistoryAO implements Serializable{
+	/**
+	 * SerialVersionUID.
+	 */
+	private static final long serialVersionUID = 1L;
+
 	private List<ThreadHistoryEvent> events;
 	private boolean active;
 	private int listSize;

@@ -21,10 +21,24 @@ import java.util.Map;
  */
 @WebServlet(urlPatterns = "/sampling/sample")
 public class SamplingServlet extends MoskitoHttpServlet{
+	/**
+	 * SerialVersionUID.
+	 */
+	private static final long serialVersionUID = 1L;
 
+
+	/**
+	 * ProducerId parameter.
+	 */
 	public static final String PARAM_PRODUCER_ID = "id";
+	/**
+	 * Mapper parameter.
+	 */
 	public static final String PARAM_STAT_MAPPER_ID = "mapper";
 
+	/**
+	 * Engine.
+	 */
 	private SamplingEngine engine;
 
 	@Override

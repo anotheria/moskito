@@ -13,6 +13,11 @@ import java.util.List;
  */
 public class TracedCallDuplicateStepsAO implements IComparable<TracedCallDuplicateStepsAO>, Serializable{
 	/**
+	 * SerialVersionUID.
+	 */
+	private static final long serialVersionUID = 1L;
+
+	/**
 	 * Call description aka method name and parameters.
 	 */
 	private String call;

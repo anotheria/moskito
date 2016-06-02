@@ -13,6 +13,11 @@ import java.util.Arrays;
 @ConfigureMe
 @SuppressFBWarnings(value = {"EI_EXPOSE_REP2", "EI_EXPOSE_REP"}, justification = "This is the way configureme works, it provides beans for access")
 public class ChartConfig implements Serializable{
+	/**
+	 * SerialVersionUID.
+	 */
+	private static final long serialVersionUID = 1L;
+
 
 	/**
 	 * Chart caption.

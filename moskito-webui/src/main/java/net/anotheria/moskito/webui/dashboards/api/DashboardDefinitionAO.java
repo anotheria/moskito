@@ -15,11 +15,26 @@ import java.util.List;
 @XmlRootElement(name="DashboardDefinition")
 public class DashboardDefinitionAO implements Serializable{
 	/**
+	 * SerialVersionUID.
+	 */
+	private static final long serialVersionUID = 1L;
+
+	/**
 	 * Name of the Dashboard.
 	 */
 	private String name;
+	/**
+	 * List with gauges names for this dashboard.
+	 */
 	private List<String> gauges = Collections.emptyList();
+
+	/**
+	 * List for threshold names for this dashboard.
+	 */
 	private List<String> thresholds = Collections.emptyList();
+	/**
+	 * Charts for this dashboard.
+	 */
 	private List<DashboardChartDefinitionAO> charts = new LinkedList<DashboardChartDefinitionAO>();
 
 	public List<String> getGauges() {

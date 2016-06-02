@@ -27,6 +27,11 @@ import java.io.Serializable;
 @ConfigureMe(name="moskito")
 public class MoskitoConfiguration implements Serializable{
 	/**
+	 * SerialVersionUID.
+	 */
+	private static final long serialVersionUID = 1L;
+
+	/**
 	 * Config object for alerting.
 	 */
 	@Configure

@@ -12,6 +12,11 @@ import java.util.List;
  * @since 25.03.14 15:37
  */
 public class StatLineAO implements Serializable{
+	/**
+	 * SerialVersionUID.
+	 */
+	private static final long serialVersionUID = 1L;
+
 	private String statName;
 	private List<StatValueAO> values;
 

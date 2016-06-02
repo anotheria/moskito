@@ -34,11 +34,11 @@
  */	
 package net.anotheria.moskito.core.decorators.value;
 
-import java.text.DecimalFormat;
-import java.text.DecimalFormatSymbols;
-
 import net.anotheria.util.BasicComparable;
 import net.anotheria.util.sorter.IComparable;
+
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 
 /**
  * Stat value bean for double values.
@@ -46,6 +46,11 @@ import net.anotheria.util.sorter.IComparable;
  *
  */
 public class DoubleValueAO extends StatValueAO {
+	/**
+	 * SerialVersionUID.
+	 */
+	private static final long serialVersionUID = 1L;
+
 	/**
 	 * Internal storage.
 	 */

@@ -13,7 +13,18 @@ import java.util.List;
  */
 @XmlRootElement(name="chart")
 public class DashboardChartDefinitionAO implements Serializable{
+	/**
+	 * SerialVersionUID.
+	 */
+	private static final long serialVersionUID = 1L;
+
+	/**
+	 * Chart box caption. Optional but recommended, especially if you have more than one accumulator.
+	 */
 	private String caption;
+	/**
+	 * Names of accumulators to build chart from.
+	 */
 	private List<String> accumulatorNames = Collections.emptyList();
 
 	public List<String> getAccumulatorNames() {

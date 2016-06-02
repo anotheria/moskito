@@ -12,6 +12,11 @@ import org.slf4j.LoggerFactory;
  */
 public class AccumulatorDefinition extends TieableDefinition {
 	/**
+	 * SerialVersionUID.
+	 */
+	private static final long serialVersionUID = 1L;
+
+	/**
 	 * Number of values to store.
 	 */
 	private int accumulationAmount;

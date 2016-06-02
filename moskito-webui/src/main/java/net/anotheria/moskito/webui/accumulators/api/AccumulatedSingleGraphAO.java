@@ -25,6 +25,11 @@ import java.util.Map;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class AccumulatedSingleGraphAO implements Serializable{
 	/**
+	 * SerialVersionUID.
+	 */
+	private static final long serialVersionUID = 1L;
+
+	/**
 	 * Name of the graph.
 	 */
 	@XmlElement

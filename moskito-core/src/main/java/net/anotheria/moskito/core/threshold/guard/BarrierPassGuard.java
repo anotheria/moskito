@@ -13,6 +13,11 @@ import java.io.Serializable;
  */
 public abstract class BarrierPassGuard implements ThresholdConditionGuard, Serializable {
 	/**
+	 * SerialVersionUID.
+	 */
+	private static final long serialVersionUID = 1L;
+
+	/**
 	 * The status to activate in case the barrier has been passed.
 	 */
 	private ThresholdStatus targetStatus;

@@ -21,6 +21,11 @@ import java.util.List;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class AccumulatedValueAO implements Serializable, IComparable<AccumulatedValueAO>{
 	/**
+	 * SerialVersionUID.
+	 */
+	private static final long serialVersionUID = 1L;
+
+	/**
 	 * Values aka data for graphs.
 	 */
 	@XmlElement

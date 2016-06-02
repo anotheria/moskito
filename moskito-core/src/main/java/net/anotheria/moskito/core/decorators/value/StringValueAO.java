@@ -43,7 +43,12 @@ import net.anotheria.util.sorter.IComparable;
  *
  */
 public class StringValueAO extends StatValueAO {
-	
+	/**
+	 * SerialVersionUID.
+	 */
+	private static final long serialVersionUID = 1L;
+
+
 	/**
 	 * Value object.
 	 */

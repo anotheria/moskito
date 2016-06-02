@@ -16,6 +16,11 @@ import java.util.List;
  */
 public class MultilineChartAO implements Serializable{
 	/**
+	 * SerialVersionUID.
+	 */
+	private static final long serialVersionUID = 1L;
+
+	/**
 	 * Chart data.
 	 */
 	private List<AccumulatedValueAO> data;

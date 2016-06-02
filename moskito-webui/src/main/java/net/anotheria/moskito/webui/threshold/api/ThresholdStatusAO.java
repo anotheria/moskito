@@ -20,6 +20,11 @@ import java.io.Serializable;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class ThresholdStatusAO implements IComparable, Serializable{
 	/**
+	 * SerialVersionUID.
+	 */
+	private static final long serialVersionUID = 1L;
+
+	/**
 	 * Name of the threshold.
 	 */
 	@XmlElement

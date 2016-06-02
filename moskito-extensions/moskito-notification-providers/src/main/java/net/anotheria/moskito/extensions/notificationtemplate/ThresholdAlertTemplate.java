@@ -9,6 +9,11 @@ import net.anotheria.util.content.template.TemplateUtility;
  */
 public class ThresholdAlertTemplate extends AbstractMailTemplate {
 	/**
+	 * SerialVersionUID.
+	 */
+	private static final long serialVersionUID = 1;
+
+	/**
 	 * {@link ThresholdAlert#threshold} template variable name.
 	 */
 	private static final String THRESHOLD = "threshold";

@@ -11,6 +11,11 @@ import java.io.Serializable;
  */
 public class ThreadHistoryEvent implements Serializable{
 	/**
+	 * SerialVersionUID.
+	 */
+	private static final long serialVersionUID = 1L;
+
+	/**
 	 * History operation.
 	 * @author lrosenberg
 	 *

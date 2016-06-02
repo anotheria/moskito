@@ -1,7 +1,12 @@
 package net.anotheria.moskito.webui.util.offlinecharts;
 
 public class OfflineChartGeneratorException extends Exception {
-    public OfflineChartGeneratorException(String message){
+	/**
+	 * SerialVersionUID.
+	 */
+	private static final long serialVersionUID = 1;
+
+	public OfflineChartGeneratorException(String message){
         super(message);
     }
 

@@ -11,8 +11,13 @@ import java.io.Serializable;
  */
 @ConfigureMe
 public class MBeanProducerDomainConfig implements Serializable{
+	/**
+	 * SerialVersionUID.
+	 */
+	private static final long serialVersionUID = 1L;
 
-    /**
+
+	/**
      * the name of MBean domain to configure.
      */
     @Configure

@@ -43,6 +43,11 @@ import java.util.Arrays;
  */
 public class CreationInfo implements Serializable{
 	/**
+	 * SerialVersionUID.
+	 */
+	private static final long serialVersionUID = 1L;
+
+	/**
 	 * Timestamp of the creation.
 	 */
 	private long timestamp;

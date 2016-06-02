@@ -20,6 +20,11 @@ import java.io.Serializable;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class AccumulatorDefinitionAO implements IComparable, Serializable{
 	/**
+	 * SerialVersionUID.
+	 */
+	private static final long serialVersionUID = 1L;
+
+	/**
 	 * If of the accumulator.
 	 */
 	@XmlElement

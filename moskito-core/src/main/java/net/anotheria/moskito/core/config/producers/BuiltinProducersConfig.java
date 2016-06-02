@@ -14,6 +14,11 @@ import java.io.Serializable;
 @ConfigureMe(allfields = true)
 public class BuiltinProducersConfig implements Serializable {
 	/**
+	 * SerialVersionUID.
+	 */
+	private static final long serialVersionUID = 1L;
+
+	/**
 	 * Start Java Memory Producers.
 	 */
 	@Configure

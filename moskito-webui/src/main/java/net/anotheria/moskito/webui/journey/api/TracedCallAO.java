@@ -10,6 +10,11 @@ import java.util.List;
  */
 public class TracedCallAO implements Serializable{
 	/**
+	 * SerialVersionUID.
+	 */
+	private static final long serialVersionUID = 1;
+
+	/**
 	 * Name of the traced call.
 	 */
 	private String name;

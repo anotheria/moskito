@@ -14,6 +14,11 @@ import java.io.Serializable;
 @ConfigureMe
 public class GaugeZoneConfig implements Serializable{
 	/**
+	 * SerialVersionUID.
+	 */
+	private static final long serialVersionUID = 1L;
+
+	/**
 	 * Zones color. Can be one of green, orange, yellow, red.
 	 */
 	@Configure

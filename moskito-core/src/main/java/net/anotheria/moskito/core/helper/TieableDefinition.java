@@ -12,6 +12,11 @@ import java.io.Serializable;
  */
 public class TieableDefinition implements Serializable{
 	/**
+	 * SerialVersionUID.
+	 */
+	private static final long serialVersionUID = 1;
+
+	/**
 	 * Name of the tieable.
 	 */
 	private String name;

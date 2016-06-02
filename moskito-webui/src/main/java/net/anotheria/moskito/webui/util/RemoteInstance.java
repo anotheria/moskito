@@ -13,6 +13,11 @@ import java.io.Serializable;
 @ConfigureMe(allfields = true)
 public class RemoteInstance implements Serializable{
 	/**
+	 * SerialVersionUID.
+	 */
+	private static final long serialVersionUID = 1L;
+
+	/**
 	 * Name of this instance.
 	 */
 	private String name;

@@ -13,6 +13,11 @@ import java.io.Serializable;
  */
 @ConfigureMe
 public class FilterConfig implements Serializable{
+	/**
+	 * SerialVersionUID.
+	 */
+	private static final long serialVersionUID = 1L;
+
 	@Configure
 	private String[] caseExtractors = new String[]{
 		"net.anotheria.moskito.web.filters.caseextractor.RequestURICaseExtractor",

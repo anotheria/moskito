@@ -7,6 +7,11 @@ import java.io.Serializable;
  */
 public class ThreadsInfoAO implements Serializable{
 	/**
+	 * SerialVersionUID.
+	 */
+	private static final long serialVersionUID = 1;
+
+	/**
 	 * Number of threads.
 	 */
 	private int threadCount;

@@ -46,6 +46,11 @@ import java.io.Serializable;
  */
 public class IntervalInfoAO implements IComparable, Serializable{
 	/**
+	 * SerialVersionUID.
+	 */
+	private static final long serialVersionUID = 1L;
+
+	/**
 	 * Name of the interval.
 	 */
 	private String name;

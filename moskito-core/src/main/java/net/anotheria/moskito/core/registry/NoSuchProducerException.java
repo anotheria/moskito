@@ -8,6 +8,11 @@ package net.anotheria.moskito.core.registry;
  */
 public class NoSuchProducerException extends ProducerRegistryAPIException{
 	/**
+	 * SerialVersionUID.
+	 */
+	private static final long serialVersionUID = 1L;
+
+	/**
 	 * Creates new NoSuchProducerException.
 	 * @param producerId id of the producer that wasn't found.
 	 */

@@ -16,6 +16,11 @@ import java.util.Arrays;
 @ConfigureMe(allfields = true)
 public class ThresholdConfig implements Serializable {
 	/**
+	 * SerialVersionUID.
+	 */
+	private static final long serialVersionUID = 1;
+
+	/**
 	 * Name of the threshold.
 	 */
 	@Configure
