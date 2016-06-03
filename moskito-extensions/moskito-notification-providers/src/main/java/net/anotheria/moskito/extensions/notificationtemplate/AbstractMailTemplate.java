@@ -19,7 +19,7 @@ public abstract class AbstractMailTemplate implements MailTemplate {
 	/**
 	 * Mail template parameters.
 	 */
-	private Map<String, Serializable> parameters = new HashMap<String, Serializable>();
+	private Map<String, Serializable> parameters = new HashMap<>();
 
 	/**
 	 * Static init block.

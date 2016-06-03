@@ -8,7 +8,7 @@ import java.lang.management.ManagementFactory;
 import java.lang.management.MemoryPoolMXBean;
 import java.lang.management.MemoryType;
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
 
@@ -59,7 +59,7 @@ public class StartBuiltInProducers {
 		}
 
 		if (MoskitoConfigurationHolder.getConfiguration().getBuiltinProducersConfig().isJavaMemoryPoolProducers()){
-			HashMap<MemoryType, List<BuiltInMemoryPoolProducer>> producers = new HashMap<MemoryType, List<BuiltInMemoryPoolProducer>>();
+			Map<MemoryType, List<BuiltInMemoryPoolProducer>> producers = new EnumMap<>(MemoryType.class);
 
 			List<MemoryPoolMXBean> pools = ManagementFactory.getMemoryPoolMXBeans();
 			for (MemoryPoolMXBean pool : pools){
@@ -67,7 +67,7 @@ public class StartBuiltInProducers {
 				registry.registerProducer(p);
 				List<BuiltInMemoryPoolProducer> pp = producers.get(pool.getType());
 				if (pp==null){
-					pp = new ArrayList<BuiltInMemoryPoolProducer>();
+					pp = new ArrayList<>(pools.size());
 					producers.put(pool.getType(), pp);
 				}
 				pp.add(p);

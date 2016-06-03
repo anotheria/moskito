@@ -17,6 +17,11 @@ import java.util.List;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class ThresholdDefinitionAO implements Serializable{
 	/**
+	 * SerialVersionUID.
+	 */
+	private static final long serialVersionUID = 1L;
+
+	/**
 	 * Threshold id.
 	 */
 	@XmlElement
@@ -60,7 +65,7 @@ public class ThresholdDefinitionAO implements Serializable{
 	private TimeUnit timeUnit;
 	
 	public ThresholdDefinitionAO(){
-		guards = new ArrayList<ThresholdConditionGuard>();
+		guards = new ArrayList<>();
 	}
 	
 	public void addGuard(ThresholdConditionGuard aGuard){
@@ -133,7 +138,7 @@ public class ThresholdDefinitionAO implements Serializable{
 
 	@Override
 	public String toString() {
-		return id+"/"+producerName+"/"+statName+"/"+valueName+"/"+valueName;
+		return id+ '/' +producerName+ '/' +statName+ '/' +valueName+ '/' +valueName;
 	}
 
 	public TimeUnit getTimeUnit() {

@@ -14,6 +14,11 @@ import java.io.Serializable;
 @ConfigureMe
 public class PluginConfig implements Serializable {
 	/**
+	 * SerialVersionUID.
+	 */
+	private static final long serialVersionUID = 1L;
+
+	/**
 	 * Name of the plugin. This allows to have multiple copies of same plugin in the runtime instance.
 	 */
 	@Configure
@@ -54,6 +59,6 @@ public class PluginConfig implements Serializable {
 	}
 
 	@Override public String toString(){
-		return "PluginConfig ("+getName()+", "+getClassName()+", "+getConfigurationName()+")";
+		return "PluginConfig ("+getName()+", "+getClassName()+", "+getConfigurationName()+ ')';
 	}
 }

@@ -14,6 +14,11 @@ import java.io.Serializable;
 @XmlRootElement (name = "Chart")
 public class DashboardChartAO implements Serializable{
 	/**
+	 * SerialVersionUID.
+	 */
+	private static final long serialVersionUID = 1L;
+
+	/**
 	 * Caption of this chart.
 	 */
 	private String caption;

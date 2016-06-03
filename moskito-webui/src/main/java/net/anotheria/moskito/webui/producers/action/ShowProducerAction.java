@@ -93,15 +93,15 @@ public class ShowProducerAction extends BaseMoskitoUIAction {
 		//boolean filterZero = pFilterZero != null && pFilterZero.equalsIgnoreCase("true");
 
 		IDecorator decorator = getDecoratorRegistry().getDecorator(producer.getStatsClazzName());
-		Map<String, GraphDataBean> graphData = new HashMap<String, GraphDataBean>();
+		Map<String, GraphDataBean> graphData = new HashMap<>();
 
 
 		List<StatLineAO> allLines = producer.getLines();
 		for (StatLineAO statLine : allLines){
 			try{
 				for(StatValueAO statBean : statLine.getValues()){
-					String graphKey = decorator.getName()+"_"+statBean.getName();
-					GraphDataBean graphDataBean = new GraphDataBean(decorator.getName()+"_"+statBean.getJsVariableName(), statBean.getName());
+					String graphKey = decorator.getName()+ '_' +statBean.getName();
+					GraphDataBean graphDataBean = new GraphDataBean(decorator.getName()+ '_' +statBean.getJsVariableName(), statBean.getName());
 					graphData.put(graphKey, graphDataBean);
 				}
 			}catch(ArrayIndexOutOfBoundsException e){
@@ -109,7 +109,7 @@ public class ShowProducerAction extends BaseMoskitoUIAction {
 			}
 		}
 
-		List<StatDecoratorBean> beans = new ArrayList<StatDecoratorBean>();
+		List<StatDecoratorBean> beans = new ArrayList<>(1);
 		//sort
 
 		final StatDecoratorBean decoratorBean = new StatDecoratorBean();
@@ -154,8 +154,9 @@ public class ShowProducerAction extends BaseMoskitoUIAction {
 		final int cumulatedIndex = getCumulatedIndex(allStatLines);
 
 		// stats
-		final List<StatBean> statBeans = new ArrayList<>();
-		for (int i = 0; i < allStatLines.size(); i++) {
+		int allStatLinesSize = allStatLines.size();
+		final List<StatBean> statBeans = new ArrayList<>(allStatLinesSize);
+		for (int i = 0; i < allStatLinesSize; i++) {
 			if (i == cumulatedIndex)
 				continue;
 
@@ -221,7 +222,7 @@ public class ShowProducerAction extends BaseMoskitoUIAction {
 			final List<StatValueAO> statValues = line.getValues();
 
 			for (StatValueAO statValue : statValues) {
-				final String graphKey = decorator.getName() + "_" + statValue.getName();
+				final String graphKey = decorator.getName() + '_' + statValue.getName();
 				final GraphDataValueBean value = new GraphDataValueBean(line.getStatName(), statValue.getRawValue());
 
 				final GraphDataBean graphDataBean = graphData.get(graphKey);
@@ -269,7 +270,7 @@ public class ShowProducerAction extends BaseMoskitoUIAction {
 	}
 
 	@Override protected String getLinkToCurrentPage(HttpServletRequest req) {
-		return "mskShowProducer"+"?"+PARAM_PRODUCER_ID+"="+req.getParameter(PARAM_PRODUCER_ID);
+		return "mskShowProducer"+ '?' +PARAM_PRODUCER_ID+ '=' +req.getParameter(PARAM_PRODUCER_ID);
 	}
 
 	private StatBeanSortType getStatBeanSortType(StatDecoratorBean decoratorBean, HttpServletRequest req){

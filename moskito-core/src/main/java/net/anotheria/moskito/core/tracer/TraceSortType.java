@@ -9,6 +9,11 @@ import net.anotheria.util.sorter.SortType;
  * @since 23.03.16 18:00
  */
 public class TraceSortType extends SortType{
+	/**
+	 * SerialVersionUID.
+	 */
+	private static final long serialVersionUID = 1L;
+
 	public static final int SORT_BY_ID = 1;
 	public static final int SORT_BY_DURATION = 2;
 

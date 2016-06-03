@@ -3,14 +3,21 @@ package net.anotheria.moskito.core.config.filter;
 import org.configureme.annotations.Configure;
 import org.configureme.annotations.ConfigureMe;
 
+import java.io.Serializable;
+
 /**
- * TODO comment this class
+ * Configuration object vor generic filters. Lists enabled case extractors.
  *
  * @author lrosenberg
  * @since 26.04.16 19:19
  */
 @ConfigureMe
-public class FilterConfig {
+public class FilterConfig implements Serializable{
+	/**
+	 * SerialVersionUID.
+	 */
+	private static final long serialVersionUID = 1L;
+
 	@Configure
 	private String[] caseExtractors = new String[]{
 		"net.anotheria.moskito.web.filters.caseextractor.RequestURICaseExtractor",

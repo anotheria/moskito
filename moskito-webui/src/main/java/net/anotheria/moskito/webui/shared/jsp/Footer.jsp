@@ -228,7 +228,8 @@
 <script src="../moskito/ext/bootstrap-validator/validator.min.js" type="text/javascript"></script>
 <script src="../moskito/int/js/common.js" type="text/javascript"></script>
 
-
+<ano:equal name="config" property="showOnlineHelp" value="true">
+<!-- Begin OLARK -->
 <div id="olark-box-wrapper">
 
     <!-- Olark click-to-chat tab -->
@@ -307,3 +308,5 @@ olark.identify('7961-404-10-9387');/*]]>*/</script><noscript><a href="https://ww
         });
     }(document, olark));
 </script>
+<!-- END OLARK -->
+</ano:equal>

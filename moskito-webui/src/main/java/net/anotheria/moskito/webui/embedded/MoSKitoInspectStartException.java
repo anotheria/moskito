@@ -8,6 +8,11 @@ package net.anotheria.moskito.webui.embedded;
  */
 public class MoSKitoInspectStartException extends Exception{
 	/**
+	 * SerialVersionUID.
+	 */
+	private static final long serialVersionUID = 1L;
+
+	/**
 	 * Creates a new exception instance.
 	 * @param cause the reason behind this misery.
 	 */

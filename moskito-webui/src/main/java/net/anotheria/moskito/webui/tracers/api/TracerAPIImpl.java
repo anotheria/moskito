@@ -62,7 +62,7 @@ public class TracerAPIImpl extends AbstractMoskitoAPIImpl implements TracerAPI{
 		LinkedList<TraceAO> ret = new LinkedList<TraceAO>();
 		for (Trace t : traces){
 			TraceAO ao  = new TraceAO();
-			ao.setId(""+t.getId());
+			ao.setId(String.valueOf(t.getId()));
 			ao.setCall(t.getCall());
 			ao.setElements(Arrays.asList(t.getElements()));
 			ao.setDuration(timeUnit.transformNanos(t.getDuration()));

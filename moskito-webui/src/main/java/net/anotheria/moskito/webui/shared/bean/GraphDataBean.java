@@ -25,7 +25,7 @@ public class GraphDataBean {
 	public GraphDataBean(String aJsVariableName, String aCaption){
 		caption = aCaption;
 		jsVariableName = aJsVariableName;
-		values = new ArrayList<GraphDataValueBean>();
+		values = new ArrayList<>();
 	}
 	
 	public void addValue(GraphDataValueBean value){

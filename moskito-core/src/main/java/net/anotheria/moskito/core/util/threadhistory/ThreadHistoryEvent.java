@@ -11,6 +11,11 @@ import java.io.Serializable;
  */
 public class ThreadHistoryEvent implements Serializable{
 	/**
+	 * SerialVersionUID.
+	 */
+	private static final long serialVersionUID = 1L;
+
+	/**
 	 * History operation.
 	 * @author lrosenberg
 	 *
@@ -56,7 +61,7 @@ public class ThreadHistoryEvent implements Serializable{
 	}
 	
 	@Override public String toString(){
-		return getNiceTimestamp()+" "+getThreadId()+" "+getThreadName()+" "+getOperation();
+		return getNiceTimestamp()+ ' ' +getThreadId()+ ' ' +getThreadName()+ ' ' +getOperation();
 	}
 
 	public long getThreadId() {

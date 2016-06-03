@@ -15,6 +15,11 @@ import java.util.Arrays;
  */
 public class ThresholdsAlertsConfig implements Serializable {
 	/**
+	 * SerialVersionUID.
+	 */
+	private static final long serialVersionUID = 1L;
+
+	/**
 	 * Notification providers for notification upon threshold status changes.
 	 */
 	@Configure

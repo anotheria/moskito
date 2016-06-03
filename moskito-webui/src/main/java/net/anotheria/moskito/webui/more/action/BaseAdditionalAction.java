@@ -1,12 +1,10 @@
 package net.anotheria.moskito.webui.more.action;
 
 import net.anotheria.moskito.webui.shared.action.BaseMoskitoUIAction;
-import net.anotheria.moskito.webui.shared.api.AdditionalFunctionalityAPI;
 import net.anotheria.moskito.webui.shared.bean.NaviItem;
-import net.anotheria.moskito.webui.util.APILookupUtility;
 
 /**
- * TODO comment this class
+ * Base action for the 'additional' section which includes everything, that has no own section.
  *
  * @author lrosenberg
  * @since 28.10.12 23:41
@@ -17,7 +15,4 @@ public abstract class BaseAdditionalAction extends BaseMoskitoUIAction{
 		return NaviItem.MORE;
 	}
 
-	protected AdditionalFunctionalityAPI getAdditionalFunctionalityAPI(){
-		return APILookupUtility.getAdditionalFunctionalityAPI();
-	}
 }

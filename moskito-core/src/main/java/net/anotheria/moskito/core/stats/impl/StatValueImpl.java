@@ -97,8 +97,8 @@ class StatValueImpl implements StatValue {
 	public StatValueImpl(String aName, IValueHolderFactory aFactory){
 		name = aName;
 		factory = aFactory;
-		values = new HashMap<String, ValueHolder>();
-		valuesAsList = new ArrayList<ValueHolder>();
+		values = new HashMap<>();
+		valuesAsList = new ArrayList<>();
 		// now we have to add the ValueHolder for the absolute value
 		absoluteValue = factory.createValueHolder(ABSOLUTE_VALUE);
 		values.put(ABSOLUTE_VALUE.getName(), absoluteValue);

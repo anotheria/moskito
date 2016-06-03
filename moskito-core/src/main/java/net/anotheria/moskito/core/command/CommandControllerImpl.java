@@ -61,8 +61,8 @@ public enum CommandControllerImpl implements CommandController{
 	/**
 	 * Creates a new CommandControllerImpl.
 	 */
-	private CommandControllerImpl() {
-		processors = new HashMap<String, CommandProcessor>();
+	CommandControllerImpl() {
+		processors = new HashMap<>();
 	}
 	 
 	@Override public void registerCommandProcessor(String command, CommandProcessor processor) {
@@ -72,8 +72,9 @@ public enum CommandControllerImpl implements CommandController{
 			LoggerFactory.getLogger(CommandControllerImpl.class).debug("registering processor: "+processor+" for command: "+command);
 		}
 		CommandProcessor oldProcessor = processors.put(command, processor);
-		if (oldProcessor!=null)
+		if (oldProcessor!=null) {
 			log.info("Implicitely unregistered processor: "+processor+" for command: "+command);
+		}
 		
 	}
 
@@ -86,26 +87,26 @@ public enum CommandControllerImpl implements CommandController{
 	}
 
 	@Override public void startCommand(String command, Map<String, String[]> parameters) {
-		log.debug("startCommand("+command+", "+parameters+")");
+		log.debug("startCommand("+command+", "+parameters+ ')');
 		CommandProcessor processor = processors.get(command);
 		if (processor==null)
 			return;
 		try{
 			processor.startCommand(command, parameters);
 		}catch(Exception e){
-			log.error("caught in startCommand("+command+", "+parameters+")", e);
+			log.error("caught in startCommand("+command+", "+parameters+ ')', e);
 		}
 	}
 
 	@Override public void stopCommand(String command, Map<String, String[]> parameters) {
-		log.debug("stopCommand("+command+", "+parameters+")");
+		log.debug("stopCommand("+command+", "+parameters+ ')');
 		CommandProcessor processor = processors.get(command);
 		if (processor==null)
 			return;
 		try{
 			processor.stopCommand(command, parameters);
 		}catch(Exception e){
-			log.error("caught in stopCommand("+command+", "+parameters+")", e);
+			log.error("caught in stopCommand("+command+", "+parameters+ ')', e);
 		}
 	}
 

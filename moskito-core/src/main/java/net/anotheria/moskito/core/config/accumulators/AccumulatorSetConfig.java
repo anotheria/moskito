@@ -17,6 +17,11 @@ import java.util.Arrays;
 @SuppressFBWarnings(value = {"EI_EXPOSE_REP2", "EI_EXPOSE_REP"}, justification = "This is the way configureme works, it provides beans for access")
 public class AccumulatorSetConfig implements Serializable {
 	/**
+	 * SerialVersionUID.
+	 */
+	private static final long serialVersionUID = 1L;
+
+	/**
 	 * Name of the set.
 	 */
 	@Configure

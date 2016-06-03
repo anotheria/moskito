@@ -31,7 +31,7 @@ public class GenericStats extends AbstractStats {
      */
     public GenericStats(final String aName) {
         super(aName);
-        this.values = new LinkedHashMap<String, TypeAwareStatValue>();
+        this.values = new LinkedHashMap<>();
     }
 
     /**
@@ -46,7 +46,7 @@ public class GenericStats extends AbstractStats {
      */
     @Override
     public List<String> getAvailableValueNames() {
-        return new ArrayList<String>(values.keySet());
+        return new ArrayList<>(values.keySet());
     }
 
     /**

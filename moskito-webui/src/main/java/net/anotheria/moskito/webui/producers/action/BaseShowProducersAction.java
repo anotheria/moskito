@@ -56,10 +56,7 @@ import org.slf4j.LoggerFactory;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Base action for producers presentation action.
@@ -88,9 +85,9 @@ public abstract class BaseShowProducersAction extends BaseMoskitoUIAction {
 	@Override
 	public ActionCommand execute(ActionMapping mapping, FormBean formBean, HttpServletRequest req, HttpServletResponse res) throws APIException{
 
-		Map<String, GraphDataBean> graphData = new HashMap<String, GraphDataBean>();
+		Map<String, GraphDataBean> graphData = new HashMap<>();
 
-		req.setAttribute("decorators", getDecoratedProducers(req, getProducers(req), graphData));
+		req.setAttribute("decorators", getDecoratedProducers(req,  getProducers(req), graphData));
 		req.setAttribute("graphDatas", graphData.values());
 
 		doCustomProcessing(req, res);
@@ -124,18 +121,18 @@ public abstract class BaseShowProducersAction extends BaseMoskitoUIAction {
 	//todo make separate method for graphData in future
 	protected List<ProducerDecoratorBean> getDecoratedProducers(HttpServletRequest req, List<ProducerAO> producers, Map<String, GraphDataBean> graphData){
 
-		Map<IDecorator, List<ProducerAO>> decoratorMap = new HashMap<IDecorator,List<ProducerAO>>();
+		Map<IDecorator, List<ProducerAO>> decoratorMap = new HashMap<>(producers.size());
 		for (ProducerAO producer : producers){
 			try{
 				IDecorator decorator = findOrCreateDecorator(producer);
 				List<ProducerAO> decoratoredProducers = decoratorMap.get(decorator);
 				if (decoratoredProducers == null){
-					decoratoredProducers = new ArrayList<ProducerAO>();
+					decoratoredProducers = new ArrayList<>();
 					decoratorMap.put(decorator, decoratoredProducers);
 
 					for(StatValueAO statBean : producer.getFirstStatsValues()){
-						String graphKey = decorator.getName()+"_"+statBean.getName();
-						GraphDataBean graphDataBean = new GraphDataBean(decorator.getName()+"_"+statBean.getJsVariableName(), statBean.getName());
+						String graphKey = decorator.getName()+ '_' +statBean.getName();
+						GraphDataBean graphDataBean = new GraphDataBean(decorator.getName()+ '_' +statBean.getJsVariableName(), statBean.getName());
 						graphData.put(graphKey, graphDataBean);
 					}
 				}
@@ -145,9 +142,9 @@ public abstract class BaseShowProducersAction extends BaseMoskitoUIAction {
 			}
 		}
 
-		List<ProducerDecoratorBean> beans = new ArrayList<ProducerDecoratorBean>();
-
-		for (Map.Entry<IDecorator, List<ProducerAO>> entry : decoratorMap.entrySet()){
+		Set<Map.Entry<IDecorator, List<ProducerAO>>> entries = decoratorMap.entrySet();
+		List<ProducerDecoratorBean> beans = new ArrayList<>(entries.size());
+		for (Map.Entry<IDecorator, List<ProducerAO>> entry : entries){
 			IDecorator decorator = entry.getKey();
 			ProducerDecoratorBean b = new ProducerDecoratorBean();
 			b.setName(decorator.getName());
@@ -157,7 +154,7 @@ public abstract class BaseShowProducersAction extends BaseMoskitoUIAction {
 				try {
 					List<StatValueAO> values = p.getFirstStatsValues();
 					for (StatValueAO valueBean : values){
-						String graphKey = decorator.getName()+"_"+valueBean.getName();
+						String graphKey = decorator.getName()+ '_' +valueBean.getName();
 						GraphDataBean bean = graphData.get(graphKey); 
 						if (bean==null) {
 						    // FIXME!

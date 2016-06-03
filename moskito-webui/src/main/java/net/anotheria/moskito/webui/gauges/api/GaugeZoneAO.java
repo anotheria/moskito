@@ -10,6 +10,11 @@ import java.io.Serializable;
  */
 public class GaugeZoneAO implements Serializable{
 	/**
+	 * SerialVersionUID.
+	 */
+	private static final long serialVersionUID = 1L;
+
+	/**
 	 * Zones color.
 	 */
 	private String color;
@@ -47,7 +52,7 @@ public class GaugeZoneAO implements Serializable{
 	}
 
 	@Override public String toString(){
-		return getColor()+": ["+left+", "+right+"]";
+		return getColor()+": ["+left+", "+right+ ']';
 	}
 
 

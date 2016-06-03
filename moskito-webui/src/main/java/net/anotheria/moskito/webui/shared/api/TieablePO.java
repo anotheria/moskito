@@ -12,6 +12,11 @@ import java.io.Serializable;
  */
 public class TieablePO implements FormBean, Serializable {
 	/**
+	 * SerialVersionUID.
+	 */
+	private static final long serialVersionUID = 1L;
+
+	/**
 	 * Id of the producer.
 	 */
 	private String producerId;

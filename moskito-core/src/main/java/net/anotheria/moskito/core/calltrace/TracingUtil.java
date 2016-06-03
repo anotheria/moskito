@@ -43,7 +43,7 @@ public final class TracingUtil {
 		if (optionalPrefix != null)
 			call.append(optionalPrefix).append(' ');
 
-		call.append(producerId).append('.').append(methodName).append("(");
+		call.append(producerId).append('.').append(methodName).append('(');
 
 		if (parameters != null && parameters.length > 0) {
 			for (int i = 0; i < parameters.length; i++) {
@@ -55,7 +55,7 @@ public final class TracingUtil {
 			}
 		}
 
-		call.append(")");
+		call.append(')');
 
 		return call;
 

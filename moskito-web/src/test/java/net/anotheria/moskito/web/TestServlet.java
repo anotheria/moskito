@@ -1,12 +1,16 @@
 package net.anotheria.moskito.web;
 
-import java.io.IOException;
-
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 
 public class TestServlet extends MoskitoHttpServlet{
+	/**
+	 * SerialVersionUID.
+	 */
+	private static final long serialVersionUID = 1L;
+
 
 	private boolean throwErrors;
 	

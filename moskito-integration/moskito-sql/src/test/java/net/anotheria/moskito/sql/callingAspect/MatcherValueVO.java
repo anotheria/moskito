@@ -16,9 +16,7 @@ package net.anotheria.moskito.sql.callingAspect;
 
 import net.anotheria.util.crypt.MD5Util;
 
-import java.io.Serializable;
-
-public class MatcherValueVO implements MatcherValue, Serializable {
+public class MatcherValueVO implements MatcherValue{
 
     private String id;
     private int type;

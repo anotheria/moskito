@@ -45,6 +45,12 @@ import java.io.Serializable;
  */
 public abstract class StatValueAO implements IComparable, Serializable{
 	/**
+	 * SerialVersionUID.
+	 */
+	private static final long serialVersionUID = 1L;
+
+
+	/**
 	 * Name of the stat value.
 	 */
 	private String name;

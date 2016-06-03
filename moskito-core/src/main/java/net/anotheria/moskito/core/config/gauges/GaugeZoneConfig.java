@@ -14,6 +14,11 @@ import java.io.Serializable;
 @ConfigureMe
 public class GaugeZoneConfig implements Serializable{
 	/**
+	 * SerialVersionUID.
+	 */
+	private static final long serialVersionUID = 1L;
+
+	/**
 	 * Zones color. Can be one of green, orange, yellow, red.
 	 */
 	@Configure
@@ -54,6 +59,6 @@ public class GaugeZoneConfig implements Serializable{
 	}
 
 	@Override public String toString(){
-		return getColor()+": ["+left+", "+right+"]";
+		return getColor()+": ["+left+", "+right+ ']';
 	}
 }

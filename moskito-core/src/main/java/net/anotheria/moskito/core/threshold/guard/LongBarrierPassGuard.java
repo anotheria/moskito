@@ -13,6 +13,11 @@ import java.io.Serializable;
 
 public class LongBarrierPassGuard extends BarrierPassGuard implements Serializable{
 	/**
+	 * SerialVersionUID.
+	 */
+	private static final long serialVersionUID = 1L;
+
+	/**
 	 * The threshold value of the guard.
 	 */
 	@XmlElement
@@ -30,7 +35,7 @@ public class LongBarrierPassGuard extends BarrierPassGuard implements Serializab
 	}
 	
 	@Override public String getValueAsString(){
-		return ""+barrierValue;
+		return String.valueOf(barrierValue);
 	}
 	
 	@Override protected Number getValueAsNumber(String aValue){

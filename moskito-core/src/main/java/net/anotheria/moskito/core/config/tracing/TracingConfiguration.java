@@ -15,6 +15,11 @@ import java.io.Serializable;
 @ConfigureMe (allfields = true)
 public class TracingConfiguration implements Serializable{
 	/**
+	 * SerialVersionUID.
+	 */
+	private static final long serialVersionUID = 1L;
+
+	/**
 	 * Completely turn tracing on/off. Default is on.
 	 */
 	@Configure

@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * TODO comment this class
+ * This action returns simply forward to the "everything else" navigation point.
  *
  * @author lrosenberg
  * @since 29.10.12 00:21

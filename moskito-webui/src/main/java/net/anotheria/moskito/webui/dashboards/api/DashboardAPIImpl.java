@@ -100,7 +100,7 @@ public class DashboardAPIImpl extends AbstractMoskitoAPIImpl implements Dashboar
 		MoskitoConfiguration config = getConfiguration();
 		DashboardsConfig dashboardsConfig = config.getDashboardsConfig();
 		if (dashboardsConfig == null || dashboardsConfig.getDashboards() == null ||dashboardsConfig.getDashboards().length == 0)
-			return Collections.EMPTY_LIST;
+			return Collections.emptyList();
 		LinkedList<DashboardDefinitionAO> ret = new LinkedList<DashboardDefinitionAO>();
 		for (DashboardConfig dashboardConfig : dashboardsConfig.getDashboards()){
 			DashboardDefinitionAO ao = new DashboardDefinitionAO();
@@ -163,14 +163,8 @@ public class DashboardAPIImpl extends AbstractMoskitoAPIImpl implements Dashboar
 				DashboardChartAO bean = new DashboardChartAO();
 				if (cc.getCaption()!=null){
 					bean.setCaption(cc.getCaption());
-				}else{
-					String caption = "";
-					for (String acc : cc.getAccumulators()){
-						if (caption.length()!=0)
-							caption += " ";
-						caption += acc;
-					}
-					bean.setCaption(caption);
+				} else{
+					bean.setCaption(cc.buildCaption());
 				}
 
 				LinkedList<String> chartIds = new LinkedList<String>();
@@ -201,15 +195,16 @@ public class DashboardAPIImpl extends AbstractMoskitoAPIImpl implements Dashboar
 
 	@Override
 	public List<String> getDashboardNames() throws APIException {
-		List<String> dashboardNames = new ArrayList<String>();
 		MoskitoConfiguration config = MoskitoConfigurationHolder.getConfiguration();
 		DashboardsConfig dashboardsConfig = config.getDashboardsConfig();
-		if (dashboardsConfig.getDashboards()!=null){
-			for (DashboardConfig dc : dashboardsConfig.getDashboards()){
+		DashboardConfig[] dashboards = dashboardsConfig.getDashboards();
+		if (dashboards != null){
+			List<String> dashboardNames = new ArrayList<>(dashboards.length);
+			for (DashboardConfig dc : dashboards){
 				dashboardNames.add(dc.getName());
 			}
+			return dashboardNames;
 		}
-		return dashboardNames;
-
+		return new ArrayList<>(0);
 	}
 }

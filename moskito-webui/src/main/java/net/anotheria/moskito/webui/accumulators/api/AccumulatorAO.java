@@ -16,6 +16,11 @@ import java.util.List;
  */
 public class AccumulatorAO implements Serializable {
 	/**
+	 * SerialVersionUID.
+	 */
+	private static final long serialVersionUID = 1L;
+
+	/**
 	 * Name of the accumulator.
 	 */
 	private String name;

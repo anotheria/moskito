@@ -103,7 +103,7 @@ public class MailgunNotificationProvider implements NotificationProvider {
     public void configure(NotificationProviderConfig config) {
         try {
             String tokens[] = StringUtils.tokenize(config.getProperties().get(NotificationProviderConfigKey.RECIPIENTS.getKey()), ',');
-            recipients = new ArrayList<String>();
+            recipients = new ArrayList<>(tokens.length);
             for (String t : tokens) {
                 if (t.length() > 0)
                     recipients.add(t.trim());

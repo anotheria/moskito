@@ -57,7 +57,7 @@ public class ShrinkingStrategyTest {
 		//now fill first 22 traces
 		for (int i=0; i<22; i++){
 			Trace t = new Trace();
-			t.setCall(""+i);
+			t.setCall(String.valueOf(i));
 			t.setDuration(rnd.nextInt(500));
 			tracer.addTrace(t, 22, 20);
 		}

@@ -112,29 +112,29 @@ public class OSStats extends AbstractStats {
 
 		
 		if (valueName.equals("free memory") || valueName.equals("free"))
-			return ""+getFreePhysicalMemory(intervalName);
+			return String.valueOf(getFreePhysicalMemory(intervalName));
 		if (valueName.equals("total memory") || valueName.equals("total"))
-			return ""+getTotalPhysicalMemory(intervalName);
+			return String.valueOf(getTotalPhysicalMemory(intervalName));
 		if (valueName.equals("free memory mb") || valueName.equals("free mb"))
-			return ""+getFreePhysicalMemory(intervalName)/MB;
+			return String.valueOf(getFreePhysicalMemory(intervalName) / MB);
 		if (valueName.equals("total memory mb") || valueName.equals("total mb"))
-			return ""+getTotalPhysicalMemory(intervalName)/MB;
+			return String.valueOf(getTotalPhysicalMemory(intervalName) / MB);
 		
 		if (valueName.equals("openfiles") || valueName.equals("open files"))
-			return ""+getOpenFiles(intervalName);
+			return String.valueOf(getOpenFiles(intervalName));
 		if (valueName.equals("minopenfiles") || valueName.equals("min open files"))
-			return ""+getMinOpenFiles(intervalName);
+			return String.valueOf(getMinOpenFiles(intervalName));
 		if (valueName.equals("maxopenfiles") || valueName.equals("max open files"))
-			return ""+getMaxOpenFiles(intervalName);
+			return String.valueOf(getMaxOpenFiles(intervalName));
 		if (valueName.equals("maxsupportedopenfiles") || valueName.equals("max supported open files"))
-			return ""+getMaxSupportedOpenFiles(intervalName);
+			return String.valueOf(getMaxSupportedOpenFiles(intervalName));
 
 		if (valueName.equals("cputime") || valueName.equals("cpu time"))
-			return ""+getProcessCPUTime(intervalName);
+			return String.valueOf(getProcessCPUTime(intervalName));
 		if (valueName.equals("total cputime") || valueName.equals("total cpu time") || valueName.equals("totalcputime") )
-			return ""+getProcessTotalCPUTime(intervalName);
+			return String.valueOf(getProcessTotalCPUTime(intervalName));
 		if (valueName.equals("processors"))
-			return ""+getProcessors(intervalName);
+			return String.valueOf(getProcessors(intervalName));
 		
 		return super.getValueByNameAsString(valueName, intervalName, timeUnit);
 	}

@@ -147,9 +147,9 @@ public class ProducerRegistryAPIImpl implements IProducerRegistryAPI, IProducerR
 
 		if (log.isDebugEnabled()){
 			log.debug("Cachedproducer list contains "+_cachedProducerList.size()+" producers: ");
-			log.debug(""+_cachedProducerList);
+			log.debug(String.valueOf(_cachedProducerList));
 			log.debug("Cached producer map contains: "+_cachedProducerMap.size()+" producers");
-			log.debug(""+_cachedProducerMap);
+			log.debug(String.valueOf(_cachedProducerMap));
 		}
 	}
 
@@ -158,7 +158,7 @@ public class ProducerRegistryAPIImpl implements IProducerRegistryAPI, IProducerR
 	@Override public List<IStatsProducer> getAllProducers() {
 		if (_cachedProducerList==null)
 			buildProducerCacheFromScratch();
-		ArrayList<IStatsProducer> ret = new ArrayList<IStatsProducer>();
+		List<IStatsProducer> ret = new ArrayList<>();
 		for (ProducerReference pr : _cachedProducerList){
 			if (pr.get()!=null)
 				ret.add(pr.get());
@@ -228,7 +228,7 @@ public class ProducerRegistryAPIImpl implements IProducerRegistryAPI, IProducerR
 	@Override public List<IStatsProducer> getProducers(IProducerFilter... filters) {
 		if (_cachedProducerList==null)
 			buildProducerCacheFromScratch();
-		List <IStatsProducer> ret = new ArrayList<IStatsProducer>();
+		List <IStatsProducer> ret = new ArrayList<>();
 		@SuppressWarnings("unchecked")
 		List<ProducerReference> workCopy = (List<ProducerReference>)((ArrayList<ProducerReference>)_cachedProducerList).clone();
 		for (ProducerReference p  : workCopy){
@@ -271,7 +271,7 @@ public class ProducerRegistryAPIImpl implements IProducerRegistryAPI, IProducerR
 	}
 
 	@Override public List<String> getCategories() {
-		List<String> ret = new ArrayList<String>();
+		List<String> ret = new ArrayList<>();
 		List<IStatsProducer> producers = getAllProducers();
 		for (IStatsProducer p : producers){
 			if (! (ret.contains(p.getCategory())))
@@ -282,7 +282,7 @@ public class ProducerRegistryAPIImpl implements IProducerRegistryAPI, IProducerR
 	}
 
 	@Override public List<String> getSubsystems() {
-		List<String> ret = new ArrayList<String>();
+		List<String> ret = new ArrayList<>();
 		List<IStatsProducer> producers = getAllProducers();
 		for (IStatsProducer p : producers){
 			if (! (ret.contains(p.getSubsystem())))

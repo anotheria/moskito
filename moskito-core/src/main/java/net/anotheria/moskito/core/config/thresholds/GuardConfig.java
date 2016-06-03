@@ -14,6 +14,11 @@ import java.io.Serializable;
 @ConfigureMe(allfields=true)
 public class GuardConfig implements Serializable {
 	/**
+	 * SerialVersionUID.
+	 */
+	private static final long serialVersionUID = 1L;
+
+	/**
 	 * Value that have to be reached for the status change.
 	 */
 	@Configure
@@ -73,6 +78,6 @@ public class GuardConfig implements Serializable {
 	}
 
 	@Override public String toString(){
-		return status +" if "+direction+" "+value;
+		return status +" if "+direction+ ' ' +value;
 	}
 }

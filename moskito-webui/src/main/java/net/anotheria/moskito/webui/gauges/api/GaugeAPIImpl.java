@@ -48,7 +48,7 @@ public class GaugeAPIImpl extends AbstractMoskitoAPIImpl implements GaugeAPI {
 		if (defaultZonesConfig == null || defaultZonesConfig.length == 0){
 			defaultZones = createDefaultZones();
 		}else{
-			defaultZones = new ArrayList<GaugeZoneAO>();
+			defaultZones = new ArrayList<>(defaultZonesConfig.length);
 			for (GaugeZoneConfig zoneConfig : defaultZonesConfig){
 				defaultZones.add(zoneAOFromZoneConfig(zoneConfig));
 			}
@@ -60,7 +60,7 @@ public class GaugeAPIImpl extends AbstractMoskitoAPIImpl implements GaugeAPI {
 	 * @return
 	 */
 	private List<GaugeZoneAO> createDefaultZones(){
-		ArrayList<GaugeZoneAO> ret = new ArrayList<GaugeZoneAO>();
+		ArrayList<GaugeZoneAO> ret = new ArrayList<>(1);
 		GaugeZoneAO redZone = new GaugeZoneAO();
 		redZone.setColor("red");
 		redZone.setLeft(0.9f);
@@ -101,7 +101,7 @@ public class GaugeAPIImpl extends AbstractMoskitoAPIImpl implements GaugeAPI {
 			if (g.getName().equals(name))
 				return g;
 		}
-		throw new APIException("Can't find gauge configuration for '"+name+"'");
+		throw new APIException("Can't find gauge configuration for '"+name+ '\'');
 
 	}
 
@@ -152,7 +152,7 @@ public class GaugeAPIImpl extends AbstractMoskitoAPIImpl implements GaugeAPI {
 		}
 
 		//ok, its not a constant
-		IStatsProducer producer = null;
+		IStatsProducer<?> producer = null;
 		try{
 			producer = producerRegistryAPI.getProducer(config.getProducerName());
 		}catch(NoSuchProducerException e){
@@ -160,7 +160,7 @@ public class GaugeAPIImpl extends AbstractMoskitoAPIImpl implements GaugeAPI {
 		}
 		if (producer == null )
 			return new StringValueAO(null, "no producer");
-		for (IStats s : (List<IStats>)producer.getStats()){
+		for (IStats s : producer.getStats()){
 			if (s.getName().equals(config.getStatName())){
 				String value = s.getValueByNameAsString(config.getValueName(), config.getIntervalName(), TimeUnit.valueOf(config.getTimeUnit()));
 				try {

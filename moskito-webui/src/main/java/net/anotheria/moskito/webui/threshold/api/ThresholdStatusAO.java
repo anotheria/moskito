@@ -20,6 +20,11 @@ import java.io.Serializable;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class ThresholdStatusAO implements IComparable, Serializable{
 	/**
+	 * SerialVersionUID.
+	 */
+	private static final long serialVersionUID = 1L;
+
+	/**
 	 * Name of the threshold.
 	 */
 	@XmlElement
@@ -119,7 +124,7 @@ public class ThresholdStatusAO implements IComparable, Serializable{
 	}
 	
 	@Override public String toString(){
-		return getName()+" "+getStatus()+" "+getTimestamp()+" "+getDescription()+" "+getValue();
+		return getName()+ ' ' +getStatus()+ ' ' +getTimestamp()+ ' ' +getDescription()+ ' ' +getValue();
 	}
 	@Override
 	public int compareTo(IComparable anotherObject, int method) {

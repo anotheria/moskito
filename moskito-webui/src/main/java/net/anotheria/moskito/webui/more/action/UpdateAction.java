@@ -15,13 +15,16 @@ import java.net.URL;
 import java.net.URLConnection;
 
 /**
- * TODO comment this class
+ * This action checks if there is a newer version.
  *
  * @author lrosenberg
  * @since 13.03.13 23:51
  */
 public class UpdateAction extends BaseAdditionalAction {
 
+	/**
+	 * Url to load from central.
+	 */
 	private String MAVEN_URL = "http://search.maven.org/solrsearch/select?q=a:%22moskito-webui%22&rows=20&wt=json";
 
 	@Override

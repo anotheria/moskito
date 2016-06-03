@@ -129,7 +129,7 @@ public class BuiltInMemoryProducer  extends AbstractBuiltInProducer implements I
 	}
 	
 	@Override public String toString(){
-		return super.toString()+" "+resolver.getClass().getSimpleName();
+		return super.toString()+ ' ' +resolver.getClass().getSimpleName();
 	}
 }
 

@@ -11,4 +11,9 @@ import java.io.Serializable;
  * @since 13.02.13 17:36
  */
 public class AccumulatorPO extends TieablePO implements Serializable{
+	/**
+	 * SerialVersionUID.
+	 */
+	private static final long serialVersionUID = 1L;
+
 }

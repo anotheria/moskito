@@ -42,7 +42,7 @@ public class TracerTest {
 		//now fill first 20 traces
 		for (int i=0; i<max; i++){
 			Trace t = new Trace();
-			t.setCall(""+i);
+			t.setCall(String.valueOf(i));
 			tracer.addTrace(t, tolerated, max);
 		}
 
@@ -50,7 +50,7 @@ public class TracerTest {
 
 		for (int i=max; i<tolerated; i++){
 			Trace t = new Trace();
-			t.setCall(""+i);
+			t.setCall(String.valueOf(i));
 			tracer.addTrace(t, tolerated, max);
 		}
 
@@ -65,7 +65,7 @@ public class TracerTest {
 
 
 		assertEquals(max, tracer.getEntryCount());
-		assertEquals("" + (tolerated - max +1), tracer.getTraces().get(0).getCall());
+		assertEquals(String.valueOf(tolerated - max + 1), tracer.getTraces().get(0).getCall());
 		assertEquals("Ensure we have same last element, ", overflow.getCall(), tracer.getTraces().get(tracer.getTraces().size() - 1).getCall());
 
 

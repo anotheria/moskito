@@ -16,6 +16,11 @@ import java.io.Serializable;
 @ConfigureMe
 public class GaugeValueConfig implements Serializable {
 	/**
+	 * SerialVersionUID.
+	 */
+	private static final long serialVersionUID = 1L;
+
+	/**
 	 * Name of the producer.
 	 */
 	@Configure

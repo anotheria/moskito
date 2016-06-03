@@ -79,7 +79,7 @@ public class Storage<K,V> implements IStatsProducer<StorageStats>, Inspectable, 
 	 * @param aWrapper wrapper name
 	 */
 	public Storage(String aName, StorageWrapper<K, V> aWrapper){
-		name = aName + "-"+ instanceCount.incrementAndGet();
+		name = aName + '-' + instanceCount.incrementAndGet();
 		wrapper = aWrapper;
 		stats = new StorageStats(name);
 		
@@ -363,7 +363,7 @@ public class Storage<K,V> implements IStatsProducer<StorageStats>, Inspectable, 
 	 * @return
 	 */
 	public static <K,V> Storage<K,V> createHashtableStorage(){
-		return new Storage<K,V>(new MapStorageWrapper<K, V>(new Hashtable<K, V>()));
+		return new Storage<K,V>(new MapStorageWrapper<K, V>(new HashMap<K, V>()));
 	}
 
 	/**
@@ -374,7 +374,7 @@ public class Storage<K,V> implements IStatsProducer<StorageStats>, Inspectable, 
 	 * @return
 	 */
 	public static <K,V> Storage<K,V> createHashtableStorage(int initialSize){
-		return new Storage<K,V>(new MapStorageWrapper<K, V>(new Hashtable<K, V>(initialSize)));
+		return new Storage<K,V>(new MapStorageWrapper<K, V>(new HashMap<K, V>(initialSize)));
 	}
 
 	/**
@@ -385,7 +385,7 @@ public class Storage<K,V> implements IStatsProducer<StorageStats>, Inspectable, 
 	 * @return
 	 */
 	public static <K,V> Storage<K,V> createHashtableStorage(String name){
-		return new Storage<K,V>(name, new MapStorageWrapper<K, V>(new Hashtable<K, V>()));
+		return new Storage<K,V>(name, new MapStorageWrapper<K, V>(new HashMap<K, V>()));
 	}
 
 	/**
@@ -397,7 +397,7 @@ public class Storage<K,V> implements IStatsProducer<StorageStats>, Inspectable, 
 	 * @return
 	 */
 	public static <K,V> Storage<K,V> createHashtableStorage(String name, int initialSize){
-		return new Storage<K,V>(name, new MapStorageWrapper<K, V>(new Hashtable<K, V>(initialSize)));
+		return new Storage<K,V>(name, new MapStorageWrapper<K, V>(new HashMap<K, V>(initialSize)));
 	}
 
 	/**

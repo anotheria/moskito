@@ -33,7 +33,7 @@ public class GenericStatsDecorator implements IDecorator<GenericStats> {
     private static final Logger LOGGER = LoggerFactory.getLogger(GenericStatsDecorator.class);
 
     private final String name;
-    private final List<StatCaptionBean> captions = new ArrayList<StatCaptionBean>();
+    private final List<StatCaptionBean> captions = new ArrayList<>();
 
 
     /**

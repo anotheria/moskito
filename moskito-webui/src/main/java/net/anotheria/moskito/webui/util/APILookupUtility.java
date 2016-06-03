@@ -37,7 +37,7 @@ public class APILookupUtility {
 	/**
 	 * A map with all remote instance.
 	 */
-	private static ConcurrentMap<RemoteInstance, ConcurrentMap<Class<? extends API>, API>> remotes = new ConcurrentHashMap<RemoteInstance, ConcurrentMap<Class<? extends API>,API>>();
+	private static ConcurrentMap<RemoteInstance, ConcurrentMap<Class<? extends API>, API>> remotes = new ConcurrentHashMap<>(1);
 
 	/**
 	 * Currently configured ConnectivityMode (local or remote).
@@ -158,13 +158,13 @@ public class APILookupUtility {
 			Method m = constantsClass.getMethod("getServiceId");
 			serviceId = (String)m.invoke(null);
 		}catch(ClassNotFoundException e){
-			throw new AssertionError("Can not find supporting classes for "+targetClass+" " + e.getMessage());
+			throw new AssertionError("Can not find supporting classes for "+targetClass+ ' ' + e.getMessage());
 		} catch (NoSuchMethodException e) {
-			throw new AssertionError("Can not find supporting classes or methods for "+targetClass+" " + e.getMessage());
+			throw new AssertionError("Can not find supporting classes or methods for "+targetClass+ ' ' + e.getMessage());
 		} catch (InvocationTargetException e) {
-			throw new AssertionError("Can not obtain service id "+targetClass+" " + e.getMessage());
+			throw new AssertionError("Can not obtain service id "+targetClass+ ' ' + e.getMessage());
 		} catch (IllegalAccessException e) {
-			throw new AssertionError("Can not obtain service id "+targetClass+" " + e.getMessage());
+			throw new AssertionError("Can not obtain service id "+targetClass+ ' ' + e.getMessage());
 		}
 
 		Class<? extends T> remoteStubClass = null;
@@ -181,8 +181,8 @@ public class APILookupUtility {
 		RemoteInstance ri = getCurrentRemoteInstance();
 		ConcurrentMap<Class<? extends API>, API> stubsByInterface = remotes.get(ri);
 		if (stubsByInterface==null){
-			ConcurrentHashMap<Class<? extends API>, API> newStubsByInterface = new ConcurrentHashMap<Class<? extends API>, API>();
-			ConcurrentMap old = remotes.putIfAbsent(ri, newStubsByInterface);
+			ConcurrentHashMap<Class<? extends API>, API> newStubsByInterface = new ConcurrentHashMap<>(0);
+			ConcurrentMap<Class<? extends API>, API> old = remotes.putIfAbsent(ri, newStubsByInterface);
 			stubsByInterface = old == null ? newStubsByInterface : old;
 		}
 

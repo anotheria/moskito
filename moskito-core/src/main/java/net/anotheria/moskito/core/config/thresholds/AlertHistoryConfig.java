@@ -12,6 +12,11 @@ import java.io.Serializable;
  */
 public class AlertHistoryConfig implements Serializable {
 	/**
+	 * SerialVersionUID.
+	 */
+	private static final long serialVersionUID = 1L;
+
+	/**
 	 * The max number of items in the history.
 	 */
 	@Configure private int maxNumberOfItems;
@@ -37,6 +42,6 @@ public class AlertHistoryConfig implements Serializable {
 	}
 
 	@Override public String toString(){
-		return "{maxNumberOfItems: "+maxNumberOfItems+", toleratedNumberOfItems: "+toleratedNumberOfItems+"}";
+		return "{maxNumberOfItems: "+maxNumberOfItems+", toleratedNumberOfItems: "+toleratedNumberOfItems+ '}';
 	}
 }

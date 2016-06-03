@@ -59,10 +59,11 @@ public class MongodbMonitor {
     }
 
     private List<MongoCredential> createMongoCredentials(MongodbMonitorConfig config) {
-        List<MongoCredential> mongoCredentials = new ArrayList<>();
         if (config.getLogin() == null) {
-            return mongoCredentials;
+            return new ArrayList<>(0);
         }
+
+        List<MongoCredential> mongoCredentials = new ArrayList<>(1);
         mongoCredentials.add(MongoCredential.createCredential(config.getLogin(), config.getDbName(), config.getPassword().toCharArray()));
         return mongoCredentials;
     }

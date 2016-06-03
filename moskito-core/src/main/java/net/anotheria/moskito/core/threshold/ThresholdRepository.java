@@ -33,7 +33,7 @@ import java.util.List;
 /**
  * Repository that contains currently configured thresholds.
  */
-public class ThresholdRepository extends TieableRepository<Threshold> {
+public class ThresholdRepository<S extends IStats> extends TieableRepository<Threshold, S> {
 
 	/**
 	 * Logger.
@@ -43,7 +43,7 @@ public class ThresholdRepository extends TieableRepository<Threshold> {
 	/**
 	 * Singleton instance of this class.
 	 */
-	private static ThresholdRepository INSTANCE = new ThresholdRepository();
+	private static ThresholdRepository<? extends IStats> INSTANCE = new ThresholdRepository<>();
 
 
 	/**
@@ -57,7 +57,7 @@ public class ThresholdRepository extends TieableRepository<Threshold> {
 	 * Returns the singleton instance of the registry.
 	 * @return
 	 */
-	public static ThresholdRepository getInstance(){
+	public static ThresholdRepository<? extends IStats> getInstance(){
 		return INSTANCE;
 	}
 
@@ -108,7 +108,7 @@ public class ThresholdRepository extends TieableRepository<Threshold> {
 	
 	private ObjectName createName(String name) throws MalformedObjectNameException {
         String appName = RuntimeConstants.getApplicationName();
-		String objectName = "moskito."+(appName.length()>0 ? appName+".":"")+"thresholds:type="+name;
+		String objectName = "moskito."+(appName.length()>0 ? appName+ '.' :"")+"thresholds:type="+name;
         ObjectName objName = new ObjectName(objectName);
         return objName;
 	}

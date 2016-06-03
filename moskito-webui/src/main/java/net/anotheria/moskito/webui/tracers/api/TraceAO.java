@@ -10,6 +10,11 @@ import java.util.List;
  * @since 05.05.15 00:43
  */
 public class TraceAO implements Serializable {
+	/**
+	 * SerialVersionUID.
+	 */
+	private static final long serialVersionUID = 1L;
+
 
 	/**
 	 * Id.

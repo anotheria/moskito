@@ -3,18 +3,14 @@
 	<parent>
 		<groupId>net.anotheria</groupId>
 		<artifactId>moskito</artifactId>
-		<version>2.7.5-SNAPSHOT</version>
+		<version>2.7.6-SNAPSHOT</version>
 	</parent>
 
 	<modelVersion>4.0.0</modelVersion>
 	<artifactId>moskito-inspect-standalone</artifactId>
-	<version>2.7.5-SNAPSHOT</version>
+	<version>2.7.6-SNAPSHOT</version>
 	<name>MoSKito Inspect Standalone Application</name>
 	<packaging>war</packaging>
-	<properties>
-		<moskito-webui-version>${project.version}</moskito-webui-version>
-        <aspectj.version>1.8.2</aspectj.version>
-	</properties>
 
 	<dependencies>
 		<dependency>
@@ -75,37 +71,10 @@
             <artifactId>moskito-sampling-api</artifactId>
             <version>${project.version}</version>
         </dependency>
-
 	</dependencies>
 
 	<build>
 		<plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-dependency-plugin</artifactId>
-				<configuration>
-					<artifactItems>
-						<artifactItem>
-							<groupId>net.anotheria</groupId>
-							<artifactId>moskito-webui</artifactId>
-							<version>${moskito-webui-version}</version>
-							<type>jar</type>
-							<overWrite>true</overWrite>
-							<outputDirectory>${project.build.directory}/tmp</outputDirectory>
-							<includes>moskito/**,**/*.jsp</includes>
-						</artifactItem>
-					</artifactItems>
-				</configuration>
-				<executions>
-					<execution>
-						<phase>compile</phase>
-						<goals>
-							<goal>unpack</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
-
 			<plugin>
 				<artifactId>maven-war-plugin</artifactId>
 				<version>2.1</version>
@@ -131,37 +100,6 @@
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>aspectj-maven-plugin</artifactId>
-                <version>1.4</version>
-                <dependencies>
-                    <dependency>
-                        <groupId>org.aspectj</groupId>
-                        <artifactId>aspectjrt</artifactId>
-                        <version>${aspectj.version}</version>
-                    </dependency>
-                    <dependency>
-                        <groupId>org.aspectj</groupId>
-                        <artifactId>aspectjtools</artifactId>
-                        <version>${aspectj.version}</version>
-                    </dependency>
-                </dependencies>
-                <configuration>
-                    <aspectLibraries>
-                        <aspectLibrary>
-                            <groupId>net.anotheria</groupId>
-                            <artifactId>moskito-aop</artifactId>
-                        </aspectLibrary>
-                    </aspectLibraries>
-					<complianceLevel>1.7</complianceLevel>
-                    <source>1.7</source>
-                    <target>1.7</target>
-                </configuration>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>compile</goal>
-                        </goals>
-                    </execution>
-                </executions>
             </plugin>
 		</plugins>
 	</build>
@@ -183,7 +121,94 @@
                     <version>${project.version}</version>
                 </dependency>
 			</dependencies>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-dependency-plugin</artifactId>
+                        <configuration>
+                            <artifactItems>
+                                <artifactItem>
+                                    <groupId>net.anotheria</groupId>
+                                    <artifactId>moskito-webui</artifactId>
+                                    <version>${moskito-webui-version}</version>
+                                    <type>jar</type>
+                                    <overWrite>true</overWrite>
+                                    <outputDirectory>${project.build.directory}/tmp</outputDirectory>
+                                    <includes>moskito/**,**/*.jsp</includes>
+                                </artifactItem>
+                            </artifactItems>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <phase>compile</phase>
+                                <goals>
+                                    <goal>unpack</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+
 		</profile>
+        <profile>
+            <id>fordownload</id>
+            <activation>
+                <activeByDefault>false</activeByDefault>
+            </activation>
+            <dependencies>
+                <!-- Add jersey rest interface -->
+                <dependency>
+                    <groupId>net.anotheria</groupId>
+                    <artifactId>moskito-inspect-jersey</artifactId>
+                    <version>${project.version}</version>
+                </dependency>
+                <dependency>
+                    <groupId>net.anotheria</groupId>
+                    <artifactId>moskitoplugins</artifactId>
+                    <version>${moskitoplugins-version}</version>
+                </dependency>
+            </dependencies>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-dependency-plugin</artifactId>
+                        <configuration>
+                            <artifactItems>
+                                <artifactItem>
+                                    <groupId>net.anotheria</groupId>
+                                    <artifactId>moskito-webui</artifactId>
+                                    <version>${moskito-webui-version}</version>
+                                    <type>jar</type>
+                                    <overWrite>true</overWrite>
+                                    <outputDirectory>${project.build.directory}/tmp</outputDirectory>
+                                    <includes>moskito/**,**/*.jsp</includes>
+                                </artifactItem>
+                                <artifactItem>
+                                    <groupId>net.anotheria</groupId>
+                                    <artifactId>moskitoplugins</artifactId>
+                                    <version>${moskitoplugins-version}</version>
+                                    <type>jar</type>
+                                    <overWrite>true</overWrite>
+                                    <outputDirectory>${project.build.directory}/tmp</outputDirectory>
+                                    <includes>moskito/**,**/*.jsp</includes>
+                                </artifactItem>
+                            </artifactItems>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <phase>compile</phase>
+                                <goals>
+                                    <goal>unpack</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
 	</profiles>
 
 

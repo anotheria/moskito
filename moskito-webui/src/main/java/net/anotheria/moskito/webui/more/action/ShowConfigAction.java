@@ -21,7 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * TODO comment this class
+ * This action shows current configuration, local or remote.
  *
  * @author lrosenberg
  * @since 28.10.12 23:41
@@ -54,7 +54,7 @@ public class ShowConfigAction extends BaseAdditionalAction{
 
 		///thresholds
 		List<Threshold> thresholds = ThresholdRepository.getInstance().getThresholds();
-		ArrayList<String> thresholdStrings = new ArrayList<String>();
+		List<String> thresholdStrings = new ArrayList<>(thresholds.size());
 		for (Threshold t : thresholds){
 			String jsonT = gson.toJson(t.toConfigObject());
 			JsonElement jeT = jp.parse(jsonT);

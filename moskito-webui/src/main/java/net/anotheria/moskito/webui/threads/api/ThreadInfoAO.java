@@ -13,6 +13,11 @@ import java.lang.management.ThreadInfo;
  */
 public class ThreadInfoAO implements Serializable{
 	/**
+	 * SerialVersionUID.
+	 */
+	private static final long serialVersionUID = 1;
+
+	/**
 	 * Internal id of the thread.
 	 */
 	private long threadId;

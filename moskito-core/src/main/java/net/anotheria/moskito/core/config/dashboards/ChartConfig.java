@@ -13,6 +13,11 @@ import java.util.Arrays;
 @ConfigureMe
 @SuppressFBWarnings(value = {"EI_EXPOSE_REP2", "EI_EXPOSE_REP"}, justification = "This is the way configureme works, it provides beans for access")
 public class ChartConfig implements Serializable{
+	/**
+	 * SerialVersionUID.
+	 */
+	private static final long serialVersionUID = 1L;
+
 
 	/**
 	 * Chart caption.
@@ -48,5 +53,19 @@ public class ChartConfig implements Serializable{
 				"accumulators=" + Arrays.toString(accumulators) +
 				", caption='" + caption + '\'' +
 				'}';
+	}
+
+	public String buildCaption() {
+		StringBuilder captionBuilder = new StringBuilder();
+
+		int numAccumulators = accumulators.length;
+		for (int i = 0; i < numAccumulators; i++) {
+			String accumulator = accumulators[i];
+			captionBuilder.append(accumulator);
+			if (i != numAccumulators - 1) {
+				captionBuilder.append(' ');
+			}
+		}
+		return captionBuilder.toString();
 	}
 }

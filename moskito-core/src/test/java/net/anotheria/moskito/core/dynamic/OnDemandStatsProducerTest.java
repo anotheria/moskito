@@ -114,7 +114,7 @@ public class OnDemandStatsProducerTest {
 			for (int i=0; i<REQUEST_COUNT; i++){
 				int r = rnd.nextInt(RANDOM_COUNT);
 				try{
-					ServiceStats stats = producer.getStats(""+r);
+					ServiceStats stats = producer.getStats(String.valueOf(r));
 					stats.addRequest();
 				}catch(OnDemandStatsProducerException ignored){
 					ignored.printStackTrace();

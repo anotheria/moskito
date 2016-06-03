@@ -34,7 +34,7 @@ public class ProducerSnapshot {
 
 	private long timestamp = System.currentTimeMillis();
 
-	private Map<String, StatSnapshot> stats = new HashMap<String, StatSnapshot>();
+	private Map<String, StatSnapshot> stats = new HashMap<>();
 
 	public void setSubsystem(String subsystem) {
 		this.subsystem = subsystem;

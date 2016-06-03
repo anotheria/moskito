@@ -20,6 +20,11 @@ import java.util.List;
 @XmlAccessorType(XmlAccessType.PUBLIC_MEMBER)
 public class GaugeAO implements Serializable{
 	/**
+	 * SerialVersionUID.
+	 */
+	private static final long serialVersionUID = 1L;
+
+	/**
 	 * Name of the gauge.
 	 */
 	private String name;

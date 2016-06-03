@@ -33,6 +33,6 @@ public class GraphDataValueBean {
 	}
 	
 	public String getJsValue(){
-		return "['"+name+"',"+value+"]";
+		return "['"+name+"',"+value+ ']';
 	}
 }

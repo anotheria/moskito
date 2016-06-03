@@ -15,6 +15,11 @@ import java.io.Serializable;
 @XmlRootElement
 public class ThresholdPO extends TieablePO implements FormBean, Serializable{
 	/**
+	 * SerialVersionUID.
+	 */
+	private static final long serialVersionUID = 1L;
+
+	/**
 	 * Direction for the yellow guard.
 	 */
 	private String yellowDir;

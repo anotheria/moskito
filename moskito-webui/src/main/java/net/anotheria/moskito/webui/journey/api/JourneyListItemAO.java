@@ -14,6 +14,11 @@ import java.io.Serializable;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class JourneyListItemAO implements Serializable{
 	/**
+	 * SerialVersionUID.
+	 */
+	private static final long serialVersionUID = 1L;
+
+	/**
 	 * Name of the session.
 	 */
 	private String name;

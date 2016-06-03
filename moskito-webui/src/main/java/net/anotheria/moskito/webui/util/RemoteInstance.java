@@ -13,6 +13,11 @@ import java.io.Serializable;
 @ConfigureMe(allfields = true)
 public class RemoteInstance implements Serializable{
 	/**
+	 * SerialVersionUID.
+	 */
+	private static final long serialVersionUID = 1L;
+
+	/**
 	 * Name of this instance.
 	 */
 	private String name;
@@ -51,7 +56,7 @@ public class RemoteInstance implements Serializable{
 	}
 
 	public String toString(){
-		return getName()+"@"+getHost()+":"+getPort();
+		return getName()+ '@' +getHost()+ ':' +getPort();
 	}
 
 	/**
@@ -59,7 +64,7 @@ public class RemoteInstance implements Serializable{
 	 * @return
 	 */
 	public String getSelectKey(){
-		return getHost()+"-"+getPort();
+		return getHost()+ '-' +getPort();
 	}
 
 	/**

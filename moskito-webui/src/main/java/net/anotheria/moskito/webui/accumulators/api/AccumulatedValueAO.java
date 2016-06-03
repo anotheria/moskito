@@ -21,6 +21,11 @@ import java.util.List;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class AccumulatedValueAO implements Serializable, IComparable<AccumulatedValueAO>{
 	/**
+	 * SerialVersionUID.
+	 */
+	private static final long serialVersionUID = 1L;
+
+	/**
 	 * Values aka data for graphs.
 	 */
 	@XmlElement
@@ -47,7 +52,7 @@ public class AccumulatedValueAO implements Serializable, IComparable<Accumulated
 	
 	public AccumulatedValueAO(String aTimestamp){
 		timestamp = aTimestamp;
-		values = new ArrayList<String>();
+		values = new ArrayList<>();
 	}
 
 	public void addValue(String value) {
@@ -75,17 +80,17 @@ public class AccumulatedValueAO implements Serializable, IComparable<Accumulated
 		StringBuilder ret = new StringBuilder("[");
 		ret.append(numericTimestamp);
 		for (String s: values)
-			ret.append(",").append(s);
-		ret.append("]");
+			ret.append(',').append(s);
+		ret.append(']');
 		return ret.toString();
 	}
 
 	public String getJSONWithStringTimestamp(){
 		StringBuilder ret = new StringBuilder("[");
-		ret.append("\"").append(timestamp).append("\"");
+		ret.append('"').append(timestamp).append('"');
 		for (String s: values)
-			ret.append(",").append(s);
-		ret.append("]");
+			ret.append(',').append(s);
+		ret.append(']');
 		return ret.toString();
 	}
 

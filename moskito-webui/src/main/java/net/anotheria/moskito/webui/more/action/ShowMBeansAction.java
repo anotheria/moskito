@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 /**
- * TODO comment this class
+ * This action displays all mbeans in the jvm.
  *
  * @author lrosenberg
  * @since 11.03.13 00:57

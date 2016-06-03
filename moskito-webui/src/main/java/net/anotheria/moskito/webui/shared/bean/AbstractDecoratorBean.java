@@ -79,11 +79,11 @@ public abstract class AbstractDecoratorBean implements IComparable{
 	}
 	
 	public String getSortByParameterName(){
-		return "p"+StringUtils.capitalize(name)+"SortBy";
+		return 'p' +StringUtils.capitalize(name)+"SortBy";
 	}
 
 	public String getSortOrderParameterName(){
-		return "p"+StringUtils.capitalize(name)+"SortOrder";
+		return 'p' +StringUtils.capitalize(name)+"SortOrder";
 	}
 
 	public String getDecoratorNameForCss(){

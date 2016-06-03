@@ -40,6 +40,9 @@ public class WebUIConfig {
 	 */
 	private ProducerFilterConfig[] filters = new ProducerFilterConfig[0];
 
+	/**
+	 * Decorators.
+	 */
 	private DecoratorConfig[] decorators;
 
 
@@ -52,6 +55,12 @@ public class WebUIConfig {
 	 * If true sends a tracking pixel to counter.moskito.org to track worldwide usage.
 	 */
 	private boolean trackUsage = true;
+
+	/**
+	 * If true, the online help link to olark is shown, if false it isn't.
+	 */
+	private boolean showOnlineHelp = true;
+
 	/**
 	 * Custom logo url
 	 */
@@ -160,6 +169,14 @@ public class WebUIConfig {
 
 	public void setDecorators(DecoratorConfig[] decorators) {
 		this.decorators = decorators;
+	}
+
+	public boolean isShowOnlineHelp() {
+		return showOnlineHelp;
+	}
+
+	public void setShowOnlineHelp(boolean showOnlineHelp) {
+		this.showOnlineHelp = showOnlineHelp;
 	}
 }
 

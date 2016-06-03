@@ -326,10 +326,10 @@ public class EhcacheStats extends AbstractStats {
             throw new AssertionError("Value name can not be null or empty");
         }
         if (valueName.equals(AVERAGE_GET_TIME)) {
-            return "" + timeUnit.transformMillis(getAverageGetTime().getValueAsDouble(intervalName));
+            return String.valueOf(timeUnit.transformMillis(getAverageGetTime().getValueAsDouble(intervalName)));
         }
         if (valueName.equals(AVERAGE_SEARCH_TIME)) {
-            return "" + timeUnit.transformMillis(getAverageSearchTime().getValueAsLong(intervalName));
+            return String.valueOf(timeUnit.transformMillis(getAverageSearchTime().getValueAsLong(intervalName)));
         }
         if (valueName.equals(STATISTICS_ACCURACY)) {
             return getStatisticsAccuracy().getValueAsString(intervalName);

@@ -37,12 +37,20 @@ package net.anotheria.moskito.core.decorators.value;
 import net.anotheria.util.BasicComparable;
 import net.anotheria.util.sorter.IComparable;
 
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
+
 /**
  * Stat value bean for double values.
  * @author lrosenberg.
  *
  */
 public class DoubleValueAO extends StatValueAO {
+	/**
+	 * SerialVersionUID.
+	 */
+	private static final long serialVersionUID = 1L;
+
 	/**
 	 * Internal storage.
 	 */
@@ -51,11 +59,21 @@ public class DoubleValueAO extends StatValueAO {
 	 * Cached string representation.
 	 */
 	private String doubleAsString;
-	
+
+	private static DecimalFormat decimalFormat = createDecimalFormat();
+
+	private static DecimalFormat createDecimalFormat() {
+		DecimalFormat decimalFormat = new DecimalFormat("0.000");
+		DecimalFormatSymbols decimalFormatSymbols = new DecimalFormatSymbols();
+		decimalFormatSymbols.setDecimalSeparator('.');
+		decimalFormat.setDecimalFormatSymbols(decimalFormatSymbols);
+		return decimalFormat;
+	}
+
 	/**
 	 * Creates a new DoubleValueAO.
-	 * @param name
-	 * @param aValue
+	 * @param name identifies the value
+	 * @param aValue the value itself
 	 */
 	public DoubleValueAO(String name, double aValue){
 		super(name);
@@ -63,16 +81,10 @@ public class DoubleValueAO extends StatValueAO {
 			doubleValue = ((double)Math.round(aValue * 1000)) / 1000;
 		else
 			doubleValue = aValue;
-		
-		double floatingPart = doubleValue - (int)doubleValue;
-		String fpAsString = ""+floatingPart;
-		if (fpAsString.length()>6)
-			fpAsString = fpAsString.substring(0, 5);
-		while(fpAsString.length()<5)
-			fpAsString += "0";
-		doubleAsString = (int)doubleValue+"."+fpAsString.substring(2);
+
+		doubleAsString = decimalFormat.format(doubleValue);
 	}
-	
+
 	@Override public String getValue(){
 		return doubleAsString;
 	}
@@ -87,6 +99,6 @@ public class DoubleValueAO extends StatValueAO {
 
 	@Override
 	public String getRawValue() {
-		return ""+doubleValue;
+		return String.valueOf(doubleValue);
 	}
 }

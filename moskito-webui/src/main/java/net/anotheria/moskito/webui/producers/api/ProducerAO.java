@@ -16,6 +16,11 @@ import java.util.List;
  * @since 22.03.14 14:03
  */
 public class ProducerAO implements Serializable, IComparable{
+	/**
+	 * SerialVersionUID.
+	 */
+	private static final long serialVersionUID = 1L;
+
 
 	/**
 	 * Id of the producer.

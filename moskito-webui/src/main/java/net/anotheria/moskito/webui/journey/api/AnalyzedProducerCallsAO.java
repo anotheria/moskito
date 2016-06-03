@@ -13,6 +13,11 @@ import java.io.Serializable;
  */
 public class AnalyzedProducerCallsAO implements IComparable<AnalyzedProducerCallsAO> , Serializable{
 	/**
+	 * SerialVersionUID.
+	 */
+	private static final long serialVersionUID = 1L;
+
+	/**
 	 * ProducerId.
 	 */
 	private String producerId;

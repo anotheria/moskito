@@ -13,6 +13,11 @@ import java.util.Map;
  */
 public class AnalyzedProducerCallsMapAO implements Serializable {
 	/**
+	 * SerialVersionUID.
+	 */
+	private static final long serialVersionUID = 1L;
+
+	/**
 	 * Map with AnalyzedProducerCallsAO beans for each producer.
 	 */
 	private Map<String, AnalyzedProducerCallsAO> beans;
@@ -32,11 +37,11 @@ public class AnalyzedProducerCallsMapAO implements Serializable {
 	
 	public AnalyzedProducerCallsMapAO(String aName){
 		name = aName;
-		beans = new HashMap<String, AnalyzedProducerCallsAO>();
+		beans = new HashMap<>();
 	}
 	
 	@Override public String toString(){
-		return name + " "+beans;
+		return name + ' ' +beans;
 	}
 
 	/**

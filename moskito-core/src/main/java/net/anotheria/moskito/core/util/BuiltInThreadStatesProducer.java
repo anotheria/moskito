@@ -8,7 +8,7 @@ import net.anotheria.moskito.core.registry.ProducerRegistryFactory;
 import java.lang.management.ManagementFactory;
 import java.lang.management.ThreadInfo;
 import java.lang.management.ThreadMXBean;
-import java.util.HashMap;
+import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
 import java.util.TimerTask;
@@ -44,7 +44,7 @@ public class BuiltInThreadStatesProducer extends AbstractBuiltInProducer<ThreadS
 
 		cumulated = new ThreadStateStats("cumulated");
 
-		statsMap = new HashMap<Thread.State, ThreadStateStats>();
+		statsMap = new EnumMap<>(Thread.State.class);
 		statsList = new CopyOnWriteArrayList<ThreadStateStats>();
 		statsList.add(cumulated);
 		for (Thread.State state : Thread.State.values()){
@@ -72,7 +72,7 @@ public class BuiltInThreadStatesProducer extends AbstractBuiltInProducer<ThreadS
 	private void readThreads(){
 		long[] ids = threadMxBean.getAllThreadIds();
 
-		HashMap<Thread.State, Long> count = new HashMap<Thread.State, Long>();
+		Map<Thread.State, Long> count = new EnumMap<>(Thread.State.class);
 		for (int i = 0; i<ids.length; i++){
 			long id = ids[i];
 			ThreadInfo info = threadMxBean.getThreadInfo(id);

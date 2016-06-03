@@ -10,6 +10,7 @@ import net.anotheria.moskito.webui.threshold.api.ThresholdDefinitionAO;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.EnumMap;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -33,7 +34,7 @@ public class EditThresholdAction extends BaseThresholdsAction{
 		request.setAttribute("thresholdId", thresholdId);
 
 		List<ThresholdConditionGuard> guards =  getThresholdAPI().getGuardsForThreshold(thresholdId);
-		HashMap<ThresholdStatus, String> guardValues = new HashMap<ThresholdStatus, String>();
+		Map<ThresholdStatus, String> guardValues = new EnumMap<>(ThresholdStatus.class);
 		for (ThresholdConditionGuard g : guards){
 			//we only support barrier guards for now.
 			if (g instanceof BarrierPassGuard){

@@ -28,7 +28,7 @@ import java.lang.reflect.InvocationTargetException;
  * @author bvanchuhov
  */
 @Aspect
-public class MonitoringAspect extends AbstractMoskitoAspect{
+public class MonitoringAspect extends AbstractMoskitoAspect<ServiceStats>{
 
 	/**
 	 * Factory constant is needed to prevent continuous reinstantiation of ServiceStatsFactory objects.
@@ -116,7 +116,7 @@ public class MonitoringAspect extends AbstractMoskitoAspect{
                 currentStep.setAborted();
             }
             if (tracePassingOfThisProducer) {
-                call.append(" ERR "+t.getMessage());
+                call.append(" ERR ").append(t.getMessage());
             }
             throw t;
         } finally {
@@ -134,7 +134,7 @@ public class MonitoringAspect extends AbstractMoskitoAspect{
                 try {
                     currentStep.appendToCall(" = " + TracingUtil.parameter2string(ret));
                 } catch (Throwable t) {
-                    currentStep.appendToCall(" = ERR: " + t.getMessage() + " (" + t.getClass() + ")");
+                    currentStep.appendToCall(" = ERR: " + t.getMessage() + " (" + t.getClass() + ')');
                 }
             }
             if (currentTrace != null) {

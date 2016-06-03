@@ -59,7 +59,7 @@ public class Threshold extends AbstractTieable<ThresholdDefinition> implements T
 		super(aDefinition);
 		status = ThresholdStatus.OFF;
 		lastValue = "none yet";
-		guards = new ArrayList<ThresholdConditionGuard>();
+		guards = new ArrayList<>();
 		flipCount = 0;
 	}
 	
@@ -145,7 +145,7 @@ public class Threshold extends AbstractTieable<ThresholdDefinition> implements T
 	}
 	
 	@Override public String toString(){
-		return getName()+" "+getStatus()+" Def: "+getDefinition()+" LastValue: "+getLastValue()+", Guards: "+guards+" active: "+isActivated()+", Stats: "+getStats();
+		return getName()+ ' ' +getStatus()+" Def: "+getDefinition()+" LastValue: "+getLastValue()+", Guards: "+guards+" active: "+isActivated()+", Stats: "+getStats();
 	}
 
 	public long getStatusChangeTimestamp() {

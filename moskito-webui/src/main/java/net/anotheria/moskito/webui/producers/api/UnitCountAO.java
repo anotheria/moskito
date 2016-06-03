@@ -49,6 +49,11 @@ import java.io.Serializable;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class UnitCountAO implements Serializable{
 	/**
+	 * SerialVersionUID.
+	 */
+	private static final long serialVersionUID = 1L;
+
+	/**
 	 * Name of the unit.
 	 */
 	@XmlElement(name="name")
@@ -88,6 +93,6 @@ public class UnitCountAO implements Serializable{
 	}
 
 	@Override public String toString(){
-		return unitName+"="+unitCount;
+		return unitName+ '=' +unitCount;
 	}
 }

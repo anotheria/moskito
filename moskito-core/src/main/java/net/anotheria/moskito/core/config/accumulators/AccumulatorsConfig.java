@@ -18,6 +18,10 @@ import java.util.Arrays;
 @ConfigureMe
 public class AccumulatorsConfig implements Serializable {
 	/**
+	 * SerialVersionUID.
+	 */
+	private static final long serialVersionUID = 1L;
+	/**
 	 * The default amount of accumulated values in the accumulator.
 	 * This setting only applies for accumulators created AFTER the change.
 	 * This setting is reconfigurable on the fly.

@@ -10,6 +10,11 @@ import java.io.Serializable;
  */
 public class TracerAO implements Serializable {
 	/**
+	 * SerialVersionUID.
+	 */
+	private static final long serialVersionUID = 1L;
+
+	/**
 	 * Id of the producer this Tracer is bound to.
 	 */
 	private String producerId;

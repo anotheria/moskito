@@ -10,8 +10,13 @@ import java.util.Arrays;
  * @author Michael König
  */
 public class MBeanProducerConfig implements Serializable {
+	/**
+	 * SerialVersionUID.
+	 */
+	private static final long serialVersionUID = 1L;
 
-    /**
+
+	/**
      * Indicates if the producers will be registered automatically. Defaults to FALSE.
      */
     @Configure
@@ -105,7 +110,7 @@ public class MBeanProducerConfig implements Serializable {
     public String toString() {
         return "MBeanProducerConfig{" + "registerAutomatically=" + registerAutomatically + ", updateAutomatically="
                 + updateAutomatically + ", delayBeforeFirstUpdate=" + delayBeforeFirstUpdate + ", domains="
-                + Arrays.toString(domains) + "}";
+                + Arrays.toString(domains) + '}';
     }
 
 }

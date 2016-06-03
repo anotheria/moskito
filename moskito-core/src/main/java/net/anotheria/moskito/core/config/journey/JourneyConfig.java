@@ -3,14 +3,22 @@ package net.anotheria.moskito.core.config.journey;
 import org.configureme.annotations.Configure;
 import org.configureme.annotations.ConfigureMe;
 
+import java.io.Serializable;
+
 /**
- * TODO comment this class
+ * Configuration object which
  *
  * @author lrosenberg
  * @since 22.04.16 18:08
  */
 @ConfigureMe
-public class JourneyConfig {
+public class JourneyConfig implements Serializable{
+
+	/**
+	 * SerialVersionUID.
+	 */
+	private static final long serialVersionUID = 1L;
+
 	/**
 	 * Limit for the parameter length. Default is 100. If parameter length is more than configured, it will be cut. This also applies to return values.
 	 */
@@ -54,6 +62,6 @@ public class JourneyConfig {
 	}
 
 	public String toString(){
-		return "JourneyConfig: ("+parameterLengthLimit+", "+toStringCollections+", "+toStringMaps+")";
+		return "JourneyConfig: ("+parameterLengthLimit+", "+toStringCollections+", "+toStringMaps+ ')';
 	}
 }

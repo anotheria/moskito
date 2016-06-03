@@ -45,6 +45,11 @@ import net.anotheria.util.sorter.IComparable;
  */
 public class LongValueAO extends StatValueAO {
 	/**
+	 * SerialVersionUID.
+	 */
+	private static final long serialVersionUID = 1L;
+
+	/**
 	 * Internal value storage.
 	 */
 	private long longValue;
@@ -59,7 +64,7 @@ public class LongValueAO extends StatValueAO {
 	}
 	
 	@Override public String getValue(){
-		return longValue == Long.MAX_VALUE || longValue== Long.MIN_VALUE ? "NoR" : ""+NumberUtils.getDotedNumberUS(longValue);
+		return longValue == Long.MAX_VALUE || longValue== Long.MIN_VALUE ? "NoR" : NumberUtils.getDotedNumberUS(longValue);
 	}
 	
 	@Override public int compareTo(IComparable anotherComparable, int ignored) {
@@ -68,7 +73,7 @@ public class LongValueAO extends StatValueAO {
 	
 	@Override
 	public String getRawValue() {
-		return ""+longValue;
+		return String.valueOf(longValue);
 	}
 
 }

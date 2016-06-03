@@ -69,10 +69,10 @@ public class OfflineChartGeneratorImpl implements OfflineChartGenerator{
 
     private class ChartAxes {
         // data for x axis
-        private List<Date> xData = new ArrayList<Date>();
+        private List<Date> xData = new ArrayList<>();
 
         //List with data for y axis
-        private List<List<Double>>  yDataList = new LinkedList<List<Double>>();
+        private List<List<Double>>  yDataList = new LinkedList<>();
 
         public ChartAxes(int lineAmounts) {
             for (int i = 0; i < lineAmounts; i++) {
@@ -111,7 +111,7 @@ public class OfflineChartGeneratorImpl implements OfflineChartGenerator{
 
         private double getPointY(String s) {
             int toG = 1000000000;
-            return !s.equals("") ? Double.parseDouble(s)/ toG : 0;
+            return !s.isEmpty() ? Double.parseDouble(s)/ toG : 0;
         }
 
     }

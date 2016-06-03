@@ -15,6 +15,22 @@
     </ano:equal>
 
     <div class="content">
+        <ano:equal name="thresholdsPresent" value="true">
+            <!-- Thresholds start -->
+            <div class="dashboard-line">
+                <div class="row">
+                    <ano:iterate name="thresholds" type="net.anotheria.moskito.webui.threshold.api.ThresholdStatusAO" id="threshold">
+                        <div class="col-lg-2 col-md-3 col-sm-4">
+                            <div class="box threshold-item tooltip-bottom" title="${threshold.name} ${threshold.value}">
+                                <i class="status status-${threshold.colorCode}"></i>
+                                <span class="threshold-title">${threshold.name}&nbsp;${threshold.value}</span>
+                            </div>
+                        </div>
+                    </ano:iterate>
+                </div>
+            </div>
+            <!-- Thresholds end -->
+        </ano:equal>
 
         <ano:equal name="gaugesPresent" value="true">
             <!-- gauges js -->
@@ -31,7 +47,7 @@
                     "zones": <ano:equal name="gauge" property="customZonesAvailable" value="false">[]</ano:equal>
                             <ano:equal name="gauge" property="customZonesAvailable" value="true">
                             [
-                                <ano:iterate id="zone" name="gauge" property="zones" type="net.anotheria.moskito.webui.gauges.api.GaugeZoneAO" indexId="zoneIndex"><ano:greaterThan name="zoneIndex" value="0">, </ano:greaterThan>
+                                <ano:iterate id="zone" name="gauge" property="zones" type="net.anotheria.moskito.webui.gauges.api.GaugeZoneAO" indexId="zoneIndex"><ano:greaterThan name="zoneIndex" value="0">,</ano:greaterThan>
                                     {
                                         "color": '${zone.color}',
                                         "colorCode": '',
@@ -43,7 +59,7 @@
                             ]
                             </ano:equal>
 
-                });
+                })
                 </ano:iterate>
             </script>
 
@@ -203,8 +219,8 @@
                      //copy svg chart
                      var svg = svgOrigin.cloneNode(true);
 
-                     svg.setAttribute("x", marginLeft + i*(guageWidth+indent))
-                     svg.setAttribute("y", marginTop)
+                     svg.setAttribute("x", marginLeft + i*(guageWidth+indent));
+                     svg.setAttribute("y", marginTop);
                      svg.setAttribute("style", "background-color: #FFFFFF;");
 
                      var css = '.axis path,' +
@@ -269,7 +285,7 @@
 
                 img.onload = function () {
                     ctx.drawImage(img, 0, 0);
-                    var canvasdata = canvas.toDataURL("image/png")
+                    var canvasdata = canvas.toDataURL("image/png");
                     var a = document.createElement("a");
                     var file_name = getChartFileNameG();
 
@@ -279,11 +295,10 @@
                     a.click();
 
                 };
-            };
-
-            function getChartFileNameG() {
+             }
+             function getChartFileNameG() {
                 var t = new Date($.now());
-                var current_date = t.getFullYear()+'-'+ t.getMonth()+'-'+ t.getDate()+'__'+t.getHours()+'-'+ t.getMinutes()
+                var current_date = t.getFullYear()+'-'+ t.getMonth()+'-'+ t.getDate()+'__'+t.getHours()+'-'+ t.getMinutes();
                 return "Guages_"+current_date;
             }
         </script>
@@ -364,7 +379,7 @@
 
                 img.onload = function () {
                     ctx.drawImage(img, 0, 0);
-                    var canvasdata = canvas.toDataURL("image/png")
+                    var canvasdata = canvas.toDataURL("image/png");
                     var a = document.createElement("a");
                     var file_name = getChartFileName(index);
 
@@ -374,31 +389,14 @@
                     a.click();
 
                 };
-            };
-
+            }
             function getChartFileName(index) {
                 var t = new Date($.now());
-                var current_date = t.getFullYear()+'-'+ t.getMonth()+'-'+ t.getDate()+'__'+t.getHours()+'-'+ t.getMinutes()
+                var current_date = t.getFullYear()+'-'+ t.getMonth()+'-'+ t.getDate()+'__'+t.getHours()+'-'+ t.getMinutes();
                 var chart_header = document.getElementsByClassName("chart-header")[index];
                 return $.trim(chart_header.innerText).split(' ').join('_')+'_'+current_date;
             }
         </script>
-
-        <ano:equal name="thresholdsPresent" value="true">
-        <div class="dashboard-line">
-            <div class="row">
-                <ano:iterate name="thresholds" type="net.anotheria.moskito.webui.threshold.api.ThresholdStatusAO" id="threshold">
-                <div class="col-lg-2 col-md-3 col-sm-4">
-                    <div class="box threshold-item tooltip-bottom" title="${threshold.name} ${threshold.value}">
-                        <i class="status status-${threshold.colorCode}"></i>
-                        <span class="threshold-title">${threshold.name}&nbsp;${threshold.value}</span>
-                    </div>
-                </div>
-                </ano:iterate>
-            </div>
-        </div>
-        </ano:equal>
-
     </div>
 
     <jsp:include page="../../shared/jsp/Footer.jsp" flush="false"/>

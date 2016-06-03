@@ -11,6 +11,11 @@ import java.util.List;
  */
 public class TracedCallStepAO implements Serializable{
 	/**
+	 * SerialVersionUID.
+	 */
+	private static final long serialVersionUID = 1L;
+
+	/**
 	 * Method call.
 	 */
 	private String call;
@@ -61,7 +66,7 @@ public class TracedCallStepAO implements Serializable{
 
 
 	public TracedCallStepAO(){
-		children = new ArrayList<TracedCallStepAO>();
+		children = new ArrayList<>();
 	}
 	
 	public void addChild(TracedCallStepAO c){

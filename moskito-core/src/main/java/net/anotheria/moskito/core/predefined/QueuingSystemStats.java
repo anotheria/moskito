@@ -91,7 +91,7 @@ public class QueuingSystemStats extends AbstractStats {
 		}
 		
 		public String getStatLabel(){
-			return " " + statName + ": ";
+			return ' ' + statName + ": ";
 		}
 		
 		public static List<String> getStatNames(){
@@ -326,21 +326,21 @@ public class QueuingSystemStats extends AbstractStats {
 		if (minTime == Constants.MIN_TIME_DEFAULT)
 			return "NoR";
 			
-		return "" + timeUnit.transformNanos(minTime);
+		return String.valueOf(timeUnit.transformNanos(minTime));
 	}
 	
 	private String transformMaxTimeNanos(long maxTime, TimeUnit timeUnit){
 		if (maxTime == Constants.MAX_TIME_DEFAULT)
 			return "NoR";
 			
-		return "" + timeUnit.transformNanos(maxTime);
+		return String.valueOf(timeUnit.transformNanos(maxTime));
 	}
 	
 	private String transformAverageTimeNanos(long maxTime, TimeUnit timeUnit){
 		if (maxTime == Constants.AVERAGE_TIME_DEFAULT)
 			return "NoR";
 			
-		return "" + timeUnit.transformNanos(maxTime);
+		return String.valueOf(timeUnit.transformNanos(maxTime));
 	}
 	
 	@Override public String toStatsString(String intervalName, TimeUnit timeUnit) {
@@ -368,32 +368,32 @@ public class QueuingSystemStats extends AbstractStats {
 
 	@Override public String getValueByNameAsString(String valueName, String intervalName, TimeUnit timeUnit){
 		
-		if (valueName==null || valueName.equals(""))
+		if (valueName==null || valueName.isEmpty())
 			throw new AssertionError("Value name can not be empty");
 		
 		if (valueName.equals(StatDef.SERVERS_SIZE.getStatName()))
-			return ""+getServersSize(intervalName);
+			return String.valueOf(getServersSize(intervalName));
 		
 		if (valueName.equals(StatDef.QUEUE_SIZE.getStatName()))
-			return ""+getQueueSize(intervalName);
+			return String.valueOf(getQueueSize(intervalName));
 		
 		if (valueName.equals(StatDef.ARRIVED.getStatName()))
-			return ""+getArrived(intervalName);
+			return String.valueOf(getArrived(intervalName));
 		
 		if (valueName.equals(StatDef.SERVICED.getStatName()))
-			return ""+getServiced(intervalName);
+			return String.valueOf(getServiced(intervalName));
 		
 		if (valueName.equals(StatDef.ERRORS.getStatName()))
-			return ""+getErrors(intervalName);
+			return String.valueOf(getErrors(intervalName));
 		
 		if (valueName.equals(StatDef.WAITED.getStatName()))
-			return ""+getWaited(intervalName);
+			return String.valueOf(getWaited(intervalName));
 		
 		if (valueName.equals(StatDef.THROWN_AWAY.getStatName()))
-			return ""+getThrowedAway(intervalName);
+			return String.valueOf(getThrowedAway(intervalName));
 		
 		if (valueName.equals(StatDef.WAITING_TIME.getStatName()))
-			return ""+timeUnit.transformNanos(getWaitingTime(intervalName));
+			return String.valueOf(timeUnit.transformNanos(getWaitingTime(intervalName)));
 		
 		if (valueName.equals(StatDef.WAITING_TIME_MIN.getStatName()))
 			return transformMinTimeNanos(getWaitingTimeMin(intervalName), timeUnit);
@@ -405,7 +405,7 @@ public class QueuingSystemStats extends AbstractStats {
 			return transformAverageTimeNanos(getWaitingTimeAverage(intervalName), timeUnit);
 		
 		if (valueName.equals(StatDef.SERVICE_TIME.getStatName()))
-			return ""+timeUnit.transformNanos(getServicingTime(intervalName));
+			return String.valueOf(timeUnit.transformNanos(getServicingTime(intervalName)));
 		
 		if (valueName.equals(StatDef.SERVICE_TIME_MIN.getStatName()))
 			return transformMinTimeNanos(getServicingTimeMin(intervalName), timeUnit);

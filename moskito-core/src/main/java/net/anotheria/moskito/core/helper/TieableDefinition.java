@@ -12,6 +12,11 @@ import java.io.Serializable;
  */
 public class TieableDefinition implements Serializable{
 	/**
+	 * SerialVersionUID.
+	 */
+	private static final long serialVersionUID = 1;
+
+	/**
 	 * Name of the tieable.
 	 */
 	private String name;
@@ -61,7 +66,7 @@ public class TieableDefinition implements Serializable{
 	}
 
 	@Override public String toString(){
-		return getProducerName()+"."+getStatName()+"."+getValueName();
+		return getProducerName()+ '.' +getStatName()+ '.' +getValueName();
 	}
 
 	public String getProducerName() {
@@ -96,7 +101,7 @@ public class TieableDefinition implements Serializable{
 	}
 	
 	public String describe(){
-		return getProducerName()+"."+getStatName()+"."+getValueName()+"/"+getIntervalName()+"/"+getTimeUnit();
+		return getProducerName()+ '.' +getStatName()+ '.' +getValueName()+ '/' +getIntervalName()+ '/' +getTimeUnit();
 	}
 
 	public String getDescription() {

@@ -8,6 +8,11 @@ import net.anotheria.moskito.core.threshold.ThresholdStatus;
  */
 public class DoubleBarrierPassGuard extends BarrierPassGuard{
 	/**
+	 * SerialVersionUID.
+	 */
+	private static final long serialVersionUID = 1L;
+
+	/**
 	 * Limit value.
 	 */
 	private double barrierValue;
@@ -19,7 +24,7 @@ public class DoubleBarrierPassGuard extends BarrierPassGuard{
 	
 	@Override
 	public String getValueAsString(){
-		return ""+barrierValue;
+		return String.valueOf(barrierValue);
 	}
 	@Override
 	protected Number getValueAsNumber(String aValue){

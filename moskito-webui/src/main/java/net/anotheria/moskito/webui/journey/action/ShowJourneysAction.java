@@ -32,7 +32,7 @@ public class ShowJourneysAction extends BaseJourneyAction{
 		if (req.getServerPort()!=80 && req.getServerPort()!=443)
 			url += ":"+req.getServerPort();
 		if (!contextPath.startsWith("/"))
-			contextPath = "/"+contextPath;
+			contextPath = '/' +contextPath;
 		url += contextPath;
 		String url1 = url + "?mskJourney=start&mskJourneyName=";
 		String url2 = url + "?mskJourney=stop&mskJourneyName=";

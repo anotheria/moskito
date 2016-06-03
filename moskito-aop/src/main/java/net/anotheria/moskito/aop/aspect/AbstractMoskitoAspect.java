@@ -13,6 +13,7 @@ import net.anotheria.moskito.core.util.annotation.AnnotationUtils;
 import org.aspectj.lang.ProceedingJoinPoint;
 
 import java.lang.reflect.Method;
+import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
@@ -27,7 +28,7 @@ public class AbstractMoskitoAspect<S extends IStats> {
     /**
      * Map with created producers.
      */
-    private ConcurrentMap<String, OnDemandStatsProducer<S>> producers = new ConcurrentHashMap<String, OnDemandStatsProducer<S>>();
+    private ConcurrentMap<String, OnDemandStatsProducer<S>> producers = new ConcurrentHashMap<>();
 
     /**
      * Returns the producer for the given pjp and producerId. Registers the producer in the registry if it's not already registered.
@@ -53,12 +54,12 @@ public class AbstractMoskitoAspect<S extends IStats> {
         }
 
         if (withMethod)
-            producerId += "."+pjp.getSignature().getName();
+            producerId += '.' +pjp.getSignature().getName();
 
         OnDemandStatsProducer<S> producer = producers.get(producerId);
         if (producer==null){
 
-            producer = new OnDemandStatsProducer(producerId, getCategory(aCategory), getSubsystem(aSubsystem), factory);
+            producer = new OnDemandStatsProducer<>(producerId, getCategory(aCategory), getSubsystem(aSubsystem), factory);
             producer.setTracingSupported(tracingSupported);
             OnDemandStatsProducer<S> p = producers.putIfAbsent(producerId, producer);
             if (p==null){
@@ -89,7 +90,7 @@ public class AbstractMoskitoAspect<S extends IStats> {
     private void createMethodLevelAccumulators(OnDemandStatsProducer<S> producer, Method method) {
         //several @Accumulators in accumulators holder
         Accumulates accAnnotationHolderMethods = (Accumulates) method.getAnnotation(Accumulates.class);
-        if (accAnnotationHolderMethods != null && accAnnotationHolderMethods.value() != null) {
+        if (accAnnotationHolderMethods != null) {
             Accumulate[] accAnnotations  = accAnnotationHolderMethods.value();
             for (Accumulate accAnnotation : accAnnotations) {
                 createAccumulator(
@@ -119,7 +120,7 @@ public class AbstractMoskitoAspect<S extends IStats> {
     private void createClassLevelAccumulators(OnDemandStatsProducer<S> producer, Class producerClass) {
         //several @Accumulators in accumulators holder
         Accumulates accAnnotationHolder = AnnotationUtils.findAnnotation(producerClass, Accumulates.class);//(Accumulates) producerClass.getAnnotation(Accumulates.class);
-        if (accAnnotationHolder != null && accAnnotationHolder.value() != null) {
+        if (accAnnotationHolder != null) {
             Accumulate[] accAnnotations  = accAnnotationHolder.value();
             for (Accumulate accAnnotation : accAnnotations) {
                 createAccumulator(
@@ -142,13 +143,13 @@ public class AbstractMoskitoAspect<S extends IStats> {
 
     private String formAccumulatorNameForMethod(final OnDemandStatsProducer<S> producer, final Accumulate annotation, final Method m) {
         if (producer != null && annotation != null && m != null)
-            return producer.getProducerId()+"."+m.getName()+"."+annotation.valueName()+"."+annotation.intervalName();
+            return producer.getProducerId()+ '.' +m.getName()+ '.' +annotation.valueName()+ '.' +annotation.intervalName();
         return "";
     }
 
     private String formAccumulatorNameForClass(final OnDemandStatsProducer<S> producer, final Accumulate annotation) {
         if (producer != null && annotation != null)
-            return producer.getProducerId()+"."+annotation.valueName()+"."+annotation.intervalName();
+            return producer.getProducerId()+ '.' +annotation.valueName()+ '.' +annotation.intervalName();
         return "";
     }
 
@@ -165,7 +166,7 @@ public class AbstractMoskitoAspect<S extends IStats> {
                 accName!=null && !accName.isEmpty() && statsName != null && !statsName.isEmpty()){
 
             AccumulatorDefinition definition = new AccumulatorDefinition();
-            if (annotation.name() != null && annotation.name().length() >0) {
+            if (annotation.name().length() > 0) {
                 definition.setName(annotation.name());
             }else{
                 definition.setName(accName);

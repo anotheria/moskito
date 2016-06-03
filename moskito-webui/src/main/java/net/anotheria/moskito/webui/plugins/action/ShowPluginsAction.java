@@ -7,7 +7,6 @@ import net.anotheria.moskito.webui.shared.api.PluginAO;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -28,13 +27,6 @@ public class ShowPluginsAction extends BasePluginAction {
 		httpServletRequest.setAttribute("plugins", plugins);
 		httpServletRequest.setAttribute("pluginsCount", plugins.size());
 
-		LinkedList<PluginAO> pluginsForNavi = new LinkedList<>();
-		for (PluginAO pluginAO : plugins){
-			if (pluginAO.isWebEnabled())
-				pluginsForNavi.add(pluginAO);
-		}
-
-		httpServletRequest.setAttribute("pluginsForNavi", pluginsForNavi);
 
 		return actionMapping.success();
 	}

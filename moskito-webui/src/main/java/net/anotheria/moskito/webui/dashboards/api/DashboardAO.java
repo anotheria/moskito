@@ -17,6 +17,11 @@ import java.util.List;
 @XmlRootElement(name="Dashboard")
 public class DashboardAO implements Serializable{
 	/**
+	 * SerialVersionUID.
+	 */
+	private static final long serialVersionUID = 1L;
+
+	/**
 	 * Dashboard name.
 	 */
 	@XmlElement

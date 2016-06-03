@@ -36,7 +36,7 @@ public class TracerRepository {
 	/**
 	 * Currently existing tracers.
 	 */
-	private ConcurrentMap<String,Tracer> tracers = new ConcurrentHashMap<String, Tracer>();
+	private ConcurrentMap<String,Tracer> tracers = new ConcurrentHashMap<>();
 
 	/**
 	 * Private constructor.
@@ -85,7 +85,7 @@ public class TracerRepository {
 		if (config.isLoggingEnabled()){
 			traceLog.info(NumberUtils.makeISO8601TimestampString()+", call: "+aNewTrace.getCall()+" duration: "+aNewTrace.getDuration());
 			for (StackTraceElement e : aNewTrace.getElements()){
-				traceLog.info("\t"+e.toString());
+				traceLog.info('\t' +e.toString());
 			}
 		}
 	}

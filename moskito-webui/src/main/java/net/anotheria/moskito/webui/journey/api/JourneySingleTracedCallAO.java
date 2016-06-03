@@ -10,6 +10,11 @@ import java.net.URLEncoder;
  */
 public class JourneySingleTracedCallAO implements Serializable{
 	/**
+	 * SerialVersionUID.
+	 */
+	private static final long serialVersionUID = 1L;
+
+	/**
 	 * Name of the call. 
 	 */
 	private String name;

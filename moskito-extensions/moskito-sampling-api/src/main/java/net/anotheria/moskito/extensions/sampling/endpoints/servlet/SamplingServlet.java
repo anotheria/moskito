@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Enumeration;
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  * TODO comment this class
@@ -20,10 +21,24 @@ import java.util.HashMap;
  */
 @WebServlet(urlPatterns = "/sampling/sample")
 public class SamplingServlet extends MoskitoHttpServlet{
+	/**
+	 * SerialVersionUID.
+	 */
+	private static final long serialVersionUID = 1L;
 
+
+	/**
+	 * ProducerId parameter.
+	 */
 	public static final String PARAM_PRODUCER_ID = "id";
+	/**
+	 * Mapper parameter.
+	 */
 	public static final String PARAM_STAT_MAPPER_ID = "mapper";
 
+	/**
+	 * Engine.
+	 */
 	private SamplingEngine engine;
 
 	@Override
@@ -45,7 +60,7 @@ public class SamplingServlet extends MoskitoHttpServlet{
 			throw new IllegalArgumentException("mapperId parameter '"+PARAM_STAT_MAPPER_ID+"' may not be empty.");
 		}
 
-		HashMap<String, String> parameters = new HashMap<String, String>();
+		Map<String, String> parameters = new HashMap<>();
 		Enumeration<String> paramNames = req.getParameterNames();
 		while(paramNames.hasMoreElements()){
 			String pName = paramNames.nextElement();
