@@ -106,7 +106,7 @@
             </div>
         </form>
 
-        <span style="display: inline-block; position:relative; top:15px;">Interval age: ${currentIntervalUpdateAge} | Server: ${servername} | Connection: ${connection}</span>
+        <span class="header-inform">Interval age: ${currentIntervalUpdateAge} | Server: ${servername} | Connection: ${connection}</span>
 
         <ul class="nav navbar-nav pull-right">
             <%-- removing autoreload feature for now, we can readd it later --%>

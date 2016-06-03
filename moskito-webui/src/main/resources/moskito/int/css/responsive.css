@@ -6,6 +6,12 @@
     }
 }
 
+@media (max-width: 1260px) {
+    .header-inform {
+        display: none;
+    }
+}
+
 @media (max-width: 1024px) {
     .jour-left {
         float: none;
