@@ -24,6 +24,8 @@ public class DiskSpaceMonitoringPlugin extends AbstractMoskitoPlugin {
     public void initialize() {
         DiscSpaceMonitoringConfig config = DiscSpaceMonitoringConfig.getInstance();
         String[] disks = config.getDisks();
+		if (disks == null || disks.length==0)
+			return;
         for (Path root : FileSystems.getDefault().getRootDirectories()) {
             for(String disk : disks) {
                 if (disk.equals(root.toString())) {
