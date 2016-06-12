@@ -56,6 +56,8 @@ var D3chart = (function () {
     var instance;
 
     function createD3chart() {
+        _.templateSettings.interpolate = /{{([\s\S]+?)}}/g;
+
         var chartColors = function (names) {
             if (names.length < 10)
                 return d3.scale.category10().domain(names);
@@ -121,9 +123,8 @@ var D3chart = (function () {
         };
 
         var showTooltip = function () {
-            _.templateSettings.interpolate = /{{([\s\S]+?)}}/g;
-
             var tooltipApi;
+
             $(document).on('mouseover', '.focusRect, .interactivePart, .d3-bar-chart .barCaptionText, .heatMap .g3, .gaugeTopCircle', function (event) {
                 var tooltip = $(this).qtip({
                     overwrite: false,

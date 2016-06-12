@@ -60,7 +60,7 @@
         <script type="text/javascript" src="../moskito/ext/d3/d3.min.js" charset="utf-8"></script>
     </core:if>
 
-    <script type="text/javascript" src="../moskito/int/js/chartEngineIniter.js?v=3"></script>
+    <script type="text/javascript" src="../moskito/int/js/chartEngineIniter.js?v=4"></script>
 
 <ano:notEmpty name="graphDatas">
     <!--
