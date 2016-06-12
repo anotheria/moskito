@@ -42,12 +42,16 @@
             vertical-align:bottom;
         }
     </style>
+
+    <link type="text/css" rel="stylesheet" rev="stylesheet" href="../moskito/ext/jquery.qtip2-3.0.3/jquery.qtip.min.css" />
 </head>
 
 <body class="status-${systemStatusColor}<ano:notEmpty name="isNavMenuCollapsed"><ano:iF test="${isNavMenuCollapsed}"> aside-collapse</ano:iF></ano:notEmpty>">
 <ano:define name="moskito.CurrentUnit" property="unitName" id="currentUnit" toScope="page" type="java.lang.String"/>
 <!-- currently for handle select only -->
 <script type="text/javascript" src="../moskito/ext/jquery-1.10.2/jquery-1.10.2.min.js"></script>
+<script type="text/javascript" src="../moskito/ext/lodash-4.13.1/lodash.min.js"></script>
+<script type="text/javascript" src="../moskito/ext/jquery.qtip2-3.0.3/jquery.qtip.min.js"></script>
 <script type="text/javascript" src="../moskito/int/js/function.js"></script>
     <core:if test="${chartEngine eq 'GOOGLE_CHART_API'}">
         <script type="text/javascript" src="//www.google.com/jsapi"></script>
@@ -56,7 +60,7 @@
         <script type="text/javascript" src="../moskito/ext/d3/d3.min.js" charset="utf-8"></script>
     </core:if>
 
-    <script type="text/javascript" src="../moskito/int/js/chartEngineIniter.js?v=2"></script>
+    <script type="text/javascript" src="../moskito/int/js/chartEngineIniter.js?v=3"></script>
 
 <ano:notEmpty name="graphDatas">
     <!--
