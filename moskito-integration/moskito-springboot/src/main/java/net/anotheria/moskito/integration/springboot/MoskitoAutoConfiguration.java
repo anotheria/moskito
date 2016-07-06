@@ -52,7 +52,7 @@ public class MoskitoAutoConfiguration {
         LOGGER.info("Registering JourneyStarterFilter");
         FilterRegistrationBean registrationBean = new FilterRegistrationBean();
         registrationBean.setFilter(new JourneyStarterFilter());
-        registrationBean.addUrlPatterns("/");
+        registrationBean.addUrlPatterns("/*");
         return registrationBean;
     }
 
@@ -61,7 +61,7 @@ public class MoskitoAutoConfiguration {
         LOGGER.info("Registering AsyncSourceTldFilter");
         FilterRegistrationBean registrationBean = new FilterRegistrationBean();
         registrationBean.setFilter(new AsyncSourceTldFilter());
-        registrationBean.addUrlPatterns("/");
+        registrationBean.addUrlPatterns("/*");
         return registrationBean;
     }
 
@@ -70,7 +70,7 @@ public class MoskitoAutoConfiguration {
         LOGGER.info("Registering DebugRequestFilter");
         FilterRegistrationBean registrationBean = new FilterRegistrationBean();
         registrationBean.setFilter(new DebugRequestFilter());
-        registrationBean.addUrlPatterns("/");
+        registrationBean.addUrlPatterns("/*");
         return registrationBean;
     }
 
@@ -79,7 +79,7 @@ public class MoskitoAutoConfiguration {
         LOGGER.info("Registering GenericMonitoringFilter");
         FilterRegistrationBean registrationBean = new FilterRegistrationBean();
         registrationBean.setFilter(new GenericMonitoringFilter());
-        registrationBean.addUrlPatterns("/");
+        registrationBean.addUrlPatterns("/*");
         return registrationBean;
     }
 
@@ -88,7 +88,7 @@ public class MoskitoAutoConfiguration {
         LOGGER.info("Registering JourneyFilter");
         FilterRegistrationBean registrationBean = new FilterRegistrationBean();
         registrationBean.setFilter(new JourneyFilter());
-        registrationBean.addUrlPatterns("/");
+        registrationBean.addUrlPatterns("/*");
         return registrationBean;
     }
 
@@ -97,7 +97,7 @@ public class MoskitoAutoConfiguration {
         LOGGER.info("Registering JSTalkBackFilter");
         FilterRegistrationBean registrationBean = new FilterRegistrationBean();
         registrationBean.setFilter(new JSTalkBackFilter());
-        registrationBean.addUrlPatterns("/");
+        registrationBean.addUrlPatterns("/*");
         return registrationBean;
     }
 
@@ -106,7 +106,7 @@ public class MoskitoAutoConfiguration {
         LOGGER.info("Registering MoskitoCommandFilter");
         FilterRegistrationBean registrationBean = new FilterRegistrationBean();
         registrationBean.setFilter(new MoskitoCommandFilter());
-        registrationBean.addUrlPatterns("/");
+        registrationBean.addUrlPatterns("/*");
         return registrationBean;
     }
 
@@ -115,7 +115,7 @@ public class MoskitoAutoConfiguration {
         LOGGER.info("Registering SourceIpSegmentFilter");
         FilterRegistrationBean registrationBean = new FilterRegistrationBean();
         registrationBean.setFilter(new SourceIpSegmentFilter());
-        registrationBean.addUrlPatterns("/");
+        registrationBean.addUrlPatterns("/*");
         return registrationBean;
     }
 
@@ -124,7 +124,7 @@ public class MoskitoAutoConfiguration {
         LOGGER.info("Registering SourceTldFilter");
         FilterRegistrationBean registrationBean = new FilterRegistrationBean();
         registrationBean.setFilter(new SourceTldFilter());
-        registrationBean.addUrlPatterns("/");
+        registrationBean.addUrlPatterns("/*");
         return registrationBean;
     }
 
