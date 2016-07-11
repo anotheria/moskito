@@ -13,12 +13,6 @@
   <name>moskito disk space monitoring</name>
 
   <dependencies>
-      <!-- needed for mailgun -->
-      <dependency>
-          <groupId>com.sun.jersey</groupId>
-          <artifactId>jersey-client</artifactId>
-          <version>${jersey-version}</version>
-      </dependency>
       <dependency>
 		<groupId>net.anotheria</groupId>
 		<artifactId>moskito-core</artifactId>
@@ -31,6 +25,7 @@
       <dependency>
           <groupId>ch.qos.logback</groupId>
           <artifactId>logback-classic</artifactId>
+          <scope>test</scope>
           <!--scope>test</scope-->
       </dependency>
       <dependency>
@@ -40,11 +35,6 @@
       <dependency>
           <groupId>com.google.code.gson</groupId>
           <artifactId>gson</artifactId>
-      </dependency>
-      <!-- For email notifications via ano-comm, transitive dependencies to mail and activation-->
-      <dependency>
-          <groupId>net.anotheria</groupId>
-          <artifactId>ano-comm</artifactId>
       </dependency>
   </dependencies>
 </project>
