@@ -89,7 +89,7 @@ public class SamplingEngine {
 				log.warn("Can't create new stats object", e);
 			}
 			String cumulate = sample.getValues().get("cumulate");
-			if (cumulate != null && cumulate.equals("true")){
+			if ("true".equals(cumulate)){
 				mapper.updateStats(producer.getDefaultStats(), sample);
 			}
 

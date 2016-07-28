@@ -62,14 +62,12 @@ public class RuntimeStats extends AbstractStats {
 
 	@Override
 	public String toStatsString(String intervalName, TimeUnit unit) {
-		StringBuilder ret = new StringBuilder();
-		
-		ret.append(getName()).append(' ');
-		ret.append(" process: ").append(processName.getValueAsString(intervalName));
-		ret.append(" starttime: ").append(startTime.getValueAsLong(intervalName));
-		ret.append(" uptime: ").append(uptime.getValueAsInt(intervalName));
-		
-		return ret.toString();
+        String ret = getName() + ' ' +
+                " process: " + processName.getValueAsString(intervalName) +
+                " starttime: " + startTime.getValueAsLong(intervalName) +
+                " uptime: " + uptime.getValueAsInt(intervalName);
+
+        return ret;
 	}
 	
 	@Override

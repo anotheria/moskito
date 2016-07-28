@@ -61,16 +61,12 @@ public final class PluginRepository {
 				);
 				plugin.setConfigurationName(pc.getConfigurationName());
 				addPlugin(pc.getName(), plugin, pc);
-			} catch (InstantiationException e) {
+			} catch (InstantiationException | ClassNotFoundException | IllegalAccessException e) {
 				log.warn("Couldn't initialize plugin "+pc, e);
-			} catch (IllegalAccessException e) {
-				log.warn("Couldn't initialize plugin " + pc, e);
-			} catch (ClassNotFoundException e) {
-				log.warn("Couldn't initialize plugin " + pc, e);
 			}
 
 
-		}
+        }
 	}
 
 	/**
@@ -114,7 +110,7 @@ public final class PluginRepository {
 	 * @return list of loaded plugins names.
 	 */
 	public List<String> getPluginNames() {
-		ArrayList<String> ret = new ArrayList<String>(plugins.keySet());
+		List<String> ret = new ArrayList<>(plugins.keySet());
 		return ret;
 	}
 
@@ -123,7 +119,7 @@ public final class PluginRepository {
 	 * @return list of loaded plugins.
 	 */
 	public List<MoskitoPlugin> getPlugins() {
-		ArrayList<MoskitoPlugin> ret = new ArrayList<MoskitoPlugin>(plugins.values());
+		List<MoskitoPlugin> ret = new ArrayList<>(plugins.values());
 		return ret;
 	}
 

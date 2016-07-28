@@ -63,7 +63,7 @@ public class MemoryStatsDecorator extends AbstractDecorator {
 
 	@Override public List<StatValueAO> getValues(IStats statsObject, String interval, TimeUnit unit) {
 		MemoryStats stats = (MemoryStats)statsObject;
-		List<StatValueAO> ret = new ArrayList<StatValueAO>(CAPTIONS.length);
+		List<StatValueAO> ret = new ArrayList<>(CAPTIONS.length);
 		int i = 0;
 		ret.add(new LongValueAO(CAPTIONS[i++], stats.getCurrent(interval)));
 		ret.add(new LongValueAO(CAPTIONS[i++], stats.getMin(interval)));

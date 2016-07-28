@@ -23,7 +23,7 @@ public class ProducerReference {
     /**
      * Constructor.
      *
-     * @param aProducer {@link net.anotheria.moskito.core.producers.IStatsProducer} created reference will be linked to
+     * @param aProducer {@link IStatsProducer} created reference will be linked to
      */
 	public ProducerReference(final IStatsProducer aProducer){
         if (aProducer == null) {
@@ -37,7 +37,7 @@ public class ProducerReference {
 	/**
 	 * Returns the underlying stats producer.
 	 *
-     * @return referenced {@link net.anotheria.moskito.core.producers.IStatsProducer}
+     * @return referenced {@link IStatsProducer}
 	 */
 	public IStatsProducer get(){
 		return target;

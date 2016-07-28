@@ -51,7 +51,7 @@ public class MongodbMonitor {
 
     private MongoClient createClient(MongodbMonitorConfig config) {
         List<MongoCredential> mongoCredentials = createMongoCredentials(config);
-        if (mongoCredentials.size() == 0) {
+        if (mongoCredentials.isEmpty()) {
             return new MongoClient(config.getHost(), Integer.parseInt(config.getPort()));
         } else {
             return new MongoClient(new ServerAddress(config.getHost(), Integer.parseInt(config.getPort())), mongoCredentials);

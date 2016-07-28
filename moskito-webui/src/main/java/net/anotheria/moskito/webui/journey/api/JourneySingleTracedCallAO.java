@@ -59,9 +59,8 @@ public class JourneySingleTracedCallAO implements Serializable{
 	
 	}
 
-	@SuppressWarnings("deprecation")
 	public String getNameEncoded(){
-		return URLEncoder.encode(getName());
+        return URLEncoder.encode(name);
 	}
 	public int getContainedSteps() {
 		return containedSteps;

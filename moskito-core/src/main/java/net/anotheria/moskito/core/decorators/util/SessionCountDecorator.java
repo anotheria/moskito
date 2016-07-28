@@ -56,7 +56,7 @@ public class SessionCountDecorator extends AbstractDecorator {
 
 	@Override public List<StatValueAO> getValues(IStats statsObject, String interval, TimeUnit unit) {
 		SessionCountStats stats = (SessionCountStats)statsObject;
-		List<StatValueAO> ret = new ArrayList<StatValueAO>(CAPTIONS.length);
+		List<StatValueAO> ret = new ArrayList<>(CAPTIONS.length);
 		
 		int i = 0;
 		

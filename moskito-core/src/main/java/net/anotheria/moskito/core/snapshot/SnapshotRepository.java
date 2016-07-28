@@ -13,6 +13,7 @@ import net.anotheria.util.queue.UnrecoverableQueueOverflowException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
@@ -29,7 +30,7 @@ public final class SnapshotRepository {
 	/**
 	 * Consumuers for snapshots.
 	 */
-	private final List<SnapshotConsumer> consumers = new CopyOnWriteArrayList<SnapshotConsumer>();
+	private final Collection<SnapshotConsumer> consumers = new CopyOnWriteArrayList<>();
 
 	/**
 	 * Link to api.
@@ -53,18 +54,18 @@ public final class SnapshotRepository {
 	private boolean inTestMode = false;
 
 	private SnapshotRepository(){
-		snapshotQueuedProcessor = new QueuedProcessor<ProducerSnapshot>("SnapshotConsumers", new IQueueWorker<ProducerSnapshot>() {
-			@Override
-			public void doWork(ProducerSnapshot producerSnapshot) throws Exception {
-				for (SnapshotConsumer consumer : consumers){
-					try{
-						consumer.consumeSnapshot(producerSnapshot);
-					}catch(Exception e){
-						log.warn("consumer "+consumer+" failed to process snapshot "+producerSnapshot);
-					}
-				}
-			}
-		}, 1000, 50,  log);
+		snapshotQueuedProcessor = new QueuedProcessor<>("SnapshotConsumers", new IQueueWorker<ProducerSnapshot>() {
+            @Override
+            public void doWork(ProducerSnapshot producerSnapshot) throws Exception {
+                for (SnapshotConsumer consumer : consumers) {
+                    try {
+                        consumer.consumeSnapshot(producerSnapshot);
+                    } catch (Exception e) {
+                        log.warn("consumer " + consumer + " failed to process snapshot " + producerSnapshot);
+                    }
+                }
+            }
+        }, 1000, 50, log);
 		snapshotQueuedProcessor.start();
 		inTestMode = System.getProperty("JUNITTEST", "false").equals("true");
 		producerRegistryAPI = new ProducerRegistryAPIFactory().createProducerRegistryAPI();
@@ -80,10 +81,10 @@ public final class SnapshotRepository {
 	}
 
 	private void intervalUpdated(Interval aCaller){
-		if (consumers.size()==0)
+		if (consumers.isEmpty())
 			return;
 		List<IStatsProducer> producers = producerRegistryAPI.getAllProducers();
-		if (producers.size()==0)
+		if (producers.isEmpty())
 			return;
 		String intervalName = aCaller.getName();
 		for (IStatsProducer<?> producer : producers){

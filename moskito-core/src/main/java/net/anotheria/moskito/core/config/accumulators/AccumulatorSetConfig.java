@@ -65,6 +65,6 @@ public class AccumulatorSetConfig implements Serializable {
 
 	@Override
 	public String toString(){
-		return "Name: "+getName()+", accumulators: "+ Arrays.toString(getAccumulatorNames());
+        return "Name: "+ name +", accumulators: "+ Arrays.toString(accumulatorNames);
 	}
 }

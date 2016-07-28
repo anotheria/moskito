@@ -48,7 +48,7 @@ public class BuiltInMemoryProducer  extends AbstractBuiltInProducer implements I
 	public static final String TOTAL = "JavaRuntimeTotal";
 	
 	public BuiltInMemoryProducer(String aProducerId){
-		statsList = new CopyOnWriteArrayList<IStats>();
+		statsList = new CopyOnWriteArrayList<>();
 		stats = new MemoryStats(aProducerId);
 		statsList.add(stats);
 		

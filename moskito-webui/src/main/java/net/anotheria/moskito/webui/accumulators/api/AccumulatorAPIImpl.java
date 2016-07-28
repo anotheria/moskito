@@ -15,6 +15,7 @@ import net.anotheria.util.sorter.SortType;
 import net.anotheria.util.sorter.StaticQuickSorter;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -45,7 +46,7 @@ public class AccumulatorAPIImpl extends AbstractMoskitoAPIImpl implements Accumu
 		ad.setStatName(po.getStatName());
 		ad.setValueName(po.getValueName());
 		ad.setIntervalName(po.getInterval());
-		if (po.getUnit()==null || po.getUnit().length()==0)
+		if (po.getUnit()==null || po.getUnit().isEmpty())
 			ad.setTimeUnit(TimeUnit.MILLISECONDS); //set to default
 		else
 			ad.setTimeUnit(TimeUnit.fromString(po.getUnit()));
@@ -77,7 +78,7 @@ public class AccumulatorAPIImpl extends AbstractMoskitoAPIImpl implements Accumu
 		bean.setPath(a.getDefinition().describe());
 		bean.setId(a.getId());
 		List<AccumulatedValue> values = a.getValues();
-		if (values!=null && values.size()>0){
+		if (values!=null && !values.isEmpty()){
 			bean.setNumberOfValues(values.size());
 			bean.setLastValueTimestamp(values.get(values.size()-1).getISO8601Timestamp());
 		}else{
@@ -115,7 +116,7 @@ public class AccumulatorAPIImpl extends AbstractMoskitoAPIImpl implements Accumu
 			bean.setId(a.getId());
 			bean.setMaxNumberOfValues(a.getDefinition().getMaxAmountOfAccumulatedItems());
 			List<AccumulatedValue> values = a.getValues();
-			if (values!=null && values.size()>0){
+			if (values!=null && !values.isEmpty()){
 				bean.setNumberOfValues(values.size());
 				bean.setLastValueTimestamp(values.get(values.size()-1).getISO8601Timestamp());
 			}else{
@@ -141,7 +142,7 @@ public class AccumulatorAPIImpl extends AbstractMoskitoAPIImpl implements Accumu
 		return getAccumulatorGraphData(ids, false);
 	}
 
-	public MultilineChartAO getAccumulatorGraphData(List<String> ids, boolean normalized) throws APIException {
+	public MultilineChartAO getAccumulatorGraphData(Collection<String> ids, boolean normalized) throws APIException {
 
 		int normalizeBase = 100;
 		//TODO actually this limit is hardcoded, we should make it dynamic.
@@ -227,7 +228,7 @@ public class AccumulatorAPIImpl extends AbstractMoskitoAPIImpl implements Accumu
 		//generally its not always a good idea to use subList, but since that list isn't reused,
 		//as in subList or subList of subList, its ok.
 		if (dataBeans.size()>maxValues) {
-			List<AccumulatedValueAO> shorterList = new ArrayList<AccumulatedValueAO>(dataBeans.subList(dataBeans.size() - maxValues, dataBeans.size()));
+			List<AccumulatedValueAO> shorterList = new ArrayList<>(dataBeans.subList(dataBeans.size() - maxValues, dataBeans.size()));
 			dataBeans = shorterList;
 		}
 
@@ -239,10 +240,10 @@ public class AccumulatorAPIImpl extends AbstractMoskitoAPIImpl implements Accumu
 	}
 
 
-	/*test visibility */ static void normalize(List<AccumulatedValuesBean> values, List<String> names, int limit){
+	/*test visibility */ static void normalize(List<AccumulatedValuesBean> values, Iterable<String> names, int limit){
 		for (String name : names){
 			//System.out.println("normalizing "+name);
-			ArrayList<Float> valueCopy = new ArrayList<Float>(values.size());
+			ArrayList<Float> valueCopy = new ArrayList<>(values.size());
 			//step1 transform everything to float
 			float min = Float.MAX_VALUE, max = Float.MIN_VALUE;
 			for (AccumulatedValuesBean v : values){

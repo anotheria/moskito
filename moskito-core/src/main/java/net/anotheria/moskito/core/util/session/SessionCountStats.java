@@ -51,7 +51,7 @@ public class SessionCountStats extends AbstractStats {
 	public SessionCountStats(String name, Interval[] intervals){
 		super(name);
 		
-		Integer pattern = Integer.valueOf(0);
+		Integer pattern = 0;
 		
 		numberOfCurrentSessions = StatValueFactory.createStatValue(StatValueTypes.COUNTER, "numberOfSessions", intervals);
 		minNumberOfSessions = StatValueFactory.createStatValue(pattern, "minNumberOfSessions", intervals);
@@ -82,13 +82,12 @@ public class SessionCountStats extends AbstractStats {
 	}
 
 	@Override public String toStatsString(String intervalName, TimeUnit unit) {
-		StringBuilder ret = new StringBuilder("Sessions ");
-		ret.append(" Cur: ").append(numberOfCurrentSessions.getValueAsInt(intervalName));
-		ret.append(" Min: ").append(minNumberOfSessions.getValueAsInt(intervalName));
-		ret.append(" Max: ").append(maxNumberOfSessions.getValueAsInt(intervalName));
-		ret.append(" New: ").append(numberOfCreatedSessions.getValueAsInt(intervalName));
-		ret.append(" Del: ").append(numberOfDestroyedSessions.getValueAsInt(intervalName));
-		return ret.toString();
+		String ret = "Sessions " + " Cur: " + numberOfCurrentSessions.getValueAsInt(intervalName) +
+				" Min: " + minNumberOfSessions.getValueAsInt(intervalName) +
+				" Max: " + maxNumberOfSessions.getValueAsInt(intervalName) +
+				" New: " + numberOfCreatedSessions.getValueAsInt(intervalName) +
+				" Del: " + numberOfDestroyedSessions.getValueAsInt(intervalName);
+		return ret;
 	}
 	
 	

@@ -134,7 +134,7 @@ public class AdditionalFunctionalityAPIImpl extends AbstractMoskitoAPIImpl imple
 
 	/**
 	 * @param infos
-	 *            the {@link javax.management.MBeanAttributeInfo} to wrap
+	 *            the {@link MBeanAttributeInfo} to wrap
 	 * @param server
 	 *            {@link MBeanServer} where to find the MBean values
 	 * @param name
@@ -168,7 +168,7 @@ public class AdditionalFunctionalityAPIImpl extends AbstractMoskitoAPIImpl imple
 	@Override
 	public List<IntervalInfoAO> getIntervalInfos() throws APIException {
 		List<Interval> intervals = IntervalRegistry.getInstance().getIntervals();
-		List<IntervalInfoAO> ret = new ArrayList<IntervalInfoAO>(intervals.size());
+		List<IntervalInfoAO> ret = new ArrayList<>(intervals.size());
 		for (Interval interval : intervals){
 		 	IntervalInfoAO info = new IntervalInfoAO();
 			info.setName(interval.getName());

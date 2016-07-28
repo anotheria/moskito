@@ -55,7 +55,7 @@ public final class AnnotationUtils {
      * @return
      */
     public static  <A extends Annotation> A findAnnotation(Annotation annotation, Class<A> annotationClass) {
-        Set<Class<? extends Annotation>> visitedAnnotations = new HashSet<Class<? extends Annotation>>();
+        Set<Class<? extends Annotation>> visitedAnnotations = new HashSet<>();
 
         return findAnnotation(annotation, annotationClass, visitedAnnotations);
     }

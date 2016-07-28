@@ -35,7 +35,7 @@ public class ThreadHistoryUtilityTest {
 		}
 		
 		Thread.currentThread().sleep(1500);
-		assertTrue(ThreadHistoryUtility.INSTANCE.getThreadHistoryEvents().size()>0);
+		assertTrue(!ThreadHistoryUtility.INSTANCE.getThreadHistoryEvents().isEmpty());
 		int oldsize = ThreadHistoryUtility.INSTANCE.getThreadHistoryEvents().size();
 		
 		for (int i=0; i<THREADCOUNT+1; i++){

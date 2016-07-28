@@ -75,7 +75,7 @@ public abstract class AbstractDecoratorBean implements IComparable{
 
 	@Override public int compareTo(IComparable anotherComparable, int method){
 		//there is only one default method.
-		return BasicComparable.compareString(getName(), ((ProducerDecoratorBean)anotherComparable).getName());
+        return BasicComparable.compareString(name, ((ProducerDecoratorBean)anotherComparable).getName());
 	}
 	
 	public String getSortByParameterName(){
@@ -87,7 +87,7 @@ public abstract class AbstractDecoratorBean implements IComparable{
 	}
 
 	public String getDecoratorNameForCss(){
-		return StringUtils.removeChars(getName(), BaseMoskitoUIAction.WHITESPACES);
+        return StringUtils.removeChars(name, BaseMoskitoUIAction.WHITESPACES);
 	}
 
 	@Override

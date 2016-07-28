@@ -20,6 +20,7 @@ import net.anotheria.db.dao.DAO;
 import net.anotheria.db.dao.DAOException;
 import net.anotheria.db.dao.DAOSQLException;
 import net.anotheria.db.dao.RowMapper;
+import net.anotheria.db.util.JDBCUtil;
 import net.anotheria.util.slicer.Segment;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -97,8 +98,8 @@ public class MatcherValueDAO implements DAO{
 			log.error("getMatcherValues("+con+")", e);
 			throw new DAOSQLException(e);
 		} finally {
-			net.anotheria.db.util.JDBCUtil.release(result);
-			net.anotheria.db.util.JDBCUtil.release(ps);
+			JDBCUtil.release(result);
+			JDBCUtil.release(ps);
 		}
 	}
 
@@ -119,7 +120,7 @@ public class MatcherValueDAO implements DAO{
 			log.error("deleteMatcherValue("+con+", "+id+")", e);
 			throw new DAOSQLException(e);
 		} finally {
-			net.anotheria.db.util.JDBCUtil.release(ps);
+			JDBCUtil.release(ps);
 		}
 	}
 
@@ -143,7 +144,7 @@ public class MatcherValueDAO implements DAO{
 			log.error("deleteMatcherValues("+con+", "+list+")", e);
 			throw new DAOSQLException(e);
 		} finally {
-			net.anotheria.db.util.JDBCUtil.release(ps);
+			JDBCUtil.release(ps);
 		}
 	}
 
@@ -169,8 +170,8 @@ public class MatcherValueDAO implements DAO{
 			log.error("getMatcherValue("+con+", "+id+")", e);
 			throw new DAOSQLException(e);
 		} finally {
-			net.anotheria.db.util.JDBCUtil.release(result);
-			net.anotheria.db.util.JDBCUtil.release(ps);
+			JDBCUtil.release(result);
+			JDBCUtil.release(ps);
 		}
 	}
 
@@ -200,7 +201,7 @@ public class MatcherValueDAO implements DAO{
 			log.error("importMatcherValue("+con+", "+matchervalue+")", e);
 			throw new DAOSQLException(e);
 		} finally {
-			net.anotheria.db.util.JDBCUtil.release(ps);
+			JDBCUtil.release(ps);
 		}
 	}
 
@@ -235,7 +236,7 @@ public class MatcherValueDAO implements DAO{
 			log.error("import MatcherValues("+con+", "+list+")", e);
 			throw new DAOSQLException(e);
 		} finally {
-			net.anotheria.db.util.JDBCUtil.release(ps);
+			JDBCUtil.release(ps);
 		}
 	}
 
@@ -244,7 +245,7 @@ public class MatcherValueDAO implements DAO{
 	 * Returns the created version.
 	 */
 	public MatcherValue createMatcherValue(Connection con, MatcherValue matchervalue) throws DAOException {
-		java.sql.SQLException throwable = null;
+		SQLException throwable = null;
 		for (int recoveryAttempt = 1; recoveryAttempt <= dbConfig.getIdRecoveryAttempts(); recoveryAttempt++) {
 			PreparedStatement ps = null;
 			try {
@@ -270,7 +271,7 @@ public class MatcherValueDAO implements DAO{
 				throwable = e;
 				continue;
 			} finally {
-				net.anotheria.db.util.JDBCUtil.release(ps);
+				JDBCUtil.release(ps);
 			}
 		}
 		log.error("All "+ dbConfig.getIdRecoveryAttempts()+" attempt of id rereading - Failed. "+"createMatcherValue("+con+", "+matchervalue+")", throwable);
@@ -282,7 +283,7 @@ public class MatcherValueDAO implements DAO{
 	 * Returns the created versions.
 	 */
 	public List<MatcherValue> createMatcherValues(Connection con, List<MatcherValue> list) throws DAOException {
-		java.sql.SQLException throwable = null;
+		SQLException throwable = null;
 		for (int recoveryAttempt = 1; recoveryAttempt <= dbConfig.getIdRecoveryAttempts(); recoveryAttempt++) {
 			PreparedStatement ps = null;
 			try{
@@ -312,7 +313,7 @@ public class MatcherValueDAO implements DAO{
 				throwable = e;
 				continue;
 			} finally {
-				net.anotheria.db.util.JDBCUtil.release(ps);
+				JDBCUtil.release(ps);
 			}
 		}
 		log.error("All "+ dbConfig.getIdRecoveryAttempts()+" attempt of id rereading - Failed. "+"createMatcherValues("+con+", "+list+")", throwable);
@@ -343,7 +344,7 @@ public class MatcherValueDAO implements DAO{
 			log.error("updateMatcherValue("+con+", "+matchervalue+")", e);
 			throw new DAOSQLException(e);
 		} finally {
-			net.anotheria.db.util.JDBCUtil.release(ps);
+			JDBCUtil.release(ps);
 		}
 	}
 
@@ -375,7 +376,7 @@ public class MatcherValueDAO implements DAO{
 			log.error("updateMatcherValues("+con+", "+list+")", e);
 			throw new DAOSQLException(e);
 		} finally {
-			net.anotheria.db.util.JDBCUtil.release(ps);
+			JDBCUtil.release(ps);
 		}
 	}
 
@@ -398,8 +399,8 @@ public class MatcherValueDAO implements DAO{
 			log.error("getMatcherValuesCount(" + con + ")", e);
 			throw new DAOSQLException(e);
 		} finally {
-			net.anotheria.db.util.JDBCUtil.release(result);
-			net.anotheria.db.util.JDBCUtil.release(ps);
+			JDBCUtil.release(result);
+			JDBCUtil.release(ps);
 		}
 	}
 
@@ -425,8 +426,8 @@ public class MatcherValueDAO implements DAO{
 			log.error("getMatcherValues(" + con + ","+ aSegment +")", e);
 			throw new DAOSQLException(e);
 		} finally {
-			net.anotheria.db.util.JDBCUtil.release(result);
-			net.anotheria.db.util.JDBCUtil.release(ps);
+			JDBCUtil.release(result);
+			JDBCUtil.release(ps);
 		}
 	}
 
@@ -471,8 +472,8 @@ public class MatcherValueDAO implements DAO{
 			log.error("getMaxId("+con+", "+tableName+")", e);
 			throw new DAOSQLException(e);
 		} finally {
-			net.anotheria.db.util.JDBCUtil.release(result);
-			net.anotheria.db.util.JDBCUtil.release(st);
+			JDBCUtil.release(result);
+			JDBCUtil.release(st);
 		}
 	}
 

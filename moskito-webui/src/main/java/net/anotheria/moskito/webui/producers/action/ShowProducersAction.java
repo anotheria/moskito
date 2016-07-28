@@ -40,6 +40,7 @@ import net.anotheria.moskito.core.registry.filters.CategoryFilter;
 import net.anotheria.moskito.core.registry.filters.SubsystemFilter;
 import net.anotheria.moskito.webui.producers.api.ProducerAO;
 
+import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
@@ -56,13 +57,13 @@ public class ShowProducersAction extends BaseShowProducersAction{
 	 */
 	public static final String ATTR_CURRENT_SUBSYSTEM = "currentSubsystem";
 	
-	private String getCategoryParameter(HttpServletRequest req){
+	private String getCategoryParameter(ServletRequest req){
 		String param = req.getParameter(PARAM_CATEGORY);
 		req.setAttribute(ATTR_CURRENT_CATEGORY, param);
 		return param;
 	}
 	
-	private String getSubsystemParameter(HttpServletRequest req){
+	private String getSubsystemParameter(ServletRequest req){
 		String param = req.getParameter(PARAM_SUBSYSTEM);
 		req.setAttribute(ATTR_CURRENT_SUBSYSTEM, param);
 		return param;
@@ -72,10 +73,10 @@ public class ShowProducersAction extends BaseShowProducersAction{
 	protected List<ProducerAO> getProducers(HttpServletRequest req)  throws APIException {
 		List<IProducerFilter> filters = new ArrayList<>(2);
 		String category = getCategoryParameter(req);
-		if(category != null && category.length() > 0)
+		if(category != null && !category.isEmpty())
 			filters.add(new CategoryFilter(category));
 		String subsystem = getSubsystemParameter(req);
-		if(subsystem!= null && subsystem.length() > 0)
+		if(subsystem!= null && !subsystem.isEmpty())
 			filters.add(new SubsystemFilter(subsystem));
 		return getProducerAPI().getProducers(filters.toArray(new IProducerFilter[filters.size()]), getCurrentInterval(req), getCurrentUnit(req).getUnit());
 	}

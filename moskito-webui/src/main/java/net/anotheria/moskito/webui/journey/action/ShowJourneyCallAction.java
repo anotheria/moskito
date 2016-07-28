@@ -39,14 +39,14 @@ public class ShowJourneyCallAction extends BaseJourneyAction{
 		req.setAttribute("journeyName", journeyName);
 
 
-		TracedCallAO bean = tracedCallName !=null && tracedCallName.length()>0 ?
+		TracedCallAO bean = tracedCallName !=null && !tracedCallName.isEmpty() ?
 				getJourneyAPI().getTracedCallByName(journeyName, tracedCallName, getCurrentUnit(req).getUnit()) :
 				getJourneyAPI().getTracedCall(journeyName, callPosition, getCurrentUnit(req).getUnit());
 
 		//check for duplicates
 		List<TracedCallDuplicateStepsAO> dupStepBeans = bean.getDuplicateSteps();
 
-		if (dupStepBeans.size()>0){
+		if (!dupStepBeans.isEmpty()){
 			int sortBy = TracedCallDuplicateStepsAOSortType.SORT_BY_DEFAULT;
 			try{
 				sortBy = Integer.parseInt(req.getParameter(PARAM_SORT_BY));

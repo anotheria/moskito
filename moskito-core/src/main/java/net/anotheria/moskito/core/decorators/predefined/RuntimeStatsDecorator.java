@@ -65,7 +65,7 @@ public class RuntimeStatsDecorator extends AbstractDecorator {
 	@Override public List<StatValueAO> getValues(IStats statsObject, String interval, TimeUnit unit) {
 		RuntimeStats stats = (RuntimeStats)statsObject;
 
-		List<StatValueAO> ret = new ArrayList<StatValueAO>(CAPTIONS.length);
+		List<StatValueAO> ret = new ArrayList<>(CAPTIONS.length);
 		long starttime = stats.getStartTime(interval);
 		long uptime = stats.getUptime(interval);
 		int i = 0;

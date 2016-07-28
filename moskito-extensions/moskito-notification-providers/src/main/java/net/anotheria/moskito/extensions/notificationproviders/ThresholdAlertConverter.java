@@ -4,16 +4,16 @@ import net.anotheria.moskito.core.threshold.alerts.ThresholdAlert;
 import net.anotheria.util.NumberUtils;
 
 /**
- * {@link net.anotheria.moskito.core.threshold.alerts.ThresholdAlert} converter.
+ * {@link ThresholdAlert} converter.
  *
  * @author Yuriy Koval'.
  */
 public class ThresholdAlertConverter {
 
     /**
-     * Convert {@link net.anotheria.moskito.core.threshold.alerts.ThresholdAlert} to plain text.
+     * Convert {@link ThresholdAlert} to plain text.
      *
-     * @param thresholdAlert {@link net.anotheria.moskito.core.threshold.alerts.ThresholdAlert}.
+     * @param thresholdAlert {@link ThresholdAlert}.
      * @return threshold alert plain text.
      */
     public static String toPlainText(ThresholdAlert thresholdAlert) {

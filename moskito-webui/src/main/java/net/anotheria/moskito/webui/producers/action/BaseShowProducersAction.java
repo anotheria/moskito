@@ -119,7 +119,7 @@ public abstract class BaseShowProducersAction extends BaseMoskitoUIAction {
 	}
 
 	//todo make separate method for graphData in future
-	protected List<ProducerDecoratorBean> getDecoratedProducers(HttpServletRequest req, List<ProducerAO> producers, Map<String, GraphDataBean> graphData){
+	protected List<ProducerDecoratorBean> getDecoratedProducers(HttpServletRequest req, Collection<ProducerAO> producers, Map<String, GraphDataBean> graphData){
 
 		Map<IDecorator, List<ProducerAO>> decoratorMap = new HashMap<>(producers.size());
 		for (ProducerAO producer : producers){
@@ -177,11 +177,11 @@ public abstract class BaseShowProducersAction extends BaseMoskitoUIAction {
 	private ProducerAOSortType getProducerBeanSortType(ProducerDecoratorBean decoratorBean, HttpServletRequest req){
 		ProducerAOSortType sortType;
 		String paramSortBy = req.getParameter(decoratorBean.getSortByParameterName());
-		if (paramSortBy!=null && paramSortBy.length()>0){
+		if (paramSortBy!=null && !paramSortBy.isEmpty()){
 			try{
 				int sortBy = Integer.parseInt(paramSortBy);
 				String paramSortOrder = req.getParameter(decoratorBean.getSortOrderParameterName());
-				boolean sortOrder = paramSortOrder!=null && paramSortOrder.equals("ASC") ?
+				boolean sortOrder = "ASC".equals(paramSortOrder) ?
 						ProducerAOSortType.ASC : ProducerAOSortType.DESC;
 				sortType = new ProducerAOSortType(sortBy, sortOrder);
 				req.getSession().setAttribute(decoratorBean.getSortTypeName(), sortType);

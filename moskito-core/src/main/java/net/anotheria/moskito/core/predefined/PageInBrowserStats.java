@@ -418,9 +418,10 @@ public class PageInBrowserStats extends AbstractStats {
 		 * @return collection of value names
 		 */
 		public static List<String> getValueNames() {
-			List<String> valueNames = new ArrayList<String>(PageInBrowserStatsValueName.values().length);
-			for (PageInBrowserStatsValueName valueName : PageInBrowserStatsValueName.values())
-				valueNames.add(valueName.getValueName());
+			List<String> valueNames = new ArrayList<>(PageInBrowserStatsValueName.values().length);
+			for (PageInBrowserStatsValueName valueName : PageInBrowserStatsValueName.values()) {
+                valueNames.add(valueName.valueName);
+            }
 			return valueNames;
 		}
 	}

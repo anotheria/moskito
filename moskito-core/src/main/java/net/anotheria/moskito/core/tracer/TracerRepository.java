@@ -108,7 +108,7 @@ public class TracerRepository {
 	}
 
 	public List<Tracer> getTracers(){
-		return new ArrayList<Tracer>(tracers.values());
+		return new ArrayList<>(tracers.values());
 	}
 
 	public Tracer getTracer(String producerId) {

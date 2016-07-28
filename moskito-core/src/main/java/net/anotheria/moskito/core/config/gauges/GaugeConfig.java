@@ -85,7 +85,7 @@ public class GaugeConfig implements Serializable{
 	}
 
 	public String getCaption() {
-		return caption == null ? getName() : caption;
+        return caption == null ? name : caption;
 	}
 
 	public void setCaption(String caption) {
@@ -101,6 +101,6 @@ public class GaugeConfig implements Serializable{
 	}
 
 	@Override public String toString(){
-		return "Name: "+getName()+", Min: "+getMinValue()+", Cur: "+getCurrentValue()+", Max: "+getMaxValue()+", Zones: "+ Arrays.toString(zones);
+        return "Name: "+ name +", Min: "+ minValue +", Cur: "+ currentValue +", Max: "+ maxValue +", Zones: "+ Arrays.toString(zones);
 	}
 }

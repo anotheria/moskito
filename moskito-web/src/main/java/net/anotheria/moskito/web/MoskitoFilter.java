@@ -156,9 +156,9 @@ public abstract class MoskitoFilter implements Filter{
 				log.warn("couldn't parse limit \""+pLimit+"\", assume -1 aka no limit.");
 			}
 			
-		onDemandProducer = limit == -1 ? 
-				new OnDemandStatsProducer<FilterStats>(getProducerId(), getCategory(), getSubsystem(), new FilterStatsFactory(getMonitoringIntervals())) :
-				new EntryCountLimitedOnDemandStatsProducer<FilterStats>(getProducerId(), getCategory(), getSubsystem(), new FilterStatsFactory(getMonitoringIntervals()), limit);
+		onDemandProducer = limit == -1 ?
+                new OnDemandStatsProducer<>(getProducerId(), getCategory(), getSubsystem(), new FilterStatsFactory(getMonitoringIntervals())) :
+                new EntryCountLimitedOnDemandStatsProducer<>(getProducerId(), getCategory(), getSubsystem(), new FilterStatsFactory(getMonitoringIntervals()), limit);
 		ProducerRegistryFactory.getProducerRegistryInstance().registerProducer(onDemandProducer);
 	
 		//force request uri filter to create 'other' stats.

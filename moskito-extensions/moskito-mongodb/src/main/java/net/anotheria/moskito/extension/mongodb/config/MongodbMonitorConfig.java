@@ -119,14 +119,13 @@ public class MongodbMonitorConfig {
 
     @Override
     public String toString() {
-        final StringBuilder sb = new StringBuilder("MongodbMonitorConfig{");
-        sb.append("host='").append(host).append('\'');
-        sb.append(", port='").append(port).append('\'');
-        sb.append(", dbName='").append(dbName).append('\'');
-        sb.append(", login='").append(login).append('\'');
-        sb.append(", password='").append(password).append('\'');
-        sb.append(", collectionName='").append(collectionName).append('\'');
-        sb.append('}');
-        return sb.toString();
+        String sb = "MongodbMonitorConfig{" + "host='" + host + '\'' +
+                ", port='" + port + '\'' +
+                ", dbName='" + dbName + '\'' +
+                ", login='" + login + '\'' +
+                ", password='" + password + '\'' +
+                ", collectionName='" + collectionName + '\'' +
+                '}';
+        return sb;
     }
 }

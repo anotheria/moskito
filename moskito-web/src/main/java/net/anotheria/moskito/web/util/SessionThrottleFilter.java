@@ -4,6 +4,7 @@ import net.anotheria.moskito.core.producers.IStatsProducer;
 import net.anotheria.moskito.core.registry.NoSuchProducerException;
 import net.anotheria.moskito.core.registry.ProducerRegistryAPIFactory;
 import net.anotheria.moskito.core.util.session.SessionCountStats;
+import net.anotheria.moskito.web.session.SessionCountProducer;
 import org.configureme.ConfigurationManager;
 import org.configureme.annotations.AfterConfiguration;
 import org.configureme.annotations.ConfigureMe;
@@ -51,7 +52,7 @@ public class SessionThrottleFilter implements Filter{
 	public void init(FilterConfig filterConfig) throws ServletException {
 
 		String configSource = filterConfig.getInitParameter("config");
-		if (configSource==null || configSource.length()==0)
+		if (configSource==null || configSource.isEmpty())
 			configSource = "web.xml";
 
 		if (configSource.equalsIgnoreCase("web.xml")){
@@ -66,7 +67,7 @@ public class SessionThrottleFilter implements Filter{
 		try{
 			sessionProducer = (IStatsProducer<SessionCountStats>) new ProducerRegistryAPIFactory().createProducerRegistryAPI().getProducer("SessionCount");
 		}catch(NoSuchProducerException e){
-			log.error("can't connect to SessionCountProducer, ensure that "+net.anotheria.moskito.web.session.SessionCountProducer.class.getName()+" is declared as listener");
+			log.error("can't connect to SessionCountProducer, ensure that "+SessionCountProducer.class.getName()+" is declared as listener");
 			throttleConfig = null;
 		}
 	}
@@ -102,7 +103,7 @@ public class SessionThrottleFilter implements Filter{
 		}
 
 		String target = filterConfig.getInitParameter("redirectTarget");
-		if (target==null || target.length()==0)
+		if (target==null || target.isEmpty())
 			limit = -1;
 
 		return new SessionThrottleFilterConfig(limit, target);
@@ -185,7 +186,7 @@ public class SessionThrottleFilter implements Filter{
 		}
 
 		@Override public String toString(){
-			return "limit: "+getLimit()+", Target: "+getTarget();
+            return "limit: "+ limit +", Target: "+ target;
 		}
 
 		@AfterConfiguration public void logInfo(){

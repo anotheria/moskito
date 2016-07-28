@@ -217,9 +217,10 @@ public class PageInBrowserStatsDecorator extends AbstractDecorator {
 		 * @return array of captions
 		 */
 		public static String[] getCaptions() {
-			List<String> result = new ArrayList<String>(PageInBrowserStatsDecoratorValueName.values().length);
-			for (PageInBrowserStatsDecoratorValueName valueName : PageInBrowserStatsDecoratorValueName.values())
-				result.add(valueName.getCaption());
+			List<String> result = new ArrayList<>(PageInBrowserStatsDecoratorValueName.values().length);
+			for (PageInBrowserStatsDecoratorValueName valueName : PageInBrowserStatsDecoratorValueName.values()) {
+                result.add(valueName.caption);
+            }
 			return result.toArray(new String[result.size()]);
 		}
 
@@ -229,9 +230,10 @@ public class PageInBrowserStatsDecorator extends AbstractDecorator {
 		 * @return array of short explanations
 		 */
 		public static String[] getShortExplanations() {
-			List<String> result = new ArrayList<String>(PageInBrowserStatsDecoratorValueName.values().length);
-			for (PageInBrowserStatsDecoratorValueName valueName : PageInBrowserStatsDecoratorValueName.values())
-				result.add(valueName.getShortExplanation());
+			List<String> result = new ArrayList<>(PageInBrowserStatsDecoratorValueName.values().length);
+			for (PageInBrowserStatsDecoratorValueName valueName : PageInBrowserStatsDecoratorValueName.values()) {
+                result.add(valueName.shortExplanation);
+            }
 			return result.toArray(new String[result.size()]);
 		}
 
@@ -241,9 +243,10 @@ public class PageInBrowserStatsDecorator extends AbstractDecorator {
 		 * @return array of explanations
 		 */
 		public static String[] getExplanations() {
-			List<String> result = new ArrayList<String>(PageInBrowserStatsDecoratorValueName.values().length);
-			for (PageInBrowserStatsDecoratorValueName valueName : PageInBrowserStatsDecoratorValueName.values())
-				result.add(valueName.getExplanation());
+			List<String> result = new ArrayList<>(PageInBrowserStatsDecoratorValueName.values().length);
+			for (PageInBrowserStatsDecoratorValueName valueName : PageInBrowserStatsDecoratorValueName.values()) {
+                result.add(valueName.explanation);
+            }
 			return result.toArray(new String[result.size()]);
 		}
 	}

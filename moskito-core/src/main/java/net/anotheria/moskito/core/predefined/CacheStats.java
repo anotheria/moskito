@@ -88,7 +88,7 @@ public class CacheStats extends AbstractStats {
 	 * @param selectedIntervals
 	 */
 	public CacheStats(String aName,  Interval[] selectedIntervals){
-		Long longPattern = Long.valueOf(0);
+		Long longPattern = 0L;
 		name = aName;
 		
 		requests = StatValueFactory.createStatValue(longPattern, "requests", selectedIntervals);
@@ -287,19 +287,18 @@ public class CacheStats extends AbstractStats {
 	}
 
 	@Override public String toStatsString(String intervalName, TimeUnit timeUnit) {
-		StringBuilder b = new StringBuilder();
-		b.append(getName()).append(' ');
-		b.append(" REQ: ").append(requests.getValueAsLong(intervalName));
-		b.append(" HIT: ").append(hits.getValueAsLong(intervalName));
-		b.append(" HR: ").append(getHitRatio(intervalName));
-		b.append(" WR: ").append(writes.getValueAsLong(intervalName));
-		b.append(" GC: ").append(garbageCollected.getValueAsLong(intervalName));
-		b.append(" RO: ").append(rolloverCount.getValueAsLong(intervalName));
-		b.append(" FU: ").append(cacheFullCount.getValueAsLong(intervalName));
-		b.append(" EX: ").append(expiredCount.getValueAsLong(intervalName));
-		b.append(" DEL: ").append(deletes.getValueAsLong(intervalName));
-		b.append(" FI: ").append(filteredCount.getValueAsLong(intervalName));
-		return b.toString();
+		String b = name + ' ' +
+				" REQ: " + requests.getValueAsLong(intervalName) +
+				" HIT: " + hits.getValueAsLong(intervalName) +
+				" HR: " + getHitRatio(intervalName) +
+				" WR: " + writes.getValueAsLong(intervalName) +
+				" GC: " + garbageCollected.getValueAsLong(intervalName) +
+				" RO: " + rolloverCount.getValueAsLong(intervalName) +
+				" FU: " + cacheFullCount.getValueAsLong(intervalName) +
+				" EX: " + expiredCount.getValueAsLong(intervalName) +
+				" DEL: " + deletes.getValueAsLong(intervalName) +
+				" FI: " + filteredCount.getValueAsLong(intervalName);
+		return b;
 	}
 
 	@Override public String getValueByNameAsString(String valueName, String intervalName, TimeUnit timeUnit){

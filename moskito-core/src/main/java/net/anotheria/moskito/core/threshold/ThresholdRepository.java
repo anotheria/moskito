@@ -108,7 +108,7 @@ public class ThresholdRepository<S extends IStats> extends TieableRepository<Thr
 	
 	private ObjectName createName(String name) throws MalformedObjectNameException {
         String appName = RuntimeConstants.getApplicationName();
-		String objectName = "moskito."+(appName.length()>0 ? appName+ '.' :"")+"thresholds:type="+name;
+		String objectName = "moskito."+(!appName.isEmpty() ? appName+ '.' :"")+"thresholds:type="+name;
         ObjectName objName = new ObjectName(objectName);
         return objName;
 	}
@@ -161,15 +161,9 @@ public class ThresholdRepository<S extends IStats> extends TieableRepository<Thr
             // Register the Threshold-MBean
             mbs.registerMBean(ret, name);
 
-        } catch (MalformedObjectNameException e) {
+        } catch (MalformedObjectNameException | NotCompliantMBeanException | MBeanRegistrationException | InstanceAlreadyExistsException e) {
 	    	log.warn("can't subscribe threshold to jmx", e);
-	    } catch (InstanceAlreadyExistsException e) {
-	    	log.warn("can't subscribe threshold to jmx", e);
-		} catch (MBeanRegistrationException e) {
-	    	log.warn("can't subscribe threshold to jmx", e);
-		} catch (NotCompliantMBeanException e) {
-	    	log.warn("can't subscribe threshold to jmx", e);
-        } catch(AccessControlException e){
+	    } catch(AccessControlException e){
 			log.warn("can't create jmx bean due to access control problems", e);
 		}
 
@@ -179,7 +173,7 @@ public class ThresholdRepository<S extends IStats> extends TieableRepository<Thr
 
 	public ExtendedThresholdStatus getExtendedWorstStatus(List<String> includedNames){
 
-		ThresholdStatus status = (includedNames == null || includedNames.size()==0) ?
+		ThresholdStatus status = (includedNames == null || includedNames.isEmpty()) ?
 				getWorstStatus() : getWorstStatus(includedNames);
 		ExtendedThresholdStatus ret = new ExtendedThresholdStatus(status);
 		for (Threshold t : getThresholds()){

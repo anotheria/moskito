@@ -141,7 +141,7 @@ public class RollingOnDemandStatsProducer<S extends IStats> implements IStatsPro
 				})
 				.build();
 
-		_cachedStatsList = new CopyOnWriteArrayList<S>();
+		_cachedStatsList = new CopyOnWriteArrayList<>();
 		
 		linkToDefaultStats = factory.createStatsObject(OnDemandStatsProducer.CUMULATED_STATS_NAME);
 		_cachedStatsList.add(linkToDefaultStats);
@@ -188,7 +188,7 @@ public class RollingOnDemandStatsProducer<S extends IStats> implements IStatsPro
 	}
 	
 	@Override public String toString(){
-		return "RollingOnDemandStatsProducer: "+getProducerId()+ ':' +getSubsystem()+ ':' +getCategory();
+        return "RollingOnDemandStatsProducer: "+ producerId + ':' +getSubsystem()+ ':' +getCategory();
 	}
 	
 	protected List<S> getCachedStatsList(){

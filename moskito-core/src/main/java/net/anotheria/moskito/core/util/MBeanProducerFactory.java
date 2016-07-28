@@ -44,7 +44,7 @@ public final class MBeanProducerFactory {
 
         for (final MBeanServer server : getServers()) {
             if (LOGGER.isDebugEnabled()) {
-                LOGGER.debug("handle MBean-Server: " + server.toString());
+                LOGGER.debug("handle MBean-Server: " + server);
             }
 
             handleServer(result, server);
@@ -164,7 +164,7 @@ public final class MBeanProducerFactory {
 
             final List<GenericStats> statsList = new MBeanStatsList(server, mBeanName, conf.isUpdateAutomatically(),
                     conf.getDelayBeforeFirstUpdate());
-            final SimpleStatsProducer<GenericStats> p = new SimpleStatsProducer<GenericStats>(producerId, "MBean",
+            final SimpleStatsProducer<GenericStats> p = new SimpleStatsProducer<>(producerId, "MBean",
                     subsystem, statsList);
             result.add(p);
 
@@ -178,6 +178,5 @@ public final class MBeanProducerFactory {
      * Hidden constructor - this is a utility class.
      */
     private MBeanProducerFactory() {
-        super();
     }
 }

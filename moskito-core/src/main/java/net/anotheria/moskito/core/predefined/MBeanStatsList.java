@@ -503,14 +503,9 @@ public class MBeanStatsList extends ArrayList<GenericStats> {
             final Collection<MBeanAttributeInfo> attributes = new ArrayList<>(all.length);
             Collections.addAll(attributes, all);
             return attributes;
-        } catch (final IntrospectionException e) {
+        } catch (final IntrospectionException | ReflectionException | InstanceNotFoundException e) {
             LOGGER.info("unable to determine attributes of MBean: " + mbean, e);
 
-        } catch (final InstanceNotFoundException e) {
-            LOGGER.info("unable to determine attributes of MBean: " + mbean, e);
-
-        } catch (final ReflectionException e) {
-            LOGGER.info("unable to determine attributes of MBean: " + mbean, e);
         }
 
         return new ArrayList<>(0);

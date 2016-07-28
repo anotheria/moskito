@@ -154,7 +154,7 @@ public class StorageStatsDecorator extends AbstractDecorator {
 
 	@Override public List<StatValueAO> getValues(IStats statsObject, String interval, TimeUnit unit) {
 		StorageStats stats = (StorageStats)statsObject;
-		List<StatValueAO> ret = new ArrayList<StatValueAO>(CAPTIONS.length);
+		List<StatValueAO> ret = new ArrayList<>(CAPTIONS.length);
 		
 		int i = 0;
 		

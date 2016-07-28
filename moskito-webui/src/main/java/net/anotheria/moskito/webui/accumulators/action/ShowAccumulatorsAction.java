@@ -21,6 +21,8 @@ import org.json.JSONObject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Deque;
 import java.util.Enumeration;
 import java.util.LinkedList;
 import java.util.List;
@@ -65,7 +67,7 @@ public class ShowAccumulatorsAction extends BaseAccumulatorsAction {
 	}
 
 	private AccumulatorSetMode getModeFromParameter(String parameterValue){
-		if (parameterValue == null ||parameterValue.length()==0)
+		if (parameterValue == null || parameterValue.isEmpty())
 			return AccumulatorSetMode.COMBINED; //default
 
 		for (AccumulatorSetMode mode : AccumulatorSetMode.values()){
@@ -85,7 +87,7 @@ public class ShowAccumulatorsAction extends BaseAccumulatorsAction {
         AccumulatorsConfig configuration = config.getAccumulatorsConfig();
 		AccumulatorSetConfig setConfigs[] = configuration.getAccumulatorSets();
 		if (setConfigs!=null && setConfigs.length>0) {
-			LinkedList<AccumulatorSetBean> acSetBeans = new LinkedList<AccumulatorSetBean>();
+			Deque<AccumulatorSetBean> acSetBeans = new LinkedList<>();
 			for (AccumulatorSetConfig asc : setConfigs) {
 				AccumulatorSetBean bean = new AccumulatorSetBean();
 				bean.setName(asc.getName());
@@ -105,7 +107,7 @@ public class ShowAccumulatorsAction extends BaseAccumulatorsAction {
 				bean.setLink(link.toString());
 				acSetBeans.add(bean);
 			}
-			if (acSetBeans.size() > 0) {
+			if (!acSetBeans.isEmpty()) {
 				req.setAttribute("accumulatorSetBeans", acSetBeans);
 			}
 		}
@@ -151,7 +153,7 @@ public class ShowAccumulatorsAction extends BaseAccumulatorsAction {
 
 				//create multiple graphs with one line each.
 				List<AccumulatedSingleGraphAO> singleGraphDataBeans = new ArrayList<>(numberOfIds);
-				List<String> accumulatorsNames = new ArrayList<>(numberOfIds);
+				Collection<String> accumulatorsNames = new ArrayList<>(numberOfIds);
 
 				for (String id : ids) {
 					final AccumulatorAO accumulator = getAccumulatorAPI().getAccumulator(id);
@@ -182,10 +184,10 @@ public class ShowAccumulatorsAction extends BaseAccumulatorsAction {
 		return mapping.findCommand(getForward(req));
 	}
 	
-	/*test visibility */ static void normalize(List<AccumulatedValuesBean> values, List<String> names, int limit){
+	/*test visibility */ static void normalize(List<AccumulatedValuesBean> values, Iterable<String> names, int limit){
 		for (String name : names){
 			//System.out.println("normalizing "+name);
-			ArrayList<Float> valueCopy = new ArrayList<Float>(values.size());
+			ArrayList<Float> valueCopy = new ArrayList<>(values.size());
 			//step1 transform everything to float
 			float min = Float.MAX_VALUE, max = Float.MIN_VALUE;
 			for (AccumulatedValuesBean v : values){
@@ -213,7 +215,7 @@ public class ShowAccumulatorsAction extends BaseAccumulatorsAction {
 	@Override
 	protected String getLinkToCurrentPage(HttpServletRequest req) {
 		String newQS = rebuildQueryStringWithoutParameter(req.getQueryString(), "ts", "pReloadInterval");
-		if (newQS.length()>0)
+		if (!newQS.isEmpty())
 			newQS+="&";
 		newQS+="ts="+System.currentTimeMillis();
 		return "mskAccumulators?"+ newQS;
@@ -236,7 +238,7 @@ public class ShowAccumulatorsAction extends BaseAccumulatorsAction {
 	 * @param graphAOs collection of {@link AccumulatedSingleGraphAO}
 	 * @return JSON array with accumulators colors
 	 */
-	private JSONArray accumulatorsColorsToJSON(final List<AccumulatedSingleGraphAO> graphAOs) {
+	private JSONArray accumulatorsColorsToJSON(final Iterable<AccumulatedSingleGraphAO> graphAOs) {
 		final JSONArray jsonArray = new JSONArray();
 
 		for (AccumulatedSingleGraphAO graphAO : graphAOs) {

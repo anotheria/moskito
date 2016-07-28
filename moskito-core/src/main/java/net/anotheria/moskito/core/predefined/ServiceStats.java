@@ -52,8 +52,7 @@ public class ServiceStats extends RequestOrientedStats{
 	}
 	
 	public ServiceStats(){
-		super();
-	}
+    }
 	
 	public ServiceStats(String aMethodName, Interval[] intervals){
 		super(aMethodName, intervals);

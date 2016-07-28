@@ -74,7 +74,7 @@ public abstract class MoskitoAction extends Action implements IStatsProducer {
 	protected MoskitoAction() {
 		
 		stats = new ActionStats("execute", getMonitoringIntervals());
-		statsList = new ArrayList<IStats>(1);
+		statsList = new ArrayList<>(1);
 		statsList.add(stats);
 		
 		ProducerRegistryFactory.getProducerRegistryInstance().registerProducer(this);
@@ -82,7 +82,7 @@ public abstract class MoskitoAction extends Action implements IStatsProducer {
 	
 
 	/**
-	 * @see org.apache.struts.action.Action#execute(ActionMapping, ActionForm, HttpServletRequest, HttpServletResponse)
+	 * @see Action#execute(ActionMapping, ActionForm, HttpServletRequest, HttpServletResponse)
 	 */
 	@Override public final ActionForward execute(
 		ActionMapping mapping,
@@ -99,7 +99,7 @@ public abstract class MoskitoAction extends Action implements IStatsProducer {
 		CurrentlyTracedCall tracedCall = aTracedCall.callTraced() ?
 				(CurrentlyTracedCall)aTracedCall : null; 
 		if (tracedCall !=null)
-			currentStep = tracedCall.startStep(new StringBuilder(getProducerId()).append('.').append("execute").toString(), this);
+			currentStep = tracedCall.startStep(getProducerId() + '.' + "execute", this);
 		try {
 			
 			preProcessExecute(mapping, bean, req, res);

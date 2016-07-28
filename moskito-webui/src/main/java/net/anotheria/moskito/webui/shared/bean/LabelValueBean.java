@@ -42,6 +42,6 @@ public class LabelValueBean {
 	}
 
 	@Override public String toString(){
-		return getLabel()+ ' ' +getValue();
+        return label + ' ' + value;
 	}
 }

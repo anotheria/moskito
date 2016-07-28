@@ -6,6 +6,7 @@ import net.anotheria.moskito.core.calltrace.RunningTraceContainer;
 import net.anotheria.moskito.core.calltrace.TraceStep;
 import net.anotheria.moskito.core.calltrace.TracedCall;
 import net.anotheria.moskito.core.calltrace.TracingUtil;
+import net.anotheria.moskito.core.dynamic.IOnDemandStatsFactory;
 import net.anotheria.moskito.core.dynamic.OnDemandStatsProducer;
 import net.anotheria.moskito.core.journey.Journey;
 import net.anotheria.moskito.core.journey.JourneyManagerFactory;
@@ -33,7 +34,7 @@ public class MonitoringAspect extends AbstractMoskitoAspect<ServiceStats>{
 	/**
 	 * Factory constant is needed to prevent continuous reinstantiation of ServiceStatsFactory objects.
 	 */
-	private static final ServiceStatsFactory FACTORY = new ServiceStatsFactory();
+	private static final IOnDemandStatsFactory FACTORY = new ServiceStatsFactory();
 
 	@Around(value = "execution(* *(..)) && (@annotation(method))")
     public Object doProfilingMethod(ProceedingJoinPoint pjp, Monitor method) throws Throwable {

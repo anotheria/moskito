@@ -45,7 +45,7 @@ public class AccumulatorDefinition extends TieableDefinition {
 	 * @return
 	 */
 	public int getMaxAmountOfAccumulatedItems(){
-		return getAccumulationAmount() + (getAccumulationAmount()/10);
+        return accumulationAmount + (accumulationAmount /10);
 	}
 
 	public int getAccumulationAmount() {

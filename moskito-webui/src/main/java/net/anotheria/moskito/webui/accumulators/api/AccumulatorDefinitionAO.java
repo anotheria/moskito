@@ -99,6 +99,6 @@ public class AccumulatorDefinitionAO implements IComparable, Serializable{
 
 	@Override
 	public int compareTo(IComparable anotherObject, int method) {
-		return BasicComparable.compareString(getName(), ((AccumulatorDefinitionAO)anotherObject).getName());
+        return BasicComparable.compareString(name, ((AccumulatorDefinitionAO) anotherObject).name);
 	}
 }

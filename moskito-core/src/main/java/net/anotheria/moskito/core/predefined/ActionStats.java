@@ -53,8 +53,7 @@ public class ActionStats extends RequestOrientedStats{
 	 * Creates a new action stats object.
 	 */
 	public ActionStats(){
-		super();
-	}
+    }
 	
 	public ActionStats(String aMethodName, Interval[] intervals){
 		super(aMethodName, intervals);

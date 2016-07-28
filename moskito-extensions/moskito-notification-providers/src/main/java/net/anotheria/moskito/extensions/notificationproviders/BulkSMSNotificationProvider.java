@@ -3,6 +3,7 @@ package net.anotheria.moskito.extensions.notificationproviders;
 import net.anotheria.moskito.core.config.thresholds.NotificationProviderConfig;
 import net.anotheria.moskito.core.threshold.alerts.NotificationProvider;
 import net.anotheria.moskito.core.threshold.alerts.ThresholdAlert;
+import net.anotheria.moskito.extensions.notificationtemplate.MailTemplate;
 import net.anotheria.moskito.extensions.notificationtemplate.ThresholdAlertTemplate;
 import net.anotheria.util.IOUtils;
 import net.anotheria.util.StringUtils;
@@ -25,7 +26,7 @@ import java.net.URLConnection;
 public class BulkSMSNotificationProvider implements NotificationProvider {
 
     /**
-     * {@link org.slf4j.Logger}.
+     * {@link Logger}.
      */
     private static final Logger LOGGER = LoggerFactory.getLogger(BulkSMSNotificationProvider.class);
 
@@ -35,7 +36,7 @@ public class BulkSMSNotificationProvider implements NotificationProvider {
     private static final String ENCODING = "ISO-8859-1";
 
     /**
-     * {@link java.net.URL} to provider.
+     * {@link URL} to provider.
      */
     private static final URL PROVIDER_URL;
 
@@ -117,7 +118,7 @@ public class BulkSMSNotificationProvider implements NotificationProvider {
     /**
      * Formats query.
      *
-     * @param alert {@link net.anotheria.moskito.core.threshold.alerts.ThresholdAlert}
+     * @param alert {@link ThresholdAlert}
      * @return query
      */
     private String formatQuery(final ThresholdAlert alert) {
@@ -127,8 +128,8 @@ public class BulkSMSNotificationProvider implements NotificationProvider {
     /**
      * Create SMS message.
      *
-     * @param alert {@link net.anotheria.moskito.core.threshold.alerts.ThresholdAlert}
-     * @param template {@link net.anotheria.moskito.extensions.notificationproviders.BulkSMSNotificationProvider#smsTemplate}
+     * @param alert {@link ThresholdAlert}
+     * @param template {@link BulkSMSNotificationProvider#smsTemplate}
      * @return SMS
      */
     private static String createMessage(final ThresholdAlert alert, final String template) {
@@ -136,7 +137,7 @@ public class BulkSMSNotificationProvider implements NotificationProvider {
         //return alert.getThreshold().getName() + ": " + alert.getOldStatus() + "->" + alert.getNewStatus();
         String message;
         if(!StringUtils.isEmpty(template)) {
-            ThresholdAlertTemplate thresholdAlertTemplate = new ThresholdAlertTemplate(alert);
+            MailTemplate thresholdAlertTemplate = new ThresholdAlertTemplate(alert);
             message = thresholdAlertTemplate.process(template);
         } else {
             message = ThresholdAlertConverter.toPlainText(alert);

@@ -35,7 +35,7 @@ public class JourneyAPIImpl extends AbstractMoskitoAPIImpl implements  JourneyAP
 	@Override
 	public List<JourneyListItemAO> getJourneys() throws APIException {
 		List<Journey> journeys = journeyManager.getJourneys();
-		List<JourneyListItemAO> beans = new ArrayList<JourneyListItemAO>(journeys.size());
+		List<JourneyListItemAO> beans = new ArrayList<>(journeys.size());
 
 		for (Journey j : journeys){
 			JourneyListItemAO bean = new JourneyListItemAO();
@@ -67,7 +67,7 @@ public class JourneyAPIImpl extends AbstractMoskitoAPIImpl implements  JourneyAP
 		ret.setLastActivityTimestamp(journey.getLastActivityTimestamp());
 
 		List<CurrentlyTracedCall> recorded = journey.getTracedCalls();
-		List<JourneySingleTracedCallAO> calls = new ArrayList<JourneySingleTracedCallAO>(recorded.size());
+		List<JourneySingleTracedCallAO> calls = new ArrayList<>(recorded.size());
 		for (int i=0; i<recorded.size(); i++){
 			CurrentlyTracedCall tracedCall = recorded.get(i);
 			if(tracedCall == null){

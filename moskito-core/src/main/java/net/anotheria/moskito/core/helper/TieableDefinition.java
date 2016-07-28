@@ -66,7 +66,7 @@ public class TieableDefinition implements Serializable{
 	}
 
 	@Override public String toString(){
-		return getProducerName()+ '.' +getStatName()+ '.' +getValueName();
+        return producerName + '.' + statName + '.' + valueName;
 	}
 
 	public String getProducerName() {
@@ -101,7 +101,7 @@ public class TieableDefinition implements Serializable{
 	}
 	
 	public String describe(){
-		return getProducerName()+ '.' +getStatName()+ '.' +getValueName()+ '/' +getIntervalName()+ '/' +getTimeUnit();
+        return producerName + '.' + statName + '.' + valueName + '/' + intervalName + '/' + timeUnit;
 	}
 
 	public String getDescription() {

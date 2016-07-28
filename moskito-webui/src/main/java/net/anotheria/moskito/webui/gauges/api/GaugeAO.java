@@ -52,7 +52,7 @@ public class GaugeAO implements Serializable{
 	/**
 	 * Zones associated with this gauge.
 	 */
-	private List<GaugeZoneAO> zones = new LinkedList<GaugeZoneAO>();
+	private List<GaugeZoneAO> zones = new LinkedList<>();
 
 	public StatValueAO getCurrent() {
 		return current;
@@ -141,6 +141,6 @@ public class GaugeAO implements Serializable{
 	}
 
 	public boolean getCustomZonesAvailable(){
-		return zones!=null && zones.size()>0;
+		return zones!=null && !zones.isEmpty();
 	}
 }

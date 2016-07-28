@@ -36,17 +36,17 @@ public abstract class GenericCounterStats extends AbstractStats{
 	protected GenericCounterStats(String name, Interval[] intervals, String firstCounter, String ... moreCounters){
 		super(name);
 		values = new HashMap<>();
-		StatValue firstCounterValue = StatValueFactory.createStatValue(Long.valueOf(0L), firstCounter, intervals);
+		StatValue firstCounterValue = StatValueFactory.createStatValue(0L, firstCounter, intervals);
 		addStatValues(firstCounterValue);
 		values.put(firstCounter, firstCounterValue);
 		if (moreCounters != null){
 			for (String mc : moreCounters){
-				StatValue additionalValue = StatValueFactory.createStatValue(Long.valueOf(0L), mc, intervals);
+				StatValue additionalValue = StatValueFactory.createStatValue(0L, mc, intervals);
 				addStatValues(additionalValue);
 				values.put(mc, additionalValue);
 			}
 		}
-		valueNames = Collections.unmodifiableList(new ArrayList<String>(values.keySet()));
+		valueNames = Collections.unmodifiableList(new ArrayList<>(values.keySet()));
 	}
 
 	protected GenericCounterStats(String name, String firstCounter, String ... moreCounters){

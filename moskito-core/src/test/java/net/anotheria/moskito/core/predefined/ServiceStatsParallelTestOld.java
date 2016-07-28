@@ -36,7 +36,6 @@ public class ServiceStatsParallelTestOld {
 	}
 
 	private static class TestThread extends Thread{
-		@SuppressWarnings("unused")
 		private String name;
 		private ServiceStats stats;
 		private static AtomicLong counter = new AtomicLong();

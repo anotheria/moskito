@@ -95,9 +95,9 @@ public class ThresholdAlert {
 	}
 
 	@Override public String toString(){
-		return NumberUtils.makeISO8601TimestampString(getTimestamp())+ ' '
-				+threshold.getName()+", ("+getOldStatus()+"/ "+getOldValue()+") --> "+
-				'(' +getNewStatus()+"/ "+getNewValue()+ ')' +" FP: "+flipCount;
+        return NumberUtils.makeISO8601TimestampString(timestamp)+ ' '
+				+threshold.getName()+", ("+ oldStatus +"/ "+ oldValue +") --> "+
+				'(' + newStatus +"/ "+ newValue + ')' +" FP: "+flipCount;
 	}
 	
 	

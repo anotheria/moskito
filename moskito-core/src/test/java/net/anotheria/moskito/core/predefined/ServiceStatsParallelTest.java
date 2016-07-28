@@ -48,7 +48,6 @@ public class ServiceStatsParallelTest {
 	}
 
 	private class TestThread extends Thread{
-		@SuppressWarnings("unused")
 		private String name;
 		private ServiceStats stats;
 		

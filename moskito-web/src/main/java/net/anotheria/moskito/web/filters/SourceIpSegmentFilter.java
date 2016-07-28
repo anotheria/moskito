@@ -24,7 +24,7 @@ public class SourceIpSegmentFilter extends MoskitoFilter {
 		if (!(req instanceof HttpServletRequest))
 			return null;
 		String ip = req.getRemoteAddr();
-		if (ip==null || ip.length()==0)
+		if (ip==null || ip.isEmpty())
 			ip = "Unknown";
 		int indexOfDot = ip.indexOf('.');
 		String ret = null;

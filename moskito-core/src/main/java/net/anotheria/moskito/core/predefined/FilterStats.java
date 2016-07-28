@@ -54,8 +54,7 @@ public class FilterStats extends ServletStats{
 	 * Creates a new FilterStats object.
 	 */
 	public FilterStats(){
-		super();
-	}
+    }
 	
 	/**
 	 * Creates a new FilterStats object with given name and intervals.

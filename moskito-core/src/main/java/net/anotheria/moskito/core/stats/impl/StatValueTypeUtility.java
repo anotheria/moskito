@@ -50,28 +50,28 @@ final class StatValueTypeUtility {
 	/**
 	 * Factory instance for long values.
 	 */
-	private static LongValueHolderFactory longValueHolderFactory = new LongValueHolderFactory();
+	private static IValueHolderFactory longValueHolderFactory = new LongValueHolderFactory();
 	/**
 	 * Factory instance for int values.
 	 */
-	private static IntValueHolderFactory intValueHolderFactory = new IntValueHolderFactory();
+	private static IValueHolderFactory intValueHolderFactory = new IntValueHolderFactory();
 	/**
 	 * Factory instance for String values.
 	 */
-	private static StringValueHolderFactory stringValueHolderFactory = new StringValueHolderFactory();
+	private static IValueHolderFactory stringValueHolderFactory = new StringValueHolderFactory();
 	/**
 	 * Factory instance for counter values.
 	 */
-	private static CounterValueHolderFactory counterValueHolderFactory = new CounterValueHolderFactory(); 
+	private static IValueHolderFactory counterValueHolderFactory = new CounterValueHolderFactory();
     /**
      * Factory instance for double values.
      */
-    private static DoubleValueHolderFactory doubleValueHolderFactory = new DoubleValueHolderFactory();
+    private static IValueHolderFactory doubleValueHolderFactory = new DoubleValueHolderFactory();
 
 	/**
 	 * Factory instance for LongDiff values.
 	 */
-	private static DiffLongValueHolderFactory diffLongValueHolderFactory = new DiffLongValueHolderFactory();
+	private static IValueHolderFactory diffLongValueHolderFactory = new DiffLongValueHolderFactory();
 	
 	/**
 	 * This method creates the responsible ValueHolderFactory from the given internal type representation.

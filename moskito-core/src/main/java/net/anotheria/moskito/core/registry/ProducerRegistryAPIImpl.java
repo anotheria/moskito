@@ -134,8 +134,8 @@ public class ProducerRegistryAPIImpl implements IProducerRegistryAPI, IProducerR
 			//lets create lists with more place to store as actually need, we will probably need it.
 			final int approxSize = (int)(producers.size()*1.5);
 
-            _cachedProducerList = new ArrayList<ProducerReference>(approxSize);
-            _cachedProducerMap = new HashMap<String,ProducerReference>(approxSize);
+            _cachedProducerList = new ArrayList<>(approxSize);
+            _cachedProducerMap = new HashMap<>(approxSize);
 
             for (IStatsProducer sp : producers){
 				final ProducerReference reference = new ProducerReference(sp);
@@ -189,7 +189,7 @@ public class ProducerRegistryAPIImpl implements IProducerRegistryAPI, IProducerR
 			if (_cachedIntervalInfos!=null)
 				return;
 			List<Interval> intervals = intervalRegistry.getIntervals();
-			_cachedIntervalInfos = new ArrayList<IntervalInfo>(intervals.size());
+			_cachedIntervalInfos = new ArrayList<>(intervals.size());
 			for (Interval interval : intervals) {
 				_cachedIntervalInfos.add(new IntervalInfo(interval));
 				interval.addSecondaryIntervalListener(this);
@@ -229,8 +229,7 @@ public class ProducerRegistryAPIImpl implements IProducerRegistryAPI, IProducerR
 		if (_cachedProducerList==null)
 			buildProducerCacheFromScratch();
 		List <IStatsProducer> ret = new ArrayList<>();
-		@SuppressWarnings("unchecked")
-		List<ProducerReference> workCopy = (List<ProducerReference>)((ArrayList<ProducerReference>)_cachedProducerList).clone();
+		Iterable<ProducerReference> workCopy = (List<ProducerReference>)((ArrayList<ProducerReference>)_cachedProducerList).clone();
 		for (ProducerReference p  : workCopy){
 			IStatsProducer pp = p.get();
 			boolean fit = true;

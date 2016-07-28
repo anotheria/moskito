@@ -59,7 +59,7 @@ public class ProducerRegistryFactory {
 	 */
 	private static void init(){
 		String junittest = System.getProperty("JUNITTEST");
-		if (junittest!=null && (junittest.equalsIgnoreCase("true")))
+		if ("true".equalsIgnoreCase(junittest))
 			return;
 		StartBuiltInProducers.startbuiltin();
 		//ensure plugins are loaded.
@@ -84,7 +84,7 @@ public class ProducerRegistryFactory {
 	public static final void reset(){
 		instance.reset();
 		String junittest = System.getProperty("JUNITTEST");
-		if (junittest!=null && (junittest.equalsIgnoreCase("true")))
+		if ("true".equalsIgnoreCase(junittest))
 			return;
 		StartBuiltInProducers.restartbuiltin();
 	}

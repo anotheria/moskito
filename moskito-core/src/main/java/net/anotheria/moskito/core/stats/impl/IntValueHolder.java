@@ -114,16 +114,16 @@ class IntValueHolder extends AbstractValueHolder {
 	}
 
 	@Override public double getValueAsDouble() {
-		return getValueAsInt();
-	}
+        return lastValue;
+    }
 
 	@Override public int getValueAsInt() {
 		return lastValue;
 	}
 
 	@Override public long getValueAsLong() {
-		return getValueAsInt();
-	}
+        return lastValue;
+    }
 
 	@Override public void increaseByDouble(double aValue) {
 		increaseByInt((int) aValue);
@@ -150,16 +150,16 @@ class IntValueHolder extends AbstractValueHolder {
 	}
 
 	@Override public void setDefaultValueAsLong(long aValue) {
-		setDefaultValueAsInt((int) aValue);
-	}
+        defaultValue = (int) aValue;
+    }
 
 	@Override public void setDefaultValueAsInt(int aValue) {
 		defaultValue = aValue;
 	}
 
 	@Override public void setDefaultValueAsDouble(double aValue) {
-		setDefaultValueAsInt((int) aValue);
-	}
+        defaultValue = (int) aValue;
+    }
 
 	@Override public void reset() {
 		currentValue.set(defaultValue);

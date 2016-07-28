@@ -132,15 +132,9 @@ public class GenericMonitoringFilter implements Filter {
 
 		try{
 			chain.doFilter(req, res);
-		}catch(ServletException e){
+		}catch(ServletException | Error | RuntimeException | IOException e){
 			t = e;
-		}catch(IOException e){
-			t = e;
-		}catch(RuntimeException e){
-			t = e;
-		}catch(Error e){
-			t = e;
-		}finally{
+		} finally{
 			long exTime = System.nanoTime() - startTime;
 			afterExecution( (HttpServletRequest)req, exTime, t);
 		}
@@ -165,8 +159,8 @@ public class GenericMonitoringFilter implements Filter {
 				try {
 					FilterCaseExtractor extractor = (FilterCaseExtractor)Class.forName(extractorName).newInstance();
 					OnDemandStatsProducer<FilterStats> onDemandProducer = limit == -1 ?
-							new OnDemandStatsProducer<FilterStats>(extractor.getProducerId(), extractor.getCategory(), extractor.getSubsystem(), new FilterStatsFactory(getMonitoringIntervals())) :
-							new EntryCountLimitedOnDemandStatsProducer<FilterStats>(extractor.getProducerId(), extractor.getCategory(), extractor.getSubsystem(), new FilterStatsFactory(getMonitoringIntervals()), limit);
+                            new OnDemandStatsProducer<>(extractor.getProducerId(), extractor.getCategory(), extractor.getSubsystem(), new FilterStatsFactory(getMonitoringIntervals())) :
+                            new EntryCountLimitedOnDemandStatsProducer<>(extractor.getProducerId(), extractor.getCategory(), extractor.getSubsystem(), new FilterStatsFactory(getMonitoringIntervals()), limit);
 					ProducerRegistryFactory.getProducerRegistryInstance().registerProducer(onDemandProducer);
 					extractorMap.put(extractor, onDemandProducer);
 					//force request uri filter to create 'other' stats.

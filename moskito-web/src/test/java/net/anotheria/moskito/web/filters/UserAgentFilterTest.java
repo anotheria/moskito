@@ -56,7 +56,7 @@ public class UserAgentFilterTest {
 		private int last = 0;
 		
 		public String getHeader(String headerName){
-			if (headerName==null || (!headerName.equals("user-agent")))
+			if (!"user-agent".equals(headerName))
 				throw new IllegalArgumentException("unsupported by mock");
 			return AGENTS[last++];
 		}

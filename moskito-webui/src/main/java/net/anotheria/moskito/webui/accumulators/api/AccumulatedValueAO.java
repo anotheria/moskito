@@ -9,6 +9,7 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -59,7 +60,7 @@ public class AccumulatedValueAO implements Serializable, IComparable<Accumulated
 		values.add(value);
 	}
 
-	public void addValues(List<String> someValues){
+	public void addValues(Collection<String> someValues){
 		values.addAll(someValues);
 	}
 
@@ -116,6 +117,6 @@ public class AccumulatedValueAO implements Serializable, IComparable<Accumulated
 
 	@Override
 	public int compareTo(IComparable<? extends AccumulatedValueAO> iComparable, int i) {
-		return BasicComparable.compareLong(getNumericTimestamp(), ((AccumulatedValueAO)iComparable).getNumericTimestamp());
+        return BasicComparable.compareLong(numericTimestamp, ((AccumulatedValueAO) iComparable).numericTimestamp);
 	}
 }

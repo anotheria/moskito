@@ -1,6 +1,7 @@
 package net.anotheria.moskito.core.util;
 
 import net.anotheria.moskito.core.config.MoskitoConfigurationHolder;
+import net.anotheria.moskito.core.producers.IStatsProducer;
 import net.anotheria.moskito.core.registry.IProducerRegistry;
 import net.anotheria.moskito.core.registry.ProducerRegistryFactory;
 
@@ -75,7 +76,7 @@ public class StartBuiltInProducers {
 
 			//now finally add virtual producers
 			for (Map.Entry<MemoryType,List<BuiltInMemoryPoolProducer>> t : producers.entrySet()){
-				BuiltInMemoryPoolVirtualProducer vp = new BuiltInMemoryPoolVirtualProducer(t.getKey(), t.getValue());
+				IStatsProducer vp = new BuiltInMemoryPoolVirtualProducer(t.getKey(), t.getValue());
 				registry.registerProducer(vp);
 			}
 		}

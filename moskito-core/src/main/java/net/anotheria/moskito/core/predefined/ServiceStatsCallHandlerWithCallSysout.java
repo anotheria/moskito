@@ -102,7 +102,7 @@ public class ServiceStatsCallHandlerWithCallSysout implements IOnDemandCallHandl
 			debugOutPreCall.append(" ERROR ").append(e.getMessage());
 		}
 		
-		System.out.println(debugOutPreCall.toString());
+		System.out.println(debugOutPreCall);
 		
 		StringBuilder debugOutPostCall = new StringBuilder("--- MSK III ").append(callId).append(" --- Return ");
 		
@@ -113,7 +113,7 @@ public class ServiceStatsCallHandlerWithCallSysout implements IOnDemandCallHandl
 		CurrentlyTracedCall runningUseCase = aRunningUseCase.callTraced() ?
 				(CurrentlyTracedCall)aRunningUseCase : null; 
 		if (runningUseCase !=null)
-			currentElement = runningUseCase.startStep(new StringBuilder(producer.getProducerId()).append('.').append(method.getName()).toString(), producer);
+			currentElement = runningUseCase.startStep(producer.getProducerId() + '.' + method.getName(), producer);
 		long startTime = System.nanoTime();
 		try{
 			Object ret = method.invoke(target, args);
@@ -128,19 +128,19 @@ public class ServiceStatsCallHandlerWithCallSysout implements IOnDemandCallHandl
 			//System.out.println("exception of class: "+e.getCause()+" is thrown");
 			if (currentElement!=null)
 				currentElement.setAborted();
-			debugOutPostCall.append("ERR (E) ").append(e.getCause().getMessage()).append(' ').append(e.getCause().toString());
+			debugOutPostCall.append("ERR (E) ").append(e.getCause().getMessage()).append(' ').append(e.getCause());
 			throw e.getCause();
 		}catch(Throwable t){
 			defaultStats.notifyError();
 			methodStats.notifyError();
 			if (currentElement!=null)
 				currentElement.setAborted();
-			debugOutPostCall.append("ERR (T) ").append(t.getMessage()).append(' ').append(t.toString());
+			debugOutPostCall.append("ERR (T) ").append(t.getMessage()).append(' ').append(t);
 			throw t;
 		}finally{
 			defaultStats.notifyRequestFinished();
 			methodStats.notifyRequestFinished();
-			System.out.println(debugOutPostCall.toString());
+			System.out.println(debugOutPostCall);
 			if (currentElement!=null)
 				currentElement.setDuration(System.currentTimeMillis()-startTime);
 			if (runningUseCase !=null)

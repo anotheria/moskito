@@ -71,7 +71,7 @@ public abstract class AbstractDecorator<S extends IStats> implements IDecorator<
 	 */
 	protected AbstractDecorator(String aName, String[] captionStrings, String shortExplanationStrings[], String explanationStrings[]){
 		name = aName;
-		captions = new ArrayList<StatCaptionBean>(captionStrings.length);
+		captions = new ArrayList<>(captionStrings.length);
 		for (int i=0; i<captionStrings.length; i++)
 			captions.add(new StatCaptionBean(captionStrings[i], shortExplanationStrings[i], explanationStrings[i]));
 	}

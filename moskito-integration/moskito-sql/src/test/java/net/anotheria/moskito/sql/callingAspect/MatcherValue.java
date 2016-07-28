@@ -12,49 +12,49 @@ public interface MatcherValue {
     /**
      * Constant property name for "id" for internal storage and queries.
      */
-    public static final String PROP_ID = "id";
+    String PROP_ID = "id";
     /**
      * Constant property name for "type" for internal storage and queries.
      */
-    public static final String PROP_TYPE = "type";
+    String PROP_TYPE = "type";
     /**
      * Constant property name for "value" for internal storage and queries.
      */
-    public static final String PROP_VALUE = "value";
+    String PROP_VALUE = "value";
     /**
      * Constant property name for "matcherId" for internal storage and queries.
      */
-    public static final String LINK_PROP_MATCHER_ID = "matcherId";
+    String LINK_PROP_MATCHER_ID = "matcherId";
 
     /**
      * Returns the value of the type attribute.
      */
-    public int getType();
+    int getType();
 
     /**
      * Sets the value of the type attribute.
      */
-    public void setType(int value);
+    void setType(int value);
 
     /**
      * Returns the value of the value attribute.
      */
-    public String getValue();
+    String getValue();
 
     /**
      * Sets the value of the value attribute.
      */
-    public void setValue(String value);
+    void setValue(String value);
 
     /**
      * Returns the value of the matcherId attribute.
      */
-    public String getMatcherId();
+    String getMatcherId();
 
     /**
      * Sets the value of the matcherId attribute.
      */
-    public void setMatcherId(String value);
+    void setMatcherId(String value);
 
     String getId();
 }

@@ -17,7 +17,6 @@ public class DoubleValueHolderFactory extends AbstractValueHolderFactory {
      * 
      */
     public DoubleValueHolderFactory() {
-        super();
     }
 
     /**

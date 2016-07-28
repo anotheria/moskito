@@ -57,7 +57,7 @@ public class DefaultDecorator extends AbstractDecorator{
 	}
 
 	@Override public List<StatValueAO> getValues(IStats stats, String interval, TimeUnit unit) {
-		List<StatValueAO> beans = new ArrayList<StatValueAO>(1);
+		List<StatValueAO> beans = new ArrayList<>(1);
 		beans.add(new StringValueAO("none", "no decorator for "+stats.getClass()));
 		return beans;
 	}

@@ -18,7 +18,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 /**
- * Tests for {@link net.anotheria.moskito.integration.ehcache.MonitoredEhcache}.
+ * Tests for {@link MonitoredEhcache}.
  *
  * @author Vladyslav Bezuhlyi
  */

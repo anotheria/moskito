@@ -96,7 +96,7 @@ public class TracingConfiguration implements Serializable{
 	}
 
 	public int getToleratedTracesAmount(){
-		return getMaxTraces() + getMaxTraces()/10;
+        return maxTraces + maxTraces /10;
 	}
 
 	public ShrinkingStrategy getShrinkingStrategy() {

@@ -47,14 +47,14 @@ public class DiscSpaceProducer implements IStatsProducer {
     public DiscSpaceProducer(Path rootPath){
         path = rootPath.toString();
         producerId = ID + path;
-        statsList = new CopyOnWriteArrayList<IStats>();
+        statsList = new CopyOnWriteArrayList<>();
         stats = new MemoryStats(producerId);
         statsList.add(stats);
 
         try {
             root = Files.getFileStore(rootPath);
         } catch (IOException e) {
-            log.error("Querying space. Init error: " + e.toString());
+            log.error("Querying space. Init error: " + e);
             return;
         }
 
@@ -94,7 +94,7 @@ public class DiscSpaceProducer implements IStatsProducer {
         try {
             space = root.getUsableSpace();
         } catch (IOException e) {
-            log.error("Querying space. Querying error: " + e.toString());
+            log.error("Querying space. Querying error: " + e);
             return;
         }
         stats.updateMemoryValue(space);

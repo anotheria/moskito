@@ -40,7 +40,6 @@ import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -66,7 +65,7 @@ public class ProducerRegistryImpl implements IProducerRegistry {
     /**
      * The listeners list.
      */
-    private final List<IProducerRegistryListener> listeners = new CopyOnWriteArrayList<IProducerRegistryListener>();
+    private final Collection<IProducerRegistryListener> listeners = new CopyOnWriteArrayList<>();
 
     /**
      * Creates the ProducerRegistryImpl singleton instance.
@@ -87,7 +86,7 @@ public class ProducerRegistryImpl implements IProducerRegistry {
 
     @Override
     public Collection<IStatsProducer> getProducers() {
-        List<IStatsProducer> ret = new ArrayList<>();
+        Collection<IStatsProducer> ret = new ArrayList<>();
         for (ProducerReference r : getProducerReferences()) {
             if (r.get() != null)
                 ret.add(r.get());
@@ -152,7 +151,7 @@ public class ProducerRegistryImpl implements IProducerRegistry {
         registry.clear();
 
         String junittest = System.getProperty("JUNITTEST");
-        if (junittest != null && (junittest.equalsIgnoreCase("true"))) // preventing listiner's initialization for JUnit run's
+        if ("true".equalsIgnoreCase(junittest)) // preventing listiner's initialization for JUnit run's
             return;
 
         addListener(new JMXBridgeListener());
@@ -163,7 +162,7 @@ public class ProducerRegistryImpl implements IProducerRegistry {
      * This method is primary used for unit tests.
      */
     public void cleanup() {
-        ArrayList<ProducerReference> producerReferences = new ArrayList<ProducerReference>(registry.values());
+        Iterable<ProducerReference> producerReferences = new ArrayList<>(registry.values());
         for (ProducerReference p : producerReferences) {
             try {
                 if (p.get() != null)

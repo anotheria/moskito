@@ -34,7 +34,7 @@ public class AnalyzeJourneyAction extends BaseJourneyAction{
 		//prepare sort type
 		String sortOrder = req.getParameter("pSortOrder");
 		String sortBy = req.getParameter("pSortBy");
-		if ( sortBy!=null && sortBy.length()>0){
+		if ( sortBy!=null && !sortBy.isEmpty()){
 			AnalyzedProducerCallsAOSortType st = AnalyzedProducerCallsAOSortType.fromStrings(sortBy, sortOrder);
 			MoSKitoWebUIContext.getCallContext().setAnalyzeProducerCallsSortType(st);
 		}

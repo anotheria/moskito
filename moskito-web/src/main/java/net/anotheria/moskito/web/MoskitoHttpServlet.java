@@ -117,7 +117,7 @@ public class MoskitoHttpServlet extends HttpServlet implements IStatsProducer {
 		deleteStats       = new ServletStats("delete", getMonitoringIntervals());
 		lastModifiedStats = new ServletStats("lastModified", getMonitoringIntervals());
 		
-		cachedStatList = new ArrayList<IStats>(useShortStatList()? 2 : 8);
+		cachedStatList = new ArrayList<>(useShortStatList() ? 2 : 8);
 		cachedStatList.add(getStats);
 		cachedStatList.add(postStats);
 		if (!useShortStatList()){
@@ -165,7 +165,7 @@ public class MoskitoHttpServlet extends HttpServlet implements IStatsProducer {
 		CurrentlyTracedCall runningUseCase = aRunningUseCase.callTraced() ?
 				(CurrentlyTracedCall)aRunningUseCase : null; 
 		if (runningUseCase !=null)
-			currentElement = runningUseCase.startStep(new StringBuilder(getProducerId()).append('.').append("doGet").toString(), this);
+			currentElement = runningUseCase.startStep(getProducerId() + '.' + "doGet", this);
 		long startTime = System.nanoTime();
 
 		try{

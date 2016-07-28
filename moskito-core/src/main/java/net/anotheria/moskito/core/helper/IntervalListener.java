@@ -5,7 +5,7 @@ import net.anotheria.moskito.core.stats.Interval;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.List;
+import java.util.Collection;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
@@ -21,7 +21,7 @@ public class IntervalListener implements IIntervalListener {
 	/**
 	 * Target classes.
 	 */
-	private List<IntervalUpdateable> updateables = new CopyOnWriteArrayList<IntervalUpdateable>();
+	private Collection<IntervalUpdateable> updateables = new CopyOnWriteArrayList<>();
 	
 	@Override
 	public void intervalUpdated(Interval aCaller) {
@@ -34,15 +34,15 @@ public class IntervalListener implements IIntervalListener {
 		}
 	}
 	
-	public void addTieable(Tieable toAdd){
+	public void addTieable(IntervalUpdateable toAdd){
 		updateables.add(toAdd);
 	}
 
-    public void removeTieable(Tieable toRemove){
+    public void removeTieable(IntervalUpdateable toRemove){
         updateables.remove(toRemove);
     }
 	
-	public void addTieableAutoTieWrapper(AutoTieWrapper toAdd){
+	public void addTieableAutoTieWrapper(IntervalUpdateable toAdd){
 		updateables.add(toAdd);
 	}
 

@@ -54,14 +54,10 @@ public class ProducerAPIImpl extends AbstractMoskitoAPIImpl implements ProducerA
 				ProducerFilter filter = (ProducerFilter)Class.forName(pfc.getClazzName()).newInstance();
 				filter.customize(pfc.getParameter());
 				newProducerFilters.add(filter);
-			} catch (InstantiationException e) {
+			} catch (InstantiationException | ClassNotFoundException | IllegalAccessException e) {
 				log.warn("Can't initialize filter of class "+pfc.getClazzName());
-			} catch (IllegalAccessException e) {
-				log.warn("Can't initialize filter of class " + pfc.getClazzName());
-			} catch (ClassNotFoundException e) {
-				log.warn("Can't initialize filter of class " + pfc.getClazzName());
 			}
-		}
+        }
 
 		DecoratorConfig[] decoratorConfigs = WebUIConfig.getInstance().getDecorators();
 		if (decoratorConfigs != null){
@@ -72,14 +68,10 @@ public class ProducerAPIImpl extends AbstractMoskitoAPIImpl implements ProducerA
 					IDecorator decorator = (IDecorator) decoratorClass.newInstance();
 					DecoratorRegistryFactory.getDecoratorRegistry().addDecorator(config.getStatClazzName(), decorator);
 
-				}catch (ClassNotFoundException e){
-					log.warn("can't configure decorator "+config+" due ", e);
-				} catch (InstantiationException e) {
-					log.warn("can't configure decorator " + config + " due ", e);
-				} catch (IllegalAccessException e) {
+				}catch (ClassNotFoundException | IllegalAccessException | InstantiationException e){
 					log.warn("can't configure decorator "+config+" due ", e);
 				}
-			}
+            }
 		}
 
 		producerFilters = newProducerFilters;
@@ -111,7 +103,7 @@ public class ProducerAPIImpl extends AbstractMoskitoAPIImpl implements ProducerA
 	@Override
 	public List<UnitCountAO> getCategories() {
 		List<String> categories = producerRegistryAPI.getCategories();
-		List<UnitCountAO> categoriesAO = new ArrayList<UnitCountAO>(categories.size());
+		List<UnitCountAO> categoriesAO = new ArrayList<>(categories.size());
 		for (String catName : categories){
 			categoriesAO.add(new UnitCountAO(catName, producerRegistryAPI.getAllProducersByCategory(catName).size()));
 		}
@@ -121,14 +113,14 @@ public class ProducerAPIImpl extends AbstractMoskitoAPIImpl implements ProducerA
 	@Override
 	public List<UnitCountAO> getSubsystems() {
 		List<String> subsystems = producerRegistryAPI.getSubsystems();
-		List<UnitCountAO> subsystemsAO = new ArrayList<UnitCountAO>(subsystems.size());
+		List<UnitCountAO> subsystemsAO = new ArrayList<>(subsystems.size());
 		for (String subName : subsystems){
 			subsystemsAO.add(new UnitCountAO(subName, producerRegistryAPI.getAllProducersBySubsystem(subName).size()));
 		}
 		return subsystemsAO;
 	}
 
-	private List<ProducerAO> convertStatsProducerListToAO(List<IStatsProducer> producers, String intervalName, TimeUnit timeUnit){
+	private List<ProducerAO> convertStatsProducerListToAO(Iterable<IStatsProducer> producers, String intervalName, TimeUnit timeUnit){
 		LinkedList<ProducerAO> ret = new LinkedList<>();
 		for (IStatsProducer p : producers){
 			ret.add(convertStatsProducerToAO(p, intervalName, timeUnit));
@@ -181,7 +173,7 @@ public class ProducerAPIImpl extends AbstractMoskitoAPIImpl implements ProducerA
 		return ao;
 	}
 
-	private List<ProducerAO> filterProducersAndConvertToAO(List<IStatsProducer> producers, String intervalName, TimeUnit timeUnit){
+	private List<ProducerAO> filterProducersAndConvertToAO(Iterable<IStatsProducer> producers, String intervalName, TimeUnit timeUnit){
 		List<ProducerAO> ret = new ArrayList<>();
 		for (IStatsProducer<?> p : producers){
 			boolean mayPass = true;
@@ -202,7 +194,7 @@ public class ProducerAPIImpl extends AbstractMoskitoAPIImpl implements ProducerA
 	@Override
 	public List<ProducerAO> getAllProducers(String intervalName, TimeUnit timeUnit) {
 
-		if (producerFilters==null || producerFilters.size()==0 || !Features.PRODUCER_FILTERING.isEnabled())
+		if (producerFilters==null || producerFilters.isEmpty() || !Features.PRODUCER_FILTERING.isEnabled())
 			return convertStatsProducerListToAO(producerRegistryAPI.getAllProducers(), intervalName, timeUnit);
 
 		List<IStatsProducer> allProducers =  producerRegistryAPI.getAllProducers();
@@ -212,7 +204,7 @@ public class ProducerAPIImpl extends AbstractMoskitoAPIImpl implements ProducerA
 
 	@Override
 	public List<ProducerAO> getAllProducersByCategory(String currentCategory, String intervalName, TimeUnit timeUnit) {
-		if (producerFilters==null || producerFilters.size()==0 || !Features.PRODUCER_FILTERING.isEnabled())
+		if (producerFilters==null || producerFilters.isEmpty() || !Features.PRODUCER_FILTERING.isEnabled())
 			return convertStatsProducerListToAO(producerRegistryAPI.getAllProducersByCategory(currentCategory), intervalName, timeUnit);
 
 		return filterProducersAndConvertToAO(producerRegistryAPI.getAllProducersByCategory(currentCategory), intervalName, timeUnit);

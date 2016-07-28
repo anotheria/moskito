@@ -29,12 +29,10 @@ public class EnableWebUIBackend implements ServletContextListener{
 			log.error("Couldn't find the backend server class", e);
 		}catch(NoSuchMethodException e){
 			log.error("Couldn't find the method in server class", e);
-		} catch (InvocationTargetException e) {
-			log.error("Couldn't invoke start method", e);
-		} catch (IllegalAccessException e) {
+		} catch (InvocationTargetException | IllegalAccessException e) {
 			log.error("Couldn't invoke start method", e);
 		}
-	}
+    }
 
 	@Override
 	public void contextDestroyed(ServletContextEvent servletContextEvent) {

@@ -136,7 +136,7 @@ public class JSTalkBackFilter implements Filter {
 	 * @param defaultValue parameter default value
 	 * @return request parameter value
 	 */
-	private String getValueOrDefault(HttpServletRequest req, String paramName, String defaultValue) {
+	private String getValueOrDefault(ServletRequest req, String paramName, String defaultValue) {
 		final String value = req.getParameter(paramName);
 		return StringUtils.isEmpty(value) ? defaultValue : value;
 	}
@@ -162,7 +162,6 @@ public class JSTalkBackFilter implements Filter {
 	 * @param subsystem  name of the subsystem
 	 * @return PageInBrowserStats producer
 	 */
-	@SuppressWarnings("unchecked")
 	private OnDemandStatsProducer<PageInBrowserStats> getProducer(final String producerId, final String category, final String subsystem) {
 		final IStatsProducer statsProducer = ProducerRegistryFactory.getProducerRegistryInstance().getProducer(producerId);
 		// create new
@@ -194,8 +193,8 @@ public class JSTalkBackFilter implements Filter {
 	 * @return PageInBrowserStats producer
 	 */
 	private OnDemandStatsProducer<PageInBrowserStats> createProducer(final String producerId, final String category, final String subsystem) {
-		OnDemandStatsProducer<PageInBrowserStats> producer = limit == -1 ? new OnDemandStatsProducer<PageInBrowserStats>(producerId, category, subsystem, new PageInBrowserStatsFactory()) :
-				new EntryCountLimitedOnDemandStatsProducer<PageInBrowserStats>(producerId, category, subsystem, new PageInBrowserStatsFactory(), limit);
+		OnDemandStatsProducer<PageInBrowserStats> producer = limit == -1 ? new OnDemandStatsProducer<>(producerId, category, subsystem, new PageInBrowserStatsFactory()) :
+                new EntryCountLimitedOnDemandStatsProducer<>(producerId, category, subsystem, new PageInBrowserStatsFactory(), limit);
 
 		ProducerRegistryFactory.getProducerRegistryInstance().registerProducer(producer);
 		return producer;

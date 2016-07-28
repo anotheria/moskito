@@ -42,7 +42,7 @@ import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Collection;
 
 /**
  * This is an InvocationHandler which is used whenever you want to monitor an impementation of an interface in a AOP way. Using this proxy you can inject monitoring to any
@@ -162,7 +162,7 @@ public class MoskitoInvokationProxy<S extends IStats> implements InvocationHandl
 	 * Looks up all possible exceptions.
 	 */
 	private void guessExceptions(){
-		List<Class<?>> tmpExceptionList = new ArrayList<>();
+		Collection<Class<?>> tmpExceptionList = new ArrayList<>();
 		for (Class<?> c:supportedInterfaces){
 			Method[] methods = c.getDeclaredMethods();
 			for (Method m:methods){

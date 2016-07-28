@@ -46,7 +46,7 @@ public class StatSnapshot {
 
 	@Override
 	public String toString() {
-		return getName()+": "+getValues();
+        return name +": "+ values;
 	}
 
 	public String getValue(String valueName){

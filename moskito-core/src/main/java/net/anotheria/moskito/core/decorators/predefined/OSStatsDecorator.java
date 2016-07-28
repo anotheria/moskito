@@ -84,7 +84,7 @@ public class OSStatsDecorator extends AbstractDecorator {
 	@Override public List<StatValueAO> getValues(IStats statsObject, String interval, TimeUnit unit) {
 		OSStats stats = (OSStats)statsObject;
 
-		List<StatValueAO> ret = new ArrayList<StatValueAO>(CAPTIONS.length);
+		List<StatValueAO> ret = new ArrayList<>(CAPTIONS.length);
 		int i = 0;
 		ret.add(new LongValueAO(CAPTIONS[i++], stats.getOpenFiles(interval)));
 		ret.add(new LongValueAO(CAPTIONS[i++], stats.getMinOpenFiles(interval)));

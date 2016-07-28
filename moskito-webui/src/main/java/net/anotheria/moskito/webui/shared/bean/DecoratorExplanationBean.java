@@ -34,6 +34,6 @@ public class DecoratorExplanationBean {
 	}
 
 	public String getDecoratorNameForCss(){
-		return StringUtils.removeChars(getName(), BaseMoskitoUIAction.WHITESPACES);
+        return StringUtils.removeChars(name, BaseMoskitoUIAction.WHITESPACES);
 	}
 }

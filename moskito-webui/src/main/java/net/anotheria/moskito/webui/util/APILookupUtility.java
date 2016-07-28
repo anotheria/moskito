@@ -161,13 +161,11 @@ public class APILookupUtility {
 			throw new AssertionError("Can not find supporting classes for "+targetClass+ ' ' + e.getMessage());
 		} catch (NoSuchMethodException e) {
 			throw new AssertionError("Can not find supporting classes or methods for "+targetClass+ ' ' + e.getMessage());
-		} catch (InvocationTargetException e) {
-			throw new AssertionError("Can not obtain service id "+targetClass+ ' ' + e.getMessage());
-		} catch (IllegalAccessException e) {
+		} catch (InvocationTargetException | IllegalAccessException e) {
 			throw new AssertionError("Can not obtain service id "+targetClass+ ' ' + e.getMessage());
 		}
 
-		Class<? extends T> remoteStubClass = null;
+        Class<? extends T> remoteStubClass = null;
 		try{
 			remoteStubClass = (Class<? extends T> )Class.forName(targetClass.getPackage().getName()+".generated.Remote"+targetClass.getSimpleName()+"Stub");
 		}catch(ClassNotFoundException e){
@@ -181,7 +179,7 @@ public class APILookupUtility {
 		RemoteInstance ri = getCurrentRemoteInstance();
 		ConcurrentMap<Class<? extends API>, API> stubsByInterface = remotes.get(ri);
 		if (stubsByInterface==null){
-			ConcurrentHashMap<Class<? extends API>, API> newStubsByInterface = new ConcurrentHashMap<>(0);
+			ConcurrentMap<Class<? extends API>, API> newStubsByInterface = new ConcurrentHashMap<>(0);
 			ConcurrentMap<Class<? extends API>, API> old = remotes.putIfAbsent(ri, newStubsByInterface);
 			stubsByInterface = old == null ? newStubsByInterface : old;
 		}
@@ -201,12 +199,10 @@ public class APILookupUtility {
 			throw new IllegalStateException("Constructor with ServiceDescriptor parameter not found in remote stub", e);
 		} catch (InvocationTargetException e) {
 			throw new IllegalStateException("Cannot connect to "+ri+", due: "+e.getTargetException().getMessage()+". Server at "+ri.getHost()+", port: "+ri.getPort()+" is down or not properly configured", e);
-		} catch (InstantiationException e) {
-			throw new IllegalStateException("Cannot connect to "+ri+", due: "+e.getMessage()+". Server at "+ri.getHost()+", port: "+ri.getPort()+" is down or not properly configured", e);
-		} catch (IllegalAccessException e) {
+		} catch (InstantiationException | IllegalAccessException e) {
 			throw new IllegalStateException("Cannot connect to "+ri+", due: "+e.getMessage()+". Server at "+ri.getHost()+", port: "+ri.getPort()+" is down or not properly configured", e);
 		}
-	}
+    }
 
 	public static final String describeConnectivity(){
 		return isLocal() ? "Local" : "Remote: "+getCurrentRemoteInstance();

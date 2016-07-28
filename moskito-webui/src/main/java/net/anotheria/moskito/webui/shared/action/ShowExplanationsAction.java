@@ -13,6 +13,7 @@ import net.anotheria.util.sorter.StaticQuickSorter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -32,7 +33,7 @@ public class ShowExplanationsAction extends BaseMoskitoUIAction{
 
 		List<IDecorator> decorators = DecoratorRegistryFactory.getDecoratorRegistry().getDecorators();
 		decorators = StaticQuickSorter.sort(decorators, new DummySortType());
-		List<DecoratorExplanationBean> beans = new ArrayList<>(decorators.size());
+		Collection<DecoratorExplanationBean> beans = new ArrayList<>(decorators.size());
 		for (IDecorator d : decorators){
 			DecoratorExplanationBean bean = new DecoratorExplanationBean();
 			bean.setName(d.getName());

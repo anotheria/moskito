@@ -101,7 +101,7 @@ public class DashboardAPIImpl extends AbstractMoskitoAPIImpl implements Dashboar
 		DashboardsConfig dashboardsConfig = config.getDashboardsConfig();
 		if (dashboardsConfig == null || dashboardsConfig.getDashboards() == null ||dashboardsConfig.getDashboards().length == 0)
 			return Collections.emptyList();
-		LinkedList<DashboardDefinitionAO> ret = new LinkedList<DashboardDefinitionAO>();
+		LinkedList<DashboardDefinitionAO> ret = new LinkedList<>();
 		for (DashboardConfig dashboardConfig : dashboardsConfig.getDashboards()){
 			DashboardDefinitionAO ao = new DashboardDefinitionAO();
 			ao.setName(dashboardConfig.getName());
@@ -157,7 +157,7 @@ public class DashboardAPIImpl extends AbstractMoskitoAPIImpl implements Dashboar
 
 		//// CHARTS //////
 		if (config.getCharts()!=null && config.getCharts().length>0){
-			LinkedList<DashboardChartAO> chartBeans = new LinkedList<DashboardChartAO>();
+			LinkedList<DashboardChartAO> chartBeans = new LinkedList<>();
 			for (ChartConfig cc : config.getCharts()){
 
 				DashboardChartAO bean = new DashboardChartAO();
@@ -167,7 +167,7 @@ public class DashboardAPIImpl extends AbstractMoskitoAPIImpl implements Dashboar
 					bean.setCaption(cc.buildCaption());
 				}
 
-				LinkedList<String> chartIds = new LinkedList<String>();
+				LinkedList<String> chartIds = new LinkedList<>();
 				for (String cName : cc.getAccumulators()){
 					try{
 						AccumulatorAO accumulatorAO = accumulatorAPI.getAccumulatorByName(cName);

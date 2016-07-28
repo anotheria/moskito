@@ -61,7 +61,7 @@ public class ThreadCountDecorator extends AbstractDecorator {
 
 	@Override public List<StatValueAO> getValues(IStats statsObject, String interval, TimeUnit unit) {
 		ThreadCountStats stats = (ThreadCountStats)statsObject;
-		List<StatValueAO> ret = new ArrayList<StatValueAO>(CAPTIONS.length);
+		List<StatValueAO> ret = new ArrayList<>(CAPTIONS.length);
 		
 		int i = 0;
 		

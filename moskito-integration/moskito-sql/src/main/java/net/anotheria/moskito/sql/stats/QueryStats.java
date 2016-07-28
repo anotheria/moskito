@@ -22,8 +22,7 @@ public class QueryStats extends RequestOrientedStats {
 	}
 
 	public QueryStats(){
-		super();
-	}
+    }
 
 	public QueryStats(String query, Interval[] intervals){
 		super(query, intervals);

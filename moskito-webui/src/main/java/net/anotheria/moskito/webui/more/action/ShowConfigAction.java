@@ -18,6 +18,7 @@ import net.anotheria.moskito.webui.util.WebUIConfig;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -54,7 +55,7 @@ public class ShowConfigAction extends BaseAdditionalAction{
 
 		///thresholds
 		List<Threshold> thresholds = ThresholdRepository.getInstance().getThresholds();
-		List<String> thresholdStrings = new ArrayList<>(thresholds.size());
+		Collection<String> thresholdStrings = new ArrayList<>(thresholds.size());
 		for (Threshold t : thresholds){
 			String jsonT = gson.toJson(t.toConfigObject());
 			JsonElement jeT = jp.parse(jsonT);

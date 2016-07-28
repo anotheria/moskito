@@ -115,6 +115,6 @@ public class AccumulatorConfig implements Serializable {
 	}
 
 	@Override public String toString(){
-		return getName()+" = "+getProducerName()+ '.' +getStatName()+ '.' +getValueName()+ ' ' +getIntervalName()+ ' ' +getTimeUnit();
+        return name +" = "+ producerName + '.' + statName + '.' + valueName + ' ' + intervalName + ' ' + timeUnit;
 	}
 }

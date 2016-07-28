@@ -2,7 +2,7 @@ package net.anotheria.moskito.sql.util;
 
 import net.anotheria.db.config.JDBCConfig;
 import net.anotheria.db.config.JDBCConfigFactory;
-import org.apache.commons.dbcp.BasicDataSource;
+import org.apache.commons.dbcp2.BasicDataSource;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -42,7 +42,7 @@ public class TestDBUtil {
         BasicDataSource newDataSource = new BasicDataSource();
         JDBCConfig config = JDBCConfigFactory.getJDBCConfig();
         newDataSource.setDriverClassName(config.getDriver());
-        if (config.getPreconfiguredJdbcUrl() != null && config.getPreconfiguredJdbcUrl().length() > 0)
+        if (config.getPreconfiguredJdbcUrl() != null && !config.getPreconfiguredJdbcUrl().isEmpty())
             newDataSource.setUrl(config.getPreconfiguredJdbcUrl());
         else
             newDataSource.setUrl("jdbc:" + config.getVendor() + "://" + config.getHost() + ":" + config.getPort() + "/" + config.getDb());
@@ -50,7 +50,7 @@ public class TestDBUtil {
         newDataSource.setPassword(config.getPassword());
 
         if (config.getMaxConnections() != Integer.MAX_VALUE)
-            newDataSource.setMaxActive(config.getMaxConnections());
+            newDataSource.setMaxTotal(config.getMaxConnections());
         return newDataSource.getConnection();
     }
 }

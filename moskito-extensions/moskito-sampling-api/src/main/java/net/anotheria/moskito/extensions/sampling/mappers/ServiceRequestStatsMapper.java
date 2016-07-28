@@ -37,7 +37,7 @@ public class ServiceRequestStatsMapper implements StatsMapper{
 			stats.addRequest();
 			stats.notifyRequestFinished();
 			String errorFlag = getErrorFlag(sample);
-			if (errorFlag != null && errorFlag.equals("true"))
+			if ("true".equals(errorFlag))
 				stats.notifyError();
 
 		}catch(NumberFormatException e){

@@ -7,7 +7,7 @@ import org.junit.Test;
 import java.util.List;
 
 /**
- * {@link net.anotheria.moskito.core.registry.ProducerReference} test.
+ * {@link ProducerReference} test.
  *
  * @author Alex Osadchy
  */
@@ -30,10 +30,10 @@ public class ProducerReferenceTest {
     }
 
     /**
-     * Creates {@link net.anotheria.moskito.core.producers.IStatsProducer} for testing.
+     * Creates {@link IStatsProducer} for testing.
      *
      * @param producerId producer id
-     * @return {@link net.anotheria.moskito.core.producers.IStatsProducer}
+     * @return {@link IStatsProducer}
      */
     private IStatsProducer createTestProducer(final String producerId) {
         return new IStatsProducer() {

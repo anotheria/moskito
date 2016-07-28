@@ -93,7 +93,7 @@ public class StorageStats extends AbstractStats {
 	 * @param selectedIntervals supported intervals.
 	 */
 	public StorageStats(String aName,  Interval[] selectedIntervals){
-		Long longPattern = Long.valueOf(0);
+		Long longPattern = 0L;
 		name = aName;
 		
 		gets = StatValueFactory.createStatValue(longPattern, "gets", selectedIntervals);
@@ -118,37 +118,30 @@ public class StorageStats extends AbstractStats {
 	}
 	
 	@Override public String toStatsString(String intervalName, TimeUnit unit) {
-		StringBuilder b = new StringBuilder();
-		b.append(getName()).append(' ');
-		b.append(" G: ").append(gets.getValueAsLong(intervalName));
-		b.append(" mG: ").append(missedGets.getValueAsLong(intervalName));
-		b.append(" mG R: ").append(getMissedGetRatio(intervalName));
-		b.append(" hG R: ").append(getHitGetRatio(intervalName));
-		
-		b.append(" P: ").append(puts.getValueAsLong(intervalName));
-		b.append(" oP: ").append(overwritePuts.getValueAsLong(intervalName));
-		b.append(" oP R: ").append(getOverwritePutRatio(intervalName));
-		b.append(" nP R: ").append(getNewPutRatio(intervalName));
-		
-		
-		b.append(" RM: ").append(removes.getValueAsLong(intervalName));
-		b.append(" noRM: ").append(noopRemoves.getValueAsLong(intervalName));
-		b.append(" noRM R: ").append(getNoopRemoveRatio(intervalName));
-		
+		String b = name + ' ' +
+				" G: " + gets.getValueAsLong(intervalName) +
+				" mG: " + missedGets.getValueAsLong(intervalName) +
+				" mG R: " + getMissedGetRatio(intervalName) +
+				" hG R: " + getHitGetRatio(intervalName) +
+				" P: " + puts.getValueAsLong(intervalName) +
+				" oP: " + overwritePuts.getValueAsLong(intervalName) +
+				" oP R: " + getOverwritePutRatio(intervalName) +
+				" nP R: " + getNewPutRatio(intervalName) +
+				" RM: " + removes.getValueAsLong(intervalName) +
+				" noRM: " + noopRemoves.getValueAsLong(intervalName) +
+				" noRM R: " + getNoopRemoveRatio(intervalName) +
+				" PG R: " + getPutGetRatio(intervalName) +
+				" PRM R: " + getPutRemoveRatio(intervalName) +
+				" SZ: " + size.getValueAsLong(intervalName) +
+				" CKC: " + containsKeyCalls.getValueAsLong(intervalName) +
+				" CKH: " + containsKeyHits.getValueAsLong(intervalName) +
+				" CK HR: " + containsKeyHits.getValueAsLong(intervalName) +
+				" CVC: " + containsValueCalls.getValueAsLong(intervalName) +
+				" CVH: " + getContainsKeyHitRatio(intervalName) +
+				" CV HR: " + getContainsValueHitRatio(intervalName);
 
-		b.append(" PG R: ").append(getPutGetRatio(intervalName));
-		b.append(" PRM R: ").append(getPutRemoveRatio(intervalName));
 
-		b.append(" SZ: ").append(size.getValueAsLong(intervalName));
-		
-		b.append(" CKC: ").append(containsKeyCalls.getValueAsLong(intervalName));
-		b.append(" CKH: ").append(containsKeyHits.getValueAsLong(intervalName));
-		b.append(" CK HR: ").append(containsKeyHits.getValueAsLong(intervalName));
-		b.append(" CVC: ").append(containsValueCalls.getValueAsLong(intervalName));
-		b.append(" CVH: ").append(getContainsKeyHitRatio(intervalName));
-		b.append(" CV HR: ").append(getContainsValueHitRatio(intervalName));
-
-		return b.toString();
+		return b;
 	}
 
 	/**

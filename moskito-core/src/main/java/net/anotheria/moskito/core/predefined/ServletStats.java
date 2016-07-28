@@ -69,8 +69,7 @@ public class ServletStats extends RequestOrientedStats{
 	}
 	
 	public ServletStats(){
-		super();
-		initializeMe();
+        initializeMe();
 	}
 	
 	public ServletStats(String aMethodName, Interval[] intervals){
@@ -82,7 +81,7 @@ public class ServletStats extends RequestOrientedStats{
 	 * Initializes this object.
 	 */
 	private void initializeMe(){
-		Long pattern = Long.valueOf(0);
+		Long pattern = 0L;
 		ioExceptions = StatValueFactory.createStatValue(pattern, "ioexceptions", getSelectedIntervals());
 		servletExceptions = StatValueFactory.createStatValue(pattern, "servletExceptions", getSelectedIntervals());
 		runtimeExceptions = StatValueFactory.createStatValue(pattern, "runtimeExceptions", getSelectedIntervals());
@@ -90,22 +89,20 @@ public class ServletStats extends RequestOrientedStats{
 	}
 	
 	@Override public String toStatsString(String intervalName, TimeUnit timeUnit){
-		StringBuilder ret = new StringBuilder();
-		ret.append(" TR: ").append(getTotalRequests(intervalName));
-		ret.append(" TT: ").append(timeUnit.transformNanos(getTotalTime(intervalName)));
-		ret.append(" CR: ").append(getCurrentRequests(intervalName));
-		ret.append(" MCR: ").append(getMaxCurrentRequests(intervalName));
-		ret.append(" ERR: ").append(getErrors(intervalName));
-		
-		ret.append(" IOExc: ").append(ioExceptions.getValueAsLong(intervalName));
-		ret.append(" SEExc: ").append(servletExceptions.getValueAsLong(intervalName));
-		ret.append(" RTExc: ").append(runtimeExceptions.getValueAsLong(intervalName));
-		
-		ret.append(" Last: ").append(timeUnit.transformNanos(getLastRequest(intervalName)));
-		ret.append(" Min: ").append(timeUnit.transformNanos(getMinTime(intervalName)));
-		ret.append(" Max: ").append(timeUnit.transformNanos(getMaxTime(intervalName)));
-		ret.append(" Avg: ").append(getAverageRequestDuration(intervalName, timeUnit));
-		return ret.toString();
+		String ret = " TR: " + getTotalRequests(intervalName) +
+				" TT: " + timeUnit.transformNanos(getTotalTime(intervalName)) +
+				" CR: " + getCurrentRequests(intervalName) +
+				" MCR: " + getMaxCurrentRequests(intervalName) +
+				" ERR: " + getErrors(intervalName) +
+				" IOExc: " + ioExceptions.getValueAsLong(intervalName) +
+				" SEExc: " + servletExceptions.getValueAsLong(intervalName) +
+				" RTExc: " + runtimeExceptions.getValueAsLong(intervalName) +
+				" Last: " + timeUnit.transformNanos(getLastRequest(intervalName)) +
+				" Min: " + timeUnit.transformNanos(getMinTime(intervalName)) +
+				" Max: " + timeUnit.transformNanos(getMaxTime(intervalName)) +
+				" Avg: " + getAverageRequestDuration(intervalName, timeUnit);
+
+		return ret;
 
 	}
 

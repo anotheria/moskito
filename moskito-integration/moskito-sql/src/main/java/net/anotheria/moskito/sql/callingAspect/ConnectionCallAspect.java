@@ -65,7 +65,7 @@ public class ConnectionCallAspect {
 	 * Constructor.
 	 */
 	public ConnectionCallAspect() {
-		producer = new OnDemandStatsProducer<QueryStats>("SQLQueries", "sql", "sql", QueryStatsFactory.DEFAULT_INSTANCE);
+		producer = new OnDemandStatsProducer<>("SQLQueries", "sql", "sql", QueryStatsFactory.DEFAULT_INSTANCE);
 		ProducerRegistryFactory.getProducerRegistryInstance().registerProducer(producer);
 	}
 

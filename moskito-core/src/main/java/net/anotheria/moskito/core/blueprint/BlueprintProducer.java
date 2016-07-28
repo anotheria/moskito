@@ -58,7 +58,7 @@ public class BlueprintProducer implements IStatsProducer{
 		subsystem = aSubsystem;
 		
 		stats = new ActionStats("execute", getMonitoringIntervals());
-		statsList = new CopyOnWriteArrayList<IStats>();
+		statsList = new CopyOnWriteArrayList<>();
 		statsList.add(stats);
 		ProducerRegistryFactory.getProducerRegistryInstance().registerProducer(this);
 
@@ -78,8 +78,9 @@ public class BlueprintProducer implements IStatsProducer{
 		TraceStep currentElement = null;
 		CurrentlyTracedCall currentlyTracedCall = aTracedCall.callTraced() ?
 				(CurrentlyTracedCall)aTracedCall : null; 
-		if (currentlyTracedCall !=null)
-			currentElement = currentlyTracedCall.startStep(new StringBuilder(getProducerId()).append('.').append("execute").toString(), this);
+		if (currentlyTracedCall !=null) {
+            currentElement = currentlyTracedCall.startStep(new StringBuilder(producerId).append('.').append("execute").toString(), this);
+        }
 		try {
 			return executor.execute(parameters);
 		}  catch (Exception e) {
