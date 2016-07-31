@@ -1,12 +1,9 @@
 package net.anotheria.moskito.core.dynamic;
 
-import org.hamcrest.Matcher;
-import org.hamcrest.core.Is;
 import org.junit.Test;
 
 import static org.hamcrest.collection.IsArrayWithSize.arrayWithSize;
 import static org.hamcrest.core.Is.is;
-import static org.hamcrest.core.IsSame.sameInstance;
 import static org.junit.Assert.*;
 
 /**

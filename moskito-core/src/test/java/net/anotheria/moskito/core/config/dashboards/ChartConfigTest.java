@@ -3,7 +3,6 @@ package net.anotheria.moskito.core.config.dashboards;
 import org.junit.Test;
 
 import static org.hamcrest.core.Is.is;
-import static org.hamcrest.core.IsNull.nullValue;
 import static org.junit.Assert.*;
 
 public class ChartConfigTest {
