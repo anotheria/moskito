@@ -56,6 +56,8 @@ var D3chart = (function () {
     var instance;
 
     function createD3chart() {
+        _.templateSettings.interpolate = /{{([\s\S]+?)}}/g;
+
         var chartColors = function (names) {
             if (names.length < 10)
                 return d3.scale.category10().domain(names);
@@ -82,13 +84,17 @@ var D3chart = (function () {
                     var start = getOffset(),
                         end = start + perSlice;
                     return data.slice(start, end);
-                }, next = function () {
+                },
+                next = function () {
                     return getSlice(currentSlice + 1);
-                }, prev = function () {
+                },
+                prev = function () {
                     return getSlice(currentSlice - 1)
-                }, hasNext = function () {
+                },
+                hasNext = function () {
                     return currentSlice < totalSlices;
-                }, hasPrev = function () {
+                },
+                hasPrev = function () {
                     return currentSlice > 1;
                 },
                 getSlicesNumber = function () {
@@ -116,11 +122,42 @@ var D3chart = (function () {
             return (fpNum % 1 == 0 ? fpNum.toPrecision(1) : fpNum) + prefix.symbol;
         };
 
-        var template = function (html, data) {
-            return html.replace(/{(\w*)}/g, function (m, key) {
-                return data.hasOwnProperty(key) ? data[key] : "";
+        var showTooltip = function () {
+            var tooltipApi;
+
+            $(document).on('mouseover', '.focusRect, .interactivePart, .d3-bar-chart .barCaptionText, .heatMap .g3, .gaugeTopCircle', function (event) {
+                var tooltip = $(this).qtip({
+                    overwrite: false,
+                    content: ' ',
+                    style: {
+                        classes: 'qtip-light qtip-rounded d3-chart-qtip2'
+                    },
+                    position: {
+                        viewport: $(window),
+                        target: 'mouse'
+                    },
+                    show: {
+                        event: event.type,
+                        ready: true,
+                        effect: function () {
+                            $(this).fadeTo(200, 0.9);
+                        }
+                    }
+                }, event);
+
+                tooltipApi = tooltip.qtip('api');
             });
-        };
+
+            return function (data) {
+                if (!tooltipApi)
+                    return;
+
+                tooltipApi.set({
+                    'content.title': data.titleHtml,
+                    'content.text': data.sectionsHtml
+                });
+            }
+        }();
 
         var createLegend = function () {
             var setLegendText = function (legend, dy) {
@@ -250,36 +287,11 @@ var D3chart = (function () {
         var pieChart = function () {
             var colorFunc;
 
-            var showChartTooltip = function () {
-                var tooltip = d3.select(".d3-chart-tooltip");
-                if (tooltip.empty()) {
-                    tooltip = d3.select("body").append("div")
-                        .attr("class", "d3-chart-tooltip hidden");
-                }
-
-                var tooltipSectionTmpl = '<div class="tooltip-section">' +
-                    '<div class="tooltip-swatch" style="background-color: {color}"></div>' +
-                    '<div class="tooltip-key">{name}</div>' +
-                    '<div class="tooltip-value">{value}</div>' +
-                    '</div>';
-
-                return function (rect, data) {
-                    var tooltipSectionsHtml = data.map(function (d) {
-                            return template(tooltipSectionTmpl, d);
-                        }),
-                        html = [].concat.call(tooltipSectionsHtml);
-
-                    var d3mouse = d3.mouse(rect),
-                        bodyRect = document.body.getBoundingClientRect(),
-                        svgRect = rect.getBoundingClientRect(),
-                        offsetLeft = svgRect.left - bodyRect.left,
-                        left = d3mouse[0] + offsetLeft + 10;
-
-                    tooltip.html(html.join(""))
-                        .style("left", (d3.event.pageX) + "px")
-                        .style("top", (d3.event.pageY - 28) + "px");
-                }
-            }();
+            var tooltipSectionTmpl = _.template('<div class="tooltip-section">' +
+                '<div class="tooltip-swatch" style="background-color: {{color}}"></div>' +
+                '<div class="tooltip-key">{{name}}</div>' +
+                '<div class="tooltip-value">{{value}}</div>' +
+                '</div>');
 
             var pieTop = function (d, rx, ry, ir) {
                 if (d.endAngle - d.startAngle == 0) return "M 0 0";
@@ -353,24 +365,23 @@ var D3chart = (function () {
                     .attr("class", "interactivePart");
 
                 var onMouseOver = function (d, id) {
-                    d3.select(".d3-chart-tooltip").classed("hidden", false);
                     slicesContainer.selectAll("*[data-slice-number='" + id + "']").style("opacity", .4);
                 };
 
                 var onMouseOut = function (d, id) {
                     slicesContainer.selectAll("*[data-slice-number='" + id + "']").style("opacity", 0);
-                    d3.select(".d3-chart-tooltip").classed("hidden", true);
                 };
 
                 var onMouseMove = function (d) {
-                    showChartTooltip(this, [
-                            {
-                                color: colorFunc(d.data.name),
-                                name: d.data.name,
-                                value: valueFormat(d.data.value)
-                            }
-                        ]
-                    );
+                    var sectionsHtml = tooltipSectionTmpl({
+                        color: colorFunc(d.data.name),
+                        name: d.data.name,
+                        value: valueFormat(d.data.value)
+                    });
+
+                    showTooltip({
+                        sectionsHtml: sectionsHtml
+                    });
                 };
 
                 slicesContainer.selectAll(".topSlice").data(data).enter().append("path").attr("class", "topSlice")
@@ -497,44 +508,14 @@ var D3chart = (function () {
                 ]),
                 formatTime = d3.time.format("%H:%M");
 
-            var showChartTooltip = function () {
-                var tooltip = d3.select(".d3-chart-tooltip");
-                if (tooltip.empty()) {
-                    tooltip = d3.select("body").append("div")
-                        .attr("class", "d3-chart-tooltip hidden");
-                }
-
-                var titleSectionTmpl = '<div class="tooltip-section tooltip-title"><strong>{title}</strong></div>',
-                    tooltipSectionTmpl = '<div class="tooltip-section">' +
-                        '<div class="tooltip-swatch" style="background-color: {color}"></div>' +
-                        '<div class="tooltip-key{highlight}">{name}</div>' +
-                        '<div class="tooltip-value">{value}</div>' +
-                        '</div>';
-
-                return function (containerId, rect, title, data) {
-                    var titleSectionHtml = template(titleSectionTmpl, {title: title}),
-                        tooltipSectionsHtml = data.map(function (d) {
-                            d.highlight = d.highlight ? " highlight" : "";
-
-                            return template(tooltipSectionTmpl, d);
-                        }),
-                        html = [].concat.call(titleSectionHtml, tooltipSectionsHtml);
-
-                    var d3mouse = d3.mouse(rect),
-                        bodyRect = document.body.getBoundingClientRect(),
-                        svgRect = rect.getBoundingClientRect(),
-                        offsetTop = svgRect.top - bodyRect.top,
-                        offsetLeft = svgRect.left - bodyRect.left,
-                        tooltipWidth = parseInt(tooltip.style("width"));
-
-                    var left = d3mouse[0] + offsetLeft;
-                    left = d3mouse[0] > _getWidth(containerId) / 2 ? left - 20 - tooltipWidth : left + 20;
-
-                    tooltip.html(html.join(""))
-                        .style("left", (left) + "px")
-                        .style("top", (d3mouse[1] + offsetTop + 10) + "px");
-                }
-            }();
+            var tooltipTmpls = {
+                title: _.template('<strong>{{title}}</strong>'),
+                section: _.template('<div class="tooltip-section">' +
+                    '<div class="tooltip-swatch" style="background-color:{{color}}"></div>' +
+                    '<div class="tooltip-key{{highlight}}">{{name}}</div>' +
+                    '<div class="tooltip-value">{{value}}</div>' +
+                    '</div>')
+            };
 
             var _createContainer = function (containerId, names, data, colorsData, options) {
                 var chartContainer = d3.select(containerId);
@@ -796,11 +777,9 @@ var D3chart = (function () {
                     .style("pointer-events", "all")
                     .on("mouseover", function () {
                         focus.style("display", null);
-                        d3.select(".d3-chart-tooltip").classed("hidden", false);
                     })
                     .on("mouseout", function () {
                         focus.style("display", "none");
-                        d3.select(".d3-chart-tooltip").classed("hidden", true);
                         svg.selectAll(".line").classed("hover", false);
                     })
                     .on("mousemove", function () {
@@ -860,8 +839,8 @@ var D3chart = (function () {
 
                             focusDots[ind]
                                 .attr("transform",
-                                "translate(" + xScale(d.time) + "," +
-                                yScale(timeValue.value) + ")")
+                                    "translate(" + xScale(d.time) + "," +
+                                    yScale(timeValue.value) + ")")
                                 .attr("r", 3.5);
                         });
 
@@ -869,7 +848,23 @@ var D3chart = (function () {
                             d3.select(this).classed("hover", el.lineId == v.lineId);
                         });
 
-                        showChartTooltip(containerId, self, formatTime(d.time), tooltipData);
+                        var titleHtml = tooltipTmpls.title({
+                                title: formatTime(d.time)
+                            }),
+                            sectionsHtml = tooltipData.map(function (d) {
+                                d.highlight = d.highlight ? " highlight" : "";
+                                return tooltipTmpls.section({
+                                    name: d.name,
+                                    value: d.value,
+                                    color: d.color,
+                                    highlight: d.highlight ? " highlight" : ""
+                                });
+                            });
+
+                        showTooltip({
+                            titleHtml: titleHtml,
+                            sectionsHtml: sectionsHtml
+                        });
                     });
             };
 
@@ -887,7 +882,7 @@ var D3chart = (function () {
                     return {
                         lineId: namesIdx,
                         name: name,
-                        values: data.map(function (d, dataIdx) {
+                        values: data.map(function (d) {
                             return {
                                 time: new Date(d[0]),
                                 value: d[namesIdx + 1]
@@ -901,7 +896,7 @@ var D3chart = (function () {
                 _createGrid(containerId);
                 _renderAxises(containerId, containers[containerId].svg);
 
-                var dotsValues = data.map(function (d, dataIdx) {
+                var dotsValues = data.map(function (d) {
                     return {
                         time: new Date(d[0]),
                         values: names.map(function (name, nameIdx) {
@@ -1026,29 +1021,10 @@ var D3chart = (function () {
                 return text.length > size ? text.substr(0, size - 1) + "..." : text;
             };
 
-            var showChartTooltip = function () {
-                var tooltip = d3.select(".d3-chart-tooltip");
-                if (tooltip.empty()) {
-                    tooltip = d3.select("body").append("div")
-                        .attr("class", "d3-chart-tooltip hidden");
-                }
-
-                var tooltipSectionTmpl = '<div class="tooltip-section">' +
-                    '<div class="tooltip-key">{name}</div>' +
-                    '<div class="tooltip-value">{value}</div>' +
-                    '</div>';
-
-                return function (data) {
-                    var tooltipSectionsHtml = data.map(function (d) {
-                            return template(tooltipSectionTmpl, d);
-                        }),
-                        html = [].concat.call(tooltipSectionsHtml);
-
-                    tooltip.html(html.join(""))
-                        .style("left", (d3.event.pageX) + "px")
-                        .style("top", (d3.event.pageY - 28) + "px");
-                }
-            }();
+            var tooltipSectionTmpl = _.template('<div class="tooltip-section">' +
+                '<div class="tooltip-key">{{name}}</div>' +
+                '<div class="tooltip-value">{{value}}</div>' +
+                '</div>');
 
             var createSvg = function (containerId, width, height, margin) {
                 var svg = d3.select(containerId).append("svg")
@@ -1086,6 +1062,7 @@ var D3chart = (function () {
                     });
 
                 bar.append("text")
+                    .attr("class", "barCaptionText")
                     .attr("x", -20)
                     .attr("y", function (d, i) {
                         return y(i) - barHeight / 2;
@@ -1095,19 +1072,15 @@ var D3chart = (function () {
                     .text(function (d) {
                         return truncateText(d.name, maxCharsCount);
                     })
-                    .on("mouseover", function (d) {
-                        d3.select(".d3-chart-tooltip").classed("hidden", false);
-                    })
-                    .on("mouseout", function (d) {
-                        d3.select(".d3-chart-tooltip").classed("hidden", true);
-                    })
                     .on("mousemove", function (d) {
-                        showChartTooltip([
-                            {
-                                name: d.name,
-                                value: valueFormat(d.value)
-                            }
-                        ]);
+                        var sectionsHtml = tooltipSectionTmpl({
+                            name: d.name,
+                            value: valueFormat(d.value)
+                        });
+
+                        showTooltip({
+                            sectionsHtml: sectionsHtml
+                        });
                     });
 
                 bar.append("text")
@@ -1147,7 +1120,7 @@ var D3chart = (function () {
                     var exit = svg.selectAll(".enter")
                         .attr("class", "exit");
 
-                    var exitTransition = exit.transition()
+                    exit.transition()
                         .duration(750)
                         .style("opacity", 1e-6)
                         .remove();
@@ -1280,6 +1253,13 @@ var D3chart = (function () {
                 "red": "#DC3912"
             };
 
+            var tooltipTmpls = {
+                title: _.template('<strong>{{title}}</strong>'),
+                section: _.template('<div class="tooltip-section">' +
+                    '<div class="tooltip-key">{{name}}</div>' +
+                    '<div class="tooltip-value">{{value}}</div>' +
+                    '</div>')
+            };
             /**
              * Represents gauge.
              * http://bl.ocks.org/tomerd/1499279.
@@ -1314,29 +1294,7 @@ var D3chart = (function () {
                         .append("svg:svg")
                         .attr("class", "gauge")
                         .attr("width", this.config.size)
-                        .attr("height", this.config.size)
-                        .on("mouseover", function () {
-                            d3.select(".d3-chart-tooltip").classed("hidden", false);
-                        })
-                        .on("mouseout", function () {
-                            d3.select(".d3-chart-tooltip").classed("hidden", true);
-                        })
-                        .on("mousemove", function () {
-                            _showChartTooltip(self.config.caption, [
-                                {
-                                    name: "Min",
-                                    value: valueFormat(self.config.min)
-                                },
-                                {
-                                    name: "Current",
-                                    value: valueFormat(self.config.current)
-                                },
-                                {
-                                    name: "Max",
-                                    value: valueFormat(self.config.max)
-                                }
-                            ]);
-                        });
+                        .attr("height", this.config.size);
 
                     this.body.append("svg:circle")
                         .attr("cx", this.config.cx)
@@ -1463,6 +1421,44 @@ var D3chart = (function () {
                         .style("fill", "#000")
                         .style("stroke-width", "0px");
 
+                    this.body.append("svg:circle")
+                        .attr("cx", this.config.cx)
+                        .attr("cy", this.config.cy)
+                        .attr("r", this.config.raduis)
+                        .attr("class", "gaugeTopCircle")
+                        .style("opacity", "0")
+                        .on("mousemove", function () {
+                            var tooltipData = [
+                                {
+                                    name: "Min",
+                                    value: valueFormat(self.config.min)
+                                },
+                                {
+                                    name: "Current",
+                                    value: valueFormat(self.config.current)
+                                },
+                                {
+                                    name: "Max",
+                                    value: valueFormat(self.config.max)
+                                }
+                            ];
+
+                            var titleHtml = tooltipTmpls.title({
+                                    title: self.config.caption
+                                }),
+                                sectionsHtml = tooltipData.map(function (d) {
+                                    return tooltipTmpls.section({
+                                        name: d.name,
+                                        value: d.value
+                                    });
+                                });
+
+                            showTooltip({
+                                titleHtml: titleHtml,
+                                sectionsHtml: sectionsHtml
+                            });
+                        });
+
                     this.redraw(this.config.min, 0);
                 };
 
@@ -1546,32 +1542,6 @@ var D3chart = (function () {
                 this.configure(configuration);
             }
 
-            var _showChartTooltip = function () {
-                var tooltip = d3.select(".d3-chart-tooltip");
-                if (tooltip.empty()) {
-                    tooltip = d3.select("body").append("div")
-                        .attr("class", "d3-chart-tooltip hidden");
-                }
-
-                var titleSectionTmpl = '<div class="tooltip-section tooltip-title"><strong>{title}</strong></div>',
-                    tooltipSectionTmpl = '<div class="tooltip-section">' +
-                        '<div class="tooltip-key">{name}</div>' +
-                        '<div class="tooltip-value">{value}</div>' +
-                        '</div>';
-
-                return function (title, data) {
-                    var titleSectionHtml = template(titleSectionTmpl, {title: title}),
-                        tooltipSectionsHtml = data.map(function (d) {
-                            return template(tooltipSectionTmpl, d);
-                        }),
-                        html = [].concat.call(titleSectionHtml, tooltipSectionsHtml);
-
-                    tooltip.html(html.join(""))
-                        .style("left", (d3.event.pageX) + "px")
-                        .style("top", (d3.event.pageY - 28) + "px");
-                }
-            }();
-
             var _createGauge = function (containerId, config) {
                 var range = config.max - config.min;
 
@@ -1617,32 +1587,11 @@ var D3chart = (function () {
         };
 
         var heatMapChart = function () {
-
-            var showChartTooltip = function () {
-                var tooltip = d3.select(".d3-chart-tooltip");
-                if (tooltip.empty()) {
-                    tooltip = d3.select("body").append("div")
-                        .attr("class", "d3-chart-tooltip hidden");
-                }
-
-                var tooltipSectionTmpl = '<div class="tooltip-section">' +
-                    '<div class="tooltip-swatch" style="background-color: {color}"></div>' +
-                    '<div class="tooltip-key">{name}</div>' +
-                    '<div class="tooltip-value">{value}</div>' +
-                    '</div>';
-
-                return function (rect, data) {
-                    var tooltipSectionsHtml = data.map(function (d) {
-                            return template(tooltipSectionTmpl, d);
-                        }),
-                        html = [].concat.call(tooltipSectionsHtml);
-
-                    tooltip.html(html.join(""))
-                        .style("left", (d3.event.pageX) + "px")
-                        .style("top", (d3.event.pageY - 28) + "px");
-                }
-            }();
-
+            var tooltipSectionTmpl = _.template('<div class="tooltip-section">' +
+                '<div class="tooltip-swatch" style="background-color: {{color}}"></div>' +
+                '<div class="tooltip-key">{{name}}</div>' +
+                '<div class="tooltip-value">{{value}}</div>' +
+                '</div>');
 
             function renderHeatMap(svg, data, conf) {
                 var lowest = Number.POSITIVE_INFINITY;
@@ -1675,19 +1624,20 @@ var D3chart = (function () {
                         .domain([lowest, highest])
                         .range([10, width - 10]);
 
-                    var onMouseMove = function (d, color) {
-                        showChartTooltip(this, [
-                                {
-                                    color: color,
-                                    name: d.statName,
-                                    value: d.value
-                                }
-                            ]
-                        );
+                    var showChartToolip = function (d, color) {
+                        var sectionsHtml = tooltipSectionTmpl({
+                            color: color,
+                            name: d.statName,
+                            value: d.value
+                        });
+
+                        showTooltip({
+                            sectionsHtml: sectionsHtml
+                        });
                     };
 
                     var heatMapContainer = svg.append("g").attr("class", "g3");
-                    var heatMap = heatMapContainer.selectAll(".cellg")
+                    heatMapContainer.selectAll(".cellg")
                         .data(data, function (d) {
                             return d.col + ':' + d.row;
                         })
@@ -1700,35 +1650,28 @@ var D3chart = (function () {
                             return hcrow.indexOf(d.row) * yCellSize;
                         })
                         .attr("class", function (d) {
-                            return "cell cell-border cr" + (d.row - 1) + " cc" + (d.col - 1);
+                            return "heatMapCell cell-border cr" + (d.row - 1) + " cc" + (d.col - 1);
                         })
                         .attr("width", xCellSize)
                         .attr("height", yCellSize)
                         .style("fill", function (d) {
                             return colorScale(d.value);
                         })
-                        .on("mouseover", function () {
-                            d3.select(".d3-chart-tooltip").classed("hidden", false);
-                        })
                         .on("mousemove", function (d) {
-                            onMouseMove(d, colorScale(d.value));
+                            showChartToolip(d, colorScale(d.value));
                             legendPointer
                                 .transition()
                                 .attr("transform", "translate(" + _getLegendCursorPosition(d.value) + "," + (height + 8) + ")")
-                        })
-                        .on("mouseout", function () {
-                            d3.select(".d3-chart-tooltip").classed("hidden", true);
                         });
-
 
                     var _getLegendCursorPosition = function (value) {
                         return legendScale(value);
-                    }
+                    };
 
                     //----------------
                     //border for heatmap container
                     //----------------
-                    var borderPath = heatMapContainer.append("rect")
+                    heatMapContainer.append("rect")
                         .attr("x", 0)
                         .attr("y", 0)
                         .attr("height", yCellSize * col_number)
@@ -1748,8 +1691,7 @@ var D3chart = (function () {
                         .attr("d", d3.svg.symbol().type("triangle-down"))
                         .attr("transform", "translate(100," + (height + 8) + ")")
                         .style("fill", "grey");
-
-            };
+            }
 
             function renderLegend(svg, conf) {
                 //----------------
@@ -1767,17 +1709,17 @@ var D3chart = (function () {
                     .attr("x1", 0)
                     .attr("x2", conf.width)
                     .attr("id", "gradient")
-                    .attr("gradientUnits", "userSpaceOnUse")
+                    .attr("gradientUnits", "userSpaceOnUse");
 
                 gradient
                     .append("stop")
                     .attr("offset", "0")
-                    .attr("stop-color", "#ffffff")
+                    .attr("stop-color", "#ffffff");
 
                 gradient
                     .append("stop")
                     .attr("offset", "1")
-                    .attr("stop-color", "#1f77b4")
+                    .attr("stop-color", "#1f77b4");
 
                 legend
                     .append("rect")
@@ -1786,14 +1728,14 @@ var D3chart = (function () {
                     .attr("width", conf.width)
                     .attr("height", conf.legendHeight)
                     .attr("fill", "url(#gradient)");
-            };
+            }
 
             function _getdataPoins(dataList, mapColumnSize) {
-                var dataPoints = new Array(),
+                var dataPoints = [],
                     i = 0,
                     j = 0,
                     rowStep = 0;
-                dataList.forEach(function(item, k, dataList) {
+                dataList.forEach(function(item) {
                     dataPoints.push({
                             value: item.value,
                             row: j,
@@ -1828,8 +1770,7 @@ var D3chart = (function () {
                     mapRowSize = Math.ceil( dataList.length / mapColumnSize);
 
                 var xCategories = Array.apply(null, {length: mapRowSize}).map(Number.call, Number),
-                    yCategories = Array.apply(null, {length: mapColumnSize}).map(Number.call, Number)
-
+                    yCategories = Array.apply(null, {length: mapColumnSize}).map(Number.call, Number);
 
                 var dataPoints = _getdataPoins(dataList, mapColumnSize);
 
@@ -1850,7 +1791,6 @@ var D3chart = (function () {
 
                 renderHeatMap(svg, dataPoints, conf);
 
-
                 var legendHeight = 15,
                     legendConf = {
                     width: width,
@@ -1863,7 +1803,6 @@ var D3chart = (function () {
 
             })(arguments[0], arguments[1]);
         };
-
 
         return function (id, params) {
             switch (params.type) {

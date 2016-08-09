@@ -255,3 +255,7 @@ h1, .h1, h2, .h2, h3, .h3 {
 .modal .close:hover {
     opacity: 0.6;
 }
+
+.modal-sm {
+    width: 400px;
+}
