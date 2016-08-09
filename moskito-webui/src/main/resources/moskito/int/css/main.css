@@ -542,7 +542,11 @@ table td.wrap,
     font-size: 16px;
 }
 
-.box-right-nav a {
+.box-right-nav .dropdown-menu {
+    margin-top: -5px;
+}
+
+.box-right-nav > a {
     color: #444;
     opacity: 0.5;
     -webkit-transition: all 0.12s linear;
@@ -556,7 +560,7 @@ table td.wrap,
     text-align: center;
 }
 
-.box-right-nav a:hover {
+.box-right-nav > a:hover {
     opacity: 0.8;
 }
 

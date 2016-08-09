@@ -190,6 +190,15 @@
                                     <h3 class="pull-left">
                                         Gauges Name
                                     </h3>
+                                    <div class="box-right-nav dropdown">
+                                        <a href="#" data-target="#" data-toggle="dropdown"><i class="fa fa-cog"></i></a>
+                                        <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dLabel">
+                                            <li><a href="#guageDelete" data-toggle="modal" data-target="#guageDelete">Remove</a></li>
+                                            <li><a href="#AddtoDashboard" data-toggle="modal" data-target="#AddtoDashboard">Add to Dashboard</a></li>
+                                            <li><a href="">Save</a></li>
+                                            <li><a href="">Print</a></li>
+                                        </ul>
+                                    </div>
                                 </div>
                                 <div id="collapse3" class="box-content accordion-body collapse in">
                                     <div class="paddner text-center">
@@ -501,6 +510,63 @@
             </footer>
 
         </section>
+
+    <div class="modal fade modal-danger" id="guageDelete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h4 class="modal-title">Delete this Guage?</h4>
+                </div>
+                <div class="modal-footer text-center">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <a href="#" class="btn btn-danger">Delete</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="AddtoDashboard" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h4 class="modal-title">Add to Dashboard</h4>
+                </div>
+                <div class="modal-body">
+                    <label>Select Dashboard from this list</label>
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" value="">
+                            Dashboard 1
+                        </label>
+                    </div>
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" value="">
+                            Dashboard 2
+                        </label>
+                    </div>
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" value="">
+                            Dashboard 3
+                        </label>
+                    </div>
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" value="">
+                            Dashboard 4
+                        </label>
+                    </div>
+                </div>
+                <div class="modal-footer text-center">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                    <a href="#" class="btn btn-primary">Add</a>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
 
