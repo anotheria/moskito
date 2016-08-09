@@ -32,7 +32,7 @@ public class BuiltInRuntimeProducer extends AbstractBuiltInProducer  implements 
 
 	public BuiltInRuntimeProducer(){
 		mxBean = ManagementFactory.getRuntimeMXBean();
-		statsList = new ArrayList<IStats>(1);
+		statsList = new ArrayList<>(1);
 		stats = new RuntimeStats();
 		statsList.add(stats);
 		

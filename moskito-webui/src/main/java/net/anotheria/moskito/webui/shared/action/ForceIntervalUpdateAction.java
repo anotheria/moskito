@@ -21,7 +21,7 @@ public class ForceIntervalUpdateAction extends BaseMoskitoUIAction{
 			HttpServletRequest req, HttpServletResponse res) throws Exception {
 		
 		String intervalName = req.getParameter(PARAM_INTERVAL);
-		if (intervalName==null || intervalName.length()==0)
+		if (intervalName==null || intervalName.isEmpty())
 			throw new IllegalArgumentException("Interval name missing");
 
 		APILookupUtility.getAdditionalFunctionalityAPI().forceIntervalUpdate(intervalName);

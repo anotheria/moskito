@@ -79,10 +79,10 @@ public class ShowLibsAction extends BaseAdditionalAction{
 
 	private List<URL> getClassPathUrls(final String context){
 		List<URL> forTomcat7 = getClassPathUrlsForTomcat7(context);
-		if (forTomcat7!=null && forTomcat7.size()>0)
+		if (forTomcat7!=null && !forTomcat7.isEmpty())
 			return forTomcat7;
 		List<URL> forTomcat6 = getClassPathUrlsForTomcat6(context);
-		if (forTomcat6!=null && forTomcat6.size()>0)
+		if (forTomcat6!=null && !forTomcat6.isEmpty())
 			return forTomcat6;
 		//add another lookup methods here.
 		return new ArrayList<>(0);
@@ -117,7 +117,7 @@ public class ShowLibsAction extends BaseAdditionalAction{
 				public void setMBeanServer(MBeanServer s) {
 				}
 			});
-			if (instances.size()>0){
+			if (!instances.isEmpty()){
 				try{
 					URL[] urls = (URL[])s.getAttribute(instances.iterator().next().getObjectName(), "URLs");
 					return Arrays.asList(urls);

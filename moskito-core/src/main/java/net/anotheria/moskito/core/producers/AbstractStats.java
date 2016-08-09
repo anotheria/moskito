@@ -37,7 +37,7 @@ package net.anotheria.moskito.core.producers;
 import net.anotheria.moskito.core.stats.StatValue;
 import net.anotheria.moskito.core.stats.TimeUnit;
 
-import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
@@ -65,7 +65,7 @@ public abstract class AbstractStats implements IStats, StatsMXBean{
 	/**
 	 * Contains all stat values that are part of this StatsObject. This is used to properly destroy them.
 	 */
-	private LinkedList<StatValue> statValuesList = new LinkedList<StatValue>();
+	private Collection<StatValue> statValuesList = new LinkedList<>();
 
 	/**
 	 * Creates a new AbstractStats object.

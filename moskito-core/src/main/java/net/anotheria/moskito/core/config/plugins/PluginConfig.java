@@ -59,6 +59,6 @@ public class PluginConfig implements Serializable {
 	}
 
 	@Override public String toString(){
-		return "PluginConfig ("+getName()+", "+getClassName()+", "+getConfigurationName()+ ')';
+        return "PluginConfig ("+ name +", "+ className +", "+ configurationName + ')';
 	}
 }

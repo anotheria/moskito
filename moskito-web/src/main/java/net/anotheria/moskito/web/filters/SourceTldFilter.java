@@ -29,7 +29,7 @@ public class SourceTldFilter extends MoskitoFilter {
 			return null;
 		String address = req.getRemoteHost();
 		String ip = req.getRemoteAddr();
-		if (address==null || address.length()==0)
+		if (address==null || address.isEmpty())
 			address = "Unknown";
 		if (address.equals(ip))
 			return "-unresolved-";

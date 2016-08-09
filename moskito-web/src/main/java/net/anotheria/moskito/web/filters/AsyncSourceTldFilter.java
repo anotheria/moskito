@@ -38,7 +38,7 @@ public class AsyncSourceTldFilter extends MoskitoFilter{
 	@Override
 	public void init(FilterConfig config) throws ServletException {
 		super.init(config);
-		asyncProcessor = new QueuedProcessor<TemporaryStatsStorage>("async-tld-resolver", new QueueWorker(this), 10000, log);
+		asyncProcessor = new QueuedProcessor<>("async-tld-resolver", new QueueWorker(this), 10000, log);
 		asyncProcessor.start();
 	}
 

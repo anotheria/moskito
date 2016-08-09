@@ -20,7 +20,7 @@ public class CounterStatsFactory implements IOnDemandStatsFactory<CounterStats> 
 	/**
 	 * Singleton instance for reducing number of classes.
 	 */
-	public static final CounterStatsFactory DEFAULT_INSTANCE = new CounterStatsFactory();
+	public static final IOnDemandStatsFactory DEFAULT_INSTANCE = new CounterStatsFactory();
 
 	public CounterStatsFactory(){
 		this(Constants.getDefaultIntervals());

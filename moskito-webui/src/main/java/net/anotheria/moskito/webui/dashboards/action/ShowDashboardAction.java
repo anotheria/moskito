@@ -44,19 +44,19 @@ public class ShowDashboardAction extends BaseDashboardAction {
 
 		//now we definitely have a selected dashboard.
 		//prepare thresholds
-		if (dashboard.getThresholds()!=null && dashboard.getThresholds().size()>0){
+		if (dashboard.getThresholds()!=null && !dashboard.getThresholds().isEmpty()){
 			request.setAttribute("thresholds", dashboard.getThresholds());
 			thresholdsPresent = true;
 		}
 
 		//prepare gauges
-		if (dashboard.getGauges()!=null && dashboard.getGauges().size()>0){
+		if (dashboard.getGauges()!=null && !dashboard.getGauges().isEmpty()){
 			request.setAttribute("gauges", dashboard.getGauges());
 			gaugesPresent = true;
 		}
 
 		//charts gauges
-		if (dashboard.getCharts()!=null && dashboard.getCharts().size()>0){
+		if (dashboard.getCharts()!=null && !dashboard.getCharts().isEmpty()){
 			request.setAttribute("charts", dashboard.getCharts());
 			chartsPresent = true;
 		}

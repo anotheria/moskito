@@ -42,7 +42,7 @@ public class Accumulator extends AbstractTieable<AccumulatorDefinition> implemen
 	 */
 	public Accumulator(AccumulatorDefinition aDefinition){
 		super(aDefinition);
-		values = new ArrayList<AccumulatedValue>(aDefinition.getMaxAmountOfAccumulatedItems());
+		values = new ArrayList<>(aDefinition.getMaxAmountOfAccumulatedItems());
 	}
 	
 	public void addValue(AccumulatedValue value){
@@ -50,7 +50,7 @@ public class Accumulator extends AbstractTieable<AccumulatorDefinition> implemen
 			lock.writeLock().lock();
 			values.add(value);
 			if (values.size()>getDefinition().getMaxAmountOfAccumulatedItems()){
-				ArrayList<AccumulatedValue> newValues = new ArrayList<AccumulatedValue>(values.size());
+				List<AccumulatedValue> newValues = new ArrayList<>(values.size());
 				for (int i=getDefinition().getMaxAmountOfAccumulatedItems()-getDefinition().getAccumulationAmount()+1; i<values.size(); i++){
 					newValues.add(values.get(i));
 				}
@@ -68,7 +68,7 @@ public class Accumulator extends AbstractTieable<AccumulatorDefinition> implemen
 	public List<AccumulatedValue> getValues(){
 		try{
 			lock.readLock().lock();
-			ArrayList<AccumulatedValue> ret = new ArrayList<AccumulatedValue>(values.size());
+			List<AccumulatedValue> ret = new ArrayList<>(values.size());
 			ret.addAll(values);
 			return ret;
 		}finally{

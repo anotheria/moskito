@@ -45,7 +45,7 @@ public class BuiltInThreadStatesProducer extends AbstractBuiltInProducer<ThreadS
 		cumulated = new ThreadStateStats("cumulated");
 
 		statsMap = new EnumMap<>(Thread.State.class);
-		statsList = new CopyOnWriteArrayList<ThreadStateStats>();
+		statsList = new CopyOnWriteArrayList<>();
 		statsList.add(cumulated);
 		for (Thread.State state : Thread.State.values()){
 			ThreadStateStats statsObject = new ThreadStateStats(state.name());
@@ -73,26 +73,25 @@ public class BuiltInThreadStatesProducer extends AbstractBuiltInProducer<ThreadS
 		long[] ids = threadMxBean.getAllThreadIds();
 
 		Map<Thread.State, Long> count = new EnumMap<>(Thread.State.class);
-		for (int i = 0; i<ids.length; i++){
-			long id = ids[i];
+		for (long id : ids) {
 			ThreadInfo info = threadMxBean.getThreadInfo(id);
-			if (info!=null){
+			if (info != null) {
 				Thread.State state = info.getThreadState();
 
 				Long old = count.get(state);
-				if (old==null) {
+				if (old == null) {
 					old = 0L;
 				}
-				count.put(state, old+1);
+				count.put(state, old + 1);
 			}
 		}
 
 		long total = 0;
 		for (Map.Entry<Thread.State, ThreadStateStats> entry : statsMap.entrySet()){
 			Long c = count.get(entry.getKey());
-			entry.getValue().updateCurrentValue(c==null ? 0 : c.longValue());
+			entry.getValue().updateCurrentValue(c==null ? 0 : c);
 			if (c!=null)
-				total += c.longValue();
+				total += c;
 		}
 		cumulated.updateCurrentValue(total);
 

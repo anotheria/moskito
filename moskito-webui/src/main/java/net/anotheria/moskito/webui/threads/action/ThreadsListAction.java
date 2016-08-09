@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Shows a list of threads and cumulated state's stats.
@@ -30,7 +31,7 @@ public class ThreadsListAction extends BaseThreadsAction{
 		
 		List<ThreadInfoAO> infos = getThreadAPI().getThreadInfos();
 
-		HashMap<String, ThreadStateInfoBean> states = new HashMap<String, ThreadStateInfoBean>(Thread.State.values().length);
+		Map<String, ThreadStateInfoBean> states = new HashMap<>(Thread.State.values().length);
 
 		for (ThreadInfoAO info : infos){
 			Thread.State state = info.getThreadState();

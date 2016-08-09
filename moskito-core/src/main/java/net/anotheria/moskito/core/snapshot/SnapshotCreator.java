@@ -28,12 +28,12 @@ public class SnapshotCreator {
 
 
 		List<IStats> stats = producer.getStats();
-		if (stats!=null && stats.size()>0)
+		if (stats!=null && !stats.isEmpty())
 			ret.setStatClassName(stats.get(0).getClass().getName());
 
 
 		//optimization
-		if (stats==null || stats.size()==0)
+		if (stats==null || stats.isEmpty())
 			return ret;
 		List<String> cachedValueNames = stats.get(0).getAvailableValueNames();
 
@@ -52,7 +52,7 @@ public class SnapshotCreator {
 	 * @param valueNames
 	 * @return
 	 */
-	private static StatSnapshot createStatSnapshot(IStats stat, String intervalName, List<String> valueNames){
+	private static StatSnapshot createStatSnapshot(IStats stat, String intervalName, Iterable<String> valueNames){
 		StatSnapshot snapshot = new StatSnapshot(stat.getName());
 
 		for (String valueName : valueNames){

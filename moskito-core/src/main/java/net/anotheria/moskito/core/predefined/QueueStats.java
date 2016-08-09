@@ -75,9 +75,10 @@ public class QueueStats extends AbstractStats {
 		}
 		
 		public static List<String> getStatNames(){
-			List<String> ret = new ArrayList<String>(StatDef.values().length);
-			for(StatDef v: StatDef.values())
-				ret.add(v.getStatName());
+			List<String> ret = new ArrayList<>(StatDef.values().length);
+			for(StatDef v: StatDef.values()) {
+                ret.add(v.statName);
+            }
 			return ret;
 		}
 	}	
@@ -157,7 +158,7 @@ public class QueueStats extends AbstractStats {
 	 * @param selectedIntervals
 	 */
 	public QueueStats(String aName,  Interval[] selectedIntervals){
-		Long longPattern = Long.valueOf(0);
+		Long longPattern = 0L;
 		name = aName;
 		
 		requests = StatValueFactory.createStatValue(longPattern, "requests", selectedIntervals);
@@ -260,21 +261,19 @@ public class QueueStats extends AbstractStats {
 	}
 
 	@Override public String toStatsString(String intervalName, TimeUnit timeUnit) {
-		StringBuilder b = new StringBuilder();
-		b.append(getName()).append(' ');
-		
-		b.append(StatDef.REQUESTS.getStatLabel()).append(getRequests(intervalName));
-		b.append(StatDef.ENQUEUED.getStatLabel()).append(getEnqueued(intervalName));
-		b.append(StatDef.FULL.getStatLabel()).append(getFull(intervalName));
-		b.append(StatDef.EMPTY.getStatLabel()).append(getEmpty(intervalName));
-		b.append(StatDef.DEQUEUED.getStatLabel()).append(getDequeued(intervalName));
-		b.append(StatDef.TOTAL_SIZE.getStatLabel()).append(getTotalSize(intervalName));
-		b.append(StatDef.ENQUEUE_LAST_SIZE.getStatLabel()).append(getOnRequestLastSize(intervalName));
-		b.append(StatDef.ENQUEUE_MIN_SIZE.getStatLabel()).append(getOnRequestMinSize(intervalName));
-		b.append(StatDef.ENQUEUE_MAX_SIZE.getStatLabel()).append(getOnRequestMaxSize(intervalName));
-		b.append(StatDef.ENQUEUE_AVERAGE_SIZE.getStatLabel()).append(getOnRequestAverageSize(intervalName));
+        String b = name + ' ' +
+                StatDef.REQUESTS.getStatLabel() + getRequests(intervalName) +
+                StatDef.ENQUEUED.getStatLabel() + getEnqueued(intervalName) +
+                StatDef.FULL.getStatLabel() + getFull(intervalName) +
+                StatDef.EMPTY.getStatLabel() + getEmpty(intervalName) +
+                StatDef.DEQUEUED.getStatLabel() + getDequeued(intervalName) +
+                StatDef.TOTAL_SIZE.getStatLabel() + getTotalSize(intervalName) +
+                StatDef.ENQUEUE_LAST_SIZE.getStatLabel() + getOnRequestLastSize(intervalName) +
+                StatDef.ENQUEUE_MIN_SIZE.getStatLabel() + getOnRequestMinSize(intervalName) +
+                StatDef.ENQUEUE_MAX_SIZE.getStatLabel() + getOnRequestMaxSize(intervalName) +
+                StatDef.ENQUEUE_AVERAGE_SIZE.getStatLabel() + getOnRequestAverageSize(intervalName);
 
-		return b.toString();
+        return b;
 	}
 
 	@Override public String getValueByNameAsString(String valueName, String intervalName, TimeUnit timeUnit){

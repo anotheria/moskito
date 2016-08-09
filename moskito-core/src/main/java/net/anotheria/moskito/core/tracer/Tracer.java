@@ -47,7 +47,7 @@ public class Tracer {
 	public Tracer(String aProducerId){
 		producerId = aProducerId;
 		enabled = true;
-		traces = new CopyOnWriteArrayList<Trace>();
+		traces = new CopyOnWriteArrayList<>();
 	}
 
 	public String getProducerId(){
@@ -79,7 +79,7 @@ public class Tracer {
 			switch (config.getShrinkingStrategy()) {
 				case KEEPLONGEST:
 					oldTraces = StaticQuickSorter.sort(traces, sortTypeForKeepLongest);
-					traces = new CopyOnWriteArrayList<Trace>();
+					traces = new CopyOnWriteArrayList<>();
 					for (int i = 0; i < oldTraces.size(); i++) {
 						if (i < maxAmount) {
 							traces.add(oldTraces.get(i));
@@ -90,7 +90,7 @@ public class Tracer {
 					break;
 				case FIFO:
 					oldTraces = traces;
-					traces = new CopyOnWriteArrayList<Trace>();
+					traces = new CopyOnWriteArrayList<>();
 					int offset = toleratedAmount - maxAmount;
 
 					for (int i=0; i<oldTraces.size(); i++){

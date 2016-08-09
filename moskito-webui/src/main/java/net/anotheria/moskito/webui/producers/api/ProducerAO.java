@@ -65,7 +65,7 @@ public class ProducerAO implements Serializable, IComparable{
 	private boolean traced;
 
 	public ProducerAO(){
-		lines = new LinkedList<StatLineAO>();
+		lines = new LinkedList<>();
 	}
 
 	public String getProducerId() {
@@ -151,13 +151,13 @@ public class ProducerAO implements Serializable, IComparable{
 			return compareByValue(anotherAO, method);
 		switch(method){
 			case ProducerAOSortType.SORT_BY_ID:
-				return BasicComparable.compareString(getProducerId(), anotherAO.getProducerId());
+                return BasicComparable.compareString(producerId, anotherAO.producerId);
 			case ProducerAOSortType.SORT_BY_CATEGORY:
 				return BasicComparable.compareString(category, anotherAO.category);
 			case ProducerAOSortType.SORT_BY_SUBSYSTEM:
 				return BasicComparable.compareString(subsystem, anotherAO.subsystem);
 			case ProducerAOSortType.SORT_BY_CLASS_NAME:
-				return BasicComparable.compareString(getProducerClassName(), anotherAO.getProducerClassName());
+                return BasicComparable.compareString(producerClassName, anotherAO.producerClassName);
 			default:
 				throw new RuntimeException("Unsupported sort method: "+method);
 		}

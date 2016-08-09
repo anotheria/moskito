@@ -39,7 +39,7 @@ public class SessionByTldListener implements HttpSessionListener, ServletRequest
 	public static final String ATT_NAME = "_MoSKito_SessionByTldFilter_TLD";
 
 	static{
-		onDemandProducer = new OnDemandStatsProducer<SessionCountStats>("SessionCountByTld", "web", AbstractBuiltInProducer.SUBSYSTEM_BUILTIN, SessionCountFactory.DEFAULT_INSTANCE);
+		onDemandProducer = new OnDemandStatsProducer<>("SessionCountByTld", "web", AbstractBuiltInProducer.SUBSYSTEM_BUILTIN, SessionCountFactory.DEFAULT_INSTANCE);
 		ProducerRegistryFactory.getProducerRegistryInstance().registerProducer(onDemandProducer);
 	}
 

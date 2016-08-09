@@ -88,8 +88,8 @@ public class TracedCallStepAO implements Serializable{
 	public void setCall(String aCall) {
 		if (aCall==null)
 			aCall = "";
-		setFullCall(aCall);
-		if (aCall.length()>100)
+        this.fullCall = aCall;
+        if (aCall.length()>100)
 			aCall = aCall.substring(0,97)+"...";
 		call = aCall;
 	}

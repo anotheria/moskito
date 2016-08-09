@@ -6,8 +6,10 @@ import net.anotheria.moskito.webui.dashboards.bean.DashboardMenuItemBean;
 import net.anotheria.moskito.webui.shared.action.BaseMoskitoUIAction;
 import net.anotheria.moskito.webui.shared.bean.NaviItem;
 
+import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.Deque;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -31,7 +33,7 @@ public abstract class BaseDashboardAction extends BaseMoskitoUIAction {
 	public void preProcess(ActionMapping mapping, HttpServletRequest req, HttpServletResponse res) throws Exception {
 		super.preProcess(mapping, req, res);
 
-		LinkedList<DashboardMenuItemBean> dashboardsMenu = new LinkedList<DashboardMenuItemBean>();
+		Deque<DashboardMenuItemBean> dashboardsMenu = new LinkedList<>();
 
 		//prepare list of dashboards
 		List<String> names = getDashboardAPI().getDashboardNames();
@@ -49,7 +51,7 @@ public abstract class BaseDashboardAction extends BaseMoskitoUIAction {
 	 * @return
 	 * @throws APIException
 	 */
-	protected String getSelectedDashboard(HttpServletRequest req) throws APIException{
+	protected String getSelectedDashboard(ServletRequest req) throws APIException{
 		String dashboardName = req.getParameter("dashboard");
 		if (dashboardName!=null)
 			return dashboardName;

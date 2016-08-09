@@ -55,9 +55,11 @@ import net.anotheria.util.sorter.StaticQuickSorter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -109,7 +111,7 @@ public class ShowProducerAction extends BaseMoskitoUIAction {
 			}
 		}
 
-		List<StatDecoratorBean> beans = new ArrayList<>(1);
+		Collection<StatDecoratorBean> beans = new ArrayList<>(1);
 		//sort
 
 		final StatDecoratorBean decoratorBean = new StatDecoratorBean();
@@ -257,13 +259,13 @@ public class ShowProducerAction extends BaseMoskitoUIAction {
 		return cumulatedIndex;
 	}
 
-	private void inspectProducer(HttpServletRequest req, ProducerAO producer){
+	private void inspectProducer(ServletRequest req, ProducerAO producer){
 		if (! (producer.isInspectable()))
 			return;
 		CreationInfo cInfo = producer.getCreationInfo();
 		req.setAttribute("creationTimestamp", cInfo.getTimestamp());
 		req.setAttribute("creationTime", NumberUtils.makeISO8601TimestampString(cInfo.getTimestamp()));
-		List<String> stackTraceList = new ArrayList<String>(cInfo.getStackTrace().length);
+		Collection<String> stackTraceList = new ArrayList<>(cInfo.getStackTrace().length);
 		for (StackTraceElement elem : cInfo.getStackTrace())
 			stackTraceList.add(elem.toString());
 		req.setAttribute("creationTrace", stackTraceList);
@@ -276,11 +278,11 @@ public class ShowProducerAction extends BaseMoskitoUIAction {
 	private StatBeanSortType getStatBeanSortType(StatDecoratorBean decoratorBean, HttpServletRequest req){
 		StatBeanSortType sortType;
 		String paramSortBy = req.getParameter(decoratorBean.getSortByParameterName());
-		if (paramSortBy!=null && paramSortBy.length()>0){
+		if (paramSortBy!=null && !paramSortBy.isEmpty()){
 			try{
 				int sortBy = Integer.parseInt(paramSortBy);
 				String paramSortOrder = req.getParameter(decoratorBean.getSortOrderParameterName());
-				boolean sortOrder = paramSortOrder!=null && paramSortOrder.equals("ASC") ?
+				boolean sortOrder = "ASC".equals(paramSortOrder) ?
 						StatBeanSortType.ASC : StatBeanSortType.DESC;
 				sortType = new StatBeanSortType(sortBy, sortOrder);
 				req.getSession().setAttribute(decoratorBean.getSortTypeName(), sortType);

@@ -19,7 +19,7 @@ import java.util.List;
  *
  * @author Vladyslav Bezuhlyi
  *
- * @see net.anotheria.moskito.core.producers.AbstractStats
+ * @see AbstractStats
  * @see net.sf.ehcache.Statistics
  */
 public class EhcacheStats extends AbstractStats {
@@ -197,12 +197,12 @@ public class EhcacheStats extends AbstractStats {
 
 
     /**
-     * Creates new {@link net.anotheria.moskito.core.stats.StatValue} that holds the long value with given name
+     * Creates new {@link StatValue} that holds the long value with given name
      * and default intervals.
      *
      * @param valueName name of the stat value.
      *
-     * @return {@link net.anotheria.moskito.core.stats.StatValue}.
+     * @return {@link StatValue}.
      */
     private StatValue newLongStatValue(String valueName) {
         StatValue sv = StatValueFactory.createStatValue(0L, valueName, Constants.getDefaultIntervals());
@@ -211,12 +211,12 @@ public class EhcacheStats extends AbstractStats {
     }
 
     /**
-     * Creates new {@link net.anotheria.moskito.core.stats.StatValue} that holds the double value with given name
+     * Creates new {@link StatValue} that holds the double value with given name
      * and default intervals.
      *
      * @param valueName name of the stat value.
      *
-     * @return {@link net.anotheria.moskito.core.stats.StatValue}.
+     * @return {@link StatValue}.
      */
     private StatValue newDoubleStatValue(String valueName) {
 		StatValue sv = StatValueFactory.createStatValue(0.0d, valueName, Constants.getDefaultIntervals());
@@ -226,12 +226,12 @@ public class EhcacheStats extends AbstractStats {
     }
 
     /**
-     * Creates new {@link net.anotheria.moskito.core.stats.StatValue} that holds the string value with given name
+     * Creates new {@link StatValue} that holds the string value with given name
      * and default intervals.
      *
      * @param valueName name of the stat value.
      *
-     * @return {@link net.anotheria.moskito.core.stats.StatValue}.
+     * @return {@link StatValue}.
      */
     private StatValue newStringStatValue(String valueName) {
 		StatValue sv = StatValueFactory.createStatValue("", valueName, Constants.getDefaultIntervals());
@@ -326,61 +326,61 @@ public class EhcacheStats extends AbstractStats {
             throw new AssertionError("Value name can not be null or empty");
         }
         if (valueName.equals(AVERAGE_GET_TIME)) {
-            return String.valueOf(timeUnit.transformMillis(getAverageGetTime().getValueAsDouble(intervalName)));
+            return String.valueOf(timeUnit.transformMillis(averageGetTime.getValueAsDouble(intervalName)));
         }
         if (valueName.equals(AVERAGE_SEARCH_TIME)) {
-            return String.valueOf(timeUnit.transformMillis(getAverageSearchTime().getValueAsLong(intervalName)));
+            return String.valueOf(timeUnit.transformMillis(averageSearchTime.getValueAsLong(intervalName)));
         }
         if (valueName.equals(STATISTICS_ACCURACY)) {
-            return getStatisticsAccuracy().getValueAsString(intervalName);
+            return statisticsAccuracy.getValueAsString(intervalName);
         }
         if (valueName.equals(HIT_RATIO)) {
-            return getHitRatio().getValueAsString(intervalName);
+            return hitRatio.getValueAsString(intervalName);
         }
         if (valueName.equals(HITS)) {
-            return getHits().getValueAsString(intervalName);
+            return hits.getValueAsString(intervalName);
         }
         if (valueName.equals(IN_MEMORY_HITS)) {
-            return getInMemoryHits().getValueAsString(intervalName);
+            return inMemoryHits.getValueAsString(intervalName);
         }
         if (valueName.equals(OFF_HEAP_HITS)) {
-            return getOffHeapHits().getValueAsString(intervalName);
+            return offHeapHits.getValueAsString(intervalName);
         }
         if (valueName.equals(ON_DISK_HITS)) {
-            return getOnDiskHits().getValueAsString(intervalName);
+            return onDiskHits.getValueAsString(intervalName);
         }
         if (valueName.equals(MISSES)) {
-            return getMisses().getValueAsString(intervalName);
+            return misses.getValueAsString(intervalName);
         }
         if (valueName.equals(IN_MEMORY_MISSES)) {
-            return getInMemoryMisses().getValueAsString(intervalName);
+            return inMemoryMisses.getValueAsString(intervalName);
         }
         if (valueName.equals(OFF_HEAP_MISSES)) {
-            return getOffHeapMisses().getValueAsString(intervalName);
+            return offHeapMisses.getValueAsString(intervalName);
         }
         if (valueName.equals(ON_DISK_MISSES)) {
-            return getOnDiskMisses().getValueAsString(intervalName);
+            return onDiskMisses.getValueAsString(intervalName);
         }
         if (valueName.equals(ELEMENTS)) {
-            return getElements().getValueAsString(intervalName);
+            return elements.getValueAsString(intervalName);
         }
         if (valueName.equals(IN_MEMORY_ELEMENTS)) {
-            return getInMemoryElements().getValueAsString(intervalName);
+            return inMemoryElements.getValueAsString(intervalName);
         }
         if (valueName.equals(OFF_HEAP_ELEMENTS)) {
-            return getOffHeapElements().getValueAsString(intervalName);
+            return offHeapElements.getValueAsString(intervalName);
         }
         if (valueName.equals(ON_DISK_ELEMENTS)) {
-            return getOnDiskElements().getValueAsString(intervalName);
+            return onDiskElements.getValueAsString(intervalName);
         }
         if (valueName.equals(SEARCHES_PER_SECOND)) {
-            return getSearchesPerSecond().getValueAsString(intervalName);
+            return searchesPerSecond.getValueAsString(intervalName);
         }
         if (valueName.equals(EVICTION_COUNT)) {
-            return getEvictionCount().getValueAsString(intervalName);
+            return evictionCount.getValueAsString(intervalName);
         }
         if (valueName.equals(WRITER_QUEUE_LENGTH)) {
-            return getWriterQueueLength().getValueAsString(intervalName);
+            return writerQueueLength.getValueAsString(intervalName);
         }
 
         return super.getValueByNameAsString(valueName, intervalName, timeUnit);

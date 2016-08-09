@@ -24,6 +24,6 @@ public abstract class BaseMatcher {
 
 	@Override
 	public String toString() {
-		return this.getClass().getSimpleName()+": "+getCriteria();
+        return this.getClass().getSimpleName()+": "+ criteria;
 	}
 }

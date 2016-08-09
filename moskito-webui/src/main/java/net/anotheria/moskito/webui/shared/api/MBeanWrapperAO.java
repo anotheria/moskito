@@ -130,9 +130,9 @@ public class MBeanWrapperAO implements IComparable<MBeanWrapperAO>, Serializable
 
 	@Override
 	public int compareTo(IComparable<? extends MBeanWrapperAO> iComparable, int i) {
-		int domainCompare = BasicComparable.compareString(getDomain(), ((MBeanWrapperAO)iComparable).getDomain());
-		return domainCompare == 0 ?
-				BasicComparable.compareString(getType(), ((MBeanWrapperAO)iComparable).getType()) :
+        int domainCompare = BasicComparable.compareString(domain, ((MBeanWrapperAO) iComparable).domain);
+        return domainCompare == 0 ?
+				BasicComparable.compareString(type, ((MBeanWrapperAO) iComparable).type) :
 				domainCompare;
 	}
 }

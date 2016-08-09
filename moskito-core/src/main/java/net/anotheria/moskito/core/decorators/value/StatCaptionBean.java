@@ -106,7 +106,7 @@ public class StatCaptionBean {
 	}
 
 	public String getJsVariableName(){
-		return getJsVariableName(getCaption());
+        return getJsVariableName(caption);
 	}
 
 	/**

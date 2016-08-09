@@ -120,7 +120,7 @@ public abstract class RequestOrientedStatsDecorator extends AbstractDecorator {
 
 	@Override public List<StatValueAO> getValues(IStats statsObject, String interval, TimeUnit unit) {
 		RequestOrientedStats stats = (RequestOrientedStats)statsObject;
-		List<StatValueAO> ret = new ArrayList<StatValueAO>(CAPTIONS.length);
+		List<StatValueAO> ret = new ArrayList<>(CAPTIONS.length);
 		int i = 0;
 		long totalRequests = stats.getTotalRequests(interval);
 		ret.add(new LongValueAO(CAPTIONS[i++], totalRequests));

@@ -31,8 +31,9 @@ public class MapStorageWrapper<K,V> implements StorageWrapper<K, V>{
 	}
 
 	@Override public void putAll(StorageWrapper<? extends K, ? extends V> anotherWrapper) {
-		if (anotherWrapper instanceof MapStorageWrapper<?,?>)
-			map.putAll(((MapStorageWrapper<? extends K, ? extends V>)anotherWrapper).getMap());
+		if (anotherWrapper instanceof MapStorageWrapper<?,?>) {
+            map.putAll(((MapStorageWrapper<? extends K, ? extends V>) anotherWrapper).map);
+        }
 		else
 			throw new RuntimeException("Unsupported operation putAll on "+anotherWrapper+", class: "+anotherWrapper.getClass());
 	}
@@ -86,7 +87,7 @@ public class MapStorageWrapper<K,V> implements StorageWrapper<K, V>{
 	}
 	
 	@Override public String toString(){
-		return "wrapped: "+getMap().toString();
+        return "wrapped: "+ map;
 	}
 	
 	@Override public Map<K,V> toMap(){

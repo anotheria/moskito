@@ -87,7 +87,7 @@ public class Journey {
 	
 	@Override
 	public String toString(){
-		return getName()+" with "+getTracedCalls().size()+" calls.";
+		return name +" with "+ tracedCalls.size()+" calls.";
 	}
 
 	public void removeStepByName(String stepName){
@@ -102,13 +102,12 @@ public class Journey {
 	}
 
 	public CurrentlyTracedCall getStepByName(String stepName){
-		for (int i=0; i<tracedCalls.size(); i++){
-			CurrentlyTracedCall ctc = tracedCalls.get(i);
-			if (ctc.getName().equals(stepName)){
-				return ctc;
-			}
+        for (CurrentlyTracedCall ctc : tracedCalls) {
+            if (ctc.getName().equals(stepName)) {
+                return ctc;
+            }
 
-		}
+        }
 		return null;
 	}
 }

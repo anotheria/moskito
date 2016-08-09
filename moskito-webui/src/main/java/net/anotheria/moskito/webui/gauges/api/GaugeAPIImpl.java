@@ -60,7 +60,7 @@ public class GaugeAPIImpl extends AbstractMoskitoAPIImpl implements GaugeAPI {
 	 * @return
 	 */
 	private List<GaugeZoneAO> createDefaultZones(){
-		ArrayList<GaugeZoneAO> ret = new ArrayList<>(1);
+		List<GaugeZoneAO> ret = new ArrayList<>(1);
 		GaugeZoneAO redZone = new GaugeZoneAO();
 		redZone.setColor("red");
 		redZone.setLeft(0.9f);
@@ -72,7 +72,7 @@ public class GaugeAPIImpl extends AbstractMoskitoAPIImpl implements GaugeAPI {
 	@Override
 	public List<GaugeAO> getGauges(){
 		GaugesConfig gg = MoskitoConfigurationHolder.getConfiguration().getGaugesConfig();
-		List<GaugeAO> gaugeAOList = new LinkedList<GaugeAO>();
+		List<GaugeAO> gaugeAOList = new LinkedList<>();
 		if (gg == null || gg.getGauges() == null || gg.getGauges().length == 0)
 			return gaugeAOList;
 		for (GaugeConfig g : gg.getGauges()){
@@ -87,7 +87,7 @@ public class GaugeAPIImpl extends AbstractMoskitoAPIImpl implements GaugeAPI {
 		if (names==null)
 			throw new APIException("Unexpected parameter null for gauge names");
 
-		LinkedList<GaugeAO> ret = new LinkedList<GaugeAO>();
+		LinkedList<GaugeAO> ret = new LinkedList<>();
 		for (String name : names){
 			GaugeConfig config = getGaugeConfigByName(name);
 			ret.add(createGaugeAO(config));

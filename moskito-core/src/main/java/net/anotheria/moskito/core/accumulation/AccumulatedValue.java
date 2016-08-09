@@ -36,7 +36,7 @@ public class AccumulatedValue {
 	}
 	
 	@Override public String toString(){
-		return getISO8601Timestamp()+ ' ' +getValue();
+        return getISO8601Timestamp()+ ' ' + value;
 	}
 	
 	public long getTimestamp(){

@@ -56,7 +56,7 @@ public class ShowAllProducersAction extends BaseShowProducersAction{
 		}
 		req.setAttribute("nameFilter", nameFilter);
 		List<ProducerAO> all = getProducerAPI().getAllProducers(getCurrentInterval(req), getCurrentUnit(req).getUnit());
-		if (nameFilter.length()==0)
+		if (nameFilter.isEmpty())
 			return all;
 		nameFilter = nameFilter.toLowerCase();
 		List<ProducerAO> filtered = new ArrayList<>();

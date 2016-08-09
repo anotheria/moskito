@@ -130,7 +130,7 @@ public class JourneyFilter implements Filter{
 		
 		if (command.equals(PARAM_VALUE_START)){
 			HttpSession session = req.getSession();
-			if (name==null || name.length()==0)
+			if (name==null || name.isEmpty())
 				name = "unnamed"+System.currentTimeMillis();
 			session.setAttribute(SA_JOURNEY_RECORD, new JourneyRecord(name));
 			journeyManager.createJourney(name);

@@ -52,11 +52,11 @@ public class SamplingServlet extends MoskitoHttpServlet{
 	protected void moskitoDoGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 
 		String producerId = req.getParameter(PARAM_PRODUCER_ID);
-		if (producerId==null || producerId.length()==0){
+		if (producerId==null || producerId.isEmpty()){
 			throw new IllegalArgumentException("ProducerId parameter '"+PARAM_PRODUCER_ID+"' may not be empty.");
 		}
 		String mapperId = req.getParameter(PARAM_STAT_MAPPER_ID);
-		if (mapperId==null || mapperId.length()==0){
+		if (mapperId==null || mapperId.isEmpty()){
 			throw new IllegalArgumentException("mapperId parameter '"+PARAM_STAT_MAPPER_ID+"' may not be empty.");
 		}
 

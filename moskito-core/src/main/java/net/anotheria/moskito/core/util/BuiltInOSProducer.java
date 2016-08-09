@@ -56,7 +56,7 @@ public class BuiltInOSProducer extends AbstractBuiltInProducer implements IStats
 	
 	public BuiltInOSProducer(){
 		mxBean = ManagementFactory.getOperatingSystemMXBean();
-		statsList = new ArrayList<IStats>(1);
+		statsList = new ArrayList<>(1);
 		stats = new OSStats();
 		statsList.add(stats);
 		

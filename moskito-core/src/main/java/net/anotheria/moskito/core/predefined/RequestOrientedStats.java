@@ -148,7 +148,7 @@ public abstract class RequestOrientedStats extends AbstractStats {
 	public RequestOrientedStats(String aMethodName, Interval[] aSelectedIntervals) {
 		methodName = aMethodName;
 
-		Long pattern = Long.valueOf(0);
+		Long pattern = 0L;
 		selectedIntervals = Arrays.copyOf(aSelectedIntervals, aSelectedIntervals.length);
 
 		totalRequests = StatValueFactory.createStatValue(pattern, "requests", aSelectedIntervals);
@@ -261,7 +261,7 @@ public abstract class RequestOrientedStats extends AbstractStats {
 
 	@Override public String toStatsString(String intervalName, TimeUnit timeUnit) {
 		StringBuilder ret = new StringBuilder();
-		ret.append(getMethodName());
+        ret.append(methodName);
 		ret.append(" TR: ").append(totalRequests.getValueAsLong(intervalName));
 		ret.append(" TT: ").append(timeUnit.transformNanos(totalTime.getValueAsLong(intervalName)));
 		ret.append(" CR: ").append(currentRequests.getValueAsLong(intervalName));

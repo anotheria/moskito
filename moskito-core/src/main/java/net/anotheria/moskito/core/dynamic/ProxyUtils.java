@@ -54,7 +54,7 @@ public class ProxyUtils {
 				interfacesParameter
 			);
 		
-		@SuppressWarnings("unchecked") T ret = (T) proxy.createProxy();
+		T ret = (T) proxy.createProxy();
 		return ret;
 	}
 

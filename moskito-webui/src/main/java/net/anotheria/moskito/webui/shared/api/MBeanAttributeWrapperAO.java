@@ -49,7 +49,7 @@ public class MBeanAttributeWrapperAO implements Serializable{
 
     /**
      * @return
-     * @see javax.management.MBeanAttributeInfo#getType()
+     * @see MBeanAttributeInfo#getType()
      */
     public String getType() {
         return attribInfo.getType();
@@ -64,7 +64,7 @@ public class MBeanAttributeWrapperAO implements Serializable{
 
     /**
      * @return
-     * @see javax.management.MBeanAttributeInfo#isReadable()
+     * @see MBeanAttributeInfo#isReadable()
      */
     public boolean isReadable() {
         return attribInfo.isReadable();
@@ -72,7 +72,7 @@ public class MBeanAttributeWrapperAO implements Serializable{
 
     /**
      * @return
-     * @see javax.management.MBeanAttributeInfo#isWritable()
+     * @see MBeanAttributeInfo#isWritable()
      */
     public boolean isWritable() {
         return attribInfo.isWritable();

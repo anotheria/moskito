@@ -20,7 +20,7 @@ public class ThreadsHistoryAction extends BaseThreadsAction{
 
 		ActiveThreadHistoryAO history = getThreadAPI().getActiveThreadHistory();
 		
-		req.setAttribute("active", Boolean.valueOf(history.isActive()));
+		req.setAttribute("active", history.isActive());
 		req.setAttribute("listsize", history.getListSize());
 		
 		if (!history.isActive())

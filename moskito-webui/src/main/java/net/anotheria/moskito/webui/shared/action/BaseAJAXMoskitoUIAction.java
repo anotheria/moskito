@@ -10,6 +10,7 @@ import org.json.JSONException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -95,7 +96,7 @@ public abstract class BaseAJAXMoskitoUIAction implements Action {
 	 * 		{@link HttpServletRequest}
 	 * @param jsonResponse
 	 * 		{@link JSONResponse}
-	 * @throws java.io.IOException
+	 * @throws IOException
 	 * 		if an input or output exception occurred
 	 */
 	private static void writeTextToResponse(final HttpServletResponse res, final JSONResponse jsonResponse) throws IOException {
@@ -109,10 +110,10 @@ public abstract class BaseAJAXMoskitoUIAction implements Action {
 	 * 		{@link HttpServletRequest}
 	 * @param text
 	 * 		{@link String}
-	 * @throws java.io.IOException
+	 * @throws IOException
 	 * 		if an input or output exception occurred
 	 */
-	private static void writeTextToResponse(final HttpServletResponse res, final String text) throws IOException {
+	private static void writeTextToResponse(final ServletResponse res, final String text) throws IOException {
 		res.setCharacterEncoding(UTF_8);
 		res.setContentType(TEXT_X_JSON);
 		PrintWriter writer = res.getWriter();

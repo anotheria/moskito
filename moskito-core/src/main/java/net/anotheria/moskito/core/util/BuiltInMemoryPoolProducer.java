@@ -41,7 +41,7 @@ public class BuiltInMemoryPoolProducer  extends AbstractBuiltInProducer  impleme
 	public BuiltInMemoryPoolProducer(MemoryPoolMXBean aPool){
 		pool = aPool;
 		producerId = "MemoryPool-"+pool.getName()+ '-' +(pool.getType()==MemoryType.HEAP? "Heap" : "NonHeap");
-		statsList = new CopyOnWriteArrayList<IStats>();
+		statsList = new CopyOnWriteArrayList<>();
 		stats = new MemoryPoolStats(producerId);
 		statsList.add(stats);
 		

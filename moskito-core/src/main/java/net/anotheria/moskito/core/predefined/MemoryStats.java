@@ -46,12 +46,11 @@ public class MemoryStats extends AbstractStats {
 	}
 	
 	@Override public String toStatsString(String intervalName, TimeUnit timeUnit) {
-		StringBuilder b = new StringBuilder();
-		b.append(getName()).append(' ');
-		b.append(" CUR: ").append(current.getValueAsLong(intervalName));
-		b.append(" MIN: ").append(min.getValueAsLong(intervalName));
-		b.append(" MAX: ").append(max.getValueAsLong(intervalName));
-		return b.toString();
+        String b = getName() + ' ' +
+                " CUR: " + current.getValueAsLong(intervalName) +
+                " MIN: " + min.getValueAsLong(intervalName) +
+                " MAX: " + max.getValueAsLong(intervalName);
+        return b;
 	}
 
 	public void updateMemoryValue(long value){

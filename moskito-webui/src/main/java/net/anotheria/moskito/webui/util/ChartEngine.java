@@ -29,7 +29,7 @@ public enum ChartEngine {
 	}
 
 	public static ChartEngine getChartEngine(String aName){
-		if (aName!=null && aName.length()>0){
+		if (aName!=null && !aName.isEmpty()){
 			for (ChartEngine e : values()){
 				if (e.names.contains(aName))
 					return e;

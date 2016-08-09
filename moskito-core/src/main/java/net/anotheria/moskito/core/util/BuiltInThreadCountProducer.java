@@ -36,7 +36,7 @@ public class BuiltInThreadCountProducer extends AbstractBuiltInProducer<ThreadCo
 		
 		stats = new ThreadCountStats();
 		
-		statsList = new CopyOnWriteArrayList<ThreadCountStats>();
+		statsList = new CopyOnWriteArrayList<>();
 		statsList.add(stats);
 		
 		threadMxBean = ManagementFactory.getThreadMXBean();

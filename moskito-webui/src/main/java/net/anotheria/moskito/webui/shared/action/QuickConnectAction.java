@@ -33,10 +33,10 @@ public class QuickConnectAction extends BaseMoskitoUIAction {
 	@Override
 	public ActionCommand execute(ActionMapping mapping, FormBean formBean, HttpServletRequest req, HttpServletResponse res) throws Exception {
 		String server = req.getParameter("pServerName");
-		if (server==null || server.length()==0)
+		if (server==null || server.isEmpty())
 			throw new IllegalArgumentException("Server name can't be null or empty.");
 		String sPort = req.getParameter("pServerPort");
-		if (sPort==null || sPort.length()==0)
+		if (sPort==null || sPort.isEmpty())
 			throw new IllegalArgumentException("Server port can't be null or empty.");
 		int port = -1;
 		try{

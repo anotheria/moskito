@@ -78,7 +78,7 @@ public final class TracingUtil {
 		}
 
 		if (!handled){
-			ret.append(parameter.toString());
+			ret.append(parameter);
 		}
 
 		if (ret.length()>journeyConfig.getParameterLengthLimit()){

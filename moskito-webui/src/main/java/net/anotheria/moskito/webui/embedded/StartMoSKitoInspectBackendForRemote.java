@@ -45,15 +45,12 @@ public class StartMoSKitoInspectBackendForRemote {
 		}catch(NoSuchMethodException e){
 			exception = e;
 			log.error("Couldn't find the method in server class", e);
-		} catch (InvocationTargetException e) {
-			exception = e;
-			log.error("Couldn't invoke start method", e);
-		} catch (IllegalAccessException e) {
+		} catch (InvocationTargetException | IllegalAccessException e) {
 			exception = e;
 			log.error("Couldn't invoke start method", e);
 		}
 
-		if (exception!=null){
+        if (exception!=null){
 			throw new MoSKitoInspectStartException(exception);
 		}
 

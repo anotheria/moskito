@@ -9,6 +9,7 @@ import net.anotheria.moskito.webui.util.APILookupUtility;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.Deque;
 import java.util.LinkedList;
 
 /**
@@ -30,7 +31,7 @@ public abstract class BasePluginAction extends BaseMoskitoUIAction{
 	@Override
 	public void preProcess(ActionMapping mapping, HttpServletRequest req, HttpServletResponse res) throws Exception {
 		super.preProcess(mapping, req, res);
-		LinkedList<PluginAO> pluginsForNavi = new LinkedList<>();
+		Deque<PluginAO> pluginsForNavi = new LinkedList<>();
 		for (PluginAO pluginAO : getAdditionalFunctionalityAPI().getPlugins()){
 			if (pluginAO.isWebEnabled()) {
 				pluginsForNavi.add(pluginAO);

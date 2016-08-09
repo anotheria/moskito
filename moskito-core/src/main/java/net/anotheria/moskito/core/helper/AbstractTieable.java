@@ -35,7 +35,7 @@ public abstract class AbstractTieable<D extends TieableDefinition> implements Ti
 	
 	@Override
 	public String getName(){
-		return getDefinition().getName();
+        return definition.getName();
 	}
 	
 	@Override
@@ -45,7 +45,7 @@ public abstract class AbstractTieable<D extends TieableDefinition> implements Ti
 
 	@Override
 	public Object getTargetStatName() {
-		return getDefinition().getStatName();
+        return definition.getStatName();
 	}
 
 	/**

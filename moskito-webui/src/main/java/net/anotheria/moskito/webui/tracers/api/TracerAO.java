@@ -32,7 +32,7 @@ public class TracerAO implements Serializable {
 	}
 
 	public boolean isDisabled(){
-		return !isEnabled();
+        return !enabled;
 	}
 
 	public void setEnabled(boolean enabled) {

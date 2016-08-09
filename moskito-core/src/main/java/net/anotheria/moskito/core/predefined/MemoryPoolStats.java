@@ -88,17 +88,16 @@ public class MemoryPoolStats extends AbstractMemoryPoolStats implements IMemoryP
 	}
 	
 	@Override public String toStatsString(String intervalName, TimeUnit timeUnit) {
-		StringBuilder b = new StringBuilder();
-		b.append(getName()).append(' ');
-		b.append(" INIT: ").append(init.getValueAsLong(intervalName));
-		b.append(" MIN USED: ").append(minUsed.getValueAsLong(intervalName));
-		b.append(" USED: ").append(used.getValueAsLong(intervalName));
-		b.append(" MAX USED: ").append(maxUsed.getValueAsLong(intervalName));
-		b.append(" MIN COMMITED: ").append(minCommited.getValueAsLong(intervalName));
-		b.append(" COMMITED: ").append(commited.getValueAsLong(intervalName));
-		b.append(" MAX COMMITED: ").append(maxCommited.getValueAsLong(intervalName));
-		b.append(" MAX: ").append(max.getValueAsLong(intervalName));
-		return b.toString();
+        String b = getName() + ' ' +
+                " INIT: " + init.getValueAsLong(intervalName) +
+                " MIN USED: " + minUsed.getValueAsLong(intervalName) +
+                " USED: " + used.getValueAsLong(intervalName) +
+                " MAX USED: " + maxUsed.getValueAsLong(intervalName) +
+                " MIN COMMITED: " + minCommited.getValueAsLong(intervalName) +
+                " COMMITED: " + commited.getValueAsLong(intervalName) +
+                " MAX COMMITED: " + maxCommited.getValueAsLong(intervalName) +
+                " MAX: " + max.getValueAsLong(intervalName);
+        return b;
 	}
 
 	/**

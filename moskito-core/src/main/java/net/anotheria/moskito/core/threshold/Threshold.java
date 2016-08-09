@@ -88,7 +88,7 @@ public class Threshold extends AbstractTieable<ThresholdDefinition> implements T
 	}
 
 	public List<ThresholdConditionGuard> getGuards(){
-		ArrayList<ThresholdConditionGuard> ret = new ArrayList<ThresholdConditionGuard>(guards.size());
+		List<ThresholdConditionGuard> ret = new ArrayList<>(guards.size());
 		ret.addAll(guards);
 		return ret;
 	}
@@ -98,7 +98,7 @@ public class Threshold extends AbstractTieable<ThresholdDefinition> implements T
 	}
 	
 	public String getStatusString(){
-		return getStatus().name();
+		return status.name();
 	}
 
 	public IStats getStats() {
@@ -145,7 +145,7 @@ public class Threshold extends AbstractTieable<ThresholdDefinition> implements T
 	}
 	
 	@Override public String toString(){
-		return getName()+ ' ' +getStatus()+" Def: "+getDefinition()+" LastValue: "+getLastValue()+", Guards: "+guards+" active: "+isActivated()+", Stats: "+getStats();
+		return getName()+ ' ' + status +" Def: "+getDefinition()+" LastValue: "+ lastValue +", Guards: "+guards+" active: "+isActivated()+", Stats: "+ stats;
 	}
 
 	public long getStatusChangeTimestamp() {

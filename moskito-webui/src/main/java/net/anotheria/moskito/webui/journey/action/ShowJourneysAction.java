@@ -43,7 +43,7 @@ public class ShowJourneysAction extends BaseJourneyAction{
 		List<JourneyListItemAO> journeys = getJourneyAPI().getJourneys();
 		
 		req.setAttribute("journeys", journeys);
-		if (journeys.size()>0)
+		if (!journeys.isEmpty())
 			req.setAttribute("journeysPresent", Boolean.TRUE);
 		return mapping.success();
 	}

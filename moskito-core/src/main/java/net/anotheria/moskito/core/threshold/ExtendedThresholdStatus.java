@@ -18,7 +18,7 @@ public class ExtendedThresholdStatus {
 	/**
 	 * Thresholds in the status.
 	 */
-	private List<ThresholdInStatus> thresholds = new LinkedList<ThresholdInStatus>();
+	private List<ThresholdInStatus> thresholds = new LinkedList<>();
 
 	public ExtendedThresholdStatus(ThresholdStatus aStatus){
 		status = aStatus;
@@ -41,7 +41,7 @@ public class ExtendedThresholdStatus {
 	}
 
 	@Override public String toString(){
-		return getStatus()+": "+getThresholds();
+        return status +": "+ thresholds;
 	}
 
 	public void add(ThresholdInStatus tis) {

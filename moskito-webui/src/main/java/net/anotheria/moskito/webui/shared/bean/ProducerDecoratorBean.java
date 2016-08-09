@@ -53,7 +53,7 @@ public class ProducerDecoratorBean extends AbstractDecoratorBean {
 	private List<ProducerAO> producers;
 
 	public ProducerDecoratorBean(){
-		producers = new LinkedList<ProducerAO>();
+		producers = new LinkedList<>();
 	}
 
 	public List<ProducerAO> getProducers() {

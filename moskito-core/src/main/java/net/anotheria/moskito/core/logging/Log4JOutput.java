@@ -34,7 +34,8 @@
  */	
 package net.anotheria.moskito.core.logging;
 
-import org.apache.log4j.Logger;
+
+import org.apache.logging.log4j.Logger;
 
 /**
  * A ILogOutput associated with a Log4J Logger. Logs at the INFO level.

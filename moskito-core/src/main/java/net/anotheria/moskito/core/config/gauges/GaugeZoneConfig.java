@@ -59,6 +59,6 @@ public class GaugeZoneConfig implements Serializable{
 	}
 
 	@Override public String toString(){
-		return getColor()+": ["+left+", "+right+ ']';
+        return color +": ["+left+", "+right+ ']';
 	}
 }

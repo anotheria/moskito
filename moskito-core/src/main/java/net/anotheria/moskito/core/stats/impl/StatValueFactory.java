@@ -71,9 +71,9 @@ public class StatValueFactory {
 		IValueHolderFactory valueHolderFactory = StatValueTypeUtility.createValueHolderFactory(aType);
 		TypeAwareStatValue value = new TypeAwareStatValueImpl(aName, aType, valueHolderFactory);
 		// now we have to add the Intervals to the new value....
-		for (int i = 0; i < aIntervals.length; i++) {
-			value.addInterval(aIntervals[i]);
-		}
+        for (Interval aInterval : aIntervals) {
+            value.addInterval(aInterval);
+        }
 		return value;
 	}
 

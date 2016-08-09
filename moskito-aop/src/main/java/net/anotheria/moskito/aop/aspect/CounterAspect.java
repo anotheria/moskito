@@ -4,6 +4,7 @@ import net.anotheria.moskito.aop.annotation.Count;
 import net.anotheria.moskito.aop.annotation.CountByParameter;
 import net.anotheria.moskito.core.counter.CounterStats;
 import net.anotheria.moskito.core.counter.CounterStatsFactory;
+import net.anotheria.moskito.core.dynamic.IOnDemandStatsFactory;
 import net.anotheria.moskito.core.dynamic.OnDemandStatsProducer;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
@@ -19,7 +20,7 @@ import java.lang.reflect.InvocationTargetException;
 @Aspect
 public class CounterAspect extends AbstractMoskitoAspect<CounterStats> {
 
-	private static final CounterStatsFactory FACTORY = new CounterStatsFactory();
+	private static final IOnDemandStatsFactory FACTORY = new CounterStatsFactory();
 
 	@Around(value = "execution(* *(..)) && (@annotation(method))")
     public Object countMethod(ProceedingJoinPoint pjp, Count method) throws Throwable {

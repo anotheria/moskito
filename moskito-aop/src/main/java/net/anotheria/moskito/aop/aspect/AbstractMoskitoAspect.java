@@ -8,12 +8,13 @@ import net.anotheria.moskito.core.accumulation.AccumulatorRepository;
 import net.anotheria.moskito.core.dynamic.IOnDemandStatsFactory;
 import net.anotheria.moskito.core.dynamic.OnDemandStatsProducer;
 import net.anotheria.moskito.core.producers.IStats;
+import net.anotheria.moskito.core.producers.IStatsProducer;
 import net.anotheria.moskito.core.registry.ProducerRegistryFactory;
 import net.anotheria.moskito.core.util.annotation.AnnotationUtils;
-import org.aspectj.lang.ProceedingJoinPoint;
+import org.aspectj.lang.JoinPoint;
 
+import java.lang.reflect.AnnotatedElement;
 import java.lang.reflect.Method;
-import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
@@ -42,9 +43,9 @@ public class AbstractMoskitoAspect<S extends IStats> {
      * @param tracingSupported is tracing supported
      * @return
      */
-    protected  OnDemandStatsProducer<S> getProducer(ProceedingJoinPoint pjp, String aProducerId, String aCategory, String aSubsystem, boolean withMethod, IOnDemandStatsFactory<S> factory, boolean tracingSupported){
+    protected  OnDemandStatsProducer<S> getProducer(JoinPoint pjp, String aProducerId, String aCategory, String aSubsystem, boolean withMethod, IOnDemandStatsFactory<S> factory, boolean tracingSupported){
         String producerId;
-        if (aProducerId!=null && aProducerId.length()>0){
+        if (aProducerId!=null && !aProducerId.isEmpty()){
             producerId = aProducerId;
         }else{
             producerId = pjp.getSignature().getDeclaringTypeName();
@@ -117,7 +118,7 @@ public class AbstractMoskitoAspect<S extends IStats> {
      * @param producer {@link OnDemandStatsProducer}
      * @param producerClass producer class
      */
-    private void createClassLevelAccumulators(OnDemandStatsProducer<S> producer, Class producerClass) {
+    private void createClassLevelAccumulators(OnDemandStatsProducer<S> producer, AnnotatedElement producerClass) {
         //several @Accumulators in accumulators holder
         Accumulates accAnnotationHolder = AnnotationUtils.findAnnotation(producerClass, Accumulates.class);//(Accumulates) producerClass.getAnnotation(Accumulates.class);
         if (accAnnotationHolder != null) {
@@ -141,13 +142,13 @@ public class AbstractMoskitoAspect<S extends IStats> {
         );
     }
 
-    private String formAccumulatorNameForMethod(final OnDemandStatsProducer<S> producer, final Accumulate annotation, final Method m) {
+    private String formAccumulatorNameForMethod(final IStatsProducer<S> producer, final Accumulate annotation, final Method m) {
         if (producer != null && annotation != null && m != null)
             return producer.getProducerId()+ '.' +m.getName()+ '.' +annotation.valueName()+ '.' +annotation.intervalName();
         return "";
     }
 
-    private String formAccumulatorNameForClass(final OnDemandStatsProducer<S> producer, final Accumulate annotation) {
+    private String formAccumulatorNameForClass(final IStatsProducer<S> producer, final Accumulate annotation) {
         if (producer != null && annotation != null)
             return producer.getProducerId()+ '.' +annotation.valueName()+ '.' +annotation.intervalName();
         return "";
@@ -166,7 +167,7 @@ public class AbstractMoskitoAspect<S extends IStats> {
                 accName!=null && !accName.isEmpty() && statsName != null && !statsName.isEmpty()){
 
             AccumulatorDefinition definition = new AccumulatorDefinition();
-            if (annotation.name().length() > 0) {
+            if (!annotation.name().isEmpty()) {
                 definition.setName(annotation.name());
             }else{
                 definition.setName(accName);
@@ -188,7 +189,7 @@ public class AbstractMoskitoAspect<S extends IStats> {
      * @return category
      */
     public String getCategory(String proposal) {
-        return proposal==null || proposal.length()==0 ? "annotated" : proposal;
+        return proposal==null || proposal.isEmpty() ? "annotated" : proposal;
     }
 
     /**
@@ -198,7 +199,7 @@ public class AbstractMoskitoAspect<S extends IStats> {
      * @return subsystem
      */
     public String getSubsystem(String proposal) {
-        return proposal==null || proposal.length()==0 ? "default" : proposal;
+        return proposal==null || proposal.isEmpty() ? "default" : proposal;
     }
 
     public void reset() {

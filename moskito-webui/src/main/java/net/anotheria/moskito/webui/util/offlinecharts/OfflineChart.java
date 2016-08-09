@@ -46,7 +46,7 @@ public class OfflineChart {
     }
 
     @Override public String toString(){
-        return "Chart "+getCaption()+", LineDefinitions: "+getLineDefinitions()+", Points: "+getPoints();
+        return "Chart "+ caption +", LineDefinitions: "+ lineDefinitions +", Points: "+ points;
     }
 
     public void addLineDefinition(OfflineChartLineDefinition offlineChartLineDefinition) {

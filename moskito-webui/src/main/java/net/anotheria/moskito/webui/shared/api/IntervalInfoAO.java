@@ -120,8 +120,8 @@ public class IntervalInfoAO implements IComparable, Serializable{
 	}
 	
 	@Override public String toString(){
-		return new StringBuilder().append("Interval: ").append(getName()).
-			append(", age: ").append(getAge()).
-			append(", ts: ").append(getUpdateTimestamp()).toString();
+        return "Interval: " + name +
+                ", age: " + age +
+                ", ts: " + updateTimestamp;
 	}
 }

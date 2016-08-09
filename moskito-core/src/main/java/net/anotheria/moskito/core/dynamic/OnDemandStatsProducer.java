@@ -125,7 +125,7 @@ public class OnDemandStatsProducer<S extends IStats> implements IStatsProducer<S
 			throw new IllegalArgumentException("Null factory is not allowed.");
 		
 		stats = new ConcurrentHashMap<>();
-		_cachedStatsList = new CopyOnWriteArrayList<S>();
+		_cachedStatsList = new CopyOnWriteArrayList<>();
 		
 		try{
 			linkToDefaultStats = getStats(CUMULATED_STATS_NAME);
@@ -176,7 +176,7 @@ public class OnDemandStatsProducer<S extends IStats> implements IStatsProducer<S
 	}
 	
 	@Override public String toString(){
-		return "OnDemandProducer ("+getProducerNameExtension()+"): "+getProducerId()+ ':' +getSubsystem()+ ':' +getCategory();
+        return "OnDemandProducer ("+getProducerNameExtension()+"): "+ producerId + ':' +getSubsystem()+ ':' +getCategory();
 	}
 	
 	/**

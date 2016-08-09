@@ -7,6 +7,7 @@ import net.anotheria.moskito.webui.tracers.api.TracerAO;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -38,7 +39,7 @@ public abstract class BaseTracersAction extends BaseMoskitoUIAction {
 
 		//Add tracers submenu.
 		List<TracerAO> tracers = getTracerAPI().getTracers();
-		List<String> tracerSubmenuNames = new LinkedList<>();
+		Collection<String> tracerSubmenuNames = new LinkedList<>();
 		for (TracerAO ao : tracers){
 			tracerSubmenuNames.add(ao.getProducerId());
 		}

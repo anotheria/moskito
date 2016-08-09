@@ -124,7 +124,7 @@ public class ThresholdStatusAO implements IComparable, Serializable{
 	}
 	
 	@Override public String toString(){
-		return getName()+ ' ' +getStatus()+ ' ' +getTimestamp()+ ' ' +getDescription()+ ' ' +getValue();
+        return name + ' ' + status + ' ' + timestamp + ' ' + description + ' ' + value;
 	}
 	@Override
 	public int compareTo(IComparable anotherObject, int method) {

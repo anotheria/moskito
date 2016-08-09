@@ -59,7 +59,7 @@ public class ThreadCountStats extends AbstractStats {
 	public ThreadCountStats(Interval[] intervals){
 		super("ThreadCount");
 		
-		Long pattern = Long.valueOf(0);
+		Long pattern = 0L;
 		
 		current = StatValueFactory.createStatValue(pattern, "current", intervals);
 		minCurrent = StatValueFactory.createStatValue(pattern, "minCurrent", intervals);
@@ -93,13 +93,12 @@ public class ThreadCountStats extends AbstractStats {
 	
 
 	@Override public String toStatsString(String intervalName, TimeUnit unit) {
-		StringBuilder ret = new StringBuilder("Sessions ");
-		ret.append(" Current: ").append(current.getValueAsInt(intervalName));
-		ret.append(" Min: ").append(minCurrent.getValueAsInt(intervalName));
-		ret.append(" Max: ").append(maxCurrent.getValueAsInt(intervalName));
-		ret.append(" Started: ").append(started.getValueAsInt(intervalName));
-		ret.append(" Daemon: ").append(daemon.getValueAsInt(intervalName));
-		return ret.toString();
+		String ret = "Sessions " + " Current: " + current.getValueAsInt(intervalName) +
+				" Min: " + minCurrent.getValueAsInt(intervalName) +
+				" Max: " + maxCurrent.getValueAsInt(intervalName) +
+				" Started: " + started.getValueAsInt(intervalName) +
+				" Daemon: " + daemon.getValueAsInt(intervalName);
+		return ret;
 	}
 
 	public long getStarted(String interval){

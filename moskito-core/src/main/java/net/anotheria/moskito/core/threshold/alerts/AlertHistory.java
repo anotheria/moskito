@@ -24,7 +24,7 @@ public enum AlertHistory {
 	/**
 	 * List of alerts.
 	 */
-	private List<ThresholdAlert> alerts = new CopyOnWriteArrayList<ThresholdAlert>();
+	private List<ThresholdAlert> alerts = new CopyOnWriteArrayList<>();
 	/**
 	 * Lock for write operations.
 	 */
@@ -41,7 +41,7 @@ public enum AlertHistory {
 			if (alerts.size()>MoskitoConfigurationHolder.getConfiguration().getThresholdsAlertsConfig().getAlertHistoryConfig().getToleratedNumberOfItems()){
 				//Changed the logic, not to use sublist anymore, but instead create a new list, if the size is growing too large.
 				//Question remains, if we should get rid of copyonwrite and add a read lock instead.
-				CopyOnWriteArrayList<ThresholdAlert> newAlerts = new CopyOnWriteArrayList<ThresholdAlert>();
+				List<ThresholdAlert> newAlerts = new CopyOnWriteArrayList<>();
 				for (int i=alerts.size()-MoskitoConfigurationHolder.getConfiguration().getThresholdsAlertsConfig().getAlertHistoryConfig().getMaxNumberOfItems(); i< alerts.size(); i++){
 					newAlerts.add(alerts.get(i));
 				}
@@ -56,7 +56,7 @@ public enum AlertHistory {
 	 * @return
 	 */
 	public List<ThresholdAlert> getAlerts(){
-		List<ThresholdAlert> ret = new ArrayList<ThresholdAlert>(alerts);
+		List<ThresholdAlert> ret = new ArrayList<>(alerts);
 		Collections.reverse(ret);
 		return ret;
 	}

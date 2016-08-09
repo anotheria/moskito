@@ -28,10 +28,10 @@ public class TracerAPIImpl extends AbstractMoskitoAPIImpl implements TracerAPI{
 	@Override
 	public List<TracerAO> getTracers() throws APIException {
 		List<Tracer> tracers = TracerRepository.getInstance().getTracers();
-		if (tracers == null || tracers.size() == 0)
+		if (tracers == null || tracers.isEmpty())
 			return Collections.emptyList();
 
-		LinkedList<TracerAO> ret = new LinkedList<TracerAO>();
+		LinkedList<TracerAO> ret = new LinkedList<>();
 		for (Tracer t : tracers){
 			TracerAO ao = tracer2AO(t);
 
@@ -59,7 +59,7 @@ public class TracerAPIImpl extends AbstractMoskitoAPIImpl implements TracerAPI{
 	@Override
 	public List<TraceAO> getTraces(String producerId, TimeUnit timeUnit) throws APIException {
 		List<Trace> traces = TracerRepository.getInstance().getTraces(producerId);
-		LinkedList<TraceAO> ret = new LinkedList<TraceAO>();
+		LinkedList<TraceAO> ret = new LinkedList<>();
 		for (Trace t : traces){
 			TraceAO ao  = new TraceAO();
 			ao.setId(String.valueOf(t.getId()));

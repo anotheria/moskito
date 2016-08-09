@@ -7,7 +7,7 @@ import net.anotheria.moskito.core.dynamic.IOnDemandStatsFactory;
  *
  * @author Vladyslav Bezuhlyi
  *
- * @see net.anotheria.moskito.core.dynamic.IOnDemandStatsFactory
+ * @see IOnDemandStatsFactory
  * @see EhcacheStats
  */
 public class EhcacheStatsFactory implements IOnDemandStatsFactory<EhcacheStats> {

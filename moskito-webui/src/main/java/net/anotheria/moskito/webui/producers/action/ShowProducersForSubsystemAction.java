@@ -37,6 +37,7 @@ package net.anotheria.moskito.webui.producers.action;
 import net.anotheria.anoplass.api.APIException;
 import net.anotheria.moskito.webui.producers.api.ProducerAO;
 
+import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
@@ -47,7 +48,7 @@ import java.util.List;
  */
 public class ShowProducersForSubsystemAction extends BaseShowProducersAction{
 	
-	private String getSubsystemParameter(HttpServletRequest req){
+	private String getSubsystemParameter(ServletRequest req){
 		String param = req.getParameter(PARAM_SUBSYSTEM);
 		return param == null ? "none" : param;
 	}

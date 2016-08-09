@@ -42,7 +42,7 @@ public abstract class GenericCounterDecorator extends AbstractDecorator<GenericC
 	}
 
 	@Override public List<StatValueAO> getValues(GenericCounterStats stats, String interval, TimeUnit unit) {
-		List<StatValueAO> ret = new ArrayList<StatValueAO>(valueNames.size());
+		List<StatValueAO> ret = new ArrayList<>(valueNames.size());
 		int i=0;
 		for (String name : valueNames){
 			ret.add(new LongValueAO(captions[i++], stats.get(name, interval)));

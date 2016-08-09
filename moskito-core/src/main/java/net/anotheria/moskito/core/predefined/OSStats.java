@@ -87,20 +87,18 @@ public class OSStats extends AbstractStats {
 
 	@Override
 	public String toStatsString(String intervalName, TimeUnit unit) {
-		StringBuilder ret = new StringBuilder();
-		
-		ret.append(getName()).append(' ');
-		ret.append(" openfiles: ").append(openFiles.getValueAsInt(intervalName));
-		ret.append(" maxopenfiles: ").append(openFiles.getValueAsInt(intervalName));
-		ret.append(" minopenfiles: ").append(openFiles.getValueAsInt(intervalName));
-		ret.append(" maxallowedopenfiles: ").append(maxSupportedOpenFiles.getValueAsInt(intervalName));
-		ret.append(" cputime: ").append(processCpuTime.getValueAsLong(intervalName));
-		ret.append(" totalcputime: ").append(processTotalCpuTime.getValueAsLong(intervalName));
-		ret.append(" freemem: ").append(freePhysicalMemory.getValueAsLong(intervalName));
-		ret.append(" totalmem: ").append(totalPhysicalMemory.getValueAsLong(intervalName));
-		ret.append(" processors: ").append(processors.getValueAsInt(intervalName));
-		
-		return ret.toString();
+        String ret = getName() + ' ' +
+                " openfiles: " + openFiles.getValueAsInt(intervalName) +
+                " maxopenfiles: " + openFiles.getValueAsInt(intervalName) +
+                " minopenfiles: " + openFiles.getValueAsInt(intervalName) +
+                " maxallowedopenfiles: " + maxSupportedOpenFiles.getValueAsInt(intervalName) +
+                " cputime: " + processCpuTime.getValueAsLong(intervalName) +
+                " totalcputime: " + processTotalCpuTime.getValueAsLong(intervalName) +
+                " freemem: " + freePhysicalMemory.getValueAsLong(intervalName) +
+                " totalmem: " + totalPhysicalMemory.getValueAsLong(intervalName) +
+                " processors: " + processors.getValueAsInt(intervalName);
+
+        return ret;
 	}
 	
 	@Override

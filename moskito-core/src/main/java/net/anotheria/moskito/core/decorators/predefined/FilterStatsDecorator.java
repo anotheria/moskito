@@ -34,7 +34,7 @@
  */	
 package net.anotheria.moskito.core.decorators.predefined;
 
-public class FilterStatsDecorator extends net.anotheria.moskito.core.decorators.predefined.ServletStatsDecorator {
+public class FilterStatsDecorator extends ServletStatsDecorator {
 	public FilterStatsDecorator(){
 		super("Filter");
 	}

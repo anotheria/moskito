@@ -32,12 +32,12 @@ public class MoskitoCommandFilter implements Filter{
 
 	@Override public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain) throws IOException, ServletException {
 		String command = req.getParameter(paramCommandName);
-		if (command==null || command.length()==0){
+		if (command==null || command.isEmpty()){
 			chain.doFilter(req, res);
 			return;
 		}
 		
-		@SuppressWarnings("unchecked")Map<String, String[]> parameters = req.getParameterMap();
+		Map<String, String[]> parameters = req.getParameterMap();
 		CommandControllerFactory.getCommandController().startCommand(command, parameters);
 		try{
 			chain.doFilter(req, res);

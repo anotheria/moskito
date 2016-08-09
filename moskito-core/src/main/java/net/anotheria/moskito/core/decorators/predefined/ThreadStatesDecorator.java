@@ -54,7 +54,7 @@ public class ThreadStatesDecorator extends AbstractDecorator<ThreadStateStats> {
 
 
 	@Override public List<StatValueAO> getValues(ThreadStateStats statsObject, String interval, TimeUnit unit) {
-		List<StatValueAO> ret = new ArrayList<StatValueAO>(CAPTIONS.length);
+		List<StatValueAO> ret = new ArrayList<>(CAPTIONS.length);
 		int i = 0;
 		ret.add(new LongValueAO(CAPTIONS[i++], statsObject.getMin(interval)));
 		ret.add(new LongValueAO(CAPTIONS[i++], statsObject.getCurrent(interval)));

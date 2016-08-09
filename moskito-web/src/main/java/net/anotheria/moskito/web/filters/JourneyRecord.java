@@ -38,10 +38,10 @@ class JourneyRecord implements Serializable {
 	}
 
 	@Override public String toString(){
-		return getName()+" - "+requestCount.get();
+        return name +" - "+requestCount.get();
 	}
 
 	public String getUseCaseName(){
-		return getName()+ '-' +getRequestCount();
+        return name + '-' +getRequestCount();
 	}
 }

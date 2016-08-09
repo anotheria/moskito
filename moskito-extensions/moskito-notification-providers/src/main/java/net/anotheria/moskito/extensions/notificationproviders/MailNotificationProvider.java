@@ -6,6 +6,7 @@ import net.anotheria.moskito.core.config.thresholds.NotificationProviderConfig;
 import net.anotheria.moskito.core.threshold.alerts.NotificationProvider;
 import net.anotheria.moskito.core.threshold.alerts.ThresholdAlert;
 import net.anotheria.moskito.core.util.IOUtils;
+import net.anotheria.moskito.extensions.notificationtemplate.MailTemplate;
 import net.anotheria.moskito.extensions.notificationtemplate.ThresholdAlertTemplate;
 import net.anotheria.util.StringUtils;
 import org.slf4j.Logger;
@@ -58,7 +59,7 @@ public class MailNotificationProvider implements NotificationProvider {
             messagingService = MessagingService.getInstance();
             String tokens[] = StringUtils.tokenize(config.getProperties().get(NotificationProviderConfigKey.RECIPIENTS.getKey()), ',');
             for (String t : tokens) {
-                if (t.length() > 0)
+                if (!t.isEmpty())
                     recipients.add(t.trim());
             }
             htmlTemplateString = IOUtils.getInputStreamAsString(
@@ -81,7 +82,7 @@ public class MailNotificationProvider implements NotificationProvider {
         message.setSenderName("MoSKito Threshold Alert");
         message.setSubject("Threshold alert: " + alert);
 
-        ThresholdAlertTemplate thresholdAlertTemplate = new ThresholdAlertTemplate(alert);
+        MailTemplate thresholdAlertTemplate = new ThresholdAlertTemplate(alert);
 
         if (!StringUtils.isEmpty(plainTextTemplateString)) {
             message.setPlainTextContent(thresholdAlertTemplate.process(plainTextTemplateString));

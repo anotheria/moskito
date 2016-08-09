@@ -14,7 +14,7 @@ public final class Matchers {
 	private static Logger log = LoggerFactory.getLogger(Matchers.class);
 
 	public static final Matcher createMatcher(String criteria){
-		if (criteria == null || criteria.length()==0)
+		if (criteria == null || criteria.isEmpty())
 			throw new IllegalArgumentException("Empty criteria");
 		if (containsAsteriskInTheMiddle(criteria))
 			log.warn("Matcher definition for "+criteria+" contains asterisk in the middle, which is not supported yet");
@@ -34,7 +34,7 @@ public final class Matchers {
 	}
 
 	private static boolean containsAsteriskInTheMiddle(String str){
-		if (str==null || str.length() == 0)
+		if (str==null || str.isEmpty())
 			return false;
 		if (str.length() < 2)
 			return false;

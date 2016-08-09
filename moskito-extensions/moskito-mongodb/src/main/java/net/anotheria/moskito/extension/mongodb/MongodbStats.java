@@ -114,41 +114,40 @@ public class MongodbStats extends AbstractStats {
             throw new AssertionError("Value name can not be null or empty");
         }
         if (valueName.equals(MongoStatsFields.FLUSHES.toString())) {
-            return getFlushes().getValueAsString(intervalName);
+            return flushes.getValueAsString(intervalName);
         }
         if (valueName.equals(MongoStatsFields.TOTAL_MS_WRITE.toString())) {
-            return String.valueOf(timeUnit.transformMillis(getTotal_ms_write().getValueAsLong(intervalName)));
+            return String.valueOf(timeUnit.transformMillis(total_ms_write.getValueAsLong(intervalName)));
         }
         if (valueName.equals(MongoStatsFields.AVG_MS_WRITE.toString())) {
-            return String.valueOf(timeUnit.transformMillis(getAvg_ms_write().getValueAsDouble(intervalName)));
+            return String.valueOf(timeUnit.transformMillis(avg_ms_write.getValueAsDouble(intervalName)));
         }
         if (valueName.equals(MongoStatsFields.LAST_MS_WRITE.toString())) {
-            return String.valueOf(timeUnit.transformMillis(getLast_ms_write().getValueAsDouble(intervalName)));
+            return String.valueOf(timeUnit.transformMillis(last_ms_write.getValueAsDouble(intervalName)));
         }
         if (valueName.equals(MongoStatsFields.CURRENT_CONNECTIONS.toString())) {
-            return getCurrent_connections().getValueAsString(intervalName);
+            return current_connections.getValueAsString(intervalName);
         }
         if (valueName.equals(MongoStatsFields.AVAIlABLE_CONNECTIONS.toString())) {
-            return getAvailable_connections().getValueAsString(intervalName);
+            return available_connections.getValueAsString(intervalName);
         }
         if (valueName.equals(MongoStatsFields.TOTAL_CREATED_CONNECTIONS.toString())) {
-            return getTotal_created_connections().getValueAsString(intervalName);
+            return total_created_connections.getValueAsString(intervalName);
         }
         return super.getValueByNameAsString(valueName, intervalName, timeUnit);
     }
 
     @Override
     public String toStatsString(String aIntervalName, TimeUnit unit) {
-        final StringBuilder sb = new StringBuilder("MongodbStats{");
-        sb.append("flushes=").append(flushes.getValueAsString(aIntervalName));
-        sb.append(", total_ms_write=").append(total_ms_write.getValueAsString(aIntervalName));
-        sb.append(", avg_ms_write=").append(avg_ms_write.getValueAsString(aIntervalName));
-        sb.append(", last_ms_write=").append(last_ms_write.getValueAsString(aIntervalName));
-        sb.append(", current_connections=").append(current_connections.getValueAsString(aIntervalName));
-        sb.append(", available_connections=").append(available_connections.getValueAsString(aIntervalName));
-        sb.append(", total_created_connections=").append(total_created_connections.getValueAsString(aIntervalName));
-        sb.append('}');
-        return sb.toString();
+        String sb = "MongodbStats{" + "flushes=" + flushes.getValueAsString(aIntervalName) +
+                ", total_ms_write=" + total_ms_write.getValueAsString(aIntervalName) +
+                ", avg_ms_write=" + avg_ms_write.getValueAsString(aIntervalName) +
+                ", last_ms_write=" + last_ms_write.getValueAsString(aIntervalName) +
+                ", current_connections=" + current_connections.getValueAsString(aIntervalName) +
+                ", available_connections=" + available_connections.getValueAsString(aIntervalName) +
+                ", total_created_connections=" + total_created_connections.getValueAsString(aIntervalName) +
+                '}';
+        return sb;
     }
 
     /* if you have MoSKito WebUI this block will register stats decorator when the class is loaded at the first time */

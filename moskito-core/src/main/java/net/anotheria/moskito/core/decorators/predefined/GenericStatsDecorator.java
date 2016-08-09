@@ -48,7 +48,7 @@ public class GenericStatsDecorator implements IDecorator<GenericStats> {
      */
     @Override
     public int compareTo(final IComparable anotherComparable, final int method) {
-        return getName().compareToIgnoreCase(((IDecorator) anotherComparable).getName());
+        return name.compareToIgnoreCase(((IDecorator) anotherComparable).getName());
     }
 
     /**
@@ -107,7 +107,7 @@ public class GenericStatsDecorator implements IDecorator<GenericStats> {
                                          final String interval,
                                          final TimeUnit unit) {
         final List<String> names = stats.getAvailableValueNames();
-        final List<StatValueAO> ret = new ArrayList<StatValueAO>(names.size());
+        final List<StatValueAO> ret = new ArrayList<>(names.size());
 
         for (final String name : names) {
             final TypeAwareStatValue sValue = stats.getValueByName(name);

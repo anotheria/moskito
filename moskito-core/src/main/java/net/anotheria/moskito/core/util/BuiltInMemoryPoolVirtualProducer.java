@@ -31,9 +31,9 @@ public class BuiltInMemoryPoolVirtualProducer  extends AbstractBuiltInProducer i
 	 * @param type
 	 * @param producers
 	 */
-	public BuiltInMemoryPoolVirtualProducer(MemoryType type, List<BuiltInMemoryPoolProducer> producers){
+	public BuiltInMemoryPoolVirtualProducer(MemoryType type, Iterable<BuiltInMemoryPoolProducer> producers){
 		producerId = type.toString();
-		statsList = new CopyOnWriteArrayList<IStats>();
+		statsList = new CopyOnWriteArrayList<>();
 		stats = new VirtualMemoryPoolStats(producerId);
 		for (BuiltInMemoryPoolProducer producer : producers)
 			stats.addStats(producer.getMemoryPoolStats());

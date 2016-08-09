@@ -35,7 +35,7 @@ public class DashboardDefinitionAO implements Serializable{
 	/**
 	 * Charts for this dashboard.
 	 */
-	private List<DashboardChartDefinitionAO> charts = new LinkedList<DashboardChartDefinitionAO>();
+	private List<DashboardChartDefinitionAO> charts = new LinkedList<>();
 
 	public List<String> getGauges() {
 		return gauges;

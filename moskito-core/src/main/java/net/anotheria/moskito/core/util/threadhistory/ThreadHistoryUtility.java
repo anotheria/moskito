@@ -3,6 +3,7 @@ package net.anotheria.moskito.core.util.threadhistory;
 import java.lang.management.ManagementFactory;
 import java.lang.management.ThreadMXBean;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -94,7 +95,7 @@ public enum ThreadHistoryUtility {
 		lock.writeLock().lock();
 		try{
 			long[] ids = mxBean.getAllThreadIds();
-			Set<Long> oldIds = new HashSet<>(runningThreadIds);
+			Collection<Long> oldIds = new HashSet<>(runningThreadIds);
 			for (long _id : ids){
 				Long id = _id;
 				oldIds.remove(id);
@@ -113,7 +114,7 @@ public enum ThreadHistoryUtility {
 			
 			if (eventList.size()>maxEventsSize){
 				List<ThreadHistoryEvent> oldList = eventList;
-				eventList = new ArrayList<ThreadHistoryEvent>(maxEventsSize);
+				eventList = new ArrayList<>(maxEventsSize);
 				eventList.addAll(maxEventsSize/10, oldList);
 			}
 			

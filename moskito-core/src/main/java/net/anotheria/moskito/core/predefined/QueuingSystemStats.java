@@ -95,9 +95,10 @@ public class QueuingSystemStats extends AbstractStats {
 		}
 		
 		public static List<String> getStatNames(){
-			List<String> ret = new ArrayList<String>(StatDef.values().length);
-			for(StatDef v: StatDef.values())
-				ret.add(v.getStatName());
+			List<String> ret = new ArrayList<>(StatDef.values().length);
+			for(StatDef v: StatDef.values()) {
+                ret.add(v.statName);
+            }
 			return ret;
 		}
 	}	
@@ -181,7 +182,7 @@ public class QueuingSystemStats extends AbstractStats {
 	
 	
 	public QueuingSystemStats(String aName,  Interval[] selectedIntervals){
-		Long longPattern = Long.valueOf(0);
+		Long longPattern = 0L;
 		name = aName;
 		
 		serversSize = StatValueFactory.createStatValue(longPattern, "serversSize", selectedIntervals);
@@ -344,26 +345,24 @@ public class QueuingSystemStats extends AbstractStats {
 	}
 	
 	@Override public String toStatsString(String intervalName, TimeUnit timeUnit) {
-		StringBuilder b = new StringBuilder();
-		b.append(getName()).append(' ');
-		
-		b.append(StatDef.SERVERS_SIZE.getStatLabel()).append(getServersSize(intervalName));
-		b.append(StatDef.QUEUE_SIZE.getStatLabel()).append(getQueueSize(intervalName));
-		b.append(StatDef.ARRIVED.getStatLabel()).append(getArrived(intervalName));
-		b.append(StatDef.SERVICED.getStatLabel()).append(getServiced(intervalName));
-		b.append(StatDef.ERRORS.getStatLabel()).append(getErrors(intervalName));
-		b.append(StatDef.WAITED.getStatLabel()).append(getWaited(intervalName));
-		b.append(StatDef.THROWN_AWAY.getStatLabel()).append(getThrowedAway(intervalName));
-		b.append(StatDef.WAITING_TIME.getStatLabel()).append(timeUnit.transformNanos(getWaitingTime(intervalName)));
-		b.append(StatDef.WAITING_TIME_MIN.getStatLabel()).append(transformMinTimeNanos(getWaitingTimeMin(intervalName), timeUnit));
-		b.append(StatDef.WAITING_TIME_MAX.getStatLabel()).append(transformMaxTimeNanos(getWaitingTimeMax(intervalName),timeUnit));
-		b.append(StatDef.WAITING_TIME_AVG.getStatLabel()).append(transformAverageTimeNanos(getWaitingTimeAverage(intervalName), timeUnit));
-		b.append(StatDef.SERVICE_TIME.getStatLabel()).append(timeUnit.transformNanos(getServicingTime(intervalName)));
-		b.append(StatDef.SERVICE_TIME_MIN.getStatLabel()).append(transformMinTimeNanos(getServicingTimeMin(intervalName), timeUnit));
-		b.append(StatDef.SERVICE_TIME_MAX.getStatLabel()).append(transformMaxTimeNanos(getServicingTimeMax(intervalName),timeUnit));
-		b.append(StatDef.SERVICE_TIME_AVG.getStatLabel()).append(transformAverageTimeNanos(getServicingTimeAverage(intervalName), timeUnit));
+        String b = name + ' ' +
+                StatDef.SERVERS_SIZE.getStatLabel() + getServersSize(intervalName) +
+                StatDef.QUEUE_SIZE.getStatLabel() + getQueueSize(intervalName) +
+                StatDef.ARRIVED.getStatLabel() + getArrived(intervalName) +
+                StatDef.SERVICED.getStatLabel() + getServiced(intervalName) +
+                StatDef.ERRORS.getStatLabel() + getErrors(intervalName) +
+                StatDef.WAITED.getStatLabel() + getWaited(intervalName) +
+                StatDef.THROWN_AWAY.getStatLabel() + getThrowedAway(intervalName) +
+                StatDef.WAITING_TIME.getStatLabel() + timeUnit.transformNanos(getWaitingTime(intervalName)) +
+                StatDef.WAITING_TIME_MIN.getStatLabel() + transformMinTimeNanos(getWaitingTimeMin(intervalName), timeUnit) +
+                StatDef.WAITING_TIME_MAX.getStatLabel() + transformMaxTimeNanos(getWaitingTimeMax(intervalName), timeUnit) +
+                StatDef.WAITING_TIME_AVG.getStatLabel() + transformAverageTimeNanos(getWaitingTimeAverage(intervalName), timeUnit) +
+                StatDef.SERVICE_TIME.getStatLabel() + timeUnit.transformNanos(getServicingTime(intervalName)) +
+                StatDef.SERVICE_TIME_MIN.getStatLabel() + transformMinTimeNanos(getServicingTimeMin(intervalName), timeUnit) +
+                StatDef.SERVICE_TIME_MAX.getStatLabel() + transformMaxTimeNanos(getServicingTimeMax(intervalName), timeUnit) +
+                StatDef.SERVICE_TIME_AVG.getStatLabel() + transformAverageTimeNanos(getServicingTimeAverage(intervalName), timeUnit);
 
-		return b.toString();
+        return b;
 	}
 
 	@Override public String getValueByNameAsString(String valueName, String intervalName, TimeUnit timeUnit){

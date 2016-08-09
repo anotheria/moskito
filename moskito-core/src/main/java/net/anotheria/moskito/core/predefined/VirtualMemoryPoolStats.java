@@ -50,17 +50,16 @@ public class VirtualMemoryPoolStats extends AbstractMemoryPoolStats implements I
 	}
 	
 	@Override public String toStatsString(String intervalName, TimeUnit timeUnit) {
-		StringBuilder b = new StringBuilder();
-		b.append(getName()).append(' ');
-		b.append(" INIT: ").append(getInit(intervalName));
-		b.append(" MIN USED: ").append(getMinUsed(intervalName));
-		b.append(" USED: ").append(getUsed(intervalName));
-		b.append(" MAX USED: ").append(getMaxUsed(intervalName));
-		b.append(" MIN COMMITED: ").append(getMinCommited(intervalName));
-		b.append(" COMMITED: ").append(getCommited(intervalName));
-		b.append(" MAX COMMITED: ").append(getMaxCommited(intervalName));
-		b.append(" MAX: ").append(getMax(intervalName));
-		return b.toString();
+        String b = getName() + ' ' +
+                " INIT: " + getInit(intervalName) +
+                " MIN USED: " + getMinUsed(intervalName) +
+                " USED: " + getUsed(intervalName) +
+                " MAX USED: " + getMaxUsed(intervalName) +
+                " MIN COMMITED: " + getMinCommited(intervalName) +
+                " COMMITED: " + getCommited(intervalName) +
+                " MAX COMMITED: " + getMaxCommited(intervalName) +
+                " MAX: " + getMax(intervalName);
+        return b;
 	}
 
 	@Override public long getInit(String intervalName){

@@ -10,7 +10,7 @@ import net.sf.ehcache.constructs.EhcacheDecoratorAdapter;
 import java.util.TimerTask;
 
 /**
- * Proxy for {@link net.sf.ehcache.Ehcache} instances that allows MoSKito to access Ehcache stats.
+ * Proxy for {@link Ehcache} instances that allows MoSKito to access Ehcache stats.
  *
  * Statistics about monitored instance can be found in MoSKito's producer registry by the same producer ID
  * that the name of the underlying cache is.
@@ -83,7 +83,7 @@ public class MonitoredEhcache extends EhcacheDecoratorAdapter {
         super(instance);
         underlyingCache.setStatisticsAccuracy(statisticsAccuracy);
         underlyingCache.setStatisticsEnabled(true);
-        cacheProducer = new OnDemandStatsProducer<EhcacheStats>(underlyingCache.getName(), category, subsystem, new EhcacheStatsFactory());
+        cacheProducer = new OnDemandStatsProducer<>(underlyingCache.getName(), category, subsystem, new EhcacheStatsFactory());
         ProducerRegistryFactory.getProducerRegistryInstance().registerProducer(cacheProducer);
 
         PeriodicStatsUpdater.addTask(new TimerTask() {

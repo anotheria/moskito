@@ -37,12 +37,13 @@ package net.anotheria.moskito.webui.producers.action;
 import net.anotheria.anoplass.api.APIException;
 import net.anotheria.moskito.webui.producers.api.ProducerAO;
 
+import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 public class ShowProducersForCategoryAction extends BaseShowProducersAction{
 	
-	private String getCategoryParameter(HttpServletRequest req){
+	private String getCategoryParameter(ServletRequest req){
 		String param = req.getParameter(PARAM_CATEGORY);
 		return param == null ? "none" : param;
 	}

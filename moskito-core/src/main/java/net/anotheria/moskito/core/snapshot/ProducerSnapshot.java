@@ -78,7 +78,8 @@ public class ProducerSnapshot {
 	}
 
 	@Override public String toString(){
-		return "Snapshot Producer: (pId:"+getProducerId()+", Cat:"+getCategory()+", Sub:"+getSubsystem()+") Int: "+getIntervalName()+"Class: "+statClassName+", Stats: "+getStatSnapshots();
+
+        return "Snapshot Producer: (pId:"+ producerId +", Cat:"+ category +", Sub:"+ subsystem +") Int: "+ intervalName +"Class: "+statClassName+", Stats: "+ stats;
 	}
 
 	public StatSnapshot getStatSnapshot(String statName) {

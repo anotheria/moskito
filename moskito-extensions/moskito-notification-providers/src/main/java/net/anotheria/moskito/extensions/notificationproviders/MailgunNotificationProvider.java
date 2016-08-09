@@ -9,12 +9,14 @@ import net.anotheria.moskito.core.config.thresholds.NotificationProviderConfig;
 import net.anotheria.moskito.core.threshold.alerts.NotificationProvider;
 import net.anotheria.moskito.core.threshold.alerts.ThresholdAlert;
 import net.anotheria.moskito.core.util.IOUtils;
+import net.anotheria.moskito.extensions.notificationtemplate.MailTemplate;
 import net.anotheria.moskito.extensions.notificationtemplate.ThresholdAlertTemplate;
 import net.anotheria.util.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.MultivaluedMap;
 import java.util.ArrayList;
 
 /**
@@ -105,7 +107,7 @@ public class MailgunNotificationProvider implements NotificationProvider {
             String tokens[] = StringUtils.tokenize(config.getProperties().get(NotificationProviderConfigKey.RECIPIENTS.getKey()), ',');
             recipients = new ArrayList<>(tokens.length);
             for (String t : tokens) {
-                if (t.length() > 0)
+                if (!t.isEmpty())
                     recipients.add(t.trim());
             }
             htmlTemplate = IOUtils.getInputStreamAsString(
@@ -126,14 +128,14 @@ public class MailgunNotificationProvider implements NotificationProvider {
         try {
             WebResource webResource = client.resource("https://api.mailgun.net/v2/moskito.org/messages");
 
-            MultivaluedMapImpl formData = new MultivaluedMapImpl();
+            MultivaluedMap formData = new MultivaluedMapImpl();
             formData.add("from", "MoSKito Alerts <moskito-alert@moskito.org>");
             for (String r : recipients) {
                 formData.add("to", r);
             }
             formData.add("subject", subject);
 
-            ThresholdAlertTemplate thresholdAlertTemplate = new ThresholdAlertTemplate(alert);
+            MailTemplate thresholdAlertTemplate = new ThresholdAlertTemplate(alert);
             if(!StringUtils.isEmpty(plainTextTemplate)) {
                 formData.add("text", thresholdAlertTemplate.process(plainTextTemplate));
             } else {

@@ -77,14 +77,14 @@ class LongValueHolder extends AbstractValueHolder {
 	}
 
 	/**
-	 * @see net.anotheria.moskito.core.stats.IIntervalListener#intervalUpdated(net.anotheria.moskito.core.stats.Interval)
+	 * @see net.anotheria.moskito.core.stats.IIntervalListener#intervalUpdated(Interval)
 	 */
 	@Override public void intervalUpdated(Interval caller) {
 		lastValue = currentValue.getAndSet(defaultValue);
 	}
 
 	/**
-	 * @see net.anotheria.moskito.core.stats.IIntervalListener#intervalUpdated(net.anotheria.moskito.core.stats.Interval)
+	 * @see net.anotheria.moskito.core.stats.IIntervalListener#intervalUpdated(Interval)
 	 */
 	protected void updateLastValueFromCurrent() {
 		lastValue = currentValue.get();
@@ -100,7 +100,7 @@ class LongValueHolder extends AbstractValueHolder {
 	}
 
 	/**
-	 * @see net.anotheria.moskito.core.stats.impl.AbstractValueHolder#toString()
+	 * @see AbstractValueHolder#toString()
 	 */
 	@Override
 	public String toString() {
@@ -131,11 +131,11 @@ class LongValueHolder extends AbstractValueHolder {
 	}
 
 	@Override public double getValueAsDouble() {
-		return getValueAsLong();
-	}
+        return lastValue;
+    }
 
 	@Override public int getValueAsInt() {
-		return (int) getValueAsLong();
+        return (int) lastValue;
 	}
 
 	@Override public long getValueAsLong() {
@@ -173,12 +173,12 @@ class LongValueHolder extends AbstractValueHolder {
 	}
 
 	@Override public void setDefaultValueAsInt(int aValue) {
-		setDefaultValueAsLong(aValue);
-	}
+        defaultValue = (long) aValue;
+    }
 
 	@Override public void setDefaultValueAsDouble(double aValue) {
-		setDefaultValueAsLong((long) aValue);
-	}
+        defaultValue = (long) aValue;
+    }
 
 	@Override public void reset() {
 		currentValue.set(defaultValue);

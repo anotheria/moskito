@@ -88,7 +88,7 @@ public class ReplyObjectWriter implements MessageBodyWriter<ReplyObject> {
 
 	}
 
-	private void writeList(List list, Marshaller marshaller, OutputStream stream ) throws IOException, JAXBException{
+	private void writeList(Iterable list, Marshaller marshaller, OutputStream stream ) throws IOException, JAXBException{
 		for (Object o : list){
 			marshaller.marshal(o, stream);
 		}

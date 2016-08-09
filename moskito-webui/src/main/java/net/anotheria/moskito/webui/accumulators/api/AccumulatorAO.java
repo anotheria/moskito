@@ -38,7 +38,7 @@ public class AccumulatorAO implements Serializable {
 	public AccumulatorAO(Accumulator acc){
 		name = acc.getName();
 		id = acc.getId();
-		values = new LinkedList<AccumulatedValueAO>();
+		values = new LinkedList<>();
 		for (AccumulatedValue v : acc.getValues()){
 			long timestamp = v.getTimestamp()/1000*1000;
 			//for single graph data
@@ -55,7 +55,7 @@ public class AccumulatorAO implements Serializable {
 	}
 
 	public String toString(){
-		return "Accumulator "+getName();
+        return "Accumulator "+ name;
 	}
 
 	public List<AccumulatedValueAO> getValues() {

@@ -61,7 +61,7 @@ public class RefererCaseExtractor extends AbstractFilterCaseExtractor{
 	@Override
 	public String extractCaseName(HttpServletRequest r) {
 		String referer = r.getHeader("referer");
-		if (referer==null || referer.length()==0)
+		if (referer==null || referer.isEmpty())
 			return null;
 		if (referer.startsWith(HTTP_PROTOCOL))
 			referer = referer.substring(HTTP_PROTOCOL.length());

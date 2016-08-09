@@ -42,6 +42,7 @@ import net.anotheria.moskito.core.timing.IUpdateTriggerService;
 import net.anotheria.moskito.core.timing.UpdateTriggerServiceFactory;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -90,7 +91,7 @@ public final class IntervalRegistry {
 	 * 
 	 * @see IntervalRegistryListener
 	 */
-	private List<IntervalRegistryListener> registryListeners = new CopyOnWriteArrayList<IntervalRegistryListener>();
+	private Collection<IntervalRegistryListener> registryListeners = new CopyOnWriteArrayList<>();
 
 	/**
 	 * The constructor.
@@ -199,7 +200,7 @@ public final class IntervalRegistry {
 	 * @return the Interval list
 	 */
 	public List<Interval> getIntervals() {
-		return new ArrayList<Interval>(intervalsByName.values());
+		return new ArrayList<>(intervalsByName.values());
 	}
 	
 	/**

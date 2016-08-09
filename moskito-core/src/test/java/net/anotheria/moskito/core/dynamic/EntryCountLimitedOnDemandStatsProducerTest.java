@@ -3,8 +3,6 @@ package net.anotheria.moskito.core.dynamic;
 import net.anotheria.moskito.core.predefined.ServiceStatsFactory;
 import org.junit.Test;
 
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.fail;
 import static org.junit.Assert.*;
 
 

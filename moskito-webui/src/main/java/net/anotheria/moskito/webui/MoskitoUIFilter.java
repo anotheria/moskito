@@ -42,7 +42,7 @@ public class MoskitoUIFilter extends MAFFilter{
 			MavenVersion appVersion = VersionUtil.getWebappVersion(config.getServletContext());
 			config.getServletContext().setAttribute("application_maven_version", appVersion == null ? "?" : appVersion);
 			config.getServletContext().setAttribute("moskito_maven_version", moskitoVersion == null ? "?" : moskitoVersion);
-			config.getServletContext().setAttribute("moskito_version_string", (moskitoVersion == null || moskitoVersion.getVersion().length()==0)? "unknown" : moskitoVersion.getVersion());
+			config.getServletContext().setAttribute("moskito_version_string", (moskitoVersion == null || moskitoVersion.getVersion().isEmpty())? "unknown" : moskitoVersion.getVersion());
 			String computerName = NetUtils.getComputerName();
 			config.getServletContext().setAttribute("servername", computerName==null ? "Unknown" : computerName);
 		}catch(Exception e){
@@ -50,7 +50,7 @@ public class MoskitoUIFilter extends MAFFilter{
 		}
 
 		String pathToImagesParameter = config.getInitParameter("pathToImages");
-		if (pathToImagesParameter!=null && pathToImagesParameter.length()>0)
+		if (pathToImagesParameter!=null && !pathToImagesParameter.isEmpty())
 			pathToImages = pathToImagesParameter;
 		config.getServletContext().setAttribute("mskPathToImages", pathToImages);
 	}

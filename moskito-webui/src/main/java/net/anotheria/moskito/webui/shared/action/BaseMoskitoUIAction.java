@@ -62,12 +62,16 @@ import net.anotheria.util.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Arrays;
+import java.util.Deque;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Objects;
+import java.util.Set;
 
 /**
  * BaseAction providing some common functionality for all moskitouiactions.
@@ -243,7 +247,6 @@ public abstract class BaseMoskitoUIAction implements Action{
 	 * Creates a new action.
 	 */
 	protected BaseMoskitoUIAction(){
-		super();
 	}
 
 	public String getSubsystem(){
@@ -261,7 +264,7 @@ public abstract class BaseMoskitoUIAction implements Action{
 	 * @param req
 	 * @return
 	 */
-	protected String getForward(HttpServletRequest req){
+	protected String getForward(ServletRequest req){
 		String forward = req.getParameter(PARAM_FORWARD);
 		if (forward==null)
 			forward = DEFAULT_FORWARD;
@@ -344,7 +347,7 @@ public abstract class BaseMoskitoUIAction implements Action{
 		context.setCurrentSession(req.getSession());
 
 		String paramFilteringOff = req.getParameter(PARAM_FILTERING);
-		if (paramFilteringOff!=null && paramFilteringOff.equals(PARAM_VALUE_FILTER_OFF))
+		if (Objects.equals(paramFilteringOff, PARAM_VALUE_FILTER_OFF))
 			context.addAttribute(Features.PRODUCER_FILTERING.name(), Boolean.FALSE);
 
 
@@ -387,7 +390,7 @@ public abstract class BaseMoskitoUIAction implements Action{
 		req.setAttribute("connection", APILookupUtility.describeConnectivity());
 
 		//prepare selector.
-		LinkedList<LabelValueBean> connectivityOptions = new LinkedList<LabelValueBean>();
+		Deque<LabelValueBean> connectivityOptions = new LinkedList<>();
 		connectivityOptions.add(new LabelValueBean("Local", "Local"));
 		for (RemoteInstance ri : WebUIConfig.getInstance().getRemotes()){
 			connectivityOptions.add(new LabelValueBean(ri.toString(), ri.getSelectKey()));
@@ -420,7 +423,7 @@ public abstract class BaseMoskitoUIAction implements Action{
 
 		//check for autoreload.
 		String pReloadInterval = req.getParameter(PARAM_RELOAD_INTERVAL);
-		if (pReloadInterval!=null && pReloadInterval.length()>0){
+		if (pReloadInterval!=null && !pReloadInterval.isEmpty()){
 			if (pReloadInterval.equalsIgnoreCase("OFF")){
 				req.getSession().removeAttribute(BEAN_AUTORELOAD);
 			}else{
@@ -436,7 +439,7 @@ public abstract class BaseMoskitoUIAction implements Action{
 		//check chart engine
 		String pChartEngine = req.getParameter(PARAM_CHART_ENGINE);
 		ChartEngine chartEngine;
-		if (pChartEngine!=null && pChartEngine.length()>0){
+		if (pChartEngine!=null && !pChartEngine.isEmpty()){
 			chartEngine = ChartEngine.getChartEngine(pChartEngine);
 			req.getSession().setAttribute(BEAN_CHART_ENGINE, chartEngine);
 		}else{
@@ -454,7 +457,7 @@ public abstract class BaseMoskitoUIAction implements Action{
 		//set page title.
 		String subTitle = getSubTitle();
 		String title = DEFAULT_TITLE;
-		if (subTitle!=null && subTitle.length()>0){
+		if (subTitle!=null && !subTitle.isEmpty()){
 			title += " :: "+subTitle;
 		}
 		req.setAttribute("title", title);
@@ -503,7 +506,7 @@ public abstract class BaseMoskitoUIAction implements Action{
 	}
 
 	private String maskAsExtension(String link, String extension){
-		if (link==null || link.length()==0)
+		if (link==null || link.isEmpty())
 			return link;
 		int indexOfQ = link.indexOf('?');
 		if (indexOfQ==-1)
@@ -533,11 +536,11 @@ public abstract class BaseMoskitoUIAction implements Action{
 	 * @return
 	 */
 	protected String rebuildQueryStringWithoutParameter(String source, String ... params){
-		if (source==null || source.length()==0)
+		if (source==null || source.isEmpty())
 			return "";
 		if (params == null || params.length==0)
 			return source;
-		HashSet<String> paramsSet = new HashSet<String>(params.length);
+		Set<String> paramsSet = new HashSet<>(params.length);
 		paramsSet.addAll(Arrays.asList(params));
 		String[] tokens = StringUtils.tokenize(source, '&');
 		StringBuilder ret = new StringBuilder();

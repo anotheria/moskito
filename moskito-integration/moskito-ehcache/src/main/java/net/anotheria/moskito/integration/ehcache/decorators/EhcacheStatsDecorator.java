@@ -13,11 +13,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * {@link net.anotheria.moskito.integration.ehcache.EhcacheStats} decorator for MoSKito WebUI.
+ * {@link EhcacheStats} decorator for MoSKito WebUI.
  *
  * @author Vladyslav Bezuhlyi
  *
- * @see net.anotheria.moskito.core.decorators.AbstractDecorator
+ * @see AbstractDecorator
  */
 public class EhcacheStatsDecorator extends AbstractDecorator {
 
@@ -99,7 +99,7 @@ public class EhcacheStatsDecorator extends AbstractDecorator {
 
 
     /**
-     * Creates a new decorator for {@link net.anotheria.moskito.integration.ehcache.EhcacheStats}.
+     * Creates a new decorator for {@link EhcacheStats}.
      */
     public EhcacheStatsDecorator() {
         super("Ehcache", CAPTIONS, SHORT_EXPLANATIONS, EXPLANATIONS);
@@ -109,7 +109,7 @@ public class EhcacheStatsDecorator extends AbstractDecorator {
     @Override
     public List<StatValueAO> getValues(IStats statsObject, String interval, TimeUnit unit) {
         EhcacheStats stats = (EhcacheStats) statsObject;
-        List<StatValueAO> bean = new ArrayList<StatValueAO>(CAPTIONS.length);
+        List<StatValueAO> bean = new ArrayList<>(CAPTIONS.length);
         int i = 0;
 
         bean.add(new StringValueAO(CAPTIONS[i++], stats.getStatisticsAccuracy().getValueAsString(interval)));

@@ -229,7 +229,7 @@ public class ThresholdAPIImpl extends AbstractMoskitoAPIImpl implements Threshol
 	public List<ThresholdStatusAO> getThresholdStatuses(String ... names) throws APIException {
 		if (names==null)
 			return getThresholdStatuses();
-		Set<String> nameSet = new HashSet<>(names.length);
+		Collection<String> nameSet = new HashSet<>(names.length);
 		Collections.addAll(nameSet, names);
 
 		List<Threshold> thresholds = ThresholdRepository.getInstance().getThresholds();

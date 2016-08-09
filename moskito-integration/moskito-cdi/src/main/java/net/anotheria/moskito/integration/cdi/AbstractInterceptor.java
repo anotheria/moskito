@@ -6,6 +6,7 @@ import net.anotheria.moskito.core.dynamic.IOnDemandStatsFactory;
 import net.anotheria.moskito.core.dynamic.OnDemandStatsProducer;
 import net.anotheria.moskito.core.dynamic.OnDemandStatsProducerException;
 import net.anotheria.moskito.core.producers.IStats;
+import net.anotheria.moskito.core.producers.IStatsProducer;
 import net.anotheria.moskito.core.registry.ProducerRegistryFactory;
 import net.anotheria.moskito.integration.cdi.accumulation.Accumulate;
 import net.anotheria.moskito.integration.cdi.accumulation.Accumulates;
@@ -15,6 +16,7 @@ import org.slf4j.LoggerFactory;
 
 import javax.interceptor.InvocationContext;
 import java.lang.annotation.Annotation;
+import java.lang.reflect.AnnotatedElement;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
@@ -59,7 +61,7 @@ public abstract class AbstractInterceptor<T extends IStats> {
         OnDemandStatsProducer<T> producer = (OnDemandStatsProducer<T>) ProducerRegistryFactory.getProducerRegistryInstance().getProducer(producerId);
 
         if (producer == null) {
-            producer = new OnDemandStatsProducer<T>(producerId, category, subsystem, getStatsFactory());
+            producer = new OnDemandStatsProducer<>(producerId, category, subsystem, getStatsFactory());
             producer.setTracingSupported(tracingSupported);
             ProducerRegistryFactory.getProducerRegistryInstance().registerProducer(producer);
 
@@ -177,7 +179,7 @@ public abstract class AbstractInterceptor<T extends IStats> {
      * @param producer {@link OnDemandStatsProducer}
      * @param producerClass producer class
      */
-    private void createClassLevelAccumulators(OnDemandStatsProducer<T> producer, Class producerClass) {
+    private void createClassLevelAccumulators(OnDemandStatsProducer<T> producer, AnnotatedElement producerClass) {
         //several @Accumulators in accumulators holder
         Accumulates accAnnotationHolder = AnnotationUtils.findAnnotation(producerClass, Accumulates.class);//(Accumulates) producerClass.getAnnotation(Accumulates.class);
         if (accAnnotationHolder != null) {
@@ -201,13 +203,13 @@ public abstract class AbstractInterceptor<T extends IStats> {
         );
     }
 
-    private String formAccumulatorNameForMethod(final OnDemandStatsProducer<T> producer, final Accumulate annotation, final Method m) {
+    private String formAccumulatorNameForMethod(final IStatsProducer<T> producer, final Accumulate annotation, final Method m) {
         if (producer != null && annotation != null && m != null)
             return producer.getProducerId()+ '.' +m.getName()+ '.' +annotation.valueName()+ '.' +annotation.intervalName();
         return "";
     }
 
-    private String formAccumulatorNameForClass(final OnDemandStatsProducer<T> producer, final Accumulate annotation) {
+    private String formAccumulatorNameForClass(final IStatsProducer<T> producer, final Accumulate annotation) {
         if (producer != null && annotation != null)
             return producer.getProducerId()+ '.' +annotation.valueName()+ '.' +annotation.intervalName();
         return "";
@@ -226,7 +228,7 @@ public abstract class AbstractInterceptor<T extends IStats> {
                 accName!=null && !accName.isEmpty() && statsName != null && !statsName.isEmpty()){
 
             AccumulatorDefinition definition = new AccumulatorDefinition();
-            if (annotation.name().length() > 0) {
+            if (!annotation.name().isEmpty()) {
                 definition.setName(annotation.name());
             }else{
                 definition.setName(accName);

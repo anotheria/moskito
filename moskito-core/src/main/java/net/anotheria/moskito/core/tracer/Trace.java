@@ -70,7 +70,7 @@ public class Trace implements IComparable<Trace>{
 	}
 
 	@Override public String toString(){
-		return id+" "+call+ ' ' +(elements==null? "no elements" : Arrays.toString(getElements()))+", dur: "+duration;
+        return id+" "+call+ ' ' +(elements==null? "no elements" : Arrays.toString(elements))+", dur: "+duration;
 	}
 
 	public long getId(){
@@ -89,9 +89,9 @@ public class Trace implements IComparable<Trace>{
 	public int compareTo(IComparable<? extends Trace> iComparable, int method) {
 		switch(method){
 			case TraceSortType.SORT_BY_ID:
-				return BasicComparable.compareLong(id, ((Trace)iComparable).getId());
+                return BasicComparable.compareLong(id, ((Trace) iComparable).id);
 			case TraceSortType.SORT_BY_DURATION:
-				return BasicComparable.compareLong(duration, ((Trace)iComparable).getDuration());
+                return BasicComparable.compareLong(duration, ((Trace) iComparable).duration);
 			default:
 				throw new IllegalArgumentException("Method "+method+" is not supported");
 		}

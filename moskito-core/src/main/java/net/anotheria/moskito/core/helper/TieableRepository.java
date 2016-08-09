@@ -49,7 +49,7 @@ public abstract class TieableRepository<T extends Tieable, S extends IStats> imp
 	/**
 	 * Threshold objects that are already created and registered but yet not tied to a concrete producer/stats object.
 	 */
-	private List<T> yetUntied = new CopyOnWriteArrayList<T>();
+	private List<T> yetUntied = new CopyOnWriteArrayList<>();
 
 	/**
 	 * Map that contains names of the tieables maped by ids.
@@ -91,7 +91,7 @@ public abstract class TieableRepository<T extends Tieable, S extends IStats> imp
 	
 	@Override
 	public void notifyProducerRegistered(IStatsProducer<S> producer) {
-		ArrayList<T> tmpList = new ArrayList<T>(yetUntied);
+		Iterable<T> tmpList = new ArrayList<>(yetUntied);
 		for (T t : tmpList){
 			if (t.getDefinition().getProducerName().equals(producer.getProducerId())){
 				try{
@@ -129,7 +129,7 @@ public abstract class TieableRepository<T extends Tieable, S extends IStats> imp
 	}
 	
 	public List<T> getTieables() {
-		ArrayList<T> ret = new ArrayList<T>(tieables.size());
+		List<T> ret = new ArrayList<>(tieables.size());
 		ret.addAll(tieables.values());
 		return ret;
 	}
@@ -146,8 +146,8 @@ public abstract class TieableRepository<T extends Tieable, S extends IStats> imp
 		definition.setName(name);//set net name, in order to prevent name conflicts.
 		tieables.put(t.getName(), t);
 		attachToListener(t);
-		
-		IStatsProducer<?> producer = getRegistry().getProducer(definition.getProducerName());
+
+        IStatsProducer<?> producer = registry.getProducer(definition.getProducerName());
 		if (producer!=null){
 			tie(t, producer);
 		}else{

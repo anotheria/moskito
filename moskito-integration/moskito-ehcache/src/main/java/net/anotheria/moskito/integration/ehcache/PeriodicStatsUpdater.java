@@ -21,7 +21,7 @@ public class PeriodicStatsUpdater {
     /**
      * Adds a new task with default period that starts immediately.
      *
-     * @param task {@link java.util.TimerTask} to add
+     * @param task {@link TimerTask} to add
      */
     public static void addTask(final TimerTask task) {
         addTask(task, 0, 1000L*60);
@@ -30,7 +30,7 @@ public class PeriodicStatsUpdater {
     /**
      * Adds a new task that starts immediately.
      *
-     * @param task   {@link java.util.TimerTask} to add
+     * @param task   {@link TimerTask} to add
      * @param period period of task execution starts in milliseconds.
      */
     public static void addTask(final TimerTask task, final long period) {
@@ -40,7 +40,7 @@ public class PeriodicStatsUpdater {
     /**
      * Adds a new task.
      *
-     * @param task   {@link java.util.TimerTask} to add
+     * @param task   {@link TimerTask} to add
      * @param delay  delay in milliseconds before task is to be executed.
      * @param period period of task execution starts in milliseconds.
      */

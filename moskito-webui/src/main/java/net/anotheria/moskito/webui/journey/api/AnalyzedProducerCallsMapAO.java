@@ -70,7 +70,7 @@ public class AnalyzedProducerCallsMapAO implements Serializable {
 	}
 	
 	public boolean isEmpty(){
-		return beans == null || beans.size() == 0;
+		return beans == null || beans.isEmpty();
 	}
 
 	public long getTotalCalls() {
@@ -86,7 +86,7 @@ public class AnalyzedProducerCallsMapAO implements Serializable {
 	}
 	
 	public long getTotalDurationTransformed(){
-		return MoSKitoWebUIContext.getCallContext().getCurrentTimeUnit().transformNanos(getTotalDuration());
+        return MoSKitoWebUIContext.getCallContext().getCurrentTimeUnit().transformNanos(totalDuration);
 	}
 
 	public void setTotalDuration(long totalDuration) {

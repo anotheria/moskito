@@ -127,7 +127,7 @@ public class TraceStep implements Serializable{
 	public TraceStep getLastStep() {
 		TraceStep result = this;
 		while (true) {
-			if (result.children == null || result.children.size() == 0)
+			if (result.children == null || result.children.isEmpty())
 				return result;
 			result = result.children.get(result.children.size() - 1);
 		}
@@ -135,8 +135,8 @@ public class TraceStep implements Serializable{
 
 	@Override
 	public String toString(){
-		StringBuilder ret = new StringBuilder(getCall()).append(" D: ").append(getDuration()).append(" ns");
-		if (isAborted())
+        StringBuilder ret = new StringBuilder(call).append(" D: ").append(duration).append(" ns");
+        if (aborted)
 			ret.append(" aborted.");
 		else
 			ret.append('.');
@@ -163,8 +163,8 @@ public class TraceStep implements Serializable{
 	 */
 	public void addChild(TraceStep p){
 		children.add(p);
-		p.setParent(this);
-	}
+        p.parent = this;
+    }
 	
 	public String generateTrace(){
 		return internalGenerateTrace().toString();
@@ -172,7 +172,7 @@ public class TraceStep implements Serializable{
 	
 	private StringBuilder internalGenerateTrace(){
 		StringBuilder b = new StringBuilder(call);
-		if (children.size()>0){
+		if (!children.isEmpty()){
 			b.append('[');
 			for (int i=0; i<children.size(); i++){
 				b.append(children.get(i).internalGenerateTrace());
@@ -216,8 +216,9 @@ public class TraceStep implements Serializable{
 	 */
 	public long getNetDuration(){
 		long ret = duration;
-		for (TraceStep s : children )
-			ret -= s.getDuration();
+		for (TraceStep s : children ) {
+            ret -= s.duration;
+        }
 		return ret;
 	}
 

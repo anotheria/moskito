@@ -33,9 +33,9 @@ public class AnalyzedProducerCallsAOSortType extends SortType{
 	}
 	
 	public static final AnalyzedProducerCallsAOSortType fromStrings(String aSortByString, String aSortOrderString){
-		if (aSortByString==null || aSortByString.length()==0)
+		if (aSortByString==null || aSortByString.isEmpty())
 			throw new IllegalArgumentException("Empty sort by not allowed");
-		if (aSortOrderString==null || aSortOrderString.length()==0)
+		if (aSortOrderString==null || aSortOrderString.isEmpty())
 			throw new IllegalArgumentException("Empty sort order not allowed");
 		int sortBy = -1;
 		if (aSortByString.equalsIgnoreCase("duration"))
