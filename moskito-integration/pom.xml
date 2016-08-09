@@ -19,5 +19,6 @@
         <module>moskito-inspect-jersey</module>
         <module>moskito-inspect-remote</module>
         <module>moskito-inspect-embedded</module>
+        <module>moskito-springboot</module>
     </modules>
 </project>
