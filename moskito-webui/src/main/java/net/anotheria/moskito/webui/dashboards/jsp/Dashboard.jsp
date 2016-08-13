@@ -80,7 +80,7 @@
                                         <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dLabel">
                                             <li><a href="">Save</a></li>
                                             <li><a href="#AddtoDashboard" data-toggle="modal" data-target="#AddtoDashboard">Add to Dashboard</a></li>
-                                            <li><a href="#guageDelete" data-toggle="modal" data-target="#guageDelete">Remove</a></li>
+                                            <li><a href="#gaugeDelete" data-toggle="modal" data-target="#gaugeDelete" onclick="setGaugeForRemoval('${gauge.caption}', '${index}')">Remove</a></li>
                                         </ul>
                                     </div>
                                 </div>
@@ -158,9 +158,19 @@
                                 ${chart.caption}
                             </h3>
 
-                            <div class="box-right-nav">
+                            <div class="box-right-nav dropdown">
+                                <a href="#" data-target="#" data-toggle="dropdown"><i class="fa fa-cog"></i></a>
+                                <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dLabel">
+                                    <li><a href="" onclick="saveSvgAsPng(${index}+countGauges())">Save</a></li>
+                                    <li><a href="#AddtoDashboard" data-toggle="modal" data-target="#AddtoDashboard">Add to Dashboard</a></li>
+                                    <li><a href="#chartDelete" data-toggle="modal" data-target="#chartDelete" onclick="setChartForRemoval('${chart.caption}', '${index}')">Remove</a></li>
+                                </ul>
+                            </div>
+<!--                            <div class="box-right-nav">
                                 <a class="tooltip-bottom save_as" title="Save" onclick="saveSvgAsPng(${index}+countGauges())"><i class="fa fa-download"></i></a>
                             </div>
+
+-->
                         </div>
                         <div id="collapse_chart${index}" class="box-content accordion-body collapse in">
                             <div class="paddner"><div id="chart_div${index}" class="accumulator-chart"></div></div>
@@ -411,62 +421,53 @@
 
 </section>
 
-<div class="modal fade modal-danger" id="guageDelete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+<div class="modal fade modal-danger" id="gaugeDelete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                <h4 class="modal-title">Delete this Guage?</h4>
+                <h4 class="modal-title">Remove this Gauge?</h4>
             </div>
             <div class="modal-footer text-center">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <a href="#" class="btn btn-danger">Delete</a>
+                <a href="" onclick="location.href='mskDashboardRemoveGauge?gauge='+selectedGaugeForRemoval+'&dashboard=${selectedDashboard}'; return false" class="btn btn-danger">Remove</a>s
             </div>
         </div>
     </div>
 </div>
 
-<div class="modal fade" id="AddtoDashboard" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
-    <div class="modal-dialog modal-sm">
+<div class="modal fade modal-danger" id="chartDelete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                <h4 class="modal-title">Add to Dashboard</h4>
-            </div>
-            <div class="modal-body">
-                <label>Select Dashboard from this list</label>
-                <div class="checkbox">
-                    <label>
-                        <input type="checkbox" value="">
-                        Dashboard 1
-                    </label>
-                </div>
-                <div class="checkbox">
-                    <label>
-                        <input type="checkbox" value="">
-                        Dashboard 2
-                    </label>
-                </div>
-                <div class="checkbox">
-                    <label>
-                        <input type="checkbox" value="">
-                        Dashboard 3
-                    </label>
-                </div>
-                <div class="checkbox">
-                    <label>
-                        <input type="checkbox" value="">
-                        Dashboard 4
-                    </label>
-                </div>
+                <h4 class="modal-title">Remove chart <span id="selectedChartForRemoval">test</span> from Dashboard: '${selectedDashboard}'?</h4>
             </div>
             <div class="modal-footer text-center">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                <a href="#" class="btn btn-primary">Add</a>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <a href="" onclick="location.href='mskDashboardRemoveChart?chart='+selectedChartForRemoval+'&dashboard=${selectedDashboard}'; return false" class="btn btn-danger">Remove</a>s
             </div>
         </div>
     </div>
 </div>
+
+<script language="JavaScript">
+    var selectedChartForRemoval;
+    var selectedGaugeForRemoval;
+
+    function setChartForRemoval(chartForRemovalCaption, chartForRemovalIndex){
+        //alert(chartForRemoval);
+        selectedChartForRemoval = chartForRemovalIndex;
+        $(".selectedChartForRemoval").html(chartForRemovalCaption);
+    }
+
+    function setGaugeForRemoval(gaugeForRemovalCaption, gaugeForRemovalIndex){
+        //alert(chartForRemoval);
+        selectedGaugeForRemoval = gaugeForRemovalIndex;
+        $(".selectedChartForRemoval").html(gaugeForRemovalCaption);
+    }
+
+</script>
 
 </body>
 </html>

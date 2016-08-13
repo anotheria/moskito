@@ -53,6 +53,15 @@
                             <h3 class="pull-left">
                                     ${gauge.caption}
                             </h3>
+                            <!-- context menu -->
+                            <div class="box-right-nav dropdown">
+                                <a href="#" data-target="#" data-toggle="dropdown"><i class="fa fa-cog"></i></a>
+                                <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dLabel">
+                                    <li><a href="#AddtoDashboard" data-toggle="modal" data-target="#AddtoDashboard">Add to Dashboard</a></li>
+                                    <li><a href="">Save</a></li>
+                                </ul>
+                            </div>
+
                         </div>
                         <div id="gauge_collapse_chart${index}" class="box-content accordion-body collapse in">
                             <div class="paddner text-center">
@@ -86,6 +95,7 @@
 
     <jsp:include page="../../shared/jsp/Footer.jsp" flush="false"/>
 </section>
+
 
 </body>
 </html>

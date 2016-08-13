@@ -55,7 +55,7 @@ public class ShowDashboardAction extends BaseDashboardAction {
 			gaugesPresent = true;
 		}
 
-		//charts gauges
+		//prepare charts
 		if (dashboard.getCharts()!=null && dashboard.getCharts().size()>0){
 			request.setAttribute("charts", dashboard.getCharts());
 			chartsPresent = true;

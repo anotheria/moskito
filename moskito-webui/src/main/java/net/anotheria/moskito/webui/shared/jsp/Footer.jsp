@@ -310,3 +310,45 @@ olark.identify('7961-404-10-9387');/*]]>*/</script><noscript><a href="https://ww
 </script>
 <!-- END OLARK -->
 </ano:equal>
+
+<div class="modal fade" id="AddtoDashboard" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title">Add to Dashboard</h4>
+            </div>
+            <div class="modal-body">
+                <label>Select Dashboard from this list</label>
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" value="">
+                        Dashboard 1
+                    </label>
+                </div>
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" value="">
+                        Dashboard 2
+                    </label>
+                </div>
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" value="">
+                        Dashboard 3
+                    </label>
+                </div>
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" value="">
+                        Dashboard 4
+                    </label>
+                </div>
+            </div>
+            <div class="modal-footer text-center">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                <a href="#" class="btn btn-primary">Add</a>
+            </div>
+        </div>
+    </div>
+</div>

@@ -96,6 +96,68 @@ public class DashboardAPIImpl extends AbstractMoskitoAPIImpl implements Dashboar
 	}
 
 	@Override
+	public void removeChartFromDashboard(String dashboardName, int chartIndex) throws APIException {
+		DashboardConfig config = getDashboardConfig(dashboardName);
+		if (config == null)
+			return;
+		if (chartIndex==-1){
+			return;
+		}
+		ChartConfig[] cc_array = config.getCharts();
+		if (cc_array == null || cc_array.length<chartIndex+1)
+			return;
+		ChartConfig[] new_cc_array = new ChartConfig[cc_array.length-1];
+		if (cc_array.length == 1){
+			//source had only one element
+			config.setCharts(new_cc_array);
+			return;
+		}
+
+		removeElementFromArray(cc_array, new_cc_array, chartIndex);
+		config.setCharts(new_cc_array);
+
+	}
+
+	@Override
+	public void removeGaugeFromDashboard(String dashboardName, int gaugeIndex) throws APIException {
+		DashboardConfig config = getDashboardConfig(dashboardName);
+		if (config == null)
+			return;
+		if (gaugeIndex==-1){
+			return;
+		}
+		String[] cc_array = config.getGauges();
+		if (cc_array == null || cc_array.length<gaugeIndex+1)
+			return;
+		String[] new_cc_array = new String[cc_array.length-1];
+		if (cc_array.length == 1){
+			//source had only one element
+			config.setGauges(new_cc_array);
+			return;
+		}
+
+		removeElementFromArray(cc_array, new_cc_array, gaugeIndex);
+		config.setGauges(new_cc_array);
+	}
+
+
+	private static <T> T removeElementFromArray(T sourceArray[], T destArray, int index){
+		//last element
+		if (sourceArray.length==index+1){
+			System.arraycopy(sourceArray, 0, destArray, 0, sourceArray.length-1);
+			return destArray;
+		}
+		if (index==0){
+			System.arraycopy(sourceArray, 1, destArray, 0, sourceArray.length-1);
+			return destArray;
+
+		}
+		System.arraycopy(sourceArray, 0, destArray, 0, index+1);
+		System.arraycopy(sourceArray, index+1, destArray, index, sourceArray.length-index-1);
+		return destArray;
+	}
+
+	@Override
 	public List<DashboardDefinitionAO> getDashboardDefinitions() throws APIException {
 		MoskitoConfiguration config = getConfiguration();
 		DashboardsConfig dashboardsConfig = config.getDashboardsConfig();
