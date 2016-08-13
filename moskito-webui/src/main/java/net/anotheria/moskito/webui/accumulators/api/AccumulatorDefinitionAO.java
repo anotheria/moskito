@@ -101,4 +101,16 @@ public class AccumulatorDefinitionAO implements IComparable, Serializable{
 	public int compareTo(IComparable anotherObject, int method) {
 		return BasicComparable.compareString(getName(), ((AccumulatorDefinitionAO)anotherObject).getName());
 	}
+
+	@Override
+	public String toString() {
+		return "AccumulatorDefinitionAO{" +
+				"id='" + id + '\'' +
+				", name='" + name + '\'' +
+				", path='" + path + '\'' +
+				", numberOfValues=" + numberOfValues +
+				", lastValueTimestamp='" + lastValueTimestamp + '\'' +
+				", maxNumberOfValues=" + maxNumberOfValues +
+				'}';
+	}
 }
