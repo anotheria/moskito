@@ -52,13 +52,7 @@
 			<dependency>
 				<groupId>net.anotheria</groupId>
 				<artifactId>ano-util</artifactId>
-				<version>2.1.5</version>
-				<exclusions>
-					<exclusion>
-						<groupId>blowfish</groupId>
-						<artifactId>blowfish</artifactId>
-					</exclusion>
-				</exclusions>
+				<version>2.1.6</version>
 			</dependency>
 			<dependency>
 				<groupId>net.anotheria</groupId>
