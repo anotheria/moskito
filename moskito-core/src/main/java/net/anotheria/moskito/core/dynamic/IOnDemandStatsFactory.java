@@ -46,7 +46,7 @@ public interface IOnDemandStatsFactory<S extends IStats> {
 	 * Creates a new stats object with given name.
 	 *
 	 * @param name name of the stat object, may be a constant or method name.
-	 * @return
+	 * @return {@link S}
 	 */
 	S createStatsObject(String name);
 }

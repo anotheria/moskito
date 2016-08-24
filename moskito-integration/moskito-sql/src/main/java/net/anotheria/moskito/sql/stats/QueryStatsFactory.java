@@ -1,10 +1,8 @@
 package net.anotheria.moskito.sql.stats;
 
-import net.anotheria.moskito.core.dynamic.IOnDemandStatsFactory;
 import net.anotheria.moskito.core.predefined.Constants;
+import net.anotheria.moskito.core.predefined.AbstractStatsFactory;
 import net.anotheria.moskito.core.stats.Interval;
-
-import java.util.Arrays;
 
 /**
  * On demand stats factory for QueryStats object.
@@ -12,34 +10,29 @@ import java.util.Arrays;
  * @author lrosenberg
  * @since 10.08.14 23:34
  */
-public class QueryStatsFactory implements IOnDemandStatsFactory<QueryStats> {
-
-	/**
-	 * Configured intervals that have to be passed to the created stats object.
-	 */
-	private Interval[] intervals;
+public class QueryStatsFactory extends AbstractStatsFactory<QueryStats> {
 
 	/**
 	 * Default instance to spare additional object creation.
 	 */
-	public static final QueryStatsFactory DEFAULT_INSTANCE = new QueryStatsFactory();
+	public static final AbstractStatsFactory<QueryStats> DEFAULT_INSTANCE = new QueryStatsFactory();
 
 	/**
 	 * Creates a new factory with custom intervals.
-	 * @param configuredIntervals
+	 * @param configuredIntervals {@link Interval} array
 	 */
-	public QueryStatsFactory(Interval[] configuredIntervals){
-		intervals = Arrays.copyOf(configuredIntervals, configuredIntervals.length);
+	public QueryStatsFactory(final Interval[] configuredIntervals){
+		super(configuredIntervals == null || configuredIntervals.length <= 0 ? Constants.getDefaultIntervals() : configuredIntervals);
 	}
 
 	/**
 	 * Createsa new factory with default intervals.
 	 */
 	public QueryStatsFactory(){
-		this(Constants.getDefaultIntervals());
+		super();
 	}
 
 	@Override public QueryStats createStatsObject(String name) {
-		return new QueryStats(name, intervals);
+		return new QueryStats(name, getIntervals());
 	}
 }
