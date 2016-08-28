@@ -17,7 +17,7 @@ public class TracingConfiguration implements Serializable{
 	/**
 	 * SerialVersionUID.
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1396769864705732095L;
 
 	/**
 	 * Completely turn tracing on/off. Default is on.

@@ -15,7 +15,7 @@ public class ActiveThreadHistoryAO implements Serializable{
 	/**
 	 * SerialVersionUID.
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = -6167788903860406929L;
 
 	private List<ThreadHistoryEvent> events;
 	private boolean active;

@@ -7,11 +7,10 @@ import java.io.Serializable;
  * @author Michael König
  */
 public class MBeanAttributeWrapperAO implements Serializable{
-
-	/**
-	 * SerialVersionUID.
-	 */
-	private static final long serialVersionUID = 1L;
+    /**
+     * SerialVersionUID.
+     */
+    private static final long serialVersionUID = -2365810654171860016L;
 
     private final MBeanAttributeInfo attribInfo;
     private final Object value;

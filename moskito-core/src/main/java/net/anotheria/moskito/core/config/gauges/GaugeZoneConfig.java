@@ -16,7 +16,7 @@ public class GaugeZoneConfig implements Serializable{
 	/**
 	 * SerialVersionUID.
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = -3202929920918082130L;
 
 	/**
 	 * Zones color. Can be one of green, orange, yellow, red.

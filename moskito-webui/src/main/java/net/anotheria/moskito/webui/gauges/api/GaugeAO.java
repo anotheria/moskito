@@ -22,7 +22,7 @@ public class GaugeAO implements Serializable{
 	/**
 	 * SerialVersionUID.
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1554363798887359631L;
 
 	/**
 	 * Name of the gauge.

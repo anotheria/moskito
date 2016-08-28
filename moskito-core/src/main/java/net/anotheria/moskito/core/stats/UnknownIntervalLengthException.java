@@ -42,9 +42,9 @@ package net.anotheria.moskito.core.stats;
  */
 public class UnknownIntervalLengthException extends RuntimeException {
 	/**
-	 * serialVersionUID
+	 * SerialVersionUID.
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = -6960455104766953209L;
 
 	/**
 	 * The Constructor.

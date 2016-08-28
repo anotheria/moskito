@@ -19,7 +19,7 @@ public class AccumulatorSetConfig implements Serializable {
 	/**
 	 * SerialVersionUID.
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 206368778818325643L;
 
 	/**
 	 * Name of the set.

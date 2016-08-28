@@ -14,6 +14,6 @@ public class AccumulatorPO extends TieablePO implements Serializable{
 	/**
 	 * SerialVersionUID.
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = -5369404731183317597L;
 
 }

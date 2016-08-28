@@ -1,7 +1,7 @@
 package net.anotheria.moskito.core.counter;
 
-import net.anotheria.moskito.core.dynamic.IOnDemandStatsFactory;
 import net.anotheria.moskito.core.predefined.Constants;
+import net.anotheria.moskito.core.predefined.AbstractStatsFactory;
 import net.anotheria.moskito.core.stats.Interval;
 
 /**
@@ -10,28 +10,28 @@ import net.anotheria.moskito.core.stats.Interval;
  * @author lrosenberg
  * @since 17.11.12 23:05
  */
-public class CounterStatsFactory implements IOnDemandStatsFactory<CounterStats> {
-
-	/**
-	 * Selected intervals for new object creation.
-	 */
-	private Interval[] intervalSelection;
-
+public class CounterStatsFactory extends AbstractStatsFactory<CounterStats> {
 	/**
 	 * Singleton instance for reducing number of classes.
 	 */
-	public static final CounterStatsFactory DEFAULT_INSTANCE = new CounterStatsFactory();
+	public static final AbstractStatsFactory<CounterStats> DEFAULT_INSTANCE = new CounterStatsFactory();
 
+	/**
+	 * Constructor.
+	 */
 	public CounterStatsFactory(){
-		this(Constants.getDefaultIntervals());
+		super();
 	}
-
-	public CounterStatsFactory(Interval[] myIntervals){
-		intervalSelection = myIntervals;
+	/**
+	 * Constructor.
+	 * @param myIntervals predefined {@link Interval} array
+	 */
+	public CounterStatsFactory(final Interval[] myIntervals){
+		super(myIntervals==null || myIntervals.length<=0 ? Constants.getDefaultIntervals() : myIntervals);
 	}
 
 	@Override
 	public CounterStats createStatsObject(String name) {
-		return new CounterStats(name, intervalSelection);
+		return new CounterStats(name, getIntervals());
 	}
 }

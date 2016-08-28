@@ -15,7 +15,7 @@ public abstract class BarrierPassGuard implements ThresholdConditionGuard, Seria
 	/**
 	 * SerialVersionUID.
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 7281168986805866992L;
 
 	/**
 	 * The status to activate in case the barrier has been passed.

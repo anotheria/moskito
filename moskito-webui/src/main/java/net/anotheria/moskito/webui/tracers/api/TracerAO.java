@@ -12,7 +12,7 @@ public class TracerAO implements Serializable {
 	/**
 	 * SerialVersionUID.
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 7542605524524948325L;
 
 	/**
 	 * Id of the producer this Tracer is bound to.

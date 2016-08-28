@@ -19,7 +19,7 @@ public class GaugeConfig implements Serializable{
 	/**
 	 * SerialVersionUID.
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = -8637151081657415866L;
 
 	/**
 	 * Name of the gauge.

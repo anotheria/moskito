@@ -9,11 +9,10 @@ import java.io.Serializable;
  * @since 19.03.13 23:39
  */
 public class PluginAO implements Serializable{
-
 	/**
 	 * SerialVersionUID.
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 3006119089291575915L;
 
 	/**
 	 * Name of the plugin.

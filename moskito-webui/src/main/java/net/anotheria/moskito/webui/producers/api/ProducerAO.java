@@ -19,7 +19,7 @@ public class ProducerAO implements Serializable, IComparable{
 	/**
 	 * SerialVersionUID.
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 3635009586142588362L;
 
 
 	/**

@@ -10,11 +10,10 @@ import java.util.List;
  * @since 05.04.14 11:37
  */
 public class JourneyAO implements Serializable{
-
 	/**
 	 * SerialVersionUID.
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 7879831522564712294L;
 
 	/**
 	 * Contained calls.

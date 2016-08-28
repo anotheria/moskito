@@ -19,7 +19,7 @@ public class ThresholdDefinitionAO implements Serializable{
 	/**
 	 * SerialVersionUID.
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 3333307562723008491L;
 
 	/**
 	 * Threshold id.

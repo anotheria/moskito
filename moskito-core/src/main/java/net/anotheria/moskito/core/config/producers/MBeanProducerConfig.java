@@ -10,10 +10,10 @@ import java.util.Arrays;
  * @author Michael König
  */
 public class MBeanProducerConfig implements Serializable {
-	/**
-	 * SerialVersionUID.
-	 */
-	private static final long serialVersionUID = 1L;
+    /**
+     * SerialVersionUID.
+     */
+    private static final long serialVersionUID = 283692361117118195L;
 
 
 	/**

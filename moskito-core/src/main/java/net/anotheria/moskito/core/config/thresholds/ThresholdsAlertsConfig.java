@@ -17,7 +17,7 @@ public class ThresholdsAlertsConfig implements Serializable {
 	/**
 	 * SerialVersionUID.
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = -7425421359284453771L;
 
 	/**
 	 * Notification providers for notification upon threshold status changes.

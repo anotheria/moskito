@@ -6,7 +6,7 @@ public class AnalyzedProducerCallsAOSortType extends SortType{
 	/**
 	 * SerialVersionUID.
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = -1884053132077291059L;
 	/**
 	 * Sort by name.
 	 */

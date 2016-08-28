@@ -32,11 +32,10 @@ import java.lang.reflect.Method;
 @Monitor
 @Interceptor
 public class MonitorInterceptor extends AbstractInterceptor<ServiceStats> implements Serializable {
-
     /**
-     * Serial Version ID.
+     * SerialVersionUID.
      */
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = -984691445584460188L;
 
     @Override
     protected final Class<ServiceStats> getStatsClass() {

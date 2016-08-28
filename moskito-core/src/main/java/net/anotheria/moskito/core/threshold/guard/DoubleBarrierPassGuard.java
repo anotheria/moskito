@@ -10,7 +10,7 @@ public class DoubleBarrierPassGuard extends BarrierPassGuard{
 	/**
 	 * SerialVersionUID.
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = -685489501183910114L;
 
 	/**
 	 * Limit value.

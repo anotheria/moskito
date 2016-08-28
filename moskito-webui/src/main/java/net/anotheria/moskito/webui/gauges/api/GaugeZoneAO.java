@@ -12,7 +12,7 @@ public class GaugeZoneAO implements Serializable{
 	/**
 	 * SerialVersionUID.
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = -1389237916263089040L;
 
 	/**
 	 * Zones color.
