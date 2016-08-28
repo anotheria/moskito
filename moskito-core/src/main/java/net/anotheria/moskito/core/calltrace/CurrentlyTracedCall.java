@@ -46,11 +46,10 @@ import java.io.Serializable;
  *
  */
 public class CurrentlyTracedCall implements TracedCall, Serializable{
-	
 	/**
-	 * SerialVersionID.
+	 * SerialVersionUID.
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 3099062979275211864L;
 	/**
 	 * Name of the call.
 	 */

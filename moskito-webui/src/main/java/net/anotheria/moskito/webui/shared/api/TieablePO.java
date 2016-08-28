@@ -14,7 +14,7 @@ public class TieablePO implements FormBean, Serializable {
 	/**
 	 * SerialVersionUID.
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = -8623560321475285875L;
 
 	/**
 	 * Id of the producer.

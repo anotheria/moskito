@@ -17,7 +17,7 @@ public class GaugesConfig implements Serializable {
 	/**
 	 * SerialVersionUID.
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 2611901466315038880L;
 
 	/**
 	 * Configured gauges.

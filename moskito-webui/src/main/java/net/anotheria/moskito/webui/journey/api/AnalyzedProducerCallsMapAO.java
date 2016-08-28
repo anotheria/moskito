@@ -15,7 +15,7 @@ public class AnalyzedProducerCallsMapAO implements Serializable {
 	/**
 	 * SerialVersionUID.
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = -2290016218973965559L;
 
 	/**
 	 * Map with AnalyzedProducerCallsAO beans for each producer.

@@ -18,7 +18,7 @@ public class GaugeValueConfig implements Serializable {
 	/**
 	 * SerialVersionUID.
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = -1744168740535815137L;
 
 	/**
 	 * Name of the producer.

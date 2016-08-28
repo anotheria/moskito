@@ -15,7 +15,7 @@ public class RemoteInstance implements Serializable{
 	/**
 	 * SerialVersionUID.
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 3838399043850684631L;
 
 	/**
 	 * Name of this instance.

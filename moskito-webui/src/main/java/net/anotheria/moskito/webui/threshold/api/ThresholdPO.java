@@ -17,7 +17,7 @@ public class ThresholdPO extends TieablePO implements FormBean, Serializable{
 	/**
 	 * SerialVersionUID.
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1909814742598065614L;
 
 	/**
 	 * Direction for the yellow guard.

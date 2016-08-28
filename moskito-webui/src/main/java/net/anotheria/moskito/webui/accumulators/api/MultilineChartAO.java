@@ -18,7 +18,7 @@ public class MultilineChartAO implements Serializable{
 	/**
 	 * SerialVersionUID.
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = -5019792278106803782L;
 
 	/**
 	 * Chart data.

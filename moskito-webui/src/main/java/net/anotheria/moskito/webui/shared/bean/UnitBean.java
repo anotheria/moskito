@@ -13,7 +13,7 @@ public class UnitBean implements Serializable{
 	/**
 	 * SerialVersionUID.
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = -2775817606042609460L;
 
 	/**
 	 * The associated unit.

@@ -47,7 +47,7 @@ public abstract class StatValueAO implements IComparable, Serializable{
 	/**
 	 * SerialVersionUID.
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 4201569278637205835L;
 
 
 	/**

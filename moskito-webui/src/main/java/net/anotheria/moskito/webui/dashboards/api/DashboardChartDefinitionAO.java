@@ -16,7 +16,7 @@ public class DashboardChartDefinitionAO implements Serializable{
 	/**
 	 * SerialVersionUID.
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = -9094377030947294973L;
 
 	/**
 	 * Chart box caption. Optional but recommended, especially if you have more than one accumulator.

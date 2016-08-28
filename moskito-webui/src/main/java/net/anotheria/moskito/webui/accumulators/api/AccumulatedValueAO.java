@@ -23,7 +23,7 @@ public class AccumulatedValueAO implements Serializable, IComparable<Accumulated
 	/**
 	 * SerialVersionUID.
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = -7453185958585441135L;
 
 	/**
 	 * Values aka data for graphs.

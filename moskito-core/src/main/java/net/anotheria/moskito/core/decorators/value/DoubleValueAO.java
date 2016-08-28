@@ -49,7 +49,7 @@ public class DoubleValueAO extends StatValueAO {
 	/**
 	 * SerialVersionUID.
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = -6016200076708550962L;
 
 	/**
 	 * Internal storage.

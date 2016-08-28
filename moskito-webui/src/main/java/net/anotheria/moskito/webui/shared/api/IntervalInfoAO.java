@@ -48,7 +48,7 @@ public class IntervalInfoAO implements IComparable, Serializable{
 	/**
 	 * SerialVersionUID.
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 793913268280720071L;
 
 	/**
 	 * Name of the interval.

@@ -17,7 +17,7 @@ public class DashboardDefinitionAO implements Serializable{
 	/**
 	 * SerialVersionUID.
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 2831684393429730423L;
 
 	/**
 	 * Name of the Dashboard.

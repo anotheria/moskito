@@ -22,7 +22,7 @@ public class AccumulatorDefinitionAO implements IComparable, Serializable{
 	/**
 	 * SerialVersionUID.
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = -4965024686320007365L;
 
 	/**
 	 * If of the accumulator.

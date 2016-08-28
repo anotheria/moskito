@@ -12,7 +12,7 @@ public class JourneySingleTracedCallAO implements Serializable{
 	/**
 	 * SerialVersionUID.
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = -7395976748592447602L;
 
 	/**
 	 * Name of the call. 

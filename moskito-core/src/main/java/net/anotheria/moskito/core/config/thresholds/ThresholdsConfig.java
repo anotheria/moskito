@@ -17,7 +17,7 @@ public class ThresholdsConfig implements Serializable {
 	/**
 	 * SerialVersionUID.
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 967326184961109790L;
 
 	/**
 	 * Configured thresholds.

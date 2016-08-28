@@ -29,7 +29,7 @@ public class MoskitoConfiguration implements Serializable{
 	/**
 	 * SerialVersionUID.
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 6636333765192447227L;
 
 	/**
 	 * Config object for alerting.

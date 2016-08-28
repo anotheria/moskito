@@ -18,7 +18,7 @@ public class AccumulatorAO implements Serializable {
 	/**
 	 * SerialVersionUID.
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 5404648764114214875L;
 
 	/**
 	 * Name of the accumulator.
