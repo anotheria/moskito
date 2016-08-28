@@ -18,7 +18,7 @@ public class NotificationProviderConfig implements Serializable {
 	/**
 	 * SerialVersionUID.
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = -334215824118518179L;
 
 	/**
 	 * Name of the notification provider class.

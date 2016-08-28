@@ -13,7 +13,7 @@ public class ThreadHistoryEvent implements Serializable{
 	/**
 	 * SerialVersionUID.
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = -5263856085800345135L;
 
 	/**
 	 * History operation.

@@ -10,7 +10,7 @@ public class NoSuchProducerException extends ProducerRegistryAPIException{
 	/**
 	 * SerialVersionUID.
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = -1565815646424384419L;
 
 	/**
 	 * Creates new NoSuchProducerException.

@@ -15,7 +15,7 @@ public class StatLineAO implements Serializable{
 	/**
 	 * SerialVersionUID.
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 3257563296541147803L;
 
 	private String statName;
 	private List<StatValueAO> values;

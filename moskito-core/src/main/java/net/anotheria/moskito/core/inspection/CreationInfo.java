@@ -45,7 +45,7 @@ public class CreationInfo implements Serializable{
 	/**
 	 * SerialVersionUID.
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = -7791312608221586386L;
 
 	/**
 	 * Timestamp of the creation.

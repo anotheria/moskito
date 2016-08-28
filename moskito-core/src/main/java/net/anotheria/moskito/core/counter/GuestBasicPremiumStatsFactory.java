@@ -1,7 +1,7 @@
 package net.anotheria.moskito.core.counter;
 
-import net.anotheria.moskito.core.dynamic.IOnDemandStatsFactory;
 import net.anotheria.moskito.core.predefined.Constants;
+import net.anotheria.moskito.core.predefined.AbstractStatsFactory;
 import net.anotheria.moskito.core.stats.Interval;
 
 /**
@@ -10,23 +10,24 @@ import net.anotheria.moskito.core.stats.Interval;
  * @author lrosenberg
  * @since 17.11.12 22:31
  */
-public class GuestBasicPremiumStatsFactory implements IOnDemandStatsFactory<GuestBasicPremiumStats> {
+public class GuestBasicPremiumStatsFactory extends AbstractStatsFactory<GuestBasicPremiumStats> {
 	/**
-	 * Interval selection.
+	 * Constructor.
 	 */
-	private Interval[] intervalSelection;
-
 	GuestBasicPremiumStatsFactory(){
-		this(Constants.getDefaultIntervals());
+		super();
 	}
-
-	GuestBasicPremiumStatsFactory(Interval[] myIntervals){
-		intervalSelection = myIntervals;
+	/**
+	 * Constructor.
+	 * @param myIntervals predefined {@link Interval} array
+	 */
+	GuestBasicPremiumStatsFactory(final Interval[] myIntervals){
+		super(myIntervals == null || myIntervals.length <= 0 ? Constants.getDefaultIntervals() : myIntervals);
 	}
 
 	@Override
-	public GuestBasicPremiumStats createStatsObject(String name) {
-		return new GuestBasicPremiumStats(name, intervalSelection);
+	public GuestBasicPremiumStats createStatsObject(final String name) {
+		return new GuestBasicPremiumStats(name, getIntervals());
 	}
 
 

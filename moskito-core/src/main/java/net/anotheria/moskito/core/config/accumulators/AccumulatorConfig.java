@@ -19,7 +19,7 @@ public class AccumulatorConfig implements Serializable {
 	/**
 	 * SerialVersionUID.
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 5277743526560578117L;
 
 	/**
 	 * Name of the accumulator.

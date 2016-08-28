@@ -27,7 +27,7 @@ public class AccumulatedSingleGraphAO implements Serializable{
 	/**
 	 * SerialVersionUID.
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 8718130806694168007L;
 
 	/**
 	 * Name of the graph.

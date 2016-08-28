@@ -1,7 +1,7 @@
 package net.anotheria.moskito.core.counter;
 
-import net.anotheria.moskito.core.dynamic.IOnDemandStatsFactory;
 import net.anotheria.moskito.core.predefined.Constants;
+import net.anotheria.moskito.core.predefined.AbstractStatsFactory;
 import net.anotheria.moskito.core.stats.Interval;
 
 /**
@@ -10,23 +10,25 @@ import net.anotheria.moskito.core.stats.Interval;
  * @author lrosenberg
  * @since 17.11.12 22:31
  */
-public class MaleFemaleStatsFactory implements IOnDemandStatsFactory<MaleFemaleStats> {
+public class MaleFemaleStatsFactory  extends AbstractStatsFactory<MaleFemaleStats> {
 	/**
-	 * Selection of intervals for create MaleFemaleStatsObjects.
+	 * Constructor.
 	 */
-	private Interval[] intervalSelection;
-
 	MaleFemaleStatsFactory(){
-		this(Constants.getDefaultIntervals());
+		super();
 	}
 
+	/**
+	 * Constructor.
+	 * @param myIntervals predefined {@link Interval} array
+	 */
 	MaleFemaleStatsFactory(Interval[] myIntervals){
-		intervalSelection = myIntervals;
+		super(myIntervals==null || myIntervals.length<=0 ? Constants.getDefaultIntervals() : myIntervals);
 	}
 
 	@Override
 	public MaleFemaleStats createStatsObject(String name) {
-		return new MaleFemaleStats(name, intervalSelection);
+		return new MaleFemaleStats(name, getIntervals());
 	}
 
 

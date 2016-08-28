@@ -16,7 +16,7 @@ public class GuardConfig implements Serializable {
 	/**
 	 * SerialVersionUID.
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = -7398965779300649854L;
 
 	/**
 	 * Value that have to be reached for the status change.

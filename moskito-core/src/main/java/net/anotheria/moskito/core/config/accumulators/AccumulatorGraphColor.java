@@ -17,7 +17,7 @@ public class AccumulatorGraphColor implements Serializable{
 	/**
 	 * SerialVersionUID.
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = -4470815962597880118L;
 
 	/**
 	 * Name of the accumulator.

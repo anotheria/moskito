@@ -36,9 +36,9 @@ package net.anotheria.moskito.core.exceptions;
 
 public class ExcServiceException extends Exception{
 	/**
-	 * garbage.
+	 * SerialVersionUID.
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1738324853330654869L;
 
 	public ExcServiceException(String message){
 		super(message);

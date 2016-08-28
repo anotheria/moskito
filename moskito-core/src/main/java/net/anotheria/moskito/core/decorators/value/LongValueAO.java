@@ -47,7 +47,7 @@ public class LongValueAO extends StatValueAO {
 	/**
 	 * SerialVersionUID.
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = -5922433051716312341L;
 
 	/**
 	 * Internal value storage.

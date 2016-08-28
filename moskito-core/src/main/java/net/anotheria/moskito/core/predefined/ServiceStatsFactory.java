@@ -31,46 +31,42 @@
  * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, 
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR
  * THE USE OR OTHER DEALINGS IN THE SOFTWARE.
- */	
+ */
 package net.anotheria.moskito.core.predefined;
 
-import net.anotheria.moskito.core.dynamic.IOnDemandStatsFactory;
 import net.anotheria.moskito.core.stats.Interval;
-
-import java.util.Arrays;
 
 /**
  * Factory that creates ServiceStats objects for on demand producers.
+ *
  * @author lrosenberg
  */
-public class ServiceStatsFactory implements IOnDemandStatsFactory<ServiceStats> {
-
-	/**
-	 * Configured intervals that have to be passed to the created stats object.
-	 */
-	private Interval[] intervals;
+public class ServiceStatsFactory extends AbstractStatsFactory<ServiceStats> {
 
 	/**
 	 * Default instance to spare additional object creation.
 	 */
-	public static final ServiceStatsFactory DEFAULT_INSTANCE = new ServiceStatsFactory();
+	public static final AbstractStatsFactory<ServiceStats> DEFAULT_INSTANCE = new ServiceStatsFactory();
 
 	/**
 	 * Creates a new factory with custom intervals.
+	 *
 	 * @param configuredIntervals
+	 * 		{@link Interval} array
 	 */
-	public ServiceStatsFactory(Interval[] configuredIntervals){
-		intervals = Arrays.copyOf(configuredIntervals, configuredIntervals.length);
+	public ServiceStatsFactory(final Interval[] configuredIntervals) {
+		super(configuredIntervals == null || configuredIntervals.length <= 0 ? Constants.getDefaultIntervals() : configuredIntervals);
 	}
-	
+
 	/**
-	 * Createsa new factory with default intervals.
+	 * Creates a new factory with default intervals.
 	 */
-	public ServiceStatsFactory(){
-		this(Constants.getDefaultIntervals());
+	public ServiceStatsFactory() {
+		super();
 	}
-	
-	@Override public ServiceStats createStatsObject(String name) {
-		return new ServiceStats(name, intervals);
+
+	@Override
+	public ServiceStats createStatsObject(String name) {
+		return new ServiceStats(name, getIntervals());
 	}
 }

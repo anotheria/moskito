@@ -9,6 +9,6 @@ public class ThresholdDefinition extends TieableDefinition {
 	/**
 	 * SerialVersionUID.
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 7313677605104437243L;
 
 }

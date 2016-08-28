@@ -2,6 +2,7 @@ package net.anotheria.moskito.core.dynamic;
 
 import net.anotheria.moskito.core.predefined.ServiceStatsCallHandler;
 import net.anotheria.moskito.core.predefined.ServiceStatsFactory;
+import net.anotheria.moskito.core.producers.IStats;
 
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
@@ -38,13 +39,13 @@ public class ProxyUtils {
 	 * @param interf interfaces.
 	 * @return a newly created proxy of type T.
 	 */
-	public static <T> T createInstance(T impl, String name, String category, String subsystem, IOnDemandCallHandler handler, IOnDemandStatsFactory statsFactory, Class<T> interf, Class<?>... additionalInterfaces){
+	public static <T> T createInstance(T impl, String name, String category, String subsystem, IOnDemandCallHandler handler, IOnDemandStatsFactory<? extends IStats> statsFactory, Class<T> interf, Class<?>... additionalInterfaces){
 		if (name==null)
 			name = extractName(interf);
 
 		Class<?>[] interfacesParameter = mergeInterfaces(interf, additionalInterfaces);
-		
-		MoskitoInvokationProxy proxy = new MoskitoInvokationProxy(
+		@SuppressWarnings ("unchecked")
+		final MoskitoInvokationProxy proxy = new MoskitoInvokationProxy(
 				impl,
 				handler,
 				statsFactory,
@@ -54,7 +55,8 @@ public class ProxyUtils {
 				interfacesParameter
 			);
 		
-		@SuppressWarnings("unchecked") T ret = (T) proxy.createProxy();
+		@SuppressWarnings("unchecked")
+		T ret = (T) proxy.createProxy();
 		return ret;
 	}
 

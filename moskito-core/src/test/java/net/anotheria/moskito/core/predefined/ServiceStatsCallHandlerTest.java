@@ -4,10 +4,6 @@ import net.anotheria.moskito.core.calltrace.CurrentlyTracedCall;
 import net.anotheria.moskito.core.calltrace.RunningTraceContainer;
 import net.anotheria.moskito.core.dynamic.IOnDemandCallHandler;
 import net.anotheria.moskito.core.dynamic.MoskitoInvokationProxy;
-import net.anotheria.moskito.core.predefined.ServiceStats;
-import net.anotheria.moskito.core.predefined.ServiceStatsCallHandler;
-import net.anotheria.moskito.core.predefined.ServiceStatsCallHandlerWithCallSysout;
-import net.anotheria.moskito.core.predefined.ServiceStatsFactory;
 import net.anotheria.moskito.core.producers.IStatsProducer;
 import org.junit.Test;
 

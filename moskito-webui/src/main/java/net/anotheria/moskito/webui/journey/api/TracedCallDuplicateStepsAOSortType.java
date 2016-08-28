@@ -8,11 +8,10 @@ import net.anotheria.util.sorter.SortType;
  *
  */
 public final class TracedCallDuplicateStepsAOSortType extends SortType{
-	
 	/**
-	 * 
+	 * SerialVersionUID.
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = -8350086202871936236L;
 	/**
 	 * Sort by call string.
 	 */

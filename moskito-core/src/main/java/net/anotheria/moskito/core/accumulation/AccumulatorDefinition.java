@@ -14,7 +14,7 @@ public class AccumulatorDefinition extends TieableDefinition {
 	/**
 	 * SerialVersionUID.
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 4618934362540708598L;
 
 	/**
 	 * Number of values to store.

@@ -51,7 +51,7 @@ public class UnitCountAO implements Serializable{
 	/**
 	 * SerialVersionUID.
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 7437022476087412550L;
 
 	/**
 	 * Name of the unit.

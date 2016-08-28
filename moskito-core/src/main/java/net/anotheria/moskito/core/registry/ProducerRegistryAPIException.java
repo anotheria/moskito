@@ -42,7 +42,8 @@ public class ProducerRegistryAPIException extends RuntimeException{
 	/**
 	 * SerialVersionUID.
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = -5682578338030207809L;
+
 
 	/**
 	 * Creates a new ProducerRegistryAPIException.

@@ -43,7 +43,7 @@ public class OnDemandStatsProducerException extends Exception{
 	/**
 	 * SerialVersionUID.
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1216109290592367525L;
 
 	/**
 	 * Public constructor.

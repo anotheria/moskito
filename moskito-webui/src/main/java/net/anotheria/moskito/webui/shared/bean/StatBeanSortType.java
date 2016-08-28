@@ -44,7 +44,7 @@ public class StatBeanSortType extends SortType{
 	/**
 	 * SerialVersionUID.
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 3099388955542098092L;
 	/**
 	 * Sort type limit for customer sort types.
 	 */

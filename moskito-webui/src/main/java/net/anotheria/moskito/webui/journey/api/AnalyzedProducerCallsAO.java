@@ -15,7 +15,7 @@ public class AnalyzedProducerCallsAO implements IComparable<AnalyzedProducerCall
 	/**
 	 * SerialVersionUID.
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = -1915426639945537782L;
 
 	/**
 	 * ProducerId.
