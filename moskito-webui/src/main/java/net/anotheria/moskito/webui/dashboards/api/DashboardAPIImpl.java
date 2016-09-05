@@ -14,6 +14,7 @@ import net.anotheria.moskito.webui.accumulators.api.MultilineChartAO;
 import net.anotheria.moskito.webui.gauges.api.GaugeAPI;
 import net.anotheria.moskito.webui.shared.api.AbstractMoskitoAPIImpl;
 import net.anotheria.moskito.webui.threshold.api.ThresholdAPI;
+import net.anotheria.util.StringUtils;
 import net.anotheria.util.sorter.DummySortType;
 
 import java.util.ArrayList;
@@ -96,6 +97,48 @@ public class DashboardAPIImpl extends AbstractMoskitoAPIImpl implements Dashboar
 	}
 
 	@Override
+	public void createDashboard(String dashboardName) throws APIException {
+		if (StringUtils.isEmpty(dashboardName))
+			throw new APIException("Wrong dashboard name: " + dashboardName);
+
+		MoskitoConfiguration config = MoskitoConfigurationHolder.getConfiguration();
+		DashboardsConfig dashboardsConfig = config.getDashboardsConfig();
+		DashboardConfig[] dashboards = dashboardsConfig.getDashboards();
+		List<DashboardConfig> newConfigList = new ArrayList<>();
+		if (dashboards != null) {
+			newConfigList.addAll(Arrays.asList(dashboards));
+		}
+		DashboardConfig dashboardConfig = new DashboardConfig();
+		dashboardConfig.setName(dashboardName);
+		newConfigList.add(dashboardConfig);
+		dashboardsConfig.setDashboards(newConfigList.toArray(new DashboardConfig[0]));
+	}
+
+	@Override
+	public void removeDashboard(String dashboardName) throws APIException {
+		if (StringUtils.isEmpty(dashboardName))
+			throw new APIException("Wrong dashboard name: " + dashboardName);
+
+		MoskitoConfiguration config = MoskitoConfigurationHolder.getConfiguration();
+		DashboardsConfig dashboardsConfig = config.getDashboardsConfig();
+		DashboardConfig[] dashboards = dashboardsConfig.getDashboards();
+		List<DashboardConfig> newConfigList = new ArrayList<>();
+		if (dashboards == null)
+			throw new APIException("Dashboard "+dashboardName+" not found.");
+
+		for (DashboardConfig dashboard : dashboards) {
+			if (!dashboardName.equals(dashboard.getName())) {
+				newConfigList.add(dashboard);
+			}
+		}
+
+		if (newConfigList.size() == dashboards.length)
+			throw new APIException("Dashboard "+dashboardName+" not found.");
+
+		dashboardsConfig.setDashboards(newConfigList.toArray(new DashboardConfig[0]));
+	}
+
+	@Override
 	public void removeChartFromDashboard(String dashboardName, int chartIndex) throws APIException {
 		DashboardConfig config = getDashboardConfig(dashboardName);
 		if (config == null)
@@ -116,6 +159,23 @@ public class DashboardAPIImpl extends AbstractMoskitoAPIImpl implements Dashboar
 		removeElementFromArray(cc_array, new_cc_array, chartIndex);
 		config.setCharts(new_cc_array);
 
+	}
+
+	@Override
+	public void addGaugeToDashboard(String dashboardName, String gaugeName) throws APIException {
+		DashboardConfig config = getDashboardConfig(dashboardName);
+		if (config == null)
+			throw new APIException("Can't find dashboard. Name: " + dashboardName);
+		if (StringUtils.isEmpty(dashboardName))
+			throw new APIException("Wrong gauge name: " + gaugeName);
+
+		String[] cc_array = config.getGauges();
+		int newSize = cc_array == null ? 1 : cc_array.length + 1;
+		String[] new_cc_array = new String[newSize];
+		System.arraycopy(cc_array, 0, new_cc_array, 0, cc_array.length);
+		new_cc_array[new_cc_array.length-1] = gaugeName;
+
+		config.setGauges(new_cc_array);
 	}
 
 	@Override
@@ -208,6 +268,7 @@ public class DashboardAPIImpl extends AbstractMoskitoAPIImpl implements Dashboar
 
 
 		DashboardAO ret = new DashboardAO();
+		ret.setName(config.getName());
 		if (config.getGauges()!=null && config.getGauges().length>0){
 			ret.setGauges(gaugeAPI.getGauges(config.getGauges()));
 		}
