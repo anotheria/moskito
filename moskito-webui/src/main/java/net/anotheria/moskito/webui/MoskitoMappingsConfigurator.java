@@ -8,11 +8,8 @@ import net.anotheria.moskito.webui.accumulators.action.CreateAccumulatorAction;
 import net.anotheria.moskito.webui.accumulators.action.DeleteAccumulatorAction;
 import net.anotheria.moskito.webui.accumulators.action.GenerateChartAction;
 import net.anotheria.moskito.webui.accumulators.action.ShowAccumulatorsAction;
-import net.anotheria.moskito.webui.dashboards.action.CreateDashboardAction;
-import net.anotheria.moskito.webui.dashboards.action.DashboardAddGaugeAction;
 import net.anotheria.moskito.webui.dashboards.action.DashboardRemoveChartAction;
 import net.anotheria.moskito.webui.dashboards.action.DashboardRemoveGaugeAction;
-import net.anotheria.moskito.webui.dashboards.action.DeleteDashboardAction;
 import net.anotheria.moskito.webui.dashboards.action.ShowDashboardAction;
 import net.anotheria.moskito.webui.gauges.action.ShowGaugesAction;
 import net.anotheria.moskito.webui.journey.action.AnalyzeJourneyAction;
@@ -261,13 +258,8 @@ public class MoskitoMappingsConfigurator implements ActionMappingsConfigurator{
 		mappings.addMapping("mskDashboard", ShowDashboardAction.class,
 				new ActionForward("success", "/net/anotheria/moskito/webui/dashboards/jsp/Dashboard.jsp")
 		);
-		mappings.addMapping("mskCreateDashboard", CreateDashboardAction.class);
-		mappings.addMapping("mskDeleteDashboard", DeleteDashboardAction.class);
-
-		mappings.addMapping("mskAddGaugeToDashboard", DashboardAddGaugeAction.class);
-		mappings.addMapping("mskDashboardRemoveGauge", DashboardRemoveGaugeAction.class);
-
 		mappings.addMapping("mskDashboardRemoveChart", DashboardRemoveChartAction.class);
+		mappings.addMapping("mskDashboardRemoveGauge", DashboardRemoveGaugeAction.class);
 
 
 
