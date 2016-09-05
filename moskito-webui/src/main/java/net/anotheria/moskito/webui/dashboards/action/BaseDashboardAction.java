@@ -51,9 +51,7 @@ public abstract class BaseDashboardAction extends BaseMoskitoUIAction {
 	 */
 	protected String getSelectedDashboard(HttpServletRequest req) throws APIException{
 		String dashboardName = req.getParameter("dashboard");
-		if (dashboardName!=null)
-			return dashboardName;
-		return getDashboardAPI().getDefaultDashboardName();
+		return dashboardName;
 	}
 
 

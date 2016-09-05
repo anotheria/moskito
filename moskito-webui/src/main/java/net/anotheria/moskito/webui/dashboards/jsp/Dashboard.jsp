@@ -36,7 +36,7 @@
             <!-- gauges js -->
             <script language="JavaScript">
                 var gauges = [];
-                <ano:iterate name="gauges" type="net.anotheria.moskito.webui.gauges.api.GaugeAO" id="gauge">
+                <ano:iterate name="gauges" type="net.anotheria.moskito.webui.gauges.bean.GaugeBean" id="gauge">
                 gauges.push({
                     "name": '${gauge.name}',
                     "caption": '${gauge.caption}',
@@ -66,7 +66,7 @@
             <!-- gauges -->
             <div class="dashboard-line">
                 <div class="row">
-                    <ano:iterate name="gauges" type="net.anotheria.moskito.webui.gauges.api.GaugeAO" id="gauge" indexId="index">
+                    <ano:iterate name="gauges" type="net.anotheria.moskito.webui.gauges.bean.GaugeBean" id="gauge" indexId="index">
                         <div class="col-lg-3 col-md-4 col-sm-6">
                             <div class="box gauge-item">
                                 <div class="box-title">
@@ -79,8 +79,12 @@
                                         <a href="#" data-target="#" data-toggle="dropdown"><i class="fa fa-cog"></i></a>
                                         <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dLabel">
                                             <li><a href="">Save</a></li>
-                                            <li><a href="#AddtoDashboard" data-toggle="modal" data-target="#AddtoDashboard">Add to Dashboard</a></li>
-                                            <li><a href="#gaugeDelete" data-toggle="modal" data-target="#gaugeDelete" onclick="setGaugeForRemoval('${gauge.caption}', '${index}')">Remove</a></li>
+                                            <ano:iF test="${requestScope.selectedDashboard == null && gauge.dashboardsToAdd != ''}">
+                                                <li><a onclick="addGauge('${gauge.caption}', '${gauge.name}', '${gauge.dashboardsToAdd}')" >Add to Dashboard</a></li>
+                                            </ano:iF>
+                                            <ano:iF test="${requestScope.selectedDashboard != null}">
+                                                <li><a onclick="removeGauge('${gauge.caption}', '${index}', '${requestScope.selectedDashboard}')">Remove</a></li>
+                                            </ano:iF>
                                         </ul>
                                     </div>
                                 </div>
@@ -163,7 +167,9 @@
                                 <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dLabel">
                                     <li><a href="" onclick="saveSvgAsPng(${index}+countGauges())">Save</a></li>
                                     <li><a href="#AddtoDashboard" data-toggle="modal" data-target="#AddtoDashboard">Add to Dashboard</a></li>
+                                    <ano:iF test="${requestScope.selectedDashboard != null}">
                                     <li><a href="#chartDelete" data-toggle="modal" data-target="#chartDelete" onclick="setChartForRemoval('${chart.caption}', '${index}')">Remove</a></li>
+                                    </ano:iF>
                                 </ul>
                             </div>
 <!--                            <div class="box-right-nav">
@@ -182,6 +188,13 @@
 
         </div>
 
+        <ano:iF test="${requestScope.selectedDashboard != null}">
+            <div class="dashboard-line">
+                <div class="row">
+                    <a href="#DeleteDashboard" data-toggle="modal" data-target="#DeleteDashboard" title="Delete Dashboard">Delete this Dashboard</a>
+                </div>
+            </div>
+        </ano:iF>
 
             <script type="text/javascript">
                 var chartEngineName = '${chartEngine}' || 'GOOGLE_CHART_API';
@@ -421,20 +434,100 @@
 
 </section>
 
-<div class="modal fade modal-danger" id="gaugeDelete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
-    <div class="modal-dialog">
+<%--------------------------------- Create/Delete dashboards -----------------------------------%>
+
+<div class="modal fade" id="CreateDashboard" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog modal-sm">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                <h4 class="modal-title">Remove this Gauge?</h4>
+                <h4 class="modal-title">Create Dashboard</h4>
             </div>
-            <div class="modal-footer text-center">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <a href="" onclick="location.href='mskDashboardRemoveGauge?gauge='+selectedGaugeForRemoval+'&dashboard=${selectedDashboard}'; return false" class="btn btn-danger">Remove</a>s
+            <div class="modal-body">
+                <label>Please type new Dashboard name</label>
+                <form name="CreateDashboard" action="mskCreateDashboard" method="GET">
+                    <div class="form-group">
+                        <input type="text" class="form-control" name="pName" placeholder="Name">
+                    </div>
+                    <div class="form-group text-right">
+                        <button class="btn btn-success" type="button" onclick="submit();">Create</button>
+                        <button class="btn btn-default" type="button" data-dismiss="modal">Cancel</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
 </div>
+
+<div class="modal fade" id="DeleteDashboard" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title">Delete Dashboard "${requestScope.selectedDashboard}" ? </h4>
+            </div>
+            <div class="modal-body">
+                <form name="CreateDashboard" action="mskDeleteDashboard" method="GET">
+                    <input type="hidden" class="form-control" name="pName" value="${requestScope.selectedDashboard}">
+                    <div class="form-group text-right">
+                        <button class="btn btn-success" type="button" onclick="submit();">Yes</button>
+                        <button class="btn btn-default" type="button" data-dismiss="modal">Cancel</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%----------------------------------------------------------------------------------------------%>
+
+<%------------------------------ Add/Delete elements to dashboard ------------------------------%>
+
+<div class="modal fade" id="addElementToDashboard" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title">Add <span id="selectedElement">someElement</span> to dashboards</h4>
+            </div>
+            <form id="addElementToDashboardAction" action="someAction" method="GET">
+                <div class="modal-body">
+                    <input id="selectedElementName" type="hidden" class="form-control" name="pName" value="test">
+                    <div id="dashboardsToSelect">
+                    </div>
+                </div>
+                <div class="modal-footer text-center">
+                    <button type="button" class="btn btn-success" onclick="submit();">Add</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade modal-danger" id="removeElementFromDashboard" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title" id="removeElementFromDashboardTitle">test</h4>
+            </div>
+
+            <div class="modal-body">
+                <form id="removeElementFromDashboardAction" action="someAction" method="GET">
+                    <input type="hidden" class="form-control" name="pName" value="${requestScope.selectedDashboard}">
+                    <input type="hidden" class="form-control" name="pElement" value="test" id="removeElement">
+                    <div class="form-group text-right">
+                        <button class="btn btn-danger" type="button" onclick="submit();">Yes</button>
+                        <button class="btn btn-default" type="button" data-dismiss="modal">Cancel</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%----------------------------------------------------------------------------------------------%>
 
 <div class="modal fade modal-danger" id="chartDelete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
     <div class="modal-dialog">
@@ -445,7 +538,7 @@
             </div>
             <div class="modal-footer text-center">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <a href="" onclick="location.href='mskDashboardRemoveChart?chart='+selectedChartForRemoval+'&dashboard=${selectedDashboard}'; return false" class="btn btn-danger">Remove</a>s
+                <a href="" onclick="location.href='mskDashboardRemoveChart?chart='+selectedChartForRemoval+'&dashboard=${selectedDashboard}'; return false" class="btn btn-danger">Remove</a>
             </div>
         </div>
     </div>
@@ -453,7 +546,6 @@
 
 <script language="JavaScript">
     var selectedChartForRemoval;
-    var selectedGaugeForRemoval;
 
     function setChartForRemoval(chartForRemovalCaption, chartForRemovalIndex){
         //alert(chartForRemoval);
@@ -461,10 +553,38 @@
         $(".selectedChartForRemoval").html(chartForRemovalCaption);
     }
 
-    function setGaugeForRemoval(gaugeForRemovalCaption, gaugeForRemovalIndex){
-        //alert(chartForRemoval);
-        selectedGaugeForRemoval = gaugeForRemovalIndex;
-        $(".selectedChartForRemoval").html(gaugeForRemovalCaption);
+    function removeGauge(gaugeForRemovalCaption, gaugeForRemovalIndex, dashboard){
+        $("#removeElementFromDashboardTitle").html("Remove gauge \"" + gaugeForRemovalCaption + "\" from dashboard \""+dashboard+"\"?");
+        $("#removeElementFromDashboardAction").attr("action", "mskDashboardRemoveGauge");
+        $("#removeElement").attr("value", gaugeForRemovalIndex);
+        $("#removeElementFromDashboard").modal('show');
+    }
+
+    function addGauge(gaugeCaption, gaugeName, dashboardsToAdd){
+
+        $("#selectedElement").html("gauge \"" + gaugeCaption + "\"");
+        $("#selectedElementName").attr("value", gaugeName);
+        $("#addElementToDashboardAction").attr("action", "mskAddGaugeToDashboard");
+
+        var dashboards = dashboardsToAdd.split(',');
+
+        var textToAdd = "";
+        for (var i = 0; i < dashboards.length; i++) {
+            textToAdd +=
+            "<div class=\"checkbox\"> " +
+                "<label>" +
+                    "<input type=\"checkbox\" checked name=\"pDashboards\" value=\""+dashboards[i]+"\">" + dashboards[i] +
+                "</label>" +
+            "</div>";
+
+        }
+        $("#dashboardsToSelect").html(textToAdd);
+
+        if (dashboards.length == 1) {
+            $("#addElementToDashboardAction").submit();
+        } else {
+            $("#addElementToDashboard").modal('show');
+        }
     }
 
 </script>
