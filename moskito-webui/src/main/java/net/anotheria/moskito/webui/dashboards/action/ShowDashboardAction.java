@@ -5,9 +5,13 @@ import net.anotheria.maf.action.ActionMapping;
 import net.anotheria.maf.bean.FormBean;
 import net.anotheria.moskito.core.config.dashboards.DashboardConfig;
 import net.anotheria.moskito.webui.dashboards.api.DashboardAO;
+import net.anotheria.moskito.webui.dashboards.api.DashboardChartAO;
+import net.anotheria.moskito.webui.gauges.api.GaugeAO;
+import net.anotheria.moskito.webui.threshold.api.ThresholdStatusAO;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 
 /**
  * This action renders a dashboard. If no dashboard is selected explicitly the first dashboard is taken.
@@ -36,26 +40,38 @@ public class ShowDashboardAction extends BaseDashboardAction {
 
 		DashboardConfig selectedDashboard = getDashboardAPI().getDashboardConfig(dashboardName);
 
-		if (selectedDashboard == null){
+		if (dashboardName != null && selectedDashboard == null){
 			return actionMapping.success();
 		}
 
-		DashboardAO dashboard = getDashboardAPI().getDashboard(dashboardName);
+		List<ThresholdStatusAO> thresholdStatusAOList;
+		List<GaugeAO> gaugeAOList;
+		List<DashboardChartAO> dashboardChartAOList;
+
+		if (dashboardName == null) {
+			thresholdStatusAOList = getThresholdAPI().getThresholdStatuses();
+			gaugeAOList = getGaugeAPI().getGauges();
+		} else {
+			DashboardAO dashboard = getDashboardAPI().getDashboard(dashboardName);
+			thresholdStatusAOList = dashboard.getThresholds();
+			gaugeAOList = dashboard.getGauges();
+		}
 
 		//now we definitely have a selected dashboard.
 		//prepare thresholds
-		if (dashboard.getThresholds()!=null && dashboard.getThresholds().size()>0){
-			request.setAttribute("thresholds", dashboard.getThresholds());
+		if (thresholdStatusAOList!=null && thresholdStatusAOList.size()>0){
+			request.setAttribute("thresholds", thresholdStatusAOList);
 			thresholdsPresent = true;
 		}
 
 		//prepare gauges
-		if (dashboard.getGauges()!=null && dashboard.getGauges().size()>0){
-			request.setAttribute("gauges", dashboard.getGauges());
+		if (gaugeAOList!=null && gaugeAOList.size()>0){
+			request.setAttribute("gauges", gaugeAOList);
 			gaugesPresent = true;
 		}
 
 		//prepare charts
+		DashboardAO dashboard = getDashboardAPI().getDashboard(getDashboardAPI().getDefaultDashboardName());
 		if (dashboard.getCharts()!=null && dashboard.getCharts().size()>0){
 			request.setAttribute("charts", dashboard.getCharts());
 			chartsPresent = true;

@@ -163,7 +163,9 @@
                                 <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dLabel">
                                     <li><a href="" onclick="saveSvgAsPng(${index}+countGauges())">Save</a></li>
                                     <li><a href="#AddtoDashboard" data-toggle="modal" data-target="#AddtoDashboard">Add to Dashboard</a></li>
+                                    <ano:iF test="${requestScope.selectedDashboard != null}">
                                     <li><a href="#chartDelete" data-toggle="modal" data-target="#chartDelete" onclick="setChartForRemoval('${chart.caption}', '${index}')">Remove</a></li>
+                                    </ano:iF>
                                 </ul>
                             </div>
 <!--                            <div class="box-right-nav">
@@ -182,6 +184,13 @@
 
         </div>
 
+        <ano:iF test="${requestScope.selectedDashboard != null}">
+            <div class="dashboard-line">
+                <div class="row">
+                    <a href="#DeleteDashboard" data-toggle="modal" data-target="#DeleteDashboard" title="Delete Dashboard">Delete this Dashboard</a>
+                </div>
+            </div>
+        </ano:iF>
 
             <script type="text/javascript">
                 var chartEngineName = '${chartEngine}' || 'GOOGLE_CHART_API';
@@ -420,6 +429,53 @@
     <jsp:include page="../../shared/jsp/Footer.jsp" flush="false"/>
 
 </section>
+
+<%--------------------------------- Create/Delete dashboards -----------------------------------%>
+
+<div class="modal fade" id="CreateDashboard" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title">Create Dashboard</h4>
+            </div>
+            <div class="modal-body">
+                <label>Please type new Dashboard name</label>
+                <form name="CreateDashboard" action="mskCreateDashboard" method="GET">
+                    <div class="form-group">
+                        <input type="text" class="form-control" name="pName" placeholder="Name">
+                    </div>
+                    <div class="form-group text-right">
+                        <button class="btn btn-success" type="button" onclick="submit();">Create</button>
+                        <button class="btn btn-default" type="button" data-dismiss="modal">Cancel</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="DeleteDashboard" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title">Delete Dashboard "${requestScope.selectedDashboard}" ? </h4>
+            </div>
+            <div class="modal-body">
+                <form name="CreateDashboard" action="mskDeleteDashboard" method="GET">
+                    <input type="hidden" class="form-control" name="pName" value="${requestScope.selectedDashboard}">
+                    <div class="form-group text-right">
+                        <button class="btn btn-success" type="button" onclick="submit();">Yes</button>
+                        <button class="btn btn-default" type="button" data-dismiss="modal">Cancel</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%----------------------------------------------------------------------------------------------%>
 
 <div class="modal fade modal-danger" id="gaugeDelete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
     <div class="modal-dialog">
