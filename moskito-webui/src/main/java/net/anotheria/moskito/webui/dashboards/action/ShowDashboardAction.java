@@ -10,6 +10,7 @@ import net.anotheria.moskito.webui.dashboards.api.DashboardChartAO;
 import net.anotheria.moskito.webui.gauges.api.GaugeAO;
 import net.anotheria.moskito.webui.gauges.bean.GaugeBean;
 import net.anotheria.moskito.webui.threshold.api.ThresholdStatusAO;
+import net.anotheria.util.StringUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -24,6 +25,13 @@ import java.util.List;
  */
 public class ShowDashboardAction extends BaseDashboardAction {
 
+	enum LastOperation {
+		dcr, //dashboard create
+		drm, // dashboard remove
+		gadd, // add gauge to dashboard
+		grm, // remove gauge from dashboard
+	}
+
 	@Override
 	public ActionCommand execute(ActionMapping actionMapping, FormBean formBean, HttpServletRequest request, HttpServletResponse response) throws Exception {
 
@@ -32,19 +40,15 @@ public class ShowDashboardAction extends BaseDashboardAction {
 		Boolean chartsPresent = false;
 		Boolean thresholdsPresent = false;
 
-
-
 		//set default values, allow to exit previously.
 		request.setAttribute("gaugesPresent", gaugesPresent);
 		request.setAttribute("chartsPresent", chartsPresent);
 		request.setAttribute("thresholdsPresent", thresholdsPresent);
 		request.setAttribute("showHelp", !(gaugesPresent || chartsPresent || thresholdsPresent));
 
-
 		DashboardConfig selectedDashboard = getDashboardAPI().getDashboardConfig(dashboardName);
-
-		if (dashboardName != null && selectedDashboard == null){
-			return actionMapping.success();
+		if (dashboardName != null && selectedDashboard == null) {
+			dashboardName = null;
 		}
 
 		List<ThresholdStatusAO> thresholdStatusAOList;
@@ -80,13 +84,13 @@ public class ShowDashboardAction extends BaseDashboardAction {
 			chartsPresent = true;
 		}
 
-
 		//maybe the value has changed.
 		request.setAttribute("gaugesPresent", gaugesPresent);
 		request.setAttribute("chartsPresent", chartsPresent);
 		request.setAttribute("thresholdsPresent", thresholdsPresent);
 		request.setAttribute("showHelp", !(gaugesPresent || chartsPresent || thresholdsPresent));
 
+		addInfoMessage(request);
 
 		return actionMapping.success();
 	}
@@ -120,4 +124,32 @@ public class ShowDashboardAction extends BaseDashboardAction {
 		return ret;
 	}
 
+	private void addInfoMessage(HttpServletRequest request) {
+		String lastOperation = request.getParameter("lo");
+
+		if (lastOperation == null)
+			return;
+		String dashboardName = request.getParameter("dashboard");
+		LastOperation lo = LastOperation.valueOf(lastOperation);
+		String infoMessage = "";
+		switch (lo) {
+			case dcr:
+				infoMessage = "Dashboard \"" + dashboardName + "\" has been created";
+				break;
+			case drm:
+				infoMessage = "Dashboard \"" + dashboardName + "\" has been deleted";
+				break;
+			case gadd:
+				infoMessage = "Gauge has been added to selected dashboards";
+				break;
+			case grm:
+				infoMessage = "Gauge has been removed from dashboard";
+				break;
+			default:
+				break;
+		}
+
+		if (!StringUtils.isEmpty(infoMessage))
+			request.setAttribute("infoMessage", infoMessage);
+	}
 }

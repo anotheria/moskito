@@ -14,6 +14,13 @@
         </div>
     </ano:equal>
 
+    <ano:present name="infoMessage">
+        <div class="alert alert-warning alert-dismissable">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+            ${requestScope.infoMessage}
+        </div>
+    </ano:present>
+
     <div class="content">
         <ano:equal name="thresholdsPresent" value="true">
             <!-- Thresholds start -->

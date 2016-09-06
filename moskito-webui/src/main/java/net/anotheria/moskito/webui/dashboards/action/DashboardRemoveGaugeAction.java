@@ -22,7 +22,8 @@ public class DashboardRemoveGaugeAction extends BaseDashboardAction{
 
 		getDashboardAPI().removeGaugeFromDashboard(dashboard, gauge);
 
-		response.sendRedirect("mskDashboard?dashboard="+dashboard);
-		return null;
+		return actionMapping.redirect()
+				.addParameter("dashboard", dashboard)
+				.addParameter("lo", ShowDashboardAction.LastOperation.grm.name());
 	}
 }

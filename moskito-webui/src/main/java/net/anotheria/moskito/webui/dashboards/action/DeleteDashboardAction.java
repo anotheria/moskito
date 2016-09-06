@@ -21,7 +21,8 @@ public class DeleteDashboardAction extends BaseDashboardAction {
 			getDashboardAPI().removeDashboard(dashboardName);
 		}
 
-		response.sendRedirect("mskDashboard");
-		return null;
+		return mapping.redirect()
+					.addParameter("dashboard", dashboardName)
+					.addParameter("lo", ShowDashboardAction.LastOperation.drm.name());
 	}
 }

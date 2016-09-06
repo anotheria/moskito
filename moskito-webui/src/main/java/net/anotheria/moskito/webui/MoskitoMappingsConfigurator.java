@@ -261,11 +261,11 @@ public class MoskitoMappingsConfigurator implements ActionMappingsConfigurator{
 		mappings.addMapping("mskDashboard", ShowDashboardAction.class,
 				new ActionForward("success", "/net/anotheria/moskito/webui/dashboards/jsp/Dashboard.jsp")
 		);
-		mappings.addMapping("mskCreateDashboard", CreateDashboardAction.class);
-		mappings.addMapping("mskDeleteDashboard", DeleteDashboardAction.class);
+		mappings.addMapping("mskCreateDashboard", CreateDashboardAction.class, new CommandRedirect("redirect", "mskDashboard"));
+		mappings.addMapping("mskDeleteDashboard", DeleteDashboardAction.class, new CommandRedirect("redirect", "mskDashboard"));
 
-		mappings.addMapping("mskAddGaugeToDashboard", DashboardAddGaugeAction.class);
-		mappings.addMapping("mskDashboardRemoveGauge", DashboardRemoveGaugeAction.class);
+		mappings.addMapping("mskAddGaugeToDashboard", DashboardAddGaugeAction.class, new CommandRedirect("redirect", "mskDashboard"));
+		mappings.addMapping("mskDashboardRemoveGauge", DashboardRemoveGaugeAction.class, new CommandRedirect("redirect", "mskDashboard"));
 
 		mappings.addMapping("mskDashboardRemoveChart", DashboardRemoveChartAction.class);
 

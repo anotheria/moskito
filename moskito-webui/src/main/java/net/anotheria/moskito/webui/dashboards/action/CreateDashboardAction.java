@@ -21,7 +21,8 @@ public class CreateDashboardAction extends BaseDashboardAction {
 			getDashboardAPI().createDashboard(dashboardName);
 		}
 
-		response.sendRedirect("mskDashboard?dashboard="+dashboardName);
-		return null;
+		return mapping.redirect()
+				.addParameter("dashboard", dashboardName)
+				.addParameter("lo", ShowDashboardAction.LastOperation.dcr.name());
 	}
 }

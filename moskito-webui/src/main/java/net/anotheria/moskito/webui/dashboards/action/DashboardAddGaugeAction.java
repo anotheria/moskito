@@ -21,7 +21,7 @@ public class DashboardAddGaugeAction extends BaseDashboardAction {
 			getDashboardAPI().addGaugeToDashboard(dashboard, gaugeName);
 		}
 
-		response.sendRedirect("mskDashboard");
-		return mapping.success();
+		return mapping.redirect()
+				.addParameter("lo", ShowDashboardAction.LastOperation.gadd.name());
 	}
 }
