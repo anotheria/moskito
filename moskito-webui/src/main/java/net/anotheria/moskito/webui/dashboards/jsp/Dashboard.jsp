@@ -96,7 +96,7 @@
                                     <div class="box-right-nav dropdown">
                                         <a href="#" data-target="#" data-toggle="dropdown"><i class="fa fa-cog"></i></a>
                                         <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dLabel">
-                                            <li><a href="" onclick="saveSvgAsPng(event, ${index})">Save</a></li>
+                                            <li><a href="" onclick="saveGaugesSvgAsPng(event, ${index}, ${index})">Save</a></li>
                                             <ano:iF test="${requestScope.selectedDashboard == null && gauge.dashboardsToAdd != ''}">
                                                 <li><a onclick="addGauge('${gauge.caption}', '${gauge.name}', '${gauge.dashboardsToAdd}')" >Add to Dashboard</a></li>
                                             </ano:iF>
@@ -119,7 +119,7 @@
                 <div class="dashboard-line-footer text-right">
                     <ul class="dashboard-line-nav-box list-unstyled">
                         <li>
-                            <a onclick="saveGuagesSvgAsPng()" class="save_as"><i class="fa fa-download"></i> Save all Gauges</a>
+                            <a onclick="saveGaugesSvgAsPng(event, 0, 10000)" class="save_as"><i class="fa fa-download"></i> Save all Gauges</a>
                         </li>
                     </ul>
                 </div>
@@ -244,7 +244,10 @@
 
         <!-- Gauges -->
         <script type="text/javascript">
-             function saveGuagesSvgAsPng() {
+             function saveGaugesSvgAsPng(event, from, to) {
+
+                 event.preventDefault();
+                 event.stopPropagation();
 
 //                 var xValBegin= 100, xStep = 200;
                  var guageWidth = 144,
@@ -258,14 +261,17 @@
                  var allSvgsCode = '<svg xmlns="http://www.w3.org/2000/svg" class="gauge1" width="800" height="244" style="background-color: #FFFFFF;">';
 
 
-                var svgs = document.getElementsByClassName("gauge");
-                 for(var i = 0; i < svgs.length;i++) {
+                 var svgs = document.getElementsByClassName("gauge");
+
+                 to = to < svgs.length ? to : svgs.length - 1;
+                 var gaugeCount = to - from + 1;
+                 for(var i = from; i <= to;i++) {
                      var svgOrigin =svgs[i];
 
                      //copy svg chart
                      var svg = svgOrigin.cloneNode(true);
 
-                     svg.setAttribute("x", marginLeft + i*(guageWidth+indent));
+                     svg.setAttribute("x", marginLeft + (i-from)*(guageWidth+indent));
                      svg.setAttribute("y", marginTop);
                      svg.setAttribute("style", "background-color: #FFFFFF;");
 
@@ -316,8 +322,8 @@
 
                  var svgData = allSvgsCode;
                  var canvas = document.createElement("canvas");
-                 canvas.width  = marginLeft + marginRight+svgs.length*guageHeight+(svgs.length-1)*indent;
-                 canvas.height = guageHeight + marginBottom+marginTop;
+                 canvas.width  = marginLeft + marginRight + gaugeCount * guageWidth + (gaugeCount-1) * indent;
+                 canvas.height = guageHeight + marginBottom + marginTop;
                  var ctx = canvas.getContext("2d");
                  ctx.fillStyle="white";
                  ctx.fill();
