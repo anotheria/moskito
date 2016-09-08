@@ -537,6 +537,12 @@ table td.wrap,
     text-decoration: none;
 }
 
+.threshold-body {
+    position: absolute;
+    right: 0px;
+    top: 3px;
+}
+
 .box-right-nav {
     float: right;
     font-size: 16px;

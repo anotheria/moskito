@@ -10,6 +10,7 @@ import net.anotheria.moskito.webui.dashboards.api.DashboardChartAO;
 import net.anotheria.moskito.webui.gauges.api.GaugeAO;
 import net.anotheria.moskito.webui.gauges.bean.GaugeBean;
 import net.anotheria.moskito.webui.threshold.api.ThresholdStatusAO;
+import net.anotheria.moskito.webui.threshold.bean.ThresholdStatusBean;
 import net.anotheria.util.StringUtils;
 
 import javax.servlet.http.HttpServletRequest;
@@ -30,6 +31,8 @@ public class ShowDashboardAction extends BaseDashboardAction {
 		drm, // dashboard remove
 		gadd, // add gauge to dashboard
 		grm, // remove gauge from dashboard
+		tadd, // add threshold to dashboard
+		trm, // remove threshold from dashboard
 	}
 
 	@Override
@@ -51,16 +54,16 @@ public class ShowDashboardAction extends BaseDashboardAction {
 			dashboardName = null;
 		}
 
-		List<ThresholdStatusAO> thresholdStatusAOList;
+		List<ThresholdStatusBean> thresholdStatusAOList;
 		List<GaugeBean> gaugeAOList;
 		List<DashboardChartAO> dashboardChartAOList;
 
 		if (dashboardName == null) {
-			thresholdStatusAOList = getThresholdAPI().getThresholdStatuses();
+			thresholdStatusAOList = getThresholdBeans(getThresholdAPI().getThresholdStatuses());
 			gaugeAOList = getGaugeBeans(getGaugeAPI().getGauges());
 		} else {
 			DashboardAO dashboard = getDashboardAPI().getDashboard(dashboardName);
-			thresholdStatusAOList = dashboard.getThresholds();
+			thresholdStatusAOList = getThresholdBeans(dashboard.getThresholds());
 			gaugeAOList = getGaugeBeans(dashboard.getGauges());
 		}
 
@@ -112,13 +115,37 @@ public class ShowDashboardAction extends BaseDashboardAction {
 		for (GaugeAO gaugeAO : gaugeAOList) {
 			String dashboardNames = "";
 			for(DashboardAO dashboardAO: dashboardAOList) {
-				if (dashboardAO.getGauges() != null && !dashboardAO.getGauges().contains(gaugeAO)) {
+				if (dashboardAO.getGauges() == null || !dashboardAO.getGauges().contains(gaugeAO)) {
 					dashboardNames += dashboardAO.getName()+",";
 				}
 			}
 			if (dashboardNames.length() > 0)
 				dashboardNames = dashboardNames.substring(0, dashboardNames.length()-1);
 			ret.add(new GaugeBean(gaugeAO, dashboardNames));
+		}
+
+		return ret;
+	}
+
+	private List<ThresholdStatusBean> getThresholdBeans(List<ThresholdStatusAO> thresholdStatusAOList) throws APIException {
+		List<ThresholdStatusBean> ret = new ArrayList<>();
+		if (thresholdStatusAOList == null || thresholdStatusAOList.size() == 0)
+			return ret;
+
+		List<DashboardAO> dashboardAOList = new ArrayList<>();
+		for(String name : getDashboardAPI().getDashboardNames()) {
+			dashboardAOList.add(getDashboardAPI().getDashboard(name));
+		}
+		for (ThresholdStatusAO thresholdStatusAO : thresholdStatusAOList) {
+			String dashboardNames = "";
+			for(DashboardAO dashboardAO: dashboardAOList) {
+				if (dashboardAO.getThresholds() == null || !dashboardAO.getThresholds().contains(thresholdStatusAO)) {
+					dashboardNames += dashboardAO.getName()+",";
+				}
+			}
+			if (dashboardNames.length() > 0)
+				dashboardNames = dashboardNames.substring(0, dashboardNames.length()-1);
+			ret.add(new ThresholdStatusBean(thresholdStatusAO, dashboardNames));
 		}
 
 		return ret;
@@ -144,6 +171,12 @@ public class ShowDashboardAction extends BaseDashboardAction {
 				break;
 			case grm:
 				infoMessage = "Gauge has been removed from dashboard";
+				break;
+			case tadd:
+				infoMessage = "Threshold has been added to dashboard";
+				break;
+			case trm:
+				infoMessage = "Threshold has been removed from dashboard";
 				break;
 			default:
 				break;

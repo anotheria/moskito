@@ -172,21 +172,31 @@ public class DashboardAPIImpl extends AbstractMoskitoAPIImpl implements Dashboar
 		String[] cc_array = config.getGauges();
 		int newSize = cc_array == null ? 1 : cc_array.length + 1;
 		String[] new_cc_array = new String[newSize];
-		System.arraycopy(cc_array, 0, new_cc_array, 0, cc_array.length);
+		if (cc_array != null)
+			System.arraycopy(cc_array, 0, new_cc_array, 0, cc_array.length);
 		new_cc_array[new_cc_array.length-1] = gaugeName;
 
 		config.setGauges(new_cc_array);
 	}
 
 	@Override
-	public void removeGaugeFromDashboard(String dashboardName, int gaugeIndex) throws APIException {
+	public void removeGaugeFromDashboard(String dashboardName, String gaugeName) throws APIException {
 		DashboardConfig config = getDashboardConfig(dashboardName);
 		if (config == null)
-			return;
+			throw new APIException("Can't find dashboard. Name: " + dashboardName);
+		String[] cc_array = config.getGauges();
+		int gaugeIndex = -1;
+		int count = 0;
+		for (String name : cc_array) {
+			if (name.equals(gaugeName)) {
+				gaugeIndex = count;
+				break;
+			}
+			count++;
+		}
 		if (gaugeIndex==-1){
 			return;
 		}
-		String[] cc_array = config.getGauges();
 		if (cc_array == null || cc_array.length<gaugeIndex+1)
 			return;
 		String[] new_cc_array = new String[cc_array.length-1];
@@ -200,6 +210,54 @@ public class DashboardAPIImpl extends AbstractMoskitoAPIImpl implements Dashboar
 		config.setGauges(new_cc_array);
 	}
 
+	@Override
+	public void addThresholdToDashboard(String dashboardName, String thresholdName) throws APIException {
+		DashboardConfig config = getDashboardConfig(dashboardName);
+		if (config == null)
+			throw new APIException("Can't find dashboard. Name: " + dashboardName);
+		if (StringUtils.isEmpty(dashboardName))
+			throw new APIException("Wrong threshold name: " + thresholdName);
+
+		String[] cc_array = config.getThresholds();
+		int newSize = cc_array == null ? 1 : cc_array.length + 1;
+		String[] new_cc_array = new String[newSize];
+		if (cc_array != null)
+			System.arraycopy(cc_array, 0, new_cc_array, 0, cc_array.length);
+		new_cc_array[new_cc_array.length-1] = thresholdName;
+
+		config.setThresholds(new_cc_array);
+	}
+
+	@Override
+	public void removeThresholdFromDashboard(String dashboardName, String thresholdName) throws APIException {
+		DashboardConfig config = getDashboardConfig(dashboardName);
+		if (config == null)
+			throw new APIException("Can't find dashboard. Name: " + dashboardName);
+		String[] cc_array = config.getThresholds();
+		int gaugeIndex = -1;
+		int count = 0;
+		for (String name : cc_array) {
+			if (name.equals(thresholdName)) {
+				gaugeIndex = count;
+				break;
+			}
+			count++;
+		}
+		if (gaugeIndex==-1){
+			return;
+		}
+		if (cc_array == null || cc_array.length<gaugeIndex+1)
+			return;
+		String[] new_cc_array = new String[cc_array.length-1];
+		if (cc_array.length == 1){
+			//source had only one element
+			config.setThresholds(new_cc_array);
+			return;
+		}
+
+		removeElementFromArray(cc_array, new_cc_array, gaugeIndex);
+		config.setThresholds(new_cc_array);
+	}
 
 	private static <T> T removeElementFromArray(T sourceArray[], T destArray, int index){
 		//last element

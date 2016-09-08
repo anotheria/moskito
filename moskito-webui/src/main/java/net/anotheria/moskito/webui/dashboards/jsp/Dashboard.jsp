@@ -26,11 +26,23 @@
             <!-- Thresholds start -->
             <div class="dashboard-line">
                 <div class="row">
-                    <ano:iterate name="thresholds" type="net.anotheria.moskito.webui.threshold.api.ThresholdStatusAO" id="threshold">
-                        <div class="col-lg-2 col-md-3 col-sm-4">
-                            <div class="box threshold-item tooltip-bottom" title="${threshold.name} ${threshold.value}">
+                    <ano:iterate name="thresholds" type="net.anotheria.moskito.webui.threshold.bean.ThresholdStatusBean" id="threshold">
+                        <div class="col-lg-3 col-md-3 col-sm-4">
+                            <div class="box threshold-item tooltip-bottom">
                                 <i class="status status-${threshold.colorCode}"></i>
                                 <span class="threshold-title">${threshold.name}&nbsp;${threshold.value}</span>
+                                <div class="box-right-nav dropdown threshold-body">
+                                    <a href="#" data-target="#" data-toggle="dropdown"><i class="fa fa-cog"></i></a>
+                                    <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dLabel">
+                                        <li><a href="">Save</a></li>
+                                        <ano:iF test="${requestScope.selectedDashboard == null && threshold.dashboardsToAdd != ''}">
+                                            <li><a onclick="addTresholds('${threshold.name}', '${threshold.dashboardsToAdd}')" >Add to Dashboard</a></li>
+                                        </ano:iF>
+                                        <ano:iF test="${requestScope.selectedDashboard != null}">
+                                            <li><a onclick="removeTresholds('${threshold.name}', '${requestScope.selectedDashboard}')">Remove</a></li>
+                                        </ano:iF>
+                                    </ul>
+                                </div>
                             </div>
                         </div>
                     </ano:iterate>
@@ -90,7 +102,7 @@
                                                 <li><a onclick="addGauge('${gauge.caption}', '${gauge.name}', '${gauge.dashboardsToAdd}')" >Add to Dashboard</a></li>
                                             </ano:iF>
                                             <ano:iF test="${requestScope.selectedDashboard != null}">
-                                                <li><a onclick="removeGauge('${gauge.caption}', '${index}', '${requestScope.selectedDashboard}')">Remove</a></li>
+                                                <li><a onclick="removeGauge('${gauge.caption}', '${gauge.name}', '${requestScope.selectedDashboard}')">Remove</a></li>
                                             </ano:iF>
                                         </ul>
                                     </div>
@@ -560,10 +572,10 @@
         $(".selectedChartForRemoval").html(chartForRemovalCaption);
     }
 
-    function removeGauge(gaugeForRemovalCaption, gaugeForRemovalIndex, dashboard){
+    function removeGauge(gaugeForRemovalCaption, gaugeForRemovalName, dashboard){
         $("#removeElementFromDashboardTitle").html("Remove gauge \"" + gaugeForRemovalCaption + "\" from dashboard \""+dashboard+"\"?");
         $("#removeElementFromDashboardAction").attr("action", "mskDashboardRemoveGauge");
-        $("#removeElement").attr("value", gaugeForRemovalIndex);
+        $("#removeElement").attr("value", gaugeForRemovalName);
         $("#removeElementFromDashboard").modal('show');
     }
 
@@ -594,6 +606,38 @@
         }
     }
 
+    function removeTresholds(thresholdName, dashboard) {
+        $("#removeElementFromDashboardTitle").html("Remove threshold \"" + thresholdName + "\" from dashboard \""+dashboard+"\"?");
+        $("#removeElementFromDashboardAction").attr("action", "mskDashboardRemoveThreshold");
+        $("#removeElement").attr("value", thresholdName);
+        $("#removeElementFromDashboard").modal('show');
+    }
+
+    function addTresholds(thresholdName, dashboardsToAdd) {
+        $("#selectedElement").html("threshold \"" + thresholdName + "\"");
+        $("#selectedElementName").attr("value", thresholdName);
+        $("#addElementToDashboardAction").attr("action", "mskAddThresholdToDashboard");
+
+        var dashboards = dashboardsToAdd.split(',');
+
+        var textToAdd = "";
+        for (var i = 0; i < dashboards.length; i++) {
+            textToAdd +=
+                    "<div class=\"checkbox\"> " +
+                    "<label>" +
+                    "<input type=\"checkbox\" checked name=\"pDashboards\" value=\""+dashboards[i]+"\">" + dashboards[i] +
+                    "</label>" +
+                    "</div>";
+
+        }
+        $("#dashboardsToSelect").html(textToAdd);
+
+        if (dashboards.length == 1) {
+            $("#addElementToDashboardAction").submit();
+        } else {
+            $("#addElementToDashboard").modal('show');
+        }
+    }
 </script>
 
 </body>
