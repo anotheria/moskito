@@ -31,27 +31,27 @@ public class DashboardsAPITest {
 
 
 	@Test public void ensureRemoveChartFromDashboardDoesntFailOnErrors() throws APIException{
-		api.removeChartFromDashboard(null, 0);
-		api.removeChartFromDashboard("not existing", 0);
-		api.removeChartFromDashboard("testDashboard", -1);
-		api.removeChartFromDashboard("testDashboard", 1000);
+		api.removeChartFromDashboard(null, "not existing");
+		api.removeChartFromDashboard("not existing", null);
+		api.removeChartFromDashboard("testDashboard", "not existing");
+		api.removeChartFromDashboard("testDashboard", null);
 
 	}
 
 	@Test
 	public void removeChartFromDashboardRemoveFirstElement() throws APIException{
 
-		api.removeChartFromDashboard("testDashboard", 0);
+		api.removeChartFromDashboard("testDashboard", "A");
 		ensureTestWorked(4, "A");
 	}
 
 	@Test public void removeChartFromDashboardRemoveLastElement() throws APIException{
-		api.removeChartFromDashboard("testDashboard", 4);
+		api.removeChartFromDashboard("testDashboard", "E");
 		ensureTestWorked(4, "E");
 	}
 
 	@Test public void removeChartFromDashboardRemoveMiddleElement() throws APIException{
-		api.removeChartFromDashboard("testDashboard", 2);
+		api.removeChartFromDashboard("testDashboard", "C");
 		ensureTestWorked(4, "C");
 	}
 

@@ -17,14 +17,13 @@ public class DashboardRemoveChartAction extends BaseDashboardAction{
 	@Override
 	public ActionCommand execute(ActionMapping actionMapping, FormBean formBean, HttpServletRequest request, HttpServletResponse response) throws Exception {
 
-		int chart = Integer.parseInt(request.getParameter("chart"));
-		String dashboard = request.getParameter("dashboard");
+		String elementName = request.getParameter("pElement");
+		String dashboard = request.getParameter("pName");
 
-		System.out.println("Remove "+chart+ " from "+dashboard);
+		getDashboardAPI().removeChartFromDashboard(dashboard, elementName);
 
-		getDashboardAPI().removeChartFromDashboard(dashboard, chart);
-
-		response.sendRedirect("mskDashboard?dashboard="+dashboard);
-		return null;
+		return actionMapping.redirect()
+				.addParameter("dashboard", dashboard)
+				.addParameter("lo", ShowDashboardAction.LastOperation.crm.name());
 	}
 }

@@ -35,8 +35,6 @@ public interface DashboardAPI extends API, Service{
 
 	void removeDashboard(String dashboardName) throws APIException;
 
-	void removeChartFromDashboard(String dashboardName, int chartIndex) throws APIException;
-
 	void addGaugeToDashboard(String dashboardName, String gaugeName) throws APIException;
 
 	void removeGaugeFromDashboard(String dashboardName, String gaugeName) throws APIException;
@@ -44,5 +42,9 @@ public interface DashboardAPI extends API, Service{
 	void addThresholdToDashboard(String dashboardName, String thresholdName) throws APIException;
 
 	void removeThresholdFromDashboard(String dashboardName, String thresholdName) throws APIException;
+
+	void addChartToDashboard(String dashboardName, String gaugeName) throws APIException;
+
+	void removeChartFromDashboard(String dashboardName, String gaugeName) throws APIException;
 
 }

@@ -151,7 +151,7 @@
                 var multipleGraphData = [];
                 var multipleGraphNames = [];
                 var multipleGraphColors = [];
-                <ano:iterate id="chart" name="charts" type="net.anotheria.moskito.webui.dashboards.api.DashboardChartAO">
+                <ano:iterate id="chart" name="charts" type="net.anotheria.moskito.webui.dashboards.bean.DashboardChartBean">
                 <ano:define id="singleChart" toScope="page" scope="page" name="chart" property="chart" type="net.anotheria.moskito.webui.accumulators.api.MultilineChartAO"/>
                 multipleGraphData.push([
                     <ano:iterate name="singleChart" property="data" id="value" indexId="i">
@@ -172,7 +172,7 @@
         <div class="dashboard-line">
 
             <div class="row">
-                <ano:iterate id="chart" name="charts" type="net.anotheria.moskito.webui.dashboards.api.DashboardChartAO" indexId="index">
+                <ano:iterate id="chart" name="charts" type="net.anotheria.moskito.webui.dashboards.bean.DashboardChartBean" indexId="index">
                 <div class="col-lg-6 col-md-12">
                     <div class="box">
                         <div class="box-title">
@@ -185,9 +185,11 @@
                                 <a href="#" data-target="#" data-toggle="dropdown"><i class="fa fa-cog"></i></a>
                                 <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dLabel">
                                     <li><a href="" onclick="saveSvgAsPng(${index}+countGauges())">Save</a></li>
-                                    <li><a href="#AddtoDashboard" data-toggle="modal" data-target="#AddtoDashboard">Add to Dashboard</a></li>
+                                    <ano:iF test="${requestScope.selectedDashboard == null && chart.dashboardsToAdd != ''}">
+                                        <li><a onclick="addChart('${chart.caption}','${chart.dashboardsToAdd}')">Add to Dashboard</a></li>
+                                    </ano:iF>
                                     <ano:iF test="${requestScope.selectedDashboard != null}">
-                                    <li><a href="#chartDelete" data-toggle="modal" data-target="#chartDelete" onclick="setChartForRemoval('${chart.caption}', '${index}')">Remove</a></li>
+                                        <li><a onclick="removeChart('${chart.caption}', '${requestScope.selectedDashboard}')">Remove</a></li>
                                     </ano:iF>
                                 </ul>
                             </div>
@@ -564,12 +566,39 @@
 </div>
 
 <script language="JavaScript">
-    var selectedChartForRemoval;
 
-    function setChartForRemoval(chartForRemovalCaption, chartForRemovalIndex){
-        //alert(chartForRemoval);
-        selectedChartForRemoval = chartForRemovalIndex;
-        $(".selectedChartForRemoval").html(chartForRemovalCaption);
+    function removeChart(chartCaption, dashboard) {
+        $("#removeElementFromDashboardTitle").html("Remove chart \"" + chartCaption + "\" from dashboard \""+dashboard+"\"?");
+        $("#removeElementFromDashboardAction").attr("action", "mskDashboardRemoveChart");
+        $("#removeElement").attr("value", chartCaption);
+        $("#removeElementFromDashboard").modal('show');
+    }
+
+    function addChart(chartCaption, dashboardsToAdd) {
+
+        $("#selectedElement").html("chart \"" + chartCaption + "\"");
+        $("#selectedElementName").attr("value", chartCaption);
+        $("#addElementToDashboardAction").attr("action", "mskAddChartToDashboard");
+
+        var dashboards = dashboardsToAdd.split(',');
+
+        var textToAdd = "";
+        for (var i = 0; i < dashboards.length; i++) {
+            textToAdd +=
+                    "<div class=\"checkbox\"> " +
+                    "<label>" +
+                    "<input type=\"checkbox\" checked name=\"pDashboards\" value=\""+dashboards[i]+"\">" + dashboards[i] +
+                    "</label>" +
+                    "</div>";
+
+        }
+        $("#dashboardsToSelect").html(textToAdd);
+
+        if (dashboards.length == 1) {
+            $("#addElementToDashboardAction").submit();
+        } else {
+            $("#addElementToDashboard").modal('show');
+        }
     }
 
     function removeGauge(gaugeForRemovalCaption, gaugeForRemovalName, dashboard){

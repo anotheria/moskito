@@ -9,6 +9,7 @@ import net.anotheria.moskito.webui.accumulators.action.DeleteAccumulatorAction;
 import net.anotheria.moskito.webui.accumulators.action.GenerateChartAction;
 import net.anotheria.moskito.webui.accumulators.action.ShowAccumulatorsAction;
 import net.anotheria.moskito.webui.dashboards.action.CreateDashboardAction;
+import net.anotheria.moskito.webui.dashboards.action.DashboardAddChartAction;
 import net.anotheria.moskito.webui.dashboards.action.DashboardAddGaugeAction;
 import net.anotheria.moskito.webui.dashboards.action.DashboardAddThresholdAction;
 import net.anotheria.moskito.webui.dashboards.action.DashboardRemoveChartAction;
@@ -272,7 +273,8 @@ public class MoskitoMappingsConfigurator implements ActionMappingsConfigurator{
 		mappings.addMapping("mskAddThresholdToDashboard", DashboardAddThresholdAction.class, new CommandRedirect("redirect", "mskDashboard"));
 		mappings.addMapping("mskDashboardRemoveThreshold", DashboardRemoveThresholdAction.class, new CommandRedirect("redirect", "mskDashboard"));
 
-		mappings.addMapping("mskDashboardRemoveChart", DashboardRemoveChartAction.class);
+		mappings.addMapping("mskAddChartToDashboard", DashboardAddChartAction.class, new CommandRedirect("redirect", "mskDashboard"));
+		mappings.addMapping("mskDashboardRemoveChart", DashboardRemoveChartAction.class, new CommandRedirect("redirect", "mskDashboard"));
 
 
 

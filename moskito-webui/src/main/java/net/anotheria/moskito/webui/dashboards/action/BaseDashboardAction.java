@@ -35,8 +35,11 @@ public abstract class BaseDashboardAction extends BaseMoskitoUIAction {
 
 		//prepare list of dashboards
 		List<String> names = getDashboardAPI().getDashboardNames();
+		String defaultDashboard = getDashboardAPI().getDefaultDashboardName();
 		for (String name : names){
-			dashboardsMenu.add(new DashboardMenuItemBean(name));
+			if (!defaultDashboard.equals(name)) {
+				dashboardsMenu.add(new DashboardMenuItemBean(name));
+			}
 		}
 
 		req.setAttribute("dashboardsMenuItems", dashboardsMenu);

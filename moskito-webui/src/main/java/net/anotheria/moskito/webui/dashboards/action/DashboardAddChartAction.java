@@ -12,17 +12,17 @@ import javax.servlet.http.HttpServletResponse;
  * This action creates a new accumulator.
  * @author lrosenberg
  */
-public class DashboardAddThresholdAction extends BaseDashboardAction {
+public class DashboardAddChartAction extends BaseDashboardAction {
 	@Override
 	public ActionCommand execute(ActionMapping mapping, FormBean formBean, HttpServletRequest request, HttpServletResponse response) throws Exception {
-		String gaugeName = request.getParameter("pName");
+		String chartName = request.getParameter("pName");
 		String[] dashboardsName = request.getParameterValues("pDashboards");
 
 		for(String dashboard : dashboardsName) {
-			getDashboardAPI().addThresholdToDashboard(dashboard, gaugeName);
+			getDashboardAPI().addChartToDashboard(dashboard, chartName);
 		}
 
-		CommandRedirect commandRedirect =  mapping.redirect().addParameter("lo", ShowDashboardAction.LastOperation.tadd.name());
+		CommandRedirect commandRedirect =  mapping.redirect().addParameter("lo", ShowDashboardAction.LastOperation.cadd.name());
 		if (dashboardsName.length == 1) {
 			commandRedirect = commandRedirect.addParameter("dashboard", dashboardsName[0]);
 		}

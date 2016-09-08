@@ -99,7 +99,7 @@ public class DashboardAPIImpl extends AbstractMoskitoAPIImpl implements Dashboar
 	@Override
 	public void createDashboard(String dashboardName) throws APIException {
 		if (StringUtils.isEmpty(dashboardName))
-			throw new APIException("Wrong dashboard name: " + dashboardName);
+			return;
 
 		MoskitoConfiguration config = MoskitoConfigurationHolder.getConfiguration();
 		DashboardsConfig dashboardsConfig = config.getDashboardsConfig();
@@ -117,7 +117,7 @@ public class DashboardAPIImpl extends AbstractMoskitoAPIImpl implements Dashboar
 	@Override
 	public void removeDashboard(String dashboardName) throws APIException {
 		if (StringUtils.isEmpty(dashboardName))
-			throw new APIException("Wrong dashboard name: " + dashboardName);
+			return;
 
 		MoskitoConfiguration config = MoskitoConfigurationHolder.getConfiguration();
 		DashboardsConfig dashboardsConfig = config.getDashboardsConfig();
@@ -139,35 +139,12 @@ public class DashboardAPIImpl extends AbstractMoskitoAPIImpl implements Dashboar
 	}
 
 	@Override
-	public void removeChartFromDashboard(String dashboardName, int chartIndex) throws APIException {
-		DashboardConfig config = getDashboardConfig(dashboardName);
-		if (config == null)
-			return;
-		if (chartIndex==-1){
-			return;
-		}
-		ChartConfig[] cc_array = config.getCharts();
-		if (cc_array == null || cc_array.length<chartIndex+1)
-			return;
-		ChartConfig[] new_cc_array = new ChartConfig[cc_array.length-1];
-		if (cc_array.length == 1){
-			//source had only one element
-			config.setCharts(new_cc_array);
-			return;
-		}
-
-		removeElementFromArray(cc_array, new_cc_array, chartIndex);
-		config.setCharts(new_cc_array);
-
-	}
-
-	@Override
 	public void addGaugeToDashboard(String dashboardName, String gaugeName) throws APIException {
 		DashboardConfig config = getDashboardConfig(dashboardName);
 		if (config == null)
-			throw new APIException("Can't find dashboard. Name: " + dashboardName);
-		if (StringUtils.isEmpty(dashboardName))
-			throw new APIException("Wrong gauge name: " + gaugeName);
+			return;
+		if (StringUtils.isEmpty(gaugeName))
+			return;
 
 		String[] cc_array = config.getGauges();
 		int newSize = cc_array == null ? 1 : cc_array.length + 1;
@@ -183,7 +160,10 @@ public class DashboardAPIImpl extends AbstractMoskitoAPIImpl implements Dashboar
 	public void removeGaugeFromDashboard(String dashboardName, String gaugeName) throws APIException {
 		DashboardConfig config = getDashboardConfig(dashboardName);
 		if (config == null)
-			throw new APIException("Can't find dashboard. Name: " + dashboardName);
+			return;
+		if (StringUtils.isEmpty(gaugeName))
+			return;
+
 		String[] cc_array = config.getGauges();
 		int gaugeIndex = -1;
 		int count = 0;
@@ -214,9 +194,9 @@ public class DashboardAPIImpl extends AbstractMoskitoAPIImpl implements Dashboar
 	public void addThresholdToDashboard(String dashboardName, String thresholdName) throws APIException {
 		DashboardConfig config = getDashboardConfig(dashboardName);
 		if (config == null)
-			throw new APIException("Can't find dashboard. Name: " + dashboardName);
-		if (StringUtils.isEmpty(dashboardName))
-			throw new APIException("Wrong threshold name: " + thresholdName);
+			return;
+		if (StringUtils.isEmpty(thresholdName))
+			return;
 
 		String[] cc_array = config.getThresholds();
 		int newSize = cc_array == null ? 1 : cc_array.length + 1;
@@ -232,21 +212,24 @@ public class DashboardAPIImpl extends AbstractMoskitoAPIImpl implements Dashboar
 	public void removeThresholdFromDashboard(String dashboardName, String thresholdName) throws APIException {
 		DashboardConfig config = getDashboardConfig(dashboardName);
 		if (config == null)
-			throw new APIException("Can't find dashboard. Name: " + dashboardName);
+			return;
+		if (StringUtils.isEmpty(thresholdName))
+			return;
+
 		String[] cc_array = config.getThresholds();
-		int gaugeIndex = -1;
+		int index = -1;
 		int count = 0;
 		for (String name : cc_array) {
 			if (name.equals(thresholdName)) {
-				gaugeIndex = count;
+				index = count;
 				break;
 			}
 			count++;
 		}
-		if (gaugeIndex==-1){
+		if (index==-1){
 			return;
 		}
-		if (cc_array == null || cc_array.length<gaugeIndex+1)
+		if (cc_array == null || cc_array.length<index+1)
 			return;
 		String[] new_cc_array = new String[cc_array.length-1];
 		if (cc_array.length == 1){
@@ -255,8 +238,71 @@ public class DashboardAPIImpl extends AbstractMoskitoAPIImpl implements Dashboar
 			return;
 		}
 
-		removeElementFromArray(cc_array, new_cc_array, gaugeIndex);
+		removeElementFromArray(cc_array, new_cc_array, index);
 		config.setThresholds(new_cc_array);
+	}
+
+	@Override
+	public void addChartToDashboard(String dashboardName, String chartName) throws APIException {
+		DashboardConfig config = getDashboardConfig(dashboardName);
+		if (config == null)
+			return;
+		if (StringUtils.isEmpty(chartName))
+			return;
+
+		ChartConfig[] cc_array = config.getCharts();
+		int newSize = cc_array == null ? 1 : cc_array.length + 1;
+		ChartConfig[] new_cc_array = new ChartConfig[newSize];
+		if (cc_array != null)
+			System.arraycopy(cc_array, 0, new_cc_array, 0, cc_array.length);
+
+		ChartConfig newChartConfig = new ChartConfig();
+		for(ChartConfig cc : getDashboardConfig(getDefaultDashboardName()).getCharts()) {
+			String caption = StringUtils.isEmpty(cc.getCaption()) ? cc.buildCaption() : cc.getCaption();
+			if (caption.equals(chartName)) {
+				newChartConfig.setAccumulators(cc.getAccumulators().clone());
+				break;
+			}
+		}
+		newChartConfig.setCaption(chartName);
+		new_cc_array[new_cc_array.length-1] = newChartConfig;
+
+		config.setCharts(new_cc_array);
+	}
+
+	@Override
+	public void removeChartFromDashboard(String dashboardName, String chartName) throws APIException {
+		DashboardConfig config = getDashboardConfig(dashboardName);
+		if (config == null)
+			return;
+		if (StringUtils.isEmpty(chartName))
+			return;
+
+		ChartConfig[] cc_array = config.getCharts();
+		int index = -1;
+		int count = 0;
+		for (ChartConfig cc : cc_array) {
+			String caption = StringUtils.isEmpty(cc.getCaption()) ? cc.buildCaption() : cc.getCaption();
+			if (caption.equals(chartName)) {
+				index = count;
+				break;
+			}
+			count++;
+		}
+		if (index==-1){
+			return;
+		}
+		if (cc_array == null || cc_array.length<index+1)
+			return;
+		ChartConfig[] new_cc_array = new ChartConfig[cc_array.length-1];
+		if (cc_array.length == 1){
+			//source had only one element
+			config.setCharts(new_cc_array);
+			return;
+		}
+
+		removeElementFromArray(cc_array, new_cc_array, index);
+		config.setCharts(new_cc_array);
 	}
 
 	private static <T> T removeElementFromArray(T sourceArray[], T destArray, int index){

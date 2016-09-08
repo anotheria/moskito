@@ -2,6 +2,7 @@ package net.anotheria.moskito.webui.dashboards.action;
 
 import net.anotheria.maf.action.ActionCommand;
 import net.anotheria.maf.action.ActionMapping;
+import net.anotheria.maf.action.CommandRedirect;
 import net.anotheria.maf.bean.FormBean;
 
 import javax.servlet.http.HttpServletRequest;
@@ -21,7 +22,10 @@ public class DashboardAddGaugeAction extends BaseDashboardAction {
 			getDashboardAPI().addGaugeToDashboard(dashboard, gaugeName);
 		}
 
-		return mapping.redirect()
-				.addParameter("lo", ShowDashboardAction.LastOperation.gadd.name());
+		CommandRedirect commandRedirect =  mapping.redirect().addParameter("lo", ShowDashboardAction.LastOperation.gadd.name());
+		if (dashboardsName.length == 1) {
+			commandRedirect = commandRedirect.addParameter("dashboard", dashboardsName[0]);
+		}
+		return commandRedirect;
 	}
 }
