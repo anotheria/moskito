@@ -34,7 +34,6 @@
                                 <div class="box-right-nav dropdown threshold-body">
                                     <a href="#" data-target="#" data-toggle="dropdown"><i class="fa fa-cog"></i></a>
                                     <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dLabel">
-                                        <li><a href="">Save</a></li>
                                         <ano:iF test="${requestScope.selectedDashboard == null && threshold.dashboardsToAdd != ''}">
                                             <li><a onclick="addTresholds('${threshold.name}', '${threshold.dashboardsToAdd}')" >Add to Dashboard</a></li>
                                         </ano:iF>
@@ -97,7 +96,7 @@
                                     <div class="box-right-nav dropdown">
                                         <a href="#" data-target="#" data-toggle="dropdown"><i class="fa fa-cog"></i></a>
                                         <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dLabel">
-                                            <li><a href="">Save</a></li>
+                                            <li><a href="" onclick="saveSvgAsPng(event, ${index})">Save</a></li>
                                             <ano:iF test="${requestScope.selectedDashboard == null && gauge.dashboardsToAdd != ''}">
                                                 <li><a onclick="addGauge('${gauge.caption}', '${gauge.name}', '${gauge.dashboardsToAdd}')" >Add to Dashboard</a></li>
                                             </ano:iF>
@@ -184,7 +183,7 @@
                             <div class="box-right-nav dropdown">
                                 <a href="#" data-target="#" data-toggle="dropdown"><i class="fa fa-cog"></i></a>
                                 <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dLabel">
-                                    <li><a href="" onclick="saveSvgAsPng(${index}+countGauges())">Save</a></li>
+                                    <li><a href="" onclick="saveSvgAsPng(event, ${index}+countGauges())">Save</a></li>
                                     <ano:iF test="${requestScope.selectedDashboard == null && chart.dashboardsToAdd != ''}">
                                         <li><a onclick="addChart('${chart.caption}','${chart.dashboardsToAdd}')">Add to Dashboard</a></li>
                                     </ano:iF>
@@ -193,11 +192,6 @@
                                     </ano:iF>
                                 </ul>
                             </div>
-<!--                            <div class="box-right-nav">
-                                <a class="tooltip-bottom save_as" title="Save" onclick="saveSvgAsPng(${index}+countGauges())"><i class="fa fa-download"></i></a>
-                            </div>
-
--->
                         </div>
                         <div id="collapse_chart${index}" class="box-content accordion-body collapse in">
                             <div class="paddner"><div id="chart_div${index}" class="accumulator-chart"></div></div>
@@ -359,7 +353,10 @@
             function countGauges() {
                 return $('.gauge').length;
             }
-            function saveSvgAsPng(index) {
+            function saveSvgAsPng(event, index) {
+                event.preventDefault();
+                event.stopPropagation();
+
                 var chartWidth = 525,
                         chartHeight = 321,
                         margin = 30;
