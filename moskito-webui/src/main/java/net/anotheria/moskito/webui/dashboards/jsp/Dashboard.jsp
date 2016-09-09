@@ -14,16 +14,34 @@
         </div>
     </ano:equal>
 
+    <ano:present name="infoMessage">
+        <div class="alert alert-warning alert-dismissable">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+            ${requestScope.infoMessage}
+        </div>
+    </ano:present>
+
     <div class="content">
         <ano:equal name="thresholdsPresent" value="true">
             <!-- Thresholds start -->
             <div class="dashboard-line">
                 <div class="row">
-                    <ano:iterate name="thresholds" type="net.anotheria.moskito.webui.threshold.api.ThresholdStatusAO" id="threshold">
-                        <div class="col-lg-2 col-md-3 col-sm-4">
-                            <div class="box threshold-item tooltip-bottom" title="${threshold.name} ${threshold.value}">
+                    <ano:iterate name="thresholds" type="net.anotheria.moskito.webui.threshold.bean.ThresholdStatusBean" id="threshold">
+                        <div class="col-lg-3 col-md-3 col-sm-4">
+                            <div class="box threshold-item tooltip-bottom">
                                 <i class="status status-${threshold.colorCode}"></i>
                                 <span class="threshold-title">${threshold.name}&nbsp;${threshold.value}</span>
+                                <div class="box-right-nav dropdown threshold-body">
+                                    <a href="#" data-target="#" data-toggle="dropdown"><i class="fa fa-cog"></i></a>
+                                    <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dLabel">
+                                        <ano:iF test="${requestScope.selectedDashboard == null && threshold.dashboardsToAdd != ''}">
+                                            <li><a onclick="addTresholds('${threshold.name}', '${threshold.dashboardsToAdd}')" >Add to Dashboard</a></li>
+                                        </ano:iF>
+                                        <ano:iF test="${requestScope.selectedDashboard != null}">
+                                            <li><a onclick="removeTresholds('${threshold.name}', '${requestScope.selectedDashboard}')">Remove</a></li>
+                                        </ano:iF>
+                                    </ul>
+                                </div>
                             </div>
                         </div>
                     </ano:iterate>
@@ -78,9 +96,13 @@
                                     <div class="box-right-nav dropdown">
                                         <a href="#" data-target="#" data-toggle="dropdown"><i class="fa fa-cog"></i></a>
                                         <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dLabel">
-                                            <li><a href="">Save</a></li>
-                                            <li><a href="#AddtoDashboard" data-toggle="modal" data-target="#AddtoDashboard">Add to Dashboard</a></li>
-                                            <li><a href="#gaugeDelete" data-toggle="modal" data-target="#gaugeDelete" onclick="setGaugeForRemoval('${gauge.caption}', '${index}')">Remove</a></li>
+                                            <li><a href="" onclick="saveGaugesSvgAsPng(event, ${index}, ${index})">Save</a></li>
+                                            <ano:iF test="${requestScope.selectedDashboard == null && gauge.dashboardsToAdd != ''}">
+                                                <li><a onclick="addGauge('${gauge.caption}', '${gauge.name}', '${gauge.dashboardsToAdd}')" >Add to Dashboard</a></li>
+                                            </ano:iF>
+                                            <ano:iF test="${requestScope.selectedDashboard != null}">
+                                                <li><a onclick="removeGauge('${gauge.caption}', '${gauge.name}', '${requestScope.selectedDashboard}')">Remove</a></li>
+                                            </ano:iF>
                                         </ul>
                                     </div>
                                 </div>
@@ -97,7 +119,7 @@
                 <div class="dashboard-line-footer text-right">
                     <ul class="dashboard-line-nav-box list-unstyled">
                         <li>
-                            <a onclick="saveGuagesSvgAsPng()" class="save_as"><i class="fa fa-download"></i> Save all Gauges</a>
+                            <a onclick="saveGaugesSvgAsPng(event, 0, 10000)" class="save_as"><i class="fa fa-download"></i> Save all Gauges</a>
                         </li>
                     </ul>
                 </div>
@@ -128,7 +150,7 @@
                 var multipleGraphData = [];
                 var multipleGraphNames = [];
                 var multipleGraphColors = [];
-                <ano:iterate id="chart" name="charts" type="net.anotheria.moskito.webui.dashboards.api.DashboardChartAO">
+                <ano:iterate id="chart" name="charts" type="net.anotheria.moskito.webui.dashboards.bean.DashboardChartBean">
                 <ano:define id="singleChart" toScope="page" scope="page" name="chart" property="chart" type="net.anotheria.moskito.webui.accumulators.api.MultilineChartAO"/>
                 multipleGraphData.push([
                     <ano:iterate name="singleChart" property="data" id="value" indexId="i">
@@ -149,7 +171,7 @@
         <div class="dashboard-line">
 
             <div class="row">
-                <ano:iterate id="chart" name="charts" type="net.anotheria.moskito.webui.dashboards.api.DashboardChartAO" indexId="index">
+                <ano:iterate id="chart" name="charts" type="net.anotheria.moskito.webui.dashboards.bean.DashboardChartBean" indexId="index">
                 <div class="col-lg-6 col-md-12">
                     <div class="box">
                         <div class="box-title">
@@ -161,16 +183,15 @@
                             <div class="box-right-nav dropdown">
                                 <a href="#" data-target="#" data-toggle="dropdown"><i class="fa fa-cog"></i></a>
                                 <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dLabel">
-                                    <li><a href="" onclick="saveSvgAsPng(${index}+countGauges())">Save</a></li>
-                                    <li><a href="#AddtoDashboard" data-toggle="modal" data-target="#AddtoDashboard">Add to Dashboard</a></li>
-                                    <li><a href="#chartDelete" data-toggle="modal" data-target="#chartDelete" onclick="setChartForRemoval('${chart.caption}', '${index}')">Remove</a></li>
+                                    <li><a href="" onclick="saveSvgAsPng(event, ${index}+countGauges())">Save</a></li>
+                                    <ano:iF test="${requestScope.selectedDashboard == null && chart.dashboardsToAdd != ''}">
+                                        <li><a onclick="addChart('${chart.caption}','${chart.dashboardsToAdd}')">Add to Dashboard</a></li>
+                                    </ano:iF>
+                                    <ano:iF test="${requestScope.selectedDashboard != null}">
+                                        <li><a onclick="removeChart('${chart.caption}', '${requestScope.selectedDashboard}')">Remove</a></li>
+                                    </ano:iF>
                                 </ul>
                             </div>
-<!--                            <div class="box-right-nav">
-                                <a class="tooltip-bottom save_as" title="Save" onclick="saveSvgAsPng(${index}+countGauges())"><i class="fa fa-download"></i></a>
-                            </div>
-
--->
                         </div>
                         <div id="collapse_chart${index}" class="box-content accordion-body collapse in">
                             <div class="paddner"><div id="chart_div${index}" class="accumulator-chart"></div></div>
@@ -216,7 +237,10 @@
 
         <!-- Gauges -->
         <script type="text/javascript">
-             function saveGuagesSvgAsPng() {
+             function saveGaugesSvgAsPng(event, from, to) {
+
+                 event.preventDefault();
+                 event.stopPropagation();
 
 //                 var xValBegin= 100, xStep = 200;
                  var guageWidth = 144,
@@ -230,14 +254,17 @@
                  var allSvgsCode = '<svg xmlns="http://www.w3.org/2000/svg" class="gauge1" width="800" height="244" style="background-color: #FFFFFF;">';
 
 
-                var svgs = document.getElementsByClassName("gauge");
-                 for(var i = 0; i < svgs.length;i++) {
+                 var svgs = document.getElementsByClassName("gauge");
+
+                 to = to < svgs.length ? to : svgs.length - 1;
+                 var gaugeCount = to - from + 1;
+                 for(var i = from; i <= to;i++) {
                      var svgOrigin =svgs[i];
 
                      //copy svg chart
                      var svg = svgOrigin.cloneNode(true);
 
-                     svg.setAttribute("x", marginLeft + i*(guageWidth+indent));
+                     svg.setAttribute("x", marginLeft + (i-from)*(guageWidth+indent));
                      svg.setAttribute("y", marginTop);
                      svg.setAttribute("style", "background-color: #FFFFFF;");
 
@@ -288,8 +315,8 @@
 
                  var svgData = allSvgsCode;
                  var canvas = document.createElement("canvas");
-                 canvas.width  = marginLeft + marginRight+svgs.length*guageHeight+(svgs.length-1)*indent;
-                 canvas.height = guageHeight + marginBottom+marginTop;
+                 canvas.width  = marginLeft + marginRight + gaugeCount * guageWidth + (gaugeCount-1) * indent;
+                 canvas.height = guageHeight + marginBottom + marginTop;
                  var ctx = canvas.getContext("2d");
                  ctx.fillStyle="white";
                  ctx.fill();
@@ -325,7 +352,10 @@
             function countGauges() {
                 return $('.gauge').length;
             }
-            function saveSvgAsPng(index) {
+            function saveSvgAsPng(event, index) {
+                event.preventDefault();
+                event.stopPropagation();
+
                 var chartWidth = 525,
                         chartHeight = 321,
                         margin = 30;
@@ -452,21 +482,107 @@
 </div>
 
 <script language="JavaScript">
-    var selectedChartForRemoval;
-    var selectedGaugeForRemoval;
 
-    function setChartForRemoval(chartForRemovalCaption, chartForRemovalIndex){
-        //alert(chartForRemoval);
-        selectedChartForRemoval = chartForRemovalIndex;
-        $(".selectedChartForRemoval").html(chartForRemovalCaption);
+    function removeChart(chartCaption, dashboard) {
+        $("#removeElementFromDashboardTitle").html("Remove chart \"" + chartCaption + "\" from dashboard \""+dashboard+"\"?");
+        $("#removeElementFromDashboardAction").attr("action", "mskDashboardRemoveChart");
+        $("#removeElement").attr("value", chartCaption);
+        $("#removeElementFromDashboard").modal('show');
     }
 
-    function setGaugeForRemoval(gaugeForRemovalCaption, gaugeForRemovalIndex){
-        //alert(chartForRemoval);
-        selectedGaugeForRemoval = gaugeForRemovalIndex;
-        $(".selectedChartForRemoval").html(gaugeForRemovalCaption);
+    function addChart(chartCaption, dashboardsToAdd) {
+
+        $("#selectedElement").html("chart \"" + chartCaption + "\"");
+        $("#selectedElementName").attr("value", chartCaption);
+        $("#addElementToDashboardAction").attr("action", "mskAddChartToDashboard");
+
+        var dashboards = dashboardsToAdd.split(',');
+
+        var textToAdd = "";
+        for (var i = 0; i < dashboards.length; i++) {
+            textToAdd +=
+                    "<div class=\"checkbox\"> " +
+                    "<label>" +
+                    "<input type=\"checkbox\" checked name=\"pDashboards\" value=\""+dashboards[i]+"\">" + dashboards[i] +
+                    "</label>" +
+                    "</div>";
+
+        }
+        $("#dashboardsToSelect").html(textToAdd);
+
+        if (dashboards.length == 1) {
+            $("#addElementToDashboardAction").submit();
+        } else {
+            $("#addElementToDashboard").modal('show');
+        }
     }
 
+    function removeGauge(gaugeForRemovalCaption, gaugeForRemovalName, dashboard){
+        $("#removeElementFromDashboardTitle").html("Remove gauge \"" + gaugeForRemovalCaption + "\" from dashboard \""+dashboard+"\"?");
+        $("#removeElementFromDashboardAction").attr("action", "mskDashboardRemoveGauge");
+        $("#removeElement").attr("value", gaugeForRemovalName);
+        $("#removeElementFromDashboard").modal('show');
+    }
+
+    function addGauge(gaugeCaption, gaugeName, dashboardsToAdd){
+
+        $("#selectedElement").html("gauge \"" + gaugeCaption + "\"");
+        $("#selectedElementName").attr("value", gaugeName);
+        $("#addElementToDashboardAction").attr("action", "mskAddGaugeToDashboard");
+
+        var dashboards = dashboardsToAdd.split(',');
+
+        var textToAdd = "";
+        for (var i = 0; i < dashboards.length; i++) {
+            textToAdd +=
+            "<div class=\"checkbox\"> " +
+                "<label>" +
+                    "<input type=\"checkbox\" checked name=\"pDashboards\" value=\""+dashboards[i]+"\">" + dashboards[i] +
+                "</label>" +
+            "</div>";
+
+        }
+        $("#dashboardsToSelect").html(textToAdd);
+
+        if (dashboards.length == 1) {
+            $("#addElementToDashboardAction").submit();
+        } else {
+            $("#addElementToDashboard").modal('show');
+        }
+    }
+
+    function removeTresholds(thresholdName, dashboard) {
+        $("#removeElementFromDashboardTitle").html("Remove threshold \"" + thresholdName + "\" from dashboard \""+dashboard+"\"?");
+        $("#removeElementFromDashboardAction").attr("action", "mskDashboardRemoveThreshold");
+        $("#removeElement").attr("value", thresholdName);
+        $("#removeElementFromDashboard").modal('show');
+    }
+
+    function addTresholds(thresholdName, dashboardsToAdd) {
+        $("#selectedElement").html("threshold \"" + thresholdName + "\"");
+        $("#selectedElementName").attr("value", thresholdName);
+        $("#addElementToDashboardAction").attr("action", "mskAddThresholdToDashboard");
+
+        var dashboards = dashboardsToAdd.split(',');
+
+        var textToAdd = "";
+        for (var i = 0; i < dashboards.length; i++) {
+            textToAdd +=
+                    "<div class=\"checkbox\"> " +
+                    "<label>" +
+                    "<input type=\"checkbox\" checked name=\"pDashboards\" value=\""+dashboards[i]+"\">" + dashboards[i] +
+                    "</label>" +
+                    "</div>";
+
+        }
+        $("#dashboardsToSelect").html(textToAdd);
+
+        if (dashboards.length == 1) {
+            $("#addElementToDashboardAction").submit();
+        } else {
+            $("#addElementToDashboard").modal('show');
+        }
+    }
 </script>
 
 </body>

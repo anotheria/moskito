@@ -8,8 +8,14 @@ import net.anotheria.moskito.webui.accumulators.action.CreateAccumulatorAction;
 import net.anotheria.moskito.webui.accumulators.action.DeleteAccumulatorAction;
 import net.anotheria.moskito.webui.accumulators.action.GenerateChartAction;
 import net.anotheria.moskito.webui.accumulators.action.ShowAccumulatorsAction;
+import net.anotheria.moskito.webui.dashboards.action.CreateDashboardAction;
+import net.anotheria.moskito.webui.dashboards.action.DashboardAddChartAction;
+import net.anotheria.moskito.webui.dashboards.action.DashboardAddGaugeAction;
+import net.anotheria.moskito.webui.dashboards.action.DashboardAddThresholdAction;
 import net.anotheria.moskito.webui.dashboards.action.DashboardRemoveChartAction;
 import net.anotheria.moskito.webui.dashboards.action.DashboardRemoveGaugeAction;
+import net.anotheria.moskito.webui.dashboards.action.DashboardRemoveThresholdAction;
+import net.anotheria.moskito.webui.dashboards.action.DeleteDashboardAction;
 import net.anotheria.moskito.webui.dashboards.action.ShowDashboardAction;
 import net.anotheria.moskito.webui.gauges.action.ShowGaugesAction;
 import net.anotheria.moskito.webui.journey.action.AnalyzeJourneyAction;
@@ -258,9 +264,17 @@ public class MoskitoMappingsConfigurator implements ActionMappingsConfigurator{
 		mappings.addMapping("mskDashboard", ShowDashboardAction.class,
 				new ActionForward("success", "/net/anotheria/moskito/webui/dashboards/jsp/Dashboard.jsp")
 		);
-		mappings.addMapping("mskDashboardRemoveChart", DashboardRemoveChartAction.class);
-		mappings.addMapping("mskDashboardRemoveGauge", DashboardRemoveGaugeAction.class);
+		mappings.addMapping("mskCreateDashboard", CreateDashboardAction.class, new CommandRedirect("redirect", "mskDashboard"));
+		mappings.addMapping("mskDeleteDashboard", DeleteDashboardAction.class, new CommandRedirect("redirect", "mskDashboard"));
 
+		mappings.addMapping("mskAddGaugeToDashboard", DashboardAddGaugeAction.class, new CommandRedirect("redirect", "mskDashboard"));
+		mappings.addMapping("mskDashboardRemoveGauge", DashboardRemoveGaugeAction.class, new CommandRedirect("redirect", "mskDashboard"));
+
+		mappings.addMapping("mskAddThresholdToDashboard", DashboardAddThresholdAction.class, new CommandRedirect("redirect", "mskDashboard"));
+		mappings.addMapping("mskDashboardRemoveThreshold", DashboardRemoveThresholdAction.class, new CommandRedirect("redirect", "mskDashboard"));
+
+		mappings.addMapping("mskAddChartToDashboard", DashboardAddChartAction.class, new CommandRedirect("redirect", "mskDashboard"));
+		mappings.addMapping("mskDashboardRemoveChart", DashboardRemoveChartAction.class, new CommandRedirect("redirect", "mskDashboard"));
 
 
 	}

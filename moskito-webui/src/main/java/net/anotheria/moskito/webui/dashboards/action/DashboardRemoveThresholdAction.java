@@ -11,19 +11,19 @@ import javax.servlet.http.HttpServletResponse;
  * TODO comment this class
  *
  * @author lrosenberg
- * @since 12.08.16 21:44
+ * @since 12.08.16 23:16
  */
-public class DashboardRemoveChartAction extends BaseDashboardAction{
+public class DashboardRemoveThresholdAction extends BaseDashboardAction{
 	@Override
 	public ActionCommand execute(ActionMapping actionMapping, FormBean formBean, HttpServletRequest request, HttpServletResponse response) throws Exception {
 
 		String elementName = request.getParameter("pElement");
 		String dashboard = request.getParameter("pName");
 
-		getDashboardAPI().removeChartFromDashboard(dashboard, elementName);
+		getDashboardAPI().removeThresholdFromDashboard(dashboard, elementName);
 
 		return actionMapping.redirect()
 				.addParameter("dashboard", dashboard)
-				.addParameter("lo", ShowDashboardAction.LastOperation.crm.name());
+				.addParameter("lo", ShowDashboardAction.LastOperation.trm.name());
 	}
 }

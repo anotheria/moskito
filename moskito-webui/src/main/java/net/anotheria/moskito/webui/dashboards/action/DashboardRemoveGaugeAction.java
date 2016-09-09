@@ -18,11 +18,14 @@ public class DashboardRemoveGaugeAction extends BaseDashboardAction{
 	public ActionCommand execute(ActionMapping actionMapping, FormBean formBean, HttpServletRequest request, HttpServletResponse response) throws Exception {
 
 		int gauge = Integer.parseInt(request.getParameter("gauge"));
-		String dashboard = request.getParameter("dashboard");
+		//String dashboard = request.getParameter("dashboard");
+		String elementName = request.getParameter("pElement");
+		String dashboard = request.getParameter("pName");
 
-		getDashboardAPI().removeGaugeFromDashboard(dashboard, gauge);
+		getDashboardAPI().removeGaugeFromDashboard(dashboard, elementName);
 
-		response.sendRedirect("mskDashboard?dashboard="+dashboard);
-		return null;
+		return actionMapping.redirect()
+				.addParameter("dashboard", dashboard)
+				.addParameter("lo", ShowDashboardAction.LastOperation.grm.name());
 	}
 }

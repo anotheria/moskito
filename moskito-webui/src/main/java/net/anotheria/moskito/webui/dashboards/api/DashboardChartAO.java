@@ -50,4 +50,20 @@ public class DashboardChartAO implements Serializable{
 				", chart=" + chart +
 				'}';
 	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+
+		DashboardChartAO that = (DashboardChartAO) o;
+
+		return caption.equals(that.caption);
+
+	}
+
+	@Override
+	public int hashCode() {
+		return caption.hashCode();
+	}
 }
