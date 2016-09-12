@@ -80,7 +80,7 @@
     "@dashboardsConfig": {
         "@dashboards": [
           {
-            "name": "Default Dashboard",
+            "name": "Example Dashboard",
             "@charts": [
               {
                 "caption": "Memory",
