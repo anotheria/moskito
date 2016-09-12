@@ -1,9 +1,3 @@
-.logo{
-    -moz-animation: logo 1s alternate;
-    -webkit-animation: logo 1s alternate;
-    -ms-animation: logo 1s alternate;
-}
-
 .logo-custom{
     -moz-animation: logo-custom 1s alternate;
     -webkit-animation: logo-custom 1s alternate;
@@ -29,39 +23,6 @@
     -ms-animation: alert 2s alternate;
 }
 
-@keyframes logo {
-    0% {
-        top: -70px;
-        opacity: 0;
-    }
-
-    50% {
-        top: 5px;
-        opacity: 1;
-    }
-
-    100% {
-        top: 0;
-        opacity: 1;
-    }
-}
-
-@-webkit-keyframes logo {
-    0% {
-        top: -70px;
-        opacity: 0;
-    }
-
-    50% {
-        top: 5px;
-        opacity: 1;
-    }
-
-    100% {
-        top: 0;
-        opacity: 1;
-    }
-}
 
 @keyframes logo-custom {
     0% {
