@@ -44,7 +44,10 @@ public class ShowDashboardAction extends BaseDashboardAction {
 		DashboardConfig selectedDashboard = getDashboardAPI().getDashboardConfig(dashboardName);
 		if (dashboardName == null || selectedDashboard == null) {
 			dashboardName = getDashboardAPI().getDefaultDashboardName();
-			request.setAttribute("selectedDashboard", null);
+			if (dashboardName == null) { // no dashboards present
+				return actionMapping.success();
+			}
+			request.setAttribute("selectedDashboard", dashboardName);
 		}
 
 		DashboardAO dashboard = getDashboardAPI().getDashboard(dashboardName);

@@ -235,6 +235,13 @@
             </script>
         </ano:equal>
 
+        <ano:iF test="${requestScope.selectedDashboard != null}">
+            <div class="dashboard-line">
+                <div class="row">
+                    <a href="#DeleteDashboard" data-toggle="modal" data-target="#DeleteDashboard" title="Delete Dashboard">Delete this Dashboard</a>
+                </div>
+            </div>
+        </ano:iF>
         <!-- Gauges -->
         <script type="text/javascript">
              function saveGaugesSvgAsPng(event, from, to) {
@@ -480,6 +487,53 @@
         </div>
     </div>
 </div>
+
+<%--------------------------------- Create/Delete dashboards -----------------------------------%>
+
+<div class="modal fade" id="CreateDashboard" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title">Create Dashboard</h4>
+            </div>
+            <div class="modal-body">
+                <label>Please type new Dashboard name</label>
+                <form name="CreateDashboard" action="mskCreateDashboard" method="GET">
+                    <div class="form-group">
+                        <input type="text" class="form-control" name="pName" placeholder="Name">
+                    </div>
+                    <div class="form-group text-right">
+                        <button class="btn btn-success" type="button" onclick="submit();">Create</button>
+                        <button class="btn btn-default" type="button" data-dismiss="modal">Cancel</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="DeleteDashboard" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title">Delete Dashboard "${requestScope.selectedDashboard}" ? </h4>
+            </div>
+            <div class="modal-body">
+                <form name="CreateDashboard" action="mskDeleteDashboard" method="GET">
+                    <input type="hidden" class="form-control" name="pName" value="${requestScope.selectedDashboard}">
+                    <div class="form-group text-right">
+                        <button class="btn btn-success" type="button" onclick="submit();">Yes</button>
+                        <button class="btn btn-default" type="button" data-dismiss="modal">Cancel</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%----------------------------------------------------------------------------------------------%>
 
 <script language="JavaScript">
 
