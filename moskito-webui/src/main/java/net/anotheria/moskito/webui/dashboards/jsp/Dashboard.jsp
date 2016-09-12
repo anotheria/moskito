@@ -34,12 +34,10 @@
                                 <div class="box-right-nav dropdown threshold-body">
                                     <a href="#" data-target="#" data-toggle="dropdown"><i class="fa fa-cog"></i></a>
                                     <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dLabel">
-                                        <ano:iF test="${requestScope.selectedDashboard == null && threshold.dashboardsToAdd != ''}">
+                                        <ano:iF test="${threshold.dashboardsToAdd != ''}">
                                             <li><a onclick="addTresholds('${threshold.name}', '${threshold.dashboardsToAdd}')" >Add to Dashboard</a></li>
                                         </ano:iF>
-                                        <ano:iF test="${requestScope.selectedDashboard != null}">
-                                            <li><a onclick="removeTresholds('${threshold.name}', '${requestScope.selectedDashboard}')">Remove</a></li>
-                                        </ano:iF>
+                                        <li><a onclick="removeTresholds('${threshold.name}', '${requestScope.selectedDashboard}')">Remove</a></li>
                                     </ul>
                                 </div>
                             </div>
@@ -421,39 +419,6 @@
         $("#selectedElement").html("chart \"" + chartCaption + "\"");
         $("#selectedElementName").attr("value", chartCaption);
         $("#addElementToDashboardAction").attr("action", "mskAddChartToDashboard");
-
-        var dashboards = dashboardsToAdd.split(',');
-
-        var textToAdd = "";
-        for (var i = 0; i < dashboards.length; i++) {
-            textToAdd +=
-                    "<div class=\"checkbox\"> " +
-                    "<label>" +
-                    "<input type=\"checkbox\" checked name=\"pDashboards\" value=\""+dashboards[i]+"\">" + dashboards[i] +
-                    "</label>" +
-                    "</div>";
-
-        }
-        $("#dashboardsToSelect").html(textToAdd);
-
-        if (dashboards.length == 1) {
-            $("#addElementToDashboardAction").submit();
-        } else {
-            $("#addElementToDashboard").modal('show');
-        }
-    }
-
-    function removeTresholds(thresholdName, dashboard) {
-        $("#removeElementFromDashboardTitle").html("Remove threshold \"" + thresholdName + "\" from dashboard \""+dashboard+"\"?");
-        $("#removeElementFromDashboardAction").attr("action", "mskDashboardRemoveThreshold");
-        $("#removeElement").attr("value", thresholdName);
-        $("#removeElementFromDashboard").modal('show');
-    }
-
-    function addTresholds(thresholdName, dashboardsToAdd) {
-        $("#selectedElement").html("threshold \"" + thresholdName + "\"");
-        $("#selectedElementName").attr("value", thresholdName);
-        $("#addElementToDashboardAction").attr("action", "mskAddThresholdToDashboard");
 
         var dashboards = dashboardsToAdd.split(',');
 

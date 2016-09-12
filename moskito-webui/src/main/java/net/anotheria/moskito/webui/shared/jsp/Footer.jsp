@@ -507,3 +507,40 @@ olark.identify('7961-404-10-9387');/*]]>*/</script><noscript><a href="https://ww
         }
     </script>
 </ano:present>
+
+<ano:present name="thresholds">
+    <script language="JavaScript">
+        function removeTresholds(thresholdName, dashboard) {
+            $("#removeElementFromDashboardTitle").html("Remove threshold \"" + thresholdName + "\" from dashboard \""+dashboard+"\"?");
+            $("#removeElementFromDashboardAction").attr("action", "mskDashboardRemoveThreshold");
+            $("#removeElement").attr("value", thresholdName);
+            $("#removeElementFromDashboard").modal('show');
+        }
+
+        function addTresholds(thresholdName, dashboardsToAdd) {
+            $("#selectedElement").html("threshold \"" + thresholdName + "\"");
+            $("#selectedElementName").attr("value", thresholdName);
+            $("#addElementToDashboardAction").attr("action", "mskAddThresholdToDashboard");
+
+            var dashboards = dashboardsToAdd.split(',');
+
+            var textToAdd = "";
+            for (var i = 0; i < dashboards.length; i++) {
+                textToAdd +=
+                        "<div class=\"checkbox\"> " +
+                        "<label>" +
+                        "<input type=\"checkbox\" checked name=\"pDashboards\" value=\""+dashboards[i]+"\">" + dashboards[i] +
+                        "</label>" +
+                        "</div>";
+
+            }
+            $("#dashboardsToSelect").html(textToAdd);
+
+            if (dashboards.length == 1) {
+                $("#addElementToDashboardAction").submit();
+            } else {
+                $("#addElementToDashboard").modal('show');
+            }
+        }
+    </script>
+</ano:present>

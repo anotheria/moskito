@@ -39,7 +39,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <ano:iterate name="thresholds" type="net.anotheria.moskito.webui.threshold.api.ThresholdStatusAO" id="threshold" indexId="index">
+                    <ano:iterate name="thresholds" type="net.anotheria.moskito.webui.threshold.bean.ThresholdStatusBean" id="threshold" indexId="index">
                     <tr>
                         <td><a onclick="showThresholdUpdateModal(${threshold.id}); return false" href="#">${threshold.name}</a></td>
                         <td><i class="status status-${threshold.colorCode}"></i></td>
@@ -51,6 +51,9 @@
                         <td class="actions-links">
                             <a href="#mskThresholdDelete" data-toggle="modal" data-target="#mskThresholdDelete" data-id="${threshold.id}" class="action-icon delete-icon tooltip-bottom" title="Delete ${threshold.name}"><i class="fa fa-ban"></i></a>
                             <a onclick="showThresholdUpdateModal(${threshold.id}); return false" href="#" class="action-icon edit-icon tooltip-bottom" title="Edit ${threshold.name}"><i class="fa fa-pencil"></i></a>
+                            <ano:iF test="${threshold.dashboardsToAdd != ''}">
+                                <a onclick="addTresholds('${threshold.name}', '${threshold.dashboardsToAdd}');" href="#" class="action-icon edit-icon tooltip-bottom" title="Add ${threshold.name} to dashboard"><i class="fa fa-cog"></i></a>
+                            </ano:iF>
                         </td>
                     </tr>
                     </ano:iterate>
