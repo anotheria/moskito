@@ -134,6 +134,7 @@
 
 <aside id="aside" class="scrollbar">
 
+<%-- OLD STYLE LOGO
     <div class="header-box">
         <ano:notEmpty name="logoUrl">
         <a href="">
@@ -148,6 +149,27 @@
         </a>
         </ano:empty>
     </div>
+    --%>
+
+    <%-- NEW STYLE LOGO  --%>
+        <div class="header-box">
+            <%--
+            <ano:notEmpty name="logoUrl">
+            <a href="">
+            <i class="logo-custom">
+                <img src="${logoUrl}"></i>
+                </a>
+            </ano:notEmpty> --%>
+            <ano:empty name="logoUrl">
+                <div class="logo">
+                    <a href="http://moskito.org">
+                        <img src="../moskito/int/img/logo.png" class="logo-white">
+                        <span><b>MoSKito</b><span>Inspect</span></span>
+                    </a>
+                </div>
+            </ano:empty>
+        </div>
+
 
     <ul class="nav nav-sidebar nav-status">
         <ano:equal name="currentNaviItem" property="id" value="dashboards">
