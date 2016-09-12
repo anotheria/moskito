@@ -48,20 +48,20 @@ public class ShowDashboardAction extends BaseDashboardAction {
 		}
 
 		DashboardAO dashboard = getDashboardAPI().getDashboard(dashboardName);
-		List<ThresholdStatusBean> thresholdStatusAOList = getThresholdBeans(dashboard.getThresholds());
-		List<GaugeBean> gaugeAOList = getGaugeBeans(dashboard.getGauges());
+		List<ThresholdStatusBean> thresholdStatusBeans = getThresholdBeans(dashboard.getThresholds());
+		List<GaugeBean> gaugeBeans = getGaugeBeans(dashboard.getGauges());
 		List<DashboardChartBean> dashboardChartAOList = getChartBeans(dashboard.getCharts());
 
 		//now we definitely have a selected dashboard.
 		//prepare thresholds
 		if (dashboard.getThresholds()!=null && dashboard.getThresholds().size()>0){
-			request.setAttribute("thresholds", dashboard.getThresholds());
+			request.setAttribute("thresholds", thresholdStatusBeans);
 			thresholdsPresent = true;
 		}
 
 		//prepare gauges
 		if (dashboard.getGauges()!=null && dashboard.getGauges().size()>0){
-			request.setAttribute("gauges", dashboard.getGauges());
+			request.setAttribute("gauges", gaugeBeans);
 			gaugesPresent = true;
 		}
 

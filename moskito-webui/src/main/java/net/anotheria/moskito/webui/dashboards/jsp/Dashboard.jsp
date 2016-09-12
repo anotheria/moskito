@@ -54,7 +54,7 @@
             <!-- gauges js -->
             <script language="JavaScript">
                 var gauges = [];
-                <ano:iterate name="gauges" type="net.anotheria.moskito.webui.gauges.api.GaugeAO" id="gauge">
+                <ano:iterate name="gauges" type="net.anotheria.moskito.webui.gauges.bean.GaugeBean" id="gauge">
                 gauges.push({
                     "name": '${gauge.name}',
                     "caption": '${gauge.caption}',
@@ -84,7 +84,7 @@
             <!-- gauges -->
             <div class="dashboard-line">
                 <div class="row">
-                    <ano:iterate name="gauges" type="net.anotheria.moskito.webui.gauges.api.GaugeAO" id="gauge" indexId="index">
+                    <ano:iterate name="gauges" type="net.anotheria.moskito.webui.gauges.bean.GaugeBean" id="gauge" indexId="index">
                         <div class="col-lg-3 col-md-4 col-sm-6">
                             <div class="box gauge-item">
                                 <div class="box-title">
