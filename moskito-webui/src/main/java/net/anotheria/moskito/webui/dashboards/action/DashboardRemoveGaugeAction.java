@@ -24,8 +24,9 @@ public class DashboardRemoveGaugeAction extends BaseDashboardAction{
 
 		getDashboardAPI().removeGaugeFromDashboard(dashboard, elementName);
 
+		setSessionAttribute("infoMessage", "Gauge \'"+elementName+"\' has been removed from dashboard \'"+dashboard+"\'");
+
 		return actionMapping.redirect()
-				.addParameter("dashboard", dashboard)
-				.addParameter("lo", ShowDashboardAction.LastOperation.grm.name());
+				.addParameter("dashboard", dashboard);
 	}
 }

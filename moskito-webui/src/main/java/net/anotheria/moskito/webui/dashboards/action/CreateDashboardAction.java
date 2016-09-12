@@ -21,8 +21,8 @@ public class CreateDashboardAction extends BaseDashboardAction {
 			getDashboardAPI().createDashboard(dashboardName);
 		}
 
-		return mapping.redirect()
-				.addParameter("dashboard", dashboardName)
-				.addParameter("lo", ShowDashboardAction.LastOperation.dcr.name());
+		setSessionAttribute("infoMessage", "Dashboard \'"+dashboardName+"\' has been created.");
+
+		return mapping.redirect().addParameter("dashboard", dashboardName);
 	}
 }
