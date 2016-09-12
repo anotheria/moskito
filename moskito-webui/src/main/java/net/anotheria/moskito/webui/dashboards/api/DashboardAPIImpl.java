@@ -372,6 +372,7 @@ public class DashboardAPIImpl extends AbstractMoskitoAPIImpl implements Dashboar
 
 
 		DashboardAO ret = new DashboardAO();
+		ret.setName(config.getName());
 		if (config.getGauges()!=null && config.getGauges().length>0){
 			ret.setGauges(gaugeAPI.getGauges(config.getGauges()));
 		}
