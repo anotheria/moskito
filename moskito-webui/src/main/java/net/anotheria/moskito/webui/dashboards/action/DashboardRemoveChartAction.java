@@ -17,12 +17,13 @@ public class DashboardRemoveChartAction extends BaseDashboardAction{
 	@Override
 	public ActionCommand execute(ActionMapping actionMapping, FormBean formBean, HttpServletRequest request, HttpServletResponse response) throws Exception {
 
-		String elementName = request.getParameter("pElement");
+		String accNamesConcat = request.getParameter("pElement");
+		String[] accNames = accNamesConcat.split(",");
 		String dashboard = request.getParameter("pName");
 
-		getDashboardAPI().removeChartFromDashboard(dashboard, elementName);
+		getDashboardAPI().removeChartFromDashboard(dashboard, accNames);
 
-		setInfoMessage("Chart \'"+elementName+"\' has been removed from dashboard \'"+dashboard+"\'");
+		setInfoMessage("Accumulators \'"+accNamesConcat+"\' has been removed from dashboard \'"+dashboard+"\'");
 
 		return actionMapping.redirect()
 				.addParameter("dashboard", dashboard);

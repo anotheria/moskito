@@ -180,12 +180,10 @@
                                 <a href="#" data-target="#" data-toggle="dropdown"><i class="fa fa-cog"></i></a>
                                 <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dLabel">
                                     <li><a href="" onclick="saveSvgAsPng(event, ${index}+countGauges())">Save</a></li>
-                                    <ano:iF test="${requestScope.selectedDashboard == null && chart.dashboardsToAdd != ''}">
-                                        <li><a onclick="addChart('${chart.caption}','${chart.dashboardsToAdd}')">Add to Dashboard</a></li>
+                                    <ano:iF test="${chart.dashboardsToAdd != ''}">
+                                        <li><a onclick="addChart('${chart.chartNames}','${chart.dashboardsToAdd}')">Add to Dashboard</a></li>
                                     </ano:iF>
-                                    <ano:iF test="${requestScope.selectedDashboard != null}">
-                                        <li><a onclick="removeChart('${chart.caption}', '${requestScope.selectedDashboard}')">Remove</a></li>
-                                    </ano:iF>
+                                    <li><a onclick="removeChart('${chart.chartNames}', '${requestScope.selectedDashboard}')">Remove</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -342,22 +340,6 @@
 
 </section>
 
-
-<div class="modal fade modal-danger" id="chartDelete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                <h4 class="modal-title">Remove chart <span id="selectedChartForRemoval">test</span> from Dashboard: '${selectedDashboard}'?</h4>
-            </div>
-            <div class="modal-footer text-center">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <a href="" onclick="location.href='mskDashboardRemoveChart?chart='+selectedChartForRemoval+'&dashboard=${selectedDashboard}'; return false" class="btn btn-danger">Remove</a>s
-            </div>
-        </div>
-    </div>
-</div>
-
 <%--------------------------------- Create/Delete dashboards -----------------------------------%>
 
 <div class="modal fade" id="CreateDashboard" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
@@ -404,43 +386,6 @@
 </div>
 
 <%----------------------------------------------------------------------------------------------%>
-
-<script language="JavaScript">
-
-    function removeChart(chartCaption, dashboard) {
-        $("#removeElementFromDashboardTitle").html("Remove chart \"" + chartCaption + "\" from dashboard \""+dashboard+"\"?");
-        $("#removeElementFromDashboardAction").attr("action", "mskDashboardRemoveChart");
-        $("#removeElement").attr("value", chartCaption);
-        $("#removeElementFromDashboard").modal('show');
-    }
-
-    function addChart(chartCaption, dashboardsToAdd) {
-
-        $("#selectedElement").html("chart \"" + chartCaption + "\"");
-        $("#selectedElementName").attr("value", chartCaption);
-        $("#addElementToDashboardAction").attr("action", "mskAddChartToDashboard");
-
-        var dashboards = dashboardsToAdd.split(',');
-
-        var textToAdd = "";
-        for (var i = 0; i < dashboards.length; i++) {
-            textToAdd +=
-                    "<div class=\"checkbox\"> " +
-                    "<label>" +
-                    "<input type=\"checkbox\" checked name=\"pDashboards\" value=\""+dashboards[i]+"\">" + dashboards[i] +
-                    "</label>" +
-                    "</div>";
-
-        }
-        $("#dashboardsToSelect").html(textToAdd);
-
-        if (dashboards.length == 1) {
-            $("#addElementToDashboardAction").submit();
-        } else {
-            $("#addElementToDashboard").modal('show');
-        }
-    }
-</script>
 
 </body>
 </html>

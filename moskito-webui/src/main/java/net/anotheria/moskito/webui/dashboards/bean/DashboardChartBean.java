@@ -2,6 +2,7 @@ package net.anotheria.moskito.webui.dashboards.bean;
 
 import net.anotheria.moskito.webui.accumulators.api.MultilineChartAO;
 import net.anotheria.moskito.webui.dashboards.api.DashboardChartAO;
+import net.anotheria.util.StringUtils;
 
 /**
  *
@@ -16,6 +17,10 @@ public class DashboardChartBean {
 	 */
 	private MultilineChartAO chart;
 	/**
+	 * Concatenated chart's names.
+	 */
+	private String chartNames;
+	/**
 	 * Dashboards where this gauge can be added.
 	 */
 	private String dashboardsToAdd;
@@ -23,6 +28,7 @@ public class DashboardChartBean {
 	public DashboardChartBean(DashboardChartAO dashboardChartAO, String dashboardsToAdd) {
 		this.caption = dashboardChartAO.getCaption();
 		this.chart = dashboardChartAO.getChart();
+		this.chartNames = StringUtils.concatenateTokens(dashboardChartAO.getChart().getNames(),",");
 		this.dashboardsToAdd = dashboardsToAdd;
 	}
 
@@ -40,6 +46,14 @@ public class DashboardChartBean {
 
 	public void setChart(MultilineChartAO chart) {
 		this.chart = chart;
+	}
+
+	public String getChartNames() {
+		return chartNames;
+	}
+
+	public void setChartNames(String chartNames) {
+		this.chartNames = chartNames;
 	}
 
 	public String getDashboardsToAdd() {

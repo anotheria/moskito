@@ -57,13 +57,12 @@ public class DashboardChartAO implements Serializable{
 		if (o == null || getClass() != o.getClass()) return false;
 
 		DashboardChartAO that = (DashboardChartAO) o;
-
-		return caption.equals(that.caption);
+		return chart.equals(that.chart);
 
 	}
 
 	@Override
 	public int hashCode() {
-		return caption.hashCode();
+		return chart.hashCode();
 	}
 }

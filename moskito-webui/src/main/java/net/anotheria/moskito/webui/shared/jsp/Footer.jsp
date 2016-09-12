@@ -544,3 +544,43 @@ olark.identify('7961-404-10-9387');/*]]>*/</script><noscript><a href="https://ww
         }
     </script>
 </ano:present>
+
+
+<ano:present name="charts">
+    <script language="JavaScript">
+
+        function removeChart(chartCaption, dashboard) {
+            $("#removeElementFromDashboardTitle").html("Remove chart \"" + chartCaption + "\" from dashboard \""+dashboard+"\"?");
+            $("#removeElementFromDashboardAction").attr("action", "mskDashboardRemoveChart");
+            $("#removeElement").attr("value", chartCaption);
+            $("#removeElementFromDashboard").modal('show');
+        }
+
+        function addChart(chartCaption, dashboardsToAdd) {
+
+            $("#selectedElement").html("chart \"" + chartCaption + "\"");
+            $("#selectedElementName").attr("value", chartCaption);
+            $("#addElementToDashboardAction").attr("action", "mskAddChartToDashboard");
+
+            var dashboards = dashboardsToAdd.split(',');
+
+            var textToAdd = "";
+            for (var i = 0; i < dashboards.length; i++) {
+                textToAdd +=
+                        "<div class=\"checkbox\"> " +
+                        "<label>" +
+                        "<input type=\"checkbox\" checked name=\"pDashboards\" value=\""+dashboards[i]+"\">" + dashboards[i] +
+                        "</label>" +
+                        "</div>";
+
+            }
+            $("#dashboardsToSelect").html(textToAdd);
+
+            if (dashboards.length == 1) {
+                $("#addElementToDashboardAction").submit();
+            } else {
+                $("#addElementToDashboard").modal('show');
+            }
+        }
+    </script>
+</ano:present>

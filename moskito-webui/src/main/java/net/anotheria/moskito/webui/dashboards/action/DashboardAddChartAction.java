@@ -16,14 +16,15 @@ import javax.servlet.http.HttpServletResponse;
 public class DashboardAddChartAction extends BaseDashboardAction {
 	@Override
 	public ActionCommand execute(ActionMapping mapping, FormBean formBean, HttpServletRequest request, HttpServletResponse response) throws Exception {
-		String chartName = request.getParameter("pName");
+		String accNamesConcat = request.getParameter("pName");
+		String[] accNames = accNamesConcat.split(",");
 		String[] dashboardsName = request.getParameterValues("pDashboards");
 
 		for(String dashboard : dashboardsName) {
-			getDashboardAPI().addChartToDashboard(dashboard, chartName);
+			getDashboardAPI().addChartToDashboard(dashboard, accNames);
 		}
 
-		setInfoMessage( "Chart \'"+chartName+"\' has been added to following dashboards: "+ StringUtils.concatenateTokens(", ", dashboardsName));
+		setInfoMessage( "Accumulators "+accNamesConcat+" have been added to following dashboards: "+ StringUtils.concatenateTokens(", ", dashboardsName));
 
 		CommandRedirect commandRedirect =  mapping.redirect();
 		if (dashboardsName.length == 1) {

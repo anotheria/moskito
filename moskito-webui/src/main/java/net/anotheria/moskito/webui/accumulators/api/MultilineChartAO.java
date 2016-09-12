@@ -6,6 +6,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.Serializable;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -47,6 +48,8 @@ public class MultilineChartAO implements Serializable{
 
 	public void setNames(List<String> names) {
 		this.names = names;
+		if (names != null)
+			Collections.sort(names);
 	}
 
 	public List<AccumulatedSingleGraphAO> getSingleGraphAOs() {
@@ -87,5 +90,20 @@ public class MultilineChartAO implements Serializable{
 				", names=" + names +
 				", singleGraphAOs=" + singleGraphAOs +
 				'}';
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+
+		MultilineChartAO that = (MultilineChartAO) o;
+
+		return names.equals(that.names);
+	}
+
+	@Override
+	public int hashCode() {
+		return names.hashCode();
 	}
 }

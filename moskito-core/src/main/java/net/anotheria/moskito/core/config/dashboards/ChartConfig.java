@@ -37,6 +37,8 @@ public class ChartConfig implements Serializable{
 
 	public void setAccumulators(String[] accumulators) {
 		this.accumulators = accumulators;
+		if (this.accumulators != null)
+			Arrays.sort(this.accumulators);
 	}
 
 	public String getCaption() {

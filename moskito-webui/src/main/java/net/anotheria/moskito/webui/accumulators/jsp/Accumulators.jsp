@@ -64,10 +64,14 @@
                             </ano:iF>
                         </h3>
 
-                        <div class="box-right-nav">
-                            <%--<a href="" class="tooltip-bottom" title="Send email"><i class="fa fa-paper-plane"></i></a>--%>
-                            <a class="tooltip-bottom save_as" id="save_as" title="Save"><i class="fa fa-download"></i></a>
-                            <a href="" class="tooltip-bottom" title="Refresh"><i class="fa fa-refresh"></i></a>
+                        <div class="box-right-nav dropdown">
+                            <a href="#" data-target="#" data-toggle="dropdown"><i class="fa fa-cog"></i></a>
+                            <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dLabel">
+                                <li><a href="" id="save_as">Save</a></li>
+                                <ano:iF test="${chart.dashboardsToAdd != ''}">
+                                    <li><a onclick="addChart('${requestScope.accNamesConcat}','${requestScope.dashboards}')">Add to Dashboard</a></li>
+                                </ano:iF>
+                            </ul>
                         </div>
                     </div>
                     <div id="collapse-chart" class="box-content accordion-body collapse in">
@@ -392,7 +396,9 @@
 
 
         <script type="text/javascript">
-        $('.save_as').click( function() {
+        $('#save_as').click( function(event) {
+            event.preventDefault();
+            event.stopPropagation();
             var chartWidth = 1120,
                     chartHeight = 300,
                     margin = 40;

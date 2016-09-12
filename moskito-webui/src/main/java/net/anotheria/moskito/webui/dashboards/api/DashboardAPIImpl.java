@@ -243,11 +243,11 @@ public class DashboardAPIImpl extends AbstractMoskitoAPIImpl implements Dashboar
 	}
 
 	@Override
-	public void addChartToDashboard(String dashboardName, String chartName) throws APIException {
+	public void addChartToDashboard(String dashboardName, String[] accNames) throws APIException {
 		DashboardConfig config = getDashboardConfig(dashboardName);
 		if (config == null)
 			return;
-		if (StringUtils.isEmpty(chartName))
+		if (accNames == null || accNames.length == 0)
 			return;
 
 		ChartConfig[] cc_array = config.getCharts();
@@ -257,33 +257,30 @@ public class DashboardAPIImpl extends AbstractMoskitoAPIImpl implements Dashboar
 			System.arraycopy(cc_array, 0, new_cc_array, 0, cc_array.length);
 
 		ChartConfig newChartConfig = new ChartConfig();
-		for(ChartConfig cc : getDashboardConfig(getDefaultDashboardName()).getCharts()) {
-			String caption = StringUtils.isEmpty(cc.getCaption()) ? cc.buildCaption() : cc.getCaption();
-			if (caption.equals(chartName)) {
-				newChartConfig.setAccumulators(cc.getAccumulators().clone());
-				break;
-			}
-		}
-		newChartConfig.setCaption(chartName);
+		newChartConfig.setAccumulators(accNames);
+		newChartConfig.setCaption(" ");
 		new_cc_array[new_cc_array.length-1] = newChartConfig;
 
 		config.setCharts(new_cc_array);
 	}
 
 	@Override
-	public void removeChartFromDashboard(String dashboardName, String chartName) throws APIException {
+	public void removeChartFromDashboard(String dashboardName, String[] accNames) throws APIException {
 		DashboardConfig config = getDashboardConfig(dashboardName);
 		if (config == null)
 			return;
-		if (StringUtils.isEmpty(chartName))
+		if (accNames == null || accNames.length == 0)
 			return;
 
+		ChartConfig inputConfig = new ChartConfig();
+		inputConfig.setAccumulators(accNames);
+		String accCaption = inputConfig.buildCaption();
 		ChartConfig[] cc_array = config.getCharts();
 		int index = -1;
 		int count = 0;
 		for (ChartConfig cc : cc_array) {
-			String caption = StringUtils.isEmpty(cc.getCaption()) ? cc.buildCaption() : cc.getCaption();
-			if (caption.equals(chartName)) {
+			String caption = cc.buildCaption();
+			if (caption.equals(accCaption)) {
 				index = count;
 				break;
 			}
