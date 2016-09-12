@@ -14,7 +14,7 @@ public class AlertHistoryConfig implements Serializable {
 	/**
 	 * SerialVersionUID.
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 4992659780084743611L;
 
 	/**
 	 * The max number of items in the history.

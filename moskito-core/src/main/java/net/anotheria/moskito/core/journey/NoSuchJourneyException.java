@@ -8,7 +8,7 @@ public class NoSuchJourneyException extends Exception{
 	/**
 	 * SerialVersionUID.
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = -2757309597576762840L;
 
 	/**
 	 * Creates a new NoSuchJourneyException.

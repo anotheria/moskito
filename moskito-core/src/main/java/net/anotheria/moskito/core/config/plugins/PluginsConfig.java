@@ -18,7 +18,7 @@ public class PluginsConfig implements Serializable {
 	/**
 	 * SerialVersionUID.
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = -5882484953881475355L;
 
 	/**
 	 * Configured plugin list.

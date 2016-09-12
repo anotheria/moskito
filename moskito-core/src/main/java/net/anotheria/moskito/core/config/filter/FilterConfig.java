@@ -16,7 +16,7 @@ public class FilterConfig implements Serializable{
 	/**
 	 * SerialVersionUID.
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = -3292200778852233918L;
 
 	@Configure
 	private String[] caseExtractors = new String[]{

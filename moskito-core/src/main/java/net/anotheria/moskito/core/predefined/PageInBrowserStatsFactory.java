@@ -1,6 +1,5 @@
 package net.anotheria.moskito.core.predefined;
 
-import net.anotheria.moskito.core.dynamic.IOnDemandStatsFactory;
 import net.anotheria.moskito.core.stats.Interval;
 
 /**
@@ -8,17 +7,12 @@ import net.anotheria.moskito.core.stats.Interval;
  *
  * @author Illya Bogatyrchuk
  */
-public class PageInBrowserStatsFactory implements IOnDemandStatsFactory<PageInBrowserStats> {
-	/**
-	 * Array of {@link Interval}.
-	 */
-	private Interval[] intervalSelection;
-
+public class PageInBrowserStatsFactory extends AbstractStatsFactory<PageInBrowserStats> {
 	/**
 	 * Constructor.
 	 */
 	public PageInBrowserStatsFactory() {
-		this(Constants.getDefaultIntervals());
+		super();
 	}
 
 	/**
@@ -27,11 +21,11 @@ public class PageInBrowserStatsFactory implements IOnDemandStatsFactory<PageInBr
 	 * @param intervalSelection selected intervals
 	 */
 	public PageInBrowserStatsFactory(final Interval[] intervalSelection) {
-		this.intervalSelection = intervalSelection;
+		super(intervalSelection == null || intervalSelection.length <= 0 ? Constants.getDefaultIntervals() : intervalSelection);
 	}
 
 	@Override
 	public PageInBrowserStats createStatsObject(final String url) {
-		return new PageInBrowserStats(url, intervalSelection);
+		return new PageInBrowserStats(url, getIntervals());
 	}
 }

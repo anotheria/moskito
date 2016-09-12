@@ -19,7 +19,7 @@ public class DashboardsConfig implements Serializable {
 	/**
 	 * SerialVersionUID.
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = -5087792254656485967L;
 
 	/**
 	 * Contained dashboards.

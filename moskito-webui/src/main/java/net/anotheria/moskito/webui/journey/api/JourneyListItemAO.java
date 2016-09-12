@@ -16,7 +16,7 @@ public class JourneyListItemAO implements Serializable{
 	/**
 	 * SerialVersionUID.
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = -3336903807095768651L;
 
 	/**
 	 * Name of the session.

@@ -46,7 +46,7 @@ public class StringValueAO extends StatValueAO {
 	/**
 	 * SerialVersionUID.
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 4582549556607855799L;
 
 
 	/**

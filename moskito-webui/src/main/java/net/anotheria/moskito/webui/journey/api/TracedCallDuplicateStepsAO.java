@@ -15,7 +15,7 @@ public class TracedCallDuplicateStepsAO implements IComparable<TracedCallDuplica
 	/**
 	 * SerialVersionUID.
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 6005382235767306653L;
 
 	/**
 	 * Call description aka method name and parameters.

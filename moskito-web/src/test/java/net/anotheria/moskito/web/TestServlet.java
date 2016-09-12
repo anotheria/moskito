@@ -9,7 +9,7 @@ public class TestServlet extends MoskitoHttpServlet{
 	/**
 	 * SerialVersionUID.
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1950278909285088591L;
 
 
 	private boolean throwErrors;

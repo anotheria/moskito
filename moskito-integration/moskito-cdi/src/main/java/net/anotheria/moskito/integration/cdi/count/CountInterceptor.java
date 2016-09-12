@@ -22,11 +22,10 @@ import java.lang.reflect.Method;
 @Count
 @Interceptor
 public class CountInterceptor extends AbstractInterceptor<CounterStats> implements Serializable {
-
     /**
-     * Serial Version ID.
+     * SerialVersionUID.
      */
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = -3519810777335621747L;
 
     @Override
     protected final Class<CounterStats> getStatsClass() {

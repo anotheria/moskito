@@ -22,7 +22,7 @@ public class ThresholdStatusAO implements IComparable, Serializable{
 	/**
 	 * SerialVersionUID.
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1974568139755756775L;
 
 	/**
 	 * Name of the threshold.

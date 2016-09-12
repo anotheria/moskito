@@ -42,11 +42,10 @@ import net.anotheria.util.sorter.SortType;
  *
  */
 public class ProducerAOSortType extends SortType{
-	
 	/**
 	 * SerialVersionUID.
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 7067406231588023298L;
 	/**
 	 * Constant for sorting by producer id.
 	 */

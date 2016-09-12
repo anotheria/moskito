@@ -12,7 +12,7 @@ public class TraceSortType extends SortType{
 	/**
 	 * SerialVersionUID.
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = -1287175786659872536L;
 
 	public static final int SORT_BY_ID = 1;
 	public static final int SORT_BY_DURATION = 2;

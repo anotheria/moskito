@@ -16,7 +16,7 @@ public class PluginConfig implements Serializable {
 	/**
 	 * SerialVersionUID.
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = -5682152228778301153L;
 
 	/**
 	 * Name of the plugin. This allows to have multiple copies of same plugin in the runtime instance.

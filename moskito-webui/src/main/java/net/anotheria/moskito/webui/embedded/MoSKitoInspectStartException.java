@@ -10,7 +10,7 @@ public class MoSKitoInspectStartException extends Exception{
 	/**
 	 * SerialVersionUID.
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 2162934483357207204L;
 
 	/**
 	 * Creates a new exception instance.

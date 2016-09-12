@@ -16,7 +16,7 @@ public class ChartConfig implements Serializable{
 	/**
 	 * SerialVersionUID.
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 8677290973596785948L;
 
 
 	/**

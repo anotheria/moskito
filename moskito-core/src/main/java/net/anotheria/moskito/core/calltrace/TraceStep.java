@@ -47,9 +47,9 @@ import java.util.List;
  */
 public class TraceStep implements Serializable{
 	/**
-	 * 
+	 * SerialVersionUID.
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 5125788088153070555L;
 	/**
 	 * Call description, might be a method call or whatever suits best.
 	 */

@@ -13,7 +13,7 @@ public class TracedCallStepAO implements Serializable{
 	/**
 	 * SerialVersionUID.
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = -8088335286863272686L;
 
 	/**
 	 * Method call.

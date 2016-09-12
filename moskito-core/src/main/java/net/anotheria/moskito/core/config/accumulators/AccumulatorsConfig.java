@@ -20,7 +20,7 @@ public class AccumulatorsConfig implements Serializable {
 	/**
 	 * SerialVersionUID.
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = -2579727416537790538L;
 	/**
 	 * The default amount of accumulated values in the accumulator.
 	 * This setting only applies for accumulators created AFTER the change.

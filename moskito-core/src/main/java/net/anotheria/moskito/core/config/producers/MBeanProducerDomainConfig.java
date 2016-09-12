@@ -14,8 +14,7 @@ public class MBeanProducerDomainConfig implements Serializable{
 	/**
 	 * SerialVersionUID.
 	 */
-	private static final long serialVersionUID = 1L;
-
+	private static final long serialVersionUID = 3040141732977192109L;
 
 	/**
      * the name of MBean domain to configure.

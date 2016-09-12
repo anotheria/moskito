@@ -15,7 +15,7 @@ public class LongBarrierPassGuard extends BarrierPassGuard implements Serializab
 	/**
 	 * SerialVersionUID.
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = -2297541614810269187L;
 
 	/**
 	 * The threshold value of the guard.

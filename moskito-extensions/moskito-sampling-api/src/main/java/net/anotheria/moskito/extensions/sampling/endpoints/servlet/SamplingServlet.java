@@ -24,7 +24,7 @@ public class SamplingServlet extends MoskitoHttpServlet{
 	/**
 	 * SerialVersionUID.
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = -3131209799814451746L;
 
 
 	/**
