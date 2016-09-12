@@ -64,7 +64,7 @@ body {
 }
 
 .header-box {
-    height: 80px;
+    height: 70px;
     position: relative;
     overflow: hidden;
     text-align: center;
@@ -76,20 +76,6 @@ body {
 
 .header-box a {
     display: block;
-}
-
-.logo {
-    display: block;
-    width: 58px;
-    height: 24px;
-    background-image: url("../img/logo.png");
-    background-repeat: no-repeat;
-    margin: 18px auto 2px;
-    -webkit-transition: all 0.22s linear;
-    -moz-transition: all 0.22s linear;
-    -o-transition: all 0.22s linear;
-    transition: all 0.22s linear;
-    position: relative;
 }
 
 .logo-custom {
@@ -1874,4 +1860,34 @@ Heat map
     display: inline-block;
     position:relative;
     top:15px;
+}
+
+.logo img {
+    height: 45px;
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+
+.logo {
+    margin-top: 12px;
+    position: relative;
+    display: inline-block;
+    padding-left: 55px;
+    margin-left: -10px;
+}
+
+.logo a > span {
+    display: inline-block;
+    color: #FFF;
+    text-align: left;
+    float: right;
+    font-size: 16px;
+    font-weight: 300;
+    line-height: 18px;
+    margin-top: 2px;
+}
+
+.logo a > span span {
+    display: block;
 }
