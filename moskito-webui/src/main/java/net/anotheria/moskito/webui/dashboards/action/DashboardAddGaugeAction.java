@@ -4,6 +4,7 @@ import net.anotheria.maf.action.ActionCommand;
 import net.anotheria.maf.action.ActionMapping;
 import net.anotheria.maf.action.CommandRedirect;
 import net.anotheria.maf.bean.FormBean;
+import net.anotheria.util.StringUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -22,7 +23,9 @@ public class DashboardAddGaugeAction extends BaseDashboardAction {
 			getDashboardAPI().addGaugeToDashboard(dashboard, gaugeName);
 		}
 
-		CommandRedirect commandRedirect =  mapping.redirect().addParameter("lo", ShowDashboardAction.LastOperation.gadd.name());
+		setSessionAttribute("infoMessage", "Gauge \'"+gaugeName+"\' has been added to following dashboards: "+ StringUtils.concatenateTokens(", ", dashboardsName));
+
+		CommandRedirect commandRedirect =  mapping.redirect();
 		if (dashboardsName.length == 1) {
 			commandRedirect = commandRedirect.addParameter("dashboard", dashboardsName[0]);
 		}

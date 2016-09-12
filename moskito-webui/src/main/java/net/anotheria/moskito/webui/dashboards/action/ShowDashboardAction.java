@@ -27,17 +27,6 @@ import java.util.List;
  */
 public class ShowDashboardAction extends BaseDashboardAction {
 
-	enum LastOperation {
-		dcr, //dashboard create
-		drm, // dashboard remove
-		gadd, // add gauge to dashboard
-		grm, // remove gauge from dashboard
-		tadd, // add threshold to dashboard
-		trm, // remove threshold from dashboard
-		cadd, // add chart to dashboard
-		crm, // remove chart from dashboard
-	}
-
 	@Override
 	public ActionCommand execute(ActionMapping actionMapping, FormBean formBean, HttpServletRequest request, HttpServletResponse response) throws Exception {
 
@@ -88,7 +77,11 @@ public class ShowDashboardAction extends BaseDashboardAction {
 		request.setAttribute("thresholdsPresent", thresholdsPresent);
 		request.setAttribute("showHelp", !(gaugesPresent || chartsPresent || thresholdsPresent));
 
-		addInfoMessage(request);
+		String infoMessage = (String) getSessionAttribute("infoMessage");
+		if (!StringUtils.isEmpty(infoMessage)) {
+			removeSessionAttribute("infoMessage");
+			request.setAttribute("infoMessage", infoMessage);
+		}
 
 		return actionMapping.success();
 	}
@@ -168,46 +161,5 @@ public class ShowDashboardAction extends BaseDashboardAction {
 		}
 
 		return ret;
-	}
-
-	private void addInfoMessage(HttpServletRequest request) {
-		String lastOperation = request.getParameter("lo");
-
-		if (lastOperation == null)
-			return;
-		String dashboardName = request.getParameter("dashboard");
-		LastOperation lo = LastOperation.valueOf(lastOperation);
-		String infoMessage = "";
-		switch (lo) {
-			case dcr:
-				infoMessage = "Dashboard \"" + dashboardName + "\" has been created";
-				break;
-			case drm:
-				infoMessage = "Dashboard \"" + dashboardName + "\" has been deleted";
-				break;
-			case gadd:
-				infoMessage = "Gauge has been added to selected dashboards";
-				break;
-			case grm:
-				infoMessage = "Gauge has been removed from dashboard";
-				break;
-			case tadd:
-				infoMessage = "Threshold has been added to dashboard";
-				break;
-			case trm:
-				infoMessage = "Threshold has been removed from dashboard";
-				break;
-			case cadd:
-				infoMessage = "Chart has been added to dashboard";
-				break;
-			case crm:
-				infoMessage = "Chart has been removed from dashboard";
-				break;
-			default:
-				break;
-		}
-
-		if (!StringUtils.isEmpty(infoMessage))
-			request.setAttribute("infoMessage", infoMessage);
 	}
 }

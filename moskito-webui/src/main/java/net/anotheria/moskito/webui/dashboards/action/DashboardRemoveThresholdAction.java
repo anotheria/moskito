@@ -22,8 +22,9 @@ public class DashboardRemoveThresholdAction extends BaseDashboardAction{
 
 		getDashboardAPI().removeThresholdFromDashboard(dashboard, elementName);
 
+		setSessionAttribute("infoMessage", "Threshold \'"+elementName+"\' has been removed from dashboard \'"+dashboard+"\'");
+
 		return actionMapping.redirect()
-				.addParameter("dashboard", dashboard)
-				.addParameter("lo", ShowDashboardAction.LastOperation.trm.name());
+				.addParameter("dashboard", dashboard);
 	}
 }
