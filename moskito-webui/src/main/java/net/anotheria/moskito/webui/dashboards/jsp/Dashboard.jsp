@@ -97,12 +97,10 @@
                                         <a href="#" data-target="#" data-toggle="dropdown"><i class="fa fa-cog"></i></a>
                                         <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dLabel">
                                             <li><a href="" onclick="saveGaugesSvgAsPng(event, ${index}, ${index})">Save</a></li>
-                                            <ano:iF test="${requestScope.selectedDashboard == null && gauge.dashboardsToAdd != ''}">
+                                            <ano:iF test="${gauge.dashboardsToAdd != ''}">
                                                 <li><a onclick="addGauge('${gauge.caption}', '${gauge.name}', '${gauge.dashboardsToAdd}')" >Add to Dashboard</a></li>
                                             </ano:iF>
-                                            <ano:iF test="${requestScope.selectedDashboard != null}">
-                                                <li><a onclick="removeGauge('${gauge.caption}', '${gauge.name}', '${requestScope.selectedDashboard}')">Remove</a></li>
-                                            </ano:iF>
+                                            <li><a onclick="removeGauge('${gauge.caption}', '${gauge.name}', '${requestScope.selectedDashboard}')">Remove</a></li>
                                         </ul>
                                     </div>
                                 </div>
@@ -242,118 +240,6 @@
                 </div>
             </div>
         </ano:iF>
-        <!-- Gauges -->
-        <script type="text/javascript">
-             function saveGaugesSvgAsPng(event, from, to) {
-
-                 event.preventDefault();
-                 event.stopPropagation();
-
-//                 var xValBegin= 100, xStep = 200;
-                 var guageWidth = 144,
-                         guageHeight = 144,
-                         marginLeft = 50,
-                         marginRight = 50,
-                         marginTop = 50,
-                         marginBottom = 50,
-                         indent=20;
-
-                 var allSvgsCode = '<svg xmlns="http://www.w3.org/2000/svg" class="gauge1" width="800" height="244" style="background-color: #FFFFFF;">';
-
-
-                 var svgs = document.getElementsByClassName("gauge");
-
-                 to = to < svgs.length ? to : svgs.length - 1;
-                 var gaugeCount = to - from + 1;
-                 for(var i = from; i <= to;i++) {
-                     var svgOrigin =svgs[i];
-
-                     //copy svg chart
-                     var svg = svgOrigin.cloneNode(true);
-
-                     svg.setAttribute("x", marginLeft + (i-from)*(guageWidth+indent));
-                     svg.setAttribute("y", marginTop);
-                     svg.setAttribute("style", "background-color: #FFFFFF;");
-
-                     var css = '.axis path,' +
-                     '.axis line {' +
-                        'fill: none;' +
-                        'stroke: #000;' +
-                        'shape-rendering: crispEdges;' +
-                     '}' +
-                        '.legend, .tick {' +
-                        'font: 12px sans-serif;' +
-                     '}' +
-                      'text {' +
-                         'font: 12px sans-serif;' +
-                     '}' +
-                     '.line {' +
-                        'fill: none;' +
-                        'stroke: steelblue;' +
-                        'stroke-width: 1.5px;' +
-                     '}' +
-                     '.line.hover {' +
-                        'fill: none;' +
-                        'stroke: steelblue;' +
-                        'stroke-width: 3.0px;' +
-                     '}' +
-
-                     '.grid .tick {' +
-                        'stroke: lightgrey;' +
-                        'opacity: 0.7;' +
-                     '}' +
-                     '.grid path {' +
-                        'stroke-width: 0;' +
-                     '}';
-
-                     var style = document.createElement('style');
-                     style.type = 'text/css';
-                     if (style.styleSheet){
-                         style.styleSheet.cssText = css;
-                     } else {
-                         style.appendChild(document.createTextNode(css));
-                     }
-
-                     svg.appendChild(style);
-
-                     allSvgsCode+= new XMLSerializer().serializeToString(svg);
-                 }
-                 allSvgsCode+='</svg>';
-
-                 var svgData = allSvgsCode;
-                 var canvas = document.createElement("canvas");
-                 canvas.width  = marginLeft + marginRight + gaugeCount * guageWidth + (gaugeCount-1) * indent;
-                 canvas.height = guageHeight + marginBottom + marginTop;
-                 var ctx = canvas.getContext("2d");
-                 ctx.fillStyle="white";
-                 ctx.fill();
-                 var img = document.createElement("img");
-
-                 var img = document.createElement("img");
-                 var encoded_svg = btoa(svgData.replace(/[\u00A0-\u2666]/g, function(c) {
-                     return '&#' + c.charCodeAt(0) + ';';
-                 }));
-                 img.setAttribute("src", "data:image/svg+xml;base64," + encoded_svg);
-
-                img.onload = function () {
-                    ctx.drawImage(img, 0, 0);
-                    var canvasdata = canvas.toDataURL("image/png");
-                    var a = document.createElement("a");
-                    var file_name = getChartFileNameG();
-
-                    a.download = file_name + ".png";
-                    a.href = canvasdata;
-                    document.body.appendChild(a);
-                    a.click();
-
-                };
-             }
-             function getChartFileNameG() {
-                var t = new Date($.now());
-                var current_date = t.getFullYear()+'-'+ t.getMonth()+'-'+ t.getDate()+'__'+t.getHours()+'-'+ t.getMinutes();
-                return "Guages_"+current_date;
-            }
-        </script>
 
         <script type="text/javascript">
             function countGauges() {
@@ -458,20 +344,6 @@
 
 </section>
 
-<div class="modal fade modal-danger" id="gaugeDelete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                <h4 class="modal-title">Remove this Gauge?</h4>
-            </div>
-            <div class="modal-footer text-center">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <a href="" onclick="location.href='mskDashboardRemoveGauge?gauge='+selectedGaugeForRemoval+'&dashboard=${selectedDashboard}'; return false" class="btn btn-danger">Remove</a>s
-            </div>
-        </div>
-    </div>
-</div>
 
 <div class="modal fade modal-danger" id="chartDelete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
     <div class="modal-dialog">
@@ -560,40 +432,6 @@
                     "<input type=\"checkbox\" checked name=\"pDashboards\" value=\""+dashboards[i]+"\">" + dashboards[i] +
                     "</label>" +
                     "</div>";
-
-        }
-        $("#dashboardsToSelect").html(textToAdd);
-
-        if (dashboards.length == 1) {
-            $("#addElementToDashboardAction").submit();
-        } else {
-            $("#addElementToDashboard").modal('show');
-        }
-    }
-
-    function removeGauge(gaugeForRemovalCaption, gaugeForRemovalName, dashboard){
-        $("#removeElementFromDashboardTitle").html("Remove gauge \"" + gaugeForRemovalCaption + "\" from dashboard \""+dashboard+"\"?");
-        $("#removeElementFromDashboardAction").attr("action", "mskDashboardRemoveGauge");
-        $("#removeElement").attr("value", gaugeForRemovalName);
-        $("#removeElementFromDashboard").modal('show');
-    }
-
-    function addGauge(gaugeCaption, gaugeName, dashboardsToAdd){
-
-        $("#selectedElement").html("gauge \"" + gaugeCaption + "\"");
-        $("#selectedElementName").attr("value", gaugeName);
-        $("#addElementToDashboardAction").attr("action", "mskAddGaugeToDashboard");
-
-        var dashboards = dashboardsToAdd.split(',');
-
-        var textToAdd = "";
-        for (var i = 0; i < dashboards.length; i++) {
-            textToAdd +=
-            "<div class=\"checkbox\"> " +
-                "<label>" +
-                    "<input type=\"checkbox\" checked name=\"pDashboards\" value=\""+dashboards[i]+"\">" + dashboards[i] +
-                "</label>" +
-            "</div>";
 
         }
         $("#dashboardsToSelect").html(textToAdd);

@@ -311,44 +311,199 @@ olark.identify('7961-404-10-9387');/*]]>*/</script><noscript><a href="https://ww
 <!-- END OLARK -->
 </ano:equal>
 
-<div class="modal fade" id="AddtoDashboard" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+<%------------------------------ Add/Delete elements to dashboard ------------------------------%>
+
+<div class="modal fade" id="addElementToDashboard" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
     <div class="modal-dialog modal-sm">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                <h4 class="modal-title">Add to Dashboard</h4>
+                <h4 class="modal-title">Add <span id="selectedElement">someElement</span> to dashboards</h4>
             </div>
+            <form id="addElementToDashboardAction" action="someAction" method="GET">
+                <div class="modal-body">
+                    <input id="selectedElementName" type="hidden" class="form-control" name="pName" value="test">
+                    <div id="dashboardsToSelect">
+                    </div>
+                </div>
+                <div class="modal-footer text-center">
+                    <button type="button" class="btn btn-success" onclick="submit();">Add</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade modal-danger" id="removeElementFromDashboard" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title" id="removeElementFromDashboardTitle">test</h4>
+            </div>
+
             <div class="modal-body">
-                <label>Select Dashboard from this list</label>
-                <div class="checkbox">
-                    <label>
-                        <input type="checkbox" value="">
-                        Dashboard 1
-                    </label>
-                </div>
-                <div class="checkbox">
-                    <label>
-                        <input type="checkbox" value="">
-                        Dashboard 2
-                    </label>
-                </div>
-                <div class="checkbox">
-                    <label>
-                        <input type="checkbox" value="">
-                        Dashboard 3
-                    </label>
-                </div>
-                <div class="checkbox">
-                    <label>
-                        <input type="checkbox" value="">
-                        Dashboard 4
-                    </label>
-                </div>
-            </div>
-            <div class="modal-footer text-center">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                <a href="#" class="btn btn-primary">Add</a>
+                <form id="removeElementFromDashboardAction" action="someAction" method="GET">
+                    <input type="hidden" class="form-control" name="pName" value="${requestScope.selectedDashboard}">
+                    <input type="hidden" class="form-control" name="pElement" value="test" id="removeElement">
+                    <div class="form-group text-right">
+                        <button class="btn btn-danger" type="button" onclick="submit();">Yes</button>
+                        <button class="btn btn-default" type="button" data-dismiss="modal">Cancel</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
 </div>
+
+<%----------------------------------------------------------------------------------------------%>
+
+<ano:present name="gauges">
+    <script language="JavaScript">
+        function removeGauge(gaugeForRemovalCaption, gaugeForRemovalName, dashboard){
+            $("#removeElementFromDashboardTitle").html("Remove gauge \"" + gaugeForRemovalCaption + "\" from dashboard \""+dashboard+"\"?");
+            $("#removeElementFromDashboardAction").attr("action", "mskDashboardRemoveGauge");
+            $("#removeElement").attr("value", gaugeForRemovalName);
+            $("#removeElementFromDashboard").modal('show');
+        }
+
+        function addGauge(gaugeCaption, gaugeName, dashboardsToAdd){
+
+            $("#selectedElement").html("gauge \"" + gaugeCaption + "\"");
+            $("#selectedElementName").attr("value", gaugeName);
+            $("#addElementToDashboardAction").attr("action", "mskAddGaugeToDashboard");
+
+            var dashboards = dashboardsToAdd.split(',');
+
+            var textToAdd = "";
+            for (var i = 0; i < dashboards.length; i++) {
+                textToAdd +=
+                        "<div class=\"checkbox\"> " +
+                        "<label>" +
+                        "<input type=\"checkbox\" checked name=\"pDashboards\" value=\""+dashboards[i]+"\">" + dashboards[i] +
+                        "</label>" +
+                        "</div>";
+
+            }
+            $("#dashboardsToSelect").html(textToAdd);
+
+            if (dashboards.length == 1) {
+                $("#addElementToDashboardAction").submit();
+            } else {
+                $("#addElementToDashboard").modal('show');
+            }
+        }
+
+        function saveGaugesSvgAsPng(event, from, to) {
+
+            event.preventDefault();
+            event.stopPropagation();
+
+//                 var xValBegin= 100, xStep = 200;
+            var guageWidth = 144,
+                    guageHeight = 144,
+                    marginLeft = 50,
+                    marginRight = 50,
+                    marginTop = 50,
+                    marginBottom = 50,
+                    indent=20;
+
+            var allSvgsCode = '<svg xmlns="http://www.w3.org/2000/svg" class="gauge1" width="800" height="244" style="background-color: #FFFFFF;">';
+
+
+            var svgs = document.getElementsByClassName("gauge");
+
+            to = to < svgs.length ? to : svgs.length - 1;
+            var gaugeCount = to - from + 1;
+            for(var i = from; i <= to;i++) {
+                var svgOrigin =svgs[i];
+
+                //copy svg chart
+                var svg = svgOrigin.cloneNode(true);
+
+                svg.setAttribute("x", marginLeft + (i-from)*(guageWidth+indent));
+                svg.setAttribute("y", marginTop);
+                svg.setAttribute("style", "background-color: #FFFFFF;");
+
+                var css = '.axis path,' +
+                        '.axis line {' +
+                        'fill: none;' +
+                        'stroke: #000;' +
+                        'shape-rendering: crispEdges;' +
+                        '}' +
+                        '.legend, .tick {' +
+                        'font: 12px sans-serif;' +
+                        '}' +
+                        'text {' +
+                        'font: 12px sans-serif;' +
+                        '}' +
+                        '.line {' +
+                        'fill: none;' +
+                        'stroke: steelblue;' +
+                        'stroke-width: 1.5px;' +
+                        '}' +
+                        '.line.hover {' +
+                        'fill: none;' +
+                        'stroke: steelblue;' +
+                        'stroke-width: 3.0px;' +
+                        '}' +
+
+                        '.grid .tick {' +
+                        'stroke: lightgrey;' +
+                        'opacity: 0.7;' +
+                        '}' +
+                        '.grid path {' +
+                        'stroke-width: 0;' +
+                        '}';
+
+                var style = document.createElement('style');
+                style.type = 'text/css';
+                if (style.styleSheet){
+                    style.styleSheet.cssText = css;
+                } else {
+                    style.appendChild(document.createTextNode(css));
+                }
+
+                svg.appendChild(style);
+
+                allSvgsCode+= new XMLSerializer().serializeToString(svg);
+            }
+            allSvgsCode+='</svg>';
+
+            var svgData = allSvgsCode;
+            var canvas = document.createElement("canvas");
+            canvas.width  = marginLeft + marginRight + gaugeCount * guageWidth + (gaugeCount-1) * indent;
+            canvas.height = guageHeight + marginBottom + marginTop;
+            var ctx = canvas.getContext("2d");
+            ctx.fillStyle="white";
+            ctx.fill();
+            var img = document.createElement("img");
+
+            var img = document.createElement("img");
+            var encoded_svg = btoa(svgData.replace(/[\u00A0-\u2666]/g, function(c) {
+                return '&#' + c.charCodeAt(0) + ';';
+            }));
+            img.setAttribute("src", "data:image/svg+xml;base64," + encoded_svg);
+
+            img.onload = function () {
+                ctx.drawImage(img, 0, 0);
+                var canvasdata = canvas.toDataURL("image/png");
+                var a = document.createElement("a");
+                var file_name = getGaugeFileName();
+
+                a.download = file_name + ".png";
+                a.href = canvasdata;
+                document.body.appendChild(a);
+                a.click();
+
+            };
+        }
+
+        function getGaugeFileName() {
+            var t = new Date($.now());
+            var current_date = t.getFullYear()+'-'+ t.getMonth()+'-'+ t.getDate()+'__'+t.getHours()+'-'+ t.getMinutes();
+            return "Guages_"+current_date;
+        }
+    </script>
+</ano:present>
