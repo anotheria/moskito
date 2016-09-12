@@ -21,7 +21,7 @@ public class DeleteDashboardAction extends BaseDashboardAction {
 			getDashboardAPI().removeDashboard(dashboardName);
 		}
 
-		setSessionAttribute("infoMessage", "Dashboard \'"+dashboardName+"\' has been deleted.");
+		setInfoMessage("Dashboard \'"+dashboardName+"\' has been deleted.");
 
 		return mapping.redirect();
 	}

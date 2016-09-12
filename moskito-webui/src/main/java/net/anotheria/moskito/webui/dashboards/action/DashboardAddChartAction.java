@@ -23,7 +23,7 @@ public class DashboardAddChartAction extends BaseDashboardAction {
 			getDashboardAPI().addChartToDashboard(dashboard, chartName);
 		}
 
-		setSessionAttribute("infoMessage", "Chart \'"+chartName+"\' has been added to following dashboards: "+ StringUtils.concatenateTokens(", ", dashboardsName));
+		setInfoMessage( "Chart \'"+chartName+"\' has been added to following dashboards: "+ StringUtils.concatenateTokens(", ", dashboardsName));
 
 		CommandRedirect commandRedirect =  mapping.redirect();
 		if (dashboardsName.length == 1) {

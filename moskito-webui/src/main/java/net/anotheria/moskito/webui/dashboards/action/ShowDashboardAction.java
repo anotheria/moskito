@@ -77,9 +77,8 @@ public class ShowDashboardAction extends BaseDashboardAction {
 		request.setAttribute("thresholdsPresent", thresholdsPresent);
 		request.setAttribute("showHelp", !(gaugesPresent || chartsPresent || thresholdsPresent));
 
-		String infoMessage = (String) getSessionAttribute("infoMessage");
+		String infoMessage = getInfoMessage();
 		if (!StringUtils.isEmpty(infoMessage)) {
-			removeSessionAttribute("infoMessage");
 			request.setAttribute("infoMessage", infoMessage);
 		}
 

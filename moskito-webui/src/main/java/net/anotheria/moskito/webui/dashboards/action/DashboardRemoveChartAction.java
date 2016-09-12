@@ -22,7 +22,7 @@ public class DashboardRemoveChartAction extends BaseDashboardAction{
 
 		getDashboardAPI().removeChartFromDashboard(dashboard, elementName);
 
-		setSessionAttribute("infoMessage", "Chart \'"+elementName+"\' has been removed from dashboard \'"+dashboard+"\'");
+		setInfoMessage("Chart \'"+elementName+"\' has been removed from dashboard \'"+dashboard+"\'");
 
 		return actionMapping.redirect()
 				.addParameter("dashboard", dashboard);

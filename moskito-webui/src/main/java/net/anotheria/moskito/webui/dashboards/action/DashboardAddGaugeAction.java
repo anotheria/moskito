@@ -23,7 +23,7 @@ public class DashboardAddGaugeAction extends BaseDashboardAction {
 			getDashboardAPI().addGaugeToDashboard(dashboard, gaugeName);
 		}
 
-		setSessionAttribute("infoMessage", "Gauge \'"+gaugeName+"\' has been added to following dashboards: "+ StringUtils.concatenateTokens(", ", dashboardsName));
+		setInfoMessage("Gauge \'"+gaugeName+"\' has been added to following dashboards: "+ StringUtils.concatenateTokens(", ", dashboardsName));
 
 		CommandRedirect commandRedirect =  mapping.redirect();
 		if (dashboardsName.length == 1) {

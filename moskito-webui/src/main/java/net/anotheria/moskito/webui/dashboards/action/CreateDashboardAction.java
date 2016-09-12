@@ -21,7 +21,7 @@ public class CreateDashboardAction extends BaseDashboardAction {
 			getDashboardAPI().createDashboard(dashboardName);
 		}
 
-		setSessionAttribute("infoMessage", "Dashboard \'"+dashboardName+"\' has been created.");
+		setInfoMessage("Dashboard \'"+dashboardName+"\' has been created.");
 
 		return mapping.redirect().addParameter("dashboard", dashboardName);
 	}

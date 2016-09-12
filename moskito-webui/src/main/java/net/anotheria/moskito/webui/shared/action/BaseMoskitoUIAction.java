@@ -34,6 +34,8 @@
  */
 package net.anotheria.moskito.webui.shared.action;
 
+import net.anotheria.anoplass.api.APICallContext;
+import net.anotheria.anoplass.api.session.APISession;
 import net.anotheria.maf.action.Action;
 import net.anotheria.maf.action.ActionMapping;
 import net.anotheria.moskito.core.decorators.DecoratorRegistryFactory;
@@ -614,4 +616,21 @@ public abstract class BaseMoskitoUIAction implements Action{
 	protected boolean exportSupported(){
 		return false;
 	}
+
+	/**
+	 * Sets an info message that can be shown on next screen. The info message is readable exactly once.
+	 * @param message the info message.
+	 */
+	protected void setInfoMessage(String message) {
+		APICallContext.getCallContext().getCurrentSession().setAttribute("infoMessage", APISession.POLICY_FLASH, message);
+	}
+
+	/**
+	 * Returns a previously set info message or null if no message has been set.
+	 * @return
+	 */
+	protected String getInfoMessage() {
+		return (String) APICallContext.getCallContext().getCurrentSession().getAttribute("infoMessage");
+	}
+
 }

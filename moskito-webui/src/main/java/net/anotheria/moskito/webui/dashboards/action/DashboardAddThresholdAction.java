@@ -23,7 +23,7 @@ public class DashboardAddThresholdAction extends BaseDashboardAction {
 			getDashboardAPI().addThresholdToDashboard(dashboard, thresholdName);
 		}
 
-		setSessionAttribute("infoMessage", "Threshold \'"+thresholdName+"\' has been added to following dashboards: "+ StringUtils.concatenateTokens(", ", dashboardsName));
+		setInfoMessage("Threshold \'"+thresholdName+"\' has been added to following dashboards: "+ StringUtils.concatenateTokens(", ", dashboardsName));
 
 		CommandRedirect commandRedirect =  mapping.redirect();
 		if (dashboardsName.length == 1) {
