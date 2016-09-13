@@ -162,7 +162,7 @@
             </ano:notEmpty> --%>
             <ano:empty name="logoUrl">
                 <div class="logo">
-                    <a href="http://moskito.org">
+                    <a href="mskDashboard">
                         <img src="../moskito/int/img/logo.png" class="logo-white">
                         <span><b>MoSKito</b><span>Inspect</span></span>
                     </a>
