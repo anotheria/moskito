@@ -17,7 +17,7 @@
         <!-- preparing gauges data -->
         <script language="JavaScript">
             var gauges = [];
-            <ano:iterate name="gauges" type="net.anotheria.moskito.webui.gauges.api.GaugeAO" id="gauge">
+            <ano:iterate name="gauges" type="net.anotheria.moskito.webui.gauges.bean.GaugeBean" id="gauge">
             gauges.push({
                 "name": '${gauge.name}',
                 "caption": '${gauge.caption}',
@@ -44,7 +44,7 @@
         </script>
 
         <div class="row">
-            <ano:iterate name="gauges" type="net.anotheria.moskito.webui.gauges.api.GaugeAO" id="gauge" indexId="index">
+            <ano:iterate name="gauges" type="net.anotheria.moskito.webui.gauges.bean.GaugeBean" id="gauge" indexId="index">
                 <div class="col-lg-3 col-md-4 col-sm-6">
                     <div class="box gauge-item">
                         <div class="box-title">
@@ -57,8 +57,10 @@
                             <div class="box-right-nav dropdown">
                                 <a href="#" data-target="#" data-toggle="dropdown"><i class="fa fa-cog"></i></a>
                                 <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dLabel">
-                                    <li><a href="#AddtoDashboard" data-toggle="modal" data-target="#AddtoDashboard">Add to Dashboard</a></li>
-                                    <li><a href="">Save</a></li>
+                                    <li><a href="" onclick="saveGaugesSvgAsPng(event, ${index}, ${index})">Save</a></li>
+                                    <ano:iF test="${gauge.dashboardsToAdd != ''}">
+                                        <li><a onclick="addGauge('${gauge.caption}', '${gauge.name}', '${gauge.dashboardsToAdd}')" >Add to Dashboard</a></li>
+                                    </ano:iF>
                                 </ul>
                             </div>
 

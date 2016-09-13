@@ -139,6 +139,23 @@ public class ThresholdStatusAO implements IComparable, Serializable{
 		}
 		throw new IllegalArgumentException("Unknow sort method: "+method);
 	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+
+		ThresholdStatusAO that = (ThresholdStatusAO) o;
+
+		return name.equals(that.name);
+
+	}
+
+	@Override
+	public int hashCode() {
+		return name.hashCode();
+	}
+
 	public ThresholdStatus getStatusForSorting() {
 		return statusForSorting;
 	}

@@ -35,6 +35,7 @@ public abstract class BaseDashboardAction extends BaseMoskitoUIAction {
 
 		//prepare list of dashboards
 		List<String> names = getDashboardAPI().getDashboardNames();
+		String defaultDashboard = getDashboardAPI().getDefaultDashboardName();
 		for (String name : names){
 			dashboardsMenu.add(new DashboardMenuItemBean(name));
 		}
@@ -55,6 +56,5 @@ public abstract class BaseDashboardAction extends BaseMoskitoUIAction {
 			return dashboardName;
 		return getDashboardAPI().getDefaultDashboardName();
 	}
-
 
 }

@@ -1,5 +1,6 @@
 package net.anotheria.moskito.webui.accumulators.action;
 
+import net.anotheria.anoplass.api.APIException;
 import net.anotheria.maf.action.ActionCommand;
 import net.anotheria.maf.action.ActionMapping;
 import net.anotheria.maf.bean.FormBean;
@@ -146,6 +147,7 @@ public class ShowAccumulatorsAction extends BaseAccumulatorsAction {
 
 				req.setAttribute("data", mchartAO.getData());
 				req.setAttribute("accNames", mchartAO.getNames());
+				req.setAttribute("accNamesConcat", net.anotheria.util.StringUtils.concatenateTokens(mchartAO.getNames(), ","));
 				req.setAttribute("accumulatorsColors", mchartAO.getAccumulatorsColorsDataJSON());
 			} else {
 
@@ -164,12 +166,16 @@ public class ShowAccumulatorsAction extends BaseAccumulatorsAction {
 				}
 
 				req.setAttribute("accNames", accumulatorsNames);
+				req.setAttribute("accNamesConcat", net.anotheria.util.StringUtils.concatenateTokens(accumulatorsNames, ","));
 				req.setAttribute("singleGraphData", singleGraphDataBeans);
 				req.setAttribute("accumulatorsColors", accumulatorsColorsToJSON(singleGraphDataBeans));
 				req.setAttribute("data", Boolean.TRUE);
 			}
 			
 		}
+
+		req.setAttribute("dashboards", getDashboardsList());
+		req.setAttribute("charts", "enable");
 
         if (req.getParameter("newAccumulator") != null) {
             req.setAttribute("newAccumulatorAdded", "true");
@@ -248,5 +254,9 @@ public class ShowAccumulatorsAction extends BaseAccumulatorsAction {
 		}
 
 		return jsonArray;
+	}
+
+	private String getDashboardsList() throws APIException {
+		return net.anotheria.util.StringUtils.concatenateTokens(getDashboardAPI().getDashboardNames(), ",");
 	}
 }

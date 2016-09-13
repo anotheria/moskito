@@ -14,6 +14,7 @@ import net.anotheria.moskito.webui.accumulators.api.MultilineChartAO;
 import net.anotheria.moskito.webui.gauges.api.GaugeAPI;
 import net.anotheria.moskito.webui.shared.api.AbstractMoskitoAPIImpl;
 import net.anotheria.moskito.webui.threshold.api.ThresholdAPI;
+import net.anotheria.util.StringUtils;
 import net.anotheria.util.sorter.DummySortType;
 
 import java.util.ArrayList;
@@ -96,37 +97,86 @@ public class DashboardAPIImpl extends AbstractMoskitoAPIImpl implements Dashboar
 	}
 
 	@Override
-	public void removeChartFromDashboard(String dashboardName, int chartIndex) throws APIException {
-		DashboardConfig config = getDashboardConfig(dashboardName);
-		if (config == null)
+	public void createDashboard(String dashboardName) throws APIException {
+		if (StringUtils.isEmpty(dashboardName))
 			return;
-		if (chartIndex==-1){
-			return;
-		}
-		ChartConfig[] cc_array = config.getCharts();
-		if (cc_array == null || cc_array.length<chartIndex+1)
-			return;
-		ChartConfig[] new_cc_array = new ChartConfig[cc_array.length-1];
-		if (cc_array.length == 1){
-			//source had only one element
-			config.setCharts(new_cc_array);
-			return;
-		}
 
-		removeElementFromArray(cc_array, new_cc_array, chartIndex);
-		config.setCharts(new_cc_array);
-
+		MoskitoConfiguration config = MoskitoConfigurationHolder.getConfiguration();
+		DashboardsConfig dashboardsConfig = config.getDashboardsConfig();
+		DashboardConfig[] dashboards = dashboardsConfig.getDashboards();
+		List<DashboardConfig> newConfigList = new ArrayList<>();
+		if (dashboards != null) {
+			newConfigList.addAll(Arrays.asList(dashboards));
+		}
+		DashboardConfig dashboardConfig = new DashboardConfig();
+		dashboardConfig.setName(dashboardName);
+		newConfigList.add(dashboardConfig);
+		dashboardsConfig.setDashboards(newConfigList.toArray(new DashboardConfig[0]));
 	}
 
 	@Override
-	public void removeGaugeFromDashboard(String dashboardName, int gaugeIndex) throws APIException {
+	public void removeDashboard(String dashboardName) throws APIException {
+		if (StringUtils.isEmpty(dashboardName))
+			return;
+
+		MoskitoConfiguration config = MoskitoConfigurationHolder.getConfiguration();
+		DashboardsConfig dashboardsConfig = config.getDashboardsConfig();
+		DashboardConfig[] dashboards = dashboardsConfig.getDashboards();
+		List<DashboardConfig> newConfigList = new ArrayList<>();
+		if (dashboards == null)
+			throw new APIException("Dashboard "+dashboardName+" not found.");
+
+		for (DashboardConfig dashboard : dashboards) {
+			if (!dashboardName.equals(dashboard.getName())) {
+				newConfigList.add(dashboard);
+			}
+		}
+
+		if (newConfigList.size() == dashboards.length)
+			throw new APIException("Dashboard "+dashboardName+" not found.");
+
+		dashboardsConfig.setDashboards(newConfigList.toArray(new DashboardConfig[0]));
+	}
+
+	@Override
+	public void addGaugeToDashboard(String dashboardName, String gaugeName) throws APIException {
 		DashboardConfig config = getDashboardConfig(dashboardName);
 		if (config == null)
 			return;
+		if (StringUtils.isEmpty(gaugeName))
+			return;
+
+		String[] cc_array = config.getGauges();
+		int newSize = cc_array == null ? 1 : cc_array.length + 1;
+		String[] new_cc_array = new String[newSize];
+		if (cc_array != null)
+			System.arraycopy(cc_array, 0, new_cc_array, 0, cc_array.length);
+		new_cc_array[new_cc_array.length-1] = gaugeName;
+
+		config.setGauges(new_cc_array);
+	}
+
+	@Override
+	public void removeGaugeFromDashboard(String dashboardName, String gaugeName) throws APIException {
+		DashboardConfig config = getDashboardConfig(dashboardName);
+		if (config == null)
+			return;
+		if (StringUtils.isEmpty(gaugeName))
+			return;
+
+		String[] cc_array = config.getGauges();
+		int gaugeIndex = -1;
+		int count = 0;
+		for (String name : cc_array) {
+			if (name.equals(gaugeName)) {
+				gaugeIndex = count;
+				break;
+			}
+			count++;
+		}
 		if (gaugeIndex==-1){
 			return;
 		}
-		String[] cc_array = config.getGauges();
 		if (cc_array == null || cc_array.length<gaugeIndex+1)
 			return;
 		String[] new_cc_array = new String[cc_array.length-1];
@@ -140,6 +190,116 @@ public class DashboardAPIImpl extends AbstractMoskitoAPIImpl implements Dashboar
 		config.setGauges(new_cc_array);
 	}
 
+	@Override
+	public void addThresholdToDashboard(String dashboardName, String thresholdName) throws APIException {
+		DashboardConfig config = getDashboardConfig(dashboardName);
+		if (config == null)
+			return;
+		if (StringUtils.isEmpty(thresholdName))
+			return;
+
+		String[] cc_array = config.getThresholds();
+		int newSize = cc_array == null ? 1 : cc_array.length + 1;
+		String[] new_cc_array = new String[newSize];
+		if (cc_array != null)
+			System.arraycopy(cc_array, 0, new_cc_array, 0, cc_array.length);
+		new_cc_array[new_cc_array.length-1] = thresholdName;
+
+		config.setThresholds(new_cc_array);
+	}
+
+	@Override
+	public void removeThresholdFromDashboard(String dashboardName, String thresholdName) throws APIException {
+		DashboardConfig config = getDashboardConfig(dashboardName);
+		if (config == null)
+			return;
+		if (StringUtils.isEmpty(thresholdName))
+			return;
+
+		String[] cc_array = config.getThresholds();
+		int index = -1;
+		int count = 0;
+		for (String name : cc_array) {
+			if (name.equals(thresholdName)) {
+				index = count;
+				break;
+			}
+			count++;
+		}
+		if (index==-1){
+			return;
+		}
+		if (cc_array == null || cc_array.length<index+1)
+			return;
+		String[] new_cc_array = new String[cc_array.length-1];
+		if (cc_array.length == 1){
+			//source had only one element
+			config.setThresholds(new_cc_array);
+			return;
+		}
+
+		removeElementFromArray(cc_array, new_cc_array, index);
+		config.setThresholds(new_cc_array);
+	}
+
+	@Override
+	public void addChartToDashboard(String dashboardName, String[] accNames) throws APIException {
+		DashboardConfig config = getDashboardConfig(dashboardName);
+		if (config == null)
+			return;
+		if (accNames == null || accNames.length == 0)
+			return;
+
+		ChartConfig[] cc_array = config.getCharts();
+		int newSize = cc_array == null ? 1 : cc_array.length + 1;
+		ChartConfig[] new_cc_array = new ChartConfig[newSize];
+		if (cc_array != null)
+			System.arraycopy(cc_array, 0, new_cc_array, 0, cc_array.length);
+
+		ChartConfig newChartConfig = new ChartConfig();
+		newChartConfig.setAccumulators(accNames);
+		new_cc_array[new_cc_array.length-1] = newChartConfig;
+
+		config.setCharts(new_cc_array);
+	}
+
+	@Override
+	public void removeChartFromDashboard(String dashboardName, String[] accNames) throws APIException {
+		DashboardConfig config = getDashboardConfig(dashboardName);
+		if (config == null)
+			return;
+		if (accNames == null || accNames.length == 0)
+			return;
+
+		ChartConfig inputConfig = new ChartConfig();
+		inputConfig.setAccumulators(accNames);
+		String accCaption = inputConfig.buildCaption();
+		ChartConfig[] cc_array = config.getCharts();
+		int index = -1;
+		int count = 0;
+		for (ChartConfig cc : cc_array) {
+			String caption = cc.buildCaption();
+			if (caption.equals(accCaption)) {
+				index = count;
+				break;
+			}
+			count++;
+		}
+		if (index==-1){
+			return;
+		}
+		if (cc_array == null || cc_array.length<index+1)
+			return;
+		ChartConfig[] new_cc_array = new ChartConfig[cc_array.length-1];
+		if (cc_array.length == 1){
+			//source had only one element
+			config.setCharts(new_cc_array);
+			return;
+		}
+
+		removeElementFromArray(cc_array, new_cc_array, index);
+		config.setCharts(new_cc_array);
+	}
 
 	private static <T> T removeElementFromArray(T sourceArray[], T destArray, int index){
 		//last element
@@ -208,6 +368,7 @@ public class DashboardAPIImpl extends AbstractMoskitoAPIImpl implements Dashboar
 
 
 		DashboardAO ret = new DashboardAO();
+		ret.setName(config.getName());
 		if (config.getGauges()!=null && config.getGauges().length>0){
 			ret.setGauges(gaugeAPI.getGauges(config.getGauges()));
 		}
@@ -226,7 +387,7 @@ public class DashboardAPIImpl extends AbstractMoskitoAPIImpl implements Dashboar
 				if (cc.getCaption()!=null){
 					bean.setCaption(cc.getCaption());
 				} else{
-					bean.setCaption(cc.buildCaption());
+					bean.setCaption(StringUtils.trimString(cc.buildCaption(),"", 50));
 				}
 
 				LinkedList<String> chartIds = new LinkedList<String>();

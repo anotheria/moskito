@@ -13,18 +13,16 @@ import javax.servlet.http.HttpServletResponse;
  * @author lrosenberg
  * @since 12.08.16 23:16
  */
-public class DashboardRemoveGaugeAction extends BaseDashboardAction{
+public class DashboardRemoveThresholdAction extends BaseDashboardAction{
 	@Override
 	public ActionCommand execute(ActionMapping actionMapping, FormBean formBean, HttpServletRequest request, HttpServletResponse response) throws Exception {
 
-		int gauge = Integer.parseInt(request.getParameter("gauge"));
-		//String dashboard = request.getParameter("dashboard");
 		String elementName = request.getParameter("pElement");
 		String dashboard = request.getParameter("pName");
 
-		getDashboardAPI().removeGaugeFromDashboard(dashboard, elementName);
+		getDashboardAPI().removeThresholdFromDashboard(dashboard, elementName);
 
-		setInfoMessage("Gauge \'"+elementName+"\' has been removed from dashboard \'"+dashboard+"\'");
+		setInfoMessage("Threshold \'"+elementName+"\' has been removed from dashboard \'"+dashboard+"\'");
 
 		return actionMapping.redirect()
 				.addParameter("dashboard", dashboard);

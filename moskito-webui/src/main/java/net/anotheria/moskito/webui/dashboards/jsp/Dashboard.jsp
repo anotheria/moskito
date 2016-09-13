@@ -14,16 +14,32 @@
         </div>
     </ano:equal>
 
+    <ano:present name="infoMessage">
+        <div class="alert alert-warning alert-dismissable">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+            ${requestScope.infoMessage}
+        </div>
+    </ano:present>
+
     <div class="content">
         <ano:equal name="thresholdsPresent" value="true">
             <!-- Thresholds start -->
             <div class="dashboard-line">
                 <div class="row">
-                    <ano:iterate name="thresholds" type="net.anotheria.moskito.webui.threshold.api.ThresholdStatusAO" id="threshold">
-                        <div class="col-lg-2 col-md-3 col-sm-4">
-                            <div class="box threshold-item tooltip-bottom" title="${threshold.name} ${threshold.value}">
+                    <ano:iterate name="thresholds" type="net.anotheria.moskito.webui.threshold.bean.ThresholdStatusBean" id="threshold">
+                        <div class="col-lg-3 col-md-3 col-sm-4">
+                            <div class="box threshold-item tooltip-bottom">
                                 <i class="status status-${threshold.colorCode}"></i>
                                 <span class="threshold-title">${threshold.name}&nbsp;${threshold.value}</span>
+                                <div class="box-right-nav dropdown threshold-body">
+                                    <a href="#" data-target="#" data-toggle="dropdown"><i class="fa fa-cog"></i></a>
+                                    <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dLabel">
+                                        <ano:iF test="${threshold.dashboardsToAdd != ''}">
+                                            <li><a onclick="addTresholds('${threshold.name}', '${threshold.dashboardsToAdd}')" >Add to Dashboard</a></li>
+                                        </ano:iF>
+                                        <li><a onclick="removeTresholds('${threshold.name}', '${requestScope.selectedDashboard}')">Remove</a></li>
+                                    </ul>
+                                </div>
                             </div>
                         </div>
                     </ano:iterate>
@@ -36,7 +52,7 @@
             <!-- gauges js -->
             <script language="JavaScript">
                 var gauges = [];
-                <ano:iterate name="gauges" type="net.anotheria.moskito.webui.gauges.api.GaugeAO" id="gauge">
+                <ano:iterate name="gauges" type="net.anotheria.moskito.webui.gauges.bean.GaugeBean" id="gauge">
                 gauges.push({
                     "name": '${gauge.name}',
                     "caption": '${gauge.caption}',
@@ -66,7 +82,7 @@
             <!-- gauges -->
             <div class="dashboard-line">
                 <div class="row">
-                    <ano:iterate name="gauges" type="net.anotheria.moskito.webui.gauges.api.GaugeAO" id="gauge" indexId="index">
+                    <ano:iterate name="gauges" type="net.anotheria.moskito.webui.gauges.bean.GaugeBean" id="gauge" indexId="index">
                         <div class="col-lg-3 col-md-4 col-sm-6">
                             <div class="box gauge-item">
                                 <div class="box-title">
@@ -78,9 +94,11 @@
                                     <div class="box-right-nav dropdown">
                                         <a href="#" data-target="#" data-toggle="dropdown"><i class="fa fa-cog"></i></a>
                                         <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dLabel">
-                                            <li><a href="">Save</a></li>
-                                            <li><a href="#AddtoDashboard" data-toggle="modal" data-target="#AddtoDashboard">Add to Dashboard</a></li>
-                                            <li><a href="#gaugeDelete" data-toggle="modal" data-target="#gaugeDelete" onclick="setGaugeForRemoval('${gauge.caption}', '${index}')">Remove</a></li>
+                                            <li><a href="" onclick="saveGaugesSvgAsPng(event, ${index}, ${index})">Save</a></li>
+                                            <ano:iF test="${gauge.dashboardsToAdd != ''}">
+                                                <li><a onclick="addGauge('${gauge.caption}', '${gauge.name}', '${gauge.dashboardsToAdd}')" >Add to Dashboard</a></li>
+                                            </ano:iF>
+                                            <li><a onclick="removeGauge('${gauge.caption}', '${gauge.name}', '${requestScope.selectedDashboard}')">Remove</a></li>
                                         </ul>
                                     </div>
                                 </div>
@@ -97,7 +115,7 @@
                 <div class="dashboard-line-footer text-right">
                     <ul class="dashboard-line-nav-box list-unstyled">
                         <li>
-                            <a onclick="saveGuagesSvgAsPng()" class="save_as"><i class="fa fa-download"></i> Save all Gauges</a>
+                            <a onclick="saveGaugesSvgAsPng(event, 0, 10000)" class="save_as"><i class="fa fa-download"></i> Save all Gauges</a>
                         </li>
                     </ul>
                 </div>
@@ -128,7 +146,7 @@
                 var multipleGraphData = [];
                 var multipleGraphNames = [];
                 var multipleGraphColors = [];
-                <ano:iterate id="chart" name="charts" type="net.anotheria.moskito.webui.dashboards.api.DashboardChartAO">
+                <ano:iterate id="chart" name="charts" type="net.anotheria.moskito.webui.dashboards.bean.DashboardChartBean">
                 <ano:define id="singleChart" toScope="page" scope="page" name="chart" property="chart" type="net.anotheria.moskito.webui.accumulators.api.MultilineChartAO"/>
                 multipleGraphData.push([
                     <ano:iterate name="singleChart" property="data" id="value" indexId="i">
@@ -149,7 +167,7 @@
         <div class="dashboard-line">
 
             <div class="row">
-                <ano:iterate id="chart" name="charts" type="net.anotheria.moskito.webui.dashboards.api.DashboardChartAO" indexId="index">
+                <ano:iterate id="chart" name="charts" type="net.anotheria.moskito.webui.dashboards.bean.DashboardChartBean" indexId="index">
                 <div class="col-lg-6 col-md-12">
                     <div class="box">
                         <div class="box-title">
@@ -161,16 +179,13 @@
                             <div class="box-right-nav dropdown">
                                 <a href="#" data-target="#" data-toggle="dropdown"><i class="fa fa-cog"></i></a>
                                 <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dLabel">
-                                    <li><a href="" onclick="saveSvgAsPng(${index}+countGauges())">Save</a></li>
-                                    <li><a href="#AddtoDashboard" data-toggle="modal" data-target="#AddtoDashboard">Add to Dashboard</a></li>
-                                    <li><a href="#chartDelete" data-toggle="modal" data-target="#chartDelete" onclick="setChartForRemoval('${chart.caption}', '${index}')">Remove</a></li>
+                                    <li><a href="" onclick="saveSvgAsPng(event, ${index}+countGauges())">Save</a></li>
+                                    <ano:iF test="${chart.dashboardsToAdd != ''}">
+                                        <li><a onclick="addChart('${chart.chartNames}','${chart.dashboardsToAdd}')">Add to Dashboard</a></li>
+                                    </ano:iF>
+                                    <li><a onclick="removeChart('${chart.chartNames}', '${requestScope.selectedDashboard}')">Remove</a></li>
                                 </ul>
                             </div>
-<!--                            <div class="box-right-nav">
-                                <a class="tooltip-bottom save_as" title="Save" onclick="saveSvgAsPng(${index}+countGauges())"><i class="fa fa-download"></i></a>
-                            </div>
-
--->
                         </div>
                         <div id="collapse_chart${index}" class="box-content accordion-body collapse in">
                             <div class="paddner"><div id="chart_div${index}" class="accumulator-chart"></div></div>
@@ -214,118 +229,22 @@
             </script>
         </ano:equal>
 
-        <!-- Gauges -->
-        <script type="text/javascript">
-             function saveGuagesSvgAsPng() {
-
-//                 var xValBegin= 100, xStep = 200;
-                 var guageWidth = 144,
-                         guageHeight = 144,
-                         marginLeft = 50,
-                         marginRight = 50,
-                         marginTop = 50,
-                         marginBottom = 50,
-                         indent=20;
-
-                 var allSvgsCode = '<svg xmlns="http://www.w3.org/2000/svg" class="gauge1" width="800" height="244" style="background-color: #FFFFFF;">';
-
-
-                var svgs = document.getElementsByClassName("gauge");
-                 for(var i = 0; i < svgs.length;i++) {
-                     var svgOrigin =svgs[i];
-
-                     //copy svg chart
-                     var svg = svgOrigin.cloneNode(true);
-
-                     svg.setAttribute("x", marginLeft + i*(guageWidth+indent));
-                     svg.setAttribute("y", marginTop);
-                     svg.setAttribute("style", "background-color: #FFFFFF;");
-
-                     var css = '.axis path,' +
-                     '.axis line {' +
-                        'fill: none;' +
-                        'stroke: #000;' +
-                        'shape-rendering: crispEdges;' +
-                     '}' +
-                        '.legend, .tick {' +
-                        'font: 12px sans-serif;' +
-                     '}' +
-                      'text {' +
-                         'font: 12px sans-serif;' +
-                     '}' +
-                     '.line {' +
-                        'fill: none;' +
-                        'stroke: steelblue;' +
-                        'stroke-width: 1.5px;' +
-                     '}' +
-                     '.line.hover {' +
-                        'fill: none;' +
-                        'stroke: steelblue;' +
-                        'stroke-width: 3.0px;' +
-                     '}' +
-
-                     '.grid .tick {' +
-                        'stroke: lightgrey;' +
-                        'opacity: 0.7;' +
-                     '}' +
-                     '.grid path {' +
-                        'stroke-width: 0;' +
-                     '}';
-
-                     var style = document.createElement('style');
-                     style.type = 'text/css';
-                     if (style.styleSheet){
-                         style.styleSheet.cssText = css;
-                     } else {
-                         style.appendChild(document.createTextNode(css));
-                     }
-
-                     svg.appendChild(style);
-
-                     allSvgsCode+= new XMLSerializer().serializeToString(svg);
-                 }
-                 allSvgsCode+='</svg>';
-
-                 var svgData = allSvgsCode;
-                 var canvas = document.createElement("canvas");
-                 canvas.width  = marginLeft + marginRight+svgs.length*guageHeight+(svgs.length-1)*indent;
-                 canvas.height = guageHeight + marginBottom+marginTop;
-                 var ctx = canvas.getContext("2d");
-                 ctx.fillStyle="white";
-                 ctx.fill();
-                 var img = document.createElement("img");
-
-                 var img = document.createElement("img");
-                 var encoded_svg = btoa(svgData.replace(/[\u00A0-\u2666]/g, function(c) {
-                     return '&#' + c.charCodeAt(0) + ';';
-                 }));
-                 img.setAttribute("src", "data:image/svg+xml;base64," + encoded_svg);
-
-                img.onload = function () {
-                    ctx.drawImage(img, 0, 0);
-                    var canvasdata = canvas.toDataURL("image/png");
-                    var a = document.createElement("a");
-                    var file_name = getChartFileNameG();
-
-                    a.download = file_name + ".png";
-                    a.href = canvasdata;
-                    document.body.appendChild(a);
-                    a.click();
-
-                };
-             }
-             function getChartFileNameG() {
-                var t = new Date($.now());
-                var current_date = t.getFullYear()+'-'+ t.getMonth()+'-'+ t.getDate()+'__'+t.getHours()+'-'+ t.getMinutes();
-                return "Guages_"+current_date;
-            }
-        </script>
+        <ano:iF test="${requestScope.selectedDashboard != null}">
+            <div class="dashboard-line">
+                <div class="row">
+                    <a href="#DeleteDashboard" data-toggle="modal" data-target="#DeleteDashboard" title="Delete Dashboard">Delete this Dashboard</a>
+                </div>
+            </div>
+        </ano:iF>
 
         <script type="text/javascript">
             function countGauges() {
                 return $('.gauge').length;
             }
-            function saveSvgAsPng(index) {
+            function saveSvgAsPng(event, index) {
+                event.preventDefault();
+                event.stopPropagation();
+
                 var chartWidth = 525,
                         chartHeight = 321,
                         margin = 30;
@@ -421,53 +340,52 @@
 
 </section>
 
-<div class="modal fade modal-danger" id="gaugeDelete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
-    <div class="modal-dialog">
+<%--------------------------------- Create/Delete dashboards -----------------------------------%>
+
+<div class="modal fade" id="CreateDashboard" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog modal-sm">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                <h4 class="modal-title">Remove this Gauge?</h4>
+                <h4 class="modal-title">Create Dashboard</h4>
             </div>
-            <div class="modal-footer text-center">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <a href="" onclick="location.href='mskDashboardRemoveGauge?gauge='+selectedGaugeForRemoval+'&dashboard=${selectedDashboard}'; return false" class="btn btn-danger">Remove</a>s
+            <div class="modal-body">
+                <label>Please type new Dashboard name</label>
+                <form name="CreateDashboard" action="mskCreateDashboard" method="GET">
+                    <div class="form-group">
+                        <input type="text" class="form-control" name="pName" placeholder="Name">
+                    </div>
+                    <div class="form-group text-right">
+                        <button class="btn btn-success" type="button" onclick="submit();">Create</button>
+                        <button class="btn btn-default" type="button" data-dismiss="modal">Cancel</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
 </div>
 
-<div class="modal fade modal-danger" id="chartDelete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
-    <div class="modal-dialog">
+<div class="modal fade" id="DeleteDashboard" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog modal-sm">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                <h4 class="modal-title">Remove chart <span id="selectedChartForRemoval">test</span> from Dashboard: '${selectedDashboard}'?</h4>
+                <h4 class="modal-title">Delete Dashboard "${requestScope.selectedDashboard}" ? </h4>
             </div>
-            <div class="modal-footer text-center">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <a href="" onclick="location.href='mskDashboardRemoveChart?chart='+selectedChartForRemoval+'&dashboard=${selectedDashboard}'; return false" class="btn btn-danger">Remove</a>s
+            <div class="modal-body">
+                <form name="CreateDashboard" action="mskDeleteDashboard" method="GET">
+                    <input type="hidden" class="form-control" name="pName" value="${requestScope.selectedDashboard}">
+                    <div class="form-group text-right">
+                        <button class="btn btn-success" type="button" onclick="submit();">Yes</button>
+                        <button class="btn btn-default" type="button" data-dismiss="modal">Cancel</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
 </div>
 
-<script language="JavaScript">
-    var selectedChartForRemoval;
-    var selectedGaugeForRemoval;
-
-    function setChartForRemoval(chartForRemovalCaption, chartForRemovalIndex){
-        //alert(chartForRemoval);
-        selectedChartForRemoval = chartForRemovalIndex;
-        $(".selectedChartForRemoval").html(chartForRemovalCaption);
-    }
-
-    function setGaugeForRemoval(gaugeForRemovalCaption, gaugeForRemovalIndex){
-        //alert(chartForRemoval);
-        selectedGaugeForRemoval = gaugeForRemovalIndex;
-        $(".selectedChartForRemoval").html(gaugeForRemovalCaption);
-    }
-
-</script>
+<%----------------------------------------------------------------------------------------------%>
 
 </body>
 </html>

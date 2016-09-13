@@ -19,7 +19,7 @@ public class ChartConfigTest {
         ChartConfig chartConfig = new ChartConfig();
         chartConfig.setAccumulators(new String[] {"fair", "is", "foul", "and", "foul", "is", "fair"});
         String caption = chartConfig.buildCaption();
-        assertThat(caption, is("fair is foul and foul is fair"));
+        assertThat(caption, is("and fair fair foul foul is is"));
     }
 
 }

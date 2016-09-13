@@ -28,4 +28,8 @@ public class DashboardMenuItemBean {
 			return name;
 		}
 	}
+
+	@Override public String toString(){
+		return "Dashboard "+getName();
+	}
 }
