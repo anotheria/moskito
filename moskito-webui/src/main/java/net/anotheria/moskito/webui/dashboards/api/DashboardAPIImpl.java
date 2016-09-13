@@ -258,7 +258,6 @@ public class DashboardAPIImpl extends AbstractMoskitoAPIImpl implements Dashboar
 
 		ChartConfig newChartConfig = new ChartConfig();
 		newChartConfig.setAccumulators(accNames);
-		newChartConfig.setCaption(" ");
 		new_cc_array[new_cc_array.length-1] = newChartConfig;
 
 		config.setCharts(new_cc_array);
@@ -388,7 +387,7 @@ public class DashboardAPIImpl extends AbstractMoskitoAPIImpl implements Dashboar
 				if (cc.getCaption()!=null){
 					bean.setCaption(cc.getCaption());
 				} else{
-					bean.setCaption(cc.buildCaption());
+					bean.setCaption(StringUtils.trimString(cc.buildCaption(),"", 50));
 				}
 
 				LinkedList<String> chartIds = new LinkedList<String>();
