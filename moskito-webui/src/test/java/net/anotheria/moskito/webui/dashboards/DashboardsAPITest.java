@@ -31,27 +31,27 @@ public class DashboardsAPITest {
 
 
 	@Test public void ensureRemoveChartFromDashboardDoesntFailOnErrors() throws APIException{
-//		api.removeChartFromDashboard(null, "not existing");
-//		api.removeChartFromDashboard("not existing", null);
-//		api.removeChartFromDashboard("testDashboard", "not existing");
-//		api.removeChartFromDashboard("testDashboard", null);
+		api.removeChartFromDashboard(null, new String[]{"Q1", "Q2", "Q3"});
+		api.removeChartFromDashboard("not existing", null);
+		api.removeChartFromDashboard("testDashboard", new String[]{"Q1", "Q2", "Q3"});
+		api.removeChartFromDashboard("testDashboard", null);
 
 	}
 
 	@Test
 	public void removeChartFromDashboardRemoveFirstElement() throws APIException{
 
-//		api.removeChartFromDashboard("testDashboard", "A");
+		api.removeChartFromDashboard("testDashboard", new String[]{"A1", "A2", "A3"});
 		ensureTestWorked(4, "A");
 	}
 
 	@Test public void removeChartFromDashboardRemoveLastElement() throws APIException{
-//		api.removeChartFromDashboard("testDashboard", "E");
+		api.removeChartFromDashboard("testDashboard", new String[]{"E1", "E2", "E3"});
 		ensureTestWorked(4, "E");
 	}
 
 	@Test public void removeChartFromDashboardRemoveMiddleElement() throws APIException{
-//		api.removeChartFromDashboard("testDashboard", "C");
+		api.removeChartFromDashboard("testDashboard", new String[]{"C1", "C2", "C3"});
 		ensureTestWorked(4, "C");
 	}
 
@@ -73,11 +73,11 @@ public class DashboardsAPITest {
 		DashboardConfig myTestDashboard = new DashboardConfig();
 		myTestDashboard.setName("testDashboard");
 
-		ChartConfig c1 = new ChartConfig(); c1.setCaption("A");
-		ChartConfig c2 = new ChartConfig(); c2.setCaption("B");
-		ChartConfig c3 = new ChartConfig(); c3.setCaption("C");
-		ChartConfig c4 = new ChartConfig(); c4.setCaption("D");
-		ChartConfig c5 = new ChartConfig(); c5.setCaption("E");
+		ChartConfig c1 = new ChartConfig(); c1.setCaption("A"); c1.setAccumulators(new String[]{"A1","A2","A3"});
+		ChartConfig c2 = new ChartConfig(); c2.setCaption("B"); c2.setAccumulators(new String[]{"B1","B2","B3"});
+		ChartConfig c3 = new ChartConfig(); c3.setCaption("C"); c3.setAccumulators(new String[]{"C1","C2","C3"});
+		ChartConfig c4 = new ChartConfig(); c4.setCaption("D"); c4.setAccumulators(new String[]{"D1","D2","D3"});
+		ChartConfig c5 = new ChartConfig(); c5.setCaption("E"); c5.setAccumulators(new String[]{"E1","E2","E3"});
 		myTestDashboard.setCharts(new ChartConfig[]{c1, c2, c3, c4, c5});
 
 		DashboardsConfig dashboardsConfig = new DashboardsConfig();
