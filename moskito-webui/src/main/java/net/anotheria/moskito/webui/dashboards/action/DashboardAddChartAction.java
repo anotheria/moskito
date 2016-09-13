@@ -20,16 +20,32 @@ public class DashboardAddChartAction extends BaseDashboardAction {
 		String[] accNames = accNamesConcat.split(",");
 		String[] dashboardsName = request.getParameterValues("pDashboards");
 
+		if (dashboardsName == null || dashboardsName.length == 0 || accNames.length == 0) {
+			setInfoMessage("Nothing selected!");
+			return mapping.redirect();
+		}
+
 		for(String dashboard : dashboardsName) {
 			getDashboardAPI().addChartToDashboard(dashboard, accNames);
 		}
 
-		setInfoMessage( "Accumulators "+accNamesConcat+" have been added to following dashboards: "+ StringUtils.concatenateTokens(", ", dashboardsName));
+		setInfoMessage(createInfoMessage(accNames, dashboardsName));
 
-		CommandRedirect commandRedirect =  mapping.redirect();
-		if (dashboardsName.length == 1) {
-			commandRedirect = commandRedirect.addParameter("dashboard", dashboardsName[0]);
-		}
-		return commandRedirect;
+		return mapping.redirect().addParameter("dashboard", dashboardsName[0]);
+	}
+
+	private String createInfoMessage(String[] accNames, String[] dashboardsName) {
+		String accums;
+		if (accNames.length > 1)
+			accums = "Accumulators " + StringUtils.concatenateTokens(", ", accNames) + " have been added to ";
+		else
+			accums = "Accumulator \'" + accNames[0] + "\' has been added to ";
+
+		String dashboards;
+		if (dashboardsName.length > 1)
+			dashboards = "following dashboards: "+ StringUtils.concatenateTokens(", ", dashboardsName);
+		else
+			dashboards = "dashboard \'"+ dashboardsName[0] + "\'";
+		return accums + dashboards;
 	}
 }
