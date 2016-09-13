@@ -377,11 +377,12 @@ olark.identify('7961-404-10-9387');/*]]>*/</script><noscript><a href="https://ww
             var dashboards = dashboardsToAdd.split(',');
 
             var textToAdd = "";
+            var checked = dashboards.length == 1 ? "checked" : "";
             for (var i = 0; i < dashboards.length; i++) {
                 textToAdd +=
                         "<div class=\"checkbox\"> " +
                         "<label>" +
-                        "<input type=\"checkbox\" checked name=\"pDashboards\" value=\""+dashboards[i]+"\">" + dashboards[i] +
+                        "<input type=\"checkbox\" " + checked + " name=\"pDashboards\" value=\""+dashboards[i]+"\">" + dashboards[i] +
                         "</label>" +
                         "</div>";
 
@@ -525,11 +526,12 @@ olark.identify('7961-404-10-9387');/*]]>*/</script><noscript><a href="https://ww
             var dashboards = dashboardsToAdd.split(',');
 
             var textToAdd = "";
+            var checked = dashboards.length == 1 ? "checked" : "";
             for (var i = 0; i < dashboards.length; i++) {
                 textToAdd +=
                         "<div class=\"checkbox\"> " +
                         "<label>" +
-                        "<input type=\"checkbox\" checked name=\"pDashboards\" value=\""+dashboards[i]+"\">" + dashboards[i] +
+                        "<input type=\"checkbox\" "+checked+" name=\"pDashboards\" value=\""+dashboards[i]+"\">" + dashboards[i] +
                         "</label>" +
                         "</div>";
 
@@ -565,11 +567,12 @@ olark.identify('7961-404-10-9387');/*]]>*/</script><noscript><a href="https://ww
             var dashboards = dashboardsToAdd.split(',');
 
             var textToAdd = "";
+            var checked = dashboards.length == 1 ? "checked" : "";
             for (var i = 0; i < dashboards.length; i++) {
                 textToAdd +=
                         "<div class=\"checkbox\"> " +
                         "<label>" +
-                        "<input type=\"checkbox\" checked name=\"pDashboards\" value=\""+dashboards[i]+"\">" + dashboards[i] +
+                        "<input type=\"checkbox\" "+checked+" name=\"pDashboards\" value=\""+dashboards[i]+"\">" + dashboards[i] +
                         "</label>" +
                         "</div>";
 

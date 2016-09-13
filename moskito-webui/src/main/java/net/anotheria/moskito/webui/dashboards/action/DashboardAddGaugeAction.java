@@ -19,16 +19,24 @@ public class DashboardAddGaugeAction extends BaseDashboardAction {
 		String gaugeName = request.getParameter("pName");
 		String[] dashboardsName = request.getParameterValues("pDashboards");
 
+		if (dashboardsName == null || dashboardsName.length == 0) {
+			setInfoMessage("Nothing selected!");
+			return mapping.redirect();
+		}
+
 		for(String dashboard : dashboardsName) {
 			getDashboardAPI().addGaugeToDashboard(dashboard, gaugeName);
 		}
 
-		setInfoMessage("Gauge \'"+gaugeName+"\' has been added to following dashboards: "+ StringUtils.concatenateTokens(", ", dashboardsName));
+		setInfoMessage(createInfoMessage(gaugeName, dashboardsName));
 
-		CommandRedirect commandRedirect =  mapping.redirect();
-		if (dashboardsName.length == 1) {
-			commandRedirect = commandRedirect.addParameter("dashboard", dashboardsName[0]);
-		}
-		return commandRedirect;
+		return mapping.redirect().addParameter("dashboard", dashboardsName[0]);
+	}
+
+	private String createInfoMessage(String gaugeName, String[] dashboardsName) {
+		if (dashboardsName.length > 1)
+			return "Gauge \'"+gaugeName+"\' has been added to following dashboards: "+ StringUtils.concatenateTokens(", ", dashboardsName);
+		else
+			return "Gauge \'"+gaugeName+"\' has been added to dashboard \'"+ dashboardsName[0] + "\'";
 	}
 }

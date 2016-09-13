@@ -17,10 +17,13 @@ public class DashboardRemoveGaugeAction extends BaseDashboardAction{
 	@Override
 	public ActionCommand execute(ActionMapping actionMapping, FormBean formBean, HttpServletRequest request, HttpServletResponse response) throws Exception {
 
-		int gauge = Integer.parseInt(request.getParameter("gauge"));
-		//String dashboard = request.getParameter("dashboard");
 		String elementName = request.getParameter("pElement");
 		String dashboard = request.getParameter("pName");
+
+		if (dashboard == null || elementName == null) {
+			setInfoMessage("Nothing selected!");
+			return actionMapping.redirect();
+		}
 
 		getDashboardAPI().removeGaugeFromDashboard(dashboard, elementName);
 

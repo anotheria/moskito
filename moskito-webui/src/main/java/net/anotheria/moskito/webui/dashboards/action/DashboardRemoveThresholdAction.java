@@ -20,6 +20,11 @@ public class DashboardRemoveThresholdAction extends BaseDashboardAction{
 		String elementName = request.getParameter("pElement");
 		String dashboard = request.getParameter("pName");
 
+		if (dashboard == null || elementName == null) {
+			setInfoMessage("Nothing selected!");
+			return actionMapping.redirect();
+		}
+
 		getDashboardAPI().removeThresholdFromDashboard(dashboard, elementName);
 
 		setInfoMessage("Threshold \'"+elementName+"\' has been removed from dashboard \'"+dashboard+"\'");
