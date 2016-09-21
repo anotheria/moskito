@@ -249,7 +249,7 @@
                     <table class="table table-striped tablesorter">
                         <thead>
                         <tr>
-                            <th></th>
+                            <th class="{sorter: false, filter: false}"><input type="checkbox" id="checkAll"/> </th>
                             <th>Name<i class="fa fa-caret-down"></i></th>
                             <th>Path <i class="fa fa-caret-down"></i></th>
                             <th>Values <i class="fa fa-caret-down"></i></th>
@@ -371,7 +371,7 @@
             $(this).addClass('hide');
         });
 
-        $('.table tr')
+        $('.table tbody tr')
                 .filter(':has(:checkbox:checked)')
                 .addClass('checked')
                 .end()
@@ -390,7 +390,26 @@
                         $('.fixed-box .btn-submit').removeClass('btn-success');
                         $('.fixed-box .btn-clear').addClass('hide');
                     }
+                    if ($('.checktr:not(:checked)').length > 0) {
+                        $('#checkAll').prop( "checked", false );
+                    } else {
+                        $('#checkAll').prop( "checked", true );
+                    }
                 });
+
+        $('#checkAll').click(function() {
+            var checked = $(this).prop('checked');
+            var checkboxes;
+            if (checked) {
+                checkboxes = $('.checktr:not(:checked)');
+            } else {
+                checkboxes = $('.checktr:checked');
+            }
+
+            if (checkboxes.length > 0) {
+                checkboxes.click();
+            }
+        });
     </script>
 
 
