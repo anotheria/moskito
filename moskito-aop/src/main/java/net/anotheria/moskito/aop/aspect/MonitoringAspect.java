@@ -1,6 +1,8 @@
 package net.anotheria.moskito.aop.aspect;
 
-import com.sun.tools.javac.jvm.ByteCodes;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+
 import net.anotheria.moskito.aop.annotation.Monitor;
 import net.anotheria.moskito.core.calltrace.CurrentlyTracedCall;
 import net.anotheria.moskito.core.calltrace.RunningTraceContainer;
@@ -21,10 +23,6 @@ import org.aspectj.lang.Signature;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.reflect.MethodSignature;
-
-import java.lang.annotation.Annotation;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 
 /**
  * Aspect used to intercept @MonitorClass annotated classes method calls.
