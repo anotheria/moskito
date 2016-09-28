@@ -15,6 +15,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 import static org.hamcrest.CoreMatchers.notNullValue;
+import static org.hamcrest.CoreMatchers.nullValue;
 import static org.junit.Assert.assertThat;
 
 /**
@@ -126,9 +127,15 @@ public class AnnotationInheritanceTest {
 		}
 	}
 
-	@Test
-	public void thirdLevelCheckOnClass() throws Exception {
-		performCheck(new ThirdLevelClass(), ThirdLevelClass.class);
+
+	@Test /// TODO : What about N level of Monitor aNNO ?? how to deal - correclty without N pointCuts add?
+	public void test3dLvl() {
+		TestingInterface test3 = new ThirdLevelClass();
+		test3.execute();
+		IProducerRegistry producerRegistry = ProducerRegistryFactory.getProducerRegistryInstance();
+		assertThat("Producer  found! - should not!", producerRegistry.getProducer(MoskitoUtils.producerName(ThirdLevelClass.class.getName())), nullValue());
+
+
 	}
 
 	// checking
@@ -147,5 +154,7 @@ public class AnnotationInheritanceTest {
 
 
 
-	/// TODO : What about N level of Monitor aNNO ?? how to deal - correclty without N pointCuts add?
+
+
+
 }
