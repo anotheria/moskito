@@ -186,10 +186,9 @@ public class AbstractMoskitoAspect<S extends IStats> {
 	 */
 	private void createMethodLevelAccumulators(final OnDemandStatsProducer<S> producer, final Method method) {
 		//several @Accumulators in accumulators holder
-		Accumulates accAnnotationHolderMethods = method.getAnnotation(Accumulates.class);
-		if (accAnnotationHolderMethods != null) {
-			Accumulate[] accAnnotations = accAnnotationHolderMethods.value();
-			for (Accumulate accAnnotation : accAnnotations)
+		final Accumulates accAnnotationHolderMethods = AnnotationUtils.findAnnotation(method,Accumulates.class);
+		if (accAnnotationHolderMethods != null)
+			for (Accumulate accAnnotation : accAnnotationHolderMethods.value())
 				createAccumulator(
 						producer.getProducerId(),
 						accAnnotation,
@@ -197,13 +196,14 @@ public class AbstractMoskitoAspect<S extends IStats> {
 						method.getName()
 				);
 
-		}
+
 
 		//If there is no @Accumulates annotation but @Accumulate is present
+		final Accumulate annotation = AnnotationUtils.findAnnotation(method, Accumulate.class);
 		createAccumulator(
 				producer.getProducerId(),
-				method.getAnnotation(Accumulate.class),
-				formAccumulatorNameForMethod(producer, method.getAnnotation(Accumulate.class), method),
+				annotation,
+				formAccumulatorNameForMethod(producer, annotation, method),
 				method.getName()
 		);
 	}
@@ -219,16 +219,15 @@ public class AbstractMoskitoAspect<S extends IStats> {
 	private void createClassLevelAccumulators(final OnDemandStatsProducer<S> producer, final Class producerClass) {
 		//several @Accumulators in accumulators holder
 		final Accumulates accAnnotationHolder = AnnotationUtils.findAnnotation(producerClass, Accumulates.class);
-		if (accAnnotationHolder != null) {
-			Accumulate[] accAnnotations = accAnnotationHolder.value();
-			for (Accumulate accAnnotation : accAnnotations)
+		if (accAnnotationHolder != null)
+			for (final Accumulate accAnnotation : accAnnotationHolder.value())
 				createAccumulator(
 						producer.getProducerId(),
 						accAnnotation,
 						formAccumulatorNameForClass(producer, accAnnotation),
 						"cumulated");
 
-		}
+
 
 		//If there is no @Accumulates annotation but @Accumulate is present
 		final Accumulate annotation = AnnotationUtils.findAnnotation(producerClass, Accumulate.class);

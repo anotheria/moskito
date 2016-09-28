@@ -14,7 +14,7 @@ import java.lang.annotation.Target;
  * @author lrosenberg
  * @since 24.05.15 00:09
  */
-@Target({ElementType.TYPE, ElementType.METHOD})
+@Target ( {ElementType.TYPE, ElementType.METHOD, ElementType.ANNOTATION_TYPE})
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Accumulate {
 	/**
