@@ -1,5 +1,8 @@
 package net.anotheria.moskito.aop.aspect;
 
+import static net.anotheria.moskito.core.util.annotation.AnnotationUtils.findAnnotation;
+import static net.anotheria.moskito.core.util.annotation.AnnotationUtils.findTypeAnnotation;
+
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
@@ -17,7 +20,6 @@ import net.anotheria.moskito.core.predefined.ServiceStatsFactory;
 import net.anotheria.moskito.core.tracer.Trace;
 import net.anotheria.moskito.core.tracer.TracerRepository;
 import net.anotheria.moskito.core.tracer.Tracers;
-import net.anotheria.moskito.core.util.annotation.AnnotationUtils;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.Signature;
 import org.aspectj.lang.annotation.Around;
@@ -34,7 +36,7 @@ import org.aspectj.lang.reflect.MethodSignature;
 @Aspect
 public class MonitoringAspect extends AbstractMoskitoAspect<ServiceStats> {
 	/**
-	 * Factory constant is needed to prevent continuous reinstantiation of ServiceStatsFactory objects.
+	 * Factory constant is needed to prevent continuous re-instantiation of ServiceStatsFactory objects.
 	 */
 	private static final ServiceStatsFactory FACTORY = new ServiceStatsFactory();
 
@@ -105,61 +107,57 @@ public class MonitoringAspect extends AbstractMoskitoAspect<ServiceStats> {
 	/**
 	 * Perform profiling.
 	 *
-	 * @param pjp {@link ProceedingJoinPoint}
-	 * @param aProducerId id of the producer to use
-	 * @param aSubsystem sub-system
-	 * @param aCategory category
+	 * @param pjp
+	 * 		{@link ProceedingJoinPoint}
+	 * @param aProducerId
+	 * 		id of the producer to use
+	 * @param aSubsystem
+	 * 		sub-system
+	 * @param aCategory
+	 * 		category
 	 * @return call result
-	 * @throws Throwable in case of error during {@link ProceedingJoinPoint#proceed()}
+	 * @throws Throwable
+	 * 		in case of error during {@link ProceedingJoinPoint#proceed()}
 	 */
 	private Object doProfiling(ProceedingJoinPoint pjp, String aProducerId, String aSubsystem, String aCategory) throws Throwable {
 
-		OnDemandStatsProducer<ServiceStats> producer = getProducer(pjp, aProducerId, aCategory, aSubsystem, false, FACTORY, true);
-		String producerId = producer.getProducerId();
+		final OnDemandStatsProducer<ServiceStats> producer = getProducer(pjp, aProducerId, aCategory, aSubsystem, false, FACTORY, true);
+		final String producerId = producer.getProducerId();
 
-		String caseName = pjp.getSignature().getName();
-		ServiceStats defaultStats = producer.getDefaultStats();
-		ServiceStats methodStats = producer.getStats(caseName);
+		final String caseName = pjp.getSignature().getName();
+		final ServiceStats defaultStats = producer.getDefaultStats();
+		final ServiceStats methodStats = producer.getStats(caseName);
 
 		final Object[] args = pjp.getArgs();
 		final String method = pjp.getSignature().getName();
 		defaultStats.addRequest();
-		if (methodStats != null) {
+		if (methodStats != null)
 			methodStats.addRequest();
-		}
-		TracedCall aRunningTrace = RunningTraceContainer.getCurrentlyTracedCall();
-		TraceStep currentStep = null;
-		CurrentlyTracedCall currentTrace = aRunningTrace.callTraced() ? (CurrentlyTracedCall) aRunningTrace : null;
 
-		TracerRepository tracerRepository = TracerRepository.getInstance();
-		boolean tracePassingOfThisProducer = tracerRepository.isTracingEnabledForProducer(producerId);
-		Trace trace = null;
-		boolean journeyStartedByMe = false;
-
+		final TracedCall aRunningTrace = RunningTraceContainer.getCurrentlyTracedCall();
+		final TracerRepository tracerRepository = TracerRepository.getInstance();
+		final boolean tracePassingOfThisProducer = tracerRepository.isTracingEnabledForProducer(producerId);
 		//we create trace here already, because we want to reserve a new trace id.
-		if (tracePassingOfThisProducer) {
-			trace = new Trace();
-		}
+		final Trace trace = tracePassingOfThisProducer ? new Trace() : null;
 
-
+		CurrentlyTracedCall currentTrace = aRunningTrace.callTraced() ? (CurrentlyTracedCall) aRunningTrace : null;
+		boolean journeyStartedByMe = false;
 		if (currentTrace == null && tracePassingOfThisProducer) {
 			//ok, we will create a new journey on the fly.
-			String journeyCallName = Tracers.getCallName(trace);
-			RunningTraceContainer.startTracedCall(journeyCallName);
-			journeyStartedByMe = true;
-
+			RunningTraceContainer.startTracedCall(Tracers.getCallName(trace));
 			currentTrace = (CurrentlyTracedCall) RunningTraceContainer.getCurrentlyTracedCall();
+			journeyStartedByMe = true;
 		}
-
 
 		StringBuilder call = null;
-		if (currentTrace != null || tracePassingOfThisProducer) {
-			call = TracingUtil.buildCall(producerId, method, args, tracePassingOfThisProducer ? Tracers.getCallName(trace) : null);
+		TraceStep currentStep = null;
+		if (tracePassingOfThisProducer) {
+			call = TracingUtil.buildCall(producerId, method, args, Tracers.getCallName(trace));
+			currentStep = currentTrace != null ? currentTrace.startStep(call.toString(), producer) : null;
 		}
-		if (currentTrace != null) {
-			currentStep = currentTrace.startStep(call.toString(), producer);
-		}
-		long startTime = System.nanoTime();
+
+
+		final long startTime = System.nanoTime();
 		Object ret = null;
 		try {
 			ret = pjp.proceed();
@@ -220,7 +218,6 @@ public class MonitoringAspect extends AbstractMoskitoAspect<ServiceStats> {
 					RunningTraceContainer.cleanup();
 				}
 
-
 				tracerRepository.addTracedExecution(producerId, trace);
 			}
 		}
@@ -229,6 +226,9 @@ public class MonitoringAspect extends AbstractMoskitoAspect<ServiceStats> {
 	/**
 	 * Trying to resolve {@link Monitor} annotation first in method annotations scope, then in class scope. Note - method will also check
 	 * if {@link Monitor} is Placed to some other annotation as meta!
+	 * Search order :
+	 * - 1 method;
+	 * - 2 type.
 	 *
 	 * @param pjp
 	 * 		{@link ProceedingJoinPoint}
@@ -239,13 +239,10 @@ public class MonitoringAspect extends AbstractMoskitoAspect<ServiceStats> {
 		final Class<?> type = signature.getDeclaringType();
 		final Method method = (signature instanceof MethodSignature) ? MethodSignature.class.cast(signature).getMethod() :
 				null;
-		final Monitor methodMonitorAnno = method != null ? AnnotationUtils.findAnnotation(method, Monitor.class) : null;
-		if (methodMonitorAnno != null)
-			return methodMonitorAnno;
-		final Monitor clazzAnno= AnnotationUtils.findAnnotation(type, Monitor.class);
-		if(clazzAnno!=null)
-			return clazzAnno;
-		return AnnotationUtils.findAnnotation(type.getSuperclass(),Monitor.class);
+		final Monitor methodMonitorAnn = method != null ? findAnnotation(method, Monitor.class) : null;
+		if (methodMonitorAnn != null)
+			return methodMonitorAnn;
+		return findTypeAnnotation(type, Monitor.class);
 	}
 
 
