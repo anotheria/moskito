@@ -35,6 +35,11 @@ public class MonitoringAspect extends AbstractMoskitoAspect<ServiceStats>{
 	 */
 	private static final ServiceStatsFactory FACTORY = new ServiceStatsFactory();
 
+    /**
+     * Remember previous producer to avoid time cumulation of recursive calls.
+     */
+    private static final ThreadLocal<String> lastProducerId = new ThreadLocal<>();
+
 	@Around(value = "execution(* *(..)) && (@annotation(method))")
     public Object doProfilingMethod(ProceedingJoinPoint pjp, Monitor method) throws Throwable {
     	return doProfiling(pjp, method.producerId(), method.subsystem(), method.category());
@@ -50,6 +55,8 @@ public class MonitoringAspect extends AbstractMoskitoAspect<ServiceStats>{
 
 		OnDemandStatsProducer<ServiceStats> producer = getProducer(pjp, aProducerId, aCategory, aSubsystem, false, FACTORY, true);
 		String producerId = producer.getProducerId();
+        String prevProducerId = lastProducerId.get();
+        lastProducerId.set(producerId);
 
     	String caseName = pjp.getSignature().getName();
     	ServiceStats defaultStats = producer.getDefaultStats();
@@ -121,10 +128,13 @@ public class MonitoringAspect extends AbstractMoskitoAspect<ServiceStats>{
             throw t;
         } finally {
             long exTime = System.nanoTime() - startTime;
-            defaultStats.addExecutionTime(exTime);
+            if (!producerId.equals(prevProducerId)) {
+                defaultStats.addExecutionTime(exTime);
+            }
             if (methodStats != null) {
                 methodStats.addExecutionTime(exTime);
             }
+            lastProducerId.set(prevProducerId);
             defaultStats.notifyRequestFinished();
             if (methodStats != null) {
                 methodStats.notifyRequestFinished();
