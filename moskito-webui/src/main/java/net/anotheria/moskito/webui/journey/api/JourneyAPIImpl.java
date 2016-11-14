@@ -91,6 +91,9 @@ public class JourneyAPIImpl extends AbstractMoskitoAPIImpl implements  JourneyAP
 
 
 	private TracedCallAO mapTracedCall(CurrentlyTracedCall useCase, TimeUnit unit){
+		if (useCase==null){
+			throw new IllegalArgumentException("UseCase is null in call "+unit);
+		}
 		TraceStep root = useCase.getRootStep();
 		TracedCallAO ret = new TracedCallAO();
 		ret.setName(useCase.getName());
@@ -125,7 +128,11 @@ public class JourneyAPIImpl extends AbstractMoskitoAPIImpl implements  JourneyAP
 	public TracedCallAO getTracedCallByName(String journeyName, String traceName, TimeUnit unit)  throws APIException{
 		Journey journey = getJourneyByName(journeyName);
 		CurrentlyTracedCall call = journey.getStepByName(traceName);
-		return mapTracedCall(call, unit);
+		try {
+			return mapTracedCall(call, unit);
+		}catch(IllegalArgumentException e){
+			throw new IllegalStateException("Can' lookup call by name: "+journeyName+", "+traceName+", "+unit);
+		}
 	}
 
 
