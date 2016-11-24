@@ -54,6 +54,9 @@ import net.anotheria.moskito.webui.shared.bean.UnitBean;
 import net.anotheria.moskito.webui.threshold.bean.ThresholdStatusBean;
 import net.anotheria.util.NumberUtils;
 import net.anotheria.util.sorter.StaticQuickSorter;
+import org.apache.commons.lang.StringUtils;
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -144,6 +147,8 @@ public class ShowProducerAction extends BaseMoskitoUIAction {
 			//create multiple graphs with one line each.
 			List<AccumulatedSingleGraphAO> singleGraphDataBeans = getAccumulatorAPI().getChartsForMultipleAccumulators(accumulatorIdsTiedToThisProducer);
 			req.setAttribute("singleGraphData", singleGraphDataBeans);
+			req.setAttribute("accumulatorsColors", accumulatorsColorsToJSON(singleGraphDataBeans));
+
 		}
 
 		List<String> thresholdIdsTiedToThisProducers = getThresholdAPI().getThresholdIdsTiedToASpecificProducer(producer.getProducerId());
@@ -155,6 +160,22 @@ public class ShowProducerAction extends BaseMoskitoUIAction {
 
 		return mapping.findCommand( getForward(req) );
 	}
+
+	//TODO copied from show accumulators, should be moved to utility.
+	private JSONArray accumulatorsColorsToJSON(final List<AccumulatedSingleGraphAO> graphAOs) {
+		final JSONArray jsonArray = new JSONArray();
+
+		for (AccumulatedSingleGraphAO graphAO : graphAOs) {
+			if (StringUtils.isEmpty(graphAO.getName()) || StringUtils.isEmpty(graphAO.getColor()))
+				continue;
+
+			final JSONObject jsonObject = graphAO.mapColorDataToJSON();
+			jsonArray.put(jsonObject);
+		}
+
+		return jsonArray;
+	}
+
 
 	/**
 	 * Allows to set all stats to decorator except cumulated stat.
