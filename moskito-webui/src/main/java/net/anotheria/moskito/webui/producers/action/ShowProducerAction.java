@@ -64,6 +64,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -150,6 +151,15 @@ public class ShowProducerAction extends BaseMoskitoUIAction {
 			req.setAttribute("singleGraphData", singleGraphDataBeans);
 			req.setAttribute("accumulatorsColors", accumulatorsColorsToJSON(singleGraphDataBeans));
 
+			List<String> accumulatorsNames = new LinkedList<>();
+
+			for (AccumulatedSingleGraphAO ao : singleGraphDataBeans){
+				accumulatorsNames.add(ao.getName());
+
+			}
+
+			req.setAttribute("accNames", accumulatorsNames);
+			req.setAttribute("accNamesConcat", net.anotheria.util.StringUtils.concatenateTokens(accumulatorsNames, ","));
 		}
 
 		List<String> thresholdIdsTiedToThisProducers = getThresholdAPI().getThresholdIdsTiedToASpecificProducer(producer.getProducerId());
