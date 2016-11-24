@@ -144,6 +144,7 @@ public class ShowProducerAction extends BaseMoskitoUIAction {
 		//check if there are accumulators or thresholds associated with this producer.
 		List<String> accumulatorIdsTiedToThisProducer = getAccumulatorAPI().getAccumulatorIdsTiedToASpecificProducer(producer.getProducerId());
 		if (accumulatorIdsTiedToThisProducer.size()>0){
+			req.setAttribute("accumulatorsPresent", Boolean.TRUE);
 			//create multiple graphs with one line each.
 			List<AccumulatedSingleGraphAO> singleGraphDataBeans = getAccumulatorAPI().getChartsForMultipleAccumulators(accumulatorIdsTiedToThisProducer);
 			req.setAttribute("singleGraphData", singleGraphDataBeans);

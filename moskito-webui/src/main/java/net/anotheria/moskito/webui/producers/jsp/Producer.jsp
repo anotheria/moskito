@@ -124,7 +124,13 @@
 </ano:iterate>
 
 
-    <!--ano:present name="thresholdsPresent"-->
+    <ano:present name="accumulatorsPresent">
+    <ano:present name="accumulatorsColors">
+        <script type="text/javascript">
+            var accumulatorsColors = <ano:write name="accumulatorsColors"/>;
+        </script>
+    </ano:present>
+
     <script type="text/javascript">
         var multipleGraphData = [];
         <ano:iterate name="singleGraphData" type="net.anotheria.moskito.webui.accumulators.api.AccumulatedSingleGraphAO" id="singleGraph">
@@ -239,7 +245,7 @@
 
     </script>
 
-    <%-- /ano:present --%>
+    </ano:present>
 
 </div>
     <jsp:include page="../../producers/jsp/ChartEngine.jsp"/>
