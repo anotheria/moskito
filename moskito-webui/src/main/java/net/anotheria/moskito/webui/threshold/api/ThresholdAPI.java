@@ -56,4 +56,12 @@ public interface ThresholdAPI extends API, Service {
 	ThresholdStatus getWorstStatus(List<String> thresholdNames) throws APIException;
 
 	List<ThresholdConditionGuard> getGuardsForThreshold(String thresholdId) throws APIException;
+
+	/**
+	 * Returns all threshold ids which are tied to a specific producer.
+	 * @param producerId
+	 * @return
+	 * @throws APIException
+	 */
+	List<String> getThresholdIdsTiedToASpecificProducer(String producerId);
 }

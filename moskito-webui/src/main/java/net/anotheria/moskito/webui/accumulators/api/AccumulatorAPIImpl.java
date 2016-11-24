@@ -16,6 +16,7 @@ import net.anotheria.util.sorter.StaticQuickSorter;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -267,4 +268,17 @@ public class AccumulatorAPIImpl extends AbstractMoskitoAPIImpl implements Accumu
 	}
 
 
+	@Override
+	public List<AccumulatedSingleGraphAO> getChartsForMultipleAccumulators(List<String> names) throws APIException {
+		LinkedList<AccumulatedSingleGraphAO> ret = new LinkedList<>();
+		for (String name : names){
+			ret.add(getAccumulatorGraphDataByName(name));
+		}
+		return ret;
+	}
+
+	@Override
+	public List<String> getAccumulatorIdsTiedToASpecificProducer(String producerId) throws APIException {
+		return AccumulatorRepository.getInstance().getIdsByProducerId(producerId);
+	}
 }

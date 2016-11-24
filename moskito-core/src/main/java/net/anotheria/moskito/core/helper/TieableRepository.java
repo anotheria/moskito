@@ -12,7 +12,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -217,6 +219,19 @@ public abstract class TieableRepository<T extends Tieable, S extends IStats> imp
     protected void cleanup() {
 		id2nameMapping.clear();
 		tieables.clear();
+	}
+
+	public List<String> getIdsByProducerId(String producerId) {
+		if (producerId==null ||producerId.length()==0)
+			throw new IllegalArgumentException("ProducerId is null or empty ("+producerId+")");
+		List<String> ret = new LinkedList<>();
+		for (Map.Entry<String,Tieable> entry : ((ConcurrentHashMap<String,Tieable>)tieables).entrySet()){
+			String aProducerId = entry.getValue().getDefinition().getProducerName();
+			if (aProducerId!=null && aProducerId.equals(producerId)){
+				ret.add(entry.getKey());
+			}
+		}
+		return ret;
 	}
 
 

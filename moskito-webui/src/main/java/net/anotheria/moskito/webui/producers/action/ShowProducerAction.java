@@ -40,6 +40,7 @@ import net.anotheria.maf.bean.FormBean;
 import net.anotheria.moskito.core.decorators.IDecorator;
 import net.anotheria.moskito.core.decorators.value.StatValueAO;
 import net.anotheria.moskito.core.inspection.CreationInfo;
+import net.anotheria.moskito.webui.accumulators.api.AccumulatedSingleGraphAO;
 import net.anotheria.moskito.webui.producers.api.ProducerAO;
 import net.anotheria.moskito.webui.producers.api.StatLineAO;
 import net.anotheria.moskito.webui.shared.action.BaseMoskitoUIAction;
@@ -50,6 +51,7 @@ import net.anotheria.moskito.webui.shared.bean.StatBean;
 import net.anotheria.moskito.webui.shared.bean.StatBeanSortType;
 import net.anotheria.moskito.webui.shared.bean.StatDecoratorBean;
 import net.anotheria.moskito.webui.shared.bean.UnitBean;
+import net.anotheria.moskito.webui.threshold.bean.ThresholdStatusBean;
 import net.anotheria.util.NumberUtils;
 import net.anotheria.util.sorter.StaticQuickSorter;
 import org.slf4j.Logger;
@@ -61,6 +63,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import static net.anotheria.moskito.webui.threshold.util.ThresholdStatusBeanUtility.getThresholdBeans;
 
 /**
  * Presents a single, previously selected producer.
@@ -133,6 +137,21 @@ public class ShowProducerAction extends BaseMoskitoUIAction {
 		req.setAttribute("graphDatas", graphData.values());
 
 		inspectProducer(req, producer);
+
+		//check if there are accumulators or thresholds associated with this producer.
+		List<String> accumulatorIdsTiedToThisProducer = getAccumulatorAPI().getAccumulatorIdsTiedToASpecificProducer(producer.getProducerId());
+		if (accumulatorIdsTiedToThisProducer.size()>0){
+			//create multiple graphs with one line each.
+			List<AccumulatedSingleGraphAO> singleGraphDataBeans = getAccumulatorAPI().getChartsForMultipleAccumulators(accumulatorIdsTiedToThisProducer);
+			req.setAttribute("singleGraphData", singleGraphDataBeans);
+		}
+
+		List<String> thresholdIdsTiedToThisProducers = getThresholdAPI().getThresholdIdsTiedToASpecificProducer(producer.getProducerId());
+		if (thresholdIdsTiedToThisProducers.size()>0){
+			req.setAttribute("thresholdsPresent", Boolean.TRUE);
+			List<ThresholdStatusBean> thresholdStatusBeans = getThresholdBeans(getThresholdAPI().getThresholdStatuses(thresholdIdsTiedToThisProducers.toArray(new String[0])));
+			req.setAttribute("thresholds", thresholdStatusBeans);
+		}
 
 		return mapping.findCommand( getForward(req) );
 	}

@@ -49,4 +49,14 @@ public interface AccumulatorAPI extends API, Service {
 
 	MultilineChartAO getCombinedAccumulatorGraphData(List<String> ids) throws APIException;
 
+	List<AccumulatedSingleGraphAO> getChartsForMultipleAccumulators(List<String> ids) throws APIException;
+
+	/**
+	 * Returns all accumulator ids which are tied to a specific producer.
+	 * @param producerId
+	 * @return
+	 * @throws APIException
+	 */
+	List<String> getAccumulatorIdsTiedToASpecificProducer(String producerId) throws APIException;
+
 }

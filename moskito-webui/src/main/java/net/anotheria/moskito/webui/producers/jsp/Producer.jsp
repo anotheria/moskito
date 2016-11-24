@@ -9,6 +9,30 @@
 
 <section id="main">
 <div class="content">
+    <ano:present name="thresholdsPresent">
+        <!-- Thresholds start -->
+        <div class="dashboard-line">
+            <div class="row">
+                <ano:iterate name="thresholds" type="net.anotheria.moskito.webui.threshold.bean.ThresholdStatusBean" id="threshold">
+                    <div class="col-lg-3 col-md-3 col-sm-4">
+                        <div class="box threshold-item tooltip-bottom">
+                            <i class="status status-${threshold.colorCode}"></i>
+                            <span class="threshold-title">${threshold.name}&nbsp;${threshold.value}</span>
+                            <div class="box-right-nav dropdown threshold-body">
+                                <a href="#" data-target="#" data-toggle="dropdown"><i class="fa fa-cog"></i></a>
+                                <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dLabel">
+                                    <ano:iF test="${threshold.dashboardsToAdd != ''}">
+                                        <li><a onclick="addTresholds('${threshold.name}', '${threshold.dashboardsToAdd}')" >Add to Dashboard</a></li>
+                                    </ano:iF>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </ano:iterate>
+            </div>
+        </div>
+        <!-- Thresholds end -->
+    </ano:present>
 
 <div class="box">
     <div class="box-content paddner">
@@ -100,9 +124,125 @@
 </ano:iterate>
 
 
-</div>
+    <!--ano:present name="thresholdsPresent"-->
+    <script type="text/javascript">
+        var multipleGraphData = [];
+        <ano:iterate name="singleGraphData" type="net.anotheria.moskito.webui.accumulators.api.AccumulatedSingleGraphAO" id="singleGraph">
+        multipleGraphData.push([
+            <ano:iterate name="singleGraph" property="data" id="value" indexId="i">
+            <ano:notEqual name="i" value="0">, </ano:notEqual><ano:write name="value" property="JSONWithNumericTimestamp"/>
+            </ano:iterate>
+        ]);
+        </ano:iterate>
+    </script>
 
-<jsp:include page="../../producers/jsp/ChartEngine.jsp"/>
+    <%-- Chart boxes for multiple charts --%>
+    <div>
+        <ano:iterate name="singleGraphData"
+                         type="net.anotheria.moskito.webui.accumulators.api.AccumulatedSingleGraphAO"
+                         id="singleGraph">
+                <div class="box" id="parentBox">
+                    <div class="box-title">
+                        <a class="accordion-toggle tooltip-bottom" title="Close/Open" data-toggle="collapse"
+                           href="#collapse-chart-${singleGraph.nameForJS}"><i class="fa fa-caret-right"></i></a>
+
+                        <h3 class="pull-left">
+                            Chart for ${singleGraph.name}
+                        </h3>
+
+                        <div class="box-right-nav">
+                            <a href="" class="tooltip-bottom" title="Refresh"><i class="fa fa-refresh"></i></a>
+                        </div>
+                    </div>
+                    <div id="collapse-chart-${singleGraph.nameForJS}"
+                         class="box-content accordion-body collapse in">
+                        <div class="paddner">
+                            <div id="chart_accum${singleGraph.nameForJS}" class="accumulator-chart"></div>
+                        </div>
+                    </div>
+                </div>
+            </ano:iterate>
+    </div>
+    <%-- /charts' boxes --%>
+
+    <script type="text/javascript">
+        //changing the order of multiple charts
+        $(document).ready(function () {
+            $(".up").click(function () {
+                var pdiv = $(this).closest('#parentBox');
+                pdiv.insertBefore(pdiv.prev());
+                return false
+            });
+            $(".down").click(function () {
+                var pdiv = $(this).closest('#parentBox');
+                pdiv.insertAfter(pdiv.next());
+                return false
+            });
+        });
+    </script>
+
+    <script type="text/javascript">
+        var chartEngineName = '${chartEngine}' || 'GOOGLE_CHART_API';
+
+        // Many charts
+        if ('multipleGraphData' in window) {
+            var names = '${accNames}'.slice(1, -1).split(', ');
+            var containerSelectors = $('.accumulator-chart').map(function () {
+                return $(this).attr("id");
+            });
+
+            multipleGraphData.forEach(function (graphData, index) {
+                var chartParams = {
+                    container: containerSelectors[index],
+                    names: [names[index]],
+                    data: graphData,
+                    colors: accumulatorsColors,
+                    type: '<ano:write name="type"/>',
+                    title: names[index],
+                    dataType: 'datetime',
+                    options: {
+                        legendsPerSlice: 7,
+                        margin: {top: 20, right: 40, bottom: 30, left: 40}
+                    }
+                };
+
+                chartEngineIniter[chartEngineName](chartParams);
+            });
+
+        }
+        // One chart with one or more lines
+        else {
+            var names = ('${singleGraph.name}' && ['${singleGraph.name}']) || '${accNames}'.slice(1, -1).split(', ');
+
+            var chartParams = {
+                container: 'chart_accum${singleGraph.nameForJS}',
+                names: names,
+                data: data,
+                colors: accumulatorsColors,
+                type: '<ano:write name="type"/>',
+                title: '',
+                dataType: 'datetime',
+                options: {
+                    legendsPerSlice: 7,
+                    margin: {top: 20, right: 40, bottom: 30, left: 40}
+                }
+            };
+
+            chartEngineIniter[chartEngineName](chartParams);
+        }
+
+
+        $('.refresh').click(function () {
+            location.reload(true);
+        });
+
+
+    </script>
+
+    <%-- /ano:present --%>
+
+</div>
+    <jsp:include page="../../producers/jsp/ChartEngine.jsp"/>
 
     <div class="modal fade inspect-list" id="inspect" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">

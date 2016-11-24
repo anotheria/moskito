@@ -10,7 +10,6 @@ import net.anotheria.moskito.webui.dashboards.api.DashboardChartAO;
 import net.anotheria.moskito.webui.dashboards.bean.DashboardChartBean;
 import net.anotheria.moskito.webui.gauges.api.GaugeAO;
 import net.anotheria.moskito.webui.gauges.bean.GaugeBean;
-import net.anotheria.moskito.webui.threshold.api.ThresholdStatusAO;
 import net.anotheria.moskito.webui.threshold.bean.ThresholdStatusBean;
 import net.anotheria.util.StringUtils;
 
@@ -18,6 +17,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.List;
+
+import static net.anotheria.moskito.webui.threshold.util.ThresholdStatusBeanUtility.getThresholdBeans;
 
 /**
  * This action renders a dashboard. If no dashboard is selected explicitly the first dashboard is taken.
@@ -117,29 +118,6 @@ public class ShowDashboardAction extends BaseDashboardAction {
 		return ret;
 	}
 
-	private List<ThresholdStatusBean> getThresholdBeans(List<ThresholdStatusAO> thresholdStatusAOList) throws APIException {
-		List<ThresholdStatusBean> ret = new ArrayList<>();
-		if (thresholdStatusAOList == null || thresholdStatusAOList.size() == 0)
-			return ret;
-
-		List<DashboardAO> dashboardAOList = new ArrayList<>();
-		for(String name : getDashboardAPI().getDashboardNames()) {
-			dashboardAOList.add(getDashboardAPI().getDashboard(name));
-		}
-		for (ThresholdStatusAO thresholdStatusAO : thresholdStatusAOList) {
-			String dashboardNames = "";
-			for(DashboardAO dashboardAO: dashboardAOList) {
-				if (dashboardAO.getThresholds() == null || !dashboardAO.getThresholds().contains(thresholdStatusAO)) {
-					dashboardNames += dashboardAO.getName()+",";
-				}
-			}
-			if (dashboardNames.length() > 0)
-				dashboardNames = dashboardNames.substring(0, dashboardNames.length()-1);
-			ret.add(new ThresholdStatusBean(thresholdStatusAO, dashboardNames));
-		}
-
-		return ret;
-	}
 
 	private List<DashboardChartBean> getChartBeans(List<DashboardChartAO> dashboardChartAOList) throws APIException {
 		List<DashboardChartBean> ret = new ArrayList<>();

@@ -188,6 +188,25 @@ public class ThresholdStatusBean  {
 	public void setDashboardsToAdd(String dashboardsToAdd) {
 		this.dashboardsToAdd = dashboardsToAdd;
 	}
+
+	@Override
+	public String toString() {
+		return "ThresholdStatusBean{" +
+				"name='" + name + '\'' +
+				", status='" + status + '\'' +
+				", colorCode='" + colorCode + '\'' +
+				", timestamp='" + timestamp + '\'' +
+				", description='" + description + '\'' +
+				", value='" + value + '\'' +
+				", previousColorCode='" + previousColorCode + '\'' +
+				", previousStatus='" + previousStatus + '\'' +
+				", statusForSorting=" + statusForSorting +
+				", timestampForSorting=" + timestampForSorting +
+				", id='" + id + '\'' +
+				", flipCount=" + flipCount +
+				", dashboardsToAdd='" + dashboardsToAdd + '\'' +
+				'}';
+	}
 }
 
 

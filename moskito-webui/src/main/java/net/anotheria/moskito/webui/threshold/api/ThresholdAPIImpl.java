@@ -16,10 +16,14 @@ import net.anotheria.moskito.webui.shared.api.AbstractMoskitoAPIImpl;
 import net.anotheria.util.NumberUtils;
 import net.anotheria.util.StringUtils;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 /**
- * TODO comment this class
+ * Implementation of the ThresholdAPI.
  *
  * @author lrosenberg
  * @since 11.02.13 18:45
@@ -306,5 +310,10 @@ public class ThresholdAPIImpl extends AbstractMoskitoAPIImpl implements Threshol
 	public List<ThresholdConditionGuard> getGuardsForThreshold(String thresholdId) throws APIException {
 		Threshold threshold = ThresholdRepository.getInstance().getById(thresholdId);
 		return threshold.getGuards();
+	}
+
+	@Override
+	public List<String> getThresholdIdsTiedToASpecificProducer(String producerId) {
+		return ThresholdRepository.getInstance().getIdsByProducerId(producerId);
 	}
 }
