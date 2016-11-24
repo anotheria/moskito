@@ -630,7 +630,11 @@ public abstract class BaseMoskitoUIAction implements Action{
 	 * @return
 	 */
 	protected String getInfoMessage() {
-		return (String) APICallContext.getCallContext().getCurrentSession().getAttribute("infoMessage");
+		try {
+			return (String) APICallContext.getCallContext().getCurrentSession().getAttribute("infoMessage");
+		}catch(Exception any){
+			return null;
+		}
 	}
 
 }
