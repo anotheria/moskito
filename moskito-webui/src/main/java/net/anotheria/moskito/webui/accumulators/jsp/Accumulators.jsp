@@ -67,7 +67,7 @@
                         <div class="box-right-nav dropdown">
                             <a href="#" data-target="#" data-toggle="dropdown"><i class="fa fa-cog"></i></a>
                             <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dLabel">
-                                <li><a href="" id="save_as">Save</a></li>
+                                <li><a href="" class="save_as">Save</a></li>
                                 <ano:iF test="${chart.dashboardsToAdd != ''}">
                                     <li><a onclick="addChart('${requestScope.accNamesConcat}','${requestScope.dashboards}')">Add to Dashboard</a></li>
                                 </ano:iF>
@@ -94,9 +94,19 @@
                                 <a class="accordion-toggle tooltip-bottom" title="Close/Open" data-toggle="collapse"
                                    href="#collapse-chart-${singleGraph.nameForJS}"><i class="fa fa-caret-right"></i></a>
 
-                                <h3 class="pull-left">
-                                    Chart for ${singleGraph.name}
+                                <h3 class="pull-left chart-header">
+                                    ${singleGraph.name}
                                 </h3>
+
+                                <div class="box-right-nav dropdown">
+                                    <a href="#" data-target="#" data-toggle="dropdown"><i class="fa fa-cog"></i></a>
+                                    <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dLabel">
+                                        <li><a href="" class="save_as">Save</a></li>
+                                        <ano:iF test="${chart.dashboardsToAdd != ''}">
+                                            <li><a onclick="addChart('${singleGraph.name}','${requestScope.dashboards}')">Add to Dashboard</a></li>
+                                        </ano:iF>
+                                    </ul>
+                                </div>
 
                                 <div class="box-right-nav">
                                     <a href="" class="tooltip-bottom" title="Refresh"><i class="fa fa-refresh"></i></a>
@@ -415,14 +425,14 @@
 
 
         <script type="text/javascript">
-        $('#save_as').click( function(event) {
+        $('.save_as').click( function(event) {
             event.preventDefault();
             event.stopPropagation();
             var chartWidth = 1120,
                     chartHeight = 300,
                     margin = 40;
 
-            var svgOrigin = document.querySelector("svg");
+            var svgOrigin = $(event.target).closest(".box").find("svg")[0];
             //copy svg chart
             var svg = svgOrigin.cloneNode(true);
 
@@ -488,12 +498,12 @@
                 return '&#' + c.charCodeAt(0) + ';';
             }));
             img.setAttribute("src", "data:image/svg+xml;base64," + encoded_svg);
+            var file_name = getChartFileName();
 
             img.onload = function () {
                 ctx.drawImage(img, 0, 0);
                 var canvasdata = canvas.toDataURL("image/png")
                 var a = document.createElement("a");
-                var file_name = getChartFileName();
 
                 a.download = file_name + ".png";
                 a.href = canvasdata;
@@ -505,8 +515,8 @@
 
         function getChartFileName() {
             var t = new Date($.now());
-            var current_date = t.getFullYear()+'-'+ t.getMonth()+'-'+ t.getDate()+'__'+t.getHours()+'-'+ t.getMinutes()
-            return $.trim($('.chart-header').text()).split(' ').join('_')+'_'+current_date;
+            var current_date = t.getFullYear()+'-'+ t.getMonth()+'-'+ t.getDate()+'__'+t.getHours()+'-'+ t.getMinutes()+'-'+ t.getSeconds();
+            return $.trim($(event.target).closest(".box").find('.chart-header').text()).split(' ').join('_')+'_'+current_date;
         }
     </script>
 
