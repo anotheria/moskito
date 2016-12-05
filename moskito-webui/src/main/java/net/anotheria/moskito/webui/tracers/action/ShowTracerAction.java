@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * TODO comment this class
+ * Prepares a single tracer for display.
  *
  * @author lrosenberg
  * @since 05.05.15 18:41

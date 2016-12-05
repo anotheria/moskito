@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * TODO comment this class
+ * Removes a single tracer.
  *
  * @author lrosenberg
  * @since 05.05.15 17:09

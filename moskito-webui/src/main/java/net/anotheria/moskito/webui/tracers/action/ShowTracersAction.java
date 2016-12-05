@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 /**
- * TODO comment this class
+ * Shows currently active tracers.
  *
  * @author lrosenberg
  * @since 05.05.15 00:41

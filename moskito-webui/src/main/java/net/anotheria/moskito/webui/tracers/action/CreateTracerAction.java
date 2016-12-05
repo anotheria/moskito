@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.net.URLEncoder;
 
 /**
- * TODO comment this class
+ * Creates a new tracer.
  *
  * @author lrosenberg
  * @since 05.05.15 16:25

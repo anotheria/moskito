@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * TODO comment this class
+ * Enables a tracer.
  *
  * @author lrosenberg
  * @since 05.05.15 17:09
