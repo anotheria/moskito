@@ -10,7 +10,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 
 /**
- * TODO comment this class
+ * The REST Resource for Dashboards API.
  *
  * @author lrosenberg
  * @since 15.04.15 09:08
