@@ -6,6 +6,7 @@ import net.anotheria.util.sorter.IComparable;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -28,28 +29,38 @@ public class AccumulatedValueAO implements Serializable, IComparable<Accumulated
 	/**
 	 * Values aka data for graphs.
 	 */
-	@XmlElement
+	@XmlElement(name = "values")
 	private List<String> values;
 	/**
 	 * Timestamp.
 	 */
-	@XmlElement
+	@XmlElement(name = "timestamp")
 	private String timestamp;
 	
 	/**
-	 * Iso timestamp
+	 * Iso timestamp.
 	 * 
 	 */
-	@XmlElement
+	@XmlElement(name = "isoTimestamp")
 	private String isoTimestamp;
 
+	/**
+	 * Numeric timestamp.
+	 */
+	@XmlElement(name = "numericTimestamp")
+	private long numericTimestamp;
 
 	/**
+	 * Default constructor.
+     */
+	public AccumulatedValueAO() {
+	}
+
+	/**
+	 * Constructor.
 	 *
+	 * @param aTimestamp timestamp
 	 */
-	@XmlElement
-	private long numericTimestamp;
-	
 	public AccumulatedValueAO(String aTimestamp){
 		timestamp = aTimestamp;
 		values = new ArrayList<>();

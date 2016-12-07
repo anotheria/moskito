@@ -1,6 +1,8 @@
 package net.anotheria.moskito.webui.shared.resource;
 
 import net.anotheria.moskito.webui.accumulators.api.AccumulatorDefinitionAO;
+import net.anotheria.moskito.webui.dashboards.api.DashboardAO;
+import net.anotheria.moskito.webui.dashboards.api.DashboardDefinitionAO;
 import net.anotheria.moskito.webui.producers.api.UnitCountAO;
 import net.anotheria.moskito.webui.threshold.api.ThresholdAlertAO;
 import net.anotheria.moskito.webui.threshold.api.ThresholdDefinitionAO;
@@ -31,8 +33,24 @@ import java.util.Set;
  * @since 06.10.14 13:20
  */
 @Provider
-@Produces(MediaType.APPLICATION_XML)
+@Produces({
+        MediaType.APPLICATION_XML/*,
+        MediaType.APPLICATION_JSON*/
+})
 public class ReplyObjectWriter implements MessageBodyWriter<ReplyObject> {
+	/**
+	 * The list of java classes to be recognized by the new {@link JAXBContext}.
+     */
+	private static final Class[] classesToBeBound = {
+			ThresholdAlertAO.class,
+			ThresholdStatusAO.class,
+			AccumulatorDefinitionAO.class,
+			ThresholdDefinitionAO.class,
+			UnitCountAO.class,
+			DashboardDefinitionAO.class,
+			DashboardAO.class
+	};
+
 	@Override
 	public boolean isWriteable(Class<?> type, Type genericType, Annotation[] annotations, MediaType mediaType) {
 		return type.equals(ReplyObject.class);
@@ -45,7 +63,6 @@ public class ReplyObjectWriter implements MessageBodyWriter<ReplyObject> {
 
 	@Override
 	public void writeTo(ReplyObject replyObject, Class<?> type, Type genericType, Annotation[] annotations, MediaType mediaType, MultivaluedMap<String, Object> httpHeaders, OutputStream entityStream) throws IOException, WebApplicationException {
-		//System.out.println("writeTo "+replyObject+", "+type+", "+genericType+", "+annotations+", "+mediaType+", "+httpHeaders+", stream: "+entityStream);
 		try {
 
 			entityStream.write(
@@ -59,32 +76,27 @@ public class ReplyObjectWriter implements MessageBodyWriter<ReplyObject> {
 			entityStream.write("<results>".getBytes());
 			HashMap results = replyObject.getResults();
 			Set<Map.Entry> resultSet = results.entrySet();
-            JAXBContext context = JAXBContext.newInstance(ThresholdAlertAO.class, ThresholdStatusAO.class,
-                    AccumulatorDefinitionAO.class, ThresholdDefinitionAO.class, UnitCountAO.class);
+
+			JAXBContext context = JAXBContext.newInstance(classesToBeBound);
 			Marshaller m = context.createMarshaller();
 			m.setProperty("jaxb.fragment", Boolean.TRUE);
 
-
 			for (Map.Entry entry : resultSet){
 				String sectionName = entry.getKey().toString();
-				//System.out.println("TO WRITE : "+entry.getValue()+", "+entry.getValue().getClass());
 				entityStream.write(('<' +sectionName+ '>').getBytes());
-				if (entry.getValue() instanceof List){
-					writeList((List)entry.getValue(), m, entityStream);
-				}
+
+				m.marshal(entry.getValue(), entityStream);
+
 				entityStream.write(("</"+sectionName+ '>').getBytes());
 			}
-
-
-			//context.createMarshaller().marshal(replyObject, entityStream);
 
 			entityStream.write("</results>".getBytes());
 			entityStream.write("</reply>".getBytes());
 
 
-		}catch(JAXBException exception){
-			exception.printStackTrace();
-		}
+        } catch (JAXBException exception) {
+            exception.printStackTrace();
+        }
 
 	}
 

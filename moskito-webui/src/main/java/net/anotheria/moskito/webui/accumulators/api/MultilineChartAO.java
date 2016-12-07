@@ -5,6 +5,11 @@ import org.codehaus.jackson.annotate.JsonIgnore;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElementWrapper;
+import javax.xml.bind.annotation.XmlRootElement;
 import java.io.Serializable;
 import java.util.Collections;
 import java.util.List;
@@ -15,6 +20,8 @@ import java.util.List;
  * @author lrosenberg
  * @since 27.06.15 16:19
  */
+@XmlRootElement(name = "MultilineChart")
+@XmlAccessorType(XmlAccessType.FIELD)
 public class MultilineChartAO implements Serializable{
 	/**
 	 * SerialVersionUID.
@@ -24,14 +31,17 @@ public class MultilineChartAO implements Serializable{
 	/**
 	 * Chart data.
 	 */
+	@XmlElement(name = "accumulatedValues")
 	private List<AccumulatedValueAO> data;
 	/**
 	 * Line names.
 	 */
+	@XmlElement(name = "names")
 	private List<String> names;
 	/**
 	 * Collection of charts.
 	 */
+	@XmlElement(name = "singleGraphs")
 	private List<AccumulatedSingleGraphAO> singleGraphAOs;
 
 	public List<AccumulatedValueAO> getData() {

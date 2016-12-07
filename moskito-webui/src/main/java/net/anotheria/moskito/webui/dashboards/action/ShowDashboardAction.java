@@ -17,6 +17,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import static net.anotheria.moskito.webui.threshold.util.ThresholdStatusBeanUtility.getThresholdBeans;
 
@@ -27,6 +28,10 @@ import static net.anotheria.moskito.webui.threshold.util.ThresholdStatusBeanUtil
  * @since 12.02.15 14:02
  */
 public class ShowDashboardAction extends BaseDashboardAction {
+	/**
+	 * Default dashboard refresh rate in ms.
+	 */
+	private static final long DEFAULT_DASHBOARD_REFRESH_RATE = TimeUnit.SECONDS.toMillis(60);
 
 	@Override
 	public ActionCommand execute(ActionMapping actionMapping, FormBean formBean, HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -41,9 +46,11 @@ public class ShowDashboardAction extends BaseDashboardAction {
 		request.setAttribute("chartsPresent", chartsPresent);
 		request.setAttribute("thresholdsPresent", thresholdsPresent);
 		request.setAttribute("showHelp", !(gaugesPresent || chartsPresent || thresholdsPresent));
+		request.setAttribute("dashboardName", dashboardName);
 
-		DashboardConfig selectedDashboard = getDashboardAPI().getDashboardConfig(dashboardName);
-		if (dashboardName == null || selectedDashboard == null) {
+
+		DashboardConfig selectedDashboardConfig = getDashboardAPI().getDashboardConfig(dashboardName);
+		if (dashboardName == null || selectedDashboardConfig == null) {
 			dashboardName = getDashboardAPI().getDefaultDashboardName();
 			if (dashboardName == null) { // no dashboards present
 				return actionMapping.success();
@@ -85,6 +92,8 @@ public class ShowDashboardAction extends BaseDashboardAction {
 		if (!StringUtils.isEmpty(infoMessage)) {
 			request.setAttribute("infoMessage", infoMessage);
 		}
+
+		request.setAttribute("dashboardRefreshRate", getDashboardRefreshRate(selectedDashboardConfig));
 
 		return actionMapping.success();
 	}
@@ -141,5 +150,20 @@ public class ShowDashboardAction extends BaseDashboardAction {
 		}
 
 		return ret;
+	}
+
+	/**
+	 * Returns dashboard refresh rate in ms.
+	 * Used at UI for refreshing the dashboard.
+	 *
+	 * @param selectedDashboardConfig {@link DashboardConfig}
+	 * @return dashboard refresh rate in ms
+	 */
+	private long getDashboardRefreshRate(final DashboardConfig selectedDashboardConfig) {
+		if (selectedDashboardConfig == null) {
+			return DEFAULT_DASHBOARD_REFRESH_RATE;
+		}
+
+		return TimeUnit.SECONDS.toMillis(selectedDashboardConfig.getRefresh());
 	}
 }

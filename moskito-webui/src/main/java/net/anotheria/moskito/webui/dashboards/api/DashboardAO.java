@@ -3,7 +3,10 @@ package net.anotheria.moskito.webui.dashboards.api;
 import net.anotheria.moskito.webui.gauges.api.GaugeAO;
 import net.anotheria.moskito.webui.threshold.api.ThresholdStatusAO;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.io.Serializable;
 import java.util.List;
@@ -15,6 +18,7 @@ import java.util.List;
  * @since 16.04.15 13:17
  */
 @XmlRootElement(name="Dashboard")
+@XmlAccessorType(XmlAccessType.FIELD)
 public class DashboardAO implements Serializable{
 	/**
 	 * SerialVersionUID.
@@ -30,19 +34,19 @@ public class DashboardAO implements Serializable{
 	/**
 	 * Gauges.
 	 */
-	@XmlElement
+	@XmlElement(name = "gauges")
 	private List<GaugeAO> gauges;
 
 	/**
 	 * Thresholds.
 	 */
-	@XmlElement
+	@XmlElement(name = "thresholdStatuses")
 	private List<ThresholdStatusAO> thresholds;
 
 	/**
 	 * Charts of this dashboard.
 	 */
-	@XmlElement
+	@XmlElement(name = "dashboardCharts")
 	private List<DashboardChartAO> charts;
 
 	public List<GaugeAO> getGauges() {

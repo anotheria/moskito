@@ -32,18 +32,20 @@ public class AccumulatedSingleGraphAO implements Serializable{
 	/**
 	 * Name of the graph.
 	 */
-	@XmlElement
+	@XmlElement(name = "name")
 	private String name;
+
 	/**
 	 * Graph data.
 	 */
-	@XmlElement
+	@XmlElement(name = "accumulatedValues")
 	private List<AccumulatedValueAO> data;
+
 	/**
 	 * Graph color.
 	 * Html color value, e.g. #RRGGBB.
 	 */
-	@XmlElement
+	@XmlElement(name = "color")
 	private String color;
 
 	/**
@@ -57,7 +59,13 @@ public class AccumulatedSingleGraphAO implements Serializable{
 		jsReplaceMap.put("+", "_");
 		jsReplaceMap.put(".", "_");
 	}
-	
+
+	/**
+	 * Default constructor.
+     */
+	public AccumulatedSingleGraphAO() {
+	}
+
 	public AccumulatedSingleGraphAO(String aName){
 		name = aName;
 		data = new ArrayList<>();
