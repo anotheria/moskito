@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -32,20 +33,20 @@ public class AccumulatedSingleGraphAO implements Serializable{
 	/**
 	 * Name of the graph.
 	 */
-	@XmlElement(name = "name")
+	@XmlElement
 	private String name;
 
 	/**
 	 * Graph data.
 	 */
-	@XmlElement(name = "accumulatedValues")
+	@XmlElement
 	private List<AccumulatedValueAO> data;
 
 	/**
 	 * Graph color.
 	 * Html color value, e.g. #RRGGBB.
 	 */
-	@XmlElement(name = "color")
+	@XmlElement
 	private String color;
 
 	/**

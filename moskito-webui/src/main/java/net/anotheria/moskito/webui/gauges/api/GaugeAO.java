@@ -18,7 +18,7 @@ import java.util.List;
  * @author lrosenberg
  * @since 23.03.15 21:40
  */
-@XmlRootElement(name = "Gauge")
+@XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
 public class GaugeAO implements Serializable{
 	/**
@@ -29,40 +29,40 @@ public class GaugeAO implements Serializable{
 	/**
 	 * Name of the gauge.
 	 */
-	@XmlElement(name="name")
+	@XmlElement
 	private String name;
 
 	/**
 	 * Caption of the gauge box.
 	 */
-	@XmlElement(name="caption")
+	@XmlElement
 	private String caption;
 
 	/**
 	 * Min value.
 	 */
 	@XmlJavaTypeAdapter(StatValueAOMarshallingAdapter.class)
-	@XmlElement(name="min")
+	@XmlElement
 	private StatValueAO min;
 
 	/**
 	 * Current value.
 	 */
 	@XmlJavaTypeAdapter(StatValueAOMarshallingAdapter.class)
-	@XmlElement(name="current")
+	@XmlElement
 	private StatValueAO current;
 
 	/**
 	 * Max value.
 	 */
 	@XmlJavaTypeAdapter(StatValueAOMarshallingAdapter.class)
-	@XmlElement(name="max")
+	@XmlElement
 	private StatValueAO max;
 
 	/**
 	 * Could all values be set?
 	 */
-	@XmlElement(name="complete")
+	@XmlElement
 	private boolean complete;
 
 	/**

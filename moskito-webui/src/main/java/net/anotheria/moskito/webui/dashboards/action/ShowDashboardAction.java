@@ -46,8 +46,6 @@ public class ShowDashboardAction extends BaseDashboardAction {
 		request.setAttribute("chartsPresent", chartsPresent);
 		request.setAttribute("thresholdsPresent", thresholdsPresent);
 		request.setAttribute("showHelp", !(gaugesPresent || chartsPresent || thresholdsPresent));
-		request.setAttribute("dashboardName", dashboardName);
-
 
 		DashboardConfig selectedDashboardConfig = getDashboardAPI().getDashboardConfig(dashboardName);
 		if (dashboardName == null || selectedDashboardConfig == null) {
@@ -93,6 +91,7 @@ public class ShowDashboardAction extends BaseDashboardAction {
 			request.setAttribute("infoMessage", infoMessage);
 		}
 
+		request.setAttribute("dashboardRestApiUrl", getDashboardRestApiUrl(request, dashboardName));
 		request.setAttribute("dashboardRefreshRate", getDashboardRefreshRate(selectedDashboardConfig));
 
 		return actionMapping.success();
@@ -150,6 +149,28 @@ public class ShowDashboardAction extends BaseDashboardAction {
 		}
 
 		return ret;
+	}
+
+	/**
+	 * Creates Dashboard REST API url for given dashboard.
+	 * Used at UI.
+	 *
+	 * @param request       {@link HttpServletRequest}
+	 * @param dashboardName dashboard name
+	 * @return Dashboard REST API url, including context path
+	 */
+	private String getDashboardRestApiUrl(final HttpServletRequest request, final String dashboardName) {
+		String contextPath = request.getContextPath();
+
+		if (contextPath == null) {
+			contextPath = "";
+		}
+
+		if (!contextPath.endsWith("/")) {
+			contextPath += "/";
+		}
+
+		return contextPath + "moskito-inspect-rest/dashboards/" + dashboardName;
 	}
 
 	/**

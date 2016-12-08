@@ -15,7 +15,7 @@ import java.io.Serializable;
  * @author lrosenberg
  * @since 14.02.15 00:46
  */
-@XmlRootElement (name = "DashboardChart")
+@XmlRootElement (name = "Chart")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class DashboardChartAO implements Serializable{
 	/**
@@ -26,12 +26,12 @@ public class DashboardChartAO implements Serializable{
 	/**
 	 * Caption of this chart.
 	 */
-	@XmlElement(name = "caption")
+	@XmlElement
 	private String caption;
 	/**
 	 * Chart data for chart lines.
 	 */
-	@XmlElement(name = "multilineChart")
+	@XmlElement
 	private MultilineChartAO chart;
 
 	public String getCaption() {

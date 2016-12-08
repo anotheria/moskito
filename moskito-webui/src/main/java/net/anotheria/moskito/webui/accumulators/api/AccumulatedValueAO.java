@@ -29,25 +29,25 @@ public class AccumulatedValueAO implements Serializable, IComparable<Accumulated
 	/**
 	 * Values aka data for graphs.
 	 */
-	@XmlElement(name = "values")
+	@XmlElement
 	private List<String> values;
 	/**
 	 * Timestamp.
 	 */
-	@XmlElement(name = "timestamp")
+	@XmlElement
 	private String timestamp;
 	
 	/**
 	 * Iso timestamp.
 	 * 
 	 */
-	@XmlElement(name = "isoTimestamp")
+	@XmlElement
 	private String isoTimestamp;
 
 	/**
 	 * Numeric timestamp.
 	 */
-	@XmlElement(name = "numericTimestamp")
+	@XmlElement
 	private long numericTimestamp;
 
 	/**

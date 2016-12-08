@@ -389,7 +389,7 @@
 
 <script type="text/javascript">
     (function (dashboard, $) {
-        dashboard.name = '${dashboardName}';
+        dashboard.restApiUrl = '${dashboardRestApiUrl}';
         dashboard.refreshInterval = ${dashboardRefreshRate};
 
         dashboard.init = function () {
@@ -407,13 +407,13 @@
 
                 var dashboard = response["results"]["dashboard"];
 
-                refreshThresholdStatuses(dashboard["thresholdStatuses"]);
+                refreshThresholdStatuses(dashboard["thresholds"]);
                 refreshGaugeCharts(dashboard["gauges"]);
-                refreshLineCharts(dashboard["dashboardCharts"]);
+                refreshLineCharts(dashboard["charts"]);
             };
 
             $.ajax({
-                url: "/moskito-inspect-rest/dashboards/" + encodeURIComponent(dashboard.name),
+                url: dashboard.restApiUrl,
                 type: "GET",
                 headers: {
                     "Accept": "application/json"
@@ -454,7 +454,7 @@
 
         function refreshLineCharts(dashboardCharts) {
             _.each(dashboardCharts, function (dashboardChart, idx) {
-                var multiLineChart = dashboardChart["multilineChart"];
+                var multiLineChart = dashboardChart["chart"];
 
                 var names;
                 if (_.isArray(multiLineChart["names"])) {
@@ -465,7 +465,7 @@
                     names = [].concat(multiLineChart["names"]);
                 }
 
-                var data = _.map(multiLineChart["accumulatedValues"], function (accumulatedValueObj) {
+                var data = _.map(multiLineChart["data"], function (accumulatedValueObj) {
                     var dataItem = [];
 
                     dataItem.push(_.toNumber(accumulatedValueObj["numericTimestamp"]));

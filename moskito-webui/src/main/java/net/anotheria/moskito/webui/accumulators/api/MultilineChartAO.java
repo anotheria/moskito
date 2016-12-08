@@ -31,17 +31,17 @@ public class MultilineChartAO implements Serializable{
 	/**
 	 * Chart data.
 	 */
-	@XmlElement(name = "accumulatedValues")
+	@XmlElement
 	private List<AccumulatedValueAO> data;
 	/**
 	 * Line names.
 	 */
-	@XmlElement(name = "names")
+	@XmlElement
 	private List<String> names;
 	/**
 	 * Collection of charts.
 	 */
-	@XmlElement(name = "singleGraphs")
+	@XmlElement
 	private List<AccumulatedSingleGraphAO> singleGraphAOs;
 
 	public List<AccumulatedValueAO> getData() {

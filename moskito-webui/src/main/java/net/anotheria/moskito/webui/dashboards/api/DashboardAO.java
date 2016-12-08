@@ -34,19 +34,19 @@ public class DashboardAO implements Serializable{
 	/**
 	 * Gauges.
 	 */
-	@XmlElement(name = "gauges")
+	@XmlElement
 	private List<GaugeAO> gauges;
 
 	/**
 	 * Thresholds.
 	 */
-	@XmlElement(name = "thresholdStatuses")
+	@XmlElement
 	private List<ThresholdStatusAO> thresholds;
 
 	/**
 	 * Charts of this dashboard.
 	 */
-	@XmlElement(name = "dashboardCharts")
+	@XmlElement
 	private List<DashboardChartAO> charts;
 
 	public List<GaugeAO> getGauges() {

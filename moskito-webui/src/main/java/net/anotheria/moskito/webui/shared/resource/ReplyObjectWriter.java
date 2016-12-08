@@ -33,10 +33,7 @@ import java.util.Set;
  * @since 06.10.14 13:20
  */
 @Provider
-@Produces({
-        MediaType.APPLICATION_XML/*,
-        MediaType.APPLICATION_JSON*/
-})
+@Produces(MediaType.APPLICATION_XML)
 public class ReplyObjectWriter implements MessageBodyWriter<ReplyObject> {
 	/**
 	 * The list of java classes to be recognized by the new {@link JAXBContext}.
@@ -97,7 +94,6 @@ public class ReplyObjectWriter implements MessageBodyWriter<ReplyObject> {
         } catch (JAXBException exception) {
             exception.printStackTrace();
         }
-
 	}
 
 	private void writeList(List list, Marshaller marshaller, OutputStream stream ) throws IOException, JAXBException{
