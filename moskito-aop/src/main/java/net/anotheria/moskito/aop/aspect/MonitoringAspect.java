@@ -53,6 +53,8 @@ public class MonitoringAspect extends AbstractMoskitoAspect<ServiceStats> {
 	 */
 	@Around (value = "execution(* *(..)) && (@annotation(method))")
 	public Object doProfilingMethod(final ProceedingJoinPoint pjp, final Monitor method) throws Throwable {
+		if (method == null)
+			return pjp.proceed();
 		return doProfiling(pjp, method.producerId(), method.subsystem(), method.category());
 	}
 
@@ -68,8 +70,7 @@ public class MonitoringAspect extends AbstractMoskitoAspect<ServiceStats> {
 	 */
 	@Around (value = "execution(@(@net.anotheria.moskito.aop.annotation.Monitor *) * *(..)) && !@annotation(net.anotheria.moskito.aop.annotation.DontMonitor)")
 	public Object doProfilingMethod(final ProceedingJoinPoint pjp) throws Throwable {
-		final Monitor monitor = resolveAnnotation(pjp);
-		return monitor == null ? pjp.proceed() : doProfiling(pjp, monitor.producerId(), monitor.subsystem(), monitor.category());
+		return doProfilingMethod(pjp, resolveAnnotation(pjp));
 	}
 
 	/**
@@ -85,6 +86,8 @@ public class MonitoringAspect extends AbstractMoskitoAspect<ServiceStats> {
 	 */
 	@Around (value = "execution(* *.*(..)) && @within(monitor) && !@annotation(net.anotheria.moskito.aop.annotation.DontMonitor)")
 	public Object doProfilingClass(ProceedingJoinPoint pjp, Monitor monitor) throws Throwable {
+		if(monitor==null)
+			return pjp.proceed();
 		return doProfiling(pjp, monitor.producerId(), monitor.subsystem(), monitor.category());
 	}
 
@@ -100,8 +103,7 @@ public class MonitoringAspect extends AbstractMoskitoAspect<ServiceStats> {
 	 */
 	@Around (value = "execution(* (@(@net.anotheria.moskito.aop.annotation.Monitor *) *).*(..)) && !@annotation(net.anotheria.moskito.aop.annotation.DontMonitor)")
 	public Object doProfilingClass(final ProceedingJoinPoint pjp) throws Throwable {
-		final Monitor monitor = resolveAnnotation(pjp);
-		return monitor == null ? pjp.proceed() : doProfiling(pjp, monitor.producerId(), monitor.subsystem(), monitor.category());
+		return doProfilingClass(pjp, resolveAnnotation(pjp));
 	}
 
 	/**
