@@ -116,7 +116,7 @@ public final class AnnotationUtils {
 	}
 
 	/**
-	 * Annotation search on type, it supper and it interfaces.
+	 * Recursive annotation search on type, it annotations and parents hierarchy. Interfaces ignored.
 	 *
 	 * @param type
 	 * 		{@link Class}
@@ -129,64 +129,20 @@ public final class AnnotationUtils {
 	public static <A extends Annotation> A findTypeAnnotation(final Class<?> type, final Class<A> targetAnnotationClass) {
 		Objects.requireNonNull(type, "incoming 'type' is not valid");
 		Objects.requireNonNull(targetAnnotationClass, "incoming 'targetAnnotationClass' is not valid");
-		//check class first.
-		final A classAnnotation = recursiveFindTypeAnnotation(type, targetAnnotationClass);
-		if (classAnnotation != null)
-			return classAnnotation;
-		//check interfaces
-		final Class<?>[] interfaces = type.getInterfaces();
-		if (interfaces == null || interfaces.length == 0)
-			return null;
-		for (final Class<?> interfaceCls : interfaces) {
-			final A interfaceLvlAnnotation = recursiveFindTypeAnnotation(interfaceCls, targetAnnotationClass);
-			if (interfaceLvlAnnotation != null)
-				return interfaceLvlAnnotation;
-		}
-		return null;
-	}
 
-
-	/**
-	 * Recursive search for annotation with next priority :
-	 * 1 - check type;
-	 * 2 - check type  super;
-	 * 3 - check type interfaces - with inner interface check
-	 *
-	 * @param type
-	 * 		{@link Class}
-	 * @param targetAnnotationClass
-	 * 		required {@link Annotation} class
-	 * @param <A>
-	 * 		type param
-	 * @return {@link A} in case if found, {@code null} otherwise
-	 */
-	private static <A extends Annotation> A recursiveFindTypeAnnotation(final Class<?> type, final Class<A> targetAnnotationClass) {
-		Objects.requireNonNull(type, "incoming 'type' is not valid");
-		Objects.requireNonNull(targetAnnotationClass, "incoming 'targetAnnotationClass' is not valid");
-		//there is no need to search further
 		if (type.equals(Object.class))
 			return null;
+		//check annotation presence on class itself and its annotations if any
 		final A monitor = findAnnotation(type, targetAnnotationClass);
 		if (monitor != null)
 			return monitor;
-		//check super
+		//recursive call to check superclass if present
 		final Class<?> superClass = type.getSuperclass();
 		if (superClass != null)
-			return recursiveFindTypeAnnotation(superClass, targetAnnotationClass);
-		//possible to add any required  logic  here.. Currently interface is enough
-		if (!type.isInterface())
-			return null;
-		//check in interfaces
-		final Class<?>[] interfaces = type.getInterfaces();
-		if (interfaces == null || interfaces.length == 0)
-			return null;
-		for (final Class<?> interfaceCls : interfaces) {
-			final A interfaceLvlAnnotation = recursiveFindTypeAnnotation(interfaceCls, targetAnnotationClass);
-			if (interfaceLvlAnnotation != null)
-				return interfaceLvlAnnotation;
-		}
+			return findTypeAnnotation(superClass, targetAnnotationClass);
 		return null;
 	}
+
 }
 
 

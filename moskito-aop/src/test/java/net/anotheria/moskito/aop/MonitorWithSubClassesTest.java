@@ -22,37 +22,37 @@ public class MonitorWithSubClassesTest {
 	}
 
 	@MonitorWithSubClasses
-	interface ParentInterfaceAnnotated {
-		void execute();
+	private abstract static class ParentClassAnnotated {
+		abstract void execute();
 	}
 
-	private static class InterfaceImplementation implements ParentInterfaceAnnotated {
+	private static class TestClassImplementation extends ParentClassAnnotated {
 		@Override
 		public void execute() {
 		}
 	}
 
 	@Test
-	public void monitorOnInterfaceTest() throws Exception {
-		final ParentInterfaceAnnotated child = new InterfaceImplementation();
+	public void monitorOnParentClassTest() throws Exception {
+		final ParentClassAnnotated child = new TestClassImplementation();
 		child.execute();
 
 		IProducerRegistry producerRegistry = ProducerRegistryFactory.getProducerRegistryInstance();
-		assertThat("error!", producerRegistry.getProducer(MoskitoUtils.producerName(InterfaceImplementation.class.getName())), notNullValue());
+		assertThat("error!", producerRegistry.getProducer(MoskitoUtils.producerName(TestClassImplementation.class.getName())), notNullValue());
 	}
 
 
 	@Test
-	public void monitorOnExtendingInterfaceTest() throws Exception {
-		final SomeOtherMarkerInterface child = new SomeOtherImpl();
+	public void monitorOnSuperParentClassTest() throws Exception {
+		final ParentClassNotAnnotated child = new SomeOtherImpl();
 		child.execute();
 		IProducerRegistry producerRegistry = ProducerRegistryFactory.getProducerRegistryInstance();
 		assertThat("error!", producerRegistry.getProducer(MoskitoUtils.producerName(SomeOtherImpl.class.getName())), notNullValue());
 	}
 
 	@Test
-	public void monitorOnExtendingInterfaceTest2() throws Exception {
-		final SomeOtherMarkerInterface child = new SomeOtherImpl();
+	public void monitorOnSuperParentClassTest2() throws Exception {
+		final ParentClassNotAnnotated child = new SomeOtherImpl();
 		child.executeSomethingElse();
 		IProducerRegistry producerRegistry = ProducerRegistryFactory.getProducerRegistryInstance();
 		assertThat("error!", producerRegistry.getProducer(MoskitoUtils.producerName(SomeOtherImpl.class.getName())), nullValue());
@@ -60,24 +60,24 @@ public class MonitorWithSubClassesTest {
 
 
 	/**
-	 * Monitored interface.!
+	 * Monitored superParentClass.!
 	 */
 	@MonitorWithSubClasses
-	interface SupperMarkerInterface {
-		void execute();
+	private abstract static class SupperParentClassAnnotated {
+		abstract void execute();
 	}
 
 	/**
-	 * Another - not monitored interface part....!
+	 * Another - not monitored superclass!
 	 */
-	interface SomeOtherMarkerInterface extends SupperMarkerInterface {
-		void executeSomethingElse();
+	private abstract static class ParentClassNotAnnotated extends SupperParentClassAnnotated {
+		abstract void executeSomethingElse();
 	}
 
 	/**
 	 * Implementation...
 	 */
-	private static final class SomeOtherImpl implements SomeOtherMarkerInterface {
+	private static final class SomeOtherImpl extends ParentClassNotAnnotated {
 		@Override
 		public void execute() {
 		}

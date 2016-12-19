@@ -7,6 +7,9 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
 import static net.anotheria.moskito.core.util.annotation.AnnotationUtils.findAnnotation;
+import static net.anotheria.moskito.core.util.annotation.AnnotationUtils.findTypeAnnotation;
+import static org.hamcrest.CoreMatchers.nullValue;
+import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 
 /**
@@ -73,4 +76,35 @@ public class AnnotationUtilsTest {
     @Retention(RetentionPolicy.RUNTIME)
     private @interface RecursiveAnnotation {
     }
+
+
+	@Retention(RetentionPolicy.RUNTIME)
+	private @interface TypeAnnotation {
+	}
+	@Retention(RetentionPolicy.RUNTIME)
+	private @interface ParentTypeAnnotation {
+	}
+	@Retention(RetentionPolicy.RUNTIME)
+	private @interface SuperParentTypeAnnotation {
+	}
+
+	@Test
+	public void testFindAnnotation_typeAnnotation() throws Exception {
+		@SuperParentTypeAnnotation
+		@ChildConfig
+		class SuperParentTestClass {}
+		@ParentTypeAnnotation
+		class ParentTestClass extends SuperParentTestClass{}
+		@TypeAnnotation
+		class MyTestClass extends ParentTestClass {}
+
+		assertTrue(findTypeAnnotation(MyTestClass.class, TypeAnnotation.class).annotationType() == TypeAnnotation.class);
+		assertTrue(findTypeAnnotation(MyTestClass.class, ParentTypeAnnotation.class).annotationType() == ParentTypeAnnotation.class);
+		assertTrue(findTypeAnnotation(MyTestClass.class, SuperParentTypeAnnotation.class).annotationType() == SuperParentTypeAnnotation.class);
+
+		assertThat("Found absent annotation!", findTypeAnnotation(MyTestClass.class, Deprecated.class), nullValue());
+
+		assertTrue(findTypeAnnotation(ChildConfig.class, Config.class).annotationType() == Config.class);
+		assertTrue(findTypeAnnotation(MyTestClass.class, Config.class).annotationType() == Config.class);
+	}
 }
