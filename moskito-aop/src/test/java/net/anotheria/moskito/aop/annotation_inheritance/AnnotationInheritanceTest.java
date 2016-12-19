@@ -30,7 +30,7 @@ public class AnnotationInheritanceTest {
 		try {
 			INTERVAL_VALUE = Accumulate.class.getMethod("intervalName").getDefaultValue().toString();
 		} catch(NoSuchMethodException e) {
-
+			fail("Can't fetch default interval value from @Accumulate!");
 		}
 	}
 	/**

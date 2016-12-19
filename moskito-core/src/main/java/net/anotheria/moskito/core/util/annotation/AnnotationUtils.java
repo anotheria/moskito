@@ -133,9 +133,9 @@ public final class AnnotationUtils {
 		if (type.equals(Object.class))
 			return null;
 		//check annotation presence on class itself and its annotations if any
-		final A monitor = findAnnotation(type, targetAnnotationClass);
-		if (monitor != null)
-			return monitor;
+		final A annotation = findAnnotation(type, targetAnnotationClass);
+		if (annotation != null)
+			return annotation;
 		//recursive call to check superclass if present
 		final Class<?> superClass = type.getSuperclass();
 		if (superClass != null)

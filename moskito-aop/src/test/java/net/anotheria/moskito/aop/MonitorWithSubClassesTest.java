@@ -4,6 +4,7 @@ import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.hamcrest.CoreMatchers.nullValue;
 import static org.junit.Assert.assertThat;
 
+import net.anotheria.moskito.aop.annotation.DontMonitor;
 import net.anotheria.moskito.aop.annotation.withsubclasses.MonitorWithSubClasses;
 import net.anotheria.moskito.aop.util.MoskitoUtils;
 import net.anotheria.moskito.core.registry.IProducerRegistry;
@@ -58,6 +59,14 @@ public class MonitorWithSubClassesTest {
 		assertThat("error!", producerRegistry.getProducer(MoskitoUtils.producerName(SomeOtherImpl.class.getName())), nullValue());
 	}
 
+	@Test
+	public void monitorOnSuperDontMonitorOnChildTest() throws Exception {
+		final SupperParentClassAnnotated child = new DontMonitoredImpl();
+		child.execute();
+		IProducerRegistry producerRegistry = ProducerRegistryFactory.getProducerRegistryInstance();
+		assertThat("error!", producerRegistry.getProducer(MoskitoUtils.producerName(DontMonitoredImpl.class.getName())), nullValue());
+	}
+
 
 	/**
 	 * Monitored superParentClass.!
@@ -86,4 +95,15 @@ public class MonitorWithSubClassesTest {
 		public void executeSomethingElse() {
 		}
 	}
+
+	/**
+	 * Not monitored implementation!
+	 */
+	private static class DontMonitoredImpl extends SupperParentClassAnnotated {
+		@DontMonitor
+		@Override
+		public void execute() {
+		}
+	}
+
 }
