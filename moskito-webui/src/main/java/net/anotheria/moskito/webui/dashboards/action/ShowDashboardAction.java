@@ -17,6 +17,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import static net.anotheria.moskito.webui.threshold.util.ThresholdStatusBeanUtility.getThresholdBeans;
 
@@ -27,6 +28,10 @@ import static net.anotheria.moskito.webui.threshold.util.ThresholdStatusBeanUtil
  * @since 12.02.15 14:02
  */
 public class ShowDashboardAction extends BaseDashboardAction {
+	/**
+	 * Default dashboard refresh rate in ms.
+	 */
+	private static final long DEFAULT_DASHBOARD_REFRESH_RATE = TimeUnit.SECONDS.toMillis(60);
 
 	@Override
 	public ActionCommand execute(ActionMapping actionMapping, FormBean formBean, HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -42,8 +47,8 @@ public class ShowDashboardAction extends BaseDashboardAction {
 		request.setAttribute("thresholdsPresent", thresholdsPresent);
 		request.setAttribute("showHelp", !(gaugesPresent || chartsPresent || thresholdsPresent));
 
-		DashboardConfig selectedDashboard = getDashboardAPI().getDashboardConfig(dashboardName);
-		if (dashboardName == null || selectedDashboard == null) {
+		DashboardConfig selectedDashboardConfig = getDashboardAPI().getDashboardConfig(dashboardName);
+		if (dashboardName == null || selectedDashboardConfig == null) {
 			dashboardName = getDashboardAPI().getDefaultDashboardName();
 			if (dashboardName == null) { // no dashboards present
 				return actionMapping.success();
@@ -85,6 +90,9 @@ public class ShowDashboardAction extends BaseDashboardAction {
 		if (!StringUtils.isEmpty(infoMessage)) {
 			request.setAttribute("infoMessage", infoMessage);
 		}
+
+		request.setAttribute("dashboardRestApiUrl", getDashboardRestApiUrl(request, dashboardName));
+		request.setAttribute("dashboardRefreshRate", getDashboardRefreshRate(selectedDashboardConfig));
 
 		return actionMapping.success();
 	}
@@ -141,5 +149,42 @@ public class ShowDashboardAction extends BaseDashboardAction {
 		}
 
 		return ret;
+	}
+
+	/**
+	 * Creates Dashboard REST API url for given dashboard.
+	 * Used at UI.
+	 *
+	 * @param request       {@link HttpServletRequest}
+	 * @param dashboardName dashboard name
+	 * @return Dashboard REST API url, including context path
+	 */
+	private String getDashboardRestApiUrl(final HttpServletRequest request, final String dashboardName) {
+		String contextPath = request.getContextPath();
+
+		if (contextPath == null) {
+			contextPath = "";
+		}
+
+		if (!contextPath.endsWith("/")) {
+			contextPath += "/";
+		}
+
+		return contextPath + "moskito-inspect-rest/dashboards/" + dashboardName;
+	}
+
+	/**
+	 * Returns dashboard refresh rate in ms.
+	 * Used at UI for refreshing the dashboard.
+	 *
+	 * @param selectedDashboardConfig {@link DashboardConfig}
+	 * @return dashboard refresh rate in ms
+	 */
+	private long getDashboardRefreshRate(final DashboardConfig selectedDashboardConfig) {
+		if (selectedDashboardConfig == null) {
+			return DEFAULT_DASHBOARD_REFRESH_RATE;
+		}
+
+		return TimeUnit.SECONDS.toMillis(selectedDashboardConfig.getRefresh());
 	}
 }

@@ -2,7 +2,11 @@ package net.anotheria.moskito.webui.dashboards.api;
 
 import net.anotheria.moskito.webui.accumulators.api.MultilineChartAO;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 import java.io.Serializable;
 
 /**
@@ -12,6 +16,7 @@ import java.io.Serializable;
  * @since 14.02.15 00:46
  */
 @XmlRootElement (name = "Chart")
+@XmlAccessorType(XmlAccessType.FIELD)
 public class DashboardChartAO implements Serializable{
 	/**
 	 * SerialVersionUID.
@@ -21,10 +26,12 @@ public class DashboardChartAO implements Serializable{
 	/**
 	 * Caption of this chart.
 	 */
+	@XmlElement
 	private String caption;
 	/**
 	 * Chart data for chart lines.
 	 */
+	@XmlElement
 	private MultilineChartAO chart;
 
 	public String getCaption() {

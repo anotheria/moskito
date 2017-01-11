@@ -49,7 +49,6 @@ var chartEngineIniter = {
 
         d3Chart("#" + params.container, params);
     }
-
 };
 
 var D3chart = (function () {
@@ -57,6 +56,10 @@ var D3chart = (function () {
 
     function createD3chart() {
         _.templateSettings.interpolate = /{{([\s\S]+?)}}/g;
+
+        // init D3 event dispatcher
+        var dispatch = d3.dispatch("resizeLineCharts", "refreshLineCharts", "refreshGauge");
+        _.set(chartEngineIniter, "d3charts.dispatch", dispatch);
 
         var chartColors = function (names) {
             if (names.length < 10)
@@ -119,7 +122,7 @@ var D3chart = (function () {
             var prefix = d3.formatPrefix(num),
                 fpNum = parseFloat(prefix.scale(num).toFixed(digits));
 
-            return (fpNum % 1 == 0 ? fpNum.toPrecision(1) : fpNum) + prefix.symbol;
+            return fpNum + prefix.symbol;
         };
 
         var showTooltip = function () {
@@ -159,7 +162,7 @@ var D3chart = (function () {
             }
         }();
 
-        var createLegend = function () {
+        var LegendManager = function () {
             var setLegendText = function (legend, dy) {
                 legend.select("text")
                     .attr("dy", dy)
@@ -206,7 +209,7 @@ var D3chart = (function () {
                     .attr("transform", "translate(0," + data.length * 20 + ")");
             };
 
-            return function (svg, options) {
+            var init = function (svg, options) {
                 var legendsPerSlice = options.legendsPerSlice,
                     names = options.names;
 
@@ -264,6 +267,11 @@ var D3chart = (function () {
                             }
                         });
                 }
+            };
+
+            return {
+                init: init,
+
             }
         }();
 
@@ -477,7 +485,7 @@ var D3chart = (function () {
                     textDy: ".50em"
                 };
 
-                createLegend(svg, legendOptions);
+                LegendManager.init(svg, legendOptions);
                 renderLegend(svg, legendOptions);
             })(arguments[0], arguments[1]);
         };
@@ -515,6 +523,36 @@ var D3chart = (function () {
                     '<div class="tooltip-key{{highlight}}">{{name}}</div>' +
                     '<div class="tooltip-value">{{value}}</div>' +
                     '</div>')
+            };
+
+            var _setTimeValues = function (containerId, names, data) {
+                timeValuesHolder[containerId] = names.map(function (name, namesIdx) {
+                    return {
+                        lineId: namesIdx,
+                        name: name,
+                        values: data.map(function (d) {
+                            return {
+                                time: new Date(d[0]),
+                                value: isFinite(d[namesIdx + 1]) ? d[namesIdx + 1] : Number.NaN
+                            }
+                        })
+                    }
+                });
+            };
+
+            var _setDotsValues = function (containerId, names, data) {
+                dotsValuesHolder[containerId] = data.map(function (d) {
+                    return {
+                        time: new Date(d[0]),
+                        values: names.map(function (name, nameIdx) {
+                            return {
+                                lineId: nameIdx,
+                                value: isFinite(d[nameIdx + 1]) ? d[nameIdx + 1] : Number.NaN,
+                                name: name
+                            }
+                        })
+                    }
+                });
             };
 
             var _createContainer = function (containerId, names, data, colorsData, options) {
@@ -578,9 +616,20 @@ var D3chart = (function () {
                 return containers[containerId].height;
             };
 
-            var _createScales = function (containerId, timeValues) {
+            var _createScales = function (containerId) {
                 var xScale = d3.time.scale().range([0, _getWidth(containerId)]);
                 var yScale = d3.scale.linear().range([_getHeight(containerId), 0]);
+
+                scales[containerId] = {
+                    "xScale": xScale,
+                    "yScale": yScale
+                };
+            };
+
+            var _updateScalesValues = function (containerId) {
+                var xScale = scales[containerId].xScale;
+                var yScale = scales[containerId].yScale;
+                var timeValues = timeValuesHolder[containerId];
 
                 xScale.domain([
                     d3.min(timeValues, function (t) {
@@ -609,11 +658,6 @@ var D3chart = (function () {
                         });
                     })
                 ]);
-
-                scales[containerId] = {
-                    "xScale": xScale,
-                    "yScale": yScale
-                };
             };
 
             var _createAxises = function (containerId) {
@@ -678,14 +722,15 @@ var D3chart = (function () {
                 };
             };
 
-            var _createLine = function (containerId, timeValues) {
+            var _createLine = function (containerId) {
                 var xScale = scales[containerId].xScale;
                 var yScale = scales[containerId].yScale;
                 var svg = containers[containerId].svg;
+                var timeValues = timeValuesHolder[containerId];
 
                 var line = d3.svg.line()
                     .defined(function (d) {
-                        return !isNaN(d.value);
+                        return !isNaN(d.value) && isFinite(d.value);
                     })
                     .x(function (d) {
                         return xScale(d.time);
@@ -703,6 +748,13 @@ var D3chart = (function () {
                     .attr("class", "line");
 
                 lines[containerId] = line;
+            };
+
+            var _updateLineValues = function (containerId) {
+                var svg = containers[containerId].svg;
+                var timeValues = timeValuesHolder[containerId];
+
+                svg.selectAll(".line").data(timeValues)
             };
 
             var _renderLine = function (containerId, svg) {
@@ -753,8 +805,8 @@ var D3chart = (function () {
                     .call(yAxis);
             };
 
-            var _createAndRenderFocuses = function (containerId, dotsValues) {
-                if (dotsValues.length == 0)
+            var _createAndRenderFocuses = function (containerId) {
+                if (dotsValuesHolder[containerId].length == 0)
                     return;
 
                 var svg = containers[containerId].svg;
@@ -796,6 +848,7 @@ var D3chart = (function () {
 
                         var self = this;
                         var tooltipData = [];
+                        var dotsValues = dotsValuesHolder[containerId];
                         var x0 = xScale.invert(d3.mouse(self)[0]),
                             i = bisectDate(dotsValues, x0, 1),
                             d0 = dotsValues[i - 1],
@@ -832,7 +885,7 @@ var D3chart = (function () {
                                 highlight: v.lineId == ind
                             });
 
-                            if (isNaN(timeValue.value)) {
+                            if (isNaN(timeValue.value) || !isFinite(timeValue.value)) {
                                 focusDots[ind].attr("r", 0);
                                 return;
                             }
@@ -877,40 +930,15 @@ var D3chart = (function () {
             var init = function (containerId, names, data, colorsData, options) {
                 _createContainer(containerId, names, data, colorsData, options);
                 _createSvg(containerId, options);
-
-                var timeValues = names.map(function (name, namesIdx) {
-                    return {
-                        lineId: namesIdx,
-                        name: name,
-                        values: data.map(function (d) {
-                            return {
-                                time: new Date(d[0]),
-                                value: d[namesIdx + 1]
-                            }
-                        })
-                    }
-                });
-
-                _createScales(containerId, timeValues);
+                _setTimeValues(containerId, names, data);
+                _setDotsValues(containerId, names, data);
+                _createScales(containerId);
+                _updateScalesValues(containerId);
                 _createAxises(containerId);
                 _createGrid(containerId);
                 _renderAxises(containerId, containers[containerId].svg);
-
-                var dotsValues = data.map(function (d) {
-                    return {
-                        time: new Date(d[0]),
-                        values: names.map(function (name, nameIdx) {
-                            return {
-                                lineId: nameIdx,
-                                value: d[nameIdx + 1],
-                                name: name
-                            }
-                        })
-                    }
-                });
-
-                _createLine(containerId, timeValues);
-                _createAndRenderFocuses(containerId, dotsValues);
+                _createLine(containerId);
+                _createAndRenderFocuses(containerId);
 
                 var legendOptions = {
                     legendsPerSlice: options.legendsPerSlice,
@@ -927,7 +955,7 @@ var D3chart = (function () {
                     textDy: ".35em"
                 };
 
-                createLegend(containers[containerId].svg, legendOptions);
+                LegendManager.init(containers[containerId].svg, legendOptions);
             };
 
             var render = function (containerId, options) {
@@ -958,7 +986,9 @@ var D3chart = (function () {
                 scales = {},
                 axises = {},
                 grids = {},
-                lines = {};
+                lines = {},
+                dotsValuesHolder = {},
+                timeValuesHolder = {};
 
             return (lineChart = function (containerId, params) {
                 var inputNames = params.names,
@@ -979,19 +1009,31 @@ var D3chart = (function () {
                     };
                 }());
 
-                if (!chartEngineIniter.d3charts) {
-                    chartEngineIniter.d3charts = {};
-                    var dispatch = d3.dispatch("resizeLineCharts");
-                    chartEngineIniter.d3charts.dispatch = dispatch;
-
-                    dispatch.on("resizeLineCharts", function () {
-                        Object.keys(containers).forEach(function (containerId, index) {
-                            setTimeout(function () {
-                                render(containerId, options);
-                            }, (index + 1) * 10);
-                        });
+                dispatch.on("resizeLineCharts", function () {
+                    Object.keys(containers).forEach(function (containerId, index) {
+                        setTimeout(function () {
+                            render(containerId, options);
+                        }, (index + 1) * 10);
                     });
-                }
+                });
+
+                dispatch.on("refreshLineCharts", function (params) {
+                    var containerId = params.containerId;
+                    var names = params.names;
+                    var data = params.data;
+
+                    _setTimeValues(containerId, names, data);
+                    _setDotsValues(containerId, names, data);
+
+                    var svg = containers[containerId].svg;
+                    var transition = svg.transition().duration(750);
+
+                    _updateScalesValues(containerId);
+                    _renderAxises(containerId, transition);
+                    _renderGrid(containerId, transition);
+                    _updateLineValues(containerId);
+                    _renderLine(containerId, svg);
+                });
 
                 render(containerId, options);
             })(arguments[0], arguments[1]);
@@ -1246,6 +1288,8 @@ var D3chart = (function () {
         };
 
         var gaugeChart = function () {
+            var _gauges = {};
+
             var zoneColours = {
                 "green": "#109618",
                 "yellow": "#FFFF00",
@@ -1260,6 +1304,7 @@ var D3chart = (function () {
                     '<div class="tooltip-value">{{value}}</div>' +
                     '</div>')
             };
+
             /**
              * Represents gauge.
              * http://bl.ocks.org/tomerd/1499279.
@@ -1267,10 +1312,10 @@ var D3chart = (function () {
             function Gauge(placeholderSelector, configuration) {
                 this.placeholderSelector = placeholderSelector;
 
-                var self = this; // for internal d3 functions
+                var _this = this; // for internal d3 functions
 
                 this.configure = function (configuration) {
-                    this.config = configuration;
+                    this.config = _.cloneDeep(configuration);
 
                     this.config.size = this.config.size * 0.9;
 
@@ -1314,7 +1359,7 @@ var D3chart = (function () {
 
                     // draw band zones
                     this.config.bandZones.forEach(function (zone) {
-                        self.drawBand(zone.from, zone.to, zone.colorCode);
+                        _this.drawBand(zone.from, zone.to, zone.colorCode);
                     });
 
                     // show label
@@ -1365,6 +1410,7 @@ var D3chart = (function () {
                             var point = this.valueToPoint(major, 0.63);
 
                             this.body.append("svg:text")
+                                .attr("class", major == this.config.min ? "minValue" : "maxValue")
                                 .attr("x", point.x)
                                 .attr("y", point.y)
                                 .attr("dy", minMaxFontSize / 3)
@@ -1431,20 +1477,20 @@ var D3chart = (function () {
                             var tooltipData = [
                                 {
                                     name: "Min",
-                                    value: valueFormat(self.config.min)
+                                    value: valueFormat(_this.config.min)
                                 },
                                 {
                                     name: "Current",
-                                    value: valueFormat(self.config.current)
+                                    value: valueFormat(_this.config.current)
                                 },
                                 {
                                     name: "Max",
-                                    value: valueFormat(self.config.max)
+                                    value: valueFormat(_this.config.max)
                                 }
                             ];
 
                             var titleHtml = tooltipTmpls.title({
-                                    title: self.config.caption
+                                    title: _this.config.caption
                                 }),
                                 sectionsHtml = tooltipData.map(function (d) {
                                     return tooltipTmpls.section({
@@ -1459,7 +1505,7 @@ var D3chart = (function () {
                             });
                         });
 
-                    this.redraw(this.config.min, 0);
+                    this.redrawCurrentValue(this.config.min, 0);
                 };
 
                 this.buildPointerPath = function (value) {
@@ -1477,9 +1523,9 @@ var D3chart = (function () {
                     return [head, head1, tail2, tail, tail1, head2, head];
 
                     function valueToPoint(value, factor) {
-                        var point = self.valueToPoint(value, factor);
-                        point.x -= self.config.cx;
-                        point.y -= self.config.cy;
+                        var point = _this.valueToPoint(value, factor);
+                        point.x -= _this.config.cx;
+                        point.y -= _this.config.cy;
                         return point;
                     }
                 };
@@ -1495,11 +1541,38 @@ var D3chart = (function () {
                             .innerRadius(0.65 * this.config.raduis)
                             .outerRadius(0.85 * this.config.raduis))
                         .attr("transform", function () {
-                            return "translate(" + self.config.cx + ", " + self.config.cy + ") rotate(270)"
+                            return "translate(" + _this.config.cx + ", " + _this.config.cy + ") rotate(270)"
                         });
                 };
 
-                this.redraw = function (value, transitionDuration) {
+                this.redrawValues = function (min, max, current) {
+                    // check if min/max/current were changed
+                    if (this.config.min == min
+                        && this.config.max == max
+                        && this.config.current == current) {
+                        return;
+                    }
+
+                    // create new chart config
+                    var newChartConfiguration = _.cloneDeep(configuration);
+                    newChartConfiguration.min = min;
+                    newChartConfiguration.max = max;
+                    newChartConfiguration.current = current;
+
+                    // reconfigure gauge
+                    this.configure(newChartConfiguration);
+
+                    // redraw min/max values
+                    this.body.select('text.minValue').text(siPrefixFormat(this.config.min, 1));
+                    this.body.select('text.maxValue').text(siPrefixFormat(this.config.max, 1));
+
+                    this.redrawCurrentValue(this.config.current);
+                };
+
+                this.redrawCurrentValue = function (value, transitionDuration) {
+                    // update config value
+                    // self.config.current = value ? value : 0;
+
                     var pointerContainer = this.body.select(".pointerContainer");
 
                     var valueToShow = this.config.complete ? siPrefixFormat(value, 1) : "Not Ready";
@@ -1510,15 +1583,20 @@ var D3chart = (function () {
                         .duration(undefined != transitionDuration ? transitionDuration : this.config.transitionDuration)
                         .attrTween("transform", function () {
                             var pointerValue = value;
-                            if (value > self.config.max) pointerValue = self.config.max + 0.02 * self.config.range;
-                            else if (value < self.config.min) pointerValue = self.config.min - 0.02 * self.config.range;
-                            var targetRotation = (self.valueToDegrees(pointerValue) - 90);
-                            var currentRotation = self._currentRotation || targetRotation;
-                            self._currentRotation = targetRotation;
+
+                            if (value > _this.config.max) {
+                                pointerValue = _this.config.max + 0.02 * _this.config.range;
+                            } else if (value < _this.config.min) {
+                                pointerValue = _this.config.min - 0.02 * _this.config.range;
+                            }
+
+                            var targetRotation = (_this.valueToDegrees(pointerValue) - 90);
+                            var currentRotation = _this._currentRotation || targetRotation;
+                            _this._currentRotation = targetRotation;
 
                             return function (step) {
                                 var rotation = currentRotation + (targetRotation - currentRotation) * step;
-                                return "translate(" + self.config.cx + ", " + self.config.cy + ") rotate(" + rotation + ")";
+                                return "translate(" + _this.config.cx + ", " + _this.config.cy + ") rotate(" + rotation + ")";
                             }
                         });
                 };
@@ -1559,13 +1637,14 @@ var D3chart = (function () {
                 });
 
                 var gauge = new Gauge(containerId, config);
-                _gauges.push(gauge);
+                _gauges[containerId] = {
+                    name: config.label,
+                    chart: gauge
+                };
 
                 gauge.render();
-                gauge.redraw(config.current);
+                gauge.redrawCurrentValue(config.current);
             };
-
-            var _gauges = [];
 
             return (gaugeChart = function (container, params) {
                 var d = params.data;
@@ -1583,6 +1662,15 @@ var D3chart = (function () {
                 };
 
                 _createGauge(container, config);
+
+                dispatch.on("refreshGauge", function (params) {
+                    var containerId = params.containerId,
+                        min = params.min,
+                        max = params.max,
+                        current = params.current;
+
+                    _gauges[containerId].chart.redrawValues(min, max, current)
+                });
             })(arguments[0], arguments[1]);
         };
 

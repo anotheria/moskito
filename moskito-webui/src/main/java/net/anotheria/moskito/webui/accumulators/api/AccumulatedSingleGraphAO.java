@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -34,11 +35,13 @@ public class AccumulatedSingleGraphAO implements Serializable{
 	 */
 	@XmlElement
 	private String name;
+
 	/**
 	 * Graph data.
 	 */
 	@XmlElement
 	private List<AccumulatedValueAO> data;
+
 	/**
 	 * Graph color.
 	 * Html color value, e.g. #RRGGBB.
@@ -57,7 +60,13 @@ public class AccumulatedSingleGraphAO implements Serializable{
 		jsReplaceMap.put("+", "_");
 		jsReplaceMap.put(".", "_");
 	}
-	
+
+	/**
+	 * Default constructor.
+     */
+	public AccumulatedSingleGraphAO() {
+	}
+
 	public AccumulatedSingleGraphAO(String aName){
 		name = aName;
 		data = new ArrayList<>();

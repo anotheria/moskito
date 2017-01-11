@@ -387,6 +387,113 @@
 
 <%----------------------------------------------------------------------------------------------%>
 
+<script type="text/javascript">
+    (function (dashboard, $) {
+        dashboard.restApiUrl = '${dashboardRestApiUrl}';
+        dashboard.refreshInterval = ${dashboardRefreshRate};
+
+        dashboard.init = function () {
+            setTimeout(function () {
+                getDashboardData();
+            }, dashboard.refreshInterval)
+        };
+
+        function getDashboardData() {
+            var success = function (response) {
+                if(response.success != true) {
+                    console.info("Not successful response.");
+                    return;
+                }
+
+                var dashboard = response["results"]["dashboard"];
+
+                refreshThresholdStatuses(dashboard["thresholds"]);
+                refreshGaugeCharts(dashboard["gauges"]);
+                refreshLineCharts(dashboard["charts"]);
+            };
+
+            $.ajax({
+                url: dashboard.restApiUrl,
+                type: "GET",
+                headers: {
+                    "Accept": "application/json"
+                },
+                success: success,
+                error: function (data) {
+                    console.info("Unable to refresh dashboard.");
+                },
+                complete: setTimeout(function () {
+                    getDashboardData();
+                }, dashboard.refreshInterval)
+            });
+        }
+
+        function refreshThresholdStatuses(thresholdStatuses) {
+            _.each(thresholdStatuses, function (thresholdStatus, idx) {
+                var name = thresholdStatus["name"],
+                        value = thresholdStatus["value"],
+                        colorCode = thresholdStatus["colorCode"];
+
+                var $thresholdItem = $('.threshold-item').eq(idx);
+                $thresholdItem.attr('data-original-title', name + " " + value);
+                $thresholdItem.find(".threshold-title").text(name + " " + value);
+                $thresholdItem.find("i").attr("class", "status status-" + colorCode);
+            });
+        }
+
+        function refreshGaugeCharts(gauges) {
+            _.each(gauges, function (gauge, idx) {
+                chartEngineIniter.d3charts.dispatch.refreshGauge({
+                    "containerId": "#gaugeChart" + idx,
+                    "min": gauge["min"],
+                    "max": gauge["max"],
+                    "current": gauge["current"]
+                });
+            });
+        }
+
+        function refreshLineCharts(dashboardCharts) {
+            _.each(dashboardCharts, function (dashboardChart, idx) {
+                var multiLineChart = dashboardChart["chart"];
+
+                var names;
+                if (_.isArray(multiLineChart["names"])) {
+                    names = _.map(multiLineChart["names"], function (name) {
+                        return name;
+                    });
+                } else {
+                    names = [].concat(multiLineChart["names"]);
+                }
+
+                var data = _.map(multiLineChart["data"], function (accumulatedValueObj) {
+                    var dataItem = [];
+
+                    dataItem.push(_.toNumber(accumulatedValueObj["numericTimestamp"]));
+
+                    _.each(accumulatedValueObj["values"], function (valueItem) {
+                        dataItem.push(_.toNumber(valueItem));
+                    });
+
+                    return dataItem;
+                });
+
+                var containerId = "#chart_div" + idx;
+
+                chartEngineIniter.d3charts.dispatch.refreshLineCharts({
+                    "containerId": containerId,
+                    "data": data,
+                    "names": names
+                });
+            });
+        }
+    }(window.dashboard = window.dashboard || {}, jQuery));
+
+
+    $(function () {
+        dashboard.init();
+    });
+</script>
+
 </body>
 </html>
 

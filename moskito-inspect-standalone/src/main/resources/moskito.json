@@ -81,6 +81,7 @@
         "@dashboards": [
           {
             "name": "Example Dashboard",
+            "refresh": 60,
             "@charts": [
               {
                 "caption": "Memory",

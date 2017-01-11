@@ -1,11 +1,13 @@
 package net.anotheria.moskito.webui.gauges.api;
 
 import net.anotheria.moskito.core.decorators.value.StatValueAO;
+import net.anotheria.moskito.webui.shared.resource.adapters.StatValueAOMarshallingAdapter;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.io.Serializable;
 import java.util.LinkedList;
 import java.util.List;
@@ -17,7 +19,7 @@ import java.util.List;
  * @since 23.03.15 21:40
  */
 @XmlRootElement
-@XmlAccessorType(XmlAccessType.PUBLIC_MEMBER)
+@XmlAccessorType(XmlAccessType.FIELD)
 public class GaugeAO implements Serializable{
 	/**
 	 * SerialVersionUID.
@@ -27,26 +29,40 @@ public class GaugeAO implements Serializable{
 	/**
 	 * Name of the gauge.
 	 */
+	@XmlElement
 	private String name;
+
 	/**
 	 * Caption of the gauge box.
 	 */
+	@XmlElement
 	private String caption;
+
 	/**
 	 * Min value.
 	 */
+	@XmlJavaTypeAdapter(StatValueAOMarshallingAdapter.class)
+	@XmlElement
 	private StatValueAO min;
+
 	/**
 	 * Current value.
 	 */
+	@XmlJavaTypeAdapter(StatValueAOMarshallingAdapter.class)
+	@XmlElement
 	private StatValueAO current;
+
 	/**
 	 * Max value.
 	 */
+	@XmlJavaTypeAdapter(StatValueAOMarshallingAdapter.class)
+	@XmlElement
 	private StatValueAO max;
+
 	/**
 	 * Could all values be set?
 	 */
+	@XmlElement
 	private boolean complete;
 
 	/**
@@ -78,7 +94,6 @@ public class GaugeAO implements Serializable{
 		this.min = min;
 	}
 
-	@XmlElement(name="name")
 	public String getName() {
 		return name;
 	}
@@ -87,7 +102,6 @@ public class GaugeAO implements Serializable{
 		this.name = name;
 	}
 
-	@XmlElement(name="complete")
 	public boolean isComplete() {
 		return complete;
 	}
@@ -96,15 +110,14 @@ public class GaugeAO implements Serializable{
 		this.complete = complete;
 	}
 
-	@XmlElement(name="current")
 	public String getCurrentValue(){
 		return current.getRawValue();
 	}
-	@XmlElement(name="min")
+
 	public String getMinValue(){
 		return min.getRawValue();
 	}
-	@XmlElement(name="max")
+
 	public String getMaxValue(){
 		return max.getRawValue();
 	}

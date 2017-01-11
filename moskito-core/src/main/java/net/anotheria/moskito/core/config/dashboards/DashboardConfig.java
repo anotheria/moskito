@@ -28,6 +28,13 @@ public class DashboardConfig implements Serializable{
 	private String name;
 
 	/**
+	 * Dashboard refresh rate.
+	 * In seconds.
+	 * Default value: 60 seconds.
+	 */
+	private int refresh = 60;
+
+	/**
 	 * Charts to be shown on this dashboard.
 	 */
 	@Configure
@@ -47,20 +54,14 @@ public class DashboardConfig implements Serializable{
 
 	@Override
 	public String toString() {
-		return "DashboardConfig{" +
-				"charts=" + Arrays.toString(charts) +
-				", name='" + name + '\'' +
-				", thresholds=" + Arrays.toString(thresholds) +
-				", gauges=" + Arrays.toString(gauges) +
-				'}';
-	}
-
-	public String[] getGauges() {
-		return gauges;
-	}
-
-	public void setGauges(String[] gauges) {
-		this.gauges = gauges;
+		final StringBuilder sb = new StringBuilder("DashboardConfig{");
+		sb.append("name='").append(name).append('\'');
+		sb.append(", refresh=").append(refresh);
+		sb.append(", charts=").append(Arrays.toString(charts));
+		sb.append(", thresholds=").append(Arrays.toString(thresholds));
+		sb.append(", gauges=").append(Arrays.toString(gauges));
+		sb.append('}');
+		return sb.toString();
 	}
 
 	public String getName() {
@@ -69,6 +70,14 @@ public class DashboardConfig implements Serializable{
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public int getRefresh() {
+		return refresh;
+	}
+
+	public void setRefresh(int refresh) {
+		this.refresh = refresh;
 	}
 
 	public String[] getThresholds() {
@@ -85,5 +94,13 @@ public class DashboardConfig implements Serializable{
 
 	public void setCharts(ChartConfig[] charts) {
 		this.charts = charts;
+	}
+
+	public String[] getGauges() {
+		return gauges;
+	}
+
+	public void setGauges(String[] gauges) {
+		this.gauges = gauges;
 	}
 }
