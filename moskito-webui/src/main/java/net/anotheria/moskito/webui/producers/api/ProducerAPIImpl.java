@@ -23,6 +23,8 @@ import net.anotheria.moskito.webui.util.WebUIConfig;
 import org.configureme.ConfigurationManager;
 import org.configureme.annotations.AfterConfiguration;
 import org.configureme.annotations.ConfigureMe;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -40,6 +42,11 @@ public class ProducerAPIImpl extends AbstractMoskitoAPIImpl implements ProducerA
 	private IDecoratorRegistry decoratorRegistry = DecoratorRegistryFactory.getDecoratorRegistry();
 
 	private volatile List<ProducerFilter> producerFilters;
+
+	/**
+	 * Logger.
+	 */
+	private static Logger log = LoggerFactory.getLogger(ProducerAPIImpl.class);
 
 	/**
 	 * Called after the configuration has been read.
