@@ -5,6 +5,9 @@ import net.anotheria.moskito.aop.annotation.Accumulates;
 import net.anotheria.moskito.aop.annotation.Monitor;
 import net.anotheria.moskito.core.accumulation.Accumulator;
 import net.anotheria.moskito.core.accumulation.AccumulatorRepository;
+import net.anotheria.moskito.core.accumulation.AccumulatorRepositoryCleaner;
+import net.anotheria.moskito.core.registry.ProducerRegistryFactory;
+import org.junit.Before;
 import org.junit.Test;
 
 import java.util.List;
@@ -15,6 +18,13 @@ import static org.junit.Assert.assertEquals;
  * @author Roman Stetsiuk
  */
 public class AccumulatesCallTest {
+
+    @Before
+    public void before() {
+        ProducerRegistryFactory.getProducerRegistryInstance().cleanup();
+        AccumulatorRepositoryCleaner.getInstance().cleanAccumulatorRepository();
+    }
+
     @Test
     public void testAccumulatesClass() {
         AccumulatesAnnotatedClass monitorable = new AccumulatesAnnotatedClass();

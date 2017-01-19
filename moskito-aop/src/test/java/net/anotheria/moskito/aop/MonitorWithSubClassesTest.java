@@ -44,6 +44,18 @@ public class MonitorWithSubClassesTest {
 
 
 	@Test
+	public void monitorOnParentClassTest2() throws Exception {
+		final ParentClassAnnotated child = new ParentClassAnnotated() {
+			@Override void execute() {
+			}
+		};
+		child.execute();
+		IProducerRegistry producerRegistry = ProducerRegistryFactory.getProducerRegistryInstance();
+		assertThat("error!", producerRegistry.getProducer(MoskitoUtils.producerName(child.getClass().getName())), notNullValue());
+	}
+
+
+	@Test
 	public void monitorOnSuperParentClassTest() throws Exception {
 		final ParentClassNotAnnotated child = new SomeOtherImpl();
 		child.execute();
