@@ -4,6 +4,7 @@ import net.anotheria.moskito.aop.annotation.Accumulate;
 import net.anotheria.moskito.aop.annotation.Accumulates;
 import net.anotheria.moskito.aop.annotation.withsubclasses.AccumulateWithSubClasses;
 import net.anotheria.moskito.aop.annotation.withsubclasses.AccumulatesWithSubClasses;
+import net.anotheria.moskito.aop.aspect.support.AccumulatorUtil;
 import net.anotheria.moskito.aop.util.MoskitoUtils;
 import net.anotheria.moskito.core.accumulation.AccumulatorDefinition;
 import net.anotheria.moskito.core.accumulation.AccumulatorRepository;
@@ -37,7 +38,7 @@ public class AbstractMoskitoAspect<S extends IStats> {
 	/**
 	 * Possible producer id className/method separator.
 	 */
-	private static final char DOT = '.';
+	public static final char DOT = '.';
 
 	/**
 	 * Map with created producers.
@@ -218,17 +219,15 @@ public class AbstractMoskitoAspect<S extends IStats> {
 		final AccumulateWithSubClasses accumulateWSC = AnnotationUtils.findAnnotation(producerClass, AccumulateWithSubClasses.class);
 		createAccumulators(producer, producerClass, accumulateWSC);
 
-		final Method absentMethod = null;
-
-		//several @Accumulators in accumulators holder
+		//several @Accumulate in accumulators holder
 		final Accumulates accAnnotationHolder = AnnotationUtils.findAnnotation(producerClass, Accumulates.class);
 		if (accAnnotationHolder != null) {
-			createAccumulators(producer, absentMethod, accAnnotationHolder.value());
+			createAccumulators(producer, null, accAnnotationHolder.value());
 		}
 
 		//If there is no @Accumulates annotation but @Accumulate is present
 		final Accumulate annotation = AnnotationUtils.findAnnotation(producerClass, Accumulate.class);
-		createAccumulators(producer, absentMethod, annotation);
+		createAccumulators(producer, null, annotation);
 	}
 
 	/**
@@ -261,112 +260,6 @@ public class AbstractMoskitoAspect<S extends IStats> {
 		for (final AccumulateWithSubClasses annotation : annotations)
 			if (annotation != null)
 				AccumulatorUtil.getInstance(producerClass).createAccumulator(producer, annotation);
-	}
-
-	/**
-	 * Utility class for creating accumulators.
-	 * @param <A>
-	 *     type of source annotation - {@link Accumulate} or {@link AccumulateWithSubClasses}
-	 */
-	private static abstract class AccumulatorUtil<A> {
-
-		static AccumulatorHelper getInstance() {
-			return new AccumulatorHelper();
-		}
-
-		static AccumulatorWSCHelper getInstance(final Class producerClass) {
-			return new AccumulatorWSCHelper(producerClass);
-		}
-
-		void createAccumulator(final OnDemandStatsProducer producer, final A annotation) {
-			createAccumulator(producer, annotation, null);
-		}
-
-		void createAccumulator(final OnDemandStatsProducer producer, final A annotation, final Method method) {
-			if (producer!= null && annotation != null) {
-
-				final String statsName = (method == null) ? OnDemandStatsProducer.CUMULATED_STATS_NAME : method.getName();
-
-				final String accumulatorName;
-				if (!StringUtils.isEmpty(getName(annotation))) {
-					accumulatorName = getName(annotation);
-				} else if (method == null) {
-					accumulatorName = formAccumulatorNameForClass(producer, annotation);
-				} else {
-					accumulatorName = formAccumulatorNameForMethod(producer, annotation, method);
-				}
-
-				createAccumulator(
-						producer.getProducerId(),
-						annotation,
-						accumulatorName,
-						statsName
-				);
-			}
-		}
-
-		private void createAccumulator(final String producerId, final A annotation, final String accName, final String statsName) {
-			if (annotation == null || StringUtils.isEmpty(producerId) || StringUtils.isEmpty(accName) || StringUtils.isEmpty(statsName))
-				return;
-
-			final AccumulatorDefinition definition = new AccumulatorDefinition();
-			definition.setName(accName);
-			definition.setIntervalName(getIntervalName(annotation));
-			definition.setProducerName(producerId);
-			definition.setStatName(statsName);
-			definition.setValueName(getValueName(annotation));
-			definition.setTimeUnit(getTimeUnit(annotation));
-
-			//create and register
-			AccumulatorRepository.getInstance().createAccumulator(definition);
-		}
-
-		private String formAccumulatorNameForClass(final OnDemandStatsProducer<?> producer, final A annotation) {
-			if (producer == null || annotation == null)
-				return "";
-			return generateAccumulatorName(producer.getProducerId(), getValueName(annotation), getIntervalName(annotation));
-		}
-
-		private String formAccumulatorNameForMethod(final OnDemandStatsProducer<?> producer, final A annotation, final Method m) {
-			if (producer == null || annotation == null || m == null)
-				return "";
-			return generateAccumulatorName(producer.getProducerId(), m.getName(), getValueName(annotation), getIntervalName(annotation));
-		}
-
-		private static String generateAccumulatorName(String... args) {
-			return (args == null || args.length == 0) ? "" : StringUtils.combineStrings(args, DOT);
-		}
-
-		abstract String getName(A annotation);
-		abstract String getValueName(A annotation);
-		abstract String getIntervalName(A annotation);
-		abstract TimeUnit getTimeUnit(A annotation);
-
-		/**
-		 * AccumulatorUtil child restricted to {@link Accumulate} annotations.
-		 */
-		private static final class AccumulatorHelper extends AccumulatorUtil<Accumulate> {
-			String getName(Accumulate annotation){return annotation.name();}
-			String getValueName(Accumulate annotation){return annotation.valueName();}
-			String getIntervalName(Accumulate annotation){return annotation.intervalName();}
-			TimeUnit getTimeUnit(Accumulate annotation){return annotation.timeUnit();}
-		}
-
-		/**
-		 * AccumulatorUtil child restricted to {@link AccumulateWithSubClasses} annotations.
-		 */
-		private static final class AccumulatorWSCHelper extends AccumulatorUtil<AccumulateWithSubClasses> {
-			final private String producerClassName;
-			AccumulatorWSCHelper(final Class producerClass) {
-				producerClassName = producerClass.isAnonymousClass() ? producerClass.getName() : producerClass.getSimpleName();
-			}
-			String getName(AccumulateWithSubClasses annotation){
-				return StringUtils.isEmpty(annotation.name()) ? "" : annotation.name() + "#" + producerClassName;
-			}
-			String getValueName(AccumulateWithSubClasses annotation){return annotation.valueName();}
-			String getIntervalName(AccumulateWithSubClasses annotation){return annotation.intervalName();}
-			TimeUnit getTimeUnit(AccumulateWithSubClasses annotation){return annotation.timeUnit();}
-		}
 	}
 
 	/**

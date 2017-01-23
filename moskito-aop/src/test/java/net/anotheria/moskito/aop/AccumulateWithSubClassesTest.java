@@ -40,14 +40,6 @@ public class AccumulateWithSubClassesTest {
 		AccumulatorRepositoryCleaner.getInstance().cleanAccumulatorRepository();
 	}
 
-	@After
-	public void after() {
-		List<Accumulator> accumulators = AccumulatorRepository.getInstance().getAccumulators();
-		for (Accumulator accumulator : accumulators) {
-			AccumulatorRepository.getInstance().removeTieable(accumulator.getDefinition());
-		}
-	}
-
 	private interface TestingInterface {
 		void execute();
 	}
@@ -214,7 +206,7 @@ public class AccumulateWithSubClassesTest {
 
 
 	@AccumulatesWithSubClasses({
-			@AccumulateWithSubClasses(name = PARENT, valueName = "TR", intervalName = "snapshot")
+			@AccumulateWithSubClasses(name = "AccumulateWithSubClasses", valueName = "TR", intervalName = "snapshot")
 	})
 	@MonitorWithSubClasses
 	private abstract static class ParentMonitoredClass implements TestingInterface {
@@ -225,7 +217,9 @@ public class AccumulateWithSubClassesTest {
 			//call records should go to PARENT accumulator
 		}
 	}
-	@AccumulateWithSubClasses(name = REGULAR, valueName = "TR", intervalName = "snapshot")
+	/**
+	 * This class should gain its own accumulator automatically.
+	 */
 	private static class RegularMonitoredClass extends ParentMonitoredClass {
 		@Override public void execute() {
 			//call records should go to REGULAR accumulator
