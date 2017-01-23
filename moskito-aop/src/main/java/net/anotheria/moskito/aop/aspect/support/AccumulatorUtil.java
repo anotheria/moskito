@@ -73,13 +73,9 @@ public abstract class AccumulatorUtil<A> {
 			final String statsName = (method == null) ? OnDemandStatsProducer.CUMULATED_STATS_NAME : method.getName();
 
 			String accumulatorName = getName(annotation);
-			if (StringUtils.isEmpty(accumulatorName)) {
-				if (method == null) {
-					accumulatorName = formAccumulatorNameForClass(producer, annotation);
-				} else {
-					accumulatorName = formAccumulatorNameForMethod(producer, annotation, method);
-				}
-			}
+			if (StringUtils.isEmpty(accumulatorName))
+				accumulatorName = method == null ? formAccumulatorNameForClass(producer, annotation) :
+						formAccumulatorNameForMethod(producer, annotation, method);
 
 			createAccumulator(
 					producer.getProducerId(),
