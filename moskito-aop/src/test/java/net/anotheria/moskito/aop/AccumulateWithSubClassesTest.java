@@ -2,15 +2,19 @@ package net.anotheria.moskito.aop;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
 import net.anotheria.moskito.aop.annotation.Accumulate;
+import net.anotheria.moskito.aop.annotation.DontMonitor;
+import net.anotheria.moskito.aop.annotation.Monitor;
 import net.anotheria.moskito.aop.annotation.withsubclasses.AccumulateWithSubClasses;
 import net.anotheria.moskito.aop.annotation.withsubclasses.AccumulatesWithSubClasses;
 import net.anotheria.moskito.aop.annotation.withsubclasses.MonitorWithSubClasses;
@@ -27,6 +31,7 @@ import net.anotheria.moskito.core.stats.impl.IntervalRegistry;
 import net.anotheria.moskito.core.timing.IUpdateable;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 /**
@@ -377,4 +382,64 @@ public class AccumulateWithSubClassesTest {
 		assertEquals("Expected other value!", "1", stats.get(stats.size() - 1 ).getValue());
 	}
 
+
+	/**
+	 * Purpose of this test is to check that @Monitor annotation does not prevent @MonitorWithSubClasses
+	 * from inheriting further(TestClassC) and that @DontMonitor works as expected(TestClassD)
+	 */
+	@Test
+	@Ignore
+	public void testMonitorOverriding() {
+		final String interval = "snapshot";
+
+		@MonitorWithSubClasses
+		@AccumulateWithSubClasses(name = "inherited-TR", valueName = "TR", intervalName = interval)
+		class TestClassA implements TestingInterface {
+			@Override public void execute() {
+			}
+		}
+		@Monitor
+		class TestClassB extends TestClassA {
+			@Override public void execute() {
+			}
+		}
+		class TestClassC extends TestClassB {
+			@Override public void execute() {
+			}
+		}
+		class TestClassD extends TestClassB {
+			@DontMonitor
+			@Override public void execute() {
+			}
+		}
+
+		new TestClassA().execute();
+		new TestClassB().execute();
+		new TestClassC().execute();
+		new TestClassD().execute();
+
+		//check accumulators count
+		assertEquals("Wrong accumulators count!", 3, AccumulatorRepository.getInstance().getAccumulators().size());
+
+		forceIntervalUpdate(interval);
+
+		for (Class clazz : new Class[]{TestClassA.class, TestClassB.class, TestClassC.class}) {
+			//check producers presence
+			assertNotNull("Producer not found!", getProducer(TestClassA.class));
+
+			//check accumulator presence
+			Accumulator accumulator = getAccumulator(findAccumulatorName(clazz.getSimpleName()));
+//			accumulator.tieToStats();
+			assertNotNull("Accumulator not found!", accumulator);
+
+			//check accumulated values
+			List<AccumulatedValue> stats = accumulator.getValues();
+			assertEquals("Expected single accumulatd value!", 1, stats.size());
+			assertEquals("Expected other value!", "1", stats.get(0).getValue());
+		}
+
+		assertNull("Producer found!", getProducer(TestClassD.class));
+		assertNull("Accumulator found!", findAccumulatorName(TestClassD.class.getSimpleName()));
+
+	}
 }
