@@ -299,8 +299,8 @@ body.status-yellow ul.nav-sidebar.nav-status > li.active > a {
 
 .aside-collapse .logo {
     position: absolute;
-    right: 5px;
-    top: 16px;
+    right: -7px;
+    top: 2px;
     background-size: 40px auto;
     width: 40px;
     margin: 0;
@@ -710,6 +710,9 @@ i.heatmap-chart-icon {
     border: none;
     border-bottom-right-radius: 5px;
     border-bottom-left-radius: 5px;
+    width: inherit !important;
+    max-width: 500px;
+    min-width: 200px;
 }
 
 .select2-container .select2-choice .select2-arrow {
@@ -1892,6 +1895,10 @@ Heat map
     font-weight: 300;
     line-height: 18px;
     margin-top: 2px;
+}
+
+.aside-collapse .logo a > span {
+    opacity: 0;
 }
 
 .logo a > span span {
