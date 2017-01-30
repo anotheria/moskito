@@ -464,6 +464,21 @@ public abstract class BaseMoskitoUIAction implements Action{
 		req.setAttribute("exportSupported", exportSupported());
 		req.setAttribute("logoUrl", WebUIConfig.getInstance().getCustomLogoUrl());
 
+
+		//check if a new threshold has been added.
+		if(req.getParameter("newThreshold")!=null){
+			req.setAttribute("newThresholdAdded","true");
+			req.setAttribute("newThresholdName",req.getParameter("newThreshold"));
+		}
+
+		//check if a new accumulator has been added.
+		if (req.getParameter("newAccumulator") != null) {
+			req.setAttribute("newAccumulatorAdded", "true");
+			req.setAttribute("newAccumulatorName", req.getParameter("newAccumulator"));
+		}
+
+
+
 	}
 
 

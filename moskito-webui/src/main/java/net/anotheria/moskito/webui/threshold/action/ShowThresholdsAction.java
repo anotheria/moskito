@@ -24,11 +24,6 @@ public class ShowThresholdsAction extends BaseThresholdsAction {
 		req.setAttribute("infos", getThresholdAPI().getThresholdDefinitions());
 		req.setAttribute("alerts", getThresholdAPI().getAlerts());
 
-		if(req.getParameter("newThreshold")!=null){
-			req.setAttribute("newThresholdAdded","true");
-			req.setAttribute("newThresholdName",req.getParameter("newThreshold"));
-		}
-		
 		return mapping.findCommand(getForward(req));
 	}
 

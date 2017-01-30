@@ -17,7 +17,8 @@ import javax.servlet.http.HttpServletResponse;
 public class CreateAccumulatorAction extends BaseAccumulatorsAction{
 	@Override
 	public ActionCommand execute(ActionMapping mapping, @Form(AccumulatorPO.class)FormBean formBean, HttpServletRequest req, HttpServletResponse res) throws APIException{
-		getAccumulatorAPI().createAccumulator((AccumulatorPO)formBean);
-		return mapping.redirect().addParameter("newAccumulator",((AccumulatorPO) formBean).getName());
+		AccumulatorPO po = (AccumulatorPO)formBean;
+		getAccumulatorAPI().createAccumulator(po);
+		return mapping.redirect().addParameter("newAccumulator", po.getName()).addParameter("pProducerId", po.getProducerId());
 	}
 }

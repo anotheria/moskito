@@ -152,7 +152,7 @@ public class MoskitoMappingsConfigurator implements ActionMappingsConfigurator{
 		mappings.addMapping("mskThresholdDelete", DeleteThresholdAction.class,
 				new CommandRedirect("redirect", "mskThresholds"));
 		mappings.addMapping("mskThresholdCreate", CreateThresholdAction.class,
-				new CommandRedirect("redirect", "mskThresholds"));
+				new CommandRedirect("redirect", "mskShowProducer"));
 		mappings.addMapping("mskThresholdUpdate", UpdateThresholdAction.class,
 				new CommandRedirect("redirect", "mskThresholds"));
 
@@ -170,7 +170,7 @@ public class MoskitoMappingsConfigurator implements ActionMappingsConfigurator{
 		mappings.addMapping("mskAccumulatorDelete", DeleteAccumulatorAction.class,
                 new CommandRedirect("redirect", "mskAccumulators"));
 		mappings.addMapping("mskAccumulatorCreate", CreateAccumulatorAction.class,
-				new CommandRedirect("redirect", "mskAccumulators"));
+				new CommandRedirect("redirect", "mskShowProducer"));
 
 
 		//gauges, now just for testing purposes

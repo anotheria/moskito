@@ -177,11 +177,6 @@ public class ShowAccumulatorsAction extends BaseAccumulatorsAction {
 		req.setAttribute("dashboards", getDashboardsList());
 		req.setAttribute("charts", "enable");
 
-        if (req.getParameter("newAccumulator") != null) {
-            req.setAttribute("newAccumulatorAdded", "true");
-            req.setAttribute("newAccumulatorName", req.getParameter("newAccumulator"));
-        }
-
 		if (getForward(req).equalsIgnoreCase("csv")){
 			res.setHeader("Content-Disposition", "attachment; filename=\"accumulators.csv\"");
 		}

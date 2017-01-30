@@ -22,7 +22,7 @@ public class CreateThresholdAction extends BaseThresholdsAction {
 		ThresholdPO po = (ThresholdPO)formBean;
 		getThresholdAPI().createThreshold(po);
 
-		return mapping.redirect().addParameter("newThreshold",((ThresholdPO) formBean).getName());
+		return mapping.redirect().addParameter("newThreshold",((ThresholdPO) formBean).getName()).addParameter("pProducerId", po.getProducerId());
 	}
 }
 

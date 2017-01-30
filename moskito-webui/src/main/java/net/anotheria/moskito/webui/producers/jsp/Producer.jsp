@@ -8,7 +8,19 @@
 <jsp:include page="../../shared/jsp/Header.jsp" flush="false"/>
 
 <section id="main">
-<div class="content">
+    <ano:equal name="newThresholdAdded" value="true">
+        <div class="alert alert-warning alert-dismissable">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+            Threshold <ano:write name="newThresholdName"/> added!
+        </div>
+        <ano:equal name="newAccumulatorAdded" value="true">
+            <div class="alert alert-warning alert-dismissable">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                Accumulator <ano:write name="newAccumulatorName"/> added!
+            </div>
+        </ano:equal>
+    </ano:equal>
+    <div class="content">
     <ano:present name="thresholdsPresent">
         <!-- Thresholds start -->
         <div class="dashboard-line">
