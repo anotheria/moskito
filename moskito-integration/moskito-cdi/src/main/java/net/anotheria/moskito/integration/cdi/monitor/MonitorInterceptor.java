@@ -1,5 +1,14 @@
 package net.anotheria.moskito.integration.cdi.monitor;
 
+import java.io.Serializable;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+
+import javax.interceptor.AroundInvoke;
+import javax.interceptor.AroundTimeout;
+import javax.interceptor.Interceptor;
+import javax.interceptor.InvocationContext;
+
 import net.anotheria.moskito.core.calltrace.CurrentlyTracedCall;
 import net.anotheria.moskito.core.calltrace.RunningTraceContainer;
 import net.anotheria.moskito.core.calltrace.TraceStep;
@@ -15,14 +24,6 @@ import net.anotheria.moskito.core.tracer.Trace;
 import net.anotheria.moskito.core.tracer.TracerRepository;
 import net.anotheria.moskito.core.tracer.Tracers;
 import net.anotheria.moskito.integration.cdi.AbstractInterceptor;
-
-import javax.interceptor.AroundInvoke;
-import javax.interceptor.AroundTimeout;
-import javax.interceptor.Interceptor;
-import javax.interceptor.InvocationContext;
-import java.io.Serializable;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 
 /**
  * Monitor interceptor.
@@ -70,8 +71,9 @@ public class MonitorInterceptor extends AbstractInterceptor<ServiceStats> implem
             return proceed(ctx);
         }
 
+        String methodName = getMethodStatsName(method);
         final ServiceStats defaultStats = getDefaultStats(onDemandProducer);
-        final ServiceStats methodStats = getStats(onDemandProducer, ctx.getMethod().getName());
+        final ServiceStats methodStats = getStats(onDemandProducer, methodName);
 
         if (defaultStats != null)
             defaultStats.addRequest();
@@ -82,7 +84,7 @@ public class MonitorInterceptor extends AbstractInterceptor<ServiceStats> implem
         final TracedCall aRunningTrace = RunningTraceContainer.getCurrentlyTracedCall();
         TraceStep currentStep = null;
         CurrentlyTracedCall currentTrace = aRunningTrace.callTraced() ? (CurrentlyTracedCall) aRunningTrace : null;
-        String methodName = method.getName();
+
         if (currentTrace != null) {
             String optionalPrefix = null;
             String call = TracingUtil.buildCall(className, methodName, parameters, optionalPrefix).toString();
