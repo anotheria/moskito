@@ -40,6 +40,8 @@ public class AccumulatorAPIImpl extends AbstractMoskitoAPIImpl implements Accumu
 
 	@Override
 	public AccumulatorDefinitionAO createAccumulator(AccumulatorPO po) throws APIException{
+		if (po.getName() == null || po.getName().equals(""))
+			throw new APIException("Can't create accumulator without a name.");
 		AccumulatorDefinition ad = new AccumulatorDefinition();
 		ad.setName(po.getName());
 		ad.setProducerName(po.getProducerId());
