@@ -1,5 +1,11 @@
 package net.anotheria.moskito.aop.aspect;
 
+import java.lang.reflect.InvocationTargetException;
+
+import org.aspectj.lang.ProceedingJoinPoint;
+import org.aspectj.lang.annotation.Around;
+import org.aspectj.lang.annotation.Aspect;
+
 import net.anotheria.moskito.aop.annotation.Monitor;
 import net.anotheria.moskito.core.calltrace.CurrentlyTracedCall;
 import net.anotheria.moskito.core.calltrace.RunningTraceContainer;
@@ -14,11 +20,6 @@ import net.anotheria.moskito.core.predefined.ServiceStatsFactory;
 import net.anotheria.moskito.core.tracer.Trace;
 import net.anotheria.moskito.core.tracer.TracerRepository;
 import net.anotheria.moskito.core.tracer.Tracers;
-import org.aspectj.lang.ProceedingJoinPoint;
-import org.aspectj.lang.annotation.Around;
-import org.aspectj.lang.annotation.Aspect;
-
-import java.lang.reflect.InvocationTargetException;
 
 /**
  * Aspect used to intercept @MonitorClass annotated classes method calls.
@@ -58,12 +59,11 @@ public class MonitoringAspect extends AbstractMoskitoAspect<ServiceStats>{
         String prevProducerId = lastProducerId.get();
         lastProducerId.set(producerId);
 
-    	String caseName = pjp.getSignature().getName();
+        String methodName = getMethodStatsName(pjp.getSignature());
     	ServiceStats defaultStats = producer.getDefaultStats();
-    	ServiceStats methodStats = producer.getStats(caseName);
+    	ServiceStats methodStats = producer.getStats(methodName);
 
         final Object[] args = pjp.getArgs();
-        final String method = pjp.getSignature().getName();
         defaultStats.addRequest();
         if (methodStats != null) {
             methodStats.addRequest();
@@ -95,7 +95,7 @@ public class MonitoringAspect extends AbstractMoskitoAspect<ServiceStats>{
 
         StringBuilder call = null;
         if (currentTrace != null || tracePassingOfThisProducer) {
-			call = TracingUtil.buildCall(producerId, method, args, tracePassingOfThisProducer ? Tracers.getCallName(trace) : null);
+			call = TracingUtil.buildCall(producerId, methodName, args, tracePassingOfThisProducer ? Tracers.getCallName(trace) : null);
         }
         if (currentTrace != null) {
             currentStep = currentTrace.startStep(call.toString(), producer);

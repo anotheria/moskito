@@ -16,10 +16,11 @@ import net.anotheria.moskito.core.dynamic.OnDemandStatsProducer;
 import net.anotheria.moskito.core.dynamic.OnDemandStatsProducerException;
 import net.anotheria.moskito.core.producers.IStats;
 import net.anotheria.moskito.core.registry.ProducerRegistryFactory;
+import net.anotheria.moskito.core.stats.StatsNameHelper;
 import net.anotheria.moskito.core.util.annotation.AnnotationUtils;
 import net.anotheria.moskito.integration.cdi.accumulation.Accumulate;
 import net.anotheria.moskito.integration.cdi.accumulation.Accumulates;
-import net.anotheria.moskito.integration.cdi.monitor.StatsName;
+import net.anotheria.moskito.core.stats.StatsName;
 
 /**
  * Base class for all interceptors.
@@ -152,7 +153,7 @@ public abstract class AbstractInterceptor<T extends IStats> {
      */
     private void createMethodLevelAccumulators(OnDemandStatsProducer<T> producer, Method method) {
         //several @Accumulators in accumulators holder
-        String methodStatsName = getMethodStatsName(method);
+        String methodStatsName = StatsNameHelper.getMethodStatsName(method);
         Accumulates accAnnotationHolderMethods = (Accumulates) method.getAnnotation(Accumulates.class);
         if (accAnnotationHolderMethods != null) {
             Accumulate[] accAnnotations  = accAnnotationHolderMethods.value();
@@ -207,7 +208,7 @@ public abstract class AbstractInterceptor<T extends IStats> {
 
     private String formAccumulatorNameForMethod(final OnDemandStatsProducer<T> producer, final Accumulate annotation, final Method m) {
         if (producer != null && annotation != null && m != null) {
-            return producer.getProducerId() + '.' + getMethodStatsName(m) + '.' + annotation.valueName() + '.' + annotation.intervalName();
+            return producer.getProducerId() + '.' + StatsNameHelper.getMethodStatsName(m) + '.' + annotation.valueName() + '.' + annotation.intervalName();
         }
         return "";
     }
@@ -245,14 +246,4 @@ public abstract class AbstractInterceptor<T extends IStats> {
         }
     }
 
-    /**
-     * Returns name for monitored method.
-     *
-     * @param method method to monitor
-     * @return method name
-     */
-    protected String getMethodStatsName(Method method) {
-        StatsName statsName = method.getAnnotation(StatsName.class);
-        return statsName == null ? method.getName() : statsName.value();
-    }
 }

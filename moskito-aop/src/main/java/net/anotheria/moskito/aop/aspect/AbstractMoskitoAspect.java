@@ -1,5 +1,15 @@
 package net.anotheria.moskito.aop.aspect;
 
+import java.lang.reflect.Method;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentMap;
+
+import org.aspectj.lang.ProceedingJoinPoint;
+import org.aspectj.lang.Signature;
+import org.aspectj.lang.reflect.MethodSignature;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import net.anotheria.moskito.aop.annotation.Accumulate;
 import net.anotheria.moskito.aop.annotation.Accumulates;
 import net.anotheria.moskito.aop.util.MoskitoUtils;
@@ -14,15 +24,9 @@ import net.anotheria.moskito.core.predefined.AbstractStatsFactory;
 import net.anotheria.moskito.core.producers.IStats;
 import net.anotheria.moskito.core.registry.ProducerRegistryFactory;
 import net.anotheria.moskito.core.stats.Interval;
+import net.anotheria.moskito.core.stats.StatsNameHelper;
 import net.anotheria.moskito.core.util.annotation.AnnotationUtils;
 import net.anotheria.util.StringUtils;
-import org.aspectj.lang.ProceedingJoinPoint;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import java.lang.reflect.Method;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.ConcurrentMap;
 
 /**
  * The basic aspect class.
@@ -125,6 +129,25 @@ public class AbstractMoskitoAspect<S extends IStats> {
 	}
 
 	/**
+	 * Returns method name or method stats name by aop signature considering {@link net.anotheria.moskito.core.stats.StatsName} annotation.
+	 *
+	 * @param signature
+	 *         aop signature
+	 * @return method name or null if signature also null
+	 */
+	protected String getMethodStatsName(Signature signature) {
+		if (signature == null) {
+			return null;
+		}
+
+		if (signature instanceof MethodSignature) {
+			return StatsNameHelper.getMethodStatsName(((MethodSignature) signature).getMethod());
+		}
+
+		return signature.getName();
+	}
+
+	/**
 	 * Attach moskito loggers.
 	 *
 	 * @param producer
@@ -171,8 +194,9 @@ public class AbstractMoskitoAspect<S extends IStats> {
 			if (logger.isTraceEnabled())
 				logger.trace(e.getMessage(), e);
 		}
-		if (withMethod)
-			res += DOT + pjp.getSignature().getName();
+		if (withMethod) {
+			res += DOT + getMethodStatsName(pjp.getSignature());
+		}
 		return res;
 	}
 
@@ -194,7 +218,7 @@ public class AbstractMoskitoAspect<S extends IStats> {
 						producer.getProducerId(),
 						accAnnotation,
 						formAccumulatorNameForMethod(producer, accAnnotation, method),
-						method.getName()
+						StatsNameHelper.getMethodStatsName(method)
 				);
 
 		}
@@ -204,7 +228,7 @@ public class AbstractMoskitoAspect<S extends IStats> {
 				producer.getProducerId(),
 				method.getAnnotation(Accumulate.class),
 				formAccumulatorNameForMethod(producer, method.getAnnotation(Accumulate.class), method),
-				method.getName()
+				StatsNameHelper.getMethodStatsName(method)
 		);
 	}
 
@@ -254,7 +278,7 @@ public class AbstractMoskitoAspect<S extends IStats> {
 	private String formAccumulatorNameForMethod(final OnDemandStatsProducer<S> producer, final Accumulate annotation, final Method m) {
 		if (producer == null || annotation == null || m == null)
 			return "";
-		return producer.getProducerId() + DOT + m.getName() + DOT + annotation.valueName() + DOT + annotation.intervalName();
+		return producer.getProducerId() + DOT + StatsNameHelper.getMethodStatsName(m) + DOT + annotation.valueName() + DOT + annotation.intervalName();
 	}
 
 	/**

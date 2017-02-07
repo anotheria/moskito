@@ -70,12 +70,10 @@ public class CounterAspect extends AbstractMoskitoAspect<CounterStats> {
 
 		OnDemandStatsProducer<CounterStats> producer = getProducer(pjp, aProducerId, aCategory, aSubsystem, false, FACTORY, false);
 
-		String caseName = pjp.getSignature().getName();
+		String methodName = getMethodStatsName(pjp.getSignature());
     	CounterStats defaultStats = producer.getDefaultStats();
-		CounterStats methodStats = producer.getStats(caseName);
+		CounterStats methodStats = producer.getStats(methodName);
 
-        final Object[] args = pjp.getArgs();
-        final String method = pjp.getSignature().getName();
         defaultStats.inc();
         if (methodStats != null) {
             methodStats.inc();
