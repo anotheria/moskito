@@ -147,6 +147,10 @@ public class ThresholdAPIImpl extends AbstractMoskitoAPIImpl implements Threshol
 
 	@Override
 	public void createThreshold(ThresholdPO po)  throws APIException{
+		if (po.getName() == null || po.getName().equals(""))
+			throw new APIException("Can't create threshold without a name.");
+
+
 		//now parse guards
 		GuardedDirection greenDir = string2direction(po.getGreenDir());
 		GuardedDirection yellowDir = string2direction(po.getYellowDir());
