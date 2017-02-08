@@ -20,10 +20,10 @@ import net.anotheria.moskito.core.journey.Journey;
 import net.anotheria.moskito.core.journey.JourneyManagerFactory;
 import net.anotheria.moskito.core.predefined.ServiceStats;
 import net.anotheria.moskito.core.predefined.ServiceStatsFactory;
-import net.anotheria.moskito.core.stats.StatsNameHelper;
 import net.anotheria.moskito.core.tracer.Trace;
 import net.anotheria.moskito.core.tracer.TracerRepository;
 import net.anotheria.moskito.core.tracer.Tracers;
+import net.anotheria.moskito.core.util.annotation.AnnotationUtils;
 import net.anotheria.moskito.integration.cdi.AbstractInterceptor;
 
 /**
@@ -72,7 +72,7 @@ public class MonitorInterceptor extends AbstractInterceptor<ServiceStats> implem
             return proceed(ctx);
         }
 
-        String methodName = StatsNameHelper.getMethodStatsName(method);
+        String methodName = AnnotationUtils.getMethodStatsName(method);
         final ServiceStats defaultStats = getDefaultStats(onDemandProducer);
         final ServiceStats methodStats = getStats(onDemandProducer, methodName);
 
