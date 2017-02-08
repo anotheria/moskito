@@ -34,6 +34,17 @@
  */
 package net.anotheria.moskito.webui.shared.action;
 
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import net.anotheria.anoplass.api.APICallContext;
 import net.anotheria.anoplass.api.session.APISession;
 import net.anotheria.maf.action.Action;
@@ -61,15 +72,6 @@ import net.anotheria.moskito.webui.util.RemoteInstance;
 import net.anotheria.moskito.webui.util.WebUIConfig;
 import net.anotheria.util.NumberUtils;
 import net.anotheria.util.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.LinkedList;
-import java.util.List;
 
 /**
  * BaseAction providing some common functionality for all moskitouiactions.
@@ -564,7 +566,7 @@ public abstract class BaseMoskitoUIAction implements Action{
 				continue;
 			if (ret.length()>0)
 				ret.append('&');
-			ret.append(values[0]).append('=').append(values[1]);
+			ret.append(values[0]).append('=').append(values.length >= 2 ? values[1] : "");
 		}
 		return ret.toString();
 	}
