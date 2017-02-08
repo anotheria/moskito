@@ -15,7 +15,7 @@ import net.anotheria.moskito.aop.annotation.Accumulates;
 import net.anotheria.moskito.aop.util.MoskitoUtils;
 import net.anotheria.moskito.core.accumulation.AccumulatorDefinition;
 import net.anotheria.moskito.core.accumulation.AccumulatorRepository;
-import net.anotheria.moskito.core.annotations.StatsName;
+import net.anotheria.moskito.core.annotations.StatName;
 import net.anotheria.moskito.core.dynamic.IOnDemandStatsFactory;
 import net.anotheria.moskito.core.dynamic.OnDemandStatsProducer;
 import net.anotheria.moskito.core.logging.DefaultStatsLogger;
@@ -129,19 +129,19 @@ public class AbstractMoskitoAspect<S extends IStats> {
 	}
 
 	/**
-	 * Returns method name or method stats name by aop signature considering {@link StatsName} annotation.
+	 * Returns method name or method stats name by aop signature considering {@link StatName} annotation.
 	 *
 	 * @param signature
 	 *         aop signature
 	 * @return method name or null if signature also null
 	 */
-	protected String getMethodStatsName(Signature signature) {
+	protected String getMethodStatName(Signature signature) {
 		if (signature == null) {
 			return null;
 		}
 
 		if (signature instanceof MethodSignature) {
-			return AnnotationUtils.getMethodStatsName(((MethodSignature) signature).getMethod());
+			return AnnotationUtils.getMethodStatName(((MethodSignature) signature).getMethod());
 		}
 
 		return signature.getName();
@@ -195,7 +195,7 @@ public class AbstractMoskitoAspect<S extends IStats> {
 				logger.trace(e.getMessage(), e);
 		}
 		if (withMethod) {
-			res += DOT + getMethodStatsName(pjp.getSignature());
+			res += DOT + getMethodStatName(pjp.getSignature());
 		}
 		return res;
 	}
@@ -218,7 +218,7 @@ public class AbstractMoskitoAspect<S extends IStats> {
 						producer.getProducerId(),
 						accAnnotation,
 						formAccumulatorNameForMethod(producer, accAnnotation, method),
-						AnnotationUtils.getMethodStatsName(method)
+						AnnotationUtils.getMethodStatName(method)
 				);
 
 		}
@@ -228,7 +228,7 @@ public class AbstractMoskitoAspect<S extends IStats> {
 				producer.getProducerId(),
 				method.getAnnotation(Accumulate.class),
 				formAccumulatorNameForMethod(producer, method.getAnnotation(Accumulate.class), method),
-				AnnotationUtils.getMethodStatsName(method)
+				AnnotationUtils.getMethodStatName(method)
 		);
 	}
 
@@ -278,7 +278,7 @@ public class AbstractMoskitoAspect<S extends IStats> {
 	private String formAccumulatorNameForMethod(final OnDemandStatsProducer<S> producer, final Accumulate annotation, final Method m) {
 		if (producer == null || annotation == null || m == null)
 			return "";
-		return producer.getProducerId() + DOT + AnnotationUtils.getMethodStatsName(m) + DOT + annotation.valueName() + DOT + annotation.intervalName();
+		return producer.getProducerId() + DOT + AnnotationUtils.getMethodStatName(m) + DOT + annotation.valueName() + DOT + annotation.intervalName();
 	}
 
 	/**

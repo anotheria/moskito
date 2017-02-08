@@ -59,7 +59,7 @@ public class MonitoringAspect extends AbstractMoskitoAspect<ServiceStats>{
         String prevProducerId = lastProducerId.get();
         lastProducerId.set(producerId);
 
-        String methodName = getMethodStatsName(pjp.getSignature());
+        String methodName = getMethodStatName(pjp.getSignature());
     	ServiceStats defaultStats = producer.getDefaultStats();
     	ServiceStats methodStats = producer.getStats(methodName);
 

@@ -6,14 +6,14 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Name for method stats.
+ * Name for method stat.
  */
 @Target({ElementType.METHOD, ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
-public @interface StatsName {
+public @interface StatName {
 
     /**
-     * Returns statistics name.
+     * Returns statistic name.
      *
      * @return name
      */
