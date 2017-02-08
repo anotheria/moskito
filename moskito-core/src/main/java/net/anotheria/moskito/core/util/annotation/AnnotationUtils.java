@@ -7,7 +7,7 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
-import net.anotheria.moskito.core.annotations.StatsName;
+import net.anotheria.moskito.core.annotations.StatName;
 
 /**
  * Class contains utility methods with annotations
@@ -97,8 +97,8 @@ public final class AnnotationUtils {
      *         method to monitor
      * @return method name
      */
-    public static String getMethodStatsName(Method method) {
-        StatsName statsName = method.getAnnotation(StatsName.class);
-        return statsName == null ? method.getName() : statsName.value();
+    public static String getMethodStatName(Method method) {
+        StatName statName = method.getAnnotation(StatName.class);
+        return statName == null ? method.getName() : statName.value();
     }
 }

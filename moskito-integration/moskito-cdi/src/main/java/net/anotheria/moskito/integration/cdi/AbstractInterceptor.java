@@ -151,7 +151,7 @@ public abstract class AbstractInterceptor<T extends IStats> {
      */
     private void createMethodLevelAccumulators(OnDemandStatsProducer<T> producer, Method method) {
         //several @Accumulators in accumulators holder
-        String methodStatsName = AnnotationUtils.getMethodStatsName(method);
+        String methodStatName = AnnotationUtils.getMethodStatName(method);
         Accumulates accAnnotationHolderMethods = (Accumulates) method.getAnnotation(Accumulates.class);
         if (accAnnotationHolderMethods != null) {
             Accumulate[] accAnnotations  = accAnnotationHolderMethods.value();
@@ -160,7 +160,7 @@ public abstract class AbstractInterceptor<T extends IStats> {
                         producer.getProducerId(),
                         accAnnotation,
                         formAccumulatorNameForMethod(producer, accAnnotation, method),
-                        methodStatsName
+                        methodStatName
                 );
             }
         }
@@ -170,7 +170,7 @@ public abstract class AbstractInterceptor<T extends IStats> {
                 producer.getProducerId(),
                 method.getAnnotation(Accumulate.class),
                 formAccumulatorNameForMethod(producer, method.getAnnotation(Accumulate.class), method),
-                methodStatsName
+                methodStatName
         );
     }
 
@@ -206,7 +206,7 @@ public abstract class AbstractInterceptor<T extends IStats> {
 
     private String formAccumulatorNameForMethod(final OnDemandStatsProducer<T> producer, final Accumulate annotation, final Method m) {
         if (producer != null && annotation != null && m != null) {
-            return producer.getProducerId() + '.' + AnnotationUtils.getMethodStatsName(m) + '.' + annotation.valueName() + '.' + annotation.intervalName();
+            return producer.getProducerId() + '.' + AnnotationUtils.getMethodStatName(m) + '.' + annotation.valueName() + '.' + annotation.intervalName();
         }
         return "";
     }

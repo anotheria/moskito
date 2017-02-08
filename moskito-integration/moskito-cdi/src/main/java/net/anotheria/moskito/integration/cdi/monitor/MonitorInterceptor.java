@@ -72,7 +72,7 @@ public class MonitorInterceptor extends AbstractInterceptor<ServiceStats> implem
             return proceed(ctx);
         }
 
-        String methodName = AnnotationUtils.getMethodStatsName(method);
+        String methodName = AnnotationUtils.getMethodStatName(method);
         final ServiceStats defaultStats = getDefaultStats(onDemandProducer);
         final ServiceStats methodStats = getStats(onDemandProducer, methodName);
 
