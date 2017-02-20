@@ -12,13 +12,13 @@ import org.aspectj.lang.annotation.Aspect;
 public class MonitoringCallsAspect extends MonitoringBaseAspect{
 
 	@Around(value = "call(* *(..)) && (@annotation(method))")
-    public void doProfilingMethod(ProceedingJoinPoint pjp, MonitorCalls method) throws Throwable {
-        doProfiling(pjp, method.producerId(), method.subsystem(), method.category());
+    public Object doProfilingMethod(ProceedingJoinPoint pjp, MonitorCalls method) throws Throwable {
+        return doProfiling(pjp, method.producerId(), method.subsystem(), method.category());
     }
 
     @Around(value = "call(* *.*(..)) && @within(monitor) && !@annotation(net.anotheria.moskito.aop.annotation.DontMonitor)")
-    public void doProfilingClass(ProceedingJoinPoint pjp, MonitorCalls monitor) throws Throwable {
-        doProfiling(pjp, monitor.producerId(), monitor.subsystem(), monitor.category());
+    public Object doProfilingClass(ProceedingJoinPoint pjp, MonitorCalls monitor) throws Throwable {
+        return doProfiling(pjp, monitor.producerId(), monitor.subsystem(), monitor.category());
     }
 
 }

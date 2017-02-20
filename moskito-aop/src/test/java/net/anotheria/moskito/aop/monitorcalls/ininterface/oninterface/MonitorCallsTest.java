@@ -1,4 +1,4 @@
-package net.anotheria.moskito.aop.monitorcalls;
+package net.anotheria.moskito.aop.monitorcalls.ininterface.oninterface;
 
 import net.anotheria.moskito.core.producers.IStats;
 import net.anotheria.moskito.core.producers.IStatsProducer;
@@ -11,9 +11,9 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 
 public class MonitorCallsTest {
-    @Test public void testDontMonitorMethod(){
+    @Test public void testMonitorCallsMethod(){
 
-        MonitorableForCalls monitorableForCalls = new MonitorableForCalls();
+        MonitorableForCalls monitorableForCalls = new MonitorableForCallsA();
         // should call monitored method
         monitorableForCalls.monitored();
 
@@ -26,8 +26,8 @@ public class MonitorCallsTest {
         monitorableForCallsB.monitored();
 
         // should call monitored method
-        MonitorableForCalls monitorableForCallsDog = new MonitorableForCallsB();
-        monitorableForCallsDog.monitored();
+        MonitorableForCalls monitorableForCallsB2 = new MonitorableForCallsB();
+        monitorableForCallsB2.monitored();
 
 
         IStatsProducer producer1 = ProducerRegistryFactory.getProducerRegistryInstance().getProducer(MonitorableForCalls.class.getSimpleName());

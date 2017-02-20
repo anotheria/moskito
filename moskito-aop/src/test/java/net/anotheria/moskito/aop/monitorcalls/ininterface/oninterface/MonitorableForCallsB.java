@@ -1,10 +1,10 @@
-package net.anotheria.moskito.aop.monitorcalls;
+package net.anotheria.moskito.aop.monitorcalls.ininterface.oninterface;
 
 public class MonitorableForCallsB extends MonitorableForCallsA {
 
     @Override
     public void monitored() {
         super.monitored();
-        System.out.println("more than monitored");
+        System.out.println("MonitorableForCallsB");
     }
 }
