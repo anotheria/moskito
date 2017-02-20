@@ -46,6 +46,5 @@ public class MonitorCallsTest {
         assertEquals(2, stats2.size());
         assertEquals("monitored", stats2.get(1).getName());
         assertEquals("cumulated", stats2.get(0).getName());
-
     }
 }

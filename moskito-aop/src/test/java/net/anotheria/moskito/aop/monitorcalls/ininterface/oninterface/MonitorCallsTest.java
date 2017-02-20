@@ -32,20 +32,18 @@ public class MonitorCallsTest {
 
         IStatsProducer producer1 = ProducerRegistryFactory.getProducerRegistryInstance().getProducer(MonitorableForCalls.class.getSimpleName());
         List<IStats> stats1 = producer1.getStats();
-
-        IStatsProducer producer2 = ProducerRegistryFactory.getProducerRegistryInstance().getProducer(MonitorableForCallsA.class.getSimpleName());
-        List<IStats> stats2 = producer2.getStats();
-
-        IStatsProducer producer3 = ProducerRegistryFactory.getProducerRegistryInstance().getProducer(MonitorableForCallsB.class.getSimpleName());
-
-        assertNull(producer3);
-
         assertEquals(2, stats1.size());
         assertEquals("monitored", stats1.get(1).getName());
         assertEquals("cumulated", stats1.get(0).getName());
 
+
+        IStatsProducer producer2 = ProducerRegistryFactory.getProducerRegistryInstance().getProducer(MonitorableForCallsA.class.getSimpleName());
+        List<IStats> stats2 = producer2.getStats();
         assertEquals(2, stats2.size());
         assertEquals("monitored", stats2.get(1).getName());
         assertEquals("cumulated", stats2.get(0).getName());
+
+        IStatsProducer producer3 = ProducerRegistryFactory.getProducerRegistryInstance().getProducer(MonitorableForCallsB.class.getSimpleName());
+        assertNull(producer3);
     }
 }
