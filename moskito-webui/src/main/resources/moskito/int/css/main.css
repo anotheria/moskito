@@ -297,6 +297,10 @@ body.status-yellow ul.nav-sidebar.nav-status > li.active > a {
     height: 50px;
 }
 
+.aside-collapse .box-footer.fixed .fixed-box {
+    left: 50px;
+}
+
 .aside-collapse .logo {
     position: absolute;
     right: -7px;
