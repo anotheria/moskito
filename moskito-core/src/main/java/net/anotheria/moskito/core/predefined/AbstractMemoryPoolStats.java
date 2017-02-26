@@ -59,6 +59,8 @@ public abstract class AbstractMemoryPoolStats extends AbstractStats implements I
 			return String.valueOf(getMaxCommited(intervalName));
 		if (valueName.equals("max"))
 			return String.valueOf(getMax(intervalName));
+		if (valueName.equals("max mb"))
+			return String.valueOf(getMax(intervalName) / MB);		
 		if (valueName.equals("free"))
 			return String.valueOf(getFree(intervalName));
 		if (valueName.equals("free mb"))
