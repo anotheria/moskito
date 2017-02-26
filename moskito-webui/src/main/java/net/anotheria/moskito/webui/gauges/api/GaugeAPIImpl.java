@@ -1,5 +1,9 @@
 package net.anotheria.moskito.webui.gauges.api;
 
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+
 import net.anotheria.anoplass.api.APIException;
 import net.anotheria.anoplass.api.APIInitException;
 import net.anotheria.moskito.core.config.MoskitoConfiguration;
@@ -8,20 +12,17 @@ import net.anotheria.moskito.core.config.gauges.GaugeConfig;
 import net.anotheria.moskito.core.config.gauges.GaugeValueConfig;
 import net.anotheria.moskito.core.config.gauges.GaugeZoneConfig;
 import net.anotheria.moskito.core.config.gauges.GaugesConfig;
+import net.anotheria.moskito.core.decorators.value.DoubleValueAO;
+import net.anotheria.moskito.core.decorators.value.LongValueAO;
+import net.anotheria.moskito.core.decorators.value.StatValueAO;
+import net.anotheria.moskito.core.decorators.value.StringValueAO;
 import net.anotheria.moskito.core.producers.IStats;
 import net.anotheria.moskito.core.producers.IStatsProducer;
 import net.anotheria.moskito.core.registry.IProducerRegistryAPI;
 import net.anotheria.moskito.core.registry.NoSuchProducerException;
 import net.anotheria.moskito.core.registry.ProducerRegistryAPIFactory;
 import net.anotheria.moskito.core.stats.TimeUnit;
-import net.anotheria.moskito.core.decorators.value.LongValueAO;
-import net.anotheria.moskito.core.decorators.value.StatValueAO;
-import net.anotheria.moskito.core.decorators.value.StringValueAO;
 import net.anotheria.moskito.webui.shared.api.AbstractMoskitoAPIImpl;
-
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
 
 /**
  * Gauge api implementation.
@@ -162,12 +163,21 @@ public class GaugeAPIImpl extends AbstractMoskitoAPIImpl implements GaugeAPI {
 			return new StringValueAO(null, "no producer");
 		for (IStats s : producer.getStats()){
 			if (s.getName().equals(config.getStatName())){
-				String value = s.getValueByNameAsString(config.getValueName(), config.getIntervalName(), TimeUnit.valueOf(config.getTimeUnit()));
+				String value = s.getValueByNameAsString(config.getValueName(), config.getIntervalName(), TimeUnit.valueOf(config.getTimeUnit()));				
+
+				if ("NaN".equals(value) || value == null) {
+					return new StringValueAO(null, "n.A.");
+				}
+
 				try {
-					return new LongValueAO(null, Long.parseLong(value));
-				}catch(NumberFormatException e){
-					log.error("Can't parse long value, probably invalid value for gauge " + config);
-					return new StringValueAO(null, "Error");
+					return new LongValueAO(null, Long.valueOf(value));
+				} catch (NumberFormatException e) {
+					try {
+						return new DoubleValueAO(null, Double.valueOf(value));
+					} catch (NumberFormatException e2) {
+						this.log.error("Can't parse long/double value, probably invalid value for gauge " + config);
+						return new StringValueAO(null, "Error");
+					}
 				}
 			}
 		}
