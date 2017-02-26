@@ -6,10 +6,15 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
+ * For adding multiple accumulators on class or method
+ *
  * Created by Roman Stetsiuk on 9/29/15.
  */
 @Target({ElementType.TYPE, ElementType.METHOD})
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Accumulates {
+    /**
+     * Accumulators
+     */
     Accumulate[] value();
 }
