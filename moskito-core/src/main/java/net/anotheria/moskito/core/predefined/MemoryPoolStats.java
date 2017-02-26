@@ -193,7 +193,7 @@ public class MemoryPoolStats extends AbstractMemoryPoolStats implements IMemoryP
 	 * @param value the memory amount.
 	 */
 	public void setMax(long value){
-		init.setValueAsLong(value);
+		max.setValueAsLong(value);
 	}
 
 	/**
