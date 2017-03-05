@@ -1,6 +1,7 @@
 package net.anotheria.moskito.core.decorators.predefined;
 
 import net.anotheria.moskito.core.decorators.AbstractDecorator;
+import net.anotheria.moskito.core.decorators.value.DoubleValueAO;
 import net.anotheria.moskito.core.decorators.value.LongValueAO;
 import net.anotheria.moskito.core.decorators.value.StatValueAO;
 import net.anotheria.moskito.core.predefined.OSStats;
@@ -33,7 +34,7 @@ public class OSStatsDecorator extends AbstractDecorator {
 		"Total Memory",
 		"Total Memory MB",
 
-		"Processors",
+		"Processors", "ProcessCPULoad", "SystemCPULoad"
 	};
 	/**
 	 * Short explanations (mouse-over).
@@ -51,7 +52,7 @@ public class OSStatsDecorator extends AbstractDecorator {
 		"Total Memory",
 		"Total Memory MB",
 
-		"Processors",
+		"Processors", "Process CPU Load in % to 100 %", "System CPU Load in Percent to 100%"
 	};
 
 	/**
@@ -71,6 +72,9 @@ public class OSStatsDecorator extends AbstractDecorator {
 		"Total physical memory in the system in MB (constant)",
 
 		"Number of processors in the system  (constant)",
+		"Process CPU load between 0 and 100%, where 100% is max",
+		"System CPU load between 0 and 100%, where 100% is max"
+
 	};
 
 	public OSStatsDecorator(){
@@ -98,7 +102,9 @@ public class OSStatsDecorator extends AbstractDecorator {
 		ret.add(new LongValueAO(CAPTIONS[i++], stats.getTotalPhysicalMemory(interval)));
 		ret.add(new LongValueAO(CAPTIONS[i++], stats.getTotalPhysicalMemory(interval)/MB));
 		ret.add(new LongValueAO(CAPTIONS[i++], stats.getProcessors(interval)));
-		
+		ret.add(new DoubleValueAO(CAPTIONS[i++], stats.getProcessCpuLoad(interval)));
+		ret.add(new DoubleValueAO(CAPTIONS[i++], stats.getSystemCpuLoad(interval)));
+
 		return ret;
 	}
 

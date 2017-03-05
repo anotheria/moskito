@@ -74,7 +74,24 @@
                 "name": "CPU Time 5m",
                 "color": "#0000FF"
             }
-        ]
+        ],
+        "@accumulators": [
+          {
+            "name": "System CPU Load 1m",
+            "producerName": "OS",
+            "statName": "OS",
+            "valueName": "systemcpuload",
+            "intervalName": "1m"
+          },
+          {
+            "name": "Process CPU Load 1m",
+            "producerName": "OS",
+            "statName": "OS",
+            "valueName": "processcpuload",
+            "intervalName": "1m"
+          }
+        ],
+        "thresholdsConfig": []
     },
 
     "@dashboardsConfig": {
@@ -105,11 +122,17 @@
               },
               {
                 "accumulators": ["CPU Time 1m"]
-              }
+              },
+              {
+                "caption": "Load",
+                "accumulators": ["System CPU Load 1m", "Process CPU Load 1m"]
+              },
+
+
 
             ],
             "@thresholds": ["ThreadCount","OldGenFree", "PermGenFree"],
-            "@gauges": ["Blocked", "Memory", "Running", "Sessions"]
+            "@gauges": ["Blocked", "Memory", "Running", "SysLoad"]
 
           },
           {
@@ -230,7 +253,86 @@
               "valueName": "current",
               "intervalName": "default"
             }
+          },
+          {
+            "name": "SysLoad",
+            "caption": "System CPU Load",
+            "@minValue": {
+              "constant": 0
+            },
+            "@currentValue": {
+              "producerName": "OS",
+              "statName": "OS",
+              "valueName": "systemcpuload",
+              "intervalName": "1m"
+            },
+            "@maxValue": {
+              "constant": 100
+            },
+            "@zones":[
+              {
+                "color": "green",
+                "left": 0,
+                "right": 0.5
+              },
+              {
+                "color": "yellow",
+                "left": 0.5,
+                "right": 0.75
+              },
+              {
+                "color": "orange",
+                "left": 0.75,
+                "right": 0.9
+              },
+              {
+                "color": "red",
+                "left": 0.9,
+                "right": 1
+              }
+            ]
+
+          },
+          {
+            "name": "ProcLoad",
+            "caption": "Process CPU Load",
+            "@minValue": {
+              "constant": 0
+            },
+            "@currentValue": {
+              "producerName": "OS",
+              "statName": "OS",
+              "valueName": "processcpuload",
+              "intervalName": "1m"
+            },
+            "@maxValue": {
+              "constant": 100
+            },
+            "@zones":[
+              {
+                "color": "green",
+                "left": 0,
+                "right": 0.5
+              },
+              {
+                "color": "yellow",
+                "left": 0.5,
+                "right": 0.75
+              },
+              {
+                "color": "orange",
+                "left": 0.75,
+                "right": 0.9
+              },
+              {
+                "color": "red",
+                "left": 0.9,
+                "right": 1
+              }
+            ]
+
           }
+
         ],
       "@defaultZones":[
         {
