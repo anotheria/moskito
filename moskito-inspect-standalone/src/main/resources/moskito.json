@@ -35,64 +35,203 @@
     },
 
     "@accumulatorsConfig" : {
-        "accumulationAmount": 250,
-        "@accumulatorSets": [
-            {
-                "name": "Threads 1 Minute",
-                "accumulatorNames": ["ThreadCount", "ThreadStateBlocked-1m", "ThreadStateRunnable-1m", "ThreadStateTimedWaiting-1m", "ThreadStateWaiting-1m"]
-            },
-            {
-              "name": "Threads 5 Minutes",
-              "accumulatorNames": ["ThreadCount", "ThreadStateBlocked-5m", "ThreadStateRunnable-5m", "ThreadStateTimedWaiting-5m", "ThreadStateWaiting-5m"]
-            },
-            {
-              "name": "Web 1 Minute",
-              "accumulatorNames": ["SessionCount Cur Absolute", "URL AVG 1m", "URL REQ 1m", "URL Time 1m"],
-              "mode": "MULTIPLE"
-            },
-            {
-              "name": "Web 5 Minutes",
-              "accumulatorNames": ["SessionCount Cur Absolute", "URL AVG 5m", "URL REQ 5m", "URL Time 5m"],
-              "mode": "MULTIPLE"
-            },
-            {
-              "name": "Web 1 Hour",
-              "accumulatorNames": ["SessionCount Cur Absolute", "URL AVG 1h", "URL REQ 1h", "URL Time 1h"],
-              "mode": "MULTIPLE"
-            }
-        ],
-        "@accumulatorsColors": [
-            {
-                "name": "CPU Time 1h",
-                "color": "#FF0000"
-            },
-            {
-                "name": "CPU Time 1m",
-                "color": "#00FF00"
-            },
-            {
-                "name": "CPU Time 5m",
-                "color": "#0000FF"
-            }
-        ],
-        "@accumulators": [
-          {
-            "name": "System CPU Load 1m",
-            "producerName": "OS",
-            "statName": "OS",
-            "valueName": "systemcpuload",
-            "intervalName": "1m"
-          },
-          {
-            "name": "Process CPU Load 1m",
-            "producerName": "OS",
-            "statName": "OS",
-            "valueName": "processcpuload",
-            "intervalName": "1m"
-          }
-        ],
-        "thresholdsConfig": []
+      "accumulationAmount": 250,
+      "@accumulatorSets": [
+        {
+          "name": "Threads 1 Minute",
+          "accumulatorNames": [
+            "ThreadCount",
+            "ThreadStateBlocked-1m",
+            "ThreadStateRunnable-1m",
+            "ThreadStateTimedWaiting-1m",
+            "ThreadStateWaiting-1m"
+          ]
+        },
+        {
+          "name": "Threads 5 Minutes",
+          "accumulatorNames": [
+            "ThreadCount",
+            "ThreadStateBlocked-5m",
+            "ThreadStateRunnable-5m",
+            "ThreadStateTimedWaiting-5m",
+            "ThreadStateWaiting-5m"
+          ]
+        },
+        {
+          "name": "Web 1 Minute",
+          "accumulatorNames": [
+            "SessionCount Cur Absolute",
+            "URL AVG 1m",
+            "URL REQ 1m",
+            "URL Time 1m"
+          ],
+          "mode": "MULTIPLE"
+        },
+        {
+          "name": "Web 5 Minutes",
+          "accumulatorNames": [
+            "SessionCount Cur Absolute",
+            "URL AVG 5m",
+            "URL REQ 5m",
+            "URL Time 5m"
+          ],
+          "mode": "MULTIPLE"
+        },
+        {
+          "name": "Web 1 Hour",
+          "accumulatorNames": [
+            "SessionCount Cur Absolute",
+            "URL AVG 1h",
+            "URL REQ 1h",
+            "URL Time 1h"
+          ],
+          "mode": "MULTIPLE"
+        }
+      ],
+      "@accumulatorsColors": [
+        {
+          "name": "CPU Time 1h",
+          "color": "#FF0000"
+        },
+        {
+          "name": "CPU Time 1m",
+          "color": "#00FF00"
+        },
+        {
+          "name": "CPU Time 5m",
+          "color": "#0000FF"
+        }
+      ],
+      "@accumulators": [
+        //$<standart-accumulators>
+        //$<standart-web-accumulators>
+        {
+          "name": "System CPU Load 1m",
+          "producerName": "OS",
+          "statName": "OS",
+          "valueName": "systemcpuload",
+          "intervalName": "1m"
+        },
+        {
+          "name": "Process CPU Load 1m",
+          "producerName": "OS",
+          "statName": "OS",
+          "valueName": "processcpuload",
+          "intervalName": "1m"
+        }
+      ]
     },
+    "@thresholdsConfig": {
+          "@thresholds": [
+            {
+              "name": "ThreadCount",
+              "producerName": "ThreadCount",
+              "statName": "ThreadCount",
+              "valueName": "Current",
+              "intervalName": "default",
+              //timeUnit can be ignored here
+              "@guards": [
+                {
+                  "value": "200",
+                  "direction": "DOWN",
+                  "status": "GREEN"
+                },
+                {
+                  "value": "200",
+                  "direction": "UP",
+                  "status": "YELLOW"
+                },
+                {
+                  "value": "300",
+                  "direction": "UP",
+                  "status": "ORANGE"
+                },
+                {
+                  "value": "500",
+                  "direction": "UP",
+                  "status": "RED"
+                },
+                {
+                  "value": "1000",
+                  "direction": "UP",
+                  "status": "PURPLE"
+                 }
+            ]
+          },
+            {
+              "name": "OldGenFree",
+              "producerName": "MemoryPool-PS Old Gen-Heap",
+              "statName": "MemoryPool-PS Old Gen-Heap",
+              "valueName": "Free",
+              "intervalName": "default",
+              //timeUnit can be ignored here
+              "@guards": [
+                {
+                  "value": "100000000",
+                  "direction": "UP",
+                  "status": "GREEN"
+                },
+                {
+                  "value": "50000000",
+                  "direction": "DOWN",
+                  "status": "YELLOW"
+                },
+                {
+                  "value": "10000000",
+                  "direction": "DOWN",
+                  "status": "ORANGE"
+                },
+                {
+                  "value": "2000000",
+                  "direction": "DOWN",
+                  "status": "RED"
+                },
+                {
+                  "value": "1000000",
+                  "direction": "DOWN",
+                  "status": "PURPLE"
+                }
+              ]
+            },
+            {
+              "name": "PermGenFree",
+              "producerName": "MemoryPool-PS Perm Gen-NonHeap",
+              "statName": "MemoryPool-PS Perm Gen-NonHeap",
+              "valueName": "Free",
+              "intervalName": "default",
+              //timeUnit can be ignored here
+              "@guards": [
+                {
+                  "value": "5000000",
+                  "direction": "UP",
+                  "status": "GREEN"
+                },
+                {
+                  "value": "5000000",
+                  "direction": "DOWN",
+                  "status": "YELLOW"
+                },
+                {
+                  "value": "2000000",
+                  "direction": "DOWN",
+                  "status": "ORANGE"
+                },
+                {
+                  "value": "1000000",
+                  "direction": "DOWN",
+                  "status": "RED"
+                },
+                {
+                  "value": "1000",
+                  "direction": "DOWN",
+                  "status": "PURPLE"
+                }
+              ]
+            }
+
+        ]
+    },
+
 
     "@dashboardsConfig": {
         "@dashboards": [
