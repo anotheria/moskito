@@ -11,6 +11,11 @@ import org.slf4j.LoggerFactory;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 
+/**
+ * Don't use this listener anymore, use moskito.json to configure thresholds.
+ * Example: https://github.com/anotheria/moskito/blob/master/moskito-inspect-standalone/src/main/resources/moskito.json
+ */
+@Deprecated
 public class SetupThresholds implements ServletContextListener{
 	private static final Logger LOGGER = LoggerFactory.getLogger(SetupThresholds.class);
 
