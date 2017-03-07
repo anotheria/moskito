@@ -110,14 +110,14 @@
           "producerName": "OS",
           "statName": "OS",
           "valueName": "systemcpuload",
-          "intervalName": "1m"
+          "intervalName": "default"
         },
         {
           "name": "Process CPU Load 1m",
           "producerName": "OS",
           "statName": "OS",
           "valueName": "processcpuload",
-          "intervalName": "1m"
+          "intervalName": "default"
         }
       ]
     },
@@ -227,7 +227,78 @@
                   "status": "PURPLE"
                 }
               ]
+            },
+            {
+              "name": "SystemCPULoad",
+              "producerName": "OS",
+              "statName": "OS",
+              "valueName": "SystemCPULoad",
+              "intervalName": "default",
+              //timeUnit can be ignored here
+              "@guards": [
+                {
+                  "value": "50.0",
+                  "direction": "DOWN",
+                  "status": "GREEN"
+                },
+                {
+                  "value": "50.0",
+                  "direction": "UP",
+                  "status": "YELLOW"
+                },
+                {
+                  "value": "75.0",
+                  "direction": "UP",
+                  "status": "ORANGE"
+                },
+                {
+                  "value": "90.0",
+                  "direction": "UP",
+                  "status": "RED"
+                },
+                {
+                  "value": "99.0",
+                  "direction": "UP",
+                  "status": "PURPLE"
+                }
+              ]
+            },
+            {
+              "name": "ProcessCPULoad",
+              "producerName": "OS",
+              "statName": "OS",
+              "valueName": "ProcessCPULoad",
+              "intervalName": "default",
+              //timeUnit can be ignored here
+              "@guards": [
+                {
+                  "value": "50.0",
+                  "direction": "DOWN",
+                  "status": "GREEN"
+                },
+                {
+                  "value": "50.0",
+                  "direction": "UP",
+                  "status": "YELLOW"
+                },
+                {
+                  "value": "75.0",
+                  "direction": "UP",
+                  "status": "ORANGE"
+                },
+                {
+                  "value": "90.0",
+                  "direction": "UP",
+                  "status": "RED"
+                },
+                {
+                  "value": "99.0",
+                  "direction": "UP",
+                  "status": "PURPLE"
+                }
+              ]
             }
+
 
         ]
     },
@@ -270,7 +341,7 @@
 
 
             ],
-            "@thresholds": ["ThreadCount","OldGenFree", "PermGenFree"],
+            "@thresholds": ["SystemCPULoad", "ProcessCPULoad", "ThreadCount","OldGenFree", "PermGenFree"],
             "@gauges": ["Blocked", "Memory", "Running", "SysLoad"]
 
           },
@@ -403,7 +474,7 @@
               "producerName": "OS",
               "statName": "OS",
               "valueName": "systemcpuload",
-              "intervalName": "1m"
+              "intervalName": "default"
             },
             "@maxValue": {
               "constant": 100
@@ -442,7 +513,7 @@
               "producerName": "OS",
               "statName": "OS",
               "valueName": "processcpuload",
-              "intervalName": "1m"
+              "intervalName": "default"
             },
             "@maxValue": {
               "constant": 100
