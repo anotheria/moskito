@@ -94,7 +94,7 @@ public class OnDemandStatsProducerTest {
 			totalRequests += ((ServiceStats)s).getTotalRequests();
 		}
 		
-		System.out.println("Total requests "+totalRequests+" in "+p.getStats().size()+" stats.");
+		//System.out.println("Total requests "+totalRequests+" in "+p.getStats().size()+" stats.");
 		assertEquals(THREAD_COUNT*REQUEST_COUNT, totalRequests);
 		//System.out.println(p.getStats());
 	}

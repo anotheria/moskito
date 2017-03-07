@@ -98,12 +98,12 @@ public class RequestOrientedStatsTest {
 		stats.addExecutionTime(100);
 		stats.addRequest();
 		IntervalRegistry.getInstance().forceUpdateIntervalForTestingPurposes("1m");
-		System.out.println(stats.getAverageRequestDuration("1m", TimeUnit.MICROSECONDS));
-		System.out.println(stats.getAverageRequestDuration("1m", TimeUnit.MILLISECONDS));
-		System.out.println(stats.getValueByNameAsString("avg", "1m", TimeUnit.MICROSECONDS));
-		System.out.println(stats.getValueByNameAsString("avg", "1m", TimeUnit.MILLISECONDS));
-		System.out.println(stats.getAverageRequestDuration("1m", TimeUnit.SECONDS));
-		System.out.println(stats.getValueByNameAsString("avg", "1m", TimeUnit.SECONDS));
+		//System.out.println(stats.getAverageRequestDuration("1m", TimeUnit.MICROSECONDS));
+		//System.out.println(stats.getAverageRequestDuration("1m", TimeUnit.MILLISECONDS));
+		//System.out.println(stats.getValueByNameAsString("avg", "1m", TimeUnit.MICROSECONDS));
+		//System.out.println(stats.getValueByNameAsString("avg", "1m", TimeUnit.MILLISECONDS));
+		//System.out.println(stats.getAverageRequestDuration("1m", TimeUnit.SECONDS));
+		//System.out.println(stats.getValueByNameAsString("avg", "1m", TimeUnit.SECONDS));
 
 	}
 
@@ -155,7 +155,7 @@ public class RequestOrientedStatsTest {
 
 		assertEquals(1, stats.getTotalRequests());
 		//we add some 5 milliseconds on top, but ensure that total duration is below 60ms, which the test as such took.
-		System.out.println(stats.getTotalTime());
+		//System.out.println(stats.getTotalTime());
 		assertTrue(1000L * 1000 * 50 > stats.getTotalTime());
 	}
 

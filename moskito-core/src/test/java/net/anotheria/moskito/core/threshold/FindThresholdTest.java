@@ -64,7 +64,7 @@ public class FindThresholdTest {
 		assertEquals("none yet", threshold.getLastValue());
 		IntervalRegistry.getInstance().forceUpdateIntervalForTestingPurposes("snapshot");
 		IntervalRegistry.getInstance().forceUpdateIntervalForTestingPurposes("snapshot");
-		System.out.println(threshold.getLastValue());
+		//System.out.println(threshold.getLastValue());
 		
 	}
 	
