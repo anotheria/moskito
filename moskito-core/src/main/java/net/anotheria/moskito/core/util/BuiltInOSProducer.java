@@ -121,14 +121,17 @@ public class BuiltInOSProducer extends AbstractBuiltInProducer implements IStats
 
 				long processTime = getValue("ProcessCpuTime");
 
+				double processCPULoad = getDoubleValue("ProcessCpuLoad");
+				double systemCPULoad  = getDoubleValue( "SystemCpuLoad");
+
 				long processors = getValue("AvailableProcessors");
 				
-				stats.update((int)openFiles, (int)maxOpenFiles, freePhysicalMemorySize, totalPhysicalMemorySize, processTime, (int)processors);
+				stats.update((int)openFiles, (int)maxOpenFiles, freePhysicalMemorySize, totalPhysicalMemorySize, processTime, (int)processors, processCPULoad, systemCPULoad);
 
 			} else {
 				long processors = getValue("AvailableProcessors");
 
-				stats.update(-1, -1, -1, -1, -1, (int)processors);
+				stats.update(-1, -1, -1, -1, -1, (int)processors, -1, -1);
 			}
 			
 		}catch(Exception e){
@@ -143,7 +146,13 @@ public class BuiltInOSProducer extends AbstractBuiltInProducer implements IStats
 		Long result = (Long)m.invoke(mxBean);
 		return result;
 	}
-	
+
+	private double getDoubleValue(String name) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException{
+		Method m = clazz.getMethod("get"+name);
+		Double result = (Double)m.invoke(mxBean);
+		return result;
+	}
+
 	public static void main(String[] a){
 		new BuiltInOSProducer();
 	}

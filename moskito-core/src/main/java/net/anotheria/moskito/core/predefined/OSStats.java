@@ -54,6 +54,16 @@ public class OSStats extends AbstractStats {
 	 * Number of processors, this is usually a constant.
 	 */
 	private StatValue processors;
+
+	/**
+	 * Process CPU Load in Percent.
+	 */
+	private StatValue processCpuLoad;
+
+	/**
+	 * System CPU Load in Percent.
+	 */
+	private StatValue systemCpuLoad;
 	
 
 	public OSStats(){
@@ -81,7 +91,10 @@ public class OSStats extends AbstractStats {
 		totalPhysicalMemory = StatValueFactory.createStatValue(0L, "totalPhysicalMemory", selectedIntervals);
 		processors = StatValueFactory.createStatValue(0, "processors", selectedIntervals);
 
-		addStatValues(openFiles, maxOpenFiles, minOpenFiles, maxSupportedOpenFiles, processCpuTime, processTotalCpuTime, freePhysicalMemory, totalPhysicalMemory, processors);
+		processCpuLoad = StatValueFactory.createStatValue(0d, "processCpuLoad", selectedIntervals);
+		systemCpuLoad = StatValueFactory.createStatValue(0d, "systemCpuLoad", selectedIntervals);
+
+		addStatValues(openFiles, maxOpenFiles, minOpenFiles, maxSupportedOpenFiles, processCpuTime, processTotalCpuTime, freePhysicalMemory, totalPhysicalMemory, processors, processCpuLoad, systemCpuLoad);
 		
 	}
 
@@ -99,6 +112,8 @@ public class OSStats extends AbstractStats {
 		ret.append(" freemem: ").append(freePhysicalMemory.getValueAsLong(intervalName));
 		ret.append(" totalmem: ").append(totalPhysicalMemory.getValueAsLong(intervalName));
 		ret.append(" processors: ").append(processors.getValueAsInt(intervalName));
+		ret.append(" processcpuload: "+processCpuLoad.getValueAsDouble(intervalName));
+		ret.append(" systemcpuload: "+systemCpuLoad.getValueAsDouble(intervalName));
 		
 		return ret.toString();
 	}
@@ -110,7 +125,6 @@ public class OSStats extends AbstractStats {
 			throw new AssertionError("Value name can't be null");
 		valueName = valueName.toLowerCase();
 
-		
 		if (valueName.equals("free memory") || valueName.equals("free"))
 			return String.valueOf(getFreePhysicalMemory(intervalName));
 		if (valueName.equals("total memory") || valueName.equals("total"))
@@ -135,7 +149,13 @@ public class OSStats extends AbstractStats {
 			return String.valueOf(getProcessTotalCPUTime(intervalName));
 		if (valueName.equals("processors"))
 			return String.valueOf(getProcessors(intervalName));
-		
+
+		if (valueName.equals("processload") || valueName.equals("processcpuload"))
+			return String.valueOf(getProcessCpuLoad(intervalName));
+		if (valueName.equals("systemload") || valueName.equals("systemcpuload"))
+			return String.valueOf(getSystemCpuLoad(intervalName));
+
+
 		return super.getValueByNameAsString(valueName, intervalName, timeUnit);
 	}
 
@@ -150,7 +170,9 @@ public class OSStats extends AbstractStats {
 			"Map supported Open Files",
 			"CPU TIME",
 			"Total CPU TIME",
-			"Processors"
+			"Processors",
+			"ProcessCPULoad",
+			"SystemCPULoad"
 	));
 
 	@Override
@@ -160,7 +182,7 @@ public class OSStats extends AbstractStats {
 
 
 
-	public void update(int anOpenFiles, int aMaxOpenFiles, long aFreePhysicalMemorySize, long aTotalPhysicalMemorySize, long aProcessTime, int aProcessors){
+	public void update(int anOpenFiles, int aMaxOpenFiles, long aFreePhysicalMemorySize, long aTotalPhysicalMemorySize, long aProcessTime, int aProcessors, double aProcessCpuLoad, double aSystemCpuLoad){
 		openFiles.setValueAsInt(anOpenFiles);
 		maxOpenFiles.setValueIfGreaterThanCurrentAsInt(anOpenFiles);
 		minOpenFiles.setValueIfLesserThanCurrentAsInt(anOpenFiles);
@@ -172,6 +194,14 @@ public class OSStats extends AbstractStats {
 		
 		freePhysicalMemory.setValueAsLong(aFreePhysicalMemorySize);
 		totalPhysicalMemory.setValueAsLong(aTotalPhysicalMemorySize);
+
+		//convert to percent and set.
+		processCpuLoad.setValueAsDouble(toPercent(aProcessCpuLoad));
+		systemCpuLoad.setValueAsDouble(toPercent(aSystemCpuLoad));
+	}
+
+	private double toPercent(double val){
+		return (double)((int)(val * 10000))/100;
 	}
 	
 	public int getOpenFiles(String intervalName){
@@ -208,6 +238,13 @@ public class OSStats extends AbstractStats {
 	
 	public long getTotalPhysicalMemory(String intervalName){
 		return totalPhysicalMemory.getValueAsLong(intervalName);
+	}
+
+	public double getProcessCpuLoad(String intervalName){
+		return processCpuLoad.getValueAsDouble(intervalName);
+	}
+	public double getSystemCpuLoad(String intervalName){
+		return systemCpuLoad.getValueAsDouble(intervalName);
 	}
 
 }

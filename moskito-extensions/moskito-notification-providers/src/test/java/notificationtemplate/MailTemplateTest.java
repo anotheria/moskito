@@ -32,6 +32,7 @@ public class MailTemplateTest {
 				"<td>{mail:newValue}</td>\n" +
 				"=====";
 		String result = thresholdAlertTemplate.process(template);
-		System.out.println(result);
+		//System.out.println(result);
+		//TODO this test needs asserts badly.
 	}
 }

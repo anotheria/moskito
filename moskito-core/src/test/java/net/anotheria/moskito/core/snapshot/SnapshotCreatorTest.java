@@ -35,7 +35,7 @@ public class SnapshotCreatorTest extends BaseSnapshotTest{
 		forceIntervalUpdate(intervalName);
 
 		ProducerSnapshot snapshot = SnapshotCreator.createSnapshot(producer, intervalName);
-		System.out.println("Snapshot: "+snapshot);
+		//System.out.println("Snapshot: "+snapshot);
 
 		assertEquals(3, snapshot.getStatSnapshots().size());
 

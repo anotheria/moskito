@@ -94,7 +94,6 @@ public class AccumulatorAPIImpl extends AbstractMoskitoAPIImpl implements Accumu
 	public AccumulatedSingleGraphAO getAccumulatorGraphData(String id) throws APIException {
 		Accumulator accumulator = AccumulatorRepository.getInstance().getById(id);
 		AccumulatedSingleGraphAO singleGraphDataBean = new AccumulatedSingleGraphAO(accumulator.getName());
-
 		singleGraphDataBean.setData(new AccumulatorAO(accumulator).getValues());
 		singleGraphDataBean.setColor(MoskitoConfigurationHolder.getConfiguration().getAccumulatorsConfig().getAccumulatorColor(accumulator.getName()));
 		return singleGraphDataBean;
