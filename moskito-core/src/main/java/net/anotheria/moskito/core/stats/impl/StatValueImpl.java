@@ -62,14 +62,14 @@ class StatValueImpl implements StatValue {
 	 * This attribute holds the absolute value that does not depend on an Interval.
 	 * It will be collected for every instance of this statistic value.
 	 */
-	private ValueHolder absoluteValue;
+	protected ValueHolder absoluteValue;
 	
 	/**
 	 * This map holds all values by the interval name it is responsible for. So every 
 	 * registered Interval will be represented by an own entry. Besides this Map contains 
 	 * the absolute value.
 	 */
-	private Map<String, ValueHolder> values;
+	protected Map<String, ValueHolder> values;
 	
 	/**
 	 * This List contains a redundant copy of the values Map values. It will be maintained 
