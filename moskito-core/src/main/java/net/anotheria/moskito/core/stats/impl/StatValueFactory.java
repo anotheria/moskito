@@ -34,6 +34,9 @@
  */
 package net.anotheria.moskito.core.stats.impl;
 
+import java.util.Collection;
+
+import net.anotheria.moskito.core.stats.DetailedStatValue;
 import net.anotheria.moskito.core.stats.IValueHolderFactory;
 import net.anotheria.moskito.core.stats.Interval;
 import net.anotheria.moskito.core.stats.StatValue;
@@ -74,6 +77,37 @@ public class StatValueFactory {
 		for (int i = 0; i < aIntervals.length; i++) {
 			value.addInterval(aIntervals[i]);
 		}
+		return value;
+	}
+	
+	public static TypeAwareStatValue createStatValue(StatValueTypes aType, String aName,
+			Collection<String> aIntervals) {
+		Interval[] arrayIntervals = new Interval[aIntervals.size()];
+
+		int i = 0;
+
+		for (String interval : aIntervals) {
+			arrayIntervals[i++] = IntervalRegistry.getInstance().getInterval(interval);
+		}
+
+		return createStatValue(aType, aName, arrayIntervals);
+	}
+
+	public static final DetailedStatValue createDetailedStatValue(Object aPattern, String aName,
+			Interval[] aIntervals) {
+		return createDetailedStatValue(StatValueTypeUtility.object2type(aPattern), aName, aIntervals);
+	}
+
+	public static DetailedStatValue createDetailedStatValue(StatValueTypes aType, String aName, Interval[] aIntervals) {
+		IValueHolderFactory valueHolderFactory = StatValueTypeUtility.createValueHolderFactory(aType);
+		DetailedStatValue value = new DetailedTypeAwareStatValueImpl(aName, aType, valueHolderFactory);
+		// now we have to add the Intervals to the new value....
+		for (Interval aInterval : aIntervals) {
+			value.addInterval(aInterval);
+		}
+
+		value.reset();
+
 		return value;
 	}
 
