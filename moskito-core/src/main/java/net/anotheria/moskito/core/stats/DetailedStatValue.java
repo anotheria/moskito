@@ -3,87 +3,87 @@ package net.anotheria.moskito.core.stats;
 /**
  * Extends the {@link StatValue} interface with a {@link StatValueTypes} value.
  * 
- * @author Michael König
+ * @author Marlon Patrick
  */
 public interface DetailedStatValue extends TypeAwareStatValue {
 
-	public int getMinValueAsInt();
+	int getMinValueAsInt();
 
-	public long getMinValueAsLong();
+	long getMinValueAsLong();
 
-	public double getMinValueAsDouble();
+	double getMinValueAsDouble();
 
-	public int getMinValueAsInt(String aIntervalName);
+	int getMinValueAsInt(String aIntervalName);
 
-	public long getMinValueAsLong(String aIntervalName);
+	long getMinValueAsLong(String aIntervalName);
 
-	public double getMinValueAsDouble(String aIntervalName);
+	double getMinValueAsDouble(String aIntervalName);
 
-	public String getMinValueAsString(String intervalName);
+	String getMinValueAsString(String intervalName);
 
-	public String getMinValueAsString();
+	String getMinValueAsString();
 
-	public int getMaxValueAsInt();
+	int getMaxValueAsInt();
 
-	public long getMaxValueAsLong();
+	long getMaxValueAsLong();
 
-	public double getMaxValueAsDouble();
+	double getMaxValueAsDouble();
 
-	public int getMaxValueAsInt(String aIntervalName);
+	int getMaxValueAsInt(String aIntervalName);
 
-	public long getMaxValueAsLong(String aIntervalName);
+	long getMaxValueAsLong(String aIntervalName);
 
-	public double getMaxValueAsDouble(String aIntervalName);
+	double getMaxValueAsDouble(String aIntervalName);
 
-	public String getMaxValueAsString(String intervalName);
+	String getMaxValueAsString(String intervalName);
 
-	public String getMaxValueAsString();
+	String getMaxValueAsString();
 
-	public int getSumValueAsInt();
+	int getSumValueAsInt();
 
-	public long getSumValueAsLong();
+	long getSumValueAsLong();
 
-	public double getSumValueAsDouble();
+	double getSumValueAsDouble();
 
-	public int getSumValueAsInt(String aIntervalName);
+	int getSumValueAsInt(String aIntervalName);
 
-	public long getSumValueAsLong(String aIntervalName);
+	long getSumValueAsLong(String aIntervalName);
 
-	public double getSumValueAsDouble(String aIntervalName);
+	double getSumValueAsDouble(String aIntervalName);
 
-	public String getSumValueAsString(String intervalName);
+	String getSumValueAsString(String intervalName);
 
-	public String getSumValueAsString();
+	String getSumValueAsString();
 
-	public int getCountValueAsInt();
+	int getCountValueAsInt();
 
-	public long getCountValueAsLong();
+	long getCountValueAsLong();
 
-	public double getCountValueAsDouble();
+	double getCountValueAsDouble();
 
-	public int getCountValueAsInt(String aIntervalName);
+	int getCountValueAsInt(String aIntervalName);
 
-	public long getCountValueAsLong(String aIntervalName);
+	long getCountValueAsLong(String aIntervalName);
 
-	public double getCountValueAsDouble(String aIntervalName);
+	double getCountValueAsDouble(String aIntervalName);
 
-	public String getCountValueAsString(String intervalName);
+	String getCountValueAsString(String intervalName);
 
-	public String getCountValueAsString();
+	String getCountValueAsString();
 
-	public int getAvgValueAsInt();
+	int getAvgValueAsInt();
 
-	public long getAvgValueAsLong();
+	long getAvgValueAsLong();
 
-	public double getAvgValueAsDouble();
+	double getAvgValueAsDouble();
 
-	public int getAvgValueAsInt(String aIntervalName);
+	int getAvgValueAsInt(String aIntervalName);
 
-	public long getAvgValueAsLong(String aIntervalName);
+	long getAvgValueAsLong(String aIntervalName);
 
-	public double getAvgValueAsDouble(String aIntervalName);
+	double getAvgValueAsDouble(String aIntervalName);
 
-	public String getAvgValueAsString(String intervalName);
+	String getAvgValueAsString(String intervalName);
 
-	public String getAvgValueAsString();
+	String getAvgValueAsString();
 }
