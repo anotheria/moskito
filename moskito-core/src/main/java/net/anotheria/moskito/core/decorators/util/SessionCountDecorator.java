@@ -71,8 +71,8 @@ public class SessionCountDecorator extends AbstractDecorator {
 	
 	private static final long mapToLong(int value){
 		return (value == Integer.MAX_VALUE) ? Long.MAX_VALUE : 
-			   ((value == Integer.MIN_VALUE) ? Long.MIN_VALUE :
-				   value);
+			   (value == Integer.MIN_VALUE) ? Long.MIN_VALUE :
+				   value;
 	}
 	
 	
