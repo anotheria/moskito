@@ -152,7 +152,7 @@ public class ProducerRegistryImpl implements IProducerRegistry {
         registry.clear();
 
         String junittest = System.getProperty("JUNITTEST");
-        if (junittest != null && (junittest.equalsIgnoreCase("true"))) // preventing listiner's initialization for JUnit run's
+        if (junittest != null && junittest.equalsIgnoreCase("true")) // preventing listener's initialization for JUnit run's
             return;
 
         addListener(new JMXBridgeListener());
