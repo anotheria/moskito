@@ -84,7 +84,7 @@ public class ProducerRegistryFactory {
 	public static final void reset(){
 		instance.reset();
 		String junittest = System.getProperty("JUNITTEST");
-		if (junittest!=null && (junittest.equalsIgnoreCase("true")))
+		if (junittest!=null && junittest.equalsIgnoreCase("true"))
 			return;
 		StartBuiltInProducers.restartbuiltin();
 	}
