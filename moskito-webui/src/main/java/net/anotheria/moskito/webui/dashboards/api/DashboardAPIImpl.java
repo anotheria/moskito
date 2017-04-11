@@ -405,10 +405,14 @@ public class DashboardAPIImpl extends AbstractMoskitoAPIImpl implements Dashboar
 
 				}
 
-				MultilineChartAO chartAO = accumulatorAPI.getCombinedAccumulatorGraphData(chartIds);
+				if (chartIds.size()==0){
+					log.warn("Couldn't retrieve any chart ids for chart "+cc.toString()+", skipping this bean");
+				}else {
+					MultilineChartAO chartAO = accumulatorAPI.getCombinedAccumulatorGraphData(chartIds);
+					bean.setChart(chartAO);
+					chartBeans.add(bean);
+				}
 
-				bean.setChart(chartAO);
-				chartBeans.add(bean);
 			}
 			ret.setCharts(chartBeans);
 		}

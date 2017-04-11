@@ -150,8 +150,9 @@ public class AccumulatorAPIImpl extends AbstractMoskitoAPIImpl implements Accumu
 		int maxValues = 200;
 
 		int numberOfIds = ids.size();
-		if (numberOfIds == 0)
+		if (numberOfIds == 0) {
 			throw new APIException("No accumulators selected");
+		}
 
 		List<AccumulatedSingleGraphAO> singleGraphDataBeans = new ArrayList<>(numberOfIds);
 
