@@ -29,7 +29,7 @@ public class AccumulatedValue {
 	
 	/**
 	 * Creates a new accumulated value with now as timestamp.
-	 * @param aValue
+	 * @param aValue the value for now.
 	 */
 	public AccumulatedValue(String aValue){
 		this(aValue, System.currentTimeMillis());

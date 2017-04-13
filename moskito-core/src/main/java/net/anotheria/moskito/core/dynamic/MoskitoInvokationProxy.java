@@ -50,7 +50,7 @@ import java.util.List;
  * <pre>
  * For example if you have an 
  * public interface IImagesService {
- * 	List<Image> getImages() throws ImagesServiceException;
+ * 	List&lt;Image&gt; getImages() throws ImagesServiceException;
  * }
  * and an implementation of it : ImageServiceImpl, with whatever implementation details, and you want to monitor all calls to this impl, and you typically have an ImageServiceFactory
  * all you need to do is (example code):

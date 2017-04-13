@@ -8,7 +8,7 @@ import net.anotheria.moskito.core.stats.impl.StatValueFactory;
 /**
  * Statistics for a memory pool usage.
  * @author lrosenberg
- * @see http://java.sun.com/j2se/1.5.0/docs/api/java/lang/management/MemoryUsage.html
+ * see http://java.sun.com/j2se/1.5.0/docs/api/java/lang/management/MemoryUsage.html
  *
  */
 public class MemoryPoolStats extends AbstractMemoryPoolStats implements IMemoryPoolStats{

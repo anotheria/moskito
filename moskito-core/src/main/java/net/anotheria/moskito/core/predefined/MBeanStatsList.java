@@ -387,81 +387,51 @@ public class MBeanStatsList extends ArrayList<GenericStats> {
         }
     }
 
-    /**
-     * @{inheritDoc}
-     */
     @Override
     public boolean add(final GenericStats e) {
         throw new UnsupportedOperationException();
     }
 
-    /**
-     * @{inheritDoc}
-     */
     @Override
     public void add(final int index, final GenericStats element) {
         throw new UnsupportedOperationException();
     }
 
-    /**
-     * @{inheritDoc}
-     */
     @Override
     public boolean addAll(final Collection<? extends GenericStats> c) {
         throw new UnsupportedOperationException();
     }
 
-    /**
-     * @{inheritDoc}
-     */
     @Override
     public boolean addAll(final int index, final Collection<? extends GenericStats> c) {
         throw new UnsupportedOperationException();
     }
 
-    /**
-     * @{inheritDoc}
-     */
     @Override
     public void clear() {
         throw new UnsupportedOperationException();
     }
 
-    /**
-     * @{inheritDoc}
-     */
     @Override
     public GenericStats remove(final int index) {
         throw new UnsupportedOperationException();
     }
 
-    /**
-     * @{inheritDoc}
-     */
     @Override
     public boolean remove(final Object o) {
         throw new UnsupportedOperationException();
     }
 
-    /**
-     * @{inheritDoc}
-     */
     @Override
     public boolean removeAll(final Collection<?> c) {
         throw new UnsupportedOperationException();
     }
 
-    /**
-     * @{inheritDoc}
-     */
     @Override
     public boolean retainAll(final Collection<?> c) {
         throw new UnsupportedOperationException();
     }
 
-    /**
-     * @{inheritDoc}
-     */
     @Override
     public GenericStats set(final int index, final GenericStats element) {
         throw new UnsupportedOperationException();

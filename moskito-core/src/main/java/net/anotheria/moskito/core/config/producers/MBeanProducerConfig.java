@@ -103,9 +103,6 @@ public class MBeanProducerConfig implements Serializable {
         this.updateAutomatically = flag;
     }
 
-    /**
-     * @{inheritDoc}
-     */
     @Override
     public String toString() {
         return "MBeanProducerConfig{" + "registerAutomatically=" + registerAutomatically + ", updateAutomatically="

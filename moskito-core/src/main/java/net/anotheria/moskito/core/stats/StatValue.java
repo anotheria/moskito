@@ -198,7 +198,7 @@ public interface StatValue {
 
 	/**
 	 * This method sets the given long value to be the current value of all registered 
-	 * Intervals depending on the condition "current value < given value".
+	 * Intervals depending on the condition "current value &lt; given value".
 	 * Particularly, this includes the absolute value.<br> 
 	 * ATTENTION: The Intervals will not be resetted. So the measured values of the first next Interval 
 	 * cycles are invalid.  
@@ -209,7 +209,7 @@ public interface StatValue {
 
 	/**
 	 * This method sets the given int value to be the current value of all registered 
-	 * Intervals depending on the condition "current value < given value".
+	 * Intervals depending on the condition "current value &lt; given value".
 	 * Particularly, this includes the absolute value.<br> 
 	 * ATTENTION: The Intervals will not be resetted. So the measured values of the first next Interval 
 	 * cycles are invalid.  
@@ -220,7 +220,7 @@ public interface StatValue {
 
 	/**
 	 * This method sets the given double value to be the current value of all registered 
-	 * Intervals depending on the condition "current value < given value".
+	 * Intervals depending on the condition "current value &lt; given value".
 	 * Particularly, this includes the absolute value.<br> 
 	 * ATTENTION: The Intervals will not be resetted. So the measured values of the first next Interval 
 	 * cycles are invalid.  
@@ -231,7 +231,7 @@ public interface StatValue {
 
 	/**
 	 * This method sets the given long value to be the current value of all registered 
-	 * Intervals depending on the condition "current value > given value".
+	 * Intervals depending on the condition "current value &gt; given value".
 	 * Particularly, this includes the absolute value.<br> 
 	 * ATTENTION: The Intervals will not be resetted. So the measured values of the first next Interval 
 	 * cycles are invalid.  
@@ -242,7 +242,7 @@ public interface StatValue {
 
 	/**
 	 * This method sets the given int value to be the current value of all registered 
-	 * Intervals depending on the condition "current value > given value".
+	 * Intervals depending on the condition "current value &gt; given value".
 	 * Particularly, this includes the absolute value.<br> 
 	 * ATTENTION: The Intervals will not be resetted. So the measured values of the first next Interval 
 	 * cycles are invalid.  
@@ -253,7 +253,7 @@ public interface StatValue {
 
 	/**
 	 * This method sets the given double value to be the current value of all registered 
-	 * Intervals depending on the condition "current value > given value".
+	 * Intervals depending on the condition "current value &gt; given value".
 	 * Particularly, this includes the absolute value.<br> 
 	 * ATTENTION: The Intervals will not be resetted. So the measured values of the first next Interval 
 	 * cycles are invalid.  
