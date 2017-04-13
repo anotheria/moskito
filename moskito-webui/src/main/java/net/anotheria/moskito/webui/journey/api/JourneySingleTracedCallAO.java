@@ -25,7 +25,6 @@ public class JourneySingleTracedCallAO implements Serializable{
 	
 	/**
 	 * Number of executed steps in this call.
-	 * @return
 	 */
 	private int containedSteps;
 

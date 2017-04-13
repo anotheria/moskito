@@ -16,7 +16,6 @@ import java.util.List;
  * API for operations on thresholds.
  *
  * @author lrosenberg
- * @since 11.02.13 18:45
  */
 @DistributeMe(agentsSupport=false)
 @SupportService
@@ -63,5 +62,5 @@ public interface ThresholdAPI extends API, Service {
 	 * @return
 	 * @throws APIException
 	 */
-	List<String> getThresholdIdsTiedToASpecificProducer(String producerId);
+	List<String> getThresholdIdsTiedToASpecificProducer(String producerId) throws APIException;
 }

@@ -13,7 +13,6 @@ import javax.servlet.http.HttpServletResponse;
  * Creates a new threshold.
  *
  * @author lrosenberg
- * @created 26.08.12 09:44
  */
 public class CreateThresholdAction extends BaseThresholdsAction {
 	@Override

@@ -175,7 +175,7 @@ public abstract class MoskitoFilter implements Filter{
 	}
 	
 	/**
-	 * Overwrite this to provide a name allocation mechanism to make request -> name mapping.
+	 * Overwrite this to provide a name allocation mechanism to make request -&gt; name mapping.
 	 * @param req ServletRequest.
 	 * @param res ServletResponse.
 	 * @return name of the use case for stat storage.

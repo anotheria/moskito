@@ -11,7 +11,6 @@ import javax.servlet.http.HttpServletResponse;
  * Deletes a threshold.
  *
  * @author lrosenberg
- * @created 23.08.12 09:52
  */
 public class DeleteThresholdAction extends BaseThresholdsAction{
 	@Override

@@ -1,15 +1,5 @@
 package net.anotheria.moskito.aop.aspect;
 
-import java.lang.reflect.Method;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.ConcurrentMap;
-
-import org.aspectj.lang.ProceedingJoinPoint;
-import org.aspectj.lang.Signature;
-import org.aspectj.lang.reflect.MethodSignature;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import net.anotheria.moskito.aop.annotation.Accumulate;
 import net.anotheria.moskito.aop.annotation.Accumulates;
 import net.anotheria.moskito.aop.util.MoskitoUtils;
@@ -27,6 +17,15 @@ import net.anotheria.moskito.core.registry.ProducerRegistryFactory;
 import net.anotheria.moskito.core.stats.Interval;
 import net.anotheria.moskito.core.util.annotation.AnnotationUtils;
 import net.anotheria.util.StringUtils;
+import org.aspectj.lang.ProceedingJoinPoint;
+import org.aspectj.lang.Signature;
+import org.aspectj.lang.reflect.MethodSignature;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.lang.reflect.Method;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentMap;
 
 /**
  * The basic aspect class.
@@ -72,7 +71,7 @@ public class AbstractMoskitoAspect<S extends IStats> {
 	 * 		OnDemandStatsProducer factory
 	 * @param tracingSupported
 	 * 		is tracing supported
-	 * @return {@link OnDemandStatsProducer<S>}
+	 * @return {@link OnDemandStatsProducer}
 	 */
 	protected OnDemandStatsProducer<S> getProducer(final ProceedingJoinPoint pjp, final String aProducerId, final String aCategory, final String aSubsystem, final boolean withMethod,
 												   final IOnDemandStatsFactory<S> factory, final boolean tracingSupported) {
@@ -98,7 +97,7 @@ public class AbstractMoskitoAspect<S extends IStats> {
 	 * 		is tracing supported
 	 * @param attachDefaultStatsLoggers
 	 * 		allow to attach default loggers
-	 * @return {@link OnDemandStatsProducer<S>}
+	 * @return {@link OnDemandStatsProducer}
 	 */
 	protected OnDemandStatsProducer<S> getProducer(final ProceedingJoinPoint pjp, final String aProducerId, final String aCategory, final String aSubsystem, final boolean withMethod,
 												   final IOnDemandStatsFactory<S> factory, final boolean tracingSupported, final boolean attachDefaultStatsLoggers) {

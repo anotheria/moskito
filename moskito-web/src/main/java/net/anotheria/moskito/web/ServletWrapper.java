@@ -52,7 +52,7 @@ import java.util.List;
 /**
  * This class is used to wrap servlets dynamically in tomcat 5 with specific webapp loader.
  * Its obsolete.
- * @Deprecated
+ * @deprecated 
  */
 public class ServletWrapper implements Servlet, IStatsProducer {
 

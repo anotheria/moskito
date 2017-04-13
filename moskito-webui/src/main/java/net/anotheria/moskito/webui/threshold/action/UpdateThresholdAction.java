@@ -10,10 +10,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * TODO comment this class
+ * Updates an existing threshold.
  *
  * @author lrosenberg
- * @created 26.08.12 09:44
  */
 public class UpdateThresholdAction extends BaseThresholdsAction {
 	@Override

@@ -18,9 +18,6 @@ import java.util.List;
  */
 public class ShowMBeansAction extends AdditionalSectionAction{
     
-	/**
-	 * @{inheritDoc}
-	 */
 	@Override
 	public ActionCommand execute(ActionMapping mapping, FormBean formBean, HttpServletRequest req, HttpServletResponse res) throws Exception {
 

@@ -23,7 +23,7 @@ public class TracerAO implements Serializable {
 	 */
 	private int entryCount;
 	/**
-	 * State of the Tracer -> enabled or disabled. Disabled tracer doesn't collect any traces.
+	 * State of the Tracer -&gt; enabled or disabled. Disabled tracer doesn't collect any traces.
 	 */
 	private boolean enabled;
 
