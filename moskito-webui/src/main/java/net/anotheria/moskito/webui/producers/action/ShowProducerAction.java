@@ -34,6 +34,9 @@
  */
 package net.anotheria.moskito.webui.producers.action;
 
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParser;
 import net.anotheria.maf.action.ActionCommand;
 import net.anotheria.maf.action.ActionMapping;
 import net.anotheria.maf.bean.FormBean;
@@ -51,17 +54,24 @@ import net.anotheria.moskito.webui.shared.bean.StatBean;
 import net.anotheria.moskito.webui.shared.bean.StatBeanSortType;
 import net.anotheria.moskito.webui.shared.bean.StatDecoratorBean;
 import net.anotheria.moskito.webui.shared.bean.UnitBean;
+import net.anotheria.moskito.webui.shared.resource.ReplyObject;
 import net.anotheria.moskito.webui.threshold.bean.ThresholdStatusBean;
 import net.anotheria.util.NumberUtils;
 import net.anotheria.util.sorter.StaticQuickSorter;
 import org.apache.commons.lang.StringUtils;
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -169,7 +179,69 @@ public class ShowProducerAction extends BaseMoskitoUIAction {
 			req.setAttribute("thresholds", thresholdStatusBeans);
 		}
 
+
+		// TODO only for test integration with MoSKito Analyze
+		try {
+			URL url = new URL("http://localhost:8080/ma/api/v1/charts/period");
+			HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+			connection.setDoOutput(true);
+			connection.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
+			connection.setRequestProperty("Accept", "application/json");
+			connection.setRequestMethod("POST");
+
+			JSONObject requestBody = createMARequest();
+
+			OutputStream os = connection.getOutputStream();
+			os.write(requestBody.toString().getBytes("UTF-8"));
+			os.flush();
+
+			if (connection.getResponseCode() != HttpURLConnection.HTTP_OK) {
+				throw new RuntimeException("Failed : HTTP error code : " + connection.getResponseCode());
+			}
+
+			BufferedReader br = new BufferedReader(new InputStreamReader((connection.getInputStream())));
+
+			String output = null;
+			String result = "";
+			while ((output = br.readLine()) != null) {
+				result += output;
+				System.out.println(output);
+			}
+
+			if (!"".equals(result)) {
+				JsonParser jp = new JsonParser();
+				JsonElement je = jp.parse(result);
+				ReplyObject replyObject = new GsonBuilder().setPrettyPrinting().create().fromJson(je, ReplyObject.class);
+				System.out.println(replyObject);
+			}
+
+			connection.disconnect();
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+
 		return mapping.findCommand( getForward(req) );
+	}
+
+	private JSONObject createMARequest() throws JSONException {
+		final JSONObject result = new JSONObject();
+
+		result.put("interval", "1m");
+		result.put("startDate", "2017-04-02 12:10");
+		result.put("endDate", "2017-04-13 12:30");
+
+		JSONArray producers = new JSONArray();
+
+		JSONObject producer = new JSONObject();
+		producer.put("producerId", "sales");
+		producer.put("stat", "brioche");
+		producer.put("value", "Number");
+
+		producers.put(producer);
+
+		result.put("producers", producers);
+
+		return result;
 	}
 
 	//TODO copied from show accumulators, should be moved to utility.
