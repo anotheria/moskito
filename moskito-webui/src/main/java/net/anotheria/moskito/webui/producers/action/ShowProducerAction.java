@@ -45,6 +45,7 @@ import net.anotheria.moskito.core.decorators.value.StatValueAO;
 import net.anotheria.moskito.core.inspection.CreationInfo;
 import net.anotheria.moskito.webui.accumulators.api.AccumulatedSingleGraphAO;
 import net.anotheria.moskito.webui.accumulators.api.AccumulatedValueAO;
+import net.anotheria.moskito.webui.accumulators.api.AccumulatorAO;
 import net.anotheria.moskito.webui.producers.api.ProducerAO;
 import net.anotheria.moskito.webui.producers.api.StatLineAO;
 import net.anotheria.moskito.webui.shared.action.BaseMoskitoUIAction;
@@ -190,7 +191,7 @@ public class ShowProducerAction extends BaseMoskitoUIAction {
 	private AccumulatedSingleGraphAO getMAGraph(){
 		// TODO only for test integration with MoSKito Analyze
 		try {
-			URL url = new URL("http://localhost:8090/ma/api/v1/charts/period");
+			URL url = new URL("http://localhost:8080/ma/api/v1/charts/period");
 			HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 			connection.setDoOutput(true);
 			connection.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
@@ -236,8 +237,8 @@ public class ShowProducerAction extends BaseMoskitoUIAction {
 		final JSONObject result = new JSONObject();
 
 		result.put("interval", "1m");
-		result.put("startDate", "2017-04-12 13:00");
-		result.put("endDate", "2017-04-12 15:00");
+		result.put("startDate", "2017-04-12 11:00");
+		result.put("endDate", "2017-04-12 19:00");
 
 		JSONArray producers = new JSONArray();
 
@@ -444,16 +445,34 @@ public class ShowProducerAction extends BaseMoskitoUIAction {
 
 	private AccumulatedSingleGraphAO convert(ReplyObject replyObject){
 		AccumulatedSingleGraphAO maGraph = new AccumulatedSingleGraphAO("sales.brioche.Number - 1m");
+
 		List<Map<String, Object>> chartsItems = (List<Map<String, Object>>) replyObject.getResults().get("charts");
 
+
+		List<AccumulatedValueAO> list = new ArrayList<>();
 		for (Map<String, Object> chartItem: chartsItems){
-			 AccumulatedValueAO valueAO = new AccumulatedValueAO(String.valueOf(((Double) chartItem.get("millis")).longValue()));
+			 /*AccumulatedValueAO valueAO = new AccumulatedValueAO(String.valueOf(((Double) chartItem.get("millis")).longValue()));
 			 valueAO.setIsoTimestamp((String) chartItem.get("timestamp"));
 			 List<Map<String, String>> values = (List<Map<String, String>>) chartItem.get("values");
 			 Map<String, String> valuesMap = values.get(0);
 			 valueAO.addValue(valuesMap.get("sales.brioche.Number"));
-			 maGraph.add(valueAO);
+			 maGraph.add(valueAO);*/
+
+			List<Map<String, String>> values = (List<Map<String, String>>) chartItem.get("values");
+			Map<String, String> valuesMap = values.get(0);
+			long rawTimestamp = ((Double) chartItem.get("millis")).longValue();
+			long timestamp = rawTimestamp /1000*1000;
+			//for single graph data
+			AccumulatedValueAO ao = new AccumulatedValueAO(NumberUtils.makeTimeString(timestamp));
+			ao.addValue(valuesMap.get("sales.brioche.Number"));
+			ao.setIsoTimestamp(NumberUtils.makeISO8601TimestampString(rawTimestamp));
+			ao.setNumericTimestamp(rawTimestamp);
+
+			list.add(ao);
 		}
+
+		maGraph.setData(list);
+
 		return maGraph;
 	}
 
