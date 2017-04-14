@@ -451,12 +451,6 @@ public class ShowProducerAction extends BaseMoskitoUIAction {
 
 		List<AccumulatedValueAO> list = new ArrayList<>();
 		for (Map<String, Object> chartItem: chartsItems){
-			 /*AccumulatedValueAO valueAO = new AccumulatedValueAO(String.valueOf(((Double) chartItem.get("millis")).longValue()));
-			 valueAO.setIsoTimestamp((String) chartItem.get("timestamp"));
-			 List<Map<String, String>> values = (List<Map<String, String>>) chartItem.get("values");
-			 Map<String, String> valuesMap = values.get(0);
-			 valueAO.addValue(valuesMap.get("sales.brioche.Number"));
-			 maGraph.add(valueAO);*/
 
 			List<Map<String, String>> values = (List<Map<String, String>>) chartItem.get("values");
 			Map<String, String> valuesMap = values.get(0);
