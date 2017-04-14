@@ -44,6 +44,7 @@ import net.anotheria.moskito.core.decorators.IDecorator;
 import net.anotheria.moskito.core.decorators.value.StatValueAO;
 import net.anotheria.moskito.core.inspection.CreationInfo;
 import net.anotheria.moskito.webui.accumulators.api.AccumulatedSingleGraphAO;
+import net.anotheria.moskito.webui.accumulators.api.AccumulatedValueAO;
 import net.anotheria.moskito.webui.producers.api.ProducerAO;
 import net.anotheria.moskito.webui.producers.api.StatLineAO;
 import net.anotheria.moskito.webui.shared.action.BaseMoskitoUIAction;
@@ -154,10 +155,12 @@ public class ShowProducerAction extends BaseMoskitoUIAction {
 
 		//check if there are accumulators or thresholds associated with this producer.
 		List<String> accumulatorIdsTiedToThisProducer = getAccumulatorAPI().getAccumulatorIdsTiedToASpecificProducer(producer.getProducerId());
+		AccumulatedSingleGraphAO maGraph = getMAGraph();
 		if (accumulatorIdsTiedToThisProducer.size()>0){
 			req.setAttribute("accumulatorsPresent", Boolean.TRUE);
 			//create multiple graphs with one line each.
 			List<AccumulatedSingleGraphAO> singleGraphDataBeans = getAccumulatorAPI().getChartsForMultipleAccumulators(accumulatorIdsTiedToThisProducer);
+			singleGraphDataBeans.add(maGraph);
 			req.setAttribute("singleGraphData", singleGraphDataBeans);
 			req.setAttribute("accumulatorsColors", accumulatorsColorsToJSON(singleGraphDataBeans));
 
@@ -180,9 +183,14 @@ public class ShowProducerAction extends BaseMoskitoUIAction {
 		}
 
 
+
+		return mapping.findCommand( getForward(req) );
+	}
+
+	private AccumulatedSingleGraphAO getMAGraph(){
 		// TODO only for test integration with MoSKito Analyze
 		try {
-			URL url = new URL("http://localhost:8080/ma/api/v1/charts/period");
+			URL url = new URL("http://localhost:8090/ma/api/v1/charts/period");
 			HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 			connection.setDoOutput(true);
 			connection.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
@@ -208,27 +216,28 @@ public class ShowProducerAction extends BaseMoskitoUIAction {
 				System.out.println(output);
 			}
 
+			AccumulatedSingleGraphAO graphAO = null;
 			if (!"".equals(result)) {
 				JsonParser jp = new JsonParser();
 				JsonElement je = jp.parse(result);
 				ReplyObject replyObject = new GsonBuilder().setPrettyPrinting().create().fromJson(je, ReplyObject.class);
 				System.out.println(replyObject);
+				graphAO = convert(replyObject);
 			}
-
 			connection.disconnect();
+			return graphAO;
 		} catch(Exception e) {
 			e.printStackTrace();
+			return null;
 		}
-
-		return mapping.findCommand( getForward(req) );
 	}
 
 	private JSONObject createMARequest() throws JSONException {
 		final JSONObject result = new JSONObject();
 
 		result.put("interval", "1m");
-		result.put("startDate", "2017-04-02 12:10");
-		result.put("endDate", "2017-04-13 12:30");
+		result.put("startDate", "2017-04-12 13:00");
+		result.put("endDate", "2017-04-12 15:00");
 
 		JSONArray producers = new JSONArray();
 
@@ -431,6 +440,21 @@ public class ShowProducerAction extends BaseMoskitoUIAction {
 	@Override
 	protected boolean exportSupported() {
 		return true;
+	}
+
+	private AccumulatedSingleGraphAO convert(ReplyObject replyObject){
+		AccumulatedSingleGraphAO maGraph = new AccumulatedSingleGraphAO("sales.brioche.Number - 1m");
+		List<Map<String, Object>> chartsItems = (List<Map<String, Object>>) replyObject.getResults().get("charts");
+
+		for (Map<String, Object> chartItem: chartsItems){
+			 AccumulatedValueAO valueAO = new AccumulatedValueAO(String.valueOf(((Double) chartItem.get("millis")).longValue()));
+			 valueAO.setIsoTimestamp((String) chartItem.get("timestamp"));
+			 List<Map<String, String>> values = (List<Map<String, String>>) chartItem.get("values");
+			 Map<String, String> valuesMap = values.get(0);
+			 valueAO.addValue(valuesMap.get("sales.brioche.Number"));
+			 maGraph.add(valueAO);
+		}
+		return maGraph;
 	}
 
 }
