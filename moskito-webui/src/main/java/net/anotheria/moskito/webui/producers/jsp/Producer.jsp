@@ -180,6 +180,29 @@
                     </div>
                 </div>
             </ano:iterate>
+
+        <div class="box" id="parentBoxLast">
+            <div class="box-title">
+                <a class="accordion-toggle tooltip-bottom" title="Close/Open" data-toggle="collapse"
+                   href="#collapse-chart-sales_brioche_Number___1m_js"><i class="fa fa-caret-right"></i></a>
+
+                <h3 class="pull-left">
+                    Chart for sales.brioche.Number - 1m js
+                </h3>
+
+                <div class="box-right-nav">
+                    <a href="" class="tooltip-bottom" title="Refresh"><i class="fa fa-refresh"></i></a>
+                </div>
+            </div>
+            <div id="collapse-chart-sales_brioche_Number___1m_js"
+                 class="box-content accordion-body collapse in">
+                <div class="paddner">
+                    <div id="chart_accumsales_brioche_Number___1m_js" class="accumulator-chart"></div>
+                </div>
+            </div>
+        </div>
+
+
     </div>
     <%-- /charts' boxes --%>
 
@@ -558,6 +581,51 @@
     function switchgreenvalue(){
         document.forms.CreateThreshold.yellowValue.value=document.forms.CreateThreshold.greenValue.value;
     }
+
+    $.ajax({
+        type: "POST",
+        url: "http://localhost:8080/ma/api/v1/charts/period",
+        data: JSON.stringify({
+            "interval": "1m",
+            "producers": [
+                {
+                    "producerId": "sales",
+                    "stat": "brioche",
+                    "value": "Number"
+                }
+            ],
+            "startDate": "2017-04-12 11:00",
+            "endDate": "2017-04-12 19:00"
+        }   ),
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function(data)   {
+            var names = ('sales.brioche.Number - 1m js' && ['sales.brioche.Number - 1m js']);
+            var dataArray = [];
+            $(jQuery.parseJSON(JSON.stringify(data.results.charts))).each(function() {
+                dataArray.push([this.millis, this.values[0]["sales.brioche.Number"]]);
+            });
+            console.log(dataArray)
+            var chartParams = {
+                container: 'chart_accumsales_brioche_Number___1m_js',
+                names: names,
+                data: dataArray,
+                colors: accumulatorsColors,
+                type: '',
+                title: '',
+                dataType: 'datetime',
+                options: {
+                    legendsPerSlice: 7,
+                    margin: {top: 20, right: 40, bottom: 30, left: 40}
+                }
+            };
+
+            chartEngineIniter[chartEngineName](chartParams);
+        },
+        failure: function(errMsg)   {
+            console.log(data);
+        }
+    });
 </script>
 
 </body>
