@@ -337,9 +337,8 @@
                         colorCode = thresholdStatus["colorCode"];
 
                 var $thresholdItem = $('.threshold-item').eq(idx);
-                $thresholdItem.attr('data-original-title', name + " " + value);
                 $thresholdItem.find(".threshold-title").text(name + " " + value);
-                $thresholdItem.find("i").attr("class", "status status-" + colorCode);
+                $thresholdItem.find("i.status").attr("class", "status status-" + colorCode);
             });
         }
 
