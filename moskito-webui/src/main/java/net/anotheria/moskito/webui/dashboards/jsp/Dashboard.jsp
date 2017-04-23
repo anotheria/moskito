@@ -346,9 +346,9 @@
             _.each(gauges, function (gauge, idx) {
                 chartEngineIniter.d3charts.dispatch.refreshGauge({
                     "containerId": "#gaugeChart" + idx,
-                    "min": gauge["min"],
-                    "max": gauge["max"],
-                    "current": gauge["current"]
+                    "min": Number(gauge["min"]),
+                    "max": Number(gauge["max"]),
+                    "current": Number(gauge["current"])
                 });
             });
         }

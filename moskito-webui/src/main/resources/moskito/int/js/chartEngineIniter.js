@@ -1332,6 +1332,19 @@ var D3chart = (function () {
                     this.config.minorTicks = configuration.minorTicks || 2;
 
                     this.config.transitionDuration = configuration.transitionDuration || 500;
+
+                    this.config.zones.forEach(function (zone) {
+                        if (!zone || !zone.enabled || !zone.color)
+                            return;
+
+                        _this.config.bandZones = _this.config.bandZones || [];
+
+                        _this.config.bandZones.push({
+                            colorCode: zone.colorCode || zoneColours[zone.color],
+                            from: _this.config.min + _this.config.range * zone.from,
+                            to: _this.config.min + _this.config.range * zone.to
+                        })
+                    });
                 };
 
                 this.render = function () {
@@ -1505,7 +1518,7 @@ var D3chart = (function () {
                             });
                         });
 
-                    this.redrawCurrentValue(this.config.min, 0);
+                    this.redraw(this.config.min, 0);
                 };
 
                 this.buildPointerPath = function (value) {
@@ -1546,33 +1559,34 @@ var D3chart = (function () {
                 };
 
                 this.redrawValues = function (min, max, current) {
-                    // check if min/max/current were changed
-                    if (this.config.min == min
-                        && this.config.max == max
-                        && this.config.current == current) {
+                    // if min/max was changed than recreate gauge
+                    if (this.config.min != min || this.config.max != max) {
+                        // create new chart config
+                        var newChartConfiguration = _.cloneDeep(configuration);
+                        newChartConfiguration.min = min;
+                        newChartConfiguration.max = max;
+                        newChartConfiguration.current = current;
+
+                        // reconfigure gauge
+                        this.configure(newChartConfiguration);
+
+                        // re-render gauge
+                        d3.select(this.placeholderSelector).html("");
+                        this.render();
+                        this.redraw(current);
                         return;
                     }
 
-                    // create new chart config
-                    var newChartConfiguration = _.cloneDeep(configuration);
-                    newChartConfiguration.min = min;
-                    newChartConfiguration.max = max;
-                    newChartConfiguration.current = current;
+                    // check if current value was changed
+                    if (this.config.current == current) {
+                        return;
+                    }
 
-                    // reconfigure gauge
-                    this.configure(newChartConfiguration);
-
-                    // redraw min/max values
-                    this.body.select('text.minValue').text(siPrefixFormat(this.config.min, 1));
-                    this.body.select('text.maxValue').text(siPrefixFormat(this.config.max, 1));
-
-                    this.redrawCurrentValue(this.config.current);
+                    this.config.current = current;
+                    this.redraw(current);
                 };
 
-                this.redrawCurrentValue = function (value, transitionDuration) {
-                    // update config value
-                    // self.config.current = value ? value : 0;
-
+                this.redraw = function (value, transitionDuration) {
                     var pointerContainer = this.body.select(".pointerContainer");
 
                     var valueToShow = this.config.complete ? siPrefixFormat(value, 1) : "Not Ready";
@@ -1621,21 +1635,6 @@ var D3chart = (function () {
             }
 
             var _createGauge = function (containerId, config) {
-                var range = config.max - config.min;
-
-                config.bandZones = [];
-
-                config.zones.forEach(function (zone) {
-                    if (!zone || !zone.enabled || !zone.color)
-                        return;
-
-                    config.bandZones.push({
-                        colorCode: zone.colorCode || zoneColours[zone.color],
-                        from: config.min + range * zone.from,
-                        to: config.min + range * zone.to
-                    })
-                });
-
                 var gauge = new Gauge(containerId, config);
                 _gauges[containerId] = {
                     name: config.label,
@@ -1643,7 +1642,7 @@ var D3chart = (function () {
                 };
 
                 gauge.render();
-                gauge.redrawCurrentValue(config.current);
+                gauge.redraw(config.current);
             };
 
             return (gaugeChart = function (container, params) {
@@ -1669,7 +1668,7 @@ var D3chart = (function () {
                         max = params.max,
                         current = params.current;
 
-                    _gauges[containerId].chart.redrawValues(min, max, current)
+                    _gauges[containerId].chart.redrawValues(min, max, current);
                 });
             })(arguments[0], arguments[1]);
         };
