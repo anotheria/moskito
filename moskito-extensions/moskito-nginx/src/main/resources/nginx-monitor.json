@@ -1,0 +1,15 @@
+{
+  "updatePeriod": 10,
+  "@monitoredInstances": [
+    {
+      "name": "localhost1",
+      "location": "http://localhost/nginx_status",
+      "username": "",
+      "password": ""
+    },
+    {
+      "name":"localhost-httpS",
+      "location":"https://localhost/nginx_status"
+    }
+  ]
+}

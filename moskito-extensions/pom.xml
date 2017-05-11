@@ -18,5 +18,6 @@
 		<module>moskito-sampling-api</module>
         <module>moskito-disk-space-monitoring</module>
         <module>moskito-mongodb</module>
+        <module>moskito-nginx</module>
     </modules>
 </project>
