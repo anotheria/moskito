@@ -67,6 +67,10 @@ public final class NginxMonitor {
         } else {
             final Set<String> monitorNames = new HashSet<>();
             for (NginxMonitoredInstance instance : instances) {
+                if (StringUtils.isEmpty(instance.getName())) {
+                    LOGGER.warn("Found empty nginx name, skipping until changed.");
+                    continue;
+                }
                 //check for duplicate names, we should not register several producers with same producerId.
                 if (!monitorNames.add(instance.getName())) {
                     LOGGER.warn("Found duplicate name in configuration: '" + instance.getName() + "', skipping.");
@@ -146,7 +150,7 @@ public final class NginxMonitor {
             if (instance == null)
                 throw new IllegalArgumentException("NginxMonitoredInstance argument is null");
             this.nginx = instance;
-            this.producerId = "NginxMonitor-" + instance.getName();
+            this.producerId = instance.getName();
             this.nginxStats = new NginxStats(instance.getName());
             this.stats = Collections.singletonList(nginxStats);
         }

@@ -25,7 +25,7 @@ import static net.anotheria.moskito.extension.nginx.NginxMetrics.getStrings;
 public class NginxStatsDecorator  extends AbstractDecorator<NginxStats> {
 
     public NginxStatsDecorator() {
-        super("NginxMonitor",
+        super("Nginx",
                 getStrings(VALUENAME),
                 getStrings(SHORTEXPLANATION),
                 getStrings(EXPLANATION)
