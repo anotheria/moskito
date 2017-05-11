@@ -42,8 +42,20 @@ public enum NginxMetrics {
             return status.getHandled();
         }
     },
-    /** 'Dropped connections' metric. Calculated from other metrics.*/
-    DROPPED(StatValueTypes.COUNTER, "Dropped", "Total number of droppped connections.") {
+    /** Average amount of handled connections per second. */
+    HANDLEDPERSECOND(StatValueTypes.DOUBLE, RateValueHolderFactory.INSTANCE, "Handled/sec", "Handled connections per second.") {
+        long getValue(NginxStatus status){
+            return status.getHandled();
+        }
+    },
+    /** 'Dropped connections' metric. Calculated as difference between handled and accepted metrics.*/
+    DROPPED(StatValueTypes.COUNTER, "Dropped", "Total number of dropped connections.") {
+        long getValue(NginxStatus status){
+            return status.getHandled() - status.getAccepted();
+        }
+    },
+    /** Average number of dropped connections per second. */
+    DROPPEDPERSECOND(StatValueTypes.DOUBLE, RateValueHolderFactory.INSTANCE, "Dropped/sec", "Average number of dropped connections per second.") {
         long getValue(NginxStatus status){
             return status.getHandled() - status.getAccepted();
         }
