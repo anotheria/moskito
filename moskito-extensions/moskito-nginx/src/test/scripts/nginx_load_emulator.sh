@@ -13,21 +13,24 @@ delay=60s
 log=nginx_load_emulator.log
 pidfile=nginx_load_emulator.PID
 
-if [[ $1 = "stop" && -e ${pidfile} ]]; then
-    pid=`cat ${pidfile}`
-    cmdline=/proc/${pid}/cmdline
-    if [[ -e ${cmdline} ]]; then
-        grep -q "nginx_load_emulator" ${cmdline} &&
-        kill -9 ${pid} &&
-        rm ${pidfile} &&
-        echo -e "\n\n"`date` : STOPPED LOADING NGINX 2>&1 | tee -a ${log} &&
-        echo "nginx_load_emulator process killed." 2>&1 | tee -a ${log}
+if [[ $1 = "stop" ]]; then
+    if [[ -e ${pidfile} ]]; then
+        pid=`cat ${pidfile}`
+        cmdline=/proc/${pid}/cmdline
+        if [[ -e ${cmdline} ]]; then
+            grep -q "nginx_load_emulator" ${cmdline} &&
+            kill -9 ${pid} &&
+            rm ${pidfile} &&
+            echo -e "\n\n"`date` : STOPPED LOADING NGINX 2>&1 | tee -a ${log} &&
+            echo "nginx_load_emulator process killed." 2>&1 | tee -a ${log}
+        else
+            echo "Could not find nginx_load_emulator process, maybe it's not running?"
+        fi
     else
-        echo "Could not find nginx_load_emulator process, maybe it's not running?"
+        echo "PID file does not exist, maybe load emulator is not running?"
     fi
     exit
 fi
-
 
 echo `date` : "STARTED LOADING NGINX" > ${log}
 echo `date` : "PARAMS: autostop=${autostop} repeats=${repeats} delay=${delay} url=${url}" >> ${log}
