@@ -1,16 +1,15 @@
 package net.anotheria.moskito.extension.nginx.config;
 
 import net.anotheria.moskito.extension.nginx.HttpHelper;
-import net.anotheria.moskito.extension.nginx.NginxMonitor;
 import net.anotheria.util.StringUtils;
 import org.configureme.ConfigurationManager;
-import static org.junit.Assert.*;
-
 import org.junit.Ignore;
 import org.junit.Test;
 
 import java.io.IOException;
 import java.util.Random;
+
+import static org.junit.Assert.*;
 
 /**
  * Test of NginxMonitorConfig configuring.
@@ -23,7 +22,6 @@ public class NginxMonitorConfigTest {
     public void testConfigParsing() {
         NginxMonitorConfig config = new NginxMonitorConfig();
         ConfigurationManager.INSTANCE.configureAs(config, "nginx-monitor");
-        assertEquals(10, config.getUpdatePeriod());
         assertNotNull(config.getMonitoredInstances());
         assertEquals(2, config.getMonitoredInstances().length);
         for (NginxMonitoredInstance nginx : config.getMonitoredInstances()) {

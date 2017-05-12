@@ -21,30 +21,11 @@ import java.util.Arrays;
 public class NginxMonitorConfig implements Serializable {
 
     /**
-     * Default update period in seconds.
-     */
-    private static final long DEFAULT_UPDATE_PERIOD = 60;
-
-    /**
-     * Update period in seconds.
-     */
-    @Configure
-    private long updatePeriod = -1;
-
-    /**
      * Array of NginxMonitoredInstance configurations.
      */
     @Configure
     @SerializedName("@monitoredInstances")
     private NginxMonitoredInstance[] monitoredInstances;
-
-    public long getUpdatePeriod() {
-        return updatePeriod > 0 ? updatePeriod : DEFAULT_UPDATE_PERIOD;
-    }
-
-    public void setUpdatePeriod(long updatePeriod) {
-        this.updatePeriod = updatePeriod;
-    }
 
     public NginxMonitoredInstance[] getMonitoredInstances() {
         return monitoredInstances;
@@ -65,7 +46,6 @@ public class NginxMonitorConfig implements Serializable {
     @Override
     public String toString() {
         return "NginxMonitorConfig{" +
-                "updatePeriod=" + updatePeriod + ", " +
                 "instances=" + Arrays.toString(monitoredInstances) +
                 '}';
     }

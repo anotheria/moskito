@@ -1,5 +1,4 @@
 {
-  "updatePeriod": 10,
   "@monitoredInstances": [
     {
       "name": "localhost1",

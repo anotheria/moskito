@@ -2,6 +2,7 @@ package net.anotheria.moskito.extension.nginx;
 
 import net.anotheria.moskito.core.producers.IStatsProducer;
 import net.anotheria.moskito.core.registry.ProducerRegistryFactory;
+import net.anotheria.moskito.core.util.BuiltinUpdater;
 import net.anotheria.moskito.extension.nginx.config.NginxMonitorConfig;
 import net.anotheria.moskito.extension.nginx.config.NginxMonitoredInstance;
 import net.anotheria.util.StringUtils;
@@ -17,9 +18,6 @@ import java.util.List;
 import java.util.Set;
 import java.util.TimerTask;
 import java.util.concurrent.CopyOnWriteArrayList;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
 
 /**
  * Nginx monitor that handles monitoring of several nginx instances, as
@@ -34,9 +32,6 @@ public final class NginxMonitor {
 
     /** List of all created NginxMonitor objects. Used by reconfiguration method.*/
     private static final List<NginxMonitor> MONITORS = new ArrayList<>();
-
-    /** Executor service that handles calling of update routine.*/
-    private ScheduledExecutorService executorService;
 
     /** NginxMonitorConfig instance. */
     private final NginxMonitorConfig config;
@@ -88,10 +83,7 @@ public final class NginxMonitor {
                     }
                 }
             };
-            if (executorService == null) {
-                executorService = Executors.newSingleThreadScheduledExecutor();
-            }
-            executorService.scheduleAtFixedRate(updateTask, 0, config.getUpdatePeriod(), TimeUnit.SECONDS);
+            BuiltinUpdater.addTask(updateTask);
         }
     }
 
@@ -117,8 +109,6 @@ public final class NginxMonitor {
      */
     void deInitialize() {
         stop();
-        if (executorService != null)
-            executorService.shutdown();
         MONITORS.remove(this);
     }
 
@@ -132,6 +122,7 @@ public final class NginxMonitor {
         }
     }
 
+    /** Producer for NginxStats. */
     private static class NginxStatsProducer implements IStatsProducer<NginxStats> {
 
         /** Configuration of the monitored nginx instance. */
