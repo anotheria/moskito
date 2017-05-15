@@ -6,5 +6,23 @@
       "username": "",
       "password": ""
     }*/
-  ]
+  ],
+  "dev": {
+    "dzhmud": {
+      "@monitoredInstances": [
+        {
+          "name": "localhost",
+          "location": "http://localhost/nginx_status"
+        }
+      ]
+    }
+  },
+  "GB3ANODZHMUD01": {
+    "@monitoredInstances": [
+      {
+        "name": "nginx_at_GB3ANODZHMUD01",
+        "location": "http://localhost:80/nginx_status"
+      }
+    ]
+  }
 }
