@@ -7,7 +7,8 @@ import net.anotheria.moskito.core.stats.Interval;
 import net.anotheria.moskito.core.stats.StatValue;
 import net.anotheria.moskito.core.stats.StatValueTypes;
 import net.anotheria.moskito.core.stats.TypeAwareStatValue;
-import net.anotheria.moskito.core.stats.impl.RateValueHolderFactory;
+import net.anotheria.moskito.core.stats.impl.IntervalRegistry;
+import net.anotheria.moskito.core.stats.impl.SkipFirstDiffLongValueHolderFactory;
 import net.anotheria.moskito.core.stats.impl.StatValueFactory;
 import net.anotheria.moskito.core.stats.impl.TypeAwareStatValueImpl;
 
@@ -31,7 +32,7 @@ public enum NginxMetrics {
         }
     },
     /** Average amount of accepted connections per second.*/
-    ACCEPTEDPERSECOND(StatValueTypes.DOUBLE, RateValueHolderFactory.INSTANCE, "Accepted/sec", "Accepted connections per second.") {
+    ACCEPTEDPERSECOND(StatValueTypes.DIFFLONG, true, "Accepted/sec", "Accepted connections per second.") {
         long getValue(NginxStatus status) {
             return status.getAccepted();
         }
@@ -43,7 +44,7 @@ public enum NginxMetrics {
         }
     },
     /** Average amount of handled connections per second. */
-    HANDLEDPERSECOND(StatValueTypes.DOUBLE, RateValueHolderFactory.INSTANCE, "Handled/sec", "Handled connections per second.") {
+    HANDLEDPERSECOND(StatValueTypes.DIFFLONG, true, "Handled/sec", "Handled connections per second.") {
         long getValue(NginxStatus status){
             return status.getHandled();
         }
@@ -55,7 +56,7 @@ public enum NginxMetrics {
         }
     },
     /** Average number of dropped connections per second. */
-    DROPPEDPERSECOND(StatValueTypes.DOUBLE, RateValueHolderFactory.INSTANCE, "Dropped/sec", "Average number of dropped connections per second.") {
+    DROPPEDPERSECOND(StatValueTypes.DIFFLONG, true, "Dropped/sec", "Average number of dropped connections per second.") {
         long getValue(NginxStatus status){
             return status.getHandled() - status.getAccepted();
         }
@@ -67,7 +68,7 @@ public enum NginxMetrics {
         }
     },
     /** Average number of requests served per second.*/
-    REQUESTSPERSECOND(StatValueTypes.DOUBLE, RateValueHolderFactory.INSTANCE, "Req/sec", "Average number of requests served per second") {
+    REQUESTSPERSECOND(StatValueTypes.DIFFLONG, true, "Requests/sec", "Average number of requests served per second") {
         long getValue(NginxStatus status){
             return status.getRequests();
         }
@@ -97,26 +98,28 @@ public enum NginxMetrics {
     private final String shortExpl, explanation;
     /** ValueType of current metric. */
     private final StatValueTypes type;
-    /** ValueHolder factory. Optional. */
-    private final IValueHolderFactory factory;
+    /** If true, value per second will be calculated. */
+    private final boolean isRateValue;
 
     NginxMetrics(StatValueTypes type, String valueName, String ... strings ) {
-        this(type, null, valueName, strings);
+        this(type, false, valueName, strings);
     }
 
-    NginxMetrics(StatValueTypes type, IValueHolderFactory factory, String valueName, String ... strings) {
+    NginxMetrics(StatValueTypes type, boolean isRateValue, String valueName, String ... strings) {
         this.type = type;
-        this.factory = factory;
+        this.isRateValue = isRateValue;
         this.valueName = valueName;
         this.shortExpl = (strings == null || strings.length == 0) ? valueName : strings[0];
         this.explanation = (strings == null || strings.length < 2) ? shortExpl : strings[1];
     }
 
     StatValue createStatValue() {
-        if (factory == null) {
+        if (type != StatValueTypes.DIFFLONG) {
             return StatValueFactory.createStatValue(type, valueName, Constants.getDefaultIntervals());
         } else {
-            TypeAwareStatValue statValue = new TypeAwareStatValueImpl(valueName, type, factory);
+            //for DIFFLONG type use upgraded diffLong value holders that ignore first interval.
+            final IValueHolderFactory factory = SkipFirstDiffLongValueHolderFactory.INSTANCE;
+            final TypeAwareStatValue statValue = new TypeAwareStatValueImpl(valueName, type, factory);
             for (Interval interval : Constants.getDefaultIntervals()) {
                 statValue.addInterval(interval);
             }
@@ -127,13 +130,7 @@ public enum NginxMetrics {
     abstract long getValue(NginxStatus status);
 
     public boolean isDoubleValue() {
-        return type == StatValueTypes.DOUBLE;
-    }
-
-    /** 'default' interval should be ignored for rate metrics.*/
-    private boolean shouldIgnoreInterval(String intervalName) {
-        return this.factory == RateValueHolderFactory.INSTANCE &&
-                "default".equals(intervalName);
+        return isRateValue || type == StatValueTypes.DOUBLE;
     }
 
     /**
@@ -141,8 +138,9 @@ public enum NginxMetrics {
      * @return the current value
      */
     public String getValueAsString(StatValue statValue, String intervalName) {
-        if (shouldIgnoreInterval(intervalName))
-            intervalName = DefaultIntervals.ONE_MINUTE.getName();
+        if (isRateValue) {
+            return String.valueOf(getValueAsDouble(statValue, intervalName));
+        }
         return statValue.getValueAsString(intervalName);
     }
 
@@ -151,8 +149,9 @@ public enum NginxMetrics {
      * @return the current value
      */
     public long getValueAsLong(StatValue statValue, String intervalName) {
-        if (shouldIgnoreInterval(intervalName))
-            intervalName = DefaultIntervals.ONE_MINUTE.getName();
+        if (isRateValue) {
+            return (long)(getValueAsDouble(statValue, intervalName));
+        }
         return statValue.getValueAsLong(intervalName);
     }
 
@@ -161,8 +160,17 @@ public enum NginxMetrics {
      * @return the current value
      */
     public double getValueAsDouble(StatValue statValue, String intervalName) {
-        if (shouldIgnoreInterval(intervalName))
-            intervalName = DefaultIntervals.ONE_MINUTE.getName();
+        if (isRateValue) {
+            //check for DEFAULT can be removed when same check removed from statValueImpl
+            if( "default".equals(intervalName)) {
+                intervalName = DefaultIntervals.ONE_MINUTE.getName();
+            }
+            double result = statValue.getValueAsLong(intervalName);
+            long duration = IntervalRegistry.getInstance().getInterval(intervalName).getLength();
+            if (duration > 0)
+                result /= duration;
+            return result;
+        }
         return statValue.getValueAsDouble(intervalName);
     }
 

@@ -3,8 +3,6 @@ package net.anotheria.moskito.extension.nginx.config;
 import org.configureme.annotations.Configure;
 import org.configureme.annotations.ConfigureMe;
 
-import java.io.Serializable;
-
 /**
  * Configuration bean for single nginx instance.
  * Username and password fields are optional, name and location - mandatory for
@@ -14,7 +12,7 @@ import java.io.Serializable;
  */
 @SuppressWarnings("unused")
 @ConfigureMe
-public class NginxMonitoredInstance implements Serializable {
+public class NginxMonitoredInstance {
 
     /**
      * Name for the nginx instance represented by the {@link #location}.

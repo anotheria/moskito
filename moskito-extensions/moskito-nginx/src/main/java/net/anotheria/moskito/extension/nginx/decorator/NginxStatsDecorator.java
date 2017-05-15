@@ -37,6 +37,7 @@ public class NginxStatsDecorator  extends AbstractDecorator<NginxStats> {
         List<StatValueAO> bean = new ArrayList<>(getCaptions().size());
         for (NginxMetrics metric : NginxMetrics.values()) {
             if (nginxStats.isNeverUpdated()) {
+                //display "NoR" to clearly differentiate not connectible from inactive
                 bean.add(new StringValueAO(metric.valueName, "NoR"));
             } else {
                 if (metric.isDoubleValue())

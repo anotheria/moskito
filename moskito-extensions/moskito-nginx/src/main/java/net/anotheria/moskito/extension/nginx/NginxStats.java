@@ -30,15 +30,21 @@ public class NginxStats extends AbstractStats {
     }
 
     /**
-     * StatValue stats organized in Map for faster access.
+     * Cached List of values names.
      */
+    private static final List<String> VALUE_NAMES = Collections.unmodifiableList(Arrays.asList(
+            NginxMetrics.getStrings(NginxMetrics.Strings.VALUENAME)
+    ));
+
+    /** StatValue stats organized in Map for faster access. */
     private final Map<String, StatValue> statValueMap = new LinkedHashMap<>();
 
     /** Flag signaling that this stats object was never updated. Used by decorator.*/
     private boolean neverUpdated = true;
 
     /**
-     * {@inheritDoc}.
+     * Creates a new NginxStats object with given name.
+     * @param aName name of the stats object.
      */
     NginxStats(String aName) {
         super(aName);
@@ -48,59 +54,70 @@ public class NginxStats extends AbstractStats {
         addStatValues(statValueMap.values().toArray(new StatValue[statValueMap.size()]));
     }
 
-    private StatValue getStatValue(NginxMetrics metric) {
-        return statValueMap.get(metric.valueName);
+    /**
+     * Get 'neverUpdated' status of this NginxStats.
+     * @return <tt>false</tt> until first values update and <tt>true</tt> - after.
+     */
+    public boolean isNeverUpdated() {
+        return neverUpdated;
     }
 
-    public long getStatValueAsLong(NginxMetrics metric, String interval) {
-        return metric.getValueAsLong(getStatValue(metric), interval);
+    /**
+     * {@inheritDoc}.
+     */
+    @Override
+    public List<String> getAvailableValueNames() {
+        return VALUE_NAMES;
     }
 
-    public String getStatValueAsString(NginxMetrics metric, String interval) {
-        return metric.getValueAsString(getStatValue(metric), interval);
-    }
-
-    public double getStatValueAsDouble(NginxMetrics metric, String interval) {
-        return metric.getValueAsDouble(getStatValue(metric), interval);
-    }
-
-    public void update(NginxStatus status) {
+    /**
+     * Update stats with new values.
+     * @param status NginxStatus object with current values.
+     */
+    void update(NginxStatus status) {
         neverUpdated = false;
         for (NginxMetrics metric : NginxMetrics.values()) {
             getStatValue(metric).setValueAsLong(metric.getValue(status));
         }
     }
 
-    public boolean isNeverUpdated() {
-        return neverUpdated;
-    }
-
-    @Override public String toStatsString(String intervalName, TimeUnit timeUnit) {
-        StringBuilder b = new StringBuilder();
-        b.append(getName()).append(' ');
-        for (NginxMetrics metric : NginxMetrics.values()) {
-            b.append(" ").append(metric.valueName).append(": ").append(getStatValueAsString(metric, intervalName));
-        }
-        return b.toString();
-    }
-
-    public void destroy() {
-        super.destroy();
-        statValueMap.clear();
+    private StatValue getStatValue(NginxMetrics metric) {
+        return statValueMap.get(metric.valueName);
     }
 
     /**
-     * Cached List of values names.
+     * Get value of provided metric for the given interval as long value.
+     * @param metric metric which value we wanna get
+     * @param interval the name of the Interval or <code>null</code> to get the absolute value
+     * @return the current value
      */
-    private static final List<String> VALUE_NAMES = Collections.unmodifiableList(Arrays.asList(
-            NginxMetrics.getStrings(NginxMetrics.Strings.VALUENAME)
-    ));
-
-    @Override
-    public List<String> getAvailableValueNames() {
-        return VALUE_NAMES;
+    public long getStatValueAsLong(NginxMetrics metric, String interval) {
+        return metric.getValueAsLong(getStatValue(metric), interval);
     }
 
+    /**
+     * Get value of provided metric for the given interval as double value.
+     * @param metric metric which value we wanna get
+     * @param interval the name of the Interval or <code>null</code> to get the absolute value
+     * @return the current value
+     * */
+    public double getStatValueAsDouble(NginxMetrics metric, String interval) {
+        return metric.getValueAsDouble(getStatValue(metric), interval);
+    }
+
+    /**
+     * Get value of provided metric for the given interval as String value.
+     * @param metric metric which value we wanna get
+     * @param interval the name of the Interval or <code>null</code> to get the absolute value
+     * @return the current value
+     */
+    public String getStatValueAsString(NginxMetrics metric, String interval) {
+        return metric.getValueAsString(getStatValue(metric), interval);
+    }
+
+    /**
+     * {@inheritDoc}.
+     */
     @Override
     public String getValueByNameAsString(String valueName, String intervalName, TimeUnit timeUnit){
         if (valueName == null || valueName.isEmpty())
@@ -110,6 +127,29 @@ public class NginxStats extends AbstractStats {
         if (statValue != null)
             return metric.getValueAsString(statValue, intervalName);
         return super.getValueByNameAsString(valueName, intervalName, timeUnit);
+    }
+
+    /**
+     * {@inheritDoc}.
+     */
+    @Override
+    public String toStatsString(String intervalName, TimeUnit timeUnit) {
+        StringBuilder b = new StringBuilder();
+        b.append(getName()).append(" [");
+        for (NginxMetrics metric : NginxMetrics.values()) {
+            b.append(" ").append(metric.valueName).append(": ").append(getStatValueAsString(metric, intervalName)).append(";");
+        }
+        b.append(']');
+        return b.toString();
+    }
+
+    /**
+     * {@inheritDoc}.
+     */
+    @Override
+    public void destroy() {
+        super.destroy();
+        statValueMap.clear();
     }
 
 }

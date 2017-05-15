@@ -7,6 +7,7 @@ import net.anotheria.moskito.core.stats.Interval;
  *
  * @author dzhmud
  */
+@SuppressWarnings("unused")
 public final class RateValueHolderFactory extends AbstractValueHolderFactory {
 
     /** Single stateless instance. */
