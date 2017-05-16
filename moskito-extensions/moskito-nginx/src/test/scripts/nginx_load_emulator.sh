@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 #emulate some random load on nginx by getting it's status page
-
+#check if 'ab' util can be used instead.
 #nginx status page url. Can be changed to any other url handled by nginx
 url="http://localhost:80/nginx_status"
 autostop=true
