@@ -4,6 +4,7 @@ import net.anotheria.anoplass.api.API;
 import net.anotheria.anoplass.api.APIException;
 import net.anotheria.anoprise.metafactory.Service;
 import net.anotheria.moskito.core.config.MoskitoConfiguration;
+import net.anotheria.moskito.extensions.analyze.AnalyzeProducerChartsWrapper;
 import org.distributeme.annotation.DistributeMe;
 import org.distributeme.annotation.FailBy;
 import org.distributeme.annotation.SupportService;
@@ -63,5 +64,5 @@ public interface AdditionalFunctionalityAPI extends API, Service{
 	 */
 	MoskitoConfiguration getConfiguration() throws APIException;
 
-	boolean isAnalyzePluginEnabled() throws APIException;
+	AnalyzeProducerChartsWrapper getAnalyzeData(String producer) throws APIException;
 }

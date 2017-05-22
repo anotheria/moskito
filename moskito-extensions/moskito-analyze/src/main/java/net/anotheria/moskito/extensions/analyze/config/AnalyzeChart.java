@@ -3,13 +3,17 @@ package net.anotheria.moskito.extensions.analyze.config;
 import org.configureme.annotations.Configure;
 import org.configureme.annotations.ConfigureMe;
 
+import java.io.Serializable;
+
 /**
  * Analyze chart config.
  *
  * @author esmakula
  */
 @ConfigureMe
-public class AnalyzeChart {
+public class AnalyzeChart implements Serializable {
+
+    private static final long serialVersionUID = 7944991628896538886L;
 
     @Configure
     private String name;

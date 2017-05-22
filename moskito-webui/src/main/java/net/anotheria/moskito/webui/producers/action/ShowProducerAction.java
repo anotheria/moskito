@@ -43,8 +43,8 @@ import net.anotheria.maf.bean.FormBean;
 import net.anotheria.moskito.core.decorators.IDecorator;
 import net.anotheria.moskito.core.decorators.value.StatValueAO;
 import net.anotheria.moskito.core.inspection.CreationInfo;
+import net.anotheria.moskito.extensions.analyze.AnalyzeProducerChartsWrapper;
 import net.anotheria.moskito.extensions.analyze.config.AnalyzeChart;
-import net.anotheria.moskito.extensions.analyze.config.MoskitoAnalyzeConfig;
 import net.anotheria.moskito.webui.accumulators.api.AccumulatedSingleGraphAO;
 import net.anotheria.moskito.webui.accumulators.api.AccumulatedValueAO;
 import net.anotheria.moskito.webui.producers.api.AnalyzeRequestData;
@@ -192,10 +192,11 @@ public class ShowProducerAction extends BaseMoskitoUIAction {
         }
 
         // TODO analyze poc integration
-        if (getAdditionalFunctionalityAPI().isAnalyzePluginEnabled()) {
-            String analyzeUrl = MoskitoAnalyzeConfig.getInstance().getUrl();
-            Set<String> charts = MoskitoAnalyzeConfig.getInstance().getChartsByProducer(producer.getProducerId());
-            List<AnalyzeChart> chartsData = MoskitoAnalyzeConfig.getInstance().getChartsDataByProducer(producer.getProducerId());
+        AnalyzeProducerChartsWrapper producerChartsWrapper = getAdditionalFunctionalityAPI().getAnalyzeData(producer.getProducerId());
+        if (producerChartsWrapper != null) {
+            String analyzeUrl = producerChartsWrapper.getUrl();
+            Set<String> charts = producerChartsWrapper.getChartTypes();
+            List<AnalyzeChart> chartsData = producerChartsWrapper.getCharts();
 
             if (chartsData.isEmpty()) {
                 return mapping.findCommand(getForward(req));

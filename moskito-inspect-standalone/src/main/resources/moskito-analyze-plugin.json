@@ -3,17 +3,17 @@
 
     "@charts": [
         {
-            "name": "Brioche sales 1m - last 24h",
+            "name": "Wheat sales 1m - last 24h",
             "producerName": "sales",
-            "statName": "brioche",
+            "statName": "wheat",
             "valueName": "Number",
             "intervalName": "1m",
             "chartName": "period"
         },
         {
-            "name": "Lamb sales realtime 5m - last 24h",
+            "name": "Cow sales realtime 5m - last 24h",
             "producerName": "sales",
-            "statName": "lamb",
+            "statName": "cow",
             "valueName": "Number",
             "intervalName": "1m",
             "chartName": "realtime"

@@ -13,6 +13,8 @@ import net.anotheria.moskito.core.plugins.PluginRepository;
 import net.anotheria.moskito.core.stats.Interval;
 import net.anotheria.moskito.core.stats.impl.IntervalRegistry;
 import net.anotheria.moskito.core.timing.IUpdateable;
+import net.anotheria.moskito.extensions.analyze.AnalyzeProducerChartsWrapper;
+import net.anotheria.moskito.extensions.analyze.MoskitoAnalyzePlugin;
 import net.anotheria.moskito.webui.plugins.VisualMoSKitoPlugin;
 import net.anotheria.util.NumberUtils;
 import net.anotheria.util.sorter.DummySortType;
@@ -203,8 +205,12 @@ public class AdditionalFunctionalityAPIImpl extends AbstractMoskitoAPIImpl imple
 	}
 
 	@Override
-	public boolean isAnalyzePluginEnabled() throws APIException {
+	public AnalyzeProducerChartsWrapper getAnalyzeData(String producer) throws APIException {
 		//TODO name is mocked, just for poc
-		return PluginRepository.getInstance().getPlugin("MoskitoAnalyzePlugin") != null;
+		MoskitoPlugin plugin = PluginRepository.getInstance().getPlugin("MoskitoAnalyzePlugin");
+		if (plugin == null)
+			return null;
+		return ((MoskitoAnalyzePlugin) plugin).getChartsByProducer(producer);
 	}
+
 }
