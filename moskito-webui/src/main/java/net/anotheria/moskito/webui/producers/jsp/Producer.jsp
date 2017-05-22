@@ -137,11 +137,11 @@
 
 
     <ano:present name="accumulatorsPresent">
-    <ano:present name="accumulatorsColors">
-        <script type="text/javascript">
-            var accumulatorsColors = <ano:write name="accumulatorsColors"/>;
-        </script>
-    </ano:present>
+        <ano:present name="accumulatorsColors">
+            <script type="text/javascript">
+                var accumulatorsColors = <ano:write name="accumulatorsColors"/>;
+            </script>
+        </ano:present>
 
     <script type="text/javascript">
         var multipleGraphData = [];
@@ -152,10 +152,20 @@
             </ano:iterate>
         ]);
         </ano:iterate>
+
+
+        var analyzeUrl = '<ano:write name="analyzeUrl"/>';
+        var analyzeRequestData = [];
+        analyzeRequestData.push(
+                <ano:iterate name="analyzeRequestData" type="net.anotheria.moskito.webui.producers.api.AnalyzeRequestData" id="requestData" indexId="i">
+                <ano:notEqual name="i" value="0">, </ano:notEqual><ano:write name="requestData" property="json"/>
+                </ano:iterate>
+        );
+
     </script>
 
     <%-- Chart boxes for multiple charts --%>
-    <div>
+    <div id="singleGraphs">
         <ano:iterate name="singleGraphData"
                          type="net.anotheria.moskito.webui.accumulators.api.AccumulatedSingleGraphAO"
                          id="singleGraph">
@@ -181,32 +191,34 @@
                 </div>
             </ano:iterate>
 
-        <div class="box" id="parentBoxLast">
-            <div class="box-title">
-                <a class="accordion-toggle tooltip-bottom" title="Close/Open" data-toggle="collapse"
-                   href="#collapse-chart-sales_brioche_Number___1m_js"><i class="fa fa-caret-right"></i></a>
-
-                <h3 class="pull-left">
-                    Chart for sales.brioche.Number - 1m js
-                </h3>
-
-                <div class="box-right-nav">
-                    <a href="" class="tooltip-bottom" title="Refresh"><i class="fa fa-refresh"></i></a>
-                </div>
-            </div>
-            <div id="collapse-chart-sales_brioche_Number___1m_js"
-                 class="box-content accordion-body collapse in">
-                <div class="paddner">
-                    <div id="chart_accumsales_brioche_Number___1m_js" class="accumulator-chart"></div>
-                </div>
-            </div>
-        </div>
-
-
     </div>
     <%-- /charts' boxes --%>
 
     <script type="text/javascript">
+        _.templateSettings.interpolate = /{{([\s\S]+?)}}/g;
+        var graphTmplt = _.template(
+                '<div class="box">' +
+                    '<div class="box-title">' +
+                        '<a class="accordion-toggle tooltip-bottom" title="Close/Open" data-toggle="collapse" href="#collapse-chart-{{nameForJS}}"><i class="fa fa-caret-right"></i></a>' +
+                        '<h3 class="pull-left">Chart {{name}}</h3>' +
+                        '<div class="box-right-nav">' +
+                            '<a href="" class="tooltip-bottom" title="Refresh"><i class="fa fa-refresh"></i></a>' +
+                        '</div>' +
+                    '</div>' +
+                    '<div id="collapse-chart-{{nameForJS}}" class="box-content accordion-body collapse in">' +
+                        '<div class="paddner">' +
+                            '<div id="chart_accum{{nameForJS}}" class="accumulator-chart"></div>' +
+                        '</div>' +
+                    '</div>' +
+                '</div>');
+
+        function appendChart(nameParam, nameForJSparam){
+            var $singleGraphs = $('#singleGraphs');
+            var graphHtml = graphTmplt({
+                name: nameParam,
+                nameForJS: nameForJSparam});
+            $singleGraphs.append(graphHtml);
+        }
         //changing the order of multiple charts
         $(document).ready(function () {
             $(".up").click(function () {
@@ -219,6 +231,57 @@
                 pdiv.insertAfter(pdiv.next());
                 return false
             });
+            $(analyzeRequestData).each(function (index, value) {
+                var statsToSend = [];
+                $(value.stats).each(function (indexS, valueS) {
+                    appendChart(valueS.name, valueS.nameForJS);
+                    statsToSend.push({producerId : valueS.producerId, stat:valueS.stat, value : valueS.value});
+                });
+                $.ajax({
+                    type: "POST",
+                    url: analyzeUrl + value.chart,
+                    data: JSON.stringify({
+                        "interval": value.interval,
+                        "producers": statsToSend,
+                        "startDate": value.start,
+                        "endDate": value.end
+                    }),
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (data) {
+                            $(value.stats).each(function (indexS, valueS) {
+                                var lineName = valueS.producerId + '_' + valueS.stat + '_' + valueS.value + ' - ' + value.interval;
+                                console.log(lineName);
+                                var chartNameJS = 'chart_accum' + valueS.nameForJS;
+                                var names = ( lineName && [lineName]);
+                                var dataArray = [];
+                                var statName = valueS.producerId + '.' + valueS.stat + '.' + valueS.value;
+                                $(jQuery.parseJSON(JSON.stringify(data.results.charts))).each(function (index, valueData) {
+                                    dataArray.push([valueData.millis, valueData.values[0][statName]]);
+                                });
+                                var chartParams = {
+                                    container: chartNameJS,
+                                    names: names,
+                                    data: dataArray,
+                                    colors: accumulatorsColors,
+                                    type: '',
+                                    title: '',
+                                    dataType: 'datetime',
+                                    options: {
+                                        legendsPerSlice: 7,
+                                        margin: {top: 20, right: 40, bottom: 30, left: 40}
+                                    }
+                                };
+                                console.log(chartParams);
+                                chartEngineIniter[chartEngineName](chartParams);
+                            });
+                    },
+                    failure: function (errMsg) {
+                        console.log(data);
+                    }
+                });
+            });
+
         });
     </script>
 
@@ -581,51 +644,6 @@
     function switchgreenvalue(){
         document.forms.CreateThreshold.yellowValue.value=document.forms.CreateThreshold.greenValue.value;
     }
-
-    $.ajax({
-        type: "POST",
-        url: "http://localhost:8080/ma/api/v1/charts/period",
-        data: JSON.stringify({
-            "interval": "1m",
-            "producers": [
-                {
-                    "producerId": "sales",
-                    "stat": "brioche",
-                    "value": "Number"
-                }
-            ],
-            "startDate": "2017-04-12 11:00",
-            "endDate": "2017-04-12 19:00"
-        }   ),
-        contentType: "application/json; charset=utf-8",
-        dataType: "json",
-        success: function(data)   {
-            var names = ('sales.brioche.Number - 1m js' && ['sales.brioche.Number - 1m js']);
-            var dataArray = [];
-            $(jQuery.parseJSON(JSON.stringify(data.results.charts))).each(function() {
-                dataArray.push([this.millis, this.values[0]["sales.brioche.Number"]]);
-            });
-            console.log(dataArray)
-            var chartParams = {
-                container: 'chart_accumsales_brioche_Number___1m_js',
-                names: names,
-                data: dataArray,
-                colors: accumulatorsColors,
-                type: '',
-                title: '',
-                dataType: 'datetime',
-                options: {
-                    legendsPerSlice: 7,
-                    margin: {top: 20, right: 40, bottom: 30, left: 40}
-                }
-            };
-
-            chartEngineIniter[chartEngineName](chartParams);
-        },
-        failure: function(errMsg)   {
-            console.log(data);
-        }
-    });
 </script>
 
 </body>

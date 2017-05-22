@@ -1,0 +1,22 @@
+{
+    "url" : "http://localhost:8090/ma/api/v1/charts/",
+
+    "@charts": [
+        {
+            "name": "Brioche sales 1m - last 24h",
+            "producerName": "sales",
+            "statName": "brioche",
+            "valueName": "Number",
+            "intervalName": "1m",
+            "chartName": "period"
+        },
+        {
+            "name": "Lamb sales realtime 5m - last 24h",
+            "producerName": "sales",
+            "statName": "lamb",
+            "valueName": "Number",
+            "intervalName": "1m",
+            "chartName": "realtime"
+        }
+    ]
+}

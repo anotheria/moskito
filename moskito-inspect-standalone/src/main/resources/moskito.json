@@ -571,16 +571,22 @@
                 "configurationName": "none",
                 "className": "net.anotheria.moskito.extensions.DiskSpaceMonitoringPlugin"
             },
-          {
-            "name": "VisualPoCPlugin",
-            "configurationName": "none",
-            "className": "net.anotheria.moskitoplugin.emptypage.EmptyPagePlugin"
-          },
-          {
-            "name": "TopPlugin",
-            "configurationName": "none",
-            "className": "net.anotheria.moskitoplugin.topproducers.TopProducersPlugin"
-          }
+            {
+              "name": "VisualPoCPlugin",
+              "configurationName": "none",
+              "className": "net.anotheria.moskitoplugin.emptypage.EmptyPagePlugin"
+            },
+            {
+              "name": "TopPlugin",
+              "configurationName": "none",
+              "className": "net.anotheria.moskitoplugin.topproducers.TopProducersPlugin"
+            },
+            {
+              "name": "MoskitoAnalyzePlugin",
+              "configurationName": "none",
+              "className": "net.anotheria.moskito.extensions.analyze.MoskitoAnalyzePlugin"
+            }
+
 
         ]
     },

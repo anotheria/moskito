@@ -201,4 +201,10 @@ public class AdditionalFunctionalityAPIImpl extends AbstractMoskitoAPIImpl imple
 	public MoskitoConfiguration getConfiguration(){
 		return MoskitoConfigurationHolder.getConfiguration();
 	}
+
+	@Override
+	public boolean isAnalyzePluginEnabled() throws APIException {
+		//TODO name is mocked, just for poc
+		return PluginRepository.getInstance().getPlugin("MoskitoAnalyzePlugin") != null;
+	}
 }

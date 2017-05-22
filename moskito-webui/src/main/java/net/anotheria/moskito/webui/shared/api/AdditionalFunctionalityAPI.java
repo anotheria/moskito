@@ -62,4 +62,6 @@ public interface AdditionalFunctionalityAPI extends API, Service{
 	 * @throws APIException
 	 */
 	MoskitoConfiguration getConfiguration() throws APIException;
+
+	boolean isAnalyzePluginEnabled() throws APIException;
 }

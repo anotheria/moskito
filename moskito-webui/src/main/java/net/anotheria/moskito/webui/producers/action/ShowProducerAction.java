@@ -43,9 +43,12 @@ import net.anotheria.maf.bean.FormBean;
 import net.anotheria.moskito.core.decorators.IDecorator;
 import net.anotheria.moskito.core.decorators.value.StatValueAO;
 import net.anotheria.moskito.core.inspection.CreationInfo;
+import net.anotheria.moskito.extensions.analyze.config.AnalyzeChart;
+import net.anotheria.moskito.extensions.analyze.config.MoskitoAnalyzeConfig;
 import net.anotheria.moskito.webui.accumulators.api.AccumulatedSingleGraphAO;
 import net.anotheria.moskito.webui.accumulators.api.AccumulatedValueAO;
-import net.anotheria.moskito.webui.accumulators.api.AccumulatorAO;
+import net.anotheria.moskito.webui.producers.api.AnalyzeRequestData;
+import net.anotheria.moskito.webui.producers.api.ChartData;
 import net.anotheria.moskito.webui.producers.api.ProducerAO;
 import net.anotheria.moskito.webui.producers.api.StatLineAO;
 import net.anotheria.moskito.webui.shared.action.BaseMoskitoUIAction;
@@ -74,400 +77,456 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import static net.anotheria.moskito.webui.threshold.util.ThresholdStatusBeanUtility.getThresholdBeans;
 
 /**
  * Presents a single, previously selected producer.
- * @author another
  *
+ * @author another
  */
 public class ShowProducerAction extends BaseMoskitoUIAction {
-	/**
-	 * Cumulated caption value.
-	 */
-	private static final String CUMULATED_STAT_NAME_VALUE = "cumulated";
-	/**
-	 * {@link Logger} instance.
-	 */
-	private static final Logger LOGGER = LoggerFactory.getLogger(ShowProducerAction.class);
+    /**
+     * Cumulated caption value.
+     */
+    private static final String CUMULATED_STAT_NAME_VALUE = "cumulated";
+    /**
+     * {@link Logger} instance.
+     */
+    private static final Logger LOGGER = LoggerFactory.getLogger(ShowProducerAction.class);
 
-	@Override public ActionCommand execute(ActionMapping mapping, FormBean bean, HttpServletRequest req, HttpServletResponse res) throws Exception {
+    @Override
+    public ActionCommand execute(ActionMapping mapping, FormBean bean, HttpServletRequest req, HttpServletResponse res) throws Exception {
 
-		String intervalName = getCurrentInterval(req);
-		UnitBean currentUnit = getCurrentUnit(req);
+        String intervalName = getCurrentInterval(req);
+        UnitBean currentUnit = getCurrentUnit(req);
 
-		ProducerAO producer = getProducerAPI().getProducer(req.getParameter(PARAM_PRODUCER_ID), intervalName, currentUnit.getUnit());
-		req.setAttribute("producer", producer);
+        ProducerAO producer = getProducerAPI().getProducer(req.getParameter(PARAM_PRODUCER_ID), intervalName, currentUnit.getUnit());
+        req.setAttribute("producer", producer);
 
-		//copies parameter for producer selection page.
-		String target = req.getParameter("target");
-		req.setAttribute("target", target);
+        //copies parameter for producer selection page.
+        String target = req.getParameter("target");
+        req.setAttribute("target", target);
 
-		//String pFilterZero = req.getParameter(PARAM_FILTER_ZERO);
-		//boolean filterZero = pFilterZero != null && pFilterZero.equalsIgnoreCase("true");
+        //String pFilterZero = req.getParameter(PARAM_FILTER_ZERO);
+        //boolean filterZero = pFilterZero != null && pFilterZero.equalsIgnoreCase("true");
 
-		IDecorator decorator = getDecoratorRegistry().getDecorator(producer.getStatsClazzName());
-		Map<String, GraphDataBean> graphData = new HashMap<>();
-
-
-		List<StatLineAO> allLines = producer.getLines();
-		for (StatLineAO statLine : allLines){
-			try{
-				for(StatValueAO statBean : statLine.getValues()){
-					String graphKey = decorator.getName()+ '_' +statBean.getName();
-					GraphDataBean graphDataBean = new GraphDataBean(decorator.getName()+ '_' +statBean.getJsVariableName(), statBean.getName());
-					graphData.put(graphKey, graphDataBean);
-				}
-			}catch(ArrayIndexOutOfBoundsException e){
-				//producer has no stats at all, ignoring
-			}
-		}
-
-		List<StatDecoratorBean> beans = new ArrayList<>(1);
-		//sort
-
-		final StatDecoratorBean decoratorBean = new StatDecoratorBean();
-		decoratorBean.setName(decorator.getName());
-		decoratorBean.setCaptions(decorator.getCaptions());
-
-		final StatBeanSortType sortType = getStatBeanSortType(decoratorBean, req);
-
-		// populate stats
-		populateStats(decoratorBean, allLines, sortType);
-
-		// populate cumulated stat
-		populateCumulatedStats(decoratorBean, allLines);
-
-		beans.add(decoratorBean);
-
-		// populate graph data
-		populateGraphData(decorator, graphData, allLines);
-
-		req.setAttribute("decorators", beans);
-		req.setAttribute("graphDatas", graphData.values());
-
-		inspectProducer(req, producer);
-
-		//check if there are accumulators or thresholds associated with this producer.
-		List<String> accumulatorIdsTiedToThisProducer = getAccumulatorAPI().getAccumulatorIdsTiedToASpecificProducer(producer.getProducerId());
-		AccumulatedSingleGraphAO maGraph = getMAGraph();
-		if (accumulatorIdsTiedToThisProducer.size()>0){
-			req.setAttribute("accumulatorsPresent", Boolean.TRUE);
-			//create multiple graphs with one line each.
-			List<AccumulatedSingleGraphAO> singleGraphDataBeans = getAccumulatorAPI().getChartsForMultipleAccumulators(accumulatorIdsTiedToThisProducer);
-			singleGraphDataBeans.add(maGraph);
-			req.setAttribute("singleGraphData", singleGraphDataBeans);
-			req.setAttribute("accumulatorsColors", accumulatorsColorsToJSON(singleGraphDataBeans));
-
-			List<String> accumulatorsNames = new LinkedList<>();
-
-			for (AccumulatedSingleGraphAO ao : singleGraphDataBeans){
-				accumulatorsNames.add(ao.getName());
-
-			}
-
-			req.setAttribute("accNames", accumulatorsNames);
-			req.setAttribute("accNamesConcat", net.anotheria.util.StringUtils.concatenateTokens(accumulatorsNames, ","));
-		}
-
-		List<String> thresholdIdsTiedToThisProducers = getThresholdAPI().getThresholdIdsTiedToASpecificProducer(producer.getProducerId());
-		if (thresholdIdsTiedToThisProducers.size()>0){
-			req.setAttribute("thresholdsPresent", Boolean.TRUE);
-			List<ThresholdStatusBean> thresholdStatusBeans = getThresholdBeans(getThresholdAPI().getThresholdStatuses(thresholdIdsTiedToThisProducers.toArray(new String[0])));
-			req.setAttribute("thresholds", thresholdStatusBeans);
-		}
+        IDecorator decorator = getDecoratorRegistry().getDecorator(producer.getStatsClazzName());
+        Map<String, GraphDataBean> graphData = new HashMap<>();
 
 
+        List<StatLineAO> allLines = producer.getLines();
+        for (StatLineAO statLine : allLines) {
+            try {
+                for (StatValueAO statBean : statLine.getValues()) {
+                    String graphKey = decorator.getName() + '_' + statBean.getName();
+                    GraphDataBean graphDataBean = new GraphDataBean(decorator.getName() + '_' + statBean.getJsVariableName(), statBean.getName());
+                    graphData.put(graphKey, graphDataBean);
+                }
+            } catch (ArrayIndexOutOfBoundsException e) {
+                //producer has no stats at all, ignoring
+            }
+        }
 
-		return mapping.findCommand( getForward(req) );
-	}
+        List<StatDecoratorBean> beans = new ArrayList<>(1);
+        //sort
 
-	private AccumulatedSingleGraphAO getMAGraph(){
-		// TODO only for test integration with MoSKito Analyze
-		try {
-			URL url = new URL("http://localhost:8080/ma/api/v1/charts/period");
-			HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-			connection.setDoOutput(true);
-			connection.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
-			connection.setRequestProperty("Accept", "application/json");
-			connection.setRequestMethod("POST");
+        final StatDecoratorBean decoratorBean = new StatDecoratorBean();
+        decoratorBean.setName(decorator.getName());
+        decoratorBean.setCaptions(decorator.getCaptions());
 
-			JSONObject requestBody = createMARequest();
+        final StatBeanSortType sortType = getStatBeanSortType(decoratorBean, req);
 
-			OutputStream os = connection.getOutputStream();
-			os.write(requestBody.toString().getBytes("UTF-8"));
-			os.flush();
+        // populate stats
+        populateStats(decoratorBean, allLines, sortType);
 
-			if (connection.getResponseCode() != HttpURLConnection.HTTP_OK) {
-				throw new RuntimeException("Failed : HTTP error code : " + connection.getResponseCode());
-			}
+        // populate cumulated stat
+        populateCumulatedStats(decoratorBean, allLines);
 
-			BufferedReader br = new BufferedReader(new InputStreamReader((connection.getInputStream())));
+        beans.add(decoratorBean);
 
-			String output = null;
-			String result = "";
-			while ((output = br.readLine()) != null) {
-				result += output;
-				System.out.println(output);
-			}
+        // populate graph data
+        populateGraphData(decorator, graphData, allLines);
 
-			AccumulatedSingleGraphAO graphAO = null;
-			if (!"".equals(result)) {
-				JsonParser jp = new JsonParser();
-				JsonElement je = jp.parse(result);
-				ReplyObject replyObject = new GsonBuilder().setPrettyPrinting().create().fromJson(je, ReplyObject.class);
-				System.out.println(replyObject);
-				graphAO = convert(replyObject);
-			}
-			connection.disconnect();
-			return graphAO;
-		} catch(Exception e) {
-			e.printStackTrace();
-			return null;
-		}
-	}
+        req.setAttribute("decorators", beans);
+        req.setAttribute("graphDatas", graphData.values());
 
-	private JSONObject createMARequest() throws JSONException {
-		final JSONObject result = new JSONObject();
+        inspectProducer(req, producer);
 
-		result.put("interval", "1m");
-		result.put("startDate", "2017-04-12 11:00");
-		result.put("endDate", "2017-04-12 19:00");
+        //check if there are accumulators or thresholds associated with this producer.
+        List<String> accumulatorIdsTiedToThisProducer = getAccumulatorAPI().getAccumulatorIdsTiedToASpecificProducer(producer.getProducerId());
+//		AccumulatedSingleGraphAO maGraph = getMAGraph();
+        if (accumulatorIdsTiedToThisProducer.size() > 0) {
+            req.setAttribute("accumulatorsPresent", Boolean.TRUE);
+            //create multiple graphs with one line each.
+            List<AccumulatedSingleGraphAO> singleGraphDataBeans = getAccumulatorAPI().getChartsForMultipleAccumulators(accumulatorIdsTiedToThisProducer);
+//			singleGraphDataBeans.add(maGraph);
+            req.setAttribute("singleGraphData", singleGraphDataBeans);
+            req.setAttribute("accumulatorsColors", accumulatorsColorsToJSON(singleGraphDataBeans));
 
-		JSONArray producers = new JSONArray();
+            List<String> accumulatorsNames = new LinkedList<>();
 
-		JSONObject producer = new JSONObject();
-		producer.put("producerId", "sales");
-		producer.put("stat", "brioche");
-		producer.put("value", "Number");
+            for (AccumulatedSingleGraphAO ao : singleGraphDataBeans) {
+                accumulatorsNames.add(ao.getName());
 
-		producers.put(producer);
+            }
 
-		result.put("producers", producers);
+            req.setAttribute("accNames", accumulatorsNames);
+            req.setAttribute("accNamesConcat", net.anotheria.util.StringUtils.concatenateTokens(accumulatorsNames, ","));
+        }
 
-		return result;
-	}
+        List<String> thresholdIdsTiedToThisProducers = getThresholdAPI().getThresholdIdsTiedToASpecificProducer(producer.getProducerId());
+        if (thresholdIdsTiedToThisProducers.size() > 0) {
+            req.setAttribute("thresholdsPresent", Boolean.TRUE);
+            List<ThresholdStatusBean> thresholdStatusBeans = getThresholdBeans(getThresholdAPI().getThresholdStatuses(thresholdIdsTiedToThisProducers.toArray(new String[0])));
+            req.setAttribute("thresholds", thresholdStatusBeans);
+        }
 
-	//TODO copied from show accumulators, should be moved to utility.
-	private JSONArray accumulatorsColorsToJSON(final List<AccumulatedSingleGraphAO> graphAOs) {
-		final JSONArray jsonArray = new JSONArray();
+        // TODO analyze poc integration
+        if (getAdditionalFunctionalityAPI().isAnalyzePluginEnabled()) {
+            String analyzeUrl = MoskitoAnalyzeConfig.getInstance().getUrl();
+            Set<String> charts = MoskitoAnalyzeConfig.getInstance().getChartsByProducer(producer.getProducerId());
+            List<AnalyzeChart> chartsData = MoskitoAnalyzeConfig.getInstance().getChartsDataByProducer(producer.getProducerId());
 
-		for (AccumulatedSingleGraphAO graphAO : graphAOs) {
-			if (StringUtils.isEmpty(graphAO.getName()) || StringUtils.isEmpty(graphAO.getColor()))
-				continue;
+            if (chartsData.isEmpty()) {
+                return mapping.findCommand(getForward(req));
+            }
+            if (accumulatorIdsTiedToThisProducer.size() < 1){
+                req.setAttribute("accumulatorsPresent", Boolean.TRUE);
+                req.setAttribute("accumulatorsColors", Collections.EMPTY_LIST);
+            }
 
-			final JSONObject jsonObject = graphAO.mapColorDataToJSON();
-			jsonArray.put(jsonObject);
-		}
+            Date endDate = new Date();
+            Date startDate = new Date(endDate.getTime() - 24*60*60*1000);
+            final SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+            String start = simpleDateFormat.format(startDate);
+            String end = simpleDateFormat.format(endDate);
 
-		return jsonArray;
-	}
+            List<AnalyzeRequestData> requestDatas = new ArrayList<>();
+            for (String chart : charts) {
+                String[] chartNames = chart.split("\\.");
+                String chartName = chartNames[0];
+                String interval = chartNames[1];
+                AnalyzeRequestData analyzeRequestData = new AnalyzeRequestData();
+                analyzeRequestData.setChart(chartName);
+                analyzeRequestData.setInterval(interval);
+                analyzeRequestData.setStart(start);
+                analyzeRequestData.setEnd(end);
+                List<ChartData> chartDatas = new ArrayList<>();
+                analyzeRequestData.setStats(chartDatas);
+                for (AnalyzeChart chartData : chartsData) {
+                    if (chartName.equals(chartData.getChartName()) && interval.equals(chartData.getIntervalName())) {
+                        ChartData data = new ChartData();
+                        data.setName(chartData.getName());
+                        data.setProducerId(chartData.getProducerName());
+                        data.setStat(chartData.getStatName());
+                        data.setValue(chartData.getValueName());
+                        chartDatas.add(data);
+                    }
+
+                }
+                requestDatas.add(analyzeRequestData);
+            }
 
 
-	/**
-	 * Allows to set all stats to decorator except cumulated stat.
-	 * Stats will be sorted using given sort type.
-	 *
-	 * @param statDecoratorBean {@link StatDecoratorBean}
-	 * @param allStatLines      list of {@link StatLineAO}, all stats present in producer
-	 * @param sortType          {@link StatBeanSortType}
-	 */
-	private void populateStats(final StatDecoratorBean statDecoratorBean, final List<StatLineAO> allStatLines, final StatBeanSortType sortType) {
-		if (allStatLines == null || allStatLines.isEmpty()) {
-			LOGGER.warn("Producer's stats are empty");
-			return;
-		}
+            req.setAttribute("analyzeUrl", analyzeUrl);
+            req.setAttribute("analyzeRequestData", requestDatas);
+        }
 
-		final int cumulatedIndex = getCumulatedIndex(allStatLines);
+        return mapping.findCommand(getForward(req));
+    }
 
-		// stats
-		int allStatLinesSize = allStatLines.size();
-		final List<StatBean> statBeans = new ArrayList<>(allStatLinesSize);
-		for (int i = 0; i < allStatLinesSize; i++) {
-			if (i == cumulatedIndex)
-				continue;
+    // TODO only for test integration with MoSKito Analyze
+    private AccumulatedSingleGraphAO getMAGraph() {
+        try {
+            URL url = new URL("http://localhost:8090/ma/api/v1/charts/period");
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            connection.setDoOutput(true);
+            connection.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
+            connection.setRequestProperty("Accept", "application/json");
+            connection.setRequestMethod("POST");
 
-			final StatLineAO line = allStatLines.get(i);
-			final List<StatValueAO> statValues = line.getValues();
+            JSONObject requestBody = createMARequest();
 
-			final StatBean statBean = new StatBean();
-			statBean.setName(line.getStatName());
-			statBean.setValues(statValues);
-			statBeans.add(statBean);
-		}
+            OutputStream os = connection.getOutputStream();
+            os.write(requestBody.toString().getBytes("UTF-8"));
+            os.flush();
 
-		// sort stat beans
-		StaticQuickSorter.sort(statBeans, sortType);
+            if (connection.getResponseCode() != HttpURLConnection.HTTP_OK) {
+                throw new RuntimeException("Failed : HTTP error code : " + connection.getResponseCode());
+            }
 
-		// set stats
-		statDecoratorBean.setStats(statBeans);
-	}
+            BufferedReader br = new BufferedReader(new InputStreamReader((connection.getInputStream())));
 
-	/**
-	 * Allows to set cumulated stat to decorator bean.
-	 *
-	 * @param decoratorBean {@link StatDecoratorBean}
-	 * @param allStatLines  list of {@link StatLineAO}, all stats present in producer
-	 */
-	private void populateCumulatedStats(final StatDecoratorBean decoratorBean, final List<StatLineAO> allStatLines) {
-		if (allStatLines == null || allStatLines.isEmpty()) {
-			LOGGER.warn("Producer's stats are empty");
-			return;
-		}
+            String output = null;
+            String result = "";
+            while ((output = br.readLine()) != null) {
+                result += output;
+                System.out.println(output);
+            }
 
-		final int cumulatedIndex = getCumulatedIndex(allStatLines);
-		if (cumulatedIndex == -1)
-			return;
+            AccumulatedSingleGraphAO graphAO = null;
+            if (!"".equals(result)) {
+                JsonParser jp = new JsonParser();
+                JsonElement je = jp.parse(result);
+                ReplyObject replyObject = new GsonBuilder().setPrettyPrinting().create().fromJson(je, ReplyObject.class);
+                System.out.println(replyObject);
+                graphAO = convert(replyObject);
+            }
+            connection.disconnect();
+            return graphAO;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 
-		final StatLineAO cumulatedStatLineAO = allStatLines.get(cumulatedIndex);
+    private JSONObject createMARequest() throws JSONException {
+        final JSONObject result = new JSONObject();
 
-		final StatBean cumulatedStat = new StatBean();
-		cumulatedStat.setName(cumulatedStatLineAO.getStatName());
-		cumulatedStat.setValues(cumulatedStatLineAO.getValues());
+        result.put("interval", "1m");
+        result.put("startDate", "2017-04-12 11:00");
+        result.put("endDate", "2017-04-12 19:00");
 
-		decoratorBean.setCumulatedStat(cumulatedStat);
-	}
+        JSONArray producers = new JSONArray();
 
-	/**
-	 * Allows to populate graph data.
-	 *
-	 * @param decorator    {@link IDecorator}
-	 * @param graphData    map with graph data
-	 * @param allStatLines list of {@link StatLineAO}, all stats present in producer
-	 */
-	private void populateGraphData(final IDecorator decorator, final Map<String, GraphDataBean> graphData, final List<StatLineAO> allStatLines) {
-		final int cumulatedIndex = getCumulatedIndex(allStatLines);
+        JSONObject producer = new JSONObject();
+        producer.put("producerId", "sales");
+        producer.put("stat", "brioche");
+        producer.put("value", "Number");
 
-		for (int i = 0; i < allStatLines.size(); i++) {
-			if (i == cumulatedIndex)
-				continue;
+        producers.put(producer);
 
-			//TODO fix filterzero.
+        result.put("producers", producers);
+
+        return result;
+    }
+
+    //TODO copied from show accumulators, should be moved to utility.
+    private JSONArray accumulatorsColorsToJSON(final List<AccumulatedSingleGraphAO> graphAOs) {
+        final JSONArray jsonArray = new JSONArray();
+
+        for (AccumulatedSingleGraphAO graphAO : graphAOs) {
+            if (StringUtils.isEmpty(graphAO.getName()) || StringUtils.isEmpty(graphAO.getColor()))
+                continue;
+
+            final JSONObject jsonObject = graphAO.mapColorDataToJSON();
+            jsonArray.put(jsonObject);
+        }
+
+        return jsonArray;
+    }
+
+
+    /**
+     * Allows to set all stats to decorator except cumulated stat.
+     * Stats will be sorted using given sort type.
+     *
+     * @param statDecoratorBean {@link StatDecoratorBean}
+     * @param allStatLines      list of {@link StatLineAO}, all stats present in producer
+     * @param sortType          {@link StatBeanSortType}
+     */
+    private void populateStats(final StatDecoratorBean statDecoratorBean, final List<StatLineAO> allStatLines, final StatBeanSortType sortType) {
+        if (allStatLines == null || allStatLines.isEmpty()) {
+            LOGGER.warn("Producer's stats are empty");
+            return;
+        }
+
+        final int cumulatedIndex = getCumulatedIndex(allStatLines);
+
+        // stats
+        int allStatLinesSize = allStatLines.size();
+        final List<StatBean> statBeans = new ArrayList<>(allStatLinesSize);
+        for (int i = 0; i < allStatLinesSize; i++) {
+            if (i == cumulatedIndex)
+                continue;
+
+            final StatLineAO line = allStatLines.get(i);
+            final List<StatValueAO> statValues = line.getValues();
+
+            final StatBean statBean = new StatBean();
+            statBean.setName(line.getStatName());
+            statBean.setValues(statValues);
+            statBeans.add(statBean);
+        }
+
+        // sort stat beans
+        StaticQuickSorter.sort(statBeans, sortType);
+
+        // set stats
+        statDecoratorBean.setStats(statBeans);
+    }
+
+    /**
+     * Allows to set cumulated stat to decorator bean.
+     *
+     * @param decoratorBean {@link StatDecoratorBean}
+     * @param allStatLines  list of {@link StatLineAO}, all stats present in producer
+     */
+    private void populateCumulatedStats(final StatDecoratorBean decoratorBean, final List<StatLineAO> allStatLines) {
+        if (allStatLines == null || allStatLines.isEmpty()) {
+            LOGGER.warn("Producer's stats are empty");
+            return;
+        }
+
+        final int cumulatedIndex = getCumulatedIndex(allStatLines);
+        if (cumulatedIndex == -1)
+            return;
+
+        final StatLineAO cumulatedStatLineAO = allStatLines.get(cumulatedIndex);
+
+        final StatBean cumulatedStat = new StatBean();
+        cumulatedStat.setName(cumulatedStatLineAO.getStatName());
+        cumulatedStat.setValues(cumulatedStatLineAO.getValues());
+
+        decoratorBean.setCumulatedStat(cumulatedStat);
+    }
+
+    /**
+     * Allows to populate graph data.
+     *
+     * @param decorator    {@link IDecorator}
+     * @param graphData    map with graph data
+     * @param allStatLines list of {@link StatLineAO}, all stats present in producer
+     */
+    private void populateGraphData(final IDecorator decorator, final Map<String, GraphDataBean> graphData, final List<StatLineAO> allStatLines) {
+        final int cumulatedIndex = getCumulatedIndex(allStatLines);
+
+        for (int i = 0; i < allStatLines.size(); i++) {
+            if (i == cumulatedIndex)
+                continue;
+
+            //TODO fix filterzero.
 //			if (!filterZero || !s.isEmpty(intervalName)){
 
-			final StatLineAO line = allStatLines.get(i);
-			final List<StatValueAO> statValues = line.getValues();
+            final StatLineAO line = allStatLines.get(i);
+            final List<StatValueAO> statValues = line.getValues();
 
-			for (StatValueAO statValue : statValues) {
-				final String graphKey = decorator.getName() + '_' + statValue.getName();
-				final GraphDataValueBean value = new GraphDataValueBean(line.getStatName(), statValue.getRawValue());
+            for (StatValueAO statValue : statValues) {
+                final String graphKey = decorator.getName() + '_' + statValue.getName();
+                final GraphDataValueBean value = new GraphDataValueBean(line.getStatName(), statValue.getRawValue());
 
-				final GraphDataBean graphDataBean = graphData.get(graphKey);
-				if (graphDataBean != null)
-					graphDataBean.addValue(value);
-			}
-		}
-	}
+                final GraphDataBean graphDataBean = graphData.get(graphKey);
+                if (graphDataBean != null)
+                    graphDataBean.addValue(value);
+            }
+        }
+    }
 
-	/**
-	 * Returns index of cumulated stat in producer's stats.
-	 *
-	 * @param allStatLines list of {@link StatLineAO}
-	 * @return index of cumulated stat or {@value -1} if was not found
-	 */
-	private int getCumulatedIndex(final List<StatLineAO> allStatLines) {
-		if (allStatLines == null || allStatLines.isEmpty()) {
-			return -1;
-		}
+    /**
+     * Returns index of cumulated stat in producer's stats.
+     *
+     * @param allStatLines list of {@link StatLineAO}
+     * @return index of cumulated stat or {@value -1} if was not found
+     */
+    private int getCumulatedIndex(final List<StatLineAO> allStatLines) {
+        if (allStatLines == null || allStatLines.isEmpty()) {
+            return -1;
+        }
 
-		int cumulatedIndex = -1;
+        int cumulatedIndex = -1;
 
-		for (int i = 0, allStatLinesSize = allStatLines.size(); i < allStatLinesSize; i++) {
-			final StatLineAO statLine = allStatLines.get(i);
+        for (int i = 0, allStatLinesSize = allStatLines.size(); i < allStatLinesSize; i++) {
+            final StatLineAO statLine = allStatLines.get(i);
 
-			if (CUMULATED_STAT_NAME_VALUE.equals(statLine.getStatName())) {
-				cumulatedIndex = i;
-				break;
-			}
-		}
+            if (CUMULATED_STAT_NAME_VALUE.equals(statLine.getStatName())) {
+                cumulatedIndex = i;
+                break;
+            }
+        }
 
-		return cumulatedIndex;
-	}
+        return cumulatedIndex;
+    }
 
-	private void inspectProducer(HttpServletRequest req, ProducerAO producer){
-		if (! (producer.isInspectable()))
-			return;
-		CreationInfo cInfo = producer.getCreationInfo();
-		req.setAttribute("creationTimestamp", cInfo.getTimestamp());
-		req.setAttribute("creationTime", NumberUtils.makeISO8601TimestampString(cInfo.getTimestamp()));
-		List<String> stackTraceList = new ArrayList<String>(cInfo.getStackTrace().length);
-		for (StackTraceElement elem : cInfo.getStackTrace())
-			stackTraceList.add(elem.toString());
-		req.setAttribute("creationTrace", stackTraceList);
-	}
+    private void inspectProducer(HttpServletRequest req, ProducerAO producer) {
+        if (!(producer.isInspectable()))
+            return;
+        CreationInfo cInfo = producer.getCreationInfo();
+        req.setAttribute("creationTimestamp", cInfo.getTimestamp());
+        req.setAttribute("creationTime", NumberUtils.makeISO8601TimestampString(cInfo.getTimestamp()));
+        List<String> stackTraceList = new ArrayList<String>(cInfo.getStackTrace().length);
+        for (StackTraceElement elem : cInfo.getStackTrace())
+            stackTraceList.add(elem.toString());
+        req.setAttribute("creationTrace", stackTraceList);
+    }
 
-	@Override protected String getLinkToCurrentPage(HttpServletRequest req) {
-		return "mskShowProducer"+ '?' +PARAM_PRODUCER_ID+ '=' +req.getParameter(PARAM_PRODUCER_ID);
-	}
+    @Override
+    protected String getLinkToCurrentPage(HttpServletRequest req) {
+        return "mskShowProducer" + '?' + PARAM_PRODUCER_ID + '=' + req.getParameter(PARAM_PRODUCER_ID);
+    }
 
-	private StatBeanSortType getStatBeanSortType(StatDecoratorBean decoratorBean, HttpServletRequest req){
-		StatBeanSortType sortType;
-		String paramSortBy = req.getParameter(decoratorBean.getSortByParameterName());
-		if (paramSortBy!=null && paramSortBy.length()>0){
-			try{
-				int sortBy = Integer.parseInt(paramSortBy);
-				String paramSortOrder = req.getParameter(decoratorBean.getSortOrderParameterName());
-				boolean sortOrder = paramSortOrder!=null && paramSortOrder.equals("ASC") ?
-						StatBeanSortType.ASC : StatBeanSortType.DESC;
-				sortType = new StatBeanSortType(sortBy, sortOrder);
-				req.getSession().setAttribute(decoratorBean.getSortTypeName(), sortType);
-				return sortType;
-			}catch(NumberFormatException skip){}
-		}
-		sortType = (StatBeanSortType)req.getSession().getAttribute(decoratorBean.getSortTypeName());
-		if (sortType==null){
-			sortType = new StatBeanSortType();
-			req.getSession().setAttribute(decoratorBean.getSortTypeName(), sortType);
-		}
-		return sortType;
-	}
+    private StatBeanSortType getStatBeanSortType(StatDecoratorBean decoratorBean, HttpServletRequest req) {
+        StatBeanSortType sortType;
+        String paramSortBy = req.getParameter(decoratorBean.getSortByParameterName());
+        if (paramSortBy != null && paramSortBy.length() > 0) {
+            try {
+                int sortBy = Integer.parseInt(paramSortBy);
+                String paramSortOrder = req.getParameter(decoratorBean.getSortOrderParameterName());
+                boolean sortOrder = paramSortOrder != null && paramSortOrder.equals("ASC") ?
+                        StatBeanSortType.ASC : StatBeanSortType.DESC;
+                sortType = new StatBeanSortType(sortBy, sortOrder);
+                req.getSession().setAttribute(decoratorBean.getSortTypeName(), sortType);
+                return sortType;
+            } catch (NumberFormatException skip) {
+            }
+        }
+        sortType = (StatBeanSortType) req.getSession().getAttribute(decoratorBean.getSortTypeName());
+        if (sortType == null) {
+            sortType = new StatBeanSortType();
+            req.getSession().setAttribute(decoratorBean.getSortTypeName(), sortType);
+        }
+        return sortType;
+    }
 
-	@Override
-	protected NaviItem getCurrentNaviItem() {
-		return NaviItem.PRODUCERS;
-	}
+    @Override
+    protected NaviItem getCurrentNaviItem() {
+        return NaviItem.PRODUCERS;
+    }
 
-	@Override
-	protected String getPageName() {
-		return "producer";
-	}
+    @Override
+    protected String getPageName() {
+        return "producer";
+    }
 
-	@Override
-	protected boolean exportSupported() {
-		return true;
-	}
+    @Override
+    protected boolean exportSupported() {
+        return true;
+    }
 
-	private AccumulatedSingleGraphAO convert(ReplyObject replyObject){
-		AccumulatedSingleGraphAO maGraph = new AccumulatedSingleGraphAO("sales.brioche.Number - 1m");
+    private AccumulatedSingleGraphAO convert(ReplyObject replyObject) {
+        AccumulatedSingleGraphAO maGraph = new AccumulatedSingleGraphAO("sales.brioche.Number - 1m");
 
-		List<Map<String, Object>> chartsItems = (List<Map<String, Object>>) replyObject.getResults().get("charts");
+        List<Map<String, Object>> chartsItems = (List<Map<String, Object>>) replyObject.getResults().get("charts");
 
 
-		List<AccumulatedValueAO> list = new ArrayList<>();
-		for (Map<String, Object> chartItem: chartsItems){
+        List<AccumulatedValueAO> list = new ArrayList<>();
+        for (Map<String, Object> chartItem : chartsItems) {
 
-			List<Map<String, String>> values = (List<Map<String, String>>) chartItem.get("values");
-			Map<String, String> valuesMap = values.get(0);
-			long rawTimestamp = ((Double) chartItem.get("millis")).longValue();
-			long timestamp = rawTimestamp /1000*1000;
-			//for single graph data
-			AccumulatedValueAO ao = new AccumulatedValueAO(NumberUtils.makeTimeString(timestamp));
-			ao.addValue(valuesMap.get("sales.brioche.Number"));
-			ao.setIsoTimestamp(NumberUtils.makeISO8601TimestampString(rawTimestamp));
-			ao.setNumericTimestamp(rawTimestamp);
+            List<Map<String, String>> values = (List<Map<String, String>>) chartItem.get("values");
+            Map<String, String> valuesMap = values.get(0);
+            long rawTimestamp = ((Double) chartItem.get("millis")).longValue();
+            long timestamp = rawTimestamp / 1000 * 1000;
+            //for single graph data
+            AccumulatedValueAO ao = new AccumulatedValueAO(NumberUtils.makeTimeString(timestamp));
+            ao.addValue(valuesMap.get("sales.brioche.Number"));
+            ao.setIsoTimestamp(NumberUtils.makeISO8601TimestampString(rawTimestamp));
+            ao.setNumericTimestamp(rawTimestamp);
 
-			list.add(ao);
-		}
+            list.add(ao);
+        }
 
-		maGraph.setData(list);
+        maGraph.setData(list);
 
-		return maGraph;
-	}
+        return maGraph;
+    }
 
 }
