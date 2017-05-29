@@ -27,7 +27,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * TODO comment this class
+ * A generic filter that supports multiple tag extractors. This filter replaced the single-use filters like RefererFilter, RequestURIFilter etc. Main purpose was to reduce code as well as get shorter stack traces.
  *
  * @author lrosenberg
  * @since 26.04.16 19:04
@@ -49,6 +49,9 @@ public class GenericMonitoringFilter implements Filter {
 	 */
 	public static final String OTHER = "-other-";
 
+	/**
+	 * Case extractors. Each extractor can extract the monitoring cases by some parameter, for example URI, Referer, User-Agent etc.
+	 */
 	private Map<FilterCaseExtractor, OnDemandStatsProducer<FilterStats>> extractorMap = new HashMap<>();
 
 	private void beforeExecution(HttpServletRequest req){
