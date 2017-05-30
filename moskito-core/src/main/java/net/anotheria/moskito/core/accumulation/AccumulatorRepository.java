@@ -106,6 +106,21 @@ public final class AccumulatorRepository<S extends IStats> extends TieableReposi
 		}
 	}
 
+	@Override
+	public void notifyProducerUnregistered(IStatsProducer<S> producer) {
+		for (Accumulator acc : getTieables()) {
+			if (acc.getDefinition().getProducerName().equals(producer.getProducerId())) {
+				try {
+					//untie accumulator
+					acc.tieToStats(null);
+					addUntied(acc);
+				} catch(Exception e) {
+					log.error("notifyProducerUnregistered("+producer+ ')', e );
+				}
+			}
+		}
+	}
+
     /**
      * This method is for unit testing ONLY.
 	 * The Findbugs warning is suppressed, because this method is for unit testing only.

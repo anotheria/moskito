@@ -14,16 +14,28 @@ public class DiffLongValueHolder extends LongValueHolder {
 
 	private volatile long lastCurrentValue = 0;
 
+	private final Object sync = new Object();
+
 	public DiffLongValueHolder(Interval anInterval){
 		super(anInterval);
 	}
 
 	@Override
 	public void intervalUpdated(Interval caller) {
-		long currentCurrentValue = getCurrentValueAsLong();
-		long diff = currentCurrentValue - lastCurrentValue;
-		lastCurrentValue = currentCurrentValue;
-		setLastValue(diff);
+		synchronized(sync) {
+			long currentCurrentValue = getCurrentValueAsLong();
+			long diff = currentCurrentValue - lastCurrentValue;
+			lastCurrentValue = currentCurrentValue;
+			setLastValue(diff);
+		}
+	}
+
+	@Override
+	public void reset() {
+		synchronized(sync) {
+			super.reset();
+			lastCurrentValue = 0;
+		}
 	}
 
 	@Override
