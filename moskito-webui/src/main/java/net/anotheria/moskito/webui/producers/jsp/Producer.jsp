@@ -81,7 +81,7 @@
 <ano:iterate type="net.anotheria.moskito.webui.shared.bean.StatDecoratorBean" id="decorator" name="decorators">
 <div class="box">
     <div class="box-title">
-        <a class="accordion-toggle tooltip-bottom" title="Close/Open" data-toggle="collapse" href="#collapseproducer"><i class="fa fa-caret-right"></i></a>
+        <a class="accordion-toggle tooltip-bottom" title="Close/Open" data-toggle="collapse" href="#collapseproducer"><i class="fa fa-caret-down"></i></a>
         <h3 class="pull-left">
             ${producer.producerId}
         </h3>
@@ -162,7 +162,7 @@
                 <div class="box" id="parentBox">
                     <div class="box-title">
                         <a class="accordion-toggle tooltip-bottom" title="Close/Open" data-toggle="collapse"
-                           href="#collapse-chart-${singleGraph.nameForJS}"><i class="fa fa-caret-right"></i></a>
+                           href="#collapse-chart-${singleGraph.nameForJS}"><i class="fa fa-caret-down"></i></a>
 
                         <h3 class="pull-left">
                             Chart for ${singleGraph.name}

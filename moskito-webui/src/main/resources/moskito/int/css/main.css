@@ -469,11 +469,11 @@ table td.wrap,
     opacity: 0.8;
 }
 
-.box-title .accordion-toggle.collapsed .fa-caret-right {
-    -moz-transform: rotate(90deg); /* Firefox */
-    -webkit-transform: rotate(90deg); /* Safari, Chrome */
-    -o-transform: rotate(90deg); /* Opera */
-    transform: rotate(90deg);
+.box-title .accordion-toggle.collapsed .fa-caret-down {
+    -moz-transform: rotate(-90deg); /* Firefox */
+    -webkit-transform: rotate(-90deg); /* Safari, Chrome */
+    -o-transform: rotate(-90deg); /* Opera */
+    transform: rotate(-90deg);
 }
 
 .table tr:hover > td,
