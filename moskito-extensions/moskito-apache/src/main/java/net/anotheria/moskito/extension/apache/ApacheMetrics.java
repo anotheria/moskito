@@ -38,25 +38,19 @@ public enum ApacheMetrics {
 
 
     /**Requests per second.*/
-    REQUESTS_PER_SEC(StatValueTypes.DIFFLONG, true, "Req/sec", "Requests per second.", "//TODO ") {//TODO
+    REQUESTS_PER_SEC(StatValueTypes.DIFFLONG, true, "Req/sec", "Requests per second.",
+            "Requests per second. Calculated from 'totalAccesses' stat, as apache calculates it for the whole uptime.") {
         @Override long getLongValue(ApacheStatus status) {
-//            return status.getRequestsPerSec();
             return status.getTotalAccesses();
         }
     },
     /**KBytes per second.*/
-    KBYTES_PER_SEC(StatValueTypes.DIFFLONG, true, "KBytes/sec", "KBytes per second.", "//TODO ") {//TODO
+    KBYTES_PER_SEC(StatValueTypes.DIFFLONG, true, "KBytes/sec", "KBytes per second.",
+            "KBytes per second. Calculated from 'totalKbytes' stat, as apache calculates it for the whole uptime.") {
         @Override long getLongValue(ApacheStatus status) {
-//            return status.getBytesPerSec();
             return status.getTotalKbytes();
         }
     },
-//    /**Bytes per request.*/
-//    BYTES_PER_REQUEST(StatValueTypes.DIFFLONG, true, "Bytes/req", "Bytes per request.", "//TODO ") {//TODO
-//        @Override double getDoubleValue(ApacheStatus status) {
-//            return status.getBytesPerRequest();
-//        }
-//    },
 
 
     /**Number of busy workers.*/
@@ -88,31 +82,33 @@ public enum ApacheMetrics {
 
 
     /**CPU Load.*/
-    CPU_LOAD(StatValueTypes.DOUBLE, "CPU load", "CPU Load.", "CPU Load, in percents.//TODO") {//TODO
+    CPU_LOAD(StatValueTypes.DOUBLE, "CPU load", "CPU Load.", "CPU Load, in percents. Total CPU time utilized by apache divided by uptime.") {
         @Override double getDoubleValue(ApacheStatus status) {
             return status.getCpuLoad();
         }
     },
     /**CPU user load.*/
-    CPU_USER(StatValueTypes.DOUBLE, "CPU user", "CPU user load.", "//TODO ") {//TODO
+    CPU_USER(StatValueTypes.DOUBLE, "CPU user", "CPU user load.", "CPU time utilized by apache at user level.") {
         @Override double getDoubleValue(ApacheStatus status) {
             return status.getCpuUser();
         }
     },
     /**CPU system load.*/
-    CPU_SYSTEM(StatValueTypes.DOUBLE, "CPU system", "CPU system load.", "//TODO ") {//TODO
+    CPU_SYSTEM(StatValueTypes.DOUBLE, "CPU system", "CPU system load.", "CPU time utilized by apache at system(kernel) level.") {
         @Override double getDoubleValue(ApacheStatus status) {
             return status.getCpuSystem();
         }
     },
     /**CPU of children user.*/
-    CPU_CHILDREN_USER(StatValueTypes.DOUBLE, "CPU user(children).", "CPU of children user.", "//TODO ") {//TODO
+    CPU_CHILDREN_USER(StatValueTypes.DOUBLE, "CPU user(children).", "CPU user load by child workers.",
+            "CPU time utilized by apache child workers at user level.") {
         @Override double getDoubleValue(ApacheStatus status) {
             return status.getCpuChildrenUser();
         }
     },
     /**CPU of children system.*/
-    CPU_CHILDREN_SYSTEM(StatValueTypes.DOUBLE, "CPU system(children).", "CPU of children system.", "//TODO ") {//TODO
+    CPU_CHILDREN_SYSTEM(StatValueTypes.DOUBLE, "CPU system(children).", "CPU system load by child workers.",
+            "CPU time utilized by apache child workers at system(kernel) level.") {
         @Override double getDoubleValue(ApacheStatus status) {
             return status.getCpuChildrenSystem();
         }
@@ -120,19 +116,19 @@ public enum ApacheMetrics {
 
 
     /**Load average for the last minute.*/
-    LOAD_1M(StatValueTypes.DOUBLE, "Load 1m", "Load average for the last minute.", "//TODO ") {//TODO
+    LOAD_1M(StatValueTypes.DOUBLE, "Load 1m", "Load average for the last minute.", "Unix 'load-average' of the host system.") {
         @Override double getDoubleValue(ApacheStatus status) {
             return status.getLoad1();
         }
     },
     /**Load average for the last 5 minutes.*/
-    LOAD_5M(StatValueTypes.DOUBLE, "Load 5m", "Load average for the last 5 minutes.", "//TODO ") {//TODO
+    LOAD_5M(StatValueTypes.DOUBLE, "Load 5m", "Load average for the last 5 minutes.", "Unix 'load-average' of the host system.") {
         @Override double getDoubleValue(ApacheStatus status) {
             return status.getLoad5();
         }
     },
     /**Load average for the last 15 minutes.*/
-    LOAD_15M(StatValueTypes.DOUBLE, "Load 15m", "Load average for the last 15 minutes.", "//TODO ") {//TODO
+    LOAD_15M(StatValueTypes.DOUBLE, "Load 15m", "Load average for the last 15 minutes.", "Unix 'load-average' of the host system.") {
         @Override double getDoubleValue(ApacheStatus status) {
             return status.getLoad15();
         }
@@ -239,10 +235,6 @@ public enum ApacheMetrics {
     };
 
 
-
-
-
-
     /** ValueName variable. Also used as caption by decorator. */
     public final String valueName;
     /** Short explanation and full explanation variables.*/
@@ -265,18 +257,7 @@ public enum ApacheMetrics {
     }
 
     StatValue createStatValue() {
-//        if (type != StatValueTypes.DIFFLONG) {
-            return StatValueFactory.createStatValue(type, valueName, Constants.getDefaultIntervals());
-//        } else {
-//            //TODO
-//            //for DIFFLONG type use upgraded diffLong value holders that ignore first interval.
-//            final IValueHolderFactory factory = SkipFirstDiffLongValueHolderFactory.INSTANCE;
-//            final TypeAwareStatValue statValue = new TypeAwareStatValueImpl(valueName, type, factory);
-//            for (Interval interval : Constants.getDefaultIntervals()) {
-//                statValue.addInterval(interval);
-//            }
-//            return statValue;
-//        }
+        return StatValueFactory.createStatValue(type, valueName, Constants.getDefaultIntervals());
     }
 
     long getLongValue(ApacheStatus status) {
@@ -291,8 +272,6 @@ public enum ApacheMetrics {
     String getStringValue(ApacheStatus status) {
         return "";
     }
-
-
 
     public boolean isDoubleValue() {
         return isRateValue || type == StatValueTypes.DOUBLE;
