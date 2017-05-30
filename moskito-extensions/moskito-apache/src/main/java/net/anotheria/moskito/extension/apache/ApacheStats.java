@@ -43,7 +43,7 @@ public class ApacheStats extends AbstractStats {
     ApacheStats(String aName) {
         super(aName);
         for (ApacheMetrics metric : ApacheMetrics.values()) {
-            statValueMap.put(metric.valueName, metric.createStatValue());
+            statValueMap.put(metric.getValueName(), metric.createStatValue());
         }
         addStatValues(statValueMap.values().toArray(new StatValue[statValueMap.size()]));
     }
@@ -73,7 +73,7 @@ public class ApacheStats extends AbstractStats {
         handleApacheRestartIfNeeded(status);
         for (ApacheMetrics metric : ApacheMetrics.values()) {
             StatValue stat = getStatValue(metric);
-            switch (metric.type) {
+            switch (metric.getType()) {
                 case INT: stat.setValueAsInt(metric.getIntValue(status)); break;
                 case DOUBLE: stat.setValueAsDouble(metric.getDoubleValue(status)); break;
                 case STRING: stat.setValueAsString(metric.getStringValue(status)); break;
@@ -92,7 +92,7 @@ public class ApacheStats extends AbstractStats {
         StatValue uptime = getStatValue(ApacheMetrics.SERVER_UPTIME);
         if (uptime != null && uptime.getValueAsLong() > status.getServerUptime()) {
             for (ApacheMetrics metric : ApacheMetrics.values()) {
-                if (metric.type == StatValueTypes.DIFFLONG) {
+                if (metric.getType() == StatValueTypes.DIFFLONG) {
                     StatValue stat = getStatValue(metric);
                     //check for null in case metrics set will be configurable.
                     if (stat != null)
@@ -103,7 +103,7 @@ public class ApacheStats extends AbstractStats {
     }
 
     private StatValue getStatValue(ApacheMetrics metric) {
-        return statValueMap.get(metric.valueName);
+        return statValueMap.get(metric.getValueName());
     }
 
     /**
@@ -168,7 +168,7 @@ public class ApacheStats extends AbstractStats {
         StringBuilder b = new StringBuilder();
         b.append(getName()).append(" [");
         for (ApacheMetrics metric : ApacheMetrics.values()) {
-            b.append(" ").append(metric.valueName).append(": ").append(getStatValueAsString(metric, intervalName)).append(";");
+            b.append(" ").append(metric.getValueName()).append(": ").append(getStatValueAsString(metric, intervalName)).append(";");
         }
         b.append(']');
         return b.toString();

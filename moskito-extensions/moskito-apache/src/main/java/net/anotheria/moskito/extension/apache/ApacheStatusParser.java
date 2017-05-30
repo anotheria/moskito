@@ -16,8 +16,9 @@ import static net.anotheria.util.StringUtils.charCount;
  *
  * @author dzhmud
  */
-public final class ApacheStatusParser {
+final class ApacheStatusParser {
 
+    /** Use plugins shared logger.*/
     private static final Logger LOGGER = ApacheMonitoringPlugin.LOGGER;
 
     private ApacheStatusParser() {}
@@ -27,7 +28,7 @@ public final class ApacheStatusParser {
      * @param status apache status.
      * @return new ApacheStatus filled with parsed values.
      */
-    public static ApacheStatus parse(String status) {
+    static ApacheStatus parse(String status) {
         if (StringUtils.isEmpty(status))
             throw new IllegalArgumentException("Empty status to parse!");
 

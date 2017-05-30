@@ -236,11 +236,11 @@ public enum ApacheMetrics {
 
 
     /** ValueName variable. Also used as caption by decorator. */
-    public final String valueName;
+    private final String valueName;
     /** Short explanation and full explanation variables.*/
     private final String shortExpl, explanation;
     /** ValueType of current metric. */
-    final StatValueTypes type;
+    private final StatValueTypes type;
     /** If true, value per second will be calculated. */
     private final boolean isRateValue;
 
@@ -283,6 +283,14 @@ public enum ApacheMetrics {
 
     public boolean isIntegerValue() {
         return type == StatValueTypes.INT;
+    }
+
+    public String getValueName() {
+        return valueName;
+    }
+
+    public StatValueTypes getType() {
+        return type;
     }
 
     /**
@@ -382,19 +390,23 @@ public enum ApacheMetrics {
         return strings.toArray(new String[strings.size()]);
     }
 
+    /** Interface that handles extracting captions/explanations from ApacheMetrics.*/
     private interface Extractor {
         String extract(ApacheMetrics metric);
 
+        /** Extractor that extracts captions.*/
         Extractor CAPTIONS = new Extractor() {
             @Override public String extract(ApacheMetrics metric) {
                 return metric.valueName;
             }
         };
+        /** Extractor that extracts explanations.*/
         Extractor EXPLANATIONS = new Extractor() {
             @Override public String extract(ApacheMetrics metric) {
                 return metric.explanation;
             }
         };
+        /** Extractor that extracts short explanations.*/
         Extractor SHORT_EXPLANATIONS = new Extractor() {
             @Override public String extract(ApacheMetrics metric) {
                 return metric.shortExpl;

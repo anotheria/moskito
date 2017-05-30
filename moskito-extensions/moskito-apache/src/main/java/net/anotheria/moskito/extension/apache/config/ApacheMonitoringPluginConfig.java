@@ -7,7 +7,6 @@ import org.configureme.annotations.AfterReConfiguration;
 import org.configureme.annotations.Configure;
 import org.configureme.annotations.ConfigureMe;
 
-import java.io.Serializable;
 import java.util.Arrays;
 
 /**
@@ -18,7 +17,7 @@ import java.util.Arrays;
 @SuppressFBWarnings(value = {"EI_EXPOSE_REP", "EI_EXPOSE_REP2"})
 @SuppressWarnings(value = "unused")
 @ConfigureMe(name = "apache-monitoring-plugin")
-public class ApacheMonitoringPluginConfig implements Serializable {
+public class ApacheMonitoringPluginConfig {
 
     /**
      * Array of ApacheMonitoredInstance configurations.

@@ -19,6 +19,7 @@ import java.util.List;
  */
 public class ApacheStatsDecorator  extends AbstractDecorator<ApacheStats> {
 
+    /** Default constructor.*/
     public ApacheStatsDecorator() {
         super("Apache",
                 ApacheMetrics.getCaptions(),
@@ -33,16 +34,16 @@ public class ApacheStatsDecorator  extends AbstractDecorator<ApacheStats> {
         for (ApacheMetrics metric : ApacheMetrics.values()) {
             if (apacheStats.isNeverUpdated()) {
                 //display "NoR" to clearly differentiate not connectible/parseable from inactive
-                bean.add(new StringValueAO(metric.valueName, "NoR"));
+                bean.add(new StringValueAO(metric.getValueName(), "NoR"));
             } else {
                 if (metric.isDoubleValue())
-                    bean.add(new DoubleValueAO(metric.valueName, apacheStats.getStatValueAsDouble(metric, interval)));
+                    bean.add(new DoubleValueAO(metric.getValueName(), apacheStats.getStatValueAsDouble(metric, interval)));
                 else if (metric.isIntegerValue())
-                    bean.add(new LongValueAO(metric.valueName, apacheStats.getStatValueAsInteger(metric, interval)));
+                    bean.add(new LongValueAO(metric.getValueName(), apacheStats.getStatValueAsInteger(metric, interval)));
                 else if (metric.isStringValue())
-                    bean.add(new StringValueAO(metric.valueName, apacheStats.getStatValueAsString(metric, interval)));
+                    bean.add(new StringValueAO(metric.getValueName(), apacheStats.getStatValueAsString(metric, interval)));
                 else
-                    bean.add(new LongValueAO(metric.valueName, apacheStats.getStatValueAsLong(metric, interval)));
+                    bean.add(new LongValueAO(metric.getValueName(), apacheStats.getStatValueAsLong(metric, interval)));
             }
         }
         return bean;
