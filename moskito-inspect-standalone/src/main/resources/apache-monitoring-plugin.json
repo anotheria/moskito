@@ -1,5 +1,4 @@
 {
-  "@metrics": ["HOSTNAME","UPTIME","LOAD_1M","LOAD_5M","LOAD_15M"],
   "@monitoredInstances": [],
 
   "dev": {
@@ -18,7 +17,7 @@
     "@monitoredInstances": [
         {
           "name": "localhost",
-          "location": "http://localhost:9080/server-status?auto"
+          "location": "http://localhost:80/server-status?auto"
         }
       ]
   }

@@ -21,26 +21,11 @@ import java.util.Arrays;
 public class ApacheMonitoringPluginConfig implements Serializable {
 
     /**
-     * Array of Apache metrics to monitor.
-     */
-    @Configure
-    @SerializedName("@metrics")
-    private String[] metrics;
-
-    /**
      * Array of ApacheMonitoredInstance configurations.
      */
     @Configure
     @SerializedName("@monitoredInstances")
     private ApacheMonitoredInstance[] monitoredInstances;
-
-    public String[] getMetrics() {
-        return metrics;
-    }
-
-    public void setMetrics(String[] metrics) {
-        this.metrics = metrics;
-    }
 
     public ApacheMonitoredInstance[] getMonitoredInstances() {
         return monitoredInstances;
@@ -61,7 +46,6 @@ public class ApacheMonitoringPluginConfig implements Serializable {
     @Override
     public String toString() {
         return "ApacheMonitoringPluginConfig{" +
-                (metrics == null ? "" : "metrics=" + Arrays.toString(metrics)) +
                 "instances=" + Arrays.toString(monitoredInstances) +
                 '}';
     }

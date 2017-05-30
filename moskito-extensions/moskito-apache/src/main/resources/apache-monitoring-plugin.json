@@ -1,5 +1,4 @@
 {
-  "@metrics": ["HOSTNAME","UPTIME","LOAD_1M","LOAD_5M","LOAD_15M"],
   "@monitoredInstances": [],
 
   "dev": {
