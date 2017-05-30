@@ -3,6 +3,7 @@ package net.anotheria.moskito.extension.nginx;
 import net.anotheria.moskito.core.decorators.DecoratorRegistryFactory;
 import net.anotheria.moskito.core.producers.AbstractStats;
 import net.anotheria.moskito.core.stats.StatValue;
+import net.anotheria.moskito.core.stats.StatValueTypes;
 import net.anotheria.moskito.core.stats.TimeUnit;
 import net.anotheria.moskito.core.util.MoskitoWebUi;
 import net.anotheria.moskito.extension.nginx.decorator.NginxStatsDecorator;
@@ -76,8 +77,23 @@ public class NginxStats extends AbstractStats {
      */
     void update(NginxStatus status) {
         neverUpdated = false;
+        handleNginxRestartIfNeeded(status);
         for (NginxMetrics metric : NginxMetrics.values()) {
             getStatValue(metric).setValueAsLong(metric.getValue(status));
+        }
+    }
+
+    private void handleNginxRestartIfNeeded(NginxStatus status) {
+        StatValue accepted = getStatValue(NginxMetrics.ACCEPTED);
+        //most likely, nginx was restarted if "accepted" is lower then previous value.
+        if (accepted != null && accepted.getValueAsLong() > status.getAccepted()) {
+            for (NginxMetrics metric : NginxMetrics.values()) {
+                if (metric.getType() == StatValueTypes.DIFFLONG) {
+                    StatValue statValue = getStatValue(metric);
+                    if (statValue != null)
+                        statValue.reset();
+                }
+            }
         }
     }
 

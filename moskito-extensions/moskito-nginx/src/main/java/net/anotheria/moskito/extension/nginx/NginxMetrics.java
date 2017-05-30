@@ -133,6 +133,10 @@ public enum NginxMetrics {
         return isRateValue || type == StatValueTypes.DOUBLE;
     }
 
+    public StatValueTypes getType() {
+        return type;
+    }
+
     /**
      * This method shall return the current value as String.
      * @return the current value
