@@ -48,7 +48,7 @@
                 <div class="col-lg-3 col-md-4 col-sm-6">
                     <div class="box gauge-item">
                         <div class="box-title">
-                            <a class="accordion-toggle tooltip-bottom" title="Close/Open" data-toggle="collapse" href="#gauge_collapse_chart${index}"><i class="fa fa-caret-right"></i></a>
+                            <a class="accordion-toggle tooltip-bottom" title="Close/Open" data-toggle="collapse" href="#gauge_collapse_chart${index}"><i class="fa fa-caret-down"></i></a>
 
                             <h3 class="pull-left">
                                     ${gauge.caption}

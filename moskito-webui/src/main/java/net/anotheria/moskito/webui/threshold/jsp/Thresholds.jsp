@@ -16,7 +16,7 @@
 
         <div class="box">
             <div class="box-title">
-                <a class="accordion-toggle tooltip-bottom" title="Close/Open" data-toggle="collapse" href="#collapsestatus"><i class="fa fa-caret-right"></i></a>
+                <a class="accordion-toggle tooltip-bottom" title="Close/Open" data-toggle="collapse" href="#collapsestatus"><i class="fa fa-caret-down"></i></a>
                 <h3 class="pull-left">
                     System state
                 </h3>
@@ -64,7 +64,7 @@
 
         <div class="box">
             <div class="box-title">
-                <a class="accordion-toggle tooltip-bottom" title="Close/Open" data-toggle="collapse" href="#collapsehistory"><i class="fa fa-caret-right"></i></a>
+                <a class="accordion-toggle tooltip-bottom" title="Close/Open" data-toggle="collapse" href="#collapsehistory"><i class="fa fa-caret-down"></i></a>
                 <h3 class="pull-left">
                     History (newest first)
                 </h3>
