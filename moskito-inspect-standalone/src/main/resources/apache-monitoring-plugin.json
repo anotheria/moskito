@@ -13,5 +13,13 @@
         }
       ]
     }
+  },
+  "GB3ANODZHMUD01":{
+    "@monitoredInstances": [
+        {
+          "name": "localhost",
+          "location": "http://localhost:9080/server-status?auto"
+        }
+      ]
   }
 }
