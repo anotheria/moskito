@@ -4,6 +4,7 @@ package net.anotheria.moskito.extension.apache;
 import net.anotheria.moskito.core.decorators.DecoratorRegistryFactory;
 import net.anotheria.moskito.core.producers.AbstractStats;
 import net.anotheria.moskito.core.stats.StatValue;
+import net.anotheria.moskito.core.stats.StatValueTypes;
 import net.anotheria.moskito.core.stats.TimeUnit;
 import net.anotheria.moskito.core.util.MoskitoWebUi;
 import net.anotheria.moskito.extension.apache.decorator.ApacheStatsDecorator;
@@ -69,6 +70,7 @@ public class ApacheStats extends AbstractStats {
      */
     void update(ApacheStatus status) {
         neverUpdated = false;
+        handleApacheRestartIfNeeded(status);
         for (ApacheMetrics metric : ApacheMetrics.values()) {
             StatValue stat = getStatValue(metric);
             switch (metric.type) {
@@ -79,6 +81,23 @@ public class ApacheStats extends AbstractStats {
                 case DIFFLONG:
                 case LONG: stat.setValueAsLong(metric.getLongValue(status));break;
                 default:
+            }
+        }
+    }
+
+    /**
+     * In case monitored apache server was restarted, DIFFLONG stats need special resetting to not break any graphics.
+     */
+    private void handleApacheRestartIfNeeded(ApacheStatus status) {
+        StatValue uptime = getStatValue(ApacheMetrics.SERVER_UPTIME);
+        if (uptime != null && uptime.getValueAsLong() > status.getServerUptime()) {
+            for (ApacheMetrics metric : ApacheMetrics.values()) {
+                if (metric.type == StatValueTypes.DIFFLONG) {
+                    StatValue stat = getStatValue(metric);
+                    //check for null in case metrics set will be configurable.
+                    if (stat != null)
+                        stat.reset();
+                }
             }
         }
     }
