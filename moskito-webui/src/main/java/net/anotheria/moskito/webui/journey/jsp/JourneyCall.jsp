@@ -19,6 +19,14 @@
             <p class="paddner">
                 <span><ano:write name="tracedCall" property="created"/>&nbsp;&nbsp;<ano:write name="tracedCall" property="date"/> &nbsp;&nbsp;</span>
             </p>
+            <ano:notEmpty name="tracedCall" property="tags">
+                <p class="paddner">
+                    <span>
+                        Tags:
+                        <ano:iterate id="tag" name="tracedCall" property="tags">&nbsp;<ano:write name="tag"/></ano:iterate>
+                    </span>
+                </p>
+            </ano:notEmpty>
             <div class="box-content">
 
                 <table class="table table-striped table-tree tree">

@@ -10,7 +10,7 @@
 
         <div class="box">
             <div class="box-title">
-                <a class="accordion-toggle tooltip-bottom" title="Close/Open" data-toggle="collapse" href="#collapse1"><i class="fa fa-caret-right"></i></a>
+                <a class="accordion-toggle tooltip-bottom" title="Close/Open" data-toggle="collapse" href="#collapse1"><i class="fa fa-caret-down"></i></a>
                 <h3 class="pull-left">
                     Everything else.
                 </h3>
@@ -24,7 +24,7 @@
 
         <div class="box">
             <div class="box-title">
-                <a class="accordion-toggle tooltip-bottom" title="Close/Open" data-toggle="collapse" href="#collapse-config"><i class="fa fa-caret-right"></i></a>
+                <a class="accordion-toggle tooltip-bottom" title="Close/Open" data-toggle="collapse" href="#collapse-config"><i class="fa fa-caret-down"></i></a>
                 <h3 class="pull-left">
                     Config.
                 </h3>
@@ -38,7 +38,7 @@
 
         <div class="box">
             <div class="box-title">
-                <a class="accordion-toggle tooltip-bottom" title="Close/Open" data-toggle="collapse" href="#collapse-beans"><i class="fa fa-caret-right"></i></a>
+                <a class="accordion-toggle tooltip-bottom" title="Close/Open" data-toggle="collapse" href="#collapse-beans"><i class="fa fa-caret-down"></i></a>
                 <h3 class="pull-left">
                     MBeans.
                 </h3>
@@ -52,7 +52,7 @@
 
         <div class="box">
             <div class="box-title">
-                <a class="accordion-toggle tooltip-bottom" title="Close/Open" data-toggle="collapse" href="#collapse-libs"><i class="fa fa-caret-right"></i></a>
+                <a class="accordion-toggle tooltip-bottom" title="Close/Open" data-toggle="collapse" href="#collapse-libs"><i class="fa fa-caret-down"></i></a>
                 <h3 class="pull-left">
                     Libs.
                 </h3>
@@ -66,7 +66,7 @@
 
         <div class="box">
             <div class="box-title">
-                <a class="accordion-toggle tooltip-bottom" title="Close/Open" data-toggle="collapse" href="#collapse-plugins"><i class="fa fa-caret-right"></i></a>
+                <a class="accordion-toggle tooltip-bottom" title="Close/Open" data-toggle="collapse" href="#collapse-plugins"><i class="fa fa-caret-down"></i></a>
                 <h3 class="pull-left">
                     Plugins.
                 </h3>
@@ -80,7 +80,7 @@
 
         <div class="box">
             <div class="box-title">
-                <a class="accordion-toggle tooltip-bottom" title="Close/Open" data-toggle="collapse" href="#collapse-update"><i class="fa fa-caret-right"></i></a>
+                <a class="accordion-toggle tooltip-bottom" title="Close/Open" data-toggle="collapse" href="#collapse-update"><i class="fa fa-caret-down"></i></a>
                 <h3 class="pull-left">
                     Update.
                 </h3>
