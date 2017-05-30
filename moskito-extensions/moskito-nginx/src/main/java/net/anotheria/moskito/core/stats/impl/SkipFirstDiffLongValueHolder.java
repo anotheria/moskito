@@ -8,8 +8,7 @@ import net.anotheria.moskito.core.stats.Interval;
  * producer creation.
  *
  * @author dzhmud
- * @see net.anotheria.moskito.core.stats.impl.RateValueHolder
- */
+  */
 @SuppressWarnings("unused")
 public final class SkipFirstDiffLongValueHolder extends DiffLongValueHolder {
 
