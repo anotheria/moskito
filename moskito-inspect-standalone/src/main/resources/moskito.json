@@ -582,6 +582,11 @@
             "className": "net.anotheria.moskitoplugin.topproducers.TopProducersPlugin"
           },
           {
+            "name": "ApacheMonitoringPlugin",
+            "configurationName": "apache-monitoring-plugin",
+            "className": "net.anotheria.moskito.extension.apache.ApacheMonitoringPlugin"
+          },
+          {
             "name": "NginxMonitoringPlugin",
             "configurationName": "nginx-monitor",
             "className": "net.anotheria.moskito.extension.nginx.NginxMonitoringPlugin"
