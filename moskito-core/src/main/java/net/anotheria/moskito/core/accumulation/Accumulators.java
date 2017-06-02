@@ -1,7 +1,14 @@
 package net.anotheria.moskito.core.accumulation;
 
 
+import net.anotheria.moskito.core.config.MoskitoConfigurationHolder;
+import net.anotheria.moskito.core.config.accumulators.AccumulatorSetConfig;
+import net.anotheria.moskito.core.config.accumulators.AccumulatorSetMode;
 import net.anotheria.moskito.core.stats.TimeUnit;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * Utility class for accumulator handling and factory methods.
@@ -170,5 +177,34 @@ public final class Accumulators {
 	 */
 	public static void createUrlTotalTimeAccumulator(String name, String url, String interval) {
 		createAccumulator(name, "RequestURI", url, "time", interval);
+	}
+
+	/**
+	 * Creates garbage collectors accumulators and gc set.
+	 *
+	 * @param gcNames garbage collectors names
+	 */
+	public static void createGCAccumulators(List<String> gcNames) {
+		List<String> accumulators = new ArrayList<>();
+		for (String name : gcNames) {
+			String currentCountAccName = String.format("GC %s current collection count 1m", name);
+			String totalCountAccName = String.format("GC %s total collection count 1m", name);
+			String currentTimeAccName = String.format("GC %s current collection time 1m", name);
+			String totalTimeAccName = String.format("GC %s total collection time 1m", name);
+			accumulators.addAll(Arrays.asList(currentCountAccName, totalCountAccName, currentTimeAccName, totalTimeAccName));
+			Accumulators.createAccumulator(currentCountAccName, "GC", name, "CurrentCollectionCount", "1m");
+			Accumulators.createAccumulator(totalCountAccName, "GC", name, "TotalCollectionCount", "1m");
+			Accumulators.createAccumulator(currentTimeAccName, "GC", name, "CurrentCollectionTime", "1m");
+			Accumulators.createAccumulator(totalTimeAccName, "GC", name, "TotalCollectionTime", "1m");
+		}
+		List<AccumulatorSetConfig> setConfig = new ArrayList<>(Arrays.asList(MoskitoConfigurationHolder.getConfiguration().getAccumulatorsConfig().getAccumulatorSets()));
+		AccumulatorSetConfig gcSet = new AccumulatorSetConfig();
+		gcSet.setName("GC 1 minute");
+		gcSet.setMode(AccumulatorSetMode.MULTIPLE);
+		String[] accNames = new String[accumulators.size()];
+		gcSet.setAccumulatorNames(accumulators.toArray(accNames));
+		setConfig.add(gcSet);
+		AccumulatorSetConfig[] accSets = new AccumulatorSetConfig[setConfig.size()];
+		MoskitoConfigurationHolder.getConfiguration().getAccumulatorsConfig().setAccumulatorSets(setConfig.toArray(accSets));
 	}
 }

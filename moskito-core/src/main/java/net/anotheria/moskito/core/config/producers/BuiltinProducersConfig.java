@@ -39,6 +39,8 @@ public class BuiltinProducersConfig implements Serializable {
 	private boolean runtimeProducer = true;
 	@Configure
 	private boolean mbeanProducers = true;
+	@Configure
+	private boolean gcProducer = true;
 
 	public boolean isJavaMemoryProducers() {
 		return javaMemoryProducers;
@@ -88,12 +90,21 @@ public class BuiltinProducersConfig implements Serializable {
 		this.mbeanProducers = mbeanProducers;
 	}
 
+	public boolean isGcProducer() {
+		return gcProducer;
+	}
+
+	public void setGcProducer(boolean gcProducer) {
+		this.gcProducer = gcProducer;
+	}
+
 	@Override public String toString(){
 		return "memory: " + javaMemoryProducers + ", "+
 				"memoryPool: " + javaMemoryPoolProducers + ", "+
 				"threading: " + javaThreadingProducers + ", "+
 				"osProducer: " + osProducer + ", "+
 				"runtimeProducer: " + runtimeProducer + ", "+
-				"mbeanProducers: " + mbeanProducers;
+				"mbeanProducers: " + mbeanProducers + ", "+
+				"gcProducer: " + gcProducer;
 	}
 }
