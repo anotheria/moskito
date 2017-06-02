@@ -43,6 +43,7 @@ import net.anotheria.moskito.core.decorators.counter.MaleFemaleStatsDecorator;
 import net.anotheria.moskito.core.decorators.predefined.ActionStatsDecorator;
 import net.anotheria.moskito.core.decorators.predefined.CacheStatsDecorator;
 import net.anotheria.moskito.core.decorators.predefined.FilterStatsDecorator;
+import net.anotheria.moskito.core.decorators.predefined.GCStatsDecorator;
 import net.anotheria.moskito.core.decorators.predefined.GenericStatsDecorator;
 import net.anotheria.moskito.core.decorators.predefined.MemoryPoolStatsDecorator;
 import net.anotheria.moskito.core.decorators.predefined.MemoryStatsDecorator;
@@ -58,6 +59,7 @@ import net.anotheria.moskito.core.decorators.util.StorageStatsDecorator;
 import net.anotheria.moskito.core.predefined.ActionStats;
 import net.anotheria.moskito.core.predefined.CacheStats;
 import net.anotheria.moskito.core.predefined.FilterStats;
+import net.anotheria.moskito.core.predefined.GCStats;
 import net.anotheria.moskito.core.predefined.MemoryPoolStats;
 import net.anotheria.moskito.core.predefined.MemoryStats;
 import net.anotheria.moskito.core.predefined.OSStats;
@@ -134,6 +136,7 @@ public class DecoratorRegistryImpl implements IDecoratorRegistry {
 		addDecorator(OSStats.class, new OSStatsDecorator());
 		addDecorator(RuntimeStats.class, new RuntimeStatsDecorator());
 		addDecorator(PageInBrowserStats.class, new PageInBrowserStatsDecorator());
+		addDecorator(GCStats.class, new GCStatsDecorator());
 
 		//counters
 		addDecorator(CounterStats.class, new CounterStatsDecorator());
