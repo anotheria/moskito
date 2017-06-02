@@ -86,6 +86,20 @@
             "URL Time 1h"
           ],
           "mode": "MULTIPLE"
+        },
+        {
+          "name": "GC 1 minute",
+          "accumulatorNames": [
+            "GC Scavenge current collection count 1m",
+            "GC Scavenge total collection count 1m",
+            "GC Scavenge current collection time 1m",
+            "GC Scavenge total collection time 1m",
+            "GC MarkSweep current collection count 1m",
+            "GC MarkSweep total collection count 1m",
+            "GC MarkSweep current collection time 1m",
+            "GC MarkSweep total collection time 1m"
+          ],
+          "mode": "MULTIPLE"
         }
       ],
       "@accumulatorsColors": [
@@ -118,6 +132,62 @@
           "statName": "OS",
           "valueName": "processcpuload",
           "intervalName": "default"
+        },
+        {
+          "name": "GC Scavenge current collection count 1m",
+          "producerName": "GC",
+          "statName": "PS Scavenge",
+          "valueName": "CurrentCollectionCount",
+          "intervalName": "1m"
+        },
+        {
+          "name": "GC Scavenge total collection count 1m",
+          "producerName": "GC",
+          "statName": "PS Scavenge",
+          "valueName": "TotalCollectionCount",
+          "intervalName": "1m"
+        },
+        {
+          "name": "GC Scavenge current collection time 1m",
+          "producerName": "GC",
+          "statName": "PS Scavenge",
+          "valueName": "CurrentCollectionTime",
+          "intervalName": "1m"
+        },
+        {
+          "name": "GC Scavenge total collection time 1m",
+          "producerName": "GC",
+          "statName": "PS Scavenge",
+          "valueName": "TotalCollectionTime",
+          "intervalName": "1m"
+        },
+        {
+          "name": "GC MarkSweep current collection count 1m",
+          "producerName": "GC",
+          "statName": "PS MarkSweep",
+          "valueName": "CurrentCollectionCount",
+          "intervalName": "1m"
+        },
+        {
+          "name": "GC MarkSweep total collection count 1m",
+          "producerName": "GC",
+          "statName": "PS MarkSweep",
+          "valueName": "TotalCollectionCount",
+          "intervalName": "1m"
+        },
+        {
+          "name": "GC MarkSweep current collection time 1m",
+          "producerName": "GC",
+          "statName": "PS MarkSweep",
+          "valueName": "CurrentCollectionTime",
+          "intervalName": "1m"
+        },
+        {
+          "name": "GC MarkSweep total collection time 1m",
+          "producerName": "GC",
+          "statName": "PS MarkSweep",
+          "valueName": "TotalCollectionTime",
+          "intervalName": "1m"
         }
       ]
     },
