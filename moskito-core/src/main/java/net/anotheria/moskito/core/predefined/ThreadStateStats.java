@@ -17,6 +17,9 @@ import java.util.List;
  */
 public class ThreadStateStats extends AbstractStats {
 
+	/**
+	 * Values.
+	 */
 	private static final List<String> VALUE_NAMES = Collections.unmodifiableList(Arrays.asList(
 			"CUR",
 			"MIN",
@@ -24,9 +27,9 @@ public class ThreadStateStats extends AbstractStats {
 	));
 
 
-			/**
-			 * Current value.
-			 */
+	/**
+	 * Current value.
+	 */
 	private StatValue current;
 	/**
 	 * Min value.
