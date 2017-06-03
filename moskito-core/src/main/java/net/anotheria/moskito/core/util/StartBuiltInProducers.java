@@ -28,6 +28,7 @@ public class StartBuiltInProducers {
 		startJavaMemoryProducers();
 		startJavaThreadingProducers();
 		startOsProducers();
+		startGcProducers();
 		startMBeanProducers();
 	}
 	
@@ -48,6 +49,11 @@ public class StartBuiltInProducers {
 			new BuiltInOSProducer();
 		if (MoskitoConfigurationHolder.getConfiguration().getBuiltinProducersConfig().isRuntimeProducer())
 			new BuiltInRuntimeProducer();
+	}
+
+	private static void startGcProducers(){
+		if (MoskitoConfigurationHolder.getConfiguration().getBuiltinProducersConfig().isGcProducer())
+			new BuiltInGCProducer();
 	}
 	
 	private static void startJavaMemoryProducers(){
