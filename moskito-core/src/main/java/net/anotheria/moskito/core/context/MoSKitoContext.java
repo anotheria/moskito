@@ -22,6 +22,9 @@ public class MoSKitoContext {
 		return currentContext.get();
 	}
 
+	/**
+	 * Map with tags assigned to this context.
+	 */
 	private HashMap<String, String> tags = new HashMap<>();
 
 	/**
@@ -37,10 +40,17 @@ public class MoSKitoContext {
 		return (Map<String, String>) get().tags.clone();
 	}
 
+	/**
+	 * Marks current context as erroneous (having one error occurred already) and returns the previous value. This method is threadsafe.
+	 * @return
+	 */
 	public boolean markErrorAndReturnIfErrorAlreadyHappenedBefore(){
 		return errorOccured.getAndSet(true);
 	}
 
+	/**
+	 * Resets the current context. Especially useful for unit-testing.
+	 */
 	public void reset(){
 		tags = new HashMap<>();
 		errorOccured = new AtomicBoolean(false);
