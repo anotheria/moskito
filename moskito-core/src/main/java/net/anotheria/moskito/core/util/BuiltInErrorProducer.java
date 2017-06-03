@@ -14,21 +14,36 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
- * This producer registers all errors in the system.
+ * This producer registers all errors in the system. Since this producer must be available at first error and can only be present once, we made it singleton using holder-class pattern.
  *
  * @author lrosenberg
  * @since 01.06.17 16:34
  */
-public class BuiltInErrorProducer extends AbstractBuiltInProducer<ErrorStats>  implements IStatsProducer<ErrorStats>, BuiltInProducer, AutoTieAbleProducer {
+public final class BuiltInErrorProducer extends AbstractBuiltInProducer<ErrorStats>  implements IStatsProducer<ErrorStats>, BuiltInProducer, AutoTieAbleProducer {
 
+	/**
+	 * Map with ErrorStats object for ExceptionTypes. Used for fast access to the proper ErrorStats object.
+	 */
 	private ConcurrentHashMap<Class, ErrorStats> statsMap = null;
+	/**
+	 * Stats list for getStats method.
+	 */
 	private CopyOnWriteArrayList<ErrorStats> statsList = null;
+	/**
+	 * Cumulated stats over all exceptions.
+	 */
 	private ErrorStats cumulatedStats;
 
+	/**
+	 * Constructor.
+	 */
 	private BuiltInErrorProducer(){
 		init();
 	}
 
+	/**
+	 * Initialization. Moved out to be reused in unit-tests.
+	 */
 	private void init(){
 		statsMap = new ConcurrentHashMap<>();
         statsList = new CopyOnWriteArrayList<>();
@@ -43,7 +58,14 @@ public class BuiltInErrorProducer extends AbstractBuiltInProducer<ErrorStats>  i
 		AccumulatorRepository.getInstance().createAccumulator(createAccumulatorDefinition("ErrorsCumulatedInitial", "initial", "cumulated"));
 	}
 
-	protected AccumulatorDefinition createAccumulatorDefinition(String name, String valueName, String statName){
+	/**
+	 * Helper method to create a accumulator definiton.
+	 * @param name name of the accumulator.
+	 * @param valueName name of the value (initial or total).
+	 * @param statName name of the stat (exception name or 'cumulated').
+	 * @return
+	 */
+	private AccumulatorDefinition createAccumulatorDefinition(String name, String valueName, String statName){
 		AccumulatorDefinition definition = new AccumulatorDefinition();
 		definition.setName(name);
 		definition.setProducerName(getProducerId());
@@ -55,6 +77,10 @@ public class BuiltInErrorProducer extends AbstractBuiltInProducer<ErrorStats>  i
 
 	}
 
+	/**
+	 * Returns the singleton instance of this producer.
+	 * @return
+	 */
 	public static BuiltInErrorProducer getInstance(){
 		return ErrorProducerHolder.instance;
 	}
@@ -113,7 +139,13 @@ public class BuiltInErrorProducer extends AbstractBuiltInProducer<ErrorStats>  i
 		init();
 	}
 
+	/**
+	 * Holder class for BuildInErrorProducer instance.
+	 */
 	private static class ErrorProducerHolder{
+		/**
+		 * Instance.
+		 */
 		static BuiltInErrorProducer instance = new BuiltInErrorProducer();
 	}
 

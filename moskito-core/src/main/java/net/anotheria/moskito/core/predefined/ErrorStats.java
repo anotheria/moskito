@@ -25,6 +25,9 @@ public class ErrorStats extends AbstractStats {
 	 */
 	private StatValue total;
 
+	/**
+	 * Value names for supported values.
+	 */
 	private static final List<String> VALUE_NAMES = Collections.unmodifiableList(Arrays.asList(
 			"INITIAL",
 			"TOTAL"
