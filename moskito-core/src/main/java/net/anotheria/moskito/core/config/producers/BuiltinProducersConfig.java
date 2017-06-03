@@ -33,12 +33,21 @@ public class BuiltinProducersConfig implements Serializable {
 	 */
 	@Configure
 	private boolean javaThreadingProducers = true;
+	/**
+	 * Start OS Producer.
+	 */
 	@Configure
 	private boolean osProducer = true;
+	/**
+	 * Start producer using runtime mbean. It is used for CPU load.
+	 */
 	@Configure
 	private boolean runtimeProducer = true;
 	@Configure
 	private boolean mbeanProducers = true;
+	/**
+	 * Start gc producer. This producer creates a gc producer for every garbage collector mbean found in system.
+	 */
 	@Configure
 	private boolean gcProducer = true;
 
