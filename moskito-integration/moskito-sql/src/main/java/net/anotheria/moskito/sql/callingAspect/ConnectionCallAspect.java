@@ -91,7 +91,7 @@ public class ConnectionCallAspect {
 			return retVal;
 		} catch (Throwable t) {
 			success = false;
-			cumulatedStats.notifyError();
+			cumulatedStats.notifyError(t);
 			if (statementStats!=null)
 				statementStats.notifyError();
 			throw t;

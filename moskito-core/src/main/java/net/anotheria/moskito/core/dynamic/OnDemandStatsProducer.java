@@ -34,6 +34,7 @@
  */	
 package net.anotheria.moskito.core.dynamic;
 
+import net.anotheria.moskito.core.helper.AutoTieAbleProducer;
 import net.anotheria.moskito.core.inspection.CreationInfo;
 import net.anotheria.moskito.core.inspection.Inspectable;
 import net.anotheria.moskito.core.producers.IStats;
@@ -54,7 +55,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
  *
  * @author lrosenberg
  */
-public class OnDemandStatsProducer<S extends IStats> implements IStatsProducer<S>, Inspectable, TracingAwareProducer {
+public class OnDemandStatsProducer<S extends IStats> implements IStatsProducer<S>, Inspectable, TracingAwareProducer, AutoTieAbleProducer {
 
 	/**
 	 * Constant for cumulated (aggregated) stats name.

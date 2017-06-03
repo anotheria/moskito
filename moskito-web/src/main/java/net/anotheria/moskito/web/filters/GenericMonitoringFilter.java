@@ -102,19 +102,19 @@ public class GenericMonitoringFilter implements Filter {
 
 			if (t!=null){
 				if (t instanceof ServletException){
-					defaultStats.notifyServletException();
+					defaultStats.notifyServletException(t);
 					if (caseStats!=null)
-						caseStats.notifyServletException();
+						caseStats.notifyServletException(t);
 				}else if(t instanceof IOException){
-					defaultStats.notifyIOException();
+					defaultStats.notifyIOException(t);
 					if (caseStats!=null)
-						caseStats.notifyIOException();
+						caseStats.notifyIOException(t);
 				}else if(t instanceof RuntimeException){
-					defaultStats.notifyRuntimeException();
+					defaultStats.notifyRuntimeException(t);
 					if (caseStats!=null)
-						caseStats.notifyRuntimeException();
+						caseStats.notifyRuntimeException(t);
 				}else{
-					defaultStats.notifyError();
+					defaultStats.notifyError(t);
 					if (caseStats!=null)
 						caseStats.notifyError();
 				}

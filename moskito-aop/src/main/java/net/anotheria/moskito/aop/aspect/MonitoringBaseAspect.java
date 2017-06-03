@@ -83,7 +83,7 @@ public class MonitoringBaseAspect extends AbstractMoskitoAspect<ServiceStats>{
             ret = pjp.proceed();
             return ret;
         } catch (InvocationTargetException e) {
-            defaultStats.notifyError();
+            defaultStats.notifyError(e.getTargetException());
             if (methodStats != null) {
                 methodStats.notifyError();
             }
@@ -92,7 +92,7 @@ public class MonitoringBaseAspect extends AbstractMoskitoAspect<ServiceStats>{
             }
             throw e.getCause();
         } catch (Throwable t) {
-            defaultStats.notifyError();
+            defaultStats.notifyError(t);
             if (methodStats != null) {
                 methodStats.notifyError();
             }

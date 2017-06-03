@@ -63,28 +63,28 @@ public class AsyncSourceTldFilter extends MoskitoFilter{
 		if (caseStats!=null)
 			caseStats.addExecutionTime(tss.exTime);
 
-		if (tss.error){
-			defaultStats.notifyError();
+		if (tss.errorInstance != null){
+			defaultStats.notifyError(tss.errorInstance);
 			if (caseStats!=null)
 				caseStats.notifyError();
 		}
 
 		if (tss.servletException){
-			defaultStats.notifyServletException();
+			defaultStats.notifyServletException(new ServletException());
 			if (caseStats!=null)
-				caseStats.notifyServletException();
+				caseStats.notifyServletException(new ServletException());
 		}
 
 		if (tss.runtimeException){
-			defaultStats.notifyRuntimeException();
+			defaultStats.notifyRuntimeException(new RuntimeException());
 			if (caseStats!=null)
-				caseStats.notifyRuntimeException();
+				caseStats.notifyRuntimeException(new RuntimeException());
 		}
 
 		if (tss.ioException){
-			defaultStats.notifyIOException();
+			defaultStats.notifyIOException(new IOException());
 			if (caseStats!=null)
-				caseStats.notifyIOException();
+				caseStats.notifyIOException(new IOException());
 		}
 
 		if (tss.finished){
@@ -123,10 +123,11 @@ public class AsyncSourceTldFilter extends MoskitoFilter{
 		 * Did a runtime exception occurred?
 		 */
 		private boolean runtimeException;
+
 		/**
-		 * Did an Error occurred?
+		 * Error instance if applicable.
 		 */
-		private boolean error;
+		private Throwable errorInstance;
 	}
 
 	/**
@@ -186,15 +187,18 @@ public class AsyncSourceTldFilter extends MoskitoFilter{
 			tss.exTime = System.nanoTime() - startTime;
 		}catch(ServletException e){
 			tss.servletException = true;
+			tss.errorInstance = e;
 			throw e;
 		}catch(IOException e){
 			tss.ioException = true;
+			tss.errorInstance = e;
 			throw e;
 		}catch(RuntimeException e){
+			tss.errorInstance = e;
 			tss.runtimeException = true;
 			throw e;
 		}catch(Error e){
-			tss.error = true;
+			tss.errorInstance = e;
 			throw e;
 		}finally{
 			tss.finished = true;
