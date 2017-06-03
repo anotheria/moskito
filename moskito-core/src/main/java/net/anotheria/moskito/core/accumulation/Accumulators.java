@@ -197,7 +197,12 @@ public final class Accumulators {
 			Accumulators.createAccumulator(currentTimeAccName, "GC", name, "CurrentCollectionTime", "1m");
 			Accumulators.createAccumulator(totalTimeAccName, "GC", name, "TotalCollectionTime", "1m");
 		}
-		List<AccumulatorSetConfig> setConfig = new ArrayList<>(Arrays.asList(MoskitoConfigurationHolder.getConfiguration().getAccumulatorsConfig().getAccumulatorSets()));
+		AccumulatorSetConfig[] accumulatorSets = MoskitoConfigurationHolder.getConfiguration().getAccumulatorsConfig().getAccumulatorSets();
+		if (accumulatorSets==null)
+			accumulatorSets = new AccumulatorSetConfig[0];
+		List<AccumulatorSetConfig> setConfig = new ArrayList<>(
+				Arrays.asList(accumulatorSets)
+		);
 		AccumulatorSetConfig gcSet = new AccumulatorSetConfig();
 		gcSet.setName("GC 1 minute");
 		gcSet.setMode(AccumulatorSetMode.MULTIPLE);
