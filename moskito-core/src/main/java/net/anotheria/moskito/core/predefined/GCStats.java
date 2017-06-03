@@ -40,9 +40,9 @@ public class GCStats extends AbstractStats {
 
 	public GCStats(String aName, Interval[] selectedIntervals){
 		super(aName);
-		currentCollectionCount = StatValueFactory.createStatValue(StatValueTypes.DIFFLONG, "currentCollectionCount", selectedIntervals);;
+		currentCollectionCount = StatValueFactory.createStatValue(StatValueTypes.DIFFLONG, "currentCollectionCount", selectedIntervals);
 		totalCollectionCount = StatValueFactory.createStatValue(0, "totalCollectionCount", selectedIntervals);
-		currentCollectionTime = StatValueFactory.createStatValue(StatValueTypes.DIFFLONG, "currentCollectionTime", selectedIntervals);;
+		currentCollectionTime = StatValueFactory.createStatValue(StatValueTypes.DIFFLONG, "currentCollectionTime", selectedIntervals);
 		totalCollectionTime = StatValueFactory.createStatValue(0, "totalCollectionTime", selectedIntervals);
 
 		addStatValues(currentCollectionCount, totalCollectionCount, currentCollectionTime, totalCollectionTime);
