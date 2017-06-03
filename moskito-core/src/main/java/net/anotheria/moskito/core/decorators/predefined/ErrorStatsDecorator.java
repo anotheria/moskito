@@ -44,6 +44,9 @@ import net.anotheria.moskito.core.stats.TimeUnit;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Decorator for error stats.
+ */
 public class ErrorStatsDecorator extends AbstractDecorator {
 	/**
 	 * Captions.
