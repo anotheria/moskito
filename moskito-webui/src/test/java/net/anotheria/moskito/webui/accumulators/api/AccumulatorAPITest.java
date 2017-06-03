@@ -35,8 +35,6 @@ public class AccumulatorAPITest {
 
         assertNotNull(api.getAccumulatorDefinitions());
 
-		System.out.println(api.getAccumulatorDefinitions());
-
         final AccumulatorDefinitionAO ret = createAccumulator("test");
         assertEquals(1, api.getAccumulatorDefinitions().size());
 
