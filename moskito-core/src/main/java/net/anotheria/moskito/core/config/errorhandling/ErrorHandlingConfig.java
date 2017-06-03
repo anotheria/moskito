@@ -4,6 +4,8 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.configureme.annotations.Configure;
 import org.configureme.annotations.ConfigureMe;
 
+import java.io.Serializable;
+
 /**
  * TODO comment this class
  *
@@ -12,7 +14,7 @@ import org.configureme.annotations.ConfigureMe;
  */
 @ConfigureMe
 @SuppressFBWarnings(value = {"EI_EXPOSE_REP2", "EI_EXPOSE_REP"}, justification = "This is the way ConfigureMe works, it provides beans for access")
-public class ErrorHandlingConfig {
+public class ErrorHandlingConfig implements Serializable{
 	/**
 	 * SerialVersionUID.
 	 */
