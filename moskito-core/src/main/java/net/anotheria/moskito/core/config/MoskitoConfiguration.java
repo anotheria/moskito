@@ -95,14 +95,23 @@ public class MoskitoConfiguration implements Serializable{
 	@SerializedName("@tracingConfig")
 	private TracingConfiguration tracingConfig = new TracingConfiguration();
 
+	/**
+	 * Configuration for journey handling.
+	 */
 	@Configure
 	@SerializedName("@journeyConfig")
 	private JourneyConfig journeyConfig = new JourneyConfig();
 
+	/**
+	 * Configuration for error config. It configures the behaviour of the built in error procuder.
+	 */
 	@Configure
 	@SerializedName("@errorHandlingConfig")
 	private ErrorHandlingConfig errorHandlingConfig = new ErrorHandlingConfig();
 
+	/**
+	 * Configuration of generic filters.
+	 */
 	@Configure
 	@SerializedName("@filterConfig")
 	private FilterConfig filterConfig = new FilterConfig();

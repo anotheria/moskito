@@ -7,7 +7,7 @@ import org.configureme.annotations.ConfigureMe;
 import java.io.Serializable;
 
 /**
- * TODO comment this class
+ * Configuration for the BuiltInErrorProducer.
  *
  * @author lrosenberg
  * @since 02.06.17 14:13
@@ -20,6 +20,9 @@ public class ErrorHandlingConfig implements Serializable{
 	 */
 	private static final long serialVersionUID = 1L;
 
+	/**
+	 * Should errors be auto-charted. Auto charted means that for every exception/error/throwable type a new accumulator will be created. Default is false.
+	 */
 	@Configure private boolean autoChartErrors = true;
 
 	/**
