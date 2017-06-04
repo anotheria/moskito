@@ -151,6 +151,7 @@ public class SetupPreconfiguredAccumulators implements ServletContextListener{
 
 	/**
 	 * Adds GC accumulators set.
+	 * @param accNames accumulators names
 	 */
 	private static void setupGCAccumulatorsSet(List<String> accNames){
 		AccumulatorSetConfig[] accumulatorSets = MoskitoConfigurationHolder.getConfiguration().getAccumulatorsConfig().getAccumulatorSets();
