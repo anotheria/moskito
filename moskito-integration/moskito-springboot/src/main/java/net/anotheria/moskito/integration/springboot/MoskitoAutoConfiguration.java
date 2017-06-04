@@ -45,6 +45,7 @@ public class MoskitoAutoConfiguration {
         SetupPreconfiguredAccumulators.setupUrlAccumulators();
         SetupPreconfiguredAccumulators.setupThreadAccumulators();
         SetupPreconfiguredAccumulators.setupSessionCountAccumulators();
+        SetupPreconfiguredAccumulators.setupGCAccumulators();
     }
 
     @Bean

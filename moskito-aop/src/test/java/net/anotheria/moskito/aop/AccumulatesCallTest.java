@@ -21,7 +21,6 @@ public class AccumulatesCallTest {
 	@BeforeClass
 	public static void setup() {
 		MoskitoConfigurationHolder.resetConfiguration();
-		MoskitoConfigurationHolder.getConfiguration().getBuiltinProducersConfig().setGcProducer(false);
 	}
 
 
