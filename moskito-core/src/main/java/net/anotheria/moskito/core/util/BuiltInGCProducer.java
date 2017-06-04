@@ -1,12 +1,9 @@
 package net.anotheria.moskito.core.util;
 
-import net.anotheria.moskito.core.accumulation.Accumulators;
 import net.anotheria.moskito.core.predefined.GCStats;
 import net.anotheria.moskito.core.producers.IStats;
 import net.anotheria.moskito.core.producers.IStatsProducer;
 import net.anotheria.moskito.core.registry.ProducerRegistryFactory;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.lang.management.GarbageCollectorMXBean;
 import java.lang.management.ManagementFactory;
@@ -31,17 +28,13 @@ public class BuiltInGCProducer extends AbstractBuiltInProducer implements IStats
     private List<GarbageCollectorMXBean> mxBeans;
 
     /**
-     * Logger.
+     * Constructor.
      */
-    private static Logger log = LoggerFactory.getLogger(BuiltInGCProducer.class);
-
     public BuiltInGCProducer() {
         mxBeans = ManagementFactory.getGarbageCollectorMXBeans();
         iStatsList = new ArrayList<>(mxBeans.size());
-        List<String> beanNames = new ArrayList<>();
         for (GarbageCollectorMXBean bean : mxBeans) {
             iStatsList.add(new GCStats(bean.getName()));
-            beanNames.add(bean.getName());
         }
 
         BuiltinUpdater.addTask(new TimerTask() {
@@ -52,7 +45,6 @@ public class BuiltInGCProducer extends AbstractBuiltInProducer implements IStats
         });
 
         ProducerRegistryFactory.getProducerRegistryInstance().registerProducer(this);
-        Accumulators.createGCAccumulators(beanNames);
     }
 
     @Override
