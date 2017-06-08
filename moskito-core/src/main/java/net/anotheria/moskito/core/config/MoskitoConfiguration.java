@@ -3,6 +3,7 @@ package net.anotheria.moskito.core.config;
 import com.google.gson.annotations.SerializedName;
 import net.anotheria.moskito.core.config.accumulators.AccumulatorsConfig;
 import net.anotheria.moskito.core.config.dashboards.DashboardsConfig;
+import net.anotheria.moskito.core.config.errorhandling.ErrorHandlingConfig;
 import net.anotheria.moskito.core.config.filter.FilterConfig;
 import net.anotheria.moskito.core.config.gauges.GaugesConfig;
 import net.anotheria.moskito.core.config.journey.JourneyConfig;
@@ -94,13 +95,27 @@ public class MoskitoConfiguration implements Serializable{
 	@SerializedName("@tracingConfig")
 	private TracingConfiguration tracingConfig = new TracingConfiguration();
 
+	/**
+	 * Configuration for journey handling.
+	 */
 	@Configure
 	@SerializedName("@journeyConfig")
 	private JourneyConfig journeyConfig = new JourneyConfig();
 
+	/**
+	 * Configuration for error config. It configures the behaviour of the built in error procuder.
+	 */
+	@Configure
+	@SerializedName("@errorHandlingConfig")
+	private ErrorHandlingConfig errorHandlingConfig = new ErrorHandlingConfig();
+
+	/**
+	 * Configuration of generic filters.
+	 */
 	@Configure
 	@SerializedName("@filterConfig")
 	private FilterConfig filterConfig = new FilterConfig();
+
 
 	public ThresholdsAlertsConfig getThresholdsAlertsConfig() {
 		return thresholdsAlertsConfig;
@@ -119,7 +134,7 @@ public class MoskitoConfiguration implements Serializable{
 	}
 
 	@Override public String toString(){
-		return "thresholdsAlertsConfig: "+thresholdsAlertsConfig+", thresholds: "+thresholdsConfig+", accumulators:" +accumulatorsConfig+", gauges: "+gaugesConfig+", dashboards: "+dashboardsConfig;
+		return "thresholdsAlertsConfig: "+thresholdsAlertsConfig+", thresholds: "+thresholdsConfig+", accumulators:" +accumulatorsConfig+", gauges: "+gaugesConfig+", dashboards: "+dashboardsConfig+", errorHandling: "+errorHandlingConfig;
 	}
 
 	public AccumulatorsConfig getAccumulatorsConfig() {
@@ -199,6 +214,14 @@ public class MoskitoConfiguration implements Serializable{
 
 	public void setFilterConfig(FilterConfig filterConfig) {
 		this.filterConfig = filterConfig;
+	}
+
+	public ErrorHandlingConfig getErrorHandlingConfig() {
+		return errorHandlingConfig;
+	}
+
+	public void setErrorHandlingConfig(ErrorHandlingConfig errorHandlingConfig) {
+		this.errorHandlingConfig = errorHandlingConfig;
 	}
 }
 

@@ -33,12 +33,23 @@ public class BuiltinProducersConfig implements Serializable {
 	 */
 	@Configure
 	private boolean javaThreadingProducers = true;
+	/**
+	 * Start OS Producer.
+	 */
 	@Configure
 	private boolean osProducer = true;
+	/**
+	 * Start producer using runtime mbean. It is used for CPU load.
+	 */
 	@Configure
 	private boolean runtimeProducer = true;
 	@Configure
 	private boolean mbeanProducers = true;
+	/**
+	 * Start gc producer. This producer creates a gc producer for every garbage collector mbean found in system.
+	 */
+	@Configure
+	private boolean gcProducer = true;
 
 	public boolean isJavaMemoryProducers() {
 		return javaMemoryProducers;
@@ -88,12 +99,21 @@ public class BuiltinProducersConfig implements Serializable {
 		this.mbeanProducers = mbeanProducers;
 	}
 
+	public boolean isGcProducer() {
+		return gcProducer;
+	}
+
+	public void setGcProducer(boolean gcProducer) {
+		this.gcProducer = gcProducer;
+	}
+
 	@Override public String toString(){
 		return "memory: " + javaMemoryProducers + ", "+
 				"memoryPool: " + javaMemoryPoolProducers + ", "+
 				"threading: " + javaThreadingProducers + ", "+
 				"osProducer: " + osProducer + ", "+
 				"runtimeProducer: " + runtimeProducer + ", "+
-				"mbeanProducers: " + mbeanProducers;
+				"mbeanProducers: " + mbeanProducers + ", "+
+				"gcProducer: " + gcProducer;
 	}
 }

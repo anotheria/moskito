@@ -32,7 +32,13 @@ public class GenericStatsDecorator implements IDecorator<GenericStats> {
      */
     private static final Logger LOGGER = LoggerFactory.getLogger(GenericStatsDecorator.class);
 
-    private final String name;
+	/**
+	 * Name.
+	 */
+	private final String name;
+	/**
+	 * Caption.
+	 */
     private final List<StatCaptionBean> captions = new ArrayList<>();
 
 
@@ -43,17 +49,11 @@ public class GenericStatsDecorator implements IDecorator<GenericStats> {
         this.name = name;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public int compareTo(final IComparable anotherComparable, final int method) {
         return getName().compareToIgnoreCase(((IDecorator) anotherComparable).getName());
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public List<StatCaptionBean> getCaptions() {
         return Collections.unmodifiableList(captions);
@@ -78,9 +78,6 @@ public class GenericStatsDecorator implements IDecorator<GenericStats> {
         captions.add(new StatCaptionBean(name, name + " as " + type, ""));
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public String getExplanation(final String caption) {
         for (StatCaptionBean scb : captions) {
@@ -91,17 +88,11 @@ public class GenericStatsDecorator implements IDecorator<GenericStats> {
         return "n.a.";
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public String getName() {
         return name;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public List<StatValueAO> getValues(final GenericStats stats,
                                          final String interval,
@@ -133,9 +124,6 @@ public class GenericStatsDecorator implements IDecorator<GenericStats> {
         return ret;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public String toString() {
 	    final StringBuilder sb = new StringBuilder();

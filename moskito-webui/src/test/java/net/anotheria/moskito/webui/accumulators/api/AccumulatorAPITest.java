@@ -24,6 +24,7 @@ public class AccumulatorAPITest {
     @BeforeClass
     public static void setup() {
 		MoskitoConfigurationHolder.resetConfiguration();
+		MoskitoConfigurationHolder.getConfiguration().getBuiltinProducersConfig().setGcProducer(false);
         APIFinder.cleanUp();
         APIFinder.addAPIFactory(AccumulatorAPI.class, new AccumulatorAPIFactory());
     }
@@ -33,8 +34,6 @@ public class AccumulatorAPITest {
         AccumulatorAPI api = APIFinder.findAPI(AccumulatorAPI.class);
 
         assertNotNull(api.getAccumulatorDefinitions());
-
-		System.out.println(api.getAccumulatorDefinitions());
 
         final AccumulatorDefinitionAO ret = createAccumulator("test");
         assertEquals(1, api.getAccumulatorDefinitions().size());

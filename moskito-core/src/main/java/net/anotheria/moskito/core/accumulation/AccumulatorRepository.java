@@ -4,7 +4,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import net.anotheria.moskito.core.config.MoskitoConfigurationHolder;
 import net.anotheria.moskito.core.config.accumulators.AccumulatorConfig;
 import net.anotheria.moskito.core.config.accumulators.AccumulatorsConfig;
-import net.anotheria.moskito.core.dynamic.OnDemandStatsProducer;
+import net.anotheria.moskito.core.helper.AutoTieAbleProducer;
 import net.anotheria.moskito.core.helper.TieableDefinition;
 import net.anotheria.moskito.core.helper.TieableRepository;
 import net.anotheria.moskito.core.producers.IStats;
@@ -55,7 +55,7 @@ public final class AccumulatorRepository<S extends IStats> extends TieableReposi
 		}
 		
 		if (target==null){
-			if (producer instanceof OnDemandStatsProducer){
+			if (producer instanceof AutoTieAbleProducer){
 				addToAutoTie(acc, producer);
 			}else{
 				throw new IllegalArgumentException("StatObject not found "+definition.getStatName()+" in "+definition);

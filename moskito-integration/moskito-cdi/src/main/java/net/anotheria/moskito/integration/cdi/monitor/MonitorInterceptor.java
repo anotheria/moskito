@@ -1,14 +1,5 @@
 package net.anotheria.moskito.integration.cdi.monitor;
 
-import java.io.Serializable;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-
-import javax.interceptor.AroundInvoke;
-import javax.interceptor.AroundTimeout;
-import javax.interceptor.Interceptor;
-import javax.interceptor.InvocationContext;
-
 import net.anotheria.moskito.core.calltrace.CurrentlyTracedCall;
 import net.anotheria.moskito.core.calltrace.RunningTraceContainer;
 import net.anotheria.moskito.core.calltrace.TraceStep;
@@ -25,6 +16,14 @@ import net.anotheria.moskito.core.tracer.TracerRepository;
 import net.anotheria.moskito.core.tracer.Tracers;
 import net.anotheria.moskito.core.util.annotation.AnnotationUtils;
 import net.anotheria.moskito.integration.cdi.AbstractInterceptor;
+
+import javax.interceptor.AroundInvoke;
+import javax.interceptor.AroundTimeout;
+import javax.interceptor.Interceptor;
+import javax.interceptor.InvocationContext;
+import java.io.Serializable;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 
 /**
  * Monitor interceptor.
@@ -127,7 +126,7 @@ public class MonitorInterceptor extends AbstractInterceptor<ServiceStats> implem
             return ret;
         } catch (InvocationTargetException e) {
             if (defaultStats != null)
-                defaultStats.notifyError();
+                defaultStats.notifyError(e.getTargetException());
             if (methodStats != null)
                 methodStats.notifyError();
             if (currentStep != null)
@@ -136,7 +135,7 @@ public class MonitorInterceptor extends AbstractInterceptor<ServiceStats> implem
             throw e.getCause();
         } catch (Throwable t) {
             if (defaultStats != null)
-                defaultStats.notifyError();
+                defaultStats.notifyError(t);
             if (methodStats != null)
                 methodStats.notifyError();
             if (currentStep != null)

@@ -83,7 +83,7 @@ public class BlueprintProducer implements IStatsProducer{
 		try {
 			return executor.execute(parameters);
 		}  catch (Exception e) {
-			stats.notifyError();
+			stats.notifyError(e);
 			throw e;
 		} finally {
 			long duration = System.nanoTime() - startTime;

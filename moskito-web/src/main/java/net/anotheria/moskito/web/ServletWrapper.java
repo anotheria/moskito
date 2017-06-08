@@ -123,16 +123,16 @@ public class ServletWrapper implements Servlet, IStatsProducer {
 			long executionTime = System.nanoTime()-startTime;
 			serviceStats.addExecutionTime(executionTime);
 		}catch(ServletException e){
-			serviceStats.notifyServletException();
+			serviceStats.notifyServletException(e);
 			throw e;
 		}catch(IOException e){
-			serviceStats.notifyIOException();
+			serviceStats.notifyIOException(e);
 			throw e;
 		}catch(RuntimeException e){
-			serviceStats.notifyRuntimeException();
+			serviceStats.notifyRuntimeException(e);
 			throw e;
 		}catch(Error e){
-			serviceStats.notifyError();
+			serviceStats.notifyError(e);
 			throw e;
 		}finally{
 			serviceStats.notifyRequestFinished();

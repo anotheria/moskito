@@ -120,22 +120,22 @@ public abstract class MoskitoFilter implements Filter{
 			if (caseStats!=null)
 				caseStats.addExecutionTime(exTime);
 		}catch(ServletException e){
-			defaultStats.notifyServletException();
+			defaultStats.notifyServletException(e);
 			if (caseStats!=null)
-				caseStats.notifyServletException();
+				caseStats.notifyServletException(e);
 			throw e;
 		}catch(IOException e){
-			defaultStats.notifyIOException();
+			defaultStats.notifyIOException(e);
 			if (caseStats!=null)
-				caseStats.notifyIOException();
+				caseStats.notifyIOException(e);
 			throw e;
 		}catch(RuntimeException e){
-			defaultStats.notifyRuntimeException();
+			defaultStats.notifyRuntimeException(e);
 			if (caseStats!=null)
-				caseStats.notifyRuntimeException();
+				caseStats.notifyRuntimeException(e);
 			throw e;
 		}catch(Error e){
-			defaultStats.notifyError();
+			defaultStats.notifyError(e);
 			if (caseStats!=null)
 				caseStats.notifyError();
 			throw e;
