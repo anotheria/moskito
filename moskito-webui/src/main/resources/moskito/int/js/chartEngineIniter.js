@@ -1,52 +1,7 @@
-if (typeof google != 'undefined') google.load("visualization", "1", {packages: ["corechart"]});
-
 var chartEngineIniter = {
-    GOOGLE_CHART_API: function (params) {
-        var chartData = new google.visualization.DataTable(),
-            chartRows = params.data || [],
-            chartColumnType = params.dataType || 'string';
-
-        switch (params.type) {
-            case "LineChart":
-                chartRows = chartRows.map(function (d) {
-                    d[0] = new Date(d[0]);
-                    return d;
-                });
-                break;
-            default:
-            // do nothing
-        }
-
-        chartData.addColumn(chartColumnType, 'Stat');
-
-        for (var i = 0; i < params.names.length; i++) {
-            chartData.addColumn('number', params.names[i]);
-        }
-
-        chartData.addRows(chartRows);
-        var options = {is3D: true, title: params.title || '', chartArea: {width: '80%', left: 75}, width: params.width, height: params.height};
-        var chartInfo = {
-            params: '',
-            container: params.container,
-            type: params.type || 'LineChart',
-            data: chartData,
-            options: options
-        };
-
-        document.getElementById(chartInfo.container).chartInfo = chartInfo;
-        google.visualization.drawChart({
-            "containerId": chartInfo.container,
-            dataTable: chartInfo.data,
-            "chartType": chartInfo.type,
-            "options": chartInfo.options,
-            "refreshInterval": 60
-        });
-    },
-    D3: function (params) {
+    init: function (params) {
         $('#' + params.container).empty();
-
         var d3Chart = D3chart.getInstance();
-
         d3Chart("#" + params.container, params);
     }
 };

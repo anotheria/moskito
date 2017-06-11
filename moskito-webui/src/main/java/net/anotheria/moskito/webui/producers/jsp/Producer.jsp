@@ -200,8 +200,6 @@
     </script>
 
     <script type="text/javascript">
-        var chartEngineName = '${chartEngine}' || 'GOOGLE_CHART_API';
-
         // Many charts
         if ('multipleGraphData' in window) {
             var names = '${accNames}'.slice(1, -1).split(', ');
@@ -224,7 +222,7 @@
                     }
                 };
 
-                chartEngineIniter[chartEngineName](chartParams);
+                chartEngineIniter.init(chartParams);
             });
 
         }
@@ -246,7 +244,7 @@
                 }
             };
 
-            chartEngineIniter[chartEngineName](chartParams);
+            chartEngineIniter.init(chartParams);
         }
 
 
