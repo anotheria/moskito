@@ -51,6 +51,9 @@ public class BuiltinProducersConfig implements Serializable {
 	@Configure
 	private boolean gcProducer = true;
 
+	@Configure
+	private boolean errorProducer = true;
+
 	public boolean isJavaMemoryProducers() {
 		return javaMemoryProducers;
 	}
@@ -115,5 +118,13 @@ public class BuiltinProducersConfig implements Serializable {
 				"runtimeProducer: " + runtimeProducer + ", "+
 				"mbeanProducers: " + mbeanProducers + ", "+
 				"gcProducer: " + gcProducer;
+	}
+
+	public boolean isErrorProducer() {
+		return errorProducer;
+	}
+
+	public void setErrorProducer(boolean errorProducer) {
+		this.errorProducer = errorProducer;
 	}
 }
