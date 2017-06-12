@@ -57,6 +57,9 @@ public class StartBuiltInProducers {
 	}
 	
 	private static void startJavaMemoryProducers(){
+		//Ensure builtin error producer is initialized.
+		BuiltInErrorProducer.getInstance();
+
 		IProducerRegistry registry = ProducerRegistryFactory.getProducerRegistryInstance();
 		if (MoskitoConfigurationHolder.getConfiguration().getBuiltinProducersConfig().isJavaMemoryProducers()){
 			registry.registerProducer(new BuiltInMemoryProducer(BuiltInMemoryProducer.FREE));
