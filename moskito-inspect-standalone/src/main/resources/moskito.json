@@ -353,6 +353,10 @@
               "System CPU Load 1m",
               "Process CPU Load 1m"
             ]
+          },
+          {
+            "caption": "Errors",
+            "accumulators": ["Errors.Cumulated.Initial","Errors.Cumulated.Total"]
           }
         ],
         "@thresholds": [
@@ -376,6 +380,7 @@
   },
   "@gaugesConfig": {
     "@gauges": [
+      //this is an example config.
       {
         "name": "Constant",
         "@minValue": {
