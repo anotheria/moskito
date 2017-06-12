@@ -1,11 +1,18 @@
 package net.anotheria.moskito.core.util;
 
+import net.anotheria.moskito.core.config.MoskitoConfigurationHolder;
+import net.anotheria.moskito.core.config.errorhandling.ErrorCatcherConfig;
+import net.anotheria.moskito.core.config.errorhandling.ErrorCatcherTarget;
+import net.anotheria.moskito.core.config.errorhandling.ErrorHandlingConfig;
 import net.anotheria.moskito.core.context.MoSKitoContext;
 import net.anotheria.moskito.core.dynamic.ProxyUtils;
+import net.anotheria.moskito.core.stats.impl.IntervalRegistry;
+import net.anotheria.moskito.core.timing.IUpdateable;
 import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.fail;
 
@@ -104,6 +111,13 @@ public class BuiltInErrorProducerTest {
 
 	}
 
+	@Test public void testInitialAndTotalInMultipleRequests(){
+		testInitialAndTotalCountWithSequentialCalls();
+		before();
+		testInitialAndTotalCountWithSequentialCalls();
+		
+	}
+
 	@Test public void testInitialAndTotalCountWithSequentialCalls(){
 		ErrorTestService service = ProxyUtils.createServiceInstance(new ErrorTestServiceImpl(), "foo", "foo", ErrorTestService.class );
 		//make 3 calls.
@@ -128,9 +142,66 @@ public class BuiltInErrorProducerTest {
 
 	}
 
+	@Test public void testInMemoryExceptionCatch(){
+		ErrorTestService service = ProxyUtils.createServiceInstance(new ErrorTestServiceImpl(), "foo", "foo", ErrorTestService.class );
+
+		ErrorHandlingConfig config = MoskitoConfigurationHolder.getConfiguration().getErrorHandlingConfig();
+		ErrorCatcherConfig[] catchers = new ErrorCatcherConfig[1];
+		ErrorCatcherConfig myCatcher = new ErrorCatcherConfig();
+		myCatcher.setClazz(IllegalArgumentException.class.getName());
+		myCatcher.setTarget(ErrorCatcherTarget.MEMORY);
+		catchers[0] = myCatcher;
+		config.setCatchers(catchers);
+		config.afterConfiguration();
+
+		BuiltInErrorProducer.getInstance().notifyError(new RuntimeException());
+		BuiltInErrorProducer.getInstance().notifyError(new IllegalArgumentException());
+
+		//runtime exception isn't caught.
+		assertNull(BuiltInErrorProducer.getInstance().getCatcher(RuntimeException.class));
+		//illegal argument exception is caught
+		assertNotNull(BuiltInErrorProducer.getInstance().getCatcher(IllegalArgumentException.class));
+		assertEquals(1, BuiltInErrorProducer.getInstance().getCatcher(IllegalArgumentException.class).getErrorList().size());
+
+	}
+
 	@Before public void before(){
 		BuiltInErrorProducer.getInstance().testingReset();
+		MoskitoConfigurationHolder.resetConfiguration();
 		MoSKitoContext.get().reset();
+	}
+
+	@Test public void testMaxReached(){
+		BuiltInErrorProducer.getInstance().notifyError(new IllegalArgumentException());
+		BuiltInErrorProducer.getInstance().notifyError(new IllegalArgumentException());
+		BuiltInErrorProducer.getInstance().notifyError(new UnsupportedOperationException());
+
+		assertEquals(0, BuiltInErrorProducer.getInstance().testingGetCumulatedStats().getTotal("1m"));
+		assertEquals(3, BuiltInErrorProducer.getInstance().testingGetCumulatedStats().getTotal());
+
+		//force interval update
+		((IUpdateable) IntervalRegistry.getInstance().getInterval("1m")).update();
+
+		assertEquals(3, BuiltInErrorProducer.getInstance().testingGetCumulatedStats().getTotal("1m"));
+		assertEquals(3, BuiltInErrorProducer.getInstance().testingGetCumulatedStats().getTotal());
+
+		assertEquals(3, BuiltInErrorProducer.getInstance().testingGetCumulatedStats().getMaxTotal());
+
+		//force interval update
+		((IUpdateable) IntervalRegistry.getInstance().getInterval("1m")).update();
+
+		//this should not change (3) because there were no errors sofar.
+		assertEquals(3, BuiltInErrorProducer.getInstance().testingGetCumulatedStats().getMaxTotal());
+
+		//now create 100 more errors
+		for (int i=0; i<100; i++){
+			BuiltInErrorProducer.getInstance().notifyError(new IllegalArgumentException());
+		}
+		//force interval update
+		((IUpdateable) IntervalRegistry.getInstance().getInterval("1m")).update();
+		assertEquals(100, BuiltInErrorProducer.getInstance().testingGetCumulatedStats().getTotal("1m"));
+		assertEquals(100, BuiltInErrorProducer.getInstance().testingGetCumulatedStats().getMaxTotal());
+
 	}
 
 

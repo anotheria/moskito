@@ -206,6 +206,11 @@
 
 <script src="../moskito/ext/switchery/switchery.min.js" type="text/javascript"></script>
 
+<!-- Debug
+ CurrentNaviItem: ${currentNaviItem}, ${currentNaviItem.id}
+ CurrentSubNaviItem: ${currentSubNaviItem}, ${currentSubNaviItem.id}
+-->
+
 <ano:equal name="currentSubNaviItem" property="id" value="more_config">
     <script type="text/javascript" src="../moskito/ext/google-code-prettify/prettify.js"></script>
     <script type="text/javascript" src="../moskito/ext/google-code-prettify/application.js"></script>
@@ -220,6 +225,10 @@
 </ano:equal>
 
 <ano:equal name="currentNaviItem" property="id" value="tracers">
+    <script type="text/javascript" src="../moskito/ext/jquery-tree-table/jquery.treeTable.min.js"></script>
+</ano:equal>
+
+<ano:equal name="currentSubNaviItem" property="id" value="more_errors">
     <script type="text/javascript" src="../moskito/ext/jquery-tree-table/jquery.treeTable.min.js"></script>
 </ano:equal>
 

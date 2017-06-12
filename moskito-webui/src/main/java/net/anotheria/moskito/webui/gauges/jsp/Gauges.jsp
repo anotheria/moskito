@@ -76,8 +76,6 @@
         </div>
 
         <script type="text/javascript">
-            var chartEngineName = '${chartEngine}' || 'GOOGLE_CHART_API';
-
             var gaugeContainerSelectors = $('.gauge-chart').map(function () {
                 return $(this).attr("id");
             });
@@ -89,7 +87,7 @@
                     type: 'GaugeChart'
                 };
 
-                chartEngineIniter[chartEngineName](chartParams);
+                chartEngineIniter.init(chartParams);
             });
         </script>
 

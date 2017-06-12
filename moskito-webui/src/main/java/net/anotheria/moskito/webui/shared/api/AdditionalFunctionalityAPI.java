@@ -62,4 +62,20 @@ public interface AdditionalFunctionalityAPI extends API, Service{
 	 * @throws APIException
 	 */
 	MoskitoConfiguration getConfiguration() throws APIException;
+
+	/**
+	 * Returns all active error catchers.
+	 * @return
+	 * @throws APIException
+	 */
+	List<ErrorCatcherAO> getActiveErrorCatchers() throws APIException;
+
+	/**
+	 * Returns list of errors caught for this exception name.
+	 * @param exceptionName which is the class name of the exception, i.e. java.lang.NullPointerException.
+	 * @return list of  CaughtErrorAO objects.
+	 * @throws APIException
+	 */
+	List<CaughtErrorAO> getCaughtErrorsByExceptionName(String exceptionName) throws APIException;
+
 }

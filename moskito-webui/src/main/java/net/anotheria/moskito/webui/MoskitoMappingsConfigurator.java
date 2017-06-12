@@ -25,6 +25,8 @@ import net.anotheria.moskito.webui.journey.action.ShowJourneyCallAction;
 import net.anotheria.moskito.webui.journey.action.ShowJourneysAction;
 import net.anotheria.moskito.webui.more.action.AdditionalSectionAction;
 import net.anotheria.moskito.webui.more.action.ShowConfigAction;
+import net.anotheria.moskito.webui.more.action.ShowErrorAction;
+import net.anotheria.moskito.webui.more.action.ShowErrorsAction;
 import net.anotheria.moskito.webui.more.action.ShowLibsAction;
 import net.anotheria.moskito.webui.more.action.ShowMBeansAction;
 import net.anotheria.moskito.webui.more.action.UpdateAction;
@@ -224,6 +226,12 @@ public class MoskitoMappingsConfigurator implements ActionMappingsConfigurator{
 		);
 		mappings.addMapping("mskConfig", ShowConfigAction.class,
 			new ActionForward("success", "/net/anotheria/moskito/webui/more/jsp/Config.jsp")
+		);
+		mappings.addMapping("mskErrors", ShowErrorsAction.class,
+				new ActionForward("success", "/net/anotheria/moskito/webui/more/jsp/Errors.jsp")
+		);
+		mappings.addMapping("mskError", ShowErrorAction.class,
+				new ActionForward("success", "/net/anotheria/moskito/webui/more/jsp/Error.jsp")
 		);
 		mappings.addMapping("mskLibs", ShowLibsAction.class,
 				new ActionForward("success", "/net/anotheria/moskito/webui/more/jsp/Libs.jsp")

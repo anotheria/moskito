@@ -34,17 +34,6 @@
  */
 package net.anotheria.moskito.webui.shared.action;
 
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.LinkedList;
-import java.util.List;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import net.anotheria.anoplass.api.APICallContext;
 import net.anotheria.anoplass.api.session.APISession;
 import net.anotheria.maf.action.Action;
@@ -67,11 +56,19 @@ import net.anotheria.moskito.webui.shared.bean.UnitBean;
 import net.anotheria.moskito.webui.threshold.api.ThresholdAPI;
 import net.anotheria.moskito.webui.tracers.api.TracerAPI;
 import net.anotheria.moskito.webui.util.APILookupUtility;
-import net.anotheria.moskito.webui.util.ChartEngine;
 import net.anotheria.moskito.webui.util.RemoteInstance;
 import net.anotheria.moskito.webui.util.WebUIConfig;
 import net.anotheria.util.NumberUtils;
 import net.anotheria.util.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * BaseAction providing some common functionality for all moskitouiactions.
@@ -158,21 +155,10 @@ public abstract class BaseMoskitoUIAction implements Action{
 	 */
 	public static final String BEAN_AUTORELOAD = "autoreloadInterval";
 
-
-	/**
-	 * Parameter name for the chart engine selection parameter.
-	 */
-	public static final String PARAM_CHART_ENGINE = "pChartEngine";
-
 	/**
 	 * Attribute name for indication if menu navigation is collapsed or not.
 	 */
 	public static final String ATTR_IS_NAV_MENU_COLLAPSED = "isNavMenuCollapsed";
-
-	/**
-	 * Bean name for the session bean (been in http session) for chart engine selection.
-	 */
-	public static final String BEAN_CHART_ENGINE = "ChartEngine";
 
 	/**
 	 * Default title string for the web page &lt;title$gt; element.
@@ -436,22 +422,6 @@ public abstract class BaseMoskitoUIAction implements Action{
 				}
 			}
 		}
-
-		//check chart engine
-		String pChartEngine = req.getParameter(PARAM_CHART_ENGINE);
-		ChartEngine chartEngine;
-		if (pChartEngine!=null && pChartEngine.length()>0){
-			chartEngine = ChartEngine.getChartEngine(pChartEngine);
-			req.getSession().setAttribute(BEAN_CHART_ENGINE, chartEngine);
-		}else{
-			chartEngine = (ChartEngine) req.getSession().getAttribute(BEAN_CHART_ENGINE);
-			if (chartEngine==null){
-				chartEngine = ChartEngine.getChartEngine(null);
-			}
-		}
-
-		req.setAttribute("chartEngine", chartEngine);
-		req.setAttribute("numericTimestamps", chartEngine.requiresNumericTimestamp());
 
 		checkNavigationMenuState(req);
 
