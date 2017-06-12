@@ -19,7 +19,7 @@ import java.util.Map;
  * @author lrosenberg
  * @since 24.04.15 17:55
  */
-@WebServlet(urlPatterns = "/sampling/sample/lol")
+@WebServlet(urlPatterns = "/sampling/sample")
 public class SamplingServlet extends MoskitoHttpServlet{
 	/**
 	 * SerialVersionUID.
