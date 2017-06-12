@@ -3,14 +3,20 @@ package net.anotheria.moskito.core.util;
 import net.anotheria.moskito.core.accumulation.AccumulatorDefinition;
 import net.anotheria.moskito.core.accumulation.AccumulatorRepository;
 import net.anotheria.moskito.core.config.MoskitoConfigurationHolder;
+import net.anotheria.moskito.core.config.errorhandling.ErrorCatcherConfig;
+import net.anotheria.moskito.core.config.errorhandling.ErrorHandlingConfig;
 import net.anotheria.moskito.core.context.MoSKitoContext;
 import net.anotheria.moskito.core.helper.AutoTieAbleProducer;
 import net.anotheria.moskito.core.predefined.ErrorStats;
 import net.anotheria.moskito.core.producers.IStatsProducer;
 import net.anotheria.moskito.core.registry.ProducerRegistryFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
@@ -35,11 +41,21 @@ public final class BuiltInErrorProducer extends AbstractBuiltInProducer<ErrorSta
 	private ErrorStats cumulatedStats;
 
 	/**
+	 * Logger for global error catching. If ErrorHandlingConfig.isLogErrors() is enabled every error will be logged into this logger.
+	 */
+	private static Logger globalErrorLogger = LoggerFactory.getLogger("MoSKitoCaughtErrors");
+
+	private ConcurrentMap<Class, ErrorCatcher> catchers;
+
+	private ConcurrentMap<Class, LoggerWrapper> wrappers;
+
+	/**
 	 * Constructor.
 	 */
 	private BuiltInErrorProducer(){
 		init();
 	}
+
 
 	/**
 	 * Initialization. Moved out to be reused in unit-tests.
@@ -51,11 +67,14 @@ public final class BuiltInErrorProducer extends AbstractBuiltInProducer<ErrorSta
 		cumulatedStats = new ErrorStats("cumulated");
 		statsList.add(cumulatedStats);
 
+		catchers = new ConcurrentHashMap<>();
+		wrappers = new ConcurrentHashMap<>();
+
 		ProducerRegistryFactory.getProducerRegistryInstance().registerProducer(this);
 
 		//add charts for cumulated errors.
-		AccumulatorRepository.getInstance().createAccumulator(createAccumulatorDefinition("ErrorsCumulatedTotal", "total", "cumulated"));
-		AccumulatorRepository.getInstance().createAccumulator(createAccumulatorDefinition("ErrorsCumulatedInitial", "initial", "cumulated"));
+		AccumulatorRepository.getInstance().createAccumulator(createAccumulatorDefinition("Errors.Cumulated.Total", "total", "cumulated"));
+		AccumulatorRepository.getInstance().createAccumulator(createAccumulatorDefinition("Errors.Cumulated.Initial", "initial", "cumulated"));
 	}
 
 	/**
@@ -104,6 +123,44 @@ public final class BuiltInErrorProducer extends AbstractBuiltInProducer<ErrorSta
 		boolean isInitialError = !MoSKitoContext.get().markErrorAndReturnIfErrorAlreadyHappenedBefore();
 		cumulatedStats.addError(isInitialError);
 
+		//is logging enabled?
+		ErrorHandlingConfig config = MoskitoConfigurationHolder.getConfiguration().getErrorHandlingConfig();
+		if (config.isLogErrors()){
+			globalErrorLogger.error("auto-caught: " +throwable.getMessage(), throwable);
+		}
+
+		ErrorCatcherConfig catcherConfig = config.getCatcherConfig(throwable.getClass().getName());
+		if (catcherConfig!=null){
+			if (catcherConfig.getTarget().keepInMemory()){
+				ErrorCatcher catcher = catchers.get(throwable.getClass());
+				if (catcher == null){
+					//try again
+					ErrorCatcher newCatcher = new ErrorCatcher(throwable.getClass());
+					ErrorCatcher oldCatcher = catchers.putIfAbsent(throwable.getClass(), newCatcher);
+					catcher = oldCatcher == null ? newCatcher : oldCatcher;
+				}
+
+				catcher.add(throwable);
+			}
+			if (catcherConfig.getTarget().log()){
+				//log errors
+				LoggerWrapper wrapper = wrappers.get(throwable.getClass());
+				if (wrapper == null){
+					wrapper = new LoggerWrapper();
+					LoggerWrapper old = wrappers.putIfAbsent(throwable.getClass(), wrapper);
+					if (old==null){
+						wrapper.setLogger(catcherConfig.getParameter());
+					}{
+						wrapper = old;
+					}
+				}
+				//for the very unexpectable case that a wrapper has been put into the map but the logger is not set yet.
+				if (wrapper.getLogger()!=null){
+					wrapper.getLogger().error("caught "+throwable.getClass(), throwable);
+				}
+			}
+		}
+
 		//first we check if this throwable class is already in the map
 		Class clazz = throwable.getClass();
 		ErrorStats existingStats = statsMap.get(clazz);
@@ -125,6 +182,14 @@ public final class BuiltInErrorProducer extends AbstractBuiltInProducer<ErrorSta
 		newErrorStatsObject.addError(isInitialError);
 		statsList.add(newErrorStatsObject);
 
+		if (config.isAutoChartErrors()){
+			//means we have to add a new accumulator for this error.
+			String chartName = throwable.getClass().getSimpleName();
+			AccumulatorRepository.getInstance().createAccumulator(createAccumulatorDefinition("Errors."+chartName+".Total", "total", chartName));
+			AccumulatorRepository.getInstance().createAccumulator(createAccumulatorDefinition("Errors."+chartName+".Initial", "initial", chartName));
+
+		}
+
 	}
 
 	ErrorStats testingGetStatsForError(Class errorClazz){
@@ -139,6 +204,7 @@ public final class BuiltInErrorProducer extends AbstractBuiltInProducer<ErrorSta
 		init();
 	}
 
+
 	/**
 	 * Holder class for BuildInErrorProducer instance.
 	 */
@@ -149,5 +215,30 @@ public final class BuiltInErrorProducer extends AbstractBuiltInProducer<ErrorSta
 		static BuiltInErrorProducer instance = new BuiltInErrorProducer();
 	}
 
+	public ErrorCatcher getCatcher(Class clazz){
+		return catchers.get(clazz);
+	}
+
+	public List<ErrorCatcher> getCatchers() {
+		List<ErrorCatcher> ret = new ArrayList<>();
+		ret.addAll(catchers.values());
+		return ret;
+	}
+
+	static class LoggerWrapper{
+		private volatile Logger log;
+
+		public LoggerWrapper(){
+
+		}
+
+		public void setLogger(String name){
+			log = LoggerFactory.getLogger(name);
+		}
+
+		Logger getLogger(){
+			return log;
+		}
+	}
 
 }

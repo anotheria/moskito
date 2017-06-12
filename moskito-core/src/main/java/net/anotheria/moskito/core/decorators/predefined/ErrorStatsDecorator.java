@@ -53,7 +53,9 @@ public class ErrorStatsDecorator extends AbstractDecorator {
 	 */
 	private static final String CAPTIONS[] = {
 		"Initial",
-		"Total"
+		"Total",
+		"Max initial per Minute",
+		"Max total per Minute"
 	};
 
 	/**
@@ -61,7 +63,10 @@ public class ErrorStatsDecorator extends AbstractDecorator {
 	 */
 	private static final String SHORT_EXPLANATIONS[] = {
 		"Number of initial occurrences",
-		"Number of total occurrences"
+		"Number of total occurrences",
+		"Max number of initial occurrences per minute reached",
+		"Max number of total occurrences per minute reached"
+
 	};
 
 	/**
@@ -69,7 +74,9 @@ public class ErrorStatsDecorator extends AbstractDecorator {
 	 */
 	private static final String EXPLANATIONS[] = {
 		"Number of occurrences of this Exception/Error/Throwable object when it was initial (first) error in the processing",
-		"Number of total occurrences of this Exception/Error/Throwable object, regardless if it was initial or followup error. It also includes initial errors."
+		"Number of total occurrences of this Exception/Error/Throwable object, regardless if it was initial or followup error. It also includes initial errors.",
+		"Maximal number of occurrences of this Exception/Error/Throwable object when it was initial (first) error in the processing that was reached in a single minute.",
+		"Maximal number of total occurrences of this Exception/Error/Throwable object, regardless if it was initial or followup error. It also includes initial errors. This value is max value reached per minute"
 
 	};
 
@@ -87,7 +94,16 @@ public class ErrorStatsDecorator extends AbstractDecorator {
 		int i = 0;
 		ret.add(new LongValueAO(CAPTIONS[i++], stats.getInitial(interval)));
 		ret.add(new LongValueAO(CAPTIONS[i++], stats.getTotal(interval)));
+		ret.add(new LongValueAO(CAPTIONS[i++], mapToLong(stats.getMaxInitial(interval))));
+		ret.add(new LongValueAO(CAPTIONS[i++], mapToLong(stats.getMaxTotal(interval))));
 		return ret;
 	}
+
+	private static final long mapToLong(int value){
+		return (value == Integer.MAX_VALUE) ? Long.MAX_VALUE :
+				(value == Integer.MIN_VALUE) ? Long.MIN_VALUE :
+						value;
+	}
+
 
 }
