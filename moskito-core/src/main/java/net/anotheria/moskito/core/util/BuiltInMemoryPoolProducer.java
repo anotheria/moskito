@@ -1,5 +1,6 @@
 package net.anotheria.moskito.core.util;
 
+import net.anotheria.moskito.core.accumulation.Accumulators;
 import net.anotheria.moskito.core.predefined.MemoryPoolStats;
 import net.anotheria.moskito.core.producers.IStats;
 import net.anotheria.moskito.core.producers.IStatsProducer;
@@ -33,7 +34,7 @@ public class BuiltInMemoryPoolProducer  extends AbstractBuiltInProducer  impleme
 	 * The monitored pool.
 	 */
 	private MemoryPoolMXBean pool;
-	
+
 	/**
 	 * Creates a new producers object for a given pool.
 	 * @param aPool
@@ -44,7 +45,7 @@ public class BuiltInMemoryPoolProducer  extends AbstractBuiltInProducer  impleme
 		statsList = new CopyOnWriteArrayList<IStats>();
 		stats = new MemoryPoolStats(producerId);
 		statsList.add(stats);
-		
+		Accumulators.createMemoryPoolAccumulator(pool.getName(), producerId);
 		BuiltinUpdater.addTask(new TimerTask() {
 			@Override
 			public void run() {
