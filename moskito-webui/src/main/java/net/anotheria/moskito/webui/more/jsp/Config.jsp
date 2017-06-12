@@ -48,7 +48,7 @@
             <div class="box-title">
                 <a class="accordion-toggle tooltip-bottom" title="Close/Open" data-toggle="collapse" href="#collapse5"><i class="fa fa-caret-down"></i></a>
                 <h3 class="pull-left">
-                    WebUI Config (mskwebui.json)
+                    WebUI Config (moskito-inspect.json)
                 </h3>
             </div>
             <div id="collapse5" class="box-content accordion-body collapse in">
