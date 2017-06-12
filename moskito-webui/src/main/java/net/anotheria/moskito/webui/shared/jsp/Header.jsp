@@ -83,7 +83,7 @@
 
     <div class="navbar-collapse collapse">
         <div class="text-center"> 
-        <form role="form" class="navbar-form navbar-left">
+            <form role="form" class="navbar-form navbar-left">
             <div class="form-group">
                 <select class="select2" data-placeholder="Interval" onchange="handleSelect(this)">
                     <ano:iterate name="intervals" id="interval" type="net.anotheria.moskito.webui.shared.api.IntervalInfoAO">
