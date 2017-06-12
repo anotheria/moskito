@@ -53,14 +53,8 @@
 <script type="text/javascript" src="../moskito/ext/lodash-4.13.1/lodash.min.js"></script>
 <script type="text/javascript" src="../moskito/ext/jquery.qtip2-3.0.3/jquery.qtip.min.js"></script>
 <script type="text/javascript" src="../moskito/int/js/function.js"></script>
-    <core:if test="${chartEngine eq 'GOOGLE_CHART_API'}">
-        <script type="text/javascript" src="//www.google.com/jsapi"></script>
-    </core:if>
-    <core:if test="${chartEngine eq 'D3'}">
-        <script type="text/javascript" src="../moskito/ext/d3/d3.min.js" charset="utf-8"></script>
-    </core:if>
-
-    <script type="text/javascript" src="../moskito/int/js/chartEngineIniter.js?v=4"></script>
+<script type="text/javascript" src="../moskito/ext/d3/d3.min.js" charset="utf-8"></script>
+<script type="text/javascript" src="../moskito/int/js/chartEngineIniter.js?v=5"></script>
 
 <ano:notEmpty name="graphDatas">
     <!--

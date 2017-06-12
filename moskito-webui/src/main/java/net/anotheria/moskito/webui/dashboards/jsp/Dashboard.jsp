@@ -123,8 +123,6 @@
             <!-- // end gauges -->
 
             <script type="text/javascript">
-                var chartEngineName = '${chartEngine}' || 'GOOGLE_CHART_API';
-
                 var gaugeContainerSelectors = $('.gauge-chart').map(function () {
                     return $(this).attr("id");
                 });
@@ -136,7 +134,7 @@
                         type: 'GaugeChart'
                     };
 
-                    chartEngineIniter[chartEngineName](chartParams);
+                    chartEngineIniter.init(chartParams);
                 });
             </script>
         </ano:equal>
@@ -199,8 +197,6 @@
 
 
             <script type="text/javascript">
-                var chartEngineName = '${chartEngine}' || 'GOOGLE_CHART_API';
-
                 var names = multipleGraphNames.map(function (graphNames) {
                     return graphNames;
                 });
@@ -224,7 +220,7 @@
                         }
                     };
 
-                    chartEngineIniter[chartEngineName](chartParams);
+                    chartEngineIniter.init(chartParams);
                 });
             </script>
         </ano:equal>

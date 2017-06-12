@@ -26,8 +26,7 @@
 
 <script type="text/javascript">
 
-    var chartParams,
-            chartEngineName = '<ano:write name="chartEngine"/>' || 'D3';
+    var chartParams;
 
     var $charSwitcher = $('ul.switcher input.js-switch');
 
@@ -35,7 +34,7 @@
 
     $('.pie_chart').click( function(){
         chartParams.type = 'PieChart';
-        chartEngineIniter[chartEngineName](chartParams);
+        chartEngineIniter.init(chartParams);
     });
 
     $('.chart-icon').click(function(e) {
@@ -54,17 +53,17 @@
             height: ${config.producerChartHeight}
         };
         $chart.find('.modal-title').text(eval(that.parent('.table-column').find('input').val()+'Caption'));
-        chartEngineIniter[chartEngineName](chartParams);
+        chartEngineIniter.init(chartParams);
         $chart.modal('show');
     });
 
     $('.bar_chart').click( function(){
         chartParams.type = 'ColumnChart';
-        chartEngineIniter[chartEngineName](chartParams);
+        chartEngineIniter.init(chartParams);
     });
 
     $('.heatmap_chart').click( function(){
         chartParams.type = 'HeatMapChart';
-        chartEngineIniter[chartEngineName](chartParams);
+        chartEngineIniter.init(chartParams);
     });
 </script>

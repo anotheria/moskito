@@ -20,11 +20,6 @@ public class WebUIConfig {
 	private int producerChartHeight = 600;
 
 	/**
-	 * Default ChartEngine.
-	 */
-	private ChartEngine defaultChartEngine = ChartEngine.D3;
-
-	/**
 	 * List of remote instances. Remote instances are only active if mode is remote.
 	 */
 	private RemoteInstance[] remotes = new RemoteInstance[0];
@@ -78,14 +73,6 @@ public class WebUIConfig {
 	}
 	public void setProducerChartHeight(int producerChartHeight) {
 		this.producerChartHeight = producerChartHeight;
-	}
-
-	public ChartEngine getDefaultChartEngine() {
-		return defaultChartEngine;
-	}
-
-	public void setDefaultChartEngine(ChartEngine defaultChartEngine) {
-		this.defaultChartEngine = defaultChartEngine;
 	}
 
 	/**

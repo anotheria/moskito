@@ -46,30 +46,6 @@
 
         <div class="box">
             <div class="box-title">
-                <a class="accordion-toggle tooltip-bottom" title="Close/Open" data-toggle="collapse" href="#collapse4"><i class="fa fa-caret-down"></i></a>
-                <h3 class="pull-left">
-                    Chart Engines
-                </h3>
-            </div>
-            <div id="collapse4" class="box-content accordion-body collapse in">
-                <div class="paddner">
-                    <b>Available engines:</b>
-
-                    <ul>
-                    <ano:iterate name="availableChartEngines" id="engine">
-                        <li><ano:write name="engine"/>, parameters: <ano:iterate name="engine" property="names" id="n"> <ano:write name="n"/></ano:iterate></li>
-                    </ano:iterate>
-                    </ul>
-                    <b>Selected engine:</b>
-                    <ul>
-                        <li><ano:write name="chartEngine"/></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-
-        <div class="box">
-            <div class="box-title">
                 <a class="accordion-toggle tooltip-bottom" title="Close/Open" data-toggle="collapse" href="#collapse5"><i class="fa fa-caret-down"></i></a>
                 <h3 class="pull-left">
                     WebUI Config (mskwebui.json)
@@ -81,8 +57,6 @@
                     <dd>${config.producerChartWidth}</dd>
                     <dt>producerChartHeight:</dt>
                     <dd>${config.producerChartHeight}</dd>
-                    <dt>defaultChartEngine:</dt>
-                    <dd>${config.defaultChartEngine}</dd>
                     <dt>connectivityMode:</dt>
                     <dd>${config.connectivityMode}</dd>
                     <dt>usageMode:</dt>
