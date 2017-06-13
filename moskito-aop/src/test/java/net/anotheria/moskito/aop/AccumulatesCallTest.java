@@ -21,9 +21,7 @@ public class AccumulatesCallTest {
 	@BeforeClass
 	public static void setup() {
 		MoskitoConfigurationHolder.resetConfiguration();
-		MoskitoConfigurationHolder.getConfiguration().getBuiltinProducersConfig().setGcProducer(false);
-        MoskitoConfigurationHolder.getConfiguration().getBuiltinProducersConfig().setJavaMemoryPoolProducers(false);
-		MoskitoConfigurationHolder.getConfiguration().getBuiltinProducersConfig().setErrorProducer(false);
+		MoskitoConfigurationHolder.getConfiguration().getBuiltinProducersConfig().disableAll();
 	}
 
 
