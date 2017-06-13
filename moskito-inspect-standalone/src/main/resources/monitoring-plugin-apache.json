@@ -1,0 +1,28 @@
+{
+  "pluginType": "apache",
+  "@monitoredInstances": [],
+  "@metrics": [],
+
+  "dev": {
+    "dzhmud": {
+      "@metrics": ["Hostname","Accesses","Total kB","Req/sec","KBytes/sec","Busy","Idle","Uptime(sec)","Uptime","CPU load","CPU user","CPU system","CPU user(children).","CPU system(children).","Load 1m","Load 5m","Load 15m","Con(total)","Con(writing)","Con(keepAlive)","Con(closing)","SB S","SB R","SB W","SB K","SB L","SB D","SB C","SB G","SB I","SB .","SB _","SB total"],
+      "@monitoredInstances": [
+        {
+          "name": "localhost_apache_at_9080",
+          "location": "http://localhost:9080/server-status?auto",
+          "username": "",
+          "password": ""
+        }
+      ]
+    }
+  },
+
+  "GB3ANODZHMUD01":{
+    "@monitoredInstances": [
+      {
+        "name": "localhost_apache_at_80",
+        "location": "http://localhost:80/server-status?auto"
+      }
+    ]
+  }
+}
