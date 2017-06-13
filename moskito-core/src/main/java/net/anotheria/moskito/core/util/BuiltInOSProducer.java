@@ -1,5 +1,6 @@
 package net.anotheria.moskito.core.util;
 
+import net.anotheria.moskito.core.accumulation.Accumulators;
 import net.anotheria.moskito.core.predefined.OSStats;
 import net.anotheria.moskito.core.producers.IStats;
 import net.anotheria.moskito.core.producers.IStatsProducer;
@@ -87,6 +88,8 @@ public class BuiltInOSProducer extends AbstractBuiltInProducer implements IStats
 			}});
 
 		ProducerRegistryFactory.getProducerRegistryInstance().registerProducer(this);
+
+		Accumulators.setupCPUAccumulators();
 	}
 	
 	@Override

@@ -1,7 +1,6 @@
 package net.anotheria.moskito.webui.util;
 
 import net.anotheria.moskito.core.accumulation.Accumulators;
-import net.anotheria.moskito.core.stats.TimeUnit;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -28,7 +27,6 @@ public class SetupPreconfiguredAccumulators implements ServletContextListener{
 		setupSessionCountAccumulators();
 		log.info("Configuring url accumulators.");
 		setupUrlAccumulators();
-		setupCPUAccumulators();
 	}
 
 	/**
@@ -70,13 +68,6 @@ public class SetupPreconfiguredAccumulators implements ServletContextListener{
 		Accumulators.createUrlTotalTimeAccumulator("URL Time 5m", "cumulated", "5m");
 		Accumulators.createUrlTotalTimeAccumulator("URL Time 1h", "cumulated", "1h");
 
-	}
-
-	public static void setupCPUAccumulators(){
-		Accumulators.createAccumulator("CPU Time 1m", "OS", "OS", "CPU Time", "1m", TimeUnit.SECONDS);
-		Accumulators.createAccumulator("CPU Time 5m", "OS", "OS", "CPU Time", "5m", TimeUnit.SECONDS);
-		Accumulators.createAccumulator("CPU Time 1h", "OS", "OS", "CPU Time", "1h", TimeUnit.SECONDS);
-		//OS.OS.CPU Time/default/NANOSECONDS
 	}
 
 	@Override

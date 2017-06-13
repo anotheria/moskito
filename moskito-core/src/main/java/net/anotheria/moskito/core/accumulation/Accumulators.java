@@ -204,4 +204,12 @@ public final class Accumulators {
 		AccumulatorSetConfig[] accSets = new AccumulatorSetConfig[setConfig.size()];
 		MoskitoConfigurationHolder.getConfiguration().getAccumulatorsConfig().setAccumulatorSets(setConfig.toArray(accSets));
 	}
+
+	public static void setupCPUAccumulators(){
+		Accumulators.createAccumulator("CPU Time 1m", "OS", "OS", "CPU Time", "1m", TimeUnit.SECONDS);
+		Accumulators.createAccumulator("CPU Time 5m", "OS", "OS", "CPU Time", "5m", TimeUnit.SECONDS);
+		Accumulators.createAccumulator("CPU Time 1h", "OS", "OS", "CPU Time", "1h", TimeUnit.SECONDS);
+		//OS.OS.CPU Time/default/NANOSECONDS
+	}
+
 }
