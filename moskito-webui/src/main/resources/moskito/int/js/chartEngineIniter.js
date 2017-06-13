@@ -1589,12 +1589,24 @@ var D3chart = (function () {
                 this.configure(configuration);
             }
 
+            var _isMinMaxValid = function (min, max) {
+                if (min == 0 && max == 0) {
+                    return false;
+                }
+
+                return min < max;
+            };
+
             var _createGauge = function (containerId, config) {
                 var gauge = new Gauge(containerId, config);
                 _gauges[containerId] = {
                     name: config.label,
                     chart: gauge
                 };
+
+                if (!_isMinMaxValid(config.min, config.max)) {
+                    return;
+                }
 
                 gauge.render();
                 gauge.redraw(config.current);
@@ -1622,6 +1634,10 @@ var D3chart = (function () {
                         min = params.min,
                         max = params.max,
                         current = params.current;
+
+                    if (!_isMinMaxValid(min, max)) {
+                        return;
+                    }
 
                     _gauges[containerId].chart.redrawValues(min, max, current);
                 });

@@ -1,6 +1,7 @@
 package net.anotheria.moskito.core.util;
 
 import net.anotheria.moskito.core.config.MoskitoConfigurationHolder;
+import net.anotheria.moskito.core.config.producers.BuiltinProducersConfig;
 import net.anotheria.moskito.core.registry.IProducerRegistry;
 import net.anotheria.moskito.core.registry.ProducerRegistryFactory;
 
@@ -58,16 +59,20 @@ public class StartBuiltInProducers {
 	
 	private static void startJavaMemoryProducers(){
 		//Ensure builtin error producer is initialized.
-		BuiltInErrorProducer.getInstance();
+		BuiltinProducersConfig config = MoskitoConfigurationHolder.getConfiguration().getBuiltinProducersConfig();
+
+		if (config.isErrorProducer()) {
+			BuiltInErrorProducer.getInstance();
+		}
 
 		IProducerRegistry registry = ProducerRegistryFactory.getProducerRegistryInstance();
-		if (MoskitoConfigurationHolder.getConfiguration().getBuiltinProducersConfig().isJavaMemoryProducers()){
+		if (config.isJavaMemoryProducers()){
 			registry.registerProducer(new BuiltInMemoryProducer(BuiltInMemoryProducer.FREE));
 			registry.registerProducer(new BuiltInMemoryProducer(BuiltInMemoryProducer.MAX));
 			registry.registerProducer(new BuiltInMemoryProducer(BuiltInMemoryProducer.TOTAL));
 		}
 
-		if (MoskitoConfigurationHolder.getConfiguration().getBuiltinProducersConfig().isJavaMemoryPoolProducers()){
+		if (config.isJavaMemoryPoolProducers()){
 			Map<MemoryType, List<BuiltInMemoryPoolProducer>> producers = new EnumMap<>(MemoryType.class);
 
 			List<MemoryPoolMXBean> pools = ManagementFactory.getMemoryPoolMXBeans();

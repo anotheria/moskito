@@ -74,8 +74,7 @@
                                 </ano:iterate>
                             ]
                             </ano:equal>
-
-                })
+                });
                 </ano:iterate>
             </script>
 
@@ -104,7 +103,7 @@
                                 </div>
                                 <div id="gauge_collapse_chart${index}" class="box-content accordion-body collapse in">
                                     <div class="paddner text-center">
-                                        <div id="gaugeChart${index}" class="gauge-content gauge-chart"></div>
+                                        <div id="gaugeChart${index}" class="gauge-content gauge-chart">Not enough data</div>
                                     </div>
                                 </div>
                             </div>

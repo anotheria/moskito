@@ -163,7 +163,7 @@ public final class Accumulators {
 		for(String interval : intervals)
 			for (String valueName : valuesNames)
 				createAccumulator(
-							poolName.replaceAll("\\s+","") // Remove whitespaces
+							"Mem "+poolName.replaceAll("\\s+","") // Remove whitespaces
 								.replaceAll("PS", "") // Remove PS prefix
 								+ valueName + " " + interval,
 
