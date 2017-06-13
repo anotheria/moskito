@@ -373,6 +373,31 @@
         ]
       },
       {
+        "name": "Memory",
+        "@charts": [
+          {
+            "caption": "GC Current Count",
+            "accumulators": ["GC PS MarkSweep current collection count 1m", "GC PS Scavenge current collection count 1m"]
+          },
+          {
+            "caption": "GC Current Time",
+            "accumulators": ["GC PS MarkSweep current collection time 1m", "GC PS Scavenge current collection time 1m"]
+          },
+          {
+            "caption": "GC Total Count",
+            "accumulators": ["GC PS MarkSweep total collection count 1m", "GC PS Scavenge total collection count 1m"]
+          },
+          {
+            "caption": "GC Total Time",
+            "accumulators": ["GC PS MarkSweep total collection time 1m", "GC PS Scavenge total collection time 1m"]
+          },
+          {
+            "caption": "Memory",
+            "accumulators": ["Mem OldGenFree MB 1m", "Mem OldGenUsed MB 1m"]
+          }
+        ]
+      },
+      {
         "name": "Empty Dashboard"
       }
     ]
