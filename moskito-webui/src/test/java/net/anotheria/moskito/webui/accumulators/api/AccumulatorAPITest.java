@@ -24,9 +24,7 @@ public class AccumulatorAPITest {
     @BeforeClass
     public static void setup() {
 		MoskitoConfigurationHolder.resetConfiguration();
-		MoskitoConfigurationHolder.getConfiguration().getBuiltinProducersConfig().setGcProducer(false);
-        MoskitoConfigurationHolder.getConfiguration().getBuiltinProducersConfig().setJavaMemoryPoolProducers(false);
-        MoskitoConfigurationHolder.getConfiguration().getBuiltinProducersConfig().setErrorProducer(false);
+		MoskitoConfigurationHolder.getConfiguration().getBuiltinProducersConfig().disableAll();
         APIFinder.cleanUp();
         APIFinder.addAPIFactory(AccumulatorAPI.class, new AccumulatorAPIFactory());
     }

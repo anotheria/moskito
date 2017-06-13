@@ -127,4 +127,19 @@ public class BuiltinProducersConfig implements Serializable {
 	public void setErrorProducer(boolean errorProducer) {
 		this.errorProducer = errorProducer;
 	}
+
+	//this method is for unit-test.
+	public void disableAll(){
+		javaMemoryProducers =
+		javaMemoryPoolProducers =
+		javaThreadingProducers =
+		osProducer =
+		runtimeProducer =
+		mbeanProducers =
+		gcProducer =
+		errorProducer =
+			false;
+
+	}
+
 }
