@@ -307,9 +307,8 @@
           {
             "caption": "Memory",
             "accumulators": [
-              "OldGenFree MB 1m",
-              "OldGenUsed MB 1m",
-              "PermGenFree MB 1m"
+              "Mem OldGenFree MB 1m",
+              "Mem OldGenUsed MB 1m"
             ]
           },
           {
