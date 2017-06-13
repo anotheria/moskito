@@ -40,22 +40,6 @@ public class GenericStatsDecorator<GS extends GenericStats<GM>, GM extends IGene
     @Override
     public List<StatValueAO> getValues(GS genericStats, String interval, TimeUnit unit) {
         List<StatValueAO> bean = new ArrayList<>(getCaptions().size());
-//        for (GM metric : genericStats.getAvailableMetrics()) {
-//            if (genericStats.isNeverUpdated()) {
-//                //display "NoR" to clearly differentiate not connectible/parseable from inactive
-//                bean.add(new StringValueAO(metric.getCaption(), "NoR"));
-//            } else {
-//                if (metric.isDoubleValue())
-//                    bean.add(new DoubleValueAO(metric.getCaption(), genericStats.getStatValueAsDouble(metric, interval)));
-//                else if (metric.isIntegerValue())
-//                    bean.add(new LongValueAO(metric.getCaption(), genericStats.getStatValueAsInteger(metric, interval)));
-//                else if (metric.isLongValue())
-//                    bean.add(new LongValueAO(metric.getCaption(), genericStats.getStatValueAsLong(metric, interval)));
-//                else
-//                    bean.add(new StringValueAO(metric.getCaption(), genericStats.getStatValueAsString(metric, interval)));
-//
-//            }
-//        }
         Map<String,GM> metrics = new HashMap<>();
         for (GM metric : genericStats.getAvailableMetrics()) {
             metrics.put(metric.getCaption(), metric);
