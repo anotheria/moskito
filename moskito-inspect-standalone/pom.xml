@@ -52,12 +52,7 @@
         </dependency>
         <dependency>
             <groupId>net.anotheria</groupId>
-            <artifactId>moskito-nginx</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>net.anotheria</groupId>
-            <artifactId>moskito-apache</artifactId>
+            <artifactId>moskito-monitoring-plugin</artifactId>
             <version>${project.version}</version>
         </dependency>
 

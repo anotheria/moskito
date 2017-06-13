@@ -604,13 +604,13 @@
       },
       {
         "name": "ApacheMonitoringPlugin",
-        "configurationName": "apache-monitoring-plugin",
-        "className": "net.anotheria.moskito.extension.apache.ApacheMonitoringPlugin"
+        "configurationName": "monitoring-plugin-apache",
+        "className": "net.anotheria.moskito.extensions.monitoring.GenericMonitoringPlugin"
       },
       {
         "name": "NginxMonitoringPlugin",
-        "configurationName": "nginx-monitor",
-        "className": "net.anotheria.moskito.extension.nginx.NginxMonitoringPlugin"
+        "configurationName": "monitoring-plugin-nginx",
+        "className": "net.anotheria.moskito.extensions.monitoring.GenericMonitoringPlugin"
       }
     ]
   },

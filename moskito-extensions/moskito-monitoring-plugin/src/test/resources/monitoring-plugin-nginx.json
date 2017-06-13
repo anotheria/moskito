@@ -1,0 +1,25 @@
+{
+  "pluginType": "nginx",
+  "@monitoredInstances": [],
+
+  "dev": {
+    "dzhmud": {
+      "@metrics": ["Active","Accepted","Accepted/sec","Handled","Handled/sec","Dropped","Dropped/sec","Requests","Requests/sec","Reading","Writing","Waiting"],
+      "@monitoredInstances": [
+        {
+          "name": "localhost_80_nginx",
+          "location": "http://localhost/nginx_status"
+        }
+      ]
+    }
+  },
+
+  "GB3ANODZHMUD01": {
+    "@monitoredInstances": [
+      {
+        "name": "nginx_at_GB3ANODZHMUD01",
+        "location": "http://localhost:80/nginx_status"
+      }
+    ]
+  }
+}
