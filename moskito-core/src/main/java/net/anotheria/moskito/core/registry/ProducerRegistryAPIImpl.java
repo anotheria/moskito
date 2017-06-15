@@ -248,7 +248,7 @@ public class ProducerRegistryAPIImpl implements IProducerRegistryAPI, IProducerR
 	}
 
 	@Override public void notifyProducerRegistered(IStatsProducer producer) {
-		log.info("Producer registered: "+producer.getProducerId()+" / "+producer+" in "+this);
+		log.info("Producer registered: "+producer.getProducerId()+" / "+producer);
 		if (_cachedProducerList==null)
 			return;
 		synchronized(cacheLock){
