@@ -27,6 +27,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
  */
 public final class BuiltInErrorProducer extends AbstractBuiltInProducer<ErrorStats>  implements IStatsProducer<ErrorStats>, BuiltInProducer, AutoTieAbleProducer {
 
+	private static Logger log = LoggerFactory.getLogger(BuiltInErrorProducer.class);
 	/**
 	 * Map with ErrorStats object for ExceptionTypes. Used for fast access to the proper ErrorStats object.
 	 */
@@ -48,6 +49,8 @@ public final class BuiltInErrorProducer extends AbstractBuiltInProducer<ErrorSta
 	private ConcurrentMap<Class, ErrorCatcher> catchers;
 
 	private ConcurrentMap<Class, LoggerWrapper> wrappers;
+
+
 
 	/**
 	 * Constructor.
@@ -120,6 +123,20 @@ public final class BuiltInErrorProducer extends AbstractBuiltInProducer<ErrorSta
 	}
 
 	public void notifyError(Throwable throwable){
+		if (MoSKitoContext.get().seenErrorAlready(throwable)) {
+			cumulatedStats.addRethrown();
+			Class clazz = throwable.getClass();
+			ErrorStats existingStats = statsMap.get(clazz);
+			if (existingStats!=null){
+				existingStats.addRethrown();
+			}else{
+				//the code should never be able to be here. If we already seen the error in the same thread we will have created stats by now.
+				log.error("This can't happen, existing stats are null for "+throwable.getClass());
+			}
+
+			return;
+		}
+
 		boolean isInitialError = !MoSKitoContext.get().markErrorAndReturnIfErrorAlreadyHappenedBefore();
 		cumulatedStats.addError(isInitialError);
 

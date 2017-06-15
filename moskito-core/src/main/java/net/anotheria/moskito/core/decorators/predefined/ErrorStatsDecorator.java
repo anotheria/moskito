@@ -35,6 +35,7 @@
 package net.anotheria.moskito.core.decorators.predefined;
 
 import net.anotheria.moskito.core.decorators.AbstractDecorator;
+import net.anotheria.moskito.core.decorators.value.DoubleValueAO;
 import net.anotheria.moskito.core.decorators.value.LongValueAO;
 import net.anotheria.moskito.core.decorators.value.StatValueAO;
 import net.anotheria.moskito.core.predefined.ErrorStats;
@@ -54,8 +55,11 @@ public class ErrorStatsDecorator extends AbstractDecorator {
 	private static final String CAPTIONS[] = {
 		"Initial",
 		"Total",
+		"Rethrown",
+		"AVG Rethrown",
 		"Max initial per Minute",
-		"Max total per Minute"
+		"Max total per Minute",
+		"Max rethrown per Minute"
 	};
 
 	/**
@@ -64,8 +68,11 @@ public class ErrorStatsDecorator extends AbstractDecorator {
 	private static final String SHORT_EXPLANATIONS[] = {
 		"Number of initial occurrences",
 		"Number of total occurrences",
+		"Number of times this exception was rethrown",
+		"Average number of times each exception has been rethrown",
 		"Max number of initial occurrences per minute reached",
-		"Max number of total occurrences per minute reached"
+		"Max number of total occurrences per minute reached",
+		"Max number of total rethrows per minute reached"
 
 	};
 
@@ -75,8 +82,11 @@ public class ErrorStatsDecorator extends AbstractDecorator {
 	private static final String EXPLANATIONS[] = {
 		"Number of occurrences of this Exception/Error/Throwable object when it was initial (first) error in the processing",
 		"Number of total occurrences of this Exception/Error/Throwable object, regardless if it was initial or followup error. It also includes initial errors.",
+		"Number of times this exception was uncaught and rethrown by an enclosing component either directly with throw, or indirectly - uncaught.",
+		"Average number of times each exception has been rethrown",
 		"Maximal number of occurrences of this Exception/Error/Throwable object when it was initial (first) error in the processing that was reached in a single minute.",
-		"Maximal number of total occurrences of this Exception/Error/Throwable object, regardless if it was initial or followup error. It also includes initial errors. This value is max value reached per minute"
+		"Maximal number of total occurrences of this Exception/Error/Throwable object, regardless if it was initial or followup error. It also includes initial errors. This value is max value reached per minute",
+		"MAximal Number of times this exception was uncaught and rethrown by an enclosing component either directly with throw, or indirectly - uncaught.",
 
 	};
 
@@ -94,8 +104,11 @@ public class ErrorStatsDecorator extends AbstractDecorator {
 		int i = 0;
 		ret.add(new LongValueAO(CAPTIONS[i++], stats.getInitial(interval)));
 		ret.add(new LongValueAO(CAPTIONS[i++], stats.getTotal(interval)));
+		ret.add(new LongValueAO(CAPTIONS[i++], stats.getRethrown(interval)));
+		ret.add(new DoubleValueAO(CAPTIONS[i++], (double)stats.getRethrown(interval)/stats.getTotal(interval)));
 		ret.add(new LongValueAO(CAPTIONS[i++], mapToLong(stats.getMaxInitial(interval))));
 		ret.add(new LongValueAO(CAPTIONS[i++], mapToLong(stats.getMaxTotal(interval))));
+		ret.add(new LongValueAO(CAPTIONS[i++], mapToLong(stats.getMaxRethrown(interval))));
 		return ret;
 	}
 
