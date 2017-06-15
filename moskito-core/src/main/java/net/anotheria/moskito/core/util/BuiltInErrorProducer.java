@@ -94,9 +94,7 @@ public final class BuiltInErrorProducer extends AbstractBuiltInProducer<ErrorSta
 		definition.setStatName(statName);
 		definition.setValueName(valueName);
 		definition.setIntervalName(MoskitoConfigurationHolder.getConfiguration().getErrorHandlingConfig().getAutoChartErrorsInterval());
-
 		return definition;
-
 	}
 
 	/**
@@ -162,12 +160,13 @@ public final class BuiltInErrorProducer extends AbstractBuiltInProducer<ErrorSta
 			if (catcherConfig.getTarget().log()){
 				//log errors
 				LoggerWrapper wrapper = wrappers.get(throwable.getClass());
+
 				if (wrapper == null){
 					wrapper = new LoggerWrapper();
 					LoggerWrapper old = wrappers.putIfAbsent(throwable.getClass(), wrapper);
 					if (old==null){
 						wrapper.setLogger(catcherConfig.getParameter());
-					}{
+					}else{
 						wrapper = old;
 					}
 				}
@@ -255,6 +254,10 @@ public final class BuiltInErrorProducer extends AbstractBuiltInProducer<ErrorSta
 
 		Logger getLogger(){
 			return log;
+		}
+
+		@Override public String toString(){
+			return "LoggerWrapper "+log;
 		}
 	}
 
