@@ -43,6 +43,10 @@ public class ProducerRegistryAPIFactory {
 	 * @return
 	 */
 	public IProducerRegistryAPI createProducerRegistryAPI(){
-		return new ProducerRegistryAPIImpl();
+		return ProducerRegistryAPIFactoryHolder.instance;
+	}
+
+	static class ProducerRegistryAPIFactoryHolder{
+		static IProducerRegistryAPI instance = new ProducerRegistryAPIImpl();
 	}
 }
