@@ -2,6 +2,7 @@ package net.anotheria.moskito.webui.accumulators.api;
 
 import net.anotheria.anoplass.api.APIException;
 import net.anotheria.anoplass.api.APIFinder;
+import net.anotheria.moskito.core.accumulation.AccumulatorRepository;
 import net.anotheria.moskito.core.config.MoskitoConfigurationHolder;
 import net.anotheria.moskito.core.stats.DefaultIntervals;
 import net.anotheria.moskito.core.stats.TimeUnit;
@@ -25,6 +26,7 @@ public class AccumulatorAPITest {
     public static void setup() {
 		MoskitoConfigurationHolder.resetConfiguration();
 		MoskitoConfigurationHolder.getConfiguration().getBuiltinProducersConfig().disableAll();
+		AccumulatorRepository.resetForUnitTests();
         APIFinder.cleanUp();
         APIFinder.addAPIFactory(AccumulatorAPI.class, new AccumulatorAPIFactory());
     }
@@ -34,9 +36,6 @@ public class AccumulatorAPITest {
         AccumulatorAPI api = APIFinder.findAPI(AccumulatorAPI.class);
 
         assertNotNull(api.getAccumulatorDefinitions());
-
-		System.out.println("accumulators: "+api.getAccumulatorDefinitions());
-
 
 		final AccumulatorDefinitionAO newAccumulator = createAccumulator("test");
         assertEquals(1, api.getAccumulatorDefinitions().size());
