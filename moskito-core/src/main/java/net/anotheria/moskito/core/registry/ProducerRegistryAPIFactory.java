@@ -46,6 +46,14 @@ public class ProducerRegistryAPIFactory {
 		return ProducerRegistryAPIFactoryHolder.instance;
 	}
 
+	public IProducerRegistryAPI createProducerRegistryAPIForUnitTest(){
+		return new ProducerRegistryAPIImpl();
+	}
+
+	public static void resetForUnitTest() {
+		ProducerRegistryAPIFactoryHolder.instance = new ProducerRegistryAPIImpl();
+	}
+
 	static class ProducerRegistryAPIFactoryHolder{
 		static IProducerRegistryAPI instance = new ProducerRegistryAPIImpl();
 	}

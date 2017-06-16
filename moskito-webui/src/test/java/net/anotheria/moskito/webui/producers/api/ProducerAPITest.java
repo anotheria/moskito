@@ -4,6 +4,7 @@ import net.anotheria.anoplass.api.APIException;
 import net.anotheria.anoplass.api.APIFinder;
 import net.anotheria.moskito.core.producers.IStatsProducer;
 import net.anotheria.moskito.core.registry.IProducerRegistry;
+import net.anotheria.moskito.core.registry.ProducerRegistryAPIFactory;
 import net.anotheria.moskito.core.registry.ProducerRegistryFactory;
 import net.anotheria.util.IdCodeGenerator;
 import org.junit.After;
@@ -27,6 +28,7 @@ public class ProducerAPITest {
 		APIFinder.addAPIFactory(ProducerAPI.class, new ProducerAPIFactory());
 		System.setProperty("JUNITTEST", "true");
 		ProducerRegistryFactory.reset();
+		ProducerRegistryAPIFactory.resetForUnitTest();
 	}
 
 	@After
