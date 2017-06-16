@@ -35,10 +35,10 @@ public class AccumulatorAPITest {
 
         assertNotNull(api.getAccumulatorDefinitions());
 
-        final AccumulatorDefinitionAO ret = createAccumulator("test");
+        final AccumulatorDefinitionAO newAccumulator = createAccumulator("test");
         assertEquals(1, api.getAccumulatorDefinitions().size());
 
-        api.removeAccumulator(ret.getId());
+        api.removeAccumulator(newAccumulator.getId());
         assertEquals(0, api.getAccumulatorDefinitions().size());
 
 
