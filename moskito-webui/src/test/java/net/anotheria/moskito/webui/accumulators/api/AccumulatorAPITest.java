@@ -39,6 +39,7 @@ public class AccumulatorAPITest {
         assertEquals(1, api.getAccumulatorDefinitions().size());
 
         api.removeAccumulator(newAccumulator.getId());
+        System.out.println("accumulators: "+api.getAccumulatorDefinitions());
         assertEquals(0, api.getAccumulatorDefinitions().size());
 
 
