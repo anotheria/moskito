@@ -3,12 +3,12 @@
     <parent>
         <artifactId>moskito-extensions</artifactId>
         <groupId>net.anotheria</groupId>
-        <version>2.8.0</version>
+        <version>2.8.1-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>moskito-monitoring-plugin</artifactId>
-    <version>2.8.0</version>
+    <version>2.8.1-SNAPSHOT</version>
     <name>moskito generic monitoring plugin</name>
     <packaging>jar</packaging>
 
