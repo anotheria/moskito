@@ -4,6 +4,7 @@ import net.anotheria.anoplass.api.API;
 import net.anotheria.anoplass.api.APIFinder;
 import net.anotheria.moskito.webui.MoSKitoWebUIContext;
 import net.anotheria.moskito.webui.accumulators.api.AccumulatorAPI;
+import net.anotheria.moskito.webui.auth.api.AuthApi;
 import net.anotheria.moskito.webui.dashboards.api.DashboardAPI;
 import net.anotheria.moskito.webui.gauges.api.GaugeAPI;
 import net.anotheria.moskito.webui.journey.api.JourneyAPI;
@@ -105,6 +106,9 @@ public class APILookupUtility {
 			findRemote(ThresholdAPI.class);
 	}
 
+	public static AuthApi getAuthApi(){
+		return APIFinder.findAPI(AuthApi.class);
+	}
 
 	public static AccumulatorAPI getAccumulatorAPI() {
 		return isLocal() ?

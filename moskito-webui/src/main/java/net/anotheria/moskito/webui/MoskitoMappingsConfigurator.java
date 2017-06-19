@@ -8,6 +8,9 @@ import net.anotheria.moskito.webui.accumulators.action.CreateAccumulatorAction;
 import net.anotheria.moskito.webui.accumulators.action.DeleteAccumulatorAction;
 import net.anotheria.moskito.webui.accumulators.action.GenerateChartAction;
 import net.anotheria.moskito.webui.accumulators.action.ShowAccumulatorsAction;
+import net.anotheria.moskito.webui.auth.actions.LoginAction;
+import net.anotheria.moskito.webui.auth.actions.SignInAction;
+import net.anotheria.moskito.webui.auth.actions.SignOutAction;
 import net.anotheria.moskito.webui.dashboards.action.CreateDashboardAction;
 import net.anotheria.moskito.webui.dashboards.action.DashboardAddChartAction;
 import net.anotheria.moskito.webui.dashboards.action.DashboardAddGaugeAction;
@@ -61,6 +64,7 @@ import net.anotheria.moskito.webui.tracers.action.EnableTracerAction;
 import net.anotheria.moskito.webui.tracers.action.RemoveTracerAction;
 import net.anotheria.moskito.webui.tracers.action.ShowTracerAction;
 import net.anotheria.moskito.webui.tracers.action.ShowTracersAction;
+import net.anotheria.moskito.webui.util.WebUIConfig;
 
 /**
  * Mappings configurator for MoSKito project for the AnoMaf framework.
@@ -70,6 +74,23 @@ import net.anotheria.moskito.webui.tracers.action.ShowTracersAction;
 public class MoskitoMappingsConfigurator implements ActionMappingsConfigurator{
 	
 	@Override public void configureActionMappings(ActionMappings mappings){
+
+		// authorization actions
+		if(WebUIConfig.getInstance().isAuthenticationEnabled()) {
+			mappings.addMapping("mskLogin", LoginAction.class,
+					new ActionForward("login", "/net/anotheria/moskito/webui/auth/jsp/Login.jsp")
+			);
+			mappings.addMapping("mskSignIn", SignInAction.class,
+					// Default redirect in case user directly pass to login page
+					new CommandRedirect("defaultRedirect", "/moskito-control/mskDashboard"),
+					new CommandRedirect("error", "mskLogin?error=1")
+			);
+			mappings.addMapping("mskSignOut", SignOutAction.class,
+					new CommandRedirect("redirect", "mskLogin")
+			);
+		}
+
+
 		mappings.addMapping("mskShowAllProducers", ShowAllProducersAction.class,
 				new ActionForward("html", "/net/anotheria/moskito/webui/producers/jsp/Producers.jsp"),
 				new ActionForward("xml", "/net/anotheria/moskito/webui/producers/jsp/ProducersXML.jsp"),

@@ -1,4 +1,13 @@
 {
+    // TODO : CHANGE IT TO FALSE
+    "authenticationEnabled" : true,
+    "encryptionKey" : "Don`t forget to change key",
+    "@authCredentials" : [
+      {
+        "username" : "moskito-user",
+        "password" : "123"
+      }
+    ],
 	"producerChartWidth": 1200,
 	"producerChartHeight": 600,
     "connectivityMode": "LOCAL",
