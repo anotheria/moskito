@@ -3,6 +3,7 @@ package net.anotheria.moskito.aop.monitorcalls.ininterface.oninterface;
 import net.anotheria.moskito.core.producers.IStats;
 import net.anotheria.moskito.core.producers.IStatsProducer;
 import net.anotheria.moskito.core.registry.ProducerRegistryFactory;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.List;
@@ -10,6 +11,7 @@ import java.util.List;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 
+@Ignore
 public class MonitorCallsTest {
     @Test public void testMonitorCallsMethod(){
 

@@ -131,4 +131,12 @@ public final class AccumulatorRepository<S extends IStats> extends TieableReposi
 		INSTANCE = new AccumulatorRepository<>();
 	}
 
+	/**
+	 * This method is for unit testing ONLY.
+	 * The Findbugs warning is suppressed, because this method is for unit testing only.
+	 */
+	@SuppressFBWarnings(value = "ST_WRITE_TO_STATIC_FROM_INSTANCE_METHOD", justification = "This method is for unit testing only.")
+	public static void resetForUnitTests() {
+		getInstance().reset();
+	}
 }

@@ -69,7 +69,7 @@ public class MoskitoHttpServletTest {
 		for (i=0; i<LM; i++)
 			servlet.getLastModified(req);
 
-		IProducerRegistryAPI api = new ProducerRegistryAPIFactory().createProducerRegistryAPI();
+		IProducerRegistryAPI api = new ProducerRegistryAPIFactory().createProducerRegistryAPIForUnitTest();
 		IStatsProducer producer = api.getProducer("TestServlet");
 		List<IStats> stats = producer.getStats();
 		for (IStats s : stats){
@@ -152,7 +152,7 @@ public class MoskitoHttpServletTest {
 		
 		assertEquals(HEADS+ PUTS+GETS+OPTIONS+TRACES+DELETES+POSTS, errors);
 
-		IProducerRegistryAPI api = new ProducerRegistryAPIFactory().createProducerRegistryAPI();
+		IProducerRegistryAPI api = new ProducerRegistryAPIFactory().createProducerRegistryAPIForUnitTest();
 		IStatsProducer producer = api.getProducer("TestServlet");
 		List<IStats> stats = producer.getStats();
 		for (IStats s : stats){
