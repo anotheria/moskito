@@ -21,7 +21,6 @@ public class AuthConstants {
      * Whitelist for authorization filter
      */
     public static String[] LOGIN_PAGES = new String[]{
-            "/moskito-inspect/mskLogin",
             "/moskito-inspect/mskSignIn"
     };
 

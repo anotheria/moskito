@@ -53,23 +53,37 @@ public class MoskitoUIFilter extends MAFFilter{
 	}
 
 	/**
-	 * Checks, is request contains authorization cookie
-	 * and this cookie is valid.
-	 * @param request current servlet request object
-	 * @return true - user has valid auth cookie
-	 *         false - no
+	 * Check is current connection user
+	 * authorized in moskito-inspect.
+	 * First checks authorization flag in session attributes.
+	 * Then tries to find valid authorization cookie, if flag not found.
+	 * If cookie was found - sets authorization flag to true.
+	 * @param request current servlet http request
+	 * @return true - user is authorized in moskito-inspect
+	 * 		   false - no
 	 */
-	private boolean hasAuthCookie(HttpServletRequest request){
+	private boolean isAuthorized(HttpServletRequest request){
 
+		if(Boolean.TRUE.equals(
+				request.getSession(true).getAttribute(AuthConstants.AUTH_SESSION_ATTR_NAME)
+		))
+			return true; // Session contains auth flag - user is authorized
+
+
+		// Session not contains auth flag. Trying to find valid auth cookie
 		final AuthApi api = APILookupUtility.getAuthApi();
 
 		for(Cookie cookie : request.getCookies())
 			if(cookie.getName().equals(AuthConstants.AUTH_COOKIE_NAME)){
 
 				try {
-					return api.userExists(
-                           cookie.getValue()
-                    );
+					if(api.userExists(
+							cookie.getValue()
+					)){
+						// Valid auth cookie found. Setting auth flag in session to true
+						request.getSession().setAttribute(AuthConstants.AUTH_SESSION_ATTR_NAME, true);
+						return true;
+					}
 				} catch (APIException e) {
 					log.error("Failed to decrypt user authorization cookie", e);
 					return false;
@@ -77,6 +91,7 @@ public class MoskitoUIFilter extends MAFFilter{
 
 			}
 
+		// No auth flag in session or valid auth cookie found. Seems that user is not authorized
 		return false;
 
 	}
@@ -95,32 +110,32 @@ public class MoskitoUIFilter extends MAFFilter{
 		HttpServletRequest httpServletRequest = ((HttpServletRequest) request);
 		HttpServletResponse httpServletResponse = ((HttpServletResponse) response);
 
-		if(WebUIConfig.getInstance().isAuthenticationEnabled() &&
-				!isAuthAction(httpServletRequest.getRequestURI()) &&
-				!Boolean.TRUE.equals(httpServletRequest.getSession(true).getAttribute(AuthConstants.AUTH_SESSION_ATTR_NAME))){
+		if(WebUIConfig.getInstance().isAuthenticationEnabled() && !isAuthAction(httpServletRequest.getRequestURI())) {
+			// Means current page is protected by authorization
 
-            if(hasAuthCookie(httpServletRequest)){
-				httpServletRequest.getSession().setAttribute(AuthConstants.AUTH_SESSION_ATTR_NAME, true);
-				super.doFilter(request, response, chain);
-			}
-            else {
-            	// Reset auth cookie for cases it was corrupted (encryption key is changed or something like that)
-            	Cookie authCookie = new Cookie(AuthConstants.AUTH_COOKIE_NAME, "");
-            	authCookie.setMaxAge(0);
+			if (isAuthorized(httpServletRequest)) {
+				httpServletRequest.setAttribute("mskIsAuthorized", true); // Enables logout button
+			} else {
+
+				// Reset auth cookie for cases it was corrupted (encryption key is changed or something like that)
+				Cookie authCookie = new Cookie(AuthConstants.AUTH_COOKIE_NAME, "");
+				authCookie.setMaxAge(0);
 				httpServletResponse.addCookie(authCookie);
 
+				// User be redirected to this url after success authorization
 				httpServletRequest.getSession().setAttribute(
 						AuthConstants.LOGIN_REFER_PAGE_SESSION_ATTR_NAME,
-						// User be redirected to this url after success authorization
 						httpServletRequest.getRequestURL().toString()
 				);
 				// Redirect to login page
 				httpServletResponse.sendRedirect("/moskito-inspect/mskSignIn");
+				return;
+
 			}
 
 		}
-		else
-			super.doFilter(request, response, chain);
+
+		super.doFilter(request, response, chain);
 
 	}
 
