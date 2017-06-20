@@ -1,5 +1,5 @@
 {
-    "authenticationEnabled" : true,
+    "authenticationEnabled" : false,
     "encryptionKey" : "Don`t forget to change key",
     "@authCredentials" : [
       {
