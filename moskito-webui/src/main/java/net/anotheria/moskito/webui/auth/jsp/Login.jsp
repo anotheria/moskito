@@ -38,11 +38,11 @@
                         </c:if>
 
                         <label>
-                            <input class="form-control" placeholder="username" type="text" name="username">
+                            <input class="form-control" placeholder="username" type="text" name="username" required>
                         </label>
 
                         <label>
-                            <input class="form-control" placeholder="password" type="password" name="password">
+                            <input class="form-control" placeholder="password" type="password" name="password" required>
                         </label>
 
                         <button class="btn btn-primary" type="submit">Sign In</button>

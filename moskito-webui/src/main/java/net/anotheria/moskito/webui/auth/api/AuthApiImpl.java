@@ -55,10 +55,18 @@ public class AuthApiImpl implements AuthApi {
 
     @Override
     public boolean userExists(UserAO user) {
-        return user != null && Arrays.stream(getAuthCredentials()).anyMatch(
-                credentials -> credentials.getUsername().equals(user.getUsername()) &&
-                        credentials.getPassword().equals(user.getPassword())
-        );
+
+        if(user == null)
+            return false;
+
+        for(AuthCredentialsConfig credentials : getAuthCredentials())
+            if(
+                credentials.getUsername().equals(user.getUsername()) &&
+                credentials.getPassword().equals(user.getPassword())
+              ) return true; // User with given username/password found in config
+
+        return false; // User not found in config due loop
+
     }
 
     @Override

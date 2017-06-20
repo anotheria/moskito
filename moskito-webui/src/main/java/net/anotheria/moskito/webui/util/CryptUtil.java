@@ -50,7 +50,7 @@ public class CryptUtil {
         int len = cipher.processBytes(in, 0, in.length, out, 0);
         cipher.doFinal(out, len);
 
-        // out string may contain 0 bytes at the end.
+        // out string may contain \0 bytes at the end.
         return new String(out, outCharset).replaceAll("\0+$", "");
 
     }

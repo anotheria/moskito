@@ -56,20 +56,21 @@ public class MoskitoUIFilter extends MAFFilter{
 
 		final AuthApi api = APILookupUtility.getAuthApi();
 
-		return Arrays.stream(request.getCookies())
-				.filter(cookie -> cookie.getName().equals(AuthConstants.AUTH_COOKIE_NAME))
-				.findAny().map(
-						cookie -> {
-							try {
-								return api.userExists(
-										api.decryptUserCredentials(cookie.getValue())
-								);
-							} catch (APIException e) {
-								log.error("Failed to decrypt user authorization cookie", e);
-								return false;
-							}
-						}
-				).orElse(false);
+		for(Cookie cookie : request.getCookies())
+			if(cookie.getName().equals(AuthConstants.AUTH_COOKIE_NAME)){
+
+				try {
+					return api.userExists(
+                            api.decryptUserCredentials(cookie.getValue())
+                    );
+				} catch (APIException e) {
+					log.error("Failed to decrypt user authorization cookie", e);
+					return false;
+				}
+
+			}
+
+		return false;
 
 	}
 
