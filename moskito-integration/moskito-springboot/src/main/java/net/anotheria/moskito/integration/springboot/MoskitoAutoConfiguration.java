@@ -41,7 +41,6 @@ public class MoskitoAutoConfiguration {
     private void initPreconfiguredAccumulators() {
         LOGGER.info("Setup preconfigured Moskito accumulators");
         SetupPreconfiguredAccumulators.setupUrlAccumulators();
-        SetupPreconfiguredAccumulators.setupThreadAccumulators();
         SetupPreconfiguredAccumulators.setupSessionCountAccumulators();
     }
 
