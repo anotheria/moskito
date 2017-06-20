@@ -137,7 +137,7 @@
                     MoSKito is an open source system for monitoring Java web applications.
                 </p>
                 <p>
-                    <strong>With MoSKito, you may:</strong>
+                    <strong>With MoSKito, you can:</strong>
                 </p>
                 <ul>
                     <li>
@@ -152,7 +152,7 @@
                     </li>
                 </ul>
                 <p>
-                    In fact, MoSKito is a complete system kit for DevOps (as well as classical Devs and Ops) who care about performance of their web apps.
+                    In fact, MoSKito is a complete system kit for DevOps (as well as classical Devs and Ops) who care about performance of their web apps and microservices.
                 </p>
                 <p>
                     <strong>Enjoy!</strong>
