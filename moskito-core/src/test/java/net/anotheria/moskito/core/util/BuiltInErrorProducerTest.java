@@ -90,9 +90,11 @@ public class BuiltInErrorProducerTest {
 		//Ensure there are two entries, cumulated and IllegalArgumentException.
 		assertEquals(2, BuiltInErrorProducer.getInstance().getStats().size());
 		//Ensure there is two errors for illegal argument exception.
-		assertEquals(2, BuiltInErrorProducer.getInstance().testingGetStatsForError(IllegalArgumentException.class).getTotal());
+		assertEquals(1, BuiltInErrorProducer.getInstance().testingGetStatsForError(IllegalArgumentException.class).getTotal());
+		//rethrown should count by 1
+		assertEquals(1, BuiltInErrorProducer.getInstance().testingGetStatsForError(IllegalArgumentException.class).getRethrown());
 		//Ensure there is two cumulated error.
-		assertEquals(2, BuiltInErrorProducer.getInstance().testingGetCumulatedStats().getTotal());
+		assertEquals(1, BuiltInErrorProducer.getInstance().testingGetCumulatedStats().getTotal());
 
 	}
 
@@ -104,8 +106,9 @@ public class BuiltInErrorProducerTest {
 		}catch(IllegalArgumentException e){}
 
 
-		//Ensure there are two errors in total
-		assertEquals(2, BuiltInErrorProducer.getInstance().testingGetStatsForError(IllegalArgumentException.class).getTotal());
+		//Ensure there are one error in total and one rethrown
+		assertEquals(1, BuiltInErrorProducer.getInstance().testingGetStatsForError(IllegalArgumentException.class).getTotal());
+		assertEquals(1, BuiltInErrorProducer.getInstance().testingGetStatsForError(IllegalArgumentException.class).getRethrown());
 		//Ensure there is one initial error
 		assertEquals(1, BuiltInErrorProducer.getInstance().testingGetStatsForError(IllegalArgumentException.class).getInitial());
 

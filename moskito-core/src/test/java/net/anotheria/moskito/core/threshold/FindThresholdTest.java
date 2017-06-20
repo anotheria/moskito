@@ -10,8 +10,8 @@ import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.*;
 
 
 public class FindThresholdTest {
@@ -32,7 +32,8 @@ public class FindThresholdTest {
 		config.setValueName("USED");
 		config.setIntervalName(null);
 		
-		IProducerRegistryAPI registryAPI = new ProducerRegistryAPIFactory().createProducerRegistryAPI();
+		IProducerRegistryAPI registryAPI = new ProducerRegistryAPIFactory().createProducerRegistryAPIForUnitTest();
+		System.out.println("ALL: "+registryAPI.getAllProducers());
 		IStatsProducer<?> producer = registryAPI.getProducer(config.getProducerName());
 		assertNotNull(producer);
 		

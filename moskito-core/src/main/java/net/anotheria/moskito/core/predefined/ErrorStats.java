@@ -28,9 +28,19 @@ public class ErrorStats extends AbstractStats implements IIntervalListener {
 	private StatValue total;
 
 	/**
+	 * Number of times an error has been re-thrown or passed through other classes without being caught.
+	 */
+	private StatValue rethrown;
+
+	/**
 	 * Max number of errors that were initial in their thread (first).
 	 */
 	private StatValue maxInitial;
+
+	/**
+	 * Max total number of rethrows.
+	 */
+	private StatValue maxRethrown;
 
 	/**
 	 * Max total number of errors.
@@ -43,8 +53,10 @@ public class ErrorStats extends AbstractStats implements IIntervalListener {
 	private static final List<String> VALUE_NAMES = Collections.unmodifiableList(Arrays.asList(
 			"INITIAL",
 			"TOTAL",
+			"RETHROWN",
 			"MAXINITIAL",
-			"MAXTOTAL"
+			"MAXTOTAL",
+			"MAXRETHROWN"
 	));
 
 	/**
@@ -67,13 +79,15 @@ public class ErrorStats extends AbstractStats implements IIntervalListener {
 		super(aName);
 		Integer pattern = Integer.valueOf(0);
 
-		initial = StatValueFactory.createStatValue(pattern, "initial", selectedIntervals);
 		total = StatValueFactory.createStatValue(pattern, "total", selectedIntervals);
+		initial = StatValueFactory.createStatValue(pattern, "initial", selectedIntervals);
+		rethrown = StatValueFactory.createStatValue(pattern, "rethrown", selectedIntervals);
 
+		maxTotal = StatValueFactory.createStatValue(pattern, "maxTotal", selectedIntervals);
 		maxInitial = StatValueFactory.createStatValue(pattern, "maxInitial", selectedIntervals);
-		maxTotal   = StatValueFactory.createStatValue(pattern, "maxTotal", selectedIntervals);
+		maxRethrown = StatValueFactory.createStatValue(pattern, "maxRethrown", selectedIntervals);
 
-		addStatValues(initial, total, maxInitial, maxTotal);
+		addStatValues(initial, total, rethrown, maxInitial, maxTotal, maxRethrown);
 		IntervalRegistry.getInstance().getInterval("1m").addSecondaryIntervalListener(this);
 
 	}
@@ -88,8 +102,10 @@ public class ErrorStats extends AbstractStats implements IIntervalListener {
 		b.append(getName()).append(' ');
 		b.append(" INITIAL: ").append(initial.getValueAsLong(intervalName));
 		b.append(" TOTAL: ").append(total.getValueAsLong(intervalName));
+		b.append(" RETHROWN: ").append(total.getValueAsLong(intervalName));
 		b.append(" MAX INITIAL: ").append(maxInitial.getValueAsLong(intervalName));
 		b.append(" MAX TOTAL: ").append(maxTotal.getValueAsLong(intervalName));
+		b.append(" MAX RETHROWN: ").append(maxTotal.getValueAsLong(intervalName));
 		return b.toString();
 	}
 
@@ -101,10 +117,14 @@ public class ErrorStats extends AbstractStats implements IIntervalListener {
 			return String.valueOf(initial.getValueAsLong(intervalName));
 		if (valueName.equals("total"))
 			return String.valueOf(total.getValueAsLong(intervalName));
+		if (valueName.equals("rethrown"))
+			return String.valueOf(rethrown.getValueAsLong(intervalName));
 		if (valueName.equals("maxinitial"))
 			return String.valueOf(maxInitial.getValueAsLong(intervalName));
 		if (valueName.equals("maxtotal"))
 			return String.valueOf(maxTotal.getValueAsLong(intervalName));
+		if (valueName.equals("maxrethrown"))
+			return String.valueOf(maxRethrown.getValueAsLong(intervalName));
 		return super.getValueByNameAsString(valueName, intervalName, timeUnit);
 	}
 
@@ -112,8 +132,11 @@ public class ErrorStats extends AbstractStats implements IIntervalListener {
 		total.increase();
 		if (isInitialError) {
 			initial.increase();
-
 		}
+	}
+
+	public void addRethrown(){
+		rethrown.increase();
 	}
 
 	public int getInitial(){
@@ -124,12 +147,20 @@ public class ErrorStats extends AbstractStats implements IIntervalListener {
 		return total.getValueAsInt();
 	}
 
+	public int getRethrown(){
+		return rethrown.getValueAsInt();
+	}
+
 	public int getInitial(String intervalName){
 		return initial.getValueAsInt(intervalName);
 	}
 
 	public int getTotal(String intervalName){
 		return total.getValueAsInt(intervalName);
+	}
+
+	public int getRethrown(String intervalName){
+		return rethrown.getValueAsInt(intervalName);
 	}
 
 	public int getMaxInitial(){
@@ -148,6 +179,14 @@ public class ErrorStats extends AbstractStats implements IIntervalListener {
 		return maxTotal.getValueAsInt(intervalName);
 	}
 
+	public int getMaxRethrown(){
+		return maxRethrown.getValueAsInt();
+	}
+
+	public int getMaxRethrown(String intervalName){
+		return maxRethrown.getValueAsInt(intervalName);
+	}
+
 	@Override public String toString(){
 		return toStatsString();
 	}
@@ -164,5 +203,9 @@ public class ErrorStats extends AbstractStats implements IIntervalListener {
 			maxTotal.setValueAsInt(totalValueForLastInterval);
 		}
 
+		int rethrownValueForLastInterval = rethrown.getValueAsInt(callerInterval.getName());
+		if (rethrownValueForLastInterval>maxRethrown.getValueAsInt()) {
+			maxRethrown.setValueAsInt(rethrownValueForLastInterval);
+		}
 	}
 }

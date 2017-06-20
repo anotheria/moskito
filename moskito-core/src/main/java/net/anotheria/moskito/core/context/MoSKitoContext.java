@@ -1,6 +1,7 @@
 package net.anotheria.moskito.core.context;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicBoolean;
 
@@ -26,6 +27,8 @@ public class MoSKitoContext {
 	 * Map with tags assigned to this context.
 	 */
 	private HashMap<String, String> tags = new HashMap<>();
+
+	private HashSet<Throwable> seenErrors = new HashSet<>();
 
 	/**
 	 * If true an error has occured in this thread already. This is useful to separate from initial errors in the processing and followup errors.
@@ -54,7 +57,19 @@ public class MoSKitoContext {
 	public void reset(){
 		tags = new HashMap<>();
 		errorOccured = new AtomicBoolean(false);
+		seenErrors = new HashSet<>();
 	}
 
-	
+
+	public static void cleanup() {
+		get().reset();
+		currentContext.remove();
+	}
+
+	public boolean seenErrorAlready(Throwable throwable) {
+		if (seenErrors.contains(throwable))
+			return true;
+		seenErrors.add(throwable);
+		return false;
+	}
 }

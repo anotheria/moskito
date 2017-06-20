@@ -4,6 +4,7 @@ import net.anotheria.moskito.core.calltrace.CurrentlyTracedCall;
 import net.anotheria.moskito.core.calltrace.NoTracedCall;
 import net.anotheria.moskito.core.calltrace.RunningTraceContainer;
 import net.anotheria.moskito.core.calltrace.TracedCall;
+import net.anotheria.moskito.core.context.MoSKitoContext;
 import net.anotheria.moskito.core.journey.Journey;
 import net.anotheria.moskito.core.journey.JourneyManager;
 import net.anotheria.moskito.core.journey.JourneyManagerFactory;
@@ -65,7 +66,7 @@ public class JourneyFilter implements Filter{
 			chain.doFilter(sreq, sres);
 			return;
 		}
-		
+
 		HttpServletRequest req = (HttpServletRequest)sreq;
 		processParameters(req);
 
@@ -93,8 +94,11 @@ public class JourneyFilter implements Filter{
 			RunningTraceContainer.startTracedCall(record.getUseCaseName()+ '-' +url);
 		}
 		try{
+			MoSKitoContext.get().reset();
 			chain.doFilter(sreq, sres);
 		}finally{
+			MoSKitoContext.cleanup();
+
 			if (record!=null){
 				TracedCall last = RunningTraceContainer.endTrace();
 				if (last instanceof NoTracedCall){
