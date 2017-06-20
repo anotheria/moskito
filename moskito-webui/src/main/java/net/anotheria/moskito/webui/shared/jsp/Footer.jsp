@@ -5,7 +5,7 @@
     <div class="row">
         <div class="col-md-4">
             <div class="footer-info">
-                Developed by <a href="http://anotheria.org" target="_blank">Anotheria</a>
+                Developed by MoSKito team @ <a href="http://www.anotheria.net" target="_blank">anotheria</a>
                 <br>Email: <a href="mailto:support@moskito.org">support@moskito.org</a>
             </div>
         </div>
