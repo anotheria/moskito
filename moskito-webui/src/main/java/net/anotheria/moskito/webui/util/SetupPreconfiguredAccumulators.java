@@ -30,22 +30,6 @@ public class SetupPreconfiguredAccumulators implements ServletContextListener{
 	}
 
 	/**
-	 * Adds accumulator for thread count.
-	 */
-	public static void setupThreadAccumulators(){
-		Accumulators.createAccumulator("ThreadCount", "ThreadCount", "ThreadCount", "current", "default");
-		Accumulators.createAccumulator("ThreadStateRunnable-1m", "ThreadStates", "RUNNABLE", "current", "1m");
-		Accumulators.createAccumulator("ThreadStateWaiting-1m", "ThreadStates", "WAITING", "current", "1m");
-		Accumulators.createAccumulator("ThreadStateBlocked-1m", "ThreadStates", "BLOCKED", "current", "1m");
-		Accumulators.createAccumulator("ThreadStateTimedWaiting-1m", "ThreadStates", "TIMED_WAITING", "current", "1m");
-
-		Accumulators.createAccumulator("ThreadStateRunnable-5m", "ThreadStates", "RUNNABLE", "current", "5m");
-		Accumulators.createAccumulator("ThreadStateWaiting-5m", "ThreadStates", "WAITING", "current", "5m");
-		Accumulators.createAccumulator("ThreadStateBlocked-5m", "ThreadStates", "BLOCKED", "current", "5m");
-		Accumulators.createAccumulator("ThreadStateTimedWaiting-5m", "ThreadStates", "TIMED_WAITING", "current", "5m");
-	}
-
-	/**
 	 * Adds accumulators for session count, new and deleted sessions.
 	 */
 	public static void setupSessionCountAccumulators(){
