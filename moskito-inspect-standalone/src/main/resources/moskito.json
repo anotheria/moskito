@@ -116,7 +116,71 @@
         "statName": "OS",
         "valueName": "processcpuload",
         "intervalName": "default"
+      },
+      {
+        "name": "ThreadCount",
+        "producerName": "ThreadCount",
+        "statName": "ThreadCount",
+        "valueName": "current",
+        "intervalName": "default"
+      },
+      {
+        "name": "ThreadStateRunnable-1m",
+        "producerName": "ThreadStates",
+        "statName": "RUNNABLE",
+        "valueName": "current",
+        "intervalName": "1m"
+      },
+      {
+        "name": "ThreadStateWaiting-1m",
+        "producerName": "ThreadStates",
+        "statName": "TIMED_WAITING",
+        "valueName": "current",
+        "intervalName": "1m"
+      },
+      {
+        "name": "ThreadStateTimedWaiting-1m",
+        "producerName": "ThreadStates",
+        "statName": "WAITING",
+        "valueName": "current",
+        "intervalName": "1m"
+      },
+      {
+        "name": "ThreadStateBlocked-1m",
+        "producerName": "ThreadStates",
+        "statName": "BLOCKED",
+        "valueName": "current",
+        "intervalName": "1m"
+      },
+      {
+        "name": "ThreadStateRunnable-5m",
+        "producerName": "ThreadStates",
+        "statName": "RUNNABLE",
+        "valueName": "current",
+        "intervalName": "5m"
+      },
+      {
+        "name": "ThreadStateWaiting-5m",
+        "producerName": "ThreadStates",
+        "statName": "TIMED_WAITING",
+        "valueName": "current",
+        "intervalName": "5m"
+      },
+      {
+        "name": "ThreadStateTimedWaiting-5m",
+        "producerName": "ThreadStates",
+        "statName": "WAITING",
+        "valueName": "current",
+        "intervalName": "5m"
+      },
+      {
+        "name": "ThreadStateBlocked-5m",
+        "producerName": "ThreadStates",
+        "statName": "BLOCKED",
+        "valueName": "current",
+        "intervalName": "5m"
       }
+
     ]
   },
   "@thresholdsConfig": {
