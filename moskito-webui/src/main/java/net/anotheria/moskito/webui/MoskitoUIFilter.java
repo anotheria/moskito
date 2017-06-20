@@ -52,6 +52,13 @@ public class MoskitoUIFilter extends MAFFilter{
 		return ArrayUtils.contains(AuthConstants.LOGIN_PAGES, url);
 	}
 
+	/**
+	 * Checks, is request contains authorization cookie
+	 * and this cookie is valid.
+	 * @param request current servlet request object
+	 * @return true - user has valid auth cookie
+	 *         false - no
+	 */
 	private boolean hasAuthCookie(HttpServletRequest request){
 
 		final AuthApi api = APILookupUtility.getAuthApi();
@@ -61,7 +68,7 @@ public class MoskitoUIFilter extends MAFFilter{
 
 				try {
 					return api.userExists(
-                            api.decryptUserCredentials(cookie.getValue())
+                           cookie.getValue()
                     );
 				} catch (APIException e) {
 					log.error("Failed to decrypt user authorization cookie", e);
@@ -108,7 +115,7 @@ public class MoskitoUIFilter extends MAFFilter{
 						httpServletRequest.getRequestURL().toString()
 				);
 				// Redirect to login page
-				httpServletResponse.sendRedirect("/moskito-inspect/mskLogin");
+				httpServletResponse.sendRedirect("/moskito-inspect/mskSignIn");
 			}
 
 		}

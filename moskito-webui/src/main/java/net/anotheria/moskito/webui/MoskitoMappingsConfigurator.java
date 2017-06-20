@@ -8,63 +8,22 @@ import net.anotheria.moskito.webui.accumulators.action.CreateAccumulatorAction;
 import net.anotheria.moskito.webui.accumulators.action.DeleteAccumulatorAction;
 import net.anotheria.moskito.webui.accumulators.action.GenerateChartAction;
 import net.anotheria.moskito.webui.accumulators.action.ShowAccumulatorsAction;
-import net.anotheria.moskito.webui.auth.actions.LoginAction;
 import net.anotheria.moskito.webui.auth.actions.SignInAction;
 import net.anotheria.moskito.webui.auth.actions.SignOutAction;
-import net.anotheria.moskito.webui.dashboards.action.CreateDashboardAction;
-import net.anotheria.moskito.webui.dashboards.action.DashboardAddChartAction;
-import net.anotheria.moskito.webui.dashboards.action.DashboardAddGaugeAction;
-import net.anotheria.moskito.webui.dashboards.action.DashboardAddThresholdAction;
-import net.anotheria.moskito.webui.dashboards.action.DashboardRemoveChartAction;
-import net.anotheria.moskito.webui.dashboards.action.DashboardRemoveGaugeAction;
-import net.anotheria.moskito.webui.dashboards.action.DashboardRemoveThresholdAction;
-import net.anotheria.moskito.webui.dashboards.action.DeleteDashboardAction;
-import net.anotheria.moskito.webui.dashboards.action.ShowDashboardAction;
+import net.anotheria.moskito.webui.dashboards.action.*;
 import net.anotheria.moskito.webui.gauges.action.ShowGaugesAction;
-import net.anotheria.moskito.webui.journey.action.AnalyzeJourneyAction;
-import net.anotheria.moskito.webui.journey.action.DeleteJourneyAction;
-import net.anotheria.moskito.webui.journey.action.ShowJourneyAction;
-import net.anotheria.moskito.webui.journey.action.ShowJourneyCallAction;
-import net.anotheria.moskito.webui.journey.action.ShowJourneysAction;
-import net.anotheria.moskito.webui.more.action.AdditionalSectionAction;
-import net.anotheria.moskito.webui.more.action.ShowConfigAction;
-import net.anotheria.moskito.webui.more.action.ShowErrorAction;
-import net.anotheria.moskito.webui.more.action.ShowErrorsAction;
-import net.anotheria.moskito.webui.more.action.ShowLibsAction;
-import net.anotheria.moskito.webui.more.action.ShowMBeansAction;
-import net.anotheria.moskito.webui.more.action.UpdateAction;
+import net.anotheria.moskito.webui.journey.action.*;
+import net.anotheria.moskito.webui.more.action.*;
 import net.anotheria.moskito.webui.plugins.action.RemovePluginAction;
 import net.anotheria.moskito.webui.plugins.action.ShowPluginsAction;
 import net.anotheria.moskito.webui.producers.action.ShowAllProducersAction;
 import net.anotheria.moskito.webui.producers.action.ShowProducerAction;
 import net.anotheria.moskito.webui.producers.action.ShowProducersForCategoryAction;
 import net.anotheria.moskito.webui.producers.action.ShowProducersForSubsystemAction;
-import net.anotheria.moskito.webui.shared.action.ForceIntervalUpdateAction;
-import net.anotheria.moskito.webui.shared.action.GetExplanationsByDecoratorNameAction;
-import net.anotheria.moskito.webui.shared.action.QuickConnectAction;
-import net.anotheria.moskito.webui.shared.action.SaveNavMenuStateAction;
-import net.anotheria.moskito.webui.shared.action.SelectServerAction;
-import net.anotheria.moskito.webui.shared.action.ShowExplanationsAction;
-import net.anotheria.moskito.webui.threads.action.HistoryOffAction;
-import net.anotheria.moskito.webui.threads.action.HistoryOnAction;
-import net.anotheria.moskito.webui.threads.action.SetHistoryListSizeAction;
-import net.anotheria.moskito.webui.threads.action.StartThreadAction;
-import net.anotheria.moskito.webui.threads.action.ThreadsDumpAction;
-import net.anotheria.moskito.webui.threads.action.ThreadsHistoryAction;
-import net.anotheria.moskito.webui.threads.action.ThreadsListAction;
-import net.anotheria.moskito.webui.threads.action.ThreadsOverviewAction;
-import net.anotheria.moskito.webui.threshold.action.CreateThresholdAction;
-import net.anotheria.moskito.webui.threshold.action.DeleteThresholdAction;
-import net.anotheria.moskito.webui.threshold.action.GetThresholdDefinitionAction;
-import net.anotheria.moskito.webui.threshold.action.ShowThresholdsAction;
-import net.anotheria.moskito.webui.threshold.action.UpdateThresholdAction;
-import net.anotheria.moskito.webui.tracers.action.CreateTracerAction;
-import net.anotheria.moskito.webui.tracers.action.DisableTracerAction;
-import net.anotheria.moskito.webui.tracers.action.EnableTracerAction;
-import net.anotheria.moskito.webui.tracers.action.RemoveTracerAction;
-import net.anotheria.moskito.webui.tracers.action.ShowTracerAction;
-import net.anotheria.moskito.webui.tracers.action.ShowTracersAction;
-import net.anotheria.moskito.webui.util.WebUIConfig;
+import net.anotheria.moskito.webui.shared.action.*;
+import net.anotheria.moskito.webui.threads.action.*;
+import net.anotheria.moskito.webui.threshold.action.*;
+import net.anotheria.moskito.webui.tracers.action.*;
 
 /**
  * Mappings configurator for MoSKito project for the AnoMaf framework.
@@ -75,21 +34,15 @@ public class MoskitoMappingsConfigurator implements ActionMappingsConfigurator{
 	
 	@Override public void configureActionMappings(ActionMappings mappings){
 
-		// authorization actions
-		if(WebUIConfig.getInstance().isAuthenticationEnabled()) {
-			mappings.addMapping("mskLogin", LoginAction.class,
-					new ActionForward("login", "/net/anotheria/moskito/webui/auth/jsp/Login.jsp")
-			);
-			mappings.addMapping("mskSignIn", SignInAction.class,
-					// Default redirect in case user directly pass to login page
-					new CommandRedirect("defaultRedirect", "/moskito-control/mskDashboard"),
-					new CommandRedirect("error", "mskLogin?error=1")
-			);
-			mappings.addMapping("mskSignOut", SignOutAction.class,
-					new CommandRedirect("redirect", "mskLogin")
-			);
-		}
-
+		mappings.addMapping("mskSignIn", SignInAction.class,
+				// Default redirect in case user directly pass to login page
+				new ActionForward("loginPage", "/net/anotheria/moskito/webui/auth/jsp/Login.jsp"),
+				new CommandRedirect("defaultRedirect", "/moskito-control/mskDashboard"),
+				new CommandRedirect("error", "mskLogin?error=1")
+		);
+		mappings.addMapping("mskSignOut", SignOutAction.class,
+				new CommandRedirect("redirect", "mskLogin")
+		);
 
 		mappings.addMapping("mskShowAllProducers", ShowAllProducersAction.class,
 				new ActionForward("html", "/net/anotheria/moskito/webui/producers/jsp/Producers.jsp"),

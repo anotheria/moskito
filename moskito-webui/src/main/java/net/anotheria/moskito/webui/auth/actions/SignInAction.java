@@ -22,6 +22,9 @@ public class SignInAction implements Action {
 
     private static int AUTH_COOKIE_AGE = 60 * 60 * 24 * 30; // 30 days
 
+    private static String PARAMETER_ERROR = "error";
+    private static String PARAMETER_ERROR__HAS_ERROR_VALUE = "1";
+
     /**
      * Logger.
      */
@@ -36,41 +39,50 @@ public class SignInAction implements Action {
     @Override
     public ActionCommand execute(ActionMapping mapping, FormBean formBean, HttpServletRequest req, HttpServletResponse res) throws Exception {
 
-        final AuthApi api = APILookupUtility.getAuthApi();
+        if(req.getMethod().equals("POST")) {
 
-        UserAO user =
-                new UserAO(
-                        req.getParameter("username"),
-                        req.getParameter("password")
-                );
+            final AuthApi api = APILookupUtility.getAuthApi();
 
-        if(api.userExists(user)){
+            UserAO user =
+                    new UserAO(
+                            req.getParameter("username"),
+                            req.getParameter("password")
+                    );
 
-            req.getSession().setAttribute(AuthConstants.AUTH_SESSION_ATTR_NAME, true);
-            String encryptedAuthCookie;
+            if (api.userExists(user)) {
 
-            try {
-                encryptedAuthCookie = api.encryptUserCredentials(user);
+                req.getSession().setAttribute(AuthConstants.AUTH_SESSION_ATTR_NAME, true);
+                String encryptedAuthCookie;
+
+                try {
+                    encryptedAuthCookie = api.encryptUserCredentials(user);
+                } catch (APIException e) {
+                    log.error("Failed to encrypt user data for writing cookie");
+                    return mapping.error();
+                }
+
+                Cookie authCookie = new Cookie(AuthConstants.AUTH_COOKIE_NAME, encryptedAuthCookie);
+                authCookie.setMaxAge(AUTH_COOKIE_AGE);
+                res.addCookie(authCookie);
+
+                Object refer = req.getSession().getAttribute(AuthConstants.LOGIN_REFER_PAGE_SESSION_ATTR_NAME);
+
+                if (refer != null)
+                    return new CommandRedirect("redirect", ((String) refer));
+                else
+                    return mapping.findCommand("defaultRedirect");
+
+            } else{
+                req.setAttribute("title", "Log in Moskito-Inspect");
+                req.setAttribute("hasError", true);
+                return mapping.findCommand("loginPage");
             }
-            catch (APIException e){
-                log.error("Failed to encrypt user data for writing cookie");
-                return mapping.error();
-            }
-
-            Cookie authCookie = new Cookie(AuthConstants.AUTH_COOKIE_NAME, encryptedAuthCookie);
-            authCookie.setMaxAge(AUTH_COOKIE_AGE);
-            res.addCookie(authCookie);
-
-            Object refer = req.getSession().getAttribute(AuthConstants.LOGIN_REFER_PAGE_SESSION_ATTR_NAME);
-
-            if(refer != null)
-                return new CommandRedirect("redirect", ((String) refer));
-            else
-                return mapping.findCommand("defaultRedirect");
 
         }
-        else
-            return mapping.error();
+        else {
+            req.setAttribute("title", "Log in Moskito-Inspect");
+            return mapping.findCommand("loginPage");
+        }
 
     }
 

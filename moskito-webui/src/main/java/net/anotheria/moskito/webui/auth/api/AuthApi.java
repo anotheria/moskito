@@ -19,16 +19,16 @@ public interface AuthApi extends API, Service{
     String encryptUserCredentials(UserAO user) throws APIException;
 
     /**
-     * Restores user data bean from string,
-     * acquired by encrypting this bean.
-     * @param encryptedString encrypted user data
-     * @throws APIException on decryption fail
-     * @return user bean with data restored from encrypted string
+     * Check, does user with username and password from encrypted data
+     * is noted in moskito webui configuration.
+     * @param encryptedUserData user data encrypted by encryptUserCredentials(UserAO) method
+     * @return true - config contains that user
+     *         false - no
      */
-    UserAO decryptUserCredentials(String encryptedString) throws APIException;
+    boolean userExists(String encryptedUserData) throws APIException;
 
     /**
-     * Check, does user with username and password from bean
+     * Check, does user with username and password from user object in method parameter
      * is noted in moskito webui configuration.
      * @param user user data
      * @return true - config contains that user
