@@ -21,8 +21,6 @@ public class SetupPreconfiguredAccumulators implements ServletContextListener{
 
 	@Override
 	public void contextInitialized(ServletContextEvent sce) {
-		log.info("Configuring thread accumulators.");
-		setupThreadAccumulators();
 		log.info("Configuring session accumulators.");
 		setupSessionCountAccumulators();
 		log.info("Configuring url accumulators.");
