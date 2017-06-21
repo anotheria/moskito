@@ -37,10 +37,10 @@ public class MoskitoMappingsConfigurator implements ActionMappingsConfigurator{
 		mappings.addMapping("mskSignIn", SignInAction.class,
 				// Default redirect in case user directly pass to login page
 				new ActionForward("loginPage", "/net/anotheria/moskito/webui/auth/jsp/Login.jsp"),
-				new CommandRedirect("defaultRedirect", "/moskito-control/mskDashboard")
+				new CommandRedirect("defaultRedirect", "mskDashboard")
 		);
 		mappings.addMapping("mskSignOut", SignOutAction.class,
-				new CommandRedirect("redirect", "/moskito-control/mskDashboard")
+				new CommandRedirect("redirect", "mskDashboard")
 		);
 
 		mappings.addMapping("mskShowAllProducers", ShowAllProducersAction.class,

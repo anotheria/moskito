@@ -20,8 +20,6 @@ public class AuthConstants {
      * Array of urls required for authorization.
      * Whitelist for authorization filter
      */
-    public static String[] LOGIN_PAGES = new String[]{
-            "/moskito-inspect/mskSignIn"
-    };
+    public static String LOGIN_PAGE = "mskSignIn";
 
 }

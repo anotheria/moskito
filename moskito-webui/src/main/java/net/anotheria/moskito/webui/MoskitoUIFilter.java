@@ -12,17 +12,22 @@ import net.anotheria.moskito.webui.util.VersionUtil;
 import net.anotheria.moskito.webui.util.WebUIConfig;
 import net.anotheria.net.util.NetUtils;
 import net.anotheria.util.maven.MavenVersion;
-import org.apache.commons.lang.ArrayUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.servlet.*;
+import javax.servlet.FilterChain;
+import javax.servlet.FilterConfig;
+import javax.servlet.ServletException;
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
+
+import static net.anotheria.moskito.webui.auth.AuthConstants.LOGIN_PAGE;
 
 /**
  * MoskitoUI Filter is the main entering point of the Moskito Web User Interface.
@@ -49,7 +54,7 @@ public class MoskitoUIFilter extends MAFFilter{
 	 * 		   false - no
 	 */
 	private boolean isAuthAction(String url){
-		return ArrayUtils.contains(AuthConstants.LOGIN_PAGES, url);
+		return url.endsWith(LOGIN_PAGE);
 	}
 
 	/**
@@ -128,7 +133,7 @@ public class MoskitoUIFilter extends MAFFilter{
 						httpServletRequest.getRequestURL().toString()
 				);
 				// Redirect to login page
-				httpServletResponse.sendRedirect("/moskito-inspect/mskSignIn");
+				httpServletResponse.sendRedirect("mskSignIn");
 				return;
 
 			}
@@ -183,7 +188,7 @@ public class MoskitoUIFilter extends MAFFilter{
 
 	@Override
 	protected String getDefaultActionName() {
-		return "mskShowAllProducers";
+		return "mskDashboard";
 	}
 
 }
