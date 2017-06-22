@@ -79,6 +79,9 @@ public class BuiltInErrorProducerTest {
 	}
 
 	@Test public void testCascadingExecutionWithoutCatch(){
+
+		MoskitoConfigurationHolder.getConfiguration().getErrorHandlingConfig().setCountRethrows(true);
+
 		ErrorTestSecondService service = ProxyUtils.createServiceInstance(new ErrorTestSecondServiceImpl(), "foo", "foo", ErrorTestSecondService.class );
 		try {
 			service.nonCatchingEcho();
@@ -99,6 +102,8 @@ public class BuiltInErrorProducerTest {
 	}
 
 	@Test public void testInitialAndTotalCountWithCascading(){
+		MoskitoConfigurationHolder.getConfiguration().getErrorHandlingConfig().setCountRethrows(true);
+
 		ErrorTestSecondService service = ProxyUtils.createServiceInstance(new ErrorTestSecondServiceImpl(), "foo", "foo", ErrorTestSecondService.class );
 		try {
 			service.nonCatchingEcho();
