@@ -20,22 +20,7 @@ public class WebUIConfig {
 	 */
 	private int producerChartHeight = 600;
 
-	/**
-	 * Is authorization enabled in moskito-inspect
-	 */
-	private boolean authenticationEnabled = false;
-
-	/**
-	 * Authentication credentials (pair of username and password)
-	 * for authorization in moskito-inspect
-	 */
-	private AuthCredentialsConfig[] authCredentials = new AuthCredentialsConfig[0];
-
-	/**
-	 * Authorization mechanism uses blowfish algorithm to encrypt user authorization cookie.
-	 * This string is used as key for blowfish encryption.
-	 */
-	private String encryptionKey;
+	private AuthConfig authentication;
 
 	/**
 	 * List of remote instances. Remote instances are only active if mode is remote.
@@ -108,28 +93,12 @@ public class WebUIConfig {
 		remotes[remotes.length-1] = newRemoteInstance;
 	}
 
-	public AuthCredentialsConfig[] getAuthCredentials() {
-		return authCredentials;
+	public AuthConfig getAuthentication() {
+		return authentication;
 	}
 
-	public void setAuthCredentials(AuthCredentialsConfig[] authCredentials) {
-		this.authCredentials = authCredentials;
-	}
-
-	public boolean isAuthenticationEnabled() {
-		return authenticationEnabled;
-	}
-
-	public void setAuthenticationEnabled(boolean authenticationEnabled) {
-		this.authenticationEnabled = authenticationEnabled;
-	}
-
-	public String getEncryptionKey() {
-		return encryptionKey;
-	}
-
-	public void setEncryptionKey(String encryptionKey) {
-		this.encryptionKey = encryptionKey;
+	public void setAuthentication(AuthConfig authentication) {
+		this.authentication = authentication;
 	}
 
 	/**

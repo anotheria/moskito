@@ -115,7 +115,8 @@ public class MoskitoUIFilter extends MAFFilter{
 		HttpServletRequest httpServletRequest = ((HttpServletRequest) request);
 		HttpServletResponse httpServletResponse = ((HttpServletResponse) response);
 
-		if(WebUIConfig.getInstance().isAuthenticationEnabled() && !isAuthAction(httpServletRequest.getRequestURI())) {
+		if(WebUIConfig.getInstance().getAuthentication().isAuthenticationEnabled()
+				&& !isAuthAction(httpServletRequest.getRequestURI())) {
 			// Means current page is protected by authorization
 
 			if (isAuthorized(httpServletRequest)) {
