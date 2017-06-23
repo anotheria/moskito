@@ -12,8 +12,14 @@ import org.configureme.annotations.ConfigureMe;
         justification = "This is the way configureme works, it provides beans for access")
 public class AuthConfig {
 
-    private boolean authenticationEnabled;
-    private AuthCredentialsConfig[] credentials;
+	/**
+	 * If true authentication is enabled.
+	 */
+    private boolean authenticationEnabled = false;
+	/**
+	 * Array with credentials.
+	 */
+	private AuthCredentialsConfig[] credentials = new AuthCredentialsConfig[0];
     /**
      * Authorization mechanism uses blowfish algorithm to encrypt user authorization cookie.
      * This string is used as key for blowfish encryption.

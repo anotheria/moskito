@@ -2,7 +2,6 @@ package net.anotheria.moskito.webui.util;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.configureme.ConfigurationManager;
-import org.configureme.annotations.Configure;
 import org.configureme.annotations.ConfigureMe;
 
 /**
@@ -20,7 +19,7 @@ public class WebUIConfig {
 	 */
 	private int producerChartHeight = 600;
 
-	private AuthConfig authentication;
+	private AuthConfig authentication = new AuthConfig();
 
 	/**
 	 * List of remote instances. Remote instances are only active if mode is remote.
