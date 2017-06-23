@@ -55,6 +55,11 @@
             <artifactId>moskito-monitoring-plugin</artifactId>
             <version>${project.version}</version>
         </dependency>
+        <dependency>
+            <groupId>net.anotheria</groupId>
+            <artifactId>moskito-tomcat</artifactId>
+            <version>${project.version}</version>
+        </dependency>
 
 		<dependency>
 		    <groupId>javax.servlet</groupId>
