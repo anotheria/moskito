@@ -2,6 +2,7 @@ package net.anotheria.moskito.webui.auth.api;
 
 import net.anotheria.anoplass.api.APIException;
 import net.anotheria.anoplass.api.APIInitException;
+import net.anotheria.moskito.webui.util.AuthConfig;
 import net.anotheria.moskito.webui.util.AuthCredentialsConfig;
 import net.anotheria.moskito.webui.util.WebUIConfig;
 import net.anotheria.util.crypt.CryptTool;
@@ -15,12 +16,12 @@ public class AuthApiImpl implements AuthApi {
     private volatile String cryptKey;
 
     private boolean isAuthEnabled(){
-        WebUIConfig config = WebUIConfig.getInstance();
+        AuthConfig config = WebUIConfig.getInstance().getAuthentication();
         return config.isAuthenticationEnabled() && config.getEncryptionKey() != null;
     }
 
     private void refreshCryptKey(){
-        if(cryptKey == null || !cryptKey.equals(WebUIConfig.getInstance().getEncryptionKey()))
+        if(cryptKey == null || !cryptKey.equals(WebUIConfig.getInstance().getAuthentication().getEncryptionKey()))
             initCryptTool();
     }
 
@@ -29,7 +30,7 @@ public class AuthApiImpl implements AuthApi {
      * @return array of user credentials
      */
     private AuthCredentialsConfig[] getAuthCredentials(){
-        return WebUIConfig.getInstance().getAuthCredentials();
+        return WebUIConfig.getInstance().getAuthentication().getCredentials();
     }
 
     @Override
@@ -37,7 +38,12 @@ public class AuthApiImpl implements AuthApi {
         if(isAuthEnabled()) {
             refreshCryptKey();
             try {
-                return cryptTool.encryptToHex(user.getUsername() + "#" + user.getPassword());
+                // <username>#<password>#<>
+                return cryptTool.encryptToHex(
+                        user.getUsername() + "#"
+                                + user.getPassword() + "#"
+                                + Long.valueOf(System.currentTimeMillis()).toString()
+                );
             } catch (IllegalArgumentException e) {
                 throw new APIException("Failed to encrypt user authorization data", e);
             }
@@ -94,7 +100,7 @@ public class AuthApiImpl implements AuthApi {
     }
 
     private void initCryptTool(){
-        String cryptKey = WebUIConfig.getInstance().getEncryptionKey();
+        String cryptKey = WebUIConfig.getInstance().getAuthentication().getEncryptionKey();
 
         if(cryptKey != null){
             this.cryptKey = cryptKey;
