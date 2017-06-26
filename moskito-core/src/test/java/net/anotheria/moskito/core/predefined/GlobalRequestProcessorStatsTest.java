@@ -1,4 +1,4 @@
-package net.anotheria.moskito.extensions.tomcat;
+package net.anotheria.moskito.core.predefined;
 
 import net.anotheria.moskito.core.stats.TimeUnit;
 import org.junit.Test;
@@ -18,7 +18,7 @@ public class GlobalRequestProcessorStatsTest {
 
     @Test
     public void testStatsValues() {
-        GlobalRequestProcessorStats stats = new GlobalRequestProcessorStats();
+        GlobalRequestProcessorStats stats = new GlobalRequestProcessorStats("test");
         for (int i = 0; i < 100; i++) {
             stats.update(i, 0, 0, 0, 0 , i % 2 == 0 ? i : i-1);
         }
@@ -28,7 +28,7 @@ public class GlobalRequestProcessorStatsTest {
 
     @Test
     public void getValueByNameAsStringNullTest() {
-        GlobalRequestProcessorStats s = new GlobalRequestProcessorStats();
+        GlobalRequestProcessorStats s = new GlobalRequestProcessorStats("test");
         try {
             s.getValueByNameAsString(null, null, null);
             fail("Expected assertion error");
@@ -39,7 +39,7 @@ public class GlobalRequestProcessorStatsTest {
 
     @Test
     public void getValueNamesTest() {
-        List<String> names = new GlobalRequestProcessorStats().getAvailableValueNames();
+        List<String> names = new GlobalRequestProcessorStats("test").getAvailableValueNames();
         //we don't have to check ALL.
         assertTrue(names.contains("RequestCount"));
         assertTrue(names.contains("MaxTime"));
@@ -49,7 +49,7 @@ public class GlobalRequestProcessorStatsTest {
 
     @Test
     public void getValueByNameAsStringTest() {
-        GlobalRequestProcessorStats s = new GlobalRequestProcessorStats();
+        GlobalRequestProcessorStats s = new GlobalRequestProcessorStats("test");
 
         //prepare data
         s.update(10, 100, 256, 128, 200 , 1);
@@ -66,7 +66,7 @@ public class GlobalRequestProcessorStatsTest {
 
     @Test
     public void testToStatsString() {
-        GlobalRequestProcessorStats s = new GlobalRequestProcessorStats();
+        GlobalRequestProcessorStats s = new GlobalRequestProcessorStats("test");
 
         //prepare data
         s.update(10, 100, 256, 128, 200 , 1);

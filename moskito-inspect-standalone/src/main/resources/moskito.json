@@ -699,11 +699,6 @@
         "name": "NginxMonitoringPlugin",
         "configurationName": "monitoring-plugin-nginx",
         "className": "net.anotheria.moskito.extensions.monitoring.GenericMonitoringPlugin"
-      },
-      {
-        "name": "TomcatMonitoringPlugin",
-        "configurationName": "none",
-        "className": "net.anotheria.moskito.extensions.tomcat.TomcatMonitoringPlugin"
       }
     ]
   },
@@ -722,5 +717,9 @@
       "net.anotheria.moskito.web.filters.caseextractor.UserAgentCaseExtractor",
       "net.anotheria.moskito.web.filters.caseextractor.DomainCaseExtractor"
     ]
+  },
+  "@tomcatRequestProcessorProducerConfig": {
+    "ajp": true,
+    "http": true
   }
 }
