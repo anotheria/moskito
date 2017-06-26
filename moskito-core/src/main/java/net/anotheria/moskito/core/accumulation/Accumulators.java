@@ -35,7 +35,7 @@ public final class Accumulators {
 	 * @param valueName name of the value, like AVG, REQ, Free etc.
 	 * @param intervalName name of the interval.
 	 * @param timeUnit time unit in which the accumulator should be managed and the values recalculated.
-	 * @return
+	 * @return {@link Accumulator}
 	 */
 	public static Accumulator createAccumulator(String name, String producerName, String statName, String valueName, String intervalName, TimeUnit timeUnit) {
 		AccumulatorDefinition definition = new AccumulatorDefinition();
@@ -179,15 +179,11 @@ public final class Accumulators {
 	public static void createGCAccumulators(List<String> gcNames) {
 		List<String> accumulators = new ArrayList<>();
 		for (String name : gcNames) {
-			String currentCountAccName = String.format("GC %s current collection count 1m", name);
-			String totalCountAccName = String.format("GC %s total collection count 1m", name);
-			String currentTimeAccName = String.format("GC %s current collection time 1m", name);
-			String totalTimeAccName = String.format("GC %s total collection time 1m", name);
-			accumulators.addAll(Arrays.asList(currentCountAccName, totalCountAccName, currentTimeAccName, totalTimeAccName));
-			Accumulators.createAccumulator(currentCountAccName, "GC", name, "CurrentCollectionCount", "1m");
-			Accumulators.createAccumulator(totalCountAccName, "GC", name, "TotalCollectionCount", "1m");
-			Accumulators.createAccumulator(currentTimeAccName, "GC", name, "CurrentCollectionTime", "1m");
-			Accumulators.createAccumulator(totalTimeAccName, "GC", name, "TotalCollectionTime", "1m");
+			String collectionCountAccName = String.format("GC %s collection count 1m", name);
+			String collectionTimeAccName = String.format("GC %s collection time 1m", name);
+			accumulators.addAll(Arrays.asList(collectionCountAccName, collectionTimeAccName));
+			Accumulators.createAccumulator(collectionCountAccName, "GC", name, "CollectionCount", "1m");
+			Accumulators.createAccumulator(collectionTimeAccName, "GC", name, "CollectionTime", "1m");
 		}
 		AccumulatorSetConfig[] accumulatorSets = MoskitoConfigurationHolder.getConfiguration().getAccumulatorsConfig().getAccumulatorSets();
 		if (accumulatorSets==null)
