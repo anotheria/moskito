@@ -440,12 +440,20 @@
         "name": "Memory",
         "@charts": [
           {
-            "caption": "GC Collection Count",
+            "caption": "GC Current Count",
             "accumulators": ["GC PS MarkSweep collection count 1m", "GC PS Scavenge collection count 1m"]
           },
           {
-            "caption": "GC Collection Time",
+            "caption": "GC Current Time",
             "accumulators": ["GC PS MarkSweep collection time 1m", "GC PS Scavenge collection time 1m"]
+          },
+          {
+            "caption": "GC Total Count",
+            "accumulators": ["GC PS MarkSweep total collection count", "GC PS Scavenge total collection count"]
+          },
+          {
+            "caption": "GC Total Time",
+            "accumulators": ["GC PS MarkSweep total collection time", "GC PS Scavenge total collection time"]
           },
           {
             "caption": "Memory",

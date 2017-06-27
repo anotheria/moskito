@@ -180,10 +180,14 @@ public final class Accumulators {
 		List<String> accumulators = new ArrayList<>();
 		for (String name : gcNames) {
 			String collectionCountAccName = String.format("GC %s collection count 1m", name);
+			String totalCollectionCountAccName = String.format("GC %s total collection count", name);
 			String collectionTimeAccName = String.format("GC %s collection time 1m", name);
+			String totalCollectionTimeAccName = String.format("GC %s total collection time", name);
 			accumulators.addAll(Arrays.asList(collectionCountAccName, collectionTimeAccName));
 			Accumulators.createAccumulator(collectionCountAccName, "GC", name, "CollectionCount", "1m");
+			Accumulators.createAccumulator(totalCollectionCountAccName, "GC", name, "CollectionCount", "default");
 			Accumulators.createAccumulator(collectionTimeAccName, "GC", name, "CollectionTime", "1m");
+			Accumulators.createAccumulator(totalCollectionTimeAccName, "GC", name, "CollectionTime", "default");
 		}
 		AccumulatorSetConfig[] accumulatorSets = MoskitoConfigurationHolder.getConfiguration().getAccumulatorsConfig().getAccumulatorSets();
 		if (accumulatorSets==null)
