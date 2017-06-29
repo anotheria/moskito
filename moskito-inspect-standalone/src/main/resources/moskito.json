@@ -441,19 +441,19 @@
         "@charts": [
           {
             "caption": "GC Current Count",
-            "accumulators": ["GC PS MarkSweep current collection count 1m", "GC PS Scavenge current collection count 1m"]
+            "accumulators": ["GC PS MarkSweep collection count 1m", "GC PS Scavenge collection count 1m"]
           },
           {
             "caption": "GC Current Time",
-            "accumulators": ["GC PS MarkSweep current collection time 1m", "GC PS Scavenge current collection time 1m"]
+            "accumulators": ["GC PS MarkSweep collection time 1m", "GC PS Scavenge collection time 1m"]
           },
           {
             "caption": "GC Total Count",
-            "accumulators": ["GC PS MarkSweep total collection count 1m", "GC PS Scavenge total collection count 1m"]
+            "accumulators": ["GC PS MarkSweep total collection count", "GC PS Scavenge total collection count"]
           },
           {
             "caption": "GC Total Time",
-            "accumulators": ["GC PS MarkSweep total collection time 1m", "GC PS Scavenge total collection time 1m"]
+            "accumulators": ["GC PS MarkSweep total collection time", "GC PS Scavenge total collection time"]
           },
           {
             "caption": "Memory",
@@ -699,11 +699,6 @@
         "name": "NginxMonitoringPlugin",
         "configurationName": "monitoring-plugin-nginx",
         "className": "net.anotheria.moskito.extensions.monitoring.GenericMonitoringPlugin"
-      },
-      {
-        "name": "TomcatMonitoringPlugin",
-        "configurationName": "none",
-        "className": "net.anotheria.moskito.extensions.tomcat.TomcatMonitoringPlugin"
       }
     ]
   },
@@ -722,5 +717,9 @@
       "net.anotheria.moskito.web.filters.caseextractor.UserAgentCaseExtractor",
       "net.anotheria.moskito.web.filters.caseextractor.DomainCaseExtractor"
     ]
+  },
+  "@tomcatRequestProcessorProducerConfig": {
+    "ajp": true,
+    "http": true
   }
 }

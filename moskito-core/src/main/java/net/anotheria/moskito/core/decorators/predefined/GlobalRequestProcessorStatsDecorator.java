@@ -1,8 +1,9 @@
-package net.anotheria.moskito.extensions.tomcat;
+package net.anotheria.moskito.core.decorators.predefined;
 
 import net.anotheria.moskito.core.decorators.AbstractDecorator;
 import net.anotheria.moskito.core.decorators.value.LongValueAO;
 import net.anotheria.moskito.core.decorators.value.StatValueAO;
+import net.anotheria.moskito.core.predefined.GlobalRequestProcessorStats;
 import net.anotheria.moskito.core.producers.IStats;
 import net.anotheria.moskito.core.stats.TimeUnit;
 

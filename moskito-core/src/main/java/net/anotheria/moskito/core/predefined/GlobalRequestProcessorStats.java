@@ -1,7 +1,7 @@
-package net.anotheria.moskito.extensions.tomcat;
+package net.anotheria.moskito.core.predefined;
 
 import net.anotheria.moskito.core.decorators.DecoratorRegistryFactory;
-import net.anotheria.moskito.core.predefined.Constants;
+import net.anotheria.moskito.core.decorators.predefined.GlobalRequestProcessorStatsDecorator;
 import net.anotheria.moskito.core.producers.AbstractStats;
 import net.anotheria.moskito.core.stats.Interval;
 import net.anotheria.moskito.core.stats.StatValue;
@@ -27,11 +27,6 @@ public class GlobalRequestProcessorStats extends AbstractStats {
             DecoratorRegistryFactory.getDecoratorRegistry().addDecorator(GlobalRequestProcessorStats.class, new GlobalRequestProcessorStatsDecorator());
         }
     }
-
-    /**
-     * Name.
-     */
-    private static final String NAME = "GlobalRequestProcessor";
 
     /**
      * Request count.
@@ -65,17 +60,18 @@ public class GlobalRequestProcessorStats extends AbstractStats {
 
     /**
      * Default Constructor.
+     * @param aName stat name
      */
-    public GlobalRequestProcessorStats() {
-        this(Constants.getDefaultIntervals());
+    public GlobalRequestProcessorStats(String aName) {
+        this(aName, Constants.getDefaultIntervals());
     }
 
     /**
      * Constructor.
      * @param selectedIntervals selected intervals.
      */
-    private GlobalRequestProcessorStats(Interval[] selectedIntervals) {
-        super(NAME);
+    private GlobalRequestProcessorStats(String aName, Interval[] selectedIntervals) {
+        super(aName);
         requestCount = StatValueFactory.createStatValue(StatValueTypes.DIFFLONG, "requestCount", selectedIntervals);
         maxTime = StatValueFactory.createStatValue(StatValueTypes.DIFFLONG, "maxTime", selectedIntervals);
         bytesReceived = StatValueFactory.createStatValue(StatValueTypes.DIFFLONG, "bytesReceived", selectedIntervals);
