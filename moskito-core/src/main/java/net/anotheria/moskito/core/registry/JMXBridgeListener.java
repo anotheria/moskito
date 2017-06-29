@@ -1,6 +1,6 @@
 package net.anotheria.moskito.core.registry;
 
-import net.anotheria.moskito.core.helper.RuntimeConstants;
+import net.anotheria.moskito.core.config.MoskitoConfigurationHolder;
 import net.anotheria.moskito.core.producers.IStats;
 import net.anotheria.moskito.core.producers.IStatsProducer;
 import net.anotheria.moskito.core.util.BuiltInProducer;
@@ -8,11 +8,7 @@ import net.anotheria.util.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.management.InstanceAlreadyExistsException;
-import javax.management.InstanceNotFoundException;
-import javax.management.MBeanServer;
-import javax.management.MalformedObjectNameException;
-import javax.management.ObjectName;
+import javax.management.*;
 import java.lang.management.ManagementFactory;
 import java.util.List;
 
@@ -74,7 +70,7 @@ public class JMXBridgeListener<S extends IStats> implements IProducerRegistryLis
 	 * @throws MalformedObjectNameException
 	 */
 	private ObjectName createName(String producerId, String statName) throws MalformedObjectNameException{
-		String appName = encodeAppName(RuntimeConstants.getApplicationName());
+		String appName = encodeAppName(MoskitoConfigurationHolder.getConfiguration().getApplicationName());
 		String objectName = "MoSKito."+(appName.length()>0 ? appName+ '.' :"")+"producers:type="+producerId+ '.' +statName;
 		ObjectName objName = new ObjectName(objectName);
 		return objName;

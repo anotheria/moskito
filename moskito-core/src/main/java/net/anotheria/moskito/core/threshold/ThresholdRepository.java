@@ -6,7 +6,6 @@ import net.anotheria.moskito.core.config.thresholds.GuardConfig;
 import net.anotheria.moskito.core.config.thresholds.ThresholdConfig;
 import net.anotheria.moskito.core.config.thresholds.ThresholdsConfig;
 import net.anotheria.moskito.core.dynamic.OnDemandStatsProducer;
-import net.anotheria.moskito.core.helper.RuntimeConstants;
 import net.anotheria.moskito.core.helper.TieableDefinition;
 import net.anotheria.moskito.core.helper.TieableRepository;
 import net.anotheria.moskito.core.producers.IStats;
@@ -107,7 +106,7 @@ public class ThresholdRepository<S extends IStats> extends TieableRepository<Thr
     }
 	
 	private ObjectName createName(String name) throws MalformedObjectNameException {
-        String appName = RuntimeConstants.getApplicationName();
+        String appName = MoskitoConfigurationHolder.getConfiguration().getApplicationName();
 		String objectName = "moskito."+(appName.length()>0 ? appName+ '.' :"")+"thresholds:type="+name;
         ObjectName objName = new ObjectName(objectName);
         return objName;

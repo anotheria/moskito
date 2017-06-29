@@ -1,4 +1,5 @@
 {
+  "applicationName" : "",
   "@thresholdsAlertsConfig": {
     "@notificationProviders": [
       {
