@@ -65,7 +65,7 @@ public final class MBeanProducerFactory {
         if (s == null || s.trim().isEmpty()) {
             return "unspecific";
         }
-        return s.replace(':', '/').replace('=', '-').replace(',', '|').replace('"', '\'').replace('#', '-');
+        return s.replace(':', '/').replace('=', '-').replace(',', '|').replace("\"", "").replace('#', '-');
     }
 
 	/**

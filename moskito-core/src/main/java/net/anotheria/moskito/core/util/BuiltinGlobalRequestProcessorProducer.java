@@ -1,5 +1,6 @@
 package net.anotheria.moskito.core.util;
 
+import net.anotheria.moskito.core.accumulation.Accumulators;
 import net.anotheria.moskito.core.config.MoskitoConfigurationHolder;
 import net.anotheria.moskito.core.predefined.GlobalRequestProcessorStats;
 import net.anotheria.moskito.core.producers.IStats;
@@ -114,10 +115,13 @@ public class BuiltinGlobalRequestProcessorProducer extends AbstractBuiltInProduc
                 iStats = new ArrayList<>();
                 mBeans = new ArrayList<>();
                 mBeanServer = server;
+                List<String> beanNames = new ArrayList<>();
                 for (ObjectInstance instance : instances) {
                     mBeans.add(instance);
-                    GlobalRequestProcessorStats stats = new GlobalRequestProcessorStats(instance.getObjectName().getKeyProperty("name"));
+                    String beanName = MBeanProducerFactory.normalize(instance.getObjectName().getKeyProperty("name"));
+                    GlobalRequestProcessorStats stats = new GlobalRequestProcessorStats(beanName);
                     iStats.add(stats);
+                    beanNames.add(beanName);
                 }
                 BuiltinUpdater.addTask(new TimerTask() {
                     @Override
@@ -126,6 +130,7 @@ public class BuiltinGlobalRequestProcessorProducer extends AbstractBuiltInProduc
                     }
                 });
                 ProducerRegistryFactory.getProducerRegistryInstance().registerProducer(this);
+                Accumulators.createGlobalRequestProcessorAccumulators(beanNames);
                 break;
             }
         }
