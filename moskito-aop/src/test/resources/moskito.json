@@ -1,0 +1,12 @@
+{
+  "@builtinProducersConfig": {
+    "javaMemoryProducers": false,
+    "javaMemoryPoolProducers": false,
+    "javaThreadingProducers": false,
+    "osProducer": false,
+    "runtimeProducer": false,
+    "mbeanProducers": false,
+    "gcProducer": false,
+    "errorProducer": false
+  }
+}
