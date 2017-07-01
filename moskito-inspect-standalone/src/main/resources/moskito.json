@@ -719,7 +719,7 @@
     ]
   },
   "@tomcatRequestProcessorProducerConfig": {
-    "ajp": false,
+    "ajp": true,
     "http": true
   }
 }
