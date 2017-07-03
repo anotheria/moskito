@@ -63,9 +63,8 @@ public class JMXBridgeListener<S extends IStats> implements IProducerRegistryLis
 	 * @param producerId
 	 * @param statName
 	 * @return
-	 * @throws MalformedObjectNameException
 	 */
-	private String createName(String producerId, String statName) throws MalformedObjectNameException{
+	private String createName(String producerId, String statName) {
 		String appName = encodeAppName(MoskitoConfigurationHolder.getConfiguration().getApplicationName());
 		return "MoSKito."+(appName.length()>0 ? appName+ '.' :"")+"producers:type="+producerId+ '.' +statName;
 	}
