@@ -33,6 +33,9 @@ public class MoskitoConfiguration implements Serializable{
 	 */
 	private static final long serialVersionUID = 6636333765192447227L;
 
+	@Configure
+	private String applicationName = "";
+
 	/**
 	 * Config object for alerting.
 	 */
@@ -239,6 +242,15 @@ public class MoskitoConfiguration implements Serializable{
 	public void setErrorHandlingConfig(ErrorHandlingConfig errorHandlingConfig) {
 		this.errorHandlingConfig = errorHandlingConfig;
 	}
+
+	public String getApplicationName() {
+		return applicationName;
+	}
+
+	public void setApplicationName(String applicationName) {
+		this.applicationName = applicationName;
+	}
+
 }
 
 

@@ -36,6 +36,7 @@ package net.anotheria.moskito.core.timing;
 
 /**
  * This interface declares a service notificationprovider that allows to get notified periodically.
+ * Also contains {@link IUpdateTriggerService#cleanup()} method to  clean up resources it uses.
  *
  * @author lrosenberg
  */
@@ -48,4 +49,10 @@ public interface IUpdateTriggerService {
 	 * @param aUpdateSequenceInSeconds the update interval in seconds
 	 */
 	void addUpdateable(IUpdateable aUpdateable, int aUpdateSequenceInSeconds);
+
+	/**
+	 * Used to notify implementation to clean up resources it uses.
+	 */
+	void cleanup();
+
 }
