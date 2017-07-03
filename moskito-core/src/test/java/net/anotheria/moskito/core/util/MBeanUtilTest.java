@@ -5,6 +5,7 @@ import org.junit.Test;
 import javax.management.*;
 
 import java.lang.management.ManagementFactory;
+import java.util.Set;
 
 import static org.junit.Assert.*;
 
@@ -35,29 +36,56 @@ public class MBeanUtilTest {
 
     @Test
     public void testRegisterAndUnregister()
-            throws MBeanRegistrationException, MalformedObjectNameException, NotCompliantMBeanException {
+            throws MBeanRegistrationException, MalformedObjectNameException, NotCompliantMBeanException,
+            IntrospectionException, InstanceNotFoundException, ReflectionException {
 
         final String sampleBeanName = "SampleBean:test=test";
+        final SampleBean sampleBean = new SampleBean("test_id");
+        final SampleBean anotherSampleBean = new SampleBean("other_test_id");
+        final MBeanServer mbs = ManagementFactory.getPlatformMBeanServer();
 
-        MBeanUtil.getInstance().registerMBean(sampleBean, sampleBeanName);
 
-        assertTrue(
-                MBeanUtil.getInstance().unregisterMBean(sampleBeanName) // Must return true on success remove
+        // Register method should return bean name
+        assertEquals(sampleBeanName,
+                MBeanUtil.getInstance().registerMBean(sampleBean, sampleBeanName)
         );
 
+        // Trying to register bean with duplicate name with replace set to false
+        // Method should return name with copy prefix
+        assertEquals("copy1." + sampleBeanName,
+                MBeanUtil.getInstance().registerMBean(sampleBean, sampleBeanName, false)
+        );
+
+        // Trying to register mbean with duplicate name with replace set to true
+        // Method should replace old mbean
+        assertEquals(sampleBeanName,
+                MBeanUtil.getInstance().registerMBean(anotherSampleBean, sampleBeanName, true)
+        );
+
+        // Getting mbean info to determinate that mbean was replaced
+        MBeanInfo info = mbs.getMBeanInfo(new ObjectName(sampleBeanName));
+        assertEquals("other_test_id", info.getDescription());
+
+        // Must return true on success remove
+        assertTrue(
+                MBeanUtil.getInstance().unregisterMBean(sampleBeanName)
+        );
+
+        // Unregistration should not be success due that bean is already removed
         assertFalse(
-                // Unregistration should not be success due that bean is already removed
                 MBeanUtil.getInstance().unregisterMBean(sampleBeanName)
         );
 
         // Checking that MBean with test name is not registered
-        assertFalse(ManagementFactory.getPlatformMBeanServer().isRegistered(new ObjectName(sampleBeanName)));
+        assertFalse(mbs.isRegistered(new ObjectName(sampleBeanName)));
 
     }
 
     @Test
     public void testCleanup()
             throws MBeanRegistrationException, MalformedObjectNameException, NotCompliantMBeanException {
+
+        final SampleBean sampleBean = new SampleBean("test");
 
         final String sampleBeanName1 = "SampleBean:test=test,order=1";
         final String sampleBeanName2 = "SampleBean:test=test,order=2";
@@ -69,7 +97,7 @@ public class MBeanUtilTest {
         MBeanUtil.getInstance().registerMBean(sampleBean, sampleBeanName2);
         MBeanUtil.getInstance().registerMBean(sampleBean, sampleBeanName3);
 
-        MBeanUtil.getInstance().cleanup(); // All registered beans has to be removed after cleanup() call
+        MBeanUtil.getInstance().cleanup(); // All registered beans have to be removed after cleanup() call
 
         // Checking that MBeans with test names is not registered
         assertFalse(mbs.isRegistered(new ObjectName(sampleBeanName1)));
@@ -81,7 +109,14 @@ public class MBeanUtilTest {
     /**
      * Object for testing that can be used as MBean (at least in this test scope)
      */
-    private static Object sampleBean = new DynamicMBean(){
+    private static class SampleBean implements DynamicMBean{
+
+        private String id;
+
+        private SampleBean(String id){
+            this.id = id;
+        }
+
         @Override
         public Object getAttribute(String attribute) throws AttributeNotFoundException, MBeanException, ReflectionException {
             return null;
@@ -109,7 +144,7 @@ public class MBeanUtilTest {
 
         @Override
         public MBeanInfo getMBeanInfo() {
-            return new MBeanInfo("Anonymous", null, null, null, null, null);
+            return new MBeanInfo("Anonymous", id, null, null, null, null);
         }
     };
 
