@@ -32,7 +32,7 @@ public class JMXBridgeListener<S extends IStats> implements IProducerRegistryLis
 	    	return;
 		for (IStats s : stats){
 			try{
-				MBeanUtil.getInstance().registerMBean(s, createName(producer.getProducerId(), s.getName()), false);
+				MBeanUtil.getInstance().registerMBean(s, createName(producer.getProducerId(), s.getName()));
 			} catch(Exception e){
 				log.warn("can't register "+s.getName()+" in "+producer.getProducerId()+", ignored.", e);
 			}

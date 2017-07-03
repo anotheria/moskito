@@ -44,7 +44,6 @@ public class MBeanUtilTest {
         final SampleBean anotherSampleBean = new SampleBean("other_test_id");
         final MBeanServer mbs = ManagementFactory.getPlatformMBeanServer();
 
-
         // Register method should return bean name
         assertEquals(sampleBeanName,
                 MBeanUtil.getInstance().registerMBean(sampleBean, sampleBeanName)
@@ -74,6 +73,12 @@ public class MBeanUtilTest {
         // Unregistration should not be success due that bean is already removed
         assertFalse(
                 MBeanUtil.getInstance().unregisterMBean(sampleBeanName)
+        );
+
+        // Trying to unregister bean with non existing name.
+        // Method should return false
+        assertFalse(
+                MBeanUtil.getInstance().unregisterMBean("non_existing_bean")
         );
 
         // Checking that MBean with test name is not registered
@@ -107,7 +112,7 @@ public class MBeanUtilTest {
     }
 
     /**
-     * Object for testing that can be used as MBean (at least in this test scope)
+     * MBean mock for testing
      */
     private static class SampleBean implements DynamicMBean{
 

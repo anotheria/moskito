@@ -92,7 +92,7 @@ public class MBeanUtil {
     }
 
     /**
-     * Overloaded method with 'replace' parameter set to true.
+     * Overloaded method with 'replace' parameter set to false.
      * See:
      *  {@link MBeanUtil#registerMBean(Object, String, boolean)}
      */
