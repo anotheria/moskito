@@ -78,23 +78,24 @@ public class MoskitoUIFilter extends MAFFilter{
 		// Session not contains auth flag. Trying to find valid auth cookie
 		final AuthApi api = APILookupUtility.getAuthApi();
 
-		for(Cookie cookie : request.getCookies())
-			if(cookie.getName().equals(AuthConstants.AUTH_COOKIE_NAME)){
+		if(request.getCookies() != null)
+			for(Cookie cookie : request.getCookies())
+				if(cookie.getName().equals(AuthConstants.AUTH_COOKIE_NAME)){
 
-				try {
-					if(api.userExists(
-							cookie.getValue()
-					)){
-						// Valid auth cookie found. Setting auth flag in session to true
-						request.getSession().setAttribute(AuthConstants.AUTH_SESSION_ATTR_NAME, true);
-						return true;
+					try {
+						if(api.userExists(
+								cookie.getValue()
+						)){
+							// Valid auth cookie found. Setting auth flag in session to true
+							request.getSession().setAttribute(AuthConstants.AUTH_SESSION_ATTR_NAME, true);
+							return true;
+						}
+					} catch (APIException e) {
+						log.error("Failed to decrypt user authorization cookie", e);
+						return false;
 					}
-				} catch (APIException e) {
-					log.error("Failed to decrypt user authorization cookie", e);
-					return false;
-				}
 
-			}
+				}
 
 		// No auth flag in session or valid auth cookie found. Seems that user is not authorized
 		return false;
