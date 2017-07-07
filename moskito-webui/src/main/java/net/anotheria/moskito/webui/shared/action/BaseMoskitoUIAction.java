@@ -56,6 +56,7 @@ import net.anotheria.moskito.webui.shared.bean.UnitBean;
 import net.anotheria.moskito.webui.threshold.api.ThresholdAPI;
 import net.anotheria.moskito.webui.tracers.api.TracerAPI;
 import net.anotheria.moskito.webui.util.APILookupUtility;
+import net.anotheria.moskito.webui.util.ConnectivityMode;
 import net.anotheria.moskito.webui.util.RemoteInstance;
 import net.anotheria.moskito.webui.util.WebUIConfig;
 import net.anotheria.util.NumberUtils;
@@ -361,12 +362,61 @@ public abstract class BaseMoskitoUIAction implements Action{
 
 	}
 
+	/**
+	 * Acquire remote connection url from request parameter.
+	 * If current user is not connected to monitor application
+	 * in url moskito will be connected to this application.
+	 * This made up for possibility to share links on moskito-inspect pages.
+	 *
+	 * This method expects, that request will contain `connection` parameter
+	 * with value contains host and port separated by column. Example : `localhost:9401`.
+	 * If request have no such parameter - current connection will not be changed.
+	 *
+	 * @param req current request object
+	 */
+	private void fetchRemoteConnectionFromUrl(HttpServletRequest req){
+
+		String connection = req.getParameter("connection");
+		String[] remoteHostAndPort;
+
+		if(connection != null &&
+				(remoteHostAndPort = connection.split(":")).length == 2 ){
+
+			String remoteHost = remoteHostAndPort[0];
+			int remotePort;
+
+			try {
+				remotePort = Integer.valueOf(remoteHostAndPort[1]);
+			}catch (NumberFormatException e){
+				return;
+			}
+
+			try {
+				if (!APILookupUtility.isLocal() &&
+						!APILookupUtility.getCurrentRemoteInstance().equalsByKey(remoteHost + '-' + remotePort))
+					return; // Current remote connection already points to url from params
+			}catch (IllegalStateException ignored){
+				// Means moskito has no remote connection
+			}
+
+			RemoteInstance newRemoteInstance = new RemoteInstance();
+			newRemoteInstance.setHost(remoteHost);
+			newRemoteInstance.setPort(remotePort);
+			WebUIConfig.getInstance().addRemote(newRemoteInstance);
+			APILookupUtility.setCurrentConnectivityMode(ConnectivityMode.REMOTE);
+			APILookupUtility.setCurrentRemoteInstance(newRemoteInstance);
+
+		}
+
+	}
+
 	@Override
 	public void preProcess(ActionMapping mapping, HttpServletRequest req, HttpServletResponse res) throws Exception {
 		String currentIntervalName = getCurrentInterval(req);
 
 		prepareBasics(req);
 
+		fetchRemoteConnectionFromUrl(req);
 
 		//configuration issues.
 		req.setAttribute("config", WebUIConfig.getInstance());
