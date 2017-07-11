@@ -378,7 +378,7 @@ public abstract class BaseMoskitoUIAction implements Action{
 	 */
 	private void fetchRemoteConnectionFromUrl(HttpServletRequest req){
 
-		String connection = req.getParameter("connection");
+		String connection = req.getParameter("remoteConnection");
 
 		if(connection != null) try {
 			connection = URLDecoder.decode(connection, "UTF-8");
