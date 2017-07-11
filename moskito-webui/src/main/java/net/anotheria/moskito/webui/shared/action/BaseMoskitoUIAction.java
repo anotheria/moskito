@@ -66,6 +66,8 @@ import org.slf4j.LoggerFactory;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.LinkedList;
@@ -376,7 +378,14 @@ public abstract class BaseMoskitoUIAction implements Action{
 	 */
 	private void fetchRemoteConnectionFromUrl(HttpServletRequest req){
 
-		String connection = req.getParameter("connection");
+		String connection;
+
+		try {
+			connection = URLDecoder.decode(req.getParameter("connection"), "UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			return;
+		}
+
 		String[] remoteHostAndPort;
 
 		if(connection != null &&
