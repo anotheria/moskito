@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html;charset=UTF-8"	session="true"
 %><%@ taglib uri="http://www.anotheria.net/ano-tags" prefix="ano"
 %>
+<%@ taglib prefix="mos" uri="http://www.moskito.org/inspect/tags" %>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/html">
 <jsp:include page="../../shared/jsp/Header.jsp" flush="false"/>
@@ -10,7 +11,7 @@
             <div class="box-title">
                 <a class="accordion-toggle tooltip-bottom" title="Close/Open" data-toggle="collapse" href="#collapse2"><i class="fa fa-caret-down"></i></a>
                 <h3 class="pull-left">
-                    <a href="mskShowJourneys">Journeys</a> :: ${journey.name}
+                    <mos:deepLink  href="mskShowJourneys">Journeys</mos:deepLink > :: ${journey.name}
                 </h3>
                 <div class="box-right-nav">
                     <a href="" class="tooltip-bottom" title="Help"><i class="fa fa-info-circle"></i></a>
@@ -35,9 +36,9 @@
                         <tr>
                             <td>${index}</td>
                             <td>
-                                <a href="mskShowJourneyCall?pJourneyName=${journey.name}&pPos=${index}">
+                                <mos:deepLink  href="mskShowJourneyCall?pJourneyName=${journey.name}&pPos=${index}">
                                     ${tracedCall.name}
-                                </a>
+                                </mos:deepLink >
                             </td>
                             <td>${tracedCall.date}</td>
                             <td>${tracedCall.containedSteps}</td>

@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html;charset=UTF-8" session="true"
 %><%@ taglib uri="http://www.anotheria.net/ano-tags" prefix="ano" 
 %>
+<%@ taglib prefix="mos" uri="http://www.moskito.org/inspect/tags" %>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/html">
 <jsp:include page="../../shared/jsp/Header.jsp" flush="false"/>
@@ -9,7 +10,7 @@
         <div class="box">
             <div class="box-title">
                 <h3 class="pull-left">
-                    <a href="mskShowJourneys">Journeys</a> :: <a href="mskShowJourney?pJourneyName=${journeyName}">${journeyName}</a>  :: ${tracedCall.name}
+                    <mos:deepLink  href="mskShowJourneys">Journeys</mos:deepLink > :: <mos:deepLink  href="mskShowJourney?pJourneyName=${journeyName}">${journeyName}</mos:deepLink >  :: ${tracedCall.name}
                 </h3>
                 <div class="box-right-nav">
                     <a href="" class="tooltip-bottom" title="Help"><i class="fa fa-info-circle"></i></a>

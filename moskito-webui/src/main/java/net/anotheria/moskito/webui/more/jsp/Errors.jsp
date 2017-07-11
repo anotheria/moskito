@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html;charset=UTF-8" session="true" %>
 <%@ taglib prefix="ano" uri="http://www.anotheria.net/ano-tags" %>
+<%@ taglib prefix="mos" uri="http://www.moskito.org/inspect/tags" %>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <jsp:include page="../../shared/jsp/Header.jsp" flush="false"/>
@@ -30,7 +31,7 @@
                     <tbody>
                     <ano:iterate name="catchers" type="net.anotheria.moskito.webui.shared.api.ErrorCatcherAO" id="catcher">
                         <tr>
-                            <td><a href="mskError?error=${catcher.name}">${catcher.name}</a></td>
+                            <td><mos:deepLink  href="mskError?error=${catcher.name}">${catcher.name}</mos:deepLink ></td>
                             <td>${catcher.count}</td>
                         </tr>
                     </ano:iterate>
@@ -51,7 +52,7 @@
         </div>
 
         <div id="collapse2" class="box-content accordion-body collapse in hscrollbar">
-            <p>Check the field <em>errorHandlingConfig</em> in the <a href="mskConfig">configuration section</a> for information about currently configured error catchers. For more help on configuration options visit <a href="https://confluence.opensource.anotheria.net/display/MSK/MoSKito-Essential+Configuration+Guide">the configuration guide.</a>
+            <p>Check the field <em>errorHandlingConfig</em> in the <mos:deepLink  href="mskConfig">configuration section</mos:deepLink > for information about currently configured error catchers. For more help on configuration options visit <a href="https://confluence.opensource.anotheria.net/display/MSK/MoSKito-Essential+Configuration+Guide">the configuration guide.</a>
             </p>
         </div>
     </div>

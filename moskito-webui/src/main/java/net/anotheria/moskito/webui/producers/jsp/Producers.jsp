@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html;charset=UTF-8"	session="true"
 %><%@ taglib uri="http://www.anotheria.net/ano-tags" prefix="ano"
-%><!DOCTYPE html>
+%>
+<%@ taglib prefix="mos" uri="http://www.moskito.org/inspect/tags" %>
+<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 
 <jsp:include page="../../shared/jsp/Header.jsp" flush="false"/>
@@ -47,9 +49,9 @@ Commented out for now. We may add this later as welcome message (to all layers).
                     <%-- writing out values --%>
             <ano:iterate name="decorator" property="producers" id="producer" type="net.anotheria.moskito.webui.producers.api.ProducerAO">
             <tr>
-                <td class="headcol"><a href="mskShowProducer?pProducerId=${producer.producerId}" class="tooltip-bottom" title="Show details for producer ${producer.producerId}">${producer.producerId}</a></td>
-                <td><a href="mskShowProducersByCategory?pCategory=${producer.category}">${producer.category}</a></td>
-                <td><a href="mskShowProducersBySubsystem?pSubsystem=${producer.subsystem}">${producer.subsystem}</a></td>
+                <td class="headcol"><mos:deepLink  href="mskShowProducer?pProducerId=${producer.producerId}" class="tooltip-bottom" title="Show details for producer ${producer.producerId}">${producer.producerId}</mos:deepLink ></td>
+                <td><mos:deepLink  href="mskShowProducersByCategory?pCategory=${producer.category}">${producer.category}</mos:deepLink ></td>
+                <td><mos:deepLink  href="mskShowProducersBySubsystem?pSubsystem=${producer.subsystem}">${producer.subsystem}</mos:deepLink ></td>
                 <ano:iterate name="producer" property="firstStatsValues" id="value" type="net.anotheria.moskito.core.decorators.value.StatValueAO">
                     <td class="tooltip-bottom" title="${producer.producerId}.${value.name}=${value.value}">${value.value}</td>
                 </ano:iterate>
