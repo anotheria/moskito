@@ -378,18 +378,19 @@ public abstract class BaseMoskitoUIAction implements Action{
 	 */
 	private void fetchRemoteConnectionFromUrl(HttpServletRequest req){
 
-		String connection;
+		String connection = req.getParameter("connection");
 
-		try {
-			connection = URLDecoder.decode(req.getParameter("connection"), "UTF-8");
+		if(connection != null) try {
+			connection = URLDecoder.decode(connection, "UTF-8");
 		} catch (UnsupportedEncodingException e) {
 			return;
 		}
+		else
+			return;
 
 		String[] remoteHostAndPort;
 
-		if(connection != null &&
-				(remoteHostAndPort = connection.split(":")).length == 2 ){
+		if((remoteHostAndPort = connection.split(":")).length == 2 ){
 
 			String remoteHost = remoteHostAndPort[0];
 			int remotePort;
