@@ -53,7 +53,7 @@
                 <div class="box">
                     <div class="box-title">
                         <a class="accordion-toggle tooltip-bottom" title="Close/Open" data-toggle="collapse"
-                           href="#collapse-chart"><i class="fa fa-caret-right"></i></a>
+                           href="#collapse-chart"><i class="fa fa-caret-down"></i></a>
 
                         <h3 class="pull-left chart-header">
                             <ano:iF test="${fn:length(accNames) eq 1}">
@@ -92,7 +92,7 @@
                         <div class="box" id="parentBox">
                             <div class="box-title">
                                 <a class="accordion-toggle tooltip-bottom" title="Close/Open" data-toggle="collapse"
-                                   href="#collapse-chart-${singleGraph.nameForJS}"><i class="fa fa-caret-right"></i></a>
+                                   href="#collapse-chart-${singleGraph.nameForJS}"><i class="fa fa-caret-down"></i></a>
 
                                 <h3 class="pull-left chart-header">
                                     ${singleGraph.name}
@@ -207,7 +207,7 @@
             <div class="box">
                 <div class="box-title">
                     <a class="accordion-toggle tooltip-bottom" title="Close/Open" data-toggle="collapse"
-                       href="#collapselist2"><i class="fa fa-caret-right"></i></a>
+                       href="#collapselist2"><i class="fa fa-caret-down"></i></a>
 
                     <h3 class="pull-left">
                         Accumulator sets
@@ -244,7 +244,7 @@
             <form action="" method="get">
                 <div class="box-title">
                     <a class="accordion-toggle tooltip-bottom" title="Close/Open" data-toggle="collapse"
-                       href="#collapselist"><i class="fa fa-caret-right"></i></a>
+                       href="#collapselist"><i class="fa fa-caret-down"></i></a>
 
                     <h3 class="pull-left">
                         Accumulators

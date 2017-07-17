@@ -336,7 +336,7 @@
               {
                 "caption": "Load",
                 "accumulators": ["System CPU Load 1m", "Process CPU Load 1m"]
-              },
+              }
 
 
 
@@ -571,22 +571,31 @@
                 "configurationName": "none",
                 "className": "net.anotheria.moskito.extensions.DiskSpaceMonitoringPlugin"
             },
-            {
-              "name": "VisualPoCPlugin",
-              "configurationName": "none",
-              "className": "net.anotheria.moskitoplugin.emptypage.EmptyPagePlugin"
-            },
-            {
-              "name": "TopPlugin",
-              "configurationName": "none",
-              "className": "net.anotheria.moskitoplugin.topproducers.TopProducersPlugin"
-            },
-            {
-              "name": "MoskitoAnalyzePlugin",
-              "configurationName": "none",
-              "className": "net.anotheria.moskito.extensions.analyze.MoskitoAnalyzePlugin"
-            }
-
+          {
+            "name": "VisualPoCPlugin",
+            "configurationName": "none",
+            "className": "net.anotheria.moskitoplugin.emptypage.EmptyPagePlugin"
+          },
+          {
+            "name": "TopPlugin",
+            "configurationName": "none",
+            "className": "net.anotheria.moskitoplugin.topproducers.TopProducersPlugin"
+          },
+          {
+            "name": "ApacheMonitoringPlugin",
+            "configurationName": "apache-monitoring-plugin",
+            "className": "net.anotheria.moskito.extension.apache.ApacheMonitoringPlugin"
+          },
+          {
+            "name": "NginxMonitoringPlugin",
+            "configurationName": "nginx-monitor",
+            "className": "net.anotheria.moskito.extension.nginx.NginxMonitoringPlugin"
+          },
+          {
+            "name": "MoskitoAnalyzePlugin",
+            "configurationName": "none",
+            "className": "net.anotheria.moskito.extensions.analyze.MoskitoAnalyzePlugin"
+          }
 
         ]
     },

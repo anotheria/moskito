@@ -39,6 +39,7 @@ import net.anotheria.moskito.core.config.journey.JourneyConfig;
 import net.anotheria.moskito.core.producers.IStatsProducer;
 
 import java.io.Serializable;
+import java.util.Map;
 
 /**
  * A currently being traced call.
@@ -66,6 +67,11 @@ public class CurrentlyTracedCall implements TracedCall, Serializable{
 	 * Creation timestamp.
 	 */
 	private long created;
+
+	/**
+	 * Tags.
+	 */
+	private Map<String, String> tags;
 
 	/**
 	 * The journey configuration at start of the journey.
@@ -155,5 +161,13 @@ public class CurrentlyTracedCall implements TracedCall, Serializable{
 
 	public JourneyConfig getJourneyConfig(){
 		return journeyConfig;
+	}
+
+	public Map<String, String> getTags() {
+		return tags;
+	}
+
+	public void setTags(Map<String, String> tags) {
+		this.tags = tags;
 	}
 }

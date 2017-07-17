@@ -35,6 +35,10 @@
 package net.anotheria.moskito.core.calltrace;
 
 
+import net.anotheria.moskito.core.context.MoSKitoContext;
+
+import java.util.Map;
+
 /**
  * This is a container for thread local reference to a running thread container.
  * @author lrosenberg
@@ -66,6 +70,16 @@ public class RunningTraceContainer {
 	public static TracedCall endTrace(){
 		TracedCall last = getCurrentlyTracedCall();
 		setCurrentlyTracedCall(NoTracedCall.INSTANCE);
+
+		//check tags and set if applicable.
+		Map<String, String> tags = MoSKitoContext.getTags();
+		if (tags!=null && tags.size()>0){
+			if (last instanceof CurrentlyTracedCall){
+				((CurrentlyTracedCall)last).setTags(tags);
+			}
+			
+		}
+
 		return last;
 	}
 	

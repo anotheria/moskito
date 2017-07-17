@@ -94,11 +94,12 @@ public abstract class TieableRepository<T extends Tieable, S extends IStats> imp
 	@Override
 	public void notifyProducerRegistered(IStatsProducer<S> producer) {
 		ArrayList<T> tmpList = new ArrayList<T>(yetUntied);
-		for (T t : tmpList){
-			if (t.getDefinition().getProducerName().equals(producer.getProducerId())){
-				try{
-					tie(t, producer);
-				}catch(Exception e){
+		for (T t : tmpList) {
+			if (t.getDefinition().getProducerName().equals(producer.getProducerId())) {
+				try {
+					if (tie(t, producer))
+						yetUntied.remove(t);
+				} catch(Exception e) {
 					log.error("notifyProducerRegistered("+producer+ ')',e );
 				}
 			}

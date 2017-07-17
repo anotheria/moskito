@@ -100,6 +100,15 @@ public class JourneyAPIImpl extends AbstractMoskitoAPIImpl implements  JourneyAP
 		ret.setCreated(useCase.getCreated());
 		ret.setDate(NumberUtils.makeISO8601TimestampString(useCase.getCreated()));
 
+		//set tags
+		Map<String, String> tags = useCase.getTags();
+		if (tags!=null && tags.size()>0){
+			for (Map.Entry<String,String> entry : tags.entrySet()){
+				TagAO tagAO = new TagAO(entry.getKey(), entry.getValue());
+				ret.getTags().add(tagAO);
+			}
+		}
+
 		JourneyCallIntermediateContainer container = new JourneyCallIntermediateContainer();
 		fillUseCasePathElementBeanList(container, root,0, unit);
 		ret.setElements(container.getElements());

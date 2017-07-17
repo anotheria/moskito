@@ -55,6 +55,17 @@
             <artifactId>moskito-analyze</artifactId>
             <version>${project.version}</version>
         </dependency>
+        <dependency>
+            <groupId>net.anotheria</groupId>
+            <artifactId>moskito-nginx</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>net.anotheria</groupId>
+            <artifactId>moskito-apache</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
 		<dependency>
 		    <groupId>javax.servlet</groupId>
 		    <artifactId>javax.servlet-api</artifactId>
