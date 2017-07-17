@@ -59,6 +59,7 @@ import net.anotheria.moskito.webui.util.APILookupUtility;
 import net.anotheria.moskito.webui.util.ConnectivityMode;
 import net.anotheria.moskito.webui.util.RemoteInstance;
 import net.anotheria.moskito.webui.util.WebUIConfig;
+import net.anotheria.moskito.webui.util.DeepLinkUtil;
 import net.anotheria.util.NumberUtils;
 import net.anotheria.util.StringUtils;
 import org.slf4j.Logger;
@@ -357,20 +358,22 @@ public abstract class BaseMoskitoUIAction implements Action{
 		context.setCurrentTimeUnit(getCurrentUnit(req).getUnit());
 
 		//Link to current page
-		req.setAttribute("linkToCurrentPage", getLinkToCurrentPage(req));
+		req.setAttribute("linkToCurrentPage", DeepLinkUtil.makeDeepLink(getLinkToCurrentPage(req)));
 		req.setAttribute("linkToCurrentPageAsXml", maskAsXML(getLinkToCurrentPage(req)));
 		req.setAttribute("linkToCurrentPageAsCsv", maskAsCSV(getLinkToCurrentPage(req)));
 		req.setAttribute("linkToCurrentPageAsJson", maskAsJSON(getLinkToCurrentPage(req)));
+		// Link to remote monitoring connection
+		req.setAttribute("remoteLink", DeepLinkUtil.getCurrentRemoteLink());
 
 	}
 
 	/**
 	 * Acquire remote connection url from request parameter.
-	 * If current user is not connected to monitor application
-	 * in url moskito will be connected to this application.
+	 * If current user is not connected to application
+	 * from url - moskito will be connected to this application.
 	 * This made up for possibility to share links on moskito-inspect pages.
 	 *
-	 * This method expects, that request will contain `connection` parameter
+	 * This method expects, that request will contain `remoteConnection` parameter
 	 * with value contains host and port separated by column. Example : `localhost:9401`.
 	 * If request have no such parameter - current connection will not be changed.
 	 *
@@ -390,7 +393,7 @@ public abstract class BaseMoskitoUIAction implements Action{
 
 		String[] remoteHostAndPort;
 
-		if((remoteHostAndPort = connection.split(":")).length == 2 ){
+		if( (remoteHostAndPort = connection.split(":")).length == 2 ){
 
 			String remoteHost = remoteHostAndPort[0];
 			int remotePort;
@@ -403,10 +406,10 @@ public abstract class BaseMoskitoUIAction implements Action{
 
 			try {
 				if (!APILookupUtility.isLocal() &&
-						!APILookupUtility.getCurrentRemoteInstance().equalsByKey(remoteHost + '-' + remotePort))
+						APILookupUtility.getCurrentRemoteInstance().equalsByKey(remoteHost + '-' + remotePort))
 					return; // Current remote connection already points to url from params
 			}catch (IllegalStateException ignored){
-				// Means moskito has no remote connection
+				// Means moskito has no remote connection while GET query specifies one.
 			}
 
 			RemoteInstance newRemoteInstance = new RemoteInstance();

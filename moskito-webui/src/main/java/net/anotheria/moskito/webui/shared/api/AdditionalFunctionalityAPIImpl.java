@@ -29,6 +29,7 @@ import javax.management.MBeanServer;
 import javax.management.MBeanServerFactory;
 import javax.management.ObjectInstance;
 import javax.management.ObjectName;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedList;
@@ -165,6 +166,7 @@ public class AdditionalFunctionalityAPIImpl extends AbstractMoskitoAPIImpl imple
 			}
 
 			res.add(new MBeanAttributeWrapperAO(info, value));
+
 		}
 
 		return res;

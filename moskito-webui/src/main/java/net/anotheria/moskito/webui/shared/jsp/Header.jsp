@@ -287,7 +287,10 @@
             </ano:iterate>
         </select>
 
-        <form name="Filter" action="mskShowAllProducers" method="GET"><input type="text" name="pNameFilter" value="${nameFilter}" class="form-control" placeholder="Filter by name"></form>
+        <form name="Filter" action="mskShowAllProducers" method="GET">
+            <input type="text" name="pNameFilter" value="${nameFilter}" class="form-control" placeholder="Filter by name">
+            <input type="hidden" name="remoteConnection" value="${remoteLink}"/>
+        </form>
     </div>
     </ano:equal>
 

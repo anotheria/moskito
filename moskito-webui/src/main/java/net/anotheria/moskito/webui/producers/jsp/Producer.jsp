@@ -287,6 +287,7 @@
             <input type="hidden" name="target" value="Threshold"/>
             <input type="hidden" name="statName"/>
             <input type="hidden" name="valueName"/>
+            <input type="hidden" name="remoteConnection" value="${remoteLink}"/>
 
         <div class="modal-content">
             <div class="modal-header">
@@ -438,6 +439,7 @@
             <input type="hidden" name="target" value="Accumulator"/>
             <input type="hidden" name="statName"/>
             <input type="hidden" name="valueName"/>
+            <input type="hidden" name="remoteConnection" value="${remoteLink}"/>
 
             <div class="modal-content">
                 <div class="modal-header">

@@ -241,6 +241,7 @@
 
         <div class="box">
             <form action="" method="get">
+                <input type="hidden" name="remoteConnection" value="${remoteLink}"/>
                 <div class="box-title">
                     <a class="accordion-toggle tooltip-bottom" title="Close/Open" data-toggle="collapse"
                        href="#collapselist"><i class="fa fa-caret-down"></i></a>
