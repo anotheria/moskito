@@ -363,7 +363,7 @@ public abstract class BaseMoskitoUIAction implements Action{
 		req.setAttribute("linkToCurrentPageAsCsv", maskAsCSV(getLinkToCurrentPage(req)));
 		req.setAttribute("linkToCurrentPageAsJson", maskAsJSON(getLinkToCurrentPage(req)));
 		// Link to remote monitoring connection
-		req.setAttribute("remoteLink", DeepLinkUtil.getCurrentRemoteLink());
+		req.setAttribute("remoteLink", DeepLinkUtil.getCurrentRemoteConnectionLink());
 
 	}
 

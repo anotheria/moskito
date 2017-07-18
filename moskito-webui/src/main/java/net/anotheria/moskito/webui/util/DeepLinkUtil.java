@@ -31,13 +31,12 @@ public class DeepLinkUtil {
     }
 
     /**
-     * TODO : RENAME METHOD;
      * Returns current remote connection link, that
      * contains connection host and port. (Example : `localhost:9401`).
      * Returns null, of current connection is local
      * @return current remote connection link or null, if current connection is local
      */
-    public static String getCurrentRemoteLink(){
+    public static String getCurrentRemoteConnectionLink(){
 
         if(!APILookupUtility.isLocal()) try{
 
@@ -59,8 +58,15 @@ public class DeepLinkUtil {
      */
     public static String makeDeepLink(String link){
 
-        if(getCurrentRemoteLink() != null && !containsRemoteParameter(link))
-            link += ( link.contains("?") ? "&" : "?" ) + PARAM_REMOTE_CONNECTION + "=" + getCurrentRemoteLink();
+        if(link != null
+                // If getCurrentRemoteConnectionLink() == null means there is no current remote connection
+                && getCurrentRemoteConnectionLink() != null
+                // If containsRemoteParameter(link) is true means link already contain remote connection parameter
+                && !containsRemoteParameter(link)) {
+
+            link += (link.contains("?") ? "&" : "?") + PARAM_REMOTE_CONNECTION + "=" + getCurrentRemoteConnectionLink();
+
+        }
 
         return link;
 
