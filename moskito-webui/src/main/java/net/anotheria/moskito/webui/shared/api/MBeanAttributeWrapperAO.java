@@ -13,12 +13,12 @@ public class MBeanAttributeWrapperAO implements Serializable{
     private static final long serialVersionUID = -2365810654171860016L;
 
     private final MBeanAttributeInfo attribInfo;
-    private final Object value;
+    private final String value;
 
     /**
      * Constructs an MBeanAttributeWrapperAO.
      */
-    public MBeanAttributeWrapperAO(final MBeanAttributeInfo attribInfo, final Object value) {
+    public MBeanAttributeWrapperAO(final MBeanAttributeInfo attribInfo, final String value) {
         this.attribInfo = attribInfo;
         this.value = value;
     }
@@ -57,7 +57,7 @@ public class MBeanAttributeWrapperAO implements Serializable{
     /**
      * @return the current mbean attributes value
      */
-    public Object getValue() {
+    public String getValue() {
         return value;
     }
 
