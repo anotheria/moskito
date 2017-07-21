@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html;charset=UTF-8"	session="true"
         %><%@ taglib uri="http://www.anotheria.net/ano-tags" prefix="ano"
         %>
+<%@ taglib prefix="mos" uri="http://www.moskito.org/inspect/tags" %>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <jsp:include page="../../shared/jsp/Header.jsp" flush="false"/>
@@ -31,7 +32,7 @@
             </div>
             <div id="collapse-config" class="box-content accordion-body collapse in">
                 <div class="paddner">
-                    <a href="mskConfig">The config section</a> displays current configuration.
+                    <mos:deepLink href="mskConfig">The config section</mos:deepLink> displays current configuration.
                 </div>
             </div>
         </div>
@@ -45,7 +46,7 @@
             </div>
             <div id="collapse-beans" class="box-content accordion-body collapse in">
                 <div class="paddner">
-                    <a href="mskMBeans">The MBeans section</a> displays all management beans that are present in the current JVM along with their attributes and values.
+                    <mos:deepLink href="mskMBeans">The MBeans section</mos:deepLink> displays all management beans that are present in the current JVM along with their attributes and values.
                 </div>
             </div>
         </div>
@@ -59,7 +60,7 @@
             </div>
             <div id="collapse-libs" class="box-content accordion-body collapse in">
                 <div class="paddner">
-                    <a href="mskLibs">The library display</a> scans all jars in the classpath and displays information about name and version. It's useful for informational purposes only.
+                    <mos:deepLink href="mskLibs">The library display</mos:deepLink> scans all jars in the classpath and displays information about name and version. It's useful for informational purposes only.
                 </div>
             </div>
         </div>
@@ -73,7 +74,7 @@
             </div>
             <div id="collapse-plugins" class="box-content accordion-body collapse in">
                 <div class="paddner">
-                    <a href="mskPlugins">The plugin</a> section displays information about configured and loaded plugins.
+                    <mos:deepLink href="mskPlugins">The plugin</mos:deepLink> section displays information about configured and loaded plugins.
                 </div>
             </div>
         </div>

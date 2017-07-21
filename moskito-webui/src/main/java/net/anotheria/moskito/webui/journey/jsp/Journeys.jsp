@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html;charset=UTF-8" session="true"
 %><%@ taglib uri="http://www.anotheria.net/ano-tags" prefix="ano"
 %>
+<%@ taglib prefix="mos" uri="http://www.moskito.org/inspect/tags" %>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <jsp:include page="../../shared/jsp/Header.jsp" flush="false"/>
@@ -84,7 +85,7 @@
                     <tbody>
                     <ano:iterate name="journeys" type="net.anotheria.moskito.webui.journey.api.JourneyListItemAO" id="journey" indexId="index">
                         <tr>
-                            <td><a class="tooltip-bottom" title="Show steps in journey ${journey.name}" href="mskShowJourney?pJourneyName=${journey.name}">${journey.name}</a></td>
+                            <td><mos:deepLink  class="tooltip-bottom" title="Show steps in journey ${journey.name}" href="mskShowJourney?pJourneyName=${journey.name}">${journey.name}</mos:deepLink ></td>
                             <td>${journey.created}</td>
                             <td>${journey.lastActivity}</td>
                             <td>${journey.numberOfCalls}</td>
@@ -93,9 +94,9 @@
                             </td>
 
                             <td>
-                                <a class="action-icon delete-icon tooltip-bottom" title="" data-original-title="Delete ${journey.name}" href="mskDeleteJourney?pJourneyName=${journey.name}"><i class="fa fa-ban"></i></a>
-                                <a class="action-icon show-icon tooltip-bottom" title="" data-original-title="Show steps in journey ${journey.name}"  href="mskShowJourney?pJourneyName=${journey.name}"><i class="fa fa-search"></i></a>
-                                <a class="action-icon show-icon tooltip-bottom" title="" data-original-title="Analyze journey ${journey.name}"  href="mskAnalyzeJourney?pJourneyName=${journey.name}"><i class="fa fa-search-plus"></i></a>
+                                <mos:deepLink  class="action-icon delete-icon tooltip-bottom" title="" data-original-title="Delete ${journey.name}" href="mskDeleteJourney?pJourneyName=${journey.name}"><i class="fa fa-ban"></i></mos:deepLink >
+                                <mos:deepLink  class="action-icon show-icon tooltip-bottom" title="" data-original-title="Show steps in journey ${journey.name}"  href="mskShowJourney?pJourneyName=${journey.name}"><i class="fa fa-search"></i></mos:deepLink >
+                                <mos:deepLink  class="action-icon show-icon tooltip-bottom" title="" data-original-title="Analyze journey ${journey.name}"  href="mskAnalyzeJourney?pJourneyName=${journey.name}"><i class="fa fa-search-plus"></i></mos:deepLink >
 
                             </td>
 

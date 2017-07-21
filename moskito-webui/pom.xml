@@ -170,5 +170,13 @@
             <artifactId>logback-classic</artifactId>
             <!--<scope>test</scope> -->
         </dependency>
+
+        <dependency>
+            <groupId>javax.servlet.jsp</groupId>
+            <artifactId>jsp-api</artifactId>
+            <version>2.0</version>
+            <scope>provided</scope>
+        </dependency>
+
     </dependencies>
 </project>

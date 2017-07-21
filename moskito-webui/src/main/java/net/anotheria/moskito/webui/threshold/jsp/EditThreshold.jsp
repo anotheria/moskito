@@ -34,6 +34,7 @@
 		<div class="add_in">
             <form name="UpdateForm" action="mskThresholdUpdate" class="form-inline" method="get">
                 <input type="hidden" name="pId" value="<ano:write name="thresholdId"/>"/>
+                <input type="hidden" name="remoteConnection" value="${remoteLink}"/>
                 <h3>Select producer for new Threshold.</h3>
                 <div class="controls">
                     Name: <input type="text" value="<ano:write name="definition" property="name"/>" name="name" size="30"/>

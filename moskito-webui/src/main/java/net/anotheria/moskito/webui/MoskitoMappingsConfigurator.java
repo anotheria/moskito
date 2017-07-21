@@ -21,6 +21,7 @@ import net.anotheria.moskito.webui.producers.action.ShowProducerAction;
 import net.anotheria.moskito.webui.producers.action.ShowProducersForCategoryAction;
 import net.anotheria.moskito.webui.producers.action.ShowProducersForSubsystemAction;
 import net.anotheria.moskito.webui.shared.action.*;
+import net.anotheria.moskito.webui.shared.commands.CommandDeepLinkRedirect;
 import net.anotheria.moskito.webui.threads.action.*;
 import net.anotheria.moskito.webui.threshold.action.*;
 import net.anotheria.moskito.webui.tracers.action.*;
@@ -104,7 +105,7 @@ public class MoskitoMappingsConfigurator implements ActionMappingsConfigurator{
 		);
 
 		mappings.addMapping("mskDeleteJourney", DeleteJourneyAction.class,
-				new CommandRedirect("redirect", "mskShowJourneys")
+				new CommandDeepLinkRedirect("redirect", "mskShowJourneys")
 		);
 
 
@@ -125,11 +126,11 @@ public class MoskitoMappingsConfigurator implements ActionMappingsConfigurator{
 		//);
 
 		mappings.addMapping("mskThresholdDelete", DeleteThresholdAction.class,
-				new CommandRedirect("redirect", "mskThresholds"));
+				new CommandDeepLinkRedirect("redirect", "mskThresholds"));
 		mappings.addMapping("mskThresholdCreate", CreateThresholdAction.class,
-				new CommandRedirect("redirect", "mskShowProducer"));
+				new CommandDeepLinkRedirect("redirect", "mskShowProducer"));
 		mappings.addMapping("mskThresholdUpdate", UpdateThresholdAction.class,
-				new CommandRedirect("redirect", "mskThresholds"));
+				new CommandDeepLinkRedirect("redirect", "mskThresholds"));
 
 
 		mappings.addMapping("mskAccumulators", ShowAccumulatorsAction.class,
@@ -161,11 +162,11 @@ public class MoskitoMappingsConfigurator implements ActionMappingsConfigurator{
 
 		mappings.addMapping("mskCreateTracer", CreateTracerAction.class);
 		mappings.addMapping("mskRemoveTracer", RemoveTracerAction.class,
-				new CommandRedirect("redirect", "mskTracers"));
+				new CommandDeepLinkRedirect("redirect", "mskTracers"));
 		mappings.addMapping("mskDisableTracer", DisableTracerAction.class,
-				new CommandRedirect("redirect", "mskTracers"));
+				new CommandDeepLinkRedirect("redirect", "mskTracers"));
 		mappings.addMapping("mskEnableTracer", EnableTracerAction.class,
-				new CommandRedirect("redirect", "mskTracers"));
+				new CommandDeepLinkRedirect("redirect", "mskTracers"));
 
 
 
@@ -217,15 +218,15 @@ public class MoskitoMappingsConfigurator implements ActionMappingsConfigurator{
 		);
 
 		mappings.addMapping("mskRemovePlugin", RemovePluginAction.class,
-				new CommandRedirect("redirect", "mskPlugins")
+				new CommandDeepLinkRedirect("redirect", "mskPlugins")
 		);
 
 		mappings.addMapping("mskSelectServer", SelectServerAction.class,
-			new CommandRedirect("redirect", "mskShowAllProducers")
+			new CommandDeepLinkRedirect("redirect", "mskShowAllProducers")
 		);
 
 		mappings.addMapping("mskQuickConnect", QuickConnectAction.class,
-				new CommandRedirect("redirect", "mskShowAllProducers")
+				new CommandDeepLinkRedirect("redirect", "mskShowAllProducers")
 		);
 
 
@@ -245,17 +246,25 @@ public class MoskitoMappingsConfigurator implements ActionMappingsConfigurator{
 		mappings.addMapping("mskDashboard", ShowDashboardAction.class,
 				new ActionForward("success", "/net/anotheria/moskito/webui/dashboards/jsp/Dashboard.jsp")
 		);
-		mappings.addMapping("mskCreateDashboard", CreateDashboardAction.class, new CommandRedirect("redirect", "mskDashboard"));
-		mappings.addMapping("mskDeleteDashboard", DeleteDashboardAction.class, new CommandRedirect("redirect", "mskDashboard"));
+		mappings.addMapping("mskCreateDashboard", CreateDashboardAction.class,
+				new CommandDeepLinkRedirect("redirect", "mskDashboard"));
+		mappings.addMapping("mskDeleteDashboard", DeleteDashboardAction.class,
+				new CommandDeepLinkRedirect("redirect", "mskDashboard"));
 
-		mappings.addMapping("mskAddGaugeToDashboard", DashboardAddGaugeAction.class, new CommandRedirect("redirect", "mskDashboard"));
-		mappings.addMapping("mskDashboardRemoveGauge", DashboardRemoveGaugeAction.class, new CommandRedirect("redirect", "mskDashboard"));
+		mappings.addMapping("mskAddGaugeToDashboard", DashboardAddGaugeAction.class,
+				new CommandDeepLinkRedirect("redirect", "mskDashboard"));
+		mappings.addMapping("mskDashboardRemoveGauge", DashboardRemoveGaugeAction.class,
+				new CommandDeepLinkRedirect("redirect", "mskDashboard"));
 
-		mappings.addMapping("mskAddThresholdToDashboard", DashboardAddThresholdAction.class, new CommandRedirect("redirect", "mskDashboard"));
-		mappings.addMapping("mskDashboardRemoveThreshold", DashboardRemoveThresholdAction.class, new CommandRedirect("redirect", "mskDashboard"));
+		mappings.addMapping("mskAddThresholdToDashboard", DashboardAddThresholdAction.class,
+				new CommandDeepLinkRedirect("redirect", "mskDashboard"));
+		mappings.addMapping("mskDashboardRemoveThreshold", DashboardRemoveThresholdAction.class,
+				new CommandDeepLinkRedirect("redirect", "mskDashboard"));
 
-		mappings.addMapping("mskAddChartToDashboard", DashboardAddChartAction.class, new CommandRedirect("redirect", "mskDashboard"));
-		mappings.addMapping("mskDashboardRemoveChart", DashboardRemoveChartAction.class, new CommandRedirect("redirect", "mskDashboard"));
+		mappings.addMapping("mskAddChartToDashboard", DashboardAddChartAction.class,
+				new CommandDeepLinkRedirect("redirect", "mskDashboard"));
+		mappings.addMapping("mskDashboardRemoveChart", DashboardRemoveChartAction.class,
+				new CommandDeepLinkRedirect("redirect", "mskDashboard"));
 
 
 	}

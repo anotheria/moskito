@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html;charset=UTF-8" session="true" %>
 <%@ taglib uri="http://www.anotheria.net/ano-tags" prefix="ano" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="mos" uri="http://www.moskito.org/inspect/tags" %>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <jsp:include page="../../shared/jsp/Header.jsp" flush="false"/>
@@ -240,6 +241,7 @@
 
         <div class="box">
             <form action="" method="get">
+                <input type="hidden" name="remoteConnection" value="${remoteLink}"/>
                 <div class="box-title">
                     <a class="accordion-toggle tooltip-bottom" title="Close/Open" data-toggle="collapse"
                        href="#collapselist"><i class="fa fa-caret-down"></i></a>
@@ -274,7 +276,7 @@
                                            <ano:present
                                                    name="<%=\"id_\"+accumulator.getId()+\"_set\"%>">checked="checked"</ano:present>/>
                                 </td>
-                                <td><a href="?id_${accumulator.id}=set">${accumulator.name}</a></td>
+                                <td><mos:deepLink  href="?id_${accumulator.id}=set">${accumulator.name}</mos:deepLink ></td>
                                 <td>${accumulator.path}</td>
                                 <td>${accumulator.numberOfValues}</td>
                                 <td>${accumulator.lastValueTimestamp}</td>
@@ -283,8 +285,8 @@
                                        data-target="#mskAccumulatorDelete" data-id="${accumulator.id}"
                                        class="action-icon delete-icon tooltip-bottom" title="Delete"><i
                                             class="fa fa-ban"></i></a>
-                                    <a href="?id_${accumulator.id}=set" class="action-icon show-icon tooltip-bottom"
-                                       title="Show"><i class="fa fa-search-plus"></i></a>
+                                    <mos:deepLink  href="?id_${accumulator.id}=set" class="action-icon show-icon tooltip-bottom"
+                                       title="Show"><i class="fa fa-search-plus"></i></mos:deepLink >
                                 </td>
                             </tr>
                         </ano:iterate>
