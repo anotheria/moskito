@@ -26,7 +26,7 @@ public class DeepLinkUtil {
      * @return true  - link contains remote connection parameter
      *         false - no
      */
-    private static boolean containsRemoteParameter(String link){
+    /* Package scope for testing */ static boolean containsRemoteParameter(String link){
         return link.matches("^.+(\\?|&)" + PARAM_REMOTE_CONNECTION + "=.+$");
     }
 
