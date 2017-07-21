@@ -38,6 +38,7 @@ import net.anotheria.moskito.core.stats.Interval;
 import net.anotheria.moskito.core.stats.StatValue;
 import net.anotheria.moskito.core.stats.TimeUnit;
 import net.anotheria.moskito.core.stats.impl.StatValueFactory;
+import net.anotheria.moskito.core.util.BuiltInErrorProducer;
 
 /**
  * Predefined stats collection for servlets.
@@ -112,20 +113,26 @@ public class ServletStats extends RequestOrientedStats{
 	/**
 	 * Called if a servlet exception has been caught.
 	 */
-	public void notifyServletException(){
+	public void notifyServletException(Throwable t){
 		servletExceptions.increase();
+		BuiltInErrorProducer.getInstance().notifyError(t);
+
 	}
 	/**
 	 * Called if an io exception has been caught.
 	 */
-	public void notifyIOException(){
+	public void notifyIOException(Throwable t){
 		ioExceptions.increase();
+		BuiltInErrorProducer.getInstance().notifyError(t);
+
 	}
 	/**
 	 * Called if a runtime exception has been caught.
 	 */
-	public void notifyRuntimeException(){
+	public void notifyRuntimeException(Throwable t){
 		runtimeExceptions.increase();
+		BuiltInErrorProducer.getInstance().notifyError(t);
+
 	}
 	/**
 	 * Returns the number of io exceptions since start.

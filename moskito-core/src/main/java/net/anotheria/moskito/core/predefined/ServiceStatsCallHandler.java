@@ -102,13 +102,13 @@ public class ServiceStatsCallHandler implements IOnDemandCallHandler {
 			ret = method.invoke(target, args);
 			return ret;
 		}catch(InvocationTargetException e){
-			defaultStats.notifyError();
+			defaultStats.notifyError(e.getTargetException());
 			methodStats.notifyError();
 			if (currentStep!=null)
 				currentStep.setAborted();
 			throw e.getCause();
 		}catch(Throwable t){
-			defaultStats.notifyError();
+			defaultStats.notifyError(t);
 			methodStats.notifyError();
 			if (currentStep!=null)
 				currentStep.setAborted();

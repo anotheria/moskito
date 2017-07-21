@@ -6,6 +6,6 @@ public class MonitorableForCalls {
 
     @MonitorCalls
     public void monitored() {
-        System.out.println("MonitorableForCalls");
+        //System.out.println("MonitorableForCalls");
     }
 }

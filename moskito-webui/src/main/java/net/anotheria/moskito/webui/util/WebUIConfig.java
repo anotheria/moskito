@@ -19,10 +19,7 @@ public class WebUIConfig {
 	 */
 	private int producerChartHeight = 600;
 
-	/**
-	 * Default ChartEngine.
-	 */
-	private ChartEngine defaultChartEngine = ChartEngine.D3;
+	private AuthConfig authentication = new AuthConfig();
 
 	/**
 	 * List of remote instances. Remote instances are only active if mode is remote.
@@ -80,14 +77,6 @@ public class WebUIConfig {
 		this.producerChartHeight = producerChartHeight;
 	}
 
-	public ChartEngine getDefaultChartEngine() {
-		return defaultChartEngine;
-	}
-
-	public void setDefaultChartEngine(ChartEngine defaultChartEngine) {
-		this.defaultChartEngine = defaultChartEngine;
-	}
-
 	/**
 	 * Returns WebUIConfig instance.
 	 * @return
@@ -101,6 +90,14 @@ public class WebUIConfig {
 		remotes = new RemoteInstance[oldRemotes.length+1];
 		System.arraycopy(oldRemotes, 0, remotes, 0, oldRemotes.length);
 		remotes[remotes.length-1] = newRemoteInstance;
+	}
+
+	public AuthConfig getAuthentication() {
+		return authentication;
+	}
+
+	public void setAuthentication(AuthConfig authentication) {
+		this.authentication = authentication;
 	}
 
 	/**

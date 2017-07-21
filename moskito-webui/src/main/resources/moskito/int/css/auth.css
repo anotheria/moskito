@@ -1,0 +1,107 @@
+body{
+    background: #33363f;
+}
+.login__titleContainer{
+    text-align: center;
+    max-width: 628px;
+    margin: 2% auto auto;
+}
+.login__formContainer{
+    text-align: center;
+    max-width: 486px;
+    margin: 2% auto auto;
+    transition: all 0.12s linear;
+    border-radius: 5px;
+}
+.login__formContainer label{
+    display: block;
+    margin: 0 0 11px 0;
+}
+.login__formContainer input{
+    font-size: 18px;
+    height: 45px;
+    border-radius: 5px;
+    background-color: #3c3f49;
+    border: 1px solid #484c58;
+    caret-color: white;
+    color: #f3f1f1;
+    letter-spacing: 0.2px;
+}
+.login__formContainer input::placeholder{
+    color: #ababab;
+    font-weight: 500;
+    padding-left: 1px;
+    letter-spacing: 0.2px;
+}
+.login__formContainer input::-moz-placeholder{
+    color: #ababab;
+    font-weight: 500;
+    padding-left: 1px;
+    letter-spacing: 0.2px;
+}
+.login__formContainer input:-ms-input-placeholder{
+    color: #ababab;
+    font-weight: 500;
+    padding-left: 1px;
+    letter-spacing: 0.2px;
+}
+.login__formContainer input::-webkit-input-placeholder{
+    color: #ababab;
+    font-weight: 500;
+    padding-left: 1px;
+    letter-spacing: 0.2px;
+}
+.login__formContainer input:hover{
+    background: #4D515C;
+}
+.login__formContainer input:focus{
+    background: white;
+    color: black;
+    caret-color: black;
+}
+.login__formContainer input:focus::placeholder{
+    color: #5e5e61;
+}
+.login__formContainer input:focus::-moz-placeholder{
+    color: #5e5e61;
+}
+.login__formContainer input:focus:-ms-input-placeholder{
+    color: #5e5e61;
+}
+.login__formContainer input:focus::-webkit-input-placeholder{
+    color: #5e5e61;
+}
+.login__formContainer button{
+    margin-top: 11px;
+    padding: 8px 17px;
+    font-weight: 600;
+    font-size: 20px;
+    width: 100%;
+}
+.login__titleContainer span{
+    color: rgb(220,220,220);
+}
+.login__titleContainer h1{
+    color: rgb(210,210,210);
+    text-shadow: 0 0 2px rgba(150, 150, 150, 0.66);
+    font-size: 28px;
+}
+.login__error{
+    color: #de4e4e;
+    padding: 7px 10px;
+    border-radius: 3px;
+    margin: 22px auto 0;
+    max-width: 300px;
+    width: 100%;
+    font-size: 20px;
+}
+@media screen and (min-height: 1024px) {
+
+    .login__titleContainer{
+        margin-top: 4%;
+    }
+    .login__titleContainer h1{
+        font-size: 38px;
+    }
+
+}

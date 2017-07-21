@@ -5,7 +5,7 @@
     <div class="row">
         <div class="col-md-4">
             <div class="footer-info">
-                Developed by <a href="http://anotheria.org" target="_blank">Anotheria</a>
+                Developed by MoSKito team @ <a href="http://www.anotheria.net" target="_blank">anotheria</a>
                 <br>Email: <a href="mailto:support@moskito.org">support@moskito.org</a>
             </div>
         </div>
@@ -137,7 +137,7 @@
                     MoSKito is an open source system for monitoring Java web applications.
                 </p>
                 <p>
-                    <strong>With MoSKito, you may:</strong>
+                    <strong>With MoSKito, you can:</strong>
                 </p>
                 <ul>
                     <li>
@@ -152,7 +152,7 @@
                     </li>
                 </ul>
                 <p>
-                    In fact, MoSKito is a complete system kit for DevOps (as well as classical Devs and Ops) who care about performance of their web apps.
+                    In fact, MoSKito is a complete system kit for DevOps (as well as classical Devs and Ops) who care about performance of their web apps and microservices.
                 </p>
                 <p>
                     <strong>Enjoy!</strong>
@@ -206,6 +206,11 @@
 
 <script src="../moskito/ext/switchery/switchery.min.js" type="text/javascript"></script>
 
+<!-- Debug
+ CurrentNaviItem: ${currentNaviItem}, ${currentNaviItem.id}
+ CurrentSubNaviItem: ${currentSubNaviItem}, ${currentSubNaviItem.id}
+-->
+
 <ano:equal name="currentSubNaviItem" property="id" value="more_config">
     <script type="text/javascript" src="../moskito/ext/google-code-prettify/prettify.js"></script>
     <script type="text/javascript" src="../moskito/ext/google-code-prettify/application.js"></script>
@@ -220,6 +225,10 @@
 </ano:equal>
 
 <ano:equal name="currentNaviItem" property="id" value="tracers">
+    <script type="text/javascript" src="../moskito/ext/jquery-tree-table/jquery.treeTable.min.js"></script>
+</ano:equal>
+
+<ano:equal name="currentSubNaviItem" property="id" value="more_errors">
     <script type="text/javascript" src="../moskito/ext/jquery-tree-table/jquery.treeTable.min.js"></script>
 </ano:equal>
 

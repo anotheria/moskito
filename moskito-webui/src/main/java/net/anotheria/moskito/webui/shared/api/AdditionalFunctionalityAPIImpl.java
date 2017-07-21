@@ -13,6 +13,9 @@ import net.anotheria.moskito.core.plugins.PluginRepository;
 import net.anotheria.moskito.core.stats.Interval;
 import net.anotheria.moskito.core.stats.impl.IntervalRegistry;
 import net.anotheria.moskito.core.timing.IUpdateable;
+import net.anotheria.moskito.core.util.BuiltInErrorProducer;
+import net.anotheria.moskito.core.util.CaughtError;
+import net.anotheria.moskito.core.util.ErrorCatcher;
 import net.anotheria.moskito.extensions.analyze.AnalyzeProducerChartsWrapper;
 import net.anotheria.moskito.extensions.analyze.MoskitoAnalyzePlugin;
 import net.anotheria.moskito.webui.plugins.VisualMoSKitoPlugin;
@@ -30,7 +33,9 @@ import javax.management.ObjectInstance;
 import javax.management.ObjectName;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 /**
@@ -161,7 +166,10 @@ public class AdditionalFunctionalityAPIImpl extends AbstractMoskitoAPIImpl imple
 				log.debug("unable to read MBean: " + e.getLocalizedMessage());
 			}
 
-			res.add(new MBeanAttributeWrapperAO(info, value));
+			res.add(new MBeanAttributeWrapperAO(
+					info,
+					value != null ? value.toString() : null
+			));
 		}
 
 		return res;
@@ -202,6 +210,50 @@ public class AdditionalFunctionalityAPIImpl extends AbstractMoskitoAPIImpl imple
 
 	public MoskitoConfiguration getConfiguration(){
 		return MoskitoConfigurationHolder.getConfiguration();
+	}
+
+	@Override
+	public List<ErrorCatcherAO> getActiveErrorCatchers() throws APIException {
+		List<ErrorCatcher> catchers = BuiltInErrorProducer.getInstance().getCatchers();
+		List<ErrorCatcherAO> catcherAOs = new LinkedList<>();
+		for (ErrorCatcher c : catchers){
+			ErrorCatcherAO ao = new ErrorCatcherAO();
+			ao.setName(c.getName());
+			ao.setCount(c.getErrorList().size());
+			catcherAOs.add(ao);
+		}
+		return catcherAOs;
+	}
+
+	@Override
+	public List<CaughtErrorAO> getCaughtErrorsByExceptionName(String exceptionName) throws APIException {
+		ErrorCatcher catcher = null;
+		List<CaughtErrorAO> ret = new ArrayList<>();
+		try {
+			catcher = BuiltInErrorProducer.getInstance().getCatcher(Class.forName(exceptionName));
+			List<CaughtError> errors = catcher.getErrorList();
+			for (CaughtError error : errors){
+			 	ret.add(makeCaughtErrorAO(error));
+			}
+		}catch(Exception any){
+			throw new APIException("Couldn't retrieve class for exception "+exceptionName);
+		}
+		return ret;
+	}
+
+	private CaughtErrorAO makeCaughtErrorAO(CaughtError error){
+		CaughtErrorAO ao = new CaughtErrorAO();
+		ao.setMessage(error.getThrowable().getMessage());
+		ao.setTimestamp(error.getTimestamp());
+		ao.setDate(NumberUtils.makeISO8601TimestampString(error.getTimestamp()));
+		ao.setElements(Arrays.asList(error.getThrowable().getStackTrace()));
+		StringBuilder tags = new StringBuilder();
+		for (Map.Entry<String, String> tag : error.getTags().entrySet()){
+			tags.append(" ").append(tag.getKey()).append(": ").append(tag.getValue());
+		}
+		ao.setTagLine(tags.toString());
+
+		return ao;
 	}
 
 	@Override

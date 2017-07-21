@@ -141,16 +141,16 @@ public class MoskitoHttpServlet extends HttpServlet implements IStatsProducer {
 			long executionTime = System.nanoTime()-startTime;
 			deleteStats.addExecutionTime(executionTime);
 		}catch(ServletException e){
-			deleteStats.notifyServletException();
+			deleteStats.notifyServletException(e);
 			throw e;
 		}catch(IOException e){
-			deleteStats.notifyIOException();
+			deleteStats.notifyIOException(e);
 			throw e;
 		}catch(RuntimeException e){
-			deleteStats.notifyRuntimeException();
+			deleteStats.notifyRuntimeException(e);
 			throw e;
 		}catch(Error e){
-			deleteStats.notifyError();
+			deleteStats.notifyError(e);
 			throw e;
 		}finally{
 			deleteStats.notifyRequestFinished();
@@ -171,16 +171,16 @@ public class MoskitoHttpServlet extends HttpServlet implements IStatsProducer {
 		try{
 			moskitoDoGet(req, res);
 		}catch(ServletException e){
-			getStats.notifyServletException();
+			getStats.notifyServletException(e);
 			throw e;
 		}catch(IOException e){
-			getStats.notifyIOException();
+			getStats.notifyIOException(e);
 			throw e;
-		}catch(RuntimeException e){
-			getStats.notifyRuntimeException();
+		}catch(RuntimeException e){                
+			getStats.notifyRuntimeException(e);
 			throw e;
 		}catch(Error e){
-			getStats.notifyError();
+			getStats.notifyError(e);
 			throw e;
 		}finally{
 			getStats.notifyRequestFinished();
@@ -204,16 +204,16 @@ public class MoskitoHttpServlet extends HttpServlet implements IStatsProducer {
 			long executionTime = System.nanoTime()-startTime;
 			headStats.addExecutionTime(executionTime);
 		}catch(ServletException e){
-			headStats.notifyServletException();
+			headStats.notifyServletException(e);
 			throw e;
 		}catch(IOException e){
-			headStats.notifyIOException();
+			headStats.notifyIOException(e);
 			throw e;
 		}catch(RuntimeException e){
-			headStats.notifyRuntimeException();
+			headStats.notifyRuntimeException(e);
 			throw e;
 		}catch(Error e){
-			headStats.notifyError();
+			headStats.notifyError(e);
 			throw e;
 		}finally{
 			headStats.notifyRequestFinished();
@@ -229,16 +229,16 @@ public class MoskitoHttpServlet extends HttpServlet implements IStatsProducer {
 			long executionTime = System.nanoTime()-startTime;
 			optionsStats.addExecutionTime(executionTime);
 		}catch(ServletException e){
-			optionsStats.notifyServletException();
+			optionsStats.notifyServletException(e);
 			throw e;
 		}catch(IOException e){
-			optionsStats.notifyIOException();
+			optionsStats.notifyIOException(e);
 			throw e;
 		}catch(RuntimeException e){
-			optionsStats.notifyRuntimeException();
+			optionsStats.notifyRuntimeException(e);
 			throw e;
 		}catch(Error e){
-			optionsStats.notifyError();
+			optionsStats.notifyError(e);
 			throw e;
 		}finally{
 			optionsStats.notifyRequestFinished();
@@ -254,16 +254,16 @@ public class MoskitoHttpServlet extends HttpServlet implements IStatsProducer {
 			long executionTime = System.nanoTime()-startTime;
 			postStats.addExecutionTime(executionTime);
 		}catch(ServletException e){
-			postStats.notifyServletException();
+			postStats.notifyServletException(e);
 			throw e;
 		}catch(IOException e){
-			postStats.notifyIOException();
+			postStats.notifyIOException(e);
 			throw e;
 		}catch(RuntimeException e){
-			postStats.notifyRuntimeException();
+			postStats.notifyRuntimeException(e);
 			throw e;
 		}catch(Error e){
-			postStats.notifyError();
+			postStats.notifyError(e);
 			throw e;
 		}finally{
 			postStats.notifyRequestFinished();
@@ -279,16 +279,16 @@ public class MoskitoHttpServlet extends HttpServlet implements IStatsProducer {
 			long executionTime = System.nanoTime()-startTime;
 			putStats.addExecutionTime(executionTime);
 		}catch(ServletException e){
-			putStats.notifyServletException();
+			putStats.notifyServletException(e);
 			throw e;
 		}catch(IOException e){
-			putStats.notifyIOException();
+			putStats.notifyIOException(e);
 			throw e;
 		}catch(RuntimeException e){
-			putStats.notifyRuntimeException();
+			putStats.notifyRuntimeException(e);
 			throw e;
 		}catch(Error e){
-			putStats.notifyError();
+			putStats.notifyError(e);
 			throw e;
 		}finally{
 			putStats.notifyRequestFinished();
@@ -304,16 +304,16 @@ public class MoskitoHttpServlet extends HttpServlet implements IStatsProducer {
 			long executionTime = System.nanoTime()-startTime;
 			traceStats.addExecutionTime(executionTime);
 		}catch(ServletException e){
-			traceStats.notifyServletException();
+			traceStats.notifyServletException(e);
 			throw e;
 		}catch(IOException e){
-			traceStats.notifyIOException();
+			traceStats.notifyIOException(e);
 			throw e;
 		}catch(RuntimeException e){
-			traceStats.notifyRuntimeException();
+			traceStats.notifyRuntimeException(e);
 			throw e;
 		}catch(Error e){
-			traceStats.notifyError();
+			traceStats.notifyError(e);
 			throw e;
 		}finally{
 			traceStats.notifyRequestFinished();
@@ -330,10 +330,10 @@ public class MoskitoHttpServlet extends HttpServlet implements IStatsProducer {
 			lastModifiedStats.addExecutionTime(executionTime);
 			return retValue;
 		}catch(RuntimeException e){
-			lastModifiedStats.notifyRuntimeException();
+			lastModifiedStats.notifyRuntimeException(e);
 			throw e;
 		}catch(Error e){
-			lastModifiedStats.notifyError();
+			lastModifiedStats.notifyError(e);
 			throw e;
 		}finally{
 			lastModifiedStats.notifyRequestFinished();

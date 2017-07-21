@@ -1,6 +1,7 @@
 package net.anotheria.moskito.core.util;
 
 import net.anotheria.moskito.core.config.MoskitoConfigurationHolder;
+import net.anotheria.moskito.core.config.producers.BuiltinProducersConfig;
 import net.anotheria.moskito.core.registry.IProducerRegistry;
 import net.anotheria.moskito.core.registry.ProducerRegistryFactory;
 
@@ -18,6 +19,9 @@ import java.util.Map;
  *
  */
 public class StartBuiltInProducers {
+	/**
+	 * Initialized flag.
+	 */
 	private static volatile boolean initialized = false;
 	
 	public static synchronized void startbuiltin(){
@@ -28,7 +32,9 @@ public class StartBuiltInProducers {
 		startJavaMemoryProducers();
 		startJavaThreadingProducers();
 		startOsProducers();
+		startGcProducers();
 		startMBeanProducers();
+		startTomcatRequestProcessorProducers();
 	}
 	
 	public static void restartbuiltin(){
@@ -49,16 +55,33 @@ public class StartBuiltInProducers {
 		if (MoskitoConfigurationHolder.getConfiguration().getBuiltinProducersConfig().isRuntimeProducer())
 			new BuiltInRuntimeProducer();
 	}
+
+	private static void startGcProducers(){
+		if (MoskitoConfigurationHolder.getConfiguration().getBuiltinProducersConfig().isGcProducer())
+			new BuiltInGCProducer();
+	}
+
+	private static void startTomcatRequestProcessorProducers(){
+		if (MoskitoConfigurationHolder.getConfiguration().getTomcatRequestProcessorProducerConfig().isRegister())
+			new BuiltinGlobalRequestProcessorProducer();
+	}
 	
 	private static void startJavaMemoryProducers(){
+		//Ensure builtin error producer is initialized.
+		BuiltinProducersConfig config = MoskitoConfigurationHolder.getConfiguration().getBuiltinProducersConfig();
+
+		if (config.isErrorProducer()) {
+			BuiltInErrorProducer.getInstance();
+		}
+
 		IProducerRegistry registry = ProducerRegistryFactory.getProducerRegistryInstance();
-		if (MoskitoConfigurationHolder.getConfiguration().getBuiltinProducersConfig().isJavaMemoryProducers()){
+		if (config.isJavaMemoryProducers()){
 			registry.registerProducer(new BuiltInMemoryProducer(BuiltInMemoryProducer.FREE));
 			registry.registerProducer(new BuiltInMemoryProducer(BuiltInMemoryProducer.MAX));
 			registry.registerProducer(new BuiltInMemoryProducer(BuiltInMemoryProducer.TOTAL));
 		}
 
-		if (MoskitoConfigurationHolder.getConfiguration().getBuiltinProducersConfig().isJavaMemoryPoolProducers()){
+		if (config.isJavaMemoryPoolProducers()){
 			Map<MemoryType, List<BuiltInMemoryPoolProducer>> producers = new EnumMap<>(MemoryType.class);
 
 			List<MemoryPoolMXBean> pools = ManagementFactory.getMemoryPoolMXBeans();

@@ -107,7 +107,7 @@ public abstract class MoskitoAction extends Action implements IStatsProducer {
 			postProcessExecute(mapping, bean, req, res);
 			return forward;
 		}  catch (Exception e) {
-			stats.notifyError();
+			stats.notifyError(e);
 			throw e;
 		} finally {
 			long duration = System.nanoTime() - startTime;

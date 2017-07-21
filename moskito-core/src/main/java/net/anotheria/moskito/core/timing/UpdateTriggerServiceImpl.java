@@ -63,4 +63,9 @@ class UpdateTriggerServiceImpl implements IUpdateTriggerService {
 		timer.scheduleAtFixedRate(adapter, 1000L*anUpdateSequenceInSeconds, 1000L*anUpdateSequenceInSeconds);
 	}
 
+	@Override
+	public void cleanup() {
+		timer.cancel();
+	}
+
 }

@@ -1,7 +1,14 @@
 package net.anotheria.moskito.core.accumulation;
 
 
+import net.anotheria.moskito.core.config.MoskitoConfigurationHolder;
+import net.anotheria.moskito.core.config.accumulators.AccumulatorSetConfig;
+import net.anotheria.moskito.core.config.accumulators.AccumulatorSetMode;
 import net.anotheria.moskito.core.stats.TimeUnit;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * Utility class for accumulator handling and factory methods.
@@ -19,40 +26,7 @@ public final class Accumulators {
 	private Accumulators(){
 		
 	}
-	/**
-	 * Create a new memory pool value accumulator for 1m interval. 
-	 * @param name name of the accumulator, for example OldGenFree.
-	 * @param producerName Name of the producer to tie the accumulator to. For example MemoryPool-PS Old Gen-Heap.
-	 * @param valueName Name of the value to tie the accumulator to. For example Free or Used.
-	 * @return created accumulator.
-	 */
-	public static Accumulator createMemoryAccumulator1m(String name, String producerName, String valueName) {
-		return createAccumulator(name, producerName, producerName, valueName, "1m");
-	}
-	
-	/**
-	 * Create a new memory pool value accumulator for 5m interval. 
-	 * @param name name of the accumulator, for example OldGenFree.
-	 * @param producerName Name of the producer to tie the accumulator to. For example MemoryPool-PS Old Gen-Heap.
-	 * @param valueName Name of the value to tie the accumulator to. For example Free or Used.
-	 * @return created accumulator.
-	 */
-	public static Accumulator createMemoryAccumulator5m(String name, String producerName, String valueName) {
-		return createAccumulator(name, producerName, producerName, valueName, DEFAULT_INTERVAL);
-	}
-	
-	/**
-	 * Create a new memory pool value accumulator. 
-	 * @param name name of the accumulator, for example OldGenFree.
-	 * @param producerName Name of the producer to tie the accumulator to. For example MemoryPool-PS Old Gen-Heap.
-	 * @param valueName Name of the value to tie the accumulator to. For example Free or Used.
-	 * @param interval interval to tie this accumulator to.
-	 * @return created accumulator.
-	 */
-	public static Accumulator createMemoryAccumulator(String name, String producerName, String valueName, String interval) {
-		return createAccumulator(name, producerName, producerName, valueName, interval);
-	}
-	
+
 	/**
 	 * Creates a new accumulator.
 	 * @param name name of the accumulator.
@@ -61,7 +35,7 @@ public final class Accumulators {
 	 * @param valueName name of the value, like AVG, REQ, Free etc.
 	 * @param intervalName name of the interval.
 	 * @param timeUnit time unit in which the accumulator should be managed and the values recalculated.
-	 * @return
+	 * @return {@link Accumulator}
 	 */
 	public static Accumulator createAccumulator(String name, String producerName, String statName, String valueName, String intervalName, TimeUnit timeUnit) {
 		AccumulatorDefinition definition = new AccumulatorDefinition();
@@ -171,4 +145,101 @@ public final class Accumulators {
 	public static void createUrlTotalTimeAccumulator(String name, String url, String interval) {
 		createAccumulator(name, "RequestURI", url, "time", interval);
 	}
+
+
+	/**
+	 * Creates new memory pool accumulators for memory pool producer.
+	 * Creates 9 accumulators for "Free", "Free MB", "Used", "Used MB" values
+	 * and "1m", "5m", "1h" intervals.
+	 *
+	 * @param poolName memory pool name
+	 * @param producerName producer name
+	 */
+	public static void createMemoryPoolAccumulator(String poolName, String producerName){
+
+		final String[] intervals   = new String[]{"1m", "5m", "1h"};
+		final String[] valuesNames = new String[]{"Free", "Free MB", "Used", "Used MB"};
+
+		for(String interval : intervals)
+			for (String valueName : valuesNames)
+				createAccumulator(
+							"Mem "+poolName.replaceAll("\\s+","") // Remove whitespaces
+								.replaceAll("PS", "") // Remove PS prefix
+								+ valueName + " " + interval,
+
+								producerName, producerName, valueName, interval);
+
+	}
+
+	/**
+	 * Creates garbage collectors accumulators and gc set.
+	 *
+	 * @param gcNames garbage collectors names
+	 */
+	public static void createGCAccumulators(List<String> gcNames) {
+		List<String> accumulators = new ArrayList<>();
+		String producerName = "GC";
+		for (String name : gcNames) {
+			String collectionCountAccName = String.format("GC %s collection count 1m", name);
+			String totalCollectionCountAccName = String.format("GC %s total collection count", name);
+			String collectionTimeAccName = String.format("GC %s collection time 1m", name);
+			String totalCollectionTimeAccName = String.format("GC %s total collection time", name);
+			accumulators.addAll(Arrays.asList(collectionCountAccName, collectionTimeAccName));
+			Accumulators.createAccumulator(collectionCountAccName, producerName, name, "CollectionCount", "1m");
+			Accumulators.createAccumulator(totalCollectionCountAccName, producerName, name, "CollectionCount", "default");
+			Accumulators.createAccumulator(collectionTimeAccName, producerName, name, "CollectionTime", "1m");
+			Accumulators.createAccumulator(totalCollectionTimeAccName, producerName, name, "CollectionTime", "default");
+		}
+		createAccumulatorsSet("GC 1 minute", accumulators);
+	}
+
+	/**
+	 * Creates tomcat global request processor accumulators and set for them.
+	 *
+	 * @param beanNames bean names
+	 */
+	public static void createGlobalRequestProcessorAccumulators(List<String> beanNames) {
+		List<String> accumulators = new ArrayList<>();
+		String producerName = "GlobalRequestProcessor";
+		String oneMinuteInterval = "1m";
+		for (String name : beanNames) {
+			String requestCountAccName = String.format("%s request count 1m", name);
+			String bytesSentAccName = String.format("%s bytes sent 1m", name);
+			String bytesReceivedAccName = String.format("%s bytes received 1m", name);
+			String processingTimeAccName = String.format("%s processing time 1m", name);
+			String errorCountAccName = String.format("%s error count 1m", name);
+			accumulators.addAll(Arrays.asList(requestCountAccName, bytesSentAccName, bytesReceivedAccName, processingTimeAccName, errorCountAccName));
+			Accumulators.createAccumulator(requestCountAccName, producerName, name, "RequestCount", oneMinuteInterval);
+			Accumulators.createAccumulator(bytesSentAccName, producerName, name, "BytesSent", oneMinuteInterval);
+			Accumulators.createAccumulator(bytesReceivedAccName, producerName, name, "BytesReceived", oneMinuteInterval);
+			Accumulators.createAccumulator(processingTimeAccName, producerName, name, "ProcessingTime", oneMinuteInterval);
+			Accumulators.createAccumulator(errorCountAccName, producerName, name, "ErrorCount", oneMinuteInterval);
+		}
+		createAccumulatorsSet("Tomcat 1 minute", accumulators);
+	}
+
+	public static void setupCPUAccumulators(){
+		Accumulators.createAccumulator("CPU Time 1m", "OS", "OS", "CPU Time", "1m", TimeUnit.SECONDS);
+		Accumulators.createAccumulator("CPU Time 5m", "OS", "OS", "CPU Time", "5m", TimeUnit.SECONDS);
+		Accumulators.createAccumulator("CPU Time 1h", "OS", "OS", "CPU Time", "1h", TimeUnit.SECONDS);
+		//OS.OS.CPU Time/default/NANOSECONDS
+	}
+
+	private static void createAccumulatorsSet(String name, List<String> accumulators){
+		AccumulatorSetConfig[] accumulatorSets = MoskitoConfigurationHolder.getConfiguration().getAccumulatorsConfig().getAccumulatorSets();
+		if (accumulatorSets==null)
+			accumulatorSets = new AccumulatorSetConfig[0];
+		List<AccumulatorSetConfig> setConfig = new ArrayList<>(
+				Arrays.asList(accumulatorSets)
+		);
+		AccumulatorSetConfig gcSet = new AccumulatorSetConfig();
+		gcSet.setName(name);
+		gcSet.setMode(AccumulatorSetMode.MULTIPLE);
+		String[] accNames = new String[accumulators.size()];
+		gcSet.setAccumulatorNames(accumulators.toArray(accNames));
+		setConfig.add(gcSet);
+		AccumulatorSetConfig[] accSets = new AccumulatorSetConfig[setConfig.size()];
+		MoskitoConfigurationHolder.getConfiguration().getAccumulatorsConfig().setAccumulatorSets(setConfig.toArray(accSets));
+	}
+
 }

@@ -12,8 +12,14 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * Session stats for http sessions.
+ */
 public class SessionCountStats extends AbstractStats {
 
+	/**
+	 * Values names.
+	 */
 	private static final List<String> VALUE_NAMES = Collections.unmodifiableList(Arrays.asList(
 			"Cur",
 			"Min",
@@ -37,10 +43,15 @@ public class SessionCountStats extends AbstractStats {
 	 * Max number of sessions.
 	 */
 	private StatValue maxNumberOfSessions;
-	
 
+	/**
+	 * Number of sessions that have been created.
+	 */
 	private StatValue numberOfCreatedSessions;
-	
+
+	/**
+	 * Number of sessions that have been destroyed.
+	 */
 	private StatValue numberOfDestroyedSessions;
 	
 	public SessionCountStats() {

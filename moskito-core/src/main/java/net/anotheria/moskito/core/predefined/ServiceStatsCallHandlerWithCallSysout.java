@@ -123,15 +123,14 @@ public class ServiceStatsCallHandlerWithCallSysout implements IOnDemandCallHandl
 			methodStats.addExecutionTime(exTime);
 			return ret;
 		}catch(InvocationTargetException e){
-			defaultStats.notifyError();
+			defaultStats.notifyError(e.getTargetException());
 			methodStats.notifyError();
-			//System.out.println("exception of class: "+e.getCause()+" is thrown");
 			if (currentElement!=null)
 				currentElement.setAborted();
 			debugOutPostCall.append("ERR (E) ").append(e.getCause().getMessage()).append(' ').append(e.getCause().toString());
 			throw e.getCause();
 		}catch(Throwable t){
-			defaultStats.notifyError();
+			defaultStats.notifyError(t);
 			methodStats.notifyError();
 			if (currentElement!=null)
 				currentElement.setAborted();

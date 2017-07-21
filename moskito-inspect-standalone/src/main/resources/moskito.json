@@ -1,620 +1,732 @@
 {
-    "@thresholdsAlertsConfig": {
-        "@notificationProviders": [
-            {
-                "className": "net.anotheria.moskito.core.threshold.alerts.notificationprovider.LogFileNotificationProvider",
-                "appenderName": "MoskitoAlert",
-                "guardedStatus": "GREEN"
-            }
-            /* Uncomment (and add a comma at the end of the previous block) if you want sms notifications. You'll need an account too.
-             {
-             "className": "net.anotheria.moskito.extensions.notificationproviders.BulkSMSNotificationProvider",
-             "user": "moskito",
-             "password": "qweqweqwe",
-             "recipients": "380973777273,4915122345102",
-             "templatePath": "thresholdAlertTemplate.txt",
-             "guardedStatus": "GREEN"
-             },
-             */
-            /*Uncomment if you want mail notification.
-             {
-             "className": "net.anotheria.moskito.extensions.notificationproviders.MailgunNotificationProvider",
-             "recipients": "leon@leon-rosenberg.net",
-             /*"recipients": "ykoval@anotheria.net",*/
-            /*    "htmlTemplatePath":"thresholdAlertTemplate.htm",
-             "textTemplatePath":"thresholdAlertTemplate.txt",
-             "guardedStatus": "GREEN"
-             }
-             */
+  "applicationName" : "",
+  "@thresholdsAlertsConfig": {
+    "@notificationProviders": [
+      {
+        "className": "net.anotheria.moskito.core.threshold.alerts.notificationprovider.LogFileNotificationProvider",
+        "appenderName": "MoskitoAlert",
+        "guardedStatus": "GREEN"
+      }
+      /* Uncomment (and add a comma at the end of the previous block) if you want sms notifications. You'll need an account too.
+       {
+       "className": "net.anotheria.moskito.extensions.notificationproviders.BulkSMSNotificationProvider",
+       "user": "moskito",
+       "password": "qweqweqwe",
+       "recipients": "380973777273,4915122345102",
+       "templatePath": "thresholdAlertTemplate.txt",
+       "guardedStatus": "GREEN"
+       },
+       */
+      /*Uncomment if you want mail notification.
+       {
+       "className": "net.anotheria.moskito.extensions.notificationproviders.MailgunNotificationProvider",
+       "recipients": "leon@leon-rosenberg.net",
+       /*"recipients": "ykoval@anotheria.net",*/
+      /*    "htmlTemplatePath":"thresholdAlertTemplate.htm",
+       "textTemplatePath":"thresholdAlertTemplate.txt",
+       "guardedStatus": "GREEN"
+       }
+       */
+    ],
+    "@alertHistoryConfig": {
+      "maxNumberOfItems": 500,
+      "toleratedNumberOfItems": 550
+    }
+  },
+  "@accumulatorsConfig": {
+    "accumulationAmount": 250,
+    "@accumulatorSets": [
+      {
+        "name": "Threads 1 Minute",
+        "accumulatorNames": [
+          "ThreadCount",
+          "ThreadStateBlocked-1m",
+          "ThreadStateRunnable-1m",
+          "ThreadStateTimedWaiting-1m",
+          "ThreadStateWaiting-1m"
+        ]
+      },
+      {
+        "name": "Threads 5 Minutes",
+        "accumulatorNames": [
+          "ThreadCount",
+          "ThreadStateBlocked-5m",
+          "ThreadStateRunnable-5m",
+          "ThreadStateTimedWaiting-5m",
+          "ThreadStateWaiting-5m"
+        ]
+      },
+      {
+        "name": "Web 1 Minute",
+        "accumulatorNames": [
+          "SessionCount Cur Absolute",
+          "URL AVG 1m",
+          "URL REQ 1m",
+          "URL Time 1m"
         ],
+        "mode": "MULTIPLE"
+      },
+      {
+        "name": "Web 5 Minutes",
+        "accumulatorNames": [
+          "SessionCount Cur Absolute",
+          "URL AVG 5m",
+          "URL REQ 5m",
+          "URL Time 5m"
+        ],
+        "mode": "MULTIPLE"
+      },
+      {
+        "name": "Web 1 Hour",
+        "accumulatorNames": [
+          "SessionCount Cur Absolute",
+          "URL AVG 1h",
+          "URL REQ 1h",
+          "URL Time 1h"
+        ],
+        "mode": "MULTIPLE"
+      }
+    ],
+    "@accumulatorsColors": [
+      {
+        "name": "CPU Time 1h",
+        "color": "#FF0000"
+      },
+      {
+        "name": "CPU Time 1m",
+        "color": "#00FF00"
+      },
+      {
+        "name": "CPU Time 5m",
+        "color": "#0000FF"
+      }
+    ],
+    "@accumulators": [
+      //$<standart-accumulators>
+      //$<standart-web-accumulators>
+      {
+        "name": "System CPU Load 1m",
+        "producerName": "OS",
+        "statName": "OS",
+        "valueName": "systemcpuload",
+        "intervalName": "default"
+      },
+      {
+        "name": "Process CPU Load 1m",
+        "producerName": "OS",
+        "statName": "OS",
+        "valueName": "processcpuload",
+        "intervalName": "default"
+      },
+      {
+        "name": "ThreadCount",
+        "producerName": "ThreadCount",
+        "statName": "ThreadCount",
+        "valueName": "current",
+        "intervalName": "default"
+      },
+      {
+        "name": "ThreadStateRunnable-1m",
+        "producerName": "ThreadStates",
+        "statName": "RUNNABLE",
+        "valueName": "current",
+        "intervalName": "1m"
+      },
+      {
+        "name": "ThreadStateWaiting-1m",
+        "producerName": "ThreadStates",
+        "statName": "TIMED_WAITING",
+        "valueName": "current",
+        "intervalName": "1m"
+      },
+      {
+        "name": "ThreadStateTimedWaiting-1m",
+        "producerName": "ThreadStates",
+        "statName": "WAITING",
+        "valueName": "current",
+        "intervalName": "1m"
+      },
+      {
+        "name": "ThreadStateBlocked-1m",
+        "producerName": "ThreadStates",
+        "statName": "BLOCKED",
+        "valueName": "current",
+        "intervalName": "1m"
+      },
+      {
+        "name": "ThreadStateRunnable-5m",
+        "producerName": "ThreadStates",
+        "statName": "RUNNABLE",
+        "valueName": "current",
+        "intervalName": "5m"
+      },
+      {
+        "name": "ThreadStateWaiting-5m",
+        "producerName": "ThreadStates",
+        "statName": "TIMED_WAITING",
+        "valueName": "current",
+        "intervalName": "5m"
+      },
+      {
+        "name": "ThreadStateTimedWaiting-5m",
+        "producerName": "ThreadStates",
+        "statName": "WAITING",
+        "valueName": "current",
+        "intervalName": "5m"
+      },
+      {
+        "name": "ThreadStateBlocked-5m",
+        "producerName": "ThreadStates",
+        "statName": "BLOCKED",
+        "valueName": "current",
+        "intervalName": "5m"
+      }
 
-        "@alertHistoryConfig": {
-            "maxNumberOfItems": 500,
-            "toleratedNumberOfItems": 550
+    ]
+  },
+  "@thresholdsConfig": {
+    "@thresholds": [
+      {
+        "name": "ThreadCount",
+        "producerName": "ThreadCount",
+        "statName": "ThreadCount",
+        "valueName": "Current",
+        "intervalName": "default",
+        //timeUnit can be ignored here
+        "@guards": [
+          {
+            "value": "200",
+            "direction": "DOWN",
+            "status": "GREEN"
+          },
+          {
+            "value": "200",
+            "direction": "UP",
+            "status": "YELLOW"
+          },
+          {
+            "value": "300",
+            "direction": "UP",
+            "status": "ORANGE"
+          },
+          {
+            "value": "500",
+            "direction": "UP",
+            "status": "RED"
+          },
+          {
+            "value": "1000",
+            "direction": "UP",
+            "status": "PURPLE"
+          }
+        ]
+      },
+      {
+        "name": "OldGenFree",
+        "producerName": "MemoryPool-PS Old Gen-Heap",
+        "statName": "MemoryPool-PS Old Gen-Heap",
+        "valueName": "Free",
+        "intervalName": "default",
+        //timeUnit can be ignored here
+        "@guards": [
+          {
+            "value": "100000000",
+            "direction": "UP",
+            "status": "GREEN"
+          },
+          {
+            "value": "50000000",
+            "direction": "DOWN",
+            "status": "YELLOW"
+          },
+          {
+            "value": "10000000",
+            "direction": "DOWN",
+            "status": "ORANGE"
+          },
+          {
+            "value": "2000000",
+            "direction": "DOWN",
+            "status": "RED"
+          },
+          {
+            "value": "1000000",
+            "direction": "DOWN",
+            "status": "PURPLE"
+          }
+        ]
+      },
+      {
+        "name": "PermGenFree",
+        "producerName": "MemoryPool-PS Perm Gen-NonHeap",
+        "statName": "MemoryPool-PS Perm Gen-NonHeap",
+        "valueName": "Free",
+        "intervalName": "default",
+        //timeUnit can be ignored here
+        "@guards": [
+          {
+            "value": "5000000",
+            "direction": "UP",
+            "status": "GREEN"
+          },
+          {
+            "value": "5000000",
+            "direction": "DOWN",
+            "status": "YELLOW"
+          },
+          {
+            "value": "2000000",
+            "direction": "DOWN",
+            "status": "ORANGE"
+          },
+          {
+            "value": "1000000",
+            "direction": "DOWN",
+            "status": "RED"
+          },
+          {
+            "value": "1000",
+            "direction": "DOWN",
+            "status": "PURPLE"
+          }
+        ]
+      },
+      {
+        "name": "SystemCPULoad",
+        "producerName": "OS",
+        "statName": "OS",
+        "valueName": "SystemCPULoad",
+        "intervalName": "default",
+        //timeUnit can be ignored here
+        "@guards": [
+          {
+            "value": "50.0",
+            "direction": "DOWN",
+            "status": "GREEN"
+          },
+          {
+            "value": "50.0",
+            "direction": "UP",
+            "status": "YELLOW"
+          },
+          {
+            "value": "75.0",
+            "direction": "UP",
+            "status": "ORANGE"
+          },
+          {
+            "value": "90.0",
+            "direction": "UP",
+            "status": "RED"
+          },
+          {
+            "value": "99.0",
+            "direction": "UP",
+            "status": "PURPLE"
+          }
+        ]
+      },
+      {
+        "name": "ProcessCPULoad",
+        "producerName": "OS",
+        "statName": "OS",
+        "valueName": "ProcessCPULoad",
+        "intervalName": "default",
+        //timeUnit can be ignored here
+        "@guards": [
+          {
+            "value": "50.0",
+            "direction": "DOWN",
+            "status": "GREEN"
+          },
+          {
+            "value": "50.0",
+            "direction": "UP",
+            "status": "YELLOW"
+          },
+          {
+            "value": "75.0",
+            "direction": "UP",
+            "status": "ORANGE"
+          },
+          {
+            "value": "90.0",
+            "direction": "UP",
+            "status": "RED"
+          },
+          {
+            "value": "99.0",
+            "direction": "UP",
+            "status": "PURPLE"
+          }
+        ]
+      }
+    ]
+  },
+  "@dashboardsConfig": {
+    "@dashboards": [
+      {
+        "name": "Example Dashboard",
+        "refresh": 60,
+        "@charts": [
+          {
+            "caption": "Memory",
+            "accumulators": [
+              "Mem OldGenFree MB 1m",
+              "Mem OldGenUsed MB 1m"
+            ]
+          },
+          {
+            "caption": "Threads",
+            "accumulators": [
+              "ThreadCount",
+              "ThreadStateBlocked-1m",
+              "ThreadStateRunnable-1m",
+              "ThreadStateTimedWaiting-1m",
+              "ThreadStateWaiting-1m"
+            ]
+          },
+          {
+            "accumulators": [
+              "URL REQ 1m"
+            ]
+          },
+          {
+            "accumulators": [
+              "URL Time 1m"
+            ]
+          },
+          {
+            "accumulators": [
+              "URL AVG 1m"
+            ]
+          },
+          {
+            "accumulators": [
+              "SessionCount Cur Absolute"
+            ]
+          },
+          {
+            "accumulators": [
+              "CPU Time 1m"
+            ]
+          },
+          {
+            "caption": "Load",
+            "accumulators": [
+              "System CPU Load 1m",
+              "Process CPU Load 1m"
+            ]
+          },
+          {
+            "caption": "Errors",
+            "accumulators": ["Errors.Cumulated.Initial","Errors.Cumulated.Total"]
+          }
+        ],
+        "@thresholds": [
+          "SystemCPULoad",
+          "ProcessCPULoad",
+          "ThreadCount",
+          "OldGenFree",
+          "PermGenFree"
+        ],
+        "@gauges": [
+          "Blocked",
+          "Memory",
+          "Running",
+          "SysLoad"
+        ]
+      },
+      {
+        "name": "Memory",
+        "@charts": [
+          {
+            "caption": "GC Current Count",
+            "accumulators": ["GC PS MarkSweep collection count 1m", "GC PS Scavenge collection count 1m"]
+          },
+          {
+            "caption": "GC Current Time",
+            "accumulators": ["GC PS MarkSweep collection time 1m", "GC PS Scavenge collection time 1m"]
+          },
+          {
+            "caption": "GC Total Count",
+            "accumulators": ["GC PS MarkSweep total collection count", "GC PS Scavenge total collection count"]
+          },
+          {
+            "caption": "GC Total Time",
+            "accumulators": ["GC PS MarkSweep total collection time", "GC PS Scavenge total collection time"]
+          },
+          {
+            "caption": "Memory",
+            "accumulators": ["Mem OldGenFree MB 1m", "Mem OldGenUsed MB 1m"]
+          }
+        ]
+      },
+      {
+        "name": "Empty Dashboard"
+      }
+    ]
+  },
+  "@gaugesConfig": {
+    "@gauges": [
+      //this is an example config.
+      {
+        "name": "Constant",
+        "@minValue": {
+          "constant": 0
+        },
+        "@currentValue": {
+          "constant": 70
+        },
+        "@maxValue": {
+          "constant": 100
+        },
+        "@zones": [
+          {
+            "color": "green",
+            "left": 0,
+            "right": 0.25
+          },
+          {
+            "color": "yellow",
+            "left": 0.25,
+            "right": 0.5
+          },
+          {
+            "color": "orange",
+            "left": 0.5,
+            "right": 0.75
+          },
+          {
+            "color": "red",
+            "left": 0.75,
+            "right": 1
+          }
+        ]
+      },
+      {
+        "name": "Sessions",
+        "@minValue": {
+          "constant": 0
+        },
+        "@currentValue": {
+          "producerName": "SessionCount",
+          "statName": "Sessions",
+          "valueName": "cur",
+          "intervalName": "default"
+        },
+        "@maxValue": {
+          "producerName": "SessionCount",
+          "statName": "Sessions",
+          "valueName": "max",
+          "intervalName": "default"
         }
-    },
-
-    "@accumulatorsConfig" : {
-      "accumulationAmount": 250,
-      "@accumulatorSets": [
-        {
-          "name": "Threads 1 Minute",
-          "accumulatorNames": [
-            "ThreadCount",
-            "ThreadStateBlocked-1m",
-            "ThreadStateRunnable-1m",
-            "ThreadStateTimedWaiting-1m",
-            "ThreadStateWaiting-1m"
-          ]
+      },
+      {
+        "name": "Memory",
+        "caption": "Used memory",
+        "@minValue": {
+          "constant": 0
         },
-        {
-          "name": "Threads 5 Minutes",
-          "accumulatorNames": [
-            "ThreadCount",
-            "ThreadStateBlocked-5m",
-            "ThreadStateRunnable-5m",
-            "ThreadStateTimedWaiting-5m",
-            "ThreadStateWaiting-5m"
-          ]
+        "@currentValue": {
+          "producerName": "Heap memory",
+          "statName": "Heap memory",
+          "valueName": "Used Mb",
+          "intervalName": "default"
         },
-        {
-          "name": "Web 1 Minute",
-          "accumulatorNames": [
-            "SessionCount Cur Absolute",
-            "URL AVG 1m",
-            "URL REQ 1m",
-            "URL Time 1m"
-          ],
-          "mode": "MULTIPLE"
-        },
-        {
-          "name": "Web 5 Minutes",
-          "accumulatorNames": [
-            "SessionCount Cur Absolute",
-            "URL AVG 5m",
-            "URL REQ 5m",
-            "URL Time 5m"
-          ],
-          "mode": "MULTIPLE"
-        },
-        {
-          "name": "Web 1 Hour",
-          "accumulatorNames": [
-            "SessionCount Cur Absolute",
-            "URL AVG 1h",
-            "URL REQ 1h",
-            "URL Time 1h"
-          ],
-          "mode": "MULTIPLE"
+        "@maxValue": {
+          "producerName": "JavaRuntimeMax",
+          "statName": "JavaRuntimeMax",
+          "valueName": "Current Mb",
+          "intervalName": "default"
         }
-      ],
-      "@accumulatorsColors": [
-        {
-          "name": "CPU Time 1h",
-          "color": "#FF0000"
+      },
+      {
+        "name": "Blocked",
+        "caption": "Blocked Threads",
+        "@minValue": {
+          "constant": 0
         },
-        {
-          "name": "CPU Time 1m",
-          "color": "#00FF00"
+        "@currentValue": {
+          "producerName": "ThreadStates",
+          "statName": "BLOCKED",
+          "valueName": "Current",
+          "intervalName": "1m"
         },
-        {
-          "name": "CPU Time 5m",
-          "color": "#0000FF"
+        "@maxValue": {
+          "producerName": "ThreadCount",
+          "statName": "ThreadCount",
+          "valueName": "current",
+          "intervalName": "default"
         }
-      ],
-      "@accumulators": [
-        //$<standart-accumulators>
-        //$<standart-web-accumulators>
-        {
-          "name": "System CPU Load 1m",
+      },
+      {
+        "name": "Running",
+        "caption": "Running Threads",
+        "@minValue": {
+          "constant": 0
+        },
+        "@currentValue": {
+          "producerName": "ThreadStates",
+          "statName": "RUNNABLE",
+          "valueName": "Current",
+          "intervalName": "1m"
+        },
+        "@maxValue": {
+          "producerName": "ThreadCount",
+          "statName": "ThreadCount",
+          "valueName": "current",
+          "intervalName": "default"
+        }
+      },
+      {
+        "name": "SysLoad",
+        "caption": "System CPU Load",
+        "@minValue": {
+          "constant": 0
+        },
+        "@currentValue": {
           "producerName": "OS",
           "statName": "OS",
           "valueName": "systemcpuload",
           "intervalName": "default"
         },
-        {
-          "name": "Process CPU Load 1m",
+        "@maxValue": {
+          "constant": 100
+        },
+        "@zones": [
+          {
+            "color": "green",
+            "left": 0,
+            "right": 0.5
+          },
+          {
+            "color": "yellow",
+            "left": 0.5,
+            "right": 0.75
+          },
+          {
+            "color": "orange",
+            "left": 0.75,
+            "right": 0.9
+          },
+          {
+            "color": "red",
+            "left": 0.9,
+            "right": 1
+          }
+        ]
+      },
+      {
+        "name": "ProcLoad",
+        "caption": "Process CPU Load",
+        "@minValue": {
+          "constant": 0
+        },
+        "@currentValue": {
           "producerName": "OS",
           "statName": "OS",
           "valueName": "processcpuload",
           "intervalName": "default"
-        }
-      ]
-    },
-    "@thresholdsConfig": {
-          "@thresholds": [
-            {
-              "name": "ThreadCount",
-              "producerName": "ThreadCount",
-              "statName": "ThreadCount",
-              "valueName": "Current",
-              "intervalName": "default",
-              //timeUnit can be ignored here
-              "@guards": [
-                {
-                  "value": "200",
-                  "direction": "DOWN",
-                  "status": "GREEN"
-                },
-                {
-                  "value": "200",
-                  "direction": "UP",
-                  "status": "YELLOW"
-                },
-                {
-                  "value": "300",
-                  "direction": "UP",
-                  "status": "ORANGE"
-                },
-                {
-                  "value": "500",
-                  "direction": "UP",
-                  "status": "RED"
-                },
-                {
-                  "value": "1000",
-                  "direction": "UP",
-                  "status": "PURPLE"
-                 }
-            ]
-          },
-            {
-              "name": "OldGenFree",
-              "producerName": "MemoryPool-PS Old Gen-Heap",
-              "statName": "MemoryPool-PS Old Gen-Heap",
-              "valueName": "Free",
-              "intervalName": "default",
-              //timeUnit can be ignored here
-              "@guards": [
-                {
-                  "value": "100000000",
-                  "direction": "UP",
-                  "status": "GREEN"
-                },
-                {
-                  "value": "50000000",
-                  "direction": "DOWN",
-                  "status": "YELLOW"
-                },
-                {
-                  "value": "10000000",
-                  "direction": "DOWN",
-                  "status": "ORANGE"
-                },
-                {
-                  "value": "2000000",
-                  "direction": "DOWN",
-                  "status": "RED"
-                },
-                {
-                  "value": "1000000",
-                  "direction": "DOWN",
-                  "status": "PURPLE"
-                }
-              ]
-            },
-            {
-              "name": "PermGenFree",
-              "producerName": "MemoryPool-PS Perm Gen-NonHeap",
-              "statName": "MemoryPool-PS Perm Gen-NonHeap",
-              "valueName": "Free",
-              "intervalName": "default",
-              //timeUnit can be ignored here
-              "@guards": [
-                {
-                  "value": "5000000",
-                  "direction": "UP",
-                  "status": "GREEN"
-                },
-                {
-                  "value": "5000000",
-                  "direction": "DOWN",
-                  "status": "YELLOW"
-                },
-                {
-                  "value": "2000000",
-                  "direction": "DOWN",
-                  "status": "ORANGE"
-                },
-                {
-                  "value": "1000000",
-                  "direction": "DOWN",
-                  "status": "RED"
-                },
-                {
-                  "value": "1000",
-                  "direction": "DOWN",
-                  "status": "PURPLE"
-                }
-              ]
-            },
-            {
-              "name": "SystemCPULoad",
-              "producerName": "OS",
-              "statName": "OS",
-              "valueName": "SystemCPULoad",
-              "intervalName": "default",
-              //timeUnit can be ignored here
-              "@guards": [
-                {
-                  "value": "50.0",
-                  "direction": "DOWN",
-                  "status": "GREEN"
-                },
-                {
-                  "value": "50.0",
-                  "direction": "UP",
-                  "status": "YELLOW"
-                },
-                {
-                  "value": "75.0",
-                  "direction": "UP",
-                  "status": "ORANGE"
-                },
-                {
-                  "value": "90.0",
-                  "direction": "UP",
-                  "status": "RED"
-                },
-                {
-                  "value": "99.0",
-                  "direction": "UP",
-                  "status": "PURPLE"
-                }
-              ]
-            },
-            {
-              "name": "ProcessCPULoad",
-              "producerName": "OS",
-              "statName": "OS",
-              "valueName": "ProcessCPULoad",
-              "intervalName": "default",
-              //timeUnit can be ignored here
-              "@guards": [
-                {
-                  "value": "50.0",
-                  "direction": "DOWN",
-                  "status": "GREEN"
-                },
-                {
-                  "value": "50.0",
-                  "direction": "UP",
-                  "status": "YELLOW"
-                },
-                {
-                  "value": "75.0",
-                  "direction": "UP",
-                  "status": "ORANGE"
-                },
-                {
-                  "value": "90.0",
-                  "direction": "UP",
-                  "status": "RED"
-                },
-                {
-                  "value": "99.0",
-                  "direction": "UP",
-                  "status": "PURPLE"
-                }
-              ]
-            }
-
-
-        ]
-    },
-
-
-    "@dashboardsConfig": {
-        "@dashboards": [
-          {
-            "name": "Example Dashboard",
-            "refresh": 60,
-            "@charts": [
-              {
-                "caption": "Memory",
-                "accumulators": ["OldGenFree MB 1m", "OldGenUsed MB 1m", "PermGenFree MB 1m"]
-              },
-              {
-                "caption": "Threads",
-                "accumulators": ["ThreadCount", "ThreadStateBlocked-1m", "ThreadStateRunnable-1m", "ThreadStateTimedWaiting-1m", "ThreadStateWaiting-1m"]
-              },
-              {
-                "accumulators": ["URL REQ 1m"]
-              },
-              {
-                "accumulators": ["URL Time 1m"]
-              },
-              {
-                "accumulators": ["URL AVG 1m"]
-              },
-              {
-                "accumulators": ["SessionCount Cur Absolute"]
-              },
-              {
-                "accumulators": ["CPU Time 1m"]
-              },
-              {
-                "caption": "Load",
-                "accumulators": ["System CPU Load 1m", "Process CPU Load 1m"]
-              }
-
-
-
-            ],
-            "@thresholds": ["SystemCPULoad", "ProcessCPULoad", "ThreadCount","OldGenFree", "PermGenFree"],
-            "@gauges": ["Blocked", "Memory", "Running", "SysLoad"]
-
-          },
-          {
-            "name": "Empty Dashboard"
-          }
-        ]
-
-    },
-
-    "@gaugesConfig": {
-        "@gauges": [
-          {
-            "name": "Constant",
-            "@minValue": {
-                "constant": 0
-            },
-            "@currentValue": {
-              "constant": 70
-            },
-            "@maxValue": {
-              "constant":100
-            },
-            "@zones":[
-              {
-                "color": "green",
-                "left": 0,
-                "right": 0.25
-              },
-              {
-                "color": "yellow",
-                "left": 0.25,
-                "right": 0.5
-              },
-              {
-                "color": "orange",
-                "left": 0.5,
-                "right": 0.75
-              },
-              {
-                "color": "red",
-                "left": 0.75,
-                "right": 1
-              }
-            ]
-
-          },
-          {
-            "name": "Sessions",
-            "@minValue": {
-              "constant": 0
-            },
-            "@currentValue": {
-              "producerName": "SessionCount",
-              "statName": "Sessions",
-              "valueName": "cur",
-              "intervalName": "default"
-            },
-            "@maxValue": {
-              "producerName": "SessionCount",
-              "statName": "Sessions",
-              "valueName": "max",
-              "intervalName": "default"
-            }
-          },
-          {
-            "name": "Memory",
-            "caption": "Used memory",
-            "@minValue": {
-              "constant": 0
-            },
-            "@currentValue": {
-              "producerName": "Heap memory",
-              "statName": "Heap memory",
-              "valueName": "Used Mb",
-              "intervalName": "default"
-            },
-            "@maxValue": {
-              "producerName": "JavaRuntimeMax",
-              "statName": "JavaRuntimeMax",
-              "valueName": "Current Mb",
-              "intervalName": "default"
-            }
-          },
-          {
-            "name": "Blocked",
-            "caption": "Blocked Threads",
-            "@minValue": {
-              "constant": 0
-            },
-            "@currentValue": {
-              "producerName": "ThreadStates",
-              "statName": "BLOCKED",
-              "valueName": "Current",
-              "intervalName": "1m"
-            },
-            "@maxValue": {
-              "producerName": "ThreadCount",
-              "statName": "ThreadCount",
-              "valueName": "current",
-              "intervalName": "default"
-            }
-          },
-          {
-            "name": "Running",
-            "caption": "Running Threads",
-            "@minValue": {
-              "constant": 0
-            },
-            "@currentValue": {
-              "producerName": "ThreadStates",
-              "statName": "RUNNABLE",
-              "valueName": "Current",
-              "intervalName": "1m"
-            },
-            "@maxValue": {
-              "producerName": "ThreadCount",
-              "statName": "ThreadCount",
-              "valueName": "current",
-              "intervalName": "default"
-            }
-          },
-          {
-            "name": "SysLoad",
-            "caption": "System CPU Load",
-            "@minValue": {
-              "constant": 0
-            },
-            "@currentValue": {
-              "producerName": "OS",
-              "statName": "OS",
-              "valueName": "systemcpuload",
-              "intervalName": "default"
-            },
-            "@maxValue": {
-              "constant": 100
-            },
-            "@zones":[
-              {
-                "color": "green",
-                "left": 0,
-                "right": 0.5
-              },
-              {
-                "color": "yellow",
-                "left": 0.5,
-                "right": 0.75
-              },
-              {
-                "color": "orange",
-                "left": 0.75,
-                "right": 0.9
-              },
-              {
-                "color": "red",
-                "left": 0.9,
-                "right": 1
-              }
-            ]
-
-          },
-          {
-            "name": "ProcLoad",
-            "caption": "Process CPU Load",
-            "@minValue": {
-              "constant": 0
-            },
-            "@currentValue": {
-              "producerName": "OS",
-              "statName": "OS",
-              "valueName": "processcpuload",
-              "intervalName": "default"
-            },
-            "@maxValue": {
-              "constant": 100
-            },
-            "@zones":[
-              {
-                "color": "green",
-                "left": 0,
-                "right": 0.5
-              },
-              {
-                "color": "yellow",
-                "left": 0.5,
-                "right": 0.75
-              },
-              {
-                "color": "orange",
-                "left": 0.75,
-                "right": 0.9
-              },
-              {
-                "color": "red",
-                "left": 0.9,
-                "right": 1
-              }
-            ]
-
-          }
-
-        ],
-      "@defaultZones":[
-        {
-          "color": "orange",
-          "left": 0.85,
-          "right": 0.9
         },
-        {
-          "color": "red",
-          "left": 0.9,
-          "right": 1
-        }
-      ]
-
-    },
-
-    "@pluginsConfig": {
-        "@plugins": [
-            {
-                "name": "NoOpPlugin",
-                "configurationName": "none",
-                "className": "net.anotheria.moskito.core.plugins.NoOpPlugin"
-            },
-            {
-                "name": "DiskSpaceMonitoringPlugin",
-                "configurationName": "none",
-                "className": "net.anotheria.moskito.extensions.DiskSpaceMonitoringPlugin"
-            },
+        "@maxValue": {
+          "constant": 100
+        },
+        "@zones": [
           {
-            "name": "VisualPoCPlugin",
-            "configurationName": "none",
-            "className": "net.anotheria.moskitoplugin.emptypage.EmptyPagePlugin"
+            "color": "green",
+            "left": 0,
+            "right": 0.5
           },
           {
-            "name": "TopPlugin",
-            "configurationName": "none",
-            "className": "net.anotheria.moskitoplugin.topproducers.TopProducersPlugin"
+            "color": "yellow",
+            "left": 0.5,
+            "right": 0.75
           },
           {
-            "name": "ApacheMonitoringPlugin",
-            "configurationName": "apache-monitoring-plugin",
-            "className": "net.anotheria.moskito.extension.apache.ApacheMonitoringPlugin"
+            "color": "orange",
+            "left": 0.75,
+            "right": 0.9
           },
           {
-            "name": "NginxMonitoringPlugin",
-            "configurationName": "nginx-monitor",
-            "className": "net.anotheria.moskito.extension.nginx.NginxMonitoringPlugin"
-          },
-          {
-            "name": "MoskitoAnalyzePlugin",
-            "configurationName": "none",
-            "className": "net.anotheria.moskito.extensions.analyze.MoskitoAnalyzePlugin"
+            "color": "red",
+            "left": 0.9,
+            "right": 1
           }
-
         ]
-    },
-
-    "@tracingConfig": {
-      "tracingEnabled": true,
-      "loggingEnabled": true,
-      "inspectEnabled": true,
-      "maxTraces": 50,
-      "tracers": []
-    },
-    "@filterConfig": {
-      "caseExtractors": [
-        "net.anotheria.moskito.web.filters.caseextractor.RequestURICaseExtractor",
-        "net.anotheria.moskito.web.filters.caseextractor.RefererCaseExtractor",
-        "net.anotheria.moskito.web.filters.caseextractor.MethodCaseExtractor",
-        "net.anotheria.moskito.web.filters.caseextractor.UserAgentCaseExtractor",
-        "net.anotheria.moskito.web.filters.caseextractor.DomainCaseExtractor"
+      }
+    ],
+    "@defaultZones": [
+      {
+        "color": "orange",
+        "left": 0.85,
+        "right": 0.9
+      },
+      {
+        "color": "red",
+        "left": 0.9,
+        "right": 1
+      }
     ]
+  },
+  "@pluginsConfig": {
+    "@plugins": [
+      {
+        "name": "NoOpPlugin",
+        "configurationName": "none",
+        "className": "net.anotheria.moskito.core.plugins.NoOpPlugin"
+      },
+      {
+        "name": "DiskSpaceMonitoringPlugin",
+        "configurationName": "none",
+        "className": "net.anotheria.moskito.extensions.DiskSpaceMonitoringPlugin"
+      },
+      {
+        "name": "VisualPoCPlugin",
+        "configurationName": "none",
+        "className": "net.anotheria.moskitoplugin.emptypage.EmptyPagePlugin"
+      },
+      {
+        "name": "TopPlugin",
+        "configurationName": "none",
+        "className": "net.anotheria.moskitoplugin.topproducers.TopProducersPlugin"
+      },
+      {
+        "name": "ApacheMonitoringPlugin",
+        "configurationName": "monitoring-plugin-apache",
+        "className": "net.anotheria.moskito.extensions.monitoring.GenericMonitoringPlugin"
+      },
+      {
+        "name": "NginxMonitoringPlugin",
+        "configurationName": "monitoring-plugin-nginx",
+        "className": "net.anotheria.moskito.extensions.monitoring.GenericMonitoringPlugin"
+      },
+      {
+        "name": "MoskitoAnalyzePlugin",
+        "configurationName": "none",
+        "className": "net.anotheria.moskito.extensions.analyze.MoskitoAnalyzePlugin"
+      }
+    ]
+  },
+  "@tracingConfig": {
+    "tracingEnabled": true,
+    "loggingEnabled": true,
+    "inspectEnabled": true,
+    "maxTraces": 50,
+    "tracers": []
+  },
+  "@filterConfig": {
+    "caseExtractors": [
+      "net.anotheria.moskito.web.filters.caseextractor.RequestURICaseExtractor",
+      "net.anotheria.moskito.web.filters.caseextractor.RefererCaseExtractor",
+      "net.anotheria.moskito.web.filters.caseextractor.MethodCaseExtractor",
+      "net.anotheria.moskito.web.filters.caseextractor.UserAgentCaseExtractor",
+      "net.anotheria.moskito.web.filters.caseextractor.DomainCaseExtractor"
+    ]
+  },
+  "@tomcatRequestProcessorProducerConfig": {
+    "ajp": true,
+    "http": true
   }
 
 }

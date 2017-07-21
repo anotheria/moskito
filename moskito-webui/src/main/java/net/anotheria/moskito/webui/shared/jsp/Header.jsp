@@ -53,14 +53,8 @@
 <script type="text/javascript" src="../moskito/ext/lodash-4.13.1/lodash.min.js"></script>
 <script type="text/javascript" src="../moskito/ext/jquery.qtip2-3.0.3/jquery.qtip.min.js"></script>
 <script type="text/javascript" src="../moskito/int/js/function.js"></script>
-    <core:if test="${chartEngine eq 'GOOGLE_CHART_API'}">
-        <script type="text/javascript" src="//www.google.com/jsapi"></script>
-    </core:if>
-    <core:if test="${chartEngine eq 'D3'}">
-        <script type="text/javascript" src="../moskito/ext/d3/d3.min.js" charset="utf-8"></script>
-    </core:if>
-
-    <script type="text/javascript" src="../moskito/int/js/chartEngineIniter.js?v=4"></script>
+<script type="text/javascript" src="../moskito/ext/d3/d3.min.js" charset="utf-8"></script>
+<script type="text/javascript" src="../moskito/int/js/chartEngineIniter.js?v=5"></script>
 
 <ano:notEmpty name="graphDatas">
     <!--
@@ -89,7 +83,7 @@
 
     <div class="navbar-collapse collapse">
         <div class="text-center"> 
-        <form role="form" class="navbar-form navbar-left">
+            <form role="form" class="navbar-form navbar-left">
             <div class="form-group">
                 <select class="select2" data-placeholder="Interval" onchange="handleSelect(this)">
                     <ano:iterate name="intervals" id="interval" type="net.anotheria.moskito.webui.shared.api.IntervalInfoAO">
@@ -125,6 +119,11 @@
                 </ul>
             </li>
             </ano:equal>
+                <ano:iF test="${mskIsAuthorized}">
+                    <li>
+                        <a href="mskSignOut">Sign Out</a>
+                    </li>
+                </ano:iF>
             <li><a href="mskShowExplanations"><i class="fa fa-info-circle icon-16"></i></a></li>
             <li class="iphone-app-link"><a href="https://itunes.apple.com/us/app/moskito-ui/id531387262?mt=8">Using iPhone? <img src="../moskito/int/img/iphone.svg" class="iphone-app-icon"></a></li>
         </ul>
@@ -242,6 +241,7 @@
                 <li ${currentSubNaviItem.isSelected("more_libs")    ? "class=\"active\"" : ""}><a href="mskLibs" title="Libs" class="sidebar-tooltip-right">Libs <i class="fa fa-file-text"></i></a></li>
                 <li ${currentSubNaviItem.isSelected("more_update")  ? "class=\"active\"" : ""}><a href="mskUpdate" title="Update" class="sidebar-tooltip-right">Update  <i class="fa fa-upload"></i></a></li>
                 <li ${currentSubNaviItem.isSelected("more_gauges")  ? "class=\"active\"" : ""}><a href="mskGauges" title="Gauges" class="sidebar-tooltip-right">Gauges  <i class="fa fa-tachometer"></i></a></li>
+                <li ${currentSubNaviItem.isSelected("more_errors")  ? "class=\"active\"" : ""}><a href="mskErrors" title="Errors" class="sidebar-tooltip-right">Errors  <i class="fa fa-bug"></i></a></li>
                 <%--<li ${currentSubNaviItem.isSelected("more_plugins") ? "class=\"active\"" : ""}><a href="mskPlugins" title="Plugins" class="sidebar-tooltip-right">Plugins <i class="fa fa-cloud"></i></a></li>--%>
             </ul>
         </li>

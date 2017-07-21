@@ -46,6 +46,7 @@ import net.anotheria.moskito.core.stats.Interval;
 import net.anotheria.moskito.core.stats.StatValue;
 import net.anotheria.moskito.core.stats.TimeUnit;
 import net.anotheria.moskito.core.stats.impl.StatValueFactory;
+import net.anotheria.moskito.core.util.BuiltInErrorProducer;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -190,6 +191,14 @@ public abstract class RequestOrientedStats extends AbstractStats {
 	 */
 	public void notifyError() {
 		errors.increase();
+	}
+
+	/**
+	 * Notifies about an uncaught error.
+	 */
+	public void notifyError(Throwable throwable) {
+		errors.increase();
+		BuiltInErrorProducer.getInstance().notifyError(throwable);
 	}
 
 	/**

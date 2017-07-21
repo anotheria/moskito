@@ -6,7 +6,6 @@ import net.anotheria.moskito.core.config.thresholds.GuardConfig;
 import net.anotheria.moskito.core.config.thresholds.ThresholdConfig;
 import net.anotheria.moskito.core.config.thresholds.ThresholdsConfig;
 import net.anotheria.moskito.core.dynamic.OnDemandStatsProducer;
-import net.anotheria.moskito.core.helper.RuntimeConstants;
 import net.anotheria.moskito.core.helper.TieableDefinition;
 import net.anotheria.moskito.core.helper.TieableRepository;
 import net.anotheria.moskito.core.producers.IStats;
@@ -15,6 +14,7 @@ import net.anotheria.moskito.core.stats.TimeUnit;
 import net.anotheria.moskito.core.threshold.guard.DoubleBarrierPassGuard;
 import net.anotheria.moskito.core.threshold.guard.GuardedDirection;
 import net.anotheria.moskito.core.threshold.guard.LongBarrierPassGuard;
+import net.anotheria.moskito.core.util.MBeanUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -93,49 +93,22 @@ public class ThresholdRepository<S extends IStats> extends TieableRepository<Thr
      * removes all {@link Threshold} MBeans from platform MBeanServer.
      */
     public void cleanup() {
-        MBeanServer mbs = ManagementFactory.getPlatformMBeanServer();
         List<Threshold> th = getThresholds();
         for (Threshold t : th) {
             final String tName = t.getDefinition().getName();
             try {
-                unregisterMBean(mbs, createName(tName));
-            } catch (final MalformedObjectNameException e) {
-                log.warn("can't unregister " + tName + ", ignored.", e);
-            }
-        }
+            	MBeanUtil.getInstance().unregisterMBean(createName(tName));
+            } catch (MBeanRegistrationException e) {
+				log.warn("can't unregister " + tName + ", ignored.", e);
+			}
+		}
         super.cleanup();
     }
 	
-	private ObjectName createName(String name) throws MalformedObjectNameException {
-        String appName = RuntimeConstants.getApplicationName();
-		String objectName = "moskito."+(appName.length()>0 ? appName+ '.' :"")+"thresholds:type="+name;
-        ObjectName objName = new ObjectName(objectName);
-        return objName;
+	private String createName(String name) {
+        String appName = MoskitoConfigurationHolder.getConfiguration().getApplicationName();
+		return "moskito."+(appName.length()>0 ? appName+ '.' :"")+"thresholds:type="+name;
 	}
-		
-    /**
-     * Unregisters the MBean with given mbeanName from {@link MBeanServer}.
-     * 
-     * @param mbs
-     *            the {@link MBeanServer} which potentially contains the MBean to be unregistered
-     * @param mbeanName
-     *            the name of MBean to unregister.
-     * @return TRUE if such an MBean was unregistered, FLASE otherwise.
-     */
-    private boolean unregisterMBean(final MBeanServer mbs, final ObjectName mbeanName) {
-        if (mbs.isRegistered(mbeanName)) {
-            try {
-                mbs.unregisterMBean(mbeanName);
-                return true;
-
-            } catch (MBeanRegistrationException e) {
-                log.warn("unable to unregister " + mbeanName + ", ignored.", e);
-            } catch (InstanceNotFoundException e) {
-                log.warn("unable to  unregister " + mbeanName + ", ignored.", e);
-            }
-        }
-        return false;
-    }
 	
     /**
      * Creates a {@link Threshold} related to given {@link ThresholdDefinition} and registers it as
@@ -148,33 +121,19 @@ public class ThresholdRepository<S extends IStats> extends TieableRepository<Thr
      */
 	public Threshold createThreshold(ThresholdDefinition definition){
         Threshold ret = createTieable(definition);
-        MBeanServer mbs = ManagementFactory.getPlatformMBeanServer();
 
         try {
 	    	// Construct the ObjectName for the MBean we will register
-            ObjectName name = createName(ret.getDefinition().getName());
-	    	
-            if (unregisterMBean(mbs, name)) {
-                log.info("there was already a MBean with name '" + name
-                        + "' registered. will be replaced now.");
-            }
-            // Register the Threshold-MBean
-            mbs.registerMBean(ret, name);
-
-        } catch (MalformedObjectNameException e) {
+            String name = createName(ret.getDefinition().getName());
+            MBeanUtil.getInstance().registerMBean(ret, name, true);
+        } catch (MalformedObjectNameException | NotCompliantMBeanException | MBeanRegistrationException e) {
 	    	log.warn("can't subscribe threshold to jmx", e);
-	    } catch (InstanceAlreadyExistsException e) {
-	    	log.warn("can't subscribe threshold to jmx", e);
-		} catch (MBeanRegistrationException e) {
-	    	log.warn("can't subscribe threshold to jmx", e);
-		} catch (NotCompliantMBeanException e) {
-	    	log.warn("can't subscribe threshold to jmx", e);
-        } catch(AccessControlException e){
+	    } catch(AccessControlException e){
 			log.warn("can't create jmx bean due to access control problems", e);
 		}
 
-
     	return ret;
+
 	}
 
 	public ExtendedThresholdStatus getExtendedWorstStatus(List<String> includedNames){

@@ -24,7 +24,11 @@ public abstract class BaseDashboardAction extends BaseMoskitoUIAction {
 	}
 	@Override
 	protected String getLinkToCurrentPage(HttpServletRequest req) {
-		return "?ts="+System.currentTimeMillis();
+		try {
+			return "mskDashboard?dashboard=" + getSelectedDashboard(req) + "&ts=" + System.currentTimeMillis();
+		}catch(APIException e){
+			return "mskDashboard?ts=" + System.currentTimeMillis();
+		}
 	}
 
 	@Override

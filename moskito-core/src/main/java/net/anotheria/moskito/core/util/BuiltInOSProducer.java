@@ -1,9 +1,11 @@
 package net.anotheria.moskito.core.util;
 
+import net.anotheria.moskito.core.accumulation.Accumulators;
 import net.anotheria.moskito.core.predefined.OSStats;
 import net.anotheria.moskito.core.producers.IStats;
 import net.anotheria.moskito.core.producers.IStatsProducer;
 import net.anotheria.moskito.core.registry.ProducerRegistryFactory;
+import org.apache.commons.lang.SystemUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -47,7 +49,7 @@ public class BuiltInOSProducer extends AbstractBuiltInProducer implements IStats
 	/**
 	 * If true indicates.
 	 */
-	private final boolean isUnixOS;
+	private final boolean isUnixOS = SystemUtils.IS_OS_UNIX;
 	
 	/**
 	 * Logger.
@@ -67,12 +69,6 @@ public class BuiltInOSProducer extends AbstractBuiltInProducer implements IStats
 		}
 
 		char version=System.getProperty("java.version").charAt(2);
-
-		if (version > '7'){
-			isUnixOS = mxBean.getClass().getName().equals("sun.management.OperatingSystemImpl");
-		}else{
-			isUnixOS = mxBean.getClass().getName().equals("com.sun.management.UnixOperatingSystem");
-		}
 		
         if (!isUnixOS) {
             log.warn("Couldn't find unix version of os class: " + clazzname
@@ -87,6 +83,8 @@ public class BuiltInOSProducer extends AbstractBuiltInProducer implements IStats
 			}});
 
 		ProducerRegistryFactory.getProducerRegistryInstance().registerProducer(this);
+
+		Accumulators.setupCPUAccumulators();
 	}
 	
 	@Override

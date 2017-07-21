@@ -13,7 +13,6 @@ import net.anotheria.moskito.core.threshold.Threshold;
 import net.anotheria.moskito.core.threshold.ThresholdRepository;
 import net.anotheria.moskito.webui.shared.bean.NaviItem;
 import net.anotheria.moskito.webui.util.APILookupUtility;
-import net.anotheria.moskito.webui.util.ChartEngine;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -63,12 +62,6 @@ public class ShowConfigAction extends BaseAdditionalAction{
 		}
 
 		req.setAttribute("thresholdsStrings", thresholdStrings);
-
-
-		//Available chart engines
-		req.setAttribute("availableChartEngines", ChartEngine.values());
-
-
 
 		return mapping.success();
 	}
