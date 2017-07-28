@@ -18,6 +18,9 @@ public class MoskitoAnalyzeConfig {
     private String url;
 
     @Configure
+    private String[] hosts;
+
+    @Configure
     private AnalyzeChart[] charts;
 
     /**
@@ -55,6 +58,14 @@ public class MoskitoAnalyzeConfig {
 
     public void setUrl(String url) {
         this.url = url;
+    }
+
+    public String[] getHosts() {
+        return hosts;
+    }
+
+    public void setHosts(String[] hosts) {
+        this.hosts = hosts;
     }
 
     public AnalyzeChart[] getCharts() {

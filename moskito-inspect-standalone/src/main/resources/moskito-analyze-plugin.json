@@ -1,5 +1,6 @@
 {
     "url" : "http://localhost:8090/ma/api/v1/charts/",
+    "@hosts": ["localhost"],
 
     "@charts": [
         {
@@ -16,7 +17,7 @@
             "statName": "cow",
             "valueName": "Number",
             "intervalName": "1m",
-            "chartName": "realtime"
+            "chartName": "period"
         }
     ]
 }

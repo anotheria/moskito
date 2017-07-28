@@ -7,6 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -43,6 +44,7 @@ public class MoskitoAnalyzePlugin extends AbstractMoskitoPlugin {
             if (wrapper == null){
                 wrapper = new AnalyzeProducerChartsWrapper();
                 wrapper.setUrl(config.getUrl());
+                wrapper.setHosts(config.getHosts() == null ? new ArrayList<String>() : Arrays.asList(config.getHosts()));
                 wrapper.setChartTypes(new HashSet<String>());
                 wrapper.setCharts(new ArrayList<AnalyzeChart>());
                 chartsWrapperByProducer.put(chart.getProducerName(), wrapper);

@@ -155,6 +155,12 @@
 
 
         var analyzeUrl = '<ano:write name="analyzeUrl"/>';
+        var analyzeHosts = [];
+        analyzeHosts.push(
+                <ano:iterate name="analyzeHosts" id="host" indexId="i">
+                <ano:notEqual name="i" value="0">, </ano:notEqual>"<ano:write name="host"/>"
+                </ano:iterate>
+        );
         var analyzeRequestData = [];
         analyzeRequestData.push(
                 <ano:iterate name="analyzeRequestData" type="net.anotheria.moskito.webui.producers.api.AnalyzeRequestData" id="requestData" indexId="i">
@@ -241,6 +247,7 @@
                     type: "POST",
                     url: analyzeUrl + value.chart,
                     data: JSON.stringify({
+                        "hosts": analyzeHosts,
                         "interval": value.interval,
                         "producers": statsToSend,
                         "startDate": value.start,
@@ -273,7 +280,7 @@
                                     }
                                 };
                                 console.log(chartParams);
-                                chartEngineIniter[chartEngineName](chartParams);
+                                chartEngineIniter.init(chartParams);
                             });
                     },
                     failure: function (errMsg) {

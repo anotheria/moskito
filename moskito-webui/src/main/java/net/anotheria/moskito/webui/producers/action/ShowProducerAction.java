@@ -34,9 +34,6 @@
  */
 package net.anotheria.moskito.webui.producers.action;
 
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonParser;
 import net.anotheria.maf.action.ActionCommand;
 import net.anotheria.maf.action.ActionMapping;
 import net.anotheria.maf.bean.FormBean;
@@ -46,7 +43,6 @@ import net.anotheria.moskito.core.inspection.CreationInfo;
 import net.anotheria.moskito.extensions.analyze.AnalyzeProducerChartsWrapper;
 import net.anotheria.moskito.extensions.analyze.config.AnalyzeChart;
 import net.anotheria.moskito.webui.accumulators.api.AccumulatedSingleGraphAO;
-import net.anotheria.moskito.webui.accumulators.api.AccumulatedValueAO;
 import net.anotheria.moskito.webui.producers.api.AnalyzeRequestData;
 import net.anotheria.moskito.webui.producers.api.ChartData;
 import net.anotheria.moskito.webui.producers.api.ProducerAO;
@@ -59,26 +55,20 @@ import net.anotheria.moskito.webui.shared.bean.StatBean;
 import net.anotheria.moskito.webui.shared.bean.StatBeanSortType;
 import net.anotheria.moskito.webui.shared.bean.StatDecoratorBean;
 import net.anotheria.moskito.webui.shared.bean.UnitBean;
-import net.anotheria.moskito.webui.shared.resource.ReplyObject;
 import net.anotheria.moskito.webui.threshold.bean.ThresholdStatusBean;
 import net.anotheria.util.NumberUtils;
 import net.anotheria.util.sorter.StaticQuickSorter;
 import org.apache.commons.lang.StringUtils;
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
@@ -194,7 +184,6 @@ public class ShowProducerAction extends BaseMoskitoUIAction {
         // TODO analyze poc integration
         AnalyzeProducerChartsWrapper producerChartsWrapper = getAdditionalFunctionalityAPI().getAnalyzeData(producer.getProducerId());
         if (producerChartsWrapper != null) {
-            String analyzeUrl = producerChartsWrapper.getUrl();
             Set<String> charts = producerChartsWrapper.getChartTypes();
             List<AnalyzeChart> chartsData = producerChartsWrapper.getCharts();
 
@@ -206,8 +195,14 @@ public class ShowProducerAction extends BaseMoskitoUIAction {
                 req.setAttribute("accumulatorsColors", Collections.EMPTY_LIST);
             }
 
-            Date endDate = new Date();
-            Date startDate = new Date(endDate.getTime() - 24*60*60*1000);
+
+            Calendar c = Calendar.getInstance();
+            Date endDate = new Date(c.getTimeInMillis());
+            c.set(Calendar.HOUR_OF_DAY, 0);
+            c.set(Calendar.MINUTE, 0);
+            c.set(Calendar.SECOND, 0);
+            c.set(Calendar.MILLISECOND, 0);
+            Date startDate = new Date(c.getTimeInMillis());
             final SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
             String start = simpleDateFormat.format(startDate);
             String end = simpleDateFormat.format(endDate);
@@ -239,7 +234,8 @@ public class ShowProducerAction extends BaseMoskitoUIAction {
             }
 
 
-            req.setAttribute("analyzeUrl", analyzeUrl);
+            req.setAttribute("analyzeUrl", producerChartsWrapper.getUrl());
+            req.setAttribute("analyzeHosts", producerChartsWrapper.getHosts());
             req.setAttribute("analyzeRequestData", requestDatas);
         }
 
@@ -247,70 +243,97 @@ public class ShowProducerAction extends BaseMoskitoUIAction {
     }
 
     // TODO only for test integration with MoSKito Analyze
-    private AccumulatedSingleGraphAO getMAGraph() {
-        try {
-            URL url = new URL("http://localhost:8090/ma/api/v1/charts/period");
-            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-            connection.setDoOutput(true);
-            connection.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
-            connection.setRequestProperty("Accept", "application/json");
-            connection.setRequestMethod("POST");
+//    private AccumulatedSingleGraphAO getMAGraph() {
+//        try {
+//            URL url = new URL("http://localhost:8090/ma/api/v1/charts/period");
+//            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+//            connection.setDoOutput(true);
+//            connection.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
+//            connection.setRequestProperty("Accept", "application/json");
+//            connection.setRequestMethod("POST");
+//
+//            JSONObject requestBody = createMARequest();
+//
+//            OutputStream os = connection.getOutputStream();
+//            os.write(requestBody.toString().getBytes("UTF-8"));
+//            os.flush();
+//
+//            if (connection.getResponseCode() != HttpURLConnection.HTTP_OK) {
+//                throw new RuntimeException("Failed : HTTP error code : " + connection.getResponseCode());
+//            }
+//
+//            BufferedReader br = new BufferedReader(new InputStreamReader((connection.getInputStream())));
+//
+//            String output = null;
+//            String result = "";
+//            while ((output = br.readLine()) != null) {
+//                result += output;
+//                System.out.println(output);
+//            }
+//
+//            AccumulatedSingleGraphAO graphAO = null;
+//            if (!"".equals(result)) {
+//                JsonParser jp = new JsonParser();
+//                JsonElement je = jp.parse(result);
+//                ReplyObject replyObject = new GsonBuilder().setPrettyPrinting().create().fromJson(je, ReplyObject.class);
+//                System.out.println(replyObject);
+//                graphAO = convert(replyObject);
+//            }
+//            connection.disconnect();
+//            return graphAO;
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            return null;
+//        }
+//    }
 
-            JSONObject requestBody = createMARequest();
+//    private JSONObject createMARequest() throws JSONException {
+//        final JSONObject result = new JSONObject();
+//
+//        result.put("interval", "1m");
+//        result.put("startDate", "2017-04-12 11:00");
+//        result.put("endDate", "2017-04-12 19:00");
+//
+//        JSONArray producers = new JSONArray();
+//
+//        JSONObject producer = new JSONObject();
+//        producer.put("producerId", "sales");
+//        producer.put("stat", "brioche");
+//        producer.put("value", "Number");
+//
+//        producers.put(producer);
+//
+//        result.put("producers", producers);
+//
+//        return result;
+//    }
 
-            OutputStream os = connection.getOutputStream();
-            os.write(requestBody.toString().getBytes("UTF-8"));
-            os.flush();
-
-            if (connection.getResponseCode() != HttpURLConnection.HTTP_OK) {
-                throw new RuntimeException("Failed : HTTP error code : " + connection.getResponseCode());
-            }
-
-            BufferedReader br = new BufferedReader(new InputStreamReader((connection.getInputStream())));
-
-            String output = null;
-            String result = "";
-            while ((output = br.readLine()) != null) {
-                result += output;
-                System.out.println(output);
-            }
-
-            AccumulatedSingleGraphAO graphAO = null;
-            if (!"".equals(result)) {
-                JsonParser jp = new JsonParser();
-                JsonElement je = jp.parse(result);
-                ReplyObject replyObject = new GsonBuilder().setPrettyPrinting().create().fromJson(je, ReplyObject.class);
-                System.out.println(replyObject);
-                graphAO = convert(replyObject);
-            }
-            connection.disconnect();
-            return graphAO;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
-
-    private JSONObject createMARequest() throws JSONException {
-        final JSONObject result = new JSONObject();
-
-        result.put("interval", "1m");
-        result.put("startDate", "2017-04-12 11:00");
-        result.put("endDate", "2017-04-12 19:00");
-
-        JSONArray producers = new JSONArray();
-
-        JSONObject producer = new JSONObject();
-        producer.put("producerId", "sales");
-        producer.put("stat", "brioche");
-        producer.put("value", "Number");
-
-        producers.put(producer);
-
-        result.put("producers", producers);
-
-        return result;
-    }
+//       private AccumulatedSingleGraphAO convert(ReplyObject replyObject) {
+//        AccumulatedSingleGraphAO maGraph = new AccumulatedSingleGraphAO("sales.brioche.Number - 1m");
+//
+//        List<Map<String, Object>> chartsItems = (List<Map<String, Object>>) replyObject.getResults().get("charts");
+//
+//
+//        List<AccumulatedValueAO> list = new ArrayList<>();
+//        for (Map<String, Object> chartItem : chartsItems) {
+//
+//            List<Map<String, String>> values = (List<Map<String, String>>) chartItem.get("values");
+//            Map<String, String> valuesMap = values.get(0);
+//            long rawTimestamp = ((Double) chartItem.get("millis")).longValue();
+//            long timestamp = rawTimestamp / 1000 * 1000;
+//            //for single graph data
+//            AccumulatedValueAO ao = new AccumulatedValueAO(NumberUtils.makeTimeString(timestamp));
+//            ao.addValue(valuesMap.get("sales.brioche.Number"));
+//            ao.setIsoTimestamp(NumberUtils.makeISO8601TimestampString(rawTimestamp));
+//            ao.setNumericTimestamp(rawTimestamp);
+//
+//            list.add(ao);
+//        }
+//
+//        maGraph.setData(list);
+//
+//        return maGraph;
+//    }
 
     //TODO copied from show accumulators, should be moved to utility.
     private JSONArray accumulatorsColorsToJSON(final List<AccumulatedSingleGraphAO> graphAOs) {
@@ -501,33 +524,6 @@ public class ShowProducerAction extends BaseMoskitoUIAction {
     @Override
     protected boolean exportSupported() {
         return true;
-    }
-
-    private AccumulatedSingleGraphAO convert(ReplyObject replyObject) {
-        AccumulatedSingleGraphAO maGraph = new AccumulatedSingleGraphAO("sales.brioche.Number - 1m");
-
-        List<Map<String, Object>> chartsItems = (List<Map<String, Object>>) replyObject.getResults().get("charts");
-
-
-        List<AccumulatedValueAO> list = new ArrayList<>();
-        for (Map<String, Object> chartItem : chartsItems) {
-
-            List<Map<String, String>> values = (List<Map<String, String>>) chartItem.get("values");
-            Map<String, String> valuesMap = values.get(0);
-            long rawTimestamp = ((Double) chartItem.get("millis")).longValue();
-            long timestamp = rawTimestamp / 1000 * 1000;
-            //for single graph data
-            AccumulatedValueAO ao = new AccumulatedValueAO(NumberUtils.makeTimeString(timestamp));
-            ao.addValue(valuesMap.get("sales.brioche.Number"));
-            ao.setIsoTimestamp(NumberUtils.makeISO8601TimestampString(rawTimestamp));
-            ao.setNumericTimestamp(rawTimestamp);
-
-            list.add(ao);
-        }
-
-        maGraph.setData(list);
-
-        return maGraph;
     }
 
 }

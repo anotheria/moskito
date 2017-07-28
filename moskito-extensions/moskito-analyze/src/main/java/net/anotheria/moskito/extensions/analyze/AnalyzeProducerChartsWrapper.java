@@ -17,6 +17,8 @@ public class AnalyzeProducerChartsWrapper implements Serializable {
 
     private String url;
 
+    private List<String> hosts;
+
     private List<AnalyzeChart> charts;
 
     private Set<String> chartTypes;
@@ -27,6 +29,14 @@ public class AnalyzeProducerChartsWrapper implements Serializable {
 
     public void setUrl(String url) {
         this.url = url;
+    }
+
+    public List<String> getHosts() {
+        return hosts;
+    }
+
+    public void setHosts(List<String> hosts) {
+        this.hosts = hosts;
     }
 
     public List<AnalyzeChart> getCharts() {
