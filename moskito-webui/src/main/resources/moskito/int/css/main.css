@@ -1409,10 +1409,18 @@ span.call-info {
     stroke-width: 1.5px;
 }
 
+.accumulator-chart .baseline {
+    stroke-width: 2px;
+}
+
 .accumulator-chart .line.hover {
     fill: none;
     stroke: steelblue;
     stroke-width: 3.0px;
+}
+
+.accumulator-chart .baseline.hover {
+    stroke-width: 4px;
 }
 
 .accumulator-chart .grid .tick {
