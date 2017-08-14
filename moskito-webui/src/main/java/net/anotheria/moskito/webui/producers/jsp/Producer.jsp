@@ -243,6 +243,7 @@
                     appendChart(valueS.name, valueS.nameForJS);
                     statsToSend.push({producerId : valueS.producerId, stat:valueS.stat, value : valueS.value});
                 });
+                var isBaseline = value.chart == 'period/baseline';
                 $.ajax({
                     type: "POST",
                     url: analyzeUrl + value.chart,
@@ -257,14 +258,32 @@
                     dataType: "json",
                     success: function (data) {
                             $(value.stats).each(function (indexS, valueS) {
+
                                 var lineName = valueS.producerId + '_' + valueS.stat + '_' + valueS.value + ' - ' + value.interval;
-                                console.log(lineName);
                                 var chartNameJS = 'chart_accum' + valueS.nameForJS;
-                                var names = ( lineName && [lineName]);
+
+                                var names = [lineName];
+
+                                if(isBaseline){
+                                   names.push('baseline.' + lineName);
+                                }
+
                                 var dataArray = [];
                                 var statName = valueS.producerId + '.' + valueS.stat + '.' + valueS.value;
                                 $(jQuery.parseJSON(JSON.stringify(data.results.charts))).each(function (index, valueData) {
-                                    dataArray.push([valueData.millis, valueData.values[0][statName]]);
+
+                                    var dataFragment = [
+                                            valueData.millis,
+                                            valueData.values[0].hasOwnProperty(statName)
+                                                ? valueData.values[0][statName]
+                                                : 0
+                                    ];
+
+                                    if(isBaseline)
+                                        dataFragment.push(valueData.values[0]['baseline.' + statName]);
+
+                                    dataArray.push(dataFragment);
+
                                 });
                                 var chartParams = {
                                     container: chartNameJS,
