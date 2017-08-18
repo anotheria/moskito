@@ -152,8 +152,9 @@ public class APILookupUtility {
 				findRemote(TracerAPI.class);
 	}
 
-
-
+	public static void resetConnection(){
+		setCurrentConnectivityMode(ConnectivityMode.LOCAL);
+	}
 
 	private static <T extends API> T findRemote(Class<T> targetClass){
 		String serviceId = null;
@@ -204,10 +205,10 @@ public class APILookupUtility {
 		}catch (NoSuchMethodException e) {
 			throw new IllegalStateException("Constructor with ServiceDescriptor parameter not found in remote stub", e);
 		} catch (InvocationTargetException e) {
+			resetConnection();
 			throw new IllegalStateException("Cannot connect to "+ri+", due: "+e.getTargetException().getMessage()+". Server at "+ri.getHost()+", port: "+ri.getPort()+" is down or not properly configured", e);
-		} catch (InstantiationException e) {
-			throw new IllegalStateException("Cannot connect to "+ri+", due: "+e.getMessage()+". Server at "+ri.getHost()+", port: "+ri.getPort()+" is down or not properly configured", e);
-		} catch (IllegalAccessException e) {
+		} catch (InstantiationException | IllegalAccessException e) {
+			resetConnection();
 			throw new IllegalStateException("Cannot connect to "+ri+", due: "+e.getMessage()+". Server at "+ri.getHost()+", port: "+ri.getPort()+" is down or not properly configured", e);
 		}
 	}
