@@ -1,8 +1,8 @@
 package net.anotheria.moskito.extensions.analyze.connector;
 
 import java.io.Serializable;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Represents a single snapshot.
@@ -23,9 +23,9 @@ public class Snapshot implements Serializable {
 	private SnapshotMetaData metaData;
 
 	/**
-	 * Stat values.
+	 * Stats.
 	 */
-	private Map<String, Map<String, String>> stats = new HashMap<>();
+	private List<Stat> stats = new ArrayList<>();
 
 	/**
 	 * Default constructor.
@@ -42,35 +42,29 @@ public class Snapshot implements Serializable {
 		this.metaData = metaData;
 	}
 
-	/**
-	 * Adds snapshot data to the stats map.
-	 *
-	 * @param name stat name
-	 * @param values stat values
-	 */
-	public void addSnapshotData(String name, Map<String, String> values) {
-		stats.put(name, values);
-	}
-
-	@Override
-	public String toString() {
-		return "Snapshot [metaData=" + metaData + ", stats=" + stats + "]";
+	public void addStat(Stat stat) {
+		stats.add(stat);
 	}
 
 	/**
 	 * Gets all statistics.
 	 *
-	 * @return {@link Map}
+	 * @return list of {@link Stat}
 	 */
-	public Map<String, Map<String, String>> getStats() {
+	public List<Stat> getStats() {
 		if (stats == null) {
-			stats = new HashMap<>();
+			stats = new ArrayList<>();
 		}
 		return stats;
 	}
 
-	public void setStats(Map<String, Map<String, String>> stats) {
+	public void setStats(List<Stat> stats) {
 		this.stats = stats;
+	}
+
+	@Override
+	public String toString() {
+		return "Snapshot [metaData=" + metaData + ", stats=" + stats + "]";
 	}
 
 }

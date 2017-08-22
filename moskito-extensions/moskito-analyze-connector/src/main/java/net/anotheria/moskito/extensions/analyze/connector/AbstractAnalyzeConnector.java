@@ -94,7 +94,10 @@ public abstract class AbstractAnalyzeConnector extends AbstractMoskitoPlugin imp
 
 		Map<String, StatSnapshot> coreStatSnapshots = coreSnapshot.getStatSnapshots();
 		for (Map.Entry<String, StatSnapshot> coreStatSnapshot : coreStatSnapshots.entrySet()) {
-			snapshot.addSnapshotData(coreStatSnapshot.getKey(), new HashMap<>(coreStatSnapshot.getValue().getValues()));
+			Stat stat = new Stat();
+			stat.setStatName(coreStatSnapshot.getKey());
+			stat.setValues(new HashMap<>(coreStatSnapshot.getValue().getValues()));
+			snapshot.addStat(stat);
 		}
 		return snapshot;
 	}
