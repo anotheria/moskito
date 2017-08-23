@@ -12,7 +12,9 @@ import java.util.concurrent.atomic.AtomicBoolean;
  * @since 22.05.17 01:36
  */
 public class MoSKitoContext {
+
 	private static InheritableThreadLocal<MoSKitoContext> currentContext = new InheritableThreadLocal<MoSKitoContext>(){
+
 		@Override
 		protected MoSKitoContext childValue(MoSKitoContext parentValue) {
 			MoSKitoContext child = new MoSKitoContext();
@@ -26,6 +28,7 @@ public class MoSKitoContext {
 			return new MoSKitoContext();
 		}
 	};
+
 
 	public static MoSKitoContext get(){
 		return currentContext.get();
