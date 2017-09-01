@@ -56,7 +56,6 @@
             <dd><mos:deepLink  href="mskShowProducersByCategory?pCategory=${producer.category}">${producer.category}</mos:deepLink></dd>
             <dt>Subsystem:</dt>
             <dd><mos:deepLink  href="mskShowProducersBySubsystem?pSubsystem=${producer.subsystem}">${producer.subsystem}</mos:deepLink></dd>
-            <dd><mos:deepLink  href="mskShowProducersBySubsystem?pSubsystem=${producer.subsystem}">${producer.subsystem}</mos:deepLink></dd>
             <dt>Сlass:</dt>
             <dd>${producer.producerClassName}</dd>
         </dl>
