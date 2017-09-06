@@ -46,6 +46,11 @@ public class MoSKitoContext {
 	 */
 	private AtomicBoolean errorOccured = new AtomicBoolean(false);
 
+	/**
+	 * If true, a tracer already reacted to this thread, don't activate any additional tracers.
+	 */
+	private boolean tracerFired;
+
 	public static void addTag(String tagName, String tagValue){
 		get().tags.put(tagName, tagValue);
 	}
@@ -69,6 +74,7 @@ public class MoSKitoContext {
 		tags = new HashMap<>();
 		errorOccured = new AtomicBoolean(false);
 		seenErrors = new HashSet<>();
+		tracerFired = false;
 	}
 
 
@@ -83,6 +89,14 @@ public class MoSKitoContext {
 			return true;
 		seenErrors.add(key);
 		return false;
+	}
+
+	public boolean hasTracerFired(){
+		return tracerFired;
+	}
+
+	public void setTracerFired(){
+		tracerFired = true;
 	}
 
 	/* test visibility */ static Integer getHashKey(Throwable t){

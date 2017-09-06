@@ -1,6 +1,7 @@
 package net.anotheria.moskito.aop.aspect;
 
 import net.anotheria.moskito.core.calltrace.*;
+import net.anotheria.moskito.core.context.MoSKitoContext;
 import net.anotheria.moskito.core.dynamic.OnDemandStatsProducer;
 import net.anotheria.moskito.core.journey.Journey;
 import net.anotheria.moskito.core.journey.JourneyManagerFactory;
@@ -49,14 +50,20 @@ public class MonitoringBaseAspect extends AbstractMoskitoAspect<ServiceStats>{
         TraceStep currentStep = null;
         CurrentlyTracedCall currentTrace = aRunningTrace.callTraced() ? (CurrentlyTracedCall) aRunningTrace : null;
 
+		MoSKitoContext context = MoSKitoContext.get();
         TracerRepository tracerRepository = TracerRepository.getInstance();
-        boolean tracePassingOfThisProducer = tracerRepository.isTracingEnabledForProducer(producerId);
+        //only trace this producer if no tracers have been fired yet.
+        boolean tracePassingOfThisProducer =
+				context.hasTracerFired() ?
+						false :
+						tracerRepository.isTracingEnabledForProducer(producerId);
         Trace trace = null;
         boolean journeyStartedByMe = false;
 
         //we create trace here already, because we want to reserve a new trace id.
         if (tracePassingOfThisProducer){
             trace = new Trace();
+            context.setTracerFired();
         }
 
 

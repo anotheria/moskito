@@ -5,6 +5,7 @@ import net.anotheria.moskito.core.calltrace.RunningTraceContainer;
 import net.anotheria.moskito.core.calltrace.TraceStep;
 import net.anotheria.moskito.core.calltrace.TracedCall;
 import net.anotheria.moskito.core.calltrace.TracingUtil;
+import net.anotheria.moskito.core.context.MoSKitoContext;
 import net.anotheria.moskito.core.dynamic.IOnDemandStatsFactory;
 import net.anotheria.moskito.core.dynamic.OnDemandStatsProducer;
 import net.anotheria.moskito.core.journey.Journey;
@@ -91,15 +92,21 @@ public class MonitorInterceptor extends AbstractInterceptor<ServiceStats> implem
             currentStep = currentTrace.startStep(call, onDemandProducer);
         }
 
+		MoSKitoContext context = MoSKitoContext.get();
         TracerRepository tracerRepository = TracerRepository.getInstance();
-        boolean tracePassingOfThisProducer = tracerRepository.isTracingEnabledForProducer(producerId);
+		//only trace this producer if no tracers have been fired yet.
+		boolean tracePassingOfThisProducer =
+				context.hasTracerFired() ?
+						false :
+						tracerRepository.isTracingEnabledForProducer(producerId);
         Trace trace = null;
         boolean journeyStartedByMe = false;
 
         //we create trace here already, because we want to reserve a new trace id.
         if (tracePassingOfThisProducer){
             trace = new Trace();
-        }
+			context.setTracerFired();
+		}
 
         if (currentTrace == null && tracePassingOfThisProducer){
             //ok, we will create a new journey on the fly.
