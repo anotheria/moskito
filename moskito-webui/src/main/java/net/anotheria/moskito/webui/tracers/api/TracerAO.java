@@ -22,6 +22,11 @@ public class TracerAO implements Serializable {
 	 * Number of recorded traces.
 	 */
 	private int entryCount;
+
+	/**
+	 * Total number of recorded traces, some will be deleted over time.
+	 */
+	private int totalEntryCount;
 	/**
 	 * State of the Tracer -&gt; enabled or disabled. Disabled tracer doesn't collect any traces.
 	 */
@@ -53,5 +58,13 @@ public class TracerAO implements Serializable {
 
 	public void setProducerId(String producerId) {
 		this.producerId = producerId;
+	}
+
+	public int getTotalEntryCount() {
+		return totalEntryCount;
+	}
+
+	public void setTotalEntryCount(int totalEntryCount) {
+		this.totalEntryCount = totalEntryCount;
 	}
 }

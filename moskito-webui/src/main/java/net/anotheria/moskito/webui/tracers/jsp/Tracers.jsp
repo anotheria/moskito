@@ -35,7 +35,8 @@
                     <tr>
                         <th>Name / ProducerId</th>
                         <th>Enabled</th>
-                        <th>Entries</th>
+                        <th>Current entries</th>
+                        <th>Total calls seen</th>
                         <th class="th-actions"></th>
                     </tr>
                     </thead>
@@ -45,6 +46,7 @@
                             <td><mos:deepLink  href="mskTracer?pProducerId=${tracer.producerId}">${tracer.producerId}</mos:deepLink ></td>
                             <td>${tracer.enabled}</td>
                             <td>${tracer.entryCount}</td>
+                            <td>${tracer.totalEntryCount}</td>
                             <td>
                                 <mos:deepLink  href="mskRemoveTracer?pProducerId=${tracer.producerId}" class="action-icon delete-icon tooltip-bottom" title="Delete"><i class="fa fa-ban"></i></mos:deepLink >
                                 <c:if test="${tracer.enabled}">
