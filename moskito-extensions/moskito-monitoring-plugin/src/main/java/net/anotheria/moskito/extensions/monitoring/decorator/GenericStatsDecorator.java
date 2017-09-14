@@ -19,7 +19,7 @@ import java.util.Map;
  * Generic stats decorator, containing common logic.
  *
  * @param <GS> the type of stats decorated by this class.
- * @param <GM> the type of metrics bound to <GS> stats type.
+ * @param <GM> the type of metrics bound to &lt;GS&gt; stats type.
  *
  * @author dzhmud
  */

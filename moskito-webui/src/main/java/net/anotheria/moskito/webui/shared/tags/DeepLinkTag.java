@@ -19,9 +19,9 @@ import java.util.Map;
  *
  * Example (tag name `mos:deepLink` means this tag) :
  *
- *      <mos:deepLink id="deepLink" href="mskDashboards">Dashboards</mos:deepLink>
+ *      &lt;mos:deepLink id="deepLink" href="mskDashboards"&gt;Dashboards&lt;/mos:deepLink&gt;
  *                                         ⇩
- *  <a href="mskDashboards?remoteConnection=localhost:9104" id="deepLink">Dashboards</a>
+ *  &lt;a href="mskDashboards?remoteConnection=localhost:9104" id="deepLink"&gt;Dashboards&lt;/a&gt;
  *
  */
 public class DeepLinkTag extends SimpleTagSupport implements DynamicAttributes {
