@@ -1,10 +1,8 @@
 package net.anotheria.moskito.web.filters;
 
-import kafkatest.producer.Producer;
 import net.anotheria.moskito.core.calltrace.CurrentlyTracedCall;
 import net.anotheria.moskito.core.calltrace.NoTracedCall;
 import net.anotheria.moskito.core.calltrace.RunningTraceContainer;
-import net.anotheria.moskito.core.calltrace.TraceStep;
 import net.anotheria.moskito.core.calltrace.TracedCall;
 import net.anotheria.moskito.core.context.MoSKitoContext;
 import net.anotheria.moskito.core.journey.Journey;
@@ -60,8 +58,6 @@ public class JourneyFilter implements Filter{
 	 */
 	private JourneyManager journeyManager;
 
-	private Producer kafkaProducer = new Producer();
-
 	@Override public void destroy() {
 	}
 
@@ -70,8 +66,6 @@ public class JourneyFilter implements Filter{
 			chain.doFilter(sreq, sres);
 			return;
 		}
-
-		boolean always_record_journey  = true;
 
 		HttpServletRequest req = (HttpServletRequest)sreq;
 		processParameters(req);
@@ -92,7 +86,7 @@ public class JourneyFilter implements Filter{
 		}
 
 		String url = "none";
-		if (record!=null || always_record_journey){
+		if (record!=null){
 			url = req.getServletPath();
 			if (req.getPathInfo()!=null)
 				url += req.getPathInfo();
@@ -104,9 +98,8 @@ public class JourneyFilter implements Filter{
 			//Removed reset call, cause the context gets reset at the end of the call in finally anyway, so its safe to assume that we have a new context.
 			//MoSKitoContext.get().reset();
 			chain.doFilter(sreq, sres);
-			System.out.println("FINISHED JOURNEY");
 		}finally{
-			if (record!=null ||always_record_journey){
+			if (record!=null){
 				TracedCall last = RunningTraceContainer.endTrace();
 				if (last instanceof NoTracedCall){
 					log.warn("Unexpectedly last is a NoTracedCall instead of CurrentlyTracedCall for "+url);
@@ -115,7 +108,6 @@ public class JourneyFilter implements Filter{
 					finishedCall.setEnded();
 					if (record!=null)
 						journey.addUseCase(finishedCall);
-					serializeOut(finishedCall);
 				}
 				
 				//removes the running use case to cleanup the thread local. Otherwise tomcat will be complaining...
@@ -126,14 +118,7 @@ public class JourneyFilter implements Filter{
 			
 	}
 
-	private void serializeOut(CurrentlyTracedCall call){
-		System.out.println("Hace to serialize call "+call);
-		System.out.println("Duration "+call.getDurationNanos()+" ns ");
-		TraceStep root = call.getRootStep();
-		System.out.println(root.toJSON());
-		kafkaProducer.sendData("moskito", root.toJSON());
-	}
-	
+
 	private void processParameters(HttpServletRequest req){
 		
 		
