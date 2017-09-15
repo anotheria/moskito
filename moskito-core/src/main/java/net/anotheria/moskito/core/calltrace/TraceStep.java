@@ -247,4 +247,32 @@ public class TraceStep implements Serializable{
 	public IStatsProducer getProducer(){
 		return producer;
 	}
+
+	public String toJSON(){
+		StringBuilder ret = new StringBuilder();
+		ret.append("{");
+		ret.append(quote("call")).append(":").append(quote(call)).append(',');
+		if (producer!=null) {
+			ret.append(quote("producer")).append(":").append(quote(producer.getProducerId())).append(',');
+			ret.append(quote("category")).append(":").append(quote(producer.getCategory())).append(',');
+			ret.append(quote("subsystem")).append(":").append(quote(producer.getSubsystem())).append(',');
+		}
+		ret.append(quote("duration")).append(": ").append(duration).append(',');
+		ret.append(quote("netDuration")).append(": ").append(getNetDuration()).append(',');
+
+		ret.append(quote("children")).append(": ").append("[");
+		for (int i=0; i<getChildren().size(); i++){
+			if (i>0) {
+				ret.append(',');
+			}
+			ret.append(getChildren().get(i).toJSON());
+		}
+		ret.append("]");
+		ret.append("}");
+		return ret.toString();
+	}
+
+	private String quote(String s){
+		return "\"" + s + "\"";
+	}
 }
