@@ -1,6 +1,5 @@
 package net.anotheria.moskito.web.filters;
 
-import kafkatest.producer.Producer;
 import net.anotheria.moskito.core.calltrace.CurrentlyTracedCall;
 import net.anotheria.moskito.core.calltrace.NoTracedCall;
 import net.anotheria.moskito.core.calltrace.RunningTraceContainer;
@@ -59,8 +58,6 @@ public class JourneyFilter implements Filter{
 	 * JourneyManager instance.
 	 */
 	private JourneyManager journeyManager;
-
-	private Producer kafkaProducer = new Producer();
 
 	@Override public void destroy() {
 	}
@@ -131,7 +128,9 @@ public class JourneyFilter implements Filter{
 		System.out.println("Duration "+call.getDurationNanos()+" ns ");
 		TraceStep root = call.getRootStep();
 		System.out.println(root.toJSON());
-		kafkaProducer.sendData("moskito", root.toJSON());
+		//kafkaProducer.sendData("moskito", root.toJSON());
+		System.out.println("EUGENE PLEASE SEND ME TO ANALYZE " + root.toJSON());
+
 	}
 	
 	private void processParameters(HttpServletRequest req){
