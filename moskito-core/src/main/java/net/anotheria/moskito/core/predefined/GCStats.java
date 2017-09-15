@@ -13,111 +13,106 @@ import java.util.List;
 
 /**
  * Stats object for Garbage Collector related values.
- * @author esmakula
  *
+ * @author esmakula
  */
 public class GCStats extends AbstractStats {
-	/**
-	 * Current collection count amount.
-	 */
-	private StatValue currentCollectionCount;
-	/**
-	 * Total collection count amount.
-	 */
-	private StatValue totalCollectionCount;
-	/**
-	 * Current collection time.
-	 */
-	private StatValue currentCollectionTime;
-	/**
-	 * Total collection time.
-	 */
-	private StatValue totalCollectionTime;
+    /**
+     * Collection count amount.
+     */
+    private final StatValue collectionCount;
+    /**
+     * Collection time.
+     */
+    private final StatValue collectionTime;
 
-	public GCStats(String aName){
-		this(aName, Constants.getDefaultIntervals());
-	}
+    /**
+     * Constructor.
+     *
+     * @param aName stat name
+     */
+    public GCStats(String aName) {
+        this(aName, Constants.getDefaultIntervals());
+    }
 
-	public GCStats(String aName, Interval[] selectedIntervals){
-		super(aName);
-		currentCollectionCount = StatValueFactory.createStatValue(StatValueTypes.DIFFLONG, "currentCollectionCount", selectedIntervals);
-		totalCollectionCount = StatValueFactory.createStatValue(0, "totalCollectionCount", selectedIntervals);
-		currentCollectionTime = StatValueFactory.createStatValue(StatValueTypes.DIFFLONG, "currentCollectionTime", selectedIntervals);
-		totalCollectionTime = StatValueFactory.createStatValue(0, "totalCollectionTime", selectedIntervals);
+    private GCStats(String aName, Interval[] selectedIntervals) {
+        super(aName);
+        collectionCount = StatValueFactory.createStatValue(StatValueTypes.DIFFLONG, "collectionCount", selectedIntervals);
+        collectionTime = StatValueFactory.createStatValue(StatValueTypes.DIFFLONG, "collectionTime", selectedIntervals);
 
-		addStatValues(currentCollectionCount, totalCollectionCount, currentCollectionTime, totalCollectionTime);
-		
-	}
+        addStatValues(collectionCount, collectionTime);
 
-	@Override
-	public String toStatsString(String intervalName, TimeUnit unit) {
-		StringBuilder ret = new StringBuilder();
-		
-		ret.append(getName()).append(' ');
-		ret.append(" currentCollectionCount: ").append(currentCollectionCount.getValueAsLong(intervalName));
-		ret.append(" totalCollectionCount: ").append(totalCollectionCount.getValueAsLong(intervalName));
-		ret.append(" currentCollectionTime: ").append(currentCollectionTime.getValueAsLong(intervalName));
-		ret.append(" totalCollectionTime: ").append(totalCollectionTime.getValueAsLong(intervalName));
+    }
 
-		return ret.toString();
-	}
-	
-	@Override
-	public String getValueByNameAsString(String valueName, String intervalName, TimeUnit timeUnit) {
-		
-		if (valueName==null)
-			throw new AssertionError("Value name can't be null");
-		valueName = valueName.toLowerCase();
-		
-		if (valueName.equals("currentcollectioncount") || valueName.equals("current collection count"))
-			return String.valueOf(getCurrentCollectionCount(intervalName));
-		if (valueName.equals("totalcollectioncount") || valueName.equals("total collection count"))
-			return String.valueOf(getTotalCollectionCount(intervalName));
-		if (valueName.equals("currentcollectiontime") || valueName.equals("current collection time"))
-			return String.valueOf(getCurrentCollectionTime(intervalName));
-		if (valueName.equals("totalcollectiontime") || valueName.equals("total collection time"))
-			return String.valueOf(getTotalCollectionTime(intervalName));
+    @Override
+    public String toStatsString(String intervalName, TimeUnit unit) {
+        StringBuilder ret = new StringBuilder();
 
+        ret.append(getName()).append(' ');
+        ret.append(" CollectionCount: ").append(collectionCount.getValueAsLong(intervalName));
+        ret.append(" CollectionTime: ").append(collectionTime.getValueAsLong(intervalName));
 
-		return super.getValueByNameAsString(valueName, intervalName, timeUnit);
-	}
+        return ret.toString();
+    }
 
-	private static final List<String> VALUE_NAMES = Collections.unmodifiableList(Arrays.asList(
-			"CurrentCollectionCount",
-			"TotalCollectionCount",
-			"CurrentCollectionTime",
-			"TotalCollectionTime"
-	));
+    @Override
+    public String getValueByNameAsString(String valueName, String intervalName, TimeUnit timeUnit) {
 
-	@Override
-	public List<String> getAvailableValueNames() {
-		return VALUE_NAMES;
-	}
+        if (valueName == null)
+            throw new AssertionError("Value name can't be null");
+        valueName = valueName.toLowerCase();
 
+        if (valueName.equals("collectioncount") || valueName.equals("collection count"))
+            return String.valueOf(getCollectionCount(intervalName));
+        if (valueName.equals("collectiontime") || valueName.equals("collection time"))
+            return String.valueOf(getCollectionTime(intervalName));
 
+        return super.getValueByNameAsString(valueName, intervalName, timeUnit);
+    }
 
-	public void update(long aCollectionCount, long aCollectionTime){
-		currentCollectionCount.setValueAsLong(aCollectionCount);
-		totalCollectionCount.setValueAsLong(aCollectionCount);
-		currentCollectionTime.setValueAsLong(aCollectionTime);
-		totalCollectionTime.setValueAsLong(aCollectionTime);
-	}
+    /**
+     * Value names.
+     */
+    private static final List<String> VALUE_NAMES = Collections.unmodifiableList(Arrays.asList(
+            "CollectionCount",
+            "CollectionTime"
+    ));
 
-	public long getCurrentCollectionCount(String intervalName){
-		return currentCollectionCount.getValueAsLong(intervalName);
-	}
+    @Override
+    public List<String> getAvailableValueNames() {
+        return VALUE_NAMES;
+    }
 
-	public long getTotalCollectionCount(String intervalName){
-		return totalCollectionCount.getValueAsLong(intervalName);
-	}
+    /**
+     * Updates stats values.
+     *
+     * @param aCollectionCount collection count
+     * @param aCollectionTime  collection time
+     */
+    public void update(long aCollectionCount, long aCollectionTime) {
+        collectionCount.setValueAsLong(aCollectionCount);
+        collectionTime.setValueAsLong(aCollectionTime);
+    }
 
-	public long getCurrentCollectionTime(String intervalName){
-		return currentCollectionTime.getValueAsLong(intervalName);
-	}
+    /**
+     * Returns collection count for interval.
+     *
+     * @param intervalName interval name
+     * @return collection count long value
+     */
+    public long getCollectionCount(String intervalName) {
+        return collectionCount.getValueAsLong(intervalName);
+    }
 
-	public long getTotalCollectionTime(String intervalName){
-		return totalCollectionTime.getValueAsLong(intervalName);
-	}
+    /**
+     * Returns collection time for interval.
+     *
+     * @param intervalName interval name
+     * @return collection time long value
+     */
+    public long getCollectionTime(String intervalName) {
+        return collectionTime.getValueAsLong(intervalName);
+    }
 
 
 }

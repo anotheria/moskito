@@ -10,6 +10,7 @@ import net.anotheria.moskito.core.config.journey.JourneyConfig;
 import net.anotheria.moskito.core.config.plugins.PluginsConfig;
 import net.anotheria.moskito.core.config.producers.BuiltinProducersConfig;
 import net.anotheria.moskito.core.config.producers.MBeanProducerConfig;
+import net.anotheria.moskito.core.config.producers.TomcatRequestProcessorProducerConfig;
 import net.anotheria.moskito.core.config.thresholds.ThresholdsAlertsConfig;
 import net.anotheria.moskito.core.config.thresholds.ThresholdsConfig;
 import net.anotheria.moskito.core.config.tracing.TracingConfiguration;
@@ -31,6 +32,9 @@ public class MoskitoConfiguration implements Serializable{
 	 * SerialVersionUID.
 	 */
 	private static final long serialVersionUID = 6636333765192447227L;
+
+	@Configure
+	private String applicationName = "";
 
 	/**
 	 * Config object for alerting.
@@ -87,6 +91,13 @@ public class MoskitoConfiguration implements Serializable{
 	@Configure
 	@SerializedName("@builtinProducersConfig")
 	private BuiltinProducersConfig builtinProducersConfig = new BuiltinProducersConfig();
+
+	/**
+	 * Config object for tomcat GlobalRequestProcessor producer.
+	 */
+	@Configure
+	@SerializedName("@tomcatRequestProcessorProducerConfig")
+	private TomcatRequestProcessorProducerConfig tomcatRequestProcessorProducerConfig = new TomcatRequestProcessorProducerConfig();
 
 	/**
 	 * Configuration for tracing.
@@ -176,6 +187,14 @@ public class MoskitoConfiguration implements Serializable{
 		this.builtinProducersConfig = builtinProducersConfig;
 	}
 
+	public TomcatRequestProcessorProducerConfig getTomcatRequestProcessorProducerConfig() {
+		return tomcatRequestProcessorProducerConfig;
+	}
+
+	public void setTomcatRequestProcessorProducerConfig(TomcatRequestProcessorProducerConfig tomcatRequestProcessorProducerConfig) {
+		this.tomcatRequestProcessorProducerConfig = tomcatRequestProcessorProducerConfig;
+	}
+
 	public GaugesConfig getGaugesConfig() {
 		return gaugesConfig;
 	}
@@ -223,6 +242,15 @@ public class MoskitoConfiguration implements Serializable{
 	public void setErrorHandlingConfig(ErrorHandlingConfig errorHandlingConfig) {
 		this.errorHandlingConfig = errorHandlingConfig;
 	}
+
+	public String getApplicationName() {
+		return applicationName;
+	}
+
+	public void setApplicationName(String applicationName) {
+		this.applicationName = applicationName;
+	}
+
 }
 
 

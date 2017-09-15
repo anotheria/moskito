@@ -44,6 +44,7 @@
                 <input type="hidden" name="target" value="<ano:write name="target"/>"/>
                 <input type="hidden" name="statName"/>
                 <input type="hidden" name="valueName"/>
+				<input type="hidden" name="remoteConnection" value="${remoteLink}"/>
 
             <h3>Select producer for new <ano:write name="target"/>.</h3>
             <div class="controls">

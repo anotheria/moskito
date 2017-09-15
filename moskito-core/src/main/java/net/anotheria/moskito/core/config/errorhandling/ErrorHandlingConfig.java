@@ -47,6 +47,12 @@ public class ErrorHandlingConfig implements Serializable{
  	 */
 	@Configure private int catchersMemoryErrorLimit = 50;
 
+	/**
+	 * Count rethrows of a an error. This can cause a potential memory leak if you have many threads and do not cleanup MoSKitoContext afterwards, use with care.
+	 * Default: disabled.
+	 */
+	@Configure private boolean countRethrows = false;
+
 
 	private transient Map<String, ErrorCatcherConfig> catcherCache = new HashMap<>();
 
@@ -107,5 +113,13 @@ public class ErrorHandlingConfig implements Serializable{
 
 	public void setCatchersMemoryErrorLimit(int catchersMemoryErrorLimit) {
 		this.catchersMemoryErrorLimit = catchersMemoryErrorLimit;
+	}
+
+	public boolean isCountRethrows() {
+		return countRethrows;
+	}
+
+	public void setCountRethrows(boolean countRethrows) {
+		this.countRethrows = countRethrows;
 	}
 }

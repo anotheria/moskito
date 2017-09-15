@@ -4,6 +4,7 @@ import net.anotheria.anoplass.api.API;
 import net.anotheria.anoplass.api.APIFinder;
 import net.anotheria.moskito.webui.MoSKitoWebUIContext;
 import net.anotheria.moskito.webui.accumulators.api.AccumulatorAPI;
+import net.anotheria.moskito.webui.auth.api.AuthApi;
 import net.anotheria.moskito.webui.dashboards.api.DashboardAPI;
 import net.anotheria.moskito.webui.gauges.api.GaugeAPI;
 import net.anotheria.moskito.webui.journey.api.JourneyAPI;
@@ -105,6 +106,9 @@ public class APILookupUtility {
 			findRemote(ThresholdAPI.class);
 	}
 
+	public static AuthApi getAuthApi(){
+		return APIFinder.findAPI(AuthApi.class);
+	}
 
 	public static AccumulatorAPI getAccumulatorAPI() {
 		return isLocal() ?
@@ -148,8 +152,9 @@ public class APILookupUtility {
 				findRemote(TracerAPI.class);
 	}
 
-
-
+	public static void resetConnection(){
+		setCurrentConnectivityMode(ConnectivityMode.LOCAL);
+	}
 
 	private static <T extends API> T findRemote(Class<T> targetClass){
 		String serviceId = null;
@@ -200,10 +205,10 @@ public class APILookupUtility {
 		}catch (NoSuchMethodException e) {
 			throw new IllegalStateException("Constructor with ServiceDescriptor parameter not found in remote stub", e);
 		} catch (InvocationTargetException e) {
+			resetConnection();
 			throw new IllegalStateException("Cannot connect to "+ri+", due: "+e.getTargetException().getMessage()+". Server at "+ri.getHost()+", port: "+ri.getPort()+" is down or not properly configured", e);
-		} catch (InstantiationException e) {
-			throw new IllegalStateException("Cannot connect to "+ri+", due: "+e.getMessage()+". Server at "+ri.getHost()+", port: "+ri.getPort()+" is down or not properly configured", e);
-		} catch (IllegalAccessException e) {
+		} catch (InstantiationException | IllegalAccessException e) {
+			resetConnection();
 			throw new IllegalStateException("Cannot connect to "+ri+", due: "+e.getMessage()+". Server at "+ri.getHost()+", port: "+ri.getPort()+" is down or not properly configured", e);
 		}
 	}

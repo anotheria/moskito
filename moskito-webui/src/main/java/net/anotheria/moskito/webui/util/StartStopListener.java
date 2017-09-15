@@ -1,8 +1,9 @@
 package net.anotheria.moskito.webui.util;
 
-import net.anotheria.moskito.core.helper.RuntimeConstants;
 import net.anotheria.moskito.core.threshold.ThresholdRepository;
+import net.anotheria.moskito.core.timing.UpdateTriggerServiceFactory;
 import net.anotheria.moskito.core.util.BuiltinUpdater;
+import net.anotheria.moskito.core.util.MBeanUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -24,7 +25,6 @@ public class StartStopListener implements ServletContextListener{
 	@Override
 	public void contextInitialized(ServletContextEvent sce) {
 		log.info("Initializing moskito for "+sce.getServletContext().getServletContextName());
-		RuntimeConstants.setApplicationName(sce.getServletContext().getServletContextName());
 	}
 	
 
@@ -33,6 +33,8 @@ public class StartStopListener implements ServletContextListener{
 		log.info("Deinitializing moskito for "+sce.getServletContext().getServletContextName());
 		BuiltinUpdater.cleanup();
 		ThresholdRepository.getInstance().cleanup();
+		UpdateTriggerServiceFactory.getUpdateTriggerService().cleanup();
+		MBeanUtil.getInstance().cleanup();
 	}
 
 }

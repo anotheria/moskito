@@ -12,59 +12,51 @@ import java.util.List;
 
 /**
  * A decorator for the Garbage Collector stats.
- * @author esmakula
  *
+ * @author esmakula
  */
 public class GCStatsDecorator extends AbstractDecorator {
 
-	/**
-	 * Captions.
-	 */
-	private static final String CAPTIONS[] = {
-			"CurrentCollectionCount",
-			"TotalCollectionCount",
-			"CurrentCollectionTime",
-			"TotalCollectionTime"
-	};
-	/**
-	 * Short explanations (mouse-over).
-	 */
-	private static final String SHORT_EXPLANATIONS[] = {
-			"Current collection count",
-			"Total collection count",
-			"Current collection time",
-			"Total collection time",
-	};
+    /**
+     * Captions.
+     */
+    private static final String[] CAPTIONS = {
+            "CollectionCount",
+            "CollectionTime"
+    };
+    /**
+     * Short explanations (mouse-over).
+     */
+    private static final String[] SHORT_EXPLANATIONS = {
+            "Collection count",
+            "Collection time",
+    };
 
-	/**
-	 * Detailed explanations.
-	 */
-	private static final String EXPLANATIONS[] = {
-			"Total number of collections that have occurred for interval",
-			"Total number of collections that have occurred from start",
-			"Approximate accumulated collection elapsed time in milliseconds for interval",
-			"Approximate accumulated collection elapsed time in milliseconds from start"
-	};
+    /**
+     * Detailed explanations.
+     */
+    private static final String[] EXPLANATIONS = {
+            "Total number of collections that have occurred",
+            "Approximate accumulated collection elapsed time in milliseconds"
+    };
 
-	public GCStatsDecorator(){
-		this("GC");
-	}
+    /**
+     * Default constructor.
+     */
+    public GCStatsDecorator() {
+        super("GC", CAPTIONS, SHORT_EXPLANATIONS, EXPLANATIONS);
+    }
 
-	public GCStatsDecorator(String aName){
-		super(aName, CAPTIONS, SHORT_EXPLANATIONS, EXPLANATIONS);
-	}
+    @Override
+    public List<StatValueAO> getValues(IStats statsObject, String interval, TimeUnit unit) {
+        GCStats stats = (GCStats) statsObject;
 
-	@Override public List<StatValueAO> getValues(IStats statsObject, String interval, TimeUnit unit) {
-		GCStats stats = (GCStats) statsObject;
+        List<StatValueAO> ret = new ArrayList<>(CAPTIONS.length);
+        int i = 0;
+        ret.add(new LongValueAO(CAPTIONS[i++], stats.getCollectionCount(interval)));
+        ret.add(new LongValueAO(CAPTIONS[i++], stats.getCollectionTime(interval)));
 
-		List<StatValueAO> ret = new ArrayList<>(CAPTIONS.length);
-		int i = 0;
-		ret.add(new LongValueAO(CAPTIONS[i++], stats.getCurrentCollectionCount(interval)));
-		ret.add(new LongValueAO(CAPTIONS[i++], stats.getTotalCollectionCount(interval)));
-		ret.add(new LongValueAO(CAPTIONS[i++], stats.getCurrentCollectionTime(interval)));
-		ret.add(new LongValueAO(CAPTIONS[i++], stats.getTotalCollectionTime(interval)));
-
-		return ret;
-	}
+        return ret;
+    }
 
 }

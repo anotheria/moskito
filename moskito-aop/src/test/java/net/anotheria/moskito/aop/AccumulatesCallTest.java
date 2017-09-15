@@ -6,6 +6,7 @@ import net.anotheria.moskito.aop.annotation.Monitor;
 import net.anotheria.moskito.core.accumulation.Accumulator;
 import net.anotheria.moskito.core.accumulation.AccumulatorRepository;
 import net.anotheria.moskito.core.config.MoskitoConfigurationHolder;
+import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
@@ -22,7 +23,13 @@ public class AccumulatesCallTest {
 	public static void setup() {
 		MoskitoConfigurationHolder.resetConfiguration();
 		MoskitoConfigurationHolder.getConfiguration().getBuiltinProducersConfig().disableAll();
+        AccumulatorRepository.resetForUnitTests();
 	}
+
+	@AfterClass
+    public static void cleanup() {
+        AccumulatorRepository.resetForUnitTests();
+    }
 
 
 	@Test

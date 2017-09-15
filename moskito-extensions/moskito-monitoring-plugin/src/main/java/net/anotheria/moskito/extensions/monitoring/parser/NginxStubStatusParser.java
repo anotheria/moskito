@@ -29,7 +29,7 @@ public final class NginxStubStatusParser implements StatusParser<String, StatusD
     private static final Pattern pattern = Pattern.compile(STATUS_TEMPLATE);
 
     /**
-     * Parse NGINX stub status into StatusData<NginxMetrics>.
+     * Parse NGINX stub status into StatusData&lt;NginxMetrics&gt;.
      * @param nginxStatus retrieved stub status.
      * @return parsed metrics, put into StatusData.
      */

@@ -2,6 +2,7 @@
     %><%@ taglib uri="http://www.anotheria.net/ano-tags" prefix="ano"
     %><%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="core"
     %><%@ page isELIgnored="false" %>
+<%@ taglib uri="http://www.moskito.org/inspect/tags" prefix="mos" %>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <title>${title}</title>
@@ -119,6 +120,11 @@
                 </ul>
             </li>
             </ano:equal>
+                <ano:iF test="${mskIsAuthorized}">
+                    <li>
+                        <a href="mskSignOut">Sign Out</a>
+                    </li>
+                </ano:iF>
             <li><a href="mskShowExplanations"><i class="fa fa-info-circle icon-16"></i></a></li>
             <li class="iphone-app-link"><a href="https://itunes.apple.com/us/app/moskito-ui/id531387262?mt=8">Using iPhone? <img src="../moskito/int/img/iphone.svg" class="iphone-app-icon"></a></li>
         </ul>
@@ -156,10 +162,10 @@
             </ano:notEmpty> --%>
             <ano:empty name="logoUrl">
                 <div class="logo">
-                    <a href="mskDashboard">
+                    <mos:deepLink href="mskDashboard">
                         <img src="../moskito/int/img/logo.png" class="logo-white">
                         <span><b>MoSKito</b><span>Inspect</span></span>
-                    </a>
+                    </mos:deepLink>
                 </div>
             </ano:empty>
         </div>
@@ -168,44 +174,44 @@
     <ul class="nav nav-sidebar nav-status">
         <ano:equal name="currentNaviItem" property="id" value="dashboards">
             <li class="active">
-                <a href="mskDashboard" title="Dashboards" class="sidebar-tooltip-right">Dashboards<i class="fa fa-tachometer"></i></a>
+                <mos:deepLink href="mskDashboard" title="Dashboards" class="sidebar-tooltip-right">Dashboards<i class="fa fa-tachometer"></i></mos:deepLink>
                 <ul class="nav sub-menu">
                     <ano:iterate name="dashboardsMenuItems" id="item">
-                        <li ${requestScope.selectedDashboard == item.name ? "class=\"active\"" : ""}><a href="mskDashboard?dashboard=${item.urlParameter}" title="${item.name}" class="sidebar-tooltip-right">${item.name} <i class="fa fa-tachometer"></i></a></li>
+                        <li ${requestScope.selectedDashboard == item.name ? "class=\"active\"" : ""}><mos:deepLink href="mskDashboard?dashboard=${item.urlParameter}" title="${item.name}" class="sidebar-tooltip-right">${item.name} <i class="fa fa-tachometer"></i></mos:deepLink></li>
                     </ano:iterate>
-                    <li><a href="#CreateDashboard" data-toggle="modal" data-target="#CreateDashboard" title="New Dashboard" class="sidebar-tooltip-right">New Dashboard <i class="fa fa-tachometer"></i></a></li>
+                    <li><mos:deepLink href="#CreateDashboard" data-toggle="modal" data-target="#CreateDashboard" title="New Dashboard" class="sidebar-tooltip-right">New Dashboard <i class="fa fa-tachometer"></i></mos:deepLink></li>
                 </ul>
             </li>
         </ano:equal>
         <ano:notEqual name="currentNaviItem" property="id" value="dashboards">
-            <li><a href="mskDashboard" title="Dashboards" class="sidebar-tooltip-right">Dashboards<i class="fa fa-tachometer"></i></a></li>
+            <li><mos:deepLink href="mskDashboard" title="Dashboards" class="sidebar-tooltip-right">Dashboards<i class="fa fa-tachometer"></i></mos:deepLink></li>
         </ano:notEqual>
-        <li ${requestScope.currentNaviItem.id == "producers" ? "class=\"active\"" : ""}><a href="mskShowAllProducers" title="Producers" class="sidebar-tooltip-right">Producers <i class="fa fa-wrench"></i></a></li>
-        <li ${requestScope.currentNaviItem.id == "journeys" ? "class=\"active\"" : ""}><a href="mskShowJourneys" title="Journeys" class="sidebar-tooltip-right">Journeys <i class="fa fa-eye"></i></a></li>
-        <li ${requestScope.currentNaviItem.id == "thresholds" ? "class=\"active\"" : ""}><a href="mskThresholds" title="Thresholds" class="sidebar-tooltip-right">Thresholds <i class="fa fa-dot-circle-o"></i></a></li>
-        <li ${requestScope.currentNaviItem.id == "accumulators" ? "class=\"active\"" : ""}><a href="mskAccumulators" title="Accumulators" class="sidebar-tooltip-right">Accumulators <i class="fa fa-line-chart"></i></a></li>
+        <li ${requestScope.currentNaviItem.id == "producers" ? "class=\"active\"" : ""}><mos:deepLink href="mskShowAllProducers" title="Producers" class="sidebar-tooltip-right">Producers <i class="fa fa-wrench"></i></mos:deepLink></li>
+        <li ${requestScope.currentNaviItem.id == "journeys" ? "class=\"active\"" : ""}><mos:deepLink href="mskShowJourneys" title="Journeys" class="sidebar-tooltip-right">Journeys <i class="fa fa-eye"></i></mos:deepLink></li>
+        <li ${requestScope.currentNaviItem.id == "thresholds" ? "class=\"active\"" : ""}><mos:deepLink href="mskThresholds" title="Thresholds" class="sidebar-tooltip-right">Thresholds <i class="fa fa-dot-circle-o"></i></mos:deepLink></li>
+        <li ${requestScope.currentNaviItem.id == "accumulators" ? "class=\"active\"" : ""}><mos:deepLink href="mskAccumulators" title="Accumulators" class="sidebar-tooltip-right">Accumulators <i class="fa fa-line-chart"></i></mos:deepLink></li>
         <ano:equal name="currentNaviItem" property="id" value="threads">
             <li class="active">
-                <a href="mskThreads" title="Threads" class="sidebar-tooltip-right">Threads <i class="fa fa-bars"></i></a>
+                <mos:deepLink href="mskThreads" title="Threads" class="sidebar-tooltip-right">Threads <i class="fa fa-bars"></i></mos:deepLink>
                 <ul class="nav sub-menu">
-                    <li ${currentSubNaviItem.isSelected("threads_list") ? "class=\"active\"" : ""}><a href="mskThreadsList" title="List" class="sidebar-tooltip-right">List <i class="fa fa-list"></i></a></li>
-                    <li ${currentSubNaviItem.isSelected("threads_dump") ? "class=\"active\"" : ""}><a href="mskThreadsDump" title="Dump" class="sidebar-tooltip-right">Dump <i class="fa fa-upload"></i></a></li>
-                    <li ${currentSubNaviItem.isSelected("threads_history") ? "class=\"active\"" : ""}><a href="mskThreadsHistory" title="History" class="sidebar-tooltip-right">History <i class="fa fa-file-text"></i></a></li>
+                    <li ${currentSubNaviItem.isSelected("threads_list") ? "class=\"active\"" : ""}><mos:deepLink href="mskThreadsList" title="List" class="sidebar-tooltip-right">List <i class="fa fa-list"></i></mos:deepLink></li>
+                    <li ${currentSubNaviItem.isSelected("threads_dump") ? "class=\"active\"" : ""}><mos:deepLink href="mskThreadsDump" title="Dump" class="sidebar-tooltip-right">Dump <i class="fa fa-upload"></i></mos:deepLink></li>
+                    <li ${currentSubNaviItem.isSelected("threads_history") ? "class=\"active\"" : ""}><mos:deepLink href="mskThreadsHistory" title="History" class="sidebar-tooltip-right">History <i class="fa fa-file-text"></i></mos:deepLink></li>
                 </ul>
             </li>
         </ano:equal>
         <ano:notEqual name="currentNaviItem" property="id" value="threads">
-            <li><a href="mskThreads" title="Threads" class="sidebar-tooltip-right">Threads <i class="fa fa-bars"></i></a></li>
+            <li><mos:deepLink href="mskThreads" title="Threads" class="sidebar-tooltip-right">Threads <i class="fa fa-bars"></i></mos:deepLink></li>
         </ano:notEqual>
         <!-- Tracers --->
         <ano:notEqual name="currentNaviItem" property="id" value="tracers">
-            <li><a href="mskTracers" title="Tracers" class="sidebar-tooltip-right">Tracers <i class="fa fa-binoculars"></i></a></li>
+            <li><mos:deepLink href="mskTracers" title="Tracers" class="sidebar-tooltip-right">Tracers <i class="fa fa-binoculars"></i></mos:deepLink></li>
         </ano:notEqual>
         <ano:equal name="currentNaviItem" property="id" value="tracers">
-            <li class="active"><a href="mskTracers" title="Tracers" class="sidebar-tooltip-right">Tracers <i class="fa fa-binoculars"></i></a></li>
+            <li class="active"><mos:deepLink href="mskTracers" title="Tracers" class="sidebar-tooltip-right">Tracers <i class="fa fa-binoculars"></i></mos:deepLink></li>
             <ul class="nav sub-menu">
                 <ano:iterate id="subMenuElement" name="tracerSubmenuNames">
-                    <li <%--${currentSubNaviItem.isSelected("threads_list") ? "class=\"active\"" : ""} --%>><a href="mskTracer?pProducerId=${subMenuElement}" title="${subMenuElement}" class="sidebar-tooltip-right">${subMenuElement} <i class="fa fa-arrow-circle-right"></i></a></li>
+                    <li <%--${currentSubNaviItem.isSelected("threads_list") ? "class=\"active\"" : ""} --%>><mos:deepLink href="mskTracer?pProducerId=${subMenuElement}" title="${subMenuElement}" class="sidebar-tooltip-right">${subMenuElement} <i class="fa fa-arrow-circle-right"></i></mos:deepLink></li>
                 </ano:iterate>
             </ul>
         </ano:equal>
@@ -213,13 +219,13 @@
 
 
         <ano:notEqual name="currentNaviItem" property="id" value="plugins">
-            <li><a href="mskPlugins" title="Plugins" class="sidebar-tooltip-right">Plugins <i class="fa fa-plug"></i></a></li>
+            <li><mos:deepLink href="mskPlugins" title="Plugins" class="sidebar-tooltip-right">Plugins <i class="fa fa-plug"></i></mos:deepLink></li>
         </ano:notEqual>
         <ano:equal name="currentNaviItem" property="id" value="plugins">
-            <li class="active"><a href="mskPlugins" title="Plugins" class="sidebar-tooltip-right">Plugins <i class="fa fa-plug"></i></a></li>
+            <li class="active"><mos:deepLink href="mskPlugins" title="Plugins" class="sidebar-tooltip-right">Plugins <i class="fa fa-plug"></i></mos:deepLink></li>
             <ul class="nav sub-menu">
             <ano:iterate name="pluginsForNavi" id="plugin">
-                <li <ano:equal name="plugin" property="webSelected" value="true">class="active"</ano:equal>><a href="${plugin.navigationEntryAction}" title="${plugin.subNaviItemText}" class="sidebar-tooltip-right">${plugin.subNaviItemText} <i class="fa fa-${plugin.subNaviItemIcon}"></i></a></li>
+                <li <ano:equal name="plugin" property="webSelected" value="true">class="active"</ano:equal>><mos:deepLink href="${plugin.navigationEntryAction}" title="${plugin.subNaviItemText}" class="sidebar-tooltip-right">${plugin.subNaviItemText} <i class="fa fa-${plugin.subNaviItemIcon}"></i></mos:deepLink></li>
             </ano:iterate>
             </ul>
 
@@ -229,20 +235,20 @@
         <!-- Submenu for everything else -->
         <ano:equal name="currentNaviItem" property="id" value="more">
             <li class="active">
-            <a href="mskMore" title="Everything else" class="sidebar-tooltip-right">Everything else <i class="fa fa-bookmark"></i></a>
+            <mos:deepLink href="mskMore" title="Everything else" class="sidebar-tooltip-right">Everything else <i class="fa fa-bookmark"></i></mos:deepLink>
             <ul class="nav sub-menu">
-                <li ${currentSubNaviItem.isSelected("more_config")  ? "class=\"active\"" : ""}><a href="mskConfig" title="Config" class="sidebar-tooltip-right">Config <i class="fa fa-cog"></i></a></li>
-                <li ${currentSubNaviItem.isSelected("more_mbeans")  ? "class=\"active\"" : ""}><a href="mskMBeans" title="MBeans" class="sidebar-tooltip-right">MBeans <i class="fa fa-coffee"></i></a></li>
-                <li ${currentSubNaviItem.isSelected("more_libs")    ? "class=\"active\"" : ""}><a href="mskLibs" title="Libs" class="sidebar-tooltip-right">Libs <i class="fa fa-file-text"></i></a></li>
-                <li ${currentSubNaviItem.isSelected("more_update")  ? "class=\"active\"" : ""}><a href="mskUpdate" title="Update" class="sidebar-tooltip-right">Update  <i class="fa fa-upload"></i></a></li>
-                <li ${currentSubNaviItem.isSelected("more_gauges")  ? "class=\"active\"" : ""}><a href="mskGauges" title="Gauges" class="sidebar-tooltip-right">Gauges  <i class="fa fa-tachometer"></i></a></li>
-                <li ${currentSubNaviItem.isSelected("more_errors")  ? "class=\"active\"" : ""}><a href="mskErrors" title="Errors" class="sidebar-tooltip-right">Errors  <i class="fa fa-bug"></i></a></li>
+                <li ${currentSubNaviItem.isSelected("more_config")  ? "class=\"active\"" : ""}><mos:deepLink href="mskConfig" title="Config" class="sidebar-tooltip-right">Config <i class="fa fa-cog"></i></mos:deepLink></li>
+                <li ${currentSubNaviItem.isSelected("more_mbeans")  ? "class=\"active\"" : ""}><mos:deepLink href="mskMBeans" title="MBeans" class="sidebar-tooltip-right">MBeans <i class="fa fa-coffee"></i></mos:deepLink></li>
+                <li ${currentSubNaviItem.isSelected("more_libs")    ? "class=\"active\"" : ""}><mos:deepLink href="mskLibs" title="Libs" class="sidebar-tooltip-right">Libs <i class="fa fa-file-text"></i></mos:deepLink></li>
+                <li ${currentSubNaviItem.isSelected("more_update")  ? "class=\"active\"" : ""}><mos:deepLink href="mskUpdate" title="Update" class="sidebar-tooltip-right">Update  <i class="fa fa-upload"></i></mos:deepLink></li>
+                <li ${currentSubNaviItem.isSelected("more_gauges")  ? "class=\"active\"" : ""}><mos:deepLink href="mskGauges" title="Gauges" class="sidebar-tooltip-right">Gauges  <i class="fa fa-tachometer"></i></mos:deepLink></li>
+                <li ${currentSubNaviItem.isSelected("more_errors")  ? "class=\"active\"" : ""}><mos:deepLink href="mskErrors" title="Errors" class="sidebar-tooltip-right">Errors  <i class="fa fa-bug"></i></mos:deepLink></li>
                 <%--<li ${currentSubNaviItem.isSelected("more_plugins") ? "class=\"active\"" : ""}><a href="mskPlugins" title="Plugins" class="sidebar-tooltip-right">Plugins <i class="fa fa-cloud"></i></a></li>--%>
             </ul>
         </li>
         </ano:equal>
         <ano:notEqual name="currentNaviItem" property="id" value="more">
-            <li><a href="mskMore" title="Everything else" class="sidebar-tooltip-right">Everything else <i class="fa fa-bookmark"></i></a></li>
+            <li><mos:deepLink href="mskMore" title="Everything else" class="sidebar-tooltip-right">Everything else <i class="fa fa-bookmark"></i></mos:deepLink></li>
         </ano:notEqual>
     </ul>
 
@@ -281,7 +287,10 @@
             </ano:iterate>
         </select>
 
-        <form name="Filter" action="mskShowAllProducers" method="GET"><input type="text" name="pNameFilter" value="${nameFilter}" class="form-control" placeholder="Filter by name"></form>
+        <form name="Filter" action="mskShowAllProducers" method="GET">
+            <input type="text" name="pNameFilter" value="${nameFilter}" class="form-control" placeholder="Filter by name">
+            <input type="hidden" name="remoteConnection" value="${remoteLink}"/>
+        </form>
     </div>
     </ano:equal>
 

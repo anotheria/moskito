@@ -35,7 +35,7 @@ public final class Accumulators {
 	 * @param valueName name of the value, like AVG, REQ, Free etc.
 	 * @param intervalName name of the interval.
 	 * @param timeUnit time unit in which the accumulator should be managed and the values recalculated.
-	 * @return
+	 * @return {@link Accumulator}
 	 */
 	public static Accumulator createAccumulator(String name, String producerName, String statName, String valueName, String intervalName, TimeUnit timeUnit) {
 		AccumulatorDefinition definition = new AccumulatorDefinition();
@@ -178,31 +178,44 @@ public final class Accumulators {
 	 */
 	public static void createGCAccumulators(List<String> gcNames) {
 		List<String> accumulators = new ArrayList<>();
+		String producerName = "GC";
 		for (String name : gcNames) {
-			String currentCountAccName = String.format("GC %s current collection count 1m", name);
-			String totalCountAccName = String.format("GC %s total collection count 1m", name);
-			String currentTimeAccName = String.format("GC %s current collection time 1m", name);
-			String totalTimeAccName = String.format("GC %s total collection time 1m", name);
-			accumulators.addAll(Arrays.asList(currentCountAccName, totalCountAccName, currentTimeAccName, totalTimeAccName));
-			Accumulators.createAccumulator(currentCountAccName, "GC", name, "CurrentCollectionCount", "1m");
-			Accumulators.createAccumulator(totalCountAccName, "GC", name, "TotalCollectionCount", "1m");
-			Accumulators.createAccumulator(currentTimeAccName, "GC", name, "CurrentCollectionTime", "1m");
-			Accumulators.createAccumulator(totalTimeAccName, "GC", name, "TotalCollectionTime", "1m");
+			String collectionCountAccName = String.format("GC %s collection count 1m", name);
+			String totalCollectionCountAccName = String.format("GC %s total collection count", name);
+			String collectionTimeAccName = String.format("GC %s collection time 1m", name);
+			String totalCollectionTimeAccName = String.format("GC %s total collection time", name);
+			accumulators.addAll(Arrays.asList(collectionCountAccName, collectionTimeAccName));
+			Accumulators.createAccumulator(collectionCountAccName, producerName, name, "CollectionCount", "1m");
+			Accumulators.createAccumulator(totalCollectionCountAccName, producerName, name, "CollectionCount", "default");
+			Accumulators.createAccumulator(collectionTimeAccName, producerName, name, "CollectionTime", "1m");
+			Accumulators.createAccumulator(totalCollectionTimeAccName, producerName, name, "CollectionTime", "default");
 		}
-		AccumulatorSetConfig[] accumulatorSets = MoskitoConfigurationHolder.getConfiguration().getAccumulatorsConfig().getAccumulatorSets();
-		if (accumulatorSets==null)
-			accumulatorSets = new AccumulatorSetConfig[0];
-		List<AccumulatorSetConfig> setConfig = new ArrayList<>(
-				Arrays.asList(accumulatorSets)
-		);
-		AccumulatorSetConfig gcSet = new AccumulatorSetConfig();
-		gcSet.setName("GC 1 minute");
-		gcSet.setMode(AccumulatorSetMode.MULTIPLE);
-		String[] accNames = new String[accumulators.size()];
-		gcSet.setAccumulatorNames(accumulators.toArray(accNames));
-		setConfig.add(gcSet);
-		AccumulatorSetConfig[] accSets = new AccumulatorSetConfig[setConfig.size()];
-		MoskitoConfigurationHolder.getConfiguration().getAccumulatorsConfig().setAccumulatorSets(setConfig.toArray(accSets));
+		createAccumulatorsSet("GC 1 minute", accumulators);
+	}
+
+	/**
+	 * Creates tomcat global request processor accumulators and set for them.
+	 *
+	 * @param beanNames bean names
+	 */
+	public static void createGlobalRequestProcessorAccumulators(List<String> beanNames) {
+		List<String> accumulators = new ArrayList<>();
+		String producerName = "GlobalRequestProcessor";
+		String oneMinuteInterval = "1m";
+		for (String name : beanNames) {
+			String requestCountAccName = String.format("%s request count 1m", name);
+			String bytesSentAccName = String.format("%s bytes sent 1m", name);
+			String bytesReceivedAccName = String.format("%s bytes received 1m", name);
+			String processingTimeAccName = String.format("%s processing time 1m", name);
+			String errorCountAccName = String.format("%s error count 1m", name);
+			accumulators.addAll(Arrays.asList(requestCountAccName, bytesSentAccName, bytesReceivedAccName, processingTimeAccName, errorCountAccName));
+			Accumulators.createAccumulator(requestCountAccName, producerName, name, "RequestCount", oneMinuteInterval);
+			Accumulators.createAccumulator(bytesSentAccName, producerName, name, "BytesSent", oneMinuteInterval);
+			Accumulators.createAccumulator(bytesReceivedAccName, producerName, name, "BytesReceived", oneMinuteInterval);
+			Accumulators.createAccumulator(processingTimeAccName, producerName, name, "ProcessingTime", oneMinuteInterval);
+			Accumulators.createAccumulator(errorCountAccName, producerName, name, "ErrorCount", oneMinuteInterval);
+		}
+		createAccumulatorsSet("Tomcat 1 minute", accumulators);
 	}
 
 	public static void setupCPUAccumulators(){
@@ -210,6 +223,23 @@ public final class Accumulators {
 		Accumulators.createAccumulator("CPU Time 5m", "OS", "OS", "CPU Time", "5m", TimeUnit.SECONDS);
 		Accumulators.createAccumulator("CPU Time 1h", "OS", "OS", "CPU Time", "1h", TimeUnit.SECONDS);
 		//OS.OS.CPU Time/default/NANOSECONDS
+	}
+
+	private static void createAccumulatorsSet(String name, List<String> accumulators){
+		AccumulatorSetConfig[] accumulatorSets = MoskitoConfigurationHolder.getConfiguration().getAccumulatorsConfig().getAccumulatorSets();
+		if (accumulatorSets==null)
+			accumulatorSets = new AccumulatorSetConfig[0];
+		List<AccumulatorSetConfig> setConfig = new ArrayList<>(
+				Arrays.asList(accumulatorSets)
+		);
+		AccumulatorSetConfig gcSet = new AccumulatorSetConfig();
+		gcSet.setName(name);
+		gcSet.setMode(AccumulatorSetMode.MULTIPLE);
+		String[] accNames = new String[accumulators.size()];
+		gcSet.setAccumulatorNames(accumulators.toArray(accNames));
+		setConfig.add(gcSet);
+		AccumulatorSetConfig[] accSets = new AccumulatorSetConfig[setConfig.size()];
+		MoskitoConfigurationHolder.getConfiguration().getAccumulatorsConfig().setAccumulatorSets(setConfig.toArray(accSets));
 	}
 
 }

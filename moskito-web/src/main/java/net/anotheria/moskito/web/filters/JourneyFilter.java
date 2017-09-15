@@ -101,12 +101,11 @@ public class JourneyFilter implements Filter{
 			RunningTraceContainer.startTracedCall(record == null ? "RND": record.getUseCaseName()+ '-' +url);
 		}
 		try{
-			MoSKitoContext.get().reset();
+			//Removed reset call, cause the context gets reset at the end of the call in finally anyway, so its safe to assume that we have a new context.
+			//MoSKitoContext.get().reset();
 			chain.doFilter(sreq, sres);
 			System.out.println("FINISHED JOURNEY");
 		}finally{
-			MoSKitoContext.cleanup();
-
 			if (record!=null ||always_record_journey){
 				TracedCall last = RunningTraceContainer.endTrace();
 				if (last instanceof NoTracedCall){
@@ -122,6 +121,7 @@ public class JourneyFilter implements Filter{
 				//removes the running use case to cleanup the thread local. Otherwise tomcat will be complaining...
 				RunningTraceContainer.cleanup();
 			}
+			MoSKitoContext.cleanup();
 		}
 			
 	}

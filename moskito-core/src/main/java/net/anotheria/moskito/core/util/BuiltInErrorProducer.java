@@ -121,7 +121,9 @@ public final class BuiltInErrorProducer extends AbstractBuiltInProducer<ErrorSta
 	}
 
 	public void notifyError(Throwable throwable){
-		if (MoSKitoContext.get().seenErrorAlready(throwable)) {
+		ErrorHandlingConfig config = MoskitoConfigurationHolder.getConfiguration().getErrorHandlingConfig();
+
+		if (config.isCountRethrows() && MoSKitoContext.get().seenErrorAlready(throwable)) {
 			cumulatedStats.addRethrown();
 			Class clazz = throwable.getClass();
 			ErrorStats existingStats = statsMap.get(clazz);
@@ -139,7 +141,6 @@ public final class BuiltInErrorProducer extends AbstractBuiltInProducer<ErrorSta
 		cumulatedStats.addError(isInitialError);
 
 		//is logging enabled?
-		ErrorHandlingConfig config = MoskitoConfigurationHolder.getConfiguration().getErrorHandlingConfig();
 		if (config.isLogErrors()){
 			globalErrorLogger.error("auto-caught: " +throwable.getMessage(), throwable);
 		}

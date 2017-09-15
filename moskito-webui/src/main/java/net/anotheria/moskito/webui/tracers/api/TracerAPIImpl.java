@@ -46,6 +46,7 @@ public class TracerAPIImpl extends AbstractMoskitoAPIImpl implements TracerAPI{
 		ret.setEnabled(t.isEnabled());
 		ret.setProducerId(t.getProducerId());
 		ret.setEntryCount(t.getEntryCount());
+		ret.setTotalEntryCount(t.getTotalEntryCount());
 
 		return ret;
 	}

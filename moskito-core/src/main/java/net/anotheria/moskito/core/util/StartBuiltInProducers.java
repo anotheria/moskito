@@ -19,6 +19,9 @@ import java.util.Map;
  *
  */
 public class StartBuiltInProducers {
+	/**
+	 * Initialized flag.
+	 */
 	private static volatile boolean initialized = false;
 	
 	public static synchronized void startbuiltin(){
@@ -31,6 +34,7 @@ public class StartBuiltInProducers {
 		startOsProducers();
 		startGcProducers();
 		startMBeanProducers();
+		startTomcatRequestProcessorProducers();
 	}
 	
 	public static void restartbuiltin(){
@@ -55,6 +59,11 @@ public class StartBuiltInProducers {
 	private static void startGcProducers(){
 		if (MoskitoConfigurationHolder.getConfiguration().getBuiltinProducersConfig().isGcProducer())
 			new BuiltInGCProducer();
+	}
+
+	private static void startTomcatRequestProcessorProducers(){
+		if (MoskitoConfigurationHolder.getConfiguration().getTomcatRequestProcessorProducerConfig().isRegister())
+			new BuiltinGlobalRequestProcessorProducer();
 	}
 	
 	private static void startJavaMemoryProducers(){

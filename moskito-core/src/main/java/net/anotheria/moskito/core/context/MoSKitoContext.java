@@ -12,12 +12,23 @@ import java.util.concurrent.atomic.AtomicBoolean;
  * @since 22.05.17 01:36
  */
 public class MoSKitoContext {
+
 	private static InheritableThreadLocal<MoSKitoContext> currentContext = new InheritableThreadLocal<MoSKitoContext>(){
+
+		@Override
+		protected MoSKitoContext childValue(MoSKitoContext parentValue) {
+			MoSKitoContext child = new MoSKitoContext();
+			child.reset();
+			child.tags.putAll(getTags());
+			return child;
+		}
+
 		@Override
 		protected MoSKitoContext initialValue() {
 			return new MoSKitoContext();
 		}
 	};
+
 
 	public static MoSKitoContext get(){
 		return currentContext.get();
@@ -28,12 +39,17 @@ public class MoSKitoContext {
 	 */
 	private HashMap<String, String> tags = new HashMap<>();
 
-	private HashSet<Throwable> seenErrors = new HashSet<>();
+	private HashSet<Integer> seenErrors = new HashSet<>();
 
 	/**
 	 * If true an error has occured in this thread already. This is useful to separate from initial errors in the processing and followup errors.
 	 */
 	private AtomicBoolean errorOccured = new AtomicBoolean(false);
+
+	/**
+	 * If true, a tracer already reacted to this thread, don't activate any additional tracers.
+	 */
+	private boolean tracerFired;
 
 	public static void addTag(String tagName, String tagValue){
 		get().tags.put(tagName, tagValue);
@@ -58,6 +74,7 @@ public class MoSKitoContext {
 		tags = new HashMap<>();
 		errorOccured = new AtomicBoolean(false);
 		seenErrors = new HashSet<>();
+		tracerFired = false;
 	}
 
 
@@ -67,9 +84,23 @@ public class MoSKitoContext {
 	}
 
 	public boolean seenErrorAlready(Throwable throwable) {
-		if (seenErrors.contains(throwable))
+		Integer key = getHashKey(throwable);
+		if (seenErrors.contains(key))
 			return true;
-		seenErrors.add(throwable);
+		seenErrors.add(key);
 		return false;
 	}
+
+	public boolean hasTracerFired(){
+		return tracerFired;
+	}
+
+	public void setTracerFired(){
+		tracerFired = true;
+	}
+
+	/* test visibility */ static Integer getHashKey(Throwable t){
+		return t.hashCode();
+	}
+
 }

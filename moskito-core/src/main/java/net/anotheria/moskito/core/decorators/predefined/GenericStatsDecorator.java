@@ -1,6 +1,3 @@
-/**
- * (c) 2012 König-Software GmbH - http://www.koenig-software.de
- */
 package net.anotheria.moskito.core.decorators.predefined;
 
 import net.anotheria.moskito.core.decorators.IDecorator;
@@ -21,7 +18,7 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * This is a gerneric stats-decorator implementation - will be used by default for all 'not build-in' stats.
+ * This is a generic stats-decorator implementation - will be used by default for all 'not build-in' stats.
  *
  * @author Michael König
  */
