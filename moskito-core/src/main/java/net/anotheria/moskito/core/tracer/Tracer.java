@@ -43,6 +43,7 @@ public class Tracer {
 	private ReadWriteLock resizeLock = new ReentrantReadWriteLock();
 
 	private List<Trace> traces;
+	private int totalEntryCount;
 
 	public Tracer(String aProducerId){
 		producerId = aProducerId;
@@ -67,6 +68,7 @@ public class Tracer {
 	}
 
 	public void addTrace(Trace aTrace, int toleratedAmount, int maxAmount){
+		totalEntryCount++;
 		try {
 			resizeLock.writeLock().lock();
 			traces.add(aTrace);
@@ -119,5 +121,13 @@ public class Tracer {
 		}finally {
 			resizeLock.readLock().unlock();
 		}
+	}
+
+	public int getTotalEntryCount() {
+		return totalEntryCount;
+	}
+
+	public void setTotalEntryCount(int totalEntryCount) {
+		this.totalEntryCount = totalEntryCount;
 	}
 }

@@ -2,6 +2,7 @@
 %><%@ taglib uri="http://www.anotheria.net/ano-tags" prefix="ano"
 %><%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"
 %>
+<%@ taglib prefix="mos" uri="http://www.moskito.org/inspect/tags" %>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/html">
 
@@ -52,22 +53,22 @@
             <dt>Producer:</dt>
             <dd>${producer.producerId}</dd>
             <dt>Category:</dt>
-            <dd><a href="mskShowProducersByCategory?pCategory=${producer.category}">${producer.category}</a></dd>
+            <dd><mos:deepLink  href="mskShowProducersByCategory?pCategory=${producer.category}">${producer.category}</mos:deepLink></dd>
             <dt>Subsystem:</dt>
-            <dd><a href="mskShowProducersBySubsystem?pSubsystem=${producer.subsystem}">${producer.subsystem}</a></dd>
+            <dd><mos:deepLink  href="mskShowProducersBySubsystem?pSubsystem=${producer.subsystem}">${producer.subsystem}</mos:deepLink></dd>
             <dt>Сlass:</dt>
             <dd>${producer.producerClassName}</dd>
         </dl>
         <div class="pull-right">
-            <a href="${linkToCurrentPage}&pForward=selection&target=Accumulator" class="btn btn-default" onclick="new_accumulator(); return false"><i class="fa fa-plus"></i> Accumulator</a>
-            <a href="${linkToCurrentPage}&pForward=selection&target=Threshold" class="btn btn-default" onclick="new_threshold(); return false"><i class="fa fa-plus"></i> Threshold</a>
+            <mos:deepLink  href="${linkToCurrentPage}&pForward=selection&target=Accumulator" class="btn btn-default" onclick="new_accumulator(); return false"><i class="fa fa-plus"></i> Accumulator</mos:deepLink>
+            <mos:deepLink  href="${linkToCurrentPage}&pForward=selection&target=Threshold" class="btn btn-default" onclick="new_threshold(); return false"><i class="fa fa-plus"></i> Threshold</mos:deepLink>
             <c:if test="${producer.traceable}">
                 <c:choose>
                 <c:when test="${producer.traced}">
-                    <a href="mskTracer?pProducerId=${producer.producerId}" class="btn btn-success" onclick=""><i class="fa fa-binoculars"></i> Tracer</a>
+                    <mos:deepLink  href="mskTracer?pProducerId=${producer.producerId}" class="btn btn-success" onclick=""><i class="fa fa-binoculars"></i> Tracer</mos:deepLink>
                 </c:when>
                 <c:otherwise>
-                    <a href="mskCreateTracer?pProducerId=${producer.producerId}" class="btn btn-default" onclick=""><i class="fa fa-plus"></i> Tracer</a>
+                    <mos:deepLink  href="mskCreateTracer?pProducerId=${producer.producerId}" class="btn btn-default" onclick=""><i class="fa fa-plus"></i> Tracer</mos:deepLink>
                 </c:otherwise>
                 </c:choose>
             </c:if>
@@ -378,6 +379,7 @@
             <input type="hidden" name="target" value="Threshold"/>
             <input type="hidden" name="statName"/>
             <input type="hidden" name="valueName"/>
+            <input type="hidden" name="remoteConnection" value="${remoteLink}"/>
 
         <div class="modal-content">
             <div class="modal-header">
@@ -529,6 +531,7 @@
             <input type="hidden" name="target" value="Accumulator"/>
             <input type="hidden" name="statName"/>
             <input type="hidden" name="valueName"/>
+            <input type="hidden" name="remoteConnection" value="${remoteLink}"/>
 
             <div class="modal-content">
                 <div class="modal-header">

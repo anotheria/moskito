@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html;charset=UTF-8" session="true" %>
 <%@ taglib prefix="ano" uri="http://www.anotheria.net/ano-tags" %>
+<%@ taglib prefix="mos" uri="http://www.moskito.org/inspect/tags" %>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <jsp:include page="../../shared/jsp/Header.jsp" flush="false"/>
@@ -45,7 +46,7 @@
                             <td>${plugin.className}</td>
                             <td>${plugin.configurationName}</td>
                             <td>${plugin.description}</td>
-                            <td><a href="mskRemovePlugin?pPluginName=${plugin.name}" class="action-icon delete-icon tooltip-bottom" title="Delete"><i class="fa fa-ban"></i></a></td>
+                            <td><mos:deepLink  href="mskRemovePlugin?pPluginName=${plugin.name}" class="action-icon delete-icon tooltip-bottom" title="Delete"><i class="fa fa-ban"></i></mos:deepLink ></td>
                         </tr>
                     </ano:iterate>
                     </tbody>

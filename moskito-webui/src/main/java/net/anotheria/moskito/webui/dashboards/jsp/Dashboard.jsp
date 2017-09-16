@@ -249,6 +249,7 @@
             <div class="modal-body">
                 <label>Please type new Dashboard name</label>
                 <form name="CreateDashboard" action="mskCreateDashboard" method="GET">
+                    <input type="hidden" name="remoteConnection" value="${remoteLink}"/>
                     <div class="form-group">
                         <input type="text" class="form-control" name="pName" placeholder="Name">
                     </div>
@@ -271,6 +272,7 @@
             </div>
             <div class="modal-body">
                 <form name="CreateDashboard" action="mskDeleteDashboard" method="GET">
+                    <input type="hidden" name="remoteConnection" value="${remoteLink}"/>
                     <input type="hidden" class="form-control" name="pName" value="${requestScope.selectedDashboard}">
                     <div class="form-group text-right">
                         <button class="btn btn-success" type="button" onclick="submit();">Yes</button>

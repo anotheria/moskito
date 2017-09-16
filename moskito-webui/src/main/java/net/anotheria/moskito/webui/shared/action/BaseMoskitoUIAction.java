@@ -56,8 +56,10 @@ import net.anotheria.moskito.webui.shared.bean.UnitBean;
 import net.anotheria.moskito.webui.threshold.api.ThresholdAPI;
 import net.anotheria.moskito.webui.tracers.api.TracerAPI;
 import net.anotheria.moskito.webui.util.APILookupUtility;
+import net.anotheria.moskito.webui.util.ConnectivityMode;
 import net.anotheria.moskito.webui.util.RemoteInstance;
 import net.anotheria.moskito.webui.util.WebUIConfig;
+import net.anotheria.moskito.webui.util.DeepLinkUtil;
 import net.anotheria.util.NumberUtils;
 import net.anotheria.util.StringUtils;
 import org.slf4j.Logger;
@@ -65,6 +67,8 @@ import org.slf4j.LoggerFactory;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.LinkedList;
@@ -354,10 +358,68 @@ public abstract class BaseMoskitoUIAction implements Action{
 		context.setCurrentTimeUnit(getCurrentUnit(req).getUnit());
 
 		//Link to current page
-		req.setAttribute("linkToCurrentPage", getLinkToCurrentPage(req));
+		req.setAttribute("linkToCurrentPage", DeepLinkUtil.makeDeepLink(getLinkToCurrentPage(req)));
 		req.setAttribute("linkToCurrentPageAsXml", maskAsXML(getLinkToCurrentPage(req)));
 		req.setAttribute("linkToCurrentPageAsCsv", maskAsCSV(getLinkToCurrentPage(req)));
 		req.setAttribute("linkToCurrentPageAsJson", maskAsJSON(getLinkToCurrentPage(req)));
+		// Link to remote monitoring connection
+		req.setAttribute("remoteLink", DeepLinkUtil.getCurrentRemoteConnectionLink());
+
+	}
+
+	/**
+	 * Acquire remote connection url from request parameter.
+	 * If current user is not connected to application
+	 * from url - moskito will be connected to this application.
+	 * This made up for possibility to share links on moskito-inspect pages.
+	 *
+	 * This method expects, that request will contain `remoteConnection` parameter
+	 * with value contains host and port separated by column. Example : `localhost:9401`.
+	 * If request have no such parameter - current connection will not be changed.
+	 *
+	 * @param req current request object
+	 */
+	private void fetchRemoteConnectionFromUrl(HttpServletRequest req){
+
+		String connection = req.getParameter("remoteConnection");
+
+		if(connection != null) try {
+			connection = URLDecoder.decode(connection, "UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			return;
+		}
+		else
+			return;
+
+		String[] remoteHostAndPort;
+
+		if( (remoteHostAndPort = connection.split(":")).length == 2 ){
+
+			String remoteHost = remoteHostAndPort[0];
+			int remotePort;
+
+			try {
+				remotePort = Integer.valueOf(remoteHostAndPort[1]);
+			}catch (NumberFormatException e){
+				return;
+			}
+
+			try {
+				if (!APILookupUtility.isLocal() &&
+						APILookupUtility.getCurrentRemoteInstance().equalsByKey(remoteHost + '-' + remotePort))
+					return; // Current remote connection already points to url from params
+			}catch (IllegalStateException ignored){
+				// Means moskito has no remote connection while GET query specifies one.
+			}
+
+			RemoteInstance newRemoteInstance = new RemoteInstance();
+			newRemoteInstance.setHost(remoteHost);
+			newRemoteInstance.setPort(remotePort);
+			WebUIConfig.getInstance().addRemote(newRemoteInstance);
+			APILookupUtility.setCurrentConnectivityMode(ConnectivityMode.REMOTE);
+			APILookupUtility.setCurrentRemoteInstance(newRemoteInstance);
+
+		}
 
 	}
 
@@ -367,6 +429,7 @@ public abstract class BaseMoskitoUIAction implements Action{
 
 		prepareBasics(req);
 
+		fetchRemoteConnectionFromUrl(req);
 
 		//configuration issues.
 		req.setAttribute("config", WebUIConfig.getInstance());
