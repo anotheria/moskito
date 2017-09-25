@@ -67,8 +67,6 @@ public class BuiltInOSProducer extends AbstractBuiltInProducer implements IStats
 		}catch(ClassNotFoundException e){
 			log.warn("Couldn't find unix version of os class: "+clazzname+", osstats won't operate properly - "+e.getMessage());
 		}
-
-		char version=System.getProperty("java.version").charAt(2);
 		
         if (!isUnixOS) {
             log.warn("Couldn't find unix version of os class: " + clazzname
