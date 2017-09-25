@@ -68,11 +68,7 @@ public abstract class AbstractAnalyzeConnector extends AbstractMoskitoPlugin imp
 		try {
 			sendData(snapshot);
 		} catch (Exception e) {
-			if(log.isDebugEnabled()) {
-				log.error(this.getClass().getSimpleName() + ".sendData() failed", e);
-			} else {
-				log.error(this.getClass().getSimpleName() + ".sendData() failed: " + e.getMessage());
-			}
+			log.error(this.getClass().getSimpleName() + ".sendData() failed", e);
 		}
 	}
 
