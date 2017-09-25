@@ -699,8 +699,16 @@ var D3chart = (function () {
                     .enter().append("g")
                     .attr("class", "timeValue");
 
-                timeValue.append("path")
-                    .attr("class", "line");
+                timeValues.forEach(function(tValue, index){
+
+                    if(tValue.name.indexOf("baseline.") == 0)
+                        d3.select(timeValue[0][index]).append("path")
+                            .attr("class", "line baseline");
+                    else
+                        d3.select(timeValue[0][index]).append("path")
+                            .attr("class", "line");
+
+                });
 
                 lines[containerId] = line;
             };
