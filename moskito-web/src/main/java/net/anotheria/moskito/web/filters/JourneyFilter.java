@@ -10,6 +10,9 @@ import net.anotheria.moskito.core.journey.Journey;
 import net.anotheria.moskito.core.journey.JourneyManager;
 import net.anotheria.moskito.core.journey.JourneyManagerFactory;
 import net.anotheria.moskito.core.journey.NoSuchJourneyException;
+import net.anotheria.moskito.core.plugins.MoskitoPlugin;
+import net.anotheria.moskito.core.plugins.PluginRepository;
+import net.anotheria.moskito.extensions.analyze.connector.rest.RESTConnector;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -129,7 +132,10 @@ public class JourneyFilter implements Filter{
 		TraceStep root = call.getRootStep();
 		System.out.println(root.toJSON());
 		//kafkaProducer.sendData("moskito", root.toJSON());
-		System.out.println("EUGENE PLEASE SEND ME TO ANALYZE " + root.toJSON());
+		//TODO replace getting plugin directly
+		MoskitoPlugin restAnalyzePlugin = PluginRepository.getInstance().getPlugin("RESTAnalyzeConnector");
+		if (restAnalyzePlugin != null)
+			((RESTConnector) restAnalyzePlugin).sendJourneyData(root.toJSON());
 
 	}
 	

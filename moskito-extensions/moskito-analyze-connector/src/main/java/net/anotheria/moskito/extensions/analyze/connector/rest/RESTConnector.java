@@ -66,9 +66,14 @@ public class RESTConnector extends AbstractAnalyzeConnector {
 
     @Override
     protected void sendData(Snapshot snapshot) {
-        WebResource resource = client.resource(getBaseURI());
+        WebResource resource = client.resource(getBaseURI(connectorConfig.getSnapshot()));
         resource.accept(MediaType.APPLICATION_JSON).type(MediaType.APPLICATION_JSON).post(gson.toJson(snapshot));
     }
+
+	public void sendJourneyData(String json) {
+		WebResource resource = client.resource(getBaseURI(connectorConfig.getJourney()));
+		resource.accept(MediaType.APPLICATION_JSON).type(MediaType.APPLICATION_JSON).post(json);
+	}
 
     private Client getClient() {
         Client client = Client.create(getClientConfig());
@@ -87,9 +92,9 @@ public class RESTConnector extends AbstractAnalyzeConnector {
         return clientConfig;
     }
 
-    private URI getBaseURI() {
-        return UriBuilder.fromUri(HTTP_PREFIX + connectorConfig.getHost() + connectorConfig.getResourcePath()).port(connectorConfig.getPort()).build();
-    }
+	private URI getBaseURI(String context) {
+		return UriBuilder.fromUri(HTTP_PREFIX + connectorConfig.getHost() + connectorConfig.getResourcePath() + context).port(connectorConfig.getPort()).build();
+	}
 
     protected RESTConnectorConfig getConnectorConfig(){
         return connectorConfig;

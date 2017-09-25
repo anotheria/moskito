@@ -256,6 +256,7 @@ public class TraceStep implements Serializable{
 			ret.append(quote("producer")).append(":").append(quote(producer.getProducerId())).append(',');
 			ret.append(quote("category")).append(":").append(quote(producer.getCategory())).append(',');
 			ret.append(quote("subsystem")).append(":").append(quote(producer.getSubsystem())).append(',');
+			ret.append(quote("aborted")).append(":").append(aborted).append(',');
 		}
 		ret.append(quote("duration")).append(": ").append(duration).append(',');
 		ret.append(quote("netDuration")).append(": ").append(getNetDuration()).append(',');

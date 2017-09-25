@@ -26,6 +26,16 @@ public class RESTConnectorConfig {
 	 */
 	private String resourcePath;
 
+	/**
+	 * Snapshot context.
+	 */
+	private String snapshot;
+
+	/**
+	 * Snapshot context.
+	 */
+	private String journey;
+
     /**
      * Is HTTP basic auth enabled.
      */
@@ -142,12 +152,30 @@ public class RESTConnectorConfig {
         this.trustStorePassword = trustStorePassword;
     }
 
-    @Override
+	public String getSnapshot() {
+		return snapshot;
+	}
+
+	public void setSnapshot(String snapshot) {
+		this.snapshot = snapshot;
+	}
+
+	public String getJourney() {
+		return journey;
+	}
+
+	public void setJourney(String journey) {
+		this.journey = journey;
+	}
+
+	@Override
     public String toString() {
         return "RESTConnectorConfig{" +
                 "host='" + host + '\'' +
                 ",  port=" + port +
                 ", resourcePath='" + resourcePath + '\'' +
+                ", snapshot='" + snapshot + '\'' +
+                ", journey='" + journey + '\'' +
                 ",  basicAuthEnabled=" + basicAuthEnabled +
                 ", login='" + login + '\'' +
                 ", password='" + password + '\'' +
