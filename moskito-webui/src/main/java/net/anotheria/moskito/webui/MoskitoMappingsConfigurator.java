@@ -266,6 +266,10 @@ public class MoskitoMappingsConfigurator implements ActionMappingsConfigurator{
 		mappings.addMapping("mskDashboardRemoveChart", DashboardRemoveChartAction.class,
 				new CommandDeepLinkRedirect("redirect", "mskDashboard"));
 
+		mappings.addMapping("mskAddProducerToDashboard", DashboardAddProducerAction.class,
+				new CommandDeepLinkRedirect("redirect", "mskDashboard"));
+		mappings.addMapping("mskDashboardRemoveProducer", DashboardRemoveProducerAction.class,
+				new CommandDeepLinkRedirect("redirect", "mskDashboard"));
 
 	}
 

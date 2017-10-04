@@ -4,6 +4,7 @@ import net.anotheria.anoplass.api.API;
 import net.anotheria.anoplass.api.APIException;
 import net.anotheria.anoprise.metafactory.Service;
 import net.anotheria.moskito.core.config.dashboards.DashboardConfig;
+import net.anotheria.moskito.core.stats.TimeUnit;
 import org.distributeme.annotation.DistributeMe;
 import org.distributeme.annotation.FailBy;
 import org.distributeme.annotation.SupportService;
@@ -47,4 +48,7 @@ public interface DashboardAPI extends API, Service{
 
 	void removeChartFromDashboard(String dashboardName, String[] accNames) throws APIException;
 
+	void addProducerToDashboard(String dashboardName, String producerName, String intervalName, TimeUnit timeUnit) throws APIException;
+
+	void removeProducerFromDashboard(String dashboardName, String producerName) throws APIException;
 }

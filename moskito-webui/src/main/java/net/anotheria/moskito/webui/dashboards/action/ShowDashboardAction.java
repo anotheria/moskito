@@ -10,12 +10,18 @@ import net.anotheria.moskito.webui.dashboards.api.DashboardChartAO;
 import net.anotheria.moskito.webui.dashboards.bean.DashboardChartBean;
 import net.anotheria.moskito.webui.gauges.api.GaugeAO;
 import net.anotheria.moskito.webui.gauges.bean.GaugeBean;
+import net.anotheria.moskito.webui.producers.api.ProducerAO;
+import net.anotheria.moskito.webui.producers.util.ProducerUtility;
+import net.anotheria.moskito.webui.shared.bean.GraphDataBean;
 import net.anotheria.moskito.webui.threshold.bean.ThresholdStatusBean;
 import net.anotheria.util.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -28,6 +34,12 @@ import static net.anotheria.moskito.webui.threshold.util.ThresholdStatusBeanUtil
  * @since 12.02.15 14:02
  */
 public class ShowDashboardAction extends BaseDashboardAction {
+
+	/**
+	 * Logger.
+	 */
+	private static final Logger log = LoggerFactory.getLogger(ShowDashboardAction.class);
+
 	/**
 	 * Default dashboard refresh rate in ms.
 	 */
@@ -40,12 +52,14 @@ public class ShowDashboardAction extends BaseDashboardAction {
 		Boolean gaugesPresent = false;
 		Boolean chartsPresent = false;
 		Boolean thresholdsPresent = false;
+		Boolean producersPresent = false;
 
 		//set default values, allow to exit previously.
 		request.setAttribute("gaugesPresent", gaugesPresent);
 		request.setAttribute("chartsPresent", chartsPresent);
 		request.setAttribute("thresholdsPresent", thresholdsPresent);
-		request.setAttribute("showHelp", !(gaugesPresent || chartsPresent || thresholdsPresent));
+		request.setAttribute("producersPresent", producersPresent);
+		request.setAttribute("showHelp", !(gaugesPresent || chartsPresent || thresholdsPresent || producersPresent));
 
 		DashboardConfig selectedDashboardConfig = getDashboardAPI().getDashboardConfig(dashboardName);
 		if (dashboardName == null || selectedDashboardConfig == null) {
@@ -60,6 +74,7 @@ public class ShowDashboardAction extends BaseDashboardAction {
 		List<ThresholdStatusBean> thresholdStatusBeans = getThresholdBeans(dashboard.getThresholds());
 		List<GaugeBean> gaugeBeans = getGaugeBeans(dashboard.getGauges());
 		List<DashboardChartBean> dashboardChartAOList = getChartBeans(dashboard.getCharts());
+		List<ProducerAO> producerBeans = dashboard.getProducers();
 
 		//now we definitely have a selected dashboard.
 		//prepare thresholds
@@ -80,11 +95,21 @@ public class ShowDashboardAction extends BaseDashboardAction {
 			chartsPresent = true;
 		}
 
+		//prepare producers
+		if (producerBeans != null && producerBeans.size() > 0){
+			request.setAttribute("decorators", ProducerUtility.getDecoratedProducers(request, producerBeans, new HashMap<String, GraphDataBean>()));
+			producersPresent = true;
+		}
+
+		// Setting possible dashboard names where producer can be added
+		request.setAttribute("dashboardNames", org.apache.commons.lang.StringUtils.join(getDashboardAPI().getDashboardNames(), ','));
+
 		//maybe the value has changed.
 		request.setAttribute("gaugesPresent", gaugesPresent);
 		request.setAttribute("chartsPresent", chartsPresent);
 		request.setAttribute("thresholdsPresent", thresholdsPresent);
-		request.setAttribute("showHelp", !(gaugesPresent || chartsPresent || thresholdsPresent));
+		request.setAttribute("producersPresent", producersPresent);
+		request.setAttribute("showHelp", !(gaugesPresent || chartsPresent || thresholdsPresent || producersPresent));
 
 		String infoMessage = getInfoMessage();
 		if (!StringUtils.isEmpty(infoMessage)) {

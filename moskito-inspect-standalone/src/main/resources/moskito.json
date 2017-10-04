@@ -460,6 +460,18 @@
             "caption": "Memory",
             "accumulators": ["Mem OldGenFree MB 1m", "Mem OldGenUsed MB 1m"]
           }
+        ],
+        "@producers": [
+          {
+            "name": "JavaRuntimeFree",
+            "intervalName": "default",
+            "timeUnit": "MILLISECONDS"
+          },
+          {
+            "name": "JavaRuntimeTotal",
+            "intervalName": "default",
+            "timeUnit": "MILLISECONDS"
+          }
         ]
       },
       {

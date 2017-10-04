@@ -75,6 +75,10 @@
             <c:if test="${producer.inspectable}">
                 <a href="#inspect" data-toggle="modal" data-target="#inspect" class="btn btn-success"><i class="fa fa-search"></i> Inspect</a>
             </c:if>
+
+            <ano:notEmpty name="dashboardNames">
+                <a onclick="addProducer('${producer.producerId}', '<ano:write name="dashboardNames" />');" href="#" class="btn btn-default"><i class="fa fa-plus"></i> Add to Dashboard</a>
+            </ano:notEmpty>
         </div>
     </div>
 </div>

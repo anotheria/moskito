@@ -8,10 +8,14 @@ import net.anotheria.moskito.core.config.MoskitoConfigurationHolder;
 import net.anotheria.moskito.core.config.dashboards.ChartConfig;
 import net.anotheria.moskito.core.config.dashboards.DashboardConfig;
 import net.anotheria.moskito.core.config.dashboards.DashboardsConfig;
+import net.anotheria.moskito.core.config.producers.ProducerConfig;
+import net.anotheria.moskito.core.stats.TimeUnit;
 import net.anotheria.moskito.webui.accumulators.api.AccumulatorAO;
 import net.anotheria.moskito.webui.accumulators.api.AccumulatorAPI;
 import net.anotheria.moskito.webui.accumulators.api.MultilineChartAO;
 import net.anotheria.moskito.webui.gauges.api.GaugeAPI;
+import net.anotheria.moskito.webui.producers.api.ProducerAO;
+import net.anotheria.moskito.webui.producers.api.ProducerAPI;
 import net.anotheria.moskito.webui.shared.api.AbstractMoskitoAPIImpl;
 import net.anotheria.moskito.webui.threshold.api.ThresholdAPI;
 import net.anotheria.util.StringUtils;
@@ -55,6 +59,10 @@ public class DashboardAPIImpl extends AbstractMoskitoAPIImpl implements Dashboar
 	 * AccumulatorAPI.
 	 */
 	private AccumulatorAPI accumulatorAPI;
+	/**
+	 * ProducerAPI.
+	 */
+	private ProducerAPI producerAPI;
 
 
 	@Override
@@ -64,6 +72,7 @@ public class DashboardAPIImpl extends AbstractMoskitoAPIImpl implements Dashboar
 		gaugeAPI = APIFinder.findAPI(GaugeAPI.class);
 		thresholdAPI = APIFinder.findAPI(ThresholdAPI.class);
 		accumulatorAPI = APIFinder.findAPI(AccumulatorAPI.class);
+		producerAPI = APIFinder.findAPI(ProducerAPI.class);
 
 	}
 
@@ -301,6 +310,66 @@ public class DashboardAPIImpl extends AbstractMoskitoAPIImpl implements Dashboar
 		config.setCharts(new_cc_array);
 	}
 
+	@Override
+	public void addProducerToDashboard(String dashboardName, String producerName, String intervalName, TimeUnit timeUnit) throws APIException {
+		DashboardConfig config = getDashboardConfig(dashboardName);
+		if (config == null)
+			return;
+
+		if (StringUtils.isEmpty(producerName))
+			return;
+
+		ProducerConfig[] cc_array = config.getProducers();
+		int newSize = cc_array == null ? 1 : cc_array.length + 1;
+		ProducerConfig[] new_cc_array = new ProducerConfig[newSize];
+
+		if (cc_array != null) {
+			System.arraycopy(cc_array, 0, new_cc_array, 0, cc_array.length);
+		}
+
+		ProducerConfig producerConfig = new ProducerConfig();
+		producerConfig.setName(producerName);
+		producerConfig.setIntervalName(intervalName);
+		producerConfig.setTimeUnit(timeUnit.name());
+
+		new_cc_array[new_cc_array.length - 1] = producerConfig;
+		config.setProducers(new_cc_array);
+	}
+
+    @Override
+    public void removeProducerFromDashboard(String dashboardName, String producerName) throws APIException {
+        DashboardConfig config = getDashboardConfig(dashboardName);
+        if (config == null)
+            return;
+        if (StringUtils.isEmpty(producerName))
+            return;
+
+        ProducerConfig[] cc_array = config.getProducers();
+        int index = -1;
+        int count = 0;
+        for (ProducerConfig producer : cc_array) {
+            if (producerName.equals(producer.getName())) {
+                index = count;
+                break;
+            }
+            count++;
+        }
+        if (index==-1){
+            return;
+        }
+        if (cc_array == null || cc_array.length<index+1)
+            return;
+        ProducerConfig[] new_cc_array = new ProducerConfig[cc_array.length-1];
+        if (cc_array.length == 1){
+            //source had only one element
+            config.setProducers(new_cc_array);
+            return;
+        }
+
+        removeElementFromArray(cc_array, new_cc_array, index);
+        config.setProducers(new_cc_array);
+    }
+
 	private static <T> T removeElementFromArray(T sourceArray[], T destArray, int index){
 		//last element
 		if (sourceArray.length==index+1){
@@ -375,6 +444,21 @@ public class DashboardAPIImpl extends AbstractMoskitoAPIImpl implements Dashboar
 
 		if (config.getThresholds()!=null && config.getThresholds().length>0){
 			ret.setThresholds(thresholdAPI.getThresholdStatuses(config.getThresholds()));
+		}
+
+		if (config.getProducers() != null && config.getProducers().length > 0) {
+			List<ProducerAO> producers = new ArrayList<>();
+			for (ProducerConfig producerConfig : config.getProducers()) {
+				producers.add(
+						producerAPI.getProducer(
+								producerConfig.getName(),
+								producerConfig.getIntervalName(),
+								TimeUnit.fromString(producerConfig.getTimeUnit()
+								)
+						));
+			}
+
+			ret.setProducers(producers);
 		}
 
 

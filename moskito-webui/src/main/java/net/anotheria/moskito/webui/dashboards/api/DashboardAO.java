@@ -1,6 +1,7 @@
 package net.anotheria.moskito.webui.dashboards.api;
 
 import net.anotheria.moskito.webui.gauges.api.GaugeAO;
+import net.anotheria.moskito.webui.producers.api.ProducerAO;
 import net.anotheria.moskito.webui.threshold.api.ThresholdStatusAO;
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -49,6 +50,13 @@ public class DashboardAO implements Serializable{
 	@XmlElement
 	private List<DashboardChartAO> charts;
 
+	/**
+	 * Producers of this dashboard.
+	 */
+	@XmlElement
+	private List<ProducerAO> producers;
+
+
 	public List<GaugeAO> getGauges() {
 		return gauges;
 	}
@@ -79,6 +87,14 @@ public class DashboardAO implements Serializable{
 
 	public void setCharts(List<DashboardChartAO> charts) {
 		this.charts = charts;
+	}
+
+	public List<ProducerAO> getProducers() {
+		return producers;
+	}
+
+	public void setProducers(List<ProducerAO> producers) {
+		this.producers = producers;
 	}
 
 	@Override

@@ -1,6 +1,7 @@
 package net.anotheria.moskito.core.config.dashboards;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import net.anotheria.moskito.core.config.producers.ProducerConfig;
 import org.configureme.annotations.Configure;
 import org.configureme.annotations.ConfigureMe;
 
@@ -52,6 +53,12 @@ public class DashboardConfig implements Serializable{
 	@Configure
 	private String [] gauges;
 
+	/**
+	 * Names of producers that should be present on dashboard.
+	 */
+	@Configure
+	private ProducerConfig[] producers;
+
 	@Override
 	public String toString() {
 		final StringBuilder sb = new StringBuilder("DashboardConfig{");
@@ -60,6 +67,7 @@ public class DashboardConfig implements Serializable{
 		sb.append(", charts=").append(Arrays.toString(charts));
 		sb.append(", thresholds=").append(Arrays.toString(thresholds));
 		sb.append(", gauges=").append(Arrays.toString(gauges));
+		sb.append(", producers=").append(Arrays.toString(producers));
 		sb.append('}');
 		return sb.toString();
 	}
@@ -102,5 +110,13 @@ public class DashboardConfig implements Serializable{
 
 	public void setGauges(String[] gauges) {
 		this.gauges = gauges;
+	}
+
+	public ProducerConfig[] getProducers() {
+		return producers;
+	}
+
+	public void setProducers(ProducerConfig[] producers) {
+		this.producers = producers;
 	}
 }
