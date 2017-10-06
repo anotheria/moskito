@@ -51,10 +51,10 @@ public class DashboardAO implements Serializable{
 	private List<DashboardChartAO> charts;
 
 	/**
-	 * Producers of this dashboard.
+	 * Producer names for this dashboard.
 	 */
 	@XmlElement
-	private List<ProducerAO> producers;
+	private List<String> producers;
 
 
 	public List<GaugeAO> getGauges() {
@@ -89,11 +89,11 @@ public class DashboardAO implements Serializable{
 		this.charts = charts;
 	}
 
-	public List<ProducerAO> getProducers() {
+	public List<String> getProducers() {
 		return producers;
 	}
 
-	public void setProducers(List<ProducerAO> producers) {
+	public void setProducers(List<String> producers) {
 		this.producers = producers;
 	}
 

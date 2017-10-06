@@ -66,6 +66,16 @@ public interface ProducerAPI extends API, Service {
 	List<ProducerAO> getProducers(IProducerFilter[] iProducerFilters, String intervalName, TimeUnit timeUnit)throws APIException;
 
 	/**
+	 *
+	 * @param producerIds
+	 * @param intervalName
+	 * @param timeUnit time unit for duration calculation.
+	 * @return
+	 * @throws APIException
+	 */
+	List<ProducerAO> getProducers(List<String> producerIds, String intervalName, TimeUnit timeUnit) throws APIException;
+
+	/**
 	 * Returns all producers in a given subsystem.
 	 * @param currentSubsystem subsystem filter.
 	 * @param intervalName

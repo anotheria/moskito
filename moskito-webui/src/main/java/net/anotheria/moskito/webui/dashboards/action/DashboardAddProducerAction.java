@@ -23,7 +23,7 @@ public class DashboardAddProducerAction extends BaseDashboardAction {
 		}
 
 		for (String dashboard : dashboardsName) {
-			getDashboardAPI().addProducerToDashboard(dashboard, producerName, getCurrentInterval(request), getCurrentUnit(request).getUnit());
+			getDashboardAPI().addProducerToDashboard(dashboard, producerName);
 		}
 
 		setInfoMessage(createInfoMessage(producerName, dashboardsName));

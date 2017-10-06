@@ -48,7 +48,7 @@ public interface DashboardAPI extends API, Service{
 
 	void removeChartFromDashboard(String dashboardName, String[] accNames) throws APIException;
 
-	void addProducerToDashboard(String dashboardName, String producerName, String intervalName, TimeUnit timeUnit) throws APIException;
+	void addProducerToDashboard(String dashboardName, String producerName) throws APIException;
 
 	void removeProducerFromDashboard(String dashboardName, String producerName) throws APIException;
 }

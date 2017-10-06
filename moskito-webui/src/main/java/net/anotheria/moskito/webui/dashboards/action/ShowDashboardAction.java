@@ -13,6 +13,7 @@ import net.anotheria.moskito.webui.gauges.bean.GaugeBean;
 import net.anotheria.moskito.webui.producers.api.ProducerAO;
 import net.anotheria.moskito.webui.producers.util.ProducerUtility;
 import net.anotheria.moskito.webui.shared.bean.GraphDataBean;
+import net.anotheria.moskito.webui.shared.bean.ProducerDecoratorBean;
 import net.anotheria.moskito.webui.threshold.bean.ThresholdStatusBean;
 import net.anotheria.util.StringUtils;
 import org.slf4j.Logger;
@@ -74,7 +75,7 @@ public class ShowDashboardAction extends BaseDashboardAction {
 		List<ThresholdStatusBean> thresholdStatusBeans = getThresholdBeans(dashboard.getThresholds());
 		List<GaugeBean> gaugeBeans = getGaugeBeans(dashboard.getGauges());
 		List<DashboardChartBean> dashboardChartAOList = getChartBeans(dashboard.getCharts());
-		List<ProducerAO> producerBeans = dashboard.getProducers();
+		List<ProducerDecoratorBean> decoratedProducers = getDecoratedProducerBeans(dashboard.getProducers(), request);
 
 		//now we definitely have a selected dashboard.
 		//prepare thresholds
@@ -96,8 +97,8 @@ public class ShowDashboardAction extends BaseDashboardAction {
 		}
 
 		//prepare producers
-		if (producerBeans != null && producerBeans.size() > 0){
-			request.setAttribute("decorators", ProducerUtility.getDecoratedProducers(request, producerBeans, new HashMap<String, GraphDataBean>()));
+		if (decoratedProducers != null && decoratedProducers.size() > 0) {
+			request.setAttribute("decorators", decoratedProducers);
 			producersPresent = true;
 		}
 
@@ -125,6 +126,17 @@ public class ShowDashboardAction extends BaseDashboardAction {
 	@Override
 	protected String getPageName() {
 		return "dashboard";
+	}
+
+	private List<ProducerDecoratorBean> getDecoratedProducerBeans(List<String> producerIds, HttpServletRequest request) throws APIException {
+		if (producerIds != null && producerIds.size() > 0) {
+			List<ProducerAO> producerAOs = getProducerAPI().getProducers(producerIds, getCurrentInterval(request), getCurrentUnit(request).getUnit());
+			if (producerAOs != null && producerAOs.size() > 0) {
+				return ProducerUtility.getDecoratedProducers(request, producerAOs, new HashMap<String, GraphDataBean>());
+			}
+		}
+
+		return new ArrayList<>();
 	}
 
 	private List<GaugeBean> getGaugeBeans(List<GaugeAO> gaugeAOList) throws APIException {

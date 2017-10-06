@@ -8,24 +8,17 @@ import net.anotheria.moskito.core.config.MoskitoConfigurationHolder;
 import net.anotheria.moskito.core.config.dashboards.ChartConfig;
 import net.anotheria.moskito.core.config.dashboards.DashboardConfig;
 import net.anotheria.moskito.core.config.dashboards.DashboardsConfig;
-import net.anotheria.moskito.core.config.producers.ProducerConfig;
-import net.anotheria.moskito.core.stats.TimeUnit;
 import net.anotheria.moskito.webui.accumulators.api.AccumulatorAO;
 import net.anotheria.moskito.webui.accumulators.api.AccumulatorAPI;
 import net.anotheria.moskito.webui.accumulators.api.MultilineChartAO;
 import net.anotheria.moskito.webui.gauges.api.GaugeAPI;
-import net.anotheria.moskito.webui.producers.api.ProducerAO;
 import net.anotheria.moskito.webui.producers.api.ProducerAPI;
 import net.anotheria.moskito.webui.shared.api.AbstractMoskitoAPIImpl;
 import net.anotheria.moskito.webui.threshold.api.ThresholdAPI;
 import net.anotheria.util.StringUtils;
 import net.anotheria.util.sorter.DummySortType;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 /**
  * Implementation of the DashboardAPI.
@@ -311,7 +304,7 @@ public class DashboardAPIImpl extends AbstractMoskitoAPIImpl implements Dashboar
 	}
 
 	@Override
-	public void addProducerToDashboard(String dashboardName, String producerName, String intervalName, TimeUnit timeUnit) throws APIException {
+	public void addProducerToDashboard(String dashboardName, String producerName) throws APIException {
 		DashboardConfig config = getDashboardConfig(dashboardName);
 		if (config == null)
 			return;
@@ -319,20 +312,15 @@ public class DashboardAPIImpl extends AbstractMoskitoAPIImpl implements Dashboar
 		if (StringUtils.isEmpty(producerName))
 			return;
 
-		ProducerConfig[] cc_array = config.getProducers();
+		String[] cc_array = config.getProducers();
 		int newSize = cc_array == null ? 1 : cc_array.length + 1;
-		ProducerConfig[] new_cc_array = new ProducerConfig[newSize];
+		String[] new_cc_array = new String[newSize];
 
 		if (cc_array != null) {
 			System.arraycopy(cc_array, 0, new_cc_array, 0, cc_array.length);
 		}
 
-		ProducerConfig producerConfig = new ProducerConfig();
-		producerConfig.setName(producerName);
-		producerConfig.setIntervalName(intervalName);
-		producerConfig.setTimeUnit(timeUnit.name());
-
-		new_cc_array[new_cc_array.length - 1] = producerConfig;
+		new_cc_array[new_cc_array.length - 1] = producerName;
 		config.setProducers(new_cc_array);
 	}
 
@@ -344,11 +332,11 @@ public class DashboardAPIImpl extends AbstractMoskitoAPIImpl implements Dashboar
         if (StringUtils.isEmpty(producerName))
             return;
 
-        ProducerConfig[] cc_array = config.getProducers();
+        String[] cc_array = config.getProducers();
         int index = -1;
         int count = 0;
-        for (ProducerConfig producer : cc_array) {
-            if (producerName.equals(producer.getName())) {
+        for (String producer : cc_array) {
+            if (producerName.equals(producer)) {
                 index = count;
                 break;
             }
@@ -359,7 +347,7 @@ public class DashboardAPIImpl extends AbstractMoskitoAPIImpl implements Dashboar
         }
         if (cc_array == null || cc_array.length<index+1)
             return;
-        ProducerConfig[] new_cc_array = new ProducerConfig[cc_array.length-1];
+        String[] new_cc_array = new String[cc_array.length-1];
         if (cc_array.length == 1){
             //source had only one element
             config.setProducers(new_cc_array);
@@ -447,18 +435,7 @@ public class DashboardAPIImpl extends AbstractMoskitoAPIImpl implements Dashboar
 		}
 
 		if (config.getProducers() != null && config.getProducers().length > 0) {
-			List<ProducerAO> producers = new ArrayList<>();
-			for (ProducerConfig producerConfig : config.getProducers()) {
-				producers.add(
-						producerAPI.getProducer(
-								producerConfig.getName(),
-								producerConfig.getIntervalName(),
-								TimeUnit.fromString(producerConfig.getTimeUnit()
-								)
-						));
-			}
-
-			ret.setProducers(producers);
+			ret.setProducers(Arrays.asList(config.getProducers()));
 		}
 
 

@@ -462,16 +462,8 @@
           }
         ],
         "@producers": [
-          {
-            "name": "JavaRuntimeFree",
-            "intervalName": "default",
-            "timeUnit": "MILLISECONDS"
-          },
-          {
-            "name": "JavaRuntimeTotal",
-            "intervalName": "default",
-            "timeUnit": "MILLISECONDS"
-          }
+          "JavaRuntimeFree",
+          "JavaRuntimeTotal"
         ]
       },
       {
