@@ -38,25 +38,21 @@ import net.anotheria.anoplass.api.APIException;
 import net.anotheria.maf.action.ActionCommand;
 import net.anotheria.maf.action.ActionMapping;
 import net.anotheria.maf.bean.FormBean;
-import net.anotheria.moskito.core.decorators.IDecorator;
-import net.anotheria.moskito.core.decorators.predefined.GenericStatsDecorator;
-import net.anotheria.moskito.core.decorators.value.StatValueAO;
-import net.anotheria.moskito.core.stats.UnknownIntervalException;
 import net.anotheria.moskito.webui.producers.api.ProducerAO;
-import net.anotheria.moskito.webui.producers.api.ProducerAOSortType;
 import net.anotheria.moskito.webui.producers.api.UnitCountAO;
+import net.anotheria.moskito.webui.producers.util.ProducerUtility;
 import net.anotheria.moskito.webui.shared.action.BaseMoskitoUIAction;
 import net.anotheria.moskito.webui.shared.bean.GraphDataBean;
-import net.anotheria.moskito.webui.shared.bean.GraphDataValueBean;
 import net.anotheria.moskito.webui.shared.bean.NaviItem;
-import net.anotheria.moskito.webui.shared.bean.ProducerDecoratorBean;
-import net.anotheria.util.sorter.StaticQuickSorter;
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Base action for producers presentation action.
@@ -87,12 +83,15 @@ public abstract class BaseShowProducersAction extends BaseMoskitoUIAction {
 
 		Map<String, GraphDataBean> graphData = new HashMap<>();
 
-		req.setAttribute("decorators", getDecoratedProducers(req,  getProducers(req), graphData));
+		req.setAttribute("decorators", ProducerUtility.getDecoratedProducers(req,  getProducers(req), graphData));
 		req.setAttribute("graphDatas", graphData.values());
 
 		doCustomProcessing(req, res);
 		
 		req.setAttribute("pageTitle", getPageTitle(req));
+
+		// Setting possible dashboard names where producer can be added
+		req.setAttribute("dashboardNames", StringUtils.join(getDashboardAPI().getDashboardNames(), ','));
 
 		if (getForward(req).equalsIgnoreCase("csv")){
 			res.setHeader("Content-Disposition", "attachment; filename=\"producers.csv\"");
@@ -116,100 +115,6 @@ public abstract class BaseShowProducersAction extends BaseMoskitoUIAction {
 	@Override
 	protected final NaviItem getCurrentNaviItem() {
 		return NaviItem.PRODUCERS;
-	}
-
-	//todo make separate method for graphData in future
-	protected List<ProducerDecoratorBean> getDecoratedProducers(HttpServletRequest req, List<ProducerAO> producers, Map<String, GraphDataBean> graphData){
-
-		Map<IDecorator, List<ProducerAO>> decoratorMap = new HashMap<>(producers.size());
-		for (ProducerAO producer : producers){
-			try{
-				IDecorator decorator = findOrCreateDecorator(producer);
-				List<ProducerAO> decoratoredProducers = decoratorMap.get(decorator);
-				if (decoratoredProducers == null){
-					decoratoredProducers = new ArrayList<>();
-					decoratorMap.put(decorator, decoratoredProducers);
-
-					for(StatValueAO statBean : producer.getFirstStatsValues()){
-						String graphKey = decorator.getName()+ '_' +statBean.getName();
-						GraphDataBean graphDataBean = new GraphDataBean(decorator.getName()+ '_' +statBean.getJsVariableName(), statBean.getName());
-						graphData.put(graphKey, graphDataBean);
-					}
-				}
-				decoratoredProducers.add(producer);
-			}catch(IndexOutOfBoundsException e){
-				//producer has no stats at all, ignoring
-			}
-		}
-
-		Set<Map.Entry<IDecorator, List<ProducerAO>>> entries = decoratorMap.entrySet();
-		List<ProducerDecoratorBean> beans = new ArrayList<>(entries.size());
-		for (Map.Entry<IDecorator, List<ProducerAO>> entry : entries){
-			IDecorator decorator = entry.getKey();
-			ProducerDecoratorBean b = new ProducerDecoratorBean();
-			b.setName(decorator.getName());
-			b.setCaptions(decorator.getCaptions());
-
-			for (ProducerAO p : entry.getValue()) {
-				try {
-					List<StatValueAO> values = p.getFirstStatsValues();
-					for (StatValueAO valueBean : values){
-						String graphKey = decorator.getName()+ '_' +valueBean.getName();
-						GraphDataBean bean = graphData.get(graphKey); 
-						if (bean==null) {
-						    // FIXME!
-						    LOG.warn("unable to find bean for key: " + graphKey);
-						} else {
-						    bean.addValue(new GraphDataValueBean(p.getProducerId(), valueBean.getRawValue()));
-						}
-					}
-				}catch(UnknownIntervalException e){
-					//do nothing, apparently we have a decorator which has no interval support for THIS interval.
-				}
-			}
-			b.setProducerBeans(StaticQuickSorter.sort(decoratorMap.get(decorator), getProducerBeanSortType(b, req)));
-			beans.add(b);
-		}
-
-		return beans;
-	}
-
-	private ProducerAOSortType getProducerBeanSortType(ProducerDecoratorBean decoratorBean, HttpServletRequest req){
-		ProducerAOSortType sortType;
-		String paramSortBy = req.getParameter(decoratorBean.getSortByParameterName());
-		if (paramSortBy!=null && paramSortBy.length()>0){
-			try{
-				int sortBy = Integer.parseInt(paramSortBy);
-				String paramSortOrder = req.getParameter(decoratorBean.getSortOrderParameterName());
-				boolean sortOrder = paramSortOrder!=null && paramSortOrder.equals("ASC") ?
-						ProducerAOSortType.ASC : ProducerAOSortType.DESC;
-				sortType = new ProducerAOSortType(sortBy, sortOrder);
-				req.getSession().setAttribute(decoratorBean.getSortTypeName(), sortType);
-				return sortType;
-			}catch(NumberFormatException skip){}
-		}
-		sortType = (ProducerAOSortType)req.getSession().getAttribute(decoratorBean.getSortTypeName());
-		if (sortType==null){
-			sortType = new ProducerAOSortType();
-			req.getSession().setAttribute(decoratorBean.getSortTypeName(), sortType);
-		}
-		return sortType;
-	}
-
-	private IDecorator findOrCreateDecorator(ProducerAO producer) {
-		final IDecorator decorator = getDecoratorRegistry().getDecorator(producer.getStatsClazzName());
-		if (decorator instanceof GenericStatsDecorator) {
-			final GenericStatsDecorator genericDecorator = (GenericStatsDecorator) decorator;
-			if (!genericDecorator.isInitialized()) {
-				for (StatValueAO statBean : producer.getFirstStatsValues()) {
-					genericDecorator.addCaption(statBean.getName(), statBean.getType());
-				}
-			}
-			LOG.debug("for producer '" + producer.getProducerId() + "', a new generic stats decorator was created: " + decorator);
-		} else {
-			LOG.debug("for producer '" + producer.getProducerId() + "', a build-in decorator was created: " + decorator.getName());
-		}
-		return decorator;
 	}
 
 	@Override

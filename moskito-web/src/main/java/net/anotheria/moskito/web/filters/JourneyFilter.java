@@ -4,6 +4,8 @@ import net.anotheria.moskito.core.calltrace.CurrentlyTracedCall;
 import net.anotheria.moskito.core.calltrace.NoTracedCall;
 import net.anotheria.moskito.core.calltrace.RunningTraceContainer;
 import net.anotheria.moskito.core.calltrace.TracedCall;
+import net.anotheria.moskito.core.config.MoskitoConfigurationHolder;
+import net.anotheria.moskito.core.config.tagging.TaggingConfig;
 import net.anotheria.moskito.core.context.MoSKitoContext;
 import net.anotheria.moskito.core.journey.Journey;
 import net.anotheria.moskito.core.journey.JourneyManager;
@@ -48,6 +50,11 @@ public class JourneyFilter implements Filter{
 	 */
 	public static final String PARAM_JOURNEY_NAME = "mskJourneyName";
 
+	public static final String TAG_IP = "ip";
+	public static final String TAG_REFERER = "referer";
+	public static final String TAG_USER_AGENT = "user-agent";
+	public static final String TAG_SESSION_ID = "sessionId";
+
 	/**
 	 * Log.
 	 */
@@ -69,6 +76,25 @@ public class JourneyFilter implements Filter{
 
 		HttpServletRequest req = (HttpServletRequest)sreq;
 		processParameters(req);
+
+		//autoset tags.
+		TaggingConfig taggingConfig = MoskitoConfigurationHolder.getConfiguration().getTaggingConfig();
+		if (taggingConfig.isAutotagIp()){
+			MoSKitoContext.addTag(TAG_IP, req.getRemoteAddr());
+		}
+		if (taggingConfig.isAutotagReferer()){
+			MoSKitoContext.addTag(TAG_REFERER, req.getHeader("referer"));
+		}
+		if (taggingConfig.isAutotagUserAgent()){
+			MoSKitoContext.addTag(TAG_SESSION_ID, req.getHeader("user-agent"));
+		}
+		if (taggingConfig.isAutotagSessionId() && req.getSession(false) != null){
+			MoSKitoContext.addTag(TAG_SESSION_ID, req.getSession().getId());
+		}
+
+		//set custom tags
+
+		//end of tags.
 
 		HttpSession session = req.getSession(false);
 		JourneyRecord record = null;
