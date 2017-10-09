@@ -460,6 +460,10 @@
             "caption": "Memory",
             "accumulators": ["Mem OldGenFree MB 1m", "Mem OldGenUsed MB 1m"]
           }
+        ],
+        "@producers": [
+          "JavaRuntimeFree",
+          "JavaRuntimeTotal"
         ]
       },
       {

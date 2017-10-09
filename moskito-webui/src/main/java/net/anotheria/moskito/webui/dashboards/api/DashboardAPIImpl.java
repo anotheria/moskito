@@ -12,16 +12,13 @@ import net.anotheria.moskito.webui.accumulators.api.AccumulatorAO;
 import net.anotheria.moskito.webui.accumulators.api.AccumulatorAPI;
 import net.anotheria.moskito.webui.accumulators.api.MultilineChartAO;
 import net.anotheria.moskito.webui.gauges.api.GaugeAPI;
+import net.anotheria.moskito.webui.producers.api.ProducerAPI;
 import net.anotheria.moskito.webui.shared.api.AbstractMoskitoAPIImpl;
 import net.anotheria.moskito.webui.threshold.api.ThresholdAPI;
 import net.anotheria.util.StringUtils;
 import net.anotheria.util.sorter.DummySortType;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 /**
  * Implementation of the DashboardAPI.
@@ -55,6 +52,10 @@ public class DashboardAPIImpl extends AbstractMoskitoAPIImpl implements Dashboar
 	 * AccumulatorAPI.
 	 */
 	private AccumulatorAPI accumulatorAPI;
+	/**
+	 * ProducerAPI.
+	 */
+	private ProducerAPI producerAPI;
 
 
 	@Override
@@ -64,6 +65,7 @@ public class DashboardAPIImpl extends AbstractMoskitoAPIImpl implements Dashboar
 		gaugeAPI = APIFinder.findAPI(GaugeAPI.class);
 		thresholdAPI = APIFinder.findAPI(ThresholdAPI.class);
 		accumulatorAPI = APIFinder.findAPI(AccumulatorAPI.class);
+		producerAPI = APIFinder.findAPI(ProducerAPI.class);
 
 	}
 
@@ -301,6 +303,61 @@ public class DashboardAPIImpl extends AbstractMoskitoAPIImpl implements Dashboar
 		config.setCharts(new_cc_array);
 	}
 
+	@Override
+	public void addProducerToDashboard(String dashboardName, String producerName) throws APIException {
+		DashboardConfig config = getDashboardConfig(dashboardName);
+		if (config == null)
+			return;
+
+		if (StringUtils.isEmpty(producerName))
+			return;
+
+		String[] cc_array = config.getProducers();
+		int newSize = cc_array == null ? 1 : cc_array.length + 1;
+		String[] new_cc_array = new String[newSize];
+
+		if (cc_array != null) {
+			System.arraycopy(cc_array, 0, new_cc_array, 0, cc_array.length);
+		}
+
+		new_cc_array[new_cc_array.length - 1] = producerName;
+		config.setProducers(new_cc_array);
+	}
+
+    @Override
+    public void removeProducerFromDashboard(String dashboardName, String producerName) throws APIException {
+        DashboardConfig config = getDashboardConfig(dashboardName);
+        if (config == null)
+            return;
+        if (StringUtils.isEmpty(producerName))
+            return;
+
+        String[] cc_array = config.getProducers();
+        int index = -1;
+        int count = 0;
+        for (String producer : cc_array) {
+            if (producerName.equals(producer)) {
+                index = count;
+                break;
+            }
+            count++;
+        }
+        if (index==-1){
+            return;
+        }
+        if (cc_array == null || cc_array.length<index+1)
+            return;
+        String[] new_cc_array = new String[cc_array.length-1];
+        if (cc_array.length == 1){
+            //source had only one element
+            config.setProducers(new_cc_array);
+            return;
+        }
+
+        removeElementFromArray(cc_array, new_cc_array, index);
+        config.setProducers(new_cc_array);
+    }
+
 	private static <T> T removeElementFromArray(T sourceArray[], T destArray, int index){
 		//last element
 		if (sourceArray.length==index+1){
@@ -375,6 +432,10 @@ public class DashboardAPIImpl extends AbstractMoskitoAPIImpl implements Dashboar
 
 		if (config.getThresholds()!=null && config.getThresholds().length>0){
 			ret.setThresholds(thresholdAPI.getThresholdStatuses(config.getThresholds()));
+		}
+
+		if (config.getProducers() != null && config.getProducers().length > 0) {
+			ret.setProducers(Arrays.asList(config.getProducers()));
 		}
 
 

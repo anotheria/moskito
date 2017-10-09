@@ -43,6 +43,7 @@ Commented out for now. We may add this later as welcome message (to all layers).
                     </th>
                 </ano:iterate>
                 <th>Class</th>
+                <th class="th-actions"></th>
             </tr>
             </thead>
             <tbody>
@@ -56,6 +57,12 @@ Commented out for now. We may add this later as welcome message (to all layers).
                     <td class="tooltip-bottom" title="${producer.producerId}.${value.name}=${value.value}">${value.value}</td>
                 </ano:iterate>
                 <td>${producer.producerClassName}</td>
+
+                <td class="actions-links">
+                    <ano:notEmpty name="dashboardNames">
+                        <a onclick="addProducer('${producer.producerId}', '<ano:write name="dashboardNames" />');" href="#" class="action-icon add-icon tooltip-bottom" title="Add ${producer.producerId} to dashboard"><i class="fa fa-plus"></i></a>
+                    </ano:notEmpty>
+                </td>
             </tr>
             </ano:iterate>
             </tbody>
