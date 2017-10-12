@@ -41,7 +41,7 @@
                     <tbody>
                     <ano:iterate name="thresholds" type="net.anotheria.moskito.webui.threshold.bean.ThresholdStatusBean" id="threshold" indexId="index">
                     <tr>
-                        <td><a onclick="showThresholdUpdateModal(${threshold.id}); return false" href="#">${threshold.name}</a></td>
+                        <td><a class="threshold-update-link" data-id="${threshold.id}" href="#">${threshold.name}</a></td>
                         <td><i class="status status-${threshold.colorCode}"></i></td>
                         <td>${threshold.value}</td>
                         <td><i class="status status-${threshold.previousColorCode}"></i> <i class="fa fa-long-arrow-right"></i> <i class="status status-${threshold.colorCode}"></i></td>
@@ -50,7 +50,7 @@
                         <td>${threshold.description}</td>
                         <td class="actions-links">
                             <a href="#mskThresholdDelete" data-toggle="modal" data-target="#mskThresholdDelete" data-id="${threshold.id}" class="action-icon delete-icon tooltip-bottom" title="Delete ${threshold.name}"><i class="fa fa-ban"></i></a>
-                            <a onclick="showThresholdUpdateModal(${threshold.id}); return false" href="#" class="action-icon edit-icon tooltip-bottom" title="Edit ${threshold.name}"><i class="fa fa-pencil"></i></a>
+                            <a href="#" class="action-icon edit-icon tooltip-bottom threshold-update-link" data-id="${threshold.id}" title="Edit ${threshold.name}"><i class="fa fa-pencil"></i></a>
                             <ano:iF test="${threshold.dashboardsToAdd != ''}">
                                 <a onclick="addTresholds('${threshold.name}', '${threshold.dashboardsToAdd}');" href="#" class="action-icon edit-icon tooltip-bottom" title="Add ${threshold.name} to dashboard"><i class="fa fa-cog"></i></a>
                             </ano:iF>
@@ -117,9 +117,19 @@
     <jsp:include page="snippet/ThresholdUpdateModal.jsp"/>
 
     <script type="text/javascript">
-        $('.actions-links').on('click','.delete-icon', function() {
-            var dataid = $(this).attr('data-id');
-            $('.threshold-delete-confirm').attr("href", "mskThresholdDelete?pId=" + dataid);
+        $(function () {
+            $('.actions-links').on('click','.delete-icon', function() {
+                var dataid = $(this).attr('data-id');
+                $('.threshold-delete-confirm').attr("href", "mskThresholdDelete?pId=" + dataid);
+            });
+
+            // Event listener for threshold update click
+            $('.threshold-update-link').click(function (e) {
+                e.preventDefault();
+
+                var thresholdId = $(this).data('id');
+                showThresholdUpdateModal(thresholdId);
+            });
         });
     </script>
 

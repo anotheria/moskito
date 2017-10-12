@@ -58,14 +58,17 @@
 <script type="text/javascript" src="../moskito/int/js/chartEngineIniter.js?v=5"></script>
 
 <ano:notEmpty name="graphDatas">
-    <!--
-     Data for action -->
+    <!-- Data for action -->
     <script>
-        <ano:iterate type="net.anotheria.moskito.webui.shared.bean.GraphDataBean" id="graph" name="graphDatas">
-        var <ano:write name="graph" property="jsVariableName"/>Caption = "<ano:write name="graph" property="caption"/>";
-        var <ano:write name="graph" property="jsVariableName"/>Array = <ano:write name="graph" property="jsArrayValue"/>;
-        </ano:iterate>
-
+        // Generating data for stat value charts, where key is graph jsVariableName and values: chart caption and array of chart values
+        var graphData = {
+            <ano:iterate type="net.anotheria.moskito.webui.shared.bean.GraphDataBean" id="graph" name="graphDatas">
+            "<ano:write name="graph" property="jsVariableName"/>": {
+                caption: "<ano:write name="graph" property="caption"/>",
+                values: <ano:write name="graph" property="jsArrayValue"/>
+            },
+            </ano:iterate>
+        };
     </script>
     <!-- -->
 </ano:notEmpty>
