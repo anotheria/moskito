@@ -290,7 +290,7 @@ public class TraceStep implements Serializable{
 		 * previous child.
 		 *
 		 * @param parent trace step parent to search next child
-		 * @param child child previous to returned trace step
+		 * @param child child of first method argument to search next child in list
 		 * @return next child in children list or null if there is no next child or
 		 * 			first argument is not a parent to second
 		 */
@@ -309,7 +309,7 @@ public class TraceStep implements Serializable{
 
 		/**
 		 * Moves over trace steps tree to next element.
-		 * Sets `hasNext` iterator object property to false if there
+		 * Sets `hasNext` property to false if there
 		 * is no more unvisited steps left
 		 */
 		private void moveToNext() {
