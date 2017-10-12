@@ -35,10 +35,14 @@
 package net.anotheria.moskito.core.calltrace;
 
 import net.anotheria.moskito.core.producers.IStatsProducer;
+import net.anotheria.moskito.core.tracer.Trace;
 
+import javax.annotation.Nullable;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Stack;
 
 /**
  * A trace step along the monitoring points in a traced call.
@@ -247,4 +251,135 @@ public class TraceStep implements Serializable{
 	public IStatsProducer getProducer(){
 		return producer;
 	}
+
+	/**
+	 * Returns iterator that
+	 * iterates over this traced step
+	 * and all it substeps tree
+	 *
+	 * @return iterator to iterate trace step tree
+	 */
+	public TraceStepsIterator traceStepsIterator(){
+		return new TraceStepsIterator();
+	}
+
+	/**
+	 * Iterates over this trace step and all it child steps.
+	 * Tree traversal is made up by depth-first pre-order method
+	 * without recursion to prevent stack overflow.
+	 */
+	public class TraceStepsIterator implements Iterator<TraceStep>, Iterable<TraceStep> {
+
+		/**
+		 * Current iteration step item
+		 * be returned on next() call
+		 */
+		private TraceStep current;
+
+		/**
+		 * Indicates is any nodes left to iterate
+		 */
+		private boolean hasNext = true;
+
+		private TraceStepsIterator(){
+			current = TraceStep.this;
+		}
+
+		/**
+		 * Returns child of parent node next to
+		 * previous child.
+		 *
+		 * @param parent trace step parent to search next child
+		 * @param child child previous to returned trace step
+		 * @return next child in children list or null if there is no next child or
+		 * 			first argument is not a parent to second
+		 */
+		private TraceStep getNextChild(TraceStep parent, TraceStep child){
+
+			for (int i = 0; i < parent.getChildren().size() - 2; i++) {
+
+				if(parent.getChildren().get(i) == child)
+					return parent.getChildren().get(i + 1);
+
+			}
+
+			return null;
+
+		}
+
+		/**
+		 * Moves over trace steps tree to next element.
+		 * Sets `hasNext` iterator object property to false if there
+		 * is no more unvisited steps left
+		 */
+		private void moveToNext() {
+
+			// trying to move deeper in tree
+			if(!current.getChildren().isEmpty()){
+				current = current.getChildren().get(0);
+				return;
+			}
+
+			// Check in case there is only one element in tree
+			if(current == TraceStep.this){
+				hasNext = false;
+				return;
+			}
+
+			// If method execution goes to
+			// next lines it means current node is in bottom of the tree.
+			// Now going to parent elements for moving in breadth
+			TraceStep step = current;
+			TraceStep nextChild = null;
+
+			// Moving up in tree to find node
+			// where going breadth is possible
+			while (nextChild == null) {
+
+				TraceStep parentStep = step.getParent();
+
+				// Trying to get child of parent element next to current step
+				nextChild = getNextChild(parentStep, step);
+
+				// If current step parent is root and no root children left
+				// traversing is done
+				if(nextChild == null && parentStep == TraceStep.this){
+					hasNext = false;
+					return;
+				}
+
+				// If no unvisited nodes found in current parent
+				// moving up to tree
+				step = parentStep;
+
+			}
+
+			current = nextChild;
+
+		}
+
+		@Override
+		public boolean hasNext() {
+			return hasNext;
+		}
+
+		@Override
+		public TraceStep next() {
+			TraceStep toReturn = current;
+			moveToNext();
+			return toReturn;
+		}
+
+		@Override
+		public void remove() {
+
+		}
+
+		@Override
+		public Iterator<TraceStep> iterator() {
+			return this;
+		}
+
+	}
+
 }
