@@ -68,6 +68,13 @@ public class CurrentlyTracedCall implements TracedCall, Serializable{
 	 */
 	private long created;
 
+	private long createdNanos;
+
+	/**
+	 * End timestamp;
+	 */
+	private long endedNanos;
+
 	/**
 	 * Tags.
 	 */
@@ -86,6 +93,7 @@ public class CurrentlyTracedCall implements TracedCall, Serializable{
 		name = aName;
 		current = root;
 		created = System.currentTimeMillis();
+		createdNanos = System.nanoTime();
 	}
 	
 	@Override public boolean callTraced(){
@@ -169,5 +177,13 @@ public class CurrentlyTracedCall implements TracedCall, Serializable{
 
 	public void setTags(Map<String, String> tags) {
 		this.tags = tags;
+	}
+
+	public void setEnded(){
+		endedNanos = System.nanoTime();
+	}
+
+	public long getDurationNanos() {
+		return endedNanos - createdNanos;
 	}
 }

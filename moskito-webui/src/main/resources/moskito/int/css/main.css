@@ -889,12 +889,14 @@ tr:hover a.action-icon.delete-icon:hover {
 }
 
 tr:hover a.action-icon.toggle-on-icon,
-tr:hover a.action-icon.edit-icon {
+tr:hover a.action-icon.edit-icon,
+tr:hover a.action-icon.add-icon {
     background: #c8e59e;
 }
 
 tr:hover a.action-icon.toggle-on-icon:hover,
-tr:hover a.action-icon.edit-icon:hover {
+tr:hover a.action-icon.edit-icon:hover,
+tr:hover a.action-icon.add-icon:hover {
     background: #bade87;
 }
 

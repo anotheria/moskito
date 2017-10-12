@@ -237,6 +237,17 @@ public class ProducerAPIImpl extends AbstractMoskitoAPIImpl implements ProducerA
 	}
 
 	@Override
+	public List<ProducerAO> getProducers(List<String> producerIds, String intervalName, TimeUnit timeUnit) throws APIException {
+		List<ProducerAO> producers = new ArrayList<>();
+
+		for (String producerId : producerIds) {
+			producers.add(getProducer(producerId, intervalName, timeUnit));
+		}
+
+		return producers;
+	}
+
+	@Override
 	public ProducerAO getProducer(String producerId, String intervalName, TimeUnit timeUnit) throws APIException {
 		IStatsProducer producer = producerRegistryAPI.getProducer(producerId);
 		return convertStatsProducerToAO(producer, intervalName, timeUnit, true);
