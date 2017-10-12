@@ -11,6 +11,7 @@ import net.anotheria.moskito.core.config.plugins.PluginsConfig;
 import net.anotheria.moskito.core.config.producers.BuiltinProducersConfig;
 import net.anotheria.moskito.core.config.producers.MBeanProducerConfig;
 import net.anotheria.moskito.core.config.producers.TomcatRequestProcessorProducerConfig;
+import net.anotheria.moskito.core.config.tagging.TaggingConfig;
 import net.anotheria.moskito.core.config.thresholds.ThresholdsAlertsConfig;
 import net.anotheria.moskito.core.config.thresholds.ThresholdsConfig;
 import net.anotheria.moskito.core.config.tracing.TracingConfiguration;
@@ -126,6 +127,10 @@ public class MoskitoConfiguration implements Serializable{
 	@Configure
 	@SerializedName("@filterConfig")
 	private FilterConfig filterConfig = new FilterConfig();
+
+	@Configure
+	@SerializedName("taggingConfig")
+	private TaggingConfig taggingConfig = new TaggingConfig();
 
 
 	public ThresholdsAlertsConfig getThresholdsAlertsConfig() {
@@ -251,6 +256,13 @@ public class MoskitoConfiguration implements Serializable{
 		this.applicationName = applicationName;
 	}
 
+	public TaggingConfig getTaggingConfig() {
+		return taggingConfig;
+	}
+
+	public void setTaggingConfig(TaggingConfig taggingConfig) {
+		this.taggingConfig = taggingConfig;
+	}
 }
 
 

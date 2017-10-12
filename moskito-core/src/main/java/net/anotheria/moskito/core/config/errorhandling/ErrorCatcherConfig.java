@@ -2,13 +2,15 @@ package net.anotheria.moskito.core.config.errorhandling;
 
 import org.configureme.annotations.Configure;
 
+import java.io.Serializable;
+
 /**
  * Defines a catcher for a specific error. Error catchers are defined to help you to find errors which are unexpectingly occuring in your application.
  *
  * @author lrosenberg
  * @since 04.06.17 14:43
  */
-public class ErrorCatcherConfig {
+public class ErrorCatcherConfig implements Serializable{
 	/**
 	 * The error clazz as fully qualified string (x.z.RuntimeException).
 	 */

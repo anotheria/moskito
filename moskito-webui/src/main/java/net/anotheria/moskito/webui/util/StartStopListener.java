@@ -3,6 +3,7 @@ package net.anotheria.moskito.webui.util;
 import net.anotheria.moskito.core.threshold.ThresholdRepository;
 import net.anotheria.moskito.core.timing.UpdateTriggerServiceFactory;
 import net.anotheria.moskito.core.util.BuiltinUpdater;
+import net.anotheria.moskito.core.util.MBeanUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -33,6 +34,7 @@ public class StartStopListener implements ServletContextListener{
 		BuiltinUpdater.cleanup();
 		ThresholdRepository.getInstance().cleanup();
 		UpdateTriggerServiceFactory.getUpdateTriggerService().cleanup();
+		MBeanUtil.getInstance().cleanup();
 	}
 
 }

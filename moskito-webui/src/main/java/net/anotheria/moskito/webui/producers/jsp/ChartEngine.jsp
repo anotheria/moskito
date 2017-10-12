@@ -43,16 +43,22 @@
 
         var that = $(this);
         var $chart = $('#chart');
+
+        var statId = that.parent('.table-column').find('input').val();
+        var chartCaption = graphData[statId].caption;
+        var chartData = graphData[statId].values;
+
+
         chartParams = {
             container: 'chart_div',
-            names: [eval(that.parent('.table-column').find('input').val()+'Caption')],
-            data: eval(that.parent('.table-column').find('input').val()+'Array'),
+            names: [ chartCaption ],
+            data: chartData,
             type: 'PieChart',
             title: '',
             width: ${config.producerChartWidth},
             height: ${config.producerChartHeight}
         };
-        $chart.find('.modal-title').text(eval(that.parent('.table-column').find('input').val()+'Caption'));
+        $chart.find('.modal-title').text( chartCaption );
         chartEngineIniter.init(chartParams);
         $chart.modal('show');
     });

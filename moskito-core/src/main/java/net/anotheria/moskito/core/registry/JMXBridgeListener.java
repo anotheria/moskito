@@ -4,6 +4,7 @@ import net.anotheria.moskito.core.config.MoskitoConfigurationHolder;
 import net.anotheria.moskito.core.producers.IStats;
 import net.anotheria.moskito.core.producers.IStatsProducer;
 import net.anotheria.moskito.core.util.BuiltInProducer;
+import net.anotheria.moskito.core.util.MBeanUtil;
 import net.anotheria.util.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,34 +28,29 @@ public class JMXBridgeListener<S extends IStats> implements IProducerRegistryLis
 		if (producer instanceof BuiltInProducer)
 			return;
 		List<S> stats = producer.getStats();
-		MBeanServer mbs = ManagementFactory.getPlatformMBeanServer();
 	    if (stats == null)
 	    	return;
 		for (IStats s : stats){
 			try{
-				ObjectName name = createName(producer.getProducerId(), s.getName());
-		    	mbs.registerMBean(s, name);
-			}catch(InstanceAlreadyExistsException e){ 
-				log.warn("can't register "+s.getName()+" in "+producer.getProducerId()+", ignored InstanceAlreadyExistsException.");
-			}catch(Exception e){
+				MBeanUtil.getInstance().registerMBean(s, createName(producer.getProducerId(), s.getName()));
+			} catch(Exception e){
 				log.warn("can't register "+s.getName()+" in "+producer.getProducerId()+", ignored.", e);
 			}
-			
 		}
 	}
 
 	@Override
 	public void notifyProducerUnregistered(IStatsProducer<S> producer) {
 		List<S> stats = producer.getStats();
-		MBeanServer mbs = ManagementFactory.getPlatformMBeanServer();
 	    if (stats == null)
 	    	return;
 		for (IStats s : stats){
 			try{
-				ObjectName name = createName(producer.getProducerId(), s.getName());
-		    	mbs.unregisterMBean(name);
-			}catch(InstanceNotFoundException e){
-				log.debug("can't unregister "+s.getName()+" in "+producer.getProducerId()+", ignored InstanceNotFoundException.");
+		    	boolean isUnregistered =
+						MBeanUtil.getInstance().unregisterMBean(createName(producer.getProducerId(), s.getName()));
+		    	if(!isUnregistered)
+					log.debug("can't unregister "+s.getName()+" in "+producer.getProducerId()+
+							", MBean with such name is not registered");
 			}catch(Exception e){
 				log.warn("can't unregister "+s.getName()+" in "+producer.getProducerId()+", ignored.", e);
 			}
@@ -67,13 +63,10 @@ public class JMXBridgeListener<S extends IStats> implements IProducerRegistryLis
 	 * @param producerId
 	 * @param statName
 	 * @return
-	 * @throws MalformedObjectNameException
 	 */
-	private ObjectName createName(String producerId, String statName) throws MalformedObjectNameException{
+	private String createName(String producerId, String statName) {
 		String appName = encodeAppName(MoskitoConfigurationHolder.getConfiguration().getApplicationName());
-		String objectName = "MoSKito."+(appName.length()>0 ? appName+ '.' :"")+"producers:type="+producerId+ '.' +statName;
-		ObjectName objName = new ObjectName(objectName);
-		return objName;
+		return "MoSKito."+(appName.length()>0 ? appName+ '.' :"")+"producers:type="+producerId+ '.' +statName;
 	}
 
 	/**

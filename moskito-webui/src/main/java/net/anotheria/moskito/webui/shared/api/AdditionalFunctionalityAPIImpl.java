@@ -163,11 +163,12 @@ public class AdditionalFunctionalityAPIImpl extends AbstractMoskitoAPIImpl imple
 				// CHECKSTYLE:ON
 				log.debug("unable to read MBean: " + e.getLocalizedMessage());
 			}
-
+      
 			res.add(new MBeanAttributeWrapperAO(
 					info,
 					value != null ? value.toString() : null
 			));
+
 		}
 
 		return res;

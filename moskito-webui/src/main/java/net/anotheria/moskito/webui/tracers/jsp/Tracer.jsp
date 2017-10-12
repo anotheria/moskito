@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html;charset=UTF-8" session="true" %>
 <%@ taglib prefix="ano" uri="http://www.anotheria.net/ano-tags" %>
+<%@ taglib prefix="mos" uri="http://www.moskito.org/inspect/tags" %>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <jsp:include page="../../shared/jsp/Header.jsp" flush="false"/>
@@ -12,7 +13,7 @@
         <div class="box">
             <div class="box-title">
                 <h3 class="pull-left">
-                    Tracer for ${tracer.producerId}, enabled: ${tracer.enabled}.
+                    Tracer for ${tracer.producerId}, enabled: ${tracer.enabled}, current entries: ${tracer.entryCount}, total seen: ${tracer.totalEntryCount}.
                 </h3>
             </div>
             <div class="box-content">
@@ -32,7 +33,7 @@
                             <td>
                                 <div>
                                     <i class="minus">–</i><i class="plus">+</i><i class="vline"></i>
-                                    <a href="mskShowJourneyCall?pJourneyName=${journeyName}&pTracedCallName=Trace-${trace.id}">Trace-${trace.id}</a>
+                                    <mos:deepLink href="mskShowJourneyCall?pJourneyName=${journeyName}&pTracedCallName=Trace-${trace.id}">Trace-${trace.id}</mos:deepLink>
                                 </div>
                             </td>
                             <td>${trace.created}</td>
