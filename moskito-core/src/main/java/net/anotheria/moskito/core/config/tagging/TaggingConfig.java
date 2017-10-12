@@ -1,12 +1,19 @@
 package net.anotheria.moskito.core.config.tagging;
 
+import java.io.Serializable;
+
 /**
  * Configured tagging options.
  *
  * @author lrosenberg
  * @since 28.09.17 19:21
  */
-public class TaggingConfig {
+public class TaggingConfig implements Serializable {
+	/**
+	 * SerialVersionUID.
+	 */
+	private static final long serialVersionUID = 8060717826503504338L;
+
 	private boolean autotagSessionId = true;
 
 	private boolean autotagIp = true;

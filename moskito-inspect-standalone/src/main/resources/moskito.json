@@ -686,16 +686,6 @@
         "className": "net.anotheria.moskito.extensions.DiskSpaceMonitoringPlugin"
       },
       {
-        "name": "VisualPoCPlugin",
-        "configurationName": "none",
-        "className": "net.anotheria.moskitoplugin.emptypage.EmptyPagePlugin"
-      },
-      {
-        "name": "TopPlugin",
-        "configurationName": "none",
-        "className": "net.anotheria.moskitoplugin.topproducers.TopProducersPlugin"
-      },
-      {
         "name": "ApacheMonitoringPlugin",
         "configurationName": "monitoring-plugin-apache",
         "className": "net.anotheria.moskito.extensions.monitoring.GenericMonitoringPlugin"
