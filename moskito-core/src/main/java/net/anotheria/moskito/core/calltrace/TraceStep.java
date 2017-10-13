@@ -401,7 +401,7 @@ public class TraceStep implements Serializable{
 
 		@Override
 		public void remove() {
-			throw new UnsupportedOperationException("remove");
+
 		}
 
 		@Override
