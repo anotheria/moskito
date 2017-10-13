@@ -1910,3 +1910,22 @@ Heat map
 .logo a > span span {
     display: block;
 }
+
+.beta-logo > span{
+    margin-left: 2px;
+    line-height: 16px;
+    margin-top: 7px;
+}
+.beta-logo b {
+    display: block;
+}
+.beta-logo span {
+    display: inline;
+}
+
+.beta-logo__beta-title {
+    letter-spacing: 1px;
+    display: inline;
+    font-weight: 200;
+    font-size: 14px;
+}

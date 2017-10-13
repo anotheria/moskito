@@ -83,6 +83,10 @@ public class WebUIConfig {
 	 */
 	private String customLogoUrl="";
 
+	/**
+	 * If true beta features be enabled
+	 */
+	private boolean betaMode = false;
 
 	public int getProducerChartWidth() {
 		return producerChartWidth;
@@ -116,6 +120,14 @@ public class WebUIConfig {
 
 	public void setAuthentication(AuthConfig authentication) {
 		this.authentication = authentication;
+	}
+
+	public boolean isBetaMode() {
+		return betaMode;
+	}
+
+	public void setBetaMode(boolean betaMode) {
+		this.betaMode = betaMode;
 	}
 
 	/**

@@ -275,4 +275,5 @@ public class TraceStep implements Serializable{
 	private String quote(String s){
 		return "\"" + s + "\"";
 	}
+
 }
