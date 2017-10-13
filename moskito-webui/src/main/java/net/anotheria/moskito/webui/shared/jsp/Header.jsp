@@ -164,10 +164,16 @@
                 </a>
             </ano:notEmpty> --%>
             <ano:empty name="logoUrl">
-                <div class="logo">
+                <div class="logo <ano:iF test="${betaMode}">beta-logo</ano:iF>">
                     <mos:deepLink href="mskDashboard">
                         <img src="../moskito/int/img/logo.png" class="logo-white">
-                        <span><b>MoSKito</b><span>Inspect</span></span>
+                        <span>
+                            <b>MoSKito</b>
+                            <span>Inspect</span>
+                            <ano:iF test="${betaMode}">
+                                <span class="beta-logo__beta-title">Beta</span>
+                            </ano:iF>
+                        </span>
                     </mos:deepLink>
                 </div>
             </ano:empty>
