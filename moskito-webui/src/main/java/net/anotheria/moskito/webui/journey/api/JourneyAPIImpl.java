@@ -211,19 +211,16 @@ public class JourneyAPIImpl extends AbstractMoskitoAPIImpl implements  JourneyAP
 	}
 
 	private void addStep(TraceStep step, AnalyzedProducerCallsMapAO... maps){
-
-		for (TraceStep currentStep : step.traceStepsIterator()){
-
-			String producerName = currentStep.getProducer() == null ?
-					"UNKNOWN" : currentStep.getProducer().getProducerId();
-
-			for (AnalyzedProducerCallsMapAO map : maps){
-				map.addProducerCall(producerName,  currentStep.getNetDuration());
-			}
-
+		String producerName = step.getProducer() == null ?
+				"UNKNOWN" : step.getProducer().getProducerId();
+		for (AnalyzedProducerCallsMapAO map : maps){
+			map.addProducerCall(producerName,  step.getNetDuration());
 		}
-
+		for (TraceStep childStep : step.getChildren()){
+			addStep(childStep, maps);
+		}
 	}
+
 
 	@Override
 	public void deleteJourney(String journeyName) throws APIException {
