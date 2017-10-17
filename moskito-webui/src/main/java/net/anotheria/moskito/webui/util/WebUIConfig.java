@@ -130,6 +130,10 @@ public class WebUIConfig {
 		this.betaMode = betaMode;
 	}
 
+	private WebUIConfig(){
+		initRemotesCollections();
+	}
+
 	/**
 	 * Singleton holder class.
 	 */
