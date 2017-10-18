@@ -35,6 +35,7 @@
 package net.anotheria.moskito.webui.shared.bean;
 
 import net.anotheria.moskito.webui.producers.api.ProducerAO;
+import net.anotheria.moskito.webui.producers.api.StatLineAO;
 import net.anotheria.moskito.webui.shared.action.BaseMoskitoUIAction;
 
 import java.util.LinkedList;
@@ -52,8 +53,14 @@ public class ProducerDecoratorBean extends AbstractDecoratorBean {
  	 */
 	private List<ProducerAO> producers;
 
+	/**
+	 * {@link StatLineAO} containing cumulated value for all producers.
+	 */
+	private StatLineAO cumulatedStat;
+
+
 	public ProducerDecoratorBean(){
-		producers = new LinkedList<ProducerAO>();
+		producers = new LinkedList<>();
 	}
 
 	public List<ProducerAO> getProducers() {
@@ -66,9 +73,16 @@ public class ProducerDecoratorBean extends AbstractDecoratorBean {
 	
 	public void setProducerBeans(List<ProducerAO> someProducers){
 		producers = someProducers;
-	}	
-	
-	
+	}
+
+	public StatLineAO getCumulatedStat() {
+		return cumulatedStat;
+	}
+
+	public void setCumulatedStat(StatLineAO cumulatedStat) {
+		this.cumulatedStat = cumulatedStat;
+	}
+
 	public String getSortTypeName(){
 		return BaseMoskitoUIAction.BEAN_SORT_TYPE_PREFIX + getName();
 	}

@@ -43,7 +43,9 @@ public interface ProducerAPI extends API, Service {
 	 * @return
 	 * @throws APIException
 	 */
-	List<ProducerAO> getAllProducers(String intervalName, TimeUnit timeUnit)throws APIException;
+	List<ProducerAO> getAllProducers(String intervalName, TimeUnit timeUnit) throws APIException;
+
+	List<ProducerAO> getAllProducers(String intervalName, TimeUnit timeUnit, boolean createAllStats) throws APIException;
 
 	/**
 	 * Returns all producers in given category.
@@ -53,7 +55,9 @@ public interface ProducerAPI extends API, Service {
 	 * @return
 	 * @throws APIException
 	 */
-	List<ProducerAO> getAllProducersByCategory(String currentCategory, String intervalName, TimeUnit timeUnit)throws APIException;
+	List<ProducerAO> getAllProducersByCategory(String currentCategory, String intervalName, TimeUnit timeUnit) throws APIException;
+
+	List<ProducerAO> getAllProducersByCategory(String currentCategory, String intervalName, TimeUnit timeUnit, boolean createAllStats) throws APIException;
 
 	/**
 	 *
@@ -83,7 +87,9 @@ public interface ProducerAPI extends API, Service {
 	 * @return
 	 * @throws APIException
 	 */
-	List<ProducerAO> getAllProducersBySubsystem(String currentSubsystem, String intervalName, TimeUnit timeUnit)throws APIException;
+	List<ProducerAO> getAllProducersBySubsystem(String currentSubsystem, String intervalName, TimeUnit timeUnit) throws APIException;
+
+	List<ProducerAO> getAllProducersBySubsystem(String currentSubsystem, String intervalName, TimeUnit timeUnit, boolean createAllStats) throws APIException;
 
 	/**
 	 * Returns performance data for a single producer.

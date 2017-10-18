@@ -3,13 +3,20 @@ package net.anotheria.moskito.webui.producers.util;
 import net.anotheria.moskito.core.decorators.DecoratorRegistryFactory;
 import net.anotheria.moskito.core.decorators.IDecorator;
 import net.anotheria.moskito.core.decorators.predefined.GenericStatsDecorator;
+import net.anotheria.moskito.core.decorators.value.StatCaptionBean;
 import net.anotheria.moskito.core.decorators.value.StatValueAO;
+import net.anotheria.moskito.core.registry.IProducerFilter;
+import net.anotheria.moskito.core.registry.filters.CategoryFilter;
+import net.anotheria.moskito.core.registry.filters.SubsystemFilter;
+import net.anotheria.moskito.core.stats.TimeUnit;
 import net.anotheria.moskito.core.stats.UnknownIntervalException;
 import net.anotheria.moskito.webui.producers.api.ProducerAO;
 import net.anotheria.moskito.webui.producers.api.ProducerAOSortType;
+import net.anotheria.moskito.webui.producers.api.StatLineAO;
 import net.anotheria.moskito.webui.shared.bean.GraphDataBean;
 import net.anotheria.moskito.webui.shared.bean.GraphDataValueBean;
 import net.anotheria.moskito.webui.shared.bean.ProducerDecoratorBean;
+import net.anotheria.util.StringUtils;
 import net.anotheria.util.sorter.StaticQuickSorter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -36,10 +43,10 @@ public class ProducerUtility {
         for (ProducerAO producer : producers){
             try{
                 IDecorator decorator = findOrCreateDecorator(producer);
-                List<ProducerAO> decoratoredProducers = decoratorMap.get(decorator);
-                if (decoratoredProducers == null){
-                    decoratoredProducers = new ArrayList<>();
-                    decoratorMap.put(decorator, decoratoredProducers);
+                List<ProducerAO> decoratedProducers = decoratorMap.get(decorator);
+                if (decoratedProducers == null){
+                    decoratedProducers = new ArrayList<>();
+                    decoratorMap.put(decorator, decoratedProducers);
 
                     for(StatValueAO statBean : producer.getFirstStatsValues()){
                         String graphKey = decorator.getName()+ '_' +statBean.getName();
@@ -47,7 +54,7 @@ public class ProducerUtility {
                         graphData.put(graphKey, graphDataBean);
                     }
                 }
-                decoratoredProducers.add(producer);
+                decoratedProducers.add(producer);
             }catch(IndexOutOfBoundsException e){
                 //producer has no stats at all, ignoring
             }
@@ -83,6 +90,48 @@ public class ProducerUtility {
         }
 
         return beans;
+    }
+
+    /**
+     * Filters producers by decorator and returns it.
+     * @param decoratorName Decorator name
+     * @param producers {@link List} of {@link ProducerAO} to filter
+     * @param graphData Graph data
+     */
+    public static ProducerDecoratorBean filterProducersByDecoratorName(String decoratorName, List<ProducerAO> producers, Map<String, GraphDataBean> graphData) {
+        ProducerDecoratorBean result = new ProducerDecoratorBean();
+        result.setName(decoratorName);
+
+        List<ProducerAO> decoratedProducers = new ArrayList<>();
+        for (ProducerAO producer : producers) {
+            IDecorator decorator = findOrCreateDecorator(producer);
+            if (decorator.getName().equals(decoratorName)) {
+                result.setCaptions(decorator.getCaptions());
+                decoratedProducers.add(producer);
+
+                // Filling graph data
+                for (StatLineAO statLine : producer.getLines()) {
+                    if (!"cumulated".equals(statLine.getStatName())) {
+                        for (StatValueAO statValue : statLine.getValues()) {
+                            final String graphKey = decorator.getName() + '_' + statValue.getName();
+                            final GraphDataValueBean value = new GraphDataValueBean(producer.getProducerId() + '.' + statLine.getStatName(), statValue.getRawValue());
+
+                            GraphDataBean graphDataBean = graphData.get(graphKey);
+                            if (graphDataBean == null) {
+                                graphDataBean = new GraphDataBean(decorator.getName() + '_' + statValue.getJsVariableName(), statValue.getName());
+                            }
+
+                            graphDataBean.addValue(value);
+                            graphData.put(graphKey, graphDataBean);
+                        }
+                    }
+                }
+            }
+        }
+
+        result.setProducerBeans(decoratedProducers);
+
+        return result;
     }
 
     private static ProducerAOSortType getProducerBeanSortType(ProducerDecoratorBean decoratorBean, HttpServletRequest req){
