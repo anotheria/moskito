@@ -137,6 +137,11 @@ public abstract class BaseMoskitoUIAction implements Action{
 	public static final String PARAM_SUBSYSTEM = "pSubsystem";
 
 	/**
+	 * Parameter for producer's decorator.
+	 */
+	public static final String PARAM_DECORATOR = "pDecorator";
+
+	/**
 	 * SortBy usually accompanied by an integer that defines the sort method.
 	 */
 	public static final String PARAM_SORT_BY = "pSortBy";
@@ -180,6 +185,11 @@ public abstract class BaseMoskitoUIAction implements Action{
 	 * Value that switches filtering feature off.
 	 */
 	public static final String PARAM_VALUE_FILTER_OFF = "off";
+
+	/**
+	 * Cumulated caption value.
+	 */
+	public static final String CUMULATED_STAT_NAME_VALUE = "cumulated";
 
 	/**
 	 * Logger.

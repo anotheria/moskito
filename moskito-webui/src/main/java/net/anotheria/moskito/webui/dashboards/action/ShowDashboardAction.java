@@ -24,6 +24,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import static net.anotheria.moskito.webui.threshold.util.ThresholdStatusBeanUtility.getThresholdBeans;
@@ -55,6 +56,8 @@ public class ShowDashboardAction extends BaseDashboardAction {
 		Boolean thresholdsPresent = false;
 		Boolean producersPresent = false;
 
+		Map<String, GraphDataBean> graphData = new HashMap<>();
+
 		//set default values, allow to exit previously.
 		request.setAttribute("gaugesPresent", gaugesPresent);
 		request.setAttribute("chartsPresent", chartsPresent);
@@ -75,7 +78,7 @@ public class ShowDashboardAction extends BaseDashboardAction {
 		List<ThresholdStatusBean> thresholdStatusBeans = getThresholdBeans(dashboard.getThresholds());
 		List<GaugeBean> gaugeBeans = getGaugeBeans(dashboard.getGauges());
 		List<DashboardChartBean> dashboardChartAOList = getChartBeans(dashboard.getCharts());
-		List<ProducerDecoratorBean> decoratedProducers = getDecoratedProducerBeans(dashboard.getProducers(), request);
+		List<ProducerDecoratorBean> decoratedProducers = getDecoratedProducerBeans(dashboard.getProducers(), request, graphData);
 
 		//now we definitely have a selected dashboard.
 		//prepare thresholds
@@ -98,6 +101,7 @@ public class ShowDashboardAction extends BaseDashboardAction {
 
 		//prepare producers
 		if (decoratedProducers != null && decoratedProducers.size() > 0) {
+			request.setAttribute("graphDatas", graphData.values());
 			request.setAttribute("decorators", decoratedProducers);
 			producersPresent = true;
 		}
@@ -128,11 +132,11 @@ public class ShowDashboardAction extends BaseDashboardAction {
 		return "dashboard";
 	}
 
-	private List<ProducerDecoratorBean> getDecoratedProducerBeans(List<String> producerIds, HttpServletRequest request) throws APIException {
+	private List<ProducerDecoratorBean> getDecoratedProducerBeans(List<String> producerIds, HttpServletRequest request, Map<String, GraphDataBean> graphData) throws APIException {
 		if (producerIds != null && producerIds.size() > 0) {
 			List<ProducerAO> producerAOs = getProducerAPI().getProducers(producerIds, getCurrentInterval(request), getCurrentUnit(request).getUnit());
 			if (producerAOs != null && producerAOs.size() > 0) {
-				return ProducerUtility.getDecoratedProducers(request, producerAOs, new HashMap<String, GraphDataBean>());
+				return ProducerUtility.getDecoratedProducers(request, producerAOs, graphData);
 			}
 		}
 

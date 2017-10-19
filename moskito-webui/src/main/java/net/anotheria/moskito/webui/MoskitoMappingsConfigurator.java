@@ -16,10 +16,7 @@ import net.anotheria.moskito.webui.journey.action.*;
 import net.anotheria.moskito.webui.more.action.*;
 import net.anotheria.moskito.webui.plugins.action.RemovePluginAction;
 import net.anotheria.moskito.webui.plugins.action.ShowPluginsAction;
-import net.anotheria.moskito.webui.producers.action.ShowAllProducersAction;
-import net.anotheria.moskito.webui.producers.action.ShowProducerAction;
-import net.anotheria.moskito.webui.producers.action.ShowProducersForCategoryAction;
-import net.anotheria.moskito.webui.producers.action.ShowProducersForSubsystemAction;
+import net.anotheria.moskito.webui.producers.action.*;
 import net.anotheria.moskito.webui.shared.action.*;
 import net.anotheria.moskito.webui.shared.commands.CommandDeepLinkRedirect;
 import net.anotheria.moskito.webui.threads.action.*;
@@ -84,7 +81,11 @@ public class MoskitoMappingsConfigurator implements ActionMappingsConfigurator{
 				new ActionForward("json", "/net/anotheria/moskito/webui/shared/jsp/ProducerJSON.jsp")
 				//new ActionForward("selection", "/net/anotheria/moskito/webui/producers/jsp/ProducerForSelection.jsp")
 		);
-		
+
+		mappings.addMapping("mskShowCumulatedProducers", ShowCumulatedProducersAction.class,
+				new ActionForward("html", "/net/anotheria/moskito/webui/producers/jsp/CumulatedProducers.jsp")
+		);
+
 		mappings.addAlias("mskShowProducer.csv", "mskShowProducer");
 		mappings.addAlias("mskShowProducer.xml", "mskShowProducer");
 		mappings.addAlias("mskShowProducer.json", "mskShowProducer");

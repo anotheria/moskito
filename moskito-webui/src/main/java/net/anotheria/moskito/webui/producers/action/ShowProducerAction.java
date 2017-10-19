@@ -41,6 +41,7 @@ import net.anotheria.moskito.core.decorators.IDecorator;
 import net.anotheria.moskito.core.decorators.value.StatValueAO;
 import net.anotheria.moskito.core.inspection.CreationInfo;
 import net.anotheria.moskito.webui.accumulators.api.AccumulatedSingleGraphAO;
+import net.anotheria.moskito.webui.accumulators.util.AccumulatorUtility;
 import net.anotheria.moskito.webui.producers.api.ProducerAO;
 import net.anotheria.moskito.webui.producers.api.StatLineAO;
 import net.anotheria.moskito.webui.shared.action.BaseMoskitoUIAction;
@@ -55,8 +56,6 @@ import net.anotheria.moskito.webui.threshold.bean.ThresholdStatusBean;
 import net.anotheria.util.NumberUtils;
 import net.anotheria.util.sorter.StaticQuickSorter;
 import org.apache.commons.lang.StringUtils;
-import org.json.JSONArray;
-import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -76,10 +75,7 @@ import static net.anotheria.moskito.webui.threshold.util.ThresholdStatusBeanUtil
  *
  */
 public class ShowProducerAction extends BaseMoskitoUIAction {
-	/**
-	 * Cumulated caption value.
-	 */
-	private static final String CUMULATED_STAT_NAME_VALUE = "cumulated";
+
 	/**
 	 * {@link Logger} instance.
 	 */
@@ -152,7 +148,7 @@ public class ShowProducerAction extends BaseMoskitoUIAction {
 			//create multiple graphs with one line each.
 			List<AccumulatedSingleGraphAO> singleGraphDataBeans = getAccumulatorAPI().getChartsForMultipleAccumulators(accumulatorIdsTiedToThisProducer);
 			req.setAttribute("singleGraphData", singleGraphDataBeans);
-			req.setAttribute("accumulatorsColors", accumulatorsColorsToJSON(singleGraphDataBeans));
+			req.setAttribute("accumulatorsColors", AccumulatorUtility.accumulatorsColorsToJSON(singleGraphDataBeans));
 
 			List<String> accumulatorsNames = new LinkedList<>();
 
@@ -174,22 +170,6 @@ public class ShowProducerAction extends BaseMoskitoUIAction {
 
 		return mapping.findCommand( getForward(req) );
 	}
-
-	//TODO copied from show accumulators, should be moved to utility.
-	private JSONArray accumulatorsColorsToJSON(final List<AccumulatedSingleGraphAO> graphAOs) {
-		final JSONArray jsonArray = new JSONArray();
-
-		for (AccumulatedSingleGraphAO graphAO : graphAOs) {
-			if (StringUtils.isEmpty(graphAO.getName()) || StringUtils.isEmpty(graphAO.getColor()))
-				continue;
-
-			final JSONObject jsonObject = graphAO.mapColorDataToJSON();
-			jsonArray.put(jsonObject);
-		}
-
-		return jsonArray;
-	}
-
 
 	/**
 	 * Allows to set all stats to decorator except cumulated stat.

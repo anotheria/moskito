@@ -439,6 +439,10 @@ table td.wrap,
     margin-bottom: 0;
 }
 
+.cumulated-bold-row {
+    font-weight: bold;
+}
+
 .box-title .accordion-toggle {
     color: #444;
     margin-right: -25px;
@@ -1911,16 +1915,18 @@ Heat map
     display: block;
 }
 
-.beta-logo > span{
+.beta-logo a > span span {
+    display: inline;
+}
+
+.beta-logo > span {
     margin-left: 2px;
     line-height: 16px;
     margin-top: 7px;
 }
+
 .beta-logo b {
     display: block;
-}
-.beta-logo span {
-    display: inline;
 }
 
 .beta-logo__beta-title {

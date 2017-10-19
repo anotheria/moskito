@@ -15,9 +15,7 @@ import net.anotheria.moskito.webui.accumulators.api.AccumulatorAO;
 import net.anotheria.moskito.webui.accumulators.api.MultilineChartAO;
 import net.anotheria.moskito.webui.accumulators.bean.AccumulatedValuesBean;
 import net.anotheria.moskito.webui.accumulators.bean.AccumulatorSetBean;
-import org.apache.commons.lang.StringUtils;
-import org.json.JSONArray;
-import org.json.JSONObject;
+import net.anotheria.moskito.webui.accumulators.util.AccumulatorUtility;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -168,7 +166,7 @@ public class ShowAccumulatorsAction extends BaseAccumulatorsAction {
 				req.setAttribute("accNames", accumulatorsNames);
 				req.setAttribute("accNamesConcat", net.anotheria.util.StringUtils.concatenateTokens(accumulatorsNames, ","));
 				req.setAttribute("singleGraphData", singleGraphDataBeans);
-				req.setAttribute("accumulatorsColors", accumulatorsColorsToJSON(singleGraphDataBeans));
+				req.setAttribute("accumulatorsColors", AccumulatorUtility.accumulatorsColorsToJSON(singleGraphDataBeans));
 				req.setAttribute("data", Boolean.TRUE);
 			}
 			
@@ -228,27 +226,6 @@ public class ShowAccumulatorsAction extends BaseAccumulatorsAction {
 	@Override
 	protected boolean exportSupported() {
 		return true;
-	}
-
-	/**
-	 * Maps collection of {@link AccumulatedSingleGraphAO} to JSON representation.
-	 * Accumulator will be mapped only if accumulator has the preconfigured color.
-	 *
-	 * @param graphAOs collection of {@link AccumulatedSingleGraphAO}
-	 * @return JSON array with accumulators colors
-	 */
-	private JSONArray accumulatorsColorsToJSON(final List<AccumulatedSingleGraphAO> graphAOs) {
-		final JSONArray jsonArray = new JSONArray();
-
-		for (AccumulatedSingleGraphAO graphAO : graphAOs) {
-			if (StringUtils.isEmpty(graphAO.getName()) || StringUtils.isEmpty(graphAO.getColor()))
-				continue;
-
-			final JSONObject jsonObject = graphAO.mapColorDataToJSON();
-			jsonArray.put(jsonObject);
-		}
-
-		return jsonArray;
 	}
 
 	private String getDashboardsList() throws APIException {

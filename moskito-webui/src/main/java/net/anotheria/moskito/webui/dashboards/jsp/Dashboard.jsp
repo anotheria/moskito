@@ -230,9 +230,26 @@
                     <div class="box-title">
                         <a class="accordion-toggle tooltip-bottom" title="Close/Open" data-toggle="collapse" href="#collapse${decorator.decoratorNameForCss}"><i class="fa fa-caret-down"></i></a>
                         <h3 class="pull-left">${decorator.name}</h3>
-                        <div class="box-right-nav">
-                            <a onclick="showProducerHelpModal('${decorator.name}');return false;" href="" class="tooltip-bottom" title="Help"><i class="fa fa-info-circle"></i></a>
-                        </div>
+
+                        <ano:equal name="betaMode" value="true">
+                            <div class="box-right-nav dropdown">
+                                <a href="#" data-target="#" data-toggle="dropdown"><i class="fa fa-cog"></i></a>
+                                <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dLabel">
+                                    <li>
+                                        <mos:deepLink href="mskShowCumulatedProducers?pDecorator=${decorator.name}&pCategory=${currentCategory}&pSubsystem=${currentSubsystem}">Cumulate</mos:deepLink>
+                                    </li>
+                                    <li>
+                                        <a onclick="showProducerHelpModal('${decorator.name}');return false;" href="">Help</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </ano:equal>
+
+                        <ano:equal name="betaMode" value="false">
+                            <div class="box-right-nav">
+                                <a onclick="showProducerHelpModal('${decorator.name}');return false;" href="" class="tooltip-bottom" title="Help"><i class="fa fa-info-circle"></i></a>
+                            </div>
+                        </ano:equal>
                     </div>
                     <div id="collapse${decorator.decoratorNameForCss}" class="box-content accordion-body collapse in">
 
@@ -453,6 +470,7 @@
 
 <script src="../moskito/int/js/dashboard.js" type="text/javascript"></script>
 
+<jsp:include page="/net/anotheria/moskito/webui/producers/jsp/ChartEngine.jsp"/>
 <jsp:include page="/net/anotheria/moskito/webui/producers/jsp/snippet/ProducerHelpModal.jsp" />
 </body>
 </html>
