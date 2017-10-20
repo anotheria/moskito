@@ -9,8 +9,6 @@ import net.anotheria.util.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.management.*;
-import java.lang.management.ManagementFactory;
 import java.util.List;
 
 /**
@@ -60,9 +58,9 @@ public class JMXBridgeListener<S extends IStats> implements IProducerRegistryLis
 
 	/**
 	 * Creates JMX name for a producer.
-	 * @param producerId
-	 * @param statName
-	 * @return
+	 * @param producerId target producerId.
+	 * @param statName target statName.
+	 * @return the name for JMXBean.
 	 */
 	private String createName(String producerId, String statName) {
 		String appName = encodeAppName(MoskitoConfigurationHolder.getConfiguration().getApplicationName());
@@ -78,8 +76,8 @@ public class JMXBridgeListener<S extends IStats> implements IProducerRegistryLis
 
 	/**
 	 * Removes spaces from app name.
-	 * @param appName
-	 * @return
+	 * @param appName source application name.
+	 * @return appName without whitespaces.
 	 */
 	private String encodeAppName(String appName){
 		return StringUtils.removeChars(appName, CHARS_TO_REMOVE_FROM_NAME);
