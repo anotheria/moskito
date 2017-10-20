@@ -78,7 +78,7 @@ public class MBeanUtil {
             return "copy" +
                     // Parsing copy number to integer and increase it
                     String.valueOf(
-                            Integer.valueOf(
+                            Integer.parseInt(
                                     // Digits are collected in reverse order, reverse it again
                                     copyNumber.reverse().toString()
                             ) + 1
