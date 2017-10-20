@@ -717,4 +717,13 @@ public abstract class BaseMoskitoUIAction implements Action{
 		}
 	}
 
+	protected void addInfoMessage(String message){
+		String previousMessage = getInfoMessage();
+		if (previousMessage == null)
+			previousMessage = "";
+		if (previousMessage.length()>0)
+			previousMessage+= " ";
+		setInfoMessage(previousMessage+message);
+	}
+
 }
