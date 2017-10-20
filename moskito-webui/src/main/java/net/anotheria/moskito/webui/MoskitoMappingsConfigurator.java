@@ -223,11 +223,11 @@ public class MoskitoMappingsConfigurator implements ActionMappingsConfigurator{
 		);
 
 		mappings.addMapping("mskSelectServer", SelectServerAction.class,
-			new CommandDeepLinkRedirect("redirect", "mskShowAllProducers")
+			new CommandDeepLinkRedirect("redirect", "mskDashboard")
 		);
 
 		mappings.addMapping("mskQuickConnect", QuickConnectAction.class,
-				new CommandDeepLinkRedirect("redirect", "mskShowAllProducers")
+				new CommandDeepLinkRedirect("redirect", "mskDashboard")
 		);
 
 
