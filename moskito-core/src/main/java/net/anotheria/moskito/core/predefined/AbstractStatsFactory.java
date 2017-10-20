@@ -3,7 +3,6 @@ package net.anotheria.moskito.core.predefined;
 import java.util.Arrays;
 
 import net.anotheria.moskito.core.dynamic.IOnDemandStatsFactory;
-import net.anotheria.moskito.core.predefined.Constants;
 import net.anotheria.moskito.core.producers.IStats;
 import net.anotheria.moskito.core.stats.Interval;
 
