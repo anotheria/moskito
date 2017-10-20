@@ -249,7 +249,11 @@ public class ProducerAPIImpl extends AbstractMoskitoAPIImpl implements ProducerA
 		List<ProducerAO> producers = new ArrayList<>();
 
 		for (String producerId : producerIds) {
-			producers.add(getProducer(producerId, intervalName, timeUnit));
+			try {
+				producers.add(getProducer(producerId, intervalName, timeUnit));
+			}catch(Exception any){
+				producers.add(new NullProducerAO(producerId, any.getMessage()));
+			}
 		}
 
 		return producers;

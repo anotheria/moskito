@@ -10,6 +10,7 @@ import net.anotheria.moskito.webui.dashboards.api.DashboardChartAO;
 import net.anotheria.moskito.webui.dashboards.bean.DashboardChartBean;
 import net.anotheria.moskito.webui.gauges.api.GaugeAO;
 import net.anotheria.moskito.webui.gauges.bean.GaugeBean;
+import net.anotheria.moskito.webui.producers.api.NullProducerAO;
 import net.anotheria.moskito.webui.producers.api.ProducerAO;
 import net.anotheria.moskito.webui.producers.util.ProducerUtility;
 import net.anotheria.moskito.webui.shared.bean.GraphDataBean;
@@ -23,6 +24,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
@@ -135,8 +137,16 @@ public class ShowDashboardAction extends BaseDashboardAction {
 	private List<ProducerDecoratorBean> getDecoratedProducerBeans(List<String> producerIds, HttpServletRequest request, Map<String, GraphDataBean> graphData) throws APIException {
 		if (producerIds != null && producerIds.size() > 0) {
 			List<ProducerAO> producerAOs = getProducerAPI().getProducers(producerIds, getCurrentInterval(request), getCurrentUnit(request).getUnit());
-			if (producerAOs != null && producerAOs.size() > 0) {
-				return ProducerUtility.getDecoratedProducers(request, producerAOs, graphData);
+			List<ProducerAO> producersWithoutErrors = new LinkedList<>();
+			for (ProducerAO producerAO : producerAOs){
+				if (producerAO instanceof NullProducerAO){
+					addInfoMessage(((NullProducerAO) producerAO).getMessage());
+				}else{
+					producersWithoutErrors.add(producerAO);
+				}
+			}
+			if (producersWithoutErrors != null && producersWithoutErrors.size() > 0) {
+				return ProducerUtility.getDecoratedProducers(request, producersWithoutErrors, graphData);
 			}
 		}
 
