@@ -369,7 +369,9 @@ public class ShowCumulatedProducersAction extends BaseMoskitoUIAction {
      */
     @Override
     protected String getLinkToCurrentPage(HttpServletRequest req) {
-        return "mskShowProducer" + '?' + PARAM_PRODUCER_ID + '=' + req.getParameter(PARAM_PRODUCER_ID);
+        return "mskShowCumulatedProducers" + '?' + PARAM_DECORATOR + '=' + req.getParameter(PARAM_DECORATOR) +
+                (!StringUtils.isEmpty(req.getParameter(PARAM_CATEGORY)) ? ('&' + PARAM_CATEGORY + '=' + req.getParameter(PARAM_CATEGORY)) : "") +
+                (!StringUtils.isEmpty(req.getParameter(PARAM_SUBSYSTEM)) ? ('&' + PARAM_SUBSYSTEM + '=' + req.getParameter(PARAM_SUBSYSTEM)) : "");
     }
 
     /**
@@ -385,7 +387,7 @@ public class ShowCumulatedProducersAction extends BaseMoskitoUIAction {
      */
     @Override
     protected String getPageName() {
-        return "producer";
+        return "cumulated-producers";
     }
 
     /**
