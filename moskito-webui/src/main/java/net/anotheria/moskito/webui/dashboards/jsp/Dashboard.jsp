@@ -470,7 +470,7 @@
 
 <script src="../moskito/int/js/dashboard.js" type="text/javascript"></script>
 
-<jsp:include page="/net/anotheria/moskito/webui/producers/jsp/ChartEngine.jsp"/>
+<jsp:include page="/net/anotheria/moskito/webui/shared/jsp/ChartEngine.jsp"/>
 <jsp:include page="/net/anotheria/moskito/webui/producers/jsp/snippet/ProducerHelpModal.jsp" />
 </body>
 </html>

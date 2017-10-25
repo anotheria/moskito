@@ -370,6 +370,11 @@ body.status-yellow ul.nav-sidebar.nav-status > li.active > a {
     margin-bottom: 0;
 }
 
+.division-line {
+    border-bottom: 1px solid #DDD;
+    margin-bottom: 30px;
+}
+
 .table > thead > tr > th, .table > tbody > tr > th, .table > tfoot > tr > th, .table > thead > tr > td, .table > tbody > tr > td, .table > tfoot > tr > td {
     border-top: none;
     padding: 8px 20px;
