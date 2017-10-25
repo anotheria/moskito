@@ -78,18 +78,27 @@ public class MoskitoMappingsConfigurator implements ActionMappingsConfigurator{
 				new ActionForward("html", "/net/anotheria/moskito/webui/producers/jsp/Producer.jsp"),
 				new ActionForward("xml", "/net/anotheria/moskito/webui/producers/jsp/ProducerXML.jsp"),
 				new ActionForward("csv", "/net/anotheria/moskito/webui/producers/jsp/ProducerCSV.jsp"),
-				new ActionForward("json", "/net/anotheria/moskito/webui/shared/jsp/ProducerJSON.jsp")
+				new ActionForward("json", "/net/anotheria/moskito/webui/producers/jsp/ProducerJSON.jsp")
 				//new ActionForward("selection", "/net/anotheria/moskito/webui/producers/jsp/ProducerForSelection.jsp")
-		);
-
-		mappings.addMapping("mskShowCumulatedProducers", ShowCumulatedProducersAction.class,
-				new ActionForward("html", "/net/anotheria/moskito/webui/producers/jsp/CumulatedProducers.jsp")
 		);
 
 		mappings.addAlias("mskShowProducer.csv", "mskShowProducer");
 		mappings.addAlias("mskShowProducer.xml", "mskShowProducer");
 		mappings.addAlias("mskShowProducer.json", "mskShowProducer");
 		mappings.addAlias("mskShowProducerForSelection", "mskShowProducer");
+
+
+		mappings.addMapping("mskShowCumulatedProducers", ShowCumulatedProducersAction.class,
+				new ActionForward("html", "/net/anotheria/moskito/webui/producers/jsp/CumulatedProducers.jsp"),
+				new ActionForward("xml", "/net/anotheria/moskito/webui/producers/jsp/CumulatedProducersXML.jsp"),
+				new ActionForward("csv", "/net/anotheria/moskito/webui/producers/jsp/CumulatedProducersCSV.jsp"),
+				new ActionForward("json", "/net/anotheria/moskito/webui/producers/jsp/CumulatedProducersJSON.jsp")
+		);
+
+		mappings.addAlias("mskShowCumulatedProducers.csv", "mskShowCumulatedProducers");
+		mappings.addAlias("mskShowCumulatedProducers.xml", "mskShowCumulatedProducers");
+		mappings.addAlias("mskShowCumulatedProducers.json", "mskShowCumulatedProducers");
+
 
 		mappings.addMapping("mskShowExplanations", ShowExplanationsAction.class,
 				new ActionForward("success", "/net/anotheria/moskito/webui/shared/jsp/Explanations.jsp")
