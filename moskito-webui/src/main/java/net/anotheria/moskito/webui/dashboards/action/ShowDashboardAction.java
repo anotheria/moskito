@@ -5,6 +5,7 @@ import net.anotheria.maf.action.ActionCommand;
 import net.anotheria.maf.action.ActionMapping;
 import net.anotheria.maf.bean.FormBean;
 import net.anotheria.moskito.core.config.dashboards.DashboardConfig;
+import net.anotheria.moskito.core.config.dashboards.DashboardWidget;
 import net.anotheria.moskito.webui.dashboards.api.DashboardAO;
 import net.anotheria.moskito.webui.dashboards.api.DashboardChartAO;
 import net.anotheria.moskito.webui.dashboards.bean.DashboardChartBean;
@@ -82,31 +83,48 @@ public class ShowDashboardAction extends BaseDashboardAction {
 		List<DashboardChartBean> dashboardChartAOList = getChartBeans(dashboard.getCharts());
 		List<ProducerDecoratorBean> decoratedProducers = getDecoratedProducerBeans(dashboard.getProducers(), request, graphData);
 
-		//now we definitely have a selected dashboard.
-		//prepare thresholds
+		// Getting configured dashboard widgets
+		List<DashboardWidget> widgets = new LinkedList<>();
+		for (String widgetName : selectedDashboardConfig.getWidgets()) {
+			widgets.add(DashboardWidget.findWidgetByName(widgetName));
+		}
+
+		// Now we definitely have a selected dashboard.
+		// Prepare thresholds
 		if (dashboard.getThresholds()!=null && dashboard.getThresholds().size()>0){
 			request.setAttribute("thresholds", thresholdStatusBeans);
 			thresholdsPresent = true;
+		} else {
+			widgets.remove(DashboardWidget.THRESHOLDS);
 		}
 
-		//prepare gauges
+		// Prepare gauges
 		if (dashboard.getGauges()!=null && dashboard.getGauges().size()>0){
 			request.setAttribute("gauges", gaugeBeans);
 			gaugesPresent = true;
+		} else {
+			widgets.remove(DashboardWidget.GAUGES);
 		}
 
-		//prepare charts
+		// Prepare charts
 		if (dashboardChartAOList!=null && dashboardChartAOList.size()>0){
 			request.setAttribute("charts", dashboardChartAOList);
 			chartsPresent = true;
+		} else {
+			widgets.remove(DashboardWidget.CHARTS);
 		}
 
-		//prepare producers
+		// Prepare producers
 		if (decoratedProducers != null && decoratedProducers.size() > 0) {
 			request.setAttribute("graphDatas", graphData.values());
 			request.setAttribute("decorators", decoratedProducers);
 			producersPresent = true;
+		} else {
+			widgets.remove(DashboardWidget.PRODUCERS);
 		}
+
+		// Set widgets to be displayed on dashboard
+		request.setAttribute("widgets", widgets);
 
 		// Setting possible dashboard names where producer can be added
 		request.setAttribute("dashboardNames", org.apache.commons.lang.StringUtils.join(getDashboardAPI().getDashboardNames(), ','));
