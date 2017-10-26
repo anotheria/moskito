@@ -215,11 +215,6 @@
     <script type="text/javascript" src="../moskito/ext/google-code-prettify/prettify.js"></script>
     <script type="text/javascript" src="../moskito/ext/google-code-prettify/application.js"></script>
 </ano:equal>
-
-<ano:equal name="currentNaviItem" property="id" value="journeys">
-    <script type="text/javascript" src="../moskito/ext/jquery-tree-table/jquery.treeTable.min.js"></script>
-</ano:equal>
-
 <ano:equal name="currentSubNaviItem" property="id" value="more_mbeans">
     <script type="text/javascript" src="../moskito/ext/jquery-tree-table/jquery.treeTable.min.js"></script>
 </ano:equal>
