@@ -19,6 +19,8 @@ import net.anotheria.moskito.webui.plugins.action.ShowPluginsAction;
 import net.anotheria.moskito.webui.producers.action.*;
 import net.anotheria.moskito.webui.shared.action.*;
 import net.anotheria.moskito.webui.shared.commands.CommandDeepLinkRedirect;
+import net.anotheria.moskito.webui.tags.action.AddTagAction;
+import net.anotheria.moskito.webui.tags.action.ShowTagsAction;
 import net.anotheria.moskito.webui.threads.action.*;
 import net.anotheria.moskito.webui.threshold.action.*;
 import net.anotheria.moskito.webui.tracers.action.*;
@@ -237,6 +239,16 @@ public class MoskitoMappingsConfigurator implements ActionMappingsConfigurator{
 
 		mappings.addMapping("mskQuickConnect", QuickConnectAction.class,
 				new CommandDeepLinkRedirect("redirect", "mskShowAllProducers")
+		);
+
+
+		// Tags section
+		mappings.addMapping("mskShowTags", ShowTagsAction.class,
+				new ActionForward("success", "/net/anotheria/moskito/webui/tags/jsp/Tags.jsp")
+		);
+
+		mappings.addMapping("mskAddTag", AddTagAction.class,
+				new CommandDeepLinkRedirect("redirect", "mskShowTags")
 		);
 
 

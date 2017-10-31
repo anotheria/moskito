@@ -346,6 +346,16 @@ body.status-yellow ul.nav-sidebar.nav-status > li.active > a {
     overflow: hidden;
 }
 
+.tag-box {
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.tag-form-box {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
 .box-content.paddner {
     padding: 20px;
 }

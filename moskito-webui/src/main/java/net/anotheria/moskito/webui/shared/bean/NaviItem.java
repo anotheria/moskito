@@ -46,6 +46,10 @@ public enum NaviItem {
 	 * Collections for additional items
 	 */
 	MORE("Everything else"),
+	/**
+	 * Navigation item for tags.
+	 */
+	TAGS("Tags"),
 
 	THREADS_LIST("List"), THREADS_DUMP("Dump"), THREADS_HISTORY("History"),
 	MORE_LIBS("Libs"),MORE_CONFIG("Config"),MORE_UPDATE("Update"),MORE_MBEANS("MBeans"), MORE_GAUGES("Gauges"), MORE_ERRORS("Errors")

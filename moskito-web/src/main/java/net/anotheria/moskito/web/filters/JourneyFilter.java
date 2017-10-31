@@ -5,12 +5,15 @@ import net.anotheria.moskito.core.calltrace.NoTracedCall;
 import net.anotheria.moskito.core.calltrace.RunningTraceContainer;
 import net.anotheria.moskito.core.calltrace.TracedCall;
 import net.anotheria.moskito.core.config.MoskitoConfigurationHolder;
+import net.anotheria.moskito.core.config.tagging.CustomTag;
+import net.anotheria.moskito.core.config.tagging.TagPrefix;
 import net.anotheria.moskito.core.config.tagging.TaggingConfig;
 import net.anotheria.moskito.core.context.MoSKitoContext;
 import net.anotheria.moskito.core.journey.Journey;
 import net.anotheria.moskito.core.journey.JourneyManager;
 import net.anotheria.moskito.core.journey.JourneyManagerFactory;
 import net.anotheria.moskito.core.journey.NoSuchJourneyException;
+import net.anotheria.util.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -93,7 +96,18 @@ public class JourneyFilter implements Filter{
 		}
 
 		//set custom tags
-
+		for (CustomTag tag : taggingConfig.getCustomTags()) {
+			if (TagPrefix.HEADER.getName().equals(tag.getPrefix()) && !StringUtils.isEmpty(req.getHeader(tag.getAttributeName()))) {
+				MoSKitoContext.addTag(tag.getName(), req.getHeader(tag.getAttributeName()));
+			} else if (TagPrefix.REQUEST.getName().equals(tag.getPrefix()) && req.getAttribute(tag.getAttributeName()) != null) {
+				MoSKitoContext.addTag(tag.getName(), String.valueOf(req.getAttribute(tag.getAttributeName())));
+			} else if (TagPrefix.SESSION.getName().equals(tag.getPrefix()) && req.getSession().getAttribute(tag.getAttributeName()) != null) {
+				HttpSession session = req.getSession();
+				MoSKitoContext.addTag(tag.getName(), String.valueOf(session.getAttribute(tag.getAttributeName())));
+			} else if (TagPrefix.PARAMETER.getName().equals(tag.getPrefix()) && !StringUtils.isEmpty(req.getParameter(tag.getAttributeName()))) {
+				MoSKitoContext.addTag(tag.getName(), req.getParameter(tag.getAttributeName()));
+			}
+		}
 		//end of tags.
 
 		HttpSession session = req.getSession(false);
