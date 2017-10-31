@@ -260,7 +260,9 @@
             <li><mos:deepLink href="mskMore" title="Everything else" class="sidebar-tooltip-right">Everything else <i class="fa fa-bookmark"></i></mos:deepLink></li>
         </ano:notEqual>
 
-        <li <ano:equal name="currentNaviItem" property="id" value="tags">class="active"</ano:equal>><mos:deepLink href="mskShowTags" title="Tags" class="sidebar-tooltip-right">Tags <i class="fa fa-tags"></i></mos:deepLink></li>
+        <ano:equal name="betaMode" value="true">
+            <li <ano:equal name="currentNaviItem" property="id" value="tags">class="active"</ano:equal>><mos:deepLink href="mskShowTags" title="Tags" class="sidebar-tooltip-right">Tags <i class="fa fa-tags"></i></mos:deepLink></li>
+        </ano:equal>
     </ul>
 
     <ul class="nav nav-sidebar contacts-nav">
