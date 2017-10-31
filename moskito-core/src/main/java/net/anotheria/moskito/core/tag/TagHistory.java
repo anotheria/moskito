@@ -52,6 +52,12 @@ public enum TagHistory {
 				tagValues = new LinkedList<>();
 			}
 
+			// Currently addTag() method may be called several times in a row with one value because it's called in filter
+			// So, for now we will avoid duplicated values in history
+			if (tagValues.peekLast() != null && tagValues.peekLast().equals(value)) {
+				return;
+			}
+
 			// If we have more then maximum allowed tag values, remove first
 			if (tagValues.size() >= tagHistorySize) {
 				tagValues.removeFirst();
