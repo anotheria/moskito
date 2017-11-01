@@ -13,6 +13,9 @@ import java.io.Serializable;
 @ConfigureMe
 public class CustomTag implements Serializable{
 
+	/**
+	 * SerialVersionUID.
+	 */
 	private static final long serialVersionUID = 1;
 
     /**
