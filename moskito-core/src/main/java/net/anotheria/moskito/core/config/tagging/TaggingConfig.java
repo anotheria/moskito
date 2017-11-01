@@ -5,7 +5,7 @@ import org.configureme.annotations.Configure;
 import org.configureme.annotations.ConfigureMe;
 
 import java.io.Serializable;
-import java.util.List;
+import java.util.Arrays;
 
 /**
  * Configured tagging options.
@@ -113,7 +113,7 @@ public class TaggingConfig implements Serializable {
 				", autotagIp=" + autotagIp +
 				", autotagUserAgent=" + autotagUserAgent +
 				", autotagReferer=" + autotagReferer +
-				", customTags=" + customTags +
+				", customTags=" + Arrays.toString(customTags) +
 				", tagHistorySize=" + tagHistorySize +
 				'}';
 	}
