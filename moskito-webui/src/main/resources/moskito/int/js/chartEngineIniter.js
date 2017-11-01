@@ -283,9 +283,16 @@ var D3chart = (function () {
                 return ret.join(" ");
             };
 
+            var isEnoughSpaceForValue = function (d) {
+                return d.endAngle - d.startAngle > 0.2;
+            };
+
             var getPercent = function (d) {
-                return (d.endAngle - d.startAngle > 0.2 ?
-                Math.round(1000 * (d.endAngle - d.startAngle) / (Math.PI * 2)) / 10 + '%' : '');
+                return (isEnoughSpaceForValue(d) ? Math.round(1000 * (d.endAngle - d.startAngle) / (Math.PI * 2)) / 10 + '%' : '');
+            };
+
+            var getValueWithPercent = function (d) {
+                return (isEnoughSpaceForValue(d) ? valueFormat(d.value) + ' (' + getPercent(d) + ')' : '');
             };
 
             var renderPie = function (svg, data, x, y, rx, ry, ir, h) {

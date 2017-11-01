@@ -44,22 +44,30 @@
         var that = $(this);
         var $chart = $('#chart');
 
-        var statId = that.parent('.table-column').find('input').val();
-        var chartCaption = graphData[statId].caption;
-        var chartData = graphData[statId].values;
+        if (that.parent('.table-column') && that.parent('.table-column').find('input')) {
+            var statId = that.parent('.table-column').find('input').val();
+            var chartCaption = graphData[statId].caption;
+            var chartData = graphData[statId].values;
 
+            var total = 0;
+            chartData.forEach(function (stat) {
+                total += stat[1];
+            });
 
-        chartParams = {
-            container: 'chart_div',
-            names: [ chartCaption ],
-            data: chartData,
-            type: 'PieChart',
-            title: '',
-            width: ${config.producerChartWidth},
-            height: ${config.producerChartHeight}
-        };
-        $chart.find('.modal-title').text( chartCaption );
-        chartEngineIniter.init(chartParams);
+            chartParams = {
+                container: 'chart_div',
+                names: [ chartCaption + ', Total: ' + total ],
+                data: chartData,
+                type: 'PieChart',
+                title: '',
+                width: ${config.producerChartWidth},
+                height: ${config.producerChartHeight}
+            };
+
+            $chart.find('.modal-title').text( chartCaption + ', Total: ' + total );
+            chartEngineIniter.init(chartParams);
+        }
+
         $chart.modal('show');
     });
 

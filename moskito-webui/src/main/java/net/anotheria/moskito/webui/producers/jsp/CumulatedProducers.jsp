@@ -238,7 +238,7 @@
 
 </div>
 
-<jsp:include page="../../producers/jsp/ChartEngine.jsp"/>
+<jsp:include page="../../shared/jsp/ChartEngine.jsp"/>
 
 <jsp:include page="../../shared/jsp/Footer.jsp" flush="false"/>
 <jsp:include page="snippet/ProducerHelpModal.jsp"/>

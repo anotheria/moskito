@@ -5,6 +5,8 @@ import net.anotheria.moskito.core.calltrace.NoTracedCall;
 import net.anotheria.moskito.core.calltrace.RunningTraceContainer;
 import net.anotheria.moskito.core.calltrace.TracedCall;
 import net.anotheria.moskito.core.config.MoskitoConfigurationHolder;
+import net.anotheria.moskito.core.config.tagging.CustomTag;
+import net.anotheria.moskito.core.config.tagging.CustomTagSource;
 import net.anotheria.moskito.core.config.tagging.TaggingConfig;
 import net.anotheria.moskito.core.context.MoSKitoContext;
 import net.anotheria.moskito.core.journey.Journey;
@@ -75,6 +77,7 @@ public class JourneyFilter implements Filter{
 		}
 
 		HttpServletRequest req = (HttpServletRequest)sreq;
+		HttpSession session = req.getSession(false);
 		processParameters(req);
 
 		//autoset tags.
@@ -83,20 +86,29 @@ public class JourneyFilter implements Filter{
 			MoSKitoContext.addTag(TAG_IP, req.getRemoteAddr());
 		}
 		if (taggingConfig.isAutotagReferer()){
-			MoSKitoContext.addTag(TAG_REFERER, req.getHeader("referer"));
+			MoSKitoContext.addTag(TAG_REFERER, req.getHeader(TAG_REFERER));
 		}
 		if (taggingConfig.isAutotagUserAgent()){
-			MoSKitoContext.addTag(TAG_SESSION_ID, req.getHeader("user-agent"));
+			MoSKitoContext.addTag(TAG_USER_AGENT, req.getHeader(TAG_USER_AGENT));
 		}
-		if (taggingConfig.isAutotagSessionId() && req.getSession(false) != null){
-			MoSKitoContext.addTag(TAG_SESSION_ID, req.getSession().getId());
+		if (taggingConfig.isAutotagSessionId() && session != null){
+			MoSKitoContext.addTag(TAG_SESSION_ID, session.getId());
 		}
 
 		//set custom tags
-
+		for (CustomTag tag : taggingConfig.getCustomTags()) {
+			if (CustomTagSource.HEADER.getName().equals(tag.getAttributeSource())) {
+				MoSKitoContext.addTag(tag.getName(), req.getHeader(tag.getAttributeName()));
+			} else if (CustomTagSource.REQUEST.getName().equals(tag.getAttributeSource())) {
+				MoSKitoContext.addTag(tag.getName(), (String) req.getAttribute(tag.getAttributeName()));
+			} else if (CustomTagSource.SESSION.getName().equals(tag.getAttributeSource()) && session != null) {
+				MoSKitoContext.addTag(tag.getName(), (String) session.getAttribute(tag.getAttributeName()));
+			} else if (CustomTagSource.PARAMETER.getName().equals(tag.getAttributeSource())) {
+				MoSKitoContext.addTag(tag.getName(), req.getParameter(tag.getAttributeName()));
+			}
+		}
 		//end of tags.
 
-		HttpSession session = req.getSession(false);
 		JourneyRecord record = null;
 		Journey journey = null;
 

@@ -1,7 +1,8 @@
+<%@ page trimDirectiveWhitespaces="true" %>
 <%@ page import="net.anotheria.moskito.core.decorators.value.StatCaptionBean" %>
-<%@ page language="java" contentType="text/xml;charset=UTF-8" session="true"
-%><%@ taglib uri="http://www.anotheria.net/ano-tags" prefix="msk" 
-%><?xml version="1.0" encoding="UTF-8"?>
+<%@ page language="java" contentType="text/xml;charset=UTF-8" session="true" %>
+<%@ taglib uri="http://www.anotheria.net/ano-tags" prefix="msk" %>
+<?xml version="1.0" encoding="UTF-8"?>
 <producer id="${producer.producerId}">
 	<category><msk:write name="producer" property="category"/></category>
 	<subsystem><msk:write name="producer" property="subsystem"/></subsystem>
