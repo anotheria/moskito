@@ -4,12 +4,16 @@ import org.apache.commons.lang.StringUtils;
 import org.configureme.annotations.Configure;
 import org.configureme.annotations.ConfigureMe;
 
+import java.io.Serializable;
+
 /**
  * User defined tag.
  * @author strel
  */
 @ConfigureMe
-public class CustomTag {
+public class CustomTag implements Serializable{
+
+	private static final long serialVersionUID = 1;
 
     /**
      * Tag name.
