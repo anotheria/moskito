@@ -53,7 +53,7 @@ public class ShowTagsAction extends BaseMoskitoUIAction {
         for (CustomTag tagConfig : taggingConfig.getCustomTags()) {
             TagBean tag = new TagBean();
             tag.setName(tagConfig.getName());
-            tag.setPrefix(TagPrefix.findPrefixByName(tagConfig.getPrefix()));
+            tag.setPrefix(TagPrefix.findPrefixByName(tagConfig.getAttributeSource()));
             tag.setAttributeName(tagConfig.getAttributeName());
             tag.setLastAttributeValues(TagHistory.INSTANCE.getTagValues(tagConfig.getName()));
             tagBeans.add(tag);

@@ -78,6 +78,7 @@ public class JourneyFilter implements Filter{
 		}
 
 		HttpServletRequest req = (HttpServletRequest)sreq;
+		HttpSession session = req.getSession(false);
 		processParameters(req);
 
 		//autoset tags.
@@ -97,20 +98,18 @@ public class JourneyFilter implements Filter{
 
 		//set custom tags
 		for (CustomTag tag : taggingConfig.getCustomTags()) {
-			if (TagPrefix.HEADER.getName().equals(tag.getPrefix()) && !StringUtils.isEmpty(req.getHeader(tag.getAttributeName()))) {
+			if (TagPrefix.HEADER.getName().equals(tag.getAttributeSource())) {
 				MoSKitoContext.addTag(tag.getName(), req.getHeader(tag.getAttributeName()));
-			} else if (TagPrefix.REQUEST.getName().equals(tag.getPrefix()) && req.getAttribute(tag.getAttributeName()) != null) {
-				MoSKitoContext.addTag(tag.getName(), String.valueOf(req.getAttribute(tag.getAttributeName())));
-			} else if (TagPrefix.SESSION.getName().equals(tag.getPrefix()) && req.getSession().getAttribute(tag.getAttributeName()) != null) {
-				HttpSession session = req.getSession();
-				MoSKitoContext.addTag(tag.getName(), String.valueOf(session.getAttribute(tag.getAttributeName())));
-			} else if (TagPrefix.PARAMETER.getName().equals(tag.getPrefix()) && !StringUtils.isEmpty(req.getParameter(tag.getAttributeName()))) {
+			} else if (TagPrefix.REQUEST.getName().equals(tag.getAttributeSource())) {
+				MoSKitoContext.addTag(tag.getName(), (String) req.getAttribute(tag.getAttributeName()));
+			} else if (TagPrefix.SESSION.getName().equals(tag.getAttributeSource()) && session != null) {
+				MoSKitoContext.addTag(tag.getName(), (String) session.getAttribute(tag.getAttributeName()));
+			} else if (TagPrefix.PARAMETER.getName().equals(tag.getAttributeSource())) {
 				MoSKitoContext.addTag(tag.getName(), req.getParameter(tag.getAttributeName()));
 			}
 		}
 		//end of tags.
 
-		HttpSession session = req.getSession(false);
 		JourneyRecord record = null;
 		Journey journey = null;
 

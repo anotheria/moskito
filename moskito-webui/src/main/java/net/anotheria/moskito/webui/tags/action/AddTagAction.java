@@ -48,8 +48,7 @@ public class AddTagAction extends BaseMoskitoUIAction {
 
         CustomTag tag = new CustomTag();
         tag.setName(tagName);
-        tag.setPrefix(prefix);
-        tag.setAttributeName(attributeName);
+        tag.setAttribute(prefix + '.' + attributeName);
 
         TaggingConfig taggingConfig = MoskitoConfigurationHolder.getConfiguration().getTaggingConfig();
         CustomTag[] tags = taggingConfig.getCustomTags();
