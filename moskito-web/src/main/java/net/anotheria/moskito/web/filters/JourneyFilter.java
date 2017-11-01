@@ -6,7 +6,7 @@ import net.anotheria.moskito.core.calltrace.RunningTraceContainer;
 import net.anotheria.moskito.core.calltrace.TracedCall;
 import net.anotheria.moskito.core.config.MoskitoConfigurationHolder;
 import net.anotheria.moskito.core.config.tagging.CustomTag;
-import net.anotheria.moskito.core.config.tagging.TagType;
+import net.anotheria.moskito.core.config.tagging.CustomTagSource;
 import net.anotheria.moskito.core.config.tagging.TaggingConfig;
 import net.anotheria.moskito.core.context.MoSKitoContext;
 import net.anotheria.moskito.core.journey.Journey;
@@ -97,13 +97,13 @@ public class JourneyFilter implements Filter{
 
 		//set custom tags
 		for (CustomTag tag : taggingConfig.getCustomTags()) {
-			if (TagType.HEADER.getName().equals(tag.getAttributeSource())) {
+			if (CustomTagSource.HEADER.getName().equals(tag.getAttributeSource())) {
 				MoSKitoContext.addTag(tag.getName(), req.getHeader(tag.getAttributeName()));
-			} else if (TagType.REQUEST.getName().equals(tag.getAttributeSource())) {
+			} else if (CustomTagSource.REQUEST.getName().equals(tag.getAttributeSource())) {
 				MoSKitoContext.addTag(tag.getName(), (String) req.getAttribute(tag.getAttributeName()));
-			} else if (TagType.SESSION.getName().equals(tag.getAttributeSource()) && session != null) {
+			} else if (CustomTagSource.SESSION.getName().equals(tag.getAttributeSource()) && session != null) {
 				MoSKitoContext.addTag(tag.getName(), (String) session.getAttribute(tag.getAttributeName()));
-			} else if (TagType.PARAMETER.getName().equals(tag.getAttributeSource())) {
+			} else if (CustomTagSource.PARAMETER.getName().equals(tag.getAttributeSource())) {
 				MoSKitoContext.addTag(tag.getName(), req.getParameter(tag.getAttributeName()));
 			}
 		}

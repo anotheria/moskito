@@ -1,20 +1,15 @@
 package net.anotheria.moskito.core.config.tagging;
 
 /**
- * Possible tag types, i.e. sources of tag values.
+ * Possible tag value sources.
  * @author strel
  */
-public enum TagType {
+public enum CustomTagSource {
 
     /**
      * Nothing.
      */
     NONE(""),
-
-    /**
-     * Builtin, JVM / Java API for example.
-     */
-    BUILTIN("builtin"),
 
     /**
      * HTTP header.
@@ -38,19 +33,19 @@ public enum TagType {
 
 
     /**
-     * All possible types.
+     * All possible sources.
      */
-    public static final TagType[] TYPES = new TagType[] {
+    public static final CustomTagSource[] SOURCES = new CustomTagSource[] {
         HEADER, REQUEST, SESSION, PARAMETER
     };
 
     /**
-     * Type name.
+     * Source name.
      */
     private String name;
 
 
-    TagType(String name) {
+    CustomTagSource(String name) {
         this.name = name;
     }
 
@@ -59,14 +54,14 @@ public enum TagType {
     }
 
     /**
-     * Searches for type by given name.
-     * @param name Type name
-     * @return Type with given name or none, if no such
+     * Searches for source by given name.
+     * @param name Source name
+     * @return Source with given name or none, if no such
      */
-    public static TagType findTagTypeByName(String name) {
-        for (TagType type : values()) {
-            if (type.getName().equals(name)) {
-                return type;
+    public static CustomTagSource findTagSourceByName(String name) {
+        for (CustomTagSource source : values()) {
+            if (source.getName().equals(name)) {
+                return source;
             }
         }
 
@@ -75,7 +70,7 @@ public enum TagType {
 
     @Override
     public String toString() {
-        return "TagType{" +
+        return "CustomTagSource{" +
                 "name='" + name + '\'' +
                 '}';
     }

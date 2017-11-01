@@ -224,7 +224,9 @@
 </ano:equal>
 
 <ano:equal name="currentNaviItem" property="id" value="journeys">
-    <script type="text/javascript" src="../moskito/ext/jquery-tree-table/jquery.treeTable.min.js"></script>
+    <ano:notEqual name="pagename" value="journey_analyze">
+        <script type="text/javascript" src="../moskito/ext/jquery-tree-table/jquery.treeTable.min.js"></script>
+    </ano:notEqual>
 </ano:equal>
 
 <ano:equal name="currentNaviItem" property="id" value="tags">

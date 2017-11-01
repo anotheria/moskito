@@ -1,7 +1,5 @@
 package net.anotheria.moskito.webui.tags.bean;
 
-import net.anotheria.moskito.core.config.tagging.TagType;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,30 +16,30 @@ public class TagBean {
     private String name;
 
     /**
-     * {@link TagType}, i.e. source for tag value.
+     * {@link TagType}.
      */
     private TagType type;
 
     /**
-     * Attribute name, used to retrieve tag value.
+     * Source for tag value.
      */
-    private String attributeName;
+    private String source;
 
     /**
      * List of last tag values, retrieved from {@link net.anotheria.moskito.core.tag.TagHistory}.
      */
-    private List<String> lastAttributeValues;
+    private List<String> lastValues;
 
 
     public TagBean() {
-        lastAttributeValues = new ArrayList<>();
+        lastValues = new ArrayList<>();
     }
 
-    public TagBean(String name, TagType type, String attributeName, List<String> lastAttributeValues) {
+    public TagBean(String name, TagType type, String source, List<String> lastValues) {
         this.name = name;
         this.type = type;
-        this.attributeName = attributeName;
-        this.lastAttributeValues = lastAttributeValues;
+        this.source = source;
+        this.lastValues = lastValues;
     }
 
     public String getName() {
@@ -60,19 +58,43 @@ public class TagBean {
         this.type = type;
     }
 
-    public String getAttributeName() {
-        return attributeName;
+    public String getSource() {
+        return source;
     }
 
-    public void setAttributeName(String attributeName) {
-        this.attributeName = attributeName;
+    public void setSource(String source) {
+        this.source = source;
     }
 
-    public List<String> getLastAttributeValues() {
-        return lastAttributeValues;
+    public List<String> getLastValues() {
+        return lastValues;
     }
 
-    public void setLastAttributeValues(List<String> lastAttributeValues) {
-        this.lastAttributeValues = lastAttributeValues;
+    public void setLastValues(List<String> lastValues) {
+        this.lastValues = lastValues;
+    }
+
+    public String getLastValuesTruncatedString() {
+        StringBuilder result = new StringBuilder();
+
+        if (lastValues == null || lastValues.isEmpty()) {
+            return "";
+        }
+
+        // Appending values while length is less then 100
+        for (String value : lastValues) {
+            if (result.length() < 100) {
+                result.append(value);
+                result.append(' ');
+            }
+        }
+
+        // If length of string exceeds 100, truncate it
+        if (result.length() >= 100) {
+            result.setLength(97);
+            result.append("...");
+        }
+
+        return result.toString();
     }
 }

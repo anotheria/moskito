@@ -14,10 +14,10 @@
                         <input id="tagNameInput" type="text" name="pTagName" class="form-control" placeholder="Enter tag name" required>
                     </div>
                     <div class="form-group">
-                        <select id="tagTypeSelectInput" name="pTagType" class="form-control" required>
-                            <option disabled value selected="selected">Select tag type</option>
-                            <ano:iterate name="tagTypes" id="type" type="net.anotheria.moskito.core.config.tagging.TagType">
-                                <option value="${type.name}">${type.name}</option>
+                        <select id="attributeSourceSelectInput" name="pAttributeSource" class="form-control" required>
+                            <option disabled value selected="selected">Select attribute source</option>
+                            <ano:iterate name="attributeSources" id="source" type="net.anotheria.moskito.core.config.tagging.CustomTagSource">
+                                <option value="${source.name}">${source.name}</option>
                             </ano:iterate>
                         </select>
                     </div>

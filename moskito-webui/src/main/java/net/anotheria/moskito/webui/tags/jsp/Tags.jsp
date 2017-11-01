@@ -38,7 +38,8 @@
                     <tr>
                         <th>Name</th>
                         <th>Type</th>
-                        <th>Attribute name</th>
+                        <th>Source</th>
+                        <th>Last values</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -46,12 +47,17 @@
                             <tr data-level="0">
                                 <td><i class="minus">–</i><i class="plus">+</i>${tag.name}</td>
                                 <td>${tag.type.name}</td>
-                                <td>${tag.attributeName}</td>
+                                <td>${tag.source}</td>
+                                <td>
+                                    <ano:notEmpty name="tag" property="lastValues">
+                                        ${tag.lastValuesTruncatedString}
+                                    </ano:notEmpty>
+                                </td>
                             </tr>
-                            <ano:notEmpty name="tag" property="lastAttributeValues">
+                            <ano:notEmpty name="tag" property="lastValues">
                                 <tr data-level="1" class="treegrid-parent">
                                     <td><b>Last tag values:</b></td>
-                                    <td colspan="2">
+                                    <td colspan="3">
                                         <table class="table table-striped">
                                             <thead>
                                             <tr>
@@ -59,7 +65,7 @@
                                             </tr>
                                             </thead>
                                             <tbody>
-                                            <ano:iterate name="tag" property="lastAttributeValues" id="value">
+                                            <ano:iterate name="tag" property="lastValues" id="value">
                                                 <tr>
                                                     <td>${value}</td>
                                                 </tr>

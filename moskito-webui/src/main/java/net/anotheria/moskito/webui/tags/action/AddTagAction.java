@@ -25,9 +25,9 @@ public class AddTagAction extends BaseMoskitoUIAction {
     public static final String PARAM_TAG_NAME = "pTagName";
 
     /**
-     * Parameter: tag type
+     * Parameter: attribute source
      */
-    public static final String PARAM_TAG_TYPE = "pTagType";
+    public static final String PARAM_ATTRIBUTE_SOURCE = "pAttributeSource";
 
     /**
      * Parameter: attribute name
@@ -43,12 +43,12 @@ public class AddTagAction extends BaseMoskitoUIAction {
 
         // Getting parameters for new tag
         String tagName = request.getParameter(PARAM_TAG_NAME);
-        String tagType = request.getParameter(PARAM_TAG_TYPE);
+        String attributeSource = request.getParameter(PARAM_ATTRIBUTE_SOURCE);
         String attributeName = request.getParameter(PARAM_ATTRIBUTE_NAME);
 
         CustomTag tag = new CustomTag();
         tag.setName(tagName);
-        tag.setAttribute(tagType + '.' + attributeName);
+        tag.setAttribute(attributeSource + '.' + attributeName);
 
         TaggingConfig taggingConfig = MoskitoConfigurationHolder.getConfiguration().getTaggingConfig();
         CustomTag[] tags = taggingConfig.getCustomTags();
