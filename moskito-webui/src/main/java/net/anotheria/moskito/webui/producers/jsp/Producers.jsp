@@ -94,7 +94,7 @@ Commented out for now. We may add this later as welcome message (to all layers).
 </div>
 
 <jsp:include page="../../shared/jsp/Footer.jsp"/>
-<jsp:include page="ChartEngine.jsp"/>
+<jsp:include page="../../shared/jsp/ChartEngine.jsp"/>
 </section>
 <jsp:include page="snippet/ProducerHelpModal.jsp"/>
 </body>

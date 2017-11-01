@@ -10,18 +10,65 @@ import net.anotheria.moskito.webui.accumulators.action.GenerateChartAction;
 import net.anotheria.moskito.webui.accumulators.action.ShowAccumulatorsAction;
 import net.anotheria.moskito.webui.auth.actions.SignInAction;
 import net.anotheria.moskito.webui.auth.actions.SignOutAction;
-import net.anotheria.moskito.webui.dashboards.action.*;
+import net.anotheria.moskito.webui.dashboards.action.CreateDashboardAction;
+import net.anotheria.moskito.webui.dashboards.action.DashboardAddChartAction;
+import net.anotheria.moskito.webui.dashboards.action.DashboardAddGaugeAction;
+import net.anotheria.moskito.webui.dashboards.action.DashboardAddProducerAction;
+import net.anotheria.moskito.webui.dashboards.action.DashboardAddThresholdAction;
+import net.anotheria.moskito.webui.dashboards.action.DashboardRemoveChartAction;
+import net.anotheria.moskito.webui.dashboards.action.DashboardRemoveGaugeAction;
+import net.anotheria.moskito.webui.dashboards.action.DashboardRemoveProducerAction;
+import net.anotheria.moskito.webui.dashboards.action.DashboardRemoveThresholdAction;
+import net.anotheria.moskito.webui.dashboards.action.DeleteDashboardAction;
+import net.anotheria.moskito.webui.dashboards.action.ShowDashboardAction;
+import net.anotheria.moskito.webui.errors.action.ShowErrorAction;
+import net.anotheria.moskito.webui.errors.action.ShowErrorsAction;
 import net.anotheria.moskito.webui.gauges.action.ShowGaugesAction;
-import net.anotheria.moskito.webui.journey.action.*;
-import net.anotheria.moskito.webui.more.action.*;
+import net.anotheria.moskito.webui.journey.action.AnalyzeJourneyAction;
+import net.anotheria.moskito.webui.journey.action.DeleteJourneyAction;
+import net.anotheria.moskito.webui.journey.action.ShowJourneyAction;
+import net.anotheria.moskito.webui.journey.action.ShowJourneyCallAction;
+import net.anotheria.moskito.webui.journey.action.ShowJourneysAction;
+import net.anotheria.moskito.webui.more.action.AdditionalSectionAction;
+import net.anotheria.moskito.webui.more.action.ShowConfigAction;
+import net.anotheria.moskito.webui.more.action.ShowLibsAction;
+import net.anotheria.moskito.webui.more.action.ShowMBeansAction;
+import net.anotheria.moskito.webui.more.action.UpdateAction;
 import net.anotheria.moskito.webui.plugins.action.RemovePluginAction;
 import net.anotheria.moskito.webui.plugins.action.ShowPluginsAction;
-import net.anotheria.moskito.webui.producers.action.*;
-import net.anotheria.moskito.webui.shared.action.*;
+import net.anotheria.moskito.webui.producers.action.ShowAllProducersAction;
+import net.anotheria.moskito.webui.producers.action.ShowCumulatedProducersAction;
+import net.anotheria.moskito.webui.producers.action.ShowProducerAction;
+import net.anotheria.moskito.webui.producers.action.ShowProducersForCategoryAction;
+import net.anotheria.moskito.webui.producers.action.ShowProducersForSubsystemAction;
+import net.anotheria.moskito.webui.shared.action.ForceIntervalUpdateAction;
+import net.anotheria.moskito.webui.shared.action.GetExplanationsByDecoratorNameAction;
+import net.anotheria.moskito.webui.shared.action.QuickConnectAction;
+import net.anotheria.moskito.webui.shared.action.SaveNavMenuStateAction;
+import net.anotheria.moskito.webui.shared.action.SelectServerAction;
+import net.anotheria.moskito.webui.shared.action.ShowExplanationsAction;
 import net.anotheria.moskito.webui.shared.commands.CommandDeepLinkRedirect;
-import net.anotheria.moskito.webui.threads.action.*;
-import net.anotheria.moskito.webui.threshold.action.*;
-import net.anotheria.moskito.webui.tracers.action.*;
+import net.anotheria.moskito.webui.tags.action.AddTagAction;
+import net.anotheria.moskito.webui.tags.action.ShowTagsAction;
+import net.anotheria.moskito.webui.threads.action.HistoryOffAction;
+import net.anotheria.moskito.webui.threads.action.HistoryOnAction;
+import net.anotheria.moskito.webui.threads.action.SetHistoryListSizeAction;
+import net.anotheria.moskito.webui.threads.action.StartThreadAction;
+import net.anotheria.moskito.webui.threads.action.ThreadsDumpAction;
+import net.anotheria.moskito.webui.threads.action.ThreadsHistoryAction;
+import net.anotheria.moskito.webui.threads.action.ThreadsListAction;
+import net.anotheria.moskito.webui.threads.action.ThreadsOverviewAction;
+import net.anotheria.moskito.webui.threshold.action.CreateThresholdAction;
+import net.anotheria.moskito.webui.threshold.action.DeleteThresholdAction;
+import net.anotheria.moskito.webui.threshold.action.GetThresholdDefinitionAction;
+import net.anotheria.moskito.webui.threshold.action.ShowThresholdsAction;
+import net.anotheria.moskito.webui.threshold.action.UpdateThresholdAction;
+import net.anotheria.moskito.webui.tracers.action.CreateTracerAction;
+import net.anotheria.moskito.webui.tracers.action.DisableTracerAction;
+import net.anotheria.moskito.webui.tracers.action.EnableTracerAction;
+import net.anotheria.moskito.webui.tracers.action.RemoveTracerAction;
+import net.anotheria.moskito.webui.tracers.action.ShowTracerAction;
+import net.anotheria.moskito.webui.tracers.action.ShowTracersAction;
 
 /**
  * Mappings configurator for MoSKito project for the AnoMaf framework.
@@ -78,18 +125,27 @@ public class MoskitoMappingsConfigurator implements ActionMappingsConfigurator{
 				new ActionForward("html", "/net/anotheria/moskito/webui/producers/jsp/Producer.jsp"),
 				new ActionForward("xml", "/net/anotheria/moskito/webui/producers/jsp/ProducerXML.jsp"),
 				new ActionForward("csv", "/net/anotheria/moskito/webui/producers/jsp/ProducerCSV.jsp"),
-				new ActionForward("json", "/net/anotheria/moskito/webui/shared/jsp/ProducerJSON.jsp")
+				new ActionForward("json", "/net/anotheria/moskito/webui/producers/jsp/ProducerJSON.jsp")
 				//new ActionForward("selection", "/net/anotheria/moskito/webui/producers/jsp/ProducerForSelection.jsp")
-		);
-
-		mappings.addMapping("mskShowCumulatedProducers", ShowCumulatedProducersAction.class,
-				new ActionForward("html", "/net/anotheria/moskito/webui/producers/jsp/CumulatedProducers.jsp")
 		);
 
 		mappings.addAlias("mskShowProducer.csv", "mskShowProducer");
 		mappings.addAlias("mskShowProducer.xml", "mskShowProducer");
 		mappings.addAlias("mskShowProducer.json", "mskShowProducer");
 		mappings.addAlias("mskShowProducerForSelection", "mskShowProducer");
+
+
+		mappings.addMapping("mskShowCumulatedProducers", ShowCumulatedProducersAction.class,
+				new ActionForward("html", "/net/anotheria/moskito/webui/producers/jsp/CumulatedProducers.jsp"),
+				new ActionForward("xml", "/net/anotheria/moskito/webui/producers/jsp/CumulatedProducersXML.jsp"),
+				new ActionForward("csv", "/net/anotheria/moskito/webui/producers/jsp/CumulatedProducersCSV.jsp"),
+				new ActionForward("json", "/net/anotheria/moskito/webui/producers/jsp/CumulatedProducersJSON.jsp")
+		);
+
+		mappings.addAlias("mskShowCumulatedProducers.csv", "mskShowCumulatedProducers");
+		mappings.addAlias("mskShowCumulatedProducers.xml", "mskShowCumulatedProducers");
+		mappings.addAlias("mskShowCumulatedProducers.json", "mskShowCumulatedProducers");
+
 
 		mappings.addMapping("mskShowExplanations", ShowExplanationsAction.class,
 				new ActionForward("success", "/net/anotheria/moskito/webui/shared/jsp/Explanations.jsp")
@@ -203,10 +259,10 @@ public class MoskitoMappingsConfigurator implements ActionMappingsConfigurator{
 			new ActionForward("success", "/net/anotheria/moskito/webui/more/jsp/Config.jsp")
 		);
 		mappings.addMapping("mskErrors", ShowErrorsAction.class,
-				new ActionForward("success", "/net/anotheria/moskito/webui/more/jsp/Errors.jsp")
+				new ActionForward("success", "/net/anotheria/moskito/webui/errors/jsp/Errors.jsp")
 		);
 		mappings.addMapping("mskError", ShowErrorAction.class,
-				new ActionForward("success", "/net/anotheria/moskito/webui/more/jsp/Error.jsp")
+				new ActionForward("success", "/net/anotheria/moskito/webui/errors/jsp/Error.jsp")
 		);
 		mappings.addMapping("mskLibs", ShowLibsAction.class,
 				new ActionForward("success", "/net/anotheria/moskito/webui/more/jsp/Libs.jsp")
@@ -228,6 +284,16 @@ public class MoskitoMappingsConfigurator implements ActionMappingsConfigurator{
 
 		mappings.addMapping("mskQuickConnect", QuickConnectAction.class,
 				new CommandDeepLinkRedirect("redirect", "mskShowAllProducers")
+		);
+
+
+		// Tags section
+		mappings.addMapping("mskTags", ShowTagsAction.class,
+				new ActionForward("success", "/net/anotheria/moskito/webui/tags/jsp/Tags.jsp")
+		);
+
+		mappings.addMapping("mskAddTag", AddTagAction.class,
+				new CommandDeepLinkRedirect("redirect", "mskTags")
 		);
 
 

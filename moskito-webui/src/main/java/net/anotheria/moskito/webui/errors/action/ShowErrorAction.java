@@ -1,10 +1,9 @@
-package net.anotheria.moskito.webui.more.action;
+package net.anotheria.moskito.webui.errors.action;
 
 import net.anotheria.maf.action.ActionCommand;
 import net.anotheria.maf.action.ActionMapping;
 import net.anotheria.maf.bean.FormBean;
 import net.anotheria.moskito.webui.shared.api.CaughtErrorAO;
-import net.anotheria.moskito.webui.shared.bean.NaviItem;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -16,10 +15,11 @@ import java.util.List;
  * @author lrosenberg
  * @since 09.06.17 15:15
  */
-public class ShowErrorAction extends BaseAdditionalAction {
+public class ShowErrorAction extends BaseErrorAction {
+
 	@Override
 	protected String getLinkToCurrentPage(HttpServletRequest req) {
-		return null;
+		return "mskError?error=" + req.getParameter("error");
 	}
 
 	@Override
@@ -36,11 +36,6 @@ public class ShowErrorAction extends BaseAdditionalAction {
 	@Override
 	protected String getPageName() {
 		return "error";
-	}
-
-	@Override
-	protected NaviItem getCurrentSubNaviItem() {
-		return NaviItem.MORE_ERRORS;
 	}
 
 	@Override
