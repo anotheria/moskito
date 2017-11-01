@@ -14,12 +14,24 @@ public class TaggingConfig implements Serializable {
 	 */
 	private static final long serialVersionUID = 8060717826503504338L;
 
+	/**
+	 * If true and the session exists the session id is automatically assigned to a tag.
+	 */
 	private boolean autotagSessionId = true;
 
+	/**
+	 * Add remote id to the tag.
+	 */
 	private boolean autotagIp = true;
 
+	/**
+	 * Add user agent as tag.
+	 */
 	private boolean autotagUserAgent = true;
 
+	/**
+	 * Add the referer as tag.
+	 */
 	private boolean autotagReferer = true;
 
 	public boolean isAutotagSessionId() {
