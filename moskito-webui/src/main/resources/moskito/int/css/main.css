@@ -844,6 +844,7 @@ i.heatmap-chart-icon {
 
 #main .mCSB_horizontal > .mCSB_container {
     margin-bottom: 16px;
+    margin-left: 20px;
     min-width: 100%;
 }
 

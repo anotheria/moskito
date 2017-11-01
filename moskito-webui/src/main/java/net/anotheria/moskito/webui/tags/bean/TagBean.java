@@ -1,6 +1,6 @@
 package net.anotheria.moskito.webui.tags.bean;
 
-import net.anotheria.moskito.core.config.tagging.TagPrefix;
+import net.anotheria.moskito.core.config.tagging.TagType;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,9 +18,9 @@ public class TagBean {
     private String name;
 
     /**
-     * {@link TagPrefix}, i.e. source for tag value.
+     * {@link TagType}, i.e. source for tag value.
      */
-    private TagPrefix prefix;
+    private TagType type;
 
     /**
      * Attribute name, used to retrieve tag value.
@@ -37,6 +37,13 @@ public class TagBean {
         lastAttributeValues = new ArrayList<>();
     }
 
+    public TagBean(String name, TagType type, String attributeName, List<String> lastAttributeValues) {
+        this.name = name;
+        this.type = type;
+        this.attributeName = attributeName;
+        this.lastAttributeValues = lastAttributeValues;
+    }
+
     public String getName() {
         return name;
     }
@@ -45,12 +52,12 @@ public class TagBean {
         this.name = name;
     }
 
-    public TagPrefix getPrefix() {
-        return prefix;
+    public TagType getType() {
+        return type;
     }
 
-    public void setPrefix(TagPrefix prefix) {
-        this.prefix = prefix;
+    public void setType(TagType type) {
+        this.type = type;
     }
 
     public String getAttributeName() {

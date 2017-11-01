@@ -1,15 +1,20 @@
 package net.anotheria.moskito.core.config.tagging;
 
 /**
- * Possible tag prefixes, i.e. sources of tag values.
+ * Possible tag types, i.e. sources of tag values.
  * @author strel
  */
-public enum TagPrefix {
+public enum TagType {
 
     /**
      * Nothing.
      */
     NONE(""),
+
+    /**
+     * Builtin, JVM / Java API for example.
+     */
+    BUILTIN("builtin"),
 
     /**
      * HTTP header.
@@ -33,19 +38,19 @@ public enum TagPrefix {
 
 
     /**
-     * All possible prefixes.
+     * All possible types.
      */
-    public static final TagPrefix[] PREFIXES = new TagPrefix[] {
+    public static final TagType[] TYPES = new TagType[] {
         HEADER, REQUEST, SESSION, PARAMETER
     };
 
     /**
-     * Prefix name.
+     * Type name.
      */
     private String name;
 
 
-    TagPrefix(String name) {
+    TagType(String name) {
         this.name = name;
     }
 
@@ -54,14 +59,14 @@ public enum TagPrefix {
     }
 
     /**
-     * Searches for prefix by given name.
-     * @param name Prefix name
-     * @return Prefix with given name or none, if no such
+     * Searches for type by given name.
+     * @param name Type name
+     * @return Type with given name or none, if no such
      */
-    public static TagPrefix findPrefixByName(String name) {
-        for (TagPrefix prefix : values()) {
-            if (prefix.getName().equals(name)) {
-                return prefix;
+    public static TagType findTagTypeByName(String name) {
+        for (TagType type : values()) {
+            if (type.getName().equals(name)) {
+                return type;
             }
         }
 
@@ -70,7 +75,7 @@ public enum TagPrefix {
 
     @Override
     public String toString() {
-        return "TagPrefix{" +
+        return "TagType{" +
                 "name='" + name + '\'' +
                 '}';
     }

@@ -5,7 +5,7 @@ import net.anotheria.maf.action.ActionMapping;
 import net.anotheria.maf.bean.FormBean;
 import net.anotheria.moskito.core.config.MoskitoConfigurationHolder;
 import net.anotheria.moskito.core.config.tagging.CustomTag;
-import net.anotheria.moskito.core.config.tagging.TagPrefix;
+import net.anotheria.moskito.core.config.tagging.TagType;
 import net.anotheria.moskito.core.config.tagging.TaggingConfig;
 import net.anotheria.moskito.core.tag.TagHistory;
 import net.anotheria.moskito.webui.shared.action.BaseMoskitoUIAction;
@@ -30,14 +30,19 @@ public class ShowTagsAction extends BaseMoskitoUIAction {
     public static final String ATTR_TAGS = "tags";
 
     /**
-     * Attribute name: tag prefixes.
+     * Attribute name: tag types.
      */
-    public static final String ATTR_TAG_PREFIXES = "tagPrefixes";
+    public static final String ATTR_TAG_TYPES = "tagTypes";
 
     /**
      * Attribute name: tag history size.
      */
     public static final String ATTR_TAG_HISTORY_SIZE = "tagHistorySize";
+
+    public static final String TAG_IP = "ip";
+    public static final String TAG_REFERER = "referer";
+    public static final String TAG_USER_AGENT = "user-agent";
+    public static final String TAG_SESSION_ID = "sessionId";
 
 
     /**
@@ -49,18 +54,36 @@ public class ShowTagsAction extends BaseMoskitoUIAction {
         List<TagBean> tagBeans = new ArrayList<>();
         TaggingConfig taggingConfig = MoskitoConfigurationHolder.getConfiguration().getTaggingConfig();
 
-        // Preparing tag beans
+        //Preparing default tags
+        if (taggingConfig.isAutotagIp()) {
+            TagBean tag = new TagBean(TAG_IP, TagType.BUILTIN, TAG_IP, TagHistory.INSTANCE.getTagValues(TAG_IP));
+            tagBeans.add(tag);
+        }
+        if (taggingConfig.isAutotagReferer()) {
+            TagBean tag = new TagBean(TAG_REFERER, TagType.HEADER, TAG_REFERER, TagHistory.INSTANCE.getTagValues(TAG_REFERER));
+            tagBeans.add(tag);
+        }
+        if (taggingConfig.isAutotagUserAgent()) {
+            TagBean tag = new TagBean(TAG_USER_AGENT, TagType.HEADER, TAG_USER_AGENT, TagHistory.INSTANCE.getTagValues(TAG_USER_AGENT));
+            tagBeans.add(tag);
+        }
+        if (taggingConfig.isAutotagSessionId()) {
+            TagBean tag = new TagBean(TAG_SESSION_ID, TagType.SESSION, TAG_SESSION_ID, TagHistory.INSTANCE.getTagValues(TAG_SESSION_ID));
+            tagBeans.add(tag);
+        }
+
+        // Preparing custom tag beans
         for (CustomTag tagConfig : taggingConfig.getCustomTags()) {
             TagBean tag = new TagBean();
             tag.setName(tagConfig.getName());
-            tag.setPrefix(TagPrefix.findPrefixByName(tagConfig.getAttributeSource()));
+            tag.setType(TagType.findTagTypeByName(tagConfig.getAttributeSource()));
             tag.setAttributeName(tagConfig.getAttributeName());
             tag.setLastAttributeValues(TagHistory.INSTANCE.getTagValues(tagConfig.getName()));
             tagBeans.add(tag);
         }
 
         request.setAttribute(ATTR_TAGS, tagBeans);
-        request.setAttribute(ATTR_TAG_PREFIXES, TagPrefix.PREFIXES);
+        request.setAttribute(ATTR_TAG_TYPES, TagType.TYPES);
         request.setAttribute(ATTR_TAG_HISTORY_SIZE, MoskitoConfigurationHolder.getConfiguration().getTaggingConfig().getTagHistorySize());
 
         return mapping.success();
@@ -71,7 +94,7 @@ public class ShowTagsAction extends BaseMoskitoUIAction {
      */
     @Override
     protected String getLinkToCurrentPage(HttpServletRequest req) {
-        return "mskShowTags";
+        return "mskTags?ts="+System.currentTimeMillis();
     }
 
     /**

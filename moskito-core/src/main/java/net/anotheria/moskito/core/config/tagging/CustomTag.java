@@ -20,7 +20,7 @@ public class CustomTag {
     /**
      * HTTP attribute parameters which are used to retrieve tag value.
      * Attribute consists of prefix and attribute name separated by '.' character.
-     * All possible prefixes are listed in {@link TagPrefix}.
+     * All possible prefixes are listed in {@link TagType}.
      *
      * Example: <i>session.myAttribute</i>, <i>header.user-agent</i>
      */
@@ -46,7 +46,7 @@ public class CustomTag {
 
     /**
      * Retrieves attribute source / prefix.
-     * Possible prefixes are listed in {@link TagPrefix}.
+     * Possible prefixes are listed in {@link TagType}.
      */
     public String getAttributeSource() {
         return !StringUtils.isEmpty(attribute) && attribute.contains(".") ?
