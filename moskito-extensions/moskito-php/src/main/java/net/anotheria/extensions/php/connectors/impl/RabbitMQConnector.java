@@ -18,7 +18,7 @@ import java.util.concurrent.TimeoutException;
  * class structure
  *
  * Has default configuration for rabbitmq host, port, auth credentials
- * and queue name assuming RabbitMQ instance is running on same machine
+ * and queue name assuming RabbitMQ instance is running on same host
  * with out of box configuration and queue name in php agent is default.
  *
  * No additional configuration for this connector is needed if

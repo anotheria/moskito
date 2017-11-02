@@ -10,18 +10,18 @@ import java.util.List;
 public class PHPProducerDTO {
 
     /**
-     * Producer to be updated id
+     * Id of producer to be updated
      */
     private String producerId;
 
     /**
-     * Producer to be updated category.
+     * Producer category.
      * Used only for producer creation.
      */
     private String category;
 
     /**
-     * Producer to be updated subsystem.
+     * Producer subsystem.
      * Used only for producer creation.
      */
     private String subsystem;

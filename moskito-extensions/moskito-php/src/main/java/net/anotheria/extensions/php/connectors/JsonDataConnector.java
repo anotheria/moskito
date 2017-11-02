@@ -5,17 +5,18 @@ import com.google.gson.GsonBuilder;
 import net.anotheria.extensions.php.dto.PHPProducerDTO;
 
 /**
- * Abstract connector for receiving producer data
- * in json format with strict to {@link PHPProducerDTO}
- * structure
+ * Abstract connector with additional method that
+ * gives ability to pass producer data in json format
+ * with strict to {@link PHPProducerDTO} structure
  */
 public abstract class JsonDataConnector extends AbstractConnector {
 
     private static final Gson gson = new GsonBuilder().create();
 
     /**
-     * Additional method for applying producer data
-     * using producer and it stats json representation
+     * Additional method for passing producer data
+     * using producer json representation
+     *
      * @param producerJson json representation of producer data
      */
     protected void updateProducer(String producerJson) {

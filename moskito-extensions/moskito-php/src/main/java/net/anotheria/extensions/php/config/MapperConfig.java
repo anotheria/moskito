@@ -9,7 +9,7 @@ import org.configureme.annotations.ConfigureMe;
  * Mapper be available by configured mapper id.
  *
  * mappers should implement {@link net.anotheria.extensions.php.mappers.Mapper}
- * class and have public default constructor to be used.
+ * class and has public default constructor to be used.
  *
  */
 @ConfigureMe(allfields = true)

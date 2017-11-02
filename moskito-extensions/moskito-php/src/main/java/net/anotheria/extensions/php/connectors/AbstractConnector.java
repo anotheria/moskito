@@ -39,21 +39,21 @@ public abstract class AbstractConnector implements Connector {
     @Override
     public void init(OnProducerDataReceivedListener listener, Properties configuredProperties) throws ConnectorInitException {
         this.listener = listener;
-        Properties properties = getDefaultProperties();
+
+        Properties properties = new Properties(getDefaultProperties());
         properties.putAll(configuredProperties);
+
         init(properties);
     }
 
     /**
-     * Has empty body to enable deinit implementation
-     * skip
+     * Has empty body to enable method implementation skip
      */
     @Override
     public void deinit() {}
 
     /**
-     * Used to define default connector
-     * configuration properties
+     * Used to define default connector configuration properties
      * @return default connector configuration properties
      */
     public Properties getDefaultProperties() {

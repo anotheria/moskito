@@ -1,9 +1,12 @@
 package net.anotheria.extensions.php.exceptions;
 
+import net.anotheria.extensions.php.OnProducerDataReceivedListener;
+
 import java.util.Properties;
 
 /**
- * Thrown by {@link net.anotheria.extensions.php.connectors.Connector#init(Properties)}
+ * Thrown by
+ * {@link net.anotheria.extensions.php.connectors.Connector#init(OnProducerDataReceivedListener,Properties)}
  * to indicate connector initialization fail
  */
 public class ConnectorInitException extends Exception {
