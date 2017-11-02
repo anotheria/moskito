@@ -73,15 +73,15 @@ class ConfigBootstrapper {
 
             } catch (ClassNotFoundException e) {
                 throw new PHPPluginBootstrapException(
-                        "AbstractMapper class " + mapperConfig.getMapperClass() + " not found", e
+                        "Mapper class " + mapperConfig.getMapperClass() + " not found", e
                 );
             } catch (NoSuchMethodException | IllegalAccessException e) {
                 throw new PHPPluginBootstrapException(
-                        "AbstractMapper class must have default public constructor", e
+                        "Mapper class must have default public constructor", e
                 );
             } catch (InvocationTargetException e) {
                 throw new PHPPluginBootstrapException(
-                        "AbstractMapper constructor throws exception", e
+                        "Mapper constructor throws exception", e
                 );
             } catch (InstantiationException e) {
                 throw new PHPPluginBootstrapException(

@@ -47,7 +47,7 @@ public class ProducerUpdater {
             Mapper mapper = mappersRegistry.getMapper(producerDTO.getMapperId());
 
             if (mapper == null) {
-                log.error("AbstractMapper with id " + producerDTO.getMapperId() + " is not found to map producer "
+                log.error("Mapper with id " + producerDTO.getMapperId() + " is not found to map producer "
                         + producerDTO.getProducerId());
                 return;
             }
