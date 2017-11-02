@@ -102,10 +102,9 @@ public abstract class AbstractOnDemandStatsProducerMapper<S extends IStats> impl
             try {
                 producer = safeCastProducer(producerUncasted);
             } catch (ClassCastException e) {
-                log.error("Cannot update producer data. Producer with id '" +
+                throw new MappingException("Cannot update producer data. Producer with id '" +
                         producerDTO.getProducerId() +
                         "' actual type is differs from mapper requirements type.", e);
-                return;
             }
         }
         else{
