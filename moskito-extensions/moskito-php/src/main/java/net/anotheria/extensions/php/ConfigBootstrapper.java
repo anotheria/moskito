@@ -41,8 +41,8 @@ class ConfigBootstrapper {
             IllegalAccessException, InvocationTargetException,
             InstantiationException {
 
-        Class<?> mapperClass = Class.forName(className);
-        Constructor<?> constructor = mapperClass.getConstructor();
+        Class<?> clazz = Class.forName(className);
+        Constructor<?> constructor = clazz.getConstructor();
         return constructor.newInstance();
     }
 
