@@ -75,7 +75,7 @@ public class PhpScriptExecutionStatDecorator extends RequestOrientedStatsDecorat
 
 
     public PhpScriptExecutionStatDecorator(){
-        super("phpExecution", CAPTIONS, SHORT_EXPLANATIONS, EXPLANATIONS);
+        super("PHP", CAPTIONS, SHORT_EXPLANATIONS, EXPLANATIONS);
     }
 
     @Override
