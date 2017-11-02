@@ -40,7 +40,7 @@ public class TracingConfiguration implements Serializable{
 	 * For example if you limit amount of traces to 100, the system will collect 110 and then cut it down to 100.
 	 */
 	@Configure
-	private int maxTraces;
+	private int maxTraces = 100;
 	/**
 	 * Predefined tracers. Simply a list of producerids.
 	 */
