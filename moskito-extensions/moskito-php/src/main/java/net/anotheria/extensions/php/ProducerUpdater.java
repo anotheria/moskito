@@ -40,26 +40,22 @@ public class ProducerUpdater {
      *
      * @param producerDTO incoming producer data to be submitted
      */
-    public void updateProducer(PHPProducerDTO producerDTO) {
+    public synchronized void updateProducer(PHPProducerDTO producerDTO) {
 
-        synchronized (producerRegistry) {
+        Mapper mapper = mappersRegistry.getMapper(producerDTO.getMapperId());
 
-            Mapper mapper = mappersRegistry.getMapper(producerDTO.getMapperId());
+        if (mapper == null) {
+            log.error("Mapper with id " + producerDTO.getMapperId() + " is not found to map producer "
+                    + producerDTO.getProducerId());
+            return;
+        }
 
-            if (mapper == null) {
-                log.error("Mapper with id " + producerDTO.getMapperId() + " is not found to map producer "
-                        + producerDTO.getProducerId());
-                return;
-            }
-
-            try {
-                mapper.mapProducer(producerRegistry, producerDTO);
-            } catch (MappingException e) {
-                log.error("Failed to process producer data with producer id " +
-                        producerDTO.getProducerId() +
-                        " because mapper throws an exception", e);
-            }
-
+        try {
+            mapper.mapProducer(producerRegistry, producerDTO);
+        } catch (MappingException e) {
+            log.error("Failed to process producer data with producer id " +
+                    producerDTO.getProducerId() +
+                    " because mapper throws an exception", e);
         }
 
     }
