@@ -14,7 +14,7 @@ import java.util.concurrent.TimeoutException;
  * Connector to retrieve data from RabbitMQ.
  *
  * Expects that data to this connector will be sent in json
- * format strict to {@link net.anotheria.extensions.php.dto.PHPProducerDTO}
+ * format with strict to {@link net.anotheria.extensions.php.dto.PHPProducerDTO}
  * class structure
  *
  * Has default configuration for rabbitmq host, port, auth credentials
