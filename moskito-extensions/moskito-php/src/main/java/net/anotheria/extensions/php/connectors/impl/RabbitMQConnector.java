@@ -108,7 +108,7 @@ public class RabbitMQConnector extends JsonDataConnector {
 
     /**
      * Consumer implementation for passing messages
-     * to {@link JsonDataConnector#registerProducer(String)}
+     * to {@link JsonDataConnector#updateProducer(String)}
      */
     private class MoskitoPHPConsumer extends DefaultConsumer {
 
@@ -127,7 +127,7 @@ public class RabbitMQConnector extends JsonDataConnector {
         ) throws IOException {
 
             String producerJson = new String(body, "UTF-8");
-            registerProducer(producerJson);
+            updateProducer(producerJson);
 
         }
 

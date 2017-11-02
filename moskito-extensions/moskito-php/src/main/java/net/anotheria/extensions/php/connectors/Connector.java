@@ -1,58 +1,43 @@
 package net.anotheria.extensions.php.connectors;
 
-import net.anotheria.extensions.php.ProducerUpdater;
+import net.anotheria.extensions.php.OnProducerDataReceivedListener;
 import net.anotheria.extensions.php.dto.PHPProducerDTO;
 import net.anotheria.extensions.php.exceptions.ConnectorInitException;
 
 import java.util.Properties;
 
 /**
- * Basic class for connectors.
+ * Interface for plugin external data connectors.
  *
- * Children classes must have default public constructor to be loaded.
+ * Implementations initialization should start on
+ * {@link Connector#init(OnProducerDataReceivedListener, Properties)}
+ * method call that be called on plugin initialization.
+ * First argument is listener that must be invoked
+ * by calling {@link OnProducerDataReceivedListener#updateProducer(PHPProducerDTO)}
+ * method when new data is arrived. Second method argument is
+ * connector properties that defined in configuration file.
+ *
+ * Implementations should listen to their
+ * external data connections in separate thread.
+ *
+ * Implementations must have default public constructor
+ * to be instantiated dynamically.
  */
-public abstract class Connector {
+public interface Connector {
 
     /**
-     * Instance of producer updater
-     * to invoke
-     */
-    private ProducerUpdater producerUpdater;
-
-    /**
-     * Initialization method of connector
-     * Called on plugin initialization
-     * @param properties configured connector properties
-     * @throws ConnectorInitException on init fail
-     */
-    public abstract void init(Properties properties) throws ConnectorInitException;
-
-    /**
-     * Called on plugin deintialization
-     */
-    public void deinit() {}
-
-    /**
-     * Used to define default connector
-     * configuration properties
-     * @return default connector configuration properties
-     */
-    public Properties getDefaultProperties() {
-        return new Properties();
-    }
-
-    /**
-     * Connectors should call this method on incoming
-     * data to process it by mappers.
+     * Method to initialize connector.
+     * Called once on plugin initialization
      *
-     * @param producerDTO new incoming producer data
+     * @param properties connector configuration properties
+     * @param listener new data arrive listener
+     * @throws ConnectorInitException on initialization fails
      */
-    protected void registerProducer(PHPProducerDTO producerDTO) {
-        producerUpdater.updateProducer(producerDTO);
-    }
+    void init(OnProducerDataReceivedListener listener, Properties properties) throws ConnectorInitException;
 
-    public void setProducerUpdater(ProducerUpdater producerUpdater) {
-        this.producerUpdater = producerUpdater;
-    }
+    /**
+     * Called once on plugin deinitialization
+     */
+    void deinit();
 
 }

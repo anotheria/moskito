@@ -9,7 +9,7 @@ import net.anotheria.extensions.php.dto.PHPProducerDTO;
  * in json format with strict to {@link PHPProducerDTO}
  * structure
  */
-public abstract class JsonDataConnector extends Connector {
+public abstract class JsonDataConnector extends AbstractConnector {
 
     private static final Gson gson = new GsonBuilder().create();
 
@@ -18,9 +18,9 @@ public abstract class JsonDataConnector extends Connector {
      * using producer and it stats json representation
      * @param producerJson json representation of producer data
      */
-    protected void registerProducer(String producerJson) {
+    protected void updateProducer(String producerJson) {
         PHPProducerDTO producerDTO = gson.fromJson(producerJson, PHPProducerDTO.class);
-        registerProducer(producerDTO);
+        updateProducer(producerDTO);
     }
 
 }

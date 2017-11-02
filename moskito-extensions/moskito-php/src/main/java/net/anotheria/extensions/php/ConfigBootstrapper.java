@@ -59,7 +59,7 @@ class ConfigBootstrapper {
     ) throws PHPPluginBootstrapException {
 
         MappersRegistry mappersRegistry = new MappersRegistry();
-        ProducerUpdater updater = new ProducerUpdater(mappersRegistry, producerRegistry);
+        OnProducerDataReceivedListener listener = new OnProducerDataReceivedListenerImpl(mappersRegistry, producerRegistry);
         List<Connector> registeredConnectors = new LinkedList<>();
 
         for (MapperConfig mapperConfig : config.getMappers()) {
@@ -125,12 +125,11 @@ class ConfigBootstrapper {
                 );
             }
 
-            Properties connectorProperties = new Properties(connector.getDefaultProperties());
+            Properties connectorProperties = new Properties();
             connectorProperties.putAll(connectorConfig.getConnectorProperties());
-            connector.setProducerUpdater(updater);
 
             try {
-                connector.init(connectorProperties);
+                connector.init(listener, connectorProperties);
                 registeredConnectors.add(connector);
             } catch (ConnectorInitException e) {
                 log.error("Failed to initialize connector " + connectorConfig.getConnectorClass(), e);

@@ -8,14 +8,16 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * Used by connectors to load incoming producer data.
+ * Implementation of OnProducerDataReceivedListener.
+ * Calls registered in plugin mappers to process
+ * incoming data
  */
-public class ProducerUpdater {
+class OnProducerDataReceivedListenerImpl implements OnProducerDataReceivedListener {
 
-    private static final Logger log = LoggerFactory.getLogger(ProducerUpdater.class);
+    private static final Logger log = LoggerFactory.getLogger(OnProducerDataReceivedListenerImpl.class);
 
     /**
-     * Store of available mappers in this updater
+     * Store of available mappers in this listener
      */
     private final MappersRegistry mappersRegistry;
     /**
@@ -30,7 +32,7 @@ public class ProducerUpdater {
      * @param mappersRegistry mappers registry instance to be used by updated
      * @param producerRegistry producer registry to be used by updated
      */
-    ProducerUpdater(MappersRegistry mappersRegistry, IProducerRegistry producerRegistry) {
+    OnProducerDataReceivedListenerImpl(MappersRegistry mappersRegistry, IProducerRegistry producerRegistry) {
         this.mappersRegistry = mappersRegistry;
         this.producerRegistry = producerRegistry;
     }
