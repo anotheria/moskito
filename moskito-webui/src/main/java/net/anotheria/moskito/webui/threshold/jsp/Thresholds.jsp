@@ -86,7 +86,7 @@
                     <ano:iterate name="alerts" type="net.anotheria.moskito.webui.threshold.api.ThresholdAlertAO" id="alert" indexId="index">
                     <tr>
                         <td>${alert.timestamp}</td>
-                        <td><a href="#">${alert.name}</a></td>
+                        <td><a class="threshold-update-link" data-id="${alert.id}" href="#">${alert.name}</a></td>
                         <td><i class="status status-${alert.oldColorCode}"></i> <i class="fa fa-long-arrow-right"></i> <i class="status status-${alert.newColorCode}"></i></td>
                         <td>${alert.oldValue} <i class="fa fa-long-arrow-right"></i> ${alert.newValue}</td>
                     </tr>
