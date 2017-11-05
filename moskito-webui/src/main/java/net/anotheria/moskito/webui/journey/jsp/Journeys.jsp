@@ -7,7 +7,7 @@
 <jsp:include page="../../shared/jsp/Header.jsp" flush="false"/>
 <section id="main">
     <ano:notPresent name="journeysPresent">
-        <div class="alert alert-warning alert-dismissable">
+        <div class="alert alert-success alert-dismissable">
             <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
             You have no journeys yet, you can start a journey by following the instructions below or programmatically.
         </div>

@@ -7,7 +7,7 @@
 
 <section id="main">
     <ano:equal name="newThresholdAdded" value="true">
-        <div class="alert alert-warning alert-dismissable">
+        <div class="alert alert-success alert-dismissable">
             <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
             Threshold <ano:write name="newThresholdName"/> added!
         </div>

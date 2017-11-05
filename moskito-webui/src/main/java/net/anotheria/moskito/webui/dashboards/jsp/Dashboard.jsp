@@ -8,14 +8,14 @@
 
 <section id="main">
     <ano:equal name="showHelp" value="true">
-        <div class="alert alert-warning alert-dismissable">
+        <div class="alert alert-success alert-dismissable">
             <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
             This Dashboard is yet empty. Add some elements to it by editing <em>moskito.json</em>.<br/>For more details on MoSKito Configuration visit: <a href="https://confluence.opensource.anotheria.net/display/MSK/MoSKito-Essential+Configuration+Guide">https://confluence.opensource.anotheria.net/display/MSK/MoSKito-Essential+Configuration+Guide</a>.
         </div>
     </ano:equal>
 
     <ano:present name="infoMessage">
-        <div class="alert alert-warning alert-dismissable">
+        <div class="alert alert-success alert-dismissable">
             <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
             ${requestScope.infoMessage}
         </div>

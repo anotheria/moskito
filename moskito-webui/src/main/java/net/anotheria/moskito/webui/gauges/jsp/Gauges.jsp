@@ -6,7 +6,7 @@
 <jsp:include page="../../shared/jsp/Header.jsp" flush="false"/>
 
 <section id="main">
-        <div class="alert alert-warning alert-dismissable">
+        <div class="alert alert-success alert-dismissable">
             <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
             Gauges are a new feature since MoSKito 2.5.7. We are not sure, if they should become their top navigation point. If you feel that gauges should become it own top navigation point,
             <a href="mailto:moskito-users@lists.anotheria.net">tell us</a>!

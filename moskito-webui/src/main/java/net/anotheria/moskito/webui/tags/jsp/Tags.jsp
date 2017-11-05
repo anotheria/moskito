@@ -7,7 +7,7 @@
 <jsp:include page="../../shared/jsp/Header.jsp" flush="false"/>
 <section id="main">
     <ano:empty name="tags">
-        <div class="alert alert-warning alert-dismissable">
+        <div class="alert alert-success alert-dismissable">
             <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
             You have no tags yet, you can add new tags using MoSKito configuration or form in modal window.
         </div>

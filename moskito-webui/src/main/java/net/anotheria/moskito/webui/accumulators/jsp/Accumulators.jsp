@@ -8,7 +8,7 @@
 
 <section id="main">
     <ano:equal name="newAccumulatorAdded" value="true">
-        <div class="alert alert-warning alert-dismissable">
+        <div class="alert alert-success alert-dismissable">
             <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
             Accumulator <ano:write name="newAccumulatorName"/> added!
         </div>
