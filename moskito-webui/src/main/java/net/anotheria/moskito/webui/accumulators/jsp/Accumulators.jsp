@@ -68,7 +68,7 @@
                         <div class="box-right-nav dropdown">
                             <a href="#" data-target="#" data-toggle="dropdown"><i class="fa fa-cog"></i></a>
                             <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dLabel">
-                                <li><a href="" class="save_as">Save</a></li>
+                                <li><a href="" class="save_as">Screenshot</a></li>
                                 <ano:iF test="${chart.dashboardsToAdd != ''}">
                                     <li><a onclick="addChart('${requestScope.accNamesConcat}','${requestScope.dashboards}')">Add to Dashboard</a></li>
                                 </ano:iF>
@@ -102,7 +102,7 @@
                                 <div class="box-right-nav dropdown">
                                     <a href="#" data-target="#" data-toggle="dropdown"><i class="fa fa-cog"></i></a>
                                     <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dLabel">
-                                        <li><a href="" class="save_as">Save</a></li>
+                                        <li><a href="" class="save_as">Screenshot</a></li>
                                         <ano:iF test="${chart.dashboardsToAdd != ''}">
                                             <li><a onclick="addChart('${singleGraph.name}','${requestScope.dashboards}')">Add to Dashboard</a></li>
                                         </ano:iF>

@@ -38,7 +38,7 @@
                         <div class="box-right-nav dropdown">
                             <a href="#" data-target="#" data-toggle="dropdown"><i class="fa fa-cog"></i></a>
                             <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dLabel">
-                                <li><a href="" onclick="saveSvgAsPng(event, ${index}+countGauges())">Save</a></li>
+                                <li><a href="" onclick="saveSvgAsPng(event, ${index}+countGauges())">Screenshot</a></li>
                                 <ano:iF test="${chart.dashboardsToAdd != ''}">
                                     <li><a onclick="addChart('${chart.chartNames}','${chart.dashboardsToAdd}')">Add to Dashboard</a></li>
                                 </ano:iF>
