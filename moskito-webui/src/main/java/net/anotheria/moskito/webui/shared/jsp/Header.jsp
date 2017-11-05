@@ -188,7 +188,7 @@
                     <ano:iterate name="dashboardsMenuItems" id="item">
                         <li ${requestScope.selectedDashboard == item.name ? "class=\"active\"" : ""}><mos:deepLink href="mskDashboard?dashboard=${item.urlParameter}" title="${item.name}" class="sidebar-tooltip-right">${item.name} <i class="fa fa-tachometer"></i></mos:deepLink></li>
                     </ano:iterate>
-                    <li><mos:deepLink href="#CreateDashboard" data-toggle="modal" data-target="#CreateDashboard" title="New Dashboard" class="sidebar-tooltip-right">New Dashboard <i class="fa fa-tachometer"></i></mos:deepLink></li>
+                    <li><mos:deepLink href="#CreateDashboard" data-toggle="modal" data-target="#CreateDashboard" title="New Dashboard" class="sidebar-tooltip-right">New Dashboard <i class="fa fa-plus"></i></mos:deepLink></li>
                 </ul>
             </li>
         </ano:equal>
