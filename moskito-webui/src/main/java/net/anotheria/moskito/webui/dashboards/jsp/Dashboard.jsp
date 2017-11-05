@@ -55,7 +55,7 @@
                     <div class="form-group">
                         <input type="text" class="form-control" name="pName" placeholder="Name">
                     </div>
-                    <div class="form-group text-right">
+                    <div class="form-group text-center">
                         <button class="btn btn-success" type="button" onclick="submit();">Create</button>
                         <button class="btn btn-default" type="button" data-dismiss="modal">Cancel</button>
                     </div>
@@ -65,20 +65,20 @@
     </div>
 </div>
 
-<div class="modal fade" id="DeleteDashboard" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+<div class="modal fade modal-danger" id="DeleteDashboard" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
     <div class="modal-dialog modal-sm">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                 <h4 class="modal-title">Delete Dashboard "${requestScope.selectedDashboard}" ? </h4>
             </div>
-            <div class="modal-body">
+            <div class="modal-footer">
                 <form name="CreateDashboard" action="mskDeleteDashboard" method="GET">
                     <input type="hidden" name="remoteConnection" value="${remoteLink}"/>
                     <input type="hidden" class="form-control" name="pName" value="${requestScope.selectedDashboard}">
-                    <div class="form-group text-right">
-                        <button class="btn btn-success" type="button" onclick="submit();">Yes</button>
+                    <div class="text-center">
                         <button class="btn btn-default" type="button" data-dismiss="modal">Cancel</button>
+                        <button class="btn btn-danger" type="button" onclick="submit();">Delete</button>
                     </div>
                 </form>
             </div>
