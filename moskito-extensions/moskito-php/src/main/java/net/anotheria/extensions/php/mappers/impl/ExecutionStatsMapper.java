@@ -11,9 +11,9 @@ import net.anotheria.moskito.core.dynamic.IOnDemandStatsFactory;
 /**
  * Mapper for php execution producer
  */
-public class ExecutionProducerMapper extends AbstractOnDemandStatsProducerMapper<PHPScriptExecutionStats> {
+public class ExecutionStatsMapper extends AbstractOnDemandStatsProducerMapper<PHPScriptExecutionStats> {
 
-    public ExecutionProducerMapper() {
+    public ExecutionStatsMapper() {
             super(PHPScriptExecutionStats.class);
     }
 
