@@ -9,6 +9,9 @@ import net.anotheria.moskito.core.counter.CounterStats;
 import net.anotheria.moskito.core.dynamic.IOnDemandStatsFactory;
 import net.anotheria.moskito.core.counter.CounterStatsFactory;
 
+/**
+ * Mapper for counter stats
+ */
 public class CounterStatsMapper extends AbstractOnDemandStatsProducerMapper<CounterStats> {
 
     public CounterStatsMapper() {

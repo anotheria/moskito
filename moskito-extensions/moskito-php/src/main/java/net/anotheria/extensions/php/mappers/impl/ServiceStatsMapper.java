@@ -8,6 +8,9 @@ import net.anotheria.moskito.core.dynamic.IOnDemandStatsFactory;
 import net.anotheria.moskito.core.predefined.ServiceStats;
 import net.anotheria.moskito.core.predefined.ServiceStatsFactory;
 
+/**
+ * Mapper for service stats
+ */
 public class ServiceStatsMapper extends AbstractOnDemandStatsProducerMapper<ServiceStats> {
 
     public ServiceStatsMapper() {
