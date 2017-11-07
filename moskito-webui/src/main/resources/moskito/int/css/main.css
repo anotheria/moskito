@@ -217,6 +217,11 @@ body.status-yellow ul.nav-sidebar.nav-status > li.active > a {
     border-left: 4px solid #e4be3c;
 }
 
+ul.nav-sidebar > li .new-dashboard-sign {
+    top: 9px;
+    font-size: 15px;
+}
+
 .status.status-green {
     background: #53d769;
 }
