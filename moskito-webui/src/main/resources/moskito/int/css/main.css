@@ -852,7 +852,7 @@ i.heatmap-chart-icon {
     min-width: 100%;
 }
 
-.errors-page {
+.errors-box {
     margin-left: 20px;
 }
 
@@ -1247,6 +1247,15 @@ ul.switcher li i.chart-icon {
     margin-left: 190px;
     overflow-x: auto;
     overflow-y: auto;
+}
+
+table.producers-table > tbody > tr > td {
+    padding: 8px 0 8px 20px;
+}
+
+table.producers-table a.action-icon {
+    margin-left: 0;
+    margin-right: 0;
 }
 
 .modal-table {
