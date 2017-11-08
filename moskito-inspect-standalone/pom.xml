@@ -77,6 +77,13 @@
             <artifactId>moskito-sampling-api</artifactId>
             <version>${project.version}</version>
         </dependency>
+
+        <dependency>
+            <groupId>net.anotheria</groupId>
+            <artifactId>moskito-php</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
 	</dependencies>
 
 	<build>

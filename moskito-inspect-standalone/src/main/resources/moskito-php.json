@@ -1,0 +1,10 @@
+{
+  "@mappers" : [
+   
+  ],
+  "@connectors" : [
+    {
+      "connectorClass" : "net.anotheria.extensions.php.connectors.impl.RabbitMQConnector"
+    }
+  ]
+}

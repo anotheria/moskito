@@ -694,6 +694,11 @@
         "name": "NginxMonitoringPlugin",
         "configurationName": "monitoring-plugin-nginx",
         "className": "net.anotheria.moskito.extensions.monitoring.GenericMonitoringPlugin"
+      },
+      {
+        "name": "MoskitoPHPPlugin",
+        "configurationName": "moskito-php",
+        "className": "net.anotheria.extensions.php.MoskitoPHPPlugin"
       }
     ]
   },
