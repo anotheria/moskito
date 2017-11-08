@@ -45,7 +45,7 @@
                         <div class="box-right-nav dropdown">
                             <a href="#" data-target="#" data-toggle="dropdown"><i class="fa fa-cog"></i></a>
                             <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dLabel">
-                                <li><a href="" onclick="saveGaugesSvgAsPng(event, ${index}, ${index})">Save</a></li>
+                                <li><a href="" onclick="saveGaugesSvgAsPng(event, ${index}, ${index})">Screenshot</a></li>
                                 <ano:iF test="${gauge.dashboardsToAdd != ''}">
                                     <li><a onclick="addGauge('${gauge.caption}', '${gauge.name}', '${gauge.dashboardsToAdd}')" >Add to Dashboard</a></li>
                                 </ano:iF>
@@ -66,7 +66,7 @@
     <div class="dashboard-line-footer text-right">
         <ul class="dashboard-line-nav-box list-unstyled">
             <li>
-                <a onclick="saveGaugesSvgAsPng(event, 0, 10000)" class="save_as"><i class="fa fa-download"></i> Save all Gauges</a>
+                <a onclick="saveGaugesSvgAsPng(event, 0, 10000)" class="save_as"><i class="fa fa-download"></i> Screenshot all Gauges</a>
             </li>
         </ul>
     </div>
