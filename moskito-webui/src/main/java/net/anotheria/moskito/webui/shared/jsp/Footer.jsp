@@ -229,9 +229,11 @@
     </ano:notEqual>
 </ano:equal>
 
+<%--
 <ano:equal name="currentNaviItem" property="id" value="tags">
     <script type="text/javascript" src="../moskito/ext/jquery-tree-table/jquery.treeTable.min.js"></script>
 </ano:equal>
+--%>
 
 <ano:equal name="currentNaviItem" property="id" value="errors">
     <script type="text/javascript" src="../moskito/ext/jquery-tree-table/jquery.treeTable.min.js"></script>

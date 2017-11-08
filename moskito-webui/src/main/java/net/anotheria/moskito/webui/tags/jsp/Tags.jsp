@@ -14,74 +14,47 @@
     </ano:empty>
 
     <div class="content">
-        <div class="box">
-            <div class="box-content paddner">
-                <div class="pull-right">
-                    <a class="btn btn-default" data-toggle="modal" data-target="#addTagModal" href=""><i class="fa fa-plus"></i> Tag</a>
-                </div>
-            </div>
-        </div>
+        <div class="tags-wrapper">
+        <div>
+            <ano:notEmpty name="tags">
+                <ano:iterate name="tags" type="net.anotheria.moskito.webui.tags.bean.TagBean" id="tag" indexId="index">
+                    <div class="card-box">
+                        <div class="panel panel-default card-item">
+                            <div class="panel-heading card-header card-color-${tag.type.name}">
+                                <i class="fa fa-tag card-tag-icon"></i>${tag.name}
+                            </div>
+                            <div class="panel-body card-body">
+                                <p><strong>Type: </strong>${tag.type.name}</p>
+                                <p><strong>Source: </strong>${tag.source}</p>
+                            </div>
+                            <div id="tag-${index}-values" class="collapse-section collapse">
+                                <ano:iterate name="tag" property="lastValues" id="value">
+                                    <div class="card-section text-muted">${value}</div>
+                                </ano:iterate>
+                            </div>
+                            <a href="#tag-${index}-values" class="collapse-toggle collapsed" role="button" data-toggle="collapse" aria-expanded="false" aria-controls="tag-${index}-values">
+                                <div class="panel-footer card-footer">
+                                    <i class="fa fa-chevron-down"></i>
+                                </div>
+                            </a>
+                            <div class="card-footer-line card-color-${tag.type.name}"></div>
+                        </div>
+                    </div>
+                </ano:iterate>
+            </ano:notEmpty>
 
-        <ano:notEmpty name="tags">
-        <div class="box">
-            <div class="box-title">
-                <a class="accordion-toggle tooltip-bottom" title="Close/Open" data-toggle="collapse" href="#collapseTags">
-                    <i class="fa fa-caret-down"></i>
+            <div class="add-tag-box">
+                <a href="" data-toggle="modal" data-target="#addTagModal">
+                    <div class="add-tag-card">
+                        <div class="add-icon"><i class="fa fa-plus"></i></div>
+                    </div>
                 </a>
-                <h3 class="pull-left">
-                    Tags
-                </h3>
-            </div>
-            <div id="collapseTags" class="box-content accordion-body collapse in">
-                <table class="table table-striped tree">
-                    <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>Type</th>
-                        <th>Source</th>
-                        <th>Last values</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                        <ano:iterate name="tags" type="net.anotheria.moskito.webui.tags.bean.TagBean" id="tag" indexId="index">
-                            <tr data-level="0">
-                                <td><i class="minus">–</i><i class="plus">+</i>${tag.name}</td>
-                                <td>${tag.type.name}</td>
-                                <td>${tag.source}</td>
-                                <td>
-                                    <ano:notEmpty name="tag" property="lastValues">
-                                        ${tag.lastValuesTruncatedString}
-                                    </ano:notEmpty>
-                                </td>
-                            </tr>
-                            <ano:notEmpty name="tag" property="lastValues">
-                                <tr data-level="1" class="treegrid-parent">
-                                    <td><b>Last tag values:</b></td>
-                                    <td colspan="3">
-                                        <table class="table table-striped">
-                                            <thead>
-                                            <tr>
-                                                <th>Value</th>
-                                            </tr>
-                                            </thead>
-                                            <tbody>
-                                            <ano:iterate name="tag" property="lastValues" id="value">
-                                                <tr>
-                                                    <td>${value}</td>
-                                                </tr>
-                                            </ano:iterate>
-                                            </tbody>
-                                        </table>
-                                    </td>
-                                </tr>
-                            </ano:notEmpty>
-                        </ano:iterate>
-                    </tbody>
-                </table>
             </div>
         </div>
-        </ano:notEmpty>
+        </div>
     </div>
+
+    <script src="../moskito/int/js/tags.js" type="text/javascript"></script>
 
     <jsp:include page="AddTagModal.jsp"/>
     <jsp:include page="../../shared/jsp/Footer.jsp" flush="false"/>
