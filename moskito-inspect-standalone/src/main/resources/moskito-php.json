@@ -4,7 +4,8 @@
   ],
   "@connectors" : [
     {
-      "connectorClass" : "net.anotheria.extensions.php.connectors.impl.RabbitMQConnector"
+      "connectorClass" : "net.anotheria.extensions.php.connectors.impl.RabbitMQConnector",
+      "enabled" : true
     }
   ]
 }

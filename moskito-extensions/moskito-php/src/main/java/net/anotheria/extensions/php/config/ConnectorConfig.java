@@ -25,6 +25,9 @@ public class ConnectorConfig {
      * Connector class canonical name
      */
     private String connectorClass;
+
+    private boolean enabled;
+
     /**
      * Connector configuration properties
      */
@@ -45,6 +48,14 @@ public class ConnectorConfig {
     @SetIf(condition = SetIf.SetIfCondition.startsWith, value = PROPERTY_PREFIX)
     public void putConnectorProperty(String name, String value) {
         connectorProperties.put(name, value);
+    }
+
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
     }
 
 }

@@ -1,7 +1,10 @@
 package net.anotheria.extensions.php.connectors.impl;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.rabbitmq.client.*;
-import net.anotheria.extensions.php.connectors.JsonDataConnector;
+import net.anotheria.extensions.php.connectors.AbstractConnector;
+import net.anotheria.extensions.php.dto.PHPProducerDTO;
 import net.anotheria.extensions.php.exceptions.ConnectorInitException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,9 +27,11 @@ import java.util.concurrent.TimeoutException;
  * No additional configuration for this connector is needed if
  * RabbitMQ and php agent instances satisfy requirement mentioned above.
  */
-public class RabbitMQConnector extends JsonDataConnector {
+public class RabbitMQConnector extends AbstractConnector {
 
     private final static Logger log = LoggerFactory.getLogger(RabbitMQConnector.class);
+
+    private static final Gson gson = new GsonBuilder().create();
 
     /**
      * RabbitMQ connection
@@ -36,6 +41,8 @@ public class RabbitMQConnector extends JsonDataConnector {
      * Channel used by connector to retrieve data
      */
     private Channel channel;
+
+    private long enabledInTimestamp;
 
     @Override
     public Properties getDefaultProperties() {
@@ -57,9 +64,9 @@ public class RabbitMQConnector extends JsonDataConnector {
      * @throws ConnectorInitException on connection to RabbitMQ fail
      */
     @Override
-    public void init(Properties properties) throws ConnectorInitException {
+    public void initWithDefaultProperties(Properties properties) throws ConnectorInitException {
 
-        log.debug("Starting to initialize RabbitMQ connector in php plugin...");
+        log.debug("Starting to initWithDefaultProperties RabbitMQ connector in php plugin...");
 
         ConnectionFactory factory = new ConnectionFactory();
 
@@ -79,6 +86,7 @@ public class RabbitMQConnector extends JsonDataConnector {
                     properties.getProperty("connector.queue-name"),
                     true, new MoskitoPHPConsumer(channel)
             );
+            enabledInTimestamp = System.currentTimeMillis();
         } catch (IOException | TimeoutException e) {
             deinit();
             throw new ConnectorInitException("Failed to open connection to RabbitMQ", e);
@@ -108,7 +116,8 @@ public class RabbitMQConnector extends JsonDataConnector {
 
     /**
      * Consumer implementation for passing messages
-     * to {@link JsonDataConnector#updateProducer(String)}
+     * that parsing incoming json message and pass it
+     * to {@link AbstractConnector#updateProducer(PHPProducerDTO)}
      */
     private class MoskitoPHPConsumer extends DefaultConsumer {
 
@@ -126,8 +135,11 @@ public class RabbitMQConnector extends JsonDataConnector {
                 String consumerTag, Envelope envelope, AMQP.BasicProperties properties, byte[] body
         ) throws IOException {
 
-            String producerJson = new String(body, "UTF-8");
-            updateProducer(producerJson);
+            PHPProducerDTO producerDTO = gson.fromJson(new String(body, "UTF-8"), PHPProducerDTO.class);
+
+            if((producerDTO.getTimestamp() * 1000) > enabledInTimestamp) {
+                updateProducer(producerDTO);
+            }
 
         }
 

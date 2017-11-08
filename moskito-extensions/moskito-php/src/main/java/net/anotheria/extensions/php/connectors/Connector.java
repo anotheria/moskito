@@ -26,18 +26,19 @@ import java.util.Properties;
 public interface Connector {
 
     /**
-     * Method to initialize connector.
+     * Method to initWithDefaultProperties connector.
      * Called once on plugin initialization
      *
      * @param properties connector configuration properties
-     * @param listener new data arrive listener
      * @throws ConnectorInitException on initialization fails
      */
-    void init(OnProducerDataReceivedListener listener, Properties properties) throws ConnectorInitException;
+    void init(Properties properties) throws ConnectorInitException;
 
     /**
      * Called once on plugin deinitialization
      */
     void deinit();
+
+    void setOnProducerDataReceivedListener(OnProducerDataReceivedListener listener);
 
 }

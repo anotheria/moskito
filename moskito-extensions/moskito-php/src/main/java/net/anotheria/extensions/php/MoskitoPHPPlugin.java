@@ -28,11 +28,7 @@ public class MoskitoPHPPlugin extends AbstractMoskitoPlugin {
 
     private static final Logger log = LoggerFactory.getLogger(MoskitoPHPPlugin.class);
 
-    /**
-     * List of loaded connectors.
-     * Stores connectors to call them deinitialization on plugin deinitialization
-     */
-    private List<Connector> connectors;
+    private ConfigBootstrapper configBootstrapper;
 
 
     /** Name of the configuration file used by this plugin instance. */
@@ -57,20 +53,17 @@ public class MoskitoPHPPlugin extends AbstractMoskitoPlugin {
                 new PhpScriptExecutionStatDecorator()
         );
 
-        MoskitoPHPConfig config = new MoskitoPHPConfig();
-        ConfigurationManager.INSTANCE.configureAs(config, configurationName);
+        configBootstrapper = new ConfigBootstrapper(configurationName);
+
         // Loading plugin mappers and connectors
-        connectors = ConfigBootstrapper.bootstrapPlugin(config,
-                ProducerRegistryFactory.getProducerRegistryInstance()
-        );
+        configBootstrapper.bootstrapPlugin(ProducerRegistryFactory.getProducerRegistryInstance());
 
     }
 
     @Override
     public void deInitialize() {
         log.info("Deinitializing Moskito PHP plugin...");
-        for(Connector connector : connectors)
-            connector.deinit();
+        configBootstrapper.destroyPlugin();
     }
 
 }

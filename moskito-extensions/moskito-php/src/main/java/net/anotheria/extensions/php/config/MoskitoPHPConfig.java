@@ -1,7 +1,9 @@
 package net.anotheria.extensions.php.config;
 
 import org.apache.commons.lang.ArrayUtils;
+import org.configureme.annotations.AfterReConfiguration;
 import org.configureme.annotations.ConfigureMe;
+import org.configureme.annotations.DontConfigure;
 
 /**
  * Config for Moskito PHP plugin.
@@ -10,6 +12,9 @@ import org.configureme.annotations.ConfigureMe;
  */
 @ConfigureMe(allfields = true)
 public class MoskitoPHPConfig {
+
+    @DontConfigure
+    private ConfigChangedNotifier configChangedNotifier;
 
     private MapperConfig[] mappers = new MapperConfig[0];
     private ConnectorConfig[] connectors = new ConnectorConfig[0];
@@ -52,6 +57,18 @@ public class MoskitoPHPConfig {
                 executionStatsMapper, serviceStatsMapper, counterStatsMapper
         };
 
+    }
+
+    @AfterReConfiguration
+    public void afterReconfiguration() {
+
+        if(this.configChangedNotifier != null)
+            this.configChangedNotifier.notifyConfigChanged();
+
+    }
+
+    public void setConfigChangedNotifier(ConfigChangedNotifier configChangedNotifier) {
+        this.configChangedNotifier = configChangedNotifier;
     }
 
 }
