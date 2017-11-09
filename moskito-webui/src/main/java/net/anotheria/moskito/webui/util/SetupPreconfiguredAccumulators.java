@@ -1,6 +1,7 @@
 package net.anotheria.moskito.webui.util;
 
 import net.anotheria.moskito.core.accumulation.Accumulators;
+import net.anotheria.moskito.core.registry.ProducerRegistryFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -21,6 +22,8 @@ public class SetupPreconfiguredAccumulators implements ServletContextListener{
 
 	@Override
 	public void contextInitialized(ServletContextEvent sce) {
+		//ensure everything is properly initialized - MSK-463 & Wildfly.
+		ProducerRegistryFactory.getProducerRegistryInstance();
 		log.info("Configuring session accumulators.");
 		setupSessionCountAccumulators();
 		log.info("Configuring url accumulators.");
