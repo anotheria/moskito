@@ -81,17 +81,31 @@ public class ConnectorsRegistry {
     }
 
     /**
-     *
+     * Decorator for connector.
+     * Has methods to control connector lifecycle
      */
     private class ConnectorEntry {
 
+        /**
+         * Connector instance
+         */
         private Connector connector;
+        /**
+         * Is connector currently enabled
+         */
         private boolean isEnabled = false;
 
         private ConnectorEntry(Connector connector) {
             this.connector = connector;
         }
 
+        /**
+         * Initializes connector and enables it with given properties.
+         * Do nothing if connector already enabled.
+         *
+         * @param initProperties properties for connector initialization
+         * @throws ConnectorInitException by {@link Connector#init(Properties)}
+         */
         private void enableConnector(Properties initProperties) throws ConnectorInitException {
             if(!isEnabled) {
 
@@ -101,6 +115,10 @@ public class ConnectorsRegistry {
             }
         }
 
+        /**
+         * Deinitializaes connector.
+         * Do nothing if connector not initialized
+         */
         private void disableConnector() {
             if(isEnabled) {
 
