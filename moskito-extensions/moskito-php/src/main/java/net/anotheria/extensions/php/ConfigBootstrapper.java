@@ -31,7 +31,7 @@ class ConfigBootstrapper {
 
     private Properties startupProperties;
 
-    private static final String PROPERTY_CONNECTORS_DISABLED = "connectorsDisabled";
+    private static final String PROPERTY_CONNECTORS_FORCE_ENABLED = "forceEnablePHPConnectors";
     private static final String PROPERTY_TRUE_VALUE = "true";
 
     ConfigBootstrapper(String configurationName) {
@@ -40,8 +40,8 @@ class ConfigBootstrapper {
         ConfigurationManager.INSTANCE.configureAs(config, configurationName);
 
         startupProperties = new Properties();
-        startupProperties.put(PROPERTY_CONNECTORS_DISABLED,
-                System.getProperty(PROPERTY_CONNECTORS_DISABLED, "false")
+        startupProperties.put(PROPERTY_CONNECTORS_FORCE_ENABLED,
+                System.getProperty(PROPERTY_CONNECTORS_FORCE_ENABLED, "false")
         );
 
     }
@@ -125,10 +125,10 @@ class ConfigBootstrapper {
 
         }
 
-        boolean disableConnectorsInitOnStartup
-                = PROPERTY_TRUE_VALUE.equals(startupProperties.getProperty(PROPERTY_CONNECTORS_DISABLED));
+        boolean enableConnectorsInitOnStartup
+                = PROPERTY_TRUE_VALUE.equals(startupProperties.getProperty(PROPERTY_CONNECTORS_FORCE_ENABLED));
 
-       configureConnectors(disableConnectorsInitOnStartup);
+       configureConnectors(enableConnectorsInitOnStartup);
 
     }
 
@@ -140,7 +140,7 @@ class ConfigBootstrapper {
         connectorsRegistry.disableAllConnectors();
     }
 
-    private void configureConnectors(boolean disableInit) {
+    private void configureConnectors(boolean forceEnable) {
 
         for (ConnectorConfig connectorConfig : config.getConnectors()) {
 
@@ -177,7 +177,7 @@ class ConfigBootstrapper {
 
             }
 
-            if (!disableInit && connectorConfig.isEnabled()) {
+            if (forceEnable || connectorConfig.isEnabled()) {
 
                 Properties connectorProperties = new Properties();
                 connectorProperties.putAll(connectorConfig.getConnectorProperties());
