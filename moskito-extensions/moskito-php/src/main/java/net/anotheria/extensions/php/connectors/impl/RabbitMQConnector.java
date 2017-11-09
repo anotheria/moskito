@@ -2,6 +2,7 @@ package net.anotheria.extensions.php.connectors.impl;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonSyntaxException;
 import com.rabbitmq.client.*;
 import net.anotheria.extensions.php.connectors.AbstractConnector;
 import net.anotheria.extensions.php.dto.PHPProducerDTO;
@@ -135,7 +136,14 @@ public class RabbitMQConnector extends AbstractConnector {
                 String consumerTag, Envelope envelope, AMQP.BasicProperties properties, byte[] body
         ) throws IOException {
 
-            PHPProducerDTO producerDTO = gson.fromJson(new String(body, "UTF-8"), PHPProducerDTO.class);
+            PHPProducerDTO producerDTO;
+
+            try {
+                producerDTO = gson.fromJson(new String(body, "UTF-8"), PHPProducerDTO.class);
+            } catch (JsonSyntaxException e) {
+                log.error("Failed to parse incoming json data.", e);
+                return;
+            }
 
             if((producerDTO.getTimestamp() * 1000) > enabledInTimestamp) {
                 updateProducer(producerDTO);
