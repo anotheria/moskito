@@ -6,7 +6,7 @@
 <jsp:include page="../../shared/jsp/Header.jsp" flush="false"/>
 
 <section id="main">
-        <div class="alert alert-warning alert-dismissable">
+        <div class="alert alert-success alert-dismissable">
             <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
             Gauges are a new feature since MoSKito 2.5.7. We are not sure, if they should become their top navigation point. If you feel that gauges should become it own top navigation point,
             <a href="mailto:moskito-users@lists.anotheria.net">tell us</a>!
@@ -57,7 +57,7 @@
                             <div class="box-right-nav dropdown">
                                 <a href="#" data-target="#" data-toggle="dropdown"><i class="fa fa-cog"></i></a>
                                 <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dLabel">
-                                    <li><a href="" onclick="saveGaugesSvgAsPng(event, ${index}, ${index})">Save</a></li>
+                                    <li><a href="" onclick="saveGaugesSvgAsPng(event, ${index}, ${index})">Screenshot</a></li>
                                     <ano:iF test="${gauge.dashboardsToAdd != ''}">
                                         <li><a onclick="addGauge('${gauge.caption}', '${gauge.name}', '${gauge.dashboardsToAdd}')" >Add to Dashboard</a></li>
                                     </ano:iF>

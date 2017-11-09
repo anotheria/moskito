@@ -1,6 +1,5 @@
-<%@ page language="java" contentType="text/html;charset=UTF-8"	session="true"
-%><%@ taglib uri="http://www.anotheria.net/ano-tags" prefix="ano"
-%>
+<%@ page language="java" contentType="text/html;charset=UTF-8"	session="true" %>
+<%@ taglib uri="http://www.anotheria.net/ano-tags" prefix="ano" %>
 <%@ taglib prefix="mos" uri="http://www.moskito.org/inspect/tags" %>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -10,7 +9,7 @@
 <section id="main">
 <%--
 Commented out for now. We may add this later as welcome message (to all layers).
-<div class="alert alert-warning alert-dismissable">
+<div class="alert alert-success alert-dismissable">
     <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
     <strong>Welcome</strong> to moskito WebUI. <a href="">How it work?</a>
 </div>
@@ -44,13 +43,10 @@ Commented out for now. We may add this later as welcome message (to all layers).
     </ano:equal>
 </div>
 <div id="collapse${decorator.decoratorNameForCss}" class="box-content accordion-body collapse in">
-
-
-    <div class="table1fixed">
-        <table class="table table-striped tablesorter">
+        <table class="table table-striped tablesorter producers-table">
             <thead>
             <tr>
-                <th class="headcol">Producer Id <i class="fa fa-caret-down"></i></th>
+                <th>Producer Id <i class="fa fa-caret-down"></i></th>
                 <th>Category <i class="fa fa-caret-down"></i></th>
                 <th>Subsystem <i class="fa fa-caret-down"></i></th>
                 <ano:iterate name="decorator" property="captions" type="net.anotheria.moskito.core.decorators.value.StatCaptionBean" id="caption" indexId="ind">
@@ -60,14 +56,14 @@ Commented out for now. We may add this later as welcome message (to all layers).
                     </th>
                 </ano:iterate>
                 <th>Class</th>
-                <th class="th-actions"></th>
+                <th></th>
             </tr>
             </thead>
             <tbody>
-                    <%-- writing out values --%>
+            <%-- writing out values --%>
             <ano:iterate name="decorator" property="producers" id="producer" type="net.anotheria.moskito.webui.producers.api.ProducerAO">
             <tr>
-                <td class="headcol"><mos:deepLink  href="mskShowProducer?pProducerId=${producer.producerId}" class="tooltip-bottom" title="Show details for producer ${producer.producerId}">${producer.producerId}</mos:deepLink ></td>
+                <td><mos:deepLink  href="mskShowProducer?pProducerId=${producer.producerId}" class="tooltip-bottom" title="Show details for producer ${producer.producerId}">${producer.producerId}</mos:deepLink ></td>
                 <td><mos:deepLink  href="mskShowProducersByCategory?pCategory=${producer.category}">${producer.category}</mos:deepLink ></td>
                 <td><mos:deepLink  href="mskShowProducersBySubsystem?pSubsystem=${producer.subsystem}">${producer.subsystem}</mos:deepLink ></td>
                 <ano:iterate name="producer" property="firstStatsValues" id="value" type="net.anotheria.moskito.core.decorators.value.StatValueAO">
@@ -85,8 +81,6 @@ Commented out for now. We may add this later as welcome message (to all layers).
             </tbody>
         </table>
     </div>
-
-</div>
 </div>
 </ano:iterate>
 
@@ -94,7 +88,7 @@ Commented out for now. We may add this later as welcome message (to all layers).
 </div>
 
 <jsp:include page="../../shared/jsp/Footer.jsp"/>
-<jsp:include page="ChartEngine.jsp"/>
+<jsp:include page="../../shared/jsp/ChartEngine.jsp"/>
 </section>
 <jsp:include page="snippet/ProducerHelpModal.jsp"/>
 </body>

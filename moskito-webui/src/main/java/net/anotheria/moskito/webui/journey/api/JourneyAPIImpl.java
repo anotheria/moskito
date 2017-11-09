@@ -176,13 +176,18 @@ public class JourneyAPIImpl extends AbstractMoskitoAPIImpl implements  JourneyAP
 	}
 
 	@Override
-	public List<AnalyzedProducerCallsMapAO> analyzeJourney(String journeyName) throws APIException {
+	public AnalyzedJourneyAO analyzeJourney(String journeyName) throws APIException {
 		Journey journey = getJourneyByName(journeyName);
 		List<CurrentlyTracedCall> tracedCalls = journey.getTracedCalls();
 		List<AnalyzedProducerCallsMapAO> callsList = new ArrayList<>(tracedCalls.size() + 1);
 
-		AnalyzedProducerCallsMapAO overallCallsMap = new AnalyzedProducerCallsMapAO(journey.getName()+" - TOTAL");
+		AnalyzedProducerCallsMapAO overallCallsMap = new AnalyzedProducerCallsMapAO("Total by Producer");
+		AnalyzedProducerCallsMapAO categoryCallsMap = new AnalyzedProducerCallsMapAO("Total by Category");
+		AnalyzedProducerCallsMapAO subsystemCallsMap = new AnalyzedProducerCallsMapAO("Total by Subsystem");
+
 		callsList.add(overallCallsMap);
+		callsList.add(categoryCallsMap);
+		callsList.add(subsystemCallsMap);
 
 		for (CurrentlyTracedCall tc : tracedCalls){
 			if (tc==null){
@@ -192,32 +197,43 @@ public class JourneyAPIImpl extends AbstractMoskitoAPIImpl implements  JourneyAP
 			AnalyzedProducerCallsMapAO singleCallMap = new AnalyzedProducerCallsMapAO(tc.getName());
 			for (TraceStep step : tc.getRootStep().getChildren()){
 				addStep(step, singleCallMap, overallCallsMap);
+
+				if (step.getProducer() != null) {
+					addStep(step.getProducer().getCategory(), step, categoryCallsMap);
+					addStep(step.getProducer().getSubsystem(), step, subsystemCallsMap);
+				}
 			}
 			callsList.add(singleCallMap);
 		}
 
 
-		return callsList;
+		AnalyzedJourneyAO result = new AnalyzedJourneyAO();
+		result.setName(journeyName);
+		result.setCalls(callsList);
+
+		return result;
 	}
 
-	private Journey getJourneyByName(String name) throws APIException{
-		Journey journey = null;
-		try{
-			journey = journeyManager.getJourney(name);
-			return journey;
+	private Journey getJourneyByName(String name) throws APIException {
+		try {
+			journeyManager.getJourney(name);
+			return journeyManager.getJourney(name);
 		}catch(NoSuchJourneyException e){
 			throw new APIException("Journey " + name+ " not found.");
 		}
 	}
 
-	private void addStep(TraceStep step, AnalyzedProducerCallsMapAO... maps){
-		String producerName = step.getProducer() == null ?
-				"UNKNOWN" : step.getProducer().getProducerId();
-		for (AnalyzedProducerCallsMapAO map : maps){
-			map.addProducerCall(producerName,  step.getNetDuration());
+	private void addStep(TraceStep step, AnalyzedProducerCallsMapAO... maps) {
+		String producerName = step.getProducer() == null ? "UNKNOWN" : step.getProducer().getProducerId();
+		addStep(producerName, step, maps);
+	}
+
+	private void addStep(String callId, TraceStep step, AnalyzedProducerCallsMapAO... maps) {
+		for (AnalyzedProducerCallsMapAO map : maps) {
+			map.addProducerCall(callId, step.getNetDuration());
 		}
 		for (TraceStep childStep : step.getChildren()){
-			addStep(childStep, maps);
+			addStep(callId, childStep, maps);
 		}
 	}
 

@@ -215,11 +215,6 @@
     <script type="text/javascript" src="../moskito/ext/google-code-prettify/prettify.js"></script>
     <script type="text/javascript" src="../moskito/ext/google-code-prettify/application.js"></script>
 </ano:equal>
-
-<ano:equal name="currentNaviItem" property="id" value="journeys">
-    <script type="text/javascript" src="../moskito/ext/jquery-tree-table/jquery.treeTable.min.js"></script>
-</ano:equal>
-
 <ano:equal name="currentSubNaviItem" property="id" value="more_mbeans">
     <script type="text/javascript" src="../moskito/ext/jquery-tree-table/jquery.treeTable.min.js"></script>
 </ano:equal>
@@ -228,7 +223,19 @@
     <script type="text/javascript" src="../moskito/ext/jquery-tree-table/jquery.treeTable.min.js"></script>
 </ano:equal>
 
-<ano:equal name="currentSubNaviItem" property="id" value="more_errors">
+<ano:equal name="currentNaviItem" property="id" value="journeys">
+    <ano:notEqual name="pagename" value="journey_analyze">
+        <script type="text/javascript" src="../moskito/ext/jquery-tree-table/jquery.treeTable.min.js"></script>
+    </ano:notEqual>
+</ano:equal>
+
+<%--
+<ano:equal name="currentNaviItem" property="id" value="tags">
+    <script type="text/javascript" src="../moskito/ext/jquery-tree-table/jquery.treeTable.min.js"></script>
+</ano:equal>
+--%>
+
+<ano:equal name="currentNaviItem" property="id" value="errors">
     <script type="text/javascript" src="../moskito/ext/jquery-tree-table/jquery.treeTable.min.js"></script>
 </ano:equal>
 

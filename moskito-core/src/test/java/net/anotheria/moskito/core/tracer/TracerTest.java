@@ -2,6 +2,7 @@ package net.anotheria.moskito.core.tracer;
 
 import net.anotheria.moskito.core.config.MoskitoConfiguration;
 import net.anotheria.moskito.core.config.MoskitoConfigurationHolder;
+import net.anotheria.moskito.core.config.tracing.ShrinkingStrategy;
 import net.anotheria.moskito.core.config.tracing.TracingConfiguration;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -29,6 +30,7 @@ public class TracerTest {
 		MoskitoConfiguration configuration = new MoskitoConfiguration();
 		TracingConfiguration tc = new TracingConfiguration();
 		tc.setMaxTraces(max);
+		tc.setShrinkingStrategy(ShrinkingStrategy.FIFO);
 		configuration.setTracingConfig(tc);
 		MoskitoConfigurationHolder.INSTANCE.setConfiguration(configuration);
 

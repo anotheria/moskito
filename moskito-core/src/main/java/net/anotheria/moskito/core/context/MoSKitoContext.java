@@ -1,5 +1,8 @@
 package net.anotheria.moskito.core.context;
 
+import net.anotheria.moskito.core.tag.TagHistory;
+import net.anotheria.util.StringUtils;
+
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -51,7 +54,15 @@ public class MoSKitoContext {
 	 */
 	private boolean tracerFired;
 
-	public static void addTag(String tagName, String tagValue){
+	public static void addTag(String tagName, String tagValue) {
+		if (StringUtils.isEmpty(tagName) || StringUtils.isEmpty(tagValue)) {
+			return;
+		}
+
+		// Adding tag to history, used on Tags page
+		TagHistory.INSTANCE.addTag(tagName, tagValue);
+
+		// Setting newest tag value for current MoSKito context
 		get().tags.put(tagName, tagValue);
 	}
 

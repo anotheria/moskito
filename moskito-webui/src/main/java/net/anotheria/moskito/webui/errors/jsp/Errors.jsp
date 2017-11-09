@@ -16,7 +16,7 @@
                 </div>
             </div>
 
-            <div id="collapse1" class="box-content accordion-body collapse in hscrollbar">
+            <div id="collapseErrors" class="box-content accordion-body collapse in hscrollbar errors-box">
                 <ano:notPresent name="catchers">
                     No catchers active or no errors have been caught yet.
                 </ano:notPresent>
@@ -51,7 +51,7 @@
             </div>
         </div>
 
-        <div id="collapse2" class="box-content accordion-body collapse in hscrollbar">
+        <div id="collapseConfig" class="box-content accordion-body collapse in errors-box">
             <p>Check the field <em>errorHandlingConfig</em> in the <mos:deepLink  href="mskConfig">configuration section</mos:deepLink > for information about currently configured error catchers. For more help on configuration options visit <a href="https://confluence.opensource.anotheria.net/display/MSK/MoSKito-Essential+Configuration+Guide">the configuration guide.</a>
             </p>
         </div>

@@ -1,6 +1,12 @@
 package net.anotheria.moskito.core.config.tagging;
 
+import com.google.gson.annotations.SerializedName;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import org.configureme.annotations.Configure;
+import org.configureme.annotations.ConfigureMe;
+
 import java.io.Serializable;
+import java.util.Arrays;
 
 /**
  * Configured tagging options.
@@ -8,19 +14,51 @@ import java.io.Serializable;
  * @author lrosenberg
  * @since 28.09.17 19:21
  */
+@ConfigureMe
+@SuppressFBWarnings(value = {"EI_EXPOSE_REP2", "EI_EXPOSE_REP"}, justification = "This is the way configureme works, it provides beans for access")
 public class TaggingConfig implements Serializable {
 	/**
 	 * SerialVersionUID.
 	 */
 	private static final long serialVersionUID = 8060717826503504338L;
 
+	/**
+	 * If true and the session exists the session id is automatically assigned to a tag.
+	 */
+	@Configure
 	private boolean autotagSessionId = true;
 
+	/**
+	 * Add remote ip to the tag.
+	 */
+	@Configure
 	private boolean autotagIp = true;
 
+
+	/**
+	 * Add user agent as tag.
+	 */
+	@Configure
 	private boolean autotagUserAgent = true;
 
+	/**
+	 * Add the referer as tag.
+	 */
+	@Configure
 	private boolean autotagReferer = true;
+
+	/**
+	 * User defined tags.
+	 */
+	@Configure
+	@SerializedName("@customTags")
+	private CustomTag[] customTags = new CustomTag[] {};
+
+	/**
+	 * Maximum tag history size.
+	 */
+	@Configure
+	private int tagHistorySize = 10;
 
 	public boolean isAutotagSessionId() {
 		return autotagSessionId;
@@ -54,6 +92,22 @@ public class TaggingConfig implements Serializable {
 		this.autotagReferer = autotagReferer;
 	}
 
+	public CustomTag[] getCustomTags() {
+		return customTags;
+	}
+
+	public void setCustomTags(CustomTag[] customTags) {
+		this.customTags = customTags;
+	}
+
+	public int getTagHistorySize() {
+		return tagHistorySize;
+	}
+
+	public void setTagHistorySize(int tagHistorySize) {
+		this.tagHistorySize = tagHistorySize;
+	}
+
 	@Override
 	public String toString() {
 		return "TaggingConfig{" +
@@ -61,6 +115,8 @@ public class TaggingConfig implements Serializable {
 				", autotagIp=" + autotagIp +
 				", autotagUserAgent=" + autotagUserAgent +
 				", autotagReferer=" + autotagReferer +
+				", customTags=" + Arrays.toString(customTags) +
+				", tagHistorySize=" + tagHistorySize +
 				'}';
 	}
 }
