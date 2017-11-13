@@ -1,20 +1,20 @@
 package net.anotheria.extensions.php;
 
+import net.anotheria.extensions.php.config.ConfigChangedNotifier;
 import net.anotheria.extensions.php.config.ConnectorConfig;
 import net.anotheria.extensions.php.config.MapperConfig;
 import net.anotheria.extensions.php.config.MoskitoPHPConfig;
 import net.anotheria.extensions.php.connectors.Connector;
-import net.anotheria.extensions.php.exceptions.PHPPluginBootstrapException;
 import net.anotheria.extensions.php.exceptions.ConnectorInitException;
+import net.anotheria.extensions.php.exceptions.PHPPluginBootstrapException;
 import net.anotheria.extensions.php.mappers.Mapper;
 import net.anotheria.moskito.core.registry.IProducerRegistry;
+import org.configureme.ConfigurationManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
-import java.util.LinkedList;
-import java.util.List;
 import java.util.Properties;
 
 /**
@@ -24,6 +24,27 @@ import java.util.Properties;
 class ConfigBootstrapper {
 
     private final static Logger log = LoggerFactory.getLogger(ConfigBootstrapper.class);
+
+    private ConnectorsRegistry connectorsRegistry = new ConnectorsRegistry();
+    private MoskitoPHPConfig config;
+    private OnProducerDataReceivedListener listener;
+
+    private Properties startupProperties;
+
+    private static final String PROPERTY_CONNECTORS_FORCE_ENABLED = "forceEnablePHPConnectors";
+    private static final String PROPERTY_TRUE_VALUE = "true";
+
+    ConfigBootstrapper(String configurationName) {
+
+        config = new MoskitoPHPConfig();
+        ConfigurationManager.INSTANCE.configureAs(config, configurationName);
+
+        startupProperties = new Properties();
+        startupProperties.put(PROPERTY_CONNECTORS_FORCE_ENABLED,
+                System.getProperty(PROPERTY_CONNECTORS_FORCE_ENABLED, "false")
+        );
+
+    }
 
     /**
      * Helper method for mappers and connectors classes instantiation
@@ -46,21 +67,29 @@ class ConfigBootstrapper {
         return constructor.newInstance();
     }
 
+    private Connector createConnector(ConnectorConfig config, OnProducerDataReceivedListener listener)
+            throws ClassNotFoundException, NoSuchMethodException,
+            InvocationTargetException, InstantiationException,
+            IllegalAccessException, ClassCastException {
+
+        Connector connector = (Connector) createInstance(config.getConnectorClass());
+        connector.setOnProducerDataReceivedListener(listener);
+
+        return connector;
+
+    }
+
     /**
      * Bootstraps Moskito PHP plugin
      *
-     * @param config source of plugin
      * @param producerRegistry producer registry to use
-     * @return list of registered connectors
      * @throws PHPPluginBootstrapException on invalid configuration
      */
-    static List<Connector> bootstrapPlugin(
-            MoskitoPHPConfig config, IProducerRegistry producerRegistry
-    ) throws PHPPluginBootstrapException {
+    void bootstrapPlugin(IProducerRegistry producerRegistry) throws PHPPluginBootstrapException {
 
+        config.setConfigChangedNotifier(new ConfigChangedNotifierImpl());
         MappersRegistry mappersRegistry = new MappersRegistry();
-        OnProducerDataReceivedListener listener = new OnProducerDataReceivedListenerImpl(mappersRegistry, producerRegistry);
-        List<Connector> registeredConnectors = new LinkedList<>();
+        listener = new OnProducerDataReceivedListenerImpl(mappersRegistry, producerRegistry);
 
         for (MapperConfig mapperConfig : config.getMappers()) {
 
@@ -96,49 +125,85 @@ class ConfigBootstrapper {
 
         }
 
+        boolean enableConnectorsInitOnStartup
+                = PROPERTY_TRUE_VALUE.equals(startupProperties.getProperty(PROPERTY_CONNECTORS_FORCE_ENABLED));
+
+       configureConnectors(enableConnectorsInitOnStartup);
+
+    }
+
+    private void updatePlugin() {
+        configureConnectors(false);
+    }
+
+    void destroyPlugin() {
+        connectorsRegistry.disableAllConnectors();
+    }
+
+    private void configureConnectors(boolean forceEnable) {
+
         for (ConnectorConfig connectorConfig : config.getConnectors()) {
 
-            Connector connector;
+            if (!connectorsRegistry.connectorExists(connectorConfig.getConnectorClass())) {
 
-            try {
-                connector = ((Connector) createInstance(connectorConfig.getConnectorClass()));
-            } catch (ClassNotFoundException e) {
-                throw new PHPPluginBootstrapException(
-                        "Connector class " + connectorConfig.getConnectorClass() + " not found", e
-                );
-            } catch (NoSuchMethodException | IllegalAccessException e) {
-                throw new PHPPluginBootstrapException(
-                        "Connector class must have default public constructor", e
-                );
-            } catch (InvocationTargetException e) {
-                throw new PHPPluginBootstrapException(
-                        "Connector constructor throws exception", e
-                );
-            } catch (InstantiationException e) {
-                throw new PHPPluginBootstrapException(
-                        "Failed to instance connector of class " + connectorConfig.getConnectorClass(), e
-                );
-            } catch (ClassCastException e) {
-                throw new PHPPluginBootstrapException(
-                        "Class " + connectorConfig.getConnectorClass() +
-                                " is not instance of " + Connector.class.getCanonicalName(), e
-                );
+                Connector connector = null;
+
+                try {
+                    connector = createConnector(connectorConfig, listener);
+                } catch (ClassNotFoundException e) {
+                    log.error(
+                            "Connector class " + connectorConfig.getConnectorClass() + " not found", e
+                    );
+                } catch (NoSuchMethodException | IllegalAccessException e) {
+                    log.error(
+                            "Connector class must have default public constructor", e
+                    );
+                } catch (InvocationTargetException e) {
+                    log.error(
+                            "Connector constructor throws exception", e
+                    );
+                } catch (InstantiationException e) {
+                    log.error(
+                            "Failed to instance connector of class " + connectorConfig.getConnectorClass(), e
+                    );
+                } catch (ClassCastException e) {
+                    log.error(
+                            "Class " + connectorConfig.getConnectorClass() +
+                                    " is not instance of " + Connector.class.getCanonicalName(), e
+                    );
+                }
+
+                connectorsRegistry.addConnector(connector);
+
             }
 
-            Properties connectorProperties = new Properties();
-            connectorProperties.putAll(connectorConfig.getConnectorProperties());
+            if (forceEnable || connectorConfig.isEnabled()) {
 
-            try {
-                connector.init(listener, connectorProperties);
-                registeredConnectors.add(connector);
-            } catch (ConnectorInitException e) {
-                log.error("Failed to initialize connector " + connectorConfig.getConnectorClass(), e);
+                Properties connectorProperties = new Properties();
+                connectorProperties.putAll(connectorConfig.getConnectorProperties());
+
+                try {
+                    connectorsRegistry.enableConnector(
+                            connectorConfig.getConnectorClass(),
+                            connectorProperties
+                    );
+                } catch (ConnectorInitException e) {
+                    log.error("Failed to init connector " + connectorConfig.getConnectorClass(), e);
+                }
+
+            }
+            else {
+                connectorsRegistry.disableConnector(connectorConfig.getConnectorClass());
             }
 
         }
 
-        return registeredConnectors;
+    }
 
+    class ConfigChangedNotifierImpl implements ConfigChangedNotifier {
+        public void notifyConfigChanged() {
+            updatePlugin();
+        }
     }
 
 }

@@ -8,9 +8,9 @@ import java.util.Properties;
 
 /**
  * Partial implementation of connector interface.
- * Has {@link Connector#init(OnProducerDataReceivedListener, Properties)}
+ * Has {@link Connector#init(Properties)}
  * implementation that saves listener to an instance field
- * and calls abstract {@link AbstractConnector#init(Properties)}
+ * and calls abstract {@link AbstractConnector#initWithDefaultProperties(Properties)}
  * method that must be defined in final connector implementations.
  *
  * Listener invoking is available by calling {@link AbstractConnector#updateProducer(PHPProducerDTO)}
@@ -34,16 +34,18 @@ public abstract class AbstractConnector implements Connector {
      * @param properties configured connector properties
      * @throws ConnectorInitException on init fail
      */
-    public abstract void init(Properties properties) throws ConnectorInitException;
+    public abstract void initWithDefaultProperties(Properties properties) throws ConnectorInitException;
+
+    public void setOnProducerDataReceivedListener(OnProducerDataReceivedListener listener) {
+        this.listener = listener;
+    }
 
     @Override
-    public void init(OnProducerDataReceivedListener listener, Properties configuredProperties) throws ConnectorInitException {
-        this.listener = listener;
-
+    public void init(Properties configuredProperties) throws ConnectorInitException {
         Properties properties = new Properties(getDefaultProperties());
         properties.putAll(configuredProperties);
 
-        init(properties);
+        initWithDefaultProperties(properties);
     }
 
     /**

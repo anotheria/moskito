@@ -36,6 +36,8 @@ public class PHPProducerDTO {
      */
     private List<PHPStatsDTO> stats;
 
+    private double timestamp;
+
     public String getProducerId() {
         return producerId;
     }
@@ -76,4 +78,11 @@ public class PHPProducerDTO {
         this.stats = stats;
     }
 
+    public double getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(double timestamp) {
+        this.timestamp = timestamp;
+    }
 }
