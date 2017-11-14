@@ -2078,7 +2078,7 @@ Heat map
 .tags-list li {
     display: inline-block;
     float: left;
-    background: #EEE;
+    background: rgba(205,213,241,0.4);
     border-radius: 30px;
     padding: 4px 10px;
     margin: 2px;
@@ -2086,5 +2086,5 @@ Heat map
 }
 
 .tags-list li:hover {
-    background: #DDD;
+    background: #faeddd;
 }
