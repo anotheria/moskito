@@ -22,10 +22,12 @@
             </p>
             <ano:notEmpty name="tracedCall" property="tags">
                 <p class="paddner">
-                    <span>
-                        Tags:
-                        <ano:iterate id="tag" name="tracedCall" property="tags">&nbsp;<ano:write name="tag"/></ano:iterate>
-                    </span>
+                    <label>Tags:</label>
+                    <ul class="tags-list">
+                        <ano:iterate id="tag" name="tracedCall" property="tags">
+                            <li><ano:write name="tag"/></li>
+                        </ano:iterate>
+                    </ul>
                 </p>
             </ano:notEmpty>
             <div class="box-content">
