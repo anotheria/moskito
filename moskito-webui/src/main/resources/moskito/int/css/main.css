@@ -2068,3 +2068,23 @@ Heat map
 .tags-wrapper {
     padding-bottom: 40px;
 }
+
+.tags-list {
+    list-style: none;
+    margin: -2px;
+    padding: 0;
+}
+
+.tags-list li {
+    display: inline-block;
+    float: left;
+    background: #EEE;
+    border-radius: 30px;
+    padding: 4px 10px;
+    margin: 2px;
+    transition: all 0.12s linear;
+}
+
+.tags-list li:hover {
+    background: #DDD;
+}
