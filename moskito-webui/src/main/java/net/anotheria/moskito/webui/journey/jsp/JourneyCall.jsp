@@ -21,14 +21,14 @@
                 <span><ano:write name="tracedCall" property="created"/>&nbsp;&nbsp;<ano:write name="tracedCall" property="date"/> &nbsp;&nbsp;</span>
             </p>
             <ano:notEmpty name="tracedCall" property="tags">
-                <p class="paddner">
+                <div class="paddner">
                     <label>Tags:</label>
                     <ul class="tags-list">
                         <ano:iterate id="tag" name="tracedCall" property="tags">
                             <li><ano:write name="tag"/></li>
                         </ano:iterate>
                     </ul>
-                </p>
+                </div>
             </ano:notEmpty>
             <div class="box-content">
 
