@@ -26,16 +26,7 @@ public class ConnectionCallAspect {
 	/**
 	 * List of jdbc calls for interception.
 	 */
-	private static final String JDBC_CALLS = "  (call(java.sql.PreparedStatement java.sql.Connection.prepareStatement(String)) " +
-			"|| call(java.sql.CallableStatement java.sql.Connection.prepareCall(String))" +
-			"|| call(java.sql.PreparedStatement java.sql.Connection.prepareStatement(String, String[]))" +
-			"|| call(java.sql.PreparedStatement java.sql.Connection.prepareStatement(String, int))" +
-			"|| call(java.sql.PreparedStatement java.sql.Connection.prepareStatement(String, int[]))" +
-			"|| call(java.sql.PreparedStatement java.sql.Connection.prepareStatement(String, int, int))" +
-			"|| call(java.sql.PreparedStatement java.sql.Connection.prepareStatement(String, int, int, int))" +
-			"|| call(java.sql.CallableStatement java.sql.Connection.prepareCall(String, int, int))" +
-			"|| call(java.sql.CallableStatement java.sql.Connection.prepareCall(String, int, int, int))" +
-			"|| call(java.sql.ResultSet java.sql.Statement.executeQuery(String))" +
+	private static final String SQL_STATEMENT_EXECUTE_CALLS = "(call(java.sql.ResultSet java.sql.Statement.executeQuery(String))" +
 			"|| call(int java.sql.Statement.executeUpdate(String))" +
 			"|| call(int java.sql.Statement.executeUpdate(String, int))" +
 			"|| call(int java.sql.Statement.executeUpdate(String, int[]))" +
@@ -44,9 +35,18 @@ public class ConnectionCallAspect {
 			"|| call(boolean java.sql.Statement.execute(String,int))" +
 			"|| call(boolean java.sql.Statement.execute(String,int[]))" +
 			"|| call(boolean java.sql.Statement.execute(String,String[]))" +
-			"|| call(void java.sql.Statement.addBatch(String))" +
+			"|| execution(long java.sql.Statement.executeLargeUpdate(String)) " +
+			"|| execution(long java.sql.Statement.executeLargeUpdate(String,String[])) " +
+			"|| execution(long java.sql.Statement.executeLargeUpdate(String, int)) " +
+			"|| execution(long java.sql.Statement.executeLargeUpdate(String, int[])) " +
 			')' +
-			"&& args(smt) && !within(net.anotheria.moskito.sql.aspect.ConnectionCallAspect)";
+			"&& args(smt)";
+
+	private static final String SQL_PREPARED_STATEMENT_EXECUTE_CALLS = "call(boolean java.sql.PreparedStatement.execute())" +
+			"|| call(long java.sql.PreparedStatement.executeLargeUpdate())" +
+			"|| call(java.sql.ResultSet java.sql.PreparedStatement.executeQuery())" +
+			"|| call(int java.sql.PreparedStatement.executeUpdate()) ";
+
 	/**
 	 * Query failed.
 	 */
@@ -69,18 +69,43 @@ public class ConnectionCallAspect {
 		ProducerRegistryFactory.getProducerRegistryInstance().registerProducer(producer);
 	}
 
-	@Pointcut(JDBC_CALLS)
-	public void connectionService(String smt) {
+	@Pointcut(SQL_STATEMENT_EXECUTE_CALLS)
+	public void statementExecuteCalls(String smt) {
 	}
 
-	@Around(value = "connectionService(statement)", argNames = "pjp,statement")
+	@Pointcut(SQL_PREPARED_STATEMENT_EXECUTE_CALLS)
+	public void preparedStatementExecuteCalls() {
+	}
+
+	@Around(value = "statementExecuteCalls(statement)", argNames = "pjp,statement")
 	public Object doBasicProfiling(ProceedingJoinPoint pjp, String statement) throws Throwable {
+		return doMoskitoProfiling(pjp, statement);
+	}
+
+	@Around(value = "preparedStatementExecuteCalls()", argNames = "pjp")
+	public Object doBasicProfiling(ProceedingJoinPoint pjp) throws Throwable {
+		String preparedStatement = pjp.getTarget().toString();
+		String statement = preparedStatement.substring(preparedStatement.indexOf(":") + 2);
+		return doMoskitoProfiling(pjp, statement);
+	}
+
+	/**
+	 * Perform MoSKito profiling.
+	 *
+	 * @param pjp       {@link ProceedingJoinPoint}
+	 * @param statement sql statement
+	 * @return invocation result - both with profiling
+	 * @throws Throwable on errors
+	 */
+	private Object doMoskitoProfiling(ProceedingJoinPoint pjp, String statement) throws Throwable {
+		String statementGeneralized = statement.replaceAll("'.+?'", "?").replaceAll(",\\s*\\d+", ", ?")
+				.replaceAll("\\(\\s*\\d+", "(?").replaceAll("=\\s*\\d+", "=?");
 		long callTime = System.nanoTime();
 		QueryStats cumulatedStats = producer.getDefaultStats();
-		QueryStats statementStats = producer.getStats(statement);
+		QueryStats statementStats = producer.getStats(statementGeneralized);
 		//add Request Count, increase CR,MCR
 		cumulatedStats.addRequest();
-		if (statementStats!=null)
+		if (statementStats != null)
 			statementStats.addRequest();
 		// start stopwatch
 		//System.out.println(smt);
@@ -92,18 +117,18 @@ public class ConnectionCallAspect {
 		} catch (Throwable t) {
 			success = false;
 			cumulatedStats.notifyError(t);
-			if (statementStats!=null)
+			if (statementStats != null)
 				statementStats.notifyError();
 			throw t;
-		} finally{
+		} finally {
 			final long callDurationTime = System.nanoTime() - callTime;
 			//add execution time
 			cumulatedStats.addExecutionTime(callDurationTime);
-			if (statementStats!=null)
+			if (statementStats != null)
 				statementStats.addExecutionTime(callDurationTime);
 			//notify request finished / decrease CR/MCR
 			cumulatedStats.notifyRequestFinished();
-			if (statementStats != null){
+			if (statementStats != null) {
 				statementStats.notifyRequestFinished();
 			}
 
@@ -113,16 +138,6 @@ public class ConnectionCallAspect {
 
 
 	}
-
-	/**
-	 * Method executed after any jdbc call executed.
-	 *
-	 * @param smt sql statement
-	 */
-	//@AfterThrowing(JDBC_CALLS)
-	//public void afterThrowingQueryCall(String smt) {
-	//	queryProducer.failedQuery(smt);
-	//}
 
 	/**
 	 * Perform additional profiling - for Journey stuff.
