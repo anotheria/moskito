@@ -29,18 +29,18 @@ public final class AccumulatorRepository<S extends IStats> extends TieableReposi
 
 	/**  
 	* The singleton instance.  
-	*/ 
-	private static AccumulatorRepository<? extends IStats> INSTANCE; 
+	*/
+	private static volatile AccumulatorRepository<? extends IStats> INSTANCE;
 	
 	/**  
 	* Returns the singleton instance of the AccumulatorRepository.  
 	* @return the one and only instance.  
 	*/
-	public static AccumulatorRepository<? extends IStats> getInstance(){  
-		if(INSTANCE == null) {   
-			INSTANCE = new AccumulatorRepository<>();  
-		}  
-		return INSTANCE; 
+	public static AccumulatorRepository<? extends IStats> getInstance(){
+		if(INSTANCE == null) {
+			INSTANCE = new AccumulatorRepository<>();
+		}
+		return INSTANCE;
 	}
 
 
