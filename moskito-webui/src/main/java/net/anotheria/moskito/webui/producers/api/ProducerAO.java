@@ -6,6 +6,8 @@ import net.anotheria.util.BasicComparable;
 import net.anotheria.util.sorter.IComparable;
 
 import java.io.Serializable;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -195,4 +197,13 @@ public class ProducerAO implements Serializable, IComparable{
 	public void setTraced(boolean traced) {
 		this.traced = traced;
 	}
+
+	public String getProducerIdEncoded() {
+		try {
+			return URLEncoder.encode(producerId, "UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			return "TODO : HANDLE EXCEPTION";
+		}
+	}
+
 }

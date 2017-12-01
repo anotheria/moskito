@@ -164,13 +164,19 @@ public final class MBeanProducerFactory {
 
             final List<GenericStats> statsList = new MBeanStatsList(server, mBeanName, conf.isUpdateAutomatically(),
                     conf.getDelayBeforeFirstUpdate());
-            final SimpleStatsProducer<GenericStats> p = new SimpleStatsProducer<GenericStats>(producerId, "MBean",
-                    subsystem, statsList);
-            result.add(p);
 
-            if (conf.isRegisterAutomatically()) {
-                producerRegistry.registerProducer(p);
+            if(!statsList.isEmpty()) {
+
+                final SimpleStatsProducer<GenericStats> p = new SimpleStatsProducer<GenericStats>(producerId, "MBean",
+                        subsystem, statsList);
+                result.add(p);
+
+                if (conf.isRegisterAutomatically()) {
+                    producerRegistry.registerProducer(p);
+                }
+                
             }
+
         }
     }
 
