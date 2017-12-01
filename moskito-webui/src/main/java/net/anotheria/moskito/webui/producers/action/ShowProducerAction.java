@@ -61,6 +61,7 @@ import org.slf4j.LoggerFactory;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -86,7 +87,9 @@ public class ShowProducerAction extends BaseMoskitoUIAction {
 		String intervalName = getCurrentInterval(req);
 		UnitBean currentUnit = getCurrentUnit(req);
 
-		ProducerAO producer = getProducerAPI().getProducer(req.getParameter(PARAM_PRODUCER_ID), intervalName, currentUnit.getUnit());
+		String producerId = URLDecoder.decode(req.getParameter(PARAM_PRODUCER_ID), "UTF-8");
+
+		ProducerAO producer = getProducerAPI().getProducer(producerId, intervalName, currentUnit.getUnit());
 		req.setAttribute("producer", producer);
 
 		//copies parameter for producer selection page.
