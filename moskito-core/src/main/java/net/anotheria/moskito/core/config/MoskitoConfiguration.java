@@ -129,7 +129,7 @@ public class MoskitoConfiguration implements Serializable{
 	private FilterConfig filterConfig = new FilterConfig();
 
 	@Configure
-	@SerializedName("taggingConfig")
+	@SerializedName("@taggingConfig")
 	private TaggingConfig taggingConfig = new TaggingConfig();
 
 
