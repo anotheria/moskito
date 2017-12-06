@@ -37,18 +37,22 @@ public enum TagRepository {
 	 * @param value Tag value
 	 */
 	public void addTag(String name, String value, TagType type, String source) {
-		Tag tag;
+		Tag tag = getTag(name, type, source);
+		tag.addValue(value);
+	}
+
+	private Tag getTag(String name, TagType type, String source){
 		lock.writeLock().lock();
 		try {
-			tag = tagsMap.get(name);
+			Tag tag = tagsMap.get(name);
 			if (tag == null) {
 				tag = new Tag(name, type, source);
 				tagsMap.put(name, tag);
 			}
+			return tag;
 		} finally {
 			lock.writeLock().unlock();
 		}
-		tag.addValue(value);
 	}
 
 	/**
