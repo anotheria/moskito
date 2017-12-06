@@ -41,7 +41,7 @@ public enum TagRepository {
 		tag.addValue(value);
 	}
 
-	private Tag getTag(String name, TagType type, String source){
+	private Tag getTag(String name, TagType type, String source) {
 		lock.writeLock().lock();
 		try {
 			Tag tag = tagsMap.get(name);
