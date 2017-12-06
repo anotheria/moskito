@@ -2,7 +2,7 @@ package net.anotheria.moskito.core.tag;
 
 import net.anotheria.moskito.core.config.MoskitoConfigurationHolder;
 
-import java.util.Collections;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.locks.ReadWriteLock;
@@ -60,7 +60,7 @@ public class Tag implements Comparable<Tag> {
 	}
 
 	public List<String> getLastValues() {
-		return Collections.unmodifiableList(lastValues);
+		return new ArrayList<>(lastValues);
 	}
 
 	public void addValue(String value) {
