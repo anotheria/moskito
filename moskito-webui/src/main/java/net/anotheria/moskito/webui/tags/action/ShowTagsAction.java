@@ -5,10 +5,9 @@ import net.anotheria.maf.action.ActionMapping;
 import net.anotheria.maf.bean.FormBean;
 import net.anotheria.moskito.core.config.MoskitoConfigurationHolder;
 import net.anotheria.moskito.core.config.tagging.CustomTagSource;
-import net.anotheria.moskito.core.tag.Tag;
-import net.anotheria.moskito.core.tag.TagRepository;
 import net.anotheria.moskito.webui.shared.action.BaseMoskitoUIAction;
 import net.anotheria.moskito.webui.shared.bean.NaviItem;
+import net.anotheria.moskito.webui.tags.api.TagAO;
 import net.anotheria.moskito.webui.tags.bean.TagBean;
 
 import javax.servlet.http.HttpServletRequest;
@@ -46,7 +45,7 @@ public class ShowTagsAction extends BaseMoskitoUIAction {
 
 		List<TagBean> tagBeans = new ArrayList<>();
 
-		for (Tag tag : TagRepository.INSTANCE.getTags()) {
+		for (TagAO tag : getTagAPI().getTags()) {
 			TagBean tagBean = new TagBean();
 			tagBean.setName(tag.getName());
 			tagBean.setType(tag.getType());
