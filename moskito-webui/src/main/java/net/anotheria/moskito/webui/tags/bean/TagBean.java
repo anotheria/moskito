@@ -1,5 +1,7 @@
 package net.anotheria.moskito.webui.tags.bean;
 
+import net.anotheria.moskito.core.tag.TagType;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,7 +28,7 @@ public class TagBean {
     private String source;
 
     /**
-     * List of last tag values, retrieved from {@link net.anotheria.moskito.core.tag.TagHistory}.
+     * List of last tag values.
      */
     private List<String> lastValues;
 

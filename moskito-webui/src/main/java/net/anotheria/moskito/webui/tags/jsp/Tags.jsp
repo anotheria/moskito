@@ -15,7 +15,6 @@
 
     <div class="content">
         <div class="tags-wrapper">
-        <div>
             <ano:notEmpty name="tags">
                 <ano:iterate name="tags" type="net.anotheria.moskito.webui.tags.bean.TagBean" id="tag" indexId="index">
                     <div class="card-box">
@@ -23,7 +22,7 @@
                             <div class="panel-heading card-header card-color-${tag.type.name}">
                                 <i class="fa fa-tag card-tag-icon"></i>${tag.name}
                             </div>
-                            <div class="panel-body card-body">
+                            <div class="panel-body card-body wordwrap">
                                 <p><strong>Type: </strong>${tag.type.name}</p>
                                 <p><strong>Source: </strong>${tag.source}</p>
                             </div>
@@ -50,7 +49,6 @@
                     </div>
                 </a>
             </div>
-        </div>
         </div>
     </div>
 
