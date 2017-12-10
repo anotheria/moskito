@@ -154,37 +154,39 @@ public final class BuiltInErrorProducer extends AbstractBuiltInProducer<ErrorSta
 			globalErrorLogger.error("auto-caught: " +throwable.getMessage(), throwable);
 		}
 
-		ErrorCatcherConfig catcherConfig = config.getCatcherConfig(throwable.getClass().getName());
-		if (catcherConfig!=null){
-			if (catcherConfig.getTarget().keepInMemory()){
-				ErrorCatcher catcher = catchers.get(throwable.getClass());
-				if (catcher == null){
-					//try again
-					ErrorCatcher newCatcher = new ErrorCatcher(throwable.getClass());
-					ErrorCatcher oldCatcher = catchers.putIfAbsent(throwable.getClass(), newCatcher);
-					catcher = oldCatcher == null ? newCatcher : oldCatcher;
+		List<ErrorCatcherConfig> catcherConfigs = config.getCatcherConfig(throwable.getClass().getName());
+		if (catcherConfigs!=null && catcherConfigs.size()>0){
+			for (ErrorCatcherConfig catcherConfig : catcherConfigs) {
+				if (catcherConfig.getTarget().keepInMemory()) {
+					ErrorCatcher catcher = catchers.get(throwable.getClass());
+					if (catcher == null) {
+						//try again
+						ErrorCatcher newCatcher = new ErrorCatcher(throwable.getClass());
+						ErrorCatcher oldCatcher = catchers.putIfAbsent(throwable.getClass(), newCatcher);
+						catcher = oldCatcher == null ? newCatcher : oldCatcher;
+					}
+
+					catcher.add(throwable);
 				}
+				if (catcherConfig.getTarget().log()) {
+					//log errors
+					LoggerWrapper wrapper = wrappers.get(throwable.getClass());
 
-				catcher.add(throwable);
-			}
-			if (catcherConfig.getTarget().log()){
-				//log errors
-				LoggerWrapper wrapper = wrappers.get(throwable.getClass());
-
-				if (wrapper == null){
-					wrapper = new LoggerWrapper();
-					LoggerWrapper old = wrappers.putIfAbsent(throwable.getClass(), wrapper);
-					if (old==null){
-						wrapper.setLogger(catcherConfig.getParameter());
-					}else{
-						wrapper = old;
+					if (wrapper == null) {
+						wrapper = new LoggerWrapper();
+						LoggerWrapper old = wrappers.putIfAbsent(throwable.getClass(), wrapper);
+						if (old == null) {
+							wrapper.setLogger(catcherConfig.getParameter());
+						} else {
+							wrapper = old;
+						}
+					}
+					//for the very unexpectable case that a wrapper has been put into the map but the logger is not set yet.
+					if (wrapper.getLogger() != null) {
+						wrapper.getLogger().error("caught " + throwable.getClass(), throwable);
 					}
 				}
-				//for the very unexpectable case that a wrapper has been put into the map but the logger is not set yet.
-				if (wrapper.getLogger()!=null){
-					wrapper.getLogger().error("caught "+throwable.getClass(), throwable);
-				}
-			}
+			}//for
 		}
 
 		//first we check if this throwable class is already in the map
