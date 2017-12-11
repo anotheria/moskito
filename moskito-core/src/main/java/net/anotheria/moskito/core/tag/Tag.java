@@ -2,9 +2,8 @@ package net.anotheria.moskito.core.tag;
 
 import net.anotheria.moskito.core.config.MoskitoConfigurationHolder;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.LinkedHashMap;
+import java.util.Map;
 import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
@@ -35,9 +34,9 @@ public class Tag implements Comparable<Tag> {
 	private final String source;
 
 	/**
-	 * List of last tag values.
+	 * Map of tag values and its entry amount.
 	 */
-	private final LinkedList<String> lastValues;
+	private final Map<String, Integer> values;
 
 	/**
 	 * Lock for write operations.
@@ -48,7 +47,7 @@ public class Tag implements Comparable<Tag> {
 		this.name = name;
 		this.type = type;
 		this.source = source;
-		this.lastValues = new LinkedList<>();
+		this.values = new LinkedHashMap<>();
 	}
 
 	public String getName() {
@@ -63,8 +62,8 @@ public class Tag implements Comparable<Tag> {
 		return source;
 	}
 
-	public List<String> getLastValues() {
-		return new ArrayList<>(lastValues);
+	public Map<String, Integer> getLastValues() {
+		return new LinkedHashMap<>(values);
 	}
 
 	public void addValue(String value) {
@@ -73,15 +72,17 @@ public class Tag implements Comparable<Tag> {
 		lock.writeLock().lock();
 		try {
 			final String lastValue = value != null ? value : NULL;
-			if (lastValues.contains(lastValue)) {
+			Integer amount = values.get(lastValue);
+			if (amount != null) {
+				values.put(lastValue, ++amount);
 				return;
 			}
 
-			if (lastValues.size() >= tagHistorySize) {
-				lastValues.removeFirst();
+			if (values.size() >= tagHistorySize) {
+				values.remove(values.keySet().iterator().next());
 			}
 
-			lastValues.add(lastValue);
+			values.put(lastValue, 1);
 		} finally {
 			lock.writeLock().unlock();
 		}
