@@ -110,7 +110,7 @@ public class StartBuiltInProducers {
 	 */
 	private static void startMBeanProducers() {
 	    if (MoskitoConfigurationHolder.getConfiguration().getMbeanProducersConfig().isRegisterAutomatically()) {
-	        MBeanProducerFactory.buildProducers();
+	        NewMBeanProducerFactory.buildProducers();
 	    }
 	}
 }

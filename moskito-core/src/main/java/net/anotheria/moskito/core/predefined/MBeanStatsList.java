@@ -21,7 +21,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.TimerTask;
 
-import static net.anotheria.moskito.core.util.MBeanProducerFactory.normalize;
+import static net.anotheria.moskito.core.util.NewMBeanProducerFactory.normalize;
 
 /**
  * This is a self filling and unmodifiable list of MBean related {@link GenericStats}.

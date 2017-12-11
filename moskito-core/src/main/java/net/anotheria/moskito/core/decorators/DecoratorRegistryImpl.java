@@ -73,6 +73,7 @@ import net.anotheria.moskito.core.predefined.ThreadCountStats;
 import net.anotheria.moskito.core.predefined.ThreadStateStats;
 import net.anotheria.moskito.core.predefined.VirtualMemoryPoolStats;
 import net.anotheria.moskito.core.producers.AbstractStats;
+import net.anotheria.moskito.core.producers.ICustomDecoratorStats;
 import net.anotheria.moskito.core.producers.IStats;
 import net.anotheria.moskito.core.util.session.SessionCountStats;
 import net.anotheria.moskito.core.util.storage.StorageStats;
@@ -92,9 +93,31 @@ public class DecoratorRegistryImpl implements IDecoratorRegistry {
 	 * Internal decorator map.
 	 */
 	private Map<String,IDecorator> registry;
+
+	private Map<String, IDecorator> customDecoratorsRegistry;
 	
 	@Override public IDecorator getDecorator(IStats stats) {
-		return getDecorator(stats.getClass().getName());
+
+		if(stats instanceof ICustomDecoratorStats) {
+
+			ICustomDecoratorStats customDecoratorStats =
+					((ICustomDecoratorStats) stats);
+
+			if(!customDecoratorsRegistry.containsKey(customDecoratorStats.getDecoratorId())) {
+
+				customDecoratorsRegistry.put(
+						customDecoratorStats.getDecoratorId(),
+						customDecoratorStats.getDecoratorFactory().buildDecorator(stats)
+				);
+
+			}
+
+			return customDecoratorsRegistry.get(customDecoratorStats.getDecoratorId());
+
+		}
+		else
+			return getDecorator(stats.getClass().getName());
+
 	}
 
 	@Override public IDecorator getDecorator(Class<? extends IStats> statsClazz) {
@@ -119,6 +142,7 @@ public class DecoratorRegistryImpl implements IDecoratorRegistry {
 
 	DecoratorRegistryImpl(){
 		registry = new ConcurrentHashMap<>();
+		customDecoratorsRegistry = new ConcurrentHashMap<>();
 		configure();
 	}
 	

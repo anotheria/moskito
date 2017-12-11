@@ -113,7 +113,7 @@
                 <tr>
                     <td>${stat.name}</td>
                     <ano:iterate name="stat" property="values" id="value" type="net.anotheria.moskito.core.decorators.value.StatValueAO">
-                        <td title="${stat.name}.${value.name}=${value.value}">
+                        <td class="producers-table-stats_value" title="${stat.name}.${value.name}=${value.value}">
                             ${value.value}
                         </td>
                     </ano:iterate>

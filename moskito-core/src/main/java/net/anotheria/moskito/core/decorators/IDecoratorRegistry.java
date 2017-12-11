@@ -36,6 +36,7 @@ package net.anotheria.moskito.core.decorators;
 
 import net.anotheria.moskito.core.producers.AbstractStats;
 import net.anotheria.moskito.core.producers.IStats;
+import net.anotheria.moskito.core.producers.IStatsProducer;
 
 import java.util.List;
 
@@ -50,7 +51,7 @@ public interface IDecoratorRegistry {
 	 * @param stats
 	 * @return
 	 */
-	@Deprecated IDecorator getDecorator(IStats stats);
+	IDecorator getDecorator(IStats stats);
 	/**
 	 * Returns all known decorators.
 	 * @return

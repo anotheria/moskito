@@ -1,6 +1,7 @@
 package net.anotheria.moskito.core.config.producers;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import org.apache.commons.lang.ArrayUtils;
 import org.configureme.annotations.Configure;
 
 import java.io.Serializable;
@@ -54,6 +55,32 @@ public class MBeanProducerConfig implements Serializable {
     @SuppressFBWarnings("EI_EXPOSE_REP")
 	public MBeanProducerDomainConfig[] getDomains() {
         return domains;
+    }
+
+    /**
+     * Checks is mbean with given domain and class required by
+     * this configuration.
+     *
+     * @param domainName name of mbean domain
+     * @param className class name of mbean
+     * @return true  - configuration require to add this mbean as producer.
+     *         false - mbean should be skipped.
+     */
+    public boolean isMBeanRequired(final String domainName, final String className) {
+
+        if(domains == null || domains.length == 0)
+            return true; // No domain configuration set. All domains should pass
+
+        for(MBeanProducerDomainConfig domainConfig : domains)
+            if(domainConfig.getName().equalsIgnoreCase(domainName)) {
+                // Domain was found in configuration. Now checking mbean class.
+                return ArrayUtils.contains(domainConfig.getClasses(), className);
+
+        }
+
+        // mbean with given domain and class is not required by configuration
+        return false;
+
     }
 
     /**
