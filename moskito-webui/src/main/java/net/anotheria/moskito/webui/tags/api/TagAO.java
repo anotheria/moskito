@@ -3,7 +3,7 @@ package net.anotheria.moskito.webui.tags.api;
 import net.anotheria.moskito.core.tag.TagType;
 
 import java.io.Serializable;
-import java.util.List;
+import java.util.Map;
 
 /**
  * Tag api object.
@@ -31,7 +31,7 @@ public class TagAO implements Serializable {
 	/**
 	 * List of last tag values.
 	 */
-	private List<String> lastValues;
+	private Map<String, Integer> lastValues;
 
 	public String getName() {
 		return name;
@@ -57,11 +57,11 @@ public class TagAO implements Serializable {
 		this.source = source;
 	}
 
-	public List<String> getLastValues() {
+	public Map<String, Integer> getLastValues() {
 		return lastValues;
 	}
 
-	public void setLastValues(List<String> lastValues) {
+	public void setLastValues(Map<String, Integer> lastValues) {
 		this.lastValues = lastValues;
 	}
 
