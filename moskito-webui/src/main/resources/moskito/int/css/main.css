@@ -1257,6 +1257,19 @@ table.producers-table a.action-icon {
     margin-left: 0;
     margin-right: 0;
 }
+table.producers-table td {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 400px;
+}
+
+.producers-table-stats_value {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 400px;
+}
 
 .modal-table {
     padding: 0;

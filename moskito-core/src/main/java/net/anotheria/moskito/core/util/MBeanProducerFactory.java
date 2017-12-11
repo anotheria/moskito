@@ -24,6 +24,7 @@ import java.util.List;
  * 
  * @author Michael König
  */
+@Deprecated
 public final class MBeanProducerFactory {
 
     /**
