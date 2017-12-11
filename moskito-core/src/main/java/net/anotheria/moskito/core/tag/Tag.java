@@ -16,6 +16,10 @@ import java.util.concurrent.locks.ReentrantReadWriteLock;
 public class Tag implements Comparable<Tag> {
 
 	/**
+	 * String null value.
+	 */
+	private final static String NULL = "null";
+	/**
 	 * Tag name.
 	 */
 	private final String name;
@@ -68,7 +72,8 @@ public class Tag implements Comparable<Tag> {
 
 		lock.writeLock().lock();
 		try {
-			if (lastValues.peekLast() != null && lastValues.peekLast().equals(value)) {
+			final String lastValue = value != null ? value : NULL;
+			if (lastValues.contains(lastValue)) {
 				return;
 			}
 
@@ -76,7 +81,7 @@ public class Tag implements Comparable<Tag> {
 				lastValues.removeFirst();
 			}
 
-			lastValues.add(value != null ? value : "");
+			lastValues.add(lastValue);
 		} finally {
 			lock.writeLock().unlock();
 		}
@@ -84,7 +89,7 @@ public class Tag implements Comparable<Tag> {
 	}
 
 	@Override
-	public int compareTo(Tag o){
+	public int compareTo(Tag o) {
 		if (getType().equals(o.getType()))
 			return getName().compareTo(o.getName());
 		return getType().compareTo(o.getType());
