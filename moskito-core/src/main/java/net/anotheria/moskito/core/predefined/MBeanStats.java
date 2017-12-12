@@ -13,7 +13,7 @@ import java.util.Map;
 /**
  * Stats object for mbean values
  */
-public class MBeanStats extends GenericStats implements ICustomDecoratorStats<MBeanStats> {
+public class MBeanStats extends GenericStats implements ICustomDecoratorStats {
 
     /**
      * Stores descriptions of mbean attributes
@@ -61,7 +61,7 @@ public class MBeanStats extends GenericStats implements ICustomDecoratorStats<MB
     }
 
     @Override
-    public IDecoratorFactory<MBeanStats> getDecoratorFactory() {
+    public IDecoratorFactory getDecoratorFactory() {
         return MBeanDecoratorFactory.INSTANCE;
     }
 

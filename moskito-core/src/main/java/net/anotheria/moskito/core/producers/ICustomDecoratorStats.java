@@ -7,7 +7,7 @@ import net.anotheria.moskito.core.decorators.IDecoratorFactory;
  * object-specific decorators instead
  * of class-specific.
  */
-public interface ICustomDecoratorStats<SELF extends ICustomDecoratorStats<SELF>> extends IStats {
+public interface ICustomDecoratorStats extends IStats {
 
     /**
      * Returns id of decorator that can be used with
@@ -21,6 +21,6 @@ public interface ICustomDecoratorStats<SELF extends ICustomDecoratorStats<SELF>>
      * decorator if it not present in registry yet.
      * @return instance of decorator factory for this stats object
      */
-    IDecoratorFactory<SELF> getDecoratorFactory();
+    IDecoratorFactory getDecoratorFactory();
 
 }

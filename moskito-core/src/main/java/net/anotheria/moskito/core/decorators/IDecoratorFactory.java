@@ -3,7 +3,7 @@ package net.anotheria.moskito.core.decorators;
 import net.anotheria.moskito.core.producers.ICustomDecoratorStats;
 
 /**
- * Decorator factory interface for object-specific decorators
+ * Decorator factory interface
  * @param <S> class of decorator stats that this factory builds
  */
 public interface IDecoratorFactory<S extends ICustomDecoratorStats> {

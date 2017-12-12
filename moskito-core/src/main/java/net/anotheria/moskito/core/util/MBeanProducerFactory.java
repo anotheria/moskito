@@ -81,7 +81,7 @@ public class MBeanProducerFactory {
             for (final ObjectInstance mBean : server.queryMBeans(null, null))
                 if(isMBeanRequired(mBean)) {
 
-                    MBeanProducer producer = buildProducer(server, mBean);
+                    SimpleStatsProducer<MBeanStats> producer = buildProducer(server, mBean);
 
                     if(producer != null && conf.isRegisterAutomatically())
                         producerRegistry.registerProducer(producer);
@@ -105,7 +105,7 @@ public class MBeanProducerFactory {
      * @param server mbean server where mbean is stored
      * @param mBean mbean to register identifier
      */
-    private static MBeanProducer buildProducer(MBeanServer server, ObjectInstance mBean) {
+    private static SimpleStatsProducer<MBeanStats> buildProducer(MBeanServer server, ObjectInstance mBean) {
 
         final ObjectName mBeanName = mBean.getObjectName();
         final String canonicalName = mBeanName.getCanonicalName();
@@ -123,7 +123,9 @@ public class MBeanProducerFactory {
             );
 
             if(stats != null)
-                return new MBeanProducer(producerId, "mbean", subsystem, Collections.singletonList(stats));
+                return new SimpleStatsProducer<>(
+                        producerId, "mbean", subsystem, Collections.singletonList(stats)
+                );
             else {
 
                 log.info("Failed to create stats object from mbean named " + mBean +

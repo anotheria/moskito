@@ -202,7 +202,7 @@ public class ProducerAO implements Serializable, IComparable{
 		try {
 			return URLEncoder.encode(producerId, "UTF-8");
 		} catch (UnsupportedEncodingException e) {
-			return "TODO : HANDLE EXCEPTION";
+			return producerId;
 		}
 	}
 
