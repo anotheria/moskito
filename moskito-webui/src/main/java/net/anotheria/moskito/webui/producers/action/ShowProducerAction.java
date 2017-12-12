@@ -110,7 +110,7 @@ public class ShowProducerAction extends BaseMoskitoUIAction {
 						.getStats().get(0)
 		);
 
-		IDecorator decorator = getDecoratorRegistry().getDecorator(producerStats);
+		IDecorator decorator = getDecoratorRegistry().getStatsObjectSpecificDecorator(producerStats);
 		Map<String, GraphDataBean> graphData = new HashMap<>();
 
 

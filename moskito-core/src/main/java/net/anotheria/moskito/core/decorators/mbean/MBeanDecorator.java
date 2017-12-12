@@ -1,61 +1,41 @@
 package net.anotheria.moskito.core.decorators.mbean;
 
-import net.anotheria.moskito.core.decorators.IDecorator;
-import net.anotheria.moskito.core.decorators.value.*;
-import net.anotheria.moskito.core.predefined.MBeanStats;
-import net.anotheria.moskito.core.stats.TimeUnit;
-import net.anotheria.moskito.core.stats.TypeAwareStatValue;
+import net.anotheria.moskito.core.decorators.predefined.GenericStatsDecorator;
+import net.anotheria.moskito.core.decorators.value.StatCaptionBean;
 import net.anotheria.util.sorter.IComparable;
 
-import java.util.ArrayList;
 import java.util.List;
 
-public class MBeanDecorator implements IDecorator<MBeanStats> {
+/**
+ * Object-specific decorator for mbean stats
+ */
+public class MBeanDecorator extends GenericStatsDecorator {
 
+    /**
+     * Default explanation for stats value if specific explanation was not found
+     */
     private static final String DEFAULT_EXPLANATION = "Explanations is not available";
+    /**
+     * List of captions for mbean stats
+     */
     private List<StatCaptionBean> captions;
-
-    @Override
-    public String getName() {
-        return "MBeans";
-    }
 
     @Override
     public List<StatCaptionBean> getCaptions() {
         return captions;
     }
 
-    public MBeanDecorator(List<StatCaptionBean> captions) {
+    /**
+     * Constructor that applies list of captions for mbean
+     * @param captions captions of mbean attributes
+     */
+    MBeanDecorator(List<StatCaptionBean> captions) {
+        super("MBeans");
+
+        for(StatCaptionBean captionBean : captions)
+            addCaption(captionBean);
+
         this.captions = captions;
-    }
-
-    @Override
-    public List<StatValueAO> getValues(MBeanStats stats, String interval, TimeUnit unit) {
-
-        final List<String> names = stats.getAvailableValueNames();
-        final List<StatValueAO> ret = new ArrayList<StatValueAO>(names.size());
-
-        for (final String name : names) {
-            final TypeAwareStatValue sValue = stats.getValueByName(name);
-            if (sValue == null) {
-                // TODO : LOG IT
-            } else {
-                switch (sValue.getType()) {
-                    case DOUBLE:
-                        ret.add(new DoubleValueAO(name, sValue.getValueAsDouble(interval)));
-                        break;
-                    case INT:
-                    case LONG:
-                        ret.add(new LongValueAO(name, sValue.getValueAsLong(interval)));
-                        break;
-                    default:
-                        ret.add(new StringValueAO(name, sValue.getValueAsString(interval)));
-                        break;
-                }
-            }
-        }
-
-        return ret;
 
     }
 
@@ -72,7 +52,7 @@ public class MBeanDecorator implements IDecorator<MBeanStats> {
 
     @Override
     public int compareTo(IComparable iComparable, int i) {
-        return 0; // TODO : implement it
+        return 0;
     }
 
 }

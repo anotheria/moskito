@@ -66,6 +66,15 @@ public class GenericStatsDecorator implements IDecorator<GenericStats> {
 	}
 
     /**
+     * Add a caption.
+     * @param captionBean caption bean to add
+     */
+    public void addCaption(StatCaptionBean captionBean) {
+        captions.add(captionBean);
+    }
+
+
+    /**
      * Add a caption value.
      *
      * @param name the caption
