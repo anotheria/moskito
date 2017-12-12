@@ -4,14 +4,11 @@ import net.anotheria.maf.action.ActionCommand;
 import net.anotheria.maf.action.ActionMapping;
 import net.anotheria.maf.bean.FormBean;
 import net.anotheria.moskito.core.config.MoskitoConfigurationHolder;
-import net.anotheria.moskito.core.config.tagging.CustomTag;
 import net.anotheria.moskito.core.config.tagging.CustomTagSource;
-import net.anotheria.moskito.core.config.tagging.TaggingConfig;
-import net.anotheria.moskito.core.tag.TagHistory;
 import net.anotheria.moskito.webui.shared.action.BaseMoskitoUIAction;
 import net.anotheria.moskito.webui.shared.bean.NaviItem;
+import net.anotheria.moskito.webui.tags.api.TagAO;
 import net.anotheria.moskito.webui.tags.bean.TagBean;
-import net.anotheria.moskito.webui.tags.bean.TagType;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -25,84 +22,58 @@ import java.util.List;
  */
 public class ShowTagsAction extends BaseMoskitoUIAction {
 
-    /**
-     * Attribute name: tags.
-     */
-    public static final String ATTR_TAGS = "tags";
+	/**
+	 * Attribute name: tags.
+	 */
+	private static final String ATTR_TAGS = "tags";
 
-    /**
-     * Attribute name: attribute sources.
-     */
-    public static final String ATTR_ATTRIBUTE_SOURCES = "attributeSources";
+	/**
+	 * Attribute name: attribute sources.
+	 */
+	private static final String ATTR_ATTRIBUTE_SOURCES = "attributeSources";
 
-    /**
-     * Attribute name: tag history size.
-     */
-    public static final String ATTR_TAG_HISTORY_SIZE = "tagHistorySize";
+	/**
+	 * Attribute name: tag history size.
+	 */
+	private static final String ATTR_TAG_HISTORY_SIZE = "tagHistorySize";
 
-    public static final String TAG_IP = "ip";
-    public static final String TAG_REFERER = "referer";
-    public static final String TAG_USER_AGENT = "user-agent";
-    public static final String TAG_SESSION_ID = "sessionId";
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public ActionCommand execute(ActionMapping mapping, FormBean formBean, HttpServletRequest request, HttpServletResponse response) throws Exception {
 
+		List<TagBean> tagBeans = new ArrayList<>();
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public ActionCommand execute(ActionMapping mapping, FormBean formBean, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		for (TagAO tag : getTagAPI().getTags()) {
+			TagBean tagBean = new TagBean();
+			tagBean.setName(tag.getName());
+			tagBean.setType(tag.getType());
+			tagBean.setSource(tag.getSource());
+			tagBean.setLastValues(tag.getLastValues());
+			tagBeans.add(tagBean);
+		}
 
-        List<TagBean> tagBeans = new ArrayList<>();
-        TaggingConfig taggingConfig = MoskitoConfigurationHolder.getConfiguration().getTaggingConfig();
+		request.setAttribute(ATTR_TAGS, tagBeans);
+		request.setAttribute(ATTR_ATTRIBUTE_SOURCES, CustomTagSource.SOURCES);
+		request.setAttribute(ATTR_TAG_HISTORY_SIZE, MoskitoConfigurationHolder.getConfiguration().getTaggingConfig().getTagHistorySize());
 
-        //Preparing default tags
-        if (taggingConfig.isAutotagIp()) {
-            TagBean tag = new TagBean(TAG_IP, TagType.BUILTIN, TagType.BUILTIN.getName() + '.' + TAG_IP, TagHistory.INSTANCE.getTagValues(TAG_IP));
-            tagBeans.add(tag);
-        }
-        if (taggingConfig.isAutotagReferer()) {
-            TagBean tag = new TagBean(TAG_REFERER, TagType.BUILTIN, TagType.BUILTIN.getName() + '.' + TAG_REFERER, TagHistory.INSTANCE.getTagValues(TAG_REFERER));
-            tagBeans.add(tag);
-        }
-        if (taggingConfig.isAutotagUserAgent()) {
-            TagBean tag = new TagBean(TAG_USER_AGENT, TagType.BUILTIN, TagType.BUILTIN.getName() + '.' + TAG_USER_AGENT, TagHistory.INSTANCE.getTagValues(TAG_USER_AGENT));
-            tagBeans.add(tag);
-        }
-        if (taggingConfig.isAutotagSessionId()) {
-            TagBean tag = new TagBean(TAG_SESSION_ID, TagType.BUILTIN, TagType.BUILTIN.getName() + '.' + TAG_SESSION_ID, TagHistory.INSTANCE.getTagValues(TAG_SESSION_ID));
-            tagBeans.add(tag);
-        }
+		return mapping.success();
+	}
 
-        // Preparing custom tag beans
-        for (CustomTag tagConfig : taggingConfig.getCustomTags()) {
-            TagBean tag = new TagBean();
-            tag.setName(tagConfig.getName());
-            tag.setType(TagType.CONFIGURED);
-            tag.setSource(CustomTagSource.findTagSourceByName(tagConfig.getAttributeSource()).getName() + '.' + tagConfig.getAttributeName());
-            tag.setLastValues(TagHistory.INSTANCE.getTagValues(tagConfig.getName()));
-            tagBeans.add(tag);
-        }
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	protected String getLinkToCurrentPage(HttpServletRequest req) {
+		return "mskTags?ts=" + System.currentTimeMillis();
+	}
 
-        request.setAttribute(ATTR_TAGS, tagBeans);
-        request.setAttribute(ATTR_ATTRIBUTE_SOURCES, CustomTagSource.SOURCES);
-        request.setAttribute(ATTR_TAG_HISTORY_SIZE, MoskitoConfigurationHolder.getConfiguration().getTaggingConfig().getTagHistorySize());
-
-        return mapping.success();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    protected String getLinkToCurrentPage(HttpServletRequest req) {
-        return "mskTags?ts="+System.currentTimeMillis();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    protected NaviItem getCurrentNaviItem() {
-        return NaviItem.TAGS;
-    }
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	protected NaviItem getCurrentNaviItem() {
+		return NaviItem.TAGS;
+	}
 }

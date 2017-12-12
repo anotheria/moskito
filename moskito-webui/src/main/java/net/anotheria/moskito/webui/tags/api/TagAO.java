@@ -1,18 +1,18 @@
-package net.anotheria.moskito.webui.tags.bean;
+package net.anotheria.moskito.webui.tags.api;
 
 import net.anotheria.moskito.core.tag.TagType;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.io.Serializable;
 import java.util.Map;
 
 /**
- * Custom tag bean.
+ * Tag api object.
  *
- * @author strel
+ * @author esmakula
  */
-public class TagBean {
+public class TagAO implements Serializable {
 
+	private static final long serialVersionUID = -7122373275171387195L;
 	/**
 	 * Tag name.
 	 */
@@ -57,16 +57,21 @@ public class TagBean {
 		this.source = source;
 	}
 
+	public Map<String, Integer> getLastValues() {
+		return lastValues;
+	}
+
 	public void setLastValues(Map<String, Integer> lastValues) {
 		this.lastValues = lastValues;
 	}
 
-	public List<String> getLastValues() {
-		List<String> values = new ArrayList<>();
-		for (Map.Entry<String, Integer> entry : lastValues.entrySet()) {
-			values.add(String.format("%s (%d)", entry.getKey(), entry.getValue()));
-		}
-		return values;
+	@Override
+	public String toString() {
+		return "TagAO{" +
+				"name='" + name + '\'' +
+				", type=" + type +
+				", source='" + source + '\'' +
+				", lastValues=" + lastValues +
+				'}';
 	}
-
 }

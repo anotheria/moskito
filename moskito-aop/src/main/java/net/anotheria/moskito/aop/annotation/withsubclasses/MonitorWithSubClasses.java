@@ -7,9 +7,9 @@ import java.lang.annotation.*;
 /**
  * @author bvanchuhov
  */
-@Monitor
 @Inherited
-@Target(ElementType.TYPE)
-@Retention(RetentionPolicy.RUNTIME)
+@Monitor
+@Target (ElementType.TYPE)
+@Retention (RetentionPolicy.RUNTIME)
 public @interface MonitorWithSubClasses {
 }
