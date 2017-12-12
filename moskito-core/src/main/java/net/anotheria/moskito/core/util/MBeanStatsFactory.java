@@ -24,12 +24,11 @@ public class MBeanStatsFactory {
 
     /**
      * Converts string type representation of mbean attribute to
-     * {@link StatValueTypes} moskito stats value holders type identifier.
+     * {@link StatValueTypes}.
      *
      * @param attributeInfo {@link MBeanAttributeInfo}
      * @return {@link StatValueTypes}.
      *      In case attribute type is not of primitive data type returns null.
-     *      That means that value can not be read.
      *
      */
     private static StatValueTypes getStatValueType(final MBeanAttributeInfo attributeInfo) {
