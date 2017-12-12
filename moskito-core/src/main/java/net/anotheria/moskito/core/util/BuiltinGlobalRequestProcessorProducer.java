@@ -118,7 +118,7 @@ public class BuiltinGlobalRequestProcessorProducer extends AbstractBuiltInProduc
                 List<String> beanNames = new ArrayList<>();
                 for (ObjectInstance instance : instances) {
                     mBeans.add(instance);
-                    String beanName = NewMBeanProducerFactory.normalize(instance.getObjectName().getKeyProperty("name"));
+                    String beanName = MBeanProducerFactory.normalize(instance.getObjectName().getKeyProperty("name"));
                     GlobalRequestProcessorStats stats = new GlobalRequestProcessorStats(beanName);
                     iStats.add(stats);
                     beanNames.add(beanName);

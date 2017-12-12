@@ -10,6 +10,9 @@ import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 
+/**
+ * Factory for creating mbean decorator for specific mbean stats object
+ */
 public class MBeanDecoratorFactory implements IDecoratorFactory<MBeanStats> {
 
     public static final MBeanDecoratorFactory INSTANCE = new MBeanDecoratorFactory();

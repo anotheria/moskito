@@ -33,9 +33,6 @@
       "toleratedNumberOfItems": 550
     }
   },
-  "@mbeanProducersConfig" : {
-    "registerAutomatically" : true
-  },
   "@accumulatorsConfig": {
     "accumulationAmount": 250,
     "@accumulatorSets": [

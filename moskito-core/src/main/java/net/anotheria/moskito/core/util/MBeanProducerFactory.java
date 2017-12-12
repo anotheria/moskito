@@ -2,189 +2,141 @@ package net.anotheria.moskito.core.util;
 
 import net.anotheria.moskito.core.config.MoskitoConfigurationHolder;
 import net.anotheria.moskito.core.config.producers.MBeanProducerConfig;
-import net.anotheria.moskito.core.config.producers.MBeanProducerDomainConfig;
-import net.anotheria.moskito.core.predefined.MBeanStatsList;
-import net.anotheria.moskito.core.producers.GenericStats;
+import net.anotheria.moskito.core.decorators.DecoratorRegistryFactory;
+import net.anotheria.moskito.core.decorators.mbean.GeneralMBeanDecorator;
+import net.anotheria.moskito.core.predefined.MBeanStats;
 import net.anotheria.moskito.core.registry.IProducerRegistry;
 import net.anotheria.moskito.core.registry.ProducerRegistryFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.management.MBeanServer;
-import javax.management.MBeanServerFactory;
-import javax.management.ObjectInstance;
-import javax.management.ObjectName;
-import java.lang.management.ManagementFactory;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
+import javax.management.*;
+import java.util.Collections;
 
 /**
- * A factory which creates one {@link SimpleStatsProducer} per plattform MBean.
- * 
- * @author Michael König
+ * Factory for building MBean producers
  */
-@Deprecated
-public final class MBeanProducerFactory {
+public class MBeanProducerFactory {
+
+    private static final Logger log = LoggerFactory.getLogger(MBeanProducerFactory.class);
 
     /**
-     * Logger.
+     * Reference to moskito producers registry to register producers
      */
-    private static final Logger LOGGER = LoggerFactory.getLogger(MBeanProducerFactory.class);
+    private static final IProducerRegistry producerRegistry
+            = ProducerRegistryFactory.getProducerRegistryInstance();
+    /**
+     * Reference to MBean producers configuration
+     */
+    private static final MBeanProducerConfig conf
+            = MoskitoConfigurationHolder.getConfiguration().getMbeanProducersConfig();
 
-	/**
-	 * Build a number of {@link SimpleStatsProducer}s, one for each single MBean
-	 * which is currently registerd in actual JVM.
-	 * 
-	 * @return an iterable of {@link SimpleStatsProducer}s matching the current
-	 *         moskito-configuration.
-	 */
-    public static Iterable<SimpleStatsProducer<GenericStats>> buildProducers() {
+    /**
+     * Checks, is mbean required to be registered as producer
+     * @param mBean mbean to check requirements
+     * @return true  - mbean need to be registered
+     *         false - no
+     */
+    private static boolean isMBeanRequired(final ObjectInstance mBean) {
 
-        final Collection<SimpleStatsProducer<GenericStats>> result = new ArrayList<>();
+        final String domain = mBean.getObjectName().getDomain();
+        final String className = mBean.getClassName();
 
-        for (final MBeanServer server : getServers()) {
-            if (LOGGER.isDebugEnabled()) {
-                LOGGER.debug("handle MBean-Server: " + server.toString());
-            }
+        return !domain.startsWith("moskito.") // we have to skip all the moskito internal MBeans
+                && conf.isMBeanRequired(domain, className);
 
-            handleServer(result, server);
-        }
-
-        return result;
     }
 
     /**
      * Helper to ensure that given string can be handled in web-view (replaces some invalid
      * characters).
-     * 
-     * @param s
-     *            the input string to normalize
+     *
+     * @param s the input string to normalize
      * @return the normalized string
      */
     public static String normalize(final String s) {
         if (s == null || s.trim().isEmpty()) {
             return "unspecific";
         }
-        return s.replace(':', '/').replace('=', '-').replace(',', '|').replace("\"", "").replace('#', '-');
-    }
-
-	/**
-	 * @param mBean
-	 *            {@link ObjectInstance}
-	 * @param domainConfig
-	 *            {@link MBeanProducerDomainConfig}
-	 * @return TRUE if MBean is of a type that we want to inspect as producer.
-	 */
-    private static boolean checkClasses(final ObjectInstance mBean, final MBeanProducerDomainConfig domainConfig) {
-        final String[] classes = domainConfig.getClasses();
-        if (classes == null || classes.length == 0) {
-            return true;
-        }
-
-        final String mBeanClass = mBean.getClassName();
-
-        for (final String className : classes) {
-            if (mBeanClass.equals(className)) {
-                return true;
-            }
-        }
-
-        return false;
-    }
-
-	/**
-	 * @param mBean
-	 *            {@link ObjectInstance}
-	 * @return TRUE if MBean is in correct domain to inspect as producer.
-	 */
-    private static boolean checkDomain(final ObjectInstance mBean) {
-        final ObjectName mBeanName = mBean.getObjectName();
-        final String domain = mBeanName.getDomain();
-        if (domain.startsWith("moskito.")) {
-            // we have to skip all the moskito internal MBeans
-            return false;
-        }
-
-        final MBeanProducerConfig conf = MoskitoConfigurationHolder.getConfiguration().getMbeanProducersConfig();
-        final MBeanProducerDomainConfig[] domainConfigs = conf.getDomains();
-        if (domainConfigs == null || domainConfigs.length == 0) {
-            return true;
-        }
-
-        for (final MBeanProducerDomainConfig domainConfig : domainConfigs) {
-            if (domainConfig.getName().equalsIgnoreCase(domain)) {
-                return checkClasses(mBean, domainConfig);
-            }
-        }
-
-        return false;
+        return s.replace(':', '/')
+                .replace('=', '-')
+                .replace(',', '|')
+                .replace("\"", "")
+                .replace('#', '-');
     }
 
     /**
-     * @param server
-     *            {@link MBeanServer}
-     * @return all MBeans within given {@link MBeanServer}
+     * Builds all mbean producer that required by mbean producers
+     * configuration.
      */
-    private static Iterable<ObjectInstance> getObjectInstances(final MBeanServer server) {
-        return server.queryMBeans(null, null);
-    }
+    public static void buildProducers() {
 
-    /**
-     * @return all registered {@link MBeanServer}s in this JVM are returned
-     */
-    private static Iterable<MBeanServer> getServers() {
-        ManagementFactory.getPlatformMBeanServer();
-        return MBeanServerFactory.findMBeanServer(null);
-    }
+        // Registering decorator for mbean stats
+        DecoratorRegistryFactory.getDecoratorRegistry().addDecorator(
+                MBeanStats.class,
+                new GeneralMBeanDecorator()
+        );
 
-    /**
-     * @param result
-     *            collection of {@link SimpleStatsProducer}s
-     * @param server
-     *            {@link MBeanServer}
-     */
-    private static void handleServer(final Collection<SimpleStatsProducer<GenericStats>> result,
-            final MBeanServer server) {
-        final IProducerRegistry producerRegistry = ProducerRegistryFactory.getProducerRegistryInstance();
-        final MBeanProducerConfig conf = MoskitoConfigurationHolder.getConfiguration().getMbeanProducersConfig();
+        for (MBeanServer server : MBeanServerFactory.findMBeanServer(null))
+            for (final ObjectInstance mBean : server.queryMBeans(null, null))
+                if(isMBeanRequired(mBean)) {
 
-        for (final ObjectInstance mbean : getObjectInstances(server)) {
-            if (!checkDomain(mbean)) {
-                continue;
-            }
+                    MBeanProducer producer = buildProducer(server, mBean);
 
-            final ObjectName mBeanName = mbean.getObjectName();
-            final String canonicalName = mBeanName.getCanonicalName();
-            if (LOGGER.isDebugEnabled()) {
-                LOGGER.debug("handle MBean: " + canonicalName);
-            }
+                    if(producer != null && conf.isRegisterAutomatically())
+                        producerRegistry.registerProducer(producer);
 
-            final String producerId = normalize(canonicalName);
-            final String subsystem = normalize(mBeanName.getDomain());
-
-            final List<GenericStats> statsList = new MBeanStatsList(server, mBeanName, conf.isUpdateAutomatically(),
-                    conf.getDelayBeforeFirstUpdate());
-
-            if(!statsList.isEmpty()) {
-
-                final SimpleStatsProducer<GenericStats> p = new SimpleStatsProducer<GenericStats>(producerId, "MBean",
-                        subsystem, statsList);
-                result.add(p);
-
-                if (conf.isRegisterAutomatically()) {
-                    producerRegistry.registerProducer(p);
+                    log.debug(
+                            "Registered new producer for " +
+                            mBean.getObjectName().getCanonicalName() + "mbean"
+                    );
                 }
-                
-            }
 
-        }
     }
 
     /**
-     * Hidden constructor - this is a utility class.
+     * Builds producer from given mbean.
+     * Producer be registered only if mbean contains at least one
+     * readable by moskito attribute. Only primitive types of
+     * attributes can be read: int, long, double, boolean and String.
+     * Also registers this producer in producers registry if `isRegisterAutomatically`
+     * property of mbean producers configuration set to true.
+     *
+     * @param server mbean server where mbean is stored
+     * @param mBean mbean to register identifier
      */
-    private MBeanProducerFactory() {
-        super();
+    private static MBeanProducer buildProducer(MBeanServer server, ObjectInstance mBean) {
+
+        final ObjectName mBeanName = mBean.getObjectName();
+        final String canonicalName = mBeanName.getCanonicalName();
+
+        final String producerId = normalize(canonicalName);
+        final String subsystem = normalize(mBeanName.getDomain());
+
+        try {
+
+            MBeanStats stats = MBeanStatsFactory.createMBeanStats(
+                    server,
+                    mBeanName,
+                    conf.isUpdateAutomatically(),
+                    conf.getDelayBeforeFirstUpdate()
+            );
+
+            if(stats != null)
+                return new MBeanProducer(producerId, "mbean", subsystem, Collections.singletonList(stats));
+            else {
+
+                log.info("Failed to create stats object from mbean named " + mBean +
+                        " because no one attribute can not be parsed from that been");
+                return null;
+
+            }
+
+        } catch (JMException e) {
+            log.warn("Failed to create stats object from mbean named " + mBean, e);
+            return null;
+        }
+
     }
+
 }

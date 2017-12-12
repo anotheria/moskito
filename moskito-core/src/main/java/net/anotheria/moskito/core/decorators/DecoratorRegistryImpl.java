@@ -95,8 +95,9 @@ public class DecoratorRegistryImpl implements IDecoratorRegistry {
 	private Map<String,IDecorator> registry;
 
 	private Map<String, IDecorator> customDecoratorsRegistry;
-	
-	@Override public IDecorator getDecorator(IStats stats) {
+
+	@Override
+	public IDecorator getStatsObjectSpecificDecorator(IStats stats) {
 
 		if(stats instanceof ICustomDecoratorStats) {
 
@@ -107,16 +108,19 @@ public class DecoratorRegistryImpl implements IDecoratorRegistry {
 
 				customDecoratorsRegistry.put(
 						customDecoratorStats.getDecoratorId(),
-						customDecoratorStats.getDecoratorFactory().buildDecorator(stats)
+						customDecoratorStats
+								.getDecoratorFactory()
+								.buildDecorator(customDecoratorStats)
 				);
 
 			}
 
-			return customDecoratorsRegistry.get(customDecoratorStats.getDecoratorId());
+			if(customDecoratorsRegistry.get(customDecoratorStats.getDecoratorId()) != null)
+				return customDecoratorsRegistry.get(customDecoratorStats.getDecoratorId());
 
 		}
-		else
-			return getDecorator(stats.getClass().getName());
+
+		return getDecorator(stats.getClass());
 
 	}
 

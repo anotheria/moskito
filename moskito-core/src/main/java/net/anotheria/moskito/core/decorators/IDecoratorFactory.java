@@ -1,9 +1,19 @@
 package net.anotheria.moskito.core.decorators;
 
-import net.anotheria.moskito.core.producers.IStats;
+import net.anotheria.moskito.core.producers.ICustomDecoratorStats;
 
-public interface IDecoratorFactory<S extends IStats> {
+/**
+ * Decorator factory interface for object-specific decorators
+ * @param <S> class of decorator stats that this factory builds
+ */
+public interface IDecoratorFactory<S extends ICustomDecoratorStats> {
 
-    IDecorator buildDecorator(S stats);
+    /**
+     * Builds new instance of decorator for specific stats object
+     *
+     * @param stats stats object to build decorator
+     * @return new instance of decorator to use it with given stats
+     */
+    IDecorator<S> buildDecorator(S stats);
 
 }

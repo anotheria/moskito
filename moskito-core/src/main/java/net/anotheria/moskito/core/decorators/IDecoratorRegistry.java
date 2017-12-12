@@ -35,8 +35,8 @@
 package net.anotheria.moskito.core.decorators;
 
 import net.anotheria.moskito.core.producers.AbstractStats;
+import net.anotheria.moskito.core.producers.ICustomDecoratorStats;
 import net.anotheria.moskito.core.producers.IStats;
-import net.anotheria.moskito.core.producers.IStatsProducer;
 
 import java.util.List;
 
@@ -46,12 +46,17 @@ import java.util.List;
  *
  */
 public interface IDecoratorRegistry {
+
 	/**
 	 * Returns the decorator for the given stats object.
-	 * @param stats
-	 * @return
+	 * If stats class implements {@link ICustomDecoratorStats}
+	 * stats object-specific decorator should be returned.
+	 *
+	 * @param stats stats object
+	 * @return decorator for given stats object
 	 */
-	IDecorator getDecorator(IStats stats);
+	IDecorator getStatsObjectSpecificDecorator(IStats stats);
+
 	/**
 	 * Returns all known decorators.
 	 * @return
