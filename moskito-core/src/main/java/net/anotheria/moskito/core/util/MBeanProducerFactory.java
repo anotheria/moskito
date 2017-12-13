@@ -83,13 +83,11 @@ public class MBeanProducerFactory {
 
                     SimpleStatsProducer<MBeanStats> producer = buildProducer(server, mBean);
 
-                    if(producer != null && conf.isRegisterAutomatically())
+                    if (producer != null) {
                         producerRegistry.registerProducer(producer);
+                        log.debug("Registered new producer for " + mBean.getObjectName().getCanonicalName() + "mbean");
+                    }
 
-                    log.debug(
-                            "Registered new producer for " +
-                            mBean.getObjectName().getCanonicalName() + "mbean"
-                    );
                 }
 
     }
@@ -126,13 +124,13 @@ public class MBeanProducerFactory {
                 return new SimpleStatsProducer<>(
                         producerId, "mbean", subsystem, Collections.singletonList(stats)
                 );
-            else {
 
-                log.info("Failed to create stats object from mbean named " + mBean +
-                        " because no one attribute can not be parsed from that been");
-                return null;
 
-            }
+            log.info("Failed to create stats object from mbean named " + mBean +
+                    " because no one attribute can not be parsed from that been");
+            return null;
+
+
 
         } catch (JMException e) {
             log.warn("Failed to create stats object from mbean named " + mBean, e);
