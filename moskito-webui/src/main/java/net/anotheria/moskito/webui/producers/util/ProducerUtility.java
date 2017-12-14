@@ -5,7 +5,9 @@ import net.anotheria.moskito.core.decorators.IDecorator;
 import net.anotheria.moskito.core.decorators.predefined.GenericStatsDecorator;
 import net.anotheria.moskito.core.decorators.value.StatCaptionBean;
 import net.anotheria.moskito.core.decorators.value.StatValueAO;
+import net.anotheria.moskito.core.producers.IStats;
 import net.anotheria.moskito.core.registry.IProducerFilter;
+import net.anotheria.moskito.core.registry.ProducerRegistryFactory;
 import net.anotheria.moskito.core.registry.filters.CategoryFilter;
 import net.anotheria.moskito.core.registry.filters.SubsystemFilter;
 import net.anotheria.moskito.core.stats.TimeUnit;
@@ -157,7 +159,10 @@ public class ProducerUtility {
     }
 
     private static IDecorator findOrCreateDecorator(ProducerAO producer) {
-        final IDecorator decorator = DecoratorRegistryFactory.getDecoratorRegistry().getDecorator(producer.getStatsClazzName());
+
+        final IDecorator decorator = DecoratorRegistryFactory.getDecoratorRegistry()
+                .getDecorator(producer.getStatsClazzName());
+
         if (decorator instanceof GenericStatsDecorator) {
             final GenericStatsDecorator genericDecorator = (GenericStatsDecorator) decorator;
             if (!genericDecorator.isInitialized()) {

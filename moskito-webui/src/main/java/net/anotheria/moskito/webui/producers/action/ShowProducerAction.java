@@ -40,6 +40,8 @@ import net.anotheria.maf.bean.FormBean;
 import net.anotheria.moskito.core.decorators.IDecorator;
 import net.anotheria.moskito.core.decorators.value.StatValueAO;
 import net.anotheria.moskito.core.inspection.CreationInfo;
+import net.anotheria.moskito.core.producers.IStats;
+import net.anotheria.moskito.core.registry.ProducerRegistryFactory;
 import net.anotheria.moskito.webui.accumulators.api.AccumulatedSingleGraphAO;
 import net.anotheria.moskito.webui.accumulators.util.AccumulatorUtility;
 import net.anotheria.moskito.webui.producers.api.ProducerAO;
@@ -61,6 +63,7 @@ import org.slf4j.LoggerFactory;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -86,7 +89,9 @@ public class ShowProducerAction extends BaseMoskitoUIAction {
 		String intervalName = getCurrentInterval(req);
 		UnitBean currentUnit = getCurrentUnit(req);
 
-		ProducerAO producer = getProducerAPI().getProducer(req.getParameter(PARAM_PRODUCER_ID), intervalName, currentUnit.getUnit());
+		String producerId = URLDecoder.decode(req.getParameter(PARAM_PRODUCER_ID), "UTF-8");
+
+		ProducerAO producer = getProducerAPI().getProducer(producerId, intervalName, currentUnit.getUnit());
 		req.setAttribute("producer", producer);
 
 		//copies parameter for producer selection page.
@@ -99,7 +104,13 @@ public class ShowProducerAction extends BaseMoskitoUIAction {
 		//String pFilterZero = req.getParameter(PARAM_FILTER_ZERO);
 		//boolean filterZero = pFilterZero != null && pFilterZero.equalsIgnoreCase("true");
 
-		IDecorator decorator = getDecoratorRegistry().getDecorator(producer.getStatsClazzName());
+		final IStats producerStats = ((IStats)
+				ProducerRegistryFactory.getProducerRegistryInstance()
+						.getProducer(producer.getProducerId())
+						.getStats().get(0)
+		);
+
+		IDecorator decorator = getDecoratorRegistry().getStatsObjectSpecificDecorator(producerStats);
 		Map<String, GraphDataBean> graphData = new HashMap<>();
 
 
