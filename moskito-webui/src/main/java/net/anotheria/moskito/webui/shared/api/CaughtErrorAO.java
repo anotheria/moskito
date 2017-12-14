@@ -1,5 +1,9 @@
 package net.anotheria.moskito.webui.shared.api;
 
+import net.anotheria.moskito.webui.journey.api.TagEntryAO;
+
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -8,12 +12,21 @@ import java.util.List;
  * @author lrosenberg
  * @since 11.06.17 20:26
  */
-public class CaughtErrorAO {
+public class CaughtErrorAO implements Serializable {
+	/**
+	 * SerialVersionUID.
+	 */
+	private static final long serialVersionUID = 550860880249286693L;
+
 	private long timestamp;
 	private String date;
 	private String message;
 	private List<StackTraceElement> elements;
-	private String tagLine;
+	private List<TagEntryAO> tags;
+
+	public CaughtErrorAO() {
+		tags = new ArrayList<>();
+	}
 
 	public long getTimestamp() {
 		return timestamp;
@@ -47,12 +60,12 @@ public class CaughtErrorAO {
 		this.elements = elements;
 	}
 
-	public String getTagLine() {
-		return tagLine;
+	public List<TagEntryAO> getTags() {
+		return tags;
 	}
 
-	public void setTagLine(String tagLine) {
-		this.tagLine = tagLine;
+	public void setTags(List<TagEntryAO> tags) {
+		this.tags = tags;
 	}
 
 	@Override

@@ -1,12 +1,18 @@
 package net.anotheria.moskito.webui.journey.api;
 
+import java.io.Serializable;
+
 /**
  * This bean contains info about tag.
  *
  * @author lrosenberg
  * @since 22.05.17 22:53
  */
-public class TagAO {
+public class TagEntryAO implements Serializable {
+	/**
+	 * SerialVersionUID.
+	 */
+	private static final long serialVersionUID = -7151866583428865L;
 	/**
 	 * Name of the tag.
 	 */
@@ -16,13 +22,9 @@ public class TagAO {
 	 */
 	private String tagValue;
 
-	public TagAO(String tagName, String tagValue) {
+	public TagEntryAO(String tagName, String tagValue) {
 		this.tagName = tagName;
 		this.tagValue = tagValue;
-	}
-
-	public TagAO(){
-
 	}
 
 	public String getTagName() {

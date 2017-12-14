@@ -2096,3 +2096,13 @@ Heat map
 .wordwrap {
     word-wrap: break-word;
 }
+
+.tag-name {
+    font-weight: bolder;
+    font-size: 12px;
+    color: #738DE7;
+}
+
+.tags-inline li {
+    float: none;
+}

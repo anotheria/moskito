@@ -104,7 +104,7 @@ public class JourneyAPIImpl extends AbstractMoskitoAPIImpl implements  JourneyAP
 		Map<String, String> tags = useCase.getTags();
 		if (tags!=null && tags.size()>0){
 			for (Map.Entry<String,String> entry : tags.entrySet()){
-				TagAO tagAO = new TagAO(entry.getKey(), entry.getValue());
+				TagEntryAO tagAO = new TagEntryAO(entry.getKey(), entry.getValue());
 				ret.getTags().add(tagAO);
 			}
 		}
