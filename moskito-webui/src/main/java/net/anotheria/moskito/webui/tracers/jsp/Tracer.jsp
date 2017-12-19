@@ -41,8 +41,24 @@
                             <td>${trace.elementCount}</td>
                             <td>${trace.call}</td>
                         </tr>
+                        <ano:notEmpty name="trace" property="tags">
+                            <tr>
+                                <td colspan="5">
+                                    <div class="paddner tracers-tags-container">
+                                        <ul class="tags-list tracers-tags-list">
+                                            <ano:iterate id="tag" name="trace" property="tags">
+                                                <li>
+                                                    <span class="tag-name"><ano:write name="tag" property="tagName"/>: </span><ano:write name="tag" property="tagValue"/>
+                                                </li>
+                                            </ano:iterate>
+                                        </ul>
+                                    </div>
+                                </td>
+                            </tr>
+                        </ano:notEmpty>
                         <tr class="dump-list" data-level="1">
                             <td colspan="5">
+
                                 <ul>
                                     <ano:iterate name="trace" property="elements" id="element" type="java.lang.StackTraceElement">
                                         <li>${element}</li>

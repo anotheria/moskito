@@ -1,6 +1,11 @@
 package net.anotheria.moskito.webui.tracers.api;
 
+import net.anotheria.moskito.webui.journey.api.TagEntryAO;
+import net.anotheria.moskito.webui.tags.api.TagAO;
+
 import java.io.Serializable;
+import java.util.Collections;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -36,6 +41,8 @@ public class TraceAO implements Serializable {
      * Date of trace creation.
      */
     private String created;
+
+    private List<TagEntryAO> tags = new LinkedList<>();
 
 	public String getCall() {
 		return call;
@@ -80,4 +87,13 @@ public class TraceAO implements Serializable {
     public void setCreated(String created) {
         this.created = created;
     }
+
+    public List<TagEntryAO> getTags() {
+		return Collections.unmodifiableList(tags);
+	}
+
+	public void setTags(List<TagEntryAO> tags) {
+		this.tags = tags;
+	}
+
 }
