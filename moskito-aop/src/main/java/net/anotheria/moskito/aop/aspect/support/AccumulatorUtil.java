@@ -1,9 +1,5 @@
 package net.anotheria.moskito.aop.aspect.support;
 
-import java.lang.reflect.Method;
-
-import static net.anotheria.moskito.aop.aspect.AbstractMoskitoAspect.DOT;
-
 import net.anotheria.moskito.aop.annotation.Accumulate;
 import net.anotheria.moskito.aop.annotation.withsubclasses.AccumulateWithSubClasses;
 import net.anotheria.moskito.core.accumulation.Accumulator;
@@ -12,6 +8,10 @@ import net.anotheria.moskito.core.accumulation.AccumulatorRepository;
 import net.anotheria.moskito.core.dynamic.OnDemandStatsProducer;
 import net.anotheria.moskito.core.stats.TimeUnit;
 import net.anotheria.util.StringUtils;
+
+import java.lang.reflect.Method;
+
+import static net.anotheria.moskito.aop.aspect.AbstractMoskitoAspect.DOT;
 
 /**
  * Utility class for creating accumulators.
@@ -28,7 +28,7 @@ public abstract class AccumulatorUtil<A> {
 	/**
 	 * Get AccumulatorUtil instance designed to create accumulators from {@link Accumulate} annotations.
 	 *
-	 * @return new instance of AccumulatorUtil<Accumulate>.
+	 * @return new instance of AccumulatorUtil.
 	 */
 	public static AccumulatorUtil<Accumulate> getInstance() {
 		return new AccumulatorHelper();
@@ -37,7 +37,7 @@ public abstract class AccumulatorUtil<A> {
 	/**
 	 * Get AccumulatorUtil instance designed to create accumulators from {@link AccumulateWithSubClasses} annotations.
 	 *
-	 * @return new instance of AccumulatorUtil<AccumulateWithSubClasses>.
+	 * @return new instance of AccumulatorUtil.
 	 */
 	public static AccumulatorUtil<AccumulateWithSubClasses> getInstance(final Class producerClass) {
 		return new AccumulatorWSCHelper(producerClass);

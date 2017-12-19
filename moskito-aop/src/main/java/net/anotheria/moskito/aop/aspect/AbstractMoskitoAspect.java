@@ -72,7 +72,7 @@ public class AbstractMoskitoAspect<S extends IStats> {
 	 * 		OnDemandStatsProducer factory
 	 * @param tracingSupported
 	 * 		is tracing supported
-	 * @return {@link OnDemandStatsProducer<S>}
+	 * @return {@link OnDemandStatsProducer}
 	 */
 	protected OnDemandStatsProducer<S> getProducer(final ProceedingJoinPoint pjp, final String aProducerId, final String aCategory, final String aSubsystem, final boolean withMethod,
 												   final IOnDemandStatsFactory<S> factory, final boolean tracingSupported) {
@@ -98,7 +98,7 @@ public class AbstractMoskitoAspect<S extends IStats> {
 	 * 		is tracing supported
 	 * @param attachDefaultStatsLoggers
 	 * 		allow to attach default loggers
-	 * @return {@link OnDemandStatsProducer<S>}
+	 * @return {@link OnDemandStatsProducer}
 	 */
 	protected OnDemandStatsProducer<S> getProducer(final ProceedingJoinPoint pjp, final String aProducerId, final String aCategory, final String aSubsystem, final boolean withMethod,
 												   final IOnDemandStatsFactory<S> factory, final boolean tracingSupported, final boolean attachDefaultStatsLoggers) {
