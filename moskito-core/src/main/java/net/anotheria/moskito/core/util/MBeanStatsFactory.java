@@ -113,7 +113,7 @@ public class MBeanStatsFactory {
                     ClassCastException |   // Thrown on expected and actual value type mismatch
                     NullPointerException e // Thrown on null mbean value
                 ) {
-            log.info(
+            log.debug(
                     "Failed to update mbean stats value named " +
                     attributeName + " of " + mbeanName.getCanonicalName() + " mbean",
                     e);
@@ -200,8 +200,7 @@ public class MBeanStatsFactory {
             );
 
         }
-        else
-            return null;
+        return null;
 
     }
 
