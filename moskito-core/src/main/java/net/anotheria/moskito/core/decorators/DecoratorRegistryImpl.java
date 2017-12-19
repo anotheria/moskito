@@ -98,29 +98,31 @@ public class DecoratorRegistryImpl implements IDecoratorRegistry {
 
 	@Override
 	public IDecorator getStatsObjectSpecificDecorator(IStats stats) {
+		return getStatsObjectSpecificDecorator(new DecoratorName(stats));
+	}
 
-		if(stats instanceof ICustomDecoratorStats) {
+	@Override
+	public IDecorator getStatsObjectSpecificDecorator(DecoratorName decoratorName) {
 
-			ICustomDecoratorStats customDecoratorStats =
-					((ICustomDecoratorStats) stats);
+		if(decoratorName.isCustomDecorator()) {
 
-			if(!customDecoratorsRegistry.containsKey(customDecoratorStats.getDecoratorId())) {
+			if(!customDecoratorsRegistry.containsKey(decoratorName.getDecoratorId())) {
 
 				customDecoratorsRegistry.put(
-						customDecoratorStats.getDecoratorId(),
-						customDecoratorStats
-								.getDecoratorFactory()
-								.buildDecorator(customDecoratorStats)
+						decoratorName.getDecoratorId(),
+						decoratorName
+								.getFactory()
+								.buildDecorator()
 				);
 
 			}
 
-			if(customDecoratorsRegistry.get(customDecoratorStats.getDecoratorId()) != null)
-				return customDecoratorsRegistry.get(customDecoratorStats.getDecoratorId());
+			if(customDecoratorsRegistry.get(decoratorName.getDecoratorId()) != null)
+				return customDecoratorsRegistry.get(decoratorName.getDecoratorId());
 
 		}
 
-		return getDecorator(stats.getClass());
+		return getDecorator(decoratorName.getStatsClass());
 
 	}
 

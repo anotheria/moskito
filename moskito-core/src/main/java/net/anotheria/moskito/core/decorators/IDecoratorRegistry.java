@@ -58,6 +58,16 @@ public interface IDecoratorRegistry {
 	IDecorator getStatsObjectSpecificDecorator(IStats stats);
 
 	/**
+	 * Returns the decorator for the given decorator name.
+	 * If DecoratorName is stats object specific
+	 * stats object-specific decorator should be returned.
+	 *
+	 * @param decoratorName stats object
+	 * @return decorator for given stats object
+	 */
+	IDecorator getStatsObjectSpecificDecorator(DecoratorName decoratorName);
+
+	/**
 	 * Returns all known decorators.
 	 * @return
 	 */
