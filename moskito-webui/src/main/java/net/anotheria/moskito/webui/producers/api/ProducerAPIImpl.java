@@ -118,19 +118,6 @@ public class ProducerAPIImpl extends AbstractMoskitoAPIImpl implements ProducerA
 	}
 
 	@Override
-	public DecoratorName getDecoratorNameForProducer(String producerId) {
-
-		final IStats producerStats = ((IStats)
-				ProducerRegistryFactory.getProducerRegistryInstance()
-						.getProducer(producerId)
-						.getStats().get(0)
-		);
-
-		return new DecoratorName(producerStats);
-
-	}
-
-	@Override
 	public List<UnitCountAO> getCategories() {
 		List<String> categories = producerRegistryAPI.getCategories();
 		List<UnitCountAO> categoriesAO = new ArrayList<UnitCountAO>(categories.size());
@@ -165,6 +152,9 @@ public class ProducerAPIImpl extends AbstractMoskitoAPIImpl implements ProducerA
 		ao.setSubsystem(p.getSubsystem());
 		ao.setProducerClassName(p.getClass().getSimpleName());
 		ao.setFullProducerClassName(p.getClass().getName());
+		ao.setDecoratorName(
+				new DecoratorName(p.getStats().get(0))
+		);
 		if (p instanceof Inspectable)
 			ao.setCreationInfo(((Inspectable)p).getCreationInfo());
 		boolean traceable = false;

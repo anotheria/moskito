@@ -105,7 +105,7 @@ public class ShowProducerAction extends BaseMoskitoUIAction {
 		//boolean filterZero = pFilterZero != null && pFilterZero.equalsIgnoreCase("true");
 
 		IDecorator decorator = getDecoratorRegistry().getStatsObjectSpecificDecorator(
-				getProducerAPI().getDecoratorNameForProducer(producerId)
+				producer.getDecoratorName()
 		);
 		Map<String, GraphDataBean> graphData = new HashMap<>();
 
