@@ -6,27 +6,48 @@ import net.anotheria.moskito.core.decorators.value.StatCaptionBean;
 import net.anotheria.moskito.core.predefined.MBeanStats;
 import net.anotheria.moskito.core.stats.TypeAwareStatValue;
 
-import java.util.Collection;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 /**
  * Factory for creating mbean decorator for specific mbean stats object
  */
 public class MBeanDecoratorFactory implements IDecoratorFactory<MBeanStats> {
 
-    public static final MBeanDecoratorFactory INSTANCE = new MBeanDecoratorFactory();
+    private static final long serialVersionUID = 8571967068028956675L;
+
+    /**
+     * Contains attributes descriptions for certain mbean stats object
+     */
+    private final Map<String, String> attributesDescriptions;
+
+    /**
+     * Creates object-specific decorator factory
+     * for given mbean stats object
+     * @param stats stats object to create factory
+     */
+    public MBeanDecoratorFactory(MBeanStats stats) {
+
+        attributesDescriptions = new HashMap<>();
+
+        for (TypeAwareStatValue statValue : stats.getAllValues()) {
+            String valueName = statValue.getName();
+            attributesDescriptions.put(
+                    valueName,
+                    stats.getValueDescriptionByName(valueName)
+            );
+        }
+
+    }
 
     @Override
-    public IDecorator buildDecorator(MBeanStats stats) {
+    public IDecorator buildDecorator() {
 
-        final Collection<TypeAwareStatValue> statsValues = stats.getAllValues();
         final List<StatCaptionBean> captions = new LinkedList<>();
 
-        for (TypeAwareStatValue statsValue : statsValues) {
+        for (Map.Entry<String, String> description : attributesDescriptions.entrySet()) {
 
-            final String valueName = statsValue.getName();
-            final String valueDescription = stats.getValueDescriptionByName(valueName);
+            final String valueName = description.getKey();
+            final String valueDescription = description.getValue();
 
             captions.add(new StatCaptionBean(
                     valueName,

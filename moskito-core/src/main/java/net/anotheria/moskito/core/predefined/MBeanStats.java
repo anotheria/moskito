@@ -62,7 +62,7 @@ public class MBeanStats extends GenericStats implements ICustomDecoratorStats {
 
     @Override
     public IDecoratorFactory getDecoratorFactory() {
-        return MBeanDecoratorFactory.INSTANCE;
+        return new MBeanDecoratorFactory(this);
     }
 
 }

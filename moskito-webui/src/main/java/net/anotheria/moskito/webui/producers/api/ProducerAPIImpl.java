@@ -2,6 +2,7 @@ package net.anotheria.moskito.webui.producers.api;
 
 import net.anotheria.anoplass.api.APIException;
 import net.anotheria.anoplass.api.APIInitException;
+import net.anotheria.moskito.core.decorators.DecoratorName;
 import net.anotheria.moskito.core.decorators.DecoratorRegistryFactory;
 import net.anotheria.moskito.core.decorators.IDecorator;
 import net.anotheria.moskito.core.decorators.IDecoratorRegistry;
@@ -11,6 +12,7 @@ import net.anotheria.moskito.core.producers.IStatsProducer;
 import net.anotheria.moskito.core.registry.IProducerFilter;
 import net.anotheria.moskito.core.registry.IProducerRegistryAPI;
 import net.anotheria.moskito.core.registry.ProducerRegistryAPIFactory;
+import net.anotheria.moskito.core.registry.ProducerRegistryFactory;
 import net.anotheria.moskito.core.stats.TimeUnit;
 import net.anotheria.moskito.core.tracer.TracerRepository;
 import net.anotheria.moskito.core.tracer.TracingAwareProducer;
@@ -113,6 +115,19 @@ public class ProducerAPIImpl extends AbstractMoskitoAPIImpl implements ProducerA
 		}catch(IllegalArgumentException e){
 			log.warn("Can't register configuration hook for moskito-inspect.json, re-configuration will not be supported");
 		}
+	}
+
+	@Override
+	public DecoratorName getDecoratorNameForProducer(String producerId) {
+
+		final IStats producerStats = ((IStats)
+				ProducerRegistryFactory.getProducerRegistryInstance()
+						.getProducer(producerId)
+						.getStats().get(0)
+		);
+
+		return new DecoratorName(producerStats);
+
 	}
 
 	@Override

@@ -3,6 +3,7 @@ package net.anotheria.moskito.webui.producers.api;
 import net.anotheria.anoplass.api.API;
 import net.anotheria.anoplass.api.APIException;
 import net.anotheria.anoprise.metafactory.Service;
+import net.anotheria.moskito.core.decorators.DecoratorName;
 import net.anotheria.moskito.core.registry.IProducerFilter;
 import net.anotheria.moskito.core.stats.TimeUnit;
 import org.distributeme.annotation.DistributeMe;
@@ -22,6 +23,15 @@ import java.util.List;
 @SupportService
 @FailBy(strategyClass=RetryCallOnce.class)
 public interface ProducerAPI extends API, Service {
+
+	/**
+	 * Returns decorator identifier for producer
+	 * with given id
+	 * @param producerId id of producer to get decorator name
+	 * @return decorator identifier for given producer id
+	 */
+	DecoratorName getDecoratorNameForProducer(String producerId);
+
 	/**
 	 * Returns all available categories.
 	 * @return

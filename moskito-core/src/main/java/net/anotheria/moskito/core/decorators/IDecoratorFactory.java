@@ -2,18 +2,19 @@ package net.anotheria.moskito.core.decorators;
 
 import net.anotheria.moskito.core.producers.ICustomDecoratorStats;
 
+import java.io.Serializable;
+
 /**
  * Decorator factory interface
  * @param <S> class of decorator stats that this factory builds
  */
-public interface IDecoratorFactory<S extends ICustomDecoratorStats> {
+public interface IDecoratorFactory<S extends ICustomDecoratorStats> extends Serializable {
 
     /**
-     * Builds new instance of decorator for specific stats object
+     * Builds new instance of decorator
      *
-     * @param stats stats object to build decorator
-     * @return new instance of decorator to use it with given stats
+     * @return new instance of decorator
      */
-    IDecorator<S> buildDecorator(S stats);
+    IDecorator<S> buildDecorator();
 
 }
