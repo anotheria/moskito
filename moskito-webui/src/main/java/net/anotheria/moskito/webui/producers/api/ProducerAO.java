@@ -1,5 +1,6 @@
 package net.anotheria.moskito.webui.producers.api;
 
+import net.anotheria.moskito.core.decorators.DecoratorName;
 import net.anotheria.moskito.core.decorators.value.StatValueAO;
 import net.anotheria.moskito.core.inspection.CreationInfo;
 import net.anotheria.util.BasicComparable;
@@ -56,6 +57,11 @@ public class ProducerAO implements Serializable, IComparable{
 	 * All stat values as list of lists. The included list contains one stat - line with multiple values.
 	 */
 	private List<StatLineAO> lines;
+
+	/**
+	 * Producer stats decorator name
+	 */
+	private DecoratorName decoratorName;
 
 	/**
 	 * Clazz name of the stats object contained in this producer (for decorator selection).
@@ -204,6 +210,14 @@ public class ProducerAO implements Serializable, IComparable{
 		} catch (UnsupportedEncodingException e) {
 			return producerId;
 		}
+	}
+
+	public DecoratorName getDecoratorName() {
+		return decoratorName;
+	}
+
+	public void setDecoratorName(DecoratorName decoratorName) {
+		this.decoratorName = decoratorName;
 	}
 
 }

@@ -25,14 +25,6 @@ import java.util.List;
 public interface ProducerAPI extends API, Service {
 
 	/**
-	 * Returns decorator identifier for producer
-	 * with given id
-	 * @param producerId id of producer to get decorator name
-	 * @return decorator identifier for given producer id
-	 */
-	DecoratorName getDecoratorNameForProducer(String producerId);
-
-	/**
 	 * Returns all available categories.
 	 * @return
 	 * @throws APIException
