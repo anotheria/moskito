@@ -158,21 +158,6 @@
         ]);
         </ano:iterate>
 
-
-        var analyzeUrl = '<ano:write name="analyzeUrl"/>';
-        var analyzeHosts = [];
-        analyzeHosts.push(
-                <ano:iterate name="analyzeHosts" id="host" indexId="i">
-                <ano:notEqual name="i" value="0">, </ano:notEqual>"<ano:write name="host"/>"
-                </ano:iterate>
-        );
-        var analyzeRequestData = [];
-        analyzeRequestData.push(
-                <ano:iterate name="analyzeRequestData" type="net.anotheria.moskito.webui.producers.api.AnalyzeRequestData" id="requestData" indexId="i">
-                <ano:notEqual name="i" value="0">, </ano:notEqual><ano:write name="requestData" property="json"/>
-                </ano:iterate>
-        );
-
     </script>
 
     <%-- Chart boxes for multiple charts --%>
@@ -241,57 +226,6 @@
                 var pdiv = $(this).closest('#parentBox');
                 pdiv.insertAfter(pdiv.next());
                 return false
-            });
-            $(analyzeRequestData).each(function (index, value) {
-                var statsToSend = [];
-                $(value.stats).each(function (indexS, valueS) {
-                    appendChart(valueS.name, valueS.nameForJS);
-                    statsToSend.push({producerId : valueS.producerId, stat:valueS.stat, value : valueS.value});
-                });
-                $.ajax({
-                    type: "POST",
-                    url: analyzeUrl + value.chart,
-                    data: JSON.stringify({
-                        "hosts": analyzeHosts,
-                        "interval": value.interval,
-                        "producers": statsToSend,
-                        "startDate": value.start,
-                        "endDate": value.end
-                    }),
-                    contentType: "application/json; charset=utf-8",
-                    dataType: "json",
-                    success: function (data) {
-                            $(value.stats).each(function (indexS, valueS) {
-                                var lineName = valueS.producerId + '_' + valueS.stat + '_' + valueS.value + ' - ' + value.interval;
-                                console.log(lineName);
-                                var chartNameJS = 'chart_accum' + valueS.nameForJS;
-                                var names = ( lineName && [lineName]);
-                                var dataArray = [];
-                                var statName = valueS.producerId + '.' + valueS.stat + '.' + valueS.value;
-                                $(jQuery.parseJSON(JSON.stringify(data.results.charts))).each(function (index, valueData) {
-                                    dataArray.push([valueData.millis, valueData.values[0][statName]]);
-                                });
-                                var chartParams = {
-                                    container: chartNameJS,
-                                    names: names,
-                                    data: dataArray,
-                                    colors: accumulatorsColors,
-                                    type: '',
-                                    title: '',
-                                    dataType: 'datetime',
-                                    options: {
-                                        legendsPerSlice: 7,
-                                        margin: {top: 20, right: 40, bottom: 30, left: 40}
-                                    }
-                                };
-                                console.log(chartParams);
-                                chartEngineIniter.init(chartParams);
-                            });
-                    },
-                    failure: function (errMsg) {
-                        console.log(data);
-                    }
-                });
             });
 
         });

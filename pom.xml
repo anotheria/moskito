@@ -16,11 +16,11 @@
 
 	<modules>
 		<module>moskito-core</module>
+		<module>moskito-extensions</module>
 		<module>moskito-web</module>
 		<module>moskito-webui</module>
 		<module>moskito-aop</module>
 		<module>moskito-integration</module>
-		<module>moskito-extensions</module>
 		<module>moskito-inspect-standalone</module>
 	</modules>
 

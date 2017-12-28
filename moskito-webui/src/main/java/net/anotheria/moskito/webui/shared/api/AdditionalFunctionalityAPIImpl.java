@@ -16,8 +16,6 @@ import net.anotheria.moskito.core.timing.IUpdateable;
 import net.anotheria.moskito.core.util.BuiltInErrorProducer;
 import net.anotheria.moskito.core.util.CaughtError;
 import net.anotheria.moskito.core.util.ErrorCatcher;
-import net.anotheria.moskito.extensions.analyze.AnalyzeProducerChartsWrapper;
-import net.anotheria.moskito.extensions.analyze.MoskitoAnalyzePlugin;
 import net.anotheria.moskito.webui.plugins.VisualMoSKitoPlugin;
 import net.anotheria.util.NumberUtils;
 import net.anotheria.util.sorter.DummySortType;
@@ -255,15 +253,6 @@ public class AdditionalFunctionalityAPIImpl extends AbstractMoskitoAPIImpl imple
 		ao.setTagLine(tags.toString());
 
 		return ao;
-	}
-
-	@Override
-	public AnalyzeProducerChartsWrapper getAnalyzeData(String producer) throws APIException {
-		//TODO name is mocked, just for poc
-		MoskitoPlugin plugin = PluginRepository.getInstance().getPlugin("MoskitoAnalyzePlugin");
-		if (plugin == null)
-			return null;
-		return ((MoskitoAnalyzePlugin) plugin).getChartsByProducer(producer);
 	}
 
 }

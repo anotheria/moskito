@@ -96,16 +96,6 @@
             <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>net.anotheria</groupId>
-            <artifactId>moskito-analyze</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>net.anotheria</groupId>
-            <artifactId>moskito-analyze-connector</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>javax.servlet-api</artifactId>
             <scope>provided</scope>
