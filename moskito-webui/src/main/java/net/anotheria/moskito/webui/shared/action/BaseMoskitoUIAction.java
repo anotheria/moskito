@@ -36,6 +36,7 @@ package net.anotheria.moskito.webui.shared.action;
 
 import net.anotheria.anoplass.api.APICallContext;
 import net.anotheria.anoplass.api.session.APISession;
+import net.anotheria.maf.action.AbortExecutionException;
 import net.anotheria.maf.action.Action;
 import net.anotheria.maf.action.ActionMapping;
 import net.anotheria.moskito.core.decorators.DecoratorRegistryFactory;
@@ -49,6 +50,7 @@ import net.anotheria.moskito.webui.dashboards.api.DashboardAPI;
 import net.anotheria.moskito.webui.gauges.api.GaugeAPI;
 import net.anotheria.moskito.webui.journey.api.JourneyAPI;
 import net.anotheria.moskito.webui.producers.api.ProducerAPI;
+import net.anotheria.moskito.webui.shared.annotations.BetaAction;
 import net.anotheria.moskito.webui.shared.api.AdditionalFunctionalityAPI;
 import net.anotheria.moskito.webui.shared.bean.LabelValueBean;
 import net.anotheria.moskito.webui.shared.bean.NaviItem;
@@ -135,6 +137,11 @@ public abstract class BaseMoskitoUIAction implements Action{
 	public static final String PARAM_SUBSYSTEM = "pSubsystem";
 
 	/**
+	 * Parameter for producer's decorator.
+	 */
+	public static final String PARAM_DECORATOR = "pDecorator";
+
+	/**
 	 * SortBy usually accompanied by an integer that defines the sort method.
 	 */
 	public static final String PARAM_SORT_BY = "pSortBy";
@@ -178,6 +185,11 @@ public abstract class BaseMoskitoUIAction implements Action{
 	 * Value that switches filtering feature off.
 	 */
 	public static final String PARAM_VALUE_FILTER_OFF = "off";
+
+	/**
+	 * Cumulated caption value.
+	 */
+	public static final String CUMULATED_STAT_NAME_VALUE = "cumulated";
 
 	/**
 	 * Logger.
@@ -364,6 +376,7 @@ public abstract class BaseMoskitoUIAction implements Action{
 		req.setAttribute("linkToCurrentPageAsJson", maskAsJSON(getLinkToCurrentPage(req)));
 		// Link to remote monitoring connection
 		req.setAttribute("remoteLink", DeepLinkUtil.getCurrentRemoteConnectionLink());
+		req.setAttribute("betaMode", WebUIConfig.getInstance().isBetaMode());
 
 	}
 
@@ -423,8 +436,25 @@ public abstract class BaseMoskitoUIAction implements Action{
 
 	}
 
+	/**
+	 * Checks is current action available only in beta mode
+	 * by {@link BetaAction} annotation.
+	 *
+	 * @return  true  - this action is beta
+	 * 			false -
+	 */
+	private boolean isBetaAction(){
+		return this.getClass().getAnnotation(BetaAction.class) != null;
+	}
+
 	@Override
 	public void preProcess(ActionMapping mapping, HttpServletRequest req, HttpServletResponse res) throws Exception {
+
+		if(!WebUIConfig.getInstance().isBetaMode() && isBetaAction()){
+			res.sendError(403, "This action available only in beta mode.");
+			throw new AbortExecutionException();
+		}
+
 		String currentIntervalName = getCurrentInterval(req);
 
 		prepareBasics(req);
@@ -685,6 +715,15 @@ public abstract class BaseMoskitoUIAction implements Action{
 		}catch(Exception any){
 			return null;
 		}
+	}
+
+	protected void addInfoMessage(String message){
+		String previousMessage = getInfoMessage();
+		if (previousMessage == null)
+			previousMessage = "";
+		if (previousMessage.length()>0)
+			previousMessage+= " ";
+		setInfoMessage(previousMessage+message);
 	}
 
 }

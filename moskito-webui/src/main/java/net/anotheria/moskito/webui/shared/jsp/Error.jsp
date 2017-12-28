@@ -1,6 +1,6 @@
-<%@ page language="java" contentType="text/html;charset=UTF-8" session="true"
-        %><%@ taglib uri="http://www.anotheria.net/ano-tags" prefix="ano"
-        %>
+<%@ page import="net.anotheria.maf.bean.ErrorBean" %>
+<%@ page language="java" contentType="text/html;charset=UTF-8" session="true" %>
+<%@ taglib uri="http://www.anotheria.net/ano-tags" prefix="ano" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <jsp:include page="Header.jsp"/>
@@ -18,7 +18,18 @@
             </div>
 
             <span class="liner"></span>
-            <ano:write name="maf.error" property="stackTrace"/>
+
+            <%
+                // Preparing stack trace array
+                String stackTraceString = ((ErrorBean) request.getAttribute("maf.error")).getStackTrace();
+                String[] stackTrace = stackTraceString.replace("[", "").replace("]", "").split(", ");
+                request.setAttribute("stackTrace", stackTrace);
+            %>
+            <div class="stack-trace-container">
+                <ano:iterate name="stackTrace" id="traceStep">
+                    <ano:write name="traceStep" /><br/>
+                </ano:iterate>
+            </div>
         </div>
 
     </div>

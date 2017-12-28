@@ -43,7 +43,9 @@ public interface ProducerAPI extends API, Service {
 	 * @return
 	 * @throws APIException
 	 */
-	List<ProducerAO> getAllProducers(String intervalName, TimeUnit timeUnit)throws APIException;
+	List<ProducerAO> getAllProducers(String intervalName, TimeUnit timeUnit) throws APIException;
+
+	List<ProducerAO> getAllProducers(String intervalName, TimeUnit timeUnit, boolean createAllStats) throws APIException;
 
 	/**
 	 * Returns all producers in given category.
@@ -53,7 +55,9 @@ public interface ProducerAPI extends API, Service {
 	 * @return
 	 * @throws APIException
 	 */
-	List<ProducerAO> getAllProducersByCategory(String currentCategory, String intervalName, TimeUnit timeUnit)throws APIException;
+	List<ProducerAO> getAllProducersByCategory(String currentCategory, String intervalName, TimeUnit timeUnit) throws APIException;
+
+	List<ProducerAO> getAllProducersByCategory(String currentCategory, String intervalName, TimeUnit timeUnit, boolean createAllStats) throws APIException;
 
 	/**
 	 *
@@ -66,6 +70,16 @@ public interface ProducerAPI extends API, Service {
 	List<ProducerAO> getProducers(IProducerFilter[] iProducerFilters, String intervalName, TimeUnit timeUnit)throws APIException;
 
 	/**
+	 *
+	 * @param producerIds
+	 * @param intervalName
+	 * @param timeUnit time unit for duration calculation.
+	 * @return
+	 * @throws APIException
+	 */
+	List<ProducerAO> getProducers(List<String> producerIds, String intervalName, TimeUnit timeUnit) throws APIException;
+
+	/**
 	 * Returns all producers in a given subsystem.
 	 * @param currentSubsystem subsystem filter.
 	 * @param intervalName
@@ -73,7 +87,9 @@ public interface ProducerAPI extends API, Service {
 	 * @return
 	 * @throws APIException
 	 */
-	List<ProducerAO> getAllProducersBySubsystem(String currentSubsystem, String intervalName, TimeUnit timeUnit)throws APIException;
+	List<ProducerAO> getAllProducersBySubsystem(String currentSubsystem, String intervalName, TimeUnit timeUnit) throws APIException;
+
+	List<ProducerAO> getAllProducersBySubsystem(String currentSubsystem, String intervalName, TimeUnit timeUnit, boolean createAllStats) throws APIException;
 
 	/**
 	 * Returns performance data for a single producer.

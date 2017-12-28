@@ -10,12 +10,12 @@
 
 <section id="main">
     <ano:equal name="newThresholdAdded" value="true">
-        <div class="alert alert-warning alert-dismissable">
+        <div class="alert alert-success alert-dismissable">
             <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
             Threshold <ano:write name="newThresholdName"/> added!
         </div>
         <ano:equal name="newAccumulatorAdded" value="true">
-            <div class="alert alert-warning alert-dismissable">
+            <div class="alert alert-success alert-dismissable">
                 <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
                 Accumulator <ano:write name="newAccumulatorName"/> added!
             </div>
@@ -75,6 +75,10 @@
             <c:if test="${producer.inspectable}">
                 <a href="#inspect" data-toggle="modal" data-target="#inspect" class="btn btn-success"><i class="fa fa-search"></i> Inspect</a>
             </c:if>
+
+            <ano:notEmpty name="dashboardNames">
+                <a onclick="addProducer('${producer.producerId}', '<ano:write name="dashboardNames" />');" href="#" class="btn btn-default"><i class="fa fa-plus"></i> Add to Dashboard</a>
+            </ano:notEmpty>
         </div>
     </div>
 </div>
@@ -352,7 +356,7 @@
     </ano:present>
 
 </div>
-    <jsp:include page="../../producers/jsp/ChartEngine.jsp"/>
+    <jsp:include page="../../shared/jsp/ChartEngine.jsp"/>
 
     <div class="modal fade inspect-list" id="inspect" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">

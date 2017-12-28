@@ -215,11 +215,6 @@
     <script type="text/javascript" src="../moskito/ext/google-code-prettify/prettify.js"></script>
     <script type="text/javascript" src="../moskito/ext/google-code-prettify/application.js"></script>
 </ano:equal>
-
-<ano:equal name="currentNaviItem" property="id" value="journeys">
-    <script type="text/javascript" src="../moskito/ext/jquery-tree-table/jquery.treeTable.min.js"></script>
-</ano:equal>
-
 <ano:equal name="currentSubNaviItem" property="id" value="more_mbeans">
     <script type="text/javascript" src="../moskito/ext/jquery-tree-table/jquery.treeTable.min.js"></script>
 </ano:equal>
@@ -228,7 +223,19 @@
     <script type="text/javascript" src="../moskito/ext/jquery-tree-table/jquery.treeTable.min.js"></script>
 </ano:equal>
 
-<ano:equal name="currentSubNaviItem" property="id" value="more_errors">
+<ano:equal name="currentNaviItem" property="id" value="journeys">
+    <ano:notEqual name="pagename" value="journey_analyze">
+        <script type="text/javascript" src="../moskito/ext/jquery-tree-table/jquery.treeTable.min.js"></script>
+    </ano:notEqual>
+</ano:equal>
+
+<%--
+<ano:equal name="currentNaviItem" property="id" value="tags">
+    <script type="text/javascript" src="../moskito/ext/jquery-tree-table/jquery.treeTable.min.js"></script>
+</ano:equal>
+--%>
+
+<ano:equal name="currentNaviItem" property="id" value="errors">
     <script type="text/javascript" src="../moskito/ext/jquery-tree-table/jquery.treeTable.min.js"></script>
 </ano:equal>
 
@@ -584,6 +591,44 @@ olark.identify('7961-404-10-9387');/*]]>*/</script><noscript><a href="https://ww
                         "<input type=\"checkbox\" "+checked+" name=\"pDashboards\" value=\""+dashboards[i]+"\">" + dashboards[i] +
                         "</label>" +
                         "</div>";
+
+            }
+            $("#dashboardsToSelect").html(textToAdd);
+
+            if (dashboards.length == 1) {
+                $("#addElementToDashboardAction").submit();
+            } else {
+                $("#addElementToDashboard").modal('show');
+            }
+        }
+    </script>
+</ano:present>
+
+<ano:present name="decorators">
+    <script language="JavaScript">
+        function removeProducer(producerId, dashboard) {
+            $("#removeElementFromDashboardTitle").html("Remove producer \"" + producerId + "\" from dashboard \""+dashboard+"\"?");
+            $("#removeElementFromDashboardAction").attr("action", "mskDashboardRemoveProducer");
+            $("#removeElement").attr("value", producerId);
+            $("#removeElementFromDashboard").modal('show');
+        }
+
+        function addProducer(producerId, dashboard) {
+            $("#selectedElement").html("producer \"" + producerId + "\"");
+            $("#selectedElementName").attr("value", producerId);
+            $("#addElementToDashboardAction").attr("action", "mskAddProducerToDashboard");
+
+            var dashboards = dashboard.split(',');
+
+            var textToAdd = "";
+            var checked = dashboards.length == 1 ? "checked" : "";
+            for (var i = 0; i < dashboards.length; i++) {
+                textToAdd +=
+                    "<div class=\"checkbox\"> " +
+                    "<label>" +
+                    "<input type=\"checkbox\" "+checked+" name=\"pDashboards\" value=\""+dashboards[i]+"\">" + dashboards[i] +
+                    "</label>" +
+                    "</div>";
 
             }
             $("#dashboardsToSelect").html(textToAdd);

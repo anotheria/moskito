@@ -47,7 +47,7 @@ public class ProducerRegistryAPIException extends RuntimeException{
 
 	/**
 	 * Creates a new ProducerRegistryAPIException.
-	 * @param message
+	 * @param message exception message.
 	 */
 	public ProducerRegistryAPIException(String message){
 		super(message);

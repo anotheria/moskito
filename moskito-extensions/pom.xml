@@ -3,12 +3,12 @@
   <parent>
         <groupId>net.anotheria</groupId>
         <artifactId>moskito</artifactId>
-        <version>2.8.4-SNAPSHOT</version>
+        <version>2.8.5-SNAPSHOT</version>
   </parent>
 
   <modelVersion>4.0.0</modelVersion>
   <artifactId>moskito-extensions</artifactId>
-  <version>2.8.4-SNAPSHOT</version>
+  <version>2.8.5-SNAPSHOT</version>
   <name>moskito extensions aggregator</name>
   <packaging>pom</packaging>
 
@@ -19,6 +19,7 @@
         <module>moskito-disk-space-monitoring</module>
         <module>moskito-mongodb</module>
         <module>moskito-monitoring-plugin</module>
+        <module>moskito-php</module>
         <module>moskito-analyze</module>
         <module>moskito-analyze-connector</module>
     </modules>

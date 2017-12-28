@@ -3,6 +3,14 @@ package net.anotheria.moskito.webui.util;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.configureme.ConfigurationManager;
 import org.configureme.annotations.ConfigureMe;
+import org.configureme.annotations.DontConfigure;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentMap;
 
 /**
  * Configuration class for web user interface config.
@@ -25,6 +33,18 @@ public class WebUIConfig {
 	 * List of remote instances. Remote instances are only active if mode is remote.
 	 */
 	private RemoteInstance[] remotes = new RemoteInstance[0];
+
+	/**
+	 * Concurrent map of remote keys. Created from remote instances configured list.
+	 */
+	@DontConfigure
+	private ConcurrentMap<String, Boolean> remotesKeys;
+
+	/**
+	 * Synchronized list of remote intances. Created from remote instances configured list.
+	 */
+	@DontConfigure
+	private List<RemoteInstance> remotesSynced;
 
 	/**
 	 * Connectivity mode, available values are default or local.
@@ -63,6 +83,10 @@ public class WebUIConfig {
 	 */
 	private String customLogoUrl="";
 
+	/**
+	 * If true beta features be enabled
+	 */
+	private boolean betaMode = false;
 
 	public int getProducerChartWidth() {
 		return producerChartWidth;
@@ -86,10 +110,8 @@ public class WebUIConfig {
 	}
 
 	public void addRemote(RemoteInstance newRemoteInstance) {
-		RemoteInstance[] oldRemotes = remotes;
-		remotes = new RemoteInstance[oldRemotes.length+1];
-		System.arraycopy(oldRemotes, 0, remotes, 0, oldRemotes.length);
-		remotes[remotes.length-1] = newRemoteInstance;
+		if (remotesKeys.putIfAbsent(newRemoteInstance.getSelectKey(), true) == null)
+			remotesSynced.add(newRemoteInstance);
 	}
 
 	public AuthConfig getAuthentication() {
@@ -98,6 +120,18 @@ public class WebUIConfig {
 
 	public void setAuthentication(AuthConfig authentication) {
 		this.authentication = authentication;
+	}
+
+	public boolean isBetaMode() {
+		return betaMode;
+	}
+
+	public void setBetaMode(boolean betaMode) {
+		this.betaMode = betaMode;
+	}
+
+	private WebUIConfig(){
+		initRemotesCollections();
 	}
 
 	/**
@@ -121,11 +155,21 @@ public class WebUIConfig {
 	}
 
 	public RemoteInstance[] getRemotes() {
-		return remotes;
+		return remotesSynced.toArray(new RemoteInstance[remotesSynced.size()]);
 	}
 
 	public void setRemotes(RemoteInstance[] remotes) {
 		this.remotes = remotes;
+		initRemotesCollections();
+	}
+
+	public void initRemotesCollections(){
+		 remotesSynced = Collections.synchronizedList(new ArrayList<RemoteInstance>());
+		 remotesKeys = new ConcurrentHashMap<>();
+		 remotesSynced.addAll(Arrays.asList(remotes));
+		 for (RemoteInstance remote: remotes){
+			 remotesKeys.put(remote.getSelectKey(), true);
+		 }
 	}
 
 	public ConnectivityMode getConnectivityMode() {

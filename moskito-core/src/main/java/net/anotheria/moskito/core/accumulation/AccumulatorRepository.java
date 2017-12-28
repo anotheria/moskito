@@ -27,17 +27,22 @@ public final class AccumulatorRepository<S extends IStats> extends TieableReposi
 	 */
 	private static Logger log = LoggerFactory.getLogger(AccumulatorRepository.class);
 
-	/**
-	 * The singleton instance.
-	 */
-	private static AccumulatorRepository<? extends IStats> INSTANCE = new AccumulatorRepository<>();
-	/**
-	 * Returns the singleton instance of the AccumulatorRepository.
-	 * @return the one and only instance.
-	 */
+	/**  
+	* The singleton instance.  
+	*/
+	private static volatile AccumulatorRepository<? extends IStats> INSTANCE;
+	
+	/**  
+	* Returns the singleton instance of the AccumulatorRepository.  
+	* @return the one and only instance.  
+	*/
 	public static AccumulatorRepository<? extends IStats> getInstance(){
+		if(INSTANCE == null) {
+			INSTANCE = new AccumulatorRepository<>();
+		}
 		return INSTANCE;
 	}
+
 
 	private AccumulatorRepository(){
 		readConfig();

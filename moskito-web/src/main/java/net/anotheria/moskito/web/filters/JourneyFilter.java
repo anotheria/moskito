@@ -5,6 +5,10 @@ import net.anotheria.moskito.core.calltrace.NoTracedCall;
 import net.anotheria.moskito.core.calltrace.RunningTraceContainer;
 import net.anotheria.moskito.core.calltrace.TraceStep;
 import net.anotheria.moskito.core.calltrace.TracedCall;
+import net.anotheria.moskito.core.config.MoskitoConfigurationHolder;
+import net.anotheria.moskito.core.config.tagging.CustomTag;
+import net.anotheria.moskito.core.config.tagging.CustomTagSource;
+import net.anotheria.moskito.core.config.tagging.TaggingConfig;
 import net.anotheria.moskito.core.context.MoSKitoContext;
 import net.anotheria.moskito.core.journey.Journey;
 import net.anotheria.moskito.core.journey.JourneyManager;
@@ -52,6 +56,11 @@ public class JourneyFilter implements Filter{
 	 */
 	public static final String PARAM_JOURNEY_NAME = "mskJourneyName";
 
+	public static final String TAG_IP = "ip";
+	public static final String TAG_REFERER = "referer";
+	public static final String TAG_USER_AGENT = "user-agent";
+	public static final String TAG_SESSION_ID = "sessionId";
+
 	/**
 	 * Log.
 	 */
@@ -71,12 +80,39 @@ public class JourneyFilter implements Filter{
 			return;
 		}
 
-		boolean always_record_journey  = true;
-
 		HttpServletRequest req = (HttpServletRequest)sreq;
+		HttpSession session = req.getSession(false);
 		processParameters(req);
 
-		HttpSession session = req.getSession(false);
+		//autoset tags.
+		TaggingConfig taggingConfig = MoskitoConfigurationHolder.getConfiguration().getTaggingConfig();
+		if (taggingConfig.isAutotagIp()){
+			MoSKitoContext.addTag(TAG_IP, req.getRemoteAddr());
+		}
+		if (taggingConfig.isAutotagReferer()){
+			MoSKitoContext.addTag(TAG_REFERER, req.getHeader(TAG_REFERER));
+		}
+		if (taggingConfig.isAutotagUserAgent()){
+			MoSKitoContext.addTag(TAG_USER_AGENT, req.getHeader(TAG_USER_AGENT));
+		}
+		if (taggingConfig.isAutotagSessionId() && session != null){
+			MoSKitoContext.addTag(TAG_SESSION_ID, session.getId());
+		}
+
+		//set custom tags
+		for (CustomTag tag : taggingConfig.getCustomTags()) {
+			if (CustomTagSource.HEADER.getName().equals(tag.getAttributeSource())) {
+				MoSKitoContext.addTag(tag.getName(), req.getHeader(tag.getAttributeName()));
+			} else if (CustomTagSource.REQUEST.getName().equals(tag.getAttributeSource())) {
+				MoSKitoContext.addTag(tag.getName(), (String) req.getAttribute(tag.getAttributeName()));
+			} else if (CustomTagSource.SESSION.getName().equals(tag.getAttributeSource()) && session != null) {
+				MoSKitoContext.addTag(tag.getName(), (String) session.getAttribute(tag.getAttributeName()));
+			} else if (CustomTagSource.PARAMETER.getName().equals(tag.getAttributeSource())) {
+				MoSKitoContext.addTag(tag.getName(), req.getParameter(tag.getAttributeName()));
+			}
+		}
+		//end of tags.
+
 		JourneyRecord record = null;
 		Journey journey = null;
 
@@ -92,7 +128,7 @@ public class JourneyFilter implements Filter{
 		}
 
 		String url = "none";
-		if (record!=null || always_record_journey){
+		if (record!=null){
 			url = req.getServletPath();
 			if (req.getPathInfo()!=null)
 				url += req.getPathInfo();
@@ -104,9 +140,8 @@ public class JourneyFilter implements Filter{
 			//Removed reset call, cause the context gets reset at the end of the call in finally anyway, so its safe to assume that we have a new context.
 			//MoSKitoContext.get().reset();
 			chain.doFilter(sreq, sres);
-			System.out.println("FINISHED JOURNEY");
 		}finally{
-			if (record!=null ||always_record_journey){
+			if (record!=null){
 				TracedCall last = RunningTraceContainer.endTrace();
 				if (last instanceof NoTracedCall){
 					log.warn("Unexpectedly last is a NoTracedCall instead of CurrentlyTracedCall for "+url);
@@ -127,8 +162,6 @@ public class JourneyFilter implements Filter{
 	}
 
 	private void serializeOut(CurrentlyTracedCall call){
-		System.out.println("Hace to serialize call "+call);
-		System.out.println("Duration "+call.getDurationNanos()+" ns ");
 		TraceStep root = call.getRootStep();
 		System.out.println(root.toJSON());
 		//kafkaProducer.sendData("moskito", root.toJSON());

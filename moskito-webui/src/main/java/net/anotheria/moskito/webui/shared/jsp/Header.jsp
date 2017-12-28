@@ -58,14 +58,17 @@
 <script type="text/javascript" src="../moskito/int/js/chartEngineIniter.js?v=5"></script>
 
 <ano:notEmpty name="graphDatas">
-    <!--
-     Data for action -->
+    <!-- Data for action -->
     <script>
-        <ano:iterate type="net.anotheria.moskito.webui.shared.bean.GraphDataBean" id="graph" name="graphDatas">
-        var <ano:write name="graph" property="jsVariableName"/>Caption = "<ano:write name="graph" property="caption"/>";
-        var <ano:write name="graph" property="jsVariableName"/>Array = <ano:write name="graph" property="jsArrayValue"/>;
-        </ano:iterate>
-
+        // Generating data for stat value charts, where key is graph jsVariableName and values: chart caption and array of chart values
+        var graphData = {
+            <ano:iterate type="net.anotheria.moskito.webui.shared.bean.GraphDataBean" id="graph" name="graphDatas">
+            "<ano:write name="graph" property="jsVariableName"/>": {
+                caption: "<ano:write name="graph" property="caption"/>",
+                values: <ano:write name="graph" property="jsArrayValue"/>
+            },
+            </ano:iterate>
+        };
     </script>
     <!-- -->
 </ano:notEmpty>
@@ -161,10 +164,16 @@
                 </a>
             </ano:notEmpty> --%>
             <ano:empty name="logoUrl">
-                <div class="logo">
+                <div class="logo <ano:iF test="${betaMode}">beta-logo</ano:iF>">
                     <mos:deepLink href="mskDashboard">
                         <img src="../moskito/int/img/logo.png" class="logo-white">
-                        <span><b>MoSKito</b><span>Inspect</span></span>
+                        <span>
+                            <b>MoSKito</b>
+                            <span>Inspect</span>
+                            <ano:iF test="${betaMode}">
+                                <span class="beta-logo__beta-title">Beta</span>
+                            </ano:iF>
+                        </span>
                     </mos:deepLink>
                 </div>
             </ano:empty>
@@ -179,7 +188,7 @@
                     <ano:iterate name="dashboardsMenuItems" id="item">
                         <li ${requestScope.selectedDashboard == item.name ? "class=\"active\"" : ""}><mos:deepLink href="mskDashboard?dashboard=${item.urlParameter}" title="${item.name}" class="sidebar-tooltip-right">${item.name} <i class="fa fa-tachometer"></i></mos:deepLink></li>
                     </ano:iterate>
-                    <li><mos:deepLink href="#CreateDashboard" data-toggle="modal" data-target="#CreateDashboard" title="New Dashboard" class="sidebar-tooltip-right">New Dashboard <i class="fa fa-tachometer"></i></mos:deepLink></li>
+                    <li><mos:deepLink href="#CreateDashboard" data-toggle="modal" data-target="#CreateDashboard" title="New Dashboard" class="sidebar-tooltip-right">New Dashboard <i class="fa fa-plus new-dashboard-sign"></i></mos:deepLink></li>
                 </ul>
             </li>
         </ano:equal>
@@ -231,6 +240,13 @@
 
         </ano:equal>
 
+        <!-- Tags menu item -->
+        <li <ano:equal name="currentNaviItem" property="id" value="errors">class="active"</ano:equal>><mos:deepLink href="mskErrors" title="Errors" class="sidebar-tooltip-right">Errors <i class="fa fa-bug"></i></mos:deepLink></li>
+
+        <ano:equal name="betaMode" value="true">
+            <!-- Tags menu item -->
+            <li <ano:equal name="currentNaviItem" property="id" value="tags">class="active"</ano:equal>><mos:deepLink href="mskTags" title="Tags" class="sidebar-tooltip-right">Tags <i class="fa fa-tags"></i></mos:deepLink></li>
+        </ano:equal>
 
         <!-- Submenu for everything else -->
         <ano:equal name="currentNaviItem" property="id" value="more">
@@ -242,7 +258,6 @@
                 <li ${currentSubNaviItem.isSelected("more_libs")    ? "class=\"active\"" : ""}><mos:deepLink href="mskLibs" title="Libs" class="sidebar-tooltip-right">Libs <i class="fa fa-file-text"></i></mos:deepLink></li>
                 <li ${currentSubNaviItem.isSelected("more_update")  ? "class=\"active\"" : ""}><mos:deepLink href="mskUpdate" title="Update" class="sidebar-tooltip-right">Update  <i class="fa fa-upload"></i></mos:deepLink></li>
                 <li ${currentSubNaviItem.isSelected("more_gauges")  ? "class=\"active\"" : ""}><mos:deepLink href="mskGauges" title="Gauges" class="sidebar-tooltip-right">Gauges  <i class="fa fa-tachometer"></i></mos:deepLink></li>
-                <li ${currentSubNaviItem.isSelected("more_errors")  ? "class=\"active\"" : ""}><mos:deepLink href="mskErrors" title="Errors" class="sidebar-tooltip-right">Errors  <i class="fa fa-bug"></i></mos:deepLink></li>
                 <%--<li ${currentSubNaviItem.isSelected("more_plugins") ? "class=\"active\"" : ""}><a href="mskPlugins" title="Plugins" class="sidebar-tooltip-right">Plugins <i class="fa fa-cloud"></i></a></li>--%>
             </ul>
         </li>

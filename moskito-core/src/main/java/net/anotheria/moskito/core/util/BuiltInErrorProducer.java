@@ -27,6 +27,9 @@ import java.util.concurrent.CopyOnWriteArrayList;
  */
 public final class BuiltInErrorProducer extends AbstractBuiltInProducer<ErrorStats>  implements IStatsProducer<ErrorStats>, BuiltInProducer, AutoTieAbleProducer {
 
+	/**
+	 * Logger.
+	 */
 	private static Logger log = LoggerFactory.getLogger(BuiltInErrorProducer.class);
 	/**
 	 * Map with ErrorStats object for ExceptionTypes. Used for fast access to the proper ErrorStats object.
@@ -46,8 +49,14 @@ public final class BuiltInErrorProducer extends AbstractBuiltInProducer<ErrorSta
 	 */
 	private static Logger globalErrorLogger = LoggerFactory.getLogger("MoSKitoCaughtErrors");
 
+	/**
+	 * Configured catchers for errors.
+	 */
 	private ConcurrentMap<Class, ErrorCatcher> catchers;
 
+	/**
+	 * Configured wrappers.
+	 */
 	private ConcurrentMap<Class, LoggerWrapper> wrappers;
 
 
@@ -242,6 +251,9 @@ public final class BuiltInErrorProducer extends AbstractBuiltInProducer<ErrorSta
 		return ret;
 	}
 
+	/**
+	 * Wrapper logger class.
+	 */
 	static class LoggerWrapper{
 		private volatile Logger log;
 

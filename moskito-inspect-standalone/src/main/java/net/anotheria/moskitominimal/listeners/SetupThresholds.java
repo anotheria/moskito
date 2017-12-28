@@ -55,9 +55,12 @@ public class SetupThresholds implements ServletContextListener{
 	}
 
 	private void setupThreadCount() {
-		Thresholds.addThreshold("ThreadCount", "ThreadCount", "ThreadCount", "Current", "default", new LongBarrierPassGuard(ThresholdStatus.GREEN, 200, GuardedDirection.DOWN),
-				new LongBarrierPassGuard(ThresholdStatus.YELLOW, 200, GuardedDirection.UP), new LongBarrierPassGuard(ThresholdStatus.ORANGE, 300, GuardedDirection.UP),
-				new LongBarrierPassGuard(ThresholdStatus.RED, 500, GuardedDirection.UP), new LongBarrierPassGuard(ThresholdStatus.PURPLE, 1000, GuardedDirection.UP));
+		Thresholds.addThreshold("ThreadCount", "ThreadCount", "ThreadCount", "Current", "default",
+				new LongBarrierPassGuard(ThresholdStatus.GREEN, 200, GuardedDirection.DOWN),
+				new LongBarrierPassGuard(ThresholdStatus.YELLOW, 200, GuardedDirection.UP),
+				new LongBarrierPassGuard(ThresholdStatus.ORANGE, 300, GuardedDirection.UP),
+				new LongBarrierPassGuard(ThresholdStatus.RED, 500, GuardedDirection.UP),
+				new LongBarrierPassGuard(ThresholdStatus.PURPLE, 1000, GuardedDirection.UP));
 	}
 
 

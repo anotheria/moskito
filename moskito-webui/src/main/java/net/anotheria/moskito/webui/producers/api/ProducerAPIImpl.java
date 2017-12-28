@@ -135,16 +135,12 @@ public class ProducerAPIImpl extends AbstractMoskitoAPIImpl implements ProducerA
 		return subsystemsAO;
 	}
 
-	private List<ProducerAO> convertStatsProducerListToAO(List<IStatsProducer> producers, String intervalName, TimeUnit timeUnit){
+	private List<ProducerAO> convertStatsProducerListToAO(List<IStatsProducer> producers, String intervalName, TimeUnit timeUnit, boolean createAllStats){
 		LinkedList<ProducerAO> ret = new LinkedList<>();
 		for (IStatsProducer p : producers){
-			ret.add(convertStatsProducerToAO(p, intervalName, timeUnit));
+			ret.add(convertStatsProducerToAO(p, intervalName, timeUnit, createAllStats));
 		}
 		return ret;
-	}
-
-	private ProducerAO convertStatsProducerToAO(IStatsProducer<? extends IStats> p, String intervalName, TimeUnit timeUnit){
-		return convertStatsProducerToAO(p, intervalName, timeUnit, false);
 	}
 
 	private ProducerAO convertStatsProducerToAO(IStatsProducer<? extends IStats> p, String intervalName, TimeUnit timeUnit, boolean createAllStats){
@@ -188,7 +184,7 @@ public class ProducerAPIImpl extends AbstractMoskitoAPIImpl implements ProducerA
 		return ao;
 	}
 
-	private List<ProducerAO> filterProducersAndConvertToAO(List<IStatsProducer> producers, String intervalName, TimeUnit timeUnit){
+	private List<ProducerAO> filterProducersAndConvertToAO(List<IStatsProducer> producers, String intervalName, TimeUnit timeUnit, boolean createAllStats) {
 		List<ProducerAO> ret = new ArrayList<>();
 		for (IStatsProducer<?> p : producers){
 			boolean mayPass = true;
@@ -199,7 +195,7 @@ public class ProducerAPIImpl extends AbstractMoskitoAPIImpl implements ProducerA
 				}
 			}
 			if (mayPass)
-				ret.add(convertStatsProducerToAO(p, intervalName, timeUnit));
+				ret.add(convertStatsProducerToAO(p, intervalName, timeUnit, createAllStats));
 		}
 
 		return ret;
@@ -207,33 +203,60 @@ public class ProducerAPIImpl extends AbstractMoskitoAPIImpl implements ProducerA
 	}
 
 	@Override
-	public List<ProducerAO> getAllProducers(String intervalName, TimeUnit timeUnit) {
-
+	public List<ProducerAO> getAllProducers(String intervalName, TimeUnit timeUnit, boolean createAllStats) {
 		if (producerFilters==null || producerFilters.size()==0 || !Features.PRODUCER_FILTERING.isEnabled())
-			return convertStatsProducerListToAO(producerRegistryAPI.getAllProducers(), intervalName, timeUnit);
+			return convertStatsProducerListToAO(producerRegistryAPI.getAllProducers(), intervalName, timeUnit, createAllStats);
 
 		List<IStatsProducer> allProducers =  producerRegistryAPI.getAllProducers();
-		return filterProducersAndConvertToAO(allProducers, intervalName, timeUnit);
+		return filterProducersAndConvertToAO(allProducers, intervalName, timeUnit, createAllStats);
 	}
 
+	@Override
+	public List<ProducerAO> getAllProducers(String intervalName, TimeUnit timeUnit) {
+		return getAllProducers(intervalName, timeUnit, false);
+	}
+
+	@Override
+	public List<ProducerAO> getAllProducersByCategory(String currentCategory, String intervalName, TimeUnit timeUnit, boolean createAllStats) {
+		if (producerFilters==null || producerFilters.size()==0 || !Features.PRODUCER_FILTERING.isEnabled())
+			return convertStatsProducerListToAO(producerRegistryAPI.getAllProducersByCategory(currentCategory), intervalName, timeUnit, createAllStats);
+
+		return filterProducersAndConvertToAO(producerRegistryAPI.getAllProducersByCategory(currentCategory), intervalName, timeUnit, createAllStats);
+	}
 
 	@Override
 	public List<ProducerAO> getAllProducersByCategory(String currentCategory, String intervalName, TimeUnit timeUnit) {
-		if (producerFilters==null || producerFilters.size()==0 || !Features.PRODUCER_FILTERING.isEnabled())
-			return convertStatsProducerListToAO(producerRegistryAPI.getAllProducersByCategory(currentCategory), intervalName, timeUnit);
-
-		return filterProducersAndConvertToAO(producerRegistryAPI.getAllProducersByCategory(currentCategory), intervalName, timeUnit);
+		return getAllProducersByCategory(currentCategory, intervalName, timeUnit, false);
 	}
 
+	@Override
+	public List<ProducerAO> getAllProducersBySubsystem(String currentSubsystem, String intervalName, TimeUnit timeUnit, boolean createAllStats) {
+		return convertStatsProducerListToAO(producerRegistryAPI.getAllProducersBySubsystem(currentSubsystem), intervalName, timeUnit, createAllStats);
+	}
 
 	@Override
 	public List<ProducerAO> getAllProducersBySubsystem(String currentSubsystem, String intervalName, TimeUnit timeUnit) {
-		return convertStatsProducerListToAO(producerRegistryAPI.getAllProducersBySubsystem(currentSubsystem), intervalName, timeUnit);
+		return getAllProducersBySubsystem(currentSubsystem, intervalName, timeUnit, false);
 	}
 
 	@Override
 	public List<ProducerAO> getProducers(IProducerFilter[] iProducerFilters, String intervalName, TimeUnit timeUnit) {
 		throw new RuntimeException("Not yet implemented");
+	}
+
+	@Override
+	public List<ProducerAO> getProducers(List<String> producerIds, String intervalName, TimeUnit timeUnit) throws APIException {
+		List<ProducerAO> producers = new ArrayList<>();
+
+		for (String producerId : producerIds) {
+			try {
+				producers.add(getProducer(producerId, intervalName, timeUnit));
+			}catch(Exception any){
+				producers.add(new NullProducerAO(producerId, any.getMessage()));
+			}
+		}
+
+		return producers;
 	}
 
 	@Override

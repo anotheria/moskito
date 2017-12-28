@@ -52,6 +52,23 @@ public class DashboardConfig implements Serializable{
 	@Configure
 	private String [] gauges;
 
+	/**
+	 * Producer names that should be present on dashboard.
+	 */
+	@Configure
+	private String[] producers;
+
+	/**
+	 * Widgets that should be present on dashboard.
+	 * Order in array determines display order on dashboard.
+	 */
+	@Configure
+	private String[] widgets = new String[] {
+			DashboardWidget.THRESHOLDS.getName(), DashboardWidget.GAUGES.getName(),
+			DashboardWidget.CHARTS.getName(), DashboardWidget.PRODUCERS.getName()
+	};
+
+
 	@Override
 	public String toString() {
 		final StringBuilder sb = new StringBuilder("DashboardConfig{");
@@ -60,6 +77,8 @@ public class DashboardConfig implements Serializable{
 		sb.append(", charts=").append(Arrays.toString(charts));
 		sb.append(", thresholds=").append(Arrays.toString(thresholds));
 		sb.append(", gauges=").append(Arrays.toString(gauges));
+		sb.append(", producers=").append(Arrays.toString(producers));
+		sb.append(", widgets=").append(Arrays.toString(widgets));
 		sb.append('}');
 		return sb.toString();
 	}
@@ -102,5 +121,21 @@ public class DashboardConfig implements Serializable{
 
 	public void setGauges(String[] gauges) {
 		this.gauges = gauges;
+	}
+
+	public String[] getProducers() {
+		return producers;
+	}
+
+	public void setProducers(String[] producers) {
+		this.producers = producers;
+	}
+
+	public String[] getWidgets() {
+		return widgets;
+	}
+
+	public void setWidgets(String[] widgets) {
+		this.widgets = widgets;
 	}
 }

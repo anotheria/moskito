@@ -40,7 +40,7 @@ public interface JourneyAPI extends API, Service {
 
 	TracedCallAO getTracedCallByName(String journeyName, String traceName, TimeUnit unit) throws APIException;
 
-	List<AnalyzedProducerCallsMapAO> analyzeJourney(String journeyName) throws APIException;
+	AnalyzedJourneyAO analyzeJourney(String journeyName) throws APIException;
 
 	void deleteJourney(String journeyName) throws APIException;
 }

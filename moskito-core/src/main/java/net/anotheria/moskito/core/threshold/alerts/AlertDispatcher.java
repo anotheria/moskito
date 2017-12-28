@@ -19,6 +19,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  * This class dispatches alerts that are generated in a threshold between different recipients.
  * This class has own thread pool that is configured by
  * MoskitoConfiguration.getThresholdsAlertsConfig().getDispatcherThreadPoolSize().
+ * This class is not meant for serialization, it uses enum for singleton pattern realisation. 
  *
  * @author lrosenberg
  * @since 22.10.12 11:22
@@ -32,12 +33,12 @@ public enum AlertDispatcher {
 	/**
 	 * Notification providers.
 	 */
-	private List<NotificationProviderWrapper> providers;
+	private transient List<NotificationProviderWrapper> providers;
 
 	/**
 	 * Internal executor service that is used to deliver threshold alerts to notification providers.
 	 */
-	private ExecutorService changeExecutor;
+	private transient ExecutorService changeExecutor;
 
 	/**
 	 * Counter for created threads for the changeExecutor ThreadFactory.

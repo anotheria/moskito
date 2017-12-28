@@ -5,18 +5,29 @@ import net.anotheria.maf.action.ActionCommand;
 import net.anotheria.maf.action.ActionMapping;
 import net.anotheria.maf.bean.FormBean;
 import net.anotheria.moskito.core.config.dashboards.DashboardConfig;
+import net.anotheria.moskito.core.config.dashboards.DashboardWidget;
 import net.anotheria.moskito.webui.dashboards.api.DashboardAO;
 import net.anotheria.moskito.webui.dashboards.api.DashboardChartAO;
 import net.anotheria.moskito.webui.dashboards.bean.DashboardChartBean;
 import net.anotheria.moskito.webui.gauges.api.GaugeAO;
 import net.anotheria.moskito.webui.gauges.bean.GaugeBean;
+import net.anotheria.moskito.webui.producers.api.NullProducerAO;
+import net.anotheria.moskito.webui.producers.api.ProducerAO;
+import net.anotheria.moskito.webui.producers.util.ProducerUtility;
+import net.anotheria.moskito.webui.shared.bean.GraphDataBean;
+import net.anotheria.moskito.webui.shared.bean.ProducerDecoratorBean;
 import net.anotheria.moskito.webui.threshold.bean.ThresholdStatusBean;
 import net.anotheria.util.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import static net.anotheria.moskito.webui.threshold.util.ThresholdStatusBeanUtility.getThresholdBeans;
@@ -28,6 +39,12 @@ import static net.anotheria.moskito.webui.threshold.util.ThresholdStatusBeanUtil
  * @since 12.02.15 14:02
  */
 public class ShowDashboardAction extends BaseDashboardAction {
+
+	/**
+	 * Logger.
+	 */
+	private static final Logger log = LoggerFactory.getLogger(ShowDashboardAction.class);
+
 	/**
 	 * Default dashboard refresh rate in ms.
 	 */
@@ -40,12 +57,16 @@ public class ShowDashboardAction extends BaseDashboardAction {
 		Boolean gaugesPresent = false;
 		Boolean chartsPresent = false;
 		Boolean thresholdsPresent = false;
+		Boolean producersPresent = false;
+
+		Map<String, GraphDataBean> graphData = new HashMap<>();
 
 		//set default values, allow to exit previously.
 		request.setAttribute("gaugesPresent", gaugesPresent);
 		request.setAttribute("chartsPresent", chartsPresent);
 		request.setAttribute("thresholdsPresent", thresholdsPresent);
-		request.setAttribute("showHelp", !(gaugesPresent || chartsPresent || thresholdsPresent));
+		request.setAttribute("producersPresent", producersPresent);
+		request.setAttribute("showHelp", !(gaugesPresent || chartsPresent || thresholdsPresent || producersPresent));
 
 		DashboardConfig selectedDashboardConfig = getDashboardAPI().getDashboardConfig(dashboardName);
 		if (dashboardName == null || selectedDashboardConfig == null) {
@@ -60,31 +81,60 @@ public class ShowDashboardAction extends BaseDashboardAction {
 		List<ThresholdStatusBean> thresholdStatusBeans = getThresholdBeans(dashboard.getThresholds());
 		List<GaugeBean> gaugeBeans = getGaugeBeans(dashboard.getGauges());
 		List<DashboardChartBean> dashboardChartAOList = getChartBeans(dashboard.getCharts());
+		List<ProducerDecoratorBean> decoratedProducers = getDecoratedProducerBeans(dashboard.getProducers(), request, graphData);
 
-		//now we definitely have a selected dashboard.
-		//prepare thresholds
+		// Getting configured dashboard widgets
+		List<DashboardWidget> widgets = new LinkedList<>();
+		for (String widgetName : selectedDashboardConfig.getWidgets()) {
+			widgets.add(DashboardWidget.findWidgetByName(widgetName));
+		}
+
+		// Now we definitely have a selected dashboard.
+		// Prepare thresholds
 		if (dashboard.getThresholds()!=null && dashboard.getThresholds().size()>0){
 			request.setAttribute("thresholds", thresholdStatusBeans);
 			thresholdsPresent = true;
+		} else {
+			widgets.remove(DashboardWidget.THRESHOLDS);
 		}
 
-		//prepare gauges
+		// Prepare gauges
 		if (dashboard.getGauges()!=null && dashboard.getGauges().size()>0){
 			request.setAttribute("gauges", gaugeBeans);
 			gaugesPresent = true;
+		} else {
+			widgets.remove(DashboardWidget.GAUGES);
 		}
 
-		//prepare charts
+		// Prepare charts
 		if (dashboardChartAOList!=null && dashboardChartAOList.size()>0){
 			request.setAttribute("charts", dashboardChartAOList);
 			chartsPresent = true;
+		} else {
+			widgets.remove(DashboardWidget.CHARTS);
 		}
+
+		// Prepare producers
+		if (decoratedProducers != null && decoratedProducers.size() > 0) {
+			request.setAttribute("graphDatas", graphData.values());
+			request.setAttribute("decorators", decoratedProducers);
+			producersPresent = true;
+		} else {
+			widgets.remove(DashboardWidget.PRODUCERS);
+		}
+
+		// Set widgets to be displayed on dashboard
+		request.setAttribute("widgets", widgets);
+
+		// Setting possible dashboard names where producer can be added
+		request.setAttribute("dashboardNames", org.apache.commons.lang.StringUtils.join(getDashboardAPI().getDashboardNames(), ','));
 
 		//maybe the value has changed.
 		request.setAttribute("gaugesPresent", gaugesPresent);
 		request.setAttribute("chartsPresent", chartsPresent);
 		request.setAttribute("thresholdsPresent", thresholdsPresent);
-		request.setAttribute("showHelp", !(gaugesPresent || chartsPresent || thresholdsPresent));
+		request.setAttribute("producersPresent", producersPresent);
+		request.setAttribute("showHelp", !(gaugesPresent || chartsPresent || thresholdsPresent || producersPresent));
 
 		String infoMessage = getInfoMessage();
 		if (!StringUtils.isEmpty(infoMessage)) {
@@ -100,6 +150,25 @@ public class ShowDashboardAction extends BaseDashboardAction {
 	@Override
 	protected String getPageName() {
 		return "dashboard";
+	}
+
+	private List<ProducerDecoratorBean> getDecoratedProducerBeans(List<String> producerIds, HttpServletRequest request, Map<String, GraphDataBean> graphData) throws APIException {
+		if (producerIds != null && producerIds.size() > 0) {
+			List<ProducerAO> producerAOs = getProducerAPI().getProducers(producerIds, getCurrentInterval(request), getCurrentUnit(request).getUnit());
+			List<ProducerAO> producersWithoutErrors = new LinkedList<>();
+			for (ProducerAO producerAO : producerAOs){
+				if (producerAO instanceof NullProducerAO){
+					addInfoMessage(((NullProducerAO) producerAO).getMessage());
+				}else{
+					producersWithoutErrors.add(producerAO);
+				}
+			}
+			if (producersWithoutErrors != null && producersWithoutErrors.size() > 0) {
+				return ProducerUtility.getDecoratedProducers(request, producersWithoutErrors, graphData);
+			}
+		}
+
+		return new ArrayList<>();
 	}
 
 	private List<GaugeBean> getGaugeBeans(List<GaugeAO> gaugeAOList) throws APIException {
