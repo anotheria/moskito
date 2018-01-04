@@ -12,9 +12,7 @@ import net.anotheria.moskito.core.tracer.Trace;
 import net.anotheria.moskito.core.tracer.Tracer;
 import net.anotheria.moskito.core.tracer.TracerRepository;
 import net.anotheria.moskito.core.tracer.Tracers;
-import net.anotheria.moskito.webui.journey.api.JourneyAPI;
 import net.anotheria.moskito.webui.shared.api.AbstractMoskitoAPIImpl;
-import net.anotheria.moskito.webui.util.APILookupUtility;
 import net.anotheria.moskito.webui.util.TagsUtil;
 import net.anotheria.util.NumberUtils;
 import org.slf4j.Logger;
@@ -33,9 +31,11 @@ import java.util.List;
  */
 public class TracerAPIImpl extends AbstractMoskitoAPIImpl implements TracerAPI {
 
-	private JourneyManager journeyManager;
 	private final static Logger log = LoggerFactory.getLogger(TracerAPIImpl.class);
 
+	private JourneyManager journeyManager;
+
+	@Override
 	public void init() throws APIInitException {
 		super.init();
 		this.journeyManager = JourneyManagerFactory.getJourneyManager();
