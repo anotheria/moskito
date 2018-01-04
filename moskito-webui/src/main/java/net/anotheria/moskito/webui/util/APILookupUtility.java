@@ -10,6 +10,7 @@ import net.anotheria.moskito.webui.gauges.api.GaugeAPI;
 import net.anotheria.moskito.webui.journey.api.JourneyAPI;
 import net.anotheria.moskito.webui.producers.api.ProducerAPI;
 import net.anotheria.moskito.webui.shared.api.AdditionalFunctionalityAPI;
+import net.anotheria.moskito.webui.tags.api.TagAPI;
 import net.anotheria.moskito.webui.threads.api.ThreadAPI;
 import net.anotheria.moskito.webui.threshold.api.ThresholdAPI;
 import net.anotheria.moskito.webui.tracers.api.TracerAPI;
@@ -150,6 +151,12 @@ public class APILookupUtility {
 		return isLocal() ?
 				APIFinder.findAPI(TracerAPI.class) :
 				findRemote(TracerAPI.class);
+	}
+
+	public static TagAPI getTagAPI(){
+		return isLocal() ?
+				APIFinder.findAPI(TagAPI.class) :
+				findRemote(TagAPI.class);
 	}
 
 	public static void resetConnection(){

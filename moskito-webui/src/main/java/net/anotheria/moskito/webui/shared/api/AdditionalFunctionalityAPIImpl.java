@@ -16,6 +16,7 @@ import net.anotheria.moskito.core.timing.IUpdateable;
 import net.anotheria.moskito.core.util.BuiltInErrorProducer;
 import net.anotheria.moskito.core.util.CaughtError;
 import net.anotheria.moskito.core.util.ErrorCatcher;
+import net.anotheria.moskito.webui.journey.api.TagEntryAO;
 import net.anotheria.moskito.webui.plugins.VisualMoSKitoPlugin;
 import net.anotheria.util.NumberUtils;
 import net.anotheria.util.sorter.DummySortType;
@@ -226,18 +227,17 @@ public class AdditionalFunctionalityAPIImpl extends AbstractMoskitoAPIImpl imple
 
 	@Override
 	public List<CaughtErrorAO> getCaughtErrorsByExceptionName(String exceptionName) throws APIException {
-		ErrorCatcher catcher = null;
-		List<CaughtErrorAO> ret = new ArrayList<>();
 		try {
-			catcher = BuiltInErrorProducer.getInstance().getCatcher(Class.forName(exceptionName));
+			List<CaughtErrorAO> ret = new ArrayList<>();
+			ErrorCatcher catcher = BuiltInErrorProducer.getInstance().getCatcher(Class.forName(exceptionName));
 			List<CaughtError> errors = catcher.getErrorList();
 			for (CaughtError error : errors){
 			 	ret.add(makeCaughtErrorAO(error));
 			}
+			return ret;
 		}catch(Exception any){
 			throw new APIException("Couldn't retrieve class for exception "+exceptionName);
 		}
-		return ret;
 	}
 
 	private CaughtErrorAO makeCaughtErrorAO(CaughtError error){
@@ -246,11 +246,9 @@ public class AdditionalFunctionalityAPIImpl extends AbstractMoskitoAPIImpl imple
 		ao.setTimestamp(error.getTimestamp());
 		ao.setDate(NumberUtils.makeISO8601TimestampString(error.getTimestamp()));
 		ao.setElements(Arrays.asList(error.getThrowable().getStackTrace()));
-		StringBuilder tags = new StringBuilder();
-		for (Map.Entry<String, String> tag : error.getTags().entrySet()){
-			tags.append(" ").append(tag.getKey()).append(": ").append(tag.getValue());
+		for (Map.Entry<String, String> tag : error.getTags().entrySet()) {
+			ao.getTags().add(new TagEntryAO(tag.getKey(), tag.getValue()));
 		}
-		ao.setTagLine(tags.toString());
 
 		return ao;
 	}

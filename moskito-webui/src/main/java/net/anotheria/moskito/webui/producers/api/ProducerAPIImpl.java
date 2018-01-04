@@ -2,6 +2,7 @@ package net.anotheria.moskito.webui.producers.api;
 
 import net.anotheria.anoplass.api.APIException;
 import net.anotheria.anoplass.api.APIInitException;
+import net.anotheria.moskito.core.decorators.DecoratorName;
 import net.anotheria.moskito.core.decorators.DecoratorRegistryFactory;
 import net.anotheria.moskito.core.decorators.IDecorator;
 import net.anotheria.moskito.core.decorators.IDecoratorRegistry;
@@ -11,6 +12,7 @@ import net.anotheria.moskito.core.producers.IStatsProducer;
 import net.anotheria.moskito.core.registry.IProducerFilter;
 import net.anotheria.moskito.core.registry.IProducerRegistryAPI;
 import net.anotheria.moskito.core.registry.ProducerRegistryAPIFactory;
+import net.anotheria.moskito.core.registry.ProducerRegistryFactory;
 import net.anotheria.moskito.core.stats.TimeUnit;
 import net.anotheria.moskito.core.tracer.TracerRepository;
 import net.anotheria.moskito.core.tracer.TracingAwareProducer;
@@ -150,6 +152,9 @@ public class ProducerAPIImpl extends AbstractMoskitoAPIImpl implements ProducerA
 		ao.setSubsystem(p.getSubsystem());
 		ao.setProducerClassName(p.getClass().getSimpleName());
 		ao.setFullProducerClassName(p.getClass().getName());
+		ao.setDecoratorName(
+				new DecoratorName(p.getStats().get(0))
+		);
 		if (p instanceof Inspectable)
 			ao.setCreationInfo(((Inspectable)p).getCreationInfo());
 		boolean traceable = false;
@@ -164,9 +169,14 @@ public class ProducerAPIImpl extends AbstractMoskitoAPIImpl implements ProducerA
 		IStats firstStats = p.getStats().get(0);
 		ao.setStatsClazzName(firstStats.getClass().getName());
 
-		//ao.setStats(p.getStats());
+		IDecorator decorator;
 
-		IDecorator decorator = decoratorRegistry.getDecorator(ao.getStatsClazzName());
+		if(createAllStats)
+			// Using stats-object specific decorator to create all stats values
+			decorator = decoratorRegistry.getStatsObjectSpecificDecorator(firstStats);
+		else
+			decorator = decoratorRegistry.getDecorator(firstStats.getClass());
+
 		ao.setFirstStatsValues(decorator.getValues(firstStats, intervalName, timeUnit));
 
 		if (createAllStats){

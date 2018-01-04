@@ -14,6 +14,7 @@ import net.anotheria.moskito.core.journey.Journey;
 import net.anotheria.moskito.core.journey.JourneyManager;
 import net.anotheria.moskito.core.journey.JourneyManagerFactory;
 import net.anotheria.moskito.core.journey.NoSuchJourneyException;
+import net.anotheria.moskito.core.tag.TagType;
 import net.anotheria.moskito.core.plugins.MoskitoPlugin;
 import net.anotheria.moskito.core.plugins.PluginRepository;
 import net.anotheria.moskito.extensions.analyze.connector.rest.RESTConnector;
@@ -34,13 +35,13 @@ import java.io.IOException;
 /**
  * This filter checks if the journey tracing is active for current http session and if so switches the call tracing on.
  */
-public class JourneyFilter implements Filter{
-	
+public class JourneyFilter implements Filter {
+
 	/**
 	 * Session attribute name for session record.
 	 */
 	/*package visible*/static final String SA_JOURNEY_RECORD = "mskJourneyRecord";
-	
+
 	private static final String PARAM_JOURNEY_RECORDING = "mskJourney";
 	/**
 	 * The value of the parameter for the session monitoring start.
@@ -54,61 +55,63 @@ public class JourneyFilter implements Filter{
 	/**
 	 * Parameter name for the name of the journey.
 	 */
-	public static final String PARAM_JOURNEY_NAME = "mskJourneyName";
+	private static final String PARAM_JOURNEY_NAME = "mskJourneyName";
 
-	public static final String TAG_IP = "ip";
-	public static final String TAG_REFERER = "referer";
-	public static final String TAG_USER_AGENT = "user-agent";
-	public static final String TAG_SESSION_ID = "sessionId";
+	private static final String TAG_IP = "ip";
+	private static final String TAG_REFERER = "referer";
+	private static final String TAG_USER_AGENT = "user-agent";
+	private static final String TAG_SESSION_ID = "sessionId";
 
 	/**
 	 * Log.
 	 */
-	private static Logger log = LoggerFactory.getLogger(JourneyFilter.class);
+	private static final Logger log = LoggerFactory.getLogger(JourneyFilter.class);
 
 	/**
 	 * JourneyManager instance.
 	 */
 	private JourneyManager journeyManager;
 
-	@Override public void destroy() {
+	@Override
+	public void destroy() {
 	}
 
-	@Override public void doFilter(ServletRequest sreq, ServletResponse sres, FilterChain chain) throws IOException, ServletException {
-		if (!(sreq instanceof HttpServletRequest)){
+	@Override
+	public void doFilter(ServletRequest sreq, ServletResponse sres, FilterChain chain) throws IOException, ServletException {
+		if (!(sreq instanceof HttpServletRequest)) {
 			chain.doFilter(sreq, sres);
 			return;
 		}
 
-		HttpServletRequest req = (HttpServletRequest)sreq;
+		HttpServletRequest req = (HttpServletRequest) sreq;
 		HttpSession session = req.getSession(false);
 		processParameters(req);
 
 		//autoset tags.
 		TaggingConfig taggingConfig = MoskitoConfigurationHolder.getConfiguration().getTaggingConfig();
-		if (taggingConfig.isAutotagIp()){
-			MoSKitoContext.addTag(TAG_IP, req.getRemoteAddr());
+		if (taggingConfig.isAutotagIp()) {
+			MoSKitoContext.addTag(TAG_IP, req.getRemoteAddr(), TagType.BUILTIN, TagType.BUILTIN.getName() + '.' + TAG_IP);
 		}
-		if (taggingConfig.isAutotagReferer()){
-			MoSKitoContext.addTag(TAG_REFERER, req.getHeader(TAG_REFERER));
+		if (taggingConfig.isAutotagReferer()) {
+			MoSKitoContext.addTag(TAG_REFERER, req.getHeader(TAG_REFERER), TagType.BUILTIN, TagType.BUILTIN.getName() + '.' + TAG_REFERER);
 		}
-		if (taggingConfig.isAutotagUserAgent()){
-			MoSKitoContext.addTag(TAG_USER_AGENT, req.getHeader(TAG_USER_AGENT));
+		if (taggingConfig.isAutotagUserAgent()) {
+			MoSKitoContext.addTag(TAG_USER_AGENT, req.getHeader(TAG_USER_AGENT), TagType.BUILTIN, TagType.BUILTIN.getName() + '.' + TAG_USER_AGENT);
 		}
-		if (taggingConfig.isAutotagSessionId() && session != null){
-			MoSKitoContext.addTag(TAG_SESSION_ID, session.getId());
+		if (taggingConfig.isAutotagSessionId() && session != null) {
+			MoSKitoContext.addTag(TAG_SESSION_ID, session.getId(), TagType.BUILTIN, TagType.BUILTIN.getName() + '.' + TAG_SESSION_ID);
 		}
 
 		//set custom tags
 		for (CustomTag tag : taggingConfig.getCustomTags()) {
 			if (CustomTagSource.HEADER.getName().equals(tag.getAttributeSource())) {
-				MoSKitoContext.addTag(tag.getName(), req.getHeader(tag.getAttributeName()));
+				MoSKitoContext.addTag(tag.getName(), req.getHeader(tag.getAttributeName()), TagType.CONFIGURED, tag.getAttribute());
 			} else if (CustomTagSource.REQUEST.getName().equals(tag.getAttributeSource())) {
-				MoSKitoContext.addTag(tag.getName(), (String) req.getAttribute(tag.getAttributeName()));
+				MoSKitoContext.addTag(tag.getName(), (String) req.getAttribute(tag.getAttributeName()), TagType.CONFIGURED, tag.getAttribute());
 			} else if (CustomTagSource.SESSION.getName().equals(tag.getAttributeSource()) && session != null) {
-				MoSKitoContext.addTag(tag.getName(), (String) session.getAttribute(tag.getAttributeName()));
+				MoSKitoContext.addTag(tag.getName(), (String) session.getAttribute(tag.getAttributeName()), TagType.CONFIGURED, tag.getAttribute());
 			} else if (CustomTagSource.PARAMETER.getName().equals(tag.getAttributeSource())) {
-				MoSKitoContext.addTag(tag.getName(), req.getParameter(tag.getAttributeName()));
+				MoSKitoContext.addTag(tag.getName(), req.getParameter(tag.getAttributeName()), TagType.CONFIGURED, tag.getAttribute());
 			}
 		}
 		//end of tags.
@@ -116,49 +119,49 @@ public class JourneyFilter implements Filter{
 		JourneyRecord record = null;
 		Journey journey = null;
 
-		if (session!=null){
-			record = (JourneyRecord)session.getAttribute(SA_JOURNEY_RECORD);
-			if (record!=null){
-				try{
+		if (session != null) {
+			record = (JourneyRecord) session.getAttribute(SA_JOURNEY_RECORD);
+			if (record != null) {
+				try {
 					journey = journeyManager.getJourney(record.getName());
-				}catch(NoSuchJourneyException e){
+				} catch (NoSuchJourneyException e) {
 					journey = journeyManager.createJourney(record.getName());
 				}
 			}
 		}
 
 		String url = "none";
-		if (record!=null){
+		if (record != null) {
 			url = req.getServletPath();
-			if (req.getPathInfo()!=null)
+			if (req.getPathInfo() != null)
 				url += req.getPathInfo();
-			if (req.getQueryString()!=null)
-				url += '?' +req.getQueryString();
-			RunningTraceContainer.startTracedCall(record == null ? "RND": record.getUseCaseName()+ '-' +url);
+			if (req.getQueryString() != null)
+				url += '?' + req.getQueryString();
+			RunningTraceContainer.startTracedCall(record == null ? "RND" : record.getUseCaseName() + '-' + url);
 		}
-		try{
+		try {
 			//Removed reset call, cause the context gets reset at the end of the call in finally anyway, so its safe to assume that we have a new context.
 			//MoSKitoContext.get().reset();
 			chain.doFilter(sreq, sres);
-		}finally{
-			if (record!=null){
+		} finally {
+			if (record != null) {
 				TracedCall last = RunningTraceContainer.endTrace();
-				if (last instanceof NoTracedCall){
-					log.warn("Unexpectedly last is a NoTracedCall instead of CurrentlyTracedCall for "+url);
-				}else {
-					CurrentlyTracedCall finishedCall = (CurrentlyTracedCall)last;
+				if (last instanceof NoTracedCall) {
+					log.warn("Unexpectedly last is a NoTracedCall instead of CurrentlyTracedCall for " + url);
+				} else {
+					CurrentlyTracedCall finishedCall = (CurrentlyTracedCall) last;
 					finishedCall.setEnded();
-					if (record!=null)
+					if (record != null)
 						journey.addUseCase(finishedCall);
 					serializeOut(finishedCall);
 				}
-				
+
 				//removes the running use case to cleanup the thread local. Otherwise tomcat will be complaining...
 				RunningTraceContainer.cleanup();
 			}
 			MoSKitoContext.cleanup();
 		}
-			
+
 	}
 
 	private void serializeOut(CurrentlyTracedCall call){
@@ -169,40 +172,40 @@ public class JourneyFilter implements Filter{
 		MoskitoPlugin restAnalyzePlugin = PluginRepository.getInstance().getPlugin("RESTAnalyzeConnector");
 		if (restAnalyzePlugin != null)
 			((RESTConnector) restAnalyzePlugin).sendJourneyData(root.toJSON());
-
 	}
-	
-	private void processParameters(HttpServletRequest req){
-		
-		
+
+	private void processParameters(HttpServletRequest req) {
+
 		String command = req.getParameter(PARAM_JOURNEY_RECORDING);
 		String name = req.getParameter(PARAM_JOURNEY_NAME);
-		
-		if (command==null)
+
+		if (command == null)
 			return;
-		if (command.equals(PARAM_VALUE_STOP)){
+		if (command.equals(PARAM_VALUE_STOP)) {
 			HttpSession session = req.getSession(false);
-			if (session!=null){
+			if (session != null) {
 				session.removeAttribute(SA_JOURNEY_RECORD);
 			}
-			try{
+			try {
 				journeyManager.getJourney(name).setActive(false);
-			}catch(NoSuchJourneyException ignored){}
+			} catch (NoSuchJourneyException ignored) {
+			}
 		}
-		
-		if (command.equals(PARAM_VALUE_START)){
+
+		if (command.equals(PARAM_VALUE_START)) {
 			HttpSession session = req.getSession();
-			if (name==null || name.length()==0)
-				name = "unnamed"+System.currentTimeMillis();
+			if (name == null || name.length() == 0)
+				name = "unnamed" + System.currentTimeMillis();
 			session.setAttribute(SA_JOURNEY_RECORD, new JourneyRecord(name));
 			journeyManager.createJourney(name);
 		}
 	}
-	
 
-	@Override public void init(FilterConfig chain) throws ServletException {
+
+	@Override
+	public void init(FilterConfig chain) {
 		journeyManager = JourneyManagerFactory.getJourneyManager();
 	}
-	
+
 }
 

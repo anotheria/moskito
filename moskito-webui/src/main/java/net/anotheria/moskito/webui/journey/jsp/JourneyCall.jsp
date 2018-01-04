@@ -25,7 +25,9 @@
                     <label>Tags:</label>
                     <ul class="tags-list">
                         <ano:iterate id="tag" name="tracedCall" property="tags">
-                            <li><ano:write name="tag"/></li>
+                            <li>
+                                <span class="tag-name"><ano:write name="tag" property="tagName"/>: </span><ano:write name="tag" property="tagValue"/>
+                            </li>
                         </ano:iterate>
                     </ul>
                 </div>

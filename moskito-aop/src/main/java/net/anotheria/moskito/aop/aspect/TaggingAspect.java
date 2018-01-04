@@ -3,6 +3,7 @@ package net.anotheria.moskito.aop.aspect;
 import net.anotheria.moskito.aop.annotation.TagParameter;
 import net.anotheria.moskito.aop.annotation.TagReturnValue;
 import net.anotheria.moskito.core.context.MoSKitoContext;
+import net.anotheria.moskito.core.tag.TagType;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -24,7 +25,7 @@ public class TaggingAspect {
 	@Around(value = "execution(* *(..)) && (@annotation(tagReturnValue))")
 	public Object doTagging(ProceedingJoinPoint pjp, TagReturnValue tagReturnValue) throws Throwable {
 		Object result = pjp.proceed();
-		MoSKitoContext.addTag(tagReturnValue.name(), result == null ? null : result.toString());
+		MoSKitoContext.addTag(tagReturnValue.name(), result == null ? null : result.toString(), TagType.ANNOTATED, pjp.getSignature().toShortString());
 		return result;
 	}
 
@@ -41,7 +42,7 @@ public class TaggingAspect {
 			for (Annotation annotation : annotations[i]) {
 				if (TagParameter.class.isInstance(annotation)) {
 					TagParameter tagParameter = (TagParameter) annotation;
-					MoSKitoContext.addTag(tagParameter.name(), args[i] == null ? null : args[i].toString());
+					MoSKitoContext.addTag(tagParameter.name(), args[i] == null ? null : args[i].toString(), TagType.ANNOTATED, pjp.getSignature().toShortString());
 				}
 			}
 		}

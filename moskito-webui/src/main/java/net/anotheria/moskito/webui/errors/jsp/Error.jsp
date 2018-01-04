@@ -35,7 +35,15 @@
                             </td>
                             <td>${ce.date}</td>
                             <td>${ce.message}</td>
-                            <td>${ce.tagLine}</td>
+                            <td>
+                                <ul class="tags-list tags-inline">
+                                    <ano:iterate id="tag" name="ce" property="tags">
+                                        <li>
+                                            <span class="tag-name"><ano:write name="tag" property="tagName"/>: </span><ano:write name="tag" property="tagValue"/>
+                                        </li>
+                                    </ano:iterate>
+                                </ul>
+                            </td>
                         </tr>
                         <tr class="dump-list" data-level="1">
                             <td colspan="4">

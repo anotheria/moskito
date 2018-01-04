@@ -3,12 +3,7 @@ package net.anotheria.moskito.webui.producers.util;
 import net.anotheria.moskito.core.decorators.DecoratorRegistryFactory;
 import net.anotheria.moskito.core.decorators.IDecorator;
 import net.anotheria.moskito.core.decorators.predefined.GenericStatsDecorator;
-import net.anotheria.moskito.core.decorators.value.StatCaptionBean;
 import net.anotheria.moskito.core.decorators.value.StatValueAO;
-import net.anotheria.moskito.core.registry.IProducerFilter;
-import net.anotheria.moskito.core.registry.filters.CategoryFilter;
-import net.anotheria.moskito.core.registry.filters.SubsystemFilter;
-import net.anotheria.moskito.core.stats.TimeUnit;
 import net.anotheria.moskito.core.stats.UnknownIntervalException;
 import net.anotheria.moskito.webui.producers.api.ProducerAO;
 import net.anotheria.moskito.webui.producers.api.ProducerAOSortType;
@@ -16,7 +11,6 @@ import net.anotheria.moskito.webui.producers.api.StatLineAO;
 import net.anotheria.moskito.webui.shared.bean.GraphDataBean;
 import net.anotheria.moskito.webui.shared.bean.GraphDataValueBean;
 import net.anotheria.moskito.webui.shared.bean.ProducerDecoratorBean;
-import net.anotheria.util.StringUtils;
 import net.anotheria.util.sorter.StaticQuickSorter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -157,7 +151,10 @@ public class ProducerUtility {
     }
 
     private static IDecorator findOrCreateDecorator(ProducerAO producer) {
-        final IDecorator decorator = DecoratorRegistryFactory.getDecoratorRegistry().getDecorator(producer.getStatsClazzName());
+
+        final IDecorator decorator = DecoratorRegistryFactory.getDecoratorRegistry()
+                .getDecorator(producer.getStatsClazzName());
+
         if (decorator instanceof GenericStatsDecorator) {
             final GenericStatsDecorator genericDecorator = (GenericStatsDecorator) decorator;
             if (!genericDecorator.isInitialized()) {

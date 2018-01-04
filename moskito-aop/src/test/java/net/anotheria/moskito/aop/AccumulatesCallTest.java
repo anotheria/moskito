@@ -31,8 +31,7 @@ public class AccumulatesCallTest {
         AccumulatorRepository.resetForUnitTests();
     }
 
-
-	@Test
+    @Test
     public void testAccumulatesClass() {
         AccumulatesAnnotatedClass monitorable = new AccumulatesAnnotatedClass();
 

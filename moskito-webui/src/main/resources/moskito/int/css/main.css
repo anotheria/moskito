@@ -1258,6 +1258,13 @@ table.producers-table a.action-icon {
     margin-right: 0;
 }
 
+.producers-table-stats_value {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 400px;
+}
+
 .modal-table {
     padding: 0;
     overflow-x: auto;
@@ -1971,7 +1978,7 @@ Heat map
 
 /* TAGS PAGE SECTION */
 .tags-wrapper {
-    columns: 5;
+    columns: 3;
     column-gap: 30px;
 }
 
@@ -2004,6 +2011,10 @@ Heat map
 
 .card-item .card-color-configured {
     background-color: #c28029;
+}
+
+.card-item .card-color-annotated {
+    background-color: #4286f4;
 }
 
 .card-item .card-body {
@@ -2042,7 +2053,7 @@ Heat map
 }
 
 .add-tag-box {
-    min-height: 160px;
+    min-height: 500px;
     width: 100%;
     text-align: center;
     border-radius: 3px;
@@ -2087,4 +2098,18 @@ Heat map
 
 .tags-list li:hover {
     background: #faeddd;
+}
+
+.wordwrap {
+    word-wrap: break-word;
+}
+
+.tag-name {
+    font-weight: bolder;
+    font-size: 12px;
+    color: #738DE7;
+}
+
+.tags-inline li {
+    float: none;
 }

@@ -10,7 +10,7 @@ import java.lang.annotation.Target;
  *
  * Created by Roman Stetsiuk on 9/29/15.
  */
-@Target({ElementType.TYPE, ElementType.METHOD})
+@Target ( {ElementType.TYPE, ElementType.METHOD, ElementType.ANNOTATION_TYPE})
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Accumulates {
     /**

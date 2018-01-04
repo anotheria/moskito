@@ -2,18 +2,17 @@ package net.anotheria.moskito.webui.journey.api;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 /**
  * This bean stores a traced call.
  * @author lrosenberg
  *
  */
-public class TracedCallAO implements Serializable{
+public class TracedCallAO implements Serializable {
 	/**
 	 * SerialVersionUID.
 	 */
-	private static final long serialVersionUID = 1;
+	private static final long serialVersionUID = 3749038158601947821L;
 
 	/**
 	 * Name of the traced call.
@@ -32,14 +31,14 @@ public class TracedCallAO implements Serializable{
 	 */
 	private List<TracedCallStepAO> elements;
 
-	private List<TagAO> tags;
+	private List<TagEntryAO> tags;
 
 
 	private List<TracedCallDuplicateStepsAO> duplicateSteps;
 	
 	public TracedCallAO(){
 		elements = new ArrayList<>();
-		tags = new LinkedList<>();
+		tags = new ArrayList<>();
 	}
 	
 	public long getCreated() {
@@ -82,11 +81,11 @@ public class TracedCallAO implements Serializable{
 		this.duplicateSteps = duplicateSteps;
 	}
 
-	public List<TagAO> getTags() {
+	public List<TagEntryAO> getTags() {
 		return tags;
 	}
 
-	public void setTags(List<TagAO> tags) {
+	public void setTags(List<TagEntryAO> tags) {
 		this.tags = tags;
 	}
 }
