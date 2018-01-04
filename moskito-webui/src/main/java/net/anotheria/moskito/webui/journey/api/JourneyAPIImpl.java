@@ -10,6 +10,7 @@ import net.anotheria.moskito.core.journey.JourneyManagerFactory;
 import net.anotheria.moskito.core.journey.NoSuchJourneyException;
 import net.anotheria.moskito.core.stats.TimeUnit;
 import net.anotheria.moskito.webui.shared.api.AbstractMoskitoAPIImpl;
+import net.anotheria.moskito.webui.util.TagsUtil;
 import net.anotheria.util.NumberUtils;
 
 import java.util.ArrayList;
@@ -103,10 +104,7 @@ public class JourneyAPIImpl extends AbstractMoskitoAPIImpl implements  JourneyAP
 		//set tags
 		Map<String, String> tags = useCase.getTags();
 		if (tags!=null && tags.size()>0){
-			for (Map.Entry<String,String> entry : tags.entrySet()){
-				TagEntryAO tagAO = new TagEntryAO(entry.getKey(), entry.getValue());
-				ret.getTags().add(tagAO);
-			}
+			ret.setTags(TagsUtil.tagsMapToTagEntries(tags));
 		}
 
 		JourneyCallIntermediateContainer container = new JourneyCallIntermediateContainer();
