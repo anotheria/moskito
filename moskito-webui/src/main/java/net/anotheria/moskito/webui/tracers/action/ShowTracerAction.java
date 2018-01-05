@@ -25,5 +25,6 @@ public class ShowTracerAction extends BaseTracersAction{
 		httpServletRequest.setAttribute("traces", getTracerAPI().getTraces(producerId, getCurrentUnit(httpServletRequest).getUnit()));
 
 		return actionMapping.success();
+
 	}
 }

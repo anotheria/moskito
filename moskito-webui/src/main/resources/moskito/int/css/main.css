@@ -2113,3 +2113,12 @@ Heat map
 .tags-inline li {
     float: none;
 }
+.tracers-tags-container {
+    padding: 5px 5px 5px 10px;
+}
+.tracers-tags-container:before {
+    content: none!important;
+}
+.tracers-tags-list li:hover {
+    background: #ffffff;
+}

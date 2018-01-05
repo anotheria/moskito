@@ -90,7 +90,7 @@ public class Storage<K,V> implements IStatsProducer<StorageStats>, Inspectable, 
 		
 		IProducerRegistry reg = ProducerRegistryFactory.getProducerRegistryInstance();
 		reg.registerProducer(this);
-		
+
 		RuntimeException e = new RuntimeException();
 		e.fillInStackTrace();
 		creationInfo = new CreationInfo(e.getStackTrace());
@@ -264,6 +264,14 @@ public class Storage<K,V> implements IStatsProducer<StorageStats>, Inspectable, 
 	@Override public CreationInfo getCreationInfo(){
 		return creationInfo;
 	}
+
+	/**
+	 * Unregister storage from producer registry.
+	 */
+	public void unregister() {
+		ProducerRegistryFactory.getProducerRegistryInstance().unregisterProducer(this);
+	}
+
 	
 	////// static factory methods
 
