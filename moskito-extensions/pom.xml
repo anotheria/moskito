@@ -20,7 +20,6 @@
         <module>moskito-mongodb</module>
         <module>moskito-monitoring-plugin</module>
         <module>moskito-php</module>
-        <module>moskito-analyze</module>
         <module>moskito-analyze-connector</module>
     </modules>
 </project>
