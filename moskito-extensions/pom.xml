@@ -20,5 +20,6 @@
         <module>moskito-mongodb</module>
         <module>moskito-monitoring-plugin</module>
         <module>moskito-php</module>
+        <module>moskito-slack-bot</module>
     </modules>
 </project>
