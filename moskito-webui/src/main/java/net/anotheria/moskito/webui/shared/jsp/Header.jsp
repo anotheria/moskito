@@ -243,10 +243,8 @@
         <!-- Tags menu item -->
         <li <ano:equal name="currentNaviItem" property="id" value="errors">class="active"</ano:equal>><mos:deepLink href="mskErrors" title="Errors" class="sidebar-tooltip-right">Errors <i class="fa fa-bug"></i></mos:deepLink></li>
 
-        <ano:equal name="betaMode" value="true">
-            <!-- Tags menu item -->
-            <li <ano:equal name="currentNaviItem" property="id" value="tags">class="active"</ano:equal>><mos:deepLink href="mskTags" title="Tags" class="sidebar-tooltip-right">Tags <i class="fa fa-tags"></i></mos:deepLink></li>
-        </ano:equal>
+        <!-- Tags menu item -->
+        <li <ano:equal name="currentNaviItem" property="id" value="tags">class="active"</ano:equal>><mos:deepLink href="mskTags" title="Tags" class="sidebar-tooltip-right">Tags <i class="fa fa-tags"></i></mos:deepLink></li>
 
         <!-- Submenu for everything else -->
         <ano:equal name="currentNaviItem" property="id" value="more">
