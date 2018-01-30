@@ -129,7 +129,9 @@
                     </li>
                 </ano:iF>
             <li><a href="mskShowExplanations"><i class="fa fa-info-circle icon-16"></i></a></li>
-            <li class="iphone-app-link"><a href="https://itunes.apple.com/us/app/moskito-ui/id531387262?mt=8">Using iPhone? <img src="../moskito/int/img/iphone.svg" class="iphone-app-icon"></a></li>
+            <ano:iF test="${displayIphoneIcons}">
+                <li class="iphone-app-link"><a href="https://itunes.apple.com/us/app/moskito-ui/id531387262?mt=8">Using iPhone? <img src="../moskito/int/img/iphone.svg" class="iphone-app-icon"></a></li>
+            </ano:iF>
         </ul>
     </div>
      </div>

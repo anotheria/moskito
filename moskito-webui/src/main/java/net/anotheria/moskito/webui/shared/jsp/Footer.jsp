@@ -12,9 +12,11 @@
         <div class="col-md-4">
             <ano:equal name="config" property="trackUsage" value="true"><img src="//counter.moskito.org/counter/inspect/${applicationScope.moskito_version_string}/${pagename}" class="ipix"> </ano:equal>
         </div>
-        <div class="col-md-4">
-            <a href="https://itunes.apple.com/us/app/moskito-ui/id531387262?mt=8" class="iphone-banner"><img src="../moskito/int/img/iphone_banner.png" alt="Download MoSKito iOS App"></a>
-        </div>
+        <ano:iF test="${displayIphoneIcons}">
+            <div class="col-md-4">
+                <a href="https://itunes.apple.com/us/app/moskito-ui/id531387262?mt=8" class="iphone-banner"><img src="../moskito/int/img/iphone_banner.png" alt="Download MoSKito iOS App"></a>
+            </div>
+        </ano:iF>
     </div>
 </footer>
 <!-- Modal -->

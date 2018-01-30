@@ -59,6 +59,7 @@
       }
     ],
 
-    "betaMode": false
+    "betaMode": false,
+    "displayIphoneIcons" : true
 
 }
