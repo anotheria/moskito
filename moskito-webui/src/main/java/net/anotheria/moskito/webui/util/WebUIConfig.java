@@ -88,6 +88,8 @@ public class WebUIConfig {
 	 */
 	private boolean betaMode = false;
 
+	private boolean displayIphoneIcons = true;
+
 	public int getProducerChartWidth() {
 		return producerChartWidth;
 	}
@@ -132,6 +134,14 @@ public class WebUIConfig {
 
 	private WebUIConfig(){
 		initRemotesCollections();
+	}
+
+	public boolean isDisplayIphoneIcons() {
+		return displayIphoneIcons;
+	}
+
+	public void setDisplayIphoneIcons(boolean displayIphoneIcons) {
+		this.displayIphoneIcons = displayIphoneIcons;
 	}
 
 	/**

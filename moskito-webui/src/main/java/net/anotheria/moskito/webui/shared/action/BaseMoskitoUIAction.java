@@ -378,6 +378,7 @@ public abstract class BaseMoskitoUIAction implements Action{
 		// Link to remote monitoring connection
 		req.setAttribute("remoteLink", DeepLinkUtil.getCurrentRemoteConnectionLink());
 		req.setAttribute("betaMode", WebUIConfig.getInstance().isBetaMode());
+		req.setAttribute("displayIphoneIcons", WebUIConfig.getInstance().isDisplayIphoneIcons());
 
 	}
 
