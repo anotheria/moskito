@@ -1,5 +1,6 @@
 package net.anotheria.moskito.webui.journey.api;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,8 +8,9 @@ import java.util.List;
  * Represents results of producer calls analysis.
  * @author strel
  */
-public class AnalyzedJourneyAO {
+public class AnalyzedJourneyAO implements Serializable {
 
+    private static final long serialVersionUID = 552406840820013735L;
     /**
      * Journey name.
      */
