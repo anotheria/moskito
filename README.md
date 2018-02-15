@@ -1,4 +1,4 @@
-![MoSKito](https://confluence.opensource.anotheria.net/download/attachments/21626886/moskito_logo_300px.png "MoSKito Monitoring")
+![MoSKito](https://www.moskito.org/static-int/img/logo.png "MoSKito Monitoring")
 
 # What is MoSKito?
 
