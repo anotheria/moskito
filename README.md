@@ -60,14 +60,13 @@ Below is the list of **components** that make up this Project.
 
 MoSKito doesn't need any operations with your code. It plugs into any application via filters, proxies, annotations, inheritance, AOP, class loaders or plain calling.
 
-1. [Get it](https://confluence.opensource.anotheria.net/display/MSK/Getting+MoSKito-Essential)
+1. [Get it](https://www.moskito.org/download.html)
 2. Setup & integrate
-  [Different configuration options](https://confluence.opensource.anotheria.net/display/MSK/Integration+Guide)
-  [Example for aop based integration for spring etc](http://blog.anotheria.net/msk/the-complete-moskito-integration-guide-step-1/)
-  [Without source code change with a javaagent](http://blog.anotheria.net/msk/monitoring-existing-application-using-moskito-javaagent/)
+2_1.  [Different configuration options](https://confluence.opensource.anotheria.net/display/MSK/Integration+Guide)
+2_2.  [Example for aop based integration for spring etc](http://blog.anotheria.net/msk/the-complete-moskito-integration-guide-step-1/)
+2_3.  [Without source code change with a javaagent](http://blog.anotheria.net/msk/monitoring-existing-application-using-moskito-javaagent/)
 
 3. [Configure it](https://confluence.opensource.anotheria.net/display/MSK/Configuration+Guide)
-4. [Set up UI](https://confluence.opensource.anotheria.net/display/MSK/Embedding+Moskito-WebUI+Into+Your+Application)
 
 **Enjoy!**
 
