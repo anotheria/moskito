@@ -62,9 +62,9 @@ MoSKito doesn't need any operations with your code. It plugs into any applicatio
 
 1. [Get it](https://www.moskito.org/download.html)
 2. Setup & integrate
-2_1.  [Different configuration options](https://confluence.opensource.anotheria.net/display/MSK/Integration+Guide)
-2_2.  [Example for aop based integration for spring etc](http://blog.anotheria.net/msk/the-complete-moskito-integration-guide-step-1/)
-2_3.  [Without source code change with a javaagent](http://blog.anotheria.net/msk/monitoring-existing-application-using-moskito-javaagent/)
+..*  [Different configuration options](https://confluence.opensource.anotheria.net/display/MSK/Integration+Guide)
+..*  [Example for aop based integration for spring etc](http://blog.anotheria.net/msk/the-complete-moskito-integration-guide-step-1/)
+..*  [Without source code change with a javaagent](http://blog.anotheria.net/msk/monitoring-existing-application-using-moskito-javaagent/)
 
 3. [Configure it](https://confluence.opensource.anotheria.net/display/MSK/Configuration+Guide)
 
