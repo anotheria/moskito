@@ -56,8 +56,6 @@ Below is the list of **components** that make up this Project.
 
 [**MoSKito-Integration**](https://github.com/anotheria/moskito/tree/master/moskito-integration) offers specific integration tools for CDI (JBoss, Glassfish), SQL, etc.
 
-[**MoSKito-Minimal**](https://github.com/anotheria/moskito/tree/master/moskitominimal) is a small standalone web app, used for basic Tomcat monitoring.
-
 # Install & Config
 
 MoSKito doesn't need any operations with your code. It plugs into any application via filters, proxies, annotations, inheritance, AOP, class loaders or plain calling.
@@ -88,7 +86,7 @@ MoSKito is free and open source (MIT License). Use it as you wish.
 
 **We're willing to help everyone.**
 
-For any questions, write to [moskito@anotheria.net](mailto: moskito@anotheria.net).
+For any questions, write to [support@moskito.org](mailto: support@moskito.org).
 
 # Other MoSKito Projects
 
