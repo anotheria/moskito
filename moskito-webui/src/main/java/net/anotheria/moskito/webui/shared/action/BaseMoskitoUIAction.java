@@ -708,7 +708,15 @@ public abstract class BaseMoskitoUIAction implements Action{
 	 * @param message the info message.
 	 */
 	protected void setInfoMessage(String message) {
-		APICallContext.getCallContext().getCurrentSession().setAttribute("infoMessage", APISession.POLICY_FLASH, message);
+		try {
+			APICallContext.getCallContext().getCurrentSession().setAttribute("infoMessage", APISession.POLICY_FLASH, message);
+		}catch(NullPointerException e){
+			log.error("Can't set info message (flash) due", e);
+			log.error("APICallContext: "+APICallContext.getCallContext());
+			if (APICallContext.getCallContext()!=null){
+				log.error("Current Session: "+APICallContext.getCallContext().getCurrentSession());
+			}
+		}
 	}
 
 	/**
