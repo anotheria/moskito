@@ -39,7 +39,10 @@ import net.anotheria.moskito.core.config.journey.JourneyConfig;
 import net.anotheria.moskito.core.producers.IStatsProducer;
 
 import java.io.Serializable;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
+import java.util.Queue;
 
 /**
  * A currently being traced call.
@@ -104,10 +107,6 @@ public class CurrentlyTracedCall implements TracedCall, Serializable{
 		return "CurrentlyTracedCall: "+name;
 	}
 	
-	public String toDetails(){
-		return toString()+": \n"+root.toDetails(1);
-	}
-
 	/**
 	 * Creates a new sub step in current call.
 	 */
@@ -158,11 +157,7 @@ public class CurrentlyTracedCall implements TracedCall, Serializable{
 	public TraceStep getLastStep(){
 		return root.getLastStep();
 	}
-	
-	public int getNumberOfSteps(){
-		return root.getNumberOfIncludedSteps();
-	}
-	
+
 	public TraceStep getCurrentStep(){
 		return current;
 	}
@@ -185,5 +180,30 @@ public class CurrentlyTracedCall implements TracedCall, Serializable{
 
 	public long getDurationNanos() {
 		return endedNanos - createdNanos;
+	}
+
+	/**
+	 * Calculates the number of steps.
+	 *
+	 * @return the number of steps
+	 */
+	public int getNumberOfSteps() {
+		int result = 0;
+
+		final Queue<TraceStep> queue = new LinkedList<>();
+		queue.add(root);
+
+		while (!queue.isEmpty()) {
+			final TraceStep currentTraceStep = queue.poll();
+
+			result++;
+
+			final List<TraceStep> children = currentTraceStep.getChildren();
+			if (!children.isEmpty()) {
+				queue.addAll(children);
+			}
+		}
+
+		return result;
 	}
 }

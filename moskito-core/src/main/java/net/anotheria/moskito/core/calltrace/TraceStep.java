@@ -143,20 +143,6 @@ public class TraceStep implements Serializable{
 		return ret.toString();
 	}
 	
-	public String toDetails(int ident){
-		StringBuilder ret = getIdent(ident).append(this);
-		for (TraceStep p : children)
-			ret.append('\n').append(p.toDetails(ident+1));
-		return ret.toString();
-	}
-	
-	private static StringBuilder getIdent(int ident){
-		StringBuilder ret = new StringBuilder();
-		for (int i=0; i<ident; i++)
-			ret.append('\t');
-		return ret;
-	}
-
 	/**
 	 * Adds a new child to this step.
 	 * @param p
@@ -231,13 +217,6 @@ public class TraceStep implements Serializable{
 	 */
 	public void appendToCall(String s){
 		call += s;
-	}
-
-	public int getNumberOfIncludedSteps() {
-		int sum = 1;
-		for (TraceStep s : children )
-			sum += s.getNumberOfIncludedSteps();
-		return sum;
 	}
 
 	/**
