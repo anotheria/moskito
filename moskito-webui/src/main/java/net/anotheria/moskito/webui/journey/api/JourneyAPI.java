@@ -17,7 +17,7 @@ import java.util.List;
  * @author lrosenberg
  * @since 14.02.13 10:00
  */
-@DistributeMe(agentsSupport = false)
+@DistributeMe(agentsSupport = false, moskitoSupport=false)
 @SupportService
 @FailBy(strategyClass=RetryCallOnce.class)
 public interface JourneyAPI extends API, Service {

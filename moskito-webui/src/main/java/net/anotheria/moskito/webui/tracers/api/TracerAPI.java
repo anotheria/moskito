@@ -18,7 +18,7 @@ import java.util.List;
  * @author lrosenberg
  * @since 05.05.15 00:42
  */
-@DistributeMe(agentsSupport=false)
+@DistributeMe(agentsSupport=false, moskitoSupport=false)
 @SupportService
 @FailBy(strategyClass=RetryCallOnce.class)
 public interface TracerAPI extends API, Service {

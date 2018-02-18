@@ -14,7 +14,7 @@ import java.util.List;
  * API Implementation for accumulators. Provides access to stored accumulators, their values and allows to create new.
  *
  */
-@DistributeMe(agentsSupport=false)
+@DistributeMe(agentsSupport=false, moskitoSupport=false)
 @SupportService
 @FailBy(strategyClass=RetryCallOnce.class)
 public interface AccumulatorAPI extends API, Service {

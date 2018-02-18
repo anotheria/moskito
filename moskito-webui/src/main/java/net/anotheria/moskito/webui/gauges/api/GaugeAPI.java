@@ -16,7 +16,7 @@ import java.util.List;
  * @author lrosenberg
  * @since 25.03.15 11:40
  */
-@DistributeMe(agentsSupport=false)
+@DistributeMe(agentsSupport=false, moskitoSupport=false)
 @SupportService
 @FailBy(strategyClass=RetryCallOnce.class)
 public interface GaugeAPI extends API, Service{

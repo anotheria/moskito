@@ -14,7 +14,7 @@ import java.util.List;
  *
  * @author esmakula
  */
-@DistributeMe(agentsSupport=false)
+@DistributeMe(agentsSupport=false, moskitoSupport=false)
 @SupportService
 @FailBy(strategyClass=RetryCallOnce.class)
 public interface TagAPI extends API, Service {

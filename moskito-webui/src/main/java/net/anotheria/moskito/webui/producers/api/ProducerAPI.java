@@ -3,7 +3,6 @@ package net.anotheria.moskito.webui.producers.api;
 import net.anotheria.anoplass.api.API;
 import net.anotheria.anoplass.api.APIException;
 import net.anotheria.anoprise.metafactory.Service;
-import net.anotheria.moskito.core.decorators.DecoratorName;
 import net.anotheria.moskito.core.registry.IProducerFilter;
 import net.anotheria.moskito.core.stats.TimeUnit;
 import org.distributeme.annotation.DistributeMe;
@@ -19,7 +18,7 @@ import java.util.List;
  * @author lrosenberg
  * @since 14.02.13 11:49
  */
-@DistributeMe(agentsSupport=false)
+@DistributeMe(agentsSupport=false, moskitoSupport=false)
 @SupportService
 @FailBy(strategyClass=RetryCallOnce.class)
 public interface ProducerAPI extends API, Service {

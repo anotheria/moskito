@@ -4,7 +4,6 @@ import net.anotheria.anoplass.api.API;
 import net.anotheria.anoplass.api.APIException;
 import net.anotheria.anoprise.metafactory.Service;
 import net.anotheria.moskito.core.config.dashboards.DashboardConfig;
-import net.anotheria.moskito.core.stats.TimeUnit;
 import org.distributeme.annotation.DistributeMe;
 import org.distributeme.annotation.FailBy;
 import org.distributeme.annotation.SupportService;
@@ -18,7 +17,7 @@ import java.util.List;
  * @author lrosenberg
  * @since 08.04.15 12:45
  */
-@DistributeMe(agentsSupport=false)
+@DistributeMe(agentsSupport=false, moskitoSupport=false)
 @SupportService
 @FailBy(strategyClass=RetryCallOnce.class)
 public interface DashboardAPI extends API, Service{
