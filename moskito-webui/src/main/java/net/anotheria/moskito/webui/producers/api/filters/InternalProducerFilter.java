@@ -1,5 +1,8 @@
 package net.anotheria.moskito.webui.producers.api.filters;
 
+import net.anotheria.anoplass.api.activity.ActivityAPI;
+import net.anotheria.anoplass.api.generic.login.LoginAPI;
+import net.anotheria.anoplass.api.generic.observation.ObservationAPI;
 import net.anotheria.moskito.core.producers.IStatsProducer;
 import net.anotheria.moskito.webui.accumulators.api.AccumulatorAPI;
 import net.anotheria.moskito.webui.dashboards.api.DashboardAPI;
@@ -34,6 +37,12 @@ public class InternalProducerFilter implements ProducerFilter {
 		internalProducerNames.add(ThreadAPI.class.getSimpleName());
 		internalProducerNames.add(JourneyAPI.class.getSimpleName());
 		internalProducerNames.add(TracerAPI.class.getSimpleName());
+
+		internalProducerNames.add(ActivityAPI.class.getSimpleName());
+		internalProducerNames.add(LoginAPI.class.getSimpleName());
+		internalProducerNames.add(ObservationAPI.class.getSimpleName());
+
+		internalProducerNames.add("maffilter");//do not show internal maf filter.
 	}
 
 	@Override
