@@ -107,10 +107,6 @@ public class CurrentlyTracedCall implements TracedCall, Serializable{
 		return "CurrentlyTracedCall: "+name;
 	}
 	
-	public String toDetails(){
-		return toString()+": \n"+root.toDetails(1);
-	}
-
 	/**
 	 * Creates a new sub step in current call.
 	 */
