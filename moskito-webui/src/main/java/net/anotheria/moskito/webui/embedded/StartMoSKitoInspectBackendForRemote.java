@@ -33,6 +33,9 @@ public class StartMoSKitoInspectBackendForRemote {
 	 * @throws MoSKitoInspectStartException
 	 */
 	public static void startMoSKitoInspectBackend(int port) throws MoSKitoInspectStartException{
+
+		log.info("Starting moskito-inspect remote agent at port "+port);
+
 		Class serverClazz = null;
 		Exception exception = null;
 		try{
@@ -56,6 +59,5 @@ public class StartMoSKitoInspectBackendForRemote {
 		if (exception!=null){
 			throw new MoSKitoInspectStartException(exception);
 		}
-
 	}
 }
