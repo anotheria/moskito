@@ -1,5 +1,6 @@
 package net.anotheria.moskito.core.config.dashboards;
 
+import com.google.gson.annotations.SerializedName;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.configureme.annotations.Configure;
 import org.configureme.annotations.ConfigureMe;
@@ -24,6 +25,7 @@ public class DashboardsConfig implements Serializable {
 	/**
 	 * Contained dashboards.
 	 */
+	@SerializedName("@dashboards")
 	@Configure private DashboardConfig[] dashboards;
 
 	public DashboardConfig[] getDashboards() {
