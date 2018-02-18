@@ -233,13 +233,6 @@ public class TraceStep implements Serializable{
 		call += s;
 	}
 
-	public int getNumberOfIncludedSteps() {
-		int sum = 1;
-		for (TraceStep s : children )
-			sum += s.getNumberOfIncludedSteps();
-		return sum;
-	}
-
 	/**
 	 * Returns associated producer.
 	 * @return associated producer.

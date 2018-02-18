@@ -36,10 +36,6 @@ public class TracedCallStepAO implements Serializable{
 	 */
 	private List<TracedCallStepAO> children;
 	/**
-	 * Ident for representation.
-	 */
-	private String ident;
-	/**
 	 * If true this call is the root call.
 	 */
 	private boolean root;
@@ -120,14 +116,6 @@ public class TracedCallStepAO implements Serializable{
 	
 	@Override public String toString(){
 		return "Call: "+call+" Duration: "+duration+" time: "+timespent;
-	}
-
-	public String getIdent() {
-		return ident;
-	}
-
-	public void setIdent(String ident) {
-		this.ident = ident;
 	}
 
 	public boolean isRoot() {
