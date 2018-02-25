@@ -1,5 +1,7 @@
 package net.anotheria.moskito.core.errorhandling;
 
+import net.anotheria.moskito.core.config.errorhandling.ErrorCatcherConfig;
+
 import java.util.List;
 
 /**
@@ -21,5 +23,11 @@ public interface ErrorCatcher {
 	 * @return
 	 */
 	int getNumberOfCaughtErrors();
+
+	/**
+	 * Returns the config that created this catcher.
+	 * @return
+	 */
+	ErrorCatcherConfig getConfig();
 
 }

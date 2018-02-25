@@ -11,12 +11,14 @@ import net.anotheria.moskito.core.predefined.ErrorStats;
 import net.anotheria.moskito.core.producers.IStatsProducer;
 import net.anotheria.moskito.core.registry.ProducerRegistryFactory;
 import net.anotheria.moskito.core.util.AbstractBuiltInProducer;
+import net.anotheria.moskito.core.util.AfterStartTasks;
 import net.anotheria.moskito.core.util.BuiltInProducer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -51,10 +53,12 @@ public final class BuiltInErrorProducer extends AbstractBuiltInProducer<ErrorSta
 	 */
 	private static Logger globalErrorLogger = LoggerFactory.getLogger("MoSKitoCaughtErrors");
 
-	/**
-	 * Configured catchers for errors.
-	 */
-	private ConcurrentMap<Class, ErrorCatcher> catchers;
+	private ConcurrentMap<String, List<ErrorCatcher>> catchers = new ConcurrentHashMap<>();
+	private List<ErrorCatcher> defaultCatchers = new CopyOnWriteArrayList<>();
+
+
+
+	private ErrorHandlingConfig errorHandlingConfig = null;
 
 	/**
 	 * Constructor.
@@ -78,9 +82,22 @@ public final class BuiltInErrorProducer extends AbstractBuiltInProducer<ErrorSta
 		
 		ProducerRegistryFactory.getProducerRegistryInstance().registerProducer(this);
 
+
 		//add charts for cumulated errors.
-		AccumulatorRepository.getInstance().createAccumulator(createAccumulatorDefinition("Errors.Cumulated.Total", "total", "cumulated"));
-		AccumulatorRepository.getInstance().createAccumulator(createAccumulatorDefinition("Errors.Cumulated.Initial", "initial", "cumulated"));
+		AfterStartTasks.submitTask(new Runnable() {
+			@Override
+			public void run() {
+				AccumulatorRepository.getInstance().createAccumulator(createAccumulatorDefinition("Errors.Cumulated.Total", "total", "cumulated"));
+			}
+		});
+		AfterStartTasks.submitTask(new Runnable() {
+			@Override
+			public void run() {
+				AccumulatorRepository.getInstance().createAccumulator(createAccumulatorDefinition("Errors.Cumulated.Initial", "initial", "cumulated"));
+			}
+		});
+
+		errorHandlingConfig = null;
 	}
 
 	/**
@@ -124,9 +141,11 @@ public final class BuiltInErrorProducer extends AbstractBuiltInProducer<ErrorSta
 	}
 
 	public void notifyError(Throwable throwable){
-		ErrorHandlingConfig config = MoskitoConfigurationHolder.getConfiguration().getErrorHandlingConfig();
 
-		if (config.isCountRethrows() && MoSKitoContext.get().seenErrorAlready(throwable)) {
+		if (errorHandlingConfig==null)
+			errorHandlingConfig = MoskitoConfigurationHolder.getConfiguration().getErrorHandlingConfig();
+
+		if (errorHandlingConfig.isCountRethrows() && MoSKitoContext.get().seenErrorAlready(throwable)) {
 			cumulatedStats.addRethrown();
 			Class clazz = throwable.getClass();
 			ErrorStats existingStats = statsMap.get(clazz);
@@ -144,25 +163,22 @@ public final class BuiltInErrorProducer extends AbstractBuiltInProducer<ErrorSta
 		cumulatedStats.addError(isInitialError);
 
 		//is logging enabled?
-		if (config.isLogErrors()){
+		if (errorHandlingConfig.isLogErrors()){
 			globalErrorLogger.error("auto-caught: " +throwable.getMessage(), throwable);
 		}
 
 
+		//handle catchers, first global catchers
+		for (ErrorCatcher catcher : defaultCatchers){
+			catcher.add(throwable);
+		}
 
-		List<ErrorCatcherConfig> catcherConfigs = config.getCatcherConfig(throwable.getClass().getName());
-		if (catcherConfigs!=null && catcherConfigs.size()>0){
-			for (ErrorCatcherConfig catcherConfig : catcherConfigs) {
-				ErrorCatcher catcher = catchers.get(throwable.getClass());
-				if (catcher == null) {
-					//try again
-					ErrorCatcher newCatcher = ErrorCatcherFactory.createErrorCatcher(catcherConfig);
-					ErrorCatcher oldCatcher = catchers.putIfAbsent(throwable.getClass(), newCatcher);
-					catcher = oldCatcher == null ? newCatcher : oldCatcher;
-				}
-
+		//now special catchers
+		List<ErrorCatcher> perExceptionCatchers = catchers.get(throwable.getClass().getName());
+		if (perExceptionCatchers!=null && perExceptionCatchers.size()>0){
+			for (ErrorCatcher catcher : perExceptionCatchers){
 				catcher.add(throwable);
-			}//for
+			}
 		}
 
 		//first we check if this throwable class is already in the map
@@ -186,7 +202,7 @@ public final class BuiltInErrorProducer extends AbstractBuiltInProducer<ErrorSta
 		newErrorStatsObject.addError(isInitialError);
 		statsList.add(newErrorStatsObject);
 
-		if (config.isAutoChartErrors()){
+		if (errorHandlingConfig.isAutoChartErrors()){
 			//means we have to add a new accumulator for this error.
 			String chartName = throwable.getClass().getSimpleName();
 			AccumulatorRepository.getInstance().createAccumulator(createAccumulatorDefinition("Errors."+chartName+".Total", "total", chartName));
@@ -210,6 +226,39 @@ public final class BuiltInErrorProducer extends AbstractBuiltInProducer<ErrorSta
 
 
 	/**
+	 * Called from the error handling config instance, after a configuration update or initial configuration.
+	 * @param errorHandlingConfig
+	 */
+	public void afterConfiguration(ErrorHandlingConfig errorHandlingConfig) {
+		this.errorHandlingConfig = errorHandlingConfig;
+
+		//first create default-catchers
+		ErrorCatcherConfig[] defaultCatcherConfigs = errorHandlingConfig.getDefaultCatchers();
+		if (defaultCatcherConfigs!=null && defaultCatcherConfigs.length>0){
+			defaultCatchers = new CopyOnWriteArrayList<>();
+			for (ErrorCatcherConfig c : defaultCatcherConfigs){
+				defaultCatchers.add(ErrorCatcherFactory.createErrorCatcher(c));
+			}
+		}
+
+		//now create regular catchers
+		ErrorCatcherConfig[] catcherConfigs = errorHandlingConfig.getCatchers();
+		if (catcherConfigs!=null && catcherConfigs.length>0){
+			catchers = new ConcurrentHashMap<>();
+			for (ErrorCatcherConfig c : catcherConfigs){
+				ErrorCatcher catcher = ErrorCatcherFactory.createErrorCatcher(c);
+				List<ErrorCatcher> catcherList = catchers.get(c.getExceptionClazz());
+				if (catcherList==null){
+					catcherList = new LinkedList<>();
+					catchers.put(c.getExceptionClazz(), catcherList);
+				}
+				catcherList.add(catcher);
+			}
+		}
+	}
+
+
+	/**
 	 * Holder class for BuildInErrorProducer instance.
 	 */
 	private static class ErrorProducerHolder{
@@ -219,14 +268,45 @@ public final class BuiltInErrorProducer extends AbstractBuiltInProducer<ErrorSta
 		static BuiltInErrorProducer instance = new BuiltInErrorProducer();
 	}
 
-	public ErrorCatcher getCatcher(Class clazz){
-		return catchers.get(clazz);
+	/**
+	 * Used for testing returns true if this error class would run though catchers.
+	 */
+	/** testing **/ boolean wouldCatch(Class c){
+		if (defaultCatchers!=null && defaultCatchers.size()>0)
+			return true;
+		List<ErrorCatcher> errorCatcherList = catchers.get(c.getName());
+		if (errorCatcherList!=null && errorCatcherList.size()>0)
+			return true;
+		return false;
 	}
 
-	public List<ErrorCatcher> getCatchers() {
-		List<ErrorCatcher> ret = new ArrayList<>();
-		ret.addAll(catchers.values());
+	public List<ErrorCatcherBean> getErrorCatcherBeans(){
+		LinkedList<ErrorCatcherBean> ret = new LinkedList<>();
+
+		for (ErrorCatcher c : defaultCatchers){
+			ret.add(makeErrorCatcherBean(c, ErrorCatcherBean.ErrorCatcherType.DEFAULT));
+		}
+
+		for (Map.Entry<String,List<ErrorCatcher>> entry : catchers.entrySet()){
+			for (ErrorCatcher c : entry.getValue()){
+				ret.add(makeErrorCatcherBean(c, ErrorCatcherBean.ErrorCatcherType.EXCEPTION_BOUND));
+			}
+		}
+		
+
 		return ret;
 	}
-	
+
+	private ErrorCatcherBean makeErrorCatcherBean(ErrorCatcher c, ErrorCatcherBean.ErrorCatcherType type){
+		ErrorCatcherBean ret = new ErrorCatcherBean();
+
+		ret.setType(type);
+		ret.setName(c.getName());
+		ret.setNumberOfCaughtErrors(c.getNumberOfCaughtErrors());
+		ret.setTarget(c.getConfig().getTarget());
+		ret.setParameter(c.getConfig().getParameter());
+
+		return ret;
+	}
+
 }

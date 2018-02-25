@@ -8,14 +8,14 @@ import net.anotheria.anoplass.api.APIException;
 import net.anotheria.moskito.core.config.MoskitoConfiguration;
 import net.anotheria.moskito.core.config.MoskitoConfigurationHolder;
 import net.anotheria.moskito.core.config.plugins.PluginConfig;
+import net.anotheria.moskito.core.errorhandling.BuiltInErrorProducer;
+import net.anotheria.moskito.core.errorhandling.CaughtError;
+import net.anotheria.moskito.core.errorhandling.ErrorCatcherBean;
 import net.anotheria.moskito.core.plugins.MoskitoPlugin;
 import net.anotheria.moskito.core.plugins.PluginRepository;
 import net.anotheria.moskito.core.stats.Interval;
 import net.anotheria.moskito.core.stats.impl.IntervalRegistry;
 import net.anotheria.moskito.core.timing.IUpdateable;
-import net.anotheria.moskito.core.errorhandling.BuiltInErrorProducer;
-import net.anotheria.moskito.core.errorhandling.CaughtError;
-import net.anotheria.moskito.core.errorhandling.ErrorCatcher;
 import net.anotheria.moskito.webui.journey.api.TagEntryAO;
 import net.anotheria.moskito.webui.plugins.VisualMoSKitoPlugin;
 import net.anotheria.util.NumberUtils;
@@ -214,12 +214,16 @@ public class AdditionalFunctionalityAPIImpl extends AbstractMoskitoAPIImpl imple
 
 	@Override
 	public List<ErrorCatcherAO> getActiveErrorCatchers() throws APIException {
-		List<ErrorCatcher> catchers = BuiltInErrorProducer.getInstance().getCatchers();
+		List<ErrorCatcherBean> catcherBeans = BuiltInErrorProducer.getInstance().getErrorCatcherBeans();
 		List<ErrorCatcherAO> catcherAOs = new LinkedList<>();
-		for (ErrorCatcher c : catchers){
+		for (ErrorCatcherBean b : catcherBeans){
 			ErrorCatcherAO ao = new ErrorCatcherAO();
-			ao.setName(c.getName());
-			ao.setCount(c.getNumberOfCaughtErrors());
+			ao.setName(b.getName());
+			ao.setCount(b.getNumberOfCaughtErrors());
+			ao.setType(b.getType().name());
+			ao.setTarget(b.getTarget().name());
+			ao.setInspectable(b.getTarget().keepInMemory());
+			ao.setConfigurationParameter(b.getParameter());
 			catcherAOs.add(ao);
 		}
 		return catcherAOs;
@@ -227,6 +231,8 @@ public class AdditionalFunctionalityAPIImpl extends AbstractMoskitoAPIImpl imple
 
 	@Override
 	public List<CaughtErrorAO> getCaughtErrorsByExceptionName(String exceptionName) throws APIException {
+		throw new RuntimeException("Not implemented");
+		/*
 		try {
 			List<CaughtErrorAO> ret = new ArrayList<>();
 			ErrorCatcher catcher = BuiltInErrorProducer.getInstance().getCatcher(Class.forName(exceptionName));
@@ -237,7 +243,7 @@ public class AdditionalFunctionalityAPIImpl extends AbstractMoskitoAPIImpl imple
 			return ret;
 		}catch(Exception any){
 			throw new APIException("Couldn't retrieve class for exception "+exceptionName);
-		}
+		} */
 	}
 
 	private CaughtErrorAO makeCaughtErrorAO(CaughtError error){

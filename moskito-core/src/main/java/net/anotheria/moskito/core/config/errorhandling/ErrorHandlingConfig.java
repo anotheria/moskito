@@ -2,15 +2,12 @@ package net.anotheria.moskito.core.config.errorhandling;
 
 import com.google.gson.annotations.SerializedName;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import net.anotheria.moskito.core.errorhandling.BuiltInErrorProducer;
 import org.configureme.annotations.AfterConfiguration;
 import org.configureme.annotations.Configure;
 import org.configureme.annotations.ConfigureMe;
 
 import java.io.Serializable;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
 
 /**
  * Configuration for the BuiltInErrorProducer.
@@ -63,8 +60,6 @@ public class ErrorHandlingConfig implements Serializable{
 	@Configure private boolean countRethrows = false;
 
 
-	private transient Map<String, List<ErrorCatcherConfig>> catcherCache = new HashMap<>();
-
 	public boolean isAutoChartErrors() {
 		return autoChartErrors;
 	}
@@ -103,36 +98,7 @@ public class ErrorHandlingConfig implements Serializable{
 	}
 
 	@AfterConfiguration public void afterConfiguration(){
-
-		LinkedList<ErrorCatcherConfig> prototypeList = new LinkedList<>();
-		for (ErrorCatcherConfig config : catchers) {
-			if (config.getExceptionClazz().equals("*")){
-				prototypeList.add(config);
-			}
-		}
-
-		Map<String, List<ErrorCatcherConfig>> newCatcherCache = new HashMap<>();
-		if (catchers != null && catchers.length>0) {
-			for (ErrorCatcherConfig config : catchers) {
-				if (config.getExceptionClazz().equals("*"))
-					continue;
-				LinkedList<ErrorCatcherConfig> configsForClass = (LinkedList<ErrorCatcherConfig>)prototypeList.clone();
-				configsForClass.add(config);
-
-				//check if we already have one config, this shouldn't happen often.
-				List<ErrorCatcherConfig> old = newCatcherCache.get(config.getExceptionClazz());
-				if (old == null) {
-					newCatcherCache.put(config.getExceptionClazz(), configsForClass);
-				}else{
-					old.add(config);
-				}
-			}
-		}
-		catcherCache = newCatcherCache;
-	}
-
-	public List<ErrorCatcherConfig> getCatcherConfig(String name) {
-		return catcherCache.get(name);
+		BuiltInErrorProducer.getInstance().afterConfiguration(this);
 	}
 
 	public int getCatchersMemoryErrorLimit() {
@@ -149,5 +115,13 @@ public class ErrorHandlingConfig implements Serializable{
 
 	public void setCountRethrows(boolean countRethrows) {
 		this.countRethrows = countRethrows;
+	}
+
+	public ErrorCatcherConfig[] getDefaultCatchers() {
+		return defaultCatchers;
+	}
+
+	public void setDefaultCatchers(ErrorCatcherConfig[] defaultCatchers) {
+		this.defaultCatchers = defaultCatchers;
 	}
 }

@@ -85,4 +85,9 @@ public class BuiltinErrorCatcher implements ErrorCatcher {
 	public int getNumberOfCaughtErrors() {
 		return errorList.size();
 	}
+
+	@Override
+	public ErrorCatcherConfig getConfig() {
+		return config;
+	}
 }
