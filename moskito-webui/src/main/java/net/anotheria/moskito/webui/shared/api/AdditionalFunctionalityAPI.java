@@ -72,10 +72,11 @@ public interface AdditionalFunctionalityAPI extends API, Service{
 
 	/**
 	 * Returns list of errors caught for this exception name.
-	 * @param exceptionName which is the class name of the exception, i.e. java.lang.NullPointerException.
+	 * @param catcherName which is the name of the catcher, which can be well exception name, i.e. java.lang.NullPointerException.
+	 * @param catcherType which is one of supported types. ErrorCatcherBean.CatcherType for details.
 	 * @return list of  CaughtErrorAO objects.
 	 * @throws APIException
 	 */
-	List<CaughtErrorAO> getCaughtErrorsByExceptionName(String exceptionName) throws APIException;
+	List<CaughtErrorAO> getCaughtErrorsByExceptionName(String catcherName, String catcherType) throws APIException;
 
 }

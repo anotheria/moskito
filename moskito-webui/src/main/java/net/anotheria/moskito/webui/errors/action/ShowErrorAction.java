@@ -25,10 +25,11 @@ public class ShowErrorAction extends BaseErrorAction {
 	@Override
 	public ActionCommand execute(ActionMapping mapping, FormBean formBean, HttpServletRequest req, HttpServletResponse res) throws Exception {
 
-		String errorClass = req.getParameter("error");
-		List<CaughtErrorAO> caughtErrors = getAdditionalFunctionalityAPI().getCaughtErrorsByExceptionName(errorClass);
+		String catcherName = req.getParameter("name");
+		String catcherType = req.getParameter("type");
+		List<CaughtErrorAO> caughtErrors = getAdditionalFunctionalityAPI().getCaughtErrorsByExceptionName(catcherName, catcherType);
 
-		req.setAttribute("clazz", errorClass);
+		req.setAttribute("clazz", catcherName);
 		req.setAttribute("caughtErrors", caughtErrors);
 		return mapping.success();
 	}

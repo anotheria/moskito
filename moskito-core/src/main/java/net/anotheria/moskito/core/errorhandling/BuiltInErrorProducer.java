@@ -309,4 +309,37 @@ public final class BuiltInErrorProducer extends AbstractBuiltInProducer<ErrorSta
 		return ret;
 	}
 
+	public ErrorCatcher getCatcher(String name, String type){
+		ErrorCatcherBean.ErrorCatcherType catcherType = ErrorCatcherBean.ErrorCatcherType.valueOf(type);
+		switch (catcherType){
+			case DEFAULT:
+				return getCatcherFromDefaultCatchers(name);
+			case EXCEPTION_BOUND:
+				return getCatcherForException(name);
+			case CUSTOM:
+				default:
+					throw new IllegalArgumentException("Returning catchers of type "+type+",name: "+name+" not supported yet");
+
+		}
+
+	}
+
+	//TODO this implementation is actually very ... optimistic, we should think about replacing it with something that actually does support multiple catchers in the future.
+	private ErrorCatcher getCatcherForException(String name) {
+		List<ErrorCatcher> catchersByName = catchers.get(name);
+		if (catchersByName==null)
+			throw new IllegalArgumentException("Catcher: "+name+" not found");
+		return catchersByName.get(0);
+	}
+
+	private ErrorCatcher getCatcherFromDefaultCatchers(String name) {
+		for (ErrorCatcher c : defaultCatchers){
+			if (c.getName()!=null && c.getName().equals(name))
+				return c;
+		}
+		throw new IllegalArgumentException("Catcher: "+name+" not found");
+
+	}
+
+
 }

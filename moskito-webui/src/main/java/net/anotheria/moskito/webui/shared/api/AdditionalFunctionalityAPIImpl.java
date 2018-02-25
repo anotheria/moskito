@@ -10,6 +10,7 @@ import net.anotheria.moskito.core.config.MoskitoConfigurationHolder;
 import net.anotheria.moskito.core.config.plugins.PluginConfig;
 import net.anotheria.moskito.core.errorhandling.BuiltInErrorProducer;
 import net.anotheria.moskito.core.errorhandling.CaughtError;
+import net.anotheria.moskito.core.errorhandling.ErrorCatcher;
 import net.anotheria.moskito.core.errorhandling.ErrorCatcherBean;
 import net.anotheria.moskito.core.plugins.MoskitoPlugin;
 import net.anotheria.moskito.core.plugins.PluginRepository;
@@ -230,20 +231,18 @@ public class AdditionalFunctionalityAPIImpl extends AbstractMoskitoAPIImpl imple
 	}
 
 	@Override
-	public List<CaughtErrorAO> getCaughtErrorsByExceptionName(String exceptionName) throws APIException {
-		throw new RuntimeException("Not implemented");
-		/*
+	public List<CaughtErrorAO> getCaughtErrorsByExceptionName(String catcherName, String catcherType) throws APIException {
 		try {
 			List<CaughtErrorAO> ret = new ArrayList<>();
-			ErrorCatcher catcher = BuiltInErrorProducer.getInstance().getCatcher(Class.forName(exceptionName));
+			ErrorCatcher catcher = BuiltInErrorProducer.getInstance().getCatcher(catcherName, catcherType);
 			List<CaughtError> errors = catcher.getErrorList();
 			for (CaughtError error : errors){
 			 	ret.add(makeCaughtErrorAO(error));
 			}
 			return ret;
 		}catch(Exception any){
-			throw new APIException("Couldn't retrieve class for exception "+exceptionName);
-		} */
+			throw new APIException("Couldn't retrieve class for exception "+catcherName+", type: catcherType", any);
+		}
 	}
 
 	private CaughtErrorAO makeCaughtErrorAO(CaughtError error){

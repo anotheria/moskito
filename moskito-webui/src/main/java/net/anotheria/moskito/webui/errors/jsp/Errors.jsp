@@ -12,7 +12,7 @@
                     Currently active error catchers (BETA).
                 </h3>
                 <div class="box-right-nav">
-                    <a href="" class="tooltip-bottom" title="Help"><i class="fa fa-info-circle"></i></a>
+                    <a target="_blank" href="http://blog.anotheria.net/msk/all-my-errors/" class="tooltip-bottom" title="Help"><i class="fa fa-info-circle"></i></a>
                 </div>
             </div>
 
@@ -36,7 +36,7 @@
                     <ano:iterate name="catchers" type="net.anotheria.moskito.webui.shared.api.ErrorCatcherAO" id="catcher">
                         <tr>
                             <ano:equal name="catcher" property="inspectable" value="true">
-                                <td><mos:deepLink  href="mskError?error=${catcher.name}">${catcher.name}</mos:deepLink ></td>
+                                <td><mos:deepLink  href="mskError?name=${catcher.name}&type=${catcher.type}">${catcher.name}</mos:deepLink ></td>
                             </ano:equal>
                             <ano:notEqual name="catcher" property="inspectable" value="true">
                                 <td>${catcher.name}</td>
@@ -60,7 +60,7 @@
                 Configuration and interpretation help.
             </h3>
             <div class="box-right-nav">
-                <a href="" class="tooltip-bottom" title="Help"><i class="fa fa-info-circle"></i></a>
+                <a target="_blank" href="http://blog.anotheria.net/msk/all-my-errors/" class="tooltip-bottom" title="Help"><i class="fa fa-info-circle"></i></a>
             </div>
         </div>
 
