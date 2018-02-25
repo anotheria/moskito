@@ -45,6 +45,13 @@ public class ErrorHandlingConfig implements Serializable{
 	@Configure private ErrorCatcherConfig[] catchers = new ErrorCatcherConfig[0];
 
 	/**
+	 * The default catchers are applied to all exceptions.
+	 */
+	@SerializedName("@defaultCatchers")
+	@Configure private ErrorCatcherConfig[] defaultCatchers = new ErrorCatcherConfig[0];
+
+
+	/**
 	 * Number of errors an memory catcher should held.
  	 */
 	@Configure private int catchersMemoryErrorLimit = 50;
@@ -99,7 +106,7 @@ public class ErrorHandlingConfig implements Serializable{
 
 		LinkedList<ErrorCatcherConfig> prototypeList = new LinkedList<>();
 		for (ErrorCatcherConfig config : catchers) {
-			if (config.getClazz().equals("*")){
+			if (config.getExceptionClazz().equals("*")){
 				prototypeList.add(config);
 			}
 		}
@@ -107,15 +114,15 @@ public class ErrorHandlingConfig implements Serializable{
 		Map<String, List<ErrorCatcherConfig>> newCatcherCache = new HashMap<>();
 		if (catchers != null && catchers.length>0) {
 			for (ErrorCatcherConfig config : catchers) {
-				if (config.getClazz().equals("*"))
+				if (config.getExceptionClazz().equals("*"))
 					continue;
 				LinkedList<ErrorCatcherConfig> configsForClass = (LinkedList<ErrorCatcherConfig>)prototypeList.clone();
 				configsForClass.add(config);
 
 				//check if we already have one config, this shouldn't happen often.
-				List<ErrorCatcherConfig> old = newCatcherCache.get(config.getClazz());
+				List<ErrorCatcherConfig> old = newCatcherCache.get(config.getExceptionClazz());
 				if (old == null) {
-					newCatcherCache.put(config.getClazz(), configsForClass);
+					newCatcherCache.put(config.getExceptionClazz(), configsForClass);
 				}else{
 					old.add(config);
 				}

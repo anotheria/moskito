@@ -55,13 +55,6 @@ public final class BuiltInErrorProducer extends AbstractBuiltInProducer<ErrorSta
 	private ConcurrentMap<Class, ErrorCatcher> catchers;
 
 	/**
-	 * Configured wrappers.
-	 */
-	private ConcurrentMap<Class, LoggerWrapper> wrappers;
-
-
-
-	/**
 	 * Constructor.
 	 */
 	private BuiltInErrorProducer(){
@@ -80,8 +73,7 @@ public final class BuiltInErrorProducer extends AbstractBuiltInProducer<ErrorSta
 		statsList.add(cumulatedStats);
 
 		catchers = new ConcurrentHashMap<>();
-		wrappers = new ConcurrentHashMap<>();
-
+		
 		ProducerRegistryFactory.getProducerRegistryInstance().registerProducer(this);
 
 		//add charts for cumulated errors.
@@ -154,38 +146,20 @@ public final class BuiltInErrorProducer extends AbstractBuiltInProducer<ErrorSta
 			globalErrorLogger.error("auto-caught: " +throwable.getMessage(), throwable);
 		}
 
+
+
 		List<ErrorCatcherConfig> catcherConfigs = config.getCatcherConfig(throwable.getClass().getName());
 		if (catcherConfigs!=null && catcherConfigs.size()>0){
 			for (ErrorCatcherConfig catcherConfig : catcherConfigs) {
-				if (catcherConfig.getTarget().keepInMemory()) {
-					ErrorCatcher catcher = catchers.get(throwable.getClass());
-					if (catcher == null) {
-						//try again
-						ErrorCatcher newCatcher = new ErrorCatcher(throwable.getClass());
-						ErrorCatcher oldCatcher = catchers.putIfAbsent(throwable.getClass(), newCatcher);
-						catcher = oldCatcher == null ? newCatcher : oldCatcher;
-					}
-
-					catcher.add(throwable);
+				ErrorCatcher catcher = catchers.get(throwable.getClass());
+				if (catcher == null) {
+					//try again
+					ErrorCatcher newCatcher = ErrorCatcherFactory.createErrorCatcher(catcherConfig);
+					ErrorCatcher oldCatcher = catchers.putIfAbsent(throwable.getClass(), newCatcher);
+					catcher = oldCatcher == null ? newCatcher : oldCatcher;
 				}
-				if (catcherConfig.getTarget().log()) {
-					//log errors
-					LoggerWrapper wrapper = wrappers.get(throwable.getClass());
 
-					if (wrapper == null) {
-						wrapper = new LoggerWrapper();
-						LoggerWrapper old = wrappers.putIfAbsent(throwable.getClass(), wrapper);
-						if (old == null) {
-							wrapper.setLogger(catcherConfig.getParameter());
-						} else {
-							wrapper = old;
-						}
-					}
-					//for the very unexpectable case that a wrapper has been put into the map but the logger is not set yet.
-					if (wrapper.getLogger() != null) {
-						wrapper.getLogger().error("caught " + throwable.getClass(), throwable);
-					}
-				}
+				catcher.add(throwable);
 			}//for
 		}
 
@@ -252,28 +226,5 @@ public final class BuiltInErrorProducer extends AbstractBuiltInProducer<ErrorSta
 		ret.addAll(catchers.values());
 		return ret;
 	}
-
-	/**
-	 * Wrapper logger class.
-	 */
-	static class LoggerWrapper{
-		private volatile Logger log;
-
-		public LoggerWrapper(){
-
-		}
-
-		public void setLogger(String name){
-			log = LoggerFactory.getLogger(name);
-		}
-
-		Logger getLogger(){
-			return log;
-		}
-
-		@Override public String toString(){
-			return "LoggerWrapper "+log;
-		}
-	}
-
+	
 }

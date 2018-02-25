@@ -1,6 +1,8 @@
 package net.anotheria.moskito.core.util;
 
 import net.anotheria.moskito.core.config.MoskitoConfigurationHolder;
+import net.anotheria.moskito.core.config.errorhandling.ErrorCatcherConfig;
+import net.anotheria.moskito.core.config.errorhandling.ErrorCatcherTarget;
 import net.anotheria.moskito.core.context.MoSKitoContext;
 import org.junit.Before;
 import org.junit.Test;
@@ -27,7 +29,10 @@ public class ErrorCatcherTest {
 	@Test public void testOverwrite(){
 		MoskitoConfigurationHolder.getConfiguration().getErrorHandlingConfig().setCatchersMemoryErrorLimit(100);
 
-		ErrorCatcher catcher = new ErrorCatcher(IllegalArgumentException.class);
+		ErrorCatcherConfig config = new ErrorCatcherConfig();
+		config.setExceptionClazz(IllegalArgumentException.class.getName());
+		config.setTarget(ErrorCatcherTarget.MEMORY);
+		ErrorCatcher catcher = new BuiltinErrorCatcher(config);
 
 		assertNotNull(catcher.getErrorList());
 		assertEquals(0, catcher.getErrorList().size());

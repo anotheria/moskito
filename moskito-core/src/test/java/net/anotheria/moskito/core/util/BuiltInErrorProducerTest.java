@@ -156,7 +156,7 @@ public class BuiltInErrorProducerTest {
 		ErrorHandlingConfig config = MoskitoConfigurationHolder.getConfiguration().getErrorHandlingConfig();
 		ErrorCatcherConfig[] catchers = new ErrorCatcherConfig[1];
 		ErrorCatcherConfig myCatcher = new ErrorCatcherConfig();
-		myCatcher.setClazz(IllegalArgumentException.class.getName());
+		myCatcher.setExceptionClazz(IllegalArgumentException.class.getName());
 		myCatcher.setTarget(ErrorCatcherTarget.MEMORY);
 		catchers[0] = myCatcher;
 		config.setCatchers(catchers);

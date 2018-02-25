@@ -15,7 +15,13 @@ public class ErrorCatcherConfig implements Serializable{
 	 * The error clazz as fully qualified string (x.z.RuntimeException).
 	 */
 	@Configure
-	private String clazz;
+	private String exceptionClazz;
+
+	/**
+	 * Class name of the error catcher.
+	 */
+	@Configure
+	private String errorCatcherClazz;
 	/**
 	 * Error catcher target. Can be LOG or MEMORY (see ErrorCatcherTarget class for details).
 	 */
@@ -27,12 +33,20 @@ public class ErrorCatcherConfig implements Serializable{
 	@Configure
 	private String parameter;
 
-	public String getClazz() {
-		return clazz;
+	public String getExceptionClazz() {
+		return exceptionClazz;
 	}
 
-	public void setClazz(String clazz) {
-		this.clazz = clazz;
+	public void setExceptionClazz(String exceptionClazz) {
+		this.exceptionClazz = exceptionClazz;
+	}
+
+	public String getErrorCatcherClazz() {
+		return errorCatcherClazz;
+	}
+
+	public void setErrorCatcherClazz(String errorCatcherClazz) {
+		this.errorCatcherClazz = errorCatcherClazz;
 	}
 
 	public ErrorCatcherTarget getTarget() {
@@ -54,7 +68,8 @@ public class ErrorCatcherConfig implements Serializable{
 	@Override
 	public String toString() {
 		return "ErrorCatcherConfig{" +
-				"clazz='" + clazz + '\'' +
+				"exceptionClazz='" + exceptionClazz + '\'' +
+				", errorCatcherClazz='" + errorCatcherClazz + '\'' +
 				", target=" + target +
 				", parameter='" + parameter + '\'' +
 				'}';
