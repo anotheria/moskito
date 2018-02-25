@@ -219,7 +219,7 @@ public class AdditionalFunctionalityAPIImpl extends AbstractMoskitoAPIImpl imple
 		for (ErrorCatcher c : catchers){
 			ErrorCatcherAO ao = new ErrorCatcherAO();
 			ao.setName(c.getName());
-			ao.setCount(c.getErrorList().size());
+			ao.setCount(c.getNumberOfCaughtErrors());
 			catcherAOs.add(ao);
 		}
 		return catcherAOs;
