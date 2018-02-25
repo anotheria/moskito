@@ -9,7 +9,7 @@
         <div class="box">
             <div class="box-title">
                 <h3 class="pull-left">
-                    Errors in inmemory error catchers. (BETA)
+                    Currently active error catchers (BETA).
                 </h3>
                 <div class="box-right-nav">
                     <a href="" class="tooltip-bottom" title="Help"><i class="fa fa-info-circle"></i></a>
