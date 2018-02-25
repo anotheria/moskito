@@ -1,4 +1,4 @@
-package net.anotheria.moskito.core.util;
+package net.anotheria.moskito.core.errorhandling;
 
 import net.anotheria.moskito.core.accumulation.AccumulatorDefinition;
 import net.anotheria.moskito.core.accumulation.AccumulatorRepository;
@@ -10,6 +10,8 @@ import net.anotheria.moskito.core.helper.AutoTieAbleProducer;
 import net.anotheria.moskito.core.predefined.ErrorStats;
 import net.anotheria.moskito.core.producers.IStatsProducer;
 import net.anotheria.moskito.core.registry.ProducerRegistryFactory;
+import net.anotheria.moskito.core.util.AbstractBuiltInProducer;
+import net.anotheria.moskito.core.util.BuiltInProducer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -25,7 +27,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
  * @author lrosenberg
  * @since 01.06.17 16:34
  */
-public final class BuiltInErrorProducer extends AbstractBuiltInProducer<ErrorStats>  implements IStatsProducer<ErrorStats>, BuiltInProducer, AutoTieAbleProducer {
+public final class BuiltInErrorProducer extends AbstractBuiltInProducer<ErrorStats> implements IStatsProducer<ErrorStats>, BuiltInProducer, AutoTieAbleProducer {
 
 	/**
 	 * Logger.

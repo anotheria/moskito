@@ -1,4 +1,4 @@
-package net.anotheria.moskito.core.util;
+package net.anotheria.moskito.core.errorhandling;
 
 import net.anotheria.moskito.core.config.MoskitoConfigurationHolder;
 import net.anotheria.moskito.core.config.errorhandling.ErrorCatcherConfig;
@@ -15,7 +15,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
  * @author lrosenberg
  * @since 23.02.18 14:14
  */
-public class BuiltinErrorCatcher implements ErrorCatcher{
+public class BuiltinErrorCatcher implements ErrorCatcher {
 	private volatile List<CaughtError> errorList = new CopyOnWriteArrayList<>();
 
 

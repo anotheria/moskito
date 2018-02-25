@@ -1,9 +1,12 @@
-package net.anotheria.moskito.core.util;
+package net.anotheria.moskito.core.errorhandling;
 
 import net.anotheria.moskito.core.config.MoskitoConfigurationHolder;
 import net.anotheria.moskito.core.config.errorhandling.ErrorCatcherConfig;
 import net.anotheria.moskito.core.config.errorhandling.ErrorCatcherTarget;
 import net.anotheria.moskito.core.context.MoSKitoContext;
+import net.anotheria.moskito.core.errorhandling.BuiltInErrorProducer;
+import net.anotheria.moskito.core.errorhandling.BuiltinErrorCatcher;
+import net.anotheria.moskito.core.errorhandling.ErrorCatcher;
 import org.junit.Before;
 import org.junit.Test;
 

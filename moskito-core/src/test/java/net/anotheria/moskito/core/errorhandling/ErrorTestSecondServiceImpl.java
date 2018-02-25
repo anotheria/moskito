@@ -1,4 +1,4 @@
-package net.anotheria.moskito.core.util;
+package net.anotheria.moskito.core.errorhandling;
 
 import net.anotheria.moskito.core.dynamic.ProxyUtils;
 

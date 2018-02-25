@@ -38,7 +38,7 @@ import net.anotheria.moskito.core.stats.Interval;
 import net.anotheria.moskito.core.stats.StatValue;
 import net.anotheria.moskito.core.stats.TimeUnit;
 import net.anotheria.moskito.core.stats.impl.StatValueFactory;
-import net.anotheria.moskito.core.util.BuiltInErrorProducer;
+import net.anotheria.moskito.core.errorhandling.BuiltInErrorProducer;
 
 /**
  * Predefined stats collection for servlets.

@@ -1,4 +1,4 @@
-package net.anotheria.moskito.core.util;
+package net.anotheria.moskito.core.errorhandling;
 
 /**
  * TODO comment this class

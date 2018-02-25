@@ -2,6 +2,7 @@ package net.anotheria.moskito.core.util;
 
 import net.anotheria.moskito.core.config.MoskitoConfigurationHolder;
 import net.anotheria.moskito.core.config.producers.BuiltinProducersConfig;
+import net.anotheria.moskito.core.errorhandling.BuiltInErrorProducer;
 import net.anotheria.moskito.core.registry.IProducerRegistry;
 import net.anotheria.moskito.core.registry.ProducerRegistryFactory;
 
