@@ -90,4 +90,6 @@ public class BuiltinErrorCatcher implements ErrorCatcher {
 	public ErrorCatcherConfig getConfig() {
 		return config;
 	}
+
+
 }
