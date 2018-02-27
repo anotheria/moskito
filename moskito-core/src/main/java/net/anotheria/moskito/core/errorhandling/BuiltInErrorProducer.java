@@ -56,6 +56,11 @@ public final class BuiltInErrorProducer extends AbstractBuiltInProducer<ErrorSta
 	private ConcurrentMap<String, List<ErrorCatcher>> catchers = new ConcurrentHashMap<>();
 	private List<ErrorCatcher> defaultCatchers = new CopyOnWriteArrayList<>();
 
+	/**
+	 * Custom configured catchers.
+	 */
+	private List<ErrorCatcher> customCatchers = new CopyOnWriteArrayList<>();
+
 
 
 	private ErrorHandlingConfig errorHandlingConfig = null;
@@ -141,7 +146,6 @@ public final class BuiltInErrorProducer extends AbstractBuiltInProducer<ErrorSta
 	}
 
 	public void notifyError(Throwable throwable){
-
 		if (errorHandlingConfig==null)
 			errorHandlingConfig = MoskitoConfigurationHolder.getConfiguration().getErrorHandlingConfig();
 
@@ -170,6 +174,11 @@ public final class BuiltInErrorProducer extends AbstractBuiltInProducer<ErrorSta
 
 		//handle catchers, first global catchers
 		for (ErrorCatcher catcher : defaultCatchers){
+			catcher.add(throwable);
+		}
+
+		//handle catchers, now custom global catchers
+		for (ErrorCatcher catcher : customCatchers){
 			catcher.add(throwable);
 		}
 
@@ -287,6 +296,10 @@ public final class BuiltInErrorProducer extends AbstractBuiltInProducer<ErrorSta
 			ret.add(makeErrorCatcherBean(c, ErrorCatcherBean.ErrorCatcherType.DEFAULT));
 		}
 
+		for (ErrorCatcher c : customCatchers){
+			ret.add(makeErrorCatcherBean(c, ErrorCatcherBean.ErrorCatcherType.CUSTOM));
+		}
+
 		for (Map.Entry<String,List<ErrorCatcher>> entry : catchers.entrySet()){
 			for (ErrorCatcher c : entry.getValue()){
 				ret.add(makeErrorCatcherBean(c, ErrorCatcherBean.ErrorCatcherType.EXCEPTION_BOUND));
@@ -339,6 +352,10 @@ public final class BuiltInErrorProducer extends AbstractBuiltInProducer<ErrorSta
 		}
 		throw new IllegalArgumentException("Catcher: "+name+" not found");
 
+	}
+
+	public void addCustomErrorCatcher(ErrorCatcher catcher){
+		customCatchers.add(catcher);
 	}
 
 
