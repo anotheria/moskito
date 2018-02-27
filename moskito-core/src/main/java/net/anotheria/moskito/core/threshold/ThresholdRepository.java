@@ -57,6 +57,13 @@ public class ThresholdRepository<S extends IStats> extends TieableRepository<Thr
 	}
 
 	protected boolean tie(Threshold threshold, IStatsProducer<? extends IStats> producer){
+
+		if (producer instanceof CustomThresholdProvider){
+			//tie to producer instead of stats.
+			threshold.tieToProducer((CustomThresholdProvider)producer);
+			return true;
+		}
+
 		ThresholdDefinition definition = threshold.getDefinition();
 		IStats target = null;
 		for (IStats s : producer.getStats()){

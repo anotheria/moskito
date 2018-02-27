@@ -51,6 +51,11 @@ public class Threshold extends AbstractTieable<ThresholdDefinition> implements T
 	private ThresholdStatus previousStatus = ThresholdStatus.OFF;
 
 	/**
+	 * If this field is non zero it means that the threshold is tied to a producer instead of stats.
+	 */
+	private CustomThresholdProvider producer;
+
+	/**
 	 * Counts the number of flips (status changes) by this thresholds. THis helps to identify flipping - instable thresholds.
 	 */
 	private int flipCount;
@@ -65,6 +70,10 @@ public class Threshold extends AbstractTieable<ThresholdDefinition> implements T
 	
 	public void tieToStats(IStats aStatsObject){
 		stats = aStatsObject;
+	}
+
+	public void tieToProducer(CustomThresholdProvider aCustomThresholdProvider){
+		producer = aCustomThresholdProvider;
 	}
 	
 	public void addGuard(ThresholdConditionGuard guard){
@@ -108,8 +117,32 @@ public class Threshold extends AbstractTieable<ThresholdDefinition> implements T
 	public String getLastValue() {
 		return lastValue;
 	}
-	
+
+	private void updateFromProducer(){
+		String previousValue = lastValue;
+		lastValue = producer.getCurrentValue();
+
+
+		ThresholdStatus futureStatus = producer.getStatus();
+
+		//generate alert.
+		if (status != futureStatus){
+			flipCount++;
+			//generate alert
+			previousStatus = status;
+			statusChangeTimestamp = System.currentTimeMillis();
+			AlertDispatcher.INSTANCE.dispatchAlert(new ThresholdAlert(this, status, futureStatus, previousValue, lastValue, flipCount));
+		}
+		status = futureStatus;
+	}
+
 	@Override public void update(){
+
+		if (producer!=null){
+			updateFromProducer();
+			return;
+		}
+
 		if (!isActivated()){
 			return;
 		}
