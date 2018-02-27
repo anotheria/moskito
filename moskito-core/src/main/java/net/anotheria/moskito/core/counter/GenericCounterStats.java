@@ -57,6 +57,10 @@ public abstract class GenericCounterStats extends AbstractStats{
 		values.get(counterName).increase();
 	}
 
+	public void dec(String counterName) {
+		values.get(counterName).decrease();
+	}
+
 	public void incBy(String counterName, long value){
 		values.get(counterName).increaseByLong(value);
 	}
@@ -98,6 +102,10 @@ public abstract class GenericCounterStats extends AbstractStats{
 	@Override
 	public List<String> getAvailableValueNames() {
 		return valueNames;
+	}
+
+	public void set(String counterName, int value) {
+		values.get(counterName).setValueAsInt(value);
 	}
 }
 

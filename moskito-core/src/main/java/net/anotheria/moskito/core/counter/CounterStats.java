@@ -33,6 +33,10 @@ public class CounterStats extends GenericCounterStats{
 		super.inc("counter");
 	}
 
+	public void dec() {
+		super.dec("counter");
+	}
+
 	/**
 	 * Increases current counter by a value.
 	 * @param value
@@ -56,6 +60,10 @@ public class CounterStats extends GenericCounterStats{
 	 */
 	public long get(){
 		return get("counter", null);
+	}
+
+	public void set(int value){
+		super.set("counter", value);
 	}
 
 	@Override
