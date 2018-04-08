@@ -100,6 +100,7 @@ public class ShowProducerAction extends BaseMoskitoUIAction {
 
 		// Setting possible dashboard names where producer can be added
 		req.setAttribute("dashboardNames", StringUtils.join(getDashboardAPI().getDashboardNames(), ','));
+		req.setAttribute("charts", "enable");
 
 		//String pFilterZero = req.getParameter(PARAM_FILTER_ZERO);
 		//boolean filterZero = pFilterZero != null && pFilterZero.equalsIgnoreCase("true");
