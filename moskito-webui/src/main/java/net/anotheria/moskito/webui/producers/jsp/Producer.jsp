@@ -169,12 +169,18 @@
                         <a class="accordion-toggle tooltip-bottom" title="Close/Open" data-toggle="collapse"
                            href="#collapse-chart-${singleGraph.nameForJS}"><i class="fa fa-caret-down"></i></a>
 
-                        <h3 class="pull-left">
+                        <h3 class="pull-left chart-header">
                             Chart for ${singleGraph.name}
                         </h3>
 
-                        <div class="box-right-nav">
-                            <a href="" class="tooltip-bottom" title="Refresh"><i class="fa fa-refresh"></i></a>
+                        <div class="box-right-nav dropdown">
+                            <a href="#" data-target="#" data-toggle="dropdown"><i class="fa fa-cog"></i></a>
+                            <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dLabel">
+                                <li><a href="" class="save_as">Screenshot</a></li>
+                                <ano:iF test="${chart.dashboardsToAdd != ''}">
+                                    <li><a onclick="addChart('${singleGraph.name}','${requestScope.dashboardNames}')">Add to Dashboard</a></li>
+                                </ano:iF>
+                            </ul>
                         </div>
                     </div>
                     <div id="collapse-chart-${singleGraph.nameForJS}"
@@ -525,6 +531,103 @@
 
 <jsp:include page="../../shared/jsp/Footer.jsp" flush="false"/>
 <jsp:include page="snippet/ProducerHelpModal.jsp"/>
+
+    <script type="text/javascript">
+        $('.save_as').click(function (event) {
+            event.preventDefault();
+            event.stopPropagation();
+            var chartWidth = 1120,
+                chartHeight = 300,
+                margin = 40;
+
+            var svgOrigin = $(event.target).closest(".box").find("svg")[0];
+            //copy svg chart
+            var svg = svgOrigin.cloneNode(true);
+
+            svg.setAttribute("style", "background-color: #FFFFFF;");
+            svg.setAttribute("x", margin);
+            svg.setAttribute("y", margin);
+
+
+            var css = '.axis path,' +
+                '.axis line {' +
+                'fill: none;' +
+                'stroke: #000;' +
+                'shape-rendering: crispEdges;' +
+                '}' +
+                '.legend, .tick {' +
+                'font: 12px sans-serif;' +
+                '}' +
+
+                '.line {' +
+                'fill: none;' +
+                'stroke: steelblue;' +
+                'stroke-width: 1.5px;' +
+                '}' +
+
+                '.line.hover {' +
+                'fill: none;' +
+                'stroke: steelblue;' +
+                'stroke-width: 3.0px;' +
+                '}' +
+
+                '.grid .tick {' +
+                'stroke: lightgrey;' +
+                'opacity: 0.7;' +
+                '}' +
+                '.grid path {' +
+                'stroke-width: 0;' +
+                '}';
+
+            var style = document.createElement('style');
+            style.type = 'text/css';
+            if (style.styleSheet) {
+                style.styleSheet.cssText = css;
+            } else {
+                style.appendChild(document.createTextNode(css));
+            }
+
+            svg.appendChild(style);
+
+            var svgData = new XMLSerializer().serializeToString(svg);
+            svgData = '<svg xmlns="http://www.w3.org/2000/svg"  style="background-color: #FFFFFF;" width="1200" height="380" >' + svgData + '</svg>';
+
+            var canvas = document.createElement("canvas");
+            canvas.width = chartWidth + 2 * margin;
+            canvas.height = chartHeight + 2 * margin;
+            var ctx = canvas.getContext("2d");
+            ctx.fillStyle = "white";
+            ctx.fill();
+
+            var img = document.createElement("img");
+            window.unescape = window.unescape || window.decodeURI;
+            var img = document.createElement("img");
+            var encoded_svg = btoa(svgData.replace(/[\u00A0-\u2666]/g, function (c) {
+                return '&#' + c.charCodeAt(0) + ';';
+            }));
+            img.setAttribute("src", "data:image/svg+xml;base64," + encoded_svg);
+            var file_name = getChartFileName();
+
+            img.onload = function () {
+                ctx.drawImage(img, 0, 0);
+                var canvasdata = canvas.toDataURL("image/png");
+                var a = document.createElement("a");
+
+                a.download = file_name + ".png";
+                a.href = canvasdata;
+                document.body.appendChild(a);
+                a.click();
+
+            };
+        });
+
+        function getChartFileName() {
+            var t = new Date($.now());
+            var current_date = t.getFullYear() + '-' + t.getMonth() + '-' + t.getDate() + '__' + t.getHours() + '-' + t.getMinutes() + '-' + t.getSeconds();
+            return $.trim($(event.target).closest(".box").find('.chart-header').text()).split(' ').join('_') + '_' + current_date;
+        }
+    </script>
+
 </section>
 
 <script>
