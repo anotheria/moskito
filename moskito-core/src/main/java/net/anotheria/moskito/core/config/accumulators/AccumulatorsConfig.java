@@ -1,5 +1,6 @@
 package net.anotheria.moskito.core.config.accumulators;
 
+import com.google.gson.annotations.SerializedName;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import net.anotheria.util.StringUtils;
 import org.configureme.annotations.Configure;
@@ -20,7 +21,7 @@ public class AccumulatorsConfig implements Serializable {
 	/**
 	 * SerialVersionUID.
 	 */
-	private static final long serialVersionUID = -2579727416537790538L;
+	private static final long serialVersionUID = 1L;
 	/**
 	 * The default amount of accumulated values in the accumulator.
 	 * This setting only applies for accumulators created AFTER the change.
@@ -31,12 +32,20 @@ public class AccumulatorsConfig implements Serializable {
 	/**
 	 * Configured accumulators.
 	 */
+	@SerializedName("@accumulators")
 	@Configure private AccumulatorConfig[] accumulators;
 
 	/**
 	 * Configured accumulator sets.
 	 */
+	@SerializedName("@accumulatorSets")
 	@Configure private AccumulatorSetConfig[] accumulatorSets;
+
+	/**
+	 * Configured auto-accumulators.
+	 */
+	@SerializedName("@autoAccumulators")
+	@Configure private AutoAccumulatorConfig[] autoAccumulators = new AutoAccumulatorConfig[0];
 
 	/**
 	 * Configured accumulators colors.
@@ -50,6 +59,14 @@ public class AccumulatorsConfig implements Serializable {
 
 	public void setAccumulators(AccumulatorConfig[] accumulators) {
 		this.accumulators = accumulators;
+	}
+
+	public AutoAccumulatorConfig[] getAutoAccumulators() {
+		return autoAccumulators;
+	}
+
+	public void setAutoAccumulators(AutoAccumulatorConfig[] autoAccumulators) {
+		this.autoAccumulators = autoAccumulators;
 	}
 
 	public int getAccumulationAmount() {
