@@ -175,12 +175,12 @@ public final class AccumulatorRepository<S extends IStats> extends TieableReposi
 		//first allow tieable repository do what it should do.
 		super.notifyProducerRegistered(producer);
 
-		System.out.println("XXXXXXXX --- Registered producer "+producer);
 		String producerId = producer.getProducerId();
 		for (AutoAccumulatorDefinition aad : autoAccumulatorDefinitions){
-			System.out.println("XXXXXX Chekcing if "+aad.getProducerNamePattern()+" matches "+producerId);
 			if (aad.matches(producerId)){
-				System.out.println("XXXXX PRODUCER "+producerId+" MATCHES");
+				if (log.isDebugEnabled()){
+					log.debug("Creating auto-accumulator out of "+aad+" for "+producerId);
+				}
 				createAccumulator(aad.toAccumulatorDefinition(producerId));
 			}
 		}
