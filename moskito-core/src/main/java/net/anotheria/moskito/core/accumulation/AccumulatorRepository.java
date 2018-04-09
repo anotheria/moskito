@@ -4,6 +4,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import net.anotheria.moskito.core.config.MoskitoConfigurationHolder;
 import net.anotheria.moskito.core.config.accumulators.AccumulatorConfig;
 import net.anotheria.moskito.core.config.accumulators.AccumulatorsConfig;
+import net.anotheria.moskito.core.config.accumulators.AutoAccumulatorConfig;
 import net.anotheria.moskito.core.helper.AutoTieAbleProducer;
 import net.anotheria.moskito.core.helper.TieableDefinition;
 import net.anotheria.moskito.core.helper.TieableRepository;
@@ -13,6 +14,7 @@ import net.anotheria.moskito.core.stats.TimeUnit;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -31,7 +33,14 @@ public final class AccumulatorRepository<S extends IStats> extends TieableReposi
 	* The singleton instance.  
 	*/
 	private static volatile AccumulatorRepository<? extends IStats> INSTANCE;
-	
+
+	/**
+	 * Configured autoAccumulatorDefinitions.
+	 */
+	private List<AutoAccumulatorDefinition> autoAccumulatorDefinitions = new LinkedList<>();
+
+
+
 	/**  
 	* Returns the singleton instance of the AccumulatorRepository.  
 	* @return the one and only instance.  
@@ -109,6 +118,22 @@ public final class AccumulatorRepository<S extends IStats> extends TieableReposi
 				}
 			}
 		}
+
+		AutoAccumulatorConfig[] autoAccumulatorConfigs = config.getAutoAccumulators();
+		if (autoAccumulatorConfigs != null && autoAccumulatorConfigs.length>0){
+			for (AutoAccumulatorConfig aac : autoAccumulatorConfigs){
+				AutoAccumulatorDefinition aad = new AutoAccumulatorDefinition();
+				aad.setNamePattern(aac.getNamePattern());
+				aad.setProducerNamePattern(aac.getProducerNamePattern());
+				aad.setIntervalName(aac.getIntervalName());
+				aad.setValueName(aac.getValueName());
+				aad.setStatName(aac.getStatName());
+				aad.setTimeUnit(TimeUnit.fromString(aac.getTimeUnit()));
+				aad.setAccumulationAmount(aac.getAccumulationAmount());
+				autoAccumulatorDefinitions.add(aad);
+			}
+		}
+
 	}
 
 	@Override
@@ -143,5 +168,21 @@ public final class AccumulatorRepository<S extends IStats> extends TieableReposi
 	@SuppressFBWarnings(value = "ST_WRITE_TO_STATIC_FROM_INSTANCE_METHOD", justification = "This method is for unit testing only.")
 	public static void resetForUnitTests() {
 		getInstance().reset();
+	}
+
+	@Override
+	public void notifyProducerRegistered(IStatsProducer<S> producer) {
+		//first allow tieable repository do what it should do.
+		super.notifyProducerRegistered(producer);
+
+		System.out.println("XXXXXXXX --- Registered producer "+producer);
+		String producerId = producer.getProducerId();
+		for (AutoAccumulatorDefinition aad : autoAccumulatorDefinitions){
+			System.out.println("XXXXXX Chekcing if "+aad.getProducerNamePattern()+" matches "+producerId);
+			if (aad.matches(producerId)){
+				System.out.println("XXXXX PRODUCER "+producerId+" MATCHES");
+				createAccumulator(aad.toAccumulatorDefinition(producerId));
+			}
+		}
 	}
 }
