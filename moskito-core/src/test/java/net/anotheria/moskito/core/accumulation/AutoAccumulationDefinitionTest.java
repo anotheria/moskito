@@ -14,7 +14,7 @@ public class AutoAccumulationDefinitionTest {
 	@Test
 	public void testProducerNameTest(){
 		AutoAccumulatorDefinition def = new AutoAccumulatorDefinition();
-		def.setNamePattern("(.*)ServiceImpl");
+		def.setProducerNamePattern("(.*)ServiceImpl");
 		Assert.assertTrue(def.matches("ShopServiceImpl"));
 		Assert.assertFalse(def.matches("ShopControl"));
 	}
