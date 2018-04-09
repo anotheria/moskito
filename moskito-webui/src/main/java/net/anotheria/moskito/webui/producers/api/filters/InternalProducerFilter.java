@@ -10,6 +10,7 @@ import net.anotheria.moskito.webui.gauges.api.GaugeAPI;
 import net.anotheria.moskito.webui.journey.api.JourneyAPI;
 import net.anotheria.moskito.webui.producers.api.ProducerAPI;
 import net.anotheria.moskito.webui.shared.api.AdditionalFunctionalityAPI;
+import net.anotheria.moskito.webui.tags.api.TagAPI;
 import net.anotheria.moskito.webui.threads.api.ThreadAPI;
 import net.anotheria.moskito.webui.threshold.api.ThresholdAPI;
 import net.anotheria.moskito.webui.tracers.api.TracerAPI;
@@ -37,6 +38,7 @@ public class InternalProducerFilter implements ProducerFilter {
 		internalProducerNames.add(ThreadAPI.class.getSimpleName());
 		internalProducerNames.add(JourneyAPI.class.getSimpleName());
 		internalProducerNames.add(TracerAPI.class.getSimpleName());
+		internalProducerNames.add(TagAPI.class.getSimpleName());
 
 		internalProducerNames.add(ActivityAPI.class.getSimpleName());
 		internalProducerNames.add(LoginAPI.class.getSimpleName());
