@@ -19,7 +19,7 @@ public class ChartPattern implements Serializable {
     /**
      * SerialVersionUID.
      */
-    private static final long serialVersionUID = -5689747860798041698L;
+    private static final long serialVersionUID = 1L;
 
     /**
      * Chart caption.

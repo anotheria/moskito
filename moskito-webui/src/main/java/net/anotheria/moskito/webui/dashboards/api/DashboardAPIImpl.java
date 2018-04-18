@@ -22,9 +22,6 @@ import net.anotheria.moskito.webui.shared.api.AbstractMoskitoAPIImpl;
 import net.anotheria.moskito.webui.threshold.api.ThresholdAPI;
 import net.anotheria.util.StringUtils;
 import net.anotheria.util.sorter.DummySortType;
-import org.configureme.ConfigurationManager;
-import org.configureme.annotations.AfterConfiguration;
-import org.configureme.annotations.ConfigureMe;
 
 import java.util.*;
 import java.util.regex.Pattern;
@@ -66,40 +63,6 @@ public class DashboardAPIImpl extends AbstractMoskitoAPIImpl implements Dashboar
 	 */
 	private ProducerAPI producerAPI;
 
-	@ConfigureMe
-	public class ConfigurationHook {
-		@AfterConfiguration
-		public void afterConfiguration() throws APIException {
-
-			DashboardsConfig dashboardsConfig = getConfiguration().getDashboardsConfig();
-			if (dashboardsConfig == null)
-				throw new APIException("Dashboards are not configured");
-			if (dashboardsConfig.getDashboards() == null || dashboardsConfig.getDashboards().length == 0)
-				throw new APIException("There are no dashboards");
-
-			for (DashboardConfig config : dashboardsConfig.getDashboards()) {
-				if (config.getProducerNamePatterns() != null && config.getProducerNamePatterns().length > 0) {
-					List<Pattern> patterns = new LinkedList<>();
-
-					for (String producerNamePattern : config.getProducerNamePatterns()) {
-						patterns.add(Pattern.compile(producerNamePattern));
-					}
-					config.setPatterns(patterns.toArray(new Pattern[patterns.size()]));
-				}
-
-
-				if (config.getChartPatterns() != null && config.getChartPatterns().length > 0) {
-					for (ChartPattern chartPattern : config.getChartPatterns()) {
-						List<Pattern> patterns = new LinkedList<>();
-						for (String accumulatorPattern : chartPattern.getAccumulatorPatterns()) {
-							patterns.add(Pattern.compile(accumulatorPattern));
-						}
-						chartPattern.setPatterns(patterns.toArray(new Pattern[patterns.size()]));
-					}
-				}
-			}
-		}
-	}
 
 	@Override
 	public void init() throws APIInitException {
@@ -110,13 +73,7 @@ public class DashboardAPIImpl extends AbstractMoskitoAPIImpl implements Dashboar
 		accumulatorAPI = APIFinder.findAPI(AccumulatorAPI.class);
 		producerAPI = APIFinder.findAPI(ProducerAPI.class);
 
-		ConfigurationHook configurationHook = new ConfigurationHook();
-		try {
-			ConfigurationManager.INSTANCE.configure(configurationHook);
-		} catch (IllegalArgumentException e) {
-			log.warn(e.getMessage());
-		}
-    }
+	}
 
 	@Override
 	public String getDefaultDashboardName() {
@@ -491,16 +448,6 @@ public class DashboardAPIImpl extends AbstractMoskitoAPIImpl implements Dashboar
 		}
 
 		if (config.getProducerNamePatterns() != null && config.getProducerNamePatterns().length > 0) {
-
-			if (config.getPatterns() == null || config.getPatterns().length == 0) {
-				List<Pattern> patterns = new LinkedList<>();
-				for (String producerNamePattern : config.getProducerNamePatterns()) {
-					patterns.add(Pattern.compile(producerNamePattern));
-				}
-
-				config.setPatterns(patterns.toArray(new Pattern[patterns.size()]));
-			}
-
 			List<IStatsProducer> IStatsProducers = new ProducerRegistryAPIFactory().createProducerRegistryAPI().getAllProducers();
 			for (Pattern pattern : config.getPatterns()) {
 				for (IStatsProducer isp : IStatsProducers) {
@@ -522,15 +469,6 @@ public class DashboardAPIImpl extends AbstractMoskitoAPIImpl implements Dashboar
 			List<AccumulatorDefinitionAO> accumulatorDefinitions = accumulatorAPI.getAccumulatorDefinitions();
 
 			for (ChartPattern chartPattern : config.getChartPatterns()) {
-
-				if (chartPattern.getPatterns() == null || chartPattern.getPatterns().length == 0) {
-					List<Pattern> patterns = new LinkedList<>();
-					for (String accumulatorPattern : chartPattern.getAccumulatorPatterns()) {
-						patterns.add(Pattern.compile(accumulatorPattern));
-					}
-					chartPattern.setPatterns(patterns.toArray(new Pattern[patterns.size()]));
-				}
-
 				List<String> accumulators = new LinkedList<>();
 
 				for (Pattern pattern : chartPattern.getPatterns()) {
@@ -543,11 +481,12 @@ public class DashboardAPIImpl extends AbstractMoskitoAPIImpl implements Dashboar
 
 				if (accumulators.size() > 0) {
 					if (chartPattern.getMode() == null) {
-						chartPattern.setMode(AccumulatorSetMode.MULTIPLE);
+						chartPattern.setMode(AccumulatorSetMode.COMBINED);
 					}
 
 					switch (chartPattern.getMode()) {
 						case COMBINED:
+						default:
 							ChartConfig chartConfigCombined = new ChartConfig();
 							chartConfigCombined.setAccumulators(accumulators.toArray(new String[accumulators.size()]));
 							if (chartPattern.getCaption() != null && !chartPattern.getCaption().isEmpty()) {
@@ -559,7 +498,6 @@ public class DashboardAPIImpl extends AbstractMoskitoAPIImpl implements Dashboar
 
 							break;
 						case MULTIPLE:
-						default:
 							for (String accumulator : accumulators) {
 								ChartConfig chartConfig = new ChartConfig();
 								chartConfig.setAccumulators(new String[]{accumulator});

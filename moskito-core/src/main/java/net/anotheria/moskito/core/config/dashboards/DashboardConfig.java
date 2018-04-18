@@ -6,6 +6,8 @@ import org.configureme.annotations.ConfigureMe;
 
 import java.io.Serializable;
 import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.regex.Pattern;
 
 /**
@@ -141,6 +143,16 @@ public class DashboardConfig implements Serializable{
 
 	public void setChartPatterns(ChartPattern[] chartPatterns) {
 		this.chartPatterns = chartPatterns;
+
+		if (chartPatterns != null && chartPatterns.length > 0) {
+			for (ChartPattern chartPattern : chartPatterns) {
+				List<Pattern> patterns = new LinkedList<>();
+				for (String accumulatorPattern : chartPattern.getAccumulatorPatterns()) {
+					patterns.add(Pattern.compile(accumulatorPattern));
+				}
+				chartPattern.setPatterns(patterns.toArray(new Pattern[patterns.size()]));
+			}
+		}
 	}
 
 	public String[] getGauges() {
@@ -165,6 +177,15 @@ public class DashboardConfig implements Serializable{
 
 	public void setProducerNamePatterns(String[] producerNamePatterns) {
 		this.producerNamePatterns = producerNamePatterns;
+
+		if (producerNamePatterns != null && producerNamePatterns.length > 0) {
+			List<Pattern> patterns = new LinkedList<>();
+
+			for (String producerNamePattern : getProducerNamePatterns()) {
+				patterns.add(Pattern.compile(producerNamePattern));
+			}
+			setPatterns(patterns.toArray(new Pattern[patterns.size()]));
+		}
 	}
 
 	public Pattern[] getPatterns() {
