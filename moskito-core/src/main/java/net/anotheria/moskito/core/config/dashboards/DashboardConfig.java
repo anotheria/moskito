@@ -42,6 +42,12 @@ public class DashboardConfig implements Serializable{
 	private ChartConfig [] charts;
 
 	/**
+	 * Configured chart patterns
+	 */
+	@Configure
+	private ChartPattern [] chartPatterns;
+
+	/**
 	 * Names of the thresholds that should be on that dashboard.
 	 */
 	@Configure
@@ -87,6 +93,7 @@ public class DashboardConfig implements Serializable{
 		sb.append("name='").append(name).append('\'');
 		sb.append(", refresh=").append(refresh);
 		sb.append(", charts=").append(Arrays.toString(charts));
+		sb.append(", chartPatterns=").append(Arrays.toString(chartPatterns));
 		sb.append(", thresholds=").append(Arrays.toString(thresholds));
 		sb.append(", gauges=").append(Arrays.toString(gauges));
 		sb.append(", producers=").append(Arrays.toString(producers));
@@ -126,6 +133,14 @@ public class DashboardConfig implements Serializable{
 
 	public void setCharts(ChartConfig[] charts) {
 		this.charts = charts;
+	}
+
+	public ChartPattern[] getChartPatterns() {
+		return chartPatterns;
+	}
+
+	public void setChartPatterns(ChartPattern[] chartPatterns) {
+		this.chartPatterns = chartPatterns;
 	}
 
 	public String[] getGauges() {

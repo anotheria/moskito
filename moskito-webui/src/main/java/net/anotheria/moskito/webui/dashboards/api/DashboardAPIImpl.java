@@ -5,13 +5,16 @@ import net.anotheria.anoplass.api.APIFinder;
 import net.anotheria.anoplass.api.APIInitException;
 import net.anotheria.moskito.core.config.MoskitoConfiguration;
 import net.anotheria.moskito.core.config.MoskitoConfigurationHolder;
+import net.anotheria.moskito.core.config.accumulators.AccumulatorSetMode;
 import net.anotheria.moskito.core.config.dashboards.ChartConfig;
+import net.anotheria.moskito.core.config.dashboards.ChartPattern;
 import net.anotheria.moskito.core.config.dashboards.DashboardConfig;
 import net.anotheria.moskito.core.config.dashboards.DashboardsConfig;
 import net.anotheria.moskito.core.producers.IStatsProducer;
 import net.anotheria.moskito.core.registry.ProducerRegistryAPIFactory;
 import net.anotheria.moskito.webui.accumulators.api.AccumulatorAO;
 import net.anotheria.moskito.webui.accumulators.api.AccumulatorAPI;
+import net.anotheria.moskito.webui.accumulators.api.AccumulatorDefinitionAO;
 import net.anotheria.moskito.webui.accumulators.api.MultilineChartAO;
 import net.anotheria.moskito.webui.gauges.api.GaugeAPI;
 import net.anotheria.moskito.webui.producers.api.ProducerAPI;
@@ -82,6 +85,17 @@ public class DashboardAPIImpl extends AbstractMoskitoAPIImpl implements Dashboar
 						patterns.add(Pattern.compile(producerNamePattern));
 					}
 					config.setPatterns(patterns.toArray(new Pattern[patterns.size()]));
+				}
+
+
+				if (config.getChartPatterns() != null && config.getChartPatterns().length > 0) {
+					for (ChartPattern chartPattern : config.getChartPatterns()) {
+						List<Pattern> patterns = new LinkedList<>();
+						for (String accumulatorPattern : chartPattern.getAccumulatorPatterns()) {
+							patterns.add(Pattern.compile(accumulatorPattern));
+						}
+						chartPattern.setPatterns(patterns.toArray(new Pattern[patterns.size()]));
+					}
 				}
 			}
 		}
@@ -502,6 +516,64 @@ public class DashboardAPIImpl extends AbstractMoskitoAPIImpl implements Dashboar
 		}
 
 		//// CHARTS //////
+
+		if (config.getChartPatterns() != null && config.getChartPatterns().length > 0) {
+			Set<ChartConfig> chartConfigs = new HashSet<>(Arrays.asList(config.getCharts()));
+			List<AccumulatorDefinitionAO> accumulatorDefinitions = accumulatorAPI.getAccumulatorDefinitions();
+
+			for (ChartPattern chartPattern : config.getChartPatterns()) {
+
+				if (chartPattern.getPatterns() == null || chartPattern.getPatterns().length == 0) {
+					List<Pattern> patterns = new LinkedList<>();
+					for (String accumulatorPattern : chartPattern.getAccumulatorPatterns()) {
+						patterns.add(Pattern.compile(accumulatorPattern));
+					}
+					chartPattern.setPatterns(patterns.toArray(new Pattern[patterns.size()]));
+				}
+
+				List<String> accumulators = new LinkedList<>();
+
+				for (Pattern pattern : chartPattern.getPatterns()) {
+					for (AccumulatorDefinitionAO accumulatorDefinition : accumulatorDefinitions) {
+						if (pattern.matcher(accumulatorDefinition.getName()).matches()) {
+							accumulators.add(accumulatorDefinition.getName());
+						}
+					}
+				}
+
+				if (accumulators.size() > 0) {
+					if (chartPattern.getMode() == null) {
+						chartPattern.setMode(AccumulatorSetMode.MULTIPLE);
+					}
+
+					switch (chartPattern.getMode()) {
+						case COMBINED:
+							ChartConfig chartConfigCombined = new ChartConfig();
+							chartConfigCombined.setAccumulators(accumulators.toArray(new String[accumulators.size()]));
+							if (chartPattern.getCaption() != null && !chartPattern.getCaption().isEmpty()) {
+								chartConfigCombined.setCaption(chartPattern.getCaption());
+							} else {
+								chartConfigCombined.setCaption(StringUtils.trimString(chartConfigCombined.buildCaption(), "", 50));
+							}
+							chartConfigs.add(chartConfigCombined);
+
+							break;
+						case MULTIPLE:
+						default:
+							for (String accumulator : accumulators) {
+								ChartConfig chartConfig = new ChartConfig();
+								chartConfig.setAccumulators(new String[]{accumulator});
+								chartConfig.setCaption(StringUtils.trimString(chartConfig.buildCaption(), "", 50));
+								chartConfigs.add(chartConfig);
+							}
+
+							break;
+					}
+				}
+			}
+			config.setCharts(chartConfigs.toArray(new ChartConfig[chartConfigs.size()]));
+		}
+
 		if (config.getCharts()!=null && config.getCharts().length>0){
 			LinkedList<DashboardChartAO> chartBeans = new LinkedList<DashboardChartAO>();
 			for (ChartConfig cc : config.getCharts()){
