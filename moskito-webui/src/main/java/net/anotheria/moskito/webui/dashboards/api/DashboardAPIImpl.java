@@ -8,6 +8,8 @@ import net.anotheria.moskito.core.config.MoskitoConfigurationHolder;
 import net.anotheria.moskito.core.config.dashboards.ChartConfig;
 import net.anotheria.moskito.core.config.dashboards.DashboardConfig;
 import net.anotheria.moskito.core.config.dashboards.DashboardsConfig;
+import net.anotheria.moskito.core.producers.IStatsProducer;
+import net.anotheria.moskito.core.registry.ProducerRegistryAPIFactory;
 import net.anotheria.moskito.webui.accumulators.api.AccumulatorAO;
 import net.anotheria.moskito.webui.accumulators.api.AccumulatorAPI;
 import net.anotheria.moskito.webui.accumulators.api.MultilineChartAO;
@@ -17,8 +19,12 @@ import net.anotheria.moskito.webui.shared.api.AbstractMoskitoAPIImpl;
 import net.anotheria.moskito.webui.threshold.api.ThresholdAPI;
 import net.anotheria.util.StringUtils;
 import net.anotheria.util.sorter.DummySortType;
+import org.configureme.ConfigurationManager;
+import org.configureme.annotations.AfterConfiguration;
+import org.configureme.annotations.ConfigureMe;
 
 import java.util.*;
+import java.util.regex.Pattern;
 
 /**
  * Implementation of the DashboardAPI.
@@ -57,6 +63,29 @@ public class DashboardAPIImpl extends AbstractMoskitoAPIImpl implements Dashboar
 	 */
 	private ProducerAPI producerAPI;
 
+	@ConfigureMe
+	public class ConfigurationHook {
+		@AfterConfiguration
+		public void afterConfiguration() throws APIException {
+
+			DashboardsConfig dashboardsConfig = getConfiguration().getDashboardsConfig();
+			if (dashboardsConfig == null)
+				throw new APIException("Dashboards are not configured");
+			if (dashboardsConfig.getDashboards() == null || dashboardsConfig.getDashboards().length == 0)
+				throw new APIException("There are no dashboards");
+
+			for (DashboardConfig config : dashboardsConfig.getDashboards()) {
+				if (config.getProducerNamePatterns() != null && config.getProducerNamePatterns().length > 0) {
+					List<Pattern> patterns = new LinkedList<>();
+
+					for (String producerNamePattern : config.getProducerNamePatterns()) {
+						patterns.add(Pattern.compile(producerNamePattern));
+					}
+					config.setPatterns(patterns.toArray(new Pattern[patterns.size()]));
+				}
+			}
+		}
+	}
 
 	@Override
 	public void init() throws APIInitException {
@@ -67,7 +96,13 @@ public class DashboardAPIImpl extends AbstractMoskitoAPIImpl implements Dashboar
 		accumulatorAPI = APIFinder.findAPI(AccumulatorAPI.class);
 		producerAPI = APIFinder.findAPI(ProducerAPI.class);
 
-	}
+		ConfigurationHook configurationHook = new ConfigurationHook();
+		try {
+			ConfigurationManager.INSTANCE.configure(configurationHook);
+		} catch (IllegalArgumentException e) {
+			log.warn(e.getMessage());
+		}
+    }
 
 	@Override
 	public String getDefaultDashboardName() {
@@ -434,10 +469,37 @@ public class DashboardAPIImpl extends AbstractMoskitoAPIImpl implements Dashboar
 			ret.setThresholds(thresholdAPI.getThresholdStatuses(config.getThresholds()));
 		}
 
+
+		Set<String> producers = new HashSet<String>();
+
 		if (config.getProducers() != null && config.getProducers().length > 0) {
-			ret.setProducers(Arrays.asList(config.getProducers()));
+			producers.addAll(Arrays.asList(config.getProducers()));
 		}
 
+		if (config.getProducerNamePatterns() != null && config.getProducerNamePatterns().length > 0) {
+
+			if (config.getPatterns() == null || config.getPatterns().length == 0) {
+				List<Pattern> patterns = new LinkedList<>();
+				for (String producerNamePattern : config.getProducerNamePatterns()) {
+					patterns.add(Pattern.compile(producerNamePattern));
+				}
+
+				config.setPatterns(patterns.toArray(new Pattern[patterns.size()]));
+			}
+
+			List<IStatsProducer> IStatsProducers = new ProducerRegistryAPIFactory().createProducerRegistryAPI().getAllProducers();
+			for (Pattern pattern : config.getPatterns()) {
+				for (IStatsProducer isp : IStatsProducers) {
+					if (pattern.matcher(isp.getProducerId()).matches()) {
+						producers.add(isp.getProducerId());
+					}
+				}
+			}
+		}
+
+		if(!producers.isEmpty()){
+			ret.setProducers(Arrays.asList(producers.toArray(new String[producers.size()])));
+		}
 
 		//// CHARTS //////
 		if (config.getCharts()!=null && config.getCharts().length>0){
