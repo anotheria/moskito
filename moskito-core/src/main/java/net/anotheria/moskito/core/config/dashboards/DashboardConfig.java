@@ -3,6 +3,7 @@ package net.anotheria.moskito.core.config.dashboards;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.configureme.annotations.Configure;
 import org.configureme.annotations.ConfigureMe;
+import org.slf4j.LoggerFactory;
 
 import java.io.Serializable;
 import java.util.Arrays;
@@ -151,7 +152,9 @@ public class DashboardConfig implements Serializable{
 				for (String accumulatorPattern : chartPattern.getAccumulatorPatterns()) {
 					try {
 						patterns.add(Pattern.compile(accumulatorPattern));
-					} catch (PatternSyntaxException e) {}
+					} catch (PatternSyntaxException e) {
+						LoggerFactory.getLogger(DashboardConfig.class).warn("Couldn't compile pattern: \"" + accumulatorPattern + "\"", e);
+					}
 				}
 				chartPattern.setPatterns(patterns.toArray(new Pattern[patterns.size()]));
 			}
@@ -187,7 +190,9 @@ public class DashboardConfig implements Serializable{
 			for (String producerNamePattern : getProducerNamePatterns()) {
 				try {
 					patterns.add(Pattern.compile(producerNamePattern));
-				} catch (PatternSyntaxException e) {}
+				} catch (PatternSyntaxException e) {
+					LoggerFactory.getLogger(DashboardConfig.class).warn("Couldn't compile pattern: \"" + producerNamePattern + "\"", e);
+				}
 			}
 			setPatterns(patterns.toArray(new Pattern[patterns.size()]));
 		}
