@@ -3,6 +3,8 @@ package net.anotheria.moskito.webui.dashboards.api;
 import net.anotheria.anoplass.api.APIException;
 import net.anotheria.anoplass.api.APIFinder;
 import net.anotheria.anoplass.api.APIInitException;
+import net.anotheria.moskito.core.accumulation.Accumulator;
+import net.anotheria.moskito.core.accumulation.AccumulatorRepository;
 import net.anotheria.moskito.core.config.MoskitoConfiguration;
 import net.anotheria.moskito.core.config.MoskitoConfigurationHolder;
 import net.anotheria.moskito.core.config.accumulators.AccumulatorSetMode;
@@ -14,7 +16,6 @@ import net.anotheria.moskito.core.producers.IStatsProducer;
 import net.anotheria.moskito.core.registry.ProducerRegistryAPIFactory;
 import net.anotheria.moskito.webui.accumulators.api.AccumulatorAO;
 import net.anotheria.moskito.webui.accumulators.api.AccumulatorAPI;
-import net.anotheria.moskito.webui.accumulators.api.AccumulatorDefinitionAO;
 import net.anotheria.moskito.webui.accumulators.api.MultilineChartAO;
 import net.anotheria.moskito.webui.gauges.api.GaugeAPI;
 import net.anotheria.moskito.webui.producers.api.ProducerAPI;
@@ -466,20 +467,20 @@ public class DashboardAPIImpl extends AbstractMoskitoAPIImpl implements Dashboar
 
 		if (config.getChartPatterns() != null && config.getChartPatterns().length > 0) {
 			Set<ChartConfig> chartConfigs = new HashSet<>(Arrays.asList(config.getCharts()));
-			List<AccumulatorDefinitionAO> accumulatorDefinitions = accumulatorAPI.getAccumulatorDefinitions();
+			List<Accumulator> accumulators = AccumulatorRepository.getInstance().getAccumulators();
 
 			for (ChartPattern chartPattern : config.getChartPatterns()) {
-				List<String> accumulators = new LinkedList<>();
+				List<String> matchedAccumulators = new LinkedList<>();
 
 				for (Pattern pattern : chartPattern.getPatterns()) {
-					for (AccumulatorDefinitionAO accumulatorDefinition : accumulatorDefinitions) {
-						if (pattern.matcher(accumulatorDefinition.getName()).matches()) {
-							accumulators.add(accumulatorDefinition.getName());
+					for (Accumulator accumulator : accumulators) {
+						if (pattern.matcher(accumulator.getName()).matches()) {
+							matchedAccumulators.add(accumulator.getName());
 						}
 					}
 				}
 
-				if (accumulators.size() > 0) {
+				if (matchedAccumulators.size() > 0) {
 					if (chartPattern.getMode() == null) {
 						chartPattern.setMode(AccumulatorSetMode.COMBINED);
 					}
@@ -488,7 +489,7 @@ public class DashboardAPIImpl extends AbstractMoskitoAPIImpl implements Dashboar
 						case COMBINED:
 						default:
 							ChartConfig chartConfigCombined = new ChartConfig();
-							chartConfigCombined.setAccumulators(accumulators.toArray(new String[accumulators.size()]));
+							chartConfigCombined.setAccumulators(matchedAccumulators.toArray(new String[matchedAccumulators.size()]));
 							if (chartPattern.getCaption() != null && !chartPattern.getCaption().isEmpty()) {
 								chartConfigCombined.setCaption(chartPattern.getCaption());
 							} else {
@@ -498,7 +499,7 @@ public class DashboardAPIImpl extends AbstractMoskitoAPIImpl implements Dashboar
 
 							break;
 						case MULTIPLE:
-							for (String accumulator : accumulators) {
+							for (String accumulator : matchedAccumulators) {
 								ChartConfig chartConfig = new ChartConfig();
 								chartConfig.setAccumulators(new String[]{accumulator});
 								chartConfig.setCaption(StringUtils.trimString(chartConfig.buildCaption(), "", 50));

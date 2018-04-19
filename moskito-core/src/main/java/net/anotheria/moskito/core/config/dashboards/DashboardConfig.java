@@ -9,6 +9,7 @@ import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.regex.Pattern;
+import java.util.regex.PatternSyntaxException;
 
 /**
  * Configuration of a single Dashboard.
@@ -148,7 +149,9 @@ public class DashboardConfig implements Serializable{
 			for (ChartPattern chartPattern : chartPatterns) {
 				List<Pattern> patterns = new LinkedList<>();
 				for (String accumulatorPattern : chartPattern.getAccumulatorPatterns()) {
-					patterns.add(Pattern.compile(accumulatorPattern));
+					try {
+						patterns.add(Pattern.compile(accumulatorPattern));
+					} catch (PatternSyntaxException e) {}
 				}
 				chartPattern.setPatterns(patterns.toArray(new Pattern[patterns.size()]));
 			}
@@ -182,7 +185,9 @@ public class DashboardConfig implements Serializable{
 			List<Pattern> patterns = new LinkedList<>();
 
 			for (String producerNamePattern : getProducerNamePatterns()) {
-				patterns.add(Pattern.compile(producerNamePattern));
+				try {
+					patterns.add(Pattern.compile(producerNamePattern));
+				} catch (PatternSyntaxException e) {}
 			}
 			setPatterns(patterns.toArray(new Pattern[patterns.size()]));
 		}
