@@ -5,11 +5,16 @@ import net.anotheria.anoplass.api.APIFinder;
 import net.anotheria.anoplass.api.APIInitException;
 import net.anotheria.moskito.core.config.MoskitoConfiguration;
 import net.anotheria.moskito.core.config.MoskitoConfigurationHolder;
+import net.anotheria.moskito.core.config.accumulators.AccumulatorSetMode;
 import net.anotheria.moskito.core.config.dashboards.ChartConfig;
+import net.anotheria.moskito.core.config.dashboards.ChartPattern;
 import net.anotheria.moskito.core.config.dashboards.DashboardConfig;
 import net.anotheria.moskito.core.config.dashboards.DashboardsConfig;
+import net.anotheria.moskito.core.producers.IStatsProducer;
+import net.anotheria.moskito.core.registry.ProducerRegistryAPIFactory;
 import net.anotheria.moskito.webui.accumulators.api.AccumulatorAO;
 import net.anotheria.moskito.webui.accumulators.api.AccumulatorAPI;
+import net.anotheria.moskito.webui.accumulators.api.AccumulatorDefinitionAO;
 import net.anotheria.moskito.webui.accumulators.api.MultilineChartAO;
 import net.anotheria.moskito.webui.gauges.api.GaugeAPI;
 import net.anotheria.moskito.webui.producers.api.ProducerAPI;
@@ -19,6 +24,7 @@ import net.anotheria.util.StringUtils;
 import net.anotheria.util.sorter.DummySortType;
 
 import java.util.*;
+import java.util.regex.Pattern;
 
 /**
  * Implementation of the DashboardAPI.
@@ -434,12 +440,78 @@ public class DashboardAPIImpl extends AbstractMoskitoAPIImpl implements Dashboar
 			ret.setThresholds(thresholdAPI.getThresholdStatuses(config.getThresholds()));
 		}
 
+
+		Set<String> producers = new HashSet<String>();
+
 		if (config.getProducers() != null && config.getProducers().length > 0) {
-			ret.setProducers(Arrays.asList(config.getProducers()));
+			producers.addAll(Arrays.asList(config.getProducers()));
 		}
 
+		if (config.getProducerNamePatterns() != null && config.getProducerNamePatterns().length > 0) {
+			List<IStatsProducer> IStatsProducers = new ProducerRegistryAPIFactory().createProducerRegistryAPI().getAllProducers();
+			for (Pattern pattern : config.getPatterns()) {
+				for (IStatsProducer isp : IStatsProducers) {
+					if (pattern.matcher(isp.getProducerId()).matches()) {
+						producers.add(isp.getProducerId());
+					}
+				}
+			}
+		}
+
+		if(!producers.isEmpty()){
+			ret.setProducers(Arrays.asList(producers.toArray(new String[producers.size()])));
+		}
 
 		//// CHARTS //////
+
+		if (config.getChartPatterns() != null && config.getChartPatterns().length > 0) {
+			Set<ChartConfig> chartConfigs = new HashSet<>(Arrays.asList(config.getCharts()));
+			List<AccumulatorDefinitionAO> accumulatorDefinitions = accumulatorAPI.getAccumulatorDefinitions();
+
+			for (ChartPattern chartPattern : config.getChartPatterns()) {
+				List<String> accumulators = new LinkedList<>();
+
+				for (Pattern pattern : chartPattern.getPatterns()) {
+					for (AccumulatorDefinitionAO accumulatorDefinition : accumulatorDefinitions) {
+						if (pattern.matcher(accumulatorDefinition.getName()).matches()) {
+							accumulators.add(accumulatorDefinition.getName());
+						}
+					}
+				}
+
+				if (accumulators.size() > 0) {
+					if (chartPattern.getMode() == null) {
+						chartPattern.setMode(AccumulatorSetMode.COMBINED);
+					}
+
+					switch (chartPattern.getMode()) {
+						case COMBINED:
+						default:
+							ChartConfig chartConfigCombined = new ChartConfig();
+							chartConfigCombined.setAccumulators(accumulators.toArray(new String[accumulators.size()]));
+							if (chartPattern.getCaption() != null && !chartPattern.getCaption().isEmpty()) {
+								chartConfigCombined.setCaption(chartPattern.getCaption());
+							} else {
+								chartConfigCombined.setCaption(StringUtils.trimString(chartConfigCombined.buildCaption(), "", 50));
+							}
+							chartConfigs.add(chartConfigCombined);
+
+							break;
+						case MULTIPLE:
+							for (String accumulator : accumulators) {
+								ChartConfig chartConfig = new ChartConfig();
+								chartConfig.setAccumulators(new String[]{accumulator});
+								chartConfig.setCaption(StringUtils.trimString(chartConfig.buildCaption(), "", 50));
+								chartConfigs.add(chartConfig);
+							}
+
+							break;
+					}
+				}
+			}
+			config.setCharts(chartConfigs.toArray(new ChartConfig[chartConfigs.size()]));
+		}
+
 		if (config.getCharts()!=null && config.getCharts().length>0){
 			LinkedList<DashboardChartAO> chartBeans = new LinkedList<DashboardChartAO>();
 			for (ChartConfig cc : config.getCharts()){

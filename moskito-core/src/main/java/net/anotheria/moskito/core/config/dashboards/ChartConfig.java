@@ -6,6 +6,7 @@ import org.configureme.annotations.ConfigureMe;
 
 import java.io.Serializable;
 import java.util.Arrays;
+import java.util.Objects;
 
 /**
  * Configuration holder for a single chart in a dashboard.
@@ -69,5 +70,22 @@ public class ChartConfig implements Serializable{
 			}
 		}
 		return captionBuilder.toString();
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (!(o instanceof ChartConfig)) return false;
+		ChartConfig that = (ChartConfig) o;
+		return Objects.equals(getCaption(), that.getCaption()) &&
+				Arrays.equals(getAccumulators(), that.getAccumulators());
+	}
+
+	@Override
+	public int hashCode() {
+
+		int result = Objects.hash(getCaption());
+		result = 31 * result + Arrays.hashCode(getAccumulators());
+		return result;
 	}
 }

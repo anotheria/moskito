@@ -6,6 +6,9 @@ import org.configureme.annotations.ConfigureMe;
 
 import java.io.Serializable;
 import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.regex.Pattern;
 
 /**
  * Configuration of a single Dashboard.
@@ -41,6 +44,12 @@ public class DashboardConfig implements Serializable{
 	private ChartConfig [] charts;
 
 	/**
+	 * Configured chart patterns
+	 */
+	@Configure
+	private ChartPattern [] chartPatterns;
+
+	/**
 	 * Names of the thresholds that should be on that dashboard.
 	 */
 	@Configure
@@ -59,6 +68,17 @@ public class DashboardConfig implements Serializable{
 	private String[] producers;
 
 	/**
+	 * All producers which names matches the pattern should be present on dashboard
+	 */
+	@Configure
+	private String[] producerNamePatterns;
+
+	/**
+	 * Stores compiled producerNamePatterns
+	 */
+	private Pattern[] patterns;
+
+	/**
 	 * Widgets that should be present on dashboard.
 	 * Order in array determines display order on dashboard.
 	 */
@@ -75,9 +95,11 @@ public class DashboardConfig implements Serializable{
 		sb.append("name='").append(name).append('\'');
 		sb.append(", refresh=").append(refresh);
 		sb.append(", charts=").append(Arrays.toString(charts));
+		sb.append(", chartPatterns=").append(Arrays.toString(chartPatterns));
 		sb.append(", thresholds=").append(Arrays.toString(thresholds));
 		sb.append(", gauges=").append(Arrays.toString(gauges));
 		sb.append(", producers=").append(Arrays.toString(producers));
+		sb.append(", producerNamePatterns=").append(Arrays.toString(producerNamePatterns));
 		sb.append(", widgets=").append(Arrays.toString(widgets));
 		sb.append('}');
 		return sb.toString();
@@ -115,6 +137,24 @@ public class DashboardConfig implements Serializable{
 		this.charts = charts;
 	}
 
+	public ChartPattern[] getChartPatterns() {
+		return chartPatterns;
+	}
+
+	public void setChartPatterns(ChartPattern[] chartPatterns) {
+		this.chartPatterns = chartPatterns;
+
+		if (chartPatterns != null && chartPatterns.length > 0) {
+			for (ChartPattern chartPattern : chartPatterns) {
+				List<Pattern> patterns = new LinkedList<>();
+				for (String accumulatorPattern : chartPattern.getAccumulatorPatterns()) {
+					patterns.add(Pattern.compile(accumulatorPattern));
+				}
+				chartPattern.setPatterns(patterns.toArray(new Pattern[patterns.size()]));
+			}
+		}
+	}
+
 	public String[] getGauges() {
 		return gauges;
 	}
@@ -129,6 +169,31 @@ public class DashboardConfig implements Serializable{
 
 	public void setProducers(String[] producers) {
 		this.producers = producers;
+	}
+
+	public String[] getProducerNamePatterns() {
+		return producerNamePatterns;
+	}
+
+	public void setProducerNamePatterns(String[] producerNamePatterns) {
+		this.producerNamePatterns = producerNamePatterns;
+
+		if (producerNamePatterns != null && producerNamePatterns.length > 0) {
+			List<Pattern> patterns = new LinkedList<>();
+
+			for (String producerNamePattern : getProducerNamePatterns()) {
+				patterns.add(Pattern.compile(producerNamePattern));
+			}
+			setPatterns(patterns.toArray(new Pattern[patterns.size()]));
+		}
+	}
+
+	public Pattern[] getPatterns() {
+		return patterns;
+	}
+
+	public void setPatterns(Pattern[] patterns) {
+		this.patterns = patterns;
 	}
 
 	public String[] getWidgets() {
