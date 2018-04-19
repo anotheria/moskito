@@ -3,6 +3,7 @@ package net.anotheria.moskito.core.config.dashboards;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.configureme.annotations.Configure;
 import org.configureme.annotations.ConfigureMe;
+import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.Serializable;
@@ -25,6 +26,11 @@ public class DashboardConfig implements Serializable{
 	 * SerialVersionUID.
 	 */
 	private static final long serialVersionUID = 5472953727159931087L;
+
+	/**
+	 * Logger.
+	 */
+	private static final Logger log = LoggerFactory.getLogger(DashboardConfig.class);
 
 	/**
 	 * Name of the dashboard.
@@ -153,7 +159,7 @@ public class DashboardConfig implements Serializable{
 					try {
 						patterns.add(Pattern.compile(accumulatorPattern));
 					} catch (PatternSyntaxException e) {
-						LoggerFactory.getLogger(DashboardConfig.class).warn("Couldn't compile pattern: \"" + accumulatorPattern + "\"", e);
+						log.warn("Couldn't compile pattern: \"" + accumulatorPattern + "\"", e);
 					}
 				}
 				chartPattern.setPatterns(patterns.toArray(new Pattern[patterns.size()]));
@@ -191,7 +197,7 @@ public class DashboardConfig implements Serializable{
 				try {
 					patterns.add(Pattern.compile(producerNamePattern));
 				} catch (PatternSyntaxException e) {
-					LoggerFactory.getLogger(DashboardConfig.class).warn("Couldn't compile pattern: \"" + producerNamePattern + "\"", e);
+					log.warn("Couldn't compile pattern: \"" + producerNamePattern + "\"", e);
 				}
 			}
 			setPatterns(patterns.toArray(new Pattern[patterns.size()]));
