@@ -3,12 +3,15 @@ package net.anotheria.moskito.core.config.dashboards;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.configureme.annotations.Configure;
 import org.configureme.annotations.ConfigureMe;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.Serializable;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.regex.Pattern;
+import java.util.regex.PatternSyntaxException;
 
 /**
  * Configuration of a single Dashboard.
@@ -23,6 +26,11 @@ public class DashboardConfig implements Serializable{
 	 * SerialVersionUID.
 	 */
 	private static final long serialVersionUID = 5472953727159931087L;
+
+	/**
+	 * Logger.
+	 */
+	private static final Logger log = LoggerFactory.getLogger(DashboardConfig.class);
 
 	/**
 	 * Name of the dashboard.
@@ -148,7 +156,11 @@ public class DashboardConfig implements Serializable{
 			for (ChartPattern chartPattern : chartPatterns) {
 				List<Pattern> patterns = new LinkedList<>();
 				for (String accumulatorPattern : chartPattern.getAccumulatorPatterns()) {
-					patterns.add(Pattern.compile(accumulatorPattern));
+					try {
+						patterns.add(Pattern.compile(accumulatorPattern));
+					} catch (PatternSyntaxException e) {
+						log.warn("Couldn't compile pattern: \"" + accumulatorPattern + "\"", e);
+					}
 				}
 				chartPattern.setPatterns(patterns.toArray(new Pattern[patterns.size()]));
 			}
@@ -182,7 +194,11 @@ public class DashboardConfig implements Serializable{
 			List<Pattern> patterns = new LinkedList<>();
 
 			for (String producerNamePattern : getProducerNamePatterns()) {
-				patterns.add(Pattern.compile(producerNamePattern));
+				try {
+					patterns.add(Pattern.compile(producerNamePattern));
+				} catch (PatternSyntaxException e) {
+					log.warn("Couldn't compile pattern: \"" + producerNamePattern + "\"", e);
+				}
 			}
 			setPatterns(patterns.toArray(new Pattern[patterns.size()]));
 		}
