@@ -442,7 +442,7 @@ public class DashboardAPIImpl extends AbstractMoskitoAPIImpl implements Dashboar
 		}
 
 
-		Set<String> producers = new HashSet<String>();
+		List<String> producers = new LinkedList<String>();
 
 		if (config.getProducers() != null && config.getProducers().length > 0) {
 			producers.addAll(Arrays.asList(config.getProducers()));
@@ -466,7 +466,7 @@ public class DashboardAPIImpl extends AbstractMoskitoAPIImpl implements Dashboar
 		//// CHARTS //////
 
 		if (config.getChartPatterns() != null && config.getChartPatterns().length > 0) {
-			Set<ChartConfig> chartConfigs = new HashSet<>(Arrays.asList(config.getCharts()));
+			List<ChartConfig> chartConfigs = new LinkedList<>(Arrays.asList(config.getCharts()));
 			List<Accumulator> accumulators = AccumulatorRepository.getInstance().getAccumulators();
 
 			for (ChartPattern chartPattern : config.getChartPatterns()) {
