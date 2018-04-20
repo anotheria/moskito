@@ -465,8 +465,12 @@ public class DashboardAPIImpl extends AbstractMoskitoAPIImpl implements Dashboar
 
 		//// CHARTS //////
 
+		List<ChartConfig> charts = new LinkedList<>();
+		if (config.getCharts() != null && config.getCharts().length > 0) {
+			charts.addAll(Arrays.asList(config.getCharts()));
+		}
+
 		if (config.getChartPatterns() != null && config.getChartPatterns().length > 0) {
-			List<ChartConfig> chartConfigs = new LinkedList<>(Arrays.asList(config.getCharts()));
 			List<Accumulator> accumulators = AccumulatorRepository.getInstance().getAccumulators();
 
 			for (ChartPattern chartPattern : config.getChartPatterns()) {
@@ -495,7 +499,7 @@ public class DashboardAPIImpl extends AbstractMoskitoAPIImpl implements Dashboar
 							} else {
 								chartConfigCombined.setCaption(StringUtils.trimString(chartConfigCombined.buildCaption(), "", 50));
 							}
-							chartConfigs.add(chartConfigCombined);
+							charts.add(chartConfigCombined);
 
 							break;
 						case MULTIPLE:
@@ -503,19 +507,18 @@ public class DashboardAPIImpl extends AbstractMoskitoAPIImpl implements Dashboar
 								ChartConfig chartConfig = new ChartConfig();
 								chartConfig.setAccumulators(new String[]{accumulator});
 								chartConfig.setCaption(StringUtils.trimString(chartConfig.buildCaption(), "", 50));
-								chartConfigs.add(chartConfig);
+								charts.add(chartConfig);
 							}
 
 							break;
 					}
 				}
 			}
-			config.setCharts(chartConfigs.toArray(new ChartConfig[chartConfigs.size()]));
 		}
 
-		if (config.getCharts()!=null && config.getCharts().length>0){
+		if (!charts.isEmpty()){
 			LinkedList<DashboardChartAO> chartBeans = new LinkedList<DashboardChartAO>();
-			for (ChartConfig cc : config.getCharts()){
+			for (ChartConfig cc : charts){
 
 				DashboardChartAO bean = new DashboardChartAO();
 				if (cc.getCaption()!=null){
