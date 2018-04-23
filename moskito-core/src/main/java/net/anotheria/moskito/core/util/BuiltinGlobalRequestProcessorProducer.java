@@ -11,16 +11,12 @@ import org.slf4j.LoggerFactory;
 
 import javax.management.Attribute;
 import javax.management.AttributeList;
-import javax.management.BadAttributeValueExpException;
-import javax.management.BadBinaryOpValueExpException;
-import javax.management.BadStringOperationException;
 import javax.management.InstanceNotFoundException;
-import javax.management.InvalidApplicationException;
 import javax.management.MBeanServer;
 import javax.management.MBeanServerFactory;
+import javax.management.MalformedObjectNameException;
 import javax.management.ObjectInstance;
 import javax.management.ObjectName;
-import javax.management.QueryExp;
 import javax.management.ReflectionException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -32,29 +28,13 @@ import java.util.TimerTask;
 /**
  * Producer for values supplied by Global Request Processor.
  *
- * @author esmakula
  */
 public class BuiltinGlobalRequestProcessorProducer extends AbstractBuiltInProducer implements IStatsProducer, BuiltInProducer {
 
     /**
-     * AJP Connector.
+     * Mbean name.
      */
-    private static final String AJP = "ajp";
-
-    /**
-     * HTTP connector.
-     */
-    private static final String HTTP = "http";
-
-    /**
-     * Global Request Processor type.
-     */
-    private static final String  TYPE_PROCESSOR = "GlobalRequestProcessor";
-
-    /**
-     * Catalina domain.
-     */
-    private static final String DOMAIN_CATALINA = "Catalina";
+    private static final String MBEAN_NAME = "Catalina:name=\"%s\",type=GlobalRequestProcessor";
 
     /**
      * Attribute names array.
@@ -94,46 +74,25 @@ public class BuiltinGlobalRequestProcessorProducer extends AbstractBuiltInProduc
     public BuiltinGlobalRequestProcessorProducer() {
         List<MBeanServer> servers = MBeanServerFactory.findMBeanServer(null);
 
-        for (MBeanServer server : servers) {
-            Set<ObjectInstance> instances = server.queryMBeans(null, new QueryExp() {
-                @Override
-                public boolean apply(ObjectName name) throws BadStringOperationException, BadBinaryOpValueExpException, BadAttributeValueExpException, InvalidApplicationException {
-                    String type = name.getKeyProperty("type");
-                    String nameProperty = name.getKeyProperty("name");
-                    boolean isAjp = MoskitoConfigurationHolder.getConfiguration().getTomcatRequestProcessorProducerConfig().isAjp();
-                    boolean isHttp = MoskitoConfigurationHolder.getConfiguration().getTomcatRequestProcessorProducerConfig().isHttp();
-                    return name.getDomain().equals(DOMAIN_CATALINA) && type.equals(TYPE_PROCESSOR)
-                            && (isAjp && nameProperty.toLowerCase().contains(AJP)
-                                || isHttp && nameProperty.toLowerCase().contains(HTTP));
-                }
+		boolean isAjp = MoskitoConfigurationHolder.getConfiguration().getTomcatRequestProcessorProducerConfig().isAjp();
+		boolean isHttp = MoskitoConfigurationHolder.getConfiguration().getTomcatRequestProcessorProducerConfig().isHttp();
+		String key = isAjp && isHttp ? "*" : isHttp ? "http*" : "ajp*";
 
-                @Override
-                public void setMBeanServer(MBeanServer s) {
-                }
-            });
-            if (instances.size() > 0) {
-                iStats = new ArrayList<>();
-                mBeans = new ArrayList<>();
-                mBeanServer = server;
-                List<String> beanNames = new ArrayList<>();
-                for (ObjectInstance instance : instances) {
-                    mBeans.add(instance);
-                    String beanName = MBeanProducerFactory.normalize(instance.getObjectName().getKeyProperty("name"));
-                    GlobalRequestProcessorStats stats = new GlobalRequestProcessorStats(beanName);
-                    iStats.add(stats);
-                    beanNames.add(beanName);
-                }
-                BuiltinUpdater.addTask(new TimerTask() {
-                    @Override
-                    public void run() {
-                        readAttributes();
-                    }
-                });
-                ProducerRegistryFactory.getProducerRegistryInstance().registerProducer(this);
-                Accumulators.createGlobalRequestProcessorAccumulators(beanNames);
-                break;
-            }
-        }
+		try {
+			for (MBeanServer server : servers) {
+				Set<ObjectInstance> instances = server.queryMBeans(new ObjectName(String.format(MBEAN_NAME, key)), null);
+				if (instances.size() == 0) {
+					continue;
+				}
+				List<String> beanNames = initFieldsAndCreateStats(server, instances);
+				addUpdaterTask();
+				ProducerRegistryFactory.getProducerRegistryInstance().registerProducer(this);
+				Accumulators.createGlobalRequestProcessorAccumulators(beanNames);
+				break;
+			}
+		} catch (MalformedObjectNameException e) {
+			log.error("Failed to get GlobalRequestProcessor mbeans", e);
+		}
     }
 
     @Override
@@ -151,9 +110,31 @@ public class BuiltinGlobalRequestProcessorProducer extends AbstractBuiltInProduc
         return iStats;
     }
 
-    /**
-     * Reads the management bean attributes and extracts monitored data on regular base.
-     */
+	private List<String> initFieldsAndCreateStats(MBeanServer server, Set<ObjectInstance> instances) {
+		iStats = new ArrayList<>();
+		mBeans = new ArrayList<>();
+		mBeanServer = server;
+		List<String> beanNames = new ArrayList<>();
+		for (ObjectInstance instance : instances) {
+			mBeans.add(instance);
+			String beanName = MBeanProducerFactory.normalize(instance.getObjectName().getKeyProperty("name"));
+			GlobalRequestProcessorStats stats = new GlobalRequestProcessorStats(beanName);
+			iStats.add(stats);
+			beanNames.add(beanName);
+		}
+		return beanNames;
+	}
+
+
+	private void addUpdaterTask() {
+		BuiltinUpdater.addTask(new TimerTask() {
+			@Override
+			public void run() {
+				readAttributes();
+			}
+		});
+	}
+
     private void readAttributes() {
         try {
             int i = 0;
