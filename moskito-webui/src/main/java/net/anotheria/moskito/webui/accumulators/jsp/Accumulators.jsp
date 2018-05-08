@@ -49,6 +49,63 @@
                 </script>
             </ano:present>
 
+            <%-- thresholds data --%>
+            <ano:present name="thresholds">
+                <script type="text/javascript">
+                     var thresholds = [];
+                     <ano:iterate name="thresholds" type="java.util.Map.Entry" id="threshold">
+                        thresholds.push({
+                            <ano:iterate name="threshold" property="value" id="guard" indexId="i">
+                                <ano:notEqual name="i" value="0">,</ano:notEqual> <ano:write name="guard" property="status"/>:<ano:write name="guard" property="value"/>
+                            </ano:iterate>
+                        })
+                     </ano:iterate>
+
+                     var thresholdsColors = (thresholds.length > 0) ? getThresholdsColors() : {};
+
+                     function getThresholdsColors() {
+                        var colors = {};
+                        try {
+                            for (var i = 0, styleSheets = document.styleSheets; i < styleSheets.length; i++) {
+                                if (styleSheets[i].cssRules && styleSheets[i].cssRules[0].href) {
+                                    for (var j = 0, cssRules = styleSheets[i].cssRules; j < cssRules.length; j++) {
+                                        if (cssRules[j].href && cssRules[j].href === "main.css") {
+                                            if (cssRules[j].styleSheet && cssRules[j].styleSheet.cssRules) {
+                                                for (var k = 0, rules = cssRules[j].styleSheet.cssRules; k < rules.length; k++) {
+                                                    switch (rules[k].selectorText) {
+                                                        case ".status.status-green" :colors.GREEN = RGBToHex(rules[k].style.background);break;
+                                                        case ".status.status-yellow":colors.YELLOW = RGBToHex(rules[k].style.background);break;
+                                                        case ".status.status-orange":colors.ORANGE = RGBToHex(rules[k].style.background);break;
+                                                        case ".status.status-red"   :colors.RED = RGBToHex(rules[k].style.background);break;
+                                                        case ".status.status-purple":colors.PURPLE = RGBToHex(rules[k].style.background);break;
+                                                    }
+                                                }
+                                            }
+                                            break;
+                                        }
+                                    }
+                                }
+                            }
+                        } catch (e) {/*ignore*/}
+
+                        colors.GREEN = colors.GREEN || "#53d769";
+                        colors.YELLOW = colors.YELLOW || "#ffde00";
+                        colors.ORANGE = colors.ORANGE || "#ff8023";
+                        colors.RED = colors.RED || "#fc3e39";
+                        colors.PURPLE = colors.PURPLE || "#b44bc4";
+
+                        return colors;
+
+                        function RGBToHex(color) {
+                            var rgb = color.match(/\d{1,3}/g);
+                            return "#" + decToHex(rgb[0] - 0) + decToHex(rgb[1] - 0) + decToHex(rgb[2] - 0);
+
+                            function decToHex(d) {return (d < 16) ? "0" + d.toString(16) : d.toString(16);}
+                        }
+                    }
+                </script>
+            </ano:present>
+
             <%-- single chart box with charts --%>
             <ano:notPresent name="multiple_set">
                 <div class="box">
@@ -145,6 +202,9 @@
             </script>
 
             <script type="text/javascript">
+                var thresholds = thresholds || [];
+                var thresholdsColors = thresholdsColors || {};
+
                 // Many charts
                 if ('multipleGraphData' in window) {
                     var names = '${accNames}'.slice(1, -1).split(', ');
@@ -166,6 +226,10 @@
                                 margin: {top: 20, right: 40, bottom: 30, left: 40}
                             }
                         };
+
+                        if (!isEmptyObject(thresholds[index])) {
+                            addThresholdsToChart(thresholds[index], chartParams);
+                        }
 
                         chartEngineIniter.init(chartParams);
                     });
@@ -189,6 +253,10 @@
                         }
                     };
 
+                    if ((names.length === 1) && !isEmptyObject(thresholds[0])) {
+                        addThresholdsToChart(thresholds[0], chartParams);
+                    }
+
                     chartEngineIniter.init(chartParams);
                 }
 
@@ -197,6 +265,30 @@
                     location.reload(true);
                 });
 
+                function addThresholdsToChart(thresholds, chartParams) {
+                    for (var color in thresholds) {
+                        if (thresholds.hasOwnProperty(color)) {
+                            if (thresholdsColors.hasOwnProperty(color)) {
+                                var gauge = thresholds[color];
+                                var data = chartParams.data;
+                                chartParams.colors.push({"color": thresholdsColors[color], "name": color});
+                                chartParams.names.push(color);
+                                for (var i = 0, length = data.length; i < length; i++) {
+                                    data[i].push(gauge);
+                                }
+                            }
+                        }
+                    }
+                }
+
+                function isEmptyObject(obj) {
+                    for (var property in obj) {
+                        if (obj.hasOwnProperty(property)) {
+                            return false;
+                        }
+                    }
+                    return true;
+                }
 
             </script>
         </ano:present>
@@ -328,6 +420,14 @@
                             <div class="form-group">
                                 )
                             </div>
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" name="withThresholds"
+                                           <ano:equal name="withThresholds_set" value="true">checked="checked"</ano:equal>>
+                                    With Thresholds
+                                </label>
+                            </div>
+
                             <input type="hidden" value="200" name="maxValues">
                         </div>
                     </div>
