@@ -5,11 +5,14 @@ import net.anotheria.maf.action.ActionCommand;
 import net.anotheria.maf.action.ActionMapping;
 import net.anotheria.maf.bean.FormBean;
 import net.anotheria.moskito.core.accumulation.Accumulator;
+import net.anotheria.moskito.core.accumulation.AccumulatorDefinition;
 import net.anotheria.moskito.core.accumulation.AccumulatorRepository;
 import net.anotheria.moskito.core.config.MoskitoConfiguration;
 import net.anotheria.moskito.core.config.accumulators.AccumulatorSetConfig;
 import net.anotheria.moskito.core.config.accumulators.AccumulatorSetMode;
 import net.anotheria.moskito.core.config.accumulators.AccumulatorsConfig;
+import net.anotheria.moskito.core.config.thresholds.GuardConfig;
+import net.anotheria.moskito.core.config.thresholds.ThresholdConfig;
 import net.anotheria.moskito.webui.accumulators.api.AccumulatedSingleGraphAO;
 import net.anotheria.moskito.webui.accumulators.api.AccumulatorAO;
 import net.anotheria.moskito.webui.accumulators.api.MultilineChartAO;
@@ -19,10 +22,7 @@ import net.anotheria.moskito.webui.accumulators.util.AccumulatorUtility;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.ArrayList;
-import java.util.Enumeration;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 /**
 /**
@@ -169,7 +169,29 @@ public class ShowAccumulatorsAction extends BaseAccumulatorsAction {
 				req.setAttribute("accumulatorsColors", AccumulatorUtility.accumulatorsColorsToJSON(singleGraphDataBeans));
 				req.setAttribute("data", Boolean.TRUE);
 			}
-			
+
+			if (req.getParameter("withThresholds") != null) {
+				req.setAttribute("withThresholds" + "_set", Boolean.TRUE);
+
+				if (mode == AccumulatorSetMode.MULTIPLE || numberOfIds == 1) {
+					Map<String, List<GuardConfig>> thresholds = new LinkedHashMap<>();
+
+					for (String id : ids) {
+						final AccumulatorDefinition accumulatorDefinition = AccumulatorRepository.getInstance().getById(id).getDefinition();
+						List<GuardConfig> guardConfig = new ArrayList<>();
+
+						for (ThresholdConfig thresholdConfig : config.getThresholdsConfig().getThresholds()) {
+							if (thresholdConfig.getProducerName().equalsIgnoreCase(accumulatorDefinition.getProducerName()) &&
+									thresholdConfig.getStatName().equalsIgnoreCase(accumulatorDefinition.getStatName()) &&
+									thresholdConfig.getValueName().equalsIgnoreCase(accumulatorDefinition.getValueName())) {
+								guardConfig = Arrays.asList(thresholdConfig.getGuards());
+							}
+						}
+						thresholds.put(accumulatorDefinition.getName(), guardConfig);
+					}
+					req.setAttribute("thresholds", thresholds);
+				}
+			}
 		}
 
 		req.setAttribute("dashboards", getDashboardsList());
