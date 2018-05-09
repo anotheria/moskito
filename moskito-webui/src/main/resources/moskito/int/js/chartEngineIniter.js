@@ -840,10 +840,6 @@ var D3chart = (function () {
                             v = y0 - v0.value > v1.value - y0 ? v1 : v0;
 
                         d.values.forEach(function (timeValue, ind) {
-                            if (/GREEN|YELLOW|ORANGE|RED|PURPLE/.test(timeValue.name)) {
-                                return;
-                            }
-
                             tooltipData.push({
                                 color: color(timeValue.name),
                                 name: timeValue.name,
@@ -915,8 +911,6 @@ var D3chart = (function () {
                             value: name,
                             color: _getColorFunc(containerId)(name)
                         }
-                    }).filter(function (name) {
-                        return !(/GREEN|YELLOW|ORANGE|RED|PURPLE/.test(name.value))
                     }),
                     rectWidth: 10,
                     rectHeight: 10,
