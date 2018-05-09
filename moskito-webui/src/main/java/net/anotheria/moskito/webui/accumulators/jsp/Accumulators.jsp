@@ -271,8 +271,9 @@
                             if (thresholdsColors.hasOwnProperty(color)) {
                                 var gauge = thresholds[color];
                                 var data = chartParams.data;
-                                chartParams.colors.push({"color": thresholdsColors[color], "name": color});
-                                chartParams.names.push(color);
+                                var legendColorName = color.substring(0, 1) + color.substring(1).toLowerCase() + " Barrier";
+                                chartParams.colors.push({"color": thresholdsColors[color], "name": legendColorName});
+                                chartParams.names.push(legendColorName);
                                 for (var i = 0, length = data.length; i < length; i++) {
                                     data[i].push(gauge);
                                 }
