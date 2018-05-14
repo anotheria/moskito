@@ -64,45 +64,22 @@
                      var thresholdsColors = (thresholds.length > 0) ? getThresholdsColors() : {};
 
                      function getThresholdsColors() {
-                        var colors = {};
-                        try {
-                            for (var i = 0, styleSheets = document.styleSheets; i < styleSheets.length; i++) {
-                                if (styleSheets[i].cssRules && styleSheets[i].cssRules[0].href) {
-                                    for (var j = 0, cssRules = styleSheets[i].cssRules; j < cssRules.length; j++) {
-                                        if (cssRules[j].href && cssRules[j].href === "main.css") {
-                                            if (cssRules[j].styleSheet && cssRules[j].styleSheet.cssRules) {
-                                                for (var k = 0, rules = cssRules[j].styleSheet.cssRules; k < rules.length; k++) {
-                                                    switch (rules[k].selectorText) {
-                                                        case ".status.status-green" :colors.GREEN = RGBToHex(rules[k].style.background);break;
-                                                        case ".status.status-yellow":colors.YELLOW = RGBToHex(rules[k].style.background);break;
-                                                        case ".status.status-orange":colors.ORANGE = RGBToHex(rules[k].style.background);break;
-                                                        case ".status.status-red"   :colors.RED = RGBToHex(rules[k].style.background);break;
-                                                        case ".status.status-purple":colors.PURPLE = RGBToHex(rules[k].style.background);break;
-                                                    }
-                                                }
-                                            }
-                                            break;
-                                        }
-                                    }
-                                }
-                            }
-                        } catch (e) {/*ignore*/}
+                         var colors = {};
 
-                        colors.GREEN = colors.GREEN || "#53d769";
-                        colors.YELLOW = colors.YELLOW || "#ffde00";
-                        colors.ORANGE = colors.ORANGE || "#ff8023";
-                        colors.RED = colors.RED || "#fc3e39";
-                        colors.PURPLE = colors.PURPLE || "#b44bc4";
+                         <ano:present name="thresholdGraphColors">
+                             <ano:iterate name="thresholdGraphColors" type="net.anotheria.moskito.webui.util.ThresholdGraphColor" id="thresholdGraphColor">
+                                colors["<ano:write name="thresholdGraphColor" property="status"/>"] = "<ano:write name="thresholdGraphColor" property="color"/>";
+                             </ano:iterate>
+                         </ano:present>
 
-                        return colors;
+                         colors.GREEN = colors.GREEN || "#53d769";
+                         colors.YELLOW = colors.YELLOW || "#ffde00";
+                         colors.ORANGE = colors.ORANGE || "#ff8023";
+                         colors.RED = colors.RED || "#fc3e39";
+                         colors.PURPLE = colors.PURPLE || "#b44bc4";
 
-                        function RGBToHex(color) {
-                            var rgb = color.match(/\d{1,3}/g);
-                            return "#" + decToHex(rgb[0] - 0) + decToHex(rgb[1] - 0) + decToHex(rgb[2] - 0);
-
-                            function decToHex(d) {return (d < 16) ? "0" + d.toString(16) : d.toString(16);}
-                        }
-                    }
+                         return colors;
+                     }
                 </script>
             </ano:present>
 

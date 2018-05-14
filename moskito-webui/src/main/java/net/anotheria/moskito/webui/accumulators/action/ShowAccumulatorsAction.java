@@ -19,6 +19,7 @@ import net.anotheria.moskito.webui.accumulators.api.MultilineChartAO;
 import net.anotheria.moskito.webui.accumulators.bean.AccumulatedValuesBean;
 import net.anotheria.moskito.webui.accumulators.bean.AccumulatorSetBean;
 import net.anotheria.moskito.webui.accumulators.util.AccumulatorUtility;
+import net.anotheria.moskito.webui.util.WebUIConfig;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -190,6 +191,7 @@ public class ShowAccumulatorsAction extends BaseAccumulatorsAction {
 						thresholds.put(accumulatorDefinition.getName(), guardConfig);
 					}
 					req.setAttribute("thresholds", thresholds);
+					req.setAttribute("thresholdGraphColors", WebUIConfig.getInstance().getThresholdGraphColors());
 				}
 			}
 		}
