@@ -4,8 +4,13 @@ import net.anotheria.anoplass.api.APIException;
 import net.anotheria.maf.action.ActionCommand;
 import net.anotheria.maf.action.ActionMapping;
 import net.anotheria.maf.bean.FormBean;
+import net.anotheria.moskito.core.accumulation.AccumulatorDefinition;
+import net.anotheria.moskito.core.accumulation.AccumulatorRepository;
+import net.anotheria.moskito.core.config.MoskitoConfigurationHolder;
 import net.anotheria.moskito.core.config.dashboards.DashboardConfig;
 import net.anotheria.moskito.core.config.dashboards.DashboardWidget;
+import net.anotheria.moskito.core.config.thresholds.GuardConfig;
+import net.anotheria.moskito.core.config.thresholds.ThresholdConfig;
 import net.anotheria.moskito.webui.dashboards.api.DashboardAO;
 import net.anotheria.moskito.webui.dashboards.api.DashboardChartAO;
 import net.anotheria.moskito.webui.dashboards.bean.DashboardChartBean;
@@ -17,17 +22,14 @@ import net.anotheria.moskito.webui.producers.util.ProducerUtility;
 import net.anotheria.moskito.webui.shared.bean.GraphDataBean;
 import net.anotheria.moskito.webui.shared.bean.ProducerDecoratorBean;
 import net.anotheria.moskito.webui.threshold.bean.ThresholdStatusBean;
+import net.anotheria.moskito.webui.util.WebUIConfig;
 import net.anotheria.util.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.TimeUnit;
 
 import static net.anotheria.moskito.webui.threshold.util.ThresholdStatusBeanUtility.getThresholdBeans;
@@ -107,8 +109,33 @@ public class ShowDashboardAction extends BaseDashboardAction {
 		}
 
 		// Prepare charts
-		if (dashboardChartAOList!=null && dashboardChartAOList.size()>0){
+		if (dashboardChartAOList != null && dashboardChartAOList.size() > 0){
 			request.setAttribute("charts", dashboardChartAOList);
+
+			Map<String, List<GuardConfig>> thresholds = new LinkedHashMap<>();
+
+			for (DashboardChartBean dashboardChartBean : dashboardChartAOList) {
+				if (dashboardChartBean.getChart().getNames().size() == 1) {
+					String accumulatorName = dashboardChartBean.getChart().getNames().get(0);
+					AccumulatorDefinition accumulatorDefinition = AccumulatorRepository.getInstance().getByName(accumulatorName).getDefinition();
+					List<GuardConfig> guardConfig = new ArrayList<>();
+
+					for (ThresholdConfig thresholdConfig : MoskitoConfigurationHolder.getConfiguration().getThresholdsConfig().getThresholds()) {
+						if (thresholdConfig.getProducerName().equalsIgnoreCase(accumulatorDefinition.getProducerName()) &&
+								thresholdConfig.getStatName().equalsIgnoreCase(accumulatorDefinition.getStatName()) &&
+								thresholdConfig.getValueName().equalsIgnoreCase(accumulatorDefinition.getValueName())) {
+							guardConfig = Arrays.asList(thresholdConfig.getGuards());
+						}
+					}
+
+					thresholds.put(dashboardChartBean.getCaption(), guardConfig);
+				} else {
+					thresholds.put(dashboardChartBean.getCaption(), new ArrayList<GuardConfig>());
+				}
+			}
+			request.setAttribute("thresholdsGraph", thresholds);
+			request.setAttribute("thresholdGraphColors", WebUIConfig.getInstance().getThresholdGraphColors());
+
 			chartsPresent = true;
 		} else {
 			widgets.remove(DashboardWidget.CHARTS);
