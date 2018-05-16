@@ -6,11 +6,14 @@ import net.anotheria.maf.action.ActionMapping;
 import net.anotheria.maf.bean.FormBean;
 import net.anotheria.moskito.core.accumulation.AccumulatorDefinition;
 import net.anotheria.moskito.core.accumulation.AccumulatorRepository;
-import net.anotheria.moskito.core.config.MoskitoConfigurationHolder;
 import net.anotheria.moskito.core.config.dashboards.DashboardConfig;
 import net.anotheria.moskito.core.config.dashboards.DashboardWidget;
 import net.anotheria.moskito.core.config.thresholds.GuardConfig;
-import net.anotheria.moskito.core.config.thresholds.ThresholdConfig;
+import net.anotheria.moskito.core.threshold.Threshold;
+import net.anotheria.moskito.core.threshold.ThresholdConditionGuard;
+import net.anotheria.moskito.core.threshold.ThresholdDefinition;
+import net.anotheria.moskito.core.threshold.ThresholdRepository;
+import net.anotheria.moskito.core.threshold.guard.BarrierPassGuard;
 import net.anotheria.moskito.webui.dashboards.api.DashboardAO;
 import net.anotheria.moskito.webui.dashboards.api.DashboardChartAO;
 import net.anotheria.moskito.webui.dashboards.bean.DashboardChartBean;
@@ -118,17 +121,26 @@ public class ShowDashboardAction extends BaseDashboardAction {
 				if (dashboardChartBean.getChart().getNames().size() == 1) {
 					String accumulatorName = dashboardChartBean.getChart().getNames().get(0);
 					AccumulatorDefinition accumulatorDefinition = AccumulatorRepository.getInstance().getByName(accumulatorName).getDefinition();
-					List<GuardConfig> guardConfig = new ArrayList<>();
+					List<GuardConfig> guardConfigs = new ArrayList<>();
 
-					for (ThresholdConfig thresholdConfig : MoskitoConfigurationHolder.getConfiguration().getThresholdsConfig().getThresholds()) {
-						if (thresholdConfig.getProducerName().equalsIgnoreCase(accumulatorDefinition.getProducerName()) &&
-								thresholdConfig.getStatName().equalsIgnoreCase(accumulatorDefinition.getStatName()) &&
-								thresholdConfig.getValueName().equalsIgnoreCase(accumulatorDefinition.getValueName())) {
-							guardConfig = Arrays.asList(thresholdConfig.getGuards());
+					for (Threshold threshold : ThresholdRepository.getInstance().getThresholds()) {
+						ThresholdDefinition thresholdDefinition = threshold.getDefinition();
+						if (thresholdDefinition.getProducerName().equalsIgnoreCase(accumulatorDefinition.getProducerName()) &&
+								thresholdDefinition.getStatName().equalsIgnoreCase(accumulatorDefinition.getStatName()) &&
+								thresholdDefinition.getValueName().equalsIgnoreCase(accumulatorDefinition.getValueName())) {
+
+							for (ThresholdConditionGuard guard : threshold.getGuards()) {
+								if(guard instanceof BarrierPassGuard){
+									String direction = ((BarrierPassGuard) guard).getDirection().toString();
+									String status = ((BarrierPassGuard) guard).getTargetStatus().toString();
+									String value = ((BarrierPassGuard) guard).getValueAsString();
+									guardConfigs.add(new GuardConfig(status, direction, value));
+								}
+							}
 						}
 					}
 
-					thresholds.put(dashboardChartBean.getCaption(), guardConfig);
+					thresholds.put(dashboardChartBean.getCaption(), guardConfigs);
 				} else {
 					thresholds.put(dashboardChartBean.getCaption(), new ArrayList<GuardConfig>());
 				}

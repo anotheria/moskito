@@ -63,6 +63,10 @@ public abstract class BarrierPassGuard implements ThresholdConditionGuard, Seria
 	public ThresholdStatus getTargetStatus(){
 		return targetStatus;
 	}
+
+	public GuardedDirection getDirection() {
+		return direction;
+	}
 }
 	
 
