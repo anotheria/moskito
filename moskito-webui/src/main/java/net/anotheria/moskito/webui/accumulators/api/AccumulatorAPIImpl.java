@@ -6,7 +6,13 @@ import net.anotheria.moskito.core.accumulation.Accumulator;
 import net.anotheria.moskito.core.accumulation.AccumulatorDefinition;
 import net.anotheria.moskito.core.accumulation.AccumulatorRepository;
 import net.anotheria.moskito.core.config.MoskitoConfigurationHolder;
+import net.anotheria.moskito.core.config.thresholds.GuardConfig;
 import net.anotheria.moskito.core.stats.TimeUnit;
+import net.anotheria.moskito.core.threshold.Threshold;
+import net.anotheria.moskito.core.threshold.ThresholdConditionGuard;
+import net.anotheria.moskito.core.threshold.ThresholdDefinition;
+import net.anotheria.moskito.core.threshold.ThresholdRepository;
+import net.anotheria.moskito.core.threshold.guard.BarrierPassGuard;
 import net.anotheria.moskito.webui.accumulators.bean.AccumulatedValuesBean;
 import net.anotheria.moskito.webui.shared.api.AbstractMoskitoAPIImpl;
 import net.anotheria.util.NumberUtils;
@@ -14,11 +20,7 @@ import net.anotheria.util.sorter.DummySortType;
 import net.anotheria.util.sorter.SortType;
 import net.anotheria.util.sorter.StaticQuickSorter;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Implementation of the AccumulatorAPI.
@@ -96,6 +98,27 @@ public class AccumulatorAPIImpl extends AbstractMoskitoAPIImpl implements Accumu
 		AccumulatedSingleGraphAO singleGraphDataBean = new AccumulatedSingleGraphAO(accumulator.getName());
 		singleGraphDataBean.setData(new AccumulatorAO(accumulator).getValues());
 		singleGraphDataBean.setColor(MoskitoConfigurationHolder.getConfiguration().getAccumulatorsConfig().getAccumulatorColor(accumulator.getName()));
+
+		AccumulatorDefinition accumulatorDefinition = accumulator.getDefinition();
+		List<GuardConfig> guardConfigs = new ArrayList<>();
+		for (Threshold threshold : ThresholdRepository.getInstance().getThresholds()) {
+			ThresholdDefinition thresholdDefinition = threshold.getDefinition();
+			if (thresholdDefinition.getProducerName().equalsIgnoreCase(accumulatorDefinition.getProducerName()) &&
+					thresholdDefinition.getStatName().equalsIgnoreCase(accumulatorDefinition.getStatName()) &&
+					thresholdDefinition.getValueName().equalsIgnoreCase(accumulatorDefinition.getValueName())) {    //If accumulator with given id has an corresponding threshold.
+
+				for (ThresholdConditionGuard guard : threshold.getGuards()) {
+					if (guard instanceof BarrierPassGuard) {
+						String direction = ((BarrierPassGuard) guard).getDirection().toString();
+						String status = ((BarrierPassGuard) guard).getTargetStatus().toString();
+						String value = ((BarrierPassGuard) guard).getValueAsString();
+						guardConfigs.add(new GuardConfig(status, direction, value));
+					}
+				}
+			}
+		}
+		singleGraphDataBean.setThreshold(guardConfigs);
+
 		return singleGraphDataBean;
 	}
 
