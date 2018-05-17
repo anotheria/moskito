@@ -1,5 +1,6 @@
 package net.anotheria.moskito.webui.accumulators.api;
 
+import net.anotheria.moskito.core.config.thresholds.GuardConfig;
 import net.anotheria.util.StringUtils;
 import net.anotheria.util.log.LogMessageUtil;
 import org.json.JSONException;
@@ -9,7 +10,6 @@ import org.slf4j.LoggerFactory;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -62,6 +62,12 @@ public class AccumulatedSingleGraphAO implements Serializable{
 	}
 
 	/**
+	 * Threshold (boundary values) for this accumulator.
+	 */
+	@XmlElement
+	private List<GuardConfig> threshold;
+
+	/**
 	 * Default constructor.
      */
 	public AccumulatedSingleGraphAO() {
@@ -70,6 +76,7 @@ public class AccumulatedSingleGraphAO implements Serializable{
 	public AccumulatedSingleGraphAO(String aName){
 		name = aName;
 		data = new ArrayList<>();
+		threshold = new ArrayList<>();
 	}
 	
 	public String getName() {
@@ -102,6 +109,14 @@ public class AccumulatedSingleGraphAO implements Serializable{
 	public void setColor(String color) {
 		this.color = color;
 	}
+
+    public List<GuardConfig> getThreshold() {
+        return threshold;
+    }
+
+    public void setThreshold(List<GuardConfig> threshold) {
+        this.threshold = threshold;
+    }
 
 	/**
 	 * Maps accumulator's color and name to JSON object.
