@@ -6,6 +6,7 @@ import net.anotheria.maf.action.ActionMapping;
 import net.anotheria.maf.bean.FormBean;
 import net.anotheria.moskito.core.config.dashboards.DashboardConfig;
 import net.anotheria.moskito.core.config.dashboards.DashboardWidget;
+import net.anotheria.moskito.core.config.thresholds.GuardConfig;
 import net.anotheria.moskito.webui.dashboards.api.DashboardAO;
 import net.anotheria.moskito.webui.dashboards.api.DashboardChartAO;
 import net.anotheria.moskito.webui.dashboards.bean.DashboardChartBean;
@@ -17,17 +18,14 @@ import net.anotheria.moskito.webui.producers.util.ProducerUtility;
 import net.anotheria.moskito.webui.shared.bean.GraphDataBean;
 import net.anotheria.moskito.webui.shared.bean.ProducerDecoratorBean;
 import net.anotheria.moskito.webui.threshold.bean.ThresholdStatusBean;
+import net.anotheria.moskito.webui.util.WebUIConfig;
 import net.anotheria.util.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.TimeUnit;
 
 import static net.anotheria.moskito.webui.threshold.util.ThresholdStatusBeanUtility.getThresholdBeans;
@@ -107,8 +105,17 @@ public class ShowDashboardAction extends BaseDashboardAction {
 		}
 
 		// Prepare charts
-		if (dashboardChartAOList!=null && dashboardChartAOList.size()>0){
+		if (dashboardChartAOList != null && dashboardChartAOList.size() > 0){
 			request.setAttribute("charts", dashboardChartAOList);
+
+			Map<String, List<GuardConfig>> thresholds = new LinkedHashMap<>();
+			for (DashboardChartAO dashboardChartAO : dashboard.getCharts()) {
+				thresholds.put(dashboardChartAO.getCaption(), getTresholdConfig(dashboardChartAO));
+			}
+
+			request.setAttribute("thresholdsGraph", thresholds);
+			request.setAttribute("thresholdGraphColors", WebUIConfig.getInstance().getThresholdGraphColors());
+
 			chartsPresent = true;
 		} else {
 			widgets.remove(DashboardWidget.CHARTS);
@@ -145,6 +152,16 @@ public class ShowDashboardAction extends BaseDashboardAction {
 		request.setAttribute("dashboardRefreshRate", getDashboardRefreshRate(selectedDashboardConfig));
 
 		return actionMapping.success();
+	}
+
+	private List<GuardConfig> getTresholdConfig(DashboardChartAO dashboardChartAO) {
+		List<GuardConfig> guardConfigs = new ArrayList<>();
+
+		if (dashboardChartAO.getChart().getSingleGraphAOs().size() == 1) {
+			guardConfigs.addAll(dashboardChartAO.getChart().getSingleGraphAOs().get(0).getThreshold());
+		}
+
+		return guardConfigs;
 	}
 
 	@Override

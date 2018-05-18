@@ -21,6 +21,37 @@
         <ano:write name="singleChart" property="accumulatorsColorsDataJSON"/>
     );
     </ano:iterate>
+
+    <ano:present name="thresholdsGraph">
+        var thresholdsGraph = [];
+        <ano:iterate name="thresholdsGraph" type="java.util.Map.Entry" id="thresholdGraph">
+            thresholdsGraph.push({
+                <ano:iterate name="thresholdGraph" property="value" id="guard" indexId="i">
+                    <ano:notEqual name="i" value="0">,</ano:notEqual> <ano:write name="guard" property="status"/>:<ano:write name="guard" property="value"/>
+                </ano:iterate>
+            })
+        </ano:iterate>
+
+        var thresholdsGraphColors = (thresholdsGraph.length > 0) ? getThresholdsGraphColors() : {};
+
+        function getThresholdsGraphColors() {
+            var colors = {};
+
+            <ano:present name="thresholdGraphColors">
+                <ano:iterate name="thresholdGraphColors" type="net.anotheria.moskito.webui.util.ThresholdGraphColor" id="thresholdGraphColor">
+                    colors["<ano:write name="thresholdGraphColor" property="status"/>"] = "<ano:write name="thresholdGraphColor" property="color"/>";
+                </ano:iterate>
+            </ano:present>
+
+            colors.GREEN = colors.GREEN || "#53d769";
+            colors.YELLOW = colors.YELLOW || "#ffde00";
+            colors.ORANGE = colors.ORANGE || "#ff8023";
+            colors.RED = colors.RED || "#fc3e39";
+            colors.PURPLE = colors.PURPLE || "#b44bc4";
+
+            return colors;
+        }
+    </ano:present>
 </script>
 
 <div class="dashboard-line">
@@ -76,11 +107,41 @@
             title: names[index],
             dataType: 'datetime',
             options: {
-                legendsPerSlice: 5,
+                legendsPerSlice: 6,
                 margin: {top: 20, right: 10, bottom: 20, left: 40}
             }
         };
 
+        if (!isEmptyObject(thresholdsGraph[index])) {
+            addThresholdsToChart(thresholdsGraph[index], chartParams);
+        }
+
         chartEngineIniter.init(chartParams);
     });
+
+    function addThresholdsToChart(thresholds, chartParams) {
+        for (var color in thresholds) {
+            if (thresholds.hasOwnProperty(color)) {
+                if (thresholdsGraphColors.hasOwnProperty(color)) {
+                    var gauge = thresholds[color];
+                    var data = chartParams.data;
+                    var legendColorName = color.substring(0, 1) + color.substring(1).toLowerCase() + " Barrier";
+                    chartParams.colors.push({"color": thresholdsGraphColors[color], "name": legendColorName});
+                    chartParams.names.push(legendColorName);
+                    for (var i = 0, length = data.length; i < length; i++) {
+                        data[i].push(gauge);
+                    }
+                }
+            }
+        }
+    }
+
+    function isEmptyObject(obj) {
+        for (var property in obj) {
+            if (obj.hasOwnProperty(property)) {
+                return false;
+            }
+        }
+        return true;
+    }
 </script>

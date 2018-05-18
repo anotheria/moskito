@@ -5,20 +5,19 @@ import net.anotheria.maf.action.ActionCommand;
 import net.anotheria.maf.action.ActionMapping;
 import net.anotheria.maf.bean.FormBean;
 import net.anotheria.moskito.core.accumulation.Accumulator;
-import net.anotheria.moskito.core.accumulation.AccumulatorDefinition;
 import net.anotheria.moskito.core.accumulation.AccumulatorRepository;
 import net.anotheria.moskito.core.config.MoskitoConfiguration;
 import net.anotheria.moskito.core.config.accumulators.AccumulatorSetConfig;
 import net.anotheria.moskito.core.config.accumulators.AccumulatorSetMode;
 import net.anotheria.moskito.core.config.accumulators.AccumulatorsConfig;
 import net.anotheria.moskito.core.config.thresholds.GuardConfig;
-import net.anotheria.moskito.core.config.thresholds.ThresholdConfig;
 import net.anotheria.moskito.webui.accumulators.api.AccumulatedSingleGraphAO;
 import net.anotheria.moskito.webui.accumulators.api.AccumulatorAO;
 import net.anotheria.moskito.webui.accumulators.api.MultilineChartAO;
 import net.anotheria.moskito.webui.accumulators.bean.AccumulatedValuesBean;
 import net.anotheria.moskito.webui.accumulators.bean.AccumulatorSetBean;
 import net.anotheria.moskito.webui.accumulators.util.AccumulatorUtility;
+import net.anotheria.moskito.webui.util.WebUIConfig;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -177,19 +176,11 @@ public class ShowAccumulatorsAction extends BaseAccumulatorsAction {
 					Map<String, List<GuardConfig>> thresholds = new LinkedHashMap<>();
 
 					for (String id : ids) {
-						final AccumulatorDefinition accumulatorDefinition = AccumulatorRepository.getInstance().getById(id).getDefinition();
-						List<GuardConfig> guardConfig = new ArrayList<>();
-
-						for (ThresholdConfig thresholdConfig : config.getThresholdsConfig().getThresholds()) {
-							if (thresholdConfig.getProducerName().equalsIgnoreCase(accumulatorDefinition.getProducerName()) &&
-									thresholdConfig.getStatName().equalsIgnoreCase(accumulatorDefinition.getStatName()) &&
-									thresholdConfig.getValueName().equalsIgnoreCase(accumulatorDefinition.getValueName())) {
-								guardConfig = Arrays.asList(thresholdConfig.getGuards());
-							}
-						}
-						thresholds.put(accumulatorDefinition.getName(), guardConfig);
+						final AccumulatedSingleGraphAO singleGraphDataBean = getAccumulatorAPI().getAccumulatorGraphData(id);
+						thresholds.put(singleGraphDataBean.getName(), singleGraphDataBean.getThreshold());
 					}
 					req.setAttribute("thresholds", thresholds);
+					req.setAttribute("thresholdGraphColors", WebUIConfig.getInstance().getThresholdGraphColors());
 				}
 			}
 		}

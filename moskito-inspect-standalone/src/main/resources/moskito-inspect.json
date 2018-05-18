@@ -60,6 +60,27 @@
     ],
 
     "betaMode": false,
-    "displayIphoneIcons" : true
-
+    "displayIphoneIcons" : true,
+  "@thresholdGraphColors": [
+    {
+      "status": "GREEN",
+      "color": "#53d769"
+    },
+    {
+      "status": "YELLOW",
+      "color": "#ffde00"
+    },
+    {
+      "status": "ORANGE",
+      "color": "#ff8023"
+    },
+    {
+      "status": "RED",
+      "color": "#fc3e39"
+    },
+    {
+      "status": "PURPLE",
+      "color": "#b44bc4"
+    }
+  ]
 }

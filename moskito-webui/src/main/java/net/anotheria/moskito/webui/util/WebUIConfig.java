@@ -90,6 +90,8 @@ public class WebUIConfig {
 
 	private boolean displayIphoneIcons = true;
 
+	private ThresholdGraphColor[] thresholdGraphColors;
+
 	public int getProducerChartWidth() {
 		return producerChartWidth;
 	}
@@ -228,6 +230,14 @@ public class WebUIConfig {
 
 	public void setShowOnlineHelp(boolean showOnlineHelp) {
 		this.showOnlineHelp = showOnlineHelp;
+	}
+
+	public ThresholdGraphColor[] getThresholdGraphColors() {
+		return thresholdGraphColors;
+	}
+
+	public void setThresholdGraphColors(ThresholdGraphColor[] thresholdGraphColors) {
+		this.thresholdGraphColors = thresholdGraphColors;
 	}
 }
 

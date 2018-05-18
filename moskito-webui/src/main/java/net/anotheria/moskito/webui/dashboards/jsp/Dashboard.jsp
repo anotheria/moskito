@@ -178,11 +178,17 @@
                 });
 
                 var containerId = "#chart_div" + idx;
+                var colors = [];
+
+                if (!isEmptyObject(thresholdsGraph[idx])) {
+                    addThresholdsToChart(thresholdsGraph[idx], {"data": data, "names": names, "colors": colors});
+                }
 
                 chartEngineIniter.d3charts.dispatch.refreshLineCharts({
                     "containerId": containerId,
                     "data": data,
-                    "names": names
+                    "names": names,
+                    "colors": colors
                 });
             });
         }
