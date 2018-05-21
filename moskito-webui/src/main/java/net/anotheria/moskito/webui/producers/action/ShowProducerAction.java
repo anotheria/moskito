@@ -37,24 +37,18 @@ package net.anotheria.moskito.webui.producers.action;
 import net.anotheria.maf.action.ActionCommand;
 import net.anotheria.maf.action.ActionMapping;
 import net.anotheria.maf.bean.FormBean;
+import net.anotheria.moskito.core.config.thresholds.GuardConfig;
 import net.anotheria.moskito.core.decorators.IDecorator;
 import net.anotheria.moskito.core.decorators.value.StatValueAO;
 import net.anotheria.moskito.core.inspection.CreationInfo;
-import net.anotheria.moskito.core.producers.IStats;
-import net.anotheria.moskito.core.registry.ProducerRegistryFactory;
 import net.anotheria.moskito.webui.accumulators.api.AccumulatedSingleGraphAO;
 import net.anotheria.moskito.webui.accumulators.util.AccumulatorUtility;
 import net.anotheria.moskito.webui.producers.api.ProducerAO;
 import net.anotheria.moskito.webui.producers.api.StatLineAO;
 import net.anotheria.moskito.webui.shared.action.BaseMoskitoUIAction;
-import net.anotheria.moskito.webui.shared.bean.GraphDataBean;
-import net.anotheria.moskito.webui.shared.bean.GraphDataValueBean;
-import net.anotheria.moskito.webui.shared.bean.NaviItem;
-import net.anotheria.moskito.webui.shared.bean.StatBean;
-import net.anotheria.moskito.webui.shared.bean.StatBeanSortType;
-import net.anotheria.moskito.webui.shared.bean.StatDecoratorBean;
-import net.anotheria.moskito.webui.shared.bean.UnitBean;
+import net.anotheria.moskito.webui.shared.bean.*;
 import net.anotheria.moskito.webui.threshold.bean.ThresholdStatusBean;
+import net.anotheria.moskito.webui.util.WebUIConfig;
 import net.anotheria.util.NumberUtils;
 import net.anotheria.util.sorter.StaticQuickSorter;
 import org.apache.commons.lang.StringUtils;
@@ -64,11 +58,7 @@ import org.slf4j.LoggerFactory;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.net.URLDecoder;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import static net.anotheria.moskito.webui.threshold.util.ThresholdStatusBeanUtility.getThresholdBeans;
 
@@ -151,7 +141,7 @@ public class ShowProducerAction extends BaseMoskitoUIAction {
 
 		//check if there are accumulators or thresholds associated with this producer.
 		List<String> accumulatorIdsTiedToThisProducer = getAccumulatorAPI().getAccumulatorIdsTiedToASpecificProducer(producer.getProducerId());
-		if (accumulatorIdsTiedToThisProducer.size()>0){
+		if (accumulatorIdsTiedToThisProducer.size() > 0){
 			req.setAttribute("accumulatorsPresent", Boolean.TRUE);
 			//create multiple graphs with one line each.
 			List<AccumulatedSingleGraphAO> singleGraphDataBeans = getAccumulatorAPI().getChartsForMultipleAccumulators(accumulatorIdsTiedToThisProducer);
@@ -159,11 +149,14 @@ public class ShowProducerAction extends BaseMoskitoUIAction {
 			req.setAttribute("accumulatorsColors", AccumulatorUtility.accumulatorsColorsToJSON(singleGraphDataBeans));
 
 			List<String> accumulatorsNames = new LinkedList<>();
+			Map<String, List<GuardConfig>> thresholds = new LinkedHashMap<>();
 
 			for (AccumulatedSingleGraphAO ao : singleGraphDataBeans){
 				accumulatorsNames.add(ao.getName());
-
+				thresholds.put(ao.getName(), ao.getThreshold());
 			}
+			req.setAttribute("thresholdsGraph", thresholds);
+			req.setAttribute("thresholdGraphColors", WebUIConfig.getInstance().getThresholdGraphColors());
 
 			req.setAttribute("accNames", accumulatorsNames);
 			req.setAttribute("accNamesConcat", net.anotheria.util.StringUtils.concatenateTokens(accumulatorsNames, ","));
