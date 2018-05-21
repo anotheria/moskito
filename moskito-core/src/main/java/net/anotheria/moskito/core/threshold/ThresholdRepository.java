@@ -288,7 +288,16 @@ public class ThresholdRepository<S extends IStats> extends TieableRepository<Thr
 	@SuppressFBWarnings(value = "ST_WRITE_TO_STATIC_FROM_INSTANCE_METHOD", justification = "This method is only for unit tests.")
 	void reset() {
 		cleanup();
-		INSTANCE = new ThresholdRepository();
+		INSTANCE = new ThresholdRepository<>();
+	}
+
+	/**
+	 * This method is for unit testing ONLY.
+	 * The Findbugs warning is suppressed, because this method is for unit testing only.
+	 */
+	@SuppressFBWarnings(value = "ST_WRITE_TO_STATIC_FROM_INSTANCE_METHOD", justification = "This method is for unit testing only.")
+	public static void resetForUnitTests() {
+		getInstance().reset();
 	}
 
 	private boolean hasDots(String ... params){
