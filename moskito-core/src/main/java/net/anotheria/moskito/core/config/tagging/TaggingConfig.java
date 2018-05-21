@@ -54,6 +54,12 @@ public class TaggingConfig implements Serializable {
 	private boolean autotagUrl = true;
 
 	/**
+	 * Add server name as tag
+	 */
+	@Configure
+	private boolean autotagServerName = true;
+
+	/**
 	 * User defined tags.
 	 */
 	@Configure
@@ -106,6 +112,14 @@ public class TaggingConfig implements Serializable {
 		this.autotagUrl = autotagUrl;
 	}
 
+	public boolean isAutotagServerName() {
+		return autotagServerName;
+	}
+
+	public void setAutotagServerName(boolean autotagServerName) {
+		this.autotagServerName = autotagServerName;
+	}
+
 	public CustomTag[] getCustomTags() {
 		return customTags;
 	}
@@ -130,6 +144,7 @@ public class TaggingConfig implements Serializable {
 				", autotagUserAgent=" + autotagUserAgent +
 				", autotagReferer=" + autotagReferer +
 				", autotagUrl=" + autotagUrl +
+				", autotagServerName=" + autotagServerName +
 				", customTags=" + Arrays.toString(customTags) +
 				", tagHistorySize=" + tagHistorySize +
 				'}';
