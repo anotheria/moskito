@@ -57,6 +57,7 @@ public class JourneyFilter implements Filter {
 	private static final String TAG_REFERER = "referer";
 	private static final String TAG_USER_AGENT = "user-agent";
 	private static final String TAG_SESSION_ID = "sessionId";
+	private static final String TAG_URL = "url";
 
 	/**
 	 * Log.
@@ -97,6 +98,9 @@ public class JourneyFilter implements Filter {
 		if (taggingConfig.isAutotagSessionId() && session != null) {
 			MoSKitoContext.addTag(TAG_SESSION_ID, session.getId(), TagType.BUILTIN, TagType.BUILTIN.getName() + '.' + TAG_SESSION_ID);
 		}
+		if (taggingConfig.isAutotagUrl()) {
+		    MoSKitoContext.addTag(TAG_URL, req.getQueryString() == null ? req.getRequestURL().toString() : req.getRequestURL().append(req.getQueryString()).toString(), TagType.BUILTIN, TagType.BUILTIN.getName() + '.' + TAG_URL);
+        }
 
 		//set custom tags
 		for (CustomTag tag : taggingConfig.getCustomTags()) {
