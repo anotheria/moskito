@@ -100,7 +100,7 @@ public class JourneyFilter implements Filter {
 			MoSKitoContext.addTag(TAG_SESSION_ID, session.getId(), TagType.BUILTIN, TagType.BUILTIN.getName() + '.' + TAG_SESSION_ID);
 		}
 		if (taggingConfig.isAutotagUrl()) {
-		    MoSKitoContext.addTag(TAG_URL, req.getQueryString() == null ? req.getRequestURL().toString() : req.getRequestURL().append(req.getQueryString()).toString(), TagType.BUILTIN, TagType.BUILTIN.getName() + '.' + TAG_URL);
+		    MoSKitoContext.addTag(TAG_URL, req.getQueryString() == null || req.getQueryString().isEmpty() ? req.getRequestURL().toString() : req.getRequestURL().append('?').append(req.getQueryString()).toString(), TagType.BUILTIN, TagType.BUILTIN.getName() + '.' + TAG_URL);
         }
         if (taggingConfig.isAutotagServerName()) {
 		    MoSKitoContext.addTag(TAG_SERVER_NAME, req.getServerName(), TagType.BUILTIN, TagType.BUILTIN.getName() + '.' + TAG_SERVER_NAME);
