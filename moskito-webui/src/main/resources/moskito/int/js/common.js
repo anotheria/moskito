@@ -7,6 +7,8 @@ $(window).scroll(function(){
 });//scroll
 
 $(function () {
+    $(".select2").select2();
+
     if (Array.prototype.forEach) {
         var elems = Array.prototype.slice.call(document.querySelectorAll('.js-switch'));
         elems.forEach(function(html) {
@@ -65,8 +67,6 @@ $(function () {
 
     $(".tablesorter").tablesorter();
 
-    $(".select2").select2();
-
     $(".scrollbar").mCustomScrollbar();
 
     $(".hscrollbar").mCustomScrollbar({
@@ -94,9 +94,9 @@ $(function () {
     $('.table1fixed').css('margin-left', max + 39);
 
 
-    var $treeTable = $("table.tree");
-    if($treeTable.length > 0)
-        $treeTable.treeTable();
+    // var $treeTable = $("table.tree");
+    // if($treeTable.length > 0)
+    //     $treeTable.treeTable();
 
     $('#feedbackForm').validator().on('submit', function (e) {
         if (e.isDefaultPrevented()) {
