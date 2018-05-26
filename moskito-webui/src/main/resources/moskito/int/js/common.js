@@ -94,9 +94,9 @@ $(function () {
     $('.table1fixed').css('margin-left', max + 39);
 
 
-    // var $treeTable = $("table.tree");
-    // if($treeTable.length > 0)
-    //     $treeTable.treeTable();
+    var $treeTable = $("table.tree");
+    if($treeTable.length > 0)
+        $treeTable.treeTable();
 
     $('#feedbackForm').validator().on('submit', function (e) {
         if (e.isDefaultPrevented()) {
