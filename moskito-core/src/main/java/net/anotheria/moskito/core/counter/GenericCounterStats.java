@@ -179,4 +179,13 @@ public abstract class GenericCounterStats extends AbstractStats{
 	public List<String> getAvailableValueNames() {
 		return valueNames;
 	}
+
+	/**
+	 * This method is no longer supported, please use {@link GenericCounterStats#getAvailableValueNames()}
+	 * @return a set of possible names
+	 */
+	@Deprecated
+	public Set<String> getPossibleNames() {
+		return new LinkedHashSet<>(this.getAvailableValueNames());
+	}
 }
