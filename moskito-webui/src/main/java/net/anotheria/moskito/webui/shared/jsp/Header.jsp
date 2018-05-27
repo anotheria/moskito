@@ -89,7 +89,7 @@
         <div class="text-center"> 
             <form role="form" class="navbar-form navbar-left">
             <div class="form-group">
-                <select class="select2" data-placeholder="Interval" onchange="handleSelect(this)">
+                <select class="select2 select2-offscreen" data-placeholder="Interval" onchange="handleSelect(this)">
                     <ano:iterate name="intervals" id="interval" type="net.anotheria.moskito.webui.shared.api.IntervalInfoAO">
                         <option value="${linkToCurrentPage}&amp;pInterval=${interval.name}" ${interval.name==requestScope.currentInterval ? "selected" : ""}>
                             <ano:write name="interval" property="name"/>
@@ -98,7 +98,7 @@
                 </select>
             </div>
             <div class="form-group">
-                <select class="select2" data-placeholder="Unit" onchange="handleSelect(this)">
+                <select class="select2 select2-offscreen" data-placeholder="Unit" onchange="handleSelect(this)">
                 <ano:iterate name="units" id="unit" type="net.anotheria.moskito.webui.shared.bean.UnitBean">
                     <option value="${linkToCurrentPage}&amp;pUnit=${unit.unitName}" ${unit.unitName.equals(currentUnit) ? "selected" : ""}>
                         ${unit.unitName}
@@ -284,7 +284,7 @@
     <div class="form-box">
         <label>Filter</label>
 
-        <select class="select2" data-placeholder="Select category" onchange="handleSelect(this)">
+        <select class="select2 select2-offscreen" data-placeholder="Select category" onchange="handleSelect(this)">
             <option></option>
             <ano:iterate name="categories" id="category" type="net.anotheria.moskito.webui.producers.api.UnitCountAO">
                 <option value="mskShowProducersByCategory?pCategory=${category.unitName}" ${category.unitName==requestScope.currentCategory ? "selected" : ""}>
@@ -293,7 +293,7 @@
             </ano:iterate>
         </select>
 
-        <select class="select2" data-placeholder="Select subsystem" onchange="handleSelect(this)">
+        <select class="select2 select2-offscreen" data-placeholder="Select subsystem" onchange="handleSelect(this)">
             <option></option>
             <ano:iterate name="subsystems" id="subsystem" type="net.anotheria.moskito.webui.producers.api.UnitCountAO">
                 <option value="mskShowProducersBySubsystem?pSubsystem=${subsystem.unitName}" ${subsystem.unitName==requestScope.currentSubsystem ? "selected" : ""}>
@@ -312,7 +312,7 @@
     <div class="form-box">
         <label>Server selector</label>
         <form name="SelectServer" action="mskSelectServer" method="GET">
-            <select class="select2" data-placeholder="Select Server" onchange="handleSelect(this)">
+            <select class="select2 select2-offscreen" data-placeholder="Select Server" onchange="handleSelect(this)">
                 <ano:iterate name="connectivityOptions" id="option" type="net.anotheria.moskito.webui.shared.bean.LabelValueBean">
                     <option value="mskSelectServer?pTargetServer=${option.value}" ${option.value==requestScope.selectedConnectivity ? "selected" : ""}>${option.label}</option>
                 </ano:iterate>

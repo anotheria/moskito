@@ -7,6 +7,8 @@ $(window).scroll(function(){
 });//scroll
 
 $(function () {
+    $(".select2").select2();
+
     if (Array.prototype.forEach) {
         var elems = Array.prototype.slice.call(document.querySelectorAll('.js-switch'));
         elems.forEach(function(html) {
@@ -64,8 +66,6 @@ $(function () {
     });
 
     $(".tablesorter").tablesorter();
-
-    $(".select2").select2();
 
     $(".scrollbar").mCustomScrollbar();
 
