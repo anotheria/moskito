@@ -46,6 +46,14 @@ public class CounterStats extends GenericCounterStats{
 	}
 
 	/**
+	 * Decreases current counter by a value.
+	 * @param value
+	 */
+	public void decBy(long value) {
+		super.decBy("counter", value);
+	}
+
+	/**
 	 * Gets the counter value fo an interval.
 	 * @param intervalName name of the interval.
 	 * @return
