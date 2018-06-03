@@ -101,4 +101,25 @@ public interface ProducerAPI extends API, Service {
 	 * @throws APIException
 	 */
 	ProducerAO getProducer(String producerId, String intervalName, TimeUnit timeUnit) throws APIException;
+
+	/**
+	 * Returns a single producer value as string.
+	 * @param producerId id (name) of the producer.
+	 * @param statName name of the stat (for example method name).
+	 * @param valueName value name, this is stat specific, could be something like req, avg, total etc.
+	 * @param intervalName name of the interval, 1m, 5m, default etc.
+	 * @param timeUnit name of the time unit, only relevant for time specific stats.
+	 * @return the value of the stat as string.
+	 * @throws APIException
+	 */
+	String getSingleValue(String producerId, String statName, String valueName, String intervalName, TimeUnit timeUnit) throws APIException;
+
+	/**
+	 * Return multiple values (or empty objects) for given set of parameters.
+	 * @param requests
+	 * @return
+	 * @throws APIException
+	 */
+	List<ValueResponseAO> getMultipleValues(List<ValueRequestPO> requests) throws APIException;
+
 }

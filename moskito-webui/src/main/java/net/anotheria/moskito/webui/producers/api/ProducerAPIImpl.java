@@ -11,8 +11,8 @@ import net.anotheria.moskito.core.producers.IStats;
 import net.anotheria.moskito.core.producers.IStatsProducer;
 import net.anotheria.moskito.core.registry.IProducerFilter;
 import net.anotheria.moskito.core.registry.IProducerRegistryAPI;
+import net.anotheria.moskito.core.registry.NoSuchProducerException;
 import net.anotheria.moskito.core.registry.ProducerRegistryAPIFactory;
-import net.anotheria.moskito.core.registry.ProducerRegistryFactory;
 import net.anotheria.moskito.core.stats.TimeUnit;
 import net.anotheria.moskito.core.tracer.TracerRepository;
 import net.anotheria.moskito.core.tracer.TracingAwareProducer;
@@ -273,5 +273,41 @@ public class ProducerAPIImpl extends AbstractMoskitoAPIImpl implements ProducerA
 	public ProducerAO getProducer(String producerId, String intervalName, TimeUnit timeUnit) throws APIException {
 		IStatsProducer producer = producerRegistryAPI.getProducer(producerId);
 		return convertStatsProducerToAO(producer, intervalName, timeUnit, true);
+	}
+
+	public String getSingleValue(String producerId, String statName, String valueName, String intervalName, TimeUnit timeUnit) throws APIException{
+		try {
+			IStatsProducer producer = producerRegistryAPI.getProducer(producerId);
+			List<IStats> stats = producer.getStats();
+			for (IStats stat : stats){
+				if (stat.getName().equals(statName)){
+					return stat.getValueByNameAsString(valueName, intervalName, timeUnit);
+				}
+			}
+			throw new APIException("No such stat found "+statName+" in producer "+producerId);
+		}catch(NoSuchProducerException e){
+			throw new APIException("No such producer "+producerId);
+		}
+	}
+
+	@Override
+	public List<ValueResponseAO> getMultipleValues(List<ValueRequestPO> requests) throws APIException {
+		LinkedList<ValueResponseAO> responses = new LinkedList<>();
+
+		for (ValueRequestPO requestPO : requests){
+			ValueResponseAO responseAO = new ValueResponseAO();
+			responseAO.setRequest(requestPO);
+			try{
+				String value = getSingleValue(requestPO.getProducerName(), requestPO.getStatName(), requestPO.getValueName(), requestPO.getIntervalName(), TimeUnit.fromString(requestPO.getTimeUnit()));
+				responseAO.setSuccess(true);
+				responseAO.setValue(value);
+			}catch(Exception e){
+				responseAO.setSuccess(false);
+				responseAO.setMessage(e.getMessage());
+			}
+			responses.add(responseAO);
+		}
+
+		return responses;
 	}
 }
