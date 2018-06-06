@@ -2122,3 +2122,31 @@ Heat map
 .tracers-tags-list li:hover {
     background: #ffffff;
 }
+
+.widget-num {
+    padding: 15px;
+}
+
+.widget-data {
+    font-size: 34px;
+    display: block;
+    font-weight: bold;
+}
+
+.widget-percent {
+    display: block;
+    font-size: 12px;
+    font-weight: normal;
+    margin-top: -5px;
+    color: #64bd63;
+}
+
+.widget-percent i {
+    margin-right: 5px;
+}
+
+.widget-title {
+    display: block;
+    font-weight: 600;
+    margin-top: 10px;
+}
