@@ -44,6 +44,10 @@
           <groupId>com.google.code.gson</groupId>
           <artifactId>gson</artifactId>
       </dependency>
+	  <dependency>
+          <groupId>commons-lang</groupId>
+          <artifactId>commons-lang</artifactId>
+	  </dependency>
       <dependency>
           <groupId>ch.qos.logback</groupId>
           <artifactId>logback-classic</artifactId>
