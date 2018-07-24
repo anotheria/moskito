@@ -170,9 +170,10 @@ public abstract class GenericCounterStats extends AbstractStats{
 		// If counter name is null or empty
 		if (valueName == null || valueName.isEmpty())
 			throw new AssertionError("Value name can not be empty");
+		valueName = valueName.toLowerCase();
 
 		// Get the value of this counter and convert it to string
-		return String.valueOf(this.get(valueName, intervalName));
+		return String.valueOf(get(valueName, intervalName));
 	}
 
 	@Override
