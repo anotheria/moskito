@@ -1,5 +1,6 @@
 package net.anotheria.moskito.core.context;
 
+import net.anotheria.moskito.core.producers.IStatsProducer;
 import net.anotheria.moskito.core.tag.TagRepository;
 import net.anotheria.moskito.core.tag.TagType;
 import net.anotheria.util.StringUtils;
@@ -44,6 +45,8 @@ public class MoSKitoContext {
 	private HashMap<String, String> tags = new HashMap<>();
 
 	private HashSet<Integer> seenErrors = new HashSet<>();
+
+	private volatile IStatsProducer lastProducer;
 
 	/**
 	 * If true an error has occured in this thread already. This is useful to separate from initial errors in the processing and followup errors.
@@ -116,4 +119,11 @@ public class MoSKitoContext {
 		return t.hashCode();
 	}
 
+	public IStatsProducer getLastProducer() {
+		return lastProducer;
+	}
+
+	public void setLastProducer(IStatsProducer lastProducer) {
+		this.lastProducer = lastProducer;
+	}
 }
