@@ -83,6 +83,7 @@ public class ChartPattern implements Serializable {
                 "caption='" + caption + '\'' +
                 ", mode='" + mode + '\'' +
                 ", accumulatorPatterns=" + Arrays.toString(accumulatorPatterns) +
+				", patterns: "+Arrays.toString(patterns)+
                 '}';
     }
 }
