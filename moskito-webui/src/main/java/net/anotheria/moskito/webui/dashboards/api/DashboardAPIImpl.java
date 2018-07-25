@@ -476,12 +476,16 @@ public class DashboardAPIImpl extends AbstractMoskitoAPIImpl implements Dashboar
 			for (ChartPattern chartPattern : config.getChartPatterns()) {
 				List<String> matchedAccumulators = new LinkedList<>();
 
-				for (Pattern pattern : chartPattern.getPatterns()) {
-					for (Accumulator accumulator : accumulators) {
-						if (pattern.matcher(accumulator.getName()).matches()) {
-							matchedAccumulators.add(accumulator.getName());
+				if (chartPattern.getPatterns()!=null) {
+					for (Pattern pattern : chartPattern.getPatterns()) {
+						for (Accumulator accumulator : accumulators) {
+							if (pattern.matcher(accumulator.getName()).matches()) {
+								matchedAccumulators.add(accumulator.getName());
+							}
 						}
 					}
+				}else{
+					log.warn("Probable misconfiguration in dashboard "+name+", chartPattern '"+chartPattern.getCaption()+"' has no actual accumulator patterns, "+chartPattern.toString());
 				}
 
 				if (matchedAccumulators.size() > 0) {
