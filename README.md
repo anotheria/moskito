@@ -4,6 +4,7 @@
 
 [![Join the chat at https://gitter.im/anotheria/moskito](https://badges.gitter.im/anotheria/moskito.svg)](https://gitter.im/anotheria/moskito?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/net.anotheria/moskito/badge.svg)](https://maven-badges.herokuapp.com/maven-central/net.anotheria/moskito)
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
 
 
 MoSKito is an open source system for monitoring performance and behavior of Java web applications.
