@@ -2,12 +2,14 @@ package net.anotheria.moskito.web.filters;
 
 import net.anotheria.moskito.core.config.MoskitoConfiguration;
 import net.anotheria.moskito.core.config.MoskitoConfigurationHolder;
+import net.anotheria.moskito.core.context.MoSKitoContext;
 import net.anotheria.moskito.core.dynamic.EntryCountLimitedOnDemandStatsProducer;
 import net.anotheria.moskito.core.dynamic.OnDemandStatsProducer;
 import net.anotheria.moskito.core.dynamic.OnDemandStatsProducerException;
 import net.anotheria.moskito.core.predefined.Constants;
 import net.anotheria.moskito.core.predefined.FilterStats;
 import net.anotheria.moskito.core.predefined.FilterStatsFactory;
+import net.anotheria.moskito.core.producers.IStatsProducer;
 import net.anotheria.moskito.core.registry.ProducerRegistryFactory;
 import net.anotheria.moskito.core.stats.Interval;
 import net.anotheria.moskito.web.filters.caseextractor.FilterCaseExtractor;
@@ -23,16 +25,19 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
  * A generic filter that supports multiple tag extractors. This filter replaced the single-use filters like RefererFilter, RequestURIFilter etc. Main purpose was to reduce code as well as get shorter stack traces.
+ * The filter is implementing IStatsProducer interface but only to be able to 'mark' itself in the path, it doesn't actually collect own stats.
  *
  * @author lrosenberg
  * @since 26.04.16 19:04
  */
-public class GenericMonitoringFilter implements Filter {
+public class GenericMonitoringFilter implements Filter, IStatsProducer {
 	/**
 	 * Logger instance, available for all subclasses.
 	 */
@@ -130,6 +135,8 @@ public class GenericMonitoringFilter implements Filter {
 
 		beforeExecution((HttpServletRequest)req);
 
+		MoSKitoContext.get().setLastProducer(this);
+
 		long startTime = System.nanoTime();
 		Throwable t = null;
 
@@ -197,5 +204,25 @@ public class GenericMonitoringFilter implements Filter {
 
 	protected Interval[] getMonitoringIntervals(){
 		return Constants.getDefaultIntervals();
+	}
+
+	@Override
+	public List getStats() {
+		return Collections.emptyList();
+	}
+
+	@Override
+	public String getProducerId() {
+		return getClass().getSimpleName();
+	}
+
+	@Override
+	public String getCategory() {
+		return "filter";
+	}
+
+	@Override
+	public String getSubsystem() {
+		return "web";
 	}
 }
