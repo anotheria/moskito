@@ -3,6 +3,7 @@ package net.anotheria.moskito.webui.util;
 import net.anotheria.moskito.webui.journey.api.TagEntryAO;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -20,6 +21,9 @@ public class TagsUtil {
      *
      */
     public static List<TagEntryAO> tagsMapToTagEntries(Map<String, String> tagsMap) {
+
+    	if (tagsMap==null)
+    		return Collections.EMPTY_LIST;
 
         List<TagEntryAO> tagEntries = new ArrayList<>(tagsMap.size());
 
