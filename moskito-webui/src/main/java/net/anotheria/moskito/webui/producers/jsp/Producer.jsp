@@ -126,7 +126,7 @@
                 <tr>
                     <td>${cumulatedStat.name}</td>
                     <ano:iterate name="cumulatedStat" property="values" id="value" type="net.anotheria.moskito.core.decorators.value.StatValueAO">
-                        <td title="${stat.name}.${value.name}=${value.value}">
+                        <td title="${cumulatedStat.name}.${value.name}=${value.value}">
                                 ${value.value}
                         </td>
                     </ano:iterate>
