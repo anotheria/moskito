@@ -128,7 +128,7 @@ public class CurrentlyTracedCall implements TracedCall, Serializable{
 	}
 	
 	public void endStep(){
-		current = current.getParent(); 
+		current = current.getParent();
 	}
 
 	public String getTrace(){
@@ -205,5 +205,24 @@ public class CurrentlyTracedCall implements TracedCall, Serializable{
 		}
 
 		return result;
+	}
+
+	/**
+	 * This is a debug method used to dump out the call into stdout.
+	 */
+	public void dumpOut(){
+		System.out.println(this.toString());
+		TraceStep root = getRootStep();
+		dumpOut(root, 1);
+	}
+
+	private void dumpOut(TraceStep step, int ident){
+		StringBuilder prfx = new StringBuilder(); for (int i=0; i<ident;i++)prfx.append(' ');
+		String prefix = prfx.toString();
+
+		System.out.println(prefix+" "+step.toString());
+		for (TraceStep child : step.getChildren()){
+			dumpOut(child, ident+1);
+		}
 	}
 }
