@@ -1,7 +1,7 @@
-<%@ page language="java" contentType="text/html;charset=UTF-8"	session="true" %>
-<%@ taglib uri="http://www.anotheria.net/ano-tags" prefix="ano" %>
-<%@ taglib prefix="mos" uri="http://www.moskito.org/inspect/tags" %>
-<!DOCTYPE html>
+<%@ page language="java" contentType="text/html;charset=UTF-8"	session="true"
+%><%@ taglib uri="http://www.anotheria.net/ano-tags" prefix="ano"
+%><%@ taglib prefix="mos" uri="http://www.moskito.org/inspect/tags"
+%><!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 
 <jsp:include page="../../shared/jsp/Header.jsp" flush="false"/>
