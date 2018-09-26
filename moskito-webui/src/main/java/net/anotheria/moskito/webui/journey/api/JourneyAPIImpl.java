@@ -14,10 +14,8 @@ import net.anotheria.moskito.webui.util.TagsUtil;
 import net.anotheria.util.NumberUtils;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.Queue;
 
 /**
  * TODO comment this class
@@ -97,6 +95,7 @@ public class JourneyAPIImpl extends AbstractMoskitoAPIImpl implements  JourneyAP
 		if (useCase==null){
 			throw new IllegalArgumentException("UseCase is null in call "+unit);
 		}
+
 		TraceStep root = useCase.getRootStep();
 		TracedCallAO ret = new TracedCallAO();
 		ret.setName(useCase.getName());
@@ -110,7 +109,7 @@ public class JourneyAPIImpl extends AbstractMoskitoAPIImpl implements  JourneyAP
 		}
 
 		JourneyCallIntermediateContainer container = new JourneyCallIntermediateContainer();
-		fillUseCasePathElementBeanList(container, root, unit);
+		fillUseCasePathElementBeanList(container, root, 0, unit);
 		ret.setElements(container.getElements());
 
 		//check for duplicates
@@ -133,69 +132,27 @@ public class JourneyAPIImpl extends AbstractMoskitoAPIImpl implements  JourneyAP
 		return ret;
 	}
 
-	/**
-	 * Allows to fill {@link JourneyCallIntermediateContainer} with tracer steps.
-	 *
-	 * @param container {@link JourneyCallIntermediateContainer}
-	 * @param root      {@link TraceStep}
-	 * @param unit      {@link TimeUnit}
-	 */
-	private void fillUseCasePathElementBeanList(final JourneyCallIntermediateContainer container, final TraceStep root, final TimeUnit unit) {
-		int currentLevel = 0,
-				elementsToIncreaseLevel = 1,
-				nextElementsToIncreaseLevel = 0;
-
-		final Queue<TraceStep> queue = new LinkedList<>();
-		queue.add(root);
-
-		while (!queue.isEmpty()) {
-			final TraceStep currentTraceStep = queue.poll();
-
-			// process current trace step
-			processTraceStep(container, currentTraceStep, unit, currentLevel);
-
-			final List<TraceStep> children = currentTraceStep.getChildren();
-
-			// calculate depth level
-			nextElementsToIncreaseLevel += children.size();
-			if (--elementsToIncreaseLevel == 0) {
-				currentLevel++;
-				elementsToIncreaseLevel = nextElementsToIncreaseLevel;
-				nextElementsToIncreaseLevel = 0;
-			}
-
-			// add children for next processing
-			if (!children.isEmpty()) {
-				queue.addAll(children);
-			}
-		}
-	}
-
-	/**
-	 * Allows to process given {@link TraceStep}, convert it to {@link TracedCallStepAO} and add to {@link JourneyCallIntermediateContainer}.
-	 *
-	 * @param container  {@link JourneyCallIntermediateContainer}
-	 * @param traceStep  {@link TraceStep}
-	 * @param unit       {@link TimeUnit}
-	 * @param depthLevel the depth level of {@link TraceStep} tree
-	 */
-	private void processTraceStep(final JourneyCallIntermediateContainer container, final TraceStep traceStep, final TimeUnit unit, final int depthLevel) {
-		final TracedCallStepAO b = new TracedCallStepAO();
-		b.setCall(traceStep.getParent() == null ? "ROOT" : traceStep.getCall());
-		b.setRoot(traceStep.getParent() == null);
-		b.setLayer(depthLevel);
-		b.setDuration(unit.transformNanos(traceStep.getDuration()));
-		b.setLevel(depthLevel);
-		b.setAborted(traceStep.isAborted());
+	private void fillUseCasePathElementBeanList(JourneyCallIntermediateContainer container, TraceStep element, int recursion, TimeUnit unit){
+		TracedCallStepAO b = new TracedCallStepAO();
+		b.setCall(recursion == 0 ? "ROOT" : element.getCall());
+		b.setRoot(recursion == 0);
+		b.setLayer(recursion);
+		b.setDuration(unit.transformNanos(element.getDuration()));
+		b.setLevel(recursion);
+		StringBuilder ident = new StringBuilder();
+		for (int i=0; i<recursion; i++)
+			ident.append("&nbsp;&nbsp;");
+		b.setIdent(ident.toString());
+		b.setAborted(element.isAborted());
+		container.add(b);
 
 		long timeSpentInChildren = 0;
-		for (TraceStep p : traceStep.getChildren()) {
+		for (TraceStep p : element.getChildren()){
+
 			timeSpentInChildren += p.getDuration();
+			fillUseCasePathElementBeanList(container, p, recursion+1, unit);
 		}
-
-		b.setTimespent(unit.transformNanos((traceStep.getDuration() - timeSpentInChildren)));
-
-		container.add(b);
+		b.setTimespent(unit.transformNanos((element.getDuration() - timeSpentInChildren)));
 	}
 
 	@Override

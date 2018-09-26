@@ -177,4 +177,13 @@ public class TracedCallStepAO implements Serializable{
 		this.level = level;
 	}
 
+	private String ident;
+
+	public String getIdent() {
+		return ident;
+	}
+
+	public void setIdent(String ident) {
+		this.ident = ident;
+	}
 }
