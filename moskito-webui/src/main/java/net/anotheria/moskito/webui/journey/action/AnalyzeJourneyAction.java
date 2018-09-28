@@ -15,6 +15,8 @@ import net.anotheria.moskito.webui.shared.bean.GraphDataValueBean;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 
 public class AnalyzeJourneyAction extends BaseJourneyAction {
@@ -33,7 +35,15 @@ public class AnalyzeJourneyAction extends BaseJourneyAction {
         String journeyName = req.getParameter(PARAM_JOURNEY_NAME);
         req.setAttribute("journeyName", journeyName);
 
+        //add totals to the journey list on top.
         AnalyzedJourneyAO analyzedJourney = getJourneyAPI().analyzeJourney(journeyName);
+        List<AnalyzedProducerCallsMapAO> callsInJourny = analyzedJourney.getCalls();
+		LinkedList<AnalyzedProducerCallsMapAO> newCalls = new LinkedList<>();
+		newCalls.add(analyzedJourney.getTotalByProducerId());
+		newCalls.add(analyzedJourney.getTotalByCategoryId());
+		newCalls.add(analyzedJourney.getTotalBySubsystemId());
+		newCalls.addAll(callsInJourny);
+		analyzedJourney.setCalls(newCalls);
         req.setAttribute("analyzedJourney", analyzedJourney);
 
         // Preparing graph data

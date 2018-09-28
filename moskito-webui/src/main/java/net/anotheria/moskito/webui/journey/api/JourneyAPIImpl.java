@@ -8,6 +8,7 @@ import net.anotheria.moskito.core.journey.Journey;
 import net.anotheria.moskito.core.journey.JourneyManager;
 import net.anotheria.moskito.core.journey.JourneyManagerFactory;
 import net.anotheria.moskito.core.journey.NoSuchJourneyException;
+import net.anotheria.moskito.core.producers.IStatsProducer;
 import net.anotheria.moskito.core.stats.TimeUnit;
 import net.anotheria.moskito.webui.shared.api.AbstractMoskitoAPIImpl;
 import net.anotheria.moskito.webui.util.TagsUtil;
@@ -180,13 +181,13 @@ public class JourneyAPIImpl extends AbstractMoskitoAPIImpl implements  JourneyAP
 		List<CurrentlyTracedCall> tracedCalls = journey.getTracedCalls();
 		List<AnalyzedProducerCallsMapAO> callsList = new ArrayList<>(tracedCalls.size() + 1);
 
-		AnalyzedProducerCallsMapAO overallCallsMap = new AnalyzedProducerCallsMapAO("Total by Producer");
-		AnalyzedProducerCallsMapAO categoryCallsMap = new AnalyzedProducerCallsMapAO("Total by Category");
-		AnalyzedProducerCallsMapAO subsystemCallsMap = new AnalyzedProducerCallsMapAO("Total by Subsystem");
-
-		callsList.add(overallCallsMap);
-		callsList.add(categoryCallsMap);
-		callsList.add(subsystemCallsMap);
+		AnalyzedProducerCallsMapAO overallCallsMap = new AnalyzedProducerCallsMapAO("Total by producer");
+		AnalyzedProducerCallsMapAO categoryCallsMap = new AnalyzedProducerCallsMapAO("Total by category");
+		AnalyzedProducerCallsMapAO subsystemCallsMap = new AnalyzedProducerCallsMapAO("Total by subsystem");
+		AnalyzedProducerCallsMapAOWrapper wrapper = new AnalyzedProducerCallsMapAOWrapper();
+		wrapper.setByCategory(categoryCallsMap);
+		wrapper.setBySubsystem(subsystemCallsMap);
+		wrapper.setByProducer(overallCallsMap);
 
 		for (CurrentlyTracedCall tc : tracedCalls){
 			if (tc==null){
@@ -195,12 +196,8 @@ public class JourneyAPIImpl extends AbstractMoskitoAPIImpl implements  JourneyAP
 			}
 			AnalyzedProducerCallsMapAO singleCallMap = new AnalyzedProducerCallsMapAO(tc.getName());
 			for (TraceStep step : tc.getRootStep().getChildren()){
-				addStep(step, singleCallMap, overallCallsMap);
+				addStep(step, singleCallMap, wrapper);
 
-				if (step.getProducer() != null) {
-					addStep(step.getProducer().getCategory(), step, categoryCallsMap);
-					addStep(step.getProducer().getSubsystem(), step, subsystemCallsMap);
-				}
 			}
 			callsList.add(singleCallMap);
 		}
@@ -209,6 +206,9 @@ public class JourneyAPIImpl extends AbstractMoskitoAPIImpl implements  JourneyAP
 		AnalyzedJourneyAO result = new AnalyzedJourneyAO();
 		result.setName(journeyName);
 		result.setCalls(callsList);
+		result.setTotalByProducerId(overallCallsMap);
+		result.setTotalByCategoryId(categoryCallsMap);
+		result.setTotalBySubsystemId(subsystemCallsMap);
 
 		return result;
 	}
@@ -222,19 +222,23 @@ public class JourneyAPIImpl extends AbstractMoskitoAPIImpl implements  JourneyAP
 		}
 	}
 
-	private void addStep(TraceStep step, AnalyzedProducerCallsMapAO... maps) {
-		String producerName = step.getProducer() == null ? "UNKNOWN" : step.getProducer().getProducerId();
-		addStep(producerName, step, maps);
+	private void addStep(TraceStep step, AnalyzedProducerCallsMapAO singleCallMap, AnalyzedProducerCallsMapAOWrapper overallMaps) {
+		IStatsProducer producer = step.getProducer();
+
+		String producerName = producer == null ? "UNKNOWN" : producer.getProducerId();
+		String categoryName = producer == null ? "UNKNOWN" : producer.getCategory();
+		String subsystemName = producer == null ? "UNKNOWN" : producer.getSubsystem();
+		long netDuration = step.getNetDuration();
+
+		singleCallMap.addProducerCall(producerName, netDuration);
+		overallMaps.getByProducer().addProducerCall(producerName, netDuration);
+		overallMaps.getByCategory().addProducerCall(categoryName, netDuration);
+		overallMaps.getBySubsystem().addProducerCall(subsystemName, netDuration);
+		for (TraceStep childStep : step.getChildren()){
+			addStep(childStep, singleCallMap, overallMaps);
+		}
 	}
 
-	private void addStep(String callId, TraceStep step, AnalyzedProducerCallsMapAO... maps) {
-		for (AnalyzedProducerCallsMapAO map : maps) {
-			map.addProducerCall(callId, step.getNetDuration());
-		}
-		for (TraceStep childStep : step.getChildren()){
-			addStep(callId, childStep, maps);
-		}
-	}
 
 
 	@Override
