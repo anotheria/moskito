@@ -92,4 +92,6 @@ public class AnalyzedProducerCallsMapAO implements Serializable {
 	public void setTotalDuration(long totalDuration) {
 		this.totalDuration = totalDuration;
 	}
+
+	
 }

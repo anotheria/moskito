@@ -16,6 +16,10 @@ public class AnalyzedJourneyAO implements Serializable {
      */
     private String name;
 
+    private AnalyzedProducerCallsMapAO totalByProducerId;
+	private AnalyzedProducerCallsMapAO totalByCategoryId;
+	private AnalyzedProducerCallsMapAO totalBySubsystemId;
+
     /**
      * List of {@link AnalyzedProducerCallsMapAO}.
      */
@@ -42,4 +46,28 @@ public class AnalyzedJourneyAO implements Serializable {
     public void setCalls(List<AnalyzedProducerCallsMapAO> calls) {
         this.calls = calls;
     }
+
+	public AnalyzedProducerCallsMapAO getTotalByProducerId() {
+		return totalByProducerId;
+	}
+
+	public void setTotalByProducerId(AnalyzedProducerCallsMapAO totalByProducerId) {
+		this.totalByProducerId = totalByProducerId;
+	}
+
+	public AnalyzedProducerCallsMapAO getTotalByCategoryId() {
+		return totalByCategoryId;
+	}
+
+	public void setTotalByCategoryId(AnalyzedProducerCallsMapAO totalByCategoryId) {
+		this.totalByCategoryId = totalByCategoryId;
+	}
+
+	public AnalyzedProducerCallsMapAO getTotalBySubsystemId() {
+		return totalBySubsystemId;
+	}
+
+	public void setTotalBySubsystemId(AnalyzedProducerCallsMapAO totalBySubsystemId) {
+		this.totalBySubsystemId = totalBySubsystemId;
+	}
 }
