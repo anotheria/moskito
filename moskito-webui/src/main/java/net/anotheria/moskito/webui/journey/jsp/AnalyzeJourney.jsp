@@ -10,7 +10,7 @@
                 <ano:equal name="call" property="empty" value="false">
                     <div class="box">
                         <div class="box-title">
-                            <a class="accordion-toggle tooltip-bottom" title="Close/Open" data-toggle="collapse" href="#collapse${index}}"><i class="fa fa-caret-down"></i></a>
+                            <a class="accordion-toggle tooltip-bottom" title="Close/Open" data-toggle="collapse" href="#collapse${index}"><i class="fa fa-caret-down"></i></a>
                             <h3 class="pull-left">
                                 ${call.name}
                             </h3>
