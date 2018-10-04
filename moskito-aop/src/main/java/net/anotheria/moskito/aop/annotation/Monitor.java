@@ -8,7 +8,7 @@ import java.lang.annotation.Target;
 /**
  * Include the whole class or its method into monitoring.
  *
- * @author <a href="mailto:vzhovtiuk@anotheria.net">Vitaliy Zhovtiuk</a>
+ * @author Vitaliy Zhovtiuk.
  */
 @Target ( {ElementType.TYPE, ElementType.METHOD, ElementType.ANNOTATION_TYPE})
 @Retention(RetentionPolicy.RUNTIME)
@@ -20,13 +20,13 @@ public @interface Monitor {
 	String producerId() default "";
 	
 	/**
-	 * Subsystem name. If null/unset default will be used.
+	 * Subsystem name. If null/unset 'default' will be used.
 	 * @return sub-system string
 	 */
 	String subsystem() default "";
 	
 	/**
-	 * Category name. If null/unset annotated will be used.
+	 * Category name. If null/unset 'annotated' will be used.
 	 * @return category string
 	 */
 	String category() default "";
