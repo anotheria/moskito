@@ -34,8 +34,7 @@ public class AccumulatorDefinition extends TieableDefinition {
 			accumulationAmount = MoskitoConfigurationHolder.getConfiguration().getAccumulatorsConfig().getAccumulationAmount();
 		}catch(Exception e){
 			accumulationAmount = 200;
-			log.error("couldn't read default accumulation amount, set to "+accumulationAmount, e);
-
+			log.warn("couldn't read default accumulation amount, set to "+accumulationAmount, e);
 		}
 	}
 
