@@ -8,7 +8,7 @@ import java.lang.annotation.Target;
 /**
  * For adding multiple accumulators on class or method
  *
- * Created by Roman Stetsiuk on 9/29/15.
+ * @author Roman Stetsiuk.
  */
 @Target ( {ElementType.TYPE, ElementType.METHOD, ElementType.ANNOTATION_TYPE})
 @Retention(RetentionPolicy.RUNTIME)
