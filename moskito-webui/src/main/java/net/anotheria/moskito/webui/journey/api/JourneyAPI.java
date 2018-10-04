@@ -40,7 +40,18 @@ public interface JourneyAPI extends API, Service {
 
 	TracedCallAO getTracedCallByName(String journeyName, String traceName, TimeUnit unit) throws APIException;
 
+	/**
+	 * Analyzes a journey and returns a cumulated calls by time spent in each producer as well as the number of requests in each producer.
+	 * @param journeyName name of the journey to analyze.
+	 * @return
+	 * @throws APIException
+	 */
 	AnalyzedJourneyAO analyzeJourney(String journeyName) throws APIException;
 
+	/**
+	 * Deletes a journey.
+	 * @param journeyName
+	 * @throws APIException
+	 */
 	void deleteJourney(String journeyName) throws APIException;
 }
