@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 /**
- * Show all available (recorded) monitoring sessions.
+ * Show all available journeys.
  * @author lrosenberg.
  *
  */
@@ -20,6 +20,7 @@ public class ShowJourneysAction extends BaseJourneyAction{
 	@Override
 	public ActionCommand execute(ActionMapping mapping, FormBean formBean, HttpServletRequest req, HttpServletResponse res) throws Exception{
 
+		//prepare URLs to start/stop journey from the console-ui.
 		String contextPath = req.getContextPath();
 		if (contextPath==null)
 			contextPath = "";
@@ -40,11 +41,13 @@ public class ShowJourneysAction extends BaseJourneyAction{
 		req.setAttribute("new_journey_url", url1);
 		req.setAttribute("stop_journey_url", url2);
 
+		//... end prepare URLs to start/stop journey from the console-ui.
 		List<JourneyListItemAO> journeys = getJourneyAPI().getJourneys();
-		
 		req.setAttribute("journeys", journeys);
+
 		if (journeys.size()>0)
 			req.setAttribute("journeysPresent", Boolean.TRUE);
+
 		return mapping.success();
 	}
 
