@@ -19,7 +19,7 @@ import org.aspectj.lang.ProceedingJoinPoint;
 import java.lang.reflect.InvocationTargetException;
 
 /**
- * Created by Roman Stetsiuk on 2/16/17.
+ * @author Roman Stetsiuk.
  */
 public class MonitoringBaseAspect extends AbstractMoskitoAspect<ServiceStats>{
 
