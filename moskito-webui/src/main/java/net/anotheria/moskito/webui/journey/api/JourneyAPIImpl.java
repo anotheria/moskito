@@ -214,10 +214,14 @@ public class JourneyAPIImpl extends AbstractMoskitoAPIImpl implements  JourneyAP
 	}
 
 	@Override
-	public AnalyzedJourneyByMethodAO analyzeJourneyByMethod(String journeyName) throws APIException {
+	public AnalyzedJourneyAO analyzeJourneyByMethod(String journeyName) throws APIException {
 		Journey journey = getJourneyByName(journeyName);
 		List<CurrentlyTracedCall> tracedCalls = journey.getTracedCalls();
 		List<AnalyzedProducerCallsMapAO> callsList = new ArrayList<>(tracedCalls.size() + 1);
+
+		AnalyzedProducerCallsMapAO overallCallsMap = new AnalyzedProducerCallsMapAO("Total by producer and method");
+		AnalyzedProducerCallsMapAOWrapper wrapper = new AnalyzedProducerCallsMapAOWrapper();
+		wrapper.setByProducer(overallCallsMap);
 
 		for (CurrentlyTracedCall tc : tracedCalls){
 			if (tc==null){
@@ -226,16 +230,18 @@ public class JourneyAPIImpl extends AbstractMoskitoAPIImpl implements  JourneyAP
 			}
 			AnalyzedProducerCallsMapAO singleCallMap = new AnalyzedProducerCallsMapAO(tc.getName());
 			for (TraceStep step : tc.getRootStep().getChildren()){
-				addMethodStep(step, singleCallMap);
+				addMethodStep(step, singleCallMap, wrapper);
 
 			}
 			callsList.add(singleCallMap);
 		}
 
 
-		AnalyzedJourneyByMethodAO result = new AnalyzedJourneyByMethodAO();
+		AnalyzedJourneyAO result = new AnalyzedJourneyAO();
 		result.setName(journeyName);
 		result.setCalls(callsList);
+		result.setTotalByProducerId(overallCallsMap);
+
 
 		return result;
 	}
@@ -266,7 +272,13 @@ public class JourneyAPIImpl extends AbstractMoskitoAPIImpl implements  JourneyAP
 		}
 	}
 
-	private void addMethodStep(TraceStep step, AnalyzedProducerCallsMapAO singleCallMap) {
+	/**
+	 * Similar to addStep but category and subsystem are ignored.
+	 * @param step
+	 * @param singleCallMap
+	 * @param overallMaps
+	 */
+	private void addMethodStep(TraceStep step, AnalyzedProducerCallsMapAO singleCallMap, AnalyzedProducerCallsMapAOWrapper overallMaps) {
 		IStatsProducer producer = step.getProducer();
 
 		String methodName = step.getMethodName();
@@ -274,13 +286,12 @@ public class JourneyAPIImpl extends AbstractMoskitoAPIImpl implements  JourneyAP
 			methodName = "UNKNOWN";
 
 		String producerName = producer == null ? "UNKNOWN" : producer.getProducerId()+"."+methodName;
-		String categoryName = producer == null ? "UNKNOWN" : producer.getCategory();
-		String subsystemName = producer == null ? "UNKNOWN" : producer.getSubsystem();
 		long netDuration = step.getNetDuration();
 
 		singleCallMap.addProducerCall(producerName, netDuration);
+		overallMaps.getByProducer().addProducerCall(producerName, netDuration);
 		for (TraceStep childStep : step.getChildren()){
-			addMethodStep(childStep, singleCallMap);
+			addMethodStep(childStep, singleCallMap, overallMaps);
 		}
 	}
 

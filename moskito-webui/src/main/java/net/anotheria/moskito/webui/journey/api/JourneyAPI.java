@@ -53,7 +53,7 @@ public interface JourneyAPI extends API, Service {
 	 * @return
 	 * @throws APIException
 	 */
-	AnalyzedJourneyByMethodAO analyzeJourneyByMethod(String journeyName) throws APIException;
+	AnalyzedJourneyAO analyzeJourneyByMethod(String journeyName) throws APIException;
 
 	/**
 	 * Deletes a journey.
