@@ -99,7 +99,7 @@ public abstract class MoskitoAction extends Action implements IStatsProducer {
 		CurrentlyTracedCall tracedCall = aTracedCall.callTraced() ?
 				(CurrentlyTracedCall)aTracedCall : null; 
 		if (tracedCall !=null)
-			currentStep = tracedCall.startStep(new StringBuilder(getProducerId()).append('.').append("execute").toString(), this);
+			currentStep = tracedCall.startStep(new StringBuilder(getProducerId()).append('.').append("execute").toString(), this, "execute");
 		try {
 			
 			preProcessExecute(mapping, bean, req, res);

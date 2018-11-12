@@ -77,11 +77,16 @@ public class TraceStep implements Serializable{
 	private transient IStatsProducer producer;
 
 	/**
+	 * The method that has been called.
+	 */
+	private String methodName;
+
+	/**
 	 * Creates a new trace step.
 	 * @param aCall string description of the call.
 	 */
 	public TraceStep(String aCall){
-		this(aCall, null);
+		this(aCall, null, null);
 	}
 
 	/**
@@ -89,10 +94,11 @@ public class TraceStep implements Serializable{
 	 * @param aCall call description.
 	 * @param aProducer the executing producer.
 	 */
-	public TraceStep(String aCall, IStatsProducer aProducer){
+	public TraceStep(String aCall, IStatsProducer aProducer, String aMethodName){
 		call = aCall;
 		children = new ArrayList<>();
 		producer = aProducer;
+		methodName = aMethodName;
 	}
 	
 	public String getCall(){
@@ -253,6 +259,10 @@ public class TraceStep implements Serializable{
 
 	private String quote(String s){
 		return "\"" + s + "\"";
+	}
+
+	public String getMethodName() {
+		return methodName;
 	}
 
 }

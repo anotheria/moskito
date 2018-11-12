@@ -79,7 +79,7 @@ public class BlueprintProducer implements IStatsProducer{
 		CurrentlyTracedCall currentlyTracedCall = aTracedCall.callTraced() ?
 				(CurrentlyTracedCall)aTracedCall : null; 
 		if (currentlyTracedCall !=null)
-			currentElement = currentlyTracedCall.startStep(new StringBuilder(getProducerId()).append('.').append("execute").toString(), this);
+			currentElement = currentlyTracedCall.startStep(new StringBuilder(getProducerId()).append('.').append("execute").toString(), this, "execute");
 		try {
 			return executor.execute(parameters);
 		}  catch (Exception e) {

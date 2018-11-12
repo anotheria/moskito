@@ -25,6 +25,7 @@ import net.anotheria.moskito.webui.errors.action.ShowErrorAction;
 import net.anotheria.moskito.webui.errors.action.ShowErrorsAction;
 import net.anotheria.moskito.webui.gauges.action.ShowGaugesAction;
 import net.anotheria.moskito.webui.journey.action.AnalyzeJourneyAction;
+import net.anotheria.moskito.webui.journey.action.AnalyzeJourneyByMethodAction;
 import net.anotheria.moskito.webui.journey.action.DeleteJourneyAction;
 import net.anotheria.moskito.webui.journey.action.ShowJourneyAction;
 import net.anotheria.moskito.webui.journey.action.ShowJourneyCallAction;
@@ -231,6 +232,11 @@ public class MoskitoMappingsConfigurator implements ActionMappingsConfigurator{
 		mappings.addMapping("mskAnalyzeJourney", AnalyzeJourneyAction.class,
 				new ActionForward("success", "/net/anotheria/moskito/webui/journey/jsp/AnalyzeJourney.jsp")
 		);
+		mappings.addMapping("mskAnalyzeJourneyByMethod", AnalyzeJourneyByMethodAction.class,
+				new ActionForward("success", "/net/anotheria/moskito/webui/journey/jsp/AnalyzeJourneyByMethod.jsp")
+		);
+
+
 		
 		//threads
 		mappings.addMapping("mskThreads", ThreadsOverviewAction.class,

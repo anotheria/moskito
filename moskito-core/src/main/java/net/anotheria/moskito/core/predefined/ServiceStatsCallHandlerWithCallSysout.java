@@ -113,7 +113,7 @@ public class ServiceStatsCallHandlerWithCallSysout implements IOnDemandCallHandl
 		CurrentlyTracedCall runningUseCase = aRunningUseCase.callTraced() ?
 				(CurrentlyTracedCall)aRunningUseCase : null; 
 		if (runningUseCase !=null)
-			currentElement = runningUseCase.startStep(new StringBuilder(producer.getProducerId()).append('.').append(method.getName()).toString(), producer);
+			currentElement = runningUseCase.startStep(new StringBuilder(producer.getProducerId()).append('.').append(method.getName()).toString(), producer, method.getName());
 		long startTime = System.nanoTime();
 		try{
 			Object ret = method.invoke(target, args);

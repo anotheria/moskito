@@ -96,6 +96,7 @@
                             <td>
                                 <mos:deepLink  class="action-icon delete-icon tooltip-bottom" title="" data-original-title="Delete ${journey.name}" href="mskDeleteJourney?pJourneyName=${journey.name}"><i class="fa fa-ban"></i></mos:deepLink >
                                 <mos:deepLink  class="action-icon show-icon tooltip-bottom" title="" data-original-title="Show steps in journey ${journey.name}"  href="mskShowJourney?pJourneyName=${journey.name}"><i class="fa fa-search"></i></mos:deepLink >
+                                <mos:deepLink  class="action-icon show-icon tooltip-bottom" title="" data-original-title="Analyze journey by method ${journey.name}"  href="mskAnalyzeJourneyByMethod?pJourneyName=${journey.name}"><i class="fa fa-search-plus"></i></mos:deepLink >
                                 <mos:deepLink  class="action-icon show-icon tooltip-bottom" title="" data-original-title="Analyze journey ${journey.name}"  href="mskAnalyzeJourney?pJourneyName=${journey.name}"><i class="fa fa-search-plus"></i></mos:deepLink >
 
                             </td>

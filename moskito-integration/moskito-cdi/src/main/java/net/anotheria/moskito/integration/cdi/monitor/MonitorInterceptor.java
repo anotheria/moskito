@@ -89,7 +89,7 @@ public class MonitorInterceptor extends AbstractInterceptor<ServiceStats> implem
         if (currentTrace != null) {
             String optionalPrefix = null;
             String call = TracingUtil.buildCall(className, methodName, parameters, optionalPrefix).toString();
-            currentStep = currentTrace.startStep(call, onDemandProducer);
+            currentStep = currentTrace.startStep(call, onDemandProducer, method.getName());
         }
 
 		MoSKitoContext context = MoSKitoContext.get();
@@ -122,7 +122,7 @@ public class MonitorInterceptor extends AbstractInterceptor<ServiceStats> implem
             call = TracingUtil.buildCall(producerId, methodName, parameters, tracePassingOfThisProducer ? Tracers.getCallName(trace) : null);
         }
         if (currentTrace != null) {
-            currentStep = currentTrace.startStep(call.toString(), onDemandProducer);
+            currentStep = currentTrace.startStep(call.toString(), onDemandProducer, method.getName());
         }
 
         final long startTime = System.nanoTime();

@@ -110,9 +110,9 @@ public class CurrentlyTracedCall implements TracedCall, Serializable{
 	/**
 	 * Creates a new sub step in current call.
 	 */
-	public TraceStep startStep(String call, IStatsProducer producer){
+	public TraceStep startStep(String call, IStatsProducer producer, String methodName){
 		TraceStep last = current;
-		current = new TraceStep(call, producer);
+		current = new TraceStep(call, producer, methodName);
 		//it actually happened in production, we are still investigating why, but this fix should at least prevent the NPE for now.
 		if (last!=null)
 			last.addChild(current);
@@ -124,7 +124,7 @@ public class CurrentlyTracedCall implements TracedCall, Serializable{
 	 */
 	@Deprecated
 	public TraceStep startStep(String call){
-		return startStep(call, null);
+		return startStep(call, null, null);
 	}
 	
 	public void endStep(){

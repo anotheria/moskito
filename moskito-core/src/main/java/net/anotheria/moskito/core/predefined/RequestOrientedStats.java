@@ -537,7 +537,7 @@ public abstract class RequestOrientedStats extends AbstractStats {
 				if (currentlyTracedCall !=null){
 					IStatsProducer producer = null;
 					String call = callDescription == null ? getName() : callDescription;
-					currentStep = currentlyTracedCall.startStep(call, producer);
+					currentStep = currentlyTracedCall.startStep(call, producer, "execute");
 				}
 			}
 		}

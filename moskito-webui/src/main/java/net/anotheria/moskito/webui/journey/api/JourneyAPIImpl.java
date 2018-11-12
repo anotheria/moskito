@@ -213,6 +213,33 @@ public class JourneyAPIImpl extends AbstractMoskitoAPIImpl implements  JourneyAP
 		return result;
 	}
 
+	@Override
+	public AnalyzedJourneyByMethodAO analyzeJourneyByMethod(String journeyName) throws APIException {
+		Journey journey = getJourneyByName(journeyName);
+		List<CurrentlyTracedCall> tracedCalls = journey.getTracedCalls();
+		List<AnalyzedProducerCallsMapAO> callsList = new ArrayList<>(tracedCalls.size() + 1);
+
+		for (CurrentlyTracedCall tc : tracedCalls){
+			if (tc==null){
+				log.warn("TracedCall is null!");
+				continue;
+			}
+			AnalyzedProducerCallsMapAO singleCallMap = new AnalyzedProducerCallsMapAO(tc.getName());
+			for (TraceStep step : tc.getRootStep().getChildren()){
+				addMethodStep(step, singleCallMap);
+
+			}
+			callsList.add(singleCallMap);
+		}
+
+
+		AnalyzedJourneyByMethodAO result = new AnalyzedJourneyByMethodAO();
+		result.setName(journeyName);
+		result.setCalls(callsList);
+
+		return result;
+	}
+
 	private Journey getJourneyByName(String name) throws APIException {
 		try {
 			journeyManager.getJourney(name);
@@ -239,6 +266,23 @@ public class JourneyAPIImpl extends AbstractMoskitoAPIImpl implements  JourneyAP
 		}
 	}
 
+	private void addMethodStep(TraceStep step, AnalyzedProducerCallsMapAO singleCallMap) {
+		IStatsProducer producer = step.getProducer();
+
+		String methodName = step.getMethodName();
+		if (methodName == null)
+			methodName = "UNKNOWN";
+
+		String producerName = producer == null ? "UNKNOWN" : producer.getProducerId()+"."+methodName;
+		String categoryName = producer == null ? "UNKNOWN" : producer.getCategory();
+		String subsystemName = producer == null ? "UNKNOWN" : producer.getSubsystem();
+		long netDuration = step.getNetDuration();
+
+		singleCallMap.addProducerCall(producerName, netDuration);
+		for (TraceStep childStep : step.getChildren()){
+			addMethodStep(childStep, singleCallMap);
+		}
+	}
 
 
 	@Override
