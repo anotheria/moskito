@@ -1,8 +1,8 @@
 package net.anotheria.moskito.webui;
 
-import net.anotheria.maf.action.ActionForward;
 import net.anotheria.maf.action.ActionMappings;
 import net.anotheria.maf.action.ActionMappingsConfigurator;
+import net.anotheria.maf.action.CommandForward;
 import net.anotheria.maf.action.CommandRedirect;
 import net.anotheria.moskito.webui.accumulators.action.CreateAccumulatorAction;
 import net.anotheria.moskito.webui.accumulators.action.DeleteAccumulatorAction;
@@ -82,7 +82,7 @@ public class MoskitoMappingsConfigurator implements ActionMappingsConfigurator{
 
 		mappings.addMapping("mskSignIn", SignInAction.class,
 				// Default redirect in case user directly pass to login page
-				new ActionForward("loginPage", "/net/anotheria/moskito/webui/auth/jsp/Login.jsp"),
+				new CommandForward("loginPage", "/net/anotheria/moskito/webui/auth/jsp/Login.jsp"),
 				new CommandRedirect("defaultRedirect", "mskDashboard")
 		);
 		mappings.addMapping("mskSignOut", SignOutAction.class,
@@ -90,10 +90,10 @@ public class MoskitoMappingsConfigurator implements ActionMappingsConfigurator{
 		);
 
 		mappings.addMapping("mskShowAllProducers", ShowAllProducersAction.class,
-				new ActionForward("html", "/net/anotheria/moskito/webui/producers/jsp/Producers.jsp"),
-				new ActionForward("xml", "/net/anotheria/moskito/webui/producers/jsp/ProducersXML.jsp"),
-				new ActionForward("csv", "/net/anotheria/moskito/webui/producers/jsp/ProducersCSV.jsp"),
-				new ActionForward("json", "/net/anotheria/moskito/webui/producers/jsp/ProducersJSON.jsp")
+				new CommandForward("html", "/net/anotheria/moskito/webui/producers/jsp/Producers.jsp"),
+				new CommandForward("xml", "/net/anotheria/moskito/webui/producers/jsp/ProducersXML.jsp"),
+				new CommandForward("csv", "/net/anotheria/moskito/webui/producers/jsp/ProducersCSV.jsp"),
+				new CommandForward("json", "/net/anotheria/moskito/webui/producers/jsp/ProducersJSON.jsp")
 		);
 
 		mappings.addAlias("mskShowAllProducers.csv", "mskShowAllProducers");
@@ -101,10 +101,10 @@ public class MoskitoMappingsConfigurator implements ActionMappingsConfigurator{
 		mappings.addAlias("mskShowAllProducers.json", "mskShowAllProducers");
  
 		mappings.addMapping("mskShowProducersByCategory", ShowProducersForCategoryAction.class,
-				new ActionForward("html", "/net/anotheria/moskito/webui/producers/jsp/Producers.jsp"),
-				new ActionForward("xml", "/net/anotheria/moskito/webui/producers/jsp/ProducersXML.jsp"),
-				new ActionForward("csv", "/net/anotheria/moskito/webui/producers/jsp/ProducersCSV.jsp"),
-				new ActionForward("json", "/net/anotheria/moskito/webui/producers/jsp/ProducersJSON.jsp")
+				new CommandForward("html", "/net/anotheria/moskito/webui/producers/jsp/Producers.jsp"),
+				new CommandForward("xml", "/net/anotheria/moskito/webui/producers/jsp/ProducersXML.jsp"),
+				new CommandForward("csv", "/net/anotheria/moskito/webui/producers/jsp/ProducersCSV.jsp"),
+				new CommandForward("json", "/net/anotheria/moskito/webui/producers/jsp/ProducersJSON.jsp")
 		);
 		
 		mappings.addAlias("mskShowProducersByCategory.csv", "mskShowProducersByCategory");
@@ -112,10 +112,10 @@ public class MoskitoMappingsConfigurator implements ActionMappingsConfigurator{
 		mappings.addAlias("mskShowProducersByCategory.json", "mskShowProducersByCategory");
 
 		mappings.addMapping("mskShowProducersBySubsystem", ShowProducersForSubsystemAction.class, 
-				new ActionForward("html", "/net/anotheria/moskito/webui/producers/jsp/Producers.jsp"),
-		 		new ActionForward("xml", "/net/anotheria/moskito/webui/producers/jsp/ProducersXML.jsp"),
-				new ActionForward("csv", "/net/anotheria/moskito/webui/producers/jsp/ProducersCSV.jsp"),
-				new ActionForward("json", "/net/anotheria/moskito/webui/producers/jsp/ProducersJSON.jsp")
+				new CommandForward("html", "/net/anotheria/moskito/webui/producers/jsp/Producers.jsp"),
+		 		new CommandForward("xml", "/net/anotheria/moskito/webui/producers/jsp/ProducersXML.jsp"),
+				new CommandForward("csv", "/net/anotheria/moskito/webui/producers/jsp/ProducersCSV.jsp"),
+				new CommandForward("json", "/net/anotheria/moskito/webui/producers/jsp/ProducersJSON.jsp")
 		);
 		
 		mappings.addAlias("mskShowProducersBySubsystem.csv", "mskShowProducersBySubsystem");
@@ -123,10 +123,10 @@ public class MoskitoMappingsConfigurator implements ActionMappingsConfigurator{
 		mappings.addAlias("mskShowProducersBySubsystem.json", "mskShowProducersBySubsystem");
 
 		mappings.addMapping("mskShowProducer", ShowProducerAction.class, 
-				new ActionForward("html", "/net/anotheria/moskito/webui/producers/jsp/Producer.jsp"),
-				new ActionForward("xml", "/net/anotheria/moskito/webui/producers/jsp/ProducerXML.jsp"),
-				new ActionForward("csv", "/net/anotheria/moskito/webui/producers/jsp/ProducerCSV.jsp"),
-				new ActionForward("json", "/net/anotheria/moskito/webui/producers/jsp/ProducerJSON.jsp")
+				new CommandForward("html", "/net/anotheria/moskito/webui/producers/jsp/Producer.jsp"),
+				new CommandForward("xml", "/net/anotheria/moskito/webui/producers/jsp/ProducerXML.jsp"),
+				new CommandForward("csv", "/net/anotheria/moskito/webui/producers/jsp/ProducerCSV.jsp"),
+				new CommandForward("json", "/net/anotheria/moskito/webui/producers/jsp/ProducerJSON.jsp")
 				//new ActionForward("selection", "/net/anotheria/moskito/webui/producers/jsp/ProducerForSelection.jsp")
 		);
 
@@ -137,10 +137,10 @@ public class MoskitoMappingsConfigurator implements ActionMappingsConfigurator{
 
 
 		mappings.addMapping("mskShowCumulatedProducers", ShowCumulatedProducersAction.class,
-				new ActionForward("html", "/net/anotheria/moskito/webui/producers/jsp/CumulatedProducers.jsp"),
-				new ActionForward("xml", "/net/anotheria/moskito/webui/producers/jsp/CumulatedProducersXML.jsp"),
-				new ActionForward("csv", "/net/anotheria/moskito/webui/producers/jsp/CumulatedProducersCSV.jsp"),
-				new ActionForward("json", "/net/anotheria/moskito/webui/producers/jsp/CumulatedProducersJSON.jsp")
+				new CommandForward("html", "/net/anotheria/moskito/webui/producers/jsp/CumulatedProducers.jsp"),
+				new CommandForward("xml", "/net/anotheria/moskito/webui/producers/jsp/CumulatedProducersXML.jsp"),
+				new CommandForward("csv", "/net/anotheria/moskito/webui/producers/jsp/CumulatedProducersCSV.jsp"),
+				new CommandForward("json", "/net/anotheria/moskito/webui/producers/jsp/CumulatedProducersJSON.jsp")
 		);
 
 		mappings.addAlias("mskShowCumulatedProducers.csv", "mskShowCumulatedProducers");
@@ -149,17 +149,17 @@ public class MoskitoMappingsConfigurator implements ActionMappingsConfigurator{
 
 
 		mappings.addMapping("mskShowExplanations", ShowExplanationsAction.class,
-				new ActionForward("success", "/net/anotheria/moskito/webui/shared/jsp/Explanations.jsp")
+				new CommandForward("success", "/net/anotheria/moskito/webui/shared/jsp/Explanations.jsp")
 		);
 
 		mappings.addMapping("mskShowJourneys", ShowJourneysAction.class,
-				new ActionForward("success", "/net/anotheria/moskito/webui/journey/jsp/Journeys.jsp")
+				new CommandForward("success", "/net/anotheria/moskito/webui/journey/jsp/Journeys.jsp")
 		);
 		mappings.addMapping("mskShowJourney", ShowJourneyAction.class, 
-				new ActionForward("success", "/net/anotheria/moskito/webui/journey/jsp/Journey.jsp")
+				new CommandForward("success", "/net/anotheria/moskito/webui/journey/jsp/Journey.jsp")
 		);
 		mappings.addMapping("mskShowJourneyCall", ShowJourneyCallAction.class, 
-				new ActionForward("success", "/net/anotheria/moskito/webui/journey/jsp/JourneyCall.jsp")
+				new CommandForward("success", "/net/anotheria/moskito/webui/journey/jsp/JourneyCall.jsp")
 		);
 
 		mappings.addMapping("mskDeleteJourney", DeleteJourneyAction.class,
@@ -170,10 +170,10 @@ public class MoskitoMappingsConfigurator implements ActionMappingsConfigurator{
 		mappings.addMapping("mskForceIntervalUpdate", ForceIntervalUpdateAction.class);
 
 		mappings.addMapping("mskThresholds", ShowThresholdsAction.class,
-				new ActionForward("html", "/net/anotheria/moskito/webui/threshold/jsp/Thresholds.jsp"),
-				new ActionForward("xml", "/net/anotheria/moskito/webui/threshold/jsp/ThresholdsXML.jsp"),
-				new ActionForward("csv", "/net/anotheria/moskito/webui/threshold/jsp/ThresholdsCSV.jsp"),
-				new ActionForward("json", "/net/anotheria/moskito/webui/threshold/jsp/ThresholdsJSON.jsp")
+				new CommandForward("html", "/net/anotheria/moskito/webui/threshold/jsp/Thresholds.jsp"),
+				new CommandForward("xml", "/net/anotheria/moskito/webui/threshold/jsp/ThresholdsXML.jsp"),
+				new CommandForward("csv", "/net/anotheria/moskito/webui/threshold/jsp/ThresholdsCSV.jsp"),
+				new CommandForward("json", "/net/anotheria/moskito/webui/threshold/jsp/ThresholdsJSON.jsp")
 		);
 		mappings.addAlias("mskThresholds.csv", "mskThresholds");
 		mappings.addAlias("mskThresholds.xml", "mskThresholds");
@@ -192,10 +192,10 @@ public class MoskitoMappingsConfigurator implements ActionMappingsConfigurator{
 
 
 		mappings.addMapping("mskAccumulators", ShowAccumulatorsAction.class,
-				new ActionForward("html", "/net/anotheria/moskito/webui/accumulators/jsp/Accumulators.jsp"),
-				new ActionForward("xml", "/net/anotheria/moskito/webui/accumulators/jsp/AccumulatorsXML.jsp"),
-				new ActionForward("csv", "/net/anotheria/moskito/webui/accumulators/jsp/AccumulatorsCSV.jsp"),
-				new ActionForward("json", "/net/anotheria/moskito/webui/accumulators/jsp/AccumulatorsJSON.jsp")
+				new CommandForward("html", "/net/anotheria/moskito/webui/accumulators/jsp/Accumulators.jsp"),
+				new CommandForward("xml", "/net/anotheria/moskito/webui/accumulators/jsp/AccumulatorsXML.jsp"),
+				new CommandForward("csv", "/net/anotheria/moskito/webui/accumulators/jsp/AccumulatorsCSV.jsp"),
+				new CommandForward("json", "/net/anotheria/moskito/webui/accumulators/jsp/AccumulatorsJSON.jsp")
 		);
 		mappings.addAlias("mskAccumulators.csv", "mskAccumulators");
 		mappings.addAlias("mskAccumulators.xml", "mskAccumulators");
@@ -209,14 +209,14 @@ public class MoskitoMappingsConfigurator implements ActionMappingsConfigurator{
 
 		//gauges, now just for testing purposes
 		mappings.addMapping("mskGauges", ShowGaugesAction.class,
-			new ActionForward("success", "/net/anotheria/moskito/webui/gauges/jsp/Gauges.jsp"));
+			new CommandForward("success", "/net/anotheria/moskito/webui/gauges/jsp/Gauges.jsp"));
 		mappings.addMapping("mskGenerateChart", GenerateChartAction.class);
 
 		//tracers
 		mappings.addMapping("mskTracers", ShowTracersAction.class,
-				new ActionForward("success", "/net/anotheria/moskito/webui/tracers/jsp/Tracers.jsp"));
+				new CommandForward("success", "/net/anotheria/moskito/webui/tracers/jsp/Tracers.jsp"));
 		mappings.addMapping("mskTracer", ShowTracerAction.class,
-				new ActionForward("success", "/net/anotheria/moskito/webui/tracers/jsp/Tracer.jsp"));
+				new CommandForward("success", "/net/anotheria/moskito/webui/tracers/jsp/Tracer.jsp"));
 
 		mappings.addMapping("mskCreateTracer", CreateTracerAction.class);
 		mappings.addMapping("mskRemoveTracer", RemoveTracerAction.class,
@@ -230,54 +230,54 @@ public class MoskitoMappingsConfigurator implements ActionMappingsConfigurator{
 
 		//analyze journey
 		mappings.addMapping("mskAnalyzeJourney", AnalyzeJourneyAction.class,
-				new ActionForward("success", "/net/anotheria/moskito/webui/journey/jsp/AnalyzeJourney.jsp")
+				new CommandForward("success", "/net/anotheria/moskito/webui/journey/jsp/AnalyzeJourney.jsp")
 		);
 		mappings.addMapping("mskAnalyzeJourneyByMethod", AnalyzeJourneyByMethodAction.class,
-				new ActionForward("success", "/net/anotheria/moskito/webui/journey/jsp/AnalyzeJourneyByMethod.jsp")
+				new CommandForward("success", "/net/anotheria/moskito/webui/journey/jsp/AnalyzeJourneyByMethod.jsp")
 		);
 
 
 		
 		//threads
 		mappings.addMapping("mskThreads", ThreadsOverviewAction.class,
-				new ActionForward("success", "/net/anotheria/moskito/webui/threads/jsp/Threads.jsp"));
+				new CommandForward("success", "/net/anotheria/moskito/webui/threads/jsp/Threads.jsp"));
 		mappings.addMapping("mskThreadsList", ThreadsListAction.class,
-				new ActionForward("success", "/net/anotheria/moskito/webui/threads/jsp/ThreadsList.jsp"));
+				new CommandForward("success", "/net/anotheria/moskito/webui/threads/jsp/ThreadsList.jsp"));
 		mappings.addMapping("mskThreadsDump", ThreadsDumpAction.class,
-				new ActionForward("success", "/net/anotheria/moskito/webui/threads/jsp/ThreadsDump.jsp"));
+				new CommandForward("success", "/net/anotheria/moskito/webui/threads/jsp/ThreadsDump.jsp"));
 		mappings.addMapping("mskThreadsHistory", ThreadsHistoryAction.class,
-				new ActionForward("success", "/net/anotheria/moskito/webui/threads/jsp/ThreadsHistory.jsp"));
+				new CommandForward("success", "/net/anotheria/moskito/webui/threads/jsp/ThreadsHistory.jsp"));
 		//hidden features.
 		mappings.addMapping("mskThreadsSetHistoryListSize", SetHistoryListSizeAction.class,
-				new ActionForward("success", "/net/anotheria/moskito/webui/threads/jsp/ThreadsHistory.jsp"));
+				new CommandForward("success", "/net/anotheria/moskito/webui/threads/jsp/ThreadsHistory.jsp"));
 		mappings.addMapping("mskThreadsStartTestThread", StartThreadAction.class,
-				new ActionForward("success", "/net/anotheria/moskito/webui/threads/jsp/ThreadsHistory.jsp"));
+				new CommandForward("success", "/net/anotheria/moskito/webui/threads/jsp/ThreadsHistory.jsp"));
 		mappings.addMapping("mskThreadsHistoryOff", HistoryOffAction.class,
-				new ActionForward("success", "/net/anotheria/moskito/webui/threads/jsp/ThreadsHistory.jsp"));
+				new CommandForward("success", "/net/anotheria/moskito/webui/threads/jsp/ThreadsHistory.jsp"));
 		mappings.addMapping("mskThreadsHistoryOn", HistoryOnAction.class,
-				new ActionForward("success", "/net/anotheria/moskito/webui/threads/jsp/ThreadsHistory.jsp"));
+				new CommandForward("success", "/net/anotheria/moskito/webui/threads/jsp/ThreadsHistory.jsp"));
 
 		//additional information section
 		mappings.addMapping("mskMore", AdditionalSectionAction.class,
-				new ActionForward("success", "/net/anotheria/moskito/webui/more/jsp/AdditionalItems.jsp")
+				new CommandForward("success", "/net/anotheria/moskito/webui/more/jsp/AdditionalItems.jsp")
 		);
 		mappings.addMapping("mskConfig", ShowConfigAction.class,
-			new ActionForward("success", "/net/anotheria/moskito/webui/more/jsp/Config.jsp")
+			new CommandForward("success", "/net/anotheria/moskito/webui/more/jsp/Config.jsp")
 		);
 		mappings.addMapping("mskErrors", ShowErrorsAction.class,
-				new ActionForward("success", "/net/anotheria/moskito/webui/errors/jsp/Errors.jsp")
+				new CommandForward("success", "/net/anotheria/moskito/webui/errors/jsp/Errors.jsp")
 		);
 		mappings.addMapping("mskError", ShowErrorAction.class,
-				new ActionForward("success", "/net/anotheria/moskito/webui/errors/jsp/Error.jsp")
+				new CommandForward("success", "/net/anotheria/moskito/webui/errors/jsp/Error.jsp")
 		);
 		mappings.addMapping("mskLibs", ShowLibsAction.class,
-				new ActionForward("success", "/net/anotheria/moskito/webui/more/jsp/Libs.jsp")
+				new CommandForward("success", "/net/anotheria/moskito/webui/more/jsp/Libs.jsp")
 		);
 		mappings.addMapping("mskMBeans", ShowMBeansAction.class,
-				new ActionForward("success", "/net/anotheria/moskito/webui/more/jsp/MBeans.jsp")
+				new CommandForward("success", "/net/anotheria/moskito/webui/more/jsp/MBeans.jsp")
 		);
 		mappings.addMapping("mskPlugins", ShowPluginsAction.class,
-				new ActionForward("success", "/net/anotheria/moskito/webui/more/jsp/Plugins.jsp")
+				new CommandForward("success", "/net/anotheria/moskito/webui/more/jsp/Plugins.jsp")
 		);
 
 		mappings.addMapping("mskRemovePlugin", RemovePluginAction.class,
@@ -295,7 +295,7 @@ public class MoskitoMappingsConfigurator implements ActionMappingsConfigurator{
 
 		// Tags section
 		mappings.addMapping("mskTags", ShowTagsAction.class,
-				new ActionForward("success", "/net/anotheria/moskito/webui/tags/jsp/Tags.jsp")
+				new CommandForward("success", "/net/anotheria/moskito/webui/tags/jsp/Tags.jsp")
 		);
 
 		mappings.addMapping("mskAddTag", AddTagAction.class,
@@ -304,7 +304,7 @@ public class MoskitoMappingsConfigurator implements ActionMappingsConfigurator{
 
 
 		mappings.addMapping("mskUpdate", UpdateAction.class,
-				new ActionForward("success", "/net/anotheria/moskito/webui/more/jsp/Update.jsp")
+				new CommandForward("success", "/net/anotheria/moskito/webui/more/jsp/Update.jsp")
 		);
 
 		// ajax
@@ -313,11 +313,11 @@ public class MoskitoMappingsConfigurator implements ActionMappingsConfigurator{
 		mappings.addMapping("mskGetThresholdDefinition", GetThresholdDefinitionAction.class);
 
 		//errors
-		mappings.setOnError(new ActionForward("error", "/net/anotheria/moskito/webui/shared/jsp/Error.jsp"));
+		mappings.setOnError(new CommandForward("error", "/net/anotheria/moskito/webui/shared/jsp/Error.jsp"));
 
 		//dashboards
 		mappings.addMapping("mskDashboard", ShowDashboardAction.class,
-				new ActionForward("success", "/net/anotheria/moskito/webui/dashboards/jsp/Dashboard.jsp")
+				new CommandForward("success", "/net/anotheria/moskito/webui/dashboards/jsp/Dashboard.jsp")
 		);
 		mappings.addMapping("mskCreateDashboard", CreateDashboardAction.class,
 				new CommandDeepLinkRedirect("redirect", "mskDashboard"));
