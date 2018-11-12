@@ -18,13 +18,15 @@ import net.anotheria.moskito.webui.accumulators.api.AccumulatorAO;
 import net.anotheria.moskito.webui.accumulators.api.AccumulatorAPI;
 import net.anotheria.moskito.webui.accumulators.api.MultilineChartAO;
 import net.anotheria.moskito.webui.gauges.api.GaugeAPI;
-import net.anotheria.moskito.webui.producers.api.ProducerAPI;
 import net.anotheria.moskito.webui.shared.api.AbstractMoskitoAPIImpl;
 import net.anotheria.moskito.webui.threshold.api.ThresholdAPI;
 import net.anotheria.util.StringUtils;
-import net.anotheria.util.sorter.DummySortType;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.regex.Pattern;
 
 /**
@@ -34,18 +36,6 @@ import java.util.regex.Pattern;
  * @since 08.04.15 12:46
  */
 public class DashboardAPIImpl extends AbstractMoskitoAPIImpl implements DashboardAPI{
-
-	/**
-	 * Placeholder for chart values.
-	 */
-	private static final String VALUE_PLACEHOLDER = "XXX";
-
-	private static final DummySortType SORT_TYPE = new DummySortType();
-
-	/**
-	 * Used to bring similar x values (time seconds) to same x point on the axis.
-	 */
-	public static final long X_AXIS_RESOLUTION = 60000;
 
 	/**
 	 * GaugeAPI.
@@ -59,10 +49,6 @@ public class DashboardAPIImpl extends AbstractMoskitoAPIImpl implements Dashboar
 	 * AccumulatorAPI.
 	 */
 	private AccumulatorAPI accumulatorAPI;
-	/**
-	 * ProducerAPI.
-	 */
-	private ProducerAPI producerAPI;
 
 
 	@Override
@@ -72,8 +58,6 @@ public class DashboardAPIImpl extends AbstractMoskitoAPIImpl implements Dashboar
 		gaugeAPI = APIFinder.findAPI(GaugeAPI.class);
 		thresholdAPI = APIFinder.findAPI(ThresholdAPI.class);
 		accumulatorAPI = APIFinder.findAPI(AccumulatorAPI.class);
-		producerAPI = APIFinder.findAPI(ProducerAPI.class);
-
 	}
 
 	@Override
@@ -566,13 +550,14 @@ public class DashboardAPIImpl extends AbstractMoskitoAPIImpl implements Dashboar
 		MoskitoConfiguration config = MoskitoConfigurationHolder.getConfiguration();
 		DashboardsConfig dashboardsConfig = config.getDashboardsConfig();
 		DashboardConfig[] dashboards = dashboardsConfig.getDashboards();
-		if (dashboards != null){
-			List<String> dashboardNames = new ArrayList<>(dashboards.length);
-			for (DashboardConfig dc : dashboards){
-				dashboardNames.add(dc.getName());
-			}
-			return dashboardNames;
+
+		if (dashboards == null || dashboards.length==0)
+			return Collections.emptyList();
+
+		List<String> dashboardNames = new ArrayList<>(dashboards.length);
+		for (DashboardConfig dc : dashboards){
+			dashboardNames.add(dc.getName());
 		}
-		return new ArrayList<>(0);
+		return dashboardNames;
 	}
 }
