@@ -1,13 +1,11 @@
 package net.anotheria.moskito.webui.dashboards.api;
 
 import net.anotheria.moskito.webui.gauges.api.GaugeAO;
-import net.anotheria.moskito.webui.producers.api.ProducerAO;
 import net.anotheria.moskito.webui.threshold.api.ThresholdStatusAO;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.io.Serializable;
 import java.util.List;
