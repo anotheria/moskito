@@ -46,7 +46,13 @@ import net.anotheria.moskito.webui.accumulators.util.AccumulatorUtility;
 import net.anotheria.moskito.webui.producers.api.ProducerAO;
 import net.anotheria.moskito.webui.producers.api.StatLineAO;
 import net.anotheria.moskito.webui.shared.action.BaseMoskitoUIAction;
-import net.anotheria.moskito.webui.shared.bean.*;
+import net.anotheria.moskito.webui.shared.bean.GraphDataBean;
+import net.anotheria.moskito.webui.shared.bean.GraphDataValueBean;
+import net.anotheria.moskito.webui.shared.bean.NaviItem;
+import net.anotheria.moskito.webui.shared.bean.StatBean;
+import net.anotheria.moskito.webui.shared.bean.StatBeanSortType;
+import net.anotheria.moskito.webui.shared.bean.StatDecoratorBean;
+import net.anotheria.moskito.webui.shared.bean.UnitBean;
 import net.anotheria.moskito.webui.threshold.bean.ThresholdStatusBean;
 import net.anotheria.moskito.webui.util.WebUIConfig;
 import net.anotheria.util.NumberUtils;
@@ -58,7 +64,12 @@ import org.slf4j.LoggerFactory;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.net.URLDecoder;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
 
 import static net.anotheria.moskito.webui.threshold.util.ThresholdStatusBeanUtility.getThresholdBeans;
 
