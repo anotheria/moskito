@@ -22,9 +22,6 @@ public class SignInAction implements Action {
 
     private static int AUTH_COOKIE_AGE = 60 * 60 * 24 * 30; // 30 days
 
-    private static String PARAMETER_ERROR = "error";
-    private static String PARAMETER_ERROR__HAS_ERROR_VALUE = "1";
-
     /**
      * Logger.
      */
