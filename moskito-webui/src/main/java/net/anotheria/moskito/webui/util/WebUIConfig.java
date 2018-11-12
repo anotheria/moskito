@@ -154,7 +154,7 @@ public class WebUIConfig {
 		static{
 			try{
 				ConfigurationManager.INSTANCE.configure(instance);
-			}catch(IllegalArgumentException e){;}//ignore
+			}catch(IllegalArgumentException e){}//ignore
 		}
 	}
 
