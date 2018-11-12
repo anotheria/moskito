@@ -45,8 +45,6 @@ import net.anotheria.moskito.webui.shared.action.BaseMoskitoUIAction;
 import net.anotheria.moskito.webui.shared.bean.GraphDataBean;
 import net.anotheria.moskito.webui.shared.bean.NaviItem;
 import org.apache.commons.lang.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -60,14 +58,9 @@ import java.util.Map;
  */
 public abstract class BaseShowProducersAction extends BaseMoskitoUIAction {
 
-    /**
-     * Logger.
-     */
-    private static final Logger LOG = LoggerFactory.getLogger(BaseShowProducersAction.class);
-
 	/**
 	 * Returns the list of producers for presentation.
-	 * @param req
+	 * @param req - http servlet request.
 	 * @return
 	 */
 	protected abstract List<ProducerAO> getProducers(HttpServletRequest req) throws APIException;
