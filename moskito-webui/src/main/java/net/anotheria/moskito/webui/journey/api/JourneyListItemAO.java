@@ -38,6 +38,7 @@ public class JourneyListItemAO implements Serializable{
 	 * Number of calls in this journey.
 	 */
 	private int numberOfCalls;
+
 	public boolean isActive() {
 		return active;
 	}

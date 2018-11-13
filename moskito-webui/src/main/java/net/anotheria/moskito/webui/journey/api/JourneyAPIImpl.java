@@ -19,13 +19,16 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * TODO comment this class
+ * Implementation of the JourneyAPI.
  *
  * @author lrosenberg
  * @since 14.02.13 10:00
  */
 public class JourneyAPIImpl extends AbstractMoskitoAPIImpl implements  JourneyAPI {
 
+	/**
+	 * Journey manager to obtain actual journey objects.
+	 */
 	private JourneyManager journeyManager;
 
 	@Override

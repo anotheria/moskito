@@ -16,8 +16,17 @@ public class AnalyzedJourneyAO implements Serializable {
      */
     private String name;
 
-    private AnalyzedProducerCallsMapAO totalByProducerId;
+	/**
+	 * Map of total calls by producer.
+	 */
+	private AnalyzedProducerCallsMapAO totalByProducerId;
+	/**
+	 * Map of total calls by category.
+	 */
 	private AnalyzedProducerCallsMapAO totalByCategoryId;
+	/**
+	 * Map of total calls by subsystem.
+	 */
 	private AnalyzedProducerCallsMapAO totalBySubsystemId;
 
     /**
