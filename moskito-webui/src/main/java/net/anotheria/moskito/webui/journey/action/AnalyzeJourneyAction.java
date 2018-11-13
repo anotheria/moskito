@@ -17,6 +17,10 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Executes journey analyses, which means calculates how many time each producer was called in each step of the journey and how long it took.
+ * Also presents overall statistics for total calls, by category and by subsystem.
+ */
 public class AnalyzeJourneyAction extends BaseJourneyAction {
 
     /**

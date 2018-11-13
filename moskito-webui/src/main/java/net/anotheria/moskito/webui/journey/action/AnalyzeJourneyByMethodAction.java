@@ -17,6 +17,9 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Same as AnalyzeJourneyAction but instead of producers it calculates more detailed, by methods.
+ */
 public class AnalyzeJourneyByMethodAction extends BaseJourneyAction {
 
     /**
