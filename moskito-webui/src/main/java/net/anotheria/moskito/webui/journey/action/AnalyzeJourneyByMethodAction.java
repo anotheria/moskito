@@ -73,7 +73,7 @@ public class AnalyzeJourneyByMethodAction extends BaseJourneyAction {
      */
     @Override
     protected String getPageName() {
-        return "journey_analyze_by_method";
+        return "journey_analyze";
     }
 
 }
