@@ -7,5 +7,10 @@ package net.anotheria.moskito.webui.shared.api.filter;
  * @since 20.04.15 09:22
  */
 public interface Matcher {
+	/**
+	 * Returns true if the target matches criteria.
+	 * @param target target to check.
+	 * @return
+	 */
 	boolean doesMatch(String target);
 }

@@ -1,7 +1,7 @@
 package net.anotheria.moskito.webui.shared.api.filter;
 
 /**
- * TODO comment this class
+ * Matches when target starts with given criteria.
  *
  * @author lrosenberg
  * @since 20.04.15 11:20

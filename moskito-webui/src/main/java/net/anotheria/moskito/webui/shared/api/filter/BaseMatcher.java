@@ -1,13 +1,16 @@
 package net.anotheria.moskito.webui.shared.api.filter;
 
 /**
- * TODO comment this class
+ * Base class for matchers.
  *
  * @author lrosenberg
  * @since 20.04.15 11:21
  */
 public abstract class BaseMatcher {
 
+	/**
+	 * Criteria to match.
+	 */
 	private String criteria;
 
 	public BaseMatcher(String aCriteria){
