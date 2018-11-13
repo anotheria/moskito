@@ -8,7 +8,7 @@ import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 
 /**
- * TODO comment this class
+ * Rest resource, returns alerts in the system.
  *
  * @author lrosenberg
  * @since 14.04.15 16:54

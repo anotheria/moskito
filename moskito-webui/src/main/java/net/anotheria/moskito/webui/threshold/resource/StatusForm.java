@@ -5,7 +5,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import java.util.List;
 
 /**
- * TODO comment this class
+ * Used to submit thresholds to the status resource.
  *
  * @author lrosenberg
  * @since 15.02.13 16:10
