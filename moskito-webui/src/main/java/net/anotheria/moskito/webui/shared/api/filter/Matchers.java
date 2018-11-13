@@ -13,7 +13,7 @@ public final class Matchers {
 
 	private static Logger log = LoggerFactory.getLogger(Matchers.class);
 
-	public static final Matcher createMatcher(String criteria){
+	public static Matcher createMatcher(String criteria){
 		if (criteria == null || criteria.length()==0)
 			throw new IllegalArgumentException("Empty criteria");
 		if (containsAsteriskInTheMiddle(criteria))
