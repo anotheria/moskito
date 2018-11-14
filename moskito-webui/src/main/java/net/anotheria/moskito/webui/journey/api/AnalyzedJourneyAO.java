@@ -10,6 +10,9 @@ import java.util.List;
  */
 public class AnalyzedJourneyAO implements Serializable {
 
+	/**
+	 * SerialVersionUID.
+	 */
     private static final long serialVersionUID = 552406840820013735L;
     /**
      * Journey name.
