@@ -4,6 +4,7 @@ import net.anotheria.moskito.core.calltrace.CurrentlyTracedCall;
 import net.anotheria.moskito.core.calltrace.RunningTraceContainer;
 import net.anotheria.moskito.core.calltrace.TraceStep;
 import net.anotheria.moskito.core.calltrace.TracedCall;
+import net.anotheria.moskito.core.dynamic.EntryCountLimitedOnDemandStatsProducer;
 import net.anotheria.moskito.core.dynamic.OnDemandStatsProducer;
 import net.anotheria.moskito.core.registry.ProducerRegistryFactory;
 import net.anotheria.moskito.sql.stats.QueryStats;
@@ -65,7 +66,7 @@ public class ConnectionCallAspect {
 	 * Constructor.
 	 */
 	public ConnectionCallAspect() {
-		producer = new OnDemandStatsProducer<QueryStats>("SQLQueries", "sql", "sql", QueryStatsFactory.DEFAULT_INSTANCE);
+		producer = new EntryCountLimitedOnDemandStatsProducer<QueryStats>("SQLQueries", "sql", "sql", QueryStatsFactory.DEFAULT_INSTANCE, 1000);
 		ProducerRegistryFactory.getProducerRegistryInstance().registerProducer(producer);
 	}
 
