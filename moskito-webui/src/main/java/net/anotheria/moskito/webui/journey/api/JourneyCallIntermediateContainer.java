@@ -70,7 +70,13 @@ public class JourneyCallIntermediateContainer {
 	 */
 	public static class ReversedCallHelper{
 		private List<String> positions = new ArrayList<>();
+		/**
+		 * Time spent in this call (overall incl. subcalls).
+		 */
 		private long timespent = 0;
+		/**
+		 * Duration of the call.
+		 */
 		private long duration = 0;
 		
 		public void add(String aPosition, long someTimespent, long aDuration){
