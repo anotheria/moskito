@@ -141,7 +141,7 @@ public class JourneyFilter implements Filter {
 				url += req.getPathInfo();
 			if (req.getQueryString() != null)
 				url += '?' + req.getQueryString();
-			RunningTraceContainer.startTracedCall(record == null ? "RND" : record.getUseCaseName() + '-' + url);
+			RunningTraceContainer.startTracedCall(record.getUseCaseName() + '-' + url);
 		}
 		try {
 			//Removed reset call, cause the context gets reset at the end of the call in finally anyway, so its safe to assume that we have a new context.
