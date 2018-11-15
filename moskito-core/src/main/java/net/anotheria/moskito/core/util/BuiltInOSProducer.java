@@ -218,7 +218,7 @@ public class BuiltInOSProducer extends AbstractBuiltInProducer implements IStats
 		try {
 			String[] command = "wmic cpu get LoadPercentage /Value".split(" ");
 			String line = executeMemoryInfoProcess(command); // Output should be something like 'LoadPercentage=27'
-			result = Double.parseDouble(line.substring(line.indexOf("=") + 1));
+			result = Double.parseDouble(line.substring(line.indexOf("=") + 1)) / 100; // convert 27% to 0.27 to be represented such as unix's SystemCpuLoad
 		} catch (Exception e) {
 			log.error("unable to get LoadPercentage from wmic", e);
 		}
