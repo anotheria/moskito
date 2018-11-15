@@ -91,13 +91,16 @@ public class ConnectionCallAspect {
 	@Around(value = "preparedStatementExecuteCalls()", argNames = "pjp")
 	public Object doBasicProfiling(ProceedingJoinPoint pjp) throws Throwable {
 		String preparedStatement = pjp.getTarget().toString();
-		String statement = preparedStatement.substring(preparedStatement.indexOf(":") + 2);
-		return doMoskitoProfiling(pjp, statement);
+		return doMoskitoProfiling(pjp, preparedStatement);
 	}
 
 	/* test scope */ static String removeParametersFromStatement(String statement){
-		return statement.replaceAll("'.+?'", "?").replaceAll(",\\s*\\d+", ", ?")
-				.replaceAll("\\(\\s*\\d+", "(?").replaceAll("=\\s*\\d+", "=?");
+
+		String replacement = statement.replaceAll("'.+?'", "?");
+		replacement = replacement.replaceAll(",\\s*\\d+", ", ?");
+		replacement = replacement.replaceAll("\\(\\s*\\d+", "(?");
+		replacement = replacement.replaceAll("=\\s*\\d+", "=?");
+		return replacement;
 	}
 
 	/**
@@ -124,7 +127,6 @@ public class ConnectionCallAspect {
 		if (statementStats != null)
 			statementStats.addRequest();
 		// start stopwatch
-		//System.out.println(smt);
 		boolean success = true;
 		try {
 			Object retVal = pjp.proceed();
