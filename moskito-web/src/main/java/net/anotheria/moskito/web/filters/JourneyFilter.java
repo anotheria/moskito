@@ -155,8 +155,7 @@ public class JourneyFilter implements Filter {
 				} else {
 					CurrentlyTracedCall finishedCall = (CurrentlyTracedCall) last;
 					finishedCall.setEnded();
-					if (record != null)
-						journey.addUseCase(finishedCall);
+					journey.addUseCase(finishedCall);
 				}
 
 				//removes the running use case to cleanup the thread local. Otherwise tomcat will be complaining...
