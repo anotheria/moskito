@@ -6,6 +6,7 @@ import net.anotheria.moskito.core.calltrace.TraceStep;
 import net.anotheria.moskito.core.calltrace.TracedCall;
 import net.anotheria.moskito.core.dynamic.EntryCountLimitedOnDemandStatsProducer;
 import net.anotheria.moskito.core.dynamic.OnDemandStatsProducer;
+import net.anotheria.moskito.core.dynamic.OnDemandStatsProducerException;
 import net.anotheria.moskito.core.registry.ProducerRegistryFactory;
 import net.anotheria.moskito.sql.stats.QueryStats;
 import net.anotheria.moskito.sql.stats.QueryStatsFactory;
@@ -13,6 +14,8 @@ import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Aspect used to intercept  SQL query calls.
@@ -23,6 +26,8 @@ import org.aspectj.lang.annotation.Pointcut;
  */
 @Aspect
 public class ConnectionCallAspect {
+
+	private static Logger log = LoggerFactory.getLogger(ConnectionCallAspect.class);
 
 	/**
 	 * List of jdbc calls for interception.
@@ -90,6 +95,11 @@ public class ConnectionCallAspect {
 		return doMoskitoProfiling(pjp, statement);
 	}
 
+	/* test scope */ static String removeParametersFromStatement(String statement){
+		return statement.replaceAll("'.+?'", "?").replaceAll(",\\s*\\d+", ", ?")
+				.replaceAll("\\(\\s*\\d+", "(?").replaceAll("=\\s*\\d+", "=?");
+	}
+
 	/**
 	 * Perform MoSKito profiling.
 	 *
@@ -99,11 +109,16 @@ public class ConnectionCallAspect {
 	 * @throws Throwable on errors
 	 */
 	private Object doMoskitoProfiling(ProceedingJoinPoint pjp, String statement) throws Throwable {
-		String statementGeneralized = statement.replaceAll("'.+?'", "?").replaceAll(",\\s*\\d+", ", ?")
-				.replaceAll("\\(\\s*\\d+", "(?").replaceAll("=\\s*\\d+", "=?");
+		String statementGeneralized = removeParametersFromStatement(statement);
 		long callTime = System.nanoTime();
 		QueryStats cumulatedStats = producer.getDefaultStats();
-		QueryStats statementStats = producer.getStats(statementGeneralized);
+		QueryStats statementStats = null;
+		try{
+			statementStats = producer.getStats(statementGeneralized);
+		}catch(OnDemandStatsProducerException limitReachedException){
+			log.warn("Query limit reached for query "+statement+", --> "+statementGeneralized);
+		}
+
 		//add Request Count, increase CR,MCR
 		cumulatedStats.addRequest();
 		if (statementStats != null)
