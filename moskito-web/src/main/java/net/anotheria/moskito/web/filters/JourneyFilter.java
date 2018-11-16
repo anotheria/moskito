@@ -38,6 +38,9 @@ public class JourneyFilter implements Filter {
 	 */
 	/*package visible*/static final String SA_JOURNEY_RECORD = "mskJourneyRecord";
 
+	/**
+	 * HttpRequest parameter to start new journey with.
+	 */
 	private static final String PARAM_JOURNEY_RECORDING = "mskJourney";
 	/**
 	 * The value of the parameter for the session monitoring start.
@@ -53,11 +56,29 @@ public class JourneyFilter implements Filter {
 	 */
 	private static final String PARAM_JOURNEY_NAME = "mskJourneyName";
 
+	/**
+	 * Tag name for users ip.
+	 */
 	private static final String TAG_IP = "ip";
+	/**
+	 * Tag name for referer header.
+	 */
 	private static final String TAG_REFERER = "referer";
+	/**
+	 * Tag name for user-agent header.
+	 */
 	private static final String TAG_USER_AGENT = "user-agent";
+	/**
+	 * Tag name for http session id.
+	 */
 	private static final String TAG_SESSION_ID = "sessionId";
+	/**
+	 * Tag name for url.
+	 */
 	private static final String TAG_URL = "url";
+	/**
+	 * Tag name for requested server name.
+	 */
 	private static final String TAG_SERVER_NAME = "serverName";
 
 	/**
