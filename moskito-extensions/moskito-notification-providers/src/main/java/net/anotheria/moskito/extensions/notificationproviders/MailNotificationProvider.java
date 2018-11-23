@@ -11,6 +11,8 @@ import net.anotheria.util.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.IOException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -61,17 +63,39 @@ public class MailNotificationProvider implements NotificationProvider {
                 if (t.length() > 0)
                     recipients.add(t.trim());
             }
-            htmlTemplateString = IOUtils.getInputStreamAsString(
-                    ClassLoader.getSystemResourceAsStream(
-                            config.getProperties().get(NotificationProviderConfigKey.HTML_TEMPLATE_PATH.getKey())));
-            plainTextTemplateString = IOUtils.getInputStreamAsString(
-                    ClassLoader.getSystemResourceAsStream(
-                            config.getProperties().get(NotificationProviderConfigKey.TEXT_TEMPLATE_PATH.getKey())));
+
+            try {
+				String htmlTemplateStringName = config.getProperties().get(NotificationProviderConfigKey.HTML_TEMPLATE_PATH.getKey());
+				if (htmlTemplateStringName != null && htmlTemplateStringName.length() > 0) {
+					htmlTemplateString = getFileContent(htmlTemplateStringName);
+				}
+			}catch(IOException e){
+            	log.warn("Can't get html template '"+config.getProperties().get(NotificationProviderConfigKey.HTML_TEMPLATE_PATH.getKey())+"' config ", e);
+			}
+			try{
+				String plainTextTemplateStringName = config.getProperties().get(NotificationProviderConfigKey.TEXT_TEMPLATE_PATH.getKey());
+				if (plainTextTemplateStringName!=null && plainTextTemplateStringName.length()>0) {
+					plainTextTemplateString = getFileContent(plainTextTemplateStringName);
+				}
+			}catch(IOException e){
+				log.warn("Can't get text template '"+config.getProperties().get(NotificationProviderConfigKey.TEXT_TEMPLATE_PATH.getKey())+"' config ", e);
+			}
+
         } catch (Exception t) {
-            log.warn("couldn't parse recipients from config  " + htmlTemplateString, t);
+            log.warn("couldn't parse recipients or templates from config  " + htmlTemplateString, config);
         }
 
     }
+
+    private String getFileContent(String name) throws IOException{
+		final ClassLoader myLoader = getClass().getClassLoader();
+		final URL url = myLoader.getResource(name);
+		return IOUtils.getInputStreamAsString(
+				myLoader.getResourceAsStream(name)
+		);
+
+
+	}
 
     @Override
     public void onNewAlert(ThresholdAlert alert) {
@@ -92,21 +116,17 @@ public class MailNotificationProvider implements NotificationProvider {
             message.setHtmlContent(thresholdAlertTemplate.process(htmlTemplateString));
         }
 
-        if (!StringUtils.isEmpty(plainTextTemplateString) || !StringUtils.isEmpty(htmlTemplateString)) {
-            for (String r : recipients) {
-                message.setRecipient(r);
-                try {
-                    boolean sent = messagingService.sendMessage(message);
-                    if (!sent)
-                        log.error("Can't send message to " + r);
+		for (String r : recipients) {
+			message.setRecipient(r);
+			try {
+				boolean sent = messagingService.sendMessage(message);
+				if (!sent)
+					log.error("Can't send message to " + r);
 
-                } catch (Exception e) {
-                    log.error("onNewAlert(" + alert + "), to:  " + r + ')', e);
-                }
-            }
-        } else {
-            log.error("Couldn't send email - both plain text and html mail body not defined");
-        }
+			} catch (Exception e) {
+				log.error("onNewAlert(" + alert + "), to:  " + r + ')', e);
+			}
+		}
 
     }
 }
