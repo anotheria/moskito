@@ -63,4 +63,9 @@ public class ShowGaugesAction extends BaseGaugesAction{
 		return ret;
 	}
 
+
+	@Override
+	protected String getLinkToCurrentPage(HttpServletRequest req) {
+		return "mskGauges?ts="+System.currentTimeMillis();
+	}
 }
