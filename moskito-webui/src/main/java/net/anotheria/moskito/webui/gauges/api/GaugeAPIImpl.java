@@ -114,15 +114,11 @@ public class GaugeAPIImpl extends AbstractMoskitoAPIImpl implements GaugeAPI {
 
 	private GaugeAO createGaugeAO(GaugeConfig fromConfig){
 
-		System.out.println("CreateGAUGE "+fromConfig+", previousValues: "+previousValues);
-
 		GaugeAO ao = new GaugeAO();
 		ao.setName(fromConfig.getName());
 		ao.setCaption(fromConfig.getCaption());
 		boolean complete = true;
-		System.out.println("For "+fromConfig.getName()+" current is configured "+fromConfig.getCurrentValue()+" and is ");
 		StatValueAO current = gaugeValue2statValue(fromConfig.getCurrentValue());
-		System.out.println(current+", ("+current.getClass());
 		ao.setCurrent(current);
 		StatValueAO min = gaugeValue2statValue(fromConfig.getMinValue());
 		ao.setMin(min);
@@ -158,7 +154,6 @@ public class GaugeAPIImpl extends AbstractMoskitoAPIImpl implements GaugeAPI {
 	}
 
 	private StatValueAO gaugeValue2statValue(GaugeValueConfig config){
-		System.out.println("Retrieving value for "+config);
 		if (config.getConstant()!=null){
 			return new LongValueAO(null, (long)config.getConstant());
 		}
