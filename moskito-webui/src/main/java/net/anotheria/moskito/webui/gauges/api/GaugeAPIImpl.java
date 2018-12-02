@@ -1,9 +1,5 @@
 package net.anotheria.moskito.webui.gauges.api;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-
 import net.anotheria.anoplass.api.APIException;
 import net.anotheria.anoplass.api.APIInitException;
 import net.anotheria.moskito.core.config.MoskitoConfiguration;
@@ -24,6 +20,11 @@ import net.anotheria.moskito.core.registry.ProducerRegistryAPIFactory;
 import net.anotheria.moskito.core.stats.TimeUnit;
 import net.anotheria.moskito.webui.shared.api.AbstractMoskitoAPIImpl;
 
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.concurrent.ConcurrentHashMap;
+
 /**
  * Gauge api implementation.
  *
@@ -38,6 +39,11 @@ public class GaugeAPIImpl extends AbstractMoskitoAPIImpl implements GaugeAPI {
 	private IProducerRegistryAPI producerRegistryAPI;
 
 	private List<GaugeZoneAO> defaultZones;
+
+	/**
+	 * This map is used to save previous values in case we might need them later. The logic: if a producer exists, but there is no value (which can actually only happen for duration values) we take last value.
+	 */
+	private ConcurrentHashMap<String, StatValueAO> previousValues = new ConcurrentHashMap<>();
 
 	@Override
 	public void init() throws APIInitException {
@@ -108,11 +114,15 @@ public class GaugeAPIImpl extends AbstractMoskitoAPIImpl implements GaugeAPI {
 
 	private GaugeAO createGaugeAO(GaugeConfig fromConfig){
 
+		System.out.println("CreateGAUGE "+fromConfig+", previousValues: "+previousValues);
+
 		GaugeAO ao = new GaugeAO();
 		ao.setName(fromConfig.getName());
 		ao.setCaption(fromConfig.getCaption());
 		boolean complete = true;
+		System.out.println("For "+fromConfig.getName()+" current is configured "+fromConfig.getCurrentValue()+" and is ");
 		StatValueAO current = gaugeValue2statValue(fromConfig.getCurrentValue());
+		System.out.println(current+", ("+current.getClass());
 		ao.setCurrent(current);
 		StatValueAO min = gaugeValue2statValue(fromConfig.getMinValue());
 		ao.setMin(min);
@@ -148,6 +158,7 @@ public class GaugeAPIImpl extends AbstractMoskitoAPIImpl implements GaugeAPI {
 	}
 
 	private StatValueAO gaugeValue2statValue(GaugeValueConfig config){
+		System.out.println("Retrieving value for "+config);
 		if (config.getConstant()!=null){
 			return new LongValueAO(null, (long)config.getConstant());
 		}
@@ -166,22 +177,39 @@ public class GaugeAPIImpl extends AbstractMoskitoAPIImpl implements GaugeAPI {
 				String value = s.getValueByNameAsString(config.getValueName(), config.getIntervalName(), TimeUnit.valueOf(config.getTimeUnit()));				
 
 				if ("NaN".equals(value) || value == null) {
+					//Obviously producer exists, but there are no values in THIS interval. Probably it is something like AVG (because NaN can't come from legal values).
+					//lets check if we have a previous value we can re-use.
+					StatValueAO previousValue = getPreviousValue(config);
+					if (previousValue!=null)
+						return previousValue;
 					return new StringValueAO(null, "n.A.");
 				}
 
+				StatValueAO numericValue = null;
 				try {
-					return new LongValueAO(null, Long.valueOf(value));
+					numericValue =  new LongValueAO(null, Long.valueOf(value));
 				} catch (NumberFormatException e) {
 					try {
-						return new DoubleValueAO(null, Double.valueOf(value));
+						numericValue = new DoubleValueAO(null, Double.valueOf(value));
 					} catch (NumberFormatException e2) {
-						this.log.error("Can't parse long/double value, probably invalid value for gauge " + config);
+						log.error("Can't parse long/double value, probably invalid value for gauge " + config);
 						return new StringValueAO(null, "Error");
 					}
 				}
+
+				saveValueForLater(config, numericValue);
+				return numericValue;
 			}
 		}
 		return new StringValueAO(null, "n.A.");
+	}
+
+	private void saveValueForLater(GaugeValueConfig valueConfig, StatValueAO valueAO){
+		previousValues.put(valueConfig.getKey(), valueAO);
+	}
+
+	private StatValueAO getPreviousValue(GaugeValueConfig valueConfig){
+		return previousValues.get(valueConfig.getKey());
 	}
 
 
