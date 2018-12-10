@@ -560,4 +560,25 @@ public class DashboardAPIImpl extends AbstractMoskitoAPIImpl implements Dashboar
 		}
 		return dashboardNames;
 	}
+
+	@Override
+	public String getDashboardNamesWhichDoNotIncludeThisGauge(String gaugeName) throws APIException {
+		MoskitoConfiguration config = MoskitoConfigurationHolder.getConfiguration();
+		DashboardsConfig dashboardsConfig = config.getDashboardsConfig();
+		DashboardConfig[] dashboards = dashboardsConfig.getDashboards();
+
+		StringBuilder ret = new StringBuilder();
+		for (DashboardConfig dashboardConfig : dashboards){
+			if (!dashboardConfig.containsGauge(gaugeName)){
+				if (ret.length()>0)
+					ret.append(", ");
+				ret.append(gaugeName);
+			}
+		}
+
+		return ret.toString();
+
+
+
+	}
 }

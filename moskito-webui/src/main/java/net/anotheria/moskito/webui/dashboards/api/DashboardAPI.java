@@ -50,4 +50,6 @@ public interface DashboardAPI extends API, Service{
 	void addProducerToDashboard(String dashboardName, String producerName) throws APIException;
 
 	void removeProducerFromDashboard(String dashboardName, String producerName) throws APIException;
+
+	String getDashboardNamesWhichDoNotIncludeThisGauge(String gaugeName) throws APIException;
 }

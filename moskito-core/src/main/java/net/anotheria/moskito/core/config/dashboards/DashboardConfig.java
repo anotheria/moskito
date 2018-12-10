@@ -219,4 +219,14 @@ public class DashboardConfig implements Serializable{
 	public void setWidgets(String[] widgets) {
 		this.widgets = widgets;
 	}
+
+	public boolean containsGauge(String gaugeName) {
+		if (gauges==null || gauges.length==0)
+			return false;
+		for (String gcName : gauges){
+			if (gcName.equals(gaugeName))
+				return true;
+		}
+		return false;
+	}
 }
