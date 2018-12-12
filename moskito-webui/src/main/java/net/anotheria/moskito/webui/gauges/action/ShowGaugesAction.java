@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * TODO comment this class
+ * This action is called in the gauge view under navigation point Everything Else \ Gauges.
  *
  * @author lrosenberg
  * @since 23.03.15 21:38
