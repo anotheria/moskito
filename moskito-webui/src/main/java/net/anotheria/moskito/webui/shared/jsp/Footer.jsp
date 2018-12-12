@@ -341,6 +341,7 @@ olark.identify('7961-404-10-9387');/*]]>*/</script><noscript><a href="https://ww
             <form id="addElementToDashboardAction" action="someAction" method="GET">
                 <div class="modal-body">
                     <input id="selectedElementName" type="hidden" class="form-control" name="pName" value="test">
+                    <input id="selectedElementCaption" type="hidden" class="form-control" name="caption" value="test">
                     <div id="dashboardsToSelect">
                     </div>
                 </div>
@@ -580,6 +581,7 @@ olark.identify('7961-404-10-9387');/*]]>*/</script><noscript><a href="https://ww
 
             $("#selectedElement").html("chart \"" + chartCaption + "\"");
             $("#selectedElementName").attr("value", chartCaption);
+            $("#selectedElementCaption").attr("value", chartCaption);
             $("#addElementToDashboardAction").attr("action", "mskAddChartToDashboard");
 
             var dashboards = dashboardsToAdd.split(',');

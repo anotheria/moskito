@@ -64,14 +64,19 @@ public class ShowDashboardAction extends BaseDashboardAction {
 		request.setAttribute("producersPresent", producersPresent);
 		request.setAttribute("showHelp", !(gaugesPresent || chartsPresent || thresholdsPresent || producersPresent));
 
-		DashboardConfig selectedDashboardConfig = getDashboardAPI().getDashboardConfig(dashboardName);
-		if (dashboardName == null || selectedDashboardConfig == null) {
+
+		if (dashboardName==null)
 			dashboardName = getDashboardAPI().getDefaultDashboardName();
-			if (dashboardName == null) { // no dashboards present
-				return actionMapping.success();
-			}
-			request.setAttribute("selectedDashboard", dashboardName);
+		if (dashboardName==null){
+			//there are no configured dashboards
+			return actionMapping.success();
 		}
+
+		DashboardConfig selectedDashboardConfig = getDashboardAPI().getDashboardConfig(dashboardName);
+		if (selectedDashboardConfig == null) {
+			throw new Exception("Dashboard '"+dashboardName+"' not found.");
+		}
+		request.setAttribute("selectedDashboard", dashboardName);
 
 		DashboardAO dashboard = getDashboardAPI().getDashboard(dashboardName);
 		List<ThresholdStatusBean> thresholdStatusBeans = getThresholdBeans(dashboard.getThresholds());
@@ -205,22 +210,10 @@ public class ShowDashboardAction extends BaseDashboardAction {
 		if (dashboardChartAOList == null || dashboardChartAOList.size() == 0)
 			return ret;
 
-		List<DashboardAO> dashboardAOList = new ArrayList<>();
-		for(String name : getDashboardAPI().getDashboardNames()) {
-			dashboardAOList.add(getDashboardAPI().getDashboard(name));
-		}
 		for (DashboardChartAO dashboardChartAO : dashboardChartAOList) {
-			String dashboardNames = "";
-			for(DashboardAO dashboardAO: dashboardAOList) {
-				if (dashboardAO.getCharts() == null || !dashboardAO.getCharts().contains(dashboardChartAO)) {
-					dashboardNames += dashboardAO.getName()+",";
-				}
-			}
-			if (dashboardNames.length() > 0)
-				dashboardNames = dashboardNames.substring(0, dashboardNames.length()-1);
+			String dashboardNames = getDashboardAPI().getDashboardNamesWhichDoNotIncludeThisChart(dashboardChartAO.getCaption());
 			ret.add(new DashboardChartBean(dashboardChartAO, dashboardNames));
 		}
-
 		return ret;
 	}
 
