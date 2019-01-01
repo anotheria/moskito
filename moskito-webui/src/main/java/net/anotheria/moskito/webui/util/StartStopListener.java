@@ -4,6 +4,7 @@ import net.anotheria.moskito.core.threshold.ThresholdRepository;
 import net.anotheria.moskito.core.timing.UpdateTriggerServiceFactory;
 import net.anotheria.moskito.core.util.BuiltinUpdater;
 import net.anotheria.moskito.core.util.MBeanUtil;
+import org.configureme.ConfigurationManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -30,11 +31,17 @@ public class StartStopListener implements ServletContextListener{
 
 	@Override
 	public void contextDestroyed(ServletContextEvent sce) {
-		log.info("Deinitializing moskito for "+sce.getServletContext().getServletContextName());
+		log.info("Deinitializing MoSKito for "+sce.getServletContext().getServletContextName());
 		BuiltinUpdater.cleanup();
 		ThresholdRepository.getInstance().cleanup();
 		UpdateTriggerServiceFactory.getUpdateTriggerService().cleanup();
 		MBeanUtil.getInstance().cleanup();
+
+		/**
+		 * Stop configuration source repository.
+		 */
+		ConfigurationManager.INSTANCE.shutdown();
+
 	}
 
 }
