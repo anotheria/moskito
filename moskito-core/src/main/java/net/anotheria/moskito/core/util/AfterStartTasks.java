@@ -35,4 +35,11 @@ public final class AfterStartTasks {
 		log.debug("Scheduled "+r+" in "+delayInSeconds+" seconds.");
 		scheduledExecutorService.schedule(r, delayInSeconds, TimeUnit.SECONDS);
 	}
+
+	/**
+	 * Shuts down the internal executor. It is only necessary to prevent weird warnings in reloading context.
+	 */
+	public static void shutdown(){
+		scheduledExecutorService.shutdown();
+	}
 }

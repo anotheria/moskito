@@ -148,4 +148,8 @@ public enum AlertDispatcher {
 			return status+" "+provider;
 		}
 	}
+
+	public static void shutdown(){
+		INSTANCE.changeExecutor.shutdown();
+	}
 }
