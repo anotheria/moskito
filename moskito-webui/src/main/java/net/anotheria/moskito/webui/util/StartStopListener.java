@@ -1,7 +1,9 @@
 package net.anotheria.moskito.webui.util;
 
 import net.anotheria.moskito.core.threshold.ThresholdRepository;
+import net.anotheria.moskito.core.threshold.alerts.AlertDispatcher;
 import net.anotheria.moskito.core.timing.UpdateTriggerServiceFactory;
+import net.anotheria.moskito.core.util.AfterStartTasks;
 import net.anotheria.moskito.core.util.BuiltinUpdater;
 import net.anotheria.moskito.core.util.MBeanUtil;
 import org.configureme.ConfigurationManager;
@@ -36,6 +38,8 @@ public class StartStopListener implements ServletContextListener{
 		ThresholdRepository.getInstance().cleanup();
 		UpdateTriggerServiceFactory.getUpdateTriggerService().cleanup();
 		MBeanUtil.getInstance().cleanup();
+		AfterStartTasks.shutdown();
+		AlertDispatcher.shutdown();
 
 		/**
 		 * Stop configuration source repository.
