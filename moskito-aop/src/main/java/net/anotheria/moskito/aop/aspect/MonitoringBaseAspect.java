@@ -1,5 +1,9 @@
 package net.anotheria.moskito.aop.aspect;
 
+import java.lang.reflect.InvocationTargetException;
+
+import org.aspectj.lang.ProceedingJoinPoint;
+
 import net.anotheria.moskito.core.calltrace.CurrentlyTracedCall;
 import net.anotheria.moskito.core.calltrace.RunningTraceContainer;
 import net.anotheria.moskito.core.calltrace.TraceStep;
@@ -14,9 +18,6 @@ import net.anotheria.moskito.core.predefined.ServiceStatsFactory;
 import net.anotheria.moskito.core.tracer.Trace;
 import net.anotheria.moskito.core.tracer.TracerRepository;
 import net.anotheria.moskito.core.tracer.Tracers;
-import org.aspectj.lang.ProceedingJoinPoint;
-
-import java.lang.reflect.InvocationTargetException;
 
 /**
  * @author Roman Stetsiuk.
@@ -35,6 +36,11 @@ public class MonitoringBaseAspect extends AbstractMoskitoAspect<ServiceStats>{
 
     /*  */
     protected Object doProfiling(ProceedingJoinPoint pjp, String aProducerId, String aSubsystem, String aCategory) throws Throwable {
+
+		// check if moskito pointcuts are enabled
+		if (!config.isMoskitoPointcutsEnabled()) {
+			return pjp.proceed();
+		}
 
         OnDemandStatsProducer<ServiceStats> producer = getProducer(pjp, aProducerId, aCategory, aSubsystem, false, FACTORY, true);
         String producerId = producer.getProducerId();
@@ -89,6 +95,7 @@ public class MonitoringBaseAspect extends AbstractMoskitoAspect<ServiceStats>{
             currentStep = currentTrace.startStep(call.toString(), producer, methodName);
         }
         long startTime = System.nanoTime();
+        
         Object ret = null;
         try {
             ret = pjp.proceed();

@@ -5,8 +5,6 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
-import net.anotheria.moskito.core.stats.Interval;
-import net.anotheria.util.StringUtils;
 import org.configureme.ConfigurationManager;
 import org.configureme.annotations.AfterConfiguration;
 import org.configureme.annotations.Configure;
@@ -14,12 +12,15 @@ import org.configureme.annotations.ConfigureMe;
 import org.configureme.annotations.DontConfigure;
 import org.slf4j.LoggerFactory;
 
+import net.anotheria.moskito.core.stats.Interval;
+import net.anotheria.util.StringUtils;
+
 /**
  * Common configuration for aspects.
  *
  * @author sshscp
  */
-@ConfigureMe (name = "moskito-aspect-config")
+@ConfigureMe(name = "moskito-aspect-config")
 public final class MoskitoAspectConfiguration implements Serializable {
 	/**
 	 * SerialVersionUID.
@@ -30,6 +31,10 @@ public final class MoskitoAspectConfiguration implements Serializable {
 	 */
 	@Configure
 	private AspectLoggerConfigHolder intervalLogger = new AspectLoggerConfigHolder();
+
+	/** The moskito pointcuts enabled. */
+	@Configure
+	private boolean moskitoPointcutsEnabled = false;
 
 	/**
 	 * Fetch {@link MoskitoAspectConfiguration} instance.
@@ -92,6 +97,16 @@ public final class MoskitoAspectConfiguration implements Serializable {
 		if (intervalLogger == null)
 			return;
 		this.intervalLogger = intervalLogger;
+	}
+
+
+	public boolean isMoskitoPointcutsEnabled() {
+		return moskitoPointcutsEnabled;
+	}
+
+
+	public void setMoskitoPointcutsEnabled(boolean moskitoPointcutsEnabled) {
+		this.moskitoPointcutsEnabled = moskitoPointcutsEnabled;
 	}
 
 	@Override

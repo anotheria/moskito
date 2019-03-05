@@ -1,9 +1,9 @@
 package net.anotheria.extensions.php.mappers;
 
-import net.anotheria.extensions.php.exceptions.ValueNotFoundException;
-
 import java.util.HashMap;
 import java.util.Map;
+
+import net.anotheria.extensions.php.exceptions.ValueNotFoundException;
 
 /**
  * Stores stats values data.
@@ -38,7 +38,7 @@ public class StatsValues extends HashMap<String, Object> {
      */
     public StatsValues(Map<? extends String, String> m) {
 
-        for (Entry<? extends String, String> entry : m.entrySet())
+		for (java.util.Map.Entry<? extends String, String> entry : m.entrySet())
             put(entry.getKey(), parseValue(entry.getValue()));
 
     }
