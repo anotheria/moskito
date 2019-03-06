@@ -1,5 +1,6 @@
 package net.anotheria.moskito.core.config.gauges;
 
+import com.google.gson.annotations.SerializedName;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.configureme.annotations.Configure;
 import org.configureme.annotations.ConfigureMe;
@@ -30,16 +31,19 @@ public class GaugeConfig implements Serializable{
 	 * Min value of the gauge.
 	 */
 	@Configure
+	@SerializedName("@minValue")
 	private GaugeValueConfig minValue;
 	/**
 	 * Current value of the gauge.
 	 */
 	@Configure
+	@SerializedName("@currentValue")
 	private GaugeValueConfig currentValue;
 	/**
 	 * Max value of the gauge.
 	 */
 	@Configure
+	@SerializedName("@maxValue")
 	private GaugeValueConfig maxValue;
 	/**
 	 * Caption of the gauge.
@@ -50,6 +54,7 @@ public class GaugeConfig implements Serializable{
 	 * Optional zones.
 	 */
 	@Configure
+	@SerializedName("@zones")
 	private GaugeZoneConfig[] zones;
 
 	public GaugeValueConfig getCurrentValue() {

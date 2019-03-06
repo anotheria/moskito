@@ -1,5 +1,6 @@
 package net.anotheria.moskito.core.config.gauges;
 
+import com.google.gson.annotations.SerializedName;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.configureme.annotations.Configure;
 
@@ -23,12 +24,14 @@ public class GaugesConfig implements Serializable {
 	 * Configured gauges.
 	 */
 	@Configure
+	@SerializedName("@gauges")
 	private GaugeConfig[] gauges;
 
 	/**
 	 * Default zones if no zones are configured in a gauge.
 	 */
 	@Configure
+	@SerializedName("@defaultZones")
 	private GaugeZoneConfig[] defaultZones;
 
 
