@@ -243,21 +243,21 @@ public final class BuiltInErrorProducer extends AbstractBuiltInProducer<ErrorSta
 
 		//first create default-catchers
 		ErrorCatcherConfig[] defaultCatcherConfigs = errorHandlingConfig.getDefaultCatchers();
-		if (defaultCatcherConfigs!=null && defaultCatcherConfigs.length>0){
+		if (defaultCatcherConfigs != null && defaultCatcherConfigs.length > 0) {
 			defaultCatchers = new CopyOnWriteArrayList<>();
-			for (ErrorCatcherConfig c : defaultCatcherConfigs){
+			for (ErrorCatcherConfig c : defaultCatcherConfigs) {
 				defaultCatchers.add(ErrorCatcherFactory.createErrorCatcher(c));
 			}
 		}
 
 		//now create regular catchers
 		ErrorCatcherConfig[] catcherConfigs = errorHandlingConfig.getCatchers();
-		if (catcherConfigs!=null && catcherConfigs.length>0){
+		if (catcherConfigs != null && catcherConfigs.length > 0) {
 			catchers = new ConcurrentHashMap<>();
-			for (ErrorCatcherConfig c : catcherConfigs){
+			for (ErrorCatcherConfig c : catcherConfigs) {
 				ErrorCatcher catcher = ErrorCatcherFactory.createErrorCatcher(c);
 				List<ErrorCatcher> catcherList = catchers.get(c.getExceptionClazz());
-				if (catcherList==null){
+				if (catcherList == null) {
 					catcherList = new LinkedList<>();
 					catchers.put(c.getExceptionClazz(), catcherList);
 				}

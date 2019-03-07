@@ -15,8 +15,13 @@ import net.anotheria.moskito.core.config.tagging.TaggingConfig;
 import net.anotheria.moskito.core.config.thresholds.ThresholdsAlertsConfig;
 import net.anotheria.moskito.core.config.thresholds.ThresholdsConfig;
 import net.anotheria.moskito.core.config.tracing.TracingConfiguration;
+import net.anotheria.moskito.core.stats.Interval;
+import net.anotheria.moskito.core.stats.impl.IntervalRegistry;
+import net.anotheria.moskito.core.util.AfterStartTasks;
+import org.configureme.annotations.AfterConfiguration;
 import org.configureme.annotations.Configure;
 import org.configureme.annotations.ConfigureMe;
+import org.configureme.annotations.DontConfigure;
 
 import java.io.Serializable;
 
@@ -36,6 +41,23 @@ public class MoskitoConfiguration implements Serializable{
 
 	@Configure
 	private String applicationName = "";
+
+	@Configure
+	private String[] intervals = new String[]{
+			"1m",
+			"5m",
+			"15m",
+			"1h",
+			"12h",
+			"1d",
+			"snapshot"
+	};
+
+	/**
+	 * This variable is filled after configuration with intervals configured via the intervals variable.
+	 */
+	@DontConfigure
+	private transient volatile Interval[] configuredIntervals;
 
 	/**
 	 * Config object for alerting.
@@ -262,6 +284,47 @@ public class MoskitoConfiguration implements Serializable{
 
 	public void setTaggingConfig(TaggingConfig taggingConfig) {
 		this.taggingConfig = taggingConfig;
+	}
+
+	public String[] getIntervals() {
+		return intervals;
+	}
+
+	public void setIntervals(String[] intervals) {
+		this.intervals = intervals;
+	}
+
+	@AfterConfiguration
+	public void createIntervalsAfterConfiguration(){
+		createIntervals();
+		//to prevent errorHandlingConfig to be initialized BEFORE intervals are and prevent recursive calls, call it manually
+
+		AfterStartTasks.submitTask(new Runnable() {
+			@Override
+			public void run() {
+				if (errorHandlingConfig!=null)
+					errorHandlingConfig.afterConfiguration();
+			}
+		});
+	}
+
+	private void createIntervals(){
+    	if (intervals==null || intervals.length==0)
+    		throw new IllegalStateException("Can't run moskito without intervals at all");
+    	String[] toConfigure = intervals; //copy variable so it won't be changed within the call.
+    	Interval[] newConfiguredIntervals = new Interval[toConfigure.length];
+    	for (int i=0; i<toConfigure.length; i++){
+    		Interval newInterval = IntervalRegistry.getInstance().getInterval(toConfigure[i]);
+    		newConfiguredIntervals[i] = newInterval;
+		}
+    	configuredIntervals = newConfiguredIntervals;
+	}
+
+	public Interval[] getConfiguredIntervals(){
+    	if (configuredIntervals==null){
+    		createIntervals();
+		}
+    	return configuredIntervals.clone();
 	}
 }
 
