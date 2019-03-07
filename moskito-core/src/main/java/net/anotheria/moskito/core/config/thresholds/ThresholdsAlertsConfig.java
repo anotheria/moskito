@@ -23,6 +23,7 @@ public class ThresholdsAlertsConfig implements Serializable {
 	 * Notification providers for notification upon threshold status changes.
 	 */
 	@Configure
+	@SerializedName("@notificationProviders")
 	private NotificationProviderConfig[] notificationProviders = new NotificationProviderConfig[0];
 
 	/**

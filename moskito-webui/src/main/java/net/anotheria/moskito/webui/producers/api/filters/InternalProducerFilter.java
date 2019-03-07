@@ -25,6 +25,9 @@ import java.util.HashSet;
  */
 public class InternalProducerFilter implements ProducerFilter {
 
+	/**
+	 * Internal map for producers.
+	 */
 	private final HashSet<String> internalProducerNames;
 
 	public InternalProducerFilter(){

@@ -18,10 +18,9 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Executes journey analyses, which means calculates how many time each producer was called in each step of the journey and how long it took.
- * Also presents overall statistics for total calls, by category and by subsystem.
+ * Same as AnalyzeJourneyAction but instead of producers it calculates more detailed, by methods.
  */
-public class AnalyzeJourneyAction extends BaseJourneyAction {
+public class AnalyzeJourneyByMethodAction extends BaseJourneyAction {
 
     /**
      * URL parameter - journey name to be analyzed.
@@ -38,12 +37,10 @@ public class AnalyzeJourneyAction extends BaseJourneyAction {
         req.setAttribute("journeyName", journeyName);
 
         //add totals to the journey list on top.
-        AnalyzedJourneyAO analyzedJourney = getJourneyAPI().analyzeJourney(journeyName);
-        List<AnalyzedProducerCallsMapAO> callsInJourny = analyzedJourney.getCalls();
+        AnalyzedJourneyAO analyzedJourney = getJourneyAPI().analyzeJourneyByMethod(journeyName);
+		List<AnalyzedProducerCallsMapAO> callsInJourny = analyzedJourney.getCalls();
 		LinkedList<AnalyzedProducerCallsMapAO> newCalls = new LinkedList<>();
 		newCalls.add(analyzedJourney.getTotalByProducerId());
-		newCalls.add(analyzedJourney.getTotalByCategoryId());
-		newCalls.add(analyzedJourney.getTotalBySubsystemId());
 		newCalls.addAll(callsInJourny);
 		analyzedJourney.setCalls(newCalls);
         req.setAttribute("analyzedJourney", analyzedJourney);
@@ -71,7 +68,7 @@ public class AnalyzeJourneyAction extends BaseJourneyAction {
      */
     @Override
     protected String getLinkToCurrentPage(HttpServletRequest req) {
-        return "mskAnalyzeJourney?" + PARAM_JOURNEY_NAME + '=' + req.getParameter(PARAM_JOURNEY_NAME);
+        return "mskAnalyzeJourneyByMethod?" + PARAM_JOURNEY_NAME + '=' + req.getParameter(PARAM_JOURNEY_NAME);
     }
 
     /**

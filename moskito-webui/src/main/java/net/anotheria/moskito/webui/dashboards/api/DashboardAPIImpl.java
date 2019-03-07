@@ -18,13 +18,15 @@ import net.anotheria.moskito.webui.accumulators.api.AccumulatorAO;
 import net.anotheria.moskito.webui.accumulators.api.AccumulatorAPI;
 import net.anotheria.moskito.webui.accumulators.api.MultilineChartAO;
 import net.anotheria.moskito.webui.gauges.api.GaugeAPI;
-import net.anotheria.moskito.webui.producers.api.ProducerAPI;
 import net.anotheria.moskito.webui.shared.api.AbstractMoskitoAPIImpl;
 import net.anotheria.moskito.webui.threshold.api.ThresholdAPI;
 import net.anotheria.util.StringUtils;
-import net.anotheria.util.sorter.DummySortType;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.regex.Pattern;
 
 /**
@@ -33,19 +35,7 @@ import java.util.regex.Pattern;
  * @author lrosenberg
  * @since 08.04.15 12:46
  */
-public class DashboardAPIImpl extends AbstractMoskitoAPIImpl implements DashboardAPI{
-
-	/**
-	 * Placeholder for chart values.
-	 */
-	private static final String VALUE_PLACEHOLDER = "XXX";
-
-	private static final DummySortType SORT_TYPE = new DummySortType();
-
-	/**
-	 * Used to bring similar x values (time seconds) to same x point on the axis.
-	 */
-	public static final long X_AXIS_RESOLUTION = 60000;
+public class DashboardAPIImpl extends AbstractMoskitoAPIImpl implements DashboardAPI {
 
 	/**
 	 * GaugeAPI.
@@ -59,10 +49,6 @@ public class DashboardAPIImpl extends AbstractMoskitoAPIImpl implements Dashboar
 	 * AccumulatorAPI.
 	 */
 	private AccumulatorAPI accumulatorAPI;
-	/**
-	 * ProducerAPI.
-	 */
-	private ProducerAPI producerAPI;
 
 
 	@Override
@@ -72,15 +58,13 @@ public class DashboardAPIImpl extends AbstractMoskitoAPIImpl implements Dashboar
 		gaugeAPI = APIFinder.findAPI(GaugeAPI.class);
 		thresholdAPI = APIFinder.findAPI(ThresholdAPI.class);
 		accumulatorAPI = APIFinder.findAPI(AccumulatorAPI.class);
-		producerAPI = APIFinder.findAPI(ProducerAPI.class);
-
 	}
 
 	@Override
 	public String getDefaultDashboardName() {
 		MoskitoConfiguration config = MoskitoConfigurationHolder.getConfiguration();
 		DashboardsConfig dashboardsConfig = config.getDashboardsConfig();
-		if (dashboardsConfig == null || dashboardsConfig.getDashboards() == null ||dashboardsConfig.getDashboards().length == 0)
+		if (dashboardsConfig == null || dashboardsConfig.getDashboards() == null || dashboardsConfig.getDashboards().length == 0)
 			return null;
 		return dashboardsConfig.getDashboards()[0].getName();
 	}
@@ -92,12 +76,12 @@ public class DashboardAPIImpl extends AbstractMoskitoAPIImpl implements Dashboar
 			return null;
 
 		DashboardsConfig dashboardsConfig = getConfiguration().getDashboardsConfig();
-		if (dashboardsConfig==null || dashboardsConfig.getDashboards()==null || dashboardsConfig.getDashboards().length ==0){
+		if (dashboardsConfig == null || dashboardsConfig.getDashboards() == null || dashboardsConfig.getDashboards().length == 0) {
 			return null;
 		}
 
-		for (DashboardConfig dc : dashboardsConfig.getDashboards()){
-			if (dc.getName()!=null && dc.getName().equals(name)){
+		for (DashboardConfig dc : dashboardsConfig.getDashboards()) {
+			if (dc.getName() != null && dc.getName().equals(name)) {
 				return dc;
 			}
 		}
@@ -133,7 +117,7 @@ public class DashboardAPIImpl extends AbstractMoskitoAPIImpl implements Dashboar
 		DashboardConfig[] dashboards = dashboardsConfig.getDashboards();
 		List<DashboardConfig> newConfigList = new ArrayList<>();
 		if (dashboards == null)
-			throw new APIException("Dashboard "+dashboardName+" not found.");
+			throw new APIException("Dashboard " + dashboardName + " not found.");
 
 		for (DashboardConfig dashboard : dashboards) {
 			if (!dashboardName.equals(dashboard.getName())) {
@@ -142,7 +126,7 @@ public class DashboardAPIImpl extends AbstractMoskitoAPIImpl implements Dashboar
 		}
 
 		if (newConfigList.size() == dashboards.length)
-			throw new APIException("Dashboard "+dashboardName+" not found.");
+			throw new APIException("Dashboard " + dashboardName + " not found.");
 
 		dashboardsConfig.setDashboards(newConfigList.toArray(new DashboardConfig[0]));
 	}
@@ -160,7 +144,7 @@ public class DashboardAPIImpl extends AbstractMoskitoAPIImpl implements Dashboar
 		String[] new_cc_array = new String[newSize];
 		if (cc_array != null)
 			System.arraycopy(cc_array, 0, new_cc_array, 0, cc_array.length);
-		new_cc_array[new_cc_array.length-1] = gaugeName;
+		new_cc_array[new_cc_array.length - 1] = gaugeName;
 
 		config.setGauges(new_cc_array);
 	}
@@ -183,13 +167,13 @@ public class DashboardAPIImpl extends AbstractMoskitoAPIImpl implements Dashboar
 			}
 			count++;
 		}
-		if (gaugeIndex==-1){
+		if (gaugeIndex == -1) {
 			return;
 		}
-		if (cc_array == null || cc_array.length<gaugeIndex+1)
+		if (cc_array == null || cc_array.length < gaugeIndex + 1)
 			return;
-		String[] new_cc_array = new String[cc_array.length-1];
-		if (cc_array.length == 1){
+		String[] new_cc_array = new String[cc_array.length - 1];
+		if (cc_array.length == 1) {
 			//source had only one element
 			config.setGauges(new_cc_array);
 			return;
@@ -212,7 +196,7 @@ public class DashboardAPIImpl extends AbstractMoskitoAPIImpl implements Dashboar
 		String[] new_cc_array = new String[newSize];
 		if (cc_array != null)
 			System.arraycopy(cc_array, 0, new_cc_array, 0, cc_array.length);
-		new_cc_array[new_cc_array.length-1] = thresholdName;
+		new_cc_array[new_cc_array.length - 1] = thresholdName;
 
 		config.setThresholds(new_cc_array);
 	}
@@ -235,13 +219,13 @@ public class DashboardAPIImpl extends AbstractMoskitoAPIImpl implements Dashboar
 			}
 			count++;
 		}
-		if (index==-1){
+		if (index == -1) {
 			return;
 		}
-		if (cc_array == null || cc_array.length<index+1)
+		if (cc_array == null || cc_array.length < index + 1)
 			return;
-		String[] new_cc_array = new String[cc_array.length-1];
-		if (cc_array.length == 1){
+		String[] new_cc_array = new String[cc_array.length - 1];
+		if (cc_array.length == 1) {
 			//source had only one element
 			config.setThresholds(new_cc_array);
 			return;
@@ -252,7 +236,7 @@ public class DashboardAPIImpl extends AbstractMoskitoAPIImpl implements Dashboar
 	}
 
 	@Override
-	public void addChartToDashboard(String dashboardName, String[] accNames) throws APIException {
+	public void addChartToDashboard(String dashboardName, String caption, String[] accNames) throws APIException {
 		DashboardConfig config = getDashboardConfig(dashboardName);
 		if (config == null)
 			return;
@@ -267,7 +251,8 @@ public class DashboardAPIImpl extends AbstractMoskitoAPIImpl implements Dashboar
 
 		ChartConfig newChartConfig = new ChartConfig();
 		newChartConfig.setAccumulators(accNames);
-		new_cc_array[new_cc_array.length-1] = newChartConfig;
+		newChartConfig.setCaption(caption);
+		new_cc_array[new_cc_array.length - 1] = newChartConfig;
 
 		config.setCharts(new_cc_array);
 	}
@@ -294,13 +279,13 @@ public class DashboardAPIImpl extends AbstractMoskitoAPIImpl implements Dashboar
 			}
 			count++;
 		}
-		if (index==-1){
+		if (index == -1) {
 			return;
 		}
-		if (cc_array == null || cc_array.length<index+1)
+		if (cc_array == null || cc_array.length < index + 1)
 			return;
-		ChartConfig[] new_cc_array = new ChartConfig[cc_array.length-1];
-		if (cc_array.length == 1){
+		ChartConfig[] new_cc_array = new ChartConfig[cc_array.length - 1];
+		if (cc_array.length == 1) {
 			//source had only one element
 			config.setCharts(new_cc_array);
 			return;
@@ -331,53 +316,53 @@ public class DashboardAPIImpl extends AbstractMoskitoAPIImpl implements Dashboar
 		config.setProducers(new_cc_array);
 	}
 
-    @Override
-    public void removeProducerFromDashboard(String dashboardName, String producerName) throws APIException {
-        DashboardConfig config = getDashboardConfig(dashboardName);
-        if (config == null)
-            return;
-        if (StringUtils.isEmpty(producerName))
-            return;
+	@Override
+	public void removeProducerFromDashboard(String dashboardName, String producerName) throws APIException {
+		DashboardConfig config = getDashboardConfig(dashboardName);
+		if (config == null)
+			return;
+		if (StringUtils.isEmpty(producerName))
+			return;
 
-        String[] cc_array = config.getProducers();
-        int index = -1;
-        int count = 0;
-        for (String producer : cc_array) {
-            if (producerName.equals(producer)) {
-                index = count;
-                break;
-            }
-            count++;
-        }
-        if (index==-1){
-            return;
-        }
-        if (cc_array == null || cc_array.length<index+1)
-            return;
-        String[] new_cc_array = new String[cc_array.length-1];
-        if (cc_array.length == 1){
-            //source had only one element
-            config.setProducers(new_cc_array);
-            return;
-        }
+		String[] cc_array = config.getProducers();
+		int index = -1;
+		int count = 0;
+		for (String producer : cc_array) {
+			if (producerName.equals(producer)) {
+				index = count;
+				break;
+			}
+			count++;
+		}
+		if (index == -1) {
+			return;
+		}
+		if (cc_array == null || cc_array.length < index + 1)
+			return;
+		String[] new_cc_array = new String[cc_array.length - 1];
+		if (cc_array.length == 1) {
+			//source had only one element
+			config.setProducers(new_cc_array);
+			return;
+		}
 
-        removeElementFromArray(cc_array, new_cc_array, index);
-        config.setProducers(new_cc_array);
-    }
+		removeElementFromArray(cc_array, new_cc_array, index);
+		config.setProducers(new_cc_array);
+	}
 
-	private static <T> T removeElementFromArray(T sourceArray[], T destArray, int index){
+	private static <T> T removeElementFromArray(T sourceArray[], T destArray, int index) {
 		//last element
-		if (sourceArray.length==index+1){
-			System.arraycopy(sourceArray, 0, destArray, 0, sourceArray.length-1);
+		if (sourceArray.length == index + 1) {
+			System.arraycopy(sourceArray, 0, destArray, 0, sourceArray.length - 1);
 			return destArray;
 		}
-		if (index==0){
-			System.arraycopy(sourceArray, 1, destArray, 0, sourceArray.length-1);
+		if (index == 0) {
+			System.arraycopy(sourceArray, 1, destArray, 0, sourceArray.length - 1);
 			return destArray;
 
 		}
-		System.arraycopy(sourceArray, 0, destArray, 0, index+1);
-		System.arraycopy(sourceArray, index+1, destArray, index, sourceArray.length-index-1);
+		System.arraycopy(sourceArray, 0, destArray, 0, index + 1);
+		System.arraycopy(sourceArray, index + 1, destArray, index, sourceArray.length - index - 1);
 		return destArray;
 	}
 
@@ -385,22 +370,22 @@ public class DashboardAPIImpl extends AbstractMoskitoAPIImpl implements Dashboar
 	public List<DashboardDefinitionAO> getDashboardDefinitions() throws APIException {
 		MoskitoConfiguration config = getConfiguration();
 		DashboardsConfig dashboardsConfig = config.getDashboardsConfig();
-		if (dashboardsConfig == null || dashboardsConfig.getDashboards() == null ||dashboardsConfig.getDashboards().length == 0)
+		if (dashboardsConfig == null || dashboardsConfig.getDashboards() == null || dashboardsConfig.getDashboards().length == 0)
 			return Collections.emptyList();
 		LinkedList<DashboardDefinitionAO> ret = new LinkedList<DashboardDefinitionAO>();
-		for (DashboardConfig dashboardConfig : dashboardsConfig.getDashboards()){
+		for (DashboardConfig dashboardConfig : dashboardsConfig.getDashboards()) {
 			DashboardDefinitionAO ao = new DashboardDefinitionAO();
 			ao.setName(dashboardConfig.getName());
 
-			if (dashboardConfig.getGauges()!=null)
+			if (dashboardConfig.getGauges() != null)
 				ao.setGauges(Arrays.asList(dashboardConfig.getGauges()));
-			if (dashboardConfig.getThresholds()!=null)
+			if (dashboardConfig.getThresholds() != null)
 				ao.setThresholds(Arrays.asList(dashboardConfig.getThresholds()));
-			if (dashboardConfig.getCharts()!=null){
-				for (ChartConfig dcc : dashboardConfig.getCharts()){
+			if (dashboardConfig.getCharts() != null) {
+				for (ChartConfig dcc : dashboardConfig.getCharts()) {
 					DashboardChartDefinitionAO dccAO = new DashboardChartDefinitionAO();
 					dccAO.setCaption(dcc.getCaption());
-					if (dcc.getAccumulators()!=null)
+					if (dcc.getAccumulators() != null)
 						dccAO.setAccumulatorNames(Arrays.asList(dcc.getAccumulators()));
 					ao.addChart(dccAO);
 				}
@@ -416,11 +401,11 @@ public class DashboardAPIImpl extends AbstractMoskitoAPIImpl implements Dashboar
 		DashboardsConfig dashboardsConfig = getConfiguration().getDashboardsConfig();
 		if (dashboardsConfig == null)
 			throw new APIException("Dashboards are not configured");
-		if (dashboardsConfig.getDashboards()==null || dashboardsConfig.getDashboards().length==0)
+		if (dashboardsConfig.getDashboards() == null || dashboardsConfig.getDashboards().length == 0)
 			throw new APIException("There are no dashboards");
 		DashboardConfig config = null;
-		for (DashboardConfig aConfig : dashboardsConfig.getDashboards()){
-			if (aConfig.getName().equals(name)){
+		for (DashboardConfig aConfig : dashboardsConfig.getDashboards()) {
+			if (aConfig.getName().equals(name)) {
 				config = aConfig;
 				break;
 			}
@@ -428,16 +413,16 @@ public class DashboardAPIImpl extends AbstractMoskitoAPIImpl implements Dashboar
 		}
 
 		if (config == null)
-			throw new APIException("Dashboard "+name+" not found.");
+			throw new APIException("Dashboard " + name + " not found.");
 
 
 		DashboardAO ret = new DashboardAO();
 		ret.setName(config.getName());
-		if (config.getGauges()!=null && config.getGauges().length>0){
+		if (config.getGauges() != null && config.getGauges().length > 0) {
 			ret.setGauges(gaugeAPI.getGauges(config.getGauges()));
 		}
 
-		if (config.getThresholds()!=null && config.getThresholds().length>0){
+		if (config.getThresholds() != null && config.getThresholds().length > 0) {
 			ret.setThresholds(thresholdAPI.getThresholdStatuses(config.getThresholds()));
 		}
 
@@ -459,7 +444,7 @@ public class DashboardAPIImpl extends AbstractMoskitoAPIImpl implements Dashboar
 			}
 		}
 
-		if(!producers.isEmpty()){
+		if (!producers.isEmpty()) {
 			ret.setProducers(Arrays.asList(producers.toArray(new String[producers.size()])));
 		}
 
@@ -476,7 +461,7 @@ public class DashboardAPIImpl extends AbstractMoskitoAPIImpl implements Dashboar
 			for (ChartPattern chartPattern : config.getChartPatterns()) {
 				List<String> matchedAccumulators = new LinkedList<>();
 
-				if (chartPattern.getPatterns()!=null) {
+				if (chartPattern.getPatterns() != null) {
 					for (Pattern pattern : chartPattern.getPatterns()) {
 						for (Accumulator accumulator : accumulators) {
 							if (pattern.matcher(accumulator.getName()).matches()) {
@@ -484,8 +469,8 @@ public class DashboardAPIImpl extends AbstractMoskitoAPIImpl implements Dashboar
 							}
 						}
 					}
-				}else{
-					log.warn("Probable misconfiguration in dashboard "+name+", chartPattern '"+chartPattern.getCaption()+"' has no actual accumulator patterns, "+chartPattern.toString());
+				} else {
+					log.warn("Probable misconfiguration in dashboard " + name + ", chartPattern '" + chartPattern.getCaption() + "' has no actual accumulator patterns, " + chartPattern.toString());
 				}
 
 				if (matchedAccumulators.size() > 0) {
@@ -520,35 +505,35 @@ public class DashboardAPIImpl extends AbstractMoskitoAPIImpl implements Dashboar
 			}
 		}
 
-		if (!charts.isEmpty()){
+		if (!charts.isEmpty()) {
 			LinkedList<DashboardChartAO> chartBeans = new LinkedList<DashboardChartAO>();
-			for (ChartConfig cc : charts){
+			for (ChartConfig cc : charts) {
 
 				DashboardChartAO bean = new DashboardChartAO();
-				if (cc.getCaption()!=null){
+				if (cc.getCaption() != null) {
 					bean.setCaption(cc.getCaption());
-				} else{
-					bean.setCaption(StringUtils.trimString(cc.buildCaption(),"", 50));
+				} else {
+					bean.setCaption(StringUtils.trimString(cc.buildCaption(), "", 50));
 				}
 
 				LinkedList<String> chartIds = new LinkedList<String>();
-				for (String cName : cc.getAccumulators()){
-					try{
+				for (String cName : cc.getAccumulators()) {
+					try {
 						AccumulatorAO accumulatorAO = accumulatorAPI.getAccumulatorByName(cName);
-						if (accumulatorAO!=null)
+						if (accumulatorAO != null)
 							chartIds.add(accumulatorAO.getId());
-					}catch(IllegalArgumentException e){
+					} catch (IllegalArgumentException e) {
 						//this exception is thrown if there is no accumulator with this name registered (yet).
 						//we just skip it here, because we don't want the whole screen to crash.
 						if (log.isDebugEnabled())
-							log.debug("attempted to access non existing accumulator with name "+cName);
+							log.debug("attempted to access non existing accumulator with name " + cName);
 					}
 
 				}
 
-				if (chartIds.size()==0){
-					log.warn("Couldn't retrieve any chart ids for chart "+cc.toString()+", skipping this bean");
-				}else {
+				if (chartIds.size() == 0) {
+					log.warn("Couldn't retrieve any chart ids for chart " + cc.toString() + ", skipping this bean");
+				} else {
 					MultilineChartAO chartAO = accumulatorAPI.getCombinedAccumulatorGraphData(chartIds);
 					bean.setChart(chartAO);
 					chartBeans.add(bean);
@@ -566,13 +551,60 @@ public class DashboardAPIImpl extends AbstractMoskitoAPIImpl implements Dashboar
 		MoskitoConfiguration config = MoskitoConfigurationHolder.getConfiguration();
 		DashboardsConfig dashboardsConfig = config.getDashboardsConfig();
 		DashboardConfig[] dashboards = dashboardsConfig.getDashboards();
-		if (dashboards != null){
-			List<String> dashboardNames = new ArrayList<>(dashboards.length);
-			for (DashboardConfig dc : dashboards){
-				dashboardNames.add(dc.getName());
-			}
-			return dashboardNames;
+
+		if (dashboards == null || dashboards.length == 0)
+			return Collections.emptyList();
+
+		List<String> dashboardNames = new ArrayList<>(dashboards.length);
+		for (DashboardConfig dc : dashboards) {
+			dashboardNames.add(dc.getName());
 		}
-		return new ArrayList<>(0);
+		return dashboardNames;
+	}
+
+	@Override
+	public String getDashboardNamesWhichDoNotIncludeThisGauge(String gaugeName) throws APIException {
+		StringBuilder ret = new StringBuilder();
+		for (DashboardConfig dashboardConfig : getConfiguredDashboards()) {
+			if (!dashboardConfig.containsGauge(gaugeName)) {
+				if (ret.length() > 0)
+					ret.append(',');
+				ret.append(dashboardConfig.getName());
+			}
+		}
+		return ret.toString();
+	}
+
+	@Override
+	public String getDashboardNamesWhichDoNotIncludeThisThreshold(String thresholdName) throws APIException {
+		StringBuilder ret = new StringBuilder();
+		for (DashboardConfig dashboardConfig : getConfiguredDashboards()) {
+			if (!dashboardConfig.containsThreshold(thresholdName)) {
+				if (ret.length() > 0)
+					ret.append(',');
+				ret.append(dashboardConfig.getName());
+			}
+		}
+		return ret.toString();
+	}
+
+	@Override
+	public String getDashboardNamesWhichDoNotIncludeThisChart(String chartName) throws APIException {
+		StringBuilder ret = new StringBuilder();
+		for (DashboardConfig dashboardConfig : getConfiguredDashboards()) {
+			if (!dashboardConfig.containsChart(chartName)) {
+				if (ret.length() > 0)
+					ret.append(',');
+				ret.append(dashboardConfig.getName());
+			}
+		}
+		return ret.toString();
+	}
+
+	private DashboardConfig[] getConfiguredDashboards(){
+		MoskitoConfiguration config = MoskitoConfigurationHolder.getConfiguration();
+		DashboardsConfig dashboardsConfig = config.getDashboardsConfig();
+		DashboardConfig[] dashboards = dashboardsConfig.getDashboards();
+		return dashboards;
 	}
 }

@@ -219,4 +219,33 @@ public class DashboardConfig implements Serializable{
 	public void setWidgets(String[] widgets) {
 		this.widgets = widgets;
 	}
+
+	public boolean containsGauge(String gaugeName) {
+		return listContainsElement(gauges, gaugeName);
+	}
+
+	public boolean containsChart(String chartName) {
+		if (charts==null || charts.length==0)
+			return false;
+		for (ChartConfig cc : charts){
+			if (cc.getCaption()!=null && cc.getCaption().equals(chartName))
+				return true;
+		}
+		return false;
+	}
+
+	public boolean containsThreshold(String thresholdName) {
+		return listContainsElement(thresholds, thresholdName);
+	}
+
+	private boolean listContainsElement(String[] list, String name) {
+		if (list==null || list.length==0)
+			return false;
+		for (String e : list){
+			if (e.equals(name))
+				return true;
+		}
+		return false;
+	}
+
 }

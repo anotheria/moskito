@@ -39,7 +39,7 @@ public abstract class GenericCounterDecorator extends AbstractDecorator<GenericC
 
 	/**
 	 * List-based main constructor.
-	 * Specify captions/shortExplanations/explanations as {@link List<String>}.
+	 * Specify captions/shortExplanations/explanations as {@link List}.
 	 * @param patternObject pattern for this concrete decorator which is a subclass of genericcounterstats.
 	 * @param captions captions of the values.
 	 * @param shortExplanations short explanations of the captions.
@@ -63,7 +63,7 @@ public abstract class GenericCounterDecorator extends AbstractDecorator<GenericC
 
 	/**
 	 * Explanations-only list-based constructor.
-	 * Specify shortExplanations/explanations as {@link List<String>}.
+	 * Specify shortExplanations/explanations as {@link List}.
 	 * We assume that captions are same as {@link GenericCounterStats#getAvailableValueNames()}.
 	 * @param patternObject pattern for this concrete decorator which is a subclass of genericcounterstats.
 	 * @param shortExplanations short explanations of the captions.

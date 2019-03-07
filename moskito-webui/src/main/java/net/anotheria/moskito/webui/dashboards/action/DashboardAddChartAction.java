@@ -2,7 +2,6 @@ package net.anotheria.moskito.webui.dashboards.action;
 
 import net.anotheria.maf.action.ActionCommand;
 import net.anotheria.maf.action.ActionMapping;
-import net.anotheria.maf.action.CommandRedirect;
 import net.anotheria.maf.bean.FormBean;
 import net.anotheria.util.StringUtils;
 
@@ -19,6 +18,7 @@ public class DashboardAddChartAction extends BaseDashboardAction {
 		String accNamesConcat = request.getParameter("pName");
 		String[] accNames = accNamesConcat.split(",");
 		String[] dashboardsName = request.getParameterValues("pDashboards");
+		String targetChartCaption = request.getParameter("caption");
 
 		if (dashboardsName == null || dashboardsName.length == 0 || accNames.length == 0) {
 			setInfoMessage("Nothing selected!");
@@ -26,7 +26,7 @@ public class DashboardAddChartAction extends BaseDashboardAction {
 		}
 
 		for(String dashboard : dashboardsName) {
-			getDashboardAPI().addChartToDashboard(dashboard, accNames);
+			getDashboardAPI().addChartToDashboard(dashboard, targetChartCaption, accNames);
 		}
 
 		setInfoMessage(createInfoMessage(accNames, dashboardsName));

@@ -115,10 +115,10 @@ public class JSTalkBackFilter implements Filter {
 		try {
 			final PageInBrowserStats stats = (PageInBrowserStats) producer.getStats(urlPath);
 			if (isLoadTimeValid(domLoadTime) && isLoadTimeValid(windowLoadTime)){
-				stats.addLoadTime(Long.valueOf(domLoadTime), Long.valueOf(windowLoadTime));
+				stats.addLoadTime(Long.parseLong(domLoadTime), Long.parseLong(windowLoadTime));
 				//Also add to cumulated
 				PageInBrowserStats cumulated = (PageInBrowserStats)producer.getDefaultStats();
-				cumulated.addLoadTime(Long.valueOf(domLoadTime), Long.valueOf(windowLoadTime));
+				cumulated.addLoadTime(Long.parseLong(domLoadTime), Long.parseLong(windowLoadTime));
 				
 			}
 

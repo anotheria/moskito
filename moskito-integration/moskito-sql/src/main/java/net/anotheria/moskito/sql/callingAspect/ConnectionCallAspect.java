@@ -4,7 +4,9 @@ import net.anotheria.moskito.core.calltrace.CurrentlyTracedCall;
 import net.anotheria.moskito.core.calltrace.RunningTraceContainer;
 import net.anotheria.moskito.core.calltrace.TraceStep;
 import net.anotheria.moskito.core.calltrace.TracedCall;
+import net.anotheria.moskito.core.dynamic.EntryCountLimitedOnDemandStatsProducer;
 import net.anotheria.moskito.core.dynamic.OnDemandStatsProducer;
+import net.anotheria.moskito.core.dynamic.OnDemandStatsProducerException;
 import net.anotheria.moskito.core.registry.ProducerRegistryFactory;
 import net.anotheria.moskito.sql.stats.QueryStats;
 import net.anotheria.moskito.sql.stats.QueryStatsFactory;
@@ -12,6 +14,8 @@ import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Aspect used to intercept  SQL query calls.
@@ -22,6 +26,8 @@ import org.aspectj.lang.annotation.Pointcut;
  */
 @Aspect
 public class ConnectionCallAspect {
+
+	private static Logger log = LoggerFactory.getLogger(ConnectionCallAspect.class);
 
 	/**
 	 * List of jdbc calls for interception.
@@ -65,7 +71,7 @@ public class ConnectionCallAspect {
 	 * Constructor.
 	 */
 	public ConnectionCallAspect() {
-		producer = new OnDemandStatsProducer<QueryStats>("SQLQueries", "sql", "sql", QueryStatsFactory.DEFAULT_INSTANCE);
+		producer = new EntryCountLimitedOnDemandStatsProducer<QueryStats>("SQLQueries", "sql", "sql", QueryStatsFactory.DEFAULT_INSTANCE, 1000);
 		ProducerRegistryFactory.getProducerRegistryInstance().registerProducer(producer);
 	}
 
@@ -85,8 +91,16 @@ public class ConnectionCallAspect {
 	@Around(value = "preparedStatementExecuteCalls()", argNames = "pjp")
 	public Object doBasicProfiling(ProceedingJoinPoint pjp) throws Throwable {
 		String preparedStatement = pjp.getTarget().toString();
-		String statement = preparedStatement.substring(preparedStatement.indexOf(":") + 2);
-		return doMoskitoProfiling(pjp, statement);
+		return doMoskitoProfiling(pjp, preparedStatement);
+	}
+
+	/* test scope */ static String removeParametersFromStatement(String statement){
+
+		String replacement = statement.replaceAll("'.+?'", "?");
+		replacement = replacement.replaceAll(",\\s*\\d+", ", ?");
+		replacement = replacement.replaceAll("\\(\\s*\\d+", "(?");
+		replacement = replacement.replaceAll("=\\s*\\d+", "=?");
+		return replacement;
 	}
 
 	/**
@@ -98,17 +112,21 @@ public class ConnectionCallAspect {
 	 * @throws Throwable on errors
 	 */
 	private Object doMoskitoProfiling(ProceedingJoinPoint pjp, String statement) throws Throwable {
-		String statementGeneralized = statement.replaceAll("'.+?'", "?").replaceAll(",\\s*\\d+", ", ?")
-				.replaceAll("\\(\\s*\\d+", "(?").replaceAll("=\\s*\\d+", "=?");
+		String statementGeneralized = removeParametersFromStatement(statement);
 		long callTime = System.nanoTime();
 		QueryStats cumulatedStats = producer.getDefaultStats();
-		QueryStats statementStats = producer.getStats(statementGeneralized);
+		QueryStats statementStats = null;
+		try{
+			statementStats = producer.getStats(statementGeneralized);
+		}catch(OnDemandStatsProducerException limitReachedException){
+			log.warn("Query limit reached for query "+statement+", --> "+statementGeneralized);
+		}
+
 		//add Request Count, increase CR,MCR
 		cumulatedStats.addRequest();
 		if (statementStats != null)
 			statementStats.addRequest();
 		// start stopwatch
-		//System.out.println(smt);
 		boolean success = true;
 		try {
 			Object retVal = pjp.proceed();
@@ -149,7 +167,7 @@ public class ConnectionCallAspect {
 		TracedCall aRunningTrace = RunningTraceContainer.getCurrentlyTracedCall();
 		CurrentlyTracedCall currentTrace = aRunningTrace.callTraced() ? (CurrentlyTracedCall) aRunningTrace : null;
 		if (currentTrace != null) {
-			TraceStep currentStep = currentTrace.startStep((isSuccess ? EMPTY : SQL_QUERY_FAILED) + "SQL : (' " + statement + "')", producer);
+			TraceStep currentStep = currentTrace.startStep((isSuccess ? EMPTY : SQL_QUERY_FAILED) + "SQL : (' " + statement + "')", producer, statement);
 			if (!isSuccess)
 				currentStep.setAborted();
 			currentStep.setDuration(duration);

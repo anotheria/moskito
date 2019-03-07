@@ -112,4 +112,13 @@ public class GaugeValueConfig implements Serializable {
 				", timeUnit='" + timeUnit + '\'' +
 				'}';
 	}
+
+	public String getKey(){
+		return new StringBuilder(producerName).append('.')
+				.append(statName).append('.')
+				.append(valueName).append('.')
+				.append(intervalName).append('.')
+				.append(timeUnit)
+				.toString();
+	}
 }

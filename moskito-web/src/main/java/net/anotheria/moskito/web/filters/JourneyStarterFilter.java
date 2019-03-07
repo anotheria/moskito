@@ -27,6 +27,9 @@ import java.io.IOException;
  */
 public class JourneyStarterFilter implements Filter{
 
+	/**
+	 * Name of the header to react to.
+	 */
 	public static final String HEADER_NAME = "JourneyName";
 
 	/**

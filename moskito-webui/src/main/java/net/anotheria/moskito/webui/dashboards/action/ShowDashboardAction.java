@@ -20,12 +20,15 @@ import net.anotheria.moskito.webui.shared.bean.ProducerDecoratorBean;
 import net.anotheria.moskito.webui.threshold.bean.ThresholdStatusBean;
 import net.anotheria.moskito.webui.util.WebUIConfig;
 import net.anotheria.util.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import static net.anotheria.moskito.webui.threshold.util.ThresholdStatusBeanUtility.getThresholdBeans;
@@ -37,11 +40,6 @@ import static net.anotheria.moskito.webui.threshold.util.ThresholdStatusBeanUtil
  * @since 12.02.15 14:02
  */
 public class ShowDashboardAction extends BaseDashboardAction {
-
-	/**
-	 * Logger.
-	 */
-	private static final Logger log = LoggerFactory.getLogger(ShowDashboardAction.class);
 
 	/**
 	 * Default dashboard refresh rate in ms.
@@ -66,14 +64,19 @@ public class ShowDashboardAction extends BaseDashboardAction {
 		request.setAttribute("producersPresent", producersPresent);
 		request.setAttribute("showHelp", !(gaugesPresent || chartsPresent || thresholdsPresent || producersPresent));
 
-		DashboardConfig selectedDashboardConfig = getDashboardAPI().getDashboardConfig(dashboardName);
-		if (dashboardName == null || selectedDashboardConfig == null) {
+
+		if (dashboardName==null)
 			dashboardName = getDashboardAPI().getDefaultDashboardName();
-			if (dashboardName == null) { // no dashboards present
-				return actionMapping.success();
-			}
-			request.setAttribute("selectedDashboard", dashboardName);
+		if (dashboardName==null){
+			//there are no configured dashboards
+			return actionMapping.success();
 		}
+
+		DashboardConfig selectedDashboardConfig = getDashboardAPI().getDashboardConfig(dashboardName);
+		if (selectedDashboardConfig == null) {
+			throw new Exception("Dashboard '"+dashboardName+"' not found.");
+		}
+		request.setAttribute("selectedDashboard", dashboardName);
 
 		DashboardAO dashboard = getDashboardAPI().getDashboard(dashboardName);
 		List<ThresholdStatusBean> thresholdStatusBeans = getThresholdBeans(dashboard.getThresholds());
@@ -193,19 +196,8 @@ public class ShowDashboardAction extends BaseDashboardAction {
 		if (gaugeAOList == null || gaugeAOList.size() == 0)
 			return ret;
 
-		List<DashboardAO> dashboardAOList = new ArrayList<>();
-		for(String name : getDashboardAPI().getDashboardNames()) {
-			dashboardAOList.add(getDashboardAPI().getDashboard(name));
-		}
 		for (GaugeAO gaugeAO : gaugeAOList) {
-			String dashboardNames = "";
-			for(DashboardAO dashboardAO: dashboardAOList) {
-				if (dashboardAO.getGauges() == null || !dashboardAO.getGauges().contains(gaugeAO)) {
-					dashboardNames += dashboardAO.getName()+",";
-				}
-			}
-			if (dashboardNames.length() > 0)
-				dashboardNames = dashboardNames.substring(0, dashboardNames.length()-1);
+			String dashboardNames = getDashboardAPI().getDashboardNamesWhichDoNotIncludeThisGauge(gaugeAO.getName());
 			ret.add(new GaugeBean(gaugeAO, dashboardNames));
 		}
 
@@ -218,22 +210,10 @@ public class ShowDashboardAction extends BaseDashboardAction {
 		if (dashboardChartAOList == null || dashboardChartAOList.size() == 0)
 			return ret;
 
-		List<DashboardAO> dashboardAOList = new ArrayList<>();
-		for(String name : getDashboardAPI().getDashboardNames()) {
-			dashboardAOList.add(getDashboardAPI().getDashboard(name));
-		}
 		for (DashboardChartAO dashboardChartAO : dashboardChartAOList) {
-			String dashboardNames = "";
-			for(DashboardAO dashboardAO: dashboardAOList) {
-				if (dashboardAO.getCharts() == null || !dashboardAO.getCharts().contains(dashboardChartAO)) {
-					dashboardNames += dashboardAO.getName()+",";
-				}
-			}
-			if (dashboardNames.length() > 0)
-				dashboardNames = dashboardNames.substring(0, dashboardNames.length()-1);
+			String dashboardNames = getDashboardAPI().getDashboardNamesWhichDoNotIncludeThisChart(dashboardChartAO.getCaption());
 			ret.add(new DashboardChartBean(dashboardChartAO, dashboardNames));
 		}
-
 		return ret;
 	}
 

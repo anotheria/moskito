@@ -19,13 +19,16 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * TODO comment this class
+ * Implementation of the JourneyAPI.
  *
  * @author lrosenberg
  * @since 14.02.13 10:00
  */
 public class JourneyAPIImpl extends AbstractMoskitoAPIImpl implements  JourneyAPI {
 
+	/**
+	 * Journey manager to obtain actual journey objects.
+	 */
 	private JourneyManager journeyManager;
 
 	@Override
@@ -213,6 +216,39 @@ public class JourneyAPIImpl extends AbstractMoskitoAPIImpl implements  JourneyAP
 		return result;
 	}
 
+	@Override
+	public AnalyzedJourneyAO analyzeJourneyByMethod(String journeyName) throws APIException {
+		Journey journey = getJourneyByName(journeyName);
+		List<CurrentlyTracedCall> tracedCalls = journey.getTracedCalls();
+		List<AnalyzedProducerCallsMapAO> callsList = new ArrayList<>(tracedCalls.size() + 1);
+
+		AnalyzedProducerCallsMapAO overallCallsMap = new AnalyzedProducerCallsMapAO("Total by producer and method");
+		AnalyzedProducerCallsMapAOWrapper wrapper = new AnalyzedProducerCallsMapAOWrapper();
+		wrapper.setByProducer(overallCallsMap);
+
+		for (CurrentlyTracedCall tc : tracedCalls){
+			if (tc==null){
+				log.warn("TracedCall is null!");
+				continue;
+			}
+			AnalyzedProducerCallsMapAO singleCallMap = new AnalyzedProducerCallsMapAO(tc.getName());
+			for (TraceStep step : tc.getRootStep().getChildren()){
+				addMethodStep(step, singleCallMap, wrapper);
+
+			}
+			callsList.add(singleCallMap);
+		}
+
+
+		AnalyzedJourneyAO result = new AnalyzedJourneyAO();
+		result.setName(journeyName);
+		result.setCalls(callsList);
+		result.setTotalByProducerId(overallCallsMap);
+
+
+		return result;
+	}
+
 	private Journey getJourneyByName(String name) throws APIException {
 		try {
 			journeyManager.getJourney(name);
@@ -239,6 +275,28 @@ public class JourneyAPIImpl extends AbstractMoskitoAPIImpl implements  JourneyAP
 		}
 	}
 
+	/**
+	 * Similar to addStep but category and subsystem are ignored.
+	 * @param step
+	 * @param singleCallMap
+	 * @param overallMaps
+	 */
+	private void addMethodStep(TraceStep step, AnalyzedProducerCallsMapAO singleCallMap, AnalyzedProducerCallsMapAOWrapper overallMaps) {
+		IStatsProducer producer = step.getProducer();
+
+		String methodName = step.getMethodName();
+		if (methodName == null)
+			methodName = "UNKNOWN";
+
+		String producerName = producer == null ? "UNKNOWN" : producer.getProducerId()+"."+methodName;
+		long netDuration = step.getNetDuration();
+
+		singleCallMap.addProducerCall(producerName, netDuration);
+		overallMaps.getByProducer().addProducerCall(producerName, netDuration);
+		for (TraceStep childStep : step.getChildren()){
+			addMethodStep(childStep, singleCallMap, overallMaps);
+		}
+	}
 
 
 	@Override

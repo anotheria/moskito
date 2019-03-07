@@ -20,7 +20,7 @@ Commented out for now. We may add this later as welcome message (to all layers).
 <div class="box">
 <div class="box-title">
     <a class="accordion-toggle tooltip-bottom" title="Close/Open" data-toggle="collapse" href="#collapse${decorator.decoratorNameForCss}"><i class="fa fa-caret-down"></i></a>
-    <h3 class="pull-left">${decorator.name}</h3>
+    <h3 class="pull-left">${decorator.name} (${decorator.producersAmount})</h3>
 
     <ano:equal name="betaMode" value="true">
         <div class="box-right-nav dropdown">

@@ -5,7 +5,7 @@ import net.anotheria.anoplass.api.APIFinder;
 import net.anotheria.anoprise.metafactory.ServiceFactory;
 
 /**
- * TODO comment this class
+ * Factory for JourneyAPI.
  *
  * @author lrosenberg
  * @since 14.02.13 10:01

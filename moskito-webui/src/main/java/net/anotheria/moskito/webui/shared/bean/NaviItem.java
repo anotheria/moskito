@@ -55,8 +55,38 @@ public enum NaviItem {
 	 */
 	TAGS("Tags"),
 
-	THREADS_LIST("List"), THREADS_DUMP("Dump"), THREADS_HISTORY("History"),
-	MORE_LIBS("Libs"),MORE_CONFIG("Config"),MORE_UPDATE("Update"),MORE_MBEANS("MBeans"), MORE_GAUGES("Gauges");
+	/**
+	 * List of currently running threads.
+	 */
+	THREADS_LIST("List"),
+	/**
+	 * Generates a ThreadDump.
+	 */
+	THREADS_DUMP("Dump"),
+	/**
+	 * History of thread creation feature.
+	 */
+	THREADS_HISTORY("History"),
+	/**
+	 * Displays libs in the system.
+	 */
+	MORE_LIBS("Libs"),
+	/**
+	 * Shows config.
+	 */
+	MORE_CONFIG("Config"),
+	/**
+	 * Shows the update pane.
+	 */
+	MORE_UPDATE("Update"),
+	/**
+	 * Shows mbeans.
+	 */
+	MORE_MBEANS("MBeans"),
+	/**
+	 * Navi item for gauges.
+	 */
+	MORE_GAUGES("Gauges");
 	
 	/**
 	 * Caption of the navi item.

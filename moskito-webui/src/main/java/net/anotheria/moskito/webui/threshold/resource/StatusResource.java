@@ -10,7 +10,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.WebApplicationException;
 
 /**
- * TODO comment this class
+ * Returns the status of the application.
  *
  * @author lrosenberg
  * @since 14.04.15 18:09

@@ -47,6 +47,13 @@ public interface JourneyAPI extends API, Service {
 	 * @throws APIException
 	 */
 	AnalyzedJourneyAO analyzeJourney(String journeyName) throws APIException;
+	/**
+	 * Analyzes a journey and returns a cumulated calls by time spent in each method as well as the number of requests in each method.
+	 * @param journeyName name of the journey to analyze.
+	 * @return
+	 * @throws APIException
+	 */
+	AnalyzedJourneyAO analyzeJourneyByMethod(String journeyName) throws APIException;
 
 	/**
 	 * Deletes a journey.

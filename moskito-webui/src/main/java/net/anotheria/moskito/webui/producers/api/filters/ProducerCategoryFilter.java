@@ -3,7 +3,7 @@ package net.anotheria.moskito.webui.producers.api.filters;
 import net.anotheria.moskito.core.producers.IStatsProducer;
 
 /**
- * TODO comment this class
+ * Filters out all producers in a category.
  *
  * @author lrosenberg
  * @since 20.04.15 13:33

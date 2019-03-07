@@ -7,8 +7,17 @@ package net.anotheria.moskito.webui.journey.api;
  * @since 27.09.18 17:44
  */
 public class AnalyzedProducerCallsMapAOWrapper {
+	/**
+	 * Calls by producer.
+	 */
 	private AnalyzedProducerCallsMapAO byProducer;
+	/**
+	 * Calls by category.
+	 */
 	private AnalyzedProducerCallsMapAO byCategory;
+	/**
+	 * Calls by subsystem.
+	 */
 	private AnalyzedProducerCallsMapAO bySubsystem;
 
 	public AnalyzedProducerCallsMapAO getByProducer() {

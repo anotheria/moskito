@@ -4,7 +4,6 @@ import net.anotheria.anoplass.api.APIException;
 import net.anotheria.maf.action.ActionCommand;
 import net.anotheria.maf.action.ActionMapping;
 import net.anotheria.maf.bean.FormBean;
-import net.anotheria.moskito.webui.dashboards.api.DashboardAO;
 import net.anotheria.moskito.webui.gauges.api.GaugeAO;
 import net.anotheria.moskito.webui.gauges.bean.GaugeBean;
 import net.anotheria.moskito.webui.shared.bean.NaviItem;
@@ -15,7 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * TODO comment this class
+ * This action is called in the gauge view under navigation point Everything Else \ Gauges.
  *
  * @author lrosenberg
  * @since 23.03.15 21:38
@@ -44,23 +43,17 @@ public class ShowGaugesAction extends BaseGaugesAction{
 		if (gaugeAOList == null || gaugeAOList.size() == 0)
 			return ret;
 
-		List<DashboardAO> dashboardAOList = new ArrayList<>();
-		for(String name : getDashboardAPI().getDashboardNames()) {
-			dashboardAOList.add(getDashboardAPI().getDashboard(name));
-		}
 		for (GaugeAO gaugeAO : gaugeAOList) {
-			String dashboardNames = "";
-			for(DashboardAO dashboardAO: dashboardAOList) {
-				if (dashboardAO.getGauges() == null || !dashboardAO.getGauges().contains(gaugeAO)) {
-					dashboardNames += dashboardAO.getName()+",";
-				}
-			}
-			if (dashboardNames.length() > 0)
-				dashboardNames = dashboardNames.substring(0, dashboardNames.length()-1);
+			String dashboardNames = getDashboardAPI().getDashboardNamesWhichDoNotIncludeThisGauge(gaugeAO.getName());
 			ret.add(new GaugeBean(gaugeAO, dashboardNames));
 		}
 
 		return ret;
 	}
 
+
+	@Override
+	protected String getLinkToCurrentPage(HttpServletRequest req) {
+		return "mskGauges?ts="+System.currentTimeMillis();
+	}
 }

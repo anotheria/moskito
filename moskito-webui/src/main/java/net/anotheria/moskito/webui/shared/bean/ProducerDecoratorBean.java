@@ -86,5 +86,9 @@ public class ProducerDecoratorBean extends AbstractDecoratorBean {
 	public String getSortTypeName(){
 		return BaseMoskitoUIAction.BEAN_SORT_TYPE_PREFIX + getName();
 	}
+
+	public int getProducersAmount(){
+		return producers == null ? 0 : producers.size();
+	}
 	
 }

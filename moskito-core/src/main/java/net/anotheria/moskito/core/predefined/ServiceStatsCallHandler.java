@@ -93,7 +93,7 @@ public class ServiceStatsCallHandler implements IOnDemandCallHandler {
 			call = TracingUtil.buildCall(producerId, method.getName(), args, tracePassingOfThisProducer ? Tracers.getCallName(trace) : null);
 		}
 		if (currentTrace != null) {
-			currentStep = currentTrace.startStep(call.toString(), producer);
+			currentStep = currentTrace.startStep(call.toString(), producer, method.getName());
 		}
 
 		long startTime = System.nanoTime();

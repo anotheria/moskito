@@ -24,7 +24,6 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -169,7 +168,6 @@ public class GenericMonitoringFilter implements Filter, IStatsProducer {
 		MoskitoConfiguration configuration = MoskitoConfigurationHolder.getConfiguration();
 		net.anotheria.moskito.core.config.filter.FilterConfig filterConfig = configuration.getFilterConfig();
 		String[] extractorNames = filterConfig.getCaseExtractors();
-		System.out.println("ConfiguredExtractors: "+ Arrays.toString(extractorNames));
 		if (extractorNames != null && extractorNames.length>0){
 			for (String extractorName : extractorNames){
 				try {

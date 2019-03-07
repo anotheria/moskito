@@ -16,10 +16,15 @@
             net.anotheria.moskito.webui.util.StartStopListener
         </listener-class>
     </listener>
-    <listener>
+	<listener>
         <listener-class>
             net.anotheria.moskito.webui.util.SetupPreconfiguredAccumulators
         </listener-class>
+	</listener>
+	<listener>
+		<listener-class>
+			net.anotheria.anoplass.api.listener.APISessionListener
+		</listener-class>
     </listener>
     <ordering>
         <before>
