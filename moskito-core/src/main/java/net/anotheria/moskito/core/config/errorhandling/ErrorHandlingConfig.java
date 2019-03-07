@@ -3,7 +3,6 @@ package net.anotheria.moskito.core.config.errorhandling;
 import com.google.gson.annotations.SerializedName;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import net.anotheria.moskito.core.errorhandling.BuiltInErrorProducer;
-import org.configureme.annotations.AfterConfiguration;
 import org.configureme.annotations.Configure;
 import org.configureme.annotations.ConfigureMe;
 
@@ -97,7 +96,8 @@ public class ErrorHandlingConfig implements Serializable{
 		this.catchers = catchers;
 	}
 
-	@AfterConfiguration public void afterConfiguration(){
+	//this should be called by configureme, but we call it manually instead to ensure the top object has been configured.
+	public void afterConfiguration(){
 		BuiltInErrorProducer.getInstance().afterConfiguration(this);
 	}
 
