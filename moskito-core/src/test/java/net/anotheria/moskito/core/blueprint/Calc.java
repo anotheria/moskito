@@ -1,8 +1,5 @@
 package net.anotheria.moskito.core.blueprint;
 
-import net.anotheria.moskito.core.blueprint.BlueprintCallExecutor;
-import net.anotheria.moskito.core.blueprint.BlueprintProducer;
-import net.anotheria.moskito.core.blueprint.BlueprintProducersFactory;
 import net.anotheria.moskito.core.producers.IStatsProducer;
 
 import java.util.HashMap;
