@@ -66,7 +66,7 @@ public class SkipFirstDiffLongValueHolderTest {
 
     @Test
     public void testSnapshotInterval() {
-        final Interval interval = DefaultIntervals.DEF_SNAPSHOT;
+        final Interval interval = IntervalRegistry.getInstance().getInterval(Constants.PREFIX_SNAPSHOT_INTERVAL);
 
         SkipFirstDiffLongValueHolder value = SkipFirstDiffLongValueHolderFactory.INSTANCE.createValueHolderObject(interval);
 

@@ -54,7 +54,7 @@ public class Constants {
 		DefaultIntervals.ONE_HOUR,
 		DefaultIntervals.TWELVE_HOURS,
 		DefaultIntervals.ONE_DAY,
-		DefaultIntervals.DEF_SNAPSHOT,
+		//DefaultIntervals.DEF_SNAPSHOT,
 	};
 	
 	/**
@@ -74,7 +74,13 @@ public class Constants {
 	public static final Interval[] getDefaultIntervals(){
 		return DEFAULT_INTERVALS.clone();
 	}
-	
-	
+
+	/**
+	 * All intervals with this prefix are considered as snapshot intervals, meaning that they are not updated automatically.
+	 */
+	public static final String PREFIX_SNAPSHOT_INTERVAL = "snapshot";
+
+
+
 
 }

@@ -34,7 +34,7 @@
  */	
 package net.anotheria.moskito.core.stats.impl;
 
-import net.anotheria.moskito.core.stats.DefaultIntervals;
+import net.anotheria.moskito.core.predefined.Constants;
 import net.anotheria.moskito.core.stats.UnknownIntervalLengthException;
 
 import java.util.HashMap;
@@ -117,7 +117,7 @@ class IntervalNameParser {
 	 */
 	static final int guessLengthFromName(String aName) {
 		
-		if (aName.startsWith(DefaultIntervals.PREFIX_SNAPSHOT))
+		if (aName.startsWith(Constants.PREFIX_SNAPSHOT_INTERVAL))
 			return -1;
 		
 		int unitFactor;
