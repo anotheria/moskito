@@ -34,7 +34,7 @@
  */	
 package net.anotheria.moskito.core.predefined;
 
-import net.anotheria.moskito.core.stats.DefaultIntervals;
+import net.anotheria.moskito.core.config.MoskitoConfigurationHolder;
 import net.anotheria.moskito.core.stats.Interval;
 
 /**
@@ -43,19 +43,6 @@ import net.anotheria.moskito.core.stats.Interval;
  *
  */
 public class Constants {
-	
-	/**
-	 * Default intervals, used if you don't specify anything special. As for now, the default intervals are one minute, 5 minutes, 15 minutes, one hour and one day.
-	 */
-	private static final Interval[] DEFAULT_INTERVALS = {
-		DefaultIntervals.ONE_MINUTE, 
-		DefaultIntervals.FIVE_MINUTES,
-		DefaultIntervals.FIFTEEN_MINUTES,
-		DefaultIntervals.ONE_HOUR,
-		DefaultIntervals.TWELVE_HOURS,
-		DefaultIntervals.ONE_DAY,
-		//DefaultIntervals.DEF_SNAPSHOT,
-	};
 	
 	/**
 	 * Min time value.
@@ -72,7 +59,7 @@ public class Constants {
 	public static final long AVERAGE_TIME_DEFAULT = -1;
 	
 	public static final Interval[] getDefaultIntervals(){
-		return DEFAULT_INTERVALS.clone();
+		return MoskitoConfigurationHolder.getConfiguration().getConfiguredIntervals();
 	}
 
 	/**
