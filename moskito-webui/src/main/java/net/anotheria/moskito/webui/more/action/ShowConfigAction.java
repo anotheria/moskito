@@ -28,7 +28,7 @@ import java.util.List;
 public class ShowConfigAction extends BaseAdditionalAction{
 	@Override
 	protected String getLinkToCurrentPage(HttpServletRequest req) {
-		return null;
+		return "mskConfig?ts="+System.currentTimeMillis();
 	}
 
 	@Override

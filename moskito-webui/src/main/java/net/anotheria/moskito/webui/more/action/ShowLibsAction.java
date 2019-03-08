@@ -40,9 +40,8 @@ public class ShowLibsAction extends BaseAdditionalAction{
 	 */
 	private static Logger log = LoggerFactory.getLogger(ShowLibsAction.class);
 
-	@Override
 	protected String getLinkToCurrentPage(HttpServletRequest req) {
-		return null;  //To change body of implemented methods use File | Settings | File Templates.
+		return "mskLibs?ts="+System.currentTimeMillis();
 	}
 
 	@Override

@@ -32,4 +32,9 @@ public class ShowMBeansAction extends AdditionalSectionAction{
 		return NaviItem.MORE_MBEANS;
 	}
 
+	@Override
+	protected String getLinkToCurrentPage(HttpServletRequest req) {
+		return "mskMBeans?ts="+System.currentTimeMillis();
+	}
+
 }

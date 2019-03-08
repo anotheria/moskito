@@ -27,9 +27,8 @@ public class UpdateAction extends BaseAdditionalAction {
 	 */
 	private String MAVEN_URL = "http://search.maven.org/solrsearch/select?q=a:%22moskito-webui%22&rows=20&wt=json";
 
-	@Override
 	protected String getLinkToCurrentPage(HttpServletRequest req) {
-		return null;  //To change body of implemented methods use File | Settings | File Templates.
+		return "mskUpdate?ts="+System.currentTimeMillis();
 	}
 
 	@Override
