@@ -17,7 +17,7 @@ import java.util.List;
  *
  * @author lrosenberg
  */
-@DistributeMe(agentsSupport=false)
+@DistributeMe(agentsSupport=false, moskitoSupport=false)
 @SupportService
 @FailBy(strategyClass=RetryCallOnce.class)
 public interface ThresholdAPI extends API, Service {
