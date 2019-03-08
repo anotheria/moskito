@@ -1,7 +1,6 @@
 package net.anotheria.moskito.core.stats.impl;
 
 import net.anotheria.moskito.core.predefined.Constants;
-import net.anotheria.moskito.core.stats.DefaultIntervals;
 import net.anotheria.moskito.core.stats.IValueHolderFactory;
 import net.anotheria.moskito.core.stats.Interval;
 import net.anotheria.moskito.core.stats.StatValue;
@@ -19,7 +18,7 @@ public class SkipFirstDiffLongValueHolderTest {
 
     @Test
     public void test() {
-        final Interval interval = DefaultIntervals.ONE_MINUTE;
+        final Interval interval = IntervalRegistry.getInstance().getInterval(Constants.INTERVAL_ONE_MINUTE);
 
         AbstractValueHolder value = SkipFirstDiffLongValueHolderFactory.INSTANCE.createValueHolderObject(interval);
 

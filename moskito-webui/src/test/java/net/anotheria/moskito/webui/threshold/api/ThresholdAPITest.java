@@ -2,8 +2,8 @@ package net.anotheria.moskito.webui.threshold.api;
 
 import net.anotheria.anoplass.api.APIException;
 import net.anotheria.anoplass.api.APIFinder;
+import net.anotheria.moskito.core.predefined.Constants;
 import net.anotheria.moskito.core.registry.ProducerRegistryFactory;
-import net.anotheria.moskito.core.stats.DefaultIntervals;
 import net.anotheria.moskito.core.stats.TimeUnit;
 import net.anotheria.moskito.core.threshold.ThresholdRepository;
 import org.junit.After;
@@ -98,7 +98,7 @@ public class ThresholdAPITest {
 
 	private ThresholdPO createPO(){
 		ThresholdPO toCreate = new ThresholdPO();
-		toCreate.setInterval(DefaultIntervals.FIVE_MINUTES.getName());
+		toCreate.setInterval(Constants.INTERVAL_FIVE_MINUTES);
 		toCreate.setName("test");
 		toCreate.setProducerId("Non-Existing");
 		toCreate.setStatName("Foo");
