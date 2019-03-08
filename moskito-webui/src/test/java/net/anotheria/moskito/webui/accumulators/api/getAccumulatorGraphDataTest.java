@@ -7,19 +7,23 @@ import net.anotheria.moskito.core.config.MoskitoConfigurationHolder;
 import net.anotheria.moskito.core.config.thresholds.GuardConfig;
 import net.anotheria.moskito.core.dynamic.OnDemandStatsProducer;
 import net.anotheria.moskito.core.predefined.AbstractStatsFactory;
+import net.anotheria.moskito.core.predefined.Constants;
 import net.anotheria.moskito.core.producers.AbstractStats;
 import net.anotheria.moskito.core.producers.IStatsProducer;
 import net.anotheria.moskito.core.registry.IProducerRegistry;
 import net.anotheria.moskito.core.registry.ProducerRegistryAPIFactory;
 import net.anotheria.moskito.core.registry.ProducerRegistryFactory;
-import net.anotheria.moskito.core.stats.DefaultIntervals;
 import net.anotheria.moskito.core.stats.TimeUnit;
 import net.anotheria.moskito.core.threshold.ThresholdRepository;
 import net.anotheria.moskito.webui.shared.api.TieablePO;
 import net.anotheria.moskito.webui.threshold.api.ThresholdAPI;
 import net.anotheria.moskito.webui.threshold.api.ThresholdAPIFactory;
 import net.anotheria.moskito.webui.threshold.api.ThresholdPO;
-import org.junit.*;
+import org.junit.After;
+import org.junit.AfterClass;
+import org.junit.Before;
+import org.junit.BeforeClass;
+import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -272,7 +276,7 @@ public class getAccumulatorGraphDataTest {
         po.setValueName("" + Math.random());
         po.setName(name);
         po.setUnit("");
-        po.setInterval(DefaultIntervals.FIVE_MINUTES.getName());
+        po.setInterval(Constants.INTERVAL_FIVE_MINUTES);
         po.setStatName(("" + Math.random()));
 
         return po;
@@ -289,7 +293,7 @@ public class getAccumulatorGraphDataTest {
         po.setValueName(producerId + "-value");
         po.setName(name);
         po.setUnit("");
-        po.setInterval(DefaultIntervals.FIVE_MINUTES.getName());
+        po.setInterval(Constants.INTERVAL_FIVE_MINUTES);
         po.setStatName(producerId + "-stat");
 
         return po;

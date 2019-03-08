@@ -11,11 +11,11 @@ import net.anotheria.moskito.core.config.dashboards.ChartConfig;
 import net.anotheria.moskito.core.config.dashboards.ChartPattern;
 import net.anotheria.moskito.core.config.dashboards.DashboardConfig;
 import net.anotheria.moskito.core.config.dashboards.DashboardsConfig;
+import net.anotheria.moskito.core.predefined.Constants;
 import net.anotheria.moskito.core.producers.IStatsProducer;
 import net.anotheria.moskito.core.registry.IProducerRegistry;
 import net.anotheria.moskito.core.registry.ProducerRegistryAPIFactory;
 import net.anotheria.moskito.core.registry.ProducerRegistryFactory;
-import net.anotheria.moskito.core.stats.DefaultIntervals;
 import net.anotheria.moskito.webui.accumulators.api.AccumulatorAPI;
 import net.anotheria.moskito.webui.accumulators.api.AccumulatorAPIFactory;
 import net.anotheria.moskito.webui.accumulators.api.AccumulatorPO;
@@ -29,14 +29,23 @@ import net.anotheria.moskito.webui.producers.api.ProducerAPI;
 import net.anotheria.moskito.webui.producers.api.ProducerAPIFactory;
 import net.anotheria.moskito.webui.threshold.api.ThresholdAPI;
 import net.anotheria.moskito.webui.threshold.api.ThresholdAPIFactory;
-import org.junit.*;
+import org.junit.After;
+import org.junit.AfterClass;
+import org.junit.Before;
+import org.junit.BeforeClass;
+import org.junit.Test;
 
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertArrayEquals;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 
 public class getDashboardTest {
@@ -366,7 +375,7 @@ public class getDashboardTest {
             acc.setValueName("");
             acc.setName(name);
             acc.setUnit("");
-            acc.setInterval(DefaultIntervals.FIVE_MINUTES.getName());
+            acc.setInterval(Constants.INTERVAL_FIVE_MINUTES);
             acc.setStatName("");
 
             try {
