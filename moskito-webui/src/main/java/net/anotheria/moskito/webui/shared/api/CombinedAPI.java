@@ -19,7 +19,7 @@ import org.distributeme.annotation.DistributeMe;
  * @since 21.03.14 22:03
  */
 
-@DistributeMe(agentsSupport = false)
+@DistributeMe(agentsSupport = false, moskitoSupport=false)
 @CombinedService(
 		services = {ThresholdAPI.class, AccumulatorAPI.class, ThreadAPI.class, ProducerAPI.class, JourneyAPI.class, AdditionalFunctionalityAPI.class, GaugeAPI.class,
 				DashboardAPI.class, TracerAPI.class, TagAPI.class})

@@ -17,7 +17,7 @@ import java.util.List;
  * @author lrosenberg
  * @since 24.03.14 22:52
  */
-@DistributeMe(agentsSupport = false)
+@DistributeMe(agentsSupport = false, moskitoSupport=false)
 @SupportService
 @FailBy(strategyClass=RetryCallOnce.class)
 public interface AdditionalFunctionalityAPI extends API, Service{
