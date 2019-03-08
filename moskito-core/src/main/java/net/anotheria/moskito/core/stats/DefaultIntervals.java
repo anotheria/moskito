@@ -12,6 +12,7 @@
  */
 package net.anotheria.moskito.core.stats;
 
+import net.anotheria.moskito.core.predefined.Constants;
 import net.anotheria.moskito.core.stats.impl.IntervalRegistry;
 
 
@@ -20,32 +21,33 @@ import net.anotheria.moskito.core.stats.impl.IntervalRegistry;
  *
  * @author Miro
  */
+@Deprecated
 public abstract class DefaultIntervals {
 
 	/**
 	 * an interval of one minute
 	 */
-	public static final Interval ONE_MINUTE = IntervalRegistry.getInstance().getInterval("1m");
+	public static final Interval ONE_MINUTE = IntervalRegistry.getInstance().getInterval(Constants.INTERVAL_ONE_MINUTE);
 	/**
 	 * an interval of five minutes
 	 */
-	public static final Interval FIVE_MINUTES = IntervalRegistry.getInstance().getInterval("5m");
+	public static final Interval FIVE_MINUTES = IntervalRegistry.getInstance().getInterval(Constants.INTERVAL_FIVE_MINUTES);
 	/**
 	 * an interval of fifteen minutes
 	 */
-	public static final Interval FIFTEEN_MINUTES = IntervalRegistry.getInstance().getInterval("15m");
+	public static final Interval FIFTEEN_MINUTES = IntervalRegistry.getInstance().getInterval(Constants.INTERVAL_FIFTEEN_MINUTES);
 	/**
 	 * an interval of one hour
 	 */
-	public static final Interval ONE_HOUR = IntervalRegistry.getInstance().getInterval("1h");
+	public static final Interval ONE_HOUR = IntervalRegistry.getInstance().getInterval(Constants.INTERVAL_ONE_HOUR);
 	/**
 	 * an interval of one hour
 	 */
-	public static final Interval TWELVE_HOURS = IntervalRegistry.getInstance().getInterval("12h");
+	public static final Interval TWELVE_HOURS = IntervalRegistry.getInstance().getInterval(Constants.INTERVAL_ONE_HOUR);
 	/**
 	 * an interval of one day
 	 */
-	public static final Interval ONE_DAY = IntervalRegistry.getInstance().getInterval("1d");
+	public static final Interval ONE_DAY = IntervalRegistry.getInstance().getInterval(Constants.INTERVAL_ONE_DAY);
 
 
 

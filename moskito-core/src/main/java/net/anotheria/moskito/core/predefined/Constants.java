@@ -52,7 +52,33 @@ public class Constants {
 	 * Max time value.
 	 */
 	public static final long MAX_TIME_DEFAULT = Long.MIN_VALUE;
-	
+
+	/**
+	 * an interval of one minute
+	 */
+	public static final String INTERVAL_ONE_MINUTE = "1m";
+	/**
+	 * an interval of five minutes
+	 */
+	public static final String INTERVAL_FIVE_MINUTES = "5m";
+	/**
+	 * an interval of fifteen minutes
+	 */
+	public static final String INTERVAL_FIFTEEN_MINUTES = "15m";
+	/**
+	 * an interval of one hour
+	 */
+	public static final String INTERVAL_ONE_HOUR = "1h";
+	/**
+	 * an interval of one hour
+	 */
+	public static final String INTERVAL_TWELVE_HOURS = "12h";
+	/**
+	 * an interval of one day
+	 */
+	public static final String INTERVAL_ONE_DAY = "1d";
+
+
 	/**
 	 * Average time value.
 	 */
