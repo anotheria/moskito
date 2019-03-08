@@ -1,5 +1,6 @@
 package net.anotheria.moskito.core.dynamic;
 
+import net.anotheria.moskito.core.logging.LoggerUtil;
 import net.anotheria.moskito.core.predefined.ServiceStatsCallHandler;
 import net.anotheria.moskito.core.predefined.ServiceStatsFactory;
 import net.anotheria.moskito.core.producers.IStats;
@@ -36,10 +37,11 @@ public class ProxyUtils {
 	 * @param subsystem subsystem of the producer, i.e. messaging, payment, registration, shop.
 	 * @param handler handler for the calls.
 	 * @param statsFactory the factory for the stats.
+	 * @param attachLoggers if true loggers are attached.
 	 * @param interf interfaces.
 	 * @return a newly created proxy of type T.
 	 */
-	public static <T> T createInstance(T impl, String name, String category, String subsystem, IOnDemandCallHandler handler, IOnDemandStatsFactory<? extends IStats> statsFactory, Class<T> interf, Class<?>... additionalInterfaces){
+	public static <T> T createInstance(T impl, String name, String category, String subsystem, IOnDemandCallHandler handler, IOnDemandStatsFactory<? extends IStats> statsFactory,  boolean attachLoggers, Class<T> interf, Class<?>... additionalInterfaces){
 		if (name==null)
 			name = extractName(interf);
 
@@ -57,6 +59,11 @@ public class ProxyUtils {
 		
 		@SuppressWarnings("unchecked")
 		T ret = (T) proxy.createProxy();
+
+		if (attachLoggers){
+			LoggerUtil.createSLF4JDefaultAndIntervalStatsLogger(proxy.getProducer());
+		}
+
 		return ret;
 	}
 
@@ -84,21 +91,44 @@ public class ProxyUtils {
 	 * @param name name for this instance.
 	 * @param category category of this instance.
 	 * @param subsystem subsystem of this instance.
+	 * @param attachLoggers if true loggers are attached.
 	 * @param interf class of T, main interface of the service.
 	 * @param additionalInterfaces additional helper interfaces, that should be supported as well.
 	 * @return a newly created proxy of type T.
 	 */
-	public static <T> T createServiceInstance(T impl, String name, String category, String subsystem, Class<T> interf, Class<?>... additionalInterfaces){
+	public static <T> T createServiceInstance(T impl, String name, String category, String subsystem, boolean attachLoggers, Class<T> interf, Class<?>... additionalInterfaces){
 		return createInstance(impl, 
 				name, 
 				category, 
 				subsystem, 
 				new ServiceStatsCallHandler(),
 				new ServiceStatsFactory(),
+				attachLoggers,
 				interf,
 				additionalInterfaces);
 	}
-	
+
+	/**
+	 * Creates a monitored proxy instance for a service. Service in this context means, that the ServiceStatsCallHandler and ServiceStatsFactory are used.
+	 * @param <T> the server interface.
+	 * @param impl the implementation of T.
+	 * @param name name for this instance.
+	 * @param category category of this instance.
+	 * @param subsystem subsystem of this instance.
+	 * @param interf class of T, main interface of the service.
+	 * @param additionalInterfaces additional helper interfaces, that should be supported as well.
+	 * @return a newly created proxy of type T.
+	 */
+	public static <T> T createServiceInstance(T impl, String name, String category, String subsystem, Class<T> interf, Class<?>... additionalInterfaces){
+		return createServiceInstance(impl,
+				name,
+				category,
+				subsystem,
+				false,
+				interf,
+				additionalInterfaces);
+	}
+
 	
  	/**
  	 * Shortcut method to create service instance. Creates an instance with service interface name as instance name, custom category and subsystem, ServiceStatsCallHandler and ServiceStatsFactory.
