@@ -24,6 +24,9 @@ import org.configureme.annotations.ConfigureMe;
 import org.configureme.annotations.DontConfigure;
 
 import java.io.Serializable;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * This class contains complete moskito configuration at runtime. It is configured with ConfigureMe, but can be altered
@@ -325,6 +328,12 @@ public class MoskitoConfiguration implements Serializable{
     		createIntervals();
 		}
     	return configuredIntervals.clone();
+	}
+
+	public List<String> getConfiguredIntervalNames(){
+    	if (intervals==null || intervals.length==0)
+    		return Collections.EMPTY_LIST;
+    	return Arrays.asList(intervals);
 	}
 }
 
