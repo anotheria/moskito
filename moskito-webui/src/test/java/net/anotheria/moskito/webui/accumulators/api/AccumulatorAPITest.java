@@ -4,8 +4,9 @@ import net.anotheria.anoplass.api.APIException;
 import net.anotheria.anoplass.api.APIFinder;
 import net.anotheria.moskito.core.accumulation.AccumulatorRepository;
 import net.anotheria.moskito.core.config.MoskitoConfigurationHolder;
-import net.anotheria.moskito.core.stats.DefaultIntervals;
+import net.anotheria.moskito.core.predefined.Constants;
 import net.anotheria.moskito.core.stats.TimeUnit;
+import net.anotheria.moskito.core.stats.impl.IntervalRegistry;
 import org.junit.BeforeClass;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -79,7 +80,7 @@ public class AccumulatorAPITest {
      */
     private AccumulatorDefinitionAO createAccumulator(final String name) throws APIException {
         final AccumulatorPO toCreate = new AccumulatorPO();
-        toCreate.setInterval(DefaultIntervals.FIVE_MINUTES.getName());
+        toCreate.setInterval(IntervalRegistry.getInstance().getInterval(Constants.INTERVAL_FIVE_MINUTES).getName());
         toCreate.setName(name);
         toCreate.setProducerId("Non-Existing");
         toCreate.setStatName("Foo");
