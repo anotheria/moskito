@@ -83,7 +83,13 @@ public class Constants {
 	 * Average time value.
 	 */
 	public static final long AVERAGE_TIME_DEFAULT = -1;
-	
+
+	/**
+	 * Returns currently configured intervals. Although this is not a constant anymore, since the intervals can be
+	 * configured since 2.9.1 we still leave this method here, because it is used at far too many locations.
+	 * However, the intervals are looked up in the configuration now.
+	 * @return currently configured intervals.
+	 */
 	public static final Interval[] getDefaultIntervals(){
 		return MoskitoConfigurationHolder.getConfiguration().getConfiguredIntervals();
 	}
