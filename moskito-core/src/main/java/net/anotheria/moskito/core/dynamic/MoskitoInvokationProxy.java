@@ -34,6 +34,8 @@
  */	
 package net.anotheria.moskito.core.dynamic;
 
+import net.anotheria.moskito.core.config.MoskitoConfiguration;
+import net.anotheria.moskito.core.config.MoskitoConfigurationHolder;
 import net.anotheria.moskito.core.producers.IStats;
 import net.anotheria.moskito.core.producers.IStatsProducer;
 import net.anotheria.moskito.core.registry.ProducerRegistryFactory;
@@ -103,6 +105,8 @@ public class MoskitoInvokationProxy<S extends IStats> implements InvocationHandl
 	 * Producer for the stats which is learning the methods on the fly.
 	 */
 	private OnDemandStatsProducer<S> producer;
+
+	private final MoskitoConfiguration configuration;
 	
 	/**
 	 * Creates a new MoskitoInvocationProxy with given implementation, handler and stats factory, and interfaces to monitor.
@@ -117,6 +121,9 @@ public class MoskitoInvokationProxy<S extends IStats> implements InvocationHandl
 	public MoskitoInvokationProxy(Object anImplementation, IOnDemandCallHandler aHandler, IOnDemandStatsFactory<S> factory, String producerId, String category, String subsystem, Class<?>... interfaces ){
 		if (interfaces.length==0)
 			throw new RuntimeException("No interfaces specified!");
+
+		configuration = MoskitoConfigurationHolder.getConfiguration();
+
 		implementation = anImplementation;
 		supportedInterfaces = interfaces;
 		
@@ -177,9 +184,13 @@ public class MoskitoInvokationProxy<S extends IStats> implements InvocationHandl
 	}
 	
   	@Override public Object invoke(Object aProxy, Method aMethod, Object[] args) throws Throwable {
+
   		Class<?> methodsClass = aMethod.getDeclaringClass();
   		for (Class<?> c : supportedInterfaces){
   			if (c.equals(methodsClass)){
+				//support for kill switch - https://github.com/anotheria/moskito/issues/223
+				if (configuration.getKillSwitch().disableMetricCollection())
+					return aMethod.invoke(implementation, args);
   				return handler.invoke(implementation, args, aMethod, c, declaredExceptions, producer.getDefaultStats(), producer.getStats(aMethod.getName()), producer);
   			}
   		}

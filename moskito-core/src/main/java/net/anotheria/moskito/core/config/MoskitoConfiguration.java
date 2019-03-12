@@ -57,6 +57,13 @@ public class MoskitoConfiguration implements Serializable{
 	};
 
 	/**
+	 * Always have a disabled kill switch configured.
+	 */
+	@Configure
+	@SerializedName("@killSwitch")
+	private KillSwitchConfiguration killSwitch = new KillSwitchConfiguration();
+
+	/**
 	 * This variable is filled after configuration with intervals configured via the intervals variable.
 	 */
 	@DontConfigure
@@ -334,6 +341,14 @@ public class MoskitoConfiguration implements Serializable{
     	if (intervals==null || intervals.length==0)
     		return Collections.EMPTY_LIST;
     	return Arrays.asList(intervals);
+	}
+
+	public KillSwitchConfiguration getKillSwitch() {
+		return killSwitch;
+	}
+
+	public void setKillSwitch(KillSwitchConfiguration killSwitch) {
+		this.killSwitch = killSwitch;
 	}
 }
 
