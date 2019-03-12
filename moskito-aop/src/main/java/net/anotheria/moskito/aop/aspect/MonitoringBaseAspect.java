@@ -15,6 +15,7 @@ import net.anotheria.moskito.core.tracer.Trace;
 import net.anotheria.moskito.core.tracer.TracerRepository;
 import net.anotheria.moskito.core.tracer.Tracers;
 import org.aspectj.lang.ProceedingJoinPoint;
+import org.aspectj.lang.reflect.MethodSignature;
 
 import java.lang.reflect.InvocationTargetException;
 
@@ -35,6 +36,9 @@ public class MonitoringBaseAspect extends AbstractMoskitoAspect<ServiceStats>{
 
     /*  */
     protected Object doProfiling(ProceedingJoinPoint pjp, String aProducerId, String aSubsystem, String aCategory) throws Throwable {
+
+    	if (((MethodSignature)pjp.getSignature()).getMethod().isSynthetic())
+			return pjp.proceed();
 
         OnDemandStatsProducer<ServiceStats> producer = getProducer(pjp, aProducerId, aCategory, aSubsystem, false, FACTORY, true);
         String producerId = producer.getProducerId();
