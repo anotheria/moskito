@@ -22,6 +22,12 @@ public class KillSwitchConfiguration {
 	@Configure
 	private boolean disableMetricCollection = false;
 
+	/**
+	 * If true tracing is disabled.
+	 */
+	@Configure
+	private boolean disableTracing = false;
+
 	public boolean isDisableMetricCollection() {
 		return disableMetricCollection;
 	}
@@ -32,5 +38,21 @@ public class KillSwitchConfiguration {
 
 	public boolean disableMetricCollection(){
 		return disableMetricCollection;
+	}
+
+	public boolean isDisableTracing() {
+		return disableTracing;
+	}
+
+	public void setDisableTracing(boolean disableTracing) {
+		this.disableTracing = disableTracing;
+	}
+
+	@Override
+	public String toString() {
+		return "KillSwitchConfiguration{" +
+				"disableMetricCollection=" + disableMetricCollection +
+				", disableTracing=" + disableTracing +
+				'}';
 	}
 }
