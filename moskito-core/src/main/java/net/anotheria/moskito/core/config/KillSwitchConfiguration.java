@@ -3,6 +3,8 @@ package net.anotheria.moskito.core.config;
 import org.configureme.annotations.Configure;
 import org.configureme.annotations.ConfigureMe;
 
+import java.io.Serializable;
+
 /**
  * This configuration provides possibilities to disable parts of MoSKito. Even if the authors of the framework
  * do not understand, why you would disable it, we decided to support it finally.
@@ -14,7 +16,13 @@ import org.configureme.annotations.ConfigureMe;
  * @since 2019-03-12 22:23
  */
 @ConfigureMe
-public class KillSwitchConfiguration {
+public class KillSwitchConfiguration implements Serializable {
+
+	/**
+	 * SerialVersionUID.
+	 */
+	private static final long serialVersionUID = 5671582449272126029L;
+
 	/**
 	 * If true no metrics will be collected, if supported by the collector.
 	 * Will be supported by AOP, CDI and Proxies in first turn.

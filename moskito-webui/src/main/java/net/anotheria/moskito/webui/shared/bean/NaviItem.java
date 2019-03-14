@@ -86,7 +86,11 @@ public enum NaviItem {
 	/**
 	 * Navi item for gauges.
 	 */
-	MORE_GAUGES("Gauges");
+	MORE_GAUGES("Gauges"),
+	/**
+	 * Navi item for kill switch.
+	 */
+	MORE_KILLSWITCH("Kill Switch");
 	
 	/**
 	 * Caption of the navi item.

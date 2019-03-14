@@ -5,6 +5,7 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 import net.anotheria.anoplass.api.APIException;
+import net.anotheria.moskito.core.config.KillSwitchConfiguration;
 import net.anotheria.moskito.core.config.MoskitoConfiguration;
 import net.anotheria.moskito.core.config.MoskitoConfigurationHolder;
 import net.anotheria.moskito.core.config.plugins.PluginConfig;
@@ -243,6 +244,15 @@ public class AdditionalFunctionalityAPIImpl extends AbstractMoskitoAPIImpl imple
 		}catch(Exception any){
 			throw new APIException("Couldn't retrieve class for exception "+catcherName+", type: catcherType", any);
 		}
+	}
+
+	@Override
+	public void setKillSwitchConfiguration(KillSwitchConfiguration killSwitchConfiguration) throws APIException {
+		if (killSwitchConfiguration == null)
+			return;
+
+		MoskitoConfiguration config = MoskitoConfigurationHolder.getConfiguration();
+		config.setKillSwitch(killSwitchConfiguration);
 	}
 
 	private CaughtErrorAO makeCaughtErrorAO(CaughtError error){
