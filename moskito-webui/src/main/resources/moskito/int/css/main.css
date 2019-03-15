@@ -2150,3 +2150,8 @@ Heat map
     font-weight: 600;
     margin-top: 10px;
 }
+
+.align-center-flex {
+    display: flex;
+    align-items: center;
+}
