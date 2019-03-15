@@ -30,6 +30,8 @@ public class SwitchKillSettingAction extends BaseAdditionalAction {
 
 		if ("disableMetricCollection".equals(name))
 			killSwitchConfiguration.setDisableMetricCollection(val);
+		else if ("disableTracing".equals(name))
+			killSwitchConfiguration.setDisableTracing(val);
 
 		getAdditionalFunctionalityAPI().setKillSwitchConfiguration(killSwitchConfiguration);
 

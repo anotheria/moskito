@@ -14,14 +14,22 @@
         </ano:notPresent>
 
         <ano:present name="killSwitchConfiguration">
-        <div class="box">
-            <div class="box-content paddner">
-                <dl class="dl-horizontal">
-                    <dt>Disable metric collection</dt>
-                    <dd><input type="checkbox" class="js-switch-color" data-switcher="disableMetricCollection" <ano:equal name="killSwitchConfiguration" property="disableMetricCollection" value="true">checked</ano:equal> /></dd>
-                </dl>
+            <div class="box">
+                <div class="box-content paddner">
+                    <dl class="dl-horizontal">
+                        <dt>Disable metric collection</dt>
+                        <dd><input type="checkbox" class="js-switch-color" data-switcher="disableMetricCollection" <ano:equal name="killSwitchConfiguration" property="disableMetricCollection" value="true">checked</ano:equal> /></dd>
+                    </dl>
+                </div>
             </div>
-        </div>
+            <div class="box">
+                <div class="box-content paddner">
+                    <dl class="dl-horizontal">
+                        <dt>Disable tracing</dt>
+                        <dd><input type="checkbox" class="js-switch-color" data-switcher="disableTracing" <ano:equal name="killSwitchConfiguration" property="disableTracing" value="true">checked</ano:equal> /></dd>
+                    </dl>
+                </div>
+            </div>
         </ano:present>
     </div>
 
