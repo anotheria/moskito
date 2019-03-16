@@ -32,8 +32,10 @@ import net.anotheria.moskito.webui.journey.action.ShowJourneyCallAction;
 import net.anotheria.moskito.webui.journey.action.ShowJourneysAction;
 import net.anotheria.moskito.webui.more.action.AdditionalSectionAction;
 import net.anotheria.moskito.webui.more.action.ShowConfigAction;
+import net.anotheria.moskito.webui.more.action.ShowKillSwitchAction;
 import net.anotheria.moskito.webui.more.action.ShowLibsAction;
 import net.anotheria.moskito.webui.more.action.ShowMBeansAction;
+import net.anotheria.moskito.webui.more.action.SwitchKillSettingAction;
 import net.anotheria.moskito.webui.more.action.UpdateAction;
 import net.anotheria.moskito.webui.plugins.action.RemovePluginAction;
 import net.anotheria.moskito.webui.plugins.action.ShowPluginsAction;
@@ -279,7 +281,12 @@ public class MoskitoMappingsConfigurator implements ActionMappingsConfigurator{
 		mappings.addMapping("mskPlugins", ShowPluginsAction.class,
 				new CommandForward("success", "/net/anotheria/moskito/webui/more/jsp/Plugins.jsp")
 		);
-
+		mappings.addMapping("mskKillSwitch", ShowKillSwitchAction.class,
+				new CommandForward("success", "/net/anotheria/moskito/webui/more/jsp/KillSwitch.jsp")
+		);
+		mappings.addMapping("mskSwitchKillSetting", SwitchKillSettingAction.class,
+				new CommandForward("success", "/net/anotheria/moskito/webui/more/jsp/KillSwitch.jsp")
+		);
 		mappings.addMapping("mskRemovePlugin", RemovePluginAction.class,
 				new CommandDeepLinkRedirect("redirect", "mskPlugins")
 		);
