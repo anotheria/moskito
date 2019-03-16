@@ -24,12 +24,10 @@ public class ShowKillSwitchAction extends BaseAdditionalAction{
 	@Override
 	public ActionCommand execute(ActionMapping mapping, FormBean formBean, HttpServletRequest req, HttpServletResponse res) throws Exception {
 
-		if (!APILookupUtility.isLocal()) {
-			MoskitoConfiguration config = getAdditionalFunctionalityAPI().getConfiguration();
-			KillSwitchConfiguration killSwitchConfiguration = config.getKillSwitch();
+		MoskitoConfiguration config = getAdditionalFunctionalityAPI().getConfiguration();
+		KillSwitchConfiguration killSwitchConfiguration = config.getKillSwitch();
 
-			req.setAttribute("killSwitchConfiguration", killSwitchConfiguration != null ? killSwitchConfiguration : new KillSwitchConfiguration());
-		}
+		req.setAttribute("killSwitchConfiguration", killSwitchConfiguration);
 		return mapping.success();
 	}
 
