@@ -5,6 +5,7 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 import net.anotheria.anoplass.api.APIException;
+import net.anotheria.anoplass.api.APIInitException;
 import net.anotheria.moskito.core.config.KillSwitchConfiguration;
 import net.anotheria.moskito.core.config.MoskitoConfiguration;
 import net.anotheria.moskito.core.config.MoskitoConfigurationHolder;
@@ -17,9 +18,12 @@ import net.anotheria.moskito.core.plugins.MoskitoPlugin;
 import net.anotheria.moskito.core.plugins.PluginRepository;
 import net.anotheria.moskito.core.stats.Interval;
 import net.anotheria.moskito.core.stats.impl.IntervalRegistry;
+import net.anotheria.moskito.core.threshold.ThresholdStatus;
 import net.anotheria.moskito.core.timing.IUpdateable;
 import net.anotheria.moskito.webui.journey.api.TagEntryAO;
 import net.anotheria.moskito.webui.plugins.VisualMoSKitoPlugin;
+import net.anotheria.moskito.webui.threshold.api.ThresholdAPI;
+import net.anotheria.moskito.webui.util.APILookupUtility;
 import net.anotheria.util.NumberUtils;
 import net.anotheria.util.sorter.DummySortType;
 import net.anotheria.util.sorter.SortType;
@@ -48,12 +52,23 @@ import java.util.Set;
 public class AdditionalFunctionalityAPIImpl extends AbstractMoskitoAPIImpl implements AdditionalFunctionalityAPI{
 
 	/**
+	 * Threshold API instance.
+	 */
+	private ThresholdAPI thresholdAPI;
+
+	/**
 	 * Sort type.
 	 */
 	private SortType dummySortType;
 
 	public AdditionalFunctionalityAPIImpl(){
 		dummySortType = new DummySortType();
+	}
+
+	@Override
+	public void init() throws APIInitException {
+		super.init();
+		thresholdAPI = APILookupUtility.getThresholdAPI();
 	}
 
 	@Override
@@ -253,6 +268,17 @@ public class AdditionalFunctionalityAPIImpl extends AbstractMoskitoAPIImpl imple
 
 		MoskitoConfiguration config = MoskitoConfigurationHolder.getConfiguration();
 		config.setKillSwitch(killSwitchConfiguration);
+	}
+
+	@Override
+	public SystemStatusAO getSystemStatus() throws APIException {
+		ThresholdStatus worstThreshold = thresholdAPI.getWorstStatus();
+		MoskitoConfiguration moskitoConfiguration = getConfiguration();
+
+		SystemStatusAO result = new SystemStatusAO();
+		result.setWorstThreshold(worstThreshold);
+		result.setKillSwitchConfiguration(moskitoConfiguration.getKillSwitch());
+		return result;
 	}
 
 	private CaughtErrorAO makeCaughtErrorAO(CaughtError error){

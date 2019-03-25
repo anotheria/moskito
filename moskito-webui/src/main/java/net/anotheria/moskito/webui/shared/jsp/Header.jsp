@@ -135,6 +135,15 @@
         </ul>
     </div>
      </div>
+
+    <ano:present name="killSwitchConfiguration">
+        <ano:equal name="killSwitchConfiguration" property="disableMetricCollection" value="true">
+            <div class="alert alert-success alert-dismissable">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                Metrics currently disabled
+            </div>
+        </ano:equal>
+    </ano:present>
 </header>
 
 <aside id="aside" class="scrollbar">

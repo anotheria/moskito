@@ -42,7 +42,6 @@ import net.anotheria.maf.action.ActionMapping;
 import net.anotheria.moskito.core.decorators.DecoratorRegistryFactory;
 import net.anotheria.moskito.core.decorators.IDecoratorRegistry;
 import net.anotheria.moskito.core.stats.TimeUnit;
-import net.anotheria.moskito.core.threshold.ThresholdStatus;
 import net.anotheria.moskito.webui.Features;
 import net.anotheria.moskito.webui.MoSKitoWebUIContext;
 import net.anotheria.moskito.webui.accumulators.api.AccumulatorAPI;
@@ -52,6 +51,7 @@ import net.anotheria.moskito.webui.journey.api.JourneyAPI;
 import net.anotheria.moskito.webui.producers.api.ProducerAPI;
 import net.anotheria.moskito.webui.shared.annotations.BetaAction;
 import net.anotheria.moskito.webui.shared.api.AdditionalFunctionalityAPI;
+import net.anotheria.moskito.webui.shared.api.SystemStatusAO;
 import net.anotheria.moskito.webui.shared.bean.LabelValueBean;
 import net.anotheria.moskito.webui.shared.bean.NaviItem;
 import net.anotheria.moskito.webui.shared.bean.UnitBean;
@@ -60,9 +60,9 @@ import net.anotheria.moskito.webui.threshold.api.ThresholdAPI;
 import net.anotheria.moskito.webui.tracers.api.TracerAPI;
 import net.anotheria.moskito.webui.util.APILookupUtility;
 import net.anotheria.moskito.webui.util.ConnectivityMode;
+import net.anotheria.moskito.webui.util.DeepLinkUtil;
 import net.anotheria.moskito.webui.util.RemoteInstance;
 import net.anotheria.moskito.webui.util.WebUIConfig;
-import net.anotheria.moskito.webui.util.DeepLinkUtil;
 import net.anotheria.util.NumberUtils;
 import net.anotheria.util.StringUtils;
 import org.slf4j.Logger;
@@ -498,10 +498,10 @@ public abstract class BaseMoskitoUIAction implements Action{
 		req.setAttribute("currentCategory", "");
 		req.setAttribute("currentSubsystem", "");
 
-		ThresholdStatus systemStatus = getThresholdAPI().getWorstStatus();
-		req.setAttribute("systemStatus", systemStatus);
-		req.setAttribute("systemStatusColor", systemStatus.toString().toLowerCase());
-
+		SystemStatusAO systemStatus = getAdditionalFunctionalityAPI().getSystemStatus();
+		req.setAttribute("systemStatus", systemStatus.getWorstThreshold());
+		req.setAttribute("systemStatusColor", systemStatus.getWorstThreshold().toString().toLowerCase());
+		req.setAttribute("killSwitchConfiguration", systemStatus.getKillSwitchConfiguration());
 
 		//check for autoreload.
 		String pReloadInterval = req.getParameter(PARAM_RELOAD_INTERVAL);

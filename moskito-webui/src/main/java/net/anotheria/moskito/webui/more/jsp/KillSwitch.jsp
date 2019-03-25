@@ -8,7 +8,7 @@
         <ano:notPresent name="killSwitchConfiguration">
             <div class="box">
                 <div class="box-content paddner">
-                    No connection to remote component.
+                    Remote version doesn't support killswitch yet.
                 </div>
             </div>
         </ano:notPresent>
