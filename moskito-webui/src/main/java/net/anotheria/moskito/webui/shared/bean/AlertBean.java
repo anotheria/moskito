@@ -11,6 +11,7 @@ public class AlertBean {
     private boolean animate;
     private boolean fullWidth;
     private boolean roundBorders;
+    private boolean dismissible;
 
     private AlertBean(AlertType type, String message) {
         this.type = type;
@@ -49,6 +50,14 @@ public class AlertBean {
         this.roundBorders = roundBorders;
     }
 
+    public boolean isDismissible() {
+        return dismissible;
+    }
+
+    public void setDismissible(boolean dismissible) {
+        this.dismissible = dismissible;
+    }
+
     /**
      * Creates default alert without animation, with square borders and full width.
      */
@@ -57,6 +66,15 @@ public class AlertBean {
         result.setAnimate(false);
         result.setFullWidth(true);
         result.setRoundBorders(false);
+        return result;
+    }
+
+    /**
+     * Creates default alert as in {@link #create(AlertType, String)} with dismiss functionality.
+     */
+    public static AlertBean createDismissible(AlertType type, String message) {
+        final AlertBean result = create(type, message);
+        result.setDismissible(true);
         return result;
     }
 

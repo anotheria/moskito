@@ -6,11 +6,13 @@
 
 <ano:iterate id="alertBean" name="alertBeans" type="net.anotheria.moskito.webui.shared.bean.AlertBean">
     <div class="alert ${alertBean.type.cssStyle}
-                ${alertBean.animate ? '' : 'alert-noanimation'}
-                ${alertBean.fullWidth ? 'alert-full-width' : ''}
-                ${alertBean.roundBorders ? '' : 'alert-nobradius'}
-                alert-dismissable" role="alert">
-        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                ${alertBean.animate ? '' : ' alert-noanimation'}
+                ${alertBean.fullWidth ? ' alert-full-width' : ''}
+                ${alertBean.roundBorders ? '' : ' alert-nobradius'}
+                ${alertBean.dismissible ? ' alert-dismissible' : ''}" role="alert">
+        <ano:iF test="${alertBean.dismissible}">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+        </ano:iF>
             ${alertBean.message}
     </div>
 </ano:iterate>
