@@ -7,6 +7,8 @@
 <jsp:include page="../../shared/jsp/Header.jsp" flush="false"/>
 
 <section id="main">
+    <jsp:include page="../../shared/jsp/Alerts.jsp"/>
+
 <%--
 Commented out for now. We may add this later as welcome message (to all layers).
 <div class="alert alert-success alert-dismissable">

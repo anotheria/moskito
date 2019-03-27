@@ -35,10 +35,12 @@
 package net.anotheria.moskito.webui.shared.action;
 
 import net.anotheria.anoplass.api.APICallContext;
+import net.anotheria.anoplass.api.APIException;
 import net.anotheria.anoplass.api.session.APISession;
 import net.anotheria.maf.action.AbortExecutionException;
 import net.anotheria.maf.action.Action;
 import net.anotheria.maf.action.ActionMapping;
+import net.anotheria.moskito.core.config.KillSwitchConfiguration;
 import net.anotheria.moskito.core.decorators.DecoratorRegistryFactory;
 import net.anotheria.moskito.core.decorators.IDecoratorRegistry;
 import net.anotheria.moskito.core.stats.TimeUnit;
@@ -52,6 +54,9 @@ import net.anotheria.moskito.webui.journey.api.JourneyAPI;
 import net.anotheria.moskito.webui.producers.api.ProducerAPI;
 import net.anotheria.moskito.webui.shared.annotations.BetaAction;
 import net.anotheria.moskito.webui.shared.api.AdditionalFunctionalityAPI;
+import net.anotheria.moskito.webui.shared.api.SystemStatusAO;
+import net.anotheria.moskito.webui.shared.bean.AlertBean;
+import net.anotheria.moskito.webui.shared.bean.AlertType;
 import net.anotheria.moskito.webui.shared.bean.LabelValueBean;
 import net.anotheria.moskito.webui.shared.bean.NaviItem;
 import net.anotheria.moskito.webui.shared.bean.UnitBean;
@@ -60,9 +65,9 @@ import net.anotheria.moskito.webui.threshold.api.ThresholdAPI;
 import net.anotheria.moskito.webui.tracers.api.TracerAPI;
 import net.anotheria.moskito.webui.util.APILookupUtility;
 import net.anotheria.moskito.webui.util.ConnectivityMode;
+import net.anotheria.moskito.webui.util.DeepLinkUtil;
 import net.anotheria.moskito.webui.util.RemoteInstance;
 import net.anotheria.moskito.webui.util.WebUIConfig;
-import net.anotheria.moskito.webui.util.DeepLinkUtil;
 import net.anotheria.util.NumberUtils;
 import net.anotheria.util.StringUtils;
 import org.slf4j.Logger;
@@ -72,6 +77,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.LinkedList;
@@ -235,12 +241,12 @@ public abstract class BaseMoskitoUIAction implements Action{
 			' ', '\r','\n','\t','\'','"','<','>'
 	};
 
-
-
 	/**
 	 * ProducerId for moskito.
 	 */
 	private String myProducerId;
+
+	private List<AlertBean> alertBeans = new ArrayList<>();
 
 	static{
 		decoratorRegistry = DecoratorRegistryFactory.getDecoratorRegistry();
@@ -451,6 +457,7 @@ public abstract class BaseMoskitoUIAction implements Action{
 
 	@Override
 	public void preProcess(ActionMapping mapping, HttpServletRequest req, HttpServletResponse res) throws Exception {
+		alertBeans.clear();
 
 		if(!WebUIConfig.getInstance().isBetaMode() && isBetaAction()){
 			res.sendError(403, "This action available only in beta mode.");
@@ -498,10 +505,7 @@ public abstract class BaseMoskitoUIAction implements Action{
 		req.setAttribute("currentCategory", "");
 		req.setAttribute("currentSubsystem", "");
 
-		ThresholdStatus systemStatus = getThresholdAPI().getWorstStatus();
-		req.setAttribute("systemStatus", systemStatus);
-		req.setAttribute("systemStatusColor", systemStatus.toString().toLowerCase());
-
+		setSystemStatusAttributes(req);
 
 		//check for autoreload.
 		String pReloadInterval = req.getParameter(PARAM_RELOAD_INTERVAL);
@@ -543,11 +547,22 @@ public abstract class BaseMoskitoUIAction implements Action{
 			req.setAttribute("newAccumulatorAdded", "true");
 			req.setAttribute("newAccumulatorName", req.getParameter("newAccumulator"));
 		}
-
-
-
 	}
 
+	private void setSystemStatusAttributes(HttpServletRequest req) throws APIException {
+		SystemStatusAO systemStatus = getAdditionalFunctionalityAPI().getSystemStatus();
+		ThresholdStatus worstThreshold = systemStatus.getWorstThreshold();
+		KillSwitchConfiguration killSwitchConfiguration = systemStatus.getKillSwitchConfiguration();
+
+		req.setAttribute("systemStatus", worstThreshold);
+		req.setAttribute("systemStatusColor", worstThreshold.toString().toLowerCase());
+		req.setAttribute("killSwitchConfiguration", killSwitchConfiguration);
+
+		// notify user that metrics are disabled
+		if (killSwitchConfiguration != null && killSwitchConfiguration.isDisableMetricCollection()) {
+			addAlert(AlertBean.create(AlertType.DANGER, "Metrics currently disabled"));
+		}
+	}
 
 
 	@Override
@@ -556,6 +571,7 @@ public abstract class BaseMoskitoUIAction implements Action{
 		String timestampAsDate = NumberUtils.makeISO8601TimestampString(timestamp);
 		req.setAttribute("timestamp", timestamp);
 		req.setAttribute("timestampAsDate", timestampAsDate);
+		req.setAttribute("alertBeans", alertBeans);
 	}
 
 	/**
@@ -740,4 +756,7 @@ public abstract class BaseMoskitoUIAction implements Action{
 		setInfoMessage(previousMessage+message);
 	}
 
+	protected void addAlert(AlertBean bean) {
+		this.alertBeans.add(bean);
+	}
 }

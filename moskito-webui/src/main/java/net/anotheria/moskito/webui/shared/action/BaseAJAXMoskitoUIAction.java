@@ -6,7 +6,6 @@ import net.anotheria.maf.action.ActionCommand;
 import net.anotheria.maf.action.ActionMapping;
 import net.anotheria.maf.bean.FormBean;
 import net.anotheria.maf.json.JSONResponse;
-import org.json.JSONException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -79,12 +78,10 @@ public abstract class BaseAJAXMoskitoUIAction implements Action {
 	 * 		- response
 	 * @param jsonResponse
 	 * 		- JSON Response
-	 * @throws AbortExecutionException
-	 * @throws JSONException
-	 * @throws IOException
+	 * @throws Exception on errors
 	 */
 	protected void invokeExecute(final ActionMapping mapping, final FormBean bean, final HttpServletRequest req, final HttpServletResponse res, final JSONResponse jsonResponse)
-			throws AbortExecutionException, IOException, JSONException {
+			throws Exception {
 
 	}
 

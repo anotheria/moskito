@@ -1,14 +1,11 @@
 package net.anotheria.moskito.webui.shared.action;
 
-import net.anotheria.maf.action.AbortExecutionException;
 import net.anotheria.maf.action.ActionMapping;
 import net.anotheria.maf.bean.FormBean;
 import net.anotheria.maf.json.JSONResponse;
-import org.json.JSONException;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 
 /**
  * Save nav menu state action.
@@ -28,7 +25,7 @@ public class SaveNavMenuStateAction extends BaseAJAXMoskitoUIAction {
 	public static final String ATTR_IS_NAV_MENU_COLLAPSED = "isNavMenuCollapsed";
 
 	@Override
-	protected void invokeExecute(ActionMapping mapping, FormBean bean, HttpServletRequest req, HttpServletResponse res, JSONResponse jsonResponse) throws AbortExecutionException, IOException, JSONException {
+	protected void invokeExecute(ActionMapping mapping, FormBean bean, HttpServletRequest req, HttpServletResponse res, JSONResponse jsonResponse) throws Exception {
 		final String navMenuCollapseStateParam = req.getParameter(PARAM_IS_NAV_MENU_COLLAPSED);
 
 		req.getSession().setAttribute(ATTR_IS_NAV_MENU_COLLAPSED, Boolean.valueOf(navMenuCollapseStateParam));

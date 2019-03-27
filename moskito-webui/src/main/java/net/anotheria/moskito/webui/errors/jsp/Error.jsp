@@ -7,6 +7,8 @@
     This page displays the stack traces of a single error.
 --%>
 <section id="main">
+    <jsp:include page="../../shared/jsp/Alerts.jsp"/>
+
     <div class="content">
 
         <div class="box">

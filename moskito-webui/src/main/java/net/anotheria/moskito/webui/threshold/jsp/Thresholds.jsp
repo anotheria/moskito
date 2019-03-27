@@ -6,6 +6,8 @@
 <jsp:include page="../../shared/jsp/Header.jsp" flush="false"/>
 
 <section id="main">
+    <jsp:include page="../../shared/jsp/Alerts.jsp"/>
+
     <ano:equal name="newThresholdAdded" value="true">
         <div class="alert alert-success alert-dismissable">
             <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
