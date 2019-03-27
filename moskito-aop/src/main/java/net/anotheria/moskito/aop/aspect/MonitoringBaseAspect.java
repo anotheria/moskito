@@ -44,9 +44,11 @@ public class MonitoringBaseAspect extends AbstractMoskitoAspect<ServiceStats>{
     /*  */
     protected Object doProfiling(ProceedingJoinPoint pjp, String aProducerId, String aSubsystem, String aCategory) throws Throwable {
 
+    	//check if kill switch is active, return if so.
     	if (moskitoConfiguration.getKillSwitch().disableMetricCollection())
 			return pjp.proceed();
 
+    	//check if this a synthetic method like a switch or lambda method.
     	if (((MethodSignature)pjp.getSignature()).getMethod().isSynthetic())
 			return pjp.proceed();
 
