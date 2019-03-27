@@ -70,8 +70,8 @@
                 $(el).data('switchery', switchery);
             });
 
-            var stateMachine = (function () {
-                var transitions = {
+            var StateHolder = (function () {
+                var values = {
                     enabled: {
                         metricCollection: 'Enable metric collection',
                         tracing: 'Enable tracing'
@@ -82,13 +82,13 @@
                     }
                 };
 
-                var nextState = function (transitionName, currentState) {
+                var nextStateValue = function (transitionName, currentState) {
                     var currentStateStr = currentState ? 'enabled' : 'disabled';
-                    return transitions[currentStateStr][transitionName];
+                    return values[currentStateStr][transitionName];
                 };
 
                 return {
-                    nextState: nextState
+                    nextStateValue: nextStateValue
                 };
             })();
 
@@ -102,10 +102,12 @@
                     value: $this.prop('checked')
                 };
 
-                var nextStateValue = stateMachine.nextState(data.name, data.value);
+                var nextStateValue = StateHolder.nextStateValue(data.name, data.value);
                 $this.parent().next().text(nextStateValue);
 
-                $('.alert.alert-danger').hide();
+                if (data.name === 'metricCollection') {
+                    $('.alert.alert-danger').hide();
+                }
 
                 $.get("mskSwitchKillSetting", data).always(function () {
                     $this.data('switchery').enable();
