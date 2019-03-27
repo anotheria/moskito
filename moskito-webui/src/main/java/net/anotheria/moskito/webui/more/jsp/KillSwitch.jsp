@@ -16,38 +16,104 @@
         </ano:notPresent>
 
         <ano:present name="killSwitchConfiguration">
+
+            <ano:define id="killSwitchConfiguration"
+                        name="killSwitchConfiguration"
+                        type="net.anotheria.moskito.core.config.KillSwitchConfiguration"/>
+
             <div class="box">
                 <div class="box-content paddner align-center-flex">
-                    <div><input type="checkbox" class="js-switch-color" data-switcher="disableMetricCollection" <ano:equal name="killSwitchConfiguration" property="disableMetricCollection" value="true">checked</ano:equal> /></div>
-                    <span class="tag-box">Disable metric collection</span>
+                    <div>
+                        <input type="checkbox" class="js-switch-color"
+                               data-switcher="metricCollection"
+                            ${killSwitchConfiguration.disableMetricCollection ? 'checked' : ''}/>
+                    </div>
+
+                    <ano:iF test="${killSwitchConfiguration.disableMetricCollection}">
+                        <span class="tag-box">Enable metric collection</span>
+                    </ano:iF>
+
+                    <ano:iF test="${not killSwitchConfiguration.disableMetricCollection}">
+                        <span class="tag-box">Disable metric collection</span>
+                    </ano:iF>
                 </div>
             </div>
+
             <div class="box">
                 <div class="box-content paddner align-center-flex">
-                    <div><input type="checkbox" class="js-switch-color" data-switcher="disableTracing" <ano:equal name="killSwitchConfiguration" property="disableTracing" value="true">checked</ano:equal> /></div>
-                    <span class="tag-box">Disable tracing</span>
+                    <div>
+                        <input type="checkbox" class="js-switch-color"
+                               data-switcher="tracing"
+                            ${killSwitchConfiguration.disableTracing ? 'checked' : ''}/>
+                    </div>
+
+                    <ano:iF test="${killSwitchConfiguration.disableTracing}">
+                        <span class="tag-box">Enable tracing</span>
+                    </ano:iF>
+
+                    <ano:iF test="${not killSwitchConfiguration.disableTracing}">
+                        <span class="tag-box">Disable tracing</span>
+                    </ano:iF>
                 </div>
             </div>
         </ano:present>
     </div>
 
-    <jsp:include page="../../shared/jsp/Footer.jsp" flush="false"/>
+    <jsp:include page="../../shared/jsp/Footer.jsp"/>
 
     <script>
-        var elems = Array.prototype.slice.call(document.querySelectorAll('.js-switch-color'));
-        elems.forEach(function(html) {
-            var switchery = new Switchery(html, { color: '#64bd63', secondaryColor: '#ff6a00'});
-            html.onchange = function() {
-                $.ajax({url: "mskSwitchKillSetting?name=" + this.getAttribute('data-switcher') + "&value=" + this.checked,
-                    dataType: "json",
-                    success: function (data) {
-                        console.log("Switched " + this.getAttribute('data-switcher') + ": " + this.checked);
+        $(function () {
+            var $switchEl = $('.js-switch-color');
+
+            $switchEl.each(function (idx, el) {
+                var switchery = new Switchery(el, {color: '#ff6a00', secondaryColor: '#64bd63'});
+                $(el).data('switchery', switchery);
+            });
+
+            var StateHolder = (function () {
+                var values = {
+                    enabled: {
+                        metricCollection: 'Enable metric collection',
+                        tracing: 'Enable tracing'
+                    },
+                    disabled: {
+                        metricCollection: 'Disable metric collection',
+                        tracing: 'Disable tracing'
                     }
+                };
+
+                var nextStateValue = function (transitionName, currentState) {
+                    var currentStateStr = currentState ? 'enabled' : 'disabled';
+                    return values[currentStateStr][transitionName];
+                };
+
+                return {
+                    nextStateValue: nextStateValue
+                };
+            })();
+
+            $switchEl.change(function () {
+                var $this = $(this);
+
+                $this.data('switchery').disable();
+
+                var data = {
+                    name: $this.data('switcher'),
+                    value: $this.prop('checked')
+                };
+
+                var nextStateValue = StateHolder.nextStateValue(data.name, data.value);
+                $this.parent().next().text(nextStateValue);
+
+                if (data.name === 'metricCollection') {
+                    $('.alert.alert-danger').hide();
+                }
+
+                $.get("mskSwitchKillSetting", data).always(function () {
+                    $this.data('switchery').enable();
                 });
-            };
+            });
         });
-
-
     </script>
 
 </section>
