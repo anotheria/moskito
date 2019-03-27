@@ -8,6 +8,8 @@
     This page displays the traces of a single tracer.
 --%>
 <section id="main">
+    <jsp:include page="../../shared/jsp/Alerts.jsp"/>
+
     <div class="content">
 
         <div class="box">

@@ -87,4 +87,12 @@ public interface AdditionalFunctionalityAPI extends API, Service{
 	 * @throws APIException
 	 */
 	void setKillSwitchConfiguration(KillSwitchConfiguration killSwitchConfiguration) throws APIException;
+
+	/**
+	 * Returns system status.
+	 *
+	 * @return {@link SystemStatusAO}
+	 * @throws APIException on errors
+	 */
+	SystemStatusAO getSystemStatus() throws APIException;
 }

@@ -7,6 +7,8 @@
 <jsp:include page="../../shared/jsp/Header.jsp" flush="false"/>
 
 <section id="main">
+    <jsp:include page="../../shared/jsp/Alerts.jsp"/>
+
     <div class="content">
 
         <div class="box">

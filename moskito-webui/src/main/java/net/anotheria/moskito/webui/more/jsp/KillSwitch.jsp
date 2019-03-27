@@ -4,11 +4,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <jsp:include page="../../shared/jsp/Header.jsp" flush="false"/>
 <section id="main">
+    <jsp:include page="../../shared/jsp/Alerts.jsp"/>
+
     <div class="content">
         <ano:notPresent name="killSwitchConfiguration">
             <div class="box">
                 <div class="box-content paddner">
-                    No connection to remote component.
+                    Remote version doesn't support killswitch yet.
                 </div>
             </div>
         </ano:notPresent>
