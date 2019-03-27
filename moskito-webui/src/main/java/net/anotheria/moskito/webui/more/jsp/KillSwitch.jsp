@@ -30,11 +30,11 @@
                     </div>
 
                     <ano:iF test="${killSwitchConfiguration.disableMetricCollection}">
-                        <span class="tag-box">Enable metric collection</span>
+                        <span class="tag-box">Metric collection disabled. Toggle to enable.</span>
                     </ano:iF>
 
                     <ano:iF test="${not killSwitchConfiguration.disableMetricCollection}">
-                        <span class="tag-box">Disable metric collection</span>
+                        <span class="tag-box">Metric collection enabled. Toggle to disable.</span>
                     </ano:iF>
                 </div>
             </div>
@@ -48,11 +48,11 @@
                     </div>
 
                     <ano:iF test="${killSwitchConfiguration.disableTracing}">
-                        <span class="tag-box">Enable tracing</span>
+                        <span class="tag-box">Tracing disabled. Toggle to enable.</span>
                     </ano:iF>
 
                     <ano:iF test="${not killSwitchConfiguration.disableTracing}">
-                        <span class="tag-box">Disable tracing</span>
+                        <span class="tag-box">Tracing enabled. Toggle to disable.</span>
                     </ano:iF>
                 </div>
             </div>
@@ -73,12 +73,12 @@
             var StateHolder = (function () {
                 var values = {
                     enabled: {
-                        metricCollection: 'Enable metric collection',
-                        tracing: 'Enable tracing'
+                        metricCollection: 'Metric collection disabled. Toggle to enable.',
+                        tracing: 'Tracing disabled. Toggle to enable.'
                     },
                     disabled: {
-                        metricCollection: 'Disable metric collection',
-                        tracing: 'Disable tracing'
+                        metricCollection: 'Metric collection enabled. Toggle to disable.',
+                        tracing: 'Tracing enabled. Toggle to disable.'
                     }
                 };
 
