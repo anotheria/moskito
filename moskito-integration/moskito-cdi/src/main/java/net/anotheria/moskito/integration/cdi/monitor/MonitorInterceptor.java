@@ -15,8 +15,8 @@ import net.anotheria.moskito.core.predefined.ServiceStatsFactory;
 import net.anotheria.moskito.core.tracer.Trace;
 import net.anotheria.moskito.core.tracer.TracerRepository;
 import net.anotheria.moskito.core.tracer.Tracers;
-import net.anotheria.moskito.core.util.annotation.AnnotationUtils;
 import net.anotheria.moskito.integration.cdi.AbstractInterceptor;
+import net.anotheria.moskito.integration.cdi.StatName;
 
 import javax.interceptor.AroundInvoke;
 import javax.interceptor.AroundTimeout;
@@ -72,7 +72,7 @@ public class MonitorInterceptor extends AbstractInterceptor<ServiceStats> implem
             return proceed(ctx);
         }
 
-        String methodName = AnnotationUtils.getMethodStatName(method);
+        String methodName = getMethodName(method);
         final ServiceStats defaultStats = getDefaultStats(onDemandProducer);
         final ServiceStats methodStats = getStats(onDemandProducer, methodName);
 
@@ -195,5 +195,16 @@ public class MonitorInterceptor extends AbstractInterceptor<ServiceStats> implem
                 tracerRepository.addTracedExecution(producerId, trace);
             }
         }
+    }
+
+    /**
+     * Returns name for monitored method.
+     *
+     * @param method the monitored {@link Method}
+     * @return the method name or custom name provided via {@link StatName} annotation
+     */
+    private String getMethodName(Method method) {
+        StatName statName = method.getAnnotation(StatName.class);
+        return statName == null ? method.getName() : statName.value();
     }
 }
