@@ -4,6 +4,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/html">
 <jsp:include page="../../shared/jsp/Header.jsp"/>
 <section id="main">
+    <jsp:include page="../../shared/jsp/Alerts.jsp"/>
+
     <div class="content">
         <ano:present name="analyzedJourney">
             <ano:iterate name="analyzedJourney" property="calls" type="net.anotheria.moskito.webui.journey.api.AnalyzedProducerCallsMapAO" id="call" indexId="index">

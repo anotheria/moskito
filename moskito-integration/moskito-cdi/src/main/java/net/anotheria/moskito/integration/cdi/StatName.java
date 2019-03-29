@@ -1,4 +1,4 @@
-package net.anotheria.moskito.core.annotations;
+package net.anotheria.moskito.integration.cdi;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

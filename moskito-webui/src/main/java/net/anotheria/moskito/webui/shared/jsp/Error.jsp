@@ -5,6 +5,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <jsp:include page="Header.jsp"/>
 <section id="main">
+    <jsp:include page="../../shared/jsp/Alerts.jsp"/>
+
     <div class="content">
 
         <div class="container text-left error_page_details_content display_none_property" style="padding-bottom: 30px; display: block;">

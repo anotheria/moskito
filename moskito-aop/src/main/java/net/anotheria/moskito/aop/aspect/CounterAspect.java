@@ -21,19 +21,40 @@ public class CounterAspect extends AbstractMoskitoAspect<CounterStats> {
 
 	private static final CounterStatsFactory FACTORY = new CounterStatsFactory();
 
-	@Around(value = "execution(* *(..)) && (@annotation(method))")
-    public Object countMethod(ProceedingJoinPoint pjp, Count method) throws Throwable {
-    	return count(pjp, method.producerId(), method.subsystem(), method.category());
+	/**
+	 * Pointcut definition for @Count annotation at method level.
+	 * @param pjp ProceedingJoinPoint.
+	 * @param annotation @Count annotation.
+	 * @return
+	 * @throws Throwable
+	 */
+	@Around(value = "execution(* *(..)) && (@annotation(annotation))")
+    public Object countMethod(ProceedingJoinPoint pjp, Count annotation) throws Throwable {
+    	return count(pjp, annotation.producerId(), annotation.subsystem(), annotation.category());
     }
 
-	@Around(value = "execution(* *(..)) && (@annotation(method))")
-	public Object countByParameter(ProceedingJoinPoint pjp, CountByParameter method) throws Throwable {
-		return countByParameter(pjp, method.producerId(), method.subsystem(), method.category());
+	/**
+	 * Pointcut definition for @CountByParameter annotation.
+	 * @param pjp ProceedingJoinPoint.
+	 * @param annotation @CountByParameter annotation.
+	 * @return
+	 * @throws Throwable
+	 */
+	@Around(value = "execution(* *(..)) && (@annotation(annotation))")
+	public Object countByParameter(ProceedingJoinPoint pjp, CountByParameter annotation) throws Throwable {
+		return countByParameter(pjp, annotation.producerId(), annotation.subsystem(), annotation.category());
 	}
 
-	@Around(value = "execution(* *.*(..)) && (@within(clazz))")
-    public Object countClass(ProceedingJoinPoint pjp, Count clazz) throws Throwable {
-    	return count(pjp, clazz.producerId(), clazz.subsystem(), clazz.category());
+	/**
+	 * Pointcut definition for @Count annotation at class level.
+	 * @param pjp ProceedingJoinPoint.
+	 * @param annotation @Count annotation.
+	 * @return
+	 * @throws Throwable
+	 */
+	@Around(value = "execution(* *.*(..)) && (@within(annotation))")
+    public Object countClass(ProceedingJoinPoint pjp, Count annotation) throws Throwable {
+    	return count(pjp, annotation.producerId(), annotation.subsystem(), annotation.category());
     }
 
 	private Object countByParameter(ProceedingJoinPoint pjp, String aProducerId, String aSubsystem, String aCategory) throws Throwable {
@@ -46,12 +67,36 @@ public class CounterAspect extends AbstractMoskitoAspect<CounterStats> {
 		if (args!=null && args[0]!=null)
 			caseName = args[0].toString();
 
+		return perform(true, caseName, pjp, aProducerId, aCategory, aSubsystem);
+	}
+
+
+	/**
+	 * Implementation for the @Count pointcut.
+	 * @param pjp ProceedingJoinPoint.
+	 * @param aProducerId producerId from annotation.
+	 * @param aSubsystem subsystem configured by annotation-
+	 * @param aCategory category configured by annotation.
+	 * @return
+	 * @throws Throwable
+	 */
+	private Object count(ProceedingJoinPoint pjp, String aProducerId, String aSubsystem, String aCategory) throws Throwable {
+		return perform(false,
+				getMethodStatName(pjp.getSignature()),
+				pjp,
+				aProducerId,
+				aCategory,
+				aSubsystem);
+				
+	}
+
+    private Object perform(boolean withMethod, String caseName, ProceedingJoinPoint pjp, String aProducerId, String aCategory, String aSubsystem) throws Throwable{
+		OnDemandStatsProducer<CounterStats> producer = getProducer(pjp, aProducerId, aCategory, aSubsystem, withMethod, FACTORY, false);
 
 		CounterStats defaultStats = producer.getDefaultStats();
 		CounterStats methodStats = null;
-		if (caseName!=null){
+		if (caseName != null)
 			methodStats = producer.getStats(caseName);
-		}
 
 		defaultStats.inc();
 		if (methodStats != null) {
@@ -63,26 +108,6 @@ public class CounterAspect extends AbstractMoskitoAspect<CounterStats> {
 		} catch (InvocationTargetException e) {
 			throw e.getCause();
 		}
+
 	}
-
-
-	private Object count(ProceedingJoinPoint pjp, String aProducerId, String aSubsystem, String aCategory) throws Throwable {
-
-		OnDemandStatsProducer<CounterStats> producer = getProducer(pjp, aProducerId, aCategory, aSubsystem, false, FACTORY, false);
-
-		String methodName = getMethodStatName(pjp.getSignature());
-    	CounterStats defaultStats = producer.getDefaultStats();
-		CounterStats methodStats = producer.getStats(methodName);
-
-        defaultStats.inc();
-        if (methodStats != null) {
-            methodStats.inc();
-        }
-
-        try {
-            return pjp.proceed();
-        } catch (InvocationTargetException e) {
-            throw e.getCause();
-        }
-    }
 }
