@@ -1815,7 +1815,7 @@ Heat map
 }
 
 .footer-info {
-    margin-top: 8px;
+    margin-bottom: 8px;
 }
 
 #olark-box-wrapper {
@@ -2172,4 +2172,23 @@ Heat map
 
 .alert.alert-nobradius {
     border-radius: 0 !important;
+}
+
+.donate-btn {
+    background: #ffc439;
+    color: #000000;
+    text-transform: none;
+    font-size: 16px;
+    height: 48px;
+    border-radius: 5px;
+    border: none;
+    display: flex;
+    align-items: center;
+    margin-right: 10px;
+}
+
+.donate-btn:hover {
+    background: #ffc439;
+    color: #000000;
+    opacity: 0.8;
 }
