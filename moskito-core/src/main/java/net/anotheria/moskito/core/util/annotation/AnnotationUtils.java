@@ -3,12 +3,9 @@ package net.anotheria.moskito.core.util.annotation;
 import java.lang.annotation.Annotation;
 import java.lang.annotation.ElementType;
 import java.lang.reflect.AnnotatedElement;
-import java.lang.reflect.Method;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
-
-import net.anotheria.moskito.core.annotations.StatName;
 
 /**
  * Class contains utility methods with annotations
@@ -145,18 +142,5 @@ public final class AnnotationUtils {
 			return findTypeAnnotation(superClass, targetAnnotationClass);
 		return null;
 	}
-
-    /**
-     * Returns name for monitored method.
-     *
-     * @param method
-     *         method to monitor
-     * @return method name
-     */
-    public static String getMethodStatName(Method method) {
-        StatName statName = method.getAnnotation(StatName.class);
-        return statName == null ? method.getName() : statName.value();
-    }
 }
-
 

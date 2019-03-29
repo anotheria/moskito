@@ -2,11 +2,11 @@ package net.anotheria.moskito.aop.aspect;
 
 import net.anotheria.moskito.aop.annotation.Accumulate;
 import net.anotheria.moskito.aop.annotation.Accumulates;
+import net.anotheria.moskito.aop.annotation.StatName;
 import net.anotheria.moskito.aop.annotation.withsubclasses.AccumulateWithSubClasses;
 import net.anotheria.moskito.aop.annotation.withsubclasses.AccumulatesWithSubClasses;
 import net.anotheria.moskito.aop.aspect.support.AccumulatorUtil;
 import net.anotheria.moskito.aop.util.MoskitoUtils;
-import net.anotheria.moskito.core.annotations.StatName;
 import net.anotheria.moskito.core.dynamic.IOnDemandStatsFactory;
 import net.anotheria.moskito.core.dynamic.OnDemandStatsProducer;
 import net.anotheria.moskito.core.logging.DefaultStatsLogger;
@@ -141,7 +141,9 @@ public class AbstractMoskitoAspect<S extends IStats> {
 		}
 
 		if (signature instanceof MethodSignature) {
-			return AnnotationUtils.getMethodStatName(((MethodSignature) signature).getMethod());
+			Method method = ((MethodSignature) signature).getMethod();
+			StatName statName = method.getAnnotation(StatName.class);
+			return statName == null ? method.getName() : statName.value();
 		}
 
 		return signature.getName();
