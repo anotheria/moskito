@@ -1,11 +1,9 @@
 package net.anotheria.moskito.core.predefined;
 
 import net.anotheria.moskito.core.producers.AbstractStats;
-import net.anotheria.moskito.core.stats.IIntervalListener;
 import net.anotheria.moskito.core.stats.Interval;
 import net.anotheria.moskito.core.stats.StatValue;
 import net.anotheria.moskito.core.stats.TimeUnit;
-import net.anotheria.moskito.core.stats.impl.IntervalRegistry;
 import net.anotheria.moskito.core.stats.impl.StatValueFactory;
 
 import java.util.Arrays;
@@ -16,7 +14,7 @@ import java.util.List;
  * Stats for (read) caches.
  * @author lrosenberg
  */
-public class ErrorStats extends AbstractStats implements IIntervalListener {
+public class ErrorStats extends AbstractStats{
 	/**
 	 * Number of errors that were initial in their thread (first).
 	 */
@@ -88,8 +86,6 @@ public class ErrorStats extends AbstractStats implements IIntervalListener {
 		maxRethrown = StatValueFactory.createStatValue(pattern, "maxRethrown", selectedIntervals);
 
 		addStatValues(initial, total, rethrown, maxInitial, maxTotal, maxRethrown);
-		IntervalRegistry.getInstance().getInterval("1m").addSecondaryIntervalListener(this);
-
 	}
 	
 	@Override
@@ -130,13 +126,17 @@ public class ErrorStats extends AbstractStats implements IIntervalListener {
 
 	public void addError(boolean isInitialError){
 		total.increase();
+		maxTotal.setValueIfGreaterThanCurrentAsLong(total.getValueAsLong());
+
 		if (isInitialError) {
 			initial.increase();
+			maxInitial.setValueIfGreaterThanCurrentAsLong(initial.getValueAsLong());
 		}
 	}
 
 	public void addRethrown(){
 		rethrown.increase();
+		maxRethrown.setValueIfGreaterThanCurrentAsLong(rethrown.getValueAsLong());
 	}
 
 	public int getInitial(){
@@ -191,21 +191,4 @@ public class ErrorStats extends AbstractStats implements IIntervalListener {
 		return toStatsString();
 	}
 
-	@Override
-	public void intervalUpdated(Interval callerInterval) {
-		int initialValueForLastInterval = initial.getValueAsInt(callerInterval.getName());
-		if (initialValueForLastInterval>maxInitial.getValueAsInt())
-			maxInitial.setValueAsInt(initialValueForLastInterval);
-
-
-		int totalValueForLastInterval = total.getValueAsInt(callerInterval.getName());
-		if (totalValueForLastInterval>maxTotal.getValueAsInt()) {
-			maxTotal.setValueAsInt(totalValueForLastInterval);
-		}
-
-		int rethrownValueForLastInterval = rethrown.getValueAsInt(callerInterval.getName());
-		if (rethrownValueForLastInterval>maxRethrown.getValueAsInt()) {
-			maxRethrown.setValueAsInt(rethrownValueForLastInterval);
-		}
-	}
 }

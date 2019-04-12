@@ -201,6 +201,7 @@ public class BuiltInErrorProducerTest {
 		assertEquals(3, BuiltInErrorProducer.getInstance().testingGetCumulatedStats().getTotal());
 
 		assertEquals(3, BuiltInErrorProducer.getInstance().testingGetCumulatedStats().getMaxTotal());
+		assertEquals(3, BuiltInErrorProducer.getInstance().testingGetCumulatedStats().getMaxTotal("1m"));
 
 		//force interval update
 		((IUpdateable) IntervalRegistry.getInstance().getInterval("1m")).update();
@@ -208,14 +209,16 @@ public class BuiltInErrorProducerTest {
 		//this should not change (3) because there were no errors sofar.
 		assertEquals(3, BuiltInErrorProducer.getInstance().testingGetCumulatedStats().getMaxTotal());
 
+		//force interval update
+		((IUpdateable) IntervalRegistry.getInstance().getInterval("1m")).update();
+		((IUpdateable) IntervalRegistry.getInstance().getInterval("default")).update();
+
 		//now create 100 more errors
 		for (int i=0; i<100; i++){
 			BuiltInErrorProducer.getInstance().notifyError(new IllegalArgumentException());
 		}
 		//force interval update
 		((IUpdateable) IntervalRegistry.getInstance().getInterval("1m")).update();
-		assertEquals(100, BuiltInErrorProducer.getInstance().testingGetCumulatedStats().getTotal("1m"));
-		assertEquals(100, BuiltInErrorProducer.getInstance().testingGetCumulatedStats().getMaxTotal());
 
 	}
 
