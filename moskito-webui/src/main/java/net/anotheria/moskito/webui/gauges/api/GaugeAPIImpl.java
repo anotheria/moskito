@@ -18,6 +18,7 @@ import net.anotheria.moskito.core.registry.IProducerRegistryAPI;
 import net.anotheria.moskito.core.registry.NoSuchProducerException;
 import net.anotheria.moskito.core.registry.ProducerRegistryAPIFactory;
 import net.anotheria.moskito.core.stats.TimeUnit;
+import net.anotheria.moskito.core.stats.UnknownIntervalException;
 import net.anotheria.moskito.webui.shared.api.AbstractMoskitoAPIImpl;
 
 import java.util.ArrayList;
@@ -169,31 +170,36 @@ public class GaugeAPIImpl extends AbstractMoskitoAPIImpl implements GaugeAPI {
 			return new StringValueAO(null, "no producer");
 		for (IStats s : producer.getStats()){
 			if (s.getName().equals(config.getStatName())){
-				String value = s.getValueByNameAsString(config.getValueName(), config.getIntervalName(), TimeUnit.valueOf(config.getTimeUnit()));				
-
-				if ("NaN".equals(value) || value == null) {
-					//Obviously producer exists, but there are no values in THIS interval. Probably it is something like AVG (because NaN can't come from legal values).
-					//lets check if we have a previous value we can re-use.
-					StatValueAO previousValue = getPreviousValue(config);
-					if (previousValue!=null)
-						return previousValue;
-					return new StringValueAO(null, "n.A.");
-				}
-
-				StatValueAO numericValue = null;
 				try {
-					numericValue =  new LongValueAO(null, Long.valueOf(value));
-				} catch (NumberFormatException e) {
-					try {
-						numericValue = new DoubleValueAO(null, Double.valueOf(value));
-					} catch (NumberFormatException e2) {
-						log.error("Can't parse long/double value, probably invalid value for gauge " + config);
-						return new StringValueAO(null, "Error");
-					}
-				}
+					String value = s.getValueByNameAsString(config.getValueName(), config.getIntervalName(), TimeUnit.valueOf(config.getTimeUnit()));
 
-				saveValueForLater(config, numericValue);
-				return numericValue;
+					if ("NaN".equals(value) || value == null) {
+						//Obviously producer exists, but there are no values in THIS interval. Probably it is something like AVG (because NaN can't come from legal values).
+						//lets check if we have a previous value we can re-use.
+						StatValueAO previousValue = getPreviousValue(config);
+						if (previousValue != null)
+							return previousValue;
+						return new StringValueAO(null, "n.A.");
+					}
+
+					StatValueAO numericValue = null;
+					try {
+						numericValue = new LongValueAO(null, Long.valueOf(value));
+					} catch (NumberFormatException e) {
+						try {
+							numericValue = new DoubleValueAO(null, Double.valueOf(value));
+						} catch (NumberFormatException e2) {
+							log.error("Can't parse long/double value, probably invalid value for gauge " + config);
+							return new StringValueAO(null, "Error");
+						}
+					}
+
+					saveValueForLater(config, numericValue);
+					return numericValue;
+				}catch(UnknownIntervalException e){
+					//if this is the case we programmed something which isn't possible, since the interval wasn't configured.
+					return new StringValueAO(null, "NOINTERVAL");
+				}
 			}
 		}
 		return new StringValueAO(null, "n.A.");
