@@ -15,7 +15,7 @@
         <ano:iF test="${displayIphoneIcons}">
             <div class="col-md-4">
                 <a href="https://itunes.apple.com/us/app/moskito-ui/id531387262?mt=8" class="iphone-banner"><img src="../moskito/int/img/iphone_banner.png" alt="Download MoSKito iOS App"></a>
-                <a href="#" class="btn donate-btn pull-right">Donate</a>
+                <%-- <a href="#" class="btn donate-btn pull-right">Donate</a> --%>
             </div>
         </ano:iF>
     </div>
