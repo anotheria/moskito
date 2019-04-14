@@ -158,6 +158,21 @@ public final class IntervalRegistry {
 	}
 
 	/**
+	 * Same as  getInterval(aName) except that it doesn't create an interval implicitely.
+	 * This method should be used, when you do not want an implicit creation, for example with tieables (thresholds, accumulators).
+	 * @param aName name of the interval.
+	 * @return interval if existing.
+	 * @throws UnknownIntervalException if no such interval exists.
+	 */
+	public Interval getIntervalOnlyIfExisting(String aName) {
+		Interval interval = intervalsByName.get(aName);
+		if (interval == null) {
+			throw new UnknownIntervalException(aName);
+		}
+		return interval;
+	}
+
+	/**
 	 * This method creates a new Interval with the given name and length.
 	 * 
 	 * @param aName the name of the new Interval
@@ -165,6 +180,10 @@ public final class IntervalRegistry {
 	 * @return the new Interval
 	 */
 	private Interval createInterval(String aName, int aLength) {
+		if (aName.equals("1m")){
+			System.out.println("CREATE INTERVAL 1M CALLED ");
+			new RuntimeException().fillInStackTrace().printStackTrace();
+		}
 		IntervalImpl interval = new IntervalImpl(obtainNextUniqueId(), aName, aLength);
 		
 		if (aLength!=-1)

@@ -5,6 +5,8 @@ import net.anotheria.moskito.core.producers.IStatsProducer;
 import net.anotheria.moskito.core.registry.IProducerRegistry;
 import net.anotheria.moskito.core.registry.IProducerRegistryListener;
 import net.anotheria.moskito.core.registry.ProducerRegistryFactory;
+import net.anotheria.moskito.core.stats.Interval;
+import net.anotheria.moskito.core.stats.UnknownIntervalException;
 import net.anotheria.moskito.core.stats.impl.IntervalRegistry;
 import net.anotheria.moskito.core.timing.IUpdateable;
 import net.anotheria.moskito.core.timing.UpdateTriggerServiceFactory;
@@ -78,17 +80,28 @@ public abstract class TieableRepository<T extends Tieable, S extends IStats> imp
 		}
 	}
 
+	/**
+	 * Returns interval listener for the specified interval. If there already was a listener, it will be returned, otherwise a new one will be created.
+	 * However, if there have been no such interval, the interval listener will be substituted for a dummy object and no further action will be taken.
+	 * @param intervalName
+	 * @return
+	 */
 	private IntervalListener getListener(String intervalName){
 		IntervalListener listener = listeners.get(intervalName);
 		if (listener!=null)
 			return listener;
-		
-		listener = new IntervalListener();
-		IntervalListener old = listeners.putIfAbsent(intervalName, listener);
-		if (old!=null)
-			return old;
-		IntervalRegistry.getInstance().getInterval(intervalName).addSecondaryIntervalListener(listener);
-		return listener;
+
+		try {
+			Interval interval = IntervalRegistry.getInstance().getIntervalOnlyIfExisting(intervalName);
+			listener = new IntervalListener();
+			IntervalListener old = listeners.putIfAbsent(intervalName, listener);
+			if (old!=null)
+				return old;
+			interval.addSecondaryIntervalListener(listener);
+			return listener;
+		}catch(UnknownIntervalException e){
+			return NoIntervalListener.INSTANCE;
+		}
 	}
 	
 	@Override

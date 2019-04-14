@@ -33,9 +33,8 @@ public class AutoTieWrapper implements IntervalUpdateable{
 		if (tieable.isActivated()){
 			return;
 		}
-		
-		for (IStats s : producer.getStats()){
-			if (s.getName().equals(tieable.getTargetStatName())){
+		for (IStats s : producer.getStats()) {
+			if (s.getName().equals(tieable.getTargetStatName())) {
 				tieable.tieToStats(s);
 				tieable.update();
 				return;

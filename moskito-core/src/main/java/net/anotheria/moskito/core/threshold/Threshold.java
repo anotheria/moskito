@@ -4,6 +4,7 @@ import net.anotheria.moskito.core.config.thresholds.ThresholdConfig;
 import net.anotheria.moskito.core.helper.AbstractTieable;
 import net.anotheria.moskito.core.helper.Tieable;
 import net.anotheria.moskito.core.producers.IStats;
+import net.anotheria.moskito.core.stats.UnknownIntervalException;
 import net.anotheria.moskito.core.threshold.alerts.AlertDispatcher;
 import net.anotheria.moskito.core.threshold.alerts.ThresholdAlert;
 import net.anotheria.moskito.core.threshold.guard.GuardedDirection;
@@ -148,7 +149,13 @@ public class Threshold extends AbstractTieable<ThresholdDefinition> implements T
 		}
 		
 		String previousValue = lastValue;
-		lastValue = stats.getValueByNameAsString(getDefinition().getValueName(), getDefinition().getIntervalName(), getDefinition().getTimeUnit());
+		try {
+			lastValue = stats.getValueByNameAsString(getDefinition().getValueName(), getDefinition().getIntervalName(), getDefinition().getTimeUnit());
+		}catch(UnknownIntervalException e){
+			//if we are here the threshold is configured for missing interval.
+			log.warn("Can't get stat value for "+getDefinition().getValueName()+" because interval "+getDefinition().getIntervalName()+" is not configured");
+			return;
+		}
 		
 		ThresholdStatus futureStatus = status == ThresholdStatus.OFF ? ThresholdStatus.OFF : ThresholdStatus.GREEN;
 		for (ThresholdConditionGuard guard : guards){
