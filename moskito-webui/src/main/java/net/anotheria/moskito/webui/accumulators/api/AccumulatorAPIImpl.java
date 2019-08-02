@@ -108,7 +108,8 @@ public class AccumulatorAPIImpl extends AbstractMoskitoAPIImpl implements Accumu
 		List<GuardConfig> guardConfigs = new ArrayList<>();
 		for (Threshold threshold : ThresholdRepository.getInstance().getThresholds()) {
 			ThresholdDefinition thresholdDefinition = threshold.getDefinition();
-			if (thresholdDefinition.getProducerName().equalsIgnoreCase(accumulatorDefinition.getProducerName()) &&
+			if (    !thresholdDefinition.isCustom() &&
+					thresholdDefinition.getProducerName().equalsIgnoreCase(accumulatorDefinition.getProducerName()) &&
 					thresholdDefinition.getStatName().equalsIgnoreCase(accumulatorDefinition.getStatName()) &&
 					thresholdDefinition.getValueName().equalsIgnoreCase(accumulatorDefinition.getValueName())) {    //If accumulator with given id has an corresponding threshold.
 
