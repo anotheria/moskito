@@ -180,10 +180,12 @@ public final class IntervalRegistry {
 	 * @return the new Interval
 	 */
 	private Interval createInterval(String aName, int aLength) {
+		/*
 		if (aName.equals("1m")){
 			System.out.println("CREATE INTERVAL 1M CALLED ");
 			new RuntimeException().fillInStackTrace().printStackTrace();
 		}
+		*/
 		IntervalImpl interval = new IntervalImpl(obtainNextUniqueId(), aName, aLength);
 		
 		if (aLength!=-1)
