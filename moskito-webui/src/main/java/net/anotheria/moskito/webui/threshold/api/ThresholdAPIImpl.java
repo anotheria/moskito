@@ -226,6 +226,7 @@ public class ThresholdAPIImpl extends AbstractMoskitoAPIImpl implements Threshol
 			statusAO.setStatusForSorting(t.getStatus());
 			statusAO.setId(t.getId());
 			statusAO.setFlipCount(t.getFlipCount());
+			statusAO.setCustom(t.isCustom());
 
 
 			ret.add(statusAO);

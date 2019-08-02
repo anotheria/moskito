@@ -198,6 +198,15 @@ public abstract class TieableRepository<T extends Tieable, S extends IStats> imp
 
     }
 
+	/**
+	 * Used to add custom tieables.
+	 * @param tieable
+	 */
+	protected void addTieable(T tieable){
+    	tieables.put(tieable.getName(), tieable);
+		id2nameMapping.put(tieable.getId(), tieable.getName());
+	}
+
     public void removeTieable(TieableDefinition def){
         removeTieable(def.getName());
     }

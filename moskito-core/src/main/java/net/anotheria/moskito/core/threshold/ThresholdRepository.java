@@ -64,12 +64,6 @@ public class ThresholdRepository<S extends IStats> extends TieableRepository<Thr
 
 	protected boolean tie(Threshold threshold, IStatsProducer<? extends IStats> producer){
 
-		if (producer instanceof CustomThresholdProvider){
-			//tie to producer instead of stats.
-			threshold.tieToProducer((CustomThresholdProvider)producer);
-			return true;
-		}
-
 		ThresholdDefinition definition = threshold.getDefinition();
 		IStats target = null;
 		for (IStats s : producer.getStats()){
@@ -141,6 +135,36 @@ public class ThresholdRepository<S extends IStats> extends TieableRepository<Thr
 		}
 
     	return ret;
+
+	}
+
+	public Threshold createCustomThreshold(String name, CustomThresholdProvider provider, OnDemandStatsProducer<S> producer){
+		if (name==null)
+			throw new IllegalArgumentException("CustomThreshold name can not be null");
+		ThresholdDefinition definition = new ThresholdDefinition();
+		definition.setName(name);
+		definition.setIntervalName("1m");
+		definition.setCustom(true);
+		definition.setProducerName(producer.getProducerId());
+		
+		Threshold threshold = new Threshold(definition);
+		threshold.tieToProvider(provider);
+
+		addTieable(threshold);
+		attachToListener(threshold);
+
+
+		try {
+			// Construct the ObjectName for the MBean we will register
+			String mBeanName = createName(name);
+			MBeanUtil.getInstance().registerMBean(threshold, mBeanName, true);
+		} catch (MalformedObjectNameException | NotCompliantMBeanException | MBeanRegistrationException e) {
+			log.warn("can't subscribe threshold to jmx", e);
+		} catch(AccessControlException e){
+			log.warn("can't create jmx bean due to access control problems", e);
+		}
+
+		return threshold;
 
 	}
 

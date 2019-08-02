@@ -56,5 +56,7 @@ public abstract class AbstractTieable<D extends TieableDefinition> implements Ti
 		return id;
 	}
 
-
+	public boolean isCustom() {
+		return getDefinition().isCustom();
+	}
 }
