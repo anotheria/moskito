@@ -16,6 +16,8 @@ import net.anotheria.moskito.core.predefined.AbstractStatsFactory;
 import net.anotheria.moskito.core.producers.IStats;
 import net.anotheria.moskito.core.registry.ProducerRegistryFactory;
 import net.anotheria.moskito.core.stats.Interval;
+import net.anotheria.moskito.core.threshold.CustomThresholdProvider;
+import net.anotheria.moskito.core.threshold.ThresholdRepository;
 import net.anotheria.moskito.core.util.annotation.AnnotationUtils;
 import net.anotheria.util.StringUtils;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -25,6 +27,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.lang.reflect.Method;
+import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
@@ -123,6 +126,15 @@ public class AbstractMoskitoAspect<S extends IStats> {
 			createMethodLevelAccumulators(producer, method);
 		if (attachDefaultStatsLoggers)
 			attachLoggers(producer, factory);
+
+		Class<?>[] intrfaces = producerClass.getInterfaces();
+		for (Class<?> intrface : intrfaces){
+			if (intrface.getName().equals(CustomThresholdProvider.class.getName())){
+				setupCustomThresholds((CustomThresholdProvider)pjp.getTarget(), producer);
+			}
+		}
+
+
 
 		return producer;
 
@@ -311,6 +323,17 @@ public class AbstractMoskitoAspect<S extends IStats> {
 	 */
 	public void reset() {
 		producers.clear();
+	}
+
+
+	private void setupCustomThresholds(CustomThresholdProvider customThresholdProvider, OnDemandStatsProducer<S> producer){
+		List<String> thresholdNames = customThresholdProvider.getCustomThresholdNames();
+		ThresholdRepository repository = ThresholdRepository.getInstance();
+		for (String name :thresholdNames){
+			repository.createCustomThreshold(name, customThresholdProvider, producer);
+
+		}
+
 	}
 
 }
