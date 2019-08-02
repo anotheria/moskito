@@ -69,6 +69,8 @@ public class ThresholdStatusBean  {
 	 */
 	private String dashboardsToAdd;
 
+	private boolean custom;
+
 	public ThresholdStatusBean(ThresholdStatusAO thresholdStatusAO, String dashboardsToAdd) {
 		this.name = thresholdStatusAO.getName();
 		this.status = thresholdStatusAO.getStatus();
@@ -83,6 +85,7 @@ public class ThresholdStatusBean  {
 		this.id = thresholdStatusAO.getId();
 		this.flipCount = thresholdStatusAO.getFlipCount();
 		this.dashboardsToAdd = dashboardsToAdd;
+		this.custom = thresholdStatusAO.getCustom();
 	}
 
 	public String getName() {
@@ -206,6 +209,14 @@ public class ThresholdStatusBean  {
 				", flipCount=" + flipCount +
 				", dashboardsToAdd='" + dashboardsToAdd + '\'' +
 				'}';
+	}
+
+	public boolean isCustom() {
+		return custom;
+	}
+
+	public void setCustom(boolean custom) {
+		this.custom = custom;
 	}
 }
 

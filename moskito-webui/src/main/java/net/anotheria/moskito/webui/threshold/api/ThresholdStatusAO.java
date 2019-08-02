@@ -85,7 +85,8 @@ public class ThresholdStatusAO implements IComparable, Serializable{
 
 	@XmlElement
 	private long flipCount;
-	
+	private boolean custom;
+
 	public String getValue() {
 		return value;
 	}
@@ -197,5 +198,13 @@ public class ThresholdStatusAO implements IComparable, Serializable{
 
 	public void setPreviousStatus(String previousStatus) {
 		this.previousStatus = previousStatus;
+	}
+
+	public void setCustom(boolean custom) {
+		this.custom = custom;
+	}
+
+	public boolean getCustom() {
+		return custom;
 	}
 }

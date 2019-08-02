@@ -43,7 +43,12 @@
                     <tbody>
                     <ano:iterate name="thresholds" type="net.anotheria.moskito.webui.threshold.bean.ThresholdStatusBean" id="threshold" indexId="index">
                     <tr>
-                        <td><a class="threshold-update-link" data-id="${threshold.id}" href="#">${threshold.name}</a></td>
+                        <ano:equal name="threshold" property="custom" value="false">
+                            <td><a class="threshold-update-link" data-id="${threshold.id}" href="#">${threshold.name}</a></td>
+                        </ano:equal>
+                        <ano:equal name="threshold" property="custom" value="true">
+                            <td>${threshold.name}</td>
+                        </ano:equal>
                         <td><i class="status status-${threshold.colorCode}"></i></td>
                         <td>${threshold.value}</td>
                         <td><i class="status status-${threshold.previousColorCode}"></i> <i class="fa fa-long-arrow-right"></i> <i class="status status-${threshold.colorCode}"></i></td>
@@ -52,7 +57,9 @@
                         <td>${threshold.description}</td>
                         <td class="actions-links">
                             <a href="#mskThresholdDelete" data-toggle="modal" data-target="#mskThresholdDelete" data-id="${threshold.id}" class="action-icon delete-icon tooltip-bottom" title="Delete ${threshold.name}"><i class="fa fa-ban"></i></a>
-                            <a href="#" class="action-icon edit-icon tooltip-bottom threshold-update-link" data-id="${threshold.id}" title="Edit ${threshold.name}"><i class="fa fa-pencil"></i></a>
+                            <ano:equal name="threshold" property="custom" value="false">
+                                <a href="#" class="action-icon edit-icon tooltip-bottom threshold-update-link" data-id="${threshold.id}" title="Edit ${threshold.name}"><i class="fa fa-pencil"></i></a>
+                            </ano:equal>
                             <ano:iF test="${threshold.dashboardsToAdd != ''}">
                                 <a onclick="addTresholds('${threshold.name}', '${threshold.dashboardsToAdd}');" href="#" class="action-icon edit-icon tooltip-bottom" title="Add ${threshold.name} to dashboard"><i class="fa fa-cog"></i></a>
                             </ano:iF>
