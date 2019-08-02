@@ -41,6 +41,11 @@ public class TieableDefinition implements Serializable{
 	 */
 	private TimeUnit timeUnit = TimeUnit.MILLISECONDS;
 
+	/**
+	 * If true this definition is custom and won't be parsed (for example custom thresholds).
+	 */
+	private boolean custom;
+
 
 	/**
 	 * Human readable description for the ui.
@@ -101,6 +106,8 @@ public class TieableDefinition implements Serializable{
 	}
 	
 	public String describe(){
+		if (custom)
+			return "Custom provided by "+getProducerName();
 		return getProducerName()+ '.' +getStatName()+ '.' +getValueName()+ '/' +getIntervalName()+ '/' +getTimeUnit();
 	}
 
@@ -112,5 +119,11 @@ public class TieableDefinition implements Serializable{
 		this.description = description;
 	}
 
+	public boolean isCustom() {
+		return custom;
+	}
 
+	public void setCustom(boolean custom) {
+		this.custom = custom;
+	}
 }
