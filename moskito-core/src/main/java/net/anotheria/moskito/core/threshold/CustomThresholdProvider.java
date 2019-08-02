@@ -1,5 +1,7 @@
 package net.anotheria.moskito.core.threshold;
 
+import java.util.List;
+
 /**
  * If a producer is a CustomThresholdProvider it will be asked for its threshold status instead of the actual stats by the threshold.
  *
@@ -7,15 +9,7 @@ package net.anotheria.moskito.core.threshold;
  * @since 26.02.18 18:04
  */
 public interface CustomThresholdProvider {
-	/**
-	 * Returns threshold status.
-	 * @return current status.
-	 */
-	ThresholdStatus getStatus();
+	List<String> getCustomThresholdNames();
 
-	/**
-	 * Returns current threshold value.
-	 * @return current value.
-	 */
-	String getCurrentValue();
+	CustomThresholdStatus getCustomThresholdStatus(String thresholdName);
 }
