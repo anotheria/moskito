@@ -6,7 +6,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Count all accesses to the target. The difference between this aop and the @Count aop is that it can
+ * Count all accesses to the target. The difference between this annotation and the @Count annotation is that it can
  * only be applied on methods and uses the first parameter to the method as stat name.
  *
  * @author lrosenberg
