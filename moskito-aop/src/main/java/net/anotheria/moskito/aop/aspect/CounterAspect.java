@@ -2,6 +2,7 @@ package net.anotheria.moskito.aop.aspect;
 
 import net.anotheria.moskito.aop.annotation.Count;
 import net.anotheria.moskito.aop.annotation.CountByParameter;
+import net.anotheria.moskito.aop.annotation.CountByReturnValue;
 import net.anotheria.moskito.core.counter.CounterStats;
 import net.anotheria.moskito.core.counter.CounterStatsFactory;
 import net.anotheria.moskito.core.dynamic.OnDemandStatsProducer;
@@ -46,6 +47,18 @@ public class CounterAspect extends AbstractMoskitoAspect<CounterStats> {
 	}
 
 	/**
+	 * Pointcut definition for @CountByReturnValue annotation.
+	 * @param pjp ProceedingJoinPoint.
+	 * @param annotation @CountByParameter annotation.
+	 * @return
+	 * @throws Throwable
+	 */
+	@Around(value = "execution(* *(..)) && (@annotation(annotation))")
+	public Object countByReturnValue(ProceedingJoinPoint pjp, CountByReturnValue annotation) throws Throwable {
+		return countByReturnValue(pjp, annotation.producerId(), annotation.subsystem(), annotation.category());
+	}
+
+	/**
 	 * Pointcut definition for @Count annotation at class level.
 	 * @param pjp ProceedingJoinPoint.
 	 * @param annotation @Count annotation.
@@ -68,6 +81,50 @@ public class CounterAspect extends AbstractMoskitoAspect<CounterStats> {
 			caseName = args[0].toString();
 
 		return perform(true, caseName, pjp, aProducerId, aCategory, aSubsystem);
+	}
+
+	/**
+	 * This method is similar to the inner-life of perform, but since we calculate after call, the work is reversed.
+	 * @param pjp
+	 * @param aProducerId
+	 * @param aSubsystem
+	 * @param aCategory
+	 * @return
+	 * @throws Throwable
+	 */
+	private Object countByReturnValue(ProceedingJoinPoint pjp, String aProducerId, String aSubsystem, String aCategory) throws Throwable {
+
+		OnDemandStatsProducer<CounterStats> producer = getProducer(pjp, aProducerId, aCategory, aSubsystem, true, FACTORY, false);
+
+		String statName = null;
+
+		try {
+			Object returnValue = pjp.proceed();
+			try{
+				statName = returnValue == null ? "null" : returnValue.toString();
+			}catch(Exception any){
+				statName = "exception in return value";
+			}
+			return returnValue;
+		} catch (Throwable e) {
+			try{
+				statName = e.getClass().getSimpleName()+": "+e.getMessage();
+			}catch(Exception any){
+				statName = "unreadable exception";
+			}
+			throw e;
+		}finally {
+			CounterStats defaultStats = producer.getDefaultStats();
+			CounterStats methodStats = null;
+			if (statName != null)
+				methodStats = producer.getStats(statName);
+
+			defaultStats.inc();
+			if (methodStats != null) {
+				methodStats.inc();
+			}
+
+		}
 	}
 
 
