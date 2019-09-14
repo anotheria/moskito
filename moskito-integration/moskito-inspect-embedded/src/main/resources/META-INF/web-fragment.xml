@@ -4,7 +4,19 @@
               xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-fragment_3_0.xsd">
     <name>MoSKitoInspect</name>
     <!--  Adding filter to moskito ui which redirects requests to /mui/* to moskito user interface -->
-    <filter>
+	<filter>
+		<filter-name>APIFilter</filter-name>
+		<filter-class>net.anotheria.anoplass.api.filter.APIFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>APIFilter</filter-name>
+		<url-pattern>/moskito-inspect/*</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>APIFilter</filter-name>
+		<url-pattern>/moskito-inspect/</url-pattern>
+	</filter-mapping>
+	<filter>
         <filter-name>MoskitoUIFilter</filter-name>
         <filter-class>net.anotheria.moskito.webui.MoskitoUIFilter</filter-class>
         <init-param>
