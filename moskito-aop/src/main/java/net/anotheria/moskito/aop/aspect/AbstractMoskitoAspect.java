@@ -113,6 +113,8 @@ public class AbstractMoskitoAspect<S extends IStats> {
 
 		producer = new OnDemandStatsProducer<>(producerId, getCategory(aCategory), getSubsystem(aSubsystem), factory);
 		producer.setTracingSupported(tracingSupported);
+		//all on aop demand producers support logging
+		producer.setLoggingSupported(true);
 		final OnDemandStatsProducer<S> p = producers.putIfAbsent(producerId, producer);
 		if (p != null)
 			return p;
