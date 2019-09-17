@@ -39,6 +39,8 @@ import net.anotheria.moskito.webui.more.action.SwitchKillSettingAction;
 import net.anotheria.moskito.webui.more.action.UpdateAction;
 import net.anotheria.moskito.webui.plugins.action.RemovePluginAction;
 import net.anotheria.moskito.webui.plugins.action.ShowPluginsAction;
+import net.anotheria.moskito.webui.producers.action.DisableProducerLoggingAction;
+import net.anotheria.moskito.webui.producers.action.EnableProducerLoggingAction;
 import net.anotheria.moskito.webui.producers.action.ShowAllProducersAction;
 import net.anotheria.moskito.webui.producers.action.ShowCumulatedProducersAction;
 import net.anotheria.moskito.webui.producers.action.ShowProducerAction;
@@ -148,6 +150,10 @@ public class MoskitoMappingsConfigurator implements ActionMappingsConfigurator{
 		mappings.addAlias("mskShowCumulatedProducers.csv", "mskShowCumulatedProducers");
 		mappings.addAlias("mskShowCumulatedProducers.xml", "mskShowCumulatedProducers");
 		mappings.addAlias("mskShowCumulatedProducers.json", "mskShowCumulatedProducers");
+
+
+		mappings.addMapping("mskEnableLogging", EnableProducerLoggingAction.class);
+		mappings.addMapping("mskDisableLogging", DisableProducerLoggingAction.class);
 
 
 		mappings.addMapping("mskShowExplanations", ShowExplanationsAction.class,
