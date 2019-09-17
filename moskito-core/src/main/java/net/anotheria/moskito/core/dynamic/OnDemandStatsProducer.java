@@ -39,6 +39,7 @@ import net.anotheria.moskito.core.inspection.CreationInfo;
 import net.anotheria.moskito.core.inspection.Inspectable;
 import net.anotheria.moskito.core.producers.IStats;
 import net.anotheria.moskito.core.producers.IStatsProducer;
+import net.anotheria.moskito.core.producers.LoggingAwareProducer;
 import net.anotheria.moskito.core.tracer.TracingAwareProducer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -55,7 +56,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
  *
  * @author lrosenberg
  */
-public class OnDemandStatsProducer<S extends IStats> implements IStatsProducer<S>, Inspectable, TracingAwareProducer, AutoTieAbleProducer {
+public class OnDemandStatsProducer<S extends IStats> implements IStatsProducer<S>, Inspectable, TracingAwareProducer, AutoTieAbleProducer, LoggingAwareProducer {
 
 	/**
 	 * Constant for cumulated (aggregated) stats name.
@@ -108,6 +109,16 @@ public class OnDemandStatsProducer<S extends IStats> implements IStatsProducer<S
 	 * If true tracing is supported by this producer. Default is false.
 	 */
 	private boolean tracingSupported = false;
+
+	/**
+	 * If true logging is supported by this producer.
+	 */
+	private boolean loggingSupported = false;
+
+	/**
+	 * If true logging is enabled. Only makes sense if it is also supported.
+	 */
+	private volatile boolean loggingEnabled = false;
 	
 	/**
 	 * Creates a new OnDemandStatsProducer instance.
@@ -213,5 +224,30 @@ public class OnDemandStatsProducer<S extends IStats> implements IStatsProducer<S
 	@Override
 	public boolean tracingSupported() {
 		return tracingSupported;
+	}
+
+	@Override
+	public boolean isLoggingEnabled() {
+		return loggingEnabled;
+	}
+
+	@Override
+	public boolean isLoggingSupported() {
+		return loggingSupported;
+	}
+
+	@Override
+	public void enableLogging() {
+		loggingEnabled = true;
+
+	}
+
+	@Override
+	public void disableLogging() {
+		loggingEnabled = false;
+	}
+
+	public void setLoggingSupported(boolean loggingSupported) {
+		this.loggingSupported = loggingSupported;
 	}
 }
