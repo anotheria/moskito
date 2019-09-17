@@ -122,4 +122,18 @@ public interface ProducerAPI extends API, Service {
 	 */
 	List<ValueResponseAO> getMultipleValues(List<ValueRequestPO> requests) throws APIException;
 
+	/**
+	 * Enables logging for a particular producer if the producer supports it.
+	 * @param producerId
+	 * @throws APIException
+	 */
+	void enableLogging(String producerId) throws APIException;
+
+	/**
+	 * Disables logging for a particular producer if the producer supports logging.
+	 * @param producerId
+	 * @throws APIException
+	 */
+	void disableLogging(String producerId) throws APIException;
+
 }

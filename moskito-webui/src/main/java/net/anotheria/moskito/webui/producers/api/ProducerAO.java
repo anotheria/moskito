@@ -72,6 +72,16 @@ public class ProducerAO implements Serializable, IComparable{
 
 	private boolean traced;
 
+	/**
+	 * If true logging is generally supported by this producer.
+	 */
+	private boolean loggingSupported;
+
+	/**
+	 * If true and loggingEnabled==true logging is currently enabled for this producer.
+	 */
+	private boolean loggingEnabled;
+
 	public ProducerAO(){
 		lines = new LinkedList<StatLineAO>();
 	}
@@ -220,4 +230,19 @@ public class ProducerAO implements Serializable, IComparable{
 		this.decoratorName = decoratorName;
 	}
 
+	public boolean isLoggingSupported() {
+		return loggingSupported;
+	}
+
+	public void setLoggingSupported(boolean loggingSupported) {
+		this.loggingSupported = loggingSupported;
+	}
+
+	public boolean isLoggingEnabled() {
+		return loggingEnabled;
+	}
+
+	public void setLoggingEnabled(boolean loggingEnabled) {
+		this.loggingEnabled = loggingEnabled;
+	}
 }

@@ -9,6 +9,7 @@ import net.anotheria.moskito.core.decorators.IDecoratorRegistry;
 import net.anotheria.moskito.core.inspection.Inspectable;
 import net.anotheria.moskito.core.producers.IStats;
 import net.anotheria.moskito.core.producers.IStatsProducer;
+import net.anotheria.moskito.core.producers.LoggingAwareProducer;
 import net.anotheria.moskito.core.registry.IProducerFilter;
 import net.anotheria.moskito.core.registry.IProducerRegistryAPI;
 import net.anotheria.moskito.core.registry.NoSuchProducerException;
@@ -166,6 +167,12 @@ public class ProducerAPIImpl extends AbstractMoskitoAPIImpl implements ProducerA
 			ao.setTraced(TracerRepository.getInstance().isTracingEnabledForProducer(p.getProducerId()));
 		}
 
+		//added support for logging
+		if (p instanceof LoggingAwareProducer){
+			ao.setLoggingSupported(((LoggingAwareProducer) p).isLoggingSupported());
+			ao.setLoggingEnabled(((LoggingAwareProducer) p).isLoggingEnabled());
+		}
+
 		IStats firstStats = p.getStats().get(0);
 		ao.setStatsClazzName(firstStats.getClass().getName());
 
@@ -309,5 +316,32 @@ public class ProducerAPIImpl extends AbstractMoskitoAPIImpl implements ProducerA
 		}
 
 		return responses;
+	}
+
+	@Override
+	public void enableLogging(String producerId) throws APIException {
+		getLoggingAwareProducerAndPerformSanityChecks(producerId).enableLogging();
+	}
+
+	@Override
+	public void disableLogging(String producerId) throws APIException {
+		getLoggingAwareProducerAndPerformSanityChecks(producerId).disableLogging();
+
+	}
+
+	private LoggingAwareProducer getLoggingAwareProducerAndPerformSanityChecks(String producerId) throws APIException{
+		try{
+			IStatsProducer producer = producerRegistryAPI.getProducer(producerId);
+			if (!(producer instanceof LoggingAwareProducer)){
+				throw new APIException("Producer "+producerId+" doesn't support logging");
+			}
+			LoggingAwareProducer lp = (LoggingAwareProducer)producer;
+			if (!lp.isLoggingSupported()){
+				throw new APIException("Producer "+producerId+" doesn't support logging");
+			}
+			return lp;
+		}catch(NoSuchProducerException e){
+			throw new APIException("Producer "+producerId+" not found");
+		}
 	}
 }

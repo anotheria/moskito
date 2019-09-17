@@ -67,11 +67,21 @@
             <c:if test="${producer.traceable}">
                 <c:choose>
                 <c:when test="${producer.traced}">
-                    <mos:deepLink  href="mskTracer?pProducerId=${producer.producerId}" class="btn btn-success" onclick=""><i class="fa fa-binoculars"></i> Tracer</mos:deepLink>
+                    <mos:deepLink  href="mskTracer?pProducerId=${producer.producerId}" class="btn btn-success" onclick=""><i class="fa fa-plus"></i> Tracer</mos:deepLink>
                 </c:when>
                 <c:otherwise>
                     <mos:deepLink  href="mskCreateTracer?pProducerId=${producer.producerId}" class="btn btn-default" onclick=""><i class="fa fa-plus"></i> Tracer</mos:deepLink>
                 </c:otherwise>
+                </c:choose>
+            </c:if>
+            <c:if test="${producer.loggingSupported}">
+                <c:choose>
+                    <c:when test="${producer.loggingEnabled}">
+                        <mos:deepLink  href="mskDisableLogging?pProducerId=${producer.producerId}" class="btn btn-success" onclick=""><i class="fa fa-binoculars"></i> Logging</mos:deepLink>
+                    </c:when>
+                    <c:otherwise>
+                        <mos:deepLink  href="mskEnableLogging?pProducerId=${producer.producerId}" class="btn btn-default" onclick=""><i class="fa fa-plus"></i> Logging</mos:deepLink>
+                    </c:otherwise>
                 </c:choose>
             </c:if>
             <c:if test="${producer.inspectable}">
