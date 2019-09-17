@@ -759,4 +759,9 @@ public abstract class BaseMoskitoUIAction implements Action{
 	protected void addAlert(AlertBean bean) {
 		this.alertBeans.add(bean);
 	}
+
+	public String getProducerIdParameter(HttpServletRequest request){
+		String producerId = request.getParameter(PARAM_PRODUCER_ID);
+		return producerId;
+	}
 }
