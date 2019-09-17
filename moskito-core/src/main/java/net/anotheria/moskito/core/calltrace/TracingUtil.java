@@ -1,5 +1,6 @@
 package net.anotheria.moskito.core.calltrace;
 
+import net.anotheria.moskito.core.config.MoskitoConfigurationHolder;
 import net.anotheria.moskito.core.config.journey.JourneyConfig;
 
 import java.lang.reflect.Method;
@@ -37,7 +38,13 @@ public final class TracingUtil {
 
 	public static StringBuilder buildCall(String producerId, String methodName, Object[] parameters, String optionalPrefix) {
 
-		JourneyConfig journeyConfig = ((CurrentlyTracedCall)RunningTraceContainer.getCurrentlyTracedCall()).getJourneyConfig();
+		//we have to check if we are building the call for tracing or logging. In case we are building the call for tracing we use the
+		//journey config associated with the trace call (for consistency) otherwise we use the general config.
+		TracedCall tc = RunningTraceContainer.getCurrentlyTracedCall();
+		JourneyConfig journeyConfig =
+		        tc instanceof CurrentlyTracedCall ?
+				((CurrentlyTracedCall)tc).getJourneyConfig() : MoskitoConfigurationHolder.getConfiguration().getJourneyConfig();
+
 
 		StringBuilder call = new StringBuilder();
 		if (optionalPrefix != null)
@@ -90,6 +97,13 @@ public final class TracingUtil {
 	}
 
 	public static StringBuilder parameter2string(Object parameter){
-		return parameter2string(parameter, ((CurrentlyTracedCall)RunningTraceContainer.getCurrentlyTracedCall()).getJourneyConfig());
+		//we have to check if we are building the call for tracing or logging. In case we are building the call for tracing we use the
+		//journey config associated with the trace call (for consistency) otherwise we use the general config.
+		TracedCall tc = RunningTraceContainer.getCurrentlyTracedCall();
+		JourneyConfig journeyConfig =
+				tc instanceof CurrentlyTracedCall ?
+						((CurrentlyTracedCall)tc).getJourneyConfig() : MoskitoConfigurationHolder.getConfiguration().getJourneyConfig();
+
+		return parameter2string(parameter, journeyConfig);
 	}
 }
