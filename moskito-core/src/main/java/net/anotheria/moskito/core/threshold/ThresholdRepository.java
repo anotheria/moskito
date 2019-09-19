@@ -214,8 +214,13 @@ public class ThresholdRepository<S extends IStats> extends TieableRepository<Thr
 
 		ThresholdStatus ret = ThresholdStatus.GREEN;
 		for (Threshold t : getThresholds()){
-			if (t.getStatus().overrules(ret))
-				ret = t.getStatus();
+			if (t.getStatus()==null){
+				log.error("Threshold "+t+" has status NULL!");
+			}else{
+				if (t.getStatus().overrules(ret)) {
+					ret = t.getStatus();
+				}
+			}
 		}
 		return ret;
 	}
