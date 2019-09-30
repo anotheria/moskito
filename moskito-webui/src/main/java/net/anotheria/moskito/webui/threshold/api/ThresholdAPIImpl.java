@@ -40,8 +40,13 @@ public class ThresholdAPIImpl extends AbstractMoskitoAPIImpl implements Threshol
 			alertBean.setOldColorCode(alert.getOldStatus().toString().toLowerCase());
 			alertBean.setOldStatus(alert.getOldStatus().toString());
 			alertBean.setOldValue(alert.getOldValue());
-			alertBean.setNewColorCode(alert.getNewStatus().toString().toLowerCase());
-			alertBean.setNewStatus(alert.getNewStatus().toString());
+			if (alert.getNewStatus()!=null) {
+				alertBean.setNewColorCode(alert.getNewStatus().toString().toLowerCase());
+				alertBean.setNewStatus(alert.getNewStatus().toString());
+			}else{
+				alertBean.setNewColorCode(ThresholdStatus.OFF.name());
+				alertBean.setNewStatus("Error (null)");
+			}
 			alertBean.setNewValue(alert.getNewValue());
 			alertBean.setTimestamp(NumberUtils.makeISO8601TimestampString(alert.getTimestamp()));
 			aBeans.add(alertBean);
@@ -216,10 +221,11 @@ public class ThresholdAPIImpl extends AbstractMoskitoAPIImpl implements Threshol
 			statusAO.setName(t.getName());
 			if (t.getStatus()==null){
 				log.error("Threshold "+t+" doesn't have a valid status (null)");
+				statusAO.setStatus(ThresholdStatus.OFF.name());
 			}else {
 				statusAO.setColorCode(t.getStatus().toString().toLowerCase());
+				statusAO.setStatus(t.getStatus().toString().toLowerCase());
 			}
-			statusAO.setStatus(t.getStatus().toString().toLowerCase());
 			statusAO.setDescription(t.getDefinition().describe());
 			statusAO.setTimestamp(t.getStatusChangeTimestamp() == 0 ? "Never" : NumberUtils.makeISO8601TimestampString(t.getStatusChangeTimestamp()));
 			statusAO.setValue(t.getLastValue());
