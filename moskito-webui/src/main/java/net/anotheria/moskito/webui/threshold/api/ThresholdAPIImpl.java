@@ -229,8 +229,13 @@ public class ThresholdAPIImpl extends AbstractMoskitoAPIImpl implements Threshol
 			statusAO.setDescription(t.getDefinition().describe());
 			statusAO.setTimestamp(t.getStatusChangeTimestamp() == 0 ? "Never" : NumberUtils.makeISO8601TimestampString(t.getStatusChangeTimestamp()));
 			statusAO.setValue(t.getLastValue());
-			statusAO.setPreviousColorCode(t.getPreviousStatus().toString().toLowerCase());
-			statusAO.setPreviousStatus(t.getPreviousStatus().toString().toLowerCase());
+			if (t.getPreviousStatus()==null){
+				statusAO.setPreviousColorCode(ThresholdStatus.OFF.name());
+				statusAO.setPreviousStatus(ThresholdStatus.OFF.name());
+			}else {
+				statusAO.setPreviousColorCode(t.getPreviousStatus().toString().toLowerCase());
+				statusAO.setPreviousStatus(t.getPreviousStatus().toString().toLowerCase());
+			}
 
 			statusAO.setTimestampForSorting(t.getStatusChangeTimestamp());
 			statusAO.setStatusForSorting(t.getStatus());
