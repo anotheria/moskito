@@ -1,5 +1,6 @@
 package net.anotheria.moskito.webui.producers.resource;
 
+import io.swagger.v3.oas.annotations.servers.Server;
 import net.anotheria.anoplass.api.APIException;
 import net.anotheria.anoplass.api.APIFinder;
 import net.anotheria.moskito.core.registry.NoSuchProducerException;
@@ -19,6 +20,7 @@ import javax.ws.rs.PathParam;
  * @since 14.02.13 09:51
  */
 @Path("producers")
+@Server(url = "/moskito-inspect-rest/")
 public class ProducerResource extends AbstractResource {
 
 	/**

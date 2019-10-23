@@ -1,5 +1,6 @@
 package net.anotheria.moskito.webui.gauges.resource;
 
+import io.swagger.v3.oas.annotations.servers.Server;
 import net.anotheria.anoplass.api.APIException;
 import net.anotheria.moskito.webui.shared.resource.AbstractResource;
 import net.anotheria.moskito.webui.shared.resource.ReplyObject;
@@ -15,6 +16,7 @@ import javax.ws.rs.WebApplicationException;
  * @since 25.03.15 11:47
  */
 @Path("gauges")
+@Server(url = "/moskito-inspect-rest/")
 public class GaugeResource extends AbstractResource {
 	@GET
 	public ReplyObject getGauges(){

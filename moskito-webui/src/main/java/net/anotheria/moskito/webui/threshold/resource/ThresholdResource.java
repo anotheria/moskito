@@ -1,5 +1,6 @@
 package net.anotheria.moskito.webui.threshold.resource;
 
+import io.swagger.v3.oas.annotations.servers.Server;
 import net.anotheria.anoplass.api.APIException;
 import net.anotheria.moskito.webui.shared.resource.AbstractResource;
 import net.anotheria.moskito.webui.shared.resource.ReplyObject;
@@ -19,6 +20,7 @@ import javax.ws.rs.WebApplicationException;
  * @since 11.02.13 18:24
  */
 @Path("/thresholds")
+@Server(url = "/moskito-inspect-rest/")
 public class ThresholdResource extends AbstractResource{
 
 	@GET
