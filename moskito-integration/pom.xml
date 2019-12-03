@@ -20,5 +20,6 @@
         <module>moskito-inspect-remote</module>
         <module>moskito-inspect-embedded</module>
         <module>moskito-springboot</module>
+        <module>moskito-springboot2</module>
     </modules>
 </project>
