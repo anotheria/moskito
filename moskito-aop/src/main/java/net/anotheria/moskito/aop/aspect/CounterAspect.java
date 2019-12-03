@@ -25,7 +25,7 @@ public class CounterAspect extends AbstractMoskitoAspect<CounterStats> {
 	/**
 	 * Pointcut definition for @Count annotation at method level.
 	 * @param pjp ProceedingJoinPoint.
-	 * @param annotation @Count annotation.
+	 * @param annotation Count annotation.
 	 * @return
 	 * @throws Throwable
 	 */
@@ -37,7 +37,7 @@ public class CounterAspect extends AbstractMoskitoAspect<CounterStats> {
 	/**
 	 * Pointcut definition for @CountByParameter annotation.
 	 * @param pjp ProceedingJoinPoint.
-	 * @param annotation @CountByParameter annotation.
+	 * @param annotation CountByParameter annotation.
 	 * @return
 	 * @throws Throwable
 	 */
@@ -49,7 +49,7 @@ public class CounterAspect extends AbstractMoskitoAspect<CounterStats> {
 	/**
 	 * Pointcut definition for @CountByReturnValue annotation.
 	 * @param pjp ProceedingJoinPoint.
-	 * @param annotation @CountByParameter annotation.
+	 * @param annotation CountByReturnValue annotation.
 	 * @return
 	 * @throws Throwable
 	 */
@@ -61,7 +61,7 @@ public class CounterAspect extends AbstractMoskitoAspect<CounterStats> {
 	/**
 	 * Pointcut definition for @Count annotation at class level.
 	 * @param pjp ProceedingJoinPoint.
-	 * @param annotation @Count annotation.
+	 * @param annotation Count annotation.
 	 * @return
 	 * @throws Throwable
 	 */
