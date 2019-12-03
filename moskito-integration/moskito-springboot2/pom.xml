@@ -16,13 +16,11 @@
             <groupId>net.anotheria</groupId>
             <artifactId>moskito-core</artifactId>
             <version>${project.version}</version>
-            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>net.anotheria</groupId>
             <artifactId>moskito-aop</artifactId>
             <version>${project.version}</version>
-            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>net.anotheria</groupId>
