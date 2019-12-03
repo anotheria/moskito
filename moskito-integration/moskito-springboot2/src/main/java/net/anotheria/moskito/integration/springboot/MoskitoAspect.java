@@ -29,12 +29,6 @@ public class MoskitoAspect extends MonitoringBaseAspect {
     return doProfiling(pjp, method.producerId(), method.subsystem(), method.category());
   }
 
-//  @Around(value = "execution(* *(..)) && (@annotation(getMapping))")
-//  public Object doProfilingMethodRest(ProceedingJoinPoint pjp, GetMapping getMapping) throws Throwable {
-//    RequestMapping requestMapping = pjp.getTarget().getClass().getAnnotation(RequestMapping.class);
-//    return doProfiling(pjp, String.join("/", requestMapping.value()) + "/" + String.join("/", getMapping.value()), "subsystem", "category");
-//  }
-
   /**
    * Common class profiling entry-point.
    *
