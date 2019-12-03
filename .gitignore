@@ -1,7 +1,7 @@
 *.iml
 .idea
 .DS_Store
-target
+target/
 templates
 logs
 cov-int
