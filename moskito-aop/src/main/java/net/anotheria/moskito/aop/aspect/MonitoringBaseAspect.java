@@ -70,6 +70,8 @@ public class MonitoringBaseAspect extends AbstractMoskitoAspect<ServiceStats>{
         TraceStep currentStep = null;
         CurrentlyTracedCall currentTrace = aRunningTrace.callTraced() ? (CurrentlyTracedCall) aRunningTrace : null;
 
+        boolean isLoggingEnabled = producer.isLoggingEnabled();
+
 		MoSKitoContext context = MoSKitoContext.get();
         TracerRepository tracerRepository = TracerRepository.getInstance();
         //only trace this producer if no tracers have been fired yet.
@@ -98,7 +100,7 @@ public class MonitoringBaseAspect extends AbstractMoskitoAspect<ServiceStats>{
 
 
         StringBuilder call = null;
-        if (currentTrace != null || tracePassingOfThisProducer) {
+        if (currentTrace != null || tracePassingOfThisProducer || isLoggingEnabled) {
             call = TracingUtil.buildCall(producerId, methodName, args, tracePassingOfThisProducer ? Tracers.getCallName(trace) : null);
         }
         if (currentTrace != null) {
@@ -171,6 +173,12 @@ public class MonitoringBaseAspect extends AbstractMoskitoAspect<ServiceStats>{
 
                 tracerRepository.addTracedExecution(producerId, trace);
             }
+
+            //TODO added this temporarly to 2.9.2 -> will be developed further in 2.10.0
+            if (isLoggingEnabled){
+				call.append(" = ").append(TracingUtil.parameter2string(ret));
+				System.out.println(call.toString());
+			}
         }
     }
 }
