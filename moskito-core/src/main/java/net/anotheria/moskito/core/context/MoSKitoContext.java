@@ -9,6 +9,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.atomic.AtomicLong;
 
 /**
  * MoSKito Context is a thread local class, that is used to contain some information about current execution, for example tags.
@@ -17,6 +18,11 @@ import java.util.concurrent.atomic.AtomicBoolean;
  * @since 22.05.17 01:36
  */
 public class MoSKitoContext {
+
+	/**
+	 * Instance counter.
+	 */
+	private static final AtomicLong instanceCounter = new AtomicLong();
 
 	private static final InheritableThreadLocal<MoSKitoContext> currentContext = new InheritableThreadLocal<MoSKitoContext>(){
 
@@ -35,6 +41,10 @@ public class MoSKitoContext {
 	};
 
 
+	public MoSKitoContext(){
+		instanceNumber = instanceCounter.incrementAndGet();
+	}
+
 	public static MoSKitoContext get(){
 		return currentContext.get();
 	}
@@ -47,6 +57,11 @@ public class MoSKitoContext {
 	private HashSet<Integer> seenErrors = new HashSet<>();
 
 	private volatile IStatsProducer lastProducer;
+
+	/**
+	 * Number of current instance.
+	 */
+	private long instanceNumber;
 
 	/**
 	 * If true an error has occured in this thread already. This is useful to separate from initial errors in the processing and followup errors.
@@ -69,6 +84,15 @@ public class MoSKitoContext {
 		// Setting newest tag value for current MoSKito context
 		get().tags.put(tagName, tagValue);
 	}
+
+	/**
+	 * Returns number of this instance, this can be used to distinguish calls. 
+	 * @return
+	 */
+	public long getInstanceNumber(){
+		return instanceNumber;
+	}
+
 
 	@SuppressWarnings("unchecked")
 	public static Map<String, String> getTags(){
