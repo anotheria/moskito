@@ -6,7 +6,6 @@ import net.anotheria.maf.action.CommandForward;
 import net.anotheria.maf.action.CommandRedirect;
 import net.anotheria.moskito.webui.accumulators.action.CreateAccumulatorAction;
 import net.anotheria.moskito.webui.accumulators.action.DeleteAccumulatorAction;
-import net.anotheria.moskito.webui.accumulators.action.GenerateChartAction;
 import net.anotheria.moskito.webui.accumulators.action.ShowAccumulatorsAction;
 import net.anotheria.moskito.webui.auth.actions.SignInAction;
 import net.anotheria.moskito.webui.auth.actions.SignOutAction;
@@ -218,7 +217,7 @@ public class MoskitoMappingsConfigurator implements ActionMappingsConfigurator{
 		//gauges, now just for testing purposes
 		mappings.addMapping("mskGauges", ShowGaugesAction.class,
 			new CommandForward("success", "/net/anotheria/moskito/webui/gauges/jsp/Gauges.jsp"));
-		mappings.addMapping("mskGenerateChart", GenerateChartAction.class);
+		//mappings.addMapping("mskGenerateChart", GenerateChartAction.class);
 
 		//tracers
 		mappings.addMapping("mskTracers", ShowTracersAction.class,
