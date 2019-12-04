@@ -1,5 +1,6 @@
 package net.anotheria.moskito.webui.threshold.resource;
 
+import io.swagger.v3.oas.annotations.servers.Server;
 import net.anotheria.anoplass.api.APIException;
 import net.anotheria.moskito.webui.shared.resource.AbstractResource;
 import net.anotheria.moskito.webui.shared.resource.ReplyObject;
@@ -16,6 +17,7 @@ import javax.ws.rs.WebApplicationException;
  * @since 14.04.15 18:09
  */
 @Path("status")
+@Server(url = "/moskito-inspect-rest/")
 public class StatusResource extends AbstractResource {
 
 	@GET

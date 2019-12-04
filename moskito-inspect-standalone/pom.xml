@@ -11,8 +11,11 @@
 	<version>2.9.3-SNAPSHOT</version>
 	<name>MoSKito Inspect Standalone Application</name>
 	<packaging>war</packaging>
+  <properties>
+    <swagger-ui.version>3.17.0</swagger-ui.version>
+  </properties>
 
-	<dependencies>
+  <dependencies>
 		<dependency>
 			<groupId>net.anotheria</groupId>
 			<artifactId>moskito-core</artifactId>
@@ -107,6 +110,13 @@
 						<resource>
 							<directory>${project.build.directory}/tmp</directory>
 						</resource>
+            <resource>
+              <directory>${project.build.directory}/swagger-ui/META-INF/resources/webjars/swagger-ui/${swagger-ui.version}</directory>
+              <includes>
+                <include>**/*.*</include>
+              </includes>
+              <targetPath>swagger-ui</targetPath>
+            </resource>
 					</webResources>
 				</configuration>
 			</plugin>
@@ -150,6 +160,12 @@
                                     <outputDirectory>${project.build.directory}/tmp</outputDirectory>
                                     <includes>moskito/**,**/*.jsp</includes>
                                 </artifactItem>
+                              <artifactItem>
+                                <groupId>org.webjars</groupId>
+                                <artifactId>swagger-ui</artifactId>
+                                <version>${swagger-ui.version}</version>
+                                <outputDirectory>${project.build.directory}/swagger-ui</outputDirectory>
+                              </artifactItem>
                             </artifactItems>
                         </configuration>
                         <executions>
@@ -161,6 +177,29 @@
                             </execution>
                         </executions>
                     </plugin>
+                  <plugin>
+                    <!-- Replace the OpenAPI specification example URL with the local one. -->
+                    <groupId>com.google.code.maven-replacer-plugin</groupId>
+                    <artifactId>replacer</artifactId>
+                    <version>1.5.3</version>
+                    <executions>
+                      <execution>
+                        <phase>prepare-package</phase>
+                        <goals>
+                          <goal>replace</goal>
+                        </goals>
+                      </execution>
+                    </executions>
+                    <configuration>
+                      <file>${project.build.directory}/swagger-ui/META-INF/resources/webjars/swagger-ui/${swagger-ui.version}/index.html</file>
+                      <replacements>
+                        <replacement>
+                          <token>http://petstore.swagger.io/v2/swagger.json</token>
+                          <value>/openapi</value>
+                        </replacement>
+                      </replacements>
+                    </configuration>
+                  </plugin>
                 </plugins>
             </build>
 
@@ -208,6 +247,12 @@
                                     <outputDirectory>${project.build.directory}/tmp</outputDirectory>
                                     <includes>moskito/**,**/*.jsp</includes>
                                 </artifactItem>
+                                <artifactItem>
+                                  <groupId>org.webjars</groupId>
+                                  <artifactId>swagger-ui</artifactId>
+                                  <version>${swagger-ui.version}</version>
+                                  <outputDirectory>${project.build.directory}/swagger-ui</outputDirectory>
+                                </artifactItem>
                             </artifactItems>
                         </configuration>
                         <executions>
@@ -219,6 +264,29 @@
                             </execution>
                         </executions>
                     </plugin>
+                  <plugin>
+                    <!-- Replace the OpenAPI specification example URL with the local one. -->
+                    <groupId>com.google.code.maven-replacer-plugin</groupId>
+                    <artifactId>replacer</artifactId>
+                    <version>1.5.3</version>
+                    <executions>
+                      <execution>
+                        <phase>prepare-package</phase>
+                        <goals>
+                          <goal>replace</goal>
+                        </goals>
+                      </execution>
+                    </executions>
+                    <configuration>
+                      <file>${project.build.directory}/swagger-ui/META-INF/resources/webjars/swagger-ui/${swagger-ui.version}/index.html</file>
+                      <replacements>
+                        <replacement>
+                          <token>http://petstore.swagger.io/v2/swagger.json</token>
+                          <value>/openapi</value>
+                        </replacement>
+                      </replacements>
+                    </configuration>
+                  </plugin>
                 </plugins>
             </build>
         </profile>

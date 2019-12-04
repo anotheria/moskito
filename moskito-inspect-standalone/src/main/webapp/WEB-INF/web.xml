@@ -19,6 +19,20 @@
         <url-pattern>/test/*</url-pattern>
     </filter-mapping>
 
+    <servlet>
+      <servlet-name>OpenApi</servlet-name>
+      <servlet-class>io.swagger.v3.jaxrs2.integration.OpenApiServlet</servlet-class>
+      <init-param>
+        <param-name>openApi.configuration.resourcePackages</param-name>
+        <param-value>
+          net.anotheria.moskito.webui.accumulators.resource,net.anotheria.moskito.webui.producers.resource,net.anotheria.moskito.webui.threshold.resource,net.anotheria.moskito.webui.journey.resource,net.anotheria.moskito.webui.gauges.resource,net.anotheria.moskito.webui.dashboards.resource
+        </param-value>
+      </init-param>
+    </servlet>
+    <servlet-mapping>
+      <servlet-name>OpenApi</servlet-name>
+      <url-pattern>/openapi/*</url-pattern>
+    </servlet-mapping>
 
         <!-- fix for jboss -->
         <!--
