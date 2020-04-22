@@ -56,13 +56,18 @@ public class MonitoringBaseAspect extends AbstractMoskitoAspect<ServiceStats>{
         String producerId = producer.getProducerId();
         String prevProducerId = lastProducerId.get();
         lastProducerId.set(producerId);
+        //calculate cumulated stats (default stats).
+		//we only do this if previous producer wasn't same as current -> meaning if we call a second method in the same producer we don't count it as new call.
+        boolean calculateCumulatedStats = !producerId.equals(prevProducerId);
 
         String methodName = getMethodStatName(pjp.getSignature());
         ServiceStats defaultStats = producer.getDefaultStats();
         ServiceStats methodStats = producer.getStats(methodName);
 
         final Object[] args = pjp.getArgs();
-        defaultStats.addRequest();
+		if (calculateCumulatedStats) {
+			defaultStats.addRequest();
+		}
         if (methodStats != null) {
             methodStats.addRequest();
         }
@@ -112,7 +117,8 @@ public class MonitoringBaseAspect extends AbstractMoskitoAspect<ServiceStats>{
             ret = pjp.proceed();
             return ret;
         } catch (InvocationTargetException e) {
-            defaultStats.notifyError(e.getTargetException());
+        	if (calculateCumulatedStats)
+            	defaultStats.notifyError(e.getTargetException());
             if (methodStats != null) {
                 methodStats.notifyError();
             }
@@ -121,7 +127,8 @@ public class MonitoringBaseAspect extends AbstractMoskitoAspect<ServiceStats>{
             }
             throw e.getCause();
         } catch (Throwable t) {
-            defaultStats.notifyError(t);
+        	if (calculateCumulatedStats)
+            	defaultStats.notifyError(t);
             if (methodStats != null) {
                 methodStats.notifyError();
             }
@@ -134,14 +141,16 @@ public class MonitoringBaseAspect extends AbstractMoskitoAspect<ServiceStats>{
             throw t;
         } finally {
             long exTime = System.nanoTime() - startTime;
-            if (!producerId.equals(prevProducerId)) {
+            if (calculateCumulatedStats) {
                 defaultStats.addExecutionTime(exTime);
             }
             if (methodStats != null) {
                 methodStats.addExecutionTime(exTime);
             }
             lastProducerId.set(prevProducerId);
-            defaultStats.notifyRequestFinished();
+			if (calculateCumulatedStats) {
+				defaultStats.notifyRequestFinished();
+			}
             if (methodStats != null) {
                 methodStats.notifyRequestFinished();
             }
