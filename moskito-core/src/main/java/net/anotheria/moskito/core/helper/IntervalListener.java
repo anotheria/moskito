@@ -29,7 +29,7 @@ public class IntervalListener implements IIntervalListener {
 			try{
 				u.update();
 			}catch(Exception e){
-				log.warn("IntervalUpdateable update failed, skipping ", e);
+				log.warn("IntervalUpdateable "+u+" update failed, skipping ", e);
 			}
 		}
 	}
