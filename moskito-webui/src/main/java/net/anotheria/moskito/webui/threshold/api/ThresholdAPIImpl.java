@@ -44,9 +44,9 @@ public class ThresholdAPIImpl extends AbstractMoskitoAPIImpl implements Threshol
 				alertBean.setOldColorCode(ThresholdStatus.OFF.name().toLowerCase());
 				alertBean.setOldStatus("Error (null)");
 			}
-			alertBean.setOldColorCode(alert.getOldStatus().toString().toLowerCase());
-			alertBean.setOldStatus(alert.getOldStatus().toString());
+
 			alertBean.setOldValue(alert.getOldValue());
+
 			if (alert.getNewStatus()!=null) {
 				alertBean.setNewColorCode(alert.getNewStatus().toString().toLowerCase());
 				alertBean.setNewStatus(alert.getNewStatus().toString());
