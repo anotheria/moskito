@@ -23,6 +23,7 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Collections;
 import java.util.HashMap;
@@ -58,7 +59,7 @@ public class GenericMonitoringFilter implements Filter, IStatsProducer {
 	 */
 	private Map<FilterCaseExtractor, OnDemandStatsProducer<FilterStats>> extractorMap = new HashMap<>();
 
-	private void beforeExecution(HttpServletRequest req){
+	private void beforeExecution(HttpServletRequest req, HttpServletResponse res){
 		for (Map.Entry<FilterCaseExtractor, OnDemandStatsProducer<FilterStats>> extractorEntry : extractorMap.entrySet()) {
 			OnDemandStatsProducer<FilterStats> producer = extractorEntry.getValue();
 			FilterStats defaultStats = producer.getDefaultStats();
@@ -88,7 +89,10 @@ public class GenericMonitoringFilter implements Filter, IStatsProducer {
 		return null;
 	}
 
-	private void afterExecution(HttpServletRequest req, long executionTime, Throwable t){
+	private void afterExecution(HttpServletRequest req, HttpServletResponse res, long executionTime, Throwable t){
+
+		double executionTimeInMicroseconds = ((double)executionTime)/1000;
+		res.setHeader("Server-Timing", "'execution="+executionTimeInMicroseconds+"; \"execution time μs\"'");
 		for (Map.Entry<FilterCaseExtractor, OnDemandStatsProducer<FilterStats>> extractorEntry : extractorMap.entrySet()){
 			OnDemandStatsProducer<FilterStats> producer = extractorEntry.getValue();
 			FilterStats defaultStats = producer.getDefaultStats();
@@ -132,7 +136,7 @@ public class GenericMonitoringFilter implements Filter, IStatsProducer {
 			return;
 		}
 
-		beforeExecution((HttpServletRequest)req);
+		beforeExecution((HttpServletRequest)req, (HttpServletResponse)res);
 
 		MoSKitoContext.get().setLastProducer(this);
 
@@ -151,7 +155,7 @@ public class GenericMonitoringFilter implements Filter, IStatsProducer {
 			t = e;
 		}finally{
 			long exTime = System.nanoTime() - startTime;
-			afterExecution( (HttpServletRequest)req, exTime, t);
+			afterExecution( (HttpServletRequest)req, (HttpServletResponse) res, exTime, t);
 		}
 	}
 
