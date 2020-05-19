@@ -21,17 +21,17 @@
                             </div>
                         </div>
                         <div id="collapse${index}" class="box-content accordion-body collapse in">
-                            <table class="table table-left table-striped">
+                            <table class="table tablesorter table-left table-striped">
                                 <thead>
                                 <tr>
                                     <th>Name</th>
                                     <th title="Number of Calls" class="table-column">
                                         <!-- variable for this graph is ${call.name}_Calls -->
-                                        <input type="hidden" value="${call.name}_Calls"/>Calls <i class="chart-icon tooltip-bottom" title="Show chart"></i>
+                                        <input type="hidden" value="${call.name}_Calls"/>Calls <i class="fa fa-caret-down"></i><i class="chart-icon tooltip-bottom" title="Show chart"></i>
                                     </th>
                                     <th title="Duration" class="table-column">
                                         <!-- variable for this graph is ${call.name}_Duration -->
-                                        <input type="hidden" value="${call.name}_Duration"/>Duration <i class="chart-icon tooltip-bottom" title="Show chart"></i>
+                                        <input type="hidden" value="${call.name}_Duration"/>Duration <i class="fa fa-caret-down"></i><i class="chart-icon tooltip-bottom" title="Show chart"></i>
                                     </th>
                                 </tr>
                                 </thead>
