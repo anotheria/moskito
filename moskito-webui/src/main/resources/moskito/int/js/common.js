@@ -65,7 +65,9 @@ $(function () {
         type: 'numeric'
     });
 
-    $(".tablesorter").tablesorter();
+    $(".tablesorter").tablesorter({
+        sortInitialOrder: "desc",
+    });
 
     $(".scrollbar").mCustomScrollbar();
 
