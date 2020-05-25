@@ -67,6 +67,13 @@ $(function () {
 
     $(".tablesorter").tablesorter({
         sortInitialOrder: "desc",
+        textExtraction: function (node) {
+            if (($(node).index() === 0) && ($(node).text().toLowerCase().startsWith('total')))
+                $(node).parent().addClass('total');
+            return $(node).text();
+        }
+    }).bind('sortEnd', function () {
+        $(this).append($(this).find('.total'));
     });
 
     $(".scrollbar").mCustomScrollbar();
