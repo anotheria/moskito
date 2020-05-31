@@ -2,7 +2,6 @@ package net.anotheria.moskito.webui.tracers.api;
 
 import net.anotheria.anoplass.api.APIException;
 import net.anotheria.anoplass.api.APIInitException;
-import net.anotheria.moskito.core.calltrace.CurrentlyTracedCall;
 import net.anotheria.moskito.core.journey.Journey;
 import net.anotheria.moskito.core.journey.JourneyManager;
 import net.anotheria.moskito.core.journey.JourneyManagerFactory;
@@ -13,7 +12,6 @@ import net.anotheria.moskito.core.tracer.Tracer;
 import net.anotheria.moskito.core.tracer.TracerRepository;
 import net.anotheria.moskito.core.tracer.Tracers;
 import net.anotheria.moskito.webui.shared.api.AbstractMoskitoAPIImpl;
-import net.anotheria.moskito.webui.util.TagsUtil;
 import net.anotheria.util.NumberUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -104,15 +102,15 @@ public class TracerAPIImpl extends AbstractMoskitoAPIImpl implements TracerAPI {
 			ao.setDuration(timeUnit.transformNanos(t.getDuration()));
             ao.setCreated(NumberUtils.makeISO8601TimestampString(t.getCreatedTimestamp()));
 
+            /* REMOVED THIS AS IT CAUSES EXCEPTIONS in the tracer view - 2020-05-18
             if(producerJourney != null) {
-
 				CurrentlyTracedCall tracedCall = producerJourney.getTracedCalls().get((int) t.getId() - 1);
-
 				ao.setTags(
 						TagsUtil.tagsMapToTagEntries(tracedCall.getTags())
 				);
-
 			}
+
+            */
 
 			ret.add(ao);
 
