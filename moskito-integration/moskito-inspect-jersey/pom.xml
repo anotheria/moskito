@@ -3,12 +3,12 @@
 	<parent>
 		<groupId>net.anotheria</groupId>
 		<artifactId>moskito-integration</artifactId>
-		<version>2.9.3-SNAPSHOT</version>
+		<version>2.9.3</version>
 	</parent>
 
 	<modelVersion>4.0.0</modelVersion>
 	<artifactId>moskito-inspect-jersey</artifactId>
-	<version>2.9.3-SNAPSHOT</version>
+	<version>2.9.3</version>
 	<name>moskito embedded web rest interface - jersey support</name>
     <description>
         This project contains dependencies and configuration (web-fragment) needed to enable moskito-inspect rest interface via Jersey. To use it simply add it as dependency.
