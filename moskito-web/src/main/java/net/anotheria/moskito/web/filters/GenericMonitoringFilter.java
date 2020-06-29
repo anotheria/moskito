@@ -92,7 +92,8 @@ public class GenericMonitoringFilter implements Filter, IStatsProducer {
 	private void afterExecution(HttpServletRequest req, HttpServletResponse res, long executionTime, Throwable t){
 
 		double executionTimeInMicroseconds = ((double)executionTime)/1000;
-		res.setHeader("Server-Timing", "'execution="+executionTimeInMicroseconds+"; \"execution time μs\"'");
+		//TODO removed ServerTiming header, because it is yet too later (after the execution)
+		//res.setHeader("Server-Timing", "'execution="+executionTimeInMicroseconds+"; \"execution time μs\"'");
 		for (Map.Entry<FilterCaseExtractor, OnDemandStatsProducer<FilterStats>> extractorEntry : extractorMap.entrySet()){
 			OnDemandStatsProducer<FilterStats> producer = extractorEntry.getValue();
 			FilterStats defaultStats = producer.getDefaultStats();
