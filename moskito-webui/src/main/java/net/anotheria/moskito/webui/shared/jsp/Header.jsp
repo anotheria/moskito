@@ -198,6 +198,7 @@
             <li><mos:deepLink href="mskDashboard" title="Dashboards" class="sidebar-tooltip-right">Dashboards<i class="fa fa-tachometer"></i></mos:deepLink></li>
         </ano:notEqual>
         <li ${requestScope.currentNaviItem.id == "producers" ? "class=\"active\"" : ""}><mos:deepLink href="mskShowAllProducers" title="Producers" class="sidebar-tooltip-right">Producers <i class="fa fa-wrench"></i></mos:deepLink></li>
+        <li ${requestScope.currentNaviItem.id == "nowrunning" ? "class=\"active\"" : ""}><mos:deepLink href="mskShowNowRunning" title="Now Running" class="sidebar-tooltip-right">Now Running <i class="fa fa-rocket"></i></mos:deepLink></li>
         <li ${requestScope.currentNaviItem.id == "journeys" ? "class=\"active\"" : ""}><mos:deepLink href="mskShowJourneys" title="Journeys" class="sidebar-tooltip-right">Journeys <i class="fa fa-eye"></i></mos:deepLink></li>
         <li ${requestScope.currentNaviItem.id == "thresholds" ? "class=\"active\"" : ""}><mos:deepLink href="mskThresholds" title="Thresholds" class="sidebar-tooltip-right">Thresholds <i class="fa fa-dot-circle-o"></i></mos:deepLink></li>
         <li ${requestScope.currentNaviItem.id == "accumulators" ? "class=\"active\"" : ""}><mos:deepLink href="mskAccumulators" title="Accumulators" class="sidebar-tooltip-right">Accumulators <i class="fa fa-line-chart"></i></mos:deepLink></li>
