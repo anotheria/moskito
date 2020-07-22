@@ -11,6 +11,8 @@ import net.anotheria.moskito.webui.gauges.api.GaugeAPI;
 import net.anotheria.moskito.webui.gauges.api.GaugeAPIFactory;
 import net.anotheria.moskito.webui.journey.api.JourneyAPI;
 import net.anotheria.moskito.webui.journey.api.JourneyAPIFactory;
+import net.anotheria.moskito.webui.loadfactors.api.LoadFactorsAPI;
+import net.anotheria.moskito.webui.loadfactors.api.LoadFactorsAPIFactory;
 import net.anotheria.moskito.webui.producers.api.ProducerAPI;
 import net.anotheria.moskito.webui.producers.api.ProducerAPIFactory;
 import net.anotheria.moskito.webui.tags.api.TagAPI;
@@ -44,6 +46,7 @@ public class MoskitoAPIInitializer {
 		APIFinder.addAPIFactory(ProducerAPI.class, new ProducerAPIFactory());
 		APIFinder.addAPIFactory(AdditionalFunctionalityAPI.class, new AdditionalFunctionalityAPIFactory());
 		APIFinder.addAPIFactory(GaugeAPI.class, new GaugeAPIFactory());
+		APIFinder.addAPIFactory(LoadFactorsAPI.class, new LoadFactorsAPIFactory());
 		APIFinder.addAPIFactory(DashboardAPI.class, new DashboardAPIFactory());
 		APIFinder.addAPIFactory(TracerAPI.class, new TracerAPIFactory());
 		APIFinder.addAPIFactory(AuthApi.class, new AuthApiFactory());

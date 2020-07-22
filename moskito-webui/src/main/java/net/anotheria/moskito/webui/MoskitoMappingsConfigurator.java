@@ -29,6 +29,7 @@ import net.anotheria.moskito.webui.journey.action.DeleteJourneyAction;
 import net.anotheria.moskito.webui.journey.action.ShowJourneyAction;
 import net.anotheria.moskito.webui.journey.action.ShowJourneyCallAction;
 import net.anotheria.moskito.webui.journey.action.ShowJourneysAction;
+import net.anotheria.moskito.webui.loadfactors.action.ShowLoadFactorsAction;
 import net.anotheria.moskito.webui.more.action.AdditionalSectionAction;
 import net.anotheria.moskito.webui.more.action.ShowConfigAction;
 import net.anotheria.moskito.webui.more.action.ShowKillSwitchAction;
@@ -355,6 +356,12 @@ public class MoskitoMappingsConfigurator implements ActionMappingsConfigurator{
 				new CommandDeepLinkRedirect("redirect", "mskDashboard"));
 		mappings.addMapping("mskDashboardRemoveProducer", DashboardRemoveProducerAction.class,
 				new CommandDeepLinkRedirect("redirect", "mskDashboard"));
+
+
+		//Loadfactors feature.
+		mappings.addMapping("mskLoadFactors", ShowLoadFactorsAction.class,
+				new CommandForward("html", "/net/anotheria/moskito/webui/loadfactors/jsp/LoadFactors.jsp")
+		);
 
 	}
 

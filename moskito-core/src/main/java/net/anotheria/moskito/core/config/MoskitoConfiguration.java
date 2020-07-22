@@ -7,6 +7,7 @@ import net.anotheria.moskito.core.config.errorhandling.ErrorHandlingConfig;
 import net.anotheria.moskito.core.config.filter.FilterConfig;
 import net.anotheria.moskito.core.config.gauges.GaugesConfig;
 import net.anotheria.moskito.core.config.journey.JourneyConfig;
+import net.anotheria.moskito.core.config.loadfactors.LoadFactorsConfiguration;
 import net.anotheria.moskito.core.config.plugins.PluginsConfig;
 import net.anotheria.moskito.core.config.producers.BuiltinProducersConfig;
 import net.anotheria.moskito.core.config.producers.MBeanProducerConfig;
@@ -98,6 +99,14 @@ public class MoskitoConfiguration implements Serializable{
 	private DashboardsConfig dashboardsConfig = new DashboardsConfig();
 
 	/**
+	 * Configuration object for load factors (beta).
+	 */
+	@Configure
+	@SerializedName("@loadFactorsConfig")
+	private LoadFactorsConfiguration loadFactorsConfig = new LoadFactorsConfiguration();
+
+
+		/**
 	 * Config object for accumulators.
 	 */
 	@Configure
@@ -349,6 +358,14 @@ public class MoskitoConfiguration implements Serializable{
 
 	public void setKillSwitch(KillSwitchConfiguration killSwitch) {
 		this.killSwitch = killSwitch;
+	}
+
+	public LoadFactorsConfiguration getLoadFactorsConfig() {
+		return loadFactorsConfig;
+	}
+
+	public void setLoadFactorsConfig(LoadFactorsConfiguration loadFactorsConfig) {
+		this.loadFactorsConfig = loadFactorsConfig;
 	}
 }
 
