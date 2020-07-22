@@ -258,6 +258,7 @@
                 <li ${currentSubNaviItem.isSelected("more_libs")    ? "class=\"active\"" : ""}><mos:deepLink href="mskLibs" title="Libs" class="sidebar-tooltip-right">Libs <i class="fa fa-file-text"></i></mos:deepLink></li>
                 <li ${currentSubNaviItem.isSelected("more_update")  ? "class=\"active\"" : ""}><mos:deepLink href="mskUpdate" title="Update" class="sidebar-tooltip-right">Update  <i class="fa fa-upload"></i></mos:deepLink></li>
                 <li ${currentSubNaviItem.isSelected("more_gauges")  ? "class=\"active\"" : ""}><mos:deepLink href="mskGauges" title="Gauges" class="sidebar-tooltip-right">Gauges  <i class="fa fa-tachometer"></i></mos:deepLink></li>
+                <li ${currentSubNaviItem.isSelected("more_loadfactors")  ? "class=\"active\"" : ""}><mos:deepLink href="mskLoadFactors" title="Load Factors" class="sidebar-tooltip-right">Load Factors  <i class="fa fa-asterisk"></i></mos:deepLink></li>
                 <li ${currentSubNaviItem.isSelected("more_killswitch")  ? "class=\"active\"" : ""}><mos:deepLink href="mskKillSwitch" title="Kill Switch" class="sidebar-tooltip-right">Kill Switch  <i class="fa fa-cog"></i></mos:deepLink></li>
                 <%--<li ${currentSubNaviItem.isSelected("more_plugins") ? "class=\"active\"" : ""}><a href="mskPlugins" title="Plugins" class="sidebar-tooltip-right">Plugins <i class="fa fa-cloud"></i></a></li>--%>
             </ul>

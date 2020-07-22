@@ -23,6 +23,10 @@ public enum NaviItem {
  	 */
 	THRESHOLDS("Thresholds"),
 	/**
+	 * Navigation item for load factors.
+	 */
+	LOADFACTORS("LoadFactors"),
+	/**
 	 * Navigation item for accumulators.
 	 */
 	ACCUMULATORS("Accumulators"),
@@ -87,6 +91,8 @@ public enum NaviItem {
 	 * Navi item for gauges.
 	 */
 	MORE_GAUGES("Gauges"),
+
+	MORE_LOADFACTORS("Loadfactors"),
 	/**
 	 * Navi item for kill switch.
 	 */
