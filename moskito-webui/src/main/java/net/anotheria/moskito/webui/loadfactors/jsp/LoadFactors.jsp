@@ -44,7 +44,7 @@
                     <ano:iterate name="loadfactors" type="net.anotheria.moskito.webui.loadfactors.api.LoadFactorAO" id="loadfactor" indexId="index">
                     <tr>
                         <td>${loadfactor.name}</td>
-                        <td>${loadfactor.ratio}</td>
+                        <td>${loadfactor.ratioAsString}</td>
                         <td>${loadfactor.metric}</td>
                         <td>${loadfactor.interval}</td>
                         <td>${loadfactor.leftDescription}</td>

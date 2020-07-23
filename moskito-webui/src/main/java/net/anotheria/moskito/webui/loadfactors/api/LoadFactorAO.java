@@ -1,6 +1,7 @@
 package net.anotheria.moskito.webui.loadfactors.api;
 
 import net.anotheria.moskito.core.config.loadfactors.LoadFactorConfiguration;
+import net.anotheria.util.NumberUtils;
 
 /**
  * TODO comment this class
@@ -83,5 +84,9 @@ public class LoadFactorAO {
 
 	public String getRatioDescription(){
 		return ""+ rightValue + " / " + leftValue;
+	}
+
+	public String getRatioAsString(){
+		return ""+NumberUtils.fractionRound(ratio, 2);
 	}
 }
