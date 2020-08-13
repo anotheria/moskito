@@ -22,7 +22,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- * TODO comment this class
+ * Implementation for the LoadFactorsAPI.
  *
  * @author lrosenberg
  * @since 22.07.20 16:45
