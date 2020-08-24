@@ -1,6 +1,6 @@
 package net.anotheria.moskito.core.config.tagging;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.configureme.annotations.Configure;
 import org.configureme.annotations.ConfigureMe;
 

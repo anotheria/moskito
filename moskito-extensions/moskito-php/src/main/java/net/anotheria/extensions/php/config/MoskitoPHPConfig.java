@@ -1,6 +1,6 @@
 package net.anotheria.extensions.php.config;
 
-import org.apache.commons.lang.ArrayUtils;
+import org.apache.commons.lang3.ArrayUtils;
 import org.configureme.annotations.AfterReConfiguration;
 import org.configureme.annotations.ConfigureMe;
 import org.configureme.annotations.DontConfigure;

@@ -1,7 +1,7 @@
 package net.anotheria.moskito.core.config.producers;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-import org.apache.commons.lang.ArrayUtils;
+import org.apache.commons.lang3.ArrayUtils;
 import org.configureme.annotations.Configure;
 
 import java.io.Serializable;
