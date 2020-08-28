@@ -73,7 +73,7 @@ public class RabbitMQConnector extends AbstractConnector {
 
         factory.setHost(properties.getProperty("connector.host"));
         factory.setPort(
-                Integer.valueOf(properties.getProperty("connector.port"))
+                Integer.parseInt(properties.getProperty("connector.port"))
         );
         factory.setUsername(properties.getProperty("connector.username"));
         factory.setPassword(properties.getProperty("connector.password"));

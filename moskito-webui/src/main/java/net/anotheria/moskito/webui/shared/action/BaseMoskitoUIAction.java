@@ -421,7 +421,7 @@ public abstract class BaseMoskitoUIAction implements Action{
 			int remotePort;
 
 			try {
-				remotePort = Integer.valueOf(remoteHostAndPort[1]);
+				remotePort = Integer.parseInt(remoteHostAndPort[1]);
 			}catch (NumberFormatException e){
 				return;
 			}

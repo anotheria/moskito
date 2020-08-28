@@ -184,7 +184,7 @@ public class GaugeAPIImpl extends AbstractMoskitoAPIImpl implements GaugeAPI {
 
 					StatValueAO numericValue = null;
 					try {
-						numericValue = new LongValueAO(null, Long.valueOf(value));
+						numericValue = new LongValueAO(null, Long.parseLong(value));
 					} catch (NumberFormatException e) {
 						try {
 							numericValue = new DoubleValueAO(null, Double.valueOf(value));
