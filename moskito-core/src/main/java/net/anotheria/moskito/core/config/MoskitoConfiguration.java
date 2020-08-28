@@ -37,7 +37,7 @@ import java.util.List;
  * @author lrosenberg
  * @since 22.10.12 15:59
  */
-@SuppressFBWarnings("SE_BAD_FIELD")
+@SuppressFBWarnings({"SE_BAD_FIELD", "EI_EXPOSE_REP", "EI_EXPOSE_REP2"})
 @ConfigureMe(name="moskito")
 public class MoskitoConfiguration implements Serializable{
 	/**
@@ -158,7 +158,7 @@ public class MoskitoConfiguration implements Serializable{
 	private JourneyConfig journeyConfig = new JourneyConfig();
 
 	/**
-	 * Configuration for error config. It configures the behaviour of the built in error procuder.
+	 * Configuration for error config. It configures the behaviour of the built in error producer.
 	 */
 	@Configure
 	@SerializedName("@errorHandlingConfig")

@@ -1,5 +1,6 @@
 package net.anotheria.moskito.core.config.filter;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.configureme.annotations.Configure;
 import org.configureme.annotations.ConfigureMe;
 
@@ -11,6 +12,7 @@ import java.io.Serializable;
  * @author lrosenberg
  * @since 26.04.16 19:19
  */
+@SuppressFBWarnings({"SE_BAD_FIELD", "EI_EXPOSE_REP", "EI_EXPOSE_REP2"})
 @ConfigureMe
 public class FilterConfig implements Serializable{
 	/**
