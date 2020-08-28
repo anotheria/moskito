@@ -1,5 +1,14 @@
 package net.anotheria.moskito.core.util;
 
+import net.anotheria.moskito.core.accumulation.Accumulators;
+import net.anotheria.moskito.core.predefined.OSStats;
+import net.anotheria.moskito.core.producers.IStats;
+import net.anotheria.moskito.core.producers.IStatsProducer;
+import net.anotheria.moskito.core.registry.ProducerRegistryFactory;
+import org.apache.commons.lang3.SystemUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -9,18 +18,9 @@ import java.lang.management.OperatingSystemMXBean;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.TimerTask;
-
-import org.apache.commons.lang3.SystemUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import net.anotheria.moskito.core.accumulation.Accumulators;
-import net.anotheria.moskito.core.predefined.OSStats;
-import net.anotheria.moskito.core.producers.IStats;
-import net.anotheria.moskito.core.producers.IStatsProducer;
-import net.anotheria.moskito.core.registry.ProducerRegistryFactory;
 
 /**
  * Builtin producer for values supplied by jmx for the operation system.
@@ -247,7 +247,7 @@ public class BuiltInOSProducer extends AbstractBuiltInProducer implements IStats
 		} finally {
 			br.close();
 		}
-		throw new IOException("Could not read memory process output for command " + command);
+		throw new IOException("Could not read memory process output for command " + Arrays.toString(command));
 	}
 
 }
