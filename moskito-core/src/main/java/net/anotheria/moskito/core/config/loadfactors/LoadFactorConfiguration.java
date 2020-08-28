@@ -4,6 +4,8 @@ import com.google.gson.annotations.SerializedName;
 import org.configureme.annotations.Configure;
 import org.configureme.annotations.ConfigureMe;
 
+import java.io.Serializable;
+
 /**
  * TODO comment this class
  *
@@ -11,7 +13,7 @@ import org.configureme.annotations.ConfigureMe;
  * @since 22.07.20 16:04
  */
 @ConfigureMe
-public class LoadFactorConfiguration {
+public class LoadFactorConfiguration implements Serializable {
 	@Configure
 	private String name;
 

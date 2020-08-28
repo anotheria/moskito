@@ -1,6 +1,7 @@
 package net.anotheria.moskito.core.config;
 
 import com.google.gson.annotations.SerializedName;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import net.anotheria.moskito.core.config.accumulators.AccumulatorsConfig;
 import net.anotheria.moskito.core.config.dashboards.DashboardsConfig;
 import net.anotheria.moskito.core.config.errorhandling.ErrorHandlingConfig;
@@ -36,6 +37,7 @@ import java.util.List;
  * @author lrosenberg
  * @since 22.10.12 15:59
  */
+@SuppressFBWarnings("SE_BAD_FIELD")
 @ConfigureMe(name="moskito")
 public class MoskitoConfiguration implements Serializable{
 	/**

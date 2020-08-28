@@ -86,7 +86,7 @@ public class CurrentlyTracedCall implements TracedCall, Serializable{
 	/**
 	 * The journey configuration at start of the journey.
 	 */
-	private transient JourneyConfig journeyConfig = MoskitoConfigurationHolder.getConfiguration().getJourneyConfig();
+	private final transient JourneyConfig journeyConfig = MoskitoConfigurationHolder.getConfiguration().getJourneyConfig();
 	
 	/**
 	 * Creates a new CurrentlyTracedCall.
