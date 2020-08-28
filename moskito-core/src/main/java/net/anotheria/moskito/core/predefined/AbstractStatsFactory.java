@@ -1,10 +1,10 @@
 package net.anotheria.moskito.core.predefined;
 
-import java.util.Arrays;
-
 import net.anotheria.moskito.core.dynamic.IOnDemandStatsFactory;
 import net.anotheria.moskito.core.producers.IStats;
 import net.anotheria.moskito.core.stats.Interval;
+
+import java.util.Arrays;
 
 /**
  * Common {@link IOnDemandStatsFactory} impl.
@@ -36,6 +36,6 @@ public abstract class AbstractStatsFactory<Stats extends IStats> implements IOnD
 
 
 	public Interval[] getIntervals() {
-		return intervals;
+		return Arrays.copyOf(intervals, intervals.length);
 	}
 }
