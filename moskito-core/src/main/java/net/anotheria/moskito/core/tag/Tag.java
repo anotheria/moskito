@@ -91,8 +91,8 @@ public class Tag implements Comparable<Tag> {
 
 	@Override
 	public int compareTo(Tag o) {
-		if (getType().equals(o.getType()))
-			return getName().compareTo(o.getName());
-		return getType().compareTo(o.getType());
+		int typeCompare = getType().compareTo(o.getType());
+		return typeCompare != 0 ?
+				typeCompare : getName().compareTo(o.getName());
 	}
 }
