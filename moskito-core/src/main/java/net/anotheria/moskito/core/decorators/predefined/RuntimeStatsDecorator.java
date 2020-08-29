@@ -74,7 +74,7 @@ public class RuntimeStatsDecorator extends AbstractDecorator {
 		ret.add(new LongValueAO(CAPTIONS[i++], uptime));
 		ret.add(new StringValueAO(CAPTIONS[i++], NumberUtils.makeISO8601TimestampString(starttime)));
 		ret.add(new LongValueAO(CAPTIONS[i++], uptime/1000/60/60));
-		ret.add(new StringValueAO(CAPTIONS[i++], String.valueOf((float) (uptime * 100 / 1000 / 60 / 60 / 24) / 100)));
+		ret.add(new StringValueAO(CAPTIONS[i++], String.valueOf(((float)uptime * 100 / 1000 / 60 / 60 / 24) / 100)));
 		
 		return ret;
 	}
