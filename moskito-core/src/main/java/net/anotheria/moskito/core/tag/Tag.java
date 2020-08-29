@@ -95,4 +95,10 @@ public class Tag implements Comparable<Tag> {
 		return typeCompare != 0 ?
 				typeCompare : getName().compareTo(o.getName());
 	}
+
+	@Override
+	public boolean equals(Object obj) {
+		return getType()==((Tag)obj).getType() &&
+				getName().equals(((Tag)obj).getName());
+	}
 }
