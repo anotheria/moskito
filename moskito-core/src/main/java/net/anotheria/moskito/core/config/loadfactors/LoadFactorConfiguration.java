@@ -7,26 +7,41 @@ import org.configureme.annotations.ConfigureMe;
 import java.io.Serializable;
 
 /**
- * TODO comment this class
+ * A single load factor configuration.
  *
  * @author lrosenberg
  * @since 22.07.20 16:04
  */
 @ConfigureMe
 public class LoadFactorConfiguration implements Serializable {
+	/**
+	 * Name of the load factor.
+	 */
 	@Configure
 	private String name;
 
+	/**
+	 * Metric or statistic that the load factor is built upon, for example request count or time or errors.
+	 */
 	@Configure
 	private String metric;
+	/**
+	 * Interval the metric relies on.
+	 */
 	@Configure
 	private String interval;
 
 	@Configure
 	@SerializedName("@left")
+	/**
+	 * The left side participants.
+	 */
 	private LoadFactorParticipantConfiguration left ;
 	@Configure
 	@SerializedName("@right")
+	/**
+	 * The right side participants.
+	 */
 	private LoadFactorParticipantConfiguration right ;
 
 	public String getName() {
@@ -68,20 +83,4 @@ public class LoadFactorConfiguration implements Serializable {
 	public void setRight(LoadFactorParticipantConfiguration right) {
 		this.right = right;
 	}
-
-	//testing method
-	private static final LoadFactorParticipantConfiguration makeLeft(){
-		LoadFactorParticipantConfiguration aLeft = new LoadFactorParticipantConfiguration();
-		aLeft.setProducerName("OrderController");
-		return aLeft;
-	}
-
-	//testing method
-	private static final LoadFactorParticipantConfiguration makeRight(){
-		LoadFactorParticipantConfiguration aRight = new LoadFactorParticipantConfiguration();
-		aRight.setProducerName("");
-		aRight.setCategory("service");
-		return aRight;
-	}
-
 }
