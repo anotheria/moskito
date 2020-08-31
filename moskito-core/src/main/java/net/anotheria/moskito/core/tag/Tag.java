@@ -4,6 +4,7 @@ import net.anotheria.moskito.core.config.MoskitoConfigurationHolder;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.Objects;
 import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
@@ -100,5 +101,10 @@ public class Tag implements Comparable<Tag> {
 	public boolean equals(Object obj) {
 		return getType()==((Tag)obj).getType() &&
 				getName().equals(((Tag)obj).getName());
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(name, type, source);
 	}
 }
