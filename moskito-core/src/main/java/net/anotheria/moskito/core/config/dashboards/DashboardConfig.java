@@ -154,15 +154,15 @@ public class DashboardConfig implements Serializable{
 
 		if (chartPatterns != null && chartPatterns.length > 0) {
 			for (ChartPattern chartPattern : chartPatterns) {
-				List<Pattern> patterns = new LinkedList<>();
+				List<Pattern> somePatterns = new LinkedList<>();
 				for (String accumulatorPattern : chartPattern.getAccumulatorPatterns()) {
 					try {
-						patterns.add(Pattern.compile(accumulatorPattern));
+						somePatterns.add(Pattern.compile(accumulatorPattern));
 					} catch (PatternSyntaxException e) {
 						log.warn("Couldn't compile pattern: \"" + accumulatorPattern + "\"", e);
 					}
 				}
-				chartPattern.setPatterns(patterns.toArray(new Pattern[patterns.size()]));
+				chartPattern.setPatterns(somePatterns.toArray(new Pattern[somePatterns.size()]));
 			}
 		}
 	}
@@ -191,16 +191,16 @@ public class DashboardConfig implements Serializable{
 		this.producerNamePatterns = producerNamePatterns;
 
 		if (producerNamePatterns != null && producerNamePatterns.length > 0) {
-			List<Pattern> patterns = new LinkedList<>();
+			List<Pattern> somePatterns = new LinkedList<>();
 
 			for (String producerNamePattern : getProducerNamePatterns()) {
 				try {
-					patterns.add(Pattern.compile(producerNamePattern));
+					somePatterns.add(Pattern.compile(producerNamePattern));
 				} catch (PatternSyntaxException e) {
 					log.warn("Couldn't compile pattern: \"" + producerNamePattern + "\"", e);
 				}
 			}
-			setPatterns(patterns.toArray(new Pattern[patterns.size()]));
+			setPatterns(somePatterns.toArray(new Pattern[somePatterns.size()]));
 		}
 	}
 
@@ -238,11 +238,11 @@ public class DashboardConfig implements Serializable{
 		return listContainsElement(thresholds, thresholdName);
 	}
 
-	private boolean listContainsElement(String[] list, String name) {
+	private boolean listContainsElement(String[] list, String aName) {
 		if (list==null || list.length==0)
 			return false;
 		for (String e : list){
-			if (e.equals(name))
+			if (e.equals(aName))
 				return true;
 		}
 		return false;
