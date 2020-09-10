@@ -2,6 +2,7 @@ package net.anotheria.moskito.web.filters;
 
 import net.anotheria.moskito.core.config.MoskitoConfiguration;
 import net.anotheria.moskito.core.config.MoskitoConfigurationHolder;
+import net.anotheria.moskito.core.context.CurrentMeasurement;
 import net.anotheria.moskito.core.context.MoSKitoContext;
 import net.anotheria.moskito.core.dynamic.EntryCountLimitedOnDemandStatsProducer;
 import net.anotheria.moskito.core.dynamic.OnDemandStatsProducer;
@@ -139,7 +140,10 @@ public class GenericMonitoringFilter implements Filter, IStatsProducer {
 
 		beforeExecution((HttpServletRequest)req, (HttpServletResponse)res);
 
-		MoSKitoContext.get().setLastProducer(this);
+		CurrentMeasurement measurement = MoSKitoContext.get().notifyProducerEntry(this);
+		if (measurement.isFirst()){
+			System.out.println("I am first!!!");
+		}
 
 		long startTime = System.nanoTime();
 		Throwable t = null;
@@ -157,6 +161,9 @@ public class GenericMonitoringFilter implements Filter, IStatsProducer {
 		}finally{
 			long exTime = System.nanoTime() - startTime;
 			afterExecution( (HttpServletRequest)req, (HttpServletResponse) res, exTime, t);
+			if (measurement.isFirst()){
+				measurement.notifyProducerFinished();
+			}
 		}
 	}
 
