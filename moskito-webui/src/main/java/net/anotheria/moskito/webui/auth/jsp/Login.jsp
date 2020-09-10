@@ -8,7 +8,6 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <title>${title}</title>
         <link type="text/css" rel="stylesheet" rev="stylesheet" href="../moskito/ext/bootstrap-3.1.1/css/bootstrap.css" />
-        <link type="text/css" rel="stylesheet" href="../moskito/ext/font-awesome-4.3.0/css/font-awesome.css" />
         <link type="text/css" rel="stylesheet" rev="stylesheet" href="../moskito/font/style.css" />
         <link type="text/css" rel="stylesheet" rev="stylesheet" href="../moskito/ext/select2-3.4.6/select2.css" />
         <link type="text/css" rel="stylesheet" rev="stylesheet" href="../moskito/int/css/common.css" />

@@ -8,7 +8,7 @@
     <title>${title}</title>
     <link type="text/css" rel="stylesheet" rev="stylesheet" href="../moskito/ext/bootstrap-3.1.1/css/bootstrap.css" />
     <link type="text/css" rel="stylesheet" rev="stylesheet" href="../moskito/ext/custom-scrollbar/jquery.mCustomScrollbar.css" />
-    <link type="text/css" rel="stylesheet" href="../moskito/ext/font-awesome-4.3.0/css/font-awesome.css" />
+    <link type="text/css" rel="stylesheet" href="../moskito/ext/font-awesome-4.7.0/css/font-awesome.min.css" />
     <link type="text/css" rel="stylesheet" rev="stylesheet" href="../moskito/font/style.css" />
     <link type="text/css" rel="stylesheet" rev="stylesheet" href="../moskito/ext/select2-3.4.6/select2.css" />
     <link type="text/css" rel="stylesheet" rev="stylesheet" href="../moskito/ext/switchery/switchery.min.css" />
