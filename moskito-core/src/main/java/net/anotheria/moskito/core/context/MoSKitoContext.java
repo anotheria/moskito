@@ -59,6 +59,11 @@ public class MoSKitoContext {
 	private volatile IStatsProducer lastProducer;
 
 	/**
+	 * First producer ever seen in this passing of the code. Usually its the first component/aspect/filter the code encounters on user's request in your app.
+	 */
+	private volatile IStatsProducer firstProducer;
+
+	/**
 	 * Number of current instance.
 	 */
 	private long instanceNumber;
@@ -147,7 +152,12 @@ public class MoSKitoContext {
 		return lastProducer;
 	}
 
-	public void setLastProducer(IStatsProducer lastProducer) {
-		this.lastProducer = lastProducer;
+	public CurrentMeasurement notifyProducerEntry(IStatsProducer aProducer){
+		CurrentMeasurement measurement = new CurrentMeasurement(aProducer, firstProducer==null);
+		if (firstProducer==null) {
+			firstProducer = aProducer;
+		}
+		lastProducer = aProducer;
+		return measurement;
 	}
 }
