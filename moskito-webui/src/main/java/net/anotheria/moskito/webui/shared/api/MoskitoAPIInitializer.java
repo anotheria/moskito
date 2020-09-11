@@ -13,6 +13,8 @@ import net.anotheria.moskito.webui.journey.api.JourneyAPI;
 import net.anotheria.moskito.webui.journey.api.JourneyAPIFactory;
 import net.anotheria.moskito.webui.loadfactors.api.LoadFactorsAPI;
 import net.anotheria.moskito.webui.loadfactors.api.LoadFactorsAPIFactory;
+import net.anotheria.moskito.webui.nowrunning.api.NowRunningAPI;
+import net.anotheria.moskito.webui.nowrunning.api.NowRunningAPIFactory;
 import net.anotheria.moskito.webui.producers.api.ProducerAPI;
 import net.anotheria.moskito.webui.producers.api.ProducerAPIFactory;
 import net.anotheria.moskito.webui.tags.api.TagAPI;
@@ -47,6 +49,7 @@ public class MoskitoAPIInitializer {
 		APIFinder.addAPIFactory(AdditionalFunctionalityAPI.class, new AdditionalFunctionalityAPIFactory());
 		APIFinder.addAPIFactory(GaugeAPI.class, new GaugeAPIFactory());
 		APIFinder.addAPIFactory(LoadFactorsAPI.class, new LoadFactorsAPIFactory());
+		APIFinder.addAPIFactory(NowRunningAPI.class, new NowRunningAPIFactory());
 		APIFinder.addAPIFactory(DashboardAPI.class, new DashboardAPIFactory());
 		APIFinder.addAPIFactory(TracerAPI.class, new TracerAPIFactory());
 		APIFinder.addAPIFactory(AuthApi.class, new AuthApiFactory());

@@ -37,6 +37,7 @@ import net.anotheria.moskito.webui.more.action.ShowLibsAction;
 import net.anotheria.moskito.webui.more.action.ShowMBeansAction;
 import net.anotheria.moskito.webui.more.action.SwitchKillSettingAction;
 import net.anotheria.moskito.webui.more.action.UpdateAction;
+import net.anotheria.moskito.webui.nowrunning.action.ShowEntryPointsAction;
 import net.anotheria.moskito.webui.plugins.action.RemovePluginAction;
 import net.anotheria.moskito.webui.plugins.action.ShowPluginsAction;
 import net.anotheria.moskito.webui.producers.action.DisableProducerLoggingAction;
@@ -362,6 +363,12 @@ public class MoskitoMappingsConfigurator implements ActionMappingsConfigurator{
 		mappings.addMapping("mskLoadFactors", ShowLoadFactorsAction.class,
 				new CommandForward("html", "/net/anotheria/moskito/webui/loadfactors/jsp/LoadFactors.jsp")
 		);
+
+		//Entry points and now running feature.
+		mappings.addMapping("mskNowRunning", ShowEntryPointsAction.class,
+				new CommandForward("html", "/net/anotheria/moskito/webui/nowrunning/jsp/NowRunning.jsp")
+		);
+		
 
 	}
 

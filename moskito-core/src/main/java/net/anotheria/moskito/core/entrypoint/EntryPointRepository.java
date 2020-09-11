@@ -2,6 +2,8 @@ package net.anotheria.moskito.core.entrypoint;
 
 import net.anotheria.moskito.core.producers.IStatsProducer;
 
+import java.util.LinkedList;
+import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
@@ -57,5 +59,11 @@ public class EntryPointRepository {
 		entryPoint.requestFinished();
 
 		System.out.println("EP "+entryPoint);
+	}
+
+	public List<EntryPoint> getEntryPoints() {
+		LinkedList<EntryPoint> ret = new LinkedList<>();
+		ret.addAll(entryPoints.values());
+		return ret;
 	}
 }

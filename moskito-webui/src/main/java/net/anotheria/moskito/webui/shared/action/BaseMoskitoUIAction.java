@@ -52,6 +52,7 @@ import net.anotheria.moskito.webui.dashboards.api.DashboardAPI;
 import net.anotheria.moskito.webui.gauges.api.GaugeAPI;
 import net.anotheria.moskito.webui.journey.api.JourneyAPI;
 import net.anotheria.moskito.webui.loadfactors.api.LoadFactorsAPI;
+import net.anotheria.moskito.webui.nowrunning.api.NowRunningAPI;
 import net.anotheria.moskito.webui.producers.api.ProducerAPI;
 import net.anotheria.moskito.webui.shared.annotations.BetaAction;
 import net.anotheria.moskito.webui.shared.api.AdditionalFunctionalityAPI;
@@ -683,6 +684,11 @@ public abstract class BaseMoskitoUIAction implements Action{
 	protected LoadFactorsAPI getLoadFactorsAPI(){
 		return APILookupUtility.getLoadFactorsAPI();
 	}
+
+	protected NowRunningAPI getNowRunningAPI(){
+		return APILookupUtility.getNowRunningAPI();
+	}
+
 	protected JourneyAPI getJourneyAPI(){
 		return APILookupUtility.getJourneyAPI();
 	}

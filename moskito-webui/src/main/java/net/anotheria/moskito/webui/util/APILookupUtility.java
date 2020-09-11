@@ -9,6 +9,7 @@ import net.anotheria.moskito.webui.dashboards.api.DashboardAPI;
 import net.anotheria.moskito.webui.gauges.api.GaugeAPI;
 import net.anotheria.moskito.webui.journey.api.JourneyAPI;
 import net.anotheria.moskito.webui.loadfactors.api.LoadFactorsAPI;
+import net.anotheria.moskito.webui.nowrunning.api.NowRunningAPI;
 import net.anotheria.moskito.webui.producers.api.ProducerAPI;
 import net.anotheria.moskito.webui.shared.api.AdditionalFunctionalityAPI;
 import net.anotheria.moskito.webui.tags.api.TagAPI;
@@ -166,6 +167,11 @@ public class APILookupUtility {
 				findRemote(LoadFactorsAPI.class);
 	}
 
+	public static NowRunningAPI getNowRunningAPI() {
+		return isLocal() ?
+				APIFinder.findAPI(NowRunningAPI.class) :
+				findRemote(NowRunningAPI.class);
+	}
 
 	public static void resetConnection(){
 		setCurrentConnectivityMode(ConnectivityMode.LOCAL);

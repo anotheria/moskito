@@ -93,6 +93,8 @@ public enum NaviItem {
 	MORE_GAUGES("Gauges"),
 
 	MORE_LOADFACTORS("Loadfactors"),
+
+	MORE_NOWRUNNING("Nowrunning"),
 	/**
 	 * Navi item for kill switch.
 	 */
