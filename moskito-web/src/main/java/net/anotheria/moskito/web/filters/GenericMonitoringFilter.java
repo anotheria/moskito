@@ -142,7 +142,15 @@ public class GenericMonitoringFilter implements Filter, IStatsProducer {
 
 		CurrentMeasurement measurement = MoSKitoContext.get().notifyProducerEntry(this);
 		if (measurement.isFirst()){
-			System.out.println("I am first!!!");
+			//build request description.
+			HttpServletRequest httpServletRequest = (HttpServletRequest) req;
+			StringBuilder callDescription = new StringBuilder();
+			callDescription.append(httpServletRequest.getRequestURI());
+			if (httpServletRequest.getQueryString()!=null && httpServletRequest.getQueryString().length()>0){
+				callDescription.append('?').append(httpServletRequest.getQueryString());
+			}
+			measurement.setCallDescription(callDescription.toString());
+
 		}
 
 		long startTime = System.nanoTime();

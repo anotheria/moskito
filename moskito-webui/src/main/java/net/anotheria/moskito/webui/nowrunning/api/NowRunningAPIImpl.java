@@ -1,8 +1,10 @@
 package net.anotheria.moskito.webui.nowrunning.api;
 
 import net.anotheria.anoplass.api.APIException;
+import net.anotheria.moskito.core.entrypoint.ActiveMeasurement;
 import net.anotheria.moskito.core.entrypoint.EntryPoint;
 import net.anotheria.moskito.core.entrypoint.EntryPointRepository;
+import net.anotheria.moskito.core.entrypoint.PastMeasurement;
 import net.anotheria.moskito.webui.shared.api.AbstractMoskitoAPIImpl;
 
 import java.util.LinkedList;
@@ -20,15 +22,48 @@ public class NowRunningAPIImpl extends AbstractMoskitoAPIImpl implements NowRunn
 
 		List<EntryPoint> entryPoints = EntryPointRepository.getInstance().getEntryPoints();
 		List<EntryPointAO> ret = new LinkedList<>();
-		System.out.println("EntryPoints "+entryPoints);
+
+		long now = System.currentTimeMillis();
+
 		for (EntryPoint ep : entryPoints){
 			EntryPointAO bean = new EntryPointAO();
 			bean.setProducerId(ep.getProducerId());
 			bean.setCurrentRequestCount(ep.getCurrentRequestCount());
 			bean.setTotalRequestCount(ep.getTotalRequestCount());
+
+			List<ActiveMeasurement> measurements = ep.getCurrentMeasurements();
+			if (measurements.size()>0){
+				List<MeasurementAO> measurementBeans = new LinkedList<>();
+				for (ActiveMeasurement m : measurements){
+					MeasurementAO mao = new MeasurementAO();
+					mao.setAge(now-m.getStartTime());
+					mao.setStarttime(m.getStartTime());
+					mao.setDescription(m.getDescription());
+					measurementBeans.add(mao);
+					bean.setCurrentMeasurements(measurementBeans);
+				}
+			}
+
+			List<PastMeasurement> pastMeasurements = ep.getPastMeasurements();
+			if (pastMeasurements.size()>0){
+				List<MeasurementAO> pMeasurementBeans = new LinkedList<>();
+				for (PastMeasurement m : pastMeasurements){
+					MeasurementAO mao = new MeasurementAO();
+					mao.setAge(now-m.getStartTime());
+					mao.setStarttime(m.getStartTime());
+					mao.setDescription(m.getDescription());
+					mao.setEndtime(m.getEndtime());
+					mao.setDuration(m.getDuration());
+					pMeasurementBeans.add(mao);
+					bean.setPastMeasurements(pMeasurementBeans);
+				}
+			}
+
+			
+
+
 			ret.add(bean);
 		}
-		System.out.println("EntryPointsBEANS "+ret);
 		return ret;
 	}
 }

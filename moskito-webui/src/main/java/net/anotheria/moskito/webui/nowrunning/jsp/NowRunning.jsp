@@ -9,11 +9,12 @@
     <jsp:include page="../../shared/jsp/Alerts.jsp"/>
     <div class="content">
 
+        <%-- Overview box --%>
         <div class="box">
             <div class="box-title">
                 <a class="accordion-toggle tooltip-bottom" title="Close/Open" data-toggle="collapse" href="#collapsestatus"><i class="fa fa-caret-down"></i></a>
                 <h3 class="pull-left">
-                    Entry points
+                    Entry points (Beta Feature)
                 </h3>
                 <div class="box-right-nav">
                     <a href="" class="tooltip-bottom" title="Help"><i class="fa fa-info-circle"></i></a>
@@ -44,40 +45,89 @@
         </div>
 
 
-        <div class="box">
+
+        <ano:iterate name="entryPoints" type="net.anotheria.moskito.webui.nowrunning.api.EntryPointAO" id="entrypoint" indexId="index">
+        <ano:equal name="entrypoint" property="currentlyRunning" value="true">
+            <div class="box">
             <div class="box-title">
-                <a class="accordion-toggle tooltip-bottom" title="Close/Open" data-toggle="collapse" href="#collapsecurrent"><i class="fa fa-caret-down"></i></a>
+                <a class="accordion-toggle tooltip-bottom" title="Close/Open" data-toggle="collapse" href="#collapse${entrypoint.producerId}"><i class="fa fa-caret-down"></i></a>
                 <h3 class="pull-left">
-                    Now Running
+                    Now Running in ${entrypoint.producerId}
                 </h3>
                 <div class="box-right-nav">
                     <a href="" class="tooltip-bottom" title="Help"><i class="fa fa-info-circle"></i></a>
                 </div>
             </div>
-            <div id="collapsecurrent" class="box-content accordion-body collapse in">
+            <div id="collapse${entrypoint.producerId}" class="box-content accordion-body collapse in">
                 <table class="table table-striped tablesorter">
                     <thead>
                     <tr>
                         <th>Start <i class="fa fa-caret-down"></i></th>
-                        <th>Current Requests <i class="fa fa-caret-down"></i></th>
-                        <th>Total Requests <i class="fa fa-caret-down"></i></th>
+                        <th>Age<i class="fa fa-caret-down"></i></th>
+                        <th>Description<i class="fa fa-caret-down"></i></th>
                         <th class="th-actions"></th>
                     </tr>
                     </thead>
                     <tbody>
-                    <ano:iterate name="entryPoints" type="net.anotheria.moskito.webui.nowrunning.api.EntryPointAO" id="entrypoint" indexId="index">
+                    <ano:iterate id="measurement" type="net.anotheria.moskito.webui.nowrunning.api.MeasurementAO" name="entrypoint" property="currentMeasurements">
                         <tr>
-                            <td>${entrypoint.producerId}</td>
-                            <td>${entrypoint.currentRequestCount}</td>
-                            <td>${entrypoint.totalRequestCount}</td>
+                            <td>${measurement.startTimestamp}</td>
+                            <td>${measurement.age}</td>
+                            <td>${measurement.description}</td>
                             <td>&nbsp;</td>
                         </tr>
                     </ano:iterate>
+
                     </tbody>
                 </table>
             </div>
         </div>
+        </ano:equal>
+        </ano:iterate>
 
+
+        <ano:iterate name="entryPoints" type="net.anotheria.moskito.webui.nowrunning.api.EntryPointAO" id="entrypoint" indexId="index">
+                <div class="box">
+                    <div class="box-title">
+                        <a class="accordion-toggle tooltip-bottom" title="Close/Open" data-toggle="collapse" href="#collapsepast${entrypoint.producerId}"><i class="fa fa-caret-down"></i></a>
+                        <h3 class="pull-left">
+                            Past Requests in in ${entrypoint.producerId}
+                        </h3>
+                        <div class="box-right-nav">
+                            <a href="" class="tooltip-bottom" title="Help"><i class="fa fa-info-circle"></i></a>
+                        </div>
+                    </div>
+                    <div id="collapsepast${entrypoint.producerId}" class="box-content accordion-body collapse in">
+                        <table class="table table-striped tablesorter">
+                            <thead>
+                            <tr>
+                                <th>Position <i class="fa fa-caret-down"></i></th>
+                                <th>Start <i class="fa fa-caret-down"></i></th>
+                                <th>End <i class="fa fa-caret-down"></i></th>
+                                <th>Duration ms<i class="fa fa-caret-down"></i></th>
+                                <th>Age sec<i class="fa fa-caret-down"></i></th>
+                                <th>Description<i class="fa fa-caret-down"></i></th>
+                                <th class="th-actions"></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <ano:iterate indexId="position" id="measurement" type="net.anotheria.moskito.webui.nowrunning.api.MeasurementAO" name="entrypoint" property="pastMeasurements">
+                                <tr>
+                                    <td>${position}</td>
+                                    <td>${measurement.startTimestamp}</td>
+                                    <td>${measurement.endTimestamp}</td>
+                                    <td>${measurement.duration}</td>
+                                    <td>${measurement.age}</td>
+                                    <td>${measurement.description}</td>
+                                    <td>&nbsp;</td>
+                                </tr>
+                            </ano:iterate>
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+        </ano:iterate>
         <%--
         <div class="box">
             <div class="box-title">

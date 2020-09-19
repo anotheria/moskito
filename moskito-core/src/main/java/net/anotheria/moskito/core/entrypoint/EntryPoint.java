@@ -1,5 +1,8 @@
 package net.anotheria.moskito.core.entrypoint;
 
+import java.util.Collections;
+import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.atomic.AtomicLong;
 
 /**
@@ -22,6 +25,10 @@ public class EntryPoint {
 	 */
 	private AtomicLong currentRequests = new AtomicLong();
 
+	private CopyOnWriteArrayList<ActiveMeasurement> currentMeasurements = new CopyOnWriteArrayList<>();
+
+	private PastMeasurementChainNode pastMeasurements;
+
 	public EntryPoint(String aProducerId){
 		producerId = aProducerId;
 	}
@@ -31,12 +38,15 @@ public class EntryPoint {
 		currentRequests.incrementAndGet();
 	}
 
-	public void requestFinished(){
+	public void requestFinished(ActiveMeasurement measurement){
 		currentRequests.decrementAndGet();
+		currentMeasurements.remove(measurement);
+		PastMeasurementChainNode newNode = new PastMeasurementChainNode(measurement);
+		pastMeasurements = PastMeasurementChainNode.addToChainIfLongerDuration(pastMeasurements, newNode);
 	}
 
 	public String toString(){
-		return "Id: "+producerId+", CR: "+currentRequests+", TR: "+totalRequests;
+		return "Id: "+producerId+", CR: "+currentRequests+", TR: "+totalRequests+", CM: "+currentMeasurements;
 	}
 
 	public String getProducerId() {
@@ -49,5 +59,19 @@ public class EntryPoint {
 
 	public long getCurrentRequestCount() {
 		return currentRequests.get();
+	}
+
+	public void addCurrentMeasurements(ActiveMeasurement measurement) {
+		currentMeasurements.add(measurement);
+	}
+
+	public List<ActiveMeasurement> getCurrentMeasurements() {
+		return currentMeasurements;
+	}
+
+	public List<PastMeasurement> getPastMeasurements(){
+		return pastMeasurements == null ?
+			Collections.<PastMeasurement>emptyList() :
+			pastMeasurements.getMeasurements();
 	}
 }

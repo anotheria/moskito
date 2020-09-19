@@ -29,7 +29,6 @@ public class EntryPointRepository {
 	}
 
 	public ActiveMeasurement measurementStarted(IStatsProducer producer){
-		System.out.println("Measurement started in "+producer);
 		String producerId = producer.getProducerId();
 
 		EntryPoint newEntryPoint = new EntryPoint(producerId);
@@ -42,9 +41,10 @@ public class EntryPointRepository {
 		}
 
 		entryPoint.requestStarted();
-		System.out.println("EP "+entryPoint);
-
+		
 		ActiveMeasurement ret = new ActiveMeasurement(producerId);
+
+		entryPoint.addCurrentMeasurements(ret);
 
 		return ret;
 	}
@@ -53,12 +53,7 @@ public class EntryPointRepository {
 
 		EntryPoint entryPoint = entryPoints.get(measurement.getProducerId());
 		//we assume that entry point can't be null! After all it was just recently created.
-
-
-		System.out.println("Measurement ended in "+measurement);
-		entryPoint.requestFinished();
-
-		System.out.println("EP "+entryPoint);
+		entryPoint.requestFinished(measurement);
 	}
 
 	public List<EntryPoint> getEntryPoints() {

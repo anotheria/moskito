@@ -33,4 +33,8 @@ public class CurrentMeasurement {
 		if (first)
 			EntryPointRepository.getInstance().measurementFinished(entryPointMeasurement);
 	}
+
+	public void setCallDescription(String description) {
+		entryPointMeasurement.setCallDescription(description);
+	}
 }
