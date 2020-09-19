@@ -7,6 +7,7 @@ import net.anotheria.moskito.core.calltrace.TracedCall;
 import net.anotheria.moskito.core.calltrace.TracingUtil;
 import net.anotheria.moskito.core.config.MoskitoConfiguration;
 import net.anotheria.moskito.core.config.MoskitoConfigurationHolder;
+import net.anotheria.moskito.core.context.CurrentMeasurement;
 import net.anotheria.moskito.core.context.MoSKitoContext;
 import net.anotheria.moskito.core.dynamic.OnDemandStatsProducer;
 import net.anotheria.moskito.core.journey.Journey;
@@ -60,6 +61,9 @@ public class MonitoringBaseAspect extends AbstractMoskitoAspect<ServiceStats>{
 		//we only do this if previous producer wasn't same as current -> meaning if we call a second method in the same producer we don't count it as new call.
         boolean calculateCumulatedStats = !producerId.equals(prevProducerId);
 
+        //check if we are the first producer
+		CurrentMeasurement cm = MoSKitoContext.get().notifyProducerEntry(producer);
+
         String methodName = getMethodStatName(pjp.getSignature());
         ServiceStats defaultStats = producer.getDefaultStats();
         ServiceStats methodStats = producer.getStats(methodName);
@@ -105,12 +109,17 @@ public class MonitoringBaseAspect extends AbstractMoskitoAspect<ServiceStats>{
 
 
         StringBuilder call = null;
-        if (currentTrace != null || tracePassingOfThisProducer || isLoggingEnabled) {
+        if (currentTrace != null || tracePassingOfThisProducer || isLoggingEnabled || cm.isFirst()) {
             call = TracingUtil.buildCall(producerId, methodName, args, tracePassingOfThisProducer ? Tracers.getCallName(trace) : null);
         }
         if (currentTrace != null) {
             currentStep = currentTrace.startStep(call.toString(), producer, methodName);
         }
+
+        if (cm.isFirst()){
+        	cm.setCallDescription(call.toString());
+		}
+
         long startTime = System.nanoTime();
         Object ret = null;
         try {
@@ -187,6 +196,10 @@ public class MonitoringBaseAspect extends AbstractMoskitoAspect<ServiceStats>{
             if (isLoggingEnabled){
 				call.append(" = ").append(TracingUtil.parameter2string(ret));
 				System.out.println(call.toString());
+			}
+
+            if (cm.isFirst()){
+            	cm.notifyProducerFinished();
 			}
         }
     }
