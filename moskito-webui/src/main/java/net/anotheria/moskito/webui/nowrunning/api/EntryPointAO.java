@@ -1,5 +1,6 @@
 package net.anotheria.moskito.webui.nowrunning.api;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -8,8 +9,8 @@ import java.util.List;
  * @author lrosenberg
  * @since 10.09.20 16:23
  */
-public class EntryPointAO {
-	private static final long serialVersionUID =1L;
+public class EntryPointAO implements Serializable {
+	private static final long serialVersionUID = 1L;
 
 	private String producerId;
 
