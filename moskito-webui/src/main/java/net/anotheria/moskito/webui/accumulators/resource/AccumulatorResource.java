@@ -1,6 +1,5 @@
 package net.anotheria.moskito.webui.accumulators.resource;
 
-import io.swagger.v3.oas.annotations.servers.Server;
 import net.anotheria.anoplass.api.APIException;
 import net.anotheria.moskito.webui.accumulators.api.AccumulatorDefinitionAO;
 import net.anotheria.moskito.webui.accumulators.api.AccumulatorPO;
@@ -22,7 +21,7 @@ import java.util.List;
  * @since 13.02.13 22:44
  */
 @Path("accumulators")
-@Server(url = "/moskito-inspect-rest/")
+//@Server(url = "/moskito-inspect-rest/")
 public class AccumulatorResource extends AbstractResource{
 
 	/**

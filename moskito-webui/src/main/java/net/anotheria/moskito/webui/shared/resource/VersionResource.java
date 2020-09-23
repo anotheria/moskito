@@ -1,6 +1,5 @@
 package net.anotheria.moskito.webui.shared.resource;
 
-import io.swagger.v3.oas.annotations.servers.Server;
 import net.anotheria.moskito.webui.util.VersionUtil;
 import net.anotheria.util.maven.MavenVersion;
 
@@ -16,7 +15,7 @@ import javax.ws.rs.core.Context;
  * @since 28.06.15 00:17
  */
 @Path("version")
-@Server(url = "/moskito-inspect-rest/")
+//@Server(url = "/moskito-inspect-rest/")
 public class VersionResource extends AbstractResource{
 
 	@GET

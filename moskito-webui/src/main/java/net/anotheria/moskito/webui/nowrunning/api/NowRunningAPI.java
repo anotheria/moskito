@@ -21,4 +21,6 @@ import java.util.List;
 @FailBy(strategyClass= RetryCallOnce.class)
 public interface NowRunningAPI extends API, Service {
 	List<EntryPointAO> getEntryPoints() throws APIException;
+
+	int getNowRunningCount() throws APIException;
 }

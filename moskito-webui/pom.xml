@@ -173,11 +173,11 @@
             <version>2.0</version>
             <scope>provided</scope>
         </dependency>
-        <dependency>
+        <!--<dependency>
           <groupId>io.swagger.core.v3</groupId>
           <artifactId>swagger-jaxrs2</artifactId>
           <version>${swagger.version}</version>
-        </dependency>
+        </dependency>-->
 
     </dependencies>
 </project>

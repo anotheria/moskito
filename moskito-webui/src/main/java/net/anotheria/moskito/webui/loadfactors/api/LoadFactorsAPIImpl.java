@@ -88,6 +88,9 @@ public class LoadFactorsAPIImpl extends AbstractMoskitoAPIImpl implements LoadFa
 
 	private IProducerFilter[] createFilters(LoadFactorParticipantConfiguration participantConfiguration){
 		LinkedList<IProducerFilter> filters = new LinkedList<>();
+		if (participantConfiguration==null)
+			return filters.toArray(new IProducerFilter[filters.size()]);
+		
 		if (participantConfiguration.getCategory()!=null && participantConfiguration.getCategory().length()>0)
 			filters.add(new CategoryFilter(participantConfiguration.getCategory()));
 		if (participantConfiguration.getSubsystem()!=null && participantConfiguration.getSubsystem().length()>0)

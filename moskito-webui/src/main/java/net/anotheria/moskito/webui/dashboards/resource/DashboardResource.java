@@ -1,6 +1,6 @@
 package net.anotheria.moskito.webui.dashboards.resource;
 
-import io.swagger.v3.oas.annotations.servers.Server;
+
 import net.anotheria.anoplass.api.APIException;
 import net.anotheria.moskito.webui.dashboards.api.DashboardAO;
 import net.anotheria.moskito.webui.shared.resource.AbstractResource;
@@ -17,7 +17,7 @@ import javax.ws.rs.PathParam;
  * @since 15.04.15 09:08
  */
 @Path("dashboards")
-@Server(url = "/moskito-inspect-rest/")
+//@Server(url = "/moskito-inspect-rest/")
 public class DashboardResource extends AbstractResource {
 	@GET
 	public ReplyObject getDashboardDefinitions(){

@@ -1,6 +1,5 @@
 package net.anotheria.moskito.webui.journey.resource;
 
-import io.swagger.v3.oas.annotations.servers.Server;
 import net.anotheria.anoplass.api.APIException;
 import net.anotheria.moskito.webui.shared.resource.AbstractResource;
 import net.anotheria.moskito.webui.shared.resource.ReplyObject;
@@ -16,7 +15,7 @@ import javax.ws.rs.WebApplicationException;
  * @since 14.02.13 10:38
  */
 @Path("journeys")
-@Server(url = "/moskito-inspect-rest/")
+//@Server(url = "/moskito-inspect-rest/")
 public class JourneyResource extends AbstractResource {
 
 	@GET @Path("list")

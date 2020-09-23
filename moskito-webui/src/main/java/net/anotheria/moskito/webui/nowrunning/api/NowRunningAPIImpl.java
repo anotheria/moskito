@@ -66,4 +66,9 @@ public class NowRunningAPIImpl extends AbstractMoskitoAPIImpl implements NowRunn
 		}
 		return ret;
 	}
+
+	@Override
+	public int getNowRunningCount() throws APIException {
+		return EntryPointRepository.getInstance().getNowRunningCount();
+	}
 }

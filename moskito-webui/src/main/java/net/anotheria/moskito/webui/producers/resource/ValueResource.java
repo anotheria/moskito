@@ -1,6 +1,5 @@
 package net.anotheria.moskito.webui.producers.resource;
 
-import io.swagger.v3.oas.annotations.servers.Server;
 import net.anotheria.anoplass.api.APIException;
 import net.anotheria.anoplass.api.APIFinder;
 import net.anotheria.moskito.core.stats.TimeUnit;
@@ -25,7 +24,7 @@ import java.util.List;
  * @since 01.06.18 15:20
  */
 @Path("value")
-@Server(url = "/moskito-inspect-rest/")
+//@Server(url = "/moskito-inspect-rest/")
 public class ValueResource extends AbstractResource {
 
 	/**
