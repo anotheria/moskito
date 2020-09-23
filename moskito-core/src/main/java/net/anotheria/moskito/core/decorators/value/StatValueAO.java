@@ -79,7 +79,9 @@ public abstract class StatValueAO implements IComparable, Serializable{
 	}
 	
 	public String getJsVariableName(){
-		return StatCaptionBean.getJsVariableName(getName());
+		return name == null ?
+				"null":
+				StatCaptionBean.getJsVariableName(getName());
 	}
 	
 }
