@@ -109,7 +109,7 @@ public class ReplyObject {
 		return ret.toString();
 	}
 
-	public boolean isSuccessful(){
+	public boolean isSuccess(){
 		return success;
 	}
 

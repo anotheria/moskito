@@ -66,7 +66,7 @@ public class ReplyObjectWriter implements MessageBodyWriter<ReplyObject> {
 					"<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>".getBytes("UTF-8")
 			);
 			entityStream.write("<reply>".getBytes());
-			entityStream.write(("<success>"+replyObject.isSuccessful()+"</success>").getBytes("UTF-8"));
+			entityStream.write(("<success>"+replyObject.isSuccess()+"</success>").getBytes("UTF-8"));
 			if (replyObject.getMessage()!=null)
 				entityStream.write(("<message>"+replyObject.getMessage()+"</message>").getBytes("UTF-8"));
 
