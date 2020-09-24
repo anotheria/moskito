@@ -57,7 +57,6 @@ public class DashboardsAPITest {
 
 	private void ensureTestWorked(int expectedSize, String expectedMissingName) throws APIException{
 		ChartConfig[] charts = api.getDashboardConfig("testDashboard").getCharts();
-		//System.out.println("Checking 4 "+expectedMissingName+" against "+ Arrays.toString(charts));
 		assertEquals(expectedSize, charts.length);
 		for (ChartConfig c : charts){
 			assertNotEquals(expectedMissingName, c.getCaption());

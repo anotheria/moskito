@@ -33,7 +33,6 @@ public class FindThresholdTest {
 		config.setIntervalName(null);
 		
 		IProducerRegistryAPI registryAPI = new ProducerRegistryAPIFactory().createProducerRegistryAPIForUnitTest();
-		System.out.println("ALL: "+registryAPI.getAllProducers());
 		IStatsProducer<?> producer = registryAPI.getProducer(config.getProducerName());
 		assertNotNull(producer);
 		

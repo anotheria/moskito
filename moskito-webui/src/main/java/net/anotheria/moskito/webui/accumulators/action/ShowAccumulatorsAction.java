@@ -201,7 +201,6 @@ public class ShowAccumulatorsAction extends BaseAccumulatorsAction {
 	
 	/*test visibility */ static void normalize(List<AccumulatedValuesBean> values, List<String> names, int limit){
 		for (String name : names){
-			//System.out.println("normalizing "+name);
 			ArrayList<Float> valueCopy = new ArrayList<Float>(values.size());
 			//step1 transform everything to float
 			float min = Float.MAX_VALUE, max = Float.MIN_VALUE;
@@ -213,11 +212,9 @@ public class ShowAccumulatorsAction extends BaseAccumulatorsAction {
 					min = val;
 				valueCopy.add(val);
 			}
-			//System.out.println("1: "+valueCopy);
 			float range = max - min;
 			float multiplier = limit / range;
-			//System.out.println("range "+range+", multiplier "+multiplier);
-			
+
 			//step2 recalculate
 			for (int i=0; i<values.size(); i++){
 				float newValue = (valueCopy.get(i)-min)*multiplier;

@@ -83,8 +83,6 @@ public class PastMeasurementChainNodeTest {
 		PastMeasurementChainNode chain = PastMeasurementChainNode.addToChainIfLongerDuration(root, newNode);
 		assertSame(root, chain);
 
-		System.out.println("ROOT: "+chain);
-
 		assertEquals(4, chain.getLength());
 		assertEquals(50, chain.getNthElement(3).getDuration());
 	}
