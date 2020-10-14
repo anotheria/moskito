@@ -19,6 +19,7 @@ import net.anotheria.moskito.core.config.thresholds.ThresholdsConfig;
 import net.anotheria.moskito.core.config.tracing.TracingConfiguration;
 import net.anotheria.moskito.core.stats.Interval;
 import net.anotheria.moskito.core.stats.impl.IntervalRegistry;
+import net.anotheria.moskito.core.tracer.TracerRepository;
 import net.anotheria.moskito.core.util.AfterStartTasks;
 import org.configureme.annotations.AfterConfiguration;
 import org.configureme.annotations.Configure;
@@ -327,6 +328,22 @@ public class MoskitoConfiguration implements Serializable{
 					errorHandlingConfig.afterConfiguration();
 			}
 		});
+	}
+
+	@AfterConfiguration public void executeAfterConfigurationTasks(){
+		AfterStartTasks.submitTask(new Runnable() {
+			@Override
+			public void run() {
+				//check if there are any tracers already configured (fix for https://github.com/anotheria/moskito/issues/235)
+				String[] configuredTracers = getTracingConfig().getTracers();
+				if (configuredTracers!=null && configuredTracers.length!=0){
+					for (String producerId : configuredTracers){
+						TracerRepository.getInstance().enableTracingForProducerId(producerId);
+					}
+				}
+			}
+		});
+
 	}
 
 	private void createIntervals(){

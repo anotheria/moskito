@@ -21,34 +21,27 @@ public class TracerRepository {
 	/**
 	 * Logger.
 	 */
-	private static Logger log = LoggerFactory.getLogger(TracerRepository.class);
+	private static final Logger log = LoggerFactory.getLogger(TracerRepository.class);
 
 	/**
 	 * Log for logged traces.
 	 */
-	private static Logger traceLog = LoggerFactory.getLogger("MoSKitoTracer");
+	private static final Logger traceLog = LoggerFactory.getLogger("MoSKitoTracer");
 
 	/**
 	 * Singleton instance of this class.
 	 */
-	private static TracerRepository INSTANCE = new TracerRepository();
+	private static final TracerRepository INSTANCE = new TracerRepository();
 
 	/**
 	 * Currently existing tracers.
 	 */
-	private ConcurrentMap<String,Tracer> tracers = new ConcurrentHashMap<>();
+	private final ConcurrentMap<String,Tracer> tracers = new ConcurrentHashMap<>();
 
 	/**
 	 * Private constructor.
 	 */
 	private TracerRepository(){
-		//check if there are any tracers already configured (fix for https://github.com/anotheria/moskito/issues/235)
-		String[] configuredTracers = MoskitoConfigurationHolder.getConfiguration().getTracingConfig().getTracers();
-		if (configuredTracers!=null && configuredTracers.length!=0){
-			for (String producerId : configuredTracers){
-				enableTracingForProducerId(producerId);
-			}
-		}
 	}
 
 	/**
