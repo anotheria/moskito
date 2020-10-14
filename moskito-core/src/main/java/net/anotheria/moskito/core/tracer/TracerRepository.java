@@ -42,6 +42,13 @@ public class TracerRepository {
 	 * Private constructor.
 	 */
 	private TracerRepository(){
+		//check if there are any tracers already configured (fix for https://github.com/anotheria/moskito/issues/235)
+		String[] configuredTracers = MoskitoConfigurationHolder.getConfiguration().getTracingConfig().getTracers();
+		if (configuredTracers!=null && configuredTracers.length!=0){
+			for (String producerId : configuredTracers){
+				enableTracingForProducerId(producerId);
+			}
+		}
 	}
 
 	/**
