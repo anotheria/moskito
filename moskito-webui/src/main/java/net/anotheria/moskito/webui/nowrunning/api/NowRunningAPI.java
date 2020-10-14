@@ -20,7 +20,17 @@ import java.util.List;
 @SupportService
 @FailBy(strategyClass= RetryCallOnce.class)
 public interface NowRunningAPI extends API, Service {
+	/**
+	 * Returns the entry points with now-running and past-running actions.
+	 * @return
+	 * @throws APIException
+	 */
 	List<EntryPointAO> getEntryPoints() throws APIException;
 
+	/**
+	 * Number of currently running requests.
+	 * @return
+	 * @throws APIException
+	 */
 	int getNowRunningCount() throws APIException;
 }
