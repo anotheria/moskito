@@ -27,7 +27,7 @@ public class ShowGaugesAction extends BaseGaugesAction{
 		return actionMapping.success();
 	}
 
-	//temporarly put it under more
+	//temporarily put it under more
 	@Override
 	protected NaviItem getCurrentSubNaviItem() {
 		return NaviItem.MORE_GAUGES;
