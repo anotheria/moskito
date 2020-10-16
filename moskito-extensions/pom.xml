@@ -19,6 +19,7 @@
         <module>moskito-disk-space-monitoring</module>
         <module>moskito-mongodb</module>
         <module>moskito-monitoring-plugin</module>
+        <module>moskito-outofmemory-watcher</module>
         <module>moskito-php</module>
         <module>moskito-saas</module>
     </modules>
