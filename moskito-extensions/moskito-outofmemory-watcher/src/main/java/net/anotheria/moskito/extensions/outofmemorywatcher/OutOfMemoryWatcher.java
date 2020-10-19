@@ -8,6 +8,8 @@ import net.anotheria.moskito.core.threshold.guard.DoubleBarrierPassGuard;
 import net.anotheria.moskito.core.threshold.guard.GuardedDirection;
 import net.anotheria.moskito.webui.embedded.MoSKitoInspectStartException;
 import net.anotheria.moskito.webui.embedded.StartMoSKitoInspectBackendForRemote;
+import org.distributeme.core.RMIRegistryUtil;
+import org.distributeme.core.RegistryUtil;
 import org.moskito.controlagent.endpoints.rmi.RMIEndpoint;
 import org.moskito.controlagent.endpoints.rmi.RMIEndpointException;
 import org.slf4j.Logger;
@@ -33,13 +35,6 @@ public class OutOfMemoryWatcher {
         }
         String watchDirectory = args[0];
         String filePattern = args[1];
-
-        try {
-            RMIEndpoint.startRMIEndpoint();
-        } catch (RMIEndpointException e) {
-            System.out.println("Can't start MoSKito Control RMI Endpoint" + e.getMessage());
-            return;
-        }
 
         try {
             StartMoSKitoInspectBackendForRemote.startMoSKitoInspectBackend();
