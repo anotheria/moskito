@@ -50,7 +50,7 @@ public class OurOfMemoryErrorCountStats extends GenericStats {
      * @param errorCount
      */
     public void update(long errorCount) {
-        current.setValueAsLong(errorCount > 0 ? 1 : 0);
+        current.setValueAsLong(errorCount);
     }
 
 

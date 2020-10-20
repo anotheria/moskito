@@ -82,7 +82,6 @@ public class OutOfMemoryWatcherProducer implements IStatsProducer {
             while (line != null) {
                 if (line.contains("OutOfMemory")) {
                     errorCount++;
-                    break;
                 }
                 line = reader.readLine();
             }
