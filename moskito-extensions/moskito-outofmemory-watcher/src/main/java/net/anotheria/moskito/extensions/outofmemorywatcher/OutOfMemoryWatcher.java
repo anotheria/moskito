@@ -8,8 +8,6 @@ import net.anotheria.moskito.core.threshold.guard.DoubleBarrierPassGuard;
 import net.anotheria.moskito.core.threshold.guard.GuardedDirection;
 import net.anotheria.moskito.webui.embedded.MoSKitoInspectStartException;
 import net.anotheria.moskito.webui.embedded.StartMoSKitoInspectBackendForRemote;
-import org.distributeme.core.RMIRegistryUtil;
-import org.distributeme.core.RegistryUtil;
 import org.moskito.controlagent.endpoints.rmi.RMIEndpoint;
 import org.moskito.controlagent.endpoints.rmi.RMIEndpointException;
 import org.slf4j.Logger;
@@ -30,19 +28,51 @@ public class OutOfMemoryWatcher {
 
     public static void main(String[] args) throws Exception {
         if (args == null || args.length < 2) {
-            System.out.println("Please enter watch directory and file pattern");
+            System.out.println("Please enter required parameters: watch directory and file pattern.");
             return;
         }
-        String watchDirectory = args[0];
-        String filePattern = args[1];
+        String directory = "";
+        String pattern = "";
+        String port = "";
+        for (String param : args) {
+            if (param.startsWith("-directory")) {
+                directory = param.substring(param.indexOf("=") + 1);
+            }
+            if (param.startsWith("-pattern")) {
+                pattern = param.substring(param.indexOf("=") + 1);
+            }
+            if (param.startsWith("-port")) {
+                port = param.substring(param.indexOf("=") + 1);
+            }
+        }
+        if (directory.isEmpty()) {
+            System.out.println("Please enter directory parameter");
+            return;
+        }
+        if (pattern.isEmpty()) {
+            System.out.println("Please enter pattern parameter");
+            return;
+        }
+        if (port.isEmpty()) {
+            port = "9451";
+            System.out.println("Port not specified. Set default value 9451");
+        }
 
         try {
-            StartMoSKitoInspectBackendForRemote.startMoSKitoInspectBackend();
+            RMIEndpoint.startRMIEndpoint();
+        } catch (RMIEndpointException e) {
+            System.out.println("Can't start MoSKito Control RMI Endpoint" + e.getMessage());
+            return;
+        }
+
+        try {
+            StartMoSKitoInspectBackendForRemote.startMoSKitoInspectBackend(Integer.parseInt(port));
         } catch (MoSKitoInspectStartException e) {
             System.out.println("Can't start MoSKito inspect backend" + e.getMessage());
             return;
         }
-        registerProducer(watchDirectory, filePattern);
+        registerProducer(directory, pattern);
+        System.out.println("Start watching directory: " + directory + "; pattern: " + pattern + "; port: " + port);
     }
 
     private static void registerProducer(String watchDirectory, String filePattern) {
