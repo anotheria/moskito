@@ -350,7 +350,7 @@ public class DashboardAPIImpl extends AbstractMoskitoAPIImpl implements Dashboar
 		config.setProducers(new_cc_array);
 	}
 
-	private static <T> T removeElementFromArray(T sourceArray[], T destArray, int index) {
+	private static <T> T removeElementFromArray(T[] sourceArray, T destArray, int index) {
 		//last element
 		if (sourceArray.length == index + 1) {
 			System.arraycopy(sourceArray, 0, destArray, 0, sourceArray.length - 1);
@@ -605,6 +605,8 @@ public class DashboardAPIImpl extends AbstractMoskitoAPIImpl implements Dashboar
 		MoskitoConfiguration config = MoskitoConfigurationHolder.getConfiguration();
 		DashboardsConfig dashboardsConfig = config.getDashboardsConfig();
 		DashboardConfig[] dashboards = dashboardsConfig.getDashboards();
+		if (dashboards==null)
+			return new DashboardConfig[0];
 		return dashboards;
 	}
 }
