@@ -72,7 +72,7 @@ public class OutOfMemoryWatcher {
         }
 
         try {
-            StartMoSKitoInspectBackendForRemote.startMoSKitoInspectBackend();
+            StartMoSKitoInspectBackendForRemote.startMoSKitoInspectBackend(Integer.parseInt(port));
         } catch (MoSKitoInspectStartException e) {
             System.out.println("Can't start MoSKito inspect backend" + e.getMessage());
             return;
