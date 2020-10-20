@@ -77,6 +77,7 @@ public class OutOfMemoryWatcher {
             System.out.println("Can't start MoSKito inspect backend" + e.getMessage());
             return;
         }
+        registerProducer(directory, pattern);
         BuiltinUpdater.addTask(new TimerTask() {
             @Override
             public void run() {
