@@ -1,5 +1,10 @@
 package net.anotheria.moskito.extensions.outofmemorywatcher;
 
+import net.anotheria.moskito.core.accumulation.Accumulators;
+import net.anotheria.moskito.core.config.MoskitoConfiguration;
+import net.anotheria.moskito.core.config.MoskitoConfigurationHolder;
+import net.anotheria.moskito.core.config.dashboards.ChartConfig;
+import net.anotheria.moskito.core.config.dashboards.DashboardConfig;
 import net.anotheria.moskito.core.registry.ProducerRegistryFactory;
 import net.anotheria.moskito.core.threshold.ThresholdConditionGuard;
 import net.anotheria.moskito.core.threshold.ThresholdStatus;
@@ -28,15 +33,19 @@ public class OutOfMemoryWatcher {
     /**
      * Logger.
      */
-    private static Logger log = LoggerFactory.getLogger(OutOfMemoryWatcher.class);
+    private static final Logger log = LoggerFactory.getLogger(OutOfMemoryWatcher.class);
 
     private static String directory = "";
     private static String pattern = "";
-    private static Set<String> watchingLogs = new HashSet<>();
+    private static final Set<String> watchingLogs = new HashSet<>();
+
+    private static String[] thresholdNames = new String[0];
+	private static ChartConfig[] accumulators = new ChartConfig[0];
 
     public static void main(String[] args) throws Exception {
         if (args == null || args.length < 2) {
-            System.out.println("Please enter required parameters: watch directory and file pattern(-directory=<path>, -pattern=<filename>). And optional parameter '-port'.");
+            System.out.println("Usage java -jar <path-to-jar-file> -directory=<directory> -pattern=<pattern> [-port=<port>");
+            System.out.println("If port is omitted, default port 9451 is used");
             return;
         }
         String port = "";
@@ -64,6 +73,34 @@ public class OutOfMemoryWatcher {
             System.out.println("Port not specified. Set default value 9451");
         }
 
+        int portAsInt = -1;
+        try{
+			portAsInt = Integer.valueOf(port);
+		}catch(NumberFormatException e){
+        	System.out.println("Port must be numeric "+port);
+        	return;
+		}
+
+		MoskitoConfiguration moskitoConfiguration = MoskitoConfigurationHolder.getConfiguration();
+        moskitoConfiguration.getBuiltinProducersConfig().disableAll();
+        //create a dashboard.
+		DashboardConfig dashboard = new DashboardConfig();
+		dashboard.setName("WatchedFiles");
+		DashboardConfig[] array = new DashboardConfig[]{
+				dashboard
+		};
+		moskitoConfiguration.getDashboardsConfig().setDashboards(array);
+
+
+        
+
+		try {
+			StartMoSKitoInspectBackendForRemote.startMoSKitoInspectBackend(portAsInt);
+		} catch (MoSKitoInspectStartException e) {
+			System.out.println("Can't start MoSKito inspect backend" + e.getMessage());
+			return;
+		}
+
         try {
             RMIEndpoint.startRMIEndpoint();
         } catch (RMIEndpointException e) {
@@ -71,12 +108,6 @@ public class OutOfMemoryWatcher {
             return;
         }
 
-        try {
-            StartMoSKitoInspectBackendForRemote.startMoSKitoInspectBackend(Integer.parseInt(port));
-        } catch (MoSKitoInspectStartException e) {
-            System.out.println("Can't start MoSKito inspect backend" + e.getMessage());
-            return;
-        }
         BuiltinUpdater.addTask(new TimerTask() {
             @Override
             public void run() {
@@ -89,7 +120,7 @@ public class OutOfMemoryWatcher {
     private static void registerProducer(String watchDirectory, String filePattern) {
         File[] files = new File(watchDirectory).listFiles();
         if (files == null || files.length == 0) {
-            System.out.println("Not found any files in: " + watchDirectory);
+            log.debug("Not found any files in: " + watchDirectory);
             return;
         }
         for (File f : files) {
@@ -107,10 +138,51 @@ public class OutOfMemoryWatcher {
                     };
                     Thresholds.addThreshold(watcherProducer.getProducerId(), watcherProducer.getProducerId(), watcherProducer.getProducerId(), "CURRENT", "1m", guards);
                     watchingLogs.add(f.getAbsolutePath());
+
+                    //add thresholds and accumulator to the dashboard.
+					String[] thresholdNames = getThresholdNames(watcherProducer.getProducerId());
+					ChartConfig[] chartConfigs = getAccumulators(watcherProducer.getProducerId());
+
+					MoskitoConfigurationHolder.getConfiguration().getDashboardsConfig().getDashboards()[0].setThresholds(thresholdNames);
+					MoskitoConfigurationHolder.getConfiguration().getDashboardsConfig().getDashboards()[0].setCharts(chartConfigs);
+
+					Accumulators.createAccumulator(watcherProducer.getProducerId(),
+							watcherProducer.getProducerId(),
+							watcherProducer.getProducerId(),
+							"CURRENT",
+							"1m"
+							);
+					
                 } catch (Exception e) {
                     log.error(e.getMessage());
                 }
             }
         }
     }
+
+    private static final String[] getThresholdNames(String name){
+    	String[] newThresholdNames = new String[thresholdNames.length+1];
+    	if (thresholdNames.length>0){
+    		System.arraycopy(thresholdNames, 0, newThresholdNames, 0, thresholdNames.length);
+		}
+		newThresholdNames[newThresholdNames.length-1] = name;
+
+    	thresholdNames = newThresholdNames;
+    	return thresholdNames;
+	}
+
+	private static final ChartConfig[] getAccumulators(String name){
+		ChartConfig[] newAccumulators = new ChartConfig[accumulators.length+1];
+		if (accumulators.length>0){
+			System.arraycopy(accumulators, 0, newAccumulators, 0, accumulators.length);
+		}
+		ChartConfig chart = new ChartConfig();
+		chart.setCaption(name);
+		chart.setAccumulators(new String[]{name});
+		newAccumulators[newAccumulators.length-1] = chart;
+
+		accumulators = newAccumulators;
+		return accumulators;
+	}
+
 }
