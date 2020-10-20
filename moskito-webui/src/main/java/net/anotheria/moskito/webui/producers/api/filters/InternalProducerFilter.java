@@ -8,6 +8,8 @@ import net.anotheria.moskito.webui.accumulators.api.AccumulatorAPI;
 import net.anotheria.moskito.webui.dashboards.api.DashboardAPI;
 import net.anotheria.moskito.webui.gauges.api.GaugeAPI;
 import net.anotheria.moskito.webui.journey.api.JourneyAPI;
+import net.anotheria.moskito.webui.loadfactors.api.LoadFactorsAPI;
+import net.anotheria.moskito.webui.nowrunning.api.NowRunningAPI;
 import net.anotheria.moskito.webui.producers.api.ProducerAPI;
 import net.anotheria.moskito.webui.shared.api.AdditionalFunctionalityAPI;
 import net.anotheria.moskito.webui.tags.api.TagAPI;
@@ -42,6 +44,8 @@ public class InternalProducerFilter implements ProducerFilter {
 		internalProducerNames.add(JourneyAPI.class.getSimpleName());
 		internalProducerNames.add(TracerAPI.class.getSimpleName());
 		internalProducerNames.add(TagAPI.class.getSimpleName());
+		internalProducerNames.add(NowRunningAPI.class.getSimpleName());
+		internalProducerNames.add(LoadFactorsAPI.class.getSimpleName());
 
 		internalProducerNames.add(ActivityAPI.class.getSimpleName());
 		internalProducerNames.add(LoginAPI.class.getSimpleName());
