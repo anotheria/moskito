@@ -7,6 +7,10 @@
     {
       "clazzName": "net.anotheria.moskito.webui.producers.api.filters.InternalProducerFilter",
       "parameter": "none"
+    },
+    {
+      "clazzName": "net.anotheria.moskito.webui.producers.api.filters.MetaFactoryStorageFilter",
+      "parameter": "none"
     }
   ]
 }
