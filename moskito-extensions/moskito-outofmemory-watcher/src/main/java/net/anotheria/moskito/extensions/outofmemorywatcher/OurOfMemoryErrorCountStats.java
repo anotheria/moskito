@@ -2,6 +2,7 @@ package net.anotheria.moskito.extensions.outofmemorywatcher;
 
 import net.anotheria.moskito.core.predefined.Constants;
 import net.anotheria.moskito.core.producers.AbstractStats;
+import net.anotheria.moskito.core.producers.GenericStats;
 import net.anotheria.moskito.core.stats.Interval;
 import net.anotheria.moskito.core.stats.StatValue;
 import net.anotheria.moskito.core.stats.TimeUnit;
@@ -16,7 +17,7 @@ import java.util.List;
  *
  * @author asamoilich
  */
-public class OurOfMemoryErrorCountStats extends AbstractStats {
+public class OurOfMemoryErrorCountStats extends GenericStats {
 
     private static final List<String> VALUE_NAMES = Collections.unmodifiableList(Arrays.asList(
             "CURRENT"
