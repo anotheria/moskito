@@ -25,7 +25,7 @@ public class LoadFactorsConfiguration implements Serializable {
 	 */
 	@Configure
 	@SerializedName("@factors")
-	private LoadFactorConfiguration[] factors = new LoadFactorConfiguration[]{new LoadFactorConfiguration()};
+	private LoadFactorConfiguration[] factors = new LoadFactorConfiguration[0];
 
 	public LoadFactorConfiguration[] getFactors() {
 		return factors;
