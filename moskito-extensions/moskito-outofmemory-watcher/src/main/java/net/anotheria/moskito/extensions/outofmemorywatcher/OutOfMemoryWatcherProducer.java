@@ -1,6 +1,5 @@
 package net.anotheria.moskito.extensions.outofmemorywatcher;
 
-import net.anotheria.moskito.core.predefined.OurOfMemoryErrorCountStats;
 import net.anotheria.moskito.core.producers.IStats;
 import net.anotheria.moskito.core.producers.IStatsProducer;
 import net.anotheria.moskito.core.util.BuiltinUpdater;

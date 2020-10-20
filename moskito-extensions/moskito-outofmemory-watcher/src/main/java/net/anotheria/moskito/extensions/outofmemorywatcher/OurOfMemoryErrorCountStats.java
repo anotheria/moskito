@@ -1,5 +1,6 @@
-package net.anotheria.moskito.core.predefined;
+package net.anotheria.moskito.extensions.outofmemorywatcher;
 
+import net.anotheria.moskito.core.predefined.Constants;
 import net.anotheria.moskito.core.producers.AbstractStats;
 import net.anotheria.moskito.core.stats.Interval;
 import net.anotheria.moskito.core.stats.StatValue;
