@@ -14,7 +14,7 @@
 	//"interceptor.1": "org.distributeme.core.interceptor.availabilitytesting.ServiceUnavailableByPropertyInterceptor", 
 	//"interceptor.2": "org.distributeme.core.interceptor.availabilitytesting.ServerSideSlowDownByPropertyInterceptor",
 	//"interceptor.3": "org.distributeme.core.interceptor.availabilitytesting.ServerSideSlowDownByConfigurationInterceptor", 
-	"interceptor.50": "org.distributeme.test.interception.interceptor.LogOutAfterCallInterceptor",
+//	"interceptor.50": "org.distributeme.test.interception.interceptor.LogOutAfterCallInterceptor",
 	
 	test: {
 		interceptors: {
