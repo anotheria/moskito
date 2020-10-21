@@ -44,7 +44,7 @@ public class OutOfMemoryWatcher {
 
     public static void main(String[] args) throws Exception {
         if (args == null || args.length < 2) {
-            System.out.println("Usage java -jar <path-to-jar-file> -directory=<directory> -pattern=<pattern> [-port=<port>");
+            System.out.println("Usage java -jar <path-to-jar-file> -directory=<directory> -pattern=<pattern> [-port=<port>]");
             System.out.println("If port is omitted, default port 9451 is used");
             return;
         }
