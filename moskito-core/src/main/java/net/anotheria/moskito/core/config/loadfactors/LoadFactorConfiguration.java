@@ -83,4 +83,15 @@ public class LoadFactorConfiguration implements Serializable {
 	public void setRight(LoadFactorParticipantConfiguration right) {
 		this.right = right;
 	}
+
+	@Override
+	public String toString() {
+		return "LoadFactorConfiguration{" +
+				"name='" + name + '\'' +
+				", metric='" + metric + '\'' +
+				", interval='" + interval + '\'' +
+				", left=" + left +
+				", right=" + right +
+				'}';
+	}
 }

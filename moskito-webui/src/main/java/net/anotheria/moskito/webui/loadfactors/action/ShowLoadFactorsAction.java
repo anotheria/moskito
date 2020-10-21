@@ -23,10 +23,6 @@ public class ShowLoadFactorsAction extends BaseLoadFactorsAction {
 
 		List<LoadFactorAO> factors = getLoadFactorsAPI().getLoadFactors();
 		req.setAttribute("loadfactors", factors);
-		//req.setAttribute("thresholds", getThresholdBeans(getThresholdAPI().getThresholdStatuses()));
-		//req.setAttribute("infos", getThresholdAPI().getThresholdDefinitions());
-		//req.setAttribute("alerts", getThresholdAPI().getAlerts());
-
 		return mapping.findCommand(getForward(req));
 	}
 
