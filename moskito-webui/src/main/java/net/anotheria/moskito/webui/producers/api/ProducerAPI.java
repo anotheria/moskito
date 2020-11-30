@@ -136,4 +136,8 @@ public interface ProducerAPI extends API, Service {
 	 */
 	void disableLogging(String producerId) throws APIException;
 
+	void enableSourceMonitoring(String producerId) throws APIException;
+
+	void disableSourceMonitoring(String producerId) throws APIException;
+
 }

@@ -41,7 +41,9 @@ import net.anotheria.moskito.webui.nowrunning.action.ShowEntryPointsAction;
 import net.anotheria.moskito.webui.plugins.action.RemovePluginAction;
 import net.anotheria.moskito.webui.plugins.action.ShowPluginsAction;
 import net.anotheria.moskito.webui.producers.action.DisableProducerLoggingAction;
+import net.anotheria.moskito.webui.producers.action.DisableSourceMonitoringAction;
 import net.anotheria.moskito.webui.producers.action.EnableProducerLoggingAction;
+import net.anotheria.moskito.webui.producers.action.EnableSourceMonitoringAction;
 import net.anotheria.moskito.webui.producers.action.ShowAllProducersAction;
 import net.anotheria.moskito.webui.producers.action.ShowCumulatedProducersAction;
 import net.anotheria.moskito.webui.producers.action.ShowProducerAction;
@@ -156,6 +158,8 @@ public class MoskitoMappingsConfigurator implements ActionMappingsConfigurator{
 		mappings.addMapping("mskEnableLogging", EnableProducerLoggingAction.class);
 		mappings.addMapping("mskDisableLogging", DisableProducerLoggingAction.class);
 
+		mappings.addMapping("mskEnableSourceMonitoring", EnableSourceMonitoringAction.class);
+		mappings.addMapping("mskDisableSourceMonitoring", DisableSourceMonitoringAction.class);
 
 		mappings.addMapping("mskShowExplanations", ShowExplanationsAction.class,
 				new CommandForward("success", "/net/anotheria/moskito/webui/shared/jsp/Explanations.jsp")

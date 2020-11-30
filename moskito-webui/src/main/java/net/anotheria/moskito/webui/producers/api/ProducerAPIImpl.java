@@ -10,6 +10,7 @@ import net.anotheria.moskito.core.inspection.Inspectable;
 import net.anotheria.moskito.core.producers.IStats;
 import net.anotheria.moskito.core.producers.IStatsProducer;
 import net.anotheria.moskito.core.producers.LoggingAwareProducer;
+import net.anotheria.moskito.core.producers.SourceMonitoringAwareProducer;
 import net.anotheria.moskito.core.registry.IProducerFilter;
 import net.anotheria.moskito.core.registry.IProducerRegistryAPI;
 import net.anotheria.moskito.core.registry.NoSuchProducerException;
@@ -42,20 +43,20 @@ import java.util.List;
  */
 public class ProducerAPIImpl extends AbstractMoskitoAPIImpl implements ProducerAPI{
 	private IProducerRegistryAPI producerRegistryAPI;
-	private IDecoratorRegistry decoratorRegistry = DecoratorRegistryFactory.getDecoratorRegistry();
+	private final IDecoratorRegistry decoratorRegistry = DecoratorRegistryFactory.getDecoratorRegistry();
 
 	private volatile List<ProducerFilter> producerFilters;
 
 	/**
 	 * Logger.
 	 */
-	private static Logger log = LoggerFactory.getLogger(ProducerAPIImpl.class);
+	private static final Logger log = LoggerFactory.getLogger(ProducerAPIImpl.class);
 
 	/**
 	 * Called after the configuration has been read.
 	 */
 	private void apiAfterConfiguration(){
-		ProducerFilterConfig filterConfig[] = WebUIConfig.getInstance().getFilters();
+		ProducerFilterConfig[] filterConfig = WebUIConfig.getInstance().getFilters();
 		if (filterConfig==null || filterConfig.length==0)
 			return;
 		List<ProducerFilter> newProducerFilters = new ArrayList<>(filterConfig.length);
@@ -171,6 +172,12 @@ public class ProducerAPIImpl extends AbstractMoskitoAPIImpl implements ProducerA
 		if (p instanceof LoggingAwareProducer){
 			ao.setLoggingSupported(((LoggingAwareProducer) p).isLoggingSupported());
 			ao.setLoggingEnabled(((LoggingAwareProducer) p).isLoggingEnabled());
+		}
+
+		//support for source monitoring
+		if (p instanceof SourceMonitoringAwareProducer){
+			ao.setSourceMonitoringSupported(true);
+			ao.setSourceMonitoringEnabled(((SourceMonitoringAwareProducer)p).sourceMonitoringEnabled());
 		}
 
 		IStats firstStats = p.getStats().get(0);
@@ -344,4 +351,30 @@ public class ProducerAPIImpl extends AbstractMoskitoAPIImpl implements ProducerA
 			throw new APIException("Producer "+producerId+" not found");
 		}
 	}
+
+	@Override
+	public void enableSourceMonitoring(String producerId) throws APIException {
+		getSourceMonitoringAwareProducerAndPerformSanityChecks(producerId).enableSourceMonitoring();
+	}
+
+	@Override
+	public void disableSourceMonitoring(String producerId) throws APIException {
+		getSourceMonitoringAwareProducerAndPerformSanityChecks(producerId).disableSourceMonitoring();
+	}
+
+	private SourceMonitoringAwareProducer getSourceMonitoringAwareProducerAndPerformSanityChecks(String producerId) throws APIException{
+		try{
+			IStatsProducer producer = producerRegistryAPI.getProducer(producerId);
+			if (!(producer instanceof SourceMonitoringAwareProducer)){
+				throw new APIException("Producer "+producerId+" doesn't support source monitoring");
+			}
+			SourceMonitoringAwareProducer p = (SourceMonitoringAwareProducer)producer;
+			return p;
+		}catch(NoSuchProducerException e){
+			throw new APIException("Producer "+producerId+" not found");
+		}
+	}
+
+
+
 }

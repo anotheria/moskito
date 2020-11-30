@@ -56,7 +56,7 @@ public class ProducerAO implements Serializable, IComparable{
 	/**
 	 * All stat values as list of lists. The included list contains one stat - line with multiple values.
 	 */
-	private List<StatLineAO> lines;
+	private final List<StatLineAO> lines;
 
 	/**
 	 * Producer stats decorator name
@@ -81,6 +81,17 @@ public class ProducerAO implements Serializable, IComparable{
 	 * If true and loggingEnabled==true logging is currently enabled for this producer.
 	 */
 	private boolean loggingEnabled;
+
+	/**
+	 * Is source monitoring generally supported by this producer (does the producer implement SourceMonitoringAware interface).
+	 */
+	private boolean sourceMonitoringSupported;
+
+	/**
+	 * Is source monitoring currently enabled;
+	 */
+	private boolean sourceMonitoringEnabled;
+
 
 	public ProducerAO(){
 		lines = new LinkedList<StatLineAO>();
@@ -244,5 +255,21 @@ public class ProducerAO implements Serializable, IComparable{
 
 	public void setLoggingEnabled(boolean loggingEnabled) {
 		this.loggingEnabled = loggingEnabled;
+	}
+
+	public boolean isSourceMonitoringSupported() {
+		return sourceMonitoringSupported;
+	}
+
+	public void setSourceMonitoringSupported(boolean sourceMonitoringSupported) {
+		this.sourceMonitoringSupported = sourceMonitoringSupported;
+	}
+
+	public boolean isSourceMonitoringEnabled() {
+		return sourceMonitoringEnabled;
+	}
+
+	public void setSourceMonitoringEnabled(boolean sourceMonitoringEnabled) {
+		this.sourceMonitoringEnabled = sourceMonitoringEnabled;
 	}
 }
