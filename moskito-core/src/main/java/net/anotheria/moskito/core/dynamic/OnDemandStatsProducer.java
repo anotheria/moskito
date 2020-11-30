@@ -40,6 +40,7 @@ import net.anotheria.moskito.core.inspection.Inspectable;
 import net.anotheria.moskito.core.producers.IStats;
 import net.anotheria.moskito.core.producers.IStatsProducer;
 import net.anotheria.moskito.core.producers.LoggingAwareProducer;
+import net.anotheria.moskito.core.producers.SourceMonitoringAwareProducer;
 import net.anotheria.moskito.core.tracer.TracingAwareProducer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -56,7 +57,8 @@ import java.util.concurrent.CopyOnWriteArrayList;
  *
  * @author lrosenberg
  */
-public class OnDemandStatsProducer<S extends IStats> implements IStatsProducer<S>, Inspectable, TracingAwareProducer, AutoTieAbleProducer, LoggingAwareProducer {
+public class OnDemandStatsProducer<S extends IStats> implements IStatsProducer<S>,
+		Inspectable, TracingAwareProducer, AutoTieAbleProducer, LoggingAwareProducer, SourceMonitoringAwareProducer {
 
 	/**
 	 * Constant for cumulated (aggregated) stats name.
@@ -119,6 +121,13 @@ public class OnDemandStatsProducer<S extends IStats> implements IStatsProducer<S
 	 * If true logging is enabled. Only makes sense if it is also supported.
 	 */
 	private volatile boolean loggingEnabled = false;
+
+	/**
+	 * If true - source monitoring is enabled. Source monitoring enabled means that we not only
+	 * monitor and count what happens in this producer, but also where the traffic came from,
+	 * which producer was the one that the traffic has passed on the way.
+	 */
+	private boolean sourceMonitoringEnabled = false;
 	
 	/**
 	 * Creates a new OnDemandStatsProducer instance.
@@ -249,5 +258,23 @@ public class OnDemandStatsProducer<S extends IStats> implements IStatsProducer<S
 
 	public void setLoggingSupported(boolean loggingSupported) {
 		this.loggingSupported = loggingSupported;
+	}
+
+	//SOURCE MONITORING SUPPORT (SourceMonitoringAwareProducer)
+
+
+	@Override
+	public boolean sourceMonitoringEnabled() {
+		return sourceMonitoringEnabled;
+	}
+
+	@Override
+	public void enableSourceMonitoring() {
+		sourceMonitoringEnabled = true;
+	}
+
+	@Override
+	public void disableSourceMonitoring() {
+		sourceMonitoringEnabled = false;
 	}
 }

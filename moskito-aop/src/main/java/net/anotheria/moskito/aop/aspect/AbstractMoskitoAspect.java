@@ -305,8 +305,12 @@ public class AbstractMoskitoAspect<S extends IStats> {
 	 * 		proposal
 	 * @return category
 	 */
+	public String getCategory(final String proposal, String valueIfproposalEmpty) {
+		return StringUtils.isEmpty(proposal) ? valueIfproposalEmpty : proposal;
+	}
+
 	public String getCategory(final String proposal) {
-		return StringUtils.isEmpty(proposal) ? "annotated" : proposal;
+		return getCategory(proposal, "annotated");
 	}
 
 	/**
@@ -317,7 +321,11 @@ public class AbstractMoskitoAspect<S extends IStats> {
 	 * @return subsystem
 	 */
 	public String getSubsystem(final String proposal) {
-		return StringUtils.isEmpty(proposal) ? "default" : proposal;
+		return getSubsystem(proposal, "default");
+	}
+
+	public String getSubsystem(final String proposal, String valueIfproposalEmpty) {
+		return StringUtils.isEmpty(proposal) ? valueIfproposalEmpty : proposal;
 	}
 
 	/**
@@ -337,5 +345,44 @@ public class AbstractMoskitoAspect<S extends IStats> {
 		}
 
 	}
+
+	/**
+	 * Returns an existing (cached) or create new Producer for SourceMonitoring. 
+	 * @param currentProducerId currently monitored producer.
+	 * @param prevProducerId previously monitored producer.
+	 * @param aCategory
+	 * @param aSubsystem
+	 * @param factory
+	 * @param producerClass
+	 * @return
+	 */
+	protected OnDemandStatsProducer<S> getSourceMonitoringProducer(String currentProducerId, String prevProducerId, String aCategory, String aSubsystem, IOnDemandStatsFactory<S> factory, Class producerClass){
+
+		if (prevProducerId==null || prevProducerId.length()==0)
+			prevProducerId = "none";
+		final String producerId = currentProducerId+"_by_"+prevProducerId;
+
+		OnDemandStatsProducer<S> producer = producers.get(producerId);
+		if (producer != null)
+			return producer;
+
+		producer = new OnDemandStatsProducer<>(producerId, getCategory(aCategory), getSubsystem(currentProducerId+"_source"), factory);
+		producer.setTracingSupported(false);
+		producer.setLoggingSupported(false);
+
+		final OnDemandStatsProducer<S> p = producers.putIfAbsent(producerId, producer);
+		if (p != null)
+			return p;
+
+		ProducerRegistryFactory.getProducerRegistryInstance().registerProducer(producer);
+
+		//create same accumulators as parent.
+		createClassLevelAccumulators(producer, producerClass);
+		for (Method method : producerClass.getMethods())
+			createMethodLevelAccumulators(producer, method);
+
+		return producer;
+	}
+
 
 }

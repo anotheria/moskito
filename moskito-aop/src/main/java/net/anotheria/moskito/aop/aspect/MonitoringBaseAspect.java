@@ -57,6 +57,13 @@ public class MonitoringBaseAspect extends AbstractMoskitoAspect<ServiceStats>{
         String producerId = producer.getProducerId();
         String prevProducerId = lastProducerId.get();
         lastProducerId.set(producerId);
+
+        boolean sourceMonitoringActive = !producerId.equals(prevProducerId) && producer.sourceMonitoringEnabled();
+        OnDemandStatsProducer<ServiceStats> sourceMonitoringProducer = null;
+        if (sourceMonitoringActive){
+        	sourceMonitoringProducer = getSourceMonitoringProducer(producerId, prevProducerId, aCategory, aSubsystem, FACTORY,  pjp.getSignature().getDeclaringType());
+		}
+
         //calculate cumulated stats (default stats).
 		//we only do this if previous producer wasn't same as current -> meaning if we call a second method in the same producer we don't count it as new call.
         boolean calculateCumulatedStats = !producerId.equals(prevProducerId);
@@ -66,14 +73,23 @@ public class MonitoringBaseAspect extends AbstractMoskitoAspect<ServiceStats>{
 
         String methodName = getMethodStatName(pjp.getSignature());
         ServiceStats defaultStats = producer.getDefaultStats();
-        ServiceStats methodStats = producer.getStats(methodName);
+        ServiceStats methodStats  = producer.getStats(methodName);
+
+        //source monitoring
+        ServiceStats smDefaultStats = null, smMethodStats = null;
+        if (sourceMonitoringActive){
+        	smDefaultStats = sourceMonitoringProducer.getDefaultStats();
+			smMethodStats  = sourceMonitoringProducer.getStats(methodName);
+		}
 
         final Object[] args = pjp.getArgs();
 		if (calculateCumulatedStats) {
 			defaultStats.addRequest();
+			if (sourceMonitoringActive) smDefaultStats.addRequest();
 		}
         if (methodStats != null) {
             methodStats.addRequest();
+			if (sourceMonitoringActive) smMethodStats.addRequest();
         }
         TracedCall aRunningTrace = RunningTraceContainer.getCurrentlyTracedCall();
         TraceStep currentStep = null;
@@ -126,20 +142,27 @@ public class MonitoringBaseAspect extends AbstractMoskitoAspect<ServiceStats>{
             ret = pjp.proceed();
             return ret;
         } catch (InvocationTargetException e) {
-        	if (calculateCumulatedStats)
-            	defaultStats.notifyError(e.getTargetException());
+        	if (calculateCumulatedStats) {
+				defaultStats.notifyError(e.getTargetException());
+				if (sourceMonitoringActive) smDefaultStats.notifyError();
+			}
+
             if (methodStats != null) {
                 methodStats.notifyError();
+                if (sourceMonitoringActive) smMethodStats.notifyError();
             }
             if (currentStep != null) {
                 currentStep.setAborted();
             }
             throw e.getCause();
         } catch (Throwable t) {
-        	if (calculateCumulatedStats)
-            	defaultStats.notifyError(t);
+        	if (calculateCumulatedStats) {
+				defaultStats.notifyError(t);
+				if (sourceMonitoringActive) smDefaultStats.notifyError();
+			}
             if (methodStats != null) {
                 methodStats.notifyError();
+				if (sourceMonitoringActive) smMethodStats.notifyError();
             }
             if (currentStep != null) {
                 currentStep.setAborted();
@@ -152,16 +175,21 @@ public class MonitoringBaseAspect extends AbstractMoskitoAspect<ServiceStats>{
             long exTime = System.nanoTime() - startTime;
             if (calculateCumulatedStats) {
                 defaultStats.addExecutionTime(exTime);
+				if (sourceMonitoringActive) smDefaultStats.addExecutionTime(exTime);
             }
             if (methodStats != null) {
                 methodStats.addExecutionTime(exTime);
-            }
+				if (sourceMonitoringActive) smMethodStats.addExecutionTime(exTime);
+
+			}
             lastProducerId.set(prevProducerId);
 			if (calculateCumulatedStats) {
 				defaultStats.notifyRequestFinished();
+				if (sourceMonitoringActive) smDefaultStats.notifyRequestFinished();
 			}
             if (methodStats != null) {
                 methodStats.notifyRequestFinished();
+				if (sourceMonitoringActive) smMethodStats.notifyRequestFinished();
             }
             if (currentStep != null) {
                 currentStep.setDuration(exTime);
@@ -203,4 +231,5 @@ public class MonitoringBaseAspect extends AbstractMoskitoAspect<ServiceStats>{
 			}
         }
     }
+
 }
