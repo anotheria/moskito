@@ -39,6 +39,8 @@ import net.anotheria.moskito.core.calltrace.RunningTraceContainer;
 import net.anotheria.moskito.core.calltrace.TraceStep;
 import net.anotheria.moskito.core.calltrace.TracedCall;
 import net.anotheria.moskito.core.calltrace.TracingUtil;
+import net.anotheria.moskito.core.context.CurrentMeasurement;
+import net.anotheria.moskito.core.context.MoSKitoContext;
 import net.anotheria.moskito.core.dynamic.IOnDemandCallHandler;
 import net.anotheria.moskito.core.journey.Journey;
 import net.anotheria.moskito.core.journey.JourneyManagerFactory;
@@ -69,7 +71,13 @@ public class ServiceStatsCallHandler implements IOnDemandCallHandler {
 				(CurrentlyTracedCall)aRunningTrace : null;
 
 		TracerRepository tracerRepository = TracerRepository.getInstance();
+		
 		String producerId = producer.getProducerId();
+
+		//check if we are the first producer
+		CurrentMeasurement cm = MoSKitoContext.get().notifyProducerEntry(producer);
+
+
 		boolean tracePassingOfThisProducer = tracerRepository.isTracingEnabledForProducer(producerId);
 		Trace trace = null;
 		boolean journeyStartedByMe = false;
@@ -89,12 +97,17 @@ public class ServiceStatsCallHandler implements IOnDemandCallHandler {
 		}
 
 		StringBuilder call = null;
-		if (currentTrace != null || tracePassingOfThisProducer) {
+		if (currentTrace != null || tracePassingOfThisProducer || cm.isFirst()) {
 			call = TracingUtil.buildCall(producerId, method.getName(), args, tracePassingOfThisProducer ? Tracers.getCallName(trace) : null);
 		}
 		if (currentTrace != null) {
 			currentStep = currentTrace.startStep(call.toString(), producer, method.getName());
 		}
+
+		if (cm.isFirst()){
+			cm.setCallDescription(call.toString());
+		}
+
 
 		long startTime = System.nanoTime();
 		Object ret = null;
@@ -148,6 +161,10 @@ public class ServiceStatsCallHandler implements IOnDemandCallHandler {
 				tracerRepository.addTracedExecution(producerId, trace);
 			}
 
-		}
+			if (cm.isFirst()){
+				cm.notifyProducerFinished();
+			}
+
+		}//...end finally
 	}
 } 
