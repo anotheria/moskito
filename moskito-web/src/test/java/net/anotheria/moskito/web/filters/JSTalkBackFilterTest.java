@@ -8,10 +8,9 @@ import net.anotheria.moskito.core.stats.TimeUnit;
 import net.anotheria.moskito.web.TestingUtil;
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.invocation.InvocationOnMock;
-import org.mockito.stubbing.Answer;
 
 import javax.servlet.FilterChain;
+import javax.servlet.FilterConfig;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -20,8 +19,10 @@ import java.io.PrintWriter;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 /**
@@ -39,6 +40,33 @@ public class JSTalkBackFilterTest {
 		ProducerRegistryFactory.getProducerRegistryInstance().cleanup();
 	}
 
+	@Test public void testEmptyURL() throws Exception{
+		JSTalkBackFilter filter = createFilter();
+		HttpServletResponse res = mock(HttpServletResponse.class);
+		filter.doFilter(mockHttpServletRequest("", 0, 0),
+				res, mock(FilterChain.class)
+		);
+
+		verify(res, never()).setStatus(HttpServletResponse.SC_NO_CONTENT);
+
+	}
+
+	private JSTalkBackFilter createFilter() throws ServletException{
+		JSTalkBackFilter filter = new JSTalkBackFilter();
+		FilterConfig config = mock(FilterConfig.class);
+		filter.init(config);
+		return filter;
+	}
+
+	private HttpServletRequest mockHttpServletRequest(final String url, final long domLoadTime, final long windowLoadTime) {
+		HttpServletRequest req = mock(HttpServletRequest.class);
+		when(req.getParameter("url")).thenReturn(url);
+		when(req.getParameter("domLoadTime")).thenReturn(String.valueOf(domLoadTime));
+		when(req.getParameter("windowLoadTime")).thenReturn(String.valueOf(windowLoadTime));
+		return req;
+	}
+
+
 	@Test
 	public void basicTestForMethodCall() throws Exception {
 		final String intervalName = "default";
@@ -47,17 +75,10 @@ public class JSTalkBackFilterTest {
 		JSTalkBackFilter filter = new JSTalkBackFilter();
 		filter.init(TestingUtil.createFilterConfig());
 
-		HttpServletResponse response = callFilter(filter, "JSTalkBackFilter", "", 0, 0);
-		assertEquals(0, response.getStatus());
-		assertNull(response.getContentType());
+		HttpServletResponse response;
 
 		response = callFilter(filter, "JSTalkBackFilter2", url, 1000, 3000);
-		assertEquals(HttpServletResponse.SC_NO_CONTENT, response.getStatus());
-		assertEquals("image/gif", response.getContentType());
-
 		response = callFilter(filter, "JSTalkBackFilter2", url, 2000, 6000);
-		assertEquals(HttpServletResponse.SC_NO_CONTENT, response.getStatus());
-		assertEquals("image/gif", response.getContentType());
 
 		List<IStats> stats = new ProducerRegistryAPIFactory().createProducerRegistryAPI().getProducer("JSTalkBackFilter2").getStats();
 
@@ -130,7 +151,7 @@ public class JSTalkBackFilterTest {
 	 * @throws ServletException on filter errors
 	 */
 	private HttpServletResponse callFilter(final JSTalkBackFilter filter, final String producerId, final String url, final long domLoadTime, final long windowLoadTime) throws IOException, ServletException {
-		HttpServletRequest req = mock(HttpServletRequest.class);//MockFactory.createMock(HttpServletRequest.class, createMockedHttpServletRequest(producerId, url, domLoadTime, windowLoadTime));
+		HttpServletRequest req = mock(HttpServletRequest.class);
 		when(req.getParameter("producerId")).thenReturn(producerId);
 		when(req.getParameter("url")).thenReturn(url);
 		when(req.getParameter("domLoadTime")).thenReturn(String.valueOf(domLoadTime));
@@ -138,52 +159,15 @@ public class JSTalkBackFilterTest {
 
 		HttpServletResponse res = mock(HttpServletResponse.class);//MockFactory.createMock(HttpServletResponse.class, new HttpServletResponseMock());
 		when(res.getWriter()).thenReturn(mock(PrintWriter.class));
-		when(res.getStatus()).thenAnswer(new Answer() {
-			@Override
-			public Object answer(InvocationOnMock invocationOnMock) throws Throwable {
-				if (url.length()==0)
-					return 0;
-				return HttpServletResponse.SC_NO_CONTENT;
-			}
-		});
-		when(res.getContentType()).thenAnswer(new Answer() {
-			@Override
-			public Object answer(InvocationOnMock invocationOnMock) throws Throwable {
-				if (url.length()==0)
-					return null;
-				return "image/gif";
-			}
-		});
-
-
+		
 		FilterChain chain = TestingUtil.createFilterChain();
 		filter.doFilter(req, res, chain);
+
+		//migrated checks here
+		verify(res, times(1)).setStatus(HttpServletResponse.SC_NO_CONTENT);
+		verify(res, times(1)).setContentType("image/gif");
+		
+
 		return res;
 	}
-
-/*	public static class HttpServletResponseMock implements Mocking {
-		private int status;
-		private String contentType;
-
-		public void setStatus(final int status) {
-			this.status = status;
-		}
-
-		public int getStatus() {
-			return status;
-		}
-
-		public void setContentType(final String contentType) {
-			this.contentType = contentType;
-		}
-
-		public String getContentType() {
-			return contentType;
-		}
-
-		public PrintWriter getWriter() {
-			return new PrintWriter(new ByteArrayOutputStream());
-		}
-	}
-	*/
 }
