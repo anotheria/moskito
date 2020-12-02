@@ -12,10 +12,13 @@ import org.mockito.stubbing.Answer;
 
 import javax.servlet.FilterChain;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 public class DomainFilterTest {
@@ -42,10 +45,12 @@ public class DomainFilterTest {
 			}
 		});
 
-		FilterChain chain = TestingUtil.createFilterChain();
-		
+		FilterChain chain = mock(FilterChain.class);
+		HttpServletResponse response = mock(HttpServletResponse.class);
+
+
 		for (int i=0; i<DOMAINS.length; i++){
-			filter.doFilter(req, null, chain);
+			filter.doFilter(req, response, chain);
 		}
 		
 		List<IStats> stats = new ProducerRegistryAPIFactory().createProducerRegistryAPI().getProducer(filter.getProducerId()).getStats();
@@ -58,16 +63,8 @@ public class DomainFilterTest {
 
 		assertEquals(1, ((FilterStats)stats.get(2)).getTotalRequests());
 		assertEquals("www.google.com", stats.get(2).getName());
+
+		verify(chain, times(DOMAINS.length)).doFilter(req, response);
 		
 	}
-/*
-	public static class GetDomain implements Mocking{
-		
-		private int last = 0;
-		
-		public String getServerName(){
-			return DOMAINS[last++];
-		}
-	}
-  */
 }
