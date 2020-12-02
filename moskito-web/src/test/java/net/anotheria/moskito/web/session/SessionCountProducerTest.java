@@ -1,6 +1,5 @@
 package net.anotheria.moskito.web.session;
 
-import net.anotheria.anoprise.mocking.MockFactory;
 import net.anotheria.moskito.core.util.session.SessionCountStats;
 import org.junit.Test;
 
@@ -9,6 +8,7 @@ import javax.servlet.http.HttpSessionEvent;
 import java.util.concurrent.CountDownLatch;
 
 import static org.junit.Assert.assertEquals;
+import static org.mockito.Mockito.mock;
 
 public class SessionCountProducerTest {
 	
@@ -21,7 +21,7 @@ public class SessionCountProducerTest {
 		final CountDownLatch start = new CountDownLatch(1);
 		final CountDownLatch finish = new CountDownLatch(THREADS);
 		
-		final HttpSession session = MockFactory.createMock(HttpSession.class);
+		final HttpSession session = mock(HttpSession.class);
 		
 		Thread[] workers = new Thread[THREADS];
 		for (int i=0; i<THREADS; i++){
@@ -45,7 +45,7 @@ public class SessionCountProducerTest {
 		start.countDown();
 		finish.await();
 		
-		SessionCountStats stats = (SessionCountStats) producer.getStats().get(0);
+		SessionCountStats stats = producer.getStats().get(0);
 		assertEquals(EVENTS_PER_THREAD*THREADS, stats.getCurrentSessionCount(null));
 		assertEquals(EVENTS_PER_THREAD*THREADS, stats.getCreatedSessionCount(null));
 		assertEquals(EVENTS_PER_THREAD*THREADS, stats.getMaxSessionCount(null));

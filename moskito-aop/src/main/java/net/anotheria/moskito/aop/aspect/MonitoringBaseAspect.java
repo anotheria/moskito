@@ -53,15 +53,26 @@ public class MonitoringBaseAspect extends AbstractMoskitoAspect<ServiceStats>{
     	if (((MethodSignature)pjp.getSignature()).getMethod().isSynthetic())
 			return pjp.proceed();
 
+    	MoSKitoContext moSKitoContext = MoSKitoContext.get();
+
         OnDemandStatsProducer<ServiceStats> producer = getProducer(pjp, aProducerId, aCategory, aSubsystem, false, FACTORY, true);
         String producerId = producer.getProducerId();
         String prevProducerId = lastProducerId.get();
         lastProducerId.set(producerId);
 
-        boolean sourceMonitoringActive = !producerId.equals(prevProducerId) && producer.sourceMonitoringEnabled();
+        //in most cases this is the same as lastProducerId. However lastProducerId is restored after the call
+		//and previousProducerName is not.
+		//we are using previous producer name for source monitoring.
+		String previousProducerName = null;
+		if (moSKitoContext.getLastProducer()!=null){
+			moSKitoContext.getLastProducer().getProducerId();
+		}
+
+
+		boolean sourceMonitoringActive = !producerId.equals(previousProducerName) && producer.sourceMonitoringEnabled();
         OnDemandStatsProducer<ServiceStats> sourceMonitoringProducer = null;
         if (sourceMonitoringActive){
-        	sourceMonitoringProducer = getSourceMonitoringProducer(producerId, prevProducerId, aCategory, aSubsystem, FACTORY,  pjp.getSignature().getDeclaringType());
+        	sourceMonitoringProducer = getSourceMonitoringProducer(producerId, previousProducerName, aCategory, aSubsystem, FACTORY,  pjp.getSignature().getDeclaringType());
 		}
 
         //calculate cumulated stats (default stats).
@@ -69,7 +80,7 @@ public class MonitoringBaseAspect extends AbstractMoskitoAspect<ServiceStats>{
         boolean calculateCumulatedStats = !producerId.equals(prevProducerId);
 
         //check if we are the first producer
-		CurrentMeasurement cm = MoSKitoContext.get().notifyProducerEntry(producer);
+		CurrentMeasurement cm = moSKitoContext.notifyProducerEntry(producer);
 
         String methodName = getMethodStatName(pjp.getSignature());
         ServiceStats defaultStats = producer.getDefaultStats();
@@ -101,9 +112,7 @@ public class MonitoringBaseAspect extends AbstractMoskitoAspect<ServiceStats>{
         TracerRepository tracerRepository = TracerRepository.getInstance();
         //only trace this producer if no tracers have been fired yet.
         boolean tracePassingOfThisProducer =
-				context.hasTracerFired() ?
-						false :
-						tracerRepository.isTracingEnabledForProducer(producerId);
+				!context.hasTracerFired() && tracerRepository.isTracingEnabledForProducer(producerId);
         Trace trace = null;
         boolean journeyStartedByMe = false;
 

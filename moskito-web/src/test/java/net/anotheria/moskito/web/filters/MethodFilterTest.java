@@ -1,7 +1,5 @@
 package net.anotheria.moskito.web.filters;
 
-import net.anotheria.anoprise.mocking.MockFactory;
-import net.anotheria.anoprise.mocking.Mocking;
 import net.anotheria.moskito.core.predefined.FilterStats;
 import net.anotheria.moskito.core.producers.IStats;
 import net.anotheria.moskito.core.producers.IStatsProducer;
@@ -11,12 +9,16 @@ import net.anotheria.moskito.core.registry.ProducerRegistryFactory;
 import net.anotheria.moskito.web.TestingUtil;
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.invocation.InvocationOnMock;
+import org.mockito.stubbing.Answer;
 
 import javax.servlet.FilterChain;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 public class MethodFilterTest {
 	
@@ -48,7 +50,7 @@ public class MethodFilterTest {
 		assertEquals(METHODS.length, ((FilterStats)stats.get(0)).getTotalRequests());
 		assertEquals(METHODS.length, ((FilterStats)stats.get(1)).getTotalRequests());
 
-		assertEquals("nonhttp", ((FilterStats)stats.get(1)).getName());
+		assertEquals("nonhttp", stats.get(1).getName());
 		
 	}
 	
@@ -56,7 +58,15 @@ public class MethodFilterTest {
 		MethodFilter filter = new MethodFilter();
 		
 		filter.init(TestingUtil.createFilterConfig());
-		HttpServletRequest req = MockFactory.createMock(HttpServletRequest.class, new GetMethod());
+		HttpServletRequest req = mock(HttpServletRequest.class);
+		when(req.getMethod()).thenAnswer(new Answer() {
+			private int last = 0;
+
+			public Object answer(InvocationOnMock invocation){
+				return METHODS[last++];
+			}
+		});
+
 		FilterChain chain = TestingUtil.createFilterChain();
 		
 		for (int i=0; i<METHODS.length; i++){
@@ -71,12 +81,13 @@ public class MethodFilterTest {
 		assertEquals(METHODS.length, ((FilterStats)stats.get(0)).getTotalRequests());
 
 		assertEquals(4, ((FilterStats)stats.get(1)).getTotalRequests());
-		assertEquals("GET", ((FilterStats)stats.get(1)).getName());
+		assertEquals("GET", stats.get(1).getName());
 
 		assertEquals(1, ((FilterStats)stats.get(2)).getTotalRequests());
-		assertEquals("POST", ((FilterStats)stats.get(2)).getName());
+		assertEquals("POST", stats.get(2).getName());
 	}
 	
+/**
 	public static class GetMethod implements Mocking{
 		
 		private int last = 0;
@@ -85,4 +96,5 @@ public class MethodFilterTest {
 			return METHODS[last++];
 		}
 	}
+ */
 }

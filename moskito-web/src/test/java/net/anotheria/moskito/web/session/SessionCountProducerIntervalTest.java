@@ -1,6 +1,5 @@
 package net.anotheria.moskito.web.session;
 
-import net.anotheria.anoprise.mocking.MockFactory;
 import net.anotheria.moskito.core.stats.impl.IntervalRegistry;
 import net.anotheria.moskito.core.util.session.SessionCountStats;
 import org.junit.Test;
@@ -9,6 +8,7 @@ import javax.servlet.http.HttpSession;
 import javax.servlet.http.HttpSessionEvent;
 
 import static org.junit.Assert.assertEquals;
+import static org.mockito.Mockito.mock;
 
 /**
  * This test tests if the counter like session counting doesn't get reseted after an interval update.
@@ -20,7 +20,7 @@ public class SessionCountProducerIntervalTest {
 	@Test public void testSnapshot(){
 	 	IntervalRegistry.getInstance().forceUpdateIntervalForTestingPurposes("snapshot");
 	 	SessionCountProducer p = new SessionCountProducer();
-		final HttpSession session = MockFactory.createMock(HttpSession.class);
+		final HttpSession session = mock(HttpSession.class);
 
 	 	for (int i=0; i<100; i++){
 	 		p.sessionCreated(new HttpSessionEvent(session));
@@ -34,7 +34,7 @@ public class SessionCountProducerIntervalTest {
 	 			p.sessionDestroyed(new HttpSessionEvent(session));
 	 	}
 	 	IntervalRegistry.getInstance().forceUpdateIntervalForTestingPurposes("snapshot");
-	 	SessionCountStats stats = (SessionCountStats) p.getStats().get(0);
+	 	SessionCountStats stats = p.getStats().get(0);
 	 	//System.out.println("Stats "+stats);
 	 	//System.out.println("Stats "+stats.toStatsString("snapshot"));
 	 	

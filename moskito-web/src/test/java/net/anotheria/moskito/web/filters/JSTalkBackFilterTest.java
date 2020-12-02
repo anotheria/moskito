@@ -1,7 +1,5 @@
 package net.anotheria.moskito.web.filters;
 
-import net.anotheria.anoprise.mocking.MockFactory;
-import net.anotheria.anoprise.mocking.Mocking;
 import net.anotheria.moskito.core.predefined.PageInBrowserStats;
 import net.anotheria.moskito.core.producers.IStats;
 import net.anotheria.moskito.core.registry.ProducerRegistryAPIFactory;
@@ -10,20 +8,21 @@ import net.anotheria.moskito.core.stats.TimeUnit;
 import net.anotheria.moskito.web.TestingUtil;
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.invocation.InvocationOnMock;
+import org.mockito.stubbing.Answer;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 /**
  * Unit test for {@link JSTalkBackFilter}.
@@ -131,73 +130,39 @@ public class JSTalkBackFilterTest {
 	 * @throws ServletException on filter errors
 	 */
 	private HttpServletResponse callFilter(final JSTalkBackFilter filter, final String producerId, final String url, final long domLoadTime, final long windowLoadTime) throws IOException, ServletException {
-		HttpServletRequest req = MockFactory.createMock(HttpServletRequest.class, createMockedHttpServletRequest(producerId, url, domLoadTime, windowLoadTime));
-		HttpServletResponse res = MockFactory.createMock(HttpServletResponse.class, new HttpServletResponseMock());
+		HttpServletRequest req = mock(HttpServletRequest.class);//MockFactory.createMock(HttpServletRequest.class, createMockedHttpServletRequest(producerId, url, domLoadTime, windowLoadTime));
+		when(req.getParameter("producerId")).thenReturn(producerId);
+		when(req.getParameter("url")).thenReturn(url);
+		when(req.getParameter("domLoadTime")).thenReturn(String.valueOf(domLoadTime));
+		when(req.getParameter("windowLoadTime")).thenReturn(String.valueOf(windowLoadTime));
+
+		HttpServletResponse res = mock(HttpServletResponse.class);//MockFactory.createMock(HttpServletResponse.class, new HttpServletResponseMock());
+		when(res.getWriter()).thenReturn(mock(PrintWriter.class));
+		when(res.getStatus()).thenAnswer(new Answer() {
+			@Override
+			public Object answer(InvocationOnMock invocationOnMock) throws Throwable {
+				if (url.length()==0)
+					return 0;
+				return HttpServletResponse.SC_NO_CONTENT;
+			}
+		});
+		when(res.getContentType()).thenAnswer(new Answer() {
+			@Override
+			public Object answer(InvocationOnMock invocationOnMock) throws Throwable {
+				if (url.length()==0)
+					return null;
+				return "image/gif";
+			}
+		});
+
+
 		FilterChain chain = TestingUtil.createFilterChain();
 		filter.doFilter(req, res, chain);
 		return res;
 	}
 
-	/**
-	 * Creates mocked instance of HttpServletRequest.
-	 *
-	 * @param producerId     id of the producer
-	 * @param url            page url
-	 * @param domLoadTime    DOM load time
-	 * @param windowLoadTime page load time
-	 * @return {@link HttpServletRequestMock}
-	 */
-	private HttpServletRequestMock createMockedHttpServletRequest(final String producerId, final String url, final long domLoadTime, final long windowLoadTime) {
-		final HttpServletRequestMock mocked = new HttpServletRequestMock();
-		mocked.addParameter("producerId", producerId);
-		mocked.addParameter("url", url);
-		mocked.addParameter("domLoadTime", String.valueOf(domLoadTime));
-		mocked.addParameter("windowLoadTime", String.valueOf(windowLoadTime));
-		return mocked;
-	}
-
-	/**
-	 * {@link HttpServletRequest} mocking implementation.
-	 */
-	public static class HttpServletRequestMock implements Mocking {
-		/**
-		 * Request parameters container.
-		 */
-		private Map<String, String> paramMap = new HashMap<String, String>();
-
-		/**
-		 * Returns parameter value by key.
-		 *
-		 * @param key parameter name
-		 * @return parameter value
-		 */
-		public String getParameter(final String key) {
-			return key != null ? paramMap.get(key) : null;
-		}
-
-		/**
-		 * Adds parameter key and value to the container.
-		 *
-		 * @param key   parameter name
-		 * @param value parameter value
-		 */
-		public void addParameter(final String key, final String value) {
-			if (key != null)
-				this.paramMap.put(key, value);
-		}
-	}
-
-	/**
-	 * {@link HttpServletResponse} mocking implementation.
-	 */
-	public static class HttpServletResponseMock implements Mocking {
-		/**
-		 * Response status numeric representation.
-		 */
+/*	public static class HttpServletResponseMock implements Mocking {
 		private int status;
-		/**
-		 * Response content type
-		 */
 		private String contentType;
 
 		public void setStatus(final int status) {
@@ -216,13 +181,9 @@ public class JSTalkBackFilterTest {
 			return contentType;
 		}
 
-		/**
-		 * Returns instance of {@link PrintWriter}                 .
-		 *
-		 * @return {@link PrintWriter}
-		 */
 		public PrintWriter getWriter() {
 			return new PrintWriter(new ByteArrayOutputStream());
 		}
 	}
+	*/
 }

@@ -1,6 +1,5 @@
 package net.anotheria.moskito.web;
 
-import net.anotheria.anoprise.mocking.MockFactory;
 import net.anotheria.moskito.core.predefined.ServletStats;
 import net.anotheria.moskito.core.producers.IStats;
 import net.anotheria.moskito.core.producers.IStatsProducer;
@@ -10,6 +9,8 @@ import net.anotheria.moskito.core.registry.ProducerRegistryFactory;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.runners.MockitoJUnitRunner;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
@@ -20,7 +21,9 @@ import java.util.List;
 import java.util.Map;
 
 import static org.junit.Assert.assertEquals;
+import static org.mockito.Mockito.mock;
 
+@RunWith(MockitoJUnitRunner.class)
 public class MoskitoHttpServletTest {
 	
 	private static final long GETS = 5, POSTS = 10, HEADS = 2, PUTS = 6, LM = 4, TRACES = 13, OPTIONS = 2, DELETES = 20;
@@ -35,9 +38,10 @@ public class MoskitoHttpServletTest {
 	
 	@Test public void testMethods() throws Exception{
 		TestServlet servlet = new TestServlet();
-		HttpServletRequest req = MockFactory.createMock(HttpServletRequest.class);
-		HttpServletResponse res = MockFactory.createMock(HttpServletResponse.class);
-		ServletConfig config = MockFactory.createMock(ServletConfig.class);
+		HttpServletRequest req = mock(HttpServletRequest.class);
+		HttpServletResponse res = mock(HttpServletResponse.class);
+		ServletConfig config = mock(ServletConfig.class);
+		
 	
 		servlet.init(config);
 		int i = 0;
@@ -80,9 +84,9 @@ public class MoskitoHttpServletTest {
 
 	@Test public void testErrors() throws Exception {
 		TestServlet servlet = new TestServlet(true);
-		HttpServletRequest req = MockFactory.createMock(HttpServletRequest.class);
-		HttpServletResponse res = MockFactory.createMock(HttpServletResponse.class);
-		ServletConfig config = MockFactory.createMock(ServletConfig.class);
+		HttpServletRequest req = mock(HttpServletRequest.class);
+		HttpServletResponse res = mock(HttpServletResponse.class);
+		ServletConfig config = mock(ServletConfig.class);
 	
 		servlet.init(config);
 		int i = 0;

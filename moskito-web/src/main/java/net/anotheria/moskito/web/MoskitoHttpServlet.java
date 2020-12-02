@@ -38,6 +38,8 @@ import net.anotheria.moskito.core.calltrace.CurrentlyTracedCall;
 import net.anotheria.moskito.core.calltrace.RunningTraceContainer;
 import net.anotheria.moskito.core.calltrace.TraceStep;
 import net.anotheria.moskito.core.calltrace.TracedCall;
+import net.anotheria.moskito.core.context.CurrentMeasurement;
+import net.anotheria.moskito.core.context.MoSKitoContext;
 import net.anotheria.moskito.core.predefined.Constants;
 import net.anotheria.moskito.core.predefined.ServletStats;
 import net.anotheria.moskito.core.producers.IStats;
@@ -159,6 +161,17 @@ public class MoskitoHttpServlet extends HttpServlet implements IStatsProducer {
 
 	@Override
 	protected final void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+
+		//check if we are the first producer
+		CurrentMeasurement cm = MoSKitoContext.get().notifyProducerEntry(this);
+		String URI = req.getRequestURI();
+		if (URI==null)
+			URI = "";
+		if (cm.isFirst()){
+			cm.setCallDescription(URI);
+		}
+
+
 		getStats.addRequest();
 		TracedCall aRunningUseCase = RunningTraceContainer.getCurrentlyTracedCall();
 		TraceStep currentElement = null;
@@ -191,7 +204,12 @@ public class MoskitoHttpServlet extends HttpServlet implements IStatsProducer {
 				currentElement.setDuration(executionTime);
 			if (runningUseCase !=null)
 				runningUseCase.endStep();
-			
+
+			if (cm.isFirst()){
+				cm.notifyProducerFinished();
+			}
+
+
 		}
 	}
 
