@@ -8,6 +8,7 @@ import net.anotheria.util.StringUtils;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
+import java.util.Stack;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicLong;
 
@@ -23,6 +24,8 @@ public class MoSKitoContext {
 	 * Instance counter.
 	 */
 	private static final AtomicLong instanceCounter = new AtomicLong();
+
+	private Stack<IStatsProducer> producerStack = new Stack<>();
 
 	private static final InheritableThreadLocal<MoSKitoContext> currentContext = new InheritableThreadLocal<MoSKitoContext>(){
 
@@ -66,7 +69,7 @@ public class MoSKitoContext {
 	/**
 	 * Number of current instance.
 	 */
-	private long instanceNumber;
+	private final long instanceNumber;
 
 	/**
 	 * If true an error has occured in this thread already. This is useful to separate from initial errors in the processing and followup errors.
@@ -120,6 +123,7 @@ public class MoSKitoContext {
 		errorOccured = new AtomicBoolean(false);
 		seenErrors = new HashSet<>();
 		tracerFired = false;
+		producerStack = new Stack<>();
 	}
 
 
@@ -157,7 +161,17 @@ public class MoSKitoContext {
 		if (firstProducer==null) {
 			firstProducer = aProducer;
 		}
+		producerStack.push(lastProducer);
 		lastProducer = aProducer;
 		return measurement;
+	}
+
+	public void notifyProducerExit(IStatsProducer aProducer){
+		try{
+			lastProducer = producerStack.pop();
+		}catch(Exception any){
+			//we don't expect anything to happen here, but just in case, we at least log this out.
+			any.printStackTrace();
+		}
 	}
 }

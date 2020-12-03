@@ -130,6 +130,7 @@ public class ServiceStatsCallHandler implements IOnDemandCallHandler {
 			throw t;
 		}finally{
 			long exTime = System.nanoTime() - startTime;
+			MoSKitoContext.get().notifyProducerExit(producer);
 			defaultStats.addExecutionTime(exTime);
 			methodStats.addExecutionTime(exTime);
 			defaultStats.notifyRequestFinished();

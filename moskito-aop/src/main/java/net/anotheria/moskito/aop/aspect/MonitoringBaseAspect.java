@@ -65,13 +65,14 @@ public class MonitoringBaseAspect extends AbstractMoskitoAspect<ServiceStats>{
 		//we are using previous producer name for source monitoring.
 		String previousProducerName = null;
 		if (moSKitoContext.getLastProducer()!=null){
-			moSKitoContext.getLastProducer().getProducerId();
+			previousProducerName = moSKitoContext.getLastProducer().getProducerId();
 		}
 
 
 		boolean sourceMonitoringActive = !producerId.equals(previousProducerName) && producer.sourceMonitoringEnabled();
         OnDemandStatsProducer<ServiceStats> sourceMonitoringProducer = null;
         if (sourceMonitoringActive){
+        	//System.out.println("Call to "+producer.getProducerId()+" from "+previousProducerName+" last "+prevProducerId);
         	sourceMonitoringProducer = getSourceMonitoringProducer(producerId, previousProducerName, aCategory, aSubsystem, FACTORY,  pjp.getSignature().getDeclaringType());
 		}
 
@@ -108,18 +109,17 @@ public class MonitoringBaseAspect extends AbstractMoskitoAspect<ServiceStats>{
 
         boolean isLoggingEnabled = producer.isLoggingEnabled();
 
-		MoSKitoContext context = MoSKitoContext.get();
-        TracerRepository tracerRepository = TracerRepository.getInstance();
+		TracerRepository tracerRepository = TracerRepository.getInstance();
         //only trace this producer if no tracers have been fired yet.
         boolean tracePassingOfThisProducer =
-				!context.hasTracerFired() && tracerRepository.isTracingEnabledForProducer(producerId);
+				!moSKitoContext.hasTracerFired() && tracerRepository.isTracingEnabledForProducer(producerId);
         Trace trace = null;
         boolean journeyStartedByMe = false;
 
         //we create trace here already, because we want to reserve a new trace id.
         if (tracePassingOfThisProducer){
             trace = new Trace();
-            context.setTracerFired();
+            moSKitoContext.setTracerFired();
         }
 
 
@@ -192,6 +192,7 @@ public class MonitoringBaseAspect extends AbstractMoskitoAspect<ServiceStats>{
 
 			}
             lastProducerId.set(prevProducerId);
+            moSKitoContext.notifyProducerExit(producer);
 			if (calculateCumulatedStats) {
 				defaultStats.notifyRequestFinished();
 				if (sourceMonitoringActive) smDefaultStats.notifyRequestFinished();
@@ -238,6 +239,8 @@ public class MonitoringBaseAspect extends AbstractMoskitoAspect<ServiceStats>{
             if (cm.isFirst()){
             	cm.notifyProducerFinished();
 			}
+
+
         }
     }
 
