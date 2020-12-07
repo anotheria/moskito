@@ -34,6 +34,7 @@ public class MonitoringBaseAspect extends AbstractMoskitoAspect<ServiceStats>{
 
     /**
      * Remember previous producer to avoid time cumulation of recursive calls.
+	 * TODO: maybe we can remove this and rely on the one in the context now.
      */
     protected static final ThreadLocal<String> lastProducerId = new ThreadLocal<>();
 
