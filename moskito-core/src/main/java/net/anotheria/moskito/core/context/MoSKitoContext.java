@@ -124,6 +124,7 @@ public class MoSKitoContext {
 		seenErrors = new HashSet<>();
 		tracerFired = false;
 		producerStack = new Stack<>();
+		firstProducer = null;
 	}
 
 
@@ -167,6 +168,8 @@ public class MoSKitoContext {
 	}
 
 	public void notifyProducerExit(IStatsProducer aProducer){
+		if (producerStack.size()==0)
+			return;
 		try{
 			lastProducer = producerStack.pop();
 		}catch(Exception any){
