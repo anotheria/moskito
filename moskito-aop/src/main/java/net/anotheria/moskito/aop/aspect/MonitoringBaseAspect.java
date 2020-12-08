@@ -1,5 +1,7 @@
 package net.anotheria.moskito.aop.aspect;
 
+import net.anotheria.moskito.aop.aspect.specialtreater.HttpFilterHandler;
+import net.anotheria.moskito.aop.aspect.specialtreater.SpecialCaseHandler;
 import net.anotheria.moskito.core.calltrace.CurrentlyTracedCall;
 import net.anotheria.moskito.core.calltrace.RunningTraceContainer;
 import net.anotheria.moskito.core.calltrace.TraceStep;
@@ -21,6 +23,8 @@ import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.reflect.MethodSignature;
 
 import java.lang.reflect.InvocationTargetException;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentMap;
 
 /**
  * @author Roman Stetsiuk.
@@ -73,7 +77,6 @@ public class MonitoringBaseAspect extends AbstractMoskitoAspect<ServiceStats>{
 		boolean sourceMonitoringActive = !producerId.equals(previousProducerName) && producer.sourceMonitoringEnabled();
         OnDemandStatsProducer<ServiceStats> sourceMonitoringProducer = null;
         if (sourceMonitoringActive){
-        	//System.out.println("Call to "+producer.getProducerId()+" from "+previousProducerName+" last "+prevProducerId);
         	sourceMonitoringProducer = getSourceMonitoringProducer(producerId, previousProducerName, aCategory, aSubsystem, FACTORY,  pjp.getSignature().getDeclaringType());
 		}
 
@@ -133,11 +136,15 @@ public class MonitoringBaseAspect extends AbstractMoskitoAspect<ServiceStats>{
             currentTrace = (CurrentlyTracedCall) RunningTraceContainer.getCurrentlyTracedCall();
         }
 
-
         StringBuilder call = null;
         if (currentTrace != null || tracePassingOfThisProducer || isLoggingEnabled || cm.isFirst()) {
-            call = TracingUtil.buildCall(producerId, methodName, args, tracePassingOfThisProducer ? Tracers.getCallName(trace) : null);
-        }
+        	if (isSpecial(methodName)){
+				call = getSpecialTreatmentForCall(methodName, pjp.getTarget(), args);
+			}
+        	if (call==null)
+				call = TracingUtil.buildCall(producerId, methodName, args, tracePassingOfThisProducer ? Tracers.getCallName(trace) : null);
+
+		}
         if (currentTrace != null) {
             currentStep = currentTrace.startStep(call.toString(), producer, methodName);
         }
@@ -244,5 +251,72 @@ public class MonitoringBaseAspect extends AbstractMoskitoAspect<ServiceStats>{
 
         }
     }
+
+
+	/**
+	 * Checks if the method is notified as special case, used to add additional info to known, often used methods,
+	 * which do not have publicly available arguments with toString methods, for example javax.servlet.Filter.
+	 * @param methodName
+	 * @return
+	 */
+	private boolean isSpecial(String methodName) {
+    	return specialCases.containsKey(methodName);
+	}
+
+	private StringBuilder getSpecialTreatmentForCall(String methodName, Object target, Object[] args){
+    	StringBuilder ret = new StringBuilder();
+    	SpecialCase sc = specialCases.get(methodName);
+    	if (sc==null)
+    		throw new IllegalStateException("Special case is not found even it must have been found before for method '"+methodName+"'");
+
+		Class clazz = null;
+    	try{
+    		clazz = Class.forName(sc.className, false, getClass().getClassLoader());
+		}catch(ClassNotFoundException e){
+    		e.printStackTrace();
+    		return null;
+		}
+
+    	if (clazz.isInstance(target)){
+    		//special treatment for httpfilter.
+    		return sc.treater.getCallDescription(clazz, methodName, target, args);
+		}
+    	return null;
+	}
+
+	/**
+	 * Map with special case definition.
+	 */
+	private static final ConcurrentMap<String, SpecialCase> specialCases = new ConcurrentHashMap<>();
+
+	static{
+    	specialCases.put("doFilter", new SpecialCase("doFilter", "javax.servlet.Filter", new HttpFilterHandler()));
+	}
+
+	/**
+	 * Definition of a special case. We probably should cache the clazz at some point to reduce load, but since the clazz is only loaded if the
+	 * method name matches, we shouldn't be in much trouble for now.
+	 */
+	static class SpecialCase{
+		/**
+		 * Name of the method. i.e. doFilter in ServletFilter.
+		 */
+    	private final String methodName;
+		/**
+		 * Full name of the class to be matched after method name.
+		 */
+		private final String className;
+		/**
+		 * The special handler for this type of call.
+		 */
+    	private final SpecialCaseHandler treater;
+
+    	SpecialCase(String aMethodName, String aClassName, SpecialCaseHandler aTreater){
+    		methodName = aMethodName;
+    		className = aClassName;
+    		treater = aTreater;
+		}
+
+	}
 
 }
