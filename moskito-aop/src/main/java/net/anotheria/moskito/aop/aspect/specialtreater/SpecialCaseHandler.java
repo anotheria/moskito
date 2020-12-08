@@ -1,11 +1,11 @@
 package net.anotheria.moskito.aop.aspect.specialtreater;
 
 /**
- * TODO comment this class
+ * A specific handler to create case description for a special case.
  *
  * @author lrosenberg
  * @since 08.12.20 15:32
  */
-public interface SpecialTreater {
+public interface SpecialCaseHandler {
 	StringBuilder getCallDescription(Class clazz, String methodName, Object target, Object[] args);
 }
