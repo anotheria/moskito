@@ -58,7 +58,7 @@ public class GenericMonitoringFilter implements Filter, IStatsProducer {
 	/**
 	 * Case extractors. Each extractor can extract the monitoring cases by some parameter, for example URI, Referer, User-Agent etc.
 	 */
-	private Map<FilterCaseExtractor, OnDemandStatsProducer<FilterStats>> extractorMap = new HashMap<>();
+	private final Map<FilterCaseExtractor, OnDemandStatsProducer<FilterStats>> extractorMap = new HashMap<>();
 
 	private void beforeExecution(HttpServletRequest req, HttpServletResponse res){
 		for (Map.Entry<FilterCaseExtractor, OnDemandStatsProducer<FilterStats>> extractorEntry : extractorMap.entrySet()) {
@@ -172,6 +172,7 @@ public class GenericMonitoringFilter implements Filter, IStatsProducer {
 			if (measurement.isFirst()){
 				measurement.notifyProducerFinished();
 			}
+			MoSKitoContext.get().notifyProducerExit(this);
 		}
 	}
 
