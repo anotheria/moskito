@@ -17,7 +17,7 @@ import java.lang.reflect.InvocationTargetException;
 public class UserActivityAspect {
 
 	private Object processUserActivity(ProceedingJoinPoint pjp, String activityName) throws Throwable{
-		System.out.println("UserActivity: "+activityName+" in "+pjp);
+		//System.out.println("UserActivity: "+activityName+" in "+pjp);
 		try {
 			return pjp.proceed();
 		} catch (InvocationTargetException e) {
