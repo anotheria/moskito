@@ -182,6 +182,8 @@ public class JourneyFilter implements Filter {
 				//removes the running use case to cleanup the thread local. Otherwise tomcat will be complaining...
 				RunningTraceContainer.cleanup();
 			}
+			//this line is disputed... it will force removal of a context at probably earlier time then the last passing producer
+			//calls for exit.
 			MoSKitoContext.cleanup();
 		}
 
