@@ -64,7 +64,7 @@ public abstract class RequestOrientedStatsDecorator extends AbstractDecorator {
 		"Avg",
 		"Last",
 		"Err",
-		"ERate"
+		"ERate %"
 	};
 
 	/**
