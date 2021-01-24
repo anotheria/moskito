@@ -17,68 +17,68 @@ import java.util.concurrent.ConcurrentMap;
 public class EntryPointRepository {
 
 
-	private static EntryPointRepository INSTANCE = new EntryPointRepository();
+    private static EntryPointRepository INSTANCE = new EntryPointRepository();
 
-	private ConcurrentMap<String, EntryPoint> entryPoints;
+    private ConcurrentMap<String, EntryPoint> entryPoints;
 
-	private EntryPointRepository(){
-		entryPoints = new ConcurrentHashMap<>();
-	}
+    private EntryPointRepository() {
+        entryPoints = new ConcurrentHashMap<>();
+    }
 
-	public static EntryPointRepository getInstance(){
-		return INSTANCE;
-	}
+    public static EntryPointRepository getInstance() {
+        return INSTANCE;
+    }
 
-	public ActiveMeasurement measurementStarted(IStatsProducer producer){
-		String producerId = producer.getProducerId();
+    public ActiveMeasurement measurementStarted(IStatsProducer producer) {
+        String producerId = producer.getProducerId();
 
-		EntryPoint newEntryPoint = new EntryPoint(producerId);
-		EntryPoint oldEntryPoint = entryPoints.putIfAbsent(producerId, newEntryPoint);
-		EntryPoint entryPoint;
-		if (oldEntryPoint == null){
-			entryPoint = newEntryPoint;
-		}else{
-			entryPoint = oldEntryPoint;
-		}
+        EntryPoint newEntryPoint = new EntryPoint(producerId);
+        EntryPoint oldEntryPoint = entryPoints.putIfAbsent(producerId, newEntryPoint);
+        EntryPoint entryPoint;
+        if (oldEntryPoint == null) {
+            entryPoint = newEntryPoint;
+        } else {
+            entryPoint = oldEntryPoint;
+        }
 
-		entryPoint.requestStarted();
+        entryPoint.requestStarted();
 
-		ActiveMeasurement ret = new ActiveMeasurement(producerId);
+        ActiveMeasurement ret = new ActiveMeasurement(producerId);
 
-		entryPoint.addCurrentMeasurements(ret);
+        entryPoint.addCurrentMeasurements(ret);
 
-		return ret;
-	}
+        return ret;
+    }
 
-	public void measurementFinished(ActiveMeasurement measurement){
+    public void measurementFinished(ActiveMeasurement measurement) {
 
-		EntryPoint entryPoint = entryPoints.get(measurement.getProducerId());
-		//we assume that entry point can't be null! After all it was just recently created.
-		entryPoint.requestFinished(measurement);
-	}
+        EntryPoint entryPoint = entryPoints.get(measurement.getProducerId());
+        //we assume that entry point can't be null! After all it was just recently created.
+        entryPoint.requestFinished(measurement);
+    }
 
-	public void removePastMeasurement(String producerId, int measurementPosition){
-		EntryPoint entryPoint = entryPoints.get(producerId);
-		if(entryPoint == null) {
-			throw new IllegalArgumentException("Attempt to access non existing entry point with producer id: '" +producerId+ '\'');
-		}
-		entryPoint.removePastMeasurementByItsPosition(measurementPosition);
-	}
+    public void removePastMeasurement(String producerId, int measurementPosition) {
+        EntryPoint entryPoint = entryPoints.get(producerId);
+        if (entryPoint == null) {
+            throw new IllegalArgumentException("Attempt to access non existing entry point with producer id: '" + producerId + '\'');
+        }
+        entryPoint.removePastMeasurementByItsPosition(measurementPosition);
+    }
 
-	public List<EntryPoint> getEntryPoints() {
-		LinkedList<EntryPoint> ret = new LinkedList<>();
-		ret.addAll(entryPoints.values());
-		return ret;
-	}
+    public List<EntryPoint> getEntryPoints() {
+        LinkedList<EntryPoint> ret = new LinkedList<>();
+        ret.addAll(entryPoints.values());
+        return ret;
+    }
 
-	public int getNowRunningCount(){
-		Collection<EntryPoint> entryPointsCollection = entryPoints.values();
-		int ret = 0;
-		if (entryPointsCollection.size()>0){
-			for (EntryPoint ep : entryPointsCollection){
-				ret += ep.getCurrentRequestCount();
-			}
-		}
-		return ret;
-	}
+    public int getNowRunningCount() {
+        Collection<EntryPoint> entryPointsCollection = entryPoints.values();
+        int ret = 0;
+        if (entryPointsCollection.size() > 0) {
+            for (EntryPoint ep : entryPointsCollection) {
+                ret += ep.getCurrentRequestCount();
+            }
+        }
+        return ret;
+    }
 }
