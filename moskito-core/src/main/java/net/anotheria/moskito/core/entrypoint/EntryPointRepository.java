@@ -59,6 +59,9 @@ public class EntryPointRepository {
 
 	public void removePastMeasurement(String producerId, int measurementPosition){
 		EntryPoint entryPoint = entryPoints.get(producerId);
+		if(entryPoint == null) {
+			throw new IllegalArgumentException("Attempt to access non existing entry point with producer id: '" +producerId+ '\'');
+		}
 		entryPoint.removePastMeasurementByItsPosition(measurementPosition);
 	}
 

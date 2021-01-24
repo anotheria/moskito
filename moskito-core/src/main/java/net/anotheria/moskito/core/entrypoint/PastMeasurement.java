@@ -8,7 +8,6 @@ package net.anotheria.moskito.core.entrypoint;
  */
 public class PastMeasurement extends ActiveMeasurement{
 
-	private String id;
 	private long endtime;
 	private long duration;
 
@@ -22,14 +21,6 @@ public class PastMeasurement extends ActiveMeasurement{
 		endtime = node.getEndtime();
 		duration = endtime - node.getStarttime();
 
-	}
-
-	public String getId() {
-		return id;
-	}
-
-	public void setId(String id) {
-		this.id = id;
 	}
 
 	public long getEndtime() {

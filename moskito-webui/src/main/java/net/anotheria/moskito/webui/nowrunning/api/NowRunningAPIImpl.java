@@ -75,8 +75,14 @@ public class NowRunningAPIImpl extends AbstractMoskitoAPIImpl implements NowRunn
 
 	@Override
 	public void removePastMeasurement(String producerId, String measurementPosition) throws APIException {
-		if(StringUtils.isNotBlank(producerId) && StringUtils.isNotBlank(measurementPosition)) {
-			EntryPointRepository.getInstance().removePastMeasurement(producerId, Integer.valueOf(measurementPosition));
+		if (StringUtils.isBlank(producerId)){
+			throw new IllegalArgumentException("Producer id is blank");
 		}
+
+		if (StringUtils.isBlank(measurementPosition)) {
+			throw new IllegalArgumentException("Measurement position is blank");
+		}
+
+		EntryPointRepository.getInstance().removePastMeasurement(producerId, Integer.valueOf(measurementPosition));
 	}
 }
