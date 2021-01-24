@@ -39,7 +39,7 @@ public class PastMeasurementChainNode {
 	private PastMeasurementChainNode next;
 
 	public PastMeasurementChainNode(){
-		
+
 	}
 
 	public PastMeasurementChainNode(ActiveMeasurement measurement){
@@ -90,7 +90,7 @@ public class PastMeasurementChainNode {
 		}
 
 		return chain;
-		
+
 	}
 
 	/**
@@ -117,7 +117,7 @@ public class PastMeasurementChainNode {
 		}else{
 			return next.insertIfLongerAndWithinLimit(limit -1, aNode);
 		}
-		
+
 	}
 
 	/**
@@ -183,5 +183,17 @@ public class PastMeasurementChainNode {
 				", description='" + description + '\'' +
 				", super "+super.toString()+
 				'}';
+	}
+
+	public PastMeasurementChainNode removePastMeasurementByItsPosition(int measurementPosition) {
+		PastMeasurementChainNode firstMeasurement = this;
+		if(measurementPosition == 0){
+			firstMeasurement = getNthElement(1);
+		} else {
+			PastMeasurementChainNode measurementToRemove = getNthElement(measurementPosition);
+			PastMeasurementChainNode measurementBeforeRemoving = getNthElement(measurementPosition - 1);
+			measurementBeforeRemoving.next = measurementToRemove.next;
+		}
+		return firstMeasurement;
 	}
 }

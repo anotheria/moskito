@@ -25,6 +25,88 @@ public class PastMeasurementChainNodeTest {
 		assertEquals(3, first.getLength());
 	}
 
+	@Test public void testRemoveFirstPastMeasurementByItsPosition(){
+		ActiveMeasurement firstActiveMeasurement = new ActiveMeasurement("producer");
+		ActiveMeasurement secondActiveMeasurement = new ActiveMeasurement("producer");
+		ActiveMeasurement thirdActiveMeasurement = new ActiveMeasurement("producer");
+		ActiveMeasurement forthActiveMeasurement = new ActiveMeasurement("producer");
+		ActiveMeasurement fifthActiveMeasurement = new ActiveMeasurement("producer");
+
+		PastMeasurementChainNode firstMeasurement = new PastMeasurementChainNode(firstActiveMeasurement);
+		PastMeasurementChainNode secondMeasurement = new PastMeasurementChainNode(secondActiveMeasurement);
+		PastMeasurementChainNode thirdMeasurement = new PastMeasurementChainNode(thirdActiveMeasurement);
+		PastMeasurementChainNode forthMeasurement = new PastMeasurementChainNode(forthActiveMeasurement);
+		PastMeasurementChainNode fifthMeasurement = new PastMeasurementChainNode(fifthActiveMeasurement);
+
+		firstMeasurement.add(secondMeasurement);
+		firstMeasurement.add(thirdMeasurement);
+		firstMeasurement.add(forthMeasurement);
+		firstMeasurement.add(fifthMeasurement);
+
+
+		PastMeasurementChainNode firstMeasurementAfterRemoving = firstMeasurement.removePastMeasurementByItsPosition(0);
+		assertEquals(firstMeasurementAfterRemoving.getMeasurements().size(), 4);
+		assertEquals(secondMeasurement, firstMeasurementAfterRemoving);
+		assertEquals(thirdMeasurement, firstMeasurementAfterRemoving.getNthElement(1));
+		assertEquals(forthMeasurement, firstMeasurementAfterRemoving.getNthElement(2));
+		assertEquals(fifthMeasurement, firstMeasurementAfterRemoving.getNthElement(3));
+	}
+
+	@Test public void testRemovePastMeasurementByItsPositionFromMiddle(){
+		ActiveMeasurement firstActiveMeasurement = new ActiveMeasurement("producer");
+		ActiveMeasurement secondActiveMeasurement = new ActiveMeasurement("producer");
+		ActiveMeasurement thirdActiveMeasurement = new ActiveMeasurement("producer");
+		ActiveMeasurement forthActiveMeasurement = new ActiveMeasurement("producer");
+		ActiveMeasurement fifthActiveMeasurement = new ActiveMeasurement("producer");
+
+		PastMeasurementChainNode firstMeasurement = new PastMeasurementChainNode(firstActiveMeasurement);
+		PastMeasurementChainNode secondMeasurement = new PastMeasurementChainNode(secondActiveMeasurement);
+		PastMeasurementChainNode thirdMeasurement = new PastMeasurementChainNode(thirdActiveMeasurement);
+		PastMeasurementChainNode forthMeasurement = new PastMeasurementChainNode(forthActiveMeasurement);
+		PastMeasurementChainNode fifthMeasurement = new PastMeasurementChainNode(fifthActiveMeasurement);
+
+		firstMeasurement.add(secondMeasurement);
+		firstMeasurement.add(thirdMeasurement);
+		firstMeasurement.add(forthMeasurement);
+		firstMeasurement.add(fifthMeasurement);
+
+
+		PastMeasurementChainNode firstMeasurementAfterRemoving = firstMeasurement.removePastMeasurementByItsPosition(2);
+		assertEquals(firstMeasurementAfterRemoving.getMeasurements().size(), 4);
+		assertEquals(firstMeasurement, firstMeasurementAfterRemoving);
+		assertEquals(secondMeasurement, firstMeasurementAfterRemoving.getNthElement(1));
+		assertEquals(forthMeasurement, firstMeasurementAfterRemoving.getNthElement(2));
+		assertEquals(fifthMeasurement, firstMeasurementAfterRemoving.getNthElement(3));
+	}
+
+	@Test public void testRemoveLastPastMeasurementByItsPosition(){
+		ActiveMeasurement firstActiveMeasurement = new ActiveMeasurement("producer");
+		ActiveMeasurement secondActiveMeasurement = new ActiveMeasurement("producer");
+		ActiveMeasurement thirdActiveMeasurement = new ActiveMeasurement("producer");
+		ActiveMeasurement forthActiveMeasurement = new ActiveMeasurement("producer");
+		ActiveMeasurement fifthActiveMeasurement = new ActiveMeasurement("producer");
+
+		PastMeasurementChainNode firstMeasurement = new PastMeasurementChainNode(firstActiveMeasurement);
+		PastMeasurementChainNode secondMeasurement = new PastMeasurementChainNode(secondActiveMeasurement);
+		PastMeasurementChainNode thirdMeasurement = new PastMeasurementChainNode(thirdActiveMeasurement);
+		PastMeasurementChainNode forthMeasurement = new PastMeasurementChainNode(forthActiveMeasurement);
+		PastMeasurementChainNode fifthMeasurement = new PastMeasurementChainNode(fifthActiveMeasurement);
+
+		firstMeasurement.add(secondMeasurement);
+		firstMeasurement.add(thirdMeasurement);
+		firstMeasurement.add(forthMeasurement);
+		firstMeasurement.add(fifthMeasurement);
+
+
+		PastMeasurementChainNode firstMeasurementAfterRemoving = firstMeasurement.removePastMeasurementByItsPosition(4);
+		assertEquals(firstMeasurementAfterRemoving.getMeasurements().size(), 4);
+
+		assertEquals(firstMeasurement, firstMeasurementAfterRemoving);
+		assertEquals(secondMeasurement, firstMeasurementAfterRemoving.getNthElement(1));
+		assertEquals(thirdMeasurement, firstMeasurementAfterRemoving.getNthElement(2));
+		assertEquals(forthMeasurement, firstMeasurementAfterRemoving.getNthElement(3));
+	}
+
 	@Test public void testInsertCase1(){
 		PastMeasurementChainNode root = null;
 		PastMeasurementChainNode newNode = new PastMeasurementChainNode();

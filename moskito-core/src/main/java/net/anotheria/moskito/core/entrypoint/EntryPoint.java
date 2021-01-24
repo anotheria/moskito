@@ -45,6 +45,10 @@ public class EntryPoint {
 		pastMeasurements = PastMeasurementChainNode.addToChainIfLongerDuration(pastMeasurements, newNode);
 	}
 
+	public void removePastMeasurementByItsPosition(int measurementPosition){
+		pastMeasurements = pastMeasurements.removePastMeasurementByItsPosition(measurementPosition);
+	}
+
 	public String toString(){
 		return "Id: "+producerId+", CR: "+currentRequests+", TR: "+totalRequests+", CM: "+currentMeasurements;
 	}
@@ -71,7 +75,7 @@ public class EntryPoint {
 
 	public List<PastMeasurement> getPastMeasurements(){
 		return pastMeasurements == null ?
-			Collections.<PastMeasurement>emptyList() :
-			pastMeasurements.getMeasurements();
+				Collections.<PastMeasurement>emptyList() :
+				pastMeasurements.getMeasurements();
 	}
 }

@@ -42,7 +42,7 @@ public class EntryPointRepository {
 		}
 
 		entryPoint.requestStarted();
-		
+
 		ActiveMeasurement ret = new ActiveMeasurement(producerId);
 
 		entryPoint.addCurrentMeasurements(ret);
@@ -55,6 +55,11 @@ public class EntryPointRepository {
 		EntryPoint entryPoint = entryPoints.get(measurement.getProducerId());
 		//we assume that entry point can't be null! After all it was just recently created.
 		entryPoint.requestFinished(measurement);
+	}
+
+	public void removePastMeasurement(String producerId, int measurementPosition){
+		EntryPoint entryPoint = entryPoints.get(producerId);
+		entryPoint.removePastMeasurementByItsPosition(measurementPosition);
 	}
 
 	public List<EntryPoint> getEntryPoints() {

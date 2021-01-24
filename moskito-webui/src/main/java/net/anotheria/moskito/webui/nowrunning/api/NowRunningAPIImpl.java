@@ -6,6 +6,7 @@ import net.anotheria.moskito.core.entrypoint.EntryPoint;
 import net.anotheria.moskito.core.entrypoint.EntryPointRepository;
 import net.anotheria.moskito.core.entrypoint.PastMeasurement;
 import net.anotheria.moskito.webui.shared.api.AbstractMoskitoAPIImpl;
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -59,7 +60,7 @@ public class NowRunningAPIImpl extends AbstractMoskitoAPIImpl implements NowRunn
 				}
 			}
 
-			
+
 
 
 			ret.add(bean);
@@ -70,5 +71,12 @@ public class NowRunningAPIImpl extends AbstractMoskitoAPIImpl implements NowRunn
 	@Override
 	public int getNowRunningCount() throws APIException {
 		return EntryPointRepository.getInstance().getNowRunningCount();
+	}
+
+	@Override
+	public void removePastMeasurement(String producerId, String measurementPosition) throws APIException {
+		if(StringUtils.isNotBlank(producerId) && StringUtils.isNotBlank(measurementPosition)) {
+			EntryPointRepository.getInstance().removePastMeasurement(producerId, Integer.valueOf(measurementPosition));
+		}
 	}
 }

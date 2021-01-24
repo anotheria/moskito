@@ -33,4 +33,12 @@ public interface NowRunningAPI extends API, Service {
 	 * @throws APIException
 	 */
 	int getNowRunningCount() throws APIException;
+
+	/**
+	 * Removes an past measurement from entry point.
+	 * @param producerId
+	 * @param measurementPosition
+	 * @throws APIException
+	 */
+	void removePastMeasurement(String producerId, String measurementPosition) throws APIException;
 }
