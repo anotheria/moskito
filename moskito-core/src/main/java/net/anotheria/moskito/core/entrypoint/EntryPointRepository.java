@@ -17,60 +17,68 @@ import java.util.concurrent.ConcurrentMap;
 public class EntryPointRepository {
 
 
-	private static EntryPointRepository INSTANCE = new EntryPointRepository();
+    private static EntryPointRepository INSTANCE = new EntryPointRepository();
 
-	private ConcurrentMap<String, EntryPoint> entryPoints;
+    private ConcurrentMap<String, EntryPoint> entryPoints;
 
-	private EntryPointRepository(){
-		entryPoints = new ConcurrentHashMap<>();
-	}
+    private EntryPointRepository() {
+        entryPoints = new ConcurrentHashMap<>();
+    }
 
-	public static EntryPointRepository getInstance(){
-		return INSTANCE;
-	}
+    public static EntryPointRepository getInstance() {
+        return INSTANCE;
+    }
 
-	public ActiveMeasurement measurementStarted(IStatsProducer producer){
-		String producerId = producer.getProducerId();
+    public ActiveMeasurement measurementStarted(IStatsProducer producer) {
+        String producerId = producer.getProducerId();
 
-		EntryPoint newEntryPoint = new EntryPoint(producerId);
-		EntryPoint oldEntryPoint = entryPoints.putIfAbsent(producerId, newEntryPoint);
-		EntryPoint entryPoint;
-		if (oldEntryPoint == null){
-			entryPoint = newEntryPoint;
-		}else{
-			entryPoint = oldEntryPoint;
-		}
+        EntryPoint newEntryPoint = new EntryPoint(producerId);
+        EntryPoint oldEntryPoint = entryPoints.putIfAbsent(producerId, newEntryPoint);
+        EntryPoint entryPoint;
+        if (oldEntryPoint == null) {
+            entryPoint = newEntryPoint;
+        } else {
+            entryPoint = oldEntryPoint;
+        }
 
-		entryPoint.requestStarted();
-		
-		ActiveMeasurement ret = new ActiveMeasurement(producerId);
+        entryPoint.requestStarted();
 
-		entryPoint.addCurrentMeasurements(ret);
+        ActiveMeasurement ret = new ActiveMeasurement(producerId);
 
-		return ret;
-	}
+        entryPoint.addCurrentMeasurements(ret);
 
-	public void measurementFinished(ActiveMeasurement measurement){
+        return ret;
+    }
 
-		EntryPoint entryPoint = entryPoints.get(measurement.getProducerId());
-		//we assume that entry point can't be null! After all it was just recently created.
-		entryPoint.requestFinished(measurement);
-	}
+    public void measurementFinished(ActiveMeasurement measurement) {
 
-	public List<EntryPoint> getEntryPoints() {
-		LinkedList<EntryPoint> ret = new LinkedList<>();
-		ret.addAll(entryPoints.values());
-		return ret;
-	}
+        EntryPoint entryPoint = entryPoints.get(measurement.getProducerId());
+        //we assume that entry point can't be null! After all it was just recently created.
+        entryPoint.requestFinished(measurement);
+    }
 
-	public int getNowRunningCount(){
-		Collection<EntryPoint> entryPointsCollection = entryPoints.values();
-		int ret = 0;
-		if (entryPointsCollection.size()>0){
-			for (EntryPoint ep : entryPointsCollection){
-				ret += ep.getCurrentRequestCount();
-			}
-		}
-		return ret;
-	}
+    public void removePastMeasurement(String producerId, int measurementPosition) {
+        EntryPoint entryPoint = entryPoints.get(producerId);
+        if (entryPoint == null) {
+            throw new IllegalArgumentException("Attempt to access non existing entry point with producer id: '" + producerId + '\'');
+        }
+        entryPoint.removePastMeasurementByItsPosition(measurementPosition);
+    }
+
+    public List<EntryPoint> getEntryPoints() {
+        LinkedList<EntryPoint> ret = new LinkedList<>();
+        ret.addAll(entryPoints.values());
+        return ret;
+    }
+
+    public int getNowRunningCount() {
+        Collection<EntryPoint> entryPointsCollection = entryPoints.values();
+        int ret = 0;
+        if (entryPointsCollection.size() > 0) {
+            for (EntryPoint ep : entryPointsCollection) {
+                ret += ep.getCurrentRequestCount();
+            }
+        }
+        return ret;
+    }
 }

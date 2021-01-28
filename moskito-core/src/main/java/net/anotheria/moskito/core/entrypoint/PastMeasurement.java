@@ -20,7 +20,7 @@ public class PastMeasurement extends ActiveMeasurement{
 
 		endtime = node.getEndtime();
 		duration = endtime - node.getStarttime();
-		
+
 	}
 
 	public long getEndtime() {
@@ -35,5 +35,5 @@ public class PastMeasurement extends ActiveMeasurement{
 		return duration;
 	}
 
-	
+
 }
