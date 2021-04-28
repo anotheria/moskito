@@ -20,14 +20,14 @@ public class SamplingEngine {
 	/**
 	 * Logger.
 	 */
-	private static Logger log = LoggerFactory.getLogger(SamplingEngine.class);
+	private static final Logger log = LoggerFactory.getLogger(SamplingEngine.class);
 
 	/**
 	 * Instance. For now.
 	 */
-	private static SamplingEngine instance = new SamplingEngine();
+	private static final SamplingEngine instance = new SamplingEngine();
 
-	private IProducerRegistry producerRegistry;
+	private final IProducerRegistry producerRegistry;
 
 	public static final Boolean FLAG_REGISTER_PRODUCER_ON_THE_FLY = Boolean.TRUE;
 
@@ -78,23 +78,15 @@ public class SamplingEngine {
 
 		log.debug("Have to add sampling value to producer "+producer);
 		String statName = sample.getValues().get("stat");
-		if (statName == null){
-			IStats stats = producer.getDefaultStats();
+		IStats defaultStats = producer.getDefaultStats();
+		mapper.updateStats(defaultStats, sample);
+
+		try {
+			IStats stats = producer.getStats(statName);
 			mapper.updateStats(stats, sample);
-		}else{
-			try {
-				IStats stats = producer.getStats(statName);
-				mapper.updateStats(stats, sample);
-			}catch(OnDemandStatsProducerException e){
-				log.warn("Can't create new stats object", e);
-			}
-			String cumulate = sample.getValues().get("cumulate");
-			if (cumulate != null && cumulate.equals("true")){
-				mapper.updateStats(producer.getDefaultStats(), sample);
-			}
-
+		}catch(OnDemandStatsProducerException e){
+			log.warn("Can't create new stats object", e);
 		}
-
 	}
 
 	private StatsMapper getMapper(String mapperId){
