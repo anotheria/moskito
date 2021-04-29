@@ -4,7 +4,9 @@ import net.anotheria.moskito.core.calltrace.CurrentlyTracedCall;
 import net.anotheria.moskito.core.calltrace.NoTracedCall;
 import net.anotheria.moskito.core.calltrace.RunningTraceContainer;
 import net.anotheria.moskito.core.calltrace.TracedCall;
+import net.anotheria.moskito.core.config.MoskitoConfiguration;
 import net.anotheria.moskito.core.config.MoskitoConfigurationHolder;
+import net.anotheria.moskito.core.config.journey.JourneyConfig;
 import net.anotheria.moskito.core.config.tagging.CustomTag;
 import net.anotheria.moskito.core.config.tagging.CustomTagSource;
 import net.anotheria.moskito.core.config.tagging.TaggingConfig;
@@ -91,6 +93,12 @@ public class JourneyFilter implements Filter {
 	 */
 	private JourneyManager journeyManager;
 
+	/**
+	 * MoSKito configuration.
+	 * This object can change at runtime due to configureme reloading on change.
+	 */
+	private MoskitoConfiguration configuration;
+
 	@Override
 	public void destroy() {
 	}
@@ -143,6 +151,7 @@ public class JourneyFilter implements Filter {
 
 		JourneyRecord record = null;
 		Journey journey = null;
+		JourneyConfig journeyConfig = configuration.getJourneyConfig();
 
 		if (session != null) {
 			record = (JourneyRecord) session.getAttribute(SA_JOURNEY_RECORD);
@@ -162,7 +171,35 @@ public class JourneyFilter implements Filter {
 				url += req.getPathInfo();
 			if (req.getQueryString() != null)
 				url += '?' + req.getQueryString();
-			RunningTraceContainer.startTracedCall(record.getUseCaseName() + '-' + url);
+
+			//check exclusion for journey
+			boolean startCall = true;
+			for (String urlToMatch : journeyConfig.getExclusionURLs()){
+				if (url.equals(urlToMatch)){
+					startCall = false;
+					break;
+				}
+			}
+			if (startCall){
+				for (String prefixToMatch : journeyConfig.getExclusionURLPrefixes()){
+					if (url.startsWith(prefixToMatch)){
+						startCall = false;
+						break;
+					}
+				}
+			}
+
+			if (startCall){
+				for (String suffixToMatch : journeyConfig.getExclusionURLSuffixes()){
+					if (url.endsWith(suffixToMatch)){
+						startCall = false;
+						break;
+					}
+				}
+			}
+
+			if (startCall)
+				RunningTraceContainer.startTracedCall(record.getUseCaseName() + '-' + url);
 		}
 		try {
 			//Removed reset call, cause the context gets reset at the end of the call in finally anyway, so its safe to assume that we have a new context.
@@ -222,6 +259,7 @@ public class JourneyFilter implements Filter {
 	@Override
 	public void init(FilterConfig chain) {
 		journeyManager = JourneyManagerFactory.getJourneyManager();
+		configuration = MoskitoConfigurationHolder.getConfiguration();
 	}
 
 }

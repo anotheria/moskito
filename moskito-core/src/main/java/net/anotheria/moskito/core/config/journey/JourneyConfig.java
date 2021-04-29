@@ -4,6 +4,7 @@ import org.configureme.annotations.Configure;
 import org.configureme.annotations.ConfigureMe;
 
 import java.io.Serializable;
+import java.util.Arrays;
 
 /**
  * Configuration object which
@@ -37,6 +38,15 @@ public class JourneyConfig implements Serializable{
 	@Configure
 	private boolean toStringMaps = true;
 
+	@Configure
+	private String[] exclusionURLs = new String[0];
+
+	@Configure
+	private String[] exclusionURLPrefixes = new String[0];
+
+	@Configure
+	private String[] exclusionURLSuffixes = new String[0];
+
 	public int getParameterLengthLimit() {
 		return parameterLengthLimit;
 	}
@@ -61,7 +71,39 @@ public class JourneyConfig implements Serializable{
 		this.toStringMaps = toStringMaps;
 	}
 
-	public String toString(){
-		return "JourneyConfig: ("+parameterLengthLimit+", "+toStringCollections+", "+toStringMaps+ ')';
+	public String[] getExclusionURLs() {
+		return exclusionURLs;
+	}
+
+	public void setExclusionURLs(String[] exclusionURLs) {
+		this.exclusionURLs = exclusionURLs;
+	}
+
+	public String[] getExclusionURLPrefixes() {
+		return exclusionURLPrefixes;
+	}
+
+	public void setExclusionURLPrefixes(String[] exclusionURLPrefixes) {
+		this.exclusionURLPrefixes = exclusionURLPrefixes;
+	}
+
+	public String[] getExclusionURLSuffixes() {
+		return exclusionURLSuffixes;
+	}
+
+	public void setExclusionURLSuffixes(String[] exclusionURLSuffixes) {
+		this.exclusionURLSuffixes = exclusionURLSuffixes;
+	}
+
+	@Override
+	public String toString() {
+		return "JourneyConfig{" +
+				"parameterLengthLimit=" + parameterLengthLimit +
+				", toStringCollections=" + toStringCollections +
+				", toStringMaps=" + toStringMaps +
+				", exclusionURLs=" + Arrays.toString(exclusionURLs) +
+				", exclusionURLPrefixes=" + Arrays.toString(exclusionURLPrefixes) +
+				", exclusionURLSuffixes=" + Arrays.toString(exclusionURLSuffixes) +
+				'}';
 	}
 }
