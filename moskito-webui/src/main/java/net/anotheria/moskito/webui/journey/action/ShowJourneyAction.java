@@ -20,15 +20,15 @@ public class ShowJourneyAction extends BaseJourneyAction{
 
 	@Override
 	protected String getLinkToCurrentPage(HttpServletRequest req) {
-		return "";
+		return "mskShowJourney?"+PARAM_JOURNEY_NAME+"="+req.getParameter(PARAM_JOURNEY_NAME);
 	}
 
 
 	@Override
 	public ActionCommand execute(ActionMapping mapping, FormBean formBean, HttpServletRequest req, HttpServletResponse res) throws APIException{
 
-		String journeyName = req.getParameter("pJourneyName");
-		JourneyAO journey = getJourneyAPI().getJourney(journeyName);
+		String journeyName = req.getParameter(PARAM_JOURNEY_NAME);
+		JourneyAO journey = getJourneyAPI().getJourney(journeyName, getCurrentUnit(req).getUnit());
 		JourneyListItemAO bean = new JourneyListItemAO();
 
 		bean.setName(journey.getName());
@@ -37,7 +37,8 @@ public class ShowJourneyAction extends BaseJourneyAction{
 		bean.setLastActivity(NumberUtils.makeISO8601TimestampString(journey.getLastActivityTimestamp()));
 		bean.setNumberOfCalls(journey.getCalls().size());
 		req.setAttribute("journey", bean);
-		req.setAttribute("recorded", journey.getCalls());
+		req.setAttribute("calls", journey.getCalls());
+
 		return mapping.success();
 	}
 

@@ -49,7 +49,7 @@ public class RunningTraceContainer {
 	/**
 	 * Currently running use case.
 	 */
-	private static ThreadLocal<TracedCall> currentlyTracedCall = new ThreadLocal<TracedCall>(){
+	private static final ThreadLocal<TracedCall> currentlyTracedCall = new ThreadLocal<TracedCall>(){
 		protected synchronized TracedCall initialValue(){
 			return NoTracedCall.INSTANCE;
 		}
@@ -71,6 +71,11 @@ public class RunningTraceContainer {
 		TracedCall last = getCurrentlyTracedCall();
 		setCurrentlyTracedCall(NoTracedCall.INSTANCE);
 
+		//check to ensure last was really a CurrentlyTracedCall
+		if (last.callTraced()){
+			((CurrentlyTracedCall)last).setEnded();
+		}
+
 		//check tags and set if applicable.
 		Map<String, String> tags = MoSKitoContext.getTags();
 		if (tags!=null && tags.size()>0){
@@ -81,6 +86,7 @@ public class RunningTraceContainer {
 		}
 
 		return last;
+
 	}
 	
 	/**

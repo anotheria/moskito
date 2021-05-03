@@ -19,8 +19,7 @@
                     <a href="" class="tooltip-bottom" title="Help"><i class="fa fa-info-circle"></i></a>
                 </div>
             </div>
-
-            <p class="paddner">${journey}</p>
+            <p class="paddner">JourneyName: <b>${journey.name}</b>, Created: <b>${journey.created}</b>, Active: <b>${journey.active}</b>, Calls: <b>${journey.numberOfCalls}</b>, Last Activity <b>${journey.lastActivity}</b></p>
             <div id="collapse2" class="box-content accordion-body collapse in">
 
                 <table class="table table-striped tablesorter">
@@ -34,7 +33,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <ano:iterate name="recorded" type="net.anotheria.moskito.webui.journey.api.JourneySingleTracedCallAO" id="tracedCall" indexId="index">
+                    <ano:iterate name="calls" type="net.anotheria.moskito.webui.journey.api.JourneySingleTracedCallAO" id="tracedCall" indexId="index">
                         <tr>
                             <td>${index}</td>
                             <td>

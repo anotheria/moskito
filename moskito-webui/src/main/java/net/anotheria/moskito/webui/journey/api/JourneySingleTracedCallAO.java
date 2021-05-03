@@ -68,6 +68,14 @@ public class JourneySingleTracedCallAO implements Serializable{
 	public void setContainedSteps(int containedSteps) {
 		this.containedSteps = containedSteps;
 	}
-	
-	
+
+	@Override
+	public String toString() {
+		return "JourneySingleTracedCallAO{" +
+				"name='" + name + '\'' +
+				", date='" + date + '\'' +
+				", containedSteps=" + containedSteps +
+				", duration=" + duration +
+				'}';
+	}
 }

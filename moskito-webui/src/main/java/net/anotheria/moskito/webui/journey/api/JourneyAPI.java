@@ -31,10 +31,11 @@ public interface JourneyAPI extends API, Service {
 	/**
 	 * Returns specified journey.
 	 * @param name name of the journey.
+	 * @param unit timeunit for calculation of duration
 	 * @return
 	 * @throws APIException
 	 */
-	JourneyAO getJourney(String name) throws APIException;
+	JourneyAO getJourney(String name, TimeUnit unit) throws APIException;
 
 	TracedCallAO getTracedCall(String journeyName, int callPosition, TimeUnit unit) throws APIException;
 

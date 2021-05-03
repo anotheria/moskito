@@ -57,11 +57,11 @@ public class CurrentlyTracedCall implements TracedCall, Serializable{
 	/**
 	 * Name of the call.
 	 */
-	private String name;
+	private final String name;
 	/**
 	 * Root step of the call.
 	 */
-	private TraceStep root = new TraceStep("");
+	private final TraceStep root = new TraceStep("");
 	/**
 	 * Current step in the call.
 	 */
@@ -69,9 +69,9 @@ public class CurrentlyTracedCall implements TracedCall, Serializable{
 	/**
 	 * Creation timestamp.
 	 */
-	private long created;
+	private final long created;
 
-	private long createdNanos;
+	private final long createdNanos;
 
 	/**
 	 * End timestamp;
@@ -104,7 +104,7 @@ public class CurrentlyTracedCall implements TracedCall, Serializable{
 	}
 	
 	@Override public String toString(){
-		return "CurrentlyTracedCall: "+name;
+		return "CurrentlyTracedCall: "+name+", started: "+createdNanos+", ended: "+endedNanos+", durationNanos: "+getDurationNanos();
 	}
 	
 	/**
@@ -176,6 +176,7 @@ public class CurrentlyTracedCall implements TracedCall, Serializable{
 
 	public void setEnded(){
 		endedNanos = System.nanoTime();
+		getRootStep().setDuration(getDurationNanos());
 	}
 
 	public long getDurationNanos() {
@@ -225,4 +226,6 @@ public class CurrentlyTracedCall implements TracedCall, Serializable{
 			dumpOut(child, ident+1);
 		}
 	}
+
+
 }

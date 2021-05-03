@@ -57,7 +57,7 @@ public class JourneyAPIImpl extends AbstractMoskitoAPIImpl implements  JourneyAP
 	}
 
 	@Override
-	public JourneyAO getJourney(String name) throws APIException {
+	public JourneyAO getJourney(String name, TimeUnit unit) throws APIException {
 		JourneyAO ret = new JourneyAO();
 		Journey journey;
 		try{
@@ -84,7 +84,7 @@ public class JourneyAPIImpl extends AbstractMoskitoAPIImpl implements  JourneyAP
 			b.setName(tracedCall.getName());
 			b.setDate(NumberUtils.makeISO8601TimestampString(tracedCall.getCreated()));
 			b.setContainedSteps(tracedCall.getNumberOfSteps());
-			b.setDuration(tracedCall.getRootStep().getDuration());
+			b.setDuration(unit.transformNanos(tracedCall.getRootStep().getDuration()));
 			calls.add(b);
 		}
 

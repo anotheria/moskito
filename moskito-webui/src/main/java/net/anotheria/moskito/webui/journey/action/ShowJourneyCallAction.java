@@ -27,7 +27,7 @@ public class ShowJourneyCallAction extends BaseJourneyAction{
 	@Override
 	public ActionCommand execute(ActionMapping mapping, FormBean formBean, HttpServletRequest req, HttpServletResponse res) throws APIException{
 
-		String journeyName = req.getParameter("pJourneyName");
+		String journeyName = req.getParameter(PARAM_JOURNEY_NAME);
 
 		String tracedCallName = req.getParameter("pTracedCallName");
 

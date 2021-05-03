@@ -16,6 +16,8 @@ import java.util.Map;
  * @author lrosenberg
  */
 abstract class BaseJourneyAction extends BaseMoskitoUIAction {
+
+	public static final String PARAM_JOURNEY_NAME = "pJourneyName";
 	/**
 	 * Creates a new action instance.
 	 */
