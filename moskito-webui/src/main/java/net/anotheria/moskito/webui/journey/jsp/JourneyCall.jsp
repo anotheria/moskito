@@ -94,7 +94,7 @@
                     <tbody>
                     <ano:iterate name="dupStepBeans" type="net.anotheria.moskito.webui.journey.api.TracedCallDuplicateStepsAO" id="dupStep" indexId="index">
                         <tr>
-                            <td>${dupStep.call}</td>
+                            <td><ano:write name="dupStep" property="call" filter="true"/></td>
                             <%--<td><input type="checkbox" class="select_current_row_positions_checkbox" value=""/></td>--%>
                             <td>${dupStep.numberOfCalls}</td>
                             <td>
