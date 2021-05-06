@@ -7,6 +7,9 @@ import java.util.List;
 
 /**
  * A monitoring journey at the runtime of recording.
+ * A journey represents typically one user's movement through the system. However, we also use journeys to collect tracers.
+ * A journey objects consists of calls consisting of steps. A traced call is an execution in one context (i.e. an http call) and steps are
+ * calls to java classes etc within this traced call.
  * @author lrosenberg
  *
  */
@@ -16,9 +19,9 @@ public class Journey {
 	 */
 	private String name;
 	/**
-	 * UseCases (Calls) in this session.
+	 * TracedCalles in this journey.
 	 */
-	private List<CurrentlyTracedCall> tracedCalls;
+	private final List<CurrentlyTracedCall> tracedCalls;
 	/**
 	 * True if the session is still actively recorded.
 	 */
@@ -47,7 +50,7 @@ public class Journey {
 	 * Adds a use case (call) to this session.
 	 * @param aTracedCall
 	 */
-	public void addUseCase(CurrentlyTracedCall aTracedCall){
+	public void addCall(CurrentlyTracedCall aTracedCall){
 		tracedCalls.add(aTracedCall);
 		lastActivityTimestamp = System.currentTimeMillis();
 	}

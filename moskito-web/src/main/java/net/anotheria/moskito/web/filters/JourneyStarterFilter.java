@@ -83,7 +83,7 @@ public class JourneyStarterFilter implements Filter{
 			filterChain.doFilter(servletRequest, servletResponse);
 		}finally{
 			TracedCall last = RunningTraceContainer.endTrace();
-			journey.addUseCase((CurrentlyTracedCall)last);
+			journey.addCall((CurrentlyTracedCall)last);
 
 			//removes the running use case to cleanup the thread local. Otherwise tomcat will be complaining...
 			RunningTraceContainer.cleanup();
