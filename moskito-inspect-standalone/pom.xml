@@ -3,12 +3,12 @@
 	<parent>
 		<groupId>net.anotheria</groupId>
 		<artifactId>moskito</artifactId>
-		<version>2.10.1-SNAPSHOT</version>
+		<version>2.10.1</version>
 	</parent>
 
 	<modelVersion>4.0.0</modelVersion>
 	<artifactId>moskito-inspect-standalone</artifactId>
-	<version>2.10.1-SNAPSHOT</version>
+	<version>2.10.1</version>
 	<name>MoSKito Inspect Standalone Application</name>
 	<packaging>war</packaging>
   <properties>
