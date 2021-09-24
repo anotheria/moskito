@@ -54,4 +54,17 @@ public class GaugesConfig implements Serializable {
 	@Override public String toString(){
 		return "GaugesConfig with gauges: "+ Arrays.toString(gauges)+", defaultZones: "+Arrays.toString(defaultZones);
 	}
+
+	public void addGauge(GaugeConfig aGauge ){
+		if (gauges.length == 0){
+			gauges = new GaugeConfig[1];
+			gauges[0] = aGauge;
+			return;
+		}
+
+		GaugeConfig[] new_gauges = Arrays.copyOf(gauges, gauges.length+1);
+		new_gauges[gauges.length] = aGauge;
+		gauges = new_gauges;
+
+	}
 }

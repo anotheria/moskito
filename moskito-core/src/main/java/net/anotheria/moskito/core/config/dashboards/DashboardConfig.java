@@ -248,4 +248,18 @@ public class DashboardConfig implements Serializable{
 		return false;
 	}
 
+	public void addChartConfig(ChartConfig aChart ){
+		if (charts==null || charts.length == 0){
+			charts = new ChartConfig[1];
+			charts[0] = aChart;
+			return;
+		}
+
+		ChartConfig[] new_charts = Arrays.copyOf(charts, charts.length+1);
+		new_charts[charts.length] = aChart;
+		charts = new_charts;
+
+	}
+
+
 }

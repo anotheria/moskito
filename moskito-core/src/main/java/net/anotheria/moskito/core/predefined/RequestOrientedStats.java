@@ -569,4 +569,28 @@ public abstract class RequestOrientedStats extends AbstractStats {
 		return getCurrentRequests(intervalName) == 0;
 	}
 
+	/**** added protected methods for access to StatValue for statistic purposes for now ****/
+	protected StatValue internalGetTotalRequests(){
+		return totalRequests;
+	}
+
+	protected StatValue internalGetTotalTime(){
+		return totalTime;
+	}
+
+	protected StatValue internalGetErrorCount(){
+		return errors;
+	}
+
+	protected StatValue internalGetCurrentRequestCount(){
+		return currentRequests;
+	}
+
+	protected StatValue internalGetMaxConcurrentRequestCount(){
+		return maxCurrentRequests;
+	}
+
+	protected StatValue internalGetMaxTime(){
+		return maxTime;
+	}
 }

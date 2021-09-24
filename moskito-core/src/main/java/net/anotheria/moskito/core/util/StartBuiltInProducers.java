@@ -5,6 +5,7 @@ import net.anotheria.moskito.core.config.producers.BuiltinProducersConfig;
 import net.anotheria.moskito.core.errorhandling.BuiltInErrorProducer;
 import net.anotheria.moskito.core.registry.IProducerRegistry;
 import net.anotheria.moskito.core.registry.ProducerRegistryFactory;
+import net.anotheria.moskito.core.util.statistics.BuiltinStatisticsServiceProducer;
 
 import java.lang.management.ManagementFactory;
 import java.lang.management.MemoryPoolMXBean;
@@ -36,11 +37,19 @@ public class StartBuiltInProducers {
 		startGcProducers();
 		startMBeanProducers();
 		startTomcatRequestProcessorProducers();
+		startStatistics();
 	}
 	
 	public static void restartbuiltin(){
 		initialized = false;
 		startbuiltin();
+	}
+
+	private static void startStatistics(){
+		if (!MoskitoConfigurationHolder.getConfiguration().getBuiltinProducersConfig().isRequestStatisticProducer())
+			return;
+		//start request statistic producer
+		new BuiltinStatisticsServiceProducer();
 	}
 
 	private static void startJavaThreadingProducers(){
