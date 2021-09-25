@@ -56,7 +56,7 @@ public class GaugesConfig implements Serializable {
 	}
 
 	public void addGauge(GaugeConfig aGauge ){
-		if (gauges.length == 0){
+		if (gauges == null || gauges.length == 0){
 			gauges = new GaugeConfig[1];
 			gauges[0] = aGauge;
 			return;

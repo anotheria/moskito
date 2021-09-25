@@ -53,7 +53,7 @@ public class DashboardsConfig implements Serializable {
 	 * @param toAdd
 	 */
 	public void addDashboard(DashboardConfig toAdd){
-		if (dashboards.length == 0){
+		if (dashboards==null || dashboards.length == 0){
 			dashboards = new DashboardConfig[1];
 			dashboards[0] = toAdd;
 			return;
