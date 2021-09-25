@@ -31,7 +31,7 @@ public enum MoskitoConfigurationHolder {
 	/**
 	 * Creates a new configuration holder.
 	 */
-	private MoskitoConfigurationHolder(){
+	MoskitoConfigurationHolder(){
 		log = LoggerFactory.getLogger(MoskitoConfigurationHolder.class);
 		configuration = createDefaultConfiguration();
 		try{
