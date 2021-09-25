@@ -112,7 +112,7 @@ public class ErrorStatsDecorator extends AbstractDecorator {
 		return ret;
 	}
 
-	private static final long mapToLong(int value){
+	private static long mapToLong(int value){
 		return (value == Integer.MAX_VALUE) ? Long.MAX_VALUE :
 				(value == Integer.MIN_VALUE) ? Long.MIN_VALUE :
 						value;
