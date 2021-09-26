@@ -40,9 +40,9 @@ import java.util.Map;
  */
 public class GenericMonitoringFilter implements Filter, IStatsProducer {
 	/**
-	 * Logger instance, available for all subclasses.
+	 * Logger instance.
 	 */
-	protected Logger log = LoggerFactory.getLogger(getClass());
+	private Logger log = LoggerFactory.getLogger(getClass());
 	/**
 	 * Parameter name for the init parameter for the limit of dynamic case names (number of names) in the filter config. If the number of cases will exceed this limit,
 	 * the new cases will be ignored (to prevent memory leakage).
