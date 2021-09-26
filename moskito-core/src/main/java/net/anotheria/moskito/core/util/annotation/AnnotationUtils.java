@@ -1,7 +1,6 @@
 package net.anotheria.moskito.core.util.annotation;
 
 import java.lang.annotation.Annotation;
-import java.lang.annotation.ElementType;
 import java.lang.reflect.AnnotatedElement;
 import java.util.HashSet;
 import java.util.Objects;
