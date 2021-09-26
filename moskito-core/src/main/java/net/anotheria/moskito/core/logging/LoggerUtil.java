@@ -26,7 +26,7 @@ public final class LoggerUtil {
 	 * Creates interval stats loggers for all configured intervals. As logger name prefix this method uses 'Moskito'.
 	 * @param producer producer to attach loggers to.
 	 */
-	public static final void createSLF4JIntervalStatsLoggerForAllConfiguredIntervals(IStatsProducer producer){
+	public static void createSLF4JIntervalStatsLoggerForAllConfiguredIntervals(IStatsProducer producer){
 		createSLF4JIntervalStatsLoggerForAllConfiguredIntervals(producer, "Moskito");
 
 	}
@@ -38,7 +38,7 @@ public final class LoggerUtil {
 	 * @param producer producer to attach loggers to.
 	 * @param loggerNamePrefix loggerNamePrefix prefix.
 	 */
-	public static final void createSLF4JIntervalStatsLoggerForAllConfiguredIntervals(IStatsProducer producer, String loggerNamePrefix){
+	public static void createSLF4JIntervalStatsLoggerForAllConfiguredIntervals(IStatsProducer producer, String loggerNamePrefix){
 		List<String> configuredIntervals = MoskitoConfigurationHolder.getConfiguration().getConfiguredIntervalNames();
 		for (String intervalName : configuredIntervals){
 			new IntervalStatsLogger(producer,
@@ -48,20 +48,20 @@ public final class LoggerUtil {
 	}
 
 
-	public static final void createSLF4JDefaultStatsLogger(IStatsProducer producer){
+	public static void createSLF4JDefaultStatsLogger(IStatsProducer producer){
 		createSLF4JDefaultStatsLogger(producer, "MoskitoDefault");
 	}
 
-	public static final void createSLF4JDefaultStatsLogger(IStatsProducer producer, String loggerName ){
+	public static void createSLF4JDefaultStatsLogger(IStatsProducer producer, String loggerName ){
 		new DefaultStatsLogger(producer, new SLF4JLogOutput(LoggerFactory.getLogger(loggerName)));
 
 	}
 
-	public static final void createSLF4JDefaultAndIntervalStatsLogger(IStatsProducer producer){
+	public static void createSLF4JDefaultAndIntervalStatsLogger(IStatsProducer producer){
 		createSLF4JDefaultAndIntervalStatsLogger(producer, "Moskito");
 	}
 
-	public static final void createSLF4JDefaultAndIntervalStatsLogger(IStatsProducer producer, String loggerNamePrefix){
+	public static void createSLF4JDefaultAndIntervalStatsLogger(IStatsProducer producer, String loggerNamePrefix){
 		createSLF4JDefaultStatsLogger(producer, loggerNamePrefix+"Default");
 		createSLF4JIntervalStatsLoggerForAllConfiguredIntervals(producer, loggerNamePrefix);
 	}
