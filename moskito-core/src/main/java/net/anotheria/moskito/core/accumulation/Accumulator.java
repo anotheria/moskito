@@ -44,7 +44,11 @@ public class Accumulator extends AbstractTieable<AccumulatorDefinition> implemen
 		super(aDefinition);
 		values = new ArrayList<AccumulatedValue>(aDefinition.getMaxAmountOfAccumulatedItems());
 	}
-	
+
+	/**
+	 * Adds a new value to the list of accumulated values.
+	 * @param value
+	 */
 	public void addValue(AccumulatedValue value){
 		try{
 			lock.writeLock().lock();
@@ -60,11 +64,19 @@ public class Accumulator extends AbstractTieable<AccumulatorDefinition> implemen
 			lock.writeLock().unlock();
 		}
 	}
-	
+
+	/**
+	 * Adds a new value to the list of accumulated values.
+	 * @param aValue
+	 */
 	public void addValue(String aValue){
 		addValue(new AccumulatedValue(aValue));
 	}
-	
+
+	/**
+	 * Returns currently saved values.
+	 * @return
+	 */
 	public List<AccumulatedValue> getValues(){
 		try{
 			lock.readLock().lock();

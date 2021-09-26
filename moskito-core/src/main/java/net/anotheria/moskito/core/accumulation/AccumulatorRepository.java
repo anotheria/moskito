@@ -29,8 +29,8 @@ public final class AccumulatorRepository<S extends IStats> extends TieableReposi
 	 */
 	private static Logger log = LoggerFactory.getLogger(AccumulatorRepository.class);
 
-	/**  
-	* The singleton instance.  
+	/**
+	* The singleton instance.
 	*/
 	private static volatile AccumulatorRepository<? extends IStats> INSTANCE;
 
