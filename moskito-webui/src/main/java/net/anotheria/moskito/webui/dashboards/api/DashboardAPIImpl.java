@@ -134,19 +134,12 @@ public class DashboardAPIImpl extends AbstractMoskitoAPIImpl implements Dashboar
 	@Override
 	public void addGaugeToDashboard(String dashboardName, String gaugeName) throws APIException {
 		DashboardConfig config = getDashboardConfig(dashboardName);
+		
 		if (config == null)
 			return;
 		if (StringUtils.isEmpty(gaugeName))
 			return;
-
-		String[] cc_array = config.getGauges();
-		int newSize = cc_array == null ? 1 : cc_array.length + 1;
-		String[] new_cc_array = new String[newSize];
-		if (cc_array != null)
-			System.arraycopy(cc_array, 0, new_cc_array, 0, cc_array.length);
-		new_cc_array[new_cc_array.length - 1] = gaugeName;
-
-		config.setGauges(new_cc_array);
+		config.addGauge(gaugeName);
 	}
 
 	@Override

@@ -258,7 +258,17 @@ public class DashboardConfig implements Serializable{
 		ChartConfig[] new_charts = Arrays.copyOf(charts, charts.length+1);
 		new_charts[charts.length] = aChart;
 		charts = new_charts;
+	}
 
+	public void addGauge(String gaugeName){
+		if (gauges==null || gauges.length == 0){
+			gauges = new String[1];
+			gauges[0] = gaugeName;
+			return;
+		}
+
+		gauges = Arrays.copyOf(gauges, gauges.length+1);
+		gauges[gauges.length] = gaugeName;
 	}
 
 

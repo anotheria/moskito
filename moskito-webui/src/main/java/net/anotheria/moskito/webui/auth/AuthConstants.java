@@ -1,5 +1,8 @@
 package net.anotheria.moskito.webui.auth;
 
+/**
+ * Constants for authorization.
+ */
 public class AuthConstants {
 
     /**
