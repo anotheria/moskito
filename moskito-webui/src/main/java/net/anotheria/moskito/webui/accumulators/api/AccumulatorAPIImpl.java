@@ -68,11 +68,13 @@ public class AccumulatorAPIImpl extends AbstractMoskitoAPIImpl implements Accumu
 		AccumulatorRepository.getInstance().removeById(id);
 	}
 
-	@Override public AccumulatorAO getAccumulator(String id) throws APIException{
+	@Override
+	public AccumulatorAO getAccumulator(String id) throws APIException{
 		return new AccumulatorAO(AccumulatorRepository.getInstance().getById(id));
 	}
 
-	@Override public AccumulatorAO getAccumulatorByName(String name) throws APIException{
+	@Override
+	public AccumulatorAO getAccumulatorByName(String name) throws APIException{
 		Accumulator acc = AccumulatorRepository.getInstance().getByName(name);
 		if (acc==null)
 			throw new IllegalArgumentException("Attempt to access non existing accumulator with name: '" +name+ '\'');

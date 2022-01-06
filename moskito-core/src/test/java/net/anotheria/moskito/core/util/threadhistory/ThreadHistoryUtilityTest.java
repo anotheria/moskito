@@ -7,6 +7,7 @@ import org.junit.Test;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.*;
 
+@Ignore
 public class ThreadHistoryUtilityTest {
 	
 	private static final int THREADCOUNT = 5;

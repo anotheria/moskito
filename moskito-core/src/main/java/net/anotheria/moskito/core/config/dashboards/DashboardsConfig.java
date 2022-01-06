@@ -59,8 +59,9 @@ public class DashboardsConfig implements Serializable {
 			return;
 		}
 
-		dashboards = Arrays.copyOf(dashboards, dashboards.length+1);
-		dashboards[dashboards.length] = toAdd;
+		DashboardConfig[] new_dashboards = Arrays.copyOf(dashboards, dashboards.length+1);
+		new_dashboards[dashboards.length] = toAdd;
+		dashboards = new_dashboards;
 	}
 
 	@Override

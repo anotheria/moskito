@@ -154,7 +154,7 @@ public class DashboardAPIImpl extends AbstractMoskitoAPIImpl implements Dashboar
 		int gaugeIndex = -1;
 		int count = 0;
 		for (String nameAccumulator : cc_array) {
-			if (name.equals(gaugeName)) {
+			if (nameAccumulator.equals(gaugeName)) {
 				gaugeIndex = count;
 				break;
 			}
