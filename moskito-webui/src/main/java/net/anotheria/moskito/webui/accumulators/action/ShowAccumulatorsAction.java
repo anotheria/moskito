@@ -4,7 +4,6 @@ import net.anotheria.anoplass.api.APIException;
 import net.anotheria.maf.action.ActionCommand;
 import net.anotheria.maf.action.ActionMapping;
 import net.anotheria.maf.bean.FormBean;
-import net.anotheria.moskito.core.accumulation.Accumulator;
 import net.anotheria.moskito.core.accumulation.AccumulatorRepository;
 import net.anotheria.moskito.core.config.MoskitoConfiguration;
 import net.anotheria.moskito.core.config.accumulators.AccumulatorSetConfig;
@@ -13,6 +12,7 @@ import net.anotheria.moskito.core.config.accumulators.AccumulatorsConfig;
 import net.anotheria.moskito.core.config.thresholds.GuardConfig;
 import net.anotheria.moskito.webui.accumulators.api.AccumulatedSingleGraphAO;
 import net.anotheria.moskito.webui.accumulators.api.AccumulatorAO;
+import net.anotheria.moskito.webui.accumulators.api.AccumulatorAPIImpl;
 import net.anotheria.moskito.webui.accumulators.api.MultilineChartAO;
 import net.anotheria.moskito.webui.accumulators.bean.AccumulatedValuesBean;
 import net.anotheria.moskito.webui.accumulators.bean.AccumulatorSetBean;
@@ -86,9 +86,9 @@ public class ShowAccumulatorsAction extends BaseAccumulatorsAction {
 		//handling of accumulator sets
         MoskitoConfiguration config = getAdditionalFunctionalityAPI().getConfiguration();
         AccumulatorsConfig configuration = config.getAccumulatorsConfig();
-		AccumulatorSetConfig setConfigs[] = configuration.getAccumulatorSets();
+		AccumulatorSetConfig[] setConfigs = configuration.getAccumulatorSets();
 		if (setConfigs!=null && setConfigs.length>0) {
-			LinkedList<AccumulatorSetBean> acSetBeans = new LinkedList<AccumulatorSetBean>();
+			LinkedList<AccumulatorSetBean> acSetBeans = new LinkedList<>();
 			for (AccumulatorSetConfig asc : setConfigs) {
 				AccumulatorSetBean bean = new AccumulatorSetBean();
 				bean.setName(asc.getName());
@@ -98,7 +98,9 @@ public class ShowAccumulatorsAction extends BaseAccumulatorsAction {
 					if (names.length() > 0)
 						names.append(", ");
 					names.append(n);
-					Accumulator acc = AccumulatorRepository.getInstance().getByName(n);
+
+					AccumulatorAO acc = getAccumulatorAPI().getAccumulatorByName(n);
+
 					if (acc != null) {
 						link.append("id_").append(acc.getId()).append("=set&");
 					}
