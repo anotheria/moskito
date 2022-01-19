@@ -8,7 +8,7 @@ import net.anotheria.moskito.webui.embedded.StartMoSKitoInspectBackendForRemote;
 import net.anotheria.moskito.webui.util.SetupPreconfiguredAccumulators;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.boot.context.embedded.FilterRegistrationBean;
+import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
