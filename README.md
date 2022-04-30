@@ -9,7 +9,7 @@
 
 MoSKito is an open source system for monitoring performance and behavior of Java web applications.
 
-### [moskito.org](http://moskito.org) | [Documentation](https://confluence.opensource.anotheria.net/display/MSK/Home) | [Blog](http://blog.anotheria.net)
+### [moskito.org](http://moskito.org) | [Documentation](https://confluence.opensource.anotheria.net/display/MSK/Home) | [Blog](https://anotheria.net/blog/category/msk/)
 
 # What the Project does?
 This Project is the heart of MoSKito system. It's what you need to fully monitor a single-node (one JVM) application: collect performance data, view, analyse and store some of it.
