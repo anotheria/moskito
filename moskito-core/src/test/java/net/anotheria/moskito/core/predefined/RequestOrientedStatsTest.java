@@ -120,7 +120,7 @@ public class RequestOrientedStatsTest {
 
 		assertEquals(1, stats.getTotalRequests());
 		//we add some 5 milliseconds on top, but ensure that total duration is below 60ms, which the test as such took.
-		assertTrue(1000L*1000*50>stats.getTotalTime());
+		assertTrue("Expected total time be below 55ms but it was "+stats.getTotalTime(),1000L*1000*55>stats.getTotalTime());
 	}
 
 	@Test public void testDoublePause()  throws InterruptedException {
