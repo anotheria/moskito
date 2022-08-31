@@ -79,6 +79,9 @@ public class SessionCountStats extends AbstractStats {
 	}
 	
 	public void notifySessionCreated(){
+		//System.out.println("CREATED, current is "+numberOfCurrentSessionsBeforeCall+ " current min "+minNumberOfSessions.getValueAsInt());
+		//before we increased we check if we are at the minimum.
+		minNumberOfSessions.setValueIfLesserThanCurrentAsInt(numberOfCurrentSessions.getValueAsInt()); //this is basically only needed to get a value in, when not a single session have been destroyed sofar. Otherwise its MaxINT.
 		numberOfCreatedSessions.increase();
 		
 		numberOfCurrentSessions.increase();
