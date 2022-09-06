@@ -376,7 +376,7 @@
     </div>
 
 <div class="modal fade" id="createNewThreshold" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog form">
+    <div class="modal-dialog form modal-lg">
         <form name="CreateThreshold" action="mskThresholdCreate" method="GET">
             <input type="hidden" name="producerId" value="${producer.producerId}"/>
             <input type="hidden" name="target" value="Threshold"/>
