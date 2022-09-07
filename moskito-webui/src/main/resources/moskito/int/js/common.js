@@ -125,4 +125,10 @@ $(function () {
             return false;
         }
     });
+    
+    $('#createNewThresholds .modal-resize .fa').on('click', function(){
+        $(this).toggleClass('fa-expand');
+        $(this).toggleClass('fa-compress');
+        $('.modal-dialog').toggleClass('modal-full-screen');
+    })
 });
