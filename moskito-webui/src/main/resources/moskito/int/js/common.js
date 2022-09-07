@@ -126,7 +126,7 @@ $(function () {
         }
     });
     
-    $('#createNewThresholds .modal-resize .fa').on('click', function(){
+    $('#createNewThreshold .modal-resize .fa').on('click', function(){
         $(this).toggleClass('fa-expand');
         $(this).toggleClass('fa-compress');
         $('.modal-dialog').toggleClass('modal-full-screen');
