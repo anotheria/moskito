@@ -160,8 +160,50 @@ fieldset[disabled] .btn-success.active {
     color: #FFF;
 }
 
+.modal-header__align-justify {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.modal-header__align-justify .modal-resize .fa {
+    margin-right: 13px;
+    cursor: pointer;
+    -webkit-transition: all .12s linear;
+    -moz-transition: all .12s linear;
+    -o-transition: all .12s linear;
+    transition:all .12s linear;
+    opacity: .4;
+}
+
+.modal-header__align-justify .modal-resize .fa:hover {
+    opacity: .6;
+}
+
 .modal .modal-header .close {
     color: #FFF;
+}
+
+.modal-full-screen {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+}
+
+.modal-full-screen .modal-content {
+    height: 100%;
+    border-radius: 0;
+}
+
+.modal-full-screen .modal-header {
+    border-radius: 0;
+}
+
+.modal-dialog {
+    -webkit-transition: all .12s linear;
+    -moz-transition: all .12s linear;
+    -o-transition: all .12s linear;
+    transition:all .12s linear;
 }
 
 .modal-dialog.gray .modal-content {
@@ -258,4 +300,12 @@ h1, .h1, h2, .h2, h3, .h3 {
 
 .modal-sm {
     width: 400px;
+}
+
+.display__flex {
+    display: flex;
+}
+
+.display__flex--center {
+    align-items: center;
 }

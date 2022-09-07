@@ -6,15 +6,15 @@
     <title>Moskito WebUI</title>
     <link href='http://fonts.googleapis.com/css?family=Lato:300,400,700' rel='stylesheet' type='text/css'>
     <link type="text/css" rel="stylesheet" href="http://fonts.googleapis.com/css?family=Mr+Bedfort">
-    <link type="text/css" rel="stylesheet" rev="stylesheet" href="../ext/bootstrap-3.1.1/css/bootstrap.css" />
-    <link type="text/css" rel="stylesheet" rev="stylesheet" href="../ext/custom-scrollbar/jquery.mCustomScrollbar.css" />
-    <link type="text/css" rel="stylesheet" rev="stylesheet" href="../ext/bootstrap-sortable/contents/bootstrap-sortable.css" />
-    <link type="text/css" rel="stylesheet" href="../ext/font-awesome-4.0.3/css/font-awesome.css">
-    <link type="text/css" rel="stylesheet" rev="stylesheet" href="../ext/select2-3.4.6/select2.css" />
-    <link type="text/css" rel="stylesheet" rev="stylesheet" href="../int/css/common.css" />
+    <link type="text/css" rel="stylesheet" rev="stylesheet" href="../resources/moskito/ext/bootstrap-3.1.1/css/bootstrap.css" />
+    <link type="text/css" rel="stylesheet" rev="stylesheet" href="../resources/moskito/ext/custom-scrollbar/jquery.mCustomScrollbar.css" />
+    <link type="text/css" rel="stylesheet" rev="stylesheet" href="../resources/moskito/ext/bootstrap-sortable/contents/bootstrap-sortable.css" />
+    <link type="text/css" rel="stylesheet" href="../resources/moskito/ext/font-awesome-4.7.0/css/font-awesome.css">
+    <link type="text/css" rel="stylesheet" rev="stylesheet" href="../resources/moskito/ext/select2-3.4.6/select2.css" />
+    <link type="text/css" rel="stylesheet" rev="stylesheet" href="../resources/moskito/int/css/common.css" />
 
-    <!--[if lt IE 9]><script src="../int/js/ie8-responsive-file-warning.js"></script><![endif]-->
-    <!--[if lt IE 8]><link type="text/css" rel="stylesheet" rev="stylesheet" href="../static-int/css/bootstrap-ie7.css" /><![endif]-->
+    <!--[if lt IE 9]><script src="../resources/moskito/int/js/ie8-responsive-file-warning.js"></script><![endif]-->
+    <!--[if lt IE 8]><link type="text/css" rel="stylesheet" rev="stylesheet" href="../resources/moskito/static-int/css/bootstrap-ie7.css" /><![endif]-->
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
@@ -23,13 +23,6 @@
 </head>
 
 <body class="status-green">
-
-<script src="../ext/jquery-1.10.2/jquery-1.10.2.min.js" type="text/javascript"></script>
-<script src="../ext/bootstrap-3.1.1/js/bootstrap.min.js" type="text/javascript"></script>
-<script src="../ext/tablesorter/jquery.tablesorter.js" type="text/javascript"></script>
-<script src="../ext/custom-scrollbar/jquery.mCustomScrollbar.js"></script>
-<script src="../ext/select2-3.4.6/select2.js" type="text/javascript"></script>
-<script src="../int/js/common.js" type="text/javascript"></script>
 
         <header id="header" class="navbar navbar-fixed-top navbar-default">
             <span class="caret-aside pull-left tooltip-bottom" title="Close/Open">
@@ -286,9 +279,14 @@
     <div class="modal fade" id="createNewThresholds" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog form">
             <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <div class="modal-header modal-header__align-justify">
                     <h4 class="modal-title" id="myModalLabel">Select producer for new Accumulator</h4>
+                    <div class="display__flex display__flex--center">
+                        <div class="modal-resize">
+                            <i class="fa fa-expand"></i>
+                        </div>
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    </div>
                 </div>
                 <div class="modal-body">
                     <form role="form">
@@ -366,8 +364,20 @@
         </div>
     </div>
 
+    <script src="../resources/moskito/ext/jquery-1.10.2/jquery-1.10.2.min.js" type="text/javascript"></script>
+    <script src="../resources/moskito/ext/bootstrap-3.1.1/js/bootstrap.min.js" type="text/javascript"></script>
+    <script src="../resources/moskito/ext/tablesorter/jquery.tablesorter.js" type="text/javascript"></script>
+    <script src="../resources/moskito/ext/custom-scrollbar/jquery.mCustomScrollbar.js"></script>
+    <script src="../resources/moskito/ext/select2-3.4.6/select2.js" type="text/javascript"></script>
+    <script src="../resources/moskito/int/js/common.js" type="text/javascript"></script>
     <script>
         $('#createNewThresholds').modal('show');
+
+        $('#createNewThresholds .modal-resize .fa').on('click', function(){
+            $(this).toggleClass('fa-expand');
+            $(this).toggleClass('fa-compress');
+            $('.modal-dialog').toggleClass('modal-full-screen');
+        })
     </script>
 </body>
 </html>

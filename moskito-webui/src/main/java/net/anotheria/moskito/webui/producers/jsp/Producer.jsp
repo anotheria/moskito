@@ -376,7 +376,7 @@
     </div>
 
 <div class="modal fade" id="createNewThreshold" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog form modal-lg">
+    <div class="modal-dialog form">
         <form name="CreateThreshold" action="mskThresholdCreate" method="GET">
             <input type="hidden" name="producerId" value="${producer.producerId}"/>
             <input type="hidden" name="target" value="Threshold"/>
@@ -385,107 +385,112 @@
             <input type="hidden" name="remoteConnection" value="${remoteLink}"/>
 
         <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <div class="modal-header modal-header__align-justify">
                 <h4 class="modal-title" id="myModalLabel">Create new Threshold</h4>
+                <div class="display__flex display__flex--center">
+                    <div class="modal-resize">
+                        <i class="fa fa-expand"></i>
+                    </div>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                </div>
             </div>
             <div class="modal-body">
-                    <div class="form-group">
-                        <label for="nameThresholds">Threshold name:</label>
-                        <input type="text" class="form-control" id="nameThresholds" placeholder="Enter name" name="name">
-                    </div>
-                    <div class="form-group">
-                        <div class="row">
-                            <div class="col-md-6">
-                                <label>Guards</label>
-                                <div class="switch-direction">
-                                    <div class="status-control pull-left tooltip-bottom" title="Green"><i class="status status-green"></i></div>
-                                    <select onchange="switchDirection();" name="greenDir" class="form-control"><option>below</option><option>above</option></select>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <label>Interval</label>
-                                <input type="text" class="form-control" value="" placeholder="Value" name="greenValue" onchange="switchgreenvalue();">
+                <div class="form-group">
+                    <label for="nameThresholds">Threshold name:</label>
+                    <input type="text" class="form-control" id="nameThresholds" placeholder="Enter name" name="name">
+                </div>
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label>Guards</label>
+                            <div class="switch-direction">
+                                <div class="status-control pull-left tooltip-bottom" title="Green"><i class="status status-green"></i></div>
+                                <select onchange="switchDirection();" name="greenDir" class="form-control"><option>below</option><option>above</option></select>
                             </div>
                         </div>
-
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="switch-direction">
-                                    <div class="status-control pull-left tooltip-bottom" title="Yellow"><i class="status status-yellow"></i></div>
-                                    <select onchange="switchDirection();" name="yellowDir" class="form-control"><option>below</option><option selected="selected">above</option></select>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <input type="text" class="form-control" value=""  name="yellowValue" placeholder="Value">
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="switch-direction">
-                                    <div class="status-control pull-left tooltip-bottom" title="Orange"><i class="status status-orange"></i></div>
-                                    <select onchange="switchDirection();" name="orangeDir" class="form-control"><option>below</option><option selected="selected">above</option></select>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <input type="text" class="form-control" value="" placeholder="Value" name="orangeValue">
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="switch-direction">
-                                    <div class="status-control pull-left tooltip-bottom" title="Red"><i class="status status-red"></i></div>
-                                    <select onchange="switchDirection();" name="redDir" class="form-control"><option>below</option><option selected="selected">above</option></select>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <input type="text" class="form-control" value="" placeholder="Value"  name="redValue" >
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="switch-direction">
-                                    <div class="status-control pull-left tooltip-bottom" title="Purple"><i class="status status-purple"></i></div>
-                                    <select onchange="switchDirection();" name="purpleDir" class="form-control"><option>below</option><option  selected="selected">above</option></select>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <input type="text" class="form-control" value="" placeholder="Value" name="purpleValue">
-                            </div>
+                        <div class="col-md-6">
+                            <label>Interval</label>
+                            <input type="text" class="form-control" value="" placeholder="Value" name="greenValue" onchange="switchgreenvalue();">
                         </div>
                     </div>
 
-                    <div class="form-group">
-                        <div class="row">
-                            <div class="col-md-6">
-                                <ano:define name="currentInterval" id="currentInterval" toScope="page" type="java.lang.String"/>
-                                <label for="Interval">Interval</label>
-                                <select name="interval" class="form-control" id="Interval">
-                                    <ano:iterate name="intervals" id="interval" type="net.anotheria.moskito.webui.shared.api.IntervalInfoAO">
-                                        <option value="${interval.name}" <ano:equal name="interval" property="name" value="<%=currentInterval%>">selected="selected"</ano:equal>>
-                                            ${interval.name}
-                                        </option>
-                                    </ano:iterate>
-                                </select>
-                            </div>
-                            <div class="col-md-6">
-                                <ano:define name="moskito.CurrentUnit" property="unitName" id="currentUnit" toScope="page" type="java.lang.String"/>
-
-                                <label for="TimeUnite">TimeUnit</label>
-                                <select name="unit" id="TimeUnite" class="form-control">
-                                    <ano:iterate name="units" id="unit" type="net.anotheria.moskito.webui.shared.bean.UnitBean">
-                                        <option value="<ano:write name="unit" property="unitName"/>" <ano:equal name="unit" property="unitName" value="<%=currentUnit%>">selected="selected"</ano:equal>>
-                                            ${unit.unitName}
-                                        </option>
-                                    </ano:iterate>
-                                </select>
-
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="switch-direction">
+                                <div class="status-control pull-left tooltip-bottom" title="Yellow"><i class="status status-yellow"></i></div>
+                                <select onchange="switchDirection();" name="yellowDir" class="form-control"><option>below</option><option selected="selected">above</option></select>
                             </div>
                         </div>
+                        <div class="col-md-6">
+                            <input type="text" class="form-control" value=""  name="yellowValue" placeholder="Value">
+                        </div>
                     </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="switch-direction">
+                                <div class="status-control pull-left tooltip-bottom" title="Orange"><i class="status status-orange"></i></div>
+                                <select onchange="switchDirection();" name="orangeDir" class="form-control"><option>below</option><option selected="selected">above</option></select>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <input type="text" class="form-control" value="" placeholder="Value" name="orangeValue">
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="switch-direction">
+                                <div class="status-control pull-left tooltip-bottom" title="Red"><i class="status status-red"></i></div>
+                                <select onchange="switchDirection();" name="redDir" class="form-control"><option>below</option><option selected="selected">above</option></select>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <input type="text" class="form-control" value="" placeholder="Value"  name="redValue" >
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="switch-direction">
+                                <div class="status-control pull-left tooltip-bottom" title="Purple"><i class="status status-purple"></i></div>
+                                <select onchange="switchDirection();" name="purpleDir" class="form-control"><option>below</option><option  selected="selected">above</option></select>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <input type="text" class="form-control" value="" placeholder="Value" name="purpleValue">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <ano:define name="currentInterval" id="currentInterval" toScope="page" type="java.lang.String"/>
+                            <label for="Interval">Interval</label>
+                            <select name="interval" class="form-control" id="Interval">
+                                <ano:iterate name="intervals" id="interval" type="net.anotheria.moskito.webui.shared.api.IntervalInfoAO">
+                                    <option value="${interval.name}" <ano:equal name="interval" property="name" value="<%=currentInterval%>">selected="selected"</ano:equal>>
+                                        ${interval.name}
+                                    </option>
+                                </ano:iterate>
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <ano:define name="moskito.CurrentUnit" property="unitName" id="currentUnit" toScope="page" type="java.lang.String"/>
+
+                            <label for="TimeUnite">TimeUnit</label>
+                            <select name="unit" id="TimeUnite" class="form-control">
+                                <ano:iterate name="units" id="unit" type="net.anotheria.moskito.webui.shared.bean.UnitBean">
+                                    <option value="<ano:write name="unit" property="unitName"/>" <ano:equal name="unit" property="unitName" value="<%=currentUnit%>">selected="selected"</ano:equal>>
+                                        ${unit.unitName}
+                                    </option>
+                                </ano:iterate>
+                            </select>
+
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="form-group">
                 <dl class="dl-horizontal">
