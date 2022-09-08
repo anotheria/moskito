@@ -125,10 +125,14 @@ $(function () {
             return false;
         }
     });
-    
+
     $('#createNewThreshold .modal-resize .fa').on('click', function(){
         $(this).toggleClass('fa-expand');
         $(this).toggleClass('fa-compress');
-        $('.modal-dialog').toggleClass('modal-full-screen');
-    })
+        $('#createNewThreshold .modal-dialog').toggleClass('modal-full-screen');
+    });
+
+    $('#createNewThreshold  .close').on('click', function (){
+        $('#createNewThreshold .modal-dialog').removeClass('modal-full-screen');
+    });
 });
