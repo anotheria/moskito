@@ -13,7 +13,9 @@ public enum Features {
 				Boolean flag = (Boolean)MoSKitoWebUIContext.getCallContext().getAttribute(name());
 				if (flag != null && flag == Boolean.FALSE)
 					return false;
-			}catch(Exception any){}
+			}catch(Exception any){
+				//; ignored
+			}
 			return true;
 		}
 	};
