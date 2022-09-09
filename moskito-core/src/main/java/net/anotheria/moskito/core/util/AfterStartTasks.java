@@ -27,11 +27,11 @@ public final class AfterStartTasks {
 	}
 	private AfterStartTasks(){}
 
-	public static final void submitTask(Runnable r){
+	public static void submitTask(Runnable r){
 		submitTask(r, 10);
 	}
 
-	public static final void submitTask(Runnable r, int delayInSeconds){
+	public static void submitTask(Runnable r, int delayInSeconds){
 		log.debug("Scheduled "+r+" in "+delayInSeconds+" seconds.");
 		scheduledExecutorService.schedule(r, delayInSeconds, TimeUnit.SECONDS);
 	}
