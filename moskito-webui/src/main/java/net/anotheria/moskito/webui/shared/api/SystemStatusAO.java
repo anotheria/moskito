@@ -12,7 +12,13 @@ import java.io.Serializable;
  */
 public class SystemStatusAO implements Serializable {
     private static final long serialVersionUID = -4454516193679348818L;
+    /**
+     * Worst condition threshold (to determine what is systems worst status).
+     */
     private ThresholdStatus worstThreshold;
+    /**
+     * Configuration of the kill switch.
+     */
     private KillSwitchConfiguration killSwitchConfiguration;
 
     public ThresholdStatus getWorstThreshold() {
