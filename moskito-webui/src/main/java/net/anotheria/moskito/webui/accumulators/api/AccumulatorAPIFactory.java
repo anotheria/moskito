@@ -5,7 +5,7 @@ import net.anotheria.anoplass.api.APIFinder;
 import net.anotheria.anoprise.metafactory.ServiceFactory;
 
 /**
- * TODO comment this class
+ * AccumulatorAPI Factory.
  *
  * @author lrosenberg
  * @since 13.02.13 18:14

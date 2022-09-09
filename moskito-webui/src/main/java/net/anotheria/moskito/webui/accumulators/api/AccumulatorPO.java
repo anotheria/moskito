@@ -5,7 +5,7 @@ import net.anotheria.moskito.webui.shared.api.TieablePO;
 import java.io.Serializable;
 
 /**
- * TODO comment this class
+ * Incoming parameter object for accumulator operations.
  *
  * @author lrosenberg
  * @since 13.02.13 17:36

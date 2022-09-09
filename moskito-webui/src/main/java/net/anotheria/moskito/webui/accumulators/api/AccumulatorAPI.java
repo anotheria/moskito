@@ -27,22 +27,45 @@ public interface AccumulatorAPI extends API, Service {
 	AccumulatorDefinitionAO createAccumulator(AccumulatorPO formBean) throws APIException;
 
 	/**
-	 * Removes an eisting accumulator by its ids.
+	 * Removes an existing accumulator by its ids.
 	 * @param id
 	 * @throws APIException
 	 */
 	void removeAccumulator(String id) throws APIException;
 
+	/**
+	 * Returns all accumulator definitions.
+	 * @return
+	 * @throws APIException
+	 */
 	List<AccumulatorDefinitionAO> getAccumulatorDefinitions() throws APIException;
 
+	/**
+	 * Returns an accumulator definition by id.
+	 * @param id definition id.
+	 * @return
+	 * @throws APIException
+	 */
 	AccumulatorDefinitionAO getAccumulatorDefinition(String id) throws APIException;
 
 	AccumulatedSingleGraphAO getAccumulatorGraphData(String id) throws APIException;
 
 	AccumulatedSingleGraphAO getAccumulatorGraphDataByName(String name) throws APIException;
 
+	/**
+	 * Retrieves an accumulator by generated id.
+	 * @param id accumulator id.
+	 * @return
+	 * @throws APIException
+	 */
 	AccumulatorAO getAccumulator(String id) throws APIException;
 
+	/**
+	 * Returns an accumulator by its name.
+	 * @param name name of the accumulator.
+	 * @return
+	 * @throws APIException
+	 */
 	AccumulatorAO getAccumulatorByName(String name) throws APIException;
 
 	MultilineChartAO getNormalizedAccumulatorGraphData(List<String> ids) throws APIException;
