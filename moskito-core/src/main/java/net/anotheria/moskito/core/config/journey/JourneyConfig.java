@@ -1,5 +1,6 @@
 package net.anotheria.moskito.core.config.journey;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.configureme.annotations.Configure;
 import org.configureme.annotations.ConfigureMe;
 
@@ -13,6 +14,7 @@ import java.util.Arrays;
  * @since 22.04.16 18:08
  */
 @ConfigureMe
+@SuppressFBWarnings(value = {"EI_EXPOSE_REP2", "EI_EXPOSE_REP"}, justification = "This is the way configureme works, it provides beans for access")
 public class JourneyConfig implements Serializable{
 
 	/**
