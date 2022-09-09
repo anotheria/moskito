@@ -20,7 +20,7 @@ import java.util.regex.PatternSyntaxException;
  * @since 12.02.15 00:58
  */
 @ConfigureMe
-@SuppressFBWarnings(value = {"EI_EXPOSE_REP2", "EI_EXPOSE_REP"}, justification = "This is the way configureme works, it provides beans for access")
+@SuppressFBWarnings(value = {"EI_EXPOSE_REP2", "EI_EXPOSE_REP"}, justification = "This is the way configureMe works, it provides beans for access")
 public class DashboardConfig implements Serializable{
 	/**
 	 * SerialVersionUID.
