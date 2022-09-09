@@ -19,7 +19,10 @@ import javax.servlet.http.HttpServletResponse;
 
 public class SignInAction implements Action {
 
-    private static int AUTH_COOKIE_AGE = 60 * 60 * 24 * 30; // 30 days
+    /**
+     * Age of the authentication cookie.
+     */
+    private static final int AUTH_COOKIE_AGE = 60 * 60 * 24 * 30; // 30 days
 
     /**
      * Logger.
