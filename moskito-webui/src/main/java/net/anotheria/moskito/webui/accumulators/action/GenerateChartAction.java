@@ -34,7 +34,13 @@ import java.util.Map;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
+/**
+ * This action generates a chart for storage.
+ */
 public class GenerateChartAction implements Action {
+    /**
+     * Logger.
+     */
     private static Logger log = LoggerFactory.getLogger(GenerateChartAction.class);
 
     private static final String PNG_CONTENT_TYPE = "image/png";
@@ -57,8 +63,7 @@ public class GenerateChartAction implements Action {
             res.setHeader("Content-Disposition", "attachment;filename=" + offlineChart.getName());
             res.getOutputStream().write(offlineChart.getData());
 
-        }
-        else if (isZip.equals("true")) {
+        }else if (isZip.equals("true")) {
             String[] names = StringUtils.tokenize(namesParam, ',');
 
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -159,9 +164,17 @@ public class GenerateChartAction implements Action {
     }
 
     static class TemporaryPoint implements IComparable{
-
+        /**
+         * Timestamp of the point.
+         */
         private long timestamp;
+        /**
+         * Values at that point.
+         */
         private String[] values;
+        /**
+         * Timestamp as string for presentation.
+         */
         private String timestampAsString;
 
         public TemporaryPoint(int numberOfValues){
