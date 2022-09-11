@@ -237,8 +237,11 @@ public abstract class BaseMoskitoUIAction implements Action{
 	/**
 	 * Instance of the decorator registry.
 	 */
-	private static IDecoratorRegistry decoratorRegistry;
+	private static final IDecoratorRegistry decoratorRegistry;
 
+	/**
+	 * Chararcters that are considered whitespaces.
+	 */
 	public static final char[] WHITESPACES = {
 			' ', '\r','\n','\t','\'','"','<','>'
 	};
@@ -248,6 +251,10 @@ public abstract class BaseMoskitoUIAction implements Action{
 	 */
 	private String myProducerId;
 
+	/**
+	 * Holds alerts between the calls.
+	 * Warning/TODO: this is actually not threadsafe at all, it should never be stored in a local variable, instead it should be saved in CallContext or somewhere else.
+	 */
 	private List<AlertBean> alertBeans = new ArrayList<>();
 
 	static{
@@ -273,7 +280,7 @@ public abstract class BaseMoskitoUIAction implements Action{
 
 	/**
 	 * Returns the specified forward.
-	 * @param req
+	 * @param req http servlet request.
 	 * @return
 	 */
 	protected String getForward(HttpServletRequest req){
@@ -296,7 +303,7 @@ public abstract class BaseMoskitoUIAction implements Action{
 	 * Returns the currently selected interval, either as parameter or from session.
 	 * @param req
 	 * @param saveToSession - if true the value from request will be stored to session.
-	 * @return
+	 * @return name of the interval.
 	 */
 	protected String getCurrentInterval(HttpServletRequest req, boolean saveToSession){
 		String intervalParameter = req.getParameter(PARAM_INTERVAL);
@@ -314,7 +321,7 @@ public abstract class BaseMoskitoUIAction implements Action{
 	/**
 	 * Returns the currently selected unit either from request or session.
 	 * @param req
-	 * @return
+	 * @return currently selected unit bean.
 	 */
 	protected UnitBean getCurrentUnit(HttpServletRequest req){
 		return getCurrentUnit(req, true);
@@ -481,7 +488,7 @@ public abstract class BaseMoskitoUIAction implements Action{
 		req.setAttribute("connection", APILookupUtility.describeConnectivity());
 
 		//prepare selector.
-		LinkedList<LabelValueBean> connectivityOptions = new LinkedList<LabelValueBean>();
+		LinkedList<LabelValueBean> connectivityOptions = new LinkedList<>();
 		connectivityOptions.add(new LabelValueBean("Local", "Local"));
 		for (RemoteInstance ri : WebUIConfig.getInstance().getRemotes()){
 			connectivityOptions.add(new LabelValueBean(ri.toString(), ri.getSelectKey()));
@@ -583,6 +590,10 @@ public abstract class BaseMoskitoUIAction implements Action{
 	 */
 	protected abstract String getLinkToCurrentPage(HttpServletRequest req);
 
+	/**
+	 * Returns the decorator registry.
+	 * @return
+	 */
 	protected static IDecoratorRegistry getDecoratorRegistry(){
 		return decoratorRegistry;
 	}
@@ -639,7 +650,7 @@ public abstract class BaseMoskitoUIAction implements Action{
 			return "";
 		if (params == null || params.length==0)
 			return source;
-		HashSet<String> paramsSet = new HashSet<String>(params.length);
+		HashSet<String> paramsSet = new HashSet<>(params.length);
 		paramsSet.addAll(Arrays.asList(params));
 		String[] tokens = StringUtils.tokenize(source, '&');
 		StringBuilder ret = new StringBuilder();
@@ -765,6 +776,7 @@ public abstract class BaseMoskitoUIAction implements Action{
 			previousMessage+= " ";
 		setInfoMessage(previousMessage+message);
 	}
+
 
 	protected void addAlert(AlertBean bean) {
 		this.alertBeans.add(bean);
