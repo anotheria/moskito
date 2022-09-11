@@ -1,6 +1,6 @@
 package net.anotheria.moskito.webui.shared.action;
 
-import net.anotheria.maf.action.ActionForward;
+import net.anotheria.maf.action.ActionCommand;
 import net.anotheria.maf.action.ActionMapping;
 import net.anotheria.maf.bean.FormBean;
 import net.anotheria.moskito.webui.shared.bean.NaviItem;
@@ -17,8 +17,8 @@ import javax.servlet.http.HttpServletResponse;
 public class ForceIntervalUpdateAction extends BaseMoskitoUIAction{
 
 	@Override
-	public ActionForward execute(ActionMapping mapping, FormBean formBean,
-			HttpServletRequest req, HttpServletResponse res) throws Exception {
+	public ActionCommand execute(ActionMapping mapping, FormBean formBean,
+								 HttpServletRequest req, HttpServletResponse res) throws Exception {
 		
 		String intervalName = req.getParameter(PARAM_INTERVAL);
 		if (intervalName==null || intervalName.length()==0)
