@@ -76,6 +76,7 @@
                                 <li><a onclick="removeChart('${chart.chartNames}', '${requestScope.selectedDashboard}')">Remove</a></li>
                             </ul>
                         </div>
+                        <div class="locked-text">Click a line to lock</div>
                     </div>
                     <div id="collapse_chart${index}" class="box-content accordion-body collapse in">
                         <div class="paddner"><div id="chart_div${index}" class="accumulator-chart"></div></div>

@@ -69,6 +69,7 @@ var D3chart = (function () {
         };
 
         var valueFormat = d3.format(",");
+        var currentLineId = {};
 
         var siPrefixFormat = function (num, digits) {
             if (num < 1000)
@@ -164,7 +165,7 @@ var D3chart = (function () {
                     .attr("transform", "translate(0," + data.length * 20 + ")");
             };
 
-            var init = function (svg, options) {
+            var init = function (svg, options, containerId) {
                 var legendsPerSlice = options.legendsPerSlice,
                     names = options.names;
 
@@ -182,11 +183,35 @@ var D3chart = (function () {
                     .on("mouseover", function (d) {
                         if (options.mouseover)
                             options.mouseover(d.index);
+                        svg.selectAll(".line").each(function (el) {
+                            d3.select(this).classed("hover", el.lineId == d.index)
+                        });
                     })
                     .on("mouseout", function (d) {
                         if (options.mouseout)
                             options.mouseout(d.index);
+                    })
+                    .on("click", function (d) {
+                        let chartBoxText = $(this).parents(".box").find(".locked-text");
+
+                        svg.selectAll(".line").each(function (el) {
+                            if (el.lineId == d.index) {
+                                if (currentLineId[containerId] === el.lineId) {
+                                    currentLineId[containerId] = null;
+                                } else {
+                                    currentLineId[containerId] = el.lineId;
+                                }
+                            }
+                            d3.select(this).style("display", el.lineId == d.index ? null : "none");
+                        });
+                        if (currentLineId[containerId] !== null) {
+                            chartBoxText.text('Locked, click to unlock');
+                        } else {
+                            svg.selectAll(".line").style("display", null);
+                            chartBoxText.text('Click a line to lock');
+                        }
                     });
+
                 legend.append("text");
                 legend.append("rect");
                 setLegendText(legend, options.textDy);
@@ -205,6 +230,7 @@ var D3chart = (function () {
                         .text('\u25C0')
                         .on("click", function () {
                             if (slicer.hasPrev()) {
+                                options.containerWidth = $(this).parents(".graph").find('.focusRect').width()
                                 updateLegend(svg, slicer.prev(), options);
                                 renderLegend(svg, options);
                             }
@@ -217,6 +243,7 @@ var D3chart = (function () {
                         .text("\u25B6")
                         .on("click", function () {
                             if (slicer.hasNext()) {
+                                options.containerWidth = $(this).parents(".graph").find('.focusRect').width()
                                 updateLegend(svg, slicer.next(), options);
                                 renderLegend(svg, options);
                             }
@@ -447,7 +474,7 @@ var D3chart = (function () {
                     textDy: ".50em"
                 };
 
-                LegendManager.init(svg, legendOptions);
+                LegendManager.init(svg, legendOptions, containerId);
                 renderLegend(svg, legendOptions);
             })(arguments[0], arguments[1]);
         };
@@ -791,6 +818,25 @@ var D3chart = (function () {
                     .style("pointer-events", "all")
                     .on("mouseover", function () {
                         focus.style("display", null);
+                        
+                        if (currentLineId[containerId] === undefined) {
+                            currentLineId[containerId] = null
+                        }
+
+                        let currentDots = focus.selectAll('.dot');
+                        let currentLines = svg.selectAll(".line");
+
+                        if (currentLineId[containerId] !== null) {
+                            currentDots.each(function(el, i){
+                                d3.select(this).style("display", i === currentLineId[containerId] ? null : "none");
+                            })
+                            currentLines.each(function(el, i){
+                                d3.select(this).style("display", i === currentLineId[containerId] ? null : "none");
+                            })
+                        } else {
+                            currentDots.style("display", null);
+                            currentLines.style("display", null);
+                        }
                     })
                     .on("mouseout", function () {
                         focus.style("display", "none");
@@ -876,10 +922,125 @@ var D3chart = (function () {
                                 });
                             });
 
+                        if (currentLineId[containerId] !== null) {
+                            sectionsHtml = sectionsHtml.filter(function (d, i) { return i === currentLineId[containerId] });
+                        }
                         showTooltip({
                             titleHtml: titleHtml,
                             sectionsHtml: sectionsHtml
                         });
+                    })
+                    .on("click", function () {
+                        var xScale = scales[containerId].xScale;
+                        var yScale = scales[containerId].yScale;
+
+                        var bisectDate = d3.bisector(function (d) {
+                            return d.time;
+                        }).left;
+
+                        var bisectValue = d3.bisector(function (d) {
+                            return d.value;
+                        }).left;
+
+                        var self = this;
+                        var tooltipData = [];
+                        var dotsValues = dotsValuesHolder[containerId];
+                        var x0 = xScale.invert(d3.mouse(self)[0]),
+                            i = bisectDate(dotsValues, x0, 1),
+                            d0 = dotsValues[i - 1],
+                            d1 = dotsValues[i] || d0,
+                            d = x0 - d0.time > d1.time - x0 ? d1 : d0;
+                        var sortedValues = d.values.slice().sort(function (a, b) {
+                            var aValue = a.value,
+                                bValue = b.value;
+
+                            if (!isFinite(aValue) && !isFinite(bValue))
+                                return 0;
+
+                            if (!isFinite(aValue))
+                                return 1;
+
+                            if (!isFinite(bValue))
+                                return -1;
+
+                            return aValue - bValue;
+                        });
+
+                        var y0 = yScale.invert(d3.mouse(self)[1]),
+                            iValue = bisectValue(sortedValues, y0, 1),
+                            v0 = sortedValues[iValue - 1],
+                            v1 = sortedValues[iValue] || v0,
+                            v = y0 - v0.value > v1.value - y0 ? v1 : v0;
+
+                        d.values.forEach(function (timeValue, ind) {
+                            tooltipData.push({
+                                color: color(timeValue.name),
+                                name: timeValue.name,
+                                value: valueFormat(timeValue.value),
+                                highlight: v.lineId == ind
+                            });
+
+                            if (isNaN(timeValue.value) || !isFinite(timeValue.value)) {
+                                focusDots[ind].attr("r", 0);
+                                return;
+                            }
+
+                            focusDots[ind]
+                                .attr("transform",
+                                    "translate(" + xScale(d.time) + "," +
+                                    yScale(timeValue.value) + ")")
+                                .attr("r", 3.5);
+                        });
+                        svg.selectAll(".line").each(function (el) {
+                            if (el.lineId == v.lineId) {
+                                if (currentLineId[containerId] !== null) {
+                                    currentLineId[containerId] = null;
+                                } else {
+                                    currentLineId[containerId] = el.lineId;
+                                }
+                            }
+                        });
+
+                        var sectionsHtml = tooltipData.map(function (d) {
+                            d.highlight = d.highlight ? " highlight" : "";
+                            return tooltipTmpls.section({
+                                name: d.name,
+                                value: d.value,
+                                color: d.color,
+                                highlight: d.highlight ? " highlight" : ""
+                            });
+                        });
+
+
+                        let currentDots = focus.selectAll('.dot');
+                        let currentLines = svg.selectAll(".line");
+                        let chartBoxText = $(this).parents(".box").find(".locked-text");
+
+                        if (currentLineId[containerId] !== null) {
+                            sectionsHtml = sectionsHtml.filter(function (d, i) { return i === currentLineId[containerId] });
+
+                            currentDots.each(function(el, i){
+                                d3.select(this).style("display", i === currentLineId[containerId] ? null : "none");
+                            })
+                            currentLines.each(function(el, i){
+                                d3.select(this).style("display", i === currentLineId[containerId] ? null : "none");
+                            })
+                            chartBoxText.text('Locked, click to unlock');
+                        } else {
+                            currentDots.style("display", null);
+                            currentLines.style("display", null);
+                            chartBoxText.text('Click a line to lock');
+                        }
+
+                        let currentTooltip = $(".qtip-focus");
+                        let tooltipHeight = $(".qtip-focus").height() - 46;
+                        let tooltipPos = +$(".qtip-focus").css("top").replace("px", "");
+
+                        if(tooltipPos < d3.event.screenY){
+                            currentTooltip.css("top", (tooltipPos + tooltipHeight) + "px");
+                        }
+
+                        d3.select(".qtip-focus .qtip-content").html(sectionsHtml.join(" "));
                     });
             };
 
@@ -917,7 +1078,7 @@ var D3chart = (function () {
                     textDy: ".35em"
                 };
 
-                LegendManager.init(containers[containerId].svg, legendOptions);
+                LegendManager.init(containers[containerId].svg, legendOptions, containerId);
             };
 
             var render = function (containerId, options) {
