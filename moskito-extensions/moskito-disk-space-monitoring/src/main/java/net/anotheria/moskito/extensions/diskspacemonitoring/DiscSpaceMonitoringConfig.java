@@ -9,7 +9,7 @@ import org.slf4j.LoggerFactory;
 /**
  * Config for DiscSpaceMonitoring plugin.
  */
-@ConfigureMe(name = "disk-space-monitoring-plugin")
+@ConfigureMe(name = "moskito-plugin-disk-monitoring")
 public class DiscSpaceMonitoringConfig {
     /**
      * Configured disk list.
