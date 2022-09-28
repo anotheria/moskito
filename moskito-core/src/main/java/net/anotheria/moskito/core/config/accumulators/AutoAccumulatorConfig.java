@@ -34,6 +34,11 @@ public class AutoAccumulatorConfig implements Serializable {
 	@Configure
 	private String producerNamePattern;
 	/**
+	 * Pattern to match a stat when defining a producer or the stat was added to this producer.
+	 */
+	@Configure
+	private String statNamePattern;
+	/**
 	 * Name of the stat of the producer to be used in auto-accumulator.
 	 */
 	@Configure
@@ -74,6 +79,14 @@ public class AutoAccumulatorConfig implements Serializable {
 
 	public void setProducerNamePattern(String producerNamePattern) {
 		this.producerNamePattern = producerNamePattern;
+	}
+
+	public String getStatNamePattern() {
+		return statNamePattern;
+	}
+
+	public void setStatNamePattern(String statNamePattern) {
+		this.statNamePattern = statNamePattern;
 	}
 
 	public String getStatName() {

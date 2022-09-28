@@ -23,10 +23,23 @@ public class AutoAccumulatorDefinition extends AccumulatorDefinition{
 	 */
 	private String producerNamePattern;
 
+    /**
+     * Pattern for stat name.
+     * Clashes with startName!.
+     * Can be used either statName or statNamePatter.
+     * If provided both, so statName is in action.
+     */
+    private String statNamePattern;
+
 	/**
 	 * Compiled pattern.
 	 */
 	private Pattern pattern;
+
+    /**
+     * Compiled pattern for statNamePattern.
+     */
+    private Pattern statNamePatternCompiled;
 
 
 	public String getNamePattern() {
@@ -46,6 +59,33 @@ public class AutoAccumulatorDefinition extends AccumulatorDefinition{
 		pattern = Pattern.compile(producerNamePattern);
 	}
 
+    public String getStatNamePattern() {
+        return statNamePattern;
+    }
+
+    public void setStatNamePattern(String statNamePattern) {
+        this.statNamePattern = statNamePattern;
+		if(statNamePattern != null) {
+			statNamePatternCompiled = Pattern.compile(statNamePattern);
+		}
+    }
+
+    /**
+	 * Creates a new AccumulatorDefinition object for matched producer and matched statName.
+	 * @param producerId
+	 * @return
+	 */
+	public AccumulatorDefinition toAccumulatorDefinition(String producerId, String statName){
+		AccumulatorDefinition ret = new AccumulatorDefinition();
+		ret.setProducerName(producerId);
+		ret.setName(replaceName(producerId, statName));
+		ret.setStatName(statName);
+		ret.setValueName(getValueName());
+		ret.setIntervalName(getIntervalName());
+		ret.setTimeUnit(getTimeUnit());
+		return ret;
+	}
+
 	/**
 	 * Creates a new AccumulatorDefinition object for matched producer.
 	 * @param producerId
@@ -54,23 +94,30 @@ public class AutoAccumulatorDefinition extends AccumulatorDefinition{
 	public AccumulatorDefinition toAccumulatorDefinition(String producerId){
 		AccumulatorDefinition ret = new AccumulatorDefinition();
 		ret.setProducerName(producerId);
-		ret.setName(replaceName(producerId));
+		ret.setName(replaceName(producerId, getStatName()));
 		ret.setStatName(getStatName());
 		ret.setValueName(getValueName());
 		ret.setIntervalName(getIntervalName());
 		ret.setTimeUnit(getTimeUnit());
 		return ret;
-
 	}
 
-	private String replaceName(String producerId){
+	private String replaceName(String producerId, String statName){
 		String name = namePattern;
 		name = StringUtils.replace(name, "$PRODUCERID", producerId);
 		name = StringUtils.replace(name, "$PRODUCERNAME", producerId);
+		name = StringUtils.replace(name, "$STATNAME", statName);
 		return name;
 	}
 
 	public boolean matches(String producerId){
 		return pattern.matcher(producerId).matches();
 	}
+
+    public boolean statNameMatches(String statName) {
+		if (statNamePatternCompiled != null) {
+			return statNamePatternCompiled.matcher(statName).matches();
+		}
+        return false;
+    }
 }

@@ -13,6 +13,7 @@ import net.anotheria.moskito.core.helper.TieableRepository;
 import net.anotheria.moskito.core.producers.IStats;
 import net.anotheria.moskito.core.producers.IStatsProducer;
 import net.anotheria.moskito.core.stats.TimeUnit;
+import net.anotheria.util.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -44,9 +45,9 @@ public final class AccumulatorRepository<S extends IStats> extends TieableReposi
 
 
 
-	/**  
-	* Returns the singleton instance of the AccumulatorRepository.  
-	* @return the one and only instance.  
+	/** 
+	* Returns the singleton instance of the AccumulatorRepository. 
+	* @return the one and only instance. 
 	*/
 	public static AccumulatorRepository<? extends IStats> getInstance(){
 		if(INSTANCE == null) {
@@ -70,7 +71,7 @@ public final class AccumulatorRepository<S extends IStats> extends TieableReposi
 				break;
 			}
 		}
-		
+
 		if (target==null){
 			if (producer instanceof AutoTieAbleProducer){
 				addToAutoTie(acc, producer);
@@ -81,9 +82,9 @@ public final class AccumulatorRepository<S extends IStats> extends TieableReposi
 
 		acc.tieToStats(target);
 		return true;
-		
+
 	}
-	
+
 	@Override
 	protected Accumulator create(TieableDefinition def){
 		return new Accumulator((AccumulatorDefinition)def);
@@ -128,6 +129,7 @@ public final class AccumulatorRepository<S extends IStats> extends TieableReposi
 				AutoAccumulatorDefinition aad = new AutoAccumulatorDefinition();
 				aad.setNamePattern(aac.getNamePattern());
 				aad.setProducerNamePattern(aac.getProducerNamePattern());
+				aad.setStatNamePattern(aac.getStatNamePattern());
 				aad.setIntervalName(aac.getIntervalName());
 				aad.setValueName(aac.getValueName());
 				aad.setStatName(aac.getStatName());
@@ -184,7 +186,15 @@ public final class AccumulatorRepository<S extends IStats> extends TieableReposi
 				if (log.isDebugEnabled()){
 					log.debug("Creating auto-accumulator out of "+aad+" for "+producerId);
 				}
-				createAccumulator(aad.toAccumulatorDefinition(producerId));
+                if(!StringUtils.isEmpty(aad.getStatNamePattern()) && StringUtils.isEmpty(aad.getStatName())) {
+                    for (S stat : producer.getStats()) {
+                        if(aad.statNameMatches(stat.getName())) {
+                            createAccumulator(aad.toAccumulatorDefinition(producerId, stat.getName()));
+                        }
+                    }
+                } else {
+                    createAccumulator(aad.toAccumulatorDefinition(producerId));
+                }
 			}
 		}
 
@@ -198,16 +208,12 @@ public final class AccumulatorRepository<S extends IStats> extends TieableReposi
 		String producerId = producer.getProducerId();
 		for (AutoAccumulatorDefinition aad : autoAccumulatorDefinitions){
 			if (aad.matches(producerId)){
-				//NOW CHECK IF STAT-NAME matches
-				//If yes create accumulator.
-				
-
-/*				if (log.isDebugEnabled()){
-					log.debug("Creating auto-accumulator out of "+aad+" for "+producerId);
+				if(aad.statNameMatches(statName)) {
+					if (log.isDebugEnabled()){
+						log.debug("Creating auto-accumulator out of "+aad+" for "+producerId+" stat name"+statName);
+					}
+					createAccumulator(aad.toAccumulatorDefinition(producerId, statName));
 				}
-				createAccumulator(aad.toAccumulatorDefinition(producerId));
-				*/
-
 			}
 		}
 

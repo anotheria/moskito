@@ -87,6 +87,15 @@
         "mode": "MULTIPLE"
       }
     ],
+    "@autoAccumulators": [
+      {
+        "namePattern": "$PRODUCERNAME.$STATNAME.REQ.default",
+        "producerNamePattern": "FrontendApplicationInitialization",
+        "statName": "DriveMy",
+        "valueName": "Req",
+        "intervalName": "default"
+      }
+    ],
     "@accumulatorsColors": [
       {
         "name": "CPU Time 1h",
