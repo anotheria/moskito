@@ -5,6 +5,8 @@ import net.anotheria.moskito.core.config.MoskitoConfigurationHolder;
 import net.anotheria.moskito.core.config.accumulators.AccumulatorConfig;
 import net.anotheria.moskito.core.config.accumulators.AccumulatorsConfig;
 import net.anotheria.moskito.core.config.accumulators.AutoAccumulatorConfig;
+import net.anotheria.moskito.core.dynamic.OnDemandStatsProducer;
+import net.anotheria.moskito.core.dynamic.OnDemandStatsProducerListener;
 import net.anotheria.moskito.core.helper.AutoTieAbleProducer;
 import net.anotheria.moskito.core.helper.TieableDefinition;
 import net.anotheria.moskito.core.helper.TieableRepository;
@@ -22,7 +24,8 @@ import java.util.List;
  * @author lrosenberg
  *
  */
-public final class AccumulatorRepository<S extends IStats> extends TieableRepository<Accumulator, S> {
+public final class AccumulatorRepository<S extends IStats> extends TieableRepository<Accumulator, S>
+	implements OnDemandStatsProducerListener {
 
 	/**
 	 * Logger
@@ -184,5 +187,29 @@ public final class AccumulatorRepository<S extends IStats> extends TieableReposi
 				createAccumulator(aad.toAccumulatorDefinition(producerId));
 			}
 		}
+
+		if (producer instanceof OnDemandStatsProducer){
+			((OnDemandStatsProducer)producer).addListener(this);
+		}
+	}
+
+	@Override
+	public void notifyStatCreated(OnDemandStatsProducer producer, String statName) {
+		String producerId = producer.getProducerId();
+		for (AutoAccumulatorDefinition aad : autoAccumulatorDefinitions){
+			if (aad.matches(producerId)){
+				//NOW CHECK IF STAT-NAME matches
+				//If yes create accumulator.
+				
+
+/*				if (log.isDebugEnabled()){
+					log.debug("Creating auto-accumulator out of "+aad+" for "+producerId);
+				}
+				createAccumulator(aad.toAccumulatorDefinition(producerId));
+				*/
+
+			}
+		}
+
 	}
 }
