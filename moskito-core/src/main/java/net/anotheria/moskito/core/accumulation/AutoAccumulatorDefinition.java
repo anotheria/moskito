@@ -24,8 +24,8 @@ public class AutoAccumulatorDefinition extends AccumulatorDefinition{
 	private String producerNamePattern;
 
     /**
-     * Pattern for stat name.
-     * Clashes with startName!.
+     * Pattern for stat name. When producer is registered, accumulators for every stat that matches statNamePattern will be created.
+     * Clashes with statName filed!.
      * Can be used either statName or statNamePatter.
      * If provided both, so statName is in action.
      */
