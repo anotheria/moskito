@@ -193,7 +193,11 @@ public final class AccumulatorRepository<S extends IStats> extends TieableReposi
                         }
                     }
                 } else {
-                    createAccumulator(aad.toAccumulatorDefinition(producerId));
+					for (S stat : producer.getStats()) {
+						if(aad.getStatName().equals(stat.getName())) {
+							createAccumulator(aad.toAccumulatorDefinition(producerId));
+						}
+					}
                 }
 			}
 		}
