@@ -45,6 +45,7 @@ import net.anotheria.moskito.core.tracer.TracingAwareProducer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
@@ -128,6 +129,12 @@ public class OnDemandStatsProducer<S extends IStats> implements IStatsProducer<S
 	 * which producer was the one that the traffic has passed on the way.
 	 */
 	private boolean sourceMonitoringEnabled = false;
+
+	/**
+	 * Listeners list. The listeners will be notified whenever a stat has been created. This can be used for example if
+	 * there are accumulators created for this stats producer.
+	 */
+	private List<OnDemandStatsProducerListener> listeners = new LinkedList<>();
 	
 	/**
 	 * Creates a new OnDemandStatsProducer instance.
@@ -167,6 +174,7 @@ public class OnDemandStatsProducer<S extends IStats> implements IStatsProducer<S
 			S old = stats.putIfAbsent(name, stat);
 			if (old==null){
 				_cachedStatsList.add(stat);
+				notifyListeners(name);
 			}else{
 				stat.destroy(); // <---- "stat" was not inserted into the map and remains unused. destroy it
 				stat = old;
@@ -277,4 +285,24 @@ public class OnDemandStatsProducer<S extends IStats> implements IStatsProducer<S
 	public void disableSourceMonitoring() {
 		sourceMonitoringEnabled = false;
 	}
+
+	/**** LISTENERS ****/
+	public void addListener(OnDemandStatsProducerListener aListener){
+		listeners.add(aListener);
+	}
+
+	public void removeListener(OnDemandStatsProducerListener aListener){
+		listeners.remove(aListener);
+	}
+
+	private void notifyListeners(String statName){
+		for (OnDemandStatsProducerListener listener : listeners){
+			try{
+				listener.notifyStatCreated(this, statName);
+			}catch(Exception any){
+				log.warn("Listener "+listener+" threw an exception when trying to notify about creation of "+statName, any);
+			}
+		}
+	}
+
 }
