@@ -3,6 +3,7 @@ package net.anotheria.moskito.core.dynamic;
 import net.anotheria.moskito.core.accumulation.Accumulator;
 import net.anotheria.moskito.core.accumulation.AccumulatorRepository;
 import net.anotheria.moskito.core.accumulation.AutoAccumulatorDefinition;
+import net.anotheria.moskito.core.config.MoskitoConfiguration;
 import net.anotheria.moskito.core.config.MoskitoConfigurationHolder;
 import net.anotheria.moskito.core.config.accumulators.AccumulatorsConfig;
 import net.anotheria.moskito.core.config.accumulators.AutoAccumulatorConfig;
@@ -96,10 +97,13 @@ public class OnDemandStatsProducerListenerTest {
      */
     @Test
     public void testAccumulatorAutoCreation2() throws Exception {
+        ProducerRegistryFactory.reset();
+        MoskitoConfigurationHolder.resetConfiguration();
         String testStatName = "testStatName";
 
         // getting an instance of config to add custom autoAccumulators
-        AccumulatorsConfig accumulatorsConfig = MoskitoConfigurationHolder.getConfiguration().getAccumulatorsConfig();
+        MoskitoConfiguration configuration = MoskitoConfigurationHolder.getConfiguration();
+        AccumulatorsConfig accumulatorsConfig = configuration.getAccumulatorsConfig();
         AutoAccumulatorConfig[] autoAccumulatorConfigs = new AutoAccumulatorConfig[1];
         AutoAccumulatorConfig config = new AutoAccumulatorConfig();
         config.setAccumulationAmount(250);
@@ -112,8 +116,8 @@ public class OnDemandStatsProducerListenerTest {
         accumulatorsConfig.setAutoAccumulators(autoAccumulatorConfigs);
 
         // getting instance of AccumulatorRepository
-        AccumulatorRepository repository = AccumulatorRepository.getInstance();
         AccumulatorRepository.resetForUnitTests();
+        AccumulatorRepository repository = AccumulatorRepository.getInstance();
 
         // getting instance of producerRegistry to register a producer
         IProducerRegistry producerRegistry = ProducerRegistryFactory.getProducerRegistryInstance();
@@ -152,6 +156,8 @@ public class OnDemandStatsProducerListenerTest {
      */
     @Test
     public void testAccumulatorAutoCreation3() throws Exception {
+        ProducerRegistryFactory.reset();
+        MoskitoConfigurationHolder.resetConfiguration();
         String testStatName = "testStatName";
 
         // getting an instance of config to add custom autoAccumulators
@@ -168,8 +174,8 @@ public class OnDemandStatsProducerListenerTest {
         accumulatorsConfig.setAutoAccumulators(autoAccumulatorConfigs);
 
         // getting instance of AccumulatorRepository
-        AccumulatorRepository repository = AccumulatorRepository.getInstance();
         AccumulatorRepository.resetForUnitTests();
+        AccumulatorRepository repository = AccumulatorRepository.getInstance();
 
         // getting instance of producerRegistry to register a producer
         IProducerRegistry producerRegistry = ProducerRegistryFactory.getProducerRegistryInstance();
@@ -201,6 +207,8 @@ public class OnDemandStatsProducerListenerTest {
      */
     @Test
     public void testAccumulatorAutoCreation4() throws Exception {
+        ProducerRegistryFactory.reset();
+        MoskitoConfigurationHolder.resetConfiguration();
         String testStatName = "testStatName";
 
         // getting an instance of config to add custom autoAccumulators
@@ -218,8 +226,8 @@ public class OnDemandStatsProducerListenerTest {
         accumulatorsConfig.setAutoAccumulators(autoAccumulatorConfigs);
 
         // getting instance of AccumulatorRepository
-        AccumulatorRepository repository = AccumulatorRepository.getInstance();
         AccumulatorRepository.resetForUnitTests();
+        AccumulatorRepository repository = AccumulatorRepository.getInstance();
 
         // getting instance of producerRegistry to register a producer
         IProducerRegistry producerRegistry = ProducerRegistryFactory.getProducerRegistryInstance();
