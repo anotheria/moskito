@@ -10,7 +10,7 @@ import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
- * This utility class helps to create moskitoinvocation proxies. All you need is to submit your implementation and the interfaces which should be supported. In all methods the first interface is mandatory and 
+ * This utility class helps to create MoSKito invocation proxies. All you need is to submit your implementation and the interfaces which should be supported. In all methods the first interface is mandatory and
  * defines the name of the proxy if the name parameter is omitted (or null).
  * @author lrosenberg
  *
