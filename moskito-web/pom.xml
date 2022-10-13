@@ -3,12 +3,12 @@
   <parent>
 	<groupId>net.anotheria</groupId>
 	<artifactId>moskito</artifactId>
-	<version>2.10.3-SNAPSHOT</version>
+	<version>3.0.0-SNAPSHOT</version>
   </parent>
 
   <modelVersion>4.0.0</modelVersion>
   <artifactId>moskito-web</artifactId>
-  <version>2.10.3-SNAPSHOT</version>
+  <version>3.0.0-SNAPSHOT</version>
   <name>moskito web support</name>
 
   <dependencies>
