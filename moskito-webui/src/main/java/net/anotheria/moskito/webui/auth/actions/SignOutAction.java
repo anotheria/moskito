@@ -18,7 +18,7 @@ public class SignOutAction implements Action {
     }
 
     @Override
-    public ActionCommand execute(ActionMapping mapping, FormBean formBean, HttpServletRequest req, HttpServletResponse res) throws Exception {
+    public ActionCommand execute(ActionMapping mapping, HttpServletRequest req, HttpServletResponse res) throws Exception {
 
         req.getSession().removeAttribute(AuthConstants.AUTH_SESSION_ATTR_NAME);
         Cookie authCookie = new Cookie(AuthConstants.AUTH_COOKIE_NAME, "");

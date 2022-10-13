@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class DisableTracerAction extends BaseTracersAction{
 	@Override
-	public ActionCommand execute(ActionMapping actionMapping, FormBean formBean, HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws Exception {
+	public ActionCommand execute(ActionMapping actionMapping, HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws Exception {
 		String producerId = httpServletRequest.getParameter(PARAM_PRODUCER_ID);
 		getTracerAPI().disableTracer(producerId);
 		return actionMapping.redirect();

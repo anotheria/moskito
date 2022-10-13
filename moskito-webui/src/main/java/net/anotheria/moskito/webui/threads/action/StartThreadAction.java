@@ -13,13 +13,12 @@ import javax.servlet.http.HttpServletResponse;
 public class StartThreadAction extends ThreadsHistoryAction{
 
 	@Override
-	public ActionCommand execute(ActionMapping mapping, FormBean formBean,
-			HttpServletRequest req, HttpServletResponse res) throws Exception {
+	public ActionCommand execute(ActionMapping mapping,HttpServletRequest req, HttpServletResponse res) throws Exception {
 		
 		getThreadAPI().startTestThread();
 		
 		
-		return super.execute(mapping, formBean, req, res);
+		return super.execute(mapping, req, res);
 	}
 
 }

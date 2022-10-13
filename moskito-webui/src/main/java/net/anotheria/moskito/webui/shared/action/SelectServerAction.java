@@ -20,7 +20,7 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class SelectServerAction extends BaseMoskitoUIAction{
 	@Override
-	public ActionCommand execute(ActionMapping mapping, FormBean formBean, HttpServletRequest req, HttpServletResponse res) throws Exception {
+	public ActionCommand execute(ActionMapping mapping, HttpServletRequest req, HttpServletResponse res) throws Exception {
 
 		String targetServer = req.getParameter("pTargetServer");
 		if (targetServer.equalsIgnoreCase("local")){

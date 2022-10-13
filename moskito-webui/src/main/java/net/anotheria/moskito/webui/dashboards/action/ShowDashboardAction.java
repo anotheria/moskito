@@ -47,7 +47,7 @@ public class ShowDashboardAction extends BaseDashboardAction {
 	private static final long DEFAULT_DASHBOARD_REFRESH_RATE = TimeUnit.SECONDS.toMillis(60);
 
 	@Override
-	public ActionCommand execute(ActionMapping actionMapping, FormBean formBean, HttpServletRequest request, HttpServletResponse response) throws Exception {
+	public ActionCommand execute(ActionMapping actionMapping, HttpServletRequest request, HttpServletResponse response) throws Exception {
 
 		String dashboardName = getSelectedDashboard(request);
 		Boolean gaugesPresent = false;

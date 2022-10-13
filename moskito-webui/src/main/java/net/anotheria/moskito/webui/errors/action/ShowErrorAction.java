@@ -23,7 +23,7 @@ public class ShowErrorAction extends BaseErrorAction {
 	}
 
 	@Override
-	public ActionCommand execute(ActionMapping mapping, FormBean formBean, HttpServletRequest req, HttpServletResponse res) throws Exception {
+	public ActionCommand execute(ActionMapping mapping, HttpServletRequest req, HttpServletResponse res) throws Exception {
 
 		String catcherName = req.getParameter("name");
 		String catcherType = req.getParameter("type");

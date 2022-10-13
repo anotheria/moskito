@@ -13,10 +13,9 @@ import javax.servlet.http.HttpServletResponse;
 public class HistoryOffAction extends ThreadsHistoryAction{
 
 	@Override
-	public ActionCommand execute(ActionMapping mapping, FormBean formBean,
-			HttpServletRequest req, HttpServletResponse res) throws Exception {
+	public ActionCommand execute(ActionMapping mapping, HttpServletRequest req, HttpServletResponse res) throws Exception {
 		getThreadAPI().deactivateHistory();
-		return super.execute(mapping, formBean, req, res);
+		return super.execute(mapping, req, res);
 	}
 
 }

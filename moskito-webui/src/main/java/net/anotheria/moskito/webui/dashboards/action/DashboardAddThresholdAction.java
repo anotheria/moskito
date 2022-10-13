@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class DashboardAddThresholdAction extends BaseDashboardAction {
 	@Override
-	public ActionCommand execute(ActionMapping mapping, FormBean formBean, HttpServletRequest request, HttpServletResponse response) throws Exception {
+	public ActionCommand execute(ActionMapping mapping, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		String thresholdName = request.getParameter("pName");
 		String[] dashboardsName = request.getParameterValues("pDashboards");
 

@@ -16,7 +16,7 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class ShowTracerAction extends BaseTracersAction{
 	@Override
-	public ActionCommand execute(ActionMapping actionMapping, FormBean formBean, HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws Exception {
+	public ActionCommand execute(ActionMapping actionMapping, HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws Exception {
 
 		String producerId = httpServletRequest.getParameter(PARAM_PRODUCER_ID);
 		String journeyName = Tracers.getJourneyNameForTracers(producerId);

@@ -3,8 +3,9 @@ package net.anotheria.moskito.webui.threshold.api;
 import net.anotheria.maf.bean.FormBean;
 import net.anotheria.moskito.webui.shared.api.TieablePO;
 
-import javax.xml.bind.annotation.XmlRootElement;
+import javax.servlet.http.HttpServletRequest;
 import java.io.Serializable;
+import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  * This parameter object is used to create a new threshold.
@@ -12,7 +13,7 @@ import java.io.Serializable;
  * @author lrosenberg
  * @since 12.02.13 16:00
  */
-@XmlRootElement
+@XmlRootElement()
 public class ThresholdPO extends TieablePO implements FormBean, Serializable{
 	/**
 	 * SerialVersionUID.
@@ -144,4 +145,29 @@ public class ThresholdPO extends TieablePO implements FormBean, Serializable{
 	public void setGreenValue(String greenValue) {
 		this.greenValue = greenValue;
 	}
+
+	public static ThresholdPO fromHttpServletRequest(HttpServletRequest request){
+		ThresholdPO ret = new ThresholdPO();
+		ret.parseHttpRequest(request);
+		return ret;
+	}
+
+	protected void parseHttpRequest(HttpServletRequest request){
+		super.parseHttpRequest(request);
+
+		yellowDir = request.getParameter("yellowDir");
+		yellowValue = request.getParameter("yellowValue");
+		orangeDir = request.getParameter("orangeDir");
+		orangeValue = request.getParameter("orangeValue");
+		redDir = request.getParameter("redDir");
+		redValue = request.getParameter("redValue");
+		purpleDir = request.getParameter("purpleDir");
+		purpleValue = request.getParameter("purpleValue");
+		greenDir = request.getParameter("greenDir");
+		greenValue = request.getParameter("greenValue");
+
+
+	}
+
+
 }

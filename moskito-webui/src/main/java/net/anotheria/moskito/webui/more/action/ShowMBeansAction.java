@@ -19,7 +19,7 @@ import java.util.List;
 public class ShowMBeansAction extends AdditionalSectionAction{
     
 	@Override
-	public ActionCommand execute(ActionMapping mapping, FormBean formBean, HttpServletRequest req, HttpServletResponse res) throws Exception {
+	public ActionCommand execute(ActionMapping mapping, HttpServletRequest req, HttpServletResponse res) throws Exception {
 
 		List<MBeanWrapperAO> beans = getAdditionalFunctionalityAPI().getMBeans();
 		req.setAttribute("mbeansCount", beans.size());

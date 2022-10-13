@@ -18,8 +18,7 @@ import java.util.List;
 public class ShowEntryPointsAction extends BaseNowRunningAction {
 
 	@Override
-	public ActionCommand execute(ActionMapping mapping, FormBean formBean,
-								 HttpServletRequest req, HttpServletResponse res) throws Exception {
+	public ActionCommand execute(ActionMapping mapping, HttpServletRequest req, HttpServletResponse res) throws Exception {
 
 		List<EntryPointAO> entryPoints = getNowRunningAPI().getEntryPoints();
 		req.setAttribute("entryPoints", entryPoints);

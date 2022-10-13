@@ -14,9 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 public class ThreadsOverviewAction extends BaseThreadsAction{
 
 	@Override
-	public ActionCommand execute(ActionMapping mapping, FormBean formBean,
-			HttpServletRequest req, HttpServletResponse res) throws Exception {
-
+	public ActionCommand execute(ActionMapping mapping, HttpServletRequest req, HttpServletResponse res) throws Exception {
 
 		ThreadsInfoAO infoBean = getThreadAPI().getThreadsInfo();
 		req.setAttribute("info", infoBean);

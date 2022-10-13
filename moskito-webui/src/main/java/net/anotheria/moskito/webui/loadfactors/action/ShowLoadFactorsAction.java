@@ -18,7 +18,7 @@ import java.util.List;
 public class ShowLoadFactorsAction extends BaseLoadFactorsAction {
 
 	@Override
-	public ActionCommand execute(ActionMapping mapping, FormBean formBean,
+	public ActionCommand execute(ActionMapping mapping,
 								 HttpServletRequest req, HttpServletResponse res) throws Exception {
 
 		List<LoadFactorAO> factors = getLoadFactorsAPI().getLoadFactors();

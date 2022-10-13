@@ -22,7 +22,7 @@ import java.util.Map;
  */
 public class EditThresholdAction extends BaseThresholdsAction{
 	@Override
-	public ActionCommand execute(ActionMapping actionMapping, FormBean formBean, HttpServletRequest request, HttpServletResponse httpServletResponse) throws Exception {
+	public ActionCommand execute(ActionMapping actionMapping, HttpServletRequest request, HttpServletResponse httpServletResponse) throws Exception {
 
 		String thresholdId = request.getParameter(PARAM_ID);
 		ThresholdDefinitionAO definition = getThresholdAPI().getThresholdDefinition(thresholdId);

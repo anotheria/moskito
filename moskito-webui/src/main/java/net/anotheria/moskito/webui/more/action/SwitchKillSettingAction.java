@@ -17,7 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 public class SwitchKillSettingAction extends BaseAJAXMoskitoUIAction {
 
 	@Override
-	protected void invokeExecute(ActionMapping mapping, FormBean bean, HttpServletRequest req, HttpServletResponse res, JSONResponse jsonResponse) throws Exception {
+	protected void invokeExecute(ActionMapping mapping, HttpServletRequest req, HttpServletResponse res, JSONResponse jsonResponse) throws Exception {
 		String name = req.getParameter("name");
 		String value = req.getParameter("value");
 		boolean val = Boolean.parseBoolean(value);

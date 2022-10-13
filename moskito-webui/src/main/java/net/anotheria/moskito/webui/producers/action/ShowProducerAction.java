@@ -85,7 +85,7 @@ public class ShowProducerAction extends BaseMoskitoUIAction {
 	 */
 	private static final Logger LOGGER = LoggerFactory.getLogger(ShowProducerAction.class);
 
-	@Override public ActionCommand execute(ActionMapping mapping, FormBean bean, HttpServletRequest req, HttpServletResponse res) throws Exception {
+	@Override public ActionCommand execute(ActionMapping mapping, HttpServletRequest req, HttpServletResponse res) throws Exception {
 
 		String intervalName = getCurrentInterval(req);
 		UnitBean currentUnit = getCurrentUnit(req);

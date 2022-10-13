@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class DeleteDashboardAction extends BaseDashboardAction {
 	@Override
-	public ActionCommand execute(ActionMapping mapping, FormBean formBean, HttpServletRequest request, HttpServletResponse response) throws Exception {
+	public ActionCommand execute(ActionMapping mapping, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		String dashboardName = request.getParameter("pName");
 
 		if (!StringUtils.isEmpty(dashboardName)) {

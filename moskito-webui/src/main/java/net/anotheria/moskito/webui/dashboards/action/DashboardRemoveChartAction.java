@@ -16,7 +16,7 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class DashboardRemoveChartAction extends BaseDashboardAction{
 	@Override
-	public ActionCommand execute(ActionMapping actionMapping, FormBean formBean, HttpServletRequest request, HttpServletResponse response) throws Exception {
+	public ActionCommand execute(ActionMapping actionMapping, HttpServletRequest request, HttpServletResponse response) throws Exception {
 
 		String accNamesConcat = request.getParameter("pElement");
 		String[] accNames = accNamesConcat.split(",");

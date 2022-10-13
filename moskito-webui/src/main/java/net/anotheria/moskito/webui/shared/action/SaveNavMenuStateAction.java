@@ -25,7 +25,7 @@ public class SaveNavMenuStateAction extends BaseAJAXMoskitoUIAction {
 	public static final String ATTR_IS_NAV_MENU_COLLAPSED = "isNavMenuCollapsed";
 
 	@Override
-	protected void invokeExecute(ActionMapping mapping, FormBean bean, HttpServletRequest req, HttpServletResponse res, JSONResponse jsonResponse) throws Exception {
+	protected void invokeExecute(ActionMapping mapping,  HttpServletRequest req, HttpServletResponse res, JSONResponse jsonResponse) throws Exception {
 		final String navMenuCollapseStateParam = req.getParameter(PARAM_IS_NAV_MENU_COLLAPSED);
 
 		req.getSession().setAttribute(ATTR_IS_NAV_MENU_COLLAPSED, Boolean.valueOf(navMenuCollapseStateParam));

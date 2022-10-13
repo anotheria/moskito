@@ -36,7 +36,7 @@ public class SignInAction implements Action {
     }
 
     @Override
-    public ActionCommand execute(ActionMapping mapping, FormBean formBean, HttpServletRequest req, HttpServletResponse res) throws Exception {
+    public ActionCommand execute(ActionMapping mapping, HttpServletRequest req, HttpServletResponse res) throws Exception {
 
         if(req.getMethod().equals("POST")) {
 

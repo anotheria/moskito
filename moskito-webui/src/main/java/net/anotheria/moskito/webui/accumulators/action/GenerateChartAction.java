@@ -48,7 +48,7 @@ public class GenerateChartAction implements Action {
     private static final String ZIP_FILE_NAME = "accumulators.zip";
 
     @Override
-    public ActionCommand execute(ActionMapping mapping, FormBean formBean, HttpServletRequest req, HttpServletResponse res) throws Exception {
+    public ActionCommand execute(ActionMapping mapping, HttpServletRequest req, HttpServletResponse res) throws Exception {
         String namesParam = req.getParameter("names");
         String isZip = req.getParameter("zip");
         log.debug("Generating chart names: "+namesParam);

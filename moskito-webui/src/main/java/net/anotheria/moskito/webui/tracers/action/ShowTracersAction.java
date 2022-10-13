@@ -17,7 +17,7 @@ import java.util.List;
  */
 public class ShowTracersAction extends BaseTracersAction{
 	@Override
-	public ActionCommand execute(ActionMapping actionMapping, FormBean formBean, HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws Exception {
+	public ActionCommand execute(ActionMapping actionMapping, HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws Exception {
 
 		List<TracerAO> tracers = getTracerAPI().getTracers();
 		httpServletRequest.setAttribute("tracersCount", tracers.size());

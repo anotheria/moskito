@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class DashboardRemoveThresholdAction extends BaseDashboardAction{
 	@Override
-	public ActionCommand execute(ActionMapping actionMapping, FormBean formBean, HttpServletRequest request, HttpServletResponse response) throws Exception {
+	public ActionCommand execute(ActionMapping actionMapping, HttpServletRequest request, HttpServletResponse response) throws Exception {
 
 		String elementName = request.getParameter("pElement");
 		String dashboard = request.getParameter("pName");

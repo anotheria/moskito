@@ -41,7 +41,7 @@ public class ShowTagsAction extends BaseMoskitoUIAction {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public ActionCommand execute(ActionMapping mapping, FormBean formBean, HttpServletRequest request, HttpServletResponse response) throws Exception {
+	public ActionCommand execute(ActionMapping mapping, HttpServletRequest request, HttpServletResponse response) throws Exception {
 
 		List<TagBean> tagBeans = new ArrayList<>();
 

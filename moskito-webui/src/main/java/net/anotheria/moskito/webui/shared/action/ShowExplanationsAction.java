@@ -28,7 +28,7 @@ public class ShowExplanationsAction extends BaseMoskitoUIAction{
 	}
 
 	@Override
-	public ActionCommand execute(ActionMapping mapping, FormBean formBean, HttpServletRequest req, HttpServletResponse res) {
+	public ActionCommand execute(ActionMapping mapping, HttpServletRequest req, HttpServletResponse res) {
 
 		List<IDecorator> decorators = DecoratorRegistryFactory.getDecoratorRegistry().getDecorators();
 		decorators = StaticQuickSorter.sort(decorators, new DummySortType());

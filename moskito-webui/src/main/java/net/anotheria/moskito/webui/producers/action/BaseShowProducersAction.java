@@ -72,7 +72,7 @@ public abstract class BaseShowProducersAction extends BaseMoskitoUIAction {
 	public abstract String getPageTitle(HttpServletRequest req);
 	
 	@Override
-	public ActionCommand execute(ActionMapping mapping, FormBean formBean, HttpServletRequest req, HttpServletResponse res) throws APIException{
+	public ActionCommand execute(ActionMapping mapping, HttpServletRequest req, HttpServletResponse res) throws APIException{
 
 		Map<String, GraphDataBean> graphData = new HashMap<>();
 

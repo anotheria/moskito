@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class DashboardAddChartAction extends BaseDashboardAction {
 	@Override
-	public ActionCommand execute(ActionMapping mapping, FormBean formBean, HttpServletRequest request, HttpServletResponse response) throws Exception {
+	public ActionCommand execute(ActionMapping mapping, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		String accNamesConcat = request.getParameter("pName");
 		String[] accNames = accNamesConcat.split(",");
 		String[] dashboardsName = request.getParameterValues("pDashboards");

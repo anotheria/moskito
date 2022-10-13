@@ -32,7 +32,7 @@ public class UpdateAction extends BaseAdditionalAction {
 	}
 
 	@Override
-	public ActionCommand execute(ActionMapping actionMapping, FormBean formBean, HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws Exception {
+	public ActionCommand execute(ActionMapping actionMapping, HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws Exception {
 
 
 		String version = "notFound";
