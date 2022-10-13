@@ -37,6 +37,8 @@ public class GetAccumulatorGraphDataTest {
     public static void startUpTest() {
         System.setProperty("JUNITTEST", "true");
         APIFinder.setMockingEnabled(true);
+        MoskitoConfigurationHolder.resetConfiguration();
+        APIFinder.cleanUp();
     }
 
     @AfterClass
