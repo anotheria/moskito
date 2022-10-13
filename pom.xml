@@ -30,7 +30,7 @@
         <target-version>1.8</target-version>
 		<aspectj.version>1.8.7</aspectj.version>
 		<aspectj-maven-plugin.version>1.8</aspectj-maven-plugin.version>
-		<aspectj-maven-plugin.complianceLevel>1.7</aspectj-maven-plugin.complianceLevel>
+		<aspectj-maven-plugin.complianceLevel>1.8</aspectj-maven-plugin.complianceLevel>
 		<moskito-webui-version>${project.version}</moskito-webui-version>
 		<distributeme.version>2.3.10</distributeme.version>
 		<moskitoplugins-version>1.0.0-SNAPSHOT</moskitoplugins-version>

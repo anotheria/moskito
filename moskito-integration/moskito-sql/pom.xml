@@ -12,11 +12,18 @@
     <artifactId>moskito-sql</artifactId>
   	<version>3.0.0-SNAPSHOT</version>
     <name>moskito sql integration</name>
+
     <build>
         <plugins>
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>aspectj-maven-plugin</artifactId>
+                <configuration>
+                    <complianceLevel>${aspectj-maven-plugin.complianceLevel}</complianceLevel>
+                    <source>${source-version}</source>
+                    <target>${target-version}</target>
+                </configuration>
+
             </plugin>
         </plugins>
     </build>
