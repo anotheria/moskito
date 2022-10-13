@@ -79,7 +79,8 @@ public class getAccumulatorGraphDataTest {
         assertEquals(aRepository.getAccumulators().size(), 0);
         createFakeAccumulators(new String[]{"a1", "a2", "a3", "a4", "a5", "a6", "a7"});
         assertEquals(aRepository.getAccumulators().size(), 7);
-        assertEquals(registry.getProducers().size(), 6);
+        System.out.println(registry.getProducers());
+        assertEquals("Expected 6: "+registry.getProducers(), 6, registry.getProducers().size());
 
 
         ThresholdRepository tRepository = ThresholdRepository.getInstance();
