@@ -4,7 +4,6 @@ import net.anotheria.maf.action.AbortExecutionException;
 import net.anotheria.maf.action.Action;
 import net.anotheria.maf.action.ActionCommand;
 import net.anotheria.maf.action.ActionMapping;
-import net.anotheria.maf.bean.FormBean;
 import net.anotheria.maf.json.JSONResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -70,8 +69,6 @@ public abstract class BaseAJAXMoskitoUIAction implements Action {
 	 *
 	 * @param mapping
 	 * 		- action mapping
-	 * @param bean
-	 * 		- bean
 	 * @param req
 	 * 		- request
 	 * @param res
