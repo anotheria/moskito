@@ -98,7 +98,7 @@ public class MonitorInterceptor extends AbstractInterceptor<ServiceStats> implem
 		boolean tracePassingOfThisProducer =
 				context.hasTracerFired() ?
 						false :
-						tracerRepository.isTracingEnabledForProducer(producerId);
+						tracerRepository.isTracingEnabledForProducer(producerId, methodName);
         Trace trace = null;
         boolean journeyStartedByMe = false;
 
@@ -186,13 +186,13 @@ public class MonitorInterceptor extends AbstractInterceptor<ServiceStats> implem
 
                 if (journeyStartedByMe) {
                     //now finish the journey.
-                    Journey myJourney = JourneyManagerFactory.getJourneyManager().getOrCreateJourney(Tracers.getJourneyNameForTracers(producerId));
+                    Journey myJourney = JourneyManagerFactory.getJourneyManager().getOrCreateJourney(Tracers.getJourneyNameForTracers(producerId, methodName));
                     myJourney.addCall((CurrentlyTracedCall) RunningTraceContainer.endTrace());
                     RunningTraceContainer.cleanup();
                 }
 
 
-                tracerRepository.addTracedExecution(producerId, trace);
+                tracerRepository.addTracedExecution(producerId, methodName, trace);
             }
         }
     }
