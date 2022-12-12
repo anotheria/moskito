@@ -16,8 +16,8 @@ import javax.servlet.http.HttpServletResponse;
 public class RemoveTracerAction extends BaseTracersAction{
 	@Override
 	public ActionCommand execute(ActionMapping actionMapping, HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws Exception {
-		String producerId = httpServletRequest.getParameter(PARAM_PRODUCER_ID);
-		getTracerAPI().removeTracer(producerId);
+		String tracerId = httpServletRequest.getParameter(PARAM_TRACER_ID);
+		getTracerAPI().removeTracer(tracerId);
 		return actionMapping.redirect();
 	}
 }

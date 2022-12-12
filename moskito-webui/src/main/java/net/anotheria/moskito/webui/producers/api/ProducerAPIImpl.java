@@ -165,7 +165,7 @@ public class ProducerAPIImpl extends AbstractMoskitoAPIImpl implements ProducerA
 		}
 		ao.setTraceable(traceable);
 		if (traceable){
-			ao.setTraced(TracerRepository.getInstance().isTracingEnabledForProducer(p.getProducerId()));
+			ao.setTraced(TracerRepository.getInstance().isTracingEnabledForProducer(p.getProducerId(), null));
 		}
 
 		//added support for logging

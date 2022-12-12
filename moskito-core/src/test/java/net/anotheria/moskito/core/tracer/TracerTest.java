@@ -34,7 +34,7 @@ public class TracerTest {
 		configuration.setTracingConfig(tc);
 		MoskitoConfigurationHolder.INSTANCE.setConfiguration(configuration);
 
-		Tracer tracer = new Tracer("tracer");
+		Tracer tracer = new Tracer("tracer", null);
 		assertEquals(tracer.getEntryCount(), 0);
 
 		//ensure our config works

@@ -222,7 +222,7 @@
             <li class="active"><mos:deepLink href="mskTracers" title="Tracers" class="sidebar-tooltip-right">Tracers <i class="fa fa-binoculars"></i></mos:deepLink></li>
             <ul class="nav sub-menu">
                 <ano:iterate id="subMenuElement" name="tracerSubmenuNames">
-                    <li <%--${currentSubNaviItem.isSelected("threads_list") ? "class=\"active\"" : ""} --%>><mos:deepLink href="mskTracer?pProducerId=${subMenuElement}" title="${subMenuElement}" class="sidebar-tooltip-right">${subMenuElement} <i class="fa fa-arrow-circle-right"></i></mos:deepLink></li>
+                    <li <%--${currentSubNaviItem.isSelected("threads_list") ? "class=\"active\"" : ""} --%>><mos:deepLink href="mskTracer?pTracerId=${subMenuElement}" title="${subMenuElement}" class="sidebar-tooltip-right">${subMenuElement} <i class="fa fa-arrow-circle-right"></i></mos:deepLink></li>
                 </ano:iterate>
             </ul>
         </ano:equal>

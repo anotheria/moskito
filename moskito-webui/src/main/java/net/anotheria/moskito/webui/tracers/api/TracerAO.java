@@ -17,7 +17,13 @@ public class TracerAO implements Serializable {
 	/**
 	 * Id of the producer this Tracer is bound to.
 	 */
+	private String tracerId;
+
+	/**
+	 * ProducerId of the producer this Tracer is bound to.
+	 */
 	private String producerId;
+
 	/**
 	 * Number of recorded traces.
 	 */
@@ -52,12 +58,12 @@ public class TracerAO implements Serializable {
 		this.entryCount = entryCount;
 	}
 
-	public String getProducerId() {
-		return producerId;
+	public String getTracerId() {
+		return tracerId;
 	}
 
-	public void setProducerId(String producerId) {
-		this.producerId = producerId;
+	public void setTracerId(String tracerId) {
+		this.tracerId = tracerId;
 	}
 
 	public int getTotalEntryCount() {
@@ -67,4 +73,14 @@ public class TracerAO implements Serializable {
 	public void setTotalEntryCount(int totalEntryCount) {
 		this.totalEntryCount = totalEntryCount;
 	}
+
+	public String getProducerId() {
+		return producerId;
+	}
+
+	public void setProducerId(String producerId) {
+		this.producerId = producerId;
+	}
+
+
 }

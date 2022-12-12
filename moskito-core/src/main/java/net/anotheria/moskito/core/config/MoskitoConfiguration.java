@@ -338,7 +338,7 @@ public class MoskitoConfiguration implements Serializable{
 				String[] configuredTracers = getTracingConfig().getTracers();
 				if (configuredTracers!=null && configuredTracers.length!=0){
 					for (String producerId : configuredTracers){
-						TracerRepository.getInstance().enableTracingForProducerId(producerId);
+						TracerRepository.getInstance().enableTracingForProducerId(producerId, null);
 					}
 				}
 			}

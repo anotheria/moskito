@@ -78,7 +78,7 @@ public class ServiceStatsCallHandler implements IOnDemandCallHandler {
 		CurrentMeasurement cm = MoSKitoContext.get().notifyProducerEntry(producer);
 
 
-		boolean tracePassingOfThisProducer = tracerRepository.isTracingEnabledForProducer(producerId);
+		boolean tracePassingOfThisProducer = tracerRepository.isTracingEnabledForProducer(producerId, method.getName());
 		Trace trace = null;
 		boolean journeyStartedByMe = false;
 
@@ -154,12 +154,12 @@ public class ServiceStatsCallHandler implements IOnDemandCallHandler {
 
 				if (journeyStartedByMe) {
 					//now finish the journey.
-					Journey myJourney = JourneyManagerFactory.getJourneyManager().getOrCreateJourney(Tracers.getJourneyNameForTracers(producerId));
+					Journey myJourney = JourneyManagerFactory.getJourneyManager().getOrCreateJourney(Tracers.getJourneyNameForTracers(producerId, method.getName()));
 					myJourney.addCall((CurrentlyTracedCall) RunningTraceContainer.endTrace());
 					RunningTraceContainer.cleanup();
 				}
 
-				tracerRepository.addTracedExecution(producerId, trace);
+				tracerRepository.addTracedExecution(producerId, method.getName(), trace);
 			}
 
 			if (cm.isFirst()){
