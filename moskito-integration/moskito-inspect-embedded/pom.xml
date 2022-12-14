@@ -3,12 +3,12 @@
 	<parent>
 		<groupId>net.anotheria</groupId>
 		<artifactId>moskito-integration</artifactId>
-		<version>3.0.1-SNAPSHOT</version>
+		<version>3.1.0</version>
 	</parent>
 
 	<modelVersion>4.0.0</modelVersion>
 	<artifactId>moskito-inspect-embedded</artifactId>
-	<version>3.0.1-SNAPSHOT</version>
+	<version>3.1.0</version>
 	<name>moskito inspect embedded</name>
     <description>
         This project contains dependencies and configuration (web-fragment) needed to enable moskito-inspect in embedded mode. To use it simply add it as dependency.
