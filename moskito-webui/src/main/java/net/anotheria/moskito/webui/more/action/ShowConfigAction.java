@@ -32,7 +32,7 @@ public class ShowConfigAction extends BaseAdditionalAction{
 	}
 
 	@Override
-	public ActionCommand execute(ActionMapping mapping, FormBean formBean, HttpServletRequest req, HttpServletResponse res) throws Exception {
+	public ActionCommand execute(ActionMapping mapping, HttpServletRequest req, HttpServletResponse res) throws Exception {
 
 		MoskitoConfiguration config = MoskitoConfigurationHolder.getConfiguration();
 		Gson gson = new GsonBuilder().setPrettyPrinting().create();

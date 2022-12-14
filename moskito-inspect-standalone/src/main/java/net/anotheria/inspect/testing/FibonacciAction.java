@@ -26,7 +26,7 @@ public class FibonacciAction implements Action {
 	}
 
 	@Override
-	public ActionCommand execute(ActionMapping mapping, FormBean formBean, HttpServletRequest req, HttpServletResponse res) throws Exception {
+	public ActionCommand execute(ActionMapping mapping, HttpServletRequest req, HttpServletResponse res) throws Exception {
 		int order = 10;
 		try{
 			order = Integer.parseInt(req.getParameter("order"));

@@ -4,7 +4,6 @@ import net.anotheria.maf.action.AbortExecutionException;
 import net.anotheria.maf.action.Action;
 import net.anotheria.maf.action.ActionCommand;
 import net.anotheria.maf.action.ActionMapping;
-import net.anotheria.maf.bean.FormBean;
 import net.anotheria.maf.json.JSONResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -43,12 +42,12 @@ public abstract class BaseAJAXMoskitoUIAction implements Action {
 
 
 	@Override
-	public final ActionCommand execute(ActionMapping mapping, FormBean bean, HttpServletRequest req, HttpServletResponse res) throws AbortExecutionException {
+	public final ActionCommand execute(ActionMapping mapping, HttpServletRequest req, HttpServletResponse res) throws AbortExecutionException {
 		JSONResponse response = new JSONResponse();
 
 		try {
 
-			invokeExecute(mapping, bean, req, res, response);
+			invokeExecute(mapping, req, res, response);
 			writeTextToResponse(res, response);
 			return null;
 		} catch (Exception e) {
@@ -70,8 +69,6 @@ public abstract class BaseAJAXMoskitoUIAction implements Action {
 	 *
 	 * @param mapping
 	 * 		- action mapping
-	 * @param bean
-	 * 		- bean
 	 * @param req
 	 * 		- request
 	 * @param res
@@ -80,7 +77,7 @@ public abstract class BaseAJAXMoskitoUIAction implements Action {
 	 * 		- JSON Response
 	 * @throws Exception on errors
 	 */
-	protected void invokeExecute(final ActionMapping mapping, final FormBean bean, final HttpServletRequest req, final HttpServletResponse res, final JSONResponse jsonResponse)
+	protected void invokeExecute(final ActionMapping mapping, final HttpServletRequest req, final HttpServletResponse res, final JSONResponse jsonResponse)
 			throws Exception {
 
 	}

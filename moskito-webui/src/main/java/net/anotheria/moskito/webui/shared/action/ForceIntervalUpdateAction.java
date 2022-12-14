@@ -17,8 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 public class ForceIntervalUpdateAction extends BaseMoskitoUIAction{
 
 	@Override
-	public ActionCommand execute(ActionMapping mapping, FormBean formBean,
-								 HttpServletRequest req, HttpServletResponse res) throws Exception {
+	public ActionCommand execute(ActionMapping mapping, HttpServletRequest req, HttpServletResponse res) throws Exception {
 		
 		String intervalName = req.getParameter(PARAM_INTERVAL);
 		if (intervalName==null || intervalName.length()==0)

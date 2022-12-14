@@ -31,12 +31,14 @@ import java.util.List;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
-public class getAccumulatorGraphDataTest {
+public class GetAccumulatorGraphDataTest {
 
     @BeforeClass
     public static void startUpTest() {
         System.setProperty("JUNITTEST", "true");
         APIFinder.setMockingEnabled(true);
+        MoskitoConfigurationHolder.resetConfiguration();
+        APIFinder.cleanUp();
     }
 
     @AfterClass
@@ -79,7 +81,7 @@ public class getAccumulatorGraphDataTest {
         assertEquals(aRepository.getAccumulators().size(), 0);
         createFakeAccumulators(new String[]{"a1", "a2", "a3", "a4", "a5", "a6", "a7"});
         assertEquals(aRepository.getAccumulators().size(), 7);
-        assertEquals(registry.getProducers().size(), 6);
+        assertEquals("Expected 6: "+registry.getProducers(), 6, registry.getProducers().size());
 
 
         ThresholdRepository tRepository = ThresholdRepository.getInstance();

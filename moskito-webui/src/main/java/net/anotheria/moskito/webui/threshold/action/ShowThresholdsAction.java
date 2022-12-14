@@ -17,8 +17,7 @@ import static net.anotheria.moskito.webui.threshold.util.ThresholdStatusBeanUtil
 public class ShowThresholdsAction extends BaseThresholdsAction {
 
 	@Override
-	public ActionCommand execute(ActionMapping mapping, FormBean formBean,
-			HttpServletRequest req, HttpServletResponse res) throws Exception {
+	public ActionCommand execute(ActionMapping mapping, HttpServletRequest req, HttpServletResponse res) throws Exception {
 		
 		req.setAttribute("thresholds", getThresholdBeans(getThresholdAPI().getThresholdStatuses()));
 		req.setAttribute("infos", getThresholdAPI().getThresholdDefinitions());

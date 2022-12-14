@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class DeleteThresholdAction extends BaseThresholdsAction{
 	@Override
-	public ActionCommand execute(ActionMapping mapping, FormBean formBean, HttpServletRequest req, HttpServletResponse res) throws Exception {
+	public ActionCommand execute(ActionMapping mapping, HttpServletRequest req, HttpServletResponse res) throws Exception {
 		getThresholdAPI().removeThreshold(req.getParameter(PARAM_ID));
 		return mapping.redirect();
 	}

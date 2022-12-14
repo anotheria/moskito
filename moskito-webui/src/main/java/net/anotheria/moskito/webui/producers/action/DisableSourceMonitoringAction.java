@@ -18,7 +18,7 @@ import java.net.URLEncoder;
  */
 public class DisableSourceMonitoringAction extends BaseMoskitoUIAction {
 	@Override
-	public ActionCommand execute(ActionMapping actionMapping, FormBean formBean, HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws Exception {
+	public ActionCommand execute(ActionMapping actionMapping,  HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws Exception {
 		String producerId = getProducerIdParameter(httpServletRequest);
 		getProducerAPI().disableSourceMonitoring(producerId);
 		setInfoMessage("Source monitoring for producer "+producerId+" disabled. ");

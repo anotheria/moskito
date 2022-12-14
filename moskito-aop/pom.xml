@@ -3,57 +3,27 @@
     <parent>
         <groupId>net.anotheria</groupId>
 		<artifactId>moskito</artifactId>
-		<version>2.10.3-SNAPSHOT</version>
+		<version>3.1.1-SNAPSHOT</version>
     </parent>
 
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>moskito-aop</artifactId>
-  	<version>2.10.3-SNAPSHOT</version>
+  	<version>3.1.1-SNAPSHOT</version>
     <name>moskito aop</name>
+
     <build>
 		<plugins>
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>aspectj-maven-plugin</artifactId>
+				<configuration>
+					<complianceLevel>${aspectj-maven-plugin.complianceLevel}</complianceLevel>
+					<source>${source-version}</source>
+					<target>${target-version}</target>
+				</configuration>
 			</plugin>
 		</plugins>
-        <pluginManagement>
-        	<plugins>
-        		<!--This plugin's configuration is used to store Eclipse m2e settings only. It has no influence on the Maven build itself.-->
-        		<plugin>
-        			<groupId>org.eclipse.m2e</groupId>
-        			<artifactId>lifecycle-mapping</artifactId>
-        			<version>1.0.0</version>
-        			<configuration>
-        				<lifecycleMappingMetadata>
-        					<pluginExecutions>
-        						<pluginExecution>
-        							<pluginExecutionFilter>
-        								<groupId>
-        									org.codehaus.mojo
-        								</groupId>
-        								<artifactId>
-        									aspectj-maven-plugin
-        								</artifactId>
-        								<versionRange>
-        									[${aspectj-maven-plugin.version},)
-        								</versionRange>
-        								<goals>
-        									<goal>compile</goal>
-        									<goal>test-compile</goal>
-        								</goals>
-        							</pluginExecutionFilter>
-        							<action>
-        								<ignore />
-        							</action>
-        						</pluginExecution>
-        					</pluginExecutions>
-        				</lifecycleMappingMetadata>
-        			</configuration>
-        		</plugin>
-        	</plugins>
-        </pluginManagement>
     </build>
     <dependencies>
         <dependency>
@@ -64,6 +34,7 @@
         <dependency>
             <groupId>org.aspectj</groupId>
             <artifactId>aspectjrt</artifactId>
+			<version>1.8.8</version>
         </dependency>
 		<dependency>
 			<groupId>org.aspectj</groupId>

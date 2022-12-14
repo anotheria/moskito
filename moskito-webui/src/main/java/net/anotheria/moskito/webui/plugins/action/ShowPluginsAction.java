@@ -22,7 +22,7 @@ public class ShowPluginsAction extends BasePluginAction {
 	}
 
 	@Override
-	public ActionCommand execute(ActionMapping actionMapping, FormBean formBean, HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws Exception {
+	public ActionCommand execute(ActionMapping actionMapping, HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws Exception {
 		List<PluginAO> plugins = getAdditionalFunctionalityAPI().getPlugins();
 		httpServletRequest.setAttribute("plugins", plugins);
 		httpServletRequest.setAttribute("pluginsCount", plugins.size());

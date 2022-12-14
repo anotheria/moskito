@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class DashboardAddGaugeAction extends BaseDashboardAction {
 	@Override
-	public ActionCommand execute(ActionMapping mapping, FormBean formBean, HttpServletRequest request, HttpServletResponse response) throws Exception {
+	public ActionCommand execute(ActionMapping mapping, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		String gaugeName = request.getParameter("pName");
 		String[] dashboardsName = request.getParameterValues("pDashboards");
 

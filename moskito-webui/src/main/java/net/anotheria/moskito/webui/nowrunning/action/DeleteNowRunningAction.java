@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 public class DeleteNowRunningAction extends BaseAccumulatorsAction {
 
     @Override
-    public ActionCommand execute(ActionMapping mapping, FormBean formBean, HttpServletRequest req, HttpServletResponse res) throws Exception {
+    public ActionCommand execute(ActionMapping mapping, HttpServletRequest req, HttpServletResponse res) throws Exception {
         getNowRunningAPI().removePastMeasurement(req.getParameter(PARAM_PRODUCER_ID), req.getParameter(PARAM_ID));
         return mapping.redirect();
     }

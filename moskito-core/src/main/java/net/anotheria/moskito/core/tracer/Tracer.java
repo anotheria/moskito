@@ -23,6 +23,10 @@ public class Tracer {
 	 */
 	private String producerId;
 	/**
+	 * Associated stat name for this tracer. If null, the tracer applies to the whole producer (pre-3.0 behaviour).
+	 */
+	private String statName;
+	/**
 	 * If true the tracer is currently enabled. Disabled tracer doesn't collect any futher traces.
 	 */
 	private boolean enabled;
@@ -45,8 +49,9 @@ public class Tracer {
 	private List<Trace> traces;
 	private int totalEntryCount;
 
-	public Tracer(String aProducerId){
+	public Tracer(String aProducerId, String aStatName){
 		producerId = aProducerId;
+		statName = aStatName;
 		enabled = true;
 		traces = new CopyOnWriteArrayList<Trace>();
 	}
@@ -86,7 +91,7 @@ public class Tracer {
 						if (i < maxAmount) {
 							traces.add(oldTraces.get(i));
 						} else {
-							journeyManager.getOrCreateJourney(Tracers.getJourneyNameForTracers(producerId)).removeStepByName(Tracers.getCallName(oldTraces.get(i)));
+							journeyManager.getOrCreateJourney(Tracers.getJourneyNameForTracers(getTracerId())).removeStepByName(Tracers.getCallName(oldTraces.get(i)));
 						}
 					}
 					break;
@@ -99,7 +104,7 @@ public class Tracer {
 						if (i>=(1+offset) && i<=(maxAmount+offset)){
 							traces.add(oldTraces.get(i));
 						}else{
-							journeyManager.getOrCreateJourney(Tracers.getJourneyNameForTracers(producerId)).removeStepByName(Tracers.getCallName(oldTraces.get(i)));
+							journeyManager.getOrCreateJourney(Tracers.getJourneyNameForTracers(getTracerId())).removeStepByName(Tracers.getCallName(oldTraces.get(i)));
 						}
 					}
 					break;
@@ -129,5 +134,9 @@ public class Tracer {
 
 	public void setTotalEntryCount(int totalEntryCount) {
 		this.totalEntryCount = totalEntryCount;
+	}
+
+	public String getTracerId(){
+		return TracerRepository.makeKey(producerId, statName);
 	}
 }

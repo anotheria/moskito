@@ -22,7 +22,7 @@ import java.util.List;
 public class ShowGaugesAction extends BaseGaugesAction{
 
 	@Override
-	public ActionCommand execute(ActionMapping actionMapping, FormBean formBean, HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws Exception {
+	public ActionCommand execute(ActionMapping actionMapping, HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws Exception {
 		httpServletRequest.setAttribute("gauges", getGaugeBeans(getGaugeAPI().getGauges()));
 		return actionMapping.success();
 	}

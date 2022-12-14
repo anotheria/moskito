@@ -16,8 +16,7 @@ import java.util.List;
 public class ThreadsDumpAction extends BaseThreadsAction{
 
 	@Override
-	public ActionCommand execute(ActionMapping mapping, FormBean formBean,
-			HttpServletRequest req, HttpServletResponse res) throws Exception {
+	public ActionCommand execute(ActionMapping mapping, HttpServletRequest req, HttpServletResponse res) throws Exception {
 
 		List<ThreadInfoAO> infos = getThreadAPI().getThreadDump();
 		req.setAttribute("infos", infos);

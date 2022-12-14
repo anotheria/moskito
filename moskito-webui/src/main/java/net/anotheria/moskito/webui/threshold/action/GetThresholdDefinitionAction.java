@@ -31,7 +31,7 @@ public class GetThresholdDefinitionAction implements Action {
 	}
 
 	@Override
-	public ActionCommand execute(ActionMapping mapping, FormBean formBean, HttpServletRequest req, HttpServletResponse res) throws Exception {
+	public ActionCommand execute(ActionMapping mapping, HttpServletRequest req, HttpServletResponse res) throws Exception {
 		String id = req.getParameter("pId");
 		ThresholdDefinitionAO definition = APILookupUtility.getThresholdAPI().getThresholdDefinition(id);
 

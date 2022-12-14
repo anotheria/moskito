@@ -14,12 +14,11 @@ import javax.servlet.http.HttpServletResponse;
 public class SetHistoryListSizeAction extends ThreadsHistoryAction{
 
 	@Override
-	public ActionCommand execute(ActionMapping mapping, FormBean formBean,
-			HttpServletRequest req, HttpServletResponse res) throws Exception {
+	public ActionCommand execute(ActionMapping mapping,HttpServletRequest req, HttpServletResponse res) throws Exception {
 		
 		ThreadHistoryUtility.INSTANCE.setMaxEventsSize(Integer.parseInt(req.getParameter("pSize")));
 		
-		return super.execute(mapping, formBean, req, res);
+		return super.execute(mapping, req, res);
 	}
 	
 }

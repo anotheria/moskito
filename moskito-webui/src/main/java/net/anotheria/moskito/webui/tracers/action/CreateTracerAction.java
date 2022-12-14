@@ -16,9 +16,10 @@ import java.net.URLEncoder;
  */
 public class CreateTracerAction extends BaseTracersAction{
 	@Override
-	public ActionCommand execute(ActionMapping actionMapping, FormBean formBean, HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws Exception {
+	public ActionCommand execute(ActionMapping actionMapping, HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws Exception {
 		String producerId = httpServletRequest.getParameter(PARAM_PRODUCER_ID);
-		getTracerAPI().createTracer(producerId);
+		String statName = httpServletRequest.getParameter("pStatName");
+		getTracerAPI().createTracer(producerId, statName);
 		httpServletResponse.sendRedirect("mskShowProducer?"+PARAM_PRODUCER_ID+ '=' + URLEncoder.encode(producerId, "UTF-8"));
 		return null;
 	}

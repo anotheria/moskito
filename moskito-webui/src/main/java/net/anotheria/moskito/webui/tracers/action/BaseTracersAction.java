@@ -17,6 +17,12 @@ import java.util.List;
  * @since 05.05.15 00:15
  */
 public abstract class BaseTracersAction extends BaseMoskitoUIAction {
+
+	/**
+	 * Parameter name for tracer id.
+	 */
+	public static final String PARAM_TRACER_ID = "pTracerId";
+
 	@Override
 	protected String getLinkToCurrentPage(HttpServletRequest req) {
 		return null;
@@ -40,7 +46,7 @@ public abstract class BaseTracersAction extends BaseMoskitoUIAction {
 		List<TracerAO> tracers = getTracerAPI().getTracers();
 		List<String> tracerSubmenuNames = new LinkedList<>();
 		for (TracerAO ao : tracers){
-			tracerSubmenuNames.add(ao.getProducerId());
+			tracerSubmenuNames.add(ao.getTracerId());
 		}
 		req.setAttribute("tracerSubmenuNames", tracerSubmenuNames);
 

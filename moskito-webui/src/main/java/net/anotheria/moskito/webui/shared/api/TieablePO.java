@@ -2,6 +2,7 @@ package net.anotheria.moskito.webui.shared.api;
 
 import net.anotheria.maf.bean.FormBean;
 
+import javax.servlet.http.HttpServletRequest;
 import java.io.Serializable;
 
 /**
@@ -87,5 +88,14 @@ public class TieablePO implements FormBean, Serializable {
 
 	public void setStatName(String statName) {
 		this.statName = statName;
+	}
+
+	protected void parseHttpRequest(HttpServletRequest request){
+		producerId = request.getParameter("producerId");
+		valueName = request.getParameter("valueName");
+		unit = request.getParameter("unit");
+		name = request.getParameter("name");
+		interval = request.getParameter("interval");
+		statName = request.getParameter("statName");
 	}
 }

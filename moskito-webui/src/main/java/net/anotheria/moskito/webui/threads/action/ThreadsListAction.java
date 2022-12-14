@@ -25,8 +25,7 @@ public class ThreadsListAction extends BaseThreadsAction{
 	private static final DummySortType DST = new DummySortType();
 
 	@Override
-	public ActionCommand execute(ActionMapping mapping, FormBean formBean,
-			HttpServletRequest req, HttpServletResponse res) throws Exception {
+	public ActionCommand execute(ActionMapping mapping, HttpServletRequest req, HttpServletResponse res) throws Exception {
 		
 		List<ThreadInfoAO> infos = getThreadAPI().getThreadInfos();
 

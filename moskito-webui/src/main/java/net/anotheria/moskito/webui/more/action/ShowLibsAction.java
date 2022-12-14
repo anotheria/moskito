@@ -45,7 +45,7 @@ public class ShowLibsAction extends BaseAdditionalAction{
 	}
 
 	@Override
-	public ActionCommand execute(ActionMapping mapping, FormBean formBean, HttpServletRequest req, HttpServletResponse res) throws Exception {
+	public ActionCommand execute(ActionMapping mapping, HttpServletRequest req, HttpServletResponse res) throws Exception {
 
 		List<URL> classpath = getClassPathUrls(req.getContextPath());
 		List<LibAO> beans = new ArrayList<>(classpath.size());

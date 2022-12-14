@@ -45,17 +45,17 @@
                     <tbody>
                     <ano:iterate name="tracers" type="net.anotheria.moskito.webui.tracers.api.TracerAO" id="tracer" indexId="index">
                         <tr>
-                            <td><mos:deepLink  href="mskTracer?pProducerId=${tracer.producerId}">${tracer.producerId}</mos:deepLink ></td>
+                            <td><mos:deepLink  href="mskTracer?pTracerId=${tracer.tracerId}">${tracer.tracerId}</mos:deepLink ></td>
                             <td>${tracer.enabled}</td>
                             <td>${tracer.entryCount}</td>
                             <td>${tracer.totalEntryCount}</td>
                             <td>
-                                <mos:deepLink  href="mskRemoveTracer?pProducerId=${tracer.producerId}" class="action-icon delete-icon tooltip-bottom" title="Delete"><i class="fa fa-ban"></i></mos:deepLink >
+                                <mos:deepLink  href="mskRemoveTracer?pTracerId=${tracer.tracerId}" class="action-icon delete-icon tooltip-bottom" title="Delete"><i class="fa fa-ban"></i></mos:deepLink >
                                 <c:if test="${tracer.enabled}">
-                                    <mos:deepLink  href="mskDisableTracer?pProducerId=${tracer.producerId}" class="action-icon toggle-on-icon tooltip-bottom" title="On - Disable"><i class="fa fa-toggle-on"></i></mos:deepLink >
+                                    <mos:deepLink  href="mskDisableTracer?pTracerId=${tracer.tracerId}" class="action-icon toggle-on-icon tooltip-bottom" title="On - Disable"><i class="fa fa-toggle-on"></i></mos:deepLink >
                                 </c:if>
                                 <c:if test="${tracer.disabled}">
-                                    <mos:deepLink  href="mskEnableTracer?pProducerId=${tracer.producerId}" class="action-icon toggle-off-icon tooltip-bottom" title="Off - Enable"><i class="fa fa-toggle-off"></i></mos:deepLink >
+                                    <mos:deepLink  href="mskEnableTracer?pTracerId=${tracer.tracerId}" class="action-icon toggle-off-icon tooltip-bottom" title="Off - Enable"><i class="fa fa-toggle-off"></i></mos:deepLink >
                                 </c:if>
                                 <mos:deepLink  href="mskShowProducer?pProducerId=${tracer.producerId}" class="action-icon show-icon tooltip-bottom" title="ShowProducer"><i class="fa fa-search-plus"></i></mos:deepLink >
                                 <mos:deepLink  href="mskAnalyzeJourney?pJourneyName=Traced-${tracer.producerId}" class="action-icon show-icon tooltip-bottom" title="" data-original-title="Analyze all traced calls in ${tracer.producerId}"><i class="fa fa-search-plus"></i></mos:deepLink >

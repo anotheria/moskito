@@ -127,6 +127,7 @@
                         <input type="hidden" value="<ano:write name="decorator" property="name"/>_<ano:write name="caption" property="jsVariableName"/>"/>${caption.caption} <i class="fa fa-caret-down"></i><i class="chart-icon tooltip-bottom" title="Show chart"></i></th>
                     </th>
                 </ano:iterate>
+                <th><!-- Tracer switch goes in here -->&nbsp;</th>
 
             </tr>
             </thead>
@@ -139,6 +140,9 @@
                             ${value.value}
                         </td>
                     </ano:iterate>
+                    <td class="producers-table-stats_value" title="Tracer">
+                        <mos:deepLink  href="mskCreateTracer?pProducerId=${producer.producerId}&pStatName=${stat.name}" onclick=""><i class="fa fa-plus"></i><i class="fa fa-binoculars"></i></mos:deepLink>
+                    </td>
                 </tr>
             </ano:iterate>
             </tbody>

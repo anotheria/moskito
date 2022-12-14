@@ -137,6 +137,11 @@ public abstract class BaseMoskitoUIAction implements Action{
 	public static final String PARAM_PRODUCER_ID = "pProducerId";
 
 	/**
+	 * Parameter stat name as in a name of a concrete stat within one producer.
+	 */
+	public static final String PARAM_STAT_NAME = "pStatName";
+
+	/**
 	 * Parameter for producer category.
 	 */
 	public static final String PARAM_CATEGORY = "pCategory";

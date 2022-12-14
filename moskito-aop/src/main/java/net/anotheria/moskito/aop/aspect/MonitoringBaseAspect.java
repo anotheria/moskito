@@ -116,7 +116,7 @@ public class MonitoringBaseAspect extends AbstractMoskitoAspect<ServiceStats>{
 		TracerRepository tracerRepository = TracerRepository.getInstance();
         //only trace this producer if no tracers have been fired yet.
         boolean tracePassingOfThisProducer =
-				!moSKitoContext.hasTracerFired() && tracerRepository.isTracingEnabledForProducer(producerId);
+				!moSKitoContext.hasTracerFired() && tracerRepository.isTracingEnabledForProducer(producerId, methodName);
         Trace trace = null;
         boolean journeyStartedByMe = false;
 
@@ -229,13 +229,16 @@ public class MonitoringBaseAspect extends AbstractMoskitoAspect<ServiceStats>{
 
                 if (journeyStartedByMe) {
                     //now finish the journey.
-                    Journey myJourney = JourneyManagerFactory.getJourneyManager().getOrCreateJourney(Tracers.getJourneyNameForTracers(producerId));
+                    Journey myJourney = JourneyManagerFactory.getJourneyManager().getOrCreateJourney(
+							Tracers.getJourneyNameForTracers(
+									TracerRepository.getInstance().getEffectiveTracerId(producerId, methodName)));
+
                     myJourney.addCall((CurrentlyTracedCall) RunningTraceContainer.endTrace());
                     RunningTraceContainer.cleanup();
                 }
 
 
-                tracerRepository.addTracedExecution(producerId, trace);
+                tracerRepository.addTracedExecution(producerId, methodName, trace);
             }
 
             //TODO added this temporarly to 2.9.2 -> will be developed further in 2.10.0

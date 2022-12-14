@@ -13,10 +13,10 @@ import javax.servlet.http.HttpServletResponse;
 public class HistoryOnAction extends ThreadsHistoryAction{
 
 	@Override
-	public ActionCommand execute(ActionMapping mapping, FormBean formBean,
+	public ActionCommand execute(ActionMapping mapping,
 			HttpServletRequest req, HttpServletResponse res) throws Exception {
 		getThreadAPI().activateHistory();
-		return super.execute(mapping, formBean, req, res);
+		return super.execute(mapping, req, res);
 	}
 
 }

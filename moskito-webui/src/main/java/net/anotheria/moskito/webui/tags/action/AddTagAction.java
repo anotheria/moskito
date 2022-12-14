@@ -39,7 +39,7 @@ public class AddTagAction extends BaseMoskitoUIAction {
      * {@inheritDoc}
      */
     @Override
-    public ActionCommand execute(ActionMapping mapping, FormBean formBean, HttpServletRequest request, HttpServletResponse response) throws Exception {
+    public ActionCommand execute(ActionMapping mapping, HttpServletRequest request, HttpServletResponse response) throws Exception {
 
         // Getting parameters for new tag
         String tagName = request.getParameter(PARAM_TAG_NAME);

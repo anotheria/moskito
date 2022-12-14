@@ -31,7 +31,7 @@ public class AnalyzeJourneyByMethodAction extends BaseJourneyAction {
      * {@inheritDoc}
      */
     @Override
-    public ActionCommand execute(ActionMapping mapping, FormBean formBean, HttpServletRequest req, HttpServletResponse res) throws APIException {
+    public ActionCommand execute(ActionMapping mapping, HttpServletRequest req, HttpServletResponse res) throws APIException {
 
         String journeyName = req.getParameter(PARAM_JOURNEY_NAME);
         req.setAttribute("journeyName", journeyName);

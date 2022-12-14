@@ -89,7 +89,7 @@ public class ShowCumulatedProducersAction extends BaseMoskitoUIAction {
      * {@inheritDoc}
      */
     @Override
-    public ActionCommand execute(ActionMapping mapping, FormBean bean, HttpServletRequest req, HttpServletResponse res) throws Exception {
+    public ActionCommand execute(ActionMapping mapping, HttpServletRequest req, HttpServletResponse res) throws Exception {
 
         Map<String, GraphDataBean> graphData = new HashMap<>();
         List<String> accumulatorIds = new ArrayList<>();

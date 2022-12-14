@@ -40,8 +40,8 @@ public class TracerAPIImpl extends AbstractMoskitoAPIImpl implements TracerAPI {
 	}
 
 	@Override
-	public void createTracer(String producerId) throws APIException {
-		TracerRepository.getInstance().enableTracingForProducerId(producerId);
+	public void createTracer(String producerId, String statName) throws APIException {
+		TracerRepository.getInstance().enableTracingForProducerId(producerId, statName);
 	}
 
 	@Override
@@ -63,6 +63,7 @@ public class TracerAPIImpl extends AbstractMoskitoAPIImpl implements TracerAPI {
 		TracerAO ret = new TracerAO();
 
 		ret.setEnabled(t.isEnabled());
+		ret.setTracerId(t.getTracerId());
 		ret.setProducerId(t.getProducerId());
 		ret.setEntryCount(t.getEntryCount());
 		ret.setTotalEntryCount(t.getTotalEntryCount());
@@ -77,18 +78,18 @@ public class TracerAPIImpl extends AbstractMoskitoAPIImpl implements TracerAPI {
 	}
 
 	@Override
-	public List<TraceAO> getTraces(String producerId, TimeUnit timeUnit) throws APIException {
-		List<Trace> traces = TracerRepository.getInstance().getTraces(producerId);
+	public List<TraceAO> getTraces(String tracerId, TimeUnit timeUnit) throws APIException {
+		List<Trace> traces = TracerRepository.getInstance().getTraces(tracerId);
 		LinkedList<TraceAO> ret = new LinkedList<TraceAO>();
 
 		Journey producerJourney = null;
 
 		try {
 			producerJourney = journeyManager.getJourney(
-                    Tracers.getJourneyNameForTracers(producerId)
+                    Tracers.getJourneyNameForTracers(tracerId)
             );
 		} catch (NoSuchJourneyException e) {
-			log.debug("Failed to find journey for producer " + producerId +
+			log.debug("Failed to find journey for tracer " + tracerId +
 					". This may occur because producer is not traced yet. ", e);
 		}
 
@@ -121,17 +122,18 @@ public class TracerAPIImpl extends AbstractMoskitoAPIImpl implements TracerAPI {
 	}
 
 	@Override
-	public void removeTracer(String producerId) throws APIException {
-		TracerRepository.getInstance().removeTracer(producerId);
+	public void removeTracer(String tracerId) throws APIException {
+		TracerRepository.getInstance().removeTracer(tracerId);
+		journeyManager.removeJourney(Tracers.getJourneyNameForTracers(tracerId));
 	}
 
 	@Override
-	public void disableTracer(String producerId) throws APIException {
-		TracerRepository.getInstance().disableTrackingForProducerId(producerId);
+	public void disableTracer(String tracerId) throws APIException {
+		TracerRepository.getInstance().disableTracer(tracerId);
 	}
 
 	@Override
-	public void enableTracer(String producerId) throws APIException {
-		TracerRepository.getInstance().enableTracingForProducerId(producerId);
+	public void enableTracer(String tracerId) throws APIException {
+		TracerRepository.getInstance().enableTracer(tracerId);
 	}
 }

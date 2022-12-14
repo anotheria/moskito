@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class RemovePluginAction extends BasePluginAction {
 	@Override
-	public ActionCommand execute(ActionMapping mapping, FormBean formBean, HttpServletRequest req, HttpServletResponse res) throws Exception {
+	public ActionCommand execute(ActionMapping mapping, HttpServletRequest req, HttpServletResponse res) throws Exception {
 		String pluginName = req.getParameter("pPluginName");
 		getAdditionalFunctionalityAPI().removePlugin(pluginName);
 		return mapping.redirect();

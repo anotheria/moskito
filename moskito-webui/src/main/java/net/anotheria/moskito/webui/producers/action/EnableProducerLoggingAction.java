@@ -18,7 +18,7 @@ import java.net.URLEncoder;
  */
 public class EnableProducerLoggingAction extends BaseMoskitoUIAction{
 	@Override
-	public ActionCommand execute(ActionMapping actionMapping, FormBean formBean, HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws Exception {
+	public ActionCommand execute(ActionMapping actionMapping,  HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws Exception {
 		String producerId = getProducerIdParameter(httpServletRequest);
 		getProducerAPI().enableLogging(producerId);
 		httpServletResponse.sendRedirect("mskShowProducer?"+PARAM_PRODUCER_ID+ '=' + URLEncoder.encode(producerId, "UTF-8"));

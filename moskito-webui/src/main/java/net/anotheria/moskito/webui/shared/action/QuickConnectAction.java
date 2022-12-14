@@ -31,7 +31,7 @@ public class QuickConnectAction extends BaseMoskitoUIAction {
 	}
 
 	@Override
-	public ActionCommand execute(ActionMapping mapping, FormBean formBean, HttpServletRequest req, HttpServletResponse res) throws Exception {
+	public ActionCommand execute(ActionMapping mapping, HttpServletRequest req, HttpServletResponse res) throws Exception {
 		String server = req.getParameter("pServerName");
 		if (server==null || server.length()==0)
 			throw new IllegalArgumentException("Server name can't be null or empty.");

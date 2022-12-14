@@ -15,9 +15,9 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class EnableTracerAction extends BaseTracersAction{
 	@Override
-	public ActionCommand execute(ActionMapping actionMapping, FormBean formBean, HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws Exception {
-		String producerId = httpServletRequest.getParameter(PARAM_PRODUCER_ID);
-		getTracerAPI().enableTracer(producerId);
+	public ActionCommand execute(ActionMapping actionMapping, HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws Exception {
+		String tracerId = httpServletRequest.getParameter(PARAM_TRACER_ID);
+		getTracerAPI().enableTracer(tracerId);
 		return actionMapping.redirect();
 	}
 }
