@@ -7,12 +7,15 @@ import net.anotheria.moskito.core.util.IOUtils;
 import net.anotheria.moskito.extensions.notificationtemplate.ThresholdAlertTemplate;
 import net.anotheria.util.StringUtils;
 import org.glassfish.jersey.client.ClientConfig;
+import org.glassfish.jersey.client.ClientResponse;
 import org.glassfish.jersey.client.authentication.HttpAuthenticationFeature;
+import org.glassfish.jersey.internal.util.collection.MultivaluedStringMap;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
+import javax.ws.rs.client.Entity;
 import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.MediaType;
 import java.util.ArrayList;
@@ -129,7 +132,7 @@ public class MailgunNotificationProvider implements NotificationProvider {
         try {
             WebTarget webResource = client.target("https://api.mailgun.net/v2/moskito.org/messages");
 
-            MultivaluedMapImpl formData = new MultivaluedMapImpl();
+            MultivaluedStringMap formData = new MultivaluedStringMap();
             formData.add("from", "MoSKito Alerts <moskito-alert@moskito.org>");
             for (String r : recipients) {
                 formData.add("to", r);
@@ -147,7 +150,8 @@ public class MailgunNotificationProvider implements NotificationProvider {
             }
 
                 try {
-                    ClientResponse response = webResource.type(MediaType.APPLICATION_FORM_URLENCODED).post(ClientResponse.class, formData);
+                    ClientResponse response = webResource.request().post(Entity.entity(formData, MediaType.APPLICATION_FORM_URLENCODED)
+                            , ClientResponse.class);
 
                     if (response.getStatus() != 200) {
                         log.warn("Couldn't send email, status expected 200, got " + response.getStatus());
