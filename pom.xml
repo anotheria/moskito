@@ -25,7 +25,7 @@
 	</modules>
 
 	<properties>
-		<jersey-version>2.27</jersey-version>
+		<jersey-version>2.38</jersey-version>
         <source-version>1.8</source-version>
         <target-version>1.8</target-version>
 		<aspectj.version>1.8.7</aspectj.version>
