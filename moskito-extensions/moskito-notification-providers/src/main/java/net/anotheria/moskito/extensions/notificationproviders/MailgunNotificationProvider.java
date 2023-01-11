@@ -1,19 +1,22 @@
 package net.anotheria.moskito.extensions.notificationproviders;
 
-import com.sun.jersey.api.client.Client;
-import com.sun.jersey.api.client.ClientResponse;
-import com.sun.jersey.api.client.WebResource;
-import com.sun.jersey.api.client.filter.HTTPBasicAuthFilter;
-import com.sun.jersey.core.util.MultivaluedMapImpl;
 import net.anotheria.moskito.core.config.thresholds.NotificationProviderConfig;
 import net.anotheria.moskito.core.threshold.alerts.NotificationProvider;
 import net.anotheria.moskito.core.threshold.alerts.ThresholdAlert;
 import net.anotheria.moskito.core.util.IOUtils;
 import net.anotheria.moskito.extensions.notificationtemplate.ThresholdAlertTemplate;
 import net.anotheria.util.StringUtils;
+import org.glassfish.jersey.client.ClientConfig;
+import org.glassfish.jersey.client.ClientResponse;
+import org.glassfish.jersey.client.authentication.HttpAuthenticationFeature;
+import org.glassfish.jersey.internal.util.collection.MultivaluedStringMap;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.ws.rs.client.Client;
+import javax.ws.rs.client.ClientBuilder;
+import javax.ws.rs.client.Entity;
+import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.MediaType;
 import java.util.ArrayList;
 
@@ -84,8 +87,6 @@ public class MailgunNotificationProvider implements NotificationProvider {
      * Creates a new MailgunNotificationProvider.
      */
     public MailgunNotificationProvider() {
-        client = Client.create();
-
         String anApiKey = System.getProperty(SYSTEM_PROPERTY_API_KEY);
         if (anApiKey == null) {
             log.info("Using default api key, set -D" + SYSTEM_PROPERTY_API_KEY + "=<api_key> if you want to use own key");
@@ -95,7 +96,12 @@ public class MailgunNotificationProvider implements NotificationProvider {
         apiKey = anApiKey;
         sender = System.getProperty(SYSTEM_PROPERTY_SENDER, DEFAULT_SENDER);
         log.debug("Sender is " + sender);
-        client.addFilter(new HTTPBasicAuthFilter("api", apiKey));
+
+        ClientConfig config = new ClientConfig();
+        HttpAuthenticationFeature feature = HttpAuthenticationFeature.basicBuilder().nonPreemptive().credentials("api", anApiKey).build();
+        config.register(feature);
+        client = ClientBuilder.newClient(config);
+
 
     }
 
@@ -124,9 +130,9 @@ public class MailgunNotificationProvider implements NotificationProvider {
         String subject = "Threshold alert: " + alert;
 
         try {
-            WebResource webResource = client.resource("https://api.mailgun.net/v2/moskito.org/messages");
+            WebTarget webResource = client.target("https://api.mailgun.net/v2/moskito.org/messages");
 
-            MultivaluedMapImpl formData = new MultivaluedMapImpl();
+            MultivaluedStringMap formData = new MultivaluedStringMap();
             formData.add("from", "MoSKito Alerts <moskito-alert@moskito.org>");
             for (String r : recipients) {
                 formData.add("to", r);
@@ -144,7 +150,8 @@ public class MailgunNotificationProvider implements NotificationProvider {
             }
 
                 try {
-                    ClientResponse response = webResource.type(MediaType.APPLICATION_FORM_URLENCODED).post(ClientResponse.class, formData);
+                    ClientResponse response = webResource.request().post(Entity.entity(formData, MediaType.APPLICATION_FORM_URLENCODED)
+                            , ClientResponse.class);
 
                     if (response.getStatus() != 200) {
                         log.warn("Couldn't send email, status expected 200, got " + response.getStatus());

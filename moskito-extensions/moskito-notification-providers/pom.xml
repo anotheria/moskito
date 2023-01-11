@@ -3,21 +3,20 @@
   <parent>
 	<groupId>net.anotheria</groupId>
 	<artifactId>moskito</artifactId>
-	<version>3.1.1-SNAPSHOT</version>
+	<version>3.2.2-SNAPSHOT</version>
 	<relativePath>../../pom.xml</relativePath>
   </parent>
 
   <modelVersion>4.0.0</modelVersion>
   <artifactId>moskito-notification-providers</artifactId>
-  <version>3.1.1-SNAPSHOT</version>
+  <version>3.2.2-SNAPSHOT</version>
   <name>notification providers</name>
 
   <dependencies>
       <!-- needed for mailgun -->
       <dependency>
-          <groupId>com.sun.jersey</groupId>
+          <groupId>org.glassfish.jersey.core</groupId>
           <artifactId>jersey-client</artifactId>
-          <version>${jersey-version}</version>
       </dependency>
       <dependency>
 		<groupId>net.anotheria</groupId>
