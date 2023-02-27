@@ -5,7 +5,7 @@ import net.anotheria.moskito.webui.shared.bean.NaviItem;
 import net.anotheria.moskito.webui.threads.api.ThreadAPI;
 import net.anotheria.moskito.webui.util.APILookupUtility;
 
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 
 /**
  * Base threads action.

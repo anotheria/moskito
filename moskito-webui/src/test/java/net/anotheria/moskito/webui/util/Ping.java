@@ -1,11 +1,11 @@
 package net.anotheria.moskito.webui.util;
 
+import jakarta.servlet.http.HttpSessionContext;
 import net.anotheria.anoplass.api.APIException;
 import net.anotheria.moskito.webui.MoSKitoWebUIContext;
 
-import javax.servlet.ServletContext;
-import javax.servlet.http.HttpSession;
-import javax.servlet.http.HttpSessionContext;
+import jakarta.servlet.ServletContext;
+import jakarta.servlet.http.HttpSession;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
@@ -79,7 +79,7 @@ public class Ping {
 		}
 
 		@Override
-		public Object getValue(String name) {
+		public Object getValue(String s) {
 			return null;
 		}
 
@@ -99,7 +99,7 @@ public class Ping {
 		}
 
 		@Override
-		public void putValue(String name, Object value) {
+		public void putValue(String s, Object o) {
 
 		}
 
@@ -109,7 +109,7 @@ public class Ping {
 		}
 
 		@Override
-		public void removeValue(String name) {
+		public void removeValue(String s) {
 
 		}
 

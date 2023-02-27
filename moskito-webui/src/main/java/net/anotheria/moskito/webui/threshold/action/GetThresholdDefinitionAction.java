@@ -5,12 +5,11 @@ import com.google.gson.GsonBuilder;
 import net.anotheria.maf.action.Action;
 import net.anotheria.maf.action.ActionCommand;
 import net.anotheria.maf.action.ActionMapping;
-import net.anotheria.maf.bean.FormBean;
 import net.anotheria.moskito.webui.threshold.api.ThresholdDefinitionAO;
 import net.anotheria.moskito.webui.util.APILookupUtility;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 
 /**
  * This action returns the threshold definition for a threshold as json object.

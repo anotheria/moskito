@@ -3,7 +3,6 @@ package net.anotheria.moskito.webui.dashboards.action;
 import net.anotheria.anoplass.api.APIException;
 import net.anotheria.maf.action.ActionCommand;
 import net.anotheria.maf.action.ActionMapping;
-import net.anotheria.maf.bean.FormBean;
 import net.anotheria.moskito.core.config.dashboards.DashboardConfig;
 import net.anotheria.moskito.core.config.dashboards.DashboardWidget;
 import net.anotheria.moskito.core.config.thresholds.GuardConfig;
@@ -21,8 +20,8 @@ import net.anotheria.moskito.webui.threshold.bean.ThresholdStatusBean;
 import net.anotheria.moskito.webui.util.WebUIConfig;
 import net.anotheria.util.StringUtils;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;

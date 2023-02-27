@@ -2,7 +2,7 @@ package net.anotheria.moskito.webui.shared.resource.adapters;
 
 import net.anotheria.moskito.core.decorators.value.StatValueAO;
 
-import javax.xml.bind.annotation.adapters.XmlAdapter;
+import jakarta.xml.bind.annotation.adapters.XmlAdapter;
 
 /**
  * {@link XmlAdapter} adapter used for marshaling {@link StatValueAO}'s raw value to {@link String}.

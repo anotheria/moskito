@@ -5,8 +5,8 @@ import net.anotheria.moskito.core.registry.ProducerRegistryFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.servlet.ServletContextEvent;
-import javax.servlet.ServletContextListener;
+import jakarta.servlet.ServletContextEvent;
+import jakarta.servlet.ServletContextListener;
 
 /**
  * Configures preconfigured accumulators and adds them to the running app.

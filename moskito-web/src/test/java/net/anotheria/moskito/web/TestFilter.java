@@ -1,7 +1,7 @@
 package net.anotheria.moskito.web;
 
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
+import jakarta.servlet.ServletRequest;
+import jakarta.servlet.ServletResponse;
 
 public class TestFilter extends MoskitoFilter{
 

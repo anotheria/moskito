@@ -3,13 +3,12 @@ package net.anotheria.moskito.webui.journey.action;
 import net.anotheria.anoplass.api.APIException;
 import net.anotheria.maf.action.ActionCommand;
 import net.anotheria.maf.action.ActionMapping;
-import net.anotheria.maf.bean.FormBean;
 import net.anotheria.moskito.webui.journey.api.JourneyAO;
 import net.anotheria.moskito.webui.journey.api.JourneyListItemAO;
 import net.anotheria.util.NumberUtils;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 
 /**
  * The action displays a journey as a whole.

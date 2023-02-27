@@ -3,8 +3,8 @@ package net.anotheria.moskito.webui.embedded;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.servlet.ServletContextEvent;
-import javax.servlet.ServletContextListener;
+import jakarta.servlet.ServletContextEvent;
+import jakarta.servlet.ServletContextListener;
 
 /**
  * This listener can be used to start MoSKito Inspect in embedded mode in a webapp.

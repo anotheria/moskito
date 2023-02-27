@@ -5,7 +5,6 @@ import net.anotheria.maf.action.Action;
 import net.anotheria.maf.action.ActionCommand;
 import net.anotheria.maf.action.ActionMapping;
 import net.anotheria.maf.action.CommandRedirect;
-import net.anotheria.maf.bean.FormBean;
 import net.anotheria.moskito.webui.auth.AuthConstants;
 import net.anotheria.moskito.webui.auth.api.AuthApi;
 import net.anotheria.moskito.webui.auth.api.UserAO;
@@ -13,9 +12,9 @@ import net.anotheria.moskito.webui.util.APILookupUtility;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 
 public class SignInAction implements Action {
 

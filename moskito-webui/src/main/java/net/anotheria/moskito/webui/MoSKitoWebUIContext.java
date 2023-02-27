@@ -3,7 +3,7 @@ package net.anotheria.moskito.webui;
 import net.anotheria.moskito.core.stats.TimeUnit;
 import net.anotheria.moskito.webui.journey.api.AnalyzedProducerCallsAOSortType;
 
-import javax.servlet.http.HttpSession;
+import jakarta.servlet.http.HttpSession;
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;

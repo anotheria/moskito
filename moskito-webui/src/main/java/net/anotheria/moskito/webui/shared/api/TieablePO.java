@@ -2,7 +2,7 @@ package net.anotheria.moskito.webui.shared.api;
 
 import net.anotheria.maf.bean.FormBean;
 
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 import java.io.Serializable;
 
 /**

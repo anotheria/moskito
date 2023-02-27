@@ -3,9 +3,9 @@ package net.anotheria.moskito.webui.threshold.api;
 import net.anotheria.maf.bean.FormBean;
 import net.anotheria.moskito.webui.shared.api.TieablePO;
 
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 import java.io.Serializable;
-import javax.xml.bind.annotation.XmlRootElement;
+import jakarta.xml.bind.annotation.XmlRootElement;
 
 /**
  * This parameter object is used to create a new threshold.

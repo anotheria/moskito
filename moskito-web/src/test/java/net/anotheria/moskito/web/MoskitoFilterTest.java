@@ -2,7 +2,7 @@ package net.anotheria.moskito.web;
 
 import org.junit.Test;
 
-import javax.servlet.FilterConfig;
+import jakarta.servlet.FilterConfig;
 
 import static org.junit.Assert.assertEquals;
 

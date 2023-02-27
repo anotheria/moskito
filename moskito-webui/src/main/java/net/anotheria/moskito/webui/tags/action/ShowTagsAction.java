@@ -2,7 +2,6 @@ package net.anotheria.moskito.webui.tags.action;
 
 import net.anotheria.maf.action.ActionCommand;
 import net.anotheria.maf.action.ActionMapping;
-import net.anotheria.maf.bean.FormBean;
 import net.anotheria.moskito.core.config.MoskitoConfigurationHolder;
 import net.anotheria.moskito.core.config.tagging.CustomTagSource;
 import net.anotheria.moskito.webui.shared.action.BaseMoskitoUIAction;
@@ -10,8 +9,8 @@ import net.anotheria.moskito.webui.shared.bean.NaviItem;
 import net.anotheria.moskito.webui.tags.api.TagAO;
 import net.anotheria.moskito.webui.tags.bean.TagBean;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.List;
 

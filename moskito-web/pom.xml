@@ -26,11 +26,12 @@
 		<artifactId>moskito-core</artifactId>
 		<version>${project.version}</version>
 	</dependency>
-	<dependency>
-	    <groupId>javax.servlet</groupId>
-	    <artifactId>javax.servlet-api</artifactId>
-    	<scope>provided</scope>
-	</dependency>
+	  <dependency>
+		  <groupId>jakarta.servlet</groupId>
+		  <artifactId>jakarta.servlet-api</artifactId>
+		  <version>5.0.0</version>
+		  <scope>provided</scope>
+	  </dependency>
 	  <dependency>
 		  <groupId>org.mockito</groupId>
 		  <artifactId>mockito-core</artifactId>

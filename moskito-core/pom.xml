@@ -59,5 +59,10 @@
 		  <artifactId>commons-lang3</artifactId>
 		  <version>3.11</version>
 	  </dependency>
+      <dependency>
+          <groupId>jakarta.xml.bind</groupId>
+          <artifactId>jakarta.xml.bind-api</artifactId>
+          <version>3.0.1</version>
+      </dependency>
   </dependencies>
 </project>
