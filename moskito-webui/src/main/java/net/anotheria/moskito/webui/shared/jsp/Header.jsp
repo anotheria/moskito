@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html;charset=UTF-8" session="true"
     %><%@ taglib uri="http://www.anotheria.net/ano-tags" prefix="ano"
-    %><%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="core"
+    %><%@ taglib uri="jakarta.tags.core" prefix="core"
     %><%@ page isELIgnored="false" %>
 <%@ taglib uri="http://www.moskito.org/inspect/tags" prefix="mos" %>
 <head>
