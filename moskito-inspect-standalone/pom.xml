@@ -93,7 +93,7 @@
 		<plugins>
 			<plugin>
 				<artifactId>maven-war-plugin</artifactId>
-				<version>2.1</version>
+				<version>3.3.2</version>
 				<configuration>
 					<warName>moskito</warName>
 					<webResources>
