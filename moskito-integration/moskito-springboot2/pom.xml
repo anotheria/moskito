@@ -3,12 +3,12 @@
     <parent>
         <groupId>net.anotheria</groupId>
 		    <artifactId>moskito-integration</artifactId>
-        <version>3.2.3-SNAPSHOT</version>
+        <version>3.2.3</version>
     </parent>
 
     <modelVersion>4.0.0</modelVersion>
     <artifactId>moskito-springboot2</artifactId>
-    <version>3.2.3-SNAPSHOT</version>
+    <version>3.2.3</version>
     <name>moskito springboot 2 integration</name>
 
     <dependencies>
