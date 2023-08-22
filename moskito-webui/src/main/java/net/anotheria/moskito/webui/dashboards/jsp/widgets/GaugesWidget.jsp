@@ -85,6 +85,6 @@
             type: 'GaugeChart'
         };
 
-        chartEngineIniter.init(chartParams);
+        chartEngineIniterV2.init(chartParams);
     });
 </script>
