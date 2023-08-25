@@ -56,8 +56,7 @@
 <script type="text/javascript" src="../moskito/int/js/function.js"></script>
 <script type="text/javascript" src="../moskito/ext/d3/d3.min.js" charset="utf-8"></script>
 
-<script type="text/javascript" src="../moskito/ext/chart.js-2.8.0/chart.js_2.8.0_Chart.bundle.min.js" charset="utf-8"></script>
-<script type="text/javascript" src="../moskito/ext/chart.js-plugins/chartjs-gauge_0.3.0.js" charset="utf-8"></script>
+<script type="text/javascript" src="../moskito/ext/chart.js/chart.js-v4.4.0.umd.min.js"></script>
 
 <script type="text/javascript" src="../moskito/int/js/chartEngineIniter.js?v=5"></script>
 <script type="text/javascript" src="../moskito/int/js/chartEngineIniterV2.js?v=5"></script>

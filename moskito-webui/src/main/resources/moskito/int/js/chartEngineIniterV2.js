@@ -3,38 +3,18 @@ var chartEngineIniterV2 = {
 
         $('#' + params.container).empty();
 
-        const d3ChartV2 = D3chartV2.getInstance();
-        d3ChartV2("#" + params.container, params);
+        const JsChartInstance = JsChart.getInstance();
+        JsChartInstance("#" + params.container, params);
 
     }
 };
 
-var D3chartV2 = (function () {
+var JsChart = (function () {
     var instance;
 
     var gaugeChart = function () {
         var _gauges = {};
         function Gauge(placeholderSelector, configuration) {
-
-            var randomScalingFactor = function () {
-                return Math.round(Math.random() * 100);
-            };
-
-            var randomData = function () {
-                return [
-                    randomScalingFactor(),
-                    randomScalingFactor(),
-                    randomScalingFactor(),
-                    randomScalingFactor()
-                ];
-            };
-
-            var randomValue = function (data) {
-                return Math.max.apply(null, data) * Math.random();
-            };
-
-            var data = randomData();
-            var value = randomValue(data);
 
             var zoneColours = {
                 "green": "#109618",
@@ -43,42 +23,91 @@ var D3chartV2 = (function () {
                 "red": "#DC3912"
             };
 
-            var config = {
-                type: 'gauge',
-                data: {
-                    labels: ['Success', 'Warning', 'Warning', 'Error'],
-                    datasets: [{
-                        data: data,
-                        value: value,
-                        backgroundColor: [zoneColours.green, zoneColours.yellow, zoneColours.orange, zoneColours.red],
-                        borderWidth: 2
-                    }]
-                },
+            // setup
+            const data = {
+                datasets: [{
+                    label: configuration.caption,
+                    data: [33,33,33],
+                    backgroundColor: [
+                        'rgba(255, 26, 104, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(255, 159, 64, 0.2)',
+                        'rgba(0, 0, 0, 0.2)'
+                    ],
+                    borderColor: [
+                        'rgba(255, 26, 104, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)',
+                        'rgba(255, 159, 64, 1)',
+                        'rgba(0, 0, 0, 1)'
+                    ],
+                    borderWidth: 1,
+                    rotation: 2/3 * 360,
+                    circumference: 4/6 * 360,
+                    needleValue: configuration.max !== 100 ? (configuration.current/configuration.max) * 100 : configuration.current,
+                    cutout: '85%',
+                }]
+            };
+
+            //plugins
+            const gaugeNeedle = {
+                id: 'gaugeNeedle',
+                afterDatasetsDraw(chart, args, plugins) {
+                    const { ctx, data } = chart;
+
+                    ctx.save();
+                    const needleValue = data.datasets[0].needleValue;
+                    const xCenter = chart.getDatasetMeta(0).data[0].x;
+                    const yCenter = chart.getDatasetMeta(0).data[0].y;
+                    const outerRadius = chart.getDatasetMeta(0).data[0].outerRadius - 6;
+                    const angle = Math.PI;
+
+                    const dataTotal = data.datasets[0].data.reduce((a,b) => a+b, 0);
+                    const needleValueAngle = (data.datasets[0].circumference / dataTotal) * needleValue + data.datasets[0].rotation;
+
+                    ctx.translate(xCenter, yCenter);
+                    ctx.rotate(needleValueAngle * Math.PI / 180);
+                    //Needle
+                    ctx.beginPath();
+                    ctx.strokeStyle = 'darkgrey';
+                    ctx.fillStyle = 'darkgrey';
+                    ctx.moveTo(0 - 5, 0);
+                    ctx.lineTo(0, - outerRadius);
+                    ctx.lineTo(0 + 5, 0);
+                    ctx.stroke();
+                    ctx.fill();
+
+                    //needle dot
+                    ctx.beginPath();
+                    ctx.arc(0, 0, 10, angle * 0, angle * 2, false);
+                    ctx.fill();
+
+                    ctx.restore();
+                }
+            }
+
+            // config
+            const config = {
+                type: 'doughnut',
+                data,
                 options: {
                     responsive: true,
-                    title: {
-                        display: true,
-                        text: 'Gauge chart'
-                    },
-                    layout: {
-                        padding: {
-                            bottom: 30
+                    aspectRation: 1.8,
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                        tooltip: {
+                            enabled: false
                         }
-                    },
-                    needle: {
-                        // Needle circle radius as the percentage of the chart area width
-                        radiusPercentage: 2,
-                        // Needle width as the percentage of the chart area width
-                        widthPercentage: 3.2,
-                        // Needle length as the percentage of the interval between inner radius (0%) and outer radius (100%) of the arc
-                        lengthPercentage: 80,
-                        // The color of the needle
-                        color: 'rgba(0, 0, 240, 1)'
-                    },
-                    valueLabel: {
-                        formatter: Math.round
                     }
-                }
+                },
+                plugins: [gaugeNeedle]
             };
 
             const $canvas = $('<canvas></canvas>').attr('id', configuration.id);
@@ -106,6 +135,8 @@ var D3chartV2 = (function () {
 
         return (gaugeChart = function (container, params) {
             var d = params.data;
+
+            console.log('params: ' + JSON.stringify(params));
 
             var config = {
                 id: params.container,
