@@ -16,41 +16,51 @@ var JsChart = (function () {
         var _gauges = {};
         function Gauge(placeholderSelector, configuration) {
 
-            var zoneColours = {
-                "green": "#109618",
-                "yellow": "#FFFF00",
-                "orange": "#FF9900",
-                "red": "#DC3912"
+            const zoneColours = {
+                "green": "rgba(16, 150, 24, .9)",
+                "yellow": "rgba(255, 255, 0, .9)",
+                "orange": "rgba(255, 153, 0, .9)",
+                "red": "rgba(220, 57, 18, .9)"
+            };
+
+            const dataFrom = (anyData) => {
+                const data = {data:[]};
+                data.backgroundColor = ['rgba(0, 0, 0, 0.1)'];
+
+                const min = anyData.min ? anyData.min : 0;
+                const max = anyData.max ? anyData.max : 100;
+                if (!anyData.zones || anyData.zones.lenght === 0) {
+                    data.data.push(max);
+                } else {
+                    const interval = max - min;
+                    anyData.zones.forEach((zone, index) => {
+
+                        if(index===0 && zone.from!==0) data.data.push(interval * zone.from);
+                        if(index===0 && zone.from===0) {
+                            data.data.push(interval * zone.to);
+                            data.backgroundColor = [];
+                        } else {
+                            const dataPoint = interval * (zone.to - zone.from);
+                            data.data.push(dataPoint);
+                        }
+                        data.backgroundColor.push(zoneColours[zone.color]);
+                    })
+                }
+
+                data.min = min;
+                data.max = max;
+                data.needleValue = anyData.current;
+                return data;
             };
 
             // setup
             const data = {
                 datasets: [{
-                    label: configuration.caption,
-                    data: [33,33,33],
-                    backgroundColor: [
-                        'rgba(255, 26, 104, 0.2)',
-                        'rgba(54, 162, 235, 0.2)',
-                        'rgba(255, 206, 86, 0.2)',
-                        'rgba(75, 192, 192, 0.2)',
-                        'rgba(153, 102, 255, 0.2)',
-                        'rgba(255, 159, 64, 0.2)',
-                        'rgba(0, 0, 0, 0.2)'
-                    ],
-                    borderColor: [
-                        'rgba(255, 26, 104, 1)',
-                        'rgba(54, 162, 235, 1)',
-                        'rgba(255, 206, 86, 1)',
-                        'rgba(75, 192, 192, 1)',
-                        'rgba(153, 102, 255, 1)',
-                        'rgba(255, 159, 64, 1)',
-                        'rgba(0, 0, 0, 1)'
-                    ],
-                    borderWidth: 1,
+                    label: 'Weekly Sales',
                     rotation: 2/3 * 360,
                     circumference: 4/6 * 360,
-                    needleValue: configuration.max !== 100 ? (configuration.current/configuration.max) * 100 : configuration.current,
                     cutout: '85%',
+                    ...dataFrom(configuration)
                 }]
             };
 
@@ -67,7 +77,8 @@ var JsChart = (function () {
                     const outerRadius = chart.getDatasetMeta(0).data[0].outerRadius - 6;
                     const angle = Math.PI;
 
-                    const dataTotal = data.datasets[0].data.reduce((a,b) => a+b, 0);
+                    //const dataTotal = data.datasets[0].data.reduce((a,b) => a+b, 0);
+                    const dataTotal = data.datasets[0].max - data.datasets[0].min;
                     const needleValueAngle = (data.datasets[0].circumference / dataTotal) * needleValue + data.datasets[0].rotation;
 
                     ctx.translate(xCenter, yCenter);
@@ -76,15 +87,15 @@ var JsChart = (function () {
                     ctx.beginPath();
                     ctx.strokeStyle = 'darkgrey';
                     ctx.fillStyle = 'darkgrey';
-                    ctx.moveTo(0 - 5, 0);
-                    ctx.lineTo(0, - outerRadius);
-                    ctx.lineTo(0 + 5, 0);
+                    ctx.moveTo(-5, 0);
+                    ctx.lineTo(0, -outerRadius);
+                    ctx.lineTo(+5, 0);
                     ctx.stroke();
                     ctx.fill();
 
                     //needle dot
                     ctx.beginPath();
-                    ctx.arc(0, 0, 10, angle * 0, angle * 2, false);
+                    ctx.arc(0, 0, 10, 0, angle * 2, false);
                     ctx.fill();
 
                     ctx.restore();
@@ -141,7 +152,6 @@ var JsChart = (function () {
             var config = {
                 id: params.container,
                 complete: d.complete,
-                size: 160,
                 label: d.name,
                 caption: d.caption,
                 min: undefined != d.min ? d.min : 0,
