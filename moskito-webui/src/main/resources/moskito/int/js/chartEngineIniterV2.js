@@ -65,21 +65,20 @@ var JsChart = (function () {
             };
 
             //plugins
+            //plugins
             const gaugeNeedle = {
                 id: 'gaugeNeedle',
-                afterDatasetsDraw(chart, args, plugins) {
+                afterDatasetsDraw: function (chart, args, plugins) {
                     const { ctx, data } = chart;
-
                     ctx.save();
-                    const needleValue = data.datasets[0].needleValue;
-                    const xCenter = chart.getDatasetMeta(0).data[0].x;
-                    const yCenter = chart.getDatasetMeta(0).data[0].y;
-                    const outerRadius = chart.getDatasetMeta(0).data[0].outerRadius - 6;
-                    const angle = Math.PI;
 
-                    //const dataTotal = data.datasets[0].data.reduce((a,b) => a+b, 0);
-                    const dataTotal = data.datasets[0].max - data.datasets[0].min;
-                    const needleValueAngle = (data.datasets[0].circumference / dataTotal) * needleValue + data.datasets[0].rotation;
+                    const dataset = data.datasets[0], metaData = chart.getDatasetMeta(0).data[0],
+                        needleValue = dataset.needleValue,
+                        xCenter = metaData.x,
+                        yCenter = metaData.y,
+                        outerRadius = metaData.outerRadius - 6,
+                        dataTotal = dataset.max - dataset.min,
+                        needleValueAngle = (dataset.circumference / dataTotal) * needleValue + dataset.rotation;
 
                     ctx.translate(xCenter, yCenter);
                     ctx.rotate(needleValueAngle * Math.PI / 180);
@@ -89,14 +88,38 @@ var JsChart = (function () {
                     ctx.fillStyle = 'darkgrey';
                     ctx.moveTo(-5, 0);
                     ctx.lineTo(0, -outerRadius);
-                    ctx.lineTo(+5, 0);
+                    ctx.lineTo(5, 0);
                     ctx.stroke();
                     ctx.fill();
 
                     //needle dot
                     ctx.beginPath();
-                    ctx.arc(0, 0, 10, 0, angle * 2, false);
+                    ctx.arc(0, 0, 10, 0, Math.PI * 2, false);
                     ctx.fill();
+
+                    ctx.restore();
+                }
+            }
+
+            const gaugeLabels = {
+                id: 'gaugeLabels',
+                afterDatasetsDraw: (chart, args, plugins) => {
+                    const { ctx } = chart;
+                    ctx.save();
+
+                    const metaData = chart.getDatasetMeta(0).data[0], dataset = data.datasets[0],
+                        xCenter = metaData.x, yCenter = metaData.y,
+                        outerRadius = metaData.outerRadius,
+                        innerRadius = metaData.innerRadius,
+                        widthSlice = (outerRadius - innerRadius) / 2;
+
+                    ctx.translate(xCenter, yCenter);
+                    ctx.font = '15px sans-serif';
+                    ctx.fillStyle = 'black';
+                    ctx.textAlign = 'center';
+                    ctx.fillText(dataset.min, -(innerRadius + widthSlice), 90);
+                    ctx.fillText(dataset.max, innerRadius +  widthSlice, 90);
+                    ctx.fillText(dataset.needleValue, 0, 90);
 
                     ctx.restore();
                 }
@@ -118,7 +141,7 @@ var JsChart = (function () {
                         }
                     }
                 },
-                plugins: [gaugeNeedle]
+                plugins: [gaugeNeedle, gaugeLabels]
             };
 
             const $canvas = $('<canvas></canvas>').attr('id', configuration.id);
