@@ -3,13 +3,13 @@
   <parent>
 	<groupId>net.anotheria</groupId>
 	<artifactId>moskito</artifactId>
-	<version>3.2.4</version>
+	<version>3.2.5-SNAPSHOT</version>
 	<relativePath>../../pom.xml</relativePath>
   </parent>
 
   <modelVersion>4.0.0</modelVersion>
   <artifactId>moskito-sampling-api</artifactId>
-  <version>3.2.4</version>
+  <version>3.2.5-SNAPSHOT</version>
   <name>sampling api</name>
 
   <dependencies>
