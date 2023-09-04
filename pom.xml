@@ -32,7 +32,7 @@
 		<aspectj-maven-plugin.version>1.8</aspectj-maven-plugin.version>
 		<aspectj-maven-plugin.complianceLevel>1.8</aspectj-maven-plugin.complianceLevel>
 		<moskito-webui-version>${project.version}</moskito-webui-version>
-		<distributeme.version>2.3.10</distributeme.version>
+		<distributeme.version>2.5.1</distributeme.version>
 		<moskitoplugins-version>1.0.0-SNAPSHOT</moskitoplugins-version>
 	</properties>
 
