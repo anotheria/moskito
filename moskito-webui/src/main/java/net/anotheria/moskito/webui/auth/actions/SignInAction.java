@@ -5,7 +5,6 @@ import net.anotheria.maf.action.Action;
 import net.anotheria.maf.action.ActionCommand;
 import net.anotheria.maf.action.ActionMapping;
 import net.anotheria.maf.action.CommandRedirect;
-import net.anotheria.maf.bean.FormBean;
 import net.anotheria.moskito.webui.auth.AuthConstants;
 import net.anotheria.moskito.webui.auth.api.AuthApi;
 import net.anotheria.moskito.webui.auth.api.UserAO;

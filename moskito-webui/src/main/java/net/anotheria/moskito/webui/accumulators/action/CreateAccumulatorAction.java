@@ -3,7 +3,6 @@ package net.anotheria.moskito.webui.accumulators.action;
 import net.anotheria.anoplass.api.APIException;
 import net.anotheria.maf.action.ActionCommand;
 import net.anotheria.maf.action.ActionMapping;
-import net.anotheria.maf.bean.FormBean;
 import net.anotheria.moskito.webui.accumulators.api.AccumulatorPO;
 
 import javax.servlet.http.HttpServletRequest;

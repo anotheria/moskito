@@ -1,7 +1,6 @@
 package net.anotheria.moskito.webui.more.action;
 
 import net.anotheria.maf.action.ActionMapping;
-import net.anotheria.maf.bean.FormBean;
 import net.anotheria.maf.json.JSONResponse;
 import net.anotheria.moskito.core.config.KillSwitchConfiguration;
 import net.anotheria.moskito.webui.shared.action.BaseAJAXMoskitoUIAction;

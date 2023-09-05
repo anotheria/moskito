@@ -37,7 +37,6 @@ package net.anotheria.moskito.webui.producers.action;
 import net.anotheria.anoplass.api.APIException;
 import net.anotheria.maf.action.ActionCommand;
 import net.anotheria.maf.action.ActionMapping;
-import net.anotheria.maf.bean.FormBean;
 import net.anotheria.moskito.core.decorators.value.DoubleValueAO;
 import net.anotheria.moskito.core.decorators.value.LongValueAO;
 import net.anotheria.moskito.core.decorators.value.StatValueAO;

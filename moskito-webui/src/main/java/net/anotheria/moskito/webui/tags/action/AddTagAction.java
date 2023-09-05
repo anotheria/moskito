@@ -2,7 +2,6 @@ package net.anotheria.moskito.webui.tags.action;
 
 import net.anotheria.maf.action.ActionCommand;
 import net.anotheria.maf.action.ActionMapping;
-import net.anotheria.maf.bean.FormBean;
 import net.anotheria.moskito.core.config.MoskitoConfigurationHolder;
 import net.anotheria.moskito.core.config.tagging.CustomTag;
 import net.anotheria.moskito.core.config.tagging.TaggingConfig;
