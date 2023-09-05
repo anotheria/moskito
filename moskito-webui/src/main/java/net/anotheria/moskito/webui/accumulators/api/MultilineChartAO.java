@@ -1,6 +1,5 @@
 package net.anotheria.moskito.webui.accumulators.api;
 
-//import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.apache.commons.lang.StringUtils;
 import org.json.JSONArray;
