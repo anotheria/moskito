@@ -56,9 +56,12 @@ public class BuiltInOSProducer extends AbstractBuiltInProducer implements IStats
 	private static final int BITS_TO_BYTES_FACTOR = 1024;
 
 	/**
-	 * If true indicates.
+	 * If true indicates that the OS is unix.
 	 */
 	private final boolean isUnixOS = SystemUtils.IS_OS_UNIX;
+	/**
+	 * If true indicates that the OS is windows.
+	 */
 	private final boolean isWindowsOS = SystemUtils.IS_OS_WINDOWS;
 
 	/**

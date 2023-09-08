@@ -15,9 +15,21 @@ import net.anotheria.moskito.core.producers.IStatsProducer;
  */
 public class SimpleStatsProducer<S extends IStats> implements IStatsProducer<S>, Inspectable {
 
+    /**
+     * The id of the producer.
+     */
     private final String producerId;
+    /**
+     * The subsystem of the producer.
+     */
     private final String subsystem;
+    /**
+     * The category of the producer.
+     */
     private final String category;
+    /**
+     * The list of {@link IStats}.
+     */
     private final List<S> statsList;
     /**
      * {@link CreationInfo} object initialized on startup.
