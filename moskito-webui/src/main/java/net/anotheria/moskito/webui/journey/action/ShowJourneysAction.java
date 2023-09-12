@@ -2,7 +2,6 @@ package net.anotheria.moskito.webui.journey.action;
 
 import net.anotheria.maf.action.ActionCommand;
 import net.anotheria.maf.action.ActionMapping;
-import net.anotheria.maf.bean.FormBean;
 import net.anotheria.moskito.webui.journey.api.JourneyListItemAO;
 
 import javax.servlet.http.HttpServletRequest;

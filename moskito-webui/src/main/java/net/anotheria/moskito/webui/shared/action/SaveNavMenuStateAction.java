@@ -1,7 +1,6 @@
 package net.anotheria.moskito.webui.shared.action;
 
 import net.anotheria.maf.action.ActionMapping;
-import net.anotheria.maf.bean.FormBean;
 import net.anotheria.maf.json.JSONResponse;
 
 import javax.servlet.http.HttpServletRequest;

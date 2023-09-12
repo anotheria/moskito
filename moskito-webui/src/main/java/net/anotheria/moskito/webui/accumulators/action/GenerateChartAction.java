@@ -4,7 +4,6 @@ import net.anotheria.anoplass.api.APIException;
 import net.anotheria.maf.action.Action;
 import net.anotheria.maf.action.ActionCommand;
 import net.anotheria.maf.action.ActionMapping;
-import net.anotheria.maf.bean.FormBean;
 import net.anotheria.moskito.webui.accumulators.api.AccumulatedSingleGraphAO;
 import net.anotheria.moskito.webui.accumulators.api.AccumulatedValueAO;
 import net.anotheria.moskito.webui.accumulators.api.AccumulatorAPI;

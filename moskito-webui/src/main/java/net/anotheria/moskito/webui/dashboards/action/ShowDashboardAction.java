@@ -3,7 +3,6 @@ package net.anotheria.moskito.webui.dashboards.action;
 import net.anotheria.anoplass.api.APIException;
 import net.anotheria.maf.action.ActionCommand;
 import net.anotheria.maf.action.ActionMapping;
-import net.anotheria.maf.bean.FormBean;
 import net.anotheria.moskito.core.config.dashboards.DashboardConfig;
 import net.anotheria.moskito.core.config.dashboards.DashboardWidget;
 import net.anotheria.moskito.core.config.thresholds.GuardConfig;

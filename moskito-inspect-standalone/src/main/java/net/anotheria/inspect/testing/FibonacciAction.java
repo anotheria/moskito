@@ -3,7 +3,6 @@ package net.anotheria.inspect.testing;
 import net.anotheria.maf.action.Action;
 import net.anotheria.maf.action.ActionCommand;
 import net.anotheria.maf.action.ActionMapping;
-import net.anotheria.maf.bean.FormBean;
 import net.anotheria.moskito.aop.annotation.Monitor;
 
 import javax.servlet.http.HttpServletRequest;

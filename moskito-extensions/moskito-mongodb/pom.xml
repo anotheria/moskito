@@ -3,12 +3,12 @@
     <parent>
         <artifactId>moskito-extensions</artifactId>
         <groupId>net.anotheria</groupId>
-        <version>3.2.2-SNAPSHOT</version>
+        <version>3.2.7-SNAPSHOT</version>
     </parent>
 
     <modelVersion>4.0.0</modelVersion>
     <artifactId>moskito-mongodb</artifactId>
-    <version>3.2.2-SNAPSHOT</version>
+    <version>3.2.7-SNAPSHOT</version>
     <name>moskito mongodb monitoring</name>
 
     <dependencies>

@@ -5,7 +5,6 @@ import org.junit.Test;
 import javax.management.*;
 
 import java.lang.management.ManagementFactory;
-import java.util.Set;
 
 import static org.junit.Assert.*;
 
