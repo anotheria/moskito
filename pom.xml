@@ -26,11 +26,11 @@
 
 	<properties>
 		<jersey-version>2.38</jersey-version>
-        <source-version>1.8</source-version>
-        <target-version>1.8</target-version>
-		<aspectj.version>1.8.7</aspectj.version>
-		<aspectj-maven-plugin.version>1.8</aspectj-maven-plugin.version>
-		<aspectj-maven-plugin.complianceLevel>1.8</aspectj-maven-plugin.complianceLevel>
+        <source-version>11</source-version>
+        <target-version>11</target-version>
+		<aspectj.version>1.9.20</aspectj.version>
+		<aspectj-maven-plugin.version>1.14.0</aspectj-maven-plugin.version>
+		<aspectj-maven-plugin.complianceLevel>11</aspectj-maven-plugin.complianceLevel>
 		<moskito-webui-version>${project.version}</moskito-webui-version>
 		<distributeme.version>2.3.10</distributeme.version>
 		<moskitoplugins-version>1.0.0-SNAPSHOT</moskitoplugins-version>
@@ -152,6 +152,11 @@
 				<groupId>javax.ws.rs</groupId>
 				<artifactId>jsr311-api</artifactId>
 				<version>1.1.1</version>
+			</dependency>
+			<dependency>
+				<groupId>javax.xml.bind</groupId>
+				<artifactId>jaxb-api</artifactId>
+				<version>2.3.1</version>
 			</dependency>
 			<dependency>
 				<groupId>org.hamcrest</groupId>
