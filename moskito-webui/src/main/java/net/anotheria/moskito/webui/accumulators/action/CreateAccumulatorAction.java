@@ -4,6 +4,7 @@ import net.anotheria.anoplass.api.APIException;
 import net.anotheria.maf.action.ActionCommand;
 import net.anotheria.maf.action.ActionMapping;
 import net.anotheria.moskito.webui.accumulators.api.AccumulatorPO;
+import net.anotheria.moskito.webui.accumulators.api.AccumulatorPOHelper;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -15,7 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 public class CreateAccumulatorAction extends BaseAccumulatorsAction{
 	@Override
 	public ActionCommand execute(ActionMapping mapping, HttpServletRequest req, HttpServletResponse res) throws APIException{
-		AccumulatorPO po = AccumulatorPO.fromHttpServletRequest(req);
+		AccumulatorPO po = AccumulatorPOHelper.fromHttpServletRequest(req);
 		getAccumulatorAPI().createAccumulator(po);
 		return mapping.redirect().addParameter("newAccumulator", po.getName()).addParameter("pProducerId", po.getProducerId());
 	}
