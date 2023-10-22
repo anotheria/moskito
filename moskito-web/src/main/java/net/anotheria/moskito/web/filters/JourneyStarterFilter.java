@@ -6,6 +6,7 @@ import net.anotheria.moskito.core.calltrace.TracedCall;
 import net.anotheria.moskito.core.journey.Journey;
 import net.anotheria.moskito.core.journey.JourneyManager;
 import net.anotheria.moskito.core.journey.JourneyManagerFactory;
+import net.anotheria.moskito.core.journey.NoSuchJourneyException;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -63,15 +64,23 @@ public class JourneyStarterFilter implements Filter{
 		}
 
 
-		//start journey
-		Journey journey = journeyManager.createJourney(journeyName);
-		HttpSession session = req.getSession(false);
+		Journey journey = null;
 		JourneyRecord record = new JourneyRecord(journeyName);
+		try{
+			journeyManager.getJourney(journeyName);
+		}catch(NoSuchJourneyException e){
+//ok, journey doesn't exist, we have to create it.
+			journey = journeyManager.createJourney(journeyName);
+			//start journey
+			HttpSession session = req.getSession(false);
 
-		if (session!=null) {
-			session.setAttribute(JourneyFilter.SA_JOURNEY_RECORD, record);
+			if (session!=null) {
+				session.setAttribute(JourneyFilter.SA_JOURNEY_RECORD, record);
+			}
+
 		}
 
+		record = new JourneyRecord(journeyName);
 		String url = req.getServletPath();
 		if (req.getPathInfo()!=null)
 			url += req.getPathInfo();
