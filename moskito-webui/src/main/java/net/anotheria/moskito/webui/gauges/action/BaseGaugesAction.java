@@ -6,7 +6,7 @@ import net.anotheria.moskito.webui.shared.bean.NaviItem;
 import jakarta.servlet.http.HttpServletRequest;
 
 /**
- * TODO comment this class
+ * Base class for gauge handling.
  *
  * @author lrosenberg
  * @since 23.03.15 21:37

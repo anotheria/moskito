@@ -20,6 +20,9 @@ public final class AfterStartTasks {
 	 */
 	private static ScheduledExecutorService scheduledExecutorService;
 
+	/**
+	 * Logger.
+	 */
 	private static Logger log = LoggerFactory.getLogger(AfterStartTasks.class);
 
 	static{

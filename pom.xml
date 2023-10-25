@@ -32,7 +32,7 @@
 		<aspectj-maven-plugin.version>1.14.0</aspectj-maven-plugin.version>
 		<aspectj-maven-plugin.complianceLevel>11</aspectj-maven-plugin.complianceLevel>
 		<moskito-webui-version>${project.version}</moskito-webui-version>
-		<distributeme.version>2.3.10</distributeme.version>
+		<distributeme.version>2.5.1</distributeme.version>
 		<moskitoplugins-version>1.0.0-SNAPSHOT</moskitoplugins-version>
 	</properties>
 
@@ -47,7 +47,7 @@
 			<dependency>
 				<groupId>net.anotheria</groupId>
 				<artifactId>configureme</artifactId>
-				<version>2.4.1</version>
+				<version>2.5.1</version>
 			</dependency>
 			<dependency>
 				<groupId>net.anotheria</groupId>
@@ -72,7 +72,7 @@
 			<dependency>
 				<groupId>net.anotheria</groupId>
 				<artifactId>ano-plass</artifactId>
-				<version>2.1.4</version>
+				<version>2.1.6</version>
 			</dependency>
 			<dependency>
 				<groupId>net.anotheria</groupId>
