@@ -3,6 +3,7 @@ package net.anotheria.moskito.core.journey;
 import net.anotheria.moskito.core.calltrace.CurrentlyTracedCall;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -43,7 +44,7 @@ public class Journey {
 		name = aName;
 		createdTimestamp = System.currentTimeMillis();
 		active = true;
-		tracedCalls = new ArrayList<>();
+		tracedCalls = Collections.synchronizedList(new ArrayList<>());
 	}
 	
 	/**
@@ -94,23 +95,27 @@ public class Journey {
 	}
 
 	public void removeStepByName(String stepName){
-		for (int i=0; i<tracedCalls.size(); i++){
-			CurrentlyTracedCall ctc = tracedCalls.get(i);
-			if (ctc.getName().equals(stepName)){
-				tracedCalls.remove(i);
-				return;
-			}
+		synchronized (tracedCalls) {
+			for (int i=0; i<tracedCalls.size(); i++){
+				CurrentlyTracedCall ctc = tracedCalls.get(i);
+				if (ctc.getName().equals(stepName)){
+					tracedCalls.remove(i);
+					return;
+				}
 
+			}
 		}
 	}
 
 	public CurrentlyTracedCall getStepByName(String stepName){
-		for (int i=0; i<tracedCalls.size(); i++){
-			CurrentlyTracedCall ctc = tracedCalls.get(i);
-			if (ctc.getName().equals(stepName)){
-				return ctc;
-			}
+		synchronized (tracedCalls) {
+			for (int i=0; i<tracedCalls.size(); i++){
+				CurrentlyTracedCall ctc = tracedCalls.get(i);
+				if (ctc.getName().equals(stepName)){
+					return ctc;
+				}
 
+			}
 		}
 		return null;
 	}
