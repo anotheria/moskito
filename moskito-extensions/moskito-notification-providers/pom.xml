@@ -37,5 +37,10 @@
           <groupId>net.anotheria</groupId>
           <artifactId>ano-comm</artifactId>
       </dependency>
+      <dependency>
+          <groupId>jakarta.ws.rs</groupId>
+          <artifactId>jakarta.ws.rs-api</artifactId>
+          <version>3.0.0</version>
+      </dependency>
   </dependencies>
 </project>

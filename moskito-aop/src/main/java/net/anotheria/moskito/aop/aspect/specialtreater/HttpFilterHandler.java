@@ -17,7 +17,7 @@ public class HttpFilterHandler implements SpecialCaseHandler{
 
 		//this is special treater for http filter.
 		try {
-			Class requestClazz = Class.forName("javax.servlet.http.HttpServletRequest");
+			Class requestClazz = Class.forName("jakarta.servlet.http.HttpServletRequest");
 			Object requestObject = args[0];
 			if (!requestClazz.isInstance(requestObject))
 				return null;

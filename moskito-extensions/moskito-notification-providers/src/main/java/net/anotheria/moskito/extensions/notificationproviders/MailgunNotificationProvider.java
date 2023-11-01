@@ -1,23 +1,22 @@
 package net.anotheria.moskito.extensions.notificationproviders;
 
+import jakarta.ws.rs.client.Client;
+import jakarta.ws.rs.client.ClientBuilder;
+import jakarta.ws.rs.client.Entity;
+import jakarta.ws.rs.client.WebTarget;
+import jakarta.ws.rs.core.MediaType;
 import net.anotheria.moskito.core.config.thresholds.NotificationProviderConfig;
 import net.anotheria.moskito.core.threshold.alerts.NotificationProvider;
 import net.anotheria.moskito.core.threshold.alerts.ThresholdAlert;
 import net.anotheria.moskito.core.util.IOUtils;
 import net.anotheria.moskito.extensions.notificationtemplate.ThresholdAlertTemplate;
 import net.anotheria.util.StringUtils;
-import org.glassfish.jersey.client.ClientConfig;
 import org.glassfish.jersey.client.ClientResponse;
 import org.glassfish.jersey.client.authentication.HttpAuthenticationFeature;
 import org.glassfish.jersey.internal.util.collection.MultivaluedStringMap;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.ws.rs.client.Client;
-import javax.ws.rs.client.ClientBuilder;
-import javax.ws.rs.client.Entity;
-import javax.ws.rs.client.WebTarget;
-import javax.ws.rs.core.MediaType;
 import java.util.ArrayList;
 
 /**
@@ -97,11 +96,9 @@ public class MailgunNotificationProvider implements NotificationProvider {
         sender = System.getProperty(SYSTEM_PROPERTY_SENDER, DEFAULT_SENDER);
         log.debug("Sender is " + sender);
 
-        ClientConfig config = new ClientConfig();
         HttpAuthenticationFeature feature = HttpAuthenticationFeature.basicBuilder().nonPreemptive().credentials("api", anApiKey).build();
-        config.register(feature);
-        client = ClientBuilder.newClient(config);
-
+        client = ClientBuilder.newClient();
+        client.register(feature);
 
     }
 
