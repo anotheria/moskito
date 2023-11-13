@@ -4,7 +4,7 @@
 	<parent>
 		<groupId>net.anotheria</groupId>
 		<artifactId>parent</artifactId>
-		<version>3.0.0-SNAPSHOT</version>
+		<version>4.0-SNAPSHOT</version>
 	</parent>
 
 	<modelVersion>4.0.0</modelVersion>
@@ -32,7 +32,7 @@
 		<aspectj-maven-plugin.version>1.14.0</aspectj-maven-plugin.version>
 		<aspectj-maven-plugin.complianceLevel>11</aspectj-maven-plugin.complianceLevel>
 		<moskito-webui-version>${project.version}</moskito-webui-version>
-		<distributeme.version>2.5.2-SNAPSHOT</distributeme.version>
+		<distributeme.version>4.0.0-SNAPSHOT</distributeme.version>
 		<moskitoplugins-version>1.0.0-SNAPSHOT</moskitoplugins-version>
 	</properties>
 
@@ -47,17 +47,17 @@
 			<dependency>
 				<groupId>net.anotheria</groupId>
 				<artifactId>configureme</artifactId>
-				<version>2.6.1-SNAPSHOT</version>
+				<version>4.0.0-SNAPSHOT</version>
 			</dependency>
 			<dependency>
 				<groupId>net.anotheria</groupId>
 				<artifactId>ano-util</artifactId>
-				<version>2.2.2-SNAPSHOT</version>
+				<version>4.0.0-SNAPSHOT</version>
 			</dependency>
 			<dependency>
 				<groupId>net.anotheria</groupId>
 				<artifactId>ano-comm</artifactId>
-				<version>2.1.2-SNAPSHOT</version>
+				<version>4.0.0-SNAPSHOT</version>
 			</dependency>
 			<dependency>
 				<groupId>net.anotheria</groupId>
@@ -67,27 +67,27 @@
 			<dependency>
 				<groupId>net.anotheria</groupId>
 				<artifactId>ano-tags</artifactId>
-				<version>3.0.0-SNAPSHOT</version>
+				<version>4.0.0-SNAPSHOT</version>
 			</dependency>
 			<dependency>
 				<groupId>net.anotheria</groupId>
 				<artifactId>ano-plass</artifactId>
-				<version>3.0.0-SNAPSHOT</version>
+				<version>4.0.0-SNAPSHOT</version>
 			</dependency>
 			<dependency>
 				<groupId>net.anotheria</groupId>
 				<artifactId>ano-prise</artifactId>
-				<version>2.2.3-SNAPSHOT</version>
+				<version>4.0.0-SNAPSHOT</version>
 			</dependency>
 			<dependency>
 				<groupId>net.anotheria</groupId>
 				<artifactId>ano-net</artifactId>
-				<version>2.1.2-SNAPSHOT</version>
+				<version>4.0.0-SNAPSHOT</version>
 			</dependency>
 			<dependency>
 				<groupId>commons-codec</groupId>
 				<artifactId>commons-codec</artifactId>
-				<version>1.5</version>
+				<version>1.16.0</version>
 			</dependency>
 			<dependency>
 				<groupId>org.aspectj</groupId>
@@ -155,7 +155,7 @@
 			<dependency>
 				<groupId>jakarta.xml.bind</groupId>
 				<artifactId>jakarta.xml.bind-api</artifactId>
-				<version>3.0.1</version>
+				<version>4.0.1</version>
 			</dependency>
 			<dependency>
 				<groupId>org.hamcrest</groupId>

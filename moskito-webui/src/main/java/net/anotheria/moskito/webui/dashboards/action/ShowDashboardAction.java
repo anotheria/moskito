@@ -136,7 +136,7 @@ public class ShowDashboardAction extends BaseDashboardAction {
 		request.setAttribute("widgets", widgets);
 
 		// Setting possible dashboard names where producer can be added
-		request.setAttribute("dashboardNames", org.apache.commons.lang.StringUtils.join(getDashboardAPI().getDashboardNames(), ','));
+		request.setAttribute("dashboardNames", org.apache.commons.lang3.StringUtils.join(getDashboardAPI().getDashboardNames(), ','));
 
 		//maybe the value has changed.
 		request.setAttribute("gaugesPresent", gaugesPresent);

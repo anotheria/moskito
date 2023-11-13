@@ -12,7 +12,7 @@
 	<name>MoSKito Inspect Standalone Application</name>
 	<packaging>war</packaging>
   <properties>
-    <swagger-ui.version>3.17.0</swagger-ui.version>
+    <swagger-ui.version>5.9.0</swagger-ui.version>
   </properties>
 
   <dependencies>

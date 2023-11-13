@@ -1,12 +1,10 @@
 package net.anotheria.moskito.webui.util;
 
-import jakarta.servlet.http.HttpSessionContext;
+import jakarta.servlet.ServletContext;
+import jakarta.servlet.http.HttpSession;
 import net.anotheria.moskito.webui.MoSKitoWebUIContext;
 import org.junit.Before;
 import org.junit.Test;
-
-import jakarta.servlet.ServletContext;
-import jakarta.servlet.http.HttpSession;
 
 import java.util.Enumeration;
 import java.util.HashMap;
@@ -174,20 +172,10 @@ public class DeepLinkUtilTest {
             return 0;
         }
 
-        @Override
-        public HttpSessionContext getSessionContext() {
-            return null;
-        }
-
 
         @Override
         public Object getAttribute(String name) {
             return attributes.get(name);
-        }
-
-        @Override
-        public Object getValue(String s) {
-            return null;
         }
 
         @Override
@@ -196,19 +184,8 @@ public class DeepLinkUtilTest {
         }
 
         @Override
-        public String[] getValueNames() {
-            return new String[0];
-        }
-
-
-        @Override
         public void setAttribute(String name, Object value) {
             attributes.put(name, value);
-        }
-
-        @Override
-        public void putValue(String s, Object o) {
-
         }
 
         @Override
@@ -226,10 +203,6 @@ public class DeepLinkUtilTest {
             return false;
         }
 
-        @Override
-        public void removeValue(String s) {
-
-        }
     }
 
 }

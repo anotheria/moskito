@@ -1,11 +1,10 @@
 package net.anotheria.moskito.webui.util;
 
-import jakarta.servlet.http.HttpSessionContext;
+import jakarta.servlet.ServletContext;
+import jakarta.servlet.http.HttpSession;
 import net.anotheria.anoplass.api.APIException;
 import net.anotheria.moskito.webui.MoSKitoWebUIContext;
 
-import jakarta.servlet.ServletContext;
-import jakarta.servlet.http.HttpSession;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
@@ -17,112 +16,88 @@ import java.util.Map;
  * @since 21.10.20 13:16
  */
 public class Ping {
-	public static void main(String[] a) throws APIException {
-		String host = "localhost";
-		int port = 9451;
+    public static void main(String[] a) throws APIException {
+        String host = "localhost";
+        int port = 9451;
 
-		
-		MoSKitoWebUIContext context = MoSKitoWebUIContext.getCallContextAndReset();
-		context.setCurrentSession(new HttpSessionMock());
 
-		APILookupUtility.setCurrentConnectivityMode(ConnectivityMode.REMOTE);
-		RemoteInstance ri = new RemoteInstance();
-		ri.setHost(host);
-		ri.setPort(port);
-		APILookupUtility.setCurrentRemoteInstance(ri);
+        MoSKitoWebUIContext context = MoSKitoWebUIContext.getCallContextAndReset();
+        context.setCurrentSession(new HttpSessionMock());
 
-		System.out.println(APILookupUtility.describeConnectivity());
-		System.out.println(APILookupUtility.getThresholdAPI().getThresholdStatuses());
-	}
-	private static class HttpSessionMock implements HttpSession {
+        APILookupUtility.setCurrentConnectivityMode(ConnectivityMode.REMOTE);
+        RemoteInstance ri = new RemoteInstance();
+        ri.setHost(host);
+        ri.setPort(port);
+        APILookupUtility.setCurrentRemoteInstance(ri);
 
-		private final Map<String, Object> attributes = new HashMap<>();
+        System.out.println(APILookupUtility.describeConnectivity());
+        System.out.println(APILookupUtility.getThresholdAPI().getThresholdStatuses());
+    }
 
-		@Override
-		public long getCreationTime() {
-			return 0;
-		}
+    private static class HttpSessionMock implements HttpSession {
 
-		@Override
-		public String getId() {
-			return null;
-		}
+        private final Map<String, Object> attributes = new HashMap<>();
 
-		@Override
-		public long getLastAccessedTime() {
-			return 0;
-		}
+        @Override
+        public long getCreationTime() {
+            return 0;
+        }
 
-		@Override
-		public ServletContext getServletContext() {
-			return null;
-		}
+        @Override
+        public String getId() {
+            return null;
+        }
 
-		@Override
-		public void setMaxInactiveInterval(int interval) {
+        @Override
+        public long getLastAccessedTime() {
+            return 0;
+        }
 
-		}
+        @Override
+        public ServletContext getServletContext() {
+            return null;
+        }
 
-		@Override
-		public int getMaxInactiveInterval() {
-			return 0;
-		}
+        @Override
+        public void setMaxInactiveInterval(int interval) {
 
-		@Override
-		public HttpSessionContext getSessionContext() {
-			return null;
-		}
+        }
 
-		@Override
-		public Object getAttribute(String name) {
-			return attributes.get(name);
-		}
+        @Override
+        public int getMaxInactiveInterval() {
+            return 0;
+        }
 
-		@Override
-		public Object getValue(String s) {
-			return null;
-		}
+        @Override
+        public Object getAttribute(String name) {
+            return attributes.get(name);
+        }
 
-		@Override
-		public Enumeration<String> getAttributeNames() {
-			return null;
-		}
+        @Override
+        public Enumeration<String> getAttributeNames() {
+            return null;
+        }
 
-		@Override
-		public String[] getValueNames() {
-			return new String[0];
-		}
+        @Override
+        public void setAttribute(String name, Object value) {
+            attributes.put(name, value);
+        }
 
-		@Override
-		public void setAttribute(String name, Object value) {
-			attributes.put(name, value);
-		}
+        @Override
+        public void removeAttribute(String name) {
 
-		@Override
-		public void putValue(String s, Object o) {
+        }
 
-		}
+        @Override
+        public void invalidate() {
 
-		@Override
-		public void removeAttribute(String name) {
+        }
 
-		}
-
-		@Override
-		public void removeValue(String s) {
-
-		}
-
-		@Override
-		public void invalidate() {
-
-		}
-
-		@Override
-		public boolean isNew() {
-			return false;
-		}
-	}
+        @Override
+        public boolean isNew() {
+            return false;
+        }
+    }
 
 
 }
