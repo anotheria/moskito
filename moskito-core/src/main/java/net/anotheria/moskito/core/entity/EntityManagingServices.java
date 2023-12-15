@@ -52,14 +52,14 @@ public class EntityManagingServices {
                 producer = new OnDemandStatsProducer<>(ENTITY_COUNTER_PRODUCER_ID, "business", "counter", new CounterStatsFactory());
                 ProducerRegistryFactory.getProducerRegistryInstance().registerProducer(producer);
             }
-            Accumulator acc = Accumulators.createAccumulator(name, ENTITY_COUNTER_PRODUCER_ID, "", "counter", "1m");
+            Accumulator acc = Accumulators.createAccumulator(name, ENTITY_COUNTER_PRODUCER_ID, "", "counter", "1h");
             try {
                 acc.tieToStats(producer.getStats(name));
             } catch (OnDemandStatsProducerException e) {
                 log.error(e.getMessage());
                 continue;
             }
-            executorService.scheduleAtFixedRate(new Updater(service, producer, name, topic), 0, 60, TimeUnit.SECONDS);
+            executorService.scheduleAtFixedRate(new Updater(service, producer, name, topic), 10, 60 * 60, TimeUnit.SECONDS);
         }
     }
 
