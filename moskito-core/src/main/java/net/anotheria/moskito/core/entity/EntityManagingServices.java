@@ -30,6 +30,8 @@ public class EntityManagingServices {
      */
     private static final ScheduledExecutorService executorService;
 
+    private static final String ENTITY_COUNTER_PRODUCER_ID = "EntityCounterProducerId";
+
     static {
         executorService = Executors.newSingleThreadScheduledExecutor();
     }
@@ -45,16 +47,19 @@ public class EntityManagingServices {
         for (String topic : topics) {
             String name = service.getClass().getSimpleName() + ".Entity" + topic + "Counter";
 
-            OnDemandStatsProducer<CounterStats> producer = new OnDemandStatsProducer<>(name, "business", "counter", new CounterStatsFactory());
-            ProducerRegistryFactory.getProducerRegistryInstance().registerProducer(producer);
-            Accumulator acc = Accumulators.createAccumulator(name, name, "", "counter", "1h");
+            OnDemandStatsProducer<CounterStats> producer = (OnDemandStatsProducer<CounterStats>) ProducerRegistryFactory.getProducerRegistryInstance().getProducer(ENTITY_COUNTER_PRODUCER_ID);
+            if (producer == null) {
+                producer = new OnDemandStatsProducer<>(ENTITY_COUNTER_PRODUCER_ID, "business", "counter", new CounterStatsFactory());
+                ProducerRegistryFactory.getProducerRegistryInstance().registerProducer(producer);
+            }
+            Accumulator acc = Accumulators.createAccumulator(name, ENTITY_COUNTER_PRODUCER_ID, "", "counter", "1m");
             try {
-                acc.tieToStats(producer.getStats("counter"));
+                acc.tieToStats(producer.getStats(name));
             } catch (OnDemandStatsProducerException e) {
                 log.error(e.getMessage());
                 continue;
             }
-            executorService.scheduleAtFixedRate(new Updater(service, producer, topic), 10, 60 * 60, TimeUnit.SECONDS);
+            executorService.scheduleAtFixedRate(new Updater(service, producer, name, topic), 0, 60, TimeUnit.SECONDS);
         }
     }
 
@@ -66,17 +71,20 @@ public class EntityManagingServices {
         private final EntityManagingService service;
         private final String topic;
         private final OnDemandStatsProducer<CounterStats> producer;
+        private final String name;
 
-        Updater(EntityManagingService service, OnDemandStatsProducer<CounterStats> producer, String topic) {
+        Updater(EntityManagingService service, OnDemandStatsProducer<CounterStats> producer, String name, String topic) {
             this.service = service;
             this.topic = topic;
             this.producer = producer;
+            this.name = name;
         }
 
         public void run() {
             int entityCount = service.getEntityCount(topic);
             try {
-                producer.getStats("counter").set(entityCount);
+                producer.getStats(name).set(entityCount);
+                producer.getDefaultStats().inc();
             } catch (OnDemandStatsProducerException e) {
                 log.error(e.getMessage());
             }
