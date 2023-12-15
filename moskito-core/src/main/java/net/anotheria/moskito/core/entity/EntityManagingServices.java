@@ -54,7 +54,7 @@ public class EntityManagingServices {
                 log.error(e.getMessage());
                 continue;
             }
-            executorService.scheduleAtFixedRate(new Updater(service, producer, topic), 0, 60 * 60, TimeUnit.SECONDS);
+            executorService.scheduleAtFixedRate(new Updater(service, producer, topic), 10, 60 * 60, TimeUnit.SECONDS);
         }
     }
 
