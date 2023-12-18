@@ -84,7 +84,7 @@ public class EntityManagingServices {
             int entityCount = service.getEntityCount(topic);
             try {
                 producer.getStats(name).set(entityCount);
-                producer.getDefaultStats().inc();
+                producer.getDefaultStats().incBy(entityCount);
             } catch (OnDemandStatsProducerException e) {
                 log.error(e.getMessage());
             }
