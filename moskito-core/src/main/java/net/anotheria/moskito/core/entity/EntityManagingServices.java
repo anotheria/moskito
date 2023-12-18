@@ -30,7 +30,7 @@ public class EntityManagingServices {
      */
     private static final ScheduledExecutorService executorService;
 
-    private static final String ENTITY_COUNTER_PRODUCER_ID = "EntityCounterProducerId";
+    private static final String ENTITY_COUNTER_PRODUCER_ID = "EntityCounter";
 
     static {
         executorService = Executors.newSingleThreadScheduledExecutor();
@@ -45,7 +45,7 @@ public class EntityManagingServices {
      */
     public static void createEntityCounter(EntityManagingService service, String... topics) {
         for (String topic : topics) {
-            String name = service.getClass().getSimpleName() + ".Entity" + topic + "Counter";
+            String name = service.getClass().getSimpleName() + "_" + topic;
 
             OnDemandStatsProducer<CounterStats> producer = (OnDemandStatsProducer<CounterStats>) ProducerRegistryFactory.getProducerRegistryInstance().getProducer(ENTITY_COUNTER_PRODUCER_ID);
             if (producer == null) {
