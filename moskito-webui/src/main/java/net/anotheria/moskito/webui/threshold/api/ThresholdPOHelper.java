@@ -2,7 +2,7 @@ package net.anotheria.moskito.webui.threshold.api;
 
 import net.anotheria.moskito.webui.shared.api.TieablePOHelper;
 
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 
 /**
  * Utility class.

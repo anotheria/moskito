@@ -1,6 +1,6 @@
 package net.anotheria.moskito.webui.shared.api;
 
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 
 public class TieablePOHelper {
     public static void parseHttpRequest(TieablePO po, HttpServletRequest request) {
