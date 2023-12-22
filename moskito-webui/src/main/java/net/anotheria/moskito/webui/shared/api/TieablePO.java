@@ -90,12 +90,4 @@ public class TieablePO implements FormBean, Serializable {
 		this.statName = statName;
 	}
 
-	protected void parseHttpRequest(HttpServletRequest request){
-		producerId = request.getParameter("producerId");
-		valueName = request.getParameter("valueName");
-		unit = request.getParameter("unit");
-		name = request.getParameter("name");
-		interval = request.getParameter("interval");
-		statName = request.getParameter("statName");
-	}
 }

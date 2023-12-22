@@ -17,10 +17,4 @@ public class AccumulatorPO extends TieablePO implements Serializable{
 	 */
 	private static final long serialVersionUID = -5369404731183317597L;
 
-	public static AccumulatorPO fromHttpServletRequest(HttpServletRequest request){
-		AccumulatorPO ret = new AccumulatorPO();
-		ret.parseHttpRequest(request);
-		return ret;
-	}
-
 }

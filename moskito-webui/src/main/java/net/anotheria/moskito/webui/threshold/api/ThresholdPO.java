@@ -146,28 +146,5 @@ public class ThresholdPO extends TieablePO implements FormBean, Serializable{
 		this.greenValue = greenValue;
 	}
 
-	public static ThresholdPO fromHttpServletRequest(HttpServletRequest request){
-		ThresholdPO ret = new ThresholdPO();
-		ret.parseHttpRequest(request);
-		return ret;
-	}
-
-	protected void parseHttpRequest(HttpServletRequest request){
-		super.parseHttpRequest(request);
-
-		yellowDir = request.getParameter("yellowDir");
-		yellowValue = request.getParameter("yellowValue");
-		orangeDir = request.getParameter("orangeDir");
-		orangeValue = request.getParameter("orangeValue");
-		redDir = request.getParameter("redDir");
-		redValue = request.getParameter("redValue");
-		purpleDir = request.getParameter("purpleDir");
-		purpleValue = request.getParameter("purpleValue");
-		greenDir = request.getParameter("greenDir");
-		greenValue = request.getParameter("greenValue");
-
-
-	}
-
 
 }

@@ -3,6 +3,7 @@ package net.anotheria.moskito.webui.threshold.action;
 import net.anotheria.maf.action.ActionCommand;
 import net.anotheria.maf.action.ActionMapping;
 import net.anotheria.moskito.webui.threshold.api.ThresholdPO;
+import net.anotheria.moskito.webui.threshold.api.ThresholdPOHelper;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -17,7 +18,7 @@ public class UpdateThresholdAction extends BaseThresholdsAction {
 	public ActionCommand execute(ActionMapping mapping, HttpServletRequest req, HttpServletResponse res) throws Exception {
 
 		String thresholdId = req.getParameter(PARAM_ID);
-		ThresholdPO po = ThresholdPO.fromHttpServletRequest(req);
+		ThresholdPO po = ThresholdPOHelper.fromHttpServletRequest(req);
 
 		getThresholdAPI().updateThreshold(thresholdId, po);
 
