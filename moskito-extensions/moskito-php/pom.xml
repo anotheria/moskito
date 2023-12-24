@@ -3,12 +3,12 @@
     <parent>
         <artifactId>moskito-extensions</artifactId>
         <groupId>net.anotheria</groupId>
-        <version>4.0.0</version>
+        <version>4.0.1-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>moskito-php</artifactId>
-    <version>4.0.0</version>
+    <version>4.0.1-SNAPSHOT</version>
     <dependencies>
 
         <dependency>
