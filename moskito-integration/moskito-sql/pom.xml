@@ -74,7 +74,7 @@
         <dependency>
             <groupId>net.anotheria</groupId>
             <artifactId>ano-db</artifactId>
-			<version>4.0.0-SNAPSHOT</version>
+			<version>4.0.0</version>
             <scope>test</scope>
         </dependency>
         <!-- Enable logback logging -->
