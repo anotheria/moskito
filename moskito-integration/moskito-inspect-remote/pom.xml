@@ -3,12 +3,12 @@
 	<parent>
 		<groupId>net.anotheria</groupId>
 		<artifactId>moskito-integration</artifactId>
-		<version>4.0.1</version>
+		<version>4.0.2-SNAPSHOT</version>
 	</parent>
 
 	<modelVersion>4.0.0</modelVersion>
 	<artifactId>moskito-inspect-remote</artifactId>
-	<version>4.0.1</version>
+	<version>4.0.2-SNAPSHOT</version>
 	<name>moskito inspect support for remote inspect connection</name>
     <description>
         This project contains dependencies and configuration (web-fragment) needed to enable moskito-inspect remotely. To use it simply add it as dependency.
