@@ -84,7 +84,7 @@ public class DashboardConfig implements Serializable{
 	/**
 	 * Stores compiled producerNamePatterns
 	 */
-	private Pattern[] patterns;
+	private transient Pattern[] patterns;
 
 	/**
 	 * Widgets that should be present on dashboard.

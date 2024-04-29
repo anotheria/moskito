@@ -5,8 +5,8 @@ import net.anotheria.maf.action.ActionMapping;
 import net.anotheria.moskito.webui.shared.bean.NaviItem;
 import net.anotheria.moskito.webui.threads.api.ActiveThreadHistoryAO;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 
 /**
  * This action shows the ThreadsHistory.

@@ -293,7 +293,7 @@ public class MonitoringBaseAspect extends AbstractMoskitoAspect<ServiceStats>{
 	private static final ConcurrentMap<String, SpecialCase> specialCases = new ConcurrentHashMap<>();
 
 	static{
-    	specialCases.put("doFilter", new SpecialCase("doFilter", "javax.servlet.Filter", new HttpFilterHandler()));
+    	specialCases.put("doFilter", new SpecialCase("doFilter", "jakarta.servlet.Filter", new HttpFilterHandler()));
 	}
 
 	/**

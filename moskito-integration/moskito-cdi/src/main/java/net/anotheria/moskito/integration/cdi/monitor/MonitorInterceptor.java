@@ -18,10 +18,10 @@ import net.anotheria.moskito.core.tracer.Tracers;
 import net.anotheria.moskito.integration.cdi.AbstractInterceptor;
 import net.anotheria.moskito.integration.cdi.StatName;
 
-import javax.interceptor.AroundInvoke;
-import javax.interceptor.AroundTimeout;
-import javax.interceptor.Interceptor;
-import javax.interceptor.InvocationContext;
+import jakarta.interceptor.AroundInvoke;
+import jakarta.interceptor.AroundTimeout;
+import jakarta.interceptor.Interceptor;
+import jakarta.interceptor.InvocationContext;
 import java.io.Serializable;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;

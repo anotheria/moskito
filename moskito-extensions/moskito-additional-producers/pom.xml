@@ -3,13 +3,13 @@
   <parent>
 	<groupId>net.anotheria</groupId>
 	<artifactId>moskito</artifactId>
-	<version>3.2.9-SNAPSHOT</version>
+	<version>4.0.2-SNAPSHOT</version>
 	<relativePath>../../pom.xml</relativePath>
   </parent>
 
   <modelVersion>4.0.0</modelVersion>
   <artifactId>moskito-additional-producers</artifactId>
-  <version>3.2.9-SNAPSHOT</version>
+  <version>4.0.2-SNAPSHOT</version>
   <name>additional producers</name>
 
   <dependencies>
@@ -31,7 +31,7 @@
       <dependency>
           <groupId>com.googlecode.concurrentlinkedhashmap</groupId>
           <artifactId>concurrentlinkedhashmap-lru</artifactId>
-          <version>1.4</version>
+          <version>1.4.2</version>
       </dependency>
   </dependencies>
 </project>

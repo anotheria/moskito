@@ -3,12 +3,12 @@
   <parent>
 	<groupId>net.anotheria</groupId>
 	<artifactId>moskito</artifactId>
-	<version>3.2.9-SNAPSHOT</version>
+	<version>4.0.2-SNAPSHOT</version>
   </parent>
 
   <modelVersion>4.0.0</modelVersion>
   <artifactId>moskito-web</artifactId>
-  <version>3.2.9-SNAPSHOT</version>
+  <version>4.0.2-SNAPSHOT</version>
   <name>moskito web support</name>
 
   <dependencies>
@@ -26,15 +26,15 @@
 		<artifactId>moskito-core</artifactId>
 		<version>${project.version}</version>
 	</dependency>
-	<dependency>
-	    <groupId>javax.servlet</groupId>
-	    <artifactId>javax.servlet-api</artifactId>
-    	<scope>provided</scope>
-	</dependency>
+	  <dependency>
+		  <groupId>jakarta.servlet</groupId>
+		  <artifactId>jakarta.servlet-api</artifactId>
+		  <scope>provided</scope>
+	  </dependency>
 	  <dependency>
 		  <groupId>org.mockito</groupId>
 		  <artifactId>mockito-core</artifactId>
-		  <version>1.10.19</version>
+		  <version>5.6.0</version>
 		  <scope>test</scope>
 	  </dependency>
 

@@ -40,8 +40,8 @@ import net.anotheria.moskito.core.registry.filters.CategoryFilter;
 import net.anotheria.moskito.core.registry.filters.SubsystemFilter;
 import net.anotheria.moskito.webui.producers.api.ProducerAO;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.List;
 

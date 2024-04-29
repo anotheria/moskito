@@ -20,8 +20,8 @@ import net.anotheria.moskito.webui.threshold.bean.ThresholdStatusBean;
 import net.anotheria.moskito.webui.util.WebUIConfig;
 import net.anotheria.util.StringUtils;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -136,7 +136,7 @@ public class ShowDashboardAction extends BaseDashboardAction {
 		request.setAttribute("widgets", widgets);
 
 		// Setting possible dashboard names where producer can be added
-		request.setAttribute("dashboardNames", org.apache.commons.lang.StringUtils.join(getDashboardAPI().getDashboardNames(), ','));
+		request.setAttribute("dashboardNames", org.apache.commons.lang3.StringUtils.join(getDashboardAPI().getDashboardNames(), ','));
 
 		//maybe the value has changed.
 		request.setAttribute("gaugesPresent", gaugesPresent);

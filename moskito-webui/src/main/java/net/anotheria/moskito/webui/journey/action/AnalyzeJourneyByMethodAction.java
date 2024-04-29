@@ -9,8 +9,8 @@ import net.anotheria.moskito.webui.journey.api.AnalyzedProducerCallsAOSortType;
 import net.anotheria.moskito.webui.journey.api.AnalyzedProducerCallsMapAO;
 import net.anotheria.moskito.webui.shared.bean.GraphDataBean;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;

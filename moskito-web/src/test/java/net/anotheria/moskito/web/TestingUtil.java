@@ -1,7 +1,7 @@
 package net.anotheria.moskito.web;
 
-import javax.servlet.FilterChain;
-import javax.servlet.FilterConfig;
+import jakarta.servlet.FilterChain;
+import jakarta.servlet.FilterConfig;
 
 import static org.mockito.Mockito.mock;
 

@@ -34,7 +34,7 @@
  */	
 package net.anotheria.moskito.web.filters.caseextractor;
 
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 
 /**
  * This filter measures calls by server name used by the user / domain field.

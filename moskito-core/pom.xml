@@ -3,12 +3,12 @@
   <parent>
 	<groupId>net.anotheria</groupId>
 	<artifactId>moskito</artifactId>
-	<version>3.2.9-SNAPSHOT</version>
+	<version>4.0.2-SNAPSHOT</version>
   </parent>
 
   <modelVersion>4.0.0</modelVersion>
   <artifactId>moskito-core</artifactId>
-  <version>3.2.9-SNAPSHOT</version>
+  <version>4.0.2-SNAPSHOT</version>
   <name>moskito core</name>
 
   <dependencies>
@@ -20,6 +20,7 @@
       <dependency>
           <groupId>org.apache.logging.log4j</groupId>
           <artifactId>log4j-core</artifactId>
+          <version>2.21.1</version>
           <scope>provided</scope>
       </dependency>
 	<dependency>
@@ -57,7 +58,12 @@
 	  <dependency>
 		  <groupId>org.apache.commons</groupId>
 		  <artifactId>commons-lang3</artifactId>
-		  <version>3.11</version>
+		  <version>3.13.0</version>
 	  </dependency>
+      <dependency>
+          <groupId>jakarta.xml.bind</groupId>
+          <artifactId>jakarta.xml.bind-api</artifactId>
+          <version>4.0.1</version>
+      </dependency>
   </dependencies>
 </project>

@@ -2,6 +2,7 @@ package net.anotheria.moskito.webui.accumulators.api;
 
 import net.anotheria.moskito.webui.shared.api.TieablePO;
 
+import jakarta.servlet.http.HttpServletRequest;
 import java.io.Serializable;
 
 /**

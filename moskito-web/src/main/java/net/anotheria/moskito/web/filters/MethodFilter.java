@@ -36,9 +36,9 @@ package net.anotheria.moskito.web.filters;
 
 import net.anotheria.moskito.web.MoskitoFilter;
 
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.ServletRequest;
+import jakarta.servlet.ServletResponse;
+import jakarta.servlet.http.HttpServletRequest;
 
 /**
  * This filter distinguishes by the method of the request.

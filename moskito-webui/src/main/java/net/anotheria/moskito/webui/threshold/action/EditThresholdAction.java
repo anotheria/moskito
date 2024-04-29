@@ -7,8 +7,8 @@ import net.anotheria.moskito.core.threshold.ThresholdStatus;
 import net.anotheria.moskito.core.threshold.guard.BarrierPassGuard;
 import net.anotheria.moskito.webui.threshold.api.ThresholdDefinitionAO;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;

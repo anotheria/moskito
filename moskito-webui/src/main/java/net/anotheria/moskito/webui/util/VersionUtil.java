@@ -3,7 +3,7 @@ package net.anotheria.moskito.webui.util;
 import net.anotheria.util.maven.MavenVersion;
 import net.anotheria.util.maven.MavenVersionReader;
 
-import javax.servlet.ServletContext;
+import jakarta.servlet.ServletContext;
 import java.io.File;
 
 /**

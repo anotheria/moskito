@@ -5,8 +5,8 @@ import net.anotheria.maf.action.ActionMapping;
 import net.anotheria.moskito.webui.threshold.api.ThresholdPO;
 import net.anotheria.moskito.webui.threshold.api.ThresholdPOHelper;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 
 /**
  * Updates an existing threshold.

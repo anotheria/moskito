@@ -34,7 +34,7 @@
  */	
 package net.anotheria.moskito.web.filters.caseextractor;
 
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 
 /**
  * This filter measures the urls by the request uri.

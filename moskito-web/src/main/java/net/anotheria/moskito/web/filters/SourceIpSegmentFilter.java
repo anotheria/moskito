@@ -2,9 +2,9 @@ package net.anotheria.moskito.web.filters;
 
 import net.anotheria.moskito.web.MoskitoFilter;
 
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.ServletRequest;
+import jakarta.servlet.ServletResponse;
+import jakarta.servlet.http.HttpServletRequest;
 
 /**
  * This filter separates the traffic by first part of the ip address.

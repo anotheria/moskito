@@ -36,7 +36,7 @@ public class ChartPattern implements Serializable {
     /**
      * Stores compiled accumulatorPatterns
      */
-    private Pattern[] patterns;
+    private transient Pattern[] patterns;
 
     /**
      * Graph data mode (single charts or combined chart).

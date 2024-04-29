@@ -6,8 +6,8 @@ import net.anotheria.moskito.core.registry.ProducerRegistryFactory;
 import net.anotheria.moskito.core.util.AbstractBuiltInProducer;
 import net.anotheria.moskito.core.util.session.SessionCountStats;
 
-import javax.servlet.http.HttpSessionEvent;
-import javax.servlet.http.HttpSessionListener;
+import jakarta.servlet.http.HttpSessionEvent;
+import jakarta.servlet.http.HttpSessionListener;
 import java.util.ArrayList;
 import java.util.List;
 

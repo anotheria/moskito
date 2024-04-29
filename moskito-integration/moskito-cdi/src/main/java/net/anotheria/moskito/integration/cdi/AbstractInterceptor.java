@@ -13,7 +13,7 @@ import net.anotheria.moskito.integration.cdi.accumulation.Accumulates;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.interceptor.InvocationContext;
+import jakarta.interceptor.InvocationContext;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;

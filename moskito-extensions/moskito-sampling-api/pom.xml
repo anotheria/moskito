@@ -3,13 +3,13 @@
   <parent>
 	<groupId>net.anotheria</groupId>
 	<artifactId>moskito</artifactId>
-	<version>3.2.9-SNAPSHOT</version>
+	<version>4.0.2-SNAPSHOT</version>
 	<relativePath>../../pom.xml</relativePath>
   </parent>
 
   <modelVersion>4.0.0</modelVersion>
   <artifactId>moskito-sampling-api</artifactId>
-  <version>3.2.9-SNAPSHOT</version>
+  <version>4.0.2-SNAPSHOT</version>
   <name>sampling api</name>
 
   <dependencies>
@@ -33,8 +33,8 @@
           <scope>test</scope>
       </dependency>
       <dependency>
-          <groupId>javax.servlet</groupId>
-          <artifactId>javax.servlet-api</artifactId>
+          <groupId>jakarta.servlet</groupId>
+          <artifactId>jakarta.servlet-api</artifactId>
           <scope>provided</scope>
       </dependency>
 

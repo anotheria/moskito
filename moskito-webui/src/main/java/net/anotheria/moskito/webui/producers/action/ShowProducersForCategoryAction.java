@@ -37,7 +37,7 @@ package net.anotheria.moskito.webui.producers.action;
 import net.anotheria.anoplass.api.APIException;
 import net.anotheria.moskito.webui.producers.api.ProducerAO;
 
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 import java.util.List;
 
 public class ShowProducersForCategoryAction extends BaseShowProducersAction{

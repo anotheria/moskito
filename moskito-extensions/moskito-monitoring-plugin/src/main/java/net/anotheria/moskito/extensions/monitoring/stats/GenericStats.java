@@ -54,7 +54,7 @@ public abstract class GenericStats<T extends IGenericMetrics> extends AbstractSt
 
     /**
      * Get 'neverUpdated' status of this GenericStats.
-     * @return <tt>false</tt> until first values update and <tt>true</tt> - after.
+     * @return false until first values update and true - after.
      */
     public boolean isNeverUpdated() {
         return neverUpdated;

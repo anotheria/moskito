@@ -36,8 +36,8 @@ package net.anotheria.moskito.web.filters;
 
 import net.anotheria.moskito.web.MoskitoFilter;
 
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
+import jakarta.servlet.ServletRequest;
+import jakarta.servlet.ServletResponse;
 
 /**
  * This filter counts the requests by the domain.

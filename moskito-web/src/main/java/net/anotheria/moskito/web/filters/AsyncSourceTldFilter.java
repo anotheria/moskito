@@ -8,11 +8,11 @@ import net.anotheria.util.queue.IQueueWorker;
 import net.anotheria.util.queue.QueuedProcessor;
 import net.anotheria.util.queue.UnrecoverableQueueOverflowException;
 
-import javax.servlet.FilterChain;
-import javax.servlet.FilterConfig;
-import javax.servlet.ServletException;
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
+import jakarta.servlet.FilterChain;
+import jakarta.servlet.FilterConfig;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.ServletRequest;
+import jakarta.servlet.ServletResponse;
 import java.io.IOException;
 import java.net.InetAddress;
 

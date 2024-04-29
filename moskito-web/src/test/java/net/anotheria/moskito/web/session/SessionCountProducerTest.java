@@ -3,8 +3,8 @@ package net.anotheria.moskito.web.session;
 import net.anotheria.moskito.core.util.session.SessionCountStats;
 import org.junit.Test;
 
-import javax.servlet.http.HttpSession;
-import javax.servlet.http.HttpSessionEvent;
+import jakarta.servlet.http.HttpSession;
+import jakarta.servlet.http.HttpSessionEvent;
 import java.util.concurrent.CountDownLatch;
 
 import static org.junit.Assert.assertEquals;

@@ -2,7 +2,7 @@ package net.anotheria.moskito.core.threshold.guard;
 
 import net.anotheria.moskito.core.threshold.ThresholdStatus;
 
-import javax.xml.bind.annotation.XmlElement;
+import jakarta.xml.bind.annotation.XmlElement;
 import java.io.Serializable;
 
 /**

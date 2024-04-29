@@ -3,10 +3,10 @@ package net.anotheria.moskito.webui.shared.resource;
 import net.anotheria.moskito.webui.util.VersionUtil;
 import net.anotheria.util.maven.MavenVersion;
 
-import javax.servlet.ServletContext;
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.core.Context;
+import jakarta.servlet.ServletContext;
+import jakarta.ws.rs.GET;
+import jakarta.ws.rs.Path;
+import jakarta.ws.rs.core.Context;
 
 /**
  * TODO comment this class

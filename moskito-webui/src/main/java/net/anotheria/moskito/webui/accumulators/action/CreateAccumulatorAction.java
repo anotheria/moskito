@@ -6,8 +6,8 @@ import net.anotheria.maf.action.ActionMapping;
 import net.anotheria.moskito.webui.accumulators.api.AccumulatorPO;
 import net.anotheria.moskito.webui.accumulators.api.AccumulatorPOHelper;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 
 /**
  * This action creates a new accumulator.

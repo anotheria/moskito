@@ -3,16 +3,16 @@
 	<parent>
 		<groupId>net.anotheria</groupId>
 		<artifactId>moskito</artifactId>
-		<version>3.2.9-SNAPSHOT</version>
+		<version>4.0.2-SNAPSHOT</version>
 	</parent>
 
 	<modelVersion>4.0.0</modelVersion>
 	<artifactId>moskito-inspect-standalone</artifactId>
-	<version>3.2.9-SNAPSHOT</version>
+	<version>4.0.2-SNAPSHOT</version>
 	<name>MoSKito Inspect Standalone Application</name>
 	<packaging>war</packaging>
   <properties>
-    <swagger-ui.version>3.17.0</swagger-ui.version>
+    <swagger-ui.version>5.9.0</swagger-ui.version>
   </properties>
 
   <dependencies>
@@ -59,11 +59,11 @@
             <version>${project.version}</version>
         </dependency>
 
-		<dependency>
-		    <groupId>javax.servlet</groupId>
-		    <artifactId>javax.servlet-api</artifactId>
-			<scope>provided</scope>
-		</dependency>
+      <dependency>
+          <groupId>jakarta.servlet</groupId>
+          <artifactId>jakarta.servlet-api</artifactId>
+          <scope>provided</scope>
+      </dependency>
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
@@ -93,7 +93,7 @@
 		<plugins>
 			<plugin>
 				<artifactId>maven-war-plugin</artifactId>
-				<version>2.1</version>
+				<version>3.4.0</version>
 				<configuration>
 					<warName>moskito</warName>
 					<webResources>
