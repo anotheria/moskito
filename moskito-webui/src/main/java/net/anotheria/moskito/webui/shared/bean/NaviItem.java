@@ -98,7 +98,11 @@ public enum NaviItem {
 	/**
 	 * Navi item for kill switch.
 	 */
-	MORE_KILLSWITCH("Kill Switch");
+	MORE_KILLSWITCH("Kill Switch"),
+
+	MORE_REMOTES("Remotes");
+
+
 	
 	/**
 	 * Caption of the navi item.

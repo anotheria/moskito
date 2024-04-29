@@ -30,13 +30,7 @@ import net.anotheria.moskito.webui.journey.action.ShowJourneyAction;
 import net.anotheria.moskito.webui.journey.action.ShowJourneyCallAction;
 import net.anotheria.moskito.webui.journey.action.ShowJourneysAction;
 import net.anotheria.moskito.webui.loadfactors.action.ShowLoadFactorsAction;
-import net.anotheria.moskito.webui.more.action.AdditionalSectionAction;
-import net.anotheria.moskito.webui.more.action.ShowConfigAction;
-import net.anotheria.moskito.webui.more.action.ShowKillSwitchAction;
-import net.anotheria.moskito.webui.more.action.ShowLibsAction;
-import net.anotheria.moskito.webui.more.action.ShowMBeansAction;
-import net.anotheria.moskito.webui.more.action.SwitchKillSettingAction;
-import net.anotheria.moskito.webui.more.action.UpdateAction;
+import net.anotheria.moskito.webui.more.action.*;
 import net.anotheria.moskito.webui.nowrunning.action.DeleteNowRunningAction;
 import net.anotheria.moskito.webui.nowrunning.action.ShowEntryPointsAction;
 import net.anotheria.moskito.webui.plugins.action.RemovePluginAction;
@@ -298,6 +292,13 @@ public class MoskitoMappingsConfigurator implements ActionMappingsConfigurator {
         mappings.addMapping("mskSwitchKillSetting", SwitchKillSettingAction.class,
                 new CommandForward("success", "/net/anotheria/moskito/webui/more/jsp/KillSwitch.jsp")
         );
+        mappings.addMapping("mskShowRemotes", ShowRemotesAction.class,
+                new CommandForward("success", "/net/anotheria/moskito/webui/more/jsp/Remotes.jsp")
+        );
+        mappings.addMapping("mskRemoveRemote", RemoveRemoteAction.class,
+                new CommandDeepLinkRedirect("redirect", "mskShowRemotes")
+        );
+
         mappings.addMapping("mskRemovePlugin", RemovePluginAction.class,
                 new CommandDeepLinkRedirect("redirect", "mskPlugins")
         );

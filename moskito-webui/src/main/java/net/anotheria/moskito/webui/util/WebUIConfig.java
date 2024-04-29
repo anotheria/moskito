@@ -41,7 +41,7 @@ public class WebUIConfig {
 	private ConcurrentMap<String, Boolean> remotesKeys;
 
 	/**
-	 * Synchronized list of remote intances. Created from remote instances configured list.
+	 * Synchronized list of remote instances. Created from remote instances configured list.
 	 */
 	@DontConfigure
 	private List<RemoteInstance> remotesSynced;
@@ -116,6 +116,16 @@ public class WebUIConfig {
 	public void addRemote(RemoteInstance newRemoteInstance) {
 		if (remotesKeys.putIfAbsent(newRemoteInstance.getSelectKey(), true) == null)
 			remotesSynced.add(newRemoteInstance);
+	}
+
+	public void removeRemote(String key) {
+		remotesKeys.remove(key);
+		for (int i=0; i<remotesSynced.size(); i++){
+			if (remotesSynced.get(i).getSelectKey().equals(key)){
+				remotesSynced.remove(i);
+				return;
+			}
+		}
 	}
 
 	public AuthConfig getAuthentication() {

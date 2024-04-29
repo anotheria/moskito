@@ -95,6 +95,20 @@
             </div>
         </div>
 
+        <div class="box">
+            <div class="box-title">
+                <a class="accordion-toggle tooltip-bottom" title="Close/Open" data-toggle="collapse" href="#collapse-remote"><i class="fa fa-caret-down"></i></a>
+                <h3 class="pull-left">
+                    Remotes.
+                </h3>
+            </div>
+            <div id="collapse-remote" class="box-content accordion-body collapse in">
+                <div class="paddner">
+                    <a href="mskShowRemotes">Edit remote moskito-core instances</a>. The 'remote' moskito-core instances are other VMs that are preconfigured via moskito-inspect.json and can be accessed from this UI. This is useful for distributed applications.
+                </div>
+            </div>
+        </div>
+
     </div>
     <jsp:include page="../../shared/jsp/Footer.jsp" flush="false"/>
 </section>

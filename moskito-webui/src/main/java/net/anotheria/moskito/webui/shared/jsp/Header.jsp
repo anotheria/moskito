@@ -261,7 +261,7 @@
                 <li ${currentSubNaviItem.isSelected("more_loadfactors")  ? "class=\"active\"" : ""}><mos:deepLink href="mskLoadFactors" title="Load Factors" class="sidebar-tooltip-right">Load Factors  <i class="fa fa-asterisk"></i></mos:deepLink></li>
                 <li ${currentSubNaviItem.isSelected("more_nowrunning")  ? "class=\"active\"" : ""}><mos:deepLink href="mskNowRunning" title="Entry Points" class="sidebar-tooltip-right">Now Running  <i class="fa fa-location-arrow"></i></mos:deepLink></li>
                 <li ${currentSubNaviItem.isSelected("more_killswitch")  ? "class=\"active\"" : ""}><mos:deepLink href="mskKillSwitch" title="Kill Switch" class="sidebar-tooltip-right">Kill Switch  <i class="fa fa-cog"></i></mos:deepLink></li>
-                <%--<li ${currentSubNaviItem.isSelected("more_plugins") ? "class=\"active\"" : ""}><a href="mskPlugins" title="Plugins" class="sidebar-tooltip-right">Plugins <i class="fa fa-cloud"></i></a></li>--%>
+                <li ${currentSubNaviItem.isSelected("more_remotes") ? "class=\"active\"" : ""}><a href="mskShowRemotes" title="Remotes" class="sidebar-tooltip-right">Remotes <i class="fa fa-cloud"></i></a></li>
             </ul>
         </li>
         </ano:equal>
