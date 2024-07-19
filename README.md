@@ -76,7 +76,7 @@ Setup & integrate
 **Enjoy!**
 
 
-# [ChangeLog](https://confluence.opensource.anotheria.net/display/MSK/Change+Log)
+# [ChangeLog](https://github.com/anotheria/moskito/wiki/Change-Log)
 
 # License
 
