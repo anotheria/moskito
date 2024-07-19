@@ -1,6 +1,6 @@
 package net.anotheria.moskito.integration.springboot;
 
-import javax.annotation.PostConstruct;
+import jakarta.annotation.PostConstruct;
 import net.anotheria.moskito.web.filters.AsyncSourceTldFilter;
 import net.anotheria.moskito.web.filters.DebugRequestFilter;
 import net.anotheria.moskito.web.filters.GenericMonitoringFilter;
