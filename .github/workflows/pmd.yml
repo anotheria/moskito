@@ -30,14 +30,23 @@ jobs:
         with:
           java-version: '11'
           distribution: 'temurin'
-      - name: Run PMD
-        id: pmd
-        uses: pmd/pmd-github-action@967a81f8b657c87f7c3e96b62301cb1a48efef29
+      - name: Install PMD
+        run: |
+          curl -L -o pmd-bin.zip https://github.com/pmd/pmd/releases/download/pmd_releases/6.56.0/pmd-bin-6.56.0.zip
+          unzip pmd-bin.zip -d $HOME
+          mv $HOME/pmd-bin-6.56.0 $HOME/pmd
+
+      - name: Run PMD Analysis
+        run: |
+          $HOME/pmd/bin/run.sh pmd \
+          -d . \
+          -R rulesets/java/quickstart.xml \
+          -f text \
+          -failOnViolation false
+
+      - name: Upload PMD Report
+        if: always()
+        uses: actions/upload-artifact@v3
         with:
-          rulesets: 'rulesets/java/quickstart.xml'
-          sourcePath: 'moskito-core/src/main/java'
-          analyzeModifiedFilesOnly: false
-      - name: Upload SARIF file
-        uses: github/codeql-action/upload-sarif@v2
-        with:
-          sarif_file: pmd-report.sarif
+          name: pmd-report
+          path: pmd-report.txt
