@@ -179,7 +179,8 @@
 		                <rulesets>
 		                    <ruleset>/rulesets/java/quickstart.xml</ruleset>
 		                </rulesets>
-						<failOnViolation>false</failOnViolation>
+				    <failOnViolation>false</failOnViolation>
+				    <format>html</format>
 		            </configuration>
 		            <executions>
 		                <execution>
