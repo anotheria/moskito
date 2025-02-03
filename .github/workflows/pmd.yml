@@ -24,6 +24,9 @@ jobs:
           java-version: '17'
           cache: 'maven'
 
+      - name: Build all modules before running PMD
+        run: mvn clean install -DskipTests
+  
       - name: Run PMD Analysis
         run: mvn pmd:pmd
 
