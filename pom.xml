@@ -184,7 +184,7 @@
 		            </configuration>
 		            <executions>
 		                <execution>
-		                    <phase>verify</phase>
+		                    <phase>site</phase>
 		                    <goals>
 		                        <goal>check</goal>
 		                        <goal>pmd</goal>
