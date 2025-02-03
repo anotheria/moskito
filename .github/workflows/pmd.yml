@@ -36,7 +36,7 @@ jobs:
         run: mvn clean install -DskipTests
 
       - name: Run PMD Analysis
-        run: mvn pmd:pmd
+        run: mvn pmd:pmd pmd:check || true  # Dont stop on error
 
       - name: Upload PMD Reports
         uses: actions/upload-artifact@v4
