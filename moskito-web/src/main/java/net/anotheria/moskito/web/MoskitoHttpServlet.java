@@ -164,11 +164,11 @@ public class MoskitoHttpServlet extends HttpServlet implements IStatsProducer {
 
 		//check if we are the first producer
 		CurrentMeasurement cm = MoSKitoContext.get().notifyProducerEntry(this);
-		String URI = req.getRequestURI();
-		if (URI==null)
-			URI = "";
+		String uri = req.getRequestURI();
+		if (uri==null)
+			uri = "";
 		if (cm.isFirst()){
-			cm.setCallDescription(URI);
+			cm.setCallDescription(uri);
 		}
 
 
