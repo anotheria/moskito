@@ -7,7 +7,7 @@ on:
   pull_request:
     branches:
       - develop
-  workflow_dispatch:  # Ermöglicht manuelles Starten
+  workflow_dispatch:
 
 jobs:
   pmd:
@@ -24,15 +24,23 @@ jobs:
           java-version: '17'
           cache: 'maven'
 
-      - name: Build all modules before running PMD
+      - name: Cache Maven dependencies
+        uses: actions/cache@v4
+        with:
+          path: ~/.m2/repository
+          key: maven-${{ runner.os }}-${{ hashFiles('**/pom.xml') }}
+          restore-keys: |
+            maven-${{ runner.os }}-
+
+      - name: Build All Modules
         run: mvn clean install -DskipTests
-  
+
       - name: Run PMD Analysis
         run: mvn pmd:pmd
 
-      - name: Upload PMD Report as Artifact
+      - name: Upload PMD Reports
         uses: actions/upload-artifact@v4
         with:
-          name: pmd-report
+          name: pmd-reports
           path: '**/target/pmd.xml'
           retention-days: 7
