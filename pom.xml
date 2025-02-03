@@ -170,6 +170,28 @@
 		</dependencies>
 	</dependencyManagement>
 	<build>
+		<plugins>
+		        <plugin>
+		            <groupId>org.apache.maven.plugins</groupId>
+		            <artifactId>maven-pmd-plugin</artifactId>
+		            <version>3.19.0</version>
+		            <configuration>
+		                <rulesets>
+		                    <ruleset>/rulesets/java/quickstart.xml</ruleset>
+		                </rulesets>
+						<failOnViolation>false</failOnViolation>
+		            </configuration>
+		            <executions>
+		                <execution>
+		                    <phase>verify</phase>
+		                    <goals>
+		                        <goal>check</goal>
+		                        <goal>pmd</goal>
+		                    </goals>
+		                </execution>
+		            </executions>
+		        </plugin>
+		    </plugins>
 		<pluginManagement>
 			<plugins>
 				<plugin>
