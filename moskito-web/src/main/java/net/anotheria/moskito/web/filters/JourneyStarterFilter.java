@@ -67,7 +67,7 @@ public class JourneyStarterFilter implements Filter{
 		Journey journey = null;
 		JourneyRecord record = new JourneyRecord(journeyName);
 		try{
-			journeyManager.getJourney(journeyName);
+			journey = journeyManager.getJourney(journeyName);
 		}catch(NoSuchJourneyException e){
 //ok, journey doesn't exist, we have to create it.
 			journey = journeyManager.createJourney(journeyName);
