@@ -38,7 +38,7 @@ public enum MoskitoConfigurationHolder {
 			//now let configuration override some config options.
 			ConfigurationManager.INSTANCE.configure(configuration);
 		}catch(IllegalArgumentException e){
-			log.info("MoSKito configuration not found, working with default configuration, visit https://confluence.opensource.anotheria.net/display/MSK/Configuration+Guide for more details.");
+			log.info("MoSKito configuration not found, working with default configuration, visit https://github.com/anotheria/moskito/wiki/Configuration-Guide for more details.");
 		}
 	}
 
