@@ -45,7 +45,7 @@ public class MoskitoAutoConfiguration {
 
   private void startMoskitoBackend() {
     try {
-      LOGGER.info("Starting Moskito backend for remote");
+      LOGGER.info("Starting MoSKito backend for remote connections on port {}", moskitoProperties.getRemotePort());
       StartMoSKitoInspectBackendForRemote.startMoSKitoInspectBackend(moskitoProperties.getRemotePort());
     } catch (MoSKitoInspectStartException e) {
       LOGGER.error("Error while starting Moskito inspect backend", e);
