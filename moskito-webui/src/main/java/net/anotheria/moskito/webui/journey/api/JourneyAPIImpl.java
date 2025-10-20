@@ -13,6 +13,8 @@ import net.anotheria.moskito.core.stats.TimeUnit;
 import net.anotheria.moskito.webui.shared.api.AbstractMoskitoAPIImpl;
 import net.anotheria.moskito.webui.util.TagsUtil;
 import net.anotheria.util.NumberUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,6 +27,8 @@ import java.util.Map;
  * @since 14.02.13 10:00
  */
 public class JourneyAPIImpl extends AbstractMoskitoAPIImpl implements  JourneyAPI {
+
+	private static final Logger log = LoggerFactory.getLogger(JourneyAPIImpl.class);
 
 	/**
 	 * Journey manager to obtain actual journey objects.
@@ -152,7 +156,9 @@ public class JourneyAPIImpl extends AbstractMoskitoAPIImpl implements  JourneyAP
 
 		long timeSpentInChildren = 0;
 		for (TraceStep p : element.getChildren()){
-
+			if (log.isDebugEnabled()){
+				log.debug("Processing child step "+p.getCall()+" of parent "+element.getCall());
+			}
 			timeSpentInChildren += p.getDuration();
 			fillUseCasePathElementBeanList(container, p, recursion+1, unit);
 		}
