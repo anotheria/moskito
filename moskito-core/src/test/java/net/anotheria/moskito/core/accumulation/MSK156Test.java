@@ -1,11 +1,6 @@
 package net.anotheria.moskito.core.accumulation;
 
-/**
- * TODO comment this class
- *
- * @author lrosenberg
- * @since 11.02.14 14:44
- */
+
 public class MSK156Test {
 	public void testStackoverflow(){
 		AccumulatorDefinition def = new AccumulatorDefinition();
