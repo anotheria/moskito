@@ -6,12 +6,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.fail;
 
-/**
- * TODO comment this class
- *
- * @author lrosenberg
- * @since 27.10.12 23:31
- */
+
 public class JourneyManagerImplTest {
 	@Test
 	public void testCreateDelete() throws Exception{

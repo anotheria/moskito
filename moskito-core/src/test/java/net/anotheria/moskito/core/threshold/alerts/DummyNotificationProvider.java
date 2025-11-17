@@ -5,12 +5,7 @@ import net.anotheria.moskito.core.config.thresholds.NotificationProviderConfig;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
-/**
- * TODO comment this class
- *
- * @author lrosenberg
- * @since 23.10.12 00:12
- */
+
 public class DummyNotificationProvider implements NotificationProvider{
 	private CountDownLatch latch;
 	private static volatile DummyNotificationProvider instance;

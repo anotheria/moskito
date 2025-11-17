@@ -9,12 +9,7 @@ import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * TODO comment this class
- *
- * @author lrosenberg
- * @since 21.10.20 13:16
- */
+
 public class Ping {
     public static void main(String[] a) throws APIException {
         String host = "localhost";
