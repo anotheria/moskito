@@ -15,12 +15,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 
-/**
- * TODO comment this class
- *
- * @author lrosenberg
- * @since 06.03.13 07:25
- */
+
 public class AccumulatorAPITest {
 
     @BeforeClass

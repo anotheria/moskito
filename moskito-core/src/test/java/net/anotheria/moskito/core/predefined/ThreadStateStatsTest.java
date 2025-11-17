@@ -6,12 +6,7 @@ import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 
-/**
- * TODO comment this class
- *
- * @author lrosenberg
- * @since 07.12.12 13:33
- */
+
 public class ThreadStateStatsTest {
 	@Test
 	public void testMinMax(){

@@ -4,12 +4,7 @@ import org.junit.Test;
 
 import static org.junit.Assert.assertTrue;
 
-/**
- * TODO comment this class
- *
- * @author lrosenberg
- * @since 20.04.15 11:27
- */
+
 public class MatchersTest {
 	@Test
 	public void testMatchersCreation(){

@@ -10,12 +10,7 @@ import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 
-/**
- * TODO comment this class
- *
- * @author lrosenberg
- * @since 28.10.12 20:28
- */
+
 public class FiltersTest {
 
 	private List<IStatsProducer> dummies;

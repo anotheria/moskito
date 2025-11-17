@@ -7,12 +7,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 
-/**
- * TODO comment this class
- *
- * @author lrosenberg
- * @since 22.06.17 00:43
- */
+
 public class MoSKitoContextTest {
 	@Test public void testExceptionVisibility(){
 		MoSKitoContext.get();

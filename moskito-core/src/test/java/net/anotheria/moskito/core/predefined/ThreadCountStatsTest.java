@@ -6,12 +6,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
-/**
- * TODO comment this class
- *
- * @author lrosenberg
- * @since 28.03.13 18:12
- */
+
 public class ThreadCountStatsTest {
 	@Test
 	public void testGetValueByNameAsStringWithNull(){

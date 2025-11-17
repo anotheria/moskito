@@ -3,12 +3,7 @@ package net.anotheria.moskito.core.accumulation;
 import org.junit.Assert;
 import org.junit.Test;
 
-/**
- * TODO comment this class
- *
- * @author lrosenberg
- * @since 08.04.18 23:27
- */
+
 public class AutoAccumulationDefinitionTest {
 
 	@Test

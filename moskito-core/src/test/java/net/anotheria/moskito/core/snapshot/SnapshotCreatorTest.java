@@ -8,12 +8,6 @@ import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 
-/**
- * TODO comment this class
- *
- * @author lrosenberg
- * @since 30.09.12 15:30
- */
 public class SnapshotCreatorTest extends BaseSnapshotTest{
 	@Test public void testCreateSnapshot() throws OnDemandStatsProducerException {
 		OnDemandStatsProducer<ServiceStats> producer = setupProducer();

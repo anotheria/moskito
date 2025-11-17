@@ -7,12 +7,7 @@ import net.anotheria.moskito.core.stats.Interval;
 import net.anotheria.moskito.core.stats.impl.IntervalRegistry;
 import net.anotheria.moskito.core.timing.IUpdateable;
 
-/**
- * TODO comment this class
- *
- * @author lrosenberg
- * @since 20.03.13 14:59
- */
+
 public class BaseSnapshotTest {
 	protected static OnDemandStatsProducer setupProducer(){
 		OnDemandStatsProducer<ServiceStats> producer = new OnDemandStatsProducer<ServiceStats>("testProducerId", "aCategory", "aSubsystem", new ServiceStatsFactory());

@@ -4,12 +4,7 @@ import net.anotheria.moskito.core.config.thresholds.NotificationProviderConfig;
 
 import java.util.concurrent.atomic.AtomicLong;
 
-/**
- * TODO comment this class
- *
- * @author lrosenberg
- * @since 23.10.12 00:07
- */
+
 public class TestNotificationProvider  implements NotificationProvider{
 
 	ThresholdAlert lastAlert;

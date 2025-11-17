@@ -9,12 +9,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
-/**
- * TODO comment this class
- *
- * @author lrosenberg
- * @since 28.10.12 20:45
- */
+
 public class CacheStatsTest {
 	@Test public void testHitRate(){
 		CacheStats stats = new CacheStats();

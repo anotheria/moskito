@@ -8,12 +8,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 
-/**
- * TODO comment this class
- *
- * @author lrosenberg
- * @since 11.11.12 23:00
- */
+
 public class QueueStatsTest {
 	//this is a very basic test without testing for important cases, just to start with.
 	@Test

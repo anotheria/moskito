@@ -15,12 +15,7 @@ import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 
-/**
- * TODO comment this class
- *
- * @author lrosenberg
- * @since 12.08.16 22:36
- */
+
 public class DashboardsAPITest {
 
 	private DashboardAPIImpl api = new DashboardAPIImpl();

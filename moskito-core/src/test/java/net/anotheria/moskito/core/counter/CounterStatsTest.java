@@ -7,12 +7,7 @@ import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 
-/**
- * TODO comment this class
- *
- * @author lrosenberg
- * @since 18.11.12 00:09
- */
+
 public class CounterStatsTest {
 	@Test public void createBusinessStatisticsCounterStat(){
 		CounterStats stats = new CounterStats("registrations");

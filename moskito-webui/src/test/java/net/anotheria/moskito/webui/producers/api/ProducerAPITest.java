@@ -16,12 +16,7 @@ import java.util.List;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
-/**
- * TODO comment this class
- *
- * @author lrosenberg
- * @since 14.02.13 16:08
- */
+
 public class ProducerAPITest {
 	@Before
 	public void startUp(){

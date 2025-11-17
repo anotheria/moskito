@@ -15,12 +15,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.fail;
 
-/**
- * TODO comment this class
- *
- * @author lrosenberg
- * @since 07.03.13 08:57
- */
+
 public class ThresholdAPITest {
 	@Before
 	@After

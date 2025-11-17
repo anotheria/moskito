@@ -9,12 +9,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-/**
- * TODO comment this class
- *
- * @author lrosenberg
- * @since 23.10.14 22:17
- */
+
 public class RollingOnDemandStatsProducerTest {
 	@Test public void testRollingOnDemandStatsProducerTest() throws Exception{
 		//OnDemandStatsProducer<ServiceStats> producer = new OnDemandStatsProducer<ServiceStats>("id", "cat", "sub", ServiceStatsFactory.DEFAULT_INSTANCE);

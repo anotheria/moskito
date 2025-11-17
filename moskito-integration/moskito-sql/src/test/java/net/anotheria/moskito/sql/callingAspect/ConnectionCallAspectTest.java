@@ -5,12 +5,7 @@ import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 
-/**
- * TODO comment this class
- *
- * @author lrosenberg
- * @since 15.11.18 10:28
- */
+
 public class ConnectionCallAspectTest {
 
 	@Before

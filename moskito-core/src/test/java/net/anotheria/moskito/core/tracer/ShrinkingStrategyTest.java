@@ -11,12 +11,7 @@ import java.util.Random;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-/**
- * TODO comment this class
- *
- * @author lrosenberg
- * @since 23.03.16 18:57
- */
+
 public class ShrinkingStrategyTest {
 	@Test
 	public void testFIFO() {

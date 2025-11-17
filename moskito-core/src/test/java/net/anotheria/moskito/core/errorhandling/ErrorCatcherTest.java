@@ -13,12 +13,7 @@ import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
-/**
- * TODO comment this class
- *
- * @author lrosenberg
- * @since 04.06.17 22:57
- */
+
 public class ErrorCatcherTest {
 
 	@Before

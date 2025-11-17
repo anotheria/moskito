@@ -11,12 +11,7 @@ import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 
-/**
- * TODO comment this class
- *
- * @author lrosenberg
- * @since 23.10.12 00:05
- */
+
 public class AlertDispatcherTest {
 	@Test public void testDispatchingOfAlerts() throws Exception{
 		//prepare config

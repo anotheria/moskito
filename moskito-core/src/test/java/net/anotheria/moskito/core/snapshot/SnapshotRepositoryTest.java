@@ -8,12 +8,7 @@ import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 
-/**
- * TODO comment this class
- *
- * @author lrosenberg
- * @since 20.03.13 14:38
- */
+
 public class SnapshotRepositoryTest extends BaseSnapshotTest{
 
 	@Before

@@ -7,12 +7,6 @@ import net.anotheria.moskito.core.config.tracing.TracingConfiguration;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
-/**
- * TODO comment this class
- *
- * @author lrosenberg
- * @since 07.05.15 23:28
- */
 public class TracerTest {
 	@Test
 	public void test20_22(){
