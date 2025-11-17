@@ -62,7 +62,9 @@ public class ProducerAPIImpl extends AbstractMoskitoAPIImpl implements ProducerA
 		List<ProducerFilter> newProducerFilters = new ArrayList<>(filterConfig.length);
 		for (ProducerFilterConfig pfc : filterConfig){
 			try {
-				ProducerFilter filter = (ProducerFilter)Class.forName(pfc.getClazzName()).newInstance();
+				ProducerFilter filter = (ProducerFilter)Class.forName(pfc.getClazzName())
+						.getDeclaredConstructor()
+						.newInstance();
 				filter.customize(pfc.getParameter());
 				newProducerFilters.add(filter);
 			} catch (InstantiationException e) {
@@ -70,6 +72,8 @@ public class ProducerAPIImpl extends AbstractMoskitoAPIImpl implements ProducerA
 			} catch (IllegalAccessException e) {
 				log.warn("Can't initialize filter of class " + pfc.getClazzName());
 			} catch (ClassNotFoundException e) {
+				log.warn("Can't initialize filter of class " + pfc.getClazzName());
+			} catch (Exception e) {
 				log.warn("Can't initialize filter of class " + pfc.getClazzName());
 			}
 		}
@@ -80,7 +84,9 @@ public class ProducerAPIImpl extends AbstractMoskitoAPIImpl implements ProducerA
 			for (DecoratorConfig config : decoratorConfigs){
 				try{
 					Class decoratorClass = Class.forName(config.getDecoratorClazzName());
-					IDecorator decorator = (IDecorator) decoratorClass.newInstance();
+					IDecorator decorator = (IDecorator) decoratorClass
+							.getDeclaredConstructor()
+							.newInstance();
 					DecoratorRegistryFactory.getDecoratorRegistry().addDecorator(config.getStatClazzName(), decorator);
 
 				}catch (ClassNotFoundException e){
@@ -88,6 +94,8 @@ public class ProducerAPIImpl extends AbstractMoskitoAPIImpl implements ProducerA
 				} catch (InstantiationException e) {
 					log.warn("can't configure decorator " + config + " due ", e);
 				} catch (IllegalAccessException e) {
+					log.warn("can't configure decorator "+config+" due ", e);
+				} catch (Exception e) {
 					log.warn("can't configure decorator "+config+" due ", e);
 				}
 			}

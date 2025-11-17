@@ -57,7 +57,9 @@ public final class PluginRepository {
 			log.info("Loading plugin "+pc);
 			try {
 				MoskitoPlugin plugin = MoskitoPlugin.class.cast(
-						Class.forName(pc.getClassName()).newInstance()
+						Class.forName(pc.getClassName())
+								.getDeclaredConstructor()
+								.newInstance()
 				);
 				plugin.setConfigurationName(pc.getConfigurationName());
 				addPlugin(pc.getName(), plugin, pc);
@@ -66,6 +68,8 @@ public final class PluginRepository {
 			} catch (IllegalAccessException e) {
 				log.warn("Couldn't initialize plugin " + pc, e);
 			} catch (ClassNotFoundException e) {
+				log.warn("Couldn't initialize plugin " + pc, e);
+			} catch (Exception e) {
 				log.warn("Couldn't initialize plugin " + pc, e);
 			}
 

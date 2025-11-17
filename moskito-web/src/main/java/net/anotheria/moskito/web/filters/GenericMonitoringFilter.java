@@ -192,7 +192,9 @@ public class GenericMonitoringFilter implements Filter, IStatsProducer {
 		if (extractorNames != null && extractorNames.length>0){
 			for (String extractorName : extractorNames){
 				try {
-					FilterCaseExtractor extractor = (FilterCaseExtractor)Class.forName(extractorName).newInstance();
+					FilterCaseExtractor extractor = (FilterCaseExtractor)Class.forName(extractorName)
+							.getDeclaredConstructor()
+							.newInstance();
 					OnDemandStatsProducer<FilterStats> onDemandProducer = limit == -1 ?
 							new OnDemandStatsProducer<FilterStats>(extractor.getProducerId(), extractor.getCategory(), extractor.getSubsystem(), new FilterStatsFactory(getMonitoringIntervals())) :
 							new EntryCountLimitedOnDemandStatsProducer<FilterStats>(extractor.getProducerId(), extractor.getCategory(), extractor.getSubsystem(), new FilterStatsFactory(getMonitoringIntervals()), limit);
@@ -207,6 +209,8 @@ public class GenericMonitoringFilter implements Filter, IStatsProducer {
 						log.error("Can't create 'other' stats for limit excess", e);
 					}
 				} catch (ClassNotFoundException | IllegalAccessException | InstantiationException e) {
+					log.error("Can't load filter case extractor "+extractorName, e);
+				} catch (Exception e) {
 					log.error("Can't load filter case extractor "+extractorName, e);
 				}
 

@@ -77,7 +77,9 @@ public enum AlertDispatcher {
 		providers = new CopyOnWriteArrayList<>();
 		for (NotificationProviderConfig providerDef : config.getThresholdsAlertsConfig().getNotificationProviders()){
 			try{
-				NotificationProvider provider = (NotificationProvider)Class.forName(providerDef.getClassName()).newInstance();
+				NotificationProvider provider = (NotificationProvider)Class.forName(providerDef.getClassName())
+						.getDeclaredConstructor()
+						.newInstance();
 				provider.configure(providerDef);
 				providers.add(new NotificationProviderWrapper(provider, ThresholdStatus.valueOf(providerDef.getGuardedStatus())));
 			}catch(Exception any){
