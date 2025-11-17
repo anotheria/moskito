@@ -50,7 +50,7 @@ public enum AlertDispatcher {
 	 */
 	private static final Logger log = LoggerFactory.getLogger(AlertDispatcher.class);
 
-	private AlertDispatcher(){
+	AlertDispatcher(){
 		reset();
 	}
 
@@ -74,7 +74,7 @@ public enum AlertDispatcher {
 		});
 
 		//prepare providers
-		providers = new CopyOnWriteArrayList<NotificationProviderWrapper>();
+		providers = new CopyOnWriteArrayList<>();
 		for (NotificationProviderConfig providerDef : config.getThresholdsAlertsConfig().getNotificationProviders()){
 			try{
 				NotificationProvider provider = (NotificationProvider)Class.forName(providerDef.getClassName()).newInstance();
@@ -111,7 +111,7 @@ public enum AlertDispatcher {
 							wrapper.getProvider().onNewAlert(alert);
 						}
 					}catch(Exception e){
-						log.error("Couldn't deliver notification over notificationprovider "+wrapper.getProvider()+", due" ,e);
+						log.error("Couldn't deliver notification via NotificationProvider {}, due", wrapper.getProvider() ,e);
 					}
 				}
 			}
@@ -125,11 +125,11 @@ public enum AlertDispatcher {
 		/**
 		 * Status at which this provider has to be triggered.
 		 */
-		private ThresholdStatus status;
+		private final ThresholdStatus status;
 		/**
 		 * The provider.
 		 */
-		private NotificationProvider provider;
+		private final NotificationProvider provider;
 
 		NotificationProviderWrapper(NotificationProvider aProvider, ThresholdStatus aStatus){
 			provider = aProvider;
