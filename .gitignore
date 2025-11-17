@@ -7,3 +7,4 @@ logs
 cov-int
 gitlog.txt
 docker/moskito-oome-watcher/moskito-oome-watcher.jar
+.claude/
