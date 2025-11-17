@@ -12,10 +12,45 @@ import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 /**
- * TODO comment this class
+ * Collects and manages execution traces for a specific producer or producer statistic.
+ *
+ * <p>A Tracer captures detailed execution information (traces) for monitored operations,
+ * providing insight into method calls, timing, and execution paths. Each tracer is associated
+ * with a specific producer and optionally a specific statistic within that producer.
+ *
+ * <p><b>Trace Management:</b> The tracer maintains a collection of {@link Trace} objects
+ * and automatically manages memory by applying a shrinking strategy when the trace count
+ * exceeds configured limits. Two strategies are supported:
+ * <ul>
+ *   <li><b>KEEPLONGEST</b> - Retains traces with the longest execution duration</li>
+ *   <li><b>FIFO</b> - Keeps the most recent traces (First-In-First-Out)</li>
+ * </ul>
+ *
+ * <p><b>Thread Safety:</b> This class is thread-safe. Trace collection uses a
+ * {@link CopyOnWriteArrayList} for concurrent access, and trace shrinking operations
+ * are protected by a {@link ReadWriteLock}.
+ *
+ * <p><b>Enabling/Disabling:</b> Tracers can be dynamically enabled or disabled. When disabled,
+ * no new traces are collected, but existing traces remain accessible.
+ *
+ * <p><b>Example Usage:</b>
+ * <pre>
+ * // Get a tracer for a specific producer
+ * Tracer tracer = Tracers.getTracer("myProducer", "myStatistic");
+ *
+ * // Tracer automatically collects traces when monitoring is active
+ * // Retrieve collected traces
+ * List&lt;Trace&gt; traces = tracer.getTraces();
+ *
+ * // Disable/enable trace collection
+ * tracer.setEnabled(false);
+ * </pre>
  *
  * @author lrosenberg
  * @since 04.05.15 17:40
+ * @see Tracers
+ * @see Trace
+ * @see TracingConfiguration
  */
 public class Tracer {
 	/**
