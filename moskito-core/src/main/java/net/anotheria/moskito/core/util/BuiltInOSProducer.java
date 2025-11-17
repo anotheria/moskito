@@ -232,25 +232,28 @@ public class BuiltInOSProducer extends AbstractBuiltInProducer implements IStats
 
 	private static String executeMemoryInfoProcess(String... command) throws IOException {
 		ProcessBuilder procBuilder = new ProcessBuilder(command);
-		Process process = procBuilder.start();
-
-		InputStream is = process.getInputStream();
-		InputStreamReader isr = new InputStreamReader(is);
-		BufferedReader br = new BufferedReader(isr);
+		Process process = null;
 		try {
-			String line;
-			while ((line = br.readLine()) != null) {
-				if (line.trim().isEmpty()) {
-					continue;
+			process = procBuilder.start();
+
+			try (InputStream is = process.getInputStream();
+			     InputStreamReader isr = new InputStreamReader(is);
+			     BufferedReader br = new BufferedReader(isr)) {
+
+				String line;
+				while ((line = br.readLine()) != null) {
+					if (line.trim().isEmpty()) {
+						continue;
+					}
+					return line;
 				}
-				return line;
 			}
-		} catch (IOException e1) {
-			throw e1;
+			throw new IOException("Could not read memory process output for command " + Arrays.toString(command));
 		} finally {
-			br.close();
+			if (process != null) {
+				process.destroy();
+			}
 		}
-		throw new IOException("Could not read memory process output for command " + Arrays.toString(command));
 	}
 
 }
