@@ -4,6 +4,8 @@ import net.anotheria.moskito.core.producers.IStatsProducer;
 import net.anotheria.moskito.core.tag.TagRepository;
 import net.anotheria.moskito.core.tag.TagType;
 import net.anotheria.util.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.HashMap;
 import java.util.HashSet;
@@ -19,6 +21,8 @@ import java.util.concurrent.atomic.AtomicLong;
  * @since 22.05.17 01:36
  */
 public class MoSKitoContext {
+
+    private static Logger log = LoggerFactory.getLogger(MoSKitoContext.class);
 
 	/**
 	 * Instance counter.
@@ -173,8 +177,8 @@ public class MoSKitoContext {
 		try{
 			lastProducer = producerStack.pop();
 		}catch(Exception any){
-			//we don't expect anything to happen here, but just in case, we at least log this out.
-			any.printStackTrace();
+            //we don't expect something to happen here BUT if something happens it should at least be logged.
+			log.error("Couldn't notify producer exit for producer {}", aProducer, any);
 		}
 	}
 }

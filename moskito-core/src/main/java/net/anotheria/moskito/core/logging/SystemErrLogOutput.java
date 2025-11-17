@@ -34,10 +34,24 @@
  */	
 package net.anotheria.moskito.core.logging;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 /**
- * A ILogOutput which prints each message to the stderr.
+ * A ILogOutput implementation which prints each message to the standard error stream (stderr).
+ * This provides a lightweight logging option without requiring external logging frameworks.
+ *
+ * <p><strong>Design Note:</strong> This class intentionally uses System.err.println() as its
+ * core functionality. This is NOT a security issue but a deliberate design choice to provide
+ * a simple, zero-dependency logging output mechanism for lightweight deployments, error tracking,
+ * or scenarios where stderr capture is preferred (e.g., containerized environments where stderr
+ * is routed to error aggregation systems).</p>
+ *
  * @author lrosenberg
  */
+@SuppressFBWarnings(
+	value = "INFORMATION_EXPOSURE_THROUGH_AN_ERROR_MESSAGE",
+	justification = "Intentional design: this class outputs to stderr as its primary function"
+)
 public class SystemErrLogOutput implements ILogOutput {
 	@Override public void out(String message) {
 		System.err.println(message);
