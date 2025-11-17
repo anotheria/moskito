@@ -20,13 +20,14 @@ This report presents the findings of a comprehensive security and code quality a
 |----------|---------------|-------|-----------|--------|
 | **Critical** | 1 | ✅ 1 | 0 | **RESOLVED** |
 | **High** | 3 | ✅ 2 | 1 | **66% Complete** |
-| **Medium** | 4 | ✅ 1 | 3 | **25% Complete** |
+| **Medium** | 4 | ✅ 2 | 2 | **50% Complete** |
 | **Low** | 2 | 0 | 2 | **Pending** |
 
 ### Major Fixes Completed (2025-11-17)
 
 ✅ **Critical Resource Leak** - Process lifecycle management fixed in BuiltInOSProducer
 ✅ **Deprecated Reflection API** - All 5 instances updated for Java 17+ compatibility
+✅ **Useless Exception Handling** - Removed as part of resource leak fix
 ✅ **Logback Upgrade** - Updated from 1.4.12 to 1.5.21 (latest stable)
 ✅ **Intentional Design Documentation** - Added SpotBugs annotations to 4 classes
 
@@ -400,17 +401,18 @@ All four classes now include:
 
 ## 4. Other Code Quality Issues
 
-### 4.1 Useless Exception Handling
+### 4.1 Useless Exception Handling ✅ **FIXED**
 
 **Severity:** MEDIUM
 **Impact:** Code quality, Maintainability
+**Status:** ✅ **RESOLVED** (Fixed on 2025-11-17)
 
 #### Location
 ```
 moskito-core/src/main/java/net/anotheria/moskito/core/util/BuiltInOSProducer.java:248-249
 ```
 
-#### Code
+#### Original Code
 ```java
 } catch (IOException e1) {
     throw e1;
@@ -422,6 +424,9 @@ Catching an exception only to immediately rethrow it serves no purpose and adds 
 
 #### Recommended Fix
 Remove the catch block entirely or add actual exception handling logic.
+
+#### Fix Applied
+This useless catch-rethrow block was removed as part of the resource leak fix (Section 1.1) on 2025-11-17. The refactored code now uses try-with-resources for stream management, eliminating the need for this unnecessary exception handling pattern. The code is now cleaner and more maintainable.
 
 ---
 
@@ -649,6 +654,7 @@ Despite the issues identified, the codebase demonstrates several strengths:
 
 **Completed Items:**
 - ✅ **Process Resource Leak Fixed** - BuiltInOSProducer now properly destroys processes and closes all streams
+- ✅ **Useless Exception Handling Fixed** - Removed catch-rethrow block as part of resource leak fix
 - ✅ **Deprecated Reflection API Fixed** - All 5 instances updated to use `getDeclaredConstructor().newInstance()`
 - ✅ **Logback Upgraded** - Upgraded from 1.4.12 to 1.5.21 (exceeded recommendation)
 - ✅ **Intentional Design Documented** - Added SpotBugs annotations to 4 classes with intentional System.out/err usage
@@ -848,7 +854,7 @@ Not included in this analysis:
 |---------|------|---------|
 | 1.0 | 2025-11-16 | Initial analysis |
 | 1.1 | 2025-11-16 | Corrected XSS classification to XML Injection (MEDIUM); Removed System.out/err classes from issues (intentional design) |
-| 1.2 | 2025-11-17 | **Major Update:** Fixed critical resource leak (1.1); Fixed all deprecated reflection API usage (3.1); Upgraded Logback 1.4.12→1.5.21 (6.1); Added SpotBugs annotations to intentional design classes (3.3); Updated risk summary, recommendations, and Java 17+ compatibility status |
+| 1.2 | 2025-11-17 | **Major Update:** Fixed critical resource leak (1.1); Fixed useless exception handling (4.1); Fixed all deprecated reflection API usage (3.1); Upgraded Logback 1.4.12→1.5.21 (6.1); Added SpotBugs annotations to intentional design classes (3.3); Updated risk summary (Medium: 50% complete), recommendations, and Java 17+ compatibility status |
 
 ---
 
