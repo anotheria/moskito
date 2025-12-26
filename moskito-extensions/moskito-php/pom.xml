@@ -9,6 +9,7 @@
 
     <artifactId>moskito-php</artifactId>
     <version>4.0.6-SNAPSHOT</version>
+    <name>MoSKito PHP Integration</name>
     <dependencies>
 
         <dependency>
