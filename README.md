@@ -3,7 +3,7 @@
 # What is MoSKito?
 
 [![Join the chat at https://gitter.im/anotheria/moskito](https://badges.gitter.im/anotheria/moskito.svg)](https://gitter.im/anotheria/moskito?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
-[![Maven Central](https://maven-badges.herokuapp.com/maven-central/net.anotheria/moskito/badge.svg)](https://maven-badges.herokuapp.com/maven-central/net.anotheria/moskito)
+[![MvnRepository](https://badges.mvnrepository.com/badge/net.anotheria/moskito-core/badge.svg?label=MvnRepository)](https://mvnrepository.com/artifact/net.anotheria/moskito-core)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
 
 
