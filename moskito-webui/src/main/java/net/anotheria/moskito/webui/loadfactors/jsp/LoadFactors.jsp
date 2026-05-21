@@ -116,7 +116,7 @@
     <script type="text/javascript">
         $(function () {
             $('.actions-links').on('click','.delete-icon', function() {
-                var dataid = $(this).attr('data-id');
+                var dataid = encodeURIComponent($(this).attr('data-id'));
                 $('.threshold-delete-confirm').attr("href", "mskThresholdDelete?pId=" + dataid);
             });
 

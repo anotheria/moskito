@@ -188,8 +188,8 @@
     <script type="text/javascript">
         $(function () {
             $('.actions-links').on('click','.delete-icon', function() {
-                var position = $(this).attr('data-position');
-                var producerId = $(this).attr('data-producerId');
+                var position = encodeURIComponent($(this).attr('data-position'));
+                var producerId = encodeURIComponent($(this).attr('data-producerId'));
                 $('.past-request-delete-confirm').attr("href", "mskNowRunningDelete?pId=" + position + "&pProducerId=" + producerId);
             });
         });

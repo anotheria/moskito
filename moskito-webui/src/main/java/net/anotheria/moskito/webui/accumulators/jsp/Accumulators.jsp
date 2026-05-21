@@ -437,7 +437,7 @@
 
     <script type="text/javascript">
         $('.actions-links').on('click', '.delete-icon', function () {
-            var dataid = $(this).attr('data-id');
+            var dataid = encodeURIComponent($(this).attr('data-id'));
             $('.accumulator-delete-confirm').attr("href", "mskAccumulatorDelete?pId=" + dataid);
         });
 
