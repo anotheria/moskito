@@ -9,6 +9,9 @@ on:
       - develop
   workflow_dispatch:
 
+permissions:
+  contents: read
+
 jobs:
   pmd:
     runs-on: ubuntu-latest
