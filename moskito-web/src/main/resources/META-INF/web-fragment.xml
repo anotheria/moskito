@@ -14,18 +14,22 @@
         <filter>
             <filter-name>MoskitoCommandFilter</filter-name>
             <filter-class>net.anotheria.moskito.web.filters.MoskitoCommandFilter</filter-class>
+            <async-supported>true</async-supported>
         </filter>
         <filter>
             <filter-name>JourneyFilter</filter-name>
             <filter-class>net.anotheria.moskito.web.filters.JourneyFilter</filter-class>
+            <async-supported>true</async-supported>
         </filter>
         <filter>
             <filter-name>JourneyStarterFilter</filter-name>
             <filter-class>net.anotheria.moskito.web.filters.JourneyStarterFilter</filter-class>
+            <async-supported>true</async-supported>
         </filter>
         <filter>
             <filter-name>JSTalkBackFilter</filter-name>
             <filter-class>net.anotheria.moskito.web.filters.JSTalkBackFilter</filter-class>
+            <async-supported>true</async-supported>
             <init-param>
                 <param-name>limit</param-name>
                 <param-value>100</param-value>
@@ -35,6 +39,7 @@
         <filter>
             <filter-name>GenericMonitoringFilter</filter-name>
             <filter-class>net.anotheria.moskito.web.filters.GenericMonitoringFilter</filter-class>
+            <async-supported>true</async-supported>
             <init-param>
                 <param-name>limit</param-name>
                 <param-value>100</param-value>

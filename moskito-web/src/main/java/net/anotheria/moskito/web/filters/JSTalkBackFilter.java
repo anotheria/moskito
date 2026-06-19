@@ -17,6 +17,7 @@ import jakarta.servlet.FilterConfig;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.ServletRequest;
 import jakarta.servlet.ServletResponse;
+import jakarta.servlet.annotation.WebFilter;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -28,6 +29,7 @@ import java.io.PrintWriter;
  * @author lrosenberg
  * @since 15.09.13 22:44
  */
+@WebFilter(asyncSupported = true)
 public class JSTalkBackFilter implements Filter {
 	/**
 	 * Parameter name for the init parameter for the limit of dynamic case names (number of names) in the filter config. If the number of cases will exceed this limit,

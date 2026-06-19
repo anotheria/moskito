@@ -13,6 +13,7 @@ import jakarta.servlet.FilterConfig;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.ServletRequest;
 import jakarta.servlet.ServletResponse;
+import jakarta.servlet.annotation.WebFilter;
 import java.io.IOException;
 import java.net.InetAddress;
 
@@ -23,6 +24,7 @@ import java.net.InetAddress;
  * @author lrosenberg
  * @since 25.04.13 18:48
  */
+@WebFilter(asyncSupported = true)
 public class AsyncSourceTldFilter extends MoskitoFilter{
 	/**
 	 * Limit for the ip length. This limit is simple precaution in case someone is sending constructed source ip header

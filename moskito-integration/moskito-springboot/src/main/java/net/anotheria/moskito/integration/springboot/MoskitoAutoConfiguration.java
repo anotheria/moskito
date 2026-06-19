@@ -50,6 +50,7 @@ public class MoskitoAutoConfiguration {
         FilterRegistrationBean registrationBean = new FilterRegistrationBean();
         registrationBean.setFilter(new JourneyStarterFilter());
         registrationBean.addUrlPatterns("/*");
+        registrationBean.setAsyncSupported(true);
         return registrationBean;
     }
 
@@ -59,6 +60,7 @@ public class MoskitoAutoConfiguration {
         FilterRegistrationBean registrationBean = new FilterRegistrationBean();
         registrationBean.setFilter(new AsyncSourceTldFilter());
         registrationBean.addUrlPatterns("/*");
+        registrationBean.setAsyncSupported(true);
         return registrationBean;
     }
 
@@ -68,6 +70,7 @@ public class MoskitoAutoConfiguration {
         FilterRegistrationBean registrationBean = new FilterRegistrationBean();
         registrationBean.setFilter(new DebugRequestFilter());
         registrationBean.addUrlPatterns("/*");
+        registrationBean.setAsyncSupported(true);
         return registrationBean;
     }
 
@@ -77,6 +80,7 @@ public class MoskitoAutoConfiguration {
         FilterRegistrationBean registrationBean = new FilterRegistrationBean();
         registrationBean.setFilter(new GenericMonitoringFilter());
         registrationBean.addUrlPatterns("/*");
+        registrationBean.setAsyncSupported(true);
         return registrationBean;
     }
 
@@ -86,6 +90,7 @@ public class MoskitoAutoConfiguration {
         FilterRegistrationBean registrationBean = new FilterRegistrationBean();
         registrationBean.setFilter(new JourneyFilter());
         registrationBean.addUrlPatterns("/*");
+        registrationBean.setAsyncSupported(true);
         return registrationBean;
     }
 
@@ -95,6 +100,7 @@ public class MoskitoAutoConfiguration {
         FilterRegistrationBean registrationBean = new FilterRegistrationBean();
         registrationBean.setFilter(new JSTalkBackFilter());
         registrationBean.addUrlPatterns("/*");
+        registrationBean.setAsyncSupported(true);
         return registrationBean;
     }
 
@@ -104,6 +110,7 @@ public class MoskitoAutoConfiguration {
         FilterRegistrationBean registrationBean = new FilterRegistrationBean();
         registrationBean.setFilter(new MoskitoCommandFilter());
         registrationBean.addUrlPatterns("/*");
+        registrationBean.setAsyncSupported(true);
         return registrationBean;
     }
 
@@ -113,6 +120,7 @@ public class MoskitoAutoConfiguration {
         FilterRegistrationBean registrationBean = new FilterRegistrationBean();
         registrationBean.setFilter(new SourceIpSegmentFilter());
         registrationBean.addUrlPatterns("/*");
+        registrationBean.setAsyncSupported(true);
         return registrationBean;
     }
 
@@ -122,6 +130,7 @@ public class MoskitoAutoConfiguration {
         FilterRegistrationBean registrationBean = new FilterRegistrationBean();
         registrationBean.setFilter(new SourceTldFilter());
         registrationBean.addUrlPatterns("/*");
+        registrationBean.setAsyncSupported(true);
         return registrationBean;
     }
 

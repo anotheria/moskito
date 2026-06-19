@@ -8,6 +8,7 @@ import jakarta.servlet.FilterConfig;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.ServletRequest;
 import jakarta.servlet.ServletResponse;
+import jakarta.servlet.annotation.WebFilter;
 import java.io.IOException;
 import java.util.Map;
 
@@ -15,6 +16,7 @@ import java.util.Map;
 /**
  * This filter checks for commands that can be executed by MoSKito and forwards them to the responsbile components.
  */
+@WebFilter(asyncSupported = true)
 public class MoskitoCommandFilter implements Filter{
 	/**
 	 * Name of the command parameter (default).
