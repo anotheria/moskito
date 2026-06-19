@@ -23,6 +23,7 @@ import jakarta.servlet.FilterConfig;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.ServletRequest;
 import jakarta.servlet.ServletResponse;
+import jakarta.servlet.annotation.WebFilter;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -38,6 +39,7 @@ import java.util.Map;
  * @author lrosenberg
  * @since 26.04.16 19:04
  */
+@WebFilter(asyncSupported = true)
 public class GenericMonitoringFilter implements Filter, IStatsProducer {
 	/**
 	 * Logger instance.

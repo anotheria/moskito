@@ -4,6 +4,7 @@ import net.anotheria.moskito.web.MoskitoFilter;
 
 import jakarta.servlet.ServletRequest;
 import jakarta.servlet.ServletResponse;
+import jakarta.servlet.annotation.WebFilter;
 import jakarta.servlet.http.HttpServletRequest;
 
 /**
@@ -16,6 +17,7 @@ import jakarta.servlet.http.HttpServletRequest;
  * @author lrosenberg
  * @since 25.04.13 18:21
  */
+@WebFilter(asyncSupported = true)
 public class SourceTldFilter extends MoskitoFilter {
 	/**
 	 * Limit for the ip length. This limit is simple precaution in case someone is sending constructed source ip header

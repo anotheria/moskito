@@ -16,6 +16,7 @@ import jakarta.servlet.FilterConfig;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.ServletRequest;
 import jakarta.servlet.ServletResponse;
+import jakarta.servlet.annotation.WebFilter;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
@@ -27,6 +28,7 @@ import java.io.IOException;
  * @author lrosenberg
  * @since 20.05.13 23:27
  */
+@WebFilter(asyncSupported = true)
 public class SessionThrottleFilter implements Filter{
 
 	/**

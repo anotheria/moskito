@@ -9,6 +9,7 @@ import jakarta.servlet.FilterConfig;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.ServletRequest;
 import jakarta.servlet.ServletResponse;
+import jakarta.servlet.annotation.WebFilter;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
@@ -21,6 +22,7 @@ import java.util.Map;
  *
  * @author asamoilich.
  */
+@WebFilter(asyncSupported = true)
 public class DebugRequestFilter implements Filter {
 
     /**
