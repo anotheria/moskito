@@ -8,15 +8,15 @@ import net.sf.ehcache.CacheManager;
 import net.sf.ehcache.Ehcache;
 import net.sf.ehcache.Element;
 import net.sf.ehcache.Statistics;
-import org.junit.BeforeClass;
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 
 import java.util.LinkedList;
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 /**
  * Tests for {@link net.anotheria.moskito.integration.ehcache.MonitoredEhcache}.
@@ -25,13 +25,13 @@ import static org.junit.Assert.assertNotNull;
  */
 public class MonitoredEhcacheTest {
 
-    @BeforeClass
+    @BeforeAll
     public static void setup(){
         /* to disable builtin producers */
         System.setProperty("JUNITTEST", Boolean.TRUE.toString());
     }
 
-    @Ignore //TODO this test is very unstable due to sleep, it should be fixed
+    @Disabled //TODO this test is very unstable due to sleep, it should be fixed
     @Test
     public void test() throws OnDemandStatsProducerException, InterruptedException {
         Ehcache cache = CacheManager.getInstance().getCache("test-cache");

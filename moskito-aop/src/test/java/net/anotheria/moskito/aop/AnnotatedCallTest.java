@@ -4,9 +4,9 @@ import net.anotheria.moskito.core.producers.IStats;
 import net.anotheria.moskito.core.producers.IStatsProducer;
 import net.anotheria.moskito.core.registry.ProducerRegistryFactory;
 import net.anotheria.moskito.core.stats.TimeUnit;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * SQL intercept test.
@@ -32,7 +32,7 @@ public class AnnotatedCallTest {
         IStatsProducer<?> producer = ProducerRegistryFactory.getProducerRegistryInstance().getProducer(AnnotatedMethod.class.getSimpleName());
         IStats doSmtgStats = producer.getStats().get(1);
         assertEquals("doSomething", doSmtgStats.getName());
-        assertEquals("Should be 10K calls", ANNOTATED_METHOD_CALLS + "", doSmtgStats.getValueByNameAsString("TR", null, TimeUnit.MICROSECONDS));
+        assertEquals(ANNOTATED_METHOD_CALLS + "", doSmtgStats.getValueByNameAsString("TR", null, TimeUnit.MICROSECONDS), "Should be 10K calls");
     }
 
     @Test
@@ -55,10 +55,10 @@ public class AnnotatedCallTest {
         // then
         IStatsProducer<?> producer = (IStatsProducer)  ProducerRegistryFactory.getProducerRegistryInstance().getProducer(AnnotatedClass.class.getSimpleName());
         IStats doSomeStats = producer.getStats().get(1);
-        assertEquals("Should be 550 calls", 550 + "", doSomeStats.getValueByNameAsString("TR", null, TimeUnit.MICROSECONDS));
+        assertEquals(550 + "", doSomeStats.getValueByNameAsString("TR", null, TimeUnit.MICROSECONDS), "Should be 550 calls");
         IStats doSome2Stats = producer.getStats().get(2);
-        assertEquals("Should be 750 calls", 750 + "", doSome2Stats.getValueByNameAsString("TR", null, TimeUnit.MICROSECONDS));
+        assertEquals(750 + "", doSome2Stats.getValueByNameAsString("TR", null, TimeUnit.MICROSECONDS), "Should be 750 calls");
         IStats doSome3Stats = producer.getStats().get(3);
-        assertEquals("Should be 1750 calls", 1750 + "", doSome3Stats.getValueByNameAsString("TR", null, TimeUnit.MICROSECONDS));
+        assertEquals(1750 + "", doSome3Stats.getValueByNameAsString("TR", null, TimeUnit.MICROSECONDS), "Should be 1750 calls");
     }
 }

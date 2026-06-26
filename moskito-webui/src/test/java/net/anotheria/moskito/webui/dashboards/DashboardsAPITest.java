@@ -8,19 +8,19 @@ import net.anotheria.moskito.core.config.dashboards.ChartConfig;
 import net.anotheria.moskito.core.config.dashboards.DashboardConfig;
 import net.anotheria.moskito.core.config.dashboards.DashboardsConfig;
 import net.anotheria.moskito.webui.dashboards.api.DashboardAPIImpl;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 
 public class DashboardsAPITest {
 
 	private DashboardAPIImpl api = new DashboardAPIImpl();
 
-	@BeforeClass public static void setup(){
+	@BeforeAll public static void setup(){
 		APIFinder.setMockingEnabled(true);
 	}
 
@@ -58,7 +58,7 @@ public class DashboardsAPITest {
 		}
 	}
 
-	@Before public void prepareMoskitoConfig(){
+	@BeforeEach public void prepareMoskitoConfig(){
 		MoskitoConfiguration myConfig = new MoskitoConfiguration();
 
 		DashboardConfig myFirstDashboard = new DashboardConfig();

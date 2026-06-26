@@ -2,10 +2,10 @@ package net.anotheria.moskito.core.blueprint;
 
 import net.anotheria.moskito.core.predefined.RequestOrientedStats;
 import net.anotheria.moskito.core.producers.IStatsProducer;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 /**
  * The clue of this test is not to test the function of calc, but to ensure that it supplies the correct data to moskito itself.
  * @author another

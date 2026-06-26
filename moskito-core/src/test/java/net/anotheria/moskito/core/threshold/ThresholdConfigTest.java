@@ -8,15 +8,15 @@ import net.anotheria.moskito.core.config.thresholds.ThresholdsConfig;
 import net.anotheria.moskito.core.registry.ProducerRegistryFactory;
 import net.anotheria.moskito.core.stats.TimeUnit;
 import net.anotheria.moskito.core.stats.impl.IntervalRegistry;
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 /**
  * Test for the configuration of the
@@ -25,20 +25,20 @@ import static org.junit.Assert.assertNull;
  * @since 25.10.12 10:53
  */
 public class ThresholdConfigTest {
-	@BeforeClass
+	@BeforeAll
 	public static void setup(){
 		System.setProperty("JUNITTEST", "false");
 		ProducerRegistryFactory.reset();
 
 	}
 
-	@AfterClass
+	@AfterAll
 	public static void teardown(){
 		System.setProperty("JUNITTEST", "true");
 		ProducerRegistryFactory.reset();
 	}
 
-	@Before
+	@BeforeEach
 	public void prepareConfiguration(){
 		MoskitoConfiguration config = MoskitoConfigurationHolder.getConfiguration();
 		ThresholdsConfig tc = new ThresholdsConfig();
@@ -107,7 +107,7 @@ public class ThresholdConfigTest {
 
 	}
 
-	@After
+	@AfterEach
 	public void resetConfiguration(){
 		MoskitoConfigurationHolder.resetConfiguration();
 	}

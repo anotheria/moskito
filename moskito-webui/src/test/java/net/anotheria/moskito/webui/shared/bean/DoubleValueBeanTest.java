@@ -1,11 +1,11 @@
 package net.anotheria.moskito.webui.shared.bean;
 
 import net.anotheria.moskito.core.decorators.value.DoubleValueAO;
-import org.junit.Ignore;
-import org.junit.Test;
-import static org.junit.Assert.*;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
 
-@Ignore
+@Disabled
 public class DoubleValueBeanTest {
 	@Test public void testFormatting(){
 		DoubleValueAO b1 = new DoubleValueAO("foo", 0.0);

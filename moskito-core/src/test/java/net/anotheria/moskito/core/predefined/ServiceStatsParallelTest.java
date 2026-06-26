@@ -2,11 +2,11 @@ package net.anotheria.moskito.core.predefined;
 
 import net.anotheria.moskito.core.predefined.Constants;
 import net.anotheria.moskito.core.predefined.ServiceStats;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.atomic.AtomicLong;
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class ServiceStatsParallelTest {
 	private ServiceStats stats = new ServiceStats("test", Constants.getDefaultIntervals());
@@ -43,7 +43,7 @@ public class ServiceStatsParallelTest {
 		//*/
 		
 		assertEquals(counter.get(), stats.getTotalRequests());
-		assertEquals("Number of threads must be equal to max concurrent requests", numberOfThreads, stats.getMaxCurrentRequests());
+		assertEquals(numberOfThreads, stats.getMaxCurrentRequests(), "Number of threads must be equal to max concurrent requests");
 		
 	}
 

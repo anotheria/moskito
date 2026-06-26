@@ -8,17 +8,16 @@ import net.anotheria.moskito.core.accumulation.Accumulator;
 import net.anotheria.moskito.core.accumulation.AccumulatorRepository;
 import net.anotheria.moskito.core.registry.IProducerRegistry;
 import net.anotheria.moskito.core.registry.ProducerRegistryFactory;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-import static org.hamcrest.CoreMatchers.notNullValue;
-import static org.hamcrest.CoreMatchers.nullValue;
-import static org.junit.Assert.assertThat;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.fail;
 
 /**
  * @author bvanchuhov
@@ -140,7 +139,7 @@ public class AnnotationInheritanceTest {
 		TestingInterface test3 = new ThirdLevelClass();
 		test3.execute();
 		IProducerRegistry producerRegistry = ProducerRegistryFactory.getProducerRegistryInstance();
-		assertThat("Producer  found! - should not!", producerRegistry.getProducer(MoskitoUtils.producerName(ThirdLevelClass.class.getName())), nullValue());
+		assertNull(producerRegistry.getProducer(MoskitoUtils.producerName(ThirdLevelClass.class.getName())), "Producer  found! - should not!");
 	}
 
 	// checking
@@ -154,7 +153,7 @@ public class AnnotationInheritanceTest {
 		IProducerRegistry producerRegistry = ProducerRegistryFactory.getProducerRegistryInstance();
 		final String producerId = MoskitoUtils.producerName(clazz.getName());
 
-		assertThat("Producer not found!", producerRegistry.getProducer(producerId), notNullValue());
+		assertNotNull(producerRegistry.getProducer(producerId), "Producer not found!");
 
 		AccumulatorRepository<?> accumulatorRepository = AccumulatorRepository.getInstance();
 
@@ -165,7 +164,7 @@ public class AnnotationInheritanceTest {
 				accumulatorName = producerId + ".execute."+ valueName + "." + INTERVAL_VALUE;//@see AbstractMoskitoAspect#formAccumulatorNameForMethod
 				acc = accumulatorRepository.getByName(accumulatorName);
 			}
-			assertThat("Accumulator '" + accumulatorName + "' not FOUND!", acc, notNullValue());
+			assertNotNull(acc, "Accumulator '" + accumulatorName + "' not FOUND!");
 		}
 
 	}

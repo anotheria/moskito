@@ -2,19 +2,19 @@ package net.anotheria.moskito.webui.accumulators.action;
 
 import net.anotheria.moskito.webui.accumulators.bean.AccumulatedValuesBean;
 import net.anotheria.moskito.webui.shared.api.MoskitoAPIInitializer;
-import org.junit.BeforeClass;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class TestAccumulatorNormalization {
 
-	@BeforeClass public static void initialize(){
+	@BeforeAll public static void initialize(){
 		MoskitoAPIInitializer.initialize();
 	}
 
@@ -36,10 +36,10 @@ public class TestAccumulatorNormalization {
 	
 	private void checkForFloatSimilarity(String f1, String f2, String ... ff){
 		float pattern = Float.parseFloat(f1);
-		assertTrue("expected similarity in "+pattern+", "+f2, Math.abs(pattern-Float.parseFloat(f2))<0.1);
+		assertTrue(Math.abs(pattern-Float.parseFloat(f2))<0.1, "expected similarity in "+pattern+", "+f2);
 		if (ff!=null){
 			for (String s : ff){
-				assertTrue("expected similarity in "+pattern+", "+Float.parseFloat(s), Math.abs(pattern-Float.parseFloat(s))<0.1);
+				assertTrue(Math.abs(pattern-Float.parseFloat(s))<0.1, "expected similarity in "+pattern+", "+Float.parseFloat(s));
 			}
 		}
 	}

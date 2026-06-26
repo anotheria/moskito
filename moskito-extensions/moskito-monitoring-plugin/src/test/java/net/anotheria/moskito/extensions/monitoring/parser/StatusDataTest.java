@@ -3,13 +3,13 @@ package net.anotheria.moskito.extensions.monitoring.parser;
 import net.anotheria.moskito.core.stats.StatValue;
 import net.anotheria.moskito.core.stats.StatValueTypes;
 import net.anotheria.moskito.extensions.monitoring.metrics.IGenericMetrics;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
 /**
  * Test for StatusData bean.

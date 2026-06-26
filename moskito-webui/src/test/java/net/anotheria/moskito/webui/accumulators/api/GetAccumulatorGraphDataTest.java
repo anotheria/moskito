@@ -19,21 +19,21 @@ import net.anotheria.moskito.webui.shared.api.TieablePO;
 import net.anotheria.moskito.webui.threshold.api.ThresholdAPI;
 import net.anotheria.moskito.webui.threshold.api.ThresholdAPIFactory;
 import net.anotheria.moskito.webui.threshold.api.ThresholdPO;
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 public class GetAccumulatorGraphDataTest {
 
-    @BeforeClass
+    @BeforeAll
     public static void startUpTest() {
         System.setProperty("JUNITTEST", "true");
         APIFinder.setMockingEnabled(true);
@@ -41,14 +41,14 @@ public class GetAccumulatorGraphDataTest {
         APIFinder.cleanUp();
     }
 
-    @AfterClass
+    @AfterAll
     public static void shutDownTests() {
         System.clearProperty("JUNITTEST");
         APIFinder.cleanUp();
         MoskitoConfigurationHolder.resetConfiguration();
     }
 
-    @Before
+    @BeforeEach
     public void startUp() {
         APIFinder.addAPIFactory(AccumulatorAPI.class, new AccumulatorAPIFactory());
         APIFinder.addAPIFactory(ThresholdAPI.class, new ThresholdAPIFactory());
@@ -60,7 +60,7 @@ public class GetAccumulatorGraphDataTest {
         ThresholdRepository.resetForUnitTests();
     }
 
-    @After
+    @AfterEach
     public void shutDown() {
         APIFinder.cleanUp();
         ProducerRegistryAPIFactory.resetForUnitTest();
@@ -80,8 +80,8 @@ public class GetAccumulatorGraphDataTest {
 
         assertEquals(aRepository.getAccumulators().size(), 0);
         createFakeAccumulators(new String[]{"a1", "a2", "a3", "a4", "a5", "a6", "a7"});
-        assertEquals(aRepository.getAccumulators().size(), 7);
-        assertEquals("Expected 6: "+registry.getProducers(), 6, registry.getProducers().size());
+        assertEquals(7, aRepository.getAccumulators().size());
+        assertEquals(6, registry.getProducers().size(), "Expected 6: "+registry.getProducers());
 
 
         ThresholdRepository tRepository = ThresholdRepository.getInstance();

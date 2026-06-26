@@ -3,8 +3,8 @@ package net.anotheria.moskito.core.exceptions;
 import net.anotheria.moskito.core.dynamic.MoskitoInvokationProxy;
 import net.anotheria.moskito.core.predefined.ServiceStatsCallHandler;
 import net.anotheria.moskito.core.predefined.ServiceStatsFactory;
-import org.junit.Test;
-import static org.junit.Assert.*;
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class ExceptionPassingTest {
 

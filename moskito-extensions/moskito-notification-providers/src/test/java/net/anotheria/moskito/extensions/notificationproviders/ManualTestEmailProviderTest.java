@@ -8,8 +8,8 @@ import net.anotheria.moskito.core.threshold.ThresholdDefinition;
 import net.anotheria.moskito.core.threshold.ThresholdStatus;
 import net.anotheria.moskito.core.threshold.alerts.AlertDispatcher;
 import net.anotheria.moskito.core.threshold.alerts.ThresholdAlert;
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 
 /**
  * This test is used for manual testing of the email notificationprovider.
@@ -20,7 +20,7 @@ import org.junit.Test;
  */
 public class ManualTestEmailProviderTest {
 
-    @Ignore
+    @Disabled
 	@Test public void generateMailConfigAndTriggerMail() throws Exception{
 		//prepare config
 		MoskitoConfiguration config = new MoskitoConfiguration();

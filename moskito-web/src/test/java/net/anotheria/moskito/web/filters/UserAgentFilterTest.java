@@ -5,8 +5,8 @@ import net.anotheria.moskito.core.producers.IStats;
 import net.anotheria.moskito.core.registry.ProducerRegistryAPIFactory;
 import net.anotheria.moskito.core.registry.ProducerRegistryFactory;
 import net.anotheria.moskito.web.TestingUtil;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
@@ -15,7 +15,7 @@ import jakarta.servlet.FilterChain;
 import jakarta.servlet.http.HttpServletRequest;
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -26,7 +26,7 @@ public class UserAgentFilterTest {
 	
 	public static final String[] AGENTS = {"chrome", "chrome", "firefox", "firefox", "chrome"};
 	
-	@Before public void cleanup(){
+	@BeforeEach public void cleanup(){
 		ProducerRegistryFactory.getProducerRegistryInstance().cleanup();
 	}
 	
@@ -51,7 +51,7 @@ public class UserAgentFilterTest {
 		
 		List<IStats> stats = new ProducerRegistryAPIFactory().createProducerRegistryAPI().getProducer(filter.getProducerId()).getStats();
 		
-		assertEquals("expect 3 stat entries ", 3, stats.size());
+		assertEquals(3, stats.size(), "expect 3 stat entries ");
 		assertEquals(AGENTS.length, ((FilterStats)stats.get(0)).getTotalRequests());
 
 		assertEquals(3, ((FilterStats)stats.get(1)).getTotalRequests());

@@ -2,20 +2,20 @@ package net.anotheria.moskito.core.registry.filters;
 
 import net.anotheria.moskito.core.producers.IStatsProducer;
 import net.anotheria.moskito.core.registry.IProducerFilter;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
 public class FiltersTest {
 
 	private List<IStatsProducer> dummies;
 
-	@Before public void setup(){
+	@BeforeEach public void setup(){
 		dummies = new ArrayList<IStatsProducer>();
 		dummies.add(new DummyProducer("1", "category1", "subsystem1"));
 		dummies.add(new DummyProducer("2", "category1", "subsystem2"));

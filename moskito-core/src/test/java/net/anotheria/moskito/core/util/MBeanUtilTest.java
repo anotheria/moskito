@@ -1,12 +1,12 @@
 package net.anotheria.moskito.core.util;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import javax.management.*;
 
 import java.lang.management.ManagementFactory;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * Tests {@link MBeanUtil} class

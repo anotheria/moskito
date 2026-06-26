@@ -6,21 +6,21 @@ import net.anotheria.moskito.core.registry.IProducerRegistryAPI;
 import net.anotheria.moskito.core.registry.ProducerRegistryAPIFactory;
 import net.anotheria.moskito.core.registry.ProducerRegistryFactory;
 import net.anotheria.moskito.core.stats.impl.IntervalRegistry;
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 
 public class FindThresholdTest {
-	@BeforeClass public static void setup(){
+	@BeforeAll public static void setup(){
 		System.setProperty("JUNITTEST", "false");
 		ProducerRegistryFactory.reset();
 	}
 	
-	@AfterClass public static void teardown(){
+	@AfterAll public static void teardown(){
 		System.setProperty("JUNITTEST", "true");
 		ProducerRegistryFactory.reset();
 	}

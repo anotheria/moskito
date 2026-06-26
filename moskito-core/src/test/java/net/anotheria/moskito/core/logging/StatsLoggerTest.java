@@ -5,10 +5,10 @@ import net.anotheria.moskito.core.predefined.ServiceStats;
 import net.anotheria.moskito.core.predefined.ServiceStatsFactory;
 import net.anotheria.moskito.core.stats.Interval;
 import net.anotheria.moskito.core.stats.impl.IntervalRegistry;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class StatsLoggerTest {
 	
@@ -44,8 +44,8 @@ public class StatsLoggerTest {
 		String message = output.getMessage();
 		//System.out.println(message);
 		
-		assertEquals("Word TESTINTERVAL shouldn't be present in output", message.indexOf("TESTINTERVAL"), -1);//The word TESTINTERVAL shouldn't occure there
-		assertTrue("Word default should be present in output", message.indexOf("default")>-1);//The word default should occure there
+		assertEquals(-1, message.indexOf("TESTINTERVAL"), "Word TESTINTERVAL shouldn't be present in output");//The word TESTINTERVAL shouldn't occure there
+		assertTrue(message.indexOf("default")>-1, "Word default should be present in output");//The word default should occure there
 		assertTrue(message.indexOf("first")>-1);
 		assertTrue(message.indexOf("second")>-1);
 		assertTrue(message.indexOf("TT: 123")>-1);

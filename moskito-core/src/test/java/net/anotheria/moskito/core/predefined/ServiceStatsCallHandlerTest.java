@@ -5,12 +5,12 @@ import net.anotheria.moskito.core.calltrace.RunningTraceContainer;
 import net.anotheria.moskito.core.dynamic.IOnDemandCallHandler;
 import net.anotheria.moskito.core.dynamic.MoskitoInvokationProxy;
 import net.anotheria.moskito.core.producers.IStatsProducer;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
 public class ServiceStatsCallHandlerTest {
 	
@@ -28,12 +28,12 @@ public class ServiceStatsCallHandlerTest {
 		for (int i=0; i<10; i++)
 			service.increase();
 		
-		assertEquals("count doesn't match", 10, impl.getCount());
+		assertEquals(10, impl.getCount(), "count doesn't match");
 		
 		IStatsProducer p = proxy.getProducer();
 		ServiceStats stats = (ServiceStats)p.getStats().get(0);
 		
-		assertEquals("monitored count doesn't match", 10, stats.getTotalRequests());
+		assertEquals(10, stats.getTotalRequests(), "monitored count doesn't match");
 		
 		
 	}
@@ -62,13 +62,13 @@ public class ServiceStatsCallHandlerTest {
 			fail("Exception expected");
 		}catch(Exception e){}
 		
-		assertEquals("count doesn't match", 10, impl.getCount());
+		assertEquals(10, impl.getCount(), "count doesn't match");
 		
 		IStatsProducer p = proxy.getProducer();
 		ServiceStats stats = (ServiceStats)p.getStats().get(0);
 		
-		assertEquals("monitored count doesn't match", 12, stats.getTotalRequests());
-		assertEquals("monitored count doesn't match", 2, stats.getErrors());
+		assertEquals(12, stats.getTotalRequests(), "monitored count doesn't match");
+		assertEquals(2, stats.getErrors(), "monitored count doesn't match");
 		
 		
 	}

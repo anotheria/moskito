@@ -2,9 +2,9 @@ package net.anotheria.moskito.aop.monitorcalls.clazz.onclass;
 
 import net.anotheria.moskito.core.producers.IStatsProducer;
 import net.anotheria.moskito.core.registry.ProducerRegistryFactory;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 public class MonitorCallsTest {
     @Test public void testMonitorCallsMethod(){

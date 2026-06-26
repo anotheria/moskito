@@ -1,23 +1,22 @@
 package net.anotheria.moskito.aop;
 
-import static org.hamcrest.CoreMatchers.notNullValue;
-import static org.hamcrest.CoreMatchers.nullValue;
-import static org.junit.Assert.assertThat;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 import net.anotheria.moskito.aop.annotation.DontMonitor;
 import net.anotheria.moskito.aop.annotation.withsubclasses.MonitorWithSubClasses;
 import net.anotheria.moskito.aop.util.MoskitoUtils;
 import net.anotheria.moskito.core.registry.IProducerRegistry;
 import net.anotheria.moskito.core.registry.ProducerRegistryFactory;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * @author bvanchuhov
  */
 public class MonitorWithSubClassesTest {
 
-	@Before
+	@BeforeEach
 	public void before() {
 		ProducerRegistryFactory.getProducerRegistryInstance().cleanup();
 	}
@@ -39,7 +38,7 @@ public class MonitorWithSubClassesTest {
 		child.execute();
 
 		IProducerRegistry producerRegistry = ProducerRegistryFactory.getProducerRegistryInstance();
-		assertThat("error!", producerRegistry.getProducer(MoskitoUtils.producerName(TestClassImplementation.class.getName())), notNullValue());
+		assertNotNull(producerRegistry.getProducer(MoskitoUtils.producerName(TestClassImplementation.class.getName())), "error!");
 	}
 
 
@@ -51,7 +50,7 @@ public class MonitorWithSubClassesTest {
 		};
 		child.execute();
 		IProducerRegistry producerRegistry = ProducerRegistryFactory.getProducerRegistryInstance();
-		assertThat("error!", producerRegistry.getProducer(MoskitoUtils.producerName(child.getClass().getName())), notNullValue());
+		assertNotNull(producerRegistry.getProducer(MoskitoUtils.producerName(child.getClass().getName())), "error!");
 	}
 
 
@@ -60,7 +59,7 @@ public class MonitorWithSubClassesTest {
 		final ParentClassNotAnnotated child = new SomeOtherImpl();
 		child.execute();
 		IProducerRegistry producerRegistry = ProducerRegistryFactory.getProducerRegistryInstance();
-		assertThat("error!", producerRegistry.getProducer(MoskitoUtils.producerName(SomeOtherImpl.class.getName())), notNullValue());
+		assertNotNull(producerRegistry.getProducer(MoskitoUtils.producerName(SomeOtherImpl.class.getName())), "error!");
 	}
 
 	@Test
@@ -68,7 +67,7 @@ public class MonitorWithSubClassesTest {
 		final ParentClassNotAnnotated child = new SomeOtherImpl();
 		child.executeSomethingElse();
 		IProducerRegistry producerRegistry = ProducerRegistryFactory.getProducerRegistryInstance();
-		assertThat("error!", producerRegistry.getProducer(MoskitoUtils.producerName(SomeOtherImpl.class.getName())), nullValue());
+		assertNull(producerRegistry.getProducer(MoskitoUtils.producerName(SomeOtherImpl.class.getName())), "error!");
 	}
 
 	@Test
@@ -76,7 +75,7 @@ public class MonitorWithSubClassesTest {
 		final SupperParentClassAnnotated child = new DontMonitoredImpl();
 		child.execute();
 		IProducerRegistry producerRegistry = ProducerRegistryFactory.getProducerRegistryInstance();
-		assertThat("error!", producerRegistry.getProducer(MoskitoUtils.producerName(DontMonitoredImpl.class.getName())), nullValue());
+		assertNull(producerRegistry.getProducer(MoskitoUtils.producerName(DontMonitoredImpl.class.getName())), "error!");
 	}
 
 

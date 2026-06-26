@@ -1,9 +1,9 @@
 package net.anotheria.moskito.core.counter;
 
 import net.anotheria.moskito.core.dynamic.OnDemandStatsProducer;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * This test demonstrates how to use the MaleFemaleStats objects.

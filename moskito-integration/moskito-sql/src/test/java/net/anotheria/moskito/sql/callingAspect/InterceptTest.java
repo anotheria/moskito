@@ -1,17 +1,17 @@
 package net.anotheria.moskito.sql.callingAspect;
 
 import net.anotheria.moskito.sql.util.TestDBUtil;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 
 import java.io.ByteArrayOutputStream;
 import java.io.OutputStream;
 import java.io.PrintStream;
 import java.sql.Connection;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * SQL intercept test.
@@ -20,7 +20,7 @@ import static org.junit.Assert.assertEquals;
  *         Date: 11/29/11
  *         Time: 2:22 PM
  */
-@Ignore
+@Disabled
 public class InterceptTest {
 
     private static final String LINESEP = System.getProperty("line.separator");
@@ -33,7 +33,7 @@ public class InterceptTest {
 
     private Connection connection;
 
-    @Before
+    @BeforeEach
     public void setUp() throws Exception {
         connection = TestDBUtil.getConnection();
         TestDBUtil.createTable(connection);
@@ -51,12 +51,12 @@ public class InterceptTest {
         System.out.println("Created " + valueDAO.getMatcherValue(connection, matcherValue.getId()));
         String sql = outputStream.toString();
         String expected = INTERCEPTED_OUTPUT;
-        assertEquals("Should have logged query", expected, sql);
+        assertEquals(expected, sql, "Should have logged query");
     }
 
 
 
-    @After
+    @AfterEach
     public void tearDown() throws Exception {
         TestDBUtil.dropTable(connection);
         connection.close();

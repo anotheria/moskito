@@ -1,8 +1,8 @@
 package net.anotheria.moskito.core.registry;
 
 import net.anotheria.moskito.core.producers.IStatsProducer;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
@@ -13,9 +13,9 @@ import java.util.List;
  */
 public class ProducerReferenceTest {
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void shouldThrowIllegalArgumentException() {
-        new ProducerReference(null);
+        Assertions.assertThrows(IllegalArgumentException.class, () -> new ProducerReference(null));
     }
 
     @Test
@@ -25,8 +25,8 @@ public class ProducerReferenceTest {
         ProducerReference ref_1 = new ProducerReference(producer);
         ProducerReference ref_2 = new ProducerReference(producer);
 
-        Assert.assertNotSame("References should have different identities", ref_1, ref_2);
-        Assert.assertEquals("References should be equal", ref_1, ref_2);
+        Assertions.assertNotSame(ref_1, ref_2, "References should have different identities");
+        Assertions.assertEquals(ref_1, ref_2, "References should be equal");
     }
 
     /**

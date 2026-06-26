@@ -2,8 +2,8 @@ package net.anotheria.moskito.core.stats.impl;
 
 import net.anotheria.moskito.core.predefined.ServiceStats;
 import net.anotheria.moskito.core.stats.Interval;
-import org.junit.Test;
-import static org.junit.Assert.*;
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
 
 
 public class NegativeCurrentRequestsTest {
@@ -18,8 +18,8 @@ public class NegativeCurrentRequestsTest {
 		stats.notifyRequestFinished();
 		stats.notifyRequestFinished();
 		
-		assertEquals("Current requests should be 0", 0, stats.getCurrentRequests());
-		assertEquals("Current requests should be 0", 0, stats.getCurrentRequests("1m"));
+		assertEquals(0, stats.getCurrentRequests(), "Current requests should be 0");
+		assertEquals(0, stats.getCurrentRequests("1m"), "Current requests should be 0");
 		
 
 		stats.addRequest();
@@ -29,8 +29,8 @@ public class NegativeCurrentRequestsTest {
 		//stats.
 		((IntervalImpl)interval).update();
 		
-		assertEquals("Current requests should be 3", 3, stats.getCurrentRequests());
-		assertEquals("Current requests should be 3", 3, stats.getCurrentRequests("1m"));
+		assertEquals(3, stats.getCurrentRequests(), "Current requests should be 3");
+		assertEquals(3, stats.getCurrentRequests("1m"), "Current requests should be 3");
 
 		stats.notifyRequestFinished();
 		stats.notifyRequestFinished();
@@ -38,7 +38,7 @@ public class NegativeCurrentRequestsTest {
 
 		((IntervalImpl)interval).update();
 
-		assertEquals("Current requests should be 0", 0, stats.getCurrentRequests());
-		//TODO -> this is yet broken !assertEquals("Current requests should be 0", 0, stats.getCurrentRequests("1m"));
+		assertEquals(0, stats.getCurrentRequests(), "Current requests should be 0");
+		//TODO -> this is yet broken !assertEquals(0, stats.getCurrentRequests("1m"), "Current requests should be 0");
 	}
 }

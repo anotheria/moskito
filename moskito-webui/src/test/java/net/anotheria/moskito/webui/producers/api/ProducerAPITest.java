@@ -7,18 +7,18 @@ import net.anotheria.moskito.core.registry.IProducerRegistry;
 import net.anotheria.moskito.core.registry.ProducerRegistryAPIFactory;
 import net.anotheria.moskito.core.registry.ProducerRegistryFactory;
 import net.anotheria.util.IdCodeGenerator;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 
 public class ProducerAPITest {
-	@Before
+	@BeforeEach
 	public void startUp(){
 		APIFinder.addAPIFactory(ProducerAPI.class, new ProducerAPIFactory());
 		System.setProperty("JUNITTEST", "true");
@@ -26,7 +26,7 @@ public class ProducerAPITest {
 		ProducerRegistryAPIFactory.resetForUnitTest();
 	}
 
-	@After
+	@AfterEach
 	public void shutDown(){
 		APIFinder.cleanUp();
 		ProducerRegistryFactory.reset();
