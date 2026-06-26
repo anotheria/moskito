@@ -5,8 +5,8 @@ import net.anotheria.moskito.core.producers.IStats;
 import net.anotheria.moskito.core.registry.ProducerRegistryAPIFactory;
 import net.anotheria.moskito.core.registry.ProducerRegistryFactory;
 import net.anotheria.moskito.web.TestingUtil;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
 
@@ -15,7 +15,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -28,7 +28,7 @@ public class DomainFilterTest {
 	
 	public static final String[] DOMAINS = {"www.example.com", "www.example.com", "www.example.com", "www.google.com", "www.example.com"};
 	
-	@Before public void cleanup(){
+	@BeforeEach public void cleanup(){
 		ProducerRegistryFactory.getProducerRegistryInstance().cleanup();
 	}
 	
@@ -55,7 +55,7 @@ public class DomainFilterTest {
 		
 		List<IStats> stats = new ProducerRegistryAPIFactory().createProducerRegistryAPI().getProducer(filter.getProducerId()).getStats();
 		
-		assertEquals("expect 3 stat entries ", 3, stats.size());
+		assertEquals(3, stats.size(), "expect 3 stat entries ");
 		assertEquals(DOMAINS.length, ((FilterStats)stats.get(0)).getTotalRequests());
 
 		assertEquals(4, ((FilterStats)stats.get(1)).getTotalRequests());

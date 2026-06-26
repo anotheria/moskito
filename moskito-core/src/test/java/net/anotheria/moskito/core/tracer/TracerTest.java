@@ -4,8 +4,8 @@ import net.anotheria.moskito.core.config.MoskitoConfiguration;
 import net.anotheria.moskito.core.config.MoskitoConfigurationHolder;
 import net.anotheria.moskito.core.config.tracing.ShrinkingStrategy;
 import net.anotheria.moskito.core.config.tracing.TracingConfiguration;
-import org.junit.Test;
-import static org.junit.Assert.*;
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class TracerTest {
 	@Test
@@ -62,7 +62,7 @@ public class TracerTest {
 
 		assertEquals(max, tracer.getEntryCount());
 		assertEquals(String.valueOf(tolerated - max + 1), tracer.getTraces().get(0).getCall());
-		assertEquals("Ensure we have same last element, ", overflow.getCall(), tracer.getTraces().get(tracer.getTraces().size() - 1).getCall());
+		assertEquals(overflow.getCall(), tracer.getTraces().get(tracer.getTraces().size() - 1).getCall(), "Ensure we have same last element, ");
 
 
 

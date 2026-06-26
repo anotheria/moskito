@@ -6,10 +6,10 @@ import net.anotheria.moskito.core.stats.Interval;
 import net.anotheria.moskito.core.stats.StatValue;
 import net.anotheria.moskito.core.stats.StatValueTypes;
 import net.anotheria.moskito.core.stats.TypeAwareStatValue;
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * @author dzhmud
@@ -88,7 +88,7 @@ public class SkipFirstDiffLongValueHolderTest {
     }
 
     @Test
-    @Ignore("DiffLong and childs does not work correctly with 'default' interval.")
+    @Disabled("DiffLong and childs does not work correctly with 'default' interval.")
     public void testDefaultInterval() {
         final StatValue statValue = createStatValue();
         final Interval interval = IntervalRegistry.getInstance().getInterval("default", 0);

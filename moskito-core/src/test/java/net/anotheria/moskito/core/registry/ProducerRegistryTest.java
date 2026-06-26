@@ -2,19 +2,19 @@ package net.anotheria.moskito.core.registry;
 
 import net.anotheria.moskito.core.producers.IStats;
 import net.anotheria.moskito.core.producers.IStatsProducer;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 
 import java.util.Collection;
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 public class ProducerRegistryTest {
 	
-	@BeforeClass public static void init(){
+	@BeforeAll public static void init(){
 		System.setProperty("JUNITTEST", "true");
 	}
 	
@@ -100,7 +100,7 @@ public class ProducerRegistryTest {
 		
 	}
 	
-	@Before public void reset(){
+	@BeforeEach public void reset(){
 		ProducerRegistryFactory.reset();
 	}
 }

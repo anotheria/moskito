@@ -6,8 +6,8 @@ import net.anotheria.moskito.core.registry.ProducerRegistryAPIFactory;
 import net.anotheria.moskito.core.registry.ProducerRegistryFactory;
 import net.anotheria.moskito.core.stats.TimeUnit;
 import net.anotheria.moskito.web.TestingUtil;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.FilterConfig;
@@ -18,7 +18,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.times;
@@ -35,7 +35,7 @@ public class JSTalkBackFilterTest {
 		System.setProperty("JUNITTEST", "true");
 	}
 
-	@Before
+	@BeforeEach
 	public void cleanup() {
 		ProducerRegistryFactory.getProducerRegistryInstance().cleanup();
 	}
@@ -82,7 +82,7 @@ public class JSTalkBackFilterTest {
 
 		List<IStats> stats = new ProducerRegistryAPIFactory().createProducerRegistryAPI().getProducer("JSTalkBackFilter2").getStats();
 
-		assertEquals("Expected predefined producer and producer with name: " + url, 2, stats.size());
+		assertEquals(2, stats.size(), "Expected predefined producer and producer with name: " + url);
 		assertEquals("cumulated", stats.get(0).getName());
 
 		final PageInBrowserStats pageInBrowserStats = (PageInBrowserStats) stats.get(1);

@@ -1,23 +1,23 @@
 package net.anotheria.moskito.core.util.threadhistory;
 
-import org.junit.BeforeClass;
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
-@Ignore
+@Disabled
 public class ThreadHistoryUtilityTest {
 	
 	private static final int THREADCOUNT = 5;
 
-	@BeforeClass public static void setUpdate(){
+	@BeforeAll public static void setUpdate(){
 		ThreadHistoryUtility.INSTANCE.setUpdateInterval(1000L);
 	}
 
 	//set this test to ignore, since its not very stable.
-	@Ignore
+	@Disabled
 	@Test public void testOffMode() throws InterruptedException{
 		ThreadHistoryUtility.INSTANCE.deactivate();
 		for (int i=0; i<THREADCOUNT; i++){

@@ -1,13 +1,8 @@
 package net.anotheria.moskito.core.dynamic;
 
-import org.hamcrest.Matcher;
-import org.hamcrest.core.Is;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import static org.hamcrest.collection.IsArrayWithSize.arrayWithSize;
-import static org.hamcrest.core.Is.is;
-import static org.hamcrest.core.IsSame.sameInstance;
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * Created by dheid on 28.05.16.
@@ -35,10 +30,10 @@ public class ProxyUtilsTest {
         };
         Class[] mergedInterfaces = ProxyUtils.mergeInterfaces(interf, additionalClasses);
 
-        assertThat(mergedInterfaces, arrayWithSize(3));
-        assertThat(mergedInterfaces[0] == TestInterfaceA.class, is(true));
-        assertThat(mergedInterfaces[1] == TestInterfaceB.class, is(true));
-        assertThat(mergedInterfaces[2] == TestInterfaceC.class, is(true));
+        assertEquals(3, mergedInterfaces.length);
+        assertSame(TestInterfaceA.class, mergedInterfaces[0]);
+        assertSame(TestInterfaceB.class, mergedInterfaces[1]);
+        assertSame(TestInterfaceC.class, mergedInterfaces[2]);
     }
 
 }

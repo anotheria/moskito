@@ -1,11 +1,11 @@
 package net.anotheria.moskito.core.registry;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.lang.ref.WeakReference;
 
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 /**
  * This tests doesn't test moskito itself, but tests its underlying technology (weak ref usage for registry). 
  * In case it fails (due do jdk changes or something) its an indicator that something is wrong with moskito registry reference maintaining.

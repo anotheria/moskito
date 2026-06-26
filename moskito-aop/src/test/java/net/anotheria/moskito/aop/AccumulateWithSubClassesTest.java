@@ -16,9 +16,9 @@ import net.anotheria.moskito.core.registry.ProducerRegistryFactory;
 import net.anotheria.moskito.core.stats.Interval;
 import net.anotheria.moskito.core.stats.impl.IntervalRegistry;
 import net.anotheria.moskito.core.timing.IUpdateable;
-import org.junit.Before;
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -26,17 +26,17 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * @author sshscp
  */
 public class AccumulateWithSubClassesTest {
 
-	@Before
+	@BeforeEach
 	public void before() {
 		ProducerRegistryFactory.getProducerRegistryInstance().cleanup();
 		AccumulatorRepository.resetForUnitTests();
@@ -100,10 +100,10 @@ public class AccumulateWithSubClassesTest {
 		new AnotherChildAccumulatorTestClass().someMethod();// nothing
 
 		//check producers presence
-		assertNotNull("Producer not found!", getProducer(ParentRegularAccumulatorClass.class));
-		assertNotNull("Producer not found!", getProducer(RegularAccumulatorTestClass.class));
-		assertNotNull("Producer not found!", getProducer(ChildAccumulatorTestClass.class));
-		assertNotNull("Producer not found!", getProducer(AnotherChildAccumulatorTestClass.class));
+		assertNotNull(getProducer(ParentRegularAccumulatorClass.class), "Producer not found!");
+		assertNotNull(getProducer(RegularAccumulatorTestClass.class), "Producer not found!");
+		assertNotNull(getProducer(ChildAccumulatorTestClass.class), "Producer not found!");
+		assertNotNull(getProducer(AnotherChildAccumulatorTestClass.class), "Producer not found!");
 
 
 		final ExpectedAccumulatorValues expected = new ExpectedAccumulatorValues();
@@ -180,13 +180,13 @@ public class AccumulateWithSubClassesTest {
 		forceIntervalUpdate("snapshot");
 		for (Map.Entry<String, Long> expectedValue : values.entries()) {
 			Accumulator accumulator = getAccumulator(expectedValue.getKey());
-			assertNotNull("Accumulator not found!", accumulator);
+			assertNotNull(accumulator, "Accumulator not found!");
 
 			List<AccumulatedValue> stats = accumulator.getValues();
-			assertTrue("Accumulated values are absent!", stats.size() > 0);
+			assertTrue(stats.size() > 0, "Accumulated values are absent!");
 
 			Long expectedCounter = expectedValue.getValue();
-			assertEquals("Expected other value!", expectedCounter.toString(), stats.get(stats.size() - 1 ).getValue());
+			assertEquals(expectedCounter.toString(), stats.get(stats.size() - 1 ).getValue(), "Expected other value!");
 		}
 	}
 
@@ -250,12 +250,12 @@ public class AccumulateWithSubClassesTest {
 		new ChildMonitoredClass().someMethod();//+1 to CHILD
 
 		//check producers presence
-		assertNotNull("Producer not found!", getProducer(ParentMonitoredClass.class));
-		assertNotNull("Producer not found!", getProducer(RegularMonitoredClass.class));
-		assertNotNull("Producer not found!", getProducer(ChildMonitoredClass.class));
+		assertNotNull(getProducer(ParentMonitoredClass.class), "Producer not found!");
+		assertNotNull(getProducer(RegularMonitoredClass.class), "Producer not found!");
+		assertNotNull(getProducer(ChildMonitoredClass.class), "Producer not found!");
 
 		//check accumulators count
-		assertEquals("Wrong accumulators count!", 3, AccumulatorRepository.getInstance().getAccumulators().size());
+		assertEquals(3, AccumulatorRepository.getInstance().getAccumulators().size(), "Wrong accumulators count!");
 
 
 		//find out generated accumulator names
@@ -358,25 +358,25 @@ public class AccumulateWithSubClassesTest {
 		new ChildWithoutAccumulator().execute2();//don't accumulate
 
 		//check producers presence
-		assertNotNull("Producer not found!", getProducer(ChildWithoutAccumulator.class));
-		assertNotNull("Producer not found!", getProducer(ParentMonitoredClassWithoutAccumulators.class));
+		assertNotNull(getProducer(ChildWithoutAccumulator.class), "Producer not found!");
+		assertNotNull(getProducer(ParentMonitoredClassWithoutAccumulators.class), "Producer not found!");
 
 		//check accumulators count
-		assertEquals("Wrong accumulators count!", 0, AccumulatorRepository.getInstance().getAccumulators().size());
+		assertEquals(0, AccumulatorRepository.getInstance().getAccumulators().size(), "Wrong accumulators count!");
 
 		new ChildWithAccumulator().execute();//goes to accumulator
 		new ChildWithAccumulator().execute2();//don't accumulate
 
-		assertNotNull("Producer not found!", getProducer(ChildWithAccumulator.class));
-		assertEquals("Wrong accumulators count!", 1, AccumulatorRepository.getInstance().getAccumulators().size());
+		assertNotNull(getProducer(ChildWithAccumulator.class), "Producer not found!");
+		assertEquals(1, AccumulatorRepository.getInstance().getAccumulators().size(), "Wrong accumulators count!");
 
 		forceIntervalUpdate("1h");
 		Accumulator accumulator = getAccumulator(findAccumulatorName(ChildWithAccumulator.class.getSimpleName()));
-		assertNotNull("Accumulator not found!", accumulator);
+		assertNotNull(accumulator, "Accumulator not found!");
 
 		List<AccumulatedValue> stats = accumulator.getValues();
-		assertTrue("Accumulated values are absent!", stats.size() > 0);
-		assertEquals("Expected other value!", "1", stats.get(stats.size() - 1 ).getValue());
+		assertTrue(stats.size() > 0, "Accumulated values are absent!");
+		assertEquals("1", stats.get(stats.size() - 1 ).getValue(), "Expected other value!");
 	}
 
 
@@ -385,7 +385,7 @@ public class AccumulateWithSubClassesTest {
 	 * from inheriting further(TestClassC) and that @DontMonitor works as expected(TestClassD)
 	 */
 	@Test
-	@Ignore
+	@Disabled
 	public void testMonitorOverriding() {
 		final String interval = "snapshot";
 
@@ -416,27 +416,27 @@ public class AccumulateWithSubClassesTest {
 		new TestClassD().execute();
 
 		//check accumulators count
-		assertEquals("Wrong accumulators count!", 3, AccumulatorRepository.getInstance().getAccumulators().size());
+		assertEquals(3, AccumulatorRepository.getInstance().getAccumulators().size(), "Wrong accumulators count!");
 
 		forceIntervalUpdate(interval);
 
 		for (Class clazz : new Class[]{TestClassA.class, TestClassB.class, TestClassC.class}) {
 			//check producers presence
-			assertNotNull("Producer not found!", getProducer(TestClassA.class));
+			assertNotNull(getProducer(TestClassA.class), "Producer not found!");
 
 			//check accumulator presence
 			Accumulator accumulator = getAccumulator(findAccumulatorName(clazz.getSimpleName()));
 //			accumulator.tieToStats();
-			assertNotNull("Accumulator not found!", accumulator);
+			assertNotNull(accumulator, "Accumulator not found!");
 
 			//check accumulated values
 			List<AccumulatedValue> stats = accumulator.getValues();
-			assertEquals("Expected single accumulatd value!", 1, stats.size());
-			assertEquals("Expected other value!", "1", stats.get(0).getValue());
+			assertEquals(1, stats.size(), "Expected single accumulatd value!");
+			assertEquals("1", stats.get(0).getValue(), "Expected other value!");
 		}
 
-		assertNull("Producer found!", getProducer(TestClassD.class));
-		assertNull("Accumulator found!", findAccumulatorName(TestClassD.class.getSimpleName()));
+		assertNull(getProducer(TestClassD.class), "Producer found!");
+		assertNull(findAccumulatorName(TestClassD.class.getSimpleName()), "Accumulator found!");
 
 	}
 }

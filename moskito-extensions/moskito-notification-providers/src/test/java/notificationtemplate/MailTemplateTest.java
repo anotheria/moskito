@@ -5,13 +5,13 @@ import net.anotheria.moskito.core.threshold.ThresholdDefinition;
 import net.anotheria.moskito.core.threshold.ThresholdStatus;
 import net.anotheria.moskito.core.threshold.alerts.ThresholdAlert;
 import net.anotheria.moskito.extensions.notificationtemplate.ThresholdAlertTemplate;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * JUnit for {@link net.anotheria.moskito.extensions.notificationtemplate.MailTemplate}.
  */
 public class MailTemplateTest {
-	//@Ignore
+	//@Disabled
 	@Test
 	public void testAlertThresholdTemplate() throws Exception {
 		ThresholdDefinition td = new ThresholdDefinition();

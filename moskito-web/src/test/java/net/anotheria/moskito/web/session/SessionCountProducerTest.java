@@ -1,13 +1,13 @@
 package net.anotheria.moskito.web.session;
 
 import net.anotheria.moskito.core.util.session.SessionCountStats;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import jakarta.servlet.http.HttpSession;
 import jakarta.servlet.http.HttpSessionEvent;
 import java.util.concurrent.CountDownLatch;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.mock;
 
 public class SessionCountProducerTest {

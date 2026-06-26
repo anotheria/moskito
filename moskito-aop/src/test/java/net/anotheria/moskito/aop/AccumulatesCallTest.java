@@ -6,27 +6,27 @@ import net.anotheria.moskito.aop.annotation.Monitor;
 import net.anotheria.moskito.core.accumulation.Accumulator;
 import net.anotheria.moskito.core.accumulation.AccumulatorRepository;
 import net.anotheria.moskito.core.config.MoskitoConfigurationHolder;
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * @author Roman Stetsiuk
  */
 public class AccumulatesCallTest {
 
-	@BeforeClass
+	@BeforeAll
 	public static void setup() {
 		MoskitoConfigurationHolder.resetConfiguration();
 		MoskitoConfigurationHolder.getConfiguration().getBuiltinProducersConfig().disableAll();
         AccumulatorRepository.resetForUnitTests();
 	}
 
-	@AfterClass
+	@AfterAll
     public static void cleanup() {
         AccumulatorRepository.resetForUnitTests();
     }

@@ -2,10 +2,10 @@ package net.anotheria.moskito.core.stats.impl;
 
 import net.anotheria.moskito.core.stats.IIntervalListener;
 import net.anotheria.moskito.core.stats.Interval;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 public class IntervalImplTest {
 	@Test public void testListener(){

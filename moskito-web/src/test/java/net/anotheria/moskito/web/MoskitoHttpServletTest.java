@@ -10,29 +10,26 @@ import net.anotheria.moskito.core.producers.IStatsProducer;
 import net.anotheria.moskito.core.registry.IProducerRegistryAPI;
 import net.anotheria.moskito.core.registry.ProducerRegistryAPIFactory;
 import net.anotheria.moskito.core.registry.ProducerRegistryFactory;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.mock;
 
-@RunWith(MockitoJUnitRunner.class)
 public class MoskitoHttpServletTest {
 	
 	private static final long GETS = 5, POSTS = 10, HEADS = 2, PUTS = 6, LM = 4, TRACES = 13, OPTIONS = 2, DELETES = 20;
 
-	@BeforeClass public static void setProperty(){
+	@BeforeAll public static void setProperty(){
 		System.setProperty("JUNITTEST", "true");
 	}
 	
-	@Before public void reset(){
+	@BeforeEach public void reset(){
 		ProducerRegistryFactory.reset();
 	}
 	
@@ -78,7 +75,7 @@ public class MoskitoHttpServletTest {
 		List<IStats> stats = producer.getStats();
 		for (IStats s : stats){
 			//System.out.println(s);
-			assertEquals("Mismatch in "+s.getName(), ((ServletStats)s).getTotalRequests(), controlMap.get(s.getName()).longValue());
+			assertEquals(((ServletStats)s).getTotalRequests(), controlMap.get(s.getName()).longValue(), "Mismatch in "+s.getName());
 		}
 	}
 
@@ -161,7 +158,7 @@ public class MoskitoHttpServletTest {
 		List<IStats> stats = producer.getStats();
 		for (IStats s : stats){
 			//System.out.println(s);
-			assertEquals("Mismatch in "+s.getName(), ((ServletStats)s).getServletExceptions(), controlMap.get(s.getName()).longValue());
+			assertEquals(((ServletStats)s).getServletExceptions(), controlMap.get(s.getName()).longValue(), "Mismatch in "+s.getName());
 		}
 	}
 }

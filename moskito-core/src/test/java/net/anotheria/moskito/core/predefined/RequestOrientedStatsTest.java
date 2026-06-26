@@ -3,13 +3,13 @@ package net.anotheria.moskito.core.predefined;
 import net.anotheria.moskito.core.producers.CallExecution;
 import net.anotheria.moskito.core.stats.TimeUnit;
 import net.anotheria.moskito.core.stats.impl.IntervalRegistry;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.Random;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class RequestOrientedStatsTest {
 	@Test public void testCalculation(){
@@ -120,7 +120,7 @@ public class RequestOrientedStatsTest {
 
 		assertEquals(1, stats.getTotalRequests());
 		//we add some 5 milliseconds on top, but ensure that total duration is below 60ms, which the test as such took.
-		assertTrue("Expected total time be below 55ms but it was "+stats.getTotalTime(),1000L*1000*55>stats.getTotalTime());
+		assertTrue(1000L*1000*55>stats.getTotalTime(), "Expected total time be below 55ms but it was "+stats.getTotalTime());
 	}
 
 	@Test public void testDoublePause()  throws InterruptedException {
@@ -139,7 +139,7 @@ public class RequestOrientedStatsTest {
 		assertEquals(1, stats.getTotalRequests());
 		//we add some 5 milliseconds on top, but ensure that total duration is below 60ms, which the test as such took.
 
-		assertTrue("Expected total time be below 50ms but it was "+stats.getTotalTime(), 1000L * 1000 * 55 > stats.getTotalTime());
+		assertTrue(1000L * 1000 * 55 > stats.getTotalTime(), "Expected total time be below 50ms but it was "+stats.getTotalTime());
 	}
 
 	@Test public void testDoubleResume()  throws InterruptedException {
@@ -157,7 +157,7 @@ public class RequestOrientedStatsTest {
 		assertEquals(1, stats.getTotalRequests());
 		//we add some 5 milliseconds on top, but ensure that total duration is below 60ms, which the test as such took.
 		//System.out.println(stats.getTotalTime());
-		assertTrue("Expected total time be below 50ms but it was "+stats.getTotalTime(), 1000L * 1000 * 55 > stats.getTotalTime());
+		assertTrue(1000L * 1000 * 55 > stats.getTotalTime(), "Expected total time be below 50ms but it was "+stats.getTotalTime());
 	}
 
 }

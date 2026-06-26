@@ -6,10 +6,10 @@ import net.anotheria.moskito.core.config.thresholds.NotificationProviderConfig;
 import net.anotheria.moskito.core.threshold.Threshold;
 import net.anotheria.moskito.core.threshold.ThresholdDefinition;
 import net.anotheria.moskito.core.threshold.ThresholdStatus;
-import org.junit.After;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
 public class AlertDispatcherTest {
@@ -56,7 +56,7 @@ public class AlertDispatcherTest {
 
 	}
 
-	@After public void cleanup(){
+	@AfterEach public void cleanup(){
 		MoskitoConfigurationHolder.resetConfiguration();
 	}
 

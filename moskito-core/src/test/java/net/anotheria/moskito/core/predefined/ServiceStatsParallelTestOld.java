@@ -2,10 +2,10 @@ package net.anotheria.moskito.core.predefined;
 
 import net.anotheria.moskito.core.predefined.Constants;
 import net.anotheria.moskito.core.predefined.ServiceStats;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.concurrent.atomic.AtomicLong;
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class ServiceStatsParallelTestOld {
 	private ServiceStats stats = new ServiceStats("test", Constants.getDefaultIntervals());

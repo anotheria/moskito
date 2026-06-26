@@ -3,11 +3,11 @@ package net.anotheria.moskito.extensions.producers;
 import net.anotheria.moskito.core.predefined.ServiceStats;
 import net.anotheria.moskito.core.predefined.ServiceStatsFactory;
 import net.anotheria.moskito.core.stats.impl.IntervalRegistry;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 
 public class RollingOnDemandStatsProducerTest {
@@ -30,8 +30,8 @@ public class RollingOnDemandStatsProducerTest {
 				found5 = true;
 		}
 
-		assertTrue("We should have found the stats number 5", found5);
-		assertFalse("We should have found the stats number 5", found0);
+		assertTrue(found5, "We should have found the stats number 5");
+		assertFalse(found0, "We should have found the stats number 5");
 
 		long sizeBeforeAdd = IntervalRegistry.getInstance().getInterval("1m").getPrimaryListenerCount();
 		producer.getStats("StatsThatWeDidn'tHadYet");

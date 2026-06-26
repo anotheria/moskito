@@ -2,8 +2,8 @@ package net.anotheria.moskito.core.predefined;
 
 import net.anotheria.moskito.core.predefined.Constants;
 import net.anotheria.moskito.core.predefined.ServiceStats;
-import org.junit.Test;
-import static org.junit.Assert.*;
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class ServiceStatsSimpleTest {
 

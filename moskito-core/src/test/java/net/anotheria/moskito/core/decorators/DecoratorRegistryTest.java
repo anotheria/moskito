@@ -16,16 +16,16 @@ import net.anotheria.moskito.core.predefined.ServiceStats;
 import net.anotheria.moskito.core.producers.IStats;
 import net.anotheria.moskito.core.stats.TimeUnit;
 import net.anotheria.moskito.core.util.storage.StorageStats;
-import org.junit.BeforeClass;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 public class DecoratorRegistryTest {
 	
 	private static IDecoratorRegistry registry;
-	@BeforeClass public static void init(){
+	@BeforeAll public static void init(){
 		registry = DecoratorRegistryFactory.getDecoratorRegistry();
 	}
 	
@@ -41,8 +41,8 @@ public class DecoratorRegistryTest {
 	
 	private void testResolution(Class<? extends IStats> statsPattern, Class<? extends IDecorator> decoratorPattern) throws Exception{
 		IDecorator resolvedDecorator = registry.getDecorator(statsPattern);
-		assertNotNull("Resolved decorator was null! ", resolvedDecorator);
-		assertEquals("Resolved decorator is not of expected type", decoratorPattern, resolvedDecorator.getClass());
+		assertNotNull(resolvedDecorator, "Resolved decorator was null! ");
+		assertEquals(decoratorPattern, resolvedDecorator.getClass(), "Resolved decorator is not of expected type");
 		//this is not necessarily a registry test, but it ensures that the returned type actually can basically handle pattern type.
 		assertNotNull(resolvedDecorator.getValues(statsPattern.newInstance(), null, TimeUnit.MILLISECONDS));
 	}

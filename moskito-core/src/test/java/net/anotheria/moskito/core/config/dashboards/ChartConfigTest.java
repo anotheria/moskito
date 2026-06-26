@@ -1,17 +1,15 @@
 package net.anotheria.moskito.core.config.dashboards;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import static org.hamcrest.core.Is.is;
-import static org.hamcrest.core.IsNull.nullValue;
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class ChartConfigTest {
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void buildCaptionAccumulatorsEmpty() throws Exception {
         ChartConfig chartConfig = new ChartConfig();
-        String caption = chartConfig.buildCaption();
+        assertThrows(NullPointerException.class, chartConfig::buildCaption);
     }
 
     @Test
@@ -19,7 +17,7 @@ public class ChartConfigTest {
         ChartConfig chartConfig = new ChartConfig();
         chartConfig.setAccumulators(new String[] {"fair", "is", "foul", "and", "foul", "is", "fair"});
         String caption = chartConfig.buildCaption();
-        assertThat(caption, is("and fair fair foul foul is is"));
+        assertEquals("and fair fair foul foul is is", caption);
     }
 
 }

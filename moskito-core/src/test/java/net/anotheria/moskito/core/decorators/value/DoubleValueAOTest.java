@@ -1,10 +1,9 @@
 package net.anotheria.moskito.core.decorators.value;
 
 import java.util.Locale;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class DoubleValueAOTest {
 
@@ -155,7 +154,7 @@ public class DoubleValueAOTest {
     private void assertFormatting(double doubleValue, String expected) {
         DoubleValueAO doubleValueAO = new DoubleValueAO("name", doubleValue);
         String returnValue = doubleValueAO.getValue();
-        assertThat(returnValue, is(expected));
+        assertEquals(expected, returnValue);
     }
 
 }

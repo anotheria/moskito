@@ -2,11 +2,11 @@ package net.anotheria.moskito.extensions.monitoring.metric;
 
 import net.anotheria.moskito.core.stats.StatValueTypes;
 import net.anotheria.moskito.extensions.monitoring.metrics.GenericMetrics;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * Test for {@link GenericMetrics}

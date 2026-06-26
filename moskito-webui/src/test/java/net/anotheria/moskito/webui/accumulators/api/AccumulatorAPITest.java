@@ -7,18 +7,18 @@ import net.anotheria.moskito.core.config.MoskitoConfigurationHolder;
 import net.anotheria.moskito.core.predefined.Constants;
 import net.anotheria.moskito.core.stats.TimeUnit;
 import net.anotheria.moskito.core.stats.impl.IntervalRegistry;
-import org.junit.BeforeClass;
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 
 public class AccumulatorAPITest {
 
-    @BeforeClass
+    @BeforeAll
     public static void setup() {
 		MoskitoConfigurationHolder.resetConfiguration();
 		MoskitoConfigurationHolder.getConfiguration().getBuiltinProducersConfig().disableAll();
@@ -42,7 +42,7 @@ public class AccumulatorAPITest {
 
     }
 
-    @Ignore
+    @Disabled
 	@Test
     public void testGetAccumulatorGraphData() throws Exception {
         final AccumulatorDefinitionAO accumulatorDef1 = createAccumulator("testAccumulator1");
@@ -52,18 +52,18 @@ public class AccumulatorAPITest {
         AccumulatorAPI api = APIFinder.findAPI(AccumulatorAPI.class);
         final AccumulatedSingleGraphAO accumulatorGraphAO1 = api.getAccumulatorGraphData(accumulatorDef1.getId());
         assertNotNull(accumulatorGraphAO1);
-        assertEquals("Should be equals", "testAccumulator1", accumulatorGraphAO1.getName());
-        assertEquals("Should be equals", "testColor1", accumulatorGraphAO1.getColor());
+        assertEquals("testAccumulator1", accumulatorGraphAO1.getName(), "Should be equals");
+        assertEquals("testColor1", accumulatorGraphAO1.getColor(), "Should be equals");
 
         final AccumulatedSingleGraphAO accumulatorGraphAO2 = api.getAccumulatorGraphData(accumulatorDef2.getId());
         assertNotNull(accumulatorGraphAO2);
-        assertEquals("Should be equals", "testAccumulator2", accumulatorGraphAO2.getName());
-        assertEquals("Should be equals", "testColor2", accumulatorGraphAO2.getColor());
+        assertEquals("testAccumulator2", accumulatorGraphAO2.getName(), "Should be equals");
+        assertEquals("testColor2", accumulatorGraphAO2.getColor(), "Should be equals");
 
         final AccumulatedSingleGraphAO accumulatorGraphAO3 = api.getAccumulatorGraphData(accumulatorDef3.getId());
         assertNotNull(accumulatorGraphAO3);
-        assertEquals("Should be equals", "testAccumulator3", accumulatorGraphAO3.getName());
-        assertNull("Should be null", accumulatorGraphAO3.getColor());
+        assertEquals("testAccumulator3", accumulatorGraphAO3.getName(), "Should be equals");
+        assertNull(accumulatorGraphAO3.getColor(), "Should be null");
 
     }
 

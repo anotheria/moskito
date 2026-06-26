@@ -1,6 +1,6 @@
 package net.anotheria.moskito.core.util.annotation;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.lang.annotation.Annotation;
 import java.lang.annotation.ElementType;
@@ -11,10 +11,9 @@ import java.lang.annotation.Target;
 
 import static net.anotheria.moskito.core.util.annotation.AnnotationUtils.findAnnotation;
 import static net.anotheria.moskito.core.util.annotation.AnnotationUtils.findTypeAnnotation;
-import static org.hamcrest.CoreMatchers.notNullValue;
-import static org.hamcrest.CoreMatchers.nullValue;
-import static org.junit.Assert.assertThat;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * @author bvanchuhov
@@ -115,9 +114,9 @@ public class AnnotationUtilsTest {
 		checkFoundAnnotation(MyTestClass.class, ParentTypeAnnotation.class);
 		checkFoundAnnotation(MyTestClass.class, SuperParentTypeAnnotation.class);
 
-		assertThat("Found absent annotation!", findTypeAnnotation(MyTestClass.class, Deprecated.class), nullValue());
-		assertThat("Found absent annotation!", findTypeAnnotation(TypeAnnotation.class, Deprecated.class), nullValue());
-		assertThat("Found absent annotation!", findTypeAnnotation(SimpleMarker.class, Retention.class), nullValue());
+		assertNull(findTypeAnnotation(MyTestClass.class, Deprecated.class), "Found absent annotation!");
+		assertNull(findTypeAnnotation(TypeAnnotation.class, Deprecated.class), "Found absent annotation!");
+		assertNull(findTypeAnnotation(SimpleMarker.class, Retention.class), "Found absent annotation!");
 
 		checkFoundAnnotation(ChildConfig.class, Config.class);
 		checkFoundAnnotation(MyTestClass.class, Config.class);
@@ -125,7 +124,7 @@ public class AnnotationUtilsTest {
 
 	private static <A extends Annotation> void checkFoundAnnotation(final Class<?> type, final Class<A> targetAnnotationClass) {
     	A annotation = findTypeAnnotation(type, targetAnnotationClass);
-    	assertThat("Annotation not found!", annotation, notNullValue());
+    	assertNotNull(annotation, "Annotation not found!");
     	assertTrue(annotation.annotationType() == targetAnnotationClass);
 	}
 }

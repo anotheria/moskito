@@ -3,15 +3,15 @@ package net.anotheria.moskito.core.snapshot;
 import net.anotheria.moskito.core.dynamic.OnDemandStatsProducer;
 import net.anotheria.moskito.core.predefined.ServiceStats;
 import net.anotheria.moskito.core.registry.ProducerRegistryFactory;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
 public class SnapshotRepositoryTest extends BaseSnapshotTest{
 
-	@Before
+	@BeforeEach
 	public void setup(){
 		System.setProperty("JUNITTEST", "true");
 		ProducerRegistryFactory.reset();

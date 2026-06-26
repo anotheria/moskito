@@ -3,14 +3,14 @@ package net.anotheria.moskito.webui.util;
 import jakarta.servlet.ServletContext;
 import jakarta.servlet.http.HttpSession;
 import net.anotheria.moskito.webui.MoSKitoWebUIContext;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * Test {@link DeepLinkUtil} class
@@ -21,7 +21,7 @@ public class DeepLinkUtilTest {
      * Sets HttpSession mock in call context.
      * Otherwise {@link APILookupUtility#setCurrentConnectivityMode(ConnectivityMode)} thrown NullPointerException
      */
-    @Before
+    @BeforeEach
     public void setupWebUiContext(){
         MoSKitoWebUIContext.getCallContext().setCurrentSession(
                 new HttpSessionMock()

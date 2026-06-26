@@ -1,8 +1,8 @@
 package net.anotheria.moskito.extensions.monitoring;
 
 import net.anotheria.moskito.extensions.monitoring.stats.ApacheStats;
-import org.junit.Test;
-import static org.junit.Assert.*;
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * Some test for PluginTypeRegistry.
