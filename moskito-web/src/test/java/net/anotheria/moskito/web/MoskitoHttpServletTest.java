@@ -75,7 +75,7 @@ public class MoskitoHttpServletTest {
 		List<IStats> stats = producer.getStats();
 		for (IStats s : stats){
 			//System.out.println(s);
-			assertEquals(((ServletStats)s).getTotalRequests(), controlMap.get(s.getName()).longValue(), "Mismatch in "+s.getName());
+			assertEquals(controlMap.get(s.getName()).longValue(), ((ServletStats)s).getTotalRequests(), "Mismatch in "+s.getName());
 		}
 	}
 
@@ -158,7 +158,7 @@ public class MoskitoHttpServletTest {
 		List<IStats> stats = producer.getStats();
 		for (IStats s : stats){
 			//System.out.println(s);
-			assertEquals(((ServletStats)s).getServletExceptions(), controlMap.get(s.getName()).longValue(), "Mismatch in "+s.getName());
+			assertEquals(controlMap.get(s.getName()).longValue(), ((ServletStats)s).getServletExceptions(), "Mismatch in "+s.getName());
 		}
 	}
 }

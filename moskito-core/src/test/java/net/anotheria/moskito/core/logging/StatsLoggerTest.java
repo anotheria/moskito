@@ -44,7 +44,7 @@ public class StatsLoggerTest {
 		String message = output.getMessage();
 		//System.out.println(message);
 		
-		assertEquals(message.indexOf("TESTINTERVAL"), -1, "Word TESTINTERVAL shouldn't be present in output");//The word TESTINTERVAL shouldn't occure there
+		assertEquals(-1, message.indexOf("TESTINTERVAL"), "Word TESTINTERVAL shouldn't be present in output");//The word TESTINTERVAL shouldn't occure there
 		assertTrue(message.indexOf("default")>-1, "Word default should be present in output");//The word default should occure there
 		assertTrue(message.indexOf("first")>-1);
 		assertTrue(message.indexOf("second")>-1);

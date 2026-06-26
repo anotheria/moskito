@@ -431,7 +431,7 @@ public class AccumulateWithSubClassesTest {
 
 			//check accumulated values
 			List<AccumulatedValue> stats = accumulator.getValues();
-			assertEquals(1, stats.size(), "Expected single accumulatd value!");
+			assertEquals(1, stats.size(), "Expected single accumulated value!");
 			assertEquals("1", stats.get(0).getValue(), "Expected other value!");
 		}
 
