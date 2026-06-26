@@ -99,7 +99,7 @@ public class MoskitoAutoConfiguration {
         LOGGER.info("Registering JSTalkBackFilter");
         FilterRegistrationBean registrationBean = new FilterRegistrationBean();
         registrationBean.setFilter(new JSTalkBackFilter());
-        registrationBean.addUrlPatterns("/*");
+        registrationBean.addUrlPatterns("/jstalkbackfilter/*");
         registrationBean.setAsyncSupported(true);
         return registrationBean;
     }
