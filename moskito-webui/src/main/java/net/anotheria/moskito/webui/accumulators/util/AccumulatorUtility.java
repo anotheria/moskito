@@ -1,9 +1,9 @@
 package net.anotheria.moskito.webui.accumulators.util;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
 import net.anotheria.moskito.webui.accumulators.api.AccumulatedSingleGraphAO;
 import org.apache.commons.lang3.StringUtils;
-import org.json.JSONArray;
-import org.json.JSONObject;
 
 import java.util.List;
 
@@ -19,15 +19,15 @@ public class AccumulatorUtility {
      * @param graphAOs collection of {@link AccumulatedSingleGraphAO}
      * @return JSON array with accumulators colors
      */
-    public static JSONArray accumulatorsColorsToJSON(final List<AccumulatedSingleGraphAO> graphAOs) {
-        final JSONArray jsonArray = new JSONArray();
+    public static JsonArray accumulatorsColorsToJSON(final List<AccumulatedSingleGraphAO> graphAOs) {
+        final JsonArray jsonArray = new JsonArray();
 
         for (AccumulatedSingleGraphAO graphAO : graphAOs) {
             if (StringUtils.isEmpty(graphAO.getName()) || StringUtils.isEmpty(graphAO.getColor()))
                 continue;
 
-            final JSONObject jsonObject = graphAO.mapColorDataToJSON();
-            jsonArray.put(jsonObject);
+            final JsonObject jsonObject = graphAO.mapColorDataToJSON();
+            jsonArray.add(jsonObject);
         }
 
         return jsonArray;

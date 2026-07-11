@@ -1,13 +1,13 @@
 package net.anotheria.moskito.webui.accumulators.api;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
 import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;
 import jakarta.xml.bind.annotation.XmlElement;
 import jakarta.xml.bind.annotation.XmlRootElement;
 import org.apache.commons.lang3.StringUtils;
-import org.json.JSONArray;
-import org.json.JSONObject;
 
 import java.io.Serializable;
 import java.util.Collections;
@@ -76,8 +76,8 @@ public class MultilineChartAO implements Serializable{
 	 * @return JSON array with accumulators colors
 	 */
 	@JsonIgnore
-	public JSONArray getAccumulatorsColorsDataJSON() {
-		final JSONArray jsonArray = new JSONArray();
+	public JsonArray getAccumulatorsColorsDataJSON() {
+		final JsonArray jsonArray = new JsonArray();
 		if (singleGraphAOs == null || singleGraphAOs.isEmpty())
 			return jsonArray;
 
@@ -85,8 +85,8 @@ public class MultilineChartAO implements Serializable{
 			if (StringUtils.isEmpty(graphAO.getName()) || StringUtils.isEmpty(graphAO.getColor()))
 				continue;
 
-			final JSONObject jsonObject = graphAO.mapColorDataToJSON();
-			jsonArray.put(jsonObject);
+			final JsonObject jsonObject = graphAO.mapColorDataToJSON();
+			jsonArray.add(jsonObject);
 		}
 
 		return jsonArray;
