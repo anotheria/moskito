@@ -32,7 +32,7 @@
 		<aspectj-maven-plugin.version>1.16.0</aspectj-maven-plugin.version>
 		<aspectj-maven-plugin.complianceLevel>11</aspectj-maven-plugin.complianceLevel>
 		<moskito-webui-version>${project.version}</moskito-webui-version>
-		<distributeme.version>4.0.2</distributeme.version>
+		<distributeme.version>4.0.3</distributeme.version>
 		<moskitoplugins-version>1.0.0-SNAPSHOT</moskitoplugins-version>
 	</properties>
 
@@ -133,7 +133,7 @@
 			<dependency>
 				<groupId>ch.qos.logback</groupId>
 				<artifactId>logback-classic</artifactId>
-				<version>1.5.33</version>
+				<version>1.5.38</version>
 			</dependency>
 <!--
 			<dependency>
@@ -155,7 +155,7 @@
 			<dependency>
 				<groupId>jakarta.xml.bind</groupId>
 				<artifactId>jakarta.xml.bind-api</artifactId>
-				<version>4.0.1</version>
+				<version>4.0.5</version>
 			</dependency>
 			<dependency>
 				<groupId>org.hamcrest</groupId>
