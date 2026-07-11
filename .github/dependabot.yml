@@ -1,0 +1,25 @@
+# Dependabot configuration for MoSKito
+# Docs: https://docs.github.com/code-security/dependabot/dependabot-version-updates
+version: 2
+updates:
+  - package-ecosystem: "maven"
+    # Root of the Maven reactor; Dependabot discovers all child module poms from here.
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "06:00"
+      timezone: "Europe/Berlin"
+    # PRs open against the default branch (develop).
+    open-pull-requests-limit: 10
+    labels:
+      - "dependencies"
+    commit-message:
+      prefix: "deps"
+    # Bundle routine minor/patch bumps into a single PR to cut noise;
+    # major upgrades still get their own PR so they can be reviewed in isolation.
+    groups:
+      maven-minor-and-patch:
+        update-types:
+          - "minor"
+          - "patch"
