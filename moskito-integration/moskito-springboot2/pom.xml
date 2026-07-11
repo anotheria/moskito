@@ -42,7 +42,7 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot</artifactId>
-            <version>3.5.14</version>
+            <version>4.1.0</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
