@@ -23,3 +23,25 @@ updates:
         update-types:
           - "minor"
           - "patch"
+    # moskito-springboot2 declares Spring as provided-scope and targets
+    # Spring Boot 2/3/4, so the compile baseline is kept low for the widest
+    # host compatibility. Allow 3.5.x security patches, but don't propose the
+    # 4.x / Framework 7 majors (Spring Boot 4 also dropped spring-boot-starter-aop).
+    ignore:
+      - dependency-name: "org.springframework.boot:spring-boot"
+        update-types: ["version-update:semver-major"]
+      - dependency-name: "org.springframework.boot:spring-boot-configuration-processor"
+        update-types: ["version-update:semver-major"]
+      - dependency-name: "org.springframework.boot:spring-boot-starter-aop"
+        update-types: ["version-update:semver-major"]
+      - dependency-name: "org.springframework:spring-web"
+        update-types: ["version-update:semver-major"]
+    # moskito's REST/inspect layer stays on the mature Jakarta EE 10 line
+    # (Jersey 3.1.x); hold the EE 11 majors (Jersey 4, JAX-RS 4, JSP 4). The
+    # Jersey CVE fix ships in the 3.1.x line (3.1.10+), not only in 4.x.
+      - dependency-name: "org.glassfish.jersey*"
+        update-types: ["version-update:semver-major"]
+      - dependency-name: "jakarta.ws.rs:jakarta.ws.rs-api"
+        update-types: ["version-update:semver-major"]
+      - dependency-name: "jakarta.servlet.jsp:jakarta.servlet.jsp-api"
+        update-types: ["version-update:semver-major"]
