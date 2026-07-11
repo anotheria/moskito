@@ -26,11 +26,11 @@
 
 	<properties>
 		<jersey-version>3.1.3</jersey-version>
-        <source-version>11</source-version>
-        <target-version>11</target-version>
+        <source-version>17</source-version>
+        <target-version>17</target-version>
 		<aspectj.version>1.9.25.1</aspectj.version>
 		<aspectj-maven-plugin.version>1.16.0</aspectj-maven-plugin.version>
-		<aspectj-maven-plugin.complianceLevel>11</aspectj-maven-plugin.complianceLevel>
+		<aspectj-maven-plugin.complianceLevel>17</aspectj-maven-plugin.complianceLevel>
 		<moskito-webui-version>${project.version}</moskito-webui-version>
 		<distributeme.version>4.0.3</distributeme.version>
 		<moskitoplugins-version>1.0.0-SNAPSHOT</moskitoplugins-version>
