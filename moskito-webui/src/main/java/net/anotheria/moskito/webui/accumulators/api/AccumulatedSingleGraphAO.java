@@ -1,11 +1,8 @@
 package net.anotheria.moskito.webui.accumulators.api;
 
+import com.google.gson.JsonObject;
 import net.anotheria.moskito.core.config.thresholds.GuardConfig;
 import net.anotheria.util.StringUtils;
-import net.anotheria.util.log.LogMessageUtil;
-import org.json.JSONException;
-import org.json.JSONObject;
-import org.slf4j.LoggerFactory;
 
 import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;
@@ -123,17 +120,10 @@ public class AccumulatedSingleGraphAO implements Serializable{
 	 *
 	 * @return JSON object with accumulator color
 	 */
-	public JSONObject mapColorDataToJSON() {
-		final JSONObject jsonObject = new JSONObject();
-
-		try {
-			jsonObject.put("name", name);
-			jsonObject.put("color", color);
-		} catch (JSONException e) {
-			final String message = LogMessageUtil.failMsg(e);
-			LoggerFactory.getLogger(AccumulatedSingleGraphAO.class).warn(message, e);
-		}
-
+	public JsonObject mapColorDataToJSON() {
+		final JsonObject jsonObject = new JsonObject();
+		jsonObject.addProperty("name", name);
+		jsonObject.addProperty("color", color);
 		return jsonObject;
 	}
 

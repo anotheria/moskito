@@ -78,11 +78,6 @@
             <artifactId>gson</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.json</groupId>
-            <artifactId>json</artifactId>
-            <version>20231013</version>
-        </dependency>
-        <dependency>
             <groupId>net.anotheria</groupId>
             <artifactId>moskito-core</artifactId>
             <version>${project.version}</version>

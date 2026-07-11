@@ -1,11 +1,12 @@
 package net.anotheria.moskito.webui.more.action;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import net.anotheria.maf.action.ActionCommand;
 import net.anotheria.maf.action.ActionMapping;
 import net.anotheria.moskito.webui.shared.bean.NaviItem;
 import net.anotheria.util.NumberUtils;
-import org.json.JSONArray;
-import org.json.JSONObject;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -44,12 +45,12 @@ public class UpdateAction extends BaseAdditionalAction {
 			while(in.available()>0){
 				jsonReply.append((char)in.read());
 			}
-			JSONObject obj = new JSONObject(jsonReply.toString());
-			JSONObject response = obj.getJSONObject("response");
-			JSONArray docs = response.getJSONArray("docs");
-			JSONObject artifact = docs.getJSONObject(0);
-			timestamp = artifact.getLong("timestamp");
-			version = artifact.getString("latestVersion");
+			JsonObject obj = JsonParser.parseString(jsonReply.toString()).getAsJsonObject();
+			JsonObject response = obj.getAsJsonObject("response");
+			JsonArray docs = response.getAsJsonArray("docs");
+			JsonObject artifact = docs.get(0).getAsJsonObject();
+			timestamp = artifact.get("timestamp").getAsLong();
+			version = artifact.get("latestVersion").getAsString();
 
 		}catch(Exception e){
 			version = "ERROR: "+e.getMessage();
