@@ -1,8 +1,9 @@
 package net.anotheria.moskito.extension.mongodb;
 
 import com.mongodb.*;
+import com.mongodb.client.MongoClient;
+import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoDatabase;
-import com.mongodb.util.JSON;
 import net.anotheria.moskito.core.dynamic.OnDemandStatsProducer;
 import net.anotheria.moskito.core.dynamic.OnDemandStatsProducerException;
 import net.anotheria.moskito.core.registry.ProducerRegistryFactory;
@@ -50,12 +51,15 @@ public class MongodbMonitor {
     }
 
     private MongoClient createClient(MongodbMonitorConfig config) {
+        ServerAddress serverAddress = new ServerAddress(config.getHost(), Integer.parseInt(config.getPort()));
+        MongoClientSettings.Builder settingsBuilder = MongoClientSettings.builder()
+                .applyToClusterSettings(builder -> builder.hosts(List.of(serverAddress)));
+
         List<MongoCredential> mongoCredentials = createMongoCredentials(config);
-        if (mongoCredentials.size() == 0) {
-            return new MongoClient(config.getHost(), Integer.parseInt(config.getPort()));
-        } else {
-            return new MongoClient(new ServerAddress(config.getHost(), Integer.parseInt(config.getPort())), mongoCredentials);
+        if (!mongoCredentials.isEmpty()) {
+            settingsBuilder.credential(mongoCredentials.get(0));
         }
+        return MongoClients.create(settingsBuilder.build());
     }
 
     private List<MongoCredential> createMongoCredentials(MongodbMonitorConfig config) {
@@ -69,10 +73,9 @@ public class MongodbMonitor {
     }
 
     private void updateMongoServerStats(MongoDatabase dbAdmin) {
-        DBObject serverStats = executeMongoCommand(dbAdmin, "serverStatus");
-        Map<String, Object> map = serverStats.toMap();
-        updateFlushing(map);
-        updateConnections(map);
+        Document serverStats = executeMongoCommand(dbAdmin, "serverStatus");
+        updateFlushing(serverStats);
+        updateConnections(serverStats);
     }
 
     private void updateFlushing(Map<String, Object> map) {
@@ -100,14 +103,13 @@ public class MongodbMonitor {
         }
     }
 
-    private DBObject executeMongoCommand(MongoDatabase db, String command) {
-        DBObject dbObject = null;
+    private Document executeMongoCommand(MongoDatabase db, String command) {
         try {
-            dbObject = (DBObject) JSON.parse(db.runCommand(new Document(command, 1)).toJson());
+            return db.runCommand(new Document(command, 1));
         } catch (MongoCommandException e) {
             LOGGER.error("Couldn't execute mongo command", e);
         }
-        return dbObject;
+        return null;
     }
 
     public static MongodbMonitor createMongodbMonitor() {
