@@ -72,12 +72,12 @@
 			<dependency>
 				<groupId>net.anotheria</groupId>
 				<artifactId>ano-plass</artifactId>
-				<version>4.0.0</version>
+				<version>4.1.0</version>
 			</dependency>
 			<dependency>
 				<groupId>net.anotheria</groupId>
 				<artifactId>ano-prise</artifactId>
-				<version>4.0.0</version>
+				<version>4.1.0</version>
 			</dependency>
 			<dependency>
 				<groupId>net.anotheria</groupId>
