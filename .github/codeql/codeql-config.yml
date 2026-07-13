@@ -1,2 +1,13 @@
+# Shared CodeQL configuration, consumed by the advanced-setup workflow
+# (.github/workflows/codeql.yml) for both security code scanning and the
+# standalone Code Quality analysis.
+#
+# NOTE: path filters here are only honored under advanced setup. Default setup
+# ignores this file, which is why these exclusions previously had no effect.
 paths-ignore:
+  # Vendored / third-party front-end libraries bundled with the webui
+  # (bootstrap, jquery, tablesorter, select2, qtip2, ...). Not our code —
+  # scanning them only produces noise in libraries we don't maintain.
   - moskito-webui/src/main/resources/moskito/ext
+  # Test sources across all modules.
+  - '**/src/test/**'
