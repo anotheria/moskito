@@ -15,7 +15,6 @@
 	<modules>
 		<module>moskito-cdi</module>
         <module>moskito-sql</module>
-        <module>moskito-ehcache</module>
         <module>moskito-inspect-jersey</module>
         <module>moskito-inspect-remote</module>
         <module>moskito-inspect-embedded</module>
