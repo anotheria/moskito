@@ -1,0 +1,55 @@
+name: "CodeQL"
+
+# Advanced setup replacing CodeQL default setup. Unlike default setup this
+# workflow reads .github/codeql/codeql-config.yml (so paths-ignore applies) and
+# analyzes Java/Kotlin buildlessly (build-mode: none) instead of relying on an
+# autobuild that fails on this multi-module Maven/AspectJ project.
+#
+# IMPORTANT: CodeQL default setup must be turned off for this repository
+# (Settings -> Code security -> Code scanning -> CodeQL -> switch to Advanced),
+# otherwise default and advanced setup conflict.
+
+on:
+  push:
+    branches: [develop]
+  pull_request:
+    branches: [develop]
+  schedule:
+    - cron: '25 6 * * 1'
+  workflow_dispatch:
+
+jobs:
+  analyze:
+    name: Analyze (${{ matrix.language }})
+    runs-on: ubuntu-latest
+    permissions:
+      security-events: write
+      contents: read
+      actions: read
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - language: java-kotlin
+            build-mode: none
+          - language: javascript-typescript
+            build-mode: none
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@v3
+        with:
+          languages: ${{ matrix.language }}
+          build-mode: ${{ matrix.build-mode }}
+          config-file: ./.github/codeql/codeql-config.yml
+          # Populate the standalone Code Quality section in addition to the
+          # default security code-scanning queries.
+          quality-queries: code-quality
+
+      - name: Perform CodeQL Analysis
+        uses: github/codeql-action/analyze@v3
+        with:
+          category: "/language:${{ matrix.language }}"
