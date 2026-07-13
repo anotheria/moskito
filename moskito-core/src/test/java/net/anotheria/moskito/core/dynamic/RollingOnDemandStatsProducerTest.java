@@ -1,4 +1,4 @@
-package net.anotheria.moskito.extensions.producers;
+package net.anotheria.moskito.core.dynamic;
 
 import net.anotheria.moskito.core.predefined.ServiceStats;
 import net.anotheria.moskito.core.predefined.ServiceStatsFactory;

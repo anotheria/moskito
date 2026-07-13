@@ -65,5 +65,11 @@
           <artifactId>jakarta.xml.bind-api</artifactId>
           <version>4.0.5</version>
       </dependency>
+      <!-- backing map for RollingOnDemandStatsProducer (LRU eviction) -->
+      <dependency>
+          <groupId>com.googlecode.concurrentlinkedhashmap</groupId>
+          <artifactId>concurrentlinkedhashmap-lru</artifactId>
+          <version>1.4.2</version>
+      </dependency>
   </dependencies>
 </project>
