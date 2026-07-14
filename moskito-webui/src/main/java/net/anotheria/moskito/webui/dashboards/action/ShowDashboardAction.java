@@ -49,19 +49,19 @@ public class ShowDashboardAction extends BaseDashboardAction {
 	public ActionCommand execute(ActionMapping actionMapping, HttpServletRequest request, HttpServletResponse response) throws Exception {
 
 		String dashboardName = getSelectedDashboard(request);
-		Boolean gaugesPresent = false;
-		Boolean chartsPresent = false;
-		Boolean thresholdsPresent = false;
-		Boolean producersPresent = false;
+		boolean gaugesPresent = false;
+        boolean chartsPresent = false;
+        boolean thresholdsPresent = false;
+        boolean producersPresent = false;
 
 		Map<String, GraphDataBean> graphData = new HashMap<>();
 
 		//set default values, allow to exit previously.
-		request.setAttribute("gaugesPresent", gaugesPresent);
-		request.setAttribute("chartsPresent", chartsPresent);
-		request.setAttribute("thresholdsPresent", thresholdsPresent);
-		request.setAttribute("producersPresent", producersPresent);
-		request.setAttribute("showHelp", !(gaugesPresent || chartsPresent || thresholdsPresent || producersPresent));
+		request.setAttribute("gaugesPresent", false);
+		request.setAttribute("chartsPresent", false);
+		request.setAttribute("thresholdsPresent", false);
+		request.setAttribute("producersPresent", false);
+		request.setAttribute("showHelp", true);
 
 
 		if (dashboardName==null)
