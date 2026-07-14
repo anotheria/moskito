@@ -8,9 +8,11 @@ package net.anotheria.moskito.webui.util;
  */
 public enum ConnectivityMode {
 	LOCAL{
+        @Override
 		public boolean isRemote(){ return false;}
 	},
 	REMOTE{
+        @Override
 		public boolean isRemote(){ return true;}
 	}
 	;

@@ -40,33 +40,26 @@ import net.anotheria.moskito.core.inspection.CreationInfo;
 import net.anotheria.moskito.core.inspection.Inspectable;
 import net.anotheria.moskito.core.producers.IStats;
 import net.anotheria.moskito.core.producers.IStatsProducer;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
- * This producer is used as a an alternative to OnDemandStatsProducer with a max limit count based on LRU strategy.
+ * This producer is used as an alternative to OnDemandStatsProducer with a max limit count based on LRU strategy.
  * It uses com.googlecode.concurrentlinkedhashmap.ConcurrentLinkedHashMap internally.
  * @author lrosenberg, ubeinges
  */
 public class RollingOnDemandStatsProducer<S extends IStats> implements IStatsProducer<S>, Inspectable {
 
 	/**
-	 * Logger.
-	 */
-	private static Logger log = LoggerFactory.getLogger(RollingOnDemandStatsProducer.class);
-
-	/**
 	 * The factory for stat creation.
 	 */
-	private IOnDemandStatsFactory<S> factory;
+	private final IOnDemandStatsFactory<S> factory;
 
 	/**
 	 * A cached stat list for faster access.
 	 */
-	private List <S> _cachedStatsList;
+	private final List <S> _cachedStatsList;
 	/**
 	 * A map where all stat and their ids (strings) are being stored.
 	 */
@@ -75,25 +68,25 @@ public class RollingOnDemandStatsProducer<S extends IStats> implements IStatsPro
 	/**
 	 * A fast access variable for default (cumulated) stats.
 	 */
-	private S linkToDefaultStats;
+	private final S linkToDefaultStats;
 
 	/**
 	 * The variable where the category of this producer, given as parameter upon creation, is stored.
 	 */
-	private String category;
+	private final String category;
 	/**
 	 * The variable where the producerId of this producer, given as parameter upon creation, is stored.
 	 */
-	private String producerId;
+	private final String producerId;
 	/**
 	 * The variable where the subsystem of this producer, given as parameter upon creation, is stored.
 	 */
-	private String subsystem;
+	private final String subsystem;
 
 	/**
 	 * CreationInfo object initialized on startup.
 	 */
-	private CreationInfo creationInfo;
+	private final CreationInfo creationInfo;
 
 	/**
 	 * Creates a new OnDemandStatsProducer instance.
@@ -197,7 +190,7 @@ public class RollingOnDemandStatsProducer<S extends IStats> implements IStatsPro
 	 * Returns the creation info about a producer.
 	 * @return
 	 */
-	public CreationInfo getCreationInfo(){
+	@Override  public CreationInfo getCreationInfo(){
 		return creationInfo;
 	}
 	
