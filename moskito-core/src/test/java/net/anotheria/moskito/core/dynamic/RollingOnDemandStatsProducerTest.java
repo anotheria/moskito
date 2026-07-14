@@ -31,7 +31,7 @@ public class RollingOnDemandStatsProducerTest {
 		}
 
 		assertTrue(found5, "We should have found the stats number 5");
-		assertFalse(found0, "We should have found the stats number 5");
+		assertFalse(found0, "name0 should have been evicted and not found");
 
 		long sizeBeforeAdd = IntervalRegistry.getInstance().getInterval("1m").getPrimaryListenerCount();
 		producer.getStats("StatsThatWeDidn'tHadYet");
