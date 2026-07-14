@@ -112,7 +112,7 @@ public class ShowDashboardAction extends BaseDashboardAction {
 
 			Map<String, List<GuardConfig>> thresholds = new LinkedHashMap<>();
 			for (DashboardChartAO dashboardChartAO : dashboard.getCharts()) {
-				thresholds.put(dashboardChartAO.getCaption(), getTresholdConfig(dashboardChartAO));
+				thresholds.put(dashboardChartAO.getCaption(), getThresholdConfig(dashboardChartAO));
 			}
 
 			request.setAttribute("thresholdsGraph", thresholds);
@@ -156,7 +156,7 @@ public class ShowDashboardAction extends BaseDashboardAction {
 		return actionMapping.success();
 	}
 
-	private List<GuardConfig> getTresholdConfig(DashboardChartAO dashboardChartAO) {
+	private List<GuardConfig> getThresholdConfig(DashboardChartAO dashboardChartAO) {
 		List<GuardConfig> guardConfigs = new ArrayList<>();
 
 		if (dashboardChartAO.getChart().getSingleGraphAOs().size() == 1) {
