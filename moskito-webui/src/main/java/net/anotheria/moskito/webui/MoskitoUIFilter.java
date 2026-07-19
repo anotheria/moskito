@@ -10,7 +10,6 @@ import net.anotheria.moskito.webui.shared.api.MoskitoAPIInitializer;
 import net.anotheria.moskito.webui.util.APILookupUtility;
 import net.anotheria.moskito.webui.util.VersionUtil;
 import net.anotheria.moskito.webui.util.WebUIConfig;
-import net.anotheria.net.util.NetUtils;
 import net.anotheria.util.maven.MavenVersion;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,6 +24,7 @@ import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.net.InetAddress;
 import java.util.Arrays;
 import java.util.List;
 
@@ -159,7 +159,7 @@ public class MoskitoUIFilter extends MAFFilter{
 			config.getServletContext().setAttribute("application_maven_version", appVersion == null ? "?" : appVersion);
 			config.getServletContext().setAttribute("moskito_maven_version", moskitoVersion == null ? "?" : moskitoVersion);
 			config.getServletContext().setAttribute("moskito_version_string", (moskitoVersion == null || moskitoVersion.getVersion().length()==0)? "unknown" : moskitoVersion.getVersion());
-			String computerName = NetUtils.getComputerName();
+			String computerName = getComputerName();
 			config.getServletContext().setAttribute("servername", computerName==null ? "Unknown" : computerName);
 		}catch(Exception e){
 			log.error("init("+config+ ')', e);
@@ -194,5 +194,19 @@ public class MoskitoUIFilter extends MAFFilter{
 	protected String getDefaultActionName() {
 		return "mskDashboard";
 	}
+
+    /**
+     * Originally migrated from ano-net, since it was the only ano-net dependency migrated the call directly here.
+     * @return
+     */
+    private static final String getComputerName(){
+        try{
+            InetAddress address = InetAddress.getLocalHost();
+            return address.getHostName();
+        }catch(Exception e){
+            log.warn("getComputerName",e);
+        }
+        return "Unknown";
+    }
 
 }
