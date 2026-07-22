@@ -52,7 +52,7 @@ public class MoskitoUIFilter extends MAFFilter{
 	 * Check, is given url string refers to some of authorization
 	 * pages or actions
 	 * @param url url string
-	 * @return true - url is leads to authorization pages or actions
+	 * @return true - url leads to authorization pages or actions
 	 * 		   false - no
 	 */
 	private boolean isAuthAction(String url){
@@ -110,13 +110,12 @@ public class MoskitoUIFilter extends MAFFilter{
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
 
-		if (!(request instanceof HttpServletRequest)){
+		if (!(request instanceof HttpServletRequest httpServletRequest)){
 			chain.doFilter(request, response);
 			return;
 		}
 
-		HttpServletRequest httpServletRequest = ((HttpServletRequest) request);
-		HttpServletResponse httpServletResponse = ((HttpServletResponse) response);
+        HttpServletResponse httpServletResponse = ((HttpServletResponse) response);
 
 		if(WebUIConfig.getInstance().getAuthentication().isAuthenticationEnabled()
 				&& !isAuthAction(httpServletRequest.getRequestURI())) {
@@ -197,9 +196,9 @@ public class MoskitoUIFilter extends MAFFilter{
 
     /**
      * Originally migrated from ano-net, since it was the only ano-net dependency migrated the call directly here.
-     * @return
+     * @return the hostname of the local machine, or "Unknown" if it cannot be determined.
      */
-    private static final String getComputerName(){
+    private static String getComputerName(){
         try{
             InetAddress address = InetAddress.getLocalHost();
             return address.getHostName();
