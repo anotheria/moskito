@@ -69,6 +69,20 @@
 
         <div class="box">
             <div class="box-title">
+                <a class="accordion-toggle tooltip-bottom" title="Close/Open" data-toggle="collapse" href="#collapse-topproducers"><i class="fa fa-caret-down"></i></a>
+                <h3 class="pull-left">
+                    Top Producers.
+                </h3>
+            </div>
+            <div id="collapse-topproducers" class="box-content accordion-body collapse in">
+                <div class="paddner">
+                    <mos:deepLink href="mskTopProducers">The top producers</mos:deepLink> section ranks the producers that consume the most resources (requests, time, errors, error rate, max concurrent requests) over time, so you can spot optimization targets. The same ranking is exposed to LLMs via the MCP endpoint.
+                </div>
+            </div>
+        </div>
+
+        <div class="box">
+            <div class="box-title">
                 <a class="accordion-toggle tooltip-bottom" title="Close/Open" data-toggle="collapse" href="#collapse-plugins"><i class="fa fa-caret-down"></i></a>
                 <h3 class="pull-left">
                     Plugins.

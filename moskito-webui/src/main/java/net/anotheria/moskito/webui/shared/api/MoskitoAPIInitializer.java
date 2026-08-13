@@ -23,6 +23,8 @@ import net.anotheria.moskito.webui.threads.api.ThreadAPI;
 import net.anotheria.moskito.webui.threads.api.ThreadAPIFactory;
 import net.anotheria.moskito.webui.threshold.api.ThresholdAPI;
 import net.anotheria.moskito.webui.threshold.api.ThresholdAPIFactory;
+import net.anotheria.moskito.webui.topproducers.api.TopProducersAPI;
+import net.anotheria.moskito.webui.topproducers.api.TopProducersAPIFactory;
 import net.anotheria.moskito.webui.tracers.api.TracerAPI;
 import net.anotheria.moskito.webui.tracers.api.TracerAPIFactory;
 
@@ -54,6 +56,7 @@ public class MoskitoAPIInitializer {
 		APIFinder.addAPIFactory(TracerAPI.class, new TracerAPIFactory());
 		APIFinder.addAPIFactory(AuthApi.class, new AuthApiFactory());
 		APIFinder.addAPIFactory(TagAPI.class, new TagAPIFactory());
+		APIFinder.addAPIFactory(TopProducersAPI.class, new TopProducersAPIFactory());
 
 	}
 }

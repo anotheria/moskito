@@ -5,6 +5,7 @@ import net.anotheria.moskito.core.config.producers.BuiltinProducersConfig;
 import net.anotheria.moskito.core.errorhandling.BuiltInErrorProducer;
 import net.anotheria.moskito.core.registry.IProducerRegistry;
 import net.anotheria.moskito.core.registry.ProducerRegistryFactory;
+import net.anotheria.moskito.core.topproducers.TopProducersRepository;
 import net.anotheria.moskito.core.util.statistics.BuiltinStatisticsServiceProducer;
 
 import java.lang.management.ManagementFactory;
@@ -38,6 +39,7 @@ public class StartBuiltInProducers {
 		startMBeanProducers();
 		startTomcatRequestProcessorProducers();
 		startStatistics();
+		startTopProducers();
 	}
 	
 	public static void restartbuiltin(){
@@ -50,6 +52,13 @@ public class StartBuiltInProducers {
 			return;
 		//start request statistic producer
 		new BuiltinStatisticsServiceProducer();
+	}
+
+	private static void startTopProducers(){
+		if (!MoskitoConfigurationHolder.getConfiguration().getTopProducersConfig().isEnabled())
+			return;
+		//start the always-on top producers ranking so it already holds data when first queried.
+		TopProducersRepository.getInstance();
 	}
 
 	private static void startJavaThreadingProducers(){

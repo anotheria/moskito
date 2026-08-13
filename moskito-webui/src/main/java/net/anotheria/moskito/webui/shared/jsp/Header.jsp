@@ -262,6 +262,7 @@
                 <li ${currentSubNaviItem.isSelected("more_nowrunning")  ? "class=\"active\"" : ""}><mos:deepLink href="mskNowRunning" title="Entry Points" class="sidebar-tooltip-right">Now Running  <i class="fa fa-location-arrow"></i></mos:deepLink></li>
                 <li ${currentSubNaviItem.isSelected("more_killswitch")  ? "class=\"active\"" : ""}><mos:deepLink href="mskKillSwitch" title="Kill Switch" class="sidebar-tooltip-right">Kill Switch  <i class="fa fa-cog"></i></mos:deepLink></li>
                 <li ${currentSubNaviItem.isSelected("more_remotes") ? "class=\"active\"" : ""}><a href="mskShowRemotes" title="Remotes" class="sidebar-tooltip-right">Remotes <i class="fa fa-cloud"></i></a></li>
+                <li ${currentSubNaviItem.isSelected("more_topproducers") ? "class=\"active\"" : ""}><a href="mskTopProducers" title="Top Producers" class="sidebar-tooltip-right">Top Producers <i class="fa fa-arrow-up"></i></a></li>
             </ul>
         </li>
         </ano:equal>

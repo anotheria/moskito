@@ -11,6 +11,7 @@ import net.anotheria.moskito.core.config.journey.JourneyConfig;
 import net.anotheria.moskito.core.config.loadfactors.LoadFactorsConfiguration;
 import net.anotheria.moskito.core.config.plugins.PluginsConfig;
 import net.anotheria.moskito.core.config.producers.BuiltinProducersConfig;
+import net.anotheria.moskito.core.config.producers.TopProducersConfig;
 import net.anotheria.moskito.core.config.producers.MBeanProducerConfig;
 import net.anotheria.moskito.core.config.producers.TomcatRequestProcessorProducerConfig;
 import net.anotheria.moskito.core.config.tagging.TaggingConfig;
@@ -138,6 +139,13 @@ public class MoskitoConfiguration implements Serializable{
 	private BuiltinProducersConfig builtinProducersConfig = new BuiltinProducersConfig();
 
 	/**
+	 * Configuration for the top-producers ranking.
+	 */
+	@Configure
+	@SerializedName("@topProducersConfig")
+	private TopProducersConfig topProducersConfig = new TopProducersConfig();
+
+	/**
 	 * Config object for tomcat GlobalRequestProcessor producer.
 	 */
 	@Configure
@@ -234,6 +242,14 @@ public class MoskitoConfiguration implements Serializable{
 
 	public void setBuiltinProducersConfig(BuiltinProducersConfig builtinProducersConfig) {
 		this.builtinProducersConfig = builtinProducersConfig;
+	}
+
+	public TopProducersConfig getTopProducersConfig() {
+		return topProducersConfig;
+	}
+
+	public void setTopProducersConfig(TopProducersConfig topProducersConfig) {
+		this.topProducersConfig = topProducersConfig;
 	}
 
 	public TomcatRequestProcessorProducerConfig getTomcatRequestProcessorProducerConfig() {

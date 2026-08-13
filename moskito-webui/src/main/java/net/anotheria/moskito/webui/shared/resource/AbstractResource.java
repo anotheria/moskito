@@ -7,6 +7,7 @@ import net.anotheria.moskito.webui.journey.api.JourneyAPI;
 import net.anotheria.moskito.webui.producers.api.ProducerAPI;
 import net.anotheria.moskito.webui.shared.api.AdditionalFunctionalityAPI;
 import net.anotheria.moskito.webui.threshold.api.ThresholdAPI;
+import net.anotheria.moskito.webui.topproducers.api.TopProducersAPI;
 import net.anotheria.moskito.webui.util.APILookupUtility;
 
 /**
@@ -40,6 +41,10 @@ public abstract class AbstractResource {
 
 	protected AdditionalFunctionalityAPI getAdditionalFunctionalityAPI(){
 		return APILookupUtility.getAdditionalFunctionalityAPI();
+	}
+
+	protected TopProducersAPI getTopProducersAPI(){
+		return APILookupUtility.getTopProducersAPI();
 	}
 
 }

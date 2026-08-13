@@ -94,6 +94,8 @@ public enum NaviItem {
 
 	MORE_LOADFACTORS("Loadfactors"),
 
+	MORE_TOPPRODUCERS("Top Producers"),
+
 	MORE_NOWRUNNING("Nowrunning"),
 	/**
 	 * Navi item for kill switch.

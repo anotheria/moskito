@@ -15,6 +15,7 @@ import net.anotheria.moskito.webui.shared.api.AdditionalFunctionalityAPI;
 import net.anotheria.moskito.webui.tags.api.TagAPI;
 import net.anotheria.moskito.webui.threads.api.ThreadAPI;
 import net.anotheria.moskito.webui.threshold.api.ThresholdAPI;
+import net.anotheria.moskito.webui.topproducers.api.TopProducersAPI;
 import net.anotheria.moskito.webui.tracers.api.TracerAPI;
 import org.distributeme.core.ServiceDescriptor;
 
@@ -171,6 +172,12 @@ public class APILookupUtility {
 		return isLocal() ?
 				APIFinder.findAPI(NowRunningAPI.class) :
 				findRemote(NowRunningAPI.class);
+	}
+
+	public static TopProducersAPI getTopProducersAPI() {
+		return isLocal() ?
+				APIFinder.findAPI(TopProducersAPI.class) :
+				findRemote(TopProducersAPI.class);
 	}
 
 	public static void resetConnection(){

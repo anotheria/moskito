@@ -30,6 +30,7 @@ import net.anotheria.moskito.webui.journey.action.ShowJourneyAction;
 import net.anotheria.moskito.webui.journey.action.ShowJourneyCallAction;
 import net.anotheria.moskito.webui.journey.action.ShowJourneysAction;
 import net.anotheria.moskito.webui.loadfactors.action.ShowLoadFactorsAction;
+import net.anotheria.moskito.webui.topproducers.action.ShowTopProducersAction;
 import net.anotheria.moskito.webui.more.action.*;
 import net.anotheria.moskito.webui.nowrunning.action.DeleteNowRunningAction;
 import net.anotheria.moskito.webui.nowrunning.action.ShowEntryPointsAction;
@@ -367,6 +368,11 @@ public class MoskitoMappingsConfigurator implements ActionMappingsConfigurator {
         //Loadfactors feature.
         mappings.addMapping("mskLoadFactors", ShowLoadFactorsAction.class,
                 new CommandForward("html", "/net/anotheria/moskito/webui/loadfactors/jsp/LoadFactors.jsp")
+        );
+
+        //Top producers feature.
+        mappings.addMapping("mskTopProducers", ShowTopProducersAction.class,
+                new CommandForward("html", "/net/anotheria/moskito/webui/topproducers/jsp/TopProducers.jsp")
         );
 
         //Entry points and now running feature.
