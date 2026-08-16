@@ -39,6 +39,37 @@ public class IntervalImplTest {
 		
 	}
 	
+	@Test public void testFailingListenerDoesNotAffectTheOthers(){
+		IntervalImpl i = new IntervalImpl(1, "blub", 1000*60);
+		MyIntervalListener firstPrimary = new MyIntervalListener();
+		MyIntervalListener lastPrimary = new MyIntervalListener();
+		MyIntervalListener secondary = new MyIntervalListener();
+
+		i.addPrimaryIntervalListener(firstPrimary);
+		i.addPrimaryIntervalListener(aCaller -> { throw new RuntimeException("i am a broken listener"); });
+		i.addPrimaryIntervalListener(lastPrimary);
+		i.addSecondaryIntervalListener(secondary);
+
+		i.update();
+
+		assertEquals(1, firstPrimary.updatecount);
+		assertEquals(1, lastPrimary.updatecount, "a failing listener must not prevent the following listeners from being notified");
+		assertEquals(1, secondary.updatecount, "a failing primary listener must not prevent the secondary listeners from being notified");
+	}
+
+	@Test public void testListenerFailingWithErrorDoesNotEscapeUpdate(){
+		//an Error escaping update() would kill the Timer thread driving the updates, stopping all intervals for good.
+		IntervalImpl i = new IntervalImpl(1, "blub", 1000*60);
+		MyIntervalListener secondary = new MyIntervalListener();
+
+		i.addPrimaryIntervalListener(aCaller -> { throw new StackOverflowError("i am a very deep listener"); });
+		i.addSecondaryIntervalListener(secondary);
+
+		i.update();
+
+		assertEquals(1, secondary.updatecount);
+	}
+
 	@Test public void testBasics(){
 		IntervalImpl i = new IntervalImpl(1, "blub", 1000*60);
 		assertEquals(1, i.getId());

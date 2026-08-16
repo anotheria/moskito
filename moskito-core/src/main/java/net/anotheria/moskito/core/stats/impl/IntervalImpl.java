@@ -15,6 +15,8 @@ package net.anotheria.moskito.core.stats.impl;
 import net.anotheria.moskito.core.stats.IIntervalListener;
 import net.anotheria.moskito.core.stats.Interval;
 import net.anotheria.moskito.core.timing.IUpdateable;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -29,9 +31,14 @@ import java.util.concurrent.atomic.AtomicLong;
  * @author lrosenberg
  */
 class IntervalImpl implements IUpdateable, Interval {
-	
+
 	/**
-	 * This is the human readable name of this Interval. 
+	 * Logger.
+	 */
+	private static final Logger log = LoggerFactory.getLogger(IntervalImpl.class);
+
+	/**
+	 * This is the human readable name of this Interval.
 	 */
 	private String name;
 	
@@ -107,13 +114,22 @@ class IntervalImpl implements IUpdateable, Interval {
 	}
 
 	/**
-	 * This method notifies all listeners in the given List.
-	 * 
+	 * This method notifies all listeners in the given List. A listener that fails is logged and skipped, the remaining
+	 * listeners are notified regardless. Without this isolation a single broken listener would silently disable every
+	 * listener registered after it - and an Error would even escape into the Timer thread that drives the updates,
+	 * killing all further interval updates for the lifetime of the jvm.
+	 *
 	 * @param aListeners the List of listeners
 	 */
 	private void notifyListeners(List<IIntervalListener> aListeners){
 		for (IIntervalListener listener : aListeners) {
-			listener.intervalUpdated(this);
+			try {
+				listener.intervalUpdated(this);
+			} catch (Throwable t) {
+				//getClass().getName() instead of the listener itself, a broken toString() would escape the catch.
+				log.error("Interval listener {} failed on update of interval {}, skipping it for this update.",
+						listener.getClass().getName(), name, t);
+			}
 		}
 	}
 
