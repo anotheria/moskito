@@ -102,7 +102,10 @@ public final class TopProducersRepository implements IIntervalListener {
 			if (stats == null || stats.size() == 0)
 				continue;
 
-			//for now we only handle request oriented stats, maybe we will handle more in the future.
+            //We don't consider builtin producers, for example ServiceStatistics.
+            if (producer.getCategory().equals("builtin"))
+                continue;
+			//for now, we only handle request oriented stats, maybe we will handle more in the future.
 			if (!(stats.get(0) instanceof RequestOrientedStats))
 				continue;
 			producerIds.add(producer.getProducerId());
