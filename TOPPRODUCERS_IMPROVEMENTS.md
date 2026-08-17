@@ -38,7 +38,7 @@ Per-interval score formula, in practice:
 | 6 | Exponential decay of the score | **Agreed** — Leon: "auto-decay is a very good idea" |
 | 8 | Show real values, not only ranks | **Agreed, and stronger than originally framed** — see below |
 | 7 | Minimum-volume floor for `ERROR_RATE` | **Rejected** — see below |
-| 3.3 | Magnitude-aware score in addition to rank | **Proposed** (Leon) — recommendation: normalize by sum, not max; keep both scores |
+| 3.3 | Magnitude-aware score in addition to rank | **Agreed and implemented** 2026-08-16 — normalized by sum, both scores kept side by side |
 
 **Item 7 rejected, with a concrete counter-example.** The original proposal was to make a producer
 ineligible for the `ERROR_RATE` ranking below some minimum request count per interval, on the theory
@@ -240,6 +240,38 @@ See §3.3 for the related question of making the score itself magnitude-aware.
 
 Raised by Leon 2026-08-16: consider the value as a percentage of the category's max, not only the
 list position. Right idea; the recommendation is to normalize by the **sum** rather than the max.
+
+**Done 2026-08-16, sum based as recommended and agreed.** What landed:
+
+- `Category.share(value, sumOfValues)` returns the share in basis points (`Category.SHARE_SCALE` =
+  10.000). Uses double math, `value * SHARE_SCALE` would overflow for large total times. `ERROR_RATE`
+  overrides it to return the value unchanged - the rate is not additive and is already on a fixed
+  0..10.000 scale, so a producer failing every request scores the full scale no matter how few
+  requests it had. That is the §3.4 property, now expressed in code.
+- Both scores are collected side by side per interval, selected via the new `ScoreType` enum
+  (`ORDINAL`, `SHARE`). `ProducerEntry` keeps a second map of `ProducerEntryValue`s, so the share
+  score gets the same cumulated/top/bottom/last/average treatment for free.
+- `TopProducersRepository.getTopProducers(category, limit, scoreType)` is a new overload; the
+  two-argument version delegates with `ORDINAL`, so nothing changes for existing callers.
+- Read surface: `TopProducersAPI` got matching `scoreType` overloads (distributeme regenerates the
+  remote stubs fine, it mangles parameter types into the generated identifiers), `TopProducerAO`
+  carries `cumulatedShareScore` / `averageShareScore` / `lastShareScore` in basis points plus a
+  derived `averageSharePercent` for display, the MCP tool takes an optional `scoreType` argument, and
+  `TopProducers.jsp` shows an "Avg Share %" column (the table is a tablesorter, so it sorts client
+  side without further plumbing).
+
+The **API question is answered by overloading**: the sort key is an explicit parameter, not a
+configured default. No config setting was added - the ordinal ranking stays the default everywhere,
+which keeps the ui behaviour of the current release unchanged until somebody asks for it.
+
+Tests: `testShareScoreIsTheShareOfTheSum` (exact basis points plus the constant-sum invariant),
+`testShareScoreRanksByMagnitudeWhereTheOrdinalScoreRanksByConsistency` (three intervals in which the
+two scores deliberately disagree), `testShareScoreOfTheErrorRateIsTheRateItself`, and score type
+validation in `TopProducersAPIImplTest`.
+
+Still open from this section: whether the share score should be shown per interval alongside the raw
+values (§3.2), and decay (§3.1), which the share score is designed to work with - a decayed share
+converges to `share / (1 - alpha)`, i.e. to the long run share of load.
 
 Worked example, `REQUESTS` in one interval:
 
