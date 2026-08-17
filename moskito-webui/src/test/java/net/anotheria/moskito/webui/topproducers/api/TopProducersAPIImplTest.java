@@ -42,6 +42,23 @@ public class TopProducersAPIImplTest {
 	}
 
 	@Test
+	public void acceptsBothScoreTypes() throws APIException {
+		assertNotNull(api.getTopProducers("REQUESTS", 10, "ORDINAL"));
+		assertNotNull(api.getTopProducers("REQUESTS", 10, "SHARE"));
+		//case insensitive, and unset means the position based ranking.
+		assertNotNull(api.getTopProducers("REQUESTS", 10, "share"));
+		assertNotNull(api.getTopProducers("REQUESTS", 10, null));
+		assertNotNull(api.getTopProducers("REQUESTS", 10, "  "));
+		assertNotNull(api.getTopProducersByAllCategories(5, "SHARE"));
+	}
+
+	@Test
+	public void rejectsUnknownScoreType() {
+		assertThrows(APIException.class, () -> api.getTopProducers("REQUESTS", 10, "does-not-exist"));
+		assertThrows(APIException.class, () -> api.getTopProducersByAllCategories(5, "does-not-exist"));
+	}
+
+	@Test
 	public void returnsAllCategoriesBundle() throws APIException {
 		List<CategoryTopProducersAO> all = api.getTopProducersByAllCategories(5);
 		assertEquals(5, all.size());

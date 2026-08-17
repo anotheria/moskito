@@ -15,6 +15,7 @@ import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.EnumMap;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -33,6 +34,10 @@ import java.util.concurrent.ConcurrentMap;
  * A producer is only ranked in a category it actually had a value in during the interval, an idle producer is not
  * ranked at all. Producers that disappear from the producer registry lose their accumulated entry on the next update,
  * so that the ranking doesn't grow forever in setups with short living producers.
+ * <p>
+ * Every producer collects two scores per interval, see {@link ScoreType}: the position it reached in the ranking, and
+ * its share of everything that happened in the category. The first one answers how consistently a producer is among
+ * the heavy ones, the second one how much of the system it actually accounts for.
  * <p>
  * This is a pure, ui-independent moskito-core component; presentation layers (webui, mcp, ...) read the ranking through
  * {@link #getTopProducers(Category, int)} and map it to their own transfer objects.
@@ -104,8 +109,12 @@ public final class TopProducersRepository implements IIntervalListener {
 	public void intervalUpdated(Interval interval) {
 
 		final Map<Category, ProducerTemporaryEntry> entries = new HashMap<>();
-		for (final Category c : Category.values())
+		//Sum of the raw values of all ranked producers per category, the reference the share score is computed against.
+		final Map<Category, Long> sums = new EnumMap<>(Category.class);
+		for (final Category c : Category.values()) {
 			entries.put(c, new ProducerTemporaryEntry(c.name(), 0));
+			sums.put(c, 0L);
+		}
 
 		final Set<String> registeredProducerIds = new HashSet<>();
 		final List<IStatsProducer> producers = producerRegistryAPI.getAllProducers();
@@ -136,8 +145,10 @@ public final class TopProducersRepository implements IIntervalListener {
 				//A producer that did nothing in this category in this interval isn't ranked in it. Ranking it would
 				//create an entry for every idle producer and keep it forever, and it would pull the average and the
 				//bottom score of every producer that is only active from time to time down to zero.
-				if (aValue > 0)
+				if (aValue > 0) {
 					entries.get(c).insert(new ProducerTemporaryEntry(producer.getProducerId(), aValue));
+					sums.merge(c, aValue, Long::sum);
+				}
 			}
 		}
 
@@ -146,23 +157,24 @@ public final class TopProducersRepository implements IIntervalListener {
 
 		//now we have ranked producers for last interval, we can create total ranks.
 		for (final Category c : Category.values()) {
+			final long sumOfValues = sums.get(c);
 			ProducerTemporaryEntry temporaryEntry = entries.get(c);
 			while (temporaryEntry != null) {
 				if (registeredProducerIds.contains(temporaryEntry.getProducerId()))
-					addScore(c, temporaryEntry, temporaryEntry.getScore());
+					addScore(c, temporaryEntry, temporaryEntry.getScore(), sumOfValues);
 
 				List<ProducerTemporaryEntry> same = temporaryEntry.getSame();
 				if (same != null && !same.isEmpty())
 					for (ProducerTemporaryEntry s : same)
 						if (registeredProducerIds.contains(s.getProducerId()))
-							addScore(c, s, temporaryEntry.getScore());
+							addScore(c, s, temporaryEntry.getScore(), sumOfValues);
 
 				temporaryEntry = temporaryEntry.getNext();
 			}
 		}
 	}
 
-	private void addScore(Category c, ProducerTemporaryEntry temporaryEntry, int score) {
+	private void addScore(Category c, ProducerTemporaryEntry temporaryEntry, int score, long sumOfValues) {
 		final String producerId = temporaryEntry.getProducerId();
 		ProducerEntry entry = producerEntries.get(producerId);
 		if (entry == null) {
@@ -178,6 +190,9 @@ public final class TopProducersRepository implements IIntervalListener {
 				entry = old;
 		}
 		entry.addScore(c, score);
+		//The two scores are collected side by side: the position tells how consistently a producer is in the mix, the
+		//share tells how much of the system it actually accounts for.
+		entry.addShareScore(c, c.share(temporaryEntry.getValue(), sumOfValues));
 	}
 
 	/**
@@ -190,6 +205,18 @@ public final class TopProducersRepository implements IIntervalListener {
 	 * @return the top ranked producer entries.
 	 */
 	public List<ProducerEntry> getTopProducers(Category targetCategory, int limit) {
+		return getTopProducers(targetCategory, limit, ScoreType.ORDINAL);
+	}
+
+	/**
+	 * Same as {@link #getTopProducers(Category, int)}, but ranking by the given score type instead of the position
+	 * based one.
+	 * @param targetCategory the category to rank by.
+	 * @param limit the maximum number of entries to return, a value {@code <= 0} means no limit.
+	 * @param scoreType the score to rank by.
+	 * @return the top ranked producer entries.
+	 */
+	public List<ProducerEntry> getTopProducers(Category targetCategory, int limit, ScoreType scoreType) {
 		//The score has to be read exactly once per entry and the copy has to be sorted. Sorting on the live score lets
 		//the interval thread change the sort keys while the sort is running, which makes TimSort bail out with
 		//"Comparison method violates its general contract!" as soon as there are more than 32 entries.
@@ -197,7 +224,7 @@ public final class TopProducersRepository implements IIntervalListener {
 
 		List<ScoredEntry> scored = new ArrayList<>(producerEntries.size());
 		for (ProducerEntry entry : producerEntries.values()) {
-			ProducerEntryValue value = entry.getValue(targetCategory);
+			ProducerEntryValue value = scoreType.getValue(entry, targetCategory);
 			if (value != null)
 				scored.add(new ScoredEntry(entry, value.getCumulatedScore()));
 		}

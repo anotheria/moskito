@@ -4,6 +4,7 @@ import net.anotheria.anoplass.api.APIException;
 import net.anotheria.moskito.core.topproducers.Category;
 import net.anotheria.moskito.core.topproducers.ProducerEntry;
 import net.anotheria.moskito.core.topproducers.ProducerEntryValue;
+import net.anotheria.moskito.core.topproducers.ScoreType;
 import net.anotheria.moskito.core.topproducers.TopProducersRepository;
 import net.anotheria.moskito.webui.shared.api.AbstractMoskitoAPIImpl;
 
@@ -20,8 +21,14 @@ public class TopProducersAPIImpl extends AbstractMoskitoAPIImpl implements TopPr
 
 	@Override
 	public List<TopProducerAO> getTopProducers(String category, int limit) throws APIException {
+		return getTopProducers(category, limit, null);
+	}
+
+	@Override
+	public List<TopProducerAO> getTopProducers(String category, int limit, String scoreType) throws APIException {
 		Category targetCategory = parseCategory(category);
-		List<ProducerEntry> entries = TopProducersRepository.getInstance().getTopProducers(targetCategory, limit);
+		List<ProducerEntry> entries = TopProducersRepository.getInstance()
+				.getTopProducers(targetCategory, limit, parseScoreType(scoreType));
 
 		List<TopProducerAO> ret = new ArrayList<>(entries.size());
 		for (ProducerEntry entry : entries)
@@ -31,9 +38,14 @@ public class TopProducersAPIImpl extends AbstractMoskitoAPIImpl implements TopPr
 
 	@Override
 	public List<CategoryTopProducersAO> getTopProducersByAllCategories(int limit) throws APIException {
+		return getTopProducersByAllCategories(limit, null);
+	}
+
+	@Override
+	public List<CategoryTopProducersAO> getTopProducersByAllCategories(int limit, String scoreType) throws APIException {
 		List<CategoryTopProducersAO> ret = new ArrayList<>(Category.values().length);
 		for (Category category : Category.values())
-			ret.add(new CategoryTopProducersAO(category.name(), getTopProducers(category.name(), limit)));
+			ret.add(new CategoryTopProducersAO(category.name(), getTopProducers(category.name(), limit, scoreType)));
 		return ret;
 	}
 
@@ -47,6 +59,7 @@ public class TopProducersAPIImpl extends AbstractMoskitoAPIImpl implements TopPr
 
 	private TopProducerAO map(ProducerEntry entry, Category category) {
 		ProducerEntryValue value = entry.getValue(category);
+		ProducerEntryValue shareValue = entry.getShareValue(category);
 
 		TopProducerAO ao = new TopProducerAO();
 		ao.setProducerId(entry.getProducerId());
@@ -61,7 +74,23 @@ public class TopProducersAPIImpl extends AbstractMoskitoAPIImpl implements TopPr
 			ao.setScoreCount(value.getScoreCount());
 			ao.setAverageScore(value.getAverageScore());
 		}
+		if (shareValue != null) {
+			ao.setCumulatedShareScore(shareValue.getCumulatedScore());
+			ao.setAverageShareScore(shareValue.getAverageScore());
+			ao.setLastShareScore(shareValue.getLastScore());
+		}
 		return ao;
+	}
+
+	private ScoreType parseScoreType(String scoreType) throws APIException {
+		if (scoreType == null || scoreType.trim().isEmpty())
+			return ScoreType.ORDINAL;
+		try {
+			return ScoreType.valueOf(scoreType.trim().toUpperCase());
+		} catch (IllegalArgumentException e) {
+			throw new APIException("Unknown score type '" + scoreType + "', expected one of "
+					+ java.util.Arrays.toString(ScoreType.values()));
+		}
 	}
 
 	private Category parseCategory(String category) throws APIException {

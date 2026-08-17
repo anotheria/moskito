@@ -100,6 +100,65 @@ public class TopProducersRepositoryTest {
 				"the entry of a producer that left the registry must be dropped");
 	}
 
+	@Test
+	public void testShareScoreIsTheShareOfTheSum() {
+		TopProducersRepository repository = rank(
+				new TestProducer("light", 100),
+				new TestProducer("medium-b", 200),
+				new TestProducer("heavy", 300),
+				new TestProducer("medium-a", 200));
+
+		//800 requests in total, in basis points: 300/800 = 3750, 200/800 = 2500, 100/800 = 1250.
+		assertEquals(3750, shareOf(repository, "heavy"));
+		assertEquals(2500, shareOf(repository, "medium-a"));
+		assertEquals(2500, shareOf(repository, "medium-b"));
+		assertEquals(1250, shareOf(repository, "light"));
+
+		//the defining property of normalizing by the sum: one interval always distributes the same amount of points.
+		long distributed = shareOf(repository, "heavy") + shareOf(repository, "medium-a")
+				+ shareOf(repository, "medium-b") + shareOf(repository, "light");
+		assertEquals(Category.SHARE_SCALE, distributed);
+	}
+
+	@Test
+	public void testShareScoreRanksByMagnitudeWhereTheOrdinalScoreRanksByConsistency() {
+		TestProducer steady = new TestProducer("steady", 100);
+		TestProducer bursty = new TestProducer("bursty", 50);
+		TopProducersRepository repository =
+				new TopProducersRepository(new TopProducersConfig(), new TestProducerRegistryAPI(steady, bursty));
+
+		//two intervals in which steady is ahead of bursty...
+		score(repository);
+		steady.addRequests(100);
+		bursty.addRequests(50);
+		score(repository);
+		//...and one in which bursty does three orders of magnitude more work.
+		steady.addRequests(100);
+		bursty.addRequests(50000);
+		score(repository);
+
+		//steady was ahead in two of three intervals, so it collected more positions.
+		assertEquals(List.of("steady", "bursty"), rankedIds(repository, ScoreType.ORDINAL));
+		//but bursty accounted for far more of the requests overall, which is what the share score expresses.
+		assertEquals(List.of("bursty", "steady"), rankedIds(repository, ScoreType.SHARE));
+	}
+
+	@Test
+	public void testShareScoreOfTheErrorRateIsTheRateItself() {
+		//the error rate is not additive, a producer failing every request scores the full scale no matter how many
+		//requests it had - which is what makes a rarely used but broken producer visible.
+		TestProducer broken = new TestProducer("broken", 2);
+		broken.notifyErrors(2);
+		TestProducer healthy = new TestProducer("healthy", 1000);
+		healthy.notifyErrors(10);
+
+		TopProducersRepository repository = rank(broken, healthy);
+
+		assertEquals(Category.SHARE_SCALE, shareOf(repository, "broken", Category.ERROR_RATE));
+		//10 errors out of 1000 requests are 1%, which is 100 basis points.
+		assertEquals(100, shareOf(repository, "healthy", Category.ERROR_RATE));
+	}
+
 	/**
 	 * Creates a repository ranking exactly the given producers and lets it score one interval.
 	 */
@@ -124,6 +183,26 @@ public class TopProducersRepositoryTest {
 		return repository.getTopProducers(Category.REQUESTS, 0).stream().map(ProducerEntry::getProducerId).toList();
 	}
 
+	private static List<String> rankedIds(TopProducersRepository repository, ScoreType scoreType) {
+		return repository.getTopProducers(Category.REQUESTS, 0, scoreType).stream()
+				.map(ProducerEntry::getProducerId).toList();
+	}
+
+	private static long shareOf(TopProducersRepository repository, String producerId) {
+		return shareOf(repository, producerId, Category.REQUESTS);
+	}
+
+	private static long shareOf(TopProducersRepository repository, String producerId, Category category) {
+		for (ProducerEntry entry : repository.getAllProducerEntries()) {
+			if (entry.getProducerId().equals(producerId)) {
+				ProducerEntryValue value = entry.getShareValue(category);
+				assertNotNull(value, "producer " + producerId + " has no share score in " + category);
+				return value.getCumulatedScore();
+			}
+		}
+		throw new AssertionError("producer " + producerId + " is not ranked at all");
+	}
+
 	private static long scoreOf(TopProducersRepository repository, String producerId) {
 		for (ProducerEntry entry : repository.getAllProducerEntries()) {
 			if (entry.getProducerId().equals(producerId)) {
@@ -143,13 +222,22 @@ public class TopProducersRepositoryTest {
 		private final String producerId;
 		private final List<IStats> stats = new ArrayList<>();
 
+		private final ServiceStats serviceStats = new ServiceStats("cumulated");
+
 		TestProducer(String aProducerId, int requests) {
 			producerId = aProducerId;
+			stats.add(serviceStats);
+			addRequests(requests);
+		}
 
-			ServiceStats serviceStats = new ServiceStats("cumulated");
+		void addRequests(int requests) {
 			for (int i = 0; i < requests; i++)
 				serviceStats.addRequest();
-			stats.add(serviceStats);
+		}
+
+		void notifyErrors(int errors) {
+			for (int i = 0; i < errors; i++)
+				serviceStats.notifyError();
 		}
 
 		@Override

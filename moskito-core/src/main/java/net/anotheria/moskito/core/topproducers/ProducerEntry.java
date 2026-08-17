@@ -25,9 +25,14 @@ public class ProducerEntry {
 	private String producerSubsystem;
 
 	/**
-	 * Accumulated ranking values per ranking category.
+	 * Accumulated position based ranking values per ranking category, see {@link ScoreType#ORDINAL}.
 	 */
 	private ConcurrentMap<Category, ProducerEntryValue> values = new ConcurrentHashMap<>();
+
+	/**
+	 * Accumulated share based ranking values per ranking category, see {@link ScoreType#SHARE}.
+	 */
+	private ConcurrentMap<Category, ProducerEntryValue> shareValues = new ConcurrentHashMap<>();
 
 	public String getProducerId() {
 		return producerId;
@@ -61,29 +66,61 @@ public class ProducerEntry {
 		this.values = values;
 	}
 
+	public ConcurrentMap<Category, ProducerEntryValue> getShareValues() {
+		return shareValues;
+	}
+
+	public void setShareValues(ConcurrentMap<Category, ProducerEntryValue> shareValues) {
+		this.shareValues = shareValues;
+	}
+
 	/**
-	 * Adds a score in the given ranking category, creating the {@link ProducerEntryValue} on first access.
+	 * Adds a position based score in the given ranking category, creating the {@link ProducerEntryValue} on first access.
 	 * @param category the ranking category.
 	 * @param scoreValue the score to add.
 	 */
 	public void addScore(Category category, int scoreValue) {
-		ProducerEntryValue value = values.get(category);
-		if (value == null) {
-			value = new ProducerEntryValue();
-			ProducerEntryValue old = values.putIfAbsent(category, value);
-			if (old != null)
-				value = old;
-		}
-		value.addScore(scoreValue);
+		valueIn(values, category).addScore(scoreValue);
 	}
 
 	/**
-	 * Returns the accumulated value for the given ranking category, or null if this producer was never ranked in it.
+	 * Adds a share based score in the given ranking category, creating the {@link ProducerEntryValue} on first access.
+	 * @param category the ranking category.
+	 * @param scoreValue the score to add, in basis points.
+	 */
+	public void addShareScore(Category category, long scoreValue) {
+		valueIn(shareValues, category).addScore(scoreValue);
+	}
+
+	/**
+	 * Returns the accumulated position based value for the given ranking category, or null if this producer was never
+	 * ranked in it.
 	 * @param category the ranking category.
 	 * @return the accumulated value or null.
 	 */
 	public ProducerEntryValue getValue(Category category) {
 		return values.get(category);
+	}
+
+	/**
+	 * Returns the accumulated share based value for the given ranking category, or null if this producer was never
+	 * ranked in it.
+	 * @param category the ranking category.
+	 * @return the accumulated value or null.
+	 */
+	public ProducerEntryValue getShareValue(Category category) {
+		return shareValues.get(category);
+	}
+
+	private static ProducerEntryValue valueIn(ConcurrentMap<Category, ProducerEntryValue> target, Category category) {
+		ProducerEntryValue value = target.get(category);
+		if (value == null) {
+			value = new ProducerEntryValue();
+			ProducerEntryValue old = target.putIfAbsent(category, value);
+			if (old != null)
+				value = old;
+		}
+		return value;
 	}
 
 	@Override

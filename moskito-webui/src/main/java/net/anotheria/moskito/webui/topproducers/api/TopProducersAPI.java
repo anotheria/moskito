@@ -32,12 +32,35 @@ public interface TopProducersAPI extends API, Service {
 	List<TopProducerAO> getTopProducers(String category, int limit) throws APIException;
 
 	/**
+	 * Same as {@link #getTopProducers(String, int)}, but ranked by the given score type. Every returned producer
+	 * carries both scores regardless, the score type only decides the order and therefore which producers survive the
+	 * limit.
+	 * @param category name of the ranking category (see {@link net.anotheria.moskito.core.topproducers.Category}).
+	 * @param limit maximum number of producers to return, a value {@code <= 0} means no limit.
+	 * @param scoreType name of the score to rank by (see {@link net.anotheria.moskito.core.topproducers.ScoreType}),
+	 *                     null or empty means the position based one.
+	 * @return the top producers of the category.
+	 * @throws APIException if the category or the score type name is unknown.
+	 */
+	List<TopProducerAO> getTopProducers(String category, int limit, String scoreType) throws APIException;
+
+	/**
 	 * Returns the top producers of every ranking category.
 	 * @param limit maximum number of producers per category, a value {@code <= 0} means no limit.
 	 * @return the top producers grouped by category.
 	 * @throws APIException if the ranking can not be accessed.
 	 */
 	List<CategoryTopProducersAO> getTopProducersByAllCategories(int limit) throws APIException;
+
+	/**
+	 * Same as {@link #getTopProducersByAllCategories(int)}, but ranked by the given score type.
+	 * @param limit maximum number of producers per category, a value {@code <= 0} means no limit.
+	 * @param scoreType name of the score to rank by (see {@link net.anotheria.moskito.core.topproducers.ScoreType}),
+	 *                     null or empty means the position based one.
+	 * @return the top producers grouped by category.
+	 * @throws APIException if the score type name is unknown.
+	 */
+	List<CategoryTopProducersAO> getTopProducersByAllCategories(int limit, String scoreType) throws APIException;
 
 	/**
 	 * Returns the names of all available ranking categories.

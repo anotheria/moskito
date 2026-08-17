@@ -6,6 +6,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import net.anotheria.anoplass.api.APIException;
+import net.anotheria.moskito.core.topproducers.ScoreType;
 import net.anotheria.moskito.webui.shared.resource.AbstractResource;
 import net.anotheria.moskito.webui.topproducers.api.CategoryTopProducersAO;
 import net.anotheria.moskito.webui.topproducers.api.TopProducerAO;
@@ -171,9 +172,22 @@ public class TopProducersMcpResource extends AbstractResource {
 		limitProperty.addProperty("description", "Maximum number of producers to return per category.");
 		limitProperty.addProperty("default", DEFAULT_LIMIT);
 
+		JsonArray scoreTypeEnum = new JsonArray();
+		for (ScoreType type : ScoreType.values())
+			scoreTypeEnum.add(type.name());
+
+		JsonObject scoreTypeProperty = new JsonObject();
+		scoreTypeProperty.addProperty("type", "string");
+		scoreTypeProperty.add("enum", scoreTypeEnum);
+		scoreTypeProperty.addProperty("description",
+				"Score to rank by. ORDINAL ranks by how consistently a producer is among the heaviest ones, SHARE by "
+						+ "how much of the category total it accounts for. Both scores are returned either way. "
+						+ "Defaults to ORDINAL.");
+
 		JsonObject properties = new JsonObject();
 		properties.add("category", categoryProperty);
 		properties.add("limit", limitProperty);
+		properties.add("scoreType", scoreTypeProperty);
 
 		JsonObject inputSchema = new JsonObject();
 		inputSchema.addProperty("type", "object");
@@ -204,15 +218,16 @@ public class TopProducersMcpResource extends AbstractResource {
 		String category = arguments == null ? null : optString(arguments, "category", null);
 		int limit = arguments != null && arguments.has("limit") && arguments.get("limit").isJsonPrimitive()
 				? arguments.get("limit").getAsInt() : DEFAULT_LIMIT;
+		String scoreType = arguments == null ? null : optString(arguments, "scoreType", null);
 
 		try {
 			TopProducersAPI api = getTopProducersAPI();
 			String payload;
 			if (category == null || category.trim().isEmpty()) {
-				List<CategoryTopProducersAO> all = api.getTopProducersByAllCategories(limit);
+				List<CategoryTopProducersAO> all = api.getTopProducersByAllCategories(limit, scoreType);
 				payload = GSON.toJson(all);
 			} else {
-				List<TopProducerAO> producers = api.getTopProducers(category, limit);
+				List<TopProducerAO> producers = api.getTopProducers(category, limit, scoreType);
 				payload = GSON.toJson(producers);
 			}
 			return resultResponse(id, toolContent(payload, false));

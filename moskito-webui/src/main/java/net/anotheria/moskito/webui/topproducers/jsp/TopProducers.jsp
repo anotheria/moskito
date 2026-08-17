@@ -18,6 +18,9 @@
                 <h3 class="pull-left">
                     ${category.category}
                 </h3>
+                <div class="box-right-nav">
+                    <a onclick="showTopProducersHelpModal('${category.category}');return false;" href="" class="tooltip-bottom" title="Help"><i class="fa fa-info-circle"></i></a>
+                </div>
             </div>
             <div id="collapse-${category.category}" class="box-content accordion-body collapse in">
                 <table class="table table-striped tablesorter">
@@ -29,6 +32,7 @@
                         <th>Subsystem <i class="fa fa-caret-down"></i></th>
                         <th>Total Score <i class="fa fa-caret-down"></i></th>
                         <th>Average Score<i class="fa fa-caret-down"></i></th>
+                        <th>Avg Share % <i class="fa fa-caret-down"></i></th>
                         <th>Top Score<i class="fa fa-caret-down"></i></th>
                         <th>Last Score<i class="fa fa-caret-down"></i></th>
                         <th>Intervals <i class="fa fa-caret-down"></i></th>
@@ -43,6 +47,7 @@
                         <td>${producer.producerSubsystem}</td>
                         <td>${producer.cumulatedScore}</td>
                         <td>${producer.averageScore}</td>
+                        <td>${producer.averageSharePercent}</td>
                         <td>${producer.topScore}</td>
                         <td>${producer.lastScore}</td>
                         <td>${producer.scoreCount}</td>
@@ -59,6 +64,8 @@
     <jsp:include page="../../shared/jsp/Footer.jsp" flush="false"/>
 
 </section>
+
+<jsp:include page="snippet/TopProducersHelpModal.jsp"/>
 
 </body>
 </html>

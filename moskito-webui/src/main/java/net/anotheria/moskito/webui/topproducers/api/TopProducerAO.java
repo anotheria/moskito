@@ -55,6 +55,20 @@ public class TopProducerAO implements Serializable {
 	 * Average score per ranked interval.
 	 */
 	private double averageScore;
+	/**
+	 * Accumulated share score over all ranked intervals, in basis points (see
+	 * {@link net.anotheria.moskito.core.topproducers.Category#SHARE_SCALE}).
+	 */
+	private long cumulatedShareScore;
+	/**
+	 * Average share of the producer per ranked interval, in basis points. 10.000 means the producer accounted for
+	 * everything that happened in this category.
+	 */
+	private double averageShareScore;
+	/**
+	 * Share of the producer in the last ranked interval, in basis points.
+	 */
+	private long lastShareScore;
 
 	public String getProducerId() {
 		return producerId;
@@ -134,6 +148,39 @@ public class TopProducerAO implements Serializable {
 
 	public void setAverageScore(double averageScore) {
 		this.averageScore = averageScore;
+	}
+
+	public long getCumulatedShareScore() {
+		return cumulatedShareScore;
+	}
+
+	public void setCumulatedShareScore(long cumulatedShareScore) {
+		this.cumulatedShareScore = cumulatedShareScore;
+	}
+
+	public double getAverageShareScore() {
+		return averageShareScore;
+	}
+
+	public void setAverageShareScore(double averageShareScore) {
+		this.averageShareScore = averageShareScore;
+	}
+
+	public long getLastShareScore() {
+		return lastShareScore;
+	}
+
+	public void setLastShareScore(long lastShareScore) {
+		this.lastShareScore = lastShareScore;
+	}
+
+	/**
+	 * Returns the average share as a percentage rounded to two decimals, for display purposes. Derived from
+	 * {@link #getAverageShareScore()}, therefore not part of the transported state.
+	 * @return the average share of this producer in percent.
+	 */
+	public double getAverageSharePercent() {
+		return Math.round(averageShareScore) / 100d;
 	}
 
 	@Override
