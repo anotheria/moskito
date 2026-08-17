@@ -26,10 +26,10 @@
                         <th>Producer <i class="fa fa-caret-down"></i></th>
                         <th>Category <i class="fa fa-caret-down"></i></th>
                         <th>Subsystem <i class="fa fa-caret-down"></i></th>
-                        <th>Score <i class="fa fa-caret-down"></i></th>
-                        <th>Average <i class="fa fa-caret-down"></i></th>
-                        <th>Top <i class="fa fa-caret-down"></i></th>
-                        <th>Last <i class="fa fa-caret-down"></i></th>
+                        <th>Total Score <i class="fa fa-caret-down"></i></th>
+                        <th>Average Score<i class="fa fa-caret-down"></i></th>
+                        <th>Top Score<i class="fa fa-caret-down"></i></th>
+                        <th>Last Score<i class="fa fa-caret-down"></i></th>
                         <th>Intervals <i class="fa fa-caret-down"></i></th>
                     </tr>
                     </thead>
@@ -37,7 +37,7 @@
                     <ano:iterate name="category" property="producers" type="net.anotheria.moskito.webui.topproducers.api.TopProducerAO" id="producer" indexId="index">
                     <tr>
                         <td>${index + 1}</td>
-                        <td>${producer.producerId}</td>
+                        <td><mos:deepLink  href="mskShowProducer?pProducerId=${producer.producerId}" class="tooltip-bottom" title="Show details for producer ${producer.producerId}">${producer.producerId}</mos:deepLink ></td>
                         <td>${producer.producerCategory}</td>
                         <td>${producer.producerSubsystem}</td>
                         <td>${producer.cumulatedScore}</td>
