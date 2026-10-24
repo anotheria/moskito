@@ -76,21 +76,45 @@ public class StatValueFactory {
 	}
 
 	/**
-	 * Creates a long-valued stat whose value at the start of each interval is provided dynamically.
+	 * Creates a {@link StatValueTypes#LONG} stat whose value at the start of each interval is provided dynamically.
+	 * Used for the min/max of an exactly tracked level (e.g. current requests), which has to start each interval at the
+	 * current level rather than at a constant default.
 	 *
-	 * @param aType the stat value type; must be {@link StatValueTypes#LONG}
 	 * @param aName the name of the value
 	 * @param aIntervals the intervals to be used
 	 * @param intervalStartValueSupplier supplies the value to carry into each new interval
 	 * @return the stat value
 	 */
-	public static TypeAwareStatValue createStatValue(StatValueTypes aType, String aName, Interval[] aIntervals,
+	public static TypeAwareStatValue createStatValue(String aName, Interval[] aIntervals,
 			LongSupplier intervalStartValueSupplier) {
-		if (aType != StatValueTypes.LONG) {
-			throw new IllegalArgumentException("A dynamic interval start value is only supported for LONG stats");
-		}
-		return createStatValue(aType, aName, aIntervals,
+		return createStatValue(StatValueTypes.LONG, aName, aIntervals,
 				new IntervalStartValueHolderFactory(intervalStartValueSupplier));
+	}
+
+	/**
+	 * Creates the min of a sampled level (e.g. memory): the smallest value set within an interval, or the level itself
+	 * for an interval without values. Feed it with setValueAsLong, not with setValueIfLesserThanCurrent.
+	 *
+	 * @param aName the name of the value
+	 * @param aIntervals the intervals to be used
+	 * @param level the sampled level
+	 * @return the stat value
+	 */
+	public static TypeAwareStatValue createSampledMinStatValue(String aName, Interval[] aIntervals, LongSupplier level) {
+		return createStatValue(StatValueTypes.LONG, aName, aIntervals, new SampledExtremeValueHolderFactory(false, level));
+	}
+
+	/**
+	 * Creates the max of a sampled level (e.g. memory): the largest value set within an interval, or the level itself
+	 * for an interval without values. Feed it with setValueAsLong, not with setValueIfGreaterThanCurrent.
+	 *
+	 * @param aName the name of the value
+	 * @param aIntervals the intervals to be used
+	 * @param level the sampled level
+	 * @return the stat value
+	 */
+	public static TypeAwareStatValue createSampledMaxStatValue(String aName, Interval[] aIntervals, LongSupplier level) {
+		return createStatValue(StatValueTypes.LONG, aName, aIntervals, new SampledExtremeValueHolderFactory(true, level));
 	}
 
 	private static TypeAwareStatValue createStatValue(StatValueTypes aType, String aName, Interval[] aIntervals,

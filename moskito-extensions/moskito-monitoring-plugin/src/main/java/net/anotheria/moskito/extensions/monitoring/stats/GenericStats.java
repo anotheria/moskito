@@ -116,6 +116,7 @@ public abstract class GenericStats<T extends IGenericMetrics> extends AbstractSt
                 case STRING: stat.setValueAsString(value.toString()); break;
                 case COUNTER:
                 case DIFFLONG:
+                case LEVEL:
                 case LONG: stat.setValueAsLong(Long.class.cast(value));break;
                 default: stat.setValueAsString(value.toString()); break;
             }

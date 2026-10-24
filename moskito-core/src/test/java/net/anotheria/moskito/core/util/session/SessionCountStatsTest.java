@@ -62,6 +62,29 @@ public class SessionCountStatsTest {
     }
 
     @Test
+    public void testMinMaxStartAtCurrentLevelInQuietInterval(){
+        SessionCountStats stats = new SessionCountStats();
+        stats.notifySessionCreated();
+        stats.notifySessionCreated();
+        stats.notifySessionCreated();
+        IntervalRegistry.getInstance().forceUpdateIntervalForTestingPurposes("1m");
+
+        //an interval without any session activity, the 3 sessions are still open.
+        IntervalRegistry.getInstance().forceUpdateIntervalForTestingPurposes("1m");
+        assertEquals(3, stats.getCurrentSessionCount("1m"));
+        assertEquals(3, stats.getMinSessionCount("1m"), "min should start at the open sessions, not at MAX_VALUE");
+        assertEquals(3, stats.getMaxSessionCount("1m"), "max should start at the open sessions, not at MIN_VALUE");
+
+        stats.notifySessionDestroyed();
+        stats.notifySessionCreated();
+        stats.notifySessionCreated();
+        IntervalRegistry.getInstance().forceUpdateIntervalForTestingPurposes("1m");
+        assertEquals(4, stats.getCurrentSessionCount("1m"));
+        assertEquals(2, stats.getMinSessionCount("1m"));
+        assertEquals(4, stats.getMaxSessionCount("1m"));
+    }
+
+    @Test
     public void testGetValueByNameAsString(){
         SessionCountStats stats = SessionCountFactory.DEFAULT_INSTANCE.createStatsObject("sessions");
 

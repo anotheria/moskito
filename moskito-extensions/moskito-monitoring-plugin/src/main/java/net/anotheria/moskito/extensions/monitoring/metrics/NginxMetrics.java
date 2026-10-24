@@ -57,40 +57,40 @@ public final class NginxMetrics extends GenericMetrics {
 
     /** 'Active connections' metric. */
     public static final NginxMetrics
-        ACTIVE = new NginxMetrics(StatValueTypes.COUNTER, "Active",
+        ACTIVE = new NginxMetrics(StatValueTypes.LEVEL, "Active",
             "Active connections", "Active connections(sessions) at the moment of check."),
         /** 'Accepted connections' metric. */
-        ACCEPTED = new NginxMetrics(StatValueTypes.COUNTER, "Accepted",
+        ACCEPTED = new NginxMetrics(StatValueTypes.LEVEL, "Accepted",
                 "Accepted connections", "Accepted connections since nginx start."),
         /** Average amount of accepted connections per second.*/
         ACCEPTEDPERSECOND = new NginxMetrics(StatValueTypes.DIFFLONG, true, "Accepted/sec",
                 "Accepted connections per second."),
         /** 'Handled connections' metric. */
-        HANDLED = new NginxMetrics(StatValueTypes.COUNTER, "Handled",
+        HANDLED = new NginxMetrics(StatValueTypes.LEVEL, "Handled",
                 "Total number of handled connections."),
         /** Average amount of handled connections per second. */
         HANDLEDPERSECOND = new NginxMetrics(StatValueTypes.DIFFLONG, true,
                 "Handled/sec", "Handled connections per second."),
         /** 'Dropped connections' metric. Calculated as difference between handled and accepted metrics.*/
-        DROPPED = new NginxMetrics(StatValueTypes.COUNTER, "Dropped",
+        DROPPED = new NginxMetrics(StatValueTypes.LEVEL, "Dropped",
                 "Total number of dropped connections."),
         /** Average number of dropped connections per second. */
         DROPPEDPERSECOND = new NginxMetrics(StatValueTypes.DIFFLONG, true, "Dropped/sec",
                 "Average number of dropped connections per second."),
         /** Total number of requests metric.*/
-        REQUESTS = new NginxMetrics(StatValueTypes.COUNTER, "Requests",
+        REQUESTS = new NginxMetrics(StatValueTypes.LEVEL, "Requests",
                 "Total number of requests served."),
         /** Average number of requests served per second.*/
         REQUESTSPERSECOND = new NginxMetrics(StatValueTypes.DIFFLONG, true, "Requests/sec",
                 "Average number of requests served per second"),
         /** The current number of connections where nginx is reading the request header.*/
-        READING = new NginxMetrics(StatValueTypes.COUNTER, "Reading",
+        READING = new NginxMetrics(StatValueTypes.LEVEL, "Reading",
                 "The current number of connections where nginx is reading the request header"),
         /** The current number of connections where nginx is writing the response back to the client. */
-        WRITING = new NginxMetrics(StatValueTypes.COUNTER, "Writing",
+        WRITING = new NginxMetrics(StatValueTypes.LEVEL, "Writing",
                 "The current number of connections where nginx is writing the response back to the client."),
         /** The current number of idle client connections waiting for a request.*/
-        WAITING = new NginxMetrics(StatValueTypes.COUNTER, "Waiting",
+        WAITING = new NginxMetrics(StatValueTypes.LEVEL, "Waiting",
                 "The current number of idle client connections waiting for a request.");
 
     @Override

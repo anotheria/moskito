@@ -3,6 +3,7 @@ package net.anotheria.moskito.core.predefined;
 import net.anotheria.moskito.core.producers.AbstractStats;
 import net.anotheria.moskito.core.stats.Interval;
 import net.anotheria.moskito.core.stats.StatValue;
+import net.anotheria.moskito.core.stats.StatValueTypes;
 import net.anotheria.moskito.core.stats.TimeUnit;
 import net.anotheria.moskito.core.stats.impl.StatValueFactory;
 
@@ -37,9 +38,13 @@ public class MemoryStats extends AbstractStats {
 
 	public MemoryStats(String aName,  Interval[] selectedIntervals){
 		super(aName);
-		current = StatValueFactory.createStatValue(0L, "current", selectedIntervals);
-		min = StatValueFactory.createStatValue(0L, "min", selectedIntervals);
-		max = StatValueFactory.createStatValue(0L, "max", selectedIntervals);
+		//the memory value is a sampled level, it has to survive an interval without a sample.
+		//the local is captured instead of the field, so the interval listeners don't keep the whole stats object alive.
+		StatValue level = StatValueFactory.createStatValue(StatValueTypes.LEVEL, "current", selectedIntervals);
+		current = level;
+		//min and max of the samples within an interval, the last sample for an interval without samples.
+		min = StatValueFactory.createSampledMinStatValue("min", selectedIntervals, level::getValueAsLong);
+		max = StatValueFactory.createSampledMaxStatValue("max", selectedIntervals, level::getValueAsLong);
 
 		addStatValues(current, min, max);
 		
@@ -56,8 +61,9 @@ public class MemoryStats extends AbstractStats {
 
 	public void updateMemoryValue(long value){
 		current.setValueAsLong(value);
-		min.setValueIfLesserThanCurrentAsLong(value);
-		max.setValueIfGreaterThanCurrentAsLong(value);
+		//sampled min/max keep the extreme themselves.
+		min.setValueAsLong(value);
+		max.setValueAsLong(value);
 	}
 	
 	public long getCurrent(String intervalName){
