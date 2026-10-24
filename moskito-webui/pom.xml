@@ -58,6 +58,15 @@
             <groupId>net.anotheria</groupId>
             <artifactId>ano-tags</artifactId>
         </dependency>
+        <!-- JSTL api + impl. The impl declares the api as 'provided', so it is not
+             propagated transitively and has to be declared explicitly here, otherwise
+             wars depending on moskito-webui ship the impl without the api and JSP
+             compilation fails on a container that does not supply JSTL (e.g. Tomcat 10). -->
+        <dependency>
+            <groupId>jakarta.servlet.jsp.jstl</groupId>
+            <artifactId>jakarta.servlet.jsp.jstl-api</artifactId>
+            <version>3.0.0</version>
+        </dependency>
         <dependency>
             <groupId>org.glassfish.web</groupId>
             <artifactId>jakarta.servlet.jsp.jstl</artifactId>
