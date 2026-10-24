@@ -65,23 +65,20 @@ public class SessionCountStats extends AbstractStats {
 		Integer pattern = Integer.valueOf(0);
 		
 		numberOfCurrentSessions = StatValueFactory.createStatValue(StatValueTypes.LEVEL, "numberOfSessions", intervals);
-		minNumberOfSessions = StatValueFactory.createStatValue(pattern, "minNumberOfSessions", intervals);
-		minNumberOfSessions.setDefaultValueAsInt(Integer.MAX_VALUE);
-		minNumberOfSessions.reset();
-		maxNumberOfSessions = StatValueFactory.createStatValue(pattern, "maxNumberOfSessions", intervals); 
-		maxNumberOfSessions.setDefaultValueAsInt(Integer.MIN_VALUE);
-		maxNumberOfSessions.reset();
-		numberOfCreatedSessions = StatValueFactory.createStatValue(pattern, "createdSessions", intervals); 
+		//min and max start each interval at the current session count, otherwise an interval without session activity
+		//would show the constant defaults instead of the sessions that are still open.
+		minNumberOfSessions = StatValueFactory.createStatValue("minNumberOfSessions", intervals,
+				() -> numberOfCurrentSessions.getValueAsLong());
+		maxNumberOfSessions = StatValueFactory.createStatValue("maxNumberOfSessions", intervals,
+				() -> numberOfCurrentSessions.getValueAsLong());
+		numberOfCreatedSessions = StatValueFactory.createStatValue(pattern, "createdSessions", intervals);
 		numberOfDestroyedSessions = StatValueFactory.createStatValue(pattern, "destroyedSessions", intervals);
 
-		addStatValues(numberOfCreatedSessions, maxNumberOfSessions, minNumberOfSessions, numberOfCreatedSessions, numberOfDestroyedSessions);
-		
+		addStatValues(numberOfCurrentSessions, maxNumberOfSessions, minNumberOfSessions, numberOfCreatedSessions, numberOfDestroyedSessions);
+
 	}
-	
+
 	public void notifySessionCreated(){
-		//System.out.println("CREATED, current is "+numberOfCurrentSessionsBeforeCall+ " current min "+minNumberOfSessions.getValueAsInt());
-		//before we increased we check if we are at the minimum.
-		minNumberOfSessions.setValueIfLesserThanCurrentAsInt(numberOfCurrentSessions.getValueAsInt()); //this is basically only needed to get a value in, when not a single session have been destroyed sofar. Otherwise its MaxINT.
 		numberOfCreatedSessions.increase();
 		
 		numberOfCurrentSessions.increase();

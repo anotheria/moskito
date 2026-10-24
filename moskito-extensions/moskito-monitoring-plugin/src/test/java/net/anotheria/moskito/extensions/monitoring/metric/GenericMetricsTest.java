@@ -19,11 +19,11 @@ public class GenericMetricsTest {
     public void testAnonymousMetricClass() {
         int count = TestMetrics.getMetrics().size();
 
-        new TestMetrics(StatValueTypes.COUNTER, "test");
-        new TestMetrics(StatValueTypes.COUNTER, "test");
+        new TestMetrics(StatValueTypes.LEVEL, "test");
+        new TestMetrics(StatValueTypes.LEVEL, "test");
         assertEquals(count + 2, TestMetrics.getMetrics().size());
 
-        new TestMetrics(StatValueTypes.COUNTER, "test"){
+        new TestMetrics(StatValueTypes.LEVEL, "test"){
             @Override public String getCaption() {
                 return "anonymous test";
             }

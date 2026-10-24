@@ -2,6 +2,7 @@ package net.anotheria.moskito.core.predefined;
 
 import net.anotheria.moskito.core.stats.Interval;
 import net.anotheria.moskito.core.stats.StatValue;
+import net.anotheria.moskito.core.stats.StatValueTypes;
 import net.anotheria.moskito.core.stats.TimeUnit;
 import net.anotheria.moskito.core.stats.impl.StatValueFactory;
 
@@ -44,6 +45,11 @@ public class MemoryPoolStats extends AbstractMemoryPoolStats implements IMemoryP
 	 * Max.
 	 */
 	private StatValue max;
+	/**
+	 * True once used / commited have been sampled. Until then their min and max have no meaningful start value.
+	 */
+	private volatile boolean usedSampled;
+	private volatile boolean commitedSampled;
 
 	/**
 	 * Creates a new unnamed memory pool stats object with default intervals.
@@ -67,21 +73,18 @@ public class MemoryPoolStats extends AbstractMemoryPoolStats implements IMemoryP
 	 */
 	public MemoryPoolStats(String aName,  Interval[] selectedIntervals){
 		super(aName);
-		init = StatValueFactory.createStatValue(0L, "init", selectedIntervals);
-		used = StatValueFactory.createStatValue(0L, "used", selectedIntervals);
-		minUsed = StatValueFactory.createStatValue(0L, "minUsed", selectedIntervals);
-		minUsed.setDefaultValueAsLong(Integer.MAX_VALUE);
-		minUsed.reset();
+		//all pool values are sampled levels, they have to survive an interval without a sample.
+		init = StatValueFactory.createStatValue(StatValueTypes.LEVEL, "init", selectedIntervals);
+		used = StatValueFactory.createStatValue(StatValueTypes.LEVEL, "used", selectedIntervals);
+		//min and max start each interval at the last sampled value.
+		minUsed = StatValueFactory.createStatValue("minUsed", selectedIntervals, () -> used.getValueAsLong());
+		maxUsed = StatValueFactory.createStatValue("maxUsed", selectedIntervals, () -> used.getValueAsLong());
 
-		maxUsed = StatValueFactory.createStatValue(0L, "maxUsed", selectedIntervals);
-		
-		commited = StatValueFactory.createStatValue(0L, "commited", selectedIntervals);
-		minCommited =  StatValueFactory.createStatValue(0L, "minCommited", selectedIntervals);
-		minCommited.setDefaultValueAsLong(Integer.MAX_VALUE);
-		minCommited.reset();
-		maxCommited =  StatValueFactory.createStatValue(0L, "maxCommited", selectedIntervals);
- 
-		max = StatValueFactory.createStatValue(0L, "max", selectedIntervals);
+		commited = StatValueFactory.createStatValue(StatValueTypes.LEVEL, "commited", selectedIntervals);
+		minCommited = StatValueFactory.createStatValue("minCommited", selectedIntervals, () -> commited.getValueAsLong());
+		maxCommited = StatValueFactory.createStatValue("maxCommited", selectedIntervals, () -> commited.getValueAsLong());
+
+		max = StatValueFactory.createStatValue(StatValueTypes.LEVEL, "max", selectedIntervals);
 
 		addStatValues(init, used, minUsed, maxUsed, commited, minCommited, maxCommited, max);
 		
@@ -202,6 +205,12 @@ public class MemoryPoolStats extends AbstractMemoryPoolStats implements IMemoryP
 	 */
 	public void setUsed(long value){
 		used.setValueAsLong(value);
+		if (!usedSampled){
+			//first sample, min and max were started at 0 before anything was known.
+			minUsed.setValueAsLong(value);
+			maxUsed.setValueAsLong(value);
+			usedSampled = true;
+		}
 		minUsed.setValueIfLesserThanCurrentAsLong(value);
 		maxUsed.setValueIfGreaterThanCurrentAsLong(value);
 	}
@@ -212,6 +221,11 @@ public class MemoryPoolStats extends AbstractMemoryPoolStats implements IMemoryP
 	 */
 	public void setCommited(long value){
 		commited.setValueAsLong(value);
+		if (!commitedSampled){
+			minCommited.setValueAsLong(value);
+			maxCommited.setValueAsLong(value);
+			commitedSampled = true;
+		}
 		minCommited.setValueIfLesserThanCurrentAsLong(value);
 		maxCommited.setValueIfGreaterThanCurrentAsLong(value);
 	}

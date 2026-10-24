@@ -197,6 +197,7 @@ public abstract class GenericMetrics implements IGenericMetrics {
         switch (type) {
             case COUNTER:
             case DIFFLONG:
+            case LEVEL:
             case LONG: result = value instanceof Long; break;
             case INT: result = value instanceof Integer; break;
             case DOUBLE: result = value instanceof Double; break;
