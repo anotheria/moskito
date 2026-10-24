@@ -62,7 +62,11 @@ final class StatValueTypeUtility {
 	/**
 	 * Factory instance for counter values.
 	 */
-	private static CounterValueHolderFactory counterValueHolderFactory = new CounterValueHolderFactory(); 
+	private static CounterValueHolderFactory counterValueHolderFactory = new CounterValueHolderFactory();
+	/**
+	 * Factory instance for level values.
+	 */
+	private static LevelValueHolderFactory levelValueHolderFactory = new LevelValueHolderFactory();
     /**
      * Factory instance for double values.
      */
@@ -90,6 +94,8 @@ final class StatValueTypeUtility {
 			return stringValueHolderFactory;
 		case COUNTER:
 			return counterValueHolderFactory;
+		case LEVEL:
+			return levelValueHolderFactory;
 		case DOUBLE:
 		    return doubleValueHolderFactory;
 		case DIFFLONG:

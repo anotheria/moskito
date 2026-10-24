@@ -118,6 +118,7 @@ public class GenericStatsDecorator implements IDecorator<GenericStats> {
                         break;
                     case INT:
                     case LONG:
+                    case LEVEL:
                         ret.add(new LongValueAO(name, sValue.getValueAsLong(interval)));
                         break;
                     default:

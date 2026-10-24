@@ -32,10 +32,11 @@ public class DetailedTypeAwareStatValueImpl extends TypeAwareStatValueImpl imple
 			throw new AssertionError("Unsupported type: " + svType);
 		}
 
-		this.sum = StatValueFactory.createStatValue(svType, "sum" + aName, this.values.keySet());
+		StatValueTypes aggregateType = StatValueTypes.LEVEL.equals(svType) ? StatValueTypes.LONG : svType;
+		this.sum = StatValueFactory.createStatValue(aggregateType, "sum" + aName, this.values.keySet());
 		this.count = StatValueFactory.createStatValue(StatValueTypes.LONG, "count" + aName, this.values.keySet());
-		this.min = StatValueFactory.createStatValue(svType, "min" + aName, this.values.keySet());
-		this.max = StatValueFactory.createStatValue(svType, "max" + aName, this.values.keySet());
+		this.min = StatValueFactory.createStatValue(aggregateType, "min" + aName, this.values.keySet());
+		this.max = StatValueFactory.createStatValue(aggregateType, "max" + aName, this.values.keySet());
 
 		this.setMinMaxDefaultValues();
 
@@ -45,7 +46,7 @@ public class DetailedTypeAwareStatValueImpl extends TypeAwareStatValueImpl imple
 		StatValueTypes svType = this.getType();
 
 		if (StatValueTypes.LONG.equals(svType) || StatValueTypes.COUNTER.equals(svType)
-				|| StatValueTypes.DIFFLONG.equals(svType)) {
+				|| StatValueTypes.LEVEL.equals(svType) || StatValueTypes.DIFFLONG.equals(svType)) {
 
 			this.max.setDefaultValueAsLong(Long.MIN_VALUE);
 			this.min.setDefaultValueAsLong(Long.MAX_VALUE);
@@ -78,7 +79,7 @@ public class DetailedTypeAwareStatValueImpl extends TypeAwareStatValueImpl imple
 		StatValueTypes svType = this.getType();
 
 		if (StatValueTypes.LONG.equals(svType) || StatValueTypes.COUNTER.equals(svType)
-				|| StatValueTypes.DIFFLONG.equals(svType)) {
+				|| StatValueTypes.LEVEL.equals(svType) || StatValueTypes.DIFFLONG.equals(svType)) {
 
 			long longVal = this.absoluteValue.getCurrentValueAsLong();
 			this.max.setValueIfGreaterThanCurrentAsLong(longVal);
@@ -99,7 +100,7 @@ public class DetailedTypeAwareStatValueImpl extends TypeAwareStatValueImpl imple
 		StatValueTypes svType = this.getType();
 
 		if (StatValueTypes.LONG.equals(svType) || StatValueTypes.COUNTER.equals(svType)
-				|| StatValueTypes.DIFFLONG.equals(svType)) {
+				|| StatValueTypes.LEVEL.equals(svType) || StatValueTypes.DIFFLONG.equals(svType)) {
 
 			long longVal = this.absoluteValue.getCurrentValueAsLong();
 			this.min.setValueIfLesserThanCurrentAsLong(longVal);
@@ -121,7 +122,7 @@ public class DetailedTypeAwareStatValueImpl extends TypeAwareStatValueImpl imple
 		StatValueTypes svType = this.getType();
 
 		if (StatValueTypes.LONG.equals(svType) || StatValueTypes.COUNTER.equals(svType)
-				|| StatValueTypes.DIFFLONG.equals(svType)) {
+				|| StatValueTypes.LEVEL.equals(svType) || StatValueTypes.DIFFLONG.equals(svType)) {
 
 			long longVal = this.absoluteValue.getCurrentValueAsLong();
 			this.sum.increaseByLong(longVal);

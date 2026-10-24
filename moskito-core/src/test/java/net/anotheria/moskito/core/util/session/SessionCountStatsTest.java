@@ -45,6 +45,23 @@ public class SessionCountStatsTest {
     }
 
     @Test
+    public void testCurrentSessionLevelCarriesAcrossIntervals(){
+        SessionCountStats stats = new SessionCountStats();
+        stats.notifySessionCreated();
+        stats.notifySessionCreated();
+
+        IntervalRegistry.getInstance().forceUpdateIntervalForTestingPurposes("1m");
+        assertEquals(2, stats.getCurrentSessionCount("1m"));
+
+        IntervalRegistry.getInstance().forceUpdateIntervalForTestingPurposes("1m");
+        assertEquals(2, stats.getCurrentSessionCount("1m"));
+
+        stats.notifySessionDestroyed();
+        IntervalRegistry.getInstance().forceUpdateIntervalForTestingPurposes("1m");
+        assertEquals(1, stats.getCurrentSessionCount("1m"));
+    }
+
+    @Test
     public void testGetValueByNameAsString(){
         SessionCountStats stats = SessionCountFactory.DEFAULT_INSTANCE.createStatsObject("sessions");
 

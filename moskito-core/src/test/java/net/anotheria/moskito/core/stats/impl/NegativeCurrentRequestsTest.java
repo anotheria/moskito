@@ -31,6 +31,12 @@ public class NegativeCurrentRequestsTest {
 		
 		assertEquals(3, stats.getCurrentRequests(), "Current requests should be 3");
 		assertEquals(3, stats.getCurrentRequests("1m"), "Current requests should be 3");
+		assertEquals(3, stats.getMaxCurrentRequests("1m"), "The interval maximum should include the in-flight baseline");
+
+		// No new request starts in the next interval, but all three remain in flight.
+		((IntervalImpl)interval).update();
+		assertEquals(3, stats.getCurrentRequests("1m"), "The current-request level should carry across rollovers");
+		assertEquals(3, stats.getMaxCurrentRequests("1m"), "The interval maximum should start at the in-flight baseline");
 
 		stats.notifyRequestFinished();
 		stats.notifyRequestFinished();
@@ -39,6 +45,7 @@ public class NegativeCurrentRequestsTest {
 		((IntervalImpl)interval).update();
 
 		assertEquals(0, stats.getCurrentRequests(), "Current requests should be 0");
-		//TODO -> this is yet broken !assertEquals(0, stats.getCurrentRequests("1m"), "Current requests should be 0");
+		assertEquals(0, stats.getCurrentRequests("1m"), "Current requests should be 0 after requests finish across an interval rollover");
+		assertEquals(3, stats.getMaxCurrentRequests("1m"), "The interval maximum should retain the starting in-flight level");
 	}
 }

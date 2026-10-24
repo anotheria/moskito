@@ -35,6 +35,7 @@
 package net.anotheria.moskito.core.stats.impl;
 
 import java.util.Collection;
+import java.util.function.LongSupplier;
 
 import net.anotheria.moskito.core.stats.DetailedStatValue;
 import net.anotheria.moskito.core.stats.IValueHolderFactory;
@@ -71,11 +72,32 @@ public class StatValueFactory {
 	 * @return the StatValue instance
 	 */
 	public static TypeAwareStatValue createStatValue(StatValueTypes aType, String aName, Interval[] aIntervals) {
-		IValueHolderFactory valueHolderFactory = StatValueTypeUtility.createValueHolderFactory(aType);
+		return createStatValue(aType, aName, aIntervals, StatValueTypeUtility.createValueHolderFactory(aType));
+	}
+
+	/**
+	 * Creates a long-valued stat whose value at the start of each interval is provided dynamically.
+	 *
+	 * @param aType the stat value type; must be {@link StatValueTypes#LONG}
+	 * @param aName the name of the value
+	 * @param aIntervals the intervals to be used
+	 * @param intervalStartValueSupplier supplies the value to carry into each new interval
+	 * @return the stat value
+	 */
+	public static TypeAwareStatValue createStatValue(StatValueTypes aType, String aName, Interval[] aIntervals,
+			LongSupplier intervalStartValueSupplier) {
+		if (aType != StatValueTypes.LONG) {
+			throw new IllegalArgumentException("A dynamic interval start value is only supported for LONG stats");
+		}
+		return createStatValue(aType, aName, aIntervals,
+				new IntervalStartValueHolderFactory(intervalStartValueSupplier));
+	}
+
+	private static TypeAwareStatValue createStatValue(StatValueTypes aType, String aName, Interval[] aIntervals,
+			IValueHolderFactory valueHolderFactory) {
 		TypeAwareStatValue value = new TypeAwareStatValueImpl(aName, aType, valueHolderFactory);
-		// now we have to add the Intervals to the new value....
-		for (int i = 0; i < aIntervals.length; i++) {
-			value.addInterval(aIntervals[i]);
+		for (Interval interval : aIntervals) {
+			value.addInterval(interval);
 		}
 		return value;
 	}

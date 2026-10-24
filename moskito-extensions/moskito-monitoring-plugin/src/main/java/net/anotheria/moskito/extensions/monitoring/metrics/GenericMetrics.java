@@ -164,7 +164,8 @@ public abstract class GenericMetrics implements IGenericMetrics {
 
     @Override
     public boolean isLongValue() {
-        return !isRateMetric() && (type == StatValueTypes.LONG || type == StatValueTypes.DIFFLONG || type == StatValueTypes.COUNTER);
+        return !isRateMetric() && (type == StatValueTypes.LONG || type == StatValueTypes.DIFFLONG
+                || type == StatValueTypes.COUNTER || type == StatValueTypes.LEVEL);
     }
 
     @Override
@@ -175,6 +176,7 @@ public abstract class GenericMetrics implements IGenericMetrics {
             switch (type) {
                 case COUNTER:
                 case DIFFLONG:
+                case LEVEL:
                 case LONG: result = Long.parseLong(value); break;
                 case INT: result = Integer.parseInt(value); break;
                 case DOUBLE: result = Double.parseDouble(value); break;
