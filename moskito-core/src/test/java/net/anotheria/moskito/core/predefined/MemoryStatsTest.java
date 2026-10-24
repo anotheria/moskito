@@ -50,9 +50,33 @@ public class MemoryStatsTest {
 
 		stats.updateMemoryValue(110);
 		rollover();
-		//the interval started at 120 (last sample), then 110 was sampled.
+		//only samples within the interval count, the 120 from the previous interval doesn't.
 		assertEquals(110, stats.getMin(INTERVAL));
-		assertEquals(120, stats.getMax(INTERVAL));
+		assertEquals(110, stats.getMax(INTERVAL));
+	}
+
+	@Test public void testMemoryStatsIntervalMaxDoesNotCarryPreviousSpike(){
+		MemoryStats stats = new MemoryStats("test", intervals());
+		stats.updateMemoryValue(120);
+		rollover();
+		//e.g. after a GC, only lower values are sampled in the next interval.
+		stats.updateMemoryValue(50);
+		stats.updateMemoryValue(60);
+		rollover();
+		assertEquals(50, stats.getMin(INTERVAL));
+		assertEquals(60, stats.getMax(INTERVAL), "max must not report the spike from the previous interval");
+		//the all-time values still see everything.
+		assertEquals(50, stats.getMin(null));
+		assertEquals(120, stats.getMax(null));
+	}
+
+	@Test public void testMemoryStatsBeforeFirstSample(){
+		MemoryStats stats = new MemoryStats("test", intervals());
+		assertEquals(0, stats.getMin(null));
+		assertEquals(0, stats.getMax(null));
+		stats.updateMemoryValue(100);
+		assertEquals(100, stats.getMin(null), "the first sample must replace the empty start value");
+		assertEquals(100, stats.getMax(null));
 	}
 
 	@Test public void testMemoryPoolStatsKeepValuesInIntervalWithoutSample(){

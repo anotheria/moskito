@@ -64,13 +64,13 @@ public class SessionCountStats extends AbstractStats {
 		
 		Integer pattern = Integer.valueOf(0);
 		
-		numberOfCurrentSessions = StatValueFactory.createStatValue(StatValueTypes.LEVEL, "numberOfSessions", intervals);
+		//the local is captured instead of the field, so the interval listeners don't keep the whole stats object alive.
+		StatValue current = StatValueFactory.createStatValue(StatValueTypes.LEVEL, "numberOfSessions", intervals);
+		numberOfCurrentSessions = current;
 		//min and max start each interval at the current session count, otherwise an interval without session activity
 		//would show the constant defaults instead of the sessions that are still open.
-		minNumberOfSessions = StatValueFactory.createStatValue("minNumberOfSessions", intervals,
-				() -> numberOfCurrentSessions.getValueAsLong());
-		maxNumberOfSessions = StatValueFactory.createStatValue("maxNumberOfSessions", intervals,
-				() -> numberOfCurrentSessions.getValueAsLong());
+		minNumberOfSessions = StatValueFactory.createStatValue("minNumberOfSessions", intervals, current::getValueAsLong);
+		maxNumberOfSessions = StatValueFactory.createStatValue("maxNumberOfSessions", intervals, current::getValueAsLong);
 		numberOfCreatedSessions = StatValueFactory.createStatValue(pattern, "createdSessions", intervals);
 		numberOfDestroyedSessions = StatValueFactory.createStatValue(pattern, "destroyedSessions", intervals);
 

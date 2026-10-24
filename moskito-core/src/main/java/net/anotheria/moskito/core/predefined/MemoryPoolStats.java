@@ -45,11 +45,6 @@ public class MemoryPoolStats extends AbstractMemoryPoolStats implements IMemoryP
 	 * Max.
 	 */
 	private StatValue max;
-	/**
-	 * True once used / commited have been sampled. Until then their min and max have no meaningful start value.
-	 */
-	private volatile boolean usedSampled;
-	private volatile boolean commitedSampled;
 
 	/**
 	 * Creates a new unnamed memory pool stats object with default intervals.
@@ -75,14 +70,17 @@ public class MemoryPoolStats extends AbstractMemoryPoolStats implements IMemoryP
 		super(aName);
 		//all pool values are sampled levels, they have to survive an interval without a sample.
 		init = StatValueFactory.createStatValue(StatValueTypes.LEVEL, "init", selectedIntervals);
-		used = StatValueFactory.createStatValue(StatValueTypes.LEVEL, "used", selectedIntervals);
+		//locals are captured instead of the fields, so the interval listeners don't keep the whole stats object alive.
+		StatValue usedLevel = StatValueFactory.createStatValue(StatValueTypes.LEVEL, "used", selectedIntervals);
+		used = usedLevel;
 		//min and max start each interval at the last sampled value.
-		minUsed = StatValueFactory.createStatValue("minUsed", selectedIntervals, () -> used.getValueAsLong());
-		maxUsed = StatValueFactory.createStatValue("maxUsed", selectedIntervals, () -> used.getValueAsLong());
+		minUsed = StatValueFactory.createSampledMinStatValue("minUsed", selectedIntervals, usedLevel::getValueAsLong);
+		maxUsed = StatValueFactory.createSampledMaxStatValue("maxUsed", selectedIntervals, usedLevel::getValueAsLong);
 
-		commited = StatValueFactory.createStatValue(StatValueTypes.LEVEL, "commited", selectedIntervals);
-		minCommited = StatValueFactory.createStatValue("minCommited", selectedIntervals, () -> commited.getValueAsLong());
-		maxCommited = StatValueFactory.createStatValue("maxCommited", selectedIntervals, () -> commited.getValueAsLong());
+		StatValue commitedLevel = StatValueFactory.createStatValue(StatValueTypes.LEVEL, "commited", selectedIntervals);
+		commited = commitedLevel;
+		minCommited = StatValueFactory.createSampledMinStatValue("minCommited", selectedIntervals, commitedLevel::getValueAsLong);
+		maxCommited = StatValueFactory.createSampledMaxStatValue("maxCommited", selectedIntervals, commitedLevel::getValueAsLong);
 
 		max = StatValueFactory.createStatValue(StatValueTypes.LEVEL, "max", selectedIntervals);
 
@@ -205,14 +203,9 @@ public class MemoryPoolStats extends AbstractMemoryPoolStats implements IMemoryP
 	 */
 	public void setUsed(long value){
 		used.setValueAsLong(value);
-		if (!usedSampled){
-			//first sample, min and max were started at 0 before anything was known.
-			minUsed.setValueAsLong(value);
-			maxUsed.setValueAsLong(value);
-			usedSampled = true;
-		}
-		minUsed.setValueIfLesserThanCurrentAsLong(value);
-		maxUsed.setValueIfGreaterThanCurrentAsLong(value);
+		//sampled min/max keep the extreme themselves.
+		minUsed.setValueAsLong(value);
+		maxUsed.setValueAsLong(value);
 	}
 
 	/**
@@ -221,12 +214,7 @@ public class MemoryPoolStats extends AbstractMemoryPoolStats implements IMemoryP
 	 */
 	public void setCommited(long value){
 		commited.setValueAsLong(value);
-		if (!commitedSampled){
-			minCommited.setValueAsLong(value);
-			maxCommited.setValueAsLong(value);
-			commitedSampled = true;
-		}
-		minCommited.setValueIfLesserThanCurrentAsLong(value);
-		maxCommited.setValueIfGreaterThanCurrentAsLong(value);
+		minCommited.setValueAsLong(value);
+		maxCommited.setValueAsLong(value);
 	}
 }

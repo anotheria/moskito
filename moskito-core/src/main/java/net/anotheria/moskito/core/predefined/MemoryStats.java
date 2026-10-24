@@ -25,10 +25,6 @@ public class MemoryStats extends AbstractStats {
 	 * Max value.
 	 */
 	private StatValue max;
-	/**
-	 * True once the first value has been sampled. Until then min and max have no meaningful start value.
-	 */
-	private volatile boolean sampled;
 
 	private static final long MB = 1024L*1024;
 	
@@ -43,10 +39,12 @@ public class MemoryStats extends AbstractStats {
 	public MemoryStats(String aName,  Interval[] selectedIntervals){
 		super(aName);
 		//the memory value is a sampled level, it has to survive an interval without a sample.
-		current = StatValueFactory.createStatValue(StatValueTypes.LEVEL, "current", selectedIntervals);
-		//min and max start each interval at the last sampled value.
-		min = StatValueFactory.createStatValue("min", selectedIntervals, () -> current.getValueAsLong());
-		max = StatValueFactory.createStatValue("max", selectedIntervals, () -> current.getValueAsLong());
+		//the local is captured instead of the field, so the interval listeners don't keep the whole stats object alive.
+		StatValue level = StatValueFactory.createStatValue(StatValueTypes.LEVEL, "current", selectedIntervals);
+		current = level;
+		//min and max of the samples within an interval, the last sample for an interval without samples.
+		min = StatValueFactory.createSampledMinStatValue("min", selectedIntervals, level::getValueAsLong);
+		max = StatValueFactory.createSampledMaxStatValue("max", selectedIntervals, level::getValueAsLong);
 
 		addStatValues(current, min, max);
 		
@@ -63,14 +61,9 @@ public class MemoryStats extends AbstractStats {
 
 	public void updateMemoryValue(long value){
 		current.setValueAsLong(value);
-		if (!sampled){
-			//first sample, min and max were started at 0 before anything was known.
-			min.setValueAsLong(value);
-			max.setValueAsLong(value);
-			sampled = true;
-		}
-		min.setValueIfLesserThanCurrentAsLong(value);
-		max.setValueIfGreaterThanCurrentAsLong(value);
+		//sampled min/max keep the extreme themselves.
+		min.setValueAsLong(value);
+		max.setValueAsLong(value);
 	}
 	
 	public long getCurrent(String intervalName){

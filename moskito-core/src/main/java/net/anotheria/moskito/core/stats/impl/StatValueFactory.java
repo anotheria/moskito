@@ -77,7 +77,8 @@ public class StatValueFactory {
 
 	/**
 	 * Creates a {@link StatValueTypes#LONG} stat whose value at the start of each interval is provided dynamically.
-	 * Used for the min/max of a level, which has to start each interval at the current level rather than at a constant default.
+	 * Used for the min/max of an exactly tracked level (e.g. current requests), which has to start each interval at the
+	 * current level rather than at a constant default.
 	 *
 	 * @param aName the name of the value
 	 * @param aIntervals the intervals to be used
@@ -88,6 +89,32 @@ public class StatValueFactory {
 			LongSupplier intervalStartValueSupplier) {
 		return createStatValue(StatValueTypes.LONG, aName, aIntervals,
 				new IntervalStartValueHolderFactory(intervalStartValueSupplier));
+	}
+
+	/**
+	 * Creates the min of a sampled level (e.g. memory): the smallest value set within an interval, or the level itself
+	 * for an interval without values. Feed it with setValueAsLong, not with setValueIfLesserThanCurrent.
+	 *
+	 * @param aName the name of the value
+	 * @param aIntervals the intervals to be used
+	 * @param level the sampled level
+	 * @return the stat value
+	 */
+	public static TypeAwareStatValue createSampledMinStatValue(String aName, Interval[] aIntervals, LongSupplier level) {
+		return createStatValue(StatValueTypes.LONG, aName, aIntervals, new SampledExtremeValueHolderFactory(false, level));
+	}
+
+	/**
+	 * Creates the max of a sampled level (e.g. memory): the largest value set within an interval, or the level itself
+	 * for an interval without values. Feed it with setValueAsLong, not with setValueIfGreaterThanCurrent.
+	 *
+	 * @param aName the name of the value
+	 * @param aIntervals the intervals to be used
+	 * @param level the sampled level
+	 * @return the stat value
+	 */
+	public static TypeAwareStatValue createSampledMaxStatValue(String aName, Interval[] aIntervals, LongSupplier level) {
+		return createStatValue(StatValueTypes.LONG, aName, aIntervals, new SampledExtremeValueHolderFactory(true, level));
 	}
 
 	private static TypeAwareStatValue createStatValue(StatValueTypes aType, String aName, Interval[] aIntervals,

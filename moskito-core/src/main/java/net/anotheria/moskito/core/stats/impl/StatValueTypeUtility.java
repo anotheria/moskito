@@ -60,10 +60,6 @@ final class StatValueTypeUtility {
 	 */
 	private static StringValueHolderFactory stringValueHolderFactory = new StringValueHolderFactory();
 	/**
-	 * Factory instance for counter values.
-	 */
-	private static CounterValueHolderFactory counterValueHolderFactory = new CounterValueHolderFactory();
-	/**
 	 * Factory instance for level values.
 	 */
 	private static LevelValueHolderFactory levelValueHolderFactory = new LevelValueHolderFactory();
@@ -92,8 +88,7 @@ final class StatValueTypeUtility {
 			return intValueHolderFactory;
 		case STRING:
 			return stringValueHolderFactory;
-		case COUNTER:
-			return counterValueHolderFactory;
+		case COUNTER: //deprecated, identical to LEVEL
 		case LEVEL:
 			return levelValueHolderFactory;
 		case DOUBLE:
