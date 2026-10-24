@@ -39,6 +39,6 @@ public class NegativeCurrentRequestsTest {
 		((IntervalImpl)interval).update();
 
 		assertEquals(0, stats.getCurrentRequests(), "Current requests should be 0");
-		//TODO -> this is yet broken !assertEquals(0, stats.getCurrentRequests("1m"), "Current requests should be 0");
+		assertEquals(0, stats.getCurrentRequests("1m"), "Current requests should be 0 after requests finish across an interval rollover");
 	}
 }

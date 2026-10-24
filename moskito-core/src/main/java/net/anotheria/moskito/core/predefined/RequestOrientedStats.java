@@ -154,7 +154,7 @@ public abstract class RequestOrientedStats extends AbstractStats {
 
 		totalRequests = StatValueFactory.createStatValue(pattern, "requests", aSelectedIntervals);
 		totalTime = StatValueFactory.createStatValue(pattern, "totalTime", aSelectedIntervals);
-		currentRequests = StatValueFactory.createStatValue(pattern, "currentRequests", aSelectedIntervals);
+		currentRequests = StatValueFactory.createCurrentRequestsStatValue("currentRequests", aSelectedIntervals);
 		maxCurrentRequests = StatValueFactory.createStatValue(pattern, "maxCurrentRequests", aSelectedIntervals);
 		errors = StatValueFactory.createStatValue(pattern, "errors", aSelectedIntervals);
 		lastRequest = StatValueFactory.createStatValue(pattern, "last", aSelectedIntervals);

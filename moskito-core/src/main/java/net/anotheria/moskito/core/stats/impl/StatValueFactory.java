@@ -79,6 +79,16 @@ public class StatValueFactory {
 		}
 		return value;
 	}
+
+	/** Creates a long-valued gauge that retains its current value across interval rollovers. */
+	public static TypeAwareStatValue createCurrentRequestsStatValue(String aName, Interval[] aIntervals) {
+		IValueHolderFactory valueHolderFactory = CurrentRequestsValueHolder::new;
+		TypeAwareStatValue value = new TypeAwareStatValueImpl(aName, StatValueTypes.LONG, valueHolderFactory);
+		for (Interval interval : aIntervals) {
+			value.addInterval(interval);
+		}
+		return value;
+	}
 	
 	public static TypeAwareStatValue createStatValue(StatValueTypes aType, String aName,
 			Collection<String> aIntervals) {
