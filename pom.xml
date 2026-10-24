@@ -4,7 +4,7 @@
 	<parent>
 		<groupId>net.anotheria</groupId>
 		<artifactId>parent</artifactId>
-		<version>4.5</version>
+		<version>4.6</version>
 	</parent>
 
 	<modelVersion>4.0.0</modelVersion>
@@ -124,11 +124,6 @@
 				<groupId>org.glassfish.jersey.inject</groupId>
 				<artifactId>jersey-hk2</artifactId>
 				<version>${jersey-version}</version>
-			</dependency>
-			<dependency>
-				<groupId>ch.qos.logback</groupId>
-				<artifactId>logback-classic</artifactId>
-				<version>1.5.38</version>
 			</dependency>
 <!--
 			<dependency>
