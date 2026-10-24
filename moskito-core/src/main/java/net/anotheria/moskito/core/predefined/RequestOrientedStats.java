@@ -44,6 +44,7 @@ import net.anotheria.moskito.core.producers.CallExecution;
 import net.anotheria.moskito.core.producers.IStatsProducer;
 import net.anotheria.moskito.core.stats.Interval;
 import net.anotheria.moskito.core.stats.StatValue;
+import net.anotheria.moskito.core.stats.StatValueTypes;
 import net.anotheria.moskito.core.stats.TimeUnit;
 import net.anotheria.moskito.core.stats.impl.StatValueFactory;
 import net.anotheria.moskito.core.errorhandling.BuiltInErrorProducer;
@@ -154,8 +155,9 @@ public abstract class RequestOrientedStats extends AbstractStats {
 
 		totalRequests = StatValueFactory.createStatValue(pattern, "requests", aSelectedIntervals);
 		totalTime = StatValueFactory.createStatValue(pattern, "totalTime", aSelectedIntervals);
-		currentRequests = StatValueFactory.createCurrentRequestsStatValue("currentRequests", aSelectedIntervals);
-		maxCurrentRequests = StatValueFactory.createStatValue(pattern, "maxCurrentRequests", aSelectedIntervals);
+		currentRequests = StatValueFactory.createStatValue(StatValueTypes.LEVEL, "currentRequests", aSelectedIntervals);
+		maxCurrentRequests = StatValueFactory.createStatValue(StatValueTypes.LONG, "maxCurrentRequests", aSelectedIntervals,
+				() -> currentRequests.getValueAsLong());
 		errors = StatValueFactory.createStatValue(pattern, "errors", aSelectedIntervals);
 		lastRequest = StatValueFactory.createStatValue(pattern, "last", aSelectedIntervals);
 		minTime = StatValueFactory.createStatValue(pattern, "minTime", aSelectedIntervals);

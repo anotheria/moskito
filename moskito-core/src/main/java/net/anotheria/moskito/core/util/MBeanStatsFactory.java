@@ -88,6 +88,7 @@ public class MBeanStatsFactory {
             switch (value.getType()) {
 
                 case LONG:
+                case LEVEL:
                     value.setValueAsLong((Long) mBeanValue);
                     break;
                 case INT:

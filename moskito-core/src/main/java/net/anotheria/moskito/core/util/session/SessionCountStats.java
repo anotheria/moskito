@@ -64,7 +64,7 @@ public class SessionCountStats extends AbstractStats {
 		
 		Integer pattern = Integer.valueOf(0);
 		
-		numberOfCurrentSessions = StatValueFactory.createStatValue(StatValueTypes.COUNTER, "numberOfSessions", intervals);
+		numberOfCurrentSessions = StatValueFactory.createStatValue(StatValueTypes.LEVEL, "numberOfSessions", intervals);
 		minNumberOfSessions = StatValueFactory.createStatValue(pattern, "minNumberOfSessions", intervals);
 		minNumberOfSessions.setDefaultValueAsInt(Integer.MAX_VALUE);
 		minNumberOfSessions.reset();

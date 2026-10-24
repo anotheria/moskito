@@ -1,5 +1,6 @@
 package net.anotheria.moskito.core.util.storage;
 
+import net.anotheria.moskito.core.stats.impl.IntervalRegistry;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -61,6 +62,21 @@ public class StorageTest {
 		
 	}
 	
+	@Test public void testSizeLevelCarriesAcrossIntervals(){
+		StorageStats stats = new StorageStats("size-level");
+		stats.setSize(3);
+
+		IntervalRegistry.getInstance().forceUpdateIntervalForTestingPurposes("1m");
+		assertEquals(3, stats.getSize("1m"));
+
+		IntervalRegistry.getInstance().forceUpdateIntervalForTestingPurposes("1m");
+		assertEquals(3, stats.getSize("1m"));
+
+		stats.setSize(1);
+		IntervalRegistry.getInstance().forceUpdateIntervalForTestingPurposes("1m");
+		assertEquals(1, stats.getSize("1m"));
+	}
+
 	@Test public void testCreate(){
 		int initialSize = 100;
 		String name = "foo";

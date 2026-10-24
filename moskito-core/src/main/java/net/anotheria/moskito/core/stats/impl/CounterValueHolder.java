@@ -41,7 +41,7 @@ import net.anotheria.moskito.core.stats.Interval;
  * @author lrosenberg
  * @see net.java.dev.moskito.core.stats.ValueHolder
  */
-class CounterValueHolder extends LongValueHolder {
+class CounterValueHolder extends LevelValueHolder {
 
 	/**
 	 * The Constructor.
@@ -50,13 +50,6 @@ class CounterValueHolder extends LongValueHolder {
 	 */
 	public CounterValueHolder(Interval aInterval) {
 		super(aInterval);
-	}
-
-	/**
-	 * @see net.java.dev.moskito.core.stats.IIntervalListener#intervalUpdated(net.java.dev.moskito.core.stats.impl.IntervalImpl)
-	 */
-	@Override public void intervalUpdated(Interval caller) {
-		updateLastValueFromCurrent();
 	}
 
 	/**

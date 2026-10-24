@@ -4,6 +4,7 @@ import net.anotheria.moskito.core.predefined.Constants;
 import net.anotheria.moskito.core.producers.AbstractStats;
 import net.anotheria.moskito.core.stats.Interval;
 import net.anotheria.moskito.core.stats.StatValue;
+import net.anotheria.moskito.core.stats.StatValueTypes;
 import net.anotheria.moskito.core.stats.TimeUnit;
 import net.anotheria.moskito.core.stats.impl.StatValueFactory;
 
@@ -108,7 +109,7 @@ public class StorageStats extends AbstractStats {
 		containsValueCalls = StatValueFactory.createStatValue(longPattern, "containsValueCalls", selectedIntervals);
 		containsValueHits = StatValueFactory.createStatValue(longPattern, "containsValueHits", selectedIntervals);
 		
-		size = StatValueFactory.createStatValue(longPattern, "size", selectedIntervals);
+		size = StatValueFactory.createStatValue(StatValueTypes.LEVEL, "size", selectedIntervals);
 		
 
 	}
