@@ -28,8 +28,8 @@
 		<jersey-version>3.1.12</jersey-version>
         <source-version>17</source-version>
         <target-version>17</target-version>
-		<aspectj.version>1.9.25.1</aspectj.version>
-		<aspectj-maven-plugin.version>1.16.0</aspectj-maven-plugin.version>
+		<aspectj.version>1.9.26</aspectj.version>
+		<aspectj-maven-plugin.version>1.16.1</aspectj-maven-plugin.version>
 		<aspectj-maven-plugin.complianceLevel>17</aspectj-maven-plugin.complianceLevel>
 		<moskito-webui-version>${project.version}</moskito-webui-version>
 		<distributeme.version>4.1.0</distributeme.version>
@@ -52,7 +52,7 @@
 			<dependency>
 				<groupId>net.anotheria</groupId>
 				<artifactId>ano-util</artifactId>
-				<version>4.0.7</version>
+				<version>4.0.9</version>
 			</dependency>
 			<dependency>
 				<groupId>net.anotheria</groupId>
@@ -72,7 +72,7 @@
 			<dependency>
 				<groupId>net.anotheria</groupId>
 				<artifactId>ano-plass</artifactId>
-				<version>4.1.0</version>
+				<version>4.1.1</version>
 			</dependency>
 			<dependency>
 				<groupId>net.anotheria</groupId>
@@ -82,7 +82,7 @@
 			<dependency>
 				<groupId>commons-codec</groupId>
 				<artifactId>commons-codec</artifactId>
-				<version>1.22.0</version>
+				<version>1.23.0</version>
 			</dependency>
 			<dependency>
 				<groupId>org.aspectj</groupId>
@@ -155,7 +155,7 @@
 			<dependency>
 				<groupId>org.mockito</groupId>
 				<artifactId>mockito-core</artifactId>
-				<version>5.23.0</version>
+				<version>5.24.0</version>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
