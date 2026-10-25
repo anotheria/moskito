@@ -52,7 +52,7 @@
 			<dependency>
 				<groupId>net.anotheria</groupId>
 				<artifactId>ano-util</artifactId>
-				<version>4.0.9</version>
+				<version>4.0.10</version>
 			</dependency>
 			<dependency>
 				<groupId>net.anotheria</groupId>
