@@ -145,19 +145,27 @@ public class RequestOrientedStatsTest {
 	@Test public void testDoubleResume()  throws InterruptedException {
 		RequestOrientedStats stats = new RequestOrientedStats() {};
 		CallExecution execution = stats.createCallExecution();
+		long before = System.nanoTime();
 		execution.startExecution();
 		Thread.sleep(20);
 		execution.pauseExecution();
+		long pauseStart = System.nanoTime();
 		Thread.sleep(20);
+		long pauseEnd = System.nanoTime();
 		execution.resumeExecution();
 		Thread.sleep(20);
 		execution.resumeExecution();
 		execution.finishExecution();
+		long after = System.nanoTime();
 
 		assertEquals(1, stats.getTotalRequests());
-		//we add some 5 milliseconds on top, but ensure that total duration is below 60ms, which the test as such took.
-		//System.out.println(stats.getTotalTime());
-		assertTrue(1000L * 1000 * 55 > stats.getTotalTime(), "Expected total time be below 50ms but it was "+stats.getTotalTime());
+		//bounds are measured instead of fixed, because sleeps overshoot on a loaded machine.
+		//both running sleeps have to be counted, the second resume must not lose time.
+		long minTime = 1000L * 1000 * 40;
+		assertTrue(stats.getTotalTime() >= minTime, "Expected total time of at least "+minTime+" but it was "+stats.getTotalTime());
+		//the pause must not be counted.
+		long maxTime = (after - before) - (pauseEnd - pauseStart);
+		assertTrue(stats.getTotalTime() <= maxTime, "Expected total time of at most "+maxTime+" but it was "+stats.getTotalTime());
 	}
 
 }
