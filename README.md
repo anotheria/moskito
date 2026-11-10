@@ -76,7 +76,7 @@ Setup & integrate
 **Enjoy!**
 
 
-# [ChangeLog](https://github.com/anotheria/moskito/wiki/Change-Log)
+# [ChangeLog](CHANGELOG.md)
 
 # License
 
