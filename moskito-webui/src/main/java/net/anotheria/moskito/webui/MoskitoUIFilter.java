@@ -127,6 +127,8 @@ public class MoskitoUIFilter extends MAFFilter{
 
 				// Reset auth cookie for cases it was corrupted (encryption key is changed or something like that)
 				Cookie authCookie = new Cookie(AuthConstants.AUTH_COOKIE_NAME, "");
+				authCookie.setHttpOnly(true);
+				authCookie.setSecure(httpServletRequest.isSecure());
 				authCookie.setMaxAge(0);
 				httpServletResponse.addCookie(authCookie);
 

@@ -73,12 +73,12 @@ public class EntryPointRepository {
 
     public int getNowRunningCount() {
         Collection<EntryPoint> entryPointsCollection = entryPoints.values();
-        int ret = 0;
+        long ret = 0;
         if (entryPointsCollection.size() > 0) {
             for (EntryPoint ep : entryPointsCollection) {
                 ret += ep.getCurrentRequestCount();
             }
         }
-        return ret;
+        return (int) Math.min(ret, Integer.MAX_VALUE);
     }
 }

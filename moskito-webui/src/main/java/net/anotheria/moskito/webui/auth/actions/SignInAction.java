@@ -60,6 +60,8 @@ public class SignInAction implements Action {
                 }
 
                 Cookie authCookie = new Cookie(AuthConstants.AUTH_COOKIE_NAME, encryptedAuthCookie);
+                authCookie.setHttpOnly(true);
+                authCookie.setSecure(req.isSecure());
                 authCookie.setMaxAge(AUTH_COOKIE_AGE);
                 res.addCookie(authCookie);
 

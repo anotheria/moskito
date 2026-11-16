@@ -21,6 +21,8 @@ public class SignOutAction implements Action {
 
         req.getSession().removeAttribute(AuthConstants.AUTH_SESSION_ATTR_NAME);
         Cookie authCookie = new Cookie(AuthConstants.AUTH_COOKIE_NAME, "");
+        authCookie.setHttpOnly(true);
+        authCookie.setSecure(req.isSecure());
         authCookie.setMaxAge(0);
         res.addCookie(authCookie);
 
