@@ -2,6 +2,20 @@
 
 _Please note that there is a [previous version of the ChangeLog here](https://confluence.opensource.anotheria.net/display/MSK/Change+Log)_
 
+## 5.1.0 - unreleased
+
+**New features:**
+* New module `moskito-inspect-mcp`: exposes the moskito-inspect apis as [Model Context Protocol](https://modelcontextprotocol.io) tools over http, built on the official MCP java sdk (`io.modelcontextprotocol.sdk` 2.0.1, stateless streamable-http transport). Add the module as dependency and the endpoint is available under `/moskito-inspect-mcp`.
+  * About 70 tools covering what the moskito-inspect actions offer: producers, thresholds, accumulators, gauges, dashboards, journeys, tracers, threads, load factors, tags, now running, top producers and system information (configuration, plugins, mbeans, error catchers, kill switch). Tools are annotated as read-only, write or destructive.
+  * Every tool accepts an optional `targetSystem` argument (`local`, the name of a configured remote or `host:port`), so an llm can inspect a remote moskito instance through the local one, like the `remoteConnection` parameter of moskito-inspect. The target is chosen per call and does not change the connectivity mode of the web ui. The `list_target_systems` tool returns the known targets.
+* `APILookupUtility.getAPI(Class, RemoteInstance)` returns the local api or a remote stub for an explicit target, without reading or changing the current connectivity mode.
+
+**Notes:**
+* The mcp endpoint is protected by a key, independent of the moskito-inspect authentication: set the environment variable `MOSKITO_MCP_KEY` (or the system property `moskito.mcp.key`), clients send it as `Authorization: Bearer <key>`. Without a configured key the endpoint stays disabled (503) and a warning is logged.
+* `moskito-inspect-standalone` now includes `moskito-inspect-mcp`.
+* Jackson is aligned via `jackson-bom` 2.21.7 in the root pom, as jersey and the mcp sdk pulled in mixed versions (2.18 to 2.22).
+* The existing hand-written top producers mcp endpoint (`/moskito-inspect-rest/mcp`) is unchanged; its tool is also available in the new module as `get_top_producers`.
+
 ## 5.0.2 - 2026-10-25
 
 **Bug fixes:**

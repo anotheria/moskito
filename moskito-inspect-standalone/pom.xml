@@ -3,12 +3,12 @@
 	<parent>
 		<groupId>net.anotheria</groupId>
 		<artifactId>moskito</artifactId>
-		<version>5.0.3-SNAPSHOT</version>
+		<version>5.1.0-SNAPSHOT</version>
 	</parent>
 
 	<modelVersion>4.0.0</modelVersion>
 	<artifactId>moskito-inspect-standalone</artifactId>
-	<version>5.0.3-SNAPSHOT</version>
+	<version>5.1.0-SNAPSHOT</version>
 	<name>MoSKito Inspect Standalone Application</name>
 	<packaging>war</packaging>
   <properties>
@@ -40,6 +40,12 @@
         <dependency>
             <groupId>net.anotheria</groupId>
             <artifactId>moskito-inspect-jersey</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <!-- MCP interface, only enabled if a key is provided via MOSKITO_MCP_KEY -->
+        <dependency>
+            <groupId>net.anotheria</groupId>
+            <artifactId>moskito-inspect-mcp</artifactId>
             <version>${project.version}</version>
         </dependency>
         <!-- needed for mailgun provider, if you want to change the recipient edit moskito.json -->
