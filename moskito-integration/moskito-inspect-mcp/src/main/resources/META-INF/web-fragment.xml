@@ -1,0 +1,26 @@
+<web-fragment metadata-complete="true" version="3.0"
+              xmlns="http://java.sun.com/xml/ns/javaee"
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-fragment_3_0.xsd">
+    <name>MoSKitoInspectMcp</name>
+    <!--  MCP (Model Context Protocol) endpoint -->
+    <servlet>
+        <servlet-name>MoSKitoInspectMcpServlet</servlet-name>
+        <servlet-class>net.anotheria.moskito.webui.mcp.MoskitoMcpServlet</servlet-class>
+        <init-param>
+            <param-name>endpoint</param-name>
+            <param-value>/moskito-inspect-mcp</param-value>
+        </init-param>
+        <async-supported>true</async-supported>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>MoSKitoInspectMcpServlet</servlet-name>
+        <url-pattern>/moskito-inspect-mcp</url-pattern>
+    </servlet-mapping>
+    <ordering>
+        <after>
+            <name>MoSKitoInspectShared</name>
+        </after>
+    </ordering>
+</web-fragment>

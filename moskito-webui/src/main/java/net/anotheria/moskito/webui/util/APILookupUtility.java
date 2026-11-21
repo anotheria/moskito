@@ -180,11 +180,30 @@ public class APILookupUtility {
 				findRemote(TopProducersAPI.class);
 	}
 
+	/**
+	 * Returns the api of the given type for the given target system, or the local api if the target is null. Unlike the
+	 * other getters this neither reads nor changes the current connectivity mode, so it can be used by callers that
+	 * select the target system per call (e.g. mcp tools) instead of per session.
+	 * @param apiClass the api interface.
+	 * @param target the remote instance to connect to, or null for the local instance.
+	 * @param <T> the api type.
+	 * @return the local api or a remote stub connected to the target.
+	 */
+	public static <T extends API> T getAPI(Class<T> apiClass, RemoteInstance target){
+		return target == null ?
+				APIFinder.findAPI(apiClass) :
+				findRemote(apiClass, target, false);
+	}
+
 	public static void resetConnection(){
 		setCurrentConnectivityMode(ConnectivityMode.LOCAL);
 	}
 
 	private static <T extends API> T findRemote(Class<T> targetClass){
+		return findRemote(targetClass, getCurrentRemoteInstance(), true);
+	}
+
+	private static <T extends API> T findRemote(Class<T> targetClass, RemoteInstance ri, boolean resetConnectionOnFailure){
 		String serviceId = null;
 		try{
 			Class constantsClass = Class.forName(targetClass.getPackage().getName()+".generated."+targetClass.getSimpleName()+"Constants");
@@ -207,11 +226,10 @@ public class APILookupUtility {
 			throw new AssertionError("Can not find supporting classes for "+targetClass);
 		}
 
-		return findRemote(targetClass, remoteStubClass, serviceId);
+		return findRemote(targetClass, remoteStubClass, serviceId, ri, resetConnectionOnFailure);
 	}
 
-	private static <T extends API> T findRemote(Class<T> targetClass, Class<? extends T> remoteStubClass, String serviceId){
-		RemoteInstance ri = getCurrentRemoteInstance();
+	private static <T extends API> T findRemote(Class<T> targetClass, Class<? extends T> remoteStubClass, String serviceId, RemoteInstance ri, boolean resetConnectionOnFailure){
 		ConcurrentMap<Class<? extends API>, API> stubsByInterface = remotes.get(ri);
 		if (stubsByInterface==null){
 			ConcurrentHashMap<Class<? extends API>, API> newStubsByInterface = new ConcurrentHashMap<>(0);
@@ -233,10 +251,12 @@ public class APILookupUtility {
 		}catch (NoSuchMethodException e) {
 			throw new IllegalStateException("Constructor with ServiceDescriptor parameter not found in remote stub", e);
 		} catch (InvocationTargetException e) {
-			resetConnection();
+			if (resetConnectionOnFailure)
+				resetConnection();
 			throw new IllegalStateException("Cannot connect to "+ri+", due: "+e.getTargetException().getMessage()+". Server at "+ri.getHost()+", port: "+ri.getPort()+" is down or not properly configured", e);
 		} catch (InstantiationException | IllegalAccessException e) {
-			resetConnection();
+			if (resetConnectionOnFailure)
+				resetConnection();
 			throw new IllegalStateException("Cannot connect to "+ri+", due: "+e.getMessage()+". Server at "+ri.getHost()+", port: "+ri.getPort()+" is down or not properly configured", e);
 		}
 	}
