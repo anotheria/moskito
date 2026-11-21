@@ -11,7 +11,9 @@ _Please note that there is a [previous version of the ChangeLog here](https://co
 * `APILookupUtility.getAPI(Class, RemoteInstance)` returns the local api or a remote stub for an explicit target, without reading or changing the current connectivity mode.
 
 **Notes:**
-* The mcp endpoint is not protected by the moskito-inspect authentication; restrict access to `/moskito-inspect-mcp` at the container or proxy level where needed.
+* The mcp endpoint is protected by a key, independent of the moskito-inspect authentication: set the environment variable `MOSKITO_MCP_KEY` (or the system property `moskito.mcp.key`), clients send it as `Authorization: Bearer <key>`. Without a configured key the endpoint stays disabled (503) and a warning is logged.
+* `moskito-inspect-standalone` now includes `moskito-inspect-mcp`.
+* Jackson is aligned via `jackson-bom` 2.21.7 in the root pom, as jersey and the mcp sdk pulled in mixed versions (2.18 to 2.22).
 * The existing hand-written top producers mcp endpoint (`/moskito-inspect-rest/mcp`) is unchanged; its tool is also available in the new module as `get_top_producers`.
 
 ## 5.0.2 - 2026-10-25

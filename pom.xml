@@ -34,6 +34,7 @@
 		<moskito-webui-version>${project.version}</moskito-webui-version>
 		<distributeme.version>4.1.0</distributeme.version>
 		<mcp-sdk.version>2.0.1</mcp-sdk.version>
+		<jackson.version>2.21.7</jackson.version>
 		<moskitoplugins-version>1.0.0-SNAPSHOT</moskitoplugins-version>
 	</properties>
 
@@ -99,6 +100,14 @@
 				<groupId>com.google.code.gson</groupId>
 				<artifactId>gson</artifactId>
 				<version>2.14.0</version>
+			</dependency>
+			<!-- aligns the jackson modules pulled in by jersey and the mcp sdk (built against 2.21) -->
+			<dependency>
+				<groupId>com.fasterxml.jackson</groupId>
+				<artifactId>jackson-bom</artifactId>
+				<version>${jackson.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
 			</dependency>
 			<!-- model context protocol -->
 			<dependency>

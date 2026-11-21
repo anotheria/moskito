@@ -42,6 +42,12 @@
             <artifactId>moskito-inspect-jersey</artifactId>
             <version>${project.version}</version>
         </dependency>
+        <!-- MCP interface, only enabled if a key is provided via MOSKITO_MCP_KEY -->
+        <dependency>
+            <groupId>net.anotheria</groupId>
+            <artifactId>moskito-inspect-mcp</artifactId>
+            <version>${project.version}</version>
+        </dependency>
         <!-- needed for mailgun provider, if you want to change the recipient edit moskito.json -->
         <dependency>
             <groupId>net.anotheria</groupId>

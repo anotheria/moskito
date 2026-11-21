@@ -9,6 +9,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.ArgumentCaptor;
 
 import java.io.ByteArrayInputStream;
 import java.io.PrintWriter;
@@ -17,29 +18,65 @@ import java.nio.charset.StandardCharsets;
 import java.util.Collections;
 import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assumptions.assumeTrue;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 /**
- * Drives the servlet through the mcp sdk transport with mocked servlet objects: initialize, tools/list and tools/call.
+ * Drives the servlet through the mcp sdk transport with mocked servlet objects: key check, initialize, tools/list and
+ * tools/call.
  */
 class MoskitoMcpServletTest {
+
+	private static final String KEY = "test-key";
 
 	private MoskitoMcpServlet servlet;
 
 	@BeforeEach
 	void setUp() throws Exception {
 		System.setProperty("JUNITTEST", "true");
-		ServletConfig config = mock(ServletConfig.class);
-		when(config.getServletContext()).thenReturn(mock(ServletContext.class));
-		servlet = new MoskitoMcpServlet();
-		servlet.init(config);
+		System.setProperty(McpKey.SYSTEM_PROPERTY, KEY);
+		servlet = createServlet();
 	}
 
 	@AfterEach
 	void tearDown() {
 		servlet.destroy();
+		System.clearProperty(McpKey.SYSTEM_PROPERTY);
+	}
+
+	private static MoskitoMcpServlet createServlet() throws Exception {
+		ServletConfig config = mock(ServletConfig.class);
+		when(config.getServletContext()).thenReturn(mock(ServletContext.class));
+		MoskitoMcpServlet servlet = new MoskitoMcpServlet();
+		servlet.init(config);
+		return servlet;
+	}
+
+	@Test
+	void requestsWithoutValidKeyAreRejected() throws Exception {
+		String body = "{\"jsonrpc\":\"2.0\",\"id\":1,\"method\":\"tools/list\"}";
+		assertEquals(HttpServletResponse.SC_UNAUTHORIZED, statusOf(servlet, body, null));
+		assertEquals(HttpServletResponse.SC_UNAUTHORIZED, statusOf(servlet, body, "Bearer wrong-key"));
+		assertEquals(HttpServletResponse.SC_UNAUTHORIZED, statusOf(servlet, body, KEY));
+	}
+
+	@Test
+	void endpointIsDisabledWithoutConfiguredKey() throws Exception {
+		System.clearProperty(McpKey.SYSTEM_PROPERTY);
+		//the environment variable may be set on the build machine, then this test can't verify the disabled state.
+		assumeTrue(System.getenv(McpKey.ENV_VARIABLE) == null);
+		MoskitoMcpServlet disabled = createServlet();
+		try {
+			assertEquals(HttpServletResponse.SC_SERVICE_UNAVAILABLE,
+					statusOf(disabled, "{\"jsonrpc\":\"2.0\",\"id\":1,\"method\":\"tools/list\"}", "Bearer " + KEY));
+		} finally {
+			disabled.destroy();
+		}
 	}
 
 	@Test
@@ -67,6 +104,23 @@ class MoskitoMcpServletTest {
 	}
 
 	private String post(String body) throws Exception {
+		StringWriter out = new StringWriter();
+		HttpServletResponse response = mock(HttpServletResponse.class);
+		when(response.getWriter()).thenReturn(new PrintWriter(out));
+		servlet.service(request(body, "Bearer " + KEY), response);
+		return out.toString();
+	}
+
+	private static int statusOf(MoskitoMcpServlet target, String body, String authorization) throws Exception {
+		HttpServletResponse response = mock(HttpServletResponse.class);
+		when(response.getWriter()).thenReturn(new PrintWriter(new StringWriter()));
+		target.service(request(body, authorization), response);
+		ArgumentCaptor<Integer> status = ArgumentCaptor.forClass(Integer.class);
+		verify(response).sendError(status.capture(), anyString());
+		return status.getValue();
+	}
+
+	private static HttpServletRequest request(String body, String authorization) throws Exception {
 		byte[] bytes = body.getBytes(StandardCharsets.UTF_8);
 		ByteArrayInputStream input = new ByteArrayInputStream(bytes);
 		ServletInputStream servletInput = new ServletInputStream() {
@@ -104,12 +158,7 @@ class MoskitoMcpServletTest {
 		when(request.getHeaders("Accept")).thenReturn(Collections.enumeration(List.of("application/json, text/event-stream")));
 		when(request.getInputStream()).thenReturn(servletInput);
 		when(request.getCharacterEncoding()).thenReturn("UTF-8");
-
-		StringWriter out = new StringWriter();
-		HttpServletResponse response = mock(HttpServletResponse.class);
-		when(response.getWriter()).thenReturn(new PrintWriter(out));
-
-		servlet.service(request, response);
-		return out.toString();
+		when(request.getHeader("Authorization")).thenReturn(authorization);
+		return request;
 	}
 }
